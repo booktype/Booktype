@@ -53,7 +53,7 @@ class RCSVersion:
         write("commit %s\n" % self.gitref)
         write("committer %s <%s@flossmanuals.net> %s +0000\n" %
               (self.author, self.author, self.date))
-        self._data_blob("Import from TWiki")
+        self._data_blob("Import from TWiki: %s revision %s" % (self.name, self.revision))
         write('M 644 inline %s\n' % (self.name))
         self._data_blob(self.data)
         write("\n")
@@ -97,7 +97,8 @@ def rcs_extract(filename):
     """
     versions = []
     for revision in revision_list(filename):
-        if not THOENY and revision.author in ('PeterThoeny', 'thoeny'):
+        if not THOENY and revision.author in ('PeterThoeny', 'thoeny') \
+               or int(revision.date) < 1050000000:
             continue
 
         callee = Popen(["co", "-p", "-r" + revision.revision,
