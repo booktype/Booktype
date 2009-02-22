@@ -23,8 +23,6 @@ rm -r *
 
 """
 
-# This could be sped up using git-fast-import
-
 THEONY = True
 
 import os, sys, time
