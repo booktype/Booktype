@@ -119,14 +119,30 @@ def rcs_extract(filename):
 
 
 def recurse(path):
+    """Go through and deal with files as they fall out of RCS"""
     os.chdir(path)
     for root, dirs, files in os.walk('.'):
         for f in files:
             if not f.endswith(',v'):
                 versions = rcs_extract(f)
-                #print >> sys.stdout, versions
                 for v in versions:
                     v.to_git()
+
+
+def recurse_sort_commit(path):
+    """Sort the commits by date before adding to git"""
+    versions = []
+    os.chdir(path)
+    for root, dirs, files in os.walk('.'):
+        #os.chdir(root)
+        for f in files:
+            if not f.endswith(',v'):
+                versions.extend(rcs_extract(os.path.join(root, f)))
+
+    _versions = [(int(v.date), v) for v in versions]
+    _versions.sort()
+    for d, v in _versions:
+        v.to_git()
 
 
 if __name__ == '__main__':
@@ -134,8 +150,12 @@ if __name__ == '__main__':
     parser = OptionParser()
     parser.add_option("-t", "--no-thoeny", action="store_true",
                       help="ignore TWiki housekeeping commits", default=False)
+    parser.add_option("-d", "--sort-by-date", action="store_true",
+                      help="Sort the RCS commits by date before feeding to git.", default=False)
     options, dirs = parser.parse_args()
     THOENY = not options.no_thoeny
-
     for d in dirs:
-        recurse(d)
+        if options.sort_by_date:
+            recurse_sort_commit(d)
+        else:
+            recurse(d)
