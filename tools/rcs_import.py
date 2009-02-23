@@ -24,7 +24,9 @@ rm -r *
 """
 
 THEONY = True
+FORCE = False
 
+import traceback
 import os, sys, time
 from subprocess import call, PIPE, Popen
 
@@ -57,6 +59,8 @@ class RCSVersion:
         write("\n")
 
 
+
+
 def revision_list(filename):
     """Cheap and crappy parsing of rcs log.  A typical section looks
     like this (With TWiki, comment is always 'none', so we ignore it):
@@ -87,7 +91,8 @@ none
     return revisions
 
 
-def rcs_extract(filename):
+
+def rcs_extract_subprocess(filename):
     """Find unique revisions of the file, and the relevant metadata.
     Most attached metadata is not relevant, and is binned.  In many
     cases the file is unchanged except for this useless metadata, so
@@ -100,7 +105,7 @@ def rcs_extract(filename):
             continue
 
         callee = Popen(["co", "-p", "-r" + revision.revision,
-                        "-q",
+                        "-q", "-ko",
                         filename
                        ],
                       stdout=PIPE)
@@ -117,12 +122,53 @@ def rcs_extract(filename):
     return versions
 
 
+
+class RcsParseVersion(RCSVersion):
+    def __init__(self, name, d, string):
+        self.name = name
+        self.revision = '.'.join(str(x) for x in d['rev'])
+        try:
+            t = time.strptime(d['date'], "%Y.%m.%d.%H.%M.%S")
+        except ValueError:
+            #stupid date format is sometimes 2 digit, sometimes 4 digit years.
+            t = time.strptime(d['date'], "%y.%m.%d.%H.%M.%S")
+        self.date = time.strftime("%s", t)
+        self.author = d['author']
+        self.data = string
+
+
+def rcs_extract(filename):
+    """Find unique revisions of the file, and the relevant metadata.
+    Most attached metadata is not relevant, and is binned.  In many
+    cases the file is unchanged except for this useless metadata, so
+    the revision is a false one.  We purge those.
+    """
+    import rcs_parse
+    versions = []
+    for d, string in rcs_parse.twiki_revision_generator(filename):
+        revision = RcsParseVersion(filename, d, string)
+        if not THOENY and revision.author in ('PeterThoeny', 'thoeny') \
+               or int(revision.date) < 1050000000:
+            continue
+        if not versions or revision.data != versions[-1].data:
+            versions.append(revision)
+    return versions
+
+
+def rcs_file(fn):
+    return fn.endswith(',v')
+
+def non_rcs_file(fn):
+    return not fn.endswith(',v')
+
+
+
 def recurse(path):
     """Go through and deal with files as they fall out of RCS"""
     os.chdir(path)
     for root, dirs, files in os.walk('.'):
         for f in files:
-            if not f.endswith(',v'):
+            if acceptable_file(f):
                 versions = rcs_extract(f)
                 for v in versions:
                     v.to_git()
@@ -135,8 +181,14 @@ def recurse_sort_commit(path):
     for root, dirs, files in os.walk('.'):
         #os.chdir(root)
         for f in files:
-            if not f.endswith(',v'):
-                versions.extend(rcs_extract(os.path.join(root, f)))
+            if acceptable_file(f):
+                try:
+                    versions.extend(rcs_extract(os.path.join(root, f)))
+                except Exception, e:
+                    if not FORCE:
+                        raise
+                    traceback.print_exc()
+                    print >> sys.stderr, "Continuing, but ignoring %r..." % f
 
     _versions = [(int(v.date), v) for v in versions]
     _versions.sort()
@@ -151,8 +203,20 @@ if __name__ == '__main__':
                       help="ignore TWiki housekeeping commits", default=False)
     parser.add_option("-d", "--sort-by-date", action="store_true",
                       help="Sort the RCS commits by date before feeding to git.", default=False)
+    parser.add_option("-r", "--use-rcs", action="store_true",
+                      help="Use rcs subprocesses (slow, canonical).", default=False)
+    parser.add_option("-f", "--force", action="store_true",
+                      help="Don't give up on parsing errors.", default=False)
     options, dirs = parser.parse_args()
     THOENY = not options.no_thoeny
+    if options.use_rcs:
+        rcs_extract = rcs_extract_subprocess
+        acceptable_file = non_rcs_file
+    else:
+        acceptable_file = rcs_file
+    if options.force:
+        FORCE = True
+    
     for d in dirs:
         if options.sort_by_date:
             recurse_sort_commit(d)
