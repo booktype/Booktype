@@ -33,7 +33,7 @@ def parse_string(f, start=None):
                 elif expecting:
                     # we wanted a second '@' but only got one. String ends here!
                     # This line is probably just '@\n', but might not be.
-                    if i > 1: 
+                    if i > 1:
                         lines.append(line[:i - 1])
                     if line[i:] != '\n':
                         print >> sys.stdout, "dodgily packed line %r (i: %s)" % (line, i)
@@ -56,7 +56,7 @@ next	1.10;
 '''
     if line is None:
         line = f.next()
-    
+
     data = {'rev': tuple(int(x) for x in line.split('.'))}
     while 'next' not in data:
         line = f.next().strip()
@@ -101,7 +101,7 @@ a46 1
     for got, wanted in ((log, 'log\n'), (text, 'text\n')):
         if got != wanted:
             print >> sys.stderr, "got %r, expected %r" % (got, wanted)
-                    
+
     #So now the rest of it is the string.
     text = parse_string(f)
     return {'rev': rev_no, 'text': text, 'comment': comment}
@@ -142,7 +142,7 @@ def apply_delta(lines, delta):
     delta.
 
     delta format:
-    
+
     <'a' or 'd'><line number> <line count>
 
     example:
@@ -150,13 +150,13 @@ d1 1                           #delete 1st line
 a1 2                           #add following two lines at beginning
  data to be added
  here too
-d24 3                          #delete lines 24-27 
+d24 3                          #delete lines 24-27
     """
     # A couple of tricky points:
     # As hunks are applied, the offset of later modifications changes, which
     # is tracked in 'mod'.
     # Additions happen *after* the named offset.
-    
+
     delta = iter(delta)
     mod = 0
     for line in delta:
@@ -165,7 +165,7 @@ d24 3                          #delete lines 24-27
         offset = offset - 1 + mod # for zero based indexing
         if mode == 'd':
             del lines[offset : offset + count ]
-            mod -= count                
+            mod -= count
         elif mode == 'a':
             lines[offset + 1 : offset + 1] = [delta.next() for i in range(count)]
             mod += count
@@ -195,7 +195,7 @@ def parse_rcs_file(filename):
             d = parse_deltatext(f, line)
             deltas[d['rev']]['text'] = d['text']
     except Exception, e:
-        # because not all exceptions can know. 
+        # because not all exceptions can know.
         print >> sys.stderr, 'File: %r' %filename
         raise
 
@@ -204,13 +204,13 @@ def parse_rcs_file(filename):
 
 
 def rcs_revision_generator(filename):
-    """generate all revisions of the file, in reverse order."""    
+    """generate all revisions of the file, in reverse order."""
     head, deltas = parse_rcs_file(filename)
     lines = deltas[head]['text']
     next = deltas[head]['next']
     yield deltas[head], ''.join(lines)
     while next:
-        d = deltas[next]        
+        d = deltas[next]
         apply_delta(lines, d['text'])
         yield d, ''.join(lines)
         next = d['next']
@@ -227,14 +227,14 @@ def twiki_clean(lines):
 
 def twiki_revision_generator(filename):
     """generate all revisions of the file, in reverse order, clearing
-    out stupid metadata and fake revisions."""    
+    out stupid metadata and fake revisions."""
     head, deltas = parse_rcs_file(filename)
     lines = deltas[head]['text']
     next = deltas[head]['next']
-        
+
     yield deltas[head], ''.join(twiki_clean(lines)[0])
     while next:
-        d = deltas[next]        
+        d = deltas[next]
         apply_delta(lines, d['text'])
         yield d, ''.join(twiki_clean(lines)[0])
         next = d['next']
@@ -244,7 +244,7 @@ def twiki_revision_generator(filename):
 
 if __name__ == '__main__':
     TEST =  '/home/douglas/twiki-data/Sugar/BackingUp.txt,v'
-    
+
     for delta, revision in rcs_revision_generator(TEST):
         r = '.'.join(str(x) for x in delta['rev'])
         f = open('/tmp/python-%s.txt' % r, 'w')
