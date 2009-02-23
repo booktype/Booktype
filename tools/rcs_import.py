@@ -165,28 +165,23 @@ def non_rcs_file(fn):
     return not fn.endswith(',v')
 
 
-
-def recurse(path):
-    """Go through and deal with files as they fall out of RCS"""
-    os.chdir(path)
-    for root, dirs, files in os.walk('.'):
-        for f in files:
-            if acceptable_file(f):
-                versions = rcs_extract(f)
-                for v in versions:
-                    v.to_git()
-
-
-def recurse_sort_commit(path):
-    """Sort the commits by date before adding to git"""
+def recurse_and_commit(path, sort=False):
+    """Find all the RCS files to put into git.  If sort is False, the
+    files are dealt with in the order that they fall out of
+    RCS. Otherwise, they are sorted first by date."""
+    print "reset master\n"
     versions = []
     os.chdir(path)
     for root, dirs, files in os.walk('.'):
-        #os.chdir(root)
         for f in files:
             if acceptable_file(f):
                 try:
-                    versions.extend(rcs_extract(os.path.join(root, f)))
+                    vs = rcs_extract(os.path.join(root, f))
+                    if sort:
+                        versions.extend(vs)
+                    else:
+                        for v in reversed(vs):
+                            v.to_git()
                 except Exception, e:
                     if not FORCE:
                         raise
@@ -195,8 +190,9 @@ def recurse_sort_commit(path):
 
     _versions = [(int(v.date), v) for v in versions]
     _versions.sort()
-    for d, v in _versions:
-        v.to_git()
+    if sort:
+        for d, v in _versions:
+            v.to_git()
 
 
 if __name__ == '__main__':
@@ -204,7 +200,7 @@ if __name__ == '__main__':
     parser = OptionParser()
     parser.add_option("-t", "--no-thoeny", action="store_true",
                       help="ignore TWiki housekeeping commits", default=False)
-    parser.add_option("-d", "--sort-by-date", action="store_true",
+    parser.add_option("-s", "--sort-by-date", action="store_true",
                       help="Sort the RCS commits by date before feeding to git.", default=False)
     parser.add_option("-r", "--use-rcs", action="store_true",
                       help="Use rcs subprocesses (slow, canonical).", default=False)
@@ -219,9 +215,6 @@ if __name__ == '__main__':
         acceptable_file = rcs_file
     if options.force:
         FORCE = True
-    
+
     for d in dirs:
-        if options.sort_by_date:
-            recurse_sort_commit(d)
-        else:
-            recurse(d)
+        recurse_and_commit(d, options.sort_by_date)
