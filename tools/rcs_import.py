@@ -37,8 +37,10 @@ class RCSError(Exception):
 class RCSVersion:
     data = ''
     gitref = 'HEAD'
+    marker = iter(xrange(1,9999999))
+
     def __init__(self, name, revision, date, author):
-        self.name = name
+        self.name = os.path.normpath(name)
         self.revision = revision
         t = time.strptime(date, "%Y/%m/%d %H:%M:%S")
         self.date = time.strftime("%s", t)
@@ -51,6 +53,7 @@ class RCSVersion:
 
     def to_git(self, write=sys.stdout.write):
         write("commit %s\n" % self.gitref)
+        write("mark :%s\n" % self.marker.next())
         write("committer %s <%s@flossmanuals.net> %s +0000\n" %
               (self.author, self.author, self.date))
         self._data_blob("Import from TWiki: %s revision %s" % (self.name, self.revision))
@@ -125,7 +128,7 @@ def rcs_extract_subprocess(filename):
 
 class RcsParseVersion(RCSVersion):
     def __init__(self, name, d, string):
-        self.name = name
+        self.name = os.path.normpath(name[:-2])  #drop the ',v'
         self.revision = '.'.join(str(x) for x in d['rev'])
         try:
             t = time.strptime(d['date'], "%Y.%m.%d.%H.%M.%S")
