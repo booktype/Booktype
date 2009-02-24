@@ -33,16 +33,13 @@ from subprocess import call, PIPE, Popen
 class RCSError(Exception):
     pass
 
-
-class RCSVersion:
-    data = ''
+class Version:
+    contents = ''
     gitref = 'HEAD'
-    marker = iter(xrange(1,9999999))
 
-    def __init__(self, name, revision, date, author):
+    def __init__(self, name, revision, t, author):
         self.name = os.path.normpath(name)
         self.revision = revision
-        t = time.strptime(date, "%Y/%m/%d %H:%M:%S")
         self.date = time.strftime("%s", t)
         self.author = author
 
@@ -53,13 +50,35 @@ class RCSVersion:
 
     def to_git(self, write=sys.stdout.write):
         write("commit %s\n" % self.gitref)
-        write("mark :%s\n" % self.marker.next())
         write("committer %s <%s@flossmanuals.net> %s +0000\n" %
               (self.author, self.author, self.date))
-        self._data_blob("Import from TWiki: %s revision %s" % (self.name, self.revision))
+        self._data_blob("TWiki import: %s revision %s" % (self.name, self.revision))
         write('M 644 inline %s\n' % (self.name))
-        self._data_blob(self.data)
+        self._data_blob(self.contents)
         write("\n")
+
+
+class RCSVersion(Version):
+    """For data from rlog process.
+    self.contents is not set in __init__; it should be done later.
+    """
+    def __init__(self, name, revision, date, author):
+        t = time.strptime(date, "%Y/%m/%d %H:%M:%S")
+        Version.__init__(self, name, revision, t, author)
+
+class RcsParseVersion(Version):
+    """For data from rcs_parse module"""
+    def __init__(self, name, d, contents):
+        name = name[:-2]  #drop the ',v'
+        revision = '.'.join(str(x) for x in d['rev'])
+        try:
+            #stupid year format is sometimes 2 digit, sometimes 4 digit.
+            t = time.strptime(d['date'], "%Y.%m.%d.%H.%M.%S")
+        except ValueError:
+            t = time.strptime(d['date'], "%y.%m.%d.%H.%M.%S")
+        author = d['author']
+        Version.__init__(self, name, revision, t, author)
+        self.contents = contents
 
 
 
@@ -93,7 +112,8 @@ none
     revisions.reverse()
     return revisions
 
-
+#==================================================================
+# The next two functions are alternate ways of doing the same thing
 
 def rcs_extract_subprocess(filename):
     """Find unique revisions of the file, and the relevant metadata.
@@ -120,24 +140,12 @@ def rcs_extract_subprocess(filename):
         # many revisions are identical execpt for metadata. Ignore those.
         s = ''.join(data)
         if not versions or s != versions[-1].data:
-            revision.data = ''.join(data)
+            revision.contents = ''.join(data)
             versions.append(revision)
-    return versions
+    # callee expects versions in reverse orde, because that is how
+    # rcs_parse does it.
+    return reversed(versions)
 
-
-
-class RcsParseVersion(RCSVersion):
-    def __init__(self, name, d, string):
-        self.name = os.path.normpath(name[:-2])  #drop the ',v'
-        self.revision = '.'.join(str(x) for x in d['rev'])
-        try:
-            t = time.strptime(d['date'], "%Y.%m.%d.%H.%M.%S")
-        except ValueError:
-            #stupid date format is sometimes 2 digit, sometimes 4 digit years.
-            t = time.strptime(d['date'], "%y.%m.%d.%H.%M.%S")
-        self.date = time.strftime("%s", t)
-        self.author = d['author']
-        self.data = string
 
 
 def rcs_extract(filename):

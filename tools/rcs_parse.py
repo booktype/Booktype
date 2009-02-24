@@ -1,3 +1,4 @@
+#!/usr/bin/python
 '''Parse RCS files and return all the interesting commits.
 
 Deliberately fragile.'''
@@ -5,8 +6,7 @@ Deliberately fragile.'''
 # and doc/RCSFILE in the CVS source tree
 
 import os, sys, re, time
-from subprocess import call, PIPE, Popen
-
+from subprocess import PIPE, Popen
 
 class ParseError(Exception):
     pass
@@ -172,6 +172,8 @@ d24 3                          #delete lines 24-27
 
 
 def parse_rcs_file(filename):
+    """Extract all revisions from the named RCS file, and the head pointer.
+    """
     if not filename.endswith(',v'):
         print >> sys.stderr, "WARNING:'%s' is not a good name for an RCS file" % filename
 
@@ -205,6 +207,8 @@ def parse_rcs_file(filename):
 
 def rcs_revision_generator(filename):
     """generate all revisions of the file, in reverse order."""
+    # This uses the RCS linked list, though it would work just as well
+    # to sort the revisions.
     head, deltas = parse_rcs_file(filename)
     lines = deltas[head]['text']
     next = deltas[head]['next']
