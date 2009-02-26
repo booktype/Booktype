@@ -161,7 +161,7 @@ def rcs_extract(filename):
         if not THOENY and revision.author in ('PeterThoeny', 'thoeny') \
                or int(revision.date) < 1050000000:
             continue
-        if not versions or revision.data != versions[-1].data:
+        if not versions or revision.contents != versions[-1].contents:
             versions.append(revision)
     return versions
 
