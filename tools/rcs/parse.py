@@ -5,11 +5,27 @@ Deliberately fragile.'''
 # see `man rcsfile 5`
 # and doc/RCSFILE in the CVS source tree
 
-import os, sys, re, time
-from subprocess import PIPE, Popen
+import os, sys, time
 
-class ParseError(Exception):
-    pass
+from rcs.core import Version, twiki_clean, ParseError
+
+class RcsParseVersion(Version):
+    """For data from rcs_parse module"""
+    def __init__(self, name, d, contents):
+        name = name[:-2]  #drop the ',v'
+        revision = '.'.join(str(x) for x in d['rev'])
+        author = d['author']
+        Version.__init__(self, name, revision, d['date'], author)
+        self.contents = contents
+
+    def set_date(self, date):
+        try:
+            #stupid year format is sometimes 2 digit, sometimes 4 digit.
+            t = time.strptime(date, "%Y.%m.%d.%H.%M.%S")
+        except ValueError:
+            t = time.strptime(date, "%y.%m.%d.%H.%M.%S")
+        self.date = time.strftime("%s", t)
+        
 
 
 def parse_string(f, start=None):
@@ -44,7 +60,6 @@ def parse_string(f, start=None):
         lines.append(line)
         line = f.next()
     return lines
-
 
 
 def parse_delta(f, line=None):
@@ -219,15 +234,6 @@ def rcs_revision_generator(filename):
         yield d, ''.join(lines)
         next = d['next']
 
-def twiki_clean(lines):
-    data = []
-    meta = []
-    for line in lines:
-        if not line.startswith('%META:'):
-            data.append(line)
-        else:
-            meta.append(line)
-    return data, meta
 
 def twiki_revision_generator(filename):
     """generate all revisions of the file, in reverse order, clearing
@@ -245,9 +251,35 @@ def twiki_revision_generator(filename):
 
 
 
+def extract(filename, rfilter=None):
+    """Find unique revisions of the file, and the relevant metadata.
+    Most attached metadata is not relevant, and is binned.  In many
+    cases the file is unchanged except for this useless metadata, so
+    the revision is a false one.  We purge those.
+    """
+    versions = []
+    for d, string in twiki_revision_generator(filename):
+        revision = RcsParseVersion(filename, d, string)
+        if rfilter is not None and not rfilter(revision):
+            continue
+        
+        if not versions:
+            versions.append(revision)
+        elif revision.contents == versions[-1].contents:
+            #because the revisions are being generated in reverse order
+            versions[-1] = revision
+        else:
+            versions.append(revision)
+
+    return versions
+
+def acceptable_file(fn):
+    return fn.endswith(',v')
+
 
 if __name__ == '__main__':
     TEST =  '/home/douglas/twiki-data/Sugar/BackingUp.txt,v'
+    from subprocess import PIPE, Popen
 
     for delta, revision in rcs_revision_generator(TEST):
         r = '.'.join(str(x) for x in delta['rev'])
