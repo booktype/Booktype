@@ -18,15 +18,19 @@ cd $DIR
 #remove the twiki lease files.
 find -name '*.lease' -print0 | xargs -0 rm -f
 
-for f in  WebAtom.txt WebPreferences.txt WebChanges.txt WebRss.txt \
-    WebCreateNewTopic.txt WebSearchAdvanced.txt WebHome.txt WebSearch.txt \
-    WebIndex.txt WebStatistics.txt WebLeftBar.txt WebTopicList.txt WebNotify.txt; do
-    rm -f */$f
+for f in  WebAtom WebPreferences WebChanges WebRss \
+    WebCreateNewTopic WebSearchAdvanced WebHome WebSearch \
+    WebIndex WebStatistics WebLeftBar WebTopicList WebNotify \
+    WebTopicCreator WebTopicEditTemplate ; do
+    rm -f */$f.txt
+    rm -f */$f.txt,v
+    rm -f */${f}Talk.txt
+    rm -f */${f}Talk.txt,v
 done
 
 for d in TWiki; do
     rm -rf $d
-done 
+done
 
 
 
