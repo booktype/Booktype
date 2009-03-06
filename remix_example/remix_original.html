@@ -1,0 +1,402 @@
+<html>
+	<head>
+<title>remix</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta  name="robots" content="noindex" /> <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/bin/view/Main/WebRss" />
+		<link rel="icon" href="http://en.flossmanuals.net/floss/pub/TWiki/FlossSkin2/fl2.ico" type="image/x-icon" /> <link rel="shortcut icon" href="http://en.flossmanuals.net/floss/pub/TWiki/FlossSkin2/fl2.ico" type="image/x-icon" />
+		
+        
+<style type="text/css">
+/*margin and padding on body element
+  can introduce errors in determining
+  element position and are not recommended;
+  we turn them off as a foundation for YUI
+  CSS treatments. */
+body {
+	margin:0;
+	padding:0;
+}
+</style>
+
+<link rel="stylesheet" type="text/css" href="js/fonts-min.css" />
+<script type="text/javascript" src="js/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="js/animation-min.js"></script>
+<script type="text/javascript" src="js/dragdrop-min.js"></script>
+
+<style type="text/css">
+img {
+	display:block;
+}
+* {margin:0}
+</style>
+<style>
+
+#header
+{
+position:absolute;
+top:23px;
+width:100%;
+background-image: 
+url('http://en.flossmanuals.net/floss/pub/TWiki/FlossSkin2/header_bg.gif');
+background-position: 600px 0px; /* this places the orange background at 
+an offset, making sure it doesn't underlap the left side of the gif */
+background-repeat: no-repeat;
+	 }
+	 #header_imagemap
+	 {
+	 margin-left: 352px;
+	 border: 0px
+	 }
+h1 {
+color:#ff7f00;
+}
+h2 {
+color:#ff7f00;
+}
+h3 {
+color:#000000;
+}
+</style>
+
+
+  <style type="text/css" media="screen">
+    A {
+       text-decoration: None;
+    }
+
+    .heder { color: red; background-color: #ff7f00}
+
+    .topic { color: black; }
+
+    .title { color: black; background-color: #f0f0f0}
+	
+	div.workarea { padding:10px; float:left }
+
+ul.draglist { 
+    position: relative;
+    width: 200px; 
+    height:240px;
+    background: #f7f7f7;
+    border: 1px solid gray;
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+
+ul.draglist li {
+    margin: 1px;
+    cursor: move;
+    zoom: 1;
+}
+
+ul.draglist_alt { 
+    position: relative;
+    width: 200px; 
+    list-style: none;
+    margin:0;
+    padding:0;
+    /*
+       The bottom padding provides the cushion that makes the empty 
+       list targetable.  Alternatively, we could leave the padding 
+       off by default, adding it when we detect that the list is empty.
+    */
+    padding-bottom:20px;
+}
+
+ul.draglist_alt li {
+    margin: 1px;
+    cursor: move; 
+}
+
+
+li.list1 {
+    background-color: #D1E6EC;
+    border:1px solid #7EA6B2;
+}
+
+li.list2 {
+    background-color: #D8D4E2;
+    border:1px solid #6B4C86;
+}
+
+#user_actions { float: right; }
+    
+  </style>
+
+	</head>
+<body  onload="init()" background="http://en.flossmanuals.net/floss/pub/TWiki/FlossSkin2/background.gif" style="margin:0;color:#000000;text-decoration:none;">
+<div id="header"><img id="header_imagemap" width="465" height="95" alt="FlossManuals menu" src='http://en.flossmanuals.net/floss/pub/TWiki/FlossSkin2/top_remix.gif' border=0 usemap='#map'></div>
+<map name="map">
+<!-- #$-:Image Map file created by GIMP Imagemap Plugin -->
+<!-- #$-:GIMP Imagemap Plugin by Maurits Rijk -->
+<!-- #$-:Please do not edit lines starting with "#$" -->
+<!-- #$VERSION:2.0 -->
+<!-- #$AUTHOR:reset -->
+<area shape="rect" coords="90,57,152,84" href="/read" />
+<area shape="rect" coords="159,57,219,84" href="/write" />
+<area shape="rect" coords="226,58,287,84" href="/remix" />
+<area shape="rect" coords="293,58,353,84" href="/about" />
+<area shape="rect" coords="401,63,424,79" href="http://en.flossmanuals.net/read" />
+<area shape="rect" coords="427,63,448,79" href="http://nl.flossmanuals.net/read" />
+<area shape="rect" coords="398,38,424,59" href="http://fa.flossmanuals.net" />
+</map>
+</div>
+<div style="position:absolute;left:20px;top:140px;">
+<img src="http://en.flossmanuals.net/floss/pub/TWiki/FlossSkin2/remixarrow.gif" border=0>
+<br>
+<img src="http://en.flossmanuals.net/floss/pub/TWiki/FlossSkin2/remix_text.gif" border=0>
+</div>
+		<div style="position:absolute;left:270px;top:130px;">
+		<table  cellpadding="0" cellspacing="0" summary="" style="table-layout:fixed; width:730px; border: 5px solid #666666;padding-right: 0px; padding-left: 0px; padding-bottom: 0px; padding-top: 0px; margin-left: 10px; margin-top: 10px; background:#FFF7F0;">
+			<tr>
+			<td width=100%>
+			<div class="ds-contentcontainer">
+			<div style="margin-left:1.2em;">
+			<br>
+ <img src="http://en.flossmanuals.net/floss/pub/TWiki/FlossSkin2/text_remix.gif">
+			<br>
+			<br>
+			<p>
+			<font color="#666666">You can remix your own manuals. Select a manual (or manuals) in Step one with the drop down menu and drag chapters to the box on the right. Choose an output format (html/pdf) in step two and tweak the style. In step three you can export the remix and also use the (beta) ajax provided to put a live manual in your web page.</font>			</p>
+			<br>
+<p />
+<!-- HEAD -->
+<div id="step1" style="border:1px solid #ff7f00;float: left;padding-left: 20px; padding-right: 20px; background-color: white; margin-right: 20px;color:black;">
+<a href="javascript:void(0)" onClick="setTab(1)"><b><font color=black>STEP 1. REMIX<?font></b></a>
+</div>
+
+<div id="step2" style="border:1px solid #ff7f00;float: left; padding-left: 20px; padding-right: 20px; background-color: #ff7f00; margin-right: 20px">
+<a href="javascript:void(0)" onClick="setTab(2)"><b><font color=black>STEP 2. STYLE</font></b></a>
+</div>
+
+<div id="step3" style="border:1px solid #ff7f00;float: left; padding-left: 20px; padding-right: 20px; background-color: #ff7f00;">
+<a href="javascript:void(0)" onClick="setTab(3)"><b><font color=black>STEP 3. EXPORT</font></b></a>
+</div>
+
+<div style="margin-bottom: 20px; clear: both"/>
+<!-- /HEAD -->
+
+<!-- start of table -->
+<div id="block1">
+<table border="0" style="border: 0px;">
+
+
+ <tr>
+  <td valign="top">
+  
+  <div class="workarea">
+  <h3>List 2</h3>
+  <ul id="ul2" class="draglist">
+    <li class="list2" id="li2_1">list 2, item 1</li>
+    <li class="list2" id="li2_2">list 2, item 2</li>
+    <li class="list2" id="li2_3">list 2, item 3</li>
+  </ul>
+</div>
+
+<div class="workarea">
+  <h3>List 2</h3>
+  <ul id="ul2" class="draglist">
+    <li class="list2" id="li2_1">list 2, item 1</li>
+    <li class="list2" id="li2_2">list 2, item 2</li>
+    <li class="list2" id="li2_3">list 2, item 3</li>
+  </ul>
+</div>
+
+  </td>
+
+
+
+ </tr>
+</table>
+</div>
+
+
+
+			</div>
+			</div> 
+			</td>
+			</tr>
+		</table>
+		</div>
+        
+        <script type="text/javascript">
+
+(function() {
+
+var Dom = YAHOO.util.Dom;
+var Event = YAHOO.util.Event;
+var DDM = YAHOO.util.DragDropMgr;
+
+//////////////////////////////////////////////////////////////////////////////
+// example app
+//////////////////////////////////////////////////////////////////////////////
+YAHOO.example.DDApp = {
+    init: function() {
+
+        var rows=3,cols=2,i,j;
+        for (i=1;i<cols+1;i=i+1) {
+            new YAHOO.util.DDTarget("ul"+i);
+        }
+
+        for (i=1;i<cols+1;i=i+1) {
+            for (j=1;j<rows+1;j=j+1) {
+                new YAHOO.example.DDList("li" + i + "_" + j);
+            }
+        }
+
+        Event.on("showButton", "click", this.showOrder);
+        Event.on("switchButton", "click", this.switchStyles);
+    },
+
+    showOrder: function() {
+        var parseList = function(ul, title) {
+            var items = ul.getElementsByTagName("li");
+            var out = title + ": ";
+            for (i=0;i<items.length;i=i+1) {
+                out += items[i].id + " ";
+            }
+            return out;
+        };
+
+        var ul1=Dom.get("ul1"), ul2=Dom.get("ul2");
+        alert(parseList(ul1, "List 1") + "\n" + parseList(ul2, "List 2"));
+
+    },
+
+    switchStyles: function() {
+        Dom.get("ul1").className = "draglist_alt";
+        Dom.get("ul2").className = "draglist_alt";
+    }
+};
+
+//////////////////////////////////////////////////////////////////////////////
+// custom drag and drop implementation
+//////////////////////////////////////////////////////////////////////////////
+
+YAHOO.example.DDList = function(id, sGroup, config) {
+
+    YAHOO.example.DDList.superclass.constructor.call(this, id, sGroup, config);
+
+    this.logger = this.logger || YAHOO;
+    var el = this.getDragEl();
+    Dom.setStyle(el, "opacity", 0.67); // The proxy is slightly transparent
+
+    this.goingUp = false;
+    this.lastY = 0;
+};
+
+YAHOO.extend(YAHOO.example.DDList, YAHOO.util.DDProxy, {
+
+    startDrag: function(x, y) {
+        this.logger.log(this.id + " startDrag");
+
+        // make the proxy look like the source element
+        var dragEl = this.getDragEl();
+        var clickEl = this.getEl();
+        Dom.setStyle(clickEl, "visibility", "hidden");
+
+        dragEl.innerHTML = clickEl.innerHTML;
+
+        Dom.setStyle(dragEl, "color", Dom.getStyle(clickEl, "color"));
+        Dom.setStyle(dragEl, "backgroundColor", Dom.getStyle(clickEl, "backgroundColor"));
+        Dom.setStyle(dragEl, "border", "2px solid gray");
+    },
+
+    endDrag: function(e) {
+
+        var srcEl = this.getEl();
+        var proxy = this.getDragEl();
+
+        // Show the proxy element and animate it to the src element's location
+        Dom.setStyle(proxy, "visibility", "");
+        var a = new YAHOO.util.Motion( 
+            proxy, { 
+                points: { 
+                    to: Dom.getXY(srcEl)
+                }
+            }, 
+            0.2, 
+            YAHOO.util.Easing.easeOut 
+        )
+        var proxyid = proxy.id;
+        var thisid = this.id;
+
+        // Hide the proxy and show the source element when finished with the animation
+        a.onComplete.subscribe(function() {
+                Dom.setStyle(proxyid, "visibility", "hidden");
+                Dom.setStyle(thisid, "visibility", "");
+            });
+        a.animate();
+    },
+
+    onDragDrop: function(e, id) {
+
+        // If there is one drop interaction, the li was dropped either on the list,
+        // or it was dropped on the current location of the source element.
+        if (DDM.interactionInfo.drop.length === 1) {
+
+            // The position of the cursor at the time of the drop (YAHOO.util.Point)
+            var pt = DDM.interactionInfo.point; 
+
+            // The region occupied by the source element at the time of the drop
+            var region = DDM.interactionInfo.sourceRegion; 
+
+            // Check to see if we are over the source element's location.  We will
+            // append to the bottom of the list once we are sure it was a drop in
+            // the negative space (the area of the list without any list items)
+            if (!region.intersect(pt)) {
+                var destEl = Dom.get(id);
+                var destDD = DDM.getDDById(id);
+                destEl.appendChild(this.getEl());
+                destDD.isEmpty = false;
+                DDM.refreshCache();
+            }
+
+        }
+    },
+
+    onDrag: function(e) {
+
+        // Keep track of the direction of the drag for use during onDragOver
+        var y = Event.getPageY(e);
+
+        if (y < this.lastY) {
+            this.goingUp = true;
+        } else if (y > this.lastY) {
+            this.goingUp = false;
+        }
+
+        this.lastY = y;
+    },
+
+    onDragOver: function(e, id) {
+    
+        var srcEl = this.getEl();
+        var destEl = Dom.get(id);
+
+        // We are only concerned with list items, we ignore the dragover
+        // notifications for the list.
+        if (destEl.nodeName.toLowerCase() == "li") {
+            var orig_p = srcEl.parentNode;
+            var p = destEl.parentNode;
+
+            if (this.goingUp) {
+                p.insertBefore(srcEl, destEl); // insert above
+            } else {
+                p.insertBefore(srcEl, destEl.nextSibling); // insert below
+            }
+
+            DDM.refreshCache();
+        }
+    }
+});
+
+Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
+
+})();
+
+
+</script>
+
+	</body>
+</html>
