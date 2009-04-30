@@ -34,7 +34,7 @@ use strict;
 use warnings;
 use integer;
 
-use constant FIND_EMAILS => 0;
+use constant FIND_EMAILS => 1;
 
 my $DEFAULT_DOMAIN = 'flossmanuals.net';
 
@@ -69,16 +69,15 @@ sub render_version {
         $session = new TWiki ('admin');
     }
 
-
     my ($meta, $text) = $session->{store}->readTopic($session, $webName, $topicName, $revision);
+
+    # Try to set the author's email to something sensible, if possible
     my $info = $meta->get('TOPICINFO');
     my $author = $info->{'author'};
-
     if (FIND_EMAILS){
         my $user = $session->{users}->findUserByWikiName($author);
         $info->{email} = $session->{users}->getEmails($user);
     }
-
     $info->{email} ||= "$author\@$DEFAULT_DOMAIN";
 
     if(! $raw) {
