@@ -91,6 +91,17 @@ sub render_version {
     return $text, $meta;
 }
 
+=pod
+    extract_all_versions($webName, $topicName, $session)
+
+Find all revisions of the chapter $topicName in book $webName and put
+them in an array indexed by revision numbers.  Return the arrays as a
+reference.
+
+Version 0 is always undef -- perhaps it should be an empty string.
+
+=cut
+
 sub extract_all_versions {
     my ($webName, $topicName, $session) = @_;
     if (! $session){
@@ -118,12 +129,22 @@ sub extract_all_versions {
     return \@versions;
 }
 
+=pod
+    save_versions($webName, $topicName, $dest)
 
+Save versions of chapter $topicName of book $webName in files in the
+directory $dest.  Their names are structured thus:
+
+  $dest/$topicName.$revision_number.txt
+
+$dest ought to exist.  Files will be overwritten.
+
+=cut
 
 sub save_versions {
     my ($webName, $topicName, $dest) = @_;
     if (! -d $dest || ! -w $dest){
-        die "'$dest' is not a writeable directory; it should be\n";
+        die "'$dest' is not a writeable directory; it should be.\n";
     }
     my $versions = extract_all_versions($webName, $topicName);
 
