@@ -15,9 +15,15 @@ fi
 
 cd $DIR
 
+# remove the twiki directory
+for d in TWiki; do
+    rm -rf $d
+done
+
 #remove the twiki lease files.
 find -name '*.lease' -print0 | xargs -0 rm -f
 
+#remove magic twiki boilerplate
 for f in  WebAtom WebPreferences WebChanges WebRss \
     WebCreateNewTopic WebSearchAdvanced WebHome WebSearch \
     WebIndex WebStatistics WebLeftBar WebTopicList WebNotify \
@@ -28,9 +34,6 @@ for f in  WebAtom WebPreferences WebChanges WebRss \
     rm -f */${f}Talk.txt,v
 done
 
-for d in TWiki; do
-    rm -rf $d
-done
 
 
 
