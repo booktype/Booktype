@@ -43,6 +43,24 @@ BEGIN {
 
 require TWiki;
 
+=pod
+
+ render_version($webName, $topicName, $revision, $session, $raw) = @_;
+   ==> ($text, $meta, $email)
+
+ * =$webName= the book.
+ * =$topicName= the chapter.
+ * =$session= a TWiki instance.  If undef, it will be created.
+ * =$revision= the required version (RCS style "1.\d+", undef for the latest).
+
+Return values:
+
+ * =$text= the text of the chapter, with twiki tags filled out
+ * =$meta= a TWiki::Meta object
+ * =$email= the revision author's email.
+
+=cut
+
 sub render_version {
     my ($webName, $topicName, $revision, $session, $raw) = @_;
 
