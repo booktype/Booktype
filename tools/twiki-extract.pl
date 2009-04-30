@@ -34,6 +34,9 @@ use strict;
 use warnings;
 use integer;
 
+use constant FIND_EMAILS => 0;
+
+my $DEFAULT_DOMAIN = 'flossmanuals.net';
 
 BEGIN {
     # Set library paths in @INC, at compile time
@@ -46,7 +49,7 @@ require TWiki;
 =pod
 
  render_version($webName, $topicName, $revision, $session, $raw) = @_;
-   ==> ($text, $meta, $email)
+   ==> ($text, $meta)
 
  * =$webName= the book.
  * =$topicName= the chapter.
@@ -57,8 +60,6 @@ Return values:
 
  * =$text= the text of the chapter, with twiki tags filled out
  * =$meta= a TWiki::Meta object
- * =$email= the revision author's email.
-
 =cut
 
 sub render_version {
@@ -68,7 +69,17 @@ sub render_version {
         $session = new TWiki ('admin');
     }
 
+
     my ($meta, $text) = $session->{store}->readTopic($session, $webName, $topicName, $revision);
+    my $info = $meta->get('TOPICINFO');
+    my $author = $info->{'author'};
+
+    if (FIND_EMAILS){
+        my $user = $session->{users}->findUserByWikiName($author);
+        $info->{email} = $session->{users}->getEmails($user);
+    }
+
+    $info->{email} ||= "$author\@$DEFAULT_DOMAIN";
 
     if(! $raw) {
         $session->enterContext('body_text');
@@ -90,9 +101,8 @@ sub extract_all_versions {
     my ($text, $meta) = render_version($webName, $topicName, undef, $session);
     my ($date, $author, $rev) = $meta->getRevisionInfo();
 
+    #print "rev is $rev\n";
     #Assume everything is 1.something
-    print "rev is $rev\n";
-
     #$rev =~ m/^1\.(\d+)$/;
     #my $r = $1;
     my $r = $rev;
@@ -101,9 +111,9 @@ sub extract_all_versions {
     $versions[$r] = [$text, $meta, $rev];
 
     for ($r--; $r > 0; $r--){
-        $rev = "1.$r";
-        ($text, $meta) = render_version($webName, $topicName, $rev, $session);
-        $versions[$r] = [$text, $meta, $rev];
+        #$rev = "1.$r";
+        ($text, $meta) = render_version($webName, $topicName, $r, $session);
+        $versions[$r] = [$text, $meta];
     }
 
     return \@versions;
@@ -121,7 +131,7 @@ sub save_versions {
     foreach my $r (1 .. $#$versions){
         my $v = $versions->[$r];
         next unless defined $v;
-        my ($text, $meta, $rev) = @$v;
+        my ($text, $meta) = @$v;
         open FILE, '>', "$dest/$webName-$topicName.$r.txt";
         print FILE $meta->stringify . "\n$text\n";
         close FILE;
