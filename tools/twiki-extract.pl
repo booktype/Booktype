@@ -108,19 +108,13 @@ sub extract_all_versions {
         $session = new TWiki ('admin');
     }
 
-    # render_version with undef version returns the head.
-    # Then the meta object gives us its revison number (as int x, not RCS '1.x')
-    my ($text, $meta) = render_version($webName, $topicName, undef, $session);
-    my ($date, $author, $r) = $meta->getRevisionInfo();
-
+    my $head = $session->{store}->getRevisionNumber($webName, $topicName);
     my @versions;
-    $versions[$r] = [$text, $meta, $r];
 
-    for ($r--; $r > 0; $r--){
-        ($text, $meta) = render_version($webName, $topicName, $r, $session);
-        $versions[$r] = [$text, $meta];
+    foreach (1 .. $head){
+        my ($text, $meta) = render_version($webName, $topicName, $_, $session);
+        $versions[$_] = [$text, $meta];
     }
-
     return \@versions;
 }
 
