@@ -169,7 +169,7 @@ number of unused pages by default: these are filtered out.
 
 sub get_chapters {
     my $book = shift;
-
+    die "chapters of which book?" unless $book;
     opendir(DIR, "$TWIKI_PATH/$book") || die "could not open directory '$TWIKI_PATH/$book'";
     my @chapters = grep {
         my $chapter = $_;
