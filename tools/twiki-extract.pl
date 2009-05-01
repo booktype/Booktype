@@ -28,6 +28,8 @@ notice applies:
 #
 # As per the GPL, removal of this notice is prohibited.
 
+(That last claim seems dubious, but there you go).
+
 =cut
 
 use strict;
@@ -36,8 +38,6 @@ use integer;
 
 use constant FIND_EMAILS => 1;
 
-my $DEFAULT_DOMAIN = 'flossmanuals.net';
-
 BEGIN {
     # Set library paths in @INC, at compile time
     unshift @INC, '/home/douglas/fm-data/floss/bin/';
@@ -45,6 +45,16 @@ BEGIN {
 }
 
 require TWiki;
+
+my $DEFAULT_DOMAIN = 'flossmanuals.net';
+my $TWIKI_PATH = '/home/douglas/fm-data/twiki-data';
+
+my @BAD_CHAPTERS = qw{WebAtom WebPreferences WebChanges WebRss
+    WebCreateNewTopic WebSearchAdvanced WebHome WebSearch
+    WebIndex WebStatistics WebLeftBar WebTopicList WebNotify
+    WebTopicCreator WebTopicEditTemplate
+};
+
 
 =pod
 
@@ -98,7 +108,7 @@ Find all revisions of the chapter $topicName in book $webName and put
 them in an array indexed by revision numbers.  Return the arrays as a
 reference.
 
-Version 0 is always undef -- perhaps it should be an empty string.
+Version 0 is undefined.
 
 =cut
 
@@ -109,6 +119,7 @@ sub extract_all_versions {
     }
 
     my $head = $session->{store}->getRevisionNumber($webName, $topicName);
+    #my @versions = ['', new TWiki::Meta($session, $webName, $topicName)];
     my @versions;
 
     foreach (1 .. $head){
@@ -148,6 +159,79 @@ sub save_versions {
 }
 
 
-save_versions @ARGV;
+=pod
+    get_chapters
+
+Find all the real chapters in the repository.  TWiki will have made a
+number of unused pages by default: these are filtered out.
+
+=cut
+
+sub get_chapters {
+    my $book = shift;
+
+    opendir(DIR, "$TWIKI_PATH/$book") || die "could not open directory '$TWIKI_PATH/$book'";
+    my @chapters = grep {
+        my $chapter = $_;
+        s/\.txt$// && ! grep {$chapter =~ /^$_(Talk)?\./} @BAD_CHAPTERS;        
+    } readdir(DIR);
+    closedir(DIR);
+    #print "@chapters\n";
+    return @chapters;
+}
+
+=pod
+
+ commit_versions
+
+Extract all versions of each file and commit them in creation order.
+This is a bit harder than doing each file at a time, but it will make
+the git history more useful.
+
+=cut
+
+sub commit_versions {
+    my $book = shift;
+    my $session = shift || new TWiki ('admin');
+
+    my @chapters = get_chapters($book);
+    print "@chapters\n";
+
+    my %commits;
+
+    for my $chapter (@chapters){
+        print "'$book' '$chapter'\n";
+        my $versions = extract_all_versions($book, $chapter, $session);
+        #print $versions, @$versions, "-------\n";
+        #print join '-', @$versions, '-';
+        for my $v (@$versions){
+            next unless defined $v;
+            #print $v;
+            #print @$v, "\n";
+            my $date = $v->[1]->get('TOPICINFO')->{'date'};
+            push @$v, $chapter;
+            my @c;
+            if (defined $commits{$date}){
+                @c = @{$commits{$date}};
+            }
+            push @c, $v;
+            $commits{$date} = \@c;
+        }
+    }
+
+    my @dates = sort {$a <=> $b} keys %commits;
+    for my $date (@dates){
+        for my $v (@{$commits{$date}}){
+            my ($text, $meta, $chapter) = @$v;
+            my $info = $meta->get('TOPICINFO');
+            print "$date, $chapter, $info->{'version'},  $info->{'author'}", "\n";
+        }
+    }
+}
+
+#chdir $TWIKI_PATH;
+
+commit_versions @ARGV;
+#save_versions @ARGV;
 #save_versions "Inkscape", "Introduction", $ARGV[0];
 
