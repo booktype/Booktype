@@ -47,6 +47,7 @@ BEGIN {
 require TWiki;
 
 my $DEFAULT_DOMAIN = 'flossmanuals.net';
+my $STAGING_DIR = '/home/douglas/fm-data/import-tests/staging';
 my $TWIKI_PATH = '/home/douglas/fm-data/twiki-data';
 
 my @BAD_CHAPTERS = qw{WebAtom WebPreferences WebChanges WebRss
@@ -92,12 +93,16 @@ sub render_version {
         my $user = $session->{users}->findUserByWikiName($author);
         $info->{email} = $session->{users}->getEmails($user);
     }
-    $info->{email} ||= "$author\@$DEFAULT_DOMAIN";
+    if (! $info->{email}){
+        $info->{email} = "$author\@$DEFAULT_DOMAIN";
+    }
+
+    $info->{book} = $webName;
 
     if(! $raw) {
         $session->enterContext('body_text');
-        $text = $session->handleCommonTags( $text, $webName, $topicName, $meta );
-        $text = $session->renderer->getRenderedVersion( $text, $webName, $topicName );
+        $text = $session->handleCommonTags($text, $webName, $topicName, $meta);
+        $text = $session->renderer->getRenderedVersion($text, $webName, $topicName);
         $session->leaveContext('body_text');
         $text =~ s/( ?) *<\/?(nop|noautolink)\/?>\n?/$1/gois;
     }
@@ -172,15 +177,15 @@ number of unused pages by default: these are filtered out.
 =cut
 
 sub get_chapters {
-    my $book = shift;
-    die "chapters of which book?" unless $book;
-    opendir(DIR, "$TWIKI_PATH/$book") || die "could not open directory '$TWIKI_PATH/$book'";
+    my $book = shift || die "chapters of which book?";
+    my $session = shift || new TWiki ('admin');
+
     my @chapters = grep {
         my $chapter = $_;
-        s/\.txt$// && ! grep {$chapter =~ /^$_(Talk)?\./} @BAD_CHAPTERS;        
-    } readdir(DIR);
-    closedir(DIR);
-    #print "@chapters\n";
+        $chapter =~ s/Talk$//;
+        ! grep {$chapter eq $_} @BAD_CHAPTERS;
+    } $session->{store}->getTopicNames($book);
+
     return @chapters;
 }
 
