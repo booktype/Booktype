@@ -79,7 +79,8 @@ def book_as_branch_history(path, rfilter=None):
             print "reset %s" % branch
 
         for v in reversed(vs):
-            v.to_git(branch)
+            print v
+            v.to_git(branch, strip_dir=True)
 
 
 SORT_MODES = {
