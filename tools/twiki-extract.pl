@@ -232,9 +232,9 @@ sub staging_header {
     foreach my $type (qw {FILEATTACHMENT PREFERENCE TOPICPARENT FIELD TOPICMOVED}){
         next unless defined $meta->{$type};
         foreach my $item (@{$meta->{$type}}){
-            $header .= "$type: ";
+            $header .= "$type:";
             foreach my $k (sort keys %$item ){
-                $header .= "'$k'='$item->{$k}'";
+                $header .= " '$k'='$item->{$k}'";
             }
             $header .= "\n";
         }
