@@ -269,7 +269,7 @@ sub stage_commit {
 
 =pod
 
- process_versions
+ process_book
 
 Given a book and a function reference, call the function on every
 revision of every chapter of the book.
@@ -278,29 +278,35 @@ The function should take the arguments ($text, $meta, $date, $title).
 
 =cut
 
-sub process_versions {
+sub process_book {
     my $book = shift;
-    my $session = shift || new TWiki ('admin');
     my $function = shift || \&printer;
+    my $session = shift || new TWiki ('admin');
 
     my @chapters = get_chapters($book, $session);
-    print STDERR "@chapters\n";
+    #print STDERR "@chapters\n";
 
     my %commits;
 
     for my $chapter (@chapters){
-        print STDERR "'$book' '$chapter'\n";
+        #print STDERR "'$book' '$chapter'\n";
         my $versions = extract_all_versions($book, $chapter, $session);
         for my $v (@$versions){
             next unless defined $v;
-            my $date = $v->[1]->get('TOPICINFO')->{'date'};
-            push @$v, $chapter;
-            my @c;
-            if (defined $commits{$date}){
-                @c = @{$commits{$date}};
+            eval {
+                my $date = $v->[1]->get('TOPICINFO')->{'date'};
+                push @$v, $chapter;
+                my @c;
+                if (defined $commits{$date}){
+                    @c = @{$commits{$date}};
+                }
+                push @c, $v;
+                $commits{$date} = \@c;
+            };
+            if ($@){
+                warn $@;
+                print STDERR $v; #Dumper($v);
             }
-            push @c, $v;
-            $commits{$date} = \@c;
         }
     }
 
