@@ -36,6 +36,9 @@ use strict;
 use warnings;
 use integer;
 
+use POSIX qw(strftime);
+use Data::Dumper;
+
 use constant FIND_EMAILS => 1;
 
 BEGIN {
@@ -189,34 +192,100 @@ sub get_chapters {
     return @chapters;
 }
 
+
 =pod
 
- commit_versions
+ printer
 
-Extract all versions of each file and commit them in creation order.
-This is a bit harder than doing each file at a time, but it will make
-the git history more useful.
+Summary of a chapter revision to STDOUT.
 
 =cut
 
-sub commit_versions {
+sub printer {
+    my ($text, $meta, $date, $title) = @_;
+    my $info = $meta->get('TOPICINFO');
+    my $s = sprintf ("%11s %20.20s %-5.5s %15.15s %.30s", $date, $title,
+                     $info->{version}, $info->{author}, $text);
+    $s =~ s/\n/ /g;
+    print "$s\n";
+};
+
+
+sub staging_header {
+    my $meta = shift;
+    my $header = "chapter: $meta->{_topic}\n";
+    my $info = $meta->get('TOPICINFO');
+    foreach ('book', 'version', 'date', 'author', 'email'){
+        if ($info->{$_}){
+            $header .= "$_: $info->{$_}\n";
+        }
+    }
+    $header .= "book2: $meta->{_web}\n";
+
+    foreach my $type (qw {FILEATTACHMENT PREFERENCE TOPICPARENT FIELD TOPICMOVED}){
+        next unless defined $meta->{$type};
+        foreach my $item (@{$meta->{$type}}){
+            $header .= "$type: ";
+            foreach my $k (sort keys %$item ){
+                $header .= "'$k'='$item->{$k}'";
+            }
+            $header .= "\n";
+        }
+    }
+    return $header;
+}
+
+
+=pod
+
+Save a chapter in the staging directory.
+
+=cut
+
+sub stage_commit {
+    my ($text, $meta, $date, $title) = @_;
+    my $info = $meta->get('TOPICINFO');
+    my $filename = sprintf ("%010d.%s.%s.%s", $date, $info->{book}, $title,
+                            $info->{version});
+
+    my $dir = $STAGING_DIR . '/' . strftime('%Y-%m', localtime($date));
+    mkdir($dir) unless (-d $dir);
+
+    my $fh;
+    open ($fh, '>', "$dir/$filename");
+    print $fh staging_header($meta);
+    print $fh "\n------8<-----------------\n";
+    print $fh $text;
+    close $fh;
+}
+
+
+=pod
+
+ process_versions
+
+Given a book and a function reference, call the function on every
+revision of every chapter of the book.
+
+The function should take the arguments ($text, $meta, $date, $title).
+
+=cut
+
+sub process_versions {
     my $book = shift;
     my $session = shift || new TWiki ('admin');
+    my $function = shift || \&printer;
 
-    my @chapters = get_chapters($book);
-    print "@chapters\n";
+    my @chapters = get_chapters($book, $session);
+    print STDERR "@chapters\n";
 
     my %commits;
 
     for my $chapter (@chapters){
-        print "'$book' '$chapter'\n";
+        print STDERR "'$book' '$chapter'\n";
         my $versions = extract_all_versions($book, $chapter, $session);
-        #print $versions, @$versions, "-------\n";
-        #print join '-', @$versions, '-';
         for my $v (@$versions){
             next unless defined $v;
-            #print $v;
-            #print @$v, "\n";
             my $date = $v->[1]->get('TOPICINFO')->{'date'};
             push @$v, $chapter;
             my @c;
@@ -231,16 +300,16 @@ sub commit_versions {
     my @dates = sort {$a <=> $b} keys %commits;
     for my $date (@dates){
         for my $v (@{$commits{$date}}){
-            my ($text, $meta, $chapter) = @$v;
-            my $info = $meta->get('TOPICINFO');
-            print "$date, $chapter, $info->{'version'},  $info->{'author'}", "\n";
+            my ($text, $meta, $title) = @$v;
+            &$function($text, $meta, $date, $title);
         }
     }
 }
 
-#chdir $TWIKI_PATH;
 
-commit_versions @ARGV;
+
+process_versions ($ARGV[0], undef, \&stage_commit);
+#process_versions ($ARGV[0], undef, \&printer);
 #save_versions @ARGV;
 #save_versions "Inkscape", "Introduction", $ARGV[0];
 
