@@ -59,6 +59,9 @@ my @BAD_CHAPTERS = qw{WebAtom WebPreferences WebChanges WebRss
     WebTopicCreator WebTopicEditTemplate
 };
 
+my %BAD_BOOKS = map {($_ => 1)} qw{Main TWiki PR Trash};
+
+
 
 =pod
 
@@ -307,9 +310,21 @@ sub process_versions {
 }
 
 
+sub process_repository {
+    my $function = shift || \&printer;
+    my $filter = shift || '.';
+    my $session = shift || new TWiki ('admin');
+    for my $book ($session->{store}->getListOfWebs){
+        next if ($BAD_BOOKS{$book} || $book !~ /$filter/);
+        print STDERR "'$book'\n";
+        process_book($book, $function, $session);
+    }
+}
 
-process_versions ($ARGV[0], undef, \&stage_commit);
-#process_versions ($ARGV[0], undef, \&printer);
+
+process_repository(\&stage_commit);
+#process_book($ARGV[0], \&stage_commit);
+#process_book($ARGV[0], \&printer);
 #save_versions @ARGV;
 #save_versions "Inkscape", "Introduction", $ARGV[0];
 
