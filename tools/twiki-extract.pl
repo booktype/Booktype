@@ -141,9 +141,13 @@ sub extract_all_versions {
     #my @versions = ['', new TWiki::Meta($session, $webName, $topicName)];
     my @versions;
 
+    my $oldtext = 'Something to avoid annoying warnings';
     foreach (1 .. $head){
         my ($text, $meta) = render_version($webName, $topicName, $_, $session);
-        $versions[$_] = [$text, $meta];
+        if ($text ne $oldtext){
+            $versions[$_] = [$text, $meta];
+        }
+        $oldtext = $text;
     }
     return \@versions;
 }
