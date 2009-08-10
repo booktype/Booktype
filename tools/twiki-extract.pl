@@ -95,6 +95,10 @@ sub render_version {
     # Try to set the author's email to something sensible, if possible
     my $info = $meta->get('TOPICINFO');
     my $author = $info->{'author'};
+    if (! defined $author){
+        $author = 'Anonymous';
+        print STDERR "Anonymous author on $webName.$topicName v$revision\n";
+    }
     if (FIND_EMAILS){
         my $user = $session->{users}->findUserByWikiName($author);
         $info->{email} = $session->{users}->getEmails($user);
