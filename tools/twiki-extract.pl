@@ -58,18 +58,22 @@ my @BAD_CHAPTERS = qw{WebAtom WebPreferences WebChanges WebRss
 
 =pod
 
- render_version($webName, $topicName, $revision, $session, $raw) = @_;
-   ==> ($text, $meta)
+Get the text and metadata of a twiki page revision.  An attempt is
+made to put the committers correct email in the metadata.
+
+ render_version($webName, $topicName, $revision, $session, $raw) ==> ($text, $meta)
 
  * =$webName= the book.
  * =$topicName= the chapter.
- * =$session= a TWiki instance.  If undef, it will be created.
- * =$revision= the required version (RCS style "1.\d+", undef for the latest).
+ * =$session= a TWiki instance.  If undef, it will be created using the admin login.
+ * =$revision= the required version (undef for the latest).
+ * =$raw= is a flag to prevent the expansion of TWiki variables.
 
 Return values:
 
  * =$text= the text of the chapter, with twiki tags filled out
  * =$meta= a TWiki::Meta object
+
 =cut
 
 sub render_version {
