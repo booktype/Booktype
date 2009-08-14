@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="margin-bottom: 5px">
+  <div style="float: right">
+     <b>{{ user.username }}</b> | Settings | Help | <a href="/accounts/signout/">Sign out</a>
+  </div>
+  <b><a href="/">BOOKI</a></b>
+</div>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+ <tr>
+  <td valign="top" width="240">
+<img src="/site_media/images/aco_ikona.png" width="90%" height="90%"/>
+{{ user.email }}<br/>
+{{ user.first_name }}
+{{ user.last_name }}
+<br/><br/>
+<div style="border-bottom: 1px solid #c0c0c0"></div>
+
+<h2>Create new book</h2>
+<form action="." method="POST">
+<table>
+{{ project_form.as_table }}
+</table>
+<br/><br/>
+<button>Create</button>
+</form>
+
+  </td>
+  <td width="10"></td>
+  <td valign="top">
+<h2>Books</h2>
+<div style="border-bottom: 1px solid #c0c0c0"></div>
+<ul>
+{% for book in books %}
+   <li><a href="/{{ book.url_title|urlencode}}/{{ book.url_title|urlencode}}/">{{ book.title }}</a></li>
+{% endfor %}
+</ul>
+
+<h2>Groups</h2>
+<div style="border-bottom: 1px solid #c0c0c0"></div>
+
+  </td>
+ </tr>
+</table>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ project }}</h1>
+
+<ul>
+ {% for bo in books %}
+   <li><a href="{{ bo.url_title }}/">{{ bo.title }}</a></li>
+ {% endfor %}
+</ul>
+
+<hr>
+<a href="edit/">EDIT</a>
+
+{% endblock %}
