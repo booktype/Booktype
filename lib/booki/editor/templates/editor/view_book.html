@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ book.title }}</h1>
+<ul>
+{% for chapter in chapters %}
+<li> {{ chapter.title }}  </li>
+{% endfor %}
+</ul>
+<hr/>
+
+{% for chapter in chapters %}
+<li> {{ chapter.content }}  </li>
+{% endfor %}
+<hr/>
+<a href="edit/">EDIT</a>
+
+{% endblock %}

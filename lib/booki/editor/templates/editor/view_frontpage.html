@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Booki</h1>
+<table border="0">
+ <tr>
+  <td valign="top" width="400">
+<div style="background-color: #f8e1a4;font-size: 12px; padding: 20px">
+{% if request.user.is_authenticated %}
+   Helou <a href="/accounts/{{ request.user.username }}">{{ request.user.username }}</a>.
+   Do you want to <a href="/accounts/signout/">sign out</a>?
+
+{% else %}
+ <h2>Sign in</h2>
+  <form method="POST" action="/accounts/signin/">
+USERNAME<br/>
+<input type="text" name="username"/><br/>
+PASSWORD<br/>
+<input type="password" name="password"/><br/>
+<br/>
+<button>Sign in</button>
+  </form>
+{% endif %}
+</div>
+  </td>
+  <td width="20"></td>
+  <td valign="top" width="400">
+<div style="background-color: #f8e1a4;font-size: 12px; padding: 20px;">
+{% if request.user.is_authenticated %}
+No idea what to put here
+{% else %}
+ <h2>Register</h2>
+  <form method="POST" action="/accounts/register/">
+USERNAME<br/>
+<input type="text" name="username"/><br/>
+E-MAIL<br/>
+<input type="text" name="email"/><br/>
+PASSWORD<br/>
+<input type="password" name="password"/><br/>
+<br/>
+<button>Register</button>
+
+  </form>
+{% endif %}
+
+  </td>
+ </tr>
+</table>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+{% endblock %}
