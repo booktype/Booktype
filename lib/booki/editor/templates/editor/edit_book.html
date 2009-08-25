@@ -20,6 +20,7 @@
 
 	    $.booki.editor.initEditor();
 
+
             $.booki.subscribeToChannel("/booki/", function(message) {
 
             });
@@ -39,6 +40,8 @@
 
           // start Sputnik
           jQuery.booki.network._transport.connect();
+
+	    $("#datepicker").datepicker({"onSelect": function(a) { alert(a)}});
 
 	});
 
@@ -73,7 +76,7 @@ some notification. this should be on top of visible page and not top of page.
 	<ul>
 		<li><a href="#chapters">Chapters</a></li>
 		<li><a href="#settings">People</a></li>
-		<li><a href="#settings">Chat</a></li>
+		<li><a href="#bigchat">Chat</a></li>
 		<li><a href="#settings">Settings</a></li>
 
 	</ul>
@@ -110,10 +113,11 @@ This is temporary interface.
 
 <div id="editor" style="display: none">
 <form method="GET" action="javascript: return void(0)">
-<button class="save">Save</button>
+<input type="hidden" name="chapter_id" value=""/>
+<input type="button" class="save" name="save" value="Save"/>
 <button class="cancel">Cancel</button>
 <br/>
-<input type="text" style="width: 500px">
+<input type="text" name="title" style="width: 500px">
 <br/>
 <textarea style="width: 500px; height: 400px">
 </textarea>
@@ -122,6 +126,10 @@ This is temporary interface.
 
 </td>
 <td valign="top" width="200">
+<h4>Chat</h4>
+<div id="chat">
+</div>
+
 <h4>Active sessions (debug)</h4>
  <div id="users">
  </div>
@@ -147,6 +155,27 @@ This is temporary interface.
 
 
 	</div>
+<div id="bigchat">
+<table border="0">
+<tr>
+<td width="100%">
+<div id="chat2">
+</div>
+</td>
+<td width="20"></td>
+<td valign="top">
+<h4>Search conversations</h4>
+<form>
+<input type="text" style="width:  200px">
+</form>
+<h4>Conversation history</h4>
+<div id="datepicker" ></div>
+
+</td>
+</tr>
+</table>
+
+</div>
 	<div id="settings">
 Book settings.
 	</div>

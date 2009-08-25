@@ -5,6 +5,69 @@ $(function() {
  *
  *
  * */	
+
+
+    /* booki.chat */
+
+    jQuery.namespace('jQuery.booki.chat');
+
+    jQuery.booki.chat = function() {
+	var element = null;
+	var element2 = null;
+
+	function showJoined(notice) {
+	    $('.content', element).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
+	    $('.content', element2).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
+	}
+
+	function formatMessage(from, message) {
+	    return $("<p><b>"+from+"</b>: "+message+"</p>");
+	}
+
+	function showMessage(from, message) {
+	    $(".content", element).append(formatMessage(from, message));
+	    $(".content", element2).append(formatMessage(from, message));
+
+	    
+	    $(".content", element).attr({ scrollTop: $(".content", element).attr("scrollHeight") });
+	    $(".content", element2).attr({ scrollTop: $(".content", element2).attr("scrollHeight") });
+	}
+
+
+	function initUI() {
+	    element2.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 500px; height: 400px; border: 1px solid gray; padding: 5px"></div><input type="text" style="width: 500px;"/></form>').submit(function() { var s = $("INPUT", element2).val(); $("INPUT", element2).attr("value", "");
+																																	 showMessage($.booki.username, s);
+  	    $.booki.sendToChannel("/chat/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
+
+}));
+
+	    element.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 200px; height: 400px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 200px;"/></form>').submit(function() { var s = $("INPUT", element).val(); $("INPUT", element).attr("value", "");
+																																	 showMessage($.booki.username, s);
+  	    $.booki.sendToChannel("/chat/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
+
+}));
+	}
+
+	
+	return {
+	    'initChat': function(elem, elem2) {
+		element = elem;
+		element2 = elem2;
+		initUI();
+
+		jQuery.booki.subscribeToChannel("/chat/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", function(message) {
+		    if(message.command == "user_joined") {
+			showJoined(message.user_joined);
+		    }
+
+		    if(message.command == "message_received") {
+			showMessage(message.from, message.message);
+		    }
+		});
+		
+	    }
+	};
+    }();
 	/* booki.editor */
 	
 	jQuery.namespace('jQuery.booki.editor');
@@ -13,9 +76,9 @@ $(function() {
 	    var chapters = null;
 	    
 	    function makeChapterLine(chapterID, name) {
-		return $('<li class="ui-state-default" id="item_'+chapterID+'"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont"><div class="title" style="float: left"><a href="#" onclick="$.booki.editor.editChapter('+chapterID+')">'+name+'</a></div><div class="status" style="float:right; font-size: 6pt">published</div><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></div></li>').dblclick(function() {
+		return $('<li class="ui-state-default" id="item_'+chapterID+'"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont"><div class="title" style="float: left"><a href="javascript:void(0)" onclick="$.booki.editor.editChapter('+chapterID+')">'+name+'</a></div><div class="status" style="float:right; font-size: 6pt">published</div><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></div></li>').dblclick(function() {
 			$.booki.ui.notify("Sending data...");
-			$.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "chapter_rename", "status": "start", "chapterID": chapterID}, function() {$.booki.ui.notify("")} );
+			$.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "chapter_status", "status": "rename", "chapterID": chapterID}, function() {$.booki.ui.notify("")} );
 			
 			
 			var s = $(".title", $(this)).text(); 
@@ -24,10 +87,17 @@ $(function() {
                         $("FORM", $(this)).append($('<a href="#">SAVE</a>').click(function() {alert("hej");}));
 			$("FORM", $(this)).append($('<span> </span>').html());
                         $("FORM", $(this)).append($('<a href="#">CANCEL</a>').click(function() { $.booki.ui.notify("Sending data...");
-				    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "chapter_rename", "status": "end", "chapterID": chapterID}, function() {$.booki.ui.notify("")} );$("#item_"+chapterID).replaceWith(makeChapterLine(chapterID, name));  }));
+				    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "chapter_status", "status": "normal", "chapterID": chapterID}, function() {$.booki.ui.notify("")} );$("#item_"+chapterID).replaceWith(makeChapterLine(chapterID, name));  }));
 		    });
 	    }
 	    
+	    function closeEditor() {
+		$("#editor").fadeOut("slow",
+				     function() {
+					 $("#editor").css("display", "none");
+                                         $("#container").hide().css("display", "block"); 
+				     });
+	    }
 	    
 	    return {
 		editChapter: function(chapterID) {
@@ -38,46 +108,57 @@ $(function() {
 					      $("#container").fadeOut("slow", function() {
 						      $("#container").css("display", "none");
 						      $("#editor").css("display", "block").fadeIn("slow");
-						      $("#editor TEXTAREA").html(data.content);
-						      $("#editor INPUT").attr("value", data.title);
-						      $("#editor BUTTON[class=cancel]").click(function() {
-							      $("#editor").fadeOut("slow",
-										   function() {
-										       $("#editor").css("display", "none");                                           $("#container").hide().css("display", "block"); 
-										   });
-							      
-							  });  
+  						      $("#editor TEXTAREA").html(data.content);
+
+						      $("#editor INPUT[name=title]").attr("value", data.title);
+
+   						  $("#editor INPUT[name=chapter_id]").attr("value", chapterID);
+						  $("#editor INPUT[name=save]").unbind('click').click(function() {
+						      var content = $("#editor TEXTAREA").val();
+						      $.booki.ui.notify("Sending data...");
+						      $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "chapter_save", "chapterID": chapterID, "content": content}, function() {$.booki.ui.notify(); closeEditor(); } );
+						  });
+
+						  $("#editor BUTTON[class=cancel]").unbind('click').click(function() {
+							  $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "chapter_status", "status": "normal", "chapterID": chapterID});
+							  closeEditor();
+						      });  
 						  });
 					  });
 		},
 		
 		_initUI: function() {
-		    //$("#accordion").accordion({ header: "h3" });
+		    $("#tabs").tabs();
+		    $('#tabs').bind('tabsselect', function(event, ui) {});
+
+		    /* $("#accordion").accordion({ header: "h3" }); */
 		    $("#chapterslist").sortable({stop: function() { 
 				$.booki.ui.notify("Sending data...");
 				var result = $('#chapterslist').sortable('toArray'); 
 				$.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "chapters_changed", "chapters": result}, function() {$.booki.ui.notify()} );
 			    }, placeholder: 'ui-state-highlight', scroll: true});
-		    $("#tabs").tabs();
-		    $('#tabs').bind('tabsselect', function(event, ui) {});
+
+
+		    $.booki.chat.initChat($("#chat"), $("#chat2"));
 		},
 		
 		_loadInitialData : function() {
 		    $.booki.ui.notify("Loading...");
-		    
-		    jQuery.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "get_chapters"},
+
+		    jQuery.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "init_editor"},
 					       function(data) {
 						   $.booki.ui.notify("");
+
 						   $.each(data.chapters, function(i, elem) {
 							   makeChapterLine(elem[0], elem[1]).prependTo("#chapterslist");
-						       });
+						   });
+						   
+						   $.each(data.users, function(i, elem) {
+						       $("#users").append(elem+"<br/>");
+						   });
+
 					       });
-		    
-		    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "get_users"}, function (data) {
-			    $.each(data.users, function(i, elem) {
-				    $("#users").append(elem+"<br/>");
-				});
-			});
+
 		},
 		
 		/* initialize editor */
@@ -85,13 +166,13 @@ $(function() {
 		initEditor: function() {
 		    
 		    jQuery.booki.subscribeToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", function(message) {
-			    if(message.command == "chapter_rename") {
-				if(message.status == "start") {
+			    if(message.command == "chapter_status") {
+				if(message.status == "rename" || message.status == "edit") {
 				    $("#item_"+message.chapterID).css("color", "red");
 				    $(".extra", $("#item_"+message.chapterID)).html("Edited by "+message.username);
 				}
 				
-				if(message.status == "end") {
+				if(message.status == "normal") {
 				    $("#item_"+message.chapterID).css("color", "gray");
 				    $(".extra", $("#item_"+message.chapterID)).html("");          }
 			    }
@@ -114,7 +195,6 @@ $(function() {
 			    }
 			    
 			});
-		    
 		    
 		    
 		    $.booki.editor._initUI();

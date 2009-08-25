@@ -53,14 +53,15 @@ import redis
 sputnik_mapper = (
   (r'^/booki/$', 'booki_main'),
 #  (r'^/booki/book/(\d+)/(\d+)/$', "booki_book"),
-  (r'^/booki/book/(?P<projectid>\d+)/(?P<bookid>\d+)/$', 'booki_book')
+  (r'^/booki/book/(?P<projectid>\d+)/(?P<bookid>\d+)/$', 'booki_book'),
+  (r'^/chat/(?P<projectid>\d+)/(?P<bookid>\d+)/$', 'booki_chat')
 )
 
 def dispatcher(request):
     global _clientID
 
     import simplejson, re, sputnik
- 
+
     inp =  request.POST
 
     results = []
@@ -70,10 +71,11 @@ def dispatcher(request):
 
     r = redis.Redis()
 
-    for message in messages:
-        if inp.has_key("clientID") and inp["clientID"]:
-            clientID = inp["clientID"]
+    # nesto zajebava
+    if inp.has_key("clientID") and inp["clientID"]:
+        clientID = inp["clientID"]
 
+    for message in messages:
         ret = None
         for mpr in sputnik_mapper:
             mtch = re.match(mpr[0], message["channel"])
@@ -81,8 +83,10 @@ def dispatcher(request):
                 a =  mtch.groupdict()
                 fnc = getattr(sputnik, mpr[1])
 
-                request.sputnikID = "%s:%s" % (request.session.session_key, clientID)
-                request.clientID  = clientID
+                if not hasattr(request, "sputnikID"):
+                    request.sputnikID = "%s:%s" % (request.session.session_key, clientID)
+                    request.clientID  = clientID
+
                 ret = fnc(request, message, **a)
                 ret["uid"] = message.get("uid")
 
