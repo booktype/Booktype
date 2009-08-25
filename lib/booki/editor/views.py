@@ -18,10 +18,22 @@ def edit_book(request, project, edition):
     return render_to_response('editor/edit_book.html', {"project": project, "book": book, "chapters": chapters, "request": request})
 
 def view_book(request, project, edition):
-    book = models.Book.objects.get(project__url_name__iexact=project, url_title__iexact=edition)
-    chapters = models.Chapter.objects.filter(book=book)
+    proj = models.Project.objects.get(url_name__iexact=project)
+    # ovaj tu neshto zeza
+    book = models.Book.objects.get(project=proj, url_title__iexact=edition)
 
-    return render_to_response('editor/view_book.html', {"project": project, "book": book, "chapters": chapters})
+    chapters = models.BookToc.objects.filter(book=book).order_by("weight")
+
+    return render_to_response('editor/view_book.html', {"project": proj, "book": book, "chapters": chapters, "request": request})
+
+def view_chapter(request, project, edition, chapter):
+    proj = models.Project.objects.get(url_name__iexact=project)
+    book = models.Book.objects.get(project=proj, url_title__iexact=edition)
+    chapters = models.BookToc.objects.filter(book=book).order_by("weight")
+
+    content = models.Chapter.objects.get(book = book, url_title = chapter)
+
+    return render_to_response('editor/view_chapter.html', {"chapter": chapter, "project": proj, "book": book, "chapters": chapters, "request": request, "content": content})
 
 
 # PROJECT

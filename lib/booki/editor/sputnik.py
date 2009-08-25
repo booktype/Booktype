@@ -219,9 +219,14 @@ def booki_book(request, message, projectid, bookid):
         project = models.Project.objects.get(id=projectid)
         book = models.Book.objects.get(project=project, id=bookid)
 
+        from django.template.defaultfilters import slugify
+
+        url_title = slugify(message["chapter"])
+
+
         s = models.ProjectStatus.objects.all()[0]
         chapter = models.Chapter(book = book,
-                                 url_title = message["chapter"],
+                                 url_title = url_title,
                                  title = message["chapter"],
                                  status = s,
                                  created = datetime.datetime.now(),

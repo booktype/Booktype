@@ -31,7 +31,7 @@
 </ul>
  </td>
  <td valign="top">
-click on the chapter name
+{{ content.content|safe }}
 <hr/>
 <a href="{% url view_book  project.url_name book.url_title %}edit/">EDIT</a>
  </td>
