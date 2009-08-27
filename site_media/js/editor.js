@@ -126,7 +126,7 @@ $(function() {
                                                       
 						     /* xinha */
 						  setTimeout(xinha_init,  0);
-  						  setTimeout(_f(data), 1000);
+  						  setTimeout(_f(data), 100);
 
 						      $("#editor INPUT[name=title]").attr("value", data.title);
 
