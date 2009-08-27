@@ -1,0 +1,179 @@
+<html>
+
+<head>
+  <title>Insert/Edit Form Element INPUT</title>
+  <link rel="stylesheet" type="text/css" href="../../../popups/popup.css" />
+  <script type="text/javascript" src="../../../popups/popup.js"></script>
+
+<script type="text/javascript">
+var fields = null;
+var type;
+function Init() {
+  __dlg_translate("Forms");
+  __dlg_init();
+  var param = window.dialogArguments;
+  type = param.f_type;
+  document.getElementById("f_type").innerHTML = Xinha._lc('Form Element: INPUT', "Forms") + '(' + type + ')';
+  document.getElementById("txt").style.display = "none";
+  document.getElementById("chk").style.display = "none";
+  document.getElementById("btn").style.display = "none";
+  document.getElementById("img").style.display = "none";
+  switch (type) {
+    case "text":
+    case "password":
+      fields = ["f_name", "f_value", "f_readOnly", "f_disabled", "f_tabindex", "f_accesskey", "f_size", "f_maxLength"];
+      height = 350;
+      document.getElementById("txt").style.display = "block";
+      break;
+    case "checkbox":
+    case "radio":
+      fields = ["f_name", "f_value", "f_checked", "f_disabled", "f_tabindex", "f_accesskey"];
+      document.getElementById("chk").style.display = "block";
+      height = 280;
+      break;
+    case "button":
+      fields = ["f_name", "f_value", "f_disabled", "f_onclick", "f_tabindex", "f_accesskey"];
+      document.getElementById("btn").style.display = "block";
+      height = 300;
+      break;
+    case "file":
+      fields = ["f_name", "f_disabled", "f_tabindex", "f_accesskey"];
+      document.getElementById("f_value").disabled = true;
+      height = 280;
+      break;
+    case "image":
+      fields = ["f_name", "f_disabled", "f_tabindex", "f_accesskey", "f_src"];
+      document.getElementById("img").style.display = "block";
+      document.getElementById("f_value").disabled = true;
+      height = 300;
+      break;
+    case "reset":
+    case "submit":
+      fields = ["f_name", "f_value", "f_disabled", "f_tabindex", "f_accesskey"];
+      height =260;
+      break;
+    case "hidden":
+      fields = ["f_name", "f_value"];
+      document.getElementById("f_disabled").disabled = true;
+      document.getElementById("f_tabindex").disabled = true;
+      document.getElementById("f_accesskey").disabled = true;
+      height =260;
+      break;
+  }
+  for (var i in fields) {
+    switch (fields[i]) {
+    case "f_readOnly":
+    case "f_disabled":
+    case "f_checked":
+      document.getElementById(fields[i]).checked = (param[fields[i]]==fields[i].substring(2,20)) || (param[fields[i]] == true); break;
+    default:
+      document.getElementById(fields[i]).value = param[fields[i]]; break;
+    }
+  }
+  window.resizeTo(320,height);
+  document.getElementById("f_name").focus();
+}
+
+function onOK() {
+  var el = document.getElementById("f_name");
+  if (!el.value) {
+    alert(Xinha._lc("You must enter a Name","Forms"));
+    el.focus();
+    return false;
+  }
+  // pass data back to the calling window
+  var param = new Object();
+  for (var i in fields) {
+    switch (fields[i]) {
+    case "f_readOnly":
+    case "f_disabled":
+    case "f_checked":
+      if(Xinha.is_ie)
+        param[fields[i]] = (document.getElementById(fields[i]).checked)?true:"";
+      else
+        param[fields[i]] = (document.getElementById(fields[i]).checked)?fields[i].substring(2,20):"";
+      break;
+    default:
+      param[fields[i]] = document.getElementById(fields[i]).value; break;
+    }
+  }
+  __dlg_close(param);
+  return false;
+}
+
+function onCancel() {
+  __dlg_close(null);
+  return false;
+}
+</script>
+
+</head>
+
+<body class="dialog" onload="Init()">
+  <div id="f_type" class="title"></div>
+  <form action="" method="get">
+    <div class="fr">Name/ID:</div>
+    <input type="text" name="name" id="f_name" title="Name of the form input" />
+    <p />
+    <div class="fr">Value:</div>
+    <input type="text" name="value" id="f_value" title="Value of the form input" />
+    <p />
+    <div class="fr">Disabled</div>
+    <input type="checkbox" name="disabled" id="f_disabled" value="disabled" />
+    <p />
+
+  <div id="chk">
+    <div class="fr">Checked</div>
+      <input name="checked" id="f_checked" type="checkbox" value="on" />
+    <p />
+  </div>
+
+    <div class="fr">Tab Index:</div>
+    <input type="text" name="tabindex" id="f_tabindex" />
+    <p />
+    <div class="fr">Access Key:</div>
+    <input type="text" name="accesskey" id="f_accesskey" />
+    <p />
+
+  <div id="txt">
+    <div class="fr">Read Only</div>
+    <input type="checkbox" name="readOnly" id="f_readOnly" value="readOnly" />
+    <p />
+
+    <fieldset>
+    <legend>Dimensions</legend>
+      <div class="space"></div>
+      <div class="fr">Size:</div>
+      <input type="text" name="size" id="f_size" size="5" title="Size of text box in characters" />
+      <div class="space"></div>
+      <div class="fr">Max length:</div>
+      <input type="text" name="maxLength" id="f_maxLength" size="5"	title="Maximum number of characters accepted" />
+      <div class="space"></div>
+    </fieldset>
+  </div>
+  <div id="btn">
+    <fieldset>
+    <legend> Button Script</legend>
+      <div class="space"></div>
+      <div class="fr">'onClick'=</div>
+      <input type="text" name="onClick" id="f_onclick" title="Javascript for button click" />
+      <div class="space"></div>
+    </fieldset>
+  </div>
+  <div id="img">
+    <fieldset>
+    <legend>Image source</legend>
+      <div class="space"></div>
+      <div class="fr">Image URL:</div>
+      <input type="text" name="src" id="f_src" title="URL of image" />
+      <div class="space"></div>
+    </fieldset>
+  </div>
+  <div id="buttons">
+    <button type="button" name="ok" onclick="return onOK();">OK</button>
+    <button type="button" name="cancel" onclick="return onCancel();">Cancel</button>
+  </div>
+</form>
+
+</body>
+</html>

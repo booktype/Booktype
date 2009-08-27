@@ -8,6 +8,8 @@
         <script type="text/javascript">
 	$(function() {
 
+
+	    /* booki part */
             /* this is temporary here */
 
            $.booki.username = "{{request.user.username}}";
@@ -46,6 +48,43 @@
 	});
 
                  </script>
+
+<script type="text/javascript">
+  var _editor_url = "/site_media/xinha/";
+  var _editor_lang = "en";
+</script>
+<script type="text/javascript" src="/site_media/xinha/XinhaCore.js"></script>
+<script type="text/javascript">
+
+var xinha_plugins =
+[
+ 'Linker'
+];
+var xinha_editors =
+[
+  'myTextArea'
+];
+
+var prvi = false;
+
+function xinha_init()
+{
+  if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
+
+  if(prvi) return;
+
+    var xinha_config = new Xinha.Config();
+
+    xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
+
+    Xinha.startEditors(xinha_editors);
+    prvi = true;
+
+
+}
+
+//Xinha.addOnloadHandler(xinha_init);
+</script>
 
 
 {% endblock %}
@@ -119,7 +158,7 @@ This is temporary interface.
 <br/>
 <input type="text" name="title" style="width: 500px">
 <br/>
-<textarea style="width: 500px; height: 400px">
+<textarea name="myTextArea" id="myTextArea" style="width: 500px; height: 600px">
 </textarea>
 </form>
 </div>

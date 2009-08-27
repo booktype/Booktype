@@ -74,6 +74,18 @@ $(function() {
 	
 	jQuery.booki.editor = function() {
 	    var chapters = null;
+
+	  function _f(data) {
+	    function _edi() {
+//	      xinha_init(); 
+	      
+	      var edi = xinha_editors.myTextArea; 
+	      if(edi) {
+		edi.setEditorContent(data.content);
+	      } 
+	    }
+	    return _edi;
+	  }
 	    
 	    function makeChapterLine(chapterID, name) {
 		return $('<li class="ui-state-default" id="item_'+chapterID+'"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont"><div class="title" style="float: left"><a href="javascript:void(0)" onclick="$.booki.editor.editChapter('+chapterID+')">'+name+'</a></div><div class="status" style="float:right; font-size: 6pt">published</div><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></div></li>').dblclick(function() {
@@ -106,15 +118,24 @@ $(function() {
 	{"command": "get_chapter", "chapterID": chapterID}, function(data) {
 					      $.booki.ui.notify();
 					      $("#container").fadeOut("slow", function() {
+
 						      $("#container").css("display", "none");
 						      $("#editor").css("display", "block").fadeIn("slow");
-  						      $("#editor TEXTAREA").html(data.content);
+//  						      $("#editor TEXTAREA").html(data.content);
+    						      
+                                                      
+						     /* xinha */
+						  setTimeout(xinha_init,  0);
+  						  setTimeout(_f(data), 1000);
 
 						      $("#editor INPUT[name=title]").attr("value", data.title);
 
    						  $("#editor INPUT[name=chapter_id]").attr("value", chapterID);
 						  $("#editor INPUT[name=save]").unbind('click').click(function() {
-						      var content = $("#editor TEXTAREA").val();
+//						      var content = $("#editor TEXTAREA").val();
+					              var edi = xinha_editors["myTextArea"]; 
+                                                      var content = edi.getEditorContent();
+
 						      $.booki.ui.notify("Sending data...");
 						      $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "chapter_save", "chapterID": chapterID, "content": content}, function() {$.booki.ui.notify(); closeEditor(); } );
 						  });
@@ -124,6 +145,9 @@ $(function() {
 							  closeEditor();
 						      });  
 						  });
+
+
+
 					  });
 		},
 		

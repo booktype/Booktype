@@ -1,0 +1,126 @@
+<h1 id="[h1]"><l10n>File Browser</l10n></h1>
+<div style="width:95px; float:left; height:100%">
+  <fieldset><legend><l10n>Places</l10n></legend>
+    <div class="placesmanager" id="[placesList]" title="_(List of Places)">
+      <div class="file" id="[WWW]"><img class="icon" src="../images/tango/32x32/apps/internet-web-browser.png"/><p class="filename">WWW</p></div>
+    </div>
+  </fieldset>
+</div>
+<div style="margin-left:100px;">
+  <div id="[placeBackend]">
+    <fieldset><legend><l10n>File Manager</l10n></legend>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tbody><tr>
+      <td style="padding: 10px;" nowrap="nowrap">
+
+        <label for="[filters]">Directory</label>
+        <select id="[filters]" class="dirWidth"></select>
+
+        <a href="#" id="[dirUp]" title="_(Directory Up)"><img src="../images/tango/16x16/actions/go-up.png" alt="_(Directory Up)" height="15" width="15"></a>
+
+
+        <a href="#" id="[dirCreate]" title="_(New Folder)"><img src="../images/tango/16x16/actions/folder-new.png" alt="_(New Folder)" height="15" width="15"></a>
+
+        <select id="[viewType]">
+            <option value="thumbnail" selected="selected">Thumbnail View</option>
+            <option value="listing">List View</option>
+        </select>
+      </td>
+      </tr>
+      <tr><td style="padding: 0px 10px 10px;">
+        <div class="filemanager" id="[fileList]" title="_(File List)"></div>
+      </td></tr>
+      </tbody></table>
+    </fieldset>
+    <fieldset id="[import]" class="collapsed">
+      <legend id="[importlegend]"><l10n>Import &#x2304;<!--&#x02c5;--></l10n></legend>
+      <div id="[importui]"></div>
+    </fieldset>
+  </div>
+  <div id="[placeWww]">
+    <fieldset><legend><l10n>Web URL</l10n></legend>
+      <label for="URL">Enter URL below:</label><br />
+      <input id="URL" type="text" size="50" />
+    </fieldset>
+  </div>
+
+  <fieldset id="[namefield]">
+    <legend><l10n>Filename</l10n></legend>
+    <input id="[filename]" type="text" />
+  </fieldset>
+
+  <fieldset id="[detailsfield]">
+    <legend><l10n>Details</l10n></legend>
+    <div id="[details_image]">
+      <table class="inputTable">
+        <tbody>
+          <tr>
+            <td style="text-align: right;"><label for="[image_alt]">Alt</label></td>
+            <td colspan="5"><input type="text" value="" id="[image_alt]"/></td>
+            <td style="vertical-align: top; text-align: center;" colspan="2" rowspan="5">
+              <div style="border: 1px inset ; padding: 4px; background-color: rgb(204, 204, 204); width: 100px; height: 100px;">
+                <img id="[image_preview]" alt="" src="img/1x1_transparent.gif"/>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: right;"> <label for="[image_width]">Width</label></td>
+            <td><input type="text" value="" id="[image_width]"/></td>
+            <td rowspan="2" style="vertical-align:middle"><img width="25" height="32" alt="Constrained Proportions" id="[image_constrain_icon]" src="img/locked.gif"/>
+              <input type="checkbox" onclick="javascript:toggleConstrains(this);" checked="checked" id="[image_constrain]" value="on" />
+              <label for="[image_constrain]">Constrain Proportions</label>
+            </td>
+
+            <td style="text-align: right;" rowspan="3"/>
+
+            <td style="text-align: right;"><label for="[image_margin]">Margin</label></td>
+
+            <td><input type="text" value="" class="smallWidth" id="[image_margin]"/></td>
+</tr>
+<tr>
+            <td style="text-align: right;"><label for="[image_height]">Height</label></td>
+
+            <td class="smallWidth"><input type="text" value="" class="smallWidth" id="[image_height]"/></td>
+
+            <td style="text-align: right;"><label for="[image_padding]">Padding</label></td>
+
+            <td><input type="text" value="" class="smallWidth" id="[image_padding]"/>
+            </td>
+
+                               <td style="text-align: left;">Color</td>
+                  <td>
+                  <input type="text" size="7" id="[image_backgroundColor]" /><span class="buttonColor"><span class="chooser"> </span><span class="nocolor">×</span></span>
+                </td>
+              </tr>
+<tr>
+            <td style="text-align: right;"><label for="[image_align]">Align</label></td>
+
+            <td colspan="2">                <select title="Positioning of this image" id="[image_align]" size="1">
+                  <option selected="selected" value="">Not set</option>
+                  <option value="left">Left</option>
+                  <option value="right">Right</option>
+                  <option value="texttop">Texttop</option>
+                  <option value="absmiddle">Absmiddle</option>
+                  <option value="baseline">Baseline</option>
+                  <option value="absbottom">Absbottom</option>
+                  <option value="bottom">Bottom</option>
+                  <option value="middle">Middle</option>
+                  <option value="top">Top</option>
+                </select>            </td>
+
+            <td style="text-align: right;"><label for="[image_border]">Border</label></td>
+            <td><input type="text" value="" class="smallWidth" id="[image_border]"/></td>
+                          <td style="text-align: left;">Border Color</td>
+            <td><input type="text" size="7" id="[image_borderColor]" /><span class="buttonColor"><span class="chooser"> </span><span class="nocolor">×</span></span></td>
+            </tr>
+</tbody></table>
+
+<!--// image properties -->    
+</div>
+    
+  </fieldset>
+
+    <input type="button" id="[confirm]" value="_(Confirm)" />
+    <input type="button" id="[cancel]" value="_(Cancel)" />
+  </div>
+</div>

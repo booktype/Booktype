@@ -1,0 +1,99 @@
+<html>
+<head>
+  <title>Marquee Editor</title>
+  <link rel="stylesheet" type="text/css" href="../../../popups/popup.css" />
+  <script type="text/javascript" src="../../../popups/popup.js"></script>
+
+<script type="text/javascript">
+
+var fields = ["f_name", "f_text", "f_direction", "f_behavior", "f_bgcolor", "f_width", "f_height", "f_scrollamount", "f_scrolldelay"];
+
+function Init() {
+  window.resizeTo(350, 380);
+  __dlg_translate('InsertMarquee');
+	__dlg_init();
+  var param = window.dialogArguments;
+  for (var i in fields) {
+    document.getElementById(fields[i]).value = param[fields[i]];
+  }
+ 	document.getElementById("f_name").focus();
+}
+
+function onOK() {
+  var required = {
+    "f_name": "You must enter the form name"
+  };
+  for (var i in required) {
+	  var el = document.getElementById(i);
+	  if (!el.value) {
+		alert(HTMLArea._lc(required[i], 'InsertMarquee'));
+		el.focus();
+		return false;
+	  }
+  }
+  // pass data back to the calling window
+  var param = new Object();
+  for (var i in fields) {
+    param[fields[i]] = document.getElementById(fields[i]).value;
+  }
+  __dlg_close(param);
+  return false;
+}
+
+function onCancel() {
+  __dlg_close(null);
+  return false;
+}
+
+</script>
+<style type="text/css">
+.fr { width: 9em; float: left; padding: 2px 5px; text-align: right; }
+</style>
+</head>
+<body class="dialog" onload="Init()">
+<div class="title">Marquee Editor</div>
+<form>
+  <div class="fr">Name/ID:</div>
+  <input type="text" name="name" id="f_name" size="20" title="Name" value="" />
+  <p />
+  <div class="fr">Direction:</div>
+  <select id="f_direction" name="direction">
+	  <option value="">Left</option>
+	  <option value="right">Right</option>
+  </select>
+  <p />
+  <div class="fr">Behavior:</div>
+  <select id="f_behavior" name="behavior">
+   	<option value="">Continuous</option>
+   	<option value="slide">Slide</option>
+   	<option value="alternate">Alternate</option>
+  </select>
+  <p />
+  <div class="fr">Text:</div>
+  <input type="text" id="f_text" name="text" value="" size="30" />
+  <p />
+  <div class="fr">Background-Color:</div>
+  <input type="text" id="f_bgcolor" name="bgcolor" value="" size="30" />
+  <p />
+  <div class="fr">Width:</div>
+  <input type="text" id="f_width" name="width" value="100" size="5" maxlength="4" />
+  <p />
+  <div class="fr">Height:</div>
+  <input type="text" id="f_height" name="height" value="100" size="5" maxlength="4" />
+  <p />
+  <fieldset>
+  <legend>Speed Control</legend>
+    <div class="fr">Scroll Amount:</div>
+    <input type="text" id="f_scrollamount" name="scrollamount" value="100" maxlength="4" />
+    <p />
+    <div class="fr">Scroll Delay:</div>
+    <input type="text" id="f_scrolldelay" name="scrolldelay" value="100" maxlength="4" />
+    <p />
+  </fieldset>  
+<div id="buttons">
+   <button type="submit" name="ok" onclick="return onOK();">OK</button>
+   <button type="button" name="cancel" onclick="return onCancel();">Cancel</button>
+</div>
+</form>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+  <title>Merge Cells</title>
+
+<link rel="stylesheet" type="text/css" href="../../../popups/popup.css" />
+<style type="text/css">
+  html,body {width: 400px; height: 150px;}
+</style>
+<script type="text/javascript" src="../../../popups/popup.js"></script>
+
+<script type="text/javascript">
+function Init() {
+  window.resizeTo(400,170);
+	__dlg_init();
+ 	document.getElementById("f_cols").focus();
+}
+
+function onOK() {
+  var param = new Object();
+  param["f_cols"] = document.getElementById("f_cols").value;
+  param["f_rows"] = document.getElementById("f_rows").value;
+  __dlg_close(param);
+  return false;
+}
+
+function onCancel() {
+  __dlg_close(null);
+  return false;
+}
+</script>
+
+</head>
+
+<body onload="Init()">
+<form action="" method="get">
+<table width="100%">
+<tr>
+  <td colspan="2">
+	<div class="title">Merge Cells</div>
+  </td>
+</tr>
+<tr>
+  <td colspan="2">
+	Merge current cell with:
+  </td>
+</tr>
+<tr>
+  <td style="text-align: right;" width="30%"><input type="text" name="cols" value="0" id="f_cols" size="4" title="Columns" /></td>
+  <td width="70%">Cells to the right, and</td>
+</tr>
+<tr>
+  <td style="text-align: right;"><input type="text" name="rows" value="0" id="f_rows" size="4" title="Rows" /></td>
+  <td>Cells down</td>
+</tr>
+<tr>
+  <td colspan="2" style="text-align: right;">
+    <hr />
+    <button type="button" name="ok" onclick="return onOK();">OK</button>
+    <button type="button" name="cancel" onclick="return onCancel();">Cancel</button>
+  </td>
+</tr>
+</table>
+</form>
+
+</body>
+</html>

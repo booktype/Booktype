@@ -1,0 +1,112 @@
+<html>
+
+<head>
+  <title>Insert/Edit Form Element TEXTAREA</title>
+  <link rel="stylesheet" type="text/css" href="../../../popups/popup.css" />
+  <script type="text/javascript" src="../../../popups/popup.js"></script>
+
+<script type="text/javascript">
+
+var fields = ["f_name", "f_text", "f_cols", "f_rows", "f_wrap", "f_tabindex", "f_accesskey", "f_readOnly", "f_disabled"];
+
+function Init() {
+  __dlg_translate("Forms");
+  __dlg_init(null,{width:260, height:380});
+  var param = window.dialogArguments;
+  for (var i in fields) {
+    switch (fields[i]) {
+    case "f_readOnly":
+    case "f_disabled":
+      document.getElementById(fields[i]).checked = (param[fields[i]]==fields[i].substring(2,20)) || (param[fields[i]] == true);  break;
+    default:
+      document.getElementById(fields[i]).value = param[fields[i]]; break;
+    }
+  }
+  document.getElementById("f_name").focus();
+}
+
+function onOK() {
+  var el = document.getElementById("f_name");
+  if (!el.value) {
+    alert(Xinha._lc("You must enter a Name","Forms"));
+    el.focus();
+    return false;
+  }
+  // pass data back to the calling window
+  var param = new Object();
+  for (var i in fields) {
+    switch (fields[i]) {
+    case "f_readOnly":
+    case "f_disabled":
+      if(Xinha.is_ie)
+        param[fields[i]] = (document.getElementById(fields[i]).checked)?true:"";
+      else
+        param[fields[i]] = (document.getElementById(fields[i]).checked)?fields[i].substring(2,20):"";
+      break;
+    default:
+      param[fields[i]] = document.getElementById(fields[i]).value; break;
+    }
+  }
+  __dlg_close(param);
+  return false;
+}
+
+function onCancel() {
+  __dlg_close(null);
+  return false;
+}
+</script>
+</head>
+
+<body class="dialog" onload="Init()">
+<div id="f_type" class="title">Form Element: TEXTAREA</div>
+<form action="" method="get">
+  <div class="fr">Name/ID:</div>
+  <input type="text" name="name" id="f_name" title="name of the textarea" />
+  <p />
+  <fieldset>
+  <legend>Dimensions</legend>
+    <div class="fr">Columns:</div>
+    <input type="text" name="cols" id="f_cols" size="5" title="Width in number of characters" />
+    <p />
+    <div class="fr">Rows:</div>
+    <input type="text" name="rows" id="f_rows" size="5" title="Height in number of rows" />
+    <p />
+  </fieldset>
+  <div class="space"></div>
+  <div class="fr">Wrap Mode:</div>
+  <select name="wrap" id="f_wrap">
+    <option value=""></option>
+    <option value="off">Off</option>
+    <option value="soft">Soft</option>
+    <option value="hard">Hard</option>
+    <option value="physical">Physical</option>
+    <option value="virtual">Virtual</option>
+    <option value="normal">normal</option>
+    <option value="nowrap">nowrap</option>
+    <option value="pre">pre</option>
+  </select>
+  <p />
+  <div class="fr">Read Only</div>
+  <input type="checkbox" name="readOnly" id="f_readOnly" value="readOnly" />
+  <p />
+  <div class="fr">Disabled</div>
+  <input type="checkbox" name="disabled" id="f_disabled" value="disabled" />
+  <p />
+  <div class="fr">Tab Index:</div>
+  <input type="text" name="tabindex" id="f_tabindex" />
+  <p />
+  <div class="fr">Access Key:</div>
+  <input type="text" name="accesskey" id="f_accesskey" />
+  <p />
+
+  <div class="fr">Initial Text:</div>
+  <input type="text" name="text" id="f_text" title="Default text (optional)" />
+  <div id="buttons">
+    <button type="button" name="ok" onclick="return onOK();">OK</button>
+    <button type="button" name="cancel" onclick="return onCancel();">Cancel</button>
+  </div>
+</form>
+
+</body>
+</html>

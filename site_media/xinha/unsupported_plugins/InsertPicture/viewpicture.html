@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<title>Preview</title>
+<script language="JavaScript" type="text/javascript">
+<!--
+function imgWait() {
+	waiting = window.setInterval("imgIsLoaded()", 1000);
+}
+function imgIsLoaded() {
+	if(document.getElementById("myImg").width > 0) {
+	  window.clearInterval(waiting);
+	  imgShowWidth();
+	}
+}
+function imgShowWidth() {
+	var width    = document.getElementById("myImg").width;
+	var height   = document.getElementById("myImg").height;
+	if(width > 120) {
+	  var dx = (120 / width);
+	  var dy = (120 / height);
+	  ratio  = dx < dy ? dx : dy;
+	  // keep aspect ratio
+	  width  = width * ratio;
+	  height = height * ratio;
+	  document.getElementById("myImg").width  = width;
+	  document.getElementById("myImg").height = height;
+	}
+	document.getElementById("myImg").style.visibility = 'visible';
+}
+function showPreview() {
+	img = document.location.toString().split("?");
+    document.getElementById("myImg").src = img[1];
+	img.onLoad = imgWait();
+}
+//-->
+</script>
+</head>
+<body  marginwidth="5px" marginheight="5px" topmargin="5px" leftmargin="5px" rightmargin="5px">
+<img id="myImg" src="" Style="visibility:hidden">
+<script language="JavaScript" type="text/javascript">
+  showPreview();
+</script>
+
+</body>
+</html>

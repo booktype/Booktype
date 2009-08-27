@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Edit Tag By Peg</title>
+  <link rel="stylesheet" type="text/css" href="../../../popups/popup.css" />
+  <script type="text/javascript" src="../../../popups/popup.js"></script>
+<script language="javascript">
+  window.resizeTo(600, 450);
+function Init() {
+  __dlg_translate("EditTag");
+  __dlg_init();
+
+  var param = window.dialogArguments;
+  document.getElementById("TAG").value = param["content"];
+  document.getElementById("TAG").focus();
+}
+
+function onCancel() {
+  __dlg_close( null );
+  return false;
+}
+
+function onOK() {
+  var ret = document.getElementById("TAG").value;
+  __dlg_close( ret );
+}
+</script>
+</head>
+
+<body class="dialog" onLoad="Init();">
+<div class="title">Tag Editor</div>
+<textarea name="TAG" id="TAG" cols=22 rows=5 style="width: 100%; height: 315px; margin-top: 8px; margin-bottom: 4px; font-family: monospace; font-size: 11px;"></textarea>
+<div id="buttons">
+    <button type="submit" name="ok" onclick="return onOK();">OK</button>
+    <button type="button" name="cancel" onclick="return onCancel();">Cancel</button>
+</div>
+</body>
+</html>

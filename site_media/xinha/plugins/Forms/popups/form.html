@@ -1,0 +1,89 @@
+<html>
+
+<head>
+  <title>Insert/Edit Form</title>
+  <link rel="stylesheet" type="text/css" href="../../../popups/popup.css" />
+  <script type="text/javascript" src="../../../popups/popup.js"></script>
+
+<script type="text/javascript">
+
+var fields = ["f_name", "f_action", "f_method", "f_enctype", "f_target"];
+
+function Init() {
+  __dlg_translate("Forms");
+  __dlg_init(null,{width:360, height:280});
+  var param = window.dialogArguments;
+  for (var i in fields) {
+    document.getElementById(fields[i]).value = param[fields[i]];
+  }
+  document.getElementById("f_name").focus();
+}
+
+function onOK() {
+  var required = {
+    "f_name": "You must enter the form name"
+  };
+  for (var i in required) {
+    var el = document.getElementById(i);
+    if (!el.value) {
+      alert(Xinha._lc(required[i],"Forms"));
+      el.focus();
+      return false;
+    }
+  }
+  // pass data back to the calling window
+  var param = new Object();
+  for (var i in fields) {
+    param[fields[i]] = document.getElementById(fields[i]).value;
+  }
+  __dlg_close(param);
+  return false;
+}
+
+function onCancel() {
+  __dlg_close(null);
+  return false;
+}
+</script>
+</head>
+
+<body class="dialog" onload="Init()">
+<div class="title">Form</div>
+<form action="" method="get">
+  <div class="fr">Form Name:</div>
+  <input type="text" name="name" id="f_name" size="20" title="Name" />
+  <p />
+
+  <fieldset>
+  <legend>Form handler script</legend>
+  <div class="space"></div>
+  <div class="fr">Action URL:</div>
+  <input name="action" id="f_action" type="text" size="30">
+  <p />
+  <div class="fr">Method:</div>
+  <select name="f_method" id="f_method">
+    <option value=""></option>
+    <option value="post">Post</option>
+    <option value="get">Get</option>
+  </select>
+  <div class="space"></div>
+  <div class="fr">Encoding:</div>
+  <select name="enctype" id="f_enctype">
+    <option value=""></option>
+    <option value="application/x-www-form-urlencoded">HTML-Form to CGI (default)</option>
+    <option value="multipart/form-data">multipart Form Data (File-Upload)</option>
+  </select>
+  <p />
+  <div class="fr">Target Frame:</div>
+  <input name="target" id="f_target" type="text" size="30">
+  <p />
+  </fieldset>
+
+<div id="buttons">
+  <button type="button" name="ok" onclick="return onOK();">OK</button>
+  <button type="button" name="cancel" onclick="return onCancel();">Cancel</button>
+</div>
+</form>
+
+</body>
+</html>

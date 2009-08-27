@@ -1,0 +1,8 @@
+ExecCGI Note:
+If you intend to use the perl (.cgi) backend then you will need to have the ExecCGI option enabled for this directory (if you are using Apache), you may be able to do this by adding a file called .htaccess in this directory, with the below contents.
+
+## EXAMPLE .htaccess
+Options +ExecCGI
+####################
+
+It is however recommended that you use the PHP backend where possible.
