@@ -2,6 +2,7 @@
 import os, sys, time, re
 from subprocess import check_call, Popen, PIPE
 
+#XXX need to import -- and correctly link -- images.
 
 STAGING_DIR = '/home/douglas/fm-data/import-tests/staging'
 
@@ -17,7 +18,7 @@ def to_git(branch, chapter, text, author, email, date, version, comments,
     if comments:
         comments = '\n' + comments
     write("commit refs/heads/%s\n" % branch)
-    write("committer %s <%s@flossmanuals.net> %s\n" % (author, email, date))
+    write("committer %s <%s> %s\n" % (author, email, date))
     _data_blob("TWiki import: %s r%s%s" % (chapter, version, comments), write)
     if branch not in branches:
         write('merge refs/heads/master\n')
