@@ -59,7 +59,7 @@ my @BAD_CHAPTERS = qw{WebAtom WebPreferences WebChanges WebRss
     WebTopicCreator WebTopicEditTemplate
 };
 
-my %BAD_BOOKS = map {($_ => 1)} qw{Main TWiki PR Trash};
+my %BAD_BOOKS = map {($_ => 1)} qw{Main TWiki PR Trash Sandbox};
 
 
 
