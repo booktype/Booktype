@@ -1,6 +1,17 @@
+"""Script to import staged TWiki export (see twiki-extract.pl) into
+a git repository via git fast-import.
+
+./git-import.py  > fast-import.data
+git fast-import < fast-import.data
+"""
+
 #!/usr/bin/python
 import os, sys, time, re
 from subprocess import check_call, Popen, PIPE
+
+sys.path.extend(('lib', '../lib'))
+from booki import xhtml_utils
+
 
 #XXX need to import -- and correctly link -- images.
 
@@ -14,7 +25,16 @@ WRITE = sys.stdout.write
 branches = set(['master'])
 
 def to_git(branch, chapter, text, author, email, date, version, comments,
-           write=WRITE):
+           write=WRITE, fetch_images=False, lang='en'):
+    if fetch_images:
+        c = xhtml_utils.ImportedChapter(lang, branch, chapter, text, author, email, date)
+        text, images = c.localise_links()
+        for image in images:
+            imgbin = xhtml_utils._read_local_url(image)
+            img_comments = 'Image associated with %s\n%s' % (chapter, comments)
+            to_git(branch, image, imgbin, author, email, date, version, img_comments,
+                   write=WRITE, fetch_images=False)
+
     if comments:
         comments = '\n' + comments
     write("commit refs/heads/%s\n" % branch)
@@ -43,7 +63,7 @@ def initialise(dir=DEST_DIR, clear=False):
     check_call(['git', 'init', '-q', '--bare'])
 
 def import_staged_files(dir=STAGING_DIR):
-    for subdir in sorted(os.listdir(dir)):
+    for subdir in sorted(x for x in os.listdir(dir) if x.isdigit()):
         for filename in sorted(os.listdir(os.path.join(dir, subdir))):
             import_file(os.path.join(dir, subdir, filename))
 
@@ -55,18 +75,15 @@ def import_file(filename):
     f.close()
     headers = parse_headers(header)
     h = headers.pop
-    #date = time.strftime('%F %R:%S', time.gmtime(int(h('date'))))
     date = h('date') + ' +0100'
     to_git(h('book'), h('chapter'), body, h('author'), h('email'), date, h('version'),
-           '\n'.join("%s: %s" % x for x in headers.items()), write=WRITE)
-    #sys.stderr.write('.')
+           '\n'.join("%s: %s" % x for x in headers.items()), write=WRITE, fetch_images=True)
 
 
 def parse_headers(s):
     headers = {}
     for line in s.split('\n'):
         if ':' not in line:
-            #print >> sys.stderr, "skipping line '%s'" % line
             continue
         k, v = (x.strip() for x in line.split(': ', 1))
         if k == 'book2':
@@ -77,6 +94,8 @@ def parse_headers(s):
     return headers
 
 def extract_preference(s):
+    """PREFERENCE tags contain unprocessed TWiki metadata, and always
+    have a 'name' and 'value' tag (and sometimes more)."""
     found = {}
     for m in re.finditer(r"""(["'])(.*?)\1=(['"])(.*?)\3""", s):
         k, v = m.group(2, 4)
@@ -97,6 +116,6 @@ def empty_master_commit():
 
 
 if __name__ == '__main__':
-    initialise(clear=True)
+    #initialise(clear=True)
     empty_master_commit()
     import_staged_files()
