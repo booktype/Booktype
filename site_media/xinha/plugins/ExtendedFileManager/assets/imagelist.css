@@ -1,0 +1,55 @@
+body { margin: 0; padding: 0;}
+.edit,.dir_holder .fileName, .thumb_holder .fileName    { font-size: 8pt; font-family: small-caption, sans-serif; padding-top: 3px;}
+.edit a { border: none; padding: 0; text-decoration:none; }
+.edit a:hover { background-color: ButtonHighlight; }
+.edit a img { border: none; vertical-align: bottom; }
+.noResult { font-size:large; font-weight:bold; color:#ccc; font-family: Helvetica, sans-serif;  text-align: center;  padding-top: 60px;   }
+.error { color:#c00; font-weight:bold; font-size: medium; font-family: Helvetica, sans-serif; text-align: center;  padding-top: 65px;}
+
+.dir_holder, .thumb_holder
+{
+  width:106px; height:132px;
+  float:left;
+  margin:6px 4px;
+  background-color:ButtonFace;
+  border: 1px outset;
+}
+
+.thumb_holder.active
+{
+  background:Highlight;
+  color:HighlightText;
+  border:1px dashed Highlight;
+}
+
+.dir_holder a.dir, .thumb_holder a.thumb
+{
+  height:85px;
+  display:block;
+  text-align:center;
+  padding:5px;
+  text-decoration:none;
+  overflow:hidden;
+}
+
+.thumb_holder a.thumb img
+{
+  border:1px solid black;
+}
+
+.dir_holder a.dir img
+{
+  border:none;
+}
+
+.listview { width:100%; }
+.listview td, .listview th { text-align:left; font-size:small; }
+.listview td.actions { text-align: right;width:111px }
+.listview td.actions img { border:0; }
+
+.listview thead th {background-color: ButtonFace; border: 1px solid threedface; border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight; padding-top:2px; padding-bottom:2px; padding-left: 5px; padding-right: 5px; font-size: 9pt; font-family: "MS Sans Serif", "Bitstream Vera Sans", Geneva, Sans, sans-serif;font-weight:normal}
+.listview tbody td, .listview tbody th {overflow:hidden; padding-top:2px; padding-left: 3px; font-size: 9pt;  font-family: "MS Sans Serif", "Bitstream Vera Sans", Geneva, Sans, sans-serif;}
+.listview tbody a, listview tbody a:visited { font-weight: normal; text-decoration: none; color: #000; border:0px; padding:2px;}
+.listview tbody a:hover { background-color:#0B256B; color:#fff;}
+
+.listview tbody tr:hover {background-color: rgb(221,221,255)};

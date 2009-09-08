@@ -1,4 +1,5 @@
 import redis, time
+import simplejson
 
 # must fix this rcon issue somehow. 
 # this is stupid but will work for now
@@ -44,17 +45,15 @@ def addMessageToChannel(request, channelName, message, myself = False ):
     message["clientID"] = request.clientID
 
     for c in clnts:
-       if not myself and c == request.sputnikID:
-           continue
+        if not myself and c == request.sputnikID:
+            continue
 
-       import simplejson
-       rcon.push( "ses:%s:messages" % c, simplejson.dumps(message), tail = True)
+        rcon.push( "ses:%s:messages" % c, simplejson.dumps(message), tail = True)
 
 def removeClient(clientName):
     global rcon
 
     for chnl in rcon.smembers("ses:%s:channels" % clientName):
-        print chnl
         removeClientFromChannel(chnl, clientName)
         rcon.srem("ses:%s:channels" % clientName, chnl)
 
@@ -77,12 +76,12 @@ def booki_main(request, message):
         pass
 
     if message["command"] == "connect":
-        r = redis.Redis()
+#        r = redis.Redis()
 
-        if not r.exists("sputnik:client_id"):
-            r.set("sputnik:client_id", 0)
+        if not rcon.exists("sputnik:client_id"):
+            rcon.set("sputnik:client_id", 0)
 
-        clientID = r.incr("sputnik:client_id")
+        clientID = rcon.incr("sputnik:client_id")
         ret["clientID"] = clientID
         request.sputnikID = "%s:%s" % (request.session.session_key, clientID)
 
@@ -94,18 +93,75 @@ def booki_main(request, message):
             addClientToChannel(chnl, request.sputnikID)
 
         # set our last access
-        r.set("ses:%s:last_access" % request.sputnikID, time.time())
+        rcon.set("ses:%s:last_access" % request.sputnikID, time.time())
 
     return ret
 
 
+
+def booki_chat(request, message, projectid, bookid):
+    if message["command"] == "message_send":
+        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_received", "from": request.user.username, "message": message["message"]})
+        return {}
+
+    return {}
+
 # remove all the copy+paste code
+
+
+# getChapters
+
+def getTOCForBook(book):
+    from booki.editor import models
+
+    results = []
+
+    for chap in list(models.BookToc.objects.filter(book=book).order_by("weight")):
+        if chap.chapter:
+            results.append((chap.chapter.id, chap.chapter.title, chap.chapter.url_title, chap.typeof))
+        else:
+            results.append((chap.chapter.id, chap.name, chap.name, chap.typeof))
+
+    return results
+
+
+# booki_book
 
 def booki_book(request, message, projectid, bookid):
     from booki.editor import models
 
+    if message["command"] == "init_editor":
+        project = models.Project.objects.get(id=projectid)
+        book = models.Book.objects.get(project=project, id=bookid)
+
+        chapters = getTOCForBook(book)
+
+        def vidi(a):
+            if a == request.sputnikID:
+                return "<b>%s</b>" % a
+            return a
+
+        users = [vidi(m) for m in list(rcon.smembers("sputnik:channel:%s" % message["channel"]))]
+        
+        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "user_joined", "user_joined": request.user.username}, myself = False)
+                
+        return {"chapters": chapters, "users": users}
+
+    if message["command"] == "chapter_status":
+        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": message["status"], "username": request.user.username})
+        return {}
+
+    if message["command"] == "chapter_save":
+        chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
+        chapter.content = message["content"];
+        chapter.save()
+
+        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": "normal", "username": request.user.username})
+
+        return {}
+
     if message["command"] == "chapter_rename":
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_rename", "chapterID": message["chapterID"], "status": message["status"], "username": request.user.username})
+        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": "rename", "username": request.user.username})
  
         return {}
 
@@ -114,9 +170,9 @@ def booki_book(request, message, projectid, bookid):
 
         project = models.Project.objects.get(id=projectid)
         book = models.Book.objects.get(project=project, id=bookid)
-        #book = models.Book.objects.get(project__url_name__iexact=projectid, url_title__iexact=bookid)
 
         weight = len(lst)
+
         for chap in lst:
             m =  models.BookToc.objects.get(chapter__id__exact=int(chap))
             m.weight = weight
@@ -137,17 +193,23 @@ def booki_book(request, message, projectid, bookid):
 
     if message["command"] == "get_users":
         res = {}
-        res["users"] = list(rcon.smembers("sputnik:channel:%s" % message["channel"]))
+        def vidi(a):
+            if a == request.sputnikID:
+                return "!%s!" % a
+            return a
+
+        res["users"] = [vidi(m) for m in list(rcon.smembers("sputnik:channel:%s" % message["channel"]))]
         return res 
 
     if message["command"] == "get_chapter":
         res = {}
 
         chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
-
         res["title"] = chapter.title
-        res["content"] = chapter.content
-     
+        res["content"] = chapter.content 
+
+        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": "edit", "username": request.user.username})
+
         return res
 
     if message["command"] == "create_chapter":
@@ -156,10 +218,15 @@ def booki_book(request, message, projectid, bookid):
         import datetime
         project = models.Project.objects.get(id=projectid)
         book = models.Book.objects.get(project=project, id=bookid)
-        #book = models.Book.objects.get(project__url_name__iexact=projectid, url_title__iexact=bookid)
+
+        from django.template.defaultfilters import slugify
+
+        url_title = slugify(message["chapter"])
+
+
         s = models.ProjectStatus.objects.all()[0]
         chapter = models.Chapter(book = book,
-                                 url_title = message["chapter"],
+                                 url_title = url_title,
                                  title = message["chapter"],
                                  status = s,
                                  created = datetime.datetime.now(),
@@ -186,20 +253,14 @@ def booki_book(request, message, projectid, bookid):
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapters_list", "chapters": results}, myself = True)
 
         return {}
-    # TEMPORARY
 
-    project = models.Project.objects.get(id=projectid)
-    book = models.Book.objects.get(project=project, id=bookid)
-    #book = models.Book.objects.get(project__url_name__iexact=projectid, url_title__iexact=bookid)
-    chapters = list(models.Chapter.objects.filter(book=book))
+    if message["command"] == "get_chapters":
+        project = models.Project.objects.get(id=projectid)
+        book = models.Book.objects.get(project=project, id=bookid)
 
-    results = []
+        results = getTOCForBook(book)
+        
+        return {"chapters": results}
 
-    for chap in list(models.BookToc.objects.filter(book=book).order_by("weight")):
-        if chap.chapter:
-            results.append((chap.chapter.id, chap.chapter.title, chap.chapter.url_title, chap.typeof))
-        else:
-            results.append((chap.chapter.id, chap.name, chap.name, chap.typeof))
-
-    return {"chapters": results}
+    return {}
 

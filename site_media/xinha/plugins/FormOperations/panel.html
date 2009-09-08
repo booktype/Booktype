@@ -1,0 +1,213 @@
+<div>
+<h1 id="[h1]"><l10n>Form Editor</l10n></h1>
+  <fieldset id="[fs_form]">
+    <legend>Form</legend>
+    <table>
+      <tr>
+        <th><label>Action:</label></th>
+        <td><input type="text" size="25" name="[action]" id="[action]" /></td>
+
+        <th><label>Method:</label></th>
+        <td><select name="[method]" id="[method]"><option value="POST">POST</option><option value="GET">GET</option></select></td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset id="[fs_text]">
+    <legend>Text Field</legend>
+
+    <table>
+      <tr>
+        <th>Name:</th>
+        <td>
+          <input type="text" name="[text_name]" id="[text_name]" size="25" />
+        </td>
+        <th>&nbsp;</th>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <th>Type:</th>
+        <td>
+          <select name="[text_type]" id="[text_type]">
+            <option value="text">normal text field</option>
+            <option value="password">password</option>
+            <option value="hidden">hidden field</option>
+          </select>
+        </td>
+        <th>Initial Value:</th>
+        <td>
+          <input type="text" name="[text_value]" id="[text_value]" size="25" />
+        </td>
+      </tr>
+      <tr>
+        <th>Width:</th>
+        <td>
+          <input type="text" name="[text_width]" id="[text_width]" size="5" />
+          <select name="[text_width_units]" id="[text_width_units]">
+            <option value="em">chars</option>
+            <option value="px">px</option
+                >
+            <option value="%">%</option>
+          </select>
+        </td>
+        <th>Max Length:</th>
+        <td>
+          <input type="text" name="[text_maxlength]" id="[text_maxlength]"   size="5" />
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset  id="[fs_cbrd]">
+    <legend>Check Box/Radio Button</legend>
+    <table>
+      <tr>
+        <th>Name:</th>
+        <td>
+          <input type="text" name="[cbrd_name]" id="[cbrd_name]" size="25" />
+        </td>
+        <th>Value:</th>
+        <td>
+          <input type="text" name="[cbrd_value]" id="[cbrd_value]" size="25" />
+        </td>
+      </tr>
+      <tr>
+        <th>Type:</th>
+        <td>
+          <select name="[cbrd_type]" id="[cbrd_type]">
+            <option value="checkbox">Check Box ("Select Many")</option>
+            <option value="radio">Radio Button ("Select One")</option>
+          </select>
+        </td>
+        <th>Selected by default:</th>
+        <td><input type="checkbox" name="[cbrd_checked]" id="[cbrd_checked]" value="1" /></td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <p class="help">
+            Tip: Check boxes (select many) and radio buttons (select one only) that are choices for a single question should have the same Name to work correctly.
+          </p>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset  id="[fs_button]">
+    <legend>Button</legend>
+    <table>
+      <tr>
+        <th>Name:</th>
+        <td>
+          <input type="text" name="[button_name]" id="[button_name]" size="25" />
+        </td>
+        <th>Label:</th>
+        <td>
+          <input type="text" name="[button_value]" id="[button_value]" size="25" />
+        </td>
+      </tr>
+      <tr>
+        <th>Type:</th>
+        <td>
+          <select name="[button_type]" id="[button_type]">
+            <option value="submit">Submit</option>
+            <option value="reset">Reset</option>
+          </select>
+        </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+  </fieldset>
+
+
+  <fieldset  id="[fs_textarea]">
+    <legend>Multi-line Field</legend>
+    <table>
+      <tr>
+        <th>Name:</th>
+        <td><input type="text" name="[textarea_name]" id="[textarea_name]" size="25" /></td>
+
+    <th>Initial Value</th>
+      </tr>
+
+      <tr>
+        <th>Width:</th>
+        <td>
+          <input type="text" name="[textarea_width]" id="[textarea_width]" size="5" />
+          <select name="[textarea_width_units]" id="[textarea_width_units]">
+            <option value="em">chars</option>
+            <option value="px">px</option>
+            <option value="%">%</option>
+          </select>
+        </td>
+        <td rowspan="2"><textarea name="[textarea_value]" cols="40" rows="4" id="[textarea_value]"></textarea></td>
+      </tr>
+
+      <tr>
+        <th>Height:</th>
+        <td>
+          <input type="text" name="[textarea_height]" id="[textarea_height]" size="5" />
+          <select name="[textarea_height_units]" id="[textarea_height_units]">
+            <option value="em">chars</option>
+            <option value="px">px</option>
+          </select>
+        </td>
+      </tr>
+
+    </table>
+  </fieldset>
+
+  <fieldset  id="[fs_select]">
+    <legend>Drop-Down/List Field</legend>
+
+<table>
+  <tr>
+    <th>Name:</th>
+    <td>
+      <input type="text" name="[select_name]" id="[select_name]" size="25" />
+    </td>
+    <th colspan="2">Options</th>
+  </tr>
+  <tr>
+    <th>May Choose Multiple:</th>
+    <td>
+      <input type="checkbox" name="[select_multiple]" id="[select_multiple]" size="25" value="1" />
+    </td>
+    <td rowspan="3">
+      <select name="[select_options]" size="5" id="[select_options]" >
+      </select>
+    </td>
+    <td rowspan="3">
+      <input name="button" type="button" id="[add_option]" value="Add"       />
+      <br>
+      <input name="button2" type="button" id="[del_option]" value="Delete"    />
+      <br>
+      <input name="button2"  type="button" id="[up_option]" value="Move Up"   />
+      <br>
+      <input name="button2"  type="button" id="[down_option]" value="Move Down" />
+    </td>
+  </tr>
+  <tr>
+    <th>Width:</th>
+    <td>
+      <input type="text" name="[select_width]" id="[select_width]" size="5" />
+      <select name="[select_width_units]" id="[select_width_units]">
+        <option value="em">chars</option>
+        <option value="px">px</option>
+        <option value="%">%</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <th>Height:</th>
+    <td>
+      <input type="text" name="[select_height]" id="[select_height]" size="5" />
+      <select name="[select_height_units]" id="[select_height_units]">
+        <option value="items">items</option>
+        <option value="px">px</option>
+      </select>
+    </td>
+  </tr>
+</table>
+  </fieldset>
+</div>

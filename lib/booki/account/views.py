@@ -56,11 +56,13 @@ def register(request):
 
 class ProjectForm(forms.Form):
     title = forms.CharField(required=True)
-    url_title = forms.CharField(required=True)
+#    url_title = forms.CharField(required=True)
 
 def view_profile(request, username):
     from django.contrib.auth.models import User
     from booki.editor import models
+
+    from django.template.defaultfilters import slugify
 
     user = User.objects.get(username=username)
 
@@ -69,7 +71,8 @@ def view_profile(request, username):
 
         if project_form.is_valid():
             title = project_form.cleaned_data["title"]
-            url_title = project_form.cleaned_data["url_title"]
+            url_title = slugify(title)
+ #           url_title = project_form.cleaned_data["url_title"]
             
 
             project = models.Project(url_name = url_title,

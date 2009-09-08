@@ -1,0 +1,142 @@
+<html>
+<head>
+<title>Document properties</title>
+<script type="text/javascript" src="../../../popups/popup.js"></script>
+<script type="text/javascript" src="../../../modules/ColorPicker/ColorPicker.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../popups/popup.css" />
+<script type="text/javascript">
+FullPage = window.opener.FullPage; // load the FullPage plugin and lang file ;-)
+window.resizeTo(400, 130);
+var accepted = {
+  f_doctype       : true,
+  f_title         : true,
+  f_body_bgcolor  : true,
+  f_body_fgcolor  : true,
+  f_base_style    : true,
+  f_alt_style     : true,
+  f_charset       : true,
+  f_keywords      : true,
+  f_description   : true
+};
+
+var editor = null;
+function Init() {
+  __dlg_translate('FullPage');
+  __dlg_init();
+  var params = window.dialogArguments;
+  for (var i in params) {
+    if (i in accepted) {
+      var el = document.getElementById(i);
+      el.value = params[i];
+    }
+  }
+  editor = params.editor;
+
+  var bgCol_pick = document.getElementById('bgCol_pick');
+  var f_body_bgcolor = document.getElementById('f_body_bgcolor');
+  var bgColPicker = new Xinha.colorPicker({cellsize:'5px',callback:function(color){f_body_bgcolor.value=color;}});
+  bgCol_pick.onclick = function() { bgColPicker.open('top,right', f_body_bgcolor ); }
+
+  var fgCol_pick = document.getElementById('fgCol_pick');
+  var f_body_fgcolor = document.getElementById('f_body_fgcolor');
+  var fgColPicker = new Xinha.colorPicker({cellsize:'5px',callback:function(color){f_body_fgcolor.value=color;}});
+  fgCol_pick.onclick = function() { fgColPicker.open('top,right', f_body_fgcolor ); }
+
+  document.getElementById("f_title").focus();
+  document.getElementById("f_title").select();
+}
+
+function onOK() {
+  var required = {
+  };
+  for (var i in required) {
+    var el = document.getElementById(i);
+    if (!el.value) {
+      alert(required[i]);
+      el.focus();
+      return false;
+    }
+  }
+
+  var param = {};
+  for (var i in accepted) {
+    var el = document.getElementById(i);
+    param[i] = el.value;
+  }
+  __dlg_close(param);
+  return false;
+}
+
+function onCancel() {
+  __dlg_close(null);
+  return false;
+}
+</script>
+<style type="text/css">
+.fr { width: 11em; float: left; padding: 2px 5px; text-align: right; }
+.txt { width:200px; }
+div { clear:both; }
+.picker { width:30px; }
+</style>
+</head>
+
+<body class="dialog" onload="Init()">
+
+<div class="title">Document properties</div>
+
+<div>
+  <label class="fr" for="f_title">Document title:</label>
+  <input type="text" id="f_title" class="txt" />
+</div>
+<div>
+  <label class="fr" for="f_doctype">DOCTYPE:</label>
+  <input type="text" id="f_doctype" class="txt" />
+</div>
+<div>
+  <label class="fr" for="f_keywords">Keywords:</label>
+
+  <input type="text" id="f_keywords" class="txt" />
+</div>
+<div>
+  <label class="fr" for="f_description">Description:</label>
+  <input type="text" id="f_description" class="txt" />
+</div>
+<div>
+  <label class="fr" for="f_charset">Character set:</label>
+  <select id="f_charset" class="txt">
+    <option value=""></option>
+    <option value="utf-8">UTF-8 (recommended)</option>
+    <option value="windows-1251">cyrillic (WINDOWS-1251)</option>
+
+    <option value="koi8-r">cyrillic (KOI8-R)</option>
+    <option value="iso-8859-5">cyrillic (ISO-8859-5)</option>
+    <option value="iso-8859-1">western (ISO-8859-1)</option>
+  </select>
+</div>
+<div>
+  <label class="fr" for="f_base_style">Primary style-sheet:</label>
+  <input type="text" id="f_base_style" class="txt" />
+</div>
+<div>
+  <label class="fr" for="f_alt_style">Alternate style-sheet:</label>
+  <input type="text" id="f_alt_style" class="txt" />
+</div>
+<div>
+  <label class="fr" for="f_body_bgcolor">Background color:</label>
+  <input name="f_body_bgcolor" type="text" id="f_body_bgcolor" size="7" />
+  <button type="button" id="bgCol_pick" class="picker">...</button>
+</div>
+<div>
+  <label class="fr" for="f_body_fgcolor">Text color:</label>
+  <input name="f_body_fgcolor" type="text" id="f_body_fgcolor" size="7" />
+  <button type="button" id="fgCol_pick" class="picker">...</button>
+</div>
+
+<div id="buttons">
+  <button type="button" name="ok" onclick="return onOK();"><span>OK</span></button>
+
+  <button type="button" name="cancel" onclick="return onCancel();"><span>Cancel</span></button>
+</div>
+
+</body>
+</html>
