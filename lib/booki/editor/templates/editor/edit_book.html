@@ -58,12 +58,13 @@
 
 var xinha_plugins =
 [
- 'Linker'
+ 'GetHtml',        'SaveSubmit', 'DoubleClick', 'ImageManager', 'SpellChecker'
 ];
 var xinha_editors =
 [
   'myTextArea'
 ];
+
 
 var prvi = false;
 
@@ -74,6 +75,17 @@ function xinha_init()
   if(prvi) return;
 
     var xinha_config = new Xinha.Config();
+
+/*
+    xinha_config.width  = '670px';
+    xinha_config.height = '600px';
+*/
+    xinha_config.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
+
+    xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","insertimage","inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
+
+
+
 
     xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
 
@@ -113,13 +125,13 @@ some notification. this should be on top of visible page and not top of page.
 
 <div id="tabs">
 	<ul>
-		<li><a href="#chapters">Chapters</a></li>
-		<li><a href="#settings">People</a></li>
-		<li><a href="#bigchat">Chat</a></li>
-		<li><a href="#settings">Settings</a></li>
+		<li><a href="#tabchapters">Chapters</a></li>
+		<li><a href="#tabinfo">Info</a></li>
+<!--		<li><a href="#tabbigchat">Chat</a></li>  -->
+		<li><a href="#tabpublish">Publish</a></li>
 
 	</ul>
-	<div id="chapters">
+	<div id="tabchapters">
 
 
 
@@ -194,7 +206,9 @@ This is temporary interface.
 
 
 	</div>
-<div id="bigchat">
+
+<!--
+<div id="tabbigchat">
 <table border="0">
 <tr>
 <td width="100%">
@@ -215,9 +229,31 @@ This is temporary interface.
 </table>
 
 </div>
-	<div id="settings">
-Book settings.
+-->
+
+	<div id="tabinfo">
+           Title:<br/>
+           Creator:<br/>
+           Maintainer:<br/>
+           Date Created:<br/>
+           Licence:<br/>
+           About:<br/>
+
+           <br/>
+           <span style="font-style: italic; color: #d0d0d0">This part of UI is still not functional. We have to finish book import first.</span>
 	</div>
+
+	<div id="tabpublish">
+          <h1>Publish</h1>
+          <p>Some options could go here.</p>
+          <form method="" action="">
+            <button>Publish this book</button>
+          </form>
+          <br/>
+          <span style="font-style: italic; color: #d0d0d0">This part of UI is still not functional. We have to finish book export first.</span>
+
+	</div>
+
 
 </div>
 
