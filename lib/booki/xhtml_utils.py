@@ -36,45 +36,47 @@ class Author(object):
         self.email = email
 
 
-_fetched = {}
+class ImageCache(object):
+    def __init__(self, cache_dir=IMG_DIR):
+        self._fetched = {}
+        self.cache_dir = cache_dir
 
-def _read_local_url(path):
-    f = open(IMG_DIR + path)
-    s = f.read()
-    f.close()
-    return s
-
-def _save_local_url(path, data):
-    f = open(IMG_DIR + path, 'w')
-    f.write(data)
-    f.close()
-    #os.chmod(path, 0444)
-
-#XXX there is something a bit dodgy about this.
-#Two urls could map to the same filename.  (though that is unlikely).
-#
-#XXX use existing images as cache.
-
-def fetch_if_necessary(url, target):
-    log(url, target)
-    if url in _fetched:
-        if _fetched[url] == target:
-            return target
-        log('Not trying to fetch "%s" -> "%s" because stored as "%s"' %(url, target, _fetched[url]))
-        return url
-    try:
-        f = urlopen(url)
-        data = f.read()
+    def read_local_url(self, path):
+        f = open(self.cache_dir + path)
+        s = f.read()
         f.close()
-    except HTTPError, e:
-        #if it is missing, assume it will be missing every time after.
-        _fetched[url] = None
-        log(e)
-        return url
-    _save_local_url(target, data)
-    _fetched[url] = target
-    return target
+        return s
 
+    def _save_local_url(self, path, data):
+        f = open(self.cache_dir + path, 'w')
+        f.write(data)
+        f.close()
+        #os.chmod(path, 0444)
+
+    #XXX there is something a bit dodgy about this.
+    #Two urls could map to the same filename.  (though that is unlikely).
+    #
+    #XXX use existing images as cache.
+
+    def fetch_if_necessary(self, url, target):
+        log(url, target)
+        if url in self._fetched:
+            if self._fetched[url] == target:
+                return target
+            log('Not trying to fetch "%s" -> "%s" because stored as "%s"' %(url, target, self._fetched[url]))
+            return url
+        try:
+            f = urlopen(url)
+            data = f.read()
+            f.close()
+        except HTTPError, e:
+            #if it is missing, assume it will be missing every time after.
+            self._fetched[url] = None
+            log(e)
+            return url
+        self._save_local_url(target, data)
+        self._fetched[url] = target
+        return target
 
 
 
