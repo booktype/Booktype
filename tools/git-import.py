@@ -28,9 +28,10 @@ def to_git(branch, chapter, text, author, email, date, version, comments,
            write=WRITE, fetch_images=False, lang='en'):
     if fetch_images:
         c = xhtml_utils.ImportedChapter(lang, branch, chapter, text, author, email, date)
-        text, images = c.localise_links()
+        images = c.localise_links()
+        text = c.text
         for image in images:
-            imgbin = xhtml_utils._read_local_url(image)
+            imgbin = c.image_cache.read_local_url(image)
             img_comments = 'Image associated with %s\n%s' % (chapter, comments)
             to_git(branch, image, imgbin, author, email, date, version, img_comments,
                    write=WRITE, fetch_images=False)
