@@ -1,14 +1,29 @@
 """Various things to do with [x]html that might be useful in more than
 one place."""
 
-import lxml, lxml.html, lxml.etree
+import lxml, lxml.html, lxml.etree, lxml.html.clean
+
 import os, sys
 import re
 
 from urlparse import urlparse, urlsplit, urljoin
 from urllib2 import urlopen, HTTPError
 
-CHAPTER_TEMPLATE = '''<html>
+OK_TAGS = set([
+    "body", "head", "html", "title", "abbr", "acronym", "address",
+    "blockquote", "br", "cite", "code", "dfn", "div", "em", "h1", "h2",
+    "h3", "h4", "h5", "h6", "kbd", "p", "pre", "q", "samp", "span",
+    "strong", "var", "a", "dl", "dt", "dd", "ol", "ul", "li", "object",
+    "param", "b", "big", "hr", "i", "small", "sub", "sup", "tt", "del",
+    "ins", "bdo", "caption", "col", "colgroup", "table", "tbody", "td",
+    "tfoot", "th", "thead", "tr", "img", "area", "map", "meta", "style",
+    "link", "base"
+    ])
+
+XHTMLNS = '{http://www.w3.org/1999/xhtml}'
+XHTML = 'http://www.w3.org/1999/xhtml'
+
+CHAPTER_TEMPLATE = '''<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>%(title)s</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
