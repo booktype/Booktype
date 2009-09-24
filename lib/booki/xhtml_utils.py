@@ -5,6 +5,8 @@ import lxml, lxml.html, lxml.etree, lxml.html.clean
 
 import os, sys
 import re
+from cStringIO import StringIO
+
 
 from urlparse import urlparse, urlsplit, urljoin
 from urllib2 import urlopen, HTTPError
@@ -34,7 +36,11 @@ CHAPTER_TEMPLATE = '''<html>
 </html>
 '''
 
-#IMG_DIR = '/tmp/images/'
+XHTML11_DOCTYPE = '''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+'''
+XML_DEC = '<?xml version="1.0" encoding="UTF-8"?>\n'
+
 IMG_DIR = '/home/douglas/fm-data/import-tests/staging/'
 
 def log(*messages, **kwargs):
@@ -118,23 +124,21 @@ class BaseChapter(object):
 
         nsmap = {None: XHTML}
         xroot = lxml.etree.Element(XHTMLNS + "html", nsmap=nsmap)
+        #xtree = xroot.getroottree()
 
-        def descend(el, xel):
+        def xhtml_copy(el, xel):
             xel.text = el.text
             for k, v in el.items():
                 xel.set(k, v)
             for child in el.iterchildren():
                 xchild = xel.makeelement(XHTMLNS + child.tag)
                 xel.append(xchild)
-                descend(child, xchild)
+                xhtml_copy(child, xchild)
             xel.tail = el.tail
 
-        #xroot.text = root.text
-        #xroot.tail = root.tail
+        xhtml_copy(root, xroot)
 
-        descend(root, xroot)
-
-        return lxml.etree.tostring(xroot)
+        return XML_DEC + XHTML11_DOCTYPE + lxml.etree.tostring(xroot)
 
 
     def load_tree(self, force=False):
