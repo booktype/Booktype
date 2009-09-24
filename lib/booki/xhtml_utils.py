@@ -23,7 +23,7 @@ OK_TAGS = set([
 XHTMLNS = '{http://www.w3.org/1999/xhtml}'
 XHTML = 'http://www.w3.org/1999/xhtml'
 
-CHAPTER_TEMPLATE = '''<html xmlns="http://www.w3.org/1999/xhtml">
+CHAPTER_TEMPLATE = '''<html>
 <head>
 <title>%(title)s</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
