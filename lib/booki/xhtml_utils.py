@@ -124,20 +124,27 @@ class ImageCache(object):
         return target
 
 
-
 class BaseChapter(object):
     image_cache = ImageCache()
 
-    def as_html(self):
-        """Serialise the tree as html if possible, otherwise wrap the
-        original text."""
-        if hasattr(self, 'tree'):
-            return lxml.etree.tostring(self.tree, method='html')
+    def load_tree(self, text=None, html=None):
+        if html is None:
+            html = CHAPTER_TEMPLATE % {
+                'title': '%s: %s' % (self.book, self.name),
+                'text': text
+                }
+        self.tree = lxml.html.document_fromstring(html)
 
-        return CHAPTER_TEMPLATE % {
-            'title': '%s: %s' % (self.book, self.name),
-            'text': self.text
-        }
+    def as_html(self):
+        """Serialise the tree as html."""
+        return lxml.etree.tostring(self.tree, method='html')
+
+    def as_twikitext(self):
+        """Get the twiki-style guts of the chapter from the tree"""
+        text = lxml.etree.tostring(self.tree.find('body'), method='html')
+        text = re.sub(r'^.*?<body.*?>\s*', '', text)
+        text = re.sub(r'\s*</body>.*$', '\n', text)
+        return text
 
     def as_xhtml(self):
         """Convert to xhtml and serialise."""
@@ -148,7 +155,6 @@ class BaseChapter(object):
 
         nsmap = {None: XHTML}
         xroot = lxml.etree.Element(XHTMLNS + "html", nsmap=nsmap)
-        #xtree = xroot.getroottree()
 
         def xhtml_copy(el, xel):
             xel.text = el.text
@@ -164,25 +170,9 @@ class BaseChapter(object):
 
         return XML_DEC + XHTML11_DOCTYPE + lxml.etree.tostring(xroot)
 
-
-    def load_tree(self, force=False):
-        if not hasattr(self, 'tree') or force:
-            html = self.as_html()
-            self.tree = lxml.html.document_fromstring(html)
-            #from lxml.html import html5parser
-            #self.tree = html5parser.fromstring(html)
-
-    def as_text(self):
-        """Get the twiki-style guts of the chapter, either from the
-        modified tree, or from the original text attribute."""
-        if not hasattr(self, 'tree'):
-            return self.text
-        text = lxml.etree.tostring(self.tree.find('body'), method='xml')
-        text = re.sub(r'^\s*<body.*?>\s*', '', text)
-        text = re.sub(r'\s*</body>\s*$', '', text)
-        return text
-
     def localise_links(self):
+        """Find image links, convert them to local links, and fetch
+        the images from the net so the local links work"""
         images = []
         def localise(oldlink):
             fragments = urlsplit(oldlink)
@@ -208,10 +198,7 @@ class BaseChapter(object):
                 images.append(newlink)
             return newlink
 
-        self.load_tree()
         self.tree.rewrite_links(localise, base_href=('http://%s/bin/view/%s/%s' % (self.server, self.book, self.name)))
-        text = lxml.etree.tostring(self.tree.find('body'), method='xml')
-        self.text = self.as_text()
         return images
 
     cleaner = lxml.html.clean.Cleaner(scripts=True,
@@ -228,13 +215,11 @@ class BaseChapter(object):
                                       annoying_tags=True,
                                       allow_tags=OK_TAGS,
                                       remove_unknown_tags=False,
-                                      #remove_unknown_tags=True,
                                       safe_attrs_only=True,
                                       add_nofollow=False
                                       )
 
     def remove_bad_tags(self):
-        #log(self.as_html())
         for e in self.tree.iter():
             if not e.tag in OK_TAGS:
                 log('found bad tag %s' % e.tag)
@@ -246,13 +231,12 @@ class ImportedChapter(BaseChapter):
         self.lang = lang
         self.book = book
         self.name = chapter_name
-        self.text = text
         self.author = Author(author, email)
         self.date = date
         if server is None:
             server = '%s.flossmanuals.net' % lang
         self.server = server
-
+        self.load_tree(text)
 
 
 CHAPTER_URL = "http://%s/bin/view/%s/%s?skin=text"
@@ -269,7 +253,7 @@ class EpubChapter(BaseChapter):
     def fetch(self):
         """Fetch content as found at self.url"""
         f = urlopen(self.url)
-        self.text = f.read()
+        text = f.read()
         f.close()
-
+        self.load_tree(text)
 
