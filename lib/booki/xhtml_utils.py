@@ -80,7 +80,7 @@ class ImageCache(object):
     #XXX use existing images as cache.
 
     def fetch_if_necessary(self, url, target):
-        log(url, target)
+        #log(url, target)
         if url in self._fetched:
             if self._fetched[url] == target:
                 return target
@@ -202,14 +202,15 @@ class BaseChapter(object):
                                       frames=True,
                                       forms=True,
                                       annoying_tags=True,
-                                      #allow_tags=OK_TAGS,
-                                      remove_unknown_tags=True,
+                                      allow_tags=OK_TAGS,
+                                      remove_unknown_tags=False,
+                                      #remove_unknown_tags=True,
                                       safe_attrs_only=True,
                                       add_nofollow=False
                                       )
 
     def remove_bad_tags(self):
-        log(self.as_html())
+        #log(self.as_html())
         for e in self.tree.iter():
             if not e.tag in OK_TAGS:
                 log('found bad tag %s' % e.tag)
@@ -243,7 +244,6 @@ class EpubChapter(BaseChapter):
 
     def fetch(self):
         """Fetch content as found at self.url"""
-
         f = urlopen(self.url)
         self.text = f.read()
         f.close()
