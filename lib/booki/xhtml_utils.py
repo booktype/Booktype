@@ -7,9 +7,33 @@ import os, sys
 import re
 from cStringIO import StringIO
 
-
 from urlparse import urlparse, urlsplit, urljoin
 from urllib2 import urlopen, HTTPError
+
+MEDIATYPES = {
+    'html': "text/html",
+    'xhtml': "application/xhtml+xml",
+    'css': 'text/css',
+    'json': "application/json",
+
+    'png': 'image/png',
+    'gif': 'image/gif',
+    'jpg': 'image/jpeg',
+    'jpeg': 'image/jpeg',
+    'svg': 'image/svg+xml',
+
+    'ncx': 'application/x-dtbncx+xml',
+    'dtb': 'application/x-dtbook+xml',
+    'xml': 'application/xml',
+
+    'pdf': "application/pdf",
+    'txt': 'text/plain',
+
+    'epub': "application/epub+zip",
+    'booki': "application/booki+zip",
+
+    None: 'application/octet-stream',
+}
 
 OK_TAGS = set([
     "body", "head", "html", "title", "abbr", "acronym", "address",
