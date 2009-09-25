@@ -40,9 +40,13 @@ $(function() {
 		},
 		    
 		    sendToChannel: function(channelName, message, callback, errback) {
-		    message["channel"] = channelName;
-		    jQuery.booki.network._transport.sendMessage(message, callback, errback);
-		},
+			message["channel"] = channelName;
+			jQuery.booki.network._transport.sendMessage(message, callback, errback);
+  		    },
+
+		    sendToCurrentBook: function(message, callback, errback) {
+			return $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", message, callback, errback);
+		    },
 		    
 		    unsubscribeFromChannel: function(channelName, someID) {
 		}
