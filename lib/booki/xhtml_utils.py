@@ -90,7 +90,7 @@ class Author(object):
         self.email = email
 
 def url_to_filename(url, prefix=''):
-    #XXX slightly inefficient to do urlsplit so many times, but versitile
+    #XXX slightly inefficient to do urlsplit so many times, but versatile
     fragments = urlsplit(url)
     base, ext = fragments.path.rsplit('.', 1)
     server = fragments.netloc.split('.', 1)[0] #en, fr, translate
@@ -143,6 +143,7 @@ class ImageCache(object):
 
         self._save_local_url(target, data)
         self._fetched[url] = target
+        log("got %s as %s" % (url, target))
         return target
 
 
@@ -215,9 +216,9 @@ class BaseChapter(object):
 
             newlink = self.image_cache.fetch_if_necessary(oldlink, use_cache=self.use_cache)
             if newlink is not None:
-                log('got %s as %s' % (oldlink, newlink))
                 images.append(newlink)
                 return newlink
+            log("can't do anything for %s -- why?" % (oldlink,))
             return oldlink
 
         self.tree.rewrite_links(localise, base_href=('http://%s/bin/view/%s/%s' %
@@ -268,22 +269,16 @@ class ImportedChapter(BaseChapter):
 
 
 class EpubChapter(BaseChapter):
-    def __init__(self, server, book, chapter_name, url=None, use_cache=False,
+    def __init__(self, server, book, chapter_name, contents, use_cache=False,
                  cache_dir=None):
         self.server = server
         self.book = book
         self.name = chapter_name
-        self.url = url
         self.use_cache = use_cache
         if cache_dir:
             self.image_cache = ImageCache(cache_dir)
+        self.load_tree(contents)
 
-    def fetch(self):
-        """Fetch content as found at self.url"""
-        f = urlopen(self.url)
-        text = f.read()
-        f.close()
-        self.load_tree(text)
 
 
 
