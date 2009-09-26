@@ -10,6 +10,14 @@ from cStringIO import StringIO
 from urlparse import urlparse, urlsplit, urljoin
 from urllib2 import urlopen, HTTPError
 
+try:
+    import simplejson as json
+except ImportError:
+    import json
+
+from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED, ZIP_STORED
+
+
 MEDIATYPES = {
     'html': "text/html",
     'xhtml': "application/xhtml+xml",
@@ -65,7 +73,8 @@ XHTML11_DOCTYPE = '''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 '''
 XML_DEC = '<?xml version="1.0" encoding="UTF-8"?>\n'
 
-IMG_DIR = '/home/douglas/fm-data/import-tests/staging/'
+IMG_CACHE = 'cache/images/'
+IMG_PREFIX = 'static/'
 
 def log(*messages, **kwargs):
     for m in messages:
@@ -80,11 +89,23 @@ class Author(object):
         self.name = name
         self.email = email
 
+def url_to_filename(url, prefix=''):
+    #XXX slightly inefficient to do urlsplit so many times, but versitile
+    fragments = urlsplit(url)
+    base, ext = fragments.path.rsplit('.', 1)
+    server = fragments.netloc.split('.', 1)[0] #en, fr, translate
+    base = base.split('/pub/', 1)[1] #remove /floss/pub/ or /pub/
+    base = re.sub(r'[^\w]+', '-',  '%s-%s' %(base, server))
+    return '%s%s.%s' % (prefix, base, ext)
+
 
 class ImageCache(object):
-    def __init__(self, cache_dir=IMG_DIR):
+    def __init__(self, cache_dir=IMG_CACHE, prefix=IMG_PREFIX):
         self._fetched = {}
         self.cache_dir = cache_dir
+        self.prefix = prefix
+        if not os.path.exists(cache_dir + prefix):
+            os.makedirs(cache_dir + prefix)
 
     def read_local_url(self, path):
         f = open(self.cache_dir + path)
@@ -98,27 +119,28 @@ class ImageCache(object):
         f.close()
         #os.chmod(path, 0444)
 
-    #XXX there is something a bit dodgy about this.
-    #Two urls could map to the same filename.  (though that is unlikely).
-    #
-    #XXX use existing images as cache.
-
-    def fetch_if_necessary(self, url, target):
-        #log(url, target)
+    def fetch_if_necessary(self, url, target=None, use_cache=True):
         if url in self._fetched:
-            if self._fetched[url] == target:
-                return target
-            log('Not trying to fetch "%s" -> "%s" because stored as "%s"' %(url, target, self._fetched[url]))
-            return url
+            return self._fetched[url]
+
+        if target is None:
+            target = url_to_filename(url, self.prefix)
+
+        if use_cache and os.path.exists(self.cache_dir + target):
+            log("used cache for %s" % target)
+            return target
+
         try:
             f = urlopen(url)
             data = f.read()
             f.close()
         except HTTPError, e:
-            #if it is missing, assume it will be missing every time after.
+            # if it is missing, assume it will be missing every time
+            # after, otherwise, you can get into endless waiting
             self._fetched[url] = None
-            log(e)
-            return url
+            log("Wanting '%s', got error %s" %(url, e))
+            return None
+
         self._save_local_url(target, data)
         self._fetched[url] = target
         return target
@@ -128,6 +150,8 @@ class BaseChapter(object):
     image_cache = ImageCache()
 
     def load_tree(self, text=None, html=None):
+        """Parse the chapter as html.  If the chapter is complete
+        html, use the html argument; for TWiki pages use text."""
         if html is None:
             html = CHAPTER_TEMPLATE % {
                 'title': '%s: %s' % (self.book, self.name),
@@ -180,6 +204,7 @@ class BaseChapter(object):
                 log('ignoring %s' % oldlink)
                 return oldlink
             base, ext = fragments.path.rsplit('.', 1)
+            ext = ext.lower()
             if (not fragments.scheme.startswith('http') or
                 fragments.netloc != self.server or
                 ext not in ('png', 'gif', 'jpg', 'jpeg', 'svg', 'css', 'js') or
@@ -188,17 +213,15 @@ class BaseChapter(object):
                 log('ignoring %s' % oldlink)
                 return oldlink
 
-            server = fragments.netloc.split('.', 1)[0]
-            base = base.split('/pub/', 1)[1] #remove /floss/pub/ or /pub/
-            target = ''.join(x for x in server + base if x.isalnum())
-            target = '%s.%s' % (target, ext)
-            newlink = self.image_cache.fetch_if_necessary(oldlink, target)
-            if newlink and newlink != oldlink:
+            newlink = self.image_cache.fetch_if_necessary(oldlink, use_cache=self.use_cache)
+            if newlink is not None:
                 log('got %s as %s' % (oldlink, newlink))
                 images.append(newlink)
-            return newlink
+                return newlink
+            return oldlink
 
-        self.tree.rewrite_links(localise, base_href=('http://%s/bin/view/%s/%s' % (self.server, self.book, self.name)))
+        self.tree.rewrite_links(localise, base_href=('http://%s/bin/view/%s/%s' %
+                                                     (self.server, self.book, self.name)))
         return images
 
     cleaner = lxml.html.clean.Cleaner(scripts=True,
@@ -227,7 +250,9 @@ class BaseChapter(object):
 
 
 class ImportedChapter(BaseChapter):
-    def __init__(self, lang, book, chapter_name, text, author, email, date, server=None):
+    """Used for git import"""
+    def __init__(self, lang, book, chapter_name, text, author, email, date, server=None,
+                 use_cache=False, cache_dir=None):
         self.lang = lang
         self.book = book
         self.name = chapter_name
@@ -237,16 +262,19 @@ class ImportedChapter(BaseChapter):
             server = '%s.flossmanuals.net' % lang
         self.server = server
         self.load_tree(text)
+        self.use_cache = use_cache
+        if cache_dir:
+            self.image_cache = ImageCache(cache_dir)
 
-
-CHAPTER_URL = "http://%s/bin/view/%s/%s?skin=text"
 
 class EpubChapter(BaseChapter):
-    def __init__(self, server, book, chapter_name, url=None, cache_dir=None):
+    def __init__(self, server, book, chapter_name, url=None, use_cache=False,
+                 cache_dir=None):
         self.server = server
         self.book = book
         self.name = chapter_name
-        self.url = url or CHAPTER_URL % (server, book, chapter_name)
+        self.url = url
+        self.use_cache = use_cache
         if cache_dir:
             self.image_cache = ImageCache(cache_dir)
 
@@ -256,4 +284,45 @@ class EpubChapter(BaseChapter):
         text = f.read()
         f.close()
         self.load_tree(text)
+
+
+
+class BookiZip(object):
+
+    def __init__(self, filename):
+        """Start a new zip and put an uncompressed 'mimetype' file at the
+        start.  This idea is copied from the epub specification, and
+        allows the file type to be dscovered by reading the first few
+        bytes."""
+        self.zipfile = ZipFile(filename, 'w', ZIP_DEFLATED, allowZip64=True)
+        self.write_blob('mimetype', MEDIATYPES['booki'], ZIP_STORED)
+        self.filename = filename
+        self.manifest = {}
+
+    def write_blob(self, filename, blob, compression=ZIP_DEFLATED, mode=0644):
+        """Add something to the zip without adding to manifest"""
+        zinfo = ZipInfo(filename)
+        zinfo.external_attr = mode << 16L # set permissions
+        zinfo.compress_type = compression
+        self.zipfile.writestr(zinfo, blob)
+
+    def add_to_package(self, ID, fn, blob, mediatype=None):
+        """Add an item to the zip, and save it in the manifest.  If
+        mediatype is not provided, it will be guessed according to the
+        extrension."""
+        self.write_blob(fn, blob)
+        if mediatype is None:
+            ext = fn[fn.rfind('.') + 1:]
+            mediatype = MEDIATYPES.get(ext, MEDIATYPES[None])
+        self.manifest[ID] = (fn, mediatype)
+
+    def _close(self):
+        self.zipfile.close()
+
+    def finish(self):
+        """Finalise the metadata and write to disk"""
+        self.info['manifest'] = self.manifest
+        infojson = json.dumps(self.info, indent=2)
+        self.add_to_package('info.json', 'info.json', infojson, 'application/json')
+        self._close()
 
