@@ -49,10 +49,10 @@ $(function() {
 		    },
 		    
 		    unsubscribeFromChannel: function(channelName, someID) {
-		}
+		    }
 	    };
 	}();
-	
+
 	/* network */
 	
 	jQuery.namespace('jQuery.booki.network');
@@ -155,7 +155,12 @@ $(function() {
                         if(!_isInitialized) return;
 			
                         var msgs = $.toJSON(_messages);
+
+			var s = $("<span>Sending "+_messages.length+' message(s).</span>');
+			$.booki.debug.network(s.html());
+
                         _messages = new Array();
+
 			
 			/*
 			  what in case of errors?!
@@ -174,6 +179,97 @@ $(function() {
 		    };
 	    
 	}();
+
+    
+        /* booki.debug */
+    jQuery.namespace('jQuery.booki.debug');
+    jQuery.booki.debug = function() {
+	var showDebug = true;
+	var showWarning = false;
+	var showInfo = false;
+	var showNetwork = false;
+
+	function _msg(cssClass, msg) {
+	    var d = new Date();
+
+	    if(eval("show"+cssClass.charAt(0).toUpperCase()+cssClass.substring(1)) == false) return;
+
+	    var h = d.getHours();
+	    var m = d.getMinutes();
+	    var s = d.getSeconds();
+
+	    function frm(v) {
+		if(v < 10) return "0"+v;
+		return v;
+	    }
+
+	    if(!(msg instanceof String)) {
+		msg = $.toJSON(msg);
+	    }
+
+
+	    $("#bookidebug .content").append($('<div class="'+cssClass+'">['+frm(h)+':'+frm(m)+':'+frm(s)+'] '+msg+'</div>'));
+	    $("#bookidebug .content").attr({ scrollTop: $("#bookidebug .content").attr("scrollHeight") });
+	}
+
+	return {
+	    'init': function() {
+		$("#bookidebug").dialog({"draggable": true, 
+					 "autoOpen": false, 
+					 "maxHeight": 350, 
+					 "width": 400, 
+					 "modal": false, 
+					 "resizable": true, 
+					 "stack": true, 
+					 "title": "Booki Debug"});
+
+		$("#bookidebug").append('<div class="header"><form style="margin: 0px"><input type="checkbox" class="checkdebug"> <span class="debug">Debug</span> <input type="checkbox" class="checkwarning"> <span class="warning">Warning</span> <input type="checkbox" class="checkwarning"> <span class="info">Info</span>  <input type="checkbox" class="checknetwork"> <span class="network">Network</span> <span style="float: right"><a class="clear" href="#">clear</a></span></form></div><div class="content">  </div>');
+
+		$("#bookidebug INPUT.checkdebug").attr("checked", showDebug);
+		$("#bookidebug INPUT.checkwarning").attr("checked", showWarning);
+		$("#bookidebug INPUT.checkinfo").attr("checked", showInfo);
+		$("#bookidebug INPUT.checknetwork").attr("checked", showNetwork);
+
+		function changeOption(cssClass, value) {
+		    if(!value) {
+			$.each($("#bookidebug .content > ."+cssClass), function(i, v) {
+			    $(v).css("display", "none");
+			});
+		    } else {
+			$.each($("#bookidebug .content > ."+cssClass), function(i, v) {
+			    $(v).css("display", "block");
+			});
+		    }
+		}
+
+		$("#bookidebug INPUT.checkdebug").change(function() { showDebug = !showDebug; changeOption("debug", showDebug) } );
+		$("#bookidebug INPUT.checkwarning").change(function() { showWarning = !showWarning; changeOption("warning", showWarning) } );		
+		$("#bookidebug INPUT.checkinfo").change(function() { showInfo = !showInfo; changeOption("info", showInfo) } );		
+		$("#bookidebug INPUT.checknetwork").change(function() { showNetwork = !showNetwork; changeOption("network", showNetwork) } );
+
+		$("#bookidebug A.clear").click(function() {
+		    $("#bookidebug .content").empty();
+		});
+	    },
+
+
+	    debug: function(msg) {
+		_msg("debug", msg);
+	    },
+
+	    warning: function(msg) {
+		_msg("warning", msg);
+	    },
+	    
+	    network: function(msg) {
+		_msg("network", msg);
+	    },
+	    
+	    info: function(msg) {
+		_msg("info", msg);
+	    }
+	}
+    }();
 	
 	/* booki.ui */
 	

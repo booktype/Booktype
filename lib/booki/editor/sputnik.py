@@ -116,11 +116,12 @@ def getTOCForBook(book):
 
     results = []
 
-    for chap in list(models.BookToc.objects.filter(book=book).order_by("weight")):
+    for chap in list(models.BookToc.objects.filter(book=book).order_by("-weight")):
+        # is it a section or chapter
         if chap.chapter:
             results.append((chap.chapter.id, chap.chapter.title, chap.chapter.url_title, chap.typeof))
         else:
-            results.append((chap.chapter.id, chap.name, chap.name, chap.typeof))
+            results.append(('s%s' % chap.id, chap.name, chap.name, chap.typeof))
 
     return results
 
@@ -161,7 +162,13 @@ def booki_book(request, message, projectid, bookid):
         return {}
 
     if message["command"] == "chapter_rename":
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": "rename", "username": request.user.username})
+        chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
+        chapter.title = message["chapter"];
+        chapter.save()
+
+        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": "normal", "username": request.user.username})
+
+        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_rename", "chapterID": message["chapterID"], "chapter": message["chapter"]})
  
         return {}
 
@@ -174,21 +181,18 @@ def booki_book(request, message, projectid, bookid):
         weight = len(lst)
 
         for chap in lst:
-            m =  models.BookToc.objects.get(chapter__id__exact=int(chap))
-            m.weight = weight
-            m.save()
+            if chap[0] == 's':
+                m =  models.BookToc.objects.get(id__exact=int(chap[1:]))
+                m.weight = weight
+                m.save()
+            else:
+                m =  models.BookToc.objects.get(chapter__id__exact=int(chap))
+                m.weight = weight
+                m.save()
 
             weight -= 1
 
-        results = []
-
-        for chap in list(models.BookToc.objects.filter(book=book).order_by("weight")):
-            if chap.chapter:
-                results.append((chap.chapter.id, chap.chapter.title, chap.chapter.url_title, chap.typeof))
-            else:
-                results.append((chap.chapter.id, chap.name, chap.name, chap.typeof))
-
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapters_changed", "chapters": results})
+        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapters_changed", "ids": [x for x in lst]})
         return {}
 
     if message["command"] == "get_users":
@@ -223,7 +227,6 @@ def booki_book(request, message, projectid, bookid):
 
         url_title = slugify(message["chapter"])
 
-
         s = models.ProjectStatus.objects.all()[0]
         chapter = models.Chapter(book = book,
                                  url_title = url_title,
@@ -240,27 +243,32 @@ def booki_book(request, message, projectid, bookid):
                            typeof=1)
         c.save()
 
-        chapters = list(models.Chapter.objects.filter(book=book))
+        result = (c.chapter.id, c.chapter.title, c.chapter.url_title, c.typeof)
 
-        results = []
-
-        for chap in list(models.BookToc.objects.filter(book=book).order_by("weight")):
-            if chap.chapter:
-                results.append((chap.chapter.id, chap.chapter.title, chap.chapter.url_title, chap.typeof))
-            else:
-                results.append((chap.chapter.id, chap.name, chap.name, chap.typeof))
-
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapters_list", "chapters": results}, myself = True)
+        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_create", "chapter": result}, myself = True)
 
         return {}
 
-    if message["command"] == "get_chapters":
+    if message["command"] == "create_section":
+        from booki.editor import models
+
+        import datetime
         project = models.Project.objects.get(id=projectid)
         book = models.Book.objects.get(project=project, id=bookid)
 
-        results = getTOCForBook(book)
-        
-        return {"chapters": results}
+        c = models.BookToc(book = book,
+                           name = message["chapter"],
+                           chapter = None,
+                           weight = 0,
+                           typeof=0)
+        c.save()
+
+        result = ("s%s" % c.id, c.name, None, c.typeof)
+
+        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_create", "chapter": result, "typeof": c.typeof}, myself = True)
+
+        return {}
+
 
     return {}
 

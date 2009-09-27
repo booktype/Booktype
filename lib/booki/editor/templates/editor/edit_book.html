@@ -39,11 +39,29 @@
 
           });
 
+        $("#formsection  BUTTON.submit").click(function() {
+                  $.booki.ui.notify("Creating section");
+ 
+                   $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#formsection INPUT.chapter").val()}, function(data) {
+                           $.booki.ui.notify();
+                           $("#formsection INPUT.chapter").val("");
+                      });
+
+          });
+
+
+	    // open debug window
+	    $.booki.debug.init();
+
+	    $("#header .debug").click(function() {
+		$("#bookidebug").dialog("open");
+		return false;
+	    });
 
           // start Sputnik
           jQuery.booki.network._transport.connect();
-
-	    $("#datepicker").datepicker({"onSelect": function(a) { alert(a)}});
+	    
+	    // $("#datepicker").datepicker({"onSelect": function(a) { alert(a)}});
 
 	});
 
@@ -106,9 +124,15 @@ function xinha_init()
 some notification. this should be on top of visible page and not top of page.
 </div>
 
+<div id="bookidebug">
+</div>
+
 <div id="header">
  <div style="float:right; font-size: 12px">
-    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a href="/accounts/signout/">Sign out</a>
+    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a class="debug" href="javascript:void(0)">Debug</a> | <a href="/accounts/signout/">Sign out</a>
+
+<!--    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a class="debug" href="javascript:void(0)">Debug</a> | <a href="/accounts/signout/">Sign out</a> -->
+
  </div>
 </div>
 
@@ -151,15 +175,14 @@ This is temporary interface.
 <input class="chapter" type="text" size="30"><button class="submit">Create chapter</button>
 </form>
 </div>
-<!--
-<form action="." method="POST">
-<table>
-{{ chapter_form.as_table }}
-</table>
-<br/><br/>
-<button>Create</button>
+
+<div id="formsection">
+<h2>Create new section</h2>
+<form method="GET" action="javascript:void(0)" onsubmit="return false">
+<input class="chapter" type="text" size="30"><button class="submit">Create section</button>
 </form>
--->
+</div>
+
 </div>
 
 <div id="editor" style="display: none">
