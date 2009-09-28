@@ -40,6 +40,7 @@ use POSIX qw(strftime);
 use Data::Dumper;
 
 use constant FIND_EMAILS => 1;
+use constant SEPARATOR => "\n------8<-----------------\n";
 
 BEGIN {
     # Set library paths in @INC, at compile time
@@ -50,8 +51,9 @@ BEGIN {
 require TWiki;
 
 my $DEFAULT_DOMAIN = 'flossmanuals.net';
+#my $TWIKI_PATH = '/home/douglas/fm-data/twiki-data';
+my $TWIKI_PATH = '/home/douglas/fm-data/import-tests/twiki-books';
 my $STAGING_DIR = '/home/douglas/fm-data/import-tests/staging';
-my $TWIKI_PATH = '/home/douglas/fm-data/twiki-data';
 
 my @BAD_CHAPTERS = qw{WebAtom WebPreferences WebChanges WebRss
     WebCreateNewTopic WebSearchAdvanced WebHome WebSearch
@@ -59,7 +61,7 @@ my @BAD_CHAPTERS = qw{WebAtom WebPreferences WebChanges WebRss
     WebTopicCreator WebTopicEditTemplate
 };
 
-my %BAD_BOOKS = map {($_ => 1)} qw{Main TWiki PR Trash};
+my %BAD_BOOKS = map {($_ => 1)} qw{Main TWiki PR Trash Sandbox};
 
 
 
@@ -86,9 +88,7 @@ Return values:
 sub render_version {
     my ($webName, $topicName, $revision, $session, $raw) = @_;
 
-    if (! $session){
-        $session = new TWiki ('admin');
-    }
+    $session ||= new TWiki('admin');
 
     my ($meta, $text) = $session->{store}->readTopic($session, $webName, $topicName, $revision);
 
@@ -265,7 +265,7 @@ sub stage_commit {
     my $fh;
     open ($fh, '>', "$dir/$filename");
     print $fh staging_header($meta);
-    print $fh "\n------8<-----------------\n";
+    print $fh SEPARATOR;
     print $fh $text;
     close $fh;
 }
