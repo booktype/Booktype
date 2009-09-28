@@ -1,0 +1,45 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>AsciiMathML Example</title>
+  <script type="text/javascript">
+    var mathcolor = "black"; 
+  </script>
+  <script type="text/javascript" src="ASCIIMathML.js"></script>
+<style type="text/css">
+  body { font-family: sans-serif }
+  pre {border: dotted grey thin; background-color:LightYellow; }
+  
+  </style>
+</head>
+
+<body >
+<h1>AsciiMathML Example</h1>
+<p>This shows how to set up your page to display MathML using AsciiMathML</p>
+<p>Add this to the head section of your document:</p>
+<pre>
+
+  &lt;!-- This block is optional configuration --&gt;
+  &lt;script type="text/javascript"&gt;
+    var mathcolor = "black"; // You may change the color of the formulae (default: red)
+    var showasciiformulaonhover = false; // helps students learn ASCIIMath, set to false if you like  (default:true)
+    var mathfontfamily = "Arial"; //and the font (default: serif, which is good I think)
+  &lt;/script&gt;
+  &lt;!-- THIS LOADS THE ACTUAL SCRIPT, PLEASE ADJUST THE URL --&lt;
+  &lt;script type="text/javascript" src="/xinha/plugins/Equation/ASCIIMathML.js"&gt;&lt;/script&gt;
+
+
+</pre>
+<p><span class="AM">`int_a^bf(x)dx`</span></p>
+<p><span class="AM">`[[a,b],[c,d]]`</span><br /></p>
+<p>
+ ASCIIMathML by <a href="http://www.chapman.edu/~jipsen" onclick="window.open(this.href,'_blank');return false;">Peter Jipsen</a>, 
+<a href="http://www.chapman.edu" onclick="window.open(this.href,'_blank');return false;">Chapman University</a><br />
+  For more information on AsciiMathML visit this page: <a href="http://www1.chapman.edu/~jipsen/mathml/asciimath.html" onclick="window.open(this.href,'_blank','');return false;">http://www1.chapman.edu/~jipsen/mathml/asciimath.html</a>
+
+</p>
+</body>
+</html>

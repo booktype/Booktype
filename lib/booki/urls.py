@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # front page                       
-    url(r'^$', 'booki.editor.views.view_frontpage'),
+    url(r'^$', 'booki.editor.views.view_frontpage', name="frontpage"),
 
     # this is temp
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',

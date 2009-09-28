@@ -1,11 +1,42 @@
-      BODY {
-       font-family: Verdana;
-       font-size: 12px;
-      }
+BODY {
+    font-family: Verdana;
+    font-size: 12px;
+}
 
-      #content {
-        width: 900px;
-        border: 1px solid #c0c0c0;
-        padding: 5px;
-      }
+#content {
+    width: 900px;
+    border: 1px solid #c0c0c0;
+    padding: 5px;
+}
+
+#bookidebug {
+
+}
+
+#bookidebug .header {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #c0c0c0;
+}
+
+#bookidebug .content {
+    overflow: scroll;
+    height: 300px;
+}
+
+#bookidebug .debug {
+    color: #d0d0d0;
+}
+
+#bookidebug .info {
+    color: green;
+}
+
+#bookidebug .warning {
+    color: red;
+}
+
+#bookidebug .network {
+    color: blue;
+}
 

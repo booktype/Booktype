@@ -4,9 +4,9 @@
 
 <div style="margin-bottom: 5px">
   <div style="float: right">
-     <b>{{ user.username }}</b> | Settings | Help | <a href="/accounts/signout/">Sign out</a>
+     <b>{{ user.username }}</b> | Settings | Help | <a href="{% url signout %}">Sign out</a>
   </div>
-  <b><a href="/">BOOKI</a></b>
+  <b><a href="{% url frontpage %}">BOOKI</a></b>
 </div>
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -35,7 +35,8 @@
 <div style="border-bottom: 1px solid #c0c0c0"></div>
 <ul>
 {% for book in books %}
-   <li><a href="/{{ book.url_title|urlencode}}/{{ book.url_title|urlencode}}/">{{ book.title }}</a></li>
+   <li><a href="{% url view_book book.url_title book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book book.url_title book.url_title %}">edit</a>)
+</li>
 {% endfor %}
 </ul>
 

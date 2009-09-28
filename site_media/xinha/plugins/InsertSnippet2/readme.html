@@ -1,0 +1,51 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>  <title>InsertSnippet for Xinha</title> <style type="text/css">
+  body { font-family: sans-serif; }
+  pre {border: dotted grey thin; background-color:LightYellow;padding:10px }
+  p { width:500px }
+  </style> 
+  </head>
+  <body> 
+    <h1>InsertSnippet2 for Xinha</h1> 
+    <p>Insert HTML fragments or template variables in your document.</p> 
+    <h2>Features</h2> 
+    <ul> 
+      <li>Categorization to organize your snippets if you have a lot  (optional)</li> 
+      <li>Search for name</li> 
+      <li>Insert as literal text/html or variable (optional)&nbsp;</li> 
+      <li>XML data format<br /></li> 
+    </ul> 
+    <h2>Usage</h2> 
+    <p>
+In order to use your own snippets you have to add a parameter to your xinha_config:
+</p> 
+    <pre>xinha_config.InsertSnippet2.snippets = "/path/to/your/snippets.xml";
+</pre> 
+    <p>This path should point to a XML file that has the following format:</p> 
+    <pre>&lt;snXML&gt;
+ &lt;categories&gt;
+    &lt;c n="the name" /&gt;
+  &lt;/categories&gt;
+  &lt;snippets&gt;
+        &lt;s n="the name" v="optional variable name to be inserted" c="the category"&gt;
+            &amp;lt;p&amp;gt;some text or HTML, please entize HTML tags&amp;lt;/p&amp;gt;
+        &lt;/s&gt;
+        &lt;s n="another"&gt;
+            &lt;![CDATA[
+               &lt;p&gt;or put HTML in a CDATA section&lt;/p&gt;
+            ]]&gt;
+        &lt;/s&gt;
+  &lt;/snipptes&gt;
+&lt;/snXML&gt;
+</pre> 
+    <p> </p> 
+    <h3>&nbsp;Tags</h3> 
+    <dl><dt>&lt;snXML&gt;&lt;/snXML&gt;</dt><dd>&nbsp;The root tag</dd><dt>&lt;categories&gt;&lt;/categories&gt;<br /></dt><dd>&nbsp;This tag contains the categories (optional)<br /></dd><dt>&nbsp;&lt;c /&gt;</dt><dd>&nbsp;Each category <br /></dd><dt>&nbsp;&lt;snippets&gt;&lt;/snippets&gt;</dt><dd> This tag contains the actual snippet. As this is XML, you cannot put HTML here literally. You have to either entize the &lt;,&gt;, and &amp; characters or wrap the contents in a CDATA section<br /></dd></dl> 
+    <h3>Attributes</h3> 
+    <dl><dt>&nbsp;n</dt><dd>&nbsp;The name of one snippet or category. It is obligatory for both.<br /></dd><dt>&nbsp;v</dt><dd> If this attribute is present in a snippet tag, there is a button in the UI that allows to insert this variable instead of the textual content of the snippet. <br /></dd><dt> c<br /></dt><dd>&nbsp;The category<br /></dd></dl> 
+    <p>Inside the plugin's directory, there is a sample XML file and PHP script that shows how to create the XML dynamically.<br /></p> 
+    <p style="font-size: 80%;">3 October 2008 Raimund Meyer (xinha@raimundmeyer.de)</p> 
+  </body>
+</html>

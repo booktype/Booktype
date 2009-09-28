@@ -1,0 +1,208 @@
+<html>
+
+<head>
+  <title>Insert/Edit Form Element SELECT</title>
+  <link rel="stylesheet" type="text/css" href="../../../popups/popup.css" />
+  <script type="text/javascript" src="../../../popups/popup.js"></script>
+
+<script type="text/javascript">
+var fields = ["f_name", "f_size", "f_tabindex", "f_multiple", "f_disabled"];
+
+function Init() {
+  __dlg_translate("Forms");
+  __dlg_init(null,{width:360, height:400});
+  var param = window.dialogArguments;
+  for (var i in fields) {
+    switch (fields[i]) {
+    case "f_multiple":
+    case "f_disabled":
+      document.getElementById(fields[i]).checked = (param[fields[i]]==fields[i].substring(2,20)) || (param[fields[i]] == true); break;
+    case "f_size":
+      document.getElementById(fields[i]).value = (param[fields[i]]<=0)?"":param[fields[i]]; break;
+    default:
+      document.getElementById(fields[i]).value = param[fields[i]]; break;
+    }
+  }
+  for (var i=0; i<=param.f_options.length-1; i++) {
+    document.getElementById("f_select").options[i] = new Option(param.f_options[i].text, param.f_options[i].value);
+  }
+  document.getElementById("f_name").focus();
+}
+
+function onOK() {
+  var el = document.getElementById("f_name");
+  if (!el.value) {
+    alert(Xinha._lc("You must enter a Name","Forms"));
+    el.focus();
+    return false;
+  }
+  // pass data back to the calling window
+  var param = new Object();
+  for (var i in fields) {
+    switch (fields[i]) {
+    case "f_multiple":
+      if (document.getElementById("f_size").value=="1")
+        param["f_multiple"] = "";
+      else
+        param["f_multiple"] = (document.getElementById(fields[i]).checked)?"multiple":"";
+      break;
+    case "f_disabled":
+      param[fields[i]] = (document.getElementById(fields[i]).checked)?"disabled":""; break;
+    default:
+      param[fields[i]] = document.getElementById(fields[i]).value; break;
+    }
+  }
+  function optionValues(text,value) {
+    this.text = text;
+    this.value = value;
+  }
+  optionNodes = new Array(); // for option text/value pairs
+  for (var i=0; i<= document.getElementById("f_select").options.length-1; i++) {
+    optionNodes[i] = new optionValues(document.getElementById("f_select").options[i].text, document.getElementById("f_select").options[i].value);
+  }
+  param["f_options"] = optionNodes;
+  __dlg_close(param);
+  return false;
+}
+
+function onCancel() {
+  __dlg_close(null);
+  return false;
+}
+
+
+//functions to build select options list
+//Populates Label and Value fields with selected option values
+function getValues(){
+  var d = document;
+  d.getElementById("f_optionvalue").value = d.getElementById("f_select").options[d.getElementById("f_select").selectedIndex].value;
+  d.getElementById("f_optiontext").value = d.getElementById("f_select").options[d.getElementById("f_select").selectedIndex].text;
+  d.getElementById("f_update").value ="Update Option";
+}
+
+//Add or update options to the select box
+function addItem(item) {
+  var d = document;
+  if (item.f_optiontext.value =="") {alert(Xinha._lc("Please enter a Label","Forms"));}
+  else {
+    if (d.getElementById("f_select").options.selectedIndex != -1) { //update item
+      var indx = d.getElementById("f_select").options.selectedIndex;
+      d.getElementById("f_select").options[indx].text=d.getElementById("f_optiontext").value;
+      d.getElementById("f_select").options[indx].value=d.getElementById("f_optionvalue").value;
+    } else { //add new item
+      var newItem = d.getElementById("f_select").options.length++;
+      d.getElementById("f_select").options[newItem].text=d.getElementById("f_optiontext").value;
+      d.getElementById("f_select").options[newItem].value=d.getElementById("f_optionvalue").value;
+    }
+    d.getElementById("f_select").selectedIndex = -1; //deselect
+    d.getElementById("f_optiontext").value="";//clean up
+    d.getElementById("f_optionvalue").value="";
+    d.getElementById("f_update").value ="Add Option";
+    d.getElementById("f_optiontext").focus();
+  }
+}
+//Clears selected option
+function deleteItem() {
+  var d = document;
+  for (var i = d.getElementById("f_select").options.length - 1; i>=0; i--) {
+    var opt = d.getElementById("f_select").options[i];
+    if (opt.selected) {
+      d.getElementById("f_select").options[i] = null;
+    }
+  }
+  d.getElementById("f_select").selectedIndex = -1;
+  d.getElementById("f_optiontext").value="";
+  d.getElementById("f_optionvalue").value="";
+  d.getElementById("f_optiontext").focus();
+}
+//Moves selected option up
+function moveOptionUp() {
+  var d = document;
+  for (i=0; i<d.getElementById("f_select").options.length; i++) {
+    if (d.getElementById("f_select").options[i].selected) {
+      if (i != 0 && !d.getElementById("f_select").options[i-1].selected) {
+        swapOptions(d.getElementById("f_select"),i,i-1);
+        d.getElementById("f_select").options[i-1].selected = true;
+      }
+    }
+  }
+}
+//Moves selected option down
+function moveOptionDown() {
+  var d = document;
+  for (i=d.getElementById("f_select").options.length-1; i>=0; i--) {
+    if (d.getElementById("f_select").options[i].selected) {
+      if (i != (d.getElementById("f_select").options.length-1) && ! d.getElementById("f_select").options[i+1].selected) {
+        swapOptions(d.getElementById("f_select"),i,i+1);
+        d.getElementById("f_select").options[i+1].selected = true;
+      }
+    }
+  }
+}
+
+function swapOptions(obj,i,j) {
+  var o = obj.options;
+  var i_selected = o[i].selected;
+  var j_selected = o[j].selected;
+  var temp = new Option(o[i].text, o[i].value);
+  var temp2= new Option(o[j].text, o[j].value);
+  o[i] = temp2;
+  o[j] = temp;
+  o[i].selected = j_selected;
+  o[j].selected = i_selected;
+}
+</script>
+</head>
+
+<body class="dialog" onload="Init()">
+  <div id="f_type" class="title">Form Element: SELECT</div>
+  <form action="" method="get">
+    <div class="fr">Name/ID:</div>
+    <input type="text" name="name" id="f_name" title="Name of the form select" />
+    <p />
+    <div class="fr">Size:</div>
+    <input name="size" id="f_size" type="text" value="" size="15" />
+    <p />
+    <div class="fr"><nobr>Multiple Select</nobr></div>
+    <input name="multiple" id="f_multiple" type="checkbox" value="multiple" value="on" />
+    <p />
+    <div class="fr">Disabled</div>
+    <input type="checkbox" name="disabled" id="f_disabled" value="disabled" />
+    <p />
+    <div class="fr">Tab Index:</div>
+    <input type="text" name="tabindex" id="f_tabindex" />
+    <p />
+    <div class="space"></div>
+    <fieldset id="fldLayout">
+    <legend>Options</legend>
+      <table border="0" cellspacing="0">
+      <tr>
+      <td style="text-align: right;">
+        <select name="select" id="f_select" Size="6" onchange="getValues();"  style="width:16em">
+        </select>
+      </td>
+      <td style="text-align: center;">
+        <input type="button" name="up" value="Move Up" style="width:6em" onClick="moveOptionUp()"><br />
+        <input type="button" name="down" value="Move Down" style="width:6em" onClick="moveOptionDown()"><br />
+        <input type="button" name="delete" value="Delete" style="width:6em" onClick="deleteItem();">
+      </td>
+      </tr>
+      </table>
+      <div class="space"></div>
+      <table border="0" cellspacing="0">
+      <tr>
+        <td style="text-align: right;">Label:</td>
+        <td><input type="text" id="f_optiontext" name="optionText" value="" size="15"></td>
+        <td style="text-align: right;">Value:</td>
+        <td><input name="optionValue" id="f_optionvalue" type="text" value="" size="15"></td>
+        <td><input type="button" name="update" id="f_update" value="Add" onclick="addItem(document.forms[0])"></td>
+      </tr>
+      </table>
+    </fieldset>
+    <div id="buttons">
+      <button type="button" name="ok" onclick="return onOK();">OK</button>
+      <button type="button" name="cancel" onclick="return onCancel();">Cancel</button>
+    </div>
+  </form>
+</body>
+</html>

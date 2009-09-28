@@ -1,19 +1,41 @@
 {% extends "base.html" %}
 
+{% block header %}
+<link type="text/css" href="/site_media/css/editor.css" rel="Stylesheet" />
+{% endblock %}
+
+
 {% block content %}
 
-<h1>{{ book.title }}</h1>
+<div id="header">
+ <div style="float:right; font-size: 12px">
+    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a href="/accounts/signout/">Sign out</a>
+ </div>
+</div>
+
+<br clear="all"/>
+
+
+<table border="0">
+<tr>
+ <td colspan="2">
+   <h1>{{ book.title }}</h1>
+ </td>
+</tr>
+<tr>
+ <td valign="top" style="padding-right: 30px">
 <ul>
-{% for chapter in chapters %}
-<li> {{ chapter.title }}  </li>
+{% for chap in chapters %}
+<li> <a href="{% url view_chapter project.url_name book.url_title chap.chapter.url_title %}">{{ chap.name }}</a>  </li>
 {% endfor %}
 </ul>
+ </td>
+ <td valign="top">
+click on the chapter name
 <hr/>
-
-{% for chapter in chapters %}
-<li> {{ chapter.content }}  </li>
-{% endfor %}
-<hr/>
-<a href="edit/">EDIT</a>
+<a href="{% url view_book  project.url_name book.url_title %}edit/">EDIT</a>
+ </td>
+</tr>
+</table>
 
 {% endblock %}

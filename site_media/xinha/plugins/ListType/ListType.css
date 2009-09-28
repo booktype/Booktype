@@ -1,0 +1,43 @@
+.ListType { }
+.ListType a {
+  display:block;
+  float:left;
+  margin:2px 0 0 5px;
+  padding:0;
+  width:50px;
+  height:40px;
+  border:1px solid #9c96a5;
+}
+.ListType a:hover {
+  border:1px solid #ffd760;
+}
+.ListType a.active {
+  border:1px solid #000084;
+}
+.ListType a.circle {
+  background:url(img/circle.png);
+}
+.ListType a.disc {
+  background:url(img/disc.png);
+}
+.ListType a.square {
+  background:url(img/square.png);
+}
+.ListType a.decimal {
+  background:url(img/decimal.png);
+}
+.ListType a.lower-alpha {
+  background:url(img/lower-alpha.png);
+}
+.ListType a.upper-alpha {
+  background:url(img/upper-alpha.png);
+}
+.ListType a.lower-roman {
+  background:url(img/lower-roman.png);
+}
+.ListType a.upper-roman {
+  background:url(img/upper-roman.png);
+}
+.ListType a.none {
+  background:url(img/none.png);
+}

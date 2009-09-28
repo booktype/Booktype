@@ -1,0 +1,162 @@
+<html>
+
+<head>
+
+<title>Insert GUIDO Music Notation</title>
+<link rel="stylesheet" type="text/css" href="../../../popups/popup.css" />
+<script type="text/javascript"  src="../note-server.js"></script>
+<script type="text/javascript" src="../../../popups/popup.js"></script>
+
+<script type="text/javascript">
+
+window.resizeTo(500, 200);
+
+NoteServer = window.opener.NoteServer;
+
+var editor = null;
+function Init() {
+  __dlg_translate('NoteServer');
+  __dlg_init();
+
+//   var param = window.dialogArguments;
+//  if (param) {
+//    document.getElementById("f_midi").value = param["f_midi"];
+//    document.getElementById("f_code").value = param["f_code"];
+//    document.getElementById("f_zoom").value = param["f_zoom"];
+//    document.getElementById("f_affcode").value = param["f_affcode"];
+//    document.getElementById("f_applet").value = param["f_applet"];
+//  }
+//  editor = param.editor;
+  document.getElementById("f_code").focus();
+//  document.getElementById("f_code").select();
+}
+
+function onOK() {
+  var f_code = document.getElementById("f_code");
+  if (!f_code.value) {
+    alert("You have to enter GUIDO code");
+    f_code.focus();
+    return false;
+}
+
+  // pass data back to the calling window
+
+  var param = {};
+  param["f_code"] = f_code.value;
+  var f_zoom = document.getElementById("f_zoom");
+  var z = "1.0";
+  if (f_zoom.value == "1.0" || f_zoom.value == "100%") z = 1.0;
+  else if (f_zoom.value == "0.8" || f_zoom.value == "80%") z = 0.8;
+  else if (f_zoom.value == "1.2" || f_zoom.value == "120%") z = 1.2;
+  else if (f_zoom.value == "1.5" || f_zoom.value == "150%") z = 1.5;
+
+  param["f_zoom"] = z;
+
+  param["f_midi"] = document.getElementById("f_midi").checked;
+
+  param["f_affcode"] = document.getElementById("f_affcode").checked;
+  param["f_applet"] = document.getElementById("f_applet").checked;
+
+  __dlg_close(param);
+  return false;
+}
+
+function onCancel() {
+  __dlg_close(null);
+  return false;
+
+}
+
+
+function message(){
+if (document.getElementById("f_applet").checked)
+  if (!((navigator.userAgent.toLowerCase().indexOf("msie") != -1)
+    && (navigator.userAgent.toLowerCase().indexOf("opera") == -1))) {
+    alert(HTMLArea._lc("With Mozilla, the applet will not be visible in editor, but only in Web page after submitting.", 'NoteServer'));
+  }
+}
+
+function onPreview() {
+
+  var f_code = document.getElementById("f_code");
+  var f_zoom = document.getElementById("f_zoom");
+
+var z = "1.0";
+if (f_zoom.value == "1.0" || f_zoom.value == "100%") z = 1.0;
+else if (f_zoom.value == "0.8" || f_zoom.value == "80%") z = 0.8;
+else if (f_zoom.value == "1.2" || f_zoom.value == "120%") z = 1.2;
+else if (f_zoom.value == "1.5" || f_zoom.value == "150%") z = 1.5;
+
+  var url = GetGIFURL(f_code.value,z,"");
+  if (!f_code.value) {
+    alert("You have to enter GUIDO code");
+    f_code.focus();
+    return false;
+ }
+
+
+  window.ipreview.location.replace(url);
+
+  return false;
+}
+
+</script>
+</head>
+
+<body class="Dialog" onload="Init()">
+<div class="title">Insert GUIDO Music Notation</div>
+
+<span>Guido code</span> :
+  <br><textarea rows="7" id="f_code" cols="55"></textarea><br>
+
+<div class="space"></div>
+<fieldset style="float: left; margin-left: 5px;">
+<legend>Options</legend>
+  <input type="checkbox" id="f_midi" value="ON"> <span>Add MIDI link to allow students to hear the music</span>
+  <div class="space"></div>
+  <input type="checkbox" id="f_affcode" value="ON"> <span>Add GUIDO Code in a textbox on the page</span>
+  <div class="space"></div>
+</fieldset>
+
+<fieldset style="float: right; margin-left: 5px;">
+<legend>Format</legend>
+  <input type="checkbox" id="f_applet" value="ON" onclick="message();" > <span>Image in applet</span>
+  <div class="space"></div>
+  <span>Zoom</span> :
+  <select size="1" id="f_zoom" title="Zoom :">
+    <option value="0.8">80%</option>
+    <option selected="selected">100%</option>
+    <option value="1.2">120%</option>
+    <option value="1.5">150%</option>
+  </select>
+  <div class="space"></div>
+</fieldset>
+
+<br clear="all" />
+
+<table width="100%" style="margin-bottom: 0.2em">
+ <tr>
+  <td style="vertical-align: bottom;">
+    <span>Image Preview</span>:<br />
+    <iframe name="ipreview" id="ipreview" frameborder="0" style="border : 1px solid gray;" height="200" width="350" src=""></iframe>
+  </td>
+
+  <td style="vertical-align: bottom;" style="text-align: right">
+    <button type="button" name="preview" onclick="return onPreview();"
+      title="Preview the image in a new window">Preview</button><br>
+    <button type="button" name="ok" onclick="return onOK();"><span>OK</span></button><br>
+    <button type="button" name="cancel" onclick="return onCancel();"><span>Cancel</span></button>
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2">
+   <p>Sample Guido Codes:</p>
+   <p><a href="http://piano-go.chez.tiscali.fr/rachmaninoff.gmn" onclick="window.open(this.href,'_blank');return false;">Code Sample 1</a> or type [ do re mi fa sol la si ] | <a href="http://www.informatik.tu-darmstadt.de/AFS/SALIERI/guido/demos.html" onclick="window.open(this.href,'_blank');return false;">Code Sample 2</a></p>
+   <p>Resources: </p>
+   <p>The Guido Specification (<a href="http://piano-go.chez.tiscali.fr/GUIDO-Music%20Notation%20Format.pdf" onclick="window.open(this.href,'_blank');return false;">PDF)</a> | <a href="http://www.salieri.org/guido/doc.html" onclick="window.open(this.href,'_blank');return false;">(HTML)</a></p>
+   <p><a href="http://www.salieri.org/guido/" onclick="window.open(this.href,'_blank');return false;">GUIDO Music Notation Format Site</a> | <a href="http://www.noteserver.org/" onclick="window.open(this.href,'_blank');return false;">Guido Note Server</a> | <a href="http://sourceforge.net/projects/guidolib/" onclick="window.open(this.href,'_blank');return false;">SourceForge Homepage</a></p>
+  </td>
+ </tr>
+</table>
+</body>
+</html>

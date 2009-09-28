@@ -1,0 +1,141 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Insert/Edit Horizontal Rule</title>
+  <link rel="stylesheet" type="text/css" href="../../../popups/popup.css" />
+  <script type="text/javascript" src="../../../popups/popup.js"></script>
+  <script type="text/javascript" src="../../../modules/ColorPicker/ColorPicker.js"></script>
+<script type="text/javascript">
+editor = window.opener.editor;
+
+function Init() {
+	__dlg_translate("HorizontalRule");
+	__dlg_init(null,{width:320,height:290});
+	var params = window.dialogArguments;
+	if(params) {
+		document.getElementById("f_size").value = params.f_size;
+		document.getElementById("f_width").value = params.f_width;
+		document.getElementById("f_widthUnit").value = params.f_widthUnit;
+		document.getElementById("f_align").value = params.f_align;
+		document.getElementById("f_color").value = params.f_color;
+		document.getElementById("hrpv").style.backgroundColor = params.f_color;
+		document.getElementById("f_noshade").checked = params.f_noshade;
+	}
+	
+	var colpick = document.getElementById('hrpv');
+	var f_color = document.getElementById('f_color');
+	var colPicker = new Xinha.colorPicker({cellsize:'5px',callback:selectColor});
+	colpick.onclick = function() { colPicker.open('top,left',colpick, f_color.value ); }
+	
+	document.getElementById("f_width").focus();
+}
+
+function onOK() {
+  var fields = ["f_size", "f_width", "f_widthUnit", "f_align", "f_color", "f_noshade"];
+  var param = {};
+  for (var i in fields) {
+    var id = fields[i];
+	var el = document.getElementById(id);
+    param[id] = (el.type == "checkbox") ? el.checked : el.value;
+  }
+  __dlg_close(param);
+  return false;
+}
+
+function onCancel() {
+  __dlg_close(null);
+  return false;
+}
+
+function selectColor(color) {
+	document.getElementById('hrpv').style.backgroundColor = color;
+	document.getElementById('f_color').value = color;
+}
+window.onload = Init;
+</script>
+
+<style type="text/css">
+.buttonColor {
+  padding: 1px;
+  cursor: default;
+  border: 1px solid;
+  border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
+}
+
+.buttonColor-hilite {
+  border-color: #000;
+}
+
+.buttonColor .chooser {
+  height: 0.6em;
+  border: 1px solid;
+  padding: 0px 1em;
+  border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
+}
+
+.buttonColor .nocolor {
+  padding: 0px;
+  height: 0.6em;
+  border: 1px solid;
+  border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
+}
+.buttonColor .nocolor-hilite { background-color: #fff; color: #f00; }
+</style>
+
+</head>
+
+<body class="dialog">
+<div class="title">Horizontal Rule</div>
+<form action="" method="get">
+  <fieldset>
+  <legend>Layout</legend>
+    <div class="fr">Width:</div>
+    <input style="margin-right: 0.5em;" name="f_width" id="f_width" size="5" type="text" />
+    <select style="margin-right: 0.5em;" name="f_widthUnit" id="f_widthUnit">
+      <option value="%">percent</option>
+      <option value="px">pixels</option>
+    </select>
+	<br />
+    <div class="fr">Height:</div>
+    <input style="margin-right: 0.5em;" name="f_size" id="f_size" size="5" type="text" /> <span>pixels</span>
+	<br />
+    <div class="fr">Alignment:</div>
+    <select name="f_align" id="f_align">
+      <option value="left">Left</option>
+      <option value="center">Center</option>
+      <option value="right">Right</option>
+    </select>
+
+  </fieldset>
+  <fieldset>
+  <legend>Style</legend>
+    <div class="fr">Color:</div>
+    <table cellpadding="2" cellspacing="0" id="hrbtn" class="buttonColor">
+    <tr>
+      <td class="chooser" id="hrpv"
+          onmouseover="document.getElementById('hrbtn').style.borderColor='black'"
+          onmouseout="document.getElementById('hrbtn').style.borderColor='ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight'"
+          >&nbsp;</td>
+      <td class="nocolor" id="hrclr"
+          onmouseover="document.getElementById('hrclr').style.color='#f00'"
+          onmouseout="document.getElementById('hrclr').style.color='#000'"
+          onclick="document.getElementById('f_color').value='';	document.getElementById('hrpv').style.backgroundColor=''">&#x00d7;</td>
+    </tr>
+    </table>
+    <br />
+    <div class="fr"> </div>
+    <input type="hidden" name="f_color" id="f_color" />
+    <input type="checkbox" name="f_noshade" id="f_noshade" value="noshade" />
+    <span>No shading</span>
+    <br />
+  </fieldset>
+<div id="buttons">
+  <button type="submit" name="ok" onclick="return onOK();">OK</button>
+  <button type="button" name="cancel" onclick="return onCancel();">Cancel</button>
+</div>
+</form>
+</body>
+</html>
