@@ -57,17 +57,6 @@ OK_TAGS = set([
 XHTMLNS = '{http://www.w3.org/1999/xhtml}'
 XHTML = 'http://www.w3.org/1999/xhtml'
 
-CHAPTER_TEMPLATE = '''<html>
-<head>
-<title>%(title)s</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-<body>
-%(text)s
-</body>
-</html>
-'''
-
 XHTML11_DOCTYPE = '''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 '''
@@ -149,16 +138,6 @@ class ImageCache(object):
 
 class BaseChapter(object):
     image_cache = ImageCache()
-
-    def load_tree(self, text=None, html=None):
-        """Parse the chapter as html.  If the chapter is complete
-        html, use the html argument; for TWiki pages use text."""
-        if html is None:
-            html = CHAPTER_TEMPLATE % {
-                'title': '%s: %s' % (self.book, self.name),
-                'text': text
-                }
-        self.tree = lxml.html.document_fromstring(html)
 
     def as_html(self):
         """Serialise the tree as html."""
@@ -262,14 +241,15 @@ class ImportedChapter(BaseChapter):
         if server is None:
             server = '%s.flossmanuals.net' % lang
         self.server = server
-        self.load_tree(text)
+        #XXX is texl html-wrapped?
+        self.tree = lxml.html.document_fromstring(text)
         self.use_cache = use_cache
         if cache_dir:
             self.image_cache = ImageCache(cache_dir)
 
 
 class EpubChapter(BaseChapter):
-    def __init__(self, server, book, chapter_name, contents, use_cache=False,
+    def __init__(self, server, book, chapter_name, html, use_cache=False,
                  cache_dir=None):
         self.server = server
         self.book = book
@@ -277,7 +257,7 @@ class EpubChapter(BaseChapter):
         self.use_cache = use_cache
         if cache_dir:
             self.image_cache = ImageCache(cache_dir)
-        self.load_tree(contents)
+        self.tree = lxml.html.document_fromstring(html)
 
 
 
