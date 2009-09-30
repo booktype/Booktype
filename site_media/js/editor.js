@@ -89,8 +89,10 @@ $(function() {
 		return options;
 	    }
 
-	    function TOC() {
+	    function TOC(containerName) {
+		this.containerName = containerName;
 		this.items = new Array();
+
 	    }
 
 	    $.extend(TOC.prototype, {
@@ -101,7 +103,7 @@ $(function() {
 		'delItemById': function(id) {
 		    for(var i = 0; i < this.items.length; i++) {
 			if(this.items[i].id == id) {
-			    return this.items.slice(i, i+1);
+			    return this.items.splice(i, 1);
 			}
 		    }
 		},
@@ -127,25 +129,28 @@ $(function() {
 		},
 
 		'draw': function() {
-		    $("#chapterslist").empty();
+		    var $this = this;
+
+		    $($this.containerName).empty();
 		    $.each(this.items, function(i, v) {
 			if(v.isChapter)
-			    makeChapterLine(v.id, v.title).appendTo("#chapterslist");
+			    makeChapterLine(v.id, v.title).appendTo($this.containerName);
 			else
-			    makeSectionLine(v.id, v.title).appendTo("#chapterslist");
+			    makeSectionLine(v.id, v.title).appendTo($this.containerName);
 
 		    });
 		},
 
 		'redraw': function() {
-		    var chldrn = $("#chapterslist").contents().clone(true);
+		    var $this = this;
+		    var chldrn = $($this.containerName).contents().clone(true);
 
-		    $("#chapterslist").empty();
+		    $($this.containerName).empty();
 
 		    $.each(this.items, function(i, v) {
 			for(var n = 0; n < chldrn.length; n++) {
 			    if( $(chldrn[n]).attr("id") == "item_"+v.id) {
-				$(chldrn[n]).appendTo("#chapterslist");
+				$(chldrn[n]).appendTo($this.containerName);
 				break;
 			    }
 			}
@@ -162,7 +167,8 @@ $(function() {
 		}
 	    });
 
-	    var toc = new TOC();
+	    var toc = new TOC("#chapterslist");
+	    var holdChapters = new TOC("#holdchapterslist");
 
 	    var _isEditingSmall = false;
 
@@ -269,11 +275,79 @@ $(function() {
 		    $('#tabs').bind('tabsselect', function(event, ui) {});
 
 		    /* $("#accordion").accordion({ header: "h3" }); */
-		    $("#chapterslist").sortable({'cursor': 'crosshair', 'stop': function() { 
-				$.booki.ui.notify("Sending data...");
-				var result = $('#chapterslist').sortable('toArray'); 
+		    $("#chapterslist, #holdchapterslist").sortable({'connectWith': ['.connectedSortable'], 'dropOnEmpty': true,  'stop': function(event, ui) { 
+			$.booki.ui.notify("Sending data...");
+			var result = $('#chapterslist').sortable('toArray'); 
+
+			// MOZDA CAK SAD I RADI
+
+			$.booki.debug.debug("# broj tocova "+toc.items.length);
+			$.booki.debug.debug("# broj hold tocova "+holdChapters.items.length);
+			$.booki.debug.debug("# result "+ result.length);
+
+
+			if(toc.items.length > result.length) {
+			    $.booki.debug.debug("izgubio sam jednog");
+			    for(var i = 0; i < toc.items.length; i++) {
+				var wasFound = false;
+				for(var n = 0; n < result.length; n++) {
+				    if(toc.items[i].id == result[n].substr(5)) {
+					wasFound = true;
+				    }
+				}
+
+				if(!wasFound) {
+				    var itm = toc.getItemById(toc.items[i].id);
+				    $.booki.debug.debug(itm);
+
+				    var tmp = createChapter(itm);
+				    holdChapters.addItem(tmp);
+				    $.booki.debug.debug(tmp.id);
+				    toc.delItemById(toc.items[i].id);
+
+				    $.booki.debug.debug("broj tocova "+toc.items.length);
+				    $.booki.debug.debug(toc.items);
+				    $.booki.debug.debug("broj hold tocova "+holdChapters.items.length);
+				    $.booki.debug.debug(holdChapters.items);
+				    break;
+				}
+			    }
+			}  else if(toc.items.length < result.length) {
+			    $.booki.debug.debug("Dodali smo jednog u TOC.");
+
+			    result = $('#holdchapterslist').sortable('toArray'); 
+			    
+			    for(var i = 0; i < holdChapters.items.length; i++) {
+				var wasFound = false;
+				for(var n = 0; n < result.length; n++) {
+				    if(holdChapters.items[i].id == result[n].substr(5)) {
+					wasFound = true;
+				    }
+				}
+
+				if(!wasFound) {
+				    var itm = holdChapters.getItemById(holdChapters.items[i].id);
+				    $.booki.debug.debug(itm);
+				    var tmp = createChapter(itm);
+				    toc.addItem(tmp);
+				    holdChapters.delItemById(itm.id);
+				    $.booki.debug.debug("broj tocova "+toc.items.length);
+				    $.booki.debug.debug("broj hold tocova "+holdChapters.items.length);
+
+				    break;
+				} else {
+				    $.booki.debug.warning("KAO NASLI SMO IH SVE!");
+				}
+			    }
+
+			} else if (toc.items.length == result.length) {
+			    $.booki.debug.debug("Samo smo promjenili raspored. Ali ne znam u TOC-u ili Restu");
+			}
+/*
 				$.booki.sendToCurrentBook({"command": "chapters_changed", "chapters": result}, function() {$.booki.ui.notify()} );
-			    }, 'placeholder': 'ui-state-highlight', 'scroll': true});
+*/
+
+		    }, 'placeholder': 'ui-state-highlight', 'scroll': true}).disableSelection();
 
 
 		    $.booki.chat.initChat($("#chat"), $("#chat2"));

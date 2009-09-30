@@ -1,6 +1,6 @@
 # Django settings for booki project.
 
-STATIC_DOC_ROOT = '/home/aerkalov/Work/git/booki/site_media'
+STATIC_DOC_ROOT = '/Users/aerkalov/Work/git/booki/site_media'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,6 +12,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'postgresql_psycopg2'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+#DATABASE_ENGINE = 'postgresql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = 'booki'             # Or path to database file if using sqlite3.
 #DATABASE_NAME = '/Users/aerkalov/Work/git/booki/baza.db'             # Or path to database file if using sqlite3.
 DATABASE_USER = 'postgres'             # Not used with sqlite3.
