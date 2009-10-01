@@ -22,7 +22,15 @@ def view_book(request, project, edition):
     # ovaj tu neshto zeza
     book = models.Book.objects.get(project=proj, url_title__iexact=edition)
 
-    chapters = models.BookToc.objects.filter(book=book).order_by("weight")
+    chapters = []
+    for chapter in  models.BookToc.objects.filter(book=book).order_by("-weight"):
+        if chapter.chapter:
+            chapters.append({"url_title": chapter.chapter.url_title,
+                             "name": chapter.chapter.title})
+        else:
+            chapters.append({"url_title": None,
+                             "name": chapter.name})
+        
 
     return render_to_response('editor/view_book.html', {"project": proj, "book": book, "chapters": chapters, "request": request})
 
