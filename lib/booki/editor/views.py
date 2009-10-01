@@ -37,7 +37,15 @@ def view_book(request, project, edition):
 def view_chapter(request, project, edition, chapter):
     proj = models.Project.objects.get(url_name__iexact=project)
     book = models.Book.objects.get(project=proj, url_title__iexact=edition)
-    chapters = models.BookToc.objects.filter(book=book).order_by("weight")
+
+    chapters = []
+    for chap in  models.BookToc.objects.filter(book=book).order_by("-weight"):
+        if chap.chapter:
+            chapters.append({"url_title": chap.chapter.url_title,
+                             "name": chap.chapter.title})
+        else:
+            chapters.append({"url_title": None,
+                             "name": chap.name})
 
     content = models.Chapter.objects.get(book = book, url_title = chapter)
 
