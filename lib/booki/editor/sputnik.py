@@ -128,6 +128,21 @@ def getTOCForBook(book):
 
 # booki_book
 
+
+def getHoldChapters(book_id):
+    from django.db import connection, transaction
+    cursor = connection.cursor()
+    # wgere chapter_id is NULL that is the hold Chapter
+    cursor.execute("select editor_chapter.id, editor_chapter.title, editor_chapter.url_title, editor_booktoc.chapter_id from editor_chapter left outer join editor_booktoc on (editor_chapter.id=editor_booktoc.chapter_id)  where editor_chapter.book_id=%s;", (book_id, ))
+
+    chapters = []
+    for row in cursor.fetchall():
+        if row[-1] == None:
+            chapters.append((row[0], row[1], row[2], 1))
+
+    return chapters
+
+
 def booki_book(request, message, projectid, bookid):
     from booki.editor import models
 
@@ -136,17 +151,21 @@ def booki_book(request, message, projectid, bookid):
         book = models.Book.objects.get(project=project, id=bookid)
 
         chapters = getTOCForBook(book)
+        holdChapters =  getHoldChapters(bookid)
+
+        ## chapters who are on hold
 
         def vidi(a):
             if a == request.sputnikID:
                 return "<b>%s</b>" % a
             return a
 
+
         users = [vidi(m) for m in list(rcon.smembers("sputnik:channel:%s" % message["channel"]))]
         
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "user_joined", "user_joined": request.user.username}, myself = False)
                 
-        return {"chapters": chapters, "users": users}
+        return {"chapters": chapters, "hold": holdChapters, "users": users}
 
     if message["command"] == "chapter_status":
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": message["status"], "username": request.user.username})
@@ -174,6 +193,7 @@ def booki_book(request, message, projectid, bookid):
 
     if message["command"] == "chapters_changed":
         lst = [chap[5:] for chap in message["chapters"]]
+        lstHold = [chap[5:] for chap in message["hold"]]
 
         project = models.Project.objects.get(id=projectid)
         book = models.Book.objects.get(project=project, id=bookid)
@@ -186,13 +206,31 @@ def booki_book(request, message, projectid, bookid):
                 m.weight = weight
                 m.save()
             else:
-                m =  models.BookToc.objects.get(chapter__id__exact=int(chap))
-                m.weight = weight
-                m.save()
+                try:
+                    m =  models.BookToc.objects.get(chapter__id__exact=int(chap))
+                    m.weight = weight
+                    m.save()
+                except:
+                    chptr = models.Chapter.objects.get(id__exact=int(chap))
+                    m = models.BookToc(book = book,
+                                       name = "SOMETHING",
+                                       chapter = chptr,
+                                       weight = weight,
+                                       typeof=1)
+                    m.save()
 
             weight -= 1
 
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapters_changed", "ids": [x for x in lst]})
+        if message["kind"] == "remove":
+            if type(message["chapter_id"]) == type(' ') and message["chapter_id"][0] == 's':
+                m =  models.BookToc.objects.get(id__exact=message["chapter_id"][1:])
+                m.delete()
+            else:
+                m =  models.BookToc.objects.get(chapter__id__exact=int(message["chapter_id"]))
+                m.delete()
+
+
+        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapters_changed", "ids": lst, "hold_ids": lstHold, "kind": message["kind"], "chapter_id": message["chapter_id"]})
         return {}
 
     if message["command"] == "get_users":
