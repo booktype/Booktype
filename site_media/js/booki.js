@@ -284,7 +284,11 @@ $(function() {
 		    
 		    $("#notify").css("display", "block");
 		    $("#notify").html(message);
-		}
+	    },
+		    "info": function(where, message) {
+			$(where).append('<span>'+message+'</span>').show().fadeOut(3000, function() {  $(where).empty().show();});
+
+		    }
 	    };
 	}();
 	

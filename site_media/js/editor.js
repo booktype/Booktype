@@ -276,18 +276,13 @@ $(function() {
 
 		    /* $("#accordion").accordion({ header: "h3" }); */
 		    $("#chapterslist, #holdchapterslist").sortable({'connectWith': ['.connectedSortable'], 'dropOnEmpty': true,  'stop': function(event, ui) { 
-			$.booki.ui.notify("Sending data...");
-			var result = $('#chapterslist').sortable('toArray'); 
 
-			// MOZDA CAK SAD I RADI
+			var result     = $('#chapterslist').sortable('toArray'); 
+			var holdResult = $('#holdchapterslist').sortable('toArray'); 
 
-			$.booki.debug.debug("# broj tocova "+toc.items.length);
-			$.booki.debug.debug("# broj hold tocova "+holdChapters.items.length);
-			$.booki.debug.debug("# result "+ result.length);
-
+			// too much copy+paste here. should organise it in better way.
 
 			if(toc.items.length > result.length) {
-			    $.booki.debug.debug("izgubio sam jednog");
 			    for(var i = 0; i < toc.items.length; i++) {
 				var wasFound = false;
 				for(var n = 0; n < result.length; n++) {
@@ -298,50 +293,62 @@ $(function() {
 
 				if(!wasFound) {
 				    var itm = toc.getItemById(toc.items[i].id);
-				    $.booki.debug.debug(itm);
-
-				    var tmp = createChapter(itm);
-				    holdChapters.addItem(tmp);
-				    $.booki.debug.debug(tmp.id);
+				    if((""+itm.id).substring(0,1) != 's') {
+					holdChapters.addItem(itm);
+				    } else {
+					$("#item_"+toc.items[i].id).remove();
+				    }
+				    $.booki.debug.debug(itm.id);
 				    toc.delItemById(toc.items[i].id);
 
-				    $.booki.debug.debug("broj tocova "+toc.items.length);
-				    $.booki.debug.debug(toc.items);
-				    $.booki.debug.debug("broj hold tocova "+holdChapters.items.length);
-				    $.booki.debug.debug(holdChapters.items);
+				    $.booki.ui.info("#container .middleinfo", "Removing chapter from Table of Contents.");
+				    $.booki.ui.notify("Sending data...");
+				    $.booki.sendToCurrentBook({"command": "chapters_changed", 
+							       "chapters": result,
+							       "hold": holdResult,
+							       "kind": "remove",
+							       "chapter_id": itm.id}, 
+							      function() {$.booki.ui.notify()} );
+                                    
 				    break;
 				}
 			    }
 			}  else if(toc.items.length < result.length) {
-			    $.booki.debug.debug("Dodali smo jednog u TOC.");
-
-			    result = $('#holdchapterslist').sortable('toArray'); 
-			    
 			    for(var i = 0; i < holdChapters.items.length; i++) {
 				var wasFound = false;
-				for(var n = 0; n < result.length; n++) {
-				    if(holdChapters.items[i].id == result[n].substr(5)) {
+				for(var n = 0; n < holdResult.length; n++) {
+				    if(holdChapters.items[i].id == holdResult[n].substr(5)) {
 					wasFound = true;
 				    }
 				}
 
 				if(!wasFound) {
 				    var itm = holdChapters.getItemById(holdChapters.items[i].id);
-				    $.booki.debug.debug(itm);
-				    var tmp = createChapter(itm);
-				    toc.addItem(tmp);
+				    toc.addItem(itm);
 				    holdChapters.delItemById(itm.id);
-				    $.booki.debug.debug("broj tocova "+toc.items.length);
-				    $.booki.debug.debug("broj hold tocova "+holdChapters.items.length);
 
+				    $.booki.ui.info("#container .middleinfo", "Adding chapter to Table of Contents.");
+				    $.booki.ui.notify("Sending data...");
+				    $.booki.sendToCurrentBook({"command": "chapters_changed", 
+							       "chapters": result,
+							       "hold": holdResult,
+							       "kind": "add",
+							       "chapter_id": itm.id}, 
+							      function() {$.booki.ui.notify()} );
 				    break;
-				} else {
-				    $.booki.debug.warning("KAO NASLI SMO IH SVE!");
-				}
+				} 
 			    }
 
 			} else if (toc.items.length == result.length) {
-			    $.booki.debug.debug("Samo smo promjenili raspored. Ali ne znam u TOC-u ili Restu");
+			    $.booki.ui.info("#container .middleinfo", "Reordering the chapters...");
+			    $.booki.ui.notify("Sending data...");
+			    $.booki.sendToCurrentBook({"command": "chapters_changed", 
+						       "chapters": result,
+						       "hold": holdResult,
+						       "kind": "order",
+						       "chapter_id": null
+						       }, 
+							      function() {$.booki.ui.notify()} );
 			}
 /*
 				$.booki.sendToCurrentBook({"command": "chapters_changed", "chapters": result}, function() {$.booki.ui.notify()} );
@@ -363,10 +370,15 @@ $(function() {
 
 						   $.each(data.chapters, function(i, elem) {
 						       toc.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1}));
-						      // makeChapterLine(elem[0], elem[1]).appendTo("#chapterslist");
 						   });
 
+						   $.each(data.hold, function(i, elem) {
+						       holdChapters.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1}));
+						   });
+
+
 						   toc.draw();
+						   holdChapters.draw();
 						   
 						   $.each(data.users, function(i, elem) {
 						       $("#users").append(elem+"<br/>");
@@ -397,13 +409,48 @@ $(function() {
 			}
 			
 			if(message.command == "chapters_changed") {
-			    toc.update(message.ids);
-			    toc.redraw();
+			    if(message.kind == "remove") {
+
+				var itm = toc.getItemById(message.chapter_id);
+
+				if((""+message.chapter_id).substring(0,1) != 's')
+				    holdChapters.addItem(itm);
+
+				toc.delItemById(message.chapter_id);
+
+				toc.update(message.ids);
+				holdChapters.update(message.hold_ids);
+
+				toc.draw();
+				holdChapters.draw();
+
+				$.booki.ui.info("#container .middleinfo", "Removing chapter from Table of Contents.");
+			    } else {
+				if(message.kind == "add") {
+				    var itm = holdChapters.getItemById(message.chapter_id);
+				    toc.addItem(itm);
+				    holdChapters.delItemById(message.chapter_id);
+
+				    toc.update(message.ids);
+				    holdChapters.update(message.hold_ids);
+
+				    toc.draw();
+				    holdChapters.draw();
+
+				    $.booki.ui.info("#container .middleinfo", "Adding chapter to Table of Contents.");
+				} else {
+				    $.booki.ui.info("#container .middleinfo", "Reordering the chapters...");
+
+				    toc.update(message.ids);
+				    holdChapters.update(message.hold_ids);
+				    toc.redraw();
+				    holdChapters.redraw();
+				}
+			    }
 			}
 			
                         if(message.command == "chapter_create") {
-			    $.booki.debug.debug("[chapter_create]");
-			    $.booki.debug.debug(message.chapter);
+			    // this also only works for the TOC
 			    if(message.chapter[3] == 1) { 
 				toc.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: true}));
 				var v = toc.getItemById(message.chapter[0]);
@@ -419,8 +466,11 @@ $(function() {
 			if(message.command == "chapter_rename") {
 			    $.booki.debug.debug("[chapter_rename]");
 			    var item = toc.getItemById(message.chapterID);
+			    if(!item)
+				item = holdChapters.getItemById(message.chapterID);
 			    item.title = message.chapter;
 			    toc.refresh();
+			    holdChapters.refresh();
 			}
 			
 			if(message.command == "chapters_list") {
