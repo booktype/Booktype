@@ -73,24 +73,23 @@
 </script>
 <script type="text/javascript" src="/site_media/xinha/XinhaCore.js"></script>
 <script type="text/javascript">
-
-var xinha_plugins =
-[
- 'GetHtml',        'SaveSubmit', 'DoubleClick', 'ImageManager', 'SpellChecker'
-];
-var xinha_editors =
-[
-  'myTextArea'
-];
-
+    var xinha_plugins = ['GetHtml',        'SaveSubmit', 'DoubleClick' , 'ImageManager', 'SpellChecker'];
+var xinha_editors = ['myTextArea'];
 
 var prvi = false;
 
-function xinha_init()
-{
-  if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
+function xinha_init() {
+    $.booki.debug.debug("xinha_init()");
 
-  if(prvi) return;
+    if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) {
+	$.booki.debug.debug("Nisam mogao ucitati pluginove.");
+	//return;
+    }
+
+    if(prvi) {
+	$.booki.debug.debug("prvi == true");
+	return;
+    }
 
     var xinha_config = new Xinha.Config();
 
@@ -104,12 +103,11 @@ function xinha_init()
 
 
 
-
     xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
 
     Xinha.startEditors(xinha_editors);
     prvi = true;
-
+    $.booki.debug.debug("Radim editore i sve ostale pizdarije");
 
 }
 
@@ -203,6 +201,7 @@ This is temporary interface.
 <input type="text" name="title" style="width: 500px">
 <br/>
 <textarea name="myTextArea" id="myTextArea" style="width: 500px; height: 600px">
+  
 </textarea>
 </form>
 </div>

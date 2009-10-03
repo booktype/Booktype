@@ -76,7 +76,6 @@ def booki_main(request, message):
         pass
 
     if message["command"] == "connect":
-#        r = redis.Redis()
 
         if not rcon.exists("sputnik:client_id"):
             rcon.set("sputnik:client_id", 0)
@@ -150,22 +149,27 @@ def booki_book(request, message, projectid, bookid):
         project = models.Project.objects.get(id=projectid)
         book = models.Book.objects.get(project=project, id=bookid)
 
+        ## get chapters
+
         chapters = getTOCForBook(book)
         holdChapters =  getHoldChapters(bookid)
 
-        ## chapters who are on hold
+        ## get users
 
         def vidi(a):
             if a == request.sputnikID:
                 return "<b>%s</b>" % a
             return a
 
-
         users = [vidi(m) for m in list(rcon.smembers("sputnik:channel:%s" % message["channel"]))]
+
+        ## get workflof statuses
+
+        statuses = [(status.name, status.weight) for status in models.ProjectStatus.objects.filter(project=project).order_by("-weight")]
         
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "user_joined", "user_joined": request.user.username}, myself = False)
                 
-        return {"chapters": chapters, "hold": holdChapters, "users": users}
+        return {"chapters": chapters, "hold": holdChapters, "users": users, "statuses": statuses}
 
     if message["command"] == "chapter_status":
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": message["status"], "username": request.user.username})

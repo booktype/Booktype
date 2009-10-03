@@ -172,18 +172,23 @@ $(function() {
 
 	    var _isEditingSmall = false;
 
-	  function _f(data) {
-	    function _edi() {
-//	      xinha_init(); 
-	      
-	      var edi = xinha_editors.myTextArea; 
-	      if(edi) {
-		edi.setEditorContent(data.content);
-	      } 
+	    var statuses = null;
+/*
+	    function _f(data) {
+		function _edi() {
+		    var edi = xinha_editors.myTextArea; 
+		    $.booki.debug.debug("daj mi edija kao! ");
+		    if(edi) {
+			$.booki.debug.debug("Imam edija i idem ga postaviti");
+			$.booki.debug.debug(data.content);
+			edi.setEditorContent(data.content);
+		    } else {
+			$.booki.debug.debug("Nemam edija.");
+		    }
+		}
+		return _edi;
 	    }
-	    return _edi;
-	  }
-
+*/
 
 	    function makeSectionLine(chapterID, name) {
 		return $('<li class="ui-state-default" id="item_'+chapterID+'"  style="background-color: #a0a0a0; color: white; background-image: none"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont"><table border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td width="70%"><div class="title" style="float: left">'+name+'</div></td><td width="10%"><td width="20%"><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td></tr></table></div></li>');
@@ -233,21 +238,26 @@ $(function() {
 		editChapter: function(chapterID) {
 		    $.booki.ui.notify("Loading chapter data...");
 		    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/",
-	{"command": "get_chapter", "chapterID": chapterID}, function(data) {
+					  {"command": "get_chapter", "chapterID": chapterID}, function(data) {
 					      $.booki.ui.notify();
 					      $("#container").fadeOut("slow", function() {
+						  
+						  $("#container").css("display", "none");
+						  $("#editor").css("display", "block").fadeIn("slow");
+						  //  						      $("#editor TEXTAREA").html(data.content);
+    						  
+                                                  
+						  /* xinha */
+						  xinha_init(); 
 
-						      $("#container").css("display", "none");
-						      $("#editor").css("display", "block").fadeIn("slow");
-//  						      $("#editor TEXTAREA").html(data.content);
-    						      
-                                                      
-						     /* xinha */
-						  setTimeout(xinha_init,  0);
-  						  setTimeout(_f(data), 100);
+						  var edi = xinha_editors.myTextArea; 
+						  if(edi)
+						      edi.setEditorContent(data.content);
 
-						      $("#editor INPUT[name=title]").attr("value", data.title);
+  						  //setTimeout(_f(data), 400);
 
+						  $("#editor INPUT[name=title]").attr("value", data.title);
+						  
    						  $("#editor INPUT[name=chapter_id]").attr("value", chapterID);
 						  $("#editor INPUT[name=save]").unbind('click').click(function() {
 					              var edi = xinha_editors["myTextArea"]; 
@@ -367,7 +377,7 @@ $(function() {
 
 					       function(data) {
 						   $.booki.ui.notify("");
-
+						   
 						   $.each(data.chapters, function(i, elem) {
 						       toc.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1}));
 						   });
@@ -380,6 +390,9 @@ $(function() {
 						   toc.draw();
 						   holdChapters.draw();
 						   
+						   statuses = data.statuses;
+						   $.booki.debug.debug(data);
+
 						   $.each(data.users, function(i, elem) {
 						       $("#users").append(elem+"<br/>");
 						   });
