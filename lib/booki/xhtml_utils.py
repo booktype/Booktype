@@ -1,7 +1,8 @@
 """Various things to do with [x]html that might be useful in more than
 one place."""
 
-import lxml, lxml.html, lxml.etree, lxml.html.clean
+import lxml, lxml.html, lxml.html.clean
+from lxml import etree
 
 import os, sys
 import re
@@ -51,7 +52,8 @@ OK_TAGS = set([
     "param", "b", "big", "hr", "i", "small", "sub", "sup", "tt", "del",
     "ins", "bdo", "caption", "col", "colgroup", "table", "tbody", "td",
     "tfoot", "th", "thead", "tr", "img", "area", "map", "meta", "style",
-    "link", "base"
+    "link", "base",
+    etree.Comment,
     ])
 
 XHTMLNS = '{http://www.w3.org/1999/xhtml}'
@@ -141,11 +143,11 @@ class BaseChapter(object):
 
     def as_html(self):
         """Serialise the tree as html."""
-        return lxml.etree.tostring(self.tree, method='html')
+        return etree.tostring(self.tree, method='html')
 
     def as_twikitext(self):
         """Get the twiki-style guts of the chapter from the tree"""
-        text = lxml.etree.tostring(self.tree.find('body'), method='html')
+        text = etree.tostring(self.tree.find('body'), method='html')
         text = re.sub(r'^.*?<body.*?>\s*', '', text)
         text = re.sub(r'\s*</body>.*$', '\n', text)
         return text
@@ -158,7 +160,7 @@ class BaseChapter(object):
             root = self.tree
 
         nsmap = {None: XHTML}
-        xroot = lxml.etree.Element(XHTMLNS + "html", nsmap=nsmap)
+        xroot = etree.Element(XHTMLNS + "html", nsmap=nsmap)
 
         def xhtml_copy(el, xel):
             xel.text = el.text
@@ -172,7 +174,7 @@ class BaseChapter(object):
 
         xhtml_copy(root, xroot)
 
-        return XML_DEC + XHTML11_DOCTYPE + lxml.etree.tostring(xroot)
+        return XML_DEC + XHTML11_DOCTYPE + etree.tostring(xroot)
 
     def localise_links(self):
         """Find image links, convert them to local links, and fetch
