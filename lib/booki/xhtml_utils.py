@@ -5,7 +5,7 @@ import lxml, lxml.html, lxml.html.clean
 from lxml import etree
 
 import os, sys
-import re
+import re, copy
 from cStringIO import StringIO
 
 from urlparse import urlparse, urlsplit, urljoin
@@ -302,4 +302,85 @@ class BookiZip(object):
         infojson = json.dumps(self.info, indent=2)
         self.add_to_package('info.json', 'info.json', infojson, 'application/json')
         self._close()
+
+
+
+
+def new_html_doc(title=''):
+    html = etree.Element('html')
+    head = html.makeelement('head')
+    body = html.makeelement('body')
+    if title:
+        title = html.makeelement('title')
+        head.append(title)
+    html.append(head)
+    html.append(body)
+    return body
+
+
+def llopsided_copy(parent, start_el, start_stack):
+    if start_stack:
+        new = parent.makeelement(start_el.tag, **start_el.attrib)
+        parent.append(new)
+        first_child = start_stack.pop()
+        llopsided_copy(new, first_child, start_stack)
+        for el in first_child.itersiblings():
+            parent.append(copy.deepcopy(el))
+    else:
+        parent.append(copy.deepcopy(start_el))
+
+
+def rlopsided_copy(parent, end_el, end_stack):
+    if end_stack:
+        last_child = end_stack.pop()
+        for el in end_el.iterchildren():
+            if el is last_child:
+                break
+            parent.append(copy.deepcopy(el))
+        new = parent.makeelement(end_el.tag, **end_el.attrib)
+        parent.append(new)
+        rlopsided_copy(new, last_child, end_stack)
+    else:
+        parent.append(copy.deepcopy(end_el))
+
+
+
+def xml_snippet(start_tag, end_tag):
+    #dbody = new_html_body()
+    start_stack = [start_tag] + [x for x in start_tag.iterancestors()]
+    end_stack = [end_tag] + [x for x in end_tag.iterancestors()]
+    #print start_stack, end_stack
+
+    #start_stack.reverse()
+    #end_stack.reverse()
+    oldroot = start_stack.pop()
+    assert oldroot == end_stack.pop()
+    root = etree.Element(oldroot.tag)
+    context = root
+    while start_stack:
+        start_el = start_stack.pop()
+        end_el = end_stack.pop()
+        if start_el is not end_el:
+            # The start stack and endstack will never converge, so we
+            # may as well stop the loop.
+            break
+        new = root.makeelement(start_el.tag, **start_el.attrib)
+        context.append(new)
+        context = new
+
+    #so the tree has diverged.
+    #need to copy
+    # 1. part of this subtree
+    # 2. all intervening subtrees - deepcopy
+    # 3. part of last subtree
+    print start_stack, end_stack, context
+
+    llopsided_copy(context, start_el, start_stack)
+    for el in start_el.itersiblings():
+        if el is end_el or el in end_stack:
+            break
+        context.append(copy.deepcopy(el)) #actually, being destructive wouldn't matter
+    rlopsided_copy(context, end_el, end_stack)
+
+    return root
 
