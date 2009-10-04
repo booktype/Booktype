@@ -230,6 +230,9 @@ class BaseChapter(object):
                 log('found bad tag %s' % e.tag)
         self.cleaner(self.tree)
 
+    def prepare_for_epub(self):
+        """Change h1 to h3, etc"""
+
 
 class ImportedChapter(BaseChapter):
     """Used for git import"""
