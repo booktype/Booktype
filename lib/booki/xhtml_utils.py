@@ -307,20 +307,6 @@ class BookiZip(object):
         self._close()
 
 
-
-
-def new_html_doc(title=''):
-    html = etree.Element('html')
-    head = html.makeelement('head')
-    body = html.makeelement('body')
-    if title:
-        title = html.makeelement('title')
-        head.append(title)
-    html.append(head)
-    html.append(body)
-    return body
-
-
 def llopsided_copy(parent, start_el, start_stack):
     if start_stack:
         new = parent.makeelement(start_el.tag, **start_el.attrib)
