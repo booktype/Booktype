@@ -63,10 +63,44 @@
 	    
 	    // $("#datepicker").datepicker({"onSelect": function(a) { alert(a)}});
 
+
+	    $("#newchapter").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 250,
+		width: 400, 
+			modal: true,
+			buttons: {
+				'Create chapter': function() {
+				    $.booki.ui.notify("Creating chapter");
+				    
+				    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
+					$.booki.ui.notify();
+				    });
+
+
+				    $(this).dialog('close');
+				},
+				'Cancel': function() {
+					$(this).dialog('close');
+				}
+			},
+		open: function(event,ui) {
+		    $("INPUT", $(this)).val("Enter new Chapter title.").select();
+		},
+			close: function() {
+
+			}
+		});
+	    $("#newchapter INPUTa").keydown(function() {
+		var title = $(this).val();
+		title = title.toLowerCase().replace(/\s/gi, "-");
+		$("#newchapter .urlname").html(title);
+	    });
+	    
 	});
 
                  </script>
-
 <script type="text/javascript">
   var _editor_url = "/site_media/xinha/";
   var _editor_lang = "en";
@@ -167,6 +201,21 @@ some notification. this should be on top of visible page and not top of page.
 <ul id="chapterslist" class="connectedSortable">
 </ul>
 
+<div id="chapteraction">
+<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="aa">NEW SECTION</a>
+</div>
+
+<div id="newchapter" title="New chapter">
+  <p id="validateTips">All form fields are required.</p>
+
+<form>
+<fieldset>
+  <input type="text" class="text ui-widget-content ui-corner-all">
+  </fieldset>
+</form>
+<span class="urlname"></span>
+</div>
+
 <div class="middleinfo">
 </div>
 
@@ -174,6 +223,7 @@ some notification. this should be on top of visible page and not top of page.
 <ul id="holdchapterslist" class="connectedSortable">
 </ul>
 
+<!--
 <div style="border-bottom: 1px solid #c0c0c0; padding-top: 50px; margin-bottom: 20px"></div>
 This is temporary interface. 
 <div id="formchapter">
@@ -189,6 +239,8 @@ This is temporary interface.
 <input class="chapter" type="text" size="30"><button class="submit">Create section</button>
 </form>
 </div>
+
+-->
 
 </div>
 

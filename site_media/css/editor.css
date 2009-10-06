@@ -59,6 +59,21 @@ H4 {
 .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
 
 
+#chapteraction {
+    width: 90%;
+    text-align: right;
+    padding-top: 4px;
+}
+
+
+.ui-button { outline: 0; margin:0; padding: .4em 1em .5em; text-decoration:none;  !important; cursor:pointer; position: relative; text-align: center; }
+.ui-dialog .ui-state-highlight, .ui-dialog .ui-state-error { padding: .3em;  }
+
+#newchapter 	label, #newchapter input { display:block; }
+#newchapter 	input.text { margin-bottom:12px; width:95%; padding: .4em; }
+#newchapter 	fieldset { padding:0; border:0; margin-top:25px; }
+
+
 #notify {
     /*position: absolute; */
     position: fixed;
@@ -75,7 +90,7 @@ H4 {
 #container .middleinfo {
     padding-top: 10px;
     padding-bottom: 10px;
-    height: 20px;
+    height: 10px;
     text-align: center;
 }
 

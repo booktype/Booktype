@@ -118,7 +118,7 @@ def getTOCForBook(book):
     for chap in list(models.BookToc.objects.filter(book=book).order_by("-weight")):
         # is it a section or chapter
         if chap.chapter:
-            results.append((chap.chapter.id, chap.chapter.title, chap.chapter.url_title, chap.typeof))
+            results.append((chap.chapter.id, chap.chapter.title, chap.chapter.url_title, chap.typeof, chap.chapter.status.id))
         else:
             results.append(('s%s' % chap.id, chap.name, chap.name, chap.typeof))
 
@@ -132,12 +132,12 @@ def getHoldChapters(book_id):
     from django.db import connection, transaction
     cursor = connection.cursor()
     # wgere chapter_id is NULL that is the hold Chapter
-    cursor.execute("select editor_chapter.id, editor_chapter.title, editor_chapter.url_title, editor_booktoc.chapter_id from editor_chapter left outer join editor_booktoc on (editor_chapter.id=editor_booktoc.chapter_id)  where editor_chapter.book_id=%s;", (book_id, ))
+    cursor.execute("select editor_chapter.id, editor_chapter.title, editor_chapter.url_title, editor_booktoc.chapter_id, editor_chapter.status_id from editor_chapter left outer join editor_booktoc on (editor_chapter.id=editor_booktoc.chapter_id)  where editor_chapter.book_id=%s;", (book_id, ))
 
     chapters = []
     for row in cursor.fetchall():
-        if row[-1] == None:
-            chapters.append((row[0], row[1], row[2], 1))
+        if row[-2] == None:
+            chapters.append((row[0], row[1], row[2], 1, row[4]))
 
     return chapters
 
@@ -165,8 +165,9 @@ def booki_book(request, message, projectid, bookid):
 
         ## get workflof statuses
 
-        statuses = [(status.name, status.weight) for status in models.ProjectStatus.objects.filter(project=project).order_by("-weight")]
-        
+        statuses = [(status.id, status.name) for status in models.ProjectStatus.objects.filter(project=project).order_by("-weight")]
+
+        ## notify others
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "user_joined", "user_joined": request.user.username}, myself = False)
                 
         return {"chapters": chapters, "hold": holdChapters, "users": users, "statuses": statuses}
@@ -269,7 +270,9 @@ def booki_book(request, message, projectid, bookid):
 
         url_title = slugify(message["chapter"])
 
-        s = models.ProjectStatus.objects.all()[0]
+        # here i should probably set it to default project status
+        s = models.ProjectStatus.objects.filter(project=project).order_by("weight")[0]
+
         chapter = models.Chapter(book = book,
                                  url_title = url_title,
                                  title = message["chapter"],
@@ -285,7 +288,7 @@ def booki_book(request, message, projectid, bookid):
                            typeof=1)
         c.save()
 
-        result = (c.chapter.id, c.chapter.title, c.chapter.url_title, c.typeof)
+        result = (c.chapter.id, c.chapter.title, c.chapter.url_title, c.typeof, s.id)
 
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_create", "chapter": result}, myself = True)
 

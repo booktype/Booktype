@@ -74,6 +74,22 @@ $(function() {
 	
 	jQuery.booki.editor = function() {
 
+	    /* status */
+	    var statuses = null;
+	    
+	    function getStatusDescription(statusID) {
+		var r = $.grep(statuses,  function(v, i) {
+		    
+		    return v[0] == statusID;
+		});
+
+		if(r && r.length > 0)
+		    return r[0][1];
+
+		return null;
+	    }
+
+
 	    /* TOC */
 
 	    function createChapter(vals) {
@@ -81,7 +97,8 @@ $(function() {
 		    id: null,
 		    title: '',
 		    isChapter: true,
-		    isLocked: false
+		    isLocked: false,
+		    status: null
 		};
 
 		$.extend(options, vals);
@@ -134,7 +151,7 @@ $(function() {
 		    $($this.containerName).empty();
 		    $.each(this.items, function(i, v) {
 			if(v.isChapter)
-			    makeChapterLine(v.id, v.title).appendTo($this.containerName);
+			    makeChapterLine(v.id, v.title, getStatusDescription(v.status)).appendTo($this.containerName);
 			else
 			    makeSectionLine(v.id, v.title).appendTo($this.containerName);
 
@@ -161,6 +178,8 @@ $(function() {
 		    // should update status and other things also
 		    $.each(this.items, function(i, v) {
 			$("#item_"+v.id+"  .title").html(v.title);
+			$("#item_"+v.id+"  .status").html(getStatusDescription(v.status));
+
 		    });
 
 
@@ -170,32 +189,23 @@ $(function() {
 	    var toc = new TOC("#chapterslist");
 	    var holdChapters = new TOC("#holdchapterslist");
 
+
+	    function getChapter(chapterID) {
+		var chap = toc.getItemById(chapterID);
+		if(!chap)
+		    chap = holdChapters.getItemById(chapterID);
+		return chap;
+	    }
+
 	    var _isEditingSmall = false;
 
-	    var statuses = null;
-/*
-	    function _f(data) {
-		function _edi() {
-		    var edi = xinha_editors.myTextArea; 
-		    $.booki.debug.debug("daj mi edija kao! ");
-		    if(edi) {
-			$.booki.debug.debug("Imam edija i idem ga postaviti");
-			$.booki.debug.debug(data.content);
-			edi.setEditorContent(data.content);
-		    } else {
-			$.booki.debug.debug("Nemam edija.");
-		    }
-		}
-		return _edi;
-	    }
-*/
 
 	    function makeSectionLine(chapterID, name) {
 		return $('<li class="ui-state-default" id="item_'+chapterID+'"  style="background-color: #a0a0a0; color: white; background-image: none"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont"><table border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td width="70%"><div class="title" style="float: left">'+name+'</div></td><td width="10%"><td width="20%"><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td></tr></table></div></li>');
 	    }
 	    
-	    function makeChapterLine(chapterID, name) {
-		return $('<li class="ui-state-default" id="item_'+chapterID+'"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont"><table border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td width="70%"><div class="title" style="float: left">'+name+'</div></td><td width="10%"><a href="javascript:void(0)" onclick="$.booki.editor.editChapter('+chapterID+')" style="font-size: 12px">EDIT</a><td width="20%"><div class="status" style="float:right; font-size: 6pt">published</div><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td></tr></table></div></li>').dblclick(function() {
+	    function makeChapterLine(chapterID, name, status) {
+		return $('<li class="ui-state-default" id="item_'+chapterID+'"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont"><table border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td width="70%"><div class="title" style="float: left">'+name+'</div></td><td width="10%"><a href="javascript:void(0)" onclick="$.booki.editor.editChapter('+chapterID+')" style="font-size: 12px">EDIT</a><td width="20%"><div class="status" style="float:right; font-size: 6pt"><a href="javascript:void(0)" onclick="$.booki.editor.editStatusForChapter('+chapterID+')">'+status+'</a></div><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td></tr></table></div></li>').dblclick(function() {
 		    if(_isEditingSmall) return;
 		    _isEditingSmall = true;
 
@@ -205,8 +215,13 @@ $(function() {
 		    var s = $(".title", $(this)).text(); 
 		    var $this = $(this);
 
-                    $(".cont", $(this)).html('<form style="font-size:12px"></form>');
-                    $("FORM", $(this)).append($('<input type="text" size="50" value="'+s+'" >'));
+                    $(".cont", $(this)).html('<form style="font-size:12px; white-space: nowrap"></form>');
+
+		    // Make it look nicer and look on the width of input box
+		    // also use white-space: nowrap
+
+
+                    $("FORM", $(this)).append($('<input type="text" style="width: 70%" value="'+s+'" >'));
                     $("FORM", $(this)).append($('<a href="#">SAVE</a>').click(function() {
 
 			var newName = $("INPUT", $this).val();
@@ -214,7 +229,7 @@ $(function() {
 			$.booki.sendToCurrentBook({"command": "chapter_rename", "chapterID": chapterID, "chapter": newName}, function() { 
 			    $.booki.ui.notify("");
 			});
-			$("#item_"+chapterID).replaceWith(makeChapterLine(chapterID, newName)); 
+			$("#item_"+chapterID).replaceWith(makeChapterLine(chapterID, newName, status)); 
 		
 		    }));
 		    $("FORM", $(this)).append($('<span> </span>').html());
@@ -222,7 +237,9 @@ $(function() {
 			_isEditingSmall = false; $.booki.ui.notify("Sending data...");
 			$.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID}, function() {$.booki.ui.notify("")} );
 			
-			$("#item_"+chapterID).replaceWith(makeChapterLine(chapterID, name));  }));
+			// this is not god. should get info from toc
+			var ch = getChapter(chapterID);
+			$("#item_"+chapterID).replaceWith(makeChapterLine(chapterID, ch.title, getStatusDescription(ch.status)));  }));
 		    });
 	    }
 	    
@@ -235,6 +252,30 @@ $(function() {
 	    }
 	    
 	    return {
+		editStatusForChapter: function(chapterID) {
+		    var selopts = '<select><option value="-1" style="font-weight: bold; color: black">Cancel</option><option value="-1" style="font-weight: bold; color: black">--------</option>';
+		    var chap = getChapter(chapterID);
+
+		    $.each(statuses, function(i, v) {
+			selopts += '<option value="'+v[0]+'"';
+			if(v[0] == chap.status)
+			    selopts += ' selected="selected" ';
+			selopts += '">'+v[1]+'</option>';
+		    });
+		    selopts += '</select>';
+		    
+		    var s = $(selopts);
+
+		    $("#item_"+chapterID+" .status").html(s.change(function() { 
+			var chap = getChapter(chapterID);
+			if(parseInt($(this).val()) != -1)
+			    chap.status = parseInt($(this).val());
+
+			$("#item_"+chapterID+" .status").html('<a href="javascript:void(0)" onclick="$.booki.editor.editStatusForChapter('+chapterID+')">'+getStatusDescription(chap.status)+'</a>');
+
+		    }).wrap("<form></form>"));
+		},
+
 		editChapter: function(chapterID) {
 		    $.booki.ui.notify("Loading chapter data...");
 		    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/",
@@ -244,17 +285,13 @@ $(function() {
 						  
 						  $("#container").css("display", "none");
 						  $("#editor").css("display", "block").fadeIn("slow");
-						  //  						      $("#editor TEXTAREA").html(data.content);
-    						  
-                                                  
+
 						  /* xinha */
 						  xinha_init(); 
 
 						  var edi = xinha_editors.myTextArea; 
 						  if(edi)
 						      edi.setEditorContent(data.content);
-
-  						  //setTimeout(_f(data), 400);
 
 						  $("#editor INPUT[name=title]").attr("value", data.title);
 						  
@@ -377,21 +414,24 @@ $(function() {
 
 					       function(data) {
 						   $.booki.ui.notify("");
+
+						   statuses = data.statuses;
+
 						   
 						   $.each(data.chapters, function(i, elem) {
-						       toc.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1}));
+						       toc.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1, status: elem[4]}));
 						   });
 
 						   $.each(data.hold, function(i, elem) {
-						       holdChapters.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1}));
+						       holdChapters.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1, status: elem[4]}));
 						   });
 
 
 						   toc.draw();
 						   holdChapters.draw();
 						   
-						   statuses = data.statuses;
-						   $.booki.debug.debug(data);
+						   
+						   $.booki.debug.debug(statuses);
 
 						   $.each(data.users, function(i, elem) {
 						       $("#users").append(elem+"<br/>");
@@ -465,14 +505,14 @@ $(function() {
                         if(message.command == "chapter_create") {
 			    // this also only works for the TOC
 			    if(message.chapter[3] == 1) { 
-				toc.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: true}));
+				toc.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: true, status: message.chapter[4]}));
 				var v = toc.getItemById(message.chapter[0]);
-				makeChapterLine(v.id, v.title).appendTo("#chapterslist");
+				// TODO: change status
+				makeChapterLine(v.id, v.title, getStatusDescription(v.status)).appendTo("#chapterslist");
 			    } else {
 				toc.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: false}));
 				var v = toc.getItemById(message.chapter[0]);
 				makeSectionLine(v.id, v.title).appendTo("#chapterslist");
-
 			    }
 			}
 
@@ -490,7 +530,7 @@ $(function() {
 			    $("#chapterslist").empty();
 			    $.each(message.chapters, function(i, elem) {
 				// should be makeSectionLine also
-					makeChapterLine(elem[0], elem[1]).prependTo("#chapterslist");
+				makeChapterLine(elem[0], elem[1], 0).prependTo("#chapterslist");
 			    });
 			}
 			
