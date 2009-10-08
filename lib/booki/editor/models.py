@@ -93,6 +93,33 @@ class Chapter(models.Model):
         verbose_name_plural = _('Chapters')
 
 
+# Attachment
+
+def uploadAttachmentTo(att, filename):
+    from booki import settings
+    # use MEDIA_ROOT
+    return '%s%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, filename)
+
+
+class Attachment(models.Model):
+    book = models.ForeignKey(Book, null=False)
+    attachment = models.FileField(_('filename'), upload_to=uploadAttachmentTo)
+    status = models.ForeignKey(ProjectStatus, null=False)
+    created = models.DateTimeField(_('created'), null=False, auto_now=True)
+
+#>>> from django.core.files import File
+#
+#>>> f = open('/tmp/hello.world', 'w')
+#>>> myfile = File(f)
+
+    def __unicode__(self):
+        return self.attachment.name
+
+    class Meta:
+        verbose_name = _('Attachment')
+        verbose_name_plural = _('Attachments')
+
+    
 # Book Toc
 
 TYPEOF_CHOICES = (

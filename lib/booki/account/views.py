@@ -58,6 +58,10 @@ class ProjectForm(forms.Form):
     title = forms.CharField(required=True)
 #    url_title = forms.CharField(required=True)
 
+class ImportForm(forms.Form):
+    url = forms.CharField(required=True)
+
+
 def view_profile(request, username):
     from django.contrib.auth.models import User
     from booki.editor import models
@@ -68,6 +72,12 @@ def view_profile(request, username):
 
     if request.method == 'POST':
         project_form = ProjectForm(request.POST)
+        import_form = ImportForm(request.POST)
+
+        if import_form.is_valid():
+            from booki.editor import common
+            common.importBookFromURL(import_form.cleaned_data["url"])
+
 
         if project_form.is_valid():
             title = project_form.cleaned_data["title"]
@@ -95,9 +105,9 @@ def view_profile(request, username):
             return HttpResponseRedirect("/accounts/%s/" % username)
     else:
         project_form = ProjectForm()
-
+        import_form = ImportForm()
 
     books = models.Book.objects.all()
 
-    return render_to_response('account/view_profile.html', {"request": request, "user": user, "project_form": project_form, "books": books})
+    return render_to_response('account/view_profile.html', {"request": request, "user": user, "project_form": project_form, "import_form": import_form, "books": books})
 

@@ -146,6 +146,7 @@ def booki_book(request, message, projectid, bookid):
     from booki.editor import models
 
     if message["command"] == "init_editor":
+
         project = models.Project.objects.get(id=projectid)
         book = models.Book.objects.get(project=project, id=bookid)
 

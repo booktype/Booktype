@@ -12,7 +12,7 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
  <tr>
   <td valign="top" width="240">
-<img src="/site_media/images/aco_ikona.png" width="90%" height="90%"/>
+<img src="/site_media/images/aco_ikona.png"/>
 {{ user.email }}<br/>
 {{ user.first_name }}
 {{ user.last_name }}
@@ -27,6 +27,17 @@
 <br/><br/>
 <button>Create</button>
 </form>
+
+
+<h2>Import book</h2>
+<form action="." method="POST">
+<table>
+{{ import_form.as_table }}
+</table>
+<br/><br/>
+<button>Import</button>
+</form>
+
 
   </td>
   <td width="10"></td>

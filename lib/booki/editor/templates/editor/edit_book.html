@@ -28,28 +28,6 @@
             });
 
 
-// this should be in editor.js
-        $("#formchapter  BUTTON.submit").click(function() {
-                  $.booki.ui.notify("Creating chapter");
- 
-                   $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#formchapter INPUT.chapter").val()}, function(data) {
-                           $.booki.ui.notify();
-                           $("#formchapter INPUT.chapter").val("");
-                      });
-
-          });
-
-        $("#formsection  BUTTON.submit").click(function() {
-                  $.booki.ui.notify("Creating section");
- 
-                   $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#formsection INPUT.chapter").val()}, function(data) {
-                           $.booki.ui.notify();
-                           $("#formsection INPUT.chapter").val("");
-                      });
-
-          });
-
-
 	    // open debug window
 	    $.booki.debug.init();
 
@@ -67,8 +45,8 @@
 	    $("#newchapter").dialog({
 			bgiframe: true,
 			autoOpen: false,
-			height: 250,
-		width: 400, 
+			height: 200,
+		        width: 400, 
 			modal: true,
 			buttons: {
 				'Create chapter': function() {
@@ -88,62 +66,85 @@
 		open: function(event,ui) {
 		    $("INPUT", $(this)).val("Enter new Chapter title.").select();
 		},
-			close: function() {
+		close: function() {
 
 			}
 		});
-	    $("#newchapter INPUTa").keydown(function() {
-		var title = $(this).val();
-		title = title.toLowerCase().replace(/\s/gi, "-");
-		$("#newchapter .urlname").html(title);
-	    });
+
+
+	    $("#newsection").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 200,
+    		        width: 400, 
+			modal: true,
+			buttons: {
+				'Create section': function() {
+				    $.booki.ui.notify("Creating section");
+			
+				    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
+					$.booki.ui.notify();
+				    });
+
+				    $(this).dialog('close');
+				},
+				'Cancel': function() {
+					$(this).dialog('close');
+				}
+			},
+		open: function(event,ui) {
+		    $("INPUT", $(this)).val("Enter new section title.").select();
+		},
+		close: function() {
+
+			}
+		});
+
 	    
 	});
 
                  </script>
+
 <script type="text/javascript">
   var _editor_url = "/site_media/xinha/";
   var _editor_lang = "en";
 </script>
+
 <script type="text/javascript" src="/site_media/xinha/XinhaCore.js"></script>
+
 <script type="text/javascript">
     var xinha_plugins = ['GetHtml',        'SaveSubmit', 'DoubleClick' , 'ImageManager', 'SpellChecker'];
-var xinha_editors = ['myTextArea'];
+    var xinha_editors = ['myTextArea'];
 
-var prvi = false;
+    var prvi = false;
 
-function xinha_init() {
-    $.booki.debug.debug("xinha_init()");
+    function xinha_init() {
+	if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) {
+	    return;
+	}
 
-    if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) {
-	$.booki.debug.debug("Nisam mogao ucitati pluginove.");
-	//return;
-    }
+	if(prvi) {
+	    $.booki.debug.debug("prvi == true");
+	    return;
+	}
 
-    if(prvi) {
-	$.booki.debug.debug("prvi == true");
-	return;
-    }
-
-    var xinha_config = new Xinha.Config();
-
-/*
+	var xinha_config = new Xinha.Config();
+	
+	/*
     xinha_config.width  = '670px';
     xinha_config.height = '600px';
 */
-    xinha_config.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
-
-    xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","insertimage","inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
-
-
-
-    xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
-
-    Xinha.startEditors(xinha_editors);
-    prvi = true;
-    $.booki.debug.debug("Radim editore i sve ostale pizdarije");
-
-}
+	xinha_config.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
+	
+	xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","insertimage","inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
+	
+	
+	
+	xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
+	
+	Xinha.startEditors(xinha_editors);
+	prvi = true;
+    }
 
 //Xinha.addOnloadHandler(xinha_init);
 </script>
@@ -202,19 +203,29 @@ some notification. this should be on top of visible page and not top of page.
 </ul>
 
 <div id="chapteraction">
-<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="aa">NEW SECTION</a>
+<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
 </div>
 
 <div id="newchapter" title="New chapter">
-  <p id="validateTips">All form fields are required.</p>
-
-<form>
-<fieldset>
-  <input type="text" class="text ui-widget-content ui-corner-all">
-  </fieldset>
-</form>
-<span class="urlname"></span>
+<!--  <p id="validateTips">Enter new chapter name.</p> -->
+  
+  <form onsubmit="javascript:return false">
+    <fieldset>
+      <input type="text" class="text ui-widget-content ui-corner-all">
+      </fieldset>
+    </form>
 </div>
+
+<div id="newsection" title="New section">
+<!--  <p id="validateTips">Enter new section name.</p> -->
+  
+  <form onsubmit="return false">
+    <fieldset>
+      <input type="text" class="text ui-widget-content ui-corner-all">
+      </fieldset>
+    </form>
+</div>
+
 
 <div class="middleinfo">
 </div>
