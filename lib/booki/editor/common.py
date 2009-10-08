@@ -11,6 +11,50 @@ from booki.editor import models
 from django.template.defaultfilters import slugify
 
 
+from os import mkdir
+from os.path import split, exists
+
+def path_name(name):
+    return split(name)[0]
+
+
+def file_name(name):
+    return split(name)[1]
+
+
+def path_names(names):
+    return [path_name(name) for name in names if path_name(name) != '']
+
+
+def file_names(names):
+    return [name for name in names if file_name(name)]
+
+
+
+def extract(zdirname, zipfile):
+    
+    names = zipfile.namelist()
+
+    print "names ", names
+
+    for name in path_names(names):
+        print "[%s]" % name
+        if not exists('%s/%s' % (zdirname, name)): 
+            print '%s/%s' % (zdirname, name)
+            print " moram ga kreirari"
+            mkdir('%s/%s' % (zdirname, name))
+    
+
+    for name in file_names(names):
+        print "--------------"
+        print '%s/%s' % (zdirname, name)
+        outfile = file('%s/%s' % (zdirname, name), 'wb')
+        outfile.write(zipfile.read(name))
+        outfile.close()
+
+
+
+
 def createProject(projectName):
     url_name = slugify(projectName)
     
@@ -57,7 +101,8 @@ def importBookFromURL(bookURL):
     # unzip it
     zdirname = tempfile.mkdtemp()
     zf = zipfile.ZipFile(zname)
-    zf.extractall(zdirname)
+    extract(zdirname, zf)
+#    zf.extractall(zdirname)
     zf.close()
 
     # load info.json
