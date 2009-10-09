@@ -1,10 +1,11 @@
 """Various things to do with [x]html that might be useful in more than
 one place."""
 
-import lxml, lxml.html, lxml.etree, lxml.html.clean
+import lxml, lxml.html, lxml.html.clean
+from lxml import etree
 
 import os, sys
-import re
+import re, copy
 from cStringIO import StringIO
 
 from urlparse import urlparse, urlsplit, urljoin
@@ -51,7 +52,8 @@ OK_TAGS = set([
     "param", "b", "big", "hr", "i", "small", "sub", "sup", "tt", "del",
     "ins", "bdo", "caption", "col", "colgroup", "table", "tbody", "td",
     "tfoot", "th", "thead", "tr", "img", "area", "map", "meta", "style",
-    "link", "base"
+    "link", "base",
+    etree.Comment,
     ])
 
 XHTMLNS = '{http://www.w3.org/1999/xhtml}'
@@ -141,11 +143,11 @@ class BaseChapter(object):
 
     def as_html(self):
         """Serialise the tree as html."""
-        return lxml.etree.tostring(self.tree, method='html')
+        return etree.tostring(self.tree, method='html')
 
     def as_twikitext(self):
         """Get the twiki-style guts of the chapter from the tree"""
-        text = lxml.etree.tostring(self.tree.find('body'), method='html')
+        text = etree.tostring(self.tree.find('body'), method='html')
         text = re.sub(r'^.*?<body.*?>\s*', '', text)
         text = re.sub(r'\s*</body>.*$', '\n', text)
         return text
@@ -158,7 +160,7 @@ class BaseChapter(object):
             root = self.tree
 
         nsmap = {None: XHTML}
-        xroot = lxml.etree.Element(XHTMLNS + "html", nsmap=nsmap)
+        xroot = etree.Element(XHTMLNS + "html", nsmap=nsmap)
 
         def xhtml_copy(el, xel):
             xel.text = el.text
@@ -172,7 +174,7 @@ class BaseChapter(object):
 
         xhtml_copy(root, xroot)
 
-        return XML_DEC + XHTML11_DOCTYPE + lxml.etree.tostring(xroot)
+        return XML_DEC + XHTML11_DOCTYPE + etree.tostring(xroot)
 
     def localise_links(self):
         """Find image links, convert them to local links, and fetch
@@ -227,6 +229,9 @@ class BaseChapter(object):
             if not e.tag in OK_TAGS:
                 log('found bad tag %s' % e.tag)
         self.cleaner(self.tree)
+
+    def prepare_for_epub(self):
+        """Change h1 to h3, etc"""
 
 
 class ImportedChapter(BaseChapter):
@@ -300,4 +305,71 @@ class BookiZip(object):
         infojson = json.dumps(self.info, indent=2)
         self.add_to_package('info.json', 'info.json', infojson, 'application/json')
         self._close()
+
+
+def llopsided_copy(parent, start_el, start_stack):
+    if start_stack:
+        new = parent.makeelement(start_el.tag, **start_el.attrib)
+        parent.append(new)
+        first_child = start_stack.pop()
+        llopsided_copy(new, first_child, start_stack)
+        for el in first_child.itersiblings():
+            parent.append(copy.deepcopy(el))
+    else:
+        parent.append(copy.deepcopy(start_el))
+
+
+def rlopsided_copy(parent, end_el, end_stack):
+    if end_stack:
+        last_child = end_stack.pop()
+        for el in end_el.iterchildren():
+            if el is last_child:
+                break
+            parent.append(copy.deepcopy(el))
+        new = parent.makeelement(end_el.tag, **end_el.attrib)
+        parent.append(new)
+        rlopsided_copy(new, last_child, end_stack)
+    else:
+        parent.append(copy.deepcopy(end_el))
+
+
+
+def xml_snippet(start_tag, end_tag):
+    #dbody = new_html_body()
+    start_stack = [start_tag] + [x for x in start_tag.iterancestors()]
+    end_stack = [end_tag] + [x for x in end_tag.iterancestors()]
+    #print start_stack, end_stack
+
+    #start_stack.reverse()
+    #end_stack.reverse()
+    oldroot = start_stack.pop()
+    assert oldroot == end_stack.pop()
+    root = etree.Element(oldroot.tag)
+    context = root
+    while start_stack:
+        start_el = start_stack.pop()
+        end_el = end_stack.pop()
+        if start_el is not end_el:
+            # The start stack and endstack will never converge, so we
+            # may as well stop the loop.
+            break
+        new = root.makeelement(start_el.tag, **start_el.attrib)
+        context.append(new)
+        context = new
+
+    #so the tree has diverged.
+    #need to copy
+    # 1. part of this subtree
+    # 2. all intervening subtrees - deepcopy
+    # 3. part of last subtree
+    print start_stack, end_stack, context
+
+    llopsided_copy(context, start_el, start_stack)
+    for el in start_el.itersiblings():
+        if el is end_el or el in end_stack:
+            break
+        context.append(copy.deepcopy(el)) #actually, being destructive wouldn't matter
+    rlopsided_copy(context, end_el, end_stack)
+
+    return root
 
