@@ -8,6 +8,7 @@ import zipfile
 import os
 import simplejson
 import datetime
+import re
 
 from booki.editor import models
 
@@ -146,9 +147,6 @@ def importBookFromURL(bookURL, createTOC = False):
 
     book = createBook(project, bookTitle, status = "imported")
 
-    print project
-    print book
-
     # this is for Table of Contents
     n = len(info['TOC'])
 
@@ -158,6 +156,9 @@ def importBookFromURL(bookURL, createTOC = False):
         stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
 
         content = open('%s/%s' % (zdirname, chapterFile), 'r').read()
+
+        p = re.compile('\ssrc="(.*)"')
+        content = p.sub(r' src="../\1"', content)
 
         chapter = models.Chapter(book = book,
                                  url_title = urlName,
@@ -177,5 +178,24 @@ def importBookFromURL(bookURL, createTOC = False):
             c.save()
             n -= 1
 
+
+    stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
+
+    from django.core.files import File
+
+    for key, manifest in info['manifest'].items():
+        attachmentName, attachmentType = manifest[0], manifest[1]
+
+        att = models.Attachment(book = book, 
+                                status = stat)
+
+        f = open('%s/%s' % (zdirname, attachmentName) , 'rb')
+        att.attachment.save(file_name(attachmentName), File(f), save = False)
+
+        att.save()
+
+    import shutil
+    shutil.rmtree(zdirname)
+    os.unlink(zname)
 
     return

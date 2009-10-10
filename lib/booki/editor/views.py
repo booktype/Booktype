@@ -58,8 +58,17 @@ def view_project(request, project):
     books = list(models.Book.objects.filter(project__url_name__iexact=project))
     return render_to_response('editor/view_project.html', {"project": project, "books": books})
 
-def view_attachment(request, project, attachment):
-    return render_to_response('editor/view_attachment.html', {"project": project, "attachment": attachment})
+def view_attachment(request, project, edition, attachment):
+    from booki import settings
+    from django.views import static
+
+    #project = models.Project.objects.get(url_name__iexact=project)
+    #book = models.Book.objects.get(project=project, url_title__iexact=edition)
+
+    path = attachment
+    document_root = '%s/static/%s/%s/' % (settings.STATIC_DOC_ROOT, project, edition)
+
+    return static.serve(request, path, document_root)
 
 def view_editor(request, project):
     return render_to_response('editor/view_editor.html', {"project": project})

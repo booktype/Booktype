@@ -98,19 +98,25 @@ class Chapter(models.Model):
 def uploadAttachmentTo(att, filename):
     from booki import settings
     # use MEDIA_ROOT
-    return '%s%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, filename)
+    return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.project.url_name, att.book.url_title, filename)
+
+class AttachmentFile(models.FileField):
+    def get_directory_name(self):
+        # relativni path
+        print "##################################################################"
+        name = super(models.FileField, self).get_directory_name()
+        print name
+        return name
+        
 
 
 class Attachment(models.Model):
     book = models.ForeignKey(Book, null=False)
-    attachment = models.FileField(_('filename'), upload_to=uploadAttachmentTo)
+#    attachment = AttachmentFile(_('filename'), upload_to=uploadAttachmentTo, max_length=250)
+    attachment = models.FileField(_('filename'), upload_to=uploadAttachmentTo, max_length=250)
+
     status = models.ForeignKey(ProjectStatus, null=False)
     created = models.DateTimeField(_('created'), null=False, auto_now=True)
-
-#>>> from django.core.files import File
-#
-#>>> f = open('/tmp/hello.world', 'w')
-#>>> myfile = File(f)
 
     def __unicode__(self):
         return self.attachment.name
