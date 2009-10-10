@@ -429,9 +429,14 @@ $(function() {
 
 						   toc.draw();
 						   holdChapters.draw();
+
+						   $.each(data.attachments, function(i, elem) {
+						       $("#tabattachments TABLE").append('<tr><td><input type="checkbox"></td><td><a href="../static/'+elem["name"]+'" target="_new">'+elem["name"]+'</a></td><td align="right"> '+elem.size+'</td></tr>');
+						   });
 						   
 						   
 						   $.booki.debug.debug(statuses);
+						   $.booki.debug.debug(data.attachments);
 
 						   $.each(data.users, function(i, elem) {
 						       $("#users").append(elem+"<br/>");

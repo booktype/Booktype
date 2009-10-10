@@ -164,14 +164,18 @@ def booki_book(request, message, projectid, bookid):
 
         users = [vidi(m) for m in list(rcon.smembers("sputnik:channel:%s" % message["channel"]))]
 
-        ## get workflof statuses
+        ## get workflow statuses
 
         statuses = [(status.id, status.name) for status in models.ProjectStatus.objects.filter(project=project).order_by("-weight")]
+
+        ## get attachments
+        import os.path
+        attachments = [{"id": att.id, "status": att.status.id, "name": os.path.split(att.attachment.name)[1], "size": att.attachment.size} for att in models.Attachment.objects.filter(book=book)]
 
         ## notify others
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "user_joined", "user_joined": request.user.username}, myself = False)
                 
-        return {"chapters": chapters, "hold": holdChapters, "users": users, "statuses": statuses}
+        return {"chapters": chapters, "hold": holdChapters, "users": users, "statuses": statuses, "attachments": attachments}
 
     if message["command"] == "chapter_status":
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": message["status"], "username": request.user.username})

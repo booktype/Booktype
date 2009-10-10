@@ -194,6 +194,7 @@ def importBookFromURL(bookURL, createTOC = False):
 
         att.save()
 
+    # delete temp files
     import shutil
     shutil.rmtree(zdirname)
     os.unlink(zname)
