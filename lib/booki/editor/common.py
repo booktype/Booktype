@@ -1,3 +1,7 @@
+"""
+Some common functions for booki editor.
+"""
+
 import tempfile
 import urllib2
 import zipfile
@@ -5,11 +9,12 @@ import os
 import simplejson
 import datetime
 
-
 from booki.editor import models
 
 from django.template.defaultfilters import slugify
+from django.utils.translation import ugettext_lazy as _
 
+## our own implementation of ZipFile.extract
 
 from os import mkdir
 from os.path import split, exists
@@ -17,52 +22,48 @@ from os.path import split, exists
 def path_name(name):
     return split(name)[0]
 
-
 def file_name(name):
     return split(name)[1]
-
 
 def path_names(names):
     return [path_name(name) for name in names if path_name(name) != '']
 
-
 def file_names(names):
     return [name for name in names if file_name(name)]
 
-
-
 def extract(zdirname, zipfile):
-    
     names = zipfile.namelist()
 
-    print "names ", names
-
     for name in path_names(names):
-        print "[%s]" % name
         if not exists('%s/%s' % (zdirname, name)): 
-            print '%s/%s' % (zdirname, name)
-            print " moram ga kreirari"
             mkdir('%s/%s' % (zdirname, name))
-    
 
     for name in file_names(names):
-        print "--------------"
-        print '%s/%s' % (zdirname, name)
         outfile = file('%s/%s' % (zdirname, name), 'wb')
         outfile.write(zipfile.read(name))
         outfile.close()
 
+## create project
 
+def createProject(projectName, status = 0):
+    """
+    Creates project with default values. It also creates list of
+    statuses for this project.
+    """
 
-
-def createProject(projectName):
     url_name = slugify(projectName)
     
-    project = models.Project(url_name = url_name[:20],
+    project = models.Project(url_name = url_name,
                              name = projectName,
-                             status = 0)
-    project.save()
+                             status = status)
 
+    try:
+        project.save()
+    except:
+        return None
+
+    # list of default statuses
+    # this list should be configurable
     status_default = ["published", "not published", "imported"]
     n = len(status_default)
 
@@ -74,14 +75,17 @@ def createProject(projectName):
     return project
 
 
-def createBook(project, bookTitle):
+def createBook(project, bookTitle, status = "imported"):
+    """
+    Create book and sets status.
+    """
 
     url_title = slugify(bookTitle)
 
-    stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
+    stat = models.ProjectStatus.objects.get(project=project, name=status)
     
     book = models.Book(project = project,
-                       url_title = url_title[:20],
+                       url_title = url_title,
                        title = bookTitle,
                        status = stat,
                        published = datetime.datetime.now())
@@ -90,7 +94,13 @@ def createBook(project, bookTitle):
     return book
     
 
-def importBookFromURL(bookURL):
+def importBookFromURL(bookURL, createTOC = False):
+    """ 
+    Imports book from the url. Creates project and book for it.
+    """
+
+    ## there is no error checking for now
+
     # download it
     f = urllib2.urlopen(bookURL)
     data = f.read()
@@ -105,11 +115,10 @@ def importBookFromURL(bookURL):
 #    zf.extractall(zdirname)
     zf.close()
 
-    # load info.json
+    # loads info.json
 
     data = open('%s/info.json' % zdirname, 'r').read()
     info = simplejson.loads(data)
-
 
     print info
 
@@ -118,45 +127,38 @@ def importBookFromURL(bookURL):
     print bookTitle
 
     project = createProject(bookTitle)
-    book = createBook(project, bookTitle)
+    book = createBook(project, bookTitle, status = "imported")
 
     print project
     print book
 
- #   n = len(info['TOC'])
- #   print n
+    # this is for Table of Contents
+    n = len(info['TOC'])
 
-    for tocEntry in info['TOC']:
-        print tocEntry
-        chapterName = tocEntry[0]
-        chapterFile = tocEntry[1]
-
+    for (chapterName, chapterFile) in info['TOC']:
         urlName = slugify(chapterName)
 
         stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
 
-
-        print '-----------------------------'
-        print '%s/%s' % (zdirname, chapterFile)
-
         content = open('%s/%s' % (zdirname, chapterFile), 'r').read()
 
         chapter = models.Chapter(book = book,
-                                 url_title = urlName[:20],
+                                 url_title = urlName,
                                  title = chapterName,
                                  status = stat,
                                  content = content,
                                  created = datetime.datetime.now(),
                                  modified = datetime.datetime.now())
         chapter.save()
-        
-#        c = models.BookToc(book = book,
-#                           name = chapterName,
-#                           chapter = chapter,
-#                           weight = n,
-#                           typeof = 1)
-#        c.save()
-#        n -= 1
-                                 
+
+        if createTOC:
+            c = models.BookToc(book = book,
+                               name = chapterName,
+                               chapter = chapter,
+                               weight = n,
+                               typeof = 1)
+            c.save()
+            n -= 1
+                                
 
     return

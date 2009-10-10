@@ -23,8 +23,8 @@ STATUS_CHOICES = (
 ## Project
 
 class Project(models.Model):
-    url_name = models.CharField(_('url_name'), max_length=20, blank=False)
-    name = models.CharField(_('name'), max_length=100, blank=False)
+    url_name = models.CharField(_('url_name'), max_length=250, blank=False)
+    name = models.CharField(_('name'), max_length=250, blank=False)
     status = models.IntegerField(_('status'), choices=STATUS_CHOICES) # change this
     created = models.DateTimeField(_('created'), auto_now=True)
 
@@ -57,8 +57,8 @@ class ProjectStatus(models.Model):
 
 class Book(models.Model):
     project = models.ForeignKey(Project, null=False)
-    url_title = models.CharField(_('url_title'), max_length=20, blank=True) # can it be blank?
-    title = models.CharField(_('title'), max_length=100, blank=False)
+    url_title = models.CharField(_('url_title'), max_length=250, blank=True) # can it be blank?
+    title = models.CharField(_('title'), max_length=250, blank=False)
     status = models.ForeignKey(ProjectStatus, null=False)
     language = models.ForeignKey(Language, null=True) # can it be blank?
     created = models.DateTimeField(_('created'), auto_now=True)
@@ -76,11 +76,11 @@ class Book(models.Model):
 
 class Chapter(models.Model):
     book = models.ForeignKey(Book, null=False)
-    url_title = models.CharField(_('url_title'), max_length=30)
-    title = models.CharField(_('title'), max_length=200)
+    url_title = models.CharField(_('url_title'), max_length=250)
+    title = models.CharField(_('title'), max_length=250)
     status = models.ForeignKey(ProjectStatus, null=False) # this will probably change
-    created = models.DateTimeField(_('created'), null=False)
-    modified = models.DateTimeField(_('modified'), null=True)
+    created = models.DateTimeField(_('created'), null=False, auto_now=True)
+    modified = models.DateTimeField(_('modified'), null=True, auto_now=True)
 
     # missing licence here
     content = models.TextField()
@@ -131,7 +131,7 @@ TYPEOF_CHOICES = (
 
 class BookToc(models.Model):
     book = models.ForeignKey(Book, null=False)
-    name = models.CharField(_('name'), max_length=100, blank=True)
+    name = models.CharField(_('name'), max_length=250, blank=True)
     chapter = models.ForeignKey(Chapter, null=True, blank=True)
     weight = models.IntegerField(_('weight'))
     typeof = models.SmallIntegerField(_('typeof'), choices=TYPEOF_CHOICES)
