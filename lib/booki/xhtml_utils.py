@@ -39,7 +39,7 @@ MEDIATYPES = {
     'txt': 'text/plain',
 
     'epub': "application/epub+zip",
-    'booki': "application/booki+zip",
+    'booki': "application/x-booki+zip",
 
     None: 'application/octet-stream',
 }
