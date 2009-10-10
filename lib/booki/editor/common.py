@@ -124,9 +124,26 @@ def importBookFromURL(bookURL, createTOC = False):
 
     bookTitle = info['metadata']['title']
 
-    print bookTitle
+    try:
+        project = models.Project.objects.get(name=bookTitle)
+    except:
+        project = createProject(bookTitle)
 
-    project = createProject(bookTitle)
+    foundAvailableName = False
+    n = 0
+
+    while not foundAvailableName:
+        name = bookTitle
+        if n > 0:
+            name = u'%s - %d' % (bookTitle, n)
+
+        try:
+            book = models.Book.objects.get(project=project, title=name)
+            n += 1
+        except:
+            foundAvailableName = True
+            bookTitle = name
+
     book = createBook(project, bookTitle, status = "imported")
 
     print project
@@ -159,6 +176,6 @@ def importBookFromURL(bookURL, createTOC = False):
                                typeof = 1)
             c.save()
             n -= 1
-                                
+
 
     return
