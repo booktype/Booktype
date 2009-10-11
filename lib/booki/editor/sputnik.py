@@ -172,10 +172,24 @@ def booki_book(request, message, projectid, bookid):
         import os.path
         attachments = [{"id": att.id, "status": att.status.id, "name": os.path.split(att.attachment.name)[1], "size": att.attachment.size} for att in models.Attachment.objects.filter(book=book)]
 
+        ## get metadata
+
+        def _get_value(meta):
+            if meta.kind == 0:
+                return meta.value_string
+            if meta.kind == 1:
+                return meta.value_integer
+            if meta.kind == 2:
+                return meta.value_text
+            if meta.kind == 3:
+                return meta.value_date
+
+        metadata = [{'name': v.name, 'value': _get_value(v)} for v in models.Info.objects.filter(book=book)]
+
         ## notify others
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "user_joined", "user_joined": request.user.username}, myself = False)
                 
-        return {"chapters": chapters, "hold": holdChapters, "users": users, "statuses": statuses, "attachments": attachments}
+        return {"chapters": chapters, "metadata": metadata, "hold": holdChapters, "users": users, "statuses": statuses, "attachments": attachments}
 
     if message["command"] == "chapter_status":
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": message["status"], "username": request.user.username})

@@ -194,6 +194,20 @@ def importBookFromURL(bookURL, createTOC = False):
 
         att.save()
 
+    # metadata
+
+    for key, value in info['metadata'].items():
+        info = models.Info(book = book, name=key)
+
+        if len(value) > 200:
+            info.value_text = value
+            info.kind = 2
+        else:
+            info.value_string = value
+            info.kind = 0
+
+        info.save()
+
     # delete temp files
     import shutil
     shutil.rmtree(zdirname)

@@ -72,6 +72,34 @@ class Book(models.Model):
         verbose_name_plural = _('Books')
 
 
+# Info
+
+INFO_CHOICES = (
+    (0, 'string'),
+    (1, 'integer'),
+    (2, 'text'),
+    (3, 'date')
+)
+
+class Info(models.Model):
+    book = models.ForeignKey(Book, null=False)
+
+    name = models.CharField(_('name'), max_length=250, db_index=True)
+    kind = models.SmallIntegerField(_('kind'), choices=INFO_CHOICES)
+
+    value_string = models.CharField(_('value_string'), max_length=250, null=True)
+    value_integer = models.IntegerField(_('value_integer'), null=True)
+    value_text = models.TextField(_('value_text'), null=True)
+    value_date = models.DateTimeField(_('value_date'), auto_now=False, null=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('Metadata')
+        verbose_name_plural = _('Metadata')
+
+
 # Chapter
 
 class Chapter(models.Model):

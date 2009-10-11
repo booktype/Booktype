@@ -417,6 +417,9 @@ $(function() {
 
 						   statuses = data.statuses;
 
+						   $.each(data.metadata, function(i, elem) {
+						       $("#tabinfo .metadata").append('<div><b>'+elem.name+':</b> '+elem.value+'</div>');
+						   });
 						   
 						   $.each(data.chapters, function(i, elem) {
 						       toc.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1, status: elem[4]}));
@@ -435,9 +438,6 @@ $(function() {
 						   });
 						   
 						   
-						   $.booki.debug.debug(statuses);
-						   $.booki.debug.debug(data.attachments);
-
 						   $.each(data.users, function(i, elem) {
 						       $("#users").append(elem+"<br/>");
 						   });
