@@ -174,17 +174,7 @@ def booki_book(request, message, projectid, bookid):
 
         ## get metadata
 
-        def _get_value(meta):
-            if meta.kind == 0:
-                return meta.value_string
-            if meta.kind == 1:
-                return meta.value_integer
-            if meta.kind == 2:
-                return meta.value_text
-            if meta.kind == 3:
-                return meta.value_date
-
-        metadata = [{'name': v.name, 'value': _get_value(v)} for v in models.Info.objects.filter(book=book)]
+        metadata = [{'name': v.name, 'value': v.getValue()} for v in models.Info.objects.filter(book=book)]
 
         ## notify others
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "user_joined", "user_joined": request.user.username}, myself = False)

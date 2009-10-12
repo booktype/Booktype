@@ -150,6 +150,8 @@ def importBookFromURL(bookURL, createTOC = False):
     # this is for Table of Contents
     n = len(info['TOC'])
 
+    p = re.compile('\ssrc="(.*)"')
+
     for (chapterName, chapterFile) in info['TOC']:
         urlName = slugify(chapterName)
 
@@ -157,7 +159,6 @@ def importBookFromURL(bookURL, createTOC = False):
 
         content = open('%s/%s' % (zdirname, chapterFile), 'r').read()
 
-        p = re.compile('\ssrc="(.*)"')
         content = p.sub(r' src="../\1"', content)
 
         chapter = models.Chapter(book = book,
@@ -214,3 +215,44 @@ def importBookFromURL(bookURL, createTOC = False):
     os.unlink(zname)
 
     return
+
+
+def exportBook(book):
+    from booki import xhtml_utils
+    (zfile, zname) = tempfile.mkstemp()
+
+    bzip = xhtml_utils.BookiZip(zname)
+    bzip.info = {}
+    bzip.info["TOC"] = []
+    bzip.info["metadata"] = {}
+    bzip.info["spine"] = []
+
+    # should really go through the BookTOC
+    p = re.compile('\ssrc="\.\.\/(.*)"')
+
+    for chapter in models.Chapter.objects.filter(book=book):
+        bzip.info["TOC"].append([chapter.url_title, "%s.html" % chapter.url_title])
+        bzip.info["spine"].append(chapter.url_title)
+
+        # should reformat the content
+        content = p.sub(r' src="\1"', chapter.content)
+        
+        bzip.add_to_package("%s.html" % chapter.url_title, "%s.html" % chapter.url_title, content, "text/html")
+
+    for attachment in models.Attachment.objects.filter(book=book):
+        name = file_name(attachment.attachment.name)
+
+        bzip.add_to_package(name,
+                            "static/%s" % name,
+                            open(attachment.attachment.name, "rb").read(),
+                            xhtml_utils.MEDIATYPES[name[1+name.index("."):]])
+                            
+    for metadata in models.Info.objects.filter(book=book):
+        bzip.info["metadata"][metadata.name] = metadata.getValue()
+
+
+    bzip.finish()
+
+    return zname
+
+    

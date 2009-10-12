@@ -9,6 +9,27 @@ from booki.editor import models
 
 # BOOK
 
+def view_export(request, project, edition):
+    project = models.Project.objects.get(url_name__iexact=project)
+    book = models.Book.objects.get(project=project, url_title__iexact=edition)
+
+    response = HttpResponse(mimetype='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=%s.zip' % book.url_title
+
+    # this is not good
+    # should not do so much read/write in the memory
+
+    from booki.editor import common
+    
+    fileName = common.exportBook(book)
+
+    response.write(open(fileName, 'rb').read())
+
+    import os
+    os.unlink(fileName)
+
+    return response
+
 def edit_book(request, project, edition):
     project = models.Project.objects.get(url_name__iexact=project)
     book = models.Book.objects.get(project=project, url_title__iexact=edition)
@@ -95,7 +116,7 @@ sputnik_mapper = (
 )
 
 def dispatcher(request):
-    global _clientID
+#    global _clientID
 
     import simplejson, re, sputnik
 
@@ -108,7 +129,6 @@ def dispatcher(request):
 
     r = redis.Redis()
 
-    # nesto zajebava
     if inp.has_key("clientID") and inp["clientID"]:
         clientID = inp["clientID"]
 

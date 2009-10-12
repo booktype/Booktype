@@ -92,6 +92,20 @@ class Info(models.Model):
     value_text = models.TextField(_('value_text'), null=True)
     value_date = models.DateTimeField(_('value_date'), auto_now=False, null=True)
 
+    
+    def getValue(self):
+        if self.kind == 0:
+            return self.value_string
+        if self.kind == 1:
+            return self.value_integer
+        if self.kind == 2:
+            return self.value_text
+        if self.kind == 3:
+            return self.value_date
+
+        return None
+        
+
     def __unicode__(self):
         return self.name
 

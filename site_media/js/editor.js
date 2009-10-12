@@ -293,7 +293,7 @@ $(function() {
 						  if(edi)
 						      edi.setEditorContent(data.content);
 
-						  $("#editor INPUT[name=title]").attr("value", data.title);
+						/*  $("#editor INPUT[name=title]").attr("value", data.title); */
 						  
    						  $("#editor INPUT[name=chapter_id]").attr("value", chapterID);
 						  $("#editor INPUT[name=save]").unbind('click').click(function() {
