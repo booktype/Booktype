@@ -170,7 +170,16 @@ def booki_book(request, message, projectid, bookid):
 
         ## get attachments
         import os.path
-        attachments = [{"id": att.id, "status": att.status.id, "name": os.path.split(att.attachment.name)[1], "size": att.attachment.size} for att in models.Attachment.objects.filter(book=book)]
+
+        import Image
+        def _getDimension(att):
+            if att.attachment.name.endswith(".jpg"):
+                im = Image.open(att.attachment.name)
+                return im.size
+            return None
+            
+
+        attachments = [{"id": att.id, "dimension": _getDimension(att), "status": att.status.id, "name": os.path.split(att.attachment.name)[1], "size": att.attachment.size} for att in models.Attachment.objects.filter(book=book)]
 
         ## get metadata
 

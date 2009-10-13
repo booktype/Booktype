@@ -91,6 +91,26 @@ def view_attachment(request, project, edition, attachment):
 
     return static.serve(request, path, document_root)
 
+def thumbnail_attachment(request, project, edition, attachment):
+    from booki import settings
+    from django.views import static
+
+    #project = models.Project.objects.get(url_name__iexact=project)
+    #book = models.Book.objects.get(project=project, url_title__iexact=edition)
+
+    path = attachment
+    document_root = '%s/static/%s/%s/%s' % (settings.STATIC_DOC_ROOT, project, edition, path)
+    
+    import Image
+    im = Image.open(document_root)
+    im.thumbnail((200, 200), Image.ANTIALIAS)
+
+    response = HttpResponse(mimetype='image/jpeg')
+    im.save(response, "jpeg")
+    return  response
+
+
+
 def view_editor(request, project):
     return render_to_response('editor/view_editor.html', {"project": project})
 

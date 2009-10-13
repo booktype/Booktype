@@ -233,9 +233,24 @@ some notification. this should be on top of visible page and not top of page.
 <div id="insertattachment" title="Insert image">
 <!--  <p id="validateTips">Select image you want to insert.</p>  -->
 
-  <table border="0" width="90%">
+<form>
+ <table border="0" width="100%">
+  <tr>
+   <td colspan="2"><input type="text" style="width: 100%"></td>
+  </tr>
+  <tr>
+   <td valign="top">
+     <table border="0" width="90%" class="files">
 
-  </table>
+    </table>
+   </td>
+   <td width="200" valign="top">
+     <div class="previewattachment">
+     </div>
+   </td>
+  </tr>
+</table>
+</form>
 </div>
 
 
@@ -317,16 +332,28 @@ This is temporary interface.
 	<div id="tabattachments">
 	  <h2>Attachments</h2>
 
+<table border="0" width="100%">
+ <tr>
+  <td valign="top">
+
          <form>
-	  <table width="80%">
+	  <table width="95%" class="files">
 	    <tr>
                <td width="5%"></td>
-               <td align="left" width="85%"><b>filename</b></td>
+               <td align="left"><b>filename</b></td>
+	       <td align="left"><b>dimension</b></td>
                <td align="right" width="10%"><b>size</b></td>
             </tr>
 	  </table>
          </form>
+  </td>
+  <td valign="top" width="200">
+    <div id="attachmentpreview">
 
+    </div>
+  </td>
+ </tr>
+</table>
 	</div>
 
 

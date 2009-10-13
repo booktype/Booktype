@@ -412,8 +412,8 @@ $(function() {
 		    $("#insertattachment").dialog({
 			bgiframe: true,
 			autoOpen: false,
-			height: 300,
-    		        width: 400, 
+			height: 400,
+    		        width: 700, 
 			modal: true,
 			buttons: {
 			    'Insert image': function() {
@@ -425,11 +425,17 @@ $(function() {
 			    }
 			},
 			open: function(event,ui) {
-			    $("#insertattachment TABLE").empty();
-			    $("#insertattachment TABLE").append('<tr><td><b>name</b></td><td><b>size</b></td></tr>');
+			    $("#insertattachment .files").empty();
+			    $("#insertattachment .files").append('<tr><td><b>name</b></td><td><b>size</b></td></tr>');
 
 			    $.each(attachments, function(i, att) {
-				$("#insertattachment TABLE").append('<tr><td>'+att.name+'</td><td>'+att.size+'</td></tr>');
+				$("#insertattachment .files").append('<tr><td><a class="file" href="javascript:void(0)" alt="'+att.name+'">'+att.name+'</a></td><td>'+att.size+'</td></tr>');
+			    });
+
+			    $("#insertattachment A.file").click(function() {
+				var fileName = $(this).attr("alt");
+				$("#insertattachment .previewattachment").html('<img src="../_utils/thumbnail/'+fileName+'">');
+				
 			    });
 			},
 			close: function() {
@@ -469,9 +475,35 @@ $(function() {
 
 						   attachments = data.attachments;
 
+						   /* this should not be here */
+
+						   function _getDimension(dim) {
+						       if(dim) {
+							   return dim[0]+'x'+dim[1];
+						       }
+
+						       return '';
+						   }
+
+						   function _getSize(size) {
+						       return (size/1024).toFixed(2)+' Kb';
+						   }
+
 						   $.each(data.attachments, function(i, elem) {
-						       $("#tabattachments TABLE").append('<tr><td><input type="checkbox"></td><td><a href="../static/'+elem["name"]+'" target="_new">'+elem["name"]+'</a></td><td align="right"> '+elem.size+'</td></tr>');
+						       $("#tabattachments .files").append('<tr><td><input type="checkbox"></td><td><a class="file" href="javascript:void(0)" alt="'+elem["name"]+'" target="_new">'+elem["name"]+'</a></td><td>'+_getDimension(elem["dimension"])+'</td><td align="right"><nobr>'+_getSize(elem.size)+'</nobr></td></tr>');
+
+/*						       $("#tabattachments .files").append('<tr><td><input type="checkbox"></td><td><a class="file" href="../static/'+elem["name"]+'" target="_new">'+elem["name"]+'</a></td><td align="right"> '+elem.size+'</td></tr>'); */
+
+
 						   });
+
+						   $("#tabattachments .file").click(function() { 
+						       var imageName = $(this).attr("alt"); 
+						       if(imageName.match(/.+\.jpg$/gi)) {
+							   $("#attachmentpreview").html('<img src="../_utils/thumbnail/'+imageName+'"><br/><br/><a style="font-size: 10px" href="../static/'+imageName+'" target="_new">Open in new window</a>');
+						       }
+						   });
+
 						   
 						   
 						   $.each(data.users, function(i, elem) {
