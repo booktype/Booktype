@@ -76,7 +76,8 @@ $(function() {
 
 	    /* status */
 	    var statuses = null;
-	    
+	    var attachments = null;
+
 	    function getStatusDescription(statusID) {
 		var r = $.grep(statuses,  function(v, i) {
 		    
@@ -405,6 +406,38 @@ $(function() {
 
 
 		    $.booki.chat.initChat($("#chat"), $("#chat2"));
+
+		    // initialize dialogs
+
+		    $("#insertattachment").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 300,
+    		        width: 400, 
+			modal: true,
+			buttons: {
+			    'Insert image': function() {
+				
+				$(this).dialog('close');
+			    },
+			    'Cancel': function() {
+				$(this).dialog('close');
+			    }
+			},
+			open: function(event,ui) {
+			    $("#insertattachment TABLE").empty();
+			    $("#insertattachment TABLE").append('<tr><td><b>name</b></td><td><b>size</b></td></tr>');
+
+			    $.each(attachments, function(i, att) {
+				$("#insertattachment TABLE").append('<tr><td>'+att.name+'</td><td>'+att.size+'</td></tr>');
+			    });
+			},
+			close: function() {
+			    
+			}
+		    });
+		    
+
 		},
 		
 		_loadInitialData : function() {
@@ -432,6 +465,9 @@ $(function() {
 
 						   toc.draw();
 						   holdChapters.draw();
+
+
+						   attachments = data.attachments;
 
 						   $.each(data.attachments, function(i, elem) {
 						       $("#tabattachments TABLE").append('<tr><td><input type="checkbox"></td><td><a href="../static/'+elem["name"]+'" target="_new">'+elem["name"]+'</a></td><td align="right"> '+elem.size+'</td></tr>');
