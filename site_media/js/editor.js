@@ -457,7 +457,7 @@ $(function() {
 						   statuses = data.statuses;
 
 						   $.each(data.metadata, function(i, elem) {
-						       $("#tabinfo .metadata").append('<div><b>'+elem.name+':</b> '+elem.value+'</div>');
+						       $("#tabinfo .metadata").append('<tr><td valign="top"><b>'+elem.name+':</b></td><td valign="top"> '+elem.value+'</td></tr>');
 						   });
 						   
 						   $.each(data.chapters, function(i, elem) {
@@ -490,12 +490,20 @@ $(function() {
 						   }
 
 						   $.each(data.attachments, function(i, elem) {
-						       $("#tabattachments .files").append('<tr><td><input type="checkbox"></td><td><a class="file" href="javascript:void(0)" alt="'+elem["name"]+'" target="_new">'+elem["name"]+'</a></td><td>'+_getDimension(elem["dimension"])+'</td><td align="right"><nobr>'+_getSize(elem.size)+'</nobr></td></tr>');
+						       $("#tabattachments .files").append('<tr class="line"><td><input type="checkbox"></td><td><a class="file" href="javascript:void(0)" alt="'+elem["name"]+'" target="_new">'+elem["name"]+'</a></td><td>'+_getDimension(elem["dimension"])+'</td><td align="right"><nobr>'+_getSize(elem.size)+'</nobr></td></tr>');
 
 /*						       $("#tabattachments .files").append('<tr><td><input type="checkbox"></td><td><a class="file" href="../static/'+elem["name"]+'" target="_new">'+elem["name"]+'</a></td><td align="right"> '+elem.size+'</td></tr>'); */
 
 
 						   });
+
+						   $("#tabattachments .line").hover(function() {
+						       $(this).css("background-color", "#f0f0f0");
+						   },
+										    function() {
+											$(this).css("background-color", "white");
+											
+										    });
 
 						   $("#tabattachments .file").click(function() { 
 						       var imageName = $(this).attr("alt"); 
