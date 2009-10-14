@@ -10,7 +10,12 @@ from booki.editor import models
 # BOOK
 
 def view_export(request, project, edition):
+
+    if edition == "None":
+        edition = project
+
     project = models.Project.objects.get(url_name__iexact=project)
+
     book = models.Book.objects.get(project=project, url_title__iexact=edition)
 
     response = HttpResponse(mimetype='application/zip')

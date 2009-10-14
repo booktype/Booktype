@@ -249,7 +249,7 @@ def exportBook(book):
         # should reformat the content
         content = p.sub(r' src="\1"', chapter.content)
         
-        bzip.add_to_package("%s.html" % chapter.url_title, "%s.html" % chapter.url_title, content, "text/html")
+        bzip.add_to_package("%s.html" % chapter.url_title, "%s.html" % chapter.url_title, content.encode("utf-8"), "text/html")
 
     for attachment in models.Attachment.objects.filter(book=book):
         name = file_name(attachment.attachment.name)
