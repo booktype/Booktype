@@ -7,7 +7,7 @@ urlpatterns = patterns('',
     # utils                       
     url(r'^(?P<edition>[\w\s\_\.\-]+)/_utils/thumbnail/(?P<attachment>.*)$',  'booki.editor.views.thumbnail_attachment', name='thumbnail_attachment'),
 
-    url(r'^(?P<edition>[\w\s\_\.\-]+)/export/$',  'booki.editor.views.view_export', name='export_booki'),
+    url(r'^(?P<edition>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.view_export', name='export_booki'),
     url(r'^(?P<edition>[\w\s\_\.\-]+)/static/(?P<attachment>.*)$',  'booki.editor.views.view_attachment', name='view_attachment'),
 
 
