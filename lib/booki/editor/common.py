@@ -155,29 +155,40 @@ def importBookFromURL(bookURL, createTOC = False):
     for (chapterName, chapterFile) in info['TOC']:
         urlName = slugify(chapterName)
 
-        stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
+        # ignore Sections for now
+        if not chapterFile or chapterFile == '':
+            if createTOC:
+                c = models.BookToc(book = book,
+                                   name = chapterName,
+                                   chapter = None,
+                                   weight = n,
+                                   typeof = 2)
+                c.save()
+                n -= 1
+        else:
+            stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
 
-        content = open('%s/%s' % (zdirname, chapterFile), 'r').read()
+            content = open('%s/%s' % (zdirname, chapterFile), 'r').read()
 
-        content = p.sub(r' src="../\1"', content)
+            content = p.sub(r' src="../\1"', content)
 
-        chapter = models.Chapter(book = book,
-                                 url_title = urlName,
-                                 title = chapterName,
-                                 status = stat,
-                                 content = content,
-                                 created = datetime.datetime.now(),
-                                 modified = datetime.datetime.now())
-        chapter.save()
+            chapter = models.Chapter(book = book,
+                                     url_title = urlName,
+                                     title = chapterName,
+                                     status = stat,
+                                     content = content,
+                                     created = datetime.datetime.now(),
+                                     modified = datetime.datetime.now())
+            chapter.save()
 
-        if createTOC:
-            c = models.BookToc(book = book,
-                               name = chapterName,
-                               chapter = chapter,
-                               weight = n,
-                               typeof = 1)
-            c.save()
-            n -= 1
+            if createTOC:
+                c = models.BookToc(book = book,
+                                   name = chapterName,
+                                   chapter = chapter,
+                                   weight = n,
+                                   typeof = 1)
+                c.save()
+                n -= 1
 
 
     stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
@@ -187,13 +198,14 @@ def importBookFromURL(bookURL, createTOC = False):
     for key, manifest in info['manifest'].items():
         attachmentName, attachmentType = manifest[0], manifest[1]
 
-        att = models.Attachment(book = book, 
-                                status = stat)
+        if attachmentName.startswith("static/"):
+            att = models.Attachment(book = book, 
+                                    status = stat)
 
-        f = open('%s/%s' % (zdirname, attachmentName) , 'rb')
-        att.attachment.save(file_name(attachmentName), File(f), save = False)
+            f = open('%s/%s' % (zdirname, attachmentName) , 'rb')
+            att.attachment.save(file_name(attachmentName), File(f), save = False)
 
-        att.save()
+            att.save()
 
     # metadata
 

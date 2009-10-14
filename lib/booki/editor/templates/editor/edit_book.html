@@ -287,6 +287,8 @@ This is temporary interface.
 <form method="GET" action="javascript: return void(0)">
 <input type="hidden" name="chapter_id" value=""/>
 <input type="button" class="save" name="save" value="Save"/>
+<!-- <input type="button" class="save" name="save" value="Save and continue editing"/> -->
+
 <button class="cancel">Cancel</button>
 <br/>
 <!-- <input type="text" name="title" style="width: 500px"><br/> -->
@@ -294,7 +296,28 @@ This is temporary interface.
   
 </textarea>
 </form>
+
 </div>
+
+
+<div id="spalatodialog" title="Split chapters">
+  <p id="validateTips">Seems like You have changed the structure of the chapters. What do you want to do?</p>  
+  <table border="0" width="100%">
+    <tr>
+     <td valign="top" width="200">
+       New chapters:
+        <ul class="chapters" style="margin-left: 5px">
+
+        </ul>
+     </td>
+     <td width="1" bgcolor="#c0c0c0"></td>
+     <td valign="top" class="content">
+
+     </td>
+    </tr>
+  </table>
+</div>
+
 
 </td>
 <td valign="top" width="200">

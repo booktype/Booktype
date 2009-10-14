@@ -301,9 +301,28 @@ $(function() {
 					              var edi = xinha_editors["myTextArea"]; 
                                                       var content = edi.getEditorContent();
 
-						      $.booki.ui.notify("Sending data...");
+						      var r = new RegExp("<h1>([^<]+)</h1>", "ig");
+						      var chapters_n = 0;
 
-						      $.booki.sendToCurrentBook({"command": "chapter_save", "chapterID": chapterID, "content": content}, function() {$.booki.ui.notify(); closeEditor(); } );
+						      var c = content.substring(0);
+
+						      while(true) {
+							  m = r.exec(c);
+							  if(m) {
+							      chapters_n += 1;
+							      c = c.substring(r.lastIndex-m[0].length);
+							  } else {
+							      break;
+							  }
+						      }
+
+						      if(chapters_n > 1) {
+							  $("#spalatodialog").dialog("open");
+						      } else {
+							  $.booki.ui.notify("Sending data...");
+
+							  $.booki.sendToCurrentBook({"command": "chapter_save", "chapterID": chapterID, "content": content}, function() {$.booki.ui.notify(); closeEditor(); } );
+						      }
 
 						  });
 
@@ -442,6 +461,89 @@ $(function() {
 			    
 			}
 		    });
+
+
+		    // spalato dialog
+
+		    $("#spalatodialog").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 400,
+    		        width: 700, 
+			modal: true,
+			buttons: {
+			    'Split into chapters and save changes': function() {
+				
+				$(this).dialog('close');
+			    },
+
+/*			    'Cancel': function() {
+				$(this).dialog('close');
+			    }, */
+			    'Continue editing': function() {
+				$(this).dialog('close');
+			    }
+			},
+
+			open: function(event,ui) {
+
+			    var edi = xinha_editors["myTextArea"]; 
+                            var content = edi.getEditorContent();
+			    
+			    var endSplitting = false;
+
+			    var n = 0;
+
+			    $("#spalatodialog .chapters").empty();
+			    $("#spalatodialog .content").empty();
+
+			    while(!endSplitting) {
+				var r = new RegExp("<h1>([^<]+)</h1>", "ig");
+				var m = r.exec(content);
+
+				if(m != null) {
+				    if(n == 0) {
+					if(r.lastIndex-m[0].length > 1) {
+					    $("#spalatodialog .chapters").append('<li><a class="chapter" href="javascript:void(0)" title="0">Unknown chapter</a></li>');
+					    var chap = content.substring(0, r.lastIndex-m[0].length);
+					    $("#spalatodialog .content").append('<div style="display: none" class="chapter0">'+chap+'</div>');
+					
+					    n += 1;
+					}
+					$("#spalatodialog .chapters").append('<li><a class="chapter" href="javascript:void(0)" title="'+n+'">'+m[1]+'</a></li>');
+					
+				    } else {
+					$("#spalatodialog .chapters").append('<li><a class="chapter" href="javascript:void(0)" title="'+n+'">'+m[1]+'</a></li>');
+
+					if(n > 0) {
+					    var chap = content.substring(0, r.lastIndex-m[0].length);
+					    $("#spalatodialog .content").append('<div style="display: none" class="chapter'+(n-1)+'">'+chap+'</div>');
+					} 
+				    }
+
+				    n += 1;
+				    content = content.substring(r.lastIndex);
+				} else {
+				    endSplitting  = true;
+				}
+			    }
+
+			    $("#spalatodialog .content").append('<div style="display: none" class="chapter'+(n-1)+'">'+content+'</div>');
+
+
+			    $("#spalatodialog  A.chapter").click(function() {
+				var chap_n = $(this).attr("title");
+				$("#spalatodialog .content > DIV").css("display", "none");
+				$("#spalatodialog  DIV.chapter"+chap_n).css("display", "block");
+
+			    });
+
+			},
+    		        close: function() {
+			    
+			}
+		    });
+
 		    
 
 		},
@@ -490,7 +592,7 @@ $(function() {
 						   }
 
 						   $.each(data.attachments, function(i, elem) {
-						       $("#tabattachments .files").append('<tr class="line"><td><input type="checkbox"></td><td><a class="file" href="javascript:void(0)" alt="'+elem["name"]+'" target="_new">'+elem["name"]+'</a></td><td>'+_getDimension(elem["dimension"])+'</td><td align="right"><nobr>'+_getSize(elem.size)+'</nobr></td></tr>');
+						       $("#tabattachments .files").append('<tr class="line"><td><input type="checkbox"></td><td><a class="file" href="javascript:void(0)" alt="'+elem["name"]+'">'+elem["name"]+'</a></td><td>'+_getDimension(elem["dimension"])+'</td><td align="right"><nobr>'+_getSize(elem.size)+'</nobr></td></tr>');
 
 /*						       $("#tabattachments .files").append('<tr><td><input type="checkbox"></td><td><a class="file" href="../static/'+elem["name"]+'" target="_new">'+elem["name"]+'</a></td><td align="right"> '+elem.size+'</td></tr>'); */
 
