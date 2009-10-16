@@ -174,8 +174,11 @@ def booki_book(request, message, projectid, bookid):
         import Image
         def _getDimension(att):
             if att.attachment.name.endswith(".jpg"):
-                im = Image.open(att.attachment.name)
-                return im.size
+                try:
+                    im = Image.open(att.attachment.name)
+                    return im.size
+                except:
+                    return (0, 0)
             return None
             
 

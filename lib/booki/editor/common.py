@@ -84,12 +84,13 @@ def createBook(project, bookTitle, status = "imported"):
     url_title = slugify(bookTitle)
 
     stat = models.ProjectStatus.objects.get(project=project, name=status)
-    
+
     book = models.Book(project = project,
                        url_title = url_title,
                        title = bookTitle,
                        status = stat,
                        published = datetime.datetime.now())
+
     book.save()
     
     return book
