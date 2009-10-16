@@ -248,15 +248,17 @@ def exportBook(book):
     ## should export only published chapters
     ## also should only post stuff from the TOC
 
-    for chapter in models.Chapter.objects.filter(book=book):
-        bzip.info["TOC"].append([chapter.title, "%s.html" % chapter.url_title])
-        bzip.info["spine"].append(chapter.url_title)
+    for chapter in models.BookToc.objects.filter(book=book):
+        if chapter.chapter:
+            bzip.info["TOC"].append([chapter.chapter.title, chapter.chapter.url_title])
+            bzip.info["spine"].append(chapter.chapter.title)
 
-        # should reformat the content
-        content = p.sub(r' src="\1"', chapter.content)
-        name = "%s.html" % chapter.url_title
-
-        bzip.add_to_package(name.encode("utf-8"), name.encode("utf-8"), content.encode("utf-8"), "text/html")
+            content = p.sub(r' src="\1"', chapter.chapter.content)
+            name = "%s.html" % chapter.chapter.url_title
+            
+            bzip.add_to_package(name.encode("utf-8"), name.encode("utf-8"), content.encode("utf-8"), "text/html")
+        else:
+            bzip.info["TOC"].append([chapter.name, ""])
 
     for attachment in models.Attachment.objects.filter(book=book):
         name = file_name(attachment.attachment.name)
