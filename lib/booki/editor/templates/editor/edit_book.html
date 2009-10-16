@@ -203,6 +203,11 @@ some notification. this should be on top of visible page and not top of page.
 
 <h2>Table of contents</h2>
 
+
+<div id="chapteraction">
+<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
+</div>
+
 <ul id="chapterslist" class="connectedSortable">
 </ul>
 
@@ -261,25 +266,6 @@ some notification. this should be on top of visible page and not top of page.
 <h2>Hold chapters</h2>
 <ul id="holdchapterslist" class="connectedSortable">
 </ul>
-
-<!--
-<div style="border-bottom: 1px solid #c0c0c0; padding-top: 50px; margin-bottom: 20px"></div>
-This is temporary interface. 
-<div id="formchapter">
-<h2>Create new chapter</h2>
-<form method="GET" action="javascript:void(0)" onsubmit="return false">
-<input class="chapter" type="text" size="30"><button class="submit">Create chapter</button>
-</form>
-</div>
-
-<div id="formsection">
-<h2>Create new section</h2>
-<form method="GET" action="javascript:void(0)" onsubmit="return false">
-<input class="chapter" type="text" size="30"><button class="submit">Create section</button>
-</form>
-</div>
-
--->
 
 </div>
 

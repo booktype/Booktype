@@ -114,7 +114,6 @@ def importBookFromURL(bookURL, createTOC = False):
     zdirname = tempfile.mkdtemp()
     zf = zipfile.ZipFile(zname)
     extract(zdirname, zf)
-#    zf.extractall(zdirname)
     zf.close()
 
     # loads info.json
