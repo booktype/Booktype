@@ -74,12 +74,12 @@ def view_profile(request, username):
         project_form = ProjectForm(request.POST)
         import_form = ImportForm(request.POST)
 
-        if import_form.is_valid():
+        if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
             from booki.editor import common
             common.importBookFromURL("http://objavi.flossmanuals.net/espri.cgi?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
 
 
-        if project_form.is_valid():
+        if project_form.is_valid() and project_form.cleaned_data["title"] != "":
             title = project_form.cleaned_data["title"]
             url_title = slugify(title)
  #           url_title = project_form.cleaned_data["url_title"]
