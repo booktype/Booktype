@@ -76,7 +76,7 @@ def view_profile(request, username):
 
         if import_form.is_valid():
             from booki.editor import common
-            common.importBookFromURL("http://objavi.flossmanuals.net/espri.cgi?mode=zip&book="+import_form.cleaned_data["archive_id"])
+            common.importBookFromURL("http://objavi.flossmanuals.net/espri.cgi?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
 
 
         if project_form.is_valid():
