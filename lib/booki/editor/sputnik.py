@@ -312,6 +312,17 @@ def booki_book(request, message, projectid, bookid):
 
         return {}
 
+    if message["command"] == "publish_book":
+        project = models.Project.objects.get(id=projectid)
+        book = models.Book.objects.get(project=project, id=bookid)
+
+        import urllib2
+        f = urllib2.urlopen("http://objavi.flossmanuals.net/objavi.cgi?book=%s&project=%s&mode=epub&server=booki.flossmanuals.net&destination=archive.org" % (book.url_title, project.url_name))
+        f.read()
+
+        return {}
+
+
     if message["command"] == "create_section":
         from booki.editor import models
 

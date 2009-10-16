@@ -55,12 +55,12 @@ def register(request):
 # project form
 
 class ProjectForm(forms.Form):
-    title = forms.CharField(required=True)
+    title = forms.CharField(required=False)
 #    url_title = forms.CharField(required=True)
 
 class ImportForm(forms.Form):
-    url = forms.CharField(required=True)
-
+    archive_id = forms.CharField(required=False)
+    
 
 def view_profile(request, username):
     from django.contrib.auth.models import User
@@ -76,7 +76,7 @@ def view_profile(request, username):
 
         if import_form.is_valid():
             from booki.editor import common
-            common.importBookFromURL(import_form.cleaned_data["url"])
+            common.importBookFromURL("http://objavi.flossmanuals.net/espri.cgi?mode=zip&book="+import_form.cleaned_data["archive_id"])
 
 
         if project_form.is_valid():

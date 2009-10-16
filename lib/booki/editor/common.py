@@ -121,8 +121,6 @@ def importBookFromURL(bookURL, createTOC = False):
     data = open('%s/info.json' % zdirname, 'r').read()
     info = simplejson.loads(data)
 
-    print info
-
     bookTitle = info['metadata']['title']
 
     try:
@@ -242,20 +240,30 @@ def exportBook(book):
     # should really go through the BookTOC
     p = re.compile('\ssrc="\.\.\/(.*)"')
 
+    bzip.info["copyright"] = {"Test Two": [
+            ["OpenAFile", "secondary"]
+            ]}
+
+
+    ## should export only published chapters
+    ## also should only post stuff from the TOC
+
     for chapter in models.Chapter.objects.filter(book=book):
-        bzip.info["TOC"].append([chapter.url_title, "%s.html" % chapter.url_title])
+        bzip.info["TOC"].append([chapter.title, "%s.html" % chapter.url_title])
         bzip.info["spine"].append(chapter.url_title)
 
         # should reformat the content
         content = p.sub(r' src="\1"', chapter.content)
-        
-        bzip.add_to_package("%s.html" % chapter.url_title, "%s.html" % chapter.url_title, content.encode("utf-8"), "text/html")
+        name = "%s.html" % chapter.url_title
+
+        bzip.add_to_package(name.encode("utf-8"), name.encode("utf-8"), content.encode("utf-8"), "text/html")
 
     for attachment in models.Attachment.objects.filter(book=book):
         name = file_name(attachment.attachment.name)
+        fn = "static/%s" % name
 
         bzip.add_to_package(name,
-                            "static/%s" % name,
+                            fn.encode("utf-8"),
                             open(attachment.attachment.name, "rb").read(),
                             xhtml_utils.MEDIATYPES[name[1+name.index("."):]])
                             

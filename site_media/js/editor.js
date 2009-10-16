@@ -426,8 +426,17 @@ $(function() {
 
 		    $.booki.chat.initChat($("#chat"), $("#chat2"));
 
-		    // initialize dialogs
+                    $("#tabpublish BUTTON").click(function() {
+                        $.booki.sendToCurrentBook({"command": "publish_book"},
+                                                  function() {
+						      $("#tabpublish .info").html("<p>Book is being send to objavi.flossmanuals.net. Soon it will be converted to .epub.</p>");
+						      
+						      $.booki.ui.notify();
+						  } );
+			
+                    });
 
+		    // initialize dialogs
 		    $("#insertattachment").dialog({
 			bgiframe: true,
 			autoOpen: false,
