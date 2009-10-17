@@ -166,7 +166,12 @@ def importBookFromURL(bookURL, createTOC = False):
         else:
             stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
 
-            content = open('%s/%s' % (zdirname, chapterFile), 'r').read()
+            # place where to check for file name
+
+            if chapterFile.index(".") != -1:
+                chapterFile = chapterFile[:chapterFile.index(".")]
+
+            content = open('%s/%s.html' % (zdirname, chapterFile), 'r').read()
 
             content = p.sub(r' src="../\1"', content)
 
