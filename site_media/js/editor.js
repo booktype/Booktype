@@ -289,11 +289,24 @@ $(function() {
 
 						  /* xinha */
 						  xinha_init(); 
+						  
+						  function ajme() {
+						      var edi = xinha_editors.myTextArea; 
+						      if(edi)
+							  edi.setEditorContent(data.content);
+						  }
+						  
+						  if(!xinha_editors.myTextArea)
+						      setTimeout(ajme, 1000);
+						  else
+						      ajme();
 
+
+						  /*
 						  var edi = xinha_editors.myTextArea; 
 						  if(edi)
 						      edi.setEditorContent(data.content);
-
+*/
 						/*  $("#editor INPUT[name=title]").attr("value", data.title); */
 						  
    						  $("#editor INPUT[name=chapter_id]").attr("value", chapterID);
