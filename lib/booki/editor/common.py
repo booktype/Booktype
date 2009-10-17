@@ -227,6 +227,13 @@ def importBookFromURL(bookURL, createTOC = False):
     return
 
 
+def removeExtension(fileName):
+    if fileName.index('.') != -1:
+        return fileName[:fileName.index('.')]
+
+    return fileName
+
+
 def exportBook(book):
     from booki import xhtml_utils
     (zfile, zname) = tempfile.mkstemp()
@@ -256,7 +263,7 @@ def exportBook(book):
             content = p.sub(r' src="\1"', chapter.chapter.content)
             name = "%s.html" % chapter.chapter.url_title
             
-            bzip.add_to_package(name.encode("utf-8"), name.encode("utf-8"), content.encode("utf-8"), "text/html")
+            bzip.add_to_package(removeExtension(name.encode("utf-8")), name.encode("utf-8"), content.encode("utf-8"), "text/html")
         else:
             bzip.info["TOC"].append([chapter.name, ""])
 
@@ -264,7 +271,7 @@ def exportBook(book):
         name = file_name(attachment.attachment.name)
         fn = "static/%s" % name
 
-        bzip.add_to_package(name,
+        bzip.add_to_package(removeExtension(name),
                             fn.encode("utf-8"),
                             open(attachment.attachment.name, "rb").read(),
                             xhtml_utils.MEDIATYPES[name[1+name.index("."):]])
