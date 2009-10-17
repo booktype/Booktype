@@ -304,7 +304,7 @@ $(function() {
 						  if(!xinha_editors.myTextArea) {
 						      setTimeout(_tryAgain, 500);
 						  } else {
-						      ajme();
+						      _tryAgain();
 						  }
 
 
@@ -345,7 +345,7 @@ $(function() {
 
 						  });
 
-						  $("#editor BUTTON[class=cancel]").unbind('click').click(function() {
+						  $("#editor INPUT[class=cancel]").unbind('click').click(function() {
 							  $.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID});
 							  closeEditor();
 						      });  
