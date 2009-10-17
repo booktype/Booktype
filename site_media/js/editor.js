@@ -291,15 +291,24 @@ $(function() {
 						  xinha_init(); 
 						  
 						  function ajme() {
+						      $.booki.debug.debug("ajme().")
 						      var edi = xinha_editors.myTextArea; 
-						      if(edi)
+						      if(edi) {
+							  $.booki.debug.debug("ajme() setting the content.")
 							  edi.setEditorContent(data.content);
+						      } else {
+							  $.booki.debug.debug("ajme() setTimeout again")
+							  setTimeout(ajme, 1000);
+						      }
 						  }
-						  
-						  if(!xinha_editors.myTextArea)
+						  $.booki.debug.debug("Trying to set content for xinha.");
+						  if(!xinha_editors.myTextArea) {
+						      $.booki.debug.debug("setTimeout Trying to set content for xinha.")
 						      setTimeout(ajme, 1000);
-						  else
+						  } else {
+						      $.booki.debug.debug("NO TIMEOUT. Trying to set content for xinha.")
 						      ajme();
+						  }
 
 
 						  /*
