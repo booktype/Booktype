@@ -290,23 +290,20 @@ $(function() {
 						  /* xinha */
 						  xinha_init(); 
 						  
-						  function ajme() {
-						      $.booki.debug.debug("ajme().")
+						  function _tryAgain() {
 						      var edi = xinha_editors.myTextArea; 
 						      if(edi) {
-							  $.booki.debug.debug("ajme() setting the content.")
-							  edi.setEditorContent(data.content);
+							  edi.whenDocReady(function() {
+							      edi.setEditorContent(data.content);
+							  });
 						      } else {
-							  $.booki.debug.debug("ajme() setTimeout again")
-							  setTimeout(ajme, 1000);
+							  setTimeout(_tryAgain, 500);
 						      }
 						  }
-						  $.booki.debug.debug("Trying to set content for xinha.");
+
 						  if(!xinha_editors.myTextArea) {
-						      $.booki.debug.debug("setTimeout Trying to set content for xinha.")
-						      setTimeout(ajme, 1000);
+						      setTimeout(_tryAgain, 500);
 						  } else {
-						      $.booki.debug.debug("NO TIMEOUT. Trying to set content for xinha.")
 						      ajme();
 						  }
 
