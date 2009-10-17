@@ -77,6 +77,8 @@ $(function() {
 	    /* status */
 	    var statuses = null;
 	    var attachments = null;
+	    var splitChapters = null;
+	    var currentlyEditing = null;
 
 	    function getStatusDescription(statusID) {
 		var r = $.grep(statuses,  function(v, i) {
@@ -317,6 +319,7 @@ $(function() {
 						  
    						  $("#editor INPUT[name=chapter_id]").attr("value", chapterID);
 						  $("#editor INPUT[name=save]").unbind('click').click(function() {
+						      currentlyEditing = chapterID;
 					              var edi = xinha_editors["myTextArea"]; 
                                                       var content = edi.getEditorContent();
 
@@ -340,7 +343,7 @@ $(function() {
 						      } else {
 							  $.booki.ui.notify("Sending data...");
 
-							  $.booki.sendToCurrentBook({"command": "chapter_save", "chapterID": chapterID, "content": content}, function() {$.booki.ui.notify(); closeEditor(); } );
+ 							  $.booki.sendToCurrentBook({"command": "chapter_save", "chapterID": chapterID, "content": content}, function() {$.booki.ui.notify(); closeEditor(); } );
 						      }
 
 						  });
@@ -501,13 +504,13 @@ $(function() {
 			modal: true,
 			buttons: {
 			    'Split into chapters and save changes': function() {
-				
-				$(this).dialog('close');
+				var $dialog = $(this);
+
+				$.booki.debug.debug(currentlyEditing);
+				$.booki.debug.debug(splitChapters);
+ 				$.booki.sendToCurrentBook({"command": "chapter_split", "chapterID": currentlyEditing, "chapters": splitChapters}, function() {$dialog.dialog('close'); $.booki.ui.notify(); closeEditor(); } );
 			    },
 
-/*			    'Cancel': function() {
-				$(this).dialog('close');
-			    }, */
 			    'Continue editing': function() {
 				$(this).dialog('close');
 			    }
@@ -525,7 +528,12 @@ $(function() {
 			    $("#spalatodialog .chapters").empty();
 			    $("#spalatodialog .content").empty();
 
+			    splitChapters = new Array();
+			    var chapName = '';
+			    var chapContent = '';
+
 			    while(!endSplitting) {
+			
 				var r = new RegExp("<h1>([^<]+)</h1>", "ig");
 				var m = r.exec(content);
 
@@ -535,27 +543,36 @@ $(function() {
 					    $("#spalatodialog .chapters").append('<li><a class="chapter" href="javascript:void(0)" title="0">Unknown chapter</a></li>');
 					    var chap = content.substring(0, r.lastIndex-m[0].length);
 					    $("#spalatodialog .content").append('<div style="display: none" class="chapter0">'+chap+'</div>');
+					    splitChapters.push(["Unknown chapter", chap]);
 					
 					    n += 1;
 					}
 					$("#spalatodialog .chapters").append('<li><a class="chapter" href="javascript:void(0)" title="'+n+'">'+m[1]+'</a></li>');
+					chapName = m[1];
 					
 				    } else {
 					$("#spalatodialog .chapters").append('<li><a class="chapter" href="javascript:void(0)" title="'+n+'">'+m[1]+'</a></li>');
+					chapName = m[1];
 
 					if(n > 0) {
 					    var chap = content.substring(0, r.lastIndex-m[0].length);
 					    $("#spalatodialog .content").append('<div style="display: none" class="chapter'+(n-1)+'">'+chap+'</div>');
+					    chapContent = chap;
 					} 
 				    }
+
+				    if(splitChapters[splitChapters.length-1][0] != "Unknown chapter")
+					splitChapters[splitChapters.length-1][1] = chapContent;
+				    splitChapters.push([chapName, ""]);
 
 				    n += 1;
 				    content = content.substring(r.lastIndex);
 				} else {
 				    endSplitting  = true;
 				}
-			    }
 
+			    }
+			    splitChapters[splitChapters.length-1][1] = content;
 			    $("#spalatodialog .content").append('<div style="display: none" class="chapter'+(n-1)+'">'+content+'</div>');
 
 
@@ -742,6 +759,24 @@ $(function() {
 				// should be makeSectionLine also
 				makeChapterLine(elem[0], elem[1], 0).prependTo("#chapterslist");
 			    });
+			}
+
+			if(message.command == "chapter_split") {
+			    toc.items = new Array();
+			    holdChapters.items = new Array();
+
+			    $.each(message.chapters, function(i, elem) {
+				toc.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1, status: elem[4]}));
+			    });
+			    
+			    $.each(message.hold, function(i, elem) {
+				holdChapters.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1, status: elem[4]}));
+			    });
+
+			    
+
+			    toc.draw();
+			    holdChapters.draw();
 			}
 			
 		    });
