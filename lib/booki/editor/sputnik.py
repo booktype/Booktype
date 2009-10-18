@@ -205,6 +205,8 @@ def booki_book(request, message, projectid, bookid):
         chapter.content = message["content"];
         chapter.save()
 
+        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has saved chapter "%s".' % (request.user.username, chapter.title)}, myself=True)
+
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": "normal", "username": request.user.username})
 
         return {}
@@ -212,8 +214,11 @@ def booki_book(request, message, projectid, bookid):
     ## chapter_rename
     if message["command"] == "chapter_rename":
         chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
+        oldTitle = chapter.title
         chapter.title = message["chapter"];
         chapter.save()
+
+        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has renamed chapter "%s" to "%s".' % (request.user.username, oldTitle, message["chapter"])}, myself=True)
 
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": "normal", "username": request.user.username})
 
@@ -260,6 +265,7 @@ def booki_book(request, message, projectid, bookid):
                 m =  models.BookToc.objects.get(chapter__id__exact=int(message["chapter_id"]))
                 m.delete()
 
+#        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has rearranged chapters.' % request.user.username})
 
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapters_changed", "ids": lst, "hold_ids": lstHold, "kind": message["kind"], "chapter_id": message["chapter_id"]})
         return {}
@@ -333,6 +339,9 @@ def booki_book(request, message, projectid, bookid):
 
             n += 1
 
+        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has split chapter "%s".' % (request.user.username, mainChapter.chapter.title)}, myself=True)
+
+
         mainChapter.chapter.delete()
 
         n = len(allChapters)
@@ -348,6 +357,9 @@ def booki_book(request, message, projectid, bookid):
 
         chapters = getTOCForBook(book)
         holdChapters =  getHoldChapters(bookid)
+        
+
+
 
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_split", "chapterID": message["chapterID"], "chapters": chapters, "hold": holdChapters, "username": request.user.username}, myself = True)
 
@@ -386,6 +398,9 @@ def booki_book(request, message, projectid, bookid):
 
         result = (c.chapter.id, c.chapter.title, c.chapter.url_title, c.typeof, s.id)
 
+        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has created new chapter "%s".' % (request.user.username, message["chapter"])}, myself=True)
+
+
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_create", "chapter": result}, myself = True)
 
         return {}
@@ -417,6 +432,9 @@ def booki_book(request, message, projectid, bookid):
         c.save()
 
         result = ("s%s" % c.id, c.name, None, c.typeof)
+
+
+        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has created new section "%s".' % (request.user.username, message["chapter"])}, myself=True)
 
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_create", "chapter": result, "typeof": c.typeof}, myself = True)
 

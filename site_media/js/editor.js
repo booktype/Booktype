@@ -6,7 +6,9 @@ $(function() {
  *
  * */	
 
-
+function unescapeHtml (val) {
+    return val.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+} 
     /* booki.chat */
 
     jQuery.namespace('jQuery.booki.chat');
@@ -19,6 +21,12 @@ $(function() {
 	    $('.content', element).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
 	    $('.content', element2).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
 	}
+
+	function showInfo(notice) {
+	    $('.content', element).append('<p><span class="info">INFO</span>  '+notice+'</p>');
+//	    $('.content', element2).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
+	}
+
 
 	function formatMessage(from, message) {
 	    return $("<p><b>"+from+"</b>: "+message+"</p>");
@@ -59,6 +67,11 @@ $(function() {
 		    if(message.command == "user_joined") {
 			showJoined(message.user_joined);
 		    }
+
+		    if(message.command == "message_info") {
+			showInfo(message.message);
+		    }
+
 
 		    if(message.command == "message_received") {
 			showMessage(message.from, message.message);
@@ -322,21 +335,61 @@ $(function() {
 						      currentlyEditing = chapterID;
 					              var edi = xinha_editors["myTextArea"]; 
                                                       var content = edi.getEditorContent();
+						      
+						      var c = content.substring(0);
+						      var chapters_n = 0;
+						      var currentPos = 0;
 
-						      var r = new RegExp("<h1>([^<]+)</h1>", "ig");
+						      while(chapters_n < 10) {
+							 var n1 = content.indexOf("</H1>", currentPos);
+							 var n2 = content.indexOf("</h1>", currentPos);
+ 							 var n =  -1;
+
+							if(n2 != -1 ) {
+							    if (n1 > n2) 
+             							n = n2;
+						            else
+                    					      if(n1 != -1)
+								n = n1;
+           						      else n = n2;
+							}			
+                 				        if(n == -1 && n1 == -1) {
+ 								break;
+							} else {
+ 							   if(n == -1)
+							        n = n1;
+							}
+                                                        currentPos = n; 
+ 							chapters_n += 1;
+						      }
+		                   	 
+						      
+
+/*
+						      var r = new RegExp("<h1>([^\<]+)</h1>", "ig");
 						      var chapters_n = 0;
 
 						      var c = content.substring(0);
 
 						      while(true) {
+							  $.booki.debug.debug("#"+unescapeHtml(c)+"#");
 							  m = r.exec(c);
 							  if(m) {
+							      $.booki.debug.debug("m je pun");
 							      chapters_n += 1;
+							      $.booki.debug.debug("last index je ");
+							      $.booki.debug.debug(r.lastIndex);
+							      $.booki.debug.debug(m.length);
+							      
 							      c = c.substring(r.lastIndex-m[0].length);
 							  } else {
+							      $.booki.debug.debug("m je prazan");
 							      break;
 							  }
 						      }
+*/
+						      $.booki.debug.debug(chapters_n);
+
 
 						      if(chapters_n > 1) {
 							  $("#spalatodialog").dialog("open");
@@ -505,8 +558,6 @@ $(function() {
 			buttons: {
 			    'Split into chapters and save changes': function() {
 				var $dialog = $(this);
-
-				$.booki.debug.debug(currentlyEditing);
 				$.booki.debug.debug(splitChapters);
  				$.booki.sendToCurrentBook({"command": "chapter_split", "chapterID": currentlyEditing, "chapters": splitChapters}, function() {$dialog.dialog('close'); $.booki.ui.notify(); closeEditor(); } );
 			    },
@@ -533,8 +584,7 @@ $(function() {
 			    var chapContent = '';
 
 			    while(!endSplitting) {
-			
-				var r = new RegExp("<h1>([^<]+)</h1>", "ig");
+				var r = new RegExp("<h1>([^<]+)</h1>", "igm");
 				var m = r.exec(content);
 
 				if(m != null) {
@@ -561,9 +611,14 @@ $(function() {
 					} 
 				    }
 
-				    if(splitChapters[splitChapters.length-1][0] != "Unknown chapter")
-					splitChapters[splitChapters.length-1][1] = chapContent;
-				    splitChapters.push([chapName, ""]);
+				    if(splitChapters.length > 0) {
+					if(splitChapters[splitChapters.length-1][0] != "Unknown chapter")
+					    splitChapters[splitChapters.length-1][1] = chapContent;
+					splitChapters.push([chapName, ""]);
+				    } else {
+					splitChapters.push([chapName, ""]);
+				    }
+
 
 				    n += 1;
 				    content = content.substring(r.lastIndex);
@@ -574,7 +629,7 @@ $(function() {
 			    }
 			    splitChapters[splitChapters.length-1][1] = content;
 			    $("#spalatodialog .content").append('<div style="display: none" class="chapter'+(n-1)+'">'+content+'</div>');
-
+			    $("#spalatodialog DIV.chapter0").css("display", "block");
 
 			    $("#spalatodialog  A.chapter").click(function() {
 				var chap_n = $(this).attr("title");
