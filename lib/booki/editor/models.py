@@ -23,8 +23,8 @@ STATUS_CHOICES = (
 ## Project
 
 class Project(models.Model):
-    url_name = models.CharField(_('url_name'), max_length=250, blank=False)
-    name = models.CharField(_('name'), max_length=250, blank=False)
+    url_name = models.CharField(_('url_name'), max_length=2500, blank=False)
+    name = models.CharField(_('name'), max_length=2500, blank=False)
     status = models.IntegerField(_('status'), choices=STATUS_CHOICES) # change this
     created = models.DateTimeField(_('created'), auto_now=True)
 
@@ -57,8 +57,8 @@ class ProjectStatus(models.Model):
 
 class Book(models.Model):
     project = models.ForeignKey(Project, null=False)
-    url_title = models.CharField(_('url_title'), max_length=250, blank=True) # can it be blank?
-    title = models.CharField(_('title'), max_length=250, blank=False)
+    url_title = models.CharField(_('url_title'), max_length=2500, blank=True) # can it be blank?
+    title = models.CharField(_('title'), max_length=2500, blank=False)
     status = models.ForeignKey(ProjectStatus, null=False)
     language = models.ForeignKey(Language, null=True) # can it be blank?
     created = models.DateTimeField(_('created'), auto_now=True)
@@ -84,10 +84,10 @@ INFO_CHOICES = (
 class Info(models.Model):
     book = models.ForeignKey(Book, null=False)
 
-    name = models.CharField(_('name'), max_length=250, db_index=True)
+    name = models.CharField(_('name'), max_length=2500, db_index=True)
     kind = models.SmallIntegerField(_('kind'), choices=INFO_CHOICES)
 
-    value_string = models.CharField(_('value_string'), max_length=250, null=True)
+    value_string = models.CharField(_('value_string'), max_length=2500, null=True)
     value_integer = models.IntegerField(_('value_integer'), null=True)
     value_text = models.TextField(_('value_text'), null=True)
     value_date = models.DateTimeField(_('value_date'), auto_now=False, null=True)
@@ -118,8 +118,8 @@ class Info(models.Model):
 
 class Chapter(models.Model):
     book = models.ForeignKey(Book, null=False)
-    url_title = models.CharField(_('url_title'), max_length=250)
-    title = models.CharField(_('title'), max_length=250)
+    url_title = models.CharField(_('url_title'), max_length=2500)
+    title = models.CharField(_('title'), max_length=2500)
     status = models.ForeignKey(ProjectStatus, null=False) # this will probably change
     created = models.DateTimeField(_('created'), null=False, auto_now=True)
     modified = models.DateTimeField(_('modified'), null=True, auto_now=True)
@@ -155,7 +155,7 @@ class AttachmentFile(models.FileField):
 class Attachment(models.Model):
     book = models.ForeignKey(Book, null=False)
 #    attachment = AttachmentFile(_('filename'), upload_to=uploadAttachmentTo, max_length=250)
-    attachment = models.FileField(_('filename'), upload_to=uploadAttachmentTo, max_length=250)
+    attachment = models.FileField(_('filename'), upload_to=uploadAttachmentTo, max_length=2500)
 
     status = models.ForeignKey(ProjectStatus, null=False)
     created = models.DateTimeField(_('created'), null=False, auto_now=True)
@@ -179,7 +179,7 @@ TYPEOF_CHOICES = (
 
 class BookToc(models.Model):
     book = models.ForeignKey(Book, null=False)
-    name = models.CharField(_('name'), max_length=250, blank=True)
+    name = models.CharField(_('name'), max_length=2500, blank=True)
     chapter = models.ForeignKey(Chapter, null=True, blank=True)
     weight = models.IntegerField(_('weight'))
     typeof = models.SmallIntegerField(_('typeof'), choices=TYPEOF_CHOICES)
