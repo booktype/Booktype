@@ -396,7 +396,7 @@ def booki_book(request, message, projectid, bookid):
                            typeof=1)
         c.save()
 
-        result = (c.chapter.id, c.chapter.title, c.chapter.url_title, c.typeof, s.id)
+        result = (chapter.id, chapter.title, chapter.url_title, 1, s.id)
 
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has created new chapter "%s".' % (request.user.username, message["chapter"])}, myself=True)
 
@@ -410,9 +410,13 @@ def booki_book(request, message, projectid, bookid):
         project = models.Project.objects.get(id=projectid)
         book = models.Book.objects.get(project=project, id=bookid)
 
+        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": '"%s" is being published.' % (book.title, )}, myself=True)
+
         import urllib2
-        f = urllib2.urlopen("http://objavi.flossmanuals.net/objavi.cgi?book=%s&project=%s&mode=epub&server=booki.flossmanuals.net&destination=archive.org" % (book.url_title, project.url_name))
-        f.read()
+        #f = urllib2.urlopen("http://objavi.flossmanuals.net/objavi.cgi?book=%s&project=%s&mode=epub&server=booki.flossmanuals.net&destination=archive.org" % (book.url_title, project.url_name))
+        #f.read()
+
+        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": '"%s" is published.' % (book.title, )}, myself=True)
 
         return {}
 

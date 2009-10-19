@@ -502,9 +502,37 @@ function unescapeHtml (val) {
 		    $.booki.chat.initChat($("#chat"), $("#chat2"));
 
                     $("#tabpublish BUTTON").click(function() {
+			$("#tabpublish .info").html('<div style="padding-top: 20px; padding-bottom: 20px;">"'+$.booki.currentBook+'" is being sent to Objavi (the publishing engine for Booki), converted to an .epub, and uploaded to Archive.org.</div>');
+			$("#tabpublish BUTTON").attr("disabled", "disabled");
+
+			$("#tabpublish .info").append('<div id="progressbar" style="width: 400px;"></div>');
+
+			var currentProgress = 0;
+
+			$("#progressbar").progressbar({
+			    value: currentProgress
+			});
+
+
+			function _incrementProgress() {
+			    if(currentProgress == -1) return;
+			    if(currentProgress > 100) currentProgress = 100;
+
+			    currentProgress += 10;
+
+			    $("#progressbar").progressbar('value', currentProgress);
+			    setTimeout(function() { _incrementProgress();}, 1000);
+			}
+
+			_incrementProgress();
+			
+
                         $.booki.sendToCurrentBook({"command": "publish_book"},
                                                   function() {
-						      $("#tabpublish .info").html("<p>Book is being send to objavi.flossmanuals.net. Soon it will be converted to .epub.</p>");
+//						      currentProgress = -1;
+//			                              $("#tabpublish BUTTON").removeAttr("disabled");
+
+//						      $("#tabpublish .info").html('<div style="padding-top: 20px">Your epub has been created, and it is now being uploaded to archive.org</div>');
 						      
 						      $.booki.ui.notify();
 						  } );
