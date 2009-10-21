@@ -150,7 +150,11 @@ def importBookFromURL(bookURL, createTOC = False):
 
     p = re.compile('\ssrc="(.*)"')
 
-    for (chapterName, chapterFile) in info['TOC']:
+    print info['TOC']
+
+    for inf in info['TOC']:
+        chapterName = inf[0]
+        chapterFile = inf[1]
         urlName = slugify(chapterName)
 
         # ignore Sections for now
@@ -167,7 +171,6 @@ def importBookFromURL(bookURL, createTOC = False):
             stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
 
             # place where to check for file name
-
             if chapterFile.index(".") != -1:
                 chapterFile = chapterFile[:chapterFile.index(".")]
 
@@ -260,17 +263,17 @@ def exportBook(book):
     ## should export only published chapters
     ## also should only post stuff from the TOC
 
-    for chapter in models.BookToc.objects.filter(book=book):
+    for chapter in models.BookToc.objects.filter(book=book).order_by("-weight"):
         if chapter.chapter:
-            bzip.info["TOC"].append([chapter.chapter.title, chapter.chapter.url_title])
-            bzip.info["spine"].append(chapter.chapter.title)
+            bzip.info["TOC"].append([chapter.chapter.url_title, "%s.html" % chapter.chapter.url_title])
 
             content = p.sub(r' src="\1"', chapter.chapter.content)
             name = "%s.html" % chapter.chapter.url_title
             
             bzip.add_to_package(removeExtension(name.encode("utf-8")), name.encode("utf-8"), content.encode("utf-8"), "text/html")
+            bzip.info["spine"].append(removeExtension(name.encode("utf-8")))
         else:
-            bzip.info["TOC"].append([chapter.name, ""])
+            bzip.info["TOC"].append([chapter.name, None])
 
     for attachment in models.Attachment.objects.filter(book=book):
         name = file_name(attachment.attachment.name)

@@ -526,17 +526,18 @@ function unescapeHtml (val) {
 
 			_incrementProgress();
 			
-
                         $.booki.sendToCurrentBook({"command": "publish_book"},
-                                                  function() {
-//						      currentProgress = -1;
-//			                              $("#tabpublish BUTTON").removeAttr("disabled");
+                                                  function(data) {
+                                                      currentProgress = -1;
+                                                      $("#tabpublish BUTTON").removeAttr("disabled");
 
-//						      $("#tabpublish .info").html('<div style="padding-top: 20px">Your epub has been created, and it is now being uploaded to archive.org</div>');
-						      
-						      $.booki.ui.notify();
-						  } );
-			
+                                                      $("#tabpublish .info").html('<div style="padding-top: 20px; padding-bottom: 10px"><a href="'+data.dta+'" target="_new">'+data.dta+'</a></div>');
+                                                      $("#tabpublish .info").append('<p>Your epub has been sent to Archive.org. It will appear at the following URL in a few minutes.</p>');
+                                                      $("#tabpublish .info").append('<p><a href="'+data.dtas3+'" target="_new">'+data.dtas3+'</a></p>');
+
+                                                     $.booki.debug.debug(data.dtaall);
+                                                      $.booki.ui.notify();
+                                                  } );
                     });
 
 		    // initialize dialogs

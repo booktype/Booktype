@@ -385,16 +385,17 @@ def booki_book(request, message, projectid, bookid):
                                  url_title = url_title,
                                  title = message["chapter"],
                                  status = s,
+                                 content = '<h1>%s</h1>' % message["chapter"],
                                  created = datetime.datetime.now(),
                                  modified = datetime.datetime.now())
         chapter.save()
 
-        c = models.BookToc(book = book,
-                           name = message["chapter"],
-                           chapter = chapter,
-                           weight = 0,
-                           typeof=1)
-        c.save()
+#        c = models.BookToc(book = book,
+#                           name = message["chapter"],
+#                           chapter = chapter,
+#                           weight = 0,
+#                           typeof=1)
+#        c.save()
 
         result = (chapter.id, chapter.title, chapter.url_title, 1, s.id)
 
@@ -413,12 +414,15 @@ def booki_book(request, message, projectid, bookid):
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": '"%s" is being published.' % (book.title, )}, myself=True)
 
         import urllib2
-        #f = urllib2.urlopen("http://objavi.flossmanuals.net/objavi.cgi?book=%s&project=%s&mode=epub&server=booki.flossmanuals.net&destination=archive.org" % (book.url_title, project.url_name))
-        #f.read()
+        f = urllib2.urlopen("http://objavi.flossmanuals.net/objavi.cgi?book=%s&project=%s&mode=epub&server=booki.flossmanuals.net&destination=archive.org" % (book.url_title, project.url_name))
+        ta = f.read()
+        lst = ta.split("\n")
+        dta = lst[0]
+        dtas3 = lst[1]
 
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": '"%s" is published.' % (book.title, )}, myself=True)
 
-        return {}
+        return {"dtaall": ta, "dta": dta, "dtas3": dtas3}
 
     ## create_section
     if message["command"] == "create_section":
