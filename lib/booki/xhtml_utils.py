@@ -18,6 +18,7 @@ except ImportError:
 
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED, ZIP_STORED
 
+ADJUST_HEADING_WEIGHT = False
 
 MEDIATYPES = {
     'html': "text/html",
@@ -88,6 +89,11 @@ def url_to_filename(url, prefix=''):
     base = base.split('/pub/', 1)[1] #remove /floss/pub/ or /pub/
     base = re.sub(r'[^\w]+', '-',  '%s-%s' %(base, server))
     return '%s%s.%s' % (prefix, base, ext)
+
+def convert_tags(root, elmap):
+    for el in root.iterdescendants():
+        if el.tag in elmap:
+            el.tag = elmap[el.tag]
 
 
 class ImageCache(object):
@@ -231,8 +237,16 @@ class BaseChapter(object):
         self.cleaner(self.tree)
 
     def prepare_for_epub(self):
-        """Change h1 to h3, etc"""
+        """Shift all headings down 2 places."""
+        if ADJUST_HEADING_WEIGHT:
+            # a question to resolve:
+            # is it better (quicker) to have multiple, filtered iterations
+            # converting in order (h4->h5, h3->h4, etc) or to do a single,
+            # unfiltered pass and convert from a dict?
 
+            hmap = dict(('h%s' % x, 'h%s' % (x + 2)) for x in range(4, 0, -1))
+            hmap['h5'] = 'h6'
+            convert_tags(self.root, hmap)
 
 class ImportedChapter(BaseChapter):
     """Used for git import"""
