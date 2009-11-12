@@ -5,6 +5,7 @@ import simplejson
 # this is stupid but will work for now
 
 rcon = redis.Redis()
+rcon.connect()
 
 def hasChannel(channelName):
     global rcon

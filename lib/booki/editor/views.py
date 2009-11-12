@@ -141,8 +141,6 @@ sputnik_mapper = (
 )
 
 def dispatcher(request):
-#    global _clientID
-
     import simplejson, re, sputnik
 
     inp =  request.POST
@@ -152,7 +150,9 @@ def dispatcher(request):
     clientID = None
     messages = simplejson.loads(inp["messages"])
 
+    # this should be changed
     r = redis.Redis()
+    r.connect()
 
     if inp.has_key("clientID") and inp["clientID"]:
         clientID = inp["clientID"]
