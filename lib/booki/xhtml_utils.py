@@ -11,38 +11,7 @@ from cStringIO import StringIO
 from urlparse import urlparse, urlsplit, urljoin
 from urllib2 import urlopen, HTTPError
 
-try:
-    import simplejson as json
-except ImportError:
-    import json
-
-from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED, ZIP_STORED
-
-
-MEDIATYPES = {
-    'html': "text/html",
-    'xhtml': "application/xhtml+xml",
-    'css': 'text/css',
-    'json': "application/json",
-
-    'png': 'image/png',
-    'gif': 'image/gif',
-    'jpg': 'image/jpeg',
-    'jpeg': 'image/jpeg',
-    'svg': 'image/svg+xml',
-
-    'ncx': 'application/x-dtbncx+xml',
-    'dtb': 'application/x-dtbook+xml',
-    'xml': 'application/xml',
-
-    'pdf': "application/pdf",
-    'txt': 'text/plain',
-
-    'epub': "application/epub+zip",
-    'booki': "application/x-booki+zip",
-
-    None: 'application/octet-stream',
-}
+ADJUST_HEADING_WEIGHT = False
 
 OK_TAGS = set([
     "body", "head", "html", "title", "abbr", "acronym", "address",
@@ -88,6 +57,11 @@ def url_to_filename(url, prefix=''):
     base = base.split('/pub/', 1)[1] #remove /floss/pub/ or /pub/
     base = re.sub(r'[^\w]+', '-',  '%s-%s' %(base, server))
     return '%s%s.%s' % (prefix, base, ext)
+
+def convert_tags(root, elmap):
+    for el in root.iterdescendants():
+        if el.tag in elmap:
+            el.tag = elmap[el.tag]
 
 
 class ImageCache(object):
@@ -231,8 +205,16 @@ class BaseChapter(object):
         self.cleaner(self.tree)
 
     def prepare_for_epub(self):
-        """Change h1 to h3, etc"""
+        """Shift all headings down 2 places."""
+        if ADJUST_HEADING_WEIGHT:
+            # a question to resolve:
+            # is it better (quicker) to have multiple, filtered iterations
+            # converting in order (h4->h5, h3->h4, etc) or to do a single,
+            # unfiltered pass and convert from a dict?
 
+            hmap = dict(('h%s' % x, 'h%s' % (x + 2)) for x in range(4, 0, -1))
+            hmap['h5'] = 'h6'
+            convert_tags(self.root, hmap)
 
 class ImportedChapter(BaseChapter):
     """Used for git import"""
@@ -263,113 +245,4 @@ class EpubChapter(BaseChapter):
         if cache_dir:
             self.image_cache = ImageCache(cache_dir)
         self.tree = lxml.html.document_fromstring(html)
-
-
-
-
-class BookiZip(object):
-
-    def __init__(self, filename):
-        """Start a new zip and put an uncompressed 'mimetype' file at the
-        start.  This idea is copied from the epub specification, and
-        allows the file type to be dscovered by reading the first few
-        bytes."""
-        self.zipfile = ZipFile(filename, 'w', ZIP_DEFLATED, allowZip64=True)
-        self.write_blob('mimetype', MEDIATYPES['booki'], ZIP_STORED)
-        self.filename = filename
-        self.manifest = {}
-
-    def write_blob(self, filename, blob, compression=ZIP_DEFLATED, mode=0644):
-        """Add something to the zip without adding to manifest"""
-        zinfo = ZipInfo(filename)
-        zinfo.external_attr = mode << 16L # set permissions
-        zinfo.compress_type = compression
-        self.zipfile.writestr(zinfo, blob)
-
-    def add_to_package(self, ID, fn, blob, mediatype=None):
-        """Add an item to the zip, and save it in the manifest.  If
-        mediatype is not provided, it will be guessed according to the
-        extrension."""
-        self.write_blob(fn, blob)
-        if mediatype is None:
-            ext = fn[fn.rfind('.') + 1:]
-            mediatype = MEDIATYPES.get(ext, MEDIATYPES[None])
-        self.manifest[ID] = (fn, mediatype)
-
-    def _close(self):
-        self.zipfile.close()
-
-    def finish(self):
-        """Finalise the metadata and write to disk"""
-        self.info['manifest'] = self.manifest
-        infojson = json.dumps(self.info, indent=2)
-        self.add_to_package('info.json', 'info.json', infojson, 'application/json')
-        self._close()
-
-
-def llopsided_copy(parent, start_el, start_stack):
-    if start_stack:
-        new = parent.makeelement(start_el.tag, **start_el.attrib)
-        parent.append(new)
-        first_child = start_stack.pop()
-        llopsided_copy(new, first_child, start_stack)
-        for el in first_child.itersiblings():
-            parent.append(copy.deepcopy(el))
-    else:
-        parent.append(copy.deepcopy(start_el))
-
-
-def rlopsided_copy(parent, end_el, end_stack):
-    if end_stack:
-        last_child = end_stack.pop()
-        for el in end_el.iterchildren():
-            if el is last_child:
-                break
-            parent.append(copy.deepcopy(el))
-        new = parent.makeelement(end_el.tag, **end_el.attrib)
-        parent.append(new)
-        rlopsided_copy(new, last_child, end_stack)
-    else:
-        parent.append(copy.deepcopy(end_el))
-
-
-
-def xml_snippet(start_tag, end_tag):
-    #dbody = new_html_body()
-    start_stack = [start_tag] + [x for x in start_tag.iterancestors()]
-    end_stack = [end_tag] + [x for x in end_tag.iterancestors()]
-    #print start_stack, end_stack
-
-    #start_stack.reverse()
-    #end_stack.reverse()
-    oldroot = start_stack.pop()
-    assert oldroot == end_stack.pop()
-    root = etree.Element(oldroot.tag)
-    context = root
-    while start_stack:
-        start_el = start_stack.pop()
-        end_el = end_stack.pop()
-        if start_el is not end_el:
-            # The start stack and endstack will never converge, so we
-            # may as well stop the loop.
-            break
-        new = root.makeelement(start_el.tag, **start_el.attrib)
-        context.append(new)
-        context = new
-
-    #so the tree has diverged.
-    #need to copy
-    # 1. part of this subtree
-    # 2. all intervening subtrees - deepcopy
-    # 3. part of last subtree
-    print start_stack, end_stack, context
-
-    llopsided_copy(context, start_el, start_stack)
-    for el in start_el.itersiblings():
-        if el is end_el or el in end_stack:
-            break
-        context.append(copy.deepcopy(el)) #actually, being destructive wouldn't matter
-    rlopsided_copy(context, end_el, end_stack)
-
-    return root
 
