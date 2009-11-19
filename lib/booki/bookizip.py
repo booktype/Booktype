@@ -34,6 +34,7 @@ MEDIATYPES = {
 
 #metadata construction routines
 DC = "http://purl.org/dc/elements/1.1/"
+FM = "http://booki.cc/"
 
 def get_metadata(metadata, key, ns=DC,
                  scheme='', default=[]):
@@ -44,7 +45,15 @@ def get_metadata(metadata, key, ns=DC,
     If no values are set, an empty list is returned, unless the
     default argument is given, in which case you get that.
     """
-    return metadata[ns].get(ns, {}).get(key, default)
+    values = metadata.get(ns, {}).get(key, {})
+    if scheme == '*':
+        return sum(values.values(), [])
+    return values.get(scheme, default)
+
+def get_metadata_schemes(metadata, key, ns=DC):
+    """Say what schemes are available for a given key and namespace."""
+    values = metadata.get(ns, {}).get(key, {})
+    return values.keys()
 
 def add_metadata(metadata, key, value, ns=DC, scheme=''):
     """Add a metadata (ns, key, scheme, value) tuple. Namespace
@@ -69,7 +78,7 @@ def clear_metadata(metadata, key, ns=DC, scheme='*'):
                 metadata[ns][key] = {}
             elif scheme in metadata[ns][key]:
                 del metadata[ns][key][scheme]
-        elif ns = '*':
+        elif ns == '*':
             for ns in metadata:
                 clear_metadata(metadata, key, ns, scheme)
 
