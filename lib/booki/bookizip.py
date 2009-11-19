@@ -32,15 +32,55 @@ MEDIATYPES = {
     None: 'application/octet-stream',
 }
 
-#Metadata construction routines
+#metadata construction routines
+DC = "http://purl.org/dc/elements/1.1/"
+FM = "http://booki.cc/"
 
+def get_metadata(metadata, key, ns=DC,
+                 scheme='', default=[]):
+    """Get a list of metadata values matching a key, namespace and
+    scheme.  If the ns or scheme are not set, they default to Dublin
+    Core and an empty string, respectively.
 
+    If no values are set, an empty list is returned, unless the
+    default argument is given, in which case you get that.
+    """
+    values = metadata.get(ns, {}).get(key, {})
+    if scheme == '*':
+        return sum(values.values(), [])
+    return values.get(scheme, default)
 
+def get_metadata_schemes(metadata, key, ns=DC):
+    """Say what schemes are available for a given key and namespace."""
+    values = metadata.get(ns, {}).get(key, {})
+    return values.keys()
 
+def add_metadata(metadata, key, value, ns=DC, scheme=''):
+    """Add a metadata (ns, key, scheme, value) tuple. Namespace
+    defaults to Dublin Core, and scheme to an empty string.  In most
+    cases that is what you want."""
+    namespace = metadata.setdefault(ns, {})
+    items = namespace.setdefault(key, {})
+    values = items.setdefault(scheme, [])
+    values.append(value)
 
+def clear_metadata(metadata, key, ns=DC, scheme='*'):
+    """Clear metadata for a key in a namespace (ns).  If namespace is
+    ommited, Dublin Core is assumed.  If a scheme is specified (and is
+    not '*'), only metadata in that scheme is removed.  By default all
+    schemes are removed.
 
-
-
+    If ns is '*', that key is removed from all namespaces.
+    """
+    if ns in metadata:
+        if key in metadata[ns]:
+            if scheme == '*':
+                metadata[ns][key] = {}
+            elif scheme in metadata[ns][key]:
+                del metadata[ns][key][scheme]
+        elif ns == '*':
+            for ns in metadata:
+                clear_metadata(metadata, key, ns, scheme)
 
 
 class BookiZip(object):
