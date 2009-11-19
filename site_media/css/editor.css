@@ -9,6 +9,14 @@
     padding-left: 2px;
 }
 
+#chat .info {
+    background-color: green;
+    color: white;
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
+
 #chat .content {
     overflow: auto;
 }
@@ -47,10 +55,36 @@ H4 {
  font-size: 10px;
 }
 
-#chapterslist { list-style-type: none; margin: 0; padding: 0; width: 90%; }
+#chapterslist { list-style-type: none; margin: 0; padding: 0; width: 90%; margin-right: 10px; padding: 5px; }
 #chapterslist li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
 #chapterslist li span { position: absolute; margin-left: -1.3em; }
+
+#holdchapterslist { list-style-type: none; margin: 0; padding: 0; width: 90%;  margin-right: 10px; background: #eee; padding: 5px;  }
+#holdchapterslist li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+#holdchapterslist li span { position: absolute; margin-left: -1.3em; }
+
+
 .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+
+
+#chapteraction {
+    width: 90%;
+    text-align: right;
+    padding-top: 4px;
+}
+
+
+.ui-button { outline: 0; margin:0; padding: .4em 1em .5em; text-decoration:none;  !important; cursor:pointer; position: relative; text-align: center; }
+.ui-dialog .ui-state-highlight, .ui-dialog .ui-state-error { padding: .3em;  }
+
+#newchapter 	label, #newchapter input { display:block; }
+#newchapter 	input.text { margin-bottom:12px; width:95%; padding: .4em; }
+#newchapter 	fieldset { padding:0; border:0; margin-top:25px; }
+
+#newsection 	label, #newchapter input { display:block; }
+#newsection 	input.text { margin-bottom:12px; width:95%; padding: .4em; }
+#newsection 	fieldset { padding:0; border:0; margin-top:25px; }
+
 
 
 #notify {
@@ -65,6 +99,18 @@ H4 {
     padding: 3px;
 }
  
+
+#container .middleinfo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 10px;
+    text-align: center;
+}
+
+#container .middleinfo SPAN {
+    background-color: #6481f4;
+    color: white;
+}
 
 BODY {
   margin-top: 0px; 

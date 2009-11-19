@@ -9,6 +9,32 @@ from booki.editor import models
 
 # BOOK
 
+def view_export(request, project, edition):
+
+    if edition == "None":
+        edition = project
+
+    project = models.Project.objects.get(url_name__iexact=project)
+
+    book = models.Book.objects.get(project=project, url_title__iexact=edition)
+
+    response = HttpResponse(mimetype='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=%s.zip' % book.url_title
+
+    # this is not good
+    # should not do so much read/write in the memory
+
+    from booki.editor import common
+    
+    fileName = common.exportBook(book)
+
+    response.write(open(fileName, 'rb').read())
+
+    import os
+    os.unlink(fileName)
+
+    return response
+
 def edit_book(request, project, edition):
     project = models.Project.objects.get(url_name__iexact=project)
     book = models.Book.objects.get(project=project, url_title__iexact=edition)
@@ -22,14 +48,30 @@ def view_book(request, project, edition):
     # ovaj tu neshto zeza
     book = models.Book.objects.get(project=proj, url_title__iexact=edition)
 
-    chapters = models.BookToc.objects.filter(book=book).order_by("weight")
+    chapters = []
+    for chapter in  models.BookToc.objects.filter(book=book).order_by("-weight"):
+        if chapter.chapter:
+            chapters.append({"url_title": chapter.chapter.url_title,
+                             "name": chapter.chapter.title})
+        else:
+            chapters.append({"url_title": None,
+                             "name": chapter.name})
+        
 
     return render_to_response('editor/view_book.html', {"project": proj, "book": book, "chapters": chapters, "request": request})
 
 def view_chapter(request, project, edition, chapter):
     proj = models.Project.objects.get(url_name__iexact=project)
     book = models.Book.objects.get(project=proj, url_title__iexact=edition)
-    chapters = models.BookToc.objects.filter(book=book).order_by("weight")
+
+    chapters = []
+    for chap in  models.BookToc.objects.filter(book=book).order_by("-weight"):
+        if chap.chapter:
+            chapters.append({"url_title": chap.chapter.url_title,
+                             "name": chap.chapter.title})
+        else:
+            chapters.append({"url_title": None,
+                             "name": chap.name})
 
     content = models.Chapter.objects.get(book = book, url_title = chapter)
 
@@ -42,8 +84,37 @@ def view_project(request, project):
     books = list(models.Book.objects.filter(project__url_name__iexact=project))
     return render_to_response('editor/view_project.html', {"project": project, "books": books})
 
-def view_attachment(request, project, attachment):
-    return render_to_response('editor/view_attachment.html', {"project": project, "attachment": attachment})
+def view_attachment(request, project, edition, attachment):
+    from booki import settings
+    from django.views import static
+
+    #project = models.Project.objects.get(url_name__iexact=project)
+    #book = models.Book.objects.get(project=project, url_title__iexact=edition)
+
+    path = attachment
+    document_root = '%s/static/%s/%s/' % (settings.STATIC_DOC_ROOT, project, edition)
+
+    return static.serve(request, path, document_root)
+
+def thumbnail_attachment(request, project, edition, attachment):
+    from booki import settings
+    from django.views import static
+
+    #project = models.Project.objects.get(url_name__iexact=project)
+    #book = models.Book.objects.get(project=project, url_title__iexact=edition)
+
+    path = attachment
+    document_root = '%s/static/%s/%s/%s' % (settings.STATIC_DOC_ROOT, project, edition, path)
+    
+    import Image
+    im = Image.open(document_root)
+    im.thumbnail((200, 200), Image.ANTIALIAS)
+
+    response = HttpResponse(mimetype='image/jpeg')
+    im.save(response, "jpeg")
+    return  response
+
+
 
 def view_editor(request, project):
     return render_to_response('editor/view_editor.html', {"project": project})
@@ -70,7 +141,7 @@ sputnik_mapper = (
 )
 
 def dispatcher(request):
-    global _clientID
+#    global _clientID
 
     import simplejson, re, sputnik
 
@@ -83,7 +154,6 @@ def dispatcher(request):
 
     r = redis.Redis()
 
-    # nesto zajebava
     if inp.has_key("clientID") and inp["clientID"]:
         clientID = inp["clientID"]
 

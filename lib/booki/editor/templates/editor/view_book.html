@@ -9,6 +9,8 @@
 
 <div id="header">
  <div style="float:right; font-size: 12px">
+<div align="center" style="padding-bottom: 8px">
+<img src="/site_media/images/logo.png"></div>
     <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a href="/accounts/signout/">Sign out</a>
  </div>
 </div>
@@ -26,7 +28,11 @@
  <td valign="top" style="padding-right: 30px">
 <ul>
 {% for chap in chapters %}
-<li> <a href="{% url view_chapter project.url_name book.url_title chap.chapter.url_title %}">{{ chap.name }}</a>  </li>
+ {% if chap.url_title %}
+   <li> <a href="{% url view_chapter project.url_name book.url_title chap.url_title %}">{{ chap.name }}</a>  </li>
+ {% else %}
+   <li> <b>{{ chap.name }}</b></li>
+ {% endif %}
 {% endfor %}
 </ul>
  </td>

@@ -55,8 +55,15 @@ def register(request):
 # project form
 
 class ProjectForm(forms.Form):
-    title = forms.CharField(required=True)
+    title = forms.CharField(required=False)
 #    url_title = forms.CharField(required=True)
+
+class ImportForm(forms.Form):
+    archive_id = forms.CharField(required=False)
+    
+class ImportFlossForm(forms.Form):
+    floss_book = forms.CharField(required=False)
+
 
 def view_profile(request, username):
     from django.contrib.auth.models import User
@@ -68,11 +75,21 @@ def view_profile(request, username):
 
     if request.method == 'POST':
         project_form = ProjectForm(request.POST)
+        import_form = ImportForm(request.POST)
+#        floss_form = ImportFlossForm(request.POST)
 
-        if project_form.is_valid():
+        if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
+            from booki.editor import common
+            common.importBookFromURL("http://objavi.flossmanuals.net/espri.cgi?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
+
+#        if floss_form.is_valid() and floss_form.cleaned_data["floss_book"] != "":
+#            from booki.editor import common
+#            common.importBookFromURL("http://objavi.flossmanuals.net/booki-twiki-gateway.cgi?server=en.flossmanuals.net&mode=zip&book="+floss_form.cleaned_data["floss_book"], createTOC = True)
+
+        if project_form.is_valid() and project_form.cleaned_data["title"] != "":
             title = project_form.cleaned_data["title"]
             url_title = slugify(title)
- #           url_title = project_form.cleaned_data["url_title"]
+#           url_title = project_form.cleaned_data["url_title"]
             
 
             project = models.Project(url_name = url_title,
@@ -95,9 +112,10 @@ def view_profile(request, username):
             return HttpResponseRedirect("/accounts/%s/" % username)
     else:
         project_form = ProjectForm()
-
+        import_form = ImportForm()
+        floss_form = ImportFlossForm()
 
     books = models.Book.objects.all()
 
-    return render_to_response('account/view_profile.html', {"request": request, "user": user, "project_form": project_form, "books": books})
+    return render_to_response('account/view_profile.html', {"request": request, "user": user, "project_form": project_form, "import_form": import_form, "floss_form": floss_form, "books": books})
 

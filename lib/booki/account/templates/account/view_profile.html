@@ -4,6 +4,8 @@
 
 <div style="margin-bottom: 5px">
   <div style="float: right">
+<div align="center" style="padding-bottom: 8px">
+<img src="/site_media/images/logo.png"></div>
      <b>{{ user.username }}</b> | Settings | Help | <a href="{% url signout %}">Sign out</a>
   </div>
   <b><a href="{% url frontpage %}">BOOKI</a></b>
@@ -12,7 +14,7 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
  <tr>
   <td valign="top" width="240">
-<img src="/site_media/images/aco_ikona.png" width="90%" height="90%"/>
+<img src="/site_media/images/aco_ikona.png"/>
 {{ user.email }}<br/>
 {{ user.first_name }}
 {{ user.last_name }}
@@ -28,6 +30,26 @@
 <button>Create</button>
 </form>
 
+
+<h2>Import from archive.org</h2>
+<form action="." method="POST">
+<table>
+{{ import_form.as_table }}
+</table>
+<br/><br/>
+<button>Import</button>
+</form>
+
+<h2>Import from fm.net</h2>
+<form action="." method="POST">
+<table>
+{{ floss_form.as_table }}
+</table>
+<br/><br/>
+<button>Import</button>
+</form>
+
+
   </td>
   <td width="10"></td>
   <td valign="top">
@@ -35,8 +57,8 @@
 <div style="border-bottom: 1px solid #c0c0c0"></div>
 <ul>
 {% for book in books %}
-   <li><a href="{% url view_book book.url_title book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book book.url_title book.url_title %}">edit</a>)
-</li>
+
+   <li><a href="{% url view_book book.project.url_name book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book book.project.url_name book.url_title %}">edit</a>)</li>
 {% endfor %}
 </ul>
 

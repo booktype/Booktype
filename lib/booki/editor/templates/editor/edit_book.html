@@ -28,28 +28,6 @@
             });
 
 
-// this should be in editor.js
-        $("#formchapter  BUTTON.submit").click(function() {
-                  $.booki.ui.notify("Creating chapter");
- 
-                   $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#formchapter INPUT.chapter").val()}, function(data) {
-                           $.booki.ui.notify();
-                           $("#formchapter INPUT.chapter").val("");
-                      });
-
-          });
-
-        $("#formsection  BUTTON.submit").click(function() {
-                  $.booki.ui.notify("Creating section");
- 
-                   $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#formsection INPUT.chapter").val()}, function(data) {
-                           $.booki.ui.notify();
-                           $("#formsection INPUT.chapter").val("");
-                      });
-
-          });
-
-
 	    // open debug window
 	    $.booki.debug.init();
 
@@ -63,6 +41,68 @@
 	    
 	    // $("#datepicker").datepicker({"onSelect": function(a) { alert(a)}});
 
+
+	    // should move this dialogs to editor.js
+	    $("#newchapter").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 200,
+		        width: 400, 
+			modal: true,
+			buttons: {
+				'Create chapter': function() {
+				    $.booki.ui.notify("Creating chapter");
+				    
+				    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
+					$.booki.ui.notify();
+				    });
+
+
+				    $(this).dialog('close');
+				},
+				'Cancel': function() {
+					$(this).dialog('close');
+				}
+			},
+		open: function(event,ui) {
+		    $("INPUT", $(this)).val("Enter new Chapter title.").select();
+		},
+		close: function() {
+
+			}
+		});
+
+
+	    $("#newsection").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 200,
+    		        width: 400, 
+			modal: true,
+			buttons: {
+				'Create section': function() {
+				    $.booki.ui.notify("Creating section");
+			
+				    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
+					$.booki.ui.notify();
+				    });
+
+				    $(this).dialog('close');
+				},
+				'Cancel': function() {
+					$(this).dialog('close');
+				}
+			},
+		open: function(event,ui) {
+		    $("INPUT", $(this)).val("Enter new section title.").select();
+		},
+		close: function() {
+
+			}
+		});
+
+
+	    
 	});
 
                  </script>
@@ -71,47 +111,43 @@
   var _editor_url = "/site_media/xinha/";
   var _editor_lang = "en";
 </script>
+
 <script type="text/javascript" src="/site_media/xinha/XinhaCore.js"></script>
+
 <script type="text/javascript">
+    var xinha_plugins = ['GetHtml',        'SaveSubmit', 'DoubleClick' , 'ImageManager', 'SpellChecker', 'BookiInsert'];
+    var xinha_editors = ['myTextArea'];
 
-var xinha_plugins =
-[
- 'GetHtml',        'SaveSubmit', 'DoubleClick', 'ImageManager', 'SpellChecker'
-];
-var xinha_editors =
-[
-  'myTextArea'
-];
+    var prvi = false;
 
+    function xinha_init() {
+	if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) {
+	    return;
+	}
 
-var prvi = false;
+	if(prvi) {
+	    $.booki.debug.debug("prvi == true");
+	    return;
+	}
 
-function xinha_init()
-{
-  if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
-
-  if(prvi) return;
-
-    var xinha_config = new Xinha.Config();
-
-/*
+	var xinha_config = new Xinha.Config();
+	
+	/*
     xinha_config.width  = '670px';
     xinha_config.height = '600px';
 */
-    xinha_config.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
-
-    xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","insertimage","inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
-
-
-
-
-    xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
-
-    Xinha.startEditors(xinha_editors);
-    prvi = true;
-
-
-}
+	xinha_config.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
+	
+	xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
+	
+//	xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","insertimage","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
+	
+	
+	xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
+	
+	Xinha.startEditors(xinha_editors);
+	prvi = true;
+    }
 
 //Xinha.addOnloadHandler(xinha_init);
 </script>
@@ -129,6 +165,8 @@ some notification. this should be on top of visible page and not top of page.
 
 <div id="header">
  <div style="float:right; font-size: 12px">
+<div align="center" style="padding-bottom: 8px">
+<img src="/site_media/images/logo.png"></div>
     <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a class="debug" href="javascript:void(0)">Debug</a> | <a href="/accounts/signout/">Sign out</a>
 
 <!--    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a class="debug" href="javascript:void(0)">Debug</a> | <a href="/accounts/signout/">Sign out</a> -->
@@ -150,6 +188,7 @@ some notification. this should be on top of visible page and not top of page.
 <div id="tabs">
 	<ul>
 		<li><a href="#tabchapters">Chapters</a></li>
+		<li><a href="#tabattachments">Attachments</a></li>
 		<li><a href="#tabinfo">Info</a></li>
 <!--		<li><a href="#tabbigchat">Chat</a></li>  -->
 		<li><a href="#tabpublish">Publish</a></li>
@@ -162,26 +201,73 @@ some notification. this should be on top of visible page and not top of page.
 <table border="0" width="100%">
 <tr>
 <td valign="top">
-
 <div id="container">
-<ul id="chapterslist">
+
+<h2>Table of contents</h2>
+
+
+<div id="chapteraction">
+<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
+</div>
+
+<ul id="chapterslist" class="connectedSortable">
 </ul>
 
-<div style="border-bottom: 1px solid #c0c0c0; padding-top: 50px; margin-bottom: 20px"></div>
-This is temporary interface. 
-<div id="formchapter">
-<h2>Create new chapter</h2>
-<form method="GET" action="javascript:void(0)" onsubmit="return false">
-<input class="chapter" type="text" size="30"><button class="submit">Create chapter</button>
+<div id="chapteraction">
+<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
+</div>
+
+<div id="newchapter" title="New chapter">
+<!--  <p id="validateTips">Enter new chapter name.</p> -->
+  
+  <form onsubmit="javascript:return false">
+    <fieldset>
+      <input type="text" class="text ui-widget-content ui-corner-all">
+      </fieldset>
+    </form>
+</div>
+
+<div id="newsection" title="New section">
+<!--  <p id="validateTips">Enter new section name.</p> -->
+  
+  <form onsubmit="return false">
+    <fieldset>
+      <input type="text" class="text ui-widget-content ui-corner-all">
+      </fieldset>
+    </form>
+</div>
+
+<div id="insertattachment" title="Insert image">
+<!--  <p id="validateTips">Select image you want to insert.</p>  -->
+
+<form>
+ <table border="0" width="100%">
+  <tr>
+   <td colspan="2"><input type="text" style="width: 100%"></td>
+  </tr>
+  <tr>
+   <td valign="top">
+     <table border="0" width="90%" class="files">
+
+    </table>
+   </td>
+   <td width="200" valign="top">
+     <div class="previewattachment">
+     </div>
+   </td>
+  </tr>
+</table>
 </form>
 </div>
 
-<div id="formsection">
-<h2>Create new section</h2>
-<form method="GET" action="javascript:void(0)" onsubmit="return false">
-<input class="chapter" type="text" size="30"><button class="submit">Create section</button>
-</form>
+
+
+<div class="middleinfo">
 </div>
+
+<h2>Hold chapters</h2>
+<ul id="holdchapterslist" class="connectedSortable">
+</ul>
 
 </div>
 
@@ -189,14 +275,37 @@ This is temporary interface.
 <form method="GET" action="javascript: return void(0)">
 <input type="hidden" name="chapter_id" value=""/>
 <input type="button" class="save" name="save" value="Save"/>
-<button class="cancel">Cancel</button>
+<!-- <input type="button" class="save" name="save" value="Save and continue editing"/> -->
+
+<input type="button" class="cancel" name="cancel" value="Cancel"/>
 <br/>
-<input type="text" name="title" style="width: 500px">
-<br/>
+<!-- <input type="text" name="title" style="width: 500px"><br/> -->
 <textarea name="myTextArea" id="myTextArea" style="width: 500px; height: 600px">
+  
 </textarea>
 </form>
+
 </div>
+
+
+<div id="spalatodialog" title="Split chapters">
+  <p id="validateTips">Seems like You have changed the structure of the chapters. What do you want to do?</p>  
+  <table border="0" width="100%">
+    <tr>
+     <td valign="top" width="200">
+       New chapters:
+        <ul class="chapters" style="margin-left: 5px">
+
+        </ul>
+     </td>
+     <td width="1" bgcolor="#c0c0c0"></td>
+     <td valign="top" class="content">
+
+     </td>
+    </tr>
+  </table>
+</div>
+
 
 </td>
 <td valign="top" width="200">
@@ -230,6 +339,35 @@ This is temporary interface.
 
 	</div>
 
+
+	<div id="tabattachments">
+	  <h2>Attachments</h2>
+
+<table border="0" width="100%">
+ <tr>
+  <td valign="top">
+
+         <form>
+	  <table width="95%" class="files">
+	    <tr>
+               <td width="5%"></td>
+               <td align="left"><b>filename</b></td>
+	       <td align="left"><b>dimension</b></td>
+               <td align="right" width="10%"><b>size</b></td>
+            </tr>
+	  </table>
+         </form>
+  </td>
+  <td valign="top" width="200">
+    <div id="attachmentpreview">
+
+    </div>
+  </td>
+ </tr>
+</table>
+	</div>
+
+
 <!--
 <div id="tabbigchat">
 <table border="0">
@@ -255,25 +393,24 @@ This is temporary interface.
 -->
 
 	<div id="tabinfo">
-           Title:<br/>
-           Creator:<br/>
-           Maintainer:<br/>
-           Date Created:<br/>
-           Licence:<br/>
-           About:<br/>
+
+         <table border="0" class="metadata">
+         </table>
 
            <br/>
-           <span style="font-style: italic; color: #d0d0d0">This part of UI is still not functional. We have to finish book import first.</span>
+         <!--  <span style="font-style: italic; color: #d0d0d0">This part of UI is still not functional.</span> -->
 	</div>
 
 	<div id="tabpublish">
           <h1>Publish</h1>
-          <p>Some options could go here.</p>
-          <form method="" action="">
+          <p></p>
+
+          <form method="" action="" onsubmit="return false">
             <button>Publish this book</button>
           </form>
-          <br/>
-          <span style="font-style: italic; color: #d0d0d0">This part of UI is still not functional. We have to finish book export first.</span>
+          <div class="info">
+
+          </div>
 
 	</div>
 
