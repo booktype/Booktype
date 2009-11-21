@@ -5,7 +5,7 @@ import simplejson
 # this is stupid but will work for now
 
 rcon = redis.Redis()
-rcon.connect()
+#rcon.connect()
 
 def hasChannel(channelName):
     global rcon
@@ -69,6 +69,8 @@ def removeClient(clientName):
 def booki_main(request, message):
     global rcon
 
+    rcon.connect()
+
     ret = {}
     if message["command"] == "ping":
         addMessageToChannel(request, "/booki/", {})
@@ -77,7 +79,7 @@ def booki_main(request, message):
         pass
 
     if message["command"] == "connect":
-
+        # this is where we have problems
         if not rcon.exists("sputnik:client_id"):
             rcon.set("sputnik:client_id", 0)
 
