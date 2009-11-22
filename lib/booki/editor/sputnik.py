@@ -145,6 +145,26 @@ def getHoldChapters(book_id):
     return chapters
 
 
+def getAttachments(book):
+    from booki.editor import models
+    import os.path
+    import Image
+
+    def _getDimension(att):
+        if att.attachment.name.endswith(".jpg"):
+            try:
+                im = Image.open(att.attachment.name)
+                return im.size
+            except:
+                return (0, 0)
+        return None
+            
+
+    attachments = [{"id": att.id, "dimension": _getDimension(att), "status": att.status.id, "name": os.path.split(att.attachment.name)[1], "size": att.attachment.size} for att in models.Attachment.objects.filter(book=book)]
+
+    return attachments
+    
+
 def booki_book(request, message, projectid, bookid):
     from booki.editor import models
 
@@ -173,20 +193,21 @@ def booki_book(request, message, projectid, bookid):
         statuses = [(status.id, status.name) for status in models.ProjectStatus.objects.filter(project=project).order_by("-weight")]
 
         ## get attachments
-        import os.path
-
-        import Image
-        def _getDimension(att):
-            if att.attachment.name.endswith(".jpg"):
-                try:
-                    im = Image.open(att.attachment.name)
-                    return im.size
-                except:
-                    return (0, 0)
-            return None
-            
-
-        attachments = [{"id": att.id, "dimension": _getDimension(att), "status": att.status.id, "name": os.path.split(att.attachment.name)[1], "size": att.attachment.size} for att in models.Attachment.objects.filter(book=book)]
+#        import os.path
+#
+#        import Image
+#        def _getDimension(att):
+#            if att.attachment.name.endswith(".jpg"):
+#                try:
+#                    im = Image.open(att.attachment.name)
+#                    return im.size
+#                except:
+#                    return (0, 0)
+#            return None
+#            
+#
+#        attachments = [{"id": att.id, "dimension": _getDimension(att), "status": att.status.id, "name": os.path.split(att.attachment.name)[1], "size": att.attachment.size} for att in models.Attachment.objects.filter(book=book)]
+        attachments = getAttachments(book)
 
         ## get metadata
 
@@ -196,6 +217,15 @@ def booki_book(request, message, projectid, bookid):
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "user_joined", "user_joined": request.user.username}, myself = False)
                 
         return {"chapters": chapters, "metadata": metadata, "hold": holdChapters, "users": users, "statuses": statuses, "attachments": attachments}
+
+    ## attachments list
+    if message["command"] == "attachments_list":
+        project = models.Project.objects.get(id=projectid)
+        book = models.Book.objects.get(project=project, id=bookid)
+
+        attachments = getAttachments(book)
+
+        return {"attachments": attachments}
 
     ## chapter_status
     if message["command"] == "chapter_status":

@@ -100,12 +100,10 @@ def thumbnail_attachment(request, project, edition, attachment):
     from booki import settings
     from django.views import static
 
-    #project = models.Project.objects.get(url_name__iexact=project)
-    #book = models.Book.objects.get(project=project, url_title__iexact=edition)
-
     path = attachment
     document_root = '%s/static/%s/%s/%s' % (settings.STATIC_DOC_ROOT, project, edition, path)
-    
+
+    # should have one  "broken image" in case of error
     import Image
     im = Image.open(document_root)
     im.thumbnail((200, 200), Image.ANTIALIAS)
@@ -124,6 +122,25 @@ def view_editor(request, project):
 
 def view_frontpage(request):
     return render_to_response('editor/view_frontpage.html', {"request": request, "title": "Ovo je neki naslov"})
+
+# UPLOAD ATTACHMENT
+
+def upload_attachment(request, project, edition):
+    proj = models.Project.objects.get(url_name__iexact=project)
+    book = models.Book.objects.get(project=proj, url_title__iexact=edition)
+
+    stat = models.ProjectStatus.objects.filter(project = proj)[0]
+
+    for name, fileData in request.FILES.items():
+        att = models.Attachment(book = book,
+                                status = stat)
+
+        att.attachment.save(request.FILES[name].name, fileData, save = False)
+        att.save()
+
+        # maybe check file name now and save with new name
+
+    return HttpResponse('<html><body><script> parent.closeAttachmentUpload(); </script></body></html>')
 
 
 import redis

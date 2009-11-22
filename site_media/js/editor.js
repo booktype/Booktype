@@ -292,6 +292,16 @@ function unescapeHtml (val) {
 		    }).wrap("<form></form>"));
 		},
 
+		reloadAttachments: function(func) {
+		    $.booki.debug.debug("[reloadAttachments]");
+
+		    $.booki.sendToCurrentBook({"command": "attachments_list"}, function(data) {
+			attachments = data.attachments;
+			$.booki.editor.drawAttachments();
+			func();
+		    });
+		},
+
 		editChapter: function(chapterID) {
 		    $.booki.ui.notify("Loading chapter data...");
 		    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/",
@@ -540,41 +550,10 @@ function unescapeHtml (val) {
                                                   } );
                     });
 
-		    // initialize dialogs
-		    $("#insertattachment").dialog({
-			bgiframe: true,
-			autoOpen: false,
-			height: 400,
-    		        width: 700, 
-			modal: true,
-			buttons: {
-			    'Insert image': function() {
-				
-				$(this).dialog('close');
-			    },
-			    'Cancel': function() {
-				$(this).dialog('close');
-			    }
-			},
-			open: function(event,ui) {
-			    $("#insertattachment .files").empty();
-			    $("#insertattachment .files").append('<tr><td><b>name</b></td><td><b>size</b></td></tr>');
+		    // init upload dialog
 
-			    $.each(attachments, function(i, att) {
-				$("#insertattachment .files").append('<tr><td><a class="file" href="javascript:void(0)" alt="'+att.name+'">'+att.name+'</a></td><td>'+att.size+'</td></tr>');
-			    });
-
-			    $("#insertattachment A.file").click(function() {
-				var fileName = $(this).attr("alt");
-				$("#insertattachment .previewattachment").html('<img src="../_utils/thumbnail/'+fileName+'">');
-				
-			    });
-			},
-			close: function() {
-			    
-			}
-		    });
-
+		    $.booki.editor.upload.init(function(){ 
+			return attachments } );
 
 		    // spalato dialog
 
@@ -676,6 +655,43 @@ function unescapeHtml (val) {
 		    
 
 		},
+
+		drawAttachments: function() {
+		    
+		    function _getDimension(dim) {
+			if(dim) {
+			    return dim[0]+'x'+dim[1];
+			}
+			
+			return '';
+		    }
+		    
+		    function _getSize(size) {
+			return (size/1024).toFixed(2)+' Kb';
+		    }
+		    
+		    $("#tabattachments .files").empty().append('<tr><td width="5%"></td><td align="left"><b>filename</b></td><td align="left"><b>dimension</b></td><td align="right" width="10%"><b>size</b></td></tr>');
+		    
+		    $.each(attachments, function(i, elem) {
+			$("#tabattachments .files").append('<tr class="line"><td><input type="checkbox"></td><td><a class="file" href="javascript:void(0)" alt="'+elem["name"]+'">'+elem["name"]+'</a></td><td>'+_getDimension(elem["dimension"])+'</td><td align="right"><nobr>'+_getSize(elem.size)+'</nobr></td></tr>');
+		    });
+		    
+		    $("#tabattachments .line").hover(function() {
+			$(this).css("background-color", "#f0f0f0");
+		    },
+						     function() {
+							 $(this).css("background-color", "white");
+							 
+						     });
+		    
+		    $("#tabattachments .file").click(function() { 
+			var imageName = $(this).attr("alt"); 
+			if(imageName.match(/.+\.jpg$/gi)) {
+			    $("#attachmentpreview").html('<img src="../_utils/thumbnail/'+imageName+'"><br/><br/><a style="font-size: 10px" href="../static/'+imageName+'" target="_new">Open in new window</a>');
+			}
+		    });
+		    
+		},
 		
 		_loadInitialData : function() {
 		    $.booki.ui.notify("Loading...");
@@ -705,8 +721,8 @@ function unescapeHtml (val) {
 
 
 						   attachments = data.attachments;
-
-						   /* this should not be here */
+						   $.booki.editor.drawAttachments();
+						   /* 
 
 						   function _getDimension(dim) {
 						       if(dim) {
@@ -722,10 +738,6 @@ function unescapeHtml (val) {
 
 						   $.each(data.attachments, function(i, elem) {
 						       $("#tabattachments .files").append('<tr class="line"><td><input type="checkbox"></td><td><a class="file" href="javascript:void(0)" alt="'+elem["name"]+'">'+elem["name"]+'</a></td><td>'+_getDimension(elem["dimension"])+'</td><td align="right"><nobr>'+_getSize(elem.size)+'</nobr></td></tr>');
-
-/*						       $("#tabattachments .files").append('<tr><td><input type="checkbox"></td><td><a class="file" href="../static/'+elem["name"]+'" target="_new">'+elem["name"]+'</a></td><td align="right"> '+elem.size+'</td></tr>'); */
-
-
 						   });
 
 						   $("#tabattachments .line").hover(function() {
@@ -743,7 +755,7 @@ function unescapeHtml (val) {
 						       }
 						   });
 
-						   
+*/						   
 						   
 						   $.each(data.users, function(i, elem) {
 						       $("#users").append(elem+"<br/>");
@@ -872,5 +884,116 @@ function unescapeHtml (val) {
 	    }; 
 	}();
 	
-    });
 
+
+	/* booki.editor.upload */
+	
+	jQuery.namespace('jQuery.booki.editor.upload');
+	
+	jQuery.booki.editor.upload = function() {
+	    var selectedFile = null;
+	    var editor = null;
+	    var f = null;
+	    var n = 1;
+	    var hasChanged = false;
+
+	    return {
+		setEditor: function(edit) { 
+		    editor = edit; 
+		},
+
+		showFiles: function(func) {
+		    $("#insertattachment .files").empty();
+		    
+		    $("#insertattachment .files").append('<tr><td><b>name</b></td><td><b>size</b></td><td><b>image size</b></td><td><b>date modified</b></td></tr>');
+
+		    $.each(func(), function(i, att) {
+			$("#insertattachment .files").append('<tr><td><a class="file" href="javascript:void(0)" alt="'+att.name+'">'+att.name+'</a></td><td>'+att.size+'</td><td></td><td></td></tr>');
+		    });
+
+		    $("#insertattachment A.file").click(function() {
+			var fileName = $(this).attr("alt");
+			selectedFile = fileName;
+			$("#insertattachment .previewattachment").html('<img src="../_utils/thumbnail/'+fileName+'">');
+			
+		    });
+		},
+
+		showUpload: function() {
+		    var onChanged = function() {
+			$("#insertattachment .listing").slideUp(2000);
+			
+			var entry = $(this).parent().attr("class");
+			
+			if(!hasChanged) {
+			    $("#insertattachment .uploadsubmit").append('<input type="submit" value="Upload"/>');
+			    $("#insertattachment .uploadattachment").css("height", "250px");
+			}
+			
+			$("#insertattachment .uploadattachment ."+entry).append('<br><table border="0"><tr><td>Rights holder:</td><td> <input name="rights'+n+'" type="text" size="30"/></td></tr><tr><td>License:</td><td><select name="license'+n+'" ><option>CC-BY-SA</option></select></td></tr></table>');
+			
+			$("#insertattachment .uploadattachment").append('<div style="border-top: 1px solid gray; padding-top: 5px; padding-bottom: 5px" class="entry'+n+'"><input type="file" name="entry'+n+'"></div>');
+			
+			$("#insertattachment INPUT[type='file'][name='entry"+n+"']").change(onChanged);
+			
+			
+			$("#insertattachment .uploadattachment").attr({ scrollTop: $("#insertattachment .uploadattachment").attr("scrollHeight") });
+			n += 1;
+			hasChanged = true;
+		    }
+		    
+		    
+		    $("#insertattachment .uploadsubmit").empty();
+		    
+		    $("#insertattachment .uploadattachment").empty();
+		    $("#insertattachment .uploadattachment").css("height", "40px");
+
+		    $("#insertattachment .uploadattachment").append('<div style="border-top: 1px solid #c0c0c0; padding-bottom: 5px" class="entry0"><input type="file" name="entry0"></div>');
+		    $("#insertattachment  INPUT[type='file'][name='entry0']").change(onChanged);
+		},
+
+		redrawFiles: function() {
+		    n = 1;
+		    hasChanged = false;
+		    $.booki.editor.upload.showFiles(f);
+		    $.booki.editor.upload.showUpload();
+
+		},
+		
+                init: function(func) {
+		    f = func;
+		    $("#insertattachment").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 400,
+    			width: 700, 
+			modal: true,
+			buttons: {
+			    'Insert image': function() {
+				if(selectedFile) {
+				    editor.insertHTML('<img src="../static/'+selectedFile+'"/>');
+				    $(this).dialog('close');
+				}
+			    },
+			    'Cancel': function() {
+				$(this).dialog('close');
+			    }
+			},
+			open: function(event,ui) {
+			    hasChanged = false;
+			    n = 1;
+
+			    $.booki.editor.upload.showUpload();
+			    $.booki.editor.upload.showFiles(func);
+
+			},
+			close: function() {
+			    
+			}
+		    });
+		    
+	    }
+		   }
+	}();
+
+    });

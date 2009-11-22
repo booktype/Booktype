@@ -42,6 +42,7 @@
 	    // $("#datepicker").datepicker({"onSelect": function(a) { alert(a)}});
 
 
+
 	    // should move this dialogs to editor.js
 	    $("#newchapter").dialog({
 			bgiframe: true,
@@ -104,6 +105,13 @@
 
 	    
 	});
+
+
+function closeAttachmentUpload() {
+    $("#insertattachment .listing").css("display", "block");
+    $.booki.editor.reloadAttachments(function() {  $.booki.editor.upload.redrawFiles();  });
+}
+
 
                  </script>
 
@@ -237,29 +245,38 @@ some notification. this should be on top of visible page and not top of page.
     </form>
 </div>
 
+<!-- open attachment dialog -->
 <div id="insertattachment" title="Insert image">
-<!--  <p id="validateTips">Select image you want to insert.</p>  -->
-
-<form>
- <table border="0" width="100%">
-  <tr>
-   <td colspan="2"><input type="text" style="width: 100%"></td>
-  </tr>
-  <tr>
-   <td valign="top">
-     <table border="0" width="90%" class="files">
-
-    </table>
-   </td>
-   <td width="200" valign="top">
-     <div class="previewattachment">
-     </div>
-   </td>
-  </tr>
-</table>
-</form>
+ <div class="listing">
+    <table border="0" width="100%">
+     <tr>
+      <td valign="top">
+       <div  style="height: 250px; overflow: auto">
+          <table border="0" width="90%" class="files">
+          </table>
+       </div>
+      </td>
+      <td width="200" valign="top">
+        <div class="previewattachment">
+        </div>
+      </td>
+     </tr>
+   </table>
 </div>
 
+<div class="uploadform" style="position: relative; left: 0px; bottom: 0px">
+<form method="POST" target="frameupload" action="../_upload/" enctype="multipart/form-data">
+ <div class="uploadattachment" style="overflow: auto;">
+ </div>
+ <div class="uploadsubmit">
+ </div>
+</form>
+
+<iframe width="0" height="0" name="frameupload" border="0" style="border: 0px"></iframe>
+</div>
+</div>
+
+<!-- close attachment dialog -->
 
 
 <div class="middleinfo">
@@ -349,12 +366,6 @@ some notification. this should be on top of visible page and not top of page.
 
          <form>
 	  <table width="95%" class="files">
-	    <tr>
-               <td width="5%"></td>
-               <td align="left"><b>filename</b></td>
-	       <td align="left"><b>dimension</b></td>
-               <td align="right" width="10%"><b>size</b></td>
-            </tr>
 	  </table>
          </form>
   </td>
