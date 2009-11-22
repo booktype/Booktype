@@ -701,6 +701,8 @@ function unescapeHtml (val) {
 					       function(data) {
 						   $.booki.ui.notify("");
 
+						   $.booki.licenses = data.licenses;
+
 						   statuses = data.statuses;
 
 						   $.each(data.metadata, function(i, elem) {
@@ -719,43 +721,8 @@ function unescapeHtml (val) {
 						   toc.draw();
 						   holdChapters.draw();
 
-
 						   attachments = data.attachments;
 						   $.booki.editor.drawAttachments();
-						   /* 
-
-						   function _getDimension(dim) {
-						       if(dim) {
-							   return dim[0]+'x'+dim[1];
-						       }
-
-						       return '';
-						   }
-
-						   function _getSize(size) {
-						       return (size/1024).toFixed(2)+' Kb';
-						   }
-
-						   $.each(data.attachments, function(i, elem) {
-						       $("#tabattachments .files").append('<tr class="line"><td><input type="checkbox"></td><td><a class="file" href="javascript:void(0)" alt="'+elem["name"]+'">'+elem["name"]+'</a></td><td>'+_getDimension(elem["dimension"])+'</td><td align="right"><nobr>'+_getSize(elem.size)+'</nobr></td></tr>');
-						   });
-
-						   $("#tabattachments .line").hover(function() {
-						       $(this).css("background-color", "#f0f0f0");
-						   },
-										    function() {
-											$(this).css("background-color", "white");
-											
-										    });
-
-						   $("#tabattachments .file").click(function() { 
-						       var imageName = $(this).attr("alt"); 
-						       if(imageName.match(/.+\.jpg$/gi)) {
-							   $("#attachmentpreview").html('<img src="../_utils/thumbnail/'+imageName+'"><br/><br/><a style="font-size: 10px" href="../static/'+imageName+'" target="_new">Open in new window</a>');
-						       }
-						   });
-
-*/						   
 						   
 						   $.each(data.users, function(i, elem) {
 						       $("#users").append(elem+"<br/>");
@@ -930,7 +897,16 @@ function unescapeHtml (val) {
 			    $("#insertattachment .uploadattachment").css("height", "250px");
 			}
 			
-			$("#insertattachment .uploadattachment ."+entry).append('<br><table border="0"><tr><td>Rights holder:</td><td> <input name="rights'+n+'" type="text" size="30"/></td></tr><tr><td>License:</td><td><select name="license'+n+'" ><option>CC-BY-SA</option></select></td></tr></table>');
+			var licenses = '';
+
+			$.each($.booki.licenses, function(i, v) {
+			    licenses += '<option value="'+v[0]+'">'+v[1]+'</option>';
+			}); 
+
+			
+			$("#insertattachment .uploadattachment ."+entry).append('<br><table border="0"><tr><td>Rights holder:</td><td> <input name="rights'+n+'" type="text" size="30"/></td></tr><tr><td>License:</td><td><select name="license'+n+'" >'+licenses+'</select></td></tr></table>');
+
+			$('#insertattachment .'+entry+' OPTION[value="Unknown"]').attr('selected', 'selected');
 			
 			$("#insertattachment .uploadattachment").append('<div style="border-top: 1px solid gray; padding-top: 5px; padding-bottom: 5px" class="entry'+n+'"><input type="file" name="entry'+n+'"></div>');
 			

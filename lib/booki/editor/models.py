@@ -1,11 +1,23 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+# License
+
+class License(models.Model):
+    name = models.CharField(_('name'), max_length=100, blank=False)
+    abbrevation = models.CharField(_('abbrevation'), max_length=30)
+
+    def __unicode__(self):
+        return self.name
+
 # Language
 
 class Language(models.Model):
     name = models.CharField(_('name'), max_length=50, blank=False)
     abbrevation = models.CharField(_('abbrevation'), max_length=10, blank=False)
+
+    def __unicode__(self):
+        return self.name
 
     class Meta:
         verbose_name = _('Language')
@@ -61,6 +73,10 @@ class Book(models.Model):
     title = models.CharField(_('title'), max_length=2500, blank=False)
     status = models.ForeignKey(ProjectStatus, null=False)
     language = models.ForeignKey(Language, null=True) # can it be blank?
+    # or is this suppose to be per project
+    # and null=False should be
+    license = models.ForeignKey(License,null=True)
+
     created = models.DateTimeField(_('created'), auto_now=True)
     published = models.DateTimeField(_('published'), null=True)
 

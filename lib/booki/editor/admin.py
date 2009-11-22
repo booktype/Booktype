@@ -1,7 +1,7 @@
 import models
 from django.contrib import admin
 
-
+admin.site.register(models.License)
 admin.site.register(models.Project)
 admin.site.register(models.Book)
 admin.site.register(models.Info)
