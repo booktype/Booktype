@@ -68,6 +68,10 @@ class ProjectForm(forms.Form):
 
 class ImportForm(forms.Form):
     archive_id = forms.CharField(required=False)
+
+
+class ImportEpubForm(forms.Form):
+    url = forms.CharField(required=False)
     
 
 def view_profile(request, username):
@@ -81,10 +85,17 @@ def view_profile(request, username):
     if request.method == 'POST':
         project_form = ProjectForm(request.POST)
         import_form = ImportForm(request.POST)
+        epub_form = ImportEpubForm(request.POST)
+        espri_url = "http://objavi.flossmanuals.net/espri.cgi"
 
         if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
             from booki.editor import common
-            common.importBookFromURL("http://objavi.flossmanuals.net/espri.cgi?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
+
+            common.importBookFromURL(espri_url + "?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
+
+        if epub_form.is_valid() and epub_form.cleaned_data["url"] != "":
+            from booki.editor import common
+            common.importBookFromURL(espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
 
         if project_form.is_valid() and project_form.cleaned_data["title"] != "":
             title = project_form.cleaned_data["title"]
@@ -115,9 +126,9 @@ def view_profile(request, username):
     else:
         project_form = ProjectForm()
         import_form = ImportForm()
-        floss_form = ImportFlossForm()
+        epub_form = ImportEpubForm()
 
     books = models.Book.objects.all()
 
-    return render_to_response('account/view_profile.html', {"request": request, "user": user, "project_form": project_form, "import_form": import_form, "floss_form": floss_form, "books": books})
+    return render_to_response('account/view_profile.html', {"request": request, "user": user, "project_form": project_form, "import_form": import_form, "epub_form": epub_form, "books": books})
 
