@@ -362,7 +362,8 @@ def booki_book(request, message, projectid, bookid):
 
             n += 1
 
-        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has split chapter "%s".' % (request.user.username, mainChapter.chapter.title)}, myself=True)
+        if mainChapter:
+            addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has split chapter "%s".' % (request.user.username, mainChapter.chapter.title)}, myself=True)
 
 
         mainChapter.chapter.delete()
