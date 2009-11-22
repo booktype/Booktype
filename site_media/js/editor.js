@@ -369,11 +369,9 @@ function unescapeHtml (val) {
  							   if(n == -1)
 							        n = n1;
 							}
-                                                        currentPos = n; 
+                                                        currentPos = n+5; 
  							chapters_n += 1;
 						      }
-		                   	 
-						      
 
 /*
 						      var r = new RegExp("<h1>([^\<]+)</h1>", "ig");
