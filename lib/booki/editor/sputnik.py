@@ -366,7 +366,7 @@ def booki_book(request, message, projectid, bookid):
             addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has split chapter "%s".' % (request.user.username, mainChapter.chapter.title)}, myself=True)
 
 
-        mainChapter.chapter.delete()
+            mainChapter.chapter.delete()
 
         n = len(allChapters)
         for chap in allChapters:
@@ -382,8 +382,6 @@ def booki_book(request, message, projectid, bookid):
         chapters = getTOCForBook(book)
         holdChapters =  getHoldChapters(bookid)
         
-
-
 
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_split", "chapterID": message["chapterID"], "chapters": chapters, "hold": holdChapters, "username": request.user.username}, myself = True)
 
