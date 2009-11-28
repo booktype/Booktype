@@ -56,14 +56,23 @@ def register(request):
 
 class ProjectForm(forms.Form):
     title = forms.CharField(required=False)
-#    url_title = forms.CharField(required=True)
+    license = forms.ChoiceField(choices=(('1', '1'), ))
+
+    def __init__(self, *args, **kwargs):
+        super(ProjectForm, self).__init__(*args, **kwargs)
+
+        from booki.editor import models
+        self.fields['license'].initial = 'Unknown'
+        self.fields['license'].choices = [ (elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
+
 
 class ImportForm(forms.Form):
     archive_id = forms.CharField(required=False)
-    
-class ImportFlossForm(forms.Form):
-    floss_book = forms.CharField(required=False)
 
+
+class ImportEpubForm(forms.Form):
+    url = forms.CharField(required=False)
+    
 
 def view_profile(request, username):
     from django.contrib.auth.models import User
@@ -76,21 +85,22 @@ def view_profile(request, username):
     if request.method == 'POST':
         project_form = ProjectForm(request.POST)
         import_form = ImportForm(request.POST)
-#        floss_form = ImportFlossForm(request.POST)
+        epub_form = ImportEpubForm(request.POST)
+        espri_url = "http://objavi.flossmanuals.net/espri.cgi"
 
         if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
             from booki.editor import common
-            common.importBookFromURL("http://objavi.flossmanuals.net/espri.cgi?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
 
-#        if floss_form.is_valid() and floss_form.cleaned_data["floss_book"] != "":
-#            from booki.editor import common
-#            common.importBookFromURL("http://objavi.flossmanuals.net/booki-twiki-gateway.cgi?server=en.flossmanuals.net&mode=zip&book="+floss_form.cleaned_data["floss_book"], createTOC = True)
+            common.importBookFromURL(espri_url + "?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
+
+        if epub_form.is_valid() and epub_form.cleaned_data["url"] != "":
+            from booki.editor import common
+            common.importBookFromURL(espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
 
         if project_form.is_valid() and project_form.cleaned_data["title"] != "":
             title = project_form.cleaned_data["title"]
             url_title = slugify(title)
-#           url_title = project_form.cleaned_data["url_title"]
-            
+            license   = project_form.cleaned_data["license"]
 
             project = models.Project(url_name = url_title,
                                   name = title,
@@ -101,11 +111,14 @@ def view_profile(request, username):
             status.save()
 
             import datetime
+            # should check for errors
+            lic = models.License.objects.get(abbrevation=license)
 
             book = models.Book(project = project,
                                          url_title = url_title,
                                          title = title,
                                          status=status,
+                                         license=lic,
                                          published = datetime.datetime.now())
             book.save()
 
@@ -113,9 +126,9 @@ def view_profile(request, username):
     else:
         project_form = ProjectForm()
         import_form = ImportForm()
-        floss_form = ImportFlossForm()
+        epub_form = ImportEpubForm()
 
     books = models.Book.objects.all()
 
-    return render_to_response('account/view_profile.html', {"request": request, "user": user, "project_form": project_form, "import_form": import_form, "floss_form": floss_form, "books": books})
+    return render_to_response('account/view_profile.html', {"request": request, "user": user, "project_form": project_form, "import_form": import_form, "epub_form": epub_form, "books": books})
 

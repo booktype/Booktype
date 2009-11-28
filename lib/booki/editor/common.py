@@ -150,8 +150,6 @@ def importBookFromURL(bookURL, createTOC = False):
 
     p = re.compile('\ssrc="(.*)"')
 
-    print info['TOC']
-
     for inf in info['TOC']:
         chapterName = inf[0]
         chapterFile = inf[1]

@@ -29,15 +29,17 @@ $(function() {
 		    currentBook:    null,
 		    
 		    clientID: null,
+
+		    licenses: null, 
 		    
 		    subscribeToChannel: function(channelName, callback) {
-		    var ch = jQuery.booki.network._transport._subscribedChannels;
+			var ch = jQuery.booki.network._transport._subscribedChannels;
 		    
-		    if(!ch[channelName]) 
-			ch[channelName] = [callback];
-		    else
-			ch[channelName].push(callback);
-		},
+			if(!ch[channelName]) 
+			    ch[channelName] = [callback];
+			else
+			    ch[channelName].push(callback);
+		    },
 		    
 		    sendToChannel: function(channelName, message, callback, errback) {
 			message["channel"] = channelName;
