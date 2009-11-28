@@ -396,8 +396,6 @@ function unescapeHtml (val) {
 							  }
 						      }
 */
-						      $.booki.debug.debug(chapters_n);
-
 
 						      if(chapters_n > 1) {
 							  $("#spalatodialog").dialog("open");
@@ -561,10 +559,12 @@ function unescapeHtml (val) {
 			height: 400,
     		        width: 700, 
 			modal: true,
+
 			buttons: {
 			    'Split into chapters and save changes': function() {
 				var $dialog = $(this);
-				$.booki.debug.debug(splitChapters);
+				$.booki.ui.notify("Saving data. Please wait...");
+				// should show notify message - please wait
  				$.booki.sendToCurrentBook({"command": "chapter_split", "chapterID": currentlyEditing, "chapters": splitChapters}, function() {$dialog.dialog('close'); $.booki.ui.notify(); closeEditor(); } );
 			    },
 
@@ -620,11 +620,10 @@ function unescapeHtml (val) {
 				    if(splitChapters.length > 0) {
 					if(splitChapters[splitChapters.length-1][0] != "Unknown chapter")
 					    splitChapters[splitChapters.length-1][1] = chapContent;
+					//splitChapters.push([chapName, ""]);
+				    } //else {
 					splitChapters.push([chapName, ""]);
-				    } else {
-					splitChapters.push([chapName, ""]);
-				    }
-
+				   // }
 
 				    n += 1;
 				    content = content.substring(r.lastIndex);
@@ -634,6 +633,7 @@ function unescapeHtml (val) {
 
 			    }
 			    splitChapters[splitChapters.length-1][1] = content;
+
 			    $("#spalatodialog .content").append('<div style="display: none" class="chapter'+(n-1)+'">'+content+'</div>');
 			    $("#spalatodialog DIV.chapter0").css("display", "block");
 

@@ -324,17 +324,21 @@ def booki_book(request, message, projectid, bookid):
         allChapters = []
 
         try:
-            mainChapter = models.BookToc.objects.get(book=book, chapter__id__exact=message["chapterID"])
+            originalChapter = models.Chapter.objects.get(id=int(message["chapterID"]))
         except:
-            mainChapter = None
+            originalChapter = None
+        
+        try:
+            tocChapter = models.BookToc.objects.get(book=book, chapter__id__exact=message["chapterID"])
+        except:
+            tocChapter = None
 
         import datetime
         from django.template.defaultfilters import slugify
 
-        if mainChapter:
+        if tocChapter:
             allChapters = [chap for chap in models.BookToc.objects.filter(book=book).order_by("-weight")]
-            initialPosition =  len(allChapters)-mainChapter.weight
-            #allChapters.remove(mainChapter)
+            initialPosition =  len(allChapters)-tocChapter.weight
         else:
             initialPosition = 0
 
@@ -346,27 +350,29 @@ def booki_book(request, message, projectid, bookid):
                                      url_title = slugify(chap[0]),
                                      title = chap[0],
                                      status = s,
-                                     content = chap[1],
+                                     content = '<h1>%s</h1>%s' % (chap[0], chap[1]),
                                      created = datetime.datetime.now(),
                                      modified = datetime.datetime.now())
             chapter.save()
 
-            if mainChapter:
+            if tocChapter:
                 m = models.BookToc(book = book,
                                    chapter = chapter,
                                    name = chap[0],
                                    weight = 0,
                                    typeof = 1)
                 m.save()
-                allChapters.insert(initialPosition+n, m)
+                allChapters.insert(1+initialPosition+n, m)
 
             n += 1
 
-        if mainChapter:
-            addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has split chapter "%s".' % (request.user.username, mainChapter.chapter.title)}, myself=True)
+        if originalChapter:
+            addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has split chapter "%s".' % (request.user.username, originalChapter.title)}, myself=True)
 
+            originalChapter.delete()
 
-            mainChapter.chapter.delete()
+        if tocChapter:
+            tocChapter.delete()
 
         n = len(allChapters)
         for chap in allChapters:
@@ -382,7 +388,6 @@ def booki_book(request, message, projectid, bookid):
         chapters = getTOCForBook(book)
         holdChapters =  getHoldChapters(bookid)
         
-
         addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_split", "chapterID": message["chapterID"], "chapters": chapters, "hold": holdChapters, "username": request.user.username}, myself = True)
 
             
