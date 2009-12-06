@@ -104,7 +104,7 @@ class BookiZip(object):
         zinfo.compress_type = compression
         self.zipfile.writestr(zinfo, blob)
 
-    def add_to_package(self, ID, fn, blob, mediatype=None):
+    def add_to_package(self, ID, fn, blob, mediatype=None, credits={}):
         """Add an item to the zip, and save it in the manifest.  If
         mediatype is not provided, it will be guessed according to the
         extrension."""
@@ -112,7 +112,13 @@ class BookiZip(object):
         if mediatype is None:
             ext = fn[fn.rfind('.') + 1:]
             mediatype = MEDIATYPES.get(ext, MEDIATYPES[None])
-        self.manifest[ID] = (fn, mediatype)
+        self.manifest[ID] = {
+            "url":           fn,
+            "mimetype":      mediatype,
+            "contributors":  credits.get("contributors", []),
+            "rightsholders": credits.get("rightsholders", []),
+            "license":       credits.get('license', [])
+            }
 
     def _close(self):
         self.zipfile.close()
