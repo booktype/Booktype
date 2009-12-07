@@ -7,6 +7,8 @@ from django import forms
 
 from booki.editor import models
 
+import logging
+
 # BOOK
 
 def view_export(request, project, edition):
