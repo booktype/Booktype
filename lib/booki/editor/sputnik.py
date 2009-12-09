@@ -451,7 +451,17 @@ def booki_book(request, message, projectid, bookid):
 #        urlPublish = "http://objavi.flossmanuals.net/objavi.cgi"
         urlPublish = "http://objavi.halo.gen.nz/objavi.cgi"
 
-        f = urllib2.urlopen(urlPublish+"?book=%s&project=%s&mode=epub&server=booki.flossmanuals.net&destination=archive.org" % (book.url_title, project.url_name))
+        publishMode = "epub"
+        destination = ""
+
+        if message.has_key("publish_mode"):
+            publishMode = message["publish_mode"]
+
+        if message.has_key("is_archive"):
+            if message["is_archive"]:
+                destination = "archive.org"
+
+        f = urllib2.urlopen(urlPublish+"?book=%s&project=%s&mode="+publishMode+"&server=booki.flossmanuals.net&destination=archive.org" % (book.url_title, project.url_name))
         ta = f.read()
         lst = ta.split("\n")
         dta = lst[0]
