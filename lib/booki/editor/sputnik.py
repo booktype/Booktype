@@ -448,7 +448,10 @@ def booki_book(request, message, projectid, bookid):
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": '"%s" is being published.' % (book.title, )}, myself=True)
 
         import urllib2
-        f = urllib2.urlopen("http://objavi.flossmanuals.net/objavi.cgi?book=%s&project=%s&mode=epub&server=booki.flossmanuals.net&destination=archive.org" % (book.url_title, project.url_name))
+#        urlPublish = "http://objavi.flossmanuals.net/objavi.cgi"
+        urlPublish = "http://objavi.halo.gen.nz/objavi.cgi"
+
+        f = urllib2.urlopen(urlPublish+"?book=%s&project=%s&mode=epub&server=booki.flossmanuals.net&destination=archive.org" % (book.url_title, project.url_name))
         ta = f.read()
         lst = ta.split("\n")
         dta = lst[0]

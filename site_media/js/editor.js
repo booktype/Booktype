@@ -532,7 +532,13 @@ function unescapeHtml (val) {
 
 			_incrementProgress();
 			
-                        $.booki.sendToCurrentBook({"command": "publish_book"},
+			var isArchive = $("#tabpublish FORM INPUT[type='checkbox']").is(":checked");
+			var publishMode = $("#tabpublish OPTION:selected").val();
+
+                        $.booki.sendToCurrentBook({"command": "publish_book",
+						   "is_archive": isArchive,
+						   "publish_mode": publishMode},
+						  
                                                   function(data) {
                                                       currentProgress = -1;
                                                       $("#tabpublish BUTTON").removeAttr("disabled");
