@@ -244,5 +244,11 @@ class EpubChapter(BaseChapter):
         self.use_cache = use_cache
         if cache_dir:
             self.image_cache = ImageCache(cache_dir)
-        self.tree = lxml.html.document_fromstring(html)
+        try:
+            self.tree = lxml.html.document_fromstring(html)
+        except etree.XMLSyntaxError, e:
+            log('Could not parse html file %r, string %r... exception %s' %
+                (self.name, html[:40], e))
+            self.tree = lxml.html.document_fromstring('<html><body></body></html>').getroottree()
+
 
