@@ -448,24 +448,25 @@ def booki_book(request, message, projectid, bookid):
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": '"%s" is being published.' % (book.title, )}, myself=True)
 
         import urllib2
-#        urlPublish = "http://objavi.flossmanuals.net/objavi.cgi"
-        urlPublish = "http://objavi.halo.gen.nz/objavi.cgi"
+        urlPublish = "http://objavi.flossmanuals.net/objavi.cgi"
+#        urlPublish = "http://objavi.halo.gen.nz/objavi.cgi"
 
-        publishMode = "epub"
+        publishMode = message.get("publish_mode", "epub")
         destination = ""
 
-        if message.has_key("publish_mode"):
-            publishMode = message["publish_mode"]
+        if message.get("is_archive", False):
+            destination = "archive.org"
 
-        if message.has_key("is_archive"):
-            if message["is_archive"]:
-                destination = "archive.org"
-
-        f = urllib2.urlopen(urlPublish+"?book=%s&project=%s&mode="+publishMode+"&server=booki.flossmanuals.net&destination=archive.org" % (book.url_title, project.url_name))
+        f = urllib2.urlopen("%s?book=%s&project=%s&mode=%s&server=booki.flossmanuals.net&destination=archive.org" % (urlPublish, book.url_title, project.url_name, publishMode, destination))
         ta = f.read()
         lst = ta.split("\n")
-        dta = lst[0]
-        dtas3 = lst[1]
+        dta, dtas3 = "", ""
+
+        if len(lst) > 0:
+            dta = lst[0]
+
+            if len(lst) > 1:
+                dtas3 = lst[1]
 
         addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": '"%s" is published.' % (book.title, )}, myself=True)
 
