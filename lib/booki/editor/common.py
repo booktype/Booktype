@@ -359,6 +359,9 @@ def exportBook(book):
                             bookizip.MEDIATYPES[name[1+name.index("."):]])
 
 
+    # there must be language, creator, identifier and title
+    import datetime
+
     bzip.info["metadata"] = {"http://purl.org/dc/elements/1.1/": {
             "publisher": {
                 "": ["FLOSS Manuals http://flossmanuals.net"]
@@ -376,11 +379,14 @@ def exportBook(book):
                      "Leslie Hawthorn"]
                 },
             "title": {
-                "": [book.project.name]
+                "": [book.title]
                 },
             "date": {
                 "start": ["2009-10-23"],
                 "last-modified": ["2009-10-30"]
+                },
+            "identifier": {
+                "booki.cc": ["http://www.booki.cc/%s/%s" % (book.url_title, datetime.datetime.now().strftime("%Y.%m.%d-%H.%M"))]
                 }
             }
 
