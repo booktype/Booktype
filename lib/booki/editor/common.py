@@ -197,7 +197,15 @@ def importBookFromURL(bookURL, createTOC = False):
                                  created = datetime.datetime.now(),
                                  modified = datetime.datetime.now())
         chapter.save()
-       
+
+        c = models.BookToc(book = book,
+                           name = chapterName,
+                           chapter = chapter,
+                           weight = n,
+                           typeof = 1)
+        c.save()
+        n -= 1
+        
 
 #    chapters = getChaptersFromTOC(info['TOC'])
 #
