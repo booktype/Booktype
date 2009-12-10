@@ -356,7 +356,7 @@ def exportBook(book):
         bzip.add_to_package(removeExtension(name),
                             fn.encode("utf-8"),
                             open(attachment.attachment.name, "rb").read(),
-                            bookzip.MEDIATYPES[name[1+name.index("."):]])
+                            bookizip.MEDIATYPES[name[1+name.index("."):]])
 
 
     bzip.info["metadata"] = {"http://purl.org/dc/elements/1.1/": {
