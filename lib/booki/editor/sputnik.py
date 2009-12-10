@@ -452,12 +452,12 @@ def booki_book(request, message, projectid, bookid):
 #        urlPublish = "http://objavi.halo.gen.nz/objavi.cgi"
 
         publishMode = message.get("publish_mode", "epub")
-        destination = ""
+        destination = "nowhere"
 
         if message.get("is_archive", False):
             destination = "archive.org"
 
-        f = urllib2.urlopen("%s?book=%s&project=%s&mode=%s&server=booki.flossmanuals.net&destination=archive.org" % (urlPublish, book.url_title, project.url_name, publishMode, destination))
+        f = urllib2.urlopen("%s?book=%s&project=%s&mode=%s&server=booki.flossmanuals.net&destination=%s" % (urlPublish, book.url_title, project.url_name, publishMode, destination))
         ta = f.read()
         lst = ta.split("\n")
         dta, dtas3 = "", ""
