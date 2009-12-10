@@ -508,9 +508,22 @@ function unescapeHtml (val) {
 		    $.booki.chat.initChat($("#chat"), $("#chat2"));
 
                     $("#tabpublish BUTTON").click(function() {
-			$("#tabpublish .info").html('<div style="padding-top: 20px; padding-bottom: 20px;">"'+$.booki.currentBook+'" is being sent to Objavi (the publishing engine for Booki), converted to an .epub, and uploaded to Archive.org.</div>');
-			$("#tabpublish BUTTON").attr("disabled", "disabled");
+			var isArchive = $("#tabpublish FORM INPUT[type='checkbox']").is(":checked");
+			var publishMode = $("#tabpublish OPTION:selected").val();
 
+			var messageFormat = {"epub": "epub",
+			    "book": "book formated pdf",
+			    "openoffice": "Open Office text file",
+			    "newspaper": "newspaper formatted pdf",
+			    "web": "screen formatted pdf"};
+			
+			var message = "Your books is being sent to Objavi (Booki's publishing engine), converted to "+messageFormat[publishMode];
+			if(isArchive)
+			    message += " and being uploaded to Archive.org";
+			message += ".";
+			
+			$("#tabpublish .info").html('<div style="padding-top: 20px; padding-bottom: 20px;">'+message+'</div>');
+			$("#tabpublish BUTTON").attr("disabled", "disabled");
 			$("#tabpublish .info").append('<div id="progressbar" style="width: 400px;"></div>');
 
 			var currentProgress = 0;
@@ -532,19 +545,31 @@ function unescapeHtml (val) {
 
 			_incrementProgress();
 			
-			var isArchive = $("#tabpublish FORM INPUT[type='checkbox']").is(":checked");
-			var publishMode = $("#tabpublish OPTION:selected").val();
 
                         $.booki.sendToCurrentBook({"command": "publish_book",
 						   "is_archive": isArchive,
 						   "publish_mode": publishMode},
 						  
                                                   function(data) {
+						      var message = "";
+
                                                       currentProgress = -1;
+
+						      if(isArchive) {
+							  var messageFormat = {"epub": "epub",
+							      "book": "book formated pdf",
+							      "openoffice": "Open Office text file",
+							      "newspaper": "newspaper formatted pdf",
+							      "web": "screen formatted pdf"};
+							  
+						      
+							  message = "Your "+messageFormat[publishMode]+" has been sent to Archive.org. It will appear at the following URL in a few minutes: ";
+						      }
+						      
                                                       $("#tabpublish BUTTON").removeAttr("disabled");
 
                                                       $("#tabpublish .info").html('<div style="padding-top: 20px; padding-bottom: 10px"><a href="'+data.dta+'" target="_new">'+data.dta+'</a></div>');
-                                                      $("#tabpublish .info").append('<p>Your epub has been sent to Archive.org. It will appear at the following URL in a few minutes.</p>');
+                                                      $("#tabpublish .info").append('<p>'+message+'</p>');
                                                       $("#tabpublish .info").append('<p><a href="'+data.dtas3+'" target="_new">'+data.dtas3+'</a></p>');
 
                                                      $.booki.debug.debug(data.dtaall);
