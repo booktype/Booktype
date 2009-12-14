@@ -155,9 +155,9 @@ class BaseChapter(object):
                                       )
 
     def remove_bad_tags(self):
-        for e in self.tree.iter():
-            if not e.tag in OK_TAGS:
-                log('found bad tag %s' % e.tag)
+        #for e in self.tree.iter():
+        #    if not e.tag in OK_TAGS:
+        #        log('found bad tag %s' % e.tag)
         self.cleaner(self.tree)
 
     def prepare_for_epub(self):
