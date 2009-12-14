@@ -54,12 +54,12 @@ def register(request):
 
 # project form
 
-class ProjectForm(forms.Form):
+class BookForm(forms.Form):
     title = forms.CharField(required=False)
     license = forms.ChoiceField(choices=(('1', '1'), ))
 
     def __init__(self, *args, **kwargs):
-        super(ProjectForm, self).__init__(*args, **kwargs)
+        super(BookForm, self).__init__(*args, **kwargs)
 
         from booki.editor import models
         self.fields['license'].initial = 'Unknown'
@@ -83,7 +83,7 @@ def view_profile(request, username):
     user = User.objects.get(username=username)
 
     if request.method == 'POST':
-        project_form = ProjectForm(request.POST)
+        project_form = BookForm(request.POST)
         import_form = ImportForm(request.POST)
         epub_form = ImportEpubForm(request.POST)
         espri_url = "http://objavi.flossmanuals.net/espri.cgi"
@@ -91,44 +91,50 @@ def view_profile(request, username):
         if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
             from booki.editor import common
 
-            common.importBookFromURL(espri_url + "?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
+            common.importBookFromURL(user, espri_url + "?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
 
         if epub_form.is_valid() and epub_form.cleaned_data["url"] != "":
             from booki.editor import common
-            common.importBookFromURL(espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
+            common.importBookFromURL(user, espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
 
         if project_form.is_valid() and project_form.cleaned_data["title"] != "":
             title = project_form.cleaned_data["title"]
             url_title = slugify(title)
             license   = project_form.cleaned_data["license"]
 
-            project = models.Project(url_name = url_title,
-                                  name = title,
-                                  status = 0)
-            project.save()
-
-            status = models.ProjectStatus(project=project, name="not published",weight=0)
-            status.save()
 
             import datetime
             # should check for errors
             lic = models.License.objects.get(abbrevation=license)
 
-            book = models.Book(project = project,
+            book = models.Book(owner = request.user,
                                          url_title = url_title,
                                          title = title,
-                                         status=status,
                                          license=lic,
                                          published = datetime.datetime.now())
             book.save()
+            status = models.BookStatus(book=book, name="not published",weight=0)
+            status.save()
+            book.status = status
+            book.save()
+
 
             return HttpResponseRedirect("/accounts/%s/" % username)
     else:
-        project_form = ProjectForm()
+        project_form = BookForm()
         import_form = ImportForm()
         epub_form = ImportEpubForm()
 
-    books = models.Book.objects.all()
+    books = models.Book.objects.filter(owner=request.user)
+    
+    groups = request.user.members.all()
+    return render_to_response('account/view_profile.html', {"request": request, 
+                                                            "user": user, 
 
-    return render_to_response('account/view_profile.html', {"request": request, "user": user, "project_form": project_form, "import_form": import_form, "epub_form": epub_form, "books": books})
+                                                            "project_form": project_form, 
+                                                            "import_form": import_form, 
+                                                            "epub_form": epub_form, 
+
+                                                            "books": books,
+                                                            "groups": groups})
 

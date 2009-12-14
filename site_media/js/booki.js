@@ -47,7 +47,7 @@ $(function() {
   		    },
 
 		    sendToCurrentBook: function(message, callback, errback) {
-			return $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", message, callback, errback);
+			return $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", message, callback, errback);
 		    },
 		    
 		    unsubscribeFromChannel: function(channelName, someID) {

@@ -11,14 +11,9 @@ import logging
 
 # BOOK
 
-def view_export(request, project, edition):
+def view_export(request, bookid):
 
-    if edition == "None":
-        edition = project
-
-    project = models.Project.objects.get(url_name__iexact=project)
-
-    book = models.Book.objects.get(project=project, url_title__iexact=edition)
+    book = models.Book.objects.get(url_title__iexact=bookid)
 
     response = HttpResponse(mimetype='application/zip')
     response['Content-Disposition'] = 'attachment; filename=%s.zip' % book.url_title
@@ -37,18 +32,15 @@ def view_export(request, project, edition):
 
     return response
 
-def edit_book(request, project, edition):
-    project = models.Project.objects.get(url_name__iexact=project)
-    book = models.Book.objects.get(project=project, url_title__iexact=edition)
+def edit_book(request, bookid):
+    book = models.Book.objects.get(url_title__iexact=bookid)
     chapters = models.Chapter.objects.filter(book=book)
 
 
-    return render_to_response('editor/edit_book.html', {"project": project, "book": book, "chapters": chapters, "request": request})
+    return render_to_response('editor/edit_book.html', {"book": book, "chapters": chapters, "request": request})
 
-def view_book(request, project, edition):
-    proj = models.Project.objects.get(url_name__iexact=project)
-    # ovaj tu neshto zeza
-    book = models.Book.objects.get(project=proj, url_title__iexact=edition)
+def view_book(request, bookid):
+    book = models.Book.objects.get(url_title__iexact=bookid)
 
     chapters = []
     for chapter in  models.BookToc.objects.filter(book=book).order_by("-weight"):
@@ -60,11 +52,10 @@ def view_book(request, project, edition):
                              "name": chapter.name})
         
 
-    return render_to_response('editor/view_book.html', {"project": proj, "book": book, "chapters": chapters, "request": request})
+    return render_to_response('editor/view_book.html', {"book": book, "chapters": chapters, "request": request})
 
-def view_chapter(request, project, edition, chapter):
-    proj = models.Project.objects.get(url_name__iexact=project)
-    book = models.Book.objects.get(project=proj, url_title__iexact=edition)
+def view_chapter(request, bookid, chapter):
+    book = models.Book.objects.get(url_title__iexact=bookid)
 
     chapters = []
     for chap in  models.BookToc.objects.filter(book=book).order_by("-weight"):
@@ -77,33 +68,26 @@ def view_chapter(request, project, edition, chapter):
 
     content = models.Chapter.objects.get(book = book, url_title = chapter)
 
-    return render_to_response('editor/view_chapter.html', {"chapter": chapter, "project": proj, "book": book, "chapters": chapters, "request": request, "content": content})
+    return render_to_response('editor/view_chapter.html', {"chapter": chapter, "book": book, "chapters": chapters, "request": request, "content": content})
 
 
 # PROJECT
 
-def view_project(request, project):
-    books = list(models.Book.objects.filter(project__url_name__iexact=project))
-    return render_to_response('editor/view_project.html', {"project": project, "books": books})
-
-def view_attachment(request, project, edition, attachment):
+def view_attachment(request, bookid, attachment):
     from booki import settings
     from django.views import static
 
-    #project = models.Project.objects.get(url_name__iexact=project)
-    #book = models.Book.objects.get(project=project, url_title__iexact=edition)
-
     path = attachment
-    document_root = '%s/static/%s/%s/' % (settings.STATIC_DOC_ROOT, project, edition)
+    document_root = '%s/static/%s/' % (settings.STATIC_DOC_ROOT, bookid)
 
     return static.serve(request, path, document_root)
 
-def thumbnail_attachment(request, project, edition, attachment):
+def thumbnail_attachment(request, bookid, attachment):
     from booki import settings
     from django.views import static
 
     path = attachment
-    document_root = '%s/static/%s/%s/%s' % (settings.STATIC_DOC_ROOT, project, edition, path)
+    document_root = '%s/static/%s/%s' % (settings.STATIC_DOC_ROOT, bookid, path)
 
     # should have one  "broken image" in case of error
     import Image
@@ -116,22 +100,40 @@ def thumbnail_attachment(request, project, edition, attachment):
 
 
 
-def view_editor(request, project):
-    return render_to_response('editor/view_editor.html', {"project": project})
+#def view_editor(request, bookid):
+#    return render_to_response('editor/view_editor.html', {"bookid": bookid})
 
 
 # FRONT PAGE
 
 def view_frontpage(request):
-    return render_to_response('editor/view_frontpage.html', {"request": request, "title": "Ovo je neki naslov"})
+    books = models.Book.objects.all().order_by("title")
+    groups = models.BookiGroup.objects.all().order_by("name")
+
+    return render_to_response('editor/view_frontpage.html', {"request": request, 
+                                                             "title": "Ovo je neki naslov",
+                                                             "books": books,
+                                                             "groups": groups})
+
+# GROUPS
+
+def view_group(request, groupid):
+    group = models.BookiGroup.objects.get(url_name=groupid)
+    books = group.books.all()
+    members = group.members.all()
+
+    return render_to_response('editor/view_group.html', {"request": request, 
+                                                         "title": "Ovo je neki naslov",
+                                                         "group": group,
+                                                         "books": books,
+                                                         "members": members})
+
 
 # UPLOAD ATTACHMENT
 
-def upload_attachment(request, project, edition):
-    proj = models.Project.objects.get(url_name__iexact=project)
-    book = models.Book.objects.get(project=proj, url_title__iexact=edition)
-
-    stat = models.ProjectStatus.objects.filter(project = proj)[0]
+def upload_attachment(request, bookid):
+    book = models.Book.objects.get(url_title__iexact=bookid)
+    stat = models.BookStatus.objects.filter(book = book)[0]
 
     for name, fileData in request.FILES.items():
         att = models.Attachment(book = book,
@@ -154,9 +156,8 @@ import redis
 
 sputnik_mapper = (
   (r'^/booki/$', 'booki_main'),
-#  (r'^/booki/book/(\d+)/(\d+)/$', "booki_book"),
-  (r'^/booki/book/(?P<projectid>\d+)/(?P<bookid>\d+)/$', 'booki_book'),
-  (r'^/chat/(?P<projectid>\d+)/(?P<bookid>\d+)/$', 'booki_chat')
+  (r'^/booki/book/(?P<bookid>\d+)/$', 'booki_book'),
+  (r'^/chat/(?P<bookid>\d+)/$', 'booki_chat')
 )
 
 def dispatcher(request):
@@ -202,7 +203,10 @@ def dispatcher(request):
 
 
     import time, decimal
-    r.set("ses:%s:last_access" % request.sputnikID, time.time()) 
+    try:
+        r.set("ses:%s:last_access" % request.sputnikID, time.time())
+    except:
+        pass
 
     # this should not be here!
     _now = time.time() 

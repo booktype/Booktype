@@ -77,25 +77,32 @@ def createProject(projectName, status = 0):
     return project
 
 
-def createBook(project, bookTitle, status = "imported"):
+def createBook(user, bookTitle, status = "imported"):
     """
     Create book and sets status.
     """
 
     url_title = slugify(bookTitle)
 
-    stat = models.ProjectStatus.objects.get(project=project, name=status)
-
-    book = models.Book(project = project,
-                       url_title = url_title,
+    book = models.Book(url_title = url_title,
                        title = bookTitle,
-                       status = stat,
+                       owner = user, 
                        published = datetime.datetime.now())
 
     book.save()
+
+    status_default = ["published", "not published", "imported"]
+    n = len(status_default)
+
+    for statusName in status_default:
+        status = models.BookStatus(book=book, name=statusName, weight=n)
+        status.save()
+        n -= 1
+
+    book.status = models.BookStatus.objects.get(book=book, name="not published")
+    book.save()
     
     return book
-
 
 
 def getChaptersFromTOC(toc):
@@ -110,7 +117,8 @@ def getChaptersFromTOC(toc):
 
     return chapters
 
-def importBookFromURL(bookURL, createTOC = False):
+
+def importBookFromURL(user, bookURL, createTOC = False):
     """ 
     Imports book from the url. Creates project and book for it.
     """
@@ -144,11 +152,6 @@ def importBookFromURL(bookURL, createTOC = False):
     # wtf
     bookTitle = info['metadata']['http://purl.org/dc/elements/1.1/']["title"][""][0]
 
-    try:
-        project = models.Project.objects.get(name=bookTitle)
-    except:
-        project = createProject(bookTitle)
-
     foundAvailableName = False
     n = 0
 
@@ -158,98 +161,65 @@ def importBookFromURL(bookURL, createTOC = False):
             name = u'%s - %d' % (bookTitle, n)
 
         try:
-            book = models.Book.objects.get(project=project, title=name)
+            book = models.Book.objects.get(title=name)
             n += 1
         except:
             foundAvailableName = True
             bookTitle = name
 
-    book = createBook(project, bookTitle, status = "imported")
+    book = createBook(user, bookTitle, status = "imported")
 
     # this is for Table of Contents
-    n = len(info['TOC'])
+    n = 100
 
     p = re.compile('\ssrc="(.*)"')
 
     # TOC {url, title}
 
-    stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
+    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
 
-# this is just for stupid demo
+    chapters = getChaptersFromTOC(info['TOC'])
 
-    for dt in info['TOC']:
-        chapterFile = dt["url"]
-        chapterName = dt["title"]
+    for inf in chapters:
+        chapterName = inf[0]
+        chapterFile = inf[1]
         urlName = slugify(chapterName)
 
-#            if chapterFile.index(".") != -1:
-#                chapterFile = chapterFile[:chapterFile.index(".")]
-#
-        content = open('%s/%s' % (zdirname, chapterFile), 'r').read()
+        if not chapterFile or chapterFile == '':
+            if createTOC:
+                c = models.BookToc(book = book,
+                                   name = chapterName,
+                                   chapter = None,
+                                   weight = n,
+                                   typeof = 2)
+                c.save()
+                n -= 1
+        else:
+            stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
+            if chapterFile.index(".") != -1:
+                chapterFile = chapterFile[:chapterFile.index(".")]
 
-        content = p.sub(r' src="../\1"', content)
+            content = open('%s/%s.html' % (zdirname, chapterFile), 'r').read()
 
-        chapter = models.Chapter(book = book,
-                                 url_title = urlName,
-                                 title = chapterName,
-                                 status = stat,
-                                 content = content,
-                                 created = datetime.datetime.now(),
-                                 modified = datetime.datetime.now())
-        chapter.save()
+            content = p.sub(r' src="../\1"', content)
 
-        c = models.BookToc(book = book,
-                           name = chapterName,
-                           chapter = chapter,
-                           weight = n,
-                           typeof = 1)
-        c.save()
-        n -= 1
-        
+            chapter = models.Chapter(book = book,
+                                     url_title = urlName,
+                                     title = chapterName,
+                                     status = stat,
+                                     content = content,
+                                     created = datetime.datetime.now(),
+                                     modified = datetime.datetime.now())
+            chapter.save()
 
-#    chapters = getChaptersFromTOC(info['TOC'])
-#
-#    for inf in chapters:
-#        chapterName = inf[0]
-#        chapterFile = inf[1]
-#        urlName = slugify(chapterName)
-#
-#        if not chapterFile or chapterFile == '':
-#            if createTOC:
-#                c = models.BookToc(book = book,
-#                                   name = chapterName,
-#                                   chapter = None,
-#                                   weight = n,
-#                                   typeof = 2)
-#                c.save()
-#                n -= 1
-#        else:
-#            stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
-#            if chapterFile.index(".") != -1:
-#                chapterFile = chapterFile[:chapterFile.index(".")]
-#
-#            content = open('%s/%s.html' % (zdirname, chapterFile), 'r').read()
-#
-#            content = p.sub(r' src="../\1"', content)
-#
-#            chapter = models.Chapter(book = book,
-#                                     url_title = urlName,
-#                                     title = chapterName,
-#                                     status = stat,
-#                                     content = content,
-#                                     created = datetime.datetime.now(),
-#                                     modified = datetime.datetime.now())
-#            chapter.save()
-#
-#            if createTOC:
-#                c = models.BookToc(book = book,
-#                                   name = chapterName,
-#                                   chapter = chapter,
-#                                   weight = n,
-#                                   typeof = 1)
-#                c.save()
-#                n -= 1
-
+            if createTOC:
+                c = models.BookToc(book = book,
+                                   name = chapterName,
+                                   chapter = chapter,
+                                   weight = n,
+                                   typeof = 1)
+                c.save()
+                n -= 1
 
     stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
 
@@ -389,7 +359,7 @@ def exportBook(book):
         bzip.add_to_package(removeExtension(name),
                             fn.encode("utf-8"),
                             open(attachment.attachment.name, "rb").read(),
-                            bookizip.MEDIATYPES[name[1+name.index("."):]])
+                            bookizip.MEDIATYPES[name[1+name.index("."):].lower()])
 
 
     # there must be language, creator, identifier and title

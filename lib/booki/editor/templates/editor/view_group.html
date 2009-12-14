@@ -21,25 +21,30 @@
 <table border="0">
 <tr>
  <td colspan="2">
-   <h1>{{ book.title }}</h1>
+   <h1>{{ group.name }}</h1>
  </td>
 </tr>
 <tr>
- <td valign="top" style="padding-right: 30px">
+ <td valign="top" style="padding-right: 30px" width="200">
+{{ group.description }}
+
+<h3>Members</h3>
 <ul>
-{% for chap in chapters %}
- {% if chap.url_title %}
-   <li> <a href="{% url view_chapter  book.url_title chap.url_title %}">{{ chap.name }}</a>  </li>
- {% else %}
-   <li> <b>{{ chap.name }}</b></li>
- {% endif %}
+{% for member in members %}
+   <li>{{ member.username }}</li>
 {% endfor %}
 </ul>
+
  </td>
  <td valign="top">
-{{ content.content|safe }}
-<hr/>
-<a href="{% url view_book   book.url_title %}edit/">EDIT</a>
+<h2>Books</h2>
+<ul>
+{% for book in books %}
+   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a></li>
+{% endfor %}
+</ul>
+
+
  </td>
 </tr>
 </table>

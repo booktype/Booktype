@@ -45,13 +45,13 @@ function unescapeHtml (val) {
 	function initUI() {
 	    element2.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 500px; height: 400px; border: 1px solid gray; padding: 5px"></div><input type="text" style="width: 500px;"/></form>').submit(function() { var s = $("INPUT", element2).val(); $("INPUT", element2).attr("value", "");
 																																	 showMessage($.booki.username, s);
-  	    $.booki.sendToChannel("/chat/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
+  	    $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
 
 }));
 
 	    element.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 200px; height: 400px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 200px;"/></form>').submit(function() { var s = $("INPUT", element).val(); $("INPUT", element).attr("value", "");
 																																	 showMessage($.booki.username, s);
-  	    $.booki.sendToChannel("/chat/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
+  	    $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
 
 }));
 	}
@@ -63,7 +63,7 @@ function unescapeHtml (val) {
 		element2 = elem2;
 		initUI();
 
-		jQuery.booki.subscribeToChannel("/chat/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", function(message) {
+		jQuery.booki.subscribeToChannel("/chat/"+$.booki.currentBookID+"/", function(message) {
 		    if(message.command == "user_joined") {
 			showJoined(message.user_joined);
 		    }
@@ -304,7 +304,7 @@ function unescapeHtml (val) {
 
 		editChapter: function(chapterID) {
 		    $.booki.ui.notify("Loading chapter data...");
-		    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/",
+		    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/",
 					  {"command": "get_chapter", "chapterID": chapterID}, function(data) {
 					      $.booki.ui.notify();
 					      $("#container").fadeOut("slow", function() {
@@ -765,7 +765,7 @@ function unescapeHtml (val) {
 		
 		initEditor: function() {
 		    
-		    jQuery.booki.subscribeToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", function(message) {
+		    jQuery.booki.subscribeToChannel("/booki/book/"+$.booki.currentBookID+"/", function(message) {
 
 			// ERROR
 			// this does not work when you change chapter status very fast

@@ -20,9 +20,17 @@ urlpatterns = patterns('',
     # user accounts                     
     url(r'^accounts/', include('booki.account.urls')),                    
 
+    # groups
+    url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/', 'booki.editor.views.view_group', name="view_group"),                    
+
+    # temp temp temp                      
+    url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.view_export', name='export_booki'), 
+                       
+
     # the rest interface                   
+    # NOTICE. this should change                      
     url(r'^api/$', 'booki.editor.views.dispatcher'),                     
 
     # reader
-    url(r'^(?P<project>[\w\s\_\.\-]+)/', include('booki.editor.urls')),
+    url(r'^(?P<bookid>[\w\s\_\.\-]+)/', include('booki.editor.urls')),
 )

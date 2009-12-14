@@ -108,9 +108,9 @@ def booki_main(request, message):
 
 
 
-def booki_chat(request, message, projectid, bookid):
+def booki_chat(request, message, bookid):
     if message["command"] == "message_send":
-        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_received", "from": request.user.username, "message": message["message"]})
+        addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_received", "from": request.user.username, "message": message["message"]})
         return {}
 
     return {}
@@ -172,14 +172,13 @@ def getAttachments(book):
     return attachments
     
 
-def booki_book(request, message, projectid, bookid):
+def booki_book(request, message, bookid):
     from booki.editor import models
 
     ## init_editor
     if message["command"] == "init_editor":
 
-        project = models.Project.objects.get(id=projectid)
-        book = models.Book.objects.get(project=project, id=bookid)
+        book = models.Book.objects.get(id=bookid)
 
         ## get chapters
 
@@ -197,7 +196,7 @@ def booki_book(request, message, projectid, bookid):
 
         ## get workflow statuses
 
-        statuses = [(status.id, status.name) for status in models.ProjectStatus.objects.filter(project=project).order_by("-weight")]
+        statuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
         ## get attachments
 
         attachments = getAttachments(book)
@@ -207,7 +206,7 @@ def booki_book(request, message, projectid, bookid):
         metadata = [{'name': v.name, 'value': v.getValue()} for v in models.Info.objects.filter(book=book)]
 
         ## notify others
-        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "user_joined", "user_joined": request.user.username}, myself = False)
+        addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "user_joined", "user_joined": request.user.username}, myself = False)
 
         ## get licenses
 
@@ -217,8 +216,7 @@ def booki_book(request, message, projectid, bookid):
 
     ## attachments list
     if message["command"] == "attachments_list":
-        project = models.Project.objects.get(id=projectid)
-        book = models.Book.objects.get(project=project, id=bookid)
+        book = models.Book.objects.get(id=bookid)
 
         attachments = getAttachments(book)
 
@@ -226,7 +224,7 @@ def booki_book(request, message, projectid, bookid):
 
     ## chapter_status
     if message["command"] == "chapter_status":
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": message["status"], "username": request.user.username})
+        addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapter_status", "chapterID": message["chapterID"], "status": message["status"], "username": request.user.username})
         return {}
 
     ## chapter_save
@@ -235,9 +233,9 @@ def booki_book(request, message, projectid, bookid):
         chapter.content = message["content"];
         chapter.save()
 
-        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has saved chapter "%s".' % (request.user.username, chapter.title)}, myself=True)
+        addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", "from": request.user.username, "message": 'User %s has saved chapter "%s".' % (request.user.username, chapter.title)}, myself=True)
 
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": "normal", "username": request.user.username})
+        addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapter_status", "chapterID": message["chapterID"], "status": "normal", "username": request.user.username})
 
         return {}
 
@@ -248,11 +246,10 @@ def booki_book(request, message, projectid, bookid):
         chapter.title = message["chapter"];
         chapter.save()
 
-        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has renamed chapter "%s" to "%s".' % (request.user.username, oldTitle, message["chapter"])}, myself=True)
+        addMessageToChannel(request, "/chat/%s/" %  bookid, {"command": "message_info", "from": request.user.username, "message": 'User %s has renamed chapter "%s" to "%s".' % (request.user.username, oldTitle, message["chapter"])}, myself=True)
 
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": "normal", "username": request.user.username})
-
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_rename", "chapterID": message["chapterID"], "chapter": message["chapter"]})
+        addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapter_status", "chapterID": message["chapterID"], "status": "normal", "username": request.user.username})
+        addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapter_rename", "chapterID": message["chapterID"], "chapter": message["chapter"]})
  
         return {}
 
@@ -261,8 +258,7 @@ def booki_book(request, message, projectid, bookid):
         lst = [chap[5:] for chap in message["chapters"]]
         lstHold = [chap[5:] for chap in message["hold"]]
 
-        project = models.Project.objects.get(id=projectid)
-        book = models.Book.objects.get(project=project, id=bookid)
+        book = models.Book.objects.get(id=bookid)
 
         weight = len(lst)
 
@@ -297,7 +293,7 @@ def booki_book(request, message, projectid, bookid):
 
 #        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has rearranged chapters.' % request.user.username})
 
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapters_changed", "ids": lst, "hold_ids": lstHold, "kind": message["kind"], "chapter_id": message["chapter_id"]})
+        addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapters_changed", "ids": lst, "hold_ids": lstHold, "kind": message["kind"], "chapter_id": message["chapter_id"]})
         return {}
 
     ## get_users
@@ -319,14 +315,13 @@ def booki_book(request, message, projectid, bookid):
         res["title"] = chapter.title
         res["content"] = chapter.content 
 
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_status", "chapterID": message["chapterID"], "status": "edit", "username": request.user.username})
+        addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapter_status", "chapterID": message["chapterID"], "status": "edit", "username": request.user.username})
 
         return res
 
     ## chapter_split
     if message["command"] == "chapter_split":
-        project = models.Project.objects.get(id=projectid)
-        book = models.Book.objects.get(project=project, id=bookid)
+        book = models.Book.objects.get(id=bookid)
 
         allChapters = []
 
@@ -349,7 +344,7 @@ def booki_book(request, message, projectid, bookid):
         else:
             initialPosition = 0
 
-        s = models.ProjectStatus.objects.filter(project=project).order_by("weight")[0]
+        s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
 
         n = 0
         for chap in message["chapters"]:
@@ -374,7 +369,7 @@ def booki_book(request, message, projectid, bookid):
             n += 1
 
         if originalChapter:
-            addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has split chapter "%s".' % (request.user.username, originalChapter.title)}, myself=True)
+            addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", "from": request.user.username, "message": 'User %s has split chapter "%s".' % (request.user.username, originalChapter.title)}, myself=True)
 
             originalChapter.delete()
 
@@ -395,7 +390,7 @@ def booki_book(request, message, projectid, bookid):
         chapters = getTOCForBook(book)
         holdChapters =  getHoldChapters(bookid)
         
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_split", "chapterID": message["chapterID"], "chapters": chapters, "hold": holdChapters, "username": request.user.username}, myself = True)
+        addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapter_split", "chapterID": message["chapterID"], "chapters": chapters, "hold": holdChapters, "username": request.user.username}, myself = True)
 
             
         return {}
@@ -405,15 +400,15 @@ def booki_book(request, message, projectid, bookid):
         from booki.editor import models
 
         import datetime
-        project = models.Project.objects.get(id=projectid)
-        book = models.Book.objects.get(project=project, id=bookid)
+
+        book = models.Book.objects.get(id=bookid)
 
         from django.template.defaultfilters import slugify
 
         url_title = slugify(message["chapter"])
 
         # here i should probably set it to default project status
-        s = models.ProjectStatus.objects.filter(project=project).order_by("weight")[0]
+        s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
 
         chapter = models.Chapter(book = book,
                                  url_title = url_title,
@@ -433,19 +428,18 @@ def booki_book(request, message, projectid, bookid):
 
         result = (chapter.id, chapter.title, chapter.url_title, 1, s.id)
 
-        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has created new chapter "%s".' % (request.user.username, message["chapter"])}, myself=True)
+        addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", "from": request.user.username, "message": 'User %s has created new chapter "%s".' % (request.user.username, message["chapter"])}, myself=True)
 
 
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_create", "chapter": result}, myself = True)
+        addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapter_create", "chapter": result}, myself = True)
 
         return {}
 
     ## publish_book
     if message["command"] == "publish_book":
-        project = models.Project.objects.get(id=projectid)
-        book = models.Book.objects.get(project=project, id=bookid)
+        book = models.Book.objects.get(id=bookid)
 
-        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": '"%s" is being published.' % (book.title, )}, myself=True)
+        addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", "from": request.user.username, "message": '"%s" is being published.' % (book.title, )}, myself=True)
 
         import urllib2
         urlPublish = "http://objavi.flossmanuals.net/objavi.cgi"
@@ -457,19 +451,22 @@ def booki_book(request, message, projectid, bookid):
         if message.get("is_archive", False):
             destination = "archive.org"
 
-        f = urllib2.urlopen("%s?book=%s&project=%s&mode=%s&server=booki.flossmanuals.net&destination=%s" % (urlPublish, book.url_title, project.url_name, publishMode, destination))
-        ta = f.read()
-        lst = ta.split("\n")
-        dta, dtas3 = "", ""
+            
+        # TODO
+        # change project here
+#        f = urllib2.urlopen("%s?book=%s&project=%s&mode=%s&server=booki.flossmanuals.net&destination=%s" % (urlPublish, book.url_title, project.url_name, publishMode, destination))
+#        ta = f.read()
+#        lst = ta.split("\n")
+#        dta, dtas3 = "", ""
 
-        if len(lst) > 0:
-            dta = lst[0]
+#        if len(lst) > 0:
+#            dta = lst[0]
 
-            if len(lst) > 1:
-                dtas3 = lst[1]
+#            if len(lst) > 1:
+#                dtas3 = lst[1]
 
-        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": '"%s" is published.' % (book.title, )}, myself=True)
-
+#        addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", "from": request.user.username, "message": '"%s" is published.' % (book.title, )}, myself=True)
+        ta , dta, dta3 = "", "", ""
         return {"dtaall": ta, "dta": dta, "dtas3": dtas3}
 
     ## create_section
@@ -477,8 +474,7 @@ def booki_book(request, message, projectid, bookid):
         from booki.editor import models
 
         import datetime
-        project = models.Project.objects.get(id=projectid)
-        book = models.Book.objects.get(project=project, id=bookid)
+        book = models.Book.objects.get(id=bookid)
 
         c = models.BookToc(book = book,
                            name = message["chapter"],
@@ -490,9 +486,9 @@ def booki_book(request, message, projectid, bookid):
         result = ("s%s" % c.id, c.name, None, c.typeof)
 
 
-        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has created new section "%s".' % (request.user.username, message["chapter"])}, myself=True)
+        addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", "from": request.user.username, "message": 'User %s has created new section "%s".' % (request.user.username, message["chapter"])}, myself=True)
 
-        addMessageToChannel(request, "/booki/book/%s/%s/" % (projectid, bookid), {"command": "chapter_create", "chapter": result, "typeof": c.typeof}, myself = True)
+        addMessageToChannel(request, "/booki/book/%s/" %  bookid, {"command": "chapter_create", "chapter": result, "typeof": c.typeof}, myself = True)
 
         return {}
 

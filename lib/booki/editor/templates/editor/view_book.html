@@ -29,7 +29,7 @@
 <ul>
 {% for chap in chapters %}
  {% if chap.url_title %}
-   <li> <a href="{% url view_chapter project.url_name book.url_title chap.url_title %}">{{ chap.name }}</a>  </li>
+   <li> <a href="{% url view_chapter  book.url_title chap.url_title %}">{{ chap.name }}</a>  </li>
  {% else %}
    <li> <b>{{ chap.name }}</b></li>
  {% endif %}
@@ -39,7 +39,7 @@
  <td valign="top">
 click on the chapter name
 <hr/>
-<a href="{% url view_book  project.url_name book.url_title %}edit/">EDIT</a>
+<a href="{% url view_book  book.url_title %}edit/">EDIT</a>
  </td>
 </tr>
 </table>

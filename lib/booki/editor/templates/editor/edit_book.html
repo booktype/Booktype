@@ -13,8 +13,10 @@
             /* this is temporary here */
 
            $.booki.username = "{{request.user.username}}";
+	    /*
            $.booki.currentProjectID = {{project.id}};
            $.booki.currentProject = "{{project.name}}";
+            */
            $.booki.currentBookID  = {{book.id}};
            $.booki.currentBook    = "{{book.title}}";
 
@@ -54,7 +56,7 @@
 				'Create chapter': function() {
 				    $.booki.ui.notify("Creating chapter");
 				    
-				    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
+				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
 					$.booki.ui.notify();
 				    });
 
@@ -84,7 +86,7 @@
 				'Create section': function() {
 				    $.booki.ui.notify("Creating section");
 			
-				    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
+				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
 					$.booki.ui.notify();
 				    });
 
@@ -190,7 +192,7 @@ some notification. this should be on top of visible page and not top of page.
 <input type="text" size="20"> <button>Search</button>
 </form>
 </div>
-<h1 style="margin-top: 0px"> <a href="/{{ project.url_name }}/{{ book.url_title }}/">{{ book }}</a> </h1>
+<h1 style="margin-top: 0px"> <a href="/{{ book.url_title }}/">{{ book }}</a> </h1>
 </div>
 
 <div id="tabs">
