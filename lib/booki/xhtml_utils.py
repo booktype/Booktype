@@ -44,11 +44,6 @@ def log(*messages, **kwargs):
             print >> sys.stderr, repr(m)
 
 
-class Author(object):
-    def __init__(self, name, email):
-        self.name = name
-        self.email = email
-
 def url_to_filename(url, prefix=''):
     #XXX slightly inefficient to do urlsplit so many times, but versatile
     fragments = urlsplit(url)
@@ -113,18 +108,9 @@ class ImageCache(object):
 
 
 class BaseChapter(object):
-    image_cache = ImageCache()
-
     def as_html(self):
         """Serialise the tree as html."""
         return etree.tostring(self.tree, method='html')
-
-    def as_twikitext(self):
-        """Get the twiki-style guts of the chapter from the tree"""
-        text = etree.tostring(self.tree.find('body'), method='html')
-        text = re.sub(r'^.*?<body.*?>\s*', '', text)
-        text = re.sub(r'\s*</body>.*$', '\n', text)
-        return text
 
     def as_xhtml(self):
         """Convert to xhtml and serialise."""
@@ -149,36 +135,6 @@ class BaseChapter(object):
         xhtml_copy(root, xroot)
 
         return XML_DEC + XHTML11_DOCTYPE + etree.tostring(xroot)
-
-    def localise_links(self):
-        """Find image links, convert them to local links, and fetch
-        the images from the net so the local links work"""
-        images = []
-        def localise(oldlink):
-            fragments = urlsplit(oldlink)
-            if '.' not in fragments.path:
-                log('ignoring %s' % oldlink)
-                return oldlink
-            base, ext = fragments.path.rsplit('.', 1)
-            ext = ext.lower()
-            if (not fragments.scheme.startswith('http') or
-                fragments.netloc != self.server or
-                ext not in ('png', 'gif', 'jpg', 'jpeg', 'svg', 'css', 'js') or
-                '/pub/' not in base
-                ):
-                log('ignoring %s' % oldlink)
-                return oldlink
-
-            newlink = self.image_cache.fetch_if_necessary(oldlink, use_cache=self.use_cache)
-            if newlink is not None:
-                images.append(newlink)
-                return newlink
-            log("can't do anything for %s -- why?" % (oldlink,))
-            return oldlink
-
-        self.tree.rewrite_links(localise, base_href=('http://%s/bin/view/%s/%s' %
-                                                     (self.server, self.book, self.name)))
-        return images
 
     cleaner = lxml.html.clean.Cleaner(scripts=True,
                                       javascript=True,
@@ -216,7 +172,59 @@ class BaseChapter(object):
             hmap['h5'] = 'h6'
             convert_tags(self.root, hmap)
 
-class ImportedChapter(BaseChapter):
+
+
+class TWikiChapter(BaseChapter):
+    image_cache = ImageCache()
+
+    def __init__(self, server, book, chapter_name, html, use_cache=False,
+                 cache_dir=None):
+        self.server = server
+        self.book = book
+        self.name = chapter_name
+        self.use_cache = use_cache
+        if cache_dir:
+            self.image_cache = ImageCache(cache_dir)
+        self._loadtree(html)
+
+    def localise_links(self):
+        """Find image links, convert them to local links, and fetch
+        the images from the net so the local links work"""
+        images = []
+        def localise(oldlink):
+            fragments = urlsplit(oldlink)
+            if '.' not in fragments.path:
+                log('ignoring %s' % oldlink)
+                return oldlink
+            base, ext = fragments.path.rsplit('.', 1)
+            ext = ext.lower()
+            if (not fragments.scheme.startswith('http') or
+                fragments.netloc != self.server or
+                ext not in ('png', 'gif', 'jpg', 'jpeg', 'svg', 'css', 'js') or
+                '/pub/' not in base
+                ):
+                log('ignoring %s' % oldlink)
+                return oldlink
+
+            newlink = self.image_cache.fetch_if_necessary(oldlink, use_cache=self.use_cache)
+            if newlink is not None:
+                images.append(newlink)
+                return newlink
+            log("can't do anything for %s -- why?" % (oldlink,))
+            return oldlink
+
+        self.tree.rewrite_links(localise, base_href=('http://%s/bin/view/%s/%s' %
+                                                     (self.server, self.book, self.name)))
+        return images
+
+
+#XXX almost certainly broken and out of date!
+class Author(object):
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+
+class ImportedChapter(TwikiChapter):
     """Used for git import"""
     def __init__(self, lang, book, chapter_name, text, author, email, date, server=None,
                  use_cache=False, cache_dir=None):
@@ -228,27 +236,21 @@ class ImportedChapter(BaseChapter):
         if server is None:
             server = '%s.flossmanuals.net' % lang
         self.server = server
-        #XXX is texl html-wrapped?
-        self.tree = lxml.html.document_fromstring(text)
         self.use_cache = use_cache
         if cache_dir:
             self.image_cache = ImageCache(cache_dir)
+        #XXX is text html-wrapped?
+        self._loadtree(html)
+
+    def as_twikitext(self):
+        """Get the twiki-style guts of the chapter from the tree"""
+        text = etree.tostring(self.tree.find('body'), method='html')
+        text = re.sub(r'^.*?<body.*?>\s*', '', text)
+        text = re.sub(r'\s*</body>.*$', '\n', text)
+        return text
 
 
-class EpubChapter(BaseChapter):
-    def __init__(self, server, book, chapter_name, html, use_cache=False,
-                 cache_dir=None):
-        self.server = server
-        self.book = book
-        self.name = chapter_name
-        self.use_cache = use_cache
-        if cache_dir:
-            self.image_cache = ImageCache(cache_dir)
-        try:
-            self.tree = lxml.html.document_fromstring(html)
-        except etree.XMLSyntaxError, e:
-            log('Could not parse html file %r, string %r... exception %s' %
-                (self.name, html[:40], e))
-            self.tree = lxml.html.document_fromstring('<html><body></body></html>').getroottree()
+
+
 
 
