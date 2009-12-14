@@ -160,6 +160,23 @@ class BaseChapter(object):
         #        log('found bad tag %s' % e.tag)
         self.cleaner(self.tree)
 
+    def _loadtree(self, html):
+        try:
+            self.tree = lxml.html.document_fromstring(html)
+        except etree.XMLSyntaxError, e:
+            log('Could not parse html file %r, string %r... exception %s' %
+                (self.name, html[:40], e))
+            self.tree = lxml.html.document_fromstring('<html><body></body></html>').getroottree()
+
+
+class EpubChapter(BaseChapter):
+    def __init__(self, server, book, chapter_name, html, use_cache=False,
+                 cache_dir=None):
+        self.server = server
+        self.book = book
+        self.name = chapter_name
+        self._loadtree(html)
+
     def prepare_for_epub(self):
         """Shift all headings down 2 places."""
         if ADJUST_HEADING_WEIGHT:
