@@ -47,36 +47,6 @@ def extract(zdirname, zipfile):
 
 ## create project
 
-def createProject(projectName, status = 0):
-    """
-    Creates project with default values. It also creates list of
-    statuses for this project.
-    """
-
-    url_name = slugify(projectName)
-    
-    project = models.Project(url_name = url_name,
-                             name = projectName,
-                             status = status)
-
-    try:
-        project.save()
-    except:
-        return None
-
-    # list of default statuses
-    # this list should be configurable
-    status_default = ["published", "not published", "imported"]
-    n = len(status_default)
-
-    for statusName in status_default:
-        status = models.ProjectStatus(project=project, name=statusName, weight=n)
-        status.save()
-        n -= 1
-
-    return project
-
-
 def createBook(user, bookTitle, status = "imported"):
     """
     Create book and sets status.
@@ -110,31 +80,18 @@ def getChaptersFromTOC(toc):
 
     for elem in toc:
         if elem['type'] != 'booki-section':
-            chapters.append( (elem['title'], elem['url']))
+            chapters.append( (elem['title'], elem['url'], False))
+        else:
+            chapters.append( (elem['title'], elem['url'], True))
 
-        if elem['children'] and len(elem['children']) > 0:
+        if elem.get('children', False) and len(elem['children']) > 0:
             chapters.extend(getChaptersFromTOC(elem['children']))
 
     return chapters
 
 
-def importBookFromURL(user, bookURL, createTOC = False):
-    """ 
-    Imports book from the url. Creates project and book for it.
-    """
-
-    ## there is no error checking for now
-
-    logging.debug("Importing book %s", bookURL)
-
-    # download it
-    f = urllib2.urlopen(bookURL)
-    data = f.read()
-
-    (zfile, zname) = tempfile.mkstemp()
-    os.write(zfile, data)
-
-    # unzip it
+def importBookFromFile(user, zname):
+   # unzip it
     zdirname = tempfile.mkdtemp()
     zf = zipfile.ZipFile(zname)
     extract(zdirname, zf)
@@ -169,59 +126,101 @@ def importBookFromURL(user, bookURL, createTOC = False):
 
     book = createBook(user, bookTitle, status = "imported")
 
+
     # this is for Table of Contents
-    n = 100
-
+    n = len(info['TOC'])
     p = re.compile('\ssrc="(.*)"')
-
     # TOC {url, title}
-
     stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
 
-    chapters = getChaptersFromTOC(info['TOC'])
 
-    for inf in chapters:
-        chapterName = inf[0]
-        chapterFile = inf[1]
+    for dt in info['TOC']:
+        chapterFile = dt["url"]
+        chapterName = dt["title"]
         urlName = slugify(chapterName)
 
-        if not chapterFile or chapterFile == '':
-            if createTOC:
-                c = models.BookToc(book = book,
-                                   name = chapterName,
-                                   chapter = None,
-                                   weight = n,
-                                   typeof = 2)
-                c.save()
-                n -= 1
-        else:
-            stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
-            if chapterFile.index(".") != -1:
-                chapterFile = chapterFile[:chapterFile.index(".")]
+##            if chapterFile.index(".") != -1:
+##                chapterFile = chapterFile[:chapterFile.index(".")]
+##
+        content = open('%s/%s' % (zdirname, chapterFile), 'r').read()
 
-            content = open('%s/%s.html' % (zdirname, chapterFile), 'r').read()
+        content = p.sub(r' src="../\1"', content)
 
-            content = p.sub(r' src="../\1"', content)
+        chapter = models.Chapter(book = book,
+                                 url_title = urlName,
+                                 title = chapterName,
+                                 status = stat,
+                                 content = content,
+                                 created = datetime.datetime.now(),
+                                 modified = datetime.datetime.now())
+        chapter.save()
 
-            chapter = models.Chapter(book = book,
-                                     url_title = urlName,
-                                     title = chapterName,
-                                     status = stat,
-                                     content = content,
-                                     created = datetime.datetime.now(),
-                                     modified = datetime.datetime.now())
-            chapter.save()
+        c = models.BookToc(book = book,
+                           name = chapterName,
+                           chapter = chapter,
+                           weight = n,
+                           typeof = 1)
+        c.save()
+        n -= 1
+     
 
-            if createTOC:
-                c = models.BookToc(book = book,
-                                   name = chapterName,
-                                   chapter = chapter,
-                                   weight = n,
-                                   typeof = 1)
-                c.save()
-                n -= 1
 
-    stat = models.ProjectStatus.objects.filter(project=project, name="imported")[0]
+    # this is for Table of Contents
+#    n = 100
+#
+#    p = re.compile('\ssrc="(.*)"')
+#
+    # TOC {url, title}
+
+#    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
+#
+#    chapters = getChaptersFromTOC(info['TOC'])
+#
+#    for inf in chapters:
+#        chapterName = inf[0]
+#        chapterFile = inf[1]
+#        urlName = slugify(chapterName)
+#
+#        if not chapterFile or chapterFile == '':
+#            if createTOC:
+#                c = models.BookToc(book = book,
+#                                   name = chapterName,
+#                                   chapter = None,
+#                                   weight = n,
+#                                   typeof = 2)
+#                c.save()
+#                n -= 1
+#        else:
+#            stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
+#            if chapterFile.index(".") != -1:
+#                chapterFile = chapterFile[:chapterFile.index(".")]
+#
+#            content = open('%s/%s.html' % (zdirname, chapterFile), 'r').read()
+#
+#            content = p.sub(r' src="../\1"', content)
+#
+#            chapter = models.Chapter(book = book,
+#                                     url_title = urlName,
+#                                     title = chapterName,
+#                                     status = stat,
+#                                     content = content,
+#                                     created = datetime.datetime.now(),
+#                                     modified = datetime.datetime.now())
+#            chapter.save()
+#
+#            if createTOC:
+#                c = models.BookToc(book = book,
+#                                   name = chapterName,
+#                                   chapter = chapter,
+#                                   weight = n,
+#                                   typeof = 1)
+#                c.save()
+#                n -= 1
+#
+
+
+
+    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
 
     from django.core.files import File
 
@@ -255,6 +254,159 @@ def importBookFromURL(user, bookURL, createTOC = False):
     # delete temp files
     import shutil
     shutil.rmtree(zdirname)
+
+
+def importBookFromFileTheOldWay(user, zname):
+   # unzip it
+    zdirname = tempfile.mkdtemp()
+    zf = zipfile.ZipFile(zname)
+    extract(zdirname, zf)
+    zf.close()
+
+    logging.debug("Wrote it to file %s", zname)
+
+    # loads info.json
+
+    data = open('%s/info.json' % zdirname, 'r').read()
+    info = simplejson.loads(data)
+
+    logging.debug("Loaded json file ", extra={"info": info})
+
+    # wtf
+    bookTitle = info['metadata']['http://purl.org/dc/elements/1.1/']["title"][""][0]
+
+    foundAvailableName = False
+    n = 0
+
+    while not foundAvailableName:
+        name = bookTitle
+        if n > 0:
+            name = u'%s - %d' % (bookTitle, n)
+
+        try:
+            book = models.Book.objects.get(title=name)
+            n += 1
+        except:
+            foundAvailableName = True
+            bookTitle = name
+
+
+    chapters = getChaptersFromTOC(info['TOC'])
+
+    book = createBook(user, bookTitle, status = "imported")
+
+
+    # this is for Table of Contents
+    n = 100
+
+    p = re.compile('\ssrc="(.*)"')
+
+    # TOC {url, title}
+
+    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
+
+
+    for inf in chapters:
+        chapterName = inf[0]
+        chapterFile = inf[1]
+        urlName = slugify(chapterName)
+
+        if not chapterFile or chapterFile == '':
+            c = models.BookToc(book = book,
+                               name = chapterName,
+                               chapter = None,
+                               weight = n,
+                               typeof = 2)
+            c.save()
+            n -= 1
+        else:
+            stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
+            if chapterFile.index(".") != -1:
+                chapterFile = chapterFile[:chapterFile.index(".")]
+
+            content = open('%s/%s.html' % (zdirname, chapterFile), 'r').read()
+
+            content = p.sub(r' src="../\1"', content)
+
+            chapter = models.Chapter(book = book,
+                                     url_title = urlName,
+                                     title = chapterName,
+                                     status = stat,
+                                     content = content,
+                                     created = datetime.datetime.now(),
+                                     modified = datetime.datetime.now())
+            chapter.save()
+
+            typof = 1
+
+            if inf[2]:
+                typof = 0
+
+            c = models.BookToc(book = book,
+                               name = chapterName,
+                               chapter = chapter,
+                               weight = n,
+                               typeof = typof)
+            c.save()
+            n -= 1
+
+
+
+    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
+
+    from django.core.files import File
+
+    for key, manifest in info['manifest'].items():
+        if manifest["mimetype"] != 'text/html':
+            attachmentName = manifest['url']
+
+            if attachmentName.startswith("static/"):
+                att = models.Attachment(book = book, 
+                                        status = stat)
+
+                f = open('%s/%s' % (zdirname, attachmentName) , 'rb')
+                att.attachment.save(file_name(attachmentName), File(f), save = False)
+
+                att.save()
+
+    # metadata
+
+#    for key, value in info['metadata'].items():
+#        info = models.Info(book = book, name=key)
+#
+#        if len(value) > 200:
+#            info.value_text = value
+#            info.kind = 2
+#        else:
+#            info.value_string = value
+#            info.kind = 0
+#
+#        info.save()
+
+    # delete temp files
+    import shutil
+    shutil.rmtree(zdirname)
+
+
+
+def importBookFromURL(user, bookURL, createTOC = False):
+    """ 
+    Imports book from the url. Creates project and book for it.
+    """
+
+    ## there is no error checking for now
+
+    logging.debug("Importing book %s", bookURL)
+
+    # download it
+    f = urllib2.urlopen(bookURL)
+    data = f.read()
+
+    (zfile, zname) = tempfile.mkstemp()
+    os.write(zfile, data)
+
+    importBookFromFile(user, zname)
+
     os.unlink(zname)
 
     return
