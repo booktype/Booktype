@@ -241,7 +241,7 @@ class Author(object):
         self.name = name
         self.email = email
 
-class ImportedChapter(TwikiChapter):
+class ImportedChapter(TWikiChapter):
     """Used for git import"""
     def __init__(self, lang, book, chapter_name, text, author, email, date, server=None,
                  use_cache=False, cache_dir=None):
