@@ -35,12 +35,41 @@
 {% endfor %}
 </ul>
 
+<br/>
+<br/>
+{% if is_member %}
+<form method="POST" action="remove/">
+ <button>REMOVE ME FROM THIS GROUP</button>
+</form>
+<br/><br/>
+
+<form method="POST" action="add_book/">
+<select name="book">
+{% for book in your_books %}
+   <option value="{{book.url_title}}">{{ book.url_title }}</option>
+{% endfor %}
+</select>
+<br/><br/>
+<button>ADD THIS BOOK TO GROUP</button>
+</form>
+ 
+{% else %}
+<form method="POST" action="join/">
+ <button>JOIN THIS GROUP</button>
+</form>
+
+{% endif %}
+
+
  </td>
  <td valign="top">
 <h2>Books</h2>
 <ul>
 {% for book in books %}
-   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a></li>
+   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a>
+&nbsp;&nbsp;(<a href="remove_book/?book={{ book.url_title }}">remove</a>)
+   </li>
+   
 {% endfor %}
 </ul>
 

@@ -21,7 +21,12 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('booki.account.urls')),                    
 
     # groups
-    url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/', 'booki.editor.views.view_group', name="view_group"),                    
+    url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/join/$', 'booki.editor.views.join_group'),                    
+    url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/remove/$', 'booki.editor.views.remove_group'),                    
+    url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', 'booki.editor.views.add_book'),                    
+    url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/remove_book/$', 'booki.editor.views.remove_book'),                    
+
+    url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.editor.views.view_group', name="view_group"),                    
 
     # temp temp temp                      
     url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.view_export', name='export_booki'), 

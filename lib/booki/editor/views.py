@@ -7,6 +7,9 @@ from django import forms
 
 from booki.editor import models
 
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+
+
 import logging
 
 # BOOK
@@ -122,11 +125,47 @@ def view_group(request, groupid):
     books = group.books.all()
     members = group.members.all()
 
+    isMember = request.user in members
+    yourBooks = models.Book.objects.filter(owner=request.user)
+
     return render_to_response('editor/view_group.html', {"request": request, 
                                                          "title": "Ovo je neki naslov",
                                                          "group": group,
                                                          "books": books,
-                                                         "members": members})
+                                                         "your_books": yourBooks,
+                                                         "members": members,
+                                                         "is_member": isMember})
+
+def join_group(request, groupid):
+    group = models.BookiGroup.objects.get(url_name=groupid)
+    group.members.add(request.user)
+
+    return HttpResponseRedirect("/groups/%s/" % group.url_name)
+
+
+def remove_group(request, groupid):
+    group = models.BookiGroup.objects.get(url_name=groupid)
+    group.members.remove(request.user)
+
+    return HttpResponseRedirect("/groups/%s/" % group.url_name)
+
+def add_book(request, groupid):
+    print "---------"
+    print request.POST["book"]
+    book = models.Book.objects.get(url_title=request.POST["book"])
+
+    group = models.BookiGroup.objects.get(url_name=groupid)
+    group.books.add(book)
+
+    return HttpResponseRedirect("/groups/%s/" % group.url_name)
+
+def remove_book(request, groupid):
+    book = models.Book.objects.get(url_title=request.GET["book"])
+
+    group = models.BookiGroup.objects.get(url_name=groupid)
+    group.books.remove(book)
+
+    return HttpResponseRedirect("/groups/%s/" % group.url_name)
 
 
 # UPLOAD ATTACHMENT

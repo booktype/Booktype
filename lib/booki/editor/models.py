@@ -103,6 +103,9 @@ class BookiGroup(models.Model):
 
     created = models.DateTimeField(_('created'), auto_now=False, null=True)
 
+    def __unicode__(self):
+        return self.name
+
 
 # Info
 
