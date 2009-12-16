@@ -28,11 +28,11 @@
  <td valign="top" style="padding-right: 30px">
 <ul>
 {% for chap in chapters %}
- {% if chap.url_title %}
+ {% ifnotequal chap.url_title  None%}
    <li> <a href="{% url view_chapter  book.url_title chap.url_title %}">{{ chap.name }}</a>  </li>
  {% else %}
    <li> <b>{{ chap.name }}</b></li>
- {% endif %}
+ {% endifnotequal %}
 {% endfor %}
 </ul>
  </td>
