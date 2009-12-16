@@ -47,7 +47,7 @@ def view_book(request, bookid):
 
     chapters = []
     for chapter in  models.BookToc.objects.filter(book=book).order_by("-weight"):
-        if chapter.chapter:
+        if chapter.typeof == 1:
             chapters.append({"url_title": chapter.chapter.url_title,
                              "name": chapter.chapter.title})
         else:
@@ -62,7 +62,7 @@ def view_chapter(request, bookid, chapter):
 
     chapters = []
     for chap in  models.BookToc.objects.filter(book=book).order_by("-weight"):
-        if chap.chapter:
+        if chap.typeof == 1:
             chapters.append({"url_title": chap.chapter.url_title,
                              "name": chap.chapter.title})
         else:
