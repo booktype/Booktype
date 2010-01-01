@@ -43,13 +43,13 @@ function unescapeHtml (val) {
 
 
 	function initUI() {
-	    element2.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 500px; height: 400px; border: 1px solid gray; padding: 5px"></div><input type="text" style="width: 500px;"/></form>').submit(function() { var s = $("INPUT", element2).val(); $("INPUT", element2).attr("value", "");
+	    element2.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 500px; height: 300px; border: 1px solid gray; padding: 5px"></div><input type="text" style="width: 500px;"/></form>').submit(function() { var s = $("INPUT", element2).val(); $("INPUT", element2).attr("value", "");
 																																	 showMessage($.booki.username, s);
   	    $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
 
 }));
 
-	    element.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 200px; height: 400px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 200px;"/></form>').submit(function() { var s = $("INPUT", element).val(); $("INPUT", element).attr("value", "");
+	    element.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 200px; height: 300px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 200px;"/></form>').submit(function() { var s = $("INPUT", element).val(); $("INPUT", element).attr("value", "");
 																																	 showMessage($.booki.username, s);
   	    $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
 
@@ -753,8 +753,8 @@ function unescapeHtml (val) {
 						   attachments = data.attachments;
 						   $.booki.editor.drawAttachments();
 						   
-						   $.each(data.users, function(i, elem) {
-						       $("#users").append(elem+"<br/>");
+						   $.each(data.onlineUsers, function(i, elem) {
+						       $("#users").append('<li class="user'+elem+'"><div style="width: 24px; height: 24px; float: left; background-color: black; margin-right: 5px;"></div><b>'+elem+'</b></li>');
 						   });
 
 					       });
@@ -766,6 +766,16 @@ function unescapeHtml (val) {
 		initEditor: function() {
 		    
 		    jQuery.booki.subscribeToChannel("/booki/book/"+$.booki.currentBookID+"/", function(message) {
+
+			if(message.command == "user_add") {
+			    $("#users").append('<li class="user'+message.username+'"><div style="width: 24px; height: 24px; float: left; background-color: black; margin-right: 5px;"></div><b>'+message.username+'</b></li>');
+			}
+
+			if(message.command == "user_remove") {
+			    $.booki.debug.debug("USER REMOVE");
+			    $.booki.debug.debug(message.username);
+			    $("#users .user"+message.username).css("background-color", "yellow").slideUp(1000, function() { $(this).remove(); });
+			}
 
 			// ERROR
 			// this does not work when you change chapter status very fast

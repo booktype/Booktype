@@ -32,10 +32,27 @@ def addClientToChannel(channelName, client):
 
     rcon.sadd("sputnik:channel:%s" % channelName, client)
 
-def removeClientFromChannel(channelName, client):
+def removeClientFromChannel(request, channelName, client):
     global rcon
 
-    return rcon.srem("sputnik:channel:%s" % channelName, client)
+    rcon.srem("sputnik:channel:%s" % channelName, client)
+
+    # get our username
+    userName = rcon.get("ses:%s:username" % client)
+
+    # get all usernames
+    users = rcon.smembers("sputnik:channel:%s:users" % channelName)
+
+    # get all clients
+    allClients = []
+    for cl in rcon.smembers("sputnik:channel:%s" % channelName):
+        allClients.append(rcon.get("ses:%s:username" % cl))
+
+    for usr in users:
+        if usr not in allClients:
+            rcon.srem("sputnik:channel:%s:users" % channelName, usr)
+            addMessageToChannel(request, channelName, {"command": "user_remove", "username": usr}, myself = True)
+
 
 def addMessageToChannel(request, channelName, message, myself = False ):
     global rcon
@@ -51,13 +68,14 @@ def addMessageToChannel(request, channelName, message, myself = False ):
 
         rcon.push( "ses:%s:messages" % c, simplejson.dumps(message), tail = True)
 
-def removeClient(clientName):
+def removeClient(request, clientName):
     global rcon
 
     for chnl in rcon.smembers("ses:%s:channels" % clientName):
-        removeClientFromChannel(chnl, clientName)
+        removeClientFromChannel(request, chnl, clientName)
         rcon.srem("ses:%s:channels" % clientName, chnl)
 
+    rcon.delete("ses:%s:username" % clientName)
     rcon.delete("ses:%s:last_access" % clientName)
 
     # TODO
@@ -100,6 +118,9 @@ def booki_main(request, message):
                 createChannel(chnl)
 
             addClientToChannel(chnl, request.sputnikID)
+
+        # set our username
+        rcon.set("ses:%s:username" % request.sputnikID, request.user.username)
 
         # set our last access
         rcon.set("ses:%s:last_access" % request.sputnikID, time.time())
@@ -211,8 +232,18 @@ def booki_book(request, message, bookid):
         ## get licenses
 
         licenses =  [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
+
+        ## get online users
+        onlineUsers = rcon.smembers("sputnik:channel:%s:users" % message["channel"])
+        
+        if request.user.username not in onlineUsers:
+            rcon.sadd("sputnik:channel:%s:users" % message["channel"], request.user.username)
+            onlineUsers.add(request.user.username)
+  
+            ## set notifications to other clients
+            addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "user_add", "username": request.user.username})
                 
-        return {"licenses": licenses, "chapters": chapters, "metadata": metadata, "hold": holdChapters, "users": users, "statuses": statuses, "attachments": attachments}
+        return {"licenses": licenses, "chapters": chapters, "metadata": metadata, "hold": holdChapters, "users": users, "statuses": statuses, "attachments": attachments, "onlineUsers": list(onlineUsers)}
 
     ## attachments list
     if message["command"] == "attachments_list":
@@ -418,13 +449,6 @@ def booki_book(request, message, bookid):
                                  created = datetime.datetime.now(),
                                  modified = datetime.datetime.now())
         chapter.save()
-
-#        c = models.BookToc(book = book,
-#                           name = message["chapter"],
-#                           chapter = chapter,
-#                           weight = 0,
-#                           typeof=1)
-#        c.save()
 
         result = (chapter.id, chapter.title, chapter.url_title, 1, s.id)
 

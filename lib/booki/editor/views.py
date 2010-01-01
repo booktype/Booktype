@@ -251,9 +251,9 @@ def dispatcher(request):
     _now = time.time() 
     for k in r.keys("ses:*:last_access"):
         tm = r.get(k)
-
+        print k,  decimal.Decimal("%f" % _now) - tm 
         if  decimal.Decimal("%f" % _now) - tm > 60*2:
-            sputnik.removeClient(k[4:-12])
+            sputnik.removeClient(request, k[4:-12])
 
     ret = {"result": True, "messages": results}
 
