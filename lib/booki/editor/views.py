@@ -103,6 +103,47 @@ def thumbnail_attachment(request, bookid, attachment):
 
 
 
+# debug
+
+def debug_redis(request):
+    r = redis.Redis()
+    r.connect()
+
+    client_id = r.get("sputnik:client_id")
+    sputnikchannels = r.smembers("sputnik:channels")
+
+    chnl = {}
+    for ch in r.keys("sputnik:channel:*:channel"):
+        chnl[ch] = r.smembers(ch)
+
+    usrs = {}
+    for ch in r.keys("sputnik:channel:*:users"):
+        usrs[ch] = r.smembers(ch)
+
+
+    allValues = {}
+
+    import time, decimal
+
+    _now = time.time()
+
+    for ses in [k[4:-9] for k in  r.keys("ses:*:username")]:
+        allValues[ses]  = {
+            "channels": r.smembers("ses:%s:channels" % ses),
+            "last_access": r.get("ses:%s:last_access" % ses),
+            "access_since": decimal.Decimal("%f" % _now) - r.get("ses:%s:last_access" % ses),
+            "username": r.get("ses:%s:username" % ses)
+            }
+
+    return render_to_response('editor/debug_redis.html', {"request": request, 
+                                                          "client_id": client_id,
+                                                          "sputnikchannels": sputnikchannels,
+                                                          "channel": chnl.items(),
+                                                          "users": usrs.items(),
+                                                          "sessions": allValues.items()
+                                                          })
+
+
 #def view_editor(request, bookid):
 #    return render_to_response('editor/view_editor.html', {"bookid": bookid})
 

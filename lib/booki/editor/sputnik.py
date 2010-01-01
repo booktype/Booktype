@@ -30,12 +30,12 @@ def addClientToChannel(channelName, client):
 
     rcon.sadd("ses:%s:channels" % client, channelName)
 
-    rcon.sadd("sputnik:channel:%s" % channelName, client)
+    rcon.sadd("sputnik:channel:%s:channel" % channelName, client)
 
 def removeClientFromChannel(request, channelName, client):
     global rcon
 
-    rcon.srem("sputnik:channel:%s" % channelName, client)
+    rcon.srem("sputnik:channel:%s:channel" % channelName, client)
 
     # get our username
     userName = rcon.get("ses:%s:username" % client)
@@ -45,7 +45,7 @@ def removeClientFromChannel(request, channelName, client):
 
     # get all clients
     allClients = []
-    for cl in rcon.smembers("sputnik:channel:%s" % channelName):
+    for cl in rcon.smembers("sputnik:channel:%s:channel" % channelName):
         allClients.append(rcon.get("ses:%s:username" % cl))
 
     for usr in users:
@@ -57,7 +57,7 @@ def removeClientFromChannel(request, channelName, client):
 def addMessageToChannel(request, channelName, message, myself = False ):
     global rcon
 
-    clnts = rcon.smembers("sputnik:channel:%s" % channelName)
+    clnts = rcon.smembers("sputnik:channel:%s:channel" % channelName)
 
     message["channel"] = channelName
     message["clientID"] = request.clientID
@@ -213,7 +213,7 @@ def booki_book(request, message, bookid):
                 return "<b>%s</b>" % a
             return a
 
-        users = [vidi(m) for m in list(rcon.smembers("sputnik:channel:%s" % message["channel"]))]
+        users = [vidi(m) for m in list(rcon.smembers("sputnik:channel:%s:channel" % message["channel"]))]
 
         ## get workflow statuses
 
@@ -335,7 +335,7 @@ def booki_book(request, message, bookid):
                 return "!%s!" % a
             return a
 
-        res["users"] = [vidi(m) for m in list(rcon.smembers("sputnik:channel:%s" % message["channel"]))]
+        res["users"] = [vidi(m) for m in list(rcon.smembers("sputnik:channel:%s:channel" % message["channel"]))]
         return res 
 
     ## get_chapter

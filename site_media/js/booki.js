@@ -83,12 +83,13 @@ $(function() {
 		    connect: function() {
 			_isInitialized = true;
 			
-			var channels = new Array();
-			
+			var channels = []; //new Array();
+
 			for(var key in this._subscribedChannels) {
-			    channels.push(key);
+			    if(key != "isArray" && key != "contains" && key != "append")
+				channels.push(key);
 			}
-			
+
 			_messages = $.merge([{"channel": "/booki/",
 					      "command": "connect",
 					      "uid": _uid,

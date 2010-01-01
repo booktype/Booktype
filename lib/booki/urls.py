@@ -17,6 +17,9 @@ urlpatterns = patterns('',
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
             {'document_root': settings.STATIC_DOC_ROOT}),
 
+    # debug
+    (r'^debug/redis/$', 'booki.editor.views.debug_redis'),                       
+
     # user accounts                     
     url(r'^accounts/', include('booki.account.urls')),                    
 
