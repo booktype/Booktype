@@ -150,8 +150,6 @@ def remove_group(request, groupid):
     return HttpResponseRedirect("/groups/%s/" % group.url_name)
 
 def add_book(request, groupid):
-    print "---------"
-    print request.POST["book"]
     book = models.Book.objects.get(url_title=request.POST["book"])
 
     group = models.BookiGroup.objects.get(url_name=groupid)
@@ -251,7 +249,7 @@ def dispatcher(request):
     _now = time.time() 
     for k in r.keys("ses:*:last_access"):
         tm = r.get(k)
-        print k,  decimal.Decimal("%f" % _now) - tm 
+
         if  decimal.Decimal("%f" % _now) - tm > 60*2:
             sputnik.removeClient(request, k[4:-12])
 
