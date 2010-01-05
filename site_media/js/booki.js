@@ -47,7 +47,7 @@ $(function() {
   		    },
 
 		    sendToCurrentBook: function(message, callback, errback) {
-			return $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", message, callback, errback);
+			return $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", message, callback, errback);
 		    },
 		    
 		    unsubscribeFromChannel: function(channelName, someID) {
@@ -83,12 +83,13 @@ $(function() {
 		    connect: function() {
 			_isInitialized = true;
 			
-			var channels = new Array();
-			
+			var channels = []; //new Array();
+
 			for(var key in this._subscribedChannels) {
-			    channels.push(key);
+			    if(key != "isArray" && key != "contains" && key != "append")
+				channels.push(key);
 			}
-			
+
 			_messages = $.merge([{"channel": "/booki/",
 					      "command": "connect",
 					      "uid": _uid,

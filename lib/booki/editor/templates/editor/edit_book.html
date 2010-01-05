@@ -13,8 +13,10 @@
             /* this is temporary here */
 
            $.booki.username = "{{request.user.username}}";
+	    /*
            $.booki.currentProjectID = {{project.id}};
            $.booki.currentProject = "{{project.name}}";
+            */
            $.booki.currentBookID  = {{book.id}};
            $.booki.currentBook    = "{{book.title}}";
 
@@ -54,7 +56,7 @@
 				'Create chapter': function() {
 				    $.booki.ui.notify("Creating chapter");
 				    
-				    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
+				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
 					$.booki.ui.notify();
 				    });
 
@@ -84,7 +86,7 @@
 				'Create section': function() {
 				    $.booki.ui.notify("Creating section");
 			
-				    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
+				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
 					$.booki.ui.notify();
 				    });
 
@@ -190,7 +192,7 @@ some notification. this should be on top of visible page and not top of page.
 <input type="text" size="20"> <button>Search</button>
 </form>
 </div>
-<h1 style="margin-top: 0px"> <a href="/{{ project.url_name }}/{{ book.url_title }}/">{{ book }}</a> </h1>
+<h1 style="margin-top: 0px"> <a href="/{{ book.url_title }}/">{{ book }}</a> </h1>
 </div>
 
 <div id="tabs">
@@ -330,9 +332,9 @@ some notification. this should be on top of visible page and not top of page.
 <div id="chat">
 </div>
 
-<h4>Active sessions (debug)</h4>
- <div id="users">
- </div>
+<h4>Online</h4>
+ <ul id="users">
+ </ul>
 <!--
                 <div id="accordion">
                         <div>                                <h3><a href="#">Info</a></h3>
@@ -417,7 +419,28 @@ some notification. this should be on top of visible page and not top of page.
           <p></p>
 
           <form method="" action="" onsubmit="return false">
-            <button>Publish this book</button>
+	    <table border="0">
+	      <tr>
+		<td>Document type:</td>
+		<td>
+		  <select id="mode" name="mode"><option value="book">book (PDF)</option> 
+		  <option value="epub">epub</option> 
+		  <option value="newspaper">newspaper (PDF)</option> 
+		  <option value="openoffice">openoffice</option> 
+		  <option value="web">web (PDF)</option></select> 
+		</td>
+	      </tr>
+	      <tr>
+		<td colspan="2"><input type="checkbox" checked="yes" name="archiveorg"> send to archive.org</td>
+	      </tr>
+	      <tr>
+		<td colspan="2"><br/></td>
+	      </tr>
+	      <tr>
+		<td colspan="2">
+		  <button>Publish this book</button>
+		</td>
+	      </tr>
           </form>
           <div class="info">
 

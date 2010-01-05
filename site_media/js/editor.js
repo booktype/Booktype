@@ -43,15 +43,15 @@ function unescapeHtml (val) {
 
 
 	function initUI() {
-	    element2.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 500px; height: 400px; border: 1px solid gray; padding: 5px"></div><input type="text" style="width: 500px;"/></form>').submit(function() { var s = $("INPUT", element2).val(); $("INPUT", element2).attr("value", "");
+	    element2.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 500px; height: 300px; border: 1px solid gray; padding: 5px"></div><input type="text" style="width: 500px;"/></form>').submit(function() { var s = $("INPUT", element2).val(); $("INPUT", element2).attr("value", "");
 																																	 showMessage($.booki.username, s);
-  	    $.booki.sendToChannel("/chat/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
+  	    $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
 
 }));
 
-	    element.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 200px; height: 400px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 200px;"/></form>').submit(function() { var s = $("INPUT", element).val(); $("INPUT", element).attr("value", "");
+	    element.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 200px; height: 300px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 200px;"/></form>').submit(function() { var s = $("INPUT", element).val(); $("INPUT", element).attr("value", "");
 																																	 showMessage($.booki.username, s);
-  	    $.booki.sendToChannel("/chat/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
+  	    $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
 
 }));
 	}
@@ -63,7 +63,7 @@ function unescapeHtml (val) {
 		element2 = elem2;
 		initUI();
 
-		jQuery.booki.subscribeToChannel("/chat/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", function(message) {
+		jQuery.booki.subscribeToChannel("/chat/"+$.booki.currentBookID+"/", function(message) {
 		    if(message.command == "user_joined") {
 			showJoined(message.user_joined);
 		    }
@@ -304,7 +304,7 @@ function unescapeHtml (val) {
 
 		editChapter: function(chapterID) {
 		    $.booki.ui.notify("Loading chapter data...");
-		    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/",
+		    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/",
 					  {"command": "get_chapter", "chapterID": chapterID}, function(data) {
 					      $.booki.ui.notify();
 					      $("#container").fadeOut("slow", function() {
@@ -508,9 +508,22 @@ function unescapeHtml (val) {
 		    $.booki.chat.initChat($("#chat"), $("#chat2"));
 
                     $("#tabpublish BUTTON").click(function() {
-			$("#tabpublish .info").html('<div style="padding-top: 20px; padding-bottom: 20px;">"'+$.booki.currentBook+'" is being sent to Objavi (the publishing engine for Booki), converted to an .epub, and uploaded to Archive.org.</div>');
-			$("#tabpublish BUTTON").attr("disabled", "disabled");
+			var isArchive = $("#tabpublish FORM INPUT[type='checkbox']").is(":checked");
+			var publishMode = $("#tabpublish OPTION:selected").val();
 
+			var messageFormat = {"epub": "epub",
+			    "book": "book formated pdf",
+			    "openoffice": "Open Office text file",
+			    "newspaper": "newspaper formatted pdf",
+			    "web": "screen formatted pdf"};
+			
+			var message = "Your books is being sent to Objavi (Booki's publishing engine), converted to "+messageFormat[publishMode];
+			if(isArchive)
+			    message += " and being uploaded to Archive.org";
+			message += ".";
+			
+			$("#tabpublish .info").html('<div style="padding-top: 20px; padding-bottom: 20px;">'+message+'</div>');
+			$("#tabpublish BUTTON").attr("disabled", "disabled");
 			$("#tabpublish .info").append('<div id="progressbar" style="width: 400px;"></div>');
 
 			var currentProgress = 0;
@@ -532,13 +545,31 @@ function unescapeHtml (val) {
 
 			_incrementProgress();
 			
-                        $.booki.sendToCurrentBook({"command": "publish_book"},
+
+                        $.booki.sendToCurrentBook({"command": "publish_book",
+						   "is_archive": isArchive,
+						   "publish_mode": publishMode},
+						  
                                                   function(data) {
+						      var message = "";
+
                                                       currentProgress = -1;
+
+						      if(isArchive) {
+							  var messageFormat = {"epub": "epub",
+							      "book": "book formated pdf",
+							      "openoffice": "Open Office text file",
+							      "newspaper": "newspaper formatted pdf",
+							      "web": "screen formatted pdf"};
+							  
+						      
+							  message = "Your "+messageFormat[publishMode]+" has been sent to Archive.org. It will appear at the following URL in a few minutes: ";
+						      }
+						      
                                                       $("#tabpublish BUTTON").removeAttr("disabled");
 
                                                       $("#tabpublish .info").html('<div style="padding-top: 20px; padding-bottom: 10px"><a href="'+data.dta+'" target="_new">'+data.dta+'</a></div>');
-                                                      $("#tabpublish .info").append('<p>Your epub has been sent to Archive.org. It will appear at the following URL in a few minutes.</p>');
+                                                      $("#tabpublish .info").append('<p>'+message+'</p>');
                                                       $("#tabpublish .info").append('<p><a href="'+data.dtas3+'" target="_new">'+data.dtas3+'</a></p>');
 
                                                      $.booki.debug.debug(data.dtaall);
@@ -722,8 +753,8 @@ function unescapeHtml (val) {
 						   attachments = data.attachments;
 						   $.booki.editor.drawAttachments();
 						   
-						   $.each(data.users, function(i, elem) {
-						       $("#users").append(elem+"<br/>");
+						   $.each(data.onlineUsers, function(i, elem) {
+						       $("#users").append('<li class="user'+elem+'"><div style="width: 24px; height: 24px; float: left; background-color: black; margin-right: 5px;"></div><b>'+elem+'</b></li>');
 						   });
 
 					       });
@@ -734,7 +765,17 @@ function unescapeHtml (val) {
 		
 		initEditor: function() {
 		    
-		    jQuery.booki.subscribeToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", function(message) {
+		    jQuery.booki.subscribeToChannel("/booki/book/"+$.booki.currentBookID+"/", function(message) {
+
+			if(message.command == "user_add") {
+			    $("#users").append('<li class="user'+message.username+'"><div style="width: 24px; height: 24px; float: left; background-color: black; margin-right: 5px;"></div><b>'+message.username+'</b></li>');
+			}
+
+			if(message.command == "user_remove") {
+			    $.booki.debug.debug("USER REMOVE");
+			    $.booki.debug.debug(message.username);
+			    $("#users .user"+message.username).css("background-color", "yellow").slideUp(1000, function() { $(this).remove(); });
+			}
 
 			// ERROR
 			// this does not work when you change chapter status very fast
