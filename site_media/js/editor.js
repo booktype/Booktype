@@ -767,120 +767,126 @@ function unescapeHtml (val) {
 		    
 		    jQuery.booki.subscribeToChannel("/booki/book/"+$.booki.currentBookID+"/", function(message) {
 
-			if(message.command == "user_add") {
-			    $("#users").append('<li class="user'+message.username+'"><div style="width: 24px; height: 24px; float: left; background-color: black; margin-right: 5px;"></div><b>'+message.username+'</b></li>');
-			}
+			var funcs = {
+			    "user_add": function() {
+				$("#users").append('<li class="user'+message.username+'"><div style="width: 24px; height: 24px; float: left; background-color: black; margin-right: 5px;"></div><b>'+message.username+'</b></li>');
+			    },
 
-			if(message.command == "user_remove") {
-			    $.booki.debug.debug("USER REMOVE");
-			    $.booki.debug.debug(message.username);
-			    $("#users .user"+message.username).css("background-color", "yellow").slideUp(1000, function() { $(this).remove(); });
-			}
+			    "user_remove": function() {
+				$.booki.debug.debug("USER REMOVE");
+				$.booki.debug.debug(message.username);
+				$("#users .user"+message.username).css("background-color", "yellow").slideUp(1000, function() { $(this).remove(); });
+			    },
 
 			// ERROR
 			// this does not work when you change chapter status very fast
-			if(message.command == "chapter_status") {
-			    if(message.status == "rename" || message.status == "edit") {
-				// $("#item_"+message.chapterID).css("color", "red");
-				$(".extra", $("#item_"+message.chapterID)).html('<div style="padding: 3px; background-color: red; color: white">'+message.username+'</div>');
-			    }
+			    "chapter_status": function() {
+				if(message.status == "rename" || message.status == "edit") {
+				    // $("#item_"+message.chapterID).css("color", "red");
+				    $(".extra", $("#item_"+message.chapterID)).html('<div style="padding: 3px; background-color: red; color: white">'+message.username+'</div>');
+				}
 			    
-			    if(message.status == "normal") {
-				//$("#item_"+message.chapterID).css("color", "gray");
-				$(".extra", $("#item_"+message.chapterID)).html("");          
-			    }
-			}
+				if(message.status == "normal") {
+				    //$("#item_"+message.chapterID).css("color", "gray");
+				    $(".extra", $("#item_"+message.chapterID)).html("");          
+				}
+			    },
 			
-			if(message.command == "chapters_changed") {
-			    if(message.kind == "remove") {
-
-				var itm = toc.getItemById(message.chapter_id);
-
-				if((""+message.chapter_id).substring(0,1) != 's')
-				    holdChapters.addItem(itm);
-
-				toc.delItemById(message.chapter_id);
-
-				toc.update(message.ids);
-				holdChapters.update(message.hold_ids);
-
-				toc.draw();
-				holdChapters.draw();
-
-				$.booki.ui.info("#container .middleinfo", "Removing chapter from Table of Contents.");
-			    } else {
-				if(message.kind == "add") {
-				    var itm = holdChapters.getItemById(message.chapter_id);
-				    toc.addItem(itm);
-				    holdChapters.delItemById(message.chapter_id);
-
+			    "chapters_changed": function() {
+				if(message.kind == "remove") {
+				    
+				    var itm = toc.getItemById(message.chapter_id);
+				    
+				    if((""+message.chapter_id).substring(0,1) != 's')
+					holdChapters.addItem(itm);
+				    
+				    toc.delItemById(message.chapter_id);
+				    
 				    toc.update(message.ids);
 				    holdChapters.update(message.hold_ids);
-
+				    
 				    toc.draw();
 				    holdChapters.draw();
-
-				    $.booki.ui.info("#container .middleinfo", "Adding chapter to Table of Contents.");
+				    
+				    $.booki.ui.info("#container .middleinfo", "Removing chapter from Table of Contents.");
 				} else {
-				    $.booki.ui.info("#container .middleinfo", "Reordering the chapters...");
-
-				    toc.update(message.ids);
-				    holdChapters.update(message.hold_ids);
-				    toc.redraw();
-				    holdChapters.redraw();
+				    if(message.kind == "add") {
+					var itm = holdChapters.getItemById(message.chapter_id);
+					toc.addItem(itm);
+					holdChapters.delItemById(message.chapter_id);
+					
+					toc.update(message.ids);
+					holdChapters.update(message.hold_ids);
+					
+					toc.draw();
+					holdChapters.draw();
+					
+					$.booki.ui.info("#container .middleinfo", "Adding chapter to Table of Contents.");
+				    } else {
+					$.booki.ui.info("#container .middleinfo", "Reordering the chapters...");
+					
+					toc.update(message.ids);
+					holdChapters.update(message.hold_ids);
+					toc.redraw();
+					holdChapters.redraw();
+				    }
 				}
-			    }
-			}
-			
-                        if(message.command == "chapter_create") {
-			    // this also only works for the TOC
-			    if(message.chapter[3] == 1) { 
-				holdChapters.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: true, status: message.chapter[4]}));
-				var v = holdChapters.getItemById(message.chapter[0]);
-				makeChapterLine(v.id, v.title, getStatusDescription(v.status)).appendTo("#holdchapterslist");
-			    } else {
-				toc.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: false}));
-				var v = toc.getItemById(message.chapter[0]);
-				makeSectionLine(v.id, v.title).appendTo("#chapterslist");
-			    }
-			}
-
-			if(message.command == "chapter_rename") {
-			    $.booki.debug.debug("[chapter_rename]");
-			    var item = toc.getItemById(message.chapterID);
-			    if(!item)
-				item = holdChapters.getItemById(message.chapterID);
-			    item.title = message.chapter;
-			    toc.refresh();
-			    holdChapters.refresh();
-			}
-			
-			if(message.command == "chapters_list") {
-			    $("#chapterslist").empty();
-			    $.each(message.chapters, function(i, elem) {
-				// should be makeSectionLine also
-				makeChapterLine(elem[0], elem[1], 0).prependTo("#chapterslist");
-			    });
-			}
-
-			if(message.command == "chapter_split") {
-			    toc.items = new Array();
-			    holdChapters.items = new Array();
-
-			    $.each(message.chapters, function(i, elem) {
-				toc.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1, status: elem[4]}));
-			    });
+			    },
 			    
-			    $.each(message.hold, function(i, elem) {
-				holdChapters.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1, status: elem[4]}));
-			    });
+                            "chapter_create": function() {
+				// this also only works for the TOC
+				if(message.chapter[3] == 1) { 
+				    holdChapters.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: true, status: message.chapter[4]}));
+				    var v = holdChapters.getItemById(message.chapter[0]);
+				    makeChapterLine(v.id, v.title, getStatusDescription(v.status)).appendTo("#holdchapterslist");
+				} else {
+				    toc.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: false}));
+				    var v = toc.getItemById(message.chapter[0]);
+				    makeSectionLine(v.id, v.title).appendTo("#chapterslist");
+				}
+			    },
 
+			    "chapter_rename": function() {
+				$.booki.debug.debug("[chapter_rename]");
+				var item = toc.getItemById(message.chapterID);
+				if(!item)
+				    item = holdChapters.getItemById(message.chapterID);
+				item.title = message.chapter;
+				toc.refresh();
+				holdChapters.refresh();
+			    },
 			    
+			    "chapters_list": function() {
+				$("#chapterslist").empty();
+				$.each(message.chapters, function(i, elem) {
+				    // should be makeSectionLine also
+				    makeChapterLine(elem[0], elem[1], 0).prependTo("#chapterslist");
+				});
+			    },
+			    
+			    "chapter_split": function()  {
+				toc.items = new Array();
+				holdChapters.items = new Array();
+				
+				$.each(message.chapters, function(i, elem) {
+				    toc.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1, status: elem[4]}));
+				});
+				
+				$.each(message.hold, function(i, elem) {
+				    holdChapters.addItem(createChapter({id: elem[0], title: elem[1], isChapter: elem[3] == 1, status: elem[4]}));
+				});
+				
+				
+				
+				toc.draw();
+				holdChapters.draw();
+			    }
+			};
 
-			    toc.draw();
-			    holdChapters.draw();
+			if(funcs[message.command]) {
+			    funcs[message.command]();
 			}
-			
+
 		    });
 		    
 		    
