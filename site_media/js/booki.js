@@ -64,9 +64,8 @@ $(function() {
 	    var _isInitialized = false;
 	    var _messages = null;
 	    var _uid = 1;
-	    var options = {
-
-
+	    var options = {'poll': true,
+		'iteration': 5000
 	    };
 	    
 	    function Sputnik() {
@@ -116,6 +115,8 @@ $(function() {
 		    },
 		    
 		    interval: function() {
+			if(!options['poll']) return;
+
 			/* should be setTimeout and not setInterval */
 			var a = this;
 			
@@ -132,7 +133,7 @@ $(function() {
 				} 
 				
 				_lastAccess = d;
-			    }, 5000);
+			    }, options['iteration']);
 		    },
 		    
 		    receiveMessage: function(message, result) {
