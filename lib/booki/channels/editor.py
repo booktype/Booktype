@@ -97,7 +97,7 @@ def remote_init_editor(request, message, bookid):
         onlineUsers.add(request.user.username)
   
         ## set notifications to other clients
-        addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "user_add", "username": request.user.username})
+        sputnik.addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "user_add", "username": request.user.username})
                 
     return {"licenses": licenses, 
             "chapters": chapters, 

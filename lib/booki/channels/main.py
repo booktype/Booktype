@@ -31,7 +31,7 @@ def remote_connect(request, message):
         if not sputnik.hasChannel(chnl):
             sputnik.createChannel(chnl)
 
-    sputnik.addClientToChannel(chnl, request.sputnikID)
+        sputnik.addClientToChannel(chnl, request.sputnikID)
 
     # set our username
     sputnik.rcon.set("ses:%s:username" % request.sputnikID, request.user.username)
