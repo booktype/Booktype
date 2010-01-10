@@ -31,14 +31,18 @@ urlpatterns = patterns('',
 
     url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.editor.views.view_group', name="view_group"),                    
 
-    # temp temp temp                      
+    # export
     url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.view_export', name='export_booki'), 
                        
-
-    # the rest interface                   
-    # NOTICE. this should change                      
-    url(r'^api/$', 'booki.editor.views.dispatcher'),                     
-
+    # sputnik dispatcher                       
+    url(r'^sputnik/$', 'sputnik.views.dispatcher', {
+            "map": (  
+                (r'^/booki/$',                      'booki.channels.main'),
+                (r'^/booki/book/(?P<bookid>\d+)/$', 'booki.channels.editor'),
+                (r'^/chat/(?P<bookid>\d+)/$',       'booki.channels.chat')
+                )
+            }),                     
+                       
     # reader
     url(r'^(?P<bookid>[\w\s\_\.\-]+)/', include('booki.editor.urls')),
 )

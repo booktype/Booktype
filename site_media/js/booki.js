@@ -64,6 +64,10 @@ $(function() {
 	    var _isInitialized = false;
 	    var _messages = null;
 	    var _uid = 1;
+	    var options = {
+
+
+	    };
 	    
 	    function Sputnik() {
 		this.init();
@@ -76,16 +80,23 @@ $(function() {
 			_messages = new Array();
 			_results  = new Array();
 			this._subscribedChannels = new Array();
-			
-			this.interval();
 		    },
 		    
-		    connect: function() {
-			_isInitialized = true;
+		    connect: function(_options) {
+			if(_options) {
+			    jQuery.extend(options, _options);
+			}
 			
-			var channels = []; //new Array();
+			if(!_isInitialized) {
+			    this.interval();
+
+			    _isInitialized = true;
+			}
+			
+			var channels = new Array(); 
 
 			for(var key in this._subscribedChannels) {
+			    // this sux
 			    if(key != "isArray" && key != "contains" && key != "append")
 				channels.push(key);
 			}
@@ -96,8 +107,8 @@ $(function() {
 					      "channels": channels}], 
 			    _messages);
 			_results[_uid] = [function(result) {
-				$.booki.clientID = result.clientID;
-			    }, null];
+			    $.booki.clientID = result.clientID;
+			}, null];
 			
 			_uid += 1;
 			
@@ -166,10 +177,10 @@ $(function() {
 
 			
 			/*
-			  what in case of errors?!
+			  what to do in case of errors?!
 			*/
                         var a = this;
-                        $.post("/api/", {"clientID": $.booki.clientID, "messages": msgs  }, function(data, textStatus) {
+                        $.post("/sputnik/", {"clientID": $.booki.clientID, "messages": msgs  }, function(data, textStatus) {
 				$.each(data.messages, function(i, msg) {
 					a.receiveMessage(msg, data.result);
 				    });
