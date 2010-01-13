@@ -2,6 +2,13 @@
 
 {% block header %}
 <link type="text/css" href="/site_media/css/editor.css" rel="Stylesheet" />
+
+<script type="text/javascript">
+    $(function() {
+	// we have to be very carefull when it comes to session timeout on server side !
+        jQuery.booki.network._transport.connect({'poll': false, 'iteration': 1000});
+    });
+</script>
 {% endblock %}
 
 

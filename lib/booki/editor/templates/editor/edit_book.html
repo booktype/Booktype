@@ -195,6 +195,7 @@ some notification. this should be on top of visible page and not top of page.
 	<ul>
 		<li><a href="#tabchapters">Chapters</a></li>
 		<li><a href="#tabattachments">Attachments</a></li>
+		<li><a href="#tabhistory">History</a></li>
 		<li><a href="#tabinfo">Info</a></li>
 <!--		<li><a href="#tabbigchat">Chat</a></li>  -->
 		<li><a href="#tabpublish">Publish</a></li>
@@ -224,8 +225,7 @@ some notification. this should be on top of visible page and not top of page.
 </div>
 
 <div id="newchapter" title="New chapter">
-<!--  <p id="validateTips">Enter new chapter name.</p> -->
-  
+<!--  <p id="validateTips">Enter new chapter name.</p> -->  
   <form onsubmit="javascript:return false">
     <fieldset>
       <input type="text" class="text ui-widget-content ui-corner-all">
@@ -235,7 +235,6 @@ some notification. this should be on top of visible page and not top of page.
 
 <div id="newsection" title="New section">
 <!--  <p id="validateTips">Enter new section name.</p> -->
-  
   <form onsubmit="return false">
     <fieldset>
       <input type="text" class="text ui-widget-content ui-corner-all">
@@ -298,6 +297,13 @@ some notification. this should be on top of visible page and not top of page.
 <textarea name="myTextArea" id="myTextArea" style="width: 500px; height: 600px">
   
 </textarea>
+<div style="clear: left; margin-top: 5px">
+ <input type="checkbox" name="minor">Minor change, don't notify.
+</div>
+<div style="clear: left; margin-top: 5px">
+<input type="text" name="comment" style="width: 500px;">
+</div>
+
 </form>
 
 </div>
@@ -376,6 +382,26 @@ some notification. this should be on top of visible page and not top of page.
 </table>
 	</div>
 
+<div id="tabhistory">
+<!-- <h2>History</h2> -->
+
+<table border="0">
+<tr>
+<td width="100%" class="cont">
+
+
+</td>
+<td width="20"></td>
+<td valign="top">
+<h4>History</h4> 
+<ul>
+<li>Book</li>
+</ul>
+</td>
+</tr>
+</table>
+
+</div>
 
 <!--
 <div id="tabbigchat">

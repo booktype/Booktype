@@ -32,24 +32,6 @@ STATUS_CHOICES = (
 )
 
 
-## Project
-
-#class Project(models.Model):
-#    url_name = models.CharField(_('url_name'), max_length=2500, blank=False)
-#    name = models.CharField(_('name'), max_length=2500, blank=False)
-#    status = models.IntegerField(_('status'), choices=STATUS_CHOICES) # change this
-#    created = models.DateTimeField(_('created'), auto_now=True)
-
-    # put modified or published field also
-#
-#    def __unicode__(self):
-#        return self.name
-#
-#    class Meta:
-#        verbose_name = _('Project')
-#        verbose_name_plural = _('Projects')
-
-
 # Book Status
 
 class BookStatus(models.Model):
@@ -82,12 +64,39 @@ class Book(models.Model):
     created = models.DateTimeField(_('created'), auto_now=True)
     published = models.DateTimeField(_('published'), null=True)
 
+    def get_absolute_url(self):
+        return '/%s/' % self.url_title
+
     def __unicode__(self):
         return self.title
 
     class Meta:
         verbose_name = _('Book')
         verbose_name_plural = _('Books')
+
+# BookHistory
+
+
+HISTORY_CHOICES = {'unknown': 0,
+
+                   'chapter_create': 1,
+                   'chapter_save': 2,
+                   'chapter_rename': 3
+
+}
+
+class BookHistory(models.Model):
+    book = models.ForeignKey(Book, null=False)
+    chapter = models.ForeignKey('Chapter', null=True)
+    chapter_history = models.ForeignKey('ChapterHistory', null=True)
+    modified = models.DateTimeField(_('modified'), auto_now=True)
+    description = models.CharField(_('description'), max_length=2500, blank=False)
+    user = models.ForeignKey(auth_models.User)
+    kind = models.SmallIntegerField(_('kind'), default=0)
+
+    def __unicode__(self):
+        return self.description
+    
 
 # BookiGroup
 
@@ -162,12 +171,32 @@ class Chapter(models.Model):
     # missing licence here
     content = models.TextField()
 
+    def get_absolute_url(self):
+        return '/%s/%s/' % (self.book.url_title, self.url_title)
+
+
     def __unicode__(self):
         return self.title
 
     class Meta:
         verbose_name = _('Chapter')
         verbose_name_plural = _('Chapters')
+
+# ChapterHistory
+
+class ChapterHistory(models.Model):
+    chapter = models.ForeignKey(Chapter, null=False)
+    content = models.TextField()
+    modified = models.DateTimeField(_('modified'), null=False, auto_now=True)
+    user = models.ForeignKey(auth_models.User)
+    comment = models.CharField(_('comment'), max_length=2500, blank=True)
+
+    def __unicode__(self):
+        return self.comment
+
+    class Meta:
+        verbose_name = _('Chapter history')
+        verbose_name_plural = ('Chapters history')
 
 
 # Attachment
@@ -183,9 +212,7 @@ def uploadAttachmentTo(att, filename):
 class AttachmentFile(models.FileField):
     def get_directory_name(self):
         # relativni path
-        print "##################################################################"
         name = super(models.FileField, self).get_directory_name()
-        print name
         return name
         
 

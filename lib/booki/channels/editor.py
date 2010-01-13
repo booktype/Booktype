@@ -126,7 +126,27 @@ def remote_chapter_status(request, message, bookid):
 
 
 def remote_chapter_save(request, message, bookid):
+    # minor
+    # comment
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
+
+    if message.get("minor", False) != True:
+        history = models.ChapterHistory(chapter = chapter,
+                                        content = chapter.content,
+                                        user = request.user,
+                                        comment = message.get("comment", ""))
+        history.save()
+
+        from booki.editor import common
+
+        common.logBookHistory(book = chapter.book,
+                              chapter = chapter,
+                              chapter_history = history,
+                              user = request.user,
+                              description = u'Saved chapter. '+message.get("comment", ""),
+                              kind = 'chapter_save')
+        
+
     chapter.content = message["content"];
     chapter.save()
     
@@ -414,4 +434,18 @@ def remote_create_section(request, message, bookid):
                                 myself = True)
     
     return {}
+
+
+def remote_get_history(request, message, bookid):
+    import datetime
+
+    book = models.Book.objects.get(id=bookid)
+
+    book_history = models.BookHistory.objects.filter(book=book).order_by("-modified")
+
+    history = []
+    for entry in book_history:
+        history.append({"modified": entry.modified.isoformat(), "description": entry.description, "user": entry.user.username, "kind": entry.kind})
+
+    return {"history": history}
 

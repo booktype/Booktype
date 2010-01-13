@@ -74,6 +74,18 @@ def createBook(user, bookTitle, status = "imported"):
     
     return book
 
+# logBookHistory
+
+def logBookHistory(book = None, chapter = None, chapter_history = None, description = "", user=None, kind = 'unknown'):
+    history = models.BookHistory(book = book,
+                                 chapter = chapter,
+                                 chapter_history = chapter_history,
+                                 description = description,
+                                 user = user,
+                                 kind = models.HISTORY_CHOICES.get(kind, 0))
+    history.save()
+
+
 
 def getChaptersFromTOC(toc):
     chapters = []

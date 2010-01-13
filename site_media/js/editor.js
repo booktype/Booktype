@@ -401,8 +401,15 @@ function unescapeHtml (val) {
 							  $("#spalatodialog").dialog("open");
 						      } else {
 							  $.booki.ui.notify("Sending data...");
+							  var minor = $("#editor INPUT[name=minor]").is(":checked");
+							  var comment = $("#editor INPUT[name=comment]").val();
 
- 							  $.booki.sendToCurrentBook({"command": "chapter_save", "chapterID": chapterID, "content": content}, function() {$.booki.ui.notify(); closeEditor(); } );
+ 							  $.booki.sendToCurrentBook({"command": "chapter_save", 
+										     "chapterID": chapterID,
+										     "content": content,
+										     "minor": minor,
+										     "comment": comment},
+										    function() {$.booki.ui.notify(); closeEditor(); $("#editor INPUT[name=comment]").val("") } );
 						      }
 
 						  });
@@ -420,7 +427,26 @@ function unescapeHtml (val) {
 		
 		_initUI: function() {
 		    $("#tabs").tabs();
-		    $('#tabs').bind('tabsselect', function(event, ui) {});
+		    $('#tabs').bind('tabsselect', function(event, ui) { 
+			if(ui.panel.id == "tabhistory") {
+			    $.booki.ui.notify("Reading history data...");
+			    $.booki.sendToCurrentBook({"command": "get_history"},
+						      function(data) {
+							  $.booki.ui.notify();
+							  $.booki.debug.debug(data.history);
+
+							  var his = $("#tabhistory .cont");
+							  var s = "";
+
+							  $.each(data.history, function(i, entry) {
+							      $.booki.debug.debug(entry);
+							      s += "<li>"+entry.kind+" "+entry.modified+"  "+entry.user+" "+entry.description+"</li>";
+							  });
+							  his.html("<ul>"+s+"</ul>");
+						      });
+
+			}
+		    });
 
 		    /* $("#accordion").accordion({ header: "h3" }); */
 		    $("#chapterslist, #holdchapterslist").sortable({'connectWith': ['.connectedSortable'], 'dropOnEmpty': true,  'stop': function(event, ui) { 
