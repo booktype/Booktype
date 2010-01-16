@@ -1,10 +1,27 @@
 import time
+import re
+import decimal
 import sputnik
 
 
 def remote_ping(request, message):
     sputnik.addMessageToChannel(request, "/booki/", {})
 
+    _now = time.time()
+
+    for key in sputnik.rcon.keys("booki:*:locks:*"):
+        lastAccess = sputnik.rcon.get(key)
+
+        if decimal.Decimal("%f" % _now) - lastAccess > 30:
+            sputnik.rcon.delete(key)
+
+            m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
+            
+            if m:
+                sputnik.addMessageToChannel(request, "/booki/book/%s/" % m.group(1), {"command": "chapter_status", 
+                                                                                      "chapterID": m.group(2), 
+                                                                                      "status": "normal", 
+                                                                                      "username": m.group(3)})
 def remote_disconnect(request, message):
     pass
 

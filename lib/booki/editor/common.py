@@ -9,7 +9,6 @@ import os
 import simplejson
 import datetime
 import re
-import logging
 
 from booki.editor import models
 
@@ -45,7 +44,21 @@ def extract(zdirname, zipfile):
         outfile.write(zipfile.read(name))
         outfile.close()
 
-## create project
+
+# logBookHistory
+
+def logBookHistory(book = None, chapter = None, chapter_history = None, args = {}, user=None, kind = 'unknown'):
+    history = models.BookHistory(book = book,
+                                 chapter = chapter,
+                                 chapter_history = chapter_history,
+                                 args = simplejson.dumps(args),
+                                 user = user,
+                                 kind = models.HISTORY_CHOICES.get(kind, 0))
+    history.save()
+
+
+
+## create book
 
 def createBook(user, bookTitle, status = "imported"):
     """
@@ -61,6 +74,10 @@ def createBook(user, bookTitle, status = "imported"):
 
     book.save()
 
+    logBookHistory(book = book, 
+                   user = user,
+                   kind = 'book_create')
+
     status_default = ["published", "not published", "imported"]
     n = len(status_default)
 
@@ -71,19 +88,9 @@ def createBook(user, bookTitle, status = "imported"):
 
     book.status = models.BookStatus.objects.get(book=book, name="not published")
     book.save()
+
     
     return book
-
-# logBookHistory
-
-def logBookHistory(book = None, chapter = None, chapter_history = None, description = "", user=None, kind = 'unknown'):
-    history = models.BookHistory(book = book,
-                                 chapter = chapter,
-                                 chapter_history = chapter_history,
-                                 description = description,
-                                 user = user,
-                                 kind = models.HISTORY_CHOICES.get(kind, 0))
-    history.save()
 
 
 
@@ -109,14 +116,10 @@ def importBookFromFile(user, zname):
     extract(zdirname, zf)
     zf.close()
 
-    logging.debug("Wrote it to file %s", zname)
-
     # loads info.json
 
     data = open('%s/info.json' % zdirname, 'r').read()
     info = simplejson.loads(data)
-
-    logging.debug("Loaded json file ", extra={"info": info})
 
     # wtf
     bookTitle = info['metadata']['http://purl.org/dc/elements/1.1/']["title"][""][0]
@@ -275,14 +278,10 @@ def importBookFromFileTheOldWay(user, zname):
     extract(zdirname, zf)
     zf.close()
 
-    logging.debug("Wrote it to file %s", zname)
-
     # loads info.json
 
     data = open('%s/info.json' % zdirname, 'r').read()
     info = simplejson.loads(data)
-
-    logging.debug("Loaded json file ", extra={"info": info})
 
     # wtf
     bookTitle = info['metadata']['http://purl.org/dc/elements/1.1/']["title"][""][0]
@@ -408,7 +407,6 @@ def importBookFromURL(user, bookURL, createTOC = False):
 
     ## there is no error checking for now
 
-    logging.debug("Importing book %s", bookURL)
 
     # download it
     f = urllib2.urlopen(bookURL)

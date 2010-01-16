@@ -81,8 +81,13 @@ HISTORY_CHOICES = {'unknown': 0,
 
                    'chapter_create': 1,
                    'chapter_save': 2,
-                   'chapter_rename': 3
+                   'chapter_rename': 3,
+                   'chapter_reorder': 4,
+                   'chapter_split': 5,
 
+                   'section_create': 6,
+
+                   'book_create': 10
 }
 
 class BookHistory(models.Model):
@@ -90,7 +95,7 @@ class BookHistory(models.Model):
     chapter = models.ForeignKey('Chapter', null=True)
     chapter_history = models.ForeignKey('ChapterHistory', null=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
-    description = models.CharField(_('description'), max_length=2500, blank=False)
+    args = models.CharField(_('args'), max_length=2500, blank=False)
     user = models.ForeignKey(auth_models.User)
     kind = models.SmallIntegerField(_('kind'), default=0)
 

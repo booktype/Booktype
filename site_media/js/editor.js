@@ -92,6 +92,7 @@ function unescapeHtml (val) {
 	    var attachments = null;
 	    var splitChapters = null;
 	    var currentlyEditing = null;
+	    var chapterLocks = {};
 
 	    function getStatusDescription(statusID) {
 		var r = $.grep(statuses,  function(v, i) {
@@ -172,6 +173,9 @@ function unescapeHtml (val) {
 			    makeSectionLine(v.id, v.title).appendTo($this.containerName);
 
 		    });
+
+		    this.refreshLocks();
+
 		},
 
 		'redraw': function() {
@@ -188,6 +192,8 @@ function unescapeHtml (val) {
 			    }
 			}
 		    });
+
+		    this.refreshLocks();
 		},
 
 		'refresh': function() {
@@ -195,11 +201,23 @@ function unescapeHtml (val) {
 		    $.each(this.items, function(i, v) {
 			$("#item_"+v.id+"  .title").html(v.title);
 			$("#item_"+v.id+"  .status").html(getStatusDescription(v.status));
-
 		    });
 
+		    this.refreshLocks();
+		},
+
+		'refreshLocks': function() {
+		    $.booki.debug.debug("refreshLocks");
+		    $(".extra").html("");
+
+		    $.each(chapterLocks, function(i, v) {
+			$.booki.debug.debug(i);
+			$.booki.debug.debug(v);
+			$(".extra", $("#item_"+i)).html('<div style="padding: 3px; background-color: red; color: white">'+v+'</div>');
+		    });
 
 		}
+		
 	    });
 
 	    var toc = new TOC("#chapterslist");
@@ -214,8 +232,7 @@ function unescapeHtml (val) {
 	    }
 
 	    var _isEditingSmall = false;
-
-
+	    
 	    function makeSectionLine(chapterID, name) {
 		return $('<li class="ui-state-default" id="item_'+chapterID+'"  style="background-color: #a0a0a0; color: white; background-image: none"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont"><table border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td width="70%"><div class="title" style="float: left">'+name+'</div></td><td width="10%"><td width="20%"><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td></tr></table></div></li>');
 	    }
@@ -260,6 +277,8 @@ function unescapeHtml (val) {
 	    }
 	    
 	    function closeEditor() {
+		currentlyEditing = null;
+
 		$("#editor").fadeOut("slow",
 				     function() {
 					 $("#editor").css("display", "none");
@@ -314,12 +333,26 @@ function unescapeHtml (val) {
 
 						  /* xinha */
 						  xinha_init(); 
+
+						  function _sendNotification() {						      
+						      if(currentlyEditing != null) {
+							  $.booki.sendToCurrentBook({"command": "book_notification",
+										     "chapterID": chapterID});
+										    
+							  setTimeout(_sendNotification, 5000);
+						      }
+						  }
 						  
 						  function _tryAgain() {
 						      var edi = xinha_editors.myTextArea; 
 						      if(edi) {
 							  edi.whenDocReady(function() {
 							      edi.setEditorContent(data.content);
+
+							      currentlyEditing = chapterID;
+
+							      // start sending edit notifications to server
+							      setTimeout(_sendNotification, 5000);
 							  });
 						      } else {
 							  setTimeout(_tryAgain, 500);
@@ -342,7 +375,8 @@ function unescapeHtml (val) {
 						  
    						  $("#editor INPUT[name=chapter_id]").attr("value", chapterID);
 						  $("#editor INPUT[name=save]").unbind('click').click(function() {
-						      currentlyEditing = chapterID;
+						      // todo: temp remove this
+						      //currentlyEditing = chapterID;
 					              var edi = xinha_editors["myTextArea"]; 
                                                       var content = edi.getEditorContent();
 						      
@@ -408,6 +442,7 @@ function unescapeHtml (val) {
 										     "chapterID": chapterID,
 										     "content": content,
 										     "minor": minor,
+										     "continue": false,
 										     "comment": comment},
 										    function() {$.booki.ui.notify(); closeEditor(); $("#editor INPUT[name=comment]").val("") } );
 						      }
@@ -756,6 +791,8 @@ function unescapeHtml (val) {
 					       function(data) {
 						   $.booki.ui.notify("");
 
+						   chapterLocks = data.locks;
+
 						   $.booki.licenses = data.licenses;
 
 						   statuses = data.statuses;
@@ -807,14 +844,26 @@ function unescapeHtml (val) {
 			// ERROR
 			// this does not work when you change chapter status very fast
 			    "chapter_status": function() {
+				$.booki.debug.debug(message);
 				if(message.status == "rename" || message.status == "edit") {
+				    chapterLocks[message.chapterID] = message.username;
+
 				    // $("#item_"+message.chapterID).css("color", "red");
-				    $(".extra", $("#item_"+message.chapterID)).html('<div style="padding: 3px; background-color: red; color: white">'+message.username+'</div>');
+				    //$(".extra", $("#item_"+message.chapterID)).html('<div style="padding: 3px; background-color: red; color: white">'+message.username+'</div>');
+				    toc.refreshLocks();
 				}
 			    
 				if(message.status == "normal") {
+				    $.booki.debug.debug("BRISEM OVAJ STATUS");
+				    $.booki.debug.debug(chapterLocks);
+				    delete chapterLocks[message.chapterID];
+				    $.booki.debug.debug(chapterLocks);
+				    
 				    //$("#item_"+message.chapterID).css("color", "gray");
-				    $(".extra", $("#item_"+message.chapterID)).html("");          
+				    //$(".extra", $("#item_"+message.chapterID)).html("");          
+
+				    toc.refreshLocks();
+				    
 				}
 			    },
 			

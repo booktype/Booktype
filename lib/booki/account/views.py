@@ -113,6 +113,12 @@ def view_profile(request, username):
                                          license=lic,
                                          published = datetime.datetime.now())
             book.save()
+
+            from booki.editor import common
+            common.logBookHistory(book = book, 
+                                  user = request.user,
+                                  kind = 'book_create')
+            
             status = models.BookStatus(book=book, name="not published",weight=0)
             status.save()
             book.status = status

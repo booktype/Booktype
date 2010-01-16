@@ -106,6 +106,8 @@ def thumbnail_attachment(request, bookid, attachment):
 # debug
 
 def debug_redis(request):
+    import redis
+
     r = redis.Redis()
     r.connect()
 
@@ -128,19 +130,28 @@ def debug_redis(request):
     _now = time.time()
 
     for ses in [k[4:-9] for k in  r.keys("ses:*:username")]:
-        allValues[ses]  = {
-            "channels": r.smembers("ses:%s:channels" % ses),
-            "last_access": r.get("ses:%s:last_access" % ses),
-            "access_since": decimal.Decimal("%f" % _now) - r.get("ses:%s:last_access" % ses),
-            "username": r.get("ses:%s:username" % ses)
-            }
+        try:
+            allValues[ses]  = {
+                "channels": r.smembers("ses:%s:channels" % ses),
+                "last_access": r.get("ses:%s:last_access" % ses),
+                "access_since": decimal.Decimal("%f" % _now) - r.get("ses:%s:last_access" % ses),
+                "username": r.get("ses:%s:username" % ses)
+                }
+        except:
+            pass
+
+    locks = {}
+    for ch in r.keys("booki:*:locks:*"):
+        locks[ch] = r.get(ch)
+
 
     return render_to_response('editor/debug_redis.html', {"request": request, 
                                                           "client_id": client_id,
                                                           "sputnikchannels": sputnikchannels,
                                                           "channel": chnl.items(),
                                                           "users": usrs.items(),
-                                                          "sessions": allValues.items()
+                                                          "sessions": allValues.items(),
+                                                          "locks": locks.items()
                                                           })
 
 
