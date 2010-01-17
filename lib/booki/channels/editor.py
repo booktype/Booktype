@@ -456,24 +456,19 @@ def remote_publish_book(request, message, bookid):
 
     # TODO
     # FIX THIS
-            
-        # TODO
-        # change project here
-#        f = urllib2.urlopen("%s?book=%s&project=%s&mode=%s&server=booki.flossmanuals.net&destination=%s" % (urlPublish, book.url_title, project.url_name, publishMode, destination))
-#        ta = f.read()
-#        lst = ta.split("\n")
-#        dta, dtas3 = "", ""
+    f = urllib2.urlopen("%s?book=%s&project=export&mode=%s&server=booki.flossmanuals.net&destination=%s" % (urlPublish, book.url_title, publishMode, destination))
+    ta = f.read()
+    lst = ta.split("\n")
+    dta, dtas3 = "", ""
 
-#        if len(lst) > 0:
-#            dta = lst[0]
+    if len(lst) > 0:
+        dta = lst[0]
 
-#            if len(lst) > 1:
-#                dtas3 = lst[1]
+        if len(lst) > 1:
+            dtas3 = lst[1]
 
-#        addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", "from": request.user.username, "message": '"%s" is published.' % (book.title, )}, myself=True)
-    ta , dta, dta3 = "", "", ""
     return {"dtaall": ta, "dta": dta, "dtas3": dtas3}
-
+            
 
 def remote_create_section(request, message, bookid):
     import datetime
