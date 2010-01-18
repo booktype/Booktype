@@ -8,7 +8,12 @@
         <script type="text/javascript">
 	$(function() {
 
+	    $("#chattitle").hover(function() {
+		$(this).css("background-color", "yellow");
+	    }, function() {
+		$(this).css("background-color", "white");
 
+	    });
 	    /* booki part */
             /* this is temporary here */
 
@@ -172,7 +177,7 @@ some notification. this should be on top of visible page and not top of page.
 <div id="header">
  <div style="float:right; font-size: 12px">
 <div align="center" style="padding-bottom: 8px">
-<img src="/site_media/images/logo.png"></div>
+ <a href="/"><img src="/site_media/images/logo.png" border="0"></a></div>
     <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a class="debug" href="javascript:void(0)">Debug</a> | <a href="/accounts/signout/">Sign out</a>
 
 <!--    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a class="debug" href="javascript:void(0)">Debug</a> | <a href="/accounts/signout/">Sign out</a> -->
@@ -330,11 +335,11 @@ some notification. this should be on top of visible page and not top of page.
 
 </td>
 <td valign="top" width="200">
-<h4>Chat</h4>
+<h4 id="chattitle">Chat</h4>
 <div id="chat">
 </div>
 
-<h4>Online</h4>
+<h4>Currently editing</h4>
  <ul id="users">
  </ul>
 <!--
