@@ -437,14 +437,19 @@ function unescapeHtml (val) {
 							  $.booki.ui.notify("Sending data...");
 							  var minor = $("#editor INPUT[name=minor]").is(":checked");
 							  var comment = $("#editor INPUT[name=comment]").val();
+							  var author = $("#editor INPUT[name=author]").val();
+							  var authorcomment = $("#editor INPUT[name=authorcomment]").val();
 
  							  $.booki.sendToCurrentBook({"command": "chapter_save", 
 										     "chapterID": chapterID,
 										     "content": content,
 										     "minor": minor,
 										     "continue": false,
-										     "comment": comment},
-										    function() {$.booki.ui.notify(); closeEditor(); $("#editor INPUT[name=comment]").val("") } );
+										     "comment": comment,
+										     "author": author,
+										     "authorcomment": authorcomment
+										    },
+										    function() {$.booki.ui.notify(); closeEditor(); $("#editor INPUT[name=comment]").val(""); $("#editor INPUT[name=author]").val(""); $("#editor INPUT[name=authorcomment]").val(""); } );
 						      }
 
 						  });
@@ -457,14 +462,19 @@ function unescapeHtml (val) {
 						      
 						      $.booki.ui.notify("Sending data...");
 						      var comment = $("#editor INPUT[name=comment]").val();
-						      
+
+						      var author = $("#editor INPUT[name=author]").val();
+						      var authorcomment = $("#editor INPUT[name=authorcomment]").						      
  						      $.booki.sendToCurrentBook({"command": "chapter_save", 
 										 "chapterID": chapterID,
 										 "content": content,
 										 "minor": false,
 										 "continue": true,
-										 "comment": comment},
-										function() {$.booki.ui.notify(); } );
+										 "comment": comment,
+										 "author": author,
+										 "authorcomment": authorcomment
+										},
+										function() {$.booki.ui.notify(); $("#editor INPUT[name=comment]").val(""); $("#editor INPUT[name=author]").val(""); $("#editor INPUT[name=authorcomment]").val(""); } );
 						  });
 
 

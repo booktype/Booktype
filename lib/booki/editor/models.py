@@ -172,6 +172,10 @@ class Chapter(models.Model):
     status = models.ForeignKey(BookStatus, null=False) # this will probably change
     created = models.DateTimeField(_('created'), null=False, auto_now=True)
     modified = models.DateTimeField(_('modified'), null=True, auto_now=True)
+    #
+    revision = models.IntegerField(_('revision'), default=1)
+#    comment = models.CharField(_('comment'), max_length=2500, blank=True)
+
 
     # missing licence here
     content = models.TextField()
@@ -194,6 +198,7 @@ class ChapterHistory(models.Model):
     content = models.TextField()
     modified = models.DateTimeField(_('modified'), null=False, auto_now=True)
     user = models.ForeignKey(auth_models.User)
+    revision = models.IntegerField(_('revision'), default=1)
     comment = models.CharField(_('comment'), max_length=2500, blank=True)
 
     def __unicode__(self):

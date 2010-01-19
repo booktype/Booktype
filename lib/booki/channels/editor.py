@@ -155,9 +155,10 @@ def remote_chapter_save(request, message, bookid):
 
     if message.get("minor", False) != True:
         history = models.ChapterHistory(chapter = chapter,
-                                        content = chapter.content,
+                                        content = message["content"],
                                         user = request.user,
-                                        comment = message.get("comment", ""))
+                                        comment = message.get("comment", ""),
+                                        revision = chapter.revision)
         history.save()
 
         from booki.editor import common
@@ -166,8 +167,12 @@ def remote_chapter_save(request, message, bookid):
                               chapter = chapter,
                               chapter_history = history,
                               user = request.user,
-                              args = {"comment": message.get("comment", "")},
+                              args = {"comment": message.get("comment", ""),
+                                      "author": message.get("author", ""),
+                                      "authorcomment": message.get("authorcomment", "")},
                               kind = 'chapter_save')
+
+        chapter.revision += 1
 
     chapter.content = message["content"];
     chapter.save()
