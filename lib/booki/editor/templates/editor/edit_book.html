@@ -150,10 +150,7 @@ function closeAttachmentUpload() {
 	xinha_config.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
 	
 	xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
-	
-//	xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","insertimage","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
-	
-	
+
 	xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
 	
 	Xinha.startEditors(xinha_editors);
@@ -294,7 +291,7 @@ some notification. this should be on top of visible page and not top of page.
 <form method="GET" action="javascript: return void(0)">
 <input type="hidden" name="chapter_id" value=""/>
 <input type="button" class="save" name="save" value="Save"/>
-<!-- <input type="button" class="save" name="save" value="Save and continue editing"/> -->
+<input type="button" class="save" name="savecontinue" value="Save and continue editing"/> 
 
 <input type="button" class="cancel" name="cancel" value="Cancel"/>
 <br/>

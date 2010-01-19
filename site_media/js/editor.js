@@ -449,6 +449,25 @@ function unescapeHtml (val) {
 
 						  });
 
+						  $("#editor INPUT[name=savecontinue]").unbind('click').click(function() {
+						      // todo: temp remove this
+						      //currentlyEditing = chapterID;
+					              var edi = xinha_editors["myTextArea"]; 
+                                                      var content = edi.getEditorContent();
+						      
+						      $.booki.ui.notify("Sending data...");
+						      var comment = $("#editor INPUT[name=comment]").val();
+						      
+ 						      $.booki.sendToCurrentBook({"command": "chapter_save", 
+										 "chapterID": chapterID,
+										 "content": content,
+										 "minor": false,
+										 "continue": true,
+										 "comment": comment},
+										function() {$.booki.ui.notify(); } );
+						  });
+
+
 						  $("#editor INPUT[class=cancel]").unbind('click').click(function() {
 							  $.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID});
 							  closeEditor();

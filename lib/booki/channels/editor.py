@@ -147,8 +147,10 @@ def remote_chapter_status(request, message, bookid):
 
 
 def remote_chapter_save(request, message, bookid):
-    # minor
-    # comment
+    # TODO
+    # put this outside in common module
+    # or maybe even betterm put it in the Model
+
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
 
     if message.get("minor", False) != True:
@@ -174,12 +176,13 @@ def remote_chapter_save(request, message, bookid):
                                                                 "from": request.user.username, 
                                                                 "message": 'User %s has saved chapter "%s".' % (request.user.username, chapter.title)}, myself=True)
     
-    sputnik.addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapter_status", 
-                                                                      "chapterID": message["chapterID"], 
-                                                                      "status": "normal", 
-                                                                      "username": request.user.username})
-    
-    sputnik.rcon.delete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
+    if not message['continue']:
+        sputnik.addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapter_status", 
+                                                                          "chapterID": message["chapterID"], 
+                                                                          "status": "normal", 
+                                                                          "username": request.user.username})
+        
+        sputnik.rcon.delete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
 
     return {}
 
