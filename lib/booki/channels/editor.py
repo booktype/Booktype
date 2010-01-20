@@ -72,7 +72,10 @@ def remote_init_editor(request, message, bookid):
             return "<b>%s</b>" % a
         return a
 
-    users = [vidi(m) for m in list(sputnik.rcon.smembers("sputnik:channel:%s:channel" % message["channel"]))]
+    try:
+        users = [vidi(m) for m in list(sputnik.smembers("sputnik:channel:%s:channel" % message["channel"]))]
+    except:
+        users = []
 
     ## get workflow statuses
     statuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
@@ -90,11 +93,17 @@ def remote_init_editor(request, message, bookid):
     licenses =  [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
 
     ## get online users
-    onlineUsers = sputnik.rcon.smembers("sputnik:channel:%s:users" % message["channel"])
+    try:
+        onlineUsers = sputnik.smembers("sputnik:channel:%s:users" % message["channel"])
+    except:
+        onlineUsers = []
         
     if request.user.username not in onlineUsers:
-        sputnik.rcon.sadd("sputnik:channel:%s:users" % message["channel"], request.user.username)
-        onlineUsers.add(request.user.username)
+        try:
+            sputnik.sadd("sputnik:channel:%s:users" % message["channel"], request.user.username)
+            onlineUsers.add(request.user.username)
+        except:
+            pass
   
         ## set notifications to other clients
         sputnik.addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "user_add", "username": request.user.username})
@@ -106,14 +115,17 @@ def remote_init_editor(request, message, bookid):
     _now = time.time()
     locks = {}
 
-    for key in sputnik.rcon.keys("booki:*:locks:*"):
-        lastAccess = sputnik.rcon.get(key)
+    try:
+        for key in sputnik.rcon.keys("booki:*:locks:*"):
+            lastAccess = sputnik.rcon.get(key)
 
-        if decimal.Decimal("%f" % _now) - lastAccess <= 30:
-            m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
-            if m:
-                if m.group(1) == bookid:
-                    locks[m.group(2)] = m.group(3)
+            if decimal.Decimal("%f" % _now) - lastAccess <= 30:
+                m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
+                if m:
+                    if m.group(1) == bookid:
+                        locks[m.group(2)] = m.group(3)
+    except:
+        pass
                 
     return {"licenses": licenses, 
             "chapters": chapters, 
@@ -143,6 +155,28 @@ def remote_chapter_status(request, message, bookid):
                                                                       "chapterID": message["chapterID"], 
                                                                       "status": message["status"], 
                                                                       "username": request.user.username})
+    return {}
+
+def remote_change_status(request, message, bookid):
+    # chapterID
+    # statusID
+
+    chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
+    status  = models.BookStatus.objects.get(id=int(message["statusID"]))
+
+    chapter.status = status
+    chapter.save()
+
+    sputnik.addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "change_status", 
+                                                                      "chapterID": message["chapterID"], 
+                                                                      "statusID": int(message["statusID"]), 
+                                                                      "username": request.user.username})
+
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
+                                                                "from": request.user.username, 
+                                                                "message": 'User %s has changed status of  chapter "%s" to "%s".' % (request.user.username, chapter.title, status.name)}, myself=True)
+
+
     return {}
 
 
@@ -187,7 +221,7 @@ def remote_chapter_save(request, message, bookid):
                                                                           "status": "normal", 
                                                                           "username": request.user.username})
         
-        sputnik.rcon.delete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
+        sputnik.rdelete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
 
     return {}
 
@@ -282,7 +316,7 @@ def remote_get_users(request, message, bookid):
             return "!%s!" % a
         return a
 
-    res["users"] = [vidi(m) for m in list(sputnik.rcon.smembers("sputnik:channel:%s:channel" % message["channel"]))]
+    res["users"] = [vidi(m) for m in list(sputnik.smembers("sputnik:channel:%s:channel" % message["channel"]))]
     return res 
 
 
@@ -314,7 +348,11 @@ def remote_book_notification(request, message, bookid):
 
     # rcon.delete(key)
     # set the initial timer for editor
-    sputnik.rcon.set("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username), time.time())
+    import logging
+    logging.getLogger("booki").debug("book_notification booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
+
+    if request.user.username and request.user.username != '':
+        sputnik.rcon.set("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username), time.time())
 
     return res
 

@@ -1,53 +1,150 @@
 import time
 import simplejson
-import sputnik
 import redis
+import base64
 
 rcon = redis.Redis()
 rcon.connect()
+
+
+# implement our own methods for redis communication
+
+def rencode(key):
+    return base64.b64encode(key)
+
+def rdecode(key):
+    return base64.b64decode(key)
+
+def sismember(key, value):
+    import sputnik
+
+    if key and key.strip() != '':
+        return sputnik.rcon.sismember(key, rencode(value))
+
+    return False
+
+def sadd(key, value):
+    import sputnik
+
+    if key and key.strip() != '':
+        sputnik.rcon.sadd(key, rencode(value))
+
+    return False
+
+def rset(key, value):
+    import sputnik
+
+    if key and key.strip() != '':
+        sputnik.rcon.set(key, rencode(value))
+
+    return False
+
+def rpop(key):
+    import sputnik
+
+    if key and key.strip() != '':
+        return rdecode(sputnik.rcon.pop(key))
+
+    return None
+
+def srem(key, value):
+    import sputnik
+
+    if key and key.strip() != '':
+        return sputnik.rcon.srem(key, rencode(value))
+
+    return None
+
+def get(key):
+    import sputnik
+
+    if key and key.strip() != '':
+        return rdecode(sputnik.rcon.get(key))
+
+def smembers(key):
+    import sputnik
+
+    if key and key.strip() != '':
+        try:
+            return [rdecode(el) for el in list(sputnik.rcon.smembers(key))]
+        except:
+            return []
+
+    return []
+
+def rkeys(key):
+    import sputnik
+
+    if key and key.strip() != '':
+        return [rdecode(el) for el in list(sputnik.rcon.keys(key))]
+
+    return []
+
+def push(key, value):
+    import sputnik
+
+    if key and key.strip() != '':
+        return sputnik.rcon.push(key, rencode(value))
+
+    return None
+
+def rdelete(key):
+    import sputnik
+
+    if key and key.strip() != '':
+        sputnik.rcon.delete(key)
+
  
 # must fix this rcon issue somehow. 
 # this is stupid but will work for now
 
 def hasChannel(channelName):
-    return sputnik.rcon.sismember("sputnik:channels", channelName)
+    return sismember("sputnik:channels", channelName)
 
 def createChannel(channelName):
     if not hasChannel(channelName):
-        sputnik.rcon.sadd("sputnik:channels", channelName)
+        sadd("sputnik:channels", channelName)
 
     return True
 
 def removeChannel(channelName):
-    return sputnik.rcon.srem("sputnik:channels", channelName)
+    return srem("sputnik:channels", channelName)
 
 def addClientToChannel(channelName, client):
-    sputnik.rcon.sadd("ses:%s:channels" % client, channelName)
-
-    sputnik.rcon.sadd("sputnik:channel:%s:channel" % channelName, client)
+    sadd("ses:%s:channels" % client, channelName)
+    sadd("sputnik:channel:%s:channel" % channelName, client)
 
 def removeClientFromChannel(request, channelName, client):
-    sputnik.rcon.srem("sputnik:channel:%s:channel" % channelName, client)
+    srem("sputnik:channel:%s:channel" % channelName, client)
 
     # get our username
-    userName = sputnik.rcon.get("ses:%s:username" % client)
+    userName = get("ses:%s:username" % client)
 
     # get all usernames
-    users = sputnik.rcon.smembers("sputnik:channel:%s:users" % channelName)
+    users = smembers("sputnik:channel:%s:users" % channelName)
 
-    # get all clients
-    allClients = []
-    for cl in sputnik.rcon.smembers("sputnik:channel:%s:channel" % channelName):
-        allClients.append(sputnik.rcon.get("ses:%s:username" % cl))
+    try:
+        # get all clients
+        allClients = []
+        for cl in smembers("sputnik:channel:%s:channel" % channelName):
+            allClients.append(get("ses:%s:username" % cl))
 
-    for usr in users:
-        if usr not in allClients:
-            sputnik.rcon.srem("sputnik:channel:%s:users" % channelName, usr)
-            addMessageToChannel(request, channelName, {"command": "user_remove", "username": usr}, myself = True)
+        for usr in users:
+            if usr not in allClients:
+                srem("sputnik:channel:%s:users" % channelName, usr)
+                addMessageToChannel(request, channelName, {"command": "user_remove", "username": usr}, myself = True)
+    except:
+        pass
 
 
 def addMessageToChannel(request, channelName, message, myself = False ):
-    clnts = sputnik.rcon.smembers("sputnik:channel:%s:channel" % channelName)
+    import sputnik
+    # TODO
+    # not iterable
+    try:
+        clnts = smembers("sputnik:channel:%s:channel" % channelName)
+    except:
+        pass
 
     message["channel"] = channelName
     message["clientID"] = request.clientID
@@ -56,15 +153,20 @@ def addMessageToChannel(request, channelName, message, myself = False ):
         if not myself and c == request.sputnikID:
             continue
 
-        rcon.push( "ses:%s:messages" % c, simplejson.dumps(message), tail = True)
+        if c.strip() != '':
+            try:
+                push( "ses:%s:messages" % c, simplejson.dumps(message))
+            except:
+                pass
 
 def removeClient(request, clientName):
-    for chnl in sputnik.rcon.smembers("ses:%s:channels" % clientName):
+    import sputnik
+    for chnl in smembers("ses:%s:channels" % clientName):
         removeClientFromChannel(request, chnl, clientName)
-        sputnik.rcon.srem("ses:%s:channels" % clientName, chnl)
+        srem("ses:%s:channels" % clientName, chnl)
 
-    sputnik.rcon.delete("ses:%s:username" % clientName)
-    sputnik.rcon.delete("ses:%s:last_access" % clientName)
+    rdelete("ses:%s:username" % clientName)
+    rdelete("ses:%s:last_access" % clientName)
 
     # TODO
     # also, i should delete all messages

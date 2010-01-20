@@ -53,19 +53,38 @@ def dispatcher(request, **sputnik_dict):
             import logging
             logging.getLogger("booki").error("Sputnik - %s." % simplejson.dumps(message))
 
+    n = 0
 
     while True:
-        v = sputnik.rcon.pop("ses:%s:%s:messages" % (request.session.session_key, clientID), tail = False)
-        if not v: break
+        v = None
 
-        results.append(simplejson.loads(v))
+        try:
+            if clientID and clientID.find(' ') == -1:
+                v = sputnik.rpop("ses:%s:%s:messages" % (request.session.session_key, clientID))
+        except:
+            if n > 20:
+                break
+
+            import logging
+            logging.getLogger("booki").debug("Sputnik - Coult not get the latest message from the queue session: %s clientID:%s" %(request.session.session_key, clientID))
+
+        n += 1
+
+        if not v: break
+        try:
+            results.append(simplejson.loads(v))
+        except:
+            import logging
+            logging.getLogger("booki").debug(v)
 
 
     import time, decimal
     try:
-        sputnik.rcon.set("ses:%s:last_access" % request.sputnikID, time.time())
+        if request.sputnikID and request.sputnikID.find(' ') == -1:
+            sputnik.rcon.set("ses:%s:last_access" % request.sputnikID, time.time())
     except:
-        pass
+        import logging
+        logging.getLogger("booki").debug("Sputnik - CAN NOT SET TIMESTAMP.")
 
     # this should not be here!
     # timeout old edit locks
@@ -73,12 +92,22 @@ def dispatcher(request, **sputnik_dict):
     locks = {}
 
     _now = time.time() 
-    for k in sputnik.rcon.keys("ses:*:last_access"):
-        tm = sputnik.rcon.get(k)
+    try:
+        for k in sputnik.rcon.keys("ses:*:last_access"):
+            tm = sputnik.rcon.get(k)
 
-        # timeout after 2 minute
-        if  decimal.Decimal("%f" % _now) - tm > 60*2:
-            sputnik.removeClient(request, k[4:-12])
+            if type(tm) in [type(' '), type(u' ')]:
+                try:
+                    tm = decimal.Decimal(tm)
+                except:
+                    continue
+
+            # timeout after 2 minute
+            if  tm and decimal.Decimal("%f" % _now) - tm > 60*2:
+                sputnik.removeClient(request, k[4:-12])
+    except:
+        import logging
+        logging.getLogger("booki").debug("Sputnik - can not get all the last accesses")
 
     ret = {"result": True, "messages": results}
 

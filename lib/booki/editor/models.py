@@ -100,7 +100,7 @@ class BookHistory(models.Model):
     kind = models.SmallIntegerField(_('kind'), default=0)
 
     def __unicode__(self):
-        return self.description
+        return self.args
     
 
 # BookiGroup

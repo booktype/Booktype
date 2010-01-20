@@ -1,18 +1,29 @@
 import time
 import re
 import decimal
-import sputnik
-
 
 def remote_ping(request, message):
+    import sputnik
+
     sputnik.addMessageToChannel(request, "/booki/", {})
 
     _now = time.time()
 
-    for key in sputnik.rcon.keys("booki:*:locks:*"):
+    try:
+        locks = sputnik.rcon.keys("booki:*:locks:*") 
+    except:
+        return
+
+    for key in locks:
         lastAccess = sputnik.rcon.get(key)
 
-        if decimal.Decimal("%f" % _now) - lastAccess > 30:
+        if type(lastAccess) in [type(' '), type(u' ')]:
+            try:
+                lastAccess = decimal.Decimal(lastAccess)
+            except:
+                continue
+
+        if lastAccess and decimal.Decimal("%f" % _now) - lastAccess > 30:
             sputnik.rcon.delete(key)
 
             m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
@@ -26,22 +37,22 @@ def remote_disconnect(request, message):
     pass
 
 def remote_connect(request, message):
+    import sputnik
+
     ret = {}
 
-    # this is where we have problems when we get timeout
-    def _getID():
-        if not sputnik.rcon.exists("sputnik:client_id"):
-            sputnik.rcon.set("sputnik:client_id", 0)
-            
+    # does this work ?
     try:
-        _getID()
+        clientID = sputnik.rcon.incr("sputnik:client_id")
     except:
         sputnik.rcon.connect()
-        _getID()
-
-    clientID = sputnik.rcon.incr("sputnik:client_id")
+        clientID = sputnik.rcon.incr("sputnik:client_id")
+        
     ret["clientID"] = clientID
     request.sputnikID = "%s:%s" % (request.session.session_key, clientID)
+
+    if not clientID:
+        return
 
     # subscribe to this channels
     for chnl in message["channels"]:
@@ -51,10 +62,12 @@ def remote_connect(request, message):
         sputnik.addClientToChannel(chnl, request.sputnikID)
 
     # set our username
-    sputnik.rcon.set("ses:%s:username" % request.sputnikID, request.user.username)
+    if request.user and request.user.username.strip() != '' and request.sputnikID and request.sputnikID.find(' ') == -1:
+        sputnik.rcon.set("ses:%s:username" % request.sputnikID, request.user.username)
 
     # set our last access
-    sputnik.rcon.set("ses:%s:last_access" % request.sputnikID, time.time())
+    if request.sputnikID and request.sputnikID.strip() != '' and request.sputnikID and request.sputnikID.find(' ') == -1:
+        sputnik.rcon.set("ses:%s:last_access" % request.sputnikID, time.time())
 
     return ret
     

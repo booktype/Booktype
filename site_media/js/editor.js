@@ -200,7 +200,7 @@ function unescapeHtml (val) {
 		    // should update status and other things also
 		    $.each(this.items, function(i, v) {
 			$("#item_"+v.id+"  .title").html(v.title);
-			$("#item_"+v.id+"  .status").html(getStatusDescription(v.status));
+			$("#item_"+v.id+"  .status").html('<a href="javascript:void(0)" onclick="$.booki.editor.editStatusForChapter('+v.id+')">'+getStatusDescription(v.status)+'</a>');
 		    });
 
 		    this.refreshLocks();
@@ -308,6 +308,14 @@ function unescapeHtml (val) {
 
 			$("#item_"+chapterID+" .status").html('<a href="javascript:void(0)" onclick="$.booki.editor.editStatusForChapter('+chapterID+')">'+getStatusDescription(chap.status)+'</a>');
 
+			$.booki.ui.notify("Saving data...");
+
+			$.booki.sendToCurrentBook({"command": "change_status",
+						   "chapterID": chapterID,
+						   "statusID": chap.status},
+						  function(data) {
+						      $.booki.ui.notify();
+						  });
 		    }).wrap("<form></form>"));
 		},
 
@@ -464,7 +472,8 @@ function unescapeHtml (val) {
 						      var comment = $("#editor INPUT[name=comment]").val();
 
 						      var author = $("#editor INPUT[name=author]").val();
-						      var authorcomment = $("#editor INPUT[name=authorcomment]").						      
+						      var authorcomment = $("#editor INPUT[name=authorcomment]").val();
+						      
  						      $.booki.sendToCurrentBook({"command": "chapter_save", 
 										 "chapterID": chapterID,
 										 "content": content,
@@ -966,6 +975,16 @@ function unescapeHtml (val) {
 				    // should be makeSectionLine also
 				    makeChapterLine(elem[0], elem[1], 0).prependTo("#chapterslist");
 				});
+			    },
+
+			    "change_status": function() {
+				// message.chapterID
+				// message statusID
+
+				var item = toc.getItemById(message.chapterID);
+				item.status = message.statusID;
+				toc.refresh();
+				holdChapters.refresh();
 			    },
 			    
 			    "chapter_split": function()  {

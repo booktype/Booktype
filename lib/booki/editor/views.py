@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.http import Http404, HttpResponse
 
@@ -35,6 +36,7 @@ def view_export(request, bookid):
 
     return response
 
+@login_required
 def edit_book(request, bookid):
     book = models.Book.objects.get(url_title__iexact=bookid)
     chapters = models.Chapter.objects.filter(book=book)
@@ -107,6 +109,7 @@ def thumbnail_attachment(request, bookid, attachment):
 
 def debug_redis(request):
     import redis
+    import sputnik
 
     r = redis.Redis()
     r.connect()
@@ -132,10 +135,10 @@ def debug_redis(request):
     for ses in [k[4:-9] for k in  r.keys("ses:*:username")]:
         try:
             allValues[ses]  = {
-                "channels": r.smembers("ses:%s:channels" % ses),
+                "channels": sputnik.smembers("ses:%s:channels" % ses),
                 "last_access": r.get("ses:%s:last_access" % ses),
                 "access_since": decimal.Decimal("%f" % _now) - r.get("ses:%s:last_access" % ses),
-                "username": r.get("ses:%s:username" % ses)
+                "username": sputnik.get("ses:%s:username" % ses)
                 }
         except:
             pass
@@ -168,6 +171,7 @@ def view_frontpage(request):
     return render_to_response('editor/view_frontpage.html', {"request": request, 
                                                              "title": "Ovo je neki naslov",
                                                              "books": books,
+                                                             "error": request.REQUEST.get("error", "0"),
                                                              "groups": groups})
 
 # GROUPS

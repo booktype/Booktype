@@ -31,9 +31,10 @@ def signin(request):
 
         if user:
             auth.login(request, user)
+
             return HttpResponseRedirect("/accounts/%s/" % request.POST["username"])
     
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect("/?error=1")
 
 # register user
 
