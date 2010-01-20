@@ -44,6 +44,26 @@ def edit_book(request, bookid):
 
     return render_to_response('editor/edit_book.html', {"book": book, "chapters": chapters, "request": request})
 
+def view_full(request, bookid):
+    chapters = []
+
+    book = models.Book.objects.get(url_title__iexact=bookid)
+
+    for chapter in  models.BookToc.objects.filter(book=book).order_by("-weight"):
+        if chapter.typeof == 1:
+            chapters.append({"type": "chapter",
+                             "title": chapter.chapter.title,
+                             "content": chapter.chapter.content})
+        else:
+            chapters.append({"type": "section",
+                             "title": chapter.name})
+
+    return render_to_response('editor/view_full.html', {"book": book, 
+                                                        "chapters": chapters, 
+                                                        "request": request})
+
+
+
 def view_book(request, bookid):
     book = models.Book.objects.get(url_title__iexact=bookid)
 
