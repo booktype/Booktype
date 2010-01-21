@@ -15,6 +15,7 @@ def remote_ping(request, message):
         return
 
     for key in locks:
+        
         lastAccess = sputnik.rcon.get(key)
 
         if type(lastAccess) in [type(' '), type(u' ')]:
@@ -32,7 +33,9 @@ def remote_ping(request, message):
                 sputnik.addMessageToChannel(request, "/booki/book/%s/" % m.group(1), {"command": "chapter_status", 
                                                                                       "chapterID": m.group(2), 
                                                                                       "status": "normal", 
-                                                                                      "username": m.group(3)})
+                                                                                      "username": m.group(3)},
+                                            myself = True)
+
 def remote_disconnect(request, message):
     pass
 

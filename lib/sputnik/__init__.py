@@ -145,7 +145,7 @@ def addMessageToChannel(request, channelName, message, myself = False ):
     try:
         clnts = smembers("sputnik:channel:%s:channel" % channelName)
     except:
-        pass
+        return
 
     message["channel"] = channelName
     message["clientID"] = request.clientID
@@ -159,6 +159,7 @@ def addMessageToChannel(request, channelName, message, myself = False ):
                 push( "ses:%s:messages" % c, simplejson.dumps(message))
             except:
                 pass
+                
 
 def removeClient(request, clientName):
     import sputnik

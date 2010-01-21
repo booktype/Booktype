@@ -208,12 +208,14 @@ function unescapeHtml (val) {
 
 		'refreshLocks': function() {
 		    $.booki.debug.debug("refreshLocks");
-		    $(".extra").html("");
+//		    $(".extra").html("");
+
+		    $.each(this.items, function(i, v) {
+			$(".edit", $("#item_"+v.id)).html('<a href="javascript:void(0)" onclick="$.booki.editor.editChapter('+v.id+')" style="font-size: 12px">EDIT</a>');
+		    });
 
 		    $.each(chapterLocks, function(i, v) {
-			$.booki.debug.debug(i);
-			$.booki.debug.debug(v);
-			$(".extra", $("#item_"+i)).html('<div style="padding: 3px; background-color: red; color: white">'+v+'</div>');
+			$(".edit", $("#item_"+i)).html('<div style="font-size: 10px; padding: 3px; background-color: red; color: white"><a style="color: white" href="javascript:void(0)" onclick="$.booki.editor.unlockChapter('+i+');">'+v+'</a></div>');
 		    });
 
 		}
@@ -238,7 +240,7 @@ function unescapeHtml (val) {
 	    }
 	    
 	    function makeChapterLine(chapterID, name, status) {
-		return $('<li class="ui-state-default" id="item_'+chapterID+'"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont"><table border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td width="70%"><div class="title" style="float: left">'+name+'</div></td><td width="10%"><a href="javascript:void(0)" onclick="$.booki.editor.editChapter('+chapterID+')" style="font-size: 12px">EDIT</a><td width="20%"><div class="status" style="float:right; font-size: 6pt"><a href="javascript:void(0)" onclick="$.booki.editor.editStatusForChapter('+chapterID+')">'+status+'</a></div><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td></tr></table></div></li>').dblclick(function() {
+		return $('<li class="ui-state-default" id="item_'+chapterID+'"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont"><table border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td width="70%"><div class="title" style="float: left">'+name+'</div></td><td width="10%" class="edit"><a href="javascript:void(0)" onclick="$.booki.editor.editChapter('+chapterID+')" style="font-size: 12px">EDIT</a><td width="20%"><div class="status" style="float:right; font-size: 6pt"><a href="javascript:void(0)" onclick="$.booki.editor.editStatusForChapter('+chapterID+')">'+status+'</a></div><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td></tr></table></div></li>').dblclick(function() {
 		    if(_isEditingSmall) return;
 		    _isEditingSmall = true;
 
@@ -256,23 +258,24 @@ function unescapeHtml (val) {
 
                     $("FORM", $(this)).append($('<input type="text" style="width: 70%" value="'+s+'" >'));
                     $("FORM", $(this)).append($('<a href="#">SAVE</a>').click(function() {
-
 			var newName = $("INPUT", $this).val();
 			_isEditingSmall = false; $.booki.ui.notify("Sending data...");
 			$.booki.sendToCurrentBook({"command": "chapter_rename", "chapterID": chapterID, "chapter": newName}, function() { 
 			    $.booki.ui.notify("");
+			    toc.refreshLocks();
 			});
 			$("#item_"+chapterID).replaceWith(makeChapterLine(chapterID, newName, status)); 
-		
+			toc.refreshLocks();
 		    }));
 		    $("FORM", $(this)).append($('<span> </span>').html());
                     $("FORM", $(this)).append($('<a href="#">CANCEL</a>').click(function() { 
 			_isEditingSmall = false; $.booki.ui.notify("Sending data...");
-			$.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID}, function() {$.booki.ui.notify("")} );
+			$.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID}, function() {$.booki.ui.notify(""); toc.refreshLocks(); } );
 			
 			// this is not god. should get info from toc
 			var ch = getChapter(chapterID);
 			$("#item_"+chapterID).replaceWith(makeChapterLine(chapterID, ch.title, getStatusDescription(ch.status)));  }));
+			toc.refreshLocks();
 		    });
 	    }
 	    
@@ -283,6 +286,9 @@ function unescapeHtml (val) {
 				     function() {
 					 $("#editor").css("display", "none");
                                          $("#container").hide().css("display", "block"); 
+
+					 toc.refreshLocks();
+					 holdChapters.refresh();
 				     });
 	    }
 	    
@@ -329,6 +335,14 @@ function unescapeHtml (val) {
 		    });
 		},
 
+		unlockChapter: function(chapterID) {
+		    if($.booki.username == 'booki') {
+			$.booki.sendToCurrentBook({"command": "unlock_chapter", "chapterID": chapterID}, 
+						  function(data) {
+						  });
+		    }
+		},
+		
 		editChapter: function(chapterID) {
 		    $.booki.ui.notify("Loading chapter data...");
 		    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/",
@@ -345,7 +359,14 @@ function unescapeHtml (val) {
 						  function _sendNotification() {						      
 						      if(currentlyEditing != null) {
 							  $.booki.sendToCurrentBook({"command": "book_notification",
-										     "chapterID": chapterID});
+										     "chapterID": chapterID},
+										    function(data) {
+											if(data.kill == 'please') {
+											    $.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID});
+											    delete chapterLocks[chapterID];
+											    closeEditor();
+											}
+										    });
 										    
 							  setTimeout(_sendNotification, 5000);
 						      }
@@ -457,7 +478,13 @@ function unescapeHtml (val) {
 										     "author": author,
 										     "authorcomment": authorcomment
 										    },
-										    function() {$.booki.ui.notify(); closeEditor(); $("#editor INPUT[name=comment]").val(""); $("#editor INPUT[name=author]").val(""); $("#editor INPUT[name=authorcomment]").val(""); } );
+										    function() { 
+											delete chapterLocks[chapterID];
+											$.booki.ui.notify(); 
+											closeEditor(); 
+											$("#editor INPUT[name=comment]").val(""); 
+											$("#editor INPUT[name=author]").val(""); 
+											$("#editor INPUT[name=authorcomment]").val(""); } );
 						      }
 
 						  });
@@ -489,12 +516,10 @@ function unescapeHtml (val) {
 
 						  $("#editor INPUT[class=cancel]").unbind('click').click(function() {
 							  $.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID});
-							  closeEditor();
-						      });  
-						  });
-
-
-
+						      delete chapterLocks[chapterID];
+						      closeEditor();
+						  });  
+					      });
 					  });
 		},
 		
@@ -581,7 +606,7 @@ function unescapeHtml (val) {
 							       "hold": holdResult,
 							       "kind": "add",
 							       "chapter_id": itm.id}, 
-							      function() {$.booki.ui.notify()} );
+							      function() {$.booki.ui.notify();  toc.refreshLocks(); holdChapters.refreshLocks(); } );
 				    break;
 				} 
 			    }
@@ -595,7 +620,7 @@ function unescapeHtml (val) {
 						       "kind": "order",
 						       "chapter_id": null
 						       }, 
-							      function() {$.booki.ui.notify()} );
+						      function() {$.booki.ui.notify();  toc.refreshLocks(); holdChapters.refreshLocks();} );
 			}
 /*
 				$.booki.sendToCurrentBook({"command": "chapters_changed", "chapters": result}, function() {$.booki.ui.notify()} );

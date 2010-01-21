@@ -348,11 +348,13 @@ def remote_book_notification(request, message, bookid):
 
     # rcon.delete(key)
     # set the initial timer for editor
-    import logging
-    logging.getLogger("booki").debug("book_notification booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
 
     if request.user.username and request.user.username != '':
         sputnik.rcon.set("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username), time.time())
+        
+        if sputnik.rcon.get("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username)) == 1:
+            sputnik.rcon.delete("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username))
+            res = {"kill": "please"}
 
     return res
 
@@ -562,3 +564,13 @@ def remote_get_history(request, message, bookid):
 
     return {"history": history}
 
+def remote_unlock_chapter(request, message, bookid):
+    import re
+
+    for key in sputnik.rcon.keys("booki:%s:locks:%s:*" % (bookid, message["chapterID"])):
+        m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
+
+        if m:
+            sputnik.rcon.set("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], m.group(3)), 1)
+
+    return {}
