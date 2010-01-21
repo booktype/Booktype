@@ -263,19 +263,22 @@ function unescapeHtml (val) {
 			$.booki.sendToCurrentBook({"command": "chapter_rename", "chapterID": chapterID, "chapter": newName}, function() { 
 			    $.booki.ui.notify("");
 			    toc.refreshLocks();
+			    holdChapters.refreshLocks();
 			});
 			$("#item_"+chapterID).replaceWith(makeChapterLine(chapterID, newName, status)); 
 			toc.refreshLocks();
+			holdChapters.refreshLocks();
 		    }));
 		    $("FORM", $(this)).append($('<span> </span>').html());
                     $("FORM", $(this)).append($('<a href="#">CANCEL</a>').click(function() { 
 			_isEditingSmall = false; $.booki.ui.notify("Sending data...");
-			$.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID}, function() {$.booki.ui.notify(""); toc.refreshLocks(); } );
+			$.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID}, function() {$.booki.ui.notify(""); toc.refreshLocks(); holdChapters.refreshLocks(); } );
 			
 			// this is not god. should get info from toc
 			var ch = getChapter(chapterID);
 			$("#item_"+chapterID).replaceWith(makeChapterLine(chapterID, ch.title, getStatusDescription(ch.status)));  }));
 			toc.refreshLocks();
+		    holdChapters.refreshLocks();
 		    });
 	    }
 	    
@@ -914,6 +917,7 @@ function unescapeHtml (val) {
 				    // $("#item_"+message.chapterID).css("color", "red");
 				    //$(".extra", $("#item_"+message.chapterID)).html('<div style="padding: 3px; background-color: red; color: white">'+message.username+'</div>');
 				    toc.refreshLocks();
+				    holdChapters.refreshLocks();
 				}
 			    
 				if(message.status == "normal") {
@@ -926,7 +930,7 @@ function unescapeHtml (val) {
 				    //$(".extra", $("#item_"+message.chapterID)).html("");          
 
 				    toc.refreshLocks();
-				    
+				    holdChapters.refreshLocks();
 				}
 			    },
 			
