@@ -115,10 +115,11 @@ def addClientToChannel(channelName, client):
     sadd("sputnik:channel:%s:channel" % channelName, client)
 
 def removeClientFromChannel(request, channelName, client):
+    import sputnik
     srem("sputnik:channel:%s:channel" % channelName, client)
 
     # get our username
-    userName = get("ses:%s:username" % client)
+    userName = sputnik.rcon.get("ses:%s:username" % client)
 
     # get all usernames
     users = smembers("sputnik:channel:%s:users" % channelName)
@@ -127,11 +128,11 @@ def removeClientFromChannel(request, channelName, client):
         # get all clients
         allClients = []
         for cl in smembers("sputnik:channel:%s:channel" % channelName):
-            allClients.append(get("ses:%s:username" % cl))
+            allClients.append(sputnik.rcon.get("ses:%s:username" % cl))
 
         for usr in users:
             if usr not in allClients:
-                srem("sputnik:channel:%s:users" % channelName, usr)
+                sputnik.rcon.srem("sputnik:channel:%s:users" % channelName, usr)
                 addMessageToChannel(request, channelName, {"command": "user_remove", "username": usr}, myself = True)
     except:
         pass
@@ -165,8 +166,8 @@ def removeClient(request, clientName):
         removeClientFromChannel(request, chnl, clientName)
         srem("ses:%s:channels" % clientName, chnl)
 
-    rdelete("ses:%s:username" % clientName)
-    rdelete("ses:%s:last_access" % clientName)
+    sputnik.rcon.delete("ses:%s:username" % clientName)
+    sputnik.rcon.delete("ses:%s:last_access" % clientName)
 
     # TODO
     # also, i should delete all messages

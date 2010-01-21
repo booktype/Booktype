@@ -158,7 +158,7 @@ def debug_redis(request):
                 "channels": sputnik.smembers("ses:%s:channels" % ses),
                 "last_access": r.get("ses:%s:last_access" % ses),
                 "access_since": decimal.Decimal("%f" % _now) - r.get("ses:%s:last_access" % ses),
-                "username": sputnik.get("ses:%s:username" % ses)
+                "username": r.get("ses:%s:username" % ses)
                 }
         except:
             pass

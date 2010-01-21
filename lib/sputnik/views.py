@@ -102,7 +102,7 @@ def dispatcher(request, **sputnik_dict):
                 except:
                     continue
 
-            # timeout after 2 minute
+        # timeout after 2 minute
             if  tm and decimal.Decimal("%f" % _now) - tm > 60*2:
                 sputnik.removeClient(request, k[4:-12])
     except:
