@@ -59,6 +59,8 @@ class FormatAuthorsNode(template.Node):
         chapters = []
 
         for chapter in models.BookToc.objects.filter(book=book).order_by("-weight"):
+            if not chapter: continue
+            if not chapter.chapter: continue
             aut = []
             jebem_ti_mater = []
             for us_id in models.ChapterHistory.objects.filter(chapter=chapter.chapter).distinct():
