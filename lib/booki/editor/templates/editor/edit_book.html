@@ -454,6 +454,11 @@ Author comment: <input type="text" name="authorcomment" style="width: 300px;">
 
           <form method="" action="" onsubmit="return false">
 	    <table border="0">
+              <tr>
+               <td>Book title:</td>
+               <td><input value="{{ book.title|escape}}" type="text" size="40" name="title"></td>
+              </tr>
+
 	      <tr>
 		<td>Document type:</td>
 		<td>
@@ -464,6 +469,28 @@ Author comment: <input type="text" name="authorcomment" style="width: 300px;">
 		  <option value="web">web (PDF)</option></select> 
 		</td>
 	      </tr>
+
+             <tr>
+              <td>License:</td>
+              <td>
+                 <select id="license" name="license">
+                   <option value="GPL">GPL</option>
+                   <option selected="selected" value="GPLv2+">GPLv2+</option>
+                   <option value="LGPL">LGPL</option>
+                   <option value="LGPLv2.1">LGPLv2.1</option>
+                   <option value="GPLv3+">GPLv3+</option>
+                   <option value="GPLv2">GPLv2</option>
+                   <option value="GPLv3">GPLv3</option>
+                   <option value="CC-BY">CC-BY</option>
+                   <option value="CC-BY-SA">CC-BY-SA</option>
+                   <option value="Artistic">Artistic</option>
+                   <option value="BSD">BSD</option>
+                   <option value="public domain">public domain</option>
+                   <option value="LGPLv3">LGPLv3</option>
+                   <option value="MIT">MIT</option>
+                  </select> 
+              </td>
+	     </tr>
 	      <tr>
 		<td colspan="2"><input type="checkbox" checked="yes" name="archiveorg"> send to archive.org</td>
 	      </tr>
@@ -473,7 +500,130 @@ Author comment: <input type="text" name="authorcomment" style="width: 300px;">
 	      <tr>
 		<td colspan="2">
 		  <button>Publish this book</button>
+                  <span id="advancedswitch">
+                     <a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(true)">Show advanced options</a>
+                  </span>
 		</td>
+	      </tr>
+
+               <tr><td colspan="2">&nbsp;</td></tr>
+
+               <tr>
+		<td colspan="2" >      
+    	         <div  id="advanced" style="display: none"> 
+               
+                  <table border="0">
+                   <tr>
+                     <td>ISBN</td>
+                     <td><input type="text" size="40" id="isbn" name="isbn" value="" /> (13 digits)</td>
+                   </tr>
+            
+                   <tr>
+                    <td>Table of Contents header</td>
+                    <td> <input size="40" type="text" id="toc_header" name="toc_header" value="" /> </td>
+                   </tr>
+
+                   <tr>
+                     <td>Page size</td>
+                     <td> 
+                      <select id="booksize" name="booksize">
+                        <option value="custom" class="custom">custom</option>
+                        <option value="POCKET" class="lulu">POCKET (107mm x 174mm)</option>
+                        <option value="A5" class="lulu iso">A5 (148mm x 210mm)</option>
+                        <option value="USTRADE" class="lulu">USTRADE (152mm x 228mm)</option>
+                        <option value="SQUARE7.5" class="lulu">SQUARE7.5 (190mm x 190mm)</option>
+                        <option value="ROYAL" class="lulu">ROYAL (155mm x 233mm)</option>
+
+                        <option value="LANDSCAPE9x7" class="lulu">LANDSCAPE9x7 (228mm x 177mm)</option>
+                        <option selected="selected" value="COMICBOOK" class="lulu">COMICBOOK (168mm x 260mm)</option>
+                        <option value="CROWNQUARTO" class="lulu">CROWNQUARTO (189mm x 245mm)</option>
+                        <option value="SQUARE8.5" class="lulu">SQUARE8.5 (215mm x 215mm)</option>
+                        <option value="USLETTER" class="lulu">USLETTER (215mm x 279mm)</option>
+                        <option value="A4" class="lulu iso">A4 (210mm x 297mm)</option>
+                        <option value="Foolscap (F4)" class="">Foolscap (F4) (210mm x 330mm)</option>
+                        <option value="B4" class="iso">B4 (250mm x 353mm)</option>
+                        <option value="Oamaru Tabloid" class="newspaper">Oamaru Tabloid (265mm x 380mm)</option>
+
+                        <option value="UK Tabloid" class="newspaper">UK Tabloid (279mm x 431mm)</option>
+                        <option value="A3 (NZ Tabloid)" class="iso newspaper">A3 (NZ Tabloid) (297mm x 420mm)</option>
+                        <option value="Berliner" class="newspaper">Berliner (315mm x 470mm)</option>
+                        <option value="B3" class="iso">B3 (353mm x 500mm)</option>
+                        <option value="Oamaru Broadsheet" class="newspaper">Oamaru Broadsheet (382mm x 540mm)</option>
+                        <option value="US Broadsheet" class="newspaper">US Broadsheet (380mm x 577mm)</option>
+                        <option value="A2 (NZ Broadsheet)" class="iso newspaper">A2 (NZ Broadsheet) (420mm x 594mm)</option>
+                        <option value="UK Broadsheet" class="newspaper">UK Broadsheet (457mm x 609mm)</option>
+                        <option value="B2" class="iso">B2 (500mm x 707mm)</option>
+
+                        <option value="A1" class="iso">A1 (594mm x 841mm)</option>
+                        <option value="B1" class="iso">B1 (707mm x 1000mm)</option>
+                      </select>
+                     </td>
+		    </tr>
+
+                    <tr>
+                     <td>CSS mode:</td>
+                     <td>
+		       <select name="css" onchange="$.booki.editor.showAdvancedPublishCSS(this)">
+                          <option value="default">Server default</option>
+<!--                          <option value="url">URL</option> -->
+                          <option value="custom">Custom</tion>
+                        </select>
+                     </td>
+                    </tr>
+
+                    <tr>
+                     <td></td>
+                     <td id="csscustom">
+                     </td>
+                    </tr>
+
+                    <tr>
+                     <td>Page width:</td>
+                     <td><input type="text" id="page_width" name="page_width" value="" /></td> 
+                    </tr>
+
+                    <tr>
+                     <td>Page height:</td>
+                     <td> <input type="text" id="page_height" name="page_height" value="" /> </td>
+		    </tr>
+
+                    <tr>
+                     <td>Top margin</td>
+                     <td> <input type="text" id="top_margin" name="top_margin" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Side margin</td>
+                     <td> <input type="text" id="side_margin" name="side_margin" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Bottom margin</td>
+                     <td><input type="text" id="bottom_margin" name="bottom_margin" value="" />  </td>
+                    </tr>
+
+                    <tr>
+                     <td>Gutter</td>
+                     <td> <input type="text" id="gutter" name="gutter" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Columns</td>
+                     <td> <input type="text" id="columns" name="columns" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Column margin</td>
+                     <td> <input type="text" id="column_margin" name="column_margin" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Grey-scale</td>
+                     <td><input type="checkbox" id="grey_scale" name="grey_scale" value="yes" /> (for black and white printing)</td>
+                    </tr>
+                  </table>
+                 </div>     
+ 		</td>
 	      </tr>
           </form>
           <div class="info">

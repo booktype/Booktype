@@ -493,6 +493,7 @@ def remote_publish_book(request, message, bookid):
                         myself=True)
 
     import urllib2
+    import urllib
     urlPublish = "http://objavi.flossmanuals.net/objavi.cgi"
 #        urlPublish = "http://objavi.halo.gen.nz/objavi.cgi"
 
@@ -502,9 +503,38 @@ def remote_publish_book(request, message, bookid):
     if message.get("is_archive", False):
         destination = "archive.org"
 
-    # TODO
-    # FIX THIS
-    f = urllib2.urlopen("%s?book=%s&project=export&mode=%s&server=booki.flossmanuals.net&destination=%s" % (urlPublish, book.url_title, publishMode, destination))
+    args = {'book': book.url_title,
+            'project': 'export',
+            'mode': publishMode,
+            'server': 'booki.flossmanuals.net',
+            'destination': destination,
+            }
+
+    def _isSet(name):   
+        if message.get(name, None):
+            args[name] = message.get(name)
+
+    _isSet('title')
+    _isSet('license')
+    _isSet('isbn')
+    _isSet('toc_header')
+    _isSet('booksize')
+    _isSet('page_width')
+    _isSet('page_height')
+    _isSet('top_margin')
+    _isSet('side_margin')
+    _isSet('gutter')
+    _isSet('columns')
+    _isSet('column_margin')
+    _isSet('gray_scale')
+    _isSet('css')
+
+    data = urllib.urlencode(args)
+
+    req = urllib2.Request(urlPublish, data)
+    f = urllib2.urlopen(req)
+
+#    f = urllib2.urlopen("%s?book=%s&project=export&mode=%s&server=booki.flossmanuals.net&destination=%s" % (urlPublish, book.url_title, publishMode, destination))
     ta = f.read()
     lst = ta.split("\n")
     dta, dtas3 = "", ""

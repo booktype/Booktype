@@ -525,6 +525,151 @@ function unescapeHtml (val) {
 					      });
 					  });
 		},
+
+		/* should this stay here? */
+
+		showAdvancedPublishCSS: function(mode) {
+		    // url ili custom
+		    if(mode.value == "url") {
+			$("#csscustom").html('URL: <input type="text" name="cssurl" size="30">');
+		    }
+
+		    if(mode.value == "custom") {
+
+
+
+			$("#csscustom").html('Custom CSS:<br><textarea cols="50" rows="20" name="csscustom"> \
+body {\n\
+  font-family: "Gillius ADF";\n\
+  background: #fff;\n\
+  color: #000;\n\
+}\n\
+\n\
+.unseen{\n\
+  z-index: -66;\n\
+  margin-left: -1000pt;\n\
+}\n\
+\n\
+.objavi-chapter{\n\
+  color: #000;\n\
+}\n\
+\n\
+h1 .initial{\n\
+  color: #000;\n\
+  font-size: 2em;\n\
+}\n\
+\n\
+.objavi-subsection{\n\
+  display: block;\n\
+  page-break-before: always;\n\
+/*  page-break-after: always;*/\n\
+  text-transform: uppercase;\n\
+  font-size: 20pt;\n\
+}\n\
+\n\
+body .objavi-subsection:first-child{\n\
+  page-break-before: avoid;\n\
+}\n\
+\n\
+.objavi-subsection .initial {\n\
+  font-size: 1em;\n\
+  color: #000;\n\
+}\n\
+\n\
+.objavi-subsection-heading{\n\
+  font-size: 36pt;\n\
+  font-weight: bold;\n\
+}\n\
+\n\
+h1 {\n\
+  text-transform: uppercase;\n\
+  page-break-before: always;\n\
+  background: white;\n\
+}\n\
+\n\
+/*h1.first-heading {\n\
+  page-break-before: avoid;\n\
+}*/\n\
+\n\
+h2 {\n\
+  text-transform: uppercase;\n\
+}\n\
+\n\
+table {\n\
+  float: none;\n\
+}\n\
+\n\
+h1.frontpage{\n\
+  font-size: 64pt;\n\
+  text-align: center;\n\
+  page-break-after: always;\n\
+  page-break-before: avoid;\n\
+  max-width: 700px;\n\
+}\n\
+\n\
+div.copyright{\n\
+  padding: 1em;\n\
+}\n\
+\n\
+table.toc {\n\
+  /*border: 1px dotted #999;*/\n\
+  font-size: 17pt;\n\
+  width: 95%;\n\
+}\n\
+\n\
+td.chapter {\n\
+  padding-left: 2em;\n\
+  text-align: right;\n\
+}\n\
+\n\
+td.pagenumber {\n\
+  text-align: right;\n\
+}\n\
+\n\
+td.section {\n\
+  font-size: 1.1em;\n\
+  text-transform: uppercase;\n\
+  font-weight: bold;\n\
+}\n\
+\n\
+p, ul, ol {\n\
+  page-break-inside: avoid;\n\
+}\n\
+\n\
+pre, code, tt {\n\
+  font-family: "Courier", "Courier New", monospace;\n\
+  font-size: 0.8em;\n\
+}\n\
+\n\
+pre {\n\
+  max-width:700px;\n\
+  overflow: hidden;\n\
+}\n\
+\n\
+img {\n\
+  max-width: 700px;\n\
+  height: auto;\n\
+}\n\
+</textarea>');
+
+		    }
+
+		    if(mode.value == "default") {
+			$("#csscustom").html("");
+		    }
+		},
+
+		showAdvancedPublishOptions: function(flag) {
+		    if(flag) {
+			$("#advancedswitch").html('<a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(false)">Hide advanced options</a>');
+
+			$("#advanced", $("#tabpublish")).css("display", "block");
+		    } else {
+			$("#advanced", $("#tabpublish")).css("display", "none");
+
+			$("#advancedswitch").html('<a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(true)">Show advanced options</a>');
+		    }
+		},
 		
 		_initUI: function() {
 		    $("#tabs").tabs();
@@ -635,8 +780,36 @@ function unescapeHtml (val) {
 		    $.booki.chat.initChat($("#chat"), $("#chat2"));
 
                     $("#tabpublish BUTTON").click(function() {
-			var isArchive = $("#tabpublish FORM INPUT[type='checkbox']").is(":checked");
+			/* default options */
+			var bookTitle = $("#tabpublish FORM INPUT[name='title']").val();
+			var bookLicense = $("#tabpublish FORM SELECT[name='license']").val();
+			var bookISBN = $("#tabpublish FORM INPUT[name='isbn']").val();
+			var bookHeader = $("#tabpublish FORM INPUT[name='toc_header']").val();
+			var bookSize = $("#tabpublish FORM SELECT[name='booksize']").val();
+			var bookPageWidth = $("#tabpublish FORM INPUT[name='page_width']").val();
+			var bookPageHeight = $("#tabpublish FORM INPUT[name='page_height']").val();
+			var bookTopMargin = $("#tabpublish FORM INPUT[name='top_margin']").val();
+			var bookSideMargin = $("#tabpublish FORM INPUT[name='side_margin']").val();
+			var bookBottomMargin = $("#tabpublish FORM INPUT[name='bottom_margin']").val();
+			var bookGutter = $("#tabpublish FORM INPUT[name='gutter']").val();
+			var bookColumns = $("#tabpublish FORM INPUT[name='columns']").val();
+			var bookColumnMargin = $("#tabpublish FORM INPUT[name='column_margin']").val();
+			var bookCss = '';
+
+			var isGrayscale = $("#tabpublish FORM INPUT[name='gray_scale']").is(":checked");
+			
+			var isArchive = $("#tabpublish FORM INPUT[name='archiveorg']").is(":checked");
 			var publishMode = $("#tabpublish OPTION:selected").val();
+
+			switch($("#tabpublish FORM SELECT[name='css']").val()) {
+			case 'url':
+			    bookCss = $("#tabpublish FORM INPUT[name='cssurl']").val();
+			    break;
+			case 'custom':
+			    bookCss = $("#tabpublish FORM TEXTAREA[name='csscustom']").val();
+			    break;
+			}
+
 
 			var messageFormat = {"epub": "epub",
 			    "book": "book formated pdf",
@@ -672,10 +845,25 @@ function unescapeHtml (val) {
 
 			_incrementProgress();
 			
-
+			
                         $.booki.sendToCurrentBook({"command": "publish_book",
 						   "is_archive": isArchive,
-						   "publish_mode": publishMode},
+						   "publish_mode": publishMode,
+						   'title': bookTitle,
+						   'license': bookLicense,
+						   'isbn': bookISBN,
+						   'toc_header': bookHeader,
+						   'booksize': bookSize,
+						   'page_width': bookPageWidth,
+						   'page_height': bookPageHeight,
+						   'top_margin': bookTopMargin,
+						   'side_margin': bookSideMargin,
+						   'gutter': bookGutter,
+						   'columns': bookColumns,
+						   'column_margin': bookColumnMargin,
+						   'gray_scale': isGrayscale,
+						   'css': bookCss
+						  },
 						  
                                                   function(data) {
 						      var message = "";
