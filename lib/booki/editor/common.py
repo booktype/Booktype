@@ -460,9 +460,26 @@ def exportBook(book):
     childrenList = []
     unknown_n = 0
 
+    from django import template
+    from django.template.loader import render_to_string
+
     for chapter in models.BookToc.objects.filter(book=book).order_by("-weight"):
         if chapter.chapter:
             content = p.sub(r' src="\1"', chapter.chapter.content)
+
+            # this has to be put somewhere outside
+            if content.find("##AUTHORS##") != -1:
+                t = template.loader.get_template_from_string('{% load booki_tags %} {% booki_authors book %}')
+                #con =  t.render(template.Context(context, autoescape=context.autoescape))
+                con = t.render(template.Context({"content": chapter, "book": book}))
+
+                content = content.replace('##AUTHORS##', con)
+
+#            content = content.replace('##AUTHORS##', '{% booki_authors book %}')
+#
+#            t = template.loader.get_template_from_string('{% load booki_tags %} '+content)
+#            content = t.render(template.Context({"content": chapter, "book": book}))
+
             name = "%s.html" % chapter.chapter.url_title
 
             childrenList.append({"title": chapter.chapter.title,

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load booki_tags %}
+
 {% block header %}
 <link type="text/css" href="/site_media/css/editor.css" rel="Stylesheet" />
 {% endblock %}
@@ -31,7 +33,7 @@
 
 {% for chap in chapters %}
  {% ifequal chap.type "chapter"%}
-   {{ chap.content|safe }} 
+   {% booki_format chap.chapter  %}
  {% else %}
    <h2> {{ chap.title }}</h2>
  {% endifequal %}

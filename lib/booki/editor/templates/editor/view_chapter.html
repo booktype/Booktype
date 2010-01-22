@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load booki_tags %}
+
 {% block header %}
 <link type="text/css" href="/site_media/css/editor.css" rel="Stylesheet" />
 {% endblock %}
@@ -46,7 +48,7 @@
 </ul>
  </td>
  <td valign="top">
-{{ content.content|safe }}
+{% booki_format content %}
 <hr/>
 <a href="{% url view_book   book.url_title %}edit/">EDIT</a>
  </td>

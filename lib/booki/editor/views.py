@@ -53,7 +53,8 @@ def view_full(request, bookid):
         if chapter.typeof == 1:
             chapters.append({"type": "chapter",
                              "title": chapter.chapter.title,
-                             "content": chapter.chapter.content})
+                             "content": chapter.chapter.content,
+                             "chapter": chapter.chapter})
         else:
             chapters.append({"type": "section",
                              "title": chapter.name})
