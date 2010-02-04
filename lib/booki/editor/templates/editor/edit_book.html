@@ -8,13 +8,16 @@
         <script type="text/javascript">
 	$(function() {
 
+	    $("#chattitle").hover(function() {
+		$(this).css("background-color", "yellow");
+	    }, function() {
+		$(this).css("background-color", "white");
 
+	    });
 	    /* booki part */
             /* this is temporary here */
 
            $.booki.username = "{{request.user.username}}";
-           $.booki.currentProjectID = {{project.id}};
-           $.booki.currentProject = "{{project.name}}";
            $.booki.currentBookID  = {{book.id}};
            $.booki.currentBook    = "{{book.title}}";
 
@@ -54,7 +57,7 @@
 				'Create chapter': function() {
 				    $.booki.ui.notify("Creating chapter");
 				    
-				    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
+				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
 					$.booki.ui.notify();
 				    });
 
@@ -84,7 +87,7 @@
 				'Create section': function() {
 				    $.booki.ui.notify("Creating section");
 			
-				    $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
+				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
 					$.booki.ui.notify();
 				    });
 
@@ -147,10 +150,7 @@ function closeAttachmentUpload() {
 	xinha_config.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
 	
 	xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
-	
-//	xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","insertimage","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
-	
-	
+
 	xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
 	
 	Xinha.startEditors(xinha_editors);
@@ -174,7 +174,7 @@ some notification. this should be on top of visible page and not top of page.
 <div id="header">
  <div style="float:right; font-size: 12px">
 <div align="center" style="padding-bottom: 8px">
-<img src="/site_media/images/logo.png"></div>
+ <a href="/"><img src="/site_media/images/logo.png" border="0"></a></div>
     <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a class="debug" href="javascript:void(0)">Debug</a> | <a href="/accounts/signout/">Sign out</a>
 
 <!--    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a class="debug" href="javascript:void(0)">Debug</a> | <a href="/accounts/signout/">Sign out</a> -->
@@ -190,13 +190,14 @@ some notification. this should be on top of visible page and not top of page.
 <input type="text" size="20"> <button>Search</button>
 </form>
 </div>
-<h1 style="margin-top: 0px"> <a href="/{{ project.url_name }}/{{ book.url_title }}/">{{ book }}</a> </h1>
+<h1 style="margin-top: 0px"> <a href="/{{ book.url_title }}/">{{ book }}</a> </h1>
 </div>
 
 <div id="tabs">
 	<ul>
 		<li><a href="#tabchapters">Chapters</a></li>
 		<li><a href="#tabattachments">Attachments</a></li>
+		<li><a href="#tabhistory">History</a></li>
 		<li><a href="#tabinfo">Info</a></li>
 <!--		<li><a href="#tabbigchat">Chat</a></li>  -->
 		<li><a href="#tabpublish">Publish</a></li>
@@ -226,8 +227,7 @@ some notification. this should be on top of visible page and not top of page.
 </div>
 
 <div id="newchapter" title="New chapter">
-<!--  <p id="validateTips">Enter new chapter name.</p> -->
-  
+<!--  <p id="validateTips">Enter new chapter name.</p> -->  
   <form onsubmit="javascript:return false">
     <fieldset>
       <input type="text" class="text ui-widget-content ui-corner-all">
@@ -237,7 +237,6 @@ some notification. this should be on top of visible page and not top of page.
 
 <div id="newsection" title="New section">
 <!--  <p id="validateTips">Enter new section name.</p> -->
-  
   <form onsubmit="return false">
     <fieldset>
       <input type="text" class="text ui-widget-content ui-corner-all">
@@ -292,7 +291,7 @@ some notification. this should be on top of visible page and not top of page.
 <form method="GET" action="javascript: return void(0)">
 <input type="hidden" name="chapter_id" value=""/>
 <input type="button" class="save" name="save" value="Save"/>
-<!-- <input type="button" class="save" name="save" value="Save and continue editing"/> -->
+<input type="button" class="save" name="savecontinue" value="Save and continue editing"/> 
 
 <input type="button" class="cancel" name="cancel" value="Cancel"/>
 <br/>
@@ -300,6 +299,23 @@ some notification. this should be on top of visible page and not top of page.
 <textarea name="myTextArea" id="myTextArea" style="width: 500px; height: 600px">
   
 </textarea>
+
+<div style="clear: left; margin-top: 5px">
+ <input type="checkbox" name="minor">Minor change, don't notify.
+</div>
+
+<div style="clear: left; margin-top: 5px">
+<input type="text" name="comment" style="width: 500px;">
+</div>
+
+<div style="clear: left; margin-top: 5px; color: #c0c0c0;">
+Author: <input type="text" name="author" style="width: 300px;">
+</div>
+<div style="clear: left; margin-top: 5px; color: #c0c0c0;">
+Author comment: <input type="text" name="authorcomment" style="width: 300px;">
+</div>
+
+
 </form>
 
 </div>
@@ -326,13 +342,13 @@ some notification. this should be on top of visible page and not top of page.
 
 </td>
 <td valign="top" width="200">
-<h4>Chat</h4>
+<h4 id="chattitle">Chat</h4>
 <div id="chat">
 </div>
 
-<h4>Active sessions (debug)</h4>
- <div id="users">
- </div>
+<h4>Currently editing</h4>
+ <ul id="users">
+ </ul>
 <!--
                 <div id="accordion">
                         <div>                                <h3><a href="#">Info</a></h3>
@@ -378,6 +394,26 @@ some notification. this should be on top of visible page and not top of page.
 </table>
 	</div>
 
+<div id="tabhistory">
+<!-- <h2>History</h2> -->
+
+<table border="0">
+<tr>
+<td width="100%" class="cont">
+
+
+</td>
+<td width="20"></td>
+<td valign="top">
+<h4>History</h4> 
+<ul>
+<li>Book</li>
+</ul>
+</td>
+</tr>
+</table>
+
+</div>
 
 <!--
 <div id="tabbigchat">
@@ -417,7 +453,178 @@ some notification. this should be on top of visible page and not top of page.
           <p></p>
 
           <form method="" action="" onsubmit="return false">
-            <button>Publish this book</button>
+	    <table border="0">
+              <tr>
+               <td>Book title:</td>
+               <td><input value="{{ book.title|escape}}" type="text" size="40" name="title"></td>
+              </tr>
+
+	      <tr>
+		<td>Document type:</td>
+		<td>
+		  <select id="mode" name="mode"><option value="book">book (PDF)</option> 
+		  <option value="epub">epub</option> 
+		  <option value="newspaper">newspaper (PDF)</option> 
+		  <option value="openoffice">openoffice</option> 
+		  <option value="web">web (PDF)</option></select> 
+		</td>
+	      </tr>
+
+             <tr>
+              <td>License:</td>
+              <td>
+                 <select id="license" name="license">
+                   <option value="GPL">GPL</option>
+                   <option selected="selected" value="GPLv2+">GPLv2+</option>
+                   <option value="LGPL">LGPL</option>
+                   <option value="LGPLv2.1">LGPLv2.1</option>
+                   <option value="GPLv3+">GPLv3+</option>
+                   <option value="GPLv2">GPLv2</option>
+                   <option value="GPLv3">GPLv3</option>
+                   <option value="CC-BY">CC-BY</option>
+                   <option value="CC-BY-SA">CC-BY-SA</option>
+                   <option value="Artistic">Artistic</option>
+                   <option value="BSD">BSD</option>
+                   <option value="public domain">public domain</option>
+                   <option value="LGPLv3">LGPLv3</option>
+                   <option value="MIT">MIT</option>
+                  </select> 
+              </td>
+	     </tr>
+	      <tr>
+		<td colspan="2"><input type="checkbox" checked="yes" name="archiveorg"> send to archive.org</td>
+	      </tr>
+	      <tr>
+		<td colspan="2"><br/></td>
+	      </tr>
+	      <tr>
+		<td colspan="2">
+		  <button>Publish this book</button>
+                  <span id="advancedswitch">
+                     <a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(true)">Show advanced options</a>
+                  </span>
+		</td>
+	      </tr>
+
+               <tr><td colspan="2">&nbsp;</td></tr>
+
+               <tr>
+		<td colspan="2" >      
+    	         <div  id="advanced" style="display: none"> 
+               
+                  <table border="0">
+                   <tr>
+                     <td>ISBN</td>
+                     <td><input type="text" size="40" id="isbn" name="isbn" value="" /> (13 digits)</td>
+                   </tr>
+            
+                   <tr>
+                    <td>Table of Contents header</td>
+                    <td> <input size="40" type="text" id="toc_header" name="toc_header" value="" /> </td>
+                   </tr>
+
+                   <tr>
+                     <td>Page size</td>
+                     <td> 
+                      <select id="booksize" name="booksize">
+                        <option value="custom" class="custom">custom</option>
+                        <option value="POCKET" class="lulu">POCKET (107mm x 174mm)</option>
+                        <option value="A5" class="lulu iso">A5 (148mm x 210mm)</option>
+                        <option value="USTRADE" class="lulu">USTRADE (152mm x 228mm)</option>
+                        <option value="SQUARE7.5" class="lulu">SQUARE7.5 (190mm x 190mm)</option>
+                        <option value="ROYAL" class="lulu">ROYAL (155mm x 233mm)</option>
+
+                        <option value="LANDSCAPE9x7" class="lulu">LANDSCAPE9x7 (228mm x 177mm)</option>
+                        <option selected="selected" value="COMICBOOK" class="lulu">COMICBOOK (168mm x 260mm)</option>
+                        <option value="CROWNQUARTO" class="lulu">CROWNQUARTO (189mm x 245mm)</option>
+                        <option value="SQUARE8.5" class="lulu">SQUARE8.5 (215mm x 215mm)</option>
+                        <option value="USLETTER" class="lulu">USLETTER (215mm x 279mm)</option>
+                        <option value="A4" class="lulu iso">A4 (210mm x 297mm)</option>
+                        <option value="Foolscap (F4)" class="">Foolscap (F4) (210mm x 330mm)</option>
+                        <option value="B4" class="iso">B4 (250mm x 353mm)</option>
+                        <option value="Oamaru Tabloid" class="newspaper">Oamaru Tabloid (265mm x 380mm)</option>
+
+                        <option value="UK Tabloid" class="newspaper">UK Tabloid (279mm x 431mm)</option>
+                        <option value="A3 (NZ Tabloid)" class="iso newspaper">A3 (NZ Tabloid) (297mm x 420mm)</option>
+                        <option value="Berliner" class="newspaper">Berliner (315mm x 470mm)</option>
+                        <option value="B3" class="iso">B3 (353mm x 500mm)</option>
+                        <option value="Oamaru Broadsheet" class="newspaper">Oamaru Broadsheet (382mm x 540mm)</option>
+                        <option value="US Broadsheet" class="newspaper">US Broadsheet (380mm x 577mm)</option>
+                        <option value="A2 (NZ Broadsheet)" class="iso newspaper">A2 (NZ Broadsheet) (420mm x 594mm)</option>
+                        <option value="UK Broadsheet" class="newspaper">UK Broadsheet (457mm x 609mm)</option>
+                        <option value="B2" class="iso">B2 (500mm x 707mm)</option>
+
+                        <option value="A1" class="iso">A1 (594mm x 841mm)</option>
+                        <option value="B1" class="iso">B1 (707mm x 1000mm)</option>
+                      </select>
+                     </td>
+		    </tr>
+
+                    <tr>
+                     <td>CSS mode:</td>
+                     <td>
+		       <select name="css" onchange="$.booki.editor.showAdvancedPublishCSS(this)">
+                          <option value="default">Server default</option>
+<!--                          <option value="url">URL</option> -->
+                          <option value="custom">Custom</tion>
+                        </select>
+                     </td>
+                    </tr>
+
+                    <tr>
+                     <td></td>
+                     <td id="csscustom">
+                     </td>
+                    </tr>
+
+                    <tr>
+                     <td>Page width:</td>
+                     <td><input type="text" id="page_width" name="page_width" value="" /></td> 
+                    </tr>
+
+                    <tr>
+                     <td>Page height:</td>
+                     <td> <input type="text" id="page_height" name="page_height" value="" /> </td>
+		    </tr>
+
+                    <tr>
+                     <td>Top margin</td>
+                     <td> <input type="text" id="top_margin" name="top_margin" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Side margin</td>
+                     <td> <input type="text" id="side_margin" name="side_margin" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Bottom margin</td>
+                     <td><input type="text" id="bottom_margin" name="bottom_margin" value="" />  </td>
+                    </tr>
+
+                    <tr>
+                     <td>Gutter</td>
+                     <td> <input type="text" id="gutter" name="gutter" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Columns</td>
+                     <td> <input type="text" id="columns" name="columns" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Column margin</td>
+                     <td> <input type="text" id="column_margin" name="column_margin" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Grey-scale</td>
+                     <td><input type="checkbox" id="grey_scale" name="grey_scale" value="yes" /> (for black and white printing)</td>
+                    </tr>
+                  </table>
+                 </div>     
+ 		</td>
+	      </tr>
           </form>
           <div class="info">
 

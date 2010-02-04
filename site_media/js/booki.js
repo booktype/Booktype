@@ -47,7 +47,7 @@ $(function() {
   		    },
 
 		    sendToCurrentBook: function(message, callback, errback) {
-			return $.booki.sendToChannel("/booki/book/"+$.booki.currentProjectID+"/"+$.booki.currentBookID+"/", message, callback, errback);
+			return $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", message, callback, errback);
 		    },
 		    
 		    unsubscribeFromChannel: function(channelName, someID) {
@@ -64,6 +64,9 @@ $(function() {
 	    var _isInitialized = false;
 	    var _messages = null;
 	    var _uid = 1;
+	    var options = {'poll': true,
+		'iteration': 5000
+	    };
 	    
 	    function Sputnik() {
 		this.init();
@@ -76,27 +79,35 @@ $(function() {
 			_messages = new Array();
 			_results  = new Array();
 			this._subscribedChannels = new Array();
-			
-			this.interval();
 		    },
 		    
-		    connect: function() {
-			_isInitialized = true;
-			
-			var channels = new Array();
-			
-			for(var key in this._subscribedChannels) {
-			    channels.push(key);
+		    connect: function(_options) {
+			if(_options) {
+			    jQuery.extend(options, _options);
 			}
 			
+			if(!_isInitialized) {
+			    this.interval();
+
+			    _isInitialized = true;
+			}
+			
+			var channels = new Array(); 
+
+			for(var key in this._subscribedChannels) {
+			    // this sux
+			    if(key != "isArray" && key != "contains" && key != "append")
+				channels.push(key);
+			}
+
 			_messages = $.merge([{"channel": "/booki/",
 					      "command": "connect",
 					      "uid": _uid,
 					      "channels": channels}], 
 			    _messages);
 			_results[_uid] = [function(result) {
-				$.booki.clientID = result.clientID;
-			    }, null];
+			    $.booki.clientID = result.clientID;
+			}, null];
 			
 			_uid += 1;
 			
@@ -104,6 +115,8 @@ $(function() {
 		    },
 		    
 		    interval: function() {
+			if(!options['poll']) return;
+
 			/* should be setTimeout and not setInterval */
 			var a = this;
 			
@@ -120,7 +133,7 @@ $(function() {
 				} 
 				
 				_lastAccess = d;
-			    }, 5000);
+			    }, options['iteration']);
 		    },
 		    
 		    receiveMessage: function(message, result) {
@@ -165,10 +178,10 @@ $(function() {
 
 			
 			/*
-			  what in case of errors?!
+			  what to do in case of errors?!
 			*/
                         var a = this;
-                        $.post("/api/", {"clientID": $.booki.clientID, "messages": msgs  }, function(data, textStatus) {
+                        $.post("/sputnik/", {"clientID": $.booki.clientID, "messages": msgs  }, function(data, textStatus) {
 				$.each(data.messages, function(i, msg) {
 					a.receiveMessage(msg, data.result);
 				    });

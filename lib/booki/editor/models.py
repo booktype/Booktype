@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
+from django.contrib.auth import models as auth_models
 # License
 
 class License(models.Model):
@@ -32,28 +32,10 @@ STATUS_CHOICES = (
 )
 
 
-## Project
+# Book Status
 
-class Project(models.Model):
-    url_name = models.CharField(_('url_name'), max_length=2500, blank=False)
-    name = models.CharField(_('name'), max_length=2500, blank=False)
-    status = models.IntegerField(_('status'), choices=STATUS_CHOICES) # change this
-    created = models.DateTimeField(_('created'), auto_now=True)
-
-    # put modified or published field also
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _('Project')
-        verbose_name_plural = _('Projects')
-
-
-# Project Status
-
-class ProjectStatus(models.Model):
-    project = models.ForeignKey(Project, null=False)
+class BookStatus(models.Model):
+    book = models.ForeignKey('Book')
     name = models.CharField(_('name'), max_length=30, blank=False)
     weight = models.SmallIntegerField(_('weight'))
 
@@ -61,18 +43,20 @@ class ProjectStatus(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = _('Project status')
-        verbose_name_plural = _('Project status')
+        verbose_name = _('Book status')
+        verbose_name_plural = _('Book status')
 
 
 # Book
 
 class Book(models.Model):
-    project = models.ForeignKey(Project, null=False)
-    url_title = models.CharField(_('url_title'), max_length=2500, blank=True) # can it be blank?
+    url_title = models.CharField(_('url_title'), max_length=2500, blank=False, unique=True) # can it be blank?
     title = models.CharField(_('title'), max_length=2500, blank=False)
-    status = models.ForeignKey(ProjectStatus, null=False)
+    status = models.ForeignKey('BookStatus', null=True, related_name="status")
     language = models.ForeignKey(Language, null=True) # can it be blank?
+
+    owner = models.ForeignKey(auth_models.User)
+
     # or is this suppose to be per project
     # and null=False should be
     license = models.ForeignKey(License,null=True)
@@ -80,12 +64,61 @@ class Book(models.Model):
     created = models.DateTimeField(_('created'), auto_now=True)
     published = models.DateTimeField(_('published'), null=True)
 
+    def get_absolute_url(self):
+        return '/%s/' % self.url_title
+
     def __unicode__(self):
         return self.title
 
     class Meta:
         verbose_name = _('Book')
         verbose_name_plural = _('Books')
+
+# BookHistory
+
+
+HISTORY_CHOICES = {'unknown': 0,
+
+                   'chapter_create': 1,
+                   'chapter_save': 2,
+                   'chapter_rename': 3,
+                   'chapter_reorder': 4,
+                   'chapter_split': 5,
+
+                   'section_create': 6,
+
+                   'book_create': 10
+}
+
+class BookHistory(models.Model):
+    book = models.ForeignKey(Book, null=False)
+    chapter = models.ForeignKey('Chapter', null=True)
+    chapter_history = models.ForeignKey('ChapterHistory', null=True)
+    modified = models.DateTimeField(_('modified'), auto_now=True)
+    args = models.CharField(_('args'), max_length=2500, blank=False)
+    user = models.ForeignKey(auth_models.User)
+    kind = models.SmallIntegerField(_('kind'), default=0)
+
+    def __unicode__(self):
+        return self.args
+    
+
+# BookiGroup
+
+class BookiGroup(models.Model):
+    name = models.CharField(_('name'), max_length=300, blank=False)
+    url_name = models.CharField(_('url_name'), max_length=300, blank=False)
+    description = models.TextField(_('description'))
+
+    owner = models.ForeignKey(auth_models.User)
+
+    books = models.ManyToManyField(Book, blank=True)
+    members = models.ManyToManyField(auth_models.User, related_name="members", blank=True)
+
+    created = models.DateTimeField(_('created'), auto_now=False, null=True)
+
+    def __unicode__(self):
+        return self.name
 
 
 # Info
@@ -136,12 +169,20 @@ class Chapter(models.Model):
     book = models.ForeignKey(Book, null=False)
     url_title = models.CharField(_('url_title'), max_length=2500)
     title = models.CharField(_('title'), max_length=2500)
-    status = models.ForeignKey(ProjectStatus, null=False) # this will probably change
+    status = models.ForeignKey(BookStatus, null=False) # this will probably change
     created = models.DateTimeField(_('created'), null=False, auto_now=True)
     modified = models.DateTimeField(_('modified'), null=True, auto_now=True)
+    #
+    revision = models.IntegerField(_('revision'), default=1)
+#    comment = models.CharField(_('comment'), max_length=2500, blank=True)
+
 
     # missing licence here
     content = models.TextField()
+
+    def get_absolute_url(self):
+        return '/%s/%s/' % (self.book.url_title, self.url_title)
+
 
     def __unicode__(self):
         return self.title
@@ -150,30 +191,47 @@ class Chapter(models.Model):
         verbose_name = _('Chapter')
         verbose_name_plural = _('Chapters')
 
+# ChapterHistory
+
+class ChapterHistory(models.Model):
+    chapter = models.ForeignKey(Chapter, null=False)
+    content = models.TextField()
+    modified = models.DateTimeField(_('modified'), null=False, auto_now=True)
+    user = models.ForeignKey(auth_models.User)
+    revision = models.IntegerField(_('revision'), default=1)
+    comment = models.CharField(_('comment'), max_length=2500, blank=True)
+
+    def __unicode__(self):
+        return self.comment
+
+    class Meta:
+        verbose_name = _('Chapter history')
+        verbose_name_plural = ('Chapters history')
+
 
 # Attachment
 
 def uploadAttachmentTo(att, filename):
     from booki import settings
     # use MEDIA_ROOT
-    return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.project.url_name, att.book.url_title, filename)
+    return '%s%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, filename)
+#    return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.project.url_name, att.book.url_title, filename)
+
+
 
 class AttachmentFile(models.FileField):
     def get_directory_name(self):
         # relativni path
-        print "##################################################################"
         name = super(models.FileField, self).get_directory_name()
-        print name
         return name
         
 
 
 class Attachment(models.Model):
     book = models.ForeignKey(Book, null=False)
-#    attachment = AttachmentFile(_('filename'), upload_to=uploadAttachmentTo, max_length=250)
     attachment = models.FileField(_('filename'), upload_to=uploadAttachmentTo, max_length=2500)
 
-    status = models.ForeignKey(ProjectStatus, null=False)
+    status = models.ForeignKey(BookStatus, null=False)
     created = models.DateTimeField(_('created'), null=False, auto_now=True)
 
     def __unicode__(self):

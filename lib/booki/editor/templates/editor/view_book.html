@@ -8,11 +8,20 @@
 {% block content %}
 
 <div id="header">
+<div style="float:left">
+ <table border="0">
+  <tr>
+   <td><a href="/"><img border="0" src="/site_media/images/logo.png"></a></td>
+   <td width="20"></td>
+   <td> <!-- <form><input type="text" size="20">&nbsp;&nbsp;<button>Search</button></form> --></td>
+  </tr>
+</table>
+</div>
  <div style="float:right; font-size: 12px">
-<div align="center" style="padding-bottom: 8px">
-<img src="/site_media/images/logo.png"></div>
-    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a href="/accounts/signout/">Sign out</a>
- </div>
+    <div align="center" style="padding-bottom: 8px">
+        <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a href="/accounts/signout/">Sign out</a>
+     </div>
+</div>
 </div>
 
 <br clear="all"/>
@@ -28,18 +37,18 @@
  <td valign="top" style="padding-right: 30px">
 <ul>
 {% for chap in chapters %}
- {% if chap.url_title %}
-   <li> <a href="{% url view_chapter project.url_name book.url_title chap.url_title %}">{{ chap.name }}</a>  </li>
+ {% ifnotequal chap.url_title  None%}
+   <li> <a href="{% url view_chapter  book.url_title chap.url_title %}">{{ chap.name }}</a>  </li>
  {% else %}
    <li> <b>{{ chap.name }}</b></li>
- {% endif %}
+ {% endifnotequal %}
 {% endfor %}
 </ul>
  </td>
  <td valign="top">
 click on the chapter name
 <hr/>
-<a href="{% url view_book  project.url_name book.url_title %}edit/">EDIT</a>
+<a href="{% url view_book  book.url_title %}edit/">EDIT</a>
  </td>
 </tr>
 </table>

@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.http import Http404, HttpResponse
 
@@ -7,16 +8,16 @@ from django import forms
 
 from booki.editor import models
 
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+
+
+import logging
+
 # BOOK
 
-def view_export(request, project, edition):
+def view_export(request, bookid):
 
-    if edition == "None":
-        edition = project
-
-    project = models.Project.objects.get(url_name__iexact=project)
-
-    book = models.Book.objects.get(project=project, url_title__iexact=edition)
+    book = models.Book.objects.get(url_title__iexact=bookid)
 
     response = HttpResponse(mimetype='application/zip')
     response['Content-Disposition'] = 'attachment; filename=%s.zip' % book.url_title
@@ -35,22 +36,40 @@ def view_export(request, project, edition):
 
     return response
 
-def edit_book(request, project, edition):
-    project = models.Project.objects.get(url_name__iexact=project)
-    book = models.Book.objects.get(project=project, url_title__iexact=edition)
+@login_required
+def edit_book(request, bookid):
+    book = models.Book.objects.get(url_title__iexact=bookid)
     chapters = models.Chapter.objects.filter(book=book)
 
 
-    return render_to_response('editor/edit_book.html', {"project": project, "book": book, "chapters": chapters, "request": request})
+    return render_to_response('editor/edit_book.html', {"book": book, "chapters": chapters, "request": request})
 
-def view_book(request, project, edition):
-    proj = models.Project.objects.get(url_name__iexact=project)
-    # ovaj tu neshto zeza
-    book = models.Book.objects.get(project=proj, url_title__iexact=edition)
+def view_full(request, bookid):
+    chapters = []
+
+    book = models.Book.objects.get(url_title__iexact=bookid)
+
+    for chapter in  models.BookToc.objects.filter(book=book).order_by("-weight"):
+        if chapter.typeof == 1:
+            chapters.append({"type": "chapter",
+                             "title": chapter.chapter.title,
+                             "content": chapter.chapter.content})
+        else:
+            chapters.append({"type": "section",
+                             "title": chapter.name})
+
+    return render_to_response('editor/view_full.html', {"book": book, 
+                                                        "chapters": chapters, 
+                                                        "request": request})
+
+
+
+def view_book(request, bookid):
+    book = models.Book.objects.get(url_title__iexact=bookid)
 
     chapters = []
     for chapter in  models.BookToc.objects.filter(book=book).order_by("-weight"):
-        if chapter.chapter:
+        if chapter.typeof == 1:
             chapters.append({"url_title": chapter.chapter.url_title,
                              "name": chapter.chapter.title})
         else:
@@ -58,15 +77,14 @@ def view_book(request, project, edition):
                              "name": chapter.name})
         
 
-    return render_to_response('editor/view_book.html', {"project": proj, "book": book, "chapters": chapters, "request": request})
+    return render_to_response('editor/view_book.html', {"book": book, "chapters": chapters, "request": request})
 
-def view_chapter(request, project, edition, chapter):
-    proj = models.Project.objects.get(url_name__iexact=project)
-    book = models.Book.objects.get(project=proj, url_title__iexact=edition)
+def view_chapter(request, bookid, chapter):
+    book = models.Book.objects.get(url_title__iexact=bookid)
 
     chapters = []
     for chap in  models.BookToc.objects.filter(book=book).order_by("-weight"):
-        if chap.chapter:
+        if chap.typeof == 1:
             chapters.append({"url_title": chap.chapter.url_title,
                              "name": chap.chapter.title})
         else:
@@ -75,33 +93,26 @@ def view_chapter(request, project, edition, chapter):
 
     content = models.Chapter.objects.get(book = book, url_title = chapter)
 
-    return render_to_response('editor/view_chapter.html', {"chapter": chapter, "project": proj, "book": book, "chapters": chapters, "request": request, "content": content})
+    return render_to_response('editor/view_chapter.html', {"chapter": chapter, "book": book, "chapters": chapters, "request": request, "content": content})
 
 
 # PROJECT
 
-def view_project(request, project):
-    books = list(models.Book.objects.filter(project__url_name__iexact=project))
-    return render_to_response('editor/view_project.html', {"project": project, "books": books})
-
-def view_attachment(request, project, edition, attachment):
+def view_attachment(request, bookid, attachment):
     from booki import settings
     from django.views import static
 
-    #project = models.Project.objects.get(url_name__iexact=project)
-    #book = models.Book.objects.get(project=project, url_title__iexact=edition)
-
     path = attachment
-    document_root = '%s/static/%s/%s/' % (settings.STATIC_DOC_ROOT, project, edition)
+    document_root = '%s/static/%s/' % (settings.STATIC_DOC_ROOT, bookid)
 
     return static.serve(request, path, document_root)
 
-def thumbnail_attachment(request, project, edition, attachment):
+def thumbnail_attachment(request, bookid, attachment):
     from booki import settings
     from django.views import static
 
     path = attachment
-    document_root = '%s/static/%s/%s/%s' % (settings.STATIC_DOC_ROOT, project, edition, path)
+    document_root = '%s/static/%s/%s' % (settings.STATIC_DOC_ROOT, bookid, path)
 
     # should have one  "broken image" in case of error
     import Image
@@ -114,22 +125,128 @@ def thumbnail_attachment(request, project, edition, attachment):
 
 
 
-def view_editor(request, project):
-    return render_to_response('editor/view_editor.html', {"project": project})
+# debug
+
+def debug_redis(request):
+    import redis
+    import sputnik
+
+    r = redis.Redis()
+    r.connect()
+
+    client_id = r.get("sputnik:client_id")
+    sputnikchannels = r.smembers("sputnik:channels")
+
+    chnl = {}
+    for ch in r.keys("sputnik:channel:*:channel"):
+        chnl[ch] = r.smembers(ch)
+
+    usrs = {}
+    for ch in r.keys("sputnik:channel:*:users"):
+        usrs[ch] = r.smembers(ch)
+
+
+    allValues = {}
+
+    import time, decimal
+
+    _now = time.time()
+
+    for ses in [k[4:-9] for k in  r.keys("ses:*:username")]:
+        try:
+            allValues[ses]  = {
+                "channels": sputnik.smembers("ses:%s:channels" % ses),
+                "last_access": r.get("ses:%s:last_access" % ses),
+                "access_since": decimal.Decimal("%f" % _now) - r.get("ses:%s:last_access" % ses),
+                "username": r.get("ses:%s:username" % ses)
+                }
+        except:
+            pass
+
+    locks = {}
+    for ch in r.keys("booki:*:locks:*"):
+        locks[ch] = r.get(ch)
+
+
+    return render_to_response('editor/debug_redis.html', {"request": request, 
+                                                          "client_id": client_id,
+                                                          "sputnikchannels": sputnikchannels,
+                                                          "channel": chnl.items(),
+                                                          "users": usrs.items(),
+                                                          "sessions": allValues.items(),
+                                                          "locks": locks.items()
+                                                          })
+
+
+#def view_editor(request, bookid):
+#    return render_to_response('editor/view_editor.html', {"bookid": bookid})
 
 
 # FRONT PAGE
 
 def view_frontpage(request):
-    return render_to_response('editor/view_frontpage.html', {"request": request, "title": "Ovo je neki naslov"})
+    books = models.Book.objects.all().order_by("title")
+    groups = models.BookiGroup.objects.all().order_by("name")
+
+    return render_to_response('editor/view_frontpage.html', {"request": request, 
+                                                             "title": "Ovo je neki naslov",
+                                                             "books": books,
+                                                             "error": request.REQUEST.get("error", "0"),
+                                                             "groups": groups})
+
+# GROUPS
+
+def view_group(request, groupid):
+    group = models.BookiGroup.objects.get(url_name=groupid)
+    books = group.books.all()
+    members = group.members.all()
+
+    isMember = request.user in members
+    yourBooks = models.Book.objects.filter(owner=request.user)
+
+    return render_to_response('editor/view_group.html', {"request": request, 
+                                                         "title": "Ovo je neki naslov",
+                                                         "group": group,
+                                                         "books": books,
+                                                         "your_books": yourBooks,
+                                                         "members": members,
+                                                         "is_member": isMember})
+
+def join_group(request, groupid):
+    group = models.BookiGroup.objects.get(url_name=groupid)
+    group.members.add(request.user)
+
+    return HttpResponseRedirect("/groups/%s/" % group.url_name)
+
+
+def remove_group(request, groupid):
+    group = models.BookiGroup.objects.get(url_name=groupid)
+    group.members.remove(request.user)
+
+    return HttpResponseRedirect("/groups/%s/" % group.url_name)
+
+def add_book(request, groupid):
+    book = models.Book.objects.get(url_title=request.POST["book"])
+
+    group = models.BookiGroup.objects.get(url_name=groupid)
+    group.books.add(book)
+
+    return HttpResponseRedirect("/groups/%s/" % group.url_name)
+
+def remove_book(request, groupid):
+    book = models.Book.objects.get(url_title=request.GET["book"])
+
+    group = models.BookiGroup.objects.get(url_name=groupid)
+    group.books.remove(book)
+
+    return HttpResponseRedirect("/groups/%s/" % group.url_name)
+
 
 # UPLOAD ATTACHMENT
 
-def upload_attachment(request, project, edition):
-    proj = models.Project.objects.get(url_name__iexact=project)
-    book = models.Book.objects.get(project=proj, url_title__iexact=edition)
-
-    stat = models.ProjectStatus.objects.filter(project = proj)[0]
+def upload_attachment(request, bookid):
+    book = models.Book.objects.get(url_title__iexact=bookid)
+    stat = models.BookStatus.objects.filter(book = book)[0]
 
     for name, fileData in request.FILES.items():
         att = models.Attachment(book = book,
@@ -142,77 +259,4 @@ def upload_attachment(request, project, edition):
 
     return HttpResponse('<html><body><script> parent.closeAttachmentUpload(); </script></body></html>')
 
-
-import redis
-
-
-# sputnik
-
-# should be ids and not names
-
-sputnik_mapper = (
-  (r'^/booki/$', 'booki_main'),
-#  (r'^/booki/book/(\d+)/(\d+)/$', "booki_book"),
-  (r'^/booki/book/(?P<projectid>\d+)/(?P<bookid>\d+)/$', 'booki_book'),
-  (r'^/chat/(?P<projectid>\d+)/(?P<bookid>\d+)/$', 'booki_chat')
-)
-
-def dispatcher(request):
-    import simplejson, re, sputnik
-
-    inp =  request.POST
-
-    results = []
-
-    clientID = None
-    messages = simplejson.loads(inp["messages"])
-
-    # this should be changed
-    r = redis.Redis()
-    r.connect()
-
-    if inp.has_key("clientID") and inp["clientID"]:
-        clientID = inp["clientID"]
-
-    for message in messages:
-        ret = None
-        for mpr in sputnik_mapper:
-            mtch = re.match(mpr[0], message["channel"])
-            if mtch:
-                a =  mtch.groupdict()
-                fnc = getattr(sputnik, mpr[1])
-
-                if not hasattr(request, "sputnikID"):
-                    request.sputnikID = "%s:%s" % (request.session.session_key, clientID)
-                    request.clientID  = clientID
-
-                ret = fnc(request, message, **a)
-                ret["uid"] = message.get("uid")
-
-        if ret:
-            results.append(ret)
-
-    while True:
-        v = r.pop("ses:%s:%s:messages" % (request.session.session_key, clientID), tail = False)
-        if not v: break
-
-        results.append(simplejson.loads(v))
-
-
-    import time, decimal
-    r.set("ses:%s:last_access" % request.sputnikID, time.time()) 
-
-    # this should not be here!
-    _now = time.time() 
-    for k in r.keys("ses:*:last_access"):
-        tm = r.get(k)
-
-        if  decimal.Decimal("%f" % _now) - tm > 60*2:
-            sputnik.removeClient(k[4:-12])
-
-    ret = {"result": True, "messages": results}
-
-    dt = simplejson.dumps(ret)
-
-    return HttpResponse(dt, mimetype="text/json")
 
