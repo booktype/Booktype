@@ -222,7 +222,7 @@ class TWikiChapter(BaseChapter):
             base, ext = fragments.path.rsplit('.', 1)
             ext = ext.lower()
             if (not fragments.scheme.startswith('http') or
-                fragments.netloc != self.server or
+                (fragments.netloc != self.server and 'flossmanuals.net' not in fragments.netloc) or
                 ext not in ('png', 'gif', 'jpg', 'jpeg', 'svg', 'css', 'js') or
                 '/pub/' not in base
                 ):
