@@ -108,9 +108,10 @@ class ImageCache(object):
 
 
 class BaseChapter(object):
+    parser = lxml.html.HTMLParser(encoding='utf-8')
     def as_html(self):
         """Serialise the tree as html."""
-        return etree.tostring(self.tree, method='html')
+        return etree.tostring(self.tree, method='html', encoding='utf-8')
 
     def as_xhtml(self):
         """Convert to xhtml and serialise."""
@@ -162,7 +163,12 @@ class BaseChapter(object):
 
     def _loadtree(self, html):
         try:
-            self.tree = lxml.html.document_fromstring(html)
+            try:
+                self.tree = lxml.html.document_fromstring(html, parser=self.parser)
+            except UnicodeError, e:
+                log('failed to parse tree as unicode, got %s %r' % (e, e),
+                    'trying again using default parser')
+                self.tree = lxml.html.document_fromstring(html)
         except etree.XMLSyntaxError, e:
             log('Could not parse html file %r, string %r... exception %s' %
                 (self.name, html[:40], e))
