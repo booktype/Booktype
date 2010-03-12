@@ -10,7 +10,7 @@
  <td width="20">
  </td>
  <td valign="top">
-   <p><b>THIS IS ALPHA RELEASE OF BOOKI!</b><br>
+   <p><b>THIS IS AN ALPHA RELEASE OF BOOKI!</b><br>
    ...and has not yet any User Interface or graphic design.<br/>
    ...and is missing many features.<br/>
    ...and is still in development.<br/>
@@ -64,6 +64,10 @@ PASSWORD<br/>
 <input type="password" name="password"/><br/>
 <br/>
 <button>Register</button>
+{% ifequal error "2" %}
+<p><b>Username already taken. Please try a different one.</b></p>
+{% endifequal %}
+
 
   </form>
 {% endif %}

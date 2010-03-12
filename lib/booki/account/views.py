@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.conf import settings
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-
+from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
 from django import forms
@@ -42,11 +42,14 @@ def register(request):
     from django.contrib.auth.models import User
     from django.contrib import auth
 
-    user = User.objects.create_user(username=request.POST["username"], 
+    try:
+    	user = User.objects.create_user(username=request.POST["username"], 
                                     email=request.POST["email"],
                                     password=request.POST["password"])
-    user.save()
+    except IntegrityError:
+	return HttpResponseRedirect("/?error=2")
 
+    user.save()
     user2 = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
 
     auth.login(request, user2)
