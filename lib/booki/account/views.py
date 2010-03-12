@@ -145,3 +145,84 @@ def view_profile(request, username):
                                                             "books": books,
                                                             "groups": groups})
 
+
+## user settings
+
+class SettingsForm(forms.Form):
+    email = forms.EmailField(required=True)
+    firstname = forms.CharField(required=True, label='First name')
+    lastname = forms.CharField(required=True, label='Last name')
+    description = forms.CharField(widget=forms.Textarea(), required=False, label="Blurb about yourself")
+
+    image = forms.Field(widget=forms.FileInput(), required=False)
+
+## user settings
+
+def user_settings(request, username):
+    from django.contrib.auth.models import User
+    from booki.editor import models
+
+    from django.template.defaultfilters import slugify
+
+    user = User.objects.get(username=username)
+
+    if request.method == 'POST':
+        settings_form = SettingsForm(request.POST, request.FILES)
+        if settings_form.is_valid():
+
+            # this is very stupid and wrong 
+            # change the way it works
+            # make utils for
+            #     - get image url
+            #     - get image path
+            #     - seperate storage for
+
+            from django.core.files import File
+            profile = user.get_profile()
+
+            user.email      = settings_form.cleaned_data['email']
+            user.first_name = settings_form.cleaned_data['firstname']
+            user.last_name  = settings_form.cleaned_data['lastname']
+            user.save()
+
+            profile.description = settings_form.cleaned_data['description']
+
+            if settings_form.cleaned_data['image']:
+                import tempfile
+                import os
+
+                # check this later
+                fh, fname = tempfile.mkstemp(suffix='', prefix='profile')
+
+                f = open(fname, 'wb')
+                for chunk in settings_form.cleaned_data['image'].chunks():
+                    f.write(chunk)
+                f.close()
+
+                import Image
+
+                im = Image.open(fname)
+                im.thumbnail((120, 120), Image.NEAREST)
+                imageName = '%s.jpg' % fname
+                im.save(imageName)
+                
+                profile.image.save('%s.jpg' % user.username, File(file(imageName)))
+                os.unlink(fname)
+                
+
+            profile.save()
+        
+            return HttpResponseRedirect("/accounts/%s/" % username)
+    else:
+        settings_form = SettingsForm(initial = {'image': 'aaa',
+                                                'firstname': user.first_name,
+                                                'lastname': user.last_name,
+                                                'description': user.get_profile().description,
+                                                'email': user.email})
+
+    return render_to_response('account/user_settings.html', {"request": request, 
+                                                             "user": user, 
+                                                             
+                                                             "settings_form": settings_form, 
+                                                             })
+
