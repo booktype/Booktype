@@ -129,10 +129,9 @@ def thumbnail_attachment(request, bookid, attachment):
 # debug
 
 def debug_redis(request):
-    import redis
     import sputnik
 
-    r = redis.Redis()
+    r = sputnik.redis.Redis()
     r.connect()
 
     client_id = r.get("sputnik:client_id")

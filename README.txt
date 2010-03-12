@@ -7,18 +7,23 @@ get a book.
 Contents
 ========
 
-examples/
-  miscellaneous scripts.
+lib/
+  python modules, django application
 
-repo/
-  chapte storage back end.
+tools/
+  scripts for importing
 
+tests/
+  testing scripts
 
-
+site_media/
+  static web resources - JS, CSS, Xinha, images
 
 
 INSTALLATION
 ------------
+
+Assuming a Debian GNU/Linux server.
 
 0/ Obtain latest code from Git:
 
@@ -65,4 +70,4 @@ If you need to bind to a external IP and/or different port you can start the ser
 
 $./manage.py runserver 10.1.1.1:4444
 
-6/ Connect using the webserver to this URL , et viola, you have the Booki web interface
+6/ Connect using the webserver to this URL , et viola, you have the Booki web interface.
