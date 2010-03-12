@@ -4,6 +4,8 @@ from django.conf import settings
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
+#from django.core.validators import email_re
+from django.forms.fields import email_re
 
 from django import forms
 
@@ -41,13 +43,18 @@ def signin(request):
 def register(request):
     from django.contrib.auth.models import User
     from django.contrib import auth
+ 
+    #check the email is valid 
+    if not bool(email_re.match(request.POST["email"])):
+	return HttpResponseRedirect("/?error=email")
 
     try:
     	user = User.objects.create_user(username=request.POST["username"], 
                                     email=request.POST["email"],
                                     password=request.POST["password"])
     except IntegrityError:
-	return HttpResponseRedirect("/?error=2")
+	#username already exists
+	return HttpResponseRedirect("/?error=duplicate")
 
     user.save()
     user2 = auth.authenticate(username=request.POST["username"], password=request.POST["password"])

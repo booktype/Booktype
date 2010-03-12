@@ -64,9 +64,13 @@ PASSWORD<br/>
 <input type="password" name="password"/><br/>
 <br/>
 <button>Register</button>
-{% ifequal error "2" %}
+{% ifequal error "duplicate" %}
 <p><b>Username already taken. Please try a different one.</b></p>
 {% endifequal %}
+{% ifequal error "email" %}
+<p><b>Email address is not in a valid format. Please try a different one.</b></p>
+{% endifequal %}
+
 
 
   </form>
