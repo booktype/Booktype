@@ -21,8 +21,9 @@ site_media/
 
 INSTALLATION
 ------------
+You can install Booki from PyPi via "easy_install booki" or from Git - a code versioning respository.
 
-Assuming a Debian GNU/Linux server.
+This assumes a Debian GNU/Linux server. If you have installed Booki via easy_install got to step 3.
 
 0/ Obtain latest code from Git:
 
@@ -42,7 +43,7 @@ $apt-get install redis
 
 3/ Customise settings.py
 
-$cd /Users/andycat/src/booki/lib/booki
+$cd {$BOOKI_INSTALL_PATH}/lib/booki
 $cp settings.py.original settings.py
 $vi settings.py
 
@@ -54,7 +55,7 @@ $./manage.py syncdb
 
 5/ Start the test server via the console
 
-$cd /Users/andycat/src/booki/lib/booki
+$cd {$BOOKI_INSTALL_PATH}/lib/booki
 $./manage.py runserver
 
 Validating models...
