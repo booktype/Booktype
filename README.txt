@@ -1,8 +1,7 @@
 FLOSS Manuals Booki
 ===================
 
-A booki is like a wiki, but instead of ending up with a web page you
-get a book.  
+A booki is like a wiki, but instead of ending up with a web page you get a book.  
 
 Contents
 ========
