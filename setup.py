@@ -36,7 +36,7 @@ setup(
     url = "http://booki-dev.flossmanuals.net/",
     include_package_data = True,
     package_data = {
-        # If any package contains *.txt or *.rst files, include them:
+        # If any package contains *.txt or *.rst files, include them
         '': ['*.txt', '*.rst'],
     },
     install_requires = ['setuptools', 'simplejson', 'django' ],
