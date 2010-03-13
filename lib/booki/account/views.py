@@ -38,25 +38,57 @@ def signin(request):
 
             return HttpResponseRedirect("/accounts/%s/" % request.POST["username"])
     
-    return HttpResponseRedirect("/?error=1")
+    return HttpResponseRedirect("/?error=auth")
 
 # register user
 
 def register(request):
     from django.contrib.auth.models import User
     from django.contrib import auth
+   
+    #make GET string of returnable parameters
+    #xxx probably should encode the values
+    returnable_params="&username="+request.POST["username"]+"&email="+request.POST["email"]+"&fullname="+request.POST["fullname"]
+
+    #username checks - first one check its not blank
+    if request.POST["username"] == '':
+	return HttpResponseRedirect("/?error=username"+returnable_params)
  
     #check the email is valid 
     if not bool(email_re.match(request.POST["email"])):
-	return HttpResponseRedirect("/?error=email")
+	return HttpResponseRedirect("/?error=email"+returnable_params)
 
+    #check the password is the same as teh confirmation password, and that the password doesnt match the username
+    if (not request.POST["password"] == request.POST["password2"]) or ( request.POST["password"] == request.POST["username"]) or len(request.POST["password"]) < 6:
+	return HttpResponseRedirect("/?error=password"+returnable_params)
+
+    #XXX fix me 
+    #import crack
+    # crack it
+#   try:
+#	crack.VeryFascistCheck(request.POST["password"])
+#   except:
+#	return HttpResponseRedirect("/?error=password")
+
+    #check for non-blank full name
+    if request.POST["fullname"] == '':
+	return HttpResponseRedirect("/?error=fullname"+returnable_params)
+
+    # Try to create a django user
     try:
     	user = User.objects.create_user(username=request.POST["username"], 
                                     email=request.POST["email"],
                                     password=request.POST["password"])
     except IntegrityError:
 	#username already exists
-	return HttpResponseRedirect("/?error=duplicate")
+	return HttpResponseRedirect("/?error=duplicate"+returnable_params)
+
+    #
+    #The checks for all the attributes are done
+    #
+
+    #set the django FIRST NAME to be the FULL NAME
+    user.first_name = request.POST["fullname"]
 
     user.save()
     user2 = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
