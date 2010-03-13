@@ -4,8 +4,10 @@ from django.conf import settings
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
-#from django.core.validators import email_re
-from django.forms.fields import email_re
+try:
+    from django.core.validators import email_re
+except:
+    from django.forms.fields import email_re
 
 from django import forms
 
