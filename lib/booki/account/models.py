@@ -11,8 +11,9 @@ from django.core.files.storage import FileSystemStorage
 
 class UserProfile(models.Model):
 #    image = models.ImageField(upload_to=settings.PROFILE_IMAGE_UPLOAD_DIR, null=True, storage=fs)
+    mood = models.CharField(max_length=1000, blank=True, null=False, default='')
     image = models.ImageField(upload_to=settings.PROFILE_IMAGE_UPLOAD_DIR, null=True)
-    description = models.CharField(max_length=2500, blank=False)
+    description = models.CharField(max_length=2500, blank=False,null=False,default='')
     user = models.ForeignKey(User, unique=True)
 
 
