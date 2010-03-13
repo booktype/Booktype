@@ -674,6 +674,26 @@ img {\n\
 		_initUI: function() {
 		    $("#tabs").tabs();
 		    $('#tabs').bind('tabsselect', function(event, ui) { 
+			if(ui.panel.id == "tabnotes") {
+			    $.booki.ui.notify("Reading notes data...");
+			    $.booki.sendToCurrentBook({"command": "get_notes"},
+						      function(data) {
+							  $.booki.ui.notify();
+							  $.booki.debug.debug(data.notes);
+
+							  var notes_html = $("#tabnotes .notes");
+							  var s = "";
+
+							  $.each(data.notes, function(i, entry) {
+							      $.booki.debug.debug(entry);
+							      s += entry.notes;
+							  });
+							  notes_html.val(s);
+							  //alert(s);
+						      });
+
+			}
+
 			if(ui.panel.id == "tabhistory") {
 			    $.booki.ui.notify("Reading history data...");
 			    $.booki.sendToCurrentBook({"command": "get_history"},
@@ -778,6 +798,27 @@ img {\n\
 
 
 		    $.booki.chat.initChat($("#chat"), $("#chat2"));
+
+		    $("#tabnotes BUTTON").click(function() {
+			var new_notes = $("#tabnotes FORM TEXTAREA[name='notes']").val();
+			$("#tabnotes BUTTON").attr("disabled", "disabled");
+			var message = "Saving the book notes";
+			$("#tabnotes .info").html('<div style="padding-top: 20px; padding-bottom: 20px;">'+message+'</div>');
+
+			$.booki.sendToCurrentBook({"command": "notes_save", 'notes': new_notes },
+						  
+                                                  function(data) {
+						      var message = "Book notes saved.";
+
+                                                      $("#tabnotes BUTTON").removeAttr("disabled");
+							
+                                                      $("#tabnotes .info").html('<div style="padding-top: 20px; padding-bottom: 10px">'+message+'</div>');
+
+                                                      $.booki.debug.debug(data);
+                                                      $.booki.ui.notify();
+                                                  } );
+                    });
+
 
                     $("#tabpublish BUTTON").click(function() {
 			/* default options */

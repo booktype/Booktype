@@ -594,6 +594,39 @@ def remote_get_history(request, message, bookid):
 
     return {"history": history}
 
+def remote_get_notes(request, message, bookid):
+    import datetime
+
+    book = models.Book.objects.get(id=bookid)
+
+    book_notes = models.BookNotes.objects.filter(book=book)
+
+    notes = []
+    for entry in book_notes:
+        notes.append({"notes": entry.notes})
+
+    return {"notes": notes}
+
+def remote_notes_save(request, message, bookid):
+    book = models.Book.objects.get(id=bookid)
+    book_notes = models.BookNotes.objects.filter(book=book)
+    notes = message.get("notes")
+    book_notes_obj = book_notes[0]
+
+    if book_notes_obj is None:
+        book_notes_obj = models.BookNotes( book = book , notes = notes)
+    else:
+	book_notes_obj.notes = notes 
+    book_notes_obj.save()
+
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
+                                                                "from": request.user.username, 
+                                                                "message": 'User %s has saved notes for book "%s".' % (request.user.username, book.title)}, myself=True)
+    
+    return {}
+
+ 
+
 def remote_unlock_chapter(request, message, bookid):
     import re
 
