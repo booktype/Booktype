@@ -46,6 +46,19 @@ class BookStatus(models.Model):
         verbose_name = _('Book status')
         verbose_name_plural = _('Book status')
 
+# Book Notes
+# free form shared notes for writers of the book
+#
+class BookNotes(models.Model):
+    book = models.ForeignKey('Book')
+    notes = models.TextField(_('notes'))
+
+    def __unicode__(self):
+        return "Notes for " + self.book.title
+
+    class Meta:
+        verbose_name = _('Book note')
+        verbose_name_plural = _('Book notes')
 
 # Book
 
