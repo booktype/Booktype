@@ -16,6 +16,7 @@ def dispatcher(request, **sputnik_dict):
     if inp.has_key("clientID") and inp["clientID"]:
         clientID = inp["clientID"]
 
+
     for message in messages:
         ret = None
         for mpr in sputnik_dict['map']:

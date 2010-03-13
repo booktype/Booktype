@@ -37,9 +37,10 @@ urlpatterns = patterns('',
     # sputnik dispatcher                       
     url(r'^sputnik/$', 'sputnik.views.dispatcher', {
             "map": (  
-                (r'^/booki/$',                      'booki.channels.main'),
-                (r'^/booki/book/(?P<bookid>\d+)/$', 'booki.channels.editor'),
-                (r'^/chat/(?P<bookid>\d+)/$',       'booki.channels.chat')
+                (r'^/booki/$',                            'booki.channels.main'),
+                (r'^/booki/book/(?P<bookid>\d+)/$',       'booki.channels.editor'),
+                (r'^/booki/profile/(?P<profileid>.+)/$', 'booki.channels.profile'),
+                (r'^/chat/(?P<bookid>\d+)/$',             'booki.channels.chat')
                 )
             }),                     
                        
