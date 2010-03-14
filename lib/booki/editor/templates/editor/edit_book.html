@@ -58,7 +58,12 @@
 				    $.booki.ui.notify("Creating chapter");
 				    
 				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
-					$.booki.ui.notify();
+					if(data.created) {
+					    $.booki.ui.notify();
+					} else {
+					    $.booki.ui.notify();
+					    alert("Can not create duplicate chapter name.");
+					}
 				    });
 
 
@@ -86,12 +91,17 @@
 			buttons: {
 				'Create section': function() {
 				    $.booki.ui.notify("Creating section");
-			
+				    
 				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
-					$.booki.ui.notify();
-				    });
+					if(data.created) {
+					    $.booki.ui.notify();
+					} else {
+					    alert("Can not create duplicate section name.");
+					    $.booki.ui.notify();
+					}
+					});
 
-				    $(this).dialog('close');
+					$(this).dialog('close');
 				},
 				'Cancel': function() {
 					$(this).dialog('close');
