@@ -1,42 +1,79 @@
-BODY {
-    font-family: Verdana;
-    font-size: 12px;
+body {
+	background-color:white;
+	font-family:helvetica,arial,verdana;
+	font-size:12px;
+	background-image: url(/site_media/images/tile_grey.png);
 }
 
-#content {
-    width: 900px;
-    border: 1px solid #c0c0c0;
-    padding: 5px;
+a {
+	text-decoration: none;
 }
 
-#bookidebug {
+a:link {color:#555;}
+a:visited {color: #555;}
+a:hover {text-decoration: none; color: black;}
+img {border-style:none;} 
 
+.shadow-container {
+	position: relative;
+	left: 5px;
+	top: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+ 
+ 
+.shadow-container .shadow2,
+.shadow-container .shadow3,
+.shadow-container .shadow4,
+.shadow-container .shadow5,
+.shadow-container .container {
+	position: relative;
+	left: -1px;
+	top: -1px;
+}
+ 
+	.shadow-container .shadow1 {
+		background: #F1F0F1;
+	}
+ 
+	.shadow-container .shadow2 {
+		background: #E1E0E1;
+	}
+ 
+	.shadow-container .shadow3 {
+		background: #DBDADB;
+	}
+
+<!-- added 2 more here -->
+	.shadow-container .shadow4 {
+		background: #C7C5C7;
+	}
+
+	.shadow-container .shadow5 {
+		background: #B8B6B8;
+	}
+ 
+	.shadow-container .container {
+		background: #ffffff;
+		border: 1px solid #848284;
+		padding: 0px;
+	}
+
+button {
+        color:white;
+        font-weight:bold;
+        background-color: black;
+        border:0px solid;
 }
 
-#bookidebug .header {
-    padding-bottom: 5px;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #c0c0c0;
+input {
+        background-color: white;
+        border:1px solid black;
 }
 
-#bookidebug .content {
-    overflow: scroll;
-    height: 300px;
-}
-
-#bookidebug .debug {
-    color: #d0d0d0;
-}
-
-#bookidebug .info {
-    color: green;
-}
-
-#bookidebug .warning {
-    color: red;
-}
-
-#bookidebug .network {
-    color: blue;
+select {
+        background-color: white;
+        border:1px solid black;
 }
 
