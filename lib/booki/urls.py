@@ -19,6 +19,11 @@ urlpatterns = patterns('',
 
     # debug
     (r'^debug/redis/$', 'booki.editor.views.debug_redis'),                       
+    
+    # front page listing views
+    url(r'list-groups/', 'booki.editor.views.view_groups'),
+    url(r'list-books/', 'booki.editor.views.view_books'),
+    url(r'list-people/', 'booki.editor.views.view_people'),
 
     # user accounts                     
     url(r'^accounts/', include('booki.account.urls')),                    
