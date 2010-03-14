@@ -412,6 +412,9 @@ function unescapeHtml (val) {
 					              var edi = xinha_editors["myTextArea"]; 
                                                       var content = edi.getEditorContent();
 						      
+						      /*
+                                                      comment out spalato
+
 						      var c = content.substring(0);
 						      var chapters_n = 0;
 						      var currentPos = 0;
@@ -438,8 +441,10 @@ function unescapeHtml (val) {
                                                         currentPos = n+5; 
  							chapters_n += 1;
 						      }
+*/
 
 /*
+older version of spalato
 						      var r = new RegExp("<h1>([^\<]+)</h1>", "ig");
 						      var chapters_n = 0;
 
@@ -463,9 +468,12 @@ function unescapeHtml (val) {
 						      }
 */
 
+/*
+comment out spalato
 						      if(chapters_n > 1) {
 							  $("#spalatodialog").dialog("open");
 						      } else {
+*/
 							  $.booki.ui.notify("Sending data...");
 							  var minor = $("#editor INPUT[name=minor]").is(":checked");
 							  var comment = $("#editor INPUT[name=comment]").val();
@@ -488,7 +496,7 @@ function unescapeHtml (val) {
 											$("#editor INPUT[name=comment]").val(""); 
 											$("#editor INPUT[name=author]").val(""); 
 											$("#editor INPUT[name=authorcomment]").val(""); } );
-						      }
+						   // comment out spalato   }
 
 						  });
 
