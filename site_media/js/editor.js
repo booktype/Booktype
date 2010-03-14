@@ -1120,7 +1120,7 @@ img {\n\
 						   $.booki.editor.drawAttachments();
 						   
 						   $.each(data.onlineUsers, function(i, elem) {
-						       $("#users").append('<li class="user'+elem+'"><div style="width: 24px; height: 24px; float: left; background-color: black; margin-right: 5px;"></div><b>'+elem+'</b></li>');
+						       $("#users").append('<li class="user'+elem[0]+'"><div style="background-image: url(/_utils/profilethumb/'+elem[0]+'/thumbnail.jpg); width: 24px; height: 24px; float: left;  margin-right: 5px;"></div><b>'+elem[0]+'</b><br/><span>'+elem[1]+'</span></li>');
 						   });
 
 					       });
@@ -1134,8 +1134,16 @@ img {\n\
 		    jQuery.booki.subscribeToChannel("/booki/book/"+$.booki.currentBookID+"/", function(message) {
 
 			var funcs = {
+			    "user_status_changed": function() {
+				$("#users .user"+message.from+"  SPAN").html(message.message);
+				$("#users .user"+message.from).animate({backgroundColor: "yellow" }, 'fast',
+								       function() {
+									   $(this).animate({backgroundColor: "white"},3000);
+								       });
+			    },
+
 			    "user_add": function() {
-				$("#users").append('<li class="user'+message.username+'"><div style="width: 24px; height: 24px; float: left; background-color: black; margin-right: 5px;"></div><b>'+message.username+'</b></li>');
+				$("#users").append('<li class="user'+message.username+'"><div style="width: 24px; height: 24px; float: left; margin-right: 5px;background-image: url(/_utils/profilethumb/'+message.username+'/thumbnail.jpg);"></div><b>'+message.username+'</b><br/><span>'+message.mood+'</span></li>');
 			    },
 
 			    "user_remove": function() {

@@ -28,10 +28,22 @@ $(function() {
 
 					       function(message) {
 						   // server should send message to other clients
-						   $("#profilemood").html($("#mood INPUT").val());
+						   //$("#profilemood").html($("#mood INPUT").val());
 						   $(this).val("What's on your mind ?");
 					       });
 		});
+	    },
+
+	    /* load initial data */
+	    
+	    _loadInitialData: function() {
+		jQuery.booki.sendToChannel("/booki/profile/"+$.booki.profileName+"/", 
+					   {"command": "init_profile",
+					    "profile": $.booki.profileName
+					   },
+					   function(message) {
+					       $.booki.ui.notify("");
+					   });
 	    },
 	    
 	    /* initialize profile */
@@ -39,10 +51,21 @@ $(function() {
 	    initProfile: function() {
 		
 		jQuery.booki.subscribeToChannel("/booki/profile/"+$.booki.profileName+"/", function(message) {
+		    var funcs = {
+			'user_status_changed': function() {
+			    if(message.from == $.booki.profileName) {
+				$("#profilemood").html(message.message);
+			    }
+			}
+		    };
+
+		    if(funcs[message.command]) {
+			funcs[message.command]();
+		    }
 		    
 		});
 		
-		
+		$.booki.profile._loadInitialData();
 		$.booki.profile._initUI();
 	    }
 	}; 

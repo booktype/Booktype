@@ -238,3 +238,28 @@ def user_settings(request, username):
                                                              "settings_form": settings_form, 
                                                              })
 
+
+
+def view_profilethumbnail(request, profileid):
+    from django.http import HttpResponse
+    from booki import settings
+    
+    from django.contrib.auth.models import User
+    u = User.objects.get(username=profileid)
+
+    # this should be a seperate function
+
+    if not u.get_profile().image:
+        name = '%s_profile_images/_anonymous.jpg' % settings.MEDIA_ROOT
+    else:
+        name =  u.get_profile().image.name
+
+    import Image
+
+    image = Image.open(name)
+    image.thumbnail((24, 24), Image.NEAREST)
+
+    # serialize to HTTP response
+    response = HttpResponse(mimetype="image/jpg")
+    image.save(response, "JPEG")
+    return response

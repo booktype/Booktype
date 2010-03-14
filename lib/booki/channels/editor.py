@@ -94,20 +94,44 @@ def remote_init_editor(request, message, bookid):
 
     ## get online users
     try:
-        onlineUsers = sputnik.smembers("sputnik:channel:%s:users" % message["channel"])
+        _onlineUsers = sputnik.smembers("sputnik:channel:%s:users" % message["channel"])
     except:
-        onlineUsers = []
+        _onlineUsers = []
         
-    if request.user.username not in onlineUsers:
+    if request.user.username not in _onlineUsers:
         try:
             sputnik.sadd("sputnik:channel:%s:users" % message["channel"], request.user.username)
-            onlineUsers.add(request.user.username)
+            _onlineUsers.add(request.user.username)
         except:
             pass
+
+        ## get mood message for current user
+        ## send mood as seperate message
   
         ## set notifications to other clients
-        sputnik.addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "user_add", "username": request.user.username})
+        profile = request.user.get_profile()
+        if profile:
+            moodMessage = profile.mood;
+        else:
+            moodMessage = ''
 
+        sputnik.addMessageToChannel(request, 
+                                    "/booki/book/%s/" % bookid, 
+                                    {"command": "user_add", 
+                                     "username": request.user.username,
+                                     "mood": moodMessage}
+                                    )
+
+
+    ## get online users and their mood messages
+
+    from django.contrib.auth.models import User
+
+    def _getUser(_user):
+        _u = User.objects.get(username=_user)
+        return (_user, _u.get_profile().mood)
+
+    onlineUsers = [_getUser(x) for x in _onlineUsers]
 
     # for now, this is one big temp here
 

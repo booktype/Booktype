@@ -31,6 +31,9 @@ urlpatterns = patterns('',
 
     url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.editor.views.view_group', name="view_group"),                    
 
+    # misc
+    url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booki.account.views.view_profilethumbnail', name='view_profilethumbnail'),                      
+
     # export
     url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.view_export', name='export_booki'), 
                        

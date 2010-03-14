@@ -17,7 +17,6 @@ def rdecode(key):
 
 def sismember(key, value):
     import sputnik
-
     if key and key.strip() != '':
         return sputnik.rcon.sismember(key, rencode(value))
 
@@ -71,6 +70,7 @@ def smembers(key):
             return []
 
     return []
+
 
 def rkeys(key):
     import sputnik
