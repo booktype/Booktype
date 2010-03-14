@@ -184,7 +184,7 @@ def view_profile(request, username):
         import_form = ImportForm()
         epub_form = ImportEpubForm()
 
-    books = models.Book.objects.filter(owner=request.user)
+    books = models.Book.objects.filter(owner=user)
     
     groups = request.user.members.all()
     return render_to_response('account/view_profile.html', {"request": request, 
