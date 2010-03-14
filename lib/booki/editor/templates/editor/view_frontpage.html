@@ -50,13 +50,12 @@
 	<input type="password" name="password2"/><br/>
 	FULL NAME<br/>
 	<input type="text" name="fullname" value="{{ fullname }}"/><br/>
-	Your real name is compulsory for reasons of copyright attribution to books you create and contribute to.
+	Your real name is compulsory for reasons of copyright attribution on books you create and contribute to.
 	<br/>
 	<button>Register</button>
 	{% ifequal error "username" %}
 	<p><b>Username is invalid. Please try a different one.</b></p>
 	{% endifequal %}
-
 	{% ifequal error "duplicate" %}
 	<p><b>Username already taken. Please try a different one.</b></p>
 	{% endifequal %}
@@ -69,10 +68,6 @@
 	{% ifequal error "fullname" %}
 	<p><b>Please provide your real name.</b></p>
 	{% endifequal %}
-
-
-
-
 
 	  </form>
 	 </div>

@@ -22,7 +22,7 @@ long_description = (
 
 setup(
     name = "booki",
-    version = "0.2",
+    version = "0.3",
 
     packages = find_packages('lib'),  # include all packages under src
     package_dir = {'':'lib'},   # tell distutils packages are under src
