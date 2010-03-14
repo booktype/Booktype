@@ -23,7 +23,11 @@ INSTALLATION
 ------------
 You can install Booki from PyPi via "easy_install booki" or from Git - a code versioning respository.
 
-This assumes a Debian GNU/Linux server. If you have installed Booki via easy_install got to step 3.
+This assumes a Debian GNU/Linux server. If you have installed Booki via easy_install got to step 2,
+otherwise start at step 0 to use Git
+
+STEP BY STEP INSTALL
+------------------
 
 0/ Obtain latest code from Git:
 
@@ -44,7 +48,6 @@ $apt-get install redis
 3/ Customise settings.py
 
 $cd {$BOOKI_INSTALL_PATH}/lib/booki
-$cp settings.py.original settings.py
 $vi settings.py
 
 Pay attention to the database settings, eg db name, db username, db password, timezone 
@@ -71,3 +74,5 @@ If you need to bind to a external IP and/or different port you can start the ser
 $./manage.py runserver 10.1.1.1:4444
 
 6/ Connect using the webserver to this URL , et viola, you have the Booki web interface.
+
+7/ If you want to host the django app via Apache2, see the booki-apache-virthost file
