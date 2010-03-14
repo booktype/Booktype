@@ -43,15 +43,11 @@ function unescapeHtml (val) {
 
 
 	function initUI() {
-	    element2.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 500px; height: 300px; border: 1px solid gray; padding: 5px"></div><input type="text" style="width: 500px;"/></form>').submit(function() { var s = $("INPUT", element2).val(); $("INPUT", element2).attr("value", "");
-																																	 showMessage($.booki.username, s);
-  	    $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
+	    element2.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 500px; height: 300px; border: 1px solid gray; padding: 5px"></div><input type="text" style="width: 500px;"/></form>').submit(function() { var s = $("INPUT", element2).val(); $("INPUT", element2).attr("value", ""); showMessage($.booki.username, s); $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
 
 }));
 
-	    element.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 200px; height: 300px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 200px;"/></form>').submit(function() { var s = $("INPUT", element).val(); $("INPUT", element).attr("value", "");
-																																	 showMessage($.booki.username, s);
-  	    $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
+	    element.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 265px; height: 300px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 275px;"/></form>').submit(function() { var s = $("INPUT", element).val(); $("INPUT", element).attr("value", ""); showMessage($.booki.username, s); $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
 
 }));
 	}
