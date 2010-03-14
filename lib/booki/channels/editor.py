@@ -635,7 +635,10 @@ def remote_notes_save(request, message, bookid):
     book = models.Book.objects.get(id=bookid)
     book_notes = models.BookNotes.objects.filter(book=book)
     notes = message.get("notes")
-    book_notes_obj = book_notes[0]
+    book_notes_obj = None
+
+    if len(book_notes) > 0:
+        book_notes_obj = book_notes[0]
 
     if book_notes_obj is None:
         book_notes_obj = models.BookNotes( book = book , notes = notes)
