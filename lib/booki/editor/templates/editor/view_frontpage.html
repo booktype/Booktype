@@ -1,23 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<table border="0">
- <tr>
- <td width="20"> </td>
- <td valign="top">
-   <p><b>THIS IS AN ALPHA RELEASE OF BOOKI!</b><br>
-   ...and has not yet any User Interface or graphic design.<br/>
-   ...and is missing many features.<br/>
-   ...and is still in development.<br/>
-   </p>
- </td>
-</tr>
-</table>
-
-<br><br>
-
-
 <table border="0">
  <tr>
   <td valign="top" width="300">
@@ -67,13 +50,12 @@
 	<input type="password" name="password2"/><br/>
 	FULL NAME<br/>
 	<input type="text" name="fullname" value="{{ fullname }}"/><br/>
-	Your real name is compulsory for reasons of copyright attribution to books you create and contribute to.
+	Your real name is compulsory for reasons of copyright attribution on books you create and contribute to.
 	<br/>
 	<button>Register</button>
 	{% ifequal error "username" %}
 	<p><b>Username is invalid. Please try a different one.</b></p>
 	{% endifequal %}
-
 	{% ifequal error "duplicate" %}
 	<p><b>Username already taken. Please try a different one.</b></p>
 	{% endifequal %}
@@ -87,10 +69,6 @@
 	<p><b>Please provide your real name.</b></p>
 	{% endifequal %}
 
-
-
-
-
 	  </form>
 	 </div>
 {% endif %}
@@ -98,54 +76,21 @@
   </td>
  </tr>
 
- <tr>
-  <td valign="top">
-	<!-- BOOKS LISTING -->
-	<div style="width: 200px">
-	<h2 style="border-bottom: 1px dotted gray" >Books</h2>
-
-	<ul>
-	{% for book in books %}
-	   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a></li>
-	{% endfor %}
-	</ul>
-	</div>
-  </td>
-
-  <td width="20"></td>
-
-  <td valign="top">
-	<!-- GROUPS LISTING -->
-	<div style="width: 200px">
-	<h2 style="border-bottom: 1px dotted gray" >Groups</h2>
-
-	<ul>
-	{% for group in groups %}
-	   <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a></li>
-	{% endfor %}
-	</ul>
-
-	</div>
-
-  </td>
- </tr>
 </table>
 
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-
+<table border="0">
+ <tr>
+ <td width="20"> </td>
+ <td valign="top">
+   <p><b>THIS IS AN ALPHA RELEASE OF BOOKI!</b><br>
+   ...and has not yet any User Interface or graphic design.<br/>
+   ...and is missing many features.<br/>
+   ...and is still in development.<br/>
+	
+   Software developers might like to check the PyPi release page for <a href="http://pypi.python.org/pypi/booki/">Booki</a>
+   </p>
+ </td>
+</tr>
+</table>
 
 {% endblock %}
