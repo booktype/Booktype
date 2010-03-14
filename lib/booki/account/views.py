@@ -160,11 +160,11 @@ def view_profile(request, username):
             # should check for errors
             lic = models.License.objects.get(abbrevation=license)
 
-            book = models.Book(owner = request.user,
-                                         url_title = url_title,
-                                         title = title,
-                                         license=lic,
-                                         published = datetime.datetime.now())
+            book = models.Book(owner = user,
+                               url_title = url_title,
+                               title = title,
+                               license=lic,
+                               published = datetime.datetime.now())
             book.save()
 
             from booki.editor import common
