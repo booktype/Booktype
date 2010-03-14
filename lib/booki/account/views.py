@@ -169,7 +169,7 @@ def view_profile(request, username):
 
             from booki.editor import common
             common.logBookHistory(book = book, 
-                                  user = request.user,
+                                  user = user,
                                   kind = 'book_create')
             
             status = models.BookStatus(book=book, name="not published",weight=0)
