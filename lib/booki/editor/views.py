@@ -191,7 +191,7 @@ def view_frontpage(request):
     return render_to_response('editor/view_frontpage.html', {"request": request, 
                                                              "title": "Ovo je neki naslov",
                                                              "books": books,
-                                                             "error": request.REQUEST.get("error", "0"),
+                                                             "error": request.REQUEST.get("error", "0"), "username" : request.REQUEST.get("username",""), "email":request.REQUEST.get("email",""), "fullname" : request.REQUEST.get("fullname",""),
                                                              "groups": groups})
 
 # GROUPS

@@ -5,15 +5,6 @@
 {% block content %}
 
 <div style="margin-bottom: 5px">
- <div style="float: left">
-    <a href="{% url frontpage %}"><img src="/site_media/images/logo.png" border="0"></a>
- </div>
-
- <div style="float: right">
-  <div align="center" style="padding-bottom: 8px">
-     <b><a href="{% url view_profile user.username %}">{{ user.username }}</a></b> | <a href="{% url user_settings user.username %}">Settings</a> | Help | <a href="{% url signout %}">Sign out</a>
-  </div>
-</div>
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0" style="clear: all">
  <tr>
