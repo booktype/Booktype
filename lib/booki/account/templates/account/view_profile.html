@@ -53,7 +53,6 @@
   </div>
   <!-- end profile info -->
 
-  <br/><br/>
   <div style="border-bottom: 1px solid #c0c0c0"></div>
 
 <h2>Create new book</h2>
@@ -61,9 +60,9 @@
 <table>
 {{ project_form.as_table }}
 </table>
-<br/><br/>
 <button>Create</button>
 </form>
+<br/>
 
 
 <h2>Import from archive.org</h2>
@@ -71,18 +70,19 @@
 <table>
 {{ import_form.as_table }}
 </table>
-<br/><br/>
 <button>Import</button>
 </form>
+<br/>
 
 <h2>Import epub</h2>
 <form action="." method="POST">
 <table>
 {{ epub_form.as_table }}
 </table>
-<br/><br/>
 <button>Import</button>
 </form>
+<br/>
+
 
 <!--
 <h2>Import from fm.net</h2>
@@ -99,10 +99,10 @@
   <td width="10"></td>
   <td valign="top">
 {% ifequal user.username request.user.username %}
-<div style="border: 1px solid #c0c0c0; background-color: #f0f0f0; padding: 5px;" id="mood">
+<div style="width:325px; border: 1px solid #c0c0c0; background-color: #f0f0f0; padding: 5px;" id="mood">
   <form method="GET" action="javascript:void(0)" onsubmit="return false;">
-   <input type="text" size="40" value="What's on your mind ?" style="width: 98%;"/>
-   <div style="" align="right">
+   <input type="text" size="40" value="What's on your mind ?" style="width: 320px;"/>
+   <div style="margin-top:3px;margin-right:3px;" align="right">
       <button>Share</button>
    </div>
    
@@ -129,16 +129,15 @@
 
 
 
-<div style="padding-top: 20px;" id="newgroup">
+<div style="padding-top: 20px; width:325px;" id="newgroup">
 <h2>Create new group</h2>
 <div style="border-bottom: 1px solid #c0c0c0; margin-bottom: 20px"></div>
 
   <form method="GET" action="javascript:void(0)" onsubmit="return false;">
     Group name:<br>
-    <input type="text" size="60" value=""/> <br>
+    <input type="text" style="width:325px;" value=""/> <br>
     What is this group about:<br>
-    <textarea name="description" cols="60" rows="5"></textarea>
-    <br>
+    <textarea name="description" rows="5" style="width:325px;"></textarea><br/>
     <button>Create new group</button>
   </form>
 </div>
