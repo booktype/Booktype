@@ -42,7 +42,8 @@ urlpatterns = patterns('',
             "map": (  
                 (r'^/booki/$',                            'booki.channels.main'),
                 (r'^/booki/book/(?P<bookid>\d+)/$',       'booki.channels.editor'),
-                (r'^/booki/profile/(?P<profileid>.+)/$', 'booki.channels.profile'),
+                (r'^/booki/profile/(?P<profileid>.+)/$',  'booki.channels.profile'),
+                (r'^/booki/group/(?P<groupid>.+)/$',      'booki.channels.group'),
                 (r'^/chat/(?P<bookid>\d+)/$',             'booki.channels.chat')
                 )
             }),                     

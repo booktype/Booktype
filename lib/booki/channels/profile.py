@@ -1,3 +1,27 @@
+def remote_group_create(request, message, profileid):
+    from booki.editor.models import BookiGroup
+    from django.template.defaultfilters import slugify
+    import datetime
+
+    groupName = message.get("groupName", "")
+    groupDescription = message.get("groupDescription", "")
+
+    try:
+        group = BookiGroup(name = groupName,
+                           url_name = slugify(groupName),
+                           description = groupDescription,
+                           owner = request.user,
+                           
+                           created = datetime.datetime.now())
+        group.save()
+
+        group.members.add(request.user)
+    except:
+        return {"created": False}
+
+    return {"created": True}
+
+
 def remote_init_profile(request, message, profileid):
     import sputnik
 

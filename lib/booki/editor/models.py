@@ -120,7 +120,7 @@ class BookHistory(models.Model):
 
 class BookiGroup(models.Model):
     name = models.CharField(_('name'), max_length=300, blank=False)
-    url_name = models.CharField(_('url_name'), max_length=300, blank=False)
+    url_name = models.CharField(_('url_name'), max_length=300, blank=False, primary_key=True)
     description = models.TextField(_('description'))
 
     owner = models.ForeignKey(auth_models.User)

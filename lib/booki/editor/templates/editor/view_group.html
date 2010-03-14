@@ -3,10 +3,30 @@
 {% block header %}
 <link type="text/css" href="/site_media/css/editor.css" rel="Stylesheet" />
 
+<script type="text/javascript" src="/site_media/js/group.js"></script>
+
+
 <script type="text/javascript">
     $(function() {
+	// current browser
+	$.booki.username = "{{ request.user.username }}";
+	
+	// profile user should be different variable
+	
+	$.booki.groupName = "{{ group }}";
+	
+	/* call when page is loaded */
+	$.booki.group.initGroup();
+	
+	$.booki.subscribeToChannel("/booki/", function(message) {
+	    
+	});
+	
+	// start Sputnik
+	jQuery.booki.network._transport.connect();
+
 	// we have to be very carefull when it comes to session timeout on server side !
-        jQuery.booki.network._transport.connect({'poll': false, 'iteration': 1000});
+        // jQuery.booki.network._transport.connect({'poll': false, 'iteration': 1000});
     });
 </script>
 {% endblock %}

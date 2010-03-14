@@ -204,13 +204,13 @@ def view_group(request, groupid):
     isMember = request.user in members
     yourBooks = models.Book.objects.filter(owner=request.user)
 
-    return render_to_response('editor/view_group.html', {"request": request, 
-                                                         "title": "Ovo je neki naslov",
-                                                         "group": group,
-                                                         "books": books,
+    return render_to_response('editor/view_group.html', {"request":    request, 
+                                                         "title":      "Ovo je neki naslov",
+                                                         "group":      group,
+                                                         "books":      books,
                                                          "your_books": yourBooks,
-                                                         "members": members,
-                                                         "is_member": isMember})
+                                                         "members":    members,
+                                                         "is_member":  isMember})
 
 def join_group(request, groupid):
     group = models.BookiGroup.objects.get(url_name=groupid)

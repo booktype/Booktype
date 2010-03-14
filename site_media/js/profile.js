@@ -32,6 +32,33 @@ $(function() {
 						   $(this).val("What's on your mind ?");
 					       });
 		});
+
+		$("#newgroup BUTTON").click(function() {
+		    var groupName = $("#newgroup INPUT").val();
+		    var groupDescription = $("#newgroup TEXTAREA").val();
+
+		    if(groupName.length > 0 && groupDescription.length > 0) {
+
+			jQuery.booki.sendToChannel("/booki/profile/"+$.booki.profileName+"/", 
+						   {
+						       "command":          "group_create",
+						       "groupName":        groupName,
+						       "groupDescription": groupDescription
+						   },
+						   
+						   function(message) {
+						       if(!message.created) {
+							   alert("ERROR. DID NOT CREATE NEW GROUP.");
+						       } else {
+							   window.location = '.';
+						       }
+						   });
+		    } else {
+			alert("Please fill all the fields.");
+		    }
+		});
+
+
 	    },
 
 	    /* load initial data */
