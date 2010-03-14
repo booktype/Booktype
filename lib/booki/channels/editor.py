@@ -481,21 +481,31 @@ def remote_create_chapter(request, message, bookid):
     # here i should probably set it to default project status
     s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
 
-    chapter = models.Chapter(book = book,
-                             url_title = url_title,
-                             title = message["chapter"],
-                             status = s,
-                             content = '<h1>%s</h1>' % message["chapter"],
-                             created = datetime.datetime.now(),
-                             modified = datetime.datetime.now())
-    chapter.save()
 
-    from booki.editor import common
-    common.logBookHistory(book = book,
-                          chapter = chapter,
-                          user = request.user,
-                          kind = 'chapter_create')
+    ch = models.Chapter.objects.filter(book=book, url_title=url_title)
 
+    if len(list(ch)) > 0:
+        return {"created": False}
+
+    try:
+        chapter = models.Chapter(book = book,
+                                 url_title = url_title,
+                                 title = message["chapter"],
+                                 status = s,
+                                 content = '<h1>%s</h1>' % message["chapter"],
+                                 created = datetime.datetime.now(),
+                                 modified = datetime.datetime.now())
+        chapter.save()
+        
+        from booki.editor import common
+        common.logBookHistory(book = book,
+                              chapter = chapter,
+                              user = request.user,
+                              kind = 'chapter_create')
+    except:
+        return {"created": False}
+
+        
     result = (chapter.id, chapter.title, chapter.url_title, 1, s.id)
 
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
@@ -505,7 +515,7 @@ def remote_create_chapter(request, message, bookid):
 
     sputnik.addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapter_create", "chapter": result}, myself = True)
 
-    return {}
+    return {"created": True}
 
 
 def remote_publish_book(request, message, bookid):
@@ -576,6 +586,13 @@ def remote_create_section(request, message, bookid):
     import datetime
     book = models.Book.objects.get(id=bookid)
 
+    ch = models.BookToc.objects.filter(book=book, 
+                                       name=message['chapter'],
+                                       typeof=0)
+
+    if len(list(ch)) > 0:
+        return {"created": False}
+    
     c = models.BookToc(book = book,
                        name = message["chapter"],
                        chapter = None,
@@ -602,7 +619,7 @@ def remote_create_section(request, message, bookid):
                                                                        "typeof": c.typeof}, 
                                 myself = True)
     
-    return {}
+    return {"created": True}
 
 
 def remote_get_history(request, message, bookid):
