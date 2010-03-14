@@ -136,11 +136,19 @@ def view_profile(request, username):
         if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
             from booki.editor import common
 
-            common.importBookFromURL(user, espri_url + "?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
+            try:
+                common.importBookFromURL(user, espri_url + "?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
+            except:
+                return render_to_response('account/error_import.html', {"request": request, 
+                                                                        "user": user })
 
         if epub_form.is_valid() and epub_form.cleaned_data["url"] != "":
             from booki.editor import common
-            common.importBookFromURL(user, espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
+            try:
+                common.importBookFromURL(user, espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
+            except:
+                return render_to_response('account/error_import.html', {"request": request, 
+                                                                        "user": user })
 
         if project_form.is_valid() and project_form.cleaned_data["title"] != "":
             title = project_form.cleaned_data["title"]
