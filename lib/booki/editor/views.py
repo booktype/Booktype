@@ -2,14 +2,11 @@ from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from django.http import Http404, HttpResponse
-
+from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django import forms
+from django.contrib.auth.models import User
 
 from booki.editor import models
-
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-
 
 import logging
 
@@ -259,4 +256,18 @@ def upload_attachment(request, bookid):
 
     return HttpResponse('<html><body><script> parent.closeAttachmentUpload(); </script></body></html>')
 
+#
+# front page listings
+#
+def view_groups(request):
+    groups = models.BookiGroup.objects.all()
+    return render_to_response('editor/view_groups.html', {"request":    request, "title":      "Ovo je neki naslov", "groups":      groups, })
+
+def view_books(request):
+    books = models.Book.objects.all().order_by("title")
+    return render_to_response('editor/view_books.html', {"request":    request, "title":      "Ovo je neki naslov", "books":      books, })
+
+def view_people(request):
+    people = User.objects.all()
+    return render_to_response('editor/view_people.html', {"request":    request, "title":      "Ovo je neki naslov", "people":      people, })
 
