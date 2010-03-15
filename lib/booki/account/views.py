@@ -202,8 +202,8 @@ def view_profile(request, username):
 
 class SettingsForm(forms.Form):
     email = forms.EmailField(required=True)
-    firstname = forms.CharField(required=True, label='First name')
-    lastname = forms.CharField(required=True, label='Last name')
+    firstname = forms.CharField(required=True, label='Full name')
+#    lastname = forms.CharField(required=True, label='Last name')
     description = forms.CharField(widget=forms.Textarea(), required=False, label="Blurb about yourself")
 
     image = forms.Field(widget=forms.FileInput(), required=False)
@@ -234,7 +234,7 @@ def user_settings(request, username):
 
             user.email      = settings_form.cleaned_data['email']
             user.first_name = settings_form.cleaned_data['firstname']
-            user.last_name  = settings_form.cleaned_data['lastname']
+            #user.last_name  = settings_form.cleaned_data['lastname']
             user.save()
 
             profile.description = settings_form.cleaned_data['description']
@@ -268,7 +268,7 @@ def user_settings(request, username):
     else:
         settings_form = SettingsForm(initial = {'image': 'aaa',
                                                 'firstname': user.first_name,
-                                                'lastname': user.last_name,
+                                                #'lastname': user.last_name,
                                                 'description': user.get_profile().description,
                                                 'email': user.email})
 
