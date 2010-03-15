@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<table border="0">
- <tr>
-  <td valign="top" width="300">
+
+	<!-- SIGNIN FORM -->
+	<div id="signin_form">
 
 	{% if request.user.is_authenticated %}
 	{% else %}
@@ -30,9 +30,10 @@
 	</div>
 	{% endif %}
 
-  </td>
-  <td width="20"></td>
-  <td valign="top" width="300">
+	</div>
+
+	<!-- REGISTER FORM -->
+	<div id="register_form">
 {% if request.user.is_authenticated %}
 {% else %}
 
@@ -72,25 +73,40 @@
 	  </form>
 	 </div>
 {% endif %}
+	</div>
 
-  </td>
- </tr>
+<div id="intro">
+<p><b>Welcome to Booki Alpha 1.0.</b></p>
+<p>
+Booki facilitates the collaborative production of books through simple
+and effective writing and book management tools. With the exception of
+Booki, there is no software available for this practice. Some have tried
+wiki and CMS software and find its not easy. Wikis are for the
+asynchronous development of unstructured web content. CMS are for the
+management of web-structured online content. Booki is something new.
+</p><p>
+The Booki interface is designed around the authors and their needs to
+write, to discuss their views, to seek assistance with partner writers,
+to translate or reuse content and to publish completed works. While
+rapid development of content is the core focus of Booki, using a
+platform like this you can take the time to write a book by yourself as
+well as collaborate to produce high quality content very quickly. 
+</p><p>
+Sign up and have a look around!
+</p>
+<p>Software developers might like to check the PyPi release page for <a href="http://pypi.python.org/pypi/booki/">Booki</a> </p>
 
-</table>
+</div>
+	<script>
+		$(document).ready(function() {
+			$('#signin_form').hide();
+			$('#register_form').hide();
 
-<table border="0">
- <tr>
- <td width="20"> </td>
- <td valign="top">
-   <p><b>THIS IS AN ALPHA RELEASE OF BOOKI!</b><br>
-   ...and has not yet any User Interface or graphic design.<br/>
-   ...and is missing many features.<br/>
-   ...and is still in development.<br/>
-	
-   Software developers might like to check the PyPi release page for <a href="http://pypi.python.org/pypi/booki/">Booki</a>
-   </p>
- </td>
-</tr>
-</table>
-
+			$('#login').click( function() {
+				$('#signin_form').toggle();
+				$('#register_form').toggle();
+				$('#intro').toggle();
+			});	
+		});
+	</script>
 {% endblock %}
