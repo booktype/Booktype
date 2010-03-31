@@ -1,98 +1,112 @@
 {% extends "base.html" %}
 
 {% block content %}
-<img src="/site_media/images/logo.png">
-<br><br>
-<table border="0">
- <tr>
-  <td valign="top" width="400">
-<div style="background-color: #f8e1a4;font-size: 12px; padding: 20px">
+
+	<!-- SIGNIN FORM -->
+	<div id="signin_form">
+
+	{% if request.user.is_authenticated %}
+	{% else %}
+
+	<div style="background-color: #f8e1a4;font-size: 12px; padding: 20px">
+	 <h2>Sign in</h2>
+	  <form method="POST" action="/accounts/signin/" id="loginform">
+	USERNAME<br/>
+	<input type="text" name="username"/><br/>
+	PASSWORD<br/>
+	<input type="password" name="password"/><br/>
+	<br/>
+	<button>Sign in</button>
+	  </form>
+
+	{% ifequal error "auth" %}
+	<p><b>Wrong username or password !</b></p>
+	<script>
+	 $("#loginform INPUT[name=username]").css("border", "3px solid red");
+	 $("#loginform INPUT[name=password]").css("border", "3px solid red");
+	</script>
+	{% endifequal %}
+
+	</div>
+	{% endif %}
+
+	</div>
+
+	<!-- REGISTER FORM -->
+	<div id="register_form">
 {% if request.user.is_authenticated %}
-   Helou <a href="/accounts/{{ request.user.username }}">{{ request.user.username }}</a>.
-   Do you want to <a href="/accounts/signout/">sign out</a>?
-
 {% else %}
- <h2>Sign in</h2>
-  <form method="POST" action="/accounts/signin/">
-USERNAME<br/>
-<input type="text" name="username"/><br/>
-PASSWORD<br/>
-<input type="password" name="password"/><br/>
-<br/>
-<button>Sign in</button>
-  </form>
+
+	<div style="background-color: #f8e1a4;font-size: 12px; padding: 20px;">
+	 <h2>Register</h2>
+
+	<form method="POST" action="/accounts/register/">
+	USERNAME<br/>
+	<input type="text" name="username" value="{{ username }}"/><br/>
+	E-MAIL<br/>
+	<input type="text" name="email" value="{{ email }}"/><br/>
+	PASSWORD (6 characters at least)<br/>
+	<input type="password" name="password"/><br/>
+	PASSWORD confirmation<br/>
+	<input type="password" name="password2"/><br/>
+	FULL NAME<br/>
+	<input type="text" name="fullname" value="{{ fullname }}"/><br/>
+	Your real name is compulsory for reasons of copyright attribution on books you create and contribute to.
+	<br/>
+	<button>Register</button>
+	{% ifequal error "username" %}
+	<p><b>Username is invalid. Please try a different one.</b></p>
+	{% endifequal %}
+	{% ifequal error "duplicate" %}
+	<p><b>Username already taken. Please try a different one.</b></p>
+	{% endifequal %}
+	{% ifequal error "email" %}
+	<p><b>Email address is not in a valid format. Please try a different one.</b></p>
+	{% endifequal %}
+	{% ifequal error "password" %}
+	<p><b>Your passwords dont match or is weak. Please try a different one.</b></p>
+	{% endifequal %}
+	{% ifequal error "fullname" %}
+	<p><b>Please provide your real name.</b></p>
+	{% endifequal %}
+
+	  </form>
+	 </div>
 {% endif %}
-</div>
-  </td>
-  <td width="20"></td>
-  <td valign="top" width="400">
-<div style="background-color: #f8e1a4;font-size: 12px; padding: 20px;">
-{% if request.user.is_authenticated %}
-No idea what to put here
-{% else %}
- <h2>Register</h2>
-  <form method="POST" action="/accounts/register/">
-USERNAME<br/>
-<input type="text" name="username"/><br/>
-E-MAIL<br/>
-<input type="text" name="email"/><br/>
-PASSWORD<br/>
-<input type="password" name="password"/><br/>
-<br/>
-<button>Register</button>
+	</div>
 
-  </form>
-{% endif %}
-
-  </td>
- </tr>
-
- <tr>
-  <td valign="top">
-<div style="width: 400px">
-<h2 style="border-bottom: 1px dotted gray" >Books</h2>
-
-<ul>
-{% for book in books %}
-   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a></li>
-{% endfor %}
-</ul>
-</div>
-  </td>
-
-  <td width="20"></td>
-
-  <td valign="top">
-<div style="width: 400px">
-<h2 style="border-bottom: 1px dotted gray" >Groups</h2>
-
-<ul>
-{% for group in groups %}
-   <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a></li>
-{% endfor %}
-</ul>
+<div id="intro">
+<p><b>Welcome to Booki Alpha 1.0.</b></p>
+<p>
+Booki facilitates the collaborative production of books through simple
+and effective writing and book management tools. With the exception of
+Booki, there is no software available for this practice. Some have tried
+wiki and CMS software and find its not easy. Wikis are for the
+asynchronous development of unstructured web content. CMS are for the
+management of web-structured online content. Booki is something new.
+</p><p>
+The Booki interface is designed around the authors and their needs to
+write, to discuss their views, to seek assistance with partner writers,
+to translate or reuse content and to publish completed works. While
+rapid development of content is the core focus of Booki, using a
+platform like this you can take the time to write a book by yourself as
+well as collaborate to produce high quality content very quickly. 
+</p><p>
+Sign up and have a look around!
+</p>
+<p>Software developers might like to check the PyPi release page for <a href="http://pypi.python.org/pypi/booki/">Booki</a> </p>
 
 </div>
+	<script>
+		$(document).ready(function() {
+			$('#signin_form').hide();
+			$('#register_form').hide();
 
-  </td>
- </tr>
-</table>
-
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-
-
+			$('#login').click( function() {
+				$('#signin_form').toggle();
+				$('#register_form').toggle();
+				$('#intro').toggle();
+			});	
+		});
+	</script>
 {% endblock %}

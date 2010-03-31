@@ -19,6 +19,11 @@ urlpatterns = patterns('',
 
     # debug
     (r'^debug/redis/$', 'booki.editor.views.debug_redis'),                       
+    
+    # front page listing views
+    url(r'list-groups/', 'booki.editor.views.view_groups'),
+    url(r'list-books/', 'booki.editor.views.view_books'),
+    url(r'list-people/', 'booki.editor.views.view_people'),
 
     # user accounts                     
     url(r'^accounts/', include('booki.account.urls')),                    
@@ -31,14 +36,23 @@ urlpatterns = patterns('',
 
     url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.editor.views.view_group', name="view_group"),                    
 
-    # temp temp temp                      
+    # misc
+    url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booki.account.views.view_profilethumbnail', name='view_profilethumbnail'),                      
+
+    # export
     url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.view_export', name='export_booki'), 
                        
-
-    # the rest interface                   
-    # NOTICE. this should change                      
-    url(r'^api/$', 'booki.editor.views.dispatcher'),                     
-
+    # sputnik dispatcher                       
+    url(r'^sputnik/$', 'sputnik.views.dispatcher', {
+            "map": (  
+                (r'^/booki/$',                            'booki.channels.main'),
+                (r'^/booki/book/(?P<bookid>\d+)/$',       'booki.channels.editor'),
+                (r'^/booki/profile/(?P<profileid>.+)/$',  'booki.channels.profile'),
+                (r'^/booki/group/(?P<groupid>.+)/$',      'booki.channels.group'),
+                (r'^/chat/(?P<bookid>\d+)/$',             'booki.channels.chat')
+                )
+            }),                     
+                       
     # reader
     url(r'^(?P<bookid>[\w\s\_\.\-]+)/', include('booki.editor.urls')),
 )

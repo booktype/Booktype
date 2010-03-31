@@ -14,6 +14,8 @@ urlpatterns = patterns('',
     url(r'^static/(?P<attachment>.*)$',  'booki.editor.views.view_attachment', name='view_attachment'),
 
 
+    url(r'^_full/$', 'booki.editor.views.view_full', name='view_full'),                       
+
     # view book 
     url(r'^edit/$', 'booki.editor.views.edit_book', name='edit_book'),
     url(r'^(?P<chapter>[\w\s\_\.\-]+)/$', 'booki.editor.views.view_chapter', name='view_chapter'),

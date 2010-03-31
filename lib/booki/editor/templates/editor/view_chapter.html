@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load booki_tags %}
+
 {% block header %}
 <link type="text/css" href="/site_media/css/editor.css" rel="Stylesheet" />
 {% endblock %}
@@ -9,10 +11,10 @@
 
 <div id="header">
  <div style="float:right; font-size: 12px">
-<div align="center" style="padding-bottom: 8px">
-<img src="/site_media/images/logo.png"></div>
-    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a href="/accounts/signout/">Sign out</a>
- </div>
+    <div align="center" style="padding-bottom: 8px">
+        <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a href="/accounts/signout/">Sign out</a>
+     </div>
+</div>
 </div>
 
 <br clear="all"/>
@@ -37,7 +39,7 @@
 </ul>
  </td>
  <td valign="top">
-{{ content.content|safe }}
+{% booki_format content %}
 <hr/>
 <a href="{% url view_book   book.url_title %}edit/">EDIT</a>
  </td>

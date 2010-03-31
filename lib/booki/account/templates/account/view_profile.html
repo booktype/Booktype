@@ -1,34 +1,67 @@
 {% extends "base.html" %}
 
+{% load profile %}
+
+{% block header %}
+  <script type="text/javascript" src="/site_media/js/profile.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+
+	// current browser
+	$.booki.username = "{{request.user.username}}";
+	
+	// profile user should be different variable
+	
+	$.booki.profileName = "{{user.username}}";
+	
+	/* call when page is loaded */
+	
+	$.booki.profile.initProfile();
+	
+	// probably subscribe to /booki/profile/<username>/
+	$.booki.subscribeToChannel("/booki/", function(message) {
+	    
+	});
+	
+	// start Sputnik
+	jQuery.booki.network._transport.connect();
+    });
+
+
+  </script>
+
+{% endblock %}
+
 {% block content %}
 
 <div style="margin-bottom: 5px">
-  <div style="float: right">
-<div align="center" style="padding-bottom: 8px">
-<img src="/site_media/images/logo.png"></div>
-     <b>{{ user.username }}</b> | Settings | Help | <a href="{% url signout %}">Sign out</a>
-  </div>
-  <b><a href="{% url frontpage %}">BOOKI</a></b>
-</div>
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<div style="clear: both; padding-top: 10px;"/>
+<table border="0" width="100%" cellspacing="0" cellpadding="0" style="clear: all">
  <tr>
   <td valign="top" width="240">
-<img src="/site_media/images/aco_ikona.png"/>
-{{ user.email }}<br/>
-{{ user.first_name }}
-{{ user.last_name }}
-<br/><br/>
-<div style="border-bottom: 1px solid #c0c0c0"></div>
+
+  <!-- start profile info -->
+  {% profile_image  user %}
+  <br/>
+  {{ user.email }}<br/>
+  {{ user.first_name }}
+  <div style="padding-top: 10px; font-style: italic;" id="profilemood">
+    {{ user.get_profile.mood }}
+  </div>
+  <!-- end profile info -->
+
+  <div style="border-bottom: 1px solid #c0c0c0"></div>
 
 <h2>Create new book</h2>
 <form action="." method="POST">
 <table>
 {{ project_form.as_table }}
 </table>
-<br/><br/>
 <button>Create</button>
 </form>
+<br/>
 
 
 <h2>Import from archive.org</h2>
@@ -36,18 +69,19 @@
 <table>
 {{ import_form.as_table }}
 </table>
-<br/><br/>
 <button>Import</button>
 </form>
+<br/>
 
 <h2>Import epub</h2>
 <form action="." method="POST">
 <table>
 {{ epub_form.as_table }}
 </table>
-<br/><br/>
 <button>Import</button>
 </form>
+<br/>
+
 
 <!--
 <h2>Import from fm.net</h2>
@@ -63,6 +97,18 @@
   </td>
   <td width="10"></td>
   <td valign="top">
+{% ifequal user.username request.user.username %}
+<div style="width:325px; border: 1px solid #c0c0c0; background-color: #f0f0f0; padding: 5px;" id="mood">
+  <form method="GET" action="javascript:void(0)" onsubmit="return false;">
+   <input type="text" size="40" value="What's on your mind ?" style="width: 320px;"/>
+   <div style="margin-top:3px;margin-right:3px;" align="right">
+      <button>Share</button>
+   </div>
+   
+ </form>
+</div>
+{% endifequal %}
+
 <h2>Books</h2>
 <div style="border-bottom: 1px solid #c0c0c0"></div>
 <ul>
@@ -79,6 +125,21 @@
    <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a></li>
 {% endfor %}
 </ul>
+
+
+
+<div style="padding-top: 20px; width:325px;" id="newgroup">
+<h2>Create new group</h2>
+<div style="border-bottom: 1px solid #c0c0c0; margin-bottom: 20px"></div>
+
+  <form method="GET" action="javascript:void(0)" onsubmit="return false;">
+    Group name:<br>
+    <input type="text" style="width:325px;" value=""/> <br>
+    What is this group about:<br>
+    <textarea name="description" rows="5" style="width:325px;"></textarea><br/>
+    <button>Create new group</button>
+  </form>
+</div>
 
   </td>
  </tr>

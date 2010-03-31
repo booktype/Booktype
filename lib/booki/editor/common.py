@@ -9,7 +9,6 @@ import os
 import simplejson
 import datetime
 import re
-import logging
 
 from booki.editor import models
 
@@ -45,7 +44,21 @@ def extract(zdirname, zipfile):
         outfile.write(zipfile.read(name))
         outfile.close()
 
-## create project
+
+# logBookHistory
+
+def logBookHistory(book = None, chapter = None, chapter_history = None, args = {}, user=None, kind = 'unknown'):
+    history = models.BookHistory(book = book,
+                                 chapter = chapter,
+                                 chapter_history = chapter_history,
+                                 args = simplejson.dumps(args),
+                                 user = user,
+                                 kind = models.HISTORY_CHOICES.get(kind, 0))
+    history.save()
+
+
+
+## create book
 
 def createBook(user, bookTitle, status = "imported"):
     """
@@ -61,6 +74,10 @@ def createBook(user, bookTitle, status = "imported"):
 
     book.save()
 
+    logBookHistory(book = book, 
+                   user = user,
+                   kind = 'book_create')
+
     status_default = ["published", "not published", "imported"]
     n = len(status_default)
 
@@ -71,8 +88,10 @@ def createBook(user, bookTitle, status = "imported"):
 
     book.status = models.BookStatus.objects.get(book=book, name="not published")
     book.save()
+
     
     return book
+
 
 
 def getChaptersFromTOC(toc):
@@ -100,14 +119,14 @@ def importBookFromFile(user, zname):
     logging.debug("Wrote it to file %s", zname)
 
     # loads info.json
-
     data = open('%s/info.json' % zdirname, 'r').read()
     info = simplejson.loads(data)
 
     logging.debug("Loaded json file ", extra={"info": info})
 
     # wtf
-    bookTitle = info['metadata']['http://purl.org/dc/elements/1.1/']["title"][""][0]
+    bookTitle = info['metadata']['http://purl.org/dc/elements/1.1/']["title"][""][
+0]
 
     foundAvailableName = False
     n = 0
@@ -132,7 +151,6 @@ def importBookFromFile(user, zname):
     p = re.compile('\ssrc="(.*)"')
     # TOC {url, title}
     stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
-
 
     for dt in info['TOC']:
         chapterFile = dt["url"]
@@ -162,7 +180,7 @@ def importBookFromFile(user, zname):
                            typeof = 1)
         c.save()
         n -= 1
-     
+
 
 
     # this is for Table of Contents
@@ -211,7 +229,6 @@ def importBookFromFile(user, zname):
 #            if createTOC:
 #                c = models.BookToc(book = book,
 #                                   name = chapterName,
-#                                   chapter = chapter,
 #                                   weight = n,
 #                                   typeof = 1)
 #                c.save()
@@ -229,7 +246,7 @@ def importBookFromFile(user, zname):
             attachmentName = manifest['url']
 
             if attachmentName.startswith("static/"):
-                att = models.Attachment(book = book, 
+                att = models.Attachment(book = book,
                                         status = stat)
 
                 f = open('%s/%s' % (zdirname, attachmentName) , 'rb')
@@ -254,6 +271,7 @@ def importBookFromFile(user, zname):
     # delete temp files
     import shutil
     shutil.rmtree(zdirname)
+
 
 
 def importBookFromFileTheOldWay(user, zname):
@@ -302,9 +320,6 @@ def importBookFromFileTheOldWay(user, zname):
     p = re.compile('\ssrc="(.*)"')
 
     # TOC {url, title}
-
-    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
-
 
     for inf in chapters:
         chapterName = inf[0]
@@ -361,7 +376,7 @@ def importBookFromFileTheOldWay(user, zname):
             attachmentName = manifest['url']
 
             if attachmentName.startswith("static/"):
-                att = models.Attachment(book = book, 
+                att = models.Attachment(book = book,
                                         status = stat)
 
                 f = open('%s/%s' % (zdirname, attachmentName) , 'rb')
@@ -396,7 +411,6 @@ def importBookFromURL(user, bookURL, createTOC = False):
 
     ## there is no error checking for now
 
-    logging.debug("Importing book %s", bookURL)
 
     # download it
     f = urllib2.urlopen(bookURL)
@@ -441,14 +455,31 @@ def exportBook(book):
 
     ## should export only published chapters
     ## also should only post stuff from the TOC
-    
+
     tocList = []
     childrenList = []
     unknown_n = 0
 
+    from django import template
+    from django.template.loader import render_to_string
+
     for chapter in models.BookToc.objects.filter(book=book).order_by("-weight"):
         if chapter.chapter:
             content = p.sub(r' src="\1"', chapter.chapter.content)
+
+            # this has to be put somewhere outside
+            if content.find("##AUTHORS##") != -1:
+                t = template.loader.get_template_from_string('{% load booki_tags %} {% booki_authors book %}')
+                #con =  t.render(template.Context(context, autoescape=context.autoescape))
+                con = t.render(template.Context({"content": chapter, "book": book}))
+
+                content = content.replace('##AUTHORS##', con)
+
+#            content = content.replace('##AUTHORS##', '{% booki_authors book %}')
+#
+#            t = template.loader.get_template_from_string('{% load booki_tags %} '+content)
+#            content = t.render(template.Context({"content": chapter, "book": book}))
+
             name = "%s.html" % chapter.chapter.url_title
 
             childrenList.append({"title": chapter.chapter.title,
@@ -456,7 +487,7 @@ def exportBook(book):
                                  "type": "chapter",
                                  "role": "text"
                                  })
-            
+
             # blobk, metiatype, contributors, rightsholders, license
             bzip.add_to_package(removeExtension(name.encode("utf-8")), name.encode("utf-8"), content.encode("utf-8"), "text/html")
             bzip.info["spine"].append(removeExtension(name.encode("utf-8")))
@@ -493,15 +524,15 @@ def exportBook(book):
         else:
             if len(childrenList) > 0:
                 unknownName = "Unknown-%d.html" % unknown_n
-                
+
                 bzip.add_to_package(removeExtension(unknownName), unknownName, "", "text/html")
                 bzip.info["spine"].append(removeExtension(unknownName))
-                
+
                 tocList.append({"title": "Unknown %d" % unknown_n,
                                 "url": unknownName,
                                 "type": "booki-section",
                                 "children": childrenList})
-                
+
     bzip.info["TOC"] = tocList
 
     for attachment in models.Attachment.objects.filter(book=book):
