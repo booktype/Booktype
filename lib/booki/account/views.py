@@ -387,6 +387,7 @@ def my_groups (request, username):
 
                                                             "groups": groups,})
 
+
 def my_people (request, username):
 
     return render_to_response('account/my_people.html', {}) 
