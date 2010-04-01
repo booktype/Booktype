@@ -20,7 +20,7 @@
 <div class="shadow-container" style="position:absolute;top:0px;left:0px;width:100%;height:100%;margin-right:0px"> <div class="shadow1"> <div class="shadow2"> <div class="shadow3"> <div class="shadow4"> <div class="shadow5"> <div class="container" style="padding-top:5px;"> <a href="/"><img alt="Booki logo" src="/site_media/images/booki_logo_topleft.png" border="0"></a>
 
 {% if request.user.is_authenticated %}
-<div id="logged_in" style="position:absolute;top:25px;width:750px;text-align:right;font-family:helvetica,arial,verdana;font-size:11px;font-weight:bold;">
+<div id="logged_in" style="position:absolute;top:25px;width:848px;text-align:right;font-family:helvetica,arial,verdana;font-size:11px;font-weight:bold;">
 	<b>{{ request.user.username }}</b> | <a href="{% url signout %}">Sign out</a>
 </div>
 {% else %}
