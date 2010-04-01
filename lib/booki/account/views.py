@@ -377,3 +377,17 @@ def my_books (request, username):
 
                                                             "books": books,})
 
+def my_groups (request, username):
+    from django.contrib.auth.models import User
+    user = User.objects.get(username=username)
+    groups = user.members.all()
+
+    return render_to_response('account/my_groups.html', {"request": request, 
+                                                            "user": user,
+
+                                                            "groups": groups,})
+
+def my_people (request, username):
+
+    return render_to_response('account/my_people.html', {}) 
+
