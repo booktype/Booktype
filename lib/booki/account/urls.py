@@ -11,5 +11,6 @@ urlpatterns = patterns('',
     url(r'^register/$', 'booki.account.views.register', name='register'),
 
     url(r'^(?P<username>\w+)/$', 'booki.account.views.view_profile', name='view_profile'),
-    url(r'^(?P<username>\w+)/settings/$', 'booki.account.views.user_settings', name='user_settings')                     
+    url(r'^(?P<username>\w+)/settings/$', 'booki.account.views.user_settings', name='user_settings'),                     
+    url(r'^(?P<username>\w+)/my_books/$', 'booki.account.views.my_books', name='my_books')                     
 )

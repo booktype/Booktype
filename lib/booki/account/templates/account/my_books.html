@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% load profile %}
+
+{% block header %}
+  <script type="text/javascript" src="/site_media/js/profile.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+
+	// current browser
+	$.booki.username = "{{request.user.username}}";
+	
+	// profile user should be different variable
+	
+	$.booki.profileName = "{{user.username}}";
+	
+	/* call when page is loaded */
+	
+	$.booki.profile.initProfile();
+	
+	// probably subscribe to /booki/profile/<username>/
+	$.booki.subscribeToChannel("/booki/", function(message) {
+	    
+	});
+	
+	// start Sputnik
+	jQuery.booki.network._transport.connect();
+    });
+
+
+  </script>
+
+{% endblock %}
+
+{% block content %}
+
+<div style="margin-bottom: 5px">
+
+<h2>My Books</h2>
+<div style="border-bottom: 1px solid #c0c0c0"></div>
+<ul>
+{% for book in books %}
+   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book  book.url_title %}">edit</a>)</li>
+{% endfor %}
+</ul>
+</div>
+
+<h2>Create new book</h2>
+<form action="." method="POST">
+<table>
+{{ project_form.as_table }}
+</table>
+<button>Create</button>
+</form>
+<br/>
+
+
+<h2>Import from archive.org</h2>
+<form action="." method="POST">
+<table>
+{{ import_form.as_table }}
+</table>
+<button>Import</button>
+</form>
+<br/>
+
+<h2>Import epub</h2>
+<form action="." method="POST">
+<table>
+{{ epub_form.as_table }}
+</table>
+<button>Import</button>
+</form>
+<br/>
+
+
+{% endblock %}
