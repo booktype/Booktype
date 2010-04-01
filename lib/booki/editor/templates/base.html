@@ -48,9 +48,9 @@
 
 <a href="{% url view_profile request.user.username %}"><img src="/site_media/images/booki_menue_my_profile.png"></a><br>
 <a href="{% url user_settings request.user.username %}"><img src="/site_media/images/booki_menue_my_settings.png"></a><br>
-<img src="/site_media/images/booki_menue_my_books.png"><br> 
-<img src="/site_media/images/booki_menue_my_groups.png"><br> 
-<img src="/site_media/images/booki_menue_my_people.png"><br> 
+<a href="{% url my_books request.user.username %}"><img src="/site_media/images/booki_menue_my_books.png"></a><br>
+<a href="{% url my_groups request.user.username %}"><img src="/site_media/images/booki_menue_my_groups.png"></a><br>
+<a href="{% url my_people request.user.username %}"><img src="/site_media/images/booki_menue_my_people.png"></a><br>
 
 </div></div></div></div></div></div></div>
 <!-- the above divs are for the second nav box + drop shadow -->
