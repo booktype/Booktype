@@ -47,10 +47,10 @@ cd lib/booki
 10. Start redis
 redis-server &
 
-10. run the manage.py script
+10. run the manage.py script (do not use sudo)
 ./manage.py syncdb
 
-11. start the whole thing
+11. start the whole thing (do not use sudo)
 ./manage runserver
 
 12. If it fails set up enviro variables (may not be necessary)
