@@ -139,6 +139,8 @@ def view_profile(request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
             except:
+                from booki.editor.common import printStack
+                printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
 
@@ -147,6 +149,8 @@ def view_profile(request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
             except:
+                from booki.editor.common import printStack
+                printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
 

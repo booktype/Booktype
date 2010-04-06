@@ -116,13 +116,15 @@ def importBookFromFile(user, zname):
     extract(zdirname, zf)
     zf.close()
 
-    logging.debug("Wrote it to file %s", zname)
+    import logging
+
+    logging.getLogger("booki").error("Wrote it to file %s", zname)
 
     # loads info.json
     data = open('%s/info.json' % zdirname, 'r').read()
     info = simplejson.loads(data)
 
-    logging.debug("Loaded json file ", extra={"info": info})
+    logging.getLogger("booki").error("Loaded json file ", extra={"info": info})
 
     # wtf
     bookTitle = info['metadata']['http://purl.org/dc/elements/1.1/']["title"][""][
@@ -281,14 +283,16 @@ def importBookFromFileTheOldWay(user, zname):
     extract(zdirname, zf)
     zf.close()
 
-    logging.debug("Wrote it to file %s", zname)
+    import logging
+
+    logging.getLogger("booki").error("Wrote it to file %s", zname)
 
     # loads info.json
 
     data = open('%s/info.json' % zdirname, 'r').read()
     info = simplejson.loads(data)
 
-    logging.debug("Loaded json file ", extra={"info": info})
+    logging.getLogger("booki").error("Loaded json file ", extra={"info": info})
 
     # wtf
     bookTitle = info['metadata']['http://purl.org/dc/elements/1.1/']["title"][""][0]
@@ -410,7 +414,6 @@ def importBookFromURL(user, bookURL, createTOC = False):
     """
 
     ## there is no error checking for now
-
 
     # download it
     f = urllib2.urlopen(bookURL)
@@ -587,3 +590,17 @@ def exportBook(book):
     return zname
 
 
+def printStack(extra):
+    import logging
+    import sys
+    import traceback
+
+    _type, _value, _tb = sys.exc_info()
+
+    logging.getLogger("booki").error("%s:%s\n", (_type.__name__, _value))
+    for line in traceback.format_tb(_tb):
+        logging.getLogger("booki").error(line)
+
+#    f = open('/tmp/error.txt', 'at+')
+#    f.write(message)
+#    f.close()
