@@ -14,7 +14,7 @@
 <body>
 
 <!-- the following divs are for the top bar + drop shadow -->
-<div class="shadow-container" style="position:absolute;top:0px;left:0px;width:100%;height:100%;margin-right:0px"> <div class="shadow1"> <div class="shadow2"> <div class="shadow3"> <div class="shadow4"> <div class="shadow5"> <div class="container" style="padding-top:5px;"> <a href="/"><img alt="Booki logo" src="/site_media/images/booki_logo_topleft.png" border="0"></a>
+<div class="shadow-container" style="position:absolute;top:0px;left:0px;width:100%;margin-right:0px"><div class="container" style="padding-top:5px;"> <a href="/"><img alt="Booki logo" src="/site_media/images/booki_logo_topleft.png" border="0"></a>
 
 {% if request.user.is_authenticated %}
 <div id="logged_in" style="position:absolute;top:25px;width:848px;text-align:right;font-family:helvetica,arial,verdana;font-size:11px;font-weight:bold;">
@@ -24,40 +24,40 @@
 <div id="login" style="position:absolute;top:25px;width:750px;text-align:right;font-family:helvetica,arial,verdana;font-size:11px;font-weight:bold;"> Login / Register</div>
 {% endif %}
 
-</div></div></div></div></div></div></div>
+</div></div>
 <!-- the above divs are for the top bar + drop shadow -->
 
 <!-- the following divs are for the nav box + drop shadow -->
-<div class="shadow-container" style="position:absolute;top:70px;left:40px;height:180px;">
-                <div class="shadow1"> <div class="shadow2"> <div class="shadow3"> <div class="shadow4"> <div class="shadow5"> <div class="container" style="border-top:10px solid black;">
+<div class="shadow-container" style="position:absolute;top:70px;left:40px;">
+                <div class="container" style="border-top:10px solid black;">
 					<a href="/"><img alt="About" src="/site_media/images/booki_menue_about.png"></a><br>
 					<a href="/list-books"><img alt="Books" src="/site_media/images/booki_menue_books.png"></a><br>
 					<a href="/list-groups"><img alt="Groups" src="/site_media/images/booki_menue_groups.png"></a><br>
 					<a href="/list-people"><img alt="People" src="/site_media/images/booki_menue_people.png"></a><br>
-</div></div></div></div></div></div></div>
+</div></div>
 <!-- the above divs are for the nav box + drop shadow -->
 
 {% if request.user.is_authenticated %}
 <!-- the following divs are for the second nav box + drop shadow -->
-<div class="shadow-container" style="position:absolute;top:190px;left:40px;height:180px;"> <div class="shadow1"> <div class="shadow2"> <div class="shadow3"> <div class="shadow4"> <div class="shadow5"> <div class="container" style="border-top:10px solid black;">
+<div class="shadow-container" style="position:absolute;top:190px;left:40px;"><div class="container" style="border-top:10px solid black;">
 <a href="{% url view_profile request.user.username %}"><img src="/site_media/images/booki_menue_my_profile.png"></a><br>
 <a href="{% url user_settings request.user.username %}"><img src="/site_media/images/booki_menue_my_settings.png"></a><br>
 <a href="{% url my_books request.user.username %}"><img src="/site_media/images/booki_menue_my_books.png"></a><br>
 <a href="{% url my_groups request.user.username %}"><img src="/site_media/images/booki_menue_my_groups.png"></a><br>
 <a href="{% url my_people request.user.username %}"><img src="/site_media/images/booki_menue_my_people.png"></a><br>
-</div></div></div></div></div></div></div>
+</div></div>
 <!-- the above divs are for the second nav box + drop shadow -->
 {% endif %}
 
 <div id="content">
-<!-- the following divs are for the drop shadow -->
-<div class="shadow-container" style="position:absolute;top:70px;left:150px;width:700px;"> <div class="shadow1"> <div class="shadow2 "> <div class="shadow3"> <div class="shadow4"> <div class="shadow5"> <div class="container" style="padding:10px;border-top:10px solid black;">
+<!-- the following divs are for the content box and the drop shadow-->
+<div class="shadow-container" style="position:absolute;top:70px;left:150px;width:700px;"><div class="container" style="padding:10px;border-top:10px solid black;">
 
 {% block content %}
 {% endblock %}
 
 <!-- the following divs are for the drop shadow -->
-</div> </div> </div> </div> </div> </div> </div>
+</div> </div>
 <!-- the above divs are for the drop shadow -->
 
 </div>
