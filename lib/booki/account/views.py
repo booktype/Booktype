@@ -114,10 +114,11 @@ class BookForm(forms.Form):
 class ImportForm(forms.Form):
     archive_id = forms.CharField(required=False)
 
-
 class ImportEpubForm(forms.Form):
     url = forms.CharField(required=False)
-    
+   
+class ImportWikibooksForm(forms.Form):
+    wikibooks_id = forms.CharField(required=False)
 
 def view_profile(request, username):
     from django.contrib.auth.models import User
@@ -131,6 +132,7 @@ def view_profile(request, username):
         project_form = BookForm(request.POST)
         import_form = ImportForm(request.POST)
         epub_form = ImportEpubForm(request.POST)
+        wikibooks_form = ImportWikibooksForm(request.POST)
         espri_url = "http://objavi.flossmanuals.net/espri.cgi"
 
         if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
@@ -138,6 +140,17 @@ def view_profile(request, username):
 
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
+            except:
+                from booki.editor.common import printStack
+                printStack(None)
+                return render_to_response('account/error_import.html', {"request": request, 
+                                                                        "user": user })
+
+        if wikibooks_form.is_valid() and import_form.cleaned_data["wikibooks_id"] != "":
+            from booki.editor import common
+
+            try:
+                common.importBookFromURL(user, espri_url + "?source=wikibooks&callback=&book="+import_form.cleaned_data["wikibooks_id"], createTOC = True)
             except:
                 from booki.editor.common import printStack
                 printStack(None)
@@ -187,6 +200,7 @@ def view_profile(request, username):
         project_form = BookForm()
         import_form = ImportForm()
         epub_form = ImportEpubForm()
+        wikibooks_form = ImportEpubForm()
 
     books = models.Book.objects.filter(owner=user)
     
@@ -319,6 +333,7 @@ def my_books (request, username):
         project_form = BookForm(request.POST)
         import_form = ImportForm(request.POST)
         epub_form = ImportEpubForm(request.POST)
+        wikibooks_form = ImportWikibooksForm(request.POST)
         espri_url = "http://objavi.flossmanuals.net/espri.cgi"
 
         if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
@@ -330,7 +345,16 @@ def my_books (request, username):
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
 
-        if epub_form.is_valid() and epub_form.cleaned_data["url"] != "":
+        if wikibooks_form.is_valid() and wikibooks_form.cleaned_data["wikibooks_id"] != "":
+            from booki.editor import common
+
+            try:
+                common.importBookFromURL(user, espri_url + "?source=wikibooks&mode=zip&book="+wikibooks_form.cleaned_data["wikibooks_id"], createTOC = True)
+            except:
+                return render_to_response('account/error_import.html', {"request": request, 
+                                                                        "user": user })
+        
+	if epub_form.is_valid() and epub_form.cleaned_data["url"] != "":
             from booki.editor import common
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
@@ -370,6 +394,7 @@ def my_books (request, username):
         project_form = BookForm()
         import_form = ImportForm()
         epub_form = ImportEpubForm()
+        wikibooks_form = ImportWikibooksForm()
 
 
     return render_to_response('account/my_books.html', {"request": request, 
