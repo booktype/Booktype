@@ -12,9 +12,10 @@
    {% endblock %}
  </head>
 <body>
-
-<!-- the following divs are for the top bar + drop shadow -->
-<div class="shadow-container" style="position:absolute;top:0px;left:0px;width:100%;margin-right:0px"><div class="container" style="padding-top:5px;"> <a href="/"><img alt="Booki logo" src="/site_media/images/booki_logo_topleft.png" border="0"></a>
+<div id="page-container"> 
+<!-- top bar + drop shadow -->
+<div class="topbar shadow"> 
+<a href="/"><img alt="Booki logo" src="/site_media/images/booki_logo_topleft.png" border="0"></a>
 
 {% if request.user.is_authenticated %}
 <div id="logged_in" style="position:absolute;top:25px;width:848px;text-align:right;font-family:helvetica,arial,verdana;font-size:11px;font-weight:bold;">
@@ -23,42 +24,44 @@
 {% else %}
 <div id="login" style="position:absolute;top:25px;width:750px;text-align:right;font-family:helvetica,arial,verdana;font-size:11px;font-weight:bold;"> Login / Register</div>
 {% endif %}
+</div>
 
-</div></div>
-<!-- the above divs are for the top bar + drop shadow -->
+</div>
+<!-- End top bar -->
 
-<!-- the following divs are for the nav box + drop shadow -->
-<div class="shadow-container" style="position:absolute;top:70px;left:40px;">
-                <div class="container" style="border-top:10px solid black;">
-					<a href="/"><img alt="About" src="/site_media/images/booki_menue_about.png"></a><br>
-					<a href="/list-books"><img alt="Books" src="/site_media/images/booki_menue_books.png"></a><br>
-					<a href="/list-groups"><img alt="Groups" src="/site_media/images/booki_menue_groups.png"></a><br>
-					<a href="/list-people"><img alt="People" src="/site_media/images/booki_menue_people.png"></a><br>
-</div></div>
-<!-- the above divs are for the nav box + drop shadow -->
+<!-- nav box + drop shadow -->
+<div class="navbox shadow" style="top:70px;">
+    		<ul>
+                <li><a href="/">About</a></li>
+                <li><a href="/list-books">Books</a></li>
+                <li><a href="/list-groups">Groups</a></li>
+                <li><a href="/list-people">People</a></li>
+           	</ul>
+</div>
+<!-- End of nav box -->
 
 {% if request.user.is_authenticated %}
-<!-- the following divs are for the second nav box + drop shadow -->
-<div class="shadow-container" style="position:absolute;top:190px;left:40px;"><div class="container" style="border-top:10px solid black;">
-<a href="{% url view_profile request.user.username %}"><img src="/site_media/images/booki_menue_my_profile.png"></a><br>
-<a href="{% url user_settings request.user.username %}"><img src="/site_media/images/booki_menue_my_settings.png"></a><br>
-<a href="{% url my_books request.user.username %}"><img src="/site_media/images/booki_menue_my_books.png"></a><br>
-<a href="{% url my_groups request.user.username %}"><img src="/site_media/images/booki_menue_my_groups.png"></a><br>
-<a href="{% url my_people request.user.username %}"><img src="/site_media/images/booki_menue_my_people.png"></a><br>
-</div></div>
-<!-- the above divs are for the second nav box + drop shadow -->
+<!-- second nav box + drop shadow -->
+ <div class="navbox shadow" style="top:180px;">
+    		<ul>
+		<li><a href="{% url view_profile request.user.username %}">My Profile</a></li>
+		<li><a href="{% url user_settings request.user.username %}">My Settings</a></li>
+		<li><a href="{% url my_books request.user.username %}">My Books</a></li>
+		<li><a href="{% url my_groups request.user.username %}">My Groups</a></li>
+		<li><a href="{% url my_people request.user.username %}">My People</a></li>
+		</ul>
+</div>
+<!-- End of second nav box  -->
 {% endif %}
 
-<div id="content">
-<!-- the following divs are for the content box and the drop shadow-->
-<div class="shadow-container" style="position:absolute;top:70px;left:150px;width:700px;"><div class="container" style="padding:10px;border-top:10px solid black;">
+<div class="content-container shadow">
+<!-- Content box and the drop shadow-->
 
 {% block content %}
 {% endblock %}
 
-<!-- the following divs are for the drop shadow -->
-</div> </div>
-<!-- the above divs are for the drop shadow -->
+</div>
+<!-- End of content -->
 
 </div>
 
