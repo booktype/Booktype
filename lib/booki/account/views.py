@@ -138,6 +138,7 @@ def view_profile(request, username):
         wikibooks_form = ImportWikibooksForm(request.POST)
         flossmanuals_form = ImportFlossmanualsForm(request.POST)
         espri_url = "http://objavi.flossmanuals.net/espri.cgi"
+        objavi_url = "http://objavi.flossmanuals.net/"
 
         if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
             from booki.editor import common
@@ -154,7 +155,7 @@ def view_profile(request, username):
             from booki.editor import common
 
             try:
-                common.importBookFromURL(user, espri_url + "?source=wikibooks&callback=&book="+wikibooks_form.cleaned_data["wikibooks_id"], createTOC = True)
+                common.importBookFromURL(user, espri_url + "?source=wikibooks&mode=zip&callback=&book="+wikibooks_form.cleaned_data["wikibooks_id"], createTOC = True)
             except:
                 from booki.editor.common import printStack
                 printStack(None)
@@ -165,7 +166,7 @@ def view_profile(request, username):
             from booki.editor import common
 
             try:
-                common.importBookFromURL(user, "http://objavi.flossmanuals.net/?server=en.flossmanuals.net&mode=bookizip&book="+flossmanuals_form.cleaned_data["flossmanuals_id"], createTOC = True)
+                common.importBookFromURL(user, objavi_url + "?server=en.flossmanuals.net&mode=bookizip&book="+flossmanuals_form.cleaned_data["flossmanuals_id"], createTOC = True)
             except:
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
@@ -225,6 +226,8 @@ def view_profile(request, username):
                                                             "project_form": project_form, 
                                                             "import_form": import_form, 
                                                             "epub_form": epub_form, 
+                                                            "wikibooks_form": wikibooks_form, 
+                                                            "flossmanuals_form": flossmanuals_form, 
 
                                                             "books": books,
                                                             "groups": groups})
@@ -350,6 +353,7 @@ def my_books (request, username):
         wikibooks_form = ImportWikibooksForm(request.POST)
         flossmanuals_form = ImportFlossmanualsForm(request.POST)
         espri_url = "http://objavi.flossmanuals.net/espri.cgi"
+        objavi_url = "http://objavi.flossmanuals.net/"
 
         if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
             from booki.editor import common
@@ -373,7 +377,7 @@ def my_books (request, username):
             from booki.editor import common
 
             try:
-                common.importBookFromURL(user, "http://objavi.flossmanuals.net/?server=en.flossmanuals.net&mode=bookizip&book="+flossmanuals_form.cleaned_data["flossmanuals_id"], createTOC = True)
+                common.importBookFromURL(user, objavi_url + "?server=en.flossmanuals.net&mode=bookizip&book="+flossmanuals_form.cleaned_data["flossmanuals_id"], createTOC = True)
             except:
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
@@ -428,6 +432,8 @@ def my_books (request, username):
                                                             "project_form": project_form, 
                                                             "import_form": import_form, 
                                                             "epub_form": epub_form, 
+                                                            "wikibooks_form": wikibooks_form, 
+                                                            "flossmanuals_form": flossmanuals_form, 
 
                                                             "books": books,})
 
