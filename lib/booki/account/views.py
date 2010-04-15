@@ -138,7 +138,7 @@ def view_profile(request, username):
         wikibooks_form = ImportWikibooksForm(request.POST)
         flossmanuals_form = ImportFlossmanualsForm(request.POST)
         espri_url = "http://objavi.flossmanuals.net/espri.cgi"
-        objavi_url = "http://objavi.flossmanuals.net/"
+        twiki_gateway_url = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
 
         if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
             from booki.editor import common
@@ -166,7 +166,7 @@ def view_profile(request, username):
             from booki.editor import common
 
             try:
-                common.importBookFromURL(user, objavi_url + "?server=en.flossmanuals.net&mode=bookizip&book="+flossmanuals_form.cleaned_data["flossmanuals_id"], createTOC = True)
+                common.importBookFromURL(user, twiki_gateway_url_url + "?server=en.flossmanuals.net&mode=zip&book="+flossmanuals_form.cleaned_data["flossmanuals_id"], createTOC = True)
             except:
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
@@ -353,7 +353,7 @@ def my_books (request, username):
         wikibooks_form = ImportWikibooksForm(request.POST)
         flossmanuals_form = ImportFlossmanualsForm(request.POST)
         espri_url = "http://objavi.flossmanuals.net/espri.cgi"
-        objavi_url = "http://objavi.flossmanuals.net/"
+        twiki_gateway_url = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
 
         if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
             from booki.editor import common
@@ -377,7 +377,7 @@ def my_books (request, username):
             from booki.editor import common
 
             try:
-                common.importBookFromURL(user, objavi_url + "?server=en.flossmanuals.net&mode=bookizip&book="+flossmanuals_form.cleaned_data["flossmanuals_id"], createTOC = True)
+            	common.importBookFromURL(user, twiki_gateway_url + "?server=en.flossmanuals.net&mode=zip&book="+flossmanuals_form.cleaned_data["flossmanuals_id"], createTOC = True)
             except:
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
