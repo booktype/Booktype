@@ -28,6 +28,80 @@
 	jQuery.booki.network._transport.connect();
     });
 
+// Define a method that handles nothing but the actual
+		// form population. This helps us decouple the data
+		// insertion from the data retrieval.
+		function PopulateFields( strValue1, strValue2 ){
+			$( "#id" ).val( strValue1 );
+			$( "#type" ).val( strValue2 );
+		}
+ 
+		// I take the given option selection and return the
+		// associated data.
+		function GetStaticValues( strOption ){
+			if (strOption == "opt1"){
+ 
+				return({
+					Value1: "enter epub URL",
+					Value2: "epub"
+					});
+ 
+			} else if (strOption == "opt2"){
+ 
+				return({
+					Value1: "enter FLOSS Manuals ID",
+					Value2: "flossmanuals"
+					});
+
+			} else if (strOption == "opt3"){
+ 
+				return({
+					Value1: "enter Archive.org ID",
+					Value2: "archive"
+					});
+ 
+			} else if (strOption == "opt4"){
+ 
+				return({
+					Value1: "enter Wikibooks URL",
+					Value2: "wikibooks"
+					});
+			} else {
+ 
+				// No matches, so return default value.
+				return({
+					Value1: "",
+					Value2: ""
+					});
+ 
+			}
+		}
+ 
+ 
+		// I handle the updating of the form fields based on the
+		// selected option of the combo box.
+		function UpdateFormFields(){
+			var jSelect = $( "#field1" );
+			var objData = null;
+ 
+			// Check to see if we are using AJAX or static data
+			// to re-populate the form.
+				// Make a local call to get the static data.
+				objData = GetStaticValues( jSelect.val() );
+ 
+				// Populate form fields.
+				PopulateFields( objData.Value1, objData.Value2 );
+} 
+ 
+		// When the DOM is ready to be interacted with, init.
+		$(function(){
+			var jSelect = $( "#field1" );
+ 
+			// Bind the change event to the select box. We're
+			// just going to hand that control off to the
+			// handler method.
+			jSelect.change( UpdateFormFields );
+			});
 
   </script>
 
@@ -55,39 +129,22 @@
 </form>
 <br/>
 
+<H2>Import Book</h2>
+<form action="." method="POST">
+		<p>
+			<select id="field1">
+				<option value="">Select Import Type</option>
+				<option value="opt1">Import epub</option>
+				<option value="opt2">Import FM</option>
+				<option value="opt3">Import Archive.org book</option>
+				<option value="opt4">Import Wikibook</option>
+			</select>
+		</p>
+		<p>
+			<input type="text" id="id" name="id" size="50" /><br>
+			<input type="hidden" id="type" name="type" size="50" />
+		</p>
+<button>Create</button>
+</form>
 
-<h2>Import from archive.org</h2>
-<form action="." method="POST">
-<table>
-{{ import_form.as_table }}
-</table>
-<button>Import</button>
-</form>
-<br/>
-
-<h2>Import epub</h2>
-<form action="." method="POST">
-<table>
-{{ epub_form.as_table }}
-</table>
-<button>Import</button>
-</form>
-<br/>
-<h2>Import from Wikibooks</h2>
-<form action="." method="POST">
-<table>
-<tr><th><label for="wikibooks_id">Url:</label></th><td><input type="text" name="wikibooks_id" id="wikibooks_id" /></td></tr>
-</table>
-<button>Import</button>
-</form>
-<br/>
-
-<h2>Import from FLOSS Manuals</h2>
-<form action="." method="POST">
-<table>
-<tr><th><label for="flossmanuals_id">Manual:</label></th><td><input type="text" name="flossmanuals_id" id="flossmanuals_id" /></td></tr>
-</table>
-<button>Import</button>
-</form>
-<br/>
 {% endblock %}

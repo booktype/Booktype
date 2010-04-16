@@ -112,7 +112,8 @@ class BookForm(forms.Form):
 
 
 class ImportForm(forms.Form):
-    archive_id = forms.CharField(required=False)
+    type = forms.CharField(required=False)
+    id = forms.CharField(required=False)
 
 class ImportEpubForm(forms.Form):
     url = forms.CharField(required=False)
@@ -122,6 +123,8 @@ class ImportWikibooksForm(forms.Form):
 
 class ImportFlossmanualsForm(forms.Form):
     flossmanuals_id = forms.CharField(required=False)
+    type = forms.CharField(required=False)
+    id = forms.CharField(required=False)
 
 def view_profile(request, username):
     from django.contrib.auth.models import User
@@ -349,44 +352,46 @@ def my_books (request, username):
     if request.method == 'POST':
         project_form = BookForm(request.POST)
         import_form = ImportForm(request.POST)
-        epub_form = ImportEpubForm(request.POST)
-        wikibooks_form = ImportWikibooksForm(request.POST)
-        flossmanuals_form = ImportFlossmanualsForm(request.POST)
         espri_url = "http://objavi.flossmanuals.net/espri.cgi"
         twiki_gateway_url = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
 
-        if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
-            from booki.editor import common
+	if import_form.is_valid() and import_form.cleaned_data["id"] != "" and import_form.cleaned_data["type"] == "flossmanuals":
+            	from booki.editor import common
+            	try:
+                    common.importBookFromURL(user, twiki_gateway_url + "?server=en.flossmanuals.net&mode=zip&book="+import_form.cleaned_data["id"], createTOC = True)
+            	except:
+                	from booki.editor.common import printStack
+                	printStack(None)
+			return render_to_response('account/error_import.html', {"request": request, 
+                        	                                                "user": user })
 
+	if import_form.is_valid() and import_form.cleaned_data["id"] != "" and import_form.cleaned_data["type"] == "archive":
+            from booki.editor import common
             try:
-                common.importBookFromURL(user, espri_url + "?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
+                common.importBookFromURL(user, espri_url + "?mode=zip&source=archive.org&book="+import_form.cleaned_data["id"], createTOC = True)
             except:
-                return render_to_response('account/error_import.html', {"request": request, 
+                from booki.editor.common import printStack
+                printStack(None)
+                return render_to_response('my_books.html', {"request": request, 
                                                                         "user": user })
 
-        if wikibooks_form.is_valid() and wikibooks_form.cleaned_data["wikibooks_id"] != "":
+	if import_form.is_valid() and import_form.cleaned_data["id"] != "" and import_form.cleaned_data["type"] == "wikibooks":
             from booki.editor import common
-
             try:
-                common.importBookFromURL(user, espri_url + "?source=wikibooks&mode=zip&book="+wikibooks_form.cleaned_data["wikibooks_id"], createTOC = True)
+                common.importBookFromURL(user, espri_url + "?source=wikibooks&mode=zip&book="+import_form.cleaned_data["id"], createTOC = True)
             except:
-                return render_to_response('account/error_import.html', {"request": request, 
-                                                                        "user": user })
-	
-	if flossmanuals_form.is_valid() and flossmanuals_form.cleaned_data["flossmanuals_id"] != "":
-            from booki.editor import common
-
-            try:
-            	common.importBookFromURL(user, twiki_gateway_url + "?server=en.flossmanuals.net&mode=zip&book="+flossmanuals_form.cleaned_data["flossmanuals_id"], createTOC = True)
-            except:
+                from booki.editor.common import printStack
+                printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
         
-	if epub_form.is_valid() and epub_form.cleaned_data["url"] != "":
+	if import_form.is_valid() and import_form.cleaned_data["id"] != "" and import_form.cleaned_data["type"] == "epub":
             from booki.editor import common
             try:
-                common.importBookFromURL(user, espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
+                common.importBookFromURL(user, espri_url + "?mode=zip&url="+import_form.cleaned_data["id"], createTOC = True)
             except:
+                from booki.editor.common import printStack
+                printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
 
@@ -421,9 +426,6 @@ def my_books (request, username):
     else:
         project_form = BookForm()
         import_form = ImportForm()
-        epub_form = ImportEpubForm()
-        wikibooks_form = ImportWikibooksForm()
-        flossmanuals_form = ImportFlossmanualsForm()
 
 
     return render_to_response('account/my_books.html', {"request": request, 
@@ -431,9 +433,6 @@ def my_books (request, username):
  
                                                             "project_form": project_form, 
                                                             "import_form": import_form, 
-                                                            "epub_form": epub_form, 
-                                                            "wikibooks_form": wikibooks_form, 
-                                                            "flossmanuals_form": flossmanuals_form, 
 
                                                             "books": books,})
 
