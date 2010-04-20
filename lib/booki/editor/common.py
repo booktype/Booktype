@@ -433,7 +433,6 @@ def removeExtension(fileName):
 
 
 def exportBook(book):
-    from booki import xhtml_utils
     from booki import bookizip
 
     (zfile, zname) = tempfile.mkstemp()
