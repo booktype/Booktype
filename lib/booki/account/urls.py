@@ -10,10 +10,13 @@ urlpatterns = patterns('',
 
     url(r'^register/$', 'booki.account.views.register', name='register'),
 
+    # Username
+    # Letters, digits and @/./+/-/_ only.
+    # For now, even space.                       
 
-    url(r'^(?P<username>\w+)/$', 'booki.account.views.view_profile', name='view_profile'),
-    url(r'^(?P<username>\w+)/settings/$', 'booki.account.views.user_settings', name='user_settings'),                     
-    url(r'^(?P<username>\w+)/my_books/$', 'booki.account.views.my_books', name='my_books'),                     
-    url(r'^(?P<username>\w+)/my_groups/$', 'booki.account.views.my_groups', name='my_groups'),                     
-    url(r'^(?P<username>\w+)/my_people/$', 'booki.account.views.my_people', name='my_people')                     
+    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/$', 'booki.account.views.view_profile', name='view_profile'),
+    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/settings/$', 'booki.account.views.user_settings', name='user_settings'),                     
+    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/my_books/$', 'booki.account.views.my_books', name='my_books'),                     
+    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/my_groups/$', 'booki.account.views.my_groups', name='my_groups'),                     
+    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/my_people/$', 'booki.account.views.my_people', name='my_people')                     
 )
