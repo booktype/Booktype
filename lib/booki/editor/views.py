@@ -1,14 +1,12 @@
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from django.http import Http404, HttpResponse
-
+from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django import forms
+from django.contrib.auth.models import User
 
 from booki.editor import models
-
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-
 
 import logging
 
@@ -35,12 +33,34 @@ def view_export(request, bookid):
 
     return response
 
+@login_required
 def edit_book(request, bookid):
     book = models.Book.objects.get(url_title__iexact=bookid)
     chapters = models.Chapter.objects.filter(book=book)
 
 
     return render_to_response('editor/edit_book.html', {"book": book, "chapters": chapters, "request": request})
+
+def view_full(request, bookid):
+    chapters = []
+
+    book = models.Book.objects.get(url_title__iexact=bookid)
+
+    for chapter in  models.BookToc.objects.filter(book=book).order_by("-weight"):
+        if chapter.typeof == 1:
+            chapters.append({"type": "chapter",
+                             "title": chapter.chapter.title,
+                             "content": chapter.chapter.content,
+                             "chapter": chapter.chapter})
+        else:
+            chapters.append({"type": "section",
+                             "title": chapter.name})
+
+    return render_to_response('editor/view_full.html', {"book": book, 
+                                                        "chapters": chapters, 
+                                                        "request": request})
+
+
 
 def view_book(request, bookid):
     book = models.Book.objects.get(url_title__iexact=bookid)
@@ -106,7 +126,9 @@ def thumbnail_attachment(request, bookid, attachment):
 # debug
 
 def debug_redis(request):
-    r = redis.Redis()
+    import sputnik
+
+    r = sputnik.redis.Redis()
     r.connect()
 
     client_id = r.get("sputnik:client_id")
@@ -128,19 +150,28 @@ def debug_redis(request):
     _now = time.time()
 
     for ses in [k[4:-9] for k in  r.keys("ses:*:username")]:
-        allValues[ses]  = {
-            "channels": r.smembers("ses:%s:channels" % ses),
-            "last_access": r.get("ses:%s:last_access" % ses),
-            "access_since": decimal.Decimal("%f" % _now) - r.get("ses:%s:last_access" % ses),
-            "username": r.get("ses:%s:username" % ses)
-            }
+        try:
+            allValues[ses]  = {
+                "channels": sputnik.smembers("ses:%s:channels" % ses),
+                "last_access": r.get("ses:%s:last_access" % ses),
+                "access_since": decimal.Decimal("%f" % _now) - r.get("ses:%s:last_access" % ses),
+                "username": r.get("ses:%s:username" % ses)
+                }
+        except:
+            pass
+
+    locks = {}
+    for ch in r.keys("booki:*:locks:*"):
+        locks[ch] = r.get(ch)
+
 
     return render_to_response('editor/debug_redis.html', {"request": request, 
                                                           "client_id": client_id,
                                                           "sputnikchannels": sputnikchannels,
                                                           "channel": chnl.items(),
                                                           "users": usrs.items(),
-                                                          "sessions": allValues.items()
+                                                          "sessions": allValues.items(),
+                                                          "locks": locks.items()
                                                           })
 
 
@@ -157,6 +188,7 @@ def view_frontpage(request):
     return render_to_response('editor/view_frontpage.html', {"request": request, 
                                                              "title": "Ovo je neki naslov",
                                                              "books": books,
+                                                             "error": request.REQUEST.get("error", "0"), "username" : request.REQUEST.get("username",""), "email":request.REQUEST.get("email",""), "fullname" : request.REQUEST.get("fullname",""),
                                                              "groups": groups})
 
 # GROUPS
@@ -169,13 +201,13 @@ def view_group(request, groupid):
     isMember = request.user in members
     yourBooks = models.Book.objects.filter(owner=request.user)
 
-    return render_to_response('editor/view_group.html', {"request": request, 
-                                                         "title": "Ovo je neki naslov",
-                                                         "group": group,
-                                                         "books": books,
+    return render_to_response('editor/view_group.html', {"request":    request, 
+                                                         "title":      "Ovo je neki naslov",
+                                                         "group":      group,
+                                                         "books":      books,
                                                          "your_books": yourBooks,
-                                                         "members": members,
-                                                         "is_member": isMember})
+                                                         "members":    members,
+                                                         "is_member":  isMember})
 
 def join_group(request, groupid):
     group = models.BookiGroup.objects.get(url_name=groupid)
@@ -224,79 +256,18 @@ def upload_attachment(request, bookid):
 
     return HttpResponse('<html><body><script> parent.closeAttachmentUpload(); </script></body></html>')
 
+#
+# front page listings
+#
+def view_groups(request):
+    groups = models.BookiGroup.objects.all()
+    return render_to_response('editor/view_groups.html', {"request":    request, "title":      "Ovo je neki naslov", "groups":      groups, })
 
-import redis
+def view_books(request):
+    books = models.Book.objects.all().order_by("title")
+    return render_to_response('editor/view_books.html', {"request":    request, "title":      "Ovo je neki naslov", "books":      books, })
 
-
-# sputnik
-
-# should be ids and not names
-
-sputnik_mapper = (
-  (r'^/booki/$', 'booki_main'),
-  (r'^/booki/book/(?P<bookid>\d+)/$', 'booki_book'),
-  (r'^/chat/(?P<bookid>\d+)/$', 'booki_chat')
-)
-
-def dispatcher(request):
-    import simplejson, re, sputnik
-
-    inp =  request.POST
-
-    results = []
-
-    clientID = None
-    messages = simplejson.loads(inp["messages"])
-
-    # this should be changed
-    r = redis.Redis()
-    r.connect()
-
-    if inp.has_key("clientID") and inp["clientID"]:
-        clientID = inp["clientID"]
-
-    for message in messages:
-        ret = None
-        for mpr in sputnik_mapper:
-            mtch = re.match(mpr[0], message["channel"])
-            if mtch:
-                a =  mtch.groupdict()
-                fnc = getattr(sputnik, mpr[1])
-
-                if not hasattr(request, "sputnikID"):
-                    request.sputnikID = "%s:%s" % (request.session.session_key, clientID)
-                    request.clientID  = clientID
-
-                ret = fnc(request, message, **a)
-                ret["uid"] = message.get("uid")
-
-        if ret:
-            results.append(ret)
-
-    while True:
-        v = r.pop("ses:%s:%s:messages" % (request.session.session_key, clientID), tail = False)
-        if not v: break
-
-        results.append(simplejson.loads(v))
-
-
-    import time, decimal
-    try:
-        r.set("ses:%s:last_access" % request.sputnikID, time.time())
-    except:
-        pass
-
-    # this should not be here!
-    _now = time.time() 
-    for k in r.keys("ses:*:last_access"):
-        tm = r.get(k)
-
-        if  decimal.Decimal("%f" % _now) - tm > 60*2:
-            sputnik.removeClient(request, k[4:-12])
-
-    ret = {"result": True, "messages": results}
-
-    dt = simplejson.dumps(ret)
-
-    return HttpResponse(dt, mimetype="text/json")
+def view_people(request):
+    people = User.objects.all()
+    return render_to_response('editor/view_people.html', {"request":    request, "title":      "Ovo je neki naslov", "people":      people, })
 

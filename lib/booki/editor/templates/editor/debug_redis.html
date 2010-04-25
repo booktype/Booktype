@@ -78,6 +78,15 @@
  {% endfor %}
 
 
+ <tr><td colspan="2"><b>Locks</b></td></tr>
+ {% for key, value in locks %}
+  <tr>
+   <td valign="top"> {{ key }} </td>
+   <td valign="top"> {{ value }} </td>
+  </tr>
+ {% endfor %}
+
+
 
 </table>
 

@@ -1,0 +1,84 @@
+Installing Booki
+
+Note : there are three components to the Booki Tool Set. This doc covers only the Booki (editor/book manager) component and not Espri (importer) or Objavi (exporter). By default Booki is hardwired to the FLOSS Manuals install of Objavi and Espri so you still acquire that functionality. To detach yourself from the FLOSS Manuals mothership you need to install Espri and Objavi and configure your install of Booki accordingly.
+
+
+#Installing from the git repository (linux)
+You need the git repository manager installed:
+http://git-scm.com/
+
+You also need Python installed and 'easy_install'
+
+This install doc uses sqlite3 as its the easiest to setup so make sure sqlite3 is installed 
+
+1. Clone Booki
+git clone git://booki-dev.flossmanuals.net/git/booki.git
+
+2. Change dir to 'booki'
+cd booki
+
+3. Switch to the Sputnik Branch
+git checkout -t origin/sputnik
+sudo git checkout origin/sputnik
+
+4. Install Python Set Up Tools if they don't exist
+sudo easy_install -U setuptools
+
+5. Install django
+sudo easy_install django  
+
+6. Install SimpleJSON
+sudo easy_install simplejson   
+
+7. Install Redis
+apt-get install redis-server
+
+8. copy lib/booki/settings.py.original to lib/booki/settings.py
+
+8. Edit the settings file lib/booki/settings.py
+-> change STATIC_DOC_ROOT to point to the site_media dir
+-> use sqlite (easiest) and alter as so: DATABASE_ENGINE = 'sqlite3'
+-> change the DATABASE_NAME to a path eg. DATABASE_NAME = '/home/adam/booki_dev/booki.db'
+-> change as so : DATABASE_USER = ''
+
+9. Change directories to lib/booki
+cd lib/booki
+
+10. Start redis
+redis-server &
+
+10. run the manage.py script (do not use sudo)
+./manage.py syncdb
+
+11. start the whole thing (do not use sudo)
+./manage runserver
+
+12. If it fails set up enviro variables (may not be necessary)
+export PYTHONPATH=$PYTHONPATH:[git path]/booki/lib
+
+then try again with the last command to start it
+
+Then if all is well open your browser and point to something like:
+http://127.0.0.1:8000/
+
+You will need to go to the Django admin (http://127.0.0.1:8000/admin) and add at least one license (eg. CC-BY-SA) to the items in 'License'. You need to this otherwise you can not start a new book. 
+
+If you want to add to the development then dont forget to create a new branch first! (see http://github.com/guides/git-cheat-sheet).
+
+Handy URLS and mailing lists etc
+Booki Dev Site
+http://booki-dev.flossmanuals.net
+
+Booki Dev List
+http://lists.flossmanuals.net/listinfo.cgi/booki-dev-flossmanuals.net
+
+Booki Dev IRC
+server : freenode.net
+channel: #fm-tech
+
+A Booki Install
+http://www.booki.cc
+
+
+
+

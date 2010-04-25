@@ -8,15 +8,16 @@
         <script type="text/javascript">
 	$(function() {
 
+	    $("#chattitle").hover(function() {
+		$(this).css("background-color", "yellow");
+	    }, function() {
+		$(this).css("background-color", "white");
 
+	    });
 	    /* booki part */
             /* this is temporary here */
 
            $.booki.username = "{{request.user.username}}";
-	    /*
-           $.booki.currentProjectID = {{project.id}};
-           $.booki.currentProject = "{{project.name}}";
-            */
            $.booki.currentBookID  = {{book.id}};
            $.booki.currentBook    = "{{book.title}}";
 
@@ -33,7 +34,7 @@
 	    // open debug window
 	    $.booki.debug.init();
 
-	    $("#header .debug").click(function() {
+	    $("A.debug").click(function() {
 		$("#bookidebug").dialog("open");
 		return false;
 	    });
@@ -57,7 +58,12 @@
 				    $.booki.ui.notify("Creating chapter");
 				    
 				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
-					$.booki.ui.notify();
+					if(data.created) {
+					    $.booki.ui.notify();
+					} else {
+					    $.booki.ui.notify();
+					    alert("Can not create duplicate chapter name.");
+					}
 				    });
 
 
@@ -85,12 +91,17 @@
 			buttons: {
 				'Create section': function() {
 				    $.booki.ui.notify("Creating section");
-			
+				    
 				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
-					$.booki.ui.notify();
-				    });
+					if(data.created) {
+					    $.booki.ui.notify();
+					} else {
+					    alert("Can not create duplicate section name.");
+					    $.booki.ui.notify();
+					}
+					});
 
-				    $(this).dialog('close');
+					$(this).dialog('close');
 				},
 				'Cancel': function() {
 					$(this).dialog('close');
@@ -143,16 +154,13 @@ function closeAttachmentUpload() {
 	var xinha_config = new Xinha.Config();
 	
 	/*
-    xinha_config.width  = '670px';
+    xinha_config.width  = '610px';
     xinha_config.height = '600px';
 */
 	xinha_config.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
 	
 	xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
-	
-//	xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","insertimage","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
-	
-	
+
 	xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
 	
 	Xinha.startEditors(xinha_editors);
@@ -173,19 +181,6 @@ some notification. this should be on top of visible page and not top of page.
 <div id="bookidebug">
 </div>
 
-<div id="header">
- <div style="float:right; font-size: 12px">
-<div align="center" style="padding-bottom: 8px">
-<img src="/site_media/images/logo.png"></div>
-    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a class="debug" href="javascript:void(0)">Debug</a> | <a href="/accounts/signout/">Sign out</a>
-
-<!--    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a class="debug" href="javascript:void(0)">Debug</a> | <a href="/accounts/signout/">Sign out</a> -->
-
- </div>
-</div>
-
-<br clear="all"/>
-
 <div>
 <div style="float: right; padding-top: 5px">
 <form>
@@ -198,188 +193,202 @@ some notification. this should be on top of visible page and not top of page.
 <div id="tabs">
 	<ul>
 		<li><a href="#tabchapters">Chapters</a></li>
-		<li><a href="#tabattachments">Attachments</a></li>
-		<li><a href="#tabinfo">Info</a></li>
+<!--		<li><a href="#tabattachments">Attachments</a></li> -->
+		<li><a href="#tabhistory">History</a></li>
+<!--		<li><a href="#tabinfo">Info</a></li> -->
 <!--		<li><a href="#tabbigchat">Chat</a></li>  -->
+		<li><a href="#tabnotes">Notes</a></li>
 		<li><a href="#tabpublish">Publish</a></li>
 
 	</ul>
 	<div id="tabchapters">
+	<!-- START Chapters TAB -->
+
+		<table border="0" width="100%">
+		<tr>
+		<td valign="top">
+		<div id="container">
+
+		<h2>Table of contents</h2>
 
 
+		<div id="chapteraction">
+		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
+		</div>
 
-<table border="0" width="100%">
-<tr>
-<td valign="top">
-<div id="container">
+		<ul id="chapterslist" class="connectedSortable">
+		</ul>
 
-<h2>Table of contents</h2>
+		<div id="chapteraction">
+		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
+		</div>
 
+		<div id="newchapter" title="New chapter">
+		<!--  <p id="validateTips">Enter new chapter name.</p> -->  
+		  <form onsubmit="javascript:return false">
+		    <fieldset>
+		      <input type="text" class="text ui-widget-content ui-corner-all">
+		      </fieldset>
+		    </form>
+		</div>
 
-<div id="chapteraction">
-<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
-</div>
+		<div id="newsection" title="New section">
+		<!--  <p id="validateTips">Enter new section name.</p> -->
+		  <form onsubmit="return false">
+		    <fieldset>
+		      <input type="text" class="text ui-widget-content ui-corner-all">
+		      </fieldset>
+		    </form>
+		</div>
 
-<ul id="chapterslist" class="connectedSortable">
-</ul>
+		<!-- open attachment dialog -->
+		<div id="insertattachment" title="Insert image">
+		 <div class="listing">
+		    <table border="0" width="100%">
+		     <tr>
+		      <td valign="top">
+		       <div  style="height: 250px; overflow: auto">
+			  <table border="0" width="90%" class="files">
+			  </table>
+		       </div>
+		      </td>
+		      <td width="200" valign="top">
+			<div class="previewattachment">
+			</div>
+		      </td>
+		     </tr>
+		   </table>
+		</div>
 
-<div id="chapteraction">
-<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
-</div>
+		<div class="uploadform" style="position: relative; left: 0px; bottom: 0px">
+		<form method="POST" target="frameupload" action="../_upload/" enctype="multipart/form-data">
+		 <div class="uploadattachment" style="overflow: auto;">
+		 </div>
+		 <div class="uploadsubmit">
+		 </div>
+		</form>
 
-<div id="newchapter" title="New chapter">
-<!--  <p id="validateTips">Enter new chapter name.</p> -->
-  
-  <form onsubmit="javascript:return false">
-    <fieldset>
-      <input type="text" class="text ui-widget-content ui-corner-all">
-      </fieldset>
-    </form>
-</div>
+		<iframe width="0" height="0" name="frameupload" border="0" style="border: 0px"></iframe>
+		</div>
+		</div>
 
-<div id="newsection" title="New section">
-<!--  <p id="validateTips">Enter new section name.</p> -->
-  
-  <form onsubmit="return false">
-    <fieldset>
-      <input type="text" class="text ui-widget-content ui-corner-all">
-      </fieldset>
-    </form>
-</div>
-
-<!-- open attachment dialog -->
-<div id="insertattachment" title="Insert image">
- <div class="listing">
-    <table border="0" width="100%">
-     <tr>
-      <td valign="top">
-       <div  style="height: 250px; overflow: auto">
-          <table border="0" width="90%" class="files">
-          </table>
-       </div>
-      </td>
-      <td width="200" valign="top">
-        <div class="previewattachment">
-        </div>
-      </td>
-     </tr>
-   </table>
-</div>
-
-<div class="uploadform" style="position: relative; left: 0px; bottom: 0px">
-<form method="POST" target="frameupload" action="../_upload/" enctype="multipart/form-data">
- <div class="uploadattachment" style="overflow: auto;">
- </div>
- <div class="uploadsubmit">
- </div>
-</form>
-
-<iframe width="0" height="0" name="frameupload" border="0" style="border: 0px"></iframe>
-</div>
-</div>
-
-<!-- close attachment dialog -->
+		<!-- close attachment dialog -->
 
 
-<div class="middleinfo">
-</div>
+		<div class="middleinfo">
+		</div>
 
-<h2>Hold chapters</h2>
-<ul id="holdchapterslist" class="connectedSortable">
-</ul>
+		<h2>Hold chapters</h2>
+		<ul id="holdchapterslist" class="connectedSortable">
+		</ul>
 
-</div>
+		</div>
 
-<div id="editor" style="display: none">
-<form method="GET" action="javascript: return void(0)">
-<input type="hidden" name="chapter_id" value=""/>
-<input type="button" class="save" name="save" value="Save"/>
-<!-- <input type="button" class="save" name="save" value="Save and continue editing"/> -->
+		<div id="editor" style="display: none">
+		<form method="GET" action="javascript: return void(0)">
+		<input type="hidden" name="chapter_id" value=""/>
+		<input type="button" class="save" name="save" value="Save"/>
+		<input type="button" class="save" name="savecontinue" value="Save and continue editing"/> 
 
-<input type="button" class="cancel" name="cancel" value="Cancel"/>
-<br/>
-<!-- <input type="text" name="title" style="width: 500px"><br/> -->
-<textarea name="myTextArea" id="myTextArea" style="width: 500px; height: 600px">
-  
-</textarea>
-</form>
+		<input type="button" class="cancel" name="cancel" value="Cancel"/>
+		<br/>
+		<!-- <input type="text" name="title" style="width: 500px"><br/> -->
+		<textarea name="myTextArea" id="myTextArea" style="width: 610px; height: 600px">
+		  
+		</textarea>
 
-</div>
+		<div style="clear: left; margin-top: 5px">
+		 <input type="checkbox" name="minor">Minor change, don't notify.
+		</div>
 
+		<div style="clear: left; margin-top: 5px">
+		<input type="text" name="comment" style="width: 500px;">
+		</div>
 
-<div id="spalatodialog" title="Split chapters">
-  <p id="validateTips">Seems like You have changed the structure of the chapters. What do you want to do?</p>  
-  <table border="0" width="100%">
-    <tr>
-     <td valign="top" width="200">
-       New chapters:
-        <ul class="chapters" style="margin-left: 5px">
-
-        </ul>
-     </td>
-     <td width="1" bgcolor="#c0c0c0"></td>
-     <td valign="top" class="content">
-
-     </td>
-    </tr>
-  </table>
-</div>
+		<div style="clear: left; margin-top: 5px; color: #c0c0c0;">
+		Author: <input type="text" name="author" style="width: 300px;">
+		</div>
+		<div style="clear: left; margin-top: 5px; color: #c0c0c0;">
+		Author comment: <input type="text" name="authorcomment" style="width: 300px;">
+		</div>
 
 
-</td>
-<td valign="top" width="200">
-<h4>Chat</h4>
-<div id="chat">
-</div>
+		</form>
 
-<h4>Online</h4>
- <ul id="users">
- </ul>
+		</div>
+
+
+		<div id="spalatodialog" title="Split chapters">
+		  <p id="validateTips">Seems like You have changed the structure of the chapters. What do you want to do?</p>  
+		  <table border="0" width="100%">
+		    <tr>
+		     <td valign="top" width="200">
+		       New chapters:
+			<ul class="chapters" style="margin-left: 5px">
+
+			</ul>
+		     </td>
+		     <td width="1" bgcolor="#c0c0c0"></td>
+		     <td valign="top" class="content">
+
+		     </td>
+		    </tr>
+		  </table>
+		</div>
+
+
+		</td>
+		</tr>
+		</table>
+
+
+	</div>
+
+	<!-- START Attachments TAB -->
 <!--
-                <div id="accordion">
-                        <div>                                <h3><a href="#">Info</a></h3>
-                                <div>Info about book status and etc.</div>
-                        </div>
-                        <div>
-                                <h3><a href="#">Tools</a></h3>
-                                <div>Create new chapter</div>
-                        </div>
-                        <div>
-                                <h3><a href="#">Users</a></h3>
-                                <div>Current users...</div>
-                        </div>
-                </div>
+	<div id="tabattachments">
+
+		  <h2>Attachments</h2>
+
+		<table border="0" width="100%">
+		 <tr>
+		  <td valign="top">
+
+			 <form>
+			  <table width="95%" class="files">
+			  </table>
+			 </form>
+		  </td>
+		  <td valign="top" width="200">
+		    <div id="attachmentpreview">
+
+		    </div>
+		  </td>
+		 </tr>
+		</table>
+	</div>
 -->
 
-</td>
-</tr>
-</table>
+	<div id="tabhistory">
+	<!-- START history TAB -->
 
+		<table border="0">
+		<tr>
+		<td width="100%" class="cont">
+
+
+		</td>
+		<td width="20"></td>
+		<td valign="top">
+		<h4>History</h4> 
+		<ul>
+		<li>Book</li>
+		</ul>
+		</td>
+		</tr>
+		</table>
 
 	</div>
-
-
-	<div id="tabattachments">
-	  <h2>Attachments</h2>
-
-<table border="0" width="100%">
- <tr>
-  <td valign="top">
-
-         <form>
-	  <table width="95%" class="files">
-	  </table>
-         </form>
-  </td>
-  <td valign="top" width="200">
-    <div id="attachmentpreview">
-
-    </div>
-  </td>
- </tr>
-</table>
-	</div>
-
 
 <!--
 <div id="tabbigchat">
@@ -405,21 +414,28 @@ some notification. this should be on top of visible page and not top of page.
 </div>
 -->
 
+	<!-- START info TAB -->
+<!--
 	<div id="tabinfo">
-
          <table border="0" class="metadata">
          </table>
 
            <br/>
-         <!--  <span style="font-style: italic; color: #d0d0d0">This part of UI is still not functional.</span> -->
 	</div>
+-->
 
 	<div id="tabpublish">
+	<!-- START publish TAB -->
           <h1>Publish</h1>
           <p></p>
 
           <form method="" action="" onsubmit="return false">
 	    <table border="0">
+              <tr>
+               <td>Book title:</td>
+               <td><input value="{{ book.title|escape}}" type="text" size="40" name="title"></td>
+              </tr>
+
 	      <tr>
 		<td>Document type:</td>
 		<td>
@@ -430,6 +446,28 @@ some notification. this should be on top of visible page and not top of page.
 		  <option value="web">web (PDF)</option></select> 
 		</td>
 	      </tr>
+
+             <tr>
+              <td>License:</td>
+              <td>
+                 <select id="license" name="license">
+                   <option value="GPL">GPL</option>
+                   <option selected="selected" value="GPLv2+">GPLv2+</option>
+                   <option value="LGPL">LGPL</option>
+                   <option value="LGPLv2.1">LGPLv2.1</option>
+                   <option value="GPLv3+">GPLv3+</option>
+                   <option value="GPLv2">GPLv2</option>
+                   <option value="GPLv3">GPLv3</option>
+                   <option value="CC-BY">CC-BY</option>
+                   <option value="CC-BY-SA">CC-BY-SA</option>
+                   <option value="Artistic">Artistic</option>
+                   <option value="BSD">BSD</option>
+                   <option value="public domain">public domain</option>
+                   <option value="LGPLv3">LGPLv3</option>
+                   <option value="MIT">MIT</option>
+                  </select> 
+              </td>
+	     </tr>
 	      <tr>
 		<td colspan="2"><input type="checkbox" checked="yes" name="archiveorg"> send to archive.org</td>
 	      </tr>
@@ -439,8 +477,132 @@ some notification. this should be on top of visible page and not top of page.
 	      <tr>
 		<td colspan="2">
 		  <button>Publish this book</button>
+                  <span id="advancedswitch">
+                     <a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(true)">Show advanced options</a>
+                  </span>
 		</td>
 	      </tr>
+
+               <tr><td colspan="2">&nbsp;</td></tr>
+
+               <tr>
+		<td colspan="2" >      
+    	         <div  id="advanced" style="display: none"> 
+               
+                  <table border="0">
+                   <tr>
+                     <td>ISBN</td>
+                     <td><input type="text" size="40" id="isbn" name="isbn" value="" /> (13 digits)</td>
+                   </tr>
+            
+                   <tr>
+                    <td>Table of Contents header</td>
+                    <td> <input size="40" type="text" id="toc_header" name="toc_header" value="" /> </td>
+                   </tr>
+
+                   <tr>
+                     <td>Page size</td>
+                     <td> 
+                      <select id="booksize" name="booksize">
+                        <option value="custom" class="custom">custom</option>
+                        <option value="POCKET" class="lulu">POCKET (107mm x 174mm)</option>
+                        <option value="A5" class="lulu iso">A5 (148mm x 210mm)</option>
+                        <option value="USTRADE" class="lulu">USTRADE (152mm x 228mm)</option>
+                        <option value="SQUARE7.5" class="lulu">SQUARE7.5 (190mm x 190mm)</option>
+                        <option value="ROYAL" class="lulu">ROYAL (155mm x 233mm)</option>
+
+                        <option value="LANDSCAPE9x7" class="lulu">LANDSCAPE9x7 (228mm x 177mm)</option>
+                        <option selected="selected" value="COMICBOOK" class="lulu">COMICBOOK (168mm x 260mm)</option>
+                        <option value="CROWNQUARTO" class="lulu">CROWNQUARTO (189mm x 245mm)</option>
+                        <option value="SQUARE8.5" class="lulu">SQUARE8.5 (215mm x 215mm)</option>
+                        <option value="USLETTER" class="lulu">USLETTER (215mm x 279mm)</option>
+                        <option value="A4" class="lulu iso">A4 (210mm x 297mm)</option>
+                        <option value="Foolscap (F4)" class="">Foolscap (F4) (210mm x 330mm)</option>
+                        <option value="B4" class="iso">B4 (250mm x 353mm)</option>
+                        <option value="Oamaru Tabloid" class="newspaper">Oamaru Tabloid (265mm x 380mm)</option>
+
+                        <option value="UK Tabloid" class="newspaper">UK Tabloid (279mm x 431mm)</option>
+                        <option value="A3 (NZ Tabloid)" class="iso newspaper">A3 (NZ Tabloid) (297mm x 420mm)</option>
+                        <option value="Berliner" class="newspaper">Berliner (315mm x 470mm)</option>
+                        <option value="B3" class="iso">B3 (353mm x 500mm)</option>
+                        <option value="Oamaru Broadsheet" class="newspaper">Oamaru Broadsheet (382mm x 540mm)</option>
+                        <option value="US Broadsheet" class="newspaper">US Broadsheet (380mm x 577mm)</option>
+                        <option value="A2 (NZ Broadsheet)" class="iso newspaper">A2 (NZ Broadsheet) (420mm x 594mm)</option>
+                        <option value="UK Broadsheet" class="newspaper">UK Broadsheet (457mm x 609mm)</option>
+                        <option value="B2" class="iso">B2 (500mm x 707mm)</option>
+
+                        <option value="A1" class="iso">A1 (594mm x 841mm)</option>
+                        <option value="B1" class="iso">B1 (707mm x 1000mm)</option>
+                      </select>
+                     </td>
+		    </tr>
+
+                    <tr>
+                     <td>CSS mode:</td>
+                     <td>
+		       <select name="css" onchange="$.booki.editor.showAdvancedPublishCSS(this)">
+                          <option value="default">Server default</option>
+<!--                          <option value="url">URL</option> -->
+                          <option value="custom">Custom</tion>
+                        </select>
+                     </td>
+                    </tr>
+
+                    <tr>
+                     <td></td>
+                     <td id="csscustom">
+                     </td>
+                    </tr>
+
+                    <tr>
+                     <td>Page width:</td>
+                     <td><input type="text" id="page_width" name="page_width" value="" /></td> 
+                    </tr>
+
+                    <tr>
+                     <td>Page height:</td>
+                     <td> <input type="text" id="page_height" name="page_height" value="" /> </td>
+		    </tr>
+
+                    <tr>
+                     <td>Top margin</td>
+                     <td> <input type="text" id="top_margin" name="top_margin" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Side margin</td>
+                     <td> <input type="text" id="side_margin" name="side_margin" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Bottom margin</td>
+                     <td><input type="text" id="bottom_margin" name="bottom_margin" value="" />  </td>
+                    </tr>
+
+                    <tr>
+                     <td>Gutter</td>
+                     <td> <input type="text" id="gutter" name="gutter" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Columns</td>
+                     <td> <input type="text" id="columns" name="columns" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Column margin</td>
+                     <td> <input type="text" id="column_margin" name="column_margin" value="" /> </td>
+                    </tr>
+
+                    <tr>
+                     <td>Grey-scale</td>
+                     <td><input type="checkbox" id="grey_scale" name="grey_scale" value="yes" /> (for black and white printing)</td>
+                    </tr>
+                  </table>
+                 </div>     
+ 		</td>
+	      </tr>
+	  </table>
           </form>
           <div class="info">
 
@@ -449,8 +611,39 @@ some notification. this should be on top of visible page and not top of page.
 	</div>
 
 
+
+	<div id="tabnotes">
+	<!-- START notes TAB -->
+	Shared notes for this book
+	<br/>
+	<form onsubmit="return false;" action="" method="">
+         <textarea border="0" name="notes" class="notes" rows="25" cols="65">
+		
+         </textarea>
+	<br/>
+	<button>Save the notes</button>
+	</form>	
+	<div class="info">
+
+          </div>
+
+
+	</div>
+
+
 </div>
 
+<!-- chat box + drop shadow -->
+<div class="chat shadow">
+
+                <h4 id="chattitle">Chat</h4>
+                        <div id="chat">                        </div> 
+                        <h4>Currently editing</h4>
+                         <ul id="users">
+                         </ul>
+
+</div>
+<!-- end of chat box + drop shadow -->
 
 
 {% endblock %}
