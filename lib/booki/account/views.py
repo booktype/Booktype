@@ -28,74 +28,207 @@ def signout(request):
 # signin
 
 def signin(request):
+    import simplejson
+
+    from django.core.exceptions import ObjectDoesNotExist
     from django.contrib import auth
 
-    if(request.POST.has_key("username")):
-        user = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
+    if request.POST.get("ajax", "") == "1":
+        ret = {"result": 0}
 
-        if user:
-            auth.login(request, user)
+        if request.POST.get("method", "") == "register":
+            def _checkIfEmpty(key):
+                return request.POST.get(key, "").strip() == ""
 
-            return HttpResponseRedirect("/accounts/%s/" % request.POST["username"])
-    
-    return HttpResponseRedirect("/?error=auth")
+            def _doChecksForEmpty():
+                if _checkIfEmpty("username"): return 2
+                if _checkIfEmpty("email"): return 3
+                if _checkIfEmpty("password") or _checkIfEmpty("password2"): return 4
+                if _checkIfEmpty("fullname"): return 5
 
-# register user
+                return 0
 
-def register(request):
+            ret["result"] = _doChecksForEmpty()
+            
+            if ret["result"] == 0: # if there was no errors
+                import re
+
+                def _doCheckValid():
+                    # check if it is valid username
+                    # - from 2 to 20 characters long
+                    # - word, number, ., _, -
+                    mtch = re.match('^[\w\d\_\.\-]{2,20}$', request.POST.get("username", "").strip())
+                    if not mtch:  return 6
+
+                    # check if it is valid email
+                    if not bool(email_re.match(request.POST["email"].strip())): return 7
+                    
+                    if request.POST.get("password", "") != request.POST.get("password2", "").strip(): return 8
+                    if len(request.POST.get("password", "").strip()) < 6: return 9
+
+                    # check if this user exists
+                    try:
+                        u = auth.models.User.objects.get(username=request.POST.get("username", ""))
+                        return 10
+                    except auth.models.User.DoesNotExist:
+                        pass
+
+                    return 0                    
+
+                ret["result"] = _doCheckValid()
+
+                if ret["result"] == 0: 
+                    ret["result"] = 1
+                    
+                    try:
+                        user = auth.models.User.objects.create_user(username=request.POST["username"], 
+                                                                    email=request.POST["email"],
+                                                                    password=request.POST["password"])
+                    except IntegrityError:
+                        ret["result"] = 10
+
+                    user.first_name = request.POST["fullname"]
+                    user.save()
+
+                    user2 = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
+                    auth.login(request, user2)
+
+
+        if request.POST.get("method", "") == "signin":
+            user = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
+
+            if user:
+                auth.login(request, user)
+                ret["result"] = 1
+            else:
+                try:
+                    usr = auth.models.User.objects.get(username=request.POST["username"])
+                    # User does exist. Must be wrong password then
+                    ret["result"] = 3
+                except auth.models.User.DoesNotExist:
+                    # User does not exist
+                    ret["result"] = 2
+
+        return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+
+    redirect = request.GET.get('redirect', '/')
+
+    return render_to_response('account/signin.html', {"request": request, 'redirect': redirect})
+
+
+# forgotpassword
+
+def forgotpassword(request):
+    import simplejson
+    from django.core.exceptions import ObjectDoesNotExist
     from django.contrib.auth.models import User
-    from django.contrib import auth
-   
-    #make GET string of returnable parameters
-    #xxx probably should encode the values
-    returnable_params="&username="+request.POST["username"]+"&email="+request.POST["email"]+"&fullname="+request.POST["fullname"]
 
-    #username checks - first one check its not blank
-    if request.POST["username"] == '':
-	return HttpResponseRedirect("/?error=username"+returnable_params)
- 
-    #check the email is valid 
-    if not bool(email_re.match(request.POST["email"])):
-	return HttpResponseRedirect("/?error=email"+returnable_params)
+    if request.POST.get("ajax", "") == "1":
+        ret = {"result": 0}
+        usr = None
 
-    #check the password is the same as teh confirmation password, and that the password doesnt match the username
-    if (not request.POST["password"] == request.POST["password2"]) or ( request.POST["password"] == request.POST["username"]) or len(request.POST["password"]) < 6:
-	return HttpResponseRedirect("/?error=password"+returnable_params)
+        if request.POST.get("method", "") == "forgot_password":
+            def _checkIfEmpty(key):
+                return request.POST.get(key, "").strip() == ""
 
-    #XXX fix me 
-    #import crack
-    # crack it
-#   try:
-#	crack.VeryFascistCheck(request.POST["password"])
-#   except:
-#	return HttpResponseRedirect("/?error=password")
+            def _doChecksForEmpty():
+                if _checkIfEmpty("username"): return 2
+                return 0
+            
+            ret["result"] = _doChecksForEmpty()
+                
+            if ret["result"] == 0: 
+                allOK = True
+                try:
+                    usr = User.objects.get(username=request.POST.get("username", ""))
+                except User.DoesNotExist:
+                    pass
+            
+                if not usr:
+                    try:
+                        usr = User.objects.get(email=request.POST.get("username", ""))
+                    except User.DoesNotExist:
+                        allOK = False
 
-    #check for non-blank full name
-    if request.POST["fullname"] == '':
-	return HttpResponseRedirect("/?error=fullname"+returnable_params)
+                if allOK:
+                    from booki.account import models as account_models
+                    from django.core.mail import send_mail
 
-    # Try to create a django user
-    try:
-    	user = User.objects.create_user(username=request.POST["username"], 
-                                    email=request.POST["email"],
-                                    password=request.POST["password"])
-    except IntegrityError:
-	#username already exists
-	return HttpResponseRedirect("/?error=duplicate"+returnable_params)
+                    def generateSecretCode():
+                        import string
+                        from random import choice
+                        return ''.join([choice(string.letters + string.digits) for i in range(30)])
+                    
+                    secretcode = generateSecretCode()
 
-    #
-    #The checks for all the attributes are done
-    #
+                    account_models = account_models.UserPassword()
+                    account_models.user = usr
+                    account_models.remote_useragent = request.META.get('HTTP_USER_AGENT','')
+                    account_models.remote_addr = request.META.get('REMOTE_ADDR','')
+                    account_models.remote_host = request.META.get('REMOTE_HOST','')
+                    account_models.secretcode = secretcode
+                    account_models.save()
 
-    #set the django FIRST NAME to be the FULL NAME
-    user.first_name = request.POST["fullname"]
+                    #
+                    send_mail('Reset password', 'Your secret code is %s. Go to http://www.booki.cc/forgot_password/enter/?secretcode=%s' % (secretcode, secretcode), 'info@booki.cc',
+                              [usr.email], fail_silently=True)
+                else:
+                    ret["result"] = 3
 
-    user.save()
-    user2 = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
 
-    auth.login(request, user2)
+        return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
 
-    return HttpResponseRedirect("/accounts/%s/" % request.POST["username"])
+    return render_to_response('account/forgot_password.html', {"request": request})
+
+
+# forgotpasswordenter
+
+def forgotpasswordenter(request):
+    import simplejson
+
+    secretcode = request.GET.get('secretcode', '')
+
+    from django.core.exceptions import ObjectDoesNotExist
+    from django.contrib.auth.models import User
+
+    if request.POST.get("ajax", "") == "1":
+        ret = {"result": 0}
+        usr = None
+
+        if request.POST.get("method", "") == "forgot_password_enter":
+            def _checkIfEmpty(key):
+                return request.POST.get(key, "").strip() == ""
+
+            def _doChecksForEmpty():
+                if _checkIfEmpty("secretcode"): return 2
+                if _checkIfEmpty("password1"): return 3
+                if _checkIfEmpty("password2"): return 4
+
+                return 0
+            
+            ret["result"] = _doChecksForEmpty()
+                
+            if ret["result"] == 0: 
+
+                from booki.account import models as account_models
+                allOK = True
+
+                try:
+                    pswd = account_models.UserPassword.objects.get(secretcode=request.POST.get("secretcode", ""))
+                except account_models.UserPassword.DoesNotExist:
+                    allOK = False
+
+                if allOK:
+                    pswd.user.set_password(request.POST.get("password1", ""))
+                    pswd.user.save()
+                else:
+                    ret["result"] = 5
+
+
+        return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+
+
+    return render_to_response('account/forgot_password_enter.html', {"request": request, "secretcode": secretcode})
 
 # project form
 
