@@ -581,6 +581,9 @@ def my_groups (request, username):
 
 
 def my_people (request, username):
+    from django.contrib.auth.models import User
+    user = User.objects.get(username=username)
 
-    return render_to_response('account/my_people.html', {}) 
+    return render_to_response('account/my_people.html', {"request": request,
+                                                         "user": user}) 
 
