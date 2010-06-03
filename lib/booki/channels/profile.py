@@ -59,7 +59,7 @@ def remote_mood_set(request, message, profileid):
     import sputnik
 
     for chnl in sputnik.smembers("sputnik:channels"):
-        if sputnik.sismember("sputnik:channel:%s:users" % chnl, request.user.username):
+        if sputnik.sismember("sputnik:channel:%s:users" % message['channel'], request.user.username):
             sputnik.addMessageToChannel(request, chnl, {"command": "user_status_changed", 
                                                         "from": request.user.username, 
                                                         "message": moodMessage}, 
