@@ -95,8 +95,11 @@ def signin(request):
                     # groups
                     for groupName in simplejson.loads(request.POST.get("groups")):
                         if groupName.strip() != '':
-                            group = BookiGroup.objects.get(url_name=groupName)
-                            group.members.add(user)
+                            try:
+                                group = BookiGroup.objects.get(url_name=groupName)
+                                group.members.add(user)
+                            except:
+                                pass
 
                     user2 = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
                     auth.login(request, user2)
