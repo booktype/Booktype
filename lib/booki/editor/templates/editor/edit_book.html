@@ -32,12 +32,11 @@
 
 
 	    // open debug window
-	    $.booki.debug.init();
-
-	    $("A.debug").click(function() {
-		$("#bookidebug").dialog("open");
-		return false;
-	    });
+	    // $.booki.debug.init();
+	    //$("A.debug").click(function() {
+	    //$("#bookidebug").dialog("open");
+	    //		return false;
+	    //	    });
 
           // start Sputnik
           jQuery.booki.network._transport.connect();
@@ -176,9 +175,6 @@ function closeAttachmentUpload() {
 {% block content %}
 <div id="notify">
 some notification. this should be on top of visible page and not top of page.
-</div>
-
-<div id="bookidebug">
 </div>
 
 <div>
