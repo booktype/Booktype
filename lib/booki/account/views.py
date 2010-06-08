@@ -30,6 +30,8 @@ def signout(request):
 def signin(request):
     import simplejson
 
+    from booki.editor.models import BookiGroup
+
     from django.core.exceptions import ObjectDoesNotExist
     from django.contrib import auth
 
@@ -90,6 +92,12 @@ def signin(request):
                     user.first_name = request.POST["fullname"]
                     user.save()
 
+                    # groups
+                    for groupName in simplejson.loads(request.POST.get("groups")):
+                        if groupName.strip() != '':
+                            group = BookiGroup.objects.get(url_name=groupName)
+                            group.members.add(user)
+
                     user2 = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
                     auth.login(request, user2)
 
@@ -113,7 +121,15 @@ def signin(request):
 
     redirect = request.GET.get('redirect', '/')
 
-    return render_to_response('account/signin.html', {"request": request, 'redirect': redirect})
+
+    joinGroups = []
+    for groupName in request.GET.getlist("group"):
+        try:
+            joinGroups.append(BookiGroup.objects.get(url_name=groupName))
+        except BookiGroup.DoesNotExist:
+            pass
+                              
+    return render_to_response('account/signin.html', {"request": request, 'redirect': redirect, 'joingroups': joinGroups})
 
 
 # forgotpassword

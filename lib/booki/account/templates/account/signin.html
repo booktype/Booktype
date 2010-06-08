@@ -6,6 +6,8 @@
   <script type="text/javascript">
     $(function() {
 
+	var groupsToJoin = [ {% for group in joingroups %}"{{ group.url_name }}",{% endfor %}''];
+
 	function showNotification(whr, msg) {
 	    $(whr).html('<div style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">'+msg+'</div>');
 	}
@@ -52,14 +54,16 @@
 //	    $("#registerform BUTTON").attr("disabled", "disabled");
 
 	    showNotification('#registerform .notify', '');
-	   
+
+
 	    $.post('/accounts/signin/', {'ajax': '1',
 					 'method': 'register',
 					 'username':  username,
 					 'password':  password,
 					 'password2': password2,
 					 'email':     email,
-					 'fullname':  fullname},
+					 'fullname':  fullname,
+					 'groups':    $.toJSON(groupsToJoin)},
 
 		   function(data) {
 //		       $("#registerform BUTTON").removeAttr("disabled");
@@ -201,6 +205,17 @@
       <br/>
       <button>Create account</button>
     </form>
+
+   {% if joingroups %} 
+     <p>
+     You will also be joining this groups if you create account:
+      <ul>
+       {% for group in joingroups %}
+          <li> <a href="{% url view_group group.url_name %}" target="_new">{{ group.name }}</a></li>
+       {% endfor %}
+      </ul>
+     </p>
+   {% endif %}
   </div>
   {% endif %}
 </div>
