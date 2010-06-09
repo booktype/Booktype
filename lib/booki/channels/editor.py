@@ -134,7 +134,7 @@ def remote_init_editor(request, message, bookid):
         except:
             return None
 
-    onlineUsers = [x for x in [_getUser(x) for x in _onlineUsers] if not x]
+    onlineUsers = [x for x in [_getUser(x) for x in _onlineUsers] if x]
 
     # for now, this is one big temp here
 
