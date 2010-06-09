@@ -128,10 +128,13 @@ def remote_init_editor(request, message, bookid):
     from django.contrib.auth.models import User
 
     def _getUser(_user):
-        _u = User.objects.get(username=_user)
-        return (_user, _u.get_profile().mood)
+        try:
+            _u = User.objects.get(username=_user)
+            return (_user, _u.get_profile().mood)
+        except:
+            return None
 
-    onlineUsers = [_getUser(x) for x in _onlineUsers]
+    onlineUsers = [x for x in [_getUser(x) for x in _onlineUsers] if not x]
 
     # for now, this is one big temp here
 
