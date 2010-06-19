@@ -124,6 +124,9 @@ def signin(request):
 
     redirect = request.GET.get('redirect', '/')
 
+    if request.GET.get('next', None):
+        redirect = request.GET.get('next')
+
 
     joinGroups = []
     for groupName in request.GET.getlist("group"):
