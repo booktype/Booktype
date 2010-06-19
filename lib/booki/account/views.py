@@ -286,7 +286,7 @@ def view_profile(request, username):
 
     user = User.objects.get(username=username)
 
-    if request.method == 'POST':
+    if request.method == 'POST' and user.username == request.user.username:
         project_form = BookForm(request.POST)
         import_form = ImportForm(request.POST)
         epub_form = ImportEpubForm(request.POST)
