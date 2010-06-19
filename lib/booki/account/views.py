@@ -295,7 +295,7 @@ def view_profile(request, username):
         espri_url = "http://objavi.flossmanuals.net/espri.cgi"
         twiki_gateway_url = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
 
-        if import_form.is_valid() and import_form.cleaned_data["archive_id"] != "":
+        if import_form.is_valid() and import_form.cleaned_data.get("archive_id", "") != "":
             from booki.editor import common
 
             try:
@@ -306,7 +306,7 @@ def view_profile(request, username):
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
 
-        if wikibooks_form.is_valid() and wikibooks_form.cleaned_data["wikibooks_id"] != "":
+        if wikibooks_form.is_valid() and wikibooks_form.cleaned_data.get("wikibooks_id", "") != "":
             from booki.editor import common
 
             try:
@@ -317,7 +317,7 @@ def view_profile(request, username):
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
         
-	if flossmanuals_form.is_valid() and flossmanuals_form.cleaned_data["flossmanuals_id"] != "":
+	if flossmanuals_form.is_valid() and flossmanuals_form.cleaned_data.get("flossmanuals_id", "") != "":
             from booki.editor import common
 
             try:
@@ -326,7 +326,7 @@ def view_profile(request, username):
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
 
-        if epub_form.is_valid() and epub_form.cleaned_data["url"] != "":
+        if epub_form.is_valid() and epub_form.cleaned_data.get("url", "") != "":
             from booki.editor import common
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
@@ -336,7 +336,7 @@ def view_profile(request, username):
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
 
-        if project_form.is_valid() and project_form.cleaned_data["title"] != "":
+        if project_form.is_valid() and project_form.cleaned_data.get("title", "") != "":
             title = project_form.cleaned_data["title"]
             url_title = slugify(title)
             license   = project_form.cleaned_data["license"]
@@ -373,7 +373,7 @@ def view_profile(request, username):
         flossmanuals_form = ImportFlossmanualsForm()
 
     books = models.Book.objects.filter(owner=user)
-    
+
     groups = user.members.all()
     return render_to_response('account/view_profile.html', {"request": request, 
                                                             "user": user, 

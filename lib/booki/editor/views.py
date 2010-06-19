@@ -195,7 +195,7 @@ def view_frontpage(request):
 
 def view_group(request, groupid):
     group = models.BookiGroup.objects.get(url_name=groupid)
-    books = group.books.all()
+    books = models.Book.objects.filter(group=group)
     members = group.members.all()
 
     isMember = request.user in members
@@ -226,17 +226,21 @@ def add_book(request, groupid):
     book = models.Book.objects.get(url_title=request.POST["book"])
 
     group = models.BookiGroup.objects.get(url_name=groupid)
-    group.books.add(book)
+    book.group = group
+    book.save()
+    #group.books.add(book)
 
     return HttpResponseRedirect("/groups/%s/" % group.url_name)
 
 def remove_book(request, groupid):
     book = models.Book.objects.get(url_title=request.GET["book"])
+    book.group = None
+    book.save()
 
-    group = models.BookiGroup.objects.get(url_name=groupid)
-    group.books.remove(book)
+    #group = models.BookiGroup.objects.get(url_name=groupid)
+    #group.books.remove(book)
 
-    return HttpResponseRedirect("/groups/%s/" % group.url_name)
+    return HttpResponseRedirect("/groups/%s/" % groupid)
 
 
 # UPLOAD ATTACHMENT

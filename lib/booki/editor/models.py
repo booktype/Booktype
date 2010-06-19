@@ -60,6 +60,25 @@ class BookNotes(models.Model):
         verbose_name = _('Book note')
         verbose_name_plural = _('Book notes')
 
+# BookiGroup
+
+class BookiGroup(models.Model):
+    name = models.CharField(_('name'), max_length=300, blank=False)
+    url_name = models.CharField(_('url_name'), max_length=300, blank=False) #, primary_key=True)
+    description = models.TextField(_('description'))
+
+    owner = models.ForeignKey(auth_models.User)
+
+    # ovaj books bi trebalo zakomentirati
+#    books = models.ManyToManyField(Book, blank=True)
+    members = models.ManyToManyField(auth_models.User, related_name="members", blank=True)
+
+    created = models.DateTimeField(_('created'), auto_now=False, null=True)
+
+    def __unicode__(self):
+        return self.name
+
+
 # Book
 
 class Book(models.Model):
@@ -67,6 +86,9 @@ class Book(models.Model):
     title = models.CharField(_('title'), max_length=2500, blank=False)
     status = models.ForeignKey('BookStatus', null=True, related_name="status")
     language = models.ForeignKey(Language, null=True) # can it be blank?
+
+    # ovo sam dodao
+    group = models.ForeignKey(BookiGroup, null=True)
 
     owner = models.ForeignKey(auth_models.User)
 
@@ -116,22 +138,6 @@ class BookHistory(models.Model):
         return self.args
     
 
-# BookiGroup
-
-class BookiGroup(models.Model):
-    name = models.CharField(_('name'), max_length=300, blank=False)
-    url_name = models.CharField(_('url_name'), max_length=300, blank=False, primary_key=True)
-    description = models.TextField(_('description'))
-
-    owner = models.ForeignKey(auth_models.User)
-
-    books = models.ManyToManyField(Book, blank=True)
-    members = models.ManyToManyField(auth_models.User, related_name="members", blank=True)
-
-    created = models.DateTimeField(_('created'), auto_now=False, null=True)
-
-    def __unicode__(self):
-        return self.name
 
 
 # Info
