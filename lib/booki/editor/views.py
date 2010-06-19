@@ -272,6 +272,6 @@ def view_books(request):
     return render_to_response('editor/view_books.html', {"request":    request, "title":      "Ovo je neki naslov", "books":      books, })
 
 def view_people(request):
-    people = User.objects.all()
+    people = User.objects.all().order_by("username")
     return render_to_response('editor/view_people.html', {"request":    request, "title":      "Ovo je neki naslov", "people":      people, })
 
