@@ -93,6 +93,7 @@ def remote_init_editor(request, message, bookid):
     licenses =  [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
 
     ## get online users
+
     try:
         _onlineUsers = sputnik.smembers("sputnik:channel:%s:users" % message["channel"])
     except:
@@ -101,7 +102,7 @@ def remote_init_editor(request, message, bookid):
     if request.user.username not in _onlineUsers:
         try:
             sputnik.sadd("sputnik:channel:%s:users" % message["channel"], request.user.username)
-            _onlineUsers.add(request.user.username)
+            _onlineUsers.append(request.user.username)
         except:
             pass
 
@@ -121,7 +122,6 @@ def remote_init_editor(request, message, bookid):
                                      "username": request.user.username,
                                      "mood": moodMessage}
                                     )
-
 
     ## get online users and their mood messages
 
