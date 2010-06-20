@@ -265,13 +265,16 @@ def upload_attachment(request, bookid):
 #
 def view_groups(request):
     groups = models.BookiGroup.objects.all()
-    return render_to_response('editor/view_groups.html', {"request":    request, "title":      "Ovo je neki naslov", "groups":      groups, })
+    return render_to_response('editor/view_groups.html', {"request":    request, "title":      "Ovo je neki naslov", "groups":      groups })
 
 def view_books(request):
     books = models.Book.objects.all().order_by("title")
-    return render_to_response('editor/view_books.html', {"request":    request, "title":      "Ovo je neki naslov", "books":      books, })
+    return render_to_response('editor/view_books.html', {"request":    request, "title":      "Ovo je neki naslov", "books":      books })
 
 def view_people(request):
     people = User.objects.all().order_by("username")
-    return render_to_response('editor/view_people.html', {"request":    request, "title":      "Ovo je neki naslov", "people":      people, })
+    return render_to_response('editor/view_people.html', {"request":    request, "title":      "Ovo je neki naslov", "people":      people })
 
+
+def maintenance(request):
+    return render_to_response('editor/maintenance.html', {"request":    request})
