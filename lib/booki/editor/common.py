@@ -98,10 +98,10 @@ def getChaptersFromTOC(toc):
     chapters = []
 
     for elem in toc:
-        if elem['type'] != 'booki-section':
-            chapters.append( (elem['title'], elem['url'], False))
+        if elem.get('type', 'chapter') != 'booki-section':
+            chapters.append( (elem.get('title', 'Missing title'), elem.get('url', 'Missing URL'), False))
         else:
-            chapters.append( (elem['title'], elem['url'], True))
+            chapters.append( (elem.get('title', 'Missing title'), elem.get('url', 'Missing URL'), True))
 
         if elem.get('children', False) and len(elem['children']) > 0:
             chapters.extend(getChaptersFromTOC(elem['children']))
@@ -109,20 +109,22 @@ def getChaptersFromTOC(toc):
     return chapters
 
 
-def importBookFromFile(user, zname):
+def importBookFromFile(user, zname, createTOC = False):
    # unzip it
     zdirname = tempfile.mkdtemp()
     zf = zipfile.ZipFile(zname)
     extract(zdirname, zf)
     zf.close()
 
-    logging.debug("Wrote it to file %s", zname)
+    import logging
+
+    logging.getLogger("booki").error("Wrote it to file %s", zname)
 
     # loads info.json
     data = open('%s/info.json' % zdirname, 'r').read()
     info = simplejson.loads(data)
 
-    logging.debug("Loaded json file ", extra={"info": info})
+    logging.getLogger("booki").error("Loaded json file ", extra={"info": info})
 
     # wtf
     bookTitle = info['metadata']['http://purl.org/dc/elements/1.1/']["title"][""][
@@ -152,90 +154,86 @@ def importBookFromFile(user, zname):
     # TOC {url, title}
     stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
 
-    for dt in info['TOC']:
-        chapterFile = dt["url"]
-        chapterName = dt["title"]
-        urlName = slugify(chapterName)
-
-##            if chapterFile.index(".") != -1:
-##                chapterFile = chapterFile[:chapterFile.index(".")]
-##
-        content = open('%s/%s' % (zdirname, chapterFile), 'r').read()
-
-        content = p.sub(r' src="../\1"', content)
-
-        chapter = models.Chapter(book = book,
-                                 url_title = urlName,
-                                 title = chapterName,
-                                 status = stat,
-                                 content = content,
-                                 created = datetime.datetime.now(),
-                                 modified = datetime.datetime.now())
-        chapter.save()
-
-        c = models.BookToc(book = book,
-                           name = chapterName,
-                           chapter = chapter,
-                           weight = n,
-                           typeof = 1)
-        c.save()
-        n -= 1
-
-
-
-    # this is for Table of Contents
-#    n = 100
-#
-#    p = re.compile('\ssrc="(.*)"')
-#
-    # TOC {url, title}
-
-#    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
-#
-#    chapters = getChaptersFromTOC(info['TOC'])
-#
-#    for inf in chapters:
-#        chapterName = inf[0]
-#        chapterFile = inf[1]
+#    for dt in info['TOC']:
+#        chapterFile = dt["url"]
+#        chapterName = dt["title"]
 #        urlName = slugify(chapterName)
 #
-#        if not chapterFile or chapterFile == '':
-#            if createTOC:
-#                c = models.BookToc(book = book,
-#                                   name = chapterName,
-#                                   chapter = None,
-#                                   weight = n,
-#                                   typeof = 2)
-#                c.save()
-#                n -= 1
-#        else:
-#            stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
-#            if chapterFile.index(".") != -1:
-#                chapterFile = chapterFile[:chapterFile.index(".")]
+###            if chapterFile.index(".") != -1:
+###                chapterFile = chapterFile[:chapterFile.index(".")]
+###
+#        content = open('%s/%s' % (zdirname, chapterFile), 'r').read()
 #
-#            content = open('%s/%s.html' % (zdirname, chapterFile), 'r').read()
+#        content = p.sub(r' src="../\1"', content)
 #
-#            content = p.sub(r' src="../\1"', content)
+#        chapter = models.Chapter(book = book,
+#                                 url_title = urlName,
+#                                 title = chapterName,
+#                                 status = stat,
+#                                 content = content,
+#                                 created = datetime.datetime.now(),
+#                                 modified = datetime.datetime.now())
+#        chapter.save()
 #
-#            chapter = models.Chapter(book = book,
-#                                     url_title = urlName,
-#                                     title = chapterName,
-#                                     status = stat,
-#                                     content = content,
-#                                     created = datetime.datetime.now(),
-#                                     modified = datetime.datetime.now())
-#            chapter.save()
-#
-#            if createTOC:
-#                c = models.BookToc(book = book,
-#                                   name = chapterName,
-#                                   weight = n,
-#                                   typeof = 1)
-#                c.save()
-#                n -= 1
-#
+#        c = models.BookToc(book = book,
+#                           name = chapterName,
+#                           chapter = chapter,
+#                           weight = n,
+#                           typeof = 1)
+#        c.save()
+#        n -= 1
 
+    # this is for Table of Contents
+    # i don't want to have 200
+    n = 200
 
+    p = re.compile('\ssrc="(.*)"')
+
+    # what if it does not have status "imported"
+    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
+
+    chapters = getChaptersFromTOC(info['TOC'])
+
+    for inf in chapters:
+        chapterName = inf[0]
+        chapterFile = inf[1]
+        urlName = slugify(chapterName)
+
+        if inf[2] == True: # create section
+            if createTOC:
+                c = models.BookToc(book = book,
+                                   name = chapterName,
+                                   chapter = None,
+                                   weight = n,
+                                   typeof = 2)
+                c.save()
+                n -= 1
+        else: # create chapter
+            if chapterFile.index(".") != -1:
+                chapterFile = chapterFile[:chapterFile.index(".")]
+
+            # check if i can open this file at all
+            content = open('%s/%s.html' % (zdirname, chapterFile), 'r').read()
+
+            content = p.sub(r' src="../\1"', content)
+
+            chapter = models.Chapter(book = book,
+                                     url_title = urlName,
+                                     title = chapterName,
+                                     status = stat,
+                                     content = content,
+                                     created = datetime.datetime.now(),
+                                     modified = datetime.datetime.now())
+            chapter.save()
+
+            if createTOC:
+                c = models.BookToc(book = book,
+                                   name = chapterName,
+                                   chapter = chapter,
+                                   weight = n,
+                                   typeof = 1)
+                c.save()
+                n -= 1
 
     stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
 
@@ -281,14 +279,16 @@ def importBookFromFileTheOldWay(user, zname):
     extract(zdirname, zf)
     zf.close()
 
-    logging.debug("Wrote it to file %s", zname)
+    import logging
+
+    logging.getLogger("booki").error("Wrote it to file %s", zname)
 
     # loads info.json
 
     data = open('%s/info.json' % zdirname, 'r').read()
     info = simplejson.loads(data)
 
-    logging.debug("Loaded json file ", extra={"info": info})
+    logging.getLogger("booki").error("Loaded json file ", extra={"info": info})
 
     # wtf
     bookTitle = info['metadata']['http://purl.org/dc/elements/1.1/']["title"][""][0]
@@ -411,7 +411,6 @@ def importBookFromURL(user, bookURL, createTOC = False):
 
     ## there is no error checking for now
 
-
     # download it
     f = urllib2.urlopen(bookURL)
     data = f.read()
@@ -419,7 +418,7 @@ def importBookFromURL(user, bookURL, createTOC = False):
     (zfile, zname) = tempfile.mkstemp()
     os.write(zfile, data)
 
-    importBookFromFile(user, zname)
+    importBookFromFile(user, zname, createTOC)
 
     os.unlink(zname)
 
@@ -434,7 +433,6 @@ def removeExtension(fileName):
 
 
 def exportBook(book):
-    from booki import xhtml_utils
     from booki import bookizip
 
     (zfile, zname) = tempfile.mkstemp()
@@ -587,3 +585,13 @@ def exportBook(book):
     return zname
 
 
+def printStack(extra):
+    import logging
+    import sys
+    import traceback
+
+    _type, _value, _tb = sys.exc_info()
+
+    logging.getLogger("booki").error("%s:%s\n", (_type.__name__, _value))
+    for line in traceback.format_tb(_tb):
+        logging.getLogger("booki").error(line)
