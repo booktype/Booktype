@@ -1,6 +1,12 @@
 Installing Booki
 
-Note : there are three components to the Booki Tool Set. This doc covers only the Booki (editor/book manager) component and not Espri (importer) or Objavi (exporter). By default Booki is hardwired to the FLOSS Manuals install of Objavi and Espri so you still acquire that functionality. To detach yourself from the FLOSS Manuals mothership you need to install Espri and Objavi and configure your install of Booki accordingly.
+Note : there are three components to the Booki Tool Set. This doc
+covers only the Booki (editor/book manager) component and not Espri
+(importer) or Objavi (exporter). By default Booki is hardwired to the
+FLOSS Manuals install of Objavi and Espri so you still acquire that
+functionality. To detach yourself from the FLOSS Manuals mothership
+you need to install Espri and Objavi and configure your install of
+Booki accordingly.
 
 
 #Installing from the git repository (linux)
@@ -31,10 +37,10 @@ sudo git checkout origin/sputnik
 sudo easy_install -U setuptools
 
 5. Install django
-sudo easy_install django  
+sudo easy_install django
 
 6. Install SimpleJSON
-sudo easy_install simplejson   
+sudo easy_install simplejson
 
 7. Install Redis
 apt-get install redis-server
@@ -68,13 +74,16 @@ export PYTHONPATH=$PYTHONPATH:[git path]/booki/lib
 Then if all is well open your browser and point to something like:
 http://127.0.0.1:8000/
 
-You will need to go to the Django admin (http://127.0.0.1:8000/admin) and add at least one license (eg. CC-BY-SA) to the items in 'License'. You need to this otherwise you can not start a new book. 
+You will need to go to the Django admin (http://127.0.0.1:8000/admin)
+and add at least one license (eg. CC-BY-SA) to the items in
+'License'. You need to this otherwise you can not start a new book.
 
 To install on port 80, you need to use WSGI or FCGI/SCGI.  Consult the
 Django documentation at
 http://docs.djangoproject.com/en/dev/howto/deployment/.
 
-If you want to add to the development then dont forget to create a new branch first! (see http://github.com/guides/git-cheat-sheet).
+If you want to add to the development then don't forget to create a new
+branch first! (see http://github.com/guides/git-cheat-sheet).
 
 Handy URLS and mailing lists etc
 Booki Dev Site
