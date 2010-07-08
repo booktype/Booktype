@@ -50,11 +50,13 @@ redis-server &
 10. run the manage.py script (do not use sudo)
 ./manage.py syncdb
 
-11. start the whole thing (do not use sudo)
-./manage runserver
+If manage.py fails with an ImportError, set the PYTHONPATH environment
+variable:
 
-12. If it fails set up enviro variables (may not be necessary)
 export PYTHONPATH=$PYTHONPATH:[git path]/booki/lib
+
+11. start the whole thing (do not use sudo)
+./manage.py runserver
 
 then try again with the last command to start it
 
