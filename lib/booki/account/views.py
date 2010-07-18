@@ -11,6 +11,8 @@ except:
 
 from django import forms
 
+from booki.util import logBookHistory
+
 # this should probahly just list all accounts
 
 def view_accounts(request):
@@ -304,7 +306,7 @@ def view_profile(request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
             except:
-                from booki.editor.common import printStack
+                from booki.util import printStack
                 printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
@@ -315,7 +317,7 @@ def view_profile(request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?source=wikibooks&mode=zip&callback=&book="+wikibooks_form.cleaned_data["wikibooks_id"], createTOC = True)
             except:
-                from booki.editor.common import printStack
+                from booki.util import printStack
                 printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
@@ -334,7 +336,7 @@ def view_profile(request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
             except:
-                from booki.editor.common import printStack
+                from booki.util import printStack
                 printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
@@ -365,21 +367,15 @@ def view_profile(request, username):
                                          description = '')
             version.save()
 
-            from booki.editor import common
-            common.logBookHistory(book = book, 
-                                  user = user,
-                                  kind = 'book_create')
+            logBookHistory(book = book, 
+                           user = user,
+                           kind = 'book_create')
             
             status = models.BookStatus(book=book, name="not published",weight=0)
             status.save()
             book.status = status
             book.save()
 
-            from booki.editor import common
-            common.logBookHistory(book = book, 
-                                  user = user,
-                                  kind = 'book_create')
-            
             return HttpResponseRedirect("/accounts/%s/" % username)
     else:
         project_form = BookForm()
@@ -528,7 +524,7 @@ def my_books (request, username):
             	try:
                     common.importBookFromURL(user, twiki_gateway_url + "?server=en.flossmanuals.net&mode=zip&book="+import_form.cleaned_data["id"], createTOC = True)
             	except:
-                	from booki.editor.common import printStack
+                	from booki.util import printStack
                 	printStack(None)
 			return render_to_response('account/error_import.html', {"request": request, 
                         	                                                "user": user })
@@ -538,7 +534,7 @@ def my_books (request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&source=archive.org&book="+import_form.cleaned_data["id"], createTOC = True)
             except:
-                from booki.editor.common import printStack
+                from booki.util import printStack
                 printStack(None)
                 return render_to_response('account/my_books.html', {"request": request, 
                                                                         "user": user })
@@ -548,7 +544,7 @@ def my_books (request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?source=wikibooks&mode=zip&book="+import_form.cleaned_data["id"], createTOC = True)
             except:
-                from booki.editor.common import printStack
+                from booki.util import printStack
                 printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
@@ -558,7 +554,7 @@ def my_books (request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&url="+import_form.cleaned_data["id"], createTOC = True)
             except:
-                from booki.editor.common import printStack
+                from booki.util import printStack
                 printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })

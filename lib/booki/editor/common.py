@@ -11,6 +11,7 @@ import datetime
 import re
 
 from booki.editor import models
+from booki.util import logBookHistory
 
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -55,20 +56,6 @@ def parseJSON(js):
     except:
         return {}
     
-
-# logBookHistory
-
-def logBookHistory(book = None, version = None, chapter = None, chapter_history = None, args = {}, user=None, kind = 'unknown'):
-    history = models.BookHistory(book = book,
-                                 version = version,
-                                 chapter = chapter,
-                                 chapter_history = chapter_history,
-                                 args = simplejson.dumps(args),
-                                 user = user,
-                                 kind = models.HISTORY_CHOICES.get(kind, 0))
-    history.save()
-
-
 
 ## create book
 
@@ -625,13 +612,3 @@ def exportBook(book):
     return zname
 
 
-def printStack(extra):
-    import logging
-    import sys
-    import traceback
-
-    _type, _value, _tb = sys.exc_info()
-
-    logging.getLogger("booki").error("%s:%s\n", (_type.__name__, _value))
-    for line in traceback.format_tb(_tb):
-        logging.getLogger("booki").error(line)

@@ -1,5 +1,7 @@
 import sputnik
 
+from booki.util import logBookHistory, logChapterHistory
+
 from booki.editor import models
 from booki.editor.views import getVersion
 
@@ -205,25 +207,22 @@ def remote_chapter_save(request, message, bookid, version):
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
 
     if message.get("minor", False) != True:
-        history = models.ChapterHistory(chapter = chapter,
-                                        content = message["content"],
-                                        user = request.user,
-                                        comment = message.get("comment", ""),
-                                        revision = chapter.revision)
-        history.save()
+        history = logChapterHistory(chapter = chapter,
+                          content = message["content"],
+                          user = request.user,
+                          comment = message.get("comment", ""),
+                          revision = chapter.revision)
 
-        from booki.editor import common
-
-        common.logBookHistory(book = chapter.book,
-                              version = book_version,
-                              chapter = chapter,
-                              chapter_history = history,
-                              user = request.user,
-                              args = {"comment": message.get("comment", ""),
-                                      "author": message.get("author", ""),
-                                      "authorcomment": message.get("authorcomment", "")},
-                              kind = 'chapter_save')
-
+        logBookHistory(book = chapter.book,
+                       version = book_version,
+                       chapter = chapter,
+                       chapter_history = history,
+                       user = request.user,
+                       args = {"comment": message.get("comment", ""),
+                               "author": message.get("author", ""),
+                               "authorcomment": message.get("authorcomment", "")},
+                       kind = 'chapter_save')
+        
         chapter.revision += 1
 
     chapter.content = message["content"];
@@ -253,13 +252,12 @@ def remote_chapter_rename(request, message, bookid, version):
     chapter.title = message["chapter"];
     chapter.save()
 
-    from booki.editor import common
-    common.logBookHistory(book = chapter.book,
-                          version = book_version,
-                          chapter = chapter,
-                          user = request.user,
-                          args = {"old": oldTitle, "new": message["chapter"]},
-                          kind = "chapter_rename")
+    logBookHistory(book = chapter.book,
+                   version = book_version,
+                   chapter = chapter,
+                   user = request.user,
+                   args = {"old": oldTitle, "new": message["chapter"]},
+                   kind = "chapter_rename")
     
     sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid, {"command": "message_info", 
                                                                  "from": request.user.username, 
@@ -286,11 +284,10 @@ def remote_chapters_changed(request, message, bookid, version):
     book_version = getVersion(book, version)
     weight = len(lst)
 
-    from booki.editor import common
-    common.logBookHistory(book = book,
-                          version = book_version,
-                          user = request.user,
-                          kind = "chapter_reorder")
+    logBookHistory(book = book,
+                   version = book_version,
+                   user = request.user,
+                   kind = "chapter_reorder")
 
     for chap in lst:
         if chap[0] == 's':
@@ -387,11 +384,10 @@ def remote_chapter_split(request, message, bookid, version):
     book_version = getVersion(book, version)
 
 
-    from booki.editor import common
-    common.logBookHistory(book = book,
-                          version = book_version,
-                          user = request.user,
-                          kind = 'chapter_split')
+    logBookHistory(book = book,
+                   version = book_version,
+                   user = request.user,
+                   kind = 'chapter_split')
     
     allChapters = []
 
@@ -503,12 +499,11 @@ def remote_create_chapter(request, message, bookid, version):
                                  modified = datetime.datetime.now())
         chapter.save()
         
-        from booki.editor import common
-        common.logBookHistory(book = book,
-                              version = book_version,
-                              chapter = chapter,
-                              user = request.user,
-                              kind = 'chapter_create')
+        logBookHistory(book = book,
+                       version = book_version,
+                       chapter = chapter,
+                       user = request.user,
+                       kind = 'chapter_create')
     except:
         return {"created": False}
 
@@ -611,13 +606,11 @@ def remote_create_section(request, message, bookid, version):
                        typeof=0)
     c.save()
 
-    from booki.editor import common
-    common.logBookHistory(book = book,
-                          version = book_version,
-                          user = request.user,
-                          args = {"title": message["chapter"]},
-                          kind = 'section_create')
-                          
+    logBookHistory(book = book,
+                   version = book_version,
+                   user = request.user,
+                   args = {"title": message["chapter"]},
+                   kind = 'section_create')
 
     result = ("s%s" % c.id, c.name, None, c.typeof)
 
@@ -727,22 +720,19 @@ def remote_revert_revision(request, message, bookid, version):
     # TODO
     # does chapter history really needs to keep content or it can only keep reference to chapter
 
-    history = models.ChapterHistory(chapter = chapter,
-                                    content = revision.content,
-                                    user = request.user,
-                                    comment = "Reverted to revision %s." % message["revision"],
-                                    revision = chapter.revision)
-    history.save()
+    history = logChapterHistory(chapter = chapter,
+                      content = revision.content,
+                      user = request.user,
+                      comment = "Reverted to revision %s." % message["revision"],
+                      revision = chapter.revision)
 
-    from booki.editor import common
-
-    common.logBookHistory(book = book,
-                          version = book_ver, 
-                          chapter = chapter,
-                          chapter_history = history,
-                          user = request.user,
-                          args = {},
-                          kind = 'chapter_save')
+    logBookHistory(book = book,
+                   version = book_ver, 
+                   chapter = chapter,
+                   chapter_history = history,
+                   user = request.user,
+                   args = {},
+                   kind = 'chapter_save')
     
     chapter.revision += 1
 
@@ -894,19 +884,15 @@ def remote_create_major_version(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_ver = getVersion(book, version)
 
-    from booki.editor import common
-    
     version = create_new_version(book, book_ver, message, book_ver.major+1, 0)
 
-    common.logBookHistory(book = book,
-                          book_version = version, 
-                          chapter = None,
-                          chapter_history = None,
-                          user = request.user,
-                          args = {"version": '%d.%d' % (book_ver.major+1, 0)},
-                          kind = 'major_version')
-
-
+    logBookHistory(book = book,
+                   book_version = version, 
+                   chapter = None,
+                   chapter_history = None,
+                   user = request.user,
+                   args = {"version": '%d.%d' % (book_ver.major+1, 0)},
+                   kind = 'major_version')
 
     return {"version": version}
 
@@ -918,17 +904,13 @@ def remote_create_minor_version(request, message, bookid, version):
 
     version = create_new_version(book, book_ver, message, book_ver.major, book_ver.minor+1)
 
-    from booki.editor import common
-
-    common.logBookHistory(book = book,
-                          version = version,
-                          chapter = None,
-                          chapter_history = None,
-                          user = request.user,
-                          args = {"version": '%d.%d' % (book_ver.major, book_ver.minor+1)},
-                          kind = 'minor_version')
-    
-
+    logBookHistory(book = book,
+                   version = version,
+                   chapter = None,
+                   chapter_history = None,
+                   user = request.user,
+                   args = {"version": '%d.%d' % (book_ver.major, book_ver.minor+1)},
+                   kind = 'minor_version')
 
     return {"version": version}
 
