@@ -535,7 +535,8 @@ function unescapeHtml (val) {
 			// this is not god. should get info from toc
 			var ch = getChapter(chapterID);
 			$("#item_"+chapterID).replaceWith(makeChapterLine(chapterID, ch.title, getStatusDescription(ch.status)));  }));
-			toc.refreshLocks();
+		    
+		    toc.refreshLocks();
 		    holdChapters.refreshLocks();
 		    });
 	    }
@@ -662,8 +663,8 @@ function unescapeHtml (val) {
 */
 						/*  $("#editor INPUT[name=title]").attr("value", data.title); */
 						  
-   						  $("#editor INPUT[name=chapter_id]").attr("value", chapterID);
-						  $("#editor INPUT[name=save]").unbind('click').click(function() {
+   						  $("#editor A[name=chapter_id]").attr("value", chapterID);
+						  $("#editor A[name=save]").unbind('click').click(function() {
 						      // todo: temp remove this
 						      //currentlyEditing = chapterID;
 					              var edi = xinha_editors["myTextArea"]; 
@@ -757,7 +758,7 @@ comment out spalato
 
 						  });
 
-						  $("#editor INPUT[name=savecontinue]").unbind('click').click(function() {
+						  $("#editor A[name=savecontinue]").unbind('click').click(function() {
 						      // todo: temp remove this
 						      //currentlyEditing = chapterID;
 					              var edi = xinha_editors["myTextArea"]; 
@@ -782,8 +783,9 @@ comment out spalato
 						  });
 
 
-						  $("#editor INPUT[class=cancel]").unbind('click').click(function() {
-							  $.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID});
+						  $("#editor A[name=cancel]").unbind('click').click(function() {
+						      $.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID},
+										function() {});
 						      delete chapterLocks[chapterID];
 						      closeEditor();
 						  });  
@@ -1415,9 +1417,7 @@ img {\n\
 			}
 		    });
 		    
-
-
-
+		    $("#editor A").button();
 
 		},
 
