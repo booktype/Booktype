@@ -52,14 +52,15 @@ else:
                            # sputnik dispatcher                       
                            url(r'^sputnik/$', 'sputnik.views.dispatcher', {
                               "map": (  
-                                 (r'^/booki/$',                            'booki.channels.main'),
-                                 (r'^/booki/book/(?P<bookid>\d+)/$',       'booki.channels.editor'),
-                                 (r'^/booki/profile/(?P<profileid>.+)/$',  'booki.channels.profile'),
-                                 (r'^/booki/group/(?P<groupid>.+)/$',      'booki.channels.group'),
-                                 (r'^/chat/(?P<bookid>\d+)/$',             'booki.channels.chat')
+                                 (r'^/booki/$',                                       'booki.channels.main'),
+                                 (r'^/booki/book/(?P<bookid>\d+)/(?P<version>[\w\d\.\-]+)/$', 'booki.channels.editor'),
+                                 (r'^/booki/profile/(?P<profileid>.+)/$',             'booki.channels.profile'),
+                                 (r'^/booki/group/(?P<groupid>.+)/$',                 'booki.channels.group'),
+                                 (r'^/chat/(?P<bookid>\d+)/$',                        'booki.channels.chat')
                                       )
                               }),                     
                            
                            # reader
-                           url(r'^(?P<bookid>[\w\s\_\.\-]+)/', include('booki.editor.urls')),
+                           url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/_v/(?P<version>[\w\s\_\d\.\-]+)/', include('booki.editor.urls')),
+                           url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls'))
                            )

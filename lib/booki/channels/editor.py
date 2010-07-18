@@ -1,38 +1,26 @@
 import sputnik
 
 from booki.editor import models
+from booki.editor.views import getVersion
 
-def getTOCForBook(book):
-    from booki.editor import models
 
-    results = []
+# this couple of functions should go to models.BookVersion
 
-    for chap in list(models.BookToc.objects.filter(book=book).order_by("-weight")):
-        # is it a section or chapter
+def getTOCForBook(version):
+    def _getInfo(chap):
         if chap.chapter:
-            results.append((chap.chapter.id, chap.chapter.title, chap.chapter.url_title, chap.typeof, chap.chapter.status.id))
+            return (chap.chapter.id, chap.chapter.title, chap.chapter.url_title, chap.typeof, chap.chapter.status.id)
         else:
-            results.append(('s%s' % chap.id, chap.name, chap.name, chap.typeof))
+            return ('s%s' % chap.id, chap.name, chap.name, chap.typeof)
 
-    return results
-
-
-def getHoldChapters(book_id):
-    from django.db import connection, transaction
-
-    cursor = connection.cursor()
-    # where chapter_id is NULL that is the hold Chapter
-    cursor.execute("select editor_chapter.id, editor_chapter.title, editor_chapter.url_title, editor_booktoc.chapter_id, editor_chapter.status_id from editor_chapter left outer join editor_booktoc on (editor_chapter.id=editor_booktoc.chapter_id)  where editor_chapter.book_id=%s;", (book_id, ))
-
-    chapters = []
-    for row in cursor.fetchall():
-        if row[-2] == None:
-            chapters.append((row[0], row[1], row[2], 1, row[4]))
-
-    return chapters
+    return [_getInfo(chap) for chap in list(version.getTOC())]
 
 
-def getAttachments(book):
+def getHoldChapters(book_version):
+    return [(ch.id, ch.title, ch.url_title, 1, ch.status.id) for ch in book_version.getHoldChapters()]
+
+
+def getAttachments(book_version):
     import os.path
     import Image
 
@@ -51,29 +39,28 @@ def getAttachments(book):
                     "status":    att.status.id, 
                     "name":      os.path.split(att.attachment.name)[1], 
                     "size":      att.attachment.size} 
-                   for att in models.Attachment.objects.filter(book=book)]
+                   for att in book_version.getAttachments()]
 
     return attachments
 
 
-def remote_init_editor(request, message, bookid):
-    # TODO, NEKA GRESKA OVDJE
-
+def remote_init_editor(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
+    book_version = getVersion(book, version)
 
     ## get chapters
 
-    chapters = getTOCForBook(book)
-    holdChapters = getHoldChapters(bookid)
+    chapters = getTOCForBook(book_version)
+    holdChapters = getHoldChapters(book_version)
 
     ## get users
-    def vidi(a):
+    def _getUserName(a):
         if a == request.sputnikID:
             return "<b>%s</b>" % a
         return a
 
     try:
-        users = [vidi(m) for m in list(sputnik.smembers("sputnik:channel:%s:channel" % message["channel"]))]
+        users = [_getUserName(m) for m in list(sputnik.smembers("sputnik:channel:%s:channel" % message["channel"]))]
     except:
         users = []
 
@@ -81,7 +68,7 @@ def remote_init_editor(request, message, bookid):
     statuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
     ## get attachments
-    attachments = getAttachments(book)
+    attachments = getAttachments(book_version)
 
     ## get metadata
     metadata = [{'name': v.name, 'value': v.getValue()} for v in models.Info.objects.filter(book=book)]
@@ -165,15 +152,16 @@ def remote_init_editor(request, message, bookid):
             "onlineUsers": list(onlineUsers)}
 
 
-def remote_attachments_list(request, message, bookid):
+def remote_attachments_list(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
+    book_version = getVersion(book, version)
 
-    attachments = getAttachments(book)
+    attachments = getAttachments(book_version)
     
     return {"attachments": attachments}
 
 
-def remote_chapter_status(request, message, bookid):
+def remote_chapter_status(request, message, bookid, version):
 
     if message["status"] == "normal":
         sputnik.rcon.delete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
@@ -184,7 +172,7 @@ def remote_chapter_status(request, message, bookid):
                                                                       "username": request.user.username})
     return {}
 
-def remote_change_status(request, message, bookid):
+def remote_change_status(request, message, bookid, version):
     # chapterID
     # statusID
 
@@ -207,11 +195,13 @@ def remote_change_status(request, message, bookid):
     return {}
 
 
-def remote_chapter_save(request, message, bookid):
+def remote_chapter_save(request, message, bookid, version):
     # TODO
     # put this outside in common module
     # or maybe even betterm put it in the Model
 
+    book = models.Book.objects.get(id=bookid)
+    book_version = getVersion(book, version)
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
 
     if message.get("minor", False) != True:
@@ -225,6 +215,7 @@ def remote_chapter_save(request, message, bookid):
         from booki.editor import common
 
         common.logBookHistory(book = chapter.book,
+                              version = book_version,
                               chapter = chapter,
                               chapter_history = history,
                               user = request.user,
@@ -253,15 +244,18 @@ def remote_chapter_save(request, message, bookid):
     return {}
 
     
-def remote_chapter_rename(request, message, bookid):
-
+def remote_chapter_rename(request, message, bookid, version):
+    book = models.Book.objects.get(id=bookid)
+    book_version = getVersion(book, version)
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
+
     oldTitle = chapter.title
     chapter.title = message["chapter"];
     chapter.save()
 
     from booki.editor import common
     common.logBookHistory(book = chapter.book,
+                          version = book_version,
                           chapter = chapter,
                           user = request.user,
                           args = {"old": oldTitle, "new": message["chapter"]},
@@ -284,16 +278,17 @@ def remote_chapter_rename(request, message, bookid):
     return {}
 
 
-def remote_chapters_changed(request, message, bookid):
+def remote_chapters_changed(request, message, bookid, version):
     lst = [chap[5:] for chap in message["chapters"]]
     lstHold = [chap[5:] for chap in message["hold"]]
 
     book = models.Book.objects.get(id=bookid)
-
+    book_version = getVersion(book, version)
     weight = len(lst)
 
     from booki.editor import common
     common.logBookHistory(book = book,
+                          version = book_version,
                           user = request.user,
                           kind = "chapter_reorder")
 
@@ -310,6 +305,7 @@ def remote_chapters_changed(request, message, bookid):
             except:
                 chptr = models.Chapter.objects.get(id__exact=int(chap))
                 m = models.BookToc(book = book,
+                                   version = book_version,
                                    name = "SOMETHING",
                                    chapter = chptr,
                                    weight = weight,
@@ -336,7 +332,7 @@ def remote_chapters_changed(request, message, bookid):
     return {}
 
 
-def remote_get_users(request, message, bookid):
+def remote_get_users(request, message, bookid, version):
     res = {}
     def vidi(a):
         if a == request.sputnikID:
@@ -347,7 +343,7 @@ def remote_get_users(request, message, bookid):
     return res 
 
 
-def remote_get_chapter(request, message, bookid):
+def remote_get_chapter(request, message, bookid, version):
     res = {}
     
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
@@ -368,7 +364,7 @@ def remote_get_chapter(request, message, bookid):
     return res
 
 
-def remote_book_notification(request, message, bookid):
+def remote_book_notification(request, message, bookid, version):
     res = {}
     
     import time
@@ -386,12 +382,14 @@ def remote_book_notification(request, message, bookid):
     return res
 
 
-def remote_chapter_split(request, message, bookid):
+def remote_chapter_split(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
+    book_version = getVersion(book, version)
 
 
     from booki.editor import common
     common.logBookHistory(book = book,
+                          version = book_version,
                           user = request.user,
                           kind = 'chapter_split')
     
@@ -459,8 +457,8 @@ def remote_chapter_split(request, message, bookid):
 
     ## get chapters
 
-    chapters = getTOCForBook(book)
-    holdChapters =  getHoldChapters(bookid)
+    chapters = getTOCForBook(book_version)
+    holdChapters =  getHoldChapters(book_version)
         
     sputnik.addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapter_split", 
                                                                       "chapterID": message["chapterID"], 
@@ -472,10 +470,13 @@ def remote_chapter_split(request, message, bookid):
     return {}
 
 
-def remote_create_chapter(request, message, bookid):
+def remote_create_chapter(request, message, bookid, version):
     import datetime
 
+    # BookVersion treba uzeti
+
     book = models.Book.objects.get(id=bookid)
+    book_version = getVersion(book, version)
 
     from django.template.defaultfilters import slugify
 
@@ -484,14 +485,16 @@ def remote_create_chapter(request, message, bookid):
     # here i should probably set it to default project status
     s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
 
-
-    ch = models.Chapter.objects.filter(book=book, url_title=url_title)
+    ch = models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title)
 
     if len(list(ch)) > 0:
         return {"created": False}
 
     try:
+        # todo
+        # remove - book
         chapter = models.Chapter(book = book,
+                                 version = book_version,
                                  url_title = url_title,
                                  title = message["chapter"],
                                  status = s,
@@ -502,6 +505,7 @@ def remote_create_chapter(request, message, bookid):
         
         from booki.editor import common
         common.logBookHistory(book = book,
+                              version = book_version,
                               chapter = chapter,
                               user = request.user,
                               kind = 'chapter_create')
@@ -516,12 +520,12 @@ def remote_create_chapter(request, message, bookid):
                                                                 "message": 'User %s has created new chapter "%s".' % (request.user.username, message["chapter"])}, 
                         myself=True)
 
-    sputnik.addMessageToChannel(request, "/booki/book/%s/" % bookid, {"command": "chapter_create", "chapter": result}, myself = True)
+    sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
 
     return {"created": True}
 
 
-def remote_publish_book(request, message, bookid):
+def remote_publish_book(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
 
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
@@ -585,11 +589,14 @@ def remote_publish_book(request, message, bookid):
     return {"dtaall": ta, "dta": dta, "dtas3": dtas3}
             
 
-def remote_create_section(request, message, bookid):
+def remote_create_section(request, message, bookid, version):
     import datetime
+
     book = models.Book.objects.get(id=bookid)
+    book_version = getVersion(book, version)
 
     ch = models.BookToc.objects.filter(book=book, 
+                                       version=book_version,
                                        name=message['chapter'],
                                        typeof=0)
 
@@ -597,6 +604,7 @@ def remote_create_section(request, message, bookid):
         return {"created": False}
     
     c = models.BookToc(book = book,
+                       version = book_version,
                        name = message["chapter"],
                        chapter = None,
                        weight = 0,
@@ -605,6 +613,7 @@ def remote_create_section(request, message, bookid):
 
     from booki.editor import common
     common.logBookHistory(book = book,
+                          version = book_version,
                           user = request.user,
                           args = {"title": message["chapter"]},
                           kind = 'section_create')
@@ -625,20 +634,151 @@ def remote_create_section(request, message, bookid):
     return {"created": True}
 
 
-def remote_get_history(request, message, bookid):
+def remote_get_history(request, message, bookid, version):
     import datetime
+    from booki.editor.common import parseJSON
 
     book = models.Book.objects.get(id=bookid)
 
     book_history = models.BookHistory.objects.filter(book=book).order_by("-modified")
 
+    temp = {0: 'unknown',
+            1: 'create',
+            2: 'save',
+            3: 'rename',
+            4: 'reorder',
+            5: 'split',
+            6: 'section create',
+            10: 'book create',
+            11: 'minor',
+            12: 'major'}
+
+
     history = []
     for entry in book_history:
-        history.append({"modified": entry.modified.isoformat(), "description": entry.args, "user": entry.user.username, "kind": entry.kind})
+        if entry.kind in [1, 2, 3] and entry.chapter:
+            history.append({"chapter": entry.chapter.title, 
+                            "chapter_url": entry.chapter.url_title, 
+                            "modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
+                            "description": entry.args, 
+                            "user": entry.user.username, 
+                            "kind": temp.get(entry.kind,'')})
+        elif entry.kind == 2 and entry.chapter:
+            history.append({"chapter": entry.chapter.title, 
+                            "chapter_url": entry.chapter.url_title, 
+                            "chapter_history": entry.chapter_history.id, 
+                            "modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
+                            "description": entry.args, 
+                            "user": entry.user.username, 
+                            "kind": temp.get(entry.kind,'')})
+        elif entry.kind in [11, 12]:
+            history.append({"modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
+                            "version": parseJSON(entry.args), 
+                            "user": entry.user.username, 
+                            "kind": temp.get(entry.kind,'')})
+        else:
+            history.append({"modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
+                            "description": entry.args, 
+                            "user": entry.user.username, 
+                            "kind": temp.get(entry.kind,'')})
 
     return {"history": history}
 
-def remote_get_notes(request, message, bookid):
+
+def remote_get_chapter_history(request, message, bookid, version):
+    import datetime
+    from booki.editor.views import getVersion
+
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, None)
+
+    chapter_latest = models.Chapter.objects.get(version=book_ver, url_title=message["chapter"])
+    chapter_history = models.ChapterHistory.objects.filter(chapter__book=book, chapter__url_title=message["chapter"]).order_by("-modified")
+
+    history = []
+
+    history.append({"chapter": chapter_latest.title, 
+                    "chapter_url": chapter_latest.url_title, 
+                    "modified": chapter_latest.modified.strftime("%d. %B %Y %H:%M:%S"), 
+                    "user": '', 
+                    "revision": chapter_latest.revision,
+                    "comment": ''})
+        
+    for entry in chapter_history:
+        history.append({"chapter": entry.chapter.title, 
+                        "chapter_url": entry.chapter.url_title, 
+                        "modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
+                        "user": entry.user.username, 
+                        "revision": entry.revision,
+                        "comment": entry.comment})
+
+    return {"history": history}
+
+def remote_revert_revision(request, message, bookid, version):
+    from booki.editor.views import getVersion
+
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, None)
+
+    chapter = models.Chapter.objects.get(version=book_ver, url_title=message["chapter"])
+
+    revision = models.ChapterHistory.objects.get(revision=message["revision"], chapter__url_title=message["chapter"])
+
+    # TODO
+    # does chapter history really needs to keep content or it can only keep reference to chapter
+
+    history = models.ChapterHistory(chapter = chapter,
+                                    content = revision.content,
+                                    user = request.user,
+                                    comment = "Reverted to revision %s." % message["revision"],
+                                    revision = chapter.revision)
+    history.save()
+
+    from booki.editor import common
+
+    common.logBookHistory(book = book,
+                          version = book_ver, 
+                          chapter = chapter,
+                          chapter_history = history,
+                          user = request.user,
+                          args = {},
+                          kind = 'chapter_save')
+    
+    chapter.revision += 1
+
+    chapter.content = revision.content;
+    chapter.save()
+
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
+                                                                "from": request.user.username, 
+                                                                "message": 'User %s has reverted chapter "%s" to revision %s.' % (request.user.username, chapter.title, message["revision"])}, myself=True)
+    
+    return {}
+
+
+
+def remote_get_chapter_revision(request, message, bookid, version):
+    import datetime
+    from booki.editor.views import getVersion
+
+    book = models.Book.objects.get(id=bookid)
+
+    try:
+        revision = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision"])
+
+        return {"chapter": revision.chapter.title, 
+                "chapter_url": revision.chapter.url_title, 
+                "modified": revision.modified.strftime("%d. %B %Y %H:%M:%S"), 
+                "user": revision.user.username, 
+                "revision": revision.revision,
+                "version": '%d.%d' % (revision.chapter.version.major, revision.chapter.version.minor),
+                "content": revision.content,
+                "comment": revision.comment}
+    except:
+        return {}
+
+
+def remote_get_notes(request, message, bookid, version):
     import datetime
 
     book = models.Book.objects.get(id=bookid)
@@ -651,7 +791,7 @@ def remote_get_notes(request, message, bookid):
 
     return {"notes": notes}
 
-def remote_notes_save(request, message, bookid):
+def remote_notes_save(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_notes = models.BookNotes.objects.filter(book=book)
     notes = message.get("notes")
@@ -672,7 +812,7 @@ def remote_notes_save(request, message, bookid):
 
  
 
-def remote_unlock_chapter(request, message, bookid):
+def remote_unlock_chapter(request, message, bookid, version):
     import re
 
     for key in sputnik.rcon.keys("booki:%s:locks:%s:*" % (bookid, message["chapterID"])):
@@ -682,3 +822,134 @@ def remote_unlock_chapter(request, message, bookid):
             sputnik.rcon.set("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], m.group(3)), 1)
 
     return {}
+
+
+def remote_get_versions(request, message, bookid, version):
+    book = models.Book.objects.get(id=bookid)
+
+    book_versions = [{"major": v.major, "minor": v.minor, "name": v.name, "description": v.description, "created": str(v.created.strftime('%a, %d %b %Y %H:%M:%S GMT'))} for v in models.BookVersion.objects.filter(book=book).order_by("-created")]
+
+    return {"versions": book_versions}
+
+
+
+# put this outside
+def create_new_version(book, book_ver, message, major, minor):#request, message, bookid, version):
+    new_version = models.BookVersion(book=book, 
+                                     major=major,
+                                     minor=minor,
+                                     name=message.get("name", ""),
+                                     description=message.get("description", ""))
+    new_version.save()
+
+    createdChapters = []
+
+    for toc in models.BookToc.objects.filter(book=book, version=book_ver):
+        nchap = None
+
+        if toc.chapter:
+            chap = toc.chapter
+
+            createdChapters.append(chap.url_title)
+
+            nchap = models.Chapter(version=new_version,
+                                  book=book, # this should be removed
+                                  url_title=chap.url_title,
+                                  title=chap.title,
+                                  status=chap.status,
+                                  revision=chap.revision,
+                                  content=chap.content)
+            nchap.save()
+            
+        ntoc = models.BookToc(version=new_version,
+                              book=book, # this should be removed
+                              name=toc.name,
+                              chapter=nchap,
+                              weight=toc.weight,
+                              typeof=toc.typeof)
+        ntoc.save()
+    
+    # hold chapters
+
+    for chap in models.Chapter.objects.filter(book=book, version=book_ver):
+        if chap.url_title in createdChapters: continue
+
+        c = models.Chapter(version=new_version,
+                           book=book, # this should be removed
+                           url_title=chap.url_title,
+                           title=chap.title,
+                           status=chap.status,
+                           revision=chap.revision,
+                           content=chap.content)
+        c.save()
+                           
+    book.version = new_version
+    book.save()
+
+    return '%d.%d' % (new_version.major, new_version.minor)
+
+def remote_create_major_version(request, message, bookid, version):
+    from booki.editor.views import getVersion
+    
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, version)
+
+    from booki.editor import common
+    
+    version = create_new_version(book, book_ver, message, book_ver.major+1, 0)
+
+    common.logBookHistory(book = book,
+                          book_version = version, 
+                          chapter = None,
+                          chapter_history = None,
+                          user = request.user,
+                          args = {"version": '%d.%d' % (book_ver.major+1, 0)},
+                          kind = 'major_version')
+
+
+
+    return {"version": version}
+
+def remote_create_minor_version(request, message, bookid, version):
+    from booki.editor.views import getVersion
+    
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, version)
+
+    version = create_new_version(book, book_ver, message, book_ver.major, book_ver.minor+1)
+
+    from booki.editor import common
+
+    common.logBookHistory(book = book,
+                          version = version,
+                          chapter = None,
+                          chapter_history = None,
+                          user = request.user,
+                          args = {"version": '%d.%d' % (book_ver.major, book_ver.minor+1)},
+                          kind = 'minor_version')
+    
+
+
+    return {"version": version}
+
+
+def remote_chapter_diff(request, message, bookid, version):
+    import datetime
+    from booki.editor.views import getVersion
+
+    book = models.Book.objects.get(id=bookid)
+
+    revision1 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision1"])
+    revision2 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision2"])
+
+
+    import difflib
+
+    output = []
+
+#    for line in difflib.unified_diff(revision1.content.splitlines(1), revision2.content.splitlines(1)):
+    for line in difflib.ndiff(revision1.content.splitlines(1), revision2.content.splitlines(1)):
+        output.append(line)
+    return {"output": '\n'.join(output)}
+
+

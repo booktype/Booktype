@@ -47,10 +47,18 @@ $(function() {
   		    },
 
 		    sendToCurrentBook: function(message, callback, errback) {
-			return $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", message, callback, errback);
+			return $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/"+$.booki.currentVersion+"/", message, callback, errback);
 		    },
 		    
 		    unsubscribeFromChannel: function(channelName, someID) {
+		    },
+
+		    getBookURL: function(version) {
+			var u = '/'+$.booki.currentBookURL+'/';
+
+			if(version)  u += '_v/'+version+'/';
+
+			return u;
 		    }
 	    };
 	}();

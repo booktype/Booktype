@@ -43,11 +43,11 @@ function unescapeHtml (val) {
 
 
 	function initUI() {
-	    element2.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 500px; height: 300px; border: 1px solid gray; padding: 5px"></div><input type="text" style="width: 500px;"/></form>').submit(function() { var s = $("INPUT", element2).val(); $("INPUT", element2).attr("value", ""); showMessage($.booki.username, s); $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
+	    element2.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 500px; height: 300px; border: 1px solid gray; padding: 5px"></div><input type="text" style="width: 500px;"/></form>').submit(function() { var s = $("INPUT", element2).val(); $("INPUT", element2).attr("value", ""); showMessage($.booki.username, s);  $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/",{"command": "message_send", "message": s}, function() {} );
 
 }));
 
-	    element.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 265px; height: 300px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 275px;"/></form>').submit(function() { var s = $("INPUT", element).val(); $("INPUT", element).attr("value", ""); showMessage($.booki.username, s); $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
+	    element.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 265px; height: 300px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 275px;"/></form>').submit(function() { var s = $("INPUT", element).val(); $("INPUT", element).attr("value", ""); showMessage($.booki.username, s);  $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/",{"command": "message_send", "message": s}, function() {} );
 
 }));
 	}
@@ -218,10 +218,272 @@ function unescapeHtml (val) {
 		
 	    });
 
+	    /* start of history panel */
+
+	    function HistoryPanel(containerName) {
+		this.containerName = containerName;
+		this.currentView = 0;
+	    }
+	    
+	    $.extend(HistoryPanel.prototype, {
+		'_initialLoad': function() {
+		    this.setHistoryView();
+		},
+
+		'setHistoryView': function() {
+		    var $this = this;
+		    
+		    $this.currentView = 1;
+
+		    $.booki.ui.notify("Reading history data...");
+		    $.booki.sendToCurrentBook({"command": "get_history"},
+					      function(data) {
+						  $.booki.ui.notify();
+						  
+						  var his = $($this.containerName);
+						  var s = $('<table width="100%"><tr><th>action</th><th></th><th>user</th><th>time</th></tr></table>')
+						  
+						  $.each(data.history, function(i, entry) {
+						      if(entry.kind == "create" || entry.kind == "rename") {
+							  var en = $("<tr></tr>");
+							  en.append("<td>"+entry.kind+"</td>");
+							  en.append($("<td>").append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
+							  en.append("<td>"+entry.user+"</td><td>"+entry.modified+"</td><td></td>");
+							  s.append(en);
+							  
+//							  s.append($("<tr><td>"+entry.kind+'</td><td><a href="'+$.booki.getBookURL()+entry.chapter_url+'/" style="text-decoration: underline">'+entry.chapter+"</a></td><td>"+entry.user+"</td><td>"+entry.modified+"</td><td></td></tr>"));
+						      } else if(entry.kind == "save") {
+							  var en = $("<tr></tr>");
+							  en.append("<td>"+entry.kind+"</td>");
+							  en.append($("<td>").append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
+							  en.append("<td>"+entry.user+"</td><td>"+entry.modified+"</td><td></td>");
+							  s.append(en);
+						      } else if(entry.kind == "major" || entry.kind == "minor") {
+							  s.append($("<tr><td>New version</td><td>Switched to "+entry.version.version+"</td><td>"+entry.user+"</td><td>"+entry.modified+"</td></tr>"));
+
+						      } else {
+							  s.append($("<tr><td>"+entry.kind+"</td><td></td><td>"+entry.user+"</td><td>"+entry.modified+"</td></tr>"));
+						      }
+						  });
+						  
+						  his.html("<br/>");
+						  his.append(s);
+					      });
+
+		},
+		
+		'setRevisionView': function(chapterName, chapterURL, chapterHistory, revision) {
+		    var $this=this;
+
+		    function showRevision(data) {
+			var his = $($this.containerName);
+			
+			his.empty();
+			his.append($('<a href="javascript:void(0)">&lt;&lt; back to chapter history</a>').click(function() { $this.setChapterView(chapterName, chapterURL, chapterHistory);}));
+			var bs = $('<span style="padding-left: 10px"><input checked="checked" type="radio" id="radio1" name="radio" /><label for="radio1">Normal view</label><input type="radio" id="radio2" name="radio"  /><label for="radio2">Source view</label></span>').buttonset();
+			
+			his.append(bs);
+
+			his.append($('<a href="javascript:void(0)">Revert to this revision</a>').button().click(function() { 
+			    $(".cont", his).html('<div title="Revert to this revision?"><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Current chapter content will be reverted to this revision. Are you sure?</p></div>');
+			    
+			    $(".cont DIV", his).dialog({
+				resizable: false,
+				height:160,
+				modal: true,
+				buttons: {
+				    'Yes, revert !': function() {
+					var $dialog = $(this);
+					$.booki.sendToCurrentBook({"command": "revert_revision", 
+								   "chapter": chapterURL,
+								   "revision": data['revision']},
+								  function(data) {
+								      $.booki.ui.notify();
+								      $dialog.dialog('close');
+								      $this.setChapterView(chapterName, chapterURL, chapterHistory);
+								  });
+				    },
+				    Cancel: function() {
+					$(this).dialog('close');
+				    }
+				}
+			    });
+			}));
+		
+
+			if(!data.chapter) {
+			    his.append('<p>No such revision.</p>');
+			    return;
+			}
+			
+			$("#radio1", bs).click(function() { 
+			    $('#chapterrevision', his).html(data.content);
+			    
+			});
+			$("#radio2", bs).click(function() { 
+			    $('#chapterrevision', his).html('<textarea style="width: 95%; height: 400px">'+data.content+'</textarea>');
+			    
+			});
+
+			$("#radio1", bs).attr("checked", "checked");
+			
+			his.append('<h3>'+chapterName+'</h3>');
+			var s = '<p>User: '+data.user+'<br/>Modified: '+data.modified+'<br/>Version: '+data.version+'<br/>Revision: '+data.revision+'<br/>';
+			if(data.comment)
+			    s += 'Comment: '+data.comment+'<br/>';
+			s += '</p>';
+			
+			his.append(s);
+			his.append('<span class="cont"></span>');
+
+			if(data['revision'] > 1)  {
+			    his.append($('<a href="javascript:void(0)">&lt;&lt; previous</a>').click(function() {
+				$.booki.ui.notify("Reading history data...");
+				$.booki.sendToCurrentBook({"command": "get_chapter_revision", 
+							   "chapter": chapterURL,
+							   "revision": data['revision']-1},
+							  function(data) {
+							      $.booki.ui.notify();
+							      showRevision(data);
+							  });
+			    }));
+			    his.append('&nbsp;&nbsp;&nbsp;');
+			}
+			
+			his.append($('<a href="javascript:void(0)">next &gt;&gt;</a>').click(function() {
+			    $.booki.ui.notify("Reading history data...");
+			    $.booki.sendToCurrentBook({"command": "get_chapter_revision", 
+						       "chapter": chapterURL,
+						       "revision": data['revision']+1},
+						      function(data) {
+							  $.booki.ui.notify();
+							  if(data.chapter)
+							      showRevision(data);
+						      });
+			}));
+
+			his.append("<br/><br/>");
+			his.append($('<div id="chapterrevision" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0"></div>').append(data.content));
+		    }
+		    
+		    $.booki.ui.notify("Reading history data...");
+		    $.booki.sendToCurrentBook({"command": "get_chapter_revision", 
+					       "chapter": chapterURL,
+					       "revision": revision},
+					      function(data) {
+						  $.booki.ui.notify();
+						  showRevision(data);
+					      });
+
+		    $this.currentView = 3;
+		},
+
+		'setCompareView': function(chapterName, chapterURL, chapterHistory, revision1, revision2) {
+		    var $this=this;
+
+
+		    function showDiff(data) {
+			var his = $($this.containerName);
+			
+			his.empty();
+			his.append($('<a href="javascript:void(0)">&lt;&lt; back to chapter history</a>').click(function() { $this.setChapterView(chapterName, chapterURL, chapterHistory);}));
+			
+			his.append('<h3>Compare revision '+revision1+' with revision '+revision2+'</h3>');
+
+			his.append($('<pre id="chapterdigg" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0; font-size: 8pt"></pre>').append(unescapeHtml(data.output)));
+		    }
+		    
+		    $.booki.ui.notify("Reading history data...");
+		    $.booki.sendToCurrentBook({"command": "chapter_diff", 
+					       "chapter": chapterURL,
+					       "revision1": revision1,
+					       "revision2": revision2},
+					      function(data) {
+						  $.booki.ui.notify();
+						  showDiff(data);
+					      });
+
+
+
+		    $this.currentView = 4;
+		},
+
+
+		'setChapterView': function(chapterName, chapterURL, chapterHistory) {
+		    var $this=this;
+		    $.booki.ui.notify("Reading history data...");
+		    $.booki.sendToCurrentBook({"command": "get_chapter_history", "chapter": chapterURL},
+					      function(data) {
+						  $.booki.ui.notify();
+						  
+						  var his = $($this.containerName);
+
+						  his.empty();
+						  his.append($('<a href="javascript:void(0)">&lt;&lt; back to history index</a>').click(function() { $this.setHistoryView();}));
+						  his.append('&nbsp;&nbsp;&nbsp;');
+						  his.append($('<a href="javascript:void(0)">Compare revisions</a>').button().click(function() {
+						      var revision1 = $('input[name=group1]:checked', his).val();
+						      var revision2 = $('input[name=group2]:checked', his).val();
+
+						      if(revision1 && revision2)
+							  $this.setCompareView(chapterName, chapterURL, chapterHistory, revision1, revision2);
+						  }));
+
+						  his.append('&nbsp;&nbsp;&nbsp;'); // or Compare all revisions
+						  his.append($('<a href="javascript:void(0)">Compare historically</a>').button());
+
+						  his.append('<h3>'+chapterName+'</h3>');
+
+						  var s = $('<table width="100%"><tr><th>compare</th><th>revision</th><th>user</th><th>time</th><th>comment</th></tr></table>')
+
+						  $.each(data.history, function(i, entry) {
+						      var en = $("<tr></tr>");
+						      en.append('<td align="center"><input type="radio" name="group1" value="'+entry.revision+'"/><input type="radio" name="group2" value="'+entry.revision+'"/></td>');
+//						      en.append('<td align="center"><a href="" style="text-decoration: underline">'+i+'</a></td>');
+
+						      en.append(
+							  $('<td align="center"></td>').append(
+							      $('<a href="javascript:void(0)" style="text-decoration: underline">'+entry.revision+'</a>').click(
+								  function() { 
+								      if(entry.user != '')
+									  $this.setRevisionView(chapterName, chapterURL, chapterHistory, entry.revision);
+								  })
+							  )
+						      );
+
+						      en.append('<td align="center">'+entry.user+'</td><td align="center">'+entry.modified+"</td><td>"+entry.comment+"</td>");
+						      s.append(en);
+						      
+						  });
+
+						  //his.html("<br/>");
+						  his.append(s);
+
+						  $this.currentView = 2;
+					      });
+		},
+		
+		'active': function() {
+		    if(this.currentView == 0)
+			this._initialLoad();
+
+		    if(this.currentView == 1)
+			this.setHistoryView();
+
+		},
+		
+		'initPanel': function() {
+		    var $this = this;
+		}
+	    });
+
+	    /* end of history panel */
+
 	    var toc = new TOC("#chapterslist");
 	    var holdChapters = new TOC("#holdchapterslist");
 
-
+	    var historyPanel = new HistoryPanel("#historycontainer");
+	    
 	    function getChapter(chapterID) {
 		var chap = toc.getItemById(chapterID);
 		if(!chap)
@@ -344,8 +606,7 @@ function unescapeHtml (val) {
 		
 		editChapter: function(chapterID) {
 		    $.booki.ui.notify("Loading chapter data...");
-		    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/",
-					  {"command": "get_chapter", "chapterID": chapterID}, function(data) {
+		    $.booki.sendToCurrentBook({"command": "get_chapter", "chapterID": chapterID}, function(data) {
 					      $.booki.ui.notify();
 					      $("#container").fadeOut("slow", function() {
 						  
@@ -698,23 +959,64 @@ img {\n\
 
 			}
 
+			if(ui.panel.id == "tabversions") {
+			    $.booki.ui.notify("Reading version data...");
+			    $.booki.sendToCurrentBook({"command": "get_versions"},
+						      function(data) {
+							  $.booki.ui.notify();
+							  s = '';
+							  
+							  $.each(data.versions, function(i, entry) {
+							      function getVersionName(e) {
+								  var v = e.major+'.'+e.minor;
+
+								  if(e.name && e.name != '')
+								      v += '  ('+e.name+')  ';
+								  
+								  return v;
+							      }
+
+							      // there should be a function for this things
+							      var d = new Date(entry.created);
+							      // koliko je ovo sati
+
+							      var razlika = Math.ceil((Date.now()-d.getTime())/(1000*60));
+							      $.booki.debug.debug(entry.created);
+							      $.booki.debug.debug(d.toString());
+							      s += '<li><a target="_new" href="'+$.booki.getBookURL(entry.major+'.'+entry.minor)+'">'+getVersionName(entry)+'   </a></li>';
+							  });
+							  
+							  $("#tabversions .list").html("<ul>"+s+"</ul>");
+								 
+						      }
+						      );
+
+			}
+
 			if(ui.panel.id == "tabhistory") {
+			    historyPanel.active();
+/*
 			    $.booki.ui.notify("Reading history data...");
 			    $.booki.sendToCurrentBook({"command": "get_history"},
 						      function(data) {
 							  $.booki.ui.notify();
-							  $.booki.debug.debug(data.history);
 
 							  var his = $("#tabhistory .cont");
 							  var s = "";
 
 							  $.each(data.history, function(i, entry) {
-							      $.booki.debug.debug(entry);
-							      s += "<li>"+entry.kind+" "+entry.modified+"  "+entry.user+" "+entry.description+"</li>";
-							  });
-							  his.html("<ul>"+s+"</ul>");
-						      });
+							      if(entry.kind == "create" || entry.kind == "rename") {
+								  s += "<tr><td>"+entry.kind+'</td><td><a href="'+$.booki.getBookURL()+entry.chapter_url+'/" style="text-decoration: underline">'+entry.chapter+"</a></td><td>"+entry.user+"</td><td>"+entry.modified+"</td><td></td></tr>";
+							      } else if(entry.kind == "save") {
+								  s += "<tr><td>"+entry.kind+"</td><td>"+entry.chapter+"</td><td>"+entry.user+"</td><td>"+entry.modified+"</td><td></td></tr>";
 
+							      } else {
+								  s += "<tr><td>"+entry.kind+"</td><td></td><td>"+entry.user+"</td><td>"+entry.modified+"</td></tr>";
+							      }
+							  });
+							  his.html('<br/><table width="100%"><tr><th>action</th><th></th><th>user</th><th>time</th></tr>'+s+'</table>');
+						      });
+*/
 			}
 		    });
 
@@ -1041,7 +1343,81 @@ img {\n\
 			}
 		    });
 
+		    $("#tabversions .version A").button();
+		   
+		    $("#tabversions .version A.major").click(function() {
+			$("#newversionmajor").dialog('open');
+		    });
+
+		    $("#tabversions .version A.minor").click(function() {
+			$("#newversionminor").dialog('open');
+		    });
+
+		    $("#newversionmajor").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 350,
+		        width: 400, 
+			modal: true,
+			buttons: {
+			    'Create  major version': function() {
+				jQuery.booki.sendToCurrentBook({"command": "create_major_version",
+								"name": $("INPUT", $(this)).val(),
+								"description": $("TEXTAREA", $(this)).val()
+							       },
+							       function(data) {
+								   $.booki.ui.notify();
+								   window.location = $.booki.getBookURL(data.version)+'edit/';
+							       });
+
+				    $(this).dialog('close');
+				},
+				'Cancel': function() {
+					$(this).dialog('close');
+				}
+			},
+			open: function(event,ui) {
+			    $("INPUT", $(this)).val("").select();
+			},
+			close: function() {
+			    
+			}
+		    });
+
+		    $("#newversionminor").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 350,
+		        width: 400, 
+			modal: true,
+			buttons: {
+			    'Create minor version': function() {
+				jQuery.booki.sendToCurrentBook({"command": "create_minor_version",
+								"name": $("INPUT", $(this)).val(),
+								"description": $("TEXTAREA", $(this)).val()
+							       },
+							       function(data) {
+								   $.booki.ui.notify();
+								   window.location = $.booki.getBookURL(data.version)+'edit/';
+							       });
+				
+				$(this).dialog('close');
+				},
+				'Cancel': function() {
+					$(this).dialog('close');
+				}
+			},
+			open: function(event,ui) {
+			    $("INPUT", $(this)).val("").select();
+			},
+			close: function() {
+			    
+			}
+		    });
 		    
+
+
+
 
 		},
 
@@ -1127,7 +1503,7 @@ img {\n\
 		
 		initEditor: function() {
 		    
-		    jQuery.booki.subscribeToChannel("/booki/book/"+$.booki.currentBookID+"/", function(message) {
+		    jQuery.booki.subscribeToChannel("/booki/book/"+$.booki.currentBookID+"/"+$.booki.currentVersion+"/", function(message) {
 
 			var funcs = {
 			    "user_status_changed": function() {

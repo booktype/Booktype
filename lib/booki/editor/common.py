@@ -45,10 +45,22 @@ def extract(zdirname, zipfile):
         outfile.close()
 
 
+# parse JSON
+
+def parseJSON(js):
+    import simplejson
+
+    try:
+        return simplejson.loads(js)
+    except:
+        return {}
+    
+
 # logBookHistory
 
-def logBookHistory(book = None, chapter = None, chapter_history = None, args = {}, user=None, kind = 'unknown'):
+def logBookHistory(book = None, version = None, chapter = None, chapter_history = None, args = {}, user=None, kind = 'unknown'):
     history = models.BookHistory(book = book,
+                                 version = version,
                                  chapter = chapter,
                                  chapter_history = chapter_history,
                                  args = simplejson.dumps(args),
@@ -63,6 +75,8 @@ def logBookHistory(book = None, chapter = None, chapter_history = None, args = {
 def createBook(user, bookTitle, status = "imported"):
     """
     Create book and sets status.
+
+    TODO: status?
     """
 
     url_title = slugify(bookTitle)
@@ -74,9 +88,6 @@ def createBook(user, bookTitle, status = "imported"):
 
     book.save()
 
-    logBookHistory(book = book, 
-                   user = user,
-                   kind = 'book_create')
 
     status_default = ["published", "not published", "imported"]
     n = len(status_default)
@@ -88,11 +99,25 @@ def createBook(user, bookTitle, status = "imported"):
 
     book.status = models.BookStatus.objects.get(book=book, name="not published")
     book.save()
+    
+    
+    version = models.BookVersion(book = book,
+                                 major = 1,
+                                 minor = 0,
+                                 name = 'initial',
+                                 description = '')
+    version.save()
 
+    book.version = version
+    book.save()
+
+    logBookHistory(book = book, 
+                   version = version,
+                   user = user,
+                   kind = 'book_create')
+    
     
     return book
-
-
 
 def getChaptersFromTOC(toc):
     chapters = []
@@ -434,6 +459,7 @@ def removeExtension(fileName):
 
 def exportBook(book):
     from booki import bookizip
+    from views import getVersion
 
     (zfile, zname) = tempfile.mkstemp()
 
@@ -445,10 +471,14 @@ def exportBook(book):
         "manifest": {}
         }
 
+    book_version = getVersion(book, None)
+
     bzip = bookizip.BookiZip(zname, info = info)
 
     # should really go through the BookTOC
+    # very dirty hack, should fix this
     p = re.compile('\ssrc="\.\.\/(.*)"')
+    p2 = re.compile('\ssrc="\/.+\/([^\/]*)"')
 
 
     ## should export only published chapters
@@ -461,9 +491,19 @@ def exportBook(book):
     from django import template
     from django.template.loader import render_to_string
 
-    for chapter in models.BookToc.objects.filter(book=book).order_by("-weight"):
+    import htmlentitydefs
+    exclude = ['quot', 'amp', 'apos', 'lt', 'gt']
+
+    for chapter in models.BookToc.objects.filter(book=book, version=book_version).order_by("-weight"):
         if chapter.chapter:
+            # remove the image part
             content = p.sub(r' src="\1"', chapter.chapter.content)
+            content = p2.sub(r' src="static/\1"', content)
+
+            for ky, val in htmlentitydefs.name2codepoint.items():
+                if ky not in exclude:
+                    content = content.replace(unichr(val), '&%s;' % (ky, ))
+
 
             # this has to be put somewhere outside
             if content.find("##AUTHORS##") != -1:
@@ -540,7 +580,7 @@ def exportBook(book):
         bzip.add_to_package(removeExtension(name),
                             fn.encode("utf-8"),
                             open(attachment.attachment.name, "rb").read(),
-                            bookizip.MEDIATYPES[name[1+name.index("."):].lower()])
+                            bookizip.MEDIATYPES.get(name[1+name.rindex("."):].lower(), ''))
 
 
     # there must be language, creator, identifier and title

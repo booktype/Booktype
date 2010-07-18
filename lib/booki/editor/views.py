@@ -10,6 +10,24 @@ from booki.editor import models
 
 import logging
 
+
+def getVersion(book, version):
+    book_ver = None
+
+    if not version:
+        book_ver = book.version
+        #models.BookVersion.objects.filter(book=book).order_by("-created")[:1][0]
+    else:
+        if version.find('.') == -1:
+            # what if there is more then one version with the same name ?!
+            book_ver = models.BookVersion.objects.get(book=book, name=version)
+        else:
+            v = version.split('.')
+            book_ver = models.BookVersion.objects.get(book=book, major = int(v[0]), minor = int(v[1]))
+
+    return book_ver
+
+
 # BOOK
 
 def view_export(request, bookid):
@@ -34,19 +52,32 @@ def view_export(request, bookid):
     return response
 
 @login_required
-def edit_book(request, bookid):
+def edit_book(request, bookid, version=None):
     book = models.Book.objects.get(url_title__iexact=bookid)
-    chapters = models.Chapter.objects.filter(book=book)
+    book_version = getVersion(book, version)
+
+    chapters = models.Chapter.objects.filter(version=book_version)
+#    chapters = models.Chapter.objects.filter(book=book, version=book_version)
+
+    tabs = ["chapters", "history", "versions", "notes", "export"]
 
 
-    return render_to_response('editor/edit_book.html', {"book": book, "chapters": chapters, "request": request})
+    return render_to_response('editor/edit_book.html', {"book": book, 
+                                                        "book_version": book_version.getVersion(),
+                                                        "version": book_version,
+                                                        "chapters": chapters, 
+                                                        "tabs": tabs,
+                                                        "request": request})
 
-def view_full(request, bookid):
+def view_full(request, bookid, version=None):
     chapters = []
 
     book = models.Book.objects.get(url_title__iexact=bookid)
+    book_version = getVersion(book, version)
 
-    for chapter in  models.BookToc.objects.filter(book=book).order_by("-weight"):
+    # fix the BookVersion
+#    for chapter in  models.BookToc.objects.filter(version=book_version,book=book).order_by("-weight"):
+    for chapter in  models.BookToc.objects.filter(version=book_version).order_by("-weight"):
         if chapter.typeof == 1:
             chapters.append({"type": "chapter",
                              "title": chapter.chapter.title,
@@ -57,16 +88,20 @@ def view_full(request, bookid):
                              "title": chapter.name})
 
     return render_to_response('editor/view_full.html', {"book": book, 
+                                                        "book_version": book_version.getVersion(),
                                                         "chapters": chapters, 
                                                         "request": request})
 
 
 
-def view_book(request, bookid):
+def view_book(request, bookid, version=None):
     book = models.Book.objects.get(url_title__iexact=bookid)
 
+    book_version = getVersion(book, version)
+
     chapters = []
-    for chapter in  models.BookToc.objects.filter(book=book).order_by("-weight"):
+#    for chapter in  models.BookToc.objects.filter(version=book_version, book=book).order_by("-weight"):
+    for chapter in  models.BookToc.objects.filter(version=book_version).order_by("-weight"):
         if chapter.typeof == 1:
             chapters.append({"url_title": chapter.chapter.url_title,
                              "name": chapter.chapter.title})
@@ -75,13 +110,18 @@ def view_book(request, bookid):
                              "name": chapter.name})
         
 
-    return render_to_response('editor/view_book.html', {"book": book, "chapters": chapters, "request": request})
+    return render_to_response('editor/view_book.html', {"book": book, 
+                                                        "book_version": book_version.getVersion(),
+                                                        "chapters": chapters, 
+                                                        "request": request})
 
-def view_chapter(request, bookid, chapter):
+def view_chapter(request, bookid, chapter, version=None):
     book = models.Book.objects.get(url_title__iexact=bookid)
+    book_version = getVersion(book, version)
 
     chapters = []
-    for chap in  models.BookToc.objects.filter(book=book).order_by("-weight"):
+    for chap in  models.BookToc.objects.filter(version=book_version).order_by("-weight"):
+#    for chap in  models.BookToc.objects.filter(version=book_version, book=book).order_by("-weight"):
         if chap.typeof == 1:
             chapters.append({"url_title": chap.chapter.url_title,
                              "name": chap.chapter.title})
@@ -89,14 +129,20 @@ def view_chapter(request, bookid, chapter):
             chapters.append({"url_title": None,
                              "name": chap.name})
 
-    content = models.Chapter.objects.get(book = book, url_title = chapter)
+#    content = models.Chapter.objects.get(version=book_version, book = book, url_title = chapter)
+    content = models.Chapter.objects.get(version=book_version, url_title = chapter)
 
-    return render_to_response('editor/view_chapter.html', {"chapter": chapter, "book": book, "chapters": chapters, "request": request, "content": content})
+    return render_to_response('editor/view_chapter.html', {"chapter": chapter, 
+                                                           "book": book, 
+                                                           "book_version": book_version.getVersion(),
+                                                           "chapters": chapters, 
+                                                           "request": request, 
+                                                           "content": content})
 
 
 # PROJECT
 
-def view_attachment(request, bookid, attachment):
+def view_attachment(request, bookid, attachment, version=None):
     from booki import settings
     from django.views import static
 
@@ -105,7 +151,7 @@ def view_attachment(request, bookid, attachment):
 
     return static.serve(request, path, document_root)
 
-def thumbnail_attachment(request, bookid, attachment):
+def thumbnail_attachment(request, bookid, attachment, version=None):
     from booki import settings
     from django.views import static
 
@@ -182,14 +228,13 @@ def debug_redis(request):
 # FRONT PAGE
 
 def view_frontpage(request):
-    books = models.Book.objects.all().order_by("title")
-    groups = models.BookiGroup.objects.all().order_by("name")
+#    books = models.Book.objects.all().order_by("title")
+#    groups = models.BookiGroup.objects.all().order_by("name")
 
     return render_to_response('editor/view_frontpage.html', {"request": request, 
-                                                             "title": "Ovo je neki naslov",
-                                                             "books": books,
-                                                             "error": request.REQUEST.get("error", "0"), "username" : request.REQUEST.get("username",""), "email":request.REQUEST.get("email",""), "fullname" : request.REQUEST.get("fullname",""),
-                                                             "groups": groups})
+                                                             "title": "Ovo je neki naslov"})
+#                                                             "books": books,
+#                                                             "groups": groups})
 
 # GROUPS
 
@@ -245,16 +290,23 @@ def remove_book(request, groupid):
 
 # UPLOAD ATTACHMENT
 
-def upload_attachment(request, bookid):
+def upload_attachment(request, bookid, version=None):
     book = models.Book.objects.get(url_title__iexact=bookid)
+    book_version = getVersion(book, version)
+
     stat = models.BookStatus.objects.filter(book = book)[0]
 
     for name, fileData in request.FILES.items():
-        att = models.Attachment(book = book,
+        att = models.Attachment(version = book_version,
+                                # must remove this reference
+                                book = book,
                                 status = stat)
+        att.save()
 
         att.attachment.save(request.FILES[name].name, fileData, save = False)
         att.save()
+
+        # must write info about this to log!
 
         # maybe check file name now and save with new name
 
@@ -265,15 +317,21 @@ def upload_attachment(request, bookid):
 #
 def view_groups(request):
     groups = models.BookiGroup.objects.all()
-    return render_to_response('editor/view_groups.html', {"request":    request, "title":      "Ovo je neki naslov", "groups":      groups })
+    return render_to_response('editor/view_groups.html', {"request": request, 
+                                                          "title": "Booki groups", 
+                                                          "groups": groups })
 
 def view_books(request):
     books = models.Book.objects.all().order_by("title")
-    return render_to_response('editor/view_books.html', {"request":    request, "title":      "Ovo je neki naslov", "books":      books })
+    return render_to_response('editor/view_books.html', {"request": request, 
+                                                         "title": "Booki books", 
+                                                         "books":      books })
 
 def view_people(request):
     people = User.objects.all().order_by("username")
-    return render_to_response('editor/view_people.html', {"request":    request, "title":      "Ovo je neki naslov", "people":      people })
+    return render_to_response('editor/view_people.html', {"request": request, 
+                                                          "title": "Booki people", 
+                                                          "people":      people })
 
 
 def maintenance(request):

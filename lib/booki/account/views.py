@@ -349,12 +349,21 @@ def view_profile(request, username):
             # should check for errors
             lic = models.License.objects.get(abbrevation=license)
 
+            # should use common.createBook
+
             book = models.Book(owner = user,
                                url_title = url_title,
                                title = title,
                                license=lic,
                                published = datetime.datetime.now())
             book.save()
+
+            version = models.BookVersion(book = book,
+                                         major = 1,
+                                         minor = 0,
+                                         name = 'initial',
+                                         description = '')
+            version.save()
 
             from booki.editor import common
             common.logBookHistory(book = book, 
@@ -366,7 +375,11 @@ def view_profile(request, username):
             book.status = status
             book.save()
 
-
+            from booki.editor import common
+            common.logBookHistory(book = book, 
+                                  user = user,
+                                  kind = 'book_create')
+            
             return HttpResponseRedirect("/accounts/%s/" % username)
     else:
         project_form = BookForm()
@@ -527,7 +540,7 @@ def my_books (request, username):
             except:
                 from booki.editor.common import printStack
                 printStack(None)
-                return render_to_response('my_books.html', {"request": request, 
+                return render_to_response('account/my_books.html', {"request": request, 
                                                                         "user": user })
 
 	if import_form.is_valid() and import_form.cleaned_data["id"] != "" and import_form.cleaned_data["type"] == "wikibooks":
@@ -551,31 +564,32 @@ def my_books (request, username):
                                                                         "user": user })
 
         if project_form.is_valid() and project_form.cleaned_data["title"] != "":
+            from booki.editor.common import createBook
             title = project_form.cleaned_data["title"]
-            url_title = slugify(title)
-            license   = project_form.cleaned_data["license"]
-
-
-            import datetime
-            # should check for errors
-            lic = models.License.objects.get(abbrevation=license)
-
-            book = models.Book(owner = user,
-                               url_title = url_title,
-                               title = title,
-                               license=lic,
-                               published = datetime.datetime.now())
-            book.save()
-
-            from booki.editor import common
-            common.logBookHistory(book = book, 
-                                  user = user,
-                                  kind = 'book_create')
             
-            status = models.BookStatus(book=book, name="not published",weight=0)
-            status.save()
-            book.status = status
+            book = createBook(user, title)
+
+            license   = project_form.cleaned_data["license"]
+            lic = models.License.objects.get(abbrevation=license)
+            book.license = lic
             book.save()
+
+#            import datetime
+#            book = models.Book(owner = user,
+#                               url_title = url_title,
+#                               title = title,
+#                               license=lic,
+#                               published = datetime.datetime.now())
+#            book.save()
+#            from booki.editor import common
+#            common.logBookHistory(book = book, 
+#                                  user = user,
+#                                  kind = 'book_create')
+#            
+#            status = models.BookStatus(book=book, name="not published",weight=0)
+#            status.save()
+#            book.status = status
+#            book.save()
 
             return HttpResponseRedirect("/accounts/%s/my_books" % username)
     else:

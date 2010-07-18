@@ -1,9 +1,6 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
-#    url(r'^$', 'booki.editor.views.view_project', name='view_project'),
-#    url(r'^edit/', 'booki.editor.views.view_editor', name='view_editor'),  
-
     # utils                       
     url(r'^_utils/thumbnail/(?P<attachment>.*)$',  'booki.editor.views.thumbnail_attachment', name='thumbnail_attachment'),
 

@@ -69,7 +69,6 @@ class BookiGroup(models.Model):
 
     owner = models.ForeignKey(auth_models.User)
 
-    # ovaj books bi trebalo zakomentirati
 #    books = models.ManyToManyField(Book, blank=True)
     members = models.ManyToManyField(auth_models.User, related_name="members", blank=True)
 
@@ -87,7 +86,9 @@ class Book(models.Model):
     status = models.ForeignKey('BookStatus', null=True, related_name="status")
     language = models.ForeignKey(Language, null=True) # can it be blank?
 
-    # ovo sam dodao
+    # this i need
+    version = models.ForeignKey('BookVersion', null=True, related_name="version")
+
     group = models.ForeignKey(BookiGroup, null=True)
 
     owner = models.ForeignKey(auth_models.User)
@@ -122,11 +123,15 @@ HISTORY_CHOICES = {'unknown': 0,
 
                    'section_create': 6,
 
-                   'book_create': 10
+                   'book_create': 10,
+                   'minor_version': 11,
+                   'major_version': 12
 }
 
 class BookHistory(models.Model):
     book = models.ForeignKey(Book, null=False)
+    # this should probably be null=False
+    version = models.ForeignKey('BookVersion', null=True)
     chapter = models.ForeignKey('Chapter', null=True)
     chapter_history = models.ForeignKey('ChapterHistory', null=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
@@ -136,8 +141,6 @@ class BookHistory(models.Model):
 
     def __unicode__(self):
         return self.args
-    
-
 
 
 # Info
@@ -149,6 +152,8 @@ INFO_CHOICES = (
     (3, 'date')
 )
 
+
+# msu add version here
 class Info(models.Model):
     book = models.ForeignKey(Book, null=False)
 
@@ -182,10 +187,53 @@ class Info(models.Model):
         verbose_name_plural = _('Metadata')
 
 
+# Book Version
+
+class BookVersion(models.Model):
+    book = models.ForeignKey(Book, null=False)
+    major = models.IntegerField(_('major'))
+    minor = models.IntegerField(_('minor'))
+    name = models.CharField(_('name'), max_length=50, blank=True)
+    description = models.CharField(_('description'), max_length=250, blank=True)
+
+    created = models.DateTimeField(_('created'), auto_now=True, null=False)
+    # add published
+
+    def getTOC(self):
+        from booki.editor.models import BookToc
+
+        return BookToc.objects.filter(version=self).order_by("-weight")
+
+    def getHoldChapters(self):
+        from booki.editor.models import Chapter
+
+        return Chapter.objects.raw('SELECT editor_chapter.* FROM editor_chapter LEFT OUTER JOIN editor_booktoc ON (editor_chapter.id=editor_booktoc.chapter_id)  WHERE editor_chapter.book_id=%s AND editor_chapter.version_id=%s AND editor_booktoc.chapter_id IS NULL' % (self.book.id, self.id))
+
+
+    def getAttachments(self):
+        "Return all attachments for this version."
+
+        from booki.editor.models import Attachment
+
+        return Attachment.objects.filter(version=self)
+
+    def getVersion(self):
+        return '%d.%d' % (self.major, self.minor)
+
+    def get_absolute_url(self):
+        return '/%s/_v/%s/' % (self.url_title, self.getVersion())
+        
+    def __unicode__(self):
+        return '%d.%d (%s)' % (self.major, self.minor, self.name)
+        
+
 # Chapter
 
 class Chapter(models.Model):
+    version = models.ForeignKey(BookVersion, null=False)
+    # don't need book
     book = models.ForeignKey(Book, null=False)
+
     url_title = models.CharField(_('url_title'), max_length=2500)
     title = models.CharField(_('title'), max_length=2500)
     status = models.ForeignKey(BookStatus, null=False) # this will probably change
@@ -232,22 +280,25 @@ class ChapterHistory(models.Model):
 
 def uploadAttachmentTo(att, filename):
     from booki import settings
-    # use MEDIA_ROOT
-    return '%s%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, filename)
-#    return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.project.url_name, att.book.url_title, filename)
+
+    return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, att.version.getVersion(), filename)
 
 
 
 class AttachmentFile(models.FileField):
     def get_directory_name(self):
-        # relativni path
+        # relative path
         name = super(models.FileField, self).get_directory_name()
         return name
-        
 
+# TODO
+# should add version
 
 class Attachment(models.Model):
+    version = models.ForeignKey(BookVersion, null=False)
+    # don't really need book anymore
     book = models.ForeignKey(Book, null=False)
+
     attachment = models.FileField(_('filename'), upload_to=uploadAttachmentTo, max_length=2500)
 
     status = models.ForeignKey(BookStatus, null=False)
@@ -271,6 +322,8 @@ TYPEOF_CHOICES = (
 
 
 class BookToc(models.Model):
+    version = models.ForeignKey(BookVersion, null=False)
+    # book should be removed
     book = models.ForeignKey(Book, null=False)
     name = models.CharField(_('name'), max_length=2500, blank=True)
     chapter = models.ForeignKey(Chapter, null=True, blank=True)

@@ -24,9 +24,9 @@
 <ul>
 {% for chap in chapters %}
  {% ifnotequal chap.url_title  None%}
-   <li> <a href="{% url view_chapter  book.url_title chap.url_title %}">{{ chap.name }}</a>  </li>
+   <li><a href="{% url view_chapter  book.url_title  book_version chap.url_title %}">{{ chap.name }}</a></li>
  {% else %}
-   <li> <b>{{ chap.name }}</b></li>
+   <li><b>{{ chap.name }}</b></li>
  {% endifnotequal %}
 {% endfor %}
 </ul>
@@ -34,7 +34,7 @@
  <td valign="top">
 {% booki_format content %}
 <hr/>
-<a href="{% url view_book   book.url_title %}edit/">EDIT</a>
+<a href="{% url view_book   book.url_title book_version %}edit/">EDIT</a>
  </td>
 </tr>
 </table>
