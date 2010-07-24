@@ -208,11 +208,11 @@ def remote_chapter_save(request, message, bookid, version):
 
     if message.get("minor", False) != True:
         history = logChapterHistory(chapter = chapter,
-                          content = message["content"],
-                          user = request.user,
-                          comment = message.get("comment", ""),
-                          revision = chapter.revision)
-
+                                    content = message["content"],
+                                    user = request.user,
+                                    comment = message.get("comment", ""),
+                                    revision = chapter.revision+1)
+        
         logBookHistory(book = chapter.book,
                        version = book_version,
                        chapter = chapter,
@@ -489,19 +489,28 @@ def remote_create_chapter(request, message, bookid, version):
     try:
         # todo
         # remove - book
+        content = u'<h1>%s</h1>' % message["chapter"]
+
         chapter = models.Chapter(book = book,
                                  version = book_version,
                                  url_title = url_title,
                                  title = message["chapter"],
                                  status = s,
-                                 content = '<h1>%s</h1>' % message["chapter"],
+                                 content = content,
                                  created = datetime.datetime.now(),
                                  modified = datetime.datetime.now())
         chapter.save()
+
+        history = logChapterHistory(chapter = chapter,
+                                    content = content,
+                                    user = request.user,
+                                    comment = message.get("comment", ""),
+                                    revision = chapter.revision)
         
         logBookHistory(book = book,
                        version = book_version,
                        chapter = chapter,
+                       chapter_history = history,
                        user = request.user,
                        kind = 'chapter_create')
     except:
@@ -685,18 +694,10 @@ def remote_get_chapter_history(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_ver = getVersion(book, None)
 
-    chapter_latest = models.Chapter.objects.get(version=book_ver, url_title=message["chapter"])
     chapter_history = models.ChapterHistory.objects.filter(chapter__book=book, chapter__url_title=message["chapter"]).order_by("-modified")
 
     history = []
 
-    history.append({"chapter": chapter_latest.title, 
-                    "chapter_url": chapter_latest.url_title, 
-                    "modified": chapter_latest.modified.strftime("%d. %B %Y %H:%M:%S"), 
-                    "user": '', 
-                    "revision": chapter_latest.revision,
-                    "comment": ''})
-        
     for entry in chapter_history:
         history.append({"chapter": entry.chapter.title, 
                         "chapter_url": entry.chapter.url_title, 
@@ -817,13 +818,18 @@ def remote_unlock_chapter(request, message, bookid, version):
 def remote_get_versions(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
 
-    book_versions = [{"major": v.major, "minor": v.minor, "name": v.name, "description": v.description, "created": str(v.created.strftime('%a, %d %b %Y %H:%M:%S GMT'))} for v in models.BookVersion.objects.filter(book=book).order_by("-created")]
+    book_versions = [{"major": v.major, 
+                      "minor": v.minor, 
+                      "name": v.name, 
+                      "description": v.description, 
+                      "created": str(v.created.strftime('%a, %d %b %Y %H:%M:%S GMT'))} 
+                     for v in models.BookVersion.objects.filter(book=book).order_by("-created")]
 
     return {"versions": book_versions}
 
 
 
-# put this outside
+# put this outside of this module
 def create_new_version(book, book_ver, message, major, minor):#request, message, bookid, version):
     new_version = models.BookVersion(book=book, 
                                      major=major,
@@ -832,15 +838,16 @@ def create_new_version(book, book_ver, message, major, minor):#request, message,
                                      description=message.get("description", ""))
     new_version.save()
 
-    createdChapters = []
+#    createdChapters = []
 
-    for toc in models.BookToc.objects.filter(book=book, version=book_ver):
+    for toc in book_ver.getTOC():
+#    for toc in models.BookToc.objects.filter(book=book, version=book_ver):
         nchap = None
 
         if toc.chapter:
             chap = toc.chapter
 
-            createdChapters.append(chap.url_title)
+#            createdChapters.append(chap.url_title)
 
             nchap = models.Chapter(version=new_version,
                                   book=book, # this should be removed
@@ -861,8 +868,9 @@ def create_new_version(book, book_ver, message, major, minor):#request, message,
     
     # hold chapters
 
-    for chap in models.Chapter.objects.filter(book=book, version=book_ver):
-        if chap.url_title in createdChapters: continue
+    for chap in book_ver.getHoldChapters():
+ #   for chap in models.Chapter.objects.filter(book=book, version=book_ver):
+ #       if chap.url_title in createdChapters: continue
 
         c = models.Chapter(version=new_version,
                            book=book, # this should be removed
@@ -876,7 +884,8 @@ def create_new_version(book, book_ver, message, major, minor):#request, message,
     book.version = new_version
     book.save()
 
-    return '%d.%d' % (new_version.major, new_version.minor)
+    return new_version
+#    return '%d.%d' % (new_version.major, new_version.minor)
 
 def remote_create_major_version(request, message, bookid, version):
     from booki.editor.views import getVersion
@@ -884,17 +893,18 @@ def remote_create_major_version(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_ver = getVersion(book, version)
 
-    version = create_new_version(book, book_ver, message, book_ver.major+1, 0)
+    new_version = create_new_version(book, book_ver, message, book_ver.major+1, 0)
 
     logBookHistory(book = book,
-                   book_version = version, 
+                   version = new_version, 
                    chapter = None,
                    chapter_history = None,
                    user = request.user,
-                   args = {"version": '%d.%d' % (book_ver.major+1, 0)},
+                   args = {"version": new_version.getVersion()},
+#                   args = {"version": '%d.%d' % (book_ver.major+1, 0)},
                    kind = 'major_version')
 
-    return {"version": version}
+    return {"version": new_version.getVersion()}
 
 def remote_create_minor_version(request, message, bookid, version):
     from booki.editor.views import getVersion
@@ -902,17 +912,17 @@ def remote_create_minor_version(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_ver = getVersion(book, version)
 
-    version = create_new_version(book, book_ver, message, book_ver.major, book_ver.minor+1)
+    new_version = create_new_version(book, book_ver, message, book_ver.major, book_ver.minor+1)
 
     logBookHistory(book = book,
-                   version = version,
+                   version = new_version,
                    chapter = None,
                    chapter_history = None,
                    user = request.user,
-                   args = {"version": '%d.%d' % (book_ver.major, book_ver.minor+1)},
+                   args = {"version": new_version.getVersion()},
                    kind = 'minor_version')
 
-    return {"version": version}
+    return {"version": new_version.getVersion()}
 
 
 def remote_chapter_diff(request, message, bookid, version):

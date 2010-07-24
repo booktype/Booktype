@@ -25,5 +25,26 @@ def logChapterHistory(chapter = None, content = None, user = None, comment = '',
     history.save()
 
     return history
-    
 
+
+
+def logError(msg, *args):
+    import logging
+    logging.getLogger("booki").error(msg, *args)
+
+def logWarning(msg, *args):
+    import logging
+    logging.getLogger("booki").warning(msg, *args)
+
+
+def printStack(extra):
+    import sys
+    import traceback
+
+    _type, _value, _tb = sys.exc_info()
+
+    logError("%s:%s\n", (_type.__name__, _value))
+
+    for line in traceback.format_tb(_tb):
+        logError.error(line)
+    
