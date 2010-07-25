@@ -10,9 +10,10 @@ from booki.editor.views import getVersion
 
 def debug_redis(request):
     import sputnik
+    import redis
 
-    r = sputnik.redis.Redis()
-    r.connect()
+    r = redis.Redis()
+    #r.connect()
 
     client_id = r.get("sputnik:client_id")
     sputnikchannels = r.smembers("sputnik:channels")
@@ -24,6 +25,9 @@ def debug_redis(request):
     usrs = {}
     for ch in r.keys("sputnik:channel:*:users"):
         usrs[ch] = r.smembers(ch)
+
+#    for ch in r.keys('sputnik:*:messages'):
+#        pass
 
 
     allValues = {}

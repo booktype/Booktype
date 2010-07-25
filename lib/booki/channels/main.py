@@ -10,13 +10,13 @@ def remote_ping(request, message):
     _now = time.time()
 
     try:
-        locks = sputnik.rcon.keys("booki:*:locks:*") 
+        locks = sputnik.rkeys("booki:*:locks:*") 
     except:
         return
 
     for key in locks:
         
-        lastAccess = sputnik.rcon.get(key)
+        lastAccess = sputnik.get(key)
 
         if type(lastAccess) in [type(' '), type(u' ')]:
             try:
@@ -25,7 +25,7 @@ def remote_ping(request, message):
                 continue
 
         if lastAccess and decimal.Decimal("%f" % _now) - lastAccess > 30:
-            sputnik.rcon.delete(key)
+            sputnik.rdelete(key)
 
             m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
             
@@ -46,10 +46,10 @@ def remote_connect(request, message):
 
     # does this work ?
     try:
-        clientID = sputnik.rcon.incr("sputnik:client_id")
+        clientID = sputnik.incr("sputnik:client_id")
     except:
         sputnik.rcon.connect()
-        clientID = sputnik.rcon.incr("sputnik:client_id")
+        clientID = sputnik.incr("sputnik:client_id")
         
     ret["clientID"] = clientID
     request.sputnikID = "%s:%s" % (request.session.session_key, clientID)
@@ -66,11 +66,11 @@ def remote_connect(request, message):
 
     # set our username
     if request.user and request.user.username.strip() != '' and request.sputnikID and request.sputnikID.find(' ') == -1:
-        sputnik.rcon.set("ses:%s:username" % request.sputnikID, request.user.username)
+        sputnik.set("ses:%s:username" % request.sputnikID, request.user.username)
 
     # set our last access
     if request.sputnikID and request.sputnikID.strip() != '' and request.sputnikID and request.sputnikID.find(' ') == -1:
-        sputnik.rcon.set("ses:%s:last_access" % request.sputnikID, time.time())
+        sputnik.set("ses:%s:last_access" % request.sputnikID, time.time())
 
     return ret
     

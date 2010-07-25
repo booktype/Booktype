@@ -85,7 +85,8 @@ $(function() {
 
 		    showError: function() {
 			// should check if it is already open
-			$('#dialog-sputnik-error').dialog('open');
+			// temp commented
+			//$('#dialog-sputnik-error').dialog('open');
                     },
 		    
 		    init: function() {

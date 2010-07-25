@@ -1532,7 +1532,6 @@ img {\n\
 				$.booki.debug.debug(message);
 				if(message.status == "rename" || message.status == "edit") {
 				    chapterLocks[message.chapterID] = message.username;
-
 				    // $("#item_"+message.chapterID).css("color", "red");
 				    //$(".extra", $("#item_"+message.chapterID)).html('<div style="padding: 3px; background-color: red; color: white">'+message.username+'</div>');
 				    toc.refreshLocks();

@@ -28,13 +28,13 @@ def logChapterHistory(chapter = None, content = None, user = None, comment = '',
 
 
 
-def logError(msg, *args, **argw):
+def logError(msg, *args):
     import logging
-    logging.getLogger("booki").error(msg, *args, **argw)
+    logging.getLogger("booki").error(msg, *args)
 
-def logWarning(msg, *args, **argw):
+def logWarning(msg, *args):
     import logging
-    logging.getLogger("booki").warning(msg, *args, **argw)
+    logging.getLogger("booki").warning(msg, *args)
 
 
 def printStack(extra):
