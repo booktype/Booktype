@@ -560,7 +560,7 @@ def my_books (request, username):
                                                                         "user": user })
 
         if project_form.is_valid() and project_form.cleaned_data["title"] != "":
-            from booki.editor.common import createBook
+            from booki.utils.book import createBook
             title = project_form.cleaned_data["title"]
             
             book = createBook(user, title)
