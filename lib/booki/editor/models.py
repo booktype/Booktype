@@ -125,7 +125,9 @@ HISTORY_CHOICES = {'unknown': 0,
 
                    'book_create': 10,
                    'minor_version': 11,
-                   'major_version': 12
+                   'major_version': 12,
+
+                   'attachment_upload': 13
 }
 
 class BookHistory(models.Model):
@@ -333,6 +335,13 @@ class BookToc(models.Model):
     chapter = models.ForeignKey(Chapter, null=True, blank=True)
     weight = models.IntegerField(_('weight'))
     typeof = models.SmallIntegerField(_('typeof'), choices=TYPEOF_CHOICES)
+
+    def isSection(self):
+        return self.typeof == 0
+
+    def isChapter(self):
+        return self.typeof == 1
+
 
     def __unicode__(self):
         return unicode(self.weight)

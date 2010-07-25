@@ -189,7 +189,7 @@ $(function() {
 			  what to do in case of errors?!
 			*/
                         var a = this;
-                        $.post("/sputnik/", {"clientID": $.booki.clientID, "messages": msgs  }, function(data, textStatus) {
+                        $.post("/_sputnik/", {"clientID": $.booki.clientID, "messages": msgs  }, function(data, textStatus) {
 				$.each(data.messages, function(i, msg) {
 					a.receiveMessage(msg, data.result);
 				    });

@@ -653,7 +653,8 @@ def remote_get_history(request, message, bookid, version):
             6: 'section create',
             10: 'book create',
             11: 'minor',
-            12: 'major'}
+            12: 'major',
+            13: 'attachment'}
 
 
     history = []
@@ -676,6 +677,11 @@ def remote_get_history(request, message, bookid, version):
         elif entry.kind in [11, 12]:
             history.append({"modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
                             "version": parseJSON(entry.args), 
+                            "user": entry.user.username, 
+                            "kind": temp.get(entry.kind,'')})
+        elif entry.kind in [13]:
+            history.append({"modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
+                            "args": parseJSON(entry.args), 
                             "user": entry.user.username, 
                             "kind": temp.get(entry.kind,'')})
         else:

@@ -260,6 +260,8 @@ function unescapeHtml (val) {
 							  s.append(en);
 						      } else if(entry.kind == "major" || entry.kind == "minor") {
 							  s.append($("<tr><td>New version</td><td>Switched to "+entry.version.version+"</td><td>"+entry.user+"</td><td>"+entry.modified+"</td></tr>"));
+						      } else if(entry.kind == 'attachment') {
+							  s.append($("<tr><td>Upload</td><td>Uploaded "+entry.args.filename+".</td><td>"+entry.user+"</td><td>"+entry.modified+"</td></tr>"));
 
 						      } else {
 							  s.append($("<tr><td>"+entry.kind+"</td><td></td><td>"+entry.user+"</td><td>"+entry.modified+"</td></tr>"));
