@@ -82,11 +82,22 @@ $(function() {
 	    
 	    jQuery.extend(Sputnik.prototype, {
 		    _subscribedChannels: null,
+
+		    showError: function() {
+			// should check if it is already open
+			$('#dialog-sputnik-error').dialog('open');
+                    },
 		    
 		    init: function() {
+			var $this = this;
+
 			_messages = new Array();
 			_results  = new Array();
 			this._subscribedChannels = new Array();
+
+			$('#dialog-sputnik-qrac').ajaxError(function(event, request, opts, exc){
+			    $this.showError();
+			});
 		    },
 		    
 		    connect: function(_options) {
@@ -176,6 +187,7 @@ $(function() {
 		    
 		    sendData: function() {
                         if(!_isInitialized) return;
+			var $this = this;
 			
                         var msgs = $.toJSON(_messages);
 
@@ -190,10 +202,14 @@ $(function() {
 			*/
                         var a = this;
                         $.post("/_sputnik/", {"clientID": $.booki.clientID, "messages": msgs  }, function(data, textStatus) {
+			    if(data) {
 				$.each(data.messages, function(i, msg) {
 					a.receiveMessage(msg, data.result);
 				    });
-			    }, "json");
+			    } else {
+				$this.showError();
+			    }
+			}, "json");
 		    }
 		});
 	    

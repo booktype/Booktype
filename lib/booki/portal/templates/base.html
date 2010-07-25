@@ -12,14 +12,24 @@
 
    <script type="text/javascript">
      $(function() {
-	    // open debug window
-	    $.booki.debug.init();
-
-	    $("A.debug").click(function() {
-		$("#bookidebug").dialog("open");
-		return false;
-	    });
-
+	 // open debug window
+	 $.booki.debug.init();
+	 
+	 $("#dialog-sputnik-error").dialog({
+	     modal: true,
+	     autoOpen: false,
+	     buttons: {
+		 Ok: function() {
+		     $(this).dialog('close');
+		     window.location = '.';
+		 }
+	     }
+	 });
+	 
+	 $("A.debug").click(function() {
+	     $("#bookidebug").dialog("open");
+	     return false;
+	 });
      });
    </script>
 
@@ -85,6 +95,18 @@
 
 <!-- DEV TOOLS -->
 <div id="bookidebug">
+</div>
+
+<!-- sputnik error page -->
+<div id="dialog-sputnik-qrac" style="display: none"></div>
+<div id="dialog-sputnik-error" title="Can't communicate with booki">
+	<p>
+		<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+		There has been error in communication with booki server. Not sure right now where is the problem.
+	</p>
+	<p>
+		You should refresh this page.
+	</p>
 </div>
 
 </body>
