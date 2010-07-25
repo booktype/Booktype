@@ -11,7 +11,7 @@ import datetime
 import re
 
 from booki.editor import models
-from booki.util import logBookHistory
+from booki.utils.log import logBookHistory
 
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _

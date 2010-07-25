@@ -304,6 +304,10 @@ class Attachment(models.Model):
     status = models.ForeignKey(BookStatus, null=False)
     created = models.DateTimeField(_('created'), null=False, auto_now=True)
 
+    def getName(self):
+        name = self.attachment.name
+        return name[name.rindex('/')+1:]
+
     def __unicode__(self):
         return self.attachment.name
 

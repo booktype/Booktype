@@ -11,7 +11,7 @@ except:
 
 from django import forms
 
-from booki.util import logBookHistory
+from booki.utils.log import logBookHistory
 
 # this should probahly just list all accounts
 
@@ -306,7 +306,7 @@ def view_profile(request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
             except:
-                from booki.util import printStack
+                from booki.utils.log import printStack
                 printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
@@ -317,7 +317,7 @@ def view_profile(request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?source=wikibooks&mode=zip&callback=&book="+wikibooks_form.cleaned_data["wikibooks_id"], createTOC = True)
             except:
-                from booki.util import printStack
+                from booki.utils.log import printStack
                 printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
@@ -336,7 +336,7 @@ def view_profile(request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
             except:
-                from booki.util import printStack
+                from booki.utils.log import printStack
                 printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
@@ -524,7 +524,7 @@ def my_books (request, username):
             	try:
                     common.importBookFromURL(user, twiki_gateway_url + "?server=en.flossmanuals.net&mode=zip&book="+import_form.cleaned_data["id"], createTOC = True)
             	except:
-                	from booki.util import printStack
+                	from booki.utils.log import printStack
                 	printStack(None)
 			return render_to_response('account/error_import.html', {"request": request, 
                         	                                                "user": user })
@@ -534,7 +534,7 @@ def my_books (request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&source=archive.org&book="+import_form.cleaned_data["id"], createTOC = True)
             except:
-                from booki.util import printStack
+                from booki.utils.log import printStack
                 printStack(None)
                 return render_to_response('account/my_books.html', {"request": request, 
                                                                         "user": user })
@@ -544,7 +544,7 @@ def my_books (request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?source=wikibooks&mode=zip&book="+import_form.cleaned_data["id"], createTOC = True)
             except:
-                from booki.util import printStack
+                from booki.utils.log import printStack
                 printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
@@ -554,7 +554,7 @@ def my_books (request, username):
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&url="+import_form.cleaned_data["id"], createTOC = True)
             except:
-                from booki.util import printStack
+                from booki.utils.log import printStack
                 printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })

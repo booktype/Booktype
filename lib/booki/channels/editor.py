@@ -1,6 +1,6 @@
 import sputnik
 
-from booki.util import logBookHistory, logChapterHistory
+from booki.utils.log import logBookHistory, logChapterHistory
 
 from booki.editor import models
 from booki.editor.views import getVersion
@@ -838,16 +838,11 @@ def create_new_version(book, book_ver, message, major, minor):#request, message,
                                      description=message.get("description", ""))
     new_version.save()
 
-#    createdChapters = []
-
     for toc in book_ver.getTOC():
-#    for toc in models.BookToc.objects.filter(book=book, version=book_ver):
         nchap = None
 
         if toc.chapter:
             chap = toc.chapter
-
-#            createdChapters.append(chap.url_title)
 
             nchap = models.Chapter(version=new_version,
                                   book=book, # this should be removed
@@ -869,9 +864,6 @@ def create_new_version(book, book_ver, message, major, minor):#request, message,
     # hold chapters
 
     for chap in book_ver.getHoldChapters():
- #   for chap in models.Chapter.objects.filter(book=book, version=book_ver):
- #       if chap.url_title in createdChapters: continue
-
         c = models.Chapter(version=new_version,
                            book=book, # this should be removed
                            url_title=chap.url_title,
@@ -880,12 +872,20 @@ def create_new_version(book, book_ver, message, major, minor):#request, message,
                            revision=chap.revision,
                            content=chap.content)
         c.save()
+
+    for att in book_ver.getAttachments():
+        a = models.Attachment(version = new_version,
+                              book = book,
+                              status = att.status)
+        a.attachment.save(att.getName(), att.attachment, save = False)
+        a.save()
+                              
                            
     book.version = new_version
     book.save()
 
     return new_version
-#    return '%d.%d' % (new_version.major, new_version.minor)
+
 
 def remote_create_major_version(request, message, bookid, version):
     from booki.editor.views import getVersion
