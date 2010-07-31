@@ -30,7 +30,7 @@ def getVersion(book, version):
 
 # BOOK
 
-def view_export(request, bookid):
+def export(request, bookid):
 
     book = models.Book.objects.get(url_title__iexact=bookid)
 
@@ -65,6 +65,7 @@ def edit_book(request, bookid, version=None):
                                                         "book_version": book_version.getVersion(),
                                                         "version": book_version,
                                                         "chapters": chapters, 
+                                                        "is_owner": book.owner == request.user,
                                                         "tabs": tabs,
                                                         "request": request})
 
@@ -72,7 +73,11 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
     from booki import settings
     from django.views import static
 
-    path = attachment
+    book = models.Book.objects.get(url_title__iexact=bookid)
+    book_version = getVersion(book, version)
+
+    path = '%s/%s' % (version, attachment)
+
     document_root = '%s/static/%s/%s' % (settings.STATIC_DOC_ROOT, bookid, path)
 
     # should have one  "broken image" in case of error

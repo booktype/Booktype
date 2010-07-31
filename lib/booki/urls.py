@@ -11,6 +11,8 @@ if settings.BOOKI_MAINTENANCE_MODE:
                            url(r'^.*$', 'booki.portal.views.maintenance', name='maintenance')
                            )
 else:
+    from booki.portal import feeds
+
     urlpatterns = patterns('',
                            # administration
                            # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -35,6 +37,16 @@ else:
                            
                            # user accounts                     
                            url(r'^accounts/', include('booki.account.urls')),                    
+
+                           # feeds
+                           url(r'^feeds/rss/book/(?P<bookid>[\w\s\_\.\-\d]+)/$', feeds.BookFeedRSS()),
+                           url(r'^feeds/atom/book/(?P<bookid>[\w\s\_\.\-\d]+)/$', feeds.BookFeedAtom()),
+                           url(r'^feeds/rss/chapter/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<chapterid>[\w\s\_\.\-\d]+)/$', feeds.ChapterFeedRSS()),
+                           url(r'^feeds/atom/chapter/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<chapterid>[\w\s\_\.\-\d]+)/$', feeds.ChapterFeedAtom()),
+                           url(r'^feeds/rss/user/(?P<userid>[\w\s\_\.\-\d]+)/$', feeds.UserFeedRSS()),
+                           url(r'^feeds/atom/user/(?P<userid>[\w\s\_\.\-\d]+)/$', feeds.UserFeedAtom()),
+
+#                           url(r'^feeds/book/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<chapterid>[\w\s\_\.\-\d]+)/$', 'booki.portal.feeds.chapter'),
                            
                            # groups
                            url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/join/$', 'booki.portal.views.join_group'),                    
@@ -47,7 +59,7 @@ else:
                            # misc
                            url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booki.account.views.view_profilethumbnail', name='view_profilethumbnail'),                      
                            # export
-                           url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.view_export', name='export_booki'), 
+                           url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.export', name='export_booki'), 
                            
                            # sputnik dispatcher                       
                            url(r'^_sputnik/$', 'sputnik.views.dispatcher', {

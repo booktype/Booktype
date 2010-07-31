@@ -75,13 +75,31 @@ def view_chapter(request, bookid, chapter, version=None):
 
 # PROJECT
 
-def view_attachment(request, bookid, attachment, version=None):
+def attachment(request, bookid,  attachment, version=None):
     from booki import settings
     from django.views import static
 
-    path = attachment
+    book = models.Book.objects.get(url_title__iexact=bookid)
+    book_version = getVersion(book, version)
+
+    path = '%s/%s' % (version, attachment)
+
     document_root = '%s/static/%s/' % (settings.STATIC_DOC_ROOT, bookid)
 
     return static.serve(request, path, document_root)
 
+
+# i am pretty sure i do not need new view
+def staticattachment(request, bookid,  attachment, version=None, chapter = None):
+    from booki import settings
+    from django.views import static
+
+    book = models.Book.objects.get(url_title__iexact=bookid)
+    book_version = getVersion(book, version)
+
+    path = '%s/%s' % (version, attachment)
+
+    document_root = '%s/static/%s/' % (settings.STATIC_DOC_ROOT, bookid)
+
+    return static.serve(request, path, document_root)
 

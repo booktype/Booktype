@@ -101,7 +101,9 @@ class Book(models.Model):
     published = models.DateTimeField(_('published'), null=True)
 
     def get_absolute_url(self):
-        return '/%s/' % self.url_title
+        from booki import settings
+
+        return '%s/%s/' % (settings.BOOKI_URL, self.url_title)
 
     def __unicode__(self):
         return self.title
@@ -223,7 +225,9 @@ class BookVersion(models.Model):
         return '%d.%d' % (self.major, self.minor)
 
     def get_absolute_url(self):
-        return '/%s/_v/%s/' % (self.url_title, self.getVersion())
+        from booki import settings
+
+        return '%s/%s/_v/%s/' % (settings.BOOKI_URL, self.url_title, self.getVersion())
         
     def __unicode__(self):
         return '%d.%d (%s)' % (self.major, self.minor, self.name)
@@ -250,7 +254,9 @@ class Chapter(models.Model):
     content = models.TextField()
 
     def get_absolute_url(self):
-        return '/%s/%s/' % (self.book.url_title, self.url_title)
+        from booki import settings
+
+        return '%s/%s/%s/' % (settings.BOOKI_URL, self.book.url_title, self.url_title)
 
 
     def __unicode__(self):

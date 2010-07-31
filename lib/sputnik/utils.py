@@ -1,7 +1,7 @@
 import time
 import simplejson
 import sputnik
-
+o
 # must fix this rcon issue somehow. 
 # this is stupid but will work for now
 

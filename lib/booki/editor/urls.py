@@ -10,10 +10,7 @@ urlpatterns = patterns('',
 
     url(r'^_upload/$',  'booki.editor.views.upload_attachment', name='upload_attachment'),
 
-
-#    url(r'^(?P<edition>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.view_export', name='export_booki'), # modify this one
-    url(r'^static/(?P<attachment>.*)$',  'booki.reader.views.view_attachment', name='view_attachment'),
-
+    url(r'^static/(?P<attachment>.*)$',  'booki.reader.views.attachment', name='view_attachment'),
 
     url(r'^_full/$', 'booki.reader.views.view_full', name='view_full'),                       
 
@@ -21,5 +18,11 @@ urlpatterns = patterns('',
     url(r'^edit/$', 'booki.editor.views.edit_book', name='edit_book'),
 
     url(r'^(?P<chapter>[\w\s\_\.\-]+)/$', 'booki.reader.views.view_chapter', name='view_chapter'),
+
+    # new stuff for attachments                      
+    url(r'^edit/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
+    url(r'^(?P<chapter>[\w\s\_\.\-]+)/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
+
+
     url(r'^$', 'booki.reader.views.view_book', name='view_book')
 )

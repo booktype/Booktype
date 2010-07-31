@@ -29,6 +29,9 @@
 
 	    $.booki.editor.initEditor();
 
+	    $("#searchbox BUTTON").button();
+	    $("#publishbook").button();
+
 	    // temp here
             //$("#format").buttonset();
 
@@ -189,7 +192,7 @@ function closeAttachmentUpload() {
 </div>
 
 <div>
-<div style="float: right; padding-top: 5px">
+<div id="searchbox" style="float: right; padding-top: 5px">
 <form>
 <input type="text" size="20"> <button>Search</button>
 </form>
@@ -414,7 +417,7 @@ function closeAttachmentUpload() {
 
 {% if "versions" in tabs %}
        <div id="tabversions">
-{% if request.user.is_staff %}
+{% if is_owner %}
         <h3>New version</h3>
          <div class="version">
 	   With different versions you can easily organise your book. But be careful! Other users will not be able to edit
@@ -522,7 +525,7 @@ Description (optional)<br/>
 	      </tr>
 	      <tr>
 		<td colspan="2">
-		  <button>Publish this book</button>
+		  <button id="publishbook">Publish this book</button>
                   <span id="advancedswitch">
                      <a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(true)">Show advanced options</a>
                   </span>

@@ -70,7 +70,10 @@ def remote_init_editor(request, message, bookid, version):
     statuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
     ## get attachments
-    attachments = getAttachments(book_version)
+    try:
+        attachments = getAttachments(book_version)
+    except:
+        attachments = []
 
     ## get metadata
     metadata = [{'name': v.name, 'value': v.getValue()} for v in models.Info.objects.filter(book=book)]
@@ -681,7 +684,7 @@ def remote_get_history(request, message, bookid, version):
         if entry.kind in [1, 2, 3] and entry.chapter:
             history.append({"chapter": entry.chapter.title, 
                             "chapter_url": entry.chapter.url_title, 
-                            "modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
+                            "modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"), 
                             "description": entry.args, 
                             "user": entry.user.username, 
                             "kind": temp.get(entry.kind,'')})
@@ -689,22 +692,22 @@ def remote_get_history(request, message, bookid, version):
             history.append({"chapter": entry.chapter.title, 
                             "chapter_url": entry.chapter.url_title, 
                             "chapter_history": entry.chapter_history.id, 
-                            "modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
+                            "modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"), 
                             "description": entry.args, 
                             "user": entry.user.username, 
                             "kind": temp.get(entry.kind,'')})
         elif entry.kind in [11, 12]:
-            history.append({"modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
+            history.append({"modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"), 
                             "version": parseJSON(entry.args), 
                             "user": entry.user.username, 
                             "kind": temp.get(entry.kind,'')})
         elif entry.kind in [13]:
-            history.append({"modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
+            history.append({"modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"), 
                             "args": parseJSON(entry.args), 
                             "user": entry.user.username, 
                             "kind": temp.get(entry.kind,'')})
         else:
-            history.append({"modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
+            history.append({"modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"), 
                             "description": entry.args, 
                             "user": entry.user.username, 
                             "kind": temp.get(entry.kind,'')})
@@ -726,7 +729,7 @@ def remote_get_chapter_history(request, message, bookid, version):
     for entry in chapter_history:
         history.append({"chapter": entry.chapter.title, 
                         "chapter_url": entry.chapter.url_title, 
-                        "modified": entry.modified.strftime("%d. %B %Y %H:%M:%S"), 
+                        "modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"), 
                         "user": entry.user.username, 
                         "revision": entry.revision,
                         "comment": entry.comment})
@@ -741,7 +744,7 @@ def remote_revert_revision(request, message, bookid, version):
 
     chapter = models.Chapter.objects.get(version=book_ver, url_title=message["chapter"])
 
-    revision = models.ChapterHistory.objects.get(revision=message["revision"], chapter__url_title=message["chapter"])
+    revision = models.ChapterHistory.objects.get(revision=message["revision"], chapter__url_title=message["chapter"], chapter__version=book_ver.id)
 
     # TODO
     # does chapter history really needs to keep content or it can only keep reference to chapter
@@ -750,7 +753,7 @@ def remote_revert_revision(request, message, bookid, version):
                       content = revision.content,
                       user = request.user,
                       comment = "Reverted to revision %s." % message["revision"],
-                      revision = chapter.revision)
+                      revision = chapter.revision+1)
 
     logBookHistory(book = book,
                    version = book_ver, 
@@ -761,7 +764,6 @@ def remote_revert_revision(request, message, bookid, version):
                    kind = 'chapter_save')
     
     chapter.revision += 1
-
     chapter.content = revision.content;
     chapter.save()
 
@@ -785,7 +787,7 @@ def remote_get_chapter_revision(request, message, bookid, version):
 
         return {"chapter": revision.chapter.title, 
                 "chapter_url": revision.chapter.url_title, 
-                "modified": revision.modified.strftime("%d. %B %Y %H:%M:%S"), 
+                "modified": revision.modified.strftime("%d.%m.%Y %H:%M:%S"), 
                 "user": revision.user.username, 
                 "revision": revision.revision,
                 "version": '%d.%d' % (revision.chapter.version.major, revision.chapter.version.minor),

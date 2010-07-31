@@ -51,8 +51,11 @@
   <div style="padding-top: 10px; font-style: italic;" id="profilemood">
     {{ user.get_profile.mood }}
   </div>
+
+   <a style="text-decoration: underline" href="/feeds/rss/user/{{ user.username }}/">Track my changes</a>
   <!-- end profile info -->
 
+<!--
   <div style="border-bottom: 1px solid #c0c0c0"></div>
 {% if user.username == request.user.username %}
 <h2>Create new book</h2>
@@ -82,7 +85,7 @@
 <button>Import</button>
 </form>
 <br/>
-
+-->
 
 <!--
 <h2>Import from fm.net</h2>
@@ -127,7 +130,7 @@
 {% endfor %}
 </ul>
 
-
+<!--
 {% if user.username == request.user.username %}
 <div style="padding-top: 20px; width:325px;" id="newgroup">
 <h2>Create new group</h2>
@@ -142,7 +145,7 @@
   </form>
 </div>
 {% endif %}
-
+-->
   </td>
  </tr>
 </table>

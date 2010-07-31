@@ -246,25 +246,25 @@ function unescapeHtml (val) {
 						  $.each(data.history, function(i, entry) {
 						      if(entry.kind == "create" || entry.kind == "rename") {
 							  var en = $("<tr></tr>");
-							  en.append("<td>"+entry.kind+"</td>");
-							  en.append($("<td>").append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
-							  en.append("<td>"+entry.user+"</td><td>"+entry.modified+"</td><td></td>");
+							  en.append('<td valign="top">'+entry.kind+'</td>');
+							  en.append($('<td valign="top">').append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
+							  en.append('<td valign="top">'+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td><td></td>");
 							  s.append(en);
 							  
 //							  s.append($("<tr><td>"+entry.kind+'</td><td><a href="'+$.booki.getBookURL()+entry.chapter_url+'/" style="text-decoration: underline">'+entry.chapter+"</a></td><td>"+entry.user+"</td><td>"+entry.modified+"</td><td></td></tr>"));
 						      } else if(entry.kind == "save") {
 							  var en = $("<tr></tr>");
-							  en.append("<td>"+entry.kind+"</td>");
-							  en.append($("<td>").append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
-							  en.append("<td>"+entry.user+"</td><td>"+entry.modified+"</td><td></td>");
+							  en.append('<td valign="top">'+entry.kind+"</td>");
+							  en.append($('<td valign="top">').append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
+							  en.append('<td valign="top">'+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td><td></td>");
 							  s.append(en);
 						      } else if(entry.kind == "major" || entry.kind == "minor") {
-							  s.append($("<tr><td>New version</td><td>Switched to "+entry.version.version+"</td><td>"+entry.user+"</td><td>"+entry.modified+"</td></tr>"));
+							  s.append($("<tr><td>New version</td><td>Switched to "+entry.version.version+"</td><td>"+entry.user+'</td><td style="white-space: nowrap">'+entry.modified+"</td></tr>"));
 						      } else if(entry.kind == 'attachment') {
-							  s.append($("<tr><td>Upload</td><td>Uploaded "+entry.args.filename+".</td><td>"+entry.user+"</td><td>"+entry.modified+"</td></tr>"));
+							  s.append($('<tr><td>Upload</td><td valign="top">Uploaded '+entry.args.filename+".</td><td>"+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td></tr>"));
 
 						      } else {
-							  s.append($("<tr><td>"+entry.kind+"</td><td></td><td>"+entry.user+"</td><td>"+entry.modified+"</td></tr>"));
+							  s.append($("<tr><td>"+entry.kind+"</td><td></td><td>"+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td></tr>"));
 						      }
 						  });
 						  
@@ -440,11 +440,11 @@ function unescapeHtml (val) {
 
 						  $.each(data.history, function(i, entry) {
 						      var en = $("<tr></tr>");
-						      en.append('<td align="center"><input type="radio" name="group1" value="'+entry.revision+'"/><input type="radio" name="group2" value="'+entry.revision+'"/></td>');
+						      en.append('<td align="center" valign="top"><input type="radio" name="group1" value="'+entry.revision+'"/><input type="radio" name="group2" value="'+entry.revision+'"/></td>');
 //						      en.append('<td align="center"><a href="" style="text-decoration: underline">'+i+'</a></td>');
 
 						      en.append(
-							  $('<td align="center"></td>').append(
+							  $('<td align="center" valign="top"></td>').append(
 							      $('<a href="javascript:void(0)" style="text-decoration: underline">'+entry.revision+'</a>').click(
 								  function() { 
 								      if(entry.user != '')
@@ -453,7 +453,7 @@ function unescapeHtml (val) {
 							  )
 						      );
 
-						      en.append('<td align="center">'+entry.user+'</td><td align="center">'+entry.modified+"</td><td>"+entry.comment+"</td>");
+						      en.append('<td align="left" valign="top">'+entry.user+'</td><td align="left" valign="top" style="white-space: nowrap">'+entry.modified+'</td><td valign="top">'+entry.comment+"</td>");
 						      s.append(en);
 						      
 						  });
@@ -1762,7 +1762,7 @@ img {\n\
 			buttons: {
 			    'Insert image': function() {
 				if(selectedFile) {
-				    editor.insertHTML('<img src="../static/'+selectedFile+'"/>');
+				    editor.insertHTML('<img src="static/'+selectedFile+'"/>');
 				    $(this).dialog('close');
 				}
 			    },
