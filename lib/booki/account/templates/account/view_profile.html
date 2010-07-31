@@ -54,50 +54,13 @@
 
    <a style="text-decoration: underline" href="/feeds/rss/user/{{ user.username }}/">Track my changes</a>
   <!-- end profile info -->
+   <div style="border-bottom: 1px solid #c0c0c0; padding-top: 20px"></div>
+   <div style="background:#e1e1e1;border: 1px solid #c0c0c0;padding:5px;">
+     <b>Suggestions:</b><br> 
+     To create new books go to "My Books".<br>
+     Read the <a href='http://www.booki.cc/booki-user-guide/'>booki-user-guide</a>
+   </div>
 
-<!--
-  <div style="border-bottom: 1px solid #c0c0c0"></div>
-{% if user.username == request.user.username %}
-<h2>Create new book</h2>
-<form action="." method="POST">
-<table>
-{{ project_form.as_table }}
-</table>
-<button>Create</button>
-</form>
-<br/>
-
-
-<h2>Import from archive.org</h2>
-<form action="." method="POST">
-<table>
-{{ import_form.as_table }}
-</table>
-<button>Import</button>
-</form>
-<br/>
-
-<h2>Import epub</h2>
-<form action="." method="POST">
-<table>
-{{ epub_form.as_table }}
-</table>
-<button>Import</button>
-</form>
-<br/>
--->
-
-<!--
-<h2>Import from fm.net</h2>
-<form action="." method="POST">
-<table>
-{{ floss_form.as_table }}
-</table>
-<br/><br/>
-<button>Import</button>
-</form>
--->
-{% endif %}
   </td>
   <td width="10"></td>
   <td valign="top">

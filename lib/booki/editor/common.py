@@ -391,7 +391,7 @@ def importBookFromURL(user, bookURL, createTOC = False):
 
 def removeExtension(fileName):
     if fileName.index('.') != -1:
-        return fileName[:fileName.index('.')]
+        return fileName[:fileName.rindex('.')]
 
     return fileName
 
@@ -417,8 +417,8 @@ def exportBook(book):
     # should really go through the BookTOC
     # very dirty hack, should fix this
     p = re.compile('\ssrc="\.\.\/(.*)"')
-    p2 = re.compile('\ssrc="\/.+\/([^\/]*)"')
-
+#    p2 = re.compile('\ssrc="\/.+\/([^\/]*)"')
+    p2 = re.compile('\ssrc=\"\/[^\"]+\/([^"]+)\"')
 
     ## should export only published chapters
     ## also should only post stuff from the TOC
@@ -426,6 +426,7 @@ def exportBook(book):
     tocList = []
     childrenList = []
     unknown_n = 0
+    content_n = 0
 
     from django import template
     from django.template.loader import render_to_string
@@ -456,6 +457,9 @@ def exportBook(book):
 #
 #            t = template.loader.get_template_from_string('{% load booki_tags %} '+content)
 #            content = t.render(template.Context({"content": chapter, "book": book}))
+
+            content = '<div id="chapter-%d">%s</div>' % (chapter_n, content)
+            chapter_n += 1 
 
             name = "%s.html" % chapter.chapter.url_title
 
