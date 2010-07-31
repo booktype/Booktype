@@ -132,5 +132,5 @@ class UserFeedRSS(Feed):
         return item.modified
     
 
-class UserFeedAtom(BookFeedRSS):
+class UserFeedAtom(UserFeedRSS):
     feed_type = feedgenerator.Atom1Feed
