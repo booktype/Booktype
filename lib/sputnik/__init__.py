@@ -1,7 +1,11 @@
+from __future__ import with_statement 
+
 import time
 import simplejson
 import redis
 import base64
+
+
 
 # should read info from settings about connections
 rcon = redis.Redis()

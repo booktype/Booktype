@@ -60,7 +60,6 @@
 <!-- nav box + drop shadow -->
 <div class="navbox shadow" style="top:70px;">
     		<ul>
-                <li><a href="/">About</a></li>
 		<li><a href="http://blog.booki.cc">Blog</a></li>
                 <li><a href="/list-books">Books</a></li>
                 <li><a href="/list-groups">Groups</a></li>
@@ -71,7 +70,7 @@
 
 {% if request.user.is_authenticated %}
 <!-- second nav box + drop shadow -->
- <div class="navbox shadow" style="top:180px;">
+ <div class="navbox shadow" style="top:190px;">
     		<ul>
 		<li><a href="{% url view_profile request.user.username %}">My Profile</a></li>
 		<li><a href="{% url user_settings request.user.username %}">My Settings</a></li>

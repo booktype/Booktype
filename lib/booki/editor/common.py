@@ -426,7 +426,7 @@ def exportBook(book):
     tocList = []
     childrenList = []
     unknown_n = 0
-    content_n = 0
+    chapter_n = 0
 
     from django import template
     from django.template.loader import render_to_string
