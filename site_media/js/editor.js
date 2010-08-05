@@ -1147,7 +1147,7 @@ img {\n\
 			var bookColumnMargin = $("#tabpublish FORM INPUT[name='column_margin']").val();
 			var bookCss = '';
 
-			var isGrayscale = $("#tabpublish FORM INPUT[name='gray_scale']").is(":checked");
+			var isGreyscale = $("#tabpublish FORM INPUT[name='grey_scale']").is(":checked");
 			
 			var isArchive = $("#tabpublish FORM INPUT[name='archiveorg']").is(":checked");
 			var publishMode = $("#tabpublish OPTION:selected").val();
@@ -1212,7 +1212,7 @@ img {\n\
 						   'gutter': bookGutter,
 						   'columns': bookColumns,
 						   'column_margin': bookColumnMargin,
-						   'gray_scale': isGrayscale,
+						   'grey_scale': isGreyscale,
 						   'css': bookCss
 						  },
 						  

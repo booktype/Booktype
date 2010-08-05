@@ -624,7 +624,7 @@ def remote_publish_book(request, message, bookid, version):
     _isSet('gutter')
     _isSet('columns')
     _isSet('column_margin')
-    _isSet('gray_scale')
+    _isSet('grey_scale')
     _isSet('css')
 
     data = urllib.urlencode(args)
