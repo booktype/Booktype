@@ -41,7 +41,7 @@ def getAttachments(book_version):
                     "status":    att.status.id, 
                     "name":      os.path.split(att.attachment.name)[1], 
                     "size":      att.attachment.size} 
-                   for att in book_version.getAttachments()]
+                   for att in book_version.getAttachments() if att.attachment]
 
     return attachments
 
@@ -170,7 +170,10 @@ def remote_attachments_list(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_version = getVersion(book, version)
 
-    attachments = getAttachments(book_version)
+    try:
+        attachments = getAttachments(book_version)
+    except:
+        attachments = []
     
     return {"attachments": attachments}
 
