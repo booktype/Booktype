@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.conf import settings
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.contrib.auth.decorators import login_required
 try:
     from django.core.validators import email_re
@@ -29,6 +29,7 @@ def signout(request):
 
 # signin
 
+@transaction.commit_manually
 def signin(request):
     import simplejson
 
@@ -92,19 +93,30 @@ def signin(request):
                         ret["result"] = 10
 
                     user.first_name = request.POST["fullname"]
-                    user.save()
 
-                    # groups
-                    for groupName in simplejson.loads(request.POST.get("groups")):
-                        if groupName.strip() != '':
-                            try:
-                                group = BookiGroup.objects.get(url_name=groupName)
-                                group.members.add(user)
-                            except:
-                                pass
+                    try:
+                        user.save()
 
-                    user2 = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
-                    auth.login(request, user2)
+                        # groups
+                        
+                        for groupName in simplejson.loads(request.POST.get("groups")):
+                            if groupName.strip() != '':
+                                sid = transaction.savepoint()
+
+                                try:
+                                    group = BookiGroup.objects.get(url_name=groupName)
+                                    group.members.add(user)
+                                except:
+                                    transaction.savepoint_rollback(sid)
+                                else:
+                                    transaction.savepoint_commit(sid)
+                                
+                        user2 = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
+                        auth.login(request, user2)
+                    except:
+                        transaction.rollback()
+                    else:
+                        transaction.commit()
 
 
         if request.POST.get("method", "") == "signin":
@@ -122,6 +134,7 @@ def signin(request):
                     # User does not exist
                     ret["result"] = 2
 
+        transaction.commit()
         return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
 
     redirect = request.GET.get('redirect', '/')
@@ -136,12 +149,12 @@ def signin(request):
             joinGroups.append(BookiGroup.objects.get(url_name=groupName))
         except BookiGroup.DoesNotExist:
             pass
-                              
+        
     return render_to_response('account/signin.html', {"request": request, 'redirect': redirect, 'joingroups': joinGroups})
 
 
 # forgotpassword
-
+@transaction.commit_manually
 def forgotpassword(request):
     import simplejson
     from django.core.exceptions import ObjectDoesNotExist
@@ -191,7 +204,13 @@ def forgotpassword(request):
                     account_models.remote_addr = request.META.get('REMOTE_ADDR','')
                     account_models.remote_host = request.META.get('REMOTE_HOST','')
                     account_models.secretcode = secretcode
-                    account_models.save()
+
+                    try:
+                        account_models.save()
+                    except:
+                        transaction.rollback()
+                    else:
+                        transaction.commit()
 
                     #
                     send_mail('Reset password', 'Your secret code is %s. Go to http://www.booki.cc/forgot_password/enter/?secretcode=%s' % (secretcode, secretcode), 'info@booki.cc',
@@ -206,7 +225,7 @@ def forgotpassword(request):
 
 
 # forgotpasswordenter
-
+@transaction.commit_manually
 def forgotpasswordenter(request):
     import simplejson
 
@@ -248,6 +267,8 @@ def forgotpasswordenter(request):
                 else:
                     ret["result"] = 5
 
+
+        transaction.commit()
 
         return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
 
@@ -291,110 +312,12 @@ def view_profile(request, username):
 
     user = User.objects.get(username=username)
 
-    if request.method == 'POST' and user.username == request.user.username:
-        project_form = BookForm(request.POST)
-        import_form = ImportForm(request.POST)
-        epub_form = ImportEpubForm(request.POST)
-        wikibooks_form = ImportWikibooksForm(request.POST)
-        flossmanuals_form = ImportFlossmanualsForm(request.POST)
-        espri_url = "http://objavi.flossmanuals.net/espri.cgi"
-        twiki_gateway_url = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
-
-        if import_form.is_valid() and import_form.cleaned_data.get("archive_id", "") != "":
-            from booki.editor import common
-
-            try:
-                common.importBookFromURL(user, espri_url + "?mode=zip&book="+import_form.cleaned_data["archive_id"], createTOC = True)
-            except:
-                from booki.utils.log import printStack
-                printStack(None)
-                return render_to_response('account/error_import.html', {"request": request, 
-                                                                        "user": user })
-
-        if wikibooks_form.is_valid() and wikibooks_form.cleaned_data.get("wikibooks_id", "") != "":
-            from booki.editor import common
-
-            try:
-                common.importBookFromURL(user, espri_url + "?source=wikibooks&mode=zip&callback=&book="+wikibooks_form.cleaned_data["wikibooks_id"], createTOC = True)
-            except:
-                from booki.utils.log import printStack
-                printStack(None)
-                return render_to_response('account/error_import.html', {"request": request, 
-                                                                        "user": user })
-        
-	if flossmanuals_form.is_valid() and flossmanuals_form.cleaned_data.get("flossmanuals_id", "") != "":
-            from booki.editor import common
-
-            try:
-                common.importBookFromURL(user, twiki_gateway_url_url + "?server=en.flossmanuals.net&mode=zip&book="+flossmanuals_form.cleaned_data["flossmanuals_id"], createTOC = True)
-            except:
-                return render_to_response('account/error_import.html', {"request": request, 
-                                                                        "user": user })
-
-        if epub_form.is_valid() and epub_form.cleaned_data.get("url", "") != "":
-            from booki.editor import common
-            try:
-                common.importBookFromURL(user, espri_url + "?mode=zip&url="+epub_form.cleaned_data["url"], createTOC = True)
-            except:
-                from booki.utils.log import printStack
-                printStack(None)
-                return render_to_response('account/error_import.html', {"request": request, 
-                                                                        "user": user })
-
-        if project_form.is_valid() and project_form.cleaned_data.get("title", "") != "":
-            title = project_form.cleaned_data["title"]
-            url_title = slugify(title)
-            license   = project_form.cleaned_data["license"]
-
-
-            import datetime
-            # should check for errors
-            lic = models.License.objects.get(abbrevation=license)
-
-            # should use common.createBook
-
-            book = models.Book(owner = user,
-                               url_title = url_title,
-                               title = title,
-                               license=lic,
-                               published = datetime.datetime.now())
-            book.save()
-
-            version = models.BookVersion(book = book,
-                                         major = 1,
-                                         minor = 0,
-                                         name = 'initial',
-                                         description = '')
-            version.save()
-
-            logBookHistory(book = book, 
-                           user = user,
-                           kind = 'book_create')
-            
-            status = models.BookStatus(book=book, name="not published",weight=0)
-            status.save()
-            book.status = status
-            book.save()
-
-            return HttpResponseRedirect("/accounts/%s/" % username)
-    else:
-        project_form = BookForm()
-        import_form = ImportForm()
-        epub_form = ImportEpubForm()
-        wikibooks_form = ImportWikibooksForm()
-        flossmanuals_form = ImportFlossmanualsForm()
 
     books = models.Book.objects.filter(owner=user)
 
     groups = user.members.all()
     return render_to_response('account/view_profile.html', {"request": request, 
                                                             "user": user, 
-
-                                                            "project_form": project_form, 
-                                                            "import_form": import_form, 
-                                                            "epub_form": epub_form, 
-                                                            "wikibooks_form": wikibooks_form, 
-                                                            "flossmanuals_form": flossmanuals_form, 
 
                                                             "books": books,
                                                             "groups": groups})
@@ -412,6 +335,7 @@ class SettingsForm(forms.Form):
 
 ## user settings
 
+@transaction.commit_manually
 def user_settings(request, username):
     from django.contrib.auth.models import User
     from booki.editor import models
@@ -465,7 +389,8 @@ def user_settings(request, username):
                 
 
             profile.save()
-        
+            transaction.commit()
+
             return HttpResponseRedirect("/accounts/%s/" % username)
     else:
         settings_form = SettingsForm(initial = {'image': 'aaa',
@@ -506,6 +431,7 @@ def view_profilethumbnail(request, profileid):
     image.save(response, "JPEG")
     return response
 
+@transaction.commit_manually
 def my_books (request, username): 
     from django.contrib.auth.models import User
     from booki.editor import models
@@ -524,68 +450,69 @@ def my_books (request, username):
             	try:
                     common.importBookFromURL(user, twiki_gateway_url + "?server=en.flossmanuals.net&mode=zip&book="+import_form.cleaned_data["id"], createTOC = True)
             	except:
-                	from booki.utils.log import printStack
-                	printStack(None)
-			return render_to_response('account/error_import.html', {"request": request, 
-                        	                                                "user": user })
+                    transaction.rollback()
+                    from booki.utils.log import printStack
+                    printStack(None)
+                    return render_to_response('account/error_import.html', {"request": request, 
+                                                                            "user": user })
+                else:
+                    transaction.commit()
 
 	if import_form.is_valid() and import_form.cleaned_data["id"] != "" and import_form.cleaned_data["type"] == "archive":
             from booki.editor import common
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&source=archive.org&book="+import_form.cleaned_data["id"], createTOC = True)
             except:
+                transaction.rollback()
                 from booki.utils.log import printStack
                 printStack(None)
                 return render_to_response('account/my_books.html', {"request": request, 
                                                                         "user": user })
+            else:
+                transaction.commit()
 
 	if import_form.is_valid() and import_form.cleaned_data["id"] != "" and import_form.cleaned_data["type"] == "wikibooks":
             from booki.editor import common
             try:
                 common.importBookFromURL(user, espri_url + "?source=wikibooks&mode=zip&book="+import_form.cleaned_data["id"], createTOC = True)
             except:
+                transaction.rollback()
                 from booki.utils.log import printStack
                 printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
+            else:
+                transaction.commit()
         
 	if import_form.is_valid() and import_form.cleaned_data["id"] != "" and import_form.cleaned_data["type"] == "epub":
             from booki.editor import common
             try:
                 common.importBookFromURL(user, espri_url + "?mode=zip&url="+import_form.cleaned_data["id"], createTOC = True)
             except:
+                transaction.rollback()
+
                 from booki.utils.log import printStack
                 printStack(None)
                 return render_to_response('account/error_import.html', {"request": request, 
                                                                         "user": user })
+            else:
+                transaction.commit()
 
         if project_form.is_valid() and project_form.cleaned_data["title"] != "":
             from booki.utils.book import createBook
             title = project_form.cleaned_data["title"]
             
-            book = createBook(user, title)
+            try:
+                book = createBook(user, title)
 
-            license   = project_form.cleaned_data["license"]
-            lic = models.License.objects.get(abbrevation=license)
-            book.license = lic
-            book.save()
-
-#            import datetime
-#            book = models.Book(owner = user,
-#                               url_title = url_title,
-#                               title = title,
-#                               license=lic,
-#                               published = datetime.datetime.now())
-#            book.save()
-#            from booki.editor import common
-#            common.logBookHistory(book = book, 
-#                                  user = user,
-#                                  kind = 'book_create')
-#            
-#            status = models.BookStatus(book=book, name="not published",weight=0)
-#            status.save()
-#            book.status = status
-#            book.save()
+                license   = project_form.cleaned_data["license"]
+                lic = models.License.objects.get(abbrevation=license)
+                book.license = lic
+                book.save()
+            except:
+                transaction.rollback()
+            else:
+                transaction.commit()
 
             return HttpResponseRedirect("/accounts/%s/my_books" % username)
     else:

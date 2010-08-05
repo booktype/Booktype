@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 
 import simplejson
@@ -5,6 +6,7 @@ import re
 import redis
 import sputnik
 
+@transaction.commit_manually
 def dispatcher(request, **sputnik_dict):
     inp =  request.POST
 

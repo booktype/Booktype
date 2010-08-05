@@ -1,3 +1,5 @@
+from django.db import transaction
+
 def remote_group_create(request, message, profileid):
     from booki.editor.models import BookiGroup
     from django.template.defaultfilters import slugify
@@ -17,7 +19,10 @@ def remote_group_create(request, message, profileid):
 
         group.members.add(request.user)
     except:
+        transaction.rollback()
         return {"created": False}
+    else:
+        transaction.commit()
 
     return {"created": True}
 
@@ -51,18 +56,24 @@ def remote_mood_set(request, message, profileid):
     # save new permissions
     profile = request.user.get_profile()
     profile.mood = moodMessage
-    profile.save()
 
-    ## propagate to other users
-    ## probably should only send it to /booki/ channel
+    try:
+        profile.save()
+    except:
+        transaction.rollback()
+    else:
+        transaction.commit()
 
-    import sputnik
+        ## propagate to other users
+        ## probably should only send it to /booki/ channel
+        
+        import sputnik
 
-    for chnl in sputnik.smembers("sputnik:channels"):
-        if sputnik.sismember("sputnik:channel:%s:users" % message['channel'], request.user.username):
-            sputnik.addMessageToChannel(request, chnl, {"command": "user_status_changed", 
-                                                        "from": request.user.username, 
-                                                        "message": moodMessage}, 
-                                        myself=True)
+        for chnl in sputnik.smembers("sputnik:channels"):
+            if sputnik.sismember("sputnik:channel:%s:users" % message['channel'], request.user.username):
+                sputnik.addMessageToChannel(request, chnl, {"command": "user_status_changed", 
+                                                            "from": request.user.username, 
+                                                            "message": moodMessage}, 
+                                            myself=True)
             
     return {}

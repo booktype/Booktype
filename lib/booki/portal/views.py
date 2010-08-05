@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.db import transaction
 
 from booki.editor import models
 from booki.editor.views import getVersion
@@ -98,19 +99,33 @@ def remove_group(request, groupid):
 
     return HttpResponseRedirect("/groups/%s/" % group.url_name)
 
+@transaction.commit_manually
 def add_book(request, groupid):
     book = models.Book.objects.get(url_title=request.POST["book"])
 
     group = models.BookiGroup.objects.get(url_name=groupid)
     book.group = group
-    book.save()
+
+    try:
+        book.save()
+    except:
+        transaction.rollback()
+    else:
+        transaction.commit()
 
     return HttpResponseRedirect("/groups/%s/" % group.url_name)
 
+@transaction.commit_manually
 def remove_book(request, groupid):
     book = models.Book.objects.get(url_title=request.GET["book"])
     book.group = None
-    book.save()
+
+    try:
+        book.save()
+    except:
+        transaction.rollback()
+    else:
+        transaction.commit()
 
     return HttpResponseRedirect("/groups/%s/" % groupid)
 

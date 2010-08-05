@@ -5,6 +5,7 @@ from django.conf import settings
 from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django import forms
 from django.contrib.auth.models import User
+from django.db import transaction
 
 from booki.editor import models
 
@@ -92,13 +93,26 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
 
 # UPLOAD ATTACHMENT
 
+@transaction.commit_manually
 def upload_attachment(request, bookid, version=None):
     book = models.Book.objects.get(url_title__iexact=bookid)
     book_version = getVersion(book, version)
 
     stat = models.BookStatus.objects.filter(book = book)[0]
 
+
+    # check this for transactions
+
     for name, fileData in request.FILES.items():
+
+        from booki.utils import log
+
+        log.logBookHistory(book = book,
+                           version = book_version,
+                           args = {'filename': request.FILES[name].name},
+                           user = request.user,
+                           kind = 'attachment_upload')
+
         att = models.Attachment(version = book_version,
                                 # must remove this reference
                                 book = book,
@@ -108,17 +122,12 @@ def upload_attachment(request, bookid, version=None):
         att.attachment.save(request.FILES[name].name, fileData, save = False)
         att.save()
 
-        from booki.utils import log
-        log.logBookHistory(book = book,
-                           version = book_version,
-                           args = {'filename': request.FILES[name].name},
-                           user = request.user,
-                           kind = 'attachment_upload')
 
         # TODO:
         # must write info about this to log!
 
         # maybe check file name now and save with new name
+    transaction.commit()
 
     return HttpResponse('<html><body><script> parent.closeAttachmentUpload(); </script></body></html>')
 

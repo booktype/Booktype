@@ -1,5 +1,7 @@
 import sputnik
 
+from django.db import transaction
+
 from booki.utils.log import logBookHistory, logChapterHistory
 
 from booki.editor import models
@@ -199,19 +201,24 @@ def remote_change_status(request, message, bookid, version):
     status  = models.BookStatus.objects.get(id=int(message["statusID"]))
 
     chapter.status = status
-    chapter.save()
+    try:
+        chapter.save()
 
-    sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version), 
-                                {"command": "change_status", 
-                                 "chapterID": message["chapterID"], 
-                                 "statusID": int(message["statusID"]), 
-                                 "username": request.user.username})
-    
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, 
-                                {"command": "message_info", 
-                                 "from": request.user.username, 
-                                 "message": 'User %s has changed status of  chapter "%s" to "%s".' % (request.user.username, chapter.title, status.name)}, myself=True)
-    
+        sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version), 
+                                    {"command": "change_status", 
+                                     "chapterID": message["chapterID"], 
+                                     "statusID": int(message["statusID"]), 
+                                     "username": request.user.username})
+        
+        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, 
+                                    {"command": "message_info", 
+                                     "from": request.user.username, 
+                                     "message": 'User %s has changed status of  chapter "%s" to "%s".' % (request.user.username, chapter.title, status.name)}, myself=True)
+    except:
+        transaction.rollback()
+    else:
+        transaction.commit()
+
     return {}
 
 
@@ -244,12 +251,18 @@ def remote_chapter_save(request, message, bookid, version):
         chapter.revision += 1
 
     chapter.content = message["content"];
-    chapter.save()
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
-                                                                "from": request.user.username, 
-                                                                "message": 'User %s has saved chapter "%s".' % (request.user.username, chapter.title)}, myself=True)
-    
+    try:
+        chapter.save()
+
+        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
+                                                                    "from": request.user.username, 
+                                                                    "message": 'User %s has saved chapter "%s".' % (request.user.username, chapter.title)}, myself=True)
+    except:
+        transaction.rollback()
+    else:
+        transaction.commit()
+
     if not message['continue']:
         sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version), 
                                     {"command": "chapter_status", 
@@ -269,32 +282,38 @@ def remote_chapter_rename(request, message, bookid, version):
 
     oldTitle = chapter.title
     chapter.title = message["chapter"];
-    chapter.save()
 
-    logBookHistory(book = chapter.book,
-                   version = book_version,
-                   chapter = chapter,
-                   user = request.user,
-                   args = {"old": oldTitle, "new": message["chapter"]},
-                   kind = "chapter_rename")
+    try:
+        chapter.save()
+    except:
+        transaction.rollback()
+    else:
+        logBookHistory(book = chapter.book,
+                       version = book_version,
+                       chapter = chapter,
+                       user = request.user,
+                       args = {"old": oldTitle, "new": message["chapter"]},
+                       kind = "chapter_rename")
+        
+        sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid, 
+                                    {"command": "message_info", 
+                                     "from": request.user.username, 
+                                     "message": 'User %s has renamed chapter "%s" to "%s".' % (request.user.username, oldTitle, message["chapter"])}, 
+                                    myself=True)
+        
+        sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version), 
+                                    {"command": "chapter_status", 
+                                     "chapterID": message["chapterID"], 
+                                     "status": "normal", 
+                                     "username": request.user.username})
+        
+        sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version), 
+                                    {"command": "chapter_rename", 
+                                     "chapterID": message["chapterID"], 
+                                     "chapter": message["chapter"]})
     
-    sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid, 
-                                {"command": "message_info", 
-                                 "from": request.user.username, 
-                                 "message": 'User %s has renamed chapter "%s" to "%s".' % (request.user.username, oldTitle, message["chapter"])}, 
-                                myself=True)
-    
-    sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version), 
-                                {"command": "chapter_status", 
-                                 "chapterID": message["chapterID"], 
-                                 "status": "normal", 
-                                 "username": request.user.username})
+        transaction.commit()
 
-    sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version), 
-                                {"command": "chapter_rename", 
-                                 "chapterID": message["chapterID"], 
-                                 "chapter": message["chapter"]})
-    
     return {}
 
 
@@ -349,6 +368,12 @@ def remote_chapters_changed(request, message, bookid, version):
                                  "hold_ids": lstHold, 
                                  "kind": message["kind"], 
                                  "chapter_id": message["chapter_id"]})
+
+    # TODO
+    # this should be changed, to check for errors
+
+    transaction.commit()
+
     return {}
 
 
@@ -486,7 +511,9 @@ def remote_chapter_split(request, message, bookid, version):
                                  "hold": holdChapters, 
                                  "username": request.user.username}, 
                                 myself = True)
-            
+
+    transaction.commit()
+
     return {}
 
 
@@ -510,21 +537,23 @@ def remote_create_chapter(request, message, bookid, version):
     if len(list(ch)) > 0:
         return {"created": False}
 
+    content = u'<h1>%s</h1>' % message["chapter"]
+
+    chapter = models.Chapter(book = book,
+                             version = book_version,
+                             url_title = url_title,
+                             title = message["chapter"],
+                             status = s,
+                             content = content,
+                             created = datetime.datetime.now(),
+                             modified = datetime.datetime.now())
+
     try:
-        # todo
-        # remove - book
-        content = u'<h1>%s</h1>' % message["chapter"]
-
-        chapter = models.Chapter(book = book,
-                                 version = book_version,
-                                 url_title = url_title,
-                                 title = message["chapter"],
-                                 status = s,
-                                 content = content,
-                                 created = datetime.datetime.now(),
-                                 modified = datetime.datetime.now())
         chapter.save()
-
+    except:
+        transaction.rollback()
+        return {"created": False}
+    else:
         history = logChapterHistory(chapter = chapter,
                                     content = content,
                                     user = request.user,
@@ -537,9 +566,8 @@ def remote_create_chapter(request, message, bookid, version):
                        chapter_history = history,
                        user = request.user,
                        kind = 'chapter_create')
-    except:
-        return {"created": False}
 
+        transaction.commit()
         
     result = (chapter.id, chapter.title, chapter.url_title, 1, s.id)
 
@@ -549,6 +577,7 @@ def remote_create_chapter(request, message, bookid, version):
                         myself=True)
 
     sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
+
 
     return {"created": True}
 
@@ -637,28 +666,36 @@ def remote_create_section(request, message, bookid, version):
                        chapter = None,
                        weight = 0,
                        typeof=0)
-    c.save()
 
-    logBookHistory(book = book,
-                   version = book_version,
-                   user = request.user,
-                   args = {"title": message["chapter"]},
-                   kind = 'section_create')
+    result = True
 
-    result = ("s%s" % c.id, c.name, None, c.typeof)
+    try:
+        c.save()
+    except:
+        result = False
+        transaction.rollback()
+    else:
+        logBookHistory(book = book,
+                       version = book_version,
+                       user = request.user,
+                       args = {"title": message["chapter"]},
+                       kind = 'section_create')
+        transaction.commit()
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
-                                                                "from": request.user.username, 
-                                                                "message": 'User %s has created new section "%s".' % (request.user.username, message["chapter"])}, 
-                                myself=True)
-
-    sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" %  (bookid, version), 
-                                {"command": "chapter_create", 
-                                 "chapter": result, 
-                                 "typeof": c.typeof}, 
-                                myself = True)
-    
-    return {"created": True}
+        result = ("s%s" % c.id, c.name, None, c.typeof)
+        
+        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
+                                                                    "from": request.user.username, 
+                                                                    "message": 'User %s has created new section "%s".' % (request.user.username, message["chapter"])}, 
+                                    myself=True)
+        
+        sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" %  (bookid, version), 
+                                    {"command": "chapter_create", 
+                                     "chapter": result, 
+                                     "typeof": c.typeof}, 
+                                    myself = True)
+        
+    return {"created": result}
 
 
 def remote_get_history(request, message, bookid, version):
@@ -768,13 +805,19 @@ def remote_revert_revision(request, message, bookid, version):
     
     chapter.revision += 1
     chapter.content = revision.content;
-    chapter.save()
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, 
-                                {"command": "message_info", 
-                                 "from": request.user.username, 
-                                 "message": 'User %s has reverted chapter "%s" to revision %s.' % (request.user.username, chapter.title, message["revision"])}, myself=True)
-    
+    try:
+        chapter.save()
+    except:
+        transaction.rollback()
+    else:
+        transaction.commit()
+
+        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, 
+                                    {"command": "message_info", 
+                                     "from": request.user.username, 
+                                     "message": 'User %s has reverted chapter "%s" to revision %s.' % (request.user.username, chapter.title, message["revision"])}, myself=True)
+        
     return {}
 
 
@@ -825,12 +868,17 @@ def remote_notes_save(request, message, bookid, version):
         book_notes_obj = book_notes[0]
 	book_notes_obj.notes = notes 
 
-    book_notes_obj.save()
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
-                                                                "from": request.user.username, 
-                                                                "message": 'User %s has saved notes for book "%s".' % (request.user.username, book.title)}, myself=True)
-    
+    try:
+        book_notes_obj.save()
+    except:
+        transaction.rollback()
+    else:
+        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
+                                                                    "from": request.user.username, 
+                                                                    "message": 'User %s has saved notes for book "%s".' % (request.user.username, book.title)}, myself=True)
+        transaction.commit()
+
     return {}
 
  
@@ -916,6 +964,8 @@ def create_new_version(book, book_ver, message, major, minor):#request, message,
     book.version = new_version
     book.save()
 
+    # probably it would be smart to throw exception from here
+
     return new_version
 
 
@@ -925,15 +975,19 @@ def remote_create_major_version(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_ver = getVersion(book, version)
 
-    new_version = create_new_version(book, book_ver, message, book_ver.major+1, 0)
-
-    logBookHistory(book = book,
-                   version = new_version, 
-                   chapter = None,
-                   chapter_history = None,
-                   user = request.user,
-                   args = {"version": new_version.getVersion()},
-                   kind = 'major_version')
+    try:
+        new_version = create_new_version(book, book_ver, message, book_ver.major+1, 0)
+    except:
+        transaction.rollback()
+    else:
+        logBookHistory(book = book,
+                       version = new_version, 
+                       chapter = None,
+                       chapter_history = None,
+                       user = request.user,
+                       args = {"version": new_version.getVersion()},
+                       kind = 'major_version')
+        transaction.commit()
 
     return {"version": new_version.getVersion()}
 
@@ -943,17 +997,23 @@ def remote_create_minor_version(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_ver = getVersion(book, version)
 
-    new_version = create_new_version(book, book_ver, message, book_ver.major, book_ver.minor+1)
+    try:
+        new_version = create_new_version(book, book_ver, message, book_ver.major, book_ver.minor+1)
+    except:
+        transaction.rollback()
 
-    logBookHistory(book = book,
-                   version = new_version,
-                   chapter = None,
-                   chapter_history = None,
-                   user = request.user,
-                   args = {"version": new_version.getVersion()},
-                   kind = 'minor_version')
+        return {"result": False}
+    else:
+        logBookHistory(book = book,
+                       version = new_version,
+                       chapter = None,
+                       chapter_history = None,
+                       user = request.user,
+                       args = {"version": new_version.getVersion()},
+                       kind = 'minor_version')
+        transaction.commit()
 
-    return {"version": new_version.getVersion()}
+        return {"version": new_version.getVersion()}
 
 
 def remote_chapter_diff(request, message, bookid, version):
