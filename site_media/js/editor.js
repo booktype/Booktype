@@ -236,6 +236,8 @@ function unescapeHtml (val) {
 		    $this.currentView = 1;
 
 		    $.booki.ui.notify("Reading history data...");
+		    $($this.containerName).empty();
+
 		    $.booki.sendToCurrentBook({"command": "get_history"},
 					      function(data) {
 						  $.booki.ui.notify();
@@ -369,6 +371,8 @@ function unescapeHtml (val) {
 		    }
 		    
 		    $.booki.ui.notify("Reading history data...");
+		    $($this.containerName).empty();
+
 		    $.booki.sendToCurrentBook({"command": "get_chapter_revision", 
 					       "chapter": chapterURL,
 					       "revision": revision},
@@ -396,6 +400,8 @@ function unescapeHtml (val) {
 		    }
 		    
 		    $.booki.ui.notify("Reading history data...");
+		    $($this.containerName).empty();
+
 		    $.booki.sendToCurrentBook({"command": "chapter_diff", 
 					       "chapter": chapterURL,
 					       "revision1": revision1,
@@ -414,6 +420,9 @@ function unescapeHtml (val) {
 		'setChapterView': function(chapterName, chapterURL, chapterHistory) {
 		    var $this=this;
 		    $.booki.ui.notify("Reading history data...");
+
+		    $($this.containerName).empty();
+
 		    $.booki.sendToCurrentBook({"command": "get_chapter_history", "chapter": chapterURL},
 					      function(data) {
 						  $.booki.ui.notify();
@@ -999,28 +1008,6 @@ img {\n\
 
 			if(ui.panel.id == "tabhistory") {
 			    historyPanel.active();
-/*
-			    $.booki.ui.notify("Reading history data...");
-			    $.booki.sendToCurrentBook({"command": "get_history"},
-						      function(data) {
-							  $.booki.ui.notify();
-
-							  var his = $("#tabhistory .cont");
-							  var s = "";
-
-							  $.each(data.history, function(i, entry) {
-							      if(entry.kind == "create" || entry.kind == "rename") {
-								  s += "<tr><td>"+entry.kind+'</td><td><a href="'+$.booki.getBookURL()+entry.chapter_url+'/" style="text-decoration: underline">'+entry.chapter+"</a></td><td>"+entry.user+"</td><td>"+entry.modified+"</td><td></td></tr>";
-							      } else if(entry.kind == "save") {
-								  s += "<tr><td>"+entry.kind+"</td><td>"+entry.chapter+"</td><td>"+entry.user+"</td><td>"+entry.modified+"</td><td></td></tr>";
-
-							      } else {
-								  s += "<tr><td>"+entry.kind+"</td><td></td><td>"+entry.user+"</td><td>"+entry.modified+"</td></tr>";
-							      }
-							  });
-							  his.html('<br/><table width="100%"><tr><th>action</th><th></th><th>user</th><th>time</th></tr>'+s+'</table>');
-						      });
-*/
 			}
 		    });
 
