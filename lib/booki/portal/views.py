@@ -81,17 +81,19 @@ def view_group(request, groupid):
                                                     "your_books": yourBooks,
                                                     "members":    members,
                                                     "is_member":  isMember})
-
+@transaction.commit_manually
 def join_group(request, groupid):
     group = models.BookiGroup.objects.get(url_name=groupid)
     group.members.add(request.user)
+    transaction.commit()
 
     return HttpResponseRedirect("/groups/%s/" % group.url_name)
 
-
+@transaction.commit_manually
 def remove_group(request, groupid):
     group = models.BookiGroup.objects.get(url_name=groupid)
     group.members.remove(request.user)
+    transaction.commit()
 
     return HttpResponseRedirect("/groups/%s/" % group.url_name)
 
@@ -130,19 +132,21 @@ def remove_book(request, groupid):
 # front page listings
 #
 def view_groups(request):
-    groups = models.BookiGroup.objects.all()
+    groups = models.BookiGroup.objects.all().extra(select={'lower_name': 'lower(name)'}).order_by('lower_name')
+
     return render_to_response('portal/groups.html', {"request": request, 
                                                      "title": "Booki groups", 
                                                      "groups": groups })
 
 def view_books(request):
-    books = models.Book.objects.all().order_by("title")
+    books = models.Book.objects.all().extra(select={'lower_title': 'lower(title)'}).order_by('lower_title')
+
     return render_to_response('portal/books.html', {"request": request, 
                                                     "title": "Booki books", 
                                                     "books":      books })
 
 def view_people(request):
-    people = User.objects.all().order_by("username")
+    people = User.objects.all().extra(select={'lower_username': 'lower(username)'}).order_by('lower_username')
     return render_to_response('portal/people.html', {"request": request, 
                                                      "title": "Booki people", 
                                                      "people":      people })
