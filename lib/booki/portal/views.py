@@ -11,21 +11,17 @@ from booki.editor.views import getVersion
 
 def debug_redis(request):
     import sputnik
-    import redis
 
-    r = redis.Redis()
-    #r.connect()
-
-    client_id = r.get("sputnik:client_id")
-    sputnikchannels = r.smembers("sputnik:channels")
+    client_id = sputnik.get("sputnik:client_id")
+    sputnikchannels = sputnik.smembers("sputnik:channels")
 
     chnl = {}
-    for ch in r.keys("sputnik:channel:*:channel"):
-        chnl[ch] = r.smembers(ch)
+    for ch in sputnik.rkeys("sputnik:channel:*:channel"):
+        chnl[ch] = sputnik.smembers(ch)
 
     usrs = {}
-    for ch in r.keys("sputnik:channel:*:users"):
-        usrs[ch] = r.smembers(ch)
+    for ch in sputnik.rkeys("sputnik:channel:*:users"):
+        usrs[ch] = sputnik.smembers(ch)
 
 #    for ch in r.keys('sputnik:*:messages'):
 #        pass
@@ -37,20 +33,20 @@ def debug_redis(request):
 
     _now = time.time()
 
-    for ses in [k[4:-9] for k in  r.keys("ses:*:username")]:
+    for ses in [k[4:-9] for k in  sputnik.rkeys("ses:*:username")]:
         try:
             allValues[ses]  = {
                 "channels": sputnik.smembers("ses:%s:channels" % ses),
-                "last_access": r.get("ses:%s:last_access" % ses),
-                "access_since": decimal.Decimal("%f" % _now) - r.get("ses:%s:last_access" % ses),
-                "username": r.get("ses:%s:username" % ses)
+                "last_access": sputnik.get("ses:%s:last_access" % ses),
+                "access_since": decimal.Decimal("%f" % _now) - sputnik.get("ses:%s:last_access" % ses),
+                "username": sputnik.get("ses:%s:username" % ses)
                 }
         except:
             pass
 
     locks = {}
-    for ch in r.keys("booki:*:locks:*"):
-        locks[ch] = r.get(ch)
+    for ch in sputnik.rkeys("booki:*:locks:*"):
+        locks[ch] = sputnik.get(ch)
 
     return render_to_response('portal/debug_redis.html', {"request": request, 
                                                           "client_id": client_id,
