@@ -440,10 +440,10 @@ def exportBook(book):
             content = p.sub(r' src="\1"', chapter.chapter.content)
             content = p2.sub(r' src="static/\1"', content)
 
-            for ky, val in htmlentitydefs.name2codepoint.items():
-                if ky not in exclude:
-                    content = content.replace(unichr(val), '&%s;' % (ky, ))
-
+#            for ky, val in htmlentitydefs.name2codepoint.items():
+#                if ky not in exclude:
+#                    content = content.replace(unichr(val), '&%s;' % (ky, ))
+            content = content.encode('ascii', 'xmlcharrefreplace')
 
             # this has to be put somewhere outside
             if content.find("##AUTHORS##") != -1:
