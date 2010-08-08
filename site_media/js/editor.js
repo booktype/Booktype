@@ -609,11 +609,9 @@ function unescapeHtml (val) {
 		},
 
 		unlockChapter: function(chapterID) {
-		    if($.booki.username == 'booki') {
-			$.booki.sendToCurrentBook({"command": "unlock_chapter", "chapterID": chapterID}, 
-						  function(data) {
-						  });
-		    }
+		    $.booki.sendToCurrentBook({"command": "unlock_chapter", "chapterID": chapterID}, 
+					      function(data) {
+					      });
 		},
 		
 		editChapter: function(chapterID) {
@@ -1508,8 +1506,6 @@ img {\n\
 			    },
 
 			    "user_remove": function() {
-				$.booki.debug.debug("USER REMOVE");
-				$.booki.debug.debug(message.username);
 				$("#users .user"+message.username).css("background-color", "yellow").slideUp(1000, function() { $(this).remove(); });
 			    },
 
@@ -1526,11 +1522,7 @@ img {\n\
 				}
 			    
 				if(message.status == "normal") {
-				    $.booki.debug.debug("BRISEM OVAJ STATUS");
-				    $.booki.debug.debug(chapterLocks);
 				    delete chapterLocks[message.chapterID];
-				    $.booki.debug.debug(chapterLocks);
-				    
 				    //$("#item_"+message.chapterID).css("color", "gray");
 				    //$(".extra", $("#item_"+message.chapterID)).html("");          
 

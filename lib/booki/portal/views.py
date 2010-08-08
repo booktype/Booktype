@@ -48,13 +48,19 @@ def debug_redis(request):
     for ch in sputnik.rkeys("booki:*:locks:*"):
         locks[ch] = sputnik.get(ch)
 
+    killlocks = {}
+    for ch in sputnik.rkeys("booki:*:killlocks:*"):
+        killlocks[ch] = sputnik.get(ch)
+
+
     return render_to_response('portal/debug_redis.html', {"request": request, 
                                                           "client_id": client_id,
                                                           "sputnikchannels": sputnikchannels,
                                                           "channel": chnl.items(),
                                                           "users": usrs.items(),
                                                           "sessions": allValues.items(),
-                                                          "locks": locks.items()
+                                                          "locks": locks.items(),
+                                                          "killlocks": killlocks.items()
                                                           })
 
 

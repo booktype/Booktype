@@ -420,7 +420,7 @@ def remote_book_notification(request, message, bookid, version):
     if request.user.username and request.user.username != '':
         sputnik.set("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username), time.time())
         
-        if sputnik.get("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username)) == 1:
+        if '%s' % sputnik.get("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username)) == '1':
             sputnik.rdelete("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username))
             res = {"kill": "please"}
 
@@ -886,11 +886,12 @@ def remote_notes_save(request, message, bookid, version):
 def remote_unlock_chapter(request, message, bookid, version):
     import re
 
-    for key in sputnik.rkeys("booki:%s:locks:%s:*" % (bookid, message["chapterID"])):
-        m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
-
-        if m:
-            sputnik.set("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], m.group(3)), 1)
+    if request.user.username == 'booki':
+        for key in sputnik.rkeys("booki:%s:locks:%s:*" % (bookid, message["chapterID"])):
+            m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
+            
+            if m:
+                sputnik.set("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], m.group(3)), 1)
 
     return {}
 
