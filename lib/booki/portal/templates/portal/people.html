@@ -7,10 +7,15 @@
 	<h2 style="border-bottom: 1px dotted gray" >People</h2>
 
 	<ul>
-	{% for p in people %}
+	{% for p in people.object_list %}
 	   <li><a href="{% url view_profile p.username %}">{{ p.username }}</a></li>
 	{% endfor %}
 	</ul>
+
+         {% load booki_paginator %}
+
+         {% booki_paginator people %}
+
 
 	</div>
 

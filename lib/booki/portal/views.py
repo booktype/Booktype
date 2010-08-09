@@ -138,21 +138,59 @@ def remove_book(request, groupid):
 # front page listings
 #
 def view_groups(request):
-    groups = models.BookiGroup.objects.all().extra(select={'lower_name': 'lower(name)'}).order_by('lower_name')
+    groups_list = models.BookiGroup.objects.all().extra(select={'lower_name': 'lower(name)'}).order_by('lower_name')
+
+    paginator = Paginator(groups_list, 50) 
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+
+    try:
+        groups = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        groups = paginator.page(paginator.num_pages)
 
     return render_to_response('portal/groups.html', {"request": request, 
                                                      "title": "Booki groups", 
                                                      "groups": groups })
 
 def view_books(request):
-    books = models.Book.objects.all().extra(select={'lower_title': 'lower(title)'}).order_by('lower_title')
+    books_list = models.Book.objects.all().extra(select={'lower_title': 'lower(title)'}).order_by('lower_title')
+
+    paginator = Paginator(books_list, 50) 
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+
+    try:
+        books = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        books = paginator.page(paginator.num_pages)
 
     return render_to_response('portal/books.html', {"request": request, 
                                                     "title": "Booki books", 
                                                     "books":      books })
 
 def view_people(request):
-    people = User.objects.all().extra(select={'lower_username': 'lower(username)'}).order_by('lower_username')
+    people_list = User.objects.all().extra(select={'lower_username': 'lower(username)'}).order_by('lower_username')
+
+    paginator = Paginator(people_list, 50) 
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+
+    try:
+        people = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        people = paginator.page(paginator.num_pages)
+
+
     return render_to_response('portal/people.html', {"request": request, 
                                                      "title": "Booki people", 
                                                      "people":      people })
