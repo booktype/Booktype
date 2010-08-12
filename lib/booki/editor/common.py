@@ -1,23 +1,46 @@
 """
 Some common functions for booki editor.
 """
-
 import tempfile
 import urllib2
 from urllib import urlencode
 import zipfile
-import os
-import simplejson
+import os, sys
 import datetime
+import re
+import logging
+from cStringIO import StringIO
 import traceback
 import time
+
+try:
+    import simplejson as json
+except ImportError:
+    import json
+
+from booki.editor import models
+from booki.bookizip import get_metadata, add_metadata
 
 from booki.editor import models
 from booki.utils.log import logBookHistory
 
+from django import template
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
+try:
+    from booki.settings import THIS_BOOKI_SERVER, DEFAULT_PUBLISHER
+except ImportError:
+    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'www.booki.cc')
+    DEFAULT_PUBLISHER = "FLOSS Manuals http://flossmanuals.net"
+
+from lxml import etree, html
+
+class BookiError(Exception):
+    pass
+
+def log(msg):
+    logging.getLogger("booki").warning(msg)
 
 # parse JSON
 
@@ -47,6 +70,21 @@ def makeTitleUnique(requestedTitle):
     return name
 
 
+def getChaptersFromTOC(toc):
+    """Convert a nested bookizip TOC structure into a list of tuples
+    in the form:
+
+    (title, url, is_this_chapter_really_a_booki_section?)
+    """
+    chapters = []
+    for elem in toc:
+        chapters.append((elem.get('title', 'Missing title'),
+                         elem.get('url', 'Missing URL'),
+                         elem.get('type', 'chapter') == 'booki-section'))
+        if elem.get('children'):
+            chapters.extend(getChaptersFromTOC(elem['children']))
+
+    return chapters
 
 #namespaces
 DC = "http://purl.org/dc/elements/1.1/"
