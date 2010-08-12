@@ -59,113 +59,58 @@ def parseJSON(js):
         return {}
     
 
-
-def getChaptersFromTOC(toc):
-    chapters = []
-
-    for elem in toc:
-        if elem.get('type', 'chapter') != 'booki-section':
-            chapters.append( (elem.get('title', 'Missing title'), elem.get('url', 'Missing URL'), False))
-        else:
-            chapters.append( (elem.get('title', 'Missing title'), elem.get('url', 'Missing URL'), True))
-
-        if elem.get('children', False) and len(elem['children']) > 0:
-            chapters.extend(getChaptersFromTOC(elem['children']))
-
-    return chapters
-
-
-def importBookFromFile(user, zname, createTOC = False):
-   # unzip it
-    zdirname = tempfile.mkdtemp()
-    zf = zipfile.ZipFile(zname)
-    extract(zdirname, zf)
-    zf.close()
-
-    import logging
-
-    logging.getLogger("booki").error("Wrote it to file %s", zname)
-
-    # loads info.json
-    data = open('%s/info.json' % zdirname, 'r').read()
-    info = simplejson.loads(data)
-
-    logging.getLogger("booki").error("Loaded json file ", extra={"info": info})
-
-    # wtf
-    bookTitle = info['metadata']['http://purl.org/dc/elements/1.1/']["title"][""][
-0]
-
-    foundAvailableName = False
+def makeTitleUnique(requestedTitle):
+    """If there is called <requestedTitle>, return that. Otherwise,
+    return a title in the form `u'%s - %d' % (requestedTitle, n)`
+    where n is the lowest non-clashing positive integer.
+    """
     n = 0
-
-    while not foundAvailableName:
-        name = bookTitle
-        if n > 0:
-            name = u'%s - %d' % (bookTitle, n)
-
+    name = requestedTitle
+    while True:
         try:
             book = models.Book.objects.get(title=name)
             n += 1
+            name = u'%s - %d' % (requestedTitle, n)
         except:
-            foundAvailableName = True
-            bookTitle = name
+            break
+    return name
+
+
+#namespaces
+DC = "http://purl.org/dc/elements/1.1/"
+FM = "http://booki.cc/"
+
+def importBookFromFile(user, zname, createTOC=False):
+    """Create a new book from a bookizip filename"""
+    # unzip it
+    zf = zipfile.ZipFile(zname)
+    # load info.json
+    info = json.loads(zf.read('info.json'))
+    log("Loaded json file %r" % info)
+
+    metadata = info['metadata']
+    manifest = info['manifest']
+    TOC =      info['TOC']
+
+    bookTitle = get_metadata(metadata, 'title', ns=DC)[0]
+    bookTitle = makeTitleUnique(bookTitle)
 
     book = createBook(user, bookTitle, status = "imported")
 
-
     # this is for Table of Contents
-    n = len(info['TOC'])
-    p = re.compile('\ssrc="(.*)"')
-    # TOC {url, title}
-    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
-
-#    for dt in info['TOC']:
-#        chapterFile = dt["url"]
-#        chapterName = dt["title"]
-#        urlName = slugify(chapterName)
-#
-###            if chapterFile.index(".") != -1:
-###                chapterFile = chapterFile[:chapterFile.index(".")]
-###
-#        content = open('%s/%s' % (zdirname, chapterFile), 'r').read()
-#
-#        content = p.sub(r' src="../\1"', content)
-#
-#        chapter = models.Chapter(book = book,
-#                                 url_title = urlName,
-#                                 title = chapterName,
-#                                 status = stat,
-#                                 content = content,
-#                                 created = datetime.datetime.now(),
-#                                 modified = datetime.datetime.now())
-#        chapter.save()
-#
-#        c = models.BookToc(book = book,
-#                           name = chapterName,
-#                           chapter = chapter,
-#                           weight = n,
-#                           typeof = 1)
-#        c.save()
-#        n -= 1
-
-    # this is for Table of Contents
-    # i don't want to have 200
-    n = 200
-
     p = re.compile('\ssrc="(.*)"')
 
     # what if it does not have status "imported"
     stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
 
-    chapters = getChaptersFromTOC(info['TOC'])
+    chapters = getChaptersFromTOC(TOC)
+    n = len(chapters) + 1 #is +1 necessary?
+    now = datetime.datetime.now()
 
-    for inf in chapters:
-        chapterName = inf[0]
-        chapterFile = inf[1]
+    for chapterName, chapterFile, is_section in chapters:
         urlName = slugify(chapterName)
 
-        if inf[2] == True: # create section
+        if is_section: # create section
             if createTOC:
                 c = models.BookToc(book = book,
                                    name = chapterName,
@@ -175,11 +120,8 @@ def importBookFromFile(user, zname, createTOC = False):
                 c.save()
                 n -= 1
         else: # create chapter
-            if chapterFile.index(".") != -1:
-                chapterFile = chapterFile[:chapterFile.index(".")]
-
             # check if i can open this file at all
-            content = open('%s/%s.html' % (zdirname, chapterFile), 'r').read()
+            content = zf.read(chapterFile)
 
             content = p.sub(r' src="../\1"', content)
 
@@ -188,8 +130,8 @@ def importBookFromFile(user, zname, createTOC = False):
                                      title = chapterName,
                                      status = stat,
                                      content = content,
-                                     created = datetime.datetime.now(),
-                                     modified = datetime.datetime.now())
+                                     created = now,
+                                     modified = now)
             chapter.save()
 
             if createTOC:
@@ -205,36 +147,43 @@ def importBookFromFile(user, zname, createTOC = False):
 
     from django.core.files import File
 
-    for key, manifest in info['manifest'].items():
-        if manifest["mimetype"] != 'text/html':
-            attachmentName = manifest['url']
+    for item in manifest.values():
+        if item["mimetype"] != 'text/html':
+            attachmentName = item['url']
 
             if attachmentName.startswith("static/"):
                 att = models.Attachment(book = book,
                                         status = stat)
 
-                f = open('%s/%s' % (zdirname, attachmentName) , 'rb')
-                att.attachment.save(file_name(attachmentName), File(f), save = False)
-
+                s = zf.read(attachmentName)
+                f = StringIO(s)
+                f2 = File(f)
+                f2.size = len(s)
+                att.attachment.save(os.path.basename(attachmentName), f2, save=False)
                 att.save()
+                f.close()
 
     # metadata
-
-#    for key, value in info['metadata'].items():
-#        info = models.Info(book = book, name=key)
-#
-#        if len(value) > 200:
-#            info.value_text = value
-#            info.kind = 2
-#        else:
-#            info.value_string = value
-#            info.kind = 0
-#
-#        info.save()
-
-    # delete temp files
-    import shutil
-    shutil.rmtree(zdirname)
+    for namespace in metadata:
+        # namespace is something like "http://purl.org/dc/elements/1.1/" or ""
+        # in the former case, preepend it to the name, in {}.
+        ns = ('{%s}' % namespace if namespace else '')
+        for keyword, schemes in metadata[namespace].iteritems():
+            for scheme, values in schemes.iteritems():
+                #schema, if it is set, describes the value's format.
+                #for example, an identifier might be an ISBN.
+                sc = ('{%s}' % scheme if scheme else '')
+                key = "%s%s%s" % (ns, keyword, sc)
+                for v in values:
+                    info = models.Info(book=book, name=key)
+                    if len(v) >= 2500:
+                        info.value_text = v
+                        info.kind = 2
+                    else:
+                        info.value_string = v
+                        info.kind = 0
+                    info.save()
+    zf.close()
 
 
 
