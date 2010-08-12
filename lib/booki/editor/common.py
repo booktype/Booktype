@@ -21,7 +21,6 @@ except ImportError:
 from booki.editor import models
 from booki.bookizip import get_metadata, add_metadata
 
-from booki.editor import models
 from booki.utils.log import logBookHistory
 from booki.utils.book import createBook
 
