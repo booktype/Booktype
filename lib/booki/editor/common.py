@@ -18,35 +18,6 @@ from booki.utils.log import logBookHistory
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
-## our own implementation of ZipFile.extract
-
-from os import mkdir
-from os.path import split, exists
-
-def path_name(name):
-    return split(name)[0]
-
-def file_name(name):
-    return split(name)[1]
-
-def path_names(names):
-    return [path_name(name) for name in names if path_name(name) != '']
-
-def file_names(names):
-    return [name for name in names if file_name(name)]
-
-def extract(zdirname, zipfile):
-    names = zipfile.namelist()
-
-    for name in path_names(names):
-        if not exists('%s/%s' % (zdirname, name)): 
-            mkdir('%s/%s' % (zdirname, name))
-
-    for name in file_names(names):
-        outfile = file('%s/%s' % (zdirname, name), 'wb')
-        outfile.write(zipfile.read(name))
-        outfile.close()
-
 
 # parse JSON
 
@@ -74,6 +45,7 @@ def makeTitleUnique(requestedTitle):
         except:
             break
     return name
+
 
 
 #namespaces
