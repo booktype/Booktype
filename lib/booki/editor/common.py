@@ -389,182 +389,216 @@ def importBookFromURL(user, bookURL, createTOC = False):
     return
 
 
-def removeExtension(fileName):
-    if fileName.index('.') != -1:
-        return fileName[:fileName.rindex('.')]
+def expand_authors(book, chapter, content):
+    t = template.loader.get_template_from_string('{% load booki_tags %} {% booki_authors book %}')
+    con = t.render(template.Context({"content": chapter, "book": book}))
+    return content.replace('##AUTHORS##', con)
 
-    return fileName
+
+
+def _format_metadata(book):
+    metadata = {}
+    # there must be language, creator, identifier and title
+    #key is [ '{' namespace '}' ] name [ '[' scheme ']' ]
+    key_re = re.compile(r'^(?:\{([^}]*)\})?'  # namespace
+                        r'(.+)'              # keyword
+                        r'(?:\[([^}]*)\])?$'  #schema
+                        )
+
+    for item in models.Info.objects.filter(book=book):
+        key = item.name
+        value = item.getValue()
+        m = key_re.match(key)
+        if m is None:
+            keyword = key
+            namespace, scheme = '', ''
+        else:
+            namespace, keyword, scheme = m.groups('')
+        add_metadata(metadata, keyword, value, namespace, scheme)
+
+    now = time.strftime("%Y.%m.%d-%H.%M")
+    created = book.created.strftime("%Y.%m.%d-%H.%M")
+    lastmod = (models.BookHistory.objects.filter(book=book)
+               .dates("modified", "day", order='DESC')[0]
+               .strftime("%Y.%m.%d-%H.%M"))
+
+    # add some default values if values are not otherwise specified
+    for namespace, keyword, scheme, value in (
+        (DC, "publisher", "", DEFAULT_PUBLISHER),
+        (DC, "language", "", "en"),
+        (DC, "creator", "", "The Contributors"),
+        (DC, "title", "", book.title),
+        (DC, "date", "start", created),
+        (DC, "date", "last-modified", lastmod),
+        (DC, "date", "published", now),
+        (DC, "identifier", "booki.cc", "http://%s/%s/%s" % (THIS_BOOKI_SERVER, book.url_title, now))
+        ):
+        if not get_metadata(metadata, keyword, namespace, scheme):
+            add_metadata(metadata, keyword, value, namespace, scheme)
+
+    #XXX add contributors
+    return metadata
+
+
+def _fix_content(book, chapter):
+    """fix up the html in various ways"""
+    content = chapter.chapter.content
+    if not content:
+        return '<body><!--no content!--></body>'
+
+    #As a special case, the ##AUTHORS## magic string gets expanded into the authors list.
+    if "##AUTHORS##" in content:
+        expand_authors(book, chapter, content)
+
+    if 0:
+        #for timing comparison
+        p = re.compile('\ssrc="\.\.\/(.*)"')
+        p2 = re.compile('\ssrc=\"\/[^\"]+\/([^"]+)\"')
+        import htmlentitydefs
+        exclude = ['quot', 'amp', 'apos', 'lt', 'gt']
+        content = p.sub(r' src="\1"', content)
+        content = p2.sub(r' src="static/\1"', content)
+        for ky, val in htmlentitydefs.name2codepoint.items():
+            if ky not in exclude:
+                content = content.replace(unichr(val), '&%s;' % (ky, ))
+        if isinstance(content, unicode):
+            content = content.encode('utf-8')
+        return content
+
+    if isinstance(content, unicode):
+        content = content.encode('utf-8')
+
+    tree = html.document_fromstring(content)
+
+    base = "/%s/" % (book.url_title,)
+    here = base + chapter.chapter.url_title
+    from os.path import join, normpath
+    from urlparse import urlsplit, urlunsplit
+
+    def flatten(url, prefix):
+        scheme, addr, path, query, frag = urlsplit(url)
+        if scheme: #http, ftp, etc, ... ignore it
+            return url
+        path = normpath(join(here, path))
+        if not path.startswith(base + prefix):
+            #What is best here? make an absolute http:// link?
+            #for now, ignore it.
+            log("got a wierd link: %r in %s resolves to %r, wanted start of %s" %
+                (url, here, path, base + prefix))
+            return url
+        path = path[len(base):]
+        log("turning %r into %r" % (url, path))
+        return urlunsplit(('', '', path, query, frag))
+
+    for e in tree.iter():
+        src = e.get('src')
+        if src is not None:
+            # src attributes that point to '../static', should point to 'static'
+            e.set('src', flatten(src, 'static'))
+
+        href = e.get('href')
+        if href is not None:
+            e.set('href', flatten(href, ''))
+
+    return content
+
+
 
 
 def exportBook(book):
     from booki import bookizip
-    from views import getVersion
-
+    import time
+    starttime = time.time()
+    log("hello")
     (zfile, zname) = tempfile.mkstemp()
+
+    spine = []
+    toc_top = []
+    toc_current = toc_top
+    waiting_for_url = []
 
     info = {
         "version": 1,
-        "TOC": [],
-        "spine": [],
-        "metadata": {},
+        "TOC": toc_top,
+        "spine": spine,
+        "metadata": _format_metadata(book),
         "manifest": {}
         }
 
-    book_version = getVersion(book, None)
+    bzip = bookizip.BookiZip(zname, info=info)
 
-    bzip = bookizip.BookiZip(zname, info = info)
-
-    # should really go through the BookTOC
-    # very dirty hack, should fix this
-    p = re.compile('\ssrc="\.\.\/(.*)"')
-#    p2 = re.compile('\ssrc="\/.+\/([^\/]*)"')
-    p2 = re.compile('\ssrc=\"\/[^\"]+\/([^"]+)\"')
-
-    ## should export only published chapters
-    ## also should only post stuff from the TOC
-
-    tocList = []
-    childrenList = []
-    unknown_n = 0
-    chapter_n = 1
-
-    from django import template
-    from django.template.loader import render_to_string
-
-    import htmlentitydefs
-    exclude = ['quot', 'amp', 'apos', 'lt', 'gt']
-
-    for chapter in models.BookToc.objects.filter(book=book, version=book_version).order_by("-weight"):
+    for i, chapter in enumerate(models.BookToc.objects.filter(book=book).order_by("-weight")):
         if chapter.chapter:
-            # remove the image part
-            content = p.sub(r' src="\1"', chapter.chapter.content)
-            content = p2.sub(r' src="static/\1"', content)
+            # It's a real chapter! With content!
+            content = _fix_content(book, chapter)
 
-#            for ky, val in htmlentitydefs.name2codepoint.items():
-#                if ky not in exclude:
-#                    content = content.replace(unichr(val), '&%s;' % (ky, ))
-            content = content.encode('ascii', 'xmlcharrefreplace')
+            ID = "ch%03d_%s" % (i, chapter.chapter.url_title.encode('utf-8'))
+            filename = ID + '.html'
 
-            # this has to be put somewhere outside
-            if content.find("##AUTHORS##") != -1:
-                t = template.loader.get_template_from_string('{% load booki_tags %} {% booki_authors book %}')
-                #con =  t.render(template.Context(context, autoescape=context.autoescape))
-                con = t.render(template.Context({"content": chapter, "book": book}))
+            toc_current.append({"title": chapter.chapter.title,
+                                "url": filename,
+                                "type": "chapter",
+                                "role": "text"
+                                })
 
-                content = content.replace('##AUTHORS##', con)
+            # If this is the first chapter in a section, lend our url
+            # to the section, which has no content and thus no url of
+            # its own.  If this section was preceded by an empty
+            # section, it will be waiting too, hence "while" rather
+            # than "if".
+            while waiting_for_url:
+                section = waiting_for_url.pop()
+                section["url"] = filename
 
-#            content = content.replace('##AUTHORS##', '{% booki_authors book %}')
-#
-#            t = template.loader.get_template_from_string('{% load booki_tags %} '+content)
-#            content = t.render(template.Context({"content": chapter, "book": book}))
+            bzip.add_to_package(ID, filename, content, "text/html")
+            spine.append(ID)
 
-            content = '<div id="chapter-%d">%s</div>' % (chapter_n, content)
-            chapter_n += 1 
-
-            name = "%s.html" % chapter.chapter.url_title
-
-            childrenList.append({"title": chapter.chapter.title,
-                                 "url": name,
-                                 "type": "chapter",
-                                 "role": "text"
-                                 })
-
-            # blobk, metiatype, contributors, rightsholders, license
-            bzip.add_to_package(removeExtension(name.encode("utf-8")), name.encode("utf-8"), content.encode("utf-8"), "text/html")
-            bzip.info["spine"].append(removeExtension(name.encode("utf-8")))
         else:
-            sectionName = "%s.html" % slugify(chapter.name.encode("utf-8"))
+            #A new top level section.
+            title = chapter.name.encode("utf-8")
+            ID = "s%03d_%s" % (i, slugify(title))
 
-            bzip.add_to_package(removeExtension(sectionName), sectionName, "", "text/html")
-            bzip.info["spine"].append(removeExtension(sectionName))
+            toc_current = []
+            section = {"title": title,
+                       "url": '',
+                       "type": "booki-section",
+                       "children": toc_current
+                       }
 
-            if len(tocList) > 0:
-                tocList[-1]["children"] = childrenList
-            else:
-                if len(childrenList) > 0:
-                    unknownName = "Unknown-%d.html" % unknown_n
+            toc_top.append(section)
+            waiting_for_url.append(section)
 
-                    bzip.add_to_package(removeExtension(unknownName), unknownName, "", "text/html")
-                    bzip.info["spine"].append(removeExtension(unknownName))
 
-                    tocList.append({"title": "Unknown %d" % unknown_n,
-                                    "url": unknownName,
-                                    "type": "booki-section",
-                                    "children": childrenList})
-                    unknown_n += 1
+    #Attachments are images (and perhaps more).  They do not know
+    #whether they are currently in use, or what chapter they belong
+    #to, so we add them all.
+    #XXX scan for img links while adding chapters, and only add those.
 
-            childrenList = []
+    for i, attachment in enumerate(models.Attachment.objects.filter(book=book)):
+        try:
+            f = open(attachment.attachment.name, "rb")
+            blob = f.read()
+            f.close()
+        except (IOError, OSError), e:
+            msg = "couldn't read attachment %s" % e
+            log(msg)
+            continue
 
-            tocList.append({"title": chapter.name,
-                            "url": sectionName,
-                            "type": "booki-section"
-                            })
+        fn = os.path.basename(attachment.attachment.name.encode("utf-8"))
 
-        if len(tocList) > 0:
-            tocList[-1]["children"] = childrenList
+        ID = "att%03d_%s" % (i, fn)
+        if '.' in ID:
+            ID, ext = ID.rsplit('.', 1)
+            mediatype = bookizip.MEDIATYPES[ext.lower()]
         else:
-            if len(childrenList) > 0:
-                unknownName = "Unknown-%d.html" % unknown_n
+            mediatype = bookizip.MEDIATYPES[None]
 
-                bzip.add_to_package(removeExtension(unknownName), unknownName, "", "text/html")
-                bzip.info["spine"].append(removeExtension(unknownName))
-
-                tocList.append({"title": "Unknown %d" % unknown_n,
-                                "url": unknownName,
-                                "type": "booki-section",
-                                "children": childrenList})
-
-    bzip.info["TOC"] = tocList
-
-    for attachment in models.Attachment.objects.filter(book=book):
-        name = file_name(attachment.attachment.name)
-        fn = "static/%s" % name
-
-        bzip.add_to_package(removeExtension(name),
-                            fn.encode("utf-8"),
-                            open(attachment.attachment.name, "rb").read(),
-                            bookizip.MEDIATYPES.get(name[1+name.rindex("."):].lower(), ''))
-
-
-    # there must be language, creator, identifier and title
-    import datetime
-
-    bzip.info["metadata"] = {"http://purl.org/dc/elements/1.1/": {
-            "publisher": {
-                "": ["FLOSS Manuals http://flossmanuals.net"]
-                },
-            "language": {
-                "": ["en"]
-                },
-            "creator": {
-                "": ["The Contributors"]
-                },
-            "contributor": {
-                "": ["Jennifer Redman", "Bart Massey", "Alexander Pico",
-                     "selena deckelmann", "Anne Gentle", "adam hyde", "Olly Betts",
-                     "Jonathan Leto", "Google Inc And The Contributors",
-                     "Leslie Hawthorn"]
-                },
-            "title": {
-                "": [book.title]
-                },
-            "date": {
-                "start": ["2009-10-23"],
-                "last-modified": ["2009-10-30"]
-                },
-            "identifier": {
-                "booki.cc": ["http://www.booki.cc/%s/%s" % (book.url_title, datetime.datetime.now().strftime("%Y.%m.%d-%H.%M"))]
-                }
-            }
-
-        }
-
-#    for metadata in models.Info.objects.filter(book=book):
-#        bzip.info["metadata"][metadata.name] = metadata.getValue()
+        bzip.add_to_package(ID,
+                            "static/%s" % fn,
+                            blob,
+                            mediatype)
 
 
     bzip.finish()
-
+    log("export took %s seconds" % (time.time() - starttime))
     return zname
-
-
