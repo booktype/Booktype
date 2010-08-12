@@ -23,6 +23,7 @@ from booki.bookizip import get_metadata, add_metadata
 
 from booki.editor import models
 from booki.utils.log import logBookHistory
+from booki.utils.book import createBook
 
 from django import template
 from django.template.defaultfilters import slugify
@@ -51,7 +52,7 @@ def parseJSON(js):
         return simplejson.loads(js)
     except:
         return {}
-    
+
 
 def makeTitleUnique(requestedTitle):
     """If there is called <requestedTitle>, return that. Otherwise,
