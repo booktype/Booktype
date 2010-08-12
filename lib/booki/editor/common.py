@@ -4,11 +4,13 @@ Some common functions for booki editor.
 
 import tempfile
 import urllib2
+from urllib import urlencode
 import zipfile
 import os
 import simplejson
 import datetime
-import re
+import traceback
+import time
 
 from booki.editor import models
 from booki.utils.log import logBookHistory
@@ -368,25 +370,35 @@ def importBookFromFileTheOldWay(user, zname):
 
 
 
-def importBookFromURL(user, bookURL, createTOC = False):
-    """ 
+def importBookFromURL(user, bookURL, createTOC=False):
+    """
     Imports book from the url. Creates project and book for it.
     """
-
-    ## there is no error checking for now
-
     # download it
-    f = urllib2.urlopen(bookURL)
-    data = f.read()
+    try:
+        f = urllib2.urlopen(bookURL)
+        data = f.read()
+        f.close()
+    except urllib2.URLError, e:
+        log("couldn't read %r: %s" % (bookURL, e))
+        log(traceback.format_exc())
+        raise
 
-    (zfile, zname) = tempfile.mkstemp()
-    os.write(zfile, data)
+    try:
+        zf = StringIO(data)
+        importBookFromFile(user, zf, createTOC)
+        zf.close()
+    except Exception, e:
+        log("couldn't make book from %r: %s" % (bookURL, e))
+        log(traceback.format_exc())
+        raise
 
-    importBookFromFile(user, zname, createTOC)
 
-    os.unlink(zname)
+def importBookFromUrl2(user, baseurl, **args):
+    args['mode'] = 'zip'
+    url = baseurl + "?" + urlencode(args)
+    importBookFromURL(user, url, createTOC=True)
 
-    return
 
 
 def expand_authors(book, chapter, content):
