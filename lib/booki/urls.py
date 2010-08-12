@@ -34,6 +34,9 @@ else:
                            url(r'list-groups/', 'booki.portal.views.view_groups'),
                            url(r'list-books/', 'booki.portal.views.view_books'),
                            url(r'list-people/', 'booki.portal.views.view_people'),
+
+                           # json booklist for objavi
+                           url(r'list-books.json', 'booki.editor.views.view_books_json'),
                            
                            # user accounts                     
                            url(r'^accounts/', include('booki.account.urls')),                    
