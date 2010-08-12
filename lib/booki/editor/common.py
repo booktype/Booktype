@@ -46,11 +46,9 @@ def log(msg):
 # parse JSON
 
 def parseJSON(js):
-    import simplejson
-
     try:
-        return simplejson.loads(js)
-    except:
+        return json.loads(js)
+    except Exception:
         return {}
 
 
