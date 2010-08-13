@@ -1,3 +1,5 @@
+import datetime
+import traceback
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.conf import settings
@@ -323,6 +325,13 @@ class ImportFlossmanualsForm(forms.Form):
     type = forms.CharField(required=False)
     id = forms.CharField(required=False)
 
+IMPORT_SOURCES = {   # base_url    source=
+    'flossmanuals': (TWIKI_GATEWAY_URL, "en.flossmanuals.net"),
+    "archive":      (ESPRI_URL, "archive.org"),
+    "wikibooks":    (ESPRI_URL, "wikibooks"),
+    "epub":         (ESPRI_URL, "url"),
+}
+
 def view_profile(request, username):
     from django.contrib.auth.models import User
     from booki.editor import models
@@ -451,76 +460,66 @@ def view_profilethumbnail(request, profileid):
     return response
 
 @transaction.commit_manually
-def my_books (request, username): 
+def my_books (request, username):
     from django.contrib.auth.models import User
     from booki.editor import models
     from django.template.defaultfilters import slugify
     user = User.objects.get(username=username)
     books = models.Book.objects.filter(owner=user)
 
+
+
     if request.method == 'POST':
+
+
+
+
         project_form = BookForm(request.POST)
         import_form = ImportForm(request.POST)
-        espri_url = "http://objavi.flossmanuals.net/espri.cgi"
-        twiki_gateway_url = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
-
-	if import_form.is_valid() and import_form.cleaned_data["id"] != "" and import_form.cleaned_data["type"] == "flossmanuals":
-            	from booki.editor import common
-            	try:
-                    common.importBookFromURL(user, twiki_gateway_url + "?server=en.flossmanuals.net&mode=zip&book="+import_form.cleaned_data["id"], createTOC = True)
-            	except:
-                    transaction.rollback()
-                    from booki.utils.log import printStack
-                    printStack(None)
-                    return render_to_response('account/error_import.html', {"request": request, 
-                                                                            "user": user })
-                else:
-                    transaction.commit()
-
-	if import_form.is_valid() and import_form.cleaned_data["id"] != "" and import_form.cleaned_data["type"] == "archive":
-            from booki.editor import common
+        if import_form.is_valid() and import_form.cleaned_data["id"]:
             try:
-                common.importBookFromURL(user, espri_url + "?mode=zip&source=archive.org&book="+import_form.cleaned_data["id"], createTOC = True)
-            except:
-                transaction.rollback()
-                from booki.utils.log import printStack
-                printStack(None)
-                return render_to_response('account/my_books.html', {"request": request, 
-                                                                        "user": user })
-            else:
-                transaction.commit()
+                ID = import_form.cleaned_data["id"]
+                import_type = import_form.cleaned_data["type"]
 
-	if import_form.is_valid() and import_form.cleaned_data["id"] != "" and import_form.cleaned_data["type"] == "wikibooks":
-            from booki.editor import common
-            try:
-                common.importBookFromURL(user, espri_url + "?source=wikibooks&mode=zip&book="+import_form.cleaned_data["id"], createTOC = True)
-            except:
-                transaction.rollback()
-                from booki.utils.log import printStack
-                printStack(None)
-                return render_to_response('account/error_import.html', {"request": request, 
-                                                                        "user": user })
-            else:
-                transaction.commit()
-        
-	if import_form.is_valid() and import_form.cleaned_data["id"] != "" and import_form.cleaned_data["type"] == "epub":
-            from booki.editor import common
-            try:
-                common.importBookFromURL(user, espri_url + "?mode=zip&url="+import_form.cleaned_data["id"], createTOC = True)
-            except:
-                transaction.rollback()
+                base_url, source = IMPORT_SOURCES[import_type]
+                common.importBookFromUrl2(user, base_url,
+                                          source=source,
+                                          book=ID
+                                          )
+                url_title = slugify(title)
+                license   = project_form.cleaned_data["license"]
 
-                from booki.utils.log import printStack
-                printStack(None)
-                return render_to_response('account/error_import.html', {"request": request, 
-                                                                        "user": user })
+                # should check for errors
+                lic = models.License.objects.get(abbrevation=license)
+
+                book = models.Book(owner = user,
+                                   url_title = url_title,
+                                   title = title,
+                                   license=lic,
+                                   published = datetime.datetime.now())
+                book.save()
+
+                common.logBookHistory(book = book,
+                                      user = user,
+                                      kind = 'book_create')
+
+                status = models.BookStatus(book=book, name="not published",weight=0)
+                status.save()
+                book.status = status
+                book.save()
+
+            except Exception:
+                transaction.rollback()
+                common.log(traceback.format_exc())
+                return render_to_response('account/error_import.html',
+                                          {"request": request, "user": user })
             else:
                 transaction.commit()
 
         if project_form.is_valid() and project_form.cleaned_data["title"] != "":
             from booki.utils.book import createBook
             title = project_form.cleaned_data["title"]
-            
+
             try:
                 book = createBook(user, title)
 
