@@ -19,15 +19,20 @@ except:
 
 
 # this couple of functions should go to models.BookVersion
-
 def getTOCForBook(version):
-    def _getInfo(chap):
+    results = []
+    for chap in version.getTOC():
+        # is it a section or chapter?
         if chap.chapter:
-            return (chap.chapter.id, chap.chapter.title, chap.chapter.url_title, chap.typeof, chap.chapter.status.id)
+            results.append((chap.chapter.id,
+                            chap.chapter.title,
+                            chap.chapter.url_title,
+                            chap.typeof,
+                            chap.chapter.status.id))
         else:
-            return ('s%s' % chap.id, chap.name, chap.name, chap.typeof)
+            results.append(('s%s' % chap.id, chap.name, chap.name, chap.typeof))
+    return results
 
-    return [_getInfo(chap) for chap in list(version.getTOC())]
 
 
 def getHoldChapters(book_version):
