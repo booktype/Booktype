@@ -25,6 +25,12 @@ TWIKI_GATEWAY_URL = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
 # who gets credited as publisher if not otherwise specified
 DEFAULT_PUBLISHER = "FLOSS Manuals http://flossmanuals.net"
 
+# email configuration
+#EMAIL_HOST = 'localhost'
+#EMAIL_PORT = 25
+#EMAIL_HOST_USER = 'booki@' + THIS_BOOKI_SERVER
+#EMAIL_HOST_PASSWORD = ''
+#EMAIL_USE_TLS = False
 
 DATABASE_ENGINE = 'postgresql_psycopg2'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = 'booki'             # Or path to database file if using sqlite3.
