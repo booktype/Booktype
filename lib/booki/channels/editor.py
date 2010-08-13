@@ -7,6 +7,16 @@ from booki.utils.log import logBookHistory, logChapterHistory
 from booki.editor import models
 from booki.editor.views import getVersion
 
+try:
+    from booki.settings import OBJAVI_URL
+except ImportError:
+    OBJAVI_URL = "http://objavi.flossmanuals.net/objavi.cgi"
+
+try:
+    from booki.settings import THIS_BOOKI_SERVER
+except:
+    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booki.flossmanuals.net')
+
 
 # this couple of functions should go to models.BookVersion
 
@@ -592,8 +602,6 @@ def remote_publish_book(request, message, bookid, version):
 
     import urllib2
     import urllib
-    urlPublish = "http://objavi.flossmanuals.net/objavi.cgi"
-#        urlPublish = "http://objavi.halo.gen.nz/objavi.cgi"
 
     publishMode = message.get("publish_mode", "epub")
     destination = "nowhere"
@@ -604,7 +612,7 @@ def remote_publish_book(request, message, bookid, version):
     args = {'book': book.url_title,
             'project': 'export',
             'mode': publishMode,
-            'server': 'booki.flossmanuals.net',
+            'server': THIS_BOOKI_SERVER,
             'destination': destination,
             }
 
@@ -629,7 +637,7 @@ def remote_publish_book(request, message, bookid, version):
 
     data = urllib.urlencode(args)
 
-    req = urllib2.Request(urlPublish, data)
+    req = urllib2.Request(OBJAVI_URL, data)
     f = urllib2.urlopen(req)
 
 #    f = urllib2.urlopen("%s?book=%s&project=export&mode=%s&server=booki.flossmanuals.net&destination=%s" % (urlPublish, book.url_title, publishMode, destination))
