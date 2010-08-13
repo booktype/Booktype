@@ -12,8 +12,23 @@ except:
 from django import forms
 
 from booki.utils.log import logBookHistory
+from booki.utils.book import createBook
+from booki.editor import common
 
-# this should probahly just list all accounts
+try:
+    from booki.settings import ESPRI_URL, TWIKI_GATEWAY_URL
+except ImportError:
+    # for backwards compatibility
+    ESPRI_URL = "http://objavi.flossmanuals.net/espri.cgi"
+    TWIKI_GATEWAY_URL = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
+try:
+    from booki.settings import THIS_BOOKI_SERVER
+except ImportError:
+    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'www.booki.cc')
+
+
+
+# this should probably just list all accounts
 
 def view_accounts(request):
     return HttpResponse("AJME MENI", mimetype="text/plain")
@@ -213,8 +228,12 @@ def forgotpassword(request):
                         transaction.commit()
 
                     #
-                    send_mail('Reset password', 'Your secret code is %s. Go to http://www.booki.cc/forgot_password/enter/?secretcode=%s' % (secretcode, secretcode), 'info@booki.cc',
+                    send_mail('Reset password', 'Your secret code is %s. Go to '
+                              'http://%s/forgot_password/enter/?secretcode=%s' %
+                              (secretcode, THIS_BOOKI_SERVER, secretcode),
+                              'info@' + THIS_BOOKI_SERVER,
                               [usr.email], fail_silently=True)
+
                 else:
                     ret["result"] = 3
 
