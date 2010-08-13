@@ -614,6 +614,7 @@ def remote_publish_book(request, message, bookid, version):
             'mode': publishMode,
             'server': THIS_BOOKI_SERVER,
             'destination': destination,
+            'max-age': 0,
             }
 
     def _isSet(name):   
