@@ -71,7 +71,7 @@ def signin(request):
                 return 0
 
             ret["result"] = _doChecksForEmpty()
-            
+
             if ret["result"] == 0: # if there was no errors
                 import re
 
@@ -84,7 +84,7 @@ def signin(request):
 
                     # check if it is valid email
                     if not bool(email_re.match(request.POST["email"].strip())): return 7
-                    
+
                     if request.POST.get("password", "") != request.POST.get("password2", "").strip(): return 8
                     if len(request.POST.get("password", "").strip()) < 6: return 9
 
@@ -95,15 +95,15 @@ def signin(request):
                     except auth.models.User.DoesNotExist:
                         pass
 
-                    return 0                    
+                    return 0
 
                 ret["result"] = _doCheckValid()
 
-                if ret["result"] == 0: 
+                if ret["result"] == 0:
                     ret["result"] = 1
-                    
+
                     try:
-                        user = auth.models.User.objects.create_user(username=request.POST["username"], 
+                        user = auth.models.User.objects.create_user(username=request.POST["username"],
                                                                     email=request.POST["email"],
                                                                     password=request.POST["password"])
                     except IntegrityError:
@@ -115,7 +115,7 @@ def signin(request):
                         user.save()
 
                         # groups
-                        
+
                         for groupName in simplejson.loads(request.POST.get("groups")):
                             if groupName.strip() != '':
                                 sid = transaction.savepoint()
@@ -127,7 +127,7 @@ def signin(request):
                                     transaction.savepoint_rollback(sid)
                                 else:
                                     transaction.savepoint_commit(sid)
-                                
+
                         user2 = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
                         auth.login(request, user2)
                     except:
@@ -166,7 +166,7 @@ def signin(request):
             joinGroups.append(BookiGroup.objects.get(url_name=groupName))
         except BookiGroup.DoesNotExist:
             pass
-        
+
     return render_to_response('account/signin.html', {"request": request, 'redirect': redirect, 'joingroups': joinGroups})
 
 
@@ -188,16 +188,16 @@ def forgotpassword(request):
             def _doChecksForEmpty():
                 if _checkIfEmpty("username"): return 2
                 return 0
-            
+
             ret["result"] = _doChecksForEmpty()
-                
-            if ret["result"] == 0: 
+
+            if ret["result"] == 0:
                 allOK = True
                 try:
                     usr = User.objects.get(username=request.POST.get("username", ""))
                 except User.DoesNotExist:
                     pass
-            
+
                 if not usr:
                     try:
                         usr = User.objects.get(email=request.POST.get("username", ""))
@@ -212,7 +212,7 @@ def forgotpassword(request):
                         import string
                         from random import choice
                         return ''.join([choice(string.letters + string.digits) for i in range(30)])
-                    
+
                     secretcode = generateSecretCode()
 
                     account_models = account_models.UserPassword()
@@ -269,10 +269,10 @@ def forgotpasswordenter(request):
                 if _checkIfEmpty("password2"): return 4
 
                 return 0
-            
+
             ret["result"] = _doChecksForEmpty()
-                
-            if ret["result"] == 0: 
+
+            if ret["result"] == 0:
 
                 from booki.account import models as account_models
                 allOK = True
@@ -316,7 +316,7 @@ class ImportForm(forms.Form):
 
 class ImportEpubForm(forms.Form):
     url = forms.CharField(required=False)
-   
+
 class ImportWikibooksForm(forms.Form):
     wikibooks_id = forms.CharField(required=False)
 
@@ -376,7 +376,7 @@ def user_settings(request, username):
         settings_form = SettingsForm(request.POST, request.FILES)
         if settings_form.is_valid():
 
-            # this is very stupid and wrong 
+            # this is very stupid and wrong
             # change the way it works
             # make utils for
             #     - get image url
@@ -411,10 +411,10 @@ def user_settings(request, username):
                 im.thumbnail((120, 120), Image.NEAREST)
                 imageName = '%s.jpg' % fname
                 im.save(imageName)
-                
+
                 profile.image.save('%s.jpg' % user.username, File(file(imageName)))
                 os.unlink(fname)
-                
+
 
             profile.save()
             transaction.commit()
@@ -427,10 +427,10 @@ def user_settings(request, username):
                                                 'description': user.get_profile().description,
                                                 'email': user.email})
 
-    return render_to_response('account/user_settings.html', {"request": request, 
-                                                             "user": user, 
-                                                             
-                                                             "settings_form": settings_form, 
+    return render_to_response('account/user_settings.html', {"request": request,
+                                                             "user": user,
+
+                                                             "settings_form": settings_form,
                                                              })
 
 
@@ -438,7 +438,7 @@ def user_settings(request, username):
 def view_profilethumbnail(request, profileid):
     from django.http import HttpResponse
     from booki import settings
-    
+
     from django.contrib.auth.models import User
     u = User.objects.get(username=profileid)
 
@@ -538,11 +538,11 @@ def my_books (request, username):
         import_form = ImportForm()
 
 
-    return render_to_response('account/my_books.html', {"request": request, 
+    return render_to_response('account/my_books.html', {"request": request,
                                                             "user": user,
- 
-                                                            "project_form": project_form, 
-                                                            "import_form": import_form, 
+
+                                                            "project_form": project_form,
+                                                            "import_form": import_form,
 
                                                             "books": books,})
 
@@ -551,7 +551,7 @@ def my_groups (request, username):
     user = User.objects.get(username=username)
     groups = user.members.all()
 
-    return render_to_response('account/my_groups.html', {"request": request, 
+    return render_to_response('account/my_groups.html', {"request": request,
                                                             "user": user,
 
                                                             "groups": groups,})
@@ -562,5 +562,5 @@ def my_people (request, username):
     user = User.objects.get(username=username)
 
     return render_to_response('account/my_people.html', {"request": request,
-                                                         "user": user}) 
+                                                         "user": user})
 
