@@ -704,7 +704,9 @@ def remote_get_history(request, message, bookid, version):
 
     book = models.Book.objects.get(id=bookid)
 
-    book_history = models.BookHistory.objects.filter(book=book).order_by("-modified")
+    page = int(message.get("page", 1))
+
+    book_history = models.BookHistory.objects.filter(book=book).order_by("-modified")[(page-1)*50:(page-1)*50+50]
 
     temp = {0: 'unknown',
             1: 'create',

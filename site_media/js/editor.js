@@ -223,6 +223,8 @@ function unescapeHtml (val) {
 	    function HistoryPanel(containerName) {
 		this.containerName = containerName;
 		this.currentView = 0;
+		
+		this.refresh = null;
 	    }
 	    
 	    $.extend(HistoryPanel.prototype, {
@@ -235,6 +237,105 @@ function unescapeHtml (val) {
 		    
 		    $this.currentView = 1;
 
+		    var _page = 1;
+
+		    function _drawItems(data) {
+			var his = $($this.containerName+" SPAN.hiscontainer");
+			var s = $('<table width="100%"><tr><th>action</th><th></th><th>user</th><th>time</th></tr></table>')
+			
+			$.each(data.history, function(i, entry) {
+			    if(entry.kind == "create" || entry.kind == "rename") {
+				var en = $("<tr></tr>");
+				en.append('<td valign="top">'+entry.kind+'</td>');
+				en.append($('<td valign="top">').append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
+				en.append('<td valign="top">'+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td><td></td>");
+				s.append(en);
+				
+			    } else if(entry.kind == "save") {
+				var en = $("<tr></tr>");
+				en.append('<td valign="top">'+entry.kind+"</td>");
+				en.append($('<td valign="top">').append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
+				en.append('<td valign="top">'+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td><td></td>");
+				s.append(en);
+			    } else if(entry.kind == "major" || entry.kind == "minor") {
+				s.append($("<tr><td>New version</td><td>Switched to "+entry.version.version+"</td><td>"+entry.user+'</td><td style="white-space: nowrap">'+entry.modified+"</td></tr>"));
+			    } else if(entry.kind == 'attachment') {
+				s.append($('<tr><td>Upload</td><td valign="top">Uploaded '+entry.args.filename+".</td><td>"+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td></tr>"));
+				
+			    } else {
+				s.append($("<tr><td>"+entry.kind+"</td><td></td><td>"+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td></tr>"));
+			    }
+			});
+			
+			his.html(s);
+		    }
+		    
+		    function _buildUI() {
+			$($this.containerName).empty();
+			var his = $($this.containerName);
+						
+			his.append("<br/>");
+			his.append('<span class="hiscontainer">LOADING DATA....</span>');
+			his.append("<br/>");
+			his.append($('<a href="javascript:void(0)">&lt;&lt;previous</a>').click(function() {
+			    if(_page < 2) return;
+
+			    $.booki.ui.notify("Reading history data...");
+			    $($this.containerName+" TABLE").css("background-color", "#f0f0f0");
+			    
+//			    $($this.containerName+" SPAN.hiscontainer").html("LOADING DATA...");
+			    $.booki.sendToCurrentBook({"command": "get_history",
+						       "page": _page-1},
+						      function(data) {
+							  _page = _page - 1;
+							  $.booki.ui.notify();
+							  _drawItems(data);
+						      });
+previous			    
+			}));
+			his.append("&nbsp;&nbsp;");
+			his.append($('<a href="javascript:void(0)">next&gt;&gt;</a>').click(function() {
+			    $.booki.ui.notify("Reading history data...");
+			    $($this.containerName+" TABLE").css("background-color", "#f0f0f0");
+
+//			    $($this.containerName+" SPAN.hiscontainer").html("LOADING DATA...");
+			    $.booki.sendToCurrentBook({"command": "get_history",
+						       "page": _page+1},
+						      function(data) {
+							  _page = _page + 1;
+							  $.booki.ui.notify();
+							  _drawItems(data);
+						      });
+			    
+			}));
+
+
+		    }
+
+		    _buildUI();
+
+		    $.booki.ui.notify("Reading history data...");
+		    $.booki.sendToCurrentBook({"command": "get_history",
+					       "page": 1},
+					      function(data) {
+						  $.booki.ui.notify();
+						  _drawItems(data);
+					      });
+		    
+		    this.refresh = function() {
+			$.booki.ui.notify("Reading history data...");
+//			$($this.containerName+" SPAN.hiscontainer").html("LOADING DATA...");
+			$($this.containerName+" TABLE").css("background-color", "#f0f0f0");
+
+			$.booki.sendToCurrentBook({"command": "get_history",
+						   "page": _page},
+						  function(data) {
+						      $.booki.ui.notify();
+						      _drawItems(data);
+						  });
+		    }
+
+/*
 		    $.booki.ui.notify("Reading history data...");
 		    $($this.containerName).empty();
 
@@ -273,11 +374,12 @@ function unescapeHtml (val) {
 						  his.html("<br/>");
 						  his.append(s);
 					      });
-
+                    */
 		},
 		
 		'setRevisionView': function(chapterName, chapterURL, chapterHistory, revision) {
 		    var $this=this;
+		    this.refresh = null;
 
 		    function showRevision(data) {
 			var his = $($this.containerName);
@@ -386,6 +488,7 @@ function unescapeHtml (val) {
 
 		'setCompareView': function(chapterName, chapterURL, chapterHistory, revision1, revision2) {
 		    var $this=this;
+		    this.refresh = null;
 
 
 		    function showDiff(data) {
@@ -419,6 +522,8 @@ function unescapeHtml (val) {
 
 		'setChapterView': function(chapterName, chapterURL, chapterHistory) {
 		    var $this=this;
+		    this.refresh = null;
+
 		    $.booki.ui.notify("Reading history data...");
 
 		    $($this.containerName).empty();
@@ -477,9 +582,10 @@ function unescapeHtml (val) {
 		'active': function() {
 		    if(this.currentView == 0)
 			this._initialLoad();
-
-		    if(this.currentView == 1)
-			this.setHistoryView();
+		    
+		    
+		    if(this.refresh)
+			this.refresh();
 
 		},
 		
