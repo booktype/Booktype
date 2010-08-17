@@ -546,7 +546,7 @@ previous
 						  }));
 
 						  his.append('&nbsp;&nbsp;&nbsp;'); // or Compare all revisions
-						  his.append($('<a href="javascript:void(0)">Compare historically</a>').button());
+						  //his.append($('<a href="javascript:void(0)">Compare historically</a>').button());
 
 						  his.append('<h3>'+chapterName+'</h3>');
 
