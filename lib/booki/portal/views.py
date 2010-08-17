@@ -6,6 +6,7 @@ from django.db import transaction
 
 from booki.editor import models
 from booki.editor.views import getVersion
+from booki.utils import security
 
 # debug
 
@@ -80,12 +81,15 @@ def view_group(request, groupid):
     isMember = request.user in members
     yourBooks = models.Book.objects.filter(owner=request.user)
 
+    bs = security.getUserSecurityForGroup(request.user, group)
+
     return render_to_response('portal/group.html', {"request":    request, 
                                                     "title":      "Ovo je neki naslov",
                                                     "group":      group,
                                                     "books":      books,
                                                     "your_books": yourBooks,
                                                     "members":    members,
+                                                    "security":   bs,
                                                     "is_member":  isMember})
 @transaction.commit_manually
 def join_group(request, groupid):
