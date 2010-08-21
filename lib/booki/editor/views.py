@@ -54,18 +54,29 @@ def export(request, bookid):
 
 @login_required
 def edit_book(request, bookid, version=None):
+    from booki.utils import security
+
     book = models.Book.objects.get(url_title__iexact=bookid)
     book_version = getVersion(book, version)
 
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
     chapters = models.Chapter.objects.filter(version=book_version)
 
-    tabs = ["chapters", "history", "versions", "notes", "export"]
+    tabs = ["chapters"]
+
+    if bookSecurity.isAdmin():
+        tabs += ["attachments"]
+
+    tabs += ["history", "versions", "notes", "export"]
 
 
     return render_to_response('editor/edit_book.html', {"book": book, 
                                                         "book_version": book_version.getVersion(),
                                                         "version": book_version,
                                                         "chapters": chapters, 
+                                                        "security": bookSecurity,
+                                                        "is_admin": bookSecurity.isGroupAdmin() or bookSecurity.isBookAdmin() or bookSecurity.isSuperuser(),
                                                         "is_owner": book.owner == request.user,
                                                         "tabs": tabs,
                                                         "request": request})
@@ -84,7 +95,7 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
     # should have one  "broken image" in case of error
     import Image
     im = Image.open(document_root)
-    im.thumbnail((200, 200), Image.ANTIALIAS)
+    im.thumbnail((150, 150), Image.ANTIALIAS)
 
     response = HttpResponse(mimetype='image/jpeg')
     im.save(response, "jpeg")

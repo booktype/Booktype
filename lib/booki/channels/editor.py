@@ -6,7 +6,7 @@ from booki.utils.log import logBookHistory, logChapterHistory
 
 from booki.editor import models
 from booki.editor.views import getVersion
-
+from booki.utils import security
 
 # this couple of functions should go to models.BookVersion
 
@@ -42,6 +42,7 @@ def getAttachments(book_version):
                     "dimension": _getDimension(att), 
                     "status":    att.status.id, 
                     "name":      os.path.split(att.attachment.name)[1], 
+                    "created":   str(att.created.strftime("%d.%m.%Y %H:%M:%S")),
                     "size":      att.attachment.size} 
                    for att in book_version.getAttachments() if att.attachment]
 
@@ -179,6 +180,21 @@ def remote_attachments_list(request, message, bookid, version):
     
     return {"attachments": attachments}
 
+def remote_attachments_delete(request, message, bookid, version):
+    # TODO: must check security
+    book = models.Book.objects.get(id=bookid)
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+    
+    if bookSecurity.isAdmin():
+        for att_id in message['attachments']:
+            att = models.Attachment.objects.get(pk=att_id)
+            att.delete()
+            
+        transaction.commit()
+
+        return {"result": True}
+
+    return {"result": False}
 
 def remote_chapter_status(request, message, bookid, version):
 

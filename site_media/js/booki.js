@@ -331,5 +331,36 @@ $(function() {
 		    }
 	    };
 	}();
+
+
+	/* booki.utils */
+	
+	jQuery.namespace('jQuery.booki.utils');
+	
+	jQuery.booki.utils = function() {
+	    return {
+		"linkToAttachment": function(bookURL, attachmentURL, bookVersion) {
+		    var ur = '/'+bookURL+'/';
+
+		    if(bookVersion == undefined) 
+			ur += '_v/'+$.booki.currentVersion+'/';
+		    else 
+			ur += '_v/'+bookVersion+'/';
+		    
+		    ur += 'static/'+attachmentURL;
+		    return ur;
+		},
+		
+		"formatSize":  function(sz) {		    
+		    var kbSize = sz/1024;
+		    
+		    if(kbSize / 1024 > 1) {
+			return Math.round(kbSize/1024, 2)+' Mb';
+		    } 
+		    return Math.round(kbSize, 2) + ' Kb';
+	        }
+	    };
+	}();
+
 	
     });

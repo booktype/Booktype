@@ -11,10 +11,10 @@
 	// current browser
 	$.booki.username = "{{ request.user.username }}";
 	
-	// profile user should be different variable
-	
-	$.booki.groupName = "{{ group }}";
-	
+	// set group name
+	$.booki.groupName = "{{ group.name }}";
+	$.booki.groupNameURL = "{{ group.url_name }}";
+
 	/* call when page is loaded */
 	$.booki.group.initGroup();
 	
@@ -23,42 +23,110 @@
 	});
 	
 	// start Sputnik
-	jQuery.booki.network._transport.connect();
+	//jQuery.booki.network._transport.connect();
 
 	// we have to be very carefull when it comes to session timeout on server side !
-        // jQuery.booki.network._transport.connect({'poll': false, 'iteration': 1000});
+        jQuery.booki.network._transport.connect({'poll': false, 'iteration': 1000});
+
     });
 </script>
+
+<style>
+
+.ui-button .ui-button-text { display: block; line-height: 0.6;  }
+
+.ui-button-text-only .ui-button-text { padding: 0.05em 0.05em; }
+
+/*
+.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text { padding: .1em; text-indent: -9999999px; }
+
+.ui-button-text-icon .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .1em 0.5em .1em 1.5em; }
+
+.ui-button-text-icons .ui-button-text { padding-left: 1.5em; padding-right: 1.5em; }
+*/
+
+</style>
+
 {% endblock %}
 
 
 {% block content %}
 
-<table border="0">
-<tr>
- <td colspan="2">
-   <h1>{{ group.name }}</h1>
- </td>
-</tr>
-<tr>
- <td valign="top" style="padding-right: 30px" width="200">
+<h1>{{ group.name }}</h1>
+
+<div id="tabs">
+<ul>
+  <li><a href="#tabgroup">Group</a><li>
+  <li><a href="#tabbooks">Books</a></li>
+  <li><a href="#tabmembers">Members</a></li>
+  {% if security.isGroupAdmin %}
+  <li><a href="#tabsettings">Settings</a></li>
+  {% endif %}
+</ul>
+
+<div id="tabgroup">
+<div style="float: left; border: 1px solid #808080; padding: 5px; background-color: #f0f0f0; width: 100px; height: 100px; margin-right: 10px">
+ PLACE FOR GROUP LOGO
+</div>
+
 {{ group.description }}
 
-<h3>Members</h3>
+<div style="clear: both; padding-top: 10px; padding-bottom: 10px;">
+   <div style="border-bottom: 1px solid #808080;"></div>
+</div>
+<div style="float: right">
+ {% if is_member %}
+    <a class="buttleave">Leave this group</a>
+ {% else %}
+    <a class="buttjoin">Join this group</a>
+ {% endif %}
+</div>
+ MEMBERS: {{ n_members }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BOOKS: {{ n_books }}
+<div style="clear: both; padding-top: 10px; padding-bottom: 20px;">
+   <div style="border-bottom: 1px solid #808080;"></div>
+</div>
+
+<div style="width: 300px; float: left;">
+ <div style="font-weight: bold; border-bottom: 1px solid #808080;">ANNOUNCEMENTS</div>
+ <div style="border-bottom: 1px dotted #808080">
+    <h4>Dummy title</h4>
+    <p>
+      Announcement text.
+    </p>
+ </div>
+</div>
+
+
+<div style="width: 300px; float: left; padding-left: 20px;">
+ <div style="font-weight: bold;  border-bottom: 1px solid #808080;">RECENT ACTIVITIES</div>
+    <div style="border-bottom: 1px dotted #808080">
+       Group activities.
+    </div>
+</div>
+ 
+<div style="clear: both"></div>
+
+</div>
+
+<div id="tabbooks">
+<h2>Books</h2>
 <ul>
-{% for member in members %}
-   <li>{{ member.username }}</li>
+{% for book in books %}
+   <li><a style="text-decoration: underline" href="{% url view_book  book.url_title %}">{{ book.title }}</a>
+   {% if security.isGroupAdmin %}
+      &nbsp;&nbsp;(<a href="remove_book/?book={{ book.url_title }}">remove</a>)
+   {% endif %}
+   </li>   
 {% endfor %}
 </ul>
 
-<br/>
-<br/>
+<!--
 {% if is_member %}
-<form method="POST" action="remove/">
- <button>REMOVE ME FROM THIS GROUP</button>
-</form>
-<br/><br/>
+  <a href="javascript:void(0)" class="butt">Add your book to this group!</a>
+{% endif %}
+-->
 
+{% if is_member %}
 <form method="POST" action="add_book/">
 <select name="book">
 {% for book in your_books %}
@@ -68,30 +136,26 @@
 <br/><br/>
 <button>ADD THIS BOOK TO GROUP</button>
 </form>
- 
-{% else %}
-<form method="POST" action="join/">
- <button>JOIN THIS GROUP</button>
-</form>
-
 {% endif %}
 
+</div>
 
- </td>
- <td valign="top">
-<h2>Books</h2>
+<div id="tabmembers">
+<h3>Members</h3>
 <ul>
-{% for book in books %}
-   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a>
-&nbsp;&nbsp;(<a href="remove_book/?book={{ book.url_title }}">remove</a>)
-   </li>
-   
+{% for member in members %}
+   <li>{{ member.username }}</li>
 {% endfor %}
 </ul>
 
+</div>
 
- </td>
-</tr>
-</table>
+{% if security.isGroupAdmin %}
+<div id="tabsettings">
+<h2>Settings</h2>
+</div>
+{% endif %}
+
+</div>
 
 {% endblock %}

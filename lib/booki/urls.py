@@ -49,8 +49,6 @@ else:
 #                           url(r'^feeds/book/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<chapterid>[\w\s\_\.\-\d]+)/$', 'booki.portal.feeds.chapter'),
                            
                            # groups
-                           url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/join/$', 'booki.portal.views.join_group'),                    
-                           url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/remove/$', 'booki.portal.views.remove_group'),                    
                            url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', 'booki.portal.views.add_book'),                    
                            url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/remove_book/$', 'booki.portal.views.remove_book'),                    
                            

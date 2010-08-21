@@ -20,11 +20,17 @@ function unescapeHtml (val) {
 	function showJoined(notice) {
 	    $('.content', element).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
 	    $('.content', element2).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
+	    $(".content", element).attr({ scrollTop: $(".content", element).attr("scrollHeight") });
+	    $(".content", element2).attr({ scrollTop: $(".content", element2).attr("scrollHeight") });
+
 	}
 
 	function showInfo(notice) {
 	    $('.content', element).append('<p><span class="info">INFO</span>  '+notice+'</p>');
 //	    $('.content', element2).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
+	    $(".content", element).attr({ scrollTop: $(".content", element).attr("scrollHeight") });
+	    $(".content", element2).attr({ scrollTop: $(".content", element2).attr("scrollHeight") });
+
 	}
 
 
@@ -1052,8 +1058,29 @@ img {\n\
 			$("#advancedswitch").html('<a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(true)">Show advanced options</a>');
 		    }
 		},
+
+		showAttachmentsTab: function() {
+		    $.booki.ui.notify("Reading attachments data...");
+		    $.booki.sendToCurrentBook({"command": "attachments_list"},
+					      function(data) {
+						  $.booki.ui.notify();
+						  
+						  var att_html = $("#attachmentscontainer");
+						  var s = '<table border="0" width="100%">';
+						  s += '<tr><td width="30"></td><td><b>name</b></td><td><b>dimension</b></td><td><b>size</b></td><td><b>created</b></td></tr>';
+						  
+						  $.each(data.attachments, function(i, entry) {
+						      s += '<tr><td width="30"><input type="checkbox" name="'+entry.id+'" value="'+entry.name+'"></td><td><a style="text-decoration: underline" href="'+$.booki.utils.linkToAttachment($.booki.currentBookURL, entry.name)+'" target="_new">'+entry.name+'</a></td><td>'+entry.dimension[0]+'x'+entry.dimension[1]+'</td><td>'+$.booki.utils.formatSize(entry.size)+'</td><td>'+entry.created+'</td></tr>';
+						  });
+						  s += '</table>';
+						  
+						  att_html.html(s);
+					      });
+		},
 		
 		_initUI: function() {
+		    $("#inserttabs").tabs();
+		    
 		    $("#tabs").tabs();
 		    $('#tabs').bind('tabsselect', function(event, ui) { 
 			if(ui.panel.id == "tabnotes") {
@@ -1074,6 +1101,10 @@ img {\n\
 							  //alert(s);
 						      });
 
+			}
+			
+			if(ui.panel.id == "tabattachments") {
+			    $.booki.editor.showAttachmentsTab();
 			}
 
 			if(ui.panel.id == "tabversions") {
@@ -1509,11 +1540,225 @@ img {\n\
 			    
 			}
 		    });
-		    
+		    		    
 		    $("#editor A").button();
 
-		},
+		    // TAB ATTACHMENTS
+		    $("#tabattachments A[name=delete]").button().click(function() {
+			var ids = new Array();
+			var names = '';
 
+			$.each($("#tabattachments INPUT[type=checkbox]:checked"), function(i, entry) {
+			    names += '<li>'+$(entry).val()+'</li>';
+			    ids.push($(entry).attr("name"));
+			});
+			
+			if(ids.length == 0) return;
+
+			$("#tabattachments .dialogs").html('<div id="deleteattachments" title="Delete attachments">Delete these attachments:<ul></ul></div>');
+
+			$("#deleteattachments").dialog({
+			    bgiframe: true,
+			    autoOpen: true,
+			    height: 200,
+		            width: 400, 
+			    modal: true,
+			    buttons: {
+				'Delete selected attachments': function() {
+				    var $this = $(this);
+				    $.booki.sendToCurrentBook({"command": "attachments_delete",
+							       "attachments": ids},
+							      function(data) {
+								  $.booki.editor.showAttachmentsTab();
+
+								  $this.dialog('close');
+							      });
+				},
+
+				'Cancel': function() {
+				    $(this).dialog('close');
+				}
+			    },
+			    
+			    open: function(event,ui) {
+			    },
+			    close: function() {
+				
+			    }
+			});
+			
+			var dl = $("#deleteattachments UL");
+			dl.append(names);			
+		    });
+
+		    // edit attachments
+		    $("#editattachment").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 450,
+    			width: 700, 
+			modal: true,
+			buttons: {
+			    'Update': function() {
+				var fields = ["f_alt", "f_border", "f_align", "f_padding", "f_margin", "f_width", "f_height", "f_bgcolor", "f_bordercolor", "f_css"];
+				
+				i = document.createElement("img");
+				i.src = $("#editattachment INPUT[name=f_image]").val();
+
+
+				$.each(fields, function(x, field) {
+				    var f_value = $("#editattachment INPUT[name="+field+"]").val();
+				    
+				    switch(field) {
+				    case "f_css":
+					if(f_value.length) {
+					    i.setAttribute("class", f_value);
+					} else {
+					    i.setAttribute("class", "");
+					}
+					break;
+				    case "f_alt":
+					i.alt = f_value;
+					break;
+				    case "f_border":
+					if(f_value.length) {
+					    i.style.borderWidth = /[^0-9]/.test(f_value) ? j : (parseInt(f_value) + "px");
+					    if (i.style.borderWidth && !i.style.borderStyle) {
+						i.style.borderStyle = "solid"
+					    }
+					} else {
+					    i.style.borderWidth = "";
+					    i.style.borderStyle = "";
+					}
+					break;
+				    case "f_borderColor":
+					i.style.borderColor = f_value;
+					break;
+				    case "f_backgroundColor":
+					i.style.backgroundColor = f_value;
+					break;
+				    case "f_padding":
+					if(f_value.length) {
+					    i.style.padding = /[^0-9]/.test(f_value) ? f_value : (parseInt(f_value) + "px")
+					} else {
+					    i.style.padding = ""
+					}
+					break;
+				    case "f_margin":
+					if (f_value.length) {
+					    i.style.margin = /[^0-9]/.test(f_value) ? f_value : (parseInt(f_value) + "px")
+					} else {
+					    i.style.margin = ""
+					}
+					break;
+				    case "f_align":
+					i.align = f_value;
+					break;
+				    case "f_width":
+					if (!isNaN(parseInt(f_value))) {
+					    i.width = parseInt(f_value)
+					} else {
+					    i.width = ""
+					}
+					break;
+				    case "f_height":
+					if (!isNaN(parseInt(f_value))) {
+					    i.height = parseInt(f_value)
+					} else {
+					    i.height = ""
+					}
+					break
+				    }
+				});
+
+				xinha_editors.myTextArea.insertNodeAtSelection(i);
+				
+				$(this).dialog('close');
+			    },
+			    'Cancel': function() {
+				$(this).dialog('close');
+			    }
+			},
+			open: function(event,ui) {
+			},
+			close: function() {
+			    
+			}
+		    });
+
+		    // CHAPTER AND SECTION
+		    $("#newchapter").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 200,
+		        width: 400, 
+			modal: true,
+			buttons: {
+			    'Create chapter': function() {
+				$.booki.ui.notify("Creating chapter");
+				
+				$.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/"+$.booki.currentVersion+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
+				    if(data.created) {
+					$.booki.ui.notify();
+				    } else {
+					$.booki.ui.notify();
+					alert("Can not create duplicate chapter name.");
+				    }
+				});
+				
+				
+				$(this).dialog('close');
+			    },
+			    'Cancel': function() {
+				$(this).dialog('close');
+			    }
+			},
+			open: function(event,ui) {
+			    $("INPUT", $(this)).val("Enter new Chapter title.").select();
+			},
+			close: function() {
+			    
+			}
+		    });
+		    
+		    
+		    $("#newsection").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 200,
+    		        width: 400, 
+			modal: true,
+			buttons: {
+			    'Create section': function() {
+				$.booki.ui.notify("Creating section");
+				
+				$.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/"+$.booki.currentVersion+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
+				    if(data.created) {
+					$.booki.ui.notify();
+				    } else {
+					alert("Can not create duplicate section name.");
+					$.booki.ui.notify();
+				    }
+				});
+				
+				$(this).dialog('close');
+			    },
+			    'Cancel': function() {
+				$(this).dialog('close');
+			    }
+			},
+			open: function(event,ui) {
+			    $("INPUT", $(this)).val("Enter new section title.").select();
+			},
+			close: function() {
+			    
+			}
+		    });
+		    
+		    
+		    
+		},
+		
 		drawAttachments: function() {
 		    
 		    function _getDimension(dim) {
@@ -1771,11 +2016,10 @@ img {\n\
 
 		showFiles: function(func) {
 		    $("#insertattachment .files").empty();
-		    
-		    $("#insertattachment .files").append('<tr><td><b>name</b></td><td><b>size</b></td><td><b>image size</b></td><td><b>date modified</b></td></tr>');
+		    $("#insertattachment .files").append('<tr><td><b>name</b></td><td><b>size</b></td><td><b>dimension</b></td><td><b>modified</b></td></tr>');
 
 		    $.each(func(), function(i, att) {
-			$("#insertattachment .files").append('<tr><td><a class="file" href="javascript:void(0)" alt="'+att.name+'">'+att.name+'</a></td><td>'+att.size+'</td><td></td><td></td></tr>');
+			$("#insertattachment .files").append('<tr><td><a class="file" style="text-decoration: underline" href="javascript:void(0)" alt="'+att.name+'">'+att.name+'</a></td><td>'+$.booki.utils.formatSize(att.size)+'</td><td>'+att.dimension[0]+'x'+att.dimension[1]+'</td><td>'+att.created+'</td></tr>');
 		    });
 
 		    $("#insertattachment A.file").click(function() {
@@ -1786,15 +2030,15 @@ img {\n\
 		    });
 		},
 
+		// TODO
+		// this has to be changed
+
 		showUpload: function() {
 		    var onChanged = function() {
-			$("#insertattachment .listing").slideUp(2000);
-			
 			var entry = $(this).parent().attr("class");
 			
 			if(!hasChanged) {
 			    $("#insertattachment .uploadsubmit").append('<input type="submit" value="Upload"/>');
-			    $("#insertattachment .uploadattachment").css("height", "250px");
 			}
 			
 			var licenses = '';
@@ -1822,8 +2066,6 @@ img {\n\
 		    $("#insertattachment .uploadsubmit").empty();
 		    
 		    $("#insertattachment .uploadattachment").empty();
-		    $("#insertattachment .uploadattachment").css("height", "40px");
-
 		    $("#insertattachment .uploadattachment").append('<div style="border-top: 1px solid #c0c0c0; padding-bottom: 5px" class="entry0"><input type="file" name="entry0"></div>');
 		    $("#insertattachment  INPUT[type='file'][name='entry0']").change(onChanged);
 		},
@@ -1842,7 +2084,7 @@ img {\n\
 			bgiframe: true,
 			autoOpen: false,
 			height: 400,
-    			width: 700, 
+    			width: 750, 
 			modal: true,
 			buttons: {
 			    'Insert image': function() {
