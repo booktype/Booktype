@@ -1926,9 +1926,9 @@ img {\n\
                             "chapter_create": function() {
 				// this also only works for the TOC
 				if(message.chapter[3] == 1) { 
-				    holdChapters.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: true, status: message.chapter[4]}));
-				    var v = holdChapters.getItemById(message.chapter[0]);
-				    makeChapterLine(v.id, v.title, getStatusDescription(v.status)).appendTo("#holdchapterslist");
+				    toc.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: true, status: message.chapter[4]}));
+				    var v = toc.getItemById(message.chapter[0]);
+				    makeChapterLine(v.id, v.title, getStatusDescription(v.status)).appendTo("#chapterslist");
 				} else {
 				    toc.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: false}));
 				    var v = toc.getItemById(message.chapter[0]);
