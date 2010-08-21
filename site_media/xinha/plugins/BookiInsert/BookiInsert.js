@@ -41,32 +41,19 @@ BookiInsert.prototype.buttonPress = function(editor) {
     $("#insertattachment").dialog("open");
 }
 
-/*
 
-function ImageManager(a) {}
-ImageManager._pluginInfo = {
-    name: "ImageManager",
-    version: "1.0",
-    developer: "Xiang Wei Zhuo",
-    developer_url: "http://www.zhuo.org/htmlarea/",
-    license: "htmlArea"
-};
-Xinha.Config.prototype.ImageManager = {
-    backend: Xinha.getPluginDir("ImageManager") + "/backend.php?__plugin=ImageManager&",
-    backend_data: null,
-    backend_config: null,
-    backend_config_hash: null,
-    backend_config_secret_key_location: "Xinha:ImageManager"
-};
 Xinha.prototype._insertImage = function (f) {
+
     var d = this;
     var g = null;
+
     if (typeof f == "undefined") {
         f = this.getParentElement();
         if (f && !/^img$/i.test(f.tagName)) {
             f = null
         }
     }
+
     if (f) {
         g = {
             f_url: Xinha.is_ie ? f.src : f.src,
@@ -121,98 +108,25 @@ Xinha.prototype._insertImage = function (f) {
         g.f_backgroundColor = e(g.f_backgroundColor);
         g.f_borderColor = e(g.f_borderColor)
     }
-    var c = d.config.ImageManager.backend + "__function=manager";
-    if (d.config.ImageManager.backend_config != null) {
-        c += "&backend_config=" + encodeURIComponent(d.config.ImageManager.backend_config);
-        c += "&backend_config_hash=" + encodeURIComponent(d.config.ImageManager.backend_config_hash);
-        c += "&backend_config_secret_key_location=" + encodeURIComponent(d.config.ImageManager.backend_config_secret_key_location)
-    }
-    if (d.config.ImageManager.backend_data != null) {
-        for (var b in d.config.ImageManager.backend_data) {
-            c += "&" + b + "=" + encodeURIComponent(d.config.ImageManager.backend_data[b])
-        }
-    }
-    Dialog(c, function (l) {
-        if (!l) {
-            return false
-        }
-        var i = f;
-        if (!i) {
-            if (Xinha.is_ie) {
-                var k = d._getSelection();
-                var h = d._createRange(k);
-                d._doc.execCommand("insertimage", false, l.f_url);
-                i = h.parentElement();
-                if (i.tagName.toLowerCase() != "img") {
-                    i = i.previousSibling
-                }
-            } else {
-                i = document.createElement("img");
-                i.src = l.f_url;
-                d.insertNodeAtSelection(i)
-            }
-        } else {
-            i.src = l.f_url
-        }
-        for (field in l) {
-            var j = l[field];
-            switch (field) {
-            case "f_alt":
-                i.alt = j;
-                break;
-            case "f_border":
-                if (j.length) {
-                    i.style.borderWidth = /[^0-9]/.test(j) ? j : (parseInt(j) + "px");
-                    if (i.style.borderWidth && !i.style.borderStyle) {
-                        i.style.borderStyle = "solid"
-                    }
-                } else {
-                    i.style.borderWidth = "";
-                    i.style.borderStyle = ""
-                }
-                break;
-            case "f_borderColor":
-                i.style.borderColor = j;
-                break;
-            case "f_backgroundColor":
-                i.style.backgroundColor = j;
-                break;
-            case "f_padding":
-                if (j.length) {
-                    i.style.padding = /[^0-9]/.test(j) ? j : (parseInt(j) + "px")
-                } else {
-                    i.style.padding = ""
-                }
-                break;
-            case "f_margin":
-                if (j.length) {
-                    i.style.margin = /[^0-9]/.test(j) ? j : (parseInt(j) + "px")
-                } else {
-                    i.style.margin = ""
-                }
-                break;
-            case "f_align":
-                i.align = j;
-                break;
-            case "f_width":
-                if (!isNaN(parseInt(j))) {
-                    i.width = parseInt(j)
-                } else {
-                    i.width = ""
-                }
-                break;
-            case "f_height":
-                if (!isNaN(parseInt(j))) {
-                    i.height = parseInt(j)
-                } else {
-                    i.height = ""
-                }
-                break
-            }
-        }
-    },
-    g)
+
+    var ur = g["f_url"].split('/');
+    var fileName = ur[ur.length-1];
+
+    $("#editattachment INPUT[name=f_image]").val('static/'+fileName);
+    $("#editattachment INPUT[name=f_alt]").val(g["f_alt"]);
+    $("#editattachment INPUT[name=f_border]").val(g["f_border"]);
+    $("#editattachment INPUT[name=f_align]").val(g["f_align"]);
+    $("#editattachment INPUT[name=f_padding]").val(g["f_padding"]);
+    $("#editattachment INPUT[name=f_margin]").val(g["f_margin"]);
+    $("#editattachment INPUT[name=f_width]").val(g["f_width"]);
+    $("#editattachment INPUT[name=f_height]").val(g["f_height"]);
+    $("#editattachment INPUT[name=f_bgcolor]").val(g["f_backgroundColor"]);
+    $("#editattachment INPUT[name=f_bordercolor]").val(g["f_borderColor"]);
+
+    $("#editattachment .preview").html('<img src="../_utils/thumbnail/'+fileName+'">');
+
+    $("#editattachment").dialog('open');
 };
 
 
-*/
+
