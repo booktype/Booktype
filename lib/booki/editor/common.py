@@ -19,7 +19,7 @@ except ImportError:
     import json
 
 from booki.editor import models
-from booki.bookizip import get_metadata, add_metadata
+from booki.bookizip import get_metadata, add_metadata, DC, FM
 
 from booki.utils.log import logBookHistory
 from booki.utils.book import createBook
@@ -84,9 +84,6 @@ def getChaptersFromTOC(toc):
 
     return chapters
 
-#namespaces
-DC = "http://purl.org/dc/elements/1.1/"
-FM = "http://booki.cc/"
 
 def importBookFromFile(user, zname, createTOC=False):
     """Create a new book from a bookizip filename"""
