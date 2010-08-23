@@ -36,10 +36,8 @@ def logWarning(msg, *args):
     import logging
     logging.getLogger("booki").warning(msg, *args)
 
-    
 def printStack(*extra):
     import traceback
     logError(traceback.format_exc())
     for e in extra:
         logError(e)
-                            
