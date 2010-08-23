@@ -10,6 +10,7 @@
 
 <link rel="alternate" type="application/rss+xml" title="RSS feed for chapter {{ chapter.title }}" href="/feeds/rss/chapter/{{ book.url_title }}/{{ book.url_title }}/" /> 
 <link rel="alternate" type="application/atom+xml" title="Atom feed for chapter {{ chapter.title }}" href="/feeds/atom/chapter/{{ book.url_title }}/{{ book.url_title }}/" /> 
+<link type="text/css" href="/site_media/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
 
 {% endblock %}
 
@@ -18,16 +19,8 @@
 
 
 <br clear="all"/>
-
-
-<table border="0">
-<tr>
- <td colspan="2">
    <h1>{{ book.title }}</h1>
- </td>
-</tr>
-<tr>
- <td valign="top" style="padding-right: 30px">
+<div id="bookmenu">
 <ul>
 {% for chap in chapters %}
  {% ifnotequal chap.url_title  None%}
@@ -37,13 +30,10 @@
  {% endifnotequal %}
 {% endfor %}
 </ul>
- </td>
- <td valign="top">
+</div>
+<div id="bookcontent">
 {% booki_format content %}
 <hr/>
 <a href="{% url view_book   book.url_title book_version %}edit/">EDIT</a>
- </td>
-</tr>
-</table>
-
+</div>
 {% endblock %}

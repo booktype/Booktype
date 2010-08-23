@@ -36,15 +36,10 @@ def logWarning(msg, *args):
     import logging
     logging.getLogger("booki").warning(msg, *args)
 
-
-def printStack(extra):
-    import sys
-    import traceback
-
-    _type, _value, _tb = sys.exc_info()
-
-    logError("%s:%s\n", (_type.__name__, _value))
-
-    for line in traceback.format_tb(_tb):
-        logError.error(line)
     
+def printStack(*extra):
+    import traceback
+    logError(traceback.format_exc())
+    for e in extra:
+        logError(e)
+                            

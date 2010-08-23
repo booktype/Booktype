@@ -4,21 +4,15 @@
 <link type="text/css" href="/site_media/css/editor.css" rel="Stylesheet" />
 <link rel="alternate" type="application/rss+xml" title="RSS feed for {{ book.title }}" href="/feeds/rss/book/{{ book.url_title }}/" /> 
 <link rel="alternate" type="application/atom+xml" title="Atom feed for {{ book.title }}" href="/feeds/atom/book/{{ book.url_title }}/" /> 
-
+<link type="text/css" href="/site_media/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
+<
 {% endblock %}
 
 
 {% block content %}
-
-<table border="0">
-<tr>
- <td colspan="2">
-   <h1>{{ book.title }}</h1>
- </td>
-</tr>
-<tr>
- <td valign="top" style="padding-right: 30px">
-<ul">
+<h1>{{ book.title }}</h1>
+<div id="bookmenu">
+<ul>
 {% for chap in chapters %}
  {% ifnotequal chap.url_title  None%}
    <li><a href="{% url view_chapter  book.url_title book_version chap.url_title %}">{{ chap.name }}</a></li>
@@ -27,13 +21,10 @@
  {% endifnotequal %}
 {% endfor %}
 </ul>
- </td>
- <td valign="top">
+</div>
+<div id="bookcontent">
 click on the chapter name
 <hr/>
 <a href="{% url view_book book.url_title  book_version %}edit/">EDIT</a>
- </td>
-</tr>
-</table>
-
+</div>
 {% endblock %}
