@@ -358,7 +358,15 @@ $(function() {
 			return Math.round(kbSize/1024, 2)+' Mb';
 		    } 
 		    return Math.round(kbSize, 2) + ' Kb';
-	        }
+	        },
+
+		"formatDimension": function(dim) {
+		    if(dim) {
+			return dim[0]+'x'+dim[1];
+		    }
+		    
+		    return '';
+		}
 	    };
 	}();
 

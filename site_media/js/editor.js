@@ -1064,13 +1064,13 @@ img {\n\
 		    $.booki.sendToCurrentBook({"command": "attachments_list"},
 					      function(data) {
 						  $.booki.ui.notify();
-						  
+
 						  var att_html = $("#attachmentscontainer");
 						  var s = '<table border="0" width="100%">';
 						  s += '<tr><td width="30"></td><td><b>name</b></td><td><b>dimension</b></td><td><b>size</b></td><td><b>created</b></td></tr>';
 						  
 						  $.each(data.attachments, function(i, entry) {
-						      s += '<tr><td width="30"><input type="checkbox" name="'+entry.id+'" value="'+entry.name+'"></td><td><a style="text-decoration: underline" href="'+$.booki.utils.linkToAttachment($.booki.currentBookURL, entry.name)+'" target="_new">'+entry.name+'</a></td><td>'+entry.dimension[0]+'x'+entry.dimension[1]+'</td><td>'+$.booki.utils.formatSize(entry.size)+'</td><td>'+entry.created+'</td></tr>';
+						      s += '<tr><td width="30"><input type="checkbox" name="'+entry.id+'" value="'+entry.name+'"></td><td><a style="text-decoration: underline" href="'+$.booki.utils.linkToAttachment($.booki.currentBookURL, entry.name)+'" target="_new">'+entry.name+'</a></td><td>'+$.booki.utils.formatDimension(entry.dimension)+'</td><td>'+$.booki.utils.formatSize(entry.size)+'</td><td>'+entry.created+'</td></tr>';
 						  });
 						  s += '</table>';
 						  
@@ -1760,23 +1760,10 @@ img {\n\
 		},
 		
 		drawAttachments: function() {
-		    
-		    function _getDimension(dim) {
-			if(dim) {
-			    return dim[0]+'x'+dim[1];
-			}
-			
-			return '';
-		    }
-		    
-		    function _getSize(size) {
-			return (size/1024).toFixed(2)+' Kb';
-		    }
-		    
 		    $("#tabattachments .files").empty().append('<tr><td width="5%"></td><td align="left"><b>filename</b></td><td align="left"><b>dimension</b></td><td align="right" width="10%"><b>size</b></td></tr>');
 		    
 		    $.each(attachments, function(i, elem) {
-			$("#tabattachments .files").append('<tr class="line"><td><input type="checkbox"></td><td><a class="file" href="javascript:void(0)" alt="'+elem["name"]+'">'+elem["name"]+'</a></td><td>'+_getDimension(elem["dimension"])+'</td><td align="right"><nobr>'+_getSize(elem.size)+'</nobr></td></tr>');
+			$("#tabattachments .files").append('<tr class="line"><td><input type="checkbox"></td><td><a class="file" href="javascript:void(0)" alt="'+elem["name"]+'">'+elem["name"]+'</a></td><td>'+$.booki.utils.formatDimension(elem["dimension"])+'</td><td align="right"><nobr>'+$.booki.utils.formatSize(elem.size)+'</nobr></td></tr>');
 		    });
 		    
 		    $("#tabattachments .line").hover(function() {
@@ -2019,7 +2006,7 @@ img {\n\
 		    $("#insertattachment .files").append('<tr><td><b>name</b></td><td><b>size</b></td><td><b>dimension</b></td><td><b>modified</b></td></tr>');
 
 		    $.each(func(), function(i, att) {
-			$("#insertattachment .files").append('<tr><td><a class="file" style="text-decoration: underline" href="javascript:void(0)" alt="'+att.name+'">'+att.name+'</a></td><td>'+$.booki.utils.formatSize(att.size)+'</td><td>'+att.dimension[0]+'x'+att.dimension[1]+'</td><td>'+att.created+'</td></tr>');
+			$("#insertattachment .files").append('<tr><td><a class="file" style="text-decoration: underline" href="javascript:void(0)" alt="'+att.name+'">'+att.name+'</a></td><td>'+$.booki.utils.formatSize(att.size)+'</td><td>'+$.booki.utils.formatDimension(att.dimension)+'</td><td>'+att.created+'</td></tr>');
 		    });
 
 		    $("#insertattachment A.file").click(function() {
