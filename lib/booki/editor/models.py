@@ -358,3 +358,20 @@ class BookToc(models.Model):
         verbose_name_plural = _('Book TOCs')
 
 
+
+class BookiPermission(models.Model):
+    """
+
+    - permission 
+        0 - unknown
+        1 - admin
+    """
+
+    user = models.ForeignKey(auth_models.User)
+    book = models.ForeignKey(Book, null=True)
+    group = models.ForeignKey(BookiGroup, null=True)
+    permission = models.SmallIntegerField(_('permission'))
+
+
+    def __unicode__(self):
+        return '%s %s ' % (self.user.username, self.permission)

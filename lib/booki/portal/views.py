@@ -6,6 +6,7 @@ from django.db import transaction
 
 from booki.editor import models
 from booki.editor.views import getVersion
+from booki.utils import security
 
 # debug
 
@@ -80,29 +81,23 @@ def view_group(request, groupid):
     isMember = request.user in members
     yourBooks = models.Book.objects.filter(owner=request.user)
 
+    bs = security.getUserSecurityForGroup(request.user, group)
+
+    history = models.BookHistory.objects.filter(book__group=group)[:20]
+    n_members = len(members)
+    n_books = len(books)
+
     return render_to_response('portal/group.html', {"request":    request, 
                                                     "title":      "Ovo je neki naslov",
                                                     "group":      group,
                                                     "books":      books,
+                                                    "n_books":    n_books,
                                                     "your_books": yourBooks,
                                                     "members":    members,
+                                                    "n_members": n_members,
+                                                    "security":   bs,
+                                                    "history": history,
                                                     "is_member":  isMember})
-@transaction.commit_manually
-def join_group(request, groupid):
-    group = models.BookiGroup.objects.get(url_name=groupid)
-    group.members.add(request.user)
-    transaction.commit()
-
-    return HttpResponseRedirect("/groups/%s/" % group.url_name)
-
-@transaction.commit_manually
-def remove_group(request, groupid):
-    group = models.BookiGroup.objects.get(url_name=groupid)
-    group.members.remove(request.user)
-    transaction.commit()
-
-    return HttpResponseRedirect("/groups/%s/" % group.url_name)
-
 @transaction.commit_manually
 def add_book(request, groupid):
     book = models.Book.objects.get(url_title=request.POST["book"])
