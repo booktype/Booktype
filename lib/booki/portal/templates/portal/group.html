@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load profile %}
 
 {% block header %}
 <link type="text/css" href="/site_media/css/editor.css" rel="Stylesheet" />
@@ -142,12 +143,12 @@
 
 <div id="tabmembers">
 <h3>Members</h3>
-<ul>
-{% for member in members %}
-   <li>{{ member.username }}</li>
-{% endfor %}
-</ul>
 
+{% for member in members %}
+   <div style="clear: both; padding: 10px; border-bottom: 1px dotted #808080;"><div style="width: 36px; height: 36px; border: 1px solid gray; background-color:#f0f0f0; float: left; margin-right: 10px; font-size: 6pt;">PROFILE IMAGE</div><b>{{member.first_name }}</b> <br/>{{ member.username }}</div>
+{% endfor %}
+
+<div style="clear: both"></div>
 </div>
 
 {% if security.isGroupAdmin %}
