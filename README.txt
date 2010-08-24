@@ -13,6 +13,8 @@ otherwise start at step 0 to use Git
 
 STEP BY STEP INSTALL
 --------------------
+-1/ There is an independent description of this process in the file INSTALL. 
+Consult that if you prefer.
 
 0/ Obtain latest code from Git::
 

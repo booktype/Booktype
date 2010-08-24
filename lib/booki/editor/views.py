@@ -6,7 +6,7 @@ from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django import forms
 from django.contrib.auth.models import User
 from django.db import transaction
-
+from django.core import serializers
 from booki.editor import models
 
 import logging
@@ -142,3 +142,9 @@ def upload_attachment(request, bookid, version=None):
 
     return HttpResponse('<html><body><script> parent.closeAttachmentUpload(); </script></body></html>')
 
+def view_books_json(request):
+    books = models.Book.objects.all().order_by("title")
+    response = HttpResponse(mimetype="application/json")
+    json_serializer = serializers.get_serializer("json")()
+    json_serializer.serialize(books, ensure_ascii=False, stream=response, fields=('title', 'url_title'))
+    return response
