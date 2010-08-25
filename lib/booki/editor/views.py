@@ -31,9 +31,9 @@ def getVersion(book, version):
 
 # BOOK
 
-def export(request, bookid):
-
+def export(request, bookid, version=None):
     book = models.Book.objects.get(url_title__iexact=bookid)
+    book_version = getVersion(book, version)
 
     response = HttpResponse(mimetype='application/zip')
     response['Content-Disposition'] = 'attachment; filename=%s.zip' % book.url_title
@@ -43,7 +43,7 @@ def export(request, bookid):
 
     from booki.editor import common
     
-    fileName = common.exportBook(book)
+    fileName = common.exportBook(book_version)
 
     response.write(open(fileName, 'rb').read())
 
