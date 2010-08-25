@@ -79,7 +79,10 @@ def view_group(request, groupid):
     members = group.members.all()
 
     isMember = request.user in members
-    yourBooks = models.Book.objects.filter(owner=request.user)
+    if request.user.is_authenticated():
+        yourBooks = models.Book.objects.filter(owner=request.user)
+    else:
+        yourBooks = []
 
     bs = security.getUserSecurityForGroup(request.user, group)
 

@@ -37,18 +37,21 @@ def getUserSecurityForGroup(user, group):
     bs = BookiSecurity(user)
     bs.isGroupOwner = group.owner == user
 
-    bs.groupPermissions = [s.permission for s in models.BookiPermission.objects.filter(user=user, group=group)]
+    if user.is_authenticated():
+        bs.groupPermissions = [s.permission for s in models.BookiPermission.objects.filter(user=user, group=group)]
     return bs
 
 def getUserSecurityForBook(user, book):
     bs = BookiSecurity(user)
     bs.isBookOwner = user == book.owner
 
-    bs.bookPermissions = [s.permission for s in models.BookiPermission.objects.filter(user=user, book=book)]
+    if user.is_authenticated():
+        bs.bookPermissions = [s.permission for s in models.BookiPermission.objects.filter(user=user, book=book)]
 
     if book.group:
         bs.isGroupOwner = book.group.owner == user
-        bs.groupPermissions = [s.permission for s in models.BookiPermission.objects.filter(user=user, group=book.group)]
+        if user.is_authenticated():
+            bs.groupPermissions = [s.permission for s in models.BookiPermission.objects.filter(user=user, group=book.group)]
 
     return bs
 
