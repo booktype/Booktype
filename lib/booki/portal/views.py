@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.db import transaction
 
 from booki.editor import models
-from booki.editor.views import getVersion
 from booki.utils import security
 
 # debug

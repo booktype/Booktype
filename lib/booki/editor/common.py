@@ -18,15 +18,19 @@ try:
 except ImportError:
     import json
 
-from booki.editor import models
-from booki.bookizip import get_metadata, add_metadata, DC, FM
-
-from booki.utils.log import logBookHistory
-from booki.utils.book import createBook
+from lxml import etree, html
 
 from django import template
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
+
+from booki.editor import models
+from booki.bookizip import get_metadata, add_metadata, DC, FM
+
+from booki.utils.log import logBookHistory, logWarning
+from booki.utils.book import createBook
+from booki.editor.views import getVersion
+
 
 try:
     from booki.settings import THIS_BOOKI_SERVER, DEFAULT_PUBLISHER
@@ -34,13 +38,9 @@ except ImportError:
     THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'www.booki.cc')
     DEFAULT_PUBLISHER = "FLOSS Manuals http://flossmanuals.net"
 
-from lxml import etree, html
 
 class BookiError(Exception):
     pass
-
-def log(msg):
-    logging.getLogger("booki").warning(msg)
 
 # parse JSON
 
@@ -91,7 +91,7 @@ def importBookFromFile(user, zname, createTOC=False):
     zf = zipfile.ZipFile(zname)
     # load info.json
     info = json.loads(zf.read('info.json'))
-    log("Loaded json file %r" % info)
+    logWarning("Loaded json file %r" % info)
 
     metadata = info['metadata']
     manifest = info['manifest']
@@ -118,6 +118,7 @@ def importBookFromFile(user, zname, createTOC=False):
         if is_section: # create section
             if createTOC:
                 c = models.BookToc(book = book,
+                                   version = book.version,
                                    name = chapterName,
                                    chapter = None,
                                    weight = n,
@@ -131,6 +132,7 @@ def importBookFromFile(user, zname, createTOC=False):
             content = p.sub(r' src="../\1"', content)
 
             chapter = models.Chapter(book = book,
+                                     version = book.version,
                                      url_title = urlName,
                                      title = chapterName,
                                      status = stat,
@@ -141,6 +143,7 @@ def importBookFromFile(user, zname, createTOC=False):
 
             if createTOC:
                 c = models.BookToc(book = book,
+                                   version = book.version,
                                    name = chapterName,
                                    chapter = chapter,
                                    weight = n,
@@ -158,6 +161,7 @@ def importBookFromFile(user, zname, createTOC=False):
 
             if attachmentName.startswith("static/"):
                 att = models.Attachment(book = book,
+                                        version = book.version,
                                         status = stat)
 
                 s = zf.read(attachmentName)
@@ -205,8 +209,8 @@ def importBookFromURL(user, bookURL, createTOC=False):
         data = f.read()
         f.close()
     except urllib2.URLError, e:
-        log("couldn't read %r: %s" % (bookURL, e))
-        log(traceback.format_exc())
+        logWarning("couldn't read %r: %s" % (bookURL, e))
+        logWarning(traceback.format_exc())
         raise
 
     try:
@@ -214,8 +218,8 @@ def importBookFromURL(user, bookURL, createTOC=False):
         importBookFromFile(user, zf, createTOC)
         zf.close()
     except Exception, e:
-        log("couldn't make book from %r: %s" % (bookURL, e))
-        log(traceback.format_exc())
+        logWarning("couldn't make book from %r: %s" % (bookURL, e))
+        logWarning(traceback.format_exc())
         raise
 
 
@@ -320,11 +324,11 @@ def _fix_content(book, chapter):
         if not path.startswith(base + prefix):
             #What is best here? make an absolute http:// link?
             #for now, ignore it.
-            log("got a wierd link: %r in %s resolves to %r, wanted start of %s" %
+            logWarning("got a wierd link: %r in %s resolves to %r, wanted start of %s" %
                 (url, here, path, base + prefix))
             return url
         path = path[len(base):]
-        log("turning %r into %r" % (url, path))
+        logWarning("turning %r into %r" % (url, path))
         return urlunsplit(('', '', path, query, frag))
 
     for e in tree.iter():
@@ -342,11 +346,11 @@ def _fix_content(book, chapter):
 
 
 
-def exportBook(book):
+def exportBook(book_version):
     from booki import bookizip
     import time
     starttime = time.time()
-    log("hello")
+
     (zfile, zname) = tempfile.mkstemp()
 
     spine = []
@@ -358,16 +362,16 @@ def exportBook(book):
         "version": 1,
         "TOC": toc_top,
         "spine": spine,
-        "metadata": _format_metadata(book),
+        "metadata": _format_metadata(book_version.book),
         "manifest": {}
         }
 
     bzip = bookizip.BookiZip(zname, info=info)
 
-    for i, chapter in enumerate(models.BookToc.objects.filter(book=book).order_by("-weight")):
+    for i, chapter in enumerate(models.BookToc.objects.filter(version=book_version).order_by("-weight")):
         if chapter.chapter:
             # It's a real chapter! With content!
-            content = _fix_content(book, chapter)
+            content = _fix_content(book_version.book, chapter)
 
             ID = "ch%03d_%s" % (i, chapter.chapter.url_title.encode('utf-8'))
             filename = ID + '.html'
@@ -411,14 +415,14 @@ def exportBook(book):
     #to, so we add them all.
     #XXX scan for img links while adding chapters, and only add those.
 
-    for i, attachment in enumerate(models.Attachment.objects.filter(book=book)):
+    for i, attachment in enumerate(models.Attachment.objects.filter(version=book_version)):
         try:
             f = open(attachment.attachment.name, "rb")
             blob = f.read()
             f.close()
         except (IOError, OSError), e:
             msg = "couldn't read attachment %s" % e
-            log(msg)
+            logWarning(msg)
             continue
 
         fn = os.path.basename(attachment.attachment.name.encode("utf-8"))
@@ -437,5 +441,5 @@ def exportBook(book):
 
 
     bzip.finish()
-    log("export took %s seconds" % (time.time() - starttime))
+    logWarning("export took %s seconds" % (time.time() - starttime))
     return zname
