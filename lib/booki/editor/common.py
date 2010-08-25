@@ -118,6 +118,7 @@ def importBookFromFile(user, zname, createTOC=False):
         if is_section: # create section
             if createTOC:
                 c = models.BookToc(book = book,
+                                   version = book.version,
                                    name = chapterName,
                                    chapter = None,
                                    weight = n,
@@ -131,6 +132,7 @@ def importBookFromFile(user, zname, createTOC=False):
             content = p.sub(r' src="../\1"', content)
 
             chapter = models.Chapter(book = book,
+                                     version = book.version,
                                      url_title = urlName,
                                      title = chapterName,
                                      status = stat,
@@ -141,6 +143,7 @@ def importBookFromFile(user, zname, createTOC=False):
 
             if createTOC:
                 c = models.BookToc(book = book,
+                                   version = book.version,
                                    name = chapterName,
                                    chapter = chapter,
                                    weight = n,
@@ -158,6 +161,7 @@ def importBookFromFile(user, zname, createTOC=False):
 
             if attachmentName.startswith("static/"):
                 att = models.Attachment(book = book,
+                                        version = book.version,
                                         status = stat)
 
                 s = zf.read(attachmentName)
