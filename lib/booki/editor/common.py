@@ -281,11 +281,9 @@ def _format_metadata(book):
     return metadata
 
 
-def _fix_content(book, chapter):
+def _fix_content(book, chapter, chapter_n):
     """fix up the html in various ways"""
-    content = chapter.chapter.content
-    if not content:
-        return '<body><!--no content!--></body>'
+    content = '<div id="chapter-%d">%s</div>' % (chapter_n, chapter.chapter.content)
 
     #As a special case, the ##AUTHORS## magic string gets expanded into the authors list.
     if "##AUTHORS##" in content:
@@ -329,8 +327,6 @@ def _fix_content(book, chapter):
     return content
 
 
-
-
 def exportBook(book_version):
     from booki import bookizip
     import time
@@ -356,7 +352,7 @@ def exportBook(book_version):
     for i, chapter in enumerate(models.BookToc.objects.filter(version=book_version).order_by("-weight")):
         if chapter.chapter:
             # It's a real chapter! With content!
-            content = _fix_content(book_version.book, chapter)
+            content = _fix_content(book_version.book, chapter, i + 1)
 
             ID = "ch%03d_%s" % (i, chapter.chapter.url_title.encode('utf-8'))
             filename = ID + '.html'
