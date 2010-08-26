@@ -291,21 +291,6 @@ def _fix_content(book, chapter):
     if "##AUTHORS##" in content:
         expand_authors(book, chapter, content)
 
-    if 0:
-        #for timing comparison
-        p = re.compile('\ssrc="\.\.\/(.*)"')
-        p2 = re.compile('\ssrc=\"\/[^\"]+\/([^"]+)\"')
-        import htmlentitydefs
-        exclude = ['quot', 'amp', 'apos', 'lt', 'gt']
-        content = p.sub(r' src="\1"', content)
-        content = p2.sub(r' src="static/\1"', content)
-        for ky, val in htmlentitydefs.name2codepoint.items():
-            if ky not in exclude:
-                content = content.replace(unichr(val), '&%s;' % (ky, ))
-        if isinstance(content, unicode):
-            content = content.encode('utf-8')
-        return content
-
     if isinstance(content, unicode):
         content = content.encode('utf-8')
 
