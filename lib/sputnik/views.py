@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 
 import simplejson
@@ -5,6 +6,7 @@ import re
 import redis
 import sputnik
 
+@transaction.commit_manually
 def dispatcher(request, **sputnik_dict):
     inp =  request.POST
 
@@ -15,6 +17,7 @@ def dispatcher(request, **sputnik_dict):
 
     if inp.has_key("clientID") and inp["clientID"]:
         clientID = inp["clientID"]
+
 
     for message in messages:
         ret = None
@@ -65,8 +68,13 @@ def dispatcher(request, **sputnik_dict):
             if n > 20:
                 break
 
+
             import logging
             logging.getLogger("booki").debug("Sputnik - Coult not get the latest message from the queue session: %s clientID:%s" %(request.session.session_key, clientID))
+
+#            from booki.utils.log import printStack
+#            printStack(None)
+
 
         n += 1
 
@@ -74,17 +82,26 @@ def dispatcher(request, **sputnik_dict):
         try:
             results.append(simplejson.loads(v))
         except:
+
             import logging
             logging.getLogger("booki").debug(v)
+
+#            from booki.utils.log import printStack
+#            printStack(None)
 
 
     import time, decimal
     try:
         if request.sputnikID and request.sputnikID.find(' ') == -1:
-            sputnik.rcon.set("ses:%s:last_access" % request.sputnikID, time.time())
+            sputnik.set("ses:%s:last_access" % request.sputnikID, time.time())
     except:
+
         import logging
         logging.getLogger("booki").debug("Sputnik - CAN NOT SET TIMESTAMP.")
+
+#        from booki.utils.log import printStack
+#        printStack(None)
+
 
     # this should not be here!
     # timeout old edit locks
@@ -93,8 +110,8 @@ def dispatcher(request, **sputnik_dict):
 
     _now = time.time() 
     try:
-        for k in sputnik.rcon.keys("ses:*:last_access"):
-            tm = sputnik.rcon.get(k)
+        for k in sputnik.rkeys("ses:*:last_access"):
+            tm = sputnik.get(k)
 
             if type(tm) in [type(' '), type(u' ')]:
                 try:
@@ -108,6 +125,10 @@ def dispatcher(request, **sputnik_dict):
     except:
         import logging
         logging.getLogger("booki").debug("Sputnik - can not get all the last accesses")
+
+#        from booki.utils.log import printStack
+#        printStack(None)
+
 
     ret = {"result": True, "messages": results}
 

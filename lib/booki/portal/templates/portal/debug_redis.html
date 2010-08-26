@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Redis debug</h1>
+<table border="1">
+ <tr>
+  <td valign="top">sputnik:client_id</td>
+  <td valign="top">{{ client_id }}</td>
+ </tr>
+ <tr>
+  <td valign="top">sputnik:channels</td>
+  <td valign="top">
+   <ul>
+   {% for chan in sputnikchannels %}
+      <li>{{ chan }}</li>
+   {% endfor %}
+   </ul>
+  </td>
+ </tr>
+ 
+ <tr><td colspan="2"><b>Clients in channels</b></td></tr>
+ {% for key, value in channel %}
+  <tr>
+   <td valign="top"> {{ key }}</td>
+   <td valign="top">
+      <ul> 
+         {% for a in value %}
+            <li>{{ a  }}</li>
+         {% endfor %}
+      </ul>
+   </td>
+  </tr>
+ {% endfor %}
+
+ <tr><td colspan="2"><b>Users in channels</b></td></tr>
+ {% for key, value in users %}
+  <tr>
+   <td valign="top"> {{ key }}</td>
+   <td valign="top">
+      <ul> 
+         {% for a in value %}
+            <li>{{ a  }}</li>
+         {% endfor %}
+      </ul>
+   </td>
+  </tr>
+ {% endfor %}
+
+ 
+ <tr><td colspan="2"><b>Sessions</b></td></tr>
+ {% for key, value in sessions %}
+  <tr>
+   <td valign="top" colspan="2"> {{ key }}</td>
+  </tr>
+
+  <tr>
+   <td valign="top">username </td>
+   <td valign="top"> {{ value.username }} </td>
+  </tr>
+
+  <tr>
+   <td valign="top">last_access</td>
+   <td valign="top"> {{ value.last_access }} ( {{ value.access_since }} seconds ago)</td>
+  </tr>
+
+  <tr>
+   <td valign="top">channels</td>
+   <td valign="top"> 
+     <ul>
+       {% for cl in value.channels %}
+          <li>{{cl}}</li>
+       {% endfor %}
+     </ul>
+   </td>
+  </tr>
+
+ {% endfor %}
+
+
+ <tr><td colspan="2"><b>Locks</b></td></tr>
+ {% for key, value in locks %}
+  <tr>
+   <td valign="top"> {{ key }} </td>
+   <td valign="top"> {{ value }} </td>
+  </tr>
+ {% endfor %}
+
+ <tr><td colspan="2"><b>Kill locks</b></td></tr>
+ {% for key, value in killlocks %}
+  <tr>
+   <td valign="top"> {{ key }} </td>
+   <td valign="top"> {{ value }} </td>
+  </tr>
+ {% endfor %}
+
+
+</table>
+
+
+{% endblock %}

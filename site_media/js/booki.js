@@ -47,10 +47,18 @@ $(function() {
   		    },
 
 		    sendToCurrentBook: function(message, callback, errback) {
-			return $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", message, callback, errback);
+			return $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/"+$.booki.currentVersion+"/", message, callback, errback);
 		    },
 		    
 		    unsubscribeFromChannel: function(channelName, someID) {
+		    },
+
+		    getBookURL: function(version) {
+			var u = '/'+$.booki.currentBookURL+'/';
+
+			if(version)  u += '_v/'+version+'/';
+
+			return u;
 		    }
 	    };
 	}();
@@ -74,11 +82,23 @@ $(function() {
 	    
 	    jQuery.extend(Sputnik.prototype, {
 		    _subscribedChannels: null,
+
+		    showError: function() {
+			// should check if it is already open
+			// temp commented
+			//$('#dialog-sputnik-error').dialog('open');
+                    },
 		    
 		    init: function() {
+			var $this = this;
+
 			_messages = new Array();
 			_results  = new Array();
 			this._subscribedChannels = new Array();
+
+			$('#dialog-sputnik-qrac').ajaxError(function(event, request, opts, exc){
+			    $this.showError();
+			});
 		    },
 		    
 		    connect: function(_options) {
@@ -168,6 +188,7 @@ $(function() {
 		    
 		    sendData: function() {
                         if(!_isInitialized) return;
+			var $this = this;
 			
                         var msgs = $.toJSON(_messages);
 
@@ -181,11 +202,15 @@ $(function() {
 			  what to do in case of errors?!
 			*/
                         var a = this;
-                        $.post("/sputnik/", {"clientID": $.booki.clientID, "messages": msgs  }, function(data, textStatus) {
+                        $.post("/_sputnik/", {"clientID": $.booki.clientID, "messages": msgs  }, function(data, textStatus) {
+			    if(data) {
 				$.each(data.messages, function(i, msg) {
 					a.receiveMessage(msg, data.result);
 				    });
-			    }, "json");
+			    } else {
+				$this.showError();
+			    }
+			}, "json");
 		    }
 		});
 	    
@@ -306,5 +331,44 @@ $(function() {
 		    }
 	    };
 	}();
+
+
+	/* booki.utils */
+	
+	jQuery.namespace('jQuery.booki.utils');
+	
+	jQuery.booki.utils = function() {
+	    return {
+		"linkToAttachment": function(bookURL, attachmentURL, bookVersion) {
+		    var ur = '/'+bookURL+'/';
+
+		    if(bookVersion == undefined) 
+			ur += '_v/'+$.booki.currentVersion+'/';
+		    else 
+			ur += '_v/'+bookVersion+'/';
+		    
+		    ur += 'static/'+attachmentURL;
+		    return ur;
+		},
+		
+		"formatSize":  function(sz) {		    
+		    var kbSize = sz/1024;
+		    
+		    if(kbSize / 1024 > 1) {
+			return Math.round(kbSize/1024, 2)+' Mb';
+		    } 
+		    return Math.round(kbSize, 2) + ' Kb';
+	        },
+
+		"formatDimension": function(dim) {
+		    if(dim) {
+			return dim[0]+'x'+dim[1];
+		    }
+		    
+		    return '';
+		}
+	    };
+	}();
+
 	
     });

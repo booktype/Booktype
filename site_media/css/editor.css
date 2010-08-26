@@ -6,6 +6,7 @@
     color: white;
     padding-right: 2px;
     padding-left: 2px;
+    line-height: 22px;
 }
 
 #chat .info {
@@ -13,6 +14,7 @@
     color: white;
     padding-right: 2px;
     padding-left: 2px;
+    line-height: 22px;
 }
 
 
@@ -21,7 +23,13 @@
 }
 
 #chat P {
-    font-size: 8px;
+    font-size: 12px;
+ /* wtf */
+ /*   line-height: 6px; */
+    margin-bottom: 0px;
+    padding-bottom: 4px;
+   margin-top: 0px;
+   padding-top: 0px;
 }
 
 #chat2 {
@@ -66,7 +74,8 @@ H4 {
 
 
 #chapterslist { list-style-type: none; margin: 0; padding: 0; width: 90%; margin-right: 10px; padding: 5px; }
-#chapterslist li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; /* height: 18px;*/ }
+#chapterslist li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; /* height: 18px;*/} 
+
 #chapterslist li span { position: absolute; margin-left: -1.3em; }
 
 #holdchapterslist { list-style-type: none; margin: 0; padding: 0; width: 90%;  margin-right: 10px; background: #eee; padding: 5px;  }

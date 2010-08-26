@@ -1,0 +1,52 @@
+<html>
+
+<body>
+ <h1>Report  {{ report_date|date:"D d M Y" }} </h1>
+
+<h2>New Users</h2>
+<ul>
+{% for user in users %}
+  <li>{{ user.username }} ({{ user.first_name }})</li>
+{% empty %}
+  <li>No new users</li>
+{% endfor %}
+</ul>
+
+
+<h2>New Books</h2>
+<ul>
+{% for book in books %}
+  <li>{{ book.title }} ({{ book.url_title }})</li>
+{% empty %}
+  <li>No new books</li>
+{% endfor %}
+</ul>
+
+<h2>New Groups</h2>
+<ul>
+{% for group in groups %}
+  <li>{{ group.name }} ({{ group.url_name }})</li>
+{% empty %}
+  <li>No new groups</li>
+{% endfor %}
+</ul>
+
+
+<h2>Activity</h2>
+<ul>
+{% for bookName, his in history %}
+  <li> {{ bookName }}
+      <ul>
+     {% for ln in his %}
+       <li> {{ ln.chapter.title }}</li>
+     {% endfor %}
+      </ul>
+  </li>
+{% empty %}
+ <li>No Activity</li>
+{% endfor %}
+</ul>
+
+
+</body>
+</html>

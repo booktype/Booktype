@@ -1,6 +1,9 @@
 # Django settings for booki project.
+BOOKI_MAINTENANCE_MODE = False
 
 STATIC_DOC_ROOT = '/home/aerkalov/Work/git/booki/site_media'
+PROFILE_IMAGE_UPLOAD_DIR = '%s/static/_profile_images/'%STATIC_DOC_ROOT
+AUTH_PROFILE_MODULE='account.UserProfile'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -11,11 +14,29 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# use this objavi server
+OBJAVI_URL = "http://objavi.flossmanuals.net/objavi.cgi"
+ESPRI_URL = "http://objavi.flossmanuals.net/espri.cgi"
+TWIKI_GATEWAY_URL = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
+
+#the name of the booki server (comment out to use os.environ['HTTP_HOST'])
+#THIS_BOOKI_SERVER = 'www.booki.cc'
+
+# who gets credited as publisher if not otherwise specified
+DEFAULT_PUBLISHER = "FLOSS Manuals http://flossmanuals.net"
+
+# email configuration
+#EMAIL_HOST = 'localhost'
+#EMAIL_PORT = 25
+#EMAIL_HOST_USER = 'booki@' + THIS_BOOKI_SERVER
+#EMAIL_HOST_PASSWORD = ''
+#EMAIL_USE_TLS = False
+
 DATABASE_ENGINE = 'postgresql_psycopg2'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = 'booki'             # Or path to database file if using sqlite3.
 #DATABASE_NAME = '/Users/aerkalov/Work/git/booki/baza.db'             # Or path to database file if using sqlite3.
 DATABASE_USER = 'postgres'             # Not used with sqlite3.
-DATABASE_PASSWORD = 'sifraveb2'         # Not used with sqlite3.
+DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = 'localhost'             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
@@ -38,12 +59,12 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = '%s/static/' % STATIC_DOC_ROOT
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/site_media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -64,6 +85,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.transaction.TransactionMiddleware'
 )
 
 ROOT_URLCONF = 'booki.urls'
@@ -82,8 +104,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'booki.editor',
     'booki.account',
+    'booki.reader',
+    'booki.portal',
     'sputnik'
 )
+
 
 def init_logging():
     import logging

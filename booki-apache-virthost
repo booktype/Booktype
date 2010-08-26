@@ -1,0 +1,42 @@
+<VirtualHost 78.47.88.74:80>
+	ServerName booki.com.au
+	ServerAdmin andy@booki.com.au
+
+	DocumentRoot /home/andy/src/booki/
+
+	<Directory /usr/share/pyshared/django/contrib/admin/media/>
+	Order allow,deny
+	Allow from all
+	</Directory> 
+
+
+	<Location "/">
+
+	    SetHandler python-program
+	    PythonHandler django.core.handlers.modpython
+	    SetEnv DJANGO_SETTINGS_MODULE booki.settings
+	    PythonDebug On
+	    PythonPath "['/home/andy/src/booki/lib'] + sys.path"
+
+	</Location>
+
+	<Location "/favicon.ico">
+	    SetHandler None
+	</Location>
+        <Location "/media">
+            SetHandler None
+        </Location>
+
+	Alias /favicon.ico /home/andy/src/booki/favicon.ico
+	Alias /media/ /usr/share/pyshared/django/contrib/admin/media/
+
+	ErrorLog /var/log/apache2/booki-error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog /var/log/apache2/booki-access.log combined
+	ServerSignature On
+
+</VirtualHost>

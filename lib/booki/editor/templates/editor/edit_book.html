@@ -17,96 +17,28 @@
 	    /* booki part */
             /* this is temporary here */
 
-           $.booki.username = "{{request.user.username}}";
+	    // probably should urlencode them 
+           $.booki.username = "{{request.user.username|escapejs}}";
            $.booki.currentBookID  = {{book.id}};
-           $.booki.currentBook    = "{{book.title}}";
+           $.booki.currentBook    = "{{book.title|escapejs}}";
+           $.booki.currentBookURL = "{{book.url_title|escapejs}}";
+
+           $.booki.currentVersion = "{{book_version|escapejs}}";
 
 	    /* call when page is loaded */
 
 	    $.booki.editor.initEditor();
 
+	    $("#searchbox BUTTON").button();
+	    $("#publishbook").button();
 
             $.booki.subscribeToChannel("/booki/", function(message) {
 
             });
 
 
-	    // open debug window
-	    $.booki.debug.init();
-
-	    $("#header .debug").click(function() {
-		$("#bookidebug").dialog("open");
-		return false;
-	    });
-
           // start Sputnik
           jQuery.booki.network._transport.connect();
-	    
-	    // $("#datepicker").datepicker({"onSelect": function(a) { alert(a)}});
-
-
-
-	    // should move this dialogs to editor.js
-	    $("#newchapter").dialog({
-			bgiframe: true,
-			autoOpen: false,
-			height: 200,
-		        width: 400, 
-			modal: true,
-			buttons: {
-				'Create chapter': function() {
-				    $.booki.ui.notify("Creating chapter");
-				    
-				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
-					$.booki.ui.notify();
-				    });
-
-
-				    $(this).dialog('close');
-				},
-				'Cancel': function() {
-					$(this).dialog('close');
-				}
-			},
-		open: function(event,ui) {
-		    $("INPUT", $(this)).val("Enter new Chapter title.").select();
-		},
-		close: function() {
-
-			}
-		});
-
-
-	    $("#newsection").dialog({
-			bgiframe: true,
-			autoOpen: false,
-			height: 200,
-    		        width: 400, 
-			modal: true,
-			buttons: {
-				'Create section': function() {
-				    $.booki.ui.notify("Creating section");
-			
-				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
-					$.booki.ui.notify();
-				    });
-
-				    $(this).dialog('close');
-				},
-				'Cancel': function() {
-					$(this).dialog('close');
-				}
-			},
-		open: function(event,ui) {
-		    $("INPUT", $(this)).val("Enter new section title.").select();
-		},
-		close: function() {
-
-			}
-		});
-
-
-	    
 	});
 
 
@@ -126,7 +58,8 @@ function closeAttachmentUpload() {
 <script type="text/javascript" src="/site_media/xinha/XinhaCore.js"></script>
 
 <script type="text/javascript">
-    var xinha_plugins = ['GetHtml',        'SaveSubmit', 'DoubleClick' , 'ImageManager', 'SpellChecker', 'BookiInsert'];
+    var xinha_plugins = ['GetHtml','InsertNote','InsertPagebreak','FindReplace','Equation','CharacterMap','DoubleClick' , 'SpellChecker', 'BookiInsert','ListType'];
+
     var xinha_editors = ['myTextArea'];
 
     var prvi = false;
@@ -143,13 +76,9 @@ function closeAttachmentUpload() {
 
 	var xinha_config = new Xinha.Config();
 	
-	/*
-    xinha_config.width  = '670px';
-    xinha_config.height = '600px';
-*/
 	xinha_config.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
-	
-	xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
+
+        xinha_config.toolbar = [["popupeditor"],["formatblock","fontname","fontsize","bold","italic","underline","strikethrough","forecolor","hilitecolor"],["separator","outdent","indent"],["linebreak","separator","justifyleft","justifycenter","justifyright","justifyfull"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","print"]];
 
 	xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
 	
@@ -160,32 +89,31 @@ function closeAttachmentUpload() {
 //Xinha.addOnloadHandler(xinha_init);
 </script>
 
+<style>
+
+.ui-button .ui-button-text { display: block; line-height: 0.6;  }
+
+.ui-button-text-only .ui-button-text { padding: 0.05em 0.05em; }
+
+/*
+.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text { padding: .1em; text-indent: -9999999px; }
+
+.ui-button-text-icon .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .1em 0.5em .1em 1.5em; }
+
+.ui-button-text-icons .ui-button-text { padding-left: 1.5em; padding-right: 1.5em; }
+*/
+
+</style>
 
 {% endblock %}
 
 {% block content %}
 <div id="notify">
-some notification. this should be on top of visible page and not top of page.
+  some notification. this should be on top of visible page and not top of page.
 </div>
-
-<div id="bookidebug">
-</div>
-
-<div id="header">
- <div style="float:right; font-size: 12px">
-<div align="center" style="padding-bottom: 8px">
- <a href="/"><img src="/site_media/images/logo.png" border="0"></a></div>
-    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a class="debug" href="javascript:void(0)">Debug</a> | <a href="/accounts/signout/">Sign out</a>
-
-<!--    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a> | <a href="">Settings</a> | <a href="">Help</a> | <a class="debug" href="javascript:void(0)">Debug</a> | <a href="/accounts/signout/">Sign out</a> -->
-
- </div>
-</div>
-
-<br clear="all"/>
 
 <div>
-<div style="float: right; padding-top: 5px">
+<div id="searchbox" style="float: right; padding-top: 5px">
 <form>
 <input type="text" size="20"> <button>Search</button>
 </form>
@@ -195,261 +123,333 @@ some notification. this should be on top of visible page and not top of page.
 
 <div id="tabs">
 	<ul>
+<!--		<li><a href="#tabattachments">Attachments</a></li> -->
+<!--		<li><a href="#tabinfo">Info</a></li> -->
+
+{% if "chapters" in tabs %}
 		<li><a href="#tabchapters">Chapters</a></li>
+{% endif %}
+
+{% if "attachments" in tabs %}
 		<li><a href="#tabattachments">Attachments</a></li>
+{% endif %}
+
+{% if "history" in tabs %}
 		<li><a href="#tabhistory">History</a></li>
-		<li><a href="#tabinfo">Info</a></li>
-<!--		<li><a href="#tabbigchat">Chat</a></li>  -->
-		<li><a href="#tabpublish">Publish</a></li>
+{% endif %}
+
+{% if "versions" in tabs %}
+		<li><a href="#tabversions">Versions</a></li>
+{% endif %}
+
+{% if "notes" in tabs %}
+		<li><a href="#tabnotes">Notes</a></li>
+{% endif %}
+
+{% if "export" in tabs %}
+		<li><a href="#tabpublish">Export</a></li>
+{% endif %}
 
 	</ul>
+{% if "chapters" in tabs %}
 	<div id="tabchapters">
+	<!-- START Chapters TAB -->
+
+		<table border="0" width="100%">
+		<tr>
+		<td valign="top">
+		<div id="container">
+
+		<h2>Table of contents</h2>
 
 
+		<div id="chapteraction">
+		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
+		</div>
 
-<table border="0" width="100%">
-<tr>
-<td valign="top">
-<div id="container">
+		<ul id="chapterslist" class="connectedSortable">
+		</ul>
 
-<h2>Table of contents</h2>
+		<div style="font-size:9px;">(drag new chapters into the area above here)</div>
 
+		<div id="chapteraction">
+		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
+		</div>
 
-<div id="chapteraction">
-<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
-</div>
+		<div id="newchapter" title="New chapter">
+		<!--  <p id="validateTips">Enter new chapter name.</p> -->  
+		  <form onsubmit="javascript:return false">
+		    <fieldset>
+		      <input type="text" class="text ui-widget-content ui-corner-all">
+		      </fieldset>
+		    </form>
+		</div>
 
-<ul id="chapterslist" class="connectedSortable">
-</ul>
+		<div id="newsection" title="New section">
+		<!--  <p id="validateTips">Enter new section name.</p> -->
+		  <form onsubmit="return false">
+		    <fieldset>
+		      <input type="text" class="text ui-widget-content ui-corner-all">
+		      </fieldset>
+		    </form>
+		</div>
 
-<div id="chapteraction">
-<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
-</div>
+		<!-- open attachment dialog -->
+		<div id="insertattachment" title="Insert image">
+                   <div id="inserttabs">
+                       <ul>
+                         <li><a href="#insertimages">Images</a></li>
+                         <li><a href="#insertupload">Upload image</a></li>
+                      </ul>
+                      <div id="insertimages">
+		        <div class="listing">
+		          <table border="0" width="100%">
+    		            <tr>
+		              <td valign="top">
+		                <div  style="height: 250px; overflow: auto">
+			          <table border="0" width="90%" class="files">
+			          </table>
+		                </div>
+		              </td>
+		              <td width="160" valign="top">
+				<fieldset style="padding: 2px">
+                                 <legend>Preview</legend>
+			          <div class="previewattachment">
+  			          </div>
+                                </fieldset>
+		              </td>
+		            </tr>
+		          </table>
+		        </div>
+                      </div>
 
-<div id="newchapter" title="New chapter">
-<!--  <p id="validateTips">Enter new chapter name.</p> -->  
-  <form onsubmit="javascript:return false">
-    <fieldset>
-      <input type="text" class="text ui-widget-content ui-corner-all">
-      </fieldset>
-    </form>
-</div>
+                      <div id="insertupload">
+		        <div class="uploadform">
+		          <form method="POST" target="frameupload" action="../_upload/" enctype="multipart/form-data">
+		            <div class="uploadattachment" style="overflow: auto;">
+		            </div>
+		            <div class="uploadsubmit">
+		            </div>
+		          </form>
 
-<div id="newsection" title="New section">
-<!--  <p id="validateTips">Enter new section name.</p> -->
-  <form onsubmit="return false">
-    <fieldset>
-      <input type="text" class="text ui-widget-content ui-corner-all">
-      </fieldset>
-    </form>
-</div>
+		          <iframe width="0" height="0" name="frameupload" border="0" style="border: 0px"></iframe>
+	   	        </div>
+		      </div>
 
-<!-- open attachment dialog -->
-<div id="insertattachment" title="Insert image">
- <div class="listing">
-    <table border="0" width="100%">
-     <tr>
-      <td valign="top">
-       <div  style="height: 250px; overflow: auto">
-          <table border="0" width="90%" class="files">
-          </table>
-       </div>
-      </td>
-      <td width="200" valign="top">
-        <div class="previewattachment">
-        </div>
-      </td>
-     </tr>
-   </table>
-</div>
+		   </div>
+		</div>
 
-<div class="uploadform" style="position: relative; left: 0px; bottom: 0px">
-<form method="POST" target="frameupload" action="../_upload/" enctype="multipart/form-data">
- <div class="uploadattachment" style="overflow: auto;">
- </div>
- <div class="uploadsubmit">
- </div>
-</form>
+		<!-- close attachment dialog -->
 
-<iframe width="0" height="0" name="frameupload" border="0" style="border: 0px"></iframe>
-</div>
-</div>
+		<!-- start of edit attachment -->
+		<div id="editattachment" title="Edit Image">
+		  <div class="container">
+		    <fieldset style="float: right; width: 160px; height: 160px; border: 1px solid gray; margin-left: 10px;">
+		      <legend>Preview</legend>
+		      <span class="preview"></span>
+		    </fieldset>
 
-<!-- close attachment dialog -->
+		    <fieldset>
+		      <legend>Image</legend>
+		      <table border="0">
+			<tr><td>Image:</td><td><input type="text" name="f_image" size="40"></td></tr>
+			<tr><td>Alt:</td><td><input type="text" name="f_alt" size="40"></td></tr>
+		      </table>
+		    </fieldset>
 
-
-<div class="middleinfo">
-</div>
-
-<h2>Hold chapters</h2>
-<ul id="holdchapterslist" class="connectedSortable">
-</ul>
-
-</div>
-
-<div id="editor" style="display: none">
-<form method="GET" action="javascript: return void(0)">
-<input type="hidden" name="chapter_id" value=""/>
-<input type="button" class="save" name="save" value="Save"/>
-<input type="button" class="save" name="savecontinue" value="Save and continue editing"/> 
-
-<input type="button" class="cancel" name="cancel" value="Cancel"/>
-<br/>
-<!-- <input type="text" name="title" style="width: 500px"><br/> -->
-<textarea name="myTextArea" id="myTextArea" style="width: 500px; height: 600px">
-  
-</textarea>
-
-<div style="clear: left; margin-top: 5px">
- <input type="checkbox" name="minor">Minor change, don't notify.
-</div>
-
-<div style="clear: left; margin-top: 5px">
-<input type="text" name="comment" style="width: 500px;">
-</div>
-
-<div style="clear: left; margin-top: 5px; color: #c0c0c0;">
-Author: <input type="text" name="author" style="width: 300px;">
-</div>
-<div style="clear: left; margin-top: 5px; color: #c0c0c0;">
-Author comment: <input type="text" name="authorcomment" style="width: 300px;">
-</div>
+		    <fieldset>
+		      <legend>Positioning</legend>
+		      <table border="0">
+			<tr><td>Border:</td><td><input type="text" name="f_border"></td></tr>
+			<tr><td>Align:</td><td><input type="text" name="f_align"></td></tr>
+			<tr><td>Width:</td><td><input type="text" name="f_width"></td></tr>
+			<tr><td>Height:</td><td><input type="text" name="f_height"></td></tr>
+		      </table>
+		    </fieldset>
 
 
-</form>
-
-</div>
-
-
-<div id="spalatodialog" title="Split chapters">
-  <p id="validateTips">Seems like You have changed the structure of the chapters. What do you want to do?</p>  
-  <table border="0" width="100%">
-    <tr>
-     <td valign="top" width="200">
-       New chapters:
-        <ul class="chapters" style="margin-left: 5px">
-
-        </ul>
-     </td>
-     <td width="1" bgcolor="#c0c0c0"></td>
-     <td valign="top" class="content">
-
-     </td>
-    </tr>
-  </table>
-</div>
+		    <fieldset>
+		      <legend>Style</legend>
+		      <table border="0" width="100%">
+			<tr><td>CSS Class:</td><td><input type="text" name="f_css"></td><td colspan="2"></tr>
+			<tr><td>Padding:</td><td><input type="text" name="f_padding"></td>
+			<td>Margin:</td><td><input type="text" name="f_margin"></td></tr>
+			<tr><td>Background color:</td><td><input type="text" name="f_bgcolor"></td>
+			<td>Border color:</td><td><input type="text" name="f_bordercolor"></td></tr>
+		      </table>
+		    </fieldset>
 
 
-</td>
-<td valign="top" width="200">
-<h4 id="chattitle">Chat</h4>
-<div id="chat">
-</div>
+		  </div>
+		</div>
+		<!-- end of edit attachment -->
 
-<h4>Currently editing</h4>
- <ul id="users">
- </ul>
+		<div class="middleinfo">
+		</div>
+
+		<h2>Hold chapters</h2>
+		<ul id="holdchapterslist" class="connectedSortable">
+		</ul>
+
+		</div>
+
+		<div id="editor" style="display: none">
+		<form method="GET" action="javascript: return void(0)">
+                  <div style="padding-bottom: 5px">
+		    <input type="hidden" name="chapter_id" value=""/>
+		    <A name="save" href="javascript:void(0)">Save</a>
+		    <A name="savecontinue"  href="javascript:void(0)">Save and continue editing</a> 
+		    
+		    <A name="cancel"  href="javascript:void(0)">Cancel</a>
 <!--
-                <div id="accordion">
-                        <div>                                <h3><a href="#">Info</a></h3>
-                                <div>Info about book status and etc.</div>
-                        </div>
-                        <div>
-                                <h3><a href="#">Tools</a></h3>
-                                <div>Create new chapter</div>
-                        </div>
-                        <div>
-                                <h3><a href="#">Users</a></h3>
-                                <div>Current users...</div>
-                        </div>
-                </div>
+		    <input type="button" class="save" name="save" value="Save"/>
+		    <input type="button" class="save" name="savecontinue" value="Save and continue editing"/> 
+		    
+		    <input type="button" class="cancel" name="cancel" value="Cancel"/>
 -->
+		  </div>
 
-</td>
-</tr>
-</table>
+		<!-- <input type="text" name="title" style="width: 500px"><br/> -->
+		<textarea name="myTextArea" id="myTextArea" style="width: 610px; height: 600px">
+		  
+		</textarea>
+
+		<div style="clear: left; margin-top: 5px">
+		 <input type="checkbox" name="minor">Minor change, don't notify.
+		</div>
+
+		<div style="clear: left; margin-top: 5px">
+		<input type="text" name="comment" style="width: 500px;">
+		</div>
+
+		<div style="clear: left; margin-top: 5px; color: #c0c0c0;">
+		Author: <input type="text" name="author" style="width: 300px;">
+		</div>
+		<div style="clear: left; margin-top: 5px; color: #c0c0c0;">
+		Author comment: <input type="text" name="authorcomment" style="width: 300px;">
+		</div>
+
+
+		</form>
+
+		</div>
+
+
+		<div id="spalatodialog" title="Split chapters">
+		  <p id="validateTips">Seems like You have changed the structure of the chapters. What do you want to do?</p>  
+		  <table border="0" width="100%">
+		    <tr>
+		     <td valign="top" width="200">
+		       New chapters:
+			<ul class="chapters" style="margin-left: 5px">
+
+			</ul>
+		     </td>
+		     <td width="1" bgcolor="#c0c0c0"></td>
+		     <td valign="top" class="content">
+
+		     </td>
+		    </tr>
+		  </table>
+		</div>
+
+
+		</td>
+		</tr>
+		</table>
 
 
 	</div>
+{% endif %}
 
-
+{% if "attachments" in tabs %}
 	<div id="tabattachments">
-	  <h2>Attachments</h2>
+          <h2>Attachments</h2>
+          <div id="attachmentscontainer">
+          </div>
+	  <div style="margin-top: 10px">
+   	    <a name="delete" href="javascript:void(0)">Deleted selected items</a>
+          </div>
 
-<table border="0" width="100%">
- <tr>
-  <td valign="top">
+          <div class="dialogs"></div>
 
-         <form>
-	  <table width="95%" class="files">
-	  </table>
-         </form>
-  </td>
-  <td valign="top" width="200">
-    <div id="attachmentpreview">
-
-    </div>
-  </td>
- </tr>
-</table>
 	</div>
+{% endif %}
 
-<div id="tabhistory">
-<!-- <h2>History</h2> -->
-
-<table border="0">
-<tr>
-<td width="100%" class="cont">
-
-
-</td>
-<td width="20"></td>
-<td valign="top">
-<h4>History</h4> 
-<ul>
-<li>Book</li>
-</ul>
-</td>
-</tr>
-</table>
-
-</div>
-
+{% if "history" in tabs %}
+	<div id="tabhistory">
+	<!-- START history TAB -->
 <!--
-<div id="tabbigchat">
-<table border="0">
-<tr>
-<td width="100%">
-<div id="chat2">
-</div>
-</td>
-<td width="20"></td>
-<td valign="top">
-<h4>Search conversations</h4>
-<form>
-<input type="text" style="width:  200px">
-</form>
-<h4>Conversation history</h4>
-<div id="datepicker" ></div>
+          <div id="format">
+		<input type="radio" id="check1" name="radio"/><label for="check1">Chapters</label>
+		<input type="radio" id="check2" name="radio" /><label for="check2">Chat</label>
+    	  </div> -->
+          <div id="historycontainer">
+          </div>
+	</div>
+{% endif %}
 
-</td>
-</tr>
-</table>
+{% if "versions" in tabs %}
+       <div id="tabversions">
+{% if security.isAdmin %}
+        <h3>New version</h3>
+         <div class="version">
+	   With different versions you can easily organise your book. But be careful! Other users will not be able to edit
+and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them.
 
-</div>
--->
+           <p>
+             <a class="major" href="javascript:void(0)">Create major version</a>
+             <a class="minor" href="javascript:void(0)">Create minor version</a>
+           </p>
+         </div>
 
+
+	<div id="newversionmajor" title="New version">
+	  <form onsubmit="javascript:return false">
+<!--	    <fieldset> -->
+              You can name this version (optional):
+	      <input type="text" style="width: 100%" class="text ui-widget-content ui-corner-all"><br/>
+<i>e.g. initial, dragon, test</i><br/><br/>
+Description (optional)<br/>
+<textarea style="width: 100%; height: 150px"></textarea>
+<!--	      </fieldset> -->
+	    </form>
+	  </div>
+
+	<div id="newversionminor" title="New version">
+	  <form onsubmit="javascript:return false">
+<!--	    <fieldset> -->
+              You can name this version (optional):
+	      <input type="text" style="width: 100%" class="text ui-widget-content ui-corner-all"><br/>
+<i>e.g. initial, dragon, test</i><br/><br/>
+Description (optional)<br/>
+<textarea style="width: 100%; height: 150px"></textarea>
+<!--	      </fieldset> -->
+	    </form>
+	  </div>
+{% endif %}
+
+        <h3>All versions</h3>
+	<span class="list"></span>
+
+       </div>
+
+{% endif %}
+
+	<!-- START info TAB -->
+<!--
 	<div id="tabinfo">
-
          <table border="0" class="metadata">
          </table>
 
            <br/>
-         <!--  <span style="font-style: italic; color: #d0d0d0">This part of UI is still not functional.</span> -->
 	</div>
+-->
 
+{% if "export" in tabs %}
 	<div id="tabpublish">
-          <h1>Publish</h1>
+	<!-- START publish TAB -->
+          <h1>Export</h1>
           <p></p>
 
           <form method="" action="" onsubmit="return false">
@@ -492,14 +492,15 @@ Author comment: <input type="text" name="authorcomment" style="width: 300px;">
               </td>
 	     </tr>
 	      <tr>
-		<td colspan="2"><input type="checkbox" checked="yes" name="archiveorg"> send to archive.org</td>
+<!--		<td colspan="2"><input type="checkbox" checked="yes" name="archiveorg"> send to archive.org</td> -->
+		<td colspan="2"><input type="checkbox"  name="archiveorg"> send to archive.org</td>
 	      </tr>
 	      <tr>
 		<td colspan="2"><br/></td>
 	      </tr>
 	      <tr>
 		<td colspan="2">
-		  <button>Publish this book</button>
+		  <button id="publishbook">Publish this book</button>
                   <span id="advancedswitch">
                      <a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(true)">Show advanced options</a>
                   </span>
@@ -625,16 +626,48 @@ Author comment: <input type="text" name="authorcomment" style="width: 300px;">
                  </div>     
  		</td>
 	      </tr>
+	  </table>
           </form>
           <div class="info">
 
           </div>
 
 	</div>
+{% endif %}
 
+{% if "notes" in tabs %}
+	<div id="tabnotes">
+	<!-- START notes TAB -->
+	Shared notes for this book
+	<br/>
+	<form onsubmit="return false;" action="" method="">
+         <textarea border="0" name="notes" class="notes" rows="25" cols="65">
+		
+         </textarea>
+	<br/>
+	<button>Save the notes</button>
+	</form>	
+	<div class="info">
+
+          </div>
+
+
+	</div>
+{% endif %}
 
 </div>
 
+<!-- chat box + drop shadow -->
+<div class="chat shadow">
+
+                <h4 id="chattitle">Chat</h4>
+                        <div id="chat">                        </div> 
+                        <h4>Currently editing</h4>
+                         <ul id="users">
+                         </ul>
+
+</div>
+<!-- end of chat box + drop shadow -->
 
 
 {% endblock %}

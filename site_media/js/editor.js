@@ -20,11 +20,17 @@ function unescapeHtml (val) {
 	function showJoined(notice) {
 	    $('.content', element).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
 	    $('.content', element2).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
+	    $(".content", element).attr({ scrollTop: $(".content", element).attr("scrollHeight") });
+	    $(".content", element2).attr({ scrollTop: $(".content", element2).attr("scrollHeight") });
+
 	}
 
 	function showInfo(notice) {
 	    $('.content', element).append('<p><span class="info">INFO</span>  '+notice+'</p>');
 //	    $('.content', element2).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
+	    $(".content", element).attr({ scrollTop: $(".content", element).attr("scrollHeight") });
+	    $(".content", element2).attr({ scrollTop: $(".content", element2).attr("scrollHeight") });
+
 	}
 
 
@@ -43,15 +49,11 @@ function unescapeHtml (val) {
 
 
 	function initUI() {
-	    element2.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 500px; height: 300px; border: 1px solid gray; padding: 5px"></div><input type="text" style="width: 500px;"/></form>').submit(function() { var s = $("INPUT", element2).val(); $("INPUT", element2).attr("value", "");
-																																	 showMessage($.booki.username, s);
-  	    $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
+	    element2.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 500px; height: 300px; border: 1px solid gray; padding: 5px"></div><input type="text" style="width: 500px;"/></form>').submit(function() { var s = $("INPUT", element2).val(); $("INPUT", element2).attr("value", ""); showMessage($.booki.username, s);  $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/",{"command": "message_send", "message": s}, function() {} );
 
 }));
 
-	    element.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 200px; height: 300px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 200px;"/></form>').submit(function() { var s = $("INPUT", element).val(); $("INPUT", element).attr("value", "");
-																																	 showMessage($.booki.username, s);
-  	    $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/", {"command": "message_send", "message": s}, function() {} );
+	    element.html($('<form onsubmit="javascript: return false;"><div class="content" style="margin-bottom: 5px; width: 265px; height: 300px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 275px;"/></form>').submit(function() { var s = $("INPUT", element).val(); $("INPUT", element).attr("value", ""); showMessage($.booki.username, s);  $.booki.sendToChannel("/chat/"+$.booki.currentBookID+"/",{"command": "message_send", "message": s}, function() {} );
 
 }));
 	}
@@ -222,10 +224,389 @@ function unescapeHtml (val) {
 		
 	    });
 
+	    /* start of history panel */
+
+	    function HistoryPanel(containerName) {
+		this.containerName = containerName;
+		this.currentView = 0;
+		
+		this.refresh = null;
+	    }
+	    
+	    $.extend(HistoryPanel.prototype, {
+		'_initialLoad': function() {
+		    this.setHistoryView();
+		},
+
+		'setHistoryView': function() {
+		    var $this = this;
+		    
+		    $this.currentView = 1;
+
+		    var _page = 1;
+
+		    function _drawItems(data) {
+			var his = $($this.containerName+" SPAN.hiscontainer");
+			var s = $('<table width="100%"><tr><th>action</th><th></th><th>user</th><th>time</th></tr></table>')
+			
+			$.each(data.history, function(i, entry) {
+			    if(entry.kind == "create" || entry.kind == "rename") {
+				var en = $("<tr></tr>");
+				en.append('<td valign="top">'+entry.kind+'</td>');
+				en.append($('<td valign="top">').append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
+				en.append('<td valign="top">'+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td><td></td>");
+				s.append(en);
+				
+			    } else if(entry.kind == "save") {
+				var en = $("<tr></tr>");
+				en.append('<td valign="top">'+entry.kind+"</td>");
+				en.append($('<td valign="top">').append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
+				en.append('<td valign="top">'+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td><td></td>");
+				s.append(en);
+			    } else if(entry.kind == "major" || entry.kind == "minor") {
+				s.append($("<tr><td>New version</td><td>Switched to "+entry.version.version+"</td><td>"+entry.user+'</td><td style="white-space: nowrap">'+entry.modified+"</td></tr>"));
+			    } else if(entry.kind == 'attachment') {
+				s.append($('<tr><td>Upload</td><td valign="top">Uploaded '+entry.args.filename+".</td><td>"+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td></tr>"));
+				
+			    } else {
+				s.append($("<tr><td>"+entry.kind+"</td><td></td><td>"+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td></tr>"));
+			    }
+			});
+			
+			his.html(s);
+		    }
+		    
+		    function _buildUI() {
+			$($this.containerName).empty();
+			var his = $($this.containerName);
+						
+			his.append("<br/>");
+			his.append('<span class="hiscontainer">LOADING DATA....</span>');
+			his.append("<br/>");
+			his.append($('<a href="javascript:void(0)">&lt;&lt;previous</a>').click(function() {
+			    if(_page < 2) return;
+
+			    $.booki.ui.notify("Reading history data...");
+			    $($this.containerName+" TABLE").css("background-color", "#f0f0f0");
+			    
+//			    $($this.containerName+" SPAN.hiscontainer").html("LOADING DATA...");
+			    $.booki.sendToCurrentBook({"command": "get_history",
+						       "page": _page-1},
+						      function(data) {
+							  _page = _page - 1;
+							  $.booki.ui.notify();
+							  _drawItems(data);
+						      });
+previous			    
+			}));
+			his.append("&nbsp;&nbsp;");
+			his.append($('<a href="javascript:void(0)">next&gt;&gt;</a>').click(function() {
+			    $.booki.ui.notify("Reading history data...");
+			    $($this.containerName+" TABLE").css("background-color", "#f0f0f0");
+
+//			    $($this.containerName+" SPAN.hiscontainer").html("LOADING DATA...");
+			    $.booki.sendToCurrentBook({"command": "get_history",
+						       "page": _page+1},
+						      function(data) {
+							  _page = _page + 1;
+							  $.booki.ui.notify();
+							  _drawItems(data);
+						      });
+			    
+			}));
+
+
+		    }
+
+		    _buildUI();
+
+		    $.booki.ui.notify("Reading history data...");
+		    $.booki.sendToCurrentBook({"command": "get_history",
+					       "page": 1},
+					      function(data) {
+						  $.booki.ui.notify();
+						  _drawItems(data);
+					      });
+		    
+		    this.refresh = function() {
+			$.booki.ui.notify("Reading history data...");
+//			$($this.containerName+" SPAN.hiscontainer").html("LOADING DATA...");
+			$($this.containerName+" TABLE").css("background-color", "#f0f0f0");
+
+			$.booki.sendToCurrentBook({"command": "get_history",
+						   "page": _page},
+						  function(data) {
+						      $.booki.ui.notify();
+						      _drawItems(data);
+						  });
+		    }
+
+/*
+		    $.booki.ui.notify("Reading history data...");
+		    $($this.containerName).empty();
+
+		    $.booki.sendToCurrentBook({"command": "get_history"},
+					      function(data) {
+						  $.booki.ui.notify();
+						  
+						  var his = $($this.containerName);
+						  var s = $('<table width="100%"><tr><th>action</th><th></th><th>user</th><th>time</th></tr></table>')
+						  
+						  $.each(data.history, function(i, entry) {
+						      if(entry.kind == "create" || entry.kind == "rename") {
+							  var en = $("<tr></tr>");
+							  en.append('<td valign="top">'+entry.kind+'</td>');
+							  en.append($('<td valign="top">').append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
+							  en.append('<td valign="top">'+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td><td></td>");
+							  s.append(en);
+							  
+//							  s.append($("<tr><td>"+entry.kind+'</td><td><a href="'+$.booki.getBookURL()+entry.chapter_url+'/" style="text-decoration: underline">'+entry.chapter+"</a></td><td>"+entry.user+"</td><td>"+entry.modified+"</td><td></td></tr>"));
+						      } else if(entry.kind == "save") {
+							  var en = $("<tr></tr>");
+							  en.append('<td valign="top">'+entry.kind+"</td>");
+							  en.append($('<td valign="top">').append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
+							  en.append('<td valign="top">'+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td><td></td>");
+							  s.append(en);
+						      } else if(entry.kind == "major" || entry.kind == "minor") {
+							  s.append($("<tr><td>New version</td><td>Switched to "+entry.version.version+"</td><td>"+entry.user+'</td><td style="white-space: nowrap">'+entry.modified+"</td></tr>"));
+						      } else if(entry.kind == 'attachment') {
+							  s.append($('<tr><td>Upload</td><td valign="top">Uploaded '+entry.args.filename+".</td><td>"+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td></tr>"));
+
+						      } else {
+							  s.append($("<tr><td>"+entry.kind+"</td><td></td><td>"+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td></tr>"));
+						      }
+						  });
+						  
+						  his.html("<br/>");
+						  his.append(s);
+					      });
+                    */
+		},
+		
+		'setRevisionView': function(chapterName, chapterURL, chapterHistory, revision) {
+		    var $this=this;
+		    this.refresh = null;
+
+		    function showRevision(data) {
+			var his = $($this.containerName);
+			
+			his.empty();
+			his.append($('<a href="javascript:void(0)">&lt;&lt; back to chapter history</a>').click(function() { $this.setChapterView(chapterName, chapterURL, chapterHistory);}));
+			var bs = $('<span style="padding-left: 10px"><input checked="checked" type="radio" id="radio1" name="radio" /><label for="radio1">Normal view</label><input type="radio" id="radio2" name="radio"  /><label for="radio2">Source view</label></span>').buttonset();
+			
+			his.append(bs);
+
+			his.append($('<a href="javascript:void(0)">Revert to this revision</a>').button().click(function() { 
+			    $(".cont", his).html('<div title="Revert to this revision?"><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Current chapter content will be reverted to this revision. Are you sure?</p></div>');
+			    
+			    $(".cont DIV", his).dialog({
+				resizable: false,
+				height:160,
+				modal: true,
+				buttons: {
+				    'Yes, revert !': function() {
+					var $dialog = $(this);
+					$.booki.sendToCurrentBook({"command": "revert_revision", 
+								   "chapter": chapterURL,
+								   "revision": data['revision']},
+								  function(data) {
+								      $.booki.ui.notify();
+								      $dialog.dialog('close');
+								      $this.setChapterView(chapterName, chapterURL, chapterHistory);
+								  });
+				    },
+				    Cancel: function() {
+					$(this).dialog('close');
+				    }
+				}
+			    });
+			}));
+		
+
+			if(!data.chapter) {
+			    his.append('<p>No such revision.</p>');
+			    return;
+			}
+			
+			$("#radio1", bs).click(function() { 
+			    $('#chapterrevision', his).html(data.content);
+			    
+			});
+			$("#radio2", bs).click(function() { 
+			    $('#chapterrevision', his).html('<textarea style="width: 95%; height: 400px">'+data.content+'</textarea>');
+			    
+			});
+
+			$("#radio1", bs).attr("checked", "checked");
+			
+			his.append('<h3>'+chapterName+'</h3>');
+			var s = '<p>User: '+data.user+'<br/>Modified: '+data.modified+'<br/>Version: '+data.version+'<br/>Revision: '+data.revision+'<br/>';
+			if(data.comment)
+			    s += 'Comment: '+data.comment+'<br/>';
+			s += '</p>';
+			
+			his.append(s);
+			his.append('<span class="cont"></span>');
+
+			if(data['revision'] > 1)  {
+			    his.append($('<a href="javascript:void(0)">&lt;&lt; previous</a>').click(function() {
+				$.booki.ui.notify("Reading history data...");
+				$.booki.sendToCurrentBook({"command": "get_chapter_revision", 
+							   "chapter": chapterURL,
+							   "revision": data['revision']-1},
+							  function(data) {
+							      $.booki.ui.notify();
+							      showRevision(data);
+							  });
+			    }));
+			    his.append('&nbsp;&nbsp;&nbsp;');
+			}
+			
+			his.append($('<a href="javascript:void(0)">next &gt;&gt;</a>').click(function() {
+			    $.booki.ui.notify("Reading history data...");
+			    $.booki.sendToCurrentBook({"command": "get_chapter_revision", 
+						       "chapter": chapterURL,
+						       "revision": data['revision']+1},
+						      function(data) {
+							  $.booki.ui.notify();
+							  if(data.chapter)
+							      showRevision(data);
+						      });
+			}));
+
+			his.append("<br/><br/>");
+			his.append($('<div id="chapterrevision" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0"></div>').append(data.content));
+		    }
+		    
+		    $.booki.ui.notify("Reading history data...");
+		    $($this.containerName).empty();
+
+		    $.booki.sendToCurrentBook({"command": "get_chapter_revision", 
+					       "chapter": chapterURL,
+					       "revision": revision},
+					      function(data) {
+						  $.booki.ui.notify();
+						  showRevision(data);
+					      });
+
+		    $this.currentView = 3;
+		},
+
+		'setCompareView': function(chapterName, chapterURL, chapterHistory, revision1, revision2) {
+		    var $this=this;
+		    this.refresh = null;
+
+
+		    function showDiff(data) {
+			var his = $($this.containerName);
+			
+			his.empty();
+			his.append($('<a href="javascript:void(0)">&lt;&lt; back to chapter history</a>').click(function() { $this.setChapterView(chapterName, chapterURL, chapterHistory);}));
+			
+			his.append('<h3>Compare revision '+revision1+' with revision '+revision2+'</h3>');
+
+			his.append($('<pre id="chapterdigg" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0; font-size: 8pt"></pre>').append(unescapeHtml(data.output)));
+		    }
+		    
+		    $.booki.ui.notify("Reading history data...");
+		    $($this.containerName).empty();
+
+		    $.booki.sendToCurrentBook({"command": "chapter_diff", 
+					       "chapter": chapterURL,
+					       "revision1": revision1,
+					       "revision2": revision2},
+					      function(data) {
+						  $.booki.ui.notify();
+						  showDiff(data);
+					      });
+
+
+
+		    $this.currentView = 4;
+		},
+
+
+		'setChapterView': function(chapterName, chapterURL, chapterHistory) {
+		    var $this=this;
+		    this.refresh = null;
+
+		    $.booki.ui.notify("Reading history data...");
+
+		    $($this.containerName).empty();
+
+		    $.booki.sendToCurrentBook({"command": "get_chapter_history", "chapter": chapterURL},
+					      function(data) {
+						  $.booki.ui.notify();
+						  
+						  var his = $($this.containerName);
+
+						  his.empty();
+						  his.append($('<a href="javascript:void(0)">&lt;&lt; back to history index</a>').click(function() { $this.setHistoryView();}));
+						  his.append('&nbsp;&nbsp;&nbsp;');
+						  his.append($('<a href="javascript:void(0)">Compare revisions</a>').button().click(function() {
+						      var revision1 = $('input[name=group1]:checked', his).val();
+						      var revision2 = $('input[name=group2]:checked', his).val();
+
+						      if(revision1 && revision2)
+							  $this.setCompareView(chapterName, chapterURL, chapterHistory, revision1, revision2);
+						  }));
+
+						  his.append('&nbsp;&nbsp;&nbsp;'); // or Compare all revisions
+						  //his.append($('<a href="javascript:void(0)">Compare historically</a>').button());
+
+						  his.append('<h3>'+chapterName+'</h3>');
+
+						  var s = $('<table width="100%"><tr><th>compare</th><th>revision</th><th>user</th><th>time</th><th>comment</th></tr></table>')
+
+						  $.each(data.history, function(i, entry) {
+						      var en = $("<tr></tr>");
+						      en.append('<td align="center" valign="top"><input type="radio" name="group1" value="'+entry.revision+'"/><input type="radio" name="group2" value="'+entry.revision+'"/></td>');
+//						      en.append('<td align="center"><a href="" style="text-decoration: underline">'+i+'</a></td>');
+
+						      en.append(
+							  $('<td align="center" valign="top"></td>').append(
+							      $('<a href="javascript:void(0)" style="text-decoration: underline">'+entry.revision+'</a>').click(
+								  function() { 
+								      if(entry.user != '')
+									  $this.setRevisionView(chapterName, chapterURL, chapterHistory, entry.revision);
+								  })
+							  )
+						      );
+
+						      en.append('<td align="left" valign="top">'+entry.user+'</td><td align="left" valign="top" style="white-space: nowrap">'+entry.modified+'</td><td valign="top">'+entry.comment+"</td>");
+						      s.append(en);
+						      
+						  });
+
+						  //his.html("<br/>");
+						  his.append(s);
+
+						  $this.currentView = 2;
+					      });
+		},
+		
+		'active': function() {
+		    if(this.currentView == 0)
+			this._initialLoad();
+		    
+		    
+		    if(this.refresh)
+			this.refresh();
+
+		},
+		
+		'initPanel': function() {
+		    var $this = this;
+		}
+	    });
+
+	    /* end of history panel */
+
 	    var toc = new TOC("#chapterslist");
 	    var holdChapters = new TOC("#holdchapterslist");
 
-
+	    var historyPanel = new HistoryPanel("#historycontainer");
+	    
 	    function getChapter(chapterID) {
 		var chap = toc.getItemById(chapterID);
 		if(!chap)
@@ -277,7 +658,8 @@ function unescapeHtml (val) {
 			// this is not god. should get info from toc
 			var ch = getChapter(chapterID);
 			$("#item_"+chapterID).replaceWith(makeChapterLine(chapterID, ch.title, getStatusDescription(ch.status)));  }));
-			toc.refreshLocks();
+		    
+		    toc.refreshLocks();
 		    holdChapters.refreshLocks();
 		    });
 	    }
@@ -339,17 +721,14 @@ function unescapeHtml (val) {
 		},
 
 		unlockChapter: function(chapterID) {
-		    if($.booki.username == 'booki') {
-			$.booki.sendToCurrentBook({"command": "unlock_chapter", "chapterID": chapterID}, 
-						  function(data) {
-						  });
-		    }
+		    $.booki.sendToCurrentBook({"command": "unlock_chapter", "chapterID": chapterID}, 
+					      function(data) {
+					      });
 		},
 		
 		editChapter: function(chapterID) {
 		    $.booki.ui.notify("Loading chapter data...");
-		    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/",
-					  {"command": "get_chapter", "chapterID": chapterID}, function(data) {
+		    $.booki.sendToCurrentBook({"command": "get_chapter", "chapterID": chapterID}, function(data) {
 					      $.booki.ui.notify();
 					      $("#container").fadeOut("slow", function() {
 						  
@@ -405,13 +784,16 @@ function unescapeHtml (val) {
 */
 						/*  $("#editor INPUT[name=title]").attr("value", data.title); */
 						  
-   						  $("#editor INPUT[name=chapter_id]").attr("value", chapterID);
-						  $("#editor INPUT[name=save]").unbind('click').click(function() {
+   						  $("#editor A[name=chapter_id]").attr("value", chapterID);
+						  $("#editor A[name=save]").unbind('click').click(function() {
 						      // todo: temp remove this
 						      //currentlyEditing = chapterID;
 					              var edi = xinha_editors["myTextArea"]; 
                                                       var content = edi.getEditorContent();
 						      
+						      /*
+                                                      comment out spalato
+
 						      var c = content.substring(0);
 						      var chapters_n = 0;
 						      var currentPos = 0;
@@ -438,8 +820,10 @@ function unescapeHtml (val) {
                                                         currentPos = n+5; 
  							chapters_n += 1;
 						      }
+*/
 
 /*
+older version of spalato
 						      var r = new RegExp("<h1>([^\<]+)</h1>", "ig");
 						      var chapters_n = 0;
 
@@ -463,9 +847,12 @@ function unescapeHtml (val) {
 						      }
 */
 
+/*
+comment out spalato
 						      if(chapters_n > 1) {
 							  $("#spalatodialog").dialog("open");
 						      } else {
+*/
 							  $.booki.ui.notify("Sending data...");
 							  var minor = $("#editor INPUT[name=minor]").is(":checked");
 							  var comment = $("#editor INPUT[name=comment]").val();
@@ -488,11 +875,11 @@ function unescapeHtml (val) {
 											$("#editor INPUT[name=comment]").val(""); 
 											$("#editor INPUT[name=author]").val(""); 
 											$("#editor INPUT[name=authorcomment]").val(""); } );
-						      }
+						   // comment out spalato   }
 
 						  });
 
-						  $("#editor INPUT[name=savecontinue]").unbind('click').click(function() {
+						  $("#editor A[name=savecontinue]").unbind('click').click(function() {
 						      // todo: temp remove this
 						      //currentlyEditing = chapterID;
 					              var edi = xinha_editors["myTextArea"]; 
@@ -517,8 +904,9 @@ function unescapeHtml (val) {
 						  });
 
 
-						  $("#editor INPUT[class=cancel]").unbind('click').click(function() {
-							  $.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID});
+						  $("#editor A[name=cancel]").unbind('click').click(function() {
+						      $.booki.sendToCurrentBook({"command": "chapter_status", "status": "normal", "chapterID": chapterID},
+										function() {});
 						      delete chapterLocks[chapterID];
 						      closeEditor();
 						  });  
@@ -670,27 +1058,91 @@ img {\n\
 			$("#advancedswitch").html('<a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(true)">Show advanced options</a>');
 		    }
 		},
+
+		showAttachmentsTab: function() {
+		    $.booki.ui.notify("Reading attachments data...");
+		    $.booki.sendToCurrentBook({"command": "attachments_list"},
+					      function(data) {
+						  $.booki.ui.notify();
+
+						  var att_html = $("#attachmentscontainer");
+						  var s = '<table border="0" width="100%">';
+						  s += '<tr><td width="30"></td><td><b>name</b></td><td><b>dimension</b></td><td><b>size</b></td><td><b>created</b></td></tr>';
+						  
+						  $.each(data.attachments, function(i, entry) {
+						      s += '<tr><td width="30"><input type="checkbox" name="'+entry.id+'" value="'+entry.name+'"></td><td><a style="text-decoration: underline" href="'+$.booki.utils.linkToAttachment($.booki.currentBookURL, entry.name)+'" target="_new">'+entry.name+'</a></td><td>'+$.booki.utils.formatDimension(entry.dimension)+'</td><td>'+$.booki.utils.formatSize(entry.size)+'</td><td>'+entry.created+'</td></tr>';
+						  });
+						  s += '</table>';
+						  
+						  att_html.html(s);
+					      });
+		},
 		
 		_initUI: function() {
+		    $("#inserttabs").tabs();
+		    
 		    $("#tabs").tabs();
 		    $('#tabs').bind('tabsselect', function(event, ui) { 
-			if(ui.panel.id == "tabhistory") {
-			    $.booki.ui.notify("Reading history data...");
-			    $.booki.sendToCurrentBook({"command": "get_history"},
+			if(ui.panel.id == "tabnotes") {
+			    $.booki.ui.notify("Reading notes data...");
+			    $.booki.sendToCurrentBook({"command": "get_notes"},
 						      function(data) {
 							  $.booki.ui.notify();
-							  $.booki.debug.debug(data.history);
+							  $.booki.debug.debug(data.notes);
 
-							  var his = $("#tabhistory .cont");
+							  var notes_html = $("#tabnotes .notes");
 							  var s = "";
 
-							  $.each(data.history, function(i, entry) {
+							  $.each(data.notes, function(i, entry) {
 							      $.booki.debug.debug(entry);
-							      s += "<li>"+entry.kind+" "+entry.modified+"  "+entry.user+" "+entry.description+"</li>";
+							      s += entry.notes;
 							  });
-							  his.html("<ul>"+s+"</ul>");
+							  notes_html.val(s);
+							  //alert(s);
 						      });
 
+			}
+			
+			if(ui.panel.id == "tabattachments") {
+			    $.booki.editor.showAttachmentsTab();
+			}
+
+			if(ui.panel.id == "tabversions") {
+			    $.booki.ui.notify("Reading version data...");
+			    $.booki.sendToCurrentBook({"command": "get_versions"},
+						      function(data) {
+							  $.booki.ui.notify();
+							  s = '';
+							  
+							  $.each(data.versions, function(i, entry) {
+							      function getVersionName(e) {
+								  var v = e.major+'.'+e.minor;
+
+								  if(e.name && e.name != '')
+								      v += '  ('+e.name+')  ';
+								  
+								  return v;
+							      }
+
+							      // there should be a function for this things
+							      var d = new Date(entry.created);
+							      // koliko je ovo sati
+
+							      var razlika = Math.ceil((Date.now()-d.getTime())/(1000*60));
+							      $.booki.debug.debug(entry.created);
+							      $.booki.debug.debug(d.toString());
+							      s += '<li><a target="_new" href="'+$.booki.getBookURL(entry.major+'.'+entry.minor)+'">'+getVersionName(entry)+'   </a></li>';
+							  });
+							  
+							  $("#tabversions .list").html("<ul>"+s+"</ul>");
+								 
+						      }
+						      );
+
+			}
+
+			if(ui.panel.id == "tabhistory") {
+			    historyPanel.active();
 			}
 		    });
 
@@ -779,6 +1231,27 @@ img {\n\
 
 		    $.booki.chat.initChat($("#chat"), $("#chat2"));
 
+		    $("#tabnotes BUTTON").click(function() {
+			var new_notes = $("#tabnotes FORM TEXTAREA[name='notes']").val();
+			$("#tabnotes BUTTON").attr("disabled", "disabled");
+			var message = "Saving the book notes";
+			$("#tabnotes .info").html('<div style="padding-top: 20px; padding-bottom: 20px;">'+message+'</div>');
+
+			$.booki.sendToCurrentBook({"command": "notes_save", 'notes': new_notes },
+						  
+                                                  function(data) {
+						      var message = "Book notes saved.";
+
+                                                      $("#tabnotes BUTTON").removeAttr("disabled");
+							
+                                                      $("#tabnotes .info").html('<div style="padding-top: 20px; padding-bottom: 10px">'+message+'</div>');
+
+                                                      $.booki.debug.debug(data);
+                                                      $.booki.ui.notify();
+                                                  } );
+                    });
+
+
                     $("#tabpublish BUTTON").click(function() {
 			/* default options */
 			var bookTitle = $("#tabpublish FORM INPUT[name='title']").val();
@@ -796,7 +1269,7 @@ img {\n\
 			var bookColumnMargin = $("#tabpublish FORM INPUT[name='column_margin']").val();
 			var bookCss = '';
 
-			var isGrayscale = $("#tabpublish FORM INPUT[name='gray_scale']").is(":checked");
+			var isGreyscale = $("#tabpublish FORM INPUT[name='grey_scale']").is(":checked");
 			
 			var isArchive = $("#tabpublish FORM INPUT[name='archiveorg']").is(":checked");
 			var publishMode = $("#tabpublish OPTION:selected").val();
@@ -861,7 +1334,7 @@ img {\n\
 						   'gutter': bookGutter,
 						   'columns': bookColumns,
 						   'column_margin': bookColumnMargin,
-						   'gray_scale': isGrayscale,
+						   'grey_scale': isGreyscale,
 						   'css': bookCss
 						  },
 						  
@@ -996,28 +1469,301 @@ img {\n\
 			}
 		    });
 
-		    
+		    $("#tabversions .version A").button();
+		   
+		    $("#tabversions .version A.major").click(function() {
+			$("#newversionmajor").dialog('open');
+		    });
 
-		},
+		    $("#tabversions .version A.minor").click(function() {
+			$("#newversionminor").dialog('open');
+		    });
 
-		drawAttachments: function() {
-		    
-		    function _getDimension(dim) {
-			if(dim) {
-			    return dim[0]+'x'+dim[1];
+		    $("#newversionmajor").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 350,
+		        width: 400, 
+			modal: true,
+			buttons: {
+			    'Create  major version': function() {
+				jQuery.booki.sendToCurrentBook({"command": "create_major_version",
+								"name": $("INPUT", $(this)).val(),
+								"description": $("TEXTAREA", $(this)).val()
+							       },
+							       function(data) {
+								   $.booki.ui.notify();
+								   window.location = $.booki.getBookURL(data.version)+'edit/';
+							       });
+
+				    $(this).dialog('close');
+				},
+				'Cancel': function() {
+					$(this).dialog('close');
+				}
+			},
+			open: function(event,ui) {
+			    $("INPUT", $(this)).val("").select();
+			},
+			close: function() {
+			    
 			}
+		    });
+
+		    $("#newversionminor").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 350,
+		        width: 400, 
+			modal: true,
+			buttons: {
+			    'Create minor version': function() {
+				jQuery.booki.sendToCurrentBook({"command": "create_minor_version",
+								"name": $("INPUT", $(this)).val(),
+								"description": $("TEXTAREA", $(this)).val()
+							       },
+							       function(data) {
+								   $.booki.ui.notify();
+								   window.location = $.booki.getBookURL(data.version)+'edit/';
+							       });
+				
+				$(this).dialog('close');
+				},
+				'Cancel': function() {
+					$(this).dialog('close');
+				}
+			},
+			open: function(event,ui) {
+			    $("INPUT", $(this)).val("").select();
+			},
+			close: function() {
+			    
+			}
+		    });
+		    		    
+		    $("#editor A").button();
+
+		    // TAB ATTACHMENTS
+		    $("#tabattachments A[name=delete]").button().click(function() {
+			var ids = new Array();
+			var names = '';
+
+			$.each($("#tabattachments INPUT[type=checkbox]:checked"), function(i, entry) {
+			    names += '<li>'+$(entry).val()+'</li>';
+			    ids.push($(entry).attr("name"));
+			});
 			
-			return '';
-		    }
+			if(ids.length == 0) return;
+
+			$("#tabattachments .dialogs").html('<div id="deleteattachments" title="Delete attachments">Delete these attachments:<ul></ul></div>');
+
+			$("#deleteattachments").dialog({
+			    bgiframe: true,
+			    autoOpen: true,
+			    height: 200,
+		            width: 400, 
+			    modal: true,
+			    buttons: {
+				'Delete selected attachments': function() {
+				    var $this = $(this);
+				    $.booki.sendToCurrentBook({"command": "attachments_delete",
+							       "attachments": ids},
+							      function(data) {
+								  $.booki.editor.showAttachmentsTab();
+
+								  $this.dialog('close');
+							      });
+				},
+
+				'Cancel': function() {
+				    $(this).dialog('close');
+				}
+			    },
+			    
+			    open: function(event,ui) {
+			    },
+			    close: function() {
+				
+			    }
+			});
+			
+			var dl = $("#deleteattachments UL");
+			dl.append(names);			
+		    });
+
+		    // edit attachments
+		    $("#editattachment").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 450,
+    			width: 700, 
+			modal: true,
+			buttons: {
+			    'Update': function() {
+				var fields = ["f_alt", "f_border", "f_align", "f_padding", "f_margin", "f_width", "f_height", "f_bgcolor", "f_bordercolor", "f_css"];
+				
+				i = document.createElement("img");
+				i.src = $("#editattachment INPUT[name=f_image]").val();
+
+
+				$.each(fields, function(x, field) {
+				    var f_value = $("#editattachment INPUT[name="+field+"]").val();
+				    
+				    switch(field) {
+				    case "f_css":
+					if(f_value.length) {
+					    i.setAttribute("class", f_value);
+					} else {
+					    i.setAttribute("class", "");
+					}
+					break;
+				    case "f_alt":
+					i.alt = f_value;
+					break;
+				    case "f_border":
+					if(f_value.length) {
+					    i.style.borderWidth = /[^0-9]/.test(f_value) ? j : (parseInt(f_value) + "px");
+					    if (i.style.borderWidth && !i.style.borderStyle) {
+						i.style.borderStyle = "solid"
+					    }
+					} else {
+					    i.style.borderWidth = "";
+					    i.style.borderStyle = "";
+					}
+					break;
+				    case "f_borderColor":
+					i.style.borderColor = f_value;
+					break;
+				    case "f_backgroundColor":
+					i.style.backgroundColor = f_value;
+					break;
+				    case "f_padding":
+					if(f_value.length) {
+					    i.style.padding = /[^0-9]/.test(f_value) ? f_value : (parseInt(f_value) + "px")
+					} else {
+					    i.style.padding = ""
+					}
+					break;
+				    case "f_margin":
+					if (f_value.length) {
+					    i.style.margin = /[^0-9]/.test(f_value) ? f_value : (parseInt(f_value) + "px")
+					} else {
+					    i.style.margin = ""
+					}
+					break;
+				    case "f_align":
+					i.align = f_value;
+					break;
+				    case "f_width":
+					if (!isNaN(parseInt(f_value))) {
+					    i.width = parseInt(f_value)
+					} else {
+					    i.width = ""
+					}
+					break;
+				    case "f_height":
+					if (!isNaN(parseInt(f_value))) {
+					    i.height = parseInt(f_value)
+					} else {
+					    i.height = ""
+					}
+					break
+				    }
+				});
+
+				xinha_editors.myTextArea.insertNodeAtSelection(i);
+				
+				$(this).dialog('close');
+			    },
+			    'Cancel': function() {
+				$(this).dialog('close');
+			    }
+			},
+			open: function(event,ui) {
+			},
+			close: function() {
+			    
+			}
+		    });
+
+		    // CHAPTER AND SECTION
+		    $("#newchapter").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 200,
+		        width: 400, 
+			modal: true,
+			buttons: {
+			    'Create chapter': function() {
+				$.booki.ui.notify("Creating chapter");
+				
+				$.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/"+$.booki.currentVersion+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
+				    if(data.created) {
+					$.booki.ui.notify();
+				    } else {
+					$.booki.ui.notify();
+					alert("Can not create duplicate chapter name.");
+				    }
+				});
+				
+				
+				$(this).dialog('close');
+			    },
+			    'Cancel': function() {
+				$(this).dialog('close');
+			    }
+			},
+			open: function(event,ui) {
+			    $("INPUT", $(this)).val("Enter new Chapter title.").select();
+			},
+			close: function() {
+			    
+			}
+		    });
 		    
-		    function _getSize(size) {
-			return (size/1024).toFixed(2)+' Kb';
-		    }
 		    
+		    $("#newsection").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 200,
+    		        width: 400, 
+			modal: true,
+			buttons: {
+			    'Create section': function() {
+				$.booki.ui.notify("Creating section");
+				
+				$.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/"+$.booki.currentVersion+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
+				    if(data.created) {
+					$.booki.ui.notify();
+				    } else {
+					alert("Can not create duplicate section name.");
+					$.booki.ui.notify();
+				    }
+				});
+				
+				$(this).dialog('close');
+			    },
+			    'Cancel': function() {
+				$(this).dialog('close');
+			    }
+			},
+			open: function(event,ui) {
+			    $("INPUT", $(this)).val("Enter new section title.").select();
+			},
+			close: function() {
+			    
+			}
+		    });
+		    
+		    
+		    
+		},
+		
+		drawAttachments: function() {
 		    $("#tabattachments .files").empty().append('<tr><td width="5%"></td><td align="left"><b>filename</b></td><td align="left"><b>dimension</b></td><td align="right" width="10%"><b>size</b></td></tr>');
 		    
 		    $.each(attachments, function(i, elem) {
-			$("#tabattachments .files").append('<tr class="line"><td><input type="checkbox"></td><td><a class="file" href="javascript:void(0)" alt="'+elem["name"]+'">'+elem["name"]+'</a></td><td>'+_getDimension(elem["dimension"])+'</td><td align="right"><nobr>'+_getSize(elem.size)+'</nobr></td></tr>');
+			$("#tabattachments .files").append('<tr class="line"><td><input type="checkbox"></td><td><a class="file" href="javascript:void(0)" alt="'+elem["name"]+'">'+elem["name"]+'</a></td><td>'+$.booki.utils.formatDimension(elem["dimension"])+'</td><td align="right"><nobr>'+$.booki.utils.formatSize(elem.size)+'</nobr></td></tr>');
 		    });
 		    
 		    $("#tabattachments .line").hover(function() {
@@ -1071,7 +1817,7 @@ img {\n\
 						   $.booki.editor.drawAttachments();
 						   
 						   $.each(data.onlineUsers, function(i, elem) {
-						       $("#users").append('<li class="user'+elem+'"><div style="width: 24px; height: 24px; float: left; background-color: black; margin-right: 5px;"></div><b>'+elem+'</b></li>');
+						       $("#users").append('<li class="user'+elem[0]+'"><div style="background-image: url(/_utils/profilethumb/'+elem[0]+'/thumbnail.jpg); width: 24px; height: 24px; float: left;  margin-right: 5px;"></div><b>'+elem[0]+'</b><br/><span>'+elem[1]+'</span></li>');
 						   });
 
 					       });
@@ -1082,16 +1828,22 @@ img {\n\
 		
 		initEditor: function() {
 		    
-		    jQuery.booki.subscribeToChannel("/booki/book/"+$.booki.currentBookID+"/", function(message) {
+		    jQuery.booki.subscribeToChannel("/booki/book/"+$.booki.currentBookID+"/"+$.booki.currentVersion+"/", function(message) {
 
 			var funcs = {
+			    "user_status_changed": function() {
+				$("#users .user"+message.from+"  SPAN").html(message.message);
+				$("#users .user"+message.from).animate({backgroundColor: "yellow" }, 'fast',
+								       function() {
+									   $(this).animate({backgroundColor: "white"},3000);
+								       });
+			    },
+
 			    "user_add": function() {
-				$("#users").append('<li class="user'+message.username+'"><div style="width: 24px; height: 24px; float: left; background-color: black; margin-right: 5px;"></div><b>'+message.username+'</b></li>');
+				$("#users").append('<li class="user'+message.username+'"><div style="width: 24px; height: 24px; float: left; margin-right: 5px;background-image: url(/_utils/profilethumb/'+message.username+'/thumbnail.jpg);"></div><b>'+message.username+'</b><br/><span>'+message.mood+'</span></li>');
 			    },
 
 			    "user_remove": function() {
-				$.booki.debug.debug("USER REMOVE");
-				$.booki.debug.debug(message.username);
 				$("#users .user"+message.username).css("background-color", "yellow").slideUp(1000, function() { $(this).remove(); });
 			    },
 
@@ -1101,7 +1853,6 @@ img {\n\
 				$.booki.debug.debug(message);
 				if(message.status == "rename" || message.status == "edit") {
 				    chapterLocks[message.chapterID] = message.username;
-
 				    // $("#item_"+message.chapterID).css("color", "red");
 				    //$(".extra", $("#item_"+message.chapterID)).html('<div style="padding: 3px; background-color: red; color: white">'+message.username+'</div>');
 				    toc.refreshLocks();
@@ -1109,11 +1860,7 @@ img {\n\
 				}
 			    
 				if(message.status == "normal") {
-				    $.booki.debug.debug("BRISEM OVAJ STATUS");
-				    $.booki.debug.debug(chapterLocks);
 				    delete chapterLocks[message.chapterID];
-				    $.booki.debug.debug(chapterLocks);
-				    
 				    //$("#item_"+message.chapterID).css("color", "gray");
 				    //$(".extra", $("#item_"+message.chapterID)).html("");          
 
@@ -1166,9 +1913,9 @@ img {\n\
                             "chapter_create": function() {
 				// this also only works for the TOC
 				if(message.chapter[3] == 1) { 
-				    holdChapters.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: true, status: message.chapter[4]}));
-				    var v = holdChapters.getItemById(message.chapter[0]);
-				    makeChapterLine(v.id, v.title, getStatusDescription(v.status)).appendTo("#holdchapterslist");
+				    toc.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: true, status: message.chapter[4]}));
+				    var v = toc.getItemById(message.chapter[0]);
+				    makeChapterLine(v.id, v.title, getStatusDescription(v.status)).appendTo("#chapterslist");
 				} else {
 				    toc.addItem(createChapter({id: message.chapter[0], title: message.chapter[1], isChapter: false}));
 				    var v = toc.getItemById(message.chapter[0]);
@@ -1256,11 +2003,10 @@ img {\n\
 
 		showFiles: function(func) {
 		    $("#insertattachment .files").empty();
-		    
-		    $("#insertattachment .files").append('<tr><td><b>name</b></td><td><b>size</b></td><td><b>image size</b></td><td><b>date modified</b></td></tr>');
+		    $("#insertattachment .files").append('<tr><td><b>name</b></td><td><b>size</b></td><td><b>dimension</b></td><td><b>modified</b></td></tr>');
 
 		    $.each(func(), function(i, att) {
-			$("#insertattachment .files").append('<tr><td><a class="file" href="javascript:void(0)" alt="'+att.name+'">'+att.name+'</a></td><td>'+att.size+'</td><td></td><td></td></tr>');
+			$("#insertattachment .files").append('<tr><td><a class="file" style="text-decoration: underline" href="javascript:void(0)" alt="'+att.name+'">'+att.name+'</a></td><td>'+$.booki.utils.formatSize(att.size)+'</td><td>'+$.booki.utils.formatDimension(att.dimension)+'</td><td>'+att.created+'</td></tr>');
 		    });
 
 		    $("#insertattachment A.file").click(function() {
@@ -1271,15 +2017,15 @@ img {\n\
 		    });
 		},
 
+		// TODO
+		// this has to be changed
+
 		showUpload: function() {
 		    var onChanged = function() {
-			$("#insertattachment .listing").slideUp(2000);
-			
 			var entry = $(this).parent().attr("class");
 			
 			if(!hasChanged) {
 			    $("#insertattachment .uploadsubmit").append('<input type="submit" value="Upload"/>');
-			    $("#insertattachment .uploadattachment").css("height", "250px");
 			}
 			
 			var licenses = '';
@@ -1307,8 +2053,6 @@ img {\n\
 		    $("#insertattachment .uploadsubmit").empty();
 		    
 		    $("#insertattachment .uploadattachment").empty();
-		    $("#insertattachment .uploadattachment").css("height", "40px");
-
 		    $("#insertattachment .uploadattachment").append('<div style="border-top: 1px solid #c0c0c0; padding-bottom: 5px" class="entry0"><input type="file" name="entry0"></div>');
 		    $("#insertattachment  INPUT[type='file'][name='entry0']").change(onChanged);
 		},
@@ -1327,12 +2071,12 @@ img {\n\
 			bgiframe: true,
 			autoOpen: false,
 			height: 400,
-    			width: 700, 
+    			width: 750, 
 			modal: true,
 			buttons: {
 			    'Insert image': function() {
 				if(selectedFile) {
-				    editor.insertHTML('<img src="../static/'+selectedFile+'"/>');
+				    editor.insertHTML('<img src="static/'+selectedFile+'"/>');
 				    $(this).dialog('close');
 				}
 			    },

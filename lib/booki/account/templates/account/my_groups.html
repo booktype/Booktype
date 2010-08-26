@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% load profile %}
+
+{% block header %}
+  <script type="text/javascript" src="/site_media/js/profile.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+
+	// current browser
+	$.booki.username = "{{request.user.username}}";
+	
+	// profile user should be different variable
+	
+	$.booki.profileName = "{{user.username}}";
+	
+	/* call when page is loaded */
+	
+	$.booki.profile.initProfile();
+	
+	// probably subscribe to /booki/profile/<username>/
+	$.booki.subscribeToChannel("/booki/", function(message) {
+	    
+	});
+	
+	// start Sputnik
+	jQuery.booki.network._transport.connect();
+    });
+
+
+  </script>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div style="margin-bottom: 5px">
+
+
+<h2>My Groups</h2>
+<div style="border-bottom: 1px solid #c0c0c0"></div>
+
+<ul>
+{% for group in groups %}
+   <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a></li>
+{% endfor %}
+</ul>
+
+
+
+<div style="padding-top: 20px; width:325px;" id="newgroup">
+<h2>Create new group</h2>
+<div style="border-bottom: 1px solid #c0c0c0; margin-bottom: 20px"></div>
+
+  <form method="GET" action="javascript:void(0)" onsubmit="return false;">
+    Group name:<br>
+    <input type="text" style="width:325px;" value=""/> <br>
+    What is this group about:<br>
+    <textarea name="description" rows="5" style="width:325px;"></textarea><br/>
+    <button>Create new group</button>
+  </form>
+</div>
+
+{% endblock %}
