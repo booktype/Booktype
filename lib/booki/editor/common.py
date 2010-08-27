@@ -326,7 +326,7 @@ def _fix_content(book, chapter, chapter_n):
         if href is not None:
             e.set('href', flatten(href, ''))
 
-    return content
+    return etree.tostring(tree)
 
 
 def exportBook(book_version):
