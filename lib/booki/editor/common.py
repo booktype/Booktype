@@ -291,8 +291,8 @@ def _fix_content(book, chapter, chapter_n):
     if "##AUTHORS##" in content:
         expand_authors(book, chapter, content)
 
-    if isinstance(content, unicode):
-        content = content.encode('utf-8')
+    #if isinstance(content, unicode):
+    #    content = content.encode('utf-8')
 
     tree = html.document_fromstring(content)
 
@@ -326,7 +326,7 @@ def _fix_content(book, chapter, chapter_n):
         if href is not None:
             e.set('href', flatten(href, ''))
 
-    return etree.tostring(tree)
+    return etree.tostring(tree, encoding='UTF-8', method='html')
 
 
 def exportBook(book_version):
