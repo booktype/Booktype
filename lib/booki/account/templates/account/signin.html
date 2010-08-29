@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% load profile %}
+
+{% block header %}
+  <script type="text/javascript">
+    $(function() {
+
+	var groupsToJoin = [ {% for group in joingroups %}"{{ group.url_name }}",{% endfor %}''];
+
+	function showNotification(whr, msg) {
+	    $(whr).html('<div style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">'+msg+'</div>');
+	}
+	
+	$("#signin_form BUTTON").click(function() {
+	    var username = $("#loginform INPUT[name=username]").val();
+	    var password = $("#loginform INPUT[name=password]").val();
+
+//	    $("#loginform BUTTON").attr("disabled", "disabled");
+
+	    $.post('/accounts/signin/', {'ajax': '1',
+					 'method': 'signin',
+					 'username': username,
+					 'password': password},
+		   function(data) {
+		       switch(data.result) {
+		       case 1: // Everything is ok
+			   window.location = '{{ redirect }}';
+			   return;
+		       case 2:  // User does not exist
+			   showNotification('#loginform .notify', 'User does not exist.');
+			   $("#loginform INPUT[name=username]").focus().select();
+			   break;
+		       case 3: // Wrong password 
+			   showNotification('#loginform .notify', 'Password is wrong! Please try again.');
+			   $("#loginform INPUT[name=password]").focus().select();
+			   break;
+
+		       default: // Unknown error
+			   showNotification('#loginform .notify', 'Unknown error!.');
+		       }
+
+//		       $("#loginform BUTTON").removeAttr("disabled");
+		   }, 'json');
+	});
+
+	$("#register_form BUTTON").click(function() {
+	    var username   = $("#registerform INPUT[name=username]").val();
+	    var email      = $("#registerform INPUT[name=email]").val();
+	    var password   = $("#registerform INPUT[name=password]").val();
+	    var password2  = $("#registerform INPUT[name=password2]").val();
+	    var fullname   = $("#registerform INPUT[name=fullname]").val();
+
+//	    $("#registerform BUTTON").attr("disabled", "disabled");
+
+	    showNotification('#registerform .notify', '');
+
+
+	    $.post('/accounts/signin/', {'ajax': '1',
+					 'method': 'register',
+					 'username':  username,
+					 'password':  password,
+					 'password2': password2,
+					 'email':     email,
+					 'fullname':  fullname,
+					 'groups':    $.toJSON(groupsToJoin)},
+
+		   function(data) {
+//		       $("#registerform BUTTON").removeAttr("disabled");
+
+		       switch(data.result) {
+		       case 1: // Everything is ok
+			   $("#register_form").slideUp("fast", function() {
+			       $("#signin_form").slideUp("fast", function() {
+
+				   function _showMessage(sec) {
+				       return function() {
+					   if(sec > 0) {
+					       $("#signinmessage .redirectmessage").html("Automatic redirection in "+sec+" seconds.");
+					       setTimeout(_showMessage(sec-1), 1000);
+					   } else {
+					       window.location = '/accounts/'+username+'/';
+					   }
+				       }
+				   }
+				   
+				   $("#signinmessage").slideDown("slow");
+				   _showMessage(20)();
+			       });
+			   });
+
+			   return;
+
+		       case 2: // Missing username
+			   showNotification('#registerform .notify', 'Missing username!');
+			   $("#registerform INPUT[name=username]").focus().select();
+			   break;
+
+		       case 3: // Missing email
+			   showNotification('#registerform .notify', 'Missing e-mail!');
+			   $("#registerform INPUT[name=email]").focus().select();
+			   break;
+
+		       case 4: // Missing password
+			   showNotification('#registerform .notify', 'Missing password!');
+			   $("#registerform INPUT[name=password]").focus().select();
+			   break;
+
+		       case 5: // Missing fullname
+			   showNotification('#registerform .notify', 'Please provide your real name.');
+			   $("#registerform INPUT[name=fullname]").focus().select();
+			   break;
+
+		       case 6: // Wrong username
+			   showNotification('#registerform .notify', 'Username is invalid. Please try a different one. You may use alhpanumeric characters and characters ".", "_", "-" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>');
+			   $("#registerform INPUT[name=username]").focus().select();
+			   break;
+
+		       case 7: // Wrong email
+			   showNotification('#registerform .notify', 'This is not a valid e-mail.');
+			   $("#registerform INPUT[name=email]").focus().select();
+			   break;
+
+
+		       case 8: // Password does not match
+			   showNotification('#registerform .notify', 'Your passwords dont match. Please try a different one.');
+			   $("#registerform INPUT[name=password]").focus().select();
+			   break;
+
+		       case 9: // Password too small
+			   showNotification('#registerform .notify', 'Password must be 6 characters or more!');
+			   $("#registerform INPUT[name=password]").focus().select();
+			   break;
+
+		       case 10: // Username exists
+			   showNotification('#registerform .notify', 'Username already taken. Please try a different one.');
+			   $("#registerform INPUT[name=username]").focus().select();
+			   break;
+
+			   
+		       default: // Unknown error
+			   showNotification('#registerform .notify', 'Unknown error!');
+		       }
+		   }, 'json');
+	});
+
+    });
+
+
+  </script>
+
+{% endblock %}
+
+{% block content %}
+
+<div id="signincontainer">
+<!-- SIGNIN FORM -->
+<div id="signin_form" style="float: left">
+  
+  {% if request.user.is_authenticated %}
+  <div style="background-color: #f8e1a4; font-size: 12px; padding: 20px; width: 300px; ">
+    <h2>You are already signed in!</h2>
+  </div>
+  {% else %}
+  <div style="background-color: #f8e1a4; font-size: 12px; padding: 20px; width: 300px;">
+    <h2>Sign in</h2>
+    <form method="POST" action="/accounts/signin/" id="loginform" name="loginform" onsubmit="return false;">
+      USERNAME<br/>
+      <input type="text" name="username" style="width: 200px"/><br/>
+      PASSWORD<br/>
+      <input type="password" name="password" style="width: 200px"/><br/>
+      <span class="notify"></span>
+      <br/>
+      <button>Sign in</button> <a href="{% url forgotpassword %}">Forgot your password ?</a>
+    </form>
+  </div>
+  {% endif %}
+  
+</div>
+
+<!-- REGISTER FORM -->
+<div id="register_form">
+  {% if request.user.is_authenticated %}
+  <div style="background-color: #f8e1a4;font-size: 12px; padding: 20px; float: right; width: 300px;">
+    <h2>You are already signed in.</h2>
+  </div>
+  {% else %}
+  
+  <div style="background-color: #f8e1a4;font-size: 12px; padding: 20px; float: right; width: 300px;">
+    <h2>Create Account</h2>
+    
+    <form method="POST" action="/accounts/register/" onsubmit="return false" id="registerform">
+      USERNAME<br/>
+      <input type="text" name="username" value="{{ username }}" style="width: 200px;"/><br/>
+      E-MAIL<br/>
+      <input type="text" name="email" value="{{ email }}" style="width: 200px"/><br/>
+      PASSWORD (6 characters at least)<br/>
+      <input type="password" name="password" style="width: 200px"/><br/>
+      PASSWORD confirmation<br/>
+      <input type="password" name="password2" style="width: 200px"/><br/>
+      FULL NAME<br/>
+      <input type="text" name="fullname" value="{{ fullname }}" style="width: 200px"/><br/>
+      Your real name is compulsory for reasons of copyright attribution on books you create and contribute to.<br/>
+      <span class="notify"></span>
+      <br/>
+      <button>Create account</button>
+    </form>
+
+   {% if joingroups %} 
+     <p>
+     You will also be joining this groups if you create account:
+      <ul>
+       {% for group in joingroups %}
+          <li> <a href="{% url view_group group.url_name %}" target="_new">{{ group.name }}</a></li>
+       {% endfor %}
+      </ul>
+     </p>
+   {% endif %}
+  </div>
+  {% endif %}
+</div>
+
+<div id="signinmessage" style="display: none">
+<div style="background-color: #f8e1a4; font-size: 12px; padding: 20px;"><h2>Your account has been created!</h2><p>Thank you. We have created your account and signed you in. If you are new to Booki we recommend you to read <a href="http://www.booki.cc/booki-user-guide/">Booki User Guide</a>.</p><p><form method="GET" action="/"><button>Great! Let's use Booki now!</button><span class="redirectmessage" style="padding-left: 20px"></span></form></p></div>
+</div>
+</div>
+
+<div style="padding-top: 20px; float: left; clear: both">
+<h2>Why do I need account ?</h2>
+<p>Your real name is compulsory for reasons of copyright attribution on books you create and contribute to.</p>
+
+<h2>I forgot my password. What now ?!</h2>
+<p>Please <a href="{% url forgotpassword %}">request new one</a>.</p>
+
+<!--
+<h2>I forgot my username ?</h2>
+-->
+
+</div>
+{% endblock %}

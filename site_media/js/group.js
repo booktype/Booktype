@@ -7,15 +7,39 @@ $(function() {
 
 	return {
 	    _initUI: function() {
+		$("#tabs").tabs();
+		$("#tabs A.butt").button();
+
+		$("#tabgroup A.buttjoin").button().click(function() {
+		    jQuery.booki.sendToChannel("/booki/group/"+$.booki.groupNameURL+"/", 
+					       {"command": "join_group"
+					       },
+					       
+					       function(message) {
+						   window.location = '';
+					       });
+		});
+
+		$("#tabgroup A.buttleave").button().click(function() {
+		    jQuery.booki.sendToChannel("/booki/group/"+$.booki.groupNameURL+"/", 
+					       {"command": "leave_group"
+					       },
+					       
+					       function(message) {
+						   window.location = '';
+					       });
+		});
+
 	    },
 
 	    /* load initial data */
 	    
 	    _loadInitialData: function() {
-		jQuery.booki.sendToChannel("/booki/group/"+$.booki.groupName+"/", 
+		jQuery.booki.sendToChannel("/booki/group/"+$.booki.groupNameURL+"/", 
 					   {"command": "init_group",
 					    "profile": $.booki.groupName
 					   },
+
 					   function(message) {
 					       $.booki.ui.notify("");
 					   });
@@ -24,7 +48,7 @@ $(function() {
 	    /* initialize group */
 	    
 	    initGroup: function() {
-		jQuery.booki.subscribeToChannel("/booki/group/"+$.booki.groupName+"/", function(message) {
+		jQuery.booki.subscribeToChannel("/booki/group/"+$.booki.groupNameURL+"/", function(message) {
 		    var funcs = {
 			
 		    };

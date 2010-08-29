@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<!-- BOOKS LISTING -->
+	<div>
+	<h2 style="border-bottom: 1px dotted gray" >Books</h2>
+
+	<ul>
+	{% for book in books.object_list %}
+	   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a></li>
+	{% endfor %}
+	</ul>
+
+         {% load booki_paginator %}
+
+         {% booki_paginator books %}
+	</div>
+
+{% endblock %}

@@ -1,4 +1,5 @@
 # Django settings for booki project.
+BOOKI_MAINTENANCE_MODE = False
 
 STATIC_DOC_ROOT = '/home/aerkalov/Work/git/booki/site_media'
 PROFILE_IMAGE_UPLOAD_DIR = '%s/static/_profile_images/'%STATIC_DOC_ROOT
@@ -12,6 +13,24 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+
+# use this objavi server
+OBJAVI_URL = "http://objavi.flossmanuals.net/objavi.cgi"
+ESPRI_URL = "http://objavi.flossmanuals.net/espri.cgi"
+TWIKI_GATEWAY_URL = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
+
+#the name of the booki server (comment out to use os.environ['HTTP_HOST'])
+#THIS_BOOKI_SERVER = 'www.booki.cc'
+
+# who gets credited as publisher if not otherwise specified
+DEFAULT_PUBLISHER = "FLOSS Manuals http://flossmanuals.net"
+
+# email configuration
+#EMAIL_HOST = 'localhost'
+#EMAIL_PORT = 25
+#EMAIL_HOST_USER = 'booki@' + THIS_BOOKI_SERVER
+#EMAIL_HOST_PASSWORD = ''
+#EMAIL_USE_TLS = False
 
 DATABASE_ENGINE = 'postgresql_psycopg2'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = 'booki'             # Or path to database file if using sqlite3.
@@ -66,6 +85,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.transaction.TransactionMiddleware'
 )
 
 ROOT_URLCONF = 'booki.urls'
@@ -84,8 +104,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'booki.editor',
     'booki.account',
+    'booki.reader',
+    'booki.portal',
     'sputnik'
 )
+
 
 def init_logging():
     import logging

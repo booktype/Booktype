@@ -17,106 +17,28 @@
 	    /* booki part */
             /* this is temporary here */
 
-           $.booki.username = "{{request.user.username}}";
+	    // probably should urlencode them 
+           $.booki.username = "{{request.user.username|escapejs}}";
            $.booki.currentBookID  = {{book.id}};
-           $.booki.currentBook    = "{{book.title}}";
+           $.booki.currentBook    = "{{book.title|escapejs}}";
+           $.booki.currentBookURL = "{{book.url_title|escapejs}}";
+
+           $.booki.currentVersion = "{{book_version|escapejs}}";
 
 	    /* call when page is loaded */
 
 	    $.booki.editor.initEditor();
 
+	    $("#searchbox BUTTON").button();
+	    $("#publishbook").button();
 
             $.booki.subscribeToChannel("/booki/", function(message) {
 
             });
 
 
-	    // open debug window
-	    $.booki.debug.init();
-
-	    $("A.debug").click(function() {
-		$("#bookidebug").dialog("open");
-		return false;
-	    });
-
           // start Sputnik
           jQuery.booki.network._transport.connect();
-	    
-	    // $("#datepicker").datepicker({"onSelect": function(a) { alert(a)}});
-
-
-
-	    // should move this dialogs to editor.js
-	    $("#newchapter").dialog({
-			bgiframe: true,
-			autoOpen: false,
-			height: 200,
-		        width: 400, 
-			modal: true,
-			buttons: {
-				'Create chapter': function() {
-				    $.booki.ui.notify("Creating chapter");
-				    
-				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
-					if(data.created) {
-					    $.booki.ui.notify();
-					} else {
-					    $.booki.ui.notify();
-					    alert("Can not create duplicate chapter name.");
-					}
-				    });
-
-
-				    $(this).dialog('close');
-				},
-				'Cancel': function() {
-					$(this).dialog('close');
-				}
-			},
-		open: function(event,ui) {
-		    $("INPUT", $(this)).val("Enter new Chapter title.").select();
-		},
-		close: function() {
-
-			}
-		});
-
-
-	    $("#newsection").dialog({
-			bgiframe: true,
-			autoOpen: false,
-			height: 200,
-    		        width: 400, 
-			modal: true,
-			buttons: {
-				'Create section': function() {
-				    $.booki.ui.notify("Creating section");
-				    
-				    $.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
-					if(data.created) {
-					    $.booki.ui.notify();
-					} else {
-					    alert("Can not create duplicate section name.");
-					    $.booki.ui.notify();
-					}
-					});
-
-					$(this).dialog('close');
-				},
-				'Cancel': function() {
-					$(this).dialog('close');
-				}
-			},
-		open: function(event,ui) {
-		    $("INPUT", $(this)).val("Enter new section title.").select();
-		},
-		close: function() {
-
-			}
-		});
-
-
-	    
 	});
 
 
@@ -136,7 +58,8 @@ function closeAttachmentUpload() {
 <script type="text/javascript" src="/site_media/xinha/XinhaCore.js"></script>
 
 <script type="text/javascript">
-    var xinha_plugins = ['GetHtml',        'SaveSubmit', 'DoubleClick' , 'ImageManager', 'SpellChecker', 'BookiInsert'];
+    var xinha_plugins = ['GetHtml','InsertNote','InsertPagebreak','FindReplace','Equation','CharacterMap','DoubleClick' , 'SpellChecker', 'BookiInsert','ListType'];
+
     var xinha_editors = ['myTextArea'];
 
     var prvi = false;
@@ -153,13 +76,9 @@ function closeAttachmentUpload() {
 
 	var xinha_config = new Xinha.Config();
 	
-	/*
-    xinha_config.width  = '610px';
-    xinha_config.height = '600px';
-*/
 	xinha_config.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
-	
-	xinha_config.toolbar = [["popupeditor"],["formatblock","bold","italic"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","about"]];
+
+        xinha_config.toolbar = [["popupeditor"],["formatblock","fontname","fontsize","bold","italic","underline","strikethrough","forecolor","hilitecolor"],["separator","outdent","indent"],["linebreak","separator","justifyleft","justifycenter","justifyright","justifyfull"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","print"]];
 
 	xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
 	
@@ -170,19 +89,31 @@ function closeAttachmentUpload() {
 //Xinha.addOnloadHandler(xinha_init);
 </script>
 
+<style>
+
+.ui-button .ui-button-text { display: block; line-height: 0.6;  }
+
+.ui-button-text-only .ui-button-text { padding: 0.05em 0.05em; }
+
+/*
+.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text { padding: .1em; text-indent: -9999999px; }
+
+.ui-button-text-icon .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .1em 0.5em .1em 1.5em; }
+
+.ui-button-text-icons .ui-button-text { padding-left: 1.5em; padding-right: 1.5em; }
+*/
+
+</style>
 
 {% endblock %}
 
 {% block content %}
 <div id="notify">
-some notification. this should be on top of visible page and not top of page.
-</div>
-
-<div id="bookidebug">
+  some notification. this should be on top of visible page and not top of page.
 </div>
 
 <div>
-<div style="float: right; padding-top: 5px">
+<div id="searchbox" style="float: right; padding-top: 5px">
 <form>
 <input type="text" size="20"> <button>Search</button>
 </form>
@@ -192,15 +123,35 @@ some notification. this should be on top of visible page and not top of page.
 
 <div id="tabs">
 	<ul>
-		<li><a href="#tabchapters">Chapters</a></li>
 <!--		<li><a href="#tabattachments">Attachments</a></li> -->
-		<li><a href="#tabhistory">History</a></li>
 <!--		<li><a href="#tabinfo">Info</a></li> -->
-<!--		<li><a href="#tabbigchat">Chat</a></li>  -->
+
+{% if "chapters" in tabs %}
+		<li><a href="#tabchapters">Chapters</a></li>
+{% endif %}
+
+{% if "attachments" in tabs %}
+		<li><a href="#tabattachments">Attachments</a></li>
+{% endif %}
+
+{% if "history" in tabs %}
+		<li><a href="#tabhistory">History</a></li>
+{% endif %}
+
+{% if "versions" in tabs %}
+		<li><a href="#tabversions">Versions</a></li>
+{% endif %}
+
+{% if "notes" in tabs %}
 		<li><a href="#tabnotes">Notes</a></li>
-		<li><a href="#tabpublish">Publish</a></li>
+{% endif %}
+
+{% if "export" in tabs %}
+		<li><a href="#tabpublish">Export</a></li>
+{% endif %}
 
 	</ul>
+{% if "chapters" in tabs %}
 	<div id="tabchapters">
 	<!-- START Chapters TAB -->
 
@@ -218,6 +169,8 @@ some notification. this should be on top of visible page and not top of page.
 
 		<ul id="chapterslist" class="connectedSortable">
 		</ul>
+
+		<div style="font-size:9px;">(drag new chapters into the area above here)</div>
 
 		<div id="chapteraction">
 		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
@@ -243,37 +196,93 @@ some notification. this should be on top of visible page and not top of page.
 
 		<!-- open attachment dialog -->
 		<div id="insertattachment" title="Insert image">
-		 <div class="listing">
-		    <table border="0" width="100%">
-		     <tr>
-		      <td valign="top">
-		       <div  style="height: 250px; overflow: auto">
-			  <table border="0" width="90%" class="files">
-			  </table>
-		       </div>
-		      </td>
-		      <td width="200" valign="top">
-			<div class="previewattachment">
-			</div>
-		      </td>
-		     </tr>
-		   </table>
-		</div>
+                   <div id="inserttabs">
+                       <ul>
+                         <li><a href="#insertimages">Images</a></li>
+                         <li><a href="#insertupload">Upload image</a></li>
+                      </ul>
+                      <div id="insertimages">
+		        <div class="listing">
+		          <table border="0" width="100%">
+    		            <tr>
+		              <td valign="top">
+		                <div  style="height: 250px; overflow: auto">
+			          <table border="0" width="90%" class="files">
+			          </table>
+		                </div>
+		              </td>
+		              <td width="160" valign="top">
+				<fieldset style="padding: 2px">
+                                 <legend>Preview</legend>
+			          <div class="previewattachment">
+  			          </div>
+                                </fieldset>
+		              </td>
+		            </tr>
+		          </table>
+		        </div>
+                      </div>
 
-		<div class="uploadform" style="position: relative; left: 0px; bottom: 0px">
-		<form method="POST" target="frameupload" action="../_upload/" enctype="multipart/form-data">
-		 <div class="uploadattachment" style="overflow: auto;">
-		 </div>
-		 <div class="uploadsubmit">
-		 </div>
-		</form>
+                      <div id="insertupload">
+		        <div class="uploadform">
+		          <form method="POST" target="frameupload" action="../_upload/" enctype="multipart/form-data">
+		            <div class="uploadattachment" style="overflow: auto;">
+		            </div>
+		            <div class="uploadsubmit">
+		            </div>
+		          </form>
 
-		<iframe width="0" height="0" name="frameupload" border="0" style="border: 0px"></iframe>
-		</div>
+		          <iframe width="0" height="0" name="frameupload" border="0" style="border: 0px"></iframe>
+	   	        </div>
+		      </div>
+
+		   </div>
 		</div>
 
 		<!-- close attachment dialog -->
 
+		<!-- start of edit attachment -->
+		<div id="editattachment" title="Edit Image">
+		  <div class="container">
+		    <fieldset style="float: right; width: 160px; height: 160px; border: 1px solid gray; margin-left: 10px;">
+		      <legend>Preview</legend>
+		      <span class="preview"></span>
+		    </fieldset>
+
+		    <fieldset>
+		      <legend>Image</legend>
+		      <table border="0">
+			<tr><td>Image:</td><td><input type="text" name="f_image" size="40"></td></tr>
+			<tr><td>Alt:</td><td><input type="text" name="f_alt" size="40"></td></tr>
+		      </table>
+		    </fieldset>
+
+		    <fieldset>
+		      <legend>Positioning</legend>
+		      <table border="0">
+			<tr><td>Border:</td><td><input type="text" name="f_border"></td></tr>
+			<tr><td>Align:</td><td><input type="text" name="f_align"></td></tr>
+			<tr><td>Width:</td><td><input type="text" name="f_width"></td></tr>
+			<tr><td>Height:</td><td><input type="text" name="f_height"></td></tr>
+		      </table>
+		    </fieldset>
+
+
+		    <fieldset>
+		      <legend>Style</legend>
+		      <table border="0" width="100%">
+			<tr><td>CSS Class:</td><td><input type="text" name="f_css"></td><td colspan="2"></tr>
+			<tr><td>Padding:</td><td><input type="text" name="f_padding"></td>
+			<td>Margin:</td><td><input type="text" name="f_margin"></td></tr>
+			<tr><td>Background color:</td><td><input type="text" name="f_bgcolor"></td>
+			<td>Border color:</td><td><input type="text" name="f_bordercolor"></td></tr>
+		      </table>
+		    </fieldset>
+
+
+		  </div>
+		</div>
+		<!-- end of edit attachment -->
 
 		<div class="middleinfo">
 		</div>
@@ -286,12 +295,20 @@ some notification. this should be on top of visible page and not top of page.
 
 		<div id="editor" style="display: none">
 		<form method="GET" action="javascript: return void(0)">
-		<input type="hidden" name="chapter_id" value=""/>
-		<input type="button" class="save" name="save" value="Save"/>
-		<input type="button" class="save" name="savecontinue" value="Save and continue editing"/> 
+                  <div style="padding-bottom: 5px">
+		    <input type="hidden" name="chapter_id" value=""/>
+		    <A name="save" href="javascript:void(0)">Save</a>
+		    <A name="savecontinue"  href="javascript:void(0)">Save and continue editing</a> 
+		    
+		    <A name="cancel"  href="javascript:void(0)">Cancel</a>
+<!--
+		    <input type="button" class="save" name="save" value="Save"/>
+		    <input type="button" class="save" name="savecontinue" value="Save and continue editing"/> 
+		    
+		    <input type="button" class="cancel" name="cancel" value="Cancel"/>
+-->
+		  </div>
 
-		<input type="button" class="cancel" name="cancel" value="Cancel"/>
-		<br/>
 		<!-- <input type="text" name="title" style="width: 500px"><br/> -->
 		<textarea name="myTextArea" id="myTextArea" style="width: 610px; height: 600px">
 		  
@@ -343,76 +360,81 @@ some notification. this should be on top of visible page and not top of page.
 
 
 	</div>
+{% endif %}
 
-	<!-- START Attachments TAB -->
-<!--
+{% if "attachments" in tabs %}
 	<div id="tabattachments">
+          <h2>Attachments</h2>
+          <div id="attachmentscontainer">
+          </div>
+	  <div style="margin-top: 10px">
+   	    <a name="delete" href="javascript:void(0)">Deleted selected items</a>
+          </div>
 
-		  <h2>Attachments</h2>
+          <div class="dialogs"></div>
 
-		<table border="0" width="100%">
-		 <tr>
-		  <td valign="top">
-
-			 <form>
-			  <table width="95%" class="files">
-			  </table>
-			 </form>
-		  </td>
-		  <td valign="top" width="200">
-		    <div id="attachmentpreview">
-
-		    </div>
-		  </td>
-		 </tr>
-		</table>
 	</div>
--->
+{% endif %}
 
+{% if "history" in tabs %}
 	<div id="tabhistory">
 	<!-- START history TAB -->
-
-		<table border="0">
-		<tr>
-		<td width="100%" class="cont">
-
-
-		</td>
-		<td width="20"></td>
-		<td valign="top">
-		<h4>History</h4> 
-		<ul>
-		<li>Book</li>
-		</ul>
-		</td>
-		</tr>
-		</table>
-
-	</div>
-
 <!--
-<div id="tabbigchat">
-<table border="0">
-<tr>
-<td width="100%">
-<div id="chat2">
-</div>
-</td>
-<td width="20"></td>
-<td valign="top">
-<h4>Search conversations</h4>
-<form>
-<input type="text" style="width:  200px">
-</form>
-<h4>Conversation history</h4>
-<div id="datepicker" ></div>
+          <div id="format">
+		<input type="radio" id="check1" name="radio"/><label for="check1">Chapters</label>
+		<input type="radio" id="check2" name="radio" /><label for="check2">Chat</label>
+    	  </div> -->
+          <div id="historycontainer">
+          </div>
+	</div>
+{% endif %}
 
-</td>
-</tr>
-</table>
+{% if "versions" in tabs %}
+       <div id="tabversions">
+{% if security.isAdmin %}
+        <h3>New version</h3>
+         <div class="version">
+	   With different versions you can easily organise your book. But be careful! Other users will not be able to edit
+and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them.
 
-</div>
--->
+           <p>
+             <a class="major" href="javascript:void(0)">Create major version</a>
+             <a class="minor" href="javascript:void(0)">Create minor version</a>
+           </p>
+         </div>
+
+
+	<div id="newversionmajor" title="New version">
+	  <form onsubmit="javascript:return false">
+<!--	    <fieldset> -->
+              You can name this version (optional):
+	      <input type="text" style="width: 100%" class="text ui-widget-content ui-corner-all"><br/>
+<i>e.g. initial, dragon, test</i><br/><br/>
+Description (optional)<br/>
+<textarea style="width: 100%; height: 150px"></textarea>
+<!--	      </fieldset> -->
+	    </form>
+	  </div>
+
+	<div id="newversionminor" title="New version">
+	  <form onsubmit="javascript:return false">
+<!--	    <fieldset> -->
+              You can name this version (optional):
+	      <input type="text" style="width: 100%" class="text ui-widget-content ui-corner-all"><br/>
+<i>e.g. initial, dragon, test</i><br/><br/>
+Description (optional)<br/>
+<textarea style="width: 100%; height: 150px"></textarea>
+<!--	      </fieldset> -->
+	    </form>
+	  </div>
+{% endif %}
+
+        <h3>All versions</h3>
+	<span class="list"></span>
+
+       </div>
+
+{% endif %}
 
 	<!-- START info TAB -->
 <!--
@@ -424,9 +446,10 @@ some notification. this should be on top of visible page and not top of page.
 	</div>
 -->
 
+{% if "export" in tabs %}
 	<div id="tabpublish">
 	<!-- START publish TAB -->
-          <h1>Publish</h1>
+          <h1>Export</h1>
           <p></p>
 
           <form method="" action="" onsubmit="return false">
@@ -469,14 +492,15 @@ some notification. this should be on top of visible page and not top of page.
               </td>
 	     </tr>
 	      <tr>
-		<td colspan="2"><input type="checkbox" checked="yes" name="archiveorg"> send to archive.org</td>
+<!--		<td colspan="2"><input type="checkbox" checked="yes" name="archiveorg"> send to archive.org</td> -->
+		<td colspan="2"><input type="checkbox"  name="archiveorg"> send to archive.org</td>
 	      </tr>
 	      <tr>
 		<td colspan="2"><br/></td>
 	      </tr>
 	      <tr>
 		<td colspan="2">
-		  <button>Publish this book</button>
+		  <button id="publishbook">Publish this book</button>
                   <span id="advancedswitch">
                      <a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(true)">Show advanced options</a>
                   </span>
@@ -609,9 +633,9 @@ some notification. this should be on top of visible page and not top of page.
           </div>
 
 	</div>
+{% endif %}
 
-
-
+{% if "notes" in tabs %}
 	<div id="tabnotes">
 	<!-- START notes TAB -->
 	Shared notes for this book
@@ -629,7 +653,7 @@ some notification. this should be on top of visible page and not top of page.
 
 
 	</div>
-
+{% endif %}
 
 </div>
 

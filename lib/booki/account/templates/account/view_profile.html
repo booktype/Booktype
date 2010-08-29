@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% load profile %}
@@ -50,49 +51,15 @@
   <div style="padding-top: 10px; font-style: italic;" id="profilemood">
     {{ user.get_profile.mood }}
   </div>
+
+   <a style="text-decoration: underline" href="/feeds/rss/user/{{ user.username }}/">Track my changes</a>
   <!-- end profile info -->
-
-  <div style="border-bottom: 1px solid #c0c0c0"></div>
-
-<h2>Create new book</h2>
-<form action="." method="POST">
-<table>
-{{ project_form.as_table }}
-</table>
-<button>Create</button>
-</form>
-<br/>
-
-
-<h2>Import from archive.org</h2>
-<form action="." method="POST">
-<table>
-{{ import_form.as_table }}
-</table>
-<button>Import</button>
-</form>
-<br/>
-
-<h2>Import epub</h2>
-<form action="." method="POST">
-<table>
-{{ epub_form.as_table }}
-</table>
-<button>Import</button>
-</form>
-<br/>
-
-
-<!--
-<h2>Import from fm.net</h2>
-<form action="." method="POST">
-<table>
-{{ floss_form.as_table }}
-</table>
-<br/><br/>
-<button>Import</button>
-</form>
--->
+   <div style="border-bottom: 1px solid #c0c0c0; padding-top: 20px"></div>
+   <div style="background:#e1e1e1;border: 1px solid #c0c0c0;padding:5px;">
+     <b>Suggestions:</b><br> 
+     To create new books go to "My Books".<br>
+     Read the <a href='http://www.booki.cc/booki-user-guide/'>booki-user-guide</a>
+   </div>
 
   </td>
   <td width="10"></td>
@@ -126,8 +93,8 @@
 {% endfor %}
 </ul>
 
-
-
+<!--
+{% if user.username == request.user.username %}
 <div style="padding-top: 20px; width:325px;" id="newgroup">
 <h2>Create new group</h2>
 <div style="border-bottom: 1px solid #c0c0c0; margin-bottom: 20px"></div>
@@ -140,7 +107,8 @@
     <button>Create new group</button>
   </form>
 </div>
-
+{% endif %}
+-->
   </td>
  </tr>
 </table>

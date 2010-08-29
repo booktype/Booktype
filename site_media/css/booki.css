@@ -9,7 +9,10 @@ a {text-decoration: none;}
 a:link {color:#555;}
 a:visited {color: #555;}
 a:hover {text-decoration: none; color: black;}
-img {border-style:none;}
+img {
+       border-style:none;
+       max-width:540px;        
+}
 
 #page-container {   
 	margin: 0 auto;
@@ -130,4 +133,20 @@ select {
         border:1px solid black;
 }
 
+#bookmenu {
+ padding-right: 20px; 
+ float: left;
+ width: 200px;
+}
+
+#bookmenu ul {
+ list-style-type: none;
+ margin: 0px;
+ padding: 0px;
+}
+
+#bookcontent {
+ float: left;
+ width: 480px;
+}
 

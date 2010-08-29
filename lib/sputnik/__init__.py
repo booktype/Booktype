@@ -1,24 +1,34 @@
+from __future__ import with_statement 
+
 import time
 import simplejson
 import redis
 import base64
 
+
+
+# should read info from settings about connections
 rcon = redis.Redis()
-rcon.connect()
+#rcon.connect()
 
 
 # implement our own methods for redis communication
 
 def rencode(key):
+    return key
     return base64.b64encode(key)
 
 def rdecode(key):
+    return key
     return base64.b64decode(key)
 
 def sismember(key, value):
     import sputnik
+
     if key and key.strip() != '':
-        return sputnik.rcon.sismember(key, rencode(value))
+        with sputnik.rcon.lock('com'):
+            result = sputnik.rcon.sismember(key, rencode(value))
+        return result
 
     return False
 
@@ -26,7 +36,8 @@ def sadd(key, value):
     import sputnik
 
     if key and key.strip() != '':
-        sputnik.rcon.sadd(key, rencode(value))
+        with sputnik.rcon.lock('com'):
+            sputnik.rcon.sadd(key, rencode(value))
 
     return False
 
@@ -34,7 +45,8 @@ def rset(key, value):
     import sputnik
 
     if key and key.strip() != '':
-        sputnik.rcon.set(key, rencode(value))
+        with sputnik.rcon.lock('com'):
+            sputnik.rcon.set(key, rencode(value))
 
     return False
 
@@ -42,7 +54,9 @@ def rpop(key):
     import sputnik
 
     if key and key.strip() != '':
-        return rdecode(sputnik.rcon.pop(key))
+        with sputnik.rcon.lock('com'):
+            result = rdecode(sputnik.rcon.rpop(key))
+        return result
 
     return None
 
@@ -50,33 +64,64 @@ def srem(key, value):
     import sputnik
 
     if key and key.strip() != '':
-        return sputnik.rcon.srem(key, rencode(value))
+        with sputnik.rcon.lock('com'):
+            result = sputnik.rcon.srem(key, rencode(value))
+
+        return result
 
     return None
+
+def incr(key):
+    import sputnik
+
+    if key and key.strip() != '':
+        with sputnik.rcon.lock('con'):
+            result = sputnik.rcon.incr(key)
+        return result
+
 
 def get(key):
     import sputnik
 
     if key and key.strip() != '':
-        return rdecode(sputnik.rcon.get(key))
+        with sputnik.rcon.lock('con'):
+            result = rdecode(sputnik.rcon.get(key))
+        return result
+
+def set(key, value):
+    import sputnik
+
+    if key and key.strip() != '':
+        with sputnik.rcon.lock('con'):
+            result = rdecode(sputnik.rcon.set(key, value))
+        return result
+
 
 def smembers(key):
     import sputnik
 
+    result = []
+
     if key and key.strip() != '':
         try:
-            return [rdecode(el) for el in list(sputnik.rcon.smembers(key))]
+            with sputnik.rcon.lock('com'):
+                result =  [rdecode(el) for el in list(sputnik.rcon.smembers(key))]
         except:
+            from booki.utils.log import printStack
+            printStack(None)
             return []
 
-    return []
+    return result
 
 
 def rkeys(key):
     import sputnik
 
     if key and key.strip() != '':
-        return [rdecode(el) for el in list(sputnik.rcon.keys(key))]
+        with sputnik.rcon.lock('con'):
+            result = [rdecode(el) for el in list(sputnik.rcon.keys(key))]
+
+        return result
 
     return []
 
@@ -84,7 +129,10 @@ def push(key, value):
     import sputnik
 
     if key and key.strip() != '':
-        return sputnik.rcon.push(key, rencode(value))
+        with sputnik.rcon.lock('con'):
+            result = sputnik.rcon.rpush(key, rencode(value))
+
+        return result
 
     return None
 
@@ -92,7 +140,8 @@ def rdelete(key):
     import sputnik
 
     if key and key.strip() != '':
-        sputnik.rcon.delete(key)
+        with sputnik.rcon.lock('con'):
+            sputnik.rcon.delete(key)
 
  
 # must fix this rcon issue somehow. 
@@ -119,7 +168,7 @@ def removeClientFromChannel(request, channelName, client):
     srem("sputnik:channel:%s:channel" % channelName, client)
 
     # get our username
-    userName = sputnik.rcon.get("ses:%s:username" % client)
+    userName = sputnik.get("ses:%s:username" % client)
 
     # get all usernames
     users = smembers("sputnik:channel:%s:users" % channelName)
@@ -128,23 +177,27 @@ def removeClientFromChannel(request, channelName, client):
         # get all clients
         allClients = []
         for cl in smembers("sputnik:channel:%s:channel" % channelName):
-            allClients.append(sputnik.rcon.get("ses:%s:username" % cl))
+            allClients.append(sputnik.get("ses:%s:username" % cl))
 
         for usr in users:
             if usr not in allClients:
-                sputnik.rcon.srem("sputnik:channel:%s:users" % channelName, usr)
+                sputnik.srem("sputnik:channel:%s:users" % channelName, usr)
                 addMessageToChannel(request, channelName, {"command": "user_remove", "username": usr}, myself = True)
     except:
-        pass
+        from booki.utils.log import printStack
+        printStack(None)
 
 
 def addMessageToChannel(request, channelName, message, myself = False ):
     import sputnik
+
     # TODO
     # not iterable
     try:
-        clnts = smembers("sputnik:channel:%s:channel" % channelName)
+        clnts = sputnik.smembers("sputnik:channel:%s:channel" % channelName)
     except:
+        from booki.utils.log import printStack
+        printStack(None)
         return
 
     message["channel"] = channelName
@@ -156,19 +209,20 @@ def addMessageToChannel(request, channelName, message, myself = False ):
 
         if c.strip() != '':
             try:
-                push( "ses:%s:messages" % c, simplejson.dumps(message))
+                sputnik.push( "ses:%s:messages" % c, simplejson.dumps(message))
             except:
                 pass
                 
 
 def removeClient(request, clientName):
     import sputnik
-    for chnl in smembers("ses:%s:channels" % clientName):
+
+    for chnl in sputnik.smembers("ses:%s:channels" % clientName):
         removeClientFromChannel(request, chnl, clientName)
         srem("ses:%s:channels" % clientName, chnl)
 
-    sputnik.rcon.delete("ses:%s:username" % clientName)
-    sputnik.rcon.delete("ses:%s:last_access" % clientName)
+    sputnik.rdelete("ses:%s:username" % clientName)
+    sputnik.rdelete("ses:%s:last_access" % clientName)
 
     # TODO
     # also, i should delete all messages

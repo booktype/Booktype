@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load booki_tags %}
+
+{% block header %}
+<link type="text/css" href="/site_media/css/editor.css" rel="Stylesheet" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS feed for {{ book.title }}" href="/feeds/rss/book/{{ book.url_title }}/" /> 
+<link rel="alternate" type="application/atom+xml" title="Atom feed for {{ book.title }}" href="/feeds/atom/book/{{ book.url_title }}/" /> 
+
+<link rel="alternate" type="application/rss+xml" title="RSS feed for chapter {{ chapter.title }}" href="/feeds/rss/chapter/{{ book.url_title }}/{{ book.url_title }}/" /> 
+<link rel="alternate" type="application/atom+xml" title="Atom feed for chapter {{ chapter.title }}" href="/feeds/atom/chapter/{{ book.url_title }}/{{ book.url_title }}/" /> 
+<link type="text/css" href="/site_media/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<br clear="all"/>
+   <h1>{{ book.title }}</h1>
+<div id="bookmenu">
+<ul>
+{% for chap in chapters %}
+ {% ifnotequal chap.url_title  None%}
+   <li><a href="{% url view_chapter  book.url_title  book_version chap.url_title %}">{{ chap.name }}</a></li>
+ {% else %}
+   <li><b>{{ chap.name }}</b></li>
+ {% endifnotequal %}
+{% endfor %}
+</ul>
+</div>
+<div id="bookcontent">
+{% booki_format content %}
+<hr/>
+<a href="{% url view_book   book.url_title book_version %}edit/">EDIT</a>
+</div>
+{% endblock %}

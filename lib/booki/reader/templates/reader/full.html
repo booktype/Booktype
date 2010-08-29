@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load booki_tags %}
+
+{% block header %}
+<link type="text/css" href="/site_media/css/editor.css" rel="Stylesheet" />
+<link type="text/css" href="/site_media/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
+
+{% endblock %}
+
+
+{% block content %}
+
+<h1>{{ book.title }}</h1>
+
+{% for chap in chapters %}
+ {% ifequal chap.type "chapter"%}
+   {% booki_format chap.chapter  %}
+ {% else %}
+   <h2> {{ chap.title }}</h2>
+ {% endifequal %}
+{% endfor %}
+
+{% endblock %}

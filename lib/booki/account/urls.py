@@ -5,10 +5,12 @@ urlpatterns = patterns('',
 
     url(r'^signin/$', 'booki.account.views.signin', name='signin'),  
     url(r'^login/$', 'booki.account.views.signin', name='login'),  
+    url(r'^forgot_password/$', 'booki.account.views.forgotpassword', name='forgotpassword'),  
+    url(r'^forgot_password/enter/$', 'booki.account.views.forgotpasswordenter', name='forgotpasswordenter'),  
 
     url(r'^signout/$', 'booki.account.views.signout', name='signout'),  
 
-    url(r'^register/$', 'booki.account.views.register', name='register'),
+#    url(r'^register/$', 'booki.account.views.register', name='register'),
 
     # Username
     # Letters, digits and @/./+/-/_ only.

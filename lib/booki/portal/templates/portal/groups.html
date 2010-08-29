@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<!-- GROUPS LISTING -->
+	<div>
+	<h2 style="border-bottom: 1px dotted gray" >Groups</h2>
+
+	<ul>
+	{% for group in groups.object_list %}
+	   <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a></li>
+	{% endfor %}
+	</ul>
+
+         {% load booki_paginator %}
+
+         {% booki_paginator groups %}
+
+
+	</div>
+
+{% endblock %}
