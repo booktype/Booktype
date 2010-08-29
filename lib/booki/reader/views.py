@@ -1,9 +1,16 @@
+import os
+
 from django.shortcuts import render_to_response
 from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 
 from booki.editor import models
 from booki.editor.views import getVersion
+from booki import settings
+
+# this is just temporary
+def _customCSSExists(bookName):
+    return os.path.exists('%s/css/book.%s.css' % (settings.STATIC_DOC_ROOT, bookName))
 
 def view_full(request, bookid, version=None):
     chapters = []
@@ -24,6 +31,7 @@ def view_full(request, bookid, version=None):
     return render_to_response('reader/full.html', {"book": book, 
                                                    "book_version": book_version.getVersion(),
                                                    "chapters": chapters, 
+                                                   "has_css": _customCSSExists(book.url_title),
                                                    "request": request})
 
 
@@ -47,6 +55,7 @@ def view_book(request, bookid, version=None):
     return render_to_response('reader/book.html', {"book": book, 
                                                    "book_version": book_version.getVersion(),
                                                    "chapters": chapters, 
+                                                   "has_css": _customCSSExists(book.url_title),
                                                    "request": request})
 
 def view_chapter(request, bookid, chapter, version=None):
@@ -69,6 +78,7 @@ def view_chapter(request, bookid, chapter, version=None):
                                                       "book": book, 
                                                       "book_version": book_version.getVersion(),
                                                       "chapters": chapters, 
+                                                      "has_css": _customCSSExists(book.url_title),
                                                       "request": request, 
                                                       "content": content})
 
