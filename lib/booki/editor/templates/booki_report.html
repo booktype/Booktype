@@ -6,17 +6,17 @@
 <h2>New Users</h2>
 <ul>
 {% for user in users %}
-  <li>{{ user.username }} ({{ user.first_name }})</li>
+  <li><a href="{{ user.get_absolute_url }}">{{ user.username }}</a> ({{ user.first_name }})</li>
 {% empty %}
   <li>No new users</li>
-{% endfor %}
+  {% endfor %}
 </ul>
 
 
 <h2>New Books</h2>
 <ul>
 {% for book in books %}
-  <li>{{ book.title }} ({{ book.url_title }})</li>
+  <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{ book.url_title }})</li>
 {% empty %}
   <li>No new books</li>
 {% endfor %}
@@ -25,7 +25,7 @@
 <h2>New Groups</h2>
 <ul>
 {% for group in groups %}
-  <li>{{ group.name }} ({{ group.url_name }})</li>
+  <li><a href="{{ group.get_absolute_url }}">{{ group.name }}</a> ({{ group.url_name }})</li>
 {% empty %}
   <li>No new groups</li>
 {% endfor %}
@@ -38,7 +38,7 @@
   <li> {{ bookName }}
       <ul>
      {% for ln in his %}
-       <li> {{ ln.chapter.title }}</li>
+       <li> <a href="{{ ln.chapter.get_absolute_url }}">{{ ln.chapter.title }}</a></li>
      {% endfor %}
       </ul>
   </li>

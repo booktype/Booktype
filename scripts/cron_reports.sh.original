@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# This is a cron script that sends over email daily reports to admins.
+#
+# crontab entry (or something similar)
+# 45     23     *     *     *         cron_reports.sh
+
+# django settings
+export DJANGO_SETTINGS_MODULE=booki.settings
+
+# maybe you do, and maybe you don't need to setup your path
+# life is full of surprises
+
+# export PYTHONPATH=$PYTHONPATH:.
+# export PATH=$PATH:.
+
+# send reports
+django-admin.py report --send-email
