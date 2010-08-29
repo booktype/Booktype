@@ -641,7 +641,10 @@ def remote_publish_book(request, message, bookid, version):
 
     def _isSet(name):
         if message.get(name, None):
-            args[name] = message.get(name)
+            if name == 'grey_scale':
+                args['grey_scale'] = 'yes'
+            else:
+                args[name] = message.get(name)
 
     _isSet('title')
     _isSet('license')
