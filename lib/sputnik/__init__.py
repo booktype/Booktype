@@ -1,3 +1,31 @@
+"""
+What is Sputnik?
+================
+  Sputnik is Django app for handling AJAX calls from Web client. For now, it only does polling, but the idea is to make it also work with WebSockets.
+
+  Sputnik is named after U{Soviet space program<http://en.wikipedia.org/wiki/Sputnik_program>}.
+
+Sputnik keys
+============
+  - sputnik:channels - Redis Set of channel names.
+  - sputnik:channel:<channel_name>:channel - Redis Set of clients for specific <channel_name>.
+  - sputnik:channel:<channel_name>:users - Redis Set of usernames for specific <channel_name>.
+
+  - ses:<client_id>:channels - Redis Set of channel names for specific <client_id>.
+  - ses:<client_id>:username - Username for specific <client_id>.
+  - ses:<client_id>:messages - Redis List of Sputnik messages for specific <client_id>.
+  - ses:<client_id>:last_access - Timestamp of client last access.
+
+Sputnik message
+===============
+  Sputnik message is nothing else then Python dictionary. It B{MUST} provide default keys I{uid}, I{channel} and I{command}. 
+  Everything else is optional.
+    
+
+@todo: Remove obsolete code after changing redis client version. Redis did not support keys with spaces, so we had to encode keys.
+@todo: Should read info about redis database from settings.
+"""
+
 from __future__ import with_statement 
 
 import time
@@ -7,20 +35,20 @@ import base64
 
 
 
-# should read info from settings about connections
+# Should read info from settings about connections (database id, server and etc...)
 rcon = redis.Redis()
 #rcon.connect()
 
 
-# implement our own methods for redis communication
+# Implement our own methods for redis communication. This had to be done before because previous versions of redis had problems
+# with spaces in keys and etc....
+
 
 def rencode(key):
     return key
-    return base64.b64encode(key)
 
 def rdecode(key):
     return key
-    return base64.b64decode(key)
 
 def sismember(key, value):
     import sputnik
@@ -148,22 +176,69 @@ def rdelete(key):
 # this is stupid but will work for now
 
 def hasChannel(channelName):
+    """
+    Check if Sputnik channel exists.
+
+    @type channelName: C{string}
+    @param channelName: Channel name.
+    @rtype: C{bool}
+    @return: Returns True if channel exists.
+    """
+
     return sismember("sputnik:channels", channelName)
 
 def createChannel(channelName):
+    """
+    Create Sputnik channel.
+
+    @type channelName: C{string}
+    @param channelName: Channel name.
+    @rtype: C{bool}
+    @return: Always return True.
+    """
+
     if not hasChannel(channelName):
         sadd("sputnik:channels", channelName)
 
     return True
 
 def removeChannel(channelName):
+    """
+    Remove Sputnik channel.
+
+    @type channelName: C{string}
+    @param channelName: Channel name.
+    @rtype: C{bool}
+    @return: Return True if channel was removed or False if it was not.
+    """
+
     return srem("sputnik:channels", channelName)
 
 def addClientToChannel(channelName, client):
+    """
+    Add client to channel.
+
+    @type channelName: C{string}
+    @param channelName: Channel name.
+    @type client: C{string}
+    @param client: Unique Client ID.
+    """
+
     sadd("ses:%s:channels" % client, channelName)
     sadd("sputnik:channel:%s:channel" % channelName, client)
 
 def removeClientFromChannel(request, channelName, client):
+    """
+    Remove client from channel.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request.
+    @type channelName: C{string}
+    @param channelName: Channel name.
+    @type client: C{string}
+    @param client: Unique Client ID.
+    """
+    
     import sputnik
     srem("sputnik:channel:%s:channel" % channelName, client)
 
@@ -189,6 +264,19 @@ def removeClientFromChannel(request, channelName, client):
 
 
 def addMessageToChannel(request, channelName, message, myself = False ):
+    """
+    Add message to specific channel.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request.
+    @type channelName: C{string}
+    @param channelName: Channel name.
+    @type message: C{dict}
+    @param message: Sputnik message.
+    @type myself: C{bool}
+    @keyword myself: Should client also recieve that message.
+    """
+
     import sputnik
 
     # TODO
@@ -215,6 +303,17 @@ def addMessageToChannel(request, channelName, message, myself = False ):
                 
 
 def removeClient(request, clientName):
+    """
+    Remove client from Sputnik.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request.
+    @type clientName: C{string}
+    @param clientName: Unique Client ID.
+
+    @todo: Should remove all tracks of user existence on the system.
+    """
+
     import sputnik
 
     for chnl in sputnik.smembers("ses:%s:channels" % clientName):

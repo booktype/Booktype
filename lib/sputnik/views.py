@@ -8,6 +8,27 @@ import sputnik
 
 @transaction.commit_manually
 def dispatcher(request, **sputnik_dict):
+    """
+    Main Sputnik dispatcher. Every Sputnik request goes through this dispatcher. 
+
+    Input arguments are passed through C{request.POST}:
+      - C{request.POST['messages']} 
+          List of messages client is sending to server.
+      - C{request.POST['clientID']} 
+          Unique client ID for this connection.
+
+    This is just another Django view.
+
+    @todo: Change logging and error handling.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type sputnik_dict: C{dict}
+    @param sputnik_dict: Mapping of channels with specific python modules.
+    @rtype: C{HttpResponse}
+    @return: Return C{django.http.HttpResponse} object.
+    """
+
     inp =  request.POST
 
     results = []
