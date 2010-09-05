@@ -289,7 +289,7 @@ def _fix_content(book, chapter, chapter_n):
 
     #As a special case, the ##AUTHORS## magic string gets expanded into the authors list.
     if "##AUTHORS##" in content:
-        expand_authors(book, chapter, content)
+        content = expand_authors(book, chapter, content)
 
     #if isinstance(content, unicode):
     #    content = content.encode('utf-8')
