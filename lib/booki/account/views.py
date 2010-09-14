@@ -29,16 +29,28 @@ except ImportError:
     import os
     THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'www.booki.cc')
 
-
-
-# this should probably just list all accounts
-
+    
 def view_accounts(request):
-    return HttpResponse("AJME MENI", mimetype="text/plain")
+    """
+    Django View for /accounts/ url. Does nothing at the moment.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+
+    @todo: This has to change as soon as possible. Redirect somewhere? Show list of current users?
+    """
+    return HttpResponse("", mimetype="text/plain")
 
 # signout
 
 def signout(request):
+    """
+    Django View. Gets called when user wants to signout.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    """
+
     from django.contrib import auth
 
     auth.logout(request)
@@ -49,6 +61,14 @@ def signout(request):
 
 @transaction.commit_manually
 def signin(request):
+    """
+    Django View. Gets called when user wants to signin or create new account.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    """
+
+
     import simplejson
 
     from booki.editor.models import BookiGroup
@@ -174,6 +194,13 @@ def signin(request):
 # forgotpassword
 @transaction.commit_manually
 def forgotpassword(request):
+    """
+    Django View. Gets called when user wants to change password he managed to forget.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    """
+
     import simplejson
     from django.core.exceptions import ObjectDoesNotExist
     from django.contrib.auth.models import User
@@ -249,6 +276,13 @@ def forgotpassword(request):
 # forgotpasswordenter
 @transaction.commit_manually
 def forgotpasswordenter(request):
+    """
+    Django View. Gets called when user clicks on the link he recieved over email.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    """
+
     import simplejson
 
     secretcode = request.GET.get('secretcode', '')
@@ -300,6 +334,12 @@ def forgotpasswordenter(request):
 # project form
 
 class BookForm(forms.Form):
+    """
+    Django Form for new books.
+
+    @todo: This is major c* and has to be changed soon.
+    """
+
     title = forms.CharField(required=False)
     license = forms.ChoiceField(choices=(('1', '1'), ))
 
@@ -312,6 +352,12 @@ class BookForm(forms.Form):
 
 
 class ImportForm(forms.Form):
+    """
+    Django Form for book imports.
+
+    @todo: This is major c* and has to be changed soon.
+    """
+
     type = forms.CharField(required=False)
     id = forms.CharField(required=False)
 
@@ -326,14 +372,26 @@ class ImportFlossmanualsForm(forms.Form):
     type = forms.CharField(required=False)
     id = forms.CharField(required=False)
 
+
+
 def view_profile(request, username):
+    """
+    Django View. Shows user profile. Right now, this is just basics.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type username: C{string}
+    @param username: Username.
+
+    @todo: Check if user exists. 
+    """
+
     from django.contrib.auth.models import User
     from booki.editor import models
 
     from django.template.defaultfilters import slugify
 
     user = User.objects.get(username=username)
-
 
     books = models.Book.objects.filter(owner=user)
 
@@ -348,6 +406,10 @@ def view_profile(request, username):
 ## user settings
 
 class SettingsForm(forms.Form):
+    """
+    Django Form for Settings. This should change in the future (and not use Django Forms at all).
+    """
+
     email = forms.EmailField(required=True)
     firstname = forms.CharField(required=True, label='Full name')
 #    lastname = forms.CharField(required=True, label='Last name')
@@ -359,6 +421,17 @@ class SettingsForm(forms.Form):
 
 @transaction.commit_manually
 def user_settings(request, username):
+    """
+    Django View. Edit user settings. Right now, this is just basics.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type username: C{string}
+    @param username: Username.
+
+    @todo: Check if user exists. 
+    """
+
     from django.contrib.auth.models import User
     from booki.editor import models
 
@@ -386,6 +459,8 @@ def user_settings(request, username):
             user.save()
 
             profile.description = settings_form.cleaned_data['description']
+
+            # this works for now, but this kind of processing must be done somewhere else!
 
             if settings_form.cleaned_data['image']:
                 import tempfile
@@ -430,6 +505,17 @@ def user_settings(request, username):
 
 
 def view_profilethumbnail(request, profileid):
+    """
+    Django View. Shows user profile image.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type profileid: C{string}
+    @param profileid: Username.
+
+    @todo: Check if user exists. 
+    """
+
     from django.http import HttpResponse
     from booki import settings
 
@@ -453,8 +539,18 @@ def view_profilethumbnail(request, profileid):
     image.save(response, "JPEG")
     return response
 
+
 @transaction.commit_manually
 def my_books (request, username):
+    """
+    Django View. Show user books.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type username: C{string}
+    @param username: Username.
+    """
+
     from django.contrib.auth.models import User
     from booki.editor import models
     from django.template.defaultfilters import slugify
@@ -522,6 +618,15 @@ def my_books (request, username):
                                                             "books": books,})
 
 def my_groups (request, username):
+    """
+    Django View. Show user groups.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type username: C{string}
+    @param username: Username.
+    """
+
     from django.contrib.auth.models import User
     user = User.objects.get(username=username)
     groups = user.members.all()
@@ -533,6 +638,15 @@ def my_groups (request, username):
 
 
 def my_people (request, username):
+    """
+    Django View. Shows nothing at the moment.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type username: C{string}
+    @param username: Username.
+    """
+
     from django.contrib.auth.models import User
     user = User.objects.get(username=username)
 

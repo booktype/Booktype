@@ -80,7 +80,15 @@ class FormatAuthorsNode(template.Node):
 
 
 @register.tag(name="booki_authors")
-def booki_format(parser, token):
+def booki_authors(parser, token):
+    """
+    Django Tag. Shows list of authors for this book. Accepts one argument, book. Reads template authors.html.
+    Needs a lot of work.
+
+        {% load booki_tags %}
+        {% booki_authors book %}
+    """
+
     try:
         tag_name, book = token.split_contents()
     except ValueError:
