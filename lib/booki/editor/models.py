@@ -366,7 +366,6 @@ class BookToc(models.Model):
 
 class BookiPermission(models.Model):
     """
-
     - permission 
         0 - unknown
         1 - admin
