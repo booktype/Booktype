@@ -13,10 +13,7 @@ from cStringIO import StringIO
 import traceback
 import time
 
-try:
-    import simplejson as json
-except ImportError:
-    import json
+from booki.utils.json_wrapper import json
 
 from lxml import etree, html
 

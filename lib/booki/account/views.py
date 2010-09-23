@@ -69,7 +69,7 @@ def signin(request):
     """
 
 
-    import simplejson
+    from booki.utils.json_wrapper import simplejson
 
     from booki.editor.models import BookiGroup
 
@@ -201,7 +201,7 @@ def forgotpassword(request):
     @param request: Django Request
     """
 
-    import simplejson
+    from booki.json_wrapper import simplejson
     from django.core.exceptions import ObjectDoesNotExist
     from django.contrib.auth.models import User
 
@@ -283,7 +283,7 @@ def forgotpasswordenter(request):
     @param request: Django Request
     """
 
-    import simplejson
+    from booki.utils.json_wrapper import simplejson
 
     secretcode = request.GET.get('secretcode', '')
 

@@ -29,7 +29,7 @@ Sputnik message
 from __future__ import with_statement 
 
 import time
-import simplejson
+from booki.utils.json_wrapper import simplejson
 import redis
 import base64
 
