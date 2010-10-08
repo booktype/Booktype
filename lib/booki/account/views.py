@@ -13,7 +13,7 @@ except:
 
 from django import forms
 
-from booki.utils.log import logBookHistory
+from booki.utils.log import logBookHistory, logWarning, logError
 from booki.utils.book import createBook
 from booki.editor import common
 
@@ -201,7 +201,7 @@ def forgotpassword(request):
     @param request: Django Request
     """
 
-    from booki.json_wrapper import simplejson
+    from booki.utils.json_wrapper import simplejson
     from django.core.exceptions import ObjectDoesNotExist
     from django.contrib.auth.models import User
 
@@ -579,7 +579,7 @@ def my_books (request, username):
                                           )
             except Exception:
                 transaction.rollback()
-                common.log(traceback.format_exc())
+                logError(traceback.format_exc())
                 return render_to_response('account/error_import.html',
                                           {"request": request, "user": user})
             else:
