@@ -6,6 +6,9 @@ from django.db import transaction
 
 from booki.editor import models
 from booki.utils import security
+from booki.settings import BOOKI_URL
+from booki.utils.json_wrapper import json
+from booki.utils.log import logWarning
 
 # debug
 
@@ -188,9 +191,72 @@ def view_people(request):
         people = paginator.page(paginator.num_pages)
 
 
-    return render_to_response('portal/people.html', {"request": request, 
-                                                     "title": "Booki people", 
+    return render_to_response('portal/people.html', {"request": request,
+                                                     "title": "Booki people",
                                                      "people":      people })
 
 def maintenance(request):
     return render_to_response('portal/maintenance.html', {"request":    request})
+
+
+def _is_book_modified(book):
+    from booki.editor.views import getVersion
+    from time import mktime
+    bv = getVersion(book, None)
+    created = mktime(book.created.timetuple())
+    for chapter in models.Chapter.objects.filter(version=bv):
+        logWarning("chapter %s created %s mod %s" % (chapter.id, book.created, chapter.modified))
+        #5 seconds grace before a chapter is deemed modified
+        if created + 5 < mktime(chapter.modified.timetuple()):
+            return True
+    return False
+
+
+def view_books_by_id(request, scheme):
+    """
+    Find books with IDs of the requested schema, and return mapping of
+    IDs to urls that match those books.
+
+    @param request: Django Request.
+    """
+    logWarning("looking for books with %r identifier" % scheme)
+    from booki.bookizip import DC
+    from booki.editor.views import getVersion
+    namefilter = '{%s}identifier{%s}' % (DC, scheme)
+    data = {}
+
+    #from django.db import connection, transaction
+    #cursor = connection.cursor()
+    books = models.Book.objects.raw('SELECT editor_book.*, editor_info.value_string AS remote_id'
+                                    ' FROM editor_book LEFT OUTER JOIN editor_info ON'
+                                    ' (editor_book.id=editor_info.book_id) WHERE'
+                                    ' editor_info.name=%s',  (namefilter,))
+
+    for book in books:
+        values = data.setdefault(book.remote_id, [])
+        values.append(book)
+        logWarning(values)
+    #data keys are identifiers in the set scheme, and the values are
+    # a list of books with that identifier.
+    #
+    # depending on the mode, some books will be dropped.
+    logWarning(data)
+    selected_books = []
+    for ID, books in data.iteritems():
+        for book in books:
+            if _is_book_modified(book):
+                selected_books.append((ID, book.url_title, True))
+                break
+        else:
+            selected_books.append((ID, books[0].url_title, False))
+
+    msg = {}
+    for ID, booki_id, modified in selected_books:
+        msg[ID] = ('%s/%s/edit/' % (BOOKI_URL, booki_id), #edit link
+                   ('%s/%s/epub/' % (BOOKI_URL, booki_id) if modified else None), #epub link
+            )
+
+    s = json.dumps(msg)
+
+    response = HttpResponse(s, mimetype="application/json")
+    return response
