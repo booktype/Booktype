@@ -254,14 +254,14 @@ def view_books_by_id(request, scheme):
     msg = {}
     for ID, booki_id, modified in selected_books:
         msg[ID] = {'edit': '%s/%s/edit/' % (BOOKI_URL, booki_id), #edit link
-                   #'epub': ('%s/%s/epub/' % (BOOKI_URL, booki_id) if modified else None), #epub link
-                   'epub': OBJAVI_URL + '?' + urlencode(
-                       {'server': THIS_BOOKI_SERVER,
-                        'book': booki_id,
-                        'mode': 'epub',
-                        'destination': 'download',
-                        #'method': 'sync',
-                        })
+                   'epub': (None if not modified                  #epub link
+                            else  OBJAVI_URL + '?' + urlencode(
+                                {'server': THIS_BOOKI_SERVER,
+                                 'book': booki_id,
+                                 'mode': 'epub',
+                                 'destination': 'download',
+                                 })
+                            )
                    }
 
     s = json.dumps(msg)
