@@ -6,7 +6,7 @@ from django.db import transaction
 
 from booki.editor import models
 from booki.utils import security
-from booki.settings import BOOKI_URL
+from booki.settings import BOOKI_URL, OBJAVI_URL, THIS_BOOKI_SERVER
 from booki.utils.json_wrapper import json
 from booki.utils.log import logWarning
 
@@ -222,6 +222,7 @@ def view_books_by_id(request, scheme):
     logWarning("looking for books with %r identifier" % scheme)
     from booki.bookizip import DC
     from booki.editor.views import getVersion
+    from urllib import urlencode
     namefilter = '{%s}identifier{%s}' % (DC, scheme)
     data = {}
 
@@ -253,8 +254,15 @@ def view_books_by_id(request, scheme):
     msg = {}
     for ID, booki_id, modified in selected_books:
         msg[ID] = {'edit': '%s/%s/edit/' % (BOOKI_URL, booki_id), #edit link
-                   'epub': ('%s/%s/epub/' % (BOOKI_URL, booki_id) if modified else None), #epub link
-                  }
+                   #'epub': ('%s/%s/epub/' % (BOOKI_URL, booki_id) if modified else None), #epub link
+                   'epub': OBJAVI_URL + '?' + urlencode(
+                       {'server': THIS_BOOKI_SERVER,
+                        'book': booki_id,
+                        'mode': 'epub',
+                        'destination': 'download',
+                        #'method': 'sync',
+                        })
+                   }
 
     s = json.dumps(msg)
 
