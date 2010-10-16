@@ -252,9 +252,9 @@ def view_books_by_id(request, scheme):
 
     msg = {}
     for ID, booki_id, modified in selected_books:
-        msg[ID] = ('%s/%s/edit/' % (BOOKI_URL, booki_id), #edit link
-                   ('%s/%s/epub/' % (BOOKI_URL, booki_id) if modified else None), #epub link
-            )
+        msg[ID] = {'edit': '%s/%s/edit/' % (BOOKI_URL, booki_id), #edit link
+                   'epub': ('%s/%s/epub/' % (BOOKI_URL, booki_id) if modified else None), #epub link
+                  }
 
     s = json.dumps(msg)
 
