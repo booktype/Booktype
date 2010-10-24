@@ -230,11 +230,12 @@ def importBookFromUrl2(user, baseurl, **args):
 
 
 
-def expand_authors(book, chapter, content):
-    t = template.loader.get_template_from_string('{% load booki_tags %} {% booki_authors book %}')
-    con = t.render(template.Context({"content": chapter, "book": book}))
-    return content.replace('##AUTHORS##', con)
-
+def expand_macro(chapter):
+    try:
+        t = template.loader.get_template_from_string('{% load booki_tags %} {% booki_format content %}')
+        return t.render(template.Context({"content": chapter}))
+    except template.TemplateSyntaxError:
+        return chapter.content
 
 
 def _format_metadata(book):
@@ -287,9 +288,8 @@ def _fix_content(book, chapter, chapter_n):
     """fix up the html in various ways"""
     content = '<div id="chapter-%d">%s</div>' % (chapter_n, chapter.chapter.content)
 
-    #As a special case, the ##AUTHORS## magic string gets expanded into the authors list.
-    if "##AUTHORS##" in content:
-        content = expand_authors(book, chapter, content)
+    # expand macros
+    content = expand_macro(chapter.chapter)
 
     #if isinstance(content, unicode):
     #    content = content.encode('utf-8')

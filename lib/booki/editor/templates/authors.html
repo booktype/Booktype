@@ -7,7 +7,8 @@
 
 {% for chapter in chapters %}
 {{ chapter.name }} <br>
-&copy; Collaborative Futures Book Sprint team 2010 <br>
+{{ copyright }}<br>
+<!-- &copy; Collaborative Futures Book Sprint team 2010 <br> -->
 Modifications: <br>
   {% for author in chapter.authors %}
     {{author.username}} - {{ author.first_name }} {{ author.last_name }} 2010<br>
