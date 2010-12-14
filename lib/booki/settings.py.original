@@ -20,7 +20,9 @@ ESPRI_URL = "http://objavi.flossmanuals.net/espri.cgi"
 TWIKI_GATEWAY_URL = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
 
 #the name of the booki server (comment out to use os.environ['HTTP_HOST'])
-#THIS_BOOKI_SERVER = 'www.booki.cc'
+THIS_BOOKI_SERVER = 'www.booki.cc'
+
+BOOKI_URL = 'http://' + THIS_BOOKI_SERVER
 
 # who gets credited as publisher if not otherwise specified
 DEFAULT_PUBLISHER = "FLOSS Manuals http://flossmanuals.net"

@@ -13,6 +13,17 @@ import logging
 
 
 def getVersion(book, version):
+    """
+    Returns object of type C{BookiVersion}. If version is None it returns latest version.
+
+    @type book: C{booki.editor.models.Book}
+    @param book: Booki book.
+    @type version: C{booki.editor.models.BookVersion}
+    @param version: Book version.
+
+    @todo: This does not belong here. Must move to booki.utils.
+    """
+
     book_ver = None
 
     if not version:
@@ -32,6 +43,13 @@ def getVersion(book, version):
 # BOOK
 
 def export(request, bookid):
+    """
+    Django View. Returns BookiZip file.
+
+    @param request: Django Request
+    @param bookid: Book ID. 
+    """
+
     book = models.Book.objects.get(url_title__iexact=bookid)
     book_version = getVersion(book, None)
 
@@ -54,6 +72,14 @@ def export(request, bookid):
 
 @login_required
 def edit_book(request, bookid, version=None):
+    """
+    Django View. Default page for Booki editor.
+
+    @param request: Django Request
+    @param bookid: Book ID
+    @param version: Book Version or None
+    """
+
     from booki.utils import security
 
     book = models.Book.objects.get(url_title__iexact=bookid)
@@ -82,6 +108,14 @@ def edit_book(request, bookid, version=None):
                                                         "request": request})
 
 def thumbnail_attachment(request, bookid, attachment, version=None):
+    """
+    Returns image thumbnail for book attachment.
+
+    @param request: Django Request
+    @param bookid: Book ID
+    @param attachment: Attachment name
+    """
+    
     from booki import settings
     from django.views import static
 
@@ -106,6 +140,14 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
 
 @transaction.commit_manually
 def upload_attachment(request, bookid, version=None):
+    """
+    Uploades attachments. Used from Upload dialog.
+
+    @param request: Django Request
+    @param bookid: Book ID
+    @param version: Book version or None
+    """
+
     book = models.Book.objects.get(url_title__iexact=bookid)
     book_version = getVersion(book, version)
 
@@ -143,6 +185,14 @@ def upload_attachment(request, bookid, version=None):
     return HttpResponse('<html><body><script> parent.closeAttachmentUpload(); </script></body></html>')
 
 def view_books_json(request):
+    """
+    Returns data for Objavi.
+    
+    @param request: Django Request.
+    
+    @todo: Should be moved to booki.portal 
+    """
+    
     books = models.Book.objects.all().order_by("title")
     response = HttpResponse(mimetype="application/json")
     json_serializer = serializers.get_serializer("json")()

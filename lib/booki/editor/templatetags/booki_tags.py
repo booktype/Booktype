@@ -1,5 +1,6 @@
 from django import template
 from django.template.loader import render_to_string
+import re
 
 register = template.Library()
 
@@ -12,24 +13,33 @@ class FormatBookiNode(template.Node):
     def render(self, context):
         chapter =  self.booki_data.resolve(context)
 
-#        t = template.loader.get_template('authors.html')
-#        t = template.loader.get_template_from_string('{{ content.content|safe }}')
-        content = chapter.content
+        if chapter.content.find('##') == -1:
+            return chapter.content
 
-        # this has to be put somewhere outside
-        if content.find("##AUTHORS##") != -1:
-            t = template.loader.get_template_from_string('{% load booki_tags %} {% booki_authors book %}')
-            con =  t.render(template.Context(context, autoescape=context.autoescape))
-            
-            content = content.replace('##AUTHORS##', con)
+        lns = []
 
-        return content
+        for ln in chapter.content.split("\n"):
+            macro_re = re.compile(r'##([\w\_]+)(\{[^\}]*\})?##')
 
-#        t = template.loader.get_template_from_string('{% load booki_tags %} '+content)
-#        return t.render(template.Context(context, autoescape=context.autoescape))
-#        except template.VariableDoesNotExist:
-#            return ' GRESKA '
+            while True:
+                mtch = macro_re.search(ln)
+                
+                if mtch:
+                    try:
+                        t = template.loader.get_template_from_string('{%% load booki_tags %%} {%% booki_%s book args %%}' % (mtch.group(1).lower(),))
+                        con = t.render(template.Context({"content": chapter, 
+                                                         "book": chapter.version.book,
+                                                         "args": mtch.group(2)}))
+                    except template.TemplateSyntaxError:
+                        con = '<span style="background-color: red; color: white; font-weight: bold">ERROR WITH MACRO %s</span>' % (mtch.group(1).lower(), )
 
+                    ln = ln[:mtch.start()]+con+ln[mtch.end():]
+                else:
+                    break
+
+            lns.append(ln)
+
+        return "\n".join(lns)
 
 @register.tag(name="booki_format")
 def booki_format(parser, token):
@@ -45,8 +55,9 @@ def booki_format(parser, token):
 ###############################################################################################################
 
 class FormatAuthorsNode(template.Node):
-    def __init__(self, book):
+    def __init__(self, book, args):
         self.book = template.Variable(book)
+        self.args = template.Variable(args)
 
     def render(self, context):
         book =  self.book.resolve(context)
@@ -57,6 +68,8 @@ class FormatAuthorsNode(template.Node):
         from django.contrib.auth import models as auth_models
 
         chapters = []
+
+        # this should be book version, not book
 
         for chapter in models.BookToc.objects.filter(book=book).order_by("-weight"):
             if not chapter: continue
@@ -71,20 +84,33 @@ class FormatAuthorsNode(template.Node):
                     aut.append(usr)
                     jebem_ti_mater.append(usr.username)
 
-            chapters.append({"authors": aut, "name": chapter.chapter.title})
+            chapters.append({"authors": aut, 
+                             "name": chapter.chapter.title})
 
 #        for us_id in models.ChapterHistory.objects.filter(chapter__book=book).values("user").distinct().order_by("user__username"):
 #            authors.append(auth_models.User.objects.get(id=us_id["user"]))
 
-        return t.render(template.Context({'chapters': chapters }, autoescape=context.autoescape))
+        copyrightDescription = self.args.resolve(context) or ''
+
+        return t.render(template.Context({'chapters': chapters, 
+                                          "copyright": copyrightDescription[1:-1]}, 
+                                         autoescape=context.autoescape))
 
 
 @register.tag(name="booki_authors")
-def booki_format(parser, token):
-    try:
-        tag_name, book = token.split_contents()
-    except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires exactly one argument" % token.contents.split()[0]
+def booki_authors(parser, token):
+    """
+    Django Tag. Shows list of authors for this book. Accepts one argument, book. Reads template authors.html.
+    Needs a lot of work.
 
-    return FormatAuthorsNode(book)
+        {% load booki_tags %}
+        {% booki_authors book %}
+    """
+
+    try:
+        tag_name, book, args = token.split_contents()
+    except ValueError:
+        raise template.TemplateSyntaxError, "%r tag requires exactly two argument" % token.contents.split()[0]
+
+    return FormatAuthorsNode(book, args)
         

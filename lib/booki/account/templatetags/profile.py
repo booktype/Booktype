@@ -30,6 +30,13 @@ class ProfileImageNode(Node):
 
 @register.tag
 def profile_image(parser, token):
+    """
+    Django tag. Shows user profile image. If user does not have defined image it will show anonymous image.
+
+    @type token: C{string}
+    @param token: Variable name that points to C{User} object.
+    """
+
     bits = token.contents.split()
 
     if len(bits) != 2:

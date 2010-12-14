@@ -213,7 +213,7 @@ function unescapeHtml (val) {
 //		    $(".extra").html("");
 
 		    $.each(this.items, function(i, v) {
-			$(".edit", $("#item_"+v.id)).html('<a href="javascript:void(0)" onclick="$.booki.editor.editChapter('+v.id+')" style="font-size: 12px">EDIT</a>');
+			$(".edit", $("#item_"+v.id)).html('<a href="javascript:void(0)" onclick="$.booki.editor.editChapter('+v.id+')" style="font-size: 12px">EDIT</a> <a href="javascript:void(0)" onclick="$.booki.editor.viewChapter('+v.id+')" style="font-size: 12px">VIEW</a>');
 		    });
 
 		    $.each(chapterLocks, function(i, v) {
@@ -725,7 +725,21 @@ previous
 					      function(data) {
 					      });
 		},
-		
+		viewChapter: function(chapterID) {
+		    $.booki.ui.notify("Loading chapter data...");
+		    $.booki.sendToCurrentBook({"command": "get_chapter", "chapterID": chapterID}, function(data) {
+					      $.booki.ui.notify();
+		   var $dialog = $('<div></div>')
+		   .html(data.content)
+		   .dialog({
+			autoOpen: false,
+			title: 'Booki Reader',
+			height: 530,
+			width:600
+		        });
+		   $dialog.dialog('open');
+		    });	
+		},
 		editChapter: function(chapterID) {
 		    $.booki.ui.notify("Loading chapter data...");
 		    $.booki.sendToCurrentBook({"command": "get_chapter", "chapterID": chapterID}, function(data) {
