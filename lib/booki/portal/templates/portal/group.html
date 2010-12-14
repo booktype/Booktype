@@ -130,7 +130,7 @@
 
 {% if is_member %}
 <form method="POST" action="add_book/">
-<select name="book">
+<select name="book" style="width:400px;">
 {% for book in your_books %}
    <option value="{{book.url_title}}">{{ book.url_title }}</option>
 {% endfor %}
