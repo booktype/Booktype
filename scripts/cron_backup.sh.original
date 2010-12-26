@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# cron_backup.sh 
+# version 0.1
+
+########################################################################################################
+# config part
+# feel free to change it! because, there is big chance it will not work if you don't.
+########################################################################################################
+
+
+# if you are puzzled what to put here, just look at your booki/settings.py file
+PGHOST=localhost    # hostname for postgresql connection
+#PGPORT=            # port for postgresql connection
+PGUSER=             # postgresql connection user
+PGPASSWORD=         # postgresql connection password
+PGDATABASE=         # postgresql connection database
+
+DESTINATION=/tmp/   # where do you want to put your backup files
+
+ADMIN_MAIL=root     # who will get mail when everything goes downhill
+
+########################################################################################################
+# config part
+# probably no need to change this part
+########################################################################################################
+
+PGDUMP=pg_dump      # path to pg_dump if it is not in PATH.
+                    # if you don't know what to do with this, just leave it as it is.
+
+COMPRESS=gzip       # just in case your gzip is not in PATH.
+		    # if you don't know what to do with this, just leave it as it is.
+
+MAILUTILITY=mail    # just in case mail is not in PATH.
+		    # if you don't know what to do with this, just leave it as it is.
+
+STAMP=`date +%d-%b-%Y`   # for example: 12-Dec-2010
+                         # this could be a problem if you want to make backup more then once per day.
+
+########################################################################################################
+# do not change this part
+########################################################################################################
+
+${PGDUMP} ${PGDATABASE} -b | ${COMPRESS} - > "${DESTINATION}/backup-${PGDATABASE}-${STAMP}.sql.gz"
+
+if [ $? -ne 0 -o ${PIPESTATUS[0]} -ne 0 ]; then
+   ${MAILUTILITY} -s "[ERROR] Could not finish backup" ${ADMIN_MAIL} <<MAILEND
+Could not finish backup of database ${PGDATABASE}.
+MAILEND
+   exit 1
+fi
