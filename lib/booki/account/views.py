@@ -130,6 +130,12 @@ def signin(request):
                     except IntegrityError:
                         ret["result"] = 10
 
+                    # this is not a good place to fire signal, but i need password for now
+                    # should create function createUser for future use
+
+                    import booki.account.signals
+                    booki.account.signals.account_created.send(sender = user, password = request.POST["password"])
+
                     user.first_name = request.POST["fullname"]
 
                     try:

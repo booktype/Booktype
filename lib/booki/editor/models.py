@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import models as auth_models
+
+import booki.editor.signals
+
 # License
 
 class License(models.Model):
