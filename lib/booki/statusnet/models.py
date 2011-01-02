@@ -6,7 +6,7 @@ import booki.account.signals
 # Create your models here.
 
 def event_account_created(sender, **kwargs):
-    ""Register user on status.net website"""
+    """Register user on status.net website"""
 
     import urllib, urllib2
 
