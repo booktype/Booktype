@@ -13,7 +13,7 @@ except:
 
 from django import forms
 
-from booki.utils.log import logBookHistory
+from booki.utils.log import logBookHistory, logError
 from booki.utils.book import createBook
 from booki.editor import common
 
@@ -585,7 +585,7 @@ def my_books (request, username):
                                           )
             except Exception:
                 transaction.rollback()
-                common.log(traceback.format_exc())
+                logError(traceback.format_exc())
                 return render_to_response('account/error_import.html',
                                           {"request": request, "user": user})
             else:
