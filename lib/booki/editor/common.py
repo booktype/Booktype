@@ -129,7 +129,7 @@ def importBookFromFile(user, zname, createTOC=False):
             # check if i can open this file at all
             content = zf.read(chapterFile)
 
-            content = p.sub(r' src="../\1"', content)
+            #content = p.sub(r' src="../\1"', content)
 
             chapter = models.Chapter(book = book,
                                      version = book.version,
