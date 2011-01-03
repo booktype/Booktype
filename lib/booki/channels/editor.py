@@ -60,7 +60,7 @@ def getAttachments(book_version):
                     "name":      os.path.split(att.attachment.name)[1], 
                     "created":   str(att.created.strftime("%d.%m.%Y %H:%M:%S")),
                     "size":      att.attachment.size} 
-                   for att in book_version.getAttachments() if att.attachment]
+                   for att in book_version.getAttachments().order_by("attachment") if att.attachment]
 
     return attachments
 
