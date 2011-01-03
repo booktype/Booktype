@@ -1,7 +1,31 @@
 <html>
 
 <body>
- <h1>Report  {{ report_date|date:"D d M Y" }} </h1>
+ <h1>Report  for {{ booki_name }} ({{ report_date|date:"D d M Y" }}) </h1>
+
+<h2>Info</h2>
+<table border="0">
+ <tr>
+  <td>Total number of books:</td>
+  <td align="right">{{info.books_num}}</td>
+ </tr>
+
+ <tr>
+  <td>Total number of users:</td>
+  <td align="right">{{info.users_num}}</td>
+ </tr>
+
+ <tr>
+  <td>Attachments size:</td>
+  <td align="right">{{info.attachments_size|filesizeformat}}</td>
+ </tr>
+
+ <tr>
+  <td>Database size:</td>
+  <td align="right">{{info.database_size|filesizeformat}}</td>
+ </tr>
+
+</table>
 
 <h2>New Users</h2>
 <ul>

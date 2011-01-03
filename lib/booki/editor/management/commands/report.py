@@ -5,6 +5,8 @@ import datetime
 now = datetime.datetime.now()
 
 def getUsers():
+    """Get users who registered today."""
+
     from django.contrib.auth.models import User
 
     return User.objects.filter(date_joined__year = now.year,
@@ -12,6 +14,8 @@ def getUsers():
                                date_joined__day = now.day)
 
 def getBooks():
+    """Get books created today."""
+
     from booki.editor.models import Book
 
     return Book.objects.filter(created__year = now.year,
@@ -19,6 +23,8 @@ def getBooks():
                                created__day = now.day)
 
 def getGroups():
+    """Get groups created today."""
+
     from booki.editor.models import BookiGroup
 
     return BookiGroup.objects.filter(created__year = now.year,
@@ -54,6 +60,32 @@ def getHistory():
     
     return history
 
+def getInfo():
+    from django.contrib.auth.models import User
+    from booki.editor.models import Book, Attachment
+    from booki import settings
+    from django.db import connection
+
+    numOfUsers = len(User.objects.all())
+    numOfBooks = len(Book.objects.all())
+
+    attachmentsSize = 0
+    for at in Attachment.objects.all():
+        try:
+            attachmentsSize += at.attachment.size
+        except:
+            pass
+
+    cursor = connection.cursor()
+    cursor.execute("SELECT pg_database_size(%s)", [settings.DATABASE_NAME]);
+    databaseSize = cursor.fetchone()[0]
+
+    return {'users_num': numOfUsers,
+            'books_num': numOfBooks,
+            'attachments_size': attachmentsSize,
+            'database_size': databaseSize}
+    
+
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option('--send-email',
@@ -80,6 +112,14 @@ class Command(BaseCommand):
         books = getBooks()
         groups = getGroups()
         history = getHistory()
+        info = getInfo()
+
+        from booki import settings
+
+        try:
+            BOOKI_NAME = settings.BOOKI_NAME
+        except:
+            BOOKI_NAME = 'Booki name'
 
         # render result
 
@@ -90,21 +130,27 @@ class Command(BaseCommand):
                                          "books": books,
                                          "groups": groups,
                                          "history": history,
-                                         "report_date": now
+                                         "report_date": now,
+                                         "info": info,
+                                         "booki_name": BOOKI_NAME
                                          }))
 
 
         if options['send_email']:
             from django.core.mail import EmailMultiAlternatives
-            from booki import settings
+
+            try:
+                REPORT_EMAIL_USER = settings.REPORT_EMAIL_USER
+            except:
+                REPORT_EMAIL_USER = 'booki@booki.cc'
 
             emails = [em[1] for em in settings.ADMINS]
 
-            subject, from_email = 'Booki report for %s' % str(now), 'booki@booki.cc'
+            subject = 'Booki report for %s (%s)' % (BOOKI_NAME, now.strftime("%A %d %B %Y"))
             text_content = con
             html_content = con
 
-            msg = EmailMultiAlternatives(subject, text_content, from_email, emails)
+            msg = EmailMultiAlternatives(subject, text_content, REPORT_EMAIL_USER, emails)
             msg.attach_alternative(html_content, "text/html")
             msg.send()
         else:

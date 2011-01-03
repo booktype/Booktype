@@ -1,5 +1,8 @@
 # Django settings for booki project.
 BOOKI_MAINTENANCE_MODE = False
+BOOKI_NAME = 'Booki'
+
+REPORT_EMAIL_USER = 'booki@booki.cc'
 
 STATIC_DOC_ROOT = '/home/aerkalov/Work/git/booki/site_media'
 PROFILE_IMAGE_UPLOAD_DIR = '%s/static/_profile_images/'%STATIC_DOC_ROOT
