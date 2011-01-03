@@ -122,7 +122,7 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
     book = models.Book.objects.get(url_title__iexact=bookid)
     book_version = getVersion(book, version)
 
-    path = '%s/%s' % (version, attachment)
+    path = '%s/%s' % (book_version.getVersion(), attachment)
 
     document_root = '%s/static/%s/%s' % (settings.STATIC_DOC_ROOT, bookid, path)
 
