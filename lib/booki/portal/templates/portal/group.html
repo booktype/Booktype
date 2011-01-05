@@ -3,9 +3,9 @@
 
 {% block header %}
 <title>/group: {{ group.name }}</title>
-<link type="text/css" href="/site_media/css/editor.css" rel="Stylesheet" />
+<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/css/editor.css" rel="Stylesheet" />
 
-<script type="text/javascript" src="/site_media/js/group.js"></script>
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/group.js"></script>
 
 
 <script type="text/javascript">
