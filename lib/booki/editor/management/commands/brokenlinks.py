@@ -83,6 +83,7 @@ class Command(BaseCommand):
         make_option('--ignore-url',
                     action='append',
                     dest='ignore_url',
+                    default=[],
                     help='What hosts to ignore, e.g. http://www.wikipedia.org/'),
 
         )
