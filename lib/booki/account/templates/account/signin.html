@@ -20,10 +20,10 @@
 
 //	    $("#loginform BUTTON").attr("disabled", "disabled");
 
-	    $.post('/accounts/signin/', {'ajax': '1',
-					 'method': 'signin',
-					 'username': username,
-					 'password': password},
+	    $.post('{% url signin %}', {'ajax': '1',
+					'method': 'signin',
+					'username': username,
+					'password': password},
 		   function(data) {
 		       switch(data.result) {
 		       case 1: // Everything is ok
@@ -58,14 +58,14 @@
 	    showNotification('#registerform .notify', '');
 
 
-	    $.post('/accounts/signin/', {'ajax': '1',
-					 'method': 'register',
-					 'username':  username,
-					 'password':  password,
-					 'password2': password2,
-					 'email':     email,
-					 'fullname':  fullname,
-					 'groups':    $.toJSON(groupsToJoin)},
+	    $.post('{% url signin %}', {'ajax': '1',
+					'method': 'register',
+					'username':  username,
+					'password':  password,
+					'password2': password2,
+					'email':     email,
+					'fullname':  fullname,
+					'groups':    $.toJSON(groupsToJoin)},
 
 		   function(data) {
 //		       $("#registerform BUTTON").removeAttr("disabled");
@@ -81,7 +81,7 @@
 					       $("#signinmessage .redirectmessage").html("Automatic redirection in "+sec+" seconds.");
 					       setTimeout(_showMessage(sec-1), 1000);
 					   } else {
-					       window.location = '/accounts/'+username+'/';
+					       window.location = '{% url view_profile 'XXX' %}'.replace('XXX', username);
 					   }
 				       }
 				   }

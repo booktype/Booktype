@@ -1831,7 +1831,7 @@ img {\n\
 						   $.booki.editor.drawAttachments();
 						   
 						   $.each(data.onlineUsers, function(i, elem) {
-						       $("#users").append('<li class="user'+elem[0]+'"><div style="background-image: url(/_utils/profilethumb/'+elem[0]+'/thumbnail.jpg); width: 24px; height: 24px; float: left;  margin-right: 5px;"></div><b>'+elem[0]+'</b><br/><span>'+elem[1]+'</span></li>');
+						       $("#users").append('<li class="user'+elem[0]+'"><div style="background-image: url('+$.booki.profileThumbnailViewUrlTemplate.replace('XXX', elem[0])+'); width: 24px; height: 24px; float: left;  margin-right: 5px;"></div><b>'+elem[0]+'</b><br/><span>'+elem[1]+'</span></li>');
 						   });
 
 					       });
@@ -1854,7 +1854,7 @@ img {\n\
 			    },
 
 			    "user_add": function() {
-				$("#users").append('<li class="user'+message.username+'"><div style="width: 24px; height: 24px; float: left; margin-right: 5px;background-image: url(/_utils/profilethumb/'+message.username+'/thumbnail.jpg);"></div><b>'+message.username+'</b><br/><span>'+message.mood+'</span></li>');
+				$("#users").append('<li class="user'+message.username+'"><div style="width: 24px; height: 24px; float: left; margin-right: 5px;background-image: url('+$.booki.profileThumbnailViewUrlTemplate.replace('XXX', message.username)+');"></div><b>'+message.username+'</b><br/><span>'+message.mood+'</span></li>');
 			    },
 
 			    "user_remove": function() {

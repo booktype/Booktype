@@ -54,7 +54,7 @@ $(function() {
 		    },
 
 		    getBookURL: function(version) {
-			var u = '/'+$.booki.currentBookURL+'/';
+			var u = $.booki.bookViewUrlTemplate.replace('XXX', $.booki.currentBookURL);
 
 			if(version)  u += '_v/'+version+'/';
 
@@ -202,7 +202,7 @@ $(function() {
 			  what to do in case of errors?!
 			*/
                         var a = this;
-                        $.post("/_sputnik/", {"clientID": $.booki.clientID, "messages": msgs  }, function(data, textStatus) {
+                        $.post($.booki.sputnikDispatcherURL, {"clientID": $.booki.clientID, "messages": msgs  }, function(data, textStatus) {
 			    if(data) {
 				$.each(data.messages, function(i, msg) {
 					a.receiveMessage(msg, data.result);
@@ -340,7 +340,7 @@ $(function() {
 	jQuery.booki.utils = function() {
 	    return {
 		"linkToAttachment": function(bookURL, attachmentURL, bookVersion) {
-		    var ur = '/'+bookURL+'/';
+		    var ur = $.booki.bookViewUrlTemplate.replace('XXX', bookURL);
 
 		    if(bookVersion == undefined) 
 			ur += '_v/'+$.booki.currentVersion+'/';
