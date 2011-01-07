@@ -6,14 +6,17 @@ from django.utils.translation import ugettext_lazy as _
 from booki.editor import models
 from booki.utils.log import logBookHistory
 
-def createBook(user, bookTitle, status = "imported"):
+def createBook(user, bookTitle, status = "imported", bookURL = None):
     """
     Create book and sets status.
 
     TODO: status?
     """
 
-    url_title = slugify(bookTitle)
+    if bookURL:
+        url_title = bookURL
+    else:
+        url_title = slugify(bookTitle)
 
     book = models.Book(url_title = url_title,
                        title = bookTitle,

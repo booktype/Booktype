@@ -16,7 +16,6 @@ class HeadRequest(urllib2.Request):
         return "HEAD"
 
 
-
 def checkLink(options, chapter, urlLink):
     global cacheLinks
 
@@ -59,44 +58,42 @@ def checkLink(options, chapter, urlLink):
 
 
 class Command(BaseCommand):
+    args = '<book name> [, <book name>, ...]'
+    help = 'Check links in books.'
+
     option_list = BaseCommand.option_list + (
         make_option('--no-remote',
                     action='store_true',
                     dest='no_remote',
                     default=False,
-                    help='Do we check for remote links'),
+                    help='Do we check for remote links?'),
 
         make_option('--no-local',
                     action='store_true',
                     dest='no_local',
                     default=False,
-                    help='Do we check for remote links'),
+                    help='Do we check for local links?'),
 
         make_option('--no-cache',
                     action='store_true',
                     dest='no_cache',
                     default=False,
-                    help='Check links'),
-
-        make_option('--book',
-                    action='append',
-                    dest='books',
-                    help='What books to check'),
+                    help='Do not cache network links.'),
 
         make_option('--ignore-url',
                     action='append',
                     dest='ignore_url',
-                    help='What hosts to ignore.'),
+                    default=[],
+                    help='What hosts to ignore, e.g. http://www.wikipedia.org/'),
 
         )
     
     def handle(self, *args, **options):
         global cacheLinks
 
-
         # filter only books we want
-        if options['books']:
-            booksList = models.Book.objects.filter(url_title__in=options['books']).order_by('url_title')
+        if len(args) > 0:
+            booksList = models.Book.objects.filter(url_title__in=args).order_by('url_title')
         else:
             booksList = models.Book.objects.all().order_by('url_title')
 
@@ -125,5 +122,3 @@ class Command(BaseCommand):
                             checkLink(options, chapter, href)
             except:
                 pass
-
-        print cacheLinks

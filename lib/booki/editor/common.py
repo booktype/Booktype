@@ -85,7 +85,7 @@ def getChaptersFromTOC(toc):
     return chapters
 
 
-def importBookFromFile(user, zname, createTOC=False):
+def importBookFromFile(user, zname, createTOC=False, **extraOptions):
     """Create a new book from a bookizip filename"""
     # unzip it
     zf = zipfile.ZipFile(zname)
@@ -97,10 +97,19 @@ def importBookFromFile(user, zname, createTOC=False):
     manifest = info['manifest']
     TOC =      info['TOC']
 
-    bookTitle = get_metadata(metadata, 'title', ns=DC)[0]
+    if extraOptions.get('book_title', None):
+        bookTitle = extraOptions['book_title']
+    else:
+        bookTitle = get_metadata(metadata, 'title', ns=DC)[0]
+    
     bookTitle = makeTitleUnique(bookTitle)
 
-    book = createBook(user, bookTitle, status = "imported")
+    if extraOptions.get('book_url', None):
+        bookURL = extraOptions['book_url']
+    else:
+        bookURL = bookTitle
+
+    book = createBook(user, bookTitle, status = "imported", bookURL = bookURL)
 
     # this is for Table of Contents
     p = re.compile('\ssrc="(.*)"')
