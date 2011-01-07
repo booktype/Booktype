@@ -166,7 +166,7 @@
   {% else %}
   <div style="background-color: #f8e1a4; font-size: 12px; padding: 20px; width: 300px;">
     <h2>Sign in</h2>
-    <form method="POST" action="/accounts/signin/" id="loginform" name="loginform" onsubmit="return false;">
+    <form method="POST" action="{% url signin %}" id="loginform" name="loginform" onsubmit="return false;">
       USERNAME<br/>
       <input type="text" name="username" style="width: 200px"/><br/>
       PASSWORD<br/>
@@ -190,8 +190,8 @@
   
   <div style="background-color: #f8e1a4;font-size: 12px; padding: 20px; float: right; width: 300px;">
     <h2>Create Account</h2>
-    
-    <form method="POST" action="/accounts/register/" onsubmit="return false" id="registerform">
+    {% url register as register_url %}
+    <form method="POST" action="{{ register_url }}" onsubmit="return false" id="registerform">
       USERNAME<br/>
       <input type="text" name="username" value="{{ username }}" style="width: 200px;"/><br/>
       E-MAIL<br/>
@@ -223,7 +223,7 @@
 </div>
 
 <div id="signinmessage" style="display: none">
-<div style="background-color: #f8e1a4; font-size: 12px; padding: 20px;"><h2>Your account has been created!</h2><p>Thank you. We have created your account and signed you in. If you are new to Booki we recommend you to read <a href="http://www.booki.cc/booki-user-guide/">Booki User Guide</a>.</p><p><form method="GET" action="/"><button>Great! Let's use Booki now!</button><span class="redirectmessage" style="padding-left: 20px"></span></form></p></div>
+<div style="background-color: #f8e1a4; font-size: 12px; padding: 20px;"><h2>Your account has been created!</h2><p>Thank you. We have created your account and signed you in. If you are new to Booki we recommend you to read <a href="http://www.booki.cc/booki-user-guide/">Booki User Guide</a>.</p><p><form method="GET" action="{% url frontpage %}"><button>Great! Let's use Booki now!</button><span class="redirectmessage" style="padding-left: 20px"></span></form></p></div>
 </div>
 </div>
 

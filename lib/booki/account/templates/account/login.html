@@ -27,7 +27,7 @@
 
 	<div style="background-color: #f8e1a4; font-size: 12px; padding: 20px; width: 300px; ">
 	 <h2>Sign in</h2>
-	  <form method="POST" action="/accounts/signin/" id="loginform">
+	  <form method="POST" action="{% url signin %}" id="loginform">
 	USERNAME<br/>
 	<input type="text" name="username"/><br/>
 	PASSWORD<br/>
@@ -57,7 +57,7 @@
 	<div style="background-color: #f8e1a4;font-size: 12px; padding: 20px; float: right; width: 300px;">
 	 <h2>Create Account</h2>
 
-	<form method="POST" action="/accounts/register/">
+	<form method="POST" action="{% url register %}">
 	USERNAME<br/>
 	<input type="text" name="username" value="{{ username }}"/><br/>
 	E-MAIL<br/>

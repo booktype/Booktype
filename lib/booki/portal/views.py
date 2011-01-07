@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.db import transaction
@@ -114,7 +115,7 @@ def add_book(request, groupid):
     else:
         transaction.commit()
 
-    return HttpResponseRedirect("/groups/%s/" % group.url_name)
+    return HttpResponseRedirect(reverse("view_group", args=[group.url_name]))
 
 @transaction.commit_manually
 def remove_book(request, groupid):
@@ -128,7 +129,7 @@ def remove_book(request, groupid):
     else:
         transaction.commit()
 
-    return HttpResponseRedirect("/groups/%s/" % groupid)
+    return HttpResponseRedirect(reverse("view_group", args=[groupid]))
 
 
 #

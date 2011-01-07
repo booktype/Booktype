@@ -118,7 +118,7 @@ function closeAttachmentUpload() {
 <input type="text" size="20"> <button>Search</button>
 </form>
 </div>
-<h1 style="margin-top: 0px"> <a href="/{{ book.url_title }}/">{{ book }}</a> </h1>
+<h1 style="margin-top: 0px"> <a href="{% url view_book book.url_title %}">{{ book }}</a> </h1>
 </div>
 
 <div id="tabs">

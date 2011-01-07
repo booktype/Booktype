@@ -2,6 +2,7 @@ import datetime
 import traceback
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError, transaction
@@ -55,7 +56,7 @@ def signout(request):
 
     auth.logout(request)
 
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect(reverse("frontpage"))
 
 # signin
 
@@ -181,7 +182,7 @@ def signin(request):
         transaction.commit()
         return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
 
-    redirect = request.GET.get('redirect', '/')
+    redirect = request.GET.get('redirect', reverse('frontpage'))
 
     if request.GET.get('next', None):
         redirect = request.GET.get('next')
@@ -494,7 +495,7 @@ def user_settings(request, username):
             profile.save()
             transaction.commit()
 
-            return HttpResponseRedirect("/accounts/%s/" % username)
+            return HttpResponseRedirect(reverse("view_profile", args=[username]))
     else:
         settings_form = SettingsForm(initial = {'image': 'aaa',
                                                 'firstname': user.first_name,
@@ -609,7 +610,7 @@ def my_books (request, username):
             else:
                 transaction.commit()
 
-            return HttpResponseRedirect("/accounts/%s/my_books" % username)
+            return HttpResponseRedirect(reverse("my_books", args=[username]))
     else:
         project_form = BookForm()
         import_form = ImportForm()
