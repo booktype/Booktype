@@ -3,7 +3,25 @@ from django.db import models
 import booki.editor.signals
 import booki.account.signals
 
-# Create your models here.
+import urllib2
+import urllib
+
+
+def sendMessage(user, password, message):
+    # this is hard coded for now. should 
+    auth_handler = urllib2.HTTPBasicAuthHandler()
+    auth_handler.add_password(realm='flossmanuals API',
+                              uri='http://status.flossmanuals.net/',
+                              user='adam',
+                              passwd='bookibooki')
+    opener = urllib2.build_opener(auth_handler)
+    
+    urllib2.install_opener(opener)
+    
+    data = {"status": message}
+    urllib2.urlopen('http://status.flossmanuals.net/api/statuses/update.xml', urllib.urlencode(data))
+
+
 
 def event_account_created(sender, **kwargs):
     """Register user on status.net website"""
@@ -31,8 +49,10 @@ def event_account_created(sender, **kwargs):
 
     if tokenValue:
         args = {'nickname': sender.username,
-                'password': kwargs.get('password', 'password'),
-                'confirm':  kwargs.get('password', 'password'),
+                'password': 'bookibooki',
+                'confirm': 'bookibooki',
+ #               'password': kwargs.get('password', 'password'),
+#                'confirm':  kwargs.get('password', 'password'),
                 'email':    sender.email,
                 'fullname': sender.first_name,
                 'homepage': 'http://www.booki.cc/',
@@ -52,9 +72,15 @@ def event_account_created(sender, **kwargs):
         f.close()
 
 
+def event_chapter_modified(sender, **kwargs):
+    from booki import settings
+
+    sendMessage('a', 'a', 'Saved new changes to chapter "%s". %s/%s/%s/' % (kwargs['chapter'].title, settings.BOOKI_URL, sender.book.url_title, kwargs['chapter'].url_title))
+
 
 booki.account.signals.account_created.connect(event_account_created)
 
+booki.editor.signals.chapter_modified.connect(event_chapter_modified)
 
 
 
