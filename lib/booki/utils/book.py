@@ -52,5 +52,8 @@ def createBook(user, bookTitle, status = "imported", bookURL = None):
                    version = version,
                    user = user,
                    kind = 'book_create')
-        
+
+    import booki.editor.signals    
+    booki.editor.signals.book_created.send(sender = user, book = book)
+
     return book

@@ -304,6 +304,10 @@ def remote_chapter_save(request, message, bookid, version):
 
         sputnik.rdelete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
 
+    # fire the signal
+    import booki.editor.signals
+    booki.editor.signals.chapter_modified.send(sender = book_version, chapter = chapter, user = request.user)
+
     return {}
 
 
