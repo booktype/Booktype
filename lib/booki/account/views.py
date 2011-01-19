@@ -401,7 +401,7 @@ def view_profile(request, username):
     user = User.objects.get(username=username)
 
     books = models.Book.objects.filter(owner=user)
-
+    
     groups = user.members.all()
     return render_to_response('account/view_profile.html', {"request": request,
                                                             "user": user,

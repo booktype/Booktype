@@ -107,7 +107,7 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
     if extraOptions.get('book_url', None):
         bookURL = extraOptions['book_url']
     else:
-        bookURL = bookTitle
+        bookURL = None
 
     book = createBook(user, bookTitle, status = "imported", bookURL = bookURL)
 

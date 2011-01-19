@@ -1,5 +1,23 @@
 from django.db import transaction
 
+from booki import settings
+
+try:
+    STATUS_URL = settings.STATUS_URL
+except:
+    STATUS_URL = 'http://status.flossmanuals.net/'
+
+
+def remote_get_status_messages(request, message, profileid):
+    import feedparser
+
+    d = feedparser.parse('%s%s/rss' % (STATUS_URL, profileid))
+
+#    messages = [(x['title'], ) for x in d['entries']]
+    messages = [(x['content'][0]['value'], ) for x in d['entries']]
+
+    return {"list": messages}
+
 def remote_group_create(request, message, profileid):
     from booki.editor.models import BookiGroup
     from django.template.defaultfilters import slugify
@@ -52,6 +70,9 @@ def remote_mood_set(request, message, profileid):
     ## maximum size is 30 characters only
     ## html tags are removed
     moodMessage = strip_tags(message.get("value",""))[:30]
+
+    import booki.account.signals
+    booki.account.signals.account_status_changed.send(sender = request.user, message = message.get('value', ''))
 
     # save new permissions
     profile = request.user.get_profile()
