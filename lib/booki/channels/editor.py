@@ -431,6 +431,9 @@ def remote_get_chapter(request, message, bookid, version):
     res["title"] = chapter.title
     res["content"] = chapter.content
 
+    if not message.get("lock", True):
+        return res
+
     import time
 
     # set the initial timer for editor

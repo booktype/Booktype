@@ -727,7 +727,7 @@ previous
 		},
 		viewChapter: function(chapterID) {
 		    $.booki.ui.notify("Loading chapter data...");
-		    $.booki.sendToCurrentBook({"command": "get_chapter", "chapterID": chapterID}, function(data) {
+		    $.booki.sendToCurrentBook({"command": "get_chapter", "chapterID": chapterID, "lock": false}, function(data) {
 					      $.booki.ui.notify();
 		   var $dialog = $('<div></div>')
 		   .html(data.content)
