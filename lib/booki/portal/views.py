@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db import transaction
 
 from booki.editor import models
-from booki.utils import security
+from booki.utils import security, pages
 
 # debug
 
@@ -73,7 +73,11 @@ def view_frontpage(request):
 # GROUPS
 
 def view_group(request, groupid):
-    group = models.BookiGroup.objects.get(url_name=groupid)
+    try:
+        group = models.BookiGroup.objects.get(url_name=groupid)
+    except models.BookiGroup.DoesNotExist:
+        return pages.ErrorPage(request, "errors/group_does_not_exist.html", {"group_name": groupid})
+        
     books = models.Book.objects.filter(group=group)
     members = group.members.all()
 

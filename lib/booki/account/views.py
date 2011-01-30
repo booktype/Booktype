@@ -13,6 +13,7 @@ except:
 
 from django import forms
 
+from booki.utils import pages
 from booki.utils.log import logBookHistory, logError
 from booki.utils.book import createBook
 from booki.editor import common
@@ -397,7 +398,10 @@ def view_profile(request, username):
 
     from django.template.defaultfilters import slugify
 
-    user = User.objects.get(username=username)
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
 
     books = models.Book.objects.filter(owner=user)
     
@@ -443,7 +447,11 @@ def user_settings(request, username):
 
     from django.template.defaultfilters import slugify
 
-    user = User.objects.get(username=username)
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+
 
     if request.method == 'POST':
         settings_form = SettingsForm(request.POST, request.FILES)
@@ -526,7 +534,12 @@ def view_profilethumbnail(request, profileid):
     from booki import settings
 
     from django.contrib.auth.models import User
-    u = User.objects.get(username=profileid)
+
+    try:
+        u = User.objects.get(username=profileid)
+    except User.DoesNotExist:
+        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+
 
     # this should be a seperate function
 
@@ -560,7 +573,12 @@ def my_books (request, username):
     from django.contrib.auth.models import User
     from booki.editor import models
     from django.template.defaultfilters import slugify
-    user = User.objects.get(username=username)
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        
     books = models.Book.objects.filter(owner=user)
 
     if request.method == 'POST':
@@ -634,7 +652,12 @@ def my_groups (request, username):
     """
 
     from django.contrib.auth.models import User
-    user = User.objects.get(username=username)
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+
     groups = user.members.all()
 
     return render_to_response('account/my_groups.html', {"request": request,
@@ -654,7 +677,11 @@ def my_people (request, username):
     """
 
     from django.contrib.auth.models import User
-    user = User.objects.get(username=username)
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
 
     return render_to_response('account/my_people.html', {"request": request,
                                                          "user": user})

@@ -7,7 +7,9 @@ from django import forms
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.core import serializers
+
 from booki.editor import models
+from booki.utils import pages
 
 import logging
 
@@ -50,7 +52,11 @@ def export(request, bookid):
     @param bookid: Book ID. 
     """
 
-    book = models.Book.objects.get(url_title__iexact=bookid)
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
     book_version = getVersion(book, None)
 
     response = HttpResponse(mimetype='application/zip')
@@ -82,7 +88,11 @@ def edit_book(request, bookid, version=None):
 
     from booki.utils import security
 
-    book = models.Book.objects.get(url_title__iexact=bookid)
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
     book_version = getVersion(book, version)
 
     bookSecurity = security.getUserSecurityForBook(request.user, book)
@@ -119,7 +129,11 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
     from booki import settings
     from django.views import static
 
-    book = models.Book.objects.get(url_title__iexact=bookid)
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
     book_version = getVersion(book, version)
 
     path = '%s/%s' % (book_version.getVersion(), attachment)
@@ -148,7 +162,11 @@ def upload_attachment(request, bookid, version=None):
     @param version: Book version or None
     """
 
-    book = models.Book.objects.get(url_title__iexact=bookid)
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
     book_version = getVersion(book, version)
 
     stat = models.BookStatus.objects.filter(book = book)[0]

@@ -5,6 +5,7 @@ from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 
 from booki.editor import models
+from booki.utils import pages
 from booki.editor.views import getVersion
 from booki import settings
 
@@ -15,7 +16,11 @@ def _customCSSExists(bookName):
 def view_full(request, bookid, version=None):
     chapters = []
 
-    book = models.Book.objects.get(url_title__iexact=bookid)
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
     book_version = getVersion(book, version)
 
     for chapter in  models.BookToc.objects.filter(version=book_version).order_by("-weight"):
@@ -37,7 +42,11 @@ def view_full(request, bookid, version=None):
 
 
 def view_book(request, bookid, version=None):
-    book = models.Book.objects.get(url_title__iexact=bookid)
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
 
     book_version = getVersion(book, version)
 
@@ -59,7 +68,11 @@ def view_book(request, bookid, version=None):
                                                    "request": request})
 
 def view_chapter(request, bookid, chapter, version=None):
-    book = models.Book.objects.get(url_title__iexact=bookid)
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
     book_version = getVersion(book, version)
 
     chapters = []
@@ -72,7 +85,11 @@ def view_chapter(request, bookid, chapter, version=None):
             chapters.append({"url_title": None,
                              "name": chap.name})
 
-    content = models.Chapter.objects.get(version=book_version, url_title = chapter)
+    try:
+        content = models.Chapter.objects.get(version=book_version, url_title = chapter)
+    except models.Chapter.DoesNotExist:
+        return pages.ErrorPage(request, "errors/chapter_does_not_exist.html", {"chapter_name": chapter, "book": book})
+
 
     return render_to_response('reader/chapter.html', {"chapter": chapter, 
                                                       "book": book, 
@@ -89,7 +106,11 @@ def attachment(request, bookid,  attachment, version=None):
     from booki import settings
     from django.views import static
 
-    book = models.Book.objects.get(url_title__iexact=bookid)
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        
     book_version = getVersion(book, version)
 
     path = '%s/%s' % (version, attachment)
@@ -104,7 +125,11 @@ def staticattachment(request, bookid,  attachment, version=None, chapter = None)
     from booki import settings
     from django.views import static
 
-    book = models.Book.objects.get(url_title__iexact=bookid)
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
     book_version = getVersion(book, version)
 
     path = '%s/%s' % (book_version.getVersion(), attachment)
