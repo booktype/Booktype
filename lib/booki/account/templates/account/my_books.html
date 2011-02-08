@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% load profile %}
+{% load i18n profile %}
 
 {% block header %}
-  <title>My Books</title>
+  <title>{% trans "My Books" %}</title>
 
   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/profile.js"></script>
 
@@ -115,40 +115,40 @@
 
 <div style="margin-bottom: 5px">
 
-<h2>My Books</h2>
+<h2>{% trans "My Books" %}</h2>
 <div style="border-bottom: 1px solid #c0c0c0"></div>
 <ul>
 {% for book in books %}
-   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book  book.url_title %}">edit</a>)</li>
+   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a>)</li>
 {% endfor %}
 </ul>
 </div>
 
-<h2>Create new book</h2>
+<h2>{% trans "Create new book" %}</h2>
 <form action="." method="POST">
 <table>
 {{ project_form.as_table }}
 </table>
-<button>Create</button>
+<button>{% trans "Create" %}</button>
 </form>
 <br/>
 
-<H2>Import Book</h2>
+<h2>{% trans "Import Book" %}</h2>
 <form action="." method="POST">
 		<p>
 			<select id="field1">
-				<option value="">Select Import Type</option>
-				<option value="opt1">Import epub</option>
-				<option value="opt2">Import FM</option>
-				<option value="opt3">Import Archive.org book</option>
-				<option value="opt4">Import Wikibook</option>
+				<option value="">{% trans "Select Import Type" %}</option>
+				<option value="opt1">{% trans "Import epub" %}</option>
+				<option value="opt2">{% trans "Import FM" %}</option>
+				<option value="opt3">{% trans "Import Archive.org book" %}</option>
+				<option value="opt4">{% trans "Import Wikibook" %}</option>
 			</select>
 		</p>
 		<p>
 			<input type="text" id="id" name="id" size="50" /><br>
 			<input type="hidden" id="type" name="type" size="50" />
 		</p>
-<button>Create</button>
+<button>{% trans "Create" %}</button>
 </form>
 
 {% endblock %}

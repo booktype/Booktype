@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block header %}
- <title>Booki Books</title>
+ <title>{% trans "Booki Books" %}</title>
 {% endblock %}
 
 {% block content %}
 
 	<!-- BOOKS LISTING -->
 	<div>
-	<h2 style="border-bottom: 1px dotted gray" >Books</h2>
+	<h2 style="border-bottom: 1px dotted gray" >{% trans "Books" %}</h2>
 
 	<ul>
 	{% for book in books.object_list %}

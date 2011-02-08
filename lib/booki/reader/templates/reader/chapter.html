@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% load booki_tags %}
+{% load i18n booki_tags %}
 
 {% block header %}
-<title>/chapter: {{ chapter.title }} / {{ book.title }}</title>
+<title>{% blocktrans %}/chapter: {{ chapter.title }} / {{ book.title }}{% endblocktrans %}</title>
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/css/editor.css" rel="Stylesheet" />
 
 <link rel="alternate" type="application/rss+xml" title="RSS feed for {{ book.title }}" href="/feeds/rss/book/{{ book.url_title }}/" /> 
@@ -36,6 +36,6 @@
 <div id="bookcontent">
 {% booki_format content %}
 <hr/>
-<a href="{% url view_book   book.url_title book_version %}edit/">EDIT</a>
+<a href="{% url view_book   book.url_title book_version %}edit/">{% trans "EDIT" %}</a>
 </div>
 {% endblock %}

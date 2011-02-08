@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block header %}
- <title>Booki Groups</title>
+ <title>{% trans "Booki Groups" %}</title>
 {% endblock %}
 
 {% block content %}
 
 	<!-- GROUPS LISTING -->
 	<div>
-	<h2 style="border-bottom: 1px dotted gray" >Groups</h2>
+	<h2 style="border-bottom: 1px dotted gray" >{% trans "Groups" %}</h2>
 
 	<ul>
 	{% for group in groups.object_list %}

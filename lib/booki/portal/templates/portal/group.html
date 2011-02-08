@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% load profile %}
+{% load i18n profile %}
 
 {% block header %}
-<title>/group: {{ group.name }}</title>
+<title>{% blocktrans %}/group: {{ group.name }}{% endblocktrans %}</title>
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/css/editor.css" rel="Stylesheet" />
 
 <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/group.js"></script>
@@ -60,11 +60,11 @@
 
 <div id="tabs">
 <ul>
-  <li><a href="#tabgroup">Group</a><li>
-  <li><a href="#tabbooks">Books</a></li>
-  <li><a href="#tabmembers">Members</a></li>
+  <li><a href="#tabgroup">{% trans "Group" %}</a><li>
+  <li><a href="#tabbooks">{% trans "Books" %}</a></li>
+  <li><a href="#tabmembers">{% trans "Members" %}</a></li>
   {% if security.isGroupAdmin %}
-  <li><a href="#tabsettings">Settings</a></li>
+  <li><a href="#tabsettings">{% trans "Settings" %}</a></li>
   {% endif %}
 </ul>
 
@@ -80,18 +80,19 @@
 </div>
 <div style="float: right">
  {% if is_member %}
-    <a class="buttleave">Leave this group</a>
+    <a class="buttleave">{% trans "Leave this group" %}</a>
  {% else %}
-    <a class="buttjoin">Join this group</a>
+    <a class="buttjoin">{% trans "Join this group" %}</a>
  {% endif %}
 </div>
- MEMBERS: {{ n_members }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BOOKS: {{ n_books }}
+ {% blocktrans %}MEMBERS: {{ n_members }}{% endblocktrans %} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ {% blocktrans %}BOOKS: {{ n_books }}{% endblocktrans %}
 <div style="clear: both; padding-top: 10px; padding-bottom: 20px;">
    <div style="border-bottom: 1px solid #808080;"></div>
 </div>
 
 <div style="width: 300px; float: left;">
- <div style="font-weight: bold; border-bottom: 1px solid #808080;">ANNOUNCEMENTS</div>
+ <div style="font-weight: bold; border-bottom: 1px solid #808080;">{% trans "ANNOUNCEMENTS" %}</div>
  <div style="border-bottom: 1px dotted #808080">
     <h4>Dummy title</h4>
     <p>
@@ -102,7 +103,7 @@
 
 
 <div style="width: 300px; float: left; padding-left: 20px;">
- <div style="font-weight: bold;  border-bottom: 1px solid #808080;">STATUS</div>
+ <div style="font-weight: bold;  border-bottom: 1px solid #808080;">{% trans "STATUS" %}</div>
     <div style="border-bottom: 1px dotted #808080">
        <div id="status_messages">Please wait while loading data...</div>
     </div>
@@ -113,7 +114,7 @@
 </div>
 
 <div id="tabbooks">
-<h2>Books</h2>
+<h2>{% trans "Books" %}</h2>
 <ul>
 {% for book in books %}
    <li><a style="text-decoration: underline" href="{% url view_book  book.url_title %}">{{ book.title }}</a>
@@ -138,14 +139,14 @@
 {% endfor %}
 </select>
 <br/><br/>
-<button>ADD THIS BOOK TO GROUP</button>
+<button>{% trans "ADD THIS BOOK TO GROUP" %}</button>
 </form>
 {% endif %}
 
 </div>
 
 <div id="tabmembers">
-<h3>Members</h3>
+<h3>{% trans "Members" %}</h3>
 
 {% for member in members %}
    <div style="clear: both; padding: 10px; border-bottom: 1px dotted #808080;"><div style="width: 36px; height: 36px; border: 1px solid gray; background-color:#f0f0f0; float: left; margin-right: 10px; font-size: 6pt;">PROFILE IMAGE</div><b>{{member.first_name }}</b> <br/>{{ member.username }}</div>
@@ -156,7 +157,7 @@
 
 {% if security.isGroupAdmin %}
 <div id="tabsettings">
-<h2>Settings</h2>
+<h2>{% trans "Settings" %}</h2>
 </div>
 {% endif %}
 
