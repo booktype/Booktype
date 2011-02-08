@@ -14,6 +14,8 @@ except:
 
 from django import forms
 
+from django.utils.translation import ugettext as _
+
 from booki.utils.log import logBookHistory, logError
 from booki.utils.book import createBook
 from booki.editor import common
@@ -347,8 +349,8 @@ class BookForm(forms.Form):
     @todo: This is major c* and has to be changed soon.
     """
 
-    title = forms.CharField(required=False)
-    license = forms.ChoiceField(choices=(('1', '1'), ))
+    title = forms.CharField(label=_('Title'), required=False)
+    license = forms.ChoiceField(label=_('License'), choices=(('1', '1'), ))
 
     def __init__(self, *args, **kwargs):
         super(BookForm, self).__init__(*args, **kwargs)
@@ -417,12 +419,12 @@ class SettingsForm(forms.Form):
     Django Form for Settings. This should change in the future (and not use Django Forms at all).
     """
 
-    email = forms.EmailField(required=True)
-    firstname = forms.CharField(required=True, label='Full name')
+    email = forms.EmailField(required=True, label=_('Email'))
+    firstname = forms.CharField(required=True, label=_('Full name'))
 #    lastname = forms.CharField(required=True, label='Last name')
-    description = forms.CharField(widget=forms.Textarea(), required=False, label="Blurb about yourself")
+    description = forms.CharField(widget=forms.Textarea(), required=False, label=_("Blurb about yourself"))
 
-    image = forms.Field(widget=forms.FileInput(), required=False)
+    image = forms.Field(widget=forms.FileInput(), required=False, label=_('Image'))
 
 ## user settings
 
