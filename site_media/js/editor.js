@@ -1709,6 +1709,8 @@ img {\n\
 			modal: true,
 			buttons: {
 			    'Create chapter': function() {
+				if($.trim($("#newchapter INPUT").val())=='') return;
+
 				$.booki.ui.notify("Creating chapter");
 				
 				$.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/"+$.booki.currentVersion+"/", {"command": "create_chapter", "chapter": $("#newchapter INPUT").val()}, function(data) {
@@ -1744,6 +1746,8 @@ img {\n\
 			modal: true,
 			buttons: {
 			    'Create section': function() {
+				if($.trim($("#newsection INPUT").val())=='') return;
+
 				$.booki.ui.notify("Creating section");
 				
 				$.booki.sendToChannel("/booki/book/"+$.booki.currentBookID+"/"+$.booki.currentVersion+"/", {"command": "create_section", "chapter": $("#newsection INPUT").val()}, function(data) {
