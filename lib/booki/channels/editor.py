@@ -593,6 +593,30 @@ def remote_create_chapter(request, message, bookid, version):
         transaction.rollback()
         return {"created": False}
     else:
+        # this should be solved in better way
+        # should have createChapter in booki.utils.book module
+
+        toc_items = len(book_version.getTOC())+1
+
+        for itm in models.BookToc.objects.filter(version = book_version, book = book):
+            itm.weight = toc_items
+            itm.save()
+
+            toc_items -= 1
+            
+        tc = models.BookToc(version = book_version,
+                            book = book,
+                            name = message["chapter"],
+                            chapter = chapter,
+                            weight = 1,
+                            typeof = 1)
+
+        try:
+            tc.save()
+        except:
+            transaction.rollback()
+            return {"created": False}
+
         history = logChapterHistory(chapter = chapter,
                                     content = content,
                                     user = request.user,
