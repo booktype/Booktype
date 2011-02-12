@@ -74,21 +74,27 @@ class FormatAuthorsNode(template.Node):
         for chapter in models.BookToc.objects.filter(book=book).order_by("-weight"):
             if not chapter: continue
             if not chapter.chapter: continue
-            aut = []
-            jebem_ti_mater = []
+
+            authors = {}
+
             for us_id in models.ChapterHistory.objects.filter(chapter=chapter.chapter).distinct():
                 if not us_id: continue
 
                 usr = auth_models.User.objects.get(id=us_id.user.id)
-                if usr.username not in jebem_ti_mater:
-                    aut.append(usr)
-                    jebem_ti_mater.append(usr.username)
 
-            chapters.append({"authors": aut, 
+                modified_year = us_id.modified.strftime('%Y')
+
+                if authors.has_key(usr.username):
+                    _years = authors[usr.username][1]
+
+                    if modified_year not in _years:
+                        authors[usr.username][1].append(modified_year)
+
+                else:
+                    authors[usr.username] = [usr, [modified_year]]
+
+            chapters.append({"authors": authors.values(), 
                              "name": chapter.chapter.title})
-
-#        for us_id in models.ChapterHistory.objects.filter(chapter__book=book).values("user").distinct().order_by("user__username"):
-#            authors.append(auth_models.User.objects.get(id=us_id["user"]))
 
         copyrightDescription = self.args.resolve(context) or ''
 
