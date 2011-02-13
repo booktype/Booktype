@@ -796,7 +796,7 @@ previous
 						  if(edi)
 						      edi.setEditorContent(data.content);
 */
-						/*  $("#editor INPUT[name=title]").attr("value", data.title); */
+						  $("#editor .title").html(data.title); 
 						  
    						  $("#editor A[name=chapter_id]").attr("value", chapterID);
 						  $("#editor A[name=save]").unbind('click').click(function() {
