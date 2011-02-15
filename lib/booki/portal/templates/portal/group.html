@@ -2,7 +2,7 @@
 {% load i18n profile %}
 
 {% block header %}
-<title>{% blocktrans %}/group: {{ group.name }}{% endblocktrans %}</title>
+<title>{% blocktrans with group.name as groupname %}/group: {{ groupname }}{% endblocktrans %}</title>
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/css/editor.css" rel="Stylesheet" />
 
 <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/group.js"></script>

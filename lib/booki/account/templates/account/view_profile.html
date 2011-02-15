@@ -4,7 +4,7 @@
 {% load i18n profile %}
 
 {% block header %}
-  <title>{% blocktrans %}/user: {{ user.username }}{% endblocktrans %}</title>
+  <title>{% blocktrans with user.username as username %}/user: {{ username }}{% endblocktrans %}</title>
   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/profile.js"></script>
 
   <script type="text/javascript">

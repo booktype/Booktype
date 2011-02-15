@@ -3,7 +3,7 @@
 {% load i18n profile %}
 
 {% block header %}
-  <title>{% blocktrans %}/settings: {{ user.username }}{% endblocktrans %}</title>
+  <title>{% blocktrans with user.username as username%}/settings: {{ username }}{% endblocktrans %}</title>
 {% endblock %}
 
 {% block content %}

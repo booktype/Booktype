@@ -3,7 +3,7 @@
 {% load i18n booki_tags %}
 
 {% block header %}
-<title>{% blocktrans %}/chapter: {{ chapter.title }} / {{ book.title }}{% endblocktrans %}</title>
+<title>{% blocktrans with chapter.title as chaptertitle and book.title as booktitle %}/chapter: {{ chaptertitle }} / {{ booktitle }}{% endblocktrans %}</title>
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/css/editor.css" rel="Stylesheet" />
 
 <link rel="alternate" type="application/rss+xml" title="RSS feed for {{ book.title }}" href="/feeds/rss/book/{{ book.url_title }}/" /> 
