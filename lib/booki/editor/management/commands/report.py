@@ -2,6 +2,8 @@ from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 import datetime
 
+from django.conf import settings
+
 now = datetime.datetime.now()
 
 def getUsers():
@@ -63,7 +65,6 @@ def getHistory():
 def getInfo():
     from django.contrib.auth.models import User
     from booki.editor.models import Book, Attachment
-    from booki import settings
     from django.db import connection
 
     numOfUsers = len(User.objects.all())
@@ -114,11 +115,9 @@ class Command(BaseCommand):
         history = getHistory()
         info = getInfo()
 
-        from booki import settings
-
         try:
             BOOKI_NAME = settings.BOOKI_NAME
-        except:
+        except AttributeError:
             BOOKI_NAME = 'Booki name'
 
         # render result
@@ -141,7 +140,7 @@ class Command(BaseCommand):
 
             try:
                 REPORT_EMAIL_USER = settings.REPORT_EMAIL_USER
-            except:
+            except AttributeError:
                 REPORT_EMAIL_USER = 'booki@booki.cc'
 
             emails = [em[1] for em in settings.ADMINS]

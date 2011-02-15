@@ -13,8 +13,6 @@ class ProfileImageNode(Node):
         self.user = user
 
     def render(self, context):
-        from booki import settings
-
         user = resolve_variable(self.user, context)
         # should check if it exists and etc
 

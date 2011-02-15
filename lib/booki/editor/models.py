@@ -4,6 +4,8 @@ from django.contrib.auth import models as auth_models
 
 import booki.editor.signals
 
+from django.conf import settings
+
 # License
 
 class License(models.Model):
@@ -82,8 +84,6 @@ class BookiGroup(models.Model):
     created = models.DateTimeField(_('created'), auto_now=False, null=True)
 
     def get_absolute_url(self):
-        from booki import settings
-
         return '%s/groups/%s/' % (settings.BOOKI_URL, self.url_name)
 
     def __unicode__(self):
@@ -116,8 +116,6 @@ class Book(models.Model):
     published = models.DateTimeField(_('published'), null=True)
 
     def get_absolute_url(self):
-        from booki import settings
-
         return '%s/%s/' % (settings.BOOKI_URL, self.url_title)
 
     def __unicode__(self):
@@ -240,8 +238,6 @@ class BookVersion(models.Model):
         return '%d.%d' % (self.major, self.minor)
 
     def get_absolute_url(self):
-        from booki import settings
-
         return '%s/%s/_v/%s/' % (settings.BOOKI_URL, self.url_title, self.getVersion())
         
     def __unicode__(self):
@@ -269,8 +265,6 @@ class Chapter(models.Model):
     content = models.TextField(_('content'))
 
     def get_absolute_url(self):
-        from booki import settings
-
         return '%s/%s/%s/' % (settings.BOOKI_URL, self.book.url_title, self.url_title)
 
 
@@ -302,8 +296,6 @@ class ChapterHistory(models.Model):
 # Attachment
 
 def uploadAttachmentTo(att, filename):
-    from booki import settings
-
     return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, att.version.getVersion(), filename)
 
 

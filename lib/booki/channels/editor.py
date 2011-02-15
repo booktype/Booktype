@@ -8,14 +8,16 @@ from booki.editor import models
 from booki.editor.views import getVersion
 from booki.utils import security
 
+from django.conf import settings
+
 try:
-    from booki.settings import OBJAVI_URL
-except ImportError:
+    OBJAVI_URL = settings.OBJAVI_URL
+except AttributeError:
     OBJAVI_URL = "http://objavi.flossmanuals.net/objavi.cgi"
 
 try:
-    from booki.settings import THIS_BOOKI_SERVER
-except:
+    THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
+except AttributeError:
     import os
     THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booki.flossmanuals.net')
 

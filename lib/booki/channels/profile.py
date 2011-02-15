@@ -1,10 +1,10 @@
 from django.db import transaction
 
-from booki import settings
+from django.conf import settings
 
 try:
     STATUS_URL = settings.STATUS_URL
-except:
+except AttributeError:
     STATUS_URL = 'http://status.flossmanuals.net/'
 
 

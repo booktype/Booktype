@@ -21,14 +21,16 @@ from booki.utils.book import createBook
 from booki.editor import common
 
 try:
-    from booki.settings import ESPRI_URL, TWIKI_GATEWAY_URL
-except ImportError:
+    ESPRI_URL = settings.ESPRI_URL
+    TWIKI_GATEWAY_URL = settings.TWIKI_GATEWAY_URL
+except AttributeError:
     # for backwards compatibility
     ESPRI_URL = "http://objavi.flossmanuals.net/espri.cgi"
     TWIKI_GATEWAY_URL = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
+    
 try:
-    from booki.settings import THIS_BOOKI_SERVER
-except ImportError:
+    THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
+except AttributeError:
     import os
     THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'www.booki.cc')
 
@@ -526,7 +528,6 @@ def view_profilethumbnail(request, profileid):
     """
 
     from django.http import HttpResponse
-    from booki import settings
 
     from django.contrib.auth.models import User
     u = User.objects.get(username=profileid)

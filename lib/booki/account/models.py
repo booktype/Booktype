@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-from booki import settings
+from django.conf import settings
 
 ## UserProfile
 

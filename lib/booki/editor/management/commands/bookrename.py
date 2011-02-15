@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 from booki.editor import common
 from booki.editor import models
-from booki import settings
+from django.conf import settings
 
 class Command(BaseCommand):
     args = "<book name>"

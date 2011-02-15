@@ -6,11 +6,11 @@ import booki.account.signals
 import urllib2
 import urllib
 
-from booki import settings
+from django.conf import settings
 
 try:
     STATUS_URL = settings.STATUS_URL
-except:
+except AttributeError:
     STATUS_URL = 'http://status.flossmanuals.net/'
 
 
@@ -100,8 +100,6 @@ def event_account_created(sender, **kwargs):
 
 
 def event_chapter_modified(sender, **kwargs):
-    from booki import settings
-
     #sendMessage('a', 'a', 'Saved new changes to chapter "%s". %s/%s/%s/' % (kwargs['chapter'].title, settings.BOOKI_URL, sender.book.url_title, kwargs['chapter'].url_title))
 
 
