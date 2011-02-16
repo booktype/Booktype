@@ -40,7 +40,6 @@ class BookFeedRSS(Feed):
         return item.user.email
 
     def item_author_link(self, item):
-        from booki import settings
         return '/accounts/%s/' % item.user.username
 
     def item_pubdate(self, item):
@@ -125,7 +124,6 @@ class UserFeedRSS(Feed):
         return item.user.email
 
     def item_author_link(self, item):
-        from booki import settings
         return '/accounts/%s/' % item.user.username
 
     def item_pubdate(self, item):

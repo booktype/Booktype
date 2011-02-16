@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-from booki import settings
+from django.conf import settings
 
 ## UserProfile
 
@@ -21,10 +21,10 @@ class UserProfile(models.Model):
     """
 
 #    image = models.ImageField(upload_to=settings.PROFILE_IMAGE_UPLOAD_DIR, null=True, storage=fs)
-    mood = models.CharField(max_length=1000, blank=True, null=False, default='')
-    image = models.ImageField(upload_to=settings.PROFILE_IMAGE_UPLOAD_DIR, null=True)
-    description = models.CharField(max_length=2500, blank=False,null=False,default='')
-    user = models.ForeignKey(User, unique=True)
+    mood = models.CharField(_('mood'), max_length=1000, blank=True, null=False, default='')
+    image = models.ImageField(_('image'), upload_to=settings.PROFILE_IMAGE_UPLOAD_DIR, null=True)
+    description = models.CharField(_('description'), max_length=2500, blank=False,null=False,default='')
+    user = models.ForeignKey(User, unique=True, verbose_name=_("user"))
 
 class UserPassword(models.Model):
     """
@@ -39,13 +39,13 @@ class UserPassword(models.Model):
     @ivar host: Client host.
     """
 
-    user = models.ForeignKey(User, unique=False)
-    secretcode = models.CharField(max_length=30, blank=False, null=False)
+    user = models.ForeignKey(User, unique=False, verbose_name=_("user"))
+    secretcode = models.CharField(_('secretcode'), max_length=30, blank=False, null=False)
     created = models.DateTimeField(_('created'), auto_now=True)
 
-    remote_useragent = models.CharField(max_length=1000, blank=True, null=False, default='')
-    remote_addr = models.CharField(max_length=1000, blank=True, null=False, default='')
-    remote_host = models.CharField(max_length=1000, blank=True, null=False, default='')
+    remote_useragent = models.CharField(_('remote useragent'), max_length=1000, blank=True, null=False, default='')
+    remote_addr = models.CharField(_('remote addr'), max_length=1000, blank=True, null=False, default='')
+    remote_host = models.CharField(_('remote host'), max_length=1000, blank=True, null=False, default='')
 
 
 # post user save hook

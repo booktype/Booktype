@@ -2,6 +2,7 @@ import datetime
 import traceback
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError, transaction
@@ -14,19 +15,23 @@ except:
 from django import forms
 
 from booki.utils import pages
+from django.utils.translation import ugettext as _
+
 from booki.utils.log import logBookHistory, logError
 from booki.utils.book import createBook
 from booki.editor import common
 
 try:
-    from booki.settings import ESPRI_URL, TWIKI_GATEWAY_URL
-except ImportError:
+    ESPRI_URL = settings.ESPRI_URL
+    TWIKI_GATEWAY_URL = settings.TWIKI_GATEWAY_URL
+except AttributeError:
     # for backwards compatibility
     ESPRI_URL = "http://objavi.flossmanuals.net/espri.cgi"
     TWIKI_GATEWAY_URL = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
+    
 try:
-    from booki.settings import THIS_BOOKI_SERVER
-except ImportError:
+    THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
+except AttributeError:
     import os
     THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'www.booki.cc')
 
@@ -56,7 +61,7 @@ def signout(request):
 
     auth.logout(request)
 
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect(reverse("frontpage"))
 
 # signin
 
@@ -182,7 +187,7 @@ def signin(request):
         transaction.commit()
         return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
 
-    redirect = request.GET.get('redirect', '/')
+    redirect = request.GET.get('redirect', reverse('frontpage'))
 
     if request.GET.get('next', None):
         redirect = request.GET.get('next')
@@ -347,8 +352,8 @@ class BookForm(forms.Form):
     @todo: This is major c* and has to be changed soon.
     """
 
-    title = forms.CharField(required=False)
-    license = forms.ChoiceField(choices=(('1', '1'), ))
+    title = forms.CharField(label=_('Title'), required=False)
+    license = forms.ChoiceField(label=_('License'), choices=(('1', '1'), ))
 
     def __init__(self, *args, **kwargs):
         super(BookForm, self).__init__(*args, **kwargs)
@@ -420,12 +425,12 @@ class SettingsForm(forms.Form):
     Django Form for Settings. This should change in the future (and not use Django Forms at all).
     """
 
-    email = forms.EmailField(required=True)
-    firstname = forms.CharField(required=True, label='Full name')
+    email = forms.EmailField(required=True, label=_('Email'))
+    firstname = forms.CharField(required=True, label=_('Full name'))
 #    lastname = forms.CharField(required=True, label='Last name')
-    description = forms.CharField(widget=forms.Textarea(), required=False, label="Blurb about yourself")
+    description = forms.CharField(widget=forms.Textarea(), required=False, label=_("Blurb about yourself"))
 
-    image = forms.Field(widget=forms.FileInput(), required=False)
+    image = forms.Field(widget=forms.FileInput(), required=False, label=_('Image'))
 
 ## user settings
 
@@ -502,7 +507,7 @@ def user_settings(request, username):
             profile.save()
             transaction.commit()
 
-            return HttpResponseRedirect("/accounts/%s/" % username)
+            return HttpResponseRedirect(reverse("view_profile", args=[username]))
     else:
         settings_form = SettingsForm(initial = {'image': 'aaa',
                                                 'firstname': user.first_name,
@@ -531,7 +536,6 @@ def view_profilethumbnail(request, profileid):
     """
 
     from django.http import HttpResponse
-    from booki import settings
 
     from django.contrib.auth.models import User
 
@@ -627,7 +631,7 @@ def my_books (request, username):
             else:
                 transaction.commit()
 
-            return HttpResponseRedirect("/accounts/%s/my_books" % username)
+            return HttpResponseRedirect(reverse("my_books", args=[username]))
     else:
         project_form = BookForm()
         import_form = ImportForm()

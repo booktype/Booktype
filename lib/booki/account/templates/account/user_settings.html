@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% load profile %}
+{% load i18n profile %}
 
 {% block header %}
-  <title>/settings: {{ user.username }} </title>
+  <title>{% blocktrans with user.username as username%}/settings: {{ username }}{% endblocktrans %}</title>
 {% endblock %}
 
 {% block content %}
@@ -25,7 +25,7 @@
   </td>
   <td width="10"></td>
   <td valign="top">
-<h2>Settings</h2>
+<h2>{% trans "Settings" %}</h2>
 <div style="border-bottom: 1px solid #c0c0c0"></div>
 
 <form action="." method="POST" enctype="multipart/form-data">
@@ -33,7 +33,7 @@
 {{ settings_form.as_table }}
 </table>   
 <br/><br/>
-<button>Save user profile</button>
+<button>{% trans "Save user profile" %}</button>
 </form>
 
   </td>

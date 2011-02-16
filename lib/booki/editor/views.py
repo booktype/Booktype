@@ -126,7 +126,6 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
     @param attachment: Attachment name
     """
     
-    from booki import settings
     from django.views import static
 
     try:

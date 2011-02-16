@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from booki.editor import models
 from booki.utils import pages
 from booki.editor.views import getVersion
-from booki import settings
+from django.conf import settings
 
 # this is just temporary
 def _customCSSExists(bookName):
@@ -103,7 +103,6 @@ def view_chapter(request, bookid, chapter, version=None):
 # PROJECT
 
 def attachment(request, bookid,  attachment, version=None):
-    from booki import settings
     from django.views import static
 
     try:
@@ -122,7 +121,6 @@ def attachment(request, bookid,  attachment, version=None):
 
 # i am pretty sure i do not need new view
 def staticattachment(request, bookid,  attachment, version=None, chapter = None):
-    from booki import settings
     from django.views import static
 
     try:

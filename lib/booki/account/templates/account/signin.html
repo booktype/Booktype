@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% load profile %}
+{% load i18n profile %}
 
 {% block header %}
-  <title>Booki Sign In</title>
+  <title>{% trans "Booki Sign In" %}</title>
 
   <script type="text/javascript">
     $(function() {
@@ -20,10 +20,10 @@
 
 //	    $("#loginform BUTTON").attr("disabled", "disabled");
 
-	    $.post('/accounts/signin/', {'ajax': '1',
-					 'method': 'signin',
-					 'username': username,
-					 'password': password},
+	    $.post('{% url signin %}', {'ajax': '1',
+					'method': 'signin',
+					'username': username,
+					'password': password},
 		   function(data) {
 		       switch(data.result) {
 		       case 1: // Everything is ok
@@ -58,14 +58,14 @@
 	    showNotification('#registerform .notify', '');
 
 
-	    $.post('/accounts/signin/', {'ajax': '1',
-					 'method': 'register',
-					 'username':  username,
-					 'password':  password,
-					 'password2': password2,
-					 'email':     email,
-					 'fullname':  fullname,
-					 'groups':    $.toJSON(groupsToJoin)},
+	    $.post('{% url signin %}', {'ajax': '1',
+					'method': 'register',
+					'username':  username,
+					'password':  password,
+					'password2': password2,
+					'email':     email,
+					'fullname':  fullname,
+					'groups':    $.toJSON(groupsToJoin)},
 
 		   function(data) {
 //		       $("#registerform BUTTON").removeAttr("disabled");
@@ -81,7 +81,7 @@
 					       $("#signinmessage .redirectmessage").html("Automatic redirection in "+sec+" seconds.");
 					       setTimeout(_showMessage(sec-1), 1000);
 					   } else {
-					       window.location = '/accounts/'+username+'/';
+					       window.location = '{% url view_profile 'XXX' %}'.replace('XXX', username);
 					   }
 				       }
 				   }
@@ -166,7 +166,7 @@
   {% else %}
   <div style="background-color: #f8e1a4; font-size: 12px; padding: 20px; width: 300px;">
     <h2>Sign in</h2>
-    <form method="POST" action="/accounts/signin/" id="loginform" name="loginform" onsubmit="return false;">
+    <form method="POST" action="{% url signin %}" id="loginform" name="loginform" onsubmit="return false;">
       USERNAME<br/>
       <input type="text" name="username" style="width: 200px"/><br/>
       PASSWORD<br/>
@@ -190,8 +190,8 @@
   
   <div style="background-color: #f8e1a4;font-size: 12px; padding: 20px; float: right; width: 300px;">
     <h2>Create Account</h2>
-    
-    <form method="POST" action="/accounts/register/" onsubmit="return false" id="registerform">
+    {% url register as register_url %}
+    <form method="POST" action="{{ register_url }}" onsubmit="return false" id="registerform">
       USERNAME<br/>
       <input type="text" name="username" value="{{ username }}" style="width: 200px;"/><br/>
       E-MAIL<br/>
@@ -223,7 +223,7 @@
 </div>
 
 <div id="signinmessage" style="display: none">
-<div style="background-color: #f8e1a4; font-size: 12px; padding: 20px;"><h2>Your account has been created!</h2><p>Thank you. We have created your account and signed you in. If you are new to Booki we recommend you to read <a href="http://www.booki.cc/booki-user-guide/">Booki User Guide</a>.</p><p><form method="GET" action="/"><button>Great! Let's use Booki now!</button><span class="redirectmessage" style="padding-left: 20px"></span></form></p></div>
+<div style="background-color: #f8e1a4; font-size: 12px; padding: 20px;"><h2>Your account has been created!</h2><p>Thank you. We have created your account and signed you in. If you are new to Booki we recommend you to read <a href="http://www.booki.cc/booki-user-guide/">Booki User Guide</a>.</p><p><form method="GET" action="{% url frontpage %}"><button>Great! Let's use Booki now!</button><span class="redirectmessage" style="padding-left: 20px"></span></form></p></div>
 </div>
 </div>
 

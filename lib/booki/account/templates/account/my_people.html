@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
-{% load profile %}
+{% load i18n profile %}
 
 {% block header %}
- <title>My People</title>
+ <title>{% trans "My People" %}</title>
 {% endblock %}
 
 {% block content %}
 
 <div style="margin-bottom: 5px">
-<h2>My People</h2>
-Not yet Implemented
+<h2>{% trans "My People" %}</h2>
+{% trans "Not yet Implemented" %}
 </div>
 {% endblock %}

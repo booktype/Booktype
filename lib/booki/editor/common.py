@@ -31,10 +31,12 @@ from booki.utils.log import logBookHistory, logWarning
 from booki.utils.book import createBook
 from booki.editor.views import getVersion
 
+from django.conf import settings
 
 try:
-    from booki.settings import THIS_BOOKI_SERVER, DEFAULT_PUBLISHER
-except ImportError:
+    THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
+    DEFAULT_PUBLISHER = settings.DEFAULT_PUBLISHER
+except AttributeError:
     THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'www.booki.cc')
     DEFAULT_PUBLISHER = "FLOSS Manuals http://flossmanuals.net"
 

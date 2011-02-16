@@ -1,9 +1,10 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block header %}
 
-<link type="text/css" href="/site_media/css/editor.css" rel="Stylesheet" />
-<script type="text/javascript" src="/site_media/js/editor.js"></script>
+<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/css/editor.css" rel="Stylesheet" />
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/editor.js"></script>
 
         <script type="text/javascript">
 	$(function() {
@@ -24,6 +25,9 @@
            $.booki.currentBookURL = "{{book.url_title|escapejs}}";
 
            $.booki.currentVersion = "{{book_version|escapejs}}";
+           $.booki.sputnikDispatcherURL = "{% url sputnik.views.dispatcher %}";
+           $.booki.bookViewUrlTemplate = "{% url view_book 'XXX' %}";
+           $.booki.profileThumbnailViewUrlTemplate = "{% url view_profilethumbnail 'XXX' %}";
 
 	    /* call when page is loaded */
 
@@ -51,11 +55,11 @@ function closeAttachmentUpload() {
                  </script>
 
 <script type="text/javascript">
-  var _editor_url = "/site_media/xinha/";
+  var _editor_url = "{{ request.META.SCRIPT_NAME }}/site_media/xinha/";
   var _editor_lang = "en";
 </script>
 
-<script type="text/javascript" src="/site_media/xinha/XinhaCore.js"></script>
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/xinha/XinhaCore.js"></script>
 
 <script type="text/javascript">
     var xinha_plugins = ['GetHtml','InsertNote','InsertPagebreak','FindReplace','Equation','CharacterMap','DoubleClick' , 'SpellChecker', 'BookiInsert','ListType'];
@@ -118,7 +122,7 @@ function closeAttachmentUpload() {
 <input type="text" size="20"> <button>Search</button>
 </form>
 </div>
-<h1 style="margin-top: 0px"> <a href="/{{ book.url_title }}/">{{ book }}</a> </h1>
+<h1 style="margin-top: 0px"> <a href="{% url view_book book.url_title %}">{{ book }}</a> </h1>
 </div>
 
 <div id="tabs">
@@ -127,27 +131,27 @@ function closeAttachmentUpload() {
 <!--		<li><a href="#tabinfo">Info</a></li> -->
 
 {% if "chapters" in tabs %}
-		<li><a href="#tabchapters">Chapters</a></li>
+		<li><a href="#tabchapters">{% trans "Chapters" %}</a></li>
 {% endif %}
 
 {% if "attachments" in tabs %}
-		<li><a href="#tabattachments">Attachments</a></li>
+		<li><a href="#tabattachments">{% trans "Attachments" %}</a></li>
 {% endif %}
 
 {% if "history" in tabs %}
-		<li><a href="#tabhistory">History</a></li>
+		<li><a href="#tabhistory">{% trans "History" %}</a></li>
 {% endif %}
 
 {% if "versions" in tabs %}
-		<li><a href="#tabversions">Versions</a></li>
+		<li><a href="#tabversions">{% trans "Versions" %}</a></li>
 {% endif %}
 
 {% if "notes" in tabs %}
-		<li><a href="#tabnotes">Notes</a></li>
+		<li><a href="#tabnotes">{% trans "Notes" %}</a></li>
 {% endif %}
 
 {% if "export" in tabs %}
-		<li><a href="#tabpublish">Export</a></li>
+		<li><a href="#tabpublish">{% trans "Export" %}</a></li>
 {% endif %}
 
 	</ul>
@@ -160,20 +164,20 @@ function closeAttachmentUpload() {
 		<td valign="top">
 		<div id="container">
 
-		<h2>Table of contents</h2>
+		<h2>{% trans "Table of contents" %}</h2>
 
 
 		<div id="chapteraction">
-		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
+		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>{% trans "NEW CHAPTER" %}</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">{% trans "NEW SECTION" %}</a>
 		</div>
 
 		<ul id="chapterslist" class="connectedSortable">
 		</ul>
 
-		<div style="font-size:9px;">(drag new chapters into the area above here)</div>
+		<div style="font-size:9px;">{% trans "(drag new chapters into the area above here)" %}</div>
 
 		<div id="chapteraction">
-		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>NEW CHAPTER</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">NEW SECTION</a>
+		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>{% trans "NEW CHAPTER" %}</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">{% trans "NEW SECTION" %}</a>
 		</div>
 
 		<div id="newchapter" title="New chapter">
@@ -198,8 +202,8 @@ function closeAttachmentUpload() {
 		<div id="insertattachment" title="Insert image">
                    <div id="inserttabs">
                        <ul>
-                         <li><a href="#insertimages">Images</a></li>
-                         <li><a href="#insertupload">Upload image</a></li>
+                         <li><a href="#insertimages">{% trans "Images" %}</a></li>
+                         <li><a href="#insertupload">{% trans "Upload image" %}</a></li>
                       </ul>
                       <div id="insertimages">
 		        <div class="listing">
@@ -213,7 +217,7 @@ function closeAttachmentUpload() {
 		              </td>
 		              <td width="160" valign="top">
 				<fieldset style="padding: 2px">
-                                 <legend>Preview</legend>
+                                 <legend>{% trans "Preview" %}</legend>
 			          <div class="previewattachment">
   			          </div>
                                 </fieldset>
@@ -245,12 +249,12 @@ function closeAttachmentUpload() {
 		<div id="editattachment" title="Edit Image">
 		  <div class="container">
 		    <fieldset style="float: right; width: 160px; height: 160px; border: 1px solid gray; margin-left: 10px;">
-		      <legend>Preview</legend>
+		      <legend>{% trans "Preview" %}</legend>
 		      <span class="preview"></span>
 		    </fieldset>
 
 		    <fieldset>
-		      <legend>Image</legend>
+		      <legend>{% trans "Image" %}</legend>
 		      <table border="0">
 			<tr><td>Image:</td><td><input type="text" name="f_image" size="40"></td></tr>
 			<tr><td>Alt:</td><td><input type="text" name="f_alt" size="40"></td></tr>
@@ -258,7 +262,7 @@ function closeAttachmentUpload() {
 		    </fieldset>
 
 		    <fieldset>
-		      <legend>Positioning</legend>
+		      <legend>{% trans "Positioning" %}</legend>
 		      <table border="0">
 			<tr><td>Border:</td><td><input type="text" name="f_border"></td></tr>
 			<tr><td>Align:</td><td><input type="text" name="f_align"></td></tr>
@@ -269,13 +273,13 @@ function closeAttachmentUpload() {
 
 
 		    <fieldset>
-		      <legend>Style</legend>
+		      <legend>{% trans "Style" %}</legend>
 		      <table border="0" width="100%">
-			<tr><td>CSS Class:</td><td><input type="text" name="f_css"></td><td colspan="2"></tr>
-			<tr><td>Padding:</td><td><input type="text" name="f_padding"></td>
-			<td>Margin:</td><td><input type="text" name="f_margin"></td></tr>
-			<tr><td>Background color:</td><td><input type="text" name="f_bgcolor"></td>
-			<td>Border color:</td><td><input type="text" name="f_bordercolor"></td></tr>
+			<tr><td>{% trans "CSS Class:" %}</td><td><input type="text" name="f_css"></td><td colspan="2"></tr>
+			<tr><td>{% trans "Padding:" %}</td><td><input type="text" name="f_padding"></td>
+			<td>{% trans "Margin:" %}</td><td><input type="text" name="f_margin"></td></tr>
+			<tr><td>{% trans "Background color:" %}</td><td><input type="text" name="f_bgcolor"></td>
+			<td>{% trans "Border color:" %}</td><td><input type="text" name="f_bordercolor"></td></tr>
 		      </table>
 		    </fieldset>
 
@@ -287,7 +291,7 @@ function closeAttachmentUpload() {
 		<div class="middleinfo">
 		</div>
 
-		<h2>Hold chapters</h2>
+		<h2>{% trans "Hold chapters" %}</h2>
 		<ul id="holdchapterslist" class="connectedSortable">
 		</ul>
 
@@ -299,15 +303,15 @@ function closeAttachmentUpload() {
 
                   <div style="padding-bottom: 5px">
 		    <input type="hidden" name="chapter_id" value=""/>
-		    <A name="save" href="javascript:void(0)">Save</a>
-		    <A name="savecontinue"  href="javascript:void(0)">Save and continue editing</a> 
+		    <A name="save" href="javascript:void(0)">{% trans "Save" %}</a>
+		    <A name="savecontinue"  href="javascript:void(0)">{% trans "Save and continue editing" %}</a> 
 		    
-		    <A name="cancel"  href="javascript:void(0)">Cancel</a>
+		    <A name="cancel"  href="javascript:void(0)">{% trans "Cancel" %}</a>
 <!--
-		    <input type="button" class="save" name="save" value="Save"/>
-		    <input type="button" class="save" name="savecontinue" value="Save and continue editing"/> 
+		    <input type="button" class="save" name="save" value="{% trans "Save" %}"/>
+		    <input type="button" class="save" name="savecontinue" value="{% trans "Save and continue editing" %}"/> 
 		    
-		    <input type="button" class="cancel" name="cancel" value="Cancel"/>
+		    <input type="button" class="cancel" name="cancel" value="{% trans "Cancel" %}"/>
 -->
 		  </div>
 
@@ -316,7 +320,7 @@ function closeAttachmentUpload() {
 		</textarea>
 
 		<div style="clear: left; margin-top: 5px">
-		 <input type="checkbox" name="minor">Minor change, don't notify.
+		 <input type="checkbox" name="minor">{% trans "Minor change, don't notify." %}
 		</div>
 
 		<div style="clear: left; margin-top: 5px">
@@ -324,10 +328,10 @@ function closeAttachmentUpload() {
 		</div>
 
 		<div style="clear: left; margin-top: 5px; color: #c0c0c0;">
-		Author: <input type="text" name="author" style="width: 300px;">
+		{% trans "Author:" %} <input type="text" name="author" style="width: 300px;">
 		</div>
 		<div style="clear: left; margin-top: 5px; color: #c0c0c0;">
-		Author comment: <input type="text" name="authorcomment" style="width: 300px;">
+		{% trans "Author comment:" %} <input type="text" name="authorcomment" style="width: 300px;">
 		</div>
 
 
@@ -337,11 +341,11 @@ function closeAttachmentUpload() {
 
 
 		<div id="spalatodialog" title="Split chapters">
-		  <p id="validateTips">Seems like You have changed the structure of the chapters. What do you want to do?</p>  
+		  <p id="validateTips">{% trans "Seems like You have changed the structure of the chapters. What do you want to do?" %}</p>  
 		  <table border="0" width="100%">
 		    <tr>
 		     <td valign="top" width="200">
-		       New chapters:
+		       {% trans "New chapters:" %}
 			<ul class="chapters" style="margin-left: 5px">
 
 			</ul>
@@ -365,11 +369,11 @@ function closeAttachmentUpload() {
 
 {% if "attachments" in tabs %}
 	<div id="tabattachments">
-          <h2>Attachments</h2>
+          <h2>{% trans "Attachments" %}</h2>
           <div id="attachmentscontainer">
           </div>
 	  <div style="margin-top: 10px">
-   	    <a name="delete" href="javascript:void(0)">Deleted selected items</a>
+   	    <a name="delete" href="javascript:void(0)">{% trans "Deleted selected items" %}</a>
           </div>
 
           <div class="dialogs"></div>
@@ -393,14 +397,15 @@ function closeAttachmentUpload() {
 {% if "versions" in tabs %}
        <div id="tabversions">
 {% if security.isAdmin %}
-        <h3>New version</h3>
+        <h3>{% trans "New version" %}</h3>
          <div class="version">
+	   {% blocktrans %}
 	   With different versions you can easily organise your book. But be careful! Other users will not be able to edit
 and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them.
-
+	   {% endblocktrans %}
            <p>
-             <a class="major" href="javascript:void(0)">Create major version</a>
-             <a class="minor" href="javascript:void(0)">Create minor version</a>
+             <a class="major" href="javascript:void(0)">{% trans "Create major version" %}</a>
+             <a class="minor" href="javascript:void(0)">{% trans "Create minor version" %}</a>
            </p>
          </div>
 
@@ -408,10 +413,10 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 	<div id="newversionmajor" title="New version">
 	  <form onsubmit="javascript:return false">
 <!--	    <fieldset> -->
-              You can name this version (optional):
+              {% trans "You can name this version (optional):" %}
 	      <input type="text" style="width: 100%" class="text ui-widget-content ui-corner-all"><br/>
-<i>e.g. initial, dragon, test</i><br/><br/>
-Description (optional)<br/>
+<i>{% trans "e.g. initial, dragon, test" %}</i><br/><br/>
+{% trans "Description (optional)" %}<br/>
 <textarea style="width: 100%; height: 150px"></textarea>
 <!--	      </fieldset> -->
 	    </form>
@@ -430,7 +435,7 @@ Description (optional)<br/>
 	  </div>
 {% endif %}
 
-        <h3>All versions</h3>
+        <h3>{% trans "All versions" %}</h3>
 	<span class="list"></span>
 
        </div>
@@ -450,29 +455,29 @@ Description (optional)<br/>
 {% if "export" in tabs %}
 	<div id="tabpublish">
 	<!-- START publish TAB -->
-          <h1>Export</h1>
+          <h1>{% trans "Export" %}</h1>
           <p></p>
 
           <form method="" action="" onsubmit="return false">
 	    <table border="0">
               <tr>
-               <td>Book title:</td>
+               <td>{% trans "Book title:" %}</td>
                <td><input value="{{ book.title|escape}}" type="text" size="40" name="title"></td>
               </tr>
 
 	      <tr>
-		<td>Document type:</td>
+		<td>{% trans "Document type:" %}</td>
 		<td>
-		  <select id="mode" name="mode"><option value="book">book (PDF)</option> 
-		  <option value="epub">epub</option> 
-		  <option value="newspaper">newspaper (PDF)</option> 
-		  <option value="openoffice">openoffice</option> 
-		  <option value="web">web (PDF)</option></select> 
+		  <select id="mode" name="mode"><option value="book">{% trans "book (PDF)" %}</option> 
+		  <option value="epub">{% trans "epub" %}</option> 
+		  <option value="newspaper">{% trans "newspaper (PDF)" %}</option> 
+		  <option value="openoffice">{% trans "openoffice" %}</option> 
+		  <option value="web">{% trans "web (PDF)" %}</option></select> 
 		</td>
 	      </tr>
 
              <tr>
-              <td>License:</td>
+              <td>{% trans "License:" %}</td>
               <td>
                  <select id="license" name="license">
                    <option value="GPL">GPL</option>
@@ -494,16 +499,16 @@ Description (optional)<br/>
 	     </tr>
 	      <tr>
 <!--		<td colspan="2"><input type="checkbox" checked="yes" name="archiveorg"> send to archive.org</td> -->
-		<td colspan="2"><input type="checkbox"  name="archiveorg"> send to archive.org</td>
+		<td colspan="2"><input type="checkbox"  name="archiveorg"> {% trans "send to archive.org" %}</td>
 	      </tr>
 	      <tr>
 		<td colspan="2"><br/></td>
 	      </tr>
 	      <tr>
 		<td colspan="2">
-		  <button id="publishbook">Publish this book</button>
+		  <button id="publishbook">{% trans "Publish this book" %}</button>
                   <span id="advancedswitch">
-                     <a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(true)">Show advanced options</a>
+                     <a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(true)">{% trans "Show advanced options" %}</a>
                   </span>
 		</td>
 	      </tr>
@@ -516,20 +521,20 @@ Description (optional)<br/>
                
                   <table border="0">
                    <tr>
-                     <td>ISBN</td>
-                     <td><input type="text" size="40" id="isbn" name="isbn" value="" /> (13 digits)</td>
+                     <td>{% trans "ISBN" %}</td>
+                     <td><input type="text" size="40" id="isbn" name="isbn" value="" /> {% trans "(13 digits)" %}</td>
                    </tr>
             
                    <tr>
-                    <td>Table of Contents header</td>
+                    <td>{% trans "Table of Contents header" %}</td>
                     <td> <input size="40" type="text" id="toc_header" name="toc_header" value="" /> </td>
                    </tr>
 
                    <tr>
-                     <td>Page size</td>
+                     <td>{% trans "Page size" %}</td>
                      <td> 
                       <select id="booksize" name="booksize">
-                        <option value="custom" class="custom">custom</option>
+                        <option value="custom" class="custom">{% trans "custom" %}</option>
                         <option value="POCKET" class="lulu">POCKET (107mm x 174mm)</option>
                         <option value="A5" class="lulu iso">A5 (148mm x 210mm)</option>
                         <option value="USTRADE" class="lulu">USTRADE (152mm x 228mm)</option>
@@ -563,12 +568,12 @@ Description (optional)<br/>
 		    </tr>
 
                     <tr>
-                     <td>CSS mode:</td>
+                     <td>{% trans "CSS mode:" %}</td>
                      <td>
 		       <select name="css" onchange="$.booki.editor.showAdvancedPublishCSS(this)">
-                          <option value="default">Server default</option>
+                          <option value="default">{% trans "Server default" %}</option>
 <!--                          <option value="url">URL</option> -->
-                          <option value="custom">Custom</tion>
+                          <option value="custom">{% trans "Custom" %}</option>
                         </select>
                      </td>
                     </tr>
@@ -580,48 +585,48 @@ Description (optional)<br/>
                     </tr>
 
                     <tr>
-                     <td>Page width:</td>
+                     <td>{% trans "Page width:" %}</td>
                      <td><input type="text" id="page_width" name="page_width" value="" /></td> 
                     </tr>
 
                     <tr>
-                     <td>Page height:</td>
+                     <td>{% trans "Page height:" %}</td>
                      <td> <input type="text" id="page_height" name="page_height" value="" /> </td>
 		    </tr>
 
                     <tr>
-                     <td>Top margin</td>
+                     <td>{% trans "Top margin" %}</td>
                      <td> <input type="text" id="top_margin" name="top_margin" value="" /> </td>
                     </tr>
 
                     <tr>
-                     <td>Side margin</td>
+                     <td>{% trans "Side margin" %}</td>
                      <td> <input type="text" id="side_margin" name="side_margin" value="" /> </td>
                     </tr>
 
                     <tr>
-                     <td>Bottom margin</td>
+                     <td>{% trans "Bottom margin" %}</td>
                      <td><input type="text" id="bottom_margin" name="bottom_margin" value="" />  </td>
                     </tr>
 
                     <tr>
-                     <td>Gutter</td>
+                     <td>{% trans "Gutter" %}</td>
                      <td> <input type="text" id="gutter" name="gutter" value="" /> </td>
                     </tr>
 
                     <tr>
-                     <td>Columns</td>
+                     <td>{% trans "Columns" %}</td>
                      <td> <input type="text" id="columns" name="columns" value="" /> </td>
                     </tr>
 
                     <tr>
-                     <td>Column margin</td>
+                     <td>{% trans "Column margin" %}</td>
                      <td> <input type="text" id="column_margin" name="column_margin" value="" /> </td>
                     </tr>
 
                     <tr>
-                     <td>Grey-scale</td>
-                     <td><input type="checkbox" id="grey_scale" name="grey_scale" value="yes" /> (for black and white printing)</td>
+                     <td>{% trans "Grey-scale" %}</td>
+                     <td><input type="checkbox" id="grey_scale" name="grey_scale" value="yes" /> {% trans "(for black and white printing)" %}</td>
                     </tr>
                   </table>
                  </div>     
@@ -639,14 +644,14 @@ Description (optional)<br/>
 {% if "notes" in tabs %}
 	<div id="tabnotes">
 	<!-- START notes TAB -->
-	Shared notes for this book
+	{% trans "Shared notes for this book" %}
 	<br/>
 	<form onsubmit="return false;" action="" method="">
          <textarea border="0" name="notes" class="notes" rows="25" cols="65">
 		
          </textarea>
 	<br/>
-	<button>Save the notes</button>
+	<button>{% trans "Save the notes" %}</button>
 	</form>	
 	<div class="info">
 
@@ -661,9 +666,9 @@ Description (optional)<br/>
 <!-- chat box + drop shadow -->
 <div class="chat shadow">
 
-                <h4 id="chattitle">Chat</h4>
+                <h4 id="chattitle">{% trans "Chat" %}</h4>
                         <div id="chat">                        </div> 
-                        <h4>Currently editing</h4>
+                        <h4>{% trans "Currently editing" %}</h4>
                          <ul id="users">
                          </ul>
 

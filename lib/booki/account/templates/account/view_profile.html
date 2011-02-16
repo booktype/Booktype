@@ -1,11 +1,11 @@
 
 {% extends "base.html" %}
 
-{% load profile %}
+{% load i18n profile %}
 
 {% block header %}
-  <title>/user: {{ user.username }} </title>
-  <script type="text/javascript" src="/site_media/js/profile.js"></script>
+  <title>{% blocktrans with user.username as username %}/user: {{ username }}{% endblocktrans %}</title>
+  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/profile.js"></script>
 
   <script type="text/javascript">
     $(function() {
@@ -16,7 +16,9 @@
 	// profile user should be different variable
 	
 	$.booki.profileName = "{{user.username}}";
-	
+
+	$.booki.sputnikDispatcherURL = "{% url sputnik.views.dispatcher %}";
+
 	/* call when page is loaded */
 	
 	$.booki.profile.initProfile();
@@ -52,13 +54,13 @@
     {{ user.get_profile.mood }}
   </div>
 
-   <a style="text-decoration: underline" href="/feeds/rss/user/{{ user.username }}/">Track my changes</a>
+   <a style="text-decoration: underline" href="/feeds/rss/user/{{ user.username }}/">{% trans "Track my changes" %}</a>
   <!-- end profile info -->
    <div style="border-bottom: 1px solid #c0c0c0; padding-top: 20px"></div>
    <div style="background:#e1e1e1;border: 1px solid #c0c0c0;padding:5px;">
-     <b>Suggestions:</b><br> 
-     To create new books go to "My Books".<br>
-     Read the <a href='http://www.booki.cc/booki-user-guide/'>booki-user-guide</a>
+     <b>{% trans "Suggestions:" %}</b><br> 
+     {% trans 'To create new books go to "My Books".' %}<br>
+     {% blocktrans %}Read the <a href='http://www.booki.cc/booki-user-guide/'>booki-user-guide</a>{% endblocktrans %}
    </div>
 
   </td>
@@ -67,9 +69,9 @@
 {% ifequal user.username request.user.username %}
 <div style="width:325px; border: 1px solid #c0c0c0; background-color: #f0f0f0; padding: 5px;" id="mood">
   <form method="GET" action="javascript:void(0)" onsubmit="return false;">
-   <input type="text" size="40" value="What's on your mind ?" style="width: 320px;"/>
+   <input type="text" size="40" value="{% trans "What's on your mind ?" %}" style="width: 320px;"/>
    <div style="margin-top:3px;margin-right:3px;" align="right">
-      <button>Share</button>
+      <button>{% trans "Share" %}</button>
    </div>
    
  </form>
@@ -77,10 +79,10 @@
 {% endifequal %}
 
 <p>
-<div id="status_messages">Please wait while loading data...</div>
+<div id="status_messages">{% trans "Please wait while loading data..." %}</div>
 </p>
 
-<h2>Books</h2>
+<h2>{% trans "Books" %}</h2>
 <div style="border-bottom: 1px solid #c0c0c0"></div>
 <ul>
 {% for book in books %}
@@ -88,7 +90,7 @@
 {% endfor %}
 </ul>
 
-<h2>Groups</h2>
+<h2>{% trans "Groups" %}</h2>
 <div style="border-bottom: 1px solid #c0c0c0"></div>
 
 <ul>

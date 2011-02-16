@@ -4,6 +4,8 @@ from django.contrib.auth import models as auth_models
 
 import booki.editor.signals
 
+from django.conf import settings
+
 # License
 
 class License(models.Model):
@@ -12,6 +14,10 @@ class License(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _('License')
+        verbose_name_plural = _('Licenses')
 
 # Language
 
@@ -38,7 +44,7 @@ STATUS_CHOICES = (
 # Book Status
 
 class BookStatus(models.Model):
-    book = models.ForeignKey('Book')
+    book = models.ForeignKey('Book', verbose_name=_("book"))
     name = models.CharField(_('name'), max_length=30, blank=False)
     weight = models.SmallIntegerField(_('weight'))
 
@@ -53,7 +59,7 @@ class BookStatus(models.Model):
 # free form shared notes for writers of the book
 #
 class BookNotes(models.Model):
-    book = models.ForeignKey('Book')
+    book = models.ForeignKey('Book', verbose_name=_("book"))
     notes = models.TextField(_('notes'))
 
     def __unicode__(self):
@@ -67,50 +73,49 @@ class BookNotes(models.Model):
 
 class BookiGroup(models.Model):
     name = models.CharField(_('name'), max_length=300, blank=False)
-    url_name = models.CharField(_('url_name'), max_length=300, blank=False) #, primary_key=True)
+    url_name = models.CharField(_('url name'), max_length=300, blank=False) #, primary_key=True)
     description = models.TextField(_('description'))
 
-    owner = models.ForeignKey(auth_models.User)
+    owner = models.ForeignKey(auth_models.User, verbose_name=_('owner'))
 
 #    books = models.ManyToManyField(Book, blank=True)
-    members = models.ManyToManyField(auth_models.User, related_name="members", blank=True)
+    members = models.ManyToManyField(auth_models.User, related_name="members", blank=True, verbose_name=_("members"))
 
     created = models.DateTimeField(_('created'), auto_now=False, null=True)
 
     def get_absolute_url(self):
-        from booki import settings
-
         return '%s/groups/%s/' % (settings.BOOKI_URL, self.url_name)
 
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name = _('Booki group')
+        verbose_name_plural = _('Booki groups')
 
 # Book
 
 class Book(models.Model):
-    url_title = models.CharField(_('url_title'), max_length=2500, blank=False, unique=True) # can it be blank?
+    url_title = models.CharField(_('url title'), max_length=2500, blank=False, unique=True) # can it be blank?
     title = models.CharField(_('title'), max_length=2500, blank=False)
-    status = models.ForeignKey('BookStatus', null=True, related_name="status")
-    language = models.ForeignKey(Language, null=True) # can it be blank?
+    status = models.ForeignKey('BookStatus', null=True, related_name="status", verbose_name=_("status"))
+    language = models.ForeignKey(Language, null=True, verbose_name=_("language")) # can it be blank?
 
     # this i need
-    version = models.ForeignKey('BookVersion', null=True, related_name="version")
+    version = models.ForeignKey('BookVersion', null=True, related_name="version", verbose_name=_("version"))
 
-    group = models.ForeignKey(BookiGroup, null=True)
+    group = models.ForeignKey(BookiGroup, null=True, verbose_name=_("group"))
 
-    owner = models.ForeignKey(auth_models.User)
+    owner = models.ForeignKey(auth_models.User, verbose_name=_("owner"))
 
     # or is this suppose to be per project
     # and null=False should be
-    license = models.ForeignKey(License,null=True)
+    license = models.ForeignKey(License,null=True, verbose_name=_("license"))
 
     created = models.DateTimeField(_('created'), auto_now=True)
     published = models.DateTimeField(_('published'), null=True)
 
     def get_absolute_url(self):
-        from booki import settings
-
         return '%s/%s/' % (settings.BOOKI_URL, self.url_title)
 
     def __unicode__(self):
@@ -141,14 +146,14 @@ HISTORY_CHOICES = {'unknown': 0,
 }
 
 class BookHistory(models.Model):
-    book = models.ForeignKey(Book, null=False)
+    book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
     # this should probably be null=False
-    version = models.ForeignKey('BookVersion', null=True)
-    chapter = models.ForeignKey('Chapter', null=True)
-    chapter_history = models.ForeignKey('ChapterHistory', null=True)
+    version = models.ForeignKey('BookVersion', null=True, verbose_name=_("version"))
+    chapter = models.ForeignKey('Chapter', null=True, verbose_name=_("chapter"))
+    chapter_history = models.ForeignKey('ChapterHistory', null=True, verbose_name=_("chapter history"))
     modified = models.DateTimeField(_('modified'), auto_now=True)
     args = models.CharField(_('args'), max_length=2500, blank=False)
-    user = models.ForeignKey(auth_models.User)
+    user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
     kind = models.SmallIntegerField(_('kind'), default=0)
 
     def __unicode__(self):
@@ -167,15 +172,15 @@ INFO_CHOICES = (
 
 # msu add version here
 class Info(models.Model):
-    book = models.ForeignKey(Book, null=False)
+    book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
 
     name = models.CharField(_('name'), max_length=2500, db_index=True)
     kind = models.SmallIntegerField(_('kind'), choices=INFO_CHOICES)
 
-    value_string = models.CharField(_('value_string'), max_length=2500, null=True)
-    value_integer = models.IntegerField(_('value_integer'), null=True)
-    value_text = models.TextField(_('value_text'), null=True)
-    value_date = models.DateTimeField(_('value_date'), auto_now=False, null=True)
+    value_string = models.CharField(_('value string'), max_length=2500, null=True)
+    value_integer = models.IntegerField(_('value integer'), null=True)
+    value_text = models.TextField(_('value text'), null=True)
+    value_date = models.DateTimeField(_('value date'), auto_now=False, null=True)
 
     
     def getValue(self):
@@ -202,7 +207,7 @@ class Info(models.Model):
 # Book Version
 
 class BookVersion(models.Model):
-    book = models.ForeignKey(Book, null=False)
+    book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
     major = models.IntegerField(_('major'))
     minor = models.IntegerField(_('minor'))
     name = models.CharField(_('name'), max_length=50, blank=True)
@@ -233,8 +238,6 @@ class BookVersion(models.Model):
         return '%d.%d' % (self.major, self.minor)
 
     def get_absolute_url(self):
-        from booki import settings
-
         return '%s/%s/_v/%s/' % (settings.BOOKI_URL, self.url_title, self.getVersion())
         
     def __unicode__(self):
@@ -244,13 +247,13 @@ class BookVersion(models.Model):
 # Chapter
 
 class Chapter(models.Model):
-    version = models.ForeignKey(BookVersion, null=False)
+    version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
     # don't need book
-    book = models.ForeignKey(Book, null=False)
+    book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
 
-    url_title = models.CharField(_('url_title'), max_length=2500)
+    url_title = models.CharField(_('url title'), max_length=2500)
     title = models.CharField(_('title'), max_length=2500)
-    status = models.ForeignKey(BookStatus, null=False) # this will probably change
+    status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status")) # this will probably change
     created = models.DateTimeField(_('created'), null=False, auto_now=True)
     modified = models.DateTimeField(_('modified'), null=True, auto_now=True)
     #
@@ -259,11 +262,9 @@ class Chapter(models.Model):
 
 
     # missing licence here
-    content = models.TextField()
+    content = models.TextField(_('content'))
 
     def get_absolute_url(self):
-        from booki import settings
-
         return '%s/%s/%s/' % (settings.BOOKI_URL, self.book.url_title, self.url_title)
 
 
@@ -277,10 +278,10 @@ class Chapter(models.Model):
 # ChapterHistory
 
 class ChapterHistory(models.Model):
-    chapter = models.ForeignKey(Chapter, null=False)
+    chapter = models.ForeignKey(Chapter, null=False, verbose_name=_("chapter"))
     content = models.TextField()
     modified = models.DateTimeField(_('modified'), null=False, auto_now=True)
-    user = models.ForeignKey(auth_models.User)
+    user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
     revision = models.IntegerField(_('revision'), default=1)
     comment = models.CharField(_('comment'), max_length=2500, blank=True)
 
@@ -295,8 +296,6 @@ class ChapterHistory(models.Model):
 # Attachment
 
 def uploadAttachmentTo(att, filename):
-    from booki import settings
-
     return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, att.version.getVersion(), filename)
 
 
@@ -311,13 +310,13 @@ class AttachmentFile(models.FileField):
 # should add version
 
 class Attachment(models.Model):
-    version = models.ForeignKey(BookVersion, null=False)
+    version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
     # don't really need book anymore
-    book = models.ForeignKey(Book, null=False)
+    book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
 
     attachment = models.FileField(_('filename'), upload_to=uploadAttachmentTo, max_length=2500)
 
-    status = models.ForeignKey(BookStatus, null=False)
+    status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status"))
     created = models.DateTimeField(_('created'), null=False, auto_now=True)
 
     def getName(self):
@@ -342,11 +341,11 @@ TYPEOF_CHOICES = (
 
 
 class BookToc(models.Model):
-    version = models.ForeignKey(BookVersion, null=False)
+    version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
     # book should be removed
-    book = models.ForeignKey(Book, null=False)
+    book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
     name = models.CharField(_('name'), max_length=2500, blank=True)
-    chapter = models.ForeignKey(Chapter, null=True, blank=True)
+    chapter = models.ForeignKey(Chapter, null=True, blank=True, verbose_name=_("chapter"))
     weight = models.IntegerField(_('weight'))
     typeof = models.SmallIntegerField(_('typeof'), choices=TYPEOF_CHOICES)
 
@@ -374,9 +373,9 @@ class BookiPermission(models.Model):
         1 - admin
     """
 
-    user = models.ForeignKey(auth_models.User)
-    book = models.ForeignKey(Book, null=True)
-    group = models.ForeignKey(BookiGroup, null=True)
+    user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
+    book = models.ForeignKey(Book, null=True, verbose_name=_("book"))
+    group = models.ForeignKey(BookiGroup, null=True, verbose_name=_("group"))
     permission = models.SmallIntegerField(_('permission'))
 
 
