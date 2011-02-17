@@ -18,6 +18,7 @@ MEDIATYPES = {
     'jpg': 'image/jpeg',
     'jpeg': 'image/jpeg',
     'svg': 'image/svg+xml',
+    'tiff': 'image/tiff',
 
     'ncx': 'application/x-dtbncx+xml',
     'dtb': 'application/x-dtbook+xml',
