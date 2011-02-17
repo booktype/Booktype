@@ -31,7 +31,7 @@ def createStatusAccount(username, password, email, firstname):
 
     try:
         tree = html.document_fromstring(pageData)
-    except Exception as inst:
+    except Exception, inst:
         return
 
     for elem in tree.iter():
