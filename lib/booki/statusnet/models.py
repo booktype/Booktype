@@ -100,6 +100,7 @@ def event_account_created(sender, **kwargs):
 
 
 def event_chapter_modified(sender, **kwargs):
+    pass
     #sendMessage('a', 'a', 'Saved new changes to chapter "%s". %s/%s/%s/' % (kwargs['chapter'].title, settings.BOOKI_URL, sender.book.url_title, kwargs['chapter'].url_title))
 
 
