@@ -106,7 +106,12 @@ def edit_book(request, bookid, version=None):
 
     tabs += ["history", "versions", "notes", "export"]
 
+    isBrowserSupported = True
+    browserMeta = request.META.get('HTTP_USER_AGENT', '')
 
+    if browserMeta.find('MSIE'):
+        isBrowserSupported = False
+        
     return render_to_response('editor/edit_book.html', {"book": book, 
                                                         "book_version": book_version.getVersion(),
                                                         "version": book_version,
@@ -115,6 +120,7 @@ def edit_book(request, bookid, version=None):
                                                         "is_admin": bookSecurity.isGroupAdmin() or bookSecurity.isBookAdmin() or bookSecurity.isSuperuser(),
                                                         "is_owner": book.owner == request.user,
                                                         "tabs": tabs,
+                                                        "is_browser_supported": isBrowserSupported,
                                                         "request": request})
 
 def thumbnail_attachment(request, bookid, attachment, version=None):

@@ -164,6 +164,12 @@ function closeAttachmentUpload() {
 		<td valign="top">
 		<div id="container">
 
+   	        {% if is_browser_supported %}
+                  <div style="border-top: 2px solid red; border-bottom: 2px solid red; padding: 5px;">
+                    We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding. 
+                  </div>
+                {% endif %}
+
 		<h2>{% trans "Table of contents" %}</h2>
 
 
