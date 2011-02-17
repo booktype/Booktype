@@ -429,7 +429,7 @@ def exportBook(book_version):
         ID = "att%03d_%s" % (i, fn)
         if '.' in ID:
             ID, ext = ID.rsplit('.', 1)
-            mediatype = bookizip.MEDIATYPES[ext.lower()]
+            mediatype = bookizip.MEDIATYPES.get(ext.lower(), bookizip.MEDIATYPES[None])
         else:
             mediatype = bookizip.MEDIATYPES[None]
 
