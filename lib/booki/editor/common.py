@@ -366,7 +366,11 @@ def exportBook(book_version):
     for i, chapter in enumerate(models.BookToc.objects.filter(version=book_version).order_by("-weight")):
         if chapter.chapter:
             # It's a real chapter! With content!
-            content = _fix_content(book_version.book, chapter, chapter_n)
+            try:
+                content = _fix_content(book_version.book, chapter, chapter_n)
+            except:
+                continue
+
             chapter_n += 1
             ID = "ch%03d_%s" % (i, chapter.chapter.url_title.encode('utf-8'))
             filename = ID + '.html'
