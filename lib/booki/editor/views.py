@@ -109,7 +109,7 @@ def edit_book(request, bookid, version=None):
     isBrowserSupported = True
     browserMeta = request.META.get('HTTP_USER_AGENT', '')
 
-    if browserMeta.find('MSIE'):
+    if browserMeta.find('MSIE') != -1:
         isBrowserSupported = False
         
     return render_to_response('editor/edit_book.html', {"book": book, 
