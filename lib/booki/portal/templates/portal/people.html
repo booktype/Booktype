@@ -14,10 +14,10 @@
 	{% for p in latest_active %}
 	  <div style="float: left; margin-left: 15px; width: 120px; height: 150px;">
             <div style="color: white; font-size: 10px;font-weight: bold; text-align: center">
-	      {% profile_image p %}
+            <a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black">{% profile_image p %}</a>
             </div>
             <div style="margin-top: 3px; overflow: hidden; width: 110px; height: 30px;">
-              <span style="font-weight: bold">{{ p.first_name }}</span><br/>
+              <a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black"><span style="font-weight: bold; color: black">{{ p.first_name }}</span></a><br/>
 
              <i><a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black">{{ p.username }}</a></i>
             </div>
@@ -29,10 +29,10 @@
 	{% for p in latest_people %}
 	  <div style="float: left; margin-left: 15px; width: 120px; height: 150px;">
             <div style="color: white; font-size: 10px;font-weight: bold; text-align: center">
-	      {% profile_image p %}
+	      <a href="{% url view_profile  p.username %}" title="{{p.username}}">{% profile_image p %}</a>
             </div>
             <div style="margin-top: 3px; overflow: hidden; width: 110px; height: 30px;">
-              <span style="font-weight: bold">{{ p.first_name }}</span><br/>
+              <a href="{% url view_profile  p.username %}" title="{{p.username}}"><span style="font-weight: bold; color: black">{{ p.first_name }}</span></a><br/>
 
              <i><a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black">{{ p.username }}</a></i>
             </div>
