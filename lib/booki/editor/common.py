@@ -251,8 +251,8 @@ def _format_metadata(book):
     # there must be language, creator, identifier and title
     #key is [ '{' namespace '}' ] name [ '[' scheme ']' ]
     key_re = re.compile(r'^(?:\{([^}]*)\})?'  # namespace
-                        r'(.+)'              # keyword
-                        r'(?:\[([^}]*)\])?$'  #schema
+                        r'([^{]+)'              # keyword
+                        r'(?:\{([^}]*)\})?$'  #schema
                         )
 
     for item in models.Info.objects.filter(book=book):
