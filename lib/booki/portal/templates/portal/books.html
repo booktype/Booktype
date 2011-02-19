@@ -9,6 +9,44 @@
 
 	<!-- BOOKS LISTING -->
 	<div>
+        {% if page == 1 %}
+	<h2 style="border-bottom: 1px dotted gray" >{% trans "Active books" %}</h2>
+	{% for book in latest_active %}
+	  <div style="float: left; margin-left: 15px; width: 120px; height: 130px;">
+            <div style="border: 1px solid blue; background-color: blue; color: white; font-size: 10px; height: 100px; width: 100px; font-weight: bold;">
+             <div style="border: 1px solid white; width: 98px; height: 98px; background-color: #00bfff">
+              <div style="overflow: hidden; width: 80px; height: 80px; margin-top: 10px; margin-left: 5px; padding-left: 5px; border-left: 1px solid white;">
+                 {{ book.title }}
+              </div>
+	     </div>
+            </div>
+            <div style="margin-top: 3px; overflow: hidden; width: 110px; height: 30px;">
+             <a href="{% url view_book  book.url_title %}" title="{{book.title}}" style="color: black">{{ book.title }}</a>
+            </div>
+          </div>
+        {% endfor %}
+        <div style="clear: both; height: 20px; "></div>
+
+	<h2 style="border-bottom: 1px dotted gray" >{% trans "Latest Books" %}</h2>
+	{% for book in latest_books %}
+	  <div style="float: left; margin-left: 15px; width: 120px; height: 140px;">
+            <div style="border: 1px solid blue; background-color: blue; color: white; font-size: 10px; height: 100px; width: 100px; font-weight: bold;">
+             <div style="border: 1px solid white; width: 98px; height: 98px; background-color: #00bfff">
+              <div style="overflow: hidden; width: 80px; height: 80px; margin-top: 10px; margin-left: 5px; padding-left: 5px; border-left: 1px solid white;">
+                 {{ book.title }}
+              </div>
+	     </div>
+            </div>
+            <div style="margin-top: 3px; overflow: hidden; width: 110px; height: 40px;">
+             <a href="{% url view_book  book.url_title %}" title="{{book.title}}" style="color: black">{{ book.title }}</a>
+	     <br/>
+	     <span style="font-style: italic; color: gray">{{ book.created|timesince }} {% trans "ago" %} </span>
+            </div>
+          </div>
+        {% endfor %}
+        <div style="clear: both; height: 20px; "></div>
+	{% endif %}
+
 	<h2 style="border-bottom: 1px dotted gray" >{% trans "Books" %}</h2>
 
 	<ul>

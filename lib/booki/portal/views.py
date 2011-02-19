@@ -173,9 +173,23 @@ def view_books(request):
     except (EmptyPage, InvalidPage):
         books = paginator.page(paginator.num_pages)
 
+    latest_books = models.Book.objects.all().order_by('-created')[:5]
+
+    import datetime
+    # show active books in last 30 days
+    now = datetime.datetime.now()-datetime.timedelta(30)
+
+    from django.db.models import Count
+
+    latest_active = [models.Book.objects.get(id=b['book']) for b in models.BookHistory.objects.filter(modified__gte = now).values('book').annotate(Count('book')).order_by("-book__count")[:5]]
+    
     return render_to_response('portal/books.html', {"request": request, 
                                                     "title": "Booki books", 
-                                                    "books":      books })
+                                                    "books":      books,
+                                                    "page": page, 
+                                                    "latest_books": latest_books,
+                                                    "latest_active": latest_active
+                                                    })
 
 def view_people(request):
     people_list = User.objects.all().extra(select={'lower_username': 'lower(username)'}).order_by('lower_username')
@@ -192,10 +206,22 @@ def view_people(request):
     except (EmptyPage, InvalidPage):
         people = paginator.page(paginator.num_pages)
 
+    latest_people = User.objects.all().order_by('-date_joined')[:5]
 
-    return render_to_response('portal/people.html', {"request": request, 
-                                                     "title": "Booki people", 
-                                                     "people":      people })
+    import datetime
+    now = datetime.datetime.now()-datetime.timedelta(30)
+
+    from django.db.models import Count
+
+    latest_active = [User.objects.get(id=b['user']) for b in models.BookHistory.objects.filter(modified__gte = now).values('user').annotate(Count('user')).order_by("-user__count")[:5]]
+
+
+    return render_to_response('portal/people.html', {"request":       request, 
+                                                     "page":          page,
+                                                     "latest_people": latest_people,
+                                                     "latest_active": latest_active,
+                                                     "title":         "Booki people", 
+                                                     "people":        people })
 
 def maintenance(request):
     return render_to_response('portal/maintenance.html', {"request":    request})

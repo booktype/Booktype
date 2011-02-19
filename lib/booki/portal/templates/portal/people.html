@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n profile %}
 
 {% block header %}
  <title>{% trans "Booki People" %}</title>
@@ -9,11 +9,43 @@
 
 	<!-- PEOPLE LISTING -->
 	<div>
-	<h2 style="border-bottom: 1px dotted gray" >{% trans "People" %}</h2>
+        {% if page == 1 %}
+	<h2 style="border-bottom: 1px dotted gray" >{% trans "Active people" %}</h2>
+	{% for p in latest_active %}
+	  <div style="float: left; margin-left: 15px; width: 120px; height: 150px;">
+            <div style="color: white; font-size: 10px;font-weight: bold; text-align: center">
+	      {% profile_image p %}
+            </div>
+            <div style="margin-top: 3px; overflow: hidden; width: 110px; height: 30px;">
+              <span style="font-weight: bold">{{ p.first_name }}</span><br/>
 
+             <i><a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black">{{ p.username }}</a></i>
+            </div>
+          </div>
+        {% endfor %}
+        <div style="clear: both; height: 20px; "></div>
+
+	<h2 style="border-bottom: 1px dotted gray" >{% trans "New people" %}</h2>
+	{% for p in latest_people %}
+	  <div style="float: left; margin-left: 15px; width: 120px; height: 150px;">
+            <div style="color: white; font-size: 10px;font-weight: bold; text-align: center">
+	      {% profile_image p %}
+            </div>
+            <div style="margin-top: 3px; overflow: hidden; width: 110px; height: 30px;">
+              <span style="font-weight: bold">{{ p.first_name }}</span><br/>
+
+             <i><a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black">{{ p.username }}</a></i>
+            </div>
+          </div>
+        {% endfor %}
+        <div style="clear: both; height: 20px; "></div>
+
+        {% endif %}
+
+	<h2 style="border-bottom: 1px dotted gray" >{% trans "People" %}</h2>
 	<ul>
 	{% for p in people.object_list %}
-	   <li><a href="{% url view_profile p.username %}">{{ p.username }}</a></li>
+	   <li><a href="{% url view_profile p.username %}"><b>{{ p.username }}</b> - <i> {{p.first_name}}</i></a></li>
 	{% endfor %}
 	</ul>
 
