@@ -1,4 +1,4 @@
-import simplejson 
+from booki.utils.json_wrapper import simplejson
 
 from booki.editor import models
 

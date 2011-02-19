@@ -1,7 +1,7 @@
 from django.db import transaction
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 
-import simplejson
+from booki.utils.json_wrapper import simplejson
 import re
 import redis
 import sputnik
