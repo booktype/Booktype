@@ -12,11 +12,11 @@
         {% if page == 1 %}
 	<h2 style="border-bottom: 1px dotted gray" >{% trans "Active people" %}</h2>
 	{% for p in latest_active %}
-	  <div style="float: left; margin-left: 15px; width: 120px; height: 150px;">
+	  <div style="float: left; margin-left: 15px; width: 120px; height: 150px; overflow: hidden;">
             <div style="color: white; font-size: 10px;font-weight: bold; text-align: center">
             <a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black">{% profile_image p %}</a>
             </div>
-            <div style="margin-top: 3px; overflow: hidden; width: 110px; height: 30px;">
+            <div style="margin-top: 3px; width: 110px;">
               <a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black"><span style="font-weight: bold; color: black">{{ p.first_name }}</span></a><br/>
 
              <i><a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black">{{ p.username }}</a></i>
@@ -27,11 +27,11 @@
 
 	<h2 style="border-bottom: 1px dotted gray" >{% trans "New people" %}</h2>
 	{% for p in latest_people %}
-	  <div style="float: left; margin-left: 15px; width: 120px; height: 150px;">
+	  <div style="float: left; margin-left: 15px; width: 120px; height: 150px; overflow: hidden">
             <div style="color: white; font-size: 10px;font-weight: bold; text-align: center">
 	      <a href="{% url view_profile  p.username %}" title="{{p.username}}">{% profile_image p %}</a>
             </div>
-            <div style="margin-top: 3px; overflow: hidden; width: 110px; height: 30px;">
+            <div style="margin-top: 3px; overflow: hidden; width: 110px;">
               <a href="{% url view_profile  p.username %}" title="{{p.username}}"><span style="font-weight: bold; color: black">{{ p.first_name }}</span></a><br/>
 
              <i><a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black">{{ p.username }}</a></i>
