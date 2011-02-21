@@ -555,7 +555,7 @@ def view_profilethumbnail(request, profileid):
     import Image
 
     image = Image.open(name)
-    image.thumbnail((24, 24), Image.NEAREST)
+    image.thumbnail((int(request.GET.get('width', 24)), int(request.GET.get('width', 24))), Image.NEAREST)
 
     # serialize to HTTP response
     response = HttpResponse(mimetype="image/jpg")
