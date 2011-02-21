@@ -40,7 +40,10 @@ else:
                            url(r'list-people/', 'booki.portal.views.view_people'),
 
                            # json booklist for objavi
-                           url(r'list-books.json', 'booki.editor.views.view_books_json'),
+                           url(r'^list-books.json$', 'booki.editor.views.view_books_json'),
+
+                           # list of books by ID
+                           url(r'^list-books-by-id/(?P<scheme>[\w. -]+).json?$', 'booki.portal.views.view_books_by_id'),
                            
                            # user accounts                     
                            url(r'^accounts/', include('booki.account.urls')),                    

@@ -1,9 +1,6 @@
 import os, sys
 
-try:
-    import simplejson as json
-except ImportError:
-    import json
+from booki.utils.json_wrapper import json
 
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED, ZIP_STORED
 
