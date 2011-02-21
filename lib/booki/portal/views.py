@@ -68,7 +68,10 @@ def debug_redis(request):
 # FRONT PAGE
 
 def view_frontpage(request):
+    activity_history = models.BookHistory.objects.filter(kind__in=[1, 10]).order_by('-modified')[:20]
+
     return render_to_response('portal/frontpage.html', {"request": request, 
+                                                        "activity_history": activity_history,
                                                         "title": "Booki"})
 
 # GROUPS

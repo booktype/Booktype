@@ -9,28 +9,17 @@
 <div id="intro">
 <p><b>{% trans "Welcome to Booki" %} Alpha 1.0.</b></p>
 
-<img src="http://www.drumbeat.org/sites/default/files/imagecache/project_marquee/project/booki_layered.png" alt="" title="" height="" width=""></span>
-<span class="description"><p>More than just a <strong>free</strong> <strong>software</strong> Booki helps you make <strong>free</strong> <strong>books</strong> - beautiful real paper books and ebooks. Sign up here and start creating your own books online.
-</p><p><b>NOTE!</b> We are also trying to drum up votes for Booki for the Drumbeat Open Web Awards…vote for us! </p><p>The process is simple:
-register :<br>
+<img src="/site_media/images/frontpage.png" alt="" title="" height="" width="">
+<span class="description"><p>More than just a <strong>free</strong> <strong>software</strong> Booki helps you make <strong>free</strong> <strong>books</strong> - beautiful real paper books and ebooks. Sign up here and start creating your own books online.</span>
 
-<a href='http://www.drumbeat.org/user/register'>http://www.drumbeat.org/user/register</a>
-</p><p>
-and vote for us:
-<br>
-<a href='http://www.drumbeat.org/project/open-web-publishing'>http://www.drumbeat.org/project/open-web-publishing</a>
-</p><p>
-Please blog about this, message people, email etc  and encourage others to vote!
-<p>
-
-<!--
 <p>Collaborate online and create open textbooks and any other publication you can think of.</p>
 
 
-Booki is a paradigm breaking book production platform.
-</p><p>Booki facilitates the production of books through simple
-and effective book production tools. 
-</p><p>
+<p>Booki is a paradigm breaking book production platform.
+</p>
+<p>Booki facilitates the production of books through simple
+and effective book production tools. </p>
+<p>
 With Booki you can write a book by yourself or with others, discuss your views, seek assistance from others,
 translate or reuse content and publish completed works. 
 </p><p>
@@ -40,8 +29,37 @@ well as collaborate to produce high quality content very quickly.
 Sign up and have a look around!
 </p>
 <p>Software developers might like to check the PyPi release page for <a href="http://pypi.python.org/pypi/booki/">Booki</a> </p>
--->
+
+<h2>Recent activity</h2>
+ <div style="border-top: 1px solid gray"></div>
+
+{% for activity in activity_history %}
+ <div style="margin-top: 5px; margin-bottom: 10px; border: 0px solid gray; padding: 5px; font-size: 14px;">
+    <div style="float: left; margin-right: 10px; float: left; width: 48px; height: 48x;">
+       <img src="{% url view_profilethumbnail activity.user %}?width=48" alt="{{activity.user}}">
+    </div>
+    <div style="display: block;">
+     <a href="{% url view_profile activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; <i>{{ activity.modified|timesince}} ago</i><br/>
+     <div style="padding-top: 5px">
+     {% if activity.kind == 1 %}
+         Created new chapter <a href="{% url view_chapter activity.book.url_title activity.chapter.url_title %}"><i>"{{activity.chapter.title}}"</i></a>. 
+   
+         <div style="font-size: 12px; margin-top: 5px; color: gray;">#{{activity.book.url_title}}</div>
+     {% endif %}
+     {% if activity.kind == 10 %}
+         Created new book <a href="{% url view_book activity.book.url_title  %}">"{{activity.book.title}}"</a>. 
+         <div style="font-size: 12px; margin-top: 5px; color: gray;">#{{activity.book.url_title}}</div>
+     {% endif %}
+     </div>
+    </div>
+     <div style="clear: both"></div>
+<!--    <b>{{ activity.book.title }}</b><br/> </i>{{ activity.chapter.title }}</i> -->
+ </div>
+ <div style="border-top: 1px solid gray"></div>
+{% endfor %}
+
 </div>
+
 
 
 {% endblock %}
