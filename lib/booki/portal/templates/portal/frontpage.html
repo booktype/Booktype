@@ -30,7 +30,7 @@ Sign up and have a look around!
 </p>
 <p>Software developers might like to check the PyPi release page for <a href="http://pypi.python.org/pypi/booki/">Booki</a> </p>
 
-<h2>Recent activity</h2>
+<h2>{% trans "Recent activity" %}</h2>
  <div style="border-top: 1px solid gray"></div>
 
 {% for activity in activity_history %}
@@ -39,15 +39,15 @@ Sign up and have a look around!
        <img src="{% url view_profilethumbnail activity.user %}?width=48" alt="{{activity.user}}">
     </div>
     <div style="display: block;">
-     <a href="{% url view_profile activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; <i>{{ activity.modified|timesince}} ago</i><br/>
+     <a href="{% url view_profile activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; <i>{{ activity.modified|timesince}} {% trans "ago" %}</i><br/>
      <div style="padding-top: 5px">
      {% if activity.kind == 1 %}
-         Created new chapter <a href="{% url view_chapter activity.book.url_title activity.chapter.url_title %}"><i>"{{activity.chapter.title}}"</i></a>. 
-   
+         {% trans "Created new chapter" %} <a href="{% url view_chapter activity.book.url_title activity.chapter.url_title %}"><i>"{{activity.chapter.title}}"</i></a>.
+
          <div style="font-size: 12px; margin-top: 5px; color: gray;">#{{activity.book.url_title}}</div>
      {% endif %}
      {% if activity.kind == 10 %}
-         Created new book <a href="{% url view_book activity.book.url_title  %}">"{{activity.book.title}}"</a>. 
+         {% trans "Created new book" %} <a href="{% url view_book activity.book.url_title  %}">"{{activity.book.title}}"</a>.
          <div style="font-size: 12px; margin-top: 5px; color: gray;">#{{activity.book.url_title}}</div>
      {% endif %}
      </div>
