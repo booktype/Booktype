@@ -12,8 +12,18 @@ from booki.utils.json_wrapper import json
 from booki.utils.log import logWarning
 
 BOOKI_URL = settings.BOOKI_URL
-OBJAVI_URL = settings.OBJAVI_URL
-THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
+
+try:
+    OBJAVI_URL = settings.OBJAVI_URL
+except AttributeError:
+    OBJAVI_URL = "http://objavi.flossmanuals.net/objavi.cgi"
+
+try:
+    THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
+except AttributeError:
+    import os
+    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booki.flossmanuals.net')
+
 
 # debug
 
