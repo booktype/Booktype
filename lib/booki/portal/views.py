@@ -7,9 +7,13 @@ from django.db import transaction
 
 from booki.editor import models
 from booki.utils import security, pages
-from booki.settings import BOOKI_URL, OBJAVI_URL, THIS_BOOKI_SERVER
+from django.conf import settings
 from booki.utils.json_wrapper import json
 from booki.utils.log import logWarning
+
+BOOKI_URL = settings.BOOKI_URL
+OBJAVI_URL = settings.OBJAVI_URL
+THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
 
 # debug
 
