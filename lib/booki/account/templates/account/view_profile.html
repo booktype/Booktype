@@ -5,7 +5,7 @@
 
 {% block header %}
   <title>{% blocktrans with user.username as username %}/user: {{ username }}{% endblocktrans %}</title>
-  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/profile.js"></script>
+  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/profile.js"></script>
 
   <script type="text/javascript">
     $(function() {

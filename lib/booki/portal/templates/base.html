@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
  <head>
-   <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/css/booki.css" rel="Stylesheet" >
-   <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/js/jquery/themes/base/jquery.ui.all.css" rel="Stylesheet" >
-   <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/js/jquery/themes/smoothness/jquery.ui.all.css" rel="Stylesheet" >
-   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/jquery/jquery-1.4.2.js"></script>
-   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/jquery/ui/jquery-ui-1.8.2.custom.js"></script>
-   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/jquery.json-1.3.js"></script>
-   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/booki.js"></script>
+   <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/booki.css" rel="Stylesheet" >
+   <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery/themes/base/jquery.ui.all.css" rel="Stylesheet" >
+   <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery/themes/smoothness/jquery.ui.all.css" rel="Stylesheet" >
+   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery/jquery-1.4.2.js"></script>
+   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery/ui/jquery-ui-1.8.2.custom.js"></script>
+   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.json-1.3.js"></script>
+   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/booki.js"></script>
 
 <style>
 .paginator { padding:.5em .75em; float:left; font:normal .8em arial; }
@@ -100,7 +100,7 @@
 <div id="page-container"> 
 <!-- top bar + drop shadow -->
 <div class="topbar shadow"> 
- <a href="{% url frontpage %}"><img alt="Booki logo" src="{{ request.META.SCRIPT_NAME }}/site_media/images/booki_logo_topleft.png" border="0"></a>
+ <a href="{% url frontpage %}"><img alt="Booki logo" src="{{ request.META.SCRIPT_NAME }}/site_static/images/booki_logo_topleft.png" border="0"></a>
 
 {% if request.user.is_authenticated %}
 <div id="logged_in" style="position:absolute;top:25px;width:870px;text-align:right;font-family:helvetica,arial,verdana;font-size:11px;font-weight:bold;">
@@ -136,7 +136,7 @@
 		<li><a href="{% url user_settings request.user.username %}">{% trans "My Settings" %}</a></li>
 		<li><a href="{% url my_books request.user.username %}">{% trans "My Books" %}</a></li>
 		<li><a href="{% url my_groups request.user.username %}">{% trans "My Groups" %}</a></li>
-		<li><a href="{% url my_people request.user.username %}">{% trans "My People" %}</a></li>
+		<!-- <li><a href="{% url my_people request.user.username %}">{% trans "My People" %}</a></li> -->
 		</ul>
 </div>
 <!-- End of second nav box  -->

@@ -289,7 +289,8 @@ class ChapterHistory(models.Model):
 # Attachment
 
 def uploadAttachmentTo(att, filename):
-    return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, att.version.getVersion(), filename)
+    return '%s/books/%s/%s/%s' % (settings.DATA_ROOT, att.book.url_title, att.version.getVersion(), filename)
+#    return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, att.version.getVersion(), filename)
 
 
 

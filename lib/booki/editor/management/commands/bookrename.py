@@ -47,17 +47,18 @@ class Command(BaseCommand):
 
         if options['new_book_url']:
             import os
-            os.rename('%s%s' % (settings.MEDIA_ROOT, book.url_title), '%s%s' % (settings.MEDIA_ROOT, options['new_book_url']))
+            os.rename('%s/books/%s' % (settings.DATA_ROOT, book.url_title), '%s/books/%s' % (settings.DATA_ROOT, options['new_book_url']))
 
             book.url_title = options['new_book_url']
 
-            n = len(settings.MEDIA_ROOT)
+            # TODO: test this
+            n = len(settings.DATA_ROOT)+len('books/')
 
 
             for attachment in models.Attachment.objects.filter(version__book=book):
                 name = attachment.attachment.name
                 j = name[n:].find('/')
-                newName = '%s%s%s' % (settings.MEDIA_ROOT, book.url_title, name[n:][j:])
+                newName = '%s/books/%s%s' % (settings.DATA_ROOT, book.url_title, name[n:][j:])
 
                 attachment.attachment.name = newName
                 attachment.save()
