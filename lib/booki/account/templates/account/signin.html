@@ -161,19 +161,19 @@
   
   {% if request.user.is_authenticated %}
   <div style="background-color: #f8e1a4; font-size: 12px; padding: 20px; width: 300px; ">
-    <h2>You are already signed in!</h2>
+    <h2>{% trans "You are already signed in!" %}</h2>
   </div>
   {% else %}
   <div style="background-color: #f8e1a4; font-size: 12px; padding: 20px; width: 300px;">
-    <h2>Sign in</h2>
+    <h2>{% trans "Sign in" %}</h2>
     <form method="POST" action="{% url signin %}" id="loginform" name="loginform" onsubmit="return false;">
-      USERNAME<br/>
+      {% trans "USERNAME" %}<br/>
       <input type="text" name="username" style="width: 200px"/><br/>
-      PASSWORD<br/>
+      {% trans "PASSWORD" %}<br/>
       <input type="password" name="password" style="width: 200px"/><br/>
       <span class="notify"></span>
       <br/>
-      <button>Sign in</button> <a href="{% url forgotpassword %}">Forgot your password ?</a>
+      <button>{% trans "Sign in" %}</button> <a href="{% url forgotpassword %}">{% trans "Forgot your password ?" %}</a>
     </form>
   </div>
   {% endif %}
@@ -184,33 +184,33 @@
 <div id="register_form">
   {% if request.user.is_authenticated %}
   <div style="background-color: #f8e1a4;font-size: 12px; padding: 20px; float: right; width: 300px;">
-    <h2>You are already signed in.</h2>
+    <h2>{% trans "You are already signed in." %}</h2>
   </div>
   {% else %}
   
   <div style="background-color: #f8e1a4;font-size: 12px; padding: 20px; float: right; width: 300px;">
-    <h2>Create Account</h2>
+    <h2>{% trans "Create Account" %}</h2>
     {% url register as register_url %}
     <form method="POST" action="{{ register_url }}" onsubmit="return false" id="registerform">
-      USERNAME<br/>
+      {% trans "USERNAME" %}<br/>
       <input type="text" name="username" value="{{ username }}" style="width: 200px;"/><br/>
-      E-MAIL<br/>
+      {% trans "E-MAIL" %}<br/>
       <input type="text" name="email" value="{{ email }}" style="width: 200px"/><br/>
-      PASSWORD (6 characters at least)<br/>
+      {% trans "PASSWORD (6 characters at least)" %}<br/>
       <input type="password" name="password" style="width: 200px"/><br/>
-      PASSWORD confirmation<br/>
+      {% trans "PASSWORD confirmation" %}<br/>
       <input type="password" name="password2" style="width: 200px"/><br/>
-      FULL NAME<br/>
+      {% trans "FULL NAME" %}<br/>
       <input type="text" name="fullname" value="{{ fullname }}" style="width: 200px"/><br/>
-      Your real name is compulsory for reasons of copyright attribution on books you create and contribute to.<br/>
+      {% trans "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to." %}<br/>
       <span class="notify"></span>
       <br/>
-      <button>Create account</button>
+      <button>{% trans "Create account" %}</button>
     </form>
 
    {% if joingroups %} 
      <p>
-     You will also be joining this groups if you create account:
+     {% trans "You will also be joining this groups if you create account:" %}
       <ul>
        {% for group in joingroups %}
           <li> <a href="{% url view_group group.url_name %}" target="_new">{{ group.name }}</a></li>
@@ -222,20 +222,22 @@
   {% endif %}
 </div>
 
+{% url frontpage as frontpage_url%}
 <div id="signinmessage" style="display: none">
-<div style="background-color: #f8e1a4; font-size: 12px; padding: 20px;"><h2>Your account has been created!</h2><p>Thank you. We have created your account and signed you in. If you are new to Booki we recommend you to read <a href="http://www.booki.cc/booki-user-guide/">Booki User Guide</a>.</p><p><form method="GET" action="{% url frontpage %}"><button>Great! Let's use Booki now!</button><span class="redirectmessage" style="padding-left: 20px"></span></form></p></div>
+<div style="background-color: #f8e1a4; font-size: 12px; padding: 20px;"><h2>{% trans "Your account has been created!" %}</h2>{% blocktrans %}<p>Thank you. We have created your account and signed you in. If you are new to Booki we recommend you to read <a href="http://www.booki.cc/booki-user-guide/">Booki User Guide</a>.</p><p><form method="GET" action="{{ frontpage_url }}"><button>Great! Let's use Booki now!</button><span class="redirectmessage" style="padding-left: 20px"></span></form></p>{% endblocktrans %}</div>
 </div>
 </div>
 
 <div style="padding-top: 20px; float: left; clear: both">
-<h2>Why do I need account ?</h2>
-<p>Your real name is compulsory for reasons of copyright attribution on books you create and contribute to.</p>
+<h2>{% trans "Why do I need account ?" %}</h2>
+<p>{% trans "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to." %}</p>
 
-<h2>I forgot my password. What now ?!</h2>
-<p>Please <a href="{% url forgotpassword %}">request new one</a>.</p>
+{% url forgotpassword as forgotpassword_url%}
+<h2>{% trans "I forgot my password. What now ?!" %}</h2>
+{% blocktrans %}<p>Please <a href="{{ forgotpassword_url }}">request new one</a>.</p>{% endblocktrans %}
 
 <!--
-<h2>I forgot my username ?</h2>
+<h2>{% trans "I forgot my username ?" %}</h2>
 -->
 
 </div>
