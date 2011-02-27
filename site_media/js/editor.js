@@ -18,15 +18,19 @@ function unescapeHtml (val) {
 	var element2 = null;
 
 	function showJoined(notice) {
-	    $('.content', element).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
-	    $('.content', element2).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
+	    var msg = $('.joinMsg.template').clone().removeClass("template");
+	    msg.find('.notice').html(notice);
+	    $('.content', element).append(msg.clone());
+	    $('.content', element2).append(msg.clone());
 	    $(".content", element).attr({ scrollTop: $(".content", element).attr("scrollHeight") });
 	    $(".content", element2).attr({ scrollTop: $(".content", element2).attr("scrollHeight") });
 
 	}
 
 	function showInfo(notice) {
-	    $('.content', element).append('<p><span class="info">INFO</span>  '+notice+'</p>');
+	    var msg = $('.infoMsg.template').clone().removeClass("template");
+	    msg.find('.notice').html(notice);
+	    $('.content', element).append(msg.clone());
 //	    $('.content', element2).append('<p><span class="icon">JOINED</span>  '+notice+'</p>');
 	    $(".content", element).attr({ scrollTop: $(".content", element).attr("scrollHeight") });
 	    $(".content", element2).attr({ scrollTop: $(".content", element2).attr("scrollHeight") });
@@ -202,7 +206,7 @@ function unescapeHtml (val) {
 		    // should update status and other things also
 		    $.each(this.items, function(i, v) {
 			$("#item_"+v.id+"  .title").html(v.title);
-			$("#item_"+v.id+"  .status").html('<a href="javascript:void(0)" onclick="$.booki.editor.editStatusForChapter('+v.id+')">'+getStatusDescription(v.status)+'</a>');
+			$("#item_"+v.id+" n .status").html('<a href="javascript:void(0)" onclick="$.booki.editor.editStatusForChapter('+v.id+')">'+getStatusDescription(v.status)+'</a>');
 		    });
 
 		    this.refreshLocks();
@@ -213,13 +217,17 @@ function unescapeHtml (val) {
 //		    $(".extra").html("");
 
 		    $.each(this.items, function(i, v) {
-			$(".edit", $("#item_"+v.id)).html('<a href="javascript:void(0)" onclick="$.booki.editor.editChapter('+v.id+')" style="font-size: 12px">EDIT</a> <a href="javascript:void(0)" onclick="$.booki.editor.viewChapter('+v.id+')" style="font-size: 12px">VIEW</a>');
+			var item = $(".edit", $("#item_"+v.id));
+			item.find('.chapterLinks').show();
+			item.find('.lock').hide();
 		    });
 
 		    $.each(chapterLocks, function(i, v) {
-			$(".edit", $("#item_"+i)).html('<div style="font-size: 10px; padding: 3px; background-color: red; color: white"><a style="color: white" href="javascript:void(0)" onclick="$.booki.editor.unlockChapter('+i+');">'+v+'</a></div>');
+			var item = $(".edit", $("#item_"+i));
+			item.find('.chapterLinks').hide();
+			item.find('.lock').show();
+			item.find('.lockUser').text(v);
 		    });
-
 		}
 		
 	    });
@@ -247,33 +255,50 @@ function unescapeHtml (val) {
 
 		    function _drawItems(data) {
 			var his = $($this.containerName+" SPAN.hiscontainer");
-			var s = $('<table width="100%"><tr><th>action</th><th></th><th>user</th><th>time</th></tr></table>')
+			var s = $('.historyTable.template').clone().removeClass("template");
 			
 			$.each(data.history, function(i, entry) {
+			    var kindName = $(".eventKind.template #"+entry.kind.replace(" ", "_")).html();
 			    if(entry.kind == "create" || entry.kind == "rename") {
-				var en = $("<tr></tr>");
-				en.append('<td valign="top">'+entry.kind+'</td>');
-				en.append($('<td valign="top">').append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
-				en.append('<td valign="top">'+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td><td></td>");
+				var en = $(".rowCreateRename.template").clone().removeClass('template');
+				en.find('.entryKind').html(kindName);
+				en.find('.entryChapter').html(entry.chapter);
+				en.find('.entryUser').html(entry.user);
+				en.find('.entryModified').html(entry.modified);
+				en.find('.setChapterLink').click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); });
 				s.append(en);
 				
 			    } else if(entry.kind == "save") {
-				var en = $("<tr></tr>");
-				en.append('<td valign="top">'+entry.kind+"</td>");
-				en.append($('<td valign="top">').append($('<a style="text-decoration: underline" href="javascript:void(0)">'+entry.chapter+"</a>").click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); })));
-				en.append('<td valign="top">'+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td><td></td>");
+				var en = $(".rowSave.template").clone().removeClass('template');
+				en.find('.entryKind').html(kindName);
+				en.find('.entryChapter').html(entry.chapter);
+				en.find('.entryUser').html(entry.user);
+				en.find('.entryModified').html(entry.modified);
+				en.find('.setChapterLink').click(function() { $this.setChapterView(entry.chapter, entry.chapter_url, entry.chapter_history); });
 				s.append(en);
 			    } else if(entry.kind == "major" || entry.kind == "minor") {
-				s.append($("<tr><td>New version</td><td>Switched to "+entry.version.version+"</td><td>"+entry.user+'</td><td style="white-space: nowrap">'+entry.modified+"</td></tr>"));
+				var en = $(".rowVersion.template").clone().removeClass('template');
+				en.find('.entryVersion').html(entry.version);
+				en.find('.entryUser').html(entry.user);
+				en.find('.entryModified').html(entry.modified);
+				s.append(en);
 			    } else if(entry.kind == 'attachment') {
-				s.append($('<tr><td>Upload</td><td valign="top">Uploaded '+entry.args.filename+".</td><td>"+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td></tr>"));
-				
+				var en = $(".rowAttachment.template").clone().removeClass('template');
+				en.find('.entryFilename').html(entry.args.filename);
+				en.find('.entryUser').html(entry.user);
+				en.find('.entryModified').html(entry.modified);
+				s.append(en);
 			    } else {
-				s.append($("<tr><td>"+entry.kind+"</td><td></td><td>"+entry.user+'</td><td valign="top" style="white-space: nowrap">'+entry.modified+"</td></tr>"));
+
+				var en = $(".rowGeneric.template").clone().removeClass('template');
+				en.find('.entryKind').html(kindName);
+				en.find('.entryUser').html(entry.user);
+				en.find('.entryModified').html(entry.modified);
+				s.append(en);
 			    }
 			});
-			
-			his.html(s);
+			his.empty();
+			his.append(s);
 		    }
 		    
 		    function _buildUI() {
@@ -391,20 +416,25 @@ previous
 			var his = $($this.containerName);
 			
 			his.empty();
-			his.append($('<a href="javascript:void(0)">&lt;&lt; back to chapter history</a>').click(function() { $this.setChapterView(chapterName, chapterURL, chapterHistory);}));
-			var bs = $('<span style="padding-left: 10px"><input checked="checked" type="radio" id="radio1" name="radio" /><label for="radio1">Normal view</label><input type="radio" id="radio2" name="radio"  /><label for="radio2">Source view</label></span>').buttonset();
-			
-			his.append(bs);
 
-			his.append($('<a href="javascript:void(0)">Revert to this revision</a>').button().click(function() { 
+			var disp = $('.revisionDisplay.template').clone().removeClass('template');
+			disp.find('.buttonset').buttonset();
+			disp.find('.button').button();
+			disp.find('.backLink').click(function() { $this.setChapterView(chapterName, chapterURL, chapterHistory);});
+
+			disp.find('.revertLink').click(function() { 
 			    $(".cont", his).html('<div title="Revert to this revision?"><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Current chapter content will be reverted to this revision. Are you sure?</p></div>');
+			    
+			    cancel = $('.strings.template .cancel').text();
+			    yesrevert = $('.strings.template .yesrevert').text();
 			    
 			    $(".cont DIV", his).dialog({
 				resizable: false,
 				height:160,
 				modal: true,
-				buttons: {
-				    'Yes, revert !': function() {
+				buttons: [
+				    { text: yesrevert,
+				      click: function() {
 					var $dialog = $(this);
 					$.booki.sendToCurrentBook({"command": "revert_revision", 
 								   "chapter": chapterURL,
@@ -414,42 +444,52 @@ previous
 								      $dialog.dialog('close');
 								      $this.setChapterView(chapterName, chapterURL, chapterHistory);
 								  });
-				    },
-				    Cancel: function() {
+				      }},
+				    { text: cancel,
+				      click: function() {
 					$(this).dialog('close');
-				    }
-				}
+				      }},
+				]
 			    });
-			}));
+			});
 		
 
 			if(!data.chapter) {
-			    his.append('<p>No such revision.</p>');
+			    disp.find('.err-no-revision').show();
+			    disp.find('.revision-info').hide();
 			    return;
+			} else {
+			    disp.find('.err-no-revision').hide();
+			    disp.find('.revision-info').show();
 			}
 			
-			$("#radio1", bs).click(function() { 
+			$("#radio1", disp).click(function() { 
 			    $('#chapterrevision', his).html(data.content);
 			    
 			});
-			$("#radio2", bs).click(function() { 
+			$("#radio2", disp).click(function() { 
 			    $('#chapterrevision', his).html('<textarea style="width: 95%; height: 400px">'+data.content+'</textarea>');
 			    
 			});
 
-			$("#radio1", bs).attr("checked", "checked");
+			$("#radio1", disp).attr("checked", "checked");
 			
-			his.append('<h3>'+chapterName+'</h3>');
-			var s = '<p>User: '+data.user+'<br/>Modified: '+data.modified+'<br/>Version: '+data.version+'<br/>Revision: '+data.revision+'<br/>';
-			if(data.comment)
-			    s += 'Comment: '+data.comment+'<br/>';
-			s += '</p>';
-			
-			his.append(s);
-			his.append('<span class="cont"></span>');
+			disp.find('.chapterName').html(chapterName);
+
+			disp.find('.dataUser').html(data.user);
+			disp.find('.dataModified').html(data.modified);
+			disp.find('.dataVersion').html(data.version);
+			disp.find('.dataRevision').html(data.revision);
+			if(data.comment) {
+			    disp.find('.revisiondCcomment').show();
+			    disp.find('.dataComment').html(data.comment);
+			} else {
+			    disp.find('.revisionComment').hide();
+			}
 
 			if(data['revision'] > 1)  {
-			    his.append($('<a href="javascript:void(0)">&lt;&lt; previous</a>').click(function() {
+			    disp.find('.previousLinkDisplay').show();
+			    disp.find('.previousLink').click(function() {
 				$.booki.ui.notify("Reading history data...");
 				$.booki.sendToCurrentBook({"command": "get_chapter_revision", 
 							   "chapter": chapterURL,
@@ -458,11 +498,12 @@ previous
 							      $.booki.ui.notify();
 							      showRevision(data);
 							  });
-			    }));
-			    his.append('&nbsp;&nbsp;&nbsp;');
+			    });
+			} else {
+			    disp.find('.previousLinkDisplay').hide();
 			}
 			
-			his.append($('<a href="javascript:void(0)">next &gt;&gt;</a>').click(function() {
+			disp.find('.nextLink').click(function() {
 			    $.booki.ui.notify("Reading history data...");
 			    $.booki.sendToCurrentBook({"command": "get_chapter_revision", 
 						       "chapter": chapterURL,
@@ -472,10 +513,11 @@ previous
 							  if(data.chapter)
 							      showRevision(data);
 						      });
-			}));
+			});
 
-			his.append("<br/><br/>");
-			his.append($('<div id="chapterrevision" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0"></div>').append(data.content));
+			disp.find('.dataContent').html(data.content);
+
+			his.append(disp);
 		    }
 		    
 		    $.booki.ui.notify("Reading history data...");
@@ -499,13 +541,15 @@ previous
 
 		    function showDiff(data) {
 			var his = $($this.containerName);
-			
 			his.empty();
-			his.append($('<a href="javascript:void(0)">&lt;&lt; back to chapter history</a>').click(function() { $this.setChapterView(chapterName, chapterURL, chapterHistory);}));
-			
-			his.append('<h3>Compare revision '+revision1+' with revision '+revision2+'</h3>');
 
-			his.append($('<pre id="chapterdigg" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0; font-size: 8pt"></pre>').append(unescapeHtml(data.output)));
+			var disp = $('.diffDisplay.template').clone().removeClass('template');
+
+			disp.find('.backLink').click(function() { $this.setChapterView(chapterName, chapterURL, chapterHistory);});
+			disp.find('.revision1Name').html(revision1);
+			disp.find('.revision2Name').html(revision2);
+			disp.find('.dataOutput').html(unescapeHtml(data.output));
+			his.append(disp);
 		    }
 		    
 		    $.booki.ui.notify("Reading history data...");
@@ -541,22 +585,22 @@ previous
 						  var his = $($this.containerName);
 
 						  his.empty();
-						  his.append($('<a href="javascript:void(0)">&lt;&lt; back to history index</a>').click(function() { $this.setHistoryView();}));
-						  his.append('&nbsp;&nbsp;&nbsp;');
-						  his.append($('<a href="javascript:void(0)">Compare revisions</a>').button().click(function() {
+
+						  disp = $('.historyDisplay.template').clone().removeClass('template');
+
+						  disp.find('.backLink').click(function() { $this.setHistoryView();});
+						  disp.find('.button').button();
+						  disp.find('.compareLink').click(function() {
 						      var revision1 = $('input[name=group1]:checked', his).val();
 						      var revision2 = $('input[name=group2]:checked', his).val();
 
 						      if(revision1 && revision2)
 							  $this.setCompareView(chapterName, chapterURL, chapterHistory, revision1, revision2);
-						  }));
+						  });
 
-						  his.append('&nbsp;&nbsp;&nbsp;'); // or Compare all revisions
-						  //his.append($('<a href="javascript:void(0)">Compare historically</a>').button());
+						  disp.find('.chapterName').html(chapterName);
 
-						  his.append('<h3>'+chapterName+'</h3>');
-
-						  var s = $('<table width="100%"><tr><th>compare</th><th>revision</th><th>user</th><th>time</th><th>comment</th></tr></table>')
+						  var s = disp.find('.chapterHistoryTable');
 
 						  $.each(data.history, function(i, entry) {
 						      var en = $("<tr></tr>");
@@ -578,8 +622,7 @@ previous
 						      
 						  });
 
-						  //his.html("<br/>");
-						  his.append(s);
+						  his.append(disp);
 
 						  $this.currentView = 2;
 					      });
@@ -617,11 +660,32 @@ previous
 	    var _isEditingSmall = false;
 	    
 	    function makeSectionLine(chapterID, name) {
-		return $('<li class="ui-state-default" id="item_'+chapterID+'"  style="background-color: #a0a0a0; color: white; background-image: none"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont"><table border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td width="70%"><div class="title" style="float: left">'+name+'</div></td><td width="10%"><td width="20%"><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td></tr></table></div></li>');
+		var line = $('.sectionLine.template').clone().removeClass('template');
+		line.attr('id', 'item_'+chapterID);
+		line.find('.title').text(name);
+		return line;
 	    }
 	    
 	    function makeChapterLine(chapterID, name, status) {
-		return $('<li class="ui-state-default" id="item_'+chapterID+'"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont"><table border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td width="70%"><div class="title" style="float: left">'+name+'</div></td><td width="10%" class="edit"><a href="javascript:void(0)" onclick="$.booki.editor.editChapter('+chapterID+')" style="font-size: 12px">EDIT</a><td width="20%"><div class="status" style="float:right; font-size: 6pt"><a href="javascript:void(0)" onclick="$.booki.editor.editStatusForChapter('+chapterID+')">'+status+'</a></div><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td></tr></table></div></li>').dblclick(function() {
+		var line = $('.chapterLine.template').clone().removeClass('template');
+		line.attr('id', 'item_'+chapterID);
+		line.find('.title').text(name);
+		line.find('.editLink').click(function() {
+		    $.booki.editor.editChapter(chapterID);
+		});
+		line.find('.viewLink').click(function() {
+		    $.booki.editor.viewChapter(chapterID);
+		});
+		line.find('.unlockLink').click(function() {
+		    $.booki.editor.unlockChapter(chapterID);
+		});
+		line.find('.statusLink').click(function() {
+		    $.booki.editor.editStatusForChapter(chapterID);
+		});
+		var statusName = $(".bookStatuses.template #"+status.replace(" ", "_")).html();
+		line.find('.statusName').html(statusName);
+
+		line.dblclick(function() {
 		    if(_isEditingSmall) return;
 		    _isEditingSmall = true;
 
@@ -662,6 +726,7 @@ previous
 		    toc.refreshLocks();
 		    holdChapters.refreshLocks();
 		    });
+		return line;
 	    }
 	    
 	    function closeEditor() {
@@ -1080,15 +1145,11 @@ img {\n\
 						  $.booki.ui.notify();
 
 						  var att_html = $("#attachmentscontainer");
-						  var s = '<table border="0" width="100%">';
-						  s += '<tr><td width="30"></td><td><b>name</b></td><td><b>dimension</b></td><td><b>size</b></td><td><b>created</b></td></tr>';
-						  
+						  var s = $('.attachmentsTable.template').clone().removeClass('template');
 						  $.each(data.attachments, function(i, entry) {
-						      s += '<tr><td width="30"><input type="checkbox" name="'+entry.id+'" value="'+entry.name+'"></td><td><a style="text-decoration: underline" href="'+$.booki.utils.linkToAttachment($.booki.currentBookURL, entry.name)+'" target="_new">'+entry.name+'</a></td><td>'+$.booki.utils.formatDimension(entry.dimension)+'</td><td>'+$.booki.utils.formatSize(entry.size)+'</td><td>'+entry.created+'</td></tr>';
+						      s.append('<tr><td width="30"><input type="checkbox" name="'+entry.id+'" value="'+entry.name+'"></td><td><a style="text-decoration: underline" href="'+$.booki.utils.linkToAttachment($.booki.currentBookURL, entry.name)+'" target="_new">'+entry.name+'</a></td><td>'+$.booki.utils.formatDimension(entry.dimension)+'</td><td>'+$.booki.utils.formatSize(entry.size)+'</td><td>'+entry.created+'</td></tr>');
 						  });
-						  s += '</table>';
-						  
-						  att_html.html(s);
+						  att_html.empty().append(s);
 					      });
 		},
 		
