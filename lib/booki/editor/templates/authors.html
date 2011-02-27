@@ -1,3 +1,4 @@
+{% load i18n %}
 <!-- 
   author.username
   author.first_name
@@ -9,7 +10,7 @@
 {{ chapter.name }} <br>
 {{ copyright }}<br>
 <!-- &copy; Collaborative Futures Book Sprint team 2010 <br> -->
-Modifications: <br>
+{% trans "Modifications:" %} <br>
   {% for author, years in chapter.authors %}
     {{author.username}} - {{ author.first_name }} {{ author.last_name }} 
     {% for year in years %} 

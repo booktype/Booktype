@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load booki_tags %}
+{% load i18n booki_tags %}
 
 {% block header %}
 <title>{% blocktrans with book.title as booktitle %}/_full: {{ booktitle }}{% endblocktrans %}</title>

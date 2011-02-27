@@ -1,6 +1,7 @@
+{% load i18n %}
 <html>
 <body>
-<h1>Book does not exist!</h1>
-<p>Can't find book "{{ book_name }}".</p>
+<h1>{% trans "Book does not exist!" %}</h1>
+<p>{% blocktrans %}Can't find book "{{ book_name }}".{% endblocktrans %}</p>
 </body>
 </html>
