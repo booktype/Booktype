@@ -11,7 +11,7 @@ from django.conf import settings
 
 # this is just temporary
 def _customCSSExists(bookName):
-    return os.path.exists('%s/css/book.%s.css' % (settings.STATIC_DOC_ROOT, bookName))
+    return os.path.exists('%s/css/book.%s.css' % (settings.STATIC_ROOT, bookName))
 
 def view_full(request, bookid, version=None):
     chapters = []
@@ -114,7 +114,7 @@ def attachment(request, bookid,  attachment, version=None):
 
     path = '%s/%s' % (version, attachment)
 
-    document_root = '%s/static/%s/' % (settings.STATIC_DOC_ROOT, bookid)
+    document_root = '%s/books/%s/' % (settings.DATA_ROOT, bookid)
 
     return static.serve(request, path, document_root)
 
@@ -132,7 +132,7 @@ def staticattachment(request, bookid,  attachment, version=None, chapter = None)
 
     path = '%s/%s' % (book_version.getVersion(), attachment)
 
-    document_root = '%s/static/%s/' % (settings.STATIC_DOC_ROOT, bookid)
+    document_root = '%s/books/%s/' % (settings.DATA_ROOT, bookid)
 
     return static.serve(request, path, document_root)
 

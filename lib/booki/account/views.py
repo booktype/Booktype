@@ -549,7 +549,7 @@ def view_profilethumbnail(request, profileid):
     # this should be a seperate function
 
     if not u.get_profile().image:
-        name = '%s_profile_images/_anonymous.jpg' % settings.MEDIA_ROOT
+        name = '%s%s' % (settings.PROFILE_IMAGE_UPLOAD_DIR, '_anonymous.jpg')
     else:
         name =  u.get_profile().image.name
 

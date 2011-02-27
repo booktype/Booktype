@@ -19,12 +19,12 @@ class ProfileImageNode(Node):
         profile = UserProfile.objects.get(user=user)
 
         if not profile.image:
-            return """<img src="%sstatic/_profile_images/_anonymous.jpg"/>""" % settings.MEDIA_URL
+            return """<img src="%s/profile_images/_anonymous.jpg"/>""" % settings.DATA_URL
 
         filename = profile.image.name
             
             
-        return """<img src="%sstatic/_profile_images/%s"/>""" % (settings.MEDIA_URL, filename.split('/')[-1])
+        return """<img src="%s/profile_images/%s"/>""" % (settings.DATA_URL, filename.split('/')[-1])
 
 @register.tag
 def profile_image(parser, token):

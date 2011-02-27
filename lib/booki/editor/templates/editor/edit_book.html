@@ -3,8 +3,8 @@
 
 {% block header %}
 
-<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/css/editor.css" rel="Stylesheet" />
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/editor.js"></script>
+<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/editor.css" rel="Stylesheet" />
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/editor.js"></script>
 
         <script type="text/javascript">
 	$(function() {
@@ -55,11 +55,11 @@ function closeAttachmentUpload() {
                  </script>
 
 <script type="text/javascript">
-  var _editor_url = "{{ request.META.SCRIPT_NAME }}/site_media/xinha/";
+  var _editor_url = "{{ request.META.SCRIPT_NAME }}/site_static/xinha/";
   var _editor_lang = "en";
 </script>
 
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/xinha/XinhaCore.js"></script>
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/xinha/XinhaCore.js"></script>
 
 <script type="text/javascript">
     var xinha_plugins = ['GetHtml','InsertNote','InsertPagebreak','FindReplace','Equation','CharacterMap','DoubleClick' , 'SpellChecker', 'BookiInsert','ListType'];

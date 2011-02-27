@@ -28,8 +28,15 @@ else:
                            # static files
                            # TODO
                            #      - move outside of django
-                           (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
-                            {'document_root': settings.STATIC_DOC_ROOT}),
+                           (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+                            {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
+
+                           (r'^site_static/(?P<path>.*)$', 'django.views.static.serve',
+                            {'document_root': settings.SITE_STATIC_ROOT, 'show_indexes': True}),
+
+                           (r'^data/(?P<path>.*)$', 'django.views.static.serve',
+                            {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
+
                            
                            # debug
                            (r'^debug/redis/$', 'booki.portal.views.debug_redis'),                       
