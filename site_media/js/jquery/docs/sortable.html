@@ -26,6 +26,8 @@
         <h3>Dependencies</h3>
         <ul>
 <li>UI Core</li>
+<li>UI Widget</li>
+<li>UI Mouse</li>
 </ul>
     </div>
     <div id="overview-example">
@@ -1134,6 +1136,45 @@ $( ".selector" ).sortable( "option", "zIndex", 5 );</code></pre>
     <h2 class="top-header">Events</h2>
     <ul class="events-list">
       
+<li class="event" id="event-create">
+  <div class="event-header">
+    <h3 class="event-name"><a href="#event-create">create</a></h3>
+    <dl>
+      <dt class="event-type-label">Type:</dt>
+        <dd class="event-type">sortcreate</dd>
+    </dl>
+  </div>
+  <div class="event-description">
+    <p>This event is triggered when sortable is created.</p>
+  </div>
+  <div class="event-examples">
+    <h4>Code examples</h4>
+    <dl class="event-examples-list">
+    
+<dt>
+  Supply a callback function to handle the <code>create</code> event as an init option.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).sortable({
+   create: function(event, ui) { ... }
+});</code></pre>
+</dd>
+
+    
+<dt>
+  Bind to the <code>create</code> event by type: <code>sortcreate</code>.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).bind( &quot;sortcreate&quot;, function(event, ui) {
+  ...
+});</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+
 <li class="event" id="event-start">
   <div class="event-header">
     <h3 class="event-name"><a href="#event-start">start</a></h3>
@@ -1884,7 +1925,8 @@ $( ".selector" ).sortable( "option", "zIndex", 5 );</code></pre>
   <h3>Sample markup with jQuery UI CSS Framework classes</h3>
   &lt;ul class=&quot;<strong>ui-sortable</strong>&quot;&gt;<br />
 &#160;&#160;&#160;&lt;li&gt;&lt;/li&gt;<br />
-&#160;&#160;&#160;&lt;li&gt;&lt;/li&gt;<br />
+&#160;&#160;&#160;&lt;li class=&quot;<strong>ui-sortable-helper</strong>&quot;&gt;&lt;/li&gt;<br />
+&#160;&#160;&#160;&lt;li class=&quot;<strong>ui-sortable-placeholder</strong>&quot;&gt;&lt;/li&gt;<br />
 &#160;&#160;&#160;&lt;li&gt;&lt;/li&gt;<br />
 &lt;/ul&gt;
   <p class="theme-note">
@@ -1901,10 +1943,10 @@ $( ".selector" ).sortable( "option", "zIndex", 5 );</code></pre>
 </div>
 
 </p><!-- 
-Pre-expand include size: 73453 bytes
-Post-expand include size: 125878 bytes
-Template argument size: 71570 bytes
+Pre-expand include size: 75037 bytes
+Post-expand include size: 130879 bytes
+Template argument size: 73253 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3772-1!1!0!!en!2 and timestamp 20100520112014 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3772-1!1!0!!en!2 and timestamp 20110222062912 -->

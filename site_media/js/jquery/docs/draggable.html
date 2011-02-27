@@ -27,6 +27,8 @@
         <h3>Dependencies</h3>
         <ul>
 <li>UI Core</li>
+<li>UI Widget</li>
+<li>UI Mouse</li>
 </ul>
     </div>
     <div id="overview-example">
@@ -420,7 +422,7 @@ $( ".selector" ).draggable( "option", "cursor", 'crosshair' );</code></pre>
     </dl>
   </div>
   <div class="option-description">
-    <p>Moves the dragging helper so the cursor always appears to drag from the same position. Coordinates can be given as a hash using a combination of one or two keys: <code>{ top, left, right, bottom }</code>.</p>
+    <p>Sets the offset of the dragging helper relative to the mouse cursor. Coordinates can be given as a hash using a combination of one or two keys: <code>{ top, left, right, bottom }</code>.</p>
   </div>
   <div class="option-examples">
     <h4>Code examples</h4>
@@ -1252,6 +1254,45 @@ $( ".selector" ).draggable( "option", "zIndex", 2700 );</code></pre>
     <h2 class="top-header">Events</h2>
     <ul class="events-list">
       
+<li class="event" id="event-create">
+  <div class="event-header">
+    <h3 class="event-name"><a href="#event-create">create</a></h3>
+    <dl>
+      <dt class="event-type-label">Type:</dt>
+        <dd class="event-type">dragcreate</dd>
+    </dl>
+  </div>
+  <div class="event-description">
+    <p>This event is triggered when draggable is created.</p>
+  </div>
+  <div class="event-examples">
+    <h4>Code examples</h4>
+    <dl class="event-examples-list">
+    
+<dt>
+  Supply a callback function to handle the <code>create</code> event as an init option.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).draggable({
+   create: function(event, ui) { ... }
+});</code></pre>
+</dd>
+
+    
+<dt>
+  Bind to the <code>create</code> event by type: <code>dragcreate</code>.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).bind( &quot;dragcreate&quot;, function(event, ui) {
+  ...
+});</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+
 <li class="event" id="event-start">
   <div class="event-header">
     <h3 class="event-name"><a href="#event-start">start</a></h3>
@@ -1527,10 +1568,10 @@ $( ".selector" ).draggable( "option", "zIndex", 2700 );</code></pre>
 </div>
 
 </p><!-- 
-Pre-expand include size: 59871 bytes
-Post-expand include size: 104871 bytes
-Template argument size: 58170 bytes
+Pre-expand include size: 61392 bytes
+Post-expand include size: 107565 bytes
+Template argument size: 58710 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3768-1!1!0!!en!2 and timestamp 20100520115455 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3768-1!1!0!!en!2 and timestamp 20110222062848 -->

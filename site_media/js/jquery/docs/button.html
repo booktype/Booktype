@@ -14,6 +14,7 @@
         <p>Button enhances standard form elements like button, input of type submit or reset or anchors to themable buttons with appropiate mouseover and active styles.</p>
 <p>In addition to basic push buttons, radio buttons and checkboxes (inputs of type radio and checkbox) can be converted to buttons: Their associated label is styled to appear as the button, while the underlying input is updated on click.</p>
 <p>In order to group radio buttons, Button also provides an additional widget-method, called Buttonset. Its used by selecting a container element (which contains the radio buttons) and calling buttonset(). Buttonset will also provide visual grouping, and therefore should be used whenever you have a group of buttons. It works by selecting all descendents and applying button() to them. You can enable and disable a buttonset, which will enable and disable all contained buttons. Destroying a buttonset also calls the button's destroy method.</p>
+<p>When using an input of type button, submit or reset, support is limited to plain text labels with no icons.</p>
     </div>
     <div id="overview-dependencies">
         <h3>Dependencies</h3>
@@ -60,7 +61,7 @@ A simple jQuery UI Button.<br />
 <div id="demo" class="tabs-container" rel="300">
 A simple jQuery UI Button.<br />
 </p>
-<pre>$(&quot;#radio1&quot;).buttonset();
+<pre>$(&quot;#radio&quot;).buttonset();
 </pre>
 <p></div><div id="source" class="tabs-container">
 </p>
@@ -73,13 +74,13 @@ A simple jQuery UI Button.<br />
   
   &lt;script&gt;
   $(document).ready(function() {
-    $(&quot;#radio1&quot;).buttonset();
+    $(&quot;#radio&quot;).buttonset();
   });
   &lt;/script&gt;
 &lt;/head&gt;
 &lt;body style="font-size:62.5%;"&gt;
   
-&lt;div id=&quot;radio1&quot;&gt;
+&lt;div id=&quot;radio&quot;&gt;
 	&lt;input type=&quot;radio&quot; id=&quot;radio1&quot; name=&quot;radio&quot; /&gt;&lt;label for=&quot;radio1&quot;&gt;Choice 1&lt;/label&gt;
 	&lt;input type=&quot;radio&quot; id=&quot;radio2&quot; name=&quot;radio&quot; checked=&quot;checked&quot; /&gt;&lt;label for=&quot;radio2&quot;&gt;Choice 2&lt;/label&gt;
 	&lt;input type=&quot;radio&quot; id=&quot;radio3&quot; name=&quot;radio&quot; /&gt;&lt;label for=&quot;radio3&quot;&gt;Choice 3&lt;/label&gt;
@@ -193,7 +194,7 @@ $( ".selector" ).button( "option", "text", false );</code></pre>
     </dl>
   </div>
   <div class="option-description">
-    <p>Icons to display, with or without text (see text option). The primary icon is displayed on the left of the label text, the secondary on the right. Value for the primary and secondary properties must be a classname (String), eg. "ui-icon-gear". For using only a primary icon: icons: {primary:'ui-icon-locked'}. For using both primary and secondary icon: icons: {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'}</p>
+    <p>Icons to display, with or without text (see text option). The primary icon is displayed by default on the left of the label text, the secondary by default is on the right. Value for the primary and secondary properties must be a classname (String), eg. "ui-icon-gear". For using only one icon: icons: {primary:'ui-icon-locked'}. For using two icons: icons: {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'}</p>
   </div>
   <div class="option-examples">
     <h4>Code examples</h4>
@@ -256,7 +257,6 @@ $( ".selector" ).button( "option", "icons", {primary:'ui-icon-gear',secondary:'u
 <pre><code>//getter
 var label = $( ".selector" ).button( "option", "label" );
 //setter
-</p>
 $( ".selector" ).button( "option", "label", "custom label" );</code></pre>
 </dd>
 
@@ -269,7 +269,47 @@ $( ".selector" ).button( "option", "label", "custom label" );</code></pre>
   <div id="events">
     <h2 class="top-header">Events</h2>
     <ul class="events-list">
-      <p>There are no events for this plugin.</p>
+      
+<li class="event" id="event-create">
+  <div class="event-header">
+    <h3 class="event-name"><a href="#event-create">create</a></h3>
+    <dl>
+      <dt class="event-type-label">Type:</dt>
+        <dd class="event-type">buttoncreate</dd>
+    </dl>
+  </div>
+  <div class="event-description">
+    <p>This event is triggered when button is created.</p>
+  </div>
+  <div class="event-examples">
+    <h4>Code examples</h4>
+    <dl class="event-examples-list">
+    
+<dt>
+  Supply a callback function to handle the <code>create</code> event as an init option.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).button({
+   create: function(event, ui) { ... }
+});</code></pre>
+</dd>
+
+    
+<dt>
+  Bind to the <code>create</code> event by type: <code>buttoncreate</code>.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).bind( &quot;buttoncreate&quot;, function(event, ui) {
+  ...
+});</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+</p>
+<p>There are no events for this plugin.</p>
     </ul>
   </div>
   <div id="methods">
@@ -451,10 +491,10 @@ $( ".selector" ).button( "option", "label", "custom label" );</code></pre>
 </div>
 
 </p><!-- 
-Pre-expand include size: 23021 bytes
-Post-expand include size: 28995 bytes
-Template argument size: 13372 bytes
+Pre-expand include size: 24542 bytes
+Post-expand include size: 31799 bytes
+Template argument size: 14018 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3767-1!1!0!!en!2 and timestamp 20100520115500 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3767-1!1!0!!en!2 and timestamp 20110222065842 -->

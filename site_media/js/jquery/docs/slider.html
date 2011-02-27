@@ -452,6 +452,45 @@ $( ".selector" ).slider( "option", "values", [1,5,9] );</code></pre>
     <h2 class="top-header">Events</h2>
     <ul class="events-list">
       
+<li class="event" id="event-create">
+  <div class="event-header">
+    <h3 class="event-name"><a href="#event-create">create</a></h3>
+    <dl>
+      <dt class="event-type-label">Type:</dt>
+        <dd class="event-type">slidecreate</dd>
+    </dl>
+  </div>
+  <div class="event-description">
+    <p>This event is triggered when slider is created.</p>
+  </div>
+  <div class="event-examples">
+    <h4>Code examples</h4>
+    <dl class="event-examples-list">
+    
+<dt>
+  Supply a callback function to handle the <code>create</code> event as an init option.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).slider({
+   create: function(event, ui) { ... }
+});</code></pre>
+</dd>
+
+    
+<dt>
+  Bind to the <code>create</code> event by type: <code>slidecreate</code>.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).bind( &quot;slidecreate&quot;, function(event, ui) {
+  ...
+});</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+
 <li class="event" id="event-start">
   <div class="event-header">
     <h3 class="event-name"><a href="#event-start">start</a></h3>
@@ -812,10 +851,10 @@ $( ".selector" ).slider( "option", "values", [1,5,9] );</code></pre>
 </div>
 
 </p><!-- 
-Pre-expand include size: 34930 bytes
-Post-expand include size: 52896 bytes
-Template argument size: 27114 bytes
+Pre-expand include size: 36451 bytes
+Post-expand include size: 55582 bytes
+Template argument size: 27644 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3776-1!1!0!!en!2 and timestamp 20100520115503 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3776-1!1!0!!en!2 and timestamp 20110222063104 -->

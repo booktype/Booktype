@@ -13,6 +13,7 @@
     <div id="overview-main">
         <p>Tabs are generally used to break content into multiple sections that can be swapped to save space, much like an accordion.</p>
 <p>By default a tab widget will swap between tabbed sections onClick, but the events can be changed to onHover through an option. Tab content can be loaded via Ajax by setting an href on a tab.</p>
+<p><em>NOTE: Tabs created dynamically using .tabs( "add", ... ) are given an id of ui-tabs-NUM, where NUM is an auto-incrementing id. If you use this naming convention for your own elements, you may encounter problems.</em></p>
 <table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
 <ul>
 <li class="toclevel-1"><a href="#Events"><span class="tocnumber">1</span> <span class="toctext">Events</span></a></li>
@@ -173,11 +174,8 @@ resizeMap() will call Google Maps' checkResize() on the particular map.
         <h3>Dependencies</h3>
         <ul>
 <li>UI Core</li>
+<li>UI Widget</li>
 <li>To use the cookie option: <a href="http://plugins.jquery.com/project/cookie" class="external text" title="http://plugins.jquery.com/project/cookie">jquery.cookie.js</a></li>
-<li>Required CSS:
-<pre>.ui-tabs .ui-tabs-hide {
-     display: none;
-}</pre></li>
 </ul>
     </div>
     <div id="overview-example">
@@ -830,6 +828,45 @@ $( ".selector" ).tabs( "option", "tabTemplate", '&lt;div&gt;&lt;a href&#61;"#&#1
     <h2 class="top-header">Events</h2>
     <ul class="events-list">
       
+<li class="event" id="event-create">
+  <div class="event-header">
+    <h3 class="event-name"><a href="#event-create">create</a></h3>
+    <dl>
+      <dt class="event-type-label">Type:</dt>
+        <dd class="event-type">tabscreate</dd>
+    </dl>
+  </div>
+  <div class="event-description">
+    <p>This event is triggered when tabs is created.</p>
+  </div>
+  <div class="event-examples">
+    <h4>Code examples</h4>
+    <dl class="event-examples-list">
+    
+<dt>
+  Supply a callback function to handle the <code>create</code> event as an init option.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).tabs({
+   create: function(event, ui) { ... }
+});</code></pre>
+</dd>
+
+    
+<dt>
+  Bind to the <code>create</code> event by type: <code>tabscreate</code>.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).bind( &quot;tabscreate&quot;, function(event, ui) {
+  ...
+});</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+
 <li class="event" id="event-select">
   <div class="event-header">
     <h3 class="event-name"><a href="#event-select">select</a></h3>
@@ -1503,10 +1540,10 @@ $( ".selector" ).tabs( "option", "tabTemplate", '&lt;div&gt;&lt;a href&#61;"#&#1
 </div>
 
 </p><!-- 
-Pre-expand include size: 56186 bytes
-Post-expand include size: 95623 bytes
-Template argument size: 57017 bytes
+Pre-expand include size: 57666 bytes
+Post-expand include size: 97047 bytes
+Template argument size: 57150 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3777-1!1!0!!en!2 and timestamp 20100520043008 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3777-1!1!0!!en!2 and timestamp 20110221213339 -->

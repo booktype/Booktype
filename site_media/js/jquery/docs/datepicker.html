@@ -31,6 +31,7 @@
  <li><a href="http://docs.jquery.com/UI/Datepicker/formatDate" title="UI/Datepicker/formatDate">$.datepicker.formatDate( format, date, settings )</a> - Format a date into a string value with a specified format.</li>
  <li><a href="http://docs.jquery.com/UI/Datepicker/parseDate" title="UI/Datepicker/parseDate">$.datepicker.parseDate( format, value, settings ) </a> - Extract a date from a string value with a specified format.</li>
  <li><a href="http://docs.jquery.com/UI/Datepicker/iso8601Week" title="UI/Datepicker/iso8601Week">$.datepicker.iso8601Week( date )</a> - Determine the week of the year for a given date: 1 to 53.</li>
+ <li><a href="http://docs.jquery.com/UI/Datepicker/noWeekends" title="UI/Datepicker/noWeekends">$.datepicker.noWeekends</a> - Set as beforeShowDay function to prevent selection of weekends.</li>
 </ul>
 <div class="editsection" style="float:right;margin-left:5px;">[<a href="http://docs.jquery.com/action/edit/UI/API/1.8/Datepicker?section=2" title="Edit section: Localization">edit</a>]</div><a name="Localization"></a><h3>Localization</h3>
 <p>Datepicker provides support for localizing its content to cater for different languages
@@ -146,7 +147,7 @@ $( ".selector" ).datepicker( "option", "disabled", true );</code></pre>
     <h3 class="option-name"><a href="#option-altField">altField</a></h3>
     <dl>
       <dt class="option-type-label">Type:</dt>
-        <dd class="option-type">String</dd>
+        <dd class="option-type">Selector, jQuery, Element</dd>
       
       <dt class="option-default-label">Default:</dt>
         <dd class="option-default">''</dd>
@@ -2036,6 +2037,45 @@ $( ".selector" ).datepicker( "option", "yearSuffix", 'CE' );</code></pre>
     <h2 class="top-header">Events</h2>
     <ul class="events-list">
       
+<li class="event" id="event-create">
+  <div class="event-header">
+    <h3 class="event-name"><a href="#event-create">create</a></h3>
+    <dl>
+      <dt class="event-type-label">Type:</dt>
+        <dd class="event-type">datepickercreate</dd>
+    </dl>
+  </div>
+  <div class="event-description">
+    <p>This event is triggered when datepicker is created.</p>
+  </div>
+  <div class="event-examples">
+    <h4>Code examples</h4>
+    <dl class="event-examples-list">
+    
+<dt>
+  Supply a callback function to handle the <code>create</code> event as an init option.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).datepicker({
+   create: function(event, ui) { ... }
+});</code></pre>
+</dd>
+
+    
+<dt>
+  Bind to the <code>create</code> event by type: <code>datepickercreate</code>.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).bind( &quot;datepickercreate&quot;, function(event, ui) {
+  ...
+});</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+
 <li class="event" id="event-beforeShow">
   <div class="event-header">
     <h3 class="event-name"><a href="#event-beforeShow">beforeShow</a></h3>
@@ -2521,10 +2561,10 @@ $( ".selector" ).datepicker( "option", "yearSuffix", 'CE' );</code></pre>
 </div>
 
 </p><!-- 
-Pre-expand include size: 97232 bytes
-Post-expand include size: 193107 bytes
-Template argument size: 120607 bytes
+Pre-expand include size: 98642 bytes
+Post-expand include size: 193487 bytes
+Template argument size: 120361 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3774-1!1!0!!en!2 and timestamp 20100520115501 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3774-1!1!0!!en!2 and timestamp 20110222063018 -->

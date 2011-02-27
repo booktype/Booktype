@@ -17,6 +17,8 @@
         <h3>Dependencies</h3>
         <ul>
 <li>UI Core</li>
+<li>UI Widget</li>
+<li>UI Mouse</li>
 </ul>
     </div>
     <div id="overview-example">
@@ -377,6 +379,45 @@ $( ".selector" ).selectable( "option", "tolerance", 'fit' );</code></pre>
     <h2 class="top-header">Events</h2>
     <ul class="events-list">
       
+<li class="event" id="event-create">
+  <div class="event-header">
+    <h3 class="event-name"><a href="#event-create">create</a></h3>
+    <dl>
+      <dt class="event-type-label">Type:</dt>
+        <dd class="event-type">selectablecreate</dd>
+    </dl>
+  </div>
+  <div class="event-description">
+    <p>This event is triggered when selectable is created.</p>
+  </div>
+  <div class="event-examples">
+    <h4>Code examples</h4>
+    <dl class="event-examples-list">
+    
+<dt>
+  Supply a callback function to handle the <code>create</code> event as an init option.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).selectable({
+   create: function(event, ui) { ... }
+});</code></pre>
+</dd>
+
+    
+<dt>
+  Bind to the <code>create</code> event by type: <code>selectablecreate</code>.
+</dt>
+<dd>
+<pre><code>$( &quot;.selector&quot; ).bind( &quot;selectablecreate&quot;, function(event, ui) {
+  ...
+});</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+
 <li class="event" id="event-selected">
   <div class="event-header">
     <h3 class="event-name"><a href="#event-selected">selected</a></h3>
@@ -798,10 +839,10 @@ $( ".selector" ).selectable( "option", "tolerance", 'fit' );</code></pre>
 </div>
 
 </p><!-- 
-Pre-expand include size: 33182 bytes
-Post-expand include size: 51437 bytes
-Template argument size: 26605 bytes
+Pre-expand include size: 34703 bytes
+Post-expand include size: 54220 bytes
+Template argument size: 27222 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3771-1!1!0!!en!2 and timestamp 20100520115458 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3771-1!1!0!!en!2 and timestamp 20110222062928 -->
