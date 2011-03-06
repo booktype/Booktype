@@ -11,7 +11,8 @@
 	var groupsToJoin = [ {% for group in joingroups %}"{{ group.url_name }}",{% endfor %}''];
 
 	function showNotification(whr, msg) {
-	    $(whr).html('<div style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">'+msg+'</div>');
+	    $(whr).find("*").addClass('template');
+	    $(whr).find(msg).removeClass('template');
 	}
 	
 	$("#signin_form BUTTON").click(function() {
@@ -30,16 +31,16 @@
 			   window.location = '{{ redirect }}';
 			   return;
 		       case 2:  // User does not exist
-			   showNotification('#loginform .notify', 'User does not exist.');
+			   showNotification('#loginform .notify', '#no-such-user');
 			   $("#loginform INPUT[name=username]").focus().select();
 			   break;
 		       case 3: // Wrong password 
-			   showNotification('#loginform .notify', 'Password is wrong! Please try again.');
+			   showNotification('#loginform .notify', '#wrong-password');
 			   $("#loginform INPUT[name=password]").focus().select();
 			   break;
 
 		       default: // Unknown error
-			   showNotification('#loginform .notify', 'Unknown error!.');
+			   showNotification('#loginform .notify', '#unknown-error');
 		       }
 
 //		       $("#loginform BUTTON").removeAttr("disabled");
@@ -55,7 +56,7 @@
 
 //	    $("#registerform BUTTON").attr("disabled", "disabled");
 
-	    showNotification('#registerform .notify', '');
+	    showNotification('#registerform .notify', '#clear');
 
 
 	    $.post('{% url signin %}', {'ajax': '1',
@@ -78,14 +79,13 @@
 				   function _showMessage(sec) {
 				       return function() {
 					   if(sec > 0) {
-					       $("#signinmessage .redirectmessage").html("Automatic redirection in "+sec+" seconds.");
+					       $("#signinmessage .redirectmessage .sec").text(sec);
 					       setTimeout(_showMessage(sec-1), 1000);
 					   } else {
 					       window.location = '{% url view_profile 'XXX' %}'.replace('XXX', username);
 					   }
 				       }
 				   }
-				   
 				   $("#signinmessage").slideDown("slow");
 				   _showMessage(20)();
 			       });
@@ -94,54 +94,54 @@
 			   return;
 
 		       case 2: // Missing username
-			   showNotification('#registerform .notify', 'Missing username!');
+			   showNotification('#registerform .notify', '#missing-username');
 			   $("#registerform INPUT[name=username]").focus().select();
 			   break;
 
 		       case 3: // Missing email
-			   showNotification('#registerform .notify', 'Missing e-mail!');
+			   showNotification('#registerform .notify', '#missing-email');
 			   $("#registerform INPUT[name=email]").focus().select();
 			   break;
 
 		       case 4: // Missing password
-			   showNotification('#registerform .notify', 'Missing password!');
+			   showNotification('#registerform .notify', '#missing-password');
 			   $("#registerform INPUT[name=password]").focus().select();
 			   break;
 
 		       case 5: // Missing fullname
-			   showNotification('#registerform .notify', 'Please provide your real name.');
+			   showNotification('#registerform .notify', '#missing-fullname');
 			   $("#registerform INPUT[name=fullname]").focus().select();
 			   break;
 
 		       case 6: // Wrong username
-			   showNotification('#registerform .notify', 'Username is invalid. Please try a different one. You may use alhpanumeric characters and characters ".", "_", "-" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>');
+			   showNotification('#registerform .notify', '#invalid-username');
 			   $("#registerform INPUT[name=username]").focus().select();
 			   break;
 
 		       case 7: // Wrong email
-			   showNotification('#registerform .notify', 'This is not a valid e-mail.');
+			   showNotification('#registerform .notify', '#invalid-email');
 			   $("#registerform INPUT[name=email]").focus().select();
 			   break;
 
 
 		       case 8: // Password does not match
-			   showNotification('#registerform .notify', 'Your passwords dont match. Please try a different one.');
+			   showNotification('#registerform .notify', '#password-mismatch');
 			   $("#registerform INPUT[name=password]").focus().select();
 			   break;
 
 		       case 9: // Password too small
-			   showNotification('#registerform .notify', 'Password must be 6 characters or more!');
+			   showNotification('#registerform .notify', '#invalid-password');
 			   $("#registerform INPUT[name=password]").focus().select();
 			   break;
 
 		       case 10: // Username exists
-			   showNotification('#registerform .notify', 'Username already taken. Please try a different one.');
+			   showNotification('#registerform .notify', '#username-taken');
 			   $("#registerform INPUT[name=username]").focus().select();
 			   break;
 
 			   
 		       default: // Unknown error
-			   showNotification('#registerform .notify', 'Unknown error!');
+			   showNotification('#registerform .notify', '#unknown-error');
 		       }
 		   }, 'json');
 	});
@@ -171,7 +171,11 @@
       <input type="text" name="username" style="width: 200px"/><br/>
       {% trans "PASSWORD" %}<br/>
       <input type="password" name="password" style="width: 200px"/><br/>
-      <span class="notify"></span>
+      <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">
+	<div id="no-such-user" class="template">{% trans "User does not exist." %}</div>
+	<div id="wrong-password" class="template">{% trans "Password is wrong! Please try again." %}</div>
+	<div id="unknown-error" class="template">{% trans "Unknown error!" %}</div>
+      </div>
       <br/>
       <button>{% trans "Sign in" %}</button> <a href="{% url forgotpassword %}">{% trans "Forgot your password ?" %}</a>
     </form>
@@ -203,7 +207,19 @@
       {% trans "FULL NAME" %}<br/>
       <input type="text" name="fullname" value="{{ fullname }}" style="width: 200px"/><br/>
       {% trans "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to." %}<br/>
-      <span class="notify"></span>
+      <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">
+	<div id="missing-username" class="template">{% trans "Missing username!" %}</div>
+	<div id="missing-email" class="template">{% trans "Missing e-mail!" %}</div>
+	<div id="missing-password" class="template">{% trans "Missing password!" %}</div>
+	<div id="missing-fullname" class="template">{% trans "Please provide your real name." %}</div>
+	<div id="invalid-username" class="template">{% blocktrans %}Username is invalid. Please try a different one. You may use alhpanumeric characters and characters ".", "_", "-" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>{% endblocktrans %}</div>
+	<div id="invalid-email" class="template">{% trans "This is not a valid e-mail" %}</div>
+	<div id="password-mismatch" class="template">{% trans "Your passwords dont match. Please try a different one." %}</div>
+	<div id="invalid-password" class="template">{% trans "Password must be 6 characters or more!" %}</div>
+	<div id="username-taken" class="template">{% trans "Username already taken. Please try a different one." %}</div>
+	<div id="unknown-error" class="template">{% trans "Unknown error!" %}</div>
+	<div id="clear" class="template"></div>
+      </div>
       <br/>
       <button>{% trans "Create account" %}</button>
     </form>
@@ -224,7 +240,7 @@
 
 {% url frontpage as frontpage_url%}
 <div id="signinmessage" style="display: none">
-<div style="background-color: #f8e1a4; font-size: 12px; padding: 20px;"><h2>{% trans "Your account has been created!" %}</h2>{% blocktrans %}<p>Thank you. We have created your account and signed you in. If you are new to Booki we recommend you to read <a href="http://www.booki.cc/booki-user-guide/">Booki User Guide</a>.</p><p><form method="GET" action="{{ frontpage_url }}"><button>Great! Let's use Booki now!</button><span class="redirectmessage" style="padding-left: 20px"></span></form></p>{% endblocktrans %}</div>
+<div style="background-color: #f8e1a4; font-size: 12px; padding: 20px;"><h2>{% trans "Your account has been created!" %}</h2>{% blocktrans %}<p>Thank you. We have created your account and signed you in. If you are new to Booki we recommend you to read <a href="http://www.booki.cc/booki-user-guide/">Booki User Guide</a>.</p><p><form method="GET" action="{{ frontpage_url }}"><button>Great! Let's use Booki now!</button><span class="redirectmessage" style="padding-left: 20px">Automatic redirection in <span class="sec">sec</span> seconds.</span></form></p>{% endblocktrans %}</div>
 </div>
 </div>
 
