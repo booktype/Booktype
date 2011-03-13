@@ -201,7 +201,12 @@ def signin(request):
         except BookiGroup.DoesNotExist:
             pass
 
-    return render_to_response('account/signin.html', {"request": request, 'redirect': redirect, 'joingroups': joinGroups})
+    try:
+        return render_to_response('account/signin.html', {"request": request, 'redirect': redirect, 'joingroups': joinGroups})
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()
 
 
 # forgotpassword
@@ -283,7 +288,12 @@ def forgotpassword(request):
 
         return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
 
-    return render_to_response('account/forgot_password.html', {"request": request})
+    try:
+        return render_to_response('account/forgot_password.html', {"request": request})
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()
 
 
 # forgotpasswordenter
@@ -341,8 +351,12 @@ def forgotpasswordenter(request):
 
         return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
 
-
-    return render_to_response('account/forgot_password_enter.html', {"request": request, "secretcode": secretcode})
+    try:
+        return render_to_response('account/forgot_password_enter.html', {"request": request, "secretcode": secretcode})
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()
 
 # project form
 
@@ -516,12 +530,16 @@ def user_settings(request, username):
                                                 'description': user.get_profile().description,
                                                 'email': user.email})
 
-    return render_to_response('account/user_settings.html', {"request": request,
-                                                             "user": user,
-
-                                                             "settings_form": settings_form,
-                                                             })
-
+    try:
+        return render_to_response('account/user_settings.html', {"request": request,
+                                                                 "user": user,
+                                                                 
+                                                                 "settings_form": settings_form,
+                                                                 })
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()
 
 
 def view_profilethumbnail(request, profileid):
@@ -638,13 +656,18 @@ def my_books (request, username):
         import_form = ImportForm()
 
 
-    return render_to_response('account/my_books.html', {"request": request,
+    try:
+        return render_to_response('account/my_books.html', {"request": request,
                                                             "user": user,
-
+                                                            
                                                             "project_form": project_form,
                                                             "import_form": import_form,
-
+                                                            
                                                             "books": books,})
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()
 
 def my_groups (request, username):
     """
