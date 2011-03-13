@@ -15,11 +15,12 @@ MANAGERS = ADMINS
 # BOOKI
 BOOKI_MAINTENANCE_MODE = False
 
-BOOKI_NAME = 'Booki'
-THIS_BOOKI_SERVER = '127.0.0.1:8080' # the name of the booki server (comment out to use os.environ['HTTP_HOST'])
+BOOKI_NAME = '##BOOKI_NAME##'
+THIS_BOOKI_SERVER = '' # the name of the booki server (comment out to use os.environ['HTTP_HOST'])
 
-BOOKI_ROOT = 'CHANGE THIS. FULL PATH TO BOOKI INSTALL.'  # edit this
-BOOKI_URL = 'http://%s' % THIS_BOOKI_SERVER
+BOOKI_ROOT = '##BOOKI_ROOT##'  # edit this
+BOOKI_URL = ''
+#BOOKI_URL = 'http://%s' % THIS_BOOKI_SERVER
 
 # E-MAIL OPTIONS
 REPORT_EMAIL_USER = 'booki@booki.cc'

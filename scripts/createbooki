@@ -1,0 +1,372 @@
+#!/usr/bin/env python
+
+import sys, os, optparse, string
+
+verbose = 0
+
+def log(msg):
+    if verbose:
+        print msg,
+
+def logln(msg):
+    if verbose:
+        print msg
+
+def show_info():
+    logln("Hi!\nI will use these information to create new project:")
+    logln("     login: %s" % os.getlogin())
+    logln("     user id: %s" % os.geteuid())
+    logln("     group id: %s" % os.getegid())
+
+    logln("\n\n\n")
+
+def show_after():
+    logln("")
+
+class MajorError(Exception):
+    def __init__(self, description = ''):
+        self.description = description
+
+    def __str__(self):
+        return repr(self.description)
+
+class InstallError(MajorError):
+    pass
+
+
+def check_python_version():
+    """Check what version of Python user has."""
+
+    major, minor = sys.version_info[:2]
+
+    if major == 2:
+        if minor == 5:
+            logln("I see you have python 2.5... Maybe you should think about upgrading to latest version?!")
+        elif minor == 6:
+            pass
+        elif minor < 5:
+            raise MajorError("You have old version of Python. Please upgrade.")
+    elif major == 3:
+        raise MajorError("I don't think i can work with Python 3.")
+    else:
+        logln("You should upgrade your python installation....")
+
+def check_django_version():
+    """Check what version of Django user has."""
+
+    log("+ Trying to import Django.  ")
+
+    try:
+        import django
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+    major, minor = django.VERSION[:2]
+
+    if major == 1:
+        if minor < 2:
+            raise MajorError("You have old version of Django. Please upgrade.")
+
+
+def check_booki_available():
+    log("+ Trying to import booki.  ")
+
+    try:
+        import booki
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def check_lxml_available():
+    log("+ Trying to import lxml.  ")
+
+    try:
+        import lxml
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def check_feedparser_available():
+    log("+ Trying to import feedparser.  ")
+
+    try:
+        import feedparser
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def check_pil_available():
+    log("+ Trying to import Python Imaging Library (PIL).  ")
+
+    try:
+        import Image
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def check_redis_available():
+    log("+ Trying to import Redis module.  ")
+
+    try:
+        import redis
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+
+def make_directory_structure(destination):    
+    try:
+        for d in ['data', 'logs', 'static', 'templates', 'lib']:
+            log("+ Creating %s directory.  " % d)
+            os.mkdir('%s/%s' % (destination, d))
+            logln("[OK]")
+
+        for d in ['books', 'profile_images']:
+            log("+ Creating data/%s directory.  " % d)
+            os.mkdir('%s/data/%s' % (destination, d))
+            logln("[OK]")
+    except OSError:
+        raise InstallError()
+
+def set_var(content, name, value):
+    return content.replace('##%s##' % name, value)
+
+def create_settings(destination):
+    import booki
+
+    booki_source = os.path.dirname(booki.__file__)
+
+    log("+ Creating __init__.py file.  ")
+    try:
+        f = open('%s/__init__.py' % destination, 'wb').close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+    try:
+        content = open('%s/settings.py.original' % booki_source, 'rt').read()
+    except IOError:
+        raise MajorError("[ERROR] Can't read settings.py.original file.")
+
+#    booki_name = raw_input("\nEnter name for your Booki site: ")
+    booki_name = "Booki site"
+
+    vals = {'BOOKI_NAME': booki_name,
+            'BOOKI_ROOT': os.path.abspath(destination)}
+
+    for k in vals.keys():
+        content = set_var(content, k, vals[k])
+
+    log("+ Creating settings.py file.  ")
+
+    try:
+        f = open('%s/settings.py' % destination, 'wt').write(content)
+    except IOError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def get_project_name(destination):
+    dirs = [n for n in os.path.abspath(destination).split(os.sep) if n.strip() != '']
+    return dirs[-1]
+
+def get_project_directory(destination):
+    dirs = [n for n in os.path.abspath(destination).split(os.sep) if n.strip() != '']
+
+    return os.sep.join(dirs[:-1])
+
+def create_env(destination):
+    log("+ Creating booki.env file.  ")
+
+    try:
+        f = open('%s/booki.env' % destination, 'wt')
+        f.write('''export DJANGO_SETTINGS_MODULE=%s.settings
+
+# Add Booki to PATH.
+# If your libraries are in non standard place, you should add path to them here.
+PYTHONPATH=$PYTHONPATH:/%s/
+
+# Add Django to PATH 
+# If your libraries/apps are in non standard place, you should add path to them here.
+# e.g.
+#    PATH=$PATH:/Users/aerkalov/Work/svn/django/django/bin
+
+export PYTHONPATH PATH
+''' % (get_project_name(destination), get_project_directory(destination)))
+        f.close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def create_wsgi(destination):
+    log("+ Creating booki.wsgi file.  ")
+
+    try:
+        f = open('%s/booki.wsgi' % destination, 'wt')
+        f.write('''import os, sys
+
+#Calculate the path based on the location of the WSGI script.
+#apache_configuration= os.path.dirname(__file__)
+#project = os.path.dirname(apache_configuration)
+#workspace = os.path.dirname(project)
+#sys.path.append(workspace)
+
+#Add the path to 3rd party django application and to django itself.
+sys.path.insert(0, '%s')
+sys.path.insert(1, '%s/lib/')
+
+os.environ['DJANGO_SETTINGS_MODULE'] = '%s.settings'
+import django.core.handlers.wsgi
+application = django.core.handlers.wsgi.WSGIHandler()
+
+''' % (get_project_directory(destination), destination, get_project_name(destination)))
+        f.close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+
+def create_apache(destination):
+    s = '''<VirtualHost *:80>
+
+#ServerName booki.flossmanuals.net
+ServerName www.booki.cc
+ServerAlias booki.cc
+
+SetEnv HTTP_HOST "www.booki.cc"
+
+SetEnv LC_TIME "en_NZ.UTF-8"
+SetEnv LANG "en_NZ.UTF-8"
+
+WSGIScriptAlias / /var/www/booki-www/booki.wsgi
+
+<Directory />
+  Options FollowSymLinks
+  AllowOverride None
+</Directory>
+
+Alias /site_media/ "/var/www/booki-www/site_media/"
+<Directory "/var/www/booki-www/site_media">
+Order allow,deny
+Options Indexes
+Allow from all
+IndexOptions FancyIndexing
+</Directory>
+
+Alias /media/ "/var/www/booki-www/lib/django/django/contrib/admin/media/"
+<Directory "/var/www/booki-www/lib/django/django/contrib/admin/media">
+Order allow,deny
+Options Indexes
+Allow from all
+IndexOptions FancyIndexing
+</Directory>
+
+ErrorLog /var/log/apache2/booki-error.log
+
+# Possible values include: debug, info, notice, warn, error, crit,
+# alert, emerg.
+LogLevel warn
+
+CustomLog /var/log/apache2/booki-access.log combined
+</VirtualHost>'''
+
+if __name__ == '__main__':
+    parser = optparse.OptionParser("usage: %prog [options] booki_install_path\n  e.g. createbooki /var/www/mybooki/")
+
+    parser.add_option("-q", "--quiet",
+                      action="store_const", const=0, dest="verbose")
+    parser.add_option("-v", "--verbose",
+                      action="store_const", const=1, dest="verbose")
+
+    parser.add_option("-d", "--database",
+                      action="store", type="string", dest="postgresql")
+    parser.add_option("--no-check-versions", 
+                      action="store_false", dest="check_versions")
+
+    parser.set_defaults(verbose=1,
+                        database="postgresql",
+                        check_versions=True)
+    
+    (options, args) = parser.parse_args()
+
+    if len(args) != 1:
+        parser.error("incorrect number of arguments")
+
+    verbose = options.verbose
+    project_destination = os.path.abspath(args[0])
+
+    if string.find(os.path.abspath(sys.argv[0]), os.sep+'booki') != -1:
+        sys.path.insert(0, os.path.normpath(os.path.join(os.path.abspath(sys.argv[0]), os.pardir, os.pardir, 'lib')))
+
+    try:
+        # check versions of software
+        if options.check_versions:
+            check_python_version()
+            check_django_version()
+            check_booki_available()
+            check_lxml_available()
+            check_feedparser_available()
+            check_pil_available()
+            check_redis_available()
+        
+        # show info about user id, group id and etc...
+        #show_info()
+        
+        # check if project directory exists
+        if os.path.exists(project_destination):
+            if os.access(project_destination, os.W_OK):
+                if os.path.exists('%s/settings.py' % project_destination):
+                    raise MajorError("\nBooki project does exist [%s]. I don't know what to do now. Choose another directory or manualy fix issues. Sorry about that.\n" % project_destination)
+                else:
+                    while True:
+                        proceed_anyway = raw_input("\nProject directory does exist [%s]. Directory might be already created by administrator and you just need to populate it with booki project files...\n * If that is the case, type 'yes'.\n * If you are not sure, type 'no'.\nProceed anyway [yes/no] ? : " % project_destination)
+                        if proceed_anyway.strip().lower() == 'no':
+                            sys.exit(-1)
+                        elif proceed_anyway.strip().lower() == 'yes':
+                            break
+            else:
+                raise MajorError("Project directory exists [%s]. Can't write to this directory! Check your permissions before we continue." % project_destination)
+        else:
+            try:
+                os.mkdir(project_destination)
+            except OSError:
+                raise MajorError("Can't create directory [%s]. Check your permissions before we continue." % project_destination)
+                        
+        # create directory structure    
+        make_directory_structure(project_destination)
+
+        # create environment variables
+        create_env(project_destination)
+
+        # create settings.py file
+        create_settings(project_destination)
+
+        # create wsgi file
+        create_wsgi(project_destination)
+
+        # show after message
+        show_after()
+    except InstallError, e:
+        logln("[ERROR]")
+        sys.exit(-1)
+    except MajorError, e:
+        logln(e.description)
+        sys.exit(-1)
+        
+    
+
+
+
+
+
+
