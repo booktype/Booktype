@@ -20,8 +20,20 @@ def show_info():
 
     logln("\n\n\n")
 
-def show_after():
+def show_after(destination):
     logln("")
+    logln("Check [%s] directory for config files:" % destination)
+    logln("   booki.env      -  Environment variables")
+    logln("   booki.wsgi     -  WSGI file for Apache")
+    logln("   wsgi.apache    -  Apache config file")
+    logln("   settings.py    -  Booki settings file")
+    logln("")
+    logln("   templates/     -  Local Booki template files")
+    logln("   static/        -  Local web files")
+    logln("   lib/           -  Local python libraries")
+    logln("   data/          -  Place for attachments")
+    logln("")
+    logln("For further instructions read INSTALL file.\n")
 
 class MajorError(Exception):
     def __init__(self, description = ''):
@@ -186,13 +198,16 @@ def get_project_directory(destination):
 def create_env(destination):
     log("+ Creating booki.env file.  ")
 
+    import booki
+    booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
+
     try:
         f = open('%s/booki.env' % destination, 'wt')
         f.write('''export DJANGO_SETTINGS_MODULE=%s.settings
 
 # Add Booki to PATH.
 # If your libraries are in non standard place, you should add path to them here.
-PYTHONPATH=$PYTHONPATH:/%s/
+PYTHONPATH=$PYTHONPATH:/%s/:%s/lib/:%s
 
 # Add Django to PATH 
 # If your libraries/apps are in non standard place, you should add path to them here.
@@ -200,7 +215,7 @@ PYTHONPATH=$PYTHONPATH:/%s/
 #    PATH=$PATH:/Users/aerkalov/Work/svn/django/django/bin
 
 export PYTHONPATH PATH
-''' % (get_project_name(destination), get_project_directory(destination)))
+''' % (get_project_name(destination), get_project_directory(destination), destination, booki_path))
         f.close()
     except OSError:
         raise InstallError()
@@ -209,6 +224,9 @@ export PYTHONPATH PATH
 
 def create_wsgi(destination):
     log("+ Creating booki.wsgi file.  ")
+
+    import booki
+    booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
 
     try:
         f = open('%s/booki.wsgi' % destination, 'wt')
@@ -221,14 +239,15 @@ def create_wsgi(destination):
 #sys.path.append(workspace)
 
 #Add the path to 3rd party django application and to django itself.
-sys.path.insert(0, '%s')
+sys.path.insert(0, '/%s/')
 sys.path.insert(1, '%s/lib/')
+sys.path.insert(2, '%s/')
 
 os.environ['DJANGO_SETTINGS_MODULE'] = '%s.settings'
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
 
-''' % (get_project_directory(destination), destination, get_project_name(destination)))
+''' % (get_project_directory(destination), destination,  booki_path, get_project_name(destination)))
         f.close()
     except OSError:
         raise InstallError()
@@ -237,48 +256,72 @@ application = django.core.handlers.wsgi.WSGIHandler()
 
 
 def create_apache(destination):
+    log("+ Creating wsgi.apache file.  ")
+
+    import booki
+
+    booki_source = os.path.dirname(booki.__file__)
+
+    try:
+        import django
+        django_path = os.path.dirname(django.__file__)
+    except ImportError:
+        django_path=''
+
+    # TODO add path to booki
+
     s = '''<VirtualHost *:80>
 
-#ServerName booki.flossmanuals.net
-ServerName www.booki.cc
-ServerAlias booki.cc
+     # CHANGE THIS
+     ServerName www.booki.cc
+     SetEnv HTTP_HOST "www.booki.cc"
 
-SetEnv HTTP_HOST "www.booki.cc"
+     SetEnv LC_TIME "en_GB.UTF-8"
+     SetEnv LANG "en_GB.UTF-8"
 
-SetEnv LC_TIME "en_NZ.UTF-8"
-SetEnv LANG "en_NZ.UTF-8"
+     WSGIScriptAlias / %(destination)s/booki.wsgi
 
-WSGIScriptAlias / /var/www/booki-www/booki.wsgi
+     Alias /static/ "%(destination)s/static/"
+     <Directory "/var/www/booki.binarni.net/mybooki/static/">
+       Order allow,deny
+       Options Indexes
+       Allow from all
+       IndexOptions FancyIndexing
+     </Directory>
 
-<Directory />
-  Options FollowSymLinks
-  AllowOverride None
-</Directory>
+     Alias /site_static/ "%(booki_source)s/site_static/"
+     <Directory "%(booki_source)s/static/">
+       Order allow,deny
+       Options Indexes
+       Allow from all
+       IndexOptions FancyIndexing
+     </Directory>
 
-Alias /site_media/ "/var/www/booki-www/site_media/"
-<Directory "/var/www/booki-www/site_media">
-Order allow,deny
-Options Indexes
-Allow from all
-IndexOptions FancyIndexing
-</Directory>
+     Alias /media/ "%(django_path)s/contrib/admin/media/"
+     <Directory "%(django_path)s/contrib/admin/media">
+       Order allow,deny
+       Options Indexes
+       Allow from all
+       IndexOptions FancyIndexing
+     </Directory>
 
-Alias /media/ "/var/www/booki-www/lib/django/django/contrib/admin/media/"
-<Directory "/var/www/booki-www/lib/django/django/contrib/admin/media">
-Order allow,deny
-Options Indexes
-Allow from all
-IndexOptions FancyIndexing
-</Directory>
+     ErrorLog /var/log/apache2/booki-error.log
+     LogLevel warn
+     CustomLog /var/log/apache2/booki-access.log combined
+</VirtualHost>''' % {'destination': destination,
+                     'booki_source': booki_source,
+                     'django_path': django_path}
 
-ErrorLog /var/log/apache2/booki-error.log
 
-# Possible values include: debug, info, notice, warn, error, crit,
-# alert, emerg.
-LogLevel warn
+    try:
+        f = open('%s/wsgi.apache' % destination, 'wt')
+        f.write(s)
+        f.close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
 
-CustomLog /var/log/apache2/booki-access.log combined
-</VirtualHost>'''
 
 if __name__ == '__main__':
     parser = optparse.OptionParser("usage: %prog [options] booki_install_path\n  e.g. createbooki /var/www/mybooki/")
@@ -354,8 +397,11 @@ if __name__ == '__main__':
         # create wsgi file
         create_wsgi(project_destination)
 
+        # create apache file for wsgi
+        create_apache(project_destination)
+
         # show after message
-        show_after()
+        show_after(project_destination)
     except InstallError, e:
         logln("[ERROR]")
         sys.exit(-1)
