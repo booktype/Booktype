@@ -19,7 +19,7 @@ class ProfileImageNode(Node):
         profile = UserProfile.objects.get(user=user)
 
         if not profile.image:
-            return """<img src="%s/profile_images/_anonymous.jpg"/>""" % settings.DATA_URL
+            return """<img src="%s/images/anonymous.jpg"/>""" % settings.SITE_STATIC_URL
 
         filename = profile.image.name
             
