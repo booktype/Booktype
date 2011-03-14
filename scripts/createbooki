@@ -150,7 +150,7 @@ def make_directory_structure(destination):
 def set_var(content, name, value):
     return content.replace('##%s##' % name, value)
 
-def create_settings(destination):
+def create_settings(destination, database):
     import booki
 
     booki_source = os.path.dirname(booki.__file__)
@@ -173,6 +173,13 @@ def create_settings(destination):
 
     vals = {'BOOKI_NAME': booki_name,
             'BOOKI_ROOT': os.path.abspath(destination)}
+
+    if database == 'postgresql':
+        vals['DATABASE_ENGINE'] = 'postgresql_psycopg2'
+        vals['DATABASE_NAME'] = ''
+    elif database == 'sqlite':
+        vals['DATABASE_ENGINE'] = 'sqlite3'
+        vals['DATABASE_NAME'] = '%s/database.sqlite' % destination
 
     for k in vals.keys():
         content = set_var(content, k, vals[k])
@@ -332,13 +339,13 @@ if __name__ == '__main__':
                       action="store_const", const=1, dest="verbose")
 
     parser.add_option("-d", "--database",
-                      action="store", type="string", dest="postgresql")
-    parser.add_option("--no-check-versions", 
-                      action="store_false", dest="check_versions")
+                      action="store", type="string", dest="database")
+    parser.add_option("--check-versions", 
+                      action="store_true", dest="check_versions")
 
     parser.set_defaults(verbose=1,
                         database="postgresql",
-                        check_versions=True)
+                        check_versions=False)
     
     (options, args) = parser.parse_args()
 
@@ -392,7 +399,7 @@ if __name__ == '__main__':
         create_env(project_destination)
 
         # create settings.py file
-        create_settings(project_destination)
+        create_settings(project_destination, database = options.database)
 
         # create wsgi file
         create_wsgi(project_destination)
