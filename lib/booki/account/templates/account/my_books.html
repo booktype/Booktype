@@ -70,6 +70,12 @@
 					Value1: "enter Wikibooks URL",
 					Value2: "wikibooks"
 					});
+			} else if (strOption == "opt5"){
+ 
+				return({
+					Value1: "enter Booki URL",
+					Value2: "booki"
+					});
 			} else {
  
 				// No matches, so return default value.
@@ -149,20 +155,29 @@
 
 <h2>{% trans "Import Book" %}</h2>
 <form action="." method="POST">
-		<p>
+<table>
+<tr>
+<th>Import type:</th><td>
 			<select id="field1">
 				<option value="">{% trans "Select Import Type" %}</option>
 				<option value="opt1">{% trans "Import epub" %}</option>
 				<option value="opt2">{% trans "Import FM" %}</option>
 				<option value="opt3">{% trans "Import Archive.org book" %}</option>
 				<option value="opt4">{% trans "Import Wikibook" %}</option>
+				<option value="opt5">{% trans "Import Booki" %}</option>
 			</select>
-		</p>
-		<p>
-			<input type="text" id="id" name="id" size="50" /><br>
+</td></tr>
+<tr>
+<th>Source:</th><td>
+			<input type="text" id="id" name="id" size="50" />
+</td></tr>
+<tr>
+<th>New title (optional):</th><td>
+			<input type="text" id="rename_title" name="rename_title" size="50" />
 			<input type="hidden" id="type" name="type" size="50" />
-		</p>
-<button>{% trans "Create" %}</button>
+</td>
+</table>
+<button>{% trans "Import" %}</button>
 </form>
 
 {% endblock %}
