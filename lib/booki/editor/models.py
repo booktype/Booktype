@@ -115,6 +115,8 @@ class Book(models.Model):
     created = models.DateTimeField(_('created'), auto_now=True)
     published = models.DateTimeField(_('published'), null=True)
 
+    hidden = models.BooleanField(_('hidden'))
+
     def get_absolute_url(self):
         return '%s/%s/' % (settings.BOOKI_URL, self.url_title)
 

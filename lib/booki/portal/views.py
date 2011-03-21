@@ -85,7 +85,7 @@ def debug_redis(request):
 # FRONT PAGE
 
 def view_frontpage(request):
-    activity_history = models.BookHistory.objects.filter(kind__in=[1, 10]).order_by('-modified')[:20]
+    activity_history = models.BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:20]
 
     return render_to_response('portal/frontpage.html', {"request": request, 
                                                         "activity_history": activity_history,
@@ -99,7 +99,7 @@ def view_group(request, groupid):
     except models.BookiGroup.DoesNotExist:
         return pages.ErrorPage(request, "errors/group_does_not_exist.html", {"group_name": groupid})
         
-    books = models.Book.objects.filter(group=group)
+    books = models.Book.objects.filter(group=group, hidden=False)
     members = group.members.all()
 
     isMember = request.user in members
@@ -179,7 +179,7 @@ def view_groups(request):
                                                      "groups": groups })
 
 def view_books(request):
-    books_list = models.Book.objects.all().extra(select={'lower_title': 'lower(title)'}).order_by('lower_title')
+    books_list = models.Book.objects.filter(hidden=False).extra(select={'lower_title': 'lower(title)'}).order_by('lower_title')
 
     paginator = Paginator(books_list, 50) 
 
@@ -193,7 +193,7 @@ def view_books(request):
     except (EmptyPage, InvalidPage):
         books = paginator.page(paginator.num_pages)
 
-    latest_books = models.Book.objects.all().order_by('-created')[:5]
+    latest_books = models.Book.objects.filter(hidden=False).order_by('-created')[:5]
 
     import datetime
     # show active books in last 30 days
@@ -201,7 +201,7 @@ def view_books(request):
 
     from django.db.models import Count
 
-    latest_active = [models.Book.objects.get(id=b['book']) for b in models.BookHistory.objects.filter(modified__gte = now).values('book').annotate(Count('book')).order_by("-book__count")[:5]]
+    latest_active = [models.Book.objects.get(id=b['book']) for b in models.BookHistory.objects.filter(modified__gte = now, book__hidden=False).values('book').annotate(Count('book')).order_by("-book__count")[:5]]
     
     return render_to_response('portal/books.html', {"request": request, 
                                                     "title": "Booki books", 
@@ -281,6 +281,8 @@ def view_books_by_id(request, scheme):
                                     ' editor_info.name=%s',  (namefilter,))
 
     for book in books:
+        if book.hidden:
+            continue
         values = data.setdefault(book.remote_id, [])
         values.append(book)
         logWarning(values)

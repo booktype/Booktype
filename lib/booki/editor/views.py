@@ -216,7 +216,7 @@ def view_books_json(request):
     @todo: Should be moved to booki.portal 
     """
     
-    books = models.Book.objects.all().order_by("title")
+    books = models.Book.objects.filter(hidden=False).order_by("title")
     response = HttpResponse(mimetype="application/json")
     json_serializer = serializers.get_serializer("json")()
     json_serializer.serialize(books, ensure_ascii=False, stream=response, fields=('title', 'url_title'))

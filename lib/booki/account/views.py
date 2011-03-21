@@ -354,6 +354,7 @@ class BookForm(forms.Form):
 
     title = forms.CharField(label=_('Title'), required=False)
     license = forms.ChoiceField(label=_('License'), choices=(('1', '1'), ))
+    hidden = forms.BooleanField(label=_('Initially hidden from others'), required=False)
 
     def __init__(self, *args, **kwargs):
         super(BookForm, self).__init__(*args, **kwargs)
@@ -408,7 +409,7 @@ def view_profile(request, username):
     except User.DoesNotExist:
         return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
 
-    books = models.Book.objects.filter(owner=user)
+    books = models.Book.objects.filter(owner=user, hidden=False)
     
     groups = user.members.all()
     return render_to_response('account/view_profile.html', {"request": request,
@@ -585,7 +586,18 @@ def my_books (request, username):
         
     books = models.Book.objects.filter(owner=user)
 
-    if request.method == 'POST':
+    if request.POST.get("action") == "hide":
+        book = models.Book.objects.get(url_title=request.POST.get("book"))
+        book.hidden = True
+        book.save()
+        transaction.commit()
+    elif request.POST.get("action") == "unhide":
+        book = models.Book.objects.get(url_title=request.POST.get("book"))
+        book.hidden = False
+        book.save()
+        transaction.commit()
+
+    if request.method == 'POST' and not request.POST.get("action"):
         project_form = BookForm(request.POST)
         import_form = ImportForm(request.POST)
 
@@ -625,6 +637,7 @@ def my_books (request, username):
                 license   = project_form.cleaned_data["license"]
                 lic = models.License.objects.get(abbrevation=license)
                 book.license = lic
+                book.hidden = project_form.cleaned_data["hidden"]
                 book.save()
             except:
                 transaction.rollback()

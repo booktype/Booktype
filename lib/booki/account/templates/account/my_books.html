@@ -119,7 +119,21 @@
 <div style="border-bottom: 1px solid #c0c0c0"></div>
 <ul>
 {% for book in books %}
-   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a>)</li>
+   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a>)
+     {% if book.hidden %}
+       <form style="display: inline" action="." method="POST">
+	 <button>{% trans "Show to others" %}</button>
+	 <input type="hidden" name="book" value="{{book.url_title}}" />
+	 <input type="hidden" name="action" value="unhide" />
+       </form>
+     {% else %}
+       <form style="display: inline" action="." method="POST">
+	 <button>{% trans "Hide from others" %}</button>
+	 <input type="hidden" name="book" value="{{book.url_title}}" />
+	 <input type="hidden" name="action" value="hide" />
+       </form>
+     {% endif %}
+   </li>
 {% endfor %}
 </ul>
 </div>

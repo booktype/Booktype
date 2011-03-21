@@ -106,7 +106,7 @@ class UserFeedRSS(Feed):
         return obj.username or obj.first_name
 
     def items(self, obj):
-        return models.ChapterHistory.objects.raw('SELECT editor_chapterhistory.* FROM editor_chapterhistory LEFT OUTER JOIN editor_chapter ON (editor_chapter.id=editor_chapterhistory.chapter_id)  WHERE editor_chapterhistory.user_id=%s ORDER BY editor_chapterhistory.modified DESC LIMIT 50', (obj.id, ))
+        return models.ChapterHistory.objects.raw('SELECT editor_chapterhistory.* FROM editor_chapterhistory LEFT OUTER JOIN editor_chapter ON (editor_chapter.id=editor_chapterhistory.chapter_id) LEFT OUTER JOIN editor_book ON (editor_book.id=editor_chapter.book_id) WHERE editor_chapterhistory.user_id=%s AND editor_book.hidden=FALSE ORDER BY editor_chapterhistory.modified DESC LIMIT 50', (obj.id, ))
 
     def item_title(self, item):
         return item.chapter.title
