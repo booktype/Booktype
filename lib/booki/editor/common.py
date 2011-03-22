@@ -110,6 +110,10 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
 
     book = createBook(user, bookTitle, status = "imported", bookURL = bookURL)
 
+    if extraOptions.get("hidden"):
+        book.hidden = True
+        book.save()
+
     # this is for Table of Contents
     p = re.compile('\ssrc="(.*)"')
 

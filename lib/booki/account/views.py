@@ -374,6 +374,7 @@ class ImportForm(forms.Form):
     type = forms.CharField(required=True)
     id = forms.CharField(required=True)
     rename_title = forms.CharField(required=False)
+    hidden = forms.BooleanField(label=_('Initially hidden from others'), required=False)
 
 class ImportEpubForm(forms.Form):
     url = forms.CharField(required=False)
@@ -603,6 +604,8 @@ def my_books (request, username):
         import_form = ImportForm(request.POST)
 
         if import_form.is_valid() and import_form.cleaned_data["id"]:
+            project_form = BookForm() # reset the other form
+
             try:
                 ID = import_form.cleaned_data["id"]
                 import_type = import_form.cleaned_data["type"]
@@ -612,15 +615,24 @@ def my_books (request, username):
                 if rename_title:
                     extraOptions['book_title'] = rename_title
 
+                if import_form.cleaned_data["hidden"]:
+                    extraOptions['hidden'] = True
+
                 import_sources = {   # base_url    source=
                     'flossmanuals': (TWIKI_GATEWAY_URL, "en.flossmanuals.net"),
                     "archive":      (ESPRI_URL, "archive.org"),
                     "wikibooks":    (ESPRI_URL, "wikibooks"),
                     "epub":         (ESPRI_URL, "url"),
-                    "booki":        ("%s/export/%s/export" % tuple(ID.rsplit("/", 1)),
-                                     "booki"),
                     }
-                base_url, source = import_sources[import_type]
+
+                if import_type == "booki":
+                    ID = ID.rstrip("/")
+                    booki_url, book_url_title = ID.rsplit("/", 1)
+                    base_url = "%s/export/%s/export" % (booki_url, book_url_title)
+                    source = "booki"
+                else:
+                    base_url, source = import_sources[import_type]
+
                 common.importBookFromUrl2(user, base_url,
                                           args=dict(source=source,
                                                     book=ID),
@@ -637,6 +649,8 @@ def my_books (request, username):
         #XXX should this be elif? even if the POST is valid as both forms, the
         # transaction will end up being commited twice.
         if project_form.is_valid() and project_form.cleaned_data["title"]:
+            import_form = ImportForm() # reset the other form
+            
             from booki.utils.book import createBook
             title = project_form.cleaned_data["title"]
 
