@@ -174,7 +174,7 @@ function closeAttachmentUpload() {
 
 
 		<div id="chapteraction">
-		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>{% trans "NEW CHAPTER" %}</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">{% trans "NEW SECTION" %}</a>
+		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>{% trans "NEW CHAPTER" %}</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'>{% trans "NEW SECTION" %}</a> | <a href="javascript:void(0)" onclick='$("#clonechapter").dialog("open")'>{% trans "IMPORT CHAPTER" %}</a>
 		</div>
 
 		<ul id="chapterslist" class="connectedSortable">
@@ -183,7 +183,7 @@ function closeAttachmentUpload() {
 		<div style="font-size:9px;">{% trans "(drag new chapters into the area above here)" %}</div>
 
 		<div id="chapteraction">
-		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>{% trans "NEW CHAPTER" %}</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'">{% trans "NEW SECTION" %}</a>
+		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>{% trans "NEW CHAPTER" %}</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'>{% trans "NEW SECTION" %}</a> | <a href="javascript:void(0)" onclick='$("#clonechapter").dialog("open")'>{% trans "IMPORT CHAPTER" %}</a>
 		</div>
 
 		<div id="newchapter" title="New chapter">
@@ -191,6 +191,18 @@ function closeAttachmentUpload() {
 		  <form onsubmit="javascript:return false">
 		    <fieldset>
 		      <input type="text" class="text ui-widget-content ui-corner-all">
+		      </fieldset>
+		    </form>
+		</div>
+
+		<div id="clonechapter" title="Clone chapter">
+		<!--  <p id="validateTips">Enter new chapter name.</p> -->  
+		  <form onsubmit="javascript:return false">
+		    <fieldset>
+		      <input name="book" type="text" class="text ui-widget-content ui-corner-all"></br />
+		      <input name="chapter" type="text" class="text ui-widget-content ui-corner-all"><br />
+		      New title (optional):<br />
+		      <input name="rename_title" type="text" class="text ui-widget-content ui-corner-all">
 		      </fieldset>
 		    </form>
 		</div>

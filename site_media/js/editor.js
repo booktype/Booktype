@@ -1736,6 +1736,57 @@ img {\n\
 			    
 			}
 		    });
+
+		    $("#clonechapter").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 200,
+		        width: 400, 
+			modal: true,
+			buttons: {
+			    'Clone chapter': function() {
+				if($.trim($("#clonechapter INPUT[name=book]").val())=='') return;
+				if($.trim($("#clonechapter INPUT[name=chapter]").val())=='') return;
+
+				$.booki.ui.notify("Cloning chapter");
+				
+				$.booki.sendToChannel(
+				    "/booki/book/"+$.booki.currentBookID+"/"+$.booki.currentVersion+"/", 
+				    {"command": "clone_chapter", 
+				     "book": $("#clonechapter INPUT[name=book]").val(), 
+				     "chapter": $("#clonechapter INPUT[name=chapter]").val(),
+				     "renameTitle": $("#clonechapter INPUT[name=rename_title]").val(),
+				    }, function(data) {
+				    if(data.created) {
+					$.booki.ui.notify();
+				    } else {
+					$.booki.ui.notify();
+					alert("Can not create duplicate chapter name.");
+				    }
+				});
+				
+				
+				$(this).dialog('close');
+			    },
+			    'Cancel': function() {
+				$(this).dialog('close');
+			    }
+			},
+			open: function(event,ui) {
+			    $("INPUT[name=book]", $(this)).val("Enter Book id.");
+			    $("INPUT[name=book]", $(this)).autocomplete({source: "book-list.json"}).select();
+			    $("INPUT[name=book]", $(this)).bind(
+				"autocompleteselect", 
+				function (event, ui) {
+				    var book = ui.item.value;
+				    $("#clonechapter INPUT[name=chapter]").select().autocomplete("destroy").autocomplete({source: "book-list.json?book="+book});
+				});
+			    $("INPUT[name=chapter]", $(this)).val("Enter Chapter id.");
+			},
+			close: function() {
+			    
+			}
+		    });
 		    
 		    
 		    $("#newsection").dialog({

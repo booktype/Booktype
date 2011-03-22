@@ -19,6 +19,9 @@ urlpatterns = patterns('',
 
     url(r'^(?P<chapter>[\w\s\_\.\-]+)/$', 'booki.reader.views.view_chapter', name='view_chapter'),
 
+    # json booklist for jquery ui autocomplete
+    url(r'^edit/book-list.json$', 'booki.editor.views.view_books_autocomplete'),
+
     # new stuff for attachments                      
     url(r'^edit/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
     url(r'^(?P<chapter>[\w\s\_\.\-]+)/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),

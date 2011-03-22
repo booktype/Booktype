@@ -11,6 +11,8 @@ from django.core import serializers
 from booki.editor import models
 from booki.utils import pages
 
+from booki.utils.json_wrapper import json
+
 import logging
 
 
@@ -221,3 +223,29 @@ def view_books_json(request):
     json_serializer = serializers.get_serializer("json")()
     json_serializer.serialize(books, ensure_ascii=False, stream=response, fields=('title', 'url_title'))
     return response
+
+def view_books_autocomplete(request, *args, **kwargs):
+    """
+    Returns data for jQuery UI autocomplete.
+    
+    @param request: Django Request.
+    
+    """
+
+    term = request.GET.get("term", "").lower()
+    book = request.GET.get("book", "").lower()
+
+    if not book:
+        books = models.Book.objects.filter(hidden=False).order_by("title")
+        data = [dict(label_no_use=book.title, value=book.url_title) 
+                for book in books
+                if not term or (term in book.title.lower() or
+                                term in book.url_title)]
+    else:
+        chapters = models.Chapter.objects.filter(book__url_title=book)
+        data = [dict(label_no_use=chapter.title, value=chapter.url_title)
+                for chapter in chapters
+                if not term or (term in chapter.title.lower() or 
+                                term in chapter.url_title)]
+
+    return HttpResponse(json.dumps(data), "text/plain")

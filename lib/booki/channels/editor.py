@@ -1,8 +1,11 @@
+
+from lxml import etree, html
+
 import sputnik
 
 from django.db import transaction
 
-from booki.utils.log import logBookHistory, logChapterHistory
+from booki.utils.log import logBookHistory, logChapterHistory, printStack
 
 from booki.editor import models
 from booki.editor.views import getVersion
@@ -640,6 +643,154 @@ def remote_create_chapter(request, message, bookid, version):
                                                                 "from": request.user.username,
                                                                 "message": 'User %s has created new chapter "%s".' % (request.user.username, message["chapter"])},
                         myself=True)
+
+    sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
+
+
+    return {"created": True}
+
+def copy_attachment(attachment, target_book):
+    import os.path
+
+    att = models.Attachment(book = target_book,
+                            version = target_book.version,
+                            status = target_book.status)
+
+    att.attachment.save(os.path.basename(attachment.attachment.name), attachment.attachment, save=False)
+    att.save()
+    return att
+
+def remote_clone_chapter(request, message, bookid, version):
+    import datetime
+
+    # BookVersion treba uzeti
+
+    book = models.Book.objects.get(id=bookid)
+    book_version = getVersion(book, version)
+    
+    source_book = models.Book.objects.get(url_title=message["book"])
+    source_book_version = source_book.version
+    source_url_title = message["chapter"]
+    source_chapter = models.Chapter.objects.get(book=source_book, version=source_book_version, url_title=source_url_title)
+
+    title = message.get("renameTitle", "")
+    if title.strip():
+        from django.template.defaultfilters import slugify
+        url_title = slugify(title)
+    else:
+        title = source_chapter.title
+        url_title = source_url_title
+
+    # here i should probably set it to default project status
+    s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
+
+    ch = models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title)
+
+    if len(list(ch)) > 0:
+        return {"created": False, "errormsg": "chapter already exists"}
+
+    chapter = models.Chapter(book = book,
+                             version = book_version,
+                             url_title = url_title,
+                             title = title,
+                             status = s,
+                             content = source_chapter.content,
+                             created = datetime.datetime.now(),
+                             modified = datetime.datetime.now())
+
+    try:
+        chapter.save()
+    except:
+        transaction.rollback()
+        return {"created": False, "errormsg": "chapter.save() failed"}
+    else:
+        # this should be solved in better way
+        # should have createChapter in booki.utils.book module
+
+        toc_items = len(book_version.getTOC())+1
+
+        for itm in models.BookToc.objects.filter(version = book_version, book = book):
+            itm.weight = toc_items
+            itm.save()
+
+            toc_items -= 1
+            
+        tc = models.BookToc(version = book_version,
+                            book = book,
+                            name = title,
+                            chapter = chapter,
+                            weight = 1,
+                            typeof = 1)
+
+        try:
+            tc.save()
+        except:
+            transaction.rollback()
+            return {"created": False, "errormsg": "tc.save() failed"}
+
+        try:
+            history = logChapterHistory(chapter = chapter,
+                                        content = chapter.content,
+                                        user = request.user,
+                                        comment = message.get("comment", ""),
+                                        revision = chapter.revision)
+        except:
+            transaction.rollback()
+            import traceback
+            return {"created": False, "errormsg": "logChapterHistory failed", "stacktrace": traceback.format_exc()}
+
+        try:
+            logBookHistory(book = book,
+                           version = book_version,
+                           chapter = chapter,
+                           chapter_history = history,
+                           user = request.user,
+                           kind = 'chapter_clone')
+        except:
+            transaction.rollback()
+            return {"created": False, "errormsg": "logBookHistory failed"}
+
+        transaction.commit()
+
+    try:
+        attachments = source_book_version.getAttachments()
+        attachmentnames = dict([(att.getName(), att) for att in attachments])
+
+        target_attachments = book_version.getAttachments()
+        target_attachmentnames = dict([(att.getName(), att) 
+                                       for att in target_attachments])
+
+        # keep track of already copied source and destination names
+        name2copy = {}
+
+        tree = html.document_fromstring(chapter.content)
+
+        for e in tree.iter():
+            src = e.get('src')
+            if src is not None:
+                dirname, rest = src.split('/', 1)
+                if dirname ==  "static":
+                    name = src.split('/',1)[1]
+                    att = attachmentnames.get(name)
+                    if att and not name in name2copy:
+                        new_att = copy_attachment(att, book)
+                        name2copy[name] = new_att.getName()
+                    if att and name in name2copy:
+                        e.set('src', "static/"+name2copy[name])
+
+        chapter.content = etree.tostring(tree, encoding='UTF-8', method='html')
+        chapter.save()
+        transaction.commit()
+    except:
+        printStack()
+        transaction.rollback()
+
+    result = (chapter.id, chapter.title, chapter.url_title, 1, s.id)
+
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
+                                                                "from": request.user.username,
+                                                                "message": 'User %s has cloned chapter "%s" from book "%s".' % (request.user.username, chapter.title, source_book.title)},
+                                myself=True)
 
     sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
 
