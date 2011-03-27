@@ -1,80 +1,103 @@
-# Django settings for booki project.
-BOOKI_MAINTENANCE_MODE = False
-BOOKI_NAME = 'Booki'
+import os.path
 
-REPORT_EMAIL_USER = 'booki@booki.cc'
-
-STATIC_DOC_ROOT = '/home/aerkalov/Work/git/booki/site_media'
-PROFILE_IMAGE_UPLOAD_DIR = '%s/static/_profile_images/'%STATIC_DOC_ROOT
-AUTH_PROFILE_MODULE='account.UserProfile'
-
+# DJANGO DEBUG
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+# DJANGO ADMIN
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
 
 MANAGERS = ADMINS
 
-# use this objavi server
-OBJAVI_URL = "http://objavi.flossmanuals.net/objavi.cgi"
-ESPRI_URL = "http://objavi.flossmanuals.net/espri.cgi"
-TWIKI_GATEWAY_URL = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
 
-#the name of the booki server (comment out to use os.environ['HTTP_HOST'])
-THIS_BOOKI_SERVER = 'www.booki.cc'
+# BOOKI
+BOOKI_MAINTENANCE_MODE = False
 
-BOOKI_URL = 'http://' + THIS_BOOKI_SERVER
+BOOKI_NAME = 'Booki'
+THIS_BOOKI_SERVER = '127.0.0.1:8080' # the name of the booki server (comment out to use os.environ['HTTP_HOST'])
 
-# who gets credited as publisher if not otherwise specified
-DEFAULT_PUBLISHER = "FLOSS Manuals http://flossmanuals.net"
+BOOKI_ROOT = 'CHANGE THIS. FULL PATH TO BOOKI INSTALL.'  # edit this
+BOOKI_URL = 'http://%s' % THIS_BOOKI_SERVER
 
-# email configuration
-#EMAIL_HOST = 'localhost'
-#EMAIL_PORT = 25
+# E-MAIL OPTIONS
+REPORT_EMAIL_USER = 'booki@booki.cc'
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25
 #EMAIL_HOST_USER = 'booki@' + THIS_BOOKI_SERVER
 #EMAIL_HOST_PASSWORD = ''
 #EMAIL_USE_TLS = False
 
+# BOOKI DIRECTORIES
+
+# site_static
+import booki
+
+SITE_STATIC_ROOT = '%s/site_static' % os.path.dirname(booki.__file__)
+SITE_STATIC_URL  = '%s/site_static' % BOOKI_URL
+
+# static
+STATIC_ROOT = '%s/static' % BOOKI_ROOT
+STATIC_URL  = '%s/static' % BOOKI_URL
+
+# data
+DATA_ROOT = '%s/data' % BOOKI_ROOT
+DATA_URL  = '%s/data' % BOOKI_URL
+
+# profile images
+PROFILE_IMAGE_UPLOAD_DIR = '%s/profile_images/' % DATA_ROOT
+
+# obsolete
+MEDIA_ROOT = DATA_ROOT
+MEDIA_URL = DATA_URL
+
+ADMIN_MEDIA_PREFIX = '%s/media/' % BOOKI_URL
+
+# URLS
+OBJAVI_URL = "http://objavi.flossmanuals.net/objavi.cgi"
+ESPRI_URL = "http://objavi.flossmanuals.net/espri.cgi"
+TWIKI_GATEWAY_URL = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
+
+
+# who gets credited as publisher if not otherwise specified
+DEFAULT_PUBLISHER = "FLOSS Manuals http://flossmanuals.net"
+
+# DATABASE STUFF
 DATABASE_ENGINE = 'postgresql_psycopg2'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'booki'             # Or path to database file if using sqlite3.
-#DATABASE_NAME = '/Users/aerkalov/Work/git/booki/baza.db'             # Or path to database file if using sqlite3.
-DATABASE_USER = 'postgres'             # Not used with sqlite3.
+DATABASE_NAME = ''             # Or path to database file if using sqlite3.
+DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = 'localhost'             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
+# REDIS STUFF
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
+REDIS_PASSWORD = None
+
+# DJANGO STUFF
+
+AUTH_PROFILE_MODULE='account.UserProfile'
+
 TIME_ZONE = 'Europe/Berlin'
 
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
+
+gettext = lambda s: s
+
+LANGUAGES = (
+  ('hr', gettext('Hrvatski')),
+  ('en-us', gettext('English')),
+)
+
 
 SITE_ID = 1
 
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_I18N = True
-
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '%s/static/' % STATIC_DOC_ROOT
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash if there is a path component (optional in other cases).
-# Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/site_media/'
-
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-# trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+USE_L10N = True
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'enc*ln*vp^o2p1p6of8ip9v5_tt6r#fh2-!-@pl0ur^6ul6e)l'
@@ -91,14 +114,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.transaction.TransactionMiddleware'
+
+#    , 'booki.portal.middleware.SQLProfileMiddleware'
 )
 
 ROOT_URLCONF = 'booki.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    '%s/templates/' % BOOKI_ROOT
 )
 
 INSTALLED_APPS = (
@@ -107,6 +130,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+
+    # list of booki apps
     'booki.editor',
     'booki.account',
     'booki.reader',
@@ -115,13 +140,15 @@ INSTALLED_APPS = (
 )
 
 
+# LOGGING
+
 def init_logging():
     import logging
     import logging.handlers
 
     logger = logging.getLogger("booki")
     logger.setLevel(logging.DEBUG)
-    ch = logging.handlers.RotatingFileHandler('%s/../booki.log' % STATIC_DOC_ROOT, maxBytes=100000, backupCount=5)
+    ch = logging.handlers.RotatingFileHandler('%s/logs/booki.log' % BOOKI_ROOT, maxBytes=100000, backupCount=5)
     ch.setLevel(logging.DEBUG)
     ch.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s"))
     logger.addHandler(ch)

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% load booki_tags %}
+{% load i18n booki_tags %}
 
 {% block header %}
 <title>{% blocktrans with book.title as booktitle %}/_full: {{ booktitle }}{% endblocktrans %}</title>
-<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/css/editor.css" rel="Stylesheet" />
+<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/editor.css" rel="Stylesheet" />
 {% if has_css %}
-<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
+<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
 {% endif %}
 {% endblock %}
 

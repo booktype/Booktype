@@ -51,21 +51,20 @@ def parseJSON(js):
 
 
 def makeTitleUnique(requestedTitle):
-    """If there is called <requestedTitle>, return that. Otherwise,
+    """If <requestedTitle> is unused, return that. Otherwise,
     return a title in the form `u'%s - %d' % (requestedTitle, n)`
     where n is the lowest non-clashing positive integer.
     """
     n = 0
     name = requestedTitle
     while True:
-        try:
-            book = models.Book.objects.get(title=name)
-            n += 1
-            name = u'%s - %d' % (requestedTitle, n)
-        except:
-            break
-    return name
-
+        titles = models.Book.objects.filter(title=name).count()
+        urls = models.Book.objects.filter(url_title=slugify(name)).count()
+        if not titles and not urls:
+            return name
+        n += 1
+        name = u'%s - %d' % (requestedTitle, n)
+        
 
 def getChaptersFromTOC(toc):
     """Convert a nested bookizip TOC structure into a list of tuples
@@ -102,6 +101,7 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
         bookTitle = get_metadata(metadata, 'title', ns=DC)[0]
     
     bookTitle = makeTitleUnique(bookTitle)
+    logWarning("Chose unique book title %r" % bookTitle)
 
     if extraOptions.get('book_url', None):
         bookURL = extraOptions['book_url']

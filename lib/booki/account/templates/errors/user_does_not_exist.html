@@ -1,7 +1,8 @@
+{% load i18n %}
 <html>
 <body>
-<h1>User does not exist!</h1>
-<p>Can't find user "{{username}}".</p>
+<h1>{% trans "User does not exist!" %}</h1>
+<p>{% blocktrans %}Can't find user "{{username}}".{% endblocktrans %}</p>
 
 </body>
 </html>

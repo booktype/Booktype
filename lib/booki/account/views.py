@@ -1,6 +1,7 @@
 import datetime
 import traceback
 from django.shortcuts import render_to_response
+from django.template.loader import render_to_string
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -270,11 +271,11 @@ def forgotpassword(request):
                         transaction.commit()
 
                     #
-                    send_mail('Reset password', 'Your secret code is %s. Go to '
-                              'http://%s/forgot_password/enter/?secretcode=%s' %
-                              (secretcode, THIS_BOOKI_SERVER, secretcode),
+                    body = render_to_string('account/password_reset_email.txt', 
+                                            dict(secretcode=secretcode))
+                    send_mail(_('Reset password'), body,
                               'info@' + THIS_BOOKI_SERVER,
-                              [usr.email], fail_silently=True)
+                              [usr.email], fail_silently=False)
 
                 else:
                     ret["result"] = 3
@@ -551,7 +552,7 @@ def view_profilethumbnail(request, profileid):
     # this should be a seperate function
 
     if not u.get_profile().image:
-        name = '%s_profile_images/_anonymous.jpg' % settings.MEDIA_ROOT
+        name = '%s%s' % (settings.PROFILE_IMAGE_UPLOAD_DIR, '_anonymous.jpg')
     else:
         name =  u.get_profile().image.name
 

@@ -3,8 +3,8 @@
 
 {% block header %}
 
-<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_media/css/editor.css" rel="Stylesheet" />
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/js/editor.js"></script>
+<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/editor.css" rel="Stylesheet" />
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/editor.js"></script>
 
         <script type="text/javascript">
 	$(function() {
@@ -55,11 +55,11 @@ function closeAttachmentUpload() {
                  </script>
 
 <script type="text/javascript">
-  var _editor_url = "{{ request.META.SCRIPT_NAME }}/site_media/xinha/";
+  var _editor_url = "{{ request.META.SCRIPT_NAME }}/site_static/xinha/";
   var _editor_lang = "en";
 </script>
 
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_media/xinha/XinhaCore.js"></script>
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/xinha/XinhaCore.js"></script>
 
 <script type="text/javascript">
     var xinha_plugins = ['GetHtml','InsertNote','InsertPagebreak','FindReplace','Equation','CharacterMap','DoubleClick' , 'SpellChecker', 'BookiInsert','ListType'];
@@ -119,7 +119,7 @@ function closeAttachmentUpload() {
 <div>
 <div id="searchbox" style="float: right; padding-top: 5px">
 <form>
-<input type="text" size="20"> <button>Search</button>
+<input type="text" size="20"> <button>{% trans "Search" %}</button>
 </form>
 </div>
 <h1 style="margin-top: 0px"> <a href="{% url view_book book.url_title %}">{{ book }}</a> </h1>
@@ -166,7 +166,7 @@ function closeAttachmentUpload() {
 
    	        {% if not is_browser_supported %}
                   <div style="border-top: 2px solid red; border-bottom: 2px solid red; padding: 5px;">
-                    We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding. 
+                    {% trans "We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding." %}
                   </div>
                 {% endif %}
 
@@ -274,18 +274,18 @@ function closeAttachmentUpload() {
 		    <fieldset>
 		      <legend>{% trans "Image" %}</legend>
 		      <table border="0">
-			<tr><td>Image:</td><td><input type="text" name="f_image" size="40"></td></tr>
-			<tr><td>Alt:</td><td><input type="text" name="f_alt" size="40"></td></tr>
+			<tr><td>{% trans "Image:" %}</td><td><input type="text" name="f_image" size="40"></td></tr>
+			<tr><td>{% trans "Alt:" %}</td><td><input type="text" name="f_alt" size="40"></td></tr>
 		      </table>
 		    </fieldset>
 
 		    <fieldset>
 		      <legend>{% trans "Positioning" %}</legend>
 		      <table border="0">
-			<tr><td>Border:</td><td><input type="text" name="f_border"></td></tr>
-			<tr><td>Align:</td><td><input type="text" name="f_align"></td></tr>
-			<tr><td>Width:</td><td><input type="text" name="f_width"></td></tr>
-			<tr><td>Height:</td><td><input type="text" name="f_height"></td></tr>
+			<tr><td>{% trans "Border:" %}</td><td><input type="text" name="f_border"></td></tr>
+			<tr><td>{% trans "Align:" %}</td><td><input type="text" name="f_align"></td></tr>
+			<tr><td>{% trans "Width:" %}</td><td><input type="text" name="f_width"></td></tr>
+			<tr><td>{% trans "Height:" %}</td><td><input type="text" name="f_height"></td></tr>
 		      </table>
 		    </fieldset>
 
@@ -417,8 +417,7 @@ function closeAttachmentUpload() {
 {% if security.isAdmin %}
         <h3>{% trans "New version" %}</h3>
          <div class="version">
-	   {% blocktrans %}
-	   With different versions you can easily organise your book. But be careful! Other users will not be able to edit
+	   {% blocktrans %}With different versions you can easily organise your book. But be careful! Other users will not be able to edit
 and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them.
 	   {% endblocktrans %}
            <p>
@@ -443,10 +442,10 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 	<div id="newversionminor" title="New version">
 	  <form onsubmit="javascript:return false">
 <!--	    <fieldset> -->
-              You can name this version (optional):
+              {% trans "You can name this version (optional):" %}
 	      <input type="text" style="width: 100%" class="text ui-widget-content ui-corner-all"><br/>
-<i>e.g. initial, dragon, test</i><br/><br/>
-Description (optional)<br/>
+<i>{% trans "e.g. initial, dragon, test" %}</i><br/><br/>
+{% trans "Description (optional)" %}<br/>
 <textarea style="width: 100%; height: 150px"></textarea>
 <!--	      </fieldset> -->
 	    </form>
@@ -693,5 +692,147 @@ Description (optional)<br/>
 </div>
 <!-- end of chat box + drop shadow -->
 
+<p class="joinMsg template">{% blocktrans %}<span class="icon">JOINED</span>  <span class="notice">notice</span>{% endblocktrans %}</p>
+
+<p class="infoMsg template">{% blocktrans %}<span class="info">INFO</span>  <span class="notice">notice</span>{% endblocktrans %}</p>
+
+<table class="historyTable template" width="100%"><tr><th>{% trans "action" %}</th><th></th><th>{% trans "user" %}</th><th>{% trans "time" %}</th></tr></table>
+
+<table class="template">
+<tr class="rowCreateRename template">
+<td class="entryKind" valign="top">entry.kind</td>
+<td valign="top"><a class="setChapterLink entryChapter" style="text-decoration: underline" href="javascript:void(0)">entry.chapter</a></td>
+<td class="entryUser" valign="top">entry.user</td>
+<td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+<td></td>
+</tr>
+
+<tr class="rowSave template">
+<td class="entryKind" valign="top">entry.kind</td>
+<td valign="top"><a class="setChapterLink entryChapter" style="text-decoration: underline" href="javascript:void(0)">entry.chapter</a></td>
+<td class="entryUser" valign="top">entry.user</td>
+<td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+<td></td>
+</tr>
+
+<tr class="rowVersion template">
+<td>{% trans "New version" %}</td>
+<td>{% blocktrans %}Switched to <span class="entryVersion">entry.version.version</span>{% endblocktrans %}</td>
+<td class="entryUser">entry.user</td>
+<td class="entryModified" style="white-space: nowrap">entry.modified</td>
+</tr>
+
+<tr class="rowAttachment template">
+<td>{% trans "Upload" %}</td>
+<td valign="top">{% blocktrans %}Uploaded <span class="entryFilename">entry.args.filename</span>.{% endblocktrans %}</td>
+<td class="entryUser">entry.user</td>
+<td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+</tr>
+
+<tr class="rowGeneric template">
+<td class="entryKind">entry.kind</td>
+<td></td>
+<td class="entryUser">entry.user</td>
+<td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+</tr>
+
+</table>
+
+
+<ul class="eventKind template">
+<li id="unknown">{% trans "Unknown" %}</li>
+<li id="create">{% trans "Create" %}</li>
+<li id="save">{% trans "Save" %}</li>
+<li id="rename">{% trans "Rename" %}</li>
+<li id="reorder">{% trans "Reorder" %}</li>
+<li id="split">{% trans "Split" %}</li>
+<li id="section_create">{% trans "Section create" %}</li>
+<li id="book_create">{% trans "Book create" %}</li>
+<li id="minor">{% trans "Minor" %}</li>
+<li id="major">{% trans "Major" %}</li>
+<li id="attachment">{% trans "Attachment" %}</li>
+</ul>
+
+<ul class="bookStatuses template">
+<li id="published">{% trans "Published" %}</li>
+<li id="not_published">{% trans "Not published" %}</li>
+<li id="imported">{% trans "Imported" %}</li>
+</ul>
+
+<ul class="strings template">
+<li class="cancel">{% trans "Cancel" %}</li>
+<li class="yesrevert">{% trans "Yes, revert !" %}</li>
+</ul>
+
+<ul class="template">
+<li class="sectionLine template ui-state-default" style="background-color: #a0a0a0; color: white; background-image: none"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont">
+  <table border="0" cellspacing="0" cellpadding="0" width="100%"><tr>
+    <td width="70%"><div class="title" style="float: left">name</div></td>
+    <td width="10%">
+    <td width="20%"><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td>
+  </tr></table>
+</div></li>
+
+<li class="chapterLine template ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont">
+  <table border="0" cellspacing="0" cellpadding="0" width="100%">
+    <tr>
+      <td width="70%"><div class="title" style="float: left">name</div></td>
+      <td width="10%" class="edit">
+        <div class="chapterLinks"><a class="editLink" href="javascript:void(0)" style="font-size: 12px">{% trans "EDIT" %}</a> <a class="viewLink" href="javascript:void(0)" style="font-size: 12px">{% trans "VIEW" %}</a></div>
+        <div class="lock" style="font-size: 10px; padding: 3px; background-color: red; color: white"><a name="unlockLink" class="lockUser" style="color: white" href="javascript:void(0)">v</a></div>
+      </td>
+      <td width="20%"><div class="status" style="float:right; font-size: 6pt"><a class="statusLink statusName" href="javascript:void(0)">status</a></div><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td>
+    </tr>
+  </table>
+</div></li>
+
+<div class="historyDisplay template">
+<a href="javascript:void(0)">&lt;&lt; {% trans "back to history index" %}</a>
+&nbsp;&nbsp;&nbsp;
+<a class="button" href="javascript:void(0)">{% trans "Compare revisions" %}</a>
+&nbsp;&nbsp;&nbsp;
+<h3 class="chapterName">chapterName</h3>
+<table class="chapterHistoryTable" width="100%">
+  <tr>
+    <th>{% trans "compare" %}</th><th>{% trans "revision" %}</th><th>{% trans "user" %}</th><th>{% trans "time" %}</th><th>{% trans "comment" %}</th>
+  </tr>
+</table>
+</div>
+
+<table class="attachmentsTable template" border="0" width="100%">
+  <tr>
+    <td width="30"></td><td><b>{% trans "name" %}</b></td><td><b>{% trans "dimension" %}</b></td><td><b>{% trans "size" %}</b></td><td><b>{% trans "created" %}</b></td>
+  </tr>
+</table>
+
+
+<div class="revisionDisplay template">			
+<a class="backLink" href="javascript:void(0)">&lt;&lt; {% trans "back to chapter history" %}</a>
+
+<span class="buttonset" style="padding-left: 10px"><input checked="checked" type="radio" id="radio1" name="radio" /><label for="radio1">{% trans "Normal view" %}</label><input type="radio" id="radio2" name="radio"  /><label for="radio2">{% trans "Source view" %}</label></span>
+<a class="revertLink button" href="javascript:void(0)">{% trans "Revert to this revision" %}</a>
+
+<p class="err-no-revision">{% trans "No such revision." %}</p>
+<div class="revision-info">
+  <h3 class="chapterName">chapterName</h3>
+  <p>{% trans "User:" %} <span class="dataUser">data.user</span><br/>
+     {% trans "Modified:" %} <span class="dataModified">data.modified</span><br/>
+     {% trans "Version:" %} <span class="dataVersion">data.version</span><br/>
+     {% trans "Revision:" %} <span class="dataRevision">data.revision</span><br/>
+     <span class="revisionComment">{% trans "Comment" %}: <span class="dataComment">data.comment</span><br/></span>
+  </p>
+  <span class="cont"></span>
+  <span class="previousLinkDisplay"><a class="previousLink" href="javascript:void(0)">&lt;&lt; {% trans "previous" %}</a>&nbsp;&nbsp;&nbsp;</span>
+  <a class="nextLink" href="javascript:void(0)">{% trans "next" %} &gt;&gt;</a>
+  <br/><br/>
+  <div id="chapterrevision" class="dataContent" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0"></div>
+</div>
+</div>
+
+<div class="diffDisplay template">
+<a class="backLink" href="javascript:void(0)">&lt;&lt; {% trans "back to chapter history" %}</a>
+<h3>{% blocktrans %}Compare revision <span class="revision1Name">revision1</span> with revision <span class="revision2Name">revision2</span>{% endblocktrans %}</h3>
+<pre id="chapterdigg" class="dataOutput" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0; font-size: 8pt"></pre>
+</div>
 
 {% endblock %}

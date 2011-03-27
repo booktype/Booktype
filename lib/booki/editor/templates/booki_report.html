@@ -1,62 +1,63 @@
+{% load i18n %}
 <html>
 
 <body>
- <h1>Report  for {{ booki_name }} ({{ report_date|date:"D d M Y" }}) </h1>
+ <h1>{% blocktrans with report_date|date:"D d M Y" as date %}Report for {{ booki_name }} ({{ date }}){% endblocktrans %}</h1>
 
-<h2>Info</h2>
+<h2>{% trans "Info" %}</h2>
 <table border="0">
  <tr>
-  <td>Total number of books:</td>
+  <td>{% trans "Total number of books:" %}</td>
   <td align="right">{{info.books_num}}</td>
  </tr>
 
  <tr>
-  <td>Total number of users:</td>
+  <td>{% trans "Total number of users:" %}</td>
   <td align="right">{{info.users_num}}</td>
  </tr>
 
  <tr>
-  <td>Attachments size:</td>
+  <td>{% trans "Attachments size:" %}</td>
   <td align="right">{{info.attachments_size|filesizeformat}}</td>
  </tr>
 
  <tr>
-  <td>Database size:</td>
+  <td>{% trans "Database size:" %}</td>
   <td align="right">{{info.database_size|filesizeformat}}</td>
  </tr>
 
 </table>
 
-<h2>New Users</h2>
+<h2>{% trans "New Users" %}</h2>
 <ul>
 {% for user in users %}
   <li><a href="{{ user.get_absolute_url }}">{{ user.username }}</a> ({{ user.first_name }})</li>
 {% empty %}
-  <li>No new users</li>
+  <li>{% trans "No new users" %}</li>
   {% endfor %}
 </ul>
 
 
-<h2>New Books</h2>
+<h2>{% trans "New Books" %}</h2>
 <ul>
 {% for book in books %}
   <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{ book.url_title }})</li>
 {% empty %}
-  <li>No new books</li>
+  <li>{% trans "No new books" %}</li>
 {% endfor %}
 </ul>
 
-<h2>New Groups</h2>
+<h2>{% trans "New Groups" %}</h2>
 <ul>
 {% for group in groups %}
   <li><a href="{{ group.get_absolute_url }}">{{ group.name }}</a> ({{ group.url_name }})</li>
 {% empty %}
-  <li>No new groups</li>
+  <li>{% trans "No new groups" %}</li>
 {% endfor %}
 </ul>
 
 
-<h2>Activity</h2>
+<h2>{% trans "Activity" %}</h2>
 <ul>
 {% for bookName, his in history %}
   <li> {{ bookName }}
@@ -67,7 +68,7 @@
       </ul>
   </li>
 {% empty %}
- <li>No Activity</li>
+ <li>{% trans "No Activity" %}</li>
 {% endfor %}
 </ul>
 

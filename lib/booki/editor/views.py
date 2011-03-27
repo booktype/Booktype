@@ -145,7 +145,8 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
 
     path = '%s/%s' % (book_version.getVersion(), attachment)
 
-    document_root = '%s/static/%s/%s' % (settings.STATIC_DOC_ROOT, bookid, path)
+    document_root = '%s/books/%s/%s' % (settings.DATA_ROOT, bookid, path)
+#    document_root = '%s/static/%s/%s' % (settings.STATIC_DOC_ROOT, bookid, path)
 
     # should have one  "broken image" in case of error
     import Image

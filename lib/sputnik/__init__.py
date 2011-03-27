@@ -33,10 +33,23 @@ from booki.utils.json_wrapper import simplejson
 import redis
 import base64
 
+from django.conf import settings
 
+try:
+    REDIS_HOST = settings.REDIS_HOST
+    REDIS_PORT = settings.REDIS_PORT
+    REDIS_DB = settings.REDIS_DB
+    REDIS_PASSWORD = settings.REDIS_PASSWORD
+except AttributeError:
+    REDIS_HOST = 'localhost'
+    REDIS_PORT = 6379
+    REDIS_DB = 0
+    REDIS_PASSWORD = None
 
-# Should read info from settings about connections (database id, server and etc...)
-rcon = redis.Redis()
+rcon = redis.Redis(host = REDIS_HOST,
+                   port = REDIS_PORT,
+                   db = REDIS_DB,
+                   password = REDIS_PASSWORD)
 #rcon.connect()
 
 

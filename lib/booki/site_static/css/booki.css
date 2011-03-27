@@ -1,0 +1,157 @@
+
+.template {
+	display: none !important;
+}
+
+body {
+	background-color:white;
+	font-family:helvetica,arial,verdana;
+	font-size:12px;
+	background-image: url(/site_static/images/tile_grey.png);
+}
+
+a {text-decoration: none;}
+a:link {color:#555;}
+a:visited {color: #555;}
+a:hover {text-decoration: none; color: black;}
+img {
+       border-style:none;
+       max-width:540px;        
+}
+
+#page-container {   
+	margin: 0 auto;
+	position: absolute;
+	text-align: left;
+	top:0px;
+	left:0px;
+	width: 100%;
+	height: 100%;
+	border: none;
+	}
+
+.chat   {
+        position:absolute;
+        background-color: #fff;
+        left:735px;
+        top:-10px;
+        padding:5px;
+        border: 1px solid black;
+        border-top:10px solid black;
+}
+	
+.topbar	{
+	position:absolute;
+	background-color:#fff;
+	border:0;
+	top:0;
+	left:0;
+	width:100%;
+	height:37px;
+	margin-right:0px;
+	padding-top:5px;
+}
+
+#login	{
+	position:absolute;
+	top:25px;
+	width:750px;
+	text-align:right;
+	font-family:helvetica,arial,verdana;
+	font-size:11px;
+	font-weight:bold;
+}
+
+.navbox	{
+	position:absolute;
+	background-color: #fff;
+	left:40px;
+	border: 0px solid black;
+	border-top:10px solid black;
+}
+
+.navbox ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+	}
+
+.navbox li { 
+	margin: 0;
+	padding: 0;
+	}
+	
+.navbox a {
+	display: block;
+	font-size: 11px;
+	font-weight:600;
+	color: #000;
+	background-color: #fff;
+	width: 80px;
+	border-width:0px 1px 1px 1px;
+	border-color:black;
+	border-style:solid;
+	padding: .2em .2em;
+	text-indent: .5em;
+	}
+
+.navbox a:hover {
+	background-color: #e1e1e1;
+	color: black;
+	}
+
+.content-container {
+	position: absolute;
+	background: #ffffff;
+	top:70px;
+	left:150px;
+	width:700px;
+	border: 1px solid black;
+	padding: 10px;
+	border-top:10px solid black;
+	}
+	
+.shadow {
+    -moz-box-shadow: 4px 4px 5px #848284; /* FF3.5+ */
+  	-webkit-box-shadow: 4px 4px 5px #848284; /* Saf3.0+, Chrome */
+    box-shadow: 4px 4px 5px #848284; /* Opera 10.5, IE 9.0 */
+	/* For IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#848284')";
+	/* For IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#848284');
+}
+
+button {
+        color:white;
+        font-weight:bold;
+        background-color: black;
+        border:0px solid;
+}
+
+input {
+        background-color: white;
+        border:1px solid black;
+}
+
+select {
+        background-color: white;
+        border:1px solid black;
+}
+
+#bookmenu {
+ padding-right: 20px; 
+ float: left;
+ width: 200px;
+}
+
+#bookmenu ul {
+ list-style-type: none;
+ margin: 0px;
+ padding: 0px;
+}
+
+#bookcontent {
+ float: left;
+ width: 480px;
+}
+

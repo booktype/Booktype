@@ -1,6 +1,7 @@
+{% load i18n %}
 <html>
 <body>
-<h1>Chapter does not exist!</h1>
-<p>Can't find chapter "{{ chapter_name }}".</p>
+<h1>{% trans "Chapter does not exist!" %}</h1>
+<p>{% blocktrans %}Can't find chapter "{{ chapter_name }}".{% endblocktrans %}</p>
 </body>
 </html>

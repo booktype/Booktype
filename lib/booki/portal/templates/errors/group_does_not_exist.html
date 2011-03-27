@@ -1,6 +1,7 @@
+{% load i18n %}
 <html>
 <body>
-<h1>Group not found!</h1>
-<p>Can't find group "{{ group_name }}".</p>
+<h1>{% trans "Group not found!" %}</h1>
+<p>{% blocktrans %}Can't find group "{{ group_name }}".{% endblocktrans %}</p>
 </body>
 </html>
