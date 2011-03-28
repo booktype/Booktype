@@ -153,5 +153,10 @@ def dispatcher(request, **sputnik_dict):
 
     ret = {"result": True, "messages": results}
 
-    return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+    try:
+        return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()
 

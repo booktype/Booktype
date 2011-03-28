@@ -23,7 +23,7 @@ else:
                            url(r'^$', 'booki.portal.views.view_frontpage', name="frontpage"),
 
                            # favicon 
-                           (r'^favicon\.ico', 'django.views.generic.simple.redirect_to', {'url': '/site_media/images/favicon.png'}),
+                           (r'^favicon\.ico', 'django.views.generic.simple.redirect_to', {'url': '/site_static/images/favicon.png'}),
 
                            # static files
                            # TODO
