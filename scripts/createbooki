@@ -132,6 +132,17 @@ def check_redis_available():
     else:
         logln("[OK]")
 
+def check_south_available():
+    log("+ Trying to import South module.  ")
+
+    try:
+        import south
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+
 
 def make_directory_structure(destination):    
     try:
@@ -368,6 +379,7 @@ if __name__ == '__main__':
             check_feedparser_available()
             check_pil_available()
             check_redis_available()
+            check_south_available()
         
         # show info about user id, group id and etc...
         #show_info()
