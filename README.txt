@@ -79,3 +79,19 @@ tests/
 site_media/
   static web resources - JS, CSS, Xinha, images
 
+
+Handy URLS and mailing lists etc
+Booki Dev Site
+http://booki-dev.flossmanuals.net
+
+Booki Dev List
+http://lists.flossmanuals.net/listinfo.cgi/booki-dev-flossmanuals.net
+
+Booki Dev IRC
+server : freenode.net
+channel: #fm-tech
+
+A Booki Install
+http://www.booki.cc
+
+
