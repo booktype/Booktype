@@ -754,9 +754,9 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 </ul>
 
 <ul class="bookStatuses template">
-<li id="published">{% trans "Published" %}</li>
-<li id="not_published">{% trans "Not published" %}</li>
-<li id="imported">{% trans "Imported" %}</li>
+{% for s in statuses %}
+ <li id="{{s}}">{% trans s %}</li>
+{% endfor %}
 </ul>
 
 <ul class="strings template">

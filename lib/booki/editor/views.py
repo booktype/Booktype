@@ -117,6 +117,7 @@ def edit_book(request, bookid, version=None):
     return render_to_response('editor/edit_book.html', {"book": book, 
                                                         "book_version": book_version.getVersion(),
                                                         "version": book_version,
+                                                        "statuses": [s.name.replace(' ', '_') for s in models.BookStatus.objects.filter(book = book)],
                                                         "chapters": chapters, 
                                                         "security": bookSecurity,
                                                         "is_admin": bookSecurity.isGroupAdmin() or bookSecurity.isBookAdmin() or bookSecurity.isSuperuser(),
