@@ -103,7 +103,7 @@ http://127.0.0.1:8000/
 How to use Booki with Apache and mod_wsgi
 -----------------------------------------
 
-To install on port 80, you need to use WSGI or FCGI/SCGI.  Consult the
+To install Booki with Apache, you need to use WSGI or FCGI/SCGI.  Consult the
 Django documentation at
 http://docs.djangoproject.com/en/dev/howto/deployment/.
 
@@ -111,6 +111,24 @@ Createbooki script has created booki.wsgi script for the Apache. Use that
 file as part of your Apache config.
 
 
+How to migrate to Booki 1.1
+---------------------------
 
+1. Install Booki again with 'createbooki' script
 
+2. Change configuration in new setting.py (compare it with old configuration)
+
+3. Change attachment path in database. Please change OLD_PATH and NEW_PATH to point to new directories. If you don't do this, attachments will not be accessable.
+
+   $ django-admin shell
+   >>> from booki.editor import models
+   >>> OLD_PATH = '/Users/aerkalov/Work/git/booki/site_media/static/'
+   >>> NEW_PATH = '/Users/aerkalov/Work/git/mybooki/data/books/'
+   >>>
+   >>> for att in models.Attachment.objects.all():
+   ...     print '>> ', att.attachment.name
+   ...     name = att.attachment.name.replace(OLD_PATH, NEW_PATH)
+   ...     att.attachment.name = name
+   ...     att.save()
+   >>> 
 
