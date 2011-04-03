@@ -299,6 +299,11 @@ def create_apache(destination):
 
      WSGIScriptAlias / %(destination)s/booki.wsgi
 
+     <Location "/">
+       Allow from all
+       Options FollowSymLinks
+     </Location>
+
      Alias /static/ "%(destination)s/static/"
      <Directory "/var/www/booki.binarni.net/mybooki/static/">
        Order allow,deny

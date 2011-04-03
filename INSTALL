@@ -116,7 +116,7 @@ How to migrate to Booki 1.1
 
 1. Install Booki again with 'createbooki' script
 
-2. Change configuration in new setting.py (compare it with old configuration)
+2. Change configuration in new setting.py file (compare it with old configuration)
 
 3. Change attachment path in database. Please change OLD_PATH and NEW_PATH to point to new directories. If you don't do this, attachments will not be accessable.
 
@@ -130,5 +130,16 @@ How to migrate to Booki 1.1
    ...     name = att.attachment.name.replace(OLD_PATH, NEW_PATH)
    ...     att.attachment.name = name
    ...     att.save()
-   >>> 
+   >>>
+   >>> from django.contrib.auth.models import User
+   >>> OLD_PATH = '/Users/aerkalov/Work/git/booki/site_media/static/_profile_images/'
+   >>> NEW_PATH = '/Users/aerkalov/Work/git/mybooki/data/profile_images/'
+   >>>
+   >>> for u in User.objects.all():
+   ...     p = u.get_profile()
+   ...     print '>>> ', p.image.name
+   ...     name = p.image.name.replace(OLD_PATH, NEW_PATH)
+   ...     p.image.name = name
+   ...     p.save()
+
 
