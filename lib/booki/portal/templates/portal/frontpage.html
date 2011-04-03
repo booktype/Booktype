@@ -7,28 +7,18 @@
 
 {% block content %}
 <div id="intro">
-<p><b>{% trans "Welcome to Booki" %} Alpha 1.0.</b></p>
+<h2>{% trans "Welcome to Booki" %} Alpha 1.1.</h2>
 
 <img src="{{ request.META.SCRIPT_NAME }}/site_static/images/frontpage.png" alt="" title="" height="" width="">
-<span class="description"><p>More than just a <strong>free</strong> <strong>software</strong> Booki helps you make <strong>free</strong> <strong>books</strong> - beautiful real paper books and ebooks. Sign up here and start creating your own books online.</span>
 
-<p>Collaborate online and create open textbooks and any other publication you can think of.</p>
-
-
-<p>Booki is a paradigm breaking book production platform.
+<span style="font-size:14px">
+<p>More than just a <strong>free</strong> <strong>software</strong> Booki helps you make <strong>free</strong> <strong>books</strong> - beautiful real paper books and ebooks.
 </p>
-<p>Booki facilitates the production of books through simple
-and effective book production tools. </p>
-<p>
-With Booki you can write a book by yourself or with others, discuss your views, seek assistance from others,
-translate or reuse content and publish completed works. 
-</p><p>
-Booki also supports the rapid development of content using the Book Sprint methodology, Using Booki you can take the time to write a book by yourself as
-well as collaborate to produce high quality content very quickly. 
-</p><p>
-Sign up and have a look around!
-</p>
-<p>Software developers might like to check the PyPi release page for <a href="http://pypi.python.org/pypi/booki/">Booki</a> </p>
+
+<p>Collaborate online and create open textbooks and any other publication you can think of. Booki facilitates the production of books through simple and effective book production tools.</p>
+<p>With Booki you can write a book by yourself or with others, discuss your views, seek assistance from others, translate or reuse content and publish completed works.</p>
+<p>Sign up and have a look around!</p>
+</span>
 
 <h2>{% trans "Recent activity" %}</h2>
  <div style="border-top: 1px solid gray"></div>
@@ -38,7 +28,7 @@ Sign up and have a look around!
     <div style="float: left; margin-right: 10px; float: left; width: 48px; height: 48x;">
        <img src="{% url view_profilethumbnail activity.user %}?width=48" alt="{{activity.user}}">
     </div>
-    <div style="display: block;">
+    <div style="display: inline-block;">
      <a href="{% url view_profile activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; <i>{{ activity.modified|timesince}} {% trans "ago" %}</i><br/>
      <div style="padding-top: 5px">
      {% if activity.kind == 1 %}
