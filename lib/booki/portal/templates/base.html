@@ -121,6 +121,13 @@
 <div class="navbox shadow" style="top:70px;">
     		<ul>
 		<li><a href="http://blog.booki.cc">{% trans "Blog" %}</a></li>
+		<li><a href="http://download.booki.cc">{% trans "Get Booki" %}</a></li>
+		<li><a href="http://support.booki.cc">{% trans "Support" %}</a></li>
+</ul>
+</div>
+
+<div class="navbox shadow" style="top:150px;">
+<ul>
                 <li><a href="{% url booki.portal.views.view_books %}">{% trans "Books" %}</a></li>
                 <li><a href="{% url booki.portal.views.view_groups %}">{% trans "Groups" %}</a></li>
                 <li><a href="{% url booki.portal.views.view_people %}">{% trans "People" %}</a></li>
@@ -130,7 +137,7 @@
 
 {% if request.user.is_authenticated %}
 <!-- second nav box + drop shadow -->
- <div class="navbox shadow" style="top:190px;">
+ <div class="navbox shadow" style="top:230px;">
     		<ul>
 		<li><a href="{% url view_profile request.user.username %}">{% trans "My Profile" %}</a></li>
 		<li><a href="{% url user_settings request.user.username %}">{% trans "My Settings" %}</a></li>
