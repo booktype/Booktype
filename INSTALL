@@ -18,9 +18,14 @@ steps and do whatever is appropriate with your package manager.
 
 Booki prerequisites
 -------------------
- - Python, minimum 2.5 (http://www.python.org/)
+ - Python, minimum 2.5 (http://www.python.org/) and headers
+       $ sudo apt-get install python-dev
 
  - PostgreSQL (recommended) or Sqlite3
+       
+       $ sudo apt-get install postgresql
+      or 
+       $ sudo apt-get install sqlite3
 
  - git repository manager (http://git-scm.com/)
 
@@ -28,27 +33,32 @@ Booki prerequisites
 
  - Python Set Up Tools
 
-       $ sudo easy_install -U setuptools
+       $ sudo apt-get install python-setuptools
 
  - Django, minimum 1.2 (http://http://www.djangoproject.com/)
 
-       $ easy_insyall django
+       $ sudo easy_install django
+
+ - Python-Django
+
+       $ sudo apt-get install python-django
 
  - SimpleJSON
 
-       $ easy_install simplejson
+       $ sudo easy_install simplejson
 
  - Redis (http://redis.io/)
 
-       $ sudo apt-get install redis
+       $ sudo apt-get install redis-server
 
  - South (http://south.aeracode.org/)
 
-       $ easy_install South
+       $ sudo easy_install South
 
  - lxml (http://codespeak.net/lxml/)
 
-       $ easy_install lxml
+       $ sudo apt-get install libxml2-dev and libxslt-dev
+       $ sudo easy_install lxml
       
 
 Installing from the git repository
@@ -61,13 +71,13 @@ sqlite3 is installed. Do all of the steps as regular user or www-data user.
 
 git clone git://booki-dev.flossmanuals.net/git/booki.git
 
-2. Change dir to 'booki'
+2. Change dir to 'booki/scripts'
 
 cd booki/scripts
 
 3. Create booki instance
 
-./createbooki --database sqlite /var/www/mybooki/  
+sudo ./createbooki --database sqlite /var/www/mybooki/  
 
 4. Change directory
 
@@ -75,7 +85,7 @@ cd /var/www/mybooki/
 
 5. Edit settings
 
-vi settings.py
+settings.py
 
 6. Load environment variables
 
@@ -94,7 +104,7 @@ not be necessary or desirable).
 redis-server &
 
 10. Start the whole thing 
-django-manage.py runserver
+django-admin.py runserver
 
 Then if all is well open your browser and point to something like:
 http://127.0.0.1:8000/
