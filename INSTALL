@@ -18,7 +18,11 @@ steps and do whatever is appropriate with your package manager.
 
 Booki prerequisites
 -------------------
+
+Command examples are for Debian/Ubuntu.
+
  - Python, minimum 2.5 (http://www.python.org/) and headers
+
        $ sudo apt-get install python-dev
 
  - PostgreSQL (recommended) or Sqlite3
@@ -26,6 +30,10 @@ Booki prerequisites
        $ sudo apt-get install postgresql
       or 
        $ sudo apt-get install sqlite3
+
+ - Psycopg (must use this adapter with PostgreSQL)
+
+       $ sudo apt-get install python-psycopg2
 
  - git repository manager (http://git-scm.com/)
 
@@ -38,9 +46,7 @@ Booki prerequisites
  - Django, minimum 1.2 (http://http://www.djangoproject.com/)
 
        $ sudo easy_install django
-
- - Python-Django
-
+       or
        $ sudo apt-get install python-django
 
  - SimpleJSON
@@ -75,9 +81,12 @@ git clone git://booki-dev.flossmanuals.net/git/booki.git
 
 cd booki/scripts
 
-3. Create booki instance
+3. Create booki instance. If you have write permissions, script will create directory /var/www/mybooki/. If you don't
+   have write permissions, administrator should create that directory first.
+      sudo mkdir /var/www/mybooki/
+      sudo chown www-data:www-data /var/www/mybooki/
 
-sudo ./createbooki --database sqlite /var/www/mybooki/  
+./createbooki --database sqlite /var/www/mybooki/  
 
 4. Change directory
 
@@ -85,7 +94,7 @@ cd /var/www/mybooki/
 
 5. Edit settings
 
-settings.py
+vi settings.py
 
 6. Load environment variables
 
