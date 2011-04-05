@@ -1,4 +1,6 @@
 import os
+import urllib
+import hashlib
 
 from django.db.models import get_model
 from django.template import Library, Node, TemplateSyntaxError, resolve_variable
@@ -19,7 +21,7 @@ class ProfileImageNode(Node):
         profile = UserProfile.objects.get(user=user)
 
         if not profile.image:
-            return """<img src="%s/images/anonymous.jpg"/>""" % settings.SITE_STATIC_URL
+            return '<img src="http://www.gravatar.com/avatar/'+hashlib.md5(profile.user.email.lower()).hexdigest()+"?"+urllib.urlencode({"d": "%s/images/anonymous.jpg" % settings.SITE_STATIC_URL, "s": str(100)})+'">'
 
         filename = profile.image.name
             
