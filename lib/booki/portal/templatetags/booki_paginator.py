@@ -31,7 +31,7 @@ def booki_paginator(context, pages):
         page_numbers = [n for n in range(pages.paginator.num_pages - TRAILING_PAGE_RANGE_DISPLAYED + 1, pages.paginator.num_pages + 1) if n > 0 and n <= pages.paginator.num_pages]
         pages_outside_trailing_range = [n + 1 for n in range(0, NUM_PAGES_OUTSIDE_RANGE)]
     else: 
-        page_numbers = [n for n in range(pages.number - ADJACENT_PAGES, pages.number + ADJACENT_PAGES + 1) if n > 0 and n <= pages.paginator.num_page]
+        page_numbers = [n for n in range(pages.number - ADJACENT_PAGES, pages.number + ADJACENT_PAGES + 1) if n > 0 and n <= pages.paginator.num_pages]
         pages_outside_leading_range = [n + pages.paginator.num_pages for n in range(0, -NUM_PAGES_OUTSIDE_RANGE, -1)]
         pages_outside_trailing_range = [n + 1 for n in range(0, NUM_PAGES_OUTSIDE_RANGE)]
 
