@@ -414,7 +414,7 @@ function closeAttachmentUpload() {
 
 {% if "versions" in tabs %}
        <div id="tabversions">
-{% if security.isAdmin %}
+{% if security.isAdmin or is_owner %}
         <h3>{% trans "New version" %}</h3>
          <div class="version">
 	   {% blocktrans %}With different versions you can easily organise your book. But be careful! Other users will not be able to edit
