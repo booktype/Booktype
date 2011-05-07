@@ -1237,6 +1237,66 @@ def remote_create_minor_version(request, message, bookid, version):
         return {"version": new_version.getVersion()}
 
 
+def color_me(l, rgb, pos):
+    if pos:
+        t1 = l.find('>', pos[0]) 
+        t2 = l.find('<', pos[0])
+
+        if (t1 == t2) or (t1 > t2 and t2 != -1):
+            out  = l[:pos[0]]
+
+            out += '<span style="background-color: yellow">'+color_me(l[pos[0]:pos[1]], rgb, None)+'</span>'
+            out += l[pos[1]:]
+        else:
+            out = l
+        return out
+
+    out = '<span style="%s">' % rgb
+
+    n = 0
+    m = 0
+    while True:
+        n = l.find('<', n)
+
+        if n == -1: # no more tags
+            out += l[m:n]
+            break
+        else: 
+            if l[n+1] == '/': # tag ending
+                # closed tag
+                out += l[m:n]
+
+                j = l.find('>', n)+1
+                tag = l[n:j]
+                out += '</span>'+tag
+                n = j
+            else: # tag start
+                out += l[m:n]
+
+                j = l.find('>', n)+1
+
+                if j == 0:
+                    out = l[n:]
+                    n = len(l)
+                else:
+                    tag = l[n:j]
+ 
+                    if not tag.replace(' ','').replace('/','').lower() in ['<br>', '<hr>']:
+                        if n != 0:
+                            out += '</span>'
+
+                        out += tag+'<span style="%s">' % rgb
+                    else:
+                        out += tag
+
+                    n = j
+        m = n
+            
+
+    out += l[n:]+'</span>'
+
+    return out
+
 def remote_chapter_diff(request, message, bookid, version):
     import datetime
     from booki.editor.views import getVersion
@@ -1251,9 +1311,155 @@ def remote_chapter_diff(request, message, bookid, version):
 
     output = []
 
-#    for line in difflib.unified_diff(revision1.content.splitlines(1), revision2.content.splitlines(1)):
-    for line in difflib.ndiff(revision1.content.splitlines(1), revision2.content.splitlines(1)):
-        output.append(line)
+#    from lxml import etree
+#    content1 = unicode(etree.tostring(etree.fromstring(u'<html>'+revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n')+u'</html>'), method="text", encoding='UTF-8'), 'utf8').splitlines(1)
+#    content2 = unicode(etree.tostring(etree.fromstring(u'<html>'+revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n')+u'</html>'), method="text", encoding='UTF-8'), 'utf8').splitlines(1)
+
+    content1 = revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
+    content2 = revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
+
+    lns = [line for line in difflib.ndiff(content1, content2)]
+
+    n = 0
+    minus_pos = None
+    plus_pos = None
+
+    def my_find(s, wh, x = 0):
+        n = x
+
+        for ch in s[n:]:
+            if ch in wh:
+                return n
+            n += 1
+
+        return -1
+
+            
+
+    while True:
+        if n >= len(lns): 
+            break
+    
+        line = lns[n]
+
+        if line[:2] == '+ ':
+            if n+1 < len(lns) and lns[n+1][0] == '?':
+                lns[n+1] += lns[n+1] + ' '
+
+                x = my_find(lns[n+1][2:], '+?^-')
+                y = lns[n+1][2:].find(' ', x)-2
+
+                plus_pos = (x, y)
+            else:
+                plus_pos = None
+
+            output.append('<div style="background-color: yellow">'+color_me(line[2:], 'background-color: green;', plus_pos)+'</div>')
+        elif line[:2] == '- ':
+            if n+1 < len(lns) and lns[n+1][0] == '?':
+                lns[n+1] += lns[n+1] + ' '
+
+                x = my_find(lns[n+1][2:], '+?^-')
+                y = lns[n+1][2:].find(' ', x)-2
+
+                minus_pos = (x, y)
+            else:
+                minus_pos = None
+
+            output.append('<div style="background-color: orange">'+color_me(line[2:], 'background-color: red;', minus_pos)+'</div>')
+        elif line[:2] == '  ':
+            output.append(line[2:])
+
+        n += 1
+
     return {"output": '\n'.join(output)}
+
+def remote_chapter_diff_parallel(request, message, bookid, version):
+    import datetime
+    from booki.editor.views import getVersion
+
+    book = models.Book.objects.get(id=bookid)
+
+    revision1 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision1"])
+    revision2 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision2"])
+
+
+    import difflib
+
+    output = []
+
+    output_left = '<td valign="top">'
+    output_right = '<td valign="top">'
+    
+    from lxml import etree
+#    content1 = unicode(etree.tostring(etree.fromstring(u'<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html>'+revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n')+u'</html>'), method="text", encoding='UTF-8', resolve_entities=False), 'utf8').splitlines(1)
+#    content2 = unicode(etree.tostring(etree.fromstring(u'<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html>'+revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n')+u'</html>'), method="text", encoding='UTF-8', resolve_entities=False), 'utf8').splitlines(1)
+
+    import re
+    content1 = re.sub('<[^<]+?>', '', revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n')).splitlines(1)
+    content2 = re.sub('<[^<]+?>', '', revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n')).splitlines(1)
+
+
+    lns = [line for line in difflib.ndiff(content1, content2)]
+
+    n = 0
+    minus_pos = None
+    plus_pos = None
+
+    def my_find(s, wh, x = 0):
+        n = x
+
+        for ch in s[n:]:
+            if ch in wh:
+                return n
+            n += 1
+
+        return -1
+
+    
+    while True:
+        if n >= len(lns): 
+            break
+    
+        line = lns[n]
+
+        if line[:2] == '+ ':
+            if n+1 < len(lns) and lns[n+1][0] == '?':
+                lns[n+1] += lns[n+1] + ' '
+
+                x = my_find(lns[n+1][2:], '+?^-')
+                y = lns[n+1][2:].find(' ', x)-2
+
+                plus_pos = (x, y)
+            else:
+                plus_pos = None
+
+            output_right +=  '<div style="background-color: orange;">'+color_me(line[2:], 'background-color: green;', plus_pos)+'</div>'
+            output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
+            output_left = output_right = '<td valign="top">'
+        elif line[:2] == '- ':
+            if n+1 < len(lns) and lns[n+1][0] == '?':
+                lns[n+1] += lns[n+1] + ' '
+
+                x = my_find(lns[n+1][2:], '+?^-')
+                y = lns[n+1][2:].find(' ', x)-2
+
+                minus_pos = (x, y)
+            else:
+                minus_pos = None
+
+            output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
+
+            output_left = output_right = '<td valign="top">'
+            output_left +=  '<div style="background-color: orange">'+color_me(line[2:], 'background-color: red;', minus_pos)+'</div>'
+        elif line[:2] == '  ':
+            if line[2:].strip() != '':
+                output_left  += line[2:]+'<br/><br/>'
+                output_right += line[2:]+'<br/><br/>'
+
+        n += 1
+
+    output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
+    
+    return {"output": '<table border="0"><tr><td><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: '+message["revision2"]+'</div></td></tr>\n'.join(output)+'</table>\n'}
 
 

@@ -186,6 +186,12 @@ function closeAttachmentUpload() {
 		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>{% trans "NEW CHAPTER" %}</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'>{% trans "NEW SECTION" %}</a> | <a href="javascript:void(0)" onclick='$("#clonechapter").dialog("open")'>{% trans "IMPORT CHAPTER" %}</a>
 		</div>
 
+		<div id="newdiff" title="Chapter diff">
+		  <div class="diffcontent">
+		  </div>
+		</div>
+
+
 		<div id="newchapter" title="New chapter">
 		<!--  <p id="validateTips">Enter new chapter name.</p> -->  
 		  <form onsubmit="javascript:return false">
@@ -808,7 +814,6 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 
 <div class="revisionDisplay template">			
 <a class="backLink" href="javascript:void(0)">&lt;&lt; {% trans "back to chapter history" %}</a>
-
 <span class="buttonset" style="padding-left: 10px"><input checked="checked" type="radio" id="radio1" name="radio" /><label for="radio1">{% trans "Normal view" %}</label><input type="radio" id="radio2" name="radio"  /><label for="radio2">{% trans "Source view" %}</label></span>
 <a class="revertLink button" href="javascript:void(0)">{% trans "Revert to this revision" %}</a>
 
@@ -831,8 +836,11 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 
 <div class="diffDisplay template">
 <a class="backLink" href="javascript:void(0)">&lt;&lt; {% trans "back to chapter history" %}</a>
+<a href="javascript:void(0)" href="javascript:void(0)" name="side">Show side by side</a>
+
 <h3>{% blocktrans %}Compare revision <span class="revision1Name">revision1</span> with revision <span class="revision2Name">revision2</span>{% endblocktrans %}</h3>
-<pre id="chapterdigg" class="dataOutput" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0; font-size: 8pt"></pre>
+<div id="chapterdigg" class="dataOutput" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0; font-size: 8pt"></div>
+<!-- <pre id="chapterdigg" class="dataOutput" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0; font-size: 8pt"></pre> -->
 </div>
 
 {% endblock %}
