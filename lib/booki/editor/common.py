@@ -85,6 +85,9 @@ def getChaptersFromTOC(toc):
 
 def importBookFromFile(user, zname, createTOC=False, **extraOptions):
     """Create a new book from a bookizip filename"""
+
+    from booki.utils.log import logChapterHistory
+
     # unzip it
     zf = zipfile.ZipFile(zname)
     # load info.json
@@ -153,6 +156,12 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
                                      modified = now)
             chapter.save()
 
+            history = logChapterHistory(chapter = chapter,
+                                        content = content,
+                                        user = user,
+                                        comment = "",
+                                        revision = chapter.revision)
+            
             if createTOC:
                 c = models.BookToc(book = book,
                                    version = book.version,

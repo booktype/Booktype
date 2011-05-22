@@ -435,6 +435,16 @@ def remote_get_chapter(request, message, bookid, version):
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
     res["title"] = chapter.title
     res["content"] = chapter.content
+    res["current_revision"] = chapter.revision
+
+    if message.get("revisions", False):
+        res["revisions"] = [x.revision for x in models.ChapterHistory.objects.filter(chapter=chapter).order_by("revision")]
+
+
+    if message.get("revision", chapter.revision) != chapter.revision:
+        ch = models.ChapterHistory.objects.get(chapter=chapter, revision=message.get("revision"))
+        res["content"] = ch.content
+
 
     if not message.get("lock", True):
         return res
