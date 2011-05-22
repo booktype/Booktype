@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block header %}
+<title>{% blocktrans with book.title as booktitle %}/book: {{ booktitle }}{% endblocktrans %}</title>
+<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/editor.css" rel="Stylesheet" />
+<link rel="alternate" type="application/rss+xml" title="RSS feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/rss/book/{{ book.url_title }}/" /> 
+<link rel="alternate" type="application/atom+xml" title="Atom feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/atom/book/{{ book.url_title }}/" /> 
+{% if has_css %}
+<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
+{% endif %}
+
+<script type="text/javascript">
+ $(function() {
+     $("A.editbook").button();
+     $("A.viewdraft").button();
+
+ });
+</script>
+
+{% endblock %}
+
+
+{% block content %}
+<h1>{{ book.title }}</h1>
+<a class="editbook" href="{% url edit_book book.url_title  book_version %}">{% trans "EDIT THIS BOOK" %}</a>
+
+<a class="viewdraft" href="{% url view_draft book.url_title  book_version %}">{% trans "VIEW DRAFT" %}</a>
+
+<h2>{% trans "Recent activity" %}</h2>
+<table border="0" width="80%">
+ {% for ln in book_history %}
+   <tr>
+     <td valign="top"> 
+       {% if ln.kind == 1 %}
+         Chapter create
+       {% endif %}
+       {% if ln.kind == 2 %}
+         Chapter save
+       {% endif %}
+       {% if ln.kind == 3 %}
+         Chapter rename
+       {% endif %}
+
+       {% if ln.kind == 4 %}
+         Chapter reorder
+       {% endif %}
+
+       {% if ln.kind == 5 %}
+         Section create
+       {% endif %}
+
+       {% if ln.kind == 10 %}
+         Book create
+       {% endif %}
+
+       {% if ln.kind == 13 %}
+         Attachment upload
+       {% endif %}
+
+
+     </td>
+      <td valign="top"> <a href="_draft/{{ ln.chapter.url_title}}">{{ln.chapter.title}}</a></td>
+     <td valign="top"> {{ ln.user.username }} </td>
+     <td valign="top"> {{ ln.modified }} </td>
+   </tr>
+ {% endfor %}
+</table>
+
+{% endblock %}

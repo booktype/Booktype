@@ -22,7 +22,9 @@
 
 <br clear="all"/>
    <h1>{{ book.title }}</h1>
-<div id="bookmenu">
+
+
+<div id="bookmenu"  style="background: url(/site_static/images/draft_bg.png) repeat !important;">
 <ul>
 {% for chap in chapters %}
  {% ifnotequal chap.url_title  None%}
@@ -33,9 +35,10 @@
 {% endfor %}
 </ul>
 </div>
-<div id="bookcontent">
+<div id="bookcontent"  style="background: url(/site_static/images/draft_bg.png) repeat !important;">
 {% booki_format content %}
 <hr/>
-<a href="{% url view_book   book.url_title book_version %}edit/">{% trans "EDIT" %}</a>
+<a href="{% url edit_book   book.url_title book_version %}">{% trans "EDIT" %}</a>
 </div>
+
 {% endblock %}

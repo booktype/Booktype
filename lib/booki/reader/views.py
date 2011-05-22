@@ -40,8 +40,24 @@ def view_full(request, bookid, version=None):
                                                    "request": request})
 
 
-
 def view_book(request, bookid, version=None):
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+
+    book_version = getVersion(book, version)
+
+    book_history =  models.BookHistory.objects.filter(version = book_version).order_by("-modified")[:20]
+
+    return render_to_response('reader/book_info.html', {"book": book, 
+                                                        "book_version": book_version.getVersion(),
+                                                        "book_history": book_history, 
+                                                        "has_css": _customCSSExists(book.url_title),
+                                                        "request": request})
+
+def view_draft(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
