@@ -1347,6 +1347,7 @@ def remote_chapter_diff(request, message, bookid, version):
                 lns[n+1] += lns[n+1] + ' '
 
                 x = my_find(lns[n+1][2:], '+?^-')
+#                x = my_find(lns[n+1][2:], '+?-')
                 y = lns[n+1][2:].find(' ', x)-2
 
                 plus_pos = (x, y)
@@ -1359,6 +1360,7 @@ def remote_chapter_diff(request, message, bookid, version):
                 lns[n+1] += lns[n+1] + ' '
 
                 x = my_find(lns[n+1][2:], '+?^-')
+#                x = my_find(lns[n+1][2:], '+?-')
                 y = lns[n+1][2:].find(' ', x)-2
 
                 minus_pos = (x, y)
@@ -1390,14 +1392,9 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
     output_left = '<td valign="top">'
     output_right = '<td valign="top">'
     
-    from lxml import etree
-#    content1 = unicode(etree.tostring(etree.fromstring(u'<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html>'+revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n')+u'</html>'), method="text", encoding='UTF-8', resolve_entities=False), 'utf8').splitlines(1)
-#    content2 = unicode(etree.tostring(etree.fromstring(u'<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html>'+revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n')+u'</html>'), method="text", encoding='UTF-8', resolve_entities=False), 'utf8').splitlines(1)
-
     import re
-    content1 = re.sub('<[^<]+?>', '', revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n')).splitlines(1)
-    content2 = re.sub('<[^<]+?>', '', revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n')).splitlines(1)
-
+    content1 = re.sub('<[^<]+?>', '', revision1.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
+    content2 = re.sub('<[^<]+?>', '', revision2.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
 
     lns = [line for line in difflib.ndiff(content1, content2)]
 
@@ -1460,6 +1457,8 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
 
     output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
     
-    return {"output": '<table border="0"><tr><td><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: '+message["revision2"]+'</div></td></tr>\n'.join(output)+'</table>\n'}
+    info = '''<div style="padding-bottom: 5px"><span style="width: 10px; height: 10px; background-color: orange; display: inline-block;"></span> Changed <span style="width: 10px; height: 10px; background-color: green; display: inline-block;"></span> Added <span style="width: 10px; height: 10px; background-color: red; display: inline-block;"></span> Deleted </div>'''
+    
+    return {"output": info+'<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: '+message["revision2"]+'</div></td></tr>\n'.join(output)+'</table>\n'}
 
 
