@@ -51,9 +51,12 @@ def view_book(request, bookid, version=None):
 
     book_history =  models.BookHistory.objects.filter(version = book_version).order_by("-modified")[:20]
 
+    book_collaborators =  [e.values()[0] for e in models.BookHistory.objects.filter(version = book_version, kind = 2).values("user__username").distinct()]
+
     return render_to_response('reader/book_info.html', {"book": book, 
                                                         "book_version": book_version.getVersion(),
                                                         "book_history": book_history, 
+                                                        "book_collaborators": book_collaborators,
                                                         "has_css": _customCSSExists(book.url_title),
                                                         "request": request})
 

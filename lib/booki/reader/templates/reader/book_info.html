@@ -26,7 +26,13 @@
 <a class="editbook" href="{% url edit_book book.url_title  book_version %}">{% trans "EDIT THIS BOOK" %}</a>
 
 <a class="viewdraft" href="{% url view_draft book.url_title  book_version %}">{% trans "VIEW DRAFT" %}</a>
-
+<p>Created: {{ book.created }}</p>
+<p>
+Collaborators:
+{% for username in book_collaborators %}
+  {{ username }},
+{% endfor %}
+</p>
 <h2>{% trans "Recent activity" %}</h2>
 <table border="0" width="80%">
  {% for ln in book_history %}
