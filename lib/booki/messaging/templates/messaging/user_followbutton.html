@@ -1,0 +1,5 @@
+{% load i18n %}
+<form method="POST" action="{% url booki.messaging.views.view_follow %}">
+<input type="hidden" name="target" value="@{{ username }}">
+<button>{% trans "Stalk me" %}</button>
+</form>

@@ -1,7 +1,7 @@
 
 {% extends "base.html" %}
 
-{% load i18n profile %}
+{% load i18n profile messaging_tags %}
 
 {% block header %}
   <title>{% blocktrans with user.username as username %}/user: {{ username }}{% endblocktrans %}</title>
@@ -54,7 +54,8 @@
     {{ user.get_profile.mood }}
   </div>
 
-   <a style="text-decoration: underline" href="/feeds/rss/user/{{ user.username }}/">{% trans "Track my changes" %}</a>
+   <a style="text-decoration: underline" href="/feeds/rss/user/{{ user.username }}/">{% trans "RSS feed of my changes" %}</a>
+   {% user_followbutton user.username %}
   <!-- end profile info -->
    <div style="border-bottom: 1px solid #c0c0c0; padding-top: 20px"></div>
    <div style="background:#e1e1e1;border: 1px solid #c0c0c0;padding:5px;">
@@ -66,21 +67,27 @@
   </td>
   <td width="10"></td>
   <td valign="top">
-{% ifequal user.username request.user.username %}
 <div style="width:325px; border: 1px solid #c0c0c0; background-color: #f0f0f0; padding: 5px;" id="mood">
-  <form method="GET" action="javascript:void(0)" onsubmit="return false;">
-   <input type="text" size="40" value="{% trans "What's on your mind ?" %}" style="width: 320px;"/>
+  <form enctype="multipart/form-data" method="POST" action="{% url booki.messaging.views.view_post %}" onsubmit="return true;">
+   <input type="text" name="content" size="40" value="{% ifequal user.username request.user.username %}{% trans "What's on your mind ?" %}{% else %}@{{user.username}} {%endifequal%}" style="width: 320px;"/>
+   Optional attachment: <input type="file" name="attachment" />
    <div style="margin-top:3px;margin-right:3px;" align="right">
       <button>{% trans "Share" %}</button>
    </div>
    
  </form>
 </div>
-{% endifequal %}
 
 <p>
-<div id="status_messages">{% trans "Please wait while loading data..." %}</div>
+<div id="Xstatus_messages">
+{% user_timeline user.username %}
+</div>
 </p>
+
+<p>Following tags: {% user_tagbox user.username %}</p>
+<p>Stalking: {% user_followingbox user.username %}</p>
+<p>Stalkers: {% user_followersbox user.username %}</p>
+
 
 <h2>{% trans "Books" %}</h2>
 <div style="border-bottom: 1px solid #c0c0c0"></div>

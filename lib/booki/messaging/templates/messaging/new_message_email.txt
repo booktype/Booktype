@@ -1,0 +1,13 @@
+{% load i18n %}
+Hi {{ user.first_name }}!
+
+{% trans "This is a notification of a new message for you at your Booki profile:" %}
+{{ SERVER_ROOT }}{% url view_profile user.username %}
+
+{% trans "Sender:" %} {{ post.sender }} {{ SERVER_ROOT }}{% url view_profile post.sender.as_user.username %}
+{% trans "Date:" %} {{ post.timestamp }}
+{% trans "Content:" %}
+{{ post.content }}
+{% if post.attachment %}
+{% trans "Attachment:" %} {{ DATA_URL }}/{{ post.attachment }}
+{% endif %}

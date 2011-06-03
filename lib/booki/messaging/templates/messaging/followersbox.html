@@ -1,0 +1,3 @@
+{% for user in followers %}
+<a href="{% url view_profile username=user %}">@{{ user }}</a>
+{% endfor %}

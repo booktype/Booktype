@@ -1,0 +1,3 @@
+{% for tag in tags %}
+<a href="{% url booki.messaging.views.view_tag tag %}">#{{ tag }}</a>
+{% endfor %}

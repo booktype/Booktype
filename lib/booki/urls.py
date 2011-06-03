@@ -88,7 +88,9 @@ else:
                                  (r'^/chat/(?P<bookid>\d+)/$',                        'booki.channels.chat')
                                       )
                               }),                     
-                           
+
+                           url(r'^messaging/', include('booki.messaging.urls')),
+
                            # reader
                            url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/_v/(?P<version>[\w\s\_\d\.\-]+)/', include('booki.editor.urls')),
                            url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls'))

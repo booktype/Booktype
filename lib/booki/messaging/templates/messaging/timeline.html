@@ -1,0 +1,25 @@
+{% load i18n profile %}
+
+{% blocktrans %}Timeline of {{ syntax }}:{% endblocktrans %}
+<div>
+{% if not posts %}
+<i>{% trans "No messages." %}</i>
+{% endif %}
+
+{% for post in posts %}
+<div style="border: solid thin grey; width: 325px; padding: 5px; margin-bottom: 5px;">
+<div style="float: left">
+<a href="{% url view_profile post.sender.as_user.username %}">{% profile_image post.sender.as_user %}</a>
+</div>
+<a href="{% url view_profile post.sender.as_user.username %}">{{ post.sender }}</a> [<a href="{% url view_profile post.sender.as_user.username %}">send a reply</a>]<br />
+{{ post.timestamp|timesince }} {% trans "ago" %}<br />
+{{ post.content_as_html|safe }}
+{% if post.attachment %}
+<br />
+<a href="{{ DATA_URL }}/{{ post.attachment }}"><img width="100" src="{{ DATA_URL }}/{{ post.attachment }}" /></a>
+{% endif %}
+<div style="clear: both">
+</div>
+</div>
+{% endfor %}
+</div>
