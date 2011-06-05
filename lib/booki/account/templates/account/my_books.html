@@ -125,7 +125,7 @@
 <div style="border-bottom: 1px solid #c0c0c0"></div>
 <ul>
 {% for book in books %}
-   <li><a href="{% url view_book  book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a>)
+   <li><a href="{% url book_view book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a>)
      {% if book.hidden %}
        <form style="display: inline" action="." method="POST">
 	 <button>{% trans "Show to others" %}</button>

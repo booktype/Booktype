@@ -57,8 +57,11 @@ def book_info(request, bookid, version=None):
     channel_name = "/booki/book/%s/%s/" % (book.id, book_version.getVersion())
     online_users = sputnik.smembers("sputnik:channel:%s:users" % channel_name)
 
+    book_versions = models.BookVersion.objects.filter(book=book).order_by("created")
+
     return render_to_response('reader/book_info.html', {"book": book, 
                                                         "book_version": book_version.getVersion(),
+                                                        "book_versions": book_versions,
                                                         "book_history": book_history, 
                                                         "book_collaborators": book_collaborators,
                                                         "has_css": _customCSSExists(book.url_title),
