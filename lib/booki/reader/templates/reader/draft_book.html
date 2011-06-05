@@ -20,7 +20,7 @@
   <ul>
     {% for chap in chapters %}
       {% ifnotequal chap.url_title  None%}
-         <li><a href="{% url view_chapter  book.url_title book_version chap.url_title %}">{{ chap.name }}</a></li>
+         <li><a href="{% url draft_chapter  book.url_title book_version chap.url_title %}">{{ chap.name }}</a></li>
       {% else %}
          <li><b>{{ chap.name }}</b></li>
       {% endifnotequal %}
@@ -30,8 +30,6 @@
 
  <div id="bookcontent"  style="background: url(/site_static/images/draft_bg.png) repeat !important;">
    {% trans "click on the chapter name" %}
-   <hr/>
-    <a href="{% url edit_book book.url_title  book_version %}">{% trans "EDIT" %}</a>
  </div>
 
 {% endblock %}

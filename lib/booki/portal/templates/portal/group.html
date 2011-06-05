@@ -117,7 +117,7 @@
 <h2>{% trans "Books" %}</h2>
 <ul>
 {% for book in books %}
-   <li><a style="text-decoration: underline" href="{% url view_book  book.url_title %}">{{ book.title }}</a>
+   <li><a style="text-decoration: underline" href="{% url book_view  book.url_title %}">{{ book.title }}</a>
    {% if security.isGroupAdmin %}
       &nbsp;&nbsp;(<a href="remove_book/?book={{ book.url_title }}">remove</a>)
    {% endif %}

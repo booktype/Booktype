@@ -32,12 +32,12 @@
      <a href="{% url view_profile activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; <i>{{ activity.modified|timesince}} {% trans "ago" %}</i><br/>
      <div style="padding-top: 5px">
      {% if activity.kind == 1 %}
-         {% trans "Created new chapter" %} <a href="{% url view_chapter activity.book.url_title activity.chapter.url_title %}"><i>"{{activity.chapter.title}}"</i></a>.
+         {% trans "Created new chapter" %} <a href="{% url book_chapter activity.book.url_title activity.chapter.url_title %}"><i>"{{activity.chapter.title}}"</i></a>.
 
          <div style="font-size: 12px; margin-top: 5px; color: gray;">#{{activity.book.url_title}}</div>
      {% endif %}
      {% if activity.kind == 10 %}
-         {% trans "Created new book" %} <a href="{% url view_book activity.book.url_title  %}">"{{activity.book.title}}"</a>.
+         {% trans "Created new book" %} <a href="{% url book_view activity.book.url_title  %}">"{{activity.book.title}}"</a>.
          <div style="font-size: 12px; margin-top: 5px; color: gray;">#{{activity.book.url_title}}</div>
      {% endif %}
      </div>

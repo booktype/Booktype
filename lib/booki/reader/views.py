@@ -40,7 +40,7 @@ def view_full(request, bookid, version=None):
                                                    "request": request})
 
 
-def view_book(request, bookid, version=None):
+def book_info(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
@@ -52,15 +52,20 @@ def view_book(request, bookid, version=None):
     book_history =  models.BookHistory.objects.filter(version = book_version).order_by("-modified")[:20]
 
     book_collaborators =  [e.values()[0] for e in models.BookHistory.objects.filter(version = book_version, kind = 2).values("user__username").distinct()]
+    
+    import sputnik
+    channel_name = "/booki/book/%s/%s/" % (book.id, book_version.getVersion())
+    online_users = sputnik.smembers("sputnik:channel:%s:users" % channel_name)
 
     return render_to_response('reader/book_info.html', {"book": book, 
                                                         "book_version": book_version.getVersion(),
                                                         "book_history": book_history, 
                                                         "book_collaborators": book_collaborators,
                                                         "has_css": _customCSSExists(book.url_title),
+                                                        "online_users": online_users,
                                                         "request": request})
 
-def view_draft(request, bookid, version=None):
+def draft_book(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
@@ -80,13 +85,13 @@ def view_draft(request, bookid, version=None):
                              "name": chapter.name})
         
 
-    return render_to_response('reader/book.html', {"book": book, 
+    return render_to_response('reader/draft_book.html', {"book": book, 
                                                    "book_version": book_version.getVersion(),
                                                    "chapters": chapters, 
                                                    "has_css": _customCSSExists(book.url_title),
                                                    "request": request})
 
-def view_chapter(request, bookid, chapter, version=None):
+def draft_chapter(request, bookid, chapter, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
@@ -110,7 +115,7 @@ def view_chapter(request, bookid, chapter, version=None):
         return pages.ErrorPage(request, "errors/chapter_does_not_exist.html", {"chapter_name": chapter, "book": book})
 
 
-    return render_to_response('reader/chapter.html', {"chapter": chapter, 
+    return render_to_response('reader/draft_chapter.html', {"chapter": chapter, 
                                                       "book": book, 
                                                       "book_version": book_version.getVersion(),
                                                       "chapters": chapters, 
@@ -118,6 +123,67 @@ def view_chapter(request, bookid, chapter, version=None):
                                                       "request": request, 
                                                       "content": content})
 
+
+
+def book_view(request, bookid, version=None):
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+
+    book_version = getVersion(book, version)
+
+    chapters = []
+
+    for chapter in  models.BookToc.objects.filter(version=book_version).order_by("-weight"):
+        if chapter.isChapter():
+            chapters.append({"url_title": chapter.chapter.url_title,
+                             "name": chapter.chapter.title})
+        else:
+            chapters.append({"url_title": None,
+                             "name": chapter.name})
+        
+
+    return render_to_response('reader/book_view.html', {"book": book, 
+                                                   "book_version": book_version.getVersion(),
+                                                   "chapters": chapters, 
+                                                   "has_css": _customCSSExists(book.url_title),
+                                                   "request": request})
+
+
+
+def book_chapter(request, bookid, chapter, version=None):
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+    book_version = getVersion(book, version)
+
+    chapters = []
+
+    for chap in  models.BookToc.objects.filter(version=book_version).order_by("-weight"):
+        if chap.isChapter():
+            chapters.append({"url_title": chap.chapter.url_title,
+                             "name": chap.chapter.title})
+        else:
+            chapters.append({"url_title": None,
+                             "name": chap.name})
+
+    try:
+        content = models.Chapter.objects.get(version=book_version, url_title = chapter)
+    except models.Chapter.DoesNotExist:
+        return pages.ErrorPage(request, "errors/chapter_does_not_exist.html", {"chapter_name": chapter, "book": book})
+
+
+    return render_to_response('reader/book_chapter.html', {"chapter": chapter, 
+                                                      "book": book, 
+                                                      "book_version": book_version.getVersion(),
+                                                      "chapters": chapters, 
+                                                      "has_css": _customCSSExists(book.url_title),
+                                                      "request": request, 
+                                                      "content": content})
 
 # PROJECT
 

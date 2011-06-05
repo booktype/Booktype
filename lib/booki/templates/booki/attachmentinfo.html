@@ -1,0 +1,12 @@
+<table border="0">
+ <tr>
+  <td valign="top" style="padding-right: 5px">
+    <img src="{% url book_view book.url_title %}_utils/thumbnail/{{ attachment_name }}">
+  </td>
+  <td valign="top" align="left">
+    <b>{{ attachment_name }}</b><br/>
+    {{attachment.attachment.size|filesizeformat}}<br/>
+    {{attachment.created}}
+  </td>
+ </tr>
+</table>

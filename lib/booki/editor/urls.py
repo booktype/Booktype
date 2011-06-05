@@ -15,19 +15,27 @@ urlpatterns = patterns('',
 
     # edit book 
     url(r'^_edit/$', 'booki.editor.views.edit_book', name='edit_book'),
-
-    # change this                       
-    url(r'^_draft/static/(?P<attachment>.*)$',  'booki.reader.views.attachment', name='view_attachment'),
-    url(r'^_draft/(?P<chapter>[\w\s\_\.\-]+)/$', 'booki.reader.views.view_chapter', name='view_chapter'),
-    url(r'^_draft/$', 'booki.reader.views.view_draft', name='view_draft'),
-
-    # json booklist for jquery ui autocomplete
+    url(r'^_edit/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
     url(r'^_edit/book-list.json$', 'booki.editor.views.view_books_autocomplete'),
 
-    # new stuff for attachments                      
-    url(r'^_edit/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
+    # draft of a book
+#_v/(?P<version>[\w\s\_\d\.\-]+)/
+    #url(r'^_draft/static/(?P<attachment>.*)$',  'booki.reader.views.attachment', name='view_attachment'),
+
+    url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/(?P<chapter>[\w\s\_\.\-]+)/$', 'booki.reader.views.draft_chapter', name='draft_chapter'),
+    url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/(?P<chapter>[\w\s\_\.\-]+)/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
+    url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment', name='draft_attachment'),
+    url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/$', 'booki.reader.views.draft_book', name='draft_book'),
+
+    url(r'^_draft/(?P<chapter>[\w\s\_\.\-]+)/$', 'booki.reader.views.draft_chapter', name='draft_chapter'),
     url(r'^_draft/(?P<chapter>[\w\s\_\.\-]+)/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
+    url(r'^_draft/$', 'booki.reader.views.draft_book', name='draft_book'),
 
 
-    url(r'^$', 'booki.reader.views.view_book', name='view_book')
+    url(r'^_info/$', 'booki.reader.views.book_info', name='book_info'),
+
+    # this should be                       
+    url(r'^(?P<chapter>[\w\s\_\.\-]+)/$', 'booki.reader.views.book_chapter', name='book_chapter'),
+    url(r'^(?P<chapter>[\w\s\_\.\-]+)/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
+    url(r'^$', 'booki.reader.views.book_view', name='book_view')
 )

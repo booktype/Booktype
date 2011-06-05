@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block header %}
+<title>{% blocktrans with book.title as booktitle %}/book: {{ booktitle }}{% endblocktrans %}</title>
+<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/editor.css" rel="Stylesheet" />
+<link rel="alternate" type="application/rss+xml" title="RSS feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/rss/book/{{ book.url_title }}/" /> 
+<link rel="alternate" type="application/atom+xml" title="Atom feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/atom/book/{{ book.url_title }}/" /> 
+{% if has_css %}
+<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
+{% endif %}
+
+{% endblock %}
+
+
+{% block content %}
+ {% if request.user.is_authenticated %}
+
+ {% endif %}
+
+<h1>{{ book.title }}</h1>
+ <div id="bookmenu"> 
+  <ul>
+    {% for chap in chapters %}
+      {% ifnotequal chap.url_title  None%}
+         <li><a href="{% url book_chapter  book.url_title chap.url_title %}">{{ chap.name }}</a></li>
+      {% else %}
+         <li><b>{{ chap.name }}</b></li>
+      {% endifnotequal %}
+    {% endfor %}
+  </ul>
+ </div>
+
+ <div id="bookcontent">
+   {% trans "click on the chapter name" %}
+ </div>
+
+
+{% endblock %}

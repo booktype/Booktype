@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n booki_tags %}
 
 {% block header %}
 <title>{% blocktrans with book.title as booktitle %}/book: {{ booktitle }}{% endblocktrans %}</title>
@@ -8,69 +8,194 @@
 <link rel="alternate" type="application/atom+xml" title="Atom feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/atom/book/{{ book.url_title }}/" /> 
 {% if has_css %}
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
+
 {% endif %}
+
+<link href="{{ request.META.SCRIPT_NAME }}/site_static/css/jquery.bubblepopup.v2.3.1.css" rel="stylesheet" type="text/css" />
+<script src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.bubblepopup.v2.3.1.min.js" type="text/javascript"></script>
+
+<style>
+A { border-bottom: 1px dotted #c0c0c0;}
+</style>
 
 <script type="text/javascript">
  $(function() {
      $("A.editbook").button();
      $("A.viewdraft").button();
+     $("A.viewpublished").button();
 
+     $('A.user').CreateBubblePopup({
+                                  selectable: false,
+                                  position: 'top',
+                                  align: 'center',
+                                  innerHtml: '<div style="height: 50px"><img src="{{ request.META.SCRIPT_NAME }}/site_static/images/loading.gif" style="border:0px; vertical-align:middle; margin-right:10px; display:inline;" />loading!</div>',
+                                  innerHtmlStyle: { color:'#000000', 'text-align':'center' },
+                                  themeName: 'grey',
+                                  themePath: '{{ request.META.SCRIPT_NAME }}/site_static/images/jquerybubblepopup-theme'
+                                  });
+
+     $('A.user').mouseover(function(){
+				var lnk = $(this);
+
+				$.get('{{ request.META.SCRIPT_NAME }}/_utils/profileinfo/'+lnk.html()+'/', function(data) {
+                                       lnk.SetBubblePopupInnerHtml(data, false);
+                                });
+                             });
+
+     $('A.attachment').CreateBubblePopup({
+                                  selectable: false,
+                                  position: 'top',
+                                  align: 'center',
+                                  innerHtml: '<div style="height: 150px"><img src="{{ request.META.SCRIPT_NAME }}/site_static/images/loading.gif" style="border:0px; vertical-align:middle; margin-right:10px; display:inline;" />loading!</div>',
+                                  innerHtmlStyle: { color:'#000000', 'text-align':'center' },
+                                  themeName: 'grey',
+                                  themePath: '{{ request.META.SCRIPT_NAME }}/site_static/images/jquerybubblepopup-theme'
+                                  });
+
+     $('A.attachment').mouseover(function(){
+				var lnk = $(this);
+
+				$.get('{{ request.META.SCRIPT_NAME }}/_utils/attachmentinfo/{{book.url_title}}/{{book_version}}/'+lnk.html(), function(data) {
+                                       lnk.SetBubblePopupInnerHtml(data, false);
+                                });
+                             });
+
+ 
  });
 </script>
+<style>
 
+#bookdetails {
+  margin: 0px; 
+  margin-left: 15px;
+  padding: 0px;
+}
+
+#bookdetails ul {
+  list-style-type: none; 
+  display: block;
+}
+
+#bookdetails li {
+ list-style-type: none;
+ padding: 0px;
+ margin: 0.4em 0em;
+ display: list-item;
+}
+</style>
 {% endblock %}
 
 
 {% block content %}
 <h1>{{ book.title }}</h1>
-<a class="editbook" href="{% url edit_book book.url_title  book_version %}">{% trans "EDIT THIS BOOK" %}</a>
 
-<a class="viewdraft" href="{% url view_draft book.url_title  book_version %}">{% trans "VIEW DRAFT" %}</a>
-<p>Created: {{ book.created }}</p>
-<p>
-Collaborators:
+<a class="viewpublished" href="{% url book_view book.url_title  %}">{% trans "VIEW PUBLISHED BOOK" %}</a>
+
+<a class="editbook" href="{% url edit_book book.url_title  %}">{% trans "EDIT THIS BOOK" %}</a>
+
+<a class="viewdraft" href="{% url draft_book book.url_title  book_version %}">{% trans "VIEW DRAFT" %}</a>
+
+<h2>Book details</h2>
+<ul id="bookdetails">
+  <li><b>Owner:</b> <a href="{% url view_profile book.owner.username %}" class="user">{{ book.owner.username }}</a></li>
+  <li><b>Status:</b> {{ book.status.name }}  
+{% if book.hidden %}
+  <i>(this book is hidden from others)</i>
+{% else %}
+  <i>(this book is visible to everyone)</i>
+{% endif %}
+  </li>
+{% if book.group %}
+  <li><b>Member of group:</b> <a href="{% url view_group book.group.url_name %}">{{ book.group.name }}</a></li>
+{% endif %}
+  <li>&nbsp;</li>
+  <li><b>Created:</b> {{ book.created }}</li>
+  <li><b>Published:</b> {{ book.published }}</li>
+  <li>&nbsp;</li>
+<li>
+<b>Collaborators:</b> 
 {% for username in book_collaborators %}
-  {{ username }},
+  <a href="{% url view_profile book.owner.username %}" class="user">{{ username }}</a>
+  {% if not forloop.last %},{% endif %}
 {% endfor %}
-</p>
+</li>
+{% if online_users %}
+<li>
+<b>Online editing:</b> 
+{% for username in online_users %}
+  <a href="{% url view_profile book.owner.username %}" class="user">{{ username }}</a>
+  {% if not forloop.last %},{% endif %}
+{% endfor %}
+</li>
+{% endif %}
+
+</ul>
+
 <h2>{% trans "Recent activity" %}</h2>
-<table border="0" width="80%">
+<table border="0" width="80%" style="margin-left: 15px">
  {% for ln in book_history %}
    <tr>
-     <td valign="top"> 
        {% if ln.kind == 1 %}
+     <td valign="top"> 
          Chapter create
+     </td>
+
        {% endif %}
        {% if ln.kind == 2 %}
-         Chapter save
+     <td valign="top"> 
+        Chapter save
+     </td>
+
        {% endif %}
        {% if ln.kind == 3 %}
+     <td valign="top"> 
          Chapter rename
+     </td>
+
        {% endif %}
 
        {% if ln.kind == 4 %}
+     <td valign="top" colspan="2"> 
          Chapter reorder
+     </td>
+
        {% endif %}
 
        {% if ln.kind == 5 %}
+     <td valign="top" colspan="2"> 
+
          Section create
+     </td>
+
        {% endif %}
 
        {% if ln.kind == 10 %}
+     <td valign="top" colspan="2"> 
          Book create
+     </td>
+
        {% endif %}
 
        {% if ln.kind == 13 %}
-         Attachment upload
+     <td valign="top" colspan="2"> 
+         Uploaded "<a class="attachment" href="{% url draft_attachment book.url_title book_version ln.args|jsonlookup:"filename" %}">{{ ln.args|jsonlookup:"filename" }}</a>"
+     </td>
+
        {% endif %}
 
 
-     </td>
-      <td valign="top"> <a href="_draft/{{ ln.chapter.url_title}}">{{ln.chapter.title}}</a></td>
-     <td valign="top"> {{ ln.user.username }} </td>
+       {% if ln.chapter %}
+        <td valign="top"> 
+         <a href="{% url draft_chapter book.url_title  book_version  ln.chapter.url_title %}">{{ln.chapter.title}}</a>
+        </td>
+       {% endif %}
+
+     <td valign="top"> <a href="{% url view_profile book.owner.username %}" class="user">{{ ln.user.username }}</a> </td>
      <td valign="top"> {{ ln.modified }} </td>
    </tr>
  {% endfor %}
 </table>
-
+<div style="padding-left: 15px; padding-top: 10px; padding-bottom: 20px;">
+  <img src="{{ request.META.SCRIPT_NAME }}/site_static/images/feed-icon-14x14.png" style="margin-right: 10px"><a href="{{ request.META.SCRIPT_NAME }}/feeds/rss/book/{{ book.url_title }}">{% trans "Follow changes" %}</a>
+</div>
 {% endblock %}

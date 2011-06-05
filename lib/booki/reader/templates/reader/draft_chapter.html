@@ -24,21 +24,19 @@
    <h1>{{ book.title }}</h1>
 
 
-<div id="bookmenu"  style="background: url(/site_static/images/draft_bg.png) repeat !important;">
+<div id="bookmenu"   style="background: url(/site_static/images/draft_bg.png) repeat !important;">
 <ul>
 {% for chap in chapters %}
  {% ifnotequal chap.url_title  None%}
-   <li><a href="{% url view_chapter  book.url_title  book_version chap.url_title %}">{{ chap.name }}</a></li>
+   <li><a href="{% url draft_chapter  book.url_title  book_version chap.url_title %}">{{ chap.name }}</a></li>
  {% else %}
    <li><b>{{ chap.name }}</b></li>
  {% endifnotequal %}
 {% endfor %}
 </ul>
 </div>
-<div id="bookcontent"  style="background: url(/site_static/images/draft_bg.png) repeat !important;">
+<div id="bookcontent"   style="background: url(/site_static/images/draft_bg.png) repeat !important;">
 {% booki_format content %}
-<hr/>
-<a href="{% url edit_book   book.url_title book_version %}">{% trans "EDIT" %}</a>
 </div>
 
 {% endblock %}

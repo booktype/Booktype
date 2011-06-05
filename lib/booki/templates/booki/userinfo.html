@@ -1,0 +1,8 @@
+<div style="height: 50px; text-align: left">
+
+  <img src="{{ request.META.SCRIPT_NAME }}/_utils/profilethumb/{{ user.username }}/thumbnail.jpg?width=48&height=48" style="float: left; padding-right: 5px"> 
+  <div style="float: left">
+    <div style="font-weight: bold">{{ user.first_name }}</div>
+    <div style="font-style: italic">{{ profile.mood }}</div>  
+  </div>
+</div>

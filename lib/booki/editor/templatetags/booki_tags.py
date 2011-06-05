@@ -120,3 +120,10 @@ def booki_authors(parser, token):
 
     return FormatAuthorsNode(book, args)
         
+@register.filter
+def jsonlookup(d, key):
+    from booki.utils.json_wrapper import simplejson
+
+    d2 = simplejson.loads(d)
+
+    return d2[key]
