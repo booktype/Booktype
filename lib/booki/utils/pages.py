@@ -34,7 +34,6 @@ def attachmentinfo(request, bookid, version, attachment):
 
     # very stupid
     for a in book_version.getAttachments():
-        print a
         if a.getName() == attachment:
             att = a
 
