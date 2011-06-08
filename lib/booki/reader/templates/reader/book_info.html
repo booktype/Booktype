@@ -144,58 +144,72 @@ A { border-bottom: 1px dotted #c0c0c0;}
  {% for ln in book_history %}
    <tr>
        {% if ln.kind == 1 %}
-     <td valign="top"> 
+       <td valign="top"> 
          Chapter create
-     </td>
-
+       </td>
        {% endif %}
+
        {% if ln.kind == 2 %}
-     <td valign="top"> 
-        Chapter save
-     </td>
-
+       <td valign="top"> 
+         Chapter save
+       </td>
        {% endif %}
-       {% if ln.kind == 3 %}
-     <td valign="top"> 
-         Chapter rename
-     </td>
 
+       {% if ln.kind == 3 %}
+       <td valign="top"> 
+         Chapter rename
+       </td>
        {% endif %}
 
        {% if ln.kind == 4 %}
-     <td valign="top" colspan="2"> 
+       <td valign="top" colspan="2"> 
          Chapter reorder
-     </td>
-
+       </td>
        {% endif %}
 
        {% if ln.kind == 5 %}
-     <td valign="top" colspan="2"> 
-
-         Section create
-     </td>
-
+        <td valign="top" colspan="2"> 
+         Split chapter
+        </td>
        {% endif %}
+
+       {% if ln.kind == 6 %}
+        <td valign="top" colspan="2"> 
+         Section create
+        </td>
+       {% endif %}
+
 
        {% if ln.kind == 10 %}
-     <td valign="top" colspan="2"> 
+       <td valign="top" colspan="2"> 
          Book create
-     </td>
-
+       </td>
        {% endif %}
 
-       {% if ln.kind == 13 %}
-     <td valign="top" colspan="2"> 
-         Uploaded "<a class="attachment" href="{% url draft_attachment book.url_title book_version ln.args|jsonlookup:"filename" %}">{{ ln.args|jsonlookup:"filename" }}</a>"
-     </td>
+       {% if ln.kind == 11 %}
+       <td valign="top" colspan="2"> 
+         Minor version
+       </td>
+       {% endif %}
 
+       {% if ln.kind == 12 %}
+       <td valign="top" colspan="2"> 
+         Major version
+       </td>
+       {% endif %}
+
+
+       {% if ln.kind == 13 %}
+       <td valign="top" colspan="2"> 
+         Uploaded "<a class="attachment" href="{% url draft_attachment book.url_title book_version ln.args|jsonlookup:"filename" %}">{{ ln.args|jsonlookup:"filename" }}</a>"
+       </td>
        {% endif %}
 
 
        {% if ln.chapter %}
-        <td valign="top"> 
+       <td valign="top"> 
          <a href="{% url draft_chapter book.url_title  book_version  ln.chapter.url_title %}">{{ln.chapter.title}}</a>
-        </td>
+       </td>
        {% endif %}
 
      <td valign="top"> <a href="{% url view_profile book.owner.username %}" class="user">{{ ln.user.username }}</a> </td>
