@@ -1481,7 +1481,7 @@ def remote_settings_options(request, message, bookid, version):
     licenses = [(lic.abbrevation, lic.name) for lic in models.License.objects.all().order_by("name")]
     languages = [(lic.abbrevation, lic.name) for lic in models.Language.objects.all().order_by("name")]
     
-    #transaction.commit()
+    transaction.commit()
 
     return {"licenses": licenses, 
             "current_licence": book.license.abbrevation,
@@ -1511,6 +1511,8 @@ def remote_license_attributions(request, message, bookid, version):
 
     from django.contrib.auth.models import User
     users = [(u.username, u.first_name) for u in User.objects.all().order_by("username")]
+
+    transaction.commit()
 
     return {"users": users}
 
