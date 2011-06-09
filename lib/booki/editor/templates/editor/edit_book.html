@@ -122,7 +122,7 @@ function closeAttachmentUpload() {
 <input type="text" size="20"> <button>{% trans "Search" %}</button>
 </form>
 </div>
-<h1 style="margin-top: 0px"> <a href="{% url book_view book.url_title %}">{{ book }}</a> </h1>
+<h1 style="margin-top: 0px"> <a href="{% url book_info book.url_title %}">{{ book }}</a> </h1>
 </div>
 
 <div id="tabs">
@@ -149,6 +149,11 @@ function closeAttachmentUpload() {
 {% if "notes" in tabs %}
 		<li><a href="#tabnotes">{% trans "Notes" %}</a></li>
 {% endif %}
+
+{% if "settings" in tabs %}
+		<li><a href="#tabsettings">{% trans "Settings" %}</a></li>
+{% endif %}
+
 
 {% if "export" in tabs %}
 		<li><a href="#tabpublish">{% trans "Export" %}</a></li>
@@ -665,6 +670,88 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 
 	</div>
 {% endif %}
+
+{% if "settings" in tabs %}
+	<div id="tabsettings">
+  	  <!-- START settings TAB -->
+
+  	  <h3>{% trans "Language" %}</h3>
+              <form name="formlanguages" action="javascript:void(0)" onsubmit="return false;">
+
+	  <table border="0">
+           <tr>
+            <td>
+              {% trans "This book is written in " %}
+            </td>
+            <td>
+                <select name="lang">
+                </select>
+              </td>
+              <td><a name="language">{% trans "Set new language" %}</a></td>
+            </tr>
+            <tr>
+             <td colspan="3">
+               <input type="checkbox" name="rtl" value="rtl"> Right to left text<br>
+
+             </td>
+            </tr>
+           </table>
+               </form>
+
+  	  <h3>{% trans "License" %}</h3>
+	  <table border="0">
+           <tr>
+            <td>
+              {% trans "This book is licensed with:" %}
+            </td>
+            <td>
+              <form name="formlicences" action="javascript:void(0)" onsubmit="return false;">
+                <select name="licen">
+                </select>
+               </form>
+              </td>
+              <td><a name="license">{% trans "Set new license" %}</a></td>
+            </tr>
+            <tr>
+             <td colspan="3">
+               <a name="readlicense" href="javascript:void(0)" style="border-bottom: 1px dotted #c0c0c0">{% trans "Read full text of the license" %}</a>
+             </td>
+            </tr>
+           </table>
+
+	  <p><a name="attribution">{% trans "Manage copyright attribution." %}</a></p>
+
+	  <div class="copyrightAttribution template" title="{% trans "Manage Copyright Attribution" %}">
+            <p>If you want to exclude some people from the copyright attribution...
+
+             </p>
+           <form>
+           <table border="0" width="100%">
+            <tr><td><b>Contributors</b></td><td></td><td><b>Excluded contributors</b></td></tr>
+            <tr>
+             <td width="40%" valign="top">
+   	       <select size="10" style="width: 100%; height: 90%">
+               </select>
+             </td>
+             <td width="10%" valign="center" align="center"><a class="button">&gt;&gt;</a><br><br><a class="button">&lt;&lt;</a></td>
+             <td width="40%" valign="top">
+   	       <select size="10" style="width: 100%; height: 90%">
+               </select>
+             </td>
+            </tr>
+           </table>
+           </form>
+          </div>
+
+  	  <h3>{% trans "Security" %}</h3>
+
+
+
+	  <div class="info">
+          </div>
+	</div>
+{% endif %}
+
 
 {% if "notes" in tabs %}
 	<div id="tabnotes">

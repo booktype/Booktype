@@ -1472,3 +1472,46 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
     return {"output": info+'<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: '+message["revision2"]+'</div></td></tr>\n'.join(output)+'</table>\n'}
 
 
+def remote_settings_options(request, message, bookid, version):
+    from booki.editor.views import getVersion
+
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, version)
+
+    licenses = [(lic.abbrevation, lic.name) for lic in models.License.objects.all().order_by("name")]
+    languages = [(lic.abbrevation, lic.name) for lic in models.Language.objects.all().order_by("name")]
+    
+    #transaction.commit()
+
+    return {"licenses": licenses, 
+            "current_licence": book.license.abbrevation,
+            "languages": languages,
+            "current_language": book.language.abbrevation
+            }
+
+def remote_license_save(request, message, bookid, version):
+    from booki.editor.views import getVersion
+
+    book = models.Book.objects.get(id=bookid)
+    #book_ver = getVersion(book, version)
+
+    lic = models.License.objects.filter(abbrevation=message["license"])[0]
+    book.license = lic
+    book.save()
+
+    transaction.commit()
+
+    return {"status": 1}
+
+def remote_license_attributions(request, message, bookid, version):
+    from booki.editor.views import getVersion
+
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, version)
+
+    from django.contrib.auth.models import User
+    users = [(u.username, u.first_name) for u in User.objects.all().order_by("username")]
+
+    return {"users": users}
+
+

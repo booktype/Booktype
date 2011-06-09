@@ -106,7 +106,12 @@ def edit_book(request, bookid, version=None):
     if bookSecurity.isAdmin():
         tabs += ["attachments"]
 
-    tabs += ["history", "versions", "notes", "export"]
+    tabs += ["history", "versions", "notes"]
+
+    if bookSecurity.isAdmin():
+        tabs += ["settings"]
+
+    tabs += ["export"]
 
     isBrowserSupported = True
     browserMeta = request.META.get('HTTP_USER_AGENT', '')
