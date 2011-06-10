@@ -1478,15 +1478,18 @@ def remote_settings_options(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_ver = getVersion(book, version)
 
-    licenses = [(lic.abbrevation, lic.name) for lic in models.License.objects.all().order_by("name")]
-    languages = [(lic.abbrevation, lic.name) for lic in models.Language.objects.all().order_by("name")]
+    licenses = [(lic.abbrevation, lic.name)  for lic in models.License.objects.all().order_by("name") if lic]
+    languages = [(lic.abbrevation, lic.name) for lic in models.Language.objects.all().order_by("name") if lic]
     
+    current_license = getattr(book.license, "abbrevation","")
+    current_language = getattr(book.language, "abbrevation", "")
+
     transaction.commit()
 
     return {"licenses": licenses, 
-            "current_licence": book.license.abbrevation,
+            "current_licence": current_license,
             "languages": languages,
-            "current_language": book.language.abbrevation
+            "current_language": current_language
             }
 
 def remote_license_save(request, message, bookid, version):

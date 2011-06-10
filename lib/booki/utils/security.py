@@ -26,7 +26,7 @@ class BookiSecurity(object):
         return self.bookPermissions
 
     def isBookAdmin(self):
-        return 1 in self.bookPermissions
+        return self.isBookOwner or (1 in self.bookPermissions)
 
     def isAdmin(self):
         return self.isSuperuser() or self.isGroupAdmin() or self.isBookAdmin()
