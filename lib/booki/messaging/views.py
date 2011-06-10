@@ -45,11 +45,15 @@ def user2endpoint(user):
 
 @login_required
 def view_post(request):
+    # XXX validate:
     content = request.POST.get('content')
     attachment = request.FILES.get('attachment')
+    context_url = request.POST.get('context_url')
+    snippet = request.POST.get('snippet')
 
     message = Post(sender=user2endpoint(request.user), content=content, 
-                   attachment=attachment)
+                   attachment=attachment, context_url=context_url,
+                   snippet=snippet)
     message.save()
 
     # add appearances:

@@ -11,3 +11,9 @@ Hi {{ user.first_name }}!
 {% if post.attachment %}
 {% trans "Attachment:" %} {{ DATA_URL }}/{{ post.attachment }}
 {% endif %}
+{% if post.snippet %}
+{% trans "Snippet:" %} [{% trans "not shown" %}]
+{% endif %}
+{% if post.context_url %}
+{% trans "Snippet context:" %} {{ post.context_url %}
+{% endif %}

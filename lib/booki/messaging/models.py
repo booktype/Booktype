@@ -17,6 +17,8 @@ class Post(models.Model):
     timestamp = models.DateTimeField(_('timestamp'), null=False, auto_now=True)
     content = models.TextField(_('content'))
     attachment = models.FileField(_('attachment'), upload_to=uploadAttachmentTo, max_length=2500)
+    snippet = models.TextField(_('snippet'))
+    context_url = models.TextField(_('context'))
 
     def content_as_html(self):
         res = []
