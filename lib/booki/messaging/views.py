@@ -167,11 +167,23 @@ def view_follow(request):
 
     return redirect('view_profile', request.user.username)
 
-# XXX    return 
+@login_required
+def view_unfollow(request):
+    target_syntax = request.POST.get('target')
+    # FIXME may fail
+    target = get_endpoint_or_none(target_syntax)
+
+    follower = user2endpoint(request.user)
+
+    Following.objects.filter(follower=follower, target=target).delete()
+
+    return redirect('view_profile', request.user.username)
+
 
 def view_tag(request, tagname):
     tag = get_object_or_404(Endpoint, syntax="#"+tagname)
 
     return render_to_response("messaging/view_tag.html",
                               dict(tag=tag,
-                                   tagname=tagname))
+                                   tagname=tagname,
+                                   request=request))

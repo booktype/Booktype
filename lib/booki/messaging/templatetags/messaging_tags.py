@@ -95,8 +95,9 @@ def user_tagbox(username):
     return dict(tags=tags)
 
 @register.inclusion_tag("messaging/user_followbutton.html")
-def user_followbutton(username):
-    return dict(username=username)
+def user_followbutton(username, requestuser):
+    return dict(username=username,
+                alreadyfollowing=bool(Following.objects.filter(follower=get_endpoint_or_none("@"+requestuser), target=get_endpoint_or_none("@"+username))))
 
 @register.simple_tag
 def book_followbutton(bookname):
@@ -108,6 +109,7 @@ def book_followbutton(bookname):
 #    pass
 
 @register.inclusion_tag("messaging/tag_followbutton.html")
-def tag_followbutton(tagname):
-    return dict(tagname=tagname)
+def tag_followbutton(tagname, requestuser):
+    return dict(tagname=tagname,
+                alreadyfollowing=bool(Following.objects.filter(follower=get_endpoint_or_none("@"+requestuser), target=get_endpoint_or_none("#"+tagname))))
 
