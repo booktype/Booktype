@@ -161,7 +161,8 @@ def view_follow(request):
 
     follower = user2endpoint(request.user)
 
-    if not Following.objects.filter(follower=follower, target=target):
+    if (not Following.objects.filter(follower=follower, target=target)
+        and not target==follower):
         following = Following(follower=follower, target=target)
         following.save()
 
