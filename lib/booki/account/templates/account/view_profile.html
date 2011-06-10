@@ -68,52 +68,12 @@
   <td width="10"></td>
   <td valign="top">
 <div style="width:325px; border: 1px solid #c0c0c0; background-color: #f0f0f0; padding: 5px;" id="mood">
-  <form enctype="multipart/form-data" method="POST" action="{% url booki.messaging.views.view_post %}" onsubmit="return true;">
-   <input type="text" name="content" size="40" value="{% ifequal user.username request.user.username %}{% trans "What's on your mind ?" %}{% else %}@{{user.username}} {%endifequal%}" style="width: 320px;"/>
-   <div class="accordion">
-   <div class="header">[<a class="expander" href="#">Optional attachment</a>]</div> <input type="file" name="attachment" style="width: 320px;" />
-   </div>
-   <div class="accordion">
-   <div class="header">[<a class="expander" id="snippet_expander" href="#">Optional text snippet</a>]</br /></div><div> <textarea id="snippetTextArea" name="snippet" style="width: 318px;"></textarea>
-   Optional snippet context URL: <input type="text" name="context_url" style="width: 320px;" /></div></div>
-   <script>
-  $(function() {
-    $(".accordion .header").click(function() {
-      $(this).next().toggle();
-      return false;
-    }).next().hide();
-    $("#snippet_expander").click(function() {
-      xinha_init();
-      return true;
-    });
-  });
-   </script>
-   <script type="text/javascript">
-     _editor_url = "{{ request.META.SCRIPT_NAME }}/site_static/xinha/";
-     _editor_lang = "en";
-   </script>
-   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/xinha/XinhaCore.js"></script>
-   <script type="text/javascript">
-     xinha_plugins = ['GetHtml','DoubleClick'];
-
-     xinha_editors = ['snippetTextArea'];
-     function xinha_init() {
-       if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
-       var xinha_config = new Xinha.Config();
-       xinha_config.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
-
-       xinha_config.toolbar = [["popupeditor"],["separator","undo","redo","selectall"],(Xinha.is_gecko ? [] : ["cut","copy","paste","overwrite","saveas"]),["separator","htmlmode","showhelp","about"]]; //[["popupeditor"],["formatblock","fontname","fontsize","bold","italic","underline","strikethrough","forecolor","hilitecolor"],["separator","outdent","indent"],["linebreak","separator","justifyleft","justifycenter","justifyright","justifyfull"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","print"]];
-       xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
-       xinha_editors.snippetTextArea.config.height = '200px'
-       Xinha.startEditors(xinha_editors);
-     }
-   </script>
-   <div style="margin-top:3px;margin-right:3px;" align="right">
-      <button>{% trans "Share" %}</button>
-   </div>
- </form>
+{% if user.username == request.user.username %}
+{% user_messagefield "" %}
+{% else %}
+{% user_messagefield user.username %}
+{% endif %}
 </div>
-
 <p>
 <div id="Xstatus_messages">
 {% user_timeline user.username %}

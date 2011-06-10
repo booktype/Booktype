@@ -30,6 +30,9 @@
 {% trans "click on the chapter name" %}
 <hr/>
 <a href="{% url view_book book.url_title  book_version %}edit/">{% trans "EDIT" %}</a>
+<div style="width:325px; border: 1px solid #c0c0c0; background-color: #f0f0f0; padding: 5px;" id="mood">
+{% book_messagefield book.url_title %}
+</div>
 {% book_timeline book.url_title %}
 </div>
 {% endblock %}

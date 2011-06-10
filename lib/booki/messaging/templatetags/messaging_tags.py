@@ -1,4 +1,6 @@
 
+import random
+
 from django.conf import settings
 
 from django import template
@@ -51,25 +53,31 @@ def tag_timeline(tagname):
     return dict(syntax="#"+tagname, posts=tag_posts)
 
 ### messagefields:
+@register.inclusion_tag("messaging/messagefield.html", takes_context=True)
+def user_messagefield(context, username):
+    return dict(syntax="@"+username+" " if username else "",
+                request=context.get('request'),
+                random=random.getrandbits(60)
+                )
 
-@register.simple_tag
-def user_messagefield(username):
-    pass
+@register.inclusion_tag("messaging/messagefield.html", takes_context=True)
+def group_messagefield(context, groupname):
+    return dict(syntax="!"+groupname+" ",
+                request=context.get('request'),
+                random=random.getrandbits(60)
+                )
 
-@register.simple_tag
-def group_messagefield(groupname):
-    pass
+@register.inclusion_tag("messaging/messagefield.html", takes_context=True)
+def book_messagefield(context, bookname):
+    return dict(syntax=u"\u212c"+bookname+" ",
+                request=context.get('request'),
+                random=random.getrandbits(60)
+                )
 
-@register.simple_tag
-def book_messagefield(bookname):
-    pass
-
-def messagefield():
-    pass
-
-@register.simple_tag
-def messagefield_button():
-    pass
+@register.inclusion_tag("messaging/messagefield_button.html", takes_context=True)
+def messagefield_button(context):
+    return dict(request=context.get('request'),
+                random=random.getrandbits(60))
 
 ### stalking:
 
