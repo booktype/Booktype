@@ -36,9 +36,12 @@ def group_timeline(groupname):
     group_posts = (x.post for x in appearances.order_by("-timestamp"))
     return dict(syntax="!"+groupname, posts=group_posts)
 
-@register.simple_tag
+@register.inclusion_tag("messaging/timeline.html")
 def book_timeline(bookname):
-    pass
+    endpoint = get_endpoint_or_none(u"\u212c"+bookname)
+    appearances = PostAppearance.objects.filter(endpoint=endpoint)
+    book_posts = (x.post for x in appearances.order_by("-timestamp"))
+    return dict(syntax=u"\u212c"+bookname, posts=book_posts)
 
 @register.inclusion_tag("messaging/timeline.html")
 def tag_timeline(tagname):

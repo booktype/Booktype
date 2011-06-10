@@ -11,6 +11,8 @@ from django.core.mail import send_mail
 from booki.messaging.models import Post, PostAppearance, Endpoint, Following
 from django.contrib.auth import models as auth_models
 
+from booki.editor.models import BookiGroup, Book
+
 from django.core.exceptions import ObjectDoesNotExist
 
 def get_or_none(objects, *args, **kwargs):
@@ -34,6 +36,11 @@ def get_endpoint_or_none(syntax):
             if group:
                 timeline = Endpoint(syntax=syntax)
                 timeline.save()
+        if syntax.startswith(u'\u212c'):
+            book = get_or_none(Book.objects, url_title=syntax[1:])
+            if book:
+                timeline = Endpoint(syntax=syntax)
+                timeline.save()
         if syntax.startswith('#'):
             timeline = Endpoint(syntax=syntax)
             timeline.save()
@@ -42,6 +49,66 @@ def get_endpoint_or_none(syntax):
 
 def user2endpoint(user):
     return get_endpoint_or_none("@"+user.username)
+
+def add_appearance_for_user(message, word, sent, direct=False):
+    timeline = get_endpoint_or_none(word)
+    if timeline and timeline not in sent:
+        appearance = PostAppearance(
+            post=message, timestamp=message.timestamp, 
+            endpoint=timeline)
+        appearance.save()
+        sent[timeline] = True
+
+        if direct:
+            # XXX direct has to be first to be sent to take effect
+            # XXX check that email addr is verified before sending
+
+            user = timeline.as_user()
+            SERVER_ROOT = "/".join(settings.BOOKI_URL.split("/")[:3])
+            body = render_to_string('messaging/new_message_email.txt', 
+                                    dict(user=user, post=message,
+                                         SERVER_ROOT=SERVER_ROOT,
+                                         DATA_URL=settings.DATA_URL))
+            send_mail(_('Direct message from %s at Booki') % message.sender, 
+                      body,
+                      'tuukka@labs.seravo.fi',
+                      [user.email], fail_silently=False)
+
+def add_appearance_for_group(message, word, sent, direct=False):
+    timeline = get_endpoint_or_none(word)
+    if timeline and timeline not in sent:
+        appearance = PostAppearance(
+            post=message, timestamp=message.timestamp, 
+            endpoint=timeline)
+        appearance.save()
+        sent[timeline] = True
+
+        group = get_or_none(BookiGroup.objects, url_name=word[1:])
+        for user in group.members.all():
+            add_appearance_for_user(message, "@"+user.username, sent)
+
+def add_appearance_for_book(message, word, sent, direct=False):
+    timeline = get_endpoint_or_none(word)
+    if timeline and timeline not in sent:
+        appearance = PostAppearance(
+            post=message, timestamp=message.timestamp, 
+            endpoint=timeline)
+        appearance.save()
+        sent[timeline] = True
+
+        book = get_or_none(Book.objects, url_title=word[1:])
+        if book and book.group:
+            add_appearance_for_group(message, "!"+book.group.url_name, sent)
+
+def add_appearance_for_tag(message, word, sent, direct=False):
+    timeline = get_endpoint_or_none(syntax=word)
+    if timeline and timeline not in sent:
+        appearance = PostAppearance(
+            post=message, timestamp=message.timestamp, 
+            endpoint=timeline)
+        appearance.save()
+        sent[timeline] = True
+
 
 @login_required
 def view_post(request):
@@ -63,44 +130,15 @@ def view_post(request):
     # mentions
     for word in content.split():
         if word.startswith("@"):
-            timeline = get_endpoint_or_none(word)
-            if timeline and timeline not in sent:
-                appearance = PostAppearance(
-                    post=message, timestamp=message.timestamp, 
-                    endpoint=timeline)
-                appearance.save()
-                sent[timeline] = True
-
-                # XXX check that email addr is verified before sending
-                user = timeline.as_user()
-                SERVER_ROOT = "/".join(settings.BOOKI_URL.split("/")[:3])
-                body = render_to_string('messaging/new_message_email.txt', 
-                                        dict(user=user, post=message,
-                                             SERVER_ROOT=SERVER_ROOT,
-                                             DATA_URL=settings.DATA_URL))
-                send_mail(_('Direct message from %s at Booki') % message.sender, 
-                          body,
-                          'tuukka@labs.seravo.fi',
-                          [user.email], fail_silently=False)
-
+            add_appearance_for_user(message, word, sent, direct=True)
         if word.startswith("!"):
-            timeline = get_endpoint_or_none(word)
-            if timeline and timeline not in sent:
-                appearance = PostAppearance(
-                    post=message, timestamp=message.timestamp, 
-                    endpoint=timeline)
-                appearance.save()
-                sent[timeline] = True
+            add_appearance_for_group(message, word, sent, direct=True)
+        if word.startswith(u"\u212c"):
+            add_appearance_for_book(message, word, sent, direct=True)
         if word.startswith("#"):
-            timeline = get_endpoint_or_none(syntax=word)
-            if timeline and timeline not in sent:
-                appearance = PostAppearance(
-                    post=message, timestamp=message.timestamp, 
-                    endpoint=timeline)
-                appearance.save()
-                sent[timeline] = True
+            add_appearance_for_tag(message, word, sent, direct=True)
 
-    # followers
+    # followers of the sending user
     source_endpoint = user2endpoint(request.user)
     followings = Following.objects.filter(target=source_endpoint)
     for following in followings:

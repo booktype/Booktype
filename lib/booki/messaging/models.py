@@ -28,6 +28,8 @@ class Post(models.Model):
                 url = reverse("view_profile", args=[part[1:]])
             elif part.startswith("!"):
                 url = reverse("view_group", args=[part[1:]])
+            elif part.startswith(u"\u212c"):
+                url = reverse("view_book", args=[part[1:]])
             elif part.startswith("#"):
                 url = reverse("view_tag", args=[part[1:]])
             part = escape(part)
@@ -37,7 +39,7 @@ class Post(models.Model):
         return " ".join(res)
 
     def __unicode__(self):
-        return "%s-%s" % (self.sender, self.timestamp)
+        return u"%s-%s" % (self.sender, self.timestamp)
 
     class Meta:
         verbose_name = _('Post')
@@ -50,7 +52,7 @@ class PostAppearance(models.Model):
     endpoint = models.ForeignKey('Endpoint', verbose_name=_('endpoint'))
 
     def __unicode__(self):
-        return "%s-%s" % (self.endpoint, self.timestamp)
+        return u"%s-%s-%s" % (self.post.sender, self.endpoint, self.timestamp)
 
     class Meta:
         verbose_name = _('PostAppearance')
@@ -83,7 +85,7 @@ class Following(models.Model):
     target = models.ForeignKey('Endpoint', verbose_name=_("target"), related_name='target')
 
     def __unicode__(self):
-        return "%s-%s" % (self.follower, self.target)
+        return u"%s-%s" % (self.follower, self.target)
 
     class Meta:
         verbose_name = _('Following')

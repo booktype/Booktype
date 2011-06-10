@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n profile %}
+{% load i18n profile messaging_tags %}
 
 {% block header %}
 <title>{% blocktrans with group.name as groupname %}/group: {{ groupname }}{% endblocktrans %}</title>
@@ -104,9 +104,7 @@
 
 <div style="width: 300px; float: left; padding-left: 20px;">
  <div style="font-weight: bold;  border-bottom: 1px solid #808080;">{% trans "STATUS" %}</div>
-    <div style="border-bottom: 1px dotted #808080">
-       <div id="status_messages">Please wait while loading data...</div>
-    </div>
+ {% group_timeline group.url_name %}
 </div>
  
 <div style="clear: both"></div>

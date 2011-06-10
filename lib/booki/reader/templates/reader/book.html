@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n messaging_tags %}
 
 {% block header %}
 <title>{% blocktrans with book.title as booktitle %}/book: {{ booktitle }}{% endblocktrans %}</title>
@@ -30,5 +30,6 @@
 {% trans "click on the chapter name" %}
 <hr/>
 <a href="{% url view_book book.url_title  book_version %}edit/">{% trans "EDIT" %}</a>
+{% book_timeline book.url_title %}
 </div>
 {% endblock %}
