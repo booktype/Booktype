@@ -1,5 +1,5 @@
 {% load i18n %}
-Hi {{ user.first_name }}!
+{% blocktrans with user.first_name as first_name %}Hi {{ first_name }}!{% endblocktrans %}
 
 {% trans "This is a notification of a new message for you at your Booki profile:" %}
 {{ SERVER_ROOT }}{% url view_profile user.username %}
@@ -10,10 +10,13 @@ Hi {{ user.first_name }}!
 {{ post.content }}
 {% if post.attachment %}
 {% trans "Attachment:" %} {{ DATA_URL }}/{{ post.attachment }}
-{% endif %}
-{% if post.snippet %}
+{% endif %}{% if post.snippet %}
 {% trans "Snippet:" %} [{% trans "not shown" %}]
-{% endif %}
-{% if post.context_url %}
+{% endif %}{% if post.context_url %}
 {% trans "Snippet context:" %} {{ post.context_url %}
 {% endif %}
+___
+{% trans "This email address receives these notifications because of your settings:" %}
+{{ SERVER_ROOT }}{% url user_settings user.username %}
+
+{% trans "Need a new password?" %} {{ SERVER_ROOT }}{% url forgotpassword %}?account={{ user.username }}
