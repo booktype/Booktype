@@ -55,12 +55,19 @@ class PostAppearance(models.Model):
         return u"%s-%s-%s" % (self.post.sender, self.endpoint, self.timestamp)
 
     class Meta:
-        verbose_name = _('PostAppearance')
-        verbose_name_plural = _('PostAppearances')
+        verbose_name = _('Post appearance')
+        verbose_name_plural = _('Post appearances')
 
+def match_wildcard(pattern, word):
+    if pattern == word:
+        return True
+    if pattern[-1] == "*" and word.startswith(pattern[:-1]):
+        return True
+    return False
 
 class Endpoint(models.Model):
     syntax = models.CharField(_('syntax'), max_length=2500, unique=True)
+    config = models.ForeignKey('EndpointConfig', unique=True, null=True, blank=True)
 
     def as_user(self):
         if not self.syntax.startswith("@"):
@@ -72,6 +79,46 @@ class Endpoint(models.Model):
         else:
             return None
 
+    def notification_filter(self):
+        if self.config:
+            return self.config.notification_filter
+        else:
+            try:
+                return settings.DEFAULT_NOTIFICATION_FILTER
+            except AttributeError:
+                return ""
+
+    def get_config(self):
+        if not self.config:
+            config = EndpointConfig()
+            config.save()
+            self.config = config
+            self.save()
+        return self.config
+
+    def wants_notification(self, message, word):
+        filters = self.notification_filter().split(" ")
+
+        if word == self.syntax: # if direct message:
+            word = message.sender.syntax # then filter based on sender
+
+        for f in filters:
+            if not f:
+                continue
+
+            if f == "*":
+                return False # filter out all
+
+            if word:
+                if match_wildcard(f, word):
+                    return False
+
+            # filter based on sender if f is plain username:
+            if match_wildcard(f, message.sender.syntax[1:]):
+                return False
+
+        return True # no filters matched
+
     def __unicode__(self):
         return self.syntax
 
@@ -79,6 +126,15 @@ class Endpoint(models.Model):
         verbose_name = _('Endpoint')
         verbose_name_plural = _('Endpoints')
 
+class EndpointConfig(models.Model):
+    notification_filter = models.CharField(_('notification filter'), max_length=2500, blank=True)
+
+    def __unicode__(self):
+        return "config-"+"-".join(str(x) for x in self.endpoint_set.all())
+
+    class Meta:
+        verbose_name = _('Endpoint config')
+        verbose_name_plural = _('Endpoint configs')
 
 class Following(models.Model):
     follower = models.ForeignKey('Endpoint', verbose_name=_("follower"), related_name='follower')

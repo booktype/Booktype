@@ -50,7 +50,8 @@ def get_endpoint_or_none(syntax):
 def user2endpoint(user):
     return get_endpoint_or_none("@"+user.username)
 
-def add_appearance_for_user(message, word, sent, direct=False):
+
+def add_appearance_for_user(message, word, sent, direct=False, orig_word=None):
     timeline = get_endpoint_or_none(word)
     if timeline and timeline not in sent:
         appearance = PostAppearance(
@@ -59,8 +60,8 @@ def add_appearance_for_user(message, word, sent, direct=False):
         appearance.save()
         sent[timeline] = True
 
-        if direct:
-            # XXX direct has to be first to be sent to take effect
+        if timeline.wants_notification(message, orig_word):
+            # XXX wanted has to be first to be sent to take effect
             # XXX check that email addr is verified before sending
 
             user = timeline.as_user()
@@ -69,12 +70,16 @@ def add_appearance_for_user(message, word, sent, direct=False):
                                     dict(user=user, post=message,
                                          SERVER_ROOT=SERVER_ROOT,
                                          DATA_URL=settings.DATA_URL))
-            send_mail(_('Direct message from %s at Booki') % message.sender, 
+            if orig_word == word or not orig_word:
+                reason = message.sender
+            else:
+                reason = orig_word
+            send_mail(_('Message from %s at Booki') % reason, 
                       body,
-                      'tuukka@labs.seravo.fi',
+                      settings.EMAIL_HOST_USER,
                       [user.email], fail_silently=False)
 
-def add_appearance_for_group(message, word, sent, direct=False):
+def add_appearance_for_group(message, word, sent, direct=False, orig_word=None):
     timeline = get_endpoint_or_none(word)
     if timeline and timeline not in sent:
         appearance = PostAppearance(
@@ -85,9 +90,9 @@ def add_appearance_for_group(message, word, sent, direct=False):
 
         group = get_or_none(BookiGroup.objects, url_name=word[1:])
         for user in group.members.all():
-            add_appearance_for_user(message, "@"+user.username, sent)
+            add_appearance_for_user(message, "@"+user.username, sent, direct, orig_word)
 
-def add_appearance_for_book(message, word, sent, direct=False):
+def add_appearance_for_book(message, word, sent, direct=False, orig_word=None):
     timeline = get_endpoint_or_none(word)
     if timeline and timeline not in sent:
         appearance = PostAppearance(
@@ -98,9 +103,9 @@ def add_appearance_for_book(message, word, sent, direct=False):
 
         book = get_or_none(Book.objects, url_title=word[1:])
         if book and book.group:
-            add_appearance_for_group(message, "!"+book.group.url_name, sent)
+            add_appearance_for_group(message, "!"+book.group.url_name, sent, direct, orig_word)
 
-def add_appearance_for_tag(message, word, sent, direct=False):
+def add_appearance_for_tag(message, word, sent, direct=False, orig_word=None):
     timeline = get_endpoint_or_none(syntax=word)
     if timeline and timeline not in sent:
         appearance = PostAppearance(
@@ -130,26 +135,20 @@ def view_post(request):
     # mentions
     for word in content.split():
         if word.startswith("@"):
-            add_appearance_for_user(message, word, sent, direct=True)
+            add_appearance_for_user(message, word, sent, True, word)
         if word.startswith("!"):
-            add_appearance_for_group(message, word, sent, direct=True)
+            add_appearance_for_group(message, word, sent, True, word)
         if word.startswith(u"\u212c"):
-            add_appearance_for_book(message, word, sent, direct=True)
+            add_appearance_for_book(message, word, sent, True, word)
         if word.startswith("#"):
-            add_appearance_for_tag(message, word, sent, direct=True)
+            add_appearance_for_tag(message, word, sent, True, word)
 
     # followers of the sending user
     source_endpoint = user2endpoint(request.user)
     followings = Following.objects.filter(target=source_endpoint)
     for following in followings:
         target = following.follower.syntax
-        timeline = get_endpoint_or_none(syntax=target)
-        if timeline and timeline not in sent:
-            appearance = PostAppearance(
-                post=message, timestamp=message.timestamp, 
-                endpoint=timeline)
-            appearance.save()
-            sent[timeline] = True
+        add_appearance_for_user(message, target, sent, False, None)
 
     return redirect('view_profile', request.user.username)
 
