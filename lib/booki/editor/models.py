@@ -377,3 +377,17 @@ class BookiPermission(models.Model):
 
     def __unicode__(self):
         return '%s %s ' % (self.user.username, self.permission)
+
+
+class AttributionExclude(models.Model):
+    book = models.ForeignKey(Book, null=True, verbose_name=_("book"))
+    user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
+
+    def __unicode__(self):
+        return '%s' % (self.user.username, )
+
+    class Meta:
+        verbose_name = _('Attribution Exclude')
+        verbose_name_plural = _('Attribution Exclude')
+
+    

@@ -691,7 +691,7 @@ and work on previous versions once you create new one. Create new <i>major</i> v
             </tr>
             <tr>
              <td colspan="3">
-               <input type="checkbox" name="rtl" value="rtl"> Right to left text<br>
+               <input type="checkbox" name="rtl"> Right to left text<br>
 
              </td>
             </tr>
@@ -725,17 +725,17 @@ and work on previous versions once you create new one. Create new <i>major</i> v
             <p>If you want to exclude some people from the copyright attribution...
 
              </p>
-           <form>
+           <form onsubmit="return false" action="javascript:void(0)">
            <table border="0" width="100%">
             <tr><td><b>Contributors</b></td><td></td><td><b>Excluded contributors</b></td></tr>
             <tr>
              <td width="40%" valign="top">
-   	       <select size="10" style="width: 100%; height: 90%">
+   	       <select size="10" style="width: 100%; height: 90%" name="available">
                </select>
              </td>
-             <td width="10%" valign="center" align="center"><a class="button">&gt;&gt;</a><br><br><a class="button">&lt;&lt;</a></td>
+             <td width="10%" valign="center" align="center"><a class="button" name="add">&gt;&gt;</a><br><br><a class="button" name="remove">&lt;&lt;</a></td>
              <td width="40%" valign="top">
-   	       <select size="10" style="width: 100%; height: 90%">
+   	       <select size="10" style="width: 100%; height: 90%" name="excluded">
                </select>
              </td>
             </tr>

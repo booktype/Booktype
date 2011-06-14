@@ -1484,12 +1484,19 @@ def remote_settings_options(request, message, bookid, version):
     current_license = getattr(book.license, "abbrevation","")
     current_language = getattr(book.language, "abbrevation", "")
 
+    # get rtl
+    try:
+        rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind=0).getValue()
+    except models.Info.DoesNotExist:
+        rtl = "LTR"
+
     transaction.commit()
 
     return {"licenses": licenses, 
             "current_licence": current_license,
             "languages": languages,
-            "current_language": current_language
+            "current_language": current_language,
+            "rtl": rtl
             }
 
 def remote_license_save(request, message, bookid, version):
@@ -1513,10 +1520,68 @@ def remote_license_attributions(request, message, bookid, version):
     book_ver = getVersion(book, version)
 
     from django.contrib.auth.models import User
-    users = [(u.username, u.first_name) for u in User.objects.all().order_by("username")]
+
+    # not so cool idea
+    excl = [a.user.username for a in models.AttributionExclude.objects.filter(book = book)]
+    users = [(u['user__username'], u['user__first_name']) for u in models.ChapterHistory.objects.filter(chapter__version__book=book).values("user", "user__username", "user__first_name").distinct()  if u['user__username'] not in excl]
+    users_exclude = [(u.user.username, u.user.first_name) for u in models.AttributionExclude.objects.filter(book = book).order_by("user__username")]
+
 
     transaction.commit()
 
-    return {"users": users}
+    return {"users": users,
+            "users_exclude": users_exclude }
 
+def remote_license_attributions_save(request, message, bookid, version):
+    from booki.editor.views import getVersion
+
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, version)
+
+    from django.contrib.auth.models import User
+
+    # delete all elements
+    models.AttributionExclude.objects.filter(book=book).delete()
+
+    for userName in message["excluded_users"]:
+        u = User.objects.get(username = userName)
+        a = models.AttributionExclude(book = book, user = u)
+        a.save()
+
+    transaction.commit()
+
+    return {"status": True}
+
+
+def remote_settings_language_save(request, message, bookid, version):
+    from booki.editor.views import getVersion
+
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, version)
+
+    l = models.Language.objects.get(abbrevation=message['language'])
+
+    book.language = l
+    book.save()
+
+    if message['rtl']:
+        rtl_value = "RTL"
+    else:
+        rtl_value = "LTR"
+
+    try:
+        rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind = 0)
+        rtl.value_string = rtl_value
+        rtl.save()
+    except models.Info.DoesNotExist:
+
+        rtl = models.Info(book = book,
+                          name = '{http://booki.cc/}dir',
+                          kind = 0,
+                          value_string = rtl_value)
+        rtl.save()
+
+    transaction.commit()
+
+    return {"status": True}
 

@@ -69,6 +69,8 @@ class FormatAuthorsNode(template.Node):
 
         chapters = []
 
+        excludedUsers = [ae.user for ae in models.AttributionExclude.objects.filter(book = book)]
+
         # this should be book version, not book
 
         for chapter in models.BookToc.objects.filter(book=book).order_by("-weight"):
@@ -81,6 +83,8 @@ class FormatAuthorsNode(template.Node):
                 if not us_id: continue
 
                 usr = auth_models.User.objects.get(id=us_id.user.id)
+
+                if usr in excludedUsers: continue
 
                 modified_year = us_id.modified.strftime('%Y')
 
