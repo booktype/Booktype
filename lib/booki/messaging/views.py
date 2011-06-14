@@ -79,6 +79,13 @@ def add_appearance_for_user(message, word, sent, direct=False, orig_word=None):
                       settings.EMAIL_HOST_USER,
                       [user.email], fail_silently=False)
 
+def add_appearance_for_followers(message, word, sent, direct=False, orig_word=None):
+    source_endpoint = get_endpoint_or_none(word)
+    followings = Following.objects.filter(target=source_endpoint)
+    for following in followings:
+        target = following.follower.syntax
+        add_appearance_for_user(message, target, sent, direct, orig_word)
+
 def add_appearance_for_group(message, word, sent, direct=False, orig_word=None):
     timeline = get_endpoint_or_none(word)
     if timeline and timeline not in sent:
@@ -88,6 +95,7 @@ def add_appearance_for_group(message, word, sent, direct=False, orig_word=None):
         appearance.save()
         sent[timeline] = True
 
+        # members "follow" their groups
         group = get_or_none(BookiGroup.objects, url_name=word[1:])
         for user in group.members.all():
             add_appearance_for_user(message, "@"+user.username, sent, direct, orig_word)
@@ -101,6 +109,10 @@ def add_appearance_for_book(message, word, sent, direct=False, orig_word=None):
         appearance.save()
         sent[timeline] = True
 
+        # followers of the book tag
+        add_appearance_for_followers(message, word, sent, False, orig_word)
+
+        # group "follows" its books
         book = get_or_none(Book.objects, url_title=word[1:])
         if book and book.group:
             add_appearance_for_group(message, "!"+book.group.url_name, sent, direct, orig_word)
@@ -113,6 +125,9 @@ def add_appearance_for_tag(message, word, sent, direct=False, orig_word=None):
             endpoint=timeline)
         appearance.save()
         sent[timeline] = True
+
+        # followers of the tag
+        add_appearance_for_followers(message, word, sent, False, orig_word)
 
 
 @login_required
@@ -144,11 +159,7 @@ def view_post(request):
             add_appearance_for_tag(message, word, sent, True, word)
 
     # followers of the sending user
-    source_endpoint = user2endpoint(request.user)
-    followings = Following.objects.filter(target=source_endpoint)
-    for following in followings:
-        target = following.follower.syntax
-        add_appearance_for_user(message, target, sent, False, None)
+    add_appearance_for_followers(message, "@"+request.user.username, sent, False, None)
 
     return redirect('view_profile', request.user.username)
 
