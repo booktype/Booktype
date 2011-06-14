@@ -100,16 +100,18 @@ def user_tagbox(username):
     user = get_endpoint_or_none(syntax="@"+username)
     followings = Following.objects.filter(follower=user)
     tags = (following.target.syntax[1:] for following in followings if following.target.syntax.startswith("#"))
-    return dict(tags=tags)
+    books = (following.target.syntax[1:] for following in followings if following.target.syntax.startswith(u"\u212c"))
+    return dict(tags=tags, books=books)
 
 @register.inclusion_tag("messaging/user_followbutton.html")
 def user_followbutton(username, requestuser):
     return dict(username=username,
                 alreadyfollowing=bool(Following.objects.filter(follower=get_endpoint_or_none("@"+requestuser), target=get_endpoint_or_none("@"+username))))
 
-@register.simple_tag
-def book_followbutton(bookname):
-    pass
+@register.inclusion_tag("messaging/book_followbutton.html")
+def book_followbutton(bookname, requestuser):
+    return dict(bookname=bookname,
+                alreadyfollowing=bool(Following.objects.filter(follower=get_endpoint_or_none("@"+requestuser), target=get_endpoint_or_none(u"\u212c"+bookname))))
 
 # "already implemented"
 #@register.simple_tag

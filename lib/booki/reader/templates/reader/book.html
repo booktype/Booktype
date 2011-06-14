@@ -15,6 +15,7 @@
 
 {% block content %}
 <h1>{{ book.title }}</h1>
+{% book_followbutton book.url_title request.user.username %}
 <div id="bookmenu">
 <ul>
 {% for chap in chapters %}
