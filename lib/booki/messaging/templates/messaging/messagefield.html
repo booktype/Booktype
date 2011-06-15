@@ -2,18 +2,23 @@
 
   <form enctype="multipart/form-data" method="POST" action="{% url booki.messaging.views.view_post %}" onsubmit="return true;">
    <input type="text" name="content" size="40" value="{{syntax}}" style="width: 320px;"/>
-   <div class="accordion">
-   <div class="header">[<a class="expander" href="#">Optional attachment</a>]</div> <input type="file" name="attachment" style="width: 320px;" />
+   <div class="myaccordion{{random}}">
+   <div class="myheader">[<a class="expander" href="#">Optional attachment</a>]</div> <input type="file" name="attachment" style="width: 320px;" />
    </div>
-   <div class="accordion">
-   <div class="header">[<a class="expander" id="snippet_expander{{random}}" href="#">Optional text snippet</a>]</br /></div><div> <textarea id="snippetTextArea{{random}}" name="snippet" style="width: 318px;"></textarea>
+   <div class="myaccordion{{random}}">
+   <div class="myheader">[<a class="expander" id="snippet_expander{{random}}" href="#">Optional text snippet</a>]</br /></div><div> <textarea id="snippetTextArea{{random}}" name="snippet" style="width: 318px;"></textarea>
    Optional snippet context URL: <input type="text" name="context_url" style="width: 320px;" /></div></div>
-   <script>
-  $(function() {
-    $(".accordion .header").click(function() {
-      $(this).next().toggle();
+   <script type="text/javascript">
+  // XXX guard variable as jquery document ready gets run twice!
+  var ran{{random}} = false;
+  $(document).ready(function() {
+    if (ran{{random}}) return;
+    ran{{random}} = true;
+    $(".myaccordion{{random}} .myheader").click(function() {
+      $(this).next().toggle()();
       return false;
-    }).next().hide();
+    });
+    $(".myaccordion{{random}} .myheader").next().hide();
     $("#snippet_expander{{random}}").click(function() {
       xinha_init{{random}}();
       return true;
