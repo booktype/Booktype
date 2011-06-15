@@ -39,7 +39,7 @@
 {% booki_format content %}
    {% if request.user.is_authenticated %}
      <hr/>
-      <a href="{% url edit_book book.url_title  book_version %}">{% trans "EDIT" %}</a>
+      <a href="{% url edit_book book.url_title %}">{% trans "EDIT" %}</a>
    {% endif %}
 
 </div>
