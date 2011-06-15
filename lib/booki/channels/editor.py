@@ -4,6 +4,7 @@ from lxml import etree, html
 import sputnik
 
 from django.db import transaction
+from django.db.models import Q
 
 from booki.utils.log import logBookHistory, logChapterHistory, printStack
 
@@ -1584,4 +1585,61 @@ def remote_settings_language_save(request, message, bookid, version):
     transaction.commit()
 
     return {"status": True}
+
+def remote_users_suggest(request, message, bookid, version):
+    from booki.editor.views import getVersion
+
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, version)
+
+    from django.contrib.auth.models import User
+
+#    users = ['%s' % (u.username, ) for u in User.objects.filter(Q(username__contains=message["possible_user"]) | Q(first_name__contains=message["possible_user"]))[:20]]
+    users = ['%s (%s)' % (u.username, u.first_name) for u in User.objects.filter(Q(username__contains=message["possible_user"]) | Q(first_name__contains=message["possible_user"]))[:20]]
+
+    transaction.commit()
+
+    return {"status": True, "possible_users": users}
+
+def remote_roles_init(request, message, bookid, version):
+    from booki.editor.views import getVersion
+
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, version)
+
+    users = [(u.user.username, '%s (%s)' % (u.user.username, u.user.first_name)) for u in models.BookiPermission.objects.filter(book = book, permission = 1).order_by("user__username")]
+    users.append((book.owner.username, '%s (%s) [owner]' % (book.owner.username, book.owner.first_name)))
+
+    transaction.commit()
+
+    return {"status": True, "users": users}
+
+def remote_roles_save(request, message, bookid, version):
+    from booki.editor.views import getVersion
+    from django.contrib.auth.models import User
+
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, version)
+
+    userList = set(message["users"][:])
+    usersExisting = set([u.user.username for u in models.BookiPermission.objects.filter(book = book, permission = 1) if u.user])
+
+    newUsers =  userList - usersExisting
+    removedUsers = usersExisting-userList
+
+    for userName in newUsers:
+        u = User.objects.get(username = userName)
+        up = models.BookiPermission(book = book,
+                                    user = u,
+                                    permission = 1)
+        up.save()
+
+    for userName in removedUsers:
+        up = models.BookiPermission.objects.get(book = book, user__username = userName, permission = 1)
+        up.delete()
+
+    transaction.commit()
+
+    return {"status": True}
+
 

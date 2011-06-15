@@ -743,8 +743,32 @@ and work on previous versions once you create new one. Create new <i>major</i> v
            </form>
           </div>
 
-  	  <h3>{% trans "Security" %}</h3>
+  	  <h3>{% trans "Roles" %}</h3>
 
+	  <a name="roles">{% trans "Manage roles" %}</a>
+
+	  <div class="rolesDialog template" title="{% trans "Manage Roles" %}">
+           <form onsubmit="return false" action="javascript:void(0)">
+           <table border="0" width="100%">
+            <tr>
+              <td valign="top"><b>Role:</b></td>
+              <td valign="top" colspan="2"><select style="width: 100%""><option>Administrator</option></select></td>
+            </tr>
+
+            <tr>
+              <td valign="top"><b>New user:</b></td>
+              <td valign="top"><input type="text" name="newuser" style="width: 400px"></td>
+	      <td><a name="adduser" style="width: 70%">{% trans "Add" %}</a></td>
+            </tr>
+
+            <tr>
+              <td valign="top"><b>Role:</b></td>
+              <td valign="top"><select size="10" style="width: 400px" name="users"></select></td>
+	      <td valign="top"><a style="width: 70%" name="removeuser">{% trans "Remove" %}</td>
+            </tr>
+           </table>
+           </form>
+          </div>
 
 
 	  <div class="info">
