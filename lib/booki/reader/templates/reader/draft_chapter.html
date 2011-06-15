@@ -37,6 +37,9 @@
 </div>
 <div id="bookcontent"   style="background: url(/site_static/images/draft_bg.png) repeat !important;">
 {% booki_format content %}
+   <hr/>
+    <a href="{% url edit_book book.url_title  book_version %}">{% trans "EDIT" %}</a>
+
 </div>
 
 {% endblock %}

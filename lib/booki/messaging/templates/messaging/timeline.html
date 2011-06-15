@@ -1,0 +1,39 @@
+{% load i18n profile %}
+
+<div>
+{% blocktrans %}Timeline of {{ syntax }}:{% endblocktrans %}
+<div>
+{% if not posts %}
+<i>{% trans "No messages." %}</i>
+{% endif %}
+
+{% for post in posts %}
+<div style="border: solid thin grey; width: 325px; padding: 5px; margin-bottom: 5px;">
+<div style="float: left">
+<a href="{% url view_profile post.sender.as_user.username %}">{% profile_image post.sender.as_user %}</a>
+</div>
+<a href="{% url view_profile post.sender.as_user.username %}">{{ post.sender }}</a> [<a href="{% url view_profile post.sender.as_user.username %}">send a reply</a>]<br />
+{{ post.timestamp|timesince }} {% trans "ago" %}<br />
+{{ post.content_as_html|safe }}
+{% if post.attachment %}
+<br />
+<a href="{{ DATA_URL }}/{{ post.attachment }}"><img width="100" src="{{ DATA_URL }}/{{ post.attachment }}" /></a>
+{% endif %}
+{% if post.snippet %}
+<br />
+<div style="clear: both">
+</div>
+{% trans "Snippet:" %} 
+{% if post.context_url %}
+[<a href="{{ post.context_url }}">{% trans "Context" %}</a>]
+{% endif %}
+<div style="border: dashed thin grey; width: 313px; padding: 5px; margin-bottom: 5px; margin-top: 5px; overflow: auto; max-height: 100px">
+{{ post.snippet|safe }}
+</div>
+{% endif %}
+<div style="clear: both">
+</div>
+</div>
+{% endfor %}
+</div>
+</div>

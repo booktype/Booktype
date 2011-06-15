@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n messaging_tags %}
 
 {% block header %}
 <title>{% blocktrans with book.title as booktitle %}/book: {{ booktitle }}{% endblocktrans %}</title>
@@ -15,7 +15,7 @@
 
 {% block content %}
 <h1>{{ book.title }}</h1>
-
+{% book_followbutton book.url_title request.user.username %}
  <div id="bookmenu"  style="background: url(/site_static/images/draft_bg.png) repeat !important;"> 
   <ul>
     {% for chap in chapters %}
@@ -30,6 +30,11 @@
 
  <div id="bookcontent"  style="background: url(/site_static/images/draft_bg.png) repeat !important;">
    {% trans "click on the chapter name" %}
- </div>
-
+   <hr/>
+      <a href="{% url edit_book book.url_title  book_version %}">{% trans "EDIT" %}</a>
+      <div style="width:325px; border: 1px solid #c0c0c0; background-color: #f0f0f0; padding: 5px;" id="mood">
+         {% book_messagefield book.url_title %}
+      </div>
+      {% book_timeline book.url_title %}
+</div>
 {% endblock %}

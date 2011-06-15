@@ -22,6 +22,8 @@ from booki.utils.log import logBookHistory, logError
 from booki.utils.book import createBook
 from booki.editor import common
 
+from booki.messaging.views import get_endpoint_or_none
+
 try:
     ESPRI_URL = settings.ESPRI_URL
     TWIKI_GATEWAY_URL = settings.TWIKI_GATEWAY_URL
@@ -449,6 +451,7 @@ class SettingsForm(forms.Form):
     description = forms.CharField(widget=forms.Textarea(), required=False, label=_("Blurb about yourself"))
 
     image = forms.Field(widget=forms.FileInput(), required=False, label=_('Image'))
+    notification_filter = forms.CharField(required=False, label=_('Notification filter'))
 
 ## user settings
 
@@ -521,8 +524,12 @@ def user_settings(request, username):
                 profile.image.save('%s.jpg' % user.username, File(file(imageName)))
                 os.unlink(fname)
 
-
             profile.save()
+
+            endpoint_config = get_endpoint_or_none("@"+user.username).get_config()
+            endpoint_config.notification_filter = settings_form.cleaned_data['notification_filter']
+            endpoint_config.save()
+
             transaction.commit()
 
             return HttpResponseRedirect(reverse("view_profile", args=[username]))
@@ -531,7 +538,8 @@ def user_settings(request, username):
                                                 'firstname': user.first_name,
                                                 #'lastname': user.last_name,
                                                 'description': user.get_profile().description,
-                                                'email': user.email})
+                                                'email': user.email,
+                                                'notification_filter': get_endpoint_or_none("@"+user.username).notification_filter()})
 
     try:
         return render_to_response('account/user_settings.html', {"request": request,

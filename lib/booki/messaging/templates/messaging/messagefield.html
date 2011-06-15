@@ -1,0 +1,53 @@
+{% load i18n %}
+
+  <form enctype="multipart/form-data" method="POST" action="{% url booki.messaging.views.view_post %}" onsubmit="return true;">
+   <input type="text" name="content" size="40" value="{{syntax}}" style="width: 320px;"/>
+   <div class="myaccordion{{random}}">
+   <div class="myheader">[<a class="expander" href="#">Optional attachment</a>]</div> <input type="file" name="attachment" style="width: 320px;" />
+   </div>
+   <div class="myaccordion{{random}}">
+   <div class="myheader">[<a class="expander" id="snippet_expander{{random}}" href="#">Optional text snippet</a>]</br /></div><div> <textarea id="snippetTextArea{{random}}" name="snippet" style="width: 318px;"></textarea>
+   Optional snippet context URL: <input type="text" name="context_url" style="width: 320px;" /></div></div>
+   <script type="text/javascript">
+  // XXX guard variable as jquery document ready gets run twice!
+  var ran{{random}} = false;
+  $(document).ready(function() {
+    if (ran{{random}}) return;
+    ran{{random}} = true;
+    $(".myaccordion{{random}} .myheader").click(function() {
+      $(this).next().toggle()();
+      return false;
+    });
+    $(".myaccordion{{random}} .myheader").next().hide();
+    $("#snippet_expander{{random}}").click(function() {
+      xinha_init{{random}}();
+      return true;
+    });
+  });
+   </script>
+   <script type="text/javascript">
+     _editor_url = "{{ request.META.SCRIPT_NAME }}/site_static/xinha/";
+     _editor_lang = "en";
+   </script>
+   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/xinha/XinhaCore.js"></script>
+   <script type="text/javascript">
+       xinha_plugins{{random}} = ['GetHtml','DoubleClick'];
+       xinha_editors{{random}} = ['snippetTextArea{{random}}'];
+
+     function xinha_init{{random}}() {
+
+       if(!Xinha.loadPlugins(xinha_plugins{{random}}, xinha_init{{random}})) return;
+       var xinha_config{{random}} = new Xinha.Config();
+       xinha_config{{random}}.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
+
+       xinha_config{{random}}.toolbar = [["popupeditor"],["separator","undo","redo","selectall"],(Xinha.is_gecko ? [] : ["cut","copy","paste","overwrite","saveas"]),["separator","htmlmode","showhelp","about"]]; //[["popupeditor"],["formatblock","fontname","fontsize","bold","italic","underline","strikethrough","forecolor","hilitecolor"],["separator","outdent","indent"],["linebreak","separator","justifyleft","justifycenter","justifyright","justifyfull"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","print"]];
+       xinha_editors{{random}} = Xinha.makeEditors(xinha_editors{{random}}, xinha_config{{random}}, xinha_plugins{{random}});
+       xinha_editors{{random}}.snippetTextArea{{random}}.config.height = '200px'
+       Xinha.startEditors(xinha_editors{{random}});
+     }
+   </script>
+   <div style="margin-top:3px;margin-right:3px;" align="right">
+      <button>{% trans "Share" %}</button>
+   </div>
+ </form>
+

@@ -1,0 +1,12 @@
+{% load i18n %}
+{% if not alreadyfollowing %}
+<form method="POST" action="{% url booki.messaging.views.view_follow %}">
+<input type="hidden" name="target" value="#{{ tagname }}">
+<button>{% trans "Follow this tag" %}</button>
+</form>
+{% else %}
+<form method="POST" action="{% url booki.messaging.views.view_unfollow %}">
+<input type="hidden" name="target" value="#{{ tagname }}">
+<button>{% trans "Stop following this tag" %}</button>
+</form>
+{% endif %}

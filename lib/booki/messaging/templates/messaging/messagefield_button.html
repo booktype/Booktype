@@ -1,0 +1,15 @@
+{% load i18n messaging_tags %}
+
+<a href="#" class="messagefield_button">Post a message</a>
+<div class="messagefield_dialog">
+{% user_messagefield "" %}
+</div>
+<script>
+$(function() {
+  $(".messagefield_dialog").dialog({ autoOpen: false, modal: true, width: 355 });
+  $(".messagefield_button").click(function() {
+    $(".messagefield_dialog").dialog('open');
+    return false;
+  });
+});
+</script>

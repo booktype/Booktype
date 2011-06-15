@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n messaging_tags %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
  <head>
@@ -106,7 +106,7 @@
 
 {% if request.user.is_authenticated %}
 <div id="logged_in" style="position:absolute;top:25px;width:870px;text-align:right;font-family:helvetica,arial,verdana;font-size:11px;font-weight:bold;">
-	<b><a href="{% url view_profile request.user.username %} ">{{ request.user.username }}</a></b> | <a href="{% url signout %}">{% trans "Sign out" %}</a>
+	<b><a href="{% url view_profile request.user.username %} ">{{ request.user.username }}</a></b> | {% messagefield_button %} | <a href="{% url signout %}">{% trans "Sign out" %}</a>
         {% if request.user.is_staff %} | <a class="debug" href="javascript:void(0)">{% trans "Debug" %}</a>{% endif %}
 </div>
 {% else %}
