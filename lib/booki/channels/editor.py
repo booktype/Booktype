@@ -1628,15 +1628,21 @@ def remote_roles_save(request, message, bookid, version):
     removedUsers = usersExisting-userList
 
     for userName in newUsers:
-        u = User.objects.get(username = userName)
-        up = models.BookiPermission(book = book,
-                                    user = u,
-                                    permission = 1)
-        up.save()
+        try:
+            u = User.objects.get(username = userName)
+            up = models.BookiPermission(book = book,
+                                        user = u,
+                                        permission = 1)
+            up.save()
+        except User.DoesNotExist:
+            pass
 
     for userName in removedUsers:
-        up = models.BookiPermission.objects.get(book = book, user__username = userName, permission = 1)
-        up.delete()
+        try:
+            up = models.BookiPermission.objects.get(book = book, user__username = userName, permission = 1)
+            up.delete()
+        except models.BookiPermission.DoesNotExist:
+            pass
 
     transaction.commit()
 
