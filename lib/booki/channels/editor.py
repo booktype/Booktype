@@ -1483,10 +1483,10 @@ def remote_settings_options(request, message, bookid, version):
     book_ver = getVersion(book, version)
 
     licenses = [(lic.abbrevation, lic.name)  for lic in models.License.objects.all().order_by("name") if lic]
-    languages = [(lic.abbrevation, lic.name) for lic in models.Language.objects.all().order_by("name") if lic]
+    languages = [(lic.abbrevation, lic.name) for lic in models.Language.objects.all().order_by("name") if lic] + [('unknown', 'Unknown')]
     
     current_license = getattr(book.license, "abbrevation","")
-    current_language = getattr(book.language, "abbrevation", "")
+    current_language = getattr(book.language, "abbrevation", "unknown")
 
     # get rtl
     try:
@@ -1563,10 +1563,11 @@ def remote_settings_language_save(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_ver = getVersion(book, version)
 
-    l = models.Language.objects.get(abbrevation=message['language'])
+    if message['language'] != 'unknown':
+        l = models.Language.objects.get(abbrevation=message['language'])
 
-    book.language = l
-    book.save()
+        book.language = l
+        book.save()
 
     if message['rtl']:
         rtl_value = "RTL"
