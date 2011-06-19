@@ -826,7 +826,7 @@ def remote_publish_book(request, message, bookid, version):
     if message.get("is_archive", False):
         destination = "archive.org"
 
-    args = {'book': book.url_title,
+    args = {'book': book.url_title.encode('utf8'),
             'project': 'export',
             'mode': publishMode,
             'server': THIS_BOOKI_SERVER,
@@ -839,7 +839,10 @@ def remote_publish_book(request, message, bookid, version):
             if name == 'grey_scale':
                 args['grey_scale'] = 'yes'
             else:
-                args[name] = message.get(name)
+                if type(message.get(name)) == type(u' '):
+                    args[name] = message.get(name).encode('utf8')
+                else:
+                    args[name] = message.get(name)
 
     _isSet('title')
     _isSet('license')
