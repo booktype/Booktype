@@ -25,7 +25,7 @@ Command examples are for Debian/Ubuntu.
 
        $ sudo apt-get install python-dev
 
- - PostgreSQL (recommended) or Sqlite3
+ - PostgreSQL (recommended) or Sqlite3 (not recommended)
        
        $ sudo apt-get install postgresql
       or 
@@ -70,50 +70,53 @@ Command examples are for Debian/Ubuntu.
 Installing from the git repository
 ----------------------------------
 
-This install doc uses sqlite3 as its the easiest to setup so make sure
-sqlite3 is installed. Do all of the steps as regular user or www-data user.
+This install doc uses sqlite3 (it is recommended to use PostgreSQL) as its the 
+easiest to setup so make sure sqlite3 is installed. Do all of the steps as regular 
+user or www-data user.
 
 1. Clone Booki
 
-git clone git://booki-dev.flossmanuals.net/git/booki.git
+   git clone git://booki-dev.flossmanuals.net/git/booki.git
 
 2. Change dir to 'booki/scripts'
 
-cd booki/scripts
+   cd booki/scripts
 
 3. Create booki instance. If you have write permissions, script will create directory /var/www/mybooki/. If you don't
    have write permissions, administrator should create that directory first.
       sudo mkdir /var/www/mybooki/
       sudo chown www-data:www-data /var/www/mybooki/
 
-./createbooki --database sqlite /var/www/mybooki/  
+   ./createbooki --database sqlite /var/www/mybooki/  
 
 4. Change directory
 
-cd /var/www/mybooki/
+   cd /var/www/mybooki/
 
 5. Edit settings
 
-vi settings.py
+   vi settings.py
 
 6. Load environment variables
 
-. ./booki.env
+   . ./booki.env
 
 7. Initialize database
 
-django-admin syncdb
+   django-admin syncdb
 
 8. Migrate
 
-django-admin migrate
+   django-admin migrate
 
 9. Start redis (If you are using the distro's Redis server, this may
 not be necessary or desirable).
-redis-server &
+
+   redis-server &
 
 10. Start the whole thing 
-django-admin.py runserver
+
+   django-admin.py runserver
 
 Then if all is well open your browser and point to something like:
 http://127.0.0.1:8000/
@@ -129,6 +132,47 @@ http://docs.djangoproject.com/en/dev/howto/deployment/.
 Createbooki script has created booki.wsgi script for the Apache. Use that
 file as part of your Apache config.
 
+
+How to migrate to Booki 1.2
+---------------------------
+
+1. There are new template files. Be aware if you have changed template files.
+
+   reader/book_info.html       (new file)
+
+   reader/book_view.html       (used to be reader/book.html)
+   reader/book_chapter.html    (used to be reader/chapter.html)
+
+   reader/draft_book.html      (used to be reader/book.html)
+   reader/draft_chapter.html   (used to be reader/chapter.html)
+
+2. There are new named URL patterns.
+
+   book_view         (used to be view_book, does not have book version argument anymore)
+   book_chapter      (used to be view_chapter, does not have book version argument anymore)
+
+   book_info         (new)
+ 
+   draft_book        (used to be view_book)
+   draft_chapter     (used to be view_chapter)
+   draft_attachment
+
+   For instance. If you had in your template:
+    
+       {% url view_chapter  book.url_title book_version chap.url_title %}
+
+   Now you must use this syntax (notice there is no book version argument):
+
+       {% url book_chapter  book.url_title  chap.url_title %}
+
+3. You must add new default template directory to settings.py file. This is how TEMPLATE_DIR should look like:
+
+   TEMPLATE_DIRS = (
+      '%s/templates/' % BOOKI_ROOT,
+      '%s/templates/' % os.path.dirname(booki.__file__)
+   )
+
+   
 
 How to migrate to Booki 1.1
 ---------------------------
