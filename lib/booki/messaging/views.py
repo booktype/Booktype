@@ -8,6 +8,8 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 
+from django.http import HttpResponse
+
 from booki.messaging.models import Post, PostAppearance, Endpoint, Following
 from django.contrib.auth import models as auth_models
 
@@ -137,6 +139,7 @@ def view_post(request):
     attachment = request.FILES.get('attachment')
     context_url = request.POST.get('context_url')
     snippet = request.POST.get('snippet')
+    ajax = request.POST.get('ajax')
 
     message = Post(sender=user2endpoint(request.user), content=content, 
                    attachment=attachment, context_url=context_url,
@@ -161,7 +164,10 @@ def view_post(request):
     # followers of the sending user
     add_appearance_for_followers(message, "@"+request.user.username, sent, False, None)
 
-    return redirect('view_profile', request.user.username)
+    if not ajax:
+        return redirect('view_profile', request.user.username)
+    else:
+        return HttpResponse("Sent.", mimetype="text/plain")
 
 @login_required
 def view_follow(request):

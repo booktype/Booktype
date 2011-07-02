@@ -112,6 +112,10 @@ class Endpoint(models.Model):
             if word:
                 if match_wildcard(f, word):
                     return False
+            else:
+                # the notification is because of following a user
+                if f[0]=="~" and match_wildcard(f[1:], message.sender.syntax[1:]):
+                    return False
 
             # filter based on sender if f is plain username:
             if match_wildcard(f, message.sender.syntax[1:]):
