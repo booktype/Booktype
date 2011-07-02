@@ -770,6 +770,11 @@ and work on previous versions once you create new one. Create new <i>major</i> v
            </form>
           </div>
 
+  	  <h3>{% trans "Chapter status" %}</h3>
+	  <p>Available statuses: <span class="currentstatuses"></span> </p>
+	  <a name="chapterstatus">{% trans "Manage chapter status" %}</a>
+
+
 
 	  <div class="info">
           </div>
@@ -960,6 +965,32 @@ and work on previous versions once you create new one. Create new <i>major</i> v
   <p>Select new chapter status:</p>
   <form>
     <ul style="padding-left: 10px">
+
+    </ul>
+  </form>
+</div>
+
+<style>
+  #sortablestatus { list-style-type: none; margin: 0; padding: 0;  }
+  #sortablestatus li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  #asortablestatus li span { margin-left: -1.3em; }
+  #sortablestatus .ajkon { position: absolute; margin-left: -1.3em; }
+
+</style>
+
+<div class="statusChapterSettingsDialog template" title="{% trans "Chapter statuses" %}">
+  <p></p>
+  <form onsubmit="return false;">
+    <table border="0">
+     <tr>
+      <td valign="top"><b>{% trans "New status:" %}</b></td>
+      <td valign="top" width="350" align="right"><input name="newstatus" type="text" style="width: 400px;"/></td>
+      <td valign="top"> <a style="float: right;" name="newstatus">Add</a></td>
+     </tr>
+    </table>
+
+    <p><b>{% trans "Chapter statuses:" %}</b></p>
+    <ul style="padding-left: 0px" id="sortablestatus">
 
     </ul>
   </form>

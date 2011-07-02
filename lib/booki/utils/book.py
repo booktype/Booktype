@@ -26,7 +26,7 @@ def createBook(user, bookTitle, status = "imported", bookURL = None):
     book.save()
 
     # put this in settings file
-    status_default = ["published", "not published", "imported"]
+    status_default = [_("published"), _("not published"), _("imported")]
     n = len(status_default)
 
     for statusName in status_default:
@@ -34,6 +34,7 @@ def createBook(user, bookTitle, status = "imported", bookURL = None):
         status.save()
         n -= 1
 
+    # not use "not published" but first in the list maybe, or just status
     book.status = models.BookStatus.objects.get(book=book, name="not published")
     book.save()
     

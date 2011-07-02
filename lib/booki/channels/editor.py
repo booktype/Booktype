@@ -1653,3 +1653,105 @@ def remote_roles_save(request, message, bookid, version):
     return {"status": True}
 
 
+def remote_book_status_create(request, message, bookid, version):
+    book = models.Book.objects.get(id=bookid)
+    status_id = None
+
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    if not bookSecurity.isAdmin():
+        return {"status": False}        
+
+    from django.utils.html import strip_tags
+
+    try:
+        bs = models.BookStatus(book = book,
+                               name = strip_tags(message["status_name"].strip()),
+                               weight = 0)
+        bs.save()
+    except:
+        transaction.rollback()
+    else:
+        status_id = bs.id
+        transaction.commit()
+
+    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+
+    sputnik.addMessageToChannel(request,
+                                "/booki/book/%s/%s/" % (bookid, version),
+                                {"command": "chapter_status_changed",
+                                 "statuses": allStatuses},
+                                myself = False
+                                )
+    
+    return {"status": True,
+            "status_id": status_id,
+            "statuses": allStatuses
+            }
+
+def remote_book_status_remove(request, message, bookid, version):
+    book = models.Book.objects.get(id=bookid)
+
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    if not bookSecurity.isAdmin():
+        return {"status": False}        
+
+    result = True
+    
+    try:
+        up = models.BookStatus.objects.get(book = book, id = message["status_id"])
+        if len(list(models.Chapter.objects.filter(status = up, book = book))) == 0:
+            up.delete()
+        else:
+            result = False
+    except models.BookStatus.DoesNotExist:
+        transaction.rollback()
+    else:
+        transaction.commit()
+
+    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+
+    sputnik.addMessageToChannel(request,
+                                "/booki/book/%s/%s/" % (bookid, version),
+                                {"command": "chapter_status_changed",
+                                 "statuses": allStatuses},
+                                myself = False
+                                )
+
+    return {"status": True,
+            "result": result,
+            "statuses": allStatuses}
+
+def remote_book_status_order(request, message, bookid, version):
+    book = models.Book.objects.get(id=bookid)
+
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    if not bookSecurity.isAdmin():
+        return {"status": False}        
+    
+    weight = 100
+
+    for status_id in [x[11:] for x in message["order"]]:
+        up = models.BookStatus.objects.get(book = book, id = status_id)
+        up.weight = weight
+        up.save()
+
+        weight -= 1
+        
+    transaction.commit()
+
+    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+
+    sputnik.addMessageToChannel(request,
+                                "/booki/book/%s/%s/" % (bookid, version),
+                                {"command": "chapter_status_changed",
+                                 "statuses": allStatuses},
+                                myself = False
+                                )
+
+    return {"status": True,
+            "statuses": allStatuses }
+
+
