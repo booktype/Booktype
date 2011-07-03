@@ -99,6 +99,11 @@ def edit_book(request, bookid, version=None):
 
     bookSecurity = security.getUserSecurityForBook(request.user, book)
 
+    hasPermission = security.canEditBook(book, bookSecurity)
+
+    if not hasPermission:
+        return pages.ErrorPage(request, "errors/editing_forbidden.html", {"book": book})    
+
     chapters = models.Chapter.objects.filter(version=book_version)
 
     tabs = ["chapters"]

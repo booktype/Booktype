@@ -1497,6 +1497,7 @@ def remote_settings_options(request, message, bookid, version):
     transaction.commit()
 
     return {"licenses": licenses, 
+            "permission": book.permission,
             "current_licence": current_license,
             "languages": languages,
             "current_language": current_language,
@@ -1800,5 +1801,20 @@ def remote_book_status_order(request, message, bookid, version):
 
     return {"status": True,
             "statuses": allStatuses }
+
+def remote_book_permission_save(request, message, bookid, version):
+    book = models.Book.objects.get(id=bookid)
+
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    if not bookSecurity.isAdmin():
+        return {"status": False}        
+    
+    book.permission = message["permission"]
+    book.save()
+        
+    transaction.commit()
+
+    return {"status": True}
 
 

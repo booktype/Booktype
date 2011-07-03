@@ -116,6 +116,7 @@ class Book(models.Model):
     published = models.DateTimeField(_('published'), null=True)
 
     hidden = models.BooleanField(_('hidden'))
+    permission = models.SmallIntegerField(_('permission'), null=False, default = 0) 
 
     def get_absolute_url(self):
         return '%s/%s/' % (settings.BOOKI_URL, self.url_title)

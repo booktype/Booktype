@@ -57,3 +57,17 @@ def getUserSecurityForBook(user, book):
 
 def getUserSecurity(user):
     pass
+
+def canEditBook(book, bookSecurity):
+    hasPermission = False
+
+    if book.permission == 0:
+        hasPermission = True
+    elif book.permission == 1 and bookSecurity.isBookOwner:
+        hasPermission = True
+    elif book.permission == 2 and bookSecurity.isAdmin():
+        hasPermission = True
+    elif book.permission == 3 and (bookSecurity.isAdmin() or (2 in bookSecurity.bookPermissions)):
+        hasPermission = True
+
+    return hasPermission
