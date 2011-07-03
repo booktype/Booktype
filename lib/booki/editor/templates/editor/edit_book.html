@@ -674,7 +674,6 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 {% if "settings" in tabs %}
 	<div id="tabsettings">
   	  <!-- START settings TAB -->
-
   	  <h3>{% trans "Language" %}</h3>
               <form name="formlanguages" action="javascript:void(0)" onsubmit="return false;">
 
@@ -752,7 +751,13 @@ and work on previous versions once you create new one. Create new <i>major</i> v
            <table border="0" width="100%">
             <tr>
               <td valign="top"><b>Role:</b></td>
-              <td valign="top" colspan="2"><select style="width: 100%""><option>Administrator</option></select></td>
+              <td valign="top" colspan="2">
+                 <select style="width: 100%"" name="listroles">
+                    <option value="0" selected="selected">Select role</option>
+                    <option value="1">Administrator</option>
+                    <option value="2">Editor</option>
+                 </select>
+              </td>
             </tr>
 
             <tr>

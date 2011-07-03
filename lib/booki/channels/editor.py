@@ -1605,20 +1605,23 @@ def remote_users_suggest(request, message, bookid, version):
 
     return {"status": True, "possible_users": users}
 
-def remote_roles_init(request, message, bookid, version):
+def remote_roles_list(request, message, bookid, version):
     from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
     book_ver = getVersion(book, version)
 
-    users = [(u.user.username, '%s (%s)' % (u.user.username, u.user.first_name)) for u in models.BookiPermission.objects.filter(book = book, permission = 1).order_by("user__username")]
-    users.append((book.owner.username, '%s (%s) [owner]' % (book.owner.username, book.owner.first_name)))
+    users = [(u.user.username, '%s (%s)' % (u.user.username, u.user.first_name)) for u in models.BookiPermission.objects.filter(book = book, permission = message["role"]).order_by("user__username")]
+
+    if int(message["role"]) == 1:
+        users.append((book.owner.username, '%s (%s) [owner]' % (book.owner.username, book.owner.first_name)))
 
     transaction.commit()
 
     return {"status": True, "users": users}
 
-def remote_roles_save(request, message, bookid, version):
+# remove this
+def _remote_roles_save(request, message, bookid, version):
     from booki.editor.views import getVersion
     from django.contrib.auth.models import User
 
@@ -1652,6 +1655,50 @@ def remote_roles_save(request, message, bookid, version):
 
     return {"status": True}
 
+def remote_roles_add(request, message, bookid, version):
+    from booki.editor.views import getVersion
+    from django.contrib.auth.models import User
+
+    # check permissions
+
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, version)
+
+    try:
+        u = User.objects.get(username = message["username"])
+        up = models.BookiPermission(book = book,
+                                    user = u,
+                                    permission = message["role"])
+        up.save()
+    except User.DoesNotExist:
+        pass
+
+    transaction.commit()
+
+    return {"status": True}
+
+
+def remote_roles_delete(request, message, bookid, version):
+    from booki.editor.views import getVersion
+    from django.contrib.auth.models import User
+
+    # check permissions
+
+    book = models.Book.objects.get(id=bookid)
+    book_ver = getVersion(book, version)
+
+
+    try:
+        up = models.BookiPermission.objects.get(book = book, 
+                                                user__username = message["username"], 
+                                                permission = message["role"])
+        up.delete()
+    except models.BookiPermission.DoesNotExist:
+        pass
+
+    transaction.commit()
+
+    return {"status": True}
 
 def remote_book_status_create(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
