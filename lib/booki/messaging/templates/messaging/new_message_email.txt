@@ -13,7 +13,7 @@
 {% endif %}{% if post.snippet %}
 {% trans "Snippet:" %} [{% trans "not shown" %}]
 {% endif %}{% if post.context_url %}
-{% trans "Snippet context:" %} {{ post.context_url %}
+{% trans "Snippet context:" %} {{ post.context_url }}
 {% endif %}
 ___
 {% trans "This email address receives these notifications because of your settings:" %}
