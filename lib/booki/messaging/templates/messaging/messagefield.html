@@ -21,6 +21,9 @@
         $("#messages{{random}}").text("Sending...");
         $.post("{% url booki.messaging.views.view_post %}", formdata, function (data) {
             $("#messages{{random}}").text(data);
+            setTimeout(function() {
+                $("#messagefield{{random}}").closest(".messagefield_dialog").dialog('close');
+            }, 2000);
         });
         return false;
     });
