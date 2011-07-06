@@ -2,5 +2,5 @@
 <a href="{% url booki.messaging.views.view_tag tag %}">#{{ tag }}</a>
 {% endfor %}
 {% for book in books %}
-<a href="{% url view_book book %}">&#8492;{{ book }}</a>
+<a href="{% url book_view book %}">&#8492;{{ book }}</a>
 {% endfor %}
