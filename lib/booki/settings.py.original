@@ -11,6 +11,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+DEFAULT_NOTIFICATION_FILTER=u"#* !* ~* \u212c*"
 
 # BOOKI
 BOOKI_MAINTENANCE_MODE = False
@@ -115,14 +116,13 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.transaction.TransactionMiddleware'
-
-#    , 'booki.portal.middleware.SQLProfileMiddleware'
 )
 
 ROOT_URLCONF = 'booki.urls'
 
 TEMPLATE_DIRS = (
-    '%s/templates/' % BOOKI_ROOT
+    '%s/templates/' % BOOKI_ROOT,
+    '%s/templates/' % os.path.dirname(booki.__file__)
 )
 
 INSTALLED_APPS = (
@@ -139,6 +139,8 @@ INSTALLED_APPS = (
     'booki.account',
     'booki.reader',
     'booki.portal',
+    'booki.messaging',
+
     'sputnik'
 )
 

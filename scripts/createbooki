@@ -305,7 +305,7 @@ def create_apache(destination):
      </Location>
 
      Alias /static/ "%(destination)s/static/"
-     <Directory "/var/www/booki.binarni.net/mybooki/static/">
+     <Directory "%(destination)s/static/">
        Order allow,deny
        Options Indexes
        Allow from all
@@ -313,7 +313,7 @@ def create_apache(destination):
      </Directory>
 
      Alias /site_static/ "%(booki_source)s/site_static/"
-     <Directory "%(booki_source)s/static/">
+     <Directory "%(booki_source)s/site_static/">
        Order allow,deny
        Options Indexes
        Allow from all
