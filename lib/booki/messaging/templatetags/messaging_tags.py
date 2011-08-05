@@ -74,6 +74,20 @@ def book_messagefield(context, bookname):
                 random=random.getrandbits(60)
                 )
 
+@register.inclusion_tag("messaging/messagefield.html", takes_context=True)
+def tag_messagefield(context, tagname):
+    return dict(syntax=u"#"+tagname+" ",
+                request=context.get('request'),
+                random=random.getrandbits(60)
+                )
+
+@register.inclusion_tag("messaging/messagefield.html", takes_context=True)
+def messagefield(context, syntax):
+    return dict(syntax=syntax+" ",
+                request=context.get('request'),
+                random=random.getrandbits(60)
+                )
+
 @register.inclusion_tag("messaging/messagefield_button.html", takes_context=True)
 def messagefield_button(context):
     return dict(request=context.get('request'),

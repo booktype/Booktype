@@ -1,7 +1,21 @@
-{% load messaging_tags %}
+{% extends "base.html" %}
+{% load i18n messaging_tags %}
 
-<h1>{{ tagname }}</h1>
+{% block header %}
+ <title>{% trans "Tag timeline" %}</title>
+{% endblock %}
+
+{% block content %}
+
+<h1>#{{ tagname }}</h1>
 
 {% tag_followbutton tagname request.user.username %}
 
+<br />
+<div style="width:325px; border: 1px solid #c0c0c0; background-color: #f0f0f0; padding: 5px;" id="mood">
+{% tag_messagefield tagname %}
+</div>
+
 {% tag_timeline tagname %}
+
+{% endblock %}
