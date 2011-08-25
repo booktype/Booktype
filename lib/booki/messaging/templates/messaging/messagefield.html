@@ -10,11 +10,11 @@
    Optional snippet context URL: <input type="text" name="context_url" style="width: 320px;" /></div></div>
    <div id="messages{{random}}" align="left"></div>
    <script type="text/javascript">
-  // XXX guard variable as jquery document ready gets run twice!
-  var ran{{random}} = false;
+  // XXX guard variable as javascript within a dialog gets run twice!
+  var ready_ran{{random}};
   $(document).ready(function() {
-    if (ran{{random}}) return;
-    ran{{random}} = true;
+    if (ready_ran{{random}}) return;
+    ready_ran{{random}} = true;
     $("#messagefield{{random}}").submit(function() {
         var formdata = $("#messagefield{{random}}").serializeArray();
         formdata.push({name: "ajax", value: "1"});
@@ -28,7 +28,7 @@
         return false;
     });
     $(".myaccordion{{random}} .myheader").click(function() {
-      $(this).next().toggle()();
+      $(this).next().slideToggle(600);
       return false;
     });
     $(".myaccordion{{random}} .myheader").next().hide();
@@ -44,8 +44,13 @@
    </script>
    <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/xinha/XinhaCore.js"></script>
    <script type="text/javascript">
-       xinha_plugins{{random}} = ['GetHtml','DoubleClick'];
-       xinha_editors{{random}} = ['snippetTextArea{{random}}'];
+   // XXX guard variable as javascript within a dialog gets run twice!
+   var xinha_ran{{random}};
+   if (!xinha_ran{{random}}) {
+     xinha_ran{{random}} = true;
+
+     xinha_plugins{{random}} = ['GetHtml','DoubleClick'];
+     xinha_editors{{random}} = ['snippetTextArea{{random}}'];
 
      function xinha_init{{random}}() {
 
@@ -58,6 +63,7 @@
        xinha_editors{{random}}.snippetTextArea{{random}}.config.height = '200px'
        Xinha.startEditors(xinha_editors{{random}});
      }
+   }
    </script>
    <div style="margin-top:3px;margin-right:3px;" align="right">
       <button>{% trans "Share" %}</button>
