@@ -2,7 +2,7 @@
 
 <a href="#" class="messagefield_button">Post a message</a>
 <div class="messagefield_dialog">
-{% user_messagefield "" %}
+{% include "messaging/messagefield.html" %}
 </div>
 <script>
 $(function() {
@@ -14,8 +14,9 @@ $(function() {
   $.bookiMessage = function(content) {
     $(".messagefield_dialog textarea[name=snippet]").val(content);
     $(".messagefield_dialog input[name=context_url]").val(document.location);
-    $(".messagefield_dialog textarea[name=snippet]").parent().show();
     $(".messagefield_dialog").dialog('open');
+    $(".messagefield_dialog textarea[name=snippet]").closest('div').show();
+    setTimeout(xinha_init{{random}}, 0);
   };
 });
 </script>
