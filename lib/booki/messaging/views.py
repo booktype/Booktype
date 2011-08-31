@@ -52,6 +52,11 @@ def get_endpoint_or_none(syntax):
 def user2endpoint(user):
     return get_endpoint_or_none("@"+user.username)
 
+def push_notification(request, message, timeline):
+    import sputnik
+
+    sputnik.addMessageToChannel(request, "/messaging/%s/" % timeline, {"command": "message_received", "message": message})
+
 
 def add_appearance_for_user(message, word, sent, direct=False, orig_word=None):
     timeline = get_endpoint_or_none(word)
@@ -163,6 +168,17 @@ def view_post(request):
 
     # followers of the sending user
     add_appearance_for_followers(message, "@"+request.user.username, sent, False, None)
+
+    # FIXME
+    request.clientID = "999"
+    request.sputnikID = "999"
+
+    html_message = render_to_string("messaging/post.html", dict(post=message))
+    for timeline in sent:
+        push_notification(request, html_message, timeline)
+    # ensure the timeline of the sender is notified
+    if user2endpoint(request.user) not in sent:
+        push_notification(request, html_message, user2endpoint(request.user))
 
     if not ajax:
         return redirect('view_profile', request.user.username)

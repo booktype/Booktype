@@ -27,6 +27,11 @@
 	$.booki.subscribeToChannel("/booki/", function(message) {
 	    
 	});
+
+	// XXX this is needed while subscribes can't be done after _transport.connect
+	$.booki.subscribeToChannel("/messaging/@{{user.username}}/", function(message) {
+	    // dummy, the real callback is registered later
+    	});
 	
 	// start Sputnik
 	jQuery.booki.network._transport.connect();
