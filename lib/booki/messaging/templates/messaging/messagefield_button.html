@@ -4,7 +4,7 @@
 <div class="messagefield_dialog">
 {% include "messaging/messagefield.html" %}
 </div>
-<script>
+<script type="text/javascript">
 $(function() {
   $(".messagefield_dialog").dialog({ autoOpen: false, modal: true, width: 355 });
   $(".messagefield_button").click(function() {
@@ -12,11 +12,15 @@ $(function() {
     return false;
   });
   $.bookiMessage = function(content) {
-    $(".messagefield_dialog textarea[name=snippet]").val(content);
     $(".messagefield_dialog input[name=context_url]").val(document.location);
     $(".messagefield_dialog").dialog('open');
     $(".messagefield_dialog textarea[name=snippet]").closest('div').show();
-    setTimeout(xinha_init{{random}}, 0);
+    if (xinha_editors{{random}}.snippetTextArea{{random}}) {
+      xinha_editors{{random}}.snippetTextArea{{random}}.setHTML(content);
+    } else {
+      $(".messagefield_dialog textarea[name=snippet]").val(content);
+      setTimeout(xinha_init{{random}}, 0);
+    }
   };
 });
 </script>
