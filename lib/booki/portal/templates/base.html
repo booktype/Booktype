@@ -74,6 +74,12 @@
 
    <script type="text/javascript">
      $(function() {
+	 $.booki.sputnikDispatcherURL = "{% url sputnik.views.dispatcher %}";
+     });
+   </script>
+
+   <script type="text/javascript">
+     $(function() {
 	 // open debug window
 	 $.booki.debug.init();
 	 
