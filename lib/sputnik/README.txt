@@ -53,7 +53,7 @@ API
 
 * JavaScript
   * $.booki.subscribeToChannel(channelName, callback)
-  * $.booki.network._transport.connect();
+  * $.booki.connect();
   * $.booki.sendToChannel(channelName, message, callback, errback)
   * $.booki.sendToCurrentBook(message, callback, errback) - sends to a 
     book-version-specific channel
@@ -79,6 +79,7 @@ Future tasks
 ------------
 
 * Compare to other Comet APIs.
+* Make the division clear between Booki and Sputnik.
 * Think about usage guidelines:
   * When to post a form, post an Ajax request, post a Sputnik command?
   * When to render in Django, render in JavaScript?

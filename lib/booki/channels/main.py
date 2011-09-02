@@ -35,9 +35,18 @@ def remote_ping(request, message):
                                                                                       "status": "normal", 
                                                                                       "username": m.group(3)},
                                             myself = True)
-
+# FIXME not implemented
 def remote_disconnect(request, message):
     pass
+
+def remote_subscribe(request, message):
+    import sputnik
+
+    for chnl in message["channels"]:
+        if not sputnik.hasChannel(chnl):
+            sputnik.createChannel(chnl)
+
+        sputnik.addClientToChannel(chnl, request.sputnikID)
 
 def remote_connect(request, message):
     import sputnik
