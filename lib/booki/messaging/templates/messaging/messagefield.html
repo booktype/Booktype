@@ -1,6 +1,6 @@
 {% load i18n %}
 
-  <form id="messagefield{{random}}" enctype="multipart/form-data" method="POST" action="{% url booki.messaging.views.view_post %}" onsubmit="return false;">
+  <form id="messagefield{{random}}" enctype="multipart/form-data" method="POST" action="{% url booki.messaging.views.view_post %}">
    <input type="text" name="content" size="40" value="{{syntax}}" style="width: 320px;"/>
    <div class="myaccordion{{random}}">
    <div class="myheader">[<a class="expander" href="#">Optional attachment</a>]</div> <input type="file" name="attachment" style="width: 320px;" />
@@ -16,6 +16,8 @@
     if (ready_ran{{random}}) return;
     ready_ran{{random}} = true;
     $("#messagefield{{random}}").submit(function() {
+        if ($("#messagefield{{random}}").find("input[name=attachment]").val())
+          return true;
         var formdata = $("#messagefield{{random}}").serializeArray();
         formdata.push({name: "ajax", value: "1"});
         $("#messages{{random}}").text("Sending...");
