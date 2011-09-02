@@ -1,10 +1,12 @@
 {% load i18n profile %}
 
-<div style="border: solid thin grey; width: 325px; padding: 5px; margin-bottom: 5px;">
+<div style="border: solid thin grey; width: 325px; padding: 5px; margin-bottom: 5px;" class="post{{post.id}}">
 <div style="float: left">
 <a href="{% url view_profile post.sender.as_user.username %}">{% profile_image post.sender.as_user %}</a>
 </div>
-<a href="{% url view_profile post.sender.as_user.username %}">{{ post.sender }}</a> [<a href="{% url view_profile post.sender.as_user.username %}">send a reply</a>]<br />
+<a href="{% url view_profile post.sender.as_user.username %}" class="sender">{{ post.sender }}</a>
+[<a href="{% url view_profile post.sender.as_user.username %}" onclick="$.bookiReply($('.post{{post.id}}')[0]);return false">send a reply</a>]
+<br />
 {{ post.timestamp|timesince }} {% trans "ago" %}<br />
 {{ post.content_as_html|safe }}
 {% if post.attachment %}
@@ -17,9 +19,9 @@
 </div>
 {% trans "Snippet:" %} 
 {% if post.context_url %}
-[<a href="{{ post.context_url }}">{% trans "Context" %}</a>]
+[<a href="{{ post.context_url }}" class="context">{% trans "Context" %}</a>]
 {% endif %}
-<div style="border: dashed thin grey; width: 313px; padding: 5px; margin-bottom: 5px; margin-top: 5px; overflow: auto; max-height: 100px">
+<div style="border: dashed thin grey; width: 313px; padding: 5px; margin-bottom: 5px; margin-top: 5px; overflow: auto; max-height: 100px" class="snippet">
 {{ post.snippet|safe }}
 </div>
 {% endif %}
