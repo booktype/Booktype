@@ -614,7 +614,7 @@ def remote_create_chapter(request, message, bookid, version):
 
         toc_items = len(book_version.getTOC())+1
 
-        for itm in models.BookToc.objects.filter(version = book_version, book = book):
+        for itm in models.BookToc.objects.filter(version = book_version, book = book).order_by("-weight"):
             itm.weight = toc_items
             itm.save()
 
