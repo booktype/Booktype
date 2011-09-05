@@ -1,0 +1,24 @@
+  <table width ='100%'>
+
+   {% for group in groups %}
+
+   {% cycle  '<tr style=\'padding-top:20px;\'><td valign=top width=33%>' '</td><td valign=top width=33%>' %}
+
+  <h3 style='line-height:1;margin-bottom:2px;'><a href="/groups/{{ group.url_name }}">{{ group.name }}</a></h3>
+
+   {% for book in books %}
+
+   {% ifequal group book.group %}
+
+   <a href='{{book.url_title}}/_edit/' style='text-decoration: none; border-bottom:1px dotted;'>{{ book.title }}</a><br>
+
+   {% endifequal %}
+
+   {% endfor %}
+
+   {% cycle  '</td>' '</td></tr>' %}
+
+  {% endfor %}
+
+ </table>
+

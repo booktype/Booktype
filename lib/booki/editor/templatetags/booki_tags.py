@@ -6,6 +6,23 @@ register = template.Library()
 
 ###############################################################################################################
 
+class FormatGroupsNode(template.Node):
+    def render(self, context):
+        t = template.loader.get_template('booki_groups.html')
+        from booki.editor import models
+
+        return t.render(template.Context({
+                    'groups': models.BookiGroup.objects.all().order_by("name"),
+                    'books':  models.Book.objects.filter(hidden=False)
+                    },
+                                         autoescape=context.autoescape))
+    
+@register.tag(name="booki_groups")
+def booki_groups(parser, token):
+    return FormatGroupsNode()
+
+###############################################################################################################
+
 class FormatBookiNode(template.Node):
     def __init__(self, booki_data):
         self.booki_data = template.Variable(booki_data)
