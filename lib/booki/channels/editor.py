@@ -834,7 +834,7 @@ def remote_publish_book(request, message, bookid, version):
             'max-age': 0,
             }
 
-    def _isSet(name):
+    def _isSet(name, default=None):
         if message.get(name, None):
             if name == 'grey_scale':
                 args['grey_scale'] = 'yes'
@@ -843,6 +843,18 @@ def remote_publish_book(request, message, bookid, version):
                     args[name] = message.get(name).encode('utf8')
                 else:
                     args[name] = message.get(name)
+        elif default:
+            args[name] = default
+
+    if message.get("is_lulu", False):
+        args["to_lulu"] = "yes"
+        _isSet("lulu_user", settings.LULU_USER)
+        _isSet("lulu_password", settings.LULU_PASSWORD)
+
+        if settings.LULU_API_KEY:
+            args["lulu_api_key"] = settings.LULU_API_KEY
+
+        _isSet("lulu_project")
 
     _isSet('title')
     _isSet('license')
@@ -858,6 +870,8 @@ def remote_publish_book(request, message, bookid, version):
     _isSet('column_margin')
     _isSet('grey_scale')
     _isSet('css')
+
+    _isSet('cover_url')
 
     data = urllib.urlencode(args)
 

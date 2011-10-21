@@ -406,6 +406,11 @@ function closeAttachmentUpload() {
 	  <div style="margin-top: 10px">
    	    <a name="delete" href="javascript:void(0)">{% trans "Deleted selected items" %}</a>
           </div>
+	  <h3>{% trans "Upload a new attachment" %}</h3>
+	  <form method="POST" action="../_upload/" enctype="multipart/form-data">
+	    <input type="file" name="entry0">
+	    <input type="submit" value="{% trans "Upload" %}" />
+	  </form>
 
           <div class="dialogs"></div>
 
@@ -527,9 +532,31 @@ and work on previous versions once you create new one. Create new <i>major</i> v
                   </select> 
               </td>
 	     </tr>
+	     <tr class="luluoption" style="display: none">
+	       <td colspan="2">{% trans "Lulu.com settings (each optional)" %}</td>
+	     </tr>
+	     <tr class="luluoption" style="display: none">
+	       <td>{% trans "URL of cover PDF:" %}</td>
+	       <td><input type="text" name="coverurl"></td>
+	     </tr>
+	     <tr class="luluoption" style="display: none">
+	       <td>{% trans "Lulu.com user:" %}</td>
+	       <td><input type="text" name="luluuser"></td>
+	     </tr>
+	     <tr class="luluoption" style="display: none">
+	       <td>{% trans "Lulu.com password:" %}</td>
+	       <td><input type="text" name="lulupassword"></td>
+	     </tr>
+	     <tr class="luluoption" style="display: none">
+	       <td>{% trans "Lulu.com project number:" %}</td>
+	       <td><input type="text" name="luluproject"></td>
+	     </tr>
 	      <tr>
 <!--		<td colspan="2"><input type="checkbox" checked="yes" name="archiveorg"> send to archive.org</td> -->
 		<td colspan="2"><input type="checkbox"  name="archiveorg"> {% trans "send to archive.org" %}</td>
+	      </tr>
+	      <tr>
+		<td colspan="2"><input type="checkbox"  name="lulucom" onclick="$('.luluoption').toggle()"> {% trans "send to lulu.com" %}</td>
 	      </tr>
 	      <tr>
 		<td colspan="2"><br/></td>
@@ -543,6 +570,11 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 		</td>
 	      </tr>
 
+               <tr><td colspan="2">
+		   <div class="info">
+		     
+		   </div>
+	       </td></tr>
                <tr><td colspan="2">&nbsp;</td></tr>
 
                <tr>
@@ -570,6 +602,7 @@ and work on previous versions once you create new one. Create new <i>major</i> v
                         <option value="USTRADE" class="lulu">USTRADE (152mm x 228mm)</option>
                         <option value="SQUARE7.5" class="lulu">SQUARE7.5 (190mm x 190mm)</option>
                         <option value="ROYAL" class="lulu">ROYAL (155mm x 233mm)</option>
+                        <option value="DIGEST" class="lulu">DIGEST (140mm x 216mm)</option>
 
                         <option value="LANDSCAPE9x7" class="lulu">LANDSCAPE9x7 (228mm x 177mm)</option>
                         <option selected="selected" value="COMICBOOK" class="lulu">COMICBOOK (168mm x 260mm)</option>
@@ -664,9 +697,6 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 	      </tr>
 	  </table>
           </form>
-          <div class="info">
-
-          </div>
 
 	</div>
 {% endif %}
