@@ -536,8 +536,12 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 	       <td colspan="2">{% trans "Lulu.com settings (each optional)" %}</td>
 	     </tr>
 	     <tr class="luluoption" style="display: none">
-	       <td>{% trans "URL of cover PDF:" %}</td>
-	       <td><input type="text" name="coverurl"></td>
+	       <td>{% trans "Cover PDF attachment:" %}</td>
+	       <td>
+                 <select id="coverurl" name="coverurl">
+                   <option value="">Loading list...</option>
+                  </select> 
+	       </td>
 	     </tr>
 	     <tr class="luluoption" style="display: none">
 	       <td>{% trans "Lulu.com user:" %}</td>
@@ -556,7 +560,7 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 		<td colspan="2"><input type="checkbox"  name="archiveorg"> {% trans "send to archive.org" %}</td>
 	      </tr>
 	      <tr>
-		<td colspan="2"><input type="checkbox"  name="lulucom" onclick="$('.luluoption').toggle()"> {% trans "send to lulu.com" %}</td>
+		<td colspan="2"><input type="checkbox"  name="lulucom" onclick="$.booki.editor.showLuluFields()"> {% trans "send to lulu.com" %}</td>
 	      </tr>
 	      <tr>
 		<td colspan="2"><br/></td>
