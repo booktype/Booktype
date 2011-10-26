@@ -133,6 +133,17 @@ Createbooki script has created booki.wsgi script for the Apache. Use that
 file as part of your Apache config.
 
 
+How to migrate to latest Booki
+------------------------------
+
+1. The following should be added to settings.py:
+
+# lulu.com export credentials that override Objavi settings
+LULU_USER = None
+LULU_PASSWORD = None
+LULU_API_KEY = None
+
+
 How to migrate to Booki 1.2
 ---------------------------
 
