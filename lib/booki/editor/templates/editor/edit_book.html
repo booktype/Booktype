@@ -934,8 +934,8 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 </ul>
 
 <ul class="bookStatuses template">
-{% for s in statuses %}
- <li id="{{s}}">{% trans s %}</li>
+{% for s0, s1 in statuses %}
+ <li id="{{s0}}">{% trans s1 %}</li>
 {% endfor %}
 </ul>
 
