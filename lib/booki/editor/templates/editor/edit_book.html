@@ -59,17 +59,17 @@ function closeAttachmentUpload() {
 
     var xinha_editors = ['myTextArea'];
 
-    var prvi = false;
+//    var prvi = false;
 
     function xinha_init() {
 	if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) {
 	    return;
 	}
 
-	if(prvi) {
+/*	if(prvi) {
 	    $.booki.debug.debug("prvi == true");
 	    return;
-	}
+	} */
 
 	var xinha_config = new Xinha.Config();
 	
@@ -120,9 +120,6 @@ function closeAttachmentUpload() {
 
 <div id="tabs">
 	<ul>
-<!--		<li><a href="#tabattachments">Attachments</a></li> -->
-<!--		<li><a href="#tabinfo">Info</a></li> -->
-
 {% if "chapters" in tabs %}
 		<li><a href="#tabchapters">{% trans "Chapters" %}</a></li>
 {% endif %}
@@ -190,7 +187,7 @@ function closeAttachmentUpload() {
 		</div>
 
 
-		<div id="newchapter" title="New chapter">
+		<div id="newchapter" title="{% trans "New chapter" %}">
 		<!--  <p id="validateTips">Enter new chapter name.</p> -->  
 		  <form onsubmit="javascript:return false">
 		    <fieldset>
@@ -199,19 +196,19 @@ function closeAttachmentUpload() {
 		    </form>
 		</div>
 
-		<div id="clonechapter" title="Clone chapter">
+		<div id="clonechapter" title="{% trans "Clone chapter" %}">
 		<!--  <p id="validateTips">Enter new chapter name.</p> -->  
 		  <form onsubmit="javascript:return false">
 		    <fieldset>
 		      <input name="book" type="text" class="text ui-widget-content ui-corner-all"></br />
 		      <input name="chapter" type="text" class="text ui-widget-content ui-corner-all"><br />
-		      New title (optional):<br />
+		      {% trans "New title (optional)" %}:<br />
 		      <input name="rename_title" type="text" class="text ui-widget-content ui-corner-all">
 		      </fieldset>
 		    </form>
 		</div>
 
-		<div id="newsection" title="New section">
+		<div id="newsection" title="{% trans "New section" %}">
 		<!--  <p id="validateTips">Enter new section name.</p> -->
 		  <form onsubmit="return false">
 		    <fieldset>
@@ -221,7 +218,7 @@ function closeAttachmentUpload() {
 		</div>
 
 		<!-- open attachment dialog -->
-		<div id="insertattachment" title="Insert image">
+		<div id="insertattachment" title="{% trans "Insert image" %}">
                    <div id="inserttabs">
                        <ul>
                          <li><a href="#insertimages">{% trans "Images" %}</a></li>
@@ -268,7 +265,7 @@ function closeAttachmentUpload() {
 		<!-- close attachment dialog -->
 
 		<!-- start of edit attachment -->
-		<div id="editattachment" title="Edit Image">
+		<div id="editattachment" title="{% trans "Edit Image" %}">
 		  <div class="container">
 		    <fieldset style="float: right; width: 160px; height: 160px; border: 1px solid gray; margin-left: 10px;">
 		      <legend>{% trans "Preview" %}</legend>
@@ -413,11 +410,6 @@ function closeAttachmentUpload() {
 {% if "history" in tabs %}
 	<div id="tabhistory">
 	<!-- START history TAB -->
-<!--
-          <div id="format">
-		<input type="radio" id="check1" name="radio"/><label for="check1">Chapters</label>
-		<input type="radio" id="check2" name="radio" /><label for="check2">Chat</label>
-    	  </div> -->
           <div id="historycontainer">
           </div>
 	</div>
@@ -438,7 +430,7 @@ and work on previous versions once you create new one. Create new <i>major</i> v
          </div>
 
 
-	<div id="newversionmajor" title="New version">
+	<div id="newversionmajor" title="{% trans "New version" %}">
 	  <form onsubmit="javascript:return false">
 <!--	    <fieldset> -->
               {% trans "You can name this version (optional):" %}
@@ -450,7 +442,7 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 	    </form>
 	  </div>
 
-	<div id="newversionminor" title="New version">
+	<div id="newversionminor" title="{% trans "New version" %}">
 	  <form onsubmit="javascript:return false">
 <!--	    <fieldset> -->
               {% trans "You can name this version (optional):" %}
@@ -469,16 +461,6 @@ and work on previous versions once you create new one. Create new <i>major</i> v
        </div>
 
 {% endif %}
-
-	<!-- START info TAB -->
-<!--
-	<div id="tabinfo">
-         <table border="0" class="metadata">
-         </table>
-
-           <br/>
-	</div>
--->
 
 {% if "export" in tabs %}
 	<div id="tabpublish">
@@ -532,7 +514,7 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 	       <td>{% trans "Cover PDF attachment:" %}</td>
 	       <td>
                  <select id="coverurl" name="coverurl">
-                   <option value="">Loading list...</option>
+                   <option value="">{% trans "Loading list..." %}</option>
                   </select> 
 	       </td>
 	     </tr>
@@ -717,8 +699,7 @@ and work on previous versions once you create new one. Create new <i>major</i> v
             </tr>
             <tr>
              <td colspan="3">
-               <input type="checkbox" name="rtl"> Right to left text<br>
-
+               <input type="checkbox" name="rtl">{% trans "Right to left text" %}<br>
              </td>
             </tr>
            </table>
@@ -748,9 +729,7 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 	  <p><a name="attribution">{% trans "Manage copyright attribution." %}</a></p>
 
 	  <div class="copyrightAttribution template" title="{% trans "Manage Copyright Attribution" %}">
-            <p>If you want to exclude some people from the copyright attribution...
-
-             </p>
+            <p>{% blocktrans %}If you want to exclude some people from the copyright attribution...{% endblocktrans %}</p>
            <form onsubmit="return false" action="javascript:void(0)">
            <table border="0" width="100%">
             <tr><td><b>Contributors</b></td><td></td><td><b>Excluded contributors</b></td></tr>
@@ -780,21 +759,21 @@ and work on previous versions once you create new one. Create new <i>major</i> v
               <td valign="top"><b>Role:</b></td>
               <td valign="top" colspan="2">
                  <select style="width: 100%"" name="listroles">
-                    <option value="0" selected="selected">Select role</option>
-                    <option value="1">Administrator</option>
-                    <option value="2">Editor</option>
+                    <option value="0" selected="selected">{% trans "Select role" %}</option>
+                    <option value="1">{% trans "Administrator" %}</option>
+                    <option value="2">{% trans "Editor" %}</option>
                  </select>
               </td>
             </tr>
 
             <tr>
-              <td valign="top"><b>New user:</b></td>
+              <td valign="top"><b>{% trans "New user:" %}</b></td>
               <td valign="top"><input type="text" name="newuser" style="width: 400px"></td>
 	      <td><a name="adduser" style="width: 70%">{% trans "Add" %}</a></td>
             </tr>
 
             <tr>
-              <td valign="top"><b>Role:</b></td>
+              <td valign="top"><b>{% trans "Role:" %}</b></td>
               <td valign="top"><select size="10" style="width: 400px" name="users"></select></td>
 	      <td valign="top"><a style="width: 70%" name="removeuser">{% trans "Remove" %}</td>
             </tr>
@@ -803,7 +782,7 @@ and work on previous versions once you create new one. Create new <i>major</i> v
           </div>
 
   	  <h3>{% trans "Chapter status" %}</h3>
-	  <p>Available statuses: <span class="currentstatuses"></span> </p>
+	  <p>{% trans "Available statuses:" %} <span class="currentstatuses"></span> </p>
 	  <a name="chapterstatus">{% trans "Manage chapter status" %}</a>
 
 
@@ -830,7 +809,7 @@ and work on previous versions once you create new one. Create new <i>major</i> v
            </form>
           </p>
 
-          <p style="background-color: #f0f0f0; padding: 5px"><span class="ui-icon ui-icon-alert" style="float: left"></span>This interface is still work in progress.</p>
+          <p style="background-color: #f0f0f0; padding: 5px"><span class="ui-icon ui-icon-alert" style="float: left"></span>{% trans "This interface is still work in progress." %}</p>
 
 	  <div class="info">
           </div>
@@ -1010,7 +989,7 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 
 <div class="diffDisplay template">
 <a class="backLink" href="javascript:void(0)">&lt;&lt; {% trans "back to chapter history" %}</a>
-<a href="javascript:void(0)" href="javascript:void(0)" name="side">Show side by side</a>
+<a href="javascript:void(0)" href="javascript:void(0)" name="side">{% trans "Show side by side" %}</a>
 
 <h3>{% blocktrans %}Compare revision <span class="revision1Name">revision1</span> with revision <span class="revision2Name">revision2</span>{% endblocktrans %}</h3>
 <div id="chapterdigg" class="dataOutput" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0; font-size: 8pt"></div>
@@ -1018,7 +997,7 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 </div>
 
 <div class="statusChapterDialog template" title="{% trans "Chapter status" %}">
-  <p>Select new chapter status:</p>
+  <p>{% trans "Select new chapter status:" %}</p>
   <form>
     <ul style="padding-left: 10px">
 
