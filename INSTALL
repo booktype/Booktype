@@ -103,18 +103,22 @@ user or www-data user.
 
 7. Initialize database
 
-   django-admin syncdb
+   django-admin.py syncdb --noinput
 
 8. Migrate
 
-   django-admin migrate
+   django-admin.py migrate
 
-9. Start redis (If you are using the distro's Redis server, this may
+9. Create superuser account
+
+   django-admin.py createsuperuser
+
+10. Start redis (If you are using the distro's Redis server, this may
 not be necessary or desirable).
 
    redis-server &
 
-10. Start the whole thing 
+11. Start the whole thing 
 
    django-admin.py runserver
 
