@@ -113,12 +113,16 @@ user or www-data user.
 
    django-admin.py createsuperuser
 
-10. Start redis (If you are using the distro's Redis server, this may
+10. Add common dokumentation licenses 
+
+   django-admin.py loaddata documentation_licenses
+
+11. Start redis (If you are using the distro's Redis server, this may
 not be necessary or desirable).
 
    redis-server &
 
-11. Start the whole thing 
+12. Start the whole thing 
 
    django-admin.py runserver
 
