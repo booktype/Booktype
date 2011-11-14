@@ -371,8 +371,8 @@ if __name__ == '__main__':
     verbose = options.verbose
     project_destination = os.path.abspath(args[0])
 
-    if string.find(os.path.abspath(sys.argv[0]), os.sep+'Booki') != -1:
-        sys.path.insert(0, os.path.normpath(os.path.join(os.path.abspath(sys.argv[0]), os.pardir, os.pardir, 'lib')))
+    #if string.find(os.path.abspath(sys.argv[0]), os.sep+'Booki') != -1:
+    sys.path.insert(0, os.path.normpath(os.path.join(os.path.abspath(sys.argv[0]), os.pardir, os.pardir, 'lib')))
 
     try:
         # check versions of software
