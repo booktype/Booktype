@@ -26,8 +26,8 @@
 
 	    $.booki.editor.initEditor();
 
-	    $("#searchbox BUTTON").button();
-	    $("#publishbook").button();
+	    /* temporarily comment search button 
+	    $("#searchbox BUTTON").button(); */
 
             $.booki.subscribeToChannel("/booki/", function(message) {
 
@@ -73,11 +73,14 @@ function closeAttachmentUpload() {
 </div>
 
 <div>
+<!--
+temporarily comment search box
 <div id="searchbox" style="float: right; padding-top: 5px">
 <form>
 <input type="text" size="20"> <button>{% trans "Search" %}</button>
 </form>
 </div>
+-->
 <h1 style="margin-top: 0px"> <a href="{% url book_info book.url_title %}">{{ book }}</a> </h1>
 </div>
 
