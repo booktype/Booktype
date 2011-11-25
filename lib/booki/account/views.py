@@ -421,8 +421,6 @@ def view_profile(request, username):
     from django.contrib.auth.models import User
     from booki.editor import models
 
-    from django.template.defaultfilters import slugify
-
     try:
         user = User.objects.get(username=username)
     except User.DoesNotExist:
@@ -470,8 +468,6 @@ def user_settings(request, username):
 
     from django.contrib.auth.models import User
     from booki.editor import models
-
-    from django.template.defaultfilters import slugify
 
     try:
         user = User.objects.get(username=username)
@@ -606,7 +602,6 @@ def my_books (request, username):
 
     from django.contrib.auth.models import User
     from booki.editor import models
-    from django.template.defaultfilters import slugify
 
     try:
         user = User.objects.get(username=username)

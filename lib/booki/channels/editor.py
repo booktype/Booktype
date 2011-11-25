@@ -11,6 +11,7 @@ from booki.utils.log import logBookHistory, logChapterHistory, printStack
 from booki.editor import models
 from booki.editor.views import getVersion
 from booki.utils import security
+from booki.utils.misc import bookiSlugify
 
 from django.conf import settings
 
@@ -505,7 +506,6 @@ def remote_chapter_split(request, message, bookid, version):
         tocChapter = None
 
     import datetime
-    from django.template.defaultfilters import slugify
 
     if tocChapter:
         allChapters = [chap for chap in models.BookToc.objects.filter(book=book).order_by("-weight")]
@@ -518,7 +518,7 @@ def remote_chapter_split(request, message, bookid, version):
     n = 0
     for chap in message["chapters"]:
         chapter = models.Chapter(book = book,
-                                 url_title = slugify(chap[0]),
+                                 url_title = bookiSlugify(chap[0]),
                                  title = chap[0],
                                  status = s,
                                  content = '<h1>%s</h1>%s' % (chap[0], chap[1]),
@@ -580,9 +580,7 @@ def remote_create_chapter(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_version = getVersion(book, version)
 
-    from django.template.defaultfilters import slugify
-
-    url_title = slugify(message["chapter"])
+    url_title = bookiSlugify(message["chapter"])
 
     # here i should probably set it to default project status
     s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
@@ -686,8 +684,7 @@ def remote_clone_chapter(request, message, bookid, version):
 
     title = message.get("renameTitle", "")
     if title.strip():
-        from django.template.defaultfilters import slugify
-        url_title = slugify(title)
+        url_title = bookiSlugify(title)
     else:
         title = source_chapter.title
         url_title = source_url_title

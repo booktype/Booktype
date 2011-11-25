@@ -20,7 +20,7 @@ def remote_get_status_messages(request, message, profileid):
 
 def remote_group_create(request, message, profileid):
     from booki.editor.models import BookiGroup
-    from django.template.defaultfilters import slugify
+    from booki.utils.misc import bookiSlugify
     import datetime
 
     groupName = message.get("groupName", "")
@@ -28,7 +28,7 @@ def remote_group_create(request, message, profileid):
 
     try:
         group = BookiGroup(name = groupName,
-                           url_name = slugify(groupName),
+                           url_name = bookiSlugify(groupName),
                            description = groupDescription,
                            owner = request.user,
                            
