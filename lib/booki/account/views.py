@@ -118,6 +118,8 @@ def signin(request):
                     if request.POST.get("password", "") != request.POST.get("password2", "").strip(): return 8
                     if len(request.POST.get("password", "").strip()) < 6: return 9
 
+                    if len(request.POST.get("fullname", "").strip()) > 30: return 11
+
                     # check if this user exists
                     try:
                         u = auth.models.User.objects.get(username=request.POST.get("username", ""))
@@ -145,7 +147,7 @@ def signin(request):
                     import booki.account.signals
                     booki.account.signals.account_created.send(sender = user, password = request.POST["password"])
 
-                    user.first_name = request.POST["fullname"]
+                    user.first_name = request.POST["fullname"].strip()
 
                     try:
                         user.save()
@@ -168,6 +170,7 @@ def signin(request):
                         auth.login(request, user2)
                     except:
                         transaction.rollback()
+                        ret["result"] = 666
                     else:
                         transaction.commit()
 
