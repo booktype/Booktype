@@ -4,6 +4,21 @@ from django.shortcuts import render_to_response
 
 
 def ErrorPage(request, templateFile, args = {}, status=200, content_type='text/html'):
+    """
+    Returns nicely formated Error page.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type templateFile: C{string}
+    @param templateFile: Path to template file
+    @type args: C{dict}
+    @param args: Additional arguments we want to pass to the template
+    @type status: C{int}
+    @param status: HTTP return code
+    @type content_type: C{string}
+    @param content_type: Content-Type for the response
+    """
+    
     t = loader.get_template(templateFile)
     c = RequestContext(request, args)
 
@@ -11,6 +26,15 @@ def ErrorPage(request, templateFile, args = {}, status=200, content_type='text/h
 
 
 def profileinfo(request, profileid):
+    """
+    Returns formated profile page. Used for the tooltip info.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type profileid: C{string}
+    @param profileid: Unique Booki username
+    """
+    
     from django.contrib.auth.models import User
 
     try:
@@ -25,6 +49,19 @@ def profileinfo(request, profileid):
                               )
 
 def attachmentinfo(request, bookid, version, attachment):
+    """
+    Returns formated attachment info page. Used for the tooltip info.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type bookid: C{string}
+    @param bookid: Unique Booki name
+    @type version: C{string}
+    @param version: Booki version
+    @type attachment: C{string}
+    @param attachment: Attachment name
+    """
+
     from booki.editor import models
     from booki.editor.views import getVersion
 

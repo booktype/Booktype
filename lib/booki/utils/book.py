@@ -8,9 +8,21 @@ from booki.utils.log import logBookHistory
 
 def createBook(user, bookTitle, status = "imported", bookURL = None):
     """
-    Create book and sets status.
+    Creates book.
 
-    TODO: status?
+    @todo: Do something about status.
+
+    @type user: C{django.contrib.auth.models.User}
+    @param user: Booki user who will be book owner
+    @type bookTitle: C{string}
+    @param bookTitle: Title for the book. If bookURL is omitted it will slugify title for the url version
+    @type status: C{string} 
+    @param status: String name for the status (optional)
+    @type bookURL: C{string}
+    @param bookURL: URL title for the book (optional)
+
+    @rtype: C{booki.editor.models.Book}
+    @return: Returns book object
     """
 
     if bookURL:

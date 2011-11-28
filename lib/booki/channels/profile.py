@@ -9,6 +9,24 @@ except AttributeError:
 
 
 def remote_get_status_messages(request, message, profileid):
+    """
+    Fetches RSS feed from status.net and returns its content. 
+
+    Output:
+     - list
+
+    @todo: Not used anymore. Probably should remove it.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type profileid: C{string}
+    @param profile: Unique Profile id
+    @rtype: C{dict}
+    @return: Returns feed content
+    """
+
     import feedparser
 
     d = feedparser.parse('%s%s/rss' % (STATUS_URL, profileid))
@@ -19,6 +37,28 @@ def remote_get_status_messages(request, message, profileid):
     return {"list": messages}
 
 def remote_group_create(request, message, profileid):
+    """
+    Creates new Booki Group.
+
+    Input:
+     - groupName
+     - groupDescription
+
+    Output:
+     - list
+
+    @todo: Not used anymore. Probably should remove it.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type profileid: C{string}
+    @param profile: Unique Profile id
+    @rtype: C{dict}
+    @return: Returns success of the command
+    """
+
     from booki.editor.models import BookiGroup
     from booki.utils.misc import bookiSlugify
     import datetime
@@ -46,6 +86,19 @@ def remote_group_create(request, message, profileid):
 
 
 def remote_init_profile(request, message, profileid):
+    """
+    Initializes data.
+
+    @todo: Not used anymore. Probably should remove it.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type profileid: C{string}
+    @param profile: Unique Profile id
+    """
+
     import sputnik
 
     ## get online users
@@ -64,6 +117,22 @@ def remote_init_profile(request, message, profileid):
 
 
 def remote_mood_set(request, message, profileid):
+    """
+    Sets new mood for this profile.
+
+    Input:
+     - value
+
+    @todo: Not used anymore. Probably should remove it.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type profileid: C{string}
+    @param profile: Unique Profile id
+    """
+
     # should check permissions
     from django.utils.html import strip_tags
 

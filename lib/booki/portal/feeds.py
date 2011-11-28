@@ -6,8 +6,11 @@ from django.contrib.auth.models import User
 from booki.editor import models
 
 
-
 class BookFeedRSS(Feed):
+    """
+    This represents RSS feed for a book.
+    """
+
     def get_object(self, request, bookid):
         return get_object_or_404(models.Book, url_title=bookid)
 
@@ -47,10 +50,18 @@ class BookFeedRSS(Feed):
     
 
 class BookFeedAtom(BookFeedRSS):
+    """
+    This represents Atom feed for a book.
+    """
+
     feed_type = feedgenerator.Atom1Feed
 
 
 class ChapterFeedRSS(Feed):
+    """
+    This represents RSS feed for a chapter.
+    """
+
     def get_object(self, request, bookid, chapterid):
         return get_object_or_404(models.Chapter, book__url_title=bookid, url_title=chapterid)
 
@@ -89,10 +100,18 @@ class ChapterFeedRSS(Feed):
     
 
 class ChapterFeedAtom(BookFeedRSS):
+    """
+    This represents Atom feed for a chapter.
+    """
+
     feed_type = feedgenerator.Atom1Feed
 
 
 class UserFeedRSS(Feed):
+    """
+    This represents RSS feed for a user.
+    """
+
     def get_object(self, request, userid):
         return get_object_or_404(User, username=userid)
 
@@ -131,4 +150,8 @@ class UserFeedRSS(Feed):
     
 
 class UserFeedAtom(UserFeedRSS):
+    """
+    This represents Atom feed for a user.
+    """
+
     feed_type = feedgenerator.Atom1Feed
