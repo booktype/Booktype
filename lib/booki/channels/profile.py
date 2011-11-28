@@ -27,14 +27,14 @@ def remote_get_status_messages(request, message, profileid):
     @return: Returns feed content
     """
 
-    import feedparser
-
-    d = feedparser.parse('%s%s/rss' % (STATUS_URL, profileid))
-
-#    messages = [(x['title'], ) for x in d['entries']]
-    messages = [(x['content'][0]['value'], ) for x in d['entries']]
-
-    return {"list": messages}
+    return {}
+#    import feedparser
+#
+#    d = feedparser.parse('%s%s/rss' % (STATUS_URL, profileid))
+#
+#    messages = [(x['content'][0]['value'], ) for x in d['entries']]
+#
+#    return {"list": messages}
 
 def remote_group_create(request, message, profileid):
     """

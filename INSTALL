@@ -93,6 +93,10 @@ user or www-data user.
 
    ./createbooki --database sqlite /var/www/mybooki/  
 
+   You can also let create script check if you have installed all needed libraries:
+
+   ./createbooki --check-versions --database sqlite /var/www/mybooki/  
+
 4. Change directory
 
    cd /var/www/mybooki/
