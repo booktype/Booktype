@@ -26,8 +26,17 @@ except AttributeError:
 
 
 # debug
-
+    
 def debug_redis(request):
+    """
+    Django View. This page shows basic debug information about redis.
+
+    @todo: This should be removed. New Django Application for debuging and monitoring should be created.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    """
+
     import sputnik
 
     client_id = sputnik.get("sputnik:client_id")
@@ -85,6 +94,13 @@ def debug_redis(request):
 # FRONT PAGE
 
 def view_frontpage(request):
+    """
+    Django View. This is main Booki Front Page. 
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    """
+
     activity_history = models.BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:20]
 
     return render_to_response('portal/frontpage.html', {"request": request, 
@@ -94,6 +110,15 @@ def view_frontpage(request):
 # GROUPS
 
 def view_group(request, groupid):
+    """
+    Django View. This is main Booki Groups page.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type groupid: C{string}
+    @param groupid: Unique group name
+    """
+
     try:
         group = models.BookiGroup.objects.get(url_name=groupid)
     except models.BookiGroup.DoesNotExist:
@@ -127,6 +152,15 @@ def view_group(request, groupid):
                                                     "is_member":  isMember})
 @transaction.commit_manually
 def add_book(request, groupid):
+    """
+    Django View. Add new book to the group.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type groupid: C{string}
+    @param groupid: Unique group name
+    """
+
     book = models.Book.objects.get(url_title=request.POST["book"])
 
     group = models.BookiGroup.objects.get(url_name=groupid)
@@ -143,6 +177,15 @@ def add_book(request, groupid):
 
 @transaction.commit_manually
 def remove_book(request, groupid):
+    """
+    Django View. Remove book from the group.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type groupid: C{string}
+    @param groupid: Unique group name
+    """
+
     book = models.Book.objects.get(url_title=request.GET["book"])
     book.group = None
 
@@ -160,6 +203,13 @@ def remove_book(request, groupid):
 # front page listings
 #
 def view_groups(request):
+    """
+    Django View. List all groups.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    """
+
     groups_list = models.BookiGroup.objects.all().extra(select={'lower_name': 'lower(name)'}).order_by('lower_name')
 
     paginator = Paginator(groups_list, 50) 
@@ -179,6 +229,13 @@ def view_groups(request):
                                                      "groups": groups })
 
 def view_books(request):
+    """
+    Django View. List all books.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    """
+
     books_list = models.Book.objects.filter(hidden=False).extra(select={'lower_title': 'lower(title)'}).order_by('lower_title')
 
     paginator = Paginator(books_list, 50) 
@@ -212,6 +269,13 @@ def view_books(request):
                                                     })
 
 def view_people(request):
+    """
+    Django View. List all registered users.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    """
+
     people_list = User.objects.all().extra(select={'lower_username': 'lower(username)'}).order_by('lower_username')
 
     paginator = Paginator(people_list, 50) 
@@ -243,10 +307,28 @@ def view_people(request):
                                                      "people":        people })
 
 def maintenance(request):
+    """
+    Django View. Shows maintenance page.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    """
+
     return render_to_response('portal/maintenance.html', {"request":    request})
 
 
 def _is_book_modified(book):
+    """
+    Checks if specific book has been modified.
+
+    @todo: This has to be changed, this is terrible way to check difference in timestamps. This has been developed for archive.org, and is not in use anymore.
+
+    @type book: C{booki.editor.models.Book}
+    @param book: Book object
+    @rtype: C{bool}
+    @return: Returns True or False
+    """
+
     from booki.editor.views import getVersion
     from time import mktime
     bv = getVersion(book, None)
@@ -264,7 +346,9 @@ def view_books_by_id(request, scheme):
     Find books with IDs of the requested schema, and return mapping of
     IDs to urls that match those books.
 
+    @type request: C{django.http.HttpRequest}
     @param request: Django Request.
+    @type scheme: C{string}
     """
     logWarning("looking for books with %r identifier" % scheme)
     from booki.bookizip import DC

@@ -1,4 +1,3 @@
-
 from lxml import etree, html
 
 import sputnik
@@ -11,6 +10,7 @@ from booki.utils.log import logBookHistory, logChapterHistory, printStack
 from booki.editor import models
 from booki.editor.views import getVersion
 from booki.utils import security
+from booki.utils.misc import bookiSlugify
 
 from django.conf import settings
 
@@ -28,6 +28,15 @@ except AttributeError:
 
 # this couple of functions should go to models.BookVersion
 def getTOCForBook(version):
+    """
+    Function returns list of TOC elements. Elements of list are tuples. 
+     - If chapter - (chapter_id, chapter_title, chapter_url_title, type_of, chapter_status_ud)
+     - If section - (s + section_id, section_name, section_name, type_of)
+    
+    @rtype: C{list}
+    @return: Returns list of TOC elements
+    """
+
     results = []
     for chap in version.getTOC():
         # is it a section or chapter?
@@ -44,10 +53,34 @@ def getTOCForBook(version):
 
 
 def getHoldChapters(book_version):
+    """
+    Function returns list of hold chapters. Elements of list are tuples with structure - (chapter_id, chapter_title, chapter_url_title, 1, chapter_status_id).
+
+    @type book_version: C{booki.editor.models.BookVersion}
+    @param book_version: Book version object
+    @rtype: C{list}
+    @return: Returns list with hold chapters
+    """
+
     return [(ch.id, ch.title, ch.url_title, 1, ch.status.id) for ch in book_version.getHoldChapters()]
 
 
 def getAttachments(book_version):
+    """
+    Function returns list of attachments for L{book_version}. Elements of list are dictionaries and are sorted by attachment name. Each dictionary has keys:
+      - id (attachment id)
+      - dimension (tuple with width and height for image)
+      - status (status id for this attachment)
+      - name (name of the attachment)
+      - created (when attachmend was created)
+      - size (size of attachment in bytes)
+
+    @type book_version: C{booki.editor.models.BookVersion}
+    @param book_version: Booki version object
+    @rtype: C{list}
+    @return: Returns list of dictionaries with info about attachment
+    """
+
     import os.path
     import Image
 
@@ -72,6 +105,34 @@ def getAttachments(book_version):
 
 
 def remote_init_editor(request, message, bookid, version):
+    """
+    Called when Booki editor is being initialized. 
+
+    "user_add" message is send to all users currently on this channel and notification is send to all online users on the chat.
+
+    Returns:
+     - licenses - list of tuples (abbrevation, name)
+     - chapters - result of getTOCForBook function 
+     - metadata - list of dictionaries {'name': ..., 'value': ...}
+     - hold - result of getHoldChapters function
+     - users - list of active users
+     - locks - list of currently locked chapters
+     - statuses - list of tuples (status_id, status_name)
+     - attachments - result of getAttachments function
+     - onlineUsers - list of online users
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns info needed for editor initialization
+    """
+
     book = models.Book.objects.get(id=bookid)
     book_version = getVersion(book, version)
 
@@ -192,6 +253,21 @@ def remote_init_editor(request, message, bookid, version):
 
 
 def remote_attachments_list(request, message, bookid, version):
+    """
+    Calls function L{getAttachments} and returns info about attachments for the specific version of the book.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of attachments
+    """
+
     book = models.Book.objects.get(id=bookid)
     book_version = getVersion(book, version)
 
@@ -203,7 +279,24 @@ def remote_attachments_list(request, message, bookid, version):
     return {"attachments": attachments}
 
 def remote_attachments_delete(request, message, bookid, version):
-    # TODO: must check security
+    """
+    Deletes specific attachment. 
+
+    Input:
+      - attachment - Attachment id
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns success of this command
+    """
+
     book = models.Book.objects.get(id=bookid)
     bookSecurity = security.getUserSecurityForBook(request.user, book)
     
@@ -219,6 +312,22 @@ def remote_attachments_delete(request, message, bookid, version):
     return {"result": False}
 
 def remote_chapter_status(request, message, bookid, version):
+    """
+    Sets new status for the specific chapter. Sends "chapter_status" with new status to all users on the channel.
+
+    Input:
+      - chapterID
+      - status
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    """
 
     if message["status"] == "normal":
         sputnik.rdelete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
@@ -232,6 +341,27 @@ def remote_chapter_status(request, message, bookid, version):
     return {}
 
 def remote_change_status(request, message, bookid, version):
+    """
+    Change status for the chapter.
+
+    Message "change_status" is send to all users on the channel. Notification is send to chat.
+
+    Input:
+      - chapterID
+      - statusID
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns success of this command
+    """
+
     # chapterID
     # statusID
 
@@ -261,6 +391,29 @@ def remote_change_status(request, message, bookid, version):
 
 
 def remote_chapter_save(request, message, bookid, version):
+    """
+    Saves new chapter content.
+
+    Writes log to Chapter and Book history. Sends notification to chat. Removes lock. Sends "chapter_status" messahe to the channel. Fires the chapter_modified signal.
+
+    Input:
+      - chapterID
+      - content
+
+    @todo: Check security
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns success of this command
+    """
+
     # TODO
     # put this outside in common module
     # or maybe even betterm put it in the Model
@@ -318,6 +471,27 @@ def remote_chapter_save(request, message, bookid, version):
 
 
 def remote_chapter_rename(request, message, bookid, version):
+    """
+    Renames chapter name.
+
+    Creates Book history record. Sends notification to chat. Sends "chapter_status" message to the channel. Sends "chapter_rename" message to the channel.
+
+    @todo: check security
+
+    Input:
+     - chapterID
+     - chapter - new chapter name
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    """
+
     book = models.Book.objects.get(id=bookid)
     book_version = getVersion(book, version)
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
@@ -360,6 +534,27 @@ def remote_chapter_rename(request, message, bookid, version):
 
 
 def remote_chapters_changed(request, message, bookid, version):
+    """
+    Reorders the TOC.
+
+    Creates Book history record. Sends "chapters_changed" message to the channel.
+
+    @todo: check security
+
+    Input:
+     - chapters
+     - hold
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    """
+
     lst = [chap[5:] for chap in message["chapters"]]
     lstHold = [chap[5:] for chap in message["hold"]]
 
@@ -420,6 +615,21 @@ def remote_chapters_changed(request, message, bookid, version):
 
 
 def remote_get_users(request, message, bookid, version):
+    """
+    Returns list of users currently editing L{bookid}.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: List of users
+    """
+
     res = {}
     def vidi(a):
         if a == request.sputnikID:
@@ -431,6 +641,35 @@ def remote_get_users(request, message, bookid, version):
 
 
 def remote_get_chapter(request, message, bookid, version):
+    """
+    This is called when you fire up WYSWYG editor or Chapter viewer. It sends back basic chapter information.
+
+    If lock flag is send then it will Sends message "chapter_status" to the channel and create lock for this chapter.
+
+    Input:
+     - chapterID
+     - lock (True or False)
+     - revisions (True or False)
+     - revision 
+
+    Output:
+     - title 
+     - content
+     - current_revision
+     - revisions - list of all revisions
+     
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Chapter info
+    """
+
     res = {}
 
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
@@ -465,6 +704,21 @@ def remote_get_chapter(request, message, bookid, version):
 
 
 def remote_book_notification(request, message, bookid, version):
+    """
+    Editor is constantly sending ping message to notify us that it is still alive.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Should it kill the seasson
+    """
+
     res = {}
 
     import time
@@ -483,6 +737,9 @@ def remote_book_notification(request, message, bookid, version):
 
 
 def remote_chapter_split(request, message, bookid, version):
+    """
+    Not used at the moment.
+    """
     book = models.Book.objects.get(id=bookid)
     book_version = getVersion(book, version)
 
@@ -505,7 +762,6 @@ def remote_chapter_split(request, message, bookid, version):
         tocChapter = None
 
     import datetime
-    from django.template.defaultfilters import slugify
 
     if tocChapter:
         allChapters = [chap for chap in models.BookToc.objects.filter(book=book).order_by("-weight")]
@@ -518,7 +774,7 @@ def remote_chapter_split(request, message, bookid, version):
     n = 0
     for chap in message["chapters"]:
         chapter = models.Chapter(book = book,
-                                 url_title = slugify(chap[0]),
+                                 url_title = bookiSlugify(chap[0]),
                                  title = chap[0],
                                  status = s,
                                  content = '<h1>%s</h1>%s' % (chap[0], chap[1]),
@@ -573,6 +829,29 @@ def remote_chapter_split(request, message, bookid, version):
 
 
 def remote_create_chapter(request, message, bookid, version):
+    """
+    Creates new chapters. New chapter is always added at the end of the TOC. Creates empty chapter content only with chapter title as heading.
+
+    Record for Chapter and Book history is created. Message "chapter_create" is send to the channel. Notification is send to the chat.
+
+    Input:
+     - chapter - chapter name
+     - comment (optional)
+
+    @todo: Should check security.
+     
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Return if it was successful
+    """
+
     import datetime
 
     # BookVersion treba uzeti
@@ -580,9 +859,7 @@ def remote_create_chapter(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_version = getVersion(book, version)
 
-    from django.template.defaultfilters import slugify
-
-    url_title = slugify(message["chapter"])
+    url_title = bookiSlugify(message["chapter"])
 
     # here i should probably set it to default project status
     s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
@@ -661,6 +938,16 @@ def remote_create_chapter(request, message, bookid, version):
     return {"created": True}
 
 def copy_attachment(attachment, target_book):
+    """
+    Creates new attachment in L{target_book} and copies attachments content there.
+
+    @type attachment: C{booki.editor.models.Attachment}
+    @param attachment: Attachment object
+    @type target_book: C{booki.editor.models.Book}
+    @param target_book: Book version object
+    @rtype: C{booki.editor.models.Attachment}
+    @return: Returns new Attachment object
+    """
     import os.path
 
     att = models.Attachment(book = target_book,
@@ -672,6 +959,30 @@ def copy_attachment(attachment, target_book):
     return att
 
 def remote_clone_chapter(request, message, bookid, version):
+    """
+    Clones chapter in another book. It also recreates TOC and copies attachments. It parsesr HTML content to check for used attachments.
+
+    Creates entry in Chapter and Book history. Sends "chapter_create" message to the channel. Sends notification to chat.
+
+    Input:
+     - book - url name for the book
+     - chaptter - chapter title
+     - renameTitle - New chapter name (optional)
+
+    @todo: Should check security.
+     
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Return if it was successful
+    """
+
     import datetime
 
     # BookVersion treba uzeti
@@ -686,8 +997,7 @@ def remote_clone_chapter(request, message, bookid, version):
 
     title = message.get("renameTitle", "")
     if title.strip():
-        from django.template.defaultfilters import slugify
-        url_title = slugify(title)
+        url_title = bookiSlugify(title)
     else:
         title = source_chapter.title
         url_title = source_url_title
@@ -810,6 +1120,55 @@ def remote_clone_chapter(request, message, bookid, version):
 
 
 def remote_publish_book(request, message, bookid, version):
+    """
+    This is called when you want to publish your book. HTTP Request is sent to Objavi. Objavi then grabs content from Booki, renders it and creates output file.
+
+    Sends notification to chat.
+
+    Input:
+     - publish_mode
+     - is_archive
+     - is_lulu
+     - lulu_user
+     - lulu_password
+     - lulu_api_key
+     - lulu_project
+     - book
+     - project
+     - mode
+     - server
+     - destination
+     - max-age
+     - grey_scale
+     - title
+     - license
+     - isbn
+     - toc_header
+     - booksize
+     - page_width
+     - page_height
+     - top_margin
+     - side_margin
+     - gutter
+     - columns
+     - column_margin
+     - grey_scale
+     - css
+     - cover_url
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns info with URL-s where to fetch the result
+    """
+
     book = models.Book.objects.get(id=bookid)
 
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
@@ -893,6 +1252,27 @@ def remote_publish_book(request, message, bookid, version):
 
 
 def remote_create_section(request, message, bookid, version):
+    """
+    Creates new section. Sections is added at the end of the TOC.
+
+    Creates Book history entry. Sends "chapter_create" message to the channel. Sends notification to chat.
+
+    Input:
+     - chapter - name for the section. i know :)
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns if command was successful
+    """
+
     import datetime
 
     book = models.Book.objects.get(id=bookid)
@@ -945,6 +1325,27 @@ def remote_create_section(request, message, bookid, version):
 
 
 def remote_get_history(request, message, bookid, version):
+    """
+    Returns Book history entries.
+
+    Input:
+     - page
+
+    Output:
+     - history
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns history entries
+    """
+
     import datetime
     from booki.editor.common import parseJSON
 
@@ -1004,6 +1405,27 @@ def remote_get_history(request, message, bookid, version):
 
 
 def remote_get_chapter_history(request, message, bookid, version):
+    """
+    Returns Chapter history entries.
+
+    Input:
+     - chapter
+
+    Output:
+     - history
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns history entries
+    """
+
     import datetime
     from booki.editor.views import getVersion
 
@@ -1025,6 +1447,26 @@ def remote_get_chapter_history(request, message, bookid, version):
     return {"history": history}
 
 def remote_revert_revision(request, message, bookid, version):
+    """
+    Revert chapter content to previous version.
+
+    Creates entry for Chapter and Book history. Sends notification to chat.
+
+    Input:
+     - chapter
+     - revision
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    """
+
+
     from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
@@ -1071,6 +1513,35 @@ def remote_revert_revision(request, message, bookid, version):
 
 
 def remote_get_chapter_revision(request, message, bookid, version):
+    """
+    Returns Chapter data for specific revision.
+
+    Input:
+     - chapter
+     - revision
+
+    Output:
+     - chapter - chapter title
+     - chapter_url - chapter url title
+     - modified
+     - user
+     - revision
+     - version - book version
+     - content
+     - comment
+     
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Chapter data
+    """
+
     import datetime
     from booki.editor.views import getVersion
 
@@ -1092,6 +1563,24 @@ def remote_get_chapter_revision(request, message, bookid, version):
 
 
 def remote_get_notes(request, message, bookid, version):
+    """
+    Gets notes for this book.
+
+    Output:
+     - notes
+     
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Notes data
+    """
+
     import datetime
 
     book = models.Book.objects.get(id=bookid)
@@ -1104,7 +1593,26 @@ def remote_get_notes(request, message, bookid, version):
 
     return {"notes": notes}
 
+
 def remote_notes_save(request, message, bookid, version):
+    """
+    Saves notes for this book.
+
+    Sends notification to chat.
+
+    Input:
+     - notes
+     
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    """
+
     book = models.Book.objects.get(id=bookid)
     book_notes = models.BookNotes.objects.filter(book=book)
     notes = message.get("notes")
@@ -1132,6 +1640,24 @@ def remote_notes_save(request, message, bookid, version):
 
 
 def remote_unlock_chapter(request, message, bookid, version):
+    """
+    Removes lock for chapter. Only booki user can do this. Lock is removed from Redis database.
+
+    Sends notification to chat.
+
+    Input:
+     - chapterID
+     
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    """
+
     import re
 
     if request.user.username == 'booki':
@@ -1145,6 +1671,29 @@ def remote_unlock_chapter(request, message, bookid, version):
 
 
 def remote_get_versions(request, message, bookid, version):
+    """
+    Returns data about all Book versions.
+
+    Output:
+     - versions
+        - major
+        - minor
+        - name
+        - description
+        - created
+     
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of dictionaries with data about all Book versions
+    """
+
     book = models.Book.objects.get(id=bookid)
 
     book_versions = [{"major": v.major,
@@ -1159,7 +1708,28 @@ def remote_get_versions(request, message, bookid, version):
 
 
 # put this outside of this module
-def create_new_version(book, book_ver, message, major, minor):#request, message, bookid, version):
+def create_new_version(book, book_ver, message, major, minor):
+    """
+    Creates new version of the book. Copies TOC, copies all attachments and etc...
+
+    Input:
+     - name
+     - description
+
+    @type book: C{booki.editor.models.Book}
+    @param book: Book object
+    @type book_ver: C{booki.editor.models.BookVersion}
+    @param book_ver: Book version object
+    @type message: C{dict}
+    @param message: Sputnik message
+    @type major: C{int}
+    @param major: Major version
+    @type minor: C{int}
+    @param minor: Minor version
+    @rtype: C{booki.editor.models.BookVersion}
+    @return: Returns Book version object
+    """
+
     new_version = models.BookVersion(book=book,
                                      major=major,
                                      minor=minor,
@@ -1219,6 +1789,23 @@ def create_new_version(book, book_ver, message, major, minor):#request, message,
 
 
 def remote_create_major_version(request, message, bookid, version):
+    """
+    Creates new major version of the book.
+
+    Creates new entry in the Book history.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns new version number
+    """
+
     from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
@@ -1240,7 +1827,25 @@ def remote_create_major_version(request, message, bookid, version):
 
     return {"version": new_version.getVersion()}
 
+
 def remote_create_minor_version(request, message, bookid, version):
+    """
+    Creates new minor version of the book.
+
+    Creates new entry in the Book history.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns new version number
+    """
+
     from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
@@ -1326,6 +1931,26 @@ def color_me(l, rgb, pos):
     return out
 
 def remote_chapter_diff(request, message, bookid, version):
+    """
+    Returns diff between two revisions of the chapter. Diff is returned as HTML string.
+
+    Input:
+     - message
+     - revision1
+     - revision2
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns text with diff between two chapters
+    """
+
     import datetime
     from booki.editor.views import getVersion
 
@@ -1403,7 +2028,28 @@ def remote_chapter_diff(request, message, bookid, version):
 
     return {"output": '\n'.join(output)}
 
+
 def remote_chapter_diff_parallel(request, message, bookid, version):
+    """
+    Returns diff between two revisions of the chapter. Diff is returned as HTML string and is used for parallel comparison.
+
+    Input:
+     - message
+     - revision1
+     - revision2
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns text with diff between two chapters
+    """
+
     import datetime
     from booki.editor.views import getVersion
 
@@ -1490,7 +2136,31 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
     return {"output": info+'<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: '+message["revision2"]+'</div></td></tr>\n'.join(output)+'</table>\n'}
 
 
+
 def remote_settings_options(request, message, bookid, version):
+    """
+    Returns minimal amount of data needed to show on the Settings tab in the Editor. This call is used when user clicks on the Settings tab.
+
+    Output:
+     - licenses
+     - permission
+     - current_licence
+     - languages
+     - current_language
+     - rtl
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Settings tab
+    """
+
     from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
@@ -1518,7 +2188,26 @@ def remote_settings_options(request, message, bookid, version):
             "rtl": rtl
             }
 
+
 def remote_license_save(request, message, bookid, version):
+    """
+    This call is used from the Settings tab. It is used to save new license data for the book.
+
+    Input:
+     - license
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns if operation was successful
+    """
+
     from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
@@ -1533,6 +2222,25 @@ def remote_license_save(request, message, bookid, version):
     return {"status": 1}
 
 def remote_license_attributions(request, message, bookid, version):
+    """
+    This call is used from the Settings tab. You get list of users who have attribution rights and list of people who have been excluded from the list.
+
+    Output:
+     - users
+     - users_exclude
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns if operation was successful
+    """
+
     from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
@@ -1551,7 +2259,26 @@ def remote_license_attributions(request, message, bookid, version):
     return {"users": users,
             "users_exclude": users_exclude }
 
+
 def remote_license_attributions_save(request, message, bookid, version):
+    """
+    This call is used from the Settings tab. Saves new list of excluded users from the attribution rights.
+
+    Input:
+     - excluded_users
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns if operation was successful
+    """
+
     from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
@@ -1573,6 +2300,25 @@ def remote_license_attributions_save(request, message, bookid, version):
 
 
 def remote_settings_language_save(request, message, bookid, version):
+    """
+    This call is used from the Settings tab. Saves new book language and rtl setting for the book.
+
+    Input:
+     - language
+     - rtl
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns if operation was successful
+    """
+
     from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
@@ -1605,7 +2351,26 @@ def remote_settings_language_save(request, message, bookid, version):
 
     return {"status": True}
 
+
 def remote_users_suggest(request, message, bookid, version):
+    """
+    This call is used from the Settings tab, Manage roles dialog. This called is used to autofill username field.
+
+    Input:
+     - possible_user
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of users
+    """
+
     from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
@@ -1620,7 +2385,26 @@ def remote_users_suggest(request, message, bookid, version):
 
     return {"status": True, "possible_users": users}
 
+
 def remote_roles_list(request, message, bookid, version):
+    """
+    Returns list of users who have specific role on this book.
+   
+    Input:
+     - role
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of users
+    """
+
     from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
@@ -1634,6 +2418,7 @@ def remote_roles_list(request, message, bookid, version):
     transaction.commit()
 
     return {"status": True, "users": users}
+
 
 # remove this
 def _remote_roles_save(request, message, bookid, version):
@@ -1670,7 +2455,27 @@ def _remote_roles_save(request, message, bookid, version):
 
     return {"status": True}
 
+
 def remote_roles_add(request, message, bookid, version):
+    """
+    Adds user to specific role.
+   
+    Input:
+     - username
+     - role
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns True if operation was successful
+    """
+
     from booki.editor.views import getVersion
     from django.contrib.auth.models import User
 
@@ -1694,6 +2499,25 @@ def remote_roles_add(request, message, bookid, version):
 
 
 def remote_roles_delete(request, message, bookid, version):
+    """
+    Removes role from this specific user.
+   
+    Input:
+     - username
+     - role
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns True if operation was successful
+    """
+
     from booki.editor.views import getVersion
     from django.contrib.auth.models import User
 
@@ -1715,7 +2539,33 @@ def remote_roles_delete(request, message, bookid, version):
 
     return {"status": True}
 
+
 def remote_book_status_create(request, message, bookid, version):
+    """
+    Creates new book status.
+
+    Sends notification to chat.
+   
+    Input:
+     - status_name
+     
+    Output:
+     - status
+     - status_id
+     - statuses
+   
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of all statuses and id of the newly created one
+    """
+
     book = models.Book.objects.get(id=bookid)
     status_id = None
 
@@ -1751,7 +2601,33 @@ def remote_book_status_create(request, message, bookid, version):
             "statuses": allStatuses
             }
 
+
 def remote_book_status_remove(request, message, bookid, version):
+    """
+    Removes book status.
+
+    Sends notification to chat.
+   
+    Input:
+     - status_id
+     
+    Output:
+     - status
+     - result
+     - statuses
+   
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of all statuses
+    """
+
     book = models.Book.objects.get(id=bookid)
 
     bookSecurity = security.getUserSecurityForBook(request.user, book)
@@ -1785,7 +2661,32 @@ def remote_book_status_remove(request, message, bookid, version):
             "result": result,
             "statuses": allStatuses}
 
+
 def remote_book_status_order(request, message, bookid, version):
+    """
+    Reorders list of book statuses.
+
+    Sends notification to chat.
+   
+    Input:
+     - order
+     
+    Output:
+     - status
+     - statuses
+   
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of all statuses
+    """
+
     book = models.Book.objects.get(id=bookid)
 
     bookSecurity = security.getUserSecurityForBook(request.user, book)
@@ -1816,7 +2717,26 @@ def remote_book_status_order(request, message, bookid, version):
     return {"status": True,
             "statuses": allStatuses }
 
+
 def remote_book_permission_save(request, message, bookid, version):
+    """
+    Sets book permissions.
+
+    Input:
+     - permission
+     
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns True if operation was successful
+    """
+
     book = models.Book.objects.get(id=bookid)
 
     bookSecurity = security.getUserSecurityForBook(request.user, book)

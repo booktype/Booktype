@@ -63,8 +63,6 @@ else:
                            url(r'^feeds/rss/user/(?P<userid>[\w\s\_\.\-\d]+)/$', feeds.UserFeedRSS()),
                            url(r'^feeds/atom/user/(?P<userid>[\w\s\_\.\-\d]+)/$', feeds.UserFeedAtom()),
 
-#                           url(r'^feeds/book/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<chapterid>[\w\s\_\.\-\d]+)/$', 'booki.portal.feeds.chapter'),
-                           
                            # groups
                            url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', 'booki.portal.views.add_book'),                    
                            url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/remove_book/$', 'booki.portal.views.remove_book'),                    
@@ -94,6 +92,5 @@ else:
                            url(r'^messaging/', include('booki.messaging.urls')),
 
                            # reader
-                           #url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/_v/(?P<version>[\w\s\_\d\.\-]+)/', include('booki.editor.urls')),
                            url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls'))
                            )

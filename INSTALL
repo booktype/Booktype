@@ -65,6 +65,10 @@ Command examples are for Debian/Ubuntu.
 
        $ sudo apt-get install libxml2-dev and libxslt-dev
        $ sudo easy_install lxml
+
+ - Unidecode (http://pypi.python.org/pypi/Unidecode)
+
+       $ sudo pip install unidecode
       
 
 Installing from the git repository
@@ -89,6 +93,10 @@ user or www-data user.
 
    ./createbooki --database sqlite /var/www/mybooki/  
 
+   You can also let create script check if you have installed all needed libraries:
+
+   ./createbooki --check-versions --database sqlite /var/www/mybooki/  
+
 4. Change directory
 
    cd /var/www/mybooki/
@@ -103,18 +111,26 @@ user or www-data user.
 
 7. Initialize database
 
-   django-admin syncdb
+   django-admin.py syncdb --noinput
 
 8. Migrate
 
-   django-admin migrate
+   django-admin.py migrate
 
-9. Start redis (If you are using the distro's Redis server, this may
+9. Create superuser account
+
+   django-admin.py createsuperuser
+
+10. Add common dokumentation licenses 
+
+   django-admin.py loaddata documentation_licenses
+
+11. Start redis (If you are using the distro's Redis server, this may
 not be necessary or desirable).
 
    redis-server &
 
-10. Start the whole thing 
+12. Start the whole thing 
 
    django-admin.py runserver
 
