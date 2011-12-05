@@ -170,8 +170,9 @@ def draft_chapter(request, bookid, chapter, version=None):
         content = models.Chapter.objects.get(version=book_version, url_title = chapter)
     except models.Chapter.DoesNotExist:
         return pages.ErrorPage(request, "errors/chapter_does_not_exist.html", {"chapter_name": chapter, "book": book})
-
-
+    except models.Chapter.MultipleObjectsReturned:
+        return pages.ErrorPage(request, "errors/chapter_duplicate.html", {"chapter_name": chapter, "book": book})
+        
     return render_to_response('reader/draft_chapter.html', {"chapter": chapter, 
                                                       "book": book, 
                                                       "book_version": book_version.getVersion(),
@@ -256,6 +257,8 @@ def book_chapter(request, bookid, chapter, version=None):
         content = models.Chapter.objects.get(version=book_version, url_title = chapter)
     except models.Chapter.DoesNotExist:
         return pages.ErrorPage(request, "errors/chapter_does_not_exist.html", {"chapter_name": chapter, "book": book})
+    except models.Chapter.MultipleObjectsReturned:
+        return pages.ErrorPage(request, "errors/chapter_duplicate.html", {"chapter_name": chapter, "book": book})
 
 
     return render_to_response('reader/book_chapter.html', {"chapter": chapter, 
