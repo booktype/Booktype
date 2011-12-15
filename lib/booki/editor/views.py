@@ -221,7 +221,11 @@ def upload_attachment(request, bookid, version=None):
         # maybe check file name now and save with new name
     transaction.commit()
 
-    return HttpResponse('<html><body><script> parent.closeAttachmentUpload(); </script></body></html>')
+    if request.POST.get("attachmenttab", "") == "":
+        return HttpResponse('<html><body><script> parent.closeAttachmentUpload(); </script></body></html>')
+
+    # should not call showAttachmentsTab, but it works for now
+    return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); </script></body></html>')
 
 def view_books_json(request):
     """
