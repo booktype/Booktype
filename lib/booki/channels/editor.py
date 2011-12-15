@@ -298,12 +298,27 @@ def remote_attachments_delete(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
+    book_version = getVersion(book, version)
+
     bookSecurity = security.getUserSecurityForBook(request.user, book)
     
     if bookSecurity.isAdmin():
         for att_id in message['attachments']:
+            # should check if you can delete it
             att = models.Attachment.objects.get(pk=att_id)
+
+            from booki.utils import log
+            import os.path
+
+            log.logBookHistory(book = book,
+                               version = book_version,
+                               args = {'filename': os.path.split(att.attachment.name)[1]},
+                               user = request.user,
+                               kind = 'attachment_delete')
+
             att.delete()
+
+            
             
         transaction.commit()
 
@@ -1370,7 +1385,8 @@ def remote_get_history(request, message, bookid, version):
             10: 'book create',
             11: 'minor',
             12: 'major',
-            13: 'attachment'}
+            13: 'attachment',
+            14: 'attachment_delete'}
 
 
     history = []
@@ -1395,7 +1411,7 @@ def remote_get_history(request, message, bookid, version):
                             "version": parseJSON(entry.args),
                             "user": entry.user.username,
                             "kind": temp.get(entry.kind,'')})
-        elif entry.kind in [13]:
+        elif entry.kind in [13, 14]:
             history.append({"modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
                             "args": parseJSON(entry.args),
                             "user": entry.user.username,
