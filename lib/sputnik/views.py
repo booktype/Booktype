@@ -34,7 +34,7 @@ def dispatcher(request, **sputnik_dict):
     results = []
 
     clientID = None
-    messages = simplejson.loads(inp["messages"])
+    messages = simplejson.loads(inp.get("messages", "[]"))
 
     if inp.has_key("clientID") and inp["clientID"]:
         clientID = inp["clientID"]
