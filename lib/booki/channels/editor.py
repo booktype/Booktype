@@ -2660,7 +2660,11 @@ def remote_book_status_remove(request, message, bookid, version):
     
     try:
         up = models.BookStatus.objects.get(book = book, id = message["status_id"])
-        if len(list(models.Chapter.objects.filter(status = up, book = book))) == 0:
+        # this is a quick fix
+        # check - no chapter has this status + no attachment has this status and no book has this status
+        if len(list(models.Chapter.objects.filter(status = up, book = book))) == 0 and \
+                len(list(models.Attachment.objects.filter(status = up, version__book = book))) == 0 and \
+                book.status != up:
             up.delete()
         else:
             result = False
