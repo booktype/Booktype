@@ -159,6 +159,19 @@ LULU_USER = None
 LULU_PASSWORD = None
 LULU_API_KEY = None
 
+2. Templates have been changed. If you have modified template "editor/edit_book.html" you will
+   have to modify it again. Please be careful about this part of template:
+
+       <ul class="bookStatuses template">
+         {% for s0, s1 in statuses %}
+           <li id="{{s0}}">{% trans s1 %}</li>
+         {% endfor %}
+       </ul>
+
+   Some part of template have been separated into:
+       editor/edit_strings.html
+       editor/edit_init.html
+
 
 How to migrate to Booki 1.2
 ---------------------------
