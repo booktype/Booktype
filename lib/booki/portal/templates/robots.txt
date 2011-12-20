@@ -1,9 +1,34 @@
 # robots.txt for Booki
-
+# Version 1.0 [20.12.2011]
 
 User-agent: *
+
+# Don't go to Django admin interface
 Disallow: /admin/
+
+# Debug is not a place for you
 Disallow: /debug/
+
+# Just some utility functions... Nothing interesting here.
 Disallow: /_utils/
+
+# Don't look at the list of books
+Disallow: /list-books.json
+Disallow: /list-books-by-id/
+
+# There is no reason to look at our feeds.
+Disallow: /feeds/
+
+# Export is no-no place for bots
 Disallow: /export/
+
+# Sputnik is used for client-server communication. Nothing to see here.
 Disallow: /_sputnik/
+
+# Just some files....
+Disallow: /site_static/
+
+# Booki editor interface.
+Disallow: /*/_edit/
+Disallow: /*/_draft/
+Disallow: /*/_upload/
