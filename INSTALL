@@ -65,6 +65,10 @@ Command examples are for Debian/Ubuntu.
 
        $ sudo apt-get install libxml2-dev and libxslt-dev
        $ sudo easy_install lxml
+
+ - Unidecode (http://pypi.python.org/pypi/Unidecode)
+
+       $ sudo pip install unidecode
       
 
 Installing from the git repository
@@ -88,6 +92,10 @@ user or www-data user.
       sudo chown www-data:www-data /var/www/mybooki/
 
    ./createbooki --database sqlite /var/www/mybooki/  
+
+   You can also let create script check if you have installed all needed libraries:
+
+   ./createbooki --check-versions --database sqlite /var/www/mybooki/  
 
 4. Change directory
 
@@ -150,6 +158,19 @@ How to migrate to latest Booki
 LULU_USER = None
 LULU_PASSWORD = None
 LULU_API_KEY = None
+
+2. Templates have been changed. If you have modified template "editor/edit_book.html" you will
+   have to modify it again. Please be careful about this part of template:
+
+       <ul class="bookStatuses template">
+         {% for s0, s1 in statuses %}
+           <li id="{{s0}}">{% trans s1 %}</li>
+         {% endfor %}
+       </ul>
+
+   Some part of template have been separated into:
+       editor/edit_strings.html
+       editor/edit_init.html
 
 
 How to migrate to Booki 1.2

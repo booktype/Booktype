@@ -52,8 +52,7 @@ class Command(BaseCommand):
             book.url_title = options['new_book_url']
 
             # TODO: test this
-            n = len(settings.DATA_ROOT)+len('books/')
-
+            n = len(settings.DATA_ROOT)+len('books/')+1
 
             for attachment in models.Attachment.objects.filter(version__book=book):
                 name = attachment.attachment.name

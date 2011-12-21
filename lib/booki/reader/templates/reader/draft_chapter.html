@@ -9,8 +9,8 @@
 <link rel="alternate" type="application/rss+xml" title="RSS feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/rss/book/{{ book.url_title }}/" /> 
 <link rel="alternate" type="application/atom+xml" title="Atom feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/atom/book/{{ book.url_title }}/" /> 
 
-<link rel="alternate" type="application/rss+xml" title="RSS feed for chapter {{ chapter.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/rss/chapter/{{ book.url_title }}/{{ book.url_title }}/" /> 
-<link rel="alternate" type="application/atom+xml" title="Atom feed for chapter {{ chapter.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/atom/chapter/{{ book.url_title }}/{{ book.url_title }}/" /> 
+<link rel="alternate" type="application/rss+xml" title="RSS feed for chapter {{ content.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/rss/chapter/{{ book.url_title }}/{{ book.url_title }}/" /> 
+<link rel="alternate" type="application/atom+xml" title="Atom feed for chapter {{ content.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/atom/chapter/{{ book.url_title }}/{{ book.url_title }}/" /> 
 {% if has_css %}
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
 {% endif %}
@@ -38,7 +38,7 @@
 <div id="bookcontent"   style="background: url(/site_static/images/draft_bg.png) repeat !important;">
 {% booki_format content %}
    <hr/>
-    <a href="{% url edit_book book.url_title %}">{% trans "EDIT" %}</a>
+    <a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}/">{% trans "EDIT" %}</a>
 
 </div>
 

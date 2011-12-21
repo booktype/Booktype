@@ -18,7 +18,6 @@ from booki.utils.json_wrapper import json
 from lxml import etree, html
 
 from django import template
-from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
 from booki.editor import models
@@ -26,6 +25,7 @@ from booki.bookizip import get_metadata, add_metadata, DC, FM
 
 from booki.utils.log import logBookHistory, logWarning
 from booki.utils.book import createBook
+from booki.utils.misc import bookiSlugify
 from booki.editor.views import getVersion
 
 from django.conf import settings
@@ -59,7 +59,7 @@ def makeTitleUnique(requestedTitle):
     name = requestedTitle
     while True:
         titles = models.Book.objects.filter(title=name).count()
-        urls = models.Book.objects.filter(url_title=slugify(name)).count()
+        urls = models.Book.objects.filter(url_title=bookiSlugify(name)).count()
         if not titles and not urls:
             return name
         n += 1
@@ -128,7 +128,7 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
     now = datetime.datetime.now()
 
     for chapterName, chapterFile, is_section in chapters:
-        urlName = slugify(chapterName)
+        urlName = bookiSlugify(chapterName)
 
         if is_section: # create section
             if createTOC:
@@ -406,7 +406,7 @@ def exportBook(book_version):
         else:
             #A new top level section.
             title = chapter.name.encode("utf-8")
-            ID = "s%03d_%s" % (i, slugify(title))
+            ID = "s%03d_%s" % (i, bookiSlugify(title))
 
             toc_current = []
             section = {"title": title,

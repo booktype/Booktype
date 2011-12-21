@@ -3,6 +3,16 @@ import re
 import decimal
 
 def remote_ping(request, message):
+    """
+    Sends ping to the server. Just so we know client is still alive. It also removes old locks. This is not the place to do it at all, 
+    but once we have normal scheduled calls, will put it there.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    """
+
     import sputnik
 
     sputnik.addMessageToChannel(request, "/booki/", {})
@@ -40,6 +50,18 @@ def remote_disconnect(request, message):
     pass
 
 def remote_subscribe(request, message):
+    """
+    Subscribes client to specific channels.
+
+    Input:
+     - chanels
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    """
+
     import sputnik
 
     for chnl in message["channels"]:
@@ -49,6 +71,20 @@ def remote_subscribe(request, message):
         sputnik.addClientToChannel(chnl, request.sputnikID)
 
 def remote_connect(request, message):
+    """
+    Initializes sputnik connection for this client. Creates clientID for this connection. 
+
+    Input:
+     - chanels
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @rtype: C{string}
+    @return: Returns unique Client ID for this connection
+    """
+
     import sputnik
 
     ret = {}

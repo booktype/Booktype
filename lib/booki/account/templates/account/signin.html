@@ -139,6 +139,11 @@
 			   $("#registerform INPUT[name=username]").focus().select();
 			   break;
 
+		       case 11: // Full name too long
+			   showNotification('#registerform .notify', '#fullname-toolong');
+			   $("#registerform INPUT[name=fullname]").focus().select();
+			   break;
+
 			   
 		       default: // Unknown error
 			   showNotification('#registerform .notify', '#unknown-error');
@@ -218,6 +223,7 @@
 	<div id="invalid-password" class="template">{% trans "Password must be 6 characters or more!" %}</div>
 	<div id="username-taken" class="template">{% trans "Username already taken. Please try a different one." %}</div>
 	<div id="unknown-error" class="template">{% trans "Unknown error!" %}</div>
+	<div id="fullname-toolong" class="template">{% trans "Fullname is too long!" %}</div>
 	<div id="clear" class="template"></div>
       </div>
       <br/>
