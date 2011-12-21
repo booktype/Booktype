@@ -99,7 +99,7 @@ class ChapterFeedRSS(Feed):
         return item.modified
     
 
-class ChapterFeedAtom(BookFeedRSS):
+class ChapterFeedAtom(ChapterFeedRSS):
     """
     This represents Atom feed for a chapter.
     """
