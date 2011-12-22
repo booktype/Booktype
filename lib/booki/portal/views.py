@@ -123,6 +123,8 @@ def view_group(request, groupid):
         group = models.BookiGroup.objects.get(url_name=groupid)
     except models.BookiGroup.DoesNotExist:
         return pages.ErrorPage(request, "errors/group_does_not_exist.html", {"group_name": groupid})
+    except models.BookiGroup.MultipleObjectsReturned:
+        return pages.ErrorPage(request, "errors/group_does_not_exist.html", {"group_name": groupid})
         
     books = models.Book.objects.filter(group=group, hidden=False)
     members = group.members.all()

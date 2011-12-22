@@ -47,8 +47,6 @@ def remote_group_create(request, message, profileid):
     Output:
      - list
 
-    @todo: Not used anymore. Probably should remove it.
-
     @type request: C{django.http.HttpRequest}
     @param request: Client Request object
     @type message: C{dict}
@@ -59,24 +57,15 @@ def remote_group_create(request, message, profileid):
     @return: Returns success of the command
     """
 
-    from booki.editor.models import BookiGroup
-    from booki.utils.misc import bookiSlugify
-    import datetime
+    from booki.utils.book import createBookiGroup, BookiGroupExist
 
     groupName = message.get("groupName", "")
     groupDescription = message.get("groupDescription", "")
 
     try:
-        group = BookiGroup(name = groupName,
-                           url_name = bookiSlugify(groupName),
-                           description = groupDescription,
-                           owner = request.user,
-                           
-                           created = datetime.datetime.now())
-        group.save()
-
+        group = createBookiGroup(groupName, groupDescription, request.user)
         group.members.add(request.user)
-    except:
+    except BookiGroupExist:
         transaction.rollback()
         return {"created": False}
     else:
@@ -88,8 +77,6 @@ def remote_group_create(request, message, profileid):
 def remote_init_profile(request, message, profileid):
     """
     Initializes data.
-
-    @todo: Not used anymore. Probably should remove it.
 
     @type request: C{django.http.HttpRequest}
     @param request: Client Request object
@@ -122,8 +109,6 @@ def remote_mood_set(request, message, profileid):
 
     Input:
      - value
-
-    @todo: Not used anymore. Probably should remove it.
 
     @type request: C{django.http.HttpRequest}
     @param request: Client Request object

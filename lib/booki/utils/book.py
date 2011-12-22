@@ -1,10 +1,11 @@
 import datetime
 
-from django.template.defaultfilters import slugify
+from booki.utils.misc import bookiSlugify
 from django.utils.translation import ugettext_lazy as _
 
 from booki.editor import models
 from booki.utils.log import logBookHistory
+
 
 def createBook(user, bookTitle, status = "imported", bookURL = None):
     """
@@ -28,7 +29,7 @@ def createBook(user, bookTitle, status = "imported", bookURL = None):
     if bookURL:
         url_title = bookURL
     else:
-        url_title = slugify(bookTitle)
+        url_title = bookiSlugify(bookTitle)
 
     book = models.Book(url_title = url_title,
                        title = bookTitle,
@@ -70,3 +71,47 @@ def createBook(user, bookTitle, status = "imported", bookURL = None):
     booki.editor.signals.book_created.send(sender = user, book = book)
 
     return book
+
+
+class BookiGroupExist(Exception):
+    def __init__(self, groupName):
+        self.groupName = groupName
+
+    def __str__(self):
+        return 'Booki group already exists'
+
+def createBookiGroup(groupName, groupDescription, owner):
+    """
+    Create Booki Group.
+
+    @type groupName: C{string}
+    @param groupName: Group name
+    @type groupDescription: C{string}
+    @param groupDescription: Group name
+    @type owner: C{django.contrib.auth.models.User}
+    @param owner: Group owner
+
+    @rtype: C{booki.editor.models.BookiGroup}
+    @return: Returns group object
+    """
+
+    import datetime
+
+    try:
+        bg = models.BookiGroup.objects.get(url_name = bookiSlugify(groupName))
+    except models.BookiGroup.MultipleObjectsReturned:
+        raise BookiGroupExist(groupName)
+    except models.BookiGroup.DoesNotExist:
+        group = models.BookiGroup(name = groupName,
+                                  url_name = bookiSlugify(groupName),
+                                  description = groupDescription,
+                                  owner = owner,
+                                  created = datetime.datetime.now())
+        group.save()
+
+        return group
+
+    raise BookiGroupExist(groupName)
+
+
+    
