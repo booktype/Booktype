@@ -88,34 +88,33 @@ A { border-bottom: 1px dotted #c0c0c0;}
 
 {% block content %}
 <h1>{{ book.title }}</h1>
-
-<a class="viewpublished" href="{% url book_view book.url_title  %}">{% trans "VIEW PUBLISHED BOOK" %}</a>
-
-<a class="editbook" href="{% url edit_book book.url_title  %}">{% trans "EDIT THIS BOOK" %}</a>
-
-<a class="viewdraft" href="{% url draft_book book.url_title  book_version %}">{% trans "VIEW DRAFT" %}</a>
-
-<h2>Book details</h2>
+<div><p>
+  <a class="viewpublished" href="{% url book_view book.url_title  %}">{% trans "VIEW PUBLISHED BOOK" %}</a>
+  <a class="editbook" href="{% url edit_book book.url_title  %}">{% trans "EDIT THIS BOOK" %}</a>
+  <a class="viewdraft" href="{% url draft_book book.url_title  book_version %}">{% trans "VIEW DRAFT" %}</a>
+</p></div>
+<h2>{% trans "Book details" %}</h2>
 <ul id="bookdetails">
-  <li><b>Owner:</b> <a href="{% url view_profile book.owner.username %}" class="user">{{ book.owner.username }}</a></li>
-  <li><b>Status:</b> {{ book.status.name }}  
+  <li><b>{% trans "Owner:" %}</b> <a href="{% url view_profile book.owner.username %}" class="user">{{ book.owner.username }}</a></li>
+  <li><b>{% trans "Status:" %}</b> {{ book.status.name }}
+
 {% if book.hidden %}
-  <i>(this book is hidden from others)</i>
+  <i>{% trans "(this book is hidden from others)" %}</i>
 {% else %}
-  <i>(this book is visible to everyone)</i>
+  <i>{% trans "(this book is visible to everyone)" %}</i>
 {% endif %}
   </li>
 {% if book.group %}
-  <li><b>Member of group:</b> <a href="{% url view_group book.group.url_name %}">{{ book.group.name }}</a></li>
+  <li><b>{% trans "Member of group:" %}</b> <a href="{% url view_group book.group.url_name %}">{{ book.group.name }}</a></li>
 {% endif %}
-  <li><b>Current version:</b> <a href="{% url draft_book book.url_title book_version %}">{{ book.version.getVersion }}</a></li>
+  <li><b>{% trans "Current version:" %}</b> <a href="{% url draft_book book.url_title book_version %}">{{ book.version.getVersion }}</a></li>
 
   <li>&nbsp;</li>
-  <li><b>Created:</b> {{ book.created }}</li>
-  <li><b>Published:</b> {{ book.published }}</li>
+  <li><b>{% trans "Created:" %}</b> {{ book.created }}</li>
+  <li><b>{% trans "Published:" %}</b> {{ book.published }}</li>
   <li>&nbsp;</li>
 <li>
-<b>Collaborators:</b> 
+<b>{% trans "Collaborators:" %}</b>
 {% for username in book_collaborators %}
   <a href="{% url view_profile book.owner.username %}" class="user">{{ username }}</a>
   {% if not forloop.last %},{% endif %}
@@ -123,7 +122,7 @@ A { border-bottom: 1px dotted #c0c0c0;}
 </li>
 {% if online_users %}
 <li>
-<b>Online editing:</b> 
+<b>{% trans "Online editing:" %}</b> 
 {% for username in online_users %}
   <a href="{% url view_profile book.owner.username %}" class="user">{{ username }}</a>
   {% if not forloop.last %},{% endif %}
@@ -132,7 +131,7 @@ A { border-bottom: 1px dotted #c0c0c0;}
 {% endif %}
 </ul>
 
-<h2>Versions</h2>
+<h2>{% trans "Versions" %}</h2>
 <ul>
  {% for ver in book_versions %}
    <li><a href="{% url draft_book book.url_title ver.getVersion %}"> {{ ver.getVersion }}</a></li>
@@ -145,63 +144,63 @@ A { border-bottom: 1px dotted #c0c0c0;}
    <tr>
        {% if ln.kind == 1 %}
        <td valign="top"> 
-         Chapter create
+         {% trans "Chapter create" %}
        </td>
        {% endif %}
 
        {% if ln.kind == 2 %}
        <td valign="top"> 
-         Chapter save
+         {% trans "Chapter save" %}
        </td>
        {% endif %}
 
        {% if ln.kind == 3 %}
        <td valign="top"> 
-         Chapter rename
+         {% trans "Chapter rename" %}
        </td>
        {% endif %}
 
        {% if ln.kind == 4 %}
        <td valign="top" colspan="2"> 
-         Chapter reorder
+         {% trans "Chapter reorder" %}
        </td>
        {% endif %}
 
        {% if ln.kind == 5 %}
         <td valign="top" colspan="2"> 
-         Split chapter
+         {% trans "Split chapter" %}
         </td>
        {% endif %}
 
        {% if ln.kind == 6 %}
         <td valign="top" colspan="2"> 
-         Section create
+         {% trans "Section create" %}
         </td>
        {% endif %}
 
 
        {% if ln.kind == 10 %}
        <td valign="top" colspan="2"> 
-         Book create
+         {% trans "Book create" %}
        </td>
        {% endif %}
 
        {% if ln.kind == 11 %}
        <td valign="top" colspan="2"> 
-         Minor version
+         {% trans "Minor version" %}
        </td>
        {% endif %}
 
        {% if ln.kind == 12 %}
        <td valign="top" colspan="2"> 
-         Major version
+         {% trans "Major version" %}
        </td>
        {% endif %}
 
 
        {% if ln.kind == 13 %}
        <td valign="top" colspan="2"> 
-         Uploaded "<a class="attachment" href="{% url draft_attachment book.url_title book_version ln.args|jsonlookup:"filename" %}">{{ ln.args|jsonlookup:"filename" }}</a>"
+         {% trans "Uploaded" %} "<a class="attachment" href="{% url draft_attachment book.url_title book_version ln.args|jsonlookup:"filename" %}">{{ ln.args|jsonlookup:"filename" }}</a>"
        </td>
        {% endif %}
 
