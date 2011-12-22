@@ -29,7 +29,10 @@ def dispatcher(request, **sputnik_dict):
     @return: Return C{django.http.HttpResponse} object.
     """
 
-    inp =  request.POST
+    try:
+        inp =  request.POST
+    except IOError:
+        return HttpResponse(simplejson.dumps({"result": False, "messages": []}), mimetype="text/json")
 
     results = []
 

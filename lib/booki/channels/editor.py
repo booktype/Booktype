@@ -191,7 +191,11 @@ def remote_init_editor(request, message, bookid, version):
         ## send mood as seperate message
 
         ## set notifications to other clients
-        profile = request.user.get_profile()
+        try:
+            profile = request.user.get_profile()
+        except AttributeError:
+            profile = None
+
         if profile:
             moodMessage = profile.mood;
         else:
@@ -2507,6 +2511,7 @@ def remote_roles_add(request, message, bookid, version):
 
     try:
         u = User.objects.get(username = message["username"])
+
         up = models.BookiPermission(book = book,
                                     user = u,
                                     permission = message["role"])
@@ -2549,10 +2554,10 @@ def remote_roles_delete(request, message, bookid, version):
 
 
     try:
-        up = models.BookiPermission.objects.get(book = book, 
-                                                user__username = message["username"], 
-                                                permission = message["role"])
-        up.delete()
+        for up in models.BookiPermission.objects.filter(book = book, 
+                                                     user__username = message["username"], 
+                                                     permission = message["role"]):
+            up.delete()
     except models.BookiPermission.DoesNotExist:
         pass
 
