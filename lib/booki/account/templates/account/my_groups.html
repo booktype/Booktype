@@ -52,8 +52,9 @@
 {% endfor %}
 </ul>
 
+{% if user.username == request.user.username %}
 
-
+<a name="createnewgroup"></a>
 <div style="padding-top: 20px; width:325px;" id="newgroup">
 <h2>{% trans "Create new group" %}</h2>
 <div style="border-bottom: 1px solid #c0c0c0; margin-bottom: 20px"></div>
@@ -66,5 +67,7 @@
     <button>{% trans "Create new group" %}</button>
   </form>
 </div>
+
+{% endif %}
 
 {% endblock %}

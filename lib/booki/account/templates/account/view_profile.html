@@ -44,19 +44,24 @@
 <div style="clear: both; padding-top: 10px;"/>
 <table border="0" width="100%" cellspacing="0" cellpadding="0" style="clear: all">
  <tr>
-  <td valign="top" width="240">
+  <td valign="top" width="300">
 
   <!-- start profile info -->
   {% profile_image  user %}
   <br/>
+  <b>{{ user.username }}</b>
+  <br/>
   {{ user.first_name }}
-  <div style="padding-top: 10px; font-style: italic;" id="profilemood">
-    {{ user.get_profile.mood }}
-  </div>
 
-   <a style="text-decoration: underline" href="/feeds/rss/user/{{ user.username }}/">{% trans "RSS feed of my changes" %}</a>
-   {% user_followbutton user.username request.user.username %}
-  <!-- end profile info -->
+   <p>
+     <a style="text-decoration: underline" href="/feeds/rss/user/{{ user.username }}/">{% trans "RSS feed of my changes" %}</a>
+   </p>
+   {% if user.username != request.user.username %}
+     {% user_followbutton user.username request.user.username %}
+   {% endif %}
+
+
+<!--
    <div style="border-bottom: 1px solid #c0c0c0; padding-top: 20px"></div>
    <div style="background:#e1e1e1;border: 1px solid #c0c0c0;padding:5px;">
      <b>{% trans "Suggestions:" %}</b><br> 
@@ -64,9 +69,80 @@
      {% blocktrans %}Read the <a href='http://www.booki.cc/booki-user-guide/'>booki-user-guide</a>{% endblocktrans %}
    </div>
 
+-->
+
+<div style="-webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; border: 1px solid black; margin-top: 20px;">
+ <div style="background-color: black; color: white; font-weight: bold; padding: 5px; ">
+   {% if user.username == request.user.username %}
+     <span style="float: right;"><a href="my_books/#createnewbook" style="color: white">{% trans "CREATE NEW BOOK" %}</a></span>
+   {% endif %}
+   {% if user.username == request.user.username %}  
+     <a href="my_books/" style="color: white">
+   {% endif %}
+     {% trans "My Books" %}
+   {% if user.username == request.user.username %}
+     </a>
+   {% endif %}
+ </div>
+<ul style="margin-left: 0px; padding-left: 25px; padding-right: 10px;">
+{% for book in books %}
+   <li style="list-style-position: outside;">
+       <a href="{% url book_info  book.url_title %}">
+          {% if book.hidden %}
+             <i>{{ book.title }}</i>
+          {% else %}
+              {{ book.title }}
+          {% endif %}
+        </a> 
+       (<a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a>)
+   </li>
+{% empty %}
+   {% if user.username == request.user.username %}
+      {% blocktrans %}<p>This is a perfect moment to start writing your book, just click on the link above!</p><p> If you are without inspiration at the moment maybe you could import someone else's book and translate it. We support import from various sources.</p>{% endblocktrans %}
+   {% else %}
+       {% blocktrans %}<p>This user has no books.</p>{% endblocktrans %}
+   {% endif %}
+{% endfor %}
+</ul>
+</div>
+
+<div style="-webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px;  border: 1px solid black; margin-top: 20px;">
+ <div style="background-color: black; color: white; font-weight: bold; padding: 5px; ">
+   {% if user.username == request.user.username %}
+     <span style="float: right"><a href="my_groups/#createnewgroup" style="color: white">{% trans "CREATE NEW GROUP" %}</a></span>
+   {% endif %}
+   {% if user.username == request.user.username %}
+     <a href="my_groups" style="color: white">
+   {% endif %}
+     {% trans "My Groups" %}
+   {% if user.username == request.user.username %}
+     </a>
+   {% endif %}
+   </div>
+<ul style="margin-left: 0px; padding-left: 25px">
+{% for group in groups %}
+   <li style="list-style-position: outside;"><a href="{% url view_group  group.url_name %}">{{ group.name }}</a></li>
+{% empty %}
+   {% if user.username == request.user.username %}
+      <p>{% blocktrans %}You don't need them, but they can help you organize your work with other writers. Assign your books to specific groups and help others to find them more easily.{% endblocktrans %}</p>
+   {% else %}
+       <p>{% blocktrans %}This user has no groups.{% endblocktrans %}</p>
+   {% endif %}
+
+{% endfor %}
+</ul>
+</div>
+
+
+
+
+
+
   </td>
-  <td width="10"></td>
-  <td valign="top">
+
+  <td width="20"></td>
+
+  <td valign="top" width="330">
 <div style="width:325px; border: 1px solid #c0c0c0; background-color: #f0f0f0; padding: 5px;" id="mood">
 {% if user.username == request.user.username %}
 {% user_messagefield "" %}
@@ -84,7 +160,7 @@
 <p>Stalking: {% user_followingbox user.username %}</p>
 <p>Stalkers: {% user_followersbox user.username %}</p>
 
-
+<!--
 <h2>{% trans "Books" %}</h2>
 <div style="border-bottom: 1px solid #c0c0c0"></div>
 <ul>
@@ -101,7 +177,7 @@
    <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a></li>
 {% endfor %}
 </ul>
-
+-->
 <!--
 {% if user.username == request.user.username %}
 <div style="padding-top: 20px; width:325px;" id="newgroup">

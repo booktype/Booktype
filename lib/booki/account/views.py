@@ -429,7 +429,11 @@ def view_profile(request, username):
     except User.DoesNotExist:
         return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
 
-    books = models.Book.objects.filter(owner=user, hidden=False)
+
+    if request.user.username == username:
+        books = models.Book.objects.filter(owner=user)
+    else:
+        books = models.Book.objects.filter(owner=user, hidden=False)
     
     groups = user.members.all()
     return render_to_response('account/view_profile.html', {"request": request,

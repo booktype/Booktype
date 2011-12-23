@@ -126,6 +126,8 @@
 <ul>
 {% for book in books %}
    <li><a href="{% url book_view book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a>)
+
+   {% if user.username == request.user.username %}   
      {% if book.hidden %}
        <form style="display: inline" action="." method="POST">
 	 <button>{% trans "Show to others" %}</button>
@@ -139,11 +141,15 @@
 	 <input type="hidden" name="action" value="hide" />
        </form>
      {% endif %}
+   {% endif %}
    </li>
 {% endfor %}
 </ul>
 </div>
 
+{% if user.username == request.user.username %}
+
+<a name="createnewbook"></a>
 <h2>{% trans "Create new book" %}</h2>
 <form action="." method="POST">
 <table>
@@ -183,5 +189,7 @@
 </table>
 <button>{% trans "Import" %}</button>
 </form>
+
+{% endif %}
 
 {% endblock %}
