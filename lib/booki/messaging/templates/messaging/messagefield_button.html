@@ -15,11 +15,11 @@ $(function() {
     $(".messagefield_dialog input[name=context_url]").val(document.location);
     $(".messagefield_dialog").dialog('open');
     $(".messagefield_dialog textarea[name=snippet]").closest('div').show();
-    if (xinha_editors{{random}}.snippetTextArea{{random}}) {
-      xinha_editors{{random}}.snippetTextArea{{random}}.setHTML(snippet);
+    if (xinha_editors.snippetTextArea) {
+      xinha_editors.snippetTextArea.setHTML(snippet);
     } else {
       $(".messagefield_dialog textarea[name=snippet]").val(snippet);
-      setTimeout(xinha_init{{random}}, 0);
+      setTimeout(xinha_init, 0);
     }
   };
   $.bookiReply = function(post_dom) {
@@ -37,12 +37,12 @@ $(function() {
       $(".messagefield_dialog textarea[name=snippet]").closest('div').show();
     else
       $(".messagefield_dialog textarea[name=snippet]").closest('div').hide();
-    if (xinha_editors{{random}}.snippetTextArea{{random}}) {
-      xinha_editors{{random}}.snippetTextArea{{random}}.setHTML(snippet);
+    if (xinha_editors.snippetTextArea) {
+      xinha_editors.snippetTextArea.setHTML(snippet);
     } else {
       $(".messagefield_dialog textarea[name=snippet]").val(snippet);
       if (snippet)
-        setTimeout(xinha_init{{random}}, 0);
+        setTimeout(xinha_init, 0);
     }
   };
 });

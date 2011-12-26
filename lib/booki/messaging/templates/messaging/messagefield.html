@@ -1,74 +1,50 @@
 {% load i18n %}
+  <!-- newly add -->
+  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME}}/site_static/js/tiny_mce/jquery.tinymce.js"></script>
 
-  <form id="messagefield{{random}}" enctype="multipart/form-data" method="POST" action="{% url booki.messaging.views.view_post %}">
+  <form id="messagefield" enctype="multipart/form-data" method="POST" action="{% url booki.messaging.views.view_post %}">
    <input type="text" name="content" size="40" value="{{syntax}}" style="width: 320px;"/>
-   <div class="myaccordion{{random}}">
+   <div class="myaccordion">
    <div class="myheader">[<a class="expander" href="#">Optional attachment</a>]</div> <input type="file" name="attachment" style="width: 320px;" />
    </div>
-   <div class="myaccordion{{random}}">
-   <div class="myheader">[<a class="expander" id="snippet_expander{{random}}" href="#">Optional text snippet</a>]</br /></div><div> <textarea id="snippetTextArea{{random}}" name="snippet" style="width: 318px;"></textarea>
+   <div class="myaccordion">
+   <div class="myheader">[<a class="expander" id="snippet_expander" href="#">Optional text snippet</a>]</br /></div><div> <textarea id="snippetTextArea" name="snippet" style="width: 318px;"></textarea>
    Optional snippet context URL: <input type="text" name="context_url" style="width: 320px;" /></div></div>
-   <div id="messages{{random}}" align="left"></div>
+   <div id="messages" align="left"></div>
    <script type="text/javascript">
   // XXX guard variable as javascript within a dialog gets run twice!
-  var ready_ran{{random}};
+  var ready_ran;
   $(document).ready(function() {
-    if (ready_ran{{random}}) return;
-    ready_ran{{random}} = true;
-    $("#messagefield{{random}}").submit(function() {
-        if ($("#messagefield{{random}}").find("input[name=attachment]").val())
+    if (ready_ran) return;
+    ready_ran = true;
+    $("#messagefield").submit(function() {
+        if ($("#messagefield").find("input[name=attachment]").val())
           return true;
-        var formdata = $("#messagefield{{random}}").serializeArray();
+        var formdata = $("#messagefield").serializeArray();
         formdata.push({name: "ajax", value: "1"});
-        $("#messages{{random}}").text("Sending...");
+        $("#messages").text("Sending...");
         $.post("{% url booki.messaging.views.view_post %}", formdata, function (data) {
-            $("#messages{{random}}").text(data);
+            $("#messages").text(data);
             setTimeout(function() {
-                $("#messagefield{{random}}").closest(".messagefield_dialog").dialog('close');
+                $("#messagefield").closest(".messagefield_dialog").dialog('close');
             }, 2000);
         });
         return false;
     });
-    $(".myaccordion{{random}} .myheader").click(function() {
+    $(".myaccordion .myheader").click(function() {
       $(this).next().slideToggle(600);
       return false;
     });
-    $(".myaccordion{{random}} .myheader").next().hide();
-    $("#snippet_expander{{random}}").click(function() {
-      setTimeout(xinha_init{{random}}, 0);
+    $(".myaccordion .myheader").next().hide();
+    $("#snippet_expander").click(function() {
+       $("#snippetTextArea").tinymce({script_url : '/site_static/js/tiny_mce/tiny_mce.js',
+                                      theme : "simple"});
       return true;
     });
   });
    </script>
-   <script type="text/javascript">
-     _editor_url = "{{ request.META.SCRIPT_NAME }}/site_static/xinha/";
-     _editor_lang = "en";
    </script>
-   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/xinha/XinhaCore.js"></script>
-   <script type="text/javascript">
-   // XXX guard variable as javascript within a dialog gets run twice!
-   var xinha_ran{{random}};
-   if (!xinha_ran{{random}}) {
-     xinha_ran{{random}} = true;
-
-     xinha_plugins{{random}} = ['GetHtml','DoubleClick'];
-     xinha_editors{{random}} = ['snippetTextArea{{random}}'];
-
-     function xinha_init{{random}}() {
-       if (xinha_editors{{random}}.snippetTextArea{{random}}) return;
-
-       if(!Xinha.loadPlugins(xinha_plugins{{random}}, xinha_init{{random}})) return;
-       var xinha_config{{random}} = new Xinha.Config();
-       xinha_config{{random}}.pageStyle = 'body {font-family : trebuchet,verdana, sans-serif; font-size: 12px; line-height:17px;}' + 'h1 {font-size: 24px;font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px;  margin-top: 0px; line-height: 32px;  letter-spacing: -1px; }' + 'h2 {font-size: 18px; font-family : Arial,verdana, sans-serif; font-weight : Bold; margin-bottom: 10px; margin-top: 15px; padding-top : 15px;}' + 'h3 {font-size: 14px;font-family : Arial,verdana, sans-serif;font-weight : Bold;margin-bottom: 5px; }' + 'pre { font-size:12px; line-height:1.5em; background-color:#FFE5CC; border: 0px solid #000000; margin-left : 0.5em; margin-bottom : 20px; margin-right : 1em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; color : black; white-space: pre-wrap; white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap; word-wrap: break-word;}' + 'ul, li {margin-bottom: 5px; margin-top: 0px;}';
-
-       xinha_config{{random}}.toolbar = [["popupeditor"],["separator","undo","redo","selectall"],(Xinha.is_gecko ? [] : ["cut","copy","paste","overwrite","saveas"]),["separator","htmlmode","showhelp","about"]]; //[["popupeditor"],["formatblock","fontname","fontsize","bold","italic","underline","strikethrough","forecolor","hilitecolor"],["separator","outdent","indent"],["linebreak","separator","justifyleft","justifycenter","justifyright","justifyfull"],["separator","insertorderedlist","insertunorderedlist"],["separator","createlink","bookiinsert", "inserttable"],(Xinha.is_gecko?[]:["cut","copy","paste","overwrite","saveas"]),["separator","removeformat","killword"],["separator","htmlmode","showhelp","print"]];
-       xinha_editors{{random}} = Xinha.makeEditors(xinha_editors{{random}}, xinha_config{{random}}, xinha_plugins{{random}});
-       xinha_editors{{random}}.snippetTextArea{{random}}.config.height = '200px';
-       Xinha.startEditors(xinha_editors{{random}});
-     }
-   }
-   </script>
-   <div style="margin-top:3px;margin-right:3px;" align="right">
+   <div style="clear: all; margin-top:3px;margin-right:3px;" align="right">
       <button>{% trans "Share" %}</button>
    </div>
  </form>
