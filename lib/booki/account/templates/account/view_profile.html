@@ -53,23 +53,16 @@
   <br/>
   {{ user.first_name }}
 
-   <p>
-     <a style="text-decoration: underline" href="/feeds/rss/user/{{ user.username }}/">{% trans "RSS feed of my changes" %}</a>
-   </p>
+  <p>
    {% if user.username != request.user.username %}
      {% user_followbutton user.username request.user.username %}
    {% endif %}
+  </p>
 
-
-<!--
-   <div style="border-bottom: 1px solid #c0c0c0; padding-top: 20px"></div>
-   <div style="background:#e1e1e1;border: 1px solid #c0c0c0;padding:5px;">
-     <b>{% trans "Suggestions:" %}</b><br> 
-     {% trans 'To create new books go to "My Books".' %}<br>
-     {% blocktrans %}Read the <a href='http://www.booki.cc/booki-user-guide/'>booki-user-guide</a>{% endblocktrans %}
-   </div>
-
--->
+  <div style="border-top: 1px dotted #c0c0c0; border-bottom: 1px dotted #c0c0c0; padding-top: 5px; padding-bottom: 5px;">
+    <span class="ui-icon ui-icon-info" style="float: left; padding-right: 5px;"></span>
+     {% blocktrans %}Do you want to learn more how to use Booki? We recommend you reading  through the <a target="_new" title="Booki user guide" href="http://www.booki.cc/booki-user-guide/"><i>booki-user-guide</i></a>! If you have any questions please check our <a target="_new" title="Support page" href="http://support.booki.cc/"><i>support page</i></a>.{% endblocktrans %}
+  </div>
 
 <div style="-webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; border: 1px solid black; margin-top: 20px;">
  <div style="background-color: black; color: white; font-weight: bold; padding: 5px; ">
@@ -133,6 +126,9 @@
 </ul>
 </div>
 
+ <p>
+     <img src="{{ request.META.SCRIPT_NAME }}/site_static/images/feed-icon-14x14.png" style="margin-right: 10px"><a style="text-decoration: underline" href="/feeds/rss/user/{{ user.username }}/">{% trans "RSS feed of my changes" %}</a>
+ </p>
 
 
 

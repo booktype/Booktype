@@ -123,10 +123,26 @@
 
 <h2>{% trans "My Books" %}</h2>
 <div style="border-bottom: 1px solid #c0c0c0"></div>
-<ul>
-{% for book in books %}
-   <li><a href="{% url book_view book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a>)
 
+<table border="0" cellspacing="2">
+{% for book in books %}
+  <tr>
+   <td>
+      <a href="{% url book_view book.url_title %}">
+        {% if book.hidden %}
+          <i>{{ book.title }}</i>
+        {% else %}
+          {{ book.title }}
+        {% endif %}
+      </a>
+   </td>
+   <td width="50"></td>
+   <td><div style="padding-left: 5px; padding-right: 5px"><a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a></div></td>
+   <td><div style="padding-left: 5px; padding-right: 5px"><a href="{% url book_info  book.url_title %}">{% trans "info" %}</a></div></td>
+   <td><div style="padding-left: 5px; padding-right: 5px"><a href="{% url draft_book  book.url_title %}">{% trans "draft" %}</a></div></td>
+   <td><div style="padding-left: 5px; padding-right: 5px"><a href="{% url view_full  book.url_title %}">{% trans "full" %}</a></div></td>
+   <td>
+    <div style="white-space: nowrap;">
    {% if user.username == request.user.username %}   
      {% if book.hidden %}
        <form style="display: inline" action="." method="POST">
@@ -142,9 +158,11 @@
        </form>
      {% endif %}
    {% endif %}
-   </li>
+    </div>
+   </td>
+  </tr>
 {% endfor %}
-</ul>
+</table>
 </div>
 
 {% if user.username == request.user.username %}
