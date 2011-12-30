@@ -12,6 +12,7 @@
    
    <link href="{{ request.META.SCRIPT_NAME }}/site_static/css/jquery.bubblepopup.v2.3.1.css" rel="stylesheet" type="text/css" />
    <script src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.bubblepopup.v2.3.1.min.js" type="text/javascript"></script>
+   <script src="{{ request.META.SCRIPT_NAME }}/site_static/js/messaging.js" type="text/javascript"></script>
 <style>
 .paginator { padding:.5em .75em; float:left; font:normal .8em arial; }
  
@@ -98,6 +99,8 @@
 	     $("#bookidebug").dialog("open");
 	     return false;
 	 });
+
+          $("FORM.messagefield").messagefield('init', {'view_post': '{% url booki.messaging.views.view_post %}' });
      });
    </script>
 

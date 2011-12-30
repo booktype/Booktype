@@ -2,48 +2,15 @@
   <!-- newly add -->
   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME}}/site_static/js/tiny_mce/jquery.tinymce.js"></script>
 
-  <form id="messagefield" enctype="multipart/form-data" method="POST" action="{% url booki.messaging.views.view_post %}">
+  <form class="messagefield" id="messagefield" enctype="multipart/form-data" method="POST" action="{% url booki.messaging.views.view_post %}">
    <input type="text" name="content" size="40" value="{{syntax}}" style="width: 320px;"/>
    <div class="myaccordion">
-   <div class="myheader">[<a class="expander" href="#">Optional attachment</a>]</div> <input type="file" name="attachment" style="width: 320px;" />
+   <div class="myheader">[<a class="expander" href="#">Optional attachment</a>]</div> <div style="display: none"><input type="file" name="attachment" style="width: 320px;" /></div>
    </div>
    <div class="myaccordion">
-   <div class="myheader">[<a class="expander" id="snippet_expander" href="#">Optional text snippet</a>]</br /></div><div> <textarea id="snippetTextArea" name="snippet" style="width: 318px;"></textarea>
+   <div class="myheader">[<a class="expander" id="snippet_expander" href="#">Optional text snippet</a>]</br /></div><div style="display: none"> <textarea class="tinyeditor" id="snippetTextArea" name="snippet" style="width: 318px;"></textarea>
    Optional snippet context URL: <input type="text" name="context_url" style="width: 320px;" /></div></div>
    <div id="messages" align="left"></div>
-   <script type="text/javascript">
-  // XXX guard variable as javascript within a dialog gets run twice!
-  var ready_ran;
-  $(document).ready(function() {
-    if (ready_ran) return;
-    ready_ran = true;
-    $("#messagefield").submit(function() {
-        if ($("#messagefield").find("input[name=attachment]").val())
-          return true;
-        var formdata = $("#messagefield").serializeArray();
-        formdata.push({name: "ajax", value: "1"});
-        $("#messages").text("Sending...");
-        $.post("{% url booki.messaging.views.view_post %}", formdata, function (data) {
-            $("#messages").text(data);
-            setTimeout(function() {
-                $("#messagefield").closest(".messagefield_dialog").dialog('close');
-            }, 2000);
-        });
-        return false;
-    });
-    $(".myaccordion .myheader").click(function() {
-      $(this).next().slideToggle(600);
-      return false;
-    });
-    $(".myaccordion .myheader").next().hide();
-    $("#snippet_expander").click(function() {
-       $("#snippetTextArea").tinymce({script_url : '/site_static/js/tiny_mce/tiny_mce.js',
-                                      theme : "simple"});
-      return true;
-    });
-  });
-   </script>
-   </script>
    <div style="clear: all; margin-top:3px;margin-right:3px;" align="right">
       <button>{% trans "Share" %}</button>
    </div>
