@@ -163,6 +163,9 @@ def add_book(request, groupid):
     @param groupid: Unique group name
     """
 
+    if not request.POST.has_key("book"):
+        return pages.ErrorPage(request, "500.html")
+
     book = models.Book.objects.get(url_title=request.POST["book"])
 
     group = models.BookiGroup.objects.get(url_name=groupid)
@@ -187,6 +190,9 @@ def remove_book(request, groupid):
     @type groupid: C{string}
     @param groupid: Unique group name
     """
+
+    if not request.GET.has_key("book"):
+        return pages.ErrorPage(request, "500.html")
 
     book = models.Book.objects.get(url_title=request.GET["book"])
     book.group = None
