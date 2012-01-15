@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Insert Comment</title>
+	<script type="text/javascript" src="../../tiny_mce_popup.js?v={tinymce_version}"></script>
+	<script type="text/javascript" src="js/dialog.js?v={tinymce_version}"></script>
+<style type="text/css">
+<!--
+div.scroll {
+height: 250px;
+width: 100%;
+overflow: auto;
+}
+
+div.scroll .entry {
+   margin-bottom: 10px;
+   padding-bottom: 10px;
+   border-bottom: 1px solid grey;
+}
+
+div.scroll .header {
+   padding-bottom: 4px;
+}
+-->
+</style>
+</head>
+<body>
+<form onsubmit="CommentsDialog.append(); return false;" action="#">
+  <h3>Comments</h3>
+  <div style="margin: 10px 10px 0px 10px;">
+    <div class="scroll">
+
+
+    </div>
+    <br/>
+   <label for="commentContent">Your comment</label>
+    <textarea id="commentContent" name="commentContent" style="width: 100%;" rows="10"></textarea>
+  </div>
+
+  <div class="mceActionPanel">
+    <input type="submit" id="insert" name="insert" value="{#insert}" onclick="CommentsDialog.append();" /> 
+    <input type="button" id="remove" name="remove" value="Remove" class="button" onclick="CommentsDialog.removeComment();" />
+    <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+  </div>
+</form>
+
+</body>
+</html>
