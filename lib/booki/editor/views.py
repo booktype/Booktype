@@ -225,7 +225,7 @@ def upload_attachment(request, bookid, version=None):
         return HttpResponse('<html><body><script> parent.closeAttachmentUpload();  </script></body></html>')
 
     if request.POST.get("attachmenttab", "") == "2":
-        return HttpResponse('<html><body><script>  parent.FileBrowserDialogue.loadAttachments(); parent.FileBrowserDialogue.showUpload(); </script></body></html>')
+        return HttpResponse('<html><body><script>  parent.FileBrowserDialogue.loadAttachments(); parent.FileBrowserDialogue.showUpload(); parent.mcTabs.displayTab("browse_tab","browse_panel");</script></body></html>')
 
     # should not call showAttachmentsTab, but it works for now
     return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); </script></body></html>')
