@@ -6,6 +6,7 @@
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/editor.css" rel="Stylesheet" />
 <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/editor.js"></script>
 <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.url.js"></script>
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.form.wizard.js"></script>
 
         <script type="text/javascript">
 	$(function() {
@@ -397,215 +398,108 @@ and work on previous versions once you create new one. Create new <i>major</i> v
           <h1>{% trans "Export" %}</h1>
           <p></p>
 
-          <form method="" action="" onsubmit="return false">
-	    <table border="0">
-              <tr>
-               <td>{% trans "Book title:" %}</td>
-               <td><input value="{{ book.title|escape}}" type="text" size="40" name="title"></td>
-              </tr>
+<style>
+#demoWrapper {
+  padding : 1em;
+  width : 500px;
+  border-style: solid;
+}
 
-	      <tr>
-		<td>{% trans "Document type:" %}</td>
-		<td>
-		  <select id="mode" name="mode"><option value="book">{% trans "book (PDF)" %}</option> 
-		  <option value="epub">{% trans "epub" %}</option> 
-		  <option value="newspaper">{% trans "newspaper (PDF)" %}</option> 
-		  <option value="openoffice">{% trans "openoffice" %}</option> 
-		  <option value="web">{% trans "web (PDF)" %}</option></select> 
-		</td>
-	      </tr>
+#fieldWrapper {
+}
 
-             <tr>
-              <td>{% trans "License:" %}</td>
-              <td>
-                 <select id="license" name="license">
-                   <option value="GPL">GPL</option>
-                   <option selected="selected" value="GPLv2+">GPLv2+</option>
-                   <option value="LGPL">LGPL</option>
-                   <option value="LGPLv2.1">LGPLv2.1</option>
-                   <option value="GPLv3+">GPLv3+</option>
-                   <option value="GPLv2">GPLv2</option>
-                   <option value="GPLv3">GPLv3</option>
-                   <option value="CC-BY">CC-BY</option>
-                   <option value="CC-BY-SA">CC-BY-SA</option>
-                   <option value="Artistic">Artistic</option>
-                   <option value="BSD">BSD</option>
-                   <option value="public domain">public domain</option>
-                   <option value="LGPLv3">LGPLv3</option>
-                   <option value="MIT">MIT</option>
-                  </select> 
-              </td>
-	     </tr>
-	     <tr class="luluoption" style="display: none">
-	       <td colspan="2">{% trans "Lulu.com settings (each optional)" %}</td>
-	     </tr>
-	     <tr class="luluoption" style="display: none">
-	       <td>{% trans "Cover PDF attachment:" %}</td>
-	       <td>
-                 <select id="coverurl" name="coverurl">
-                   <option value="">{% trans "Loading list..." %}</option>
-                  </select> 
-	       </td>
-	     </tr>
-	     <tr class="luluoption" style="display: none">
-	       <td>{% trans "Lulu.com user:" %}</td>
-	       <td><input type="text" name="luluuser"></td>
-	     </tr>
-	     <tr class="luluoption" style="display: none">
-	       <td>{% trans "Lulu.com password:" %}</td>
-	       <td><input type="text" name="lulupassword"></td>
-	     </tr>
-	     <tr class="luluoption" style="display: none">
-	       <td>{% trans "Lulu.com project number:" %}</td>
-	       <td><input type="text" name="luluproject"></td>
-	     </tr>
-	      <tr>
-<!--		<td colspan="2"><input type="checkbox" checked="yes" name="archiveorg"> send to archive.org</td> -->
-		<td colspan="2"><input type="checkbox"  name="archiveorg"> {% trans "send to archive.org" %}</td>
-	      </tr>
-	      <tr>
-		<td colspan="2"><input type="checkbox"  name="lulucom" onclick="$.booki.editor.showLuluFields()"> {% trans "send to lulu.com" %}</td>
-	      </tr>
-	      <tr>
-		<td colspan="2"><br/></td>
-	      </tr>
-	      <tr>
-		<td colspan="2">
-		  <button id="publishbook">{% trans "Publish this book" %}</button>
-                  <span id="advancedswitch">
-                     <a href="javascript:void(0)" onclick="$.booki.editor.showAdvancedPublishOptions(true)">{% trans "Show advanced options" %}</a>
-                  </span>
-		</td>
-	      </tr>
+#demoNavigation {
+  margin-top : 0.5em;
+  margin-right : 1em;
+  text-align: right;
+}
 
-               <tr><td colspan="2">
-		   <div class="info">
-		     
-		   </div>
-	       </td></tr>
-               <tr><td colspan="2">&nbsp;</td></tr>
+#data {
+  font-size : 0.7em;
+}
 
-               <tr>
-		<td colspan="2" >      
-    	         <div  id="advanced" style="display: none"> 
-               
-                  <table border="0">
-                   <tr>
-                     <td>{% trans "ISBN" %}</td>
-                     <td><input type="text" size="40" id="isbn" name="isbn" value="" /> {% trans "(13 digits)" %}</td>
-                   </tr>
+input {
+  margin-right: 0.1em;
+  margin-bottom: 0.5em;
+}
+
+.input_field_25em {
+  width: 2.5em;
+}
+
+.input_field_3em {
+  width: 3em;
+}
+
+.input_field_35em {
+  width: 3.5em;
+}
+
+.input_field_12em {
+  width: 12em;
+}
+
+label {
+  margin-bottom: 0.2em;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+
+label.error {
+  color: red;
+  font-size: 0.8em;
+  margin-left : 0.5em;
+}
+
+.step span {
+  float: right;
+  font-weight: bold;
+  padding-right: 0.8em;
+}
+
+.navigation_button {
+  width : 70px;
+}
+
+#data {
+  overflow : auto;
+}
+
+</style>
+<script>
+$(function() {
+   $('A[name="exportwizzard"]').click(function() {
+            var t = $.booki.ui.getTemplate("bookwizzard");
+
+            t.formwizard({ 
+                                       formPluginEnabled: true,
+                                       validationEnabled: true,
+                                       focusFirstInput : true,
+                                       formOptions :{
+                                             success: function(data){
+                                                  $("#status").fadeTo(500,1,function(){ $(this).html("You are now registered!").fadeTo(5000, 0); })
+                                                      },
+                                             beforeSubmit: function(data){$("#data").html("data sent to the server: " + $.param(data));},
+                                             dataType: 'json',
+                                             resetForm: true
+                                        }	
+                                       });
             
-                   <tr>
-                    <td>{% trans "Table of Contents header" %}</td>
-                    <td> <input size="40" type="text" id="toc_header" name="toc_header" value="" /> </td>
-                   </tr>
+         
+//            $("#wizzardcontainer").css("display", "block");
+            $("#wizzardcontainer DIV.pqw").html(t);
 
-                   <tr>
-                     <td>{% trans "Page size" %}</td>
-                     <td> 
-                      <select id="booksize" name="booksize">
-                        <option value="custom" class="custom">{% trans "custom" %}</option>
-                        <option value="POCKET" class="lulu">POCKET (107mm x 174mm)</option>
-                        <option value="A5" class="lulu iso">A5 (148mm x 210mm)</option>
-                        <option value="USTRADE" class="lulu">USTRADE (152mm x 228mm)</option>
-                        <option value="SQUARE7.5" class="lulu">SQUARE7.5 (190mm x 190mm)</option>
-                        <option value="ROYAL" class="lulu">ROYAL (155mm x 233mm)</option>
-                        <option value="DIGEST" class="lulu">DIGEST (140mm x 216mm)</option>
+   });
 
-                        <option value="LANDSCAPE9x7" class="lulu">LANDSCAPE9x7 (228mm x 177mm)</option>
-                        <option selected="selected" value="COMICBOOK" class="lulu">COMICBOOK (168mm x 260mm)</option>
-                        <option value="CROWNQUARTO" class="lulu">CROWNQUARTO (189mm x 245mm)</option>
-                        <option value="SQUARE8.5" class="lulu">SQUARE8.5 (215mm x 215mm)</option>
-                        <option value="USLETTER" class="lulu">USLETTER (215mm x 279mm)</option>
-                        <option value="A4" class="lulu iso">A4 (210mm x 297mm)</option>
-                        <option value="Foolscap (F4)" class="">Foolscap (F4) (210mm x 330mm)</option>
-                        <option value="B4" class="iso">B4 (250mm x 353mm)</option>
-                        <option value="Oamaru Tabloid" class="newspaper">Oamaru Tabloid (265mm x 380mm)</option>
+});
+</script>
+         <div id="wizzardcontainer" style="position: absolute">
+             <div class="pqw" class="ui-widget ui-widget-content ui-corner-all"></div>
+         </div>
 
-                        <option value="UK Tabloid" class="newspaper">UK Tabloid (279mm x 431mm)</option>
-                        <option value="A3 (NZ Tabloid)" class="iso newspaper">A3 (NZ Tabloid) (297mm x 420mm)</option>
-                        <option value="Berliner" class="newspaper">Berliner (315mm x 470mm)</option>
-                        <option value="B3" class="iso">B3 (353mm x 500mm)</option>
-                        <option value="Oamaru Broadsheet" class="newspaper">Oamaru Broadsheet (382mm x 540mm)</option>
-                        <option value="US Broadsheet" class="newspaper">US Broadsheet (380mm x 577mm)</option>
-                        <option value="A2 (NZ Broadsheet)" class="iso newspaper">A2 (NZ Broadsheet) (420mm x 594mm)</option>
-                        <option value="UK Broadsheet" class="newspaper">UK Broadsheet (457mm x 609mm)</option>
-                        <option value="B2" class="iso">B2 (500mm x 707mm)</option>
+          <a name="exportwizzard" onclick="return false">settings</a>
 
-                        <option value="A1" class="iso">A1 (594mm x 841mm)</option>
-                        <option value="B1" class="iso">B1 (707mm x 1000mm)</option>
-                      </select>
-                     </td>
-		    </tr>
-
-                    <tr>
-                     <td>{% trans "CSS mode:" %}</td>
-                     <td>
-		       <select name="css" onchange="$.booki.editor.showAdvancedPublishCSS(this)">
-                          <option value="default">{% trans "Server default" %}</option>
-<!--                          <option value="url">URL</option> -->
-                          <option value="custom">{% trans "Custom" %}</option>
-                        </select>
-                     </td>
-                    </tr>
-
-                    <tr>
-                     <td></td>
-                     <td id="csscustom">
-                     </td>
-                    </tr>
-
-                    <tr>
-                     <td>{% trans "Page width:" %}</td>
-                     <td><input type="text" id="page_width" name="page_width" value="" /></td> 
-                    </tr>
-
-                    <tr>
-                     <td>{% trans "Page height:" %}</td>
-                     <td> <input type="text" id="page_height" name="page_height" value="" /> </td>
-		    </tr>
-
-                    <tr>
-                     <td>{% trans "Top margin" %}</td>
-                     <td> <input type="text" id="top_margin" name="top_margin" value="" /> </td>
-                    </tr>
-
-                    <tr>
-                     <td>{% trans "Side margin" %}</td>
-                     <td> <input type="text" id="side_margin" name="side_margin" value="" /> </td>
-                    </tr>
-
-                    <tr>
-                     <td>{% trans "Bottom margin" %}</td>
-                     <td><input type="text" id="bottom_margin" name="bottom_margin" value="" />  </td>
-                    </tr>
-
-                    <tr>
-                     <td>{% trans "Gutter" %}</td>
-                     <td> <input type="text" id="gutter" name="gutter" value="" /> </td>
-                    </tr>
-
-                    <tr>
-                     <td>{% trans "Columns" %}</td>
-                     <td> <input type="text" id="columns" name="columns" value="" /> </td>
-                    </tr>
-
-                    <tr>
-                     <td>{% trans "Column margin" %}</td>
-                     <td> <input type="text" id="column_margin" name="column_margin" value="" /> </td>
-                    </tr>
-
-                    <tr>
-                     <td>{% trans "Grey-scale" %}</td>
-                     <td><input type="checkbox" id="grey_scale" name="grey_scale" value="yes" /> {% trans "(for black and white printing)" %}</td>
-                    </tr>
-                  </table>
-                 </div>     
- 		</td>
-	      </tr>
-	  </table>
-          </form>
-
+          {% include "editor/edit_wizzards.html" %}  
 	</div>
 {% endif %}
 
