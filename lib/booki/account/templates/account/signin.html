@@ -7,150 +7,10 @@
 
   <script type="text/javascript">
     $(function() {
-
-	var groupsToJoin = [ {% for group in joingroups %}"{{ group.url_name }}",{% endfor %}''];
-
-	function showNotification(whr, msg) {
-	    $(whr).find("*").addClass('template');
-	    $(whr).find(msg).removeClass('template');
-	}
-	
-	$("#signin_form BUTTON").click(function() {
-	    var username = $("#loginform INPUT[name=username]").val();
-	    var password = $("#loginform INPUT[name=password]").val();
-
-//	    $("#loginform BUTTON").attr("disabled", "disabled");
-
-	    $.post('{% url signin %}', {'ajax': '1',
-					'method': 'signin',
-					'username': username,
-					'password': password},
-		   function(data) {
-		       switch(data.result) {
-		       case 1: // Everything is ok
-			   window.location = '{{ redirect }}';
-			   return;
-		       case 2:  // User does not exist
-			   showNotification('#loginform .notify', '#no-such-user');
-			   $("#loginform INPUT[name=username]").focus().select();
-			   break;
-		       case 3: // Wrong password 
-			   showNotification('#loginform .notify', '#wrong-password');
-			   $("#loginform INPUT[name=password]").focus().select();
-			   break;
-
-		       default: // Unknown error
-			   showNotification('#loginform .notify', '#unknown-error');
-		       }
-
-//		       $("#loginform BUTTON").removeAttr("disabled");
-		   }, 'json');
-	});
-
-	$("#register_form BUTTON").click(function() {
-	    var username   = $("#registerform INPUT[name=username]").val();
-	    var email      = $("#registerform INPUT[name=email]").val();
-	    var password   = $("#registerform INPUT[name=password]").val();
-	    var password2  = $("#registerform INPUT[name=password2]").val();
-	    var fullname   = $("#registerform INPUT[name=fullname]").val();
-
-//	    $("#registerform BUTTON").attr("disabled", "disabled");
-
-	    showNotification('#registerform .notify', '#clear');
-
-
-	    $.post('{% url signin %}', {'ajax': '1',
-					'method': 'register',
-					'username':  username,
-					'password':  password,
-					'password2': password2,
-					'email':     email,
-					'fullname':  fullname,
-					'groups':    $.toJSON(groupsToJoin)},
-
-		   function(data) {
-//		       $("#registerform BUTTON").removeAttr("disabled");
-
-		       switch(data.result) {
-		       case 1: // Everything is ok
-			   $("#register_form").slideUp("fast", function() {
-			       $("#signin_form").slideUp("fast", function() {
-
-				   function _showMessage(sec) {
-				       return function() {
-					   if(sec > 0) {
-					       $("#signinmessage .redirectmessage .sec").text(sec);
-					       setTimeout(_showMessage(sec-1), 1000);
-					   } else {
-					       window.location = '{% url view_profile 'XXX' %}'.replace('XXX', username);
-					   }
-				       }
-				   }
-				   $("#signinmessage").slideDown("slow");
-				   _showMessage(20)();
-			       });
-			   });
-
-			   return;
-
-		       case 2: // Missing username
-			   showNotification('#registerform .notify', '#missing-username');
-			   $("#registerform INPUT[name=username]").focus().select();
-			   break;
-
-		       case 3: // Missing email
-			   showNotification('#registerform .notify', '#missing-email');
-			   $("#registerform INPUT[name=email]").focus().select();
-			   break;
-
-		       case 4: // Missing password
-			   showNotification('#registerform .notify', '#missing-password');
-			   $("#registerform INPUT[name=password]").focus().select();
-			   break;
-
-		       case 5: // Missing fullname
-			   showNotification('#registerform .notify', '#missing-fullname');
-			   $("#registerform INPUT[name=fullname]").focus().select();
-			   break;
-
-		       case 6: // Wrong username
-			   showNotification('#registerform .notify', '#invalid-username');
-			   $("#registerform INPUT[name=username]").focus().select();
-			   break;
-
-		       case 7: // Wrong email
-			   showNotification('#registerform .notify', '#invalid-email');
-			   $("#registerform INPUT[name=email]").focus().select();
-			   break;
-
-
-		       case 8: // Password does not match
-			   showNotification('#registerform .notify', '#password-mismatch');
-			   $("#registerform INPUT[name=password]").focus().select();
-			   break;
-
-		       case 9: // Password too small
-			   showNotification('#registerform .notify', '#invalid-password');
-			   $("#registerform INPUT[name=password]").focus().select();
-			   break;
-
-		       case 10: // Username exists
-			   showNotification('#registerform .notify', '#username-taken');
-			   $("#registerform INPUT[name=username]").focus().select();
-			   break;
-
-		       case 11: // Full name too long
-			   showNotification('#registerform .notify', '#fullname-toolong');
-			   $("#registerform INPUT[name=fullname]").focus().select();
-			   break;
-
-			   
-		       default: // Unknown error
-			   showNotification('#registerform .notify', '#unknown-error');
-		       }
-		   }, 'json');
-	});
-
+    var groupsToJoin = [ {% for group in joingroups %}"{{ group.url_name }}",{% endfor %}''];
+    
+    $("#formsignin").booksparkSignin({'url': '{% url signin %}'});
+    $("#formregister").booksparkRegister({'url': '{% url signin %}', 'redirect': '{% url view_profile 'XXX' %}'});   
     });
 
 
@@ -165,25 +25,15 @@
 <div id="signin_form" style="float: left">
   
   {% if request.user.is_authenticated %}
-  <div style="background-color: #f8e1a4; font-size: 12px; padding: 20px; width: 300px; ">
-    <h2>{% trans "You are already signed in!" %}</h2>
-  </div>
+
+   <div style="background-color: #f8e1a4; font-size: 12px; padding: 20px; width: 300px; ">
+     <h2>{% trans "You are already signed in!" %}</h2>
+   </div>
+
   {% else %}
+
   <div style="background-color: #f8e1a4; font-size: 12px; padding: 20px; width: 300px;">
-    <h2>{% trans "Sign in" %}</h2>
-    <form method="POST" action="{% url signin %}" id="loginform" name="loginform" onsubmit="return false;">
-      {% trans "USERNAME" %}<br/>
-      <input type="text" name="username" style="width: 200px"/><br/>
-      {% trans "PASSWORD" %}<br/>
-      <input type="password" name="password" style="width: 200px"/><br/>
-      <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">
-	<div id="no-such-user" class="template">{% trans "User does not exist." %}</div>
-	<div id="wrong-password" class="template">{% trans "Password is wrong! Please try again." %}</div>
-	<div id="unknown-error" class="template">{% trans "Unknown error!" %}</div>
-      </div>
-      <br/>
-      <button>{% trans "Sign in" %}</button> <a href="{% url forgotpassword %}">{% trans "Forgot your password ?" %}</a>
-    </form>
+    {% include "account/form_signin.html" %}
   </div>
   {% endif %}
   
@@ -198,48 +48,7 @@
   {% else %}
   
   <div style="background-color: #f8e1a4;font-size: 12px; padding: 20px; float: right; width: 300px;">
-    <h2>{% trans "Create Account" %}</h2>
-    {% url register as register_url %}
-    <form method="POST" action="{{ register_url }}" onsubmit="return false" id="registerform">
-      {% trans "USERNAME" %}<br/>
-      <input type="text" name="username" value="{{ username }}" style="width: 200px;"/><br/>
-      {% trans "E-MAIL" %}<br/>
-      <input type="text" name="email" value="{{ email }}" style="width: 200px"/><br/>
-      {% trans "PASSWORD (6 characters at least)" %}<br/>
-      <input type="password" name="password" style="width: 200px"/><br/>
-      {% trans "PASSWORD confirmation" %}<br/>
-      <input type="password" name="password2" style="width: 200px"/><br/>
-      {% trans "FULL NAME" %}<br/>
-      <input type="text" name="fullname" value="{{ fullname }}" style="width: 200px"/><br/>
-      {% trans "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to." %}<br/>
-      <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">
-	<div id="missing-username" class="template">{% trans "Missing username!" %}</div>
-	<div id="missing-email" class="template">{% trans "Missing e-mail!" %}</div>
-	<div id="missing-password" class="template">{% trans "Missing password!" %}</div>
-	<div id="missing-fullname" class="template">{% trans "Please provide your real name." %}</div>
-	<div id="invalid-username" class="template">{% blocktrans %}Username is invalid. Please try a different one. You may use alhpanumeric characters and characters ".", "_", "-" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>{% endblocktrans %}</div>
-	<div id="invalid-email" class="template">{% trans "This is not a valid e-mail" %}</div>
-	<div id="password-mismatch" class="template">{% trans "Your passwords dont match. Please try a different one." %}</div>
-	<div id="invalid-password" class="template">{% trans "Password must be 6 characters or more!" %}</div>
-	<div id="username-taken" class="template">{% trans "Username already taken. Please try a different one." %}</div>
-	<div id="unknown-error" class="template">{% trans "Unknown error!" %}</div>
-	<div id="fullname-toolong" class="template">{% trans "Fullname is too long!" %}</div>
-	<div id="clear" class="template"></div>
-      </div>
-      <br/>
-      <button>{% trans "Create account" %}</button>
-    </form>
-
-   {% if joingroups %} 
-     <p>
-     {% trans "You will also be joining this groups if you create account:" %}
-      <ul>
-       {% for group in joingroups %}
-          <li> <a href="{% url view_group group.url_name %}" target="_new">{{ group.name }}</a></li>
-       {% endfor %}
-      </ul>
-     </p>
-   {% endif %}
+    {% include "account/form_register.html" %}    
   </div>
   {% endif %}
 </div>

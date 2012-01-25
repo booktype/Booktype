@@ -3,22 +3,34 @@
 
 {% block header %}
  <title>Booki.cc</title>
+
+ <script>
+ $(function() {
+    $("#formsignin").booksparkSignin({'url': '{% url signin %}'});
+    $("#formregister").booksparkRegister({'url': '{% url signin %}', 'redirect': '{% url view_profile 'XXX' %}'});
+ });
+ </script>
 {% endblock %}
 
 {% block content %}
 <div id="intro">
-<h2>{% trans "Welcome to Booki" %} Alpha 1.2.</h2>
+<h2>{% trans "Welcome to Booki" %} Alpha 1.3.</h2>
 
-<img src="{{ request.META.SCRIPT_NAME }}/site_static/images/frontpage.jpg" alt="" title="[frontpage]" height="303" width="540">
+{% if request.user.is_authenticated %}
+ <h2>Show message when user is signed in</h2>
+{% else %}
+ <div style="float: left; width: 200px;">
+   {% include "account/form_signin.html" %}
+ </div>
 
-<span style="font-size:14px">
-<p>More than just a <strong>free</strong> <strong>software</strong> Booki helps you make <strong>free</strong> <strong>books</strong> - beautiful real paper books and ebooks.
-</p>
 
-<p>Collaborate online and create open textbooks and any other publication you can think of. Booki facilitates the production of books through simple and effective book production tools.</p>
-<p>With Booki you can write a book by yourself or with others, discuss your views, seek assistance from others, translate or reuse content and publish completed works.</p>
-<p>Sign up and have a look around!</p>
-</span>
+ <div style="float: left; width: 300px">
+   {% include "account/form_register.html" %}
+ </div>
+
+ <div style="clear: both"></div>
+{% endif %}
+
 
 <h2>{% trans "Recent activity" %}</h2>
  <div style="border-top: 1px solid gray"></div>
