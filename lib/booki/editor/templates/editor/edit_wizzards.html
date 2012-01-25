@@ -1,9 +1,76 @@
-<!-- <div id="demoWrapper"> -->
+<style>
+#demoWrapper {
+  padding : 1em;
+  width : 500px;
+  border-style: solid;
+}
 
-<div class="bookwizzard template" style="padding: 1em; width: 500px; border-style: solid;">
-  <h3>Book Formatted PDF Settings</h3>
-  <hr />
-  <h5 id="status"></h5>
+#fieldWrapper {
+}
+
+#demoNavigation {
+  margin-top : 0.5em;
+  margin-right : 1em;
+  margin-bottom: 1em;
+  text-align: right;
+}
+
+DIV.input { padding: 10px; }
+
+input {
+  margin-right: 0.1em;
+  margin-bottom: 0.5em;
+}
+
+.input_field_25em {
+  width: 2.5em;
+}
+
+.input_field_3em {
+  width: 3em;
+}
+
+.input_field_35em {
+  width: 3.5em;
+}
+
+.input_field_12em {
+  width: 12em;
+}
+
+label {
+  margin-bottom: 0.2em;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+
+label.error {
+  color: red;
+  font-size: 0.8em;
+  margin-left : 0.5em;
+}
+
+.step span {
+  float: right;
+  font-weight: bold;
+  padding-right: 0.8em;
+}
+
+.navigation_button {
+  width : 70px;
+}
+
+#data {
+  overflow : auto;
+}
+
+</style>
+
+<div class="bookwizzard template ui-widget ui-widget-content ui-corner-all" style="padding: 1em; width: 500px; background-color: white;"> 
+  <a name="close" href="#"><span style="float: right" class="ui-icon ui-icon-close"></span></a>
+  <span style="float: left; font-weight: bold;">Book Formatted PDF Settings</span>
+  <div style="clear: both; margin-bottom: 5px; padding-bottom: 5px;"></div>
+
   <form id="demoForm" method="post" action="json.html" class="bbq">
     <div id="fieldWrapper">
       <div class="step" id="format">
@@ -379,31 +446,5 @@
       <input class="navigation_button" id="next" value="Next" type="submit" />
     </div>
   </form>
-  <hr />
-
-  <p id="data"></p>
 </div>
-
-<script type="text/javascript">
-var cache = {}; // caching inputs for the visited steps
-$("#demoForm").bind("step_shown", function(event,data){	
-    if(data.isLastStep){ // if this is the last step...then
-    $("#summaryContainer").empty(); // empty the container holding the 
-    $.each(data.activatedSteps, function(i, id){ // for each of the activated steps...do
-      if(id === "summary") return; // if it is the summary page then just return
-      cache[id] = $("#" + id).find(".input"); // else, find the div:s with class="input" and cache them with a key equal to the current step id
-      cache[id].detach().appendTo('#summaryContainer').show().find(":input").removeAttr("disabled"); // detach the cached inputs and append them to the summary container, also show and enable them
-      });
-    }else if(data.previousStep === "summary"){ // if we are movin back from the summary page
-    $.each(cache, function(id, inputs){ // for each of the keys in the cache...do
-      var i = inputs.detach().appendTo("#" + id).find(":input");  // put the input divs back into their normal step
-      if(id === data.currentStep){ // (we are moving back from the summary page so...) if enable inputs on the current step
-      i.removeAttr("disabled");
-      }else{ // disable the inputs on the rest of the steps
-      i.attr("disabled","disabled");
-      }
-      });
-    cache = {}; // empty the cache again
-    }
-    })
 </script>
