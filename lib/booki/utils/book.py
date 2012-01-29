@@ -7,6 +7,30 @@ from booki.editor import models
 from booki.utils.log import logBookHistory
 
 
+def checkBookAvailability(bookTitle):
+    """
+    Checks if the book name is available or not.
+
+    @type bookTitle: C{string}
+    @param bookTitle: Title for the book.
+
+    @rtype: C{bool}
+    @return: Returns true or false
+    """
+
+    url_title = bookiSlugify(bookTitle)
+
+    if url_title == '':
+        return False
+
+    try:
+        book = models.Book.objects.get(url_title = url_title)
+    except models.Book.DoesNotExist:
+        return True
+
+    return False
+
+
 def createBook(user, bookTitle, status = "imported", bookURL = None):
     """
     Creates book.
