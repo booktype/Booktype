@@ -777,8 +777,13 @@ def create_book(request, username):
     try:
         user = User.objects.get(username=username)
     except User.DoesNotExist:
-        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
-
+        try:
+            return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+            
     from booki.utils.book import checkBookAvailability, createBook
     from booki.editor import models
 
@@ -787,8 +792,12 @@ def create_book(request, username):
 
         data = {"available": checkBookAvailability(request.GET.get('bookname', ''))}
 
-        return HttpResponse(json.dumps(data), "text/plain")
-
+        try:
+            return HttpResponse(json.dumps(data), "text/plain")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
 
     if request.method == 'POST':
         book = None
