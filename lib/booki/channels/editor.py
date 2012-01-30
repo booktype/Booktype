@@ -2935,7 +2935,7 @@ def remote_publish_book2(request, message, bookid, version):
     destination = "nowhere"
 
     args = {'book': book.url_title.encode('utf8'),
-            'license': licenses[book.license.abbrevation],
+            'license': licenses.get(book.license.abbrevation, 'GPL'),
             'project': 'export',
             'mode': publishMode,
             'server': THIS_BOOKI_SERVER,
@@ -2957,11 +2957,31 @@ def remote_publish_book2(request, message, bookid, version):
         if not isInside and default:
             args[name] = default
 
+    def _getValue(name):
+        for opt in options:
+            if opt['name'] == name:
+                return opt['value']
+
+        return None
+
     # todo
     # - title
     # - licence        
     # - css ove da slaze
     # - isbn
+
+    def _formatCSS(name, family, size, transform=None, weight=None):
+        s  = "%s {\n" % name
+        s += "    font-family: %s;\n" % family
+        s += "    font-size: %spt;\n" % size
+        if transform:
+            s += "    text-transform: %s;\n" % transform
+        if weight:
+            s += "    font-weight: %s;\n" % weight
+        s += "}\n"
+
+        return s
+ 
 
     if publishMode == 'book':
         _isSet('booksize')
@@ -2980,6 +3000,17 @@ def remote_publish_book2(request, message, bookid, version):
         _isSet('gutter')
         _isSet('columns')
         _isSet('column_margin')
+
+        _css = _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
+        _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
+        _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
+        _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
+
+        args['css'] = _css
+        
+
+    if publishMode == 'ebook':
+        _isSet('booksize')
 
 
     data = urllib.urlencode(args)
