@@ -2915,6 +2915,7 @@ def remote_publish_book2(request, message, bookid, version):
                       'book': 'book',
                       'odt': 'openoffice',
                       'newpaper': 'pdf',
+                      'lulu': 'book',
                       'pdf': 'web'}
 
     # conversion for licenses
@@ -2949,10 +2950,15 @@ def remote_publish_book2(request, message, bookid, version):
         for opt in options:
             if opt['name'] == name:
                 isInside = True
+                value = opt['value']
+
+                if value == 'on':
+                    value = 'yes'
+
                 if type(opt['value']) == type(u' '):
-                    args[name] = opt['value'].encode('utf8')
+                    args[name] = value.encode('utf8')
                 else:
-                    args[name] = opt['value']
+                    args[name] = value
 
         if not isInside and default:
             args[name] = default
@@ -2983,7 +2989,7 @@ def remote_publish_book2(request, message, bookid, version):
         return s
  
 
-    if publishMode == 'book':
+    if publishMode == 'book' and message.get("publish_mode", "") != 'lulu':
         _isSet('booksize')
         _isSet('custom_width')
         _isSet('custom_height')
@@ -2991,6 +2997,7 @@ def remote_publish_book2(request, message, bookid, version):
         _isSet('footnotes_pagebreak')
         _isSet('grey_scale')
         _isSet('page-numbers')
+        _isSet('rotate')
         _isSet('embed-fonts')
         _isSet('allow-breaks')
         _isSet('toc_header')
@@ -3001,17 +3008,97 @@ def remote_publish_book2(request, message, bookid, version):
         _isSet('columns')
         _isSet('column_margin')
 
-        _css = _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
-        _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
-        _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
-        _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
+        if _getValue('custom_override') == 'on':
+            _css = _getValue('additional_css')
+        else:
+            _css = _getValue('special_css')
+            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
+            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
+            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
+            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
+            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
+
+        if _getValue('control-css') != None:
+            args['css'] = _css
+
+
+    if publishMode == 'book' and message.get("publish_mode", "") == 'lulu':
+        args['to_lulu'] = 'yes' 
+
+        _isSet('lulu_user')
+        _isSet('lulu_password')
+        _isSet('lulu_title')
+        _isSet('description')
+        _isSet('authors')
+        _isSet('lulu_download_price')
+        _isSet('lulu_print_price')
+        _isSet('lulu_currency_code')
+        _isSet('pagesize')
+
+        if _getValue('custom_override') == 'on':
+            _css = _getValue('additional_css')
+        else:
+            _css = _getValue('special_css')
+            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
+            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
+            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
+            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
+            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
 
         args['css'] = _css
         
+        _isSet('p_pagebreak')
+        _isSet('footnotes_pagebreak')
+        
 
-    if publishMode == 'ebook':
+    if publishMode == 'epub':
+        # ebook_format ipad,kindle,epub
+
+        if _getValue('custom_override') == 'on':
+            _css = _getValue('additional_css')
+        else:
+            _css = _getValue('special_css')
+            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
+            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
+            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
+            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
+            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
+
+        args['css'] = _css
+
+    if publishMode == 'web':
         _isSet('booksize')
+        _isSet('custom_width')
+        _isSet('custom_height')
 
+        if _getValue('custom_override') == 'on':
+            _css = _getValue('additional_css')
+        else:
+            _css = _getValue('special_css')
+            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
+            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
+            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
+            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
+            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
+
+        args['css'] = _css
+
+        # fix rotate u pdf verziji
+        _isSet('p_pagebreak')
+        _isSet('footnotes_pagebreak')
+        _isSet('grey_scale')
+        _isSet('page-numbers')
+        _isSet('rotate')
+        _isSet('embed-fonts')
+        _isSet('allow-breaks')
+        _isSet('toc_header')
+        _isSet('top_margin')
+        _isSet('side_margin')
+        _isSet('bottom_margin')
+        _isSet('gutter')
+        _isSet('columns')
+        _isSet('column_margin')
+                       
 
     data = urllib.urlencode(args)
 
