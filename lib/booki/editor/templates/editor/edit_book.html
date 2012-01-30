@@ -425,10 +425,14 @@ and work on previous versions once you create new one. Create new <i>major</i> v
          </form>
 
           <br/>
-
+           
           <a name="exportbutton">Publish this book</a>
 
 	  <div class="info">
+          </div>
+
+	  <div class="progress template" style="padding-top: 20px;"> 
+            <p><img src="{{ request.META.SCRIPT_NAME }}/site_static/images/loading.gif"/>&nbsp;&nbsp;Please wait. It will take couple of moments. Your book is being generated.</p>
           </div>
 
           {% include "editor/edit_wizzards.html" %}  
