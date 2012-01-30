@@ -2920,7 +2920,7 @@ def remote_publish_book2(request, message, bookid, version):
     # conversion for licenses
     licenses = {'PD': 'public domain',
                 'MIT': 'MIT',
-                'CC0': 'CC-BY'
+                'CC0': 'CC-BY',
                 'CC BY': 'CC-BY',
                 'CC BY-SA': 'CC-BY',
                 'CC BY-ND': 'CC BY',
