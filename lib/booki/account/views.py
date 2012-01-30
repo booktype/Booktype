@@ -833,14 +833,19 @@ def create_book(request, username):
                     f.write(chunk)
                 f.close()
 
-                import Image
 
-                im = Image.open(fname)
-                im.thumbnail((240, 240), Image.NEAREST)
-                imageName = '%s.jpg' % fname
-                im.save(imageName)
+                try:
+                    import Image
+                    
+                    im = Image.open(fname)
+                    im.thumbnail((240, 240), Image.NEAREST)
+                    imageName = '%s.jpg' % fname
+                    im.save(imageName)
+                    
+                    book.cover.save('%s.jpg' % book.url_title, File(file(imageName)))
+                except:
+                    pass
 
-                book.cover.save('%s.jpg' % book.url_title, File(file(imageName)))
                 os.unlink(fname)
 
             book.save()
