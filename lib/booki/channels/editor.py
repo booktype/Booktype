@@ -2909,17 +2909,33 @@ def remote_publish_book2(request, message, bookid, version):
         # somehow, read default options for this mode
         pass
     
+
+    # converstion for names
     publishOptions = {'ebook': 'epub',
                       'book': 'book',
                       'odt': 'openoffice',
                       'newpaper': 'pdf',
                       'pdf': 'web'}
 
+    # conversion for licenses
+    licenses = {'PD': 'public domain',
+                'MIT': 'MIT',
+                'CC0': 'CC-BY'
+                'CC BY': 'CC-BY',
+                'CC BY-SA': 'CC-BY',
+                'CC BY-ND': 'CC BY',
+                'CC BY-NC': 'CC BY',
+                'CC BY-NC-SA': 'CC-BY',
+                'CC BY-NC-ND': 'CC-BY',
+                'GPL': 'GPL'
+        }
+
     publishMode = publishOptions[message.get("publish_mode", "epub")]
 
     destination = "nowhere"
 
     args = {'book': book.url_title.encode('utf8'),
+            'license': licenses[book.license.abbrevation],
             'project': 'export',
             'mode': publishMode,
             'server': THIS_BOOKI_SERVER,
