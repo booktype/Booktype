@@ -28,7 +28,7 @@
 	    
 	});
 
-        $("A[name=createbook]").booksparkCreateBook({"url": "{% url create_book request.user.username %}"});
+        $("A[name=createbook]").booksparkCreateBook({"url": "{% url create_book user.username %}"});
 
 	// start Sputnik
 	jQuery.booki.network._transport.connect();
