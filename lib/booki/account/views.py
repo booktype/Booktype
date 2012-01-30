@@ -793,9 +793,6 @@ def create_book(request, username):
     if request.method == 'POST':
         book = None
         try:
-            print request.POST
-            print request.FILES
-
             # hidden on
             # description
             # license
@@ -815,8 +812,6 @@ def create_book(request, username):
             book.hidden = is_hidden
             
             from django.core.files import File
-
-            print request.FILES.keys()
 
             if request.FILES.has_key('cover'):
                 import tempfile
@@ -842,8 +837,6 @@ def create_book(request, username):
             book.save()
                 
         except:
-            print  traceback.format_exc()
-
             transaction.rollback()
         else:
             transaction.commit()
@@ -856,7 +849,12 @@ def create_book(request, username):
     
     licenses = License.objects.all().order_by('name')
 
-    return render_to_response('account/create_book.html', {"request": request,
-                                                           "licenses": licenses,
-                                                           "user": user})
+    try:
+        return render_to_response('account/create_book.html', {"request": request,
+                                                               "licenses": licenses,
+                                                               "user": user})
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()    
 
