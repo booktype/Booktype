@@ -760,3 +760,103 @@ def my_people (request, username):
     return render_to_response('account/my_people.html', {"request": request,
                                                          "user": user})
 
+
+@transaction.commit_manually
+def create_book(request, username):
+    """
+    Django View. Show content for Create Book dialog and creates book.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type username: C{string}
+    @param username: Username.
+    """
+
+    from django.contrib.auth.models import User
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+
+    from booki.utils.book import checkBookAvailability, createBook
+    from booki.editor import models
+
+    if request.GET.get("q", "") == "check":
+        from booki.utils.json_wrapper import json
+
+        data = {"available": checkBookAvailability(request.GET.get('bookname', ''))}
+
+        return HttpResponse(json.dumps(data), "text/plain")
+
+
+    if request.method == 'POST':
+        book = None
+        try:
+            print request.POST
+            print request.FILES
+
+            # hidden on
+            # description
+            # license
+            # title
+            # cover
+
+            book = createBook(request.user, request.POST.get('title'))
+
+            lic = models.License.objects.get(abbrevation=request.POST.get('license'))
+            book.license = lic
+            book.description = request.POST.get('description', '')
+
+            if request.POST.get("hidden", "") == "on":
+                is_hidden = True
+            else:
+                is_hidden = False
+            book.hidden = is_hidden
+            
+            from django.core.files import File
+
+            print request.FILES.keys()
+
+            if request.FILES.has_key('cover'):
+                import tempfile
+                import os
+
+                fh, fname = tempfile.mkstemp(suffix='', prefix='cover')
+                
+                f = open(fname, 'wb')
+                for chunk in request.FILES['cover'].chunks():
+                    f.write(chunk)
+                f.close()
+
+                import Image
+
+                im = Image.open(fname)
+                im.thumbnail((240, 240), Image.NEAREST)
+                imageName = '%s.jpg' % fname
+                im.save(imageName)
+
+                book.cover.save('%s.jpg' % book.url_title, File(file(imageName)))
+                os.unlink(fname)
+
+            book.save()
+                
+        except:
+            print  traceback.format_exc()
+
+            transaction.rollback()
+        else:
+            transaction.commit()
+
+        return render_to_response('account/create_book_redirect.html', {"request": request,
+                                                                        "user": user,
+                                                                        "book": book})
+        
+    from booki.editor.models import License
+    
+    licenses = License.objects.all().order_by('name')
+
+    return render_to_response('account/create_book.html', {"request": request,
+                                                           "licenses": licenses,
+                                                           "user": user})
+

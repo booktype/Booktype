@@ -20,5 +20,6 @@ urlpatterns = patterns('',
     url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/settings/$', 'booki.account.views.user_settings', name='user_settings'),                     
     url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/my_books/$', 'booki.account.views.my_books', name='my_books'),                     
     url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/my_groups/$', 'booki.account.views.my_groups', name='my_groups'),                     
-    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/my_people/$', 'booki.account.views.my_people', name='my_people')                     
+    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/my_people/$', 'booki.account.views.my_people', name='my_people'),
+    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/create_book/$', 'booki.account.views.create_book', name='create_book')                     
 )

@@ -33,6 +33,7 @@ urlpatterns = patterns('',
 
 
     url(r'^_info/$', 'booki.reader.views.book_info', name='book_info'),
+    url(r'^_info/cover.jpg$', 'booki.reader.views.book_cover', name='book_cover'),
 
     # this should be                       
     url(r'^(?P<chapter>[\w\s\_\.\-]+)/$', 'booki.reader.views.book_chapter', name='book_chapter'),

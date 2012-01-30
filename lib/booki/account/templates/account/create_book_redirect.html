@@ -1,0 +1,11 @@
+<html>
+<body>
+
+<script>
+{% if book %}
+  parent.window.location = '{% url book_info book.url_title %}';
+{% endif %}
+</script>
+
+</body>
+</html>

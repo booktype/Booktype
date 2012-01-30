@@ -88,6 +88,13 @@ A { border-bottom: 1px dotted #c0c0c0;}
 
 {% block content %}
 <h1>{{ book.title }}</h1>
+<div>
+{% if book.cover %}
+ <img src="cover.jpg"/> 
+{% endif %}
+ <p>{{ book.description }}</p>
+</div>
+
 <div><p>
   <a class="viewpublished" href="{% url book_view book.url_title  %}">{% trans "VIEW PUBLISHED BOOK" %}</a>
   <a class="editbook" href="{% url edit_book book.url_title  %}">{% trans "EDIT THIS BOOK" %}</a>

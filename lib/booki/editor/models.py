@@ -118,6 +118,9 @@ class Book(models.Model):
     hidden = models.BooleanField(_('hidden'))
     permission = models.SmallIntegerField(_('permission'), null=False, default = 0) 
 
+    description = models.TextField(_('description'), null=False, default='')
+    cover = models.ImageField(_('cover'), upload_to=settings.COVER_IMAGE_UPLOAD_DIR, null=True)
+
     def get_absolute_url(self):
         return '%s/%s/' % (settings.BOOKI_URL, self.url_title)
 
@@ -391,5 +394,19 @@ class AttributionExclude(models.Model):
     class Meta:
         verbose_name = _('Attribution Exclude')
         verbose_name_plural = _('Attribution Exclude')
+
+
+class PublishWizzard(models.Model):
+    book = models.ForeignKey(Book, null=True, verbose_name=_("book"))
+    user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
+    wizz_type = models.CharField(_('wizzard type'), max_length=20, blank=False)
+    wizz_options =  models.TextField(_('wizzard options'), default='', null=False)
+
+    def __unicode__(self):
+        return '%s' % (self.book.url_title, )
+
+    class Meta:
+        verbose_name = _('Publish Wizzard')
+        verbose_name_plural = _('Publish Wizzard')
 
     

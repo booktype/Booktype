@@ -407,15 +407,19 @@ and work on previous versions once you create new one. Create new <i>major</i> v
 	 <form name="formexport" onsubmit="return false;">
 	 <table border="0" width="400">
           <tr>
-           <td width="30"><input type="checkbox" name="publishbook"></td><td>Book</td><td><a name="exportwizzard" onclick="return false">settings</a></td>
+           <td width="30"><input type="radio" name="publish" group="publishtype" value="book" checked="checked"></td><td>Book</td><td><a name="bookwizzard" onclick="return false">settings</a></td>
           </tr>
 
           <tr>
-           <td width="30"><input type="checkbox" name="publishebook"></td><td>E-Book</td><td><a name="exportwizzard" onclick="return false">settings</a></td>
+           <td width="30"><input type="radio" name="publish" group="publishtype" value="pdf"></td><td>PDF</td><td><a name="pdfwizzard" onclick="return false">settings</a></td>
           </tr>
 
           <tr>
-           <td width="30"><input type="checkbox" name="publishodt"></td><td>ODT</td><td><a name="exportwizzard" onclick="return false">settings</a></td>
+           <td width="30"><input type="radio" name="publish" group="publishtype" value="ebook"></td><td>Ebook</td><td><a name="ebookwizzard" onclick="return false">settings</a></td>
+          </tr>
+
+          <tr>
+           <td width="30"><input type="radio" name="publish" group="publishtype" value="odt"></td><td>ODT</td><td><a name="odtwizzard" onclick="return false">settings</a></td>
           </tr>
          </table>
          </form>

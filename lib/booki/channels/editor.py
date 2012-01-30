@@ -2782,3 +2782,203 @@ def remote_book_permission_save(request, message, bookid, version):
     return {"status": True}
 
 
+def remote_get_wizzard(request, message, bookid, version):
+    from booki.editor import models
+    from booki.utils.json_wrapper import simplejson
+
+    book = models.Book.objects.get(id=bookid)
+
+    options = []
+
+    try:
+        pw = models.PublishWizzard.objects.get(book=book,
+                                               user=request.user,
+                                               wizz_type=message['wizzard_type']
+                                               )
+        
+        try:
+            options = simplejson.loads(pw.wizz_options)
+        except:
+            pass
+    except models.PublishWizzard.DoesNotExist:
+        pass
+        
+    return {"status": True, "options": options}
+
+
+def remote_set_wizzard(request, message, bookid, version):
+    from booki.editor import models
+    from booki.utils.json_wrapper import simplejson
+
+    book = models.Book.objects.get(id=bookid)
+    
+
+    options = message.get('wizzard_options', '')
+    
+    pw, created = models.PublishWizzard.objects.get_or_create(book=book, 
+                                                              user=request.user,
+                                                              wizz_type=message['wizzard_type'])
+    
+    pw.wizz_options=simplejson.dumps(options)
+    pw.save()
+
+    transaction.commit()
+
+    return {"status": True, "options": {}}
+
+
+def remote_publish_book2(request, message, bookid, version):
+    """
+    This is called when you want to publish your book. HTTP Request is sent to Objavi. Objavi then grabs content from Booki, renders it and creates output file.
+
+    Sends notification to chat.
+
+    Input:
+     - publish_mode
+     - is_archive
+     - is_lulu
+     - lulu_user
+     - lulu_password
+     - lulu_api_key
+     - lulu_project
+     - book
+     - project
+     - mode
+     - server
+     - destination
+     - max-age
+     - grey_scale
+     - title
+     - license
+     - isbn
+     - toc_header
+     - booksize
+     - page_width
+     - page_height
+     - top_margin
+     - side_margin
+     - gutter
+     - columns
+     - column_margin
+     - grey_scale
+     - css
+     - cover_url
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns info with URL-s where to fetch the result
+    """
+
+    from booki.utils.json_wrapper import simplejson
+
+    book = models.Book.objects.get(id=bookid)
+
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
+                                                                "from": request.user.username,
+                                                                "message": '"%s" is being published.' % (book.title, )},
+                        myself=True)
+
+    import urllib2
+    import urllib
+
+    # read all default options
+
+
+    book = models.Book.objects.get(id=bookid)
+
+    options = []
+
+    try:
+        pw = models.PublishWizzard.objects.get(book=book,
+                                               user=request.user,
+                                               wizz_type= message.get("publish_mode", "epub")
+                                               )
+        try:
+            options = simplejson.loads(pw.wizz_options)
+        except:
+            pass
+    except models.PublishWizzard.DoesNotExist:
+        # somehow, read default options for this mode
+        pass
+    
+    publishOptions = {'epub': 'epub',
+                      'book': 'book',
+                      'odt': 'openoffice',
+                      'newpaper': 'pdf',
+                      'pdf': 'web'}
+
+    publishMode = publishOptions[message.get("publish_mode", "epub")]
+
+    destination = "nowhere"
+
+    args = {'book': book.url_title.encode('utf8'),
+            'project': 'export',
+            'mode': publishMode,
+            'server': THIS_BOOKI_SERVER,
+            'destination': destination,
+            'max-age': 0,
+            }
+
+    def _isSet(name, default=None):
+        isInside = False
+
+        for opt in options:
+            if opt['name'] == name:
+                isInside = True
+                if type(opt['value']) == type(u' '):
+                    args[name] = opt['value'].encode('utf8')
+                else:
+                    args[name] = opt['value']
+
+        if not isInside and default:
+            args[name] = default
+
+    # todo
+    # - title
+    # - licence        
+    # - css ove da slaze
+    # - isbn
+
+    if publishMode == 'book':
+        _isSet('booksize')
+        _isSet('custom_width')
+        _isSet('custom_height')
+        _isSet('p_pagebreak')
+        _isSet('footnotes_pagebreak')
+        _isSet('grey_scale')
+        _isSet('page-numbers')
+        _isSet('embed-fonts')
+        _isSet('allow-breaks')
+        _isSet('toc_header')
+        _isSet('top_margin')
+        _isSet('side_margin')
+        _isSet('bottom_margin')
+        _isSet('gutter')
+        _isSet('columns')
+        _isSet('column_margin')
+
+
+    data = urllib.urlencode(args)
+
+    req = urllib2.Request(OBJAVI_URL, data)
+    f = urllib2.urlopen(req)
+
+    ta = f.read()
+    lst = ta.split("\n")
+    dta, dtas3 = "", ""
+
+    if len(lst) > 0:
+        dta = lst[0]
+
+        if len(lst) > 1:
+            dtas3 = lst[1]
+
+    return {"dtaall": ta, "dta": dta, "dtas3": dtas3}

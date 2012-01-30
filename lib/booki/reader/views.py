@@ -98,6 +98,33 @@ def book_info(request, bookid, version=None):
                                                         "online_users": online_users,
                                                         "request": request})
 
+
+def book_cover(request, bookid, version=None):
+    """
+    Return cover image for this book.
+
+    @todo: It is wrong in so many different levels to serve attachments this way.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type bookid: C{string}
+    @param bookid: Unique Book ID
+    @type version: C{string}
+    @param version: Version of the book
+    """
+
+    from django.views import static
+
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+    return static.serve(request, '%s.jpg' % book.url_title, settings.COVER_IMAGE_UPLOAD_DIR)
+
+
+
+
 def draft_book(request, bookid, version=None):
     """
     Django View. Shows main page for the draft version of a book.
