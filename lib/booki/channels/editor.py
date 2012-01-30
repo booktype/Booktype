@@ -2909,7 +2909,7 @@ def remote_publish_book2(request, message, bookid, version):
         # somehow, read default options for this mode
         pass
     
-    publishOptions = {'epub': 'epub',
+    publishOptions = {'ebook': 'epub',
                       'book': 'book',
                       'odt': 'openoffice',
                       'newpaper': 'pdf',
