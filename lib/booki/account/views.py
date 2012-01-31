@@ -854,10 +854,14 @@ def create_book(request, username):
             transaction.rollback()
         else:
             transaction.commit()
-
-        return render_to_response('account/create_book_redirect.html', {"request": request,
-                                                                        "user": user,
-                                                                        "book": book})
+        try:
+            return render_to_response('account/create_book_redirect.html', {"request": request,
+                                                                            "user": user,
+                                                                            "book": book})
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
         
     from booki.editor.models import License
     
@@ -871,4 +875,6 @@ def create_book(request, username):
         transaction.rollback()
     finally:
         transaction.commit()    
+
+
 

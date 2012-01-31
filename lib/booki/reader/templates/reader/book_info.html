@@ -60,6 +60,7 @@ A { border-bottom: 1px dotted #c0c0c0;}
                                 });
                              });
 
+     $("A.editinfo").button().booksparkEditBookInfo({"url": "{% url edit_info book.url_title %}"});
  
  });
 </script>
@@ -99,6 +100,8 @@ A { border-bottom: 1px dotted #c0c0c0;}
   <a class="viewpublished" href="{% url book_view book.url_title  %}">{% trans "VIEW PUBLISHED BOOK" %}</a>
   <a class="editbook" href="{% url edit_book book.url_title  %}">{% trans "EDIT THIS BOOK" %}</a>
   <a class="viewdraft" href="{% url draft_book book.url_title  book_version %}">{% trans "VIEW DRAFT" %}</a>
+  <a class="editinfo" href="#">{% trans "EDIT INFO" %}</a>
+
 </p></div>
 <h2>{% trans "Book details" %}</h2>
 <ul id="bookdetails">

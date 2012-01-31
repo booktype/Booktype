@@ -1,5 +1,5 @@
 import os
-
+from django.db import IntegrityError, transaction
 from django.shortcuts import render_to_response
 from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -120,7 +120,7 @@ def book_cover(request, bookid, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    return static.serve(request, '%s.jpg' % book.url_title, settings.COVER_IMAGE_UPLOAD_DIR)
+    return static.serve(request, book.cover.name, '/')
 
 
 
@@ -360,4 +360,73 @@ def staticattachment(request, bookid,  attachment, version=None, chapter = None)
     document_root = '%s/books/%s/' % (settings.DATA_ROOT, bookid)
 
     return static.serve(request, path, document_root)
+
+
+@transaction.commit_manually
+def edit_info(request, bookid, version=None):
+    """
+    Django View. 
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type bookid: C{string}
+    @param bookid: Unique Book ID
+    @type version: C{string}
+    @param verson: Book version
+    """
+
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+
+    book_version = getVersion(book, version)
+
+    if request.method == 'POST':
+        book.description = request.POST.get('description', '')
+        from django.core.files import File
+
+        if request.FILES.has_key('cover'):
+            import tempfile
+            import os
+
+            fh, fname = tempfile.mkstemp(suffix='', prefix='cover')
+                
+            f = open(fname, 'wb')
+            for chunk in request.FILES['cover'].chunks():
+                f.write(chunk)
+            f.close()
+            
+            try:
+                import Image
+                    
+                im = Image.open(fname)
+                im.thumbnail((240, 240), Image.NEAREST)
+                imageName = '%s.jpg' % fname
+                im.save(imageName)
+                
+                book.cover.save('%s.jpg' % book.url_title, File(file(imageName)))
+            except:
+                transaction.rollback()
+
+            os.unlink(fname)
+
+        book.save()
+        try:
+            return render_to_response('reader/edit_info_redirect.html', {"request": request,
+                                                                         "book": book})
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+        
+    try:
+        return render_to_response('reader/edit_info.html', {"request": request,
+                                                            "book": book})
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()    
 
