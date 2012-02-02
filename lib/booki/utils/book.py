@@ -2,6 +2,7 @@ import datetime
 
 from booki.utils.misc import bookiSlugify
 from django.utils.translation import ugettext_lazy as _
+from django.db.models import Q
 
 from booki.editor import models
 from booki.utils.log import logBookHistory
@@ -24,7 +25,7 @@ def checkBookAvailability(bookTitle):
         return False
 
     try:
-        book = models.Book.objects.get(url_title = url_title)
+        book = models.Book.objects.get(Q(title=bookTitle) | Q(url_title = url_title))
     except models.Book.DoesNotExist:
         return True
 
@@ -136,6 +137,29 @@ def createBookiGroup(groupName, groupDescription, owner):
         return group
 
     raise BookiGroupExist(groupName)
+
+def checkGroupAvailability(groupName):
+    """
+    Checks if the group name is available or not.
+
+    @type bookName: C{string}
+    @param bookName: Name of the group.
+
+    @rtype: C{bool}
+    @return: Returns true or false
+    """
+
+    url_name = bookiSlugify(groupName)
+
+    if url_name == '':
+        return False
+
+    try:
+        group = models.BookiGroup.objects.get(Q(name=groupName) | Q(url_name = url_name))
+    except models.BookiGroup.DoesNotExist:
+        return True
+
+    return False
 
 
     
