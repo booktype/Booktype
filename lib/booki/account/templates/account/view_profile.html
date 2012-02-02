@@ -29,6 +29,7 @@
 	});
 
         $("A[name=createbook]").booksparkCreateBook({"url": "{% url create_book user.username %}"});
+        $("A[name=creategroup]").booksparkCreateGroup({"url": "{% url create_group user.username %}"});
 
 	// start Sputnik
 	jQuery.booki.network._transport.connect();
@@ -104,7 +105,7 @@
 <div style="-webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px;  border: 1px solid black; margin-top: 20px;">
  <div style="background-color: black; color: white; font-weight: bold; padding: 5px; ">
    {% if user.username == request.user.username %}
-     <span style="float: right"><a href="my_groups/#createnewgroup" style="color: white">{% trans "CREATE NEW GROUP" %}</a></span>
+     <span style="float: right"><a href="#" name="creategroup" style="color: white">{% trans "CREATE NEW GROUP" %}</a></span>
    {% endif %}
    {% if user.username == request.user.username %}
      <a href="my_groups" style="color: white">

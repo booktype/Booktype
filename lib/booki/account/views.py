@@ -790,7 +790,7 @@ def create_book(request, username):
     if request.GET.get("q", "") == "check":
         from booki.utils.json_wrapper import json
 
-        data = {"available": checkBookAvailability(request.GET.get('bookname', ''))}
+        data = {"available": checkBookAvailability(request.GET.get('bookname', '').strip())}
 
         try:
             return HttpResponse(json.dumps(data), "text/plain")
@@ -876,5 +876,81 @@ def create_book(request, username):
     finally:
         transaction.commit()    
 
+
+@transaction.commit_manually
+def create_group(request, username):
+    """
+    Django View. Show content for Create Group dialog and creates group.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type username: C{string}
+    @param username: Username.
+    """
+
+    from django.contrib.auth.models import User
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        try:
+            return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+            
+    from booki.utils.book import checkGroupAvailability, createBookiGroup
+    from booki.editor import models
+
+    if request.GET.get("q", "") == "check":
+        from booki.utils.json_wrapper import json
+
+        data = {"available": checkGroupAvailability(request.GET.get('groupname', '').strip())}
+
+        try:
+            return HttpResponse(json.dumps(data), "text/plain")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+
+    if request.GET.get("q", "") == "create":
+        from booki.utils.json_wrapper import json
+
+        groupName = request.GET.get('name', '').strip()
+        groupDescription = request.GET.get('description', '').strip()
+
+        groupCreated = False
+
+        if checkGroupAvailability(groupName):
+            try:
+                group = createBookiGroup(groupName, groupDescription, request.user)
+                group.members.add(request.user)
+                groupCreated = True
+            except BookiGroupExist:
+                groupCreated = False
+                transaction.rollback()
+            else:
+                transaction.commit()
+
+        data = {'created': groupCreated}
+
+        try:
+            return HttpResponse(json.dumps(data), "text/plain")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+
+    try:
+        return render_to_response('account/create_group.html', {"request": request,
+                                                               "user": user})
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()    
 
 
