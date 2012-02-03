@@ -5,6 +5,7 @@
 
 {% block header %}
   <title>{% blocktrans with user.username as username %}/user: {{ username }}{% endblocktrans %}</title>
+  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.url.js"></script>
   <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/profile.js"></script>
 
   <script type="text/javascript">
@@ -28,14 +29,14 @@
 	    
 	});
 
-        $("A[name=createbook]").booksparkCreateBook({"url": "{% url create_book user.username %}"});
+        $("A.createbook").booksparkCreateBook({"url": "{% url create_book user.username %}"});
+        $("A.importbook").booksparkImportBook({"url": "{% url import_book user.username %}"});
+
         $("A[name=creategroup]").booksparkCreateGroup({"url": "{% url create_group user.username %}"});
 
 	// start Sputnik
 	jQuery.booki.network._transport.connect();
     });
-
-
   </script>
 
 {% endblock %}
@@ -43,6 +44,16 @@
 {% block content %}
 
 <div style="margin-bottom: 5px">
+
+<div id="tabs">
+        <ul>
+                <li><a href="#tabs-1">Dashboard</a></li>
+                <li><a href="#tabs-3">My Books</a></li>
+                <li><a href="#tabs-2">Settings</a></li>
+
+        </ul>
+<div id="tabs-1">
+
 
 <div style="clear: both; padding-top: 10px;"/>
 <table border="0" width="100%" cellspacing="0" cellpadding="0" style="clear: all">
@@ -70,7 +81,7 @@
 <div style="-webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; border: 1px solid black; margin-top: 20px;">
  <div style="background-color: black; color: white; font-weight: bold; padding: 5px; ">
    {% if user.username == request.user.username %}
-     <span style="float: right;"><a name="createbook" href="#" style="color: white">{% trans "CREATE NEW BOOK" %}</a></span>
+     <span style="float: right;"><a class="createbook" href="#" style="color: white">{% trans "CREATE NEW BOOK" %}</a></span>
    {% endif %}
    {% if user.username == request.user.username %}  
      <a href="my_books/" style="color: white">
@@ -196,5 +207,68 @@
   </td>
  </tr>
 </table>
+
+</div>
+</div>
+
+<!-- users -->
+<div id="tabs-3">
+
+<div class="action-menu big">
+<a class="createbook prime" href="#">{% trans "Create new book" %}</a> <a class="importbook prime" href="#">{% trans "Import Book" %}</a>
+</div>
+
+
+<table border="0" cellspacing="2">
+{% for book in books %}
+  <tr>
+   <td>
+      <a href="{% url book_view book.url_title %}">
+        {% if book.hidden %}
+          <i>{{ book.title }}</i>
+        {% else %}
+          {{ book.title }}
+        {% endif %}
+      </a>
+   </td>
+   <td width="50"></td>
+   <td><div style="padding-left: 5px; padding-right: 5px"><a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a></div></td>
+   <td><div style="padding-left: 5px; padding-right: 5px"><a href="{% url book_info  book.url_title %}">{% trans "info" %}</a></div></td>
+   <td><div style="padding-left: 5px; padding-right: 5px"><a href="{% url draft_book  book.url_title %}">{% trans "draft" %}</a></div></td>
+   <td><div style="padding-left: 5px; padding-right: 5px"><a href="{% url view_full  book.url_title %}">{% trans "full" %}</a></div></td>
+   <td>
+    <div style="white-space: nowrap;">
+   {% if user.username == request.user.username %}   
+     {% if book.hidden %}
+       <form style="display: inline" action="." method="POST">
+	 <button>{% trans "Show to others" %}</button>
+	 <input type="hidden" name="book" value="{{book.url_title}}" />
+	 <input type="hidden" name="action" value="unhide" />
+       </form>
+     {% else %}
+       <form style="display: inline" action="." method="POST">
+	 <button>{% trans "Hide from others" %}</button>
+	 <input type="hidden" name="book" value="{{book.url_title}}" />
+	 <input type="hidden" name="action" value="hide" />
+       </form>
+     {% endif %}
+   {% endif %}
+    </div>
+   </td>
+  </tr>
+{% endfor %}
+</table>
+
+</div>
+
+
+<!-- settings -->
+<div id="tabs-2">
+
+</div>
+
+
+
+</div>
 
 {% endblock %}

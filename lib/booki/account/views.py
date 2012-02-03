@@ -436,6 +436,7 @@ def view_profile(request, username):
         books = models.Book.objects.filter(owner=user, hidden=False)
     
     groups = user.members.all()
+
     return render_to_response('account/view_profile.html', {"request": request,
                                                             "user": user,
 
@@ -954,3 +955,101 @@ def create_group(request, username):
         transaction.commit()    
 
 
+@transaction.commit_manually
+def import_book(request, username):
+    """
+    Django View. Book Import dialog.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type username: C{string}
+    @param username: Username.
+    """
+
+    from django.contrib.auth.models import User
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        try:
+            return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+            
+    from booki.utils.book import checkGroupAvailability, createBookiGroup
+    from booki.editor import models
+
+    if request.GET.get("q", "") == "check":
+        from booki.utils.json_wrapper import json
+
+        data = {"available": checkGroupAvailability(request.GET.get('groupname', '').strip())}
+
+        try:
+            return HttpResponse(json.dumps(data), "text/plain")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+    if request.GET.get("q", "") == "import":
+        from booki.utils.json_wrapper import json
+
+        data = {}
+
+        try:
+            bookid = request.GET.get('source', '')
+            importType = request.GET.get('importtype', '')
+            renameTitle = request.GET.get('title', '')
+
+            extraOptions = {}
+
+            if renameTitle:
+                extraOptions['book_title'] = renameTitle
+
+            if request.GET.get('hidden', '') != '':
+                extraOptions['hidden'] = True
+
+            importSources = {  
+                'flossmanuals': (TWIKI_GATEWAY_URL, "en.flossmanuals.net"),
+                "archive":      (ESPRI_URL, "archive.org"),
+                "wikibooks":    (ESPRI_URL, "wikibooks"),
+                "epub":         (ESPRI_URL, "url"),
+                }
+            
+            if importType == "booki":
+                bookid = bookid.rstrip('/')
+                booki_url, book_url_title = bookid.rsplit("/", 1)
+                base_url = "%s/export/%s/export" % (booki_url, book_url_title)
+                source = "booki"
+            else:
+                base_url, source = importSources[importType]
+
+            common.importBookFromUrl2(user, base_url,
+                                      args=dict(source=source,
+                                                book=bookid),
+                                      **extraOptions
+                                      )
+        except Exception:
+            data['imported'] = False
+            transaction.rollback()
+        else:
+            transaction.commit()
+            data['imported'] = True
+
+        try:
+            return HttpResponse(json.dumps(data), "text/plain")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+
+    try:
+        return render_to_response('account/import_book.html', {"request": request,
+                                                               "user": user})
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()    
