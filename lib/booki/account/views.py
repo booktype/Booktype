@@ -363,52 +363,6 @@ def forgotpasswordenter(request):
     finally:
         transaction.commit()
 
-# project form
-
-class BookForm(forms.Form):
-    """
-    Django Form for new books.
-
-    @todo: This is major c* and has to be changed soon.
-    """
-
-    title = forms.CharField(label=_('Title'), required=True)
-    license = forms.ChoiceField(label=_('License'), choices=(('1', '1'), ))
-    hidden = forms.BooleanField(label=_('Initially hidden from others'), required=False)
-
-    def __init__(self, *args, **kwargs):
-        super(BookForm, self).__init__(*args, **kwargs)
-
-        from booki.editor import models
-        self.fields['license'].initial = 'Unknown'
-        self.fields['license'].choices = [ (elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
-
-
-class ImportForm(forms.Form):
-    """
-    Django Form for book imports.
-
-    @todo: This is major c* and has to be changed soon.
-    """
-
-    type = forms.CharField(required=True)
-    id = forms.CharField(required=True)
-    rename_title = forms.CharField(required=False)
-    hidden = forms.BooleanField(label=_('Initially hidden from others'), required=False)
-
-class ImportEpubForm(forms.Form):
-    url = forms.CharField(required=False)
-
-class ImportWikibooksForm(forms.Form):
-    wikibooks_id = forms.CharField(required=False)
-
-class ImportFlossmanualsForm(forms.Form):
-    flossmanuals_id = forms.CharField(required=False)
-    type = forms.CharField(required=False)
-    id = forms.CharField(required=False)
-
-
-
 def view_profile(request, username):
     """
     Django View. Shows user profile. Right now, this is just basics.
@@ -618,98 +572,9 @@ def my_books (request, username):
         
     books = models.Book.objects.filter(owner=user)
 
-    if request.POST.get("action") == "hide":
-        book = models.Book.objects.get(url_title=request.POST.get("book"))
-        book.hidden = True
-        book.save()
-        transaction.commit()
-    elif request.POST.get("action") == "unhide":
-        book = models.Book.objects.get(url_title=request.POST.get("book"))
-        book.hidden = False
-        book.save()
-        transaction.commit()
-
-    if request.method == 'POST' and not request.POST.get("action"):
-        project_form = BookForm(request.POST)
-        import_form = ImportForm(request.POST)
-
-        if import_form.is_valid() and import_form.cleaned_data["id"]:
-            project_form = BookForm() # reset the other form
-
-            try:
-                ID = import_form.cleaned_data["id"]
-                import_type = import_form.cleaned_data["type"]
-                rename_title = import_form.cleaned_data["rename_title"]
-
-                extraOptions = {}
-                if rename_title:
-                    extraOptions['book_title'] = rename_title
-
-                if import_form.cleaned_data["hidden"]:
-                    extraOptions['hidden'] = True
-
-                import_sources = {   # base_url    source=
-                    'flossmanuals': (TWIKI_GATEWAY_URL, "en.flossmanuals.net"),
-                    "archive":      (ESPRI_URL, "archive.org"),
-                    "wikibooks":    (ESPRI_URL, "wikibooks"),
-                    "epub":         (ESPRI_URL, "url"),
-                    }
-
-                if import_type == "booki":
-                    ID = ID.rstrip("/")
-                    booki_url, book_url_title = ID.rsplit("/", 1)
-                    base_url = "%s/export/%s/export" % (booki_url, book_url_title)
-                    source = "booki"
-                else:
-                    base_url, source = import_sources[import_type]
-
-                common.importBookFromUrl2(user, base_url,
-                                          args=dict(source=source,
-                                                    book=ID),
-                                          **extraOptions
-                                          )
-            except Exception:
-                transaction.rollback()
-                logError(traceback.format_exc())
-                return render_to_response('account/error_import.html',
-                                          {"request": request, "user": user})
-            else:
-                transaction.commit()
-
-        #XXX should this be elif? even if the POST is valid as both forms, the
-        # transaction will end up being commited twice.
-        if project_form.is_valid() and project_form.cleaned_data["title"]:
-            import_form = ImportForm() # reset the other form
-            
-            from booki.utils.book import createBook
-            title = project_form.cleaned_data["title"]
-
-            try:
-                book = createBook(user, title)
-
-                license   = project_form.cleaned_data["license"]
-                lic = models.License.objects.get(abbrevation=license)
-                book.license = lic
-                book.hidden = project_form.cleaned_data["hidden"]
-                book.save()
-            except:
-                transaction.rollback()
-            else:
-                transaction.commit()
-
-            return HttpResponseRedirect(reverse("my_books", args=[username]))
-    else:
-        project_form = BookForm()
-        import_form = ImportForm()
-
-
     try:
         return render_to_response('account/my_books.html', {"request": request,
                                                             "user": user,
-                                                            
-                                                            "project_form": project_form,
-                                                            "import_form": import_form,
-                                                            
                                                             "books": books,})
     except:
         transaction.rollback()
