@@ -152,3 +152,18 @@ def remote_mood_set(request, message, profileid):
                                             myself=True)
             
     return {}
+
+def remote_hide_book(request, message, profileid):
+    from booki.editor import models
+
+    book = models.Book.objects.get(url_title = message["bookID"])
+
+    if message["action"] == "hide":
+        book.hidden = True
+    else:
+        book.hidden = False
+
+    book.save()
+    transaction.commit()
+
+    return {"result": True}

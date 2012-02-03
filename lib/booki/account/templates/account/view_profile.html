@@ -34,6 +34,7 @@
 
         $("A[name=creategroup]").booksparkCreateGroup({"url": "{% url create_group user.username %}"});
 
+
 	// start Sputnik
 	jQuery.booki.network._transport.connect();
     });
@@ -49,7 +50,9 @@
         <ul>
                 <li><a href="#tabs-1">Dashboard</a></li>
                 <li><a href="#tabs-3">My Books</a></li>
-                <li><a href="#tabs-2">Settings</a></li>
+                {% if user.username == request.user.username %}
+                   <li><a href="#tabs-2">Settings</a></li>
+                {% endif %}
 
         </ul>
 <div id="tabs-1">
@@ -170,40 +173,6 @@
 <p>Stalking: {% user_followingbox user.username %}</p>
 <p>Stalkers: {% user_followersbox user.username %}</p>
 
-<!--
-<h2>{% trans "Books" %}</h2>
-<div style="border-bottom: 1px solid #c0c0c0"></div>
-<ul>
-{% for book in books %}
-   <li><a href="{% url book_view  book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a>)</li>
-{% endfor %}
-</ul>
-
-<h2>{% trans "Groups" %}</h2>
-<div style="border-bottom: 1px solid #c0c0c0"></div>
-
-<ul>
-{% for group in groups %}
-   <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a></li>
-{% endfor %}
-</ul>
--->
-<!--
-{% if user.username == request.user.username %}
-<div style="padding-top: 20px; width:325px;" id="newgroup">
-<h2>Create new group</h2>
-<div style="border-bottom: 1px solid #c0c0c0; margin-bottom: 20px"></div>
-
-  <form method="GET" action="javascript:void(0)" onsubmit="return false;">
-    Group name:<br>
-    <input type="text" style="width:325px;" value=""/> <br>
-    What is this group about:<br>
-    <textarea name="description" rows="5" style="width:325px;"></textarea><br/>
-    <button>Create new group</button>
-  </form>
-</div>
-{% endif %}
--->
   </td>
  </tr>
 </table>
@@ -240,13 +209,13 @@
     <div style="white-space: nowrap;">
    {% if user.username == request.user.username %}   
      {% if book.hidden %}
-       <form style="display: inline" action="." method="POST">
+       <form class="formvisibility" style="display: inline" action="." method="POST">
 	 <button>{% trans "Show to others" %}</button>
 	 <input type="hidden" name="book" value="{{book.url_title}}" />
 	 <input type="hidden" name="action" value="unhide" />
        </form>
      {% else %}
-       <form style="display: inline" action="." method="POST">
+       <form class="formvisibility"  style="display: inline" action="." method="POST">
 	 <button>{% trans "Hide from others" %}</button>
 	 <input type="hidden" name="book" value="{{book.url_title}}" />
 	 <input type="hidden" name="action" value="hide" />
@@ -259,14 +228,18 @@
 {% endfor %}
 </table>
 
+<span class="showtoothers template">{% trans "Show to others" %}</span>
+<span class="hidefromothers template">{% trans "Hide from others" %}</span>
+
 </div>
 
 
 <!-- settings -->
+{% if user.username == request.user.username %}
 <div id="tabs-2">
 
 </div>
-
+{% endif %}
 
 
 </div>
