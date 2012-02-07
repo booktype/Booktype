@@ -401,18 +401,17 @@ def edit_info(request, bookid, version=None):
                     
                 im = Image.open(fname)
                 im.thumbnail((240, 240), Image.NEAREST)
-                imageName = '%s.jpg' % fname
-                im.save(imageName)
-                
-                book.cover.save('%s.jpg' % book.url_title, File(file(imageName)))
+
+                im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.COVER_IMAGE_UPLOAD_DIR, book.id), "JPEG") 
+                book.cover = '%s%s.jpg' % (settings.COVER_IMAGE_UPLOAD_DIR, book.id)
             except:
-                pass
-                #  transaction.rollback()
+                transaction.rollback()
 
             os.unlink(fname)
 
-        book.save()
         try:
+            book.save()
+
             return render_to_response('reader/edit_info_redirect.html', {"request": request,
                                                                          "book": book})
         except:
