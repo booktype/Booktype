@@ -538,7 +538,7 @@ def view_profilethumbnail(request, profileid):
     if not u.get_profile().image:
         name = '%s%s' % (settings.SITE_STATIC_ROOT, '/images/anonymous.jpg')
     else:
-        name =  u.get_profile().image.name
+        name =  u.get_profile().image.path
 
     import Image
 

@@ -120,9 +120,7 @@ def book_cover(request, bookid, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    return static.serve(request, book.cover.name, '/')
-
-
+    return static.serve(request, book.cover.name, settings.MEDIA_ROOT)
 
 
 def draft_book(request, bookid, version=None):
@@ -408,7 +406,8 @@ def edit_info(request, bookid, version=None):
                 
                 book.cover.save('%s.jpg' % book.url_title, File(file(imageName)))
             except:
-                transaction.rollback()
+                pass
+                #  transaction.rollback()
 
             os.unlink(fname)
 
