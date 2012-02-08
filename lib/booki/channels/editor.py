@@ -3103,11 +3103,18 @@ def remote_publish_book2(request, message, bookid, version):
                        
 
     data = urllib.urlencode(args)
-
     req = urllib2.Request(OBJAVI_URL, data)
-    f = urllib2.urlopen(req)
 
-    ta = f.read()
+    try:
+        f = urllib2.urlopen(req)
+    except urllib2.URLError:
+        return {"status": False}
+
+    try:
+        ta = f.read()
+    except IOError:
+        return {"status": False}
+        
     lst = ta.split("\n")
     dta, dtas3 = "", ""
 
@@ -3117,4 +3124,4 @@ def remote_publish_book2(request, message, bookid, version):
         if len(lst) > 1:
             dtas3 = lst[1]
 
-    return {"dtaall": ta, "dta": dta, "dtas3": dtas3}
+    return {"status": True, "dtaall": ta, "dta": dta, "dtas3": dtas3}

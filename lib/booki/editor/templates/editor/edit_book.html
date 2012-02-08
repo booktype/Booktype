@@ -449,6 +449,13 @@ and work on previous versions once you create new one. Create new <i>major</i> v
             </div>
           </div>
 
+	  <div class="publisherror template"> 
+            <div class="alert-box error" style="padding: 10px">
+                 {% trans "Unknown error while trying to publish this book." %} 
+            </div>
+          </div>
+
+
           {% include "editor/edit_wizzards.html" %}  
 	</div>
 {% endif %}
