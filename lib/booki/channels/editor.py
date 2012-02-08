@@ -2802,8 +2802,17 @@ def remote_get_wizzard(request, message, bookid, version):
             pass
     except models.PublishWizzard.DoesNotExist:
         pass
+
+    import django.template.loader
+    from django.template import Context
+
+    # book, ebook, pdf, odt, lulu
+
+    c = Context({})
+    tmpl = django.template.loader.get_template('editor/wizzard_%s.html' % message['wizzard_type']) 
+    html = tmpl.render(c)
         
-    return {"status": True, "options": options}
+    return {"status": True, "options": options, "html": html}
 
 
 def remote_set_wizzard(request, message, bookid, version):
