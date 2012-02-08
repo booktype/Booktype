@@ -215,6 +215,8 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
                     info.save()
     zf.close()
 
+    return book
+
 
 
 
@@ -236,18 +238,20 @@ def importBookFromURL(user, bookURL, createTOC=False, **extraOptions):
 
     try:
         zf = StringIO(data)
-        importBookFromFile(user, zf, createTOC, **extraOptions)
+        book = importBookFromFile(user, zf, createTOC, **extraOptions)
         zf.close()
     except Exception, e:
         logWarning("couldn't make book from %r: %s" % (bookURL, e))
         logWarning(traceback.format_exc())
         raise
 
+    return book
+
 
 def importBookFromUrl2(user, baseurl, args, **extraOptions):
     args['mode'] = 'zip'
     url = baseurl + "?" + urlencode(args)
-    importBookFromURL(user, url, createTOC=True, **extraOptions)
+    return importBookFromURL(user, url, createTOC=True, **extraOptions)
 
 
 
