@@ -2978,8 +2978,10 @@ def remote_publish_book2(request, message, bookid, version):
 
     def _formatCSS(name, family, size, transform=None, weight=None):
         s  = "%s {\n" % name
-        s += "    font-family: %s;\n" % family
-        s += "    font-size: %spt;\n" % size
+        if family:
+            s += "    font-family: %s;\n" % family
+        if size:
+            s += "    font-size: %spt;\n" % size
         if transform:
             s += "    text-transform: %s;\n" % transform
         if weight:
