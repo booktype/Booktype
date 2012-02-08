@@ -954,17 +954,20 @@ def import_book(request, username):
             else:
                 base_url, source = importSources[importType]
 
-            common.importBookFromUrl2(user, base_url,
-                                      args=dict(source=source,
-                                                book=bookid),
-                                      **extraOptions
-                                      )
+            book = common.importBookFromUrl2(user, base_url,
+                                             args=dict(source=source,
+                                                       book=bookid),
+                                             **extraOptions
+                                             )
         except Exception:
             data['imported'] = False
             transaction.rollback()
         else:
             transaction.commit()
             data['imported'] = True
+
+            from django.core.urlresolvers import reverse
+            data['info_url'] = reverse('book_info', args=[book.url_title])
 
         try:
             return HttpResponse(json.dumps(data), "text/plain")
