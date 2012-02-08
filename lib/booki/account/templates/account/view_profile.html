@@ -34,7 +34,6 @@
 
         $("A[name=creategroup]").booksparkCreateGroup({"url": "{% url create_group user.username %}"});
 
-
 	// start Sputnik
 	jQuery.booki.network._transport.connect();
     });
@@ -70,7 +69,7 @@
   <br/>
   {{ user.first_name }}
   <p>
-
+  {{ user.get_profile.description }}
   </p>
   <p>
    {% if user.username != request.user.username %}
@@ -241,17 +240,17 @@
 <div id="tabs-settings">
 
  <iframe name="hidden_settings" style="border: 0px; width: 0px; height: 0px;"></iframe>
- <form method="post" action="{% url view_profile user.username %}"  target="hidden_settings" enctype="multipart/form-data" name="formsettings">
+ <form method="post" action="{% url save_settings user.username %}"  target="hidden_settings" enctype="multipart/form-data" name="formsettings">
     <p>Email</p>
-    <p><input type="text" name="email"/></p>
+    <p><input type="text" name="email" value="{{ user.email }}"/></p>
     <p>Full name</p>
-    <p><input type="text" name="fullname"/></p>
+    <p><input type="text" name="fullname" value="{{ user.first_name }}"/></p>
     <p>About yourself</p>
-    <p><textarea name="aboutyourself"></textarea></p>
+    <p><textarea name="aboutyourself">{{ user.get_profile.description }}</textarea></p>
     <p>Profile image</p>
     <p><input type="file" name="profile"/></p>
     <p>Notification filter</p>
-    <p><input type="text" name="notification"/></p>
+    <p><input type="text" name="notification" value="{{ user.get_profile.notification }}"/></p>
     <p><button>Save changes</button></p>
  </form>
 </div>

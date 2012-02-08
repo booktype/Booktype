@@ -397,6 +397,69 @@ def view_profile(request, username):
                                                             "books": books,
                                                             "groups": groups})
 
+@transaction.commit_manually
+def save_settings(request, username):
+    from django.contrib.auth.models import User
+    from booki.editor import models
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+
+    if request.user.username != username:
+        return HttpResponse("No, can't do!", "text/plain")
+
+    from django.core.files import File
+
+    profile = user.get_profile()
+
+    user.email      = request.POST.get('email' ,'')
+    user.first_name = request.POST.get('fullname', '')
+    user.save()
+
+    profile.description = request.POST.get('aboutyourself', '')
+
+    if request.FILES.has_key('profile'):
+        import tempfile
+        import os
+
+        # check this later
+        fh, fname = tempfile.mkstemp(suffix='', prefix='profile')
+        
+        f = open(fname, 'wb')
+        for chunk in request.FILES['profile'].chunks():
+            f.write(chunk)
+        f.close()
+            
+        import Image
+
+        try:
+            im = Image.open(fname)
+            im.thumbnail((120, 120), Image.NEAREST)
+            im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, user.username), 'JPEG')
+ 
+            profile.image = '%s%s.jpg' % (settings.PROFILE_IMAGE_UPLOAD_DIR, user.username)
+        except:
+            # handle this part in better way
+            pass
+
+        os.unlink(fname)
+        
+    profile.save()
+        
+    endpoint_config = get_endpoint_or_none("@"+user.username).get_config()
+    endpoint_config.notification_filter = request.POST.get('notification', '')
+    endpoint_config.save()
+    
+    try:
+        return HttpResponse("No, can't do!", "text/plain")
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()
+
+
 
 ## user settings
 
