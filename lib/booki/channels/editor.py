@@ -3052,9 +3052,9 @@ def remote_publish_book2(request, message, bookid, version):
 
     if publishMode == 'book' and message.get("publish_mode", "") == 'lulu':
         args['to_lulu'] = 'yes' 
+        args['lulu_user'] = message.get('lulu_user', '')
+        args['lulu_password'] = message.get('lulu_password', '')
 
-        _isSet('lulu_user')
-        _isSet('lulu_password')
         _isSet('lulu_title')
         _isSet('description')
         _isSet('authors')
