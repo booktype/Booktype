@@ -2943,25 +2943,12 @@ def remote_publish_book2(request, message, bookid, version):
                       'lulu': 'book',
                       'pdf': 'web'}
 
-    # conversion for licenses
-    licenses = {'PD': 'public domain',
-                'MIT': 'MIT',
-                'CC0': 'CC-BY',
-                'CC BY': 'CC-BY',
-                'CC BY-SA': 'CC-BY',
-                'CC BY-ND': 'CC BY',
-                'CC BY-NC': 'CC BY',
-                'CC BY-NC-SA': 'CC-BY',
-                'CC BY-NC-ND': 'CC-BY',
-                'GPL': 'GPL'
-        }
-
     publishMode = publishOptions[message.get("publish_mode", "epub")]
 
     destination = "nowhere"
 
     args = {'book': book.url_title.encode('utf8'),
-            'license': licenses.get(book.license.name, 'GPL'),
+            'license': book.license.name,
             'project': 'export',
             'mode': publishMode,
             'server': THIS_BOOKI_SERVER,
