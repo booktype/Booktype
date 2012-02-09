@@ -32,7 +32,7 @@ def checkBookAvailability(bookTitle):
     return False
 
 
-def createBook(user, bookTitle, status = "imported", bookURL = None):
+def createBook(user, bookTitle, status = "new", bookURL = None):
     """
     Creates book.
 
@@ -64,7 +64,7 @@ def createBook(user, bookTitle, status = "imported", bookURL = None):
     book.save()
 
     # put this in settings file
-    status_default = ["published", "not published", "imported"]
+    status_default = ["new", "needs content", "completed", "to be proofed"]
     n = len(status_default)
 
     for statusName in status_default:
@@ -73,7 +73,7 @@ def createBook(user, bookTitle, status = "imported", bookURL = None):
         n -= 1
 
     # not use "not published" but first in the list maybe, or just status
-    book.status = models.BookStatus.objects.get(book=book, name="not published")
+    book.status = models.BookStatus.objects.get(book=book, name="new")
     book.save()
     
     

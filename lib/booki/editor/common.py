@@ -111,7 +111,7 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
     else:
         bookURL = None
 
-    book = createBook(user, bookTitle, status = "imported", bookURL = bookURL)
+    book = createBook(user, bookTitle, status = "new", bookURL = bookURL)
 
     if extraOptions.get("hidden"):
         book.hidden = True
@@ -120,8 +120,8 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
     # this is for Table of Contents
     p = re.compile('\ssrc="(.*)"')
 
-    # what if it does not have status "imported"
-    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
+    # what if it does not have status "new"
+    stat = models.BookStatus.objects.filter(book=book, name="new")[0]
 
     chapters = getChaptersFromTOC(TOC)
     n = len(chapters) + 1 #is +1 necessary?
@@ -172,7 +172,7 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
                 c.save()
                 n -= 1
 
-    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
+    stat = models.BookStatus.objects.filter(book=book, name="new")[0]
 
     from django.core.files import File
 

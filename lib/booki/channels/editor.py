@@ -788,7 +788,7 @@ def remote_chapter_split(request, message, bookid, version):
     else:
         initialPosition = 0
 
-    s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
+    s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
 
     n = 0
     for chap in message["chapters"]:
@@ -881,7 +881,7 @@ def remote_create_chapter(request, message, bookid, version):
     url_title = bookiSlugify(message["chapter"])
 
     # here i should probably set it to default project status
-    s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
+    s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
 
     ch = models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title)
 
@@ -1027,7 +1027,7 @@ def remote_clone_chapter(request, message, bookid, version):
         url_title = source_url_title
 
     # here i should probably set it to default project status
-    s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
+    s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
 
     ch = models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title)
 
