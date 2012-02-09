@@ -2961,7 +2961,7 @@ def remote_publish_book2(request, message, bookid, version):
     destination = "nowhere"
 
     args = {'book': book.url_title.encode('utf8'),
-            'license': licenses.get(book.license.abbrevation, 'GPL'),
+            'license': licenses.get(book.license.name, 'GPL'),
             'project': 'export',
             'mode': publishMode,
             'server': THIS_BOOKI_SERVER,
