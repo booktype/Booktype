@@ -34,8 +34,8 @@ try:
     THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
     DEFAULT_PUBLISHER = settings.DEFAULT_PUBLISHER
 except AttributeError:
-    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'www.booki.cc')
-    DEFAULT_PUBLISHER = "FLOSS Manuals http://flossmanuals.net"
+    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
+    DEFAULT_PUBLISHER = "Undefined"
 
 
 class BookiError(Exception):

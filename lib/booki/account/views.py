@@ -436,7 +436,7 @@ def save_settings(request, username):
 
         try:
             im = Image.open(fname)
-            im.thumbnail((120, 120), Image.NEAREST)
+            im.thumbnail((100, 100), Image.NEAREST)
             im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, user.username), 'JPEG')
  
             profile.image = '%s%s.jpg' % (settings.PROFILE_IMAGE_UPLOAD_DIR, user.username)
