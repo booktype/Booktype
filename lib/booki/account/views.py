@@ -29,14 +29,14 @@ try:
     TWIKI_GATEWAY_URL = settings.TWIKI_GATEWAY_URL
 except AttributeError:
     # for backwards compatibility
-    ESPRI_URL = "http://objavi.flossmanuals.net/espri.cgi"
-    TWIKI_GATEWAY_URL = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
+    ESPRI_URL = "http://objavi.booki.cc/espri.cgi"
+    TWIKI_GATEWAY_URL = "http://objavi.booki.cc/booki-twiki-gateway.cgi"
     
 try:
     THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
 except AttributeError:
     import os
-    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'www.booki.cc')
+    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
 
     
 def view_accounts(request):

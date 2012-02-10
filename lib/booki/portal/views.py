@@ -16,13 +16,13 @@ BOOKI_URL = settings.BOOKI_URL
 try:
     OBJAVI_URL = settings.OBJAVI_URL
 except AttributeError:
-    OBJAVI_URL = "http://objavi.flossmanuals.net/objavi.cgi"
+    OBJAVI_URL = "http://objavi.booki.cc/objavi.cgi"
 
 try:
     THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
 except AttributeError:
     import os
-    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booki.flossmanuals.net')
+    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
 
 
 # debug
