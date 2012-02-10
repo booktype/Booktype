@@ -9,7 +9,7 @@
     $(function() {
     var groupsToJoin = [ {% for group in joingroups %}"{{ group.url_name }}",{% endfor %}''];
     
-    $("#formsignin").booksparkSignin({'url': '{% url signin %}'});
+    $("#formsignin").booksparkSignin({'url': '{% url signin %}', 'redirect': '{% request.GET.redirect %}'});
     $("#formregister").booksparkRegister({'url': '{% url signin %}', 'redirect': '{% url view_profile 'XXX' %}'});   
     });
 
