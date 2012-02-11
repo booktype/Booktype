@@ -167,3 +167,16 @@ def remote_hide_book(request, message, profileid):
     transaction.commit()
 
     return {"result": True}
+
+def remote_load_info(request, message, profileid):
+
+    user    = request.user
+    profile = request.user.get_profile()
+    
+    info = {'username': user.username,
+            'fullname': user.first_name,
+            'description': profile.description
+
+        }
+
+    return {"result": True, "info": info}

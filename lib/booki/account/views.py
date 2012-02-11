@@ -453,7 +453,7 @@ def save_settings(request, username):
     endpoint_config.save()
     
     try:
-        return HttpResponse("No, can't do!", "text/plain")
+        return HttpResponse('<html><head><script>var j = parent.jQuery; j(function() { j.booki.profile.reloadProfileInfo(); });</script></head></html>', 'text/html')
     except:
         transaction.rollback()
     finally:
