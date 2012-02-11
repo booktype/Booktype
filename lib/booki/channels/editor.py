@@ -1907,13 +1907,13 @@ def color_me(l, rgb, pos):
         if (t1 == t2) or (t1 > t2 and t2 != -1):
             out  = l[:pos[0]]
 
-            out += '<span style="background-color: yellow">'+color_me(l[pos[0]:pos[1]], rgb, None)+'</span>'
+            out += '<span class="diff changed">'+color_me(l[pos[0]:pos[1]], rgb, None)+'</span>'
             out += l[pos[1]:]
         else:
             out = l
         return out
 
-    out = '<span style="%s">' % rgb
+    out = '<span class="%s">' % rgb
 
     n = 0
     m = 0
@@ -1947,7 +1947,7 @@ def color_me(l, rgb, pos):
                         if n != 0:
                             out += '</span>'
 
-                        out += tag+'<span style="%s">' % rgb
+                        out += tag+'<span class="%s">' % rgb
                     else:
                         out += tag
 
@@ -2133,7 +2133,7 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
             else:
                 plus_pos = None
 
-            output_right +=  '<div style="background-color: orange;">'+color_me(line[2:], 'background-color: green;', plus_pos)+'</div>'
+            output_right +=  '<div class="diff changed">'+color_me(line[2:], 'diff added', plus_pos)+'</div>'
             output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
             output_left = output_right = '<td valign="top">'
         elif line[:2] == '- ':
@@ -2150,7 +2150,7 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
             output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
 
             output_left = output_right = '<td valign="top">'
-            output_left +=  '<div style="background-color: orange">'+color_me(line[2:], 'background-color: red;', minus_pos)+'</div>'
+            output_left +=  '<div class="diff changed">'+color_me(line[2:], 'diff deleted', minus_pos)+'</div>'
         elif line[:2] == '  ':
             if line[2:].strip() != '':
                 output_left  += line[2:]+'<br/><br/>'
@@ -2160,7 +2160,7 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
 
     output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
     
-    info = '''<div style="padding-bottom: 5px"><span style="width: 10px; height: 10px; background-color: orange; display: inline-block;"></span> Changed <span style="width: 10px; height: 10px; background-color: green; display: inline-block;"></span> Added <span style="width: 10px; height: 10px; background-color: red; display: inline-block;"></span> Deleted </div>'''
+    info = '''<div style="padding-bottom: 5px"><span class="diff changed" style="width: 10px; height: 10px; display: inline-block;"></span> Changed <span class="diff added" style="width: 10px; height: 10px; display: inline-block;"></span> Added <span class="diff deleted" style="width: 10px; height: 10px; display: inline-block;"></span> Deleted </div>'''
     
     return {"output": info+'<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: '+message["revision2"]+'</div></td></tr>\n'.join(output)+'</table>\n'}
 
