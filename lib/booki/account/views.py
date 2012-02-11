@@ -436,7 +436,7 @@ def save_settings(request, username):
 
         try:
             im = Image.open(fname)
-            im.thumbnail((100, 100), Image.NEAREST)
+            im.thumbnail((100, 100), Image.ANTIALIAS)
             im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, user.username), 'JPEG')
  
             profile.image = '%s%s.jpg' % (settings.PROFILE_IMAGE_UPLOAD_DIR, user.username)
@@ -492,7 +492,7 @@ def view_profilethumbnail(request, profileid):
     import Image
 
     image = Image.open(name)
-    image.thumbnail((int(request.GET.get('width', 24)), int(request.GET.get('width', 24))), Image.NEAREST)
+    image.thumbnail((int(request.GET.get('width', 24)), int(request.GET.get('width', 24))), Image.ANTIALIAS)
 
     # serialize to HTTP response
     response = HttpResponse(mimetype="image/jpg")
@@ -653,7 +653,7 @@ def create_book(request, username):
                     import Image
                     
                     im = Image.open(fname)
-                    im.thumbnail((240, 240), Image.NEAREST)
+                    im.thumbnail((240, 240), Image.ANTIALIAS)
                     imageName = '%s.jpg' % fname
                     im.save(imageName)
                     

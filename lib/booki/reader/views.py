@@ -400,7 +400,7 @@ def edit_info(request, bookid, version=None):
                 import Image
                     
                 im = Image.open(fname)
-                im.thumbnail((240, 240), Image.NEAREST)
+                im.thumbnail((240, 240), Image.ANTIALIAS)
 
                 im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.COVER_IMAGE_UPLOAD_DIR, book.id), "JPEG") 
                 book.cover = '%s%s.jpg' % (settings.COVER_IMAGE_UPLOAD_DIR, book.id)
