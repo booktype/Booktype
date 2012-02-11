@@ -880,13 +880,17 @@ def remote_create_chapter(request, message, bookid, version):
 
     url_title = bookiSlugify(message["chapter"])
 
+    if len(url_title) == 0:
+        return {"created": False, "silly_url": True}
+
+
     # here i should probably set it to default project status
     s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
 
     ch = models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title)
 
     if len(list(ch)) > 0:
-        return {"created": False}
+        return {"created": False, "silly_url": False}
 
     content = u'<h1>%s</h1>' % message["chapter"]
 
