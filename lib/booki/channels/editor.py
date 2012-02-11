@@ -3095,9 +3095,8 @@ def remote_publish_book2(request, message, bookid, version):
 
         if _getValue('custom_override') == 'on':
             _css = _getValue('additional_css') or ''
-            _css += _getValue('special_css') or ''
         else:
-            _css = _getValue('special_css') or ''
+            _css = ''
             _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
             _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
             _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
