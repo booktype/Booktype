@@ -174,13 +174,15 @@ def signin(request):
                     else:
                         transaction.commit()
 
-
         if request.POST.get("method", "") == "signin":
             user = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
 
             if user:
                 auth.login(request, user)
                 ret["result"] = 1
+
+                from django.core.urlresolvers import reverse
+                ret["redirect"] = reverse('view_profile', args=[user.username])
             else:
                 try:
                     usr = auth.models.User.objects.get(username=request.POST["username"])
@@ -193,8 +195,12 @@ def signin(request):
         transaction.commit()
         return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
 
-    redirect = request.GET.get('redirect', reverse('frontpage'))
+    from django.core.urlresolvers import reverse
+    redirect = request.GET.get('redirect', '')
 
+    if(redirect == reverse('frontpage')): 
+        redirect = ''
+    
     if request.GET.get('next', None):
         redirect = request.GET.get('next')
 
