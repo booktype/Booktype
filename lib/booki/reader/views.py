@@ -82,6 +82,10 @@ def book_info(request, bookid, version=None):
     book_history =  models.BookHistory.objects.filter(version = book_version).order_by("-modified")[:20]
 
     book_collaborators =  [e.values()[0] for e in models.BookHistory.objects.filter(version = book_version, kind = 2).values("user__username").distinct()]
+
+    from booki.utils import security
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+    isBookAdmin = bookSecurity.isAdmin()
     
     import sputnik
     channel_name = "/booki/book/%s/%s/" % (book.id, book_version.getVersion())
@@ -95,6 +99,7 @@ def book_info(request, bookid, version=None):
                                                         "book_history": book_history, 
                                                         "book_collaborators": book_collaborators,
                                                         "has_css": _customCSSExists(book.url_title),
+                                                        "is_book_admin": isBookAdmin,
                                                         "online_users": online_users,
                                                         "request": request})
 
