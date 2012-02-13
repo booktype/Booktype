@@ -192,10 +192,19 @@ def remote_load_info(request, message, profileid):
     description = escape(profile.description).replace('\r', '')
 
     lines = description.split('\n')
+
+    import django.template.loader
+    from django.template import Context
+
+    c = Context({"user": request.user})
+    tmpl = django.template.loader.get_template_from_string("{% load profile %}{% profile_image  user %}") 
+    html = tmpl.render(c)
+
     
     info = {'username': user.username,
             'fullname': user.first_name,
-            'description': '<br/>'.join(lines)
+            'description': '<br/>'.join(lines),
+            'image': html
         }
 
     return {"result": True, "info": info}
