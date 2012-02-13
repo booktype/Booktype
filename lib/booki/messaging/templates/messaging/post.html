@@ -1,13 +1,13 @@
 {% load i18n profile %}
 
-<div style="-moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; border: solid thin grey; width: 325px; padding: 5px; margin-bottom: 5px;" class="post{{post.id}}">
-<div style="float: left; padding-right: 5px; padding-bottom: 3px;">
+<div class="post-container post{{post.id}}">
+<div class="thumb">
 <a href="{% url view_profile post.sender.as_user.username %}"><img src="{% url view_profilethumbnail post.sender.as_user %}?width=48"></a>
 </div>
 <a href="{% url view_profile post.sender.as_user.username %}" class="sender">{{ post.sender }}</a>
-[<a href="{% url view_profile post.sender.as_user.username %}" onclick="$.bookiReply($('.post{{post.id}}')[0]);return false">send a reply</a>]
+<a class="action-button" href="{% url view_profile post.sender.as_user.username %}" onclick="$.bookiReply($('.post{{post.id}}')[0]);return false">send a reply</a>
 <br />
-<div style="padding-bottom: 5px">
+<div class="post-time">
 {{ post.timestamp|timesince }} {% trans "ago" %}
 </div>
 {{ post.content_as_html|safe }}
@@ -23,7 +23,7 @@
 {% if post.context_url %}
 [<a href="{{ post.context_url }}" class="context">{% trans "Context" %}</a>]
 {% endif %}
-<div style="border: dashed thin grey; width: 313px; padding: 5px; margin-bottom: 5px; margin-top: 5px; overflow: auto; max-height: 100px" class="snippet">
+<div class="snippet">
 {{ post.snippet|safe }}
 </div>
 {% endif %}

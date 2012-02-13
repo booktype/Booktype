@@ -1,17 +1,15 @@
-{% extends "base.html" %}
+{% extends "base_edit.html" %}
 {% load i18n %}
 
 {% block header %}
-
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/editor.css" rel="Stylesheet" />
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/editor.js"></script>
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.url.js"></script>
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.validate.js"></script>
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.form.js"></script>
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.form.wizard.js"></script>
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/bbq.js"></script>
-
-        <script type="text/javascript">
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/editor.js"></script> 
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.url.js"></script> 
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.validate.js"></script> 
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.form.js"></script> 
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.form.wizard.js"></script> 
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/bbq.js"></script> 
+<script type="text/javascript">
 	$(function() {
 	    /* booki part */
             /* this is temporary here */
@@ -52,34 +50,37 @@ function closeAttachmentUpload() {
 }
 
 
-                 </script>
-
+                 </script> 
 {% include "editor/edit_init.html" %}
-
 <style>
 
 .ui-button .ui-button-text { display: block; line-height: 0.6;  }
 
 .ui-button-text-only .ui-button-text { padding: 0.05em 0.05em; }
 
-/*
-.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text { padding: .1em; text-indent: -9999999px; }
-
-.ui-button-text-icon .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .1em 0.5em .1em 1.5em; }
-
-.ui-button-text-icons .ui-button-text { padding-left: 1.5em; padding-right: 1.5em; }
-*/
 
 </style>
+{% endblock %}
+
+{% block sidebar %} 
+
+<!-- chat box + drop shadow -->
+<div class="block shadow"> <span class="arrow-down"></span>
+  <h4 id="chattitle">{% trans "Chat" %}</h4>
+  <div id="chat"></div>
+</div>
+<div class="block shadow"> <span class="arrow-down"></span>
+  <h4>{% trans "Currently editing" %}</h4>
+  <ul id="users">
+  </ul>
+</div>
+<!-- end of chat box + drop shadow --> 
 
 {% endblock %}
 
 {% block content %}
-<div id="notify">
-  some notification. this should be on top of visible page and not top of page.
-</div>
+<div id="notify" class="alert-box info"> some notification. this should be on top of visible page and not top of page. </div>
 
-<div>
 <!--
 temporarily comment search box
 <div id="searchbox" style="float: right; padding-top: 5px">
@@ -88,740 +89,651 @@ temporarily comment search box
 </form>
 </div>
 -->
-<h1 style="margin-top: 0px"> <a href="{% url book_info book.url_title %}">{{ book }}</a> </h1>
-</div>
 
+<h2><a href="{% url book_info book.url_title %}">{{ book }}</a> </h2>
 <div id="tabs">
-	<ul>
-{% if "chapters" in tabs %}
-		<li><a href="#tabchapters">{% trans "Chapters" %}</a></li>
-{% endif %}
-
-{% if "attachments" in tabs %}
-		<li><a href="#tabattachments">{% trans "Attachments" %}</a></li>
-{% endif %}
-
-{% if "history" in tabs %}
-		<li><a href="#tabhistory">{% trans "History" %}</a></li>
-{% endif %}
-
-{% if "versions" in tabs %}
-		<li><a href="#tabversions">{% trans "Versions" %}</a></li>
-{% endif %}
-
-{% if "notes" in tabs %}
-		<li><a href="#tabnotes">{% trans "Notes" %}</a></li>
-{% endif %}
-
-{% if "settings" in tabs %}
-		<li><a href="#tabsettings">{% trans "Settings" %}</a></li>
-{% endif %}
-
-
-{% if "export" in tabs %}
-		<li><a href="#tabpublish">{% trans "Export" %}</a></li>
-{% endif %}
-
-	</ul>
-{% if "chapters" in tabs %}
-	<div id="tabchapters">
-	<!-- START Chapters TAB -->
-
-		<table border="0" width="100%">
-		<tr>
-		<td valign="top">
-		<div id="container">
-
-   	        {% if not is_browser_supported %}
-                  <div style="border-top: 2px solid red; border-bottom: 2px solid red; padding: 5px;">
-                    {% trans "We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding." %}
+  <ul>
+    {% if "chapters" in tabs %}
+    <li><a href="#tabchapters">{% trans "Chapters" %}</a></li>
+    {% endif %}
+    
+    {% if "attachments" in tabs %}
+    <li><a href="#tabattachments">{% trans "Images and Files" %}</a></li>
+    {% endif %}
+    
+    {% if "history" in tabs %}
+    <li><a href="#tabhistory">{% trans "History" %}</a></li>
+    {% endif %}
+    
+    {% if "versions" in tabs %}
+    <li><a href="#tabversions">{% trans "Versions" %}</a></li>
+    {% endif %}
+    
+    {% if "notes" in tabs %}
+    <li><a href="#tabnotes">{% trans "Notes" %}</a></li>
+    {% endif %}
+    
+    {% if "settings" in tabs %}
+    <li><a href="#tabsettings">{% trans "Settings" %}</a></li>
+    {% endif %}
+    
+    
+    {% if "export" in tabs %}
+    <li><a href="#tabpublish">{% trans "Publish" %}</a></li>
+    {% endif %}
+  </ul>
+  {% if "chapters" in tabs %}
+  <div id="tabchapters"> 
+    <!-- START Chapters TAB -->
+    
+    <table border="0" width="100%">
+      <tr>
+        <td valign="top"><div id="container"> {% if not is_browser_supported %}
+            <div style="border-top: 2px solid red; border-bottom: 2px solid red; padding: 5px;"> {% trans "We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding." %} </div>
+            {% endif %}
+            <h3>{% trans "Table of contents" %}</h3>
+            <div id="chapteraction"> <a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>{% trans "NEW CHAPTER" %}</a><a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'>{% trans "NEW SECTION" %}</a><a href="javascript:void(0)" onclick='$("#clonechapter").dialog("open")'>{% trans "IMPORT CHAPTER" %}</a> </div>
+            <div id="edit-info" class="alert-box info template" style="margin-bottom:10px;">{% blocktrans %}All books should contain at least one section and can have as many chapters as you like.{% endblocktrans %}</div>
+            
+            <ul id="chapterslist" class="connectedSortable">
+            </ul>
+            
+            <div id="chapteraction"> <a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>{% trans "NEW CHAPTER" %}</a><a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'>{% trans "NEW SECTION" %}</a><a href="javascript:void(0)" onclick='$("#clonechapter").dialog("open")'>{% trans "IMPORT CHAPTER" %}</a> </div>
+            <div id="newdiff" title="Chapter diff">
+              <div class="diffcontent"> </div>
+            </div>
+            <div id="newchapter" title="{% trans "New chapter" %}"> 
+              <!--  <p id="validateTips">Enter new chapter name.</p> -->
+              <form onsubmit="javascript:return false">
+                <fieldset>
+                  <input type="text" class="text ui-widget-content ui-corner-all">
+                </fieldset>
+              </form>
+            </div>
+            <div id="clonechapter" title="{% trans "Clone chapter" %}"> 
+              <!--  <p id="validateTips">Enter new chapter name.</p> -->
+              <form onsubmit="javascript:return false">
+                <fieldset>
+                  <input name="book" type="text" class="text ui-widget-content ui-corner-all">
+                  </br />
+                  <input name="chapter" type="text" class="text ui-widget-content ui-corner-all">
+                  <br />
+                  {% trans "New title (optional)" %}:<br />
+                  <input name="rename_title" type="text" class="text ui-widget-content ui-corner-all">
+                </fieldset>
+              </form>
+            </div>
+            <div id="newsection" title="{% trans "New section" %}"> 
+              <!--  <p id="validateTips">Enter new section name.</p> -->
+              <form onsubmit="return false">
+                <fieldset>
+                  <input type="text" class="text ui-widget-content ui-corner-all">
+                </fieldset>
+              </form>
+            </div>
+            
+            <!-- open attachment dialog -->
+            <div id="insertattachment" title="{% trans "Insert image" %}">
+              <div id="inserttabs">
+                <ul>
+                  <li><a href="#insertimages">{% trans "Images" %}</a></li>
+                  <li><a href="#insertupload">{% trans "Upload image" %}</a></li>
+                </ul>
+                <div id="insertimages">
+                  <div class="listing">
+                    <table border="0" width="100%">
+                      <tr>
+                        <td valign="top"><div  style="height: 250px; overflow: auto">
+                            <table border="0" width="90%" class="files">
+                            </table>
+                          </div></td>
+                        <td width="160" valign="top"><fieldset style="padding: 2px">
+                            <legend>{% trans "Preview" %}</legend>
+                            <div class="previewattachment"> </div>
+                          </fieldset></td>
+                      </tr>
+                    </table>
                   </div>
-                {% endif %}
-
-		<h2>{% trans "Table of contents" %}</h2>
-
-
-		<div id="chapteraction">
-		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>{% trans "NEW CHAPTER" %}</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'>{% trans "NEW SECTION" %}</a> | <a href="javascript:void(0)" onclick='$("#clonechapter").dialog("open")'>{% trans "IMPORT CHAPTER" %}</a>
-		</div>
-
-		<ul id="chapterslist" class="connectedSortable">
-		</ul>
-
-		<div style="font-size:9px;">{% trans "(drag new chapters into the area above here)" %}</div>
-
-		<div id="chapteraction">
-		<a href="javascript:void(0)" onclick='$("#newchapter").dialog("open")'>{% trans "NEW CHAPTER" %}</a> | <a href="javascript:void(0)" onclick='$("#newsection").dialog("open")'>{% trans "NEW SECTION" %}</a> | <a href="javascript:void(0)" onclick='$("#clonechapter").dialog("open")'>{% trans "IMPORT CHAPTER" %}</a>
-		</div>
-
-		<div id="newdiff" title="Chapter diff">
-		  <div class="diffcontent">
-		  </div>
-		</div>
-
-
-		<div id="newchapter" title="{% trans "New chapter" %}">
-		<!--  <p id="validateTips">Enter new chapter name.</p> -->  
-		  <form onsubmit="javascript:return false">
-		    <fieldset>
-		      <input type="text" class="text ui-widget-content ui-corner-all">
-		      </fieldset>
-		    </form>
-		</div>
-
-		<div id="clonechapter" title="{% trans "Clone chapter" %}">
-		<!--  <p id="validateTips">Enter new chapter name.</p> -->  
-		  <form onsubmit="javascript:return false">
-		    <fieldset>
-		      <input name="book" type="text" class="text ui-widget-content ui-corner-all"></br />
-		      <input name="chapter" type="text" class="text ui-widget-content ui-corner-all"><br />
-		      {% trans "New title (optional)" %}:<br />
-		      <input name="rename_title" type="text" class="text ui-widget-content ui-corner-all">
-		      </fieldset>
-		    </form>
-		</div>
-
-		<div id="newsection" title="{% trans "New section" %}">
-		<!--  <p id="validateTips">Enter new section name.</p> -->
-		  <form onsubmit="return false">
-		    <fieldset>
-		      <input type="text" class="text ui-widget-content ui-corner-all">
-		      </fieldset>
-		    </form>
-		</div>
-
-		<!-- open attachment dialog -->
-		<div id="insertattachment" title="{% trans "Insert image" %}">
-                   <div id="inserttabs">
-                       <ul>
-                         <li><a href="#insertimages">{% trans "Images" %}</a></li>
-                         <li><a href="#insertupload">{% trans "Upload image" %}</a></li>
-                      </ul>
-                      <div id="insertimages">
-		        <div class="listing">
-		          <table border="0" width="100%">
-    		            <tr>
-		              <td valign="top">
-		                <div  style="height: 250px; overflow: auto">
-			          <table border="0" width="90%" class="files">
-			          </table>
-		                </div>
-		              </td>
-		              <td width="160" valign="top">
-				<fieldset style="padding: 2px">
-                                 <legend>{% trans "Preview" %}</legend>
-			          <div class="previewattachment">
-  			          </div>
-                                </fieldset>
-		              </td>
-		            </tr>
-		          </table>
-		        </div>
-                      </div>
-
-                      <div id="insertupload">
-		        <div class="uploadform">
-		          <form method="POST" target="frameupload" action="../_upload/" enctype="multipart/form-data">
-		            <div class="uploadattachment" style="overflow: auto;">
-		            </div>
-		            <div class="uploadsubmit">
-		            </div>
-		          </form>
-
-		          <iframe width="0" height="0" name="frameupload" border="0" style="border: 0px"></iframe>
-	   	        </div>
-		      </div>
-
-		   </div>
-		</div>
-
-		<!-- close attachment dialog -->
-
-		<!-- start of edit attachment -->
-		<div id="editattachment" title="{% trans "Edit Image" %}">
-		  <div class="container">
-		    <fieldset style="float: right; width: 160px; height: 160px; border: 1px solid gray; margin-left: 10px;">
-		      <legend>{% trans "Preview" %}</legend>
-		      <span class="preview"></span>
-		    </fieldset>
-
-		    <fieldset>
-		      <legend>{% trans "Image" %}</legend>
-		      <table border="0">
-			<tr><td>{% trans "Image:" %}</td><td><input type="text" name="f_image" size="40"></td></tr>
-			<tr><td>{% trans "Alt:" %}</td><td><input type="text" name="f_alt" size="40"></td></tr>
-		      </table>
-		    </fieldset>
-
-		    <fieldset>
-		      <legend>{% trans "Positioning" %}</legend>
-		      <table border="0">
-			<tr><td>{% trans "Border:" %}</td><td><input type="text" name="f_border"></td></tr>
-			<tr><td>{% trans "Align:" %}</td><td><input type="text" name="f_align"></td></tr>
-			<tr><td>{% trans "Width:" %}</td><td><input type="text" name="f_width"></td></tr>
-			<tr><td>{% trans "Height:" %}</td><td><input type="text" name="f_height"></td></tr>
-		      </table>
-		    </fieldset>
-
-
-		    <fieldset>
-		      <legend>{% trans "Style" %}</legend>
-		      <table border="0" width="100%">
-			<tr><td>{% trans "CSS Class:" %}</td><td><input type="text" name="f_css"></td><td colspan="2"></tr>
-			<tr><td>{% trans "Padding:" %}</td><td><input type="text" name="f_padding"></td>
-			<td>{% trans "Margin:" %}</td><td><input type="text" name="f_margin"></td></tr>
-			<tr><td>{% trans "Background color:" %}</td><td><input type="text" name="f_bgcolor"></td>
-			<td>{% trans "Border color:" %}</td><td><input type="text" name="f_bordercolor"></td></tr>
-		      </table>
-		    </fieldset>
-
-
-		  </div>
-		</div>
-		<!-- end of edit attachment -->
-
-		<div class="middleinfo">
-		</div>
-
-		<h2>{% trans "Hold chapters" %}</h2>
-		<ul id="holdchapterslist" class="connectedSortable">
-		</ul>
-
-		</div>
-
-                <div id="editorcontainer">
                 </div>
-
-		<div id="spalatodialog" title="Split chapters">
-		  <p id="validateTips">{% trans "Seems like You have changed the structure of the chapters. What do you want to do?" %}</p>  
-		  <table border="0" width="100%">
-		    <tr>
-		     <td valign="top" width="200">
-		       {% trans "New chapters:" %}
-			<ul class="chapters" style="margin-left: 5px">
-
-			</ul>
-		     </td>
-		     <td width="1" bgcolor="#c0c0c0"></td>
-		     <td valign="top" class="content">
-
-		     </td>
-		    </tr>
-		  </table>
-		</div>
-
-
-		</td>
-		</tr>
-		</table>
-
-
-	</div>
-{% endif %}
-
-{% if "attachments" in tabs %}
-	<div id="tabattachments">
-          <h2>{% trans "Attachments" %}</h2>
-          <div id="attachmentscontainer">
-          </div>
-	  <div style="margin-top: 10px">
-   	    <a name="delete" href="javascript:void(0)">{% trans "Deleted selected items" %}</a>
-          </div>
-	  <h3>{% trans "Upload a new attachment" %}</h3>
-	  <form method="POST" target="frameupload2" action="../_upload/" enctype="multipart/form-data">
-	    <input type="file" name="entry0">
-	    <input type="hidden" name="attachmenttab" value="1"/>
-	    <input type="submit" value="{% trans "Upload" %}" />
-	  </form>
-          <iframe width="0" height="0" name="frameupload2" border="0" style="border: 0px"></iframe>
-
-          <div class="dialogs"></div>
-
-	</div>
-{% endif %}
-
-{% if "history" in tabs %}
-	<div id="tabhistory">
-	<!-- START history TAB -->
-          <div id="historycontainer">
-          </div>
-	</div>
-{% endif %}
-
-{% if "versions" in tabs %}
-       <div id="tabversions">
-{% if security.isAdmin or is_owner %}
-        <h3>{% trans "New version" %}</h3>
-         <div class="version">
-	   {% blocktrans %}With different versions you can easily organise your book. But be careful! Other users will not be able to edit
-and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them.
-	   {% endblocktrans %}
-           <p>
-             <a class="major" href="javascript:void(0)">{% trans "Create major version" %}</a>
-             <a class="minor" href="javascript:void(0)">{% trans "Create minor version" %}</a>
-           </p>
-         </div>
-
-
-	<div id="newversionmajor" title="{% trans "New version" %}">
-	  <form onsubmit="javascript:return false">
-<!--	    <fieldset> -->
-              {% trans "You can name this version (optional):" %}
-	      <input type="text" style="width: 100%" class="text ui-widget-content ui-corner-all"><br/>
-<i>{% trans "e.g. initial, dragon, test" %}</i><br/><br/>
-{% trans "Description (optional)" %}<br/>
-<textarea style="width: 100%; height: 150px"></textarea>
-<!--	      </fieldset> -->
-	    </form>
-	  </div>
-
-	<div id="newversionminor" title="{% trans "New version" %}">
-	  <form onsubmit="javascript:return false">
-<!--	    <fieldset> -->
-              {% trans "You can name this version (optional):" %}
-	      <input type="text" style="width: 100%" class="text ui-widget-content ui-corner-all"><br/>
-<i>{% trans "e.g. initial, dragon, test" %}</i><br/><br/>
-{% trans "Description (optional)" %}<br/>
-<textarea style="width: 100%; height: 150px"></textarea>
-<!--	      </fieldset> -->
-	    </form>
-	  </div>
-{% endif %}
-
-        <h3>{% trans "All versions" %}</h3>
-	<span class="list"></span>
-
-       </div>
-
-{% endif %}
-
-{% if "export" in tabs %}
-	<div id="tabpublish">
-	<!-- START publish TAB -->
-          <h1>{% trans "Export" %}</h1>
-          <p></p>
-
-         <div id="wizzardcontainer" style="position: absolute; display: none; z-index: 1000;">
-         </div>
-
-	 <form name="formexport" onsubmit="return false;">
-	 <table border="0" width="400">
-          <tr>
-           <td width="30"><input type="radio" name="publish" group="publishtype" value="book" checked="checked"></td><td>Book</td><td><a name="bookwizzard" onclick="return false">settings</a></td>
-          </tr>
-
-          <tr>
-           <td width="30"><input type="radio" name="publish" group="publishtype" value="pdf"></td><td>Screen formatted PDF</td><td><a name="pdfwizzard" onclick="return false">settings</a></td>
-          </tr>
-
-          <tr>
-           <td width="30"><input type="radio" name="publish" group="publishtype" value="ebook"></td><td>Ebook</td><td><a name="ebookwizzard" onclick="return false">settings</a></td>
-          </tr>
-
-          <tr>
-           <td width="30"><input type="radio" name="publish" group="publishtype" value="odt"></td><td>Open Document Text (.odt)</td><td><a name="odtwizzard" onclick="return false">settings</a></td>
-          </tr>
-
-          <tr>
-           <td width="30"><input type="radio" name="publish" group="publishtype" value="lulu"></td><td>Send to Lulu.com</td><td><a name="luluwizzard" onclick="return false">settings</a></td>
-          </tr>
-
-         </table>
-         </form>
-
-          <br/>
-           
-          <a name="exportbutton">Publish this book</a>
-
-	  <div class="info" style="padding-top: 20px">
-          </div>
-
-	  <div class="progress template"> 
-            <div class="alert-box" style="padding: 10px">
-              <img src="{{ request.META.SCRIPT_NAME }}/site_static/images/loading.gif"/>&nbsp;&nbsp;{% trans "Please wait. It will take couple of moments. Your book is being generated." %}
-           </div>
-          </div>
-
-
-	  <div class="downloadpublish template"> 
-            <div style="padding: 10px">
-                 {% trans "Your book has been generated at this url:" %} <span class="url"></span>
+                <div id="insertupload">
+                  <div class="uploadform">
+                    <form method="POST" target="frameupload" action="../_upload/" enctype="multipart/form-data">
+                      <div class="uploadattachment" style="overflow: auto;"> </div>
+                      <div class="uploadsubmit"> </div>
+                    </form>
+                    <iframe width="0" height="0" name="frameupload" border="0" style="border: 0px"></iframe>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-
-	  <div class="publisherror template"> 
-            <div class="alert-box error" style="padding: 10px">
-                 {% trans "Unknown error while trying to publish this book." %} 
+            
+            <!-- close attachment dialog --> 
+            
+            <!-- start of edit attachment -->
+            <div id="editattachment" title="{% trans "Edit Image" %}">
+              <div class="container">
+                <fieldset style="float: right; width: 160px; height: 160px; border: 1px solid gray; margin-left: 10px;">
+                  <legend>{% trans "Preview" %}</legend>
+                  <span class="preview"></span>
+                </fieldset>
+                <fieldset>
+                  <legend>{% trans "Image" %}</legend>
+                  <table border="0">
+                    <tr>
+                      <td>{% trans "Image:" %}</td>
+                      <td><input type="text" name="f_image" size="40"></td>
+                    </tr>
+                    <tr>
+                      <td>{% trans "Alt:" %}</td>
+                      <td><input type="text" name="f_alt" size="40"></td>
+                    </tr>
+                  </table>
+                </fieldset>
+                <fieldset>
+                  <legend>{% trans "Positioning" %}</legend>
+                  <table border="0">
+                    <tr>
+                      <td>{% trans "Border:" %}</td>
+                      <td><input type="text" name="f_border"></td>
+                    </tr>
+                    <tr>
+                      <td>{% trans "Align:" %}</td>
+                      <td><input type="text" name="f_align"></td>
+                    </tr>
+                    <tr>
+                      <td>{% trans "Width:" %}</td>
+                      <td><input type="text" name="f_width"></td>
+                    </tr>
+                    <tr>
+                      <td>{% trans "Height:" %}</td>
+                      <td><input type="text" name="f_height"></td>
+                    </tr>
+                  </table>
+                </fieldset>
+                <fieldset>
+                  <legend>{% trans "Style" %}</legend>
+                  <table border="0" width="100%">
+                    <tr>
+                      <td>{% trans "CSS Class:" %}</td>
+                      <td><input type="text" name="f_css"></td>
+                      <td colspan="2">
+                    </tr>
+                    <tr>
+                      <td>{% trans "Padding:" %}</td>
+                      <td><input type="text" name="f_padding"></td>
+                      <td>{% trans "Margin:" %}</td>
+                      <td><input type="text" name="f_margin"></td>
+                    </tr>
+                    <tr>
+                      <td>{% trans "Background color:" %}</td>
+                      <td><input type="text" name="f_bgcolor"></td>
+                      <td>{% trans "Border color:" %}</td>
+                      <td><input type="text" name="f_bordercolor"></td>
+                    </tr>
+                  </table>
+                </fieldset>
+              </div>
             </div>
+            <!-- end of edit attachment -->
+            
+            <div class="middleinfo"> </div>
+            <h3>{% trans "Hold chapters" %}</h3>
+            <ul id="holdchapterslist" class="connectedSortable">
+            </ul>
           </div>
-	</div>
-{% endif %}
-
-{% if "settings" in tabs %}
-	<div id="tabsettings">
-  	  <!-- START settings TAB -->
-  	  <h3>{% trans "Language" %}</h3>
-              <form name="formlanguages" action="javascript:void(0)" onsubmit="return false;">
-
-	  <table border="0">
-           <tr>
-            <td>
-              {% trans "This book is written in " %}
-            </td>
-            <td>
-                <select name="lang">
-                </select>
-              </td>
-              <td><a name="language">{% trans "Set new language" %}</a></td>
-            </tr>
-            <tr>
-             <td colspan="3">
-               <input type="checkbox" name="rtl">{% trans "Right to left text" %}<br>
-             </td>
-            </tr>
-           </table>
-               </form>
-
-  	  <h3>{% trans "License" %}</h3>
-	  <table border="0">
-           <tr>
-            <td>
-              {% trans "This book is licensed with:" %}
-            </td>
-            <td>
-              <form name="formlicences" action="javascript:void(0)" onsubmit="return false;">
-                <select name="licen">
-                </select>
-               </form>
-              </td>
-              <td><a name="license">{% trans "Set new license" %}</a></td>
-            </tr>
-            <tr>
-             <td colspan="3">
-               <a name="readlicense" href="javascript:void(0)" style="border-bottom: 1px dotted #c0c0c0">{% trans "Read full text of the license" %}</a>
-             </td>
-            </tr>
-           </table>
-
-	  <p><a name="attribution">{% trans "Manage copyright attribution." %}</a></p>
-
-	  <div class="copyrightAttribution template" title="{% trans "Manage Copyright Attribution" %}">
-            <p>{% blocktrans %}If you want to exclude some people from the copyright attribution...{% endblocktrans %}</p>
-           <form onsubmit="return false" action="javascript:void(0)">
-           <table border="0" width="100%">
-            <tr><td><b>Contributors</b></td><td></td><td><b>Excluded contributors</b></td></tr>
-            <tr>
-             <td width="40%" valign="top">
-   	       <select size="10" style="width: 100%; height: 90%" name="available">
-               </select>
-             </td>
-             <td width="10%" valign="center" align="center"><a class="button" name="add">&gt;&gt;</a><br><br><a class="button" name="remove">&lt;&lt;</a></td>
-             <td width="40%" valign="top">
-   	       <select size="10" style="width: 100%; height: 90%" name="excluded">
-               </select>
-             </td>
-            </tr>
-           </table>
-           </form>
+          <div id="editorcontainer"> </div>
+          <div id="editor" class="template">
+            <form method="GET" action="javascript: return void(0)">
+              <h3 class="title"></h3>
+              <div class="chapteredit">
+                <input type="hidden" name="chapter_id" value=""/>
+                <a name="save" href="javascript:void(0)">{% trans "Save" %}</a> <a name="savecontinue"  href="javascript:void(0)">{% trans "Save and continue editing" %}</a> <a name="view"  href="javascript:void(0)">{% trans "View chapter" %}</a> <a name="cancel"  href="javascript:void(0)">{% trans "Cancel" %}</a> </div>
+              <textarea name="myTextArea" id="myTextArea" style="width: 100%; height: 600px">
+                </textarea>
+              <fieldset class="plain author-comments">
+                <dl>
+                  <dt>
+                    <label>
+                      <input type="checkbox" name="minor">
+                      {% trans "Minor change, don't notify." %}</label>
+                  </dt>
+                  <dd>
+                    <input type="text" name="comment">
+                  </dd>
+                  <dt>
+                    <label>{% trans "Author:" %}</label>
+                  </dt>
+                  <dd>
+                    <input type="text" name="author">
+                  </dd>
+                  <dt>
+                    <label>{% trans "Author comment:" %}</label>
+                  </dt>
+                  <dd>
+                    <input type="text" name="authorcomment">
+                  </dd>
+                </dl>
+              </fieldset>
+            </form>
           </div>
-
-  	  <h3>{% trans "Roles" %}</h3>
-
-	  <a name="roles">{% trans "Manage roles" %}</a>
-
-	  <div class="rolesDialog template" title="{% trans "Manage Roles" %}">
-           <form onsubmit="return false" action="javascript:void(0)">
-           <table border="0" width="100%">
-            <tr>
-              <td valign="top"><b>Role:</b></td>
-              <td valign="top" colspan="2">
-                 <select style="width: 100%" name="listroles">
-                    <option value="0" selected="selected">{% trans "Select role" %}</option>
-                    <option value="1">{% trans "Administrator" %}</option>
-                    <option value="2">{% trans "Editor" %}</option>
-                 </select>
-              </td>
-            </tr>
-
-            <tr>
-              <td valign="top"><b>{% trans "New user:" %}</b></td>
-              <td valign="top"><input type="text" name="newuser" style="width: 400px"></td>
-	      <td><a name="adduser" style="width: 70%">{% trans "Add" %}</a></td>
-            </tr>
-
-            <tr>
-              <td valign="top"><b>{% trans "Role:" %}</b></td>
-              <td valign="top"><select size="10" style="width: 400px" name="users"></select></td>
-	      <td valign="top"><a style="width: 70%" name="removeuser">{% trans "Remove" %}</a></td>
-            </tr>
-           </table>
-           </form>
-          </div>
-
-  	  <h3>{% trans "Chapter status" %}</h3>
-	  <p>{% trans "Available statuses:" %} <span class="currentstatuses"></span> </p>
-	  <a name="chapterstatus">{% trans "Manage chapter status" %}</a>
-
-
-	  <h3>{% trans "Permissions and visibility" %}</h3>
-         
-	  <p> 
-           <form onsubmit="return false;">
-           <table border="0">
-            <tr>
-             <td valign="center">{% trans "This book can be edited by" %} </td>
-	     <td valign="cemter">
-          <select name="permissions">
-             <option value="0">anyone</option>
-             <option value="1">book owner</option>
-             <option value="2">admins</option>
-             <option value="3">admins and editors</option>       
-          </select>  
-             </td>
-             <td valign="center">
-                <a name="permissionbutton">{% trans "Set permissions" %}</a>
-             </td>
-            </tr>
+          <div id="spalatodialog" title="Split chapters">
+            <p id="validateTips">{% trans "Seems like You have changed the structure of the chapters. What do you want to do?" %}</p>
+            <table border="0" width="100%">
+              <tr>
+                <td valign="top" width="200"> {% trans "New chapters:" %}
+                  <ul class="chapters" style="margin-left: 5px">
+                  </ul></td>
+                <td width="1" bgcolor="#c0c0c0"></td>
+                <td valign="top" class="content"></td>
+              </tr>
             </table>
-           </form>
-         </p>  <!-- problems with this p -->
-
-          <p style="background-color: #f0f0f0; padding: 5px"><span class="ui-icon ui-icon-alert" style="float: left"></span>{% trans "This interface is still work in progress." %}</p>
-
-	  <div class="info">
-          </div>
-	</div>
-{% endif %}
-
-
-{% if "notes" in tabs %}
-	<div id="tabnotes">
-	<!-- START notes TAB -->
-	{% trans "Shared notes for this book" %}
-	<br/>
-	<form onsubmit="return false;" action="" method="">
-         <textarea name="notes" class="notes" rows="25" cols="65"></textarea>
-	<br/>
-	<button>{% trans "Save the notes" %}</button>
-	</form>	
-	<div class="info">
-
-          </div>
-
-
-	</div>
-{% endif %}
-
-</div>
-
-<!-- chat box + drop shadow -->
-<div class="chat shadow">
-
-                <h4 id="chattitle">{% trans "Chat" %}</h4>
-                        <div id="chat">                        </div> 
-                        <h4>{% trans "Currently editing" %}</h4>
-                         <ul id="users">
-                         </ul>
-
-</div>
-<!-- end of chat box + drop shadow -->
-
-<div class="template" id="editor">
-  <form method="GET" action="javascript: return void(0)">
-    <div class="title" style="font-size: 14px; font-weight: bold; padding-bottom: 5px; overflow: hidden; width: 610px;"></div>
-    
-    <div style="padding-bottom: 5px">
-      <input type="hidden" name="chapter_id" value=""/>
-      <A name="save" href="javascript:void(0)">{% trans "Save" %}</a>
-      <A name="savecontinue"  href="javascript:void(0)">{% trans "Save and continue editing" %}</a> 
-      
-      <A name="view"  href="javascript:void(0)">{% trans "View chapter" %}</a>
-      
-      <A name="cancel"  href="javascript:void(0)">{% trans "Cancel" %}</a>
-    </div>
-
-    <textarea name="myTextArea" id="myTextArea" style="width: 610px; height: 600px"></textarea>
-    
-    <div style="clear: left; margin-top: 5px">
-      <input type="checkbox" name="minor">{% trans "Minor change, don't notify." %}
-    </div>
-    
-    <div style="clear: left; margin-top: 5px">
-      <input type="text" name="comment" style="width: 500px;">
-    </div>
-    
-    <div style="clear: left; margin-top: 5px; color: #c0c0c0;">
-      {% trans "Author:" %} <input type="text" name="author" style="width: 300px;">
-    </div>
-    <div style="clear: left; margin-top: 5px; color: #c0c0c0;">
-      {% trans "Author comment:" %} <input type="text" name="authorcomment" style="width: 300px;">
-    </div>
-    
-    
-  </form>
+          </div></td>
+      </tr>
+    </table>
+  </div>
+  {% endif %}
   
-</div>
-
-
-<p class="joinMsg template">{% blocktrans %}<span class="icon">JOINED</span>  <span class="notice">notice</span>{% endblocktrans %}</p>
-
-<p class="infoMsg template">{% blocktrans %}<span class="info">INFO</span>  <span class="notice">notice</span>{% endblocktrans %}</p>
-
-<table class="historyTable template" width="100%"><tr><th>{% trans "action" %}</th><th></th><th>{% trans "user" %}</th><th>{% trans "time" %}</th></tr></table>
-
-<table class="template">
-<tr class="rowCreateRename template">
-<td class="entryKind" valign="top">entry.kind</td>
-<td valign="top"><a class="setChapterLink entryChapter" style="text-decoration: underline" href="javascript:void(0)">entry.chapter</a></td>
-<td class="entryUser" valign="top">entry.user</td>
-<td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
-<td></td>
-</tr>
-
-<tr class="rowSave template">
-<td class="entryKind" valign="top">entry.kind</td>
-<td valign="top"><a class="setChapterLink entryChapter" style="text-decoration: underline" href="javascript:void(0)">entry.chapter</a></td>
-<td class="entryUser" valign="top">entry.user</td>
-<td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
-<td></td>
-</tr>
-
-<tr class="rowVersion template">
-<td>{% trans "New version" %}</td>
-<td>{% blocktrans %}Switched to <span class="entryVersion">entry.version.version</span>{% endblocktrans %}</td>
-<td class="entryUser">entry.user</td>
-<td class="entryModified" style="white-space: nowrap">entry.modified</td>
-</tr>
-
-<tr class="rowAttachment template">
-<td>{% trans "Upload" %}</td>
-<td valign="top">{% blocktrans %}Uploaded <span class="entryFilename">entry.args.filename</span>.{% endblocktrans %}</td>
-<td class="entryUser">entry.user</td>
-<td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
-</tr>
-
-<tr class="rowAttachmentDelete template">
-<td>{% trans "Delete" %}</td>
-<td valign="top">{% blocktrans %}Deleted <span class="entryFilename">entry.args.filename</span>.{% endblocktrans %}</td>
-<td class="entryUser">entry.user</td>
-<td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
-</tr>
-
-
-<tr class="rowGeneric template">
-<td class="entryKind">entry.kind</td>
-<td></td>
-<td class="entryUser">entry.user</td>
-<td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
-</tr>
-
+  {% if "attachments" in tabs %}
+  <div id="tabattachments">
+    <h3>{% trans "Images and Files" %}</h3>
+    <p>{% blocktrans %}All images added to your book are listed here as well as any additional files you have uploaded.{% endblocktrans %}</p>
+    <div id="attachmentscontainer"> </div>
+    <div style="margin: 0px 0 20px;"> <a name="delete" href="javascript:void(0)">{% trans "Deleted selected items" %}</a> </div>
+    <h3>{% trans "Upload a new image or file" %}</h3>
+    <form method="POST" target="frameupload2" action="../_upload/" enctype="multipart/form-data">
+      <input type="file" name="entry0">
+      <input type="hidden" name="attachmenttab" value="1"/>
+      <input type="submit" value="{% trans "Upload" %}" />
+    </form>
+    <iframe width="0" height="0" name="frameupload2" border="0" style="border: 0px"></iframe>
+    <div class="dialogs"></div>
+  </div>
+  {% endif %}
+  
+  {% if "history" in tabs %}
+  <div id="tabhistory">
+    <h3>{% trans "History" %}</h3>
+    <p class="version"> {% blocktrans %}Here you can follow the edit history of your book.{% endblocktrans %} </p>
+    <!-- START history TAB -->
+    <div id="historycontainer"></div>
+  </div>
+  {% endif %}
+  
+  {% if "versions" in tabs %}
+  <div id="tabversions">
+    <h3>{% trans "Versions" %}</h3>
+    {% if security.isAdmin or is_owner %}
+    <p class="version"> {% blocktrans %}With different versions you can easily organise your book. But be careful! Other users will not be able to edit
+      and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them.{% endblocktrans %} </p>
+    <p class="version"> <a class="major" href="javascript:void(0)">{% trans "Create major version" %}</a> <a class="minor" href="javascript:void(0)">{% trans "Create minor version" %}</a> </p>
+    <div id="newversionmajor" title="{% trans "New version" %}">
+      <form onsubmit="javascript:return false">
+        <!--	    <fieldset> --> 
+        {% trans "You can name this version (optional):" %}
+        <input type="text" style="width: 100%" class="text ui-widget-content ui-corner-all">
+        <br/>
+        <i>{% trans "e.g. initial, dragon, test" %}</i><br/>
+        <br/>
+        {% trans "Description (optional)" %}<br/>
+        <textarea style="width: 100%; height: 150px"></textarea>
+        <!--	      </fieldset> -->
+      </form>
+    </div>
+    <div id="newversionminor" title="{% trans "New version" %}">
+      <form onsubmit="javascript:return false">
+        <!--	    <fieldset> --> 
+        {% trans "You can name this version (optional):" %}
+        <input type="text" style="width: 100%" class="text ui-widget-content ui-corner-all">
+        <br/>
+        <i>{% trans "e.g. initial, dragon, test" %}</i><br/>
+        <br/>
+        {% trans "Description (optional)" %}<br/>
+        <textarea style="width: 100%; height: 150px"></textarea>
+        <!--	      </fieldset> -->
+      </form>
+    </div>
+    {% endif %}
+    <h3>{% trans "All versions" %}</h3>
+    <div class="list list-container"></div>
+  </div>
+  {% endif %}
+  
+  {% if "export" in tabs %}
+  <div id="tabpublish"> 
+    <!-- START publish TAB -->
+    <h3>{% trans "Publish" %}</h3>
+    <p></p>
+    <div id="wizzardcontainer" style="position: absolute; display: none; z-index: 1000;"> </div>
+    <form name="formexport" onsubmit="return false;">
+      <table class="publish-table" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td><label><input type="radio" name="publish" group="publishtype" value="book" checked="checked">Book</label></td>
+          <td><a name="bookwizzard" onclick="return false">settings</a></td>
+        </tr>
+        <tr>
+          <td><label><input type="radio" name="publish" group="publishtype" value="ebook">Ebook</label></td>
+          <td><a name="ebookwizzard" onclick="return false">settings</a></td>
+        </tr>
+        <tr>
+          <td><label><input type="radio" name="publish" group="publishtype" value="lulu">Lulu.com</label></td>
+          <td><a name="luluwizzard" onclick="return false">settings</a></td>
+        </tr>
+        <tr>
+          <td><label><input type="radio" name="publish" group="publishtype" value="pdf">Screen PDF</label></td>
+          <td><a name="pdfwizzard" onclick="return false">settings</a></td>
+        </tr>
+        <tr>
+          <td><label><input type="radio" name="publish" group="publishtype" value="odt">Open Document Text</label></td>
+          <td><a name="odtwizzard" onclick="return false">settings</a></td>
+        </tr>
+      </table>
+    </form>
+    <br/>
+    <a name="exportbutton">Publish this book</a>
+    <div class="info" style="padding-top: 20px"> </div>
+    <div class="progress template">
+      <div class="alert-box" style="padding: 10px"> <img src="{{ request.META.SCRIPT_NAME }}/site_static/images/loading.gif"/>&nbsp;&nbsp;{% trans "Please wait. It will take couple of moments. Your book is being generated." %} </div>
+    </div>
+    <div class="downloadpublish template">
+      <div style="padding: 10px"> {% trans "Your book has been generated at this url:" %} <span class="url"></span> </div>
+    </div>
+    <div class="publisherror template">
+      <div class="alert-box error" style="padding: 10px"> {% trans "Unknown error while trying to publish this book." %} </div>
+    </div>
+  </div>
+  {% endif %}
+  
+  {% if "settings" in tabs %}
+  <div id="tabsettings">
+    <h3>{% trans "Settings" %}</h3>
+    <p>{% blocktrans %}Manage the settings of your book.{% endblocktrans %}</p>
+    <!-- START settings TAB -->
+    
+    <form name="formlanguages" action="javascript:void(0)" onsubmit="return false;">
+      <fieldset>
+        <legend>{% trans "Language" %}</legend>
+        <dl>
+          <dt>
+            <label>{% trans "This book is written in: " %}</label>
+          </dt>
+          <dd>
+            <select name="lang">
+            </select>
+            <a name="language">{% trans "Set new language" %}</a></dd>
+          <dd>
+            <label>
+              <input type="checkbox" name="rtl">
+              {% trans "Right to left text" %}</label>
+          </dd>
+        </dl>
+      </fieldset>
+    </form>
+    <form name="formlicences" action="javascript:void(0)" onsubmit="return false;">
+      <fieldset>
+        <legend>{% trans "License" %}</legend>
+        <dl>
+          <dt>
+            <label>{% trans "This book is licensed with:" %}</label>
+          </dt>
+          <dd>
+            <select name="licen">
+            </select>
+            <a name="license">{% trans "Set new license" %}</a></dd>
+          <dd></dd>
+          <dd><a name="readlicense" href="javascript:void(0)">{% trans "Read full text of the license" %}</a></dd>
+          <dd><a name="attribution">{% trans "Manage copyright attribution" %}</a></dd>
+        </dl>
+      </fieldset>
+    </form>
+    <div class="copyrightAttribution template" title="{% trans "Manage Copyright Attribution" %}">
+      <p>{% blocktrans %}If you want to exclude some people from the copyright attribution...{% endblocktrans %}</p>
+      <form onsubmit="return false" action="javascript:void(0)">
+        <table border="0" width="100%">
+          <tr>
+            <td><b>Contributors</b></td>
+            <td>&nbsp;</td>
+            <td><b>Excluded contributors</b></td>
+          </tr>
+          <tr>
+            <td width="40%" valign="top"><select size="10" style="width: 100%; height: 90%" name="available">
+              </select></td>
+            <td width="10%" valign="center" align="center"><a class="button" name="add">&gt;&gt;</a><br>
+              <br>
+              <a class="button" name="remove">&lt;&lt;</a></td>
+            <td width="40%" valign="top"><select size="10" style="width: 100%; height: 90%" name="excluded">
+              </select></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <fieldset>
+      <legend>{% trans "Roles" %}</legend>
+      <dl>
+        <dt style="display:none;"></dt>
+        <dd><a name="roles">{% trans "Manage roles" %}</a></dd>
+      </dl>
+    </fieldset>
+    <div class="rolesDialog template" title="{% trans "Manage Roles" %}">
+      <form onsubmit="return false" action="javascript:void(0)">
+        <dl>
+          <dt>
+            <label>Role:</label>
+          </dt>
+          <dd>
+            <select style="width: 99%"" name="listroles">
+              <option value="0" selected="selected">{% trans "Select role" %}</option>
+              <option value="1">{% trans "Administrator" %}</option>
+              <option value="2">{% trans "Editor" %}</option>
+            </select>
+          </dd>
+          <dt>
+            <label>{% trans "New user:" %}</label>
+          </dt>
+          <dd>
+            <input type="text" name="newuser" style="width: 400px; margin-right:10px;">
+            <a name="adduser" style="width:70px;">{% trans "Add" %}</a></dd>
+          <dt>
+            <label>{% trans "Role:" %}</label>
+          </dt>
+          <dd>
+            <select size="10" style="width: 400px; float:left; margin-right:10px;" name="users">
+            </select>
+            <a name="removeuser" style="width:70px;">{% trans "Remove" %}</a></dd>
+        </dl>
+      </form>
+    </div>
+    <fieldset>
+      <legend>{% trans "Chapter status" %}</legend>
+      <dl>
+        <dt>
+          <p>{% trans "Available statuses:" %} <span class="currentstatuses"></span></p>
+        </dt>
+        <dd><a name="chapterstatus">{% trans "Manage chapter status" %}</a></dd>
+      </dl>
+    </fieldset>
+    <form onsubmit="return false;">
+      <fieldset>
+        <legend>{% trans "Permissions and visibility" %}</legend>
+        <dl>
+          <dt>
+            <label>{% trans "This book can be edited by:" %}</label>
+          </dt>
+          <dd>
+            <select name="permissions">
+              <option value="0">anyone</option>
+              <option value="1">book owner</option>
+              <option value="2">admins</option>
+              <option value="3">admins and editors</option>
+            </select>
+            <a name="permissionbutton">{% trans "Set permissions" %}</a> </dd>
+        </dl>
+      </fieldset>
+    </form>
+    <p class="alert-box"><span class="ui-icon ui-icon-alert" style="float: left"></span>{% trans "This interface is still work in progress." %}</p>
+    <div class="info"> </div>
+  </div>
+  {% endif %}
+  
+  
+  {% if "notes" in tabs %}
+  <div id="tabnotes">
+    <h3>{% trans "Notes" %}</h3>
+    <!-- START notes TAB -->
+    <p> {% trans "Shared notes for this book" %} </p>
+    <form onsubmit="return false;" action="" method="">
+      <textarea border="0" name="notes" class="notes" rows="20" cols="65" style="width:100%; margin-bottom:12px;"></textarea>
+      <button>{% trans "Save the notes" %}</button>
+    </form>
+    <div class="info"> </div>
+  </div>
+  {% endif %} </div>
+<p class="joinMsg template">{% blocktrans %}<span class="icon">JOINED</span> <span class="notice">notice</span>{% endblocktrans %}</p>
+<p class="infoMsg template">{% blocktrans %}<span class="info">INFO</span> <span class="notice">notice</span>{% endblocktrans %}</p>
+<table class="historyTable template" width="100%">
+  <tr>
+    <th>{% trans "action" %}</th>
+    <th></th>
+    <th>{% trans "user" %}</th>
+    <th>{% trans "time" %}</th>
+  </tr>
 </table>
-
-
+<table class="template">
+  <tr class="rowCreateRename template">
+    <td class="entryKind" valign="top">entry.kind</td>
+    <td valign="top"><a class="setChapterLink entryChapter" style="text-decoration: underline" href="javascript:void(0)">entry.chapter</a></td>
+    <td class="entryUser" valign="top">entry.user</td>
+    <td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+    <td></td>
+  </tr>
+  <tr class="rowSave template">
+    <td class="entryKind" valign="top">entry.kind</td>
+    <td valign="top"><a class="setChapterLink entryChapter" style="text-decoration: underline" href="javascript:void(0)">entry.chapter</a></td>
+    <td class="entryUser" valign="top">entry.user</td>
+    <td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+    <td></td>
+  </tr>
+  <tr class="rowVersion template">
+    <td>{% trans "New version" %}</td>
+    <td>{% blocktrans %}Switched to <span class="entryVersion">entry.version.version</span>{% endblocktrans %}</td>
+    <td class="entryUser">entry.user</td>
+    <td class="entryModified" style="white-space: nowrap">entry.modified</td>
+  </tr>
+  <tr class="rowAttachment template">
+    <td>{% trans "Upload" %}</td>
+    <td valign="top">{% blocktrans %}Uploaded <span class="entryFilename">entry.args.filename</span>.{% endblocktrans %}</td>
+    <td class="entryUser">entry.user</td>
+    <td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+  </tr>
+  <tr class="rowAttachmentDelete template">
+    <td>{% trans "Delete" %}</td>
+    <td valign="top">{% blocktrans %}Deleted <span class="entryFilename">entry.args.filename</span>.{% endblocktrans %}</td>
+    <td class="entryUser">entry.user</td>
+    <td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+  </tr>
+  <tr class="rowGeneric template">
+    <td class="entryKind">entry.kind</td>
+    <td></td>
+    <td class="entryUser">entry.user</td>
+    <td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+  </tr>
+</table>
 <ul class="eventKind template">
-<li id="unknown">{% trans "Unknown" %}</li>
-<li id="create">{% trans "Create" %}</li>
-<li id="save">{% trans "Save" %}</li>
-<li id="rename">{% trans "Rename" %}</li>
-<li id="reorder">{% trans "Reorder" %}</li>
-<li id="split">{% trans "Split" %}</li>
-<li id="section_create">{% trans "Section create" %}</li>
-<li id="book_create">{% trans "Book create" %}</li>
-<li id="minor">{% trans "Minor" %}</li>
-<li id="major">{% trans "Major" %}</li>
-<li id="attachment">{% trans "Attachment" %}</li>
+  <li id="unknown">{% trans "Unknown" %}</li>
+  <li id="create">{% trans "Create" %}</li>
+  <li id="save">{% trans "Save" %}</li>
+  <li id="rename">{% trans "Rename" %}</li>
+  <li id="reorder">{% trans "Reorder" %}</li>
+  <li id="split">{% trans "Split" %}</li>
+  <li id="section_create">{% trans "Section create" %}</li>
+  <li id="book_create">{% trans "Book create" %}</li>
+  <li id="minor">{% trans "Minor" %}</li>
+  <li id="major">{% trans "Major" %}</li>
+  <li id="attachment">{% trans "Attachment" %}</li>
 </ul>
-
 <ul class="bookStatuses template">
-{% for s0, s1 in statuses %}
- <li id="{{s0}}">{% trans s1 %}</li>
-{% endfor %}
+  {% for s0, s1 in statuses %}
+  <li id="{{s0}}">{% trans s1 %}</li>
+  {% endfor %}
 </ul>
-
 {% include "editor/edit_strings.html" %}
-
 <ul class="template">
-<li class="sectionLine template ui-state-default" style="background-color: #a0a0a0; color: white; background-image: none"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont">
-  <table border="0" cellspacing="0" cellpadding="0" width="100%"><tr>
-    <td width="70%"><div class="title" style="float: left">name</div></td>
-    <td width="10%">
-    <td width="20%"><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td>
-  </tr></table>
-</div></li>
-
-<li class="chapterLine template ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="cont">
-  <table border="0" cellspacing="0" cellpadding="0" width="100%">
+<li class="sectionLine template ui-state-default"><span class="drag-handle"></span>
+  <div class="cont">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+      <tr>
+        <td width="70%"><div class="title">name</div></td>
+        <td width="15%">
+        <td width="15%"><div class="extra"></div></td>
+      </tr>
+    </table>
+  </div>
+</li>
+<li class="chapterLine template ui-state-default"><span class="drag-handle"></span>
+  <div class="cont">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+      <tr>
+        <td width="70%"><div class="title">name</div></td>
+        <td width="15%" class="edit"><div class="chapterLinks"><a class="editLink" href="javascript:void(0)">{% trans "EDIT" %}</a> <a class="viewLink" href="javascript:void(0)">{% trans "VIEW" %}</a></div>
+          <div class="lock" style="display: none;"><a name="unlockLink" class="lockUser" style="color: white" href="javascript:void(0)">v</a></div></td>
+        <td width="15%"><div class="status"><a class="statusLink statusName" href="javascript:void(0)">status</a></div>
+          <div class="extra"></div></td>
+      </tr>
+    </table>
+  </div>
+</li>
+<div class="historyDisplay template"> <a href="javascript:void(0)" class="backLink">&lt;&lt; {% trans "back to history index" %}</a> &nbsp;&nbsp;&nbsp; <a class="button compareLink" href="javascript:void(0)">{% trans "Compare revisions" %}</a> &nbsp;&nbsp;&nbsp;
+  <h3 class="chapterName">chapterName</h3>
+  <table class="chapterHistoryTable" width="100%">
     <tr>
-      <td width="70%"><div class="title" style="float: left">name</div></td>
-      <td width="10%" class="edit">
-        <div class="chapterLinks"><a class="editLink" href="javascript:void(0)" style="font-size: 12px">{% trans "EDIT" %}</a> <a class="viewLink" href="javascript:void(0)" style="font-size: 12px">{% trans "VIEW" %}</a></div>
-        <div class="lock" style="display: none; font-size: 10px; padding: 3px; background-color: red; color: white"><a name="unlockLink" class="lockUser" style="color: white" href="javascript:void(0)">v</a></div>
-      </td>
-      <td width="20%"><div class="status" style="float:right; font-size: 6pt"><a class="statusLink statusName" href="javascript:void(0)">status</a></div><div class="extra" style="float: right; font-size: 6pt; clear: right"></div></td>
+      <th>{% trans "compare" %}</th>
+      <th>{% trans "revision" %}</th>
+      <th>{% trans "user" %}</th>
+      <th>{% trans "time" %}</th>
+      <th>{% trans "comment" %}</th>
     </tr>
   </table>
-</div></li>
-
-<div class="historyDisplay template">
-<a href="javascript:void(0)" class="backLink">&lt;&lt; {% trans "back to history index" %}</a>
-&nbsp;&nbsp;&nbsp;
-<a class="button compareLink" href="javascript:void(0)">{% trans "Compare revisions" %}</a>
-&nbsp;&nbsp;&nbsp;
-<h3 class="chapterName">chapterName</h3>
-<table class="chapterHistoryTable" width="100%">
-  <tr>
-    <th>{% trans "compare" %}</th><th>{% trans "revision" %}</th><th>{% trans "user" %}</th><th>{% trans "time" %}</th><th>{% trans "comment" %}</th>
-  </tr>
-</table>
 </div>
-
 <table class="attachmentsTable template" border="0" width="100%">
   <tr>
-    <td width="30"></td><td><b>{% trans "name" %}</b></td><td><b>{% trans "dimension" %}</b></td><td><b>{% trans "size" %}</b></td><td><b>{% trans "created" %}</b></td>
+    <td width="30"></td>
+    <td><b>{% trans "name" %}</b></td>
+    <td><b>{% trans "dimension" %}</b></td>
+    <td><b>{% trans "size" %}</b></td>
+    <td><b>{% trans "created" %}</b></td>
   </tr>
 </table>
-
-
-<div class="revisionDisplay template">			
-<a class="backLink" href="javascript:void(0)">&lt;&lt; {% trans "back to chapter history" %}</a>
-<span class="buttonset" style="padding-left: 10px"><input checked="checked" type="radio" id="radio1" name="radio" /><label for="radio1">{% trans "Normal view" %}</label><input type="radio" id="radio2" name="radio"  /><label for="radio2">{% trans "Source view" %}</label></span>
-<a class="revertLink button" href="javascript:void(0)">{% trans "Revert to this revision" %}</a>
-
-<p class="err-no-revision">{% trans "No such revision." %}</p>
-<div class="revision-info">
-  <h3 class="chapterName">chapterName</h3>
-  <p>{% trans "User:" %} <span class="dataUser">data.user</span><br/>
-     {% trans "Modified:" %} <span class="dataModified">data.modified</span><br/>
-     {% trans "Version:" %} <span class="dataVersion">data.version</span><br/>
-     {% trans "Revision:" %} <span class="dataRevision">data.revision</span><br/>
-     <span class="revisionComment">{% trans "Comment" %}: <span class="dataComment">data.comment</span><br/></span>
-  </p>
-  <span class="cont"></span>
-  <span class="previousLinkDisplay"><a class="previousLink" href="javascript:void(0)">&lt;&lt; {% trans "previous" %}</a>&nbsp;&nbsp;&nbsp;</span>
-  <a class="nextLink" href="javascript:void(0)">{% trans "next" %} &gt;&gt;</a>
-  <br/><br/>
-  <div id="chapterrevision" class="dataContent" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0"></div>
+<div class="revisionDisplay template"> <a class="backLink" href="javascript:void(0)">&lt;&lt; {% trans "back to chapter history" %}</a> <span class="buttonset" style="padding-left: 10px">
+  <input checked="checked" type="radio" id="radio1" name="radio" />
+  <label for="radio1">{% trans "Normal view" %}</label>
+  <input type="radio" id="radio2" name="radio"  />
+  <label for="radio2">{% trans "Source view" %}</label>
+  </span> <a class="revertLink button" href="javascript:void(0)">{% trans "Revert to this revision" %}</a>
+  <p class="err-no-revision">{% trans "No such revision." %}</p>
+  <div class="revision-info">
+    <h3 class="chapterName">chapterName</h3>
+    <p>{% trans "User:" %} <span class="dataUser">data.user</span><br/>
+      {% trans "Modified:" %} <span class="dataModified">data.modified</span><br/>
+      {% trans "Version:" %} <span class="dataVersion">data.version</span><br/>
+      {% trans "Revision:" %} <span class="dataRevision">data.revision</span><br/>
+      <span class="revisionComment">{% trans "Comment" %}: <span class="dataComment">data.comment</span><br/>
+      </span> </p>
+    <span class="cont"></span> <span class="previousLinkDisplay"><a class="previousLink" href="javascript:void(0)">&lt;&lt; {% trans "previous" %}</a>&nbsp;&nbsp;&nbsp;</span> <a class="nextLink" href="javascript:void(0)">{% trans "next" %} &gt;&gt;</a> <br/>
+    <br/>
+    <div id="chapterrevision" class="dataContent" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0"></div>
+  </div>
 </div>
+<div class="diffDisplay template"> <a class="backLink" href="javascript:void(0)">&lt;&lt; {% trans "back to chapter history" %}</a> <a href="javascript:void(0)" href="javascript:void(0)" name="side">{% trans "Show side by side" %}</a>
+  <h3>{% blocktrans %}Compare revision <span class="revision1Name">revision1</span> with revision <span class="revision2Name">revision2</span>{% endblocktrans %}</h3>
+  <div id="chapterdigg" class="dataOutput" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0; font-size: 8pt"></div>
+  <!-- <pre id="chapterdigg" class="dataOutput" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0; font-size: 8pt"></pre> --> 
 </div>
-
-<div class="diffDisplay template">
-<a class="backLink" href="javascript:void(0)">&lt;&lt; {% trans "back to chapter history" %}</a>
-<a href="javascript:void(0)" href="javascript:void(0)" name="side">{% trans "Show side by side" %}</a>
-
-<h3>{% blocktrans %}Compare revision <span class="revision1Name">revision1</span> with revision <span class="revision2Name">revision2</span>{% endblocktrans %}</h3>
-<div id="chapterdigg" class="dataOutput" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0; font-size: 8pt"></div>
-<!-- <pre id="chapterdigg" class="dataOutput" style="padding: 5px; border: 1px solid black; background-color: #f0f0f0; font-size: 8pt"></pre> -->
-</div>
-
 <div class="statusChapterDialog template" title="{% trans "Chapter status" %}">
   <p>{% trans "Select new chapter status:" %}</p>
   <form>
     <ul style="padding-left: 10px">
-
     </ul>
   </form>
 </div>
-
 <style>
   #sortablestatus { list-style-type: none; margin: 0; padding: 0;  }
   #sortablestatus li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
@@ -829,24 +741,19 @@ and work on previous versions once you create new one. Create new <i>major</i> v
   #sortablestatus .ajkon { position: absolute; margin-left: -1.3em; }
 
 </style>
-
 <div class="statusChapterSettingsDialog template" title="{% trans "Chapter statuses" %}">
   <p></p>
   <form onsubmit="return false;">
     <table border="0">
-     <tr>
-      <td valign="top"><b>{% trans "New status:" %}</b></td>
-      <td valign="top" width="350" align="right"><input name="newstatus" type="text" style="width: 400px;"/></td>
-      <td valign="top"> <a style="float: right;" name="newstatus">Add</a></td>
-     </tr>
+      <tr>
+        <td valign="top"><b>{% trans "New status:" %}</b></td>
+        <td valign="top" width="350" align="right"><input name="newstatus" type="text" style="width: 400px;"/></td>
+        <td valign="top"><a style="float: right;" name="newstatus">Add</a></td>
+      </tr>
     </table>
-
     <p><b>{% trans "Chapter statuses:" %}</b></p>
     <ul style="padding-left: 0px" id="sortablestatus">
-
     </ul>
   </form>
 </div>
-
-
-{% endblock %}
+{% endblock %} 

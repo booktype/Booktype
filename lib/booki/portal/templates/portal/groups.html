@@ -8,12 +8,12 @@
 {% block content %}
 
 	<!-- GROUPS LISTING -->
-	<div>
-	<h2 style="border-bottom: 1px dotted gray" >{% trans "Groups" %}</h2>
+    <div id="intro">
+	<h2>{% trans "Groups" %}</h2>
 
-	<ul>
+	<ul class="simple-list solo">
 	{% for group in groups.object_list %}
-	   <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a></li>
+	   <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a><span class="group-description">&nbsp;&nbsp;&#8211;&nbsp;&nbsp;{{ group.description }}</span></li>
 	{% endfor %}
 	</ul>
 

@@ -3,13 +3,13 @@
 {% load i18n profile %}
 
 {% block header %}
-  <title>{% trans "Booki Sign In" %}</title>
+  <title>{% trans "Booktype Sign In" %}</title>
 
   <script type="text/javascript">
     $(function() {
     var groupsToJoin = [ {% for group in joingroups %}"{{ group.url_name }}",{% endfor %}''];
     
-    $("#formsignin").booksparkSignin({'url': '{% url signin %}', 'redirect': '{% request.GET.redirect %}'});
+    $("#formsignin").booksparkSignin({'url': '{% url signin %}', 'redirect': '{{ redirect|escapejs }}'});
     $("#formregister").booksparkRegister({'url': '{% url signin %}', 'redirect': '{% url view_profile 'XXX' %}'});   
     });
 
@@ -19,57 +19,55 @@
 {% endblock %}
 
 {% block content %}
-
+<div class="padded">
 <div id="signincontainer">
 <!-- SIGNIN FORM -->
 <div id="signin_form" style="float: left">
   
   {% if request.user.is_authenticated %}
 
-   <div style="background-color: #f8e1a4; font-size: 12px; padding: 20px; width: 300px; ">
-     <h2>{% trans "You are already signed in!" %}</h2>
+   <div class="signin-confirm">
+     <h3>{% trans "You are already signed in!" %}</h3>
    </div>
 
   {% else %}
+ <div class="signin-block">
+   {% include "account/form_signin.html" %}
+ </div>
 
-  <div style="background-color: #f8e1a4; font-size: 12px; padding: 20px; width: 300px;">
-    {% include "account/form_signin.html" %}
-  </div>
+ <div class="register-block">
+   {% include "account/form_register.html" %}
+ </div>
   {% endif %}
   
-</div>
-
-<!-- REGISTER FORM -->
-<div id="register_form">
-  {% if request.user.is_authenticated %}
-  <div style="background-color: #f8e1a4;font-size: 12px; padding: 20px; float: right; width: 300px;">
-    <h2>{% trans "You are already signed in." %}</h2>
-  </div>
-  {% else %}
-  
-  <div style="background-color: #f8e1a4;font-size: 12px; padding: 20px; float: right; width: 300px;">
-    {% include "account/form_register.html" %}    
-  </div>
-  {% endif %}
+ <div class="clearfix"></div>
 </div>
 
 {% url frontpage as frontpage_url%}
 <div id="signinmessage" style="display: none">
-<div style="background-color: #f8e1a4; font-size: 12px; padding: 20px;"><h2>{% trans "Your account has been created!" %}</h2>{% blocktrans %}<p>Thank you. We have created your account and signed you in. If you are new to Booki we recommend you to read <a href="http://www.booki.cc/booki-user-guide/">Booki User Guide</a>.</p><p><form method="GET" action="{{ frontpage_url }}"><button>Great! Let's use Booki now!</button><span class="redirectmessage" style="padding-left: 20px">Automatic redirection in <span class="sec">sec</span> seconds.</span></form></p>{% endblocktrans %}</div>
+<div class="signin-confirm account">
+    <h3>{% trans "Your account has been created!" %}</h3>
+    {% blocktrans %}
+    <p>Thank you. We have created your account and signed you in. If you are new to Booki we recommend you to read <a href="http://www.booki.cc/booki-user-guide/">Booktype User Guide</a>.</p>
+    
+    <p><form method="GET" action="{{ frontpage_url }}"><button>Great! Let's use Booktype now!</button><span class="redirectmessage" style="padding-left: 20px">Automatic redirection in <span class="sec">sec</span> seconds.</span></form></p>
+    {% endblocktrans %}
+</div>
 </div>
 </div>
 
-<div style="padding-top: 20px; float: left; clear: both">
-<h2>{% trans "Why do I need account ?" %}</h2>
+<div style="padding-top: 4px; float: left; clear: both">
+<h3>{% trans "Why do I need account ?" %}</h3>
 <p>{% trans "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to." %}</p>
 
 {% url forgotpassword as forgotpassword_url%}
-<h2>{% trans "I forgot my password. What now ?!" %}</h2>
+<h3>{% trans "I forgot my password. What now ?!" %}</h3>
 {% blocktrans %}<p>Please <a href="{{ forgotpassword_url }}">request new one</a>.</p>{% endblocktrans %}
 
 <!--
 <h2>{% trans "I forgot my username ?" %}</h2>
 -->
 
+</div>
 </div>
 {% endblock %}

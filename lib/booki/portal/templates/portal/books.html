@@ -8,56 +8,60 @@
 {% block content %}
 
 	<!-- BOOKS LISTING -->
-	<div>
+	<div id="intro">
         {% if page == 1 %}
-	<h2 style="border-bottom: 1px dotted gray" >{% trans "Active books" %}</h2>
+    <h2>{% trans "Books" %}</h2>
+	
+    <h3>{% trans "Active books" %}</h3>
+       
 	{% for book in latest_active %}
-	  <div style="float: left; margin-left: 15px; width: 120px; height: 130px;">
-            <div style="border: 1px solid blue; background-color: blue; color: white; font-size: 10px; height: 100px; width: 100px; font-weight: bold;">
-             <div style="border: 1px solid white; width: 98px; height: 98px; background-color: #00bfff">
-              <div style="overflow: hidden; width: 80px; height: 80px; margin-top: 10px; margin-left: 5px; padding-left: 5px; border-left: 1px solid white;">
-                 {{ book.title }}
-              </div>
-	     </div>
-            </div>
-            <div style="margin-top: 3px; overflow: hidden; width: 110px; height: 30px;">
-             <a href="{% url book_view  book.url_title %}" title="{{book.title}}" style="color: black">{{ book.title }}</a>
-            </div>
-          </div>
-        {% endfor %}
-        <div style="clear: both; height: 20px; "></div>
+ 				<div class="book">
+            		<div class="block">
+             			<div class="title">
+			                {{ book.title }}
+						</div>
+                    </div>    
+ 	          		<div class="link">
+			            <a href="{% url book_info  book.url_title %}" title="{{book.title}}">{{ book.title }}</a>
+                    </div>
+				</div><!-- end .book -->
 
-	<h2 style="border-bottom: 1px dotted gray" >{% trans "Latest Books" %}</h2>
+    {% endfor %}   
+     
+    <div class="clearfix"></div>
+
+	<h3>{% trans "Latest Books" %}</h3>
+
 	{% for book in latest_books %}
-	  <div style="float: left; margin-left: 15px; width: 120px; height: 140px;">
-            <div style="border: 1px solid blue; background-color: blue; color: white; font-size: 10px; height: 100px; width: 100px; font-weight: bold;">
-             <div style="border: 1px solid white; width: 98px; height: 98px; background-color: #00bfff">
-              <div style="overflow: hidden; width: 80px; height: 80px; margin-top: 10px; margin-left: 5px; padding-left: 5px; border-left: 1px solid white;">
-                 {{ book.title }}
-              </div>
-	     </div>
-            </div>
-            <div style="margin-top: 3px; overflow: hidden; width: 110px; height: 40px;">
-             <a href="{% url book_view  book.url_title %}" title="{{book.title}}" style="color: black">{{ book.title }}</a>
-	     <br/>
-	     <span style="font-style: italic; color: gray">{{ book.created|timesince }} {% trans "ago" %} </span>
-            </div>
-          </div>
-        {% endfor %}
-        <div style="clear: both; height: 20px; "></div>
+ 				<div class="book">
+            		<div class="block">
+             			<div class="title">
+                        	{{ book.title }}
+			            </div>
+                    </div>
+	               <div class="link">
+		           		 <a href="{% url book_info  book.url_title %}" title="{{book.title}}">{{ book.title }}</a>
+                    	 <div class="timesince">
+                         	{{ book.created|timesince }} {% trans "ago" %}
+                         </div>
+            		</div>
+          		</div><!-- End of .book-->
+     {% endfor %}
+
+    <div class="clearfix"></div>
 	{% endif %}
 
-	<h2 style="border-bottom: 1px dotted gray" >{% trans "Books" %}</h2>
+	<h3>{% trans "Books" %}</h3>
 
-	<ul>
+	<ul class="list">
 	{% for book in books.object_list %}
-	   <li><a href="{% url book_view  book.url_title %}">{{ book.title }}</a></li>
+	   <li><a href="{% url book_info  book.url_title %}">{{ book.title }}</a></li>
 	{% endfor %}
 	</ul>
 
          {% load booki_paginator %}
 
          {% booki_paginator books %}
-	</div>
+	</div><!-- end #intro -->
 
 {% endblock %}

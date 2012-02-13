@@ -2,65 +2,65 @@
 {% load i18n %}
 
 {% block header %}
- <title>Booki.cc</title>
+ <title>Bookspark</title>
 
- <script>
+<script>
  $(function() {
     $("#formsignin").booksparkSignin({'url': '{% url signin %}'});
     $("#formregister").booksparkRegister({'url': '{% url signin %}', 'redirect': '{% url view_profile 'XXX' %}'});
  });
  </script>
+ 
 {% endblock %}
 
 {% block content %}
 <div id="intro">
-<h2>{% trans "Welcome to Booki" %} Alpha 1.3.</h2>
+<h2>{% trans "Welcome to Booktype" %}</h2>
 
 {% if request.user.is_authenticated %}
- <h2>Show message when user is signed in</h2>
+<!-- <h3>Show message when user is signed in</h3>-->
 {% else %}
- <div style="float: left; width: 200px;">
+ <div class="signin-block">
    {% include "account/form_signin.html" %}
  </div>
 
 
- <div style="float: left; width: 300px">
+ <div class="register-block">
    {% include "account/form_register.html" %}
  </div>
 
- <div style="clear: both"></div>
+ <div class="clearfix"></div>
 {% endif %}
 
 
-<h2>{% trans "Recent activity" %}</h2>
- <div style="border-top: 1px solid gray"></div>
+<h3>{% trans "Recent activity" %}</h3>
 
 {% for activity in activity_history %}
- <div style="margin-top: 5px; margin-bottom: 10px; border: 0px solid gray; padding: 5px; font-size: 14px;">
-    <div style="float: left; margin-right: 10px; float: left; width: 48px; height: 48x;">
-       <img src="{% url view_profilethumbnail activity.user %}?width=48" alt="{{activity.user}}">
-    </div>
-    <div style="display: inline-block;">
-     <a href="{% url view_profile activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; <i>{{ activity.modified|timesince}} {% trans "ago" %}</i><br/>
-     <div style="padding-top: 5px">
-     {% if activity.kind == 1 %}
-         {% trans "Created new chapter" %} <a href="{% url book_chapter activity.book.url_title activity.chapter.url_title %}"><i>"{{activity.chapter.title}}"</i></a>.
+	<div class="recent-activity">
+        <div class="image">
+           <img src="{% url view_profilethumbnail activity.user %}?width=48" alt="{{activity.user}}">
+        </div><!--end .image-->
 
-         <div style="font-size: 12px; margin-top: 5px; color: gray;">#{{activity.book.url_title}}</div>
-     {% endif %}
-     {% if activity.kind == 10 %}
-         {% trans "Created new book" %} <a href="{% url book_view activity.book.url_title  %}">"{{activity.book.title}}"</a>.
-         <div style="font-size: 12px; margin-top: 5px; color: gray;">#{{activity.book.url_title}}</div>
-     {% endif %}
-     </div>
-    </div>
-     <div style="clear: both"></div>
-<!--    <b>{{ activity.book.title }}</b><br/> </i>{{ activity.chapter.title }}</i> -->
- </div>
- <div style="border-top: 1px solid gray"></div>
+    	<div class="user">
+        	<a href="{% url view_profile activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; {{ activity.modified|timesince}} {% trans "ago" %}
+  		    <div class="chapter">  
+                 {% if activity.kind == 1 %}
+                 {% trans "Created new chapter" %} <a href="{% url book_chapter activity.book.url_title activity.chapter.url_title %}">"{{activity.chapter.title}}"</a>.
+                 <div class="book-title">#{{activity.book.url_title}}
+                 </div>     
+				{% endif %}
+                {% if activity.kind == 10 %}
+                {% trans "Created new book" %} <a href="{% url book_view activity.book.url_title  %}">"{{activity.book.title}}"</a>.
+                 <div class="book-title">#{{activity.book.url_title}}
+                 </div>     
+				{% endif %}
+			</div><!-- End of .chapter -->     
+		</div><!-- end .user-->
+	</div><!-- end .recent-activity-->
+
 {% endfor %}
 
-</div>
+</div><!-- end intro -->
 
 
 

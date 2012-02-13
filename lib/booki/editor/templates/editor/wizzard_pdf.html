@@ -1,301 +1,235 @@
-<style>
-#demoWrapper {
-  padding : 1em;
-  width : 500px;
-  border-style: solid;
-}
-
-#fieldWrapper {
-}
-
-#demoNavigation {
-  margin-top : 0.5em;
-  margin-right : 1em;
-  margin-bottom: 1em;
-  text-align: right;
-}
-
-DIV.input { padding: 10px; }
-
-input {
-  margin-right: 0.1em;
-  margin-bottom: 0.5em;
-}
-
-.input_field_25em {
-  width: 2.5em;
-}
-
-.input_field_3em {
-  width: 3em;
-}
-
-.input_field_35em {
-  width: 3.5em;
-}
-
-.input_field_12em {
-  width: 12em;
-}
-
-label {
-  margin-bottom: 0.2em;
-  font-weight: bold;
-  font-size: 0.8em;
-}
-
-label.error {
-  color: red;
-  font-size: 0.8em;
-  margin-left : 0.5em;
-}
-
-.step span {
-  float: right;
-  font-weight: bold;
-  padding-right: 0.8em;
-}
-
-.navigation_button {
-  width : 70px;
-}
-
-#data {
-  overflow : auto;
-}
-
-</style>
-<div class="pdfwizzard ui-widget ui-widget-content ui-corner-all" style="padding: 1em; width: 500px; background-color: white;"> 
-  <a name="close" href="#"><span style="float: right" class="ui-icon ui-icon-close"></span></a>
-  <span style="float: left; font-weight: bold;">Screen Formatted PDF Settings</span>
+<div class="pdfwizzard ui-widget ui-widget-content ui-corner-all" style="padding: 1em; width: 500px;"> <a name="close" href="#"><span style="float: right" class="ui-icon ui-icon-close"></span></a>
+  <h4>Screen Formatted PDF Settings</h4>
   <div style="clear: both; margin-bottom: 5px; padding-bottom: 5px;"></div>
-
   <form  id="demoForm" method="post" action="#" onsubmit="return false;" class="bbq">
     <div id="fieldWrapper">
       <div class="step" id="format">
-	<div class="input">
-	  <span class="font_normal_07em_black">Book Size</span><br />
-	  <select id="booksize" name="booksize"><option value="custom" class="custom">custom</option>
-	    <option value="A5" class="lulu iso">A5 (148mm x 210mm)</option>
-	    <option value="A4" class="lulu iso">A4 (210mm x 297mm)</option>
-	  </select>
-	  <br>
-	  <br>
-	  Custom Size<br>
-	  <label for="custom_width">Size</label>
-	  <input class="input_field_3em" name="custom_width" id="custom_width" value=""/>mm<br>
-	  <label for="custom_height">Size</label>
-	  <input class="input_field_3em" name="custom_height" id="custom_height" value=""/>mm
-	</div>
+        <div class="input">
+          <fieldset>
+            <legend>Book Size</legend>
+            <select id="booksize" name="booksize">
+              <option value="custom" class="custom">custom</option>
+              <option value="A5" class="lulu iso">A5 (148mm x 210mm)</option>
+              <option value="A4" class="lulu iso">A4 (210mm x 297mm)</option>
+            </select>
+            <h5>Custom Size</h5>
+            <dl>
+              <dt style="display:none;"></dt>
+              <dd>
+                <label for="custom_width">Size</label>
+                <input class="input_field_3em" name="custom_width" id="custom_width" value=""/>
+                mm</dd>
+              <dt style="display:none;"></dt>
+              <dd>
+                <label for="custom_height">Size</label>
+                <input class="input_field_3em" name="custom_height" id="custom_height" value=""/>
+                mm</dd>
+            </dl>
+          </fieldset>
+        </div>
       </div>
       <div id="fonts" class="step">
-	<div class="input">
-	  <span class="font_normal_07em_black">Font</span><br />
-	  <table>
-	    <tr><td>
-		<label for="body_font-family">Body Text</label>
-	      </td><td>
-		<select class="input_field_8em" name="body_font-family" id="body_font-family">
-		  <option value="Fontin_Sans">Fontin Sans</option>
-		  <option value="Arial">Arial</option>
-		  <option value="Helvetica">Helvetica</option>
-		</select>
-	      </td><td>
-		<label for="body_font-size">Size</label></td><td>
-		<input class="input_field_3em" name="body_font-size" id="body_font-size" value="10"/>
-	    </td></tr>
-	    <tr><td>
-		<label for="h1_font-family">Heading 1</label></td><td>
-		<select class="input_field_8em" name="h1_font-family" id="h1_font-family">
-		  <option value="Fontin_Sans">Fontin Sans</option>
-		  <option value="Arial">Arial</option>
-		  <option value="Helvetica">Helvetica</option>
-		</select>
-	      </td><td>
-		<label for="h1_font-size">Size</label>
-	      </td><td>
-		<input class="input_field_3em" name="h1_font-size" id="h1_font-size" value="14"/>
-	      </td><td>
-		<select class="input_field_8em" name="h1_text-transform" id="h1_text-transform">
-		  <option value="uppercase">UPPERCASE</option>
-		  <option value="lowercase">lowercase</option>
-		  <option value="capitalize">Captialise</option>
-		</select>
-	      </td><td>
-		<select class="input_field_8em" name="h1_font-weight" id="h1_font-weight">
-		  <option value="heavy">Heavy</option>
-		  <option value="normal">normal</option>
-		</select>
-	    </td></tr>
-	    <tr><td>
-		<label for="h2_font-family">Heading 2</label></td><td>
-		<select class="input_field_8em" name="h2_font-family" id="h2_font-family">
-		  <option value="Fontin_Sans">Fontin Sans</option>
-		  <option value="Arial">Arial</option>
-		  <option value="Helvetica">Helvetica</option>
-		</select>
-	      </td><td>
-		<label for="h2_font-size">Size</label>
-	      </td><td>
-		<input class="input_field_3em" name="h2_font-size" id="h2_font-size" value="12"/>
-	      </td><td>
-		<select class="input_field_8em" name="h2_text-transform" id="h2_text-transform">
-		  <option value="uppercase">UPPERCASE</option>
-		  <option value="lowercase">lowercase</option>
-		  <option value="capitalize">Captialise</option>
-		</select>
-	      </td><td>
-		<select class="input_field_8em" name="h2_font-weight" id="h2_font-weight">
-		  <option value="heavy">Heavy</option>
-		  <option value="normal">normal</option>
-		</select>
-	    </td></tr>
-	    <tr><td>
-		<label for="h3_font-family">Heading 3</label>
-	      </td><td>
-		<select class="input_field_8em" name="h3_font-family" id="h3_font-family">
-		  <option value="Fontin_Sans">Fontin Sans</option>
-		  <option value="Arial">Arial</option>
-		  <option value="Helvetica">Helvetica</option>
-		</select>
-	      </td><td>
-		<label for="h3_font-size">Size</label>
-	      </td><td>
-		<input class="input_field_3em" name="h3_font-size" id="h3_font-size" value="10"/>
-	      </td><td>
-		<select class="input_field_8em" name="h3_text-transform" id="h3_text-transform">
-		  <option value="uppercase">UPPERCASE</option>
-		  <option value="lowercase">lowercase</option>
-		  <option value="capitalize">Captialise</option>
-		</select>
-	      </td><td>
-		<select class="input_field_8em" name="h3_font-weight" id="h3_font-weight">
-		  <option value="heavy">Heavy</option>
-		  <option value="normal">normal</option>
-		</select>
-	    </td></tr>
-	    <tr><td>
-		<label for="pre_font-family">Formatted</label>
-	      </td><td>
-		<select class="input_field_8em" name="pre_font-family" id="pre_font-family">
-		  <option value="Courier">Courier</option>
-		  <option value="Courier_new">Courier New</option>
-		  <option value="Monospace">Monospace</option>
-		</select>
-	      </td><td>
-		<label for="pre_font-size">Size</label>
-	      </td><td>
-		<input class="input_field_3em" name="pre_font-size" id="pre_font-size" value="10"/>
-	    </td></tr>
-	  </table>
-      </div></div>	
+        <div class="input">
+          <fieldset>
+            <legend>Font</legend>
+            <table class="wizard-table" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td><label for="body_font-family">Body Text</label></td>
+                <td><select class="input_field_8em" name="body_font-family" id="body_font-family">
+                    <option value="Fontin_Sans">Fontin Sans</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Helvetica">Helvetica</option>
+                  </select></td>
+                <td><label for="body_font-size">Size</label></td>
+                <td><input class="input_field_3em" name="body_font-size" id="body_font-size" value="10"/></td>
+              </tr>
+              <tr>
+                <td><label for="h1_font-family">Heading 1</label></td>
+                <td><select class="input_field_8em" name="h1_font-family" id="h1_font-family">
+                    <option value="Fontin_Sans">Fontin Sans</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Helvetica">Helvetica</option>
+                  </select></td>
+                <td><label for="h1_font-size">Size</label></td>
+                <td><input class="input_field_3em" name="h1_font-size" id="h1_font-size" value="14"/></td>
+                <td><select class="input_field_8em" name="h1_text-transform" id="h1_text-transform">
+                    <option value="uppercase">UPPERCASE</option>
+                    <option value="lowercase">lowercase</option>
+                    <option value="capitalize">Captialise</option>
+                  </select></td>
+                <td><select class="input_field_8em" name="h1_font-weight" id="h1_font-weight">
+                    <option value="heavy">Heavy</option>
+                    <option value="normal">normal</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><label for="h2_font-family">Heading 2</label></td>
+                <td><select class="input_field_8em" name="h2_font-family" id="h2_font-family">
+                    <option value="Fontin_Sans">Fontin Sans</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Helvetica">Helvetica</option>
+                  </select></td>
+                <td><label for="h2_font-size">Size</label></td>
+                <td><input class="input_field_3em" name="h2_font-size" id="h2_font-size" value="12"/></td>
+                <td><select class="input_field_8em" name="h2_text-transform" id="h2_text-transform">
+                    <option value="uppercase">UPPERCASE</option>
+                    <option value="lowercase">lowercase</option>
+                    <option value="capitalize">Captialise</option>
+                  </select></td>
+                <td><select class="input_field_8em" name="h2_font-weight" id="h2_font-weight">
+                    <option value="heavy">Heavy</option>
+                    <option value="normal">normal</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><label for="h3_font-family">Heading 3</label></td>
+                <td><select class="input_field_8em" name="h3_font-family" id="h3_font-family">
+                    <option value="Fontin_Sans">Fontin Sans</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Helvetica">Helvetica</option>
+                  </select></td>
+                <td><label for="h3_font-size">Size</label></td>
+                <td><input class="input_field_3em" name="h3_font-size" id="h3_font-size" value="10"/></td>
+                <td><select class="input_field_8em" name="h3_text-transform" id="h3_text-transform">
+                    <option value="uppercase">UPPERCASE</option>
+                    <option value="lowercase">lowercase</option>
+                    <option value="capitalize">Captialise</option>
+                  </select></td>
+                <td><select class="input_field_8em" name="h3_font-weight" id="h3_font-weight">
+                    <option value="heavy">Heavy</option>
+                    <option value="normal">normal</option>
+                  </select></td>
+              </tr>
+              <tr>
+                <td><label for="pre_font-family">Formatted</label></td>
+                <td><select class="input_field_8em" name="pre_font-family" id="pre_font-family">
+                    <option value="Courier">Courier</option>
+                    <option value="Courier_new">Courier New</option>
+                    <option value="Monospace">Monospace</option>
+                  </select></td>
+                <td><label for="pre_font-size">Size</label></td>
+                <td><input class="input_field_3em" name="pre_font-size" id="pre_font-size" value="10"/></td>
+              </tr>
+            </table>
+          </fieldset>
+        </div>
+      </div>
+      
       <div id="paragraphs" class="step">
-	<div class="input">
-	  <span class="font_normal_07em_black">Page breaks</span><br />
-	  <table>
-	    <tr>
-	      <td>
-		<label for="p_pagebreak">Avoid page break in paragraphs?</label>
-	      </td>
-	      <td>
-		<input class="input_field_12em" name="p_pagebreak" id="p_pagebreak" type="checkbox" checked/>
-	      </td>
-	    </tr>
-	    <tr>
-	      <td>
-		<label for="footnotes_pagebreak">Pagebreak before footnotes?</label>
-	      </td>
-	      <td>
-		<input class="input_field_12em" name="footnotes_pagebreak" id="footnotes_pagebreak" type="checkbox" checked/><br />
-	      </td>
-	    </tr>
-	  </table>
-      </div></div>
+        <div class="input">
+      <fieldset>
+      <legend>Page breaks</legend>
+        <dl>
+			<dt style="display:none;"></dt>
+          	<dd><label for="p_pagebreak"><input name="p_pagebreak" id="p_pagebreak" type="checkbox" checked/>Avoid page break in paragraphs?</label></dd>
+            <dt style="display:none;"></dt>
+            <dd><label for="footnotes_pagebreak"><input name="footnotes_pagebreak" id="footnotes_pagebreak" type="checkbox" checked/>Pagebreak before footnotes?</label></dd>
+        </dl>
+        </fieldset>
+        </div>
+      </div>
+      
       <div id="Advanced_options" class="step">
-	<div class="input">
-	  <span class="font_normal_07em_black">Advanced</span><br />
-	  <script type="text/javascript">
+        <div class="input">
+      <fieldset style="padding-top:20px;">
+      <legend>Advanced</legend>
+      <script type="text/javascript">
 		jQuery(document).ready(function() {
 		  $("#toggle0").click(function(){
       		    $("#ad0").toggle();
+				$("#toggle0").parent().toggleClass("collapsed");
       		  });
       		});
-	  </script>
-	  <span class="font_normal_07em_black" id="toggle0" style="float-left ! important;">General</span><br />
-	  <div id="ad0" style="display:none;">
-	  <label for="css-control">Override Server Default CSS</label>
-	  <input type="checkbox" checked class="input_field_12em" name="control-css" id="control-css" /><br>
-	  <label for="grey_scale">Grey Scale Output</label>
-	  <input type="checkbox" class="input_field_12em" name="grey_scale" id="grey_scale" /><br>
-	  <label for="rotate">Rotate</label>
-	  <input type="checkbox" class="input_field_12em" name="rotate" id="rotate" />
-	  <label for="page-numbers">Rotate</label>
-	  <select id="page-numbers" name="page-numbers">
-	    <option value="none">none</option>
-	    <option value="LTR">LTR</option>
-	    <option value="my">my</option>
-	    <option value="fa">fa</option>
-	    <option value="hi">hi</option>
-	    <option value="RTL">RTL</option>
-	    <option value="ar">ar</option>
-	    <option selected="selected" value="auto">auto</option>
-	  </select>
-	  <small>If in doubt, choose "none"</small><br>
-	  <label for="embed-fonts">Force Embed Fonts</label>
-	  <input type="checkbox" id="embed-fonts" name="embed-fonts" checked value="yes">
-	  <small>PDFs: force embedding of PDF default fonts</small><br>
-	  <label for="allow-breaks">Cancel Page Break Control</label>
-	  <input type="checkbox" id="allow-breaks" name="allow-breaks">
-	  <small>Let page breaks occur immediately after headings</small><br>
-	</div> 
-	  <script type="text/javascript">
+	  </script> 
+      <fieldset class="collapsed"> 
+        <legend class="toggle" id="toggle0">General</legend>
+          <div id="ad0" style="display:none;">
+          <dl>
+			<dt style="display:none;"></dt>
+            <dd><label for="css-control"><input type="checkbox" name="control-css" id="control-css" />Override Server Default CSS</label></dd>
+            <dt style="display:none;"></dt>
+            <dd><label for="grey_scale"><input type="checkbox" name="grey_scale" id="grey_scale" />Grey Scale Output</label></dd>
+            <dt style="display:none;"></dt>
+            <dd><label for="rotate"><input type="checkbox" name="rotate" id="rotate" />Rotate</label></dd>
+            <dt style="display:none;"></dt>
+            <dd><label for="page-numbers">Rotate</label>
+            <select id="page-numbers" name="page-numbers">
+              <option value="none">none</option>
+              <option value="LTR">LTR</option>
+              <option value="my">my</option>
+              <option value="fa">fa</option>
+              <option value="hi">hi</option>
+              <option value="RTL">RTL</option>
+              <option value="ar">ar</option>
+              <option selected="selected" value="auto">auto</option>
+            </select>
+            <small>If in doubt, choose "none"</small>
+            </dd>
+            <dt style="display:none;"></dt>
+            <dd><label for="embed-fonts"><input type="checkbox" id="embed-fonts" name="embed-fonts" checked value="yes">Force Embed Fonts</label> <small>PDFs: force embedding of PDF default fonts</small></dd>
+            <dt style="display:none;"></dt>
+            <dd><label for="allow-breaks"><input type="checkbox" id="allow-breaks" name="allow-breaks">Cancel Page Break Control</label><small>Let page breaks occur immediately after headings</small></dd>
+            </dl>
+          </div>
+          </fieldset>
+        
+		<script type="text/javascript">
 		jQuery(document).ready(function() {
 		  $("#toggle2").click(function(){
       		    $("#ad2").toggle();
+				$("#toggle2").parent().toggleClass("collapsed");
       		  });
       		});
 	  </script>
-	  <span class="font_normal_07em_black" id="toggle2">Page Margins and Gutter</span><br />
-	  <div id="ad2" style="display:none;">
-	    <label for="top_margin">Top Margin</label>
-	    <input type="text" id="top_margin" name="top_margin" value="" class="input_field_3em">mm<br>
-	    <label for="side_margin">Side Margin</label>
-	    <input type="text" id="side_margin" name="side_margin" value="" class="input_field_3em">mm<br>
-	    <label for="bottom_margin">Bottom Margin</label>
-	    <input type="text" id="bottom_margin" name="bottom_margin" value="" class="input_field_3em">mm<br>
-	    <label for="gutter">Gutter</label>
-	    <input type="text" id="gutter" name="gutter" value="" class="input_field_3em">mm<br>
-	    <label for="columns">Columns</label>
-	    <input type="text" id="columns" name="columns" value="" class="input_field_3em"><br>
-	    <label for="column_margin">Columns</label>
-	    <input type="text" id="column_margin" name="column_margin" value="" class="input_field_3em">mm<br>
-	  </div>
+      <fieldset class="collapsed"> 
+          <legend class="toggle" id="toggle2">Page Margins and Gutter</legend>
+          <div id="ad2" style="display:none;">
+            <dl class="inline" style="margin:6px 0;">
+                <dt><label for="top_margin">Top Margin</label></dt>
+                <dd><input type="text" id="top_margin" name="top_margin" value="" class="input_field_3em"> mm</dd>
+                <dt><label for="side_margin">Side Margin</label></dt>
+                <dd><input type="text" id="side_margin" name="side_margin" value="" class="input_field_3em"> mm</dd>
+                <dt><label for="bottom_margin">Bottom Margin</label></dt>
+                <dd><input type="text" id="bottom_margin" name="bottom_margin" value="" class="input_field_3em"> mm</dd>
+                <dt><label for="gutter">Gutter</label></dt>
+                <dd><input type="text" id="gutter" name="gutter" value="" class="input_field_3em"> mm</dd>
+                <dt><label for="columns">Columns</label></dt>
+                <dd><input type="text" id="columns" name="columns" value="" class="input_field_3em"></dd>
+                <dt><label for="column_margin">Columns</label></dt>
+                <dd> <input type="text" id="column_margin" name="column_margin" value="" class="input_field_3em"> mm</dd>
+            </dl>  
+          </div>
+          </fieldset>
+          <script type="text/javascript">
+			jQuery(document).ready(function() {
+			  $("#toggle3").click(function(){
+					$("#ad3").toggle();
+					$("#toggle3").parent().toggleClass("collapsed");
+				});
+			});
+	  	</script> 
+        <fieldset class="collapsed"> 
+        <legend class="toggle" id="toggle3">Advanced (style sheets)</legend>
+          <div id="ad3" style="display:none;">
+            <dl>
+                <dt><label for="additional_css">Your Custom CSS</label></dt>
+                <dd><textarea class="input_field_12em" name="additional_css" id="additional_css" style="width:99%;" rows="15"></textarea></dd>
 
-
-	  <script type="text/javascript">
-		jQuery(document).ready(function() {
-		  $("#toggle3").click(function(){
-      		    $("#ad3").toggle();
-      		  });
-      		});
-	  </script>
-	  <span class="font_normal_07em_black" id="toggle3">Advanced (style sheets)</span><br />
-	  <div id="ad3" style="display:none;">
-	  <label for="additional_css">Your Custom CSS</label><br />
-	  <textarea class="input_field_12em" name="additional_css" id="additional_css" style="width:400px ! important;" rows="15"></textarea><br />
-	  <label for="special_css">Bookspark CSS (be careful if changing)</label><br />
-	  <textarea class="input_field_12em" name="special_css" id="special_css" style="width:400px ! important;" rows="15">
-</textarea>
-	  <br />	<label for="custom_override">Override ALL previous settings with custom CSS</label>
-	  <input class="input_field_12em" name="custom_override" id="custom_override" type="checkbox" /><br />
-	</div>
-    </div>			</div>
-  </div>
-  <div id="demoNavigation"> 							
-    <input class="navigation_button" id="back" value="Back" type="reset" />
-    <input class="navigation_button" id="next" value="Next" type="submit" />
-  </div>
-</form>
-
-
+                <dt><label for="special_css">Bookspark CSS (be careful if changing)</label></dt>
+                <dd><textarea class="input_field_12em" name="special_css" id="special_css" style="width:99%;" rows="15"></textarea></dd>
+                
+                <dt style="display:none;"></dt>
+                <dd><label for="custom_override"><input name="custom_override" id="custom_override" type="checkbox" />Override ALL previous settings with custom CSS</label></dd>
+            </dl>
+          </div>
+          </fieldset>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+    <div id="demoNavigation">
+      <input class="navigation_button" id="back" value="Back" type="reset" />
+      <input class="navigation_button" id="next" value="Next" type="submit" />
+    </div>
+  </form>
 </div>

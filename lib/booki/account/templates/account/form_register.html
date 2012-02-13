@@ -2,14 +2,15 @@
 
 <h3>{% trans "Create account" %}</h3>
 <form id="formregister" onsubmit="return false;" action="#" method="GET">
-  <label for="username">{% trans "User name" %}</label><br />        
-  <input name="username" type="text"/><br />
-  <label for="password">{% trans "Password (6 characters at least)" %}</label><br />
-  <input name="password" type="password" /><br />
-  <label for="name">{% trans "Full name" %}</label><br />        
-  <input name="fullname" /><br />
-  <label for="email">{% trans "Email" %}</label><br />
-  <input name="email" type="text" /><br />
+  <label for="username">{% trans "User name" %}</label>        
+  <input name="username" type="text"/>
+  <label for="password">{% trans "Password (6 characters at least)" %}</label>
+  <input name="password" type="password" />
+  <label for="name">{% trans "Full name" %}</label>        
+  <input name="fullname" type="text" />
+  <label for="email">{% trans "Email" %}</label>
+  <input name="email" type="text" />
+  <br />
 
   <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">
     <div class="missing-username template">{% trans "Missing username!" %}</div>

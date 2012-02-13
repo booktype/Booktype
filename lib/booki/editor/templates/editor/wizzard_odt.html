@@ -1,284 +1,129 @@
-<style>
-#demoWrapper {
-  padding : 1em;
-  width : 500px;
-  border-style: solid;
-}
-
-#fieldWrapper {
-}
-
-#demoNavigation {
-  margin-top : 0.5em;
-  margin-right : 1em;
-  margin-bottom: 1em;
-  text-align: right;
-}
-
-DIV.input { padding: 10px; }
-
-input {
-  margin-right: 0.1em;
-  margin-bottom: 0.5em;
-}
-
-.input_field_25em {
-  width: 2.5em;
-}
-
-.input_field_3em {
-  width: 3em;
-}
-
-.input_field_35em {
-  width: 3.5em;
-}
-
-.input_field_12em {
-  width: 12em;
-}
-
-label {
-  margin-bottom: 0.2em;
-  font-weight: bold;
-  font-size: 0.8em;
-}
-
-label.error {
-  color: red;
-  font-size: 0.8em;
-  margin-left : 0.5em;
-}
-
-.step span {
-  float: right;
-  font-weight: bold;
-  padding-right: 0.8em;
-}
-
-.navigation_button {
-  width : 70px;
-}
-
-#data {
-  overflow : auto;
-}
-
-</style>
-<div class="odtwizzard ui-widget ui-widget-content ui-corner-all" style="padding: 1em; width: 500px; background-color: white;"> 
-  <a name="close" href="#"><span style="float: right" class="ui-icon ui-icon-close"></span></a>
-  <span style="float: left; font-weight: bold;">Open Document Text (.odt) Settings</span>
+<div class="odtwizzard ui-widget ui-widget-content ui-corner-all" style="padding: 1em; width: 500px;"> <a name="close" href="#"><span style="float: right" class="ui-icon ui-icon-close"></span></a>
+  <h4>Open Document Text (.odt) Settings</h4>
   <div style="clear: both; margin-bottom: 5px; padding-bottom: 5px;"></div>
-
   <form  id="demoForm" method="post" action="#" onsubmit="return false;" class="bbq">
-		<div id="fieldWrapper">
-			<div id="fonts" class="step">
-				<div class="input">
-					<span class="font_normal_07em_black">Font</span><br />
-					<table>
-						<tr><td>
-								<label for="body_font-weight">Body Text</label>
-							</td><td>
-								<select class="input_field_8em" name="body_font-weight" id="body_font-weight">
-									<option value="Fontin_Sans">Fontin Sans</option>
-									<option value="Arial">Arial</option>
-									<option value="Helvetica">Helvetica</option>
-								</select>
-							</td><td>
-								<label for="body_font-size">Size</label></td><td>
-								<input class="input_field_3em" name="body_font-size" id="body_font-size" value="10"/>
-						</td></tr>
-						<tr><td>
-								<label for="h1_font-weight">Heading 1</label></td><td>
-								<select class="input_field_8em" name="h1_font-weight" id="h1_font-weight">
-									<option value="Fontin_Sans">Fontin Sans</option>
-									<option value="Arial">Arial</option>
-									<option value="Helvetica">Helvetica</option>
-								</select>
-							</td><td>
-								<label for="h1_font-size">Size</label>
-							</td><td>
-								<input class="input_field_3em" name="h1_font-size" id="h1_font-size" value="14"/>
-							</td><td>
-								<select class="input_field_8em" name="h1_text-transform" id="h1_text-transform">
-									<option value="uppercase">UPPERCASE</option>
-									<option value="lowercase">lowercase</option>
-									<option value="capitalize">Captialise</option>
-								</select>
-							</td><td>
-								<select class="input_field_8em" name="h1_font-weight" id="h1_font-weight">
-									<option value="heavy">Heavy</option>
-									<option value="normal">normal</option>
-								</select>
-						</td></tr>
-						<tr><td>
-								<label for="h2_font-weight">Heading 2</label></td><td>
-								<select class="input_field_8em" name="h2_font-weight" id="h2_font-weight">
-									<option value="Fontin_Sans">Fontin Sans</option>
-									<option value="Arial">Arial</option>
-									<option value="Helvetica">Helvetica</option>
-								</select>
-							</td><td>
-								<label for="h2_font-size">Size</label>
-							</td><td>
-								<input class="input_field_3em" name="h2_font-size" id="h2_font-size" value="12"/>
-							</td><td>
-								<select class="input_field_8em" name="h2_text-transform" id="h2_text-transform">
-									<option value="uppercase">UPPERCASE</option>
-									<option value="lowercase">lowercase</option>
-									<option value="capitalize">Captialise</option>
-								</select>
-							</td><td>
-								<select class="input_field_8em" name="h2_font-weight" id="h2_font-weight">
-									<option value="heavy">Heavy</option>
-									<option value="normal">normal</option>
-								</select>
-						</td></tr>
-						<tr><td>
-								<label for="h3_font-weight">Heading 3</label>
-							</td><td>
-								<select class="input_field_8em" name="h3_font-weight" id="h3_font-weight">
-									<option value="Fontin_Sans">Fontin Sans</option>
-									<option value="Arial">Arial</option>
-									<option value="Helvetica">Helvetica</option>
-								</select>
-							</td><td>
-								<label for="h3_font-size">Size</label>
-							</td><td>
-								<input class="input_field_3em" name="h3_font-size" id="h3_font-size" value="10"/>
-							</td><td>
-								<select class="input_field_8em" name="h3_text-transform" id="h3_text-transform">
-									<option value="uppercase">UPPERCASE</option>
-									<option value="lowercase">lowercase</option>
-									<option value="capitalize">Captialise</option>
-								</select>
-							</td><td>
-								<select class="input_field_8em" name="h3_font-weight" id="h3_font-weight">
-								  <option value="heavy">Heavy</option>
-								  <option value="normal">normal</option>
-								</select>
-							    </td></tr>
-							    <tr><td>
-								<label for="pre_font-weight">Formatted</label>
-							      </td><td>
-								<select class="input_field_8em" name="pre_font-weight" id="pre_font-weight">
-								  <option value="Courier">Courier</option>
-								  <option value="Courier_new">Courier New</option>
-								  <option value="Monospace">Monospace</option>
-								</select>
-							      </td><td>
-								<label for="pre_font-size">Size</label>
-							      </td><td>
-								<input class="input_field_3em" name="pre_font-size" id="pre_font-size" value="10"/>
-							    </td></tr>
-							  </table>
-						      </div></div>
-						      <div id="paragraphs" class="step">
-							<div class="input">
-							  <span class="font_normal_07em_black">Page breaks</span><br />
-							  <table>
-							    <tr>
-							      <td>
-								<label for="p_pagebreak">Avoid page break in paragraphs?</label>
-							      </td>
-							      <td>
-								<input class="input_field_12em" name="p_pagebreak" id="p_pagebreak" type="checkbox" checked/>
-							      </td>
-							    </tr>
-							    <tr>
-							      <td>
-								<label for="footnotes_pagebreak">Pagebreak before footnotes?</label>
-							      </td>
-							      <td>
-								<input class="input_field_12em" name="footnotes_pagebreak" id="footnotes_pagebreak" type="checkbox" checked/><br />
-							      </td>
-							    </tr>
-							  </table>
-						      </div></div>	  
-						      <div id="CSS_Advanced" class="step">
-							<div class="input">
-							  <span class="font_normal_07em_black">CSS (Advanced)</span><br />
-							  <label for="additional_css">Your custom CSS</label><br />
-							  <textarea class="input_field_12em" name="additional_css" id="additional_css" style="width:400px ! important;" rows="15"></textarea><br />
-							  <label for="special_css">Bookspark CSS (be careful if changing)</label><br />
-    					                  <textarea class="input_field_12em" name="special_css" id="special_css" style="width:400px ! important;" rows="15">body {
-}
-
-#book-title {
-    font-size: 64pt;
-    page-break-before: avoid;
-    margin-bottom: 12em;  
-    max-width: 700px;
-}
-
-.unseen {
-    display: none;
-}
-
-.chapter {
-    color: #000;
-}
-
-h1 .initial {
-    color: #000;
-    font-size: 2em;
-}
-
-body .subsection:first-child {
-}
-
-h1 {
-  page-break-before: always;
-}
-
-.objavi-subsection{
-   text-transform: uppercase;
-   font-size: 20pt;
-}
-
-.objavi-subsection .initial {
-   font-size: 1em;
-   color: #000;
-}
-
-.objavi-subsection-heading{
-   font-size: 36pt;
-   font-weight: bold;
-   page-break-before: always;
-}
-
-table {
-   float: none;
-}
-
-h1.frontpage{
-   font-size: 64pt;
-   text-align: center;
-   max-width: 700px;
-}
-
-div.copyright{
-    padding: 1em;
-}
-
-pre {
-   max-width:700px;
-   overflow: hidden;
-}
-
-img {
-   max-width: 700px;
-   height: auto;
-}
-</textarea>
-							  <br />  <label for="custom_override">Override ALL previous settings with custom CSS</label>
-							  <input class="input_field_12em" name="custom_override" id="custom_override" type="checkbox" /><br />
-
-						      </div>			</div>
-						    </div>
-						    <div id="demoNavigation"> 							
-						      <input class="navigation_button" id="back" value="Back" type="reset" />
-						      <input class="navigation_button" id="next" value="Next" type="submit" />
-						    </div>
-						  </form>
+    <div id="fieldWrapper">
+    
+      <div id="fonts" class="step">
+          <div class="input">
+          <fieldset>
+          <legend>Font</legend>
+          <table class="wizard-table" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td><label for="body_font-weight">Body Text</label></td>
+              <td><select class="input_field_8em" name="body_font-weight" id="body_font-weight">
+                  <option value="Fontin_Sans">Fontin Sans</option>
+                  <option value="Arial">Arial</option>
+                  <option value="Helvetica">Helvetica</option>
+                </select></td>
+              <td><label for="body_font-size">Size</label></td>
+              <td><input class="input_field_3em" name="body_font-size" id="body_font-size" value="10"/></td>
+            </tr>
+            <tr>
+              <td><label for="h1_font-weight">Heading 1</label></td>
+              <td><select class="input_field_8em" name="h1_font-weight" id="h1_font-weight">
+                  <option value="Fontin_Sans">Fontin Sans</option>
+                  <option value="Arial">Arial</option>
+                  <option value="Helvetica">Helvetica</option>
+                </select></td>
+              <td><label for="h1_font-size">Size</label></td>
+              <td><input class="input_field_3em" name="h1_font-size" id="h1_font-size" value="14"/></td>
+              <td><select class="input_field_8em" name="h1_text-transform" id="h1_text-transform">
+                  <option value="uppercase">UPPERCASE</option>
+                  <option value="lowercase">lowercase</option>
+                  <option value="capitalize">Captialise</option>
+                </select></td>
+              <td><select class="input_field_8em" name="h1_font-weight" id="h1_font-weight">
+                  <option value="heavy">Heavy</option>
+                  <option value="normal">normal</option>
+                </select></td>
+            </tr>
+            <tr>
+              <td><label for="h2_font-weight">Heading 2</label></td>
+              <td><select class="input_field_8em" name="h2_font-weight" id="h2_font-weight">
+                  <option value="Fontin_Sans">Fontin Sans</option>
+                  <option value="Arial">Arial</option>
+                  <option value="Helvetica">Helvetica</option>
+                </select></td>
+              <td><label for="h2_font-size">Size</label></td>
+              <td><input class="input_field_3em" name="h2_font-size" id="h2_font-size" value="12"/></td>
+              <td><select class="input_field_8em" name="h2_text-transform" id="h2_text-transform">
+                  <option value="uppercase">UPPERCASE</option>
+                  <option value="lowercase">lowercase</option>
+                  <option value="capitalize">Captialise</option>
+                </select></td>
+              <td><select class="input_field_8em" name="h2_font-weight" id="h2_font-weight">
+                  <option value="heavy">Heavy</option>
+                  <option value="normal">normal</option>
+                </select></td>
+            </tr>
+            <tr>
+              <td><label for="h3_font-weight">Heading 3</label></td>
+              <td><select class="input_field_8em" name="h3_font-weight" id="h3_font-weight">
+                  <option value="Fontin_Sans">Fontin Sans</option>
+                  <option value="Arial">Arial</option>
+                  <option value="Helvetica">Helvetica</option>
+                </select></td>
+              <td><label for="h3_font-size">Size</label></td>
+              <td><input class="input_field_3em" name="h3_font-size" id="h3_font-size" value="10"/></td>
+              <td><select class="input_field_8em" name="h3_text-transform" id="h3_text-transform">
+                  <option value="uppercase">UPPERCASE</option>
+                  <option value="lowercase">lowercase</option>
+                  <option value="capitalize">Captialise</option>
+                </select></td>
+              <td><select class="input_field_8em" name="h3_font-weight" id="h3_font-weight">
+                  <option value="heavy">Heavy</option>
+                  <option value="normal">normal</option>
+                </select></td>
+            </tr>
+            <tr>
+              <td><label for="pre_font-weight">Formatted</label></td>
+              <td><select class="input_field_8em" name="pre_font-weight" id="pre_font-weight">
+                  <option value="Courier">Courier</option>
+                  <option value="Courier_new">Courier New</option>
+                  <option value="Monospace">Monospace</option>
+                </select></td>
+              <td><label for="pre_font-size">Size</label></td>
+              <td><input class="input_field_3em" name="pre_font-size" id="pre_font-size" value="10"/></td>
+            </tr>
+          </table>
+          </fieldset>
+        </div>
+      </div>
+      
+      <div id="paragraphs" class="step">
+        <div class="input">
+          <fieldset>
+          <legend>Page breaks</legend>
+              <dl>
+                <dt style="display:none;"></dt>
+                <dd><label for="p_pagebreak"><input name="p_pagebreak" id="p_pagebreak" type="checkbox" checked/>Avoid page break in paragraphs?</label></dd>
+                <dt style="display:none;"></dt>
+                <dd><label for="footnotes_pagebreak"><input name="footnotes_pagebreak" id="footnotes_pagebreak" type="checkbox" checked/>Pagebreak before footnotes?</label></dd>
+              </dl>
+          </fieldset>
+        </div>
+      </div>
+      
+      <div id="CSS_Advanced" class="step">
+        <div class="input">
+        <fieldset>
+        <legend>CSS (Advanced)</legend>
+          <dl>
+              <dt><label for="additional_css">Your custom CSS</label></dt>
+              <dd><textarea class="input_field_12em" name="additional_css" id="additional_css" style="width:99%;" rows="15"></textarea></dd>
+              <dt><label for="special_css">Bookspark CSS (be careful if changing)</label></dt>
+              <dd><textarea class="input_field_12em" name="special_css" id="special_css" style="width:99%" rows="15"></textarea></dd>
+              <dt style="display:none;"></dt>
+              <dd><label for="custom_override"><input  name="custom_override" id="custom_override" type="checkbox" />Override ALL previous settings with custom CSS</label></dd>
+          </dl>
+		</fieldset>
+        </div>
+      </div>
+    </div>
+    <div id="demoNavigation">
+      <input class="navigation_button" id="back" value="Back" type="reset" />
+      <input class="navigation_button" id="next" value="Next" type="submit" />
+    </div>
+  </form>
 </div>
