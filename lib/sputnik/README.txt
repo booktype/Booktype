@@ -79,7 +79,7 @@ Future tasks
 ------------
 
 * Compare to other Comet APIs.
-* Make the division clear between Booki and Sputnik.
+* Make the division clear between Booktype and Sputnik.
 * Think about usage guidelines:
   * When to post a form, post an Ajax request, post a Sputnik command?
   * When to render in Django, render in JavaScript?
