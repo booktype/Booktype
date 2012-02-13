@@ -17,6 +17,6 @@
 {% endif %}
 ___
 {% trans "This email address receives these notifications because of your settings:" %}
-{{ SERVER_ROOT }}{% url user_settings user.username %}
+{{ SERVER_ROOT }}{% url view_profile user.username %}
 
 {% trans "Need a new password?" %} {{ SERVER_ROOT }}{% url forgotpassword %}?account={{ user.username }}
