@@ -442,12 +442,29 @@ def save_settings(request, username):
 
         try:
             im = Image.open(fname)
-            im.thumbnail((100, 100), Image.ANTIALIAS)
+            THUMB_SIZE = 140, 140
+            width, height = im.size
+
+            if width > height:
+                delta = width - height
+                left = int(delta/2)
+                upper = 0
+                right = height + left
+                lower = height
+            else:
+                delta = height - width
+                left = 0
+                upper = int(delta/2)
+                right = width
+                lower = width + upper
+                
+            im = im.crop((left, upper, right, lower))
+            im.thumbnail(THUMB_SIZE, Image.ANTIALIAS)
             im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, user.username), 'JPEG')
  
             profile.image = '%s%s.jpg' % (settings.PROFILE_IMAGE_UPLOAD_DIR, user.username)
         except:
-            # handle this part in better way
+            # handle this in better way
             pass
 
         os.unlink(fname)
