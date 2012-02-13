@@ -31,12 +31,9 @@ SPAN.bookicommentmarker > IMG.markerimage {
 
 
 {% block content %}
+   <h2>{{ book.title }}</h2>
 
-
-<br clear="all"/>
-   <h1>{{ book.title }}</h1>
-
-
+<div class="padded">
 <div id="bookmenu">
 <ul>
 {% for chap in chapters %}
@@ -49,12 +46,18 @@ SPAN.bookicommentmarker > IMG.markerimage {
 </ul>
 </div>
 <div id="bookcontent">
+   {% if request.user.is_authenticated %}
+     <div class="action-menu top">
+      	<a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
+     </div>
+   {% endif %}
 {% booki_format content %}
    {% if request.user.is_authenticated %}
-     <hr/>
-      <a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
+     <div class="action-menu bottom">
+      	<a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
+     </div>
    {% endif %}
 
 </div>
-
+</div>
 {% endblock %}

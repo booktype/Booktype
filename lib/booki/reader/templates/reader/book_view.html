@@ -18,7 +18,8 @@
 
  {% endif %}
 
-<h1>{{ book.title }}</h1>
+<h2>{{ book.title }}</h2>
+<div class="padded">
  <div id="bookmenu"> 
   <ul>
     {% for chap in chapters %}
@@ -35,10 +36,13 @@
    {% trans "click on the chapter name" %}
 
    {% if request.user.is_authenticated %}
-     <hr/>
-      <a href="{% url edit_book book.url_title %}">{% trans "EDIT" %}</a>
+     <div class="action-menu bottom">
+      	<a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
+     </div>
    {% endif %}
 
+ </div>
+ 
  </div>
 
 
