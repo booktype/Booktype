@@ -396,10 +396,13 @@ def view_profile(request, username):
         books = models.Book.objects.filter(owner=user, hidden=False)
     
     groups = user.members.all()
+    
+    from django.utils.html import escape
+    userDescription = escape(user.get_profile().description)
 
     return render_to_response('account/view_profile.html', {"request": request,
                                                             "user": user,
-
+                                                            "user_description": '<br/>'.join(userDescription.replace('\r','').split('\n')),
                                                             "books": books,
                                                             "groups": groups})
 
@@ -442,7 +445,7 @@ def save_settings(request, username):
 
         try:
             im = Image.open(fname)
-            THUMB_SIZE = 140, 140
+            THUMB_SIZE = 100, 100
             width, height = im.size
 
             if width > height:

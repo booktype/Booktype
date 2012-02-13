@@ -169,14 +169,17 @@ def remote_hide_book(request, message, profileid):
     return {"result": True}
 
 def remote_load_info(request, message, profileid):
+    from django.utils.html import escape
 
     user    = request.user
     profile = request.user.get_profile()
+    description = escape(profile.description).replace('\r', '')
+
+    lines = description.split('\n')
     
     info = {'username': user.username,
             'fullname': user.first_name,
-            'description': profile.description
-
+            'description': '<br/>'.join(lines)
         }
 
     return {"result": True, "info": info}
