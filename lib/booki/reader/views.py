@@ -93,6 +93,9 @@ def book_info(request, bookid, version=None):
 
     book_versions = models.BookVersion.objects.filter(book=book).order_by("created")
 
+    from django.utils.html import escape
+    bookDescription = escape(book.description)
+
     return render_to_response('reader/book_info.html', {"book": book, 
                                                         "book_version": book_version.getVersion(),
                                                         "book_versions": book_versions,
@@ -101,6 +104,7 @@ def book_info(request, bookid, version=None):
                                                         "has_css": _customCSSExists(book.url_title),
                                                         "is_book_admin": isBookAdmin,
                                                         "online_users": online_users,
+                                                        "book_description": '<br/>'.join(bookDescription.replace('\r','').split('\n')),
                                                         "request": request})
 
 
