@@ -1,0 +1,132 @@
+<div class="ebookwizzard ui-widget ui-widget-content ui-corner-all" style="padding: 1em; width: 500px;"> 
+  <a name="close" href="#"><span style="float: right" class="ui-icon ui-icon-close"></span></a>
+  <h4>Ebook Settings</h4>
+  <div style="clear: both; margin-bottom: 5px; padding-bottom: 5px;"></div>
+
+  <form  id="demoForm" method="post" action="#" onsubmit="return false;" class="bbq">
+		<div id="fieldWrapper">
+			<div class="step" id="format">
+				<div class="input">
+                <fieldset>
+					<legend>Type of Ebook</legend>
+					<dl>
+						<dt style="display:none;"></dt>
+                        <dd><label for="ipad"><input name="ebook_format" id="ipad" type="radio" value="ipad"/>ipad</label></dd>
+                        <dt style="display:none;"></dt>
+                        <dd><label for="kindle"><input name="ebook_format" id="kindle" type="radio"  value="kindle"/>kindle</label></dd>
+                        <dt style="display:none;"></dt>
+						<dd><label for="epub"><input name="ebook_format" id="epub" type="radio" value="epub"/>general</label></dd>
+                    </dl>
+                </fieldset>
+				</div>
+			</div>
+			<div id="fonts" class="step">
+				<div class="input">
+                <fieldset>
+					<legend>Font</legend>
+					<table class="wizard-table" cellpadding="0" cellspacing="0" border="0">
+						<tr>
+                            <td><label for="body_font-weight">Body Text</label></td>
+                            <td><select class="input_field_8em" name="body_font-family" id="body_font-familyt">
+                                        <option value="Fontin_Sans">Fontin Sans</option>
+                                        <option value="Arial">Arial</option>
+                                        <option value="Helvetica">Helvetica</option>
+                                    </select></td>
+                            <td><label for="body_font-size">Size</label></td>
+                            <td><input class="input_field_3em" name="body_font-size" id="body_font-size" value="10"/></td>
+						</tr>
+						<tr>
+                        	<td><label for="h1_font-weight">Heading 1</label></td>
+                            <td><select class="input_field_8em" name="h1_font-family" id="h1_font-family">
+									<option value="Fontin_Sans">Fontin Sans</option>
+									<option value="Arial">Arial</option>
+									<option value="Helvetica">Helvetica</option>
+								</select></td>
+							<td><label for="h1_font-size">Size</label></td>
+                            <td><input class="input_field_3em" name="h1_font-size" id="h1_font-size" value="14"/></td>
+                            <td><select class="input_field_8em" name="h1_text-transform" id="h1_text-transform">
+									<option value="uppercase">UPPERCASE</option>
+									<option value="lowercase">lowercase</option>
+									<option value="capitalize">Captialise</option>
+								</select></td>
+							<td><select class="input_field_8em" name="h1_font-weight" id="h1_font-weight">
+									<option value="heavy">Heavy</option>
+									<option value="normal">normal</option>
+								</select></td>
+						</tr>
+						<tr>
+                        	<td><label for="h2_font-weight">Heading 2</label></td>
+                            <td><select class="input_field_8em" name="h2_font-weightamily" id="h2_font-family">
+									<option value="Fontin_Sans">Fontin Sans</option>
+									<option value="Arial">Arial</option>
+									<option value="Helvetica">Helvetica</option>
+								</select></td>
+							<td><label for="h2_font-size">Size</label></td>
+							<td><input class="input_field_3em" name="h2_font-size" id="h2_font-size" value="12"/></td>
+							<td><select class="input_field_8em" name="h2_text-transform" id="h2_text-transform">
+									<option value="uppercase">UPPERCASE</option>
+									<option value="lowercase">lowercase</option>
+									<option value="capitalize">Captialise</option>
+								</select></td>
+							<td><select class="input_field_8em" name="h2_font-weight" id="h2_font-weight">
+									<option value="heavy">Heavy</option>
+									<option value="normal">normal</option>
+								</select></td>
+						</tr>
+						<tr>
+                        	<td><label for="h3_font-weight">Heading 3</label></td>
+							<td><select class="input_field_8em" name="h3_font-family" id="h3_font-family">
+									<option value="Fontin_Sans">Fontin Sans</option>
+									<option value="Arial">Arial</option>
+									<option value="Helvetica">Helvetica</option>
+								</select></td>
+							<td><label for="h3_font-size">Size</label></td>
+							<td><input class="input_field_3em" name="h3_font-size" id="h3_font-size" value="10"/></td>
+							<td><select class="input_field_8em" name="h3_text-transform" id="h3_text-transform">
+									<option value="uppercase">UPPERCASE</option>
+									<option value="lowercase">lowercase</option>
+									<option value="capitalize">Captialise</option>
+								</select></td>
+							<td><select class="input_field_8em" name="h3_font-weight" id="h3_font-weight">
+									<option value="heavy">Heavy</option>
+									<option value="normal">normal</option>
+								</select></td>
+						</tr>
+						<tr>
+                        	<td><label for="pre_font-weight">Formatted</label></td>
+							<td><select class="input_field_8em" name="pre_font-family" id="pre_font-family">
+									<option value="Courier">Courier</option>
+									<option value="Courier_new">Courier New</option>
+									<option value="Monospace">Monospace</option>
+								</select></td>
+							<td><label for="pre_font-size">Size</label></td>
+							<td><input class="input_field_3em" name="pre_font-size" id="pre_font-size" value="10"/></td>
+						</tr>
+					</table>
+                </fieldset>    
+				</div>
+            </div>	
+			<div id="CSS_Advanced" class="step">
+				<div class="input">
+                <fieldset>
+					<legend>CSS (Advanced)</legend>
+                    <dl>
+          				<dt><label for="additional_css">Your custom CSS</label></dt>
+						<dd><textarea class="input_field_12em" name="additional_css" id="additional_css" style="width:99%;" rows="15"></textarea></dd>
+						<dt style="display:none;"></dt>
+						<dd><label for="custom_override"><input class="input_field_12em" name="custom_override" id="custom_override" type="checkbox" />Override ALL previous settings with custom CSS</label></dd>
+                    </dl> 
+                </fieldset>       
+				</div>
+            </div>
+		</div>
+		<div id="demoNavigation"> 							
+			<input class="navigation_button" id="back" value="Back" type="reset" />
+			<input class="navigation_button" id="next" value="Next" type="submit" />
+		</div>
+	</form>
+
+
+
+</div>
+

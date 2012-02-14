@@ -1,0 +1,64 @@
+{% load i18n %}
+
+<div class="dialog" title="{% trans "Create a Book" %}">
+
+<form method="post" action="{% url create_book request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">
+<div>
+    <div class="step">
+	<h4><strong>Step 1</strong> - Title</h4>
+	<p>What is the title of your book?</p>
+    <dl>
+        <dt><label for="title">Title of Book</label></dt>
+        <dd><input type="text" name="title" style="width:99.5%;" /></dd>
+    </dl>
+        <div class="bookexists alert-box error" style="display: none; margin-top:12px;">
+              {% trans "There is already a book with this name." %}
+        </div>
+    </div>
+
+    <div class="step">
+	<h4><strong>Step 2</strong> - Description</h4>
+	<p>Give some information so others can find it to help you (this can be added or changed later).</p>
+
+	<dl>
+        <dt><label for="description">Description</label></dt>
+		<dd><textarea name="description" rows="12" style="width:99.5% !important; height:140px;"/></textarea></dd>
+    </dl>
+    </div>
+
+    <div class="step">
+	<h4><strong>Step 3</strong> - Choose your license</h4>
+	<p>Choose from the following licenses</p>
+	<dl>
+        <dt><label for="hidden">License</label></dt>
+		<dd><select name="license" style="min-width:300px;">
+              {% for license in licenses %}
+             <option value="{{license.abbrevation}}">{{license.name}}</option>
+              {% endfor %}
+			</select>
+        </dd>
+    </dl>
+    </div>
+
+    <div class="step">
+	<h4><strong>Step 4</strong> - Image</h4>
+	<p>If you have an image for the book then add it now (this can be added or changed later)</p>
+	<dl>
+        <dt><label for="hidden">Book Image</label></dt>
+		<dd><input type="file" name="cover" size="40"></dd>
+    </dl>
+    </div>
+
+    <div id="makebook5" class="step">
+	<h4><strong>Step 5</strong> - Make Public?</h4>
+	<p style="width:90%;">Would you like to keep your book private or make it public? If the book is public others can find the book to help you.<br>
+	  <strong>Note:</strong> this setting can be changed later from your dashboard.</p>
+	<dl>
+        <dt><label><input type="checkbox" name="hidden">initially hide from others</label></dt>
+    </dl>
+    </div>
+
+</div>
+</form>
+<iframe name="hidden_frame" style="border: 0px; width: 0px; height: 0px; display:inline; margin:0; padding:0;"></iframe>
+</div>

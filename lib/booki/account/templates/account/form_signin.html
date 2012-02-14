@@ -1,0 +1,21 @@
+{% load i18n  %}
+
+<h3>{% trans "Sign in" %}</h3>
+
+<form id="formsignin" onsubmit="return false;" action="#" method="GET">
+  <label for="username">{% trans "User name" %}</label>        
+  <input name="username" type="text" />
+  <label for="password">{% trans "Password" %}</label>
+  <input name="password" id="password" type="password" />
+  <br>
+  <small><a href="{% url forgotpassword %}">Forgotten your password?</a></small>
+  <br>
+  
+  <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">
+    <div class="no-such-user template">{% trans "User does not exist." %}</div>
+    <div class="wrong-password template">{% trans "Password is wrong! Please try again." %}</div>
+    <div class="unknown-error template">{% trans "Unknown error!" %}</div>
+  </div>
+  
+  <input class="navigation_button" id="next" value="Signin" type="submit" />
+</form>

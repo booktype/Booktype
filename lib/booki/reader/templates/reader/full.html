@@ -13,14 +13,14 @@
 
 {% block content %}
 
-<h1>{{ book.title }}</h1>
-
+<h2>{{ book.title }}</h2>
+<div id="full-view-content">
 {% for chap in chapters %}
  {% ifequal chap.type "chapter"%}
    {% booki_format chap.chapter  %}
  {% else %}
-   <h2> {{ chap.title }}</h2>
+   <h3> {{ chap.title }}</h3>
  {% endifequal %}
 {% endfor %}
-
+</div>
 {% endblock %}

@@ -1,9 +1,9 @@
-Installing Booki
-----------------
+Installing Booktype 1.5
+-----------------------
 
-Note : there are three components to the Booki Tool Set. This doc
-covers only the Booki (editor/book manager) component and not Espri
-(importer) or Objavi (exporter). By default Booki is hardwired to the
+Note : there are three components to the Booktype Tool Set. This doc
+covers only the Booktype (editor/book manager) component and not Espri
+(importer) or Objavi (exporter). By default Booktype is hardwired to the
 FLOSS Manuals install of Objavi and Espri so you still acquire that
 functionality. To detach yourself from the FLOSS Manuals mothership
 you need to install Espri and Objavi and configure your install of
@@ -16,8 +16,8 @@ can just use the distro versions.  In that case, skip the easy_install
 steps and do whatever is appropriate with your package manager.
 
 
-Booki prerequisites
--------------------
+Booktype prerequisites
+----------------------
 
 Command examples are for Debian/Ubuntu.
 
@@ -78,28 +78,28 @@ This install doc uses sqlite3 (it is recommended to use PostgreSQL) as its the
 easiest to setup so make sure sqlite3 is installed. Do all of the steps as regular 
 user or www-data user.
 
-1. Clone Booki
+1. Clone Booktype
 
-   git clone git://booki-dev.flossmanuals.net/git/booki.git
+   git clone https://github.com/sourcefabric/Booktype.git
 
 2. Change dir to 'booki/scripts'
 
    cd booki/scripts
 
-3. Create booki instance. If you have write permissions, script will create directory /var/www/mybooki/. If you don't
+3. Create booktype instance. If you have write permissions, script will create directory /var/www/mybooktype/. If you don't
    have write permissions, administrator should create that directory first.
-      sudo mkdir /var/www/mybooki/
-      sudo chown www-data:www-data /var/www/mybooki/
+      sudo mkdir /var/www/mybooktype/
+      sudo chown www-data:www-data /var/www/mybooktype/
 
-   ./createbooki --database sqlite /var/www/mybooki/  
+   ./createbooki --database sqlite /var/www/mybooktype/  
 
    You can also let create script check if you have installed all needed libraries:
 
-   ./createbooki --check-versions --database sqlite /var/www/mybooki/  
+   ./createbooki --check-versions --database sqlite /var/www/mybooktype/  
 
 4. Change directory
 
-   cd /var/www/mybooki/
+   cd /var/www/mybooktype/
 
 5. Edit settings
 
@@ -138,10 +138,10 @@ Then if all is well open your browser and point to something like:
 http://127.0.0.1:8000/
 
 
-How to use Booki with Apache and mod_wsgi
------------------------------------------
+How to use Booktype with Apache and mod_wsgi
+--------------------------------------------
 
-To install Booki with Apache, you need to use WSGI or FCGI/SCGI.  Consult the
+To install Booktype with Apache, you need to use WSGI or FCGI/SCGI.  Consult the
 Django documentation at
 http://docs.djangoproject.com/en/dev/howto/deployment/.
 
@@ -149,8 +149,8 @@ Createbooki script has created booki.wsgi script for the Apache. Use that
 file as part of your Apache config.
 
 
-How to migrate to latest Booki
-------------------------------
+How to migrate to latest Booki 1.4
+----------------------------------
 
 1. The following should be added to settings.py:
 

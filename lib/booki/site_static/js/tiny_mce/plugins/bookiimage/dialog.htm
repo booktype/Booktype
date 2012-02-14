@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Insert Image</title>
+	<script type="text/javascript" src="../../tiny_mce_popup.js?v={tinymce_version}"></script>
+	<script type="text/javascript" src="../../utils/mctabs.js?v={tinymce_version}"></script>
+	<script type="text/javascript" src="../../utils/form_utils.js?v={tinymce_version}"></script>
+	<script type="text/javascript" src="../../utils/validate.js?v={tinymce_version}"></script>
+	<script type="text/javascript" src="../../utils/editable_selects.js?v={tinymce_version}"></script>
+	<script type="text/javascript" src="js/dialog.js?v={tinymce_version}"></script>
+
+	<link href="css/advimage.css?v={tinymce_version}" rel="stylesheet" type="text/css" />
+</head>
+<body id="advimage" style="display: none" role="application">
+<form onsubmit="ImageDialog.insert(); return false;" action="#">
+
+ <div class="tabs">
+  <ul>
+    <li id="general_tab" class="current" aria-controls="general_panel"><span><a href="javascript:mcTabs.displayTab('general_tab','general_panel');" onmousedown="return false;">General</a></span></li>
+    <li id="appearance_tab" aria-controls="appearance_panel"><span><a href="javascript:mcTabs.displayTab('appearance_tab','appearance_panel');" onmousedown="return false;">Appearance</a></span></li>
+  </ul>
+ </div>
+
+ <div class="panel_wrapper">
+  <div id="general_panel" class="panel current">
+
+    <fieldset>
+     <legend>General</legend>
+     <table role="presentation" class="properties">
+      <tr>
+       <td class="column1">Image URL</td>
+       <td><input type="text" name="imageurl" id="imageurl"/></td>
+       <td><button class="browse">Browse</button></td>
+      </tr>
+
+      <tr>
+       <td class="column1">Title</td>
+       <td colspan="2"><input type="text" name="imagetitle"/></td>
+      </tr>
+
+     </table>
+    </fieldset>
+    <fieldset>
+     <legend>Preview</legend>
+	<div id="prev"></div>
+
+    </fieldset>
+  </div>
+
+  <div id="appearance_panel" class="panel">
+   <fieldset>
+    <legend>Appearance</legend>
+
+    <table role="presentation" border="0" cellpadding="4" cellspacing="0">
+     <tr> 
+      <td class="column1"><label id="alignlabel" for="align">Align</label></td> 
+      <td><select id="align" name="align" onchange="ImageDialog.updateStyle();"> 
+           <option value="">-- Not Set --</option> 
+	   <option value="baseline">Baseline</option>
+	   <option value="top">Top</option>
+	   <option value="middle">Middle</option>
+	   <option value="bottom">Bottom</option>
+	   <option value="text-top">Text Top</option>
+	   <option value="text-bottom">Text Bottom</option>
+	   <option value="left">Left</option>
+	   <option value="right">Right</option>
+	  </select> 
+      </td>
+      <td rowspan="6" valign="top">
+       <div class="alignPreview">
+									<img id="alignSampleImg" src="img/sample.gif" alt="{#advimage_dlg.example_img}" />
+									Lorem ipsum, Dolor sit amet, consectetuer adipiscing loreum ipsum edipiscing elit, sed diam
+									nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Loreum ipsum
+									edipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+								erat volutpat.
+       </div>
+      </td>
+     </tr>
+
+     <tr role="group" aria-labelledby="widthlabel">
+      <td class="column1"><label id="widthlabel" for="width">Dimensions</label></td>
+      <td class="nowrap">
+       <span style="display:none" id="width_voiceLabel">Width</span>
+        <input name="width" type="text" id="width" value="" size="5" maxlength="5" class="size" onchange="ImageDialog.changeHeight();" aria-labelledby="width_voiceLabel" /> x 		<span style="display:none" id="height_voiceLabel">Height</span>
+	<input name="height" type="text" id="height" value="" size="5" maxlength="5" class="size" onchange="ImageDialog.changeWidth();" aria-labelledby="height_voiceLabel" /> px
+      </td>
+     </tr>
+
+     <tr>
+      <td>&nbsp;</td>
+      <td><table role="presentation" border="0" cellpadding="0" cellspacing="0">
+           <tr>
+	    <td><input id="constrain" type="checkbox" name="constrain" class="checkbox" /></td>
+	    <td><label id="constrainlabel" for="constrain">Constrain Proportions</label></td>
+	   </tr>
+	  </table>
+      </td>
+     </tr>
+
+     <tr>
+      <td class="column1"><label id="vspacelabel" for="vspace">Vertical Space</label></td> 
+      <td><input name="vspace" type="text" id="vspace" value="" size="3" maxlength="3" class="number" onchange="ImageDialog.updateStyle();" onblur="ImageDialog.updateStyle();" />
+     </td>
+    </tr>
+
+    <tr> 
+     <td class="column1"><label id="hspacelabel" for="hspace">Horizontal Space</label></td> 
+     <td><input name="hspace" type="text" id="hspace" value="" size="3" maxlength="3" class="number" onchange="ImageDialog.updateStyle();" onblur="ImageDialog.updateStyle();" /></td> 
+    </tr>
+
+    <tr>
+     <td class="column1"><label id="borderlabel" for="border">Border</label></td> 
+     <td><input id="border" name="border" type="text" value="" size="3" maxlength="3" class="number" onchange="ImageDialog.updateStyle();" onblur="ImageDialog.updateStyle();" /></td> 
+    </tr>
+
+    <tr>
+     <td class="column1"><label id="cssidlabel" for="cssid">CSS ID</label></td> 
+     <td><input id="cssid" name="cssid" type="text" value="" /></td> 
+    </tr>
+
+    <tr>
+     <td class="column1"><label id="cssclasslabel" for="cssclass">CSS class</label></td> 
+     <td><input id="cssclass" name="cssclass" type="text" value="" /></td> 
+    </tr>
+
+   </table>
+  </fieldset>
+ </div>
+</div>
+
+ <div class="mceActionPanel">
+  <input type="button" id="insert" name="insert" value="{#insert}" onclick="ImageDialog.insert();" />
+  <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+ </div>
+</form>
+
+</body>
+</html>

@@ -44,9 +44,8 @@
 
 
 <h2>{% trans "My Groups" %}</h2>
-<div style="border-bottom: 1px solid #c0c0c0"></div>
-
-<ul>
+<div class="padded">
+<ul class="list">
 {% for group in groups %}
    <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a></li>
 {% endfor %}
@@ -55,19 +54,18 @@
 {% if user.username == request.user.username %}
 
 <a name="createnewgroup"></a>
-<div style="padding-top: 20px; width:325px;" id="newgroup">
-<h2>{% trans "Create new group" %}</h2>
-<div style="border-bottom: 1px solid #c0c0c0; margin-bottom: 20px"></div>
+<div style="padding-top: 20px;" id="newgroup">
+<h3>{% trans "Create new group" %}</h3>
 
-  <form method="GET" action="javascript:void(0)" onsubmit="return false;">
-    {% trans "Group name:" %}<br>
-    <input type="text" style="width:325px;" value=""/> <br>
-    {% trans "What is this group about:" %}<br>
-    <textarea name="description" rows="5" style="width:325px;"></textarea><br/>
+  <form method="GET" action="javascript:void(0)" onsubmit="return false;" class="create-group">
+    <label>{% trans "Group name:" %}</label>
+    <input type="text" value=""/> <br>
+    <label>{% trans "What is this group about:" %}</label>
+    <textarea name="description" rows="5"></textarea>
     <button>{% trans "Create new group" %}</button>
   </form>
 </div>
 
 {% endif %}
-
+</div>
 {% endblock %}

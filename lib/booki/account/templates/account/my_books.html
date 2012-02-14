@@ -3,11 +3,9 @@
 {% load i18n profile %}
 
 {% block header %}
-  <title>{% trans "My Books" %}</title>
-
-  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/profile.js"></script>
-
-  <script type="text/javascript">
+<title>{% trans "My Books" %}</title>
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/profile.js"></script> 
+<script type="text/javascript">
     $(function() {
 
 	// current browser
@@ -113,101 +111,73 @@
 			jSelect.change( UpdateFormFields );
 			});
 
-  </script>
-
+  </script> 
 {% endblock %}
 
 {% block content %}
-
-<div style="margin-bottom: 5px">
-
 <h2>{% trans "My Books" %}</h2>
-<div style="border-bottom: 1px solid #c0c0c0"></div>
-
-<table border="0" cellspacing="2">
-{% for book in books %}
-  <tr>
-   <td>
-      <a href="{% url book_view book.url_title %}">
-        {% if book.hidden %}
-          <i>{{ book.title }}</i>
-        {% else %}
-          {{ book.title }}
-        {% endif %}
-      </a>
-   </td>
-   <td width="50"></td>
-   <td><div style="padding-left: 5px; padding-right: 5px"><a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a></div></td>
-   <td><div style="padding-left: 5px; padding-right: 5px"><a href="{% url book_info  book.url_title %}">{% trans "info" %}</a></div></td>
-   <td><div style="padding-left: 5px; padding-right: 5px"><a href="{% url draft_book  book.url_title %}">{% trans "draft" %}</a></div></td>
-   <td><div style="padding-left: 5px; padding-right: 5px"><a href="{% url view_full  book.url_title %}">{% trans "full" %}</a></div></td>
-   <td>
-    <div style="white-space: nowrap;">
-   {% if user.username == request.user.username %}   
-     {% if book.hidden %}
-       <form style="display: inline" action="." method="POST">
-	 <button>{% trans "Show to others" %}</button>
-	 <input type="hidden" name="book" value="{{book.url_title}}" />
-	 <input type="hidden" name="action" value="unhide" />
-       </form>
-     {% else %}
-       <form style="display: inline" action="." method="POST">
-	 <button>{% trans "Hide from others" %}</button>
-	 <input type="hidden" name="book" value="{{book.url_title}}" />
-	 <input type="hidden" name="action" value="hide" />
-       </form>
-     {% endif %}
-   {% endif %}
-    </div>
-   </td>
-  </tr>
-{% endfor %}
-</table>
+<div class="padded">
+<div class="action-menu big">
+<a class="prime" href="#">{% trans "Create new book" %}</a> <a class="prime" href="#">{% trans "Import Book" %}</a>
 </div>
-
-{% if user.username == request.user.username %}
-
-<a name="createnewbook"></a>
-<h2>{% trans "Create new book" %}</h2>
-<form action="." method="POST">
-<table>
-{{ project_form.as_table }}
+<table border="0" cellspacing="0" class="basic-table">
+  {% for book in books %}
+  <tr>
+    <td width="40%"><a href="{% url book_view book.url_title %}"> {% if book.hidden %} <i>{{ book.title }}</i> {% else %}
+      {{ book.title }}
+      {% endif %} </a></td>
+    <td width="10%"></td>
+    <td width="25%"><a class="action-button" href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a>
+        <a class="action-button" href="{% url book_info  book.url_title %}">{% trans "info" %}</a>
+        <a class="action-button" href="{% url draft_book  book.url_title %}">{% trans "draft" %}</a>
+        <a class="action-button" href="{% url view_full  book.url_title %}">{% trans "full" %}</a></td>
+    <td width="25%" class="buttons last"><div style="white-space: nowrap;"> {% if user.username == request.user.username %}   
+        {% if book.hidden %}
+        <form style="display: inline" action="." method="POST">
+          <button>{% trans "Show to others" %}</button>
+          <input type="hidden" name="book" value="{{book.url_title}}" />
+          <input type="hidden" name="action" value="unhide" />
+        </form>
+        {% else %}
+        <form style="display: inline" action="." method="POST">
+          <button>{% trans "Hide from others" %}</button>
+          <input type="hidden" name="book" value="{{book.url_title}}" />
+          <input type="hidden" name="action" value="hide" />
+        </form>
+        {% endif %}
+        {% endif %} </div></td>
+  </tr>
+  {% endfor %}
 </table>
-<button>{% trans "Create" %}</button>
+{% if user.username == request.user.username %} <a name="createnewbook"></a>
+<h3 class="inner">{% trans "Create new book" %}</h3>
+<form action="." method="POST" class="basic-form">
+  <table>
+    {{ project_form.as_table }}
+  </table>
+  <button>{% trans "Create" %}</button>
 </form>
 <br/>
-
-<h2>{% trans "Import Book" %}</h2>
-<form action="." method="POST">
-<table>
-<tr>
-<th>Import type:</th><td>
-			<select id="field1">
-				<option value="">{% trans "Select Import Type" %}</option>
-				<option value="opt1">{% trans "Import epub" %}</option>
-				<option value="opt2">{% trans "Import FM" %}</option>
-				<option value="opt3">{% trans "Import Archive.org book" %}</option>
-				<option value="opt4">{% trans "Import Wikibook" %}</option>
-				<option value="opt5">{% trans "Import Booki" %}</option>
-			</select>
-</td></tr>
-<tr>
-<th>Source:</th><td>
-			<input type="text" id="id" name="id" size="50" />
-</td></tr>
-<tr>
-<th>New title (optional):</th><td>
-			<input type="text" id="rename_title" name="rename_title" size="50" />
-			<input type="hidden" id="type" name="type" size="50" />
-</td></tr>
-<tr>
-<th>Initially hidden from others:</th><td>
-			<input id="hidden" name="hidden" type="checkbox">
-</td></tr>
-</table>
-<button>{% trans "Import" %}</button>
+<h3 class="inner">{% trans "Import Book" %}</h3>
+<form action="." method="POST" class="basic-form">
+  <label for="field1">Import type:</label>
+  <select id="field1">
+          <option value="">{% trans "Select Import Type" %}</option>
+          <option value="opt1">{% trans "Import epub" %}</option>
+          <option value="opt2">{% trans "Import FM" %}</option>
+          <option value="opt3">{% trans "Import Archive.org book" %}</option>
+          <option value="opt4">{% trans "Import Wikibook" %}</option>
+          <option value="opt5">{% trans "Import Booki" %}</option>
+   </select>
+   <label for="id">Source:</label>
+   <input type="text" id="id" name="id" size="50" />
+   <label for="rename_title">New title (optional):</label>
+   <input type="text" id="rename_title" name="rename_title" size="50" />
+   <input type="hidden" id="type" name="type" size="50" />
+   <label class="checbox-label"><input id="hidden" name="hidden" type="checkbox" />Initially hidden from others</label>
+   
+   <button>{% trans "Import" %}</button>
 </form>
-
 {% endif %}
-
-{% endblock %}
+</div>
+{% endblock %} 

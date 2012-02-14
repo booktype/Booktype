@@ -1,0 +1,31 @@
+{% load i18n  %}
+
+<h3>{% trans "Create account" %}</h3>
+<form id="formregister" onsubmit="return false;" action="#" method="GET">
+  <label for="username">{% trans "User name" %}</label>        
+  <input name="username" type="text"/>
+  <label for="password">{% trans "Password (6 characters at least)" %}</label>
+  <input name="password" type="password" />
+  <label for="name">{% trans "Full name" %}</label>        
+  <input name="fullname" type="text" />
+  <label for="email">{% trans "Email" %}</label>
+  <input name="email" type="text" />
+  <br />
+
+  <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">
+    <div class="missing-username template">{% trans "Missing username!" %}</div>
+    <div class="missing-email template">{% trans "Missing e-mail!" %}</div>
+    <div class="missing-password template">{% trans "Missing password!" %}</div>
+    <div class="missing-fullname template">{% trans "Please provide your real name." %}</div>
+    <div class="invalid-username template">{% blocktrans %}Username is invalid. Please try a different one. You may use alhpanumeric characters and characters ".", "_", "-" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>{% endblocktrans %}</div>
+    <div class="invalid-email template">{% trans "This is not a valid e-mail" %}</div>
+    <div class="password-mismatch template">{% trans "Your passwords dont match. Please try a different one." %}</div>
+    <div class="invalid-password template">{% trans "Password must be 6 characters or more!" %}</div>
+    <div class="username-taken template">{% trans "Username already taken. Please try a different one." %}</div>
+    <div class="unknown-error template">{% trans "Unknown error!" %}</div>
+    <div class="fullname-toolong template">{% trans "Fullname is too long!" %}</div>
+    <div class="clear template"></div>
+  </div>
+  
+  <input value="{% trans "Create account" %}" type="submit" />
+</form>

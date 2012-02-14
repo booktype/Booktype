@@ -1,3 +1,19 @@
+# This file is part of Booktype.
+# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+#
+# Booktype is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Booktype is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+
 from lxml import etree, html
 
 import sputnik
@@ -17,13 +33,13 @@ from django.conf import settings
 try:
     OBJAVI_URL = settings.OBJAVI_URL
 except AttributeError:
-    OBJAVI_URL = "http://objavi.flossmanuals.net/objavi.cgi"
+    OBJAVI_URL = "http://objavi.booki.cc/objavi.cgi"
 
 try:
     THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
 except AttributeError:
     import os
-    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booki.flossmanuals.net')
+    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
 
 
 # this couple of functions should go to models.BookVersion
@@ -788,7 +804,7 @@ def remote_chapter_split(request, message, bookid, version):
     else:
         initialPosition = 0
 
-    s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
+    s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
 
     n = 0
     for chap in message["chapters"]:
@@ -880,13 +896,17 @@ def remote_create_chapter(request, message, bookid, version):
 
     url_title = bookiSlugify(message["chapter"])
 
+    if len(url_title) == 0:
+        return {"created": False, "silly_url": True}
+
+
     # here i should probably set it to default project status
-    s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
+    s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
 
     ch = models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title)
 
     if len(list(ch)) > 0:
-        return {"created": False}
+        return {"created": False, "silly_url": False}
 
     content = u'<h1>%s</h1>' % message["chapter"]
 
@@ -1027,7 +1047,7 @@ def remote_clone_chapter(request, message, bookid, version):
         url_title = source_url_title
 
     # here i should probably set it to default project status
-    s = models.BookStatus.objects.filter(book=book).order_by("weight")[0]
+    s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
 
     ch = models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title)
 
@@ -1903,13 +1923,13 @@ def color_me(l, rgb, pos):
         if (t1 == t2) or (t1 > t2 and t2 != -1):
             out  = l[:pos[0]]
 
-            out += '<span style="background-color: yellow">'+color_me(l[pos[0]:pos[1]], rgb, None)+'</span>'
+            out += '<span class="diff changed">'+color_me(l[pos[0]:pos[1]], rgb, None)+'</span>'
             out += l[pos[1]:]
         else:
             out = l
         return out
 
-    out = '<span style="%s">' % rgb
+    out = '<span class="%s">' % rgb
 
     n = 0
     m = 0
@@ -1943,7 +1963,7 @@ def color_me(l, rgb, pos):
                         if n != 0:
                             out += '</span>'
 
-                        out += tag+'<span style="%s">' % rgb
+                        out += tag+'<span class="%s">' % rgb
                     else:
                         out += tag
 
@@ -2129,7 +2149,7 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
             else:
                 plus_pos = None
 
-            output_right +=  '<div style="background-color: orange;">'+color_me(line[2:], 'background-color: green;', plus_pos)+'</div>'
+            output_right +=  '<div class="diff changed">'+color_me(line[2:], 'diff added', plus_pos)+'</div>'
             output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
             output_left = output_right = '<td valign="top">'
         elif line[:2] == '- ':
@@ -2146,7 +2166,7 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
             output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
 
             output_left = output_right = '<td valign="top">'
-            output_left +=  '<div style="background-color: orange">'+color_me(line[2:], 'background-color: red;', minus_pos)+'</div>'
+            output_left +=  '<div class="diff changed">'+color_me(line[2:], 'diff deleted', minus_pos)+'</div>'
         elif line[:2] == '  ':
             if line[2:].strip() != '':
                 output_left  += line[2:]+'<br/><br/>'
@@ -2156,7 +2176,7 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
 
     output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
     
-    info = '''<div style="padding-bottom: 5px"><span style="width: 10px; height: 10px; background-color: orange; display: inline-block;"></span> Changed <span style="width: 10px; height: 10px; background-color: green; display: inline-block;"></span> Added <span style="width: 10px; height: 10px; background-color: red; display: inline-block;"></span> Deleted </div>'''
+    info = '''<div style="padding-bottom: 5px"><span class="diff changed" style="width: 10px; height: 10px; display: inline-block;"></span> Changed <span class="diff added" style="width: 10px; height: 10px; display: inline-block;"></span> Added <span class="diff deleted" style="width: 10px; height: 10px; display: inline-block;"></span> Deleted </div>'''
     
     return {"output": info+'<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: '+message["revision2"]+'</div></td></tr>\n'.join(output)+'</table>\n'}
 
@@ -2782,3 +2802,384 @@ def remote_book_permission_save(request, message, bookid, version):
     return {"status": True}
 
 
+###############################################################################################################
+
+PUBLISH_OPTIONS = {
+    'book': [{"name": "booksize", "value": "COMICBOOK"}, {"name": "custom_width", "value": ""}, {"name": "custom_height", "value": ""}, {"name": "body_font-family", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "h1_font-family", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_font-weight", "value": "heavy"}, {"name": "h2_font-family", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-family", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_text-transform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-family", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "p_pagebreak", "value": "on"}, {"name": "footnotes_pagebreak", "value": "on"}, {"name": "control-css", "value": "on"}, {"name": "page-numbers", "value": "auto"}, {"name": "embed-fonts", "value": "on"}, {"name": "toc_header", "value": ""}, {"name": "top_margin", "value": ""}, {"name": "side_margin", "value": ""}, {"name": "bottom_margin", "value": ""}, {"name": "gutter", "value": ""}, {"name": "columns", "value": ""}, {"name": "column_margin", "value": ""}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": ".objavi-chapter{\n  color: #000;\n  display:none;\n} \n\na {\n  text-decoration:none;\n  color:#000;\n} \n\nh1 .initial{\n  color: #000;\n  display:none;\n} \n\n.objavi-subsection{\n  display: block;\n  page-break-before: always;\n} \n\nbody .objavi-subsection:first-child{\n   page-break-before: avoid;\n} \n\n.objavi-subsection .initial {\n   color: #000;\n   display:none;\n} \n\n.objavi-subsection-heading {\n   font-size: 20pt;\n   text-align: center;\n   line-height: 300px;\n   font-weight: normal;\n} \n\ntable {\n   float: none;\n} \n\nh1.frontpage{\n  page-break-after:always;\n  margin-top:70%;\n  font-size: 20pt;\n  text-align: center;\n  page-break-before: avoid;\n  max-width: 700pt;\n  font-weight: normal;\n} \n\ndiv.copyright{\n  padding: 1em;\n}\n\n/* TOC ******************************/\ntable {\n  float: none;\n} \n\ntable.toc {\n  font-size: 1.1em;\n  width: 95%;\n} \n\ntable.toc td{\n  vertical-align:top\n  padding-left: 0.5em;\n} \n\ntd.chapter {\n  padding: 0 0.5em;\n  text-align: right;\n} \n\ntable.toc td.pagenumber {\n  text-align: right;\n  vertical-align:bottom;\n} \n\ntd.section {\n  padding-top: 1.1em;\n  font-weight: bold;\n}\n\n/* End TOC **************************/ \n\nimg {\n  max-width: 500px;\n  height: auto;\n} \n\n.objavi-no-page-break {\n  page-break-inside: avoid;\n} \n\n.unseen{\n  z-index: -66;\n  margin-left: -1000pt;\n} \n\n.objavi-subsection-heading{\n  height:860px;\n  font-size:0px;\n  display:block;\n}\n\t  "}, {"name": "grey_scale", "value": "off"}, {"name": "rotate", "value": "off"}, {"name": "allow-breaks", "value": "off"}, {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}],
+    'ebook': [{"name": "body_font-family", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "h1_font-family", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_font-weight", "value": "heavy"}, {"name": "h2_font-weightamily", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-family", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_text-transform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-family", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": ".objavi-chapter{\n  color: #000;\n  display:none;\n} \n\na {\n  text-decoration:none;\n  color:#000;\n} \n\nh1 .initial{\n  color: #000;\n  display:none;\n} \n\n.objavi-subsection{\n  display: block;\n  page-break-before: always;\n} \n\nbody .objavi-subsection:first-child{\n  page-break-before: avoid;\n} \n\n.objavi-subsection .initial {\n  color: #000;\n  display:none;\n} \n\n.objavi-subsection-heading {\n  font-size: 20pt;\n  text-align: center;\n  line-height: 300px;\n  font-weight: normal;\n} \n\ntable {\n  float: none;\n} \n\nh1.frontpage{\n  page-break-after:always;\n  margin-top:70%;\n  font-size: 20pt;\n  text-align: center;\n  page-break-before: avoid;\n  max-width: 700pt;\n  font-weight: normal;\n} \n\ndiv.copyright{\n  padding: 1em;\n}\n/* TOC ******************************/\ntable {\n  float: none;\n} \n\ntable.toc {\n  font-size: 1.1em;\n  width: 95%;\n} \n\ntable.toc td {\n  vertical-align:top\n  padding-left: 0.5em;\n} \n\ntd.chapter {\n  padding: 0 0.5em;\n  text-align: right;\n} \n\ntable.toc td.pagenumber {\n  text-align: right;\n  vertical-align:bottom;\n} \n\ntd.section {\n  padding-top: 1.1em;\n  font-weight: bold;\n}\n\t\t\t\t\t\n/* End TOC **************************/ \nimg {\n   max-width: 500px;\n   height: auto;\n} \n\n.objavi-no-page-break {\n   page-break-inside: avoid;\n} \n\n.unseen {\n   z-index: -66;\n   margin-left: -1000pt;\n} \n\n.objavi-subsection-heading{\n  height:860px;\n  font-size:0px;\n  display:block;\n}\n"}, {"name": "ebook_format", "value": "epub"},  {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}],
+    'lulu': [{"name": "lulu_user", "value": ""}, {"name": "lulu_password", "value": ""}, {"name": "lulu_title", "value": ""}, {"name": "description", "value": ""}, {"name": "authors", "value": ""}, {"name": "lulu_download_price", "value": ""}, {"name": "lulu_print_price", "value": ""}, {"name": "lulu_currency_code", "value": "EUR"}, {"name": "pagesize", "value": "COMICBOOK"}, {"name": "body_font-family", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "heading_font", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_fontweight", "value": "heavy"}, {"name": "h2_font-family", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-family", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_texttransform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-family", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "p_pagebreak", "value": "on"}, {"name": "footnotes_pagebreak", "value": "on"}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": "\n\t    .objavi-chapter{\n\t    color: #000;\n\t    display:none;\n\t    } \n\n\t    a {\n\t    text-decoration:none;\n\t    color:#000;\n\t    } \n\n\t    h1 .initial{\n\t    color: #000;\n\t    display:none;\n\t    } \n\n\n\t    .objavi-subsection{\n\t    display: block;\n\t    page-break-before: always;\n\t    } \n\n\t    body .objavi-subsection:first-child{\n\t    page-break-before: avoid;\n\t    } \n\n\t    .objavi-subsection .initial {\n\t    color: #000;\n\t    display:none;\n\t    } \n\n\t    .objavi-subsection-heading {\n\t    font-size: 20pt;\n\t    text-align: center;\n\t    line-height: 300px;\n\t    font-weight: normal;\n\t    } \n\n\t    table {\n\t    float: none;\n\t    } \n\n\t    h1.frontpage{\n\t    page-break-after:always;\n\t    margin-top:70%;\n\t    font-size: 20pt;\n\t    text-align: center;\n\t    page-break-before: avoid;\n\t    max-width: 700pt;\n\t    font-weight: normal;\n\t    } \n\n\t    div.copyright{\n\t    padding: 1em;\n\t    }\n\t    /* TOC ******************************/\n\t    table {\n\t    float: none;\n\t    } \n\n\t    table.toc {\n\t    font-size: 1.1em;\n\t    width: 95%;\n\t    } \n\n\t    table.toc td{\n\t    vertical-align:top\n\t    padding-left: 0.5em;\n\t    } \n\n\t    td.chapter {\n\t    padding: 0 0.5em;\n\t    text-align: right;\n\t    } \n\n\t    table.toc td.pagenumber {\n\t    text-align: right;\n\t    vertical-align:bottom;\n\t    } \n\n\t    td.section {\n\t    padding-top: 1.1em;\n\t    font-weight: bold;\n\t    }\n\t    /* End TOC **************************/ \n\n\t    img {\n\t    max-width: 500px;\n\t    height: auto;\n\t    } \n\n\t    .objavi-no-page-break {\n\t    page-break-inside: avoid;\n\t    } \n\n\t    .unseen{\n\t    z-index: -66;\n\t    margin-left: -1000pt;\n\t    } \n\n\n\t    .objavi-subsection-heading{\n\t    height:860px;\n\t    font-size:0px;\n\t    display:block;\n\t    }\n\t  "}, {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}],
+    'odt': [{"name": "body_font-weight", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "h1_font-weight", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_font-weight", "value": "heavy"}, {"name": "h2_font-weight", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-weight", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_text-transform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-weight", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "p_pagebreak", "value": "on"}, {"name": "footnotes_pagebreak", "value": "on"}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": "body {\n}\n\n#book-title {\n    font-size: 64pt;\n    page-break-before: avoid;\n    margin-bottom: 12em;  \n    max-width: 700px;\n}\n\n.unseen {\n    display: none;\n}\n\n.chapter {\n    color: #000;\n}\n\nh1 .initial {\n    color: #000;\n    font-size: 2em;\n}\n\nbody .subsection:first-child {\n}\n\nh1 {\n  page-break-before: always;\n}\n\n.objavi-subsection{\n   text-transform: uppercase;\n   font-size: 20pt;\n}\n\n.objavi-subsection .initial {\n   font-size: 1em;\n   color: #000;\n}\n\n.objavi-subsection-heading{\n   font-size: 36pt;\n   font-weight: bold;\n   page-break-before: always;\n}\n\ntable {\n   float: none;\n}\n\nh1.frontpage{\n   font-size: 64pt;\n   text-align: center;\n   max-width: 700px;\n}\n\ndiv.copyright{\n    padding: 1em;\n}\n\npre {\n   max-width:700px;\n   overflow: hidden;\n}\n\nimg {\n   max-width: 700px;\n   height: auto;\n}\n"}, {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}],
+    'pdf': [{"name": "booksize", "value": "A4"}, {"name": "custom_width", "value": ""}, {"name": "custom_height", "value": ""}, {"name": "body_font-family", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "h1_font-family", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_font-weight", "value": "heavy"}, {"name": "h2_font-family", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-family", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_text-transform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-family", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "p_pagebreak", "value": "on"}, {"name": "footnotes_pagebreak", "value": "on"}, {"name": "control-css", "value": "on"}, {"name": "page-numbers", "value": "auto"}, {"name": "embed-fonts", "value": "yes"}, {"name": "top_margin", "value": ""}, {"name": "side_margin", "value": ""}, {"name": "bottom_margin", "value": ""}, {"name": "gutter", "value": ""}, {"name": "columns", "value": ""}, {"name": "column_margin", "value": ""}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": ".objavi-subsection{ \n  display: block; \n  page-break-before: always; \n/* page-break-after: always;*/ \n  text-transform: uppercase; \n  font-size: 20pt; \n} \n\nbody .objavi-subsection:first-child{ \n  page-break-before: avoid; \n} \n\n\n.objavi-subsection .initial { \n  font-size: 1em; \n  color: #000; \n} \n\n.objavi-subsection-heading { \n  font-size: 20pt; \n  text-align: center; \n  line-height: 300px; \n  font-weight: normal; \n} \n\n\nh1 { \n  page-break-before: always; \n} \n\n\ntable { \n  float: none; \n} \n\nh1.frontpage{ \n  page-break-after:always; \n  margin-top:70%; \n  font-size: 20pt; \n  text-align: center; \n  page-break-before: avoid; \n  font-weight: normal; \n} \n\ndiv.copyright{ \n  padding: 1em; \n} \n/* TOC ******************************/ \ntable { \n  float: none; \n} \n\ntable.toc { \n  font-size: 1.1em; \n  width: 95%; \n} \n\ntable.toc td{ \n  vertical-align:top \n  padding-left: 0.5em; \n} \n\ntd.chapter { \n  padding: 0 0.5em; \n  text-align: right; \n} \n\ntable.toc td.pagenumber { \n  text-align: right; \n  vertical-align:bottom; \n} \n\ntd.section { \n  padding-top: 1.1em; \n  font-weight: bold; \n} \n/* End TOC **************************/ \n\n\n\npre { \n  overflow: hidden; \n  white-space: pre-wrap; \n} \n\n\nh1, h2, h3, h4, h5, h6{ \n  page-break-after: avoid; \n  page-break-inside: avoid; \n} \n\n\n.page-break{ \n  page-break-before: always; \n  height: 7em; \n  display: block; \n} \n\na { \n  word-wrap: break-word; \n} \n\n.objavi-no-page-break { \n  page-break-inside: avoid; \n} \n\n/*To force a blank page it is sometimes necessary to add unseen \n content. Display:none and visibility: hidden don't work -- the \n renderer realises that they're not there and skips the page. So we \n add a tiny bit of text beyond the margin of the page. \n*/ \n.unseen{ \n  z-index: -66; \n  margin-left: -1000pt; \n}"}, {"name": "grey_scale", "value": "off"}, {"name": "rotate", "value": "off"}, {"name": "allow-breaks", "value": "off"}, {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}]
+}
+
+
+def remote_get_wizzard(request, message, bookid, version):
+    from booki.editor import models
+    from booki.utils.json_wrapper import simplejson
+
+    book = models.Book.objects.get(id=bookid)
+
+    options = []
+
+    try:
+        pw = models.PublishWizzard.objects.get(book=book,
+                                               user=request.user,
+                                               wizz_type=message['wizzard_type']
+                                               )
+        
+        try:
+            options = simplejson.loads(pw.wizz_options)
+        except:
+            options = PUBLISH_OPTIONS[message.get('wizzard_type', 'book')]
+
+    except models.PublishWizzard.DoesNotExist:
+        options = PUBLISH_OPTIONS[message.get('wizzard_type', 'book')]
+
+    import django.template.loader
+    from django.template import Context
+
+    # book, ebook, pdf, odt, lulu
+
+    c = Context({})
+    tmpl = django.template.loader.get_template('editor/wizzard_%s.html' % message.get('wizzard_type', 'book')) 
+    html = tmpl.render(c)
+        
+    return {"status": True, "options": options, "html": html}
+
+
+def remote_set_wizzard(request, message, bookid, version):
+    from booki.editor import models
+    from booki.utils.json_wrapper import simplejson
+
+    book = models.Book.objects.get(id=bookid)
+    
+
+    options = message.get('wizzard_options', '')
+    
+    pw, created = models.PublishWizzard.objects.get_or_create(book=book, 
+                                                              user=request.user,
+                                                              wizz_type=message.get('wizzard_type', 'book'))
+    
+    pw.wizz_options=simplejson.dumps(options)
+    pw.save()
+
+#    f = open('/tmp/opcije_%s.json' % message['wizzard_type'], 'wt')
+#    f.write(simplejson.dumps(options))
+#    f.close()
+
+    transaction.commit()
+
+    return {"status": True, "options": {}}
+
+
+def remote_publish_book2(request, message, bookid, version):
+    """
+    This is called when you want to publish your book. HTTP Request is sent to Objavi. Objavi then grabs content from Booki, renders it and creates output file.
+
+    Sends notification to chat.
+
+    Input:
+     - publish_mode
+     - is_archive
+     - is_lulu
+     - lulu_user
+     - lulu_password
+     - lulu_api_key
+     - lulu_project
+     - book
+     - project
+     - mode
+     - server
+     - destination
+     - max-age
+     - grey_scale
+     - title
+     - license
+     - isbn
+     - toc_header
+     - booksize
+     - page_width
+     - page_height
+     - top_margin
+     - side_margin
+     - gutter
+     - columns
+     - column_margin
+     - grey_scale
+     - css
+     - cover_url
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns info with URL-s where to fetch the result
+    """
+
+    from booki.utils.json_wrapper import simplejson
+
+    book = models.Book.objects.get(id=bookid)
+
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
+                                                                "from": request.user.username,
+                                                                "message": '"%s" is being published.' % (book.title, )},
+                        myself=True)
+
+    import urllib2
+    import urllib
+
+    # read all default options
+
+
+    book = models.Book.objects.get(id=bookid)
+
+    options = []
+
+    try:
+        pw = models.PublishWizzard.objects.get(book=book,
+                                               user=request.user,
+                                               wizz_type= message.get("publish_mode", "epub")
+                                               )
+        try:
+            options = simplejson.loads(pw.wizz_options)
+        except:
+            options = PUBLISH_OPTIONS[message.get('wizzard_type', 'book')]
+
+    except models.PublishWizzard.DoesNotExist:
+        options = PUBLISH_OPTIONS[message.get('wizzard_type', 'book')]
+    
+
+    # converstion for names
+    publishOptions = {'ebook': 'epub',
+                      'book': 'book',
+                      'odt': 'openoffice',
+                      'newpaper': 'pdf',
+                      'lulu': 'book',
+                      'pdf': 'web'}
+
+    licenses = {'PD': 'public domain',
+                'MIT': 'MIT',
+                'CC0': 'CC-BY',
+                'CC BY': 'CC-BY',
+                'CC BY-SA': 'CC-BY',
+                'CC BY-ND': 'CC BY',
+                'CC BY-NC': 'CC BY',
+                'CC BY-NC-SA': 'CC-BY',
+                'CC BY-NC-ND': 'CC-BY',
+                'GPL': 'GPL'
+        }
+
+    publishMode = publishOptions[message.get("publish_mode", "epub")]
+
+    destination = "nowhere"
+
+    args = {'book': book.url_title.encode('utf8'),
+            'license': licenses.get(book.license.abbrevation, 'GPL'),
+            'project': 'export',
+            'mode': publishMode,
+            'server': THIS_BOOKI_SERVER,
+            'destination': destination,
+            'max-age': 0,
+            }
+
+    def _isSet(name, default=None):
+        isInside = False
+
+        for opt in options:
+            if opt['name'] == name:
+                isInside = True
+                value = opt['value']
+
+                if value == 'on':
+                    value = 'yes'
+
+                if type(opt['value']) == type(u' '):
+                    args[name] = value.encode('utf8')
+                else:
+                    args[name] = value
+
+        if not isInside and default:
+            args[name] = default
+
+    def _getValue(name):
+        for opt in options:
+            if opt['name'] == name:
+                return opt['value']
+
+        return None
+
+    # todo
+    # - title
+    # - licence        
+    # - css ove da slaze
+    # - isbn
+
+    def _formatCSS(name, family, size, transform=None, weight=None):
+        s  = "%s {\n" % name
+        if family:
+            s += "    font-family: %s;\n" % family
+        if size:
+            s += "    font-size: %spt;\n" % size
+        if transform:
+            s += "    text-transform: %s;\n" % transform
+        if weight:
+            s += "    font-weight: %s;\n" % weight
+        s += "}\n"
+
+        return s
+ 
+
+    if publishMode == 'book' and message.get("publish_mode", "") != 'lulu':
+        _isSet('booksize')
+        _isSet('custom_width')
+        _isSet('custom_height')
+        _isSet('p_pagebreak')
+        _isSet('footnotes_pagebreak')
+        _isSet('grey_scale')
+        _isSet('page-numbers')
+        _isSet('rotate')
+        _isSet('embed-fonts')
+        _isSet('allow-breaks')
+        _isSet('toc_header')
+        _isSet('top_margin')
+        _isSet('side_margin')
+        _isSet('bottom_margin')
+        _isSet('gutter')
+        _isSet('columns')
+        _isSet('column_margin')
+
+        # in this case, just the css you entered
+        if _getValue('custom_override') == 'on':
+            _css = _getValue('additional_css') or ''
+            _css += _getValue('special_css') or ''
+        else:
+            _css = _getValue('special_css') or ''
+            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
+            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
+            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
+            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
+            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
+
+        if _getValue('control-css') == 'on':
+            args['css'] = _css
+
+
+    if publishMode == 'book' and message.get("publish_mode", "") == 'lulu':
+        args['to_lulu'] = 'yes' 
+        args['lulu_user'] = message.get('lulu_user', '')
+        args['lulu_password'] = message.get('lulu_password', '')
+
+        _isSet('lulu_title')
+        _isSet('description')
+        _isSet('authors')
+        _isSet('lulu_download_price')
+        _isSet('lulu_print_price')
+        _isSet('lulu_currency_code')
+        _isSet('pagesize')
+
+        if _getValue('custom_override') == 'on':
+            _css = _getValue('additional_css') or ''
+            _css += _getValue('special_css') or ''
+        else:
+            _css = _getValue('special_css') or ''
+            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
+            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
+            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
+            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
+            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
+
+        args['css'] = _css
+        
+        _isSet('p_pagebreak')
+        _isSet('footnotes_pagebreak')
+        
+
+    if publishMode == 'epub':
+        # ebook_format ipad,kindle,epub
+
+        ebookFormat = _getValue('ebook_format')
+
+        if ebookFormat == 'kindle':
+            args['output_profile'] = 'kindle'
+            args['output_format'] = 'mobi'
+
+        if ebookFormat == 'ipad':
+            args['output_profile'] = 'ipad'
+            args['output_format'] = 'epub'
+
+        if _getValue('custom_override') == 'on':
+            _css = _getValue('additional_css') or ''
+        else:
+            _css = ''
+            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
+            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
+            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
+            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
+            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
+
+        args['css'] = _css
+
+    if publishMode == 'web':
+        _isSet('booksize')
+        _isSet('custom_width')
+        _isSet('custom_height')
+
+        if _getValue('custom_override') == 'on':
+            _css = _getValue('additional_css') or ''
+            _css += _getValue('special_css') or ''
+        else:
+            _css = _getValue('special_css') or ''
+            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
+            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
+            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
+            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
+            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
+
+        args['css'] = _css
+
+        # fix rotate u pdf verziji
+        _isSet('p_pagebreak')
+        _isSet('footnotes_pagebreak')
+        _isSet('grey_scale')
+        _isSet('page-numbers')
+        _isSet('rotate')
+        _isSet('embed-fonts')
+        _isSet('allow-breaks')
+        _isSet('toc_header')
+        _isSet('top_margin')
+        _isSet('side_margin')
+        _isSet('bottom_margin')
+        _isSet('gutter')
+        _isSet('columns')
+        _isSet('column_margin')
+                       
+
+    data = urllib.urlencode(args)
+    req = urllib2.Request(OBJAVI_URL, data)
+
+    try:
+        f = urllib2.urlopen(req)
+    except urllib2.URLError:
+        return {"status": False}
+
+    try:
+        ta = f.read()
+    except IOError:
+        return {"status": False}
+        
+    lst = ta.split("\n")
+    dta, dtas3 = "", ""
+
+    if len(lst) > 0:
+        dta = lst[0]
+
+        if len(lst) > 1:
+            dtas3 = lst[1]
+
+    return {"status": True, "dtaall": ta, "dta": dta, "dtas3": dtas3}

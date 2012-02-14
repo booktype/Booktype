@@ -1,13 +1,12 @@
-
 {% extends "base.html" %}
-
 {% load i18n profile messaging_tags %}
 
 {% block header %}
-  <title>{% blocktrans with user.username as username %}/user: {{ username }}{% endblocktrans %}</title>
-  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/profile.js"></script>
-
-  <script type="text/javascript">
+<title>{% blocktrans with user.username as username %}/user: {{ username }}{% endblocktrans %}</title>
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.url.js"></script> 
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/profile.js"></script> 
+<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/general.js"></script> 
+<script type="text/javascript">
     $(function() {
 
 	// current browser
@@ -28,170 +27,182 @@
 	    
 	});
 
+        $("a.createbook").booksparkCreateBook({"url": "{% url create_book user.username %}"});
+        $("A.importbook").booksparkImportBook({"url": "{% url import_book user.username %}"});
+
+        $("A.creategroup").booksparkCreateGroup({"url": "{% url create_group user.username %}"});
 	// start Sputnik
 	jQuery.booki.network._transport.connect();
     });
 
 
-  </script>
-
+  </script> 
 {% endblock %}
 
 {% block content %}
-
-<div style="margin-bottom: 5px">
-
-<div style="clear: both; padding-top: 10px;"/>
-<table border="0" width="100%" cellspacing="0" cellpadding="0" style="clear: all">
- <tr>
-  <td valign="top" width="300">
-
-  <!-- start profile info -->
-  {% profile_image  user %}
-  <br/>
-  <b>{{ user.username }}</b>
-  <br/>
-  {{ user.first_name }}
-
-  <p>
-   {% if user.username != request.user.username %}
-     {% user_followbutton user.username request.user.username %}
-   {% endif %}
-  </p>
-
-  <div style="border-top: 1px dotted #c0c0c0; border-bottom: 1px dotted #c0c0c0; padding-top: 5px; padding-bottom: 5px;">
-    <span class="ui-icon ui-icon-info" style="float: left; padding-right: 5px;"></span>
-     {% blocktrans %}Do you want to learn more how to use Booki? We recommend you reading  through the <a target="_new" title="Booki user guide" href="http://www.booki.cc/booki-user-guide/"><i>booki-user-guide</i></a>! If you have any questions please check our <a target="_new" title="Support page" href="http://support.booki.cc/"><i>support page</i></a>.{% endblocktrans %}
-  </div>
-
-<div style="-webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; border: 1px solid black; margin-top: 20px;">
- <div style="background-color: black; color: white; font-weight: bold; padding: 5px; ">
-   {% if user.username == request.user.username %}
-     <span style="float: right;"><a href="my_books/#createnewbook" style="color: white">{% trans "CREATE NEW BOOK" %}</a></span>
-   {% endif %}
-   {% if user.username == request.user.username %}  
-     <a href="my_books/" style="color: white">
-   {% endif %}
-     {% trans "My Books" %}
-   {% if user.username == request.user.username %}
-     </a>
-   {% endif %}
- </div>
-<ul style="margin-left: 0px; padding-left: 25px; padding-right: 10px;">
-{% for book in books %}
-   <li style="list-style-position: outside;">
-       <a href="{% url book_info  book.url_title %}">
-          {% if book.hidden %}
-             <i>{{ book.title }}</i>
+<h2>{% if user.username == request.user.username %}{% trans "My Dashboard" %}{% else %} {{user.username}} {% endif %}</h2>
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-dashboard">Dashboard</a></li>
+    <li><a href="#tabs-books">{% if user.username == request.user.username %}{% trans "My Books" %}{% else %} {% trans "Books" %} {% endif %}</a></li>
+    {% if user.username == request.user.username %}
+      <li><a href="#tabs-settings">Settings</a></li>
+    {% endif %}
+  </ul>
+  <div id="tabs-dashboard"> 
+    <!-- Personal info on the left-->
+    <div class="profile-details">
+      <section class="basic-info">
+          <h4>{{ user.username }}</h4>
+          <p>{{ user.first_name }}</p>
+          <figure>
+                {% profile_image  user %}
+          </figure>
+      </section>
+      <section>
+          <p>{% if user.username != request.user.username %}
+            {% user_followbutton user.username request.user.username %}
+            
+            {% endif %}</p>
+          <p><a class="rss" href="/feeds/rss/user/{{ user.username }}/">{% trans "Follow my changes" %}</a></p>
+      </section>
+      <section class="profile-description">
+           <h5>{% trans "Description" %}</h5>
+           {% if user_description %}
+            <p class="des-text">{{ user_description|safe }}</p>
+           {% else %}
+            <p class="des-text">{% trans "There is no description for this user." %}</p>
+           {% endif %}
+      </section>
+      <section>
+          <p>Following tags: {% user_tagbox user.username %}</p>
+          <p>Following: {% user_followingbox user.username %}</p>
+          <p>Followers: {% user_followersbox user.username %}</p>
+      </section>
+    </div>
+    <!-- END Personal info -->
+    <!-- Activity feed & mood box -->
+    <aside class="activity-bar">
+      <div id="mood"> {% if user.username == request.user.username %}
+        {% user_messagefield "" %}
+        {% else %}
+        {% user_messagefield user.username %}
+        {% endif %} </div>
+      <p>
+      <div id="Xstatus_messages"> {% user_timeline user.username %} </div>
+      </p>    </aside>    <!-- END Activity feed & mood box -->
+    <!-- main content area-->
+    <div class="main-content">
+      <div class="alert-box info">{% blocktrans %}Do you want to learn more how to use Booktype? Read the  <a target="_new" title="Booktype user guide" href="http://en.flossmanuals.net/booktype"><i>user guide</i></a>!{% endblocktrans %} </div>
+      <div class="widget-box">
+        <h4> {% if user.username == request.user.username %} <a class="action-button createbook" href="#">{% trans "CREATE NEW BOOK" %}</a> {% endif %}
+          {% if user.username == request.user.username %} <a href="#/books/"> {% endif %}
+          {% trans "My Books" %}
+          {% if user.username == request.user.username %} </a> {% endif %} </h4>
+        <ul class="simple-list no-bullet with-button">          {% for book in books %}
+          <li> <a href="{% url book_info  book.url_title %}"> {% if book.hidden %} <i>{{ book.title }}</i> {% else %}            {{ book.title }}
+            {% endif %} </a> <a class="action-button" href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a> </li>
+          {% empty %}
+          {% if user.username == request.user.username %}          {% blocktrans %}
+          <p>This is a perfect moment to start writing your book, just click on the button above!</p>
+          {% endblocktrans %}
           {% else %}
-              {{ book.title }}
+          {% blocktrans %}
+          <p>This user has no books.</p>
+          {% endblocktrans %}
           {% endif %}
-        </a> 
-       (<a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a>)
-   </li>
-{% empty %}
-   {% if user.username == request.user.username %}
-      {% blocktrans %}<p>This is a perfect moment to start writing your book, just click on the link above!</p><p> If you are without inspiration at the moment maybe you could import someone else's book and translate it. We support import from various sources.</p>{% endblocktrans %}
-   {% else %}
-       {% blocktrans %}<p>This user has no books.</p>{% endblocktrans %}
-   {% endif %}
-{% endfor %}
-</ul>
-</div>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="widget-box">
+        <h4> {% if user.username == request.user.username %} <a class="action-button creategroup" href="#">{% trans "CREATE NEW GROUP" %}</a> {% endif %}
+          {% if user.username == request.user.username %} <a href="my_groups"> {% endif %}
+          {% trans "My Groups" %}
+          {% if user.username == request.user.username %} </a> {% endif %} </h4>
+        <ul class="simple-list no-bullet with-button">
+          {% for group in groups %}
+          <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a><a class="action-button" href="{% url view_group  group.url_name %}">{% trans "go" %}</a></li>
+          {% empty %}
+          {% if user.username == request.user.username %}
+          <p>{% blocktrans %}Work with others in Groups. To create a Group click on the button above.{% endblocktrans %}</p>
+          {% else %}
+          <p>{% blocktrans %}This user has no groups.{% endblocktrans %}</p>
+          {% endif %}
 
-<div style="-webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px;  border: 1px solid black; margin-top: 20px;">
- <div style="background-color: black; color: white; font-weight: bold; padding: 5px; ">
-   {% if user.username == request.user.username %}
-     <span style="float: right"><a href="my_groups/#createnewgroup" style="color: white">{% trans "CREATE NEW GROUP" %}</a></span>
-   {% endif %}
-   {% if user.username == request.user.username %}
-     <a href="my_groups" style="color: white">
-   {% endif %}
-     {% trans "My Groups" %}
-   {% if user.username == request.user.username %}
-     </a>
-   {% endif %}
-   </div>
-<ul style="margin-left: 0px; padding-left: 25px">
-{% for group in groups %}
-   <li style="list-style-position: outside;"><a href="{% url view_group  group.url_name %}">{{ group.name }}</a></li>
-{% empty %}
-   {% if user.username == request.user.username %}
-      <p>{% blocktrans %}You don't need them, but they can help you organize your work with other writers. Assign your books to specific groups and help others to find them more easily.{% endblocktrans %}</p>
-   {% else %}
-       <p>{% blocktrans %}This user has no groups.{% endblocktrans %}</p>
-   {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!-- END main content area--> 
+  </div>
+  <!--MY BOOKS TAB-->
+  <div id="tabs-books">
+    <h3>{% if user.username == request.user.username %}{% trans "My Dasboard" %}{% else %} {% trans "Books" %} {% endif %}</h3>
+    {% if user.username == request.user.username %}
+        <div class="action-menu big"> <a class="createbook prime" href="#">{% trans "Create new book" %}</a> <a class="importbook prime" href="#">{% trans "Import Book" %}</a> </div>
+    {% endif %}
+    <table border="0" cellspacing="0" class="basic-table">
+      {% for book in books %}
+      <tr>
+        <td width="40%"><a href="{% url book_view book.url_title %}"> {% if book.hidden %} <i>{{ book.title }}</i> {% else %}
+          {{ book.title }}
+          {% endif %} </a></td>
+        <td width="5%"></td>
+        <td width="37%"><a class="action-button" href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a> <a class="action-button" href="{% url book_info  book.url_title %}">{% trans "info" %}</a> <a class="action-button" href="{% url draft_book  book.url_title %}">{% trans "draft" %}</a> 
+        <td class="buttons last" width="18%"><div style="white-space: nowrap;"> {% if user.username == request.user.username %}
+            {% if book.hidden %}
+            <form class="formvisibility" style="display: inline" action="." method="POST">
+              <button>{% trans "Show to others" %}</button>
+              <input type="hidden" name="book" value="{{book.url_title}}" />
+              <input type="hidden" name="action" value="unhide" />
+            </form>
+            {% else %}
+            <form class="formvisibility"  style="display: inline" action="." method="POST">
+              <button>{% trans "Hide from others" %}</button>
+              <input type="hidden" name="book" value="{{book.url_title}}" />
+              <input type="hidden" name="action" value="hide" />
+            </form>
+            {% endif %}
+            {% endif %} </div></td>
+      </tr>
+      {% endfor %}
+    </table>
+    <span class="showtoothers template">{% trans "Show to others" %}</span> <span class="hidefromothers template">{% trans "Hide from others" %}</span> </div>
+  <!-- END MY BOOKS TAB-->
 
-{% endfor %}
-</ul>
-</div>
+  {% if user.username == request.user.username %}
+  <div id="tabs-settings">
+  <h3>{% trans "User settings" %}</h3>
+ <iframe name="hidden_settings" style="border: 0px; width: 0px; height: 0px;"></iframe>
+ <form method="post" action="{% url save_settings user.username %}" target="hidden_settings" enctype="multipart/form-data" name="formsettings">
+  <fieldset class="plain">
+   <dl>
+    <dt><label>{% trans "Email" %}</label></dt>
+    <dd>
+      <input type="text" name="email" value="{{ user.email }}"/>
+    </dd>
+    <dt><label>{% trans "Full name" %}</label></dt>
+    <dd>
+     <input type="text" name="fullname" value="{{ user.first_name }}"/>
+    </dd>
+    <dt><label>{% trans "About yourself" %}</label></dt>
+    <dd>
+      <textarea name="aboutyourself">{{ user.get_profile.description }}</textarea>
+    </dd>
+    <dt><label>{% trans "Profile image" %}</label></dt>
+    <dd>
+      <input type="file" name="profile"/>
+    </dd>
+    <dt><label>{% trans "Notification filter" %}</label></dt>
+    <dd>
+      <input type="text" name="notification" value="{{ user.get_profile.notification }}"/>
+    </dd>
+   </dl>
 
- <p>
-     <img src="{{ request.META.SCRIPT_NAME }}/site_static/images/feed-icon-14x14.png" style="margin-right: 10px"><a style="text-decoration: underline" href="/feeds/rss/user/{{ user.username }}/">{% trans "RSS feed of my changes" %}</a>
- </p>
-
-
-
-
-
-  </td>
-
-  <td width="20"></td>
-
-  <td valign="top" width="330">
-<div style="width:325px; border: 1px solid #c0c0c0; background-color: #f0f0f0; padding: 5px;" id="mood">
-{% if user.username == request.user.username %}
-{% user_messagefield "" %}
-{% else %}
-{% user_messagefield user.username %}
-{% endif %}
-</div>
-<p>
-<div id="Xstatus_messages">
-{% user_timeline user.username %}
-</div>
-</p>
-
-<p>Following tags: {% user_tagbox user.username %}</p>
-<p>Stalking: {% user_followingbox user.username %}</p>
-<p>Stalkers: {% user_followersbox user.username %}</p>
-
-<!--
-<h2>{% trans "Books" %}</h2>
-<div style="border-bottom: 1px solid #c0c0c0"></div>
-<ul>
-{% for book in books %}
-   <li><a href="{% url book_view  book.url_title %}">{{ book.title }}</a> (<a href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a>)</li>
-{% endfor %}
-</ul>
-
-<h2>{% trans "Groups" %}</h2>
-<div style="border-bottom: 1px solid #c0c0c0"></div>
-
-<ul>
-{% for group in groups %}
-   <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a></li>
-{% endfor %}
-</ul>
--->
-<!--
-{% if user.username == request.user.username %}
-<div style="padding-top: 20px; width:325px;" id="newgroup">
-<h2>Create new group</h2>
-<div style="border-bottom: 1px solid #c0c0c0; margin-bottom: 20px"></div>
-
-  <form method="GET" action="javascript:void(0)" onsubmit="return false;">
-    Group name:<br>
-    <input type="text" style="width:325px;" value=""/> <br>
-    What is this group about:<br>
-    <textarea name="description" rows="5" style="width:325px;"></textarea><br/>
-    <button>Create new group</button>
-  </form>
-</div>
-{% endif %}
--->
-  </td>
- </tr>
-</table>
-
-{% endblock %}
+    <p><button>{% trans "Save changes" %}</button></p>
+   </fieldset>
+ </form>
+  </div>
+  {% endif %}
+ </div>
+{% endblock %} 

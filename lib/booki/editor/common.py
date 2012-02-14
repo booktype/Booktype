@@ -1,3 +1,19 @@
+# This file is part of Booktype.
+# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+#
+# Booktype is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Booktype is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+
 """
 Some common functions for booki editor.
 """
@@ -34,8 +50,8 @@ try:
     THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
     DEFAULT_PUBLISHER = settings.DEFAULT_PUBLISHER
 except AttributeError:
-    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'www.booki.cc')
-    DEFAULT_PUBLISHER = "FLOSS Manuals http://flossmanuals.net"
+    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
+    DEFAULT_PUBLISHER = "Undefined"
 
 
 class BookiError(Exception):
@@ -111,7 +127,7 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
     else:
         bookURL = None
 
-    book = createBook(user, bookTitle, status = "imported", bookURL = bookURL)
+    book = createBook(user, bookTitle, status = "new", bookURL = bookURL)
 
     if extraOptions.get("hidden"):
         book.hidden = True
@@ -120,8 +136,8 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
     # this is for Table of Contents
     p = re.compile('\ssrc="(.*)"')
 
-    # what if it does not have status "imported"
-    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
+    # what if it does not have status "new"
+    stat = models.BookStatus.objects.filter(book=book, name="new")[0]
 
     chapters = getChaptersFromTOC(TOC)
     n = len(chapters) + 1 #is +1 necessary?
@@ -172,7 +188,7 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
                 c.save()
                 n -= 1
 
-    stat = models.BookStatus.objects.filter(book=book, name="imported")[0]
+    stat = models.BookStatus.objects.filter(book=book, name="new")[0]
 
     from django.core.files import File
 
@@ -215,6 +231,8 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
                     info.save()
     zf.close()
 
+    return book
+
 
 
 
@@ -236,18 +254,20 @@ def importBookFromURL(user, bookURL, createTOC=False, **extraOptions):
 
     try:
         zf = StringIO(data)
-        importBookFromFile(user, zf, createTOC, **extraOptions)
+        book = importBookFromFile(user, zf, createTOC, **extraOptions)
         zf.close()
     except Exception, e:
         logWarning("couldn't make book from %r: %s" % (bookURL, e))
         logWarning(traceback.format_exc())
         raise
 
+    return book
+
 
 def importBookFromUrl2(user, baseurl, args, **extraOptions):
     args['mode'] = 'zip'
     url = baseurl + "?" + urlencode(args)
-    importBookFromURL(user, url, createTOC=True, **extraOptions)
+    return importBookFromURL(user, url, createTOC=True, **extraOptions)
 
 
 

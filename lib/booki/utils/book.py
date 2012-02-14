@@ -1,13 +1,54 @@
+# This file is part of Booktype.
+# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+#
+# Booktype is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Booktype is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+
 import datetime
 
 from booki.utils.misc import bookiSlugify
 from django.utils.translation import ugettext_lazy as _
+from django.db.models import Q
 
 from booki.editor import models
 from booki.utils.log import logBookHistory
 
 
-def createBook(user, bookTitle, status = "imported", bookURL = None):
+def checkBookAvailability(bookTitle):
+    """
+    Checks if the book name is available or not.
+
+    @type bookTitle: C{string}
+    @param bookTitle: Title for the book.
+
+    @rtype: C{bool}
+    @return: Returns true or false
+    """
+
+    url_title = bookiSlugify(bookTitle)
+
+    if url_title == '':
+        return False
+
+    try:
+        book = models.Book.objects.get(Q(title=bookTitle) | Q(url_title = url_title))
+    except models.Book.DoesNotExist:
+        return True
+
+    return False
+
+
+def createBook(user, bookTitle, status = "new", bookURL = None):
     """
     Creates book.
 
@@ -39,7 +80,7 @@ def createBook(user, bookTitle, status = "imported", bookURL = None):
     book.save()
 
     # put this in settings file
-    status_default = ["published", "not published", "imported"]
+    status_default = ["new", "needs content", "completed", "to be proofed"]
     n = len(status_default)
 
     for statusName in status_default:
@@ -48,7 +89,7 @@ def createBook(user, bookTitle, status = "imported", bookURL = None):
         n -= 1
 
     # not use "not published" but first in the list maybe, or just status
-    book.status = models.BookStatus.objects.get(book=book, name="not published")
+    book.status = models.BookStatus.objects.get(book=book, name="new")
     book.save()
     
     
@@ -112,6 +153,29 @@ def createBookiGroup(groupName, groupDescription, owner):
         return group
 
     raise BookiGroupExist(groupName)
+
+def checkGroupAvailability(groupName):
+    """
+    Checks if the group name is available or not.
+
+    @type bookName: C{string}
+    @param bookName: Name of the group.
+
+    @rtype: C{bool}
+    @return: Returns true or false
+    """
+
+    url_name = bookiSlugify(groupName)
+
+    if url_name == '':
+        return False
+
+    try:
+        group = models.BookiGroup.objects.get(Q(name=groupName) | Q(url_name = url_name))
+    except models.BookiGroup.DoesNotExist:
+        return True
+
+    return False
 
 
     

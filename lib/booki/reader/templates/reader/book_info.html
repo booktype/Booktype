@@ -14,17 +14,11 @@
 <link href="{{ request.META.SCRIPT_NAME }}/site_static/css/jquery.bubblepopup.v2.3.1.css" rel="stylesheet" type="text/css" />
 <script src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.bubblepopup.v2.3.1.min.js" type="text/javascript"></script>
 
-<style>
-A { border-bottom: 1px dotted #c0c0c0;}
-</style>
-
 <script type="text/javascript">
  $(function() {
-     $("A.editbook").button();
-     $("A.viewdraft").button();
-     $("A.viewpublished").button();
 
-     $('A.user').CreateBubblePopup({
+
+     $('a.user').CreateBubblePopup({
                                   selectable: false,
                                   position: 'top',
                                   align: 'center',
@@ -60,40 +54,28 @@ A { border-bottom: 1px dotted #c0c0c0;}
                                 });
                              });
 
+     $("A.editinfo").booksparkEditBookInfo({"url": "{% url edit_info book.url_title %}"});
  
  });
 </script>
-<style>
 
-#bookdetails {
-  margin: 0px; 
-  margin-left: 15px;
-  padding: 0px;
-}
-
-#bookdetails ul {
-  list-style-type: none; 
-  display: block;
-}
-
-#bookdetails li {
- list-style-type: none;
- padding: 0px;
- margin: 0.4em 0em;
- display: list-item;
-}
-</style>
 {% endblock %}
 
 
 {% block content %}
-<h1>{{ book.title }}</h1>
-<div><p>
-  <a class="viewpublished" href="{% url book_view book.url_title  %}">{% trans "VIEW PUBLISHED BOOK" %}</a>
-  <a class="editbook" href="{% url edit_book book.url_title  %}">{% trans "EDIT THIS BOOK" %}</a>
-  <a class="viewdraft" href="{% url draft_book book.url_title  book_version %}">{% trans "VIEW DRAFT" %}</a>
-</p></div>
-<h2>{% trans "Book details" %}</h2>
+<h2>{{ book.title }}</h2>
+<div class="padded">
+<div class="action-menu big">
+    <a class="prime editbook" href="{% url edit_book book.url_title  %}">{% trans "Edit this Book" %}</a>
+    <a class="prime viewdraft" href="{% url draft_book book.url_title  book_version %}">{% trans "View draft" %}</a>
+    {% if is_book_admin %}
+        <a class="prime viewdraft editinfo" href="#">{% trans "Edit book info" %}</a>
+    {% endif %}
+</div>
+<h3>{% trans "Book details" %}</h3>
+<div class="book-cover">{% if book.cover %}<img src="cover.jpg"/>{% endif %}</div>
+<p class="book-description">{{ book_description|safe }}</p>
+<p style="clear:both; margin-top:0;">&nbsp;</p>
 <ul id="bookdetails">
   <li><b>{% trans "Owner:" %}</b> <a href="{% url view_profile book.owner.username %}" class="user">{{ book.owner.username }}</a></li>
   <li><b>{% trans "Status:" %}</b> {{ book.status.name }}
@@ -131,15 +113,15 @@ A { border-bottom: 1px dotted #c0c0c0;}
 {% endif %}
 </ul>
 
-<h2>{% trans "Versions" %}</h2>
-<ul>
+<h3 class="inner">{% trans "Versions" %}</h3>
+<ul class="simple-list solo no-bg">
  {% for ver in book_versions %}
    <li><a href="{% url draft_book book.url_title ver.getVersion %}"> {{ ver.getVersion }}</a></li>
  {% endfor %}
 </ul>
 
-<h2>{% trans "Recent activity" %}</h2>
-<table border="0" width="80%" style="margin-left: 15px">
+<h3 class="inner">{% trans "Recent activity" %}</h3>
+<table class="basic-table" border="0" width="100%">
  {% for ln in book_history %}
    <tr>
        {% if ln.kind == 1 %}
@@ -216,7 +198,8 @@ A { border-bottom: 1px dotted #c0c0c0;}
    </tr>
  {% endfor %}
 </table>
-<div style="padding-left: 15px; padding-top: 10px; padding-bottom: 20px;">
-  <img src="{{ request.META.SCRIPT_NAME }}/site_static/images/feed-icon-14x14.png" style="margin-right: 10px"><a href="{{ request.META.SCRIPT_NAME }}/feeds/rss/book/{{ book.url_title }}">{% trans "Follow changes" %}</a>
+<div style="padding: 10px 0 20px 0;">
+  <a class="rss" href="{{ request.META.SCRIPT_NAME }}/feeds/rss/book/{{ book.url_title }}">{% trans "Follow changes" %}</a>
+</div>
 </div>
 {% endblock %}

@@ -49,7 +49,10 @@ DATA_ROOT = '%s/data' % BOOKI_ROOT
 DATA_URL  = '%s/data' % BOOKI_URL
 
 # profile images
-PROFILE_IMAGE_UPLOAD_DIR = '%s/profile_images/' % DATA_ROOT
+PROFILE_IMAGE_UPLOAD_DIR = 'profile_images/' 
+
+# book cover images			 
+COVER_IMAGE_UPLOAD_DIR = 'cover_images/'
 
 # obsolete
 MEDIA_ROOT = DATA_ROOT
@@ -58,9 +61,9 @@ MEDIA_URL = DATA_URL
 ADMIN_MEDIA_PREFIX = '%s/media/' % BOOKI_URL
 
 # URLS
-OBJAVI_URL = "http://objavi.flossmanuals.net/objavi.cgi"
-ESPRI_URL = "http://objavi.flossmanuals.net/espri.cgi"
-TWIKI_GATEWAY_URL = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
+OBJAVI_URL = "http://objavi.booki.cc/objavi.cgi"
+ESPRI_URL = "http://objavi.booki.cc/espri.cgi"
+TWIKI_GATEWAY_URL = "http://objavi.booki.cc/booki-twiki-gateway.cgi"
 
 # lulu.com export credentials that override Objavi settings
 LULU_USER = None
@@ -68,7 +71,7 @@ LULU_PASSWORD = None
 LULU_API_KEY = None
 
 # who gets credited as publisher if not otherwise specified
-DEFAULT_PUBLISHER = "FLOSS Manuals http://flossmanuals.net"
+DEFAULT_PUBLISHER = "Unknown"
 
 # DATABASE STUFF
 DATABASE_ENGINE = '##DATABASE_ENGINE##'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.

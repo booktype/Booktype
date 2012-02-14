@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<div class="dialog" title="{% trans "Import book" %}">
+  <iframe name="hidden_frame" style="border: 0px; width: 0px; height: 0px"></iframe>
+  <form method="post" action="{% url import_book request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">
+   <div class="forms">
+   <dl>
+   <dt><label>Import type:</label></dt>
+       <dd>
+          <select name="importtype" style="min-width:360px;">
+           <option value="">{% trans "Select Import Type" %}</option>
+           <option value="epub">{% trans "Import EPUB" %}</option>
+           <option value="archive">{% trans "Import archive.org book" %}</option>
+           <option value="booki">{% trans "Copy or import Booktype book" %}</option>
+          </select>
+        </dd>
+        <dt><label>Source:</label></dt>
+        <dd><input type="text" name="source" style="min-width:360px;"/></dd>
+    
+        <dt><label>New title (optional):</label></dt>
+        <dd><input type="text" name="title" style="min-width:360px;"/></dd>
+    
+        <dt><label><input type="checkbox" name="hidden"/> Initially hidden from others</label></dt>
+	</dl>
+    </div>
+    <div class="importmessage" style="display: none">
+         <p><img src="{{ request.META.SCRIPT_NAME }}/site_static/images/loading.gif"/>&nbsp;&nbsp;{% trans "Please wait. It will take couple of moments. Your book is being imported!" %}</p>
+    </div>
+  </form>
+</div>

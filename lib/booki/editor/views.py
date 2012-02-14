@@ -1,3 +1,19 @@
+# This file is part of Booktype.
+# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+#
+# Booktype is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Booktype is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.contrib.auth.decorators import login_required
@@ -222,7 +238,10 @@ def upload_attachment(request, bookid, version=None):
     transaction.commit()
 
     if request.POST.get("attachmenttab", "") == "":
-        return HttpResponse('<html><body><script> parent.closeAttachmentUpload(); </script></body></html>')
+        return HttpResponse('<html><body><script> parent.closeAttachmentUpload();  </script></body></html>')
+
+    if request.POST.get("attachmenttab", "") == "2":
+        return HttpResponse('<html><body><script>  parent.FileBrowserDialogue.loadAttachments(); parent.FileBrowserDialogue.showUpload(); parent.mcTabs.displayTab("browse_tab","browse_panel");</script></body></html>')
 
     # should not call showAttachmentsTab, but it works for now
     return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); </script></body></html>')

@@ -8,42 +8,52 @@
 {% block content %}
 
 	<!-- PEOPLE LISTING -->
-	<div>
+	<div id="intro">
         {% if page == 1 %}
-	<h2 style="border-bottom: 1px dotted gray" >{% trans "Active people" %}</h2>
+    <h2>{% trans "People" %}</h2>
+	<h3>{% trans "Active people" %}</h3>
+    
 	{% for p in latest_active %}
-	  <div style="float: left; margin-left: 15px; width: 120px; height: 150px; overflow: hidden;">
-            <div style="color: white; font-size: 10px;font-weight: bold; text-align: center">
-            <a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black">{% profile_image p %}</a>
-            </div>
-            <div style="margin-top: 3px; width: 110px;">
-              <a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black"><span style="font-weight: bold; color: black">{{ p.first_name }}</span></a><br/>
+    <div class="people shadow">
+  		<div class="image">
+            <a href="{% url view_profile  p.username %}" title="{{p.username}}">{% profile_image p %}</a>
+		</div>
+        <div class="user">                 
+              <a href="{% url view_profile  p.username %}" title="{{p.username}}">            
+              	<b>{{ p.first_name }}</b>
+              </a><br />
+             <a href="{% url view_profile  p.username %}" title="{{p.username}}"><i>{{ p.username }}</i></a>
+		</div>
+	</div>              
+    {% endfor %}
+        
+        
+     <div class="clearfix"></div>
 
-             <i><a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black">{{ p.username }}</a></i>
-            </div>
-          </div>
-        {% endfor %}
-        <div style="clear: both; height: 20px; "></div>
+	<h3>{% trans "New people" %}</h3>
+	
+    {% for p in latest_people %}
+    <div class="people shadow">
+    	<div class="image">
+      		<a href="{% url view_profile  p.username %}" title="{{p.username}}">{% profile_image p %}</a>
+		</div>
+        <div class="user">    
+	        <a href="{% url view_profile  p.username %}" title="{{p.username}}">
+          	<b>{{ p.first_name }}</b>
+          </a><br/>
+          <a href="{% url view_profile  p.username %}" title="{{p.username}}"><i>{{ p.username }}</i></a>
+		</div>
+     </div>
 
-	<h2 style="border-bottom: 1px dotted gray" >{% trans "New people" %}</h2>
-	{% for p in latest_people %}
-	  <div style="float: left; margin-left: 15px; width: 120px; height: 150px; overflow: hidden">
-            <div style="color: white; font-size: 10px;font-weight: bold; text-align: center">
-	      <a href="{% url view_profile  p.username %}" title="{{p.username}}">{% profile_image p %}</a>
-            </div>
-            <div style="margin-top: 3px; overflow: hidden; width: 110px;">
-              <a href="{% url view_profile  p.username %}" title="{{p.username}}"><span style="font-weight: bold; color: black">{{ p.first_name }}</span></a><br/>
+    {% endfor %}
 
-             <i><a href="{% url view_profile  p.username %}" title="{{p.username}}" style="color: black">{{ p.username }}</a></i>
-            </div>
-          </div>
-        {% endfor %}
-        <div style="clear: both; height: 20px; "></div>
+     <div class="clearfix"></div>
 
         {% endif %}
 
-	<h2 style="border-bottom: 1px dotted gray" >{% trans "People" %}</h2>
-	<ul>
+
+	<h3>{% trans "All" %}</h3>
+	<ul class="list">
 	{% for p in people.object_list %}
 	   <li><a href="{% url view_profile p.username %}"><b>{{ p.username }}</b> - <i> {{p.first_name}}</i></a></li>
 	{% endfor %}

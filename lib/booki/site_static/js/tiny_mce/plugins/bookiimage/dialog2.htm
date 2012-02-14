@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Insert Image</title>
+	<script type="text/javascript" src="../../tiny_mce_popup.js?v={tinymce_version}"></script>
+	<script type="text/javascript" src="../../utils/mctabs.js?v={tinymce_version}"></script>
+	<script type="text/javascript" src="../../utils/form_utils.js?v={tinymce_version}"></script>
+	<script type="text/javascript" src="../../utils/validate.js?v={tinymce_version}"></script>
+	<script type="text/javascript" src="../../utils/editable_selects.js?v={tinymce_version}"></script>
+	<script type="text/javascript" src="js/dialog2.js"></script>
+</head>
+<body id="advimage" style="display: none" role="application">
+<form onsubmit="FilebrowserDialog.insert(); return false;" action="#">
+
+ <div class="tabs">
+  <ul>
+    <li id="browse_tab" class="current" aria-controls="browse_panel"><span><a href="javascript:mcTabs.displayTab('browse_tab','browse_panel');" onmousedown="return false;">Browse</a></span></li>
+    <li id="upload_tab" aria-controls="upload_panel"><span><a href="javascript:mcTabs.displayTab('upload_tab','upload_panel');" onmousedown="return false;">Upload</a></span></li>
+  </ul>
+ </div>
+
+ <div class="panel_wrapper">
+  <div id="browse_panel" class="panel current">
+ 
+   <table border="0" width="100%">
+    <tr>
+    <td valign="top">   
+    <fieldset>
+     <legend>Images</legend>
+       <iframe id="filesframe" name="filesframe" width="480" height="270" frameborder="0" scrolling="auto" src="dialog3.htm"></iframe>
+     </fieldset>
+    </td>
+
+    <td width="200" valign="top">
+     <fieldset>
+       <legend>Preview</legend>
+       <div id="previewdiv"></div>
+     </fieldset>
+    </td>
+   </tr>
+  </table>
+  </div>
+
+  <div id="upload_panel" class="panel">
+    <fieldset>
+     <legend>Upload image</legend>
+           <iframe width="300" height="200" name="frameupload2" border="0" style="border: 0px"></iframe>
+     </fieldset>
+
+  </div>
+ </div>
+
+ <div class="mceActionPanel">
+  <input type="button" id="insert" name="insert" value="{#insert}" onclick="FileBrowserDialogue.insert();" /> 
+  <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+ </div>
+</form>
+
+</body>
+</html>

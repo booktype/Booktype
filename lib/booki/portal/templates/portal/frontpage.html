@@ -2,53 +2,65 @@
 {% load i18n %}
 
 {% block header %}
- <title>Booki.cc</title>
+ <title>Bookspark</title>
+
+<script>
+ $(function() {
+    $("#formsignin").booksparkSignin({'url': '{% url signin %}'});
+    $("#formregister").booksparkRegister({'url': '{% url signin %}', 'redirect': '{% url view_profile 'XXX' %}'});
+ });
+ </script>
+ 
 {% endblock %}
 
 {% block content %}
 <div id="intro">
-<h2>{% trans "Welcome to Booki" %} Alpha 1.2.</h2>
+<h2>{% trans "Welcome to Booktype" %}</h2>
 
-<img src="{{ request.META.SCRIPT_NAME }}/site_static/images/frontpage.jpg" alt="" title="[frontpage]" height="303" width="540">
+{% if request.user.is_authenticated %}
+<!-- <h3>Show message when user is signed in</h3>-->
+{% else %}
+ <div class="signin-block">
+   {% include "account/form_signin.html" %}
+ </div>
 
-<span style="font-size:14px">
-<p>More than just a <strong>free</strong> <strong>software</strong> Booki helps you make <strong>free</strong> <strong>books</strong> - beautiful real paper books and ebooks.
-</p>
 
-<p>Collaborate online and create open textbooks and any other publication you can think of. Booki facilitates the production of books through simple and effective book production tools.</p>
-<p>With Booki you can write a book by yourself or with others, discuss your views, seek assistance from others, translate or reuse content and publish completed works.</p>
-<p>Sign up and have a look around!</p>
-</span>
+ <div class="register-block">
+   {% include "account/form_register.html" %}
+ </div>
 
-<h2>{% trans "Recent activity" %}</h2>
- <div style="border-top: 1px solid gray"></div>
+ <div class="clearfix"></div>
+{% endif %}
+
+
+<h3>{% trans "Recent activity" %}</h3>
 
 {% for activity in activity_history %}
- <div style="margin-top: 5px; margin-bottom: 10px; border: 0px solid gray; padding: 5px; font-size: 14px;">
-    <div style="float: left; margin-right: 10px; float: left; width: 48px; height: 48x;">
-       <img src="{% url view_profilethumbnail activity.user %}?width=48" alt="{{activity.user}}">
-    </div>
-    <div style="display: inline-block;">
-     <a href="{% url view_profile activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; <i>{{ activity.modified|timesince}} {% trans "ago" %}</i><br/>
-     <div style="padding-top: 5px">
-     {% if activity.kind == 1 %}
-         {% trans "Created new chapter" %} <a href="{% url book_chapter activity.book.url_title activity.chapter.url_title %}"><i>"{{activity.chapter.title}}"</i></a>.
+	<div class="recent-activity">
+        <div class="image">
+           <img src="{% url view_profilethumbnail activity.user %}?width=48" alt="{{activity.user}}">
+        </div><!--end .image-->
 
-         <div style="font-size: 12px; margin-top: 5px; color: gray;">#{{activity.book.url_title}}</div>
-     {% endif %}
-     {% if activity.kind == 10 %}
-         {% trans "Created new book" %} <a href="{% url book_view activity.book.url_title  %}">"{{activity.book.title}}"</a>.
-         <div style="font-size: 12px; margin-top: 5px; color: gray;">#{{activity.book.url_title}}</div>
-     {% endif %}
-     </div>
-    </div>
-     <div style="clear: both"></div>
-<!--    <b>{{ activity.book.title }}</b><br/> </i>{{ activity.chapter.title }}</i> -->
- </div>
- <div style="border-top: 1px solid gray"></div>
+    	<div class="user">
+        	<a href="{% url view_profile activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; {{ activity.modified|timesince}} {% trans "ago" %}
+  		    <div class="chapter">  
+                 {% if activity.kind == 1 %}
+                 {% trans "Created new chapter" %} <a href="{% url book_chapter activity.book.url_title activity.chapter.url_title %}">"{{activity.chapter.title}}"</a>.
+                 <div class="book-title">#{{activity.book.url_title}}
+                 </div>     
+				{% endif %}
+                {% if activity.kind == 10 %}
+                {% trans "Created new book" %} <a href="{% url book_view activity.book.url_title  %}">"{{activity.book.title}}"</a>.
+                 <div class="book-title">#{{activity.book.url_title}}
+                 </div>     
+				{% endif %}
+			</div><!-- End of .chapter -->     
+		</div><!-- end .user-->
+	</div><!-- end .recent-activity-->
+
 {% endfor %}
 
-</div>
+</div><!-- end intro -->
 
 
 

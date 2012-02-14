@@ -4,7 +4,7 @@
 
 {% block header %}
 <title>{% blocktrans with chapter.title as chaptertitle and book.title as booktitle %}/chapter: {{ chaptertitle }} / {{ booktitle }}{% endblocktrans %}</title>
-<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/editor.css" rel="Stylesheet" />
+<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/published.css" rel="Stylesheet" />
 
 <link rel="alternate" type="application/rss+xml" title="RSS feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/rss/book/{{ book.url_title }}/" /> 
 <link rel="alternate" type="application/atom+xml" title="Atom feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/atom/book/{{ book.url_title }}/" /> 
@@ -14,16 +14,26 @@
 {% if has_css %}
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
 {% endif %}
+
+<style>
+SPAN.bookicommentmarker {
+  background-color: white;
+}
+
+SPAN.bookicommentmarker > IMG.markerimage { 
+   display: none;
+}
+
+
+</style>
+
 {% endblock %}
 
 
 {% block content %}
+   <h2>{{ book.title }}</h2>
 
-
-<br clear="all"/>
-   <h1>{{ book.title }}</h1>
-
-
+<div class="padded">
 <div id="bookmenu">
 <ul>
 {% for chap in chapters %}
@@ -36,12 +46,18 @@
 </ul>
 </div>
 <div id="bookcontent">
+   {% if request.user.is_authenticated %}
+     <div class="action-menu top">
+      	<a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
+     </div>
+   {% endif %}
 {% booki_format content %}
    {% if request.user.is_authenticated %}
-     <hr/>
-      <a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
+     <div class="action-menu bottom">
+      	<a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
+     </div>
    {% endif %}
 
 </div>
-
+</div>
 {% endblock %}

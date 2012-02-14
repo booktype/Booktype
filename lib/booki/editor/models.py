@@ -1,3 +1,19 @@
+# This file is part of Booktype.
+# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+#
+# Booktype is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Booktype is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import models as auth_models
@@ -117,6 +133,9 @@ class Book(models.Model):
 
     hidden = models.BooleanField(_('hidden'))
     permission = models.SmallIntegerField(_('permission'), null=False, default = 0) 
+
+    description = models.TextField(_('description'), null=False, default='')
+    cover = models.ImageField(_('cover'), upload_to=settings.COVER_IMAGE_UPLOAD_DIR, null=True)
 
     def get_absolute_url(self):
         return '%s/%s/' % (settings.BOOKI_URL, self.url_title)
@@ -391,5 +410,19 @@ class AttributionExclude(models.Model):
     class Meta:
         verbose_name = _('Attribution Exclude')
         verbose_name_plural = _('Attribution Exclude')
+
+
+class PublishWizzard(models.Model):
+    book = models.ForeignKey(Book, null=True, verbose_name=_("book"))
+    user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
+    wizz_type = models.CharField(_('wizzard type'), max_length=20, blank=False)
+    wizz_options =  models.TextField(_('wizzard options'), default='', null=False)
+
+    def __unicode__(self):
+        return '%s' % (self.book.url_title, )
+
+    class Meta:
+        verbose_name = _('Publish Wizzard')
+        verbose_name_plural = _('Publish Wizzard')
 
     

@@ -1,5 +1,21 @@
-import os
+# This file is part of Booktype.
+# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+#
+# Booktype is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Booktype is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+from django.db import IntegrityError, transaction
 from django.shortcuts import render_to_response
 from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -82,6 +98,10 @@ def book_info(request, bookid, version=None):
     book_history =  models.BookHistory.objects.filter(version = book_version).order_by("-modified")[:20]
 
     book_collaborators =  [e.values()[0] for e in models.BookHistory.objects.filter(version = book_version, kind = 2).values("user__username").distinct()]
+
+    from booki.utils import security
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+    isBookAdmin = bookSecurity.isAdmin()
     
     import sputnik
     channel_name = "/booki/book/%s/%s/" % (book.id, book_version.getVersion())
@@ -89,14 +109,44 @@ def book_info(request, bookid, version=None):
 
     book_versions = models.BookVersion.objects.filter(book=book).order_by("created")
 
+    from django.utils.html import escape
+    bookDescription = escape(book.description)
+
     return render_to_response('reader/book_info.html', {"book": book, 
                                                         "book_version": book_version.getVersion(),
                                                         "book_versions": book_versions,
                                                         "book_history": book_history, 
                                                         "book_collaborators": book_collaborators,
                                                         "has_css": _customCSSExists(book.url_title),
+                                                        "is_book_admin": isBookAdmin,
                                                         "online_users": online_users,
+                                                        "book_description": '<br/>'.join(bookDescription.replace('\r','').split('\n')),
                                                         "request": request})
+
+
+def book_cover(request, bookid, version=None):
+    """
+    Return cover image for this book.
+
+    @todo: It is wrong in so many different levels to serve attachments this way.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type bookid: C{string}
+    @param bookid: Unique Book ID
+    @type version: C{string}
+    @param version: Version of the book
+    """
+
+    from django.views import static
+
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+    return static.serve(request, book.cover.name, settings.MEDIA_ROOT)
+
 
 def draft_book(request, bookid, version=None):
     """
@@ -333,4 +383,73 @@ def staticattachment(request, bookid,  attachment, version=None, chapter = None)
     document_root = '%s/books/%s/' % (settings.DATA_ROOT, bookid)
 
     return static.serve(request, path, document_root)
+
+
+@transaction.commit_manually
+def edit_info(request, bookid, version=None):
+    """
+    Django View. 
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type bookid: C{string}
+    @param bookid: Unique Book ID
+    @type version: C{string}
+    @param verson: Book version
+    """
+
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+
+    book_version = getVersion(book, version)
+
+    if request.method == 'POST':
+        book.description = request.POST.get('description', '')
+        from django.core.files import File
+
+        if request.FILES.has_key('cover'):
+            import tempfile
+            import os
+
+            fh, fname = tempfile.mkstemp(suffix='', prefix='cover')
+                
+            f = open(fname, 'wb')
+            for chunk in request.FILES['cover'].chunks():
+                f.write(chunk)
+            f.close()
+            
+            try:
+                import Image
+                    
+                im = Image.open(fname)
+                im.thumbnail((240, 240), Image.ANTIALIAS)
+
+                im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.COVER_IMAGE_UPLOAD_DIR, book.id), "JPEG") 
+                book.cover = '%s%s.jpg' % (settings.COVER_IMAGE_UPLOAD_DIR, book.id)
+            except:
+                transaction.rollback()
+
+            os.unlink(fname)
+
+        try:
+            book.save()
+
+            return render_to_response('reader/edit_info_redirect.html', {"request": request,
+                                                                         "book": book})
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+        
+    try:
+        return render_to_response('reader/edit_info.html', {"request": request,
+                                                            "book": book})
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()    
 

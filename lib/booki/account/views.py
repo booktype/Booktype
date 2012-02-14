@@ -1,3 +1,19 @@
+# This file is part of Booktype.
+# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+#
+# Booktype is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Booktype is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+
 import datetime
 import traceback
 from django.shortcuts import render_to_response
@@ -29,14 +45,14 @@ try:
     TWIKI_GATEWAY_URL = settings.TWIKI_GATEWAY_URL
 except AttributeError:
     # for backwards compatibility
-    ESPRI_URL = "http://objavi.flossmanuals.net/espri.cgi"
-    TWIKI_GATEWAY_URL = "http://objavi.flossmanuals.net/booki-twiki-gateway.cgi"
+    ESPRI_URL = "http://objavi.booki.cc/espri.cgi"
+    TWIKI_GATEWAY_URL = "http://objavi.booki.cc/booki-twiki-gateway.cgi"
     
 try:
     THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
 except AttributeError:
     import os
-    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'www.booki.cc')
+    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
 
     
 def view_accounts(request):
@@ -174,13 +190,15 @@ def signin(request):
                     else:
                         transaction.commit()
 
-
         if request.POST.get("method", "") == "signin":
             user = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
 
             if user:
                 auth.login(request, user)
                 ret["result"] = 1
+
+                from django.core.urlresolvers import reverse
+                ret["redirect"] = reverse('view_profile', args=[user.username])
             else:
                 try:
                     usr = auth.models.User.objects.get(username=request.POST["username"])
@@ -193,8 +211,12 @@ def signin(request):
         transaction.commit()
         return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
 
-    redirect = request.GET.get('redirect', reverse('frontpage'))
+    from django.core.urlresolvers import reverse
+    redirect = request.GET.get('redirect', '')
 
+    if(redirect == reverse('frontpage')): 
+        redirect = ''
+    
     if request.GET.get('next', None):
         redirect = request.GET.get('next')
 
@@ -363,52 +385,6 @@ def forgotpasswordenter(request):
     finally:
         transaction.commit()
 
-# project form
-
-class BookForm(forms.Form):
-    """
-    Django Form for new books.
-
-    @todo: This is major c* and has to be changed soon.
-    """
-
-    title = forms.CharField(label=_('Title'), required=True)
-    license = forms.ChoiceField(label=_('License'), choices=(('1', '1'), ))
-    hidden = forms.BooleanField(label=_('Initially hidden from others'), required=False)
-
-    def __init__(self, *args, **kwargs):
-        super(BookForm, self).__init__(*args, **kwargs)
-
-        from booki.editor import models
-        self.fields['license'].initial = 'Unknown'
-        self.fields['license'].choices = [ (elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
-
-
-class ImportForm(forms.Form):
-    """
-    Django Form for book imports.
-
-    @todo: This is major c* and has to be changed soon.
-    """
-
-    type = forms.CharField(required=True)
-    id = forms.CharField(required=True)
-    rename_title = forms.CharField(required=False)
-    hidden = forms.BooleanField(label=_('Initially hidden from others'), required=False)
-
-class ImportEpubForm(forms.Form):
-    url = forms.CharField(required=False)
-
-class ImportWikibooksForm(forms.Form):
-    wikibooks_id = forms.CharField(required=False)
-
-class ImportFlossmanualsForm(forms.Form):
-    flossmanuals_id = forms.CharField(required=False)
-    type = forms.CharField(required=False)
-    id = forms.CharField(required=False)
-
-
-
 def view_profile(request, username):
     """
     Django View. Shows user profile. Right now, this is just basics.
@@ -436,43 +412,18 @@ def view_profile(request, username):
         books = models.Book.objects.filter(owner=user, hidden=False)
     
     groups = user.members.all()
+    
+    from django.utils.html import escape
+    userDescription = escape(user.get_profile().description)
+
     return render_to_response('account/view_profile.html', {"request": request,
                                                             "user": user,
-
+                                                            "user_description": '<br/>'.join(userDescription.replace('\r','').split('\n')),
                                                             "books": books,
                                                             "groups": groups})
 
-
-## user settings
-
-class SettingsForm(forms.Form):
-    """
-    Django Form for Settings. This should change in the future (and not use Django Forms at all).
-    """
-
-    email = forms.EmailField(required=True, label=_('Email'))
-    firstname = forms.CharField(required=True, label=_('Full name'))
-#    lastname = forms.CharField(required=True, label='Last name')
-    description = forms.CharField(widget=forms.Textarea(), required=False, label=_("Blurb about yourself"))
-
-    image = forms.Field(widget=forms.FileInput(), required=False, label=_('Image'))
-    notification_filter = forms.CharField(required=False, label=_('Notification filter'))
-
-## user settings
-
 @transaction.commit_manually
-def user_settings(request, username):
-    """
-    Django View. Edit user settings. Right now, this is just basics.
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Django Request
-    @type username: C{string}
-    @param username: Username.
-
-    @todo: Check if user exists. 
-    """
-
+def save_settings(request, username):
     from django.contrib.auth.models import User
     from booki.editor import models
 
@@ -481,75 +432,70 @@ def user_settings(request, username):
     except User.DoesNotExist:
         return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
 
+    if request.user.username != username:
+        return HttpResponse("No, can't do!", "text/plain")
 
-    if request.method == 'POST':
-        settings_form = SettingsForm(request.POST, request.FILES)
-        if settings_form.is_valid():
+    from django.core.files import File
 
-            # this is very stupid and wrong
-            # change the way it works
-            # make utils for
-            #     - get image url
-            #     - get image path
-            #     - seperate storage for
+    profile = user.get_profile()
 
-            from django.core.files import File
-            profile = user.get_profile()
+    user.email      = request.POST.get('email' ,'')
+    user.first_name = request.POST.get('fullname', '')
+    user.save()
 
-            user.email      = settings_form.cleaned_data['email']
-            user.first_name = settings_form.cleaned_data['firstname']
-            #user.last_name  = settings_form.cleaned_data['lastname']
-            user.save()
+    profile.description = request.POST.get('aboutyourself', '')
 
-            profile.description = settings_form.cleaned_data['description']
+    if request.FILES.has_key('profile'):
+        import tempfile
+        import os
 
-            # this works for now, but this kind of processing must be done somewhere else!
+        # check this later
+        fh, fname = tempfile.mkstemp(suffix='', prefix='profile')
+        
+        f = open(fname, 'wb')
+        for chunk in request.FILES['profile'].chunks():
+            f.write(chunk)
+        f.close()
+            
+        import Image
 
-            if settings_form.cleaned_data['image']:
-                import tempfile
-                import os
+        try:
+            im = Image.open(fname)
+            THUMB_SIZE = 100, 100
+            width, height = im.size
 
-                # check this later
-                fh, fname = tempfile.mkstemp(suffix='', prefix='profile')
+            if width > height:
+                delta = width - height
+                left = int(delta/2)
+                upper = 0
+                right = height + left
+                lower = height
+            else:
+                delta = height - width
+                left = 0
+                upper = int(delta/2)
+                right = width
+                lower = width + upper
+                
+            im = im.crop((left, upper, right, lower))
+            im.thumbnail(THUMB_SIZE, Image.ANTIALIAS)
+            im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, user.username), 'JPEG')
+ 
+            profile.image = '%s%s.jpg' % (settings.PROFILE_IMAGE_UPLOAD_DIR, user.username)
+        except:
+            # handle this in better way
+            pass
 
-                f = open(fname, 'wb')
-                for chunk in settings_form.cleaned_data['image'].chunks():
-                    f.write(chunk)
-                f.close()
-
-                import Image
-
-                im = Image.open(fname)
-                im.thumbnail((120, 120), Image.NEAREST)
-                imageName = '%s.jpg' % fname
-                im.save(imageName)
-
-                profile.image.save('%s.jpg' % user.username, File(file(imageName)))
-                os.unlink(fname)
-
-            profile.save()
-
-            endpoint_config = get_endpoint_or_none("@"+user.username).get_config()
-            endpoint_config.notification_filter = settings_form.cleaned_data['notification_filter']
-            endpoint_config.save()
-
-            transaction.commit()
-
-            return HttpResponseRedirect(reverse("view_profile", args=[username]))
-    else:
-        settings_form = SettingsForm(initial = {'image': 'aaa',
-                                                'firstname': user.first_name,
-                                                #'lastname': user.last_name,
-                                                'description': user.get_profile().description,
-                                                'email': user.email,
-                                                'notification_filter': get_endpoint_or_none("@"+user.username).notification_filter()})
-
+        os.unlink(fname)
+        
+    profile.save()
+        
+    endpoint_config = get_endpoint_or_none("@"+user.username).get_config()
+    endpoint_config.notification_filter = request.POST.get('notification', '')
+    endpoint_config.save()
+    
     try:
-        return render_to_response('account/user_settings.html', {"request": request,
-                                                                 "user": user,
-                                                                 
-                                                                 "settings_form": settings_form,
-                                                                 })
+        return HttpResponse('<html><head><script>var j = parent.jQuery; j(function() { j.booki.profile.reloadProfileInfo(); });</script></head></html>', 'text/html')
     except:
         transaction.rollback()
     finally:
@@ -583,12 +529,12 @@ def view_profilethumbnail(request, profileid):
     if not u.get_profile().image:
         name = '%s%s' % (settings.SITE_STATIC_ROOT, '/images/anonymous.jpg')
     else:
-        name =  u.get_profile().image.name
+        name =  u.get_profile().image.path
 
     import Image
 
     image = Image.open(name)
-    image.thumbnail((int(request.GET.get('width', 24)), int(request.GET.get('width', 24))), Image.NEAREST)
+    image.thumbnail((int(request.GET.get('width', 24)), int(request.GET.get('width', 24))), Image.ANTIALIAS)
 
     # serialize to HTTP response
     response = HttpResponse(mimetype="image/jpg")
@@ -617,98 +563,9 @@ def my_books (request, username):
         
     books = models.Book.objects.filter(owner=user)
 
-    if request.POST.get("action") == "hide":
-        book = models.Book.objects.get(url_title=request.POST.get("book"))
-        book.hidden = True
-        book.save()
-        transaction.commit()
-    elif request.POST.get("action") == "unhide":
-        book = models.Book.objects.get(url_title=request.POST.get("book"))
-        book.hidden = False
-        book.save()
-        transaction.commit()
-
-    if request.method == 'POST' and not request.POST.get("action"):
-        project_form = BookForm(request.POST)
-        import_form = ImportForm(request.POST)
-
-        if import_form.is_valid() and import_form.cleaned_data["id"]:
-            project_form = BookForm() # reset the other form
-
-            try:
-                ID = import_form.cleaned_data["id"]
-                import_type = import_form.cleaned_data["type"]
-                rename_title = import_form.cleaned_data["rename_title"]
-
-                extraOptions = {}
-                if rename_title:
-                    extraOptions['book_title'] = rename_title
-
-                if import_form.cleaned_data["hidden"]:
-                    extraOptions['hidden'] = True
-
-                import_sources = {   # base_url    source=
-                    'flossmanuals': (TWIKI_GATEWAY_URL, "en.flossmanuals.net"),
-                    "archive":      (ESPRI_URL, "archive.org"),
-                    "wikibooks":    (ESPRI_URL, "wikibooks"),
-                    "epub":         (ESPRI_URL, "url"),
-                    }
-
-                if import_type == "booki":
-                    ID = ID.rstrip("/")
-                    booki_url, book_url_title = ID.rsplit("/", 1)
-                    base_url = "%s/export/%s/export" % (booki_url, book_url_title)
-                    source = "booki"
-                else:
-                    base_url, source = import_sources[import_type]
-
-                common.importBookFromUrl2(user, base_url,
-                                          args=dict(source=source,
-                                                    book=ID),
-                                          **extraOptions
-                                          )
-            except Exception:
-                transaction.rollback()
-                logError(traceback.format_exc())
-                return render_to_response('account/error_import.html',
-                                          {"request": request, "user": user})
-            else:
-                transaction.commit()
-
-        #XXX should this be elif? even if the POST is valid as both forms, the
-        # transaction will end up being commited twice.
-        if project_form.is_valid() and project_form.cleaned_data["title"]:
-            import_form = ImportForm() # reset the other form
-            
-            from booki.utils.book import createBook
-            title = project_form.cleaned_data["title"]
-
-            try:
-                book = createBook(user, title)
-
-                license   = project_form.cleaned_data["license"]
-                lic = models.License.objects.get(abbrevation=license)
-                book.license = lic
-                book.hidden = project_form.cleaned_data["hidden"]
-                book.save()
-            except:
-                transaction.rollback()
-            else:
-                transaction.commit()
-
-            return HttpResponseRedirect(reverse("my_books", args=[username]))
-    else:
-        project_form = BookForm()
-        import_form = ImportForm()
-
-
     try:
         return render_to_response('account/my_books.html', {"request": request,
                                                             "user": user,
-                                                            
-                                                            "project_form": project_form,
-                                                            "import_form": import_form,
-                                                            
                                                             "books": books,})
     except:
         transaction.rollback()
@@ -760,3 +617,298 @@ def my_people (request, username):
     return render_to_response('account/my_people.html', {"request": request,
                                                          "user": user})
 
+
+@transaction.commit_manually
+def create_book(request, username):
+    """
+    Django View. Show content for Create Book dialog and creates book.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type username: C{string}
+    @param username: Username.
+    """
+
+    from django.contrib.auth.models import User
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        try:
+            return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+            
+    from booki.utils.book import checkBookAvailability, createBook
+    from booki.editor import models
+
+    if request.GET.get("q", "") == "check":
+        from booki.utils.json_wrapper import json
+
+        data = {"available": checkBookAvailability(request.GET.get('bookname', '').strip())}
+
+        try:
+            return HttpResponse(json.dumps(data), "text/plain")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+    if request.method == 'POST':
+        book = None
+        try:
+            # hidden on
+            # description
+            # license
+            # title
+            # cover
+
+            book = createBook(request.user, request.POST.get('title'))
+
+            lic = models.License.objects.get(abbrevation=request.POST.get('license'))
+            book.license = lic
+            book.description = request.POST.get('description', '')
+
+            if request.POST.get("hidden", "") == "on":
+                is_hidden = True
+            else:
+                is_hidden = False
+            book.hidden = is_hidden
+            
+            from django.core.files import File
+
+            if request.FILES.has_key('cover'):
+                import tempfile
+                import os
+
+                fh, fname = tempfile.mkstemp(suffix='', prefix='cover')
+                
+                f = open(fname, 'wb')
+                for chunk in request.FILES['cover'].chunks():
+                    f.write(chunk)
+                f.close()
+
+
+                try:
+                    import Image
+                    
+                    im = Image.open(fname)
+                    im.thumbnail((240, 240), Image.ANTIALIAS)
+                    imageName = '%s.jpg' % fname
+                    im.save(imageName)
+                    
+                    book.cover.save('%s.jpg' % book.url_title, File(file(imageName)))
+                except:
+                    pass
+
+                os.unlink(fname)
+
+            book.save()
+                
+        except:
+            transaction.rollback()
+        else:
+            transaction.commit()
+        try:
+            return render_to_response('account/create_book_redirect.html', {"request": request,
+                                                                            "user": user,
+                                                                            "book": book})
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+        
+    from booki.editor.models import License
+    
+    licenses = License.objects.all().order_by('name')
+
+    try:
+        return render_to_response('account/create_book.html', {"request": request,
+                                                               "licenses": licenses,
+                                                               "user": user})
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()    
+
+
+@transaction.commit_manually
+def create_group(request, username):
+    """
+    Django View. Show content for Create Group dialog and creates group.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type username: C{string}
+    @param username: Username.
+    """
+
+    from django.contrib.auth.models import User
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        try:
+            return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+            
+    from booki.utils.book import checkGroupAvailability, createBookiGroup
+    from booki.editor import models
+
+    if request.GET.get("q", "") == "check":
+        from booki.utils.json_wrapper import json
+
+        data = {"available": checkGroupAvailability(request.GET.get('groupname', '').strip())}
+
+        try:
+            return HttpResponse(json.dumps(data), "text/plain")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+
+    if request.GET.get("q", "") == "create":
+        from booki.utils.json_wrapper import json
+
+        groupName = request.GET.get('name', '').strip()
+        groupDescription = request.GET.get('description', '').strip()
+
+        groupCreated = False
+
+        if checkGroupAvailability(groupName):
+            try:
+                group = createBookiGroup(groupName, groupDescription, request.user)
+                group.members.add(request.user)
+                groupCreated = True
+            except BookiGroupExist:
+                groupCreated = False
+                transaction.rollback()
+            else:
+                transaction.commit()
+
+        data = {'created': groupCreated}
+
+        try:
+            return HttpResponse(json.dumps(data), "text/plain")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+
+    try:
+        return render_to_response('account/create_group.html', {"request": request,
+                                                               "user": user})
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()    
+
+
+@transaction.commit_manually
+def import_book(request, username):
+    """
+    Django View. Book Import dialog.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type username: C{string}
+    @param username: Username.
+    """
+
+    from django.contrib.auth.models import User
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        try:
+            return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+            
+    from booki.utils.book import checkGroupAvailability, createBookiGroup
+    from booki.editor import models
+
+    if request.GET.get("q", "") == "check":
+        from booki.utils.json_wrapper import json
+
+        data = {"available": checkGroupAvailability(request.GET.get('groupname', '').strip())}
+
+        try:
+            return HttpResponse(json.dumps(data), "text/plain")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+    if request.GET.get("q", "") == "import":
+        from booki.utils.json_wrapper import json
+
+        data = {}
+
+        try:
+            bookid = request.GET.get('source', '')
+            importType = request.GET.get('importtype', '')
+            renameTitle = request.GET.get('title', '')
+
+            extraOptions = {}
+
+            if renameTitle:
+                extraOptions['book_title'] = renameTitle
+
+            if request.GET.get('hidden', '') != '':
+                extraOptions['hidden'] = True
+
+            importSources = {  
+                'flossmanuals': (TWIKI_GATEWAY_URL, "en.flossmanuals.net"),
+                "archive":      (ESPRI_URL, "archive.org"),
+                "wikibooks":    (ESPRI_URL, "wikibooks"),
+                "epub":         (ESPRI_URL, "url"),
+                }
+            
+            if importType == "booki":
+                bookid = bookid.rstrip('/')
+                booki_url, book_url_title = bookid.rsplit("/", 1)
+                base_url = "%s/export/%s/export" % (booki_url, book_url_title)
+                source = "booki"
+            else:
+                base_url, source = importSources[importType]
+
+            book = common.importBookFromUrl2(user, base_url,
+                                             args=dict(source=source,
+                                                       book=bookid),
+                                             **extraOptions
+                                             )
+        except Exception:
+            data['imported'] = False
+            transaction.rollback()
+        else:
+            transaction.commit()
+            data['imported'] = True
+
+            from django.core.urlresolvers import reverse
+            data['info_url'] = reverse('book_info', args=[book.url_title])
+
+        try:
+            return HttpResponse(json.dumps(data), "text/plain")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+
+    try:
+        return render_to_response('account/import_book.html', {"request": request,
+                                                               "user": user})
+    except:
+        transaction.rollback()
+    finally:
+        transaction.commit()    

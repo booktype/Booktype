@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Insert Comment</title>
+	<script type="text/javascript" src="../../tiny_mce_popup.js?v={tinymce_version}"></script>
+	<script type="text/javascript" src="js/dialog.js?v={tinymce_version}"></script>
+</head>
+<body>
+<form onsubmit="CommentsDialog.insert(); return false;" action="#">
+  <h3>Comments</h3>
+  <div style="padding-top: 5px;">
+    <p>This plugin is stil under heavy developement. To edit or remove this comment just select the comment icon in the text and click on the comment plugin in the toolbar. You must select the icon, it will not work if you only select marked text. Comments will be visible in the draft version of the book. In the published version of the book they will not be visible.</p>
+  </div>
+  <div style="margin: 10px 10px 0px 10px;">
+   <label for="commentContent">Your comment</label>
+    <textarea id="commentContent" name="commentContent" style="width: 100%;" rows="10"></textarea>
+  </div>
+
+  <div class="mceActionPanel">
+    <input type="button" id="insert" name="insert" value="{#insert}" onclick="CommentsDialog.insert();" /> 
+    <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+  </div>
+</form>
+
+</body>
+</html>
