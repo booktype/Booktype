@@ -138,7 +138,7 @@ def signin(request):
 
                     # check if this user exists
                     try:
-                        u = auth.models.User.objects.get(username=request.POST.get("username", ""))
+                        u = auth.models.User.objects.get(username=request.POST.get("username", "").strip())
                         return 10
                     except auth.models.User.DoesNotExist:
                         pass
@@ -151,9 +151,9 @@ def signin(request):
                     ret["result"] = 1
 
                     try:
-                        user = auth.models.User.objects.create_user(username=request.POST["username"],
-                                                                    email=request.POST["email"],
-                                                                    password=request.POST["password"])
+                        user = auth.models.User.objects.create_user(username=request.POST["username"].strip(),
+                                                                    email=request.POST["email"].strip(),
+                                                                    password=request.POST["password"].strip())
                     except IntegrityError:
                         ret["result"] = 10
 
@@ -182,7 +182,7 @@ def signin(request):
                                 else:
                                     transaction.savepoint_commit(sid)
 
-                        user2 = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
+                        user2 = auth.authenticate(username=request.POST["username"].strip(), password=request.POST["password"].strip())
                         auth.login(request, user2)
                     except:
                         transaction.rollback()
@@ -191,7 +191,7 @@ def signin(request):
                         transaction.commit()
 
         if request.POST.get("method", "") == "signin":
-            user = auth.authenticate(username=request.POST["username"], password=request.POST["password"])
+            user = auth.authenticate(username=request.POST["username"].strip(), password=request.POST["password"].strip())
 
             if user:
                 auth.login(request, user)
