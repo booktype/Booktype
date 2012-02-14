@@ -179,9 +179,13 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
 
     # should have one  "broken image" in case of error
     import Image
-    im = Image.open(document_root)
-    im.thumbnail((150, 150), Image.ANTIALIAS)
 
+    try:
+        im = Image.open(document_root)
+        im.thumbnail((150, 150), Image.ANTIALIAS)
+    except IOError:
+        im = Image.new('RGB', (150,150), "white")
+        
     response = HttpResponse(mimetype='image/jpeg')
     im.save(response, "jpeg")
     return  response
