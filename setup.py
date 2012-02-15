@@ -33,7 +33,7 @@ setup(
     description = "FLOSS Manuals collaborative book writing tool",
     long_description = long_description,
 
-    url = "http://booki-dev.flossmanuals.net/",
+    url = "http://booktype.sourcefabric.org/",
     include_package_data = True,
     package_data = {
         # If any package contains *.txt or *.rst files, include them
