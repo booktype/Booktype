@@ -150,6 +150,8 @@ def signin(request):
                 if ret["result"] == 0:
                     ret["result"] = 1
 
+                    user = None
+
                     try:
                         user = auth.models.User.objects.create_user(username=request.POST["username"].strip(),
                                                                     email=request.POST["email"].strip(),
@@ -160,35 +162,36 @@ def signin(request):
                     # this is not a good place to fire signal, but i need password for now
                     # should create function createUser for future use
 
-                    import booki.account.signals
-                    booki.account.signals.account_created.send(sender = user, password = request.POST["password"])
+                    if user:
+                        import booki.account.signals
+                        booki.account.signals.account_created.send(sender = user, password = request.POST["password"])
 
-                    user.first_name = request.POST["fullname"].strip()
+                        user.first_name = request.POST["fullname"].strip()
 
-                    try:
-                        user.save()
+                        try:
+                            user.save()
 
-                        # groups
+                            # groups
 
-                        for groupName in simplejson.loads(request.POST.get("groups")):
-                            if groupName.strip() != '':
-                                sid = transaction.savepoint()
+                            for groupName in simplejson.loads(request.POST.get("groups")):
+                                if groupName.strip() != '':
+                                    sid = transaction.savepoint()
 
-                                try:
-                                    group = BookiGroup.objects.get(url_name=groupName)
-                                    group.members.add(user)
-                                except:
-                                    transaction.savepoint_rollback(sid)
-                                else:
-                                    transaction.savepoint_commit(sid)
+                                    try:
+                                        group = BookiGroup.objects.get(url_name=groupName)
+                                        group.members.add(user)
+                                    except:
+                                        transaction.savepoint_rollback(sid)
+                                    else:
+                                        transaction.savepoint_commit(sid)
 
-                        user2 = auth.authenticate(username=request.POST["username"].strip(), password=request.POST["password"].strip())
-                        auth.login(request, user2)
-                    except:
-                        transaction.rollback()
-                        ret["result"] = 666
-                    else:
-                        transaction.commit()
+                            user2 = auth.authenticate(username=request.POST["username"].strip(), password=request.POST["password"].strip())
+                            auth.login(request, user2)
+                        except:
+                            transaction.rollback()
+                            ret["result"] = 666
+                        else:
+                            transaction.commit()
 
         if request.POST.get("method", "") == "signin":
             user = auth.authenticate(username=request.POST["username"].strip(), password=request.POST["password"].strip())
