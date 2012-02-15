@@ -24,8 +24,8 @@ setup(
     name = "Booktype",
     version = "1.5",
 
-    packages = find_packages('lib'),  # include all packages under src
-    package_dir = {'':'lib'},   # tell distutils packages are under src
+    packages = find_packages('lib'),  # include all packages under lib
+    package_dir = {'':'lib'},   # tell distutils packages are under lib
 
     author = "Aleksandar Erkalovic",
     author_email = "aerkalov@gmail.com",
@@ -39,6 +39,8 @@ setup(
         # If any package contains *.txt or *.rst files, include them
         '': ['*.txt', '*.rst'],
     },
+    scripts=['scripts/createbooki'],
+
     install_requires = ['setuptools', 'simplejson', 'django' ],
     classifiers=[
           "License :: OSI Approved :: GNU General Public License (GPL)",
