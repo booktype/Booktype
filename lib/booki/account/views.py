@@ -643,7 +643,16 @@ def create_book(request, username):
             transaction.rollback()
         finally:
             transaction.commit()    
-            
+
+    if not request.user.is_authenticated():
+        try:
+            return pages.ErrorPage(request, "errors/no_permissions.html")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+
     from booki.utils.book import checkBookAvailability, createBook
     from booki.editor import models
 
@@ -759,6 +768,15 @@ def create_group(request, username):
             transaction.rollback()
         finally:
             transaction.commit()    
+
+    if not request.user.is_authenticated():
+        try:
+            return pages.ErrorPage(request, "errors/no_permissions.html")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
             
     from booki.utils.book import checkGroupAvailability, createBookiGroup
     from booki.editor import models
@@ -832,6 +850,14 @@ def import_book(request, username):
     except User.DoesNotExist:
         try:
             return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()    
+
+    if not request.user.is_authenticated():
+        try:
+            return pages.ErrorPage(request, "errors/no_permissions.html")
         except:
             transaction.rollback()
         finally:
