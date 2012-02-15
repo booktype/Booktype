@@ -1,2 +1,2 @@
 #!/bin/sh
-python setup.py mregister sdist bdist_egg mupload -r pypi
+python setup.py register sdist bdist_egg upload -r pypi
