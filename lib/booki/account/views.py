@@ -412,7 +412,10 @@ def view_profile(request, username):
     if request.user.username == username:
         books = models.Book.objects.filter(owner=user)
     else:
-        books = models.Book.objects.filter(owner=user, hidden=False)
+        if request.user.is_authenticated() and request.user.is_superuser:
+            books = models.Book.objects.filter(owner=user)
+        else:
+            books = models.Book.objects.filter(owner=user, hidden=False)
     
     groups = user.members.all()
     

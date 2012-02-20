@@ -129,7 +129,7 @@ def canEditBook(book, bookSecurity):
 
     if book.permission == 0:
         hasPermission = True
-    elif book.permission == 1 and bookSecurity.isBookOwner:
+    elif book.permission == 1 and (bookSecurity.isBookOwner or bookSecurity.isSuperuser()):
         hasPermission = True
     elif book.permission == 2 and bookSecurity.isAdmin():
         hasPermission = True

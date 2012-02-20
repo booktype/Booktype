@@ -260,7 +260,12 @@ def view_books(request):
     @param request: Client Request object
     """
 
-    books_list = models.Book.objects.filter(hidden=False).extra(select={'lower_title': 'lower(title)'}).order_by('lower_title')
+    if request.user.is_authenticated() and request.user.is_superuser:
+        books = models.Book.objects.all()
+    else:
+        books = models.Book.objects.filter(hidden=False)
+
+    books_list = books.extra(select={'lower_title': 'lower(title)'}).order_by('lower_title')
 
     paginator = Paginator(books_list, 50) 
 
