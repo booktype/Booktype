@@ -19,11 +19,14 @@ steps and do whatever is appropriate with your package manager.
 Booktype prerequisites
 ----------------------
 
-Command examples are for Debian/Ubuntu.
+Command examples are for Debian/Ubuntu. Depending of your OS you might
+need to install some of the python packages using easy_install 
+(http://pypi.python.org/pypi/setuptools) or pip (http://pypi.python.org/pypi/pip). 
+Please check how to install them on your OS if they are not present.
 
- - Python, minimum 2.5 (http://www.python.org/) and headers
+ - Python, minimum 2.5 (http://www.python.org/) and headers 
 
-       $ sudo apt-get install python-dev
+       $ sudo apt-get install python-dev 
 
  - PostgreSQL (recommended) or Sqlite3 (not recommended)
        
@@ -39,9 +42,9 @@ Command examples are for Debian/Ubuntu.
 
        $ sudo apt-get install git-core
 
- - Python Set Up Tools
+ - Python Set Up Tools and pip (http://pypi.python.org/pypi/pip)
 
-       $ sudo apt-get install python-setuptools
+       $ sudo apt-get install python-setuptools python-pip
 
  - Django, minimum 1.2 (http://http://www.djangoproject.com/)
 
