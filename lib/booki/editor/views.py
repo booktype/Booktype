@@ -212,34 +212,40 @@ def upload_attachment(request, bookid, version=None):
 
     stat = models.BookStatus.objects.filter(book = book)[0]
 
+    operationResult = True
 
     # check this for transactions
+    try:
+        for name, fileData in request.FILES.items():
 
-    for name, fileData in request.FILES.items():
+            from booki.utils import log
 
-        from booki.utils import log
+            log.logBookHistory(book = book,
+                               version = book_version,
+                               args = {'filename': request.FILES[name].name},
+                               user = request.user,
+                               kind = 'attachment_upload')
 
-        log.logBookHistory(book = book,
-                           version = book_version,
-                           args = {'filename': request.FILES[name].name},
-                           user = request.user,
-                           kind = 'attachment_upload')
+            att = models.Attachment(version = book_version,
+                                    # must remove this reference
+                                    book = book,
+                                    status = stat)
+            att.save()
 
-        att = models.Attachment(version = book_version,
-                                # must remove this reference
-                                book = book,
-                                status = stat)
-        att.save()
-
-        att.attachment.save(request.FILES[name].name, fileData, save = False)
-        att.save()
-
+            att.attachment.save(request.FILES[name].name, fileData, save = False)
+            att.save()
 
         # TODO:
         # must write info about this to log!
 
         # maybe check file name now and save with new name
-    transaction.commit()
+        transaction.commit()
+    except IOError:
+        operationResult = False
+        transaction.rollback()
+    except:
+        oprerationResult = False
+        transaction.rollback()
 
     if request.POST.get("attachmenttab", "") == "":
         return HttpResponse('<html><body><script> parent.closeAttachmentUpload();  </script></body></html>')
@@ -248,7 +254,10 @@ def upload_attachment(request, bookid, version=None):
         return HttpResponse('<html><body><script>  parent.FileBrowserDialogue.loadAttachments(); parent.FileBrowserDialogue.showUpload(); parent.mcTabs.displayTab("browse_tab","browse_panel");</script></body></html>')
 
     # should not call showAttachmentsTab, but it works for now
-    return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); </script></body></html>')
+    if operationResult:
+        return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); </script></body></html>')
+    else:
+        return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); alert(parent.jQuery.booki._("errorupload", "Error while uploading file!"));</script></body></html>')
 
 def view_books_json(request):
     """
