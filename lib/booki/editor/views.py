@@ -187,6 +187,10 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
         im = Image.new('RGB', (150,150), "white")
         
     response = HttpResponse(mimetype='image/jpeg')
+
+    if im.mode != 'RGB':
+        im = im.convert('RGB')
+
     im.save(response, "jpeg")
     return  response
 
