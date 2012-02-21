@@ -188,7 +188,12 @@ def remote_load_info(request, message, profileid):
     from django.utils.html import escape
 
     user    = request.user
-    profile = request.user.get_profile()
+
+    try:
+        profile = request.user.get_profile()
+    except AttributeError:
+        return {"result": False}
+    
     description = escape(profile.description).replace('\r', '')
 
     lines = description.split('\n')
