@@ -1028,16 +1028,23 @@ def remote_clone_chapter(request, message, bookid, version):
 
     book = models.Book.objects.get(id=bookid)
     book_version = getVersion(book, version)
-    
-    source_book = models.Book.objects.get(url_title=message["book"])
+
+    try:
+        source_book = models.Book.objects.get(url_title=message["book"])
+    except models.Book.DoesNotExist:
+        return {"created": False}
+    except models.Book.MultipleObjectsReturned:
+        return {"created": False}
+
     source_book_version = source_book.version
     source_url_title = message["chapter"]
+
     try:
         source_chapter = models.Chapter.objects.get(book=source_book, version=source_book_version, url_title=source_url_title)
     except models.Chapter.DoesNotExist:
-        return {"created": True}
+        return {"created": False}
     except models.Chapter.MultipleObjectsReturned:
-        return {"created": True}
+        return {"created": False}
 
     title = message.get("renameTitle", "")
     if title.strip():
