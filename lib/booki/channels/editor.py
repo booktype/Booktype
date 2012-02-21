@@ -325,21 +325,23 @@ def remote_attachments_delete(request, message, bookid, version):
     if bookSecurity.isAdmin():
         for att_id in message['attachments']:
             # should check if you can delete it
-            att = models.Attachment.objects.get(pk=att_id)
+            try:
+                att = models.Attachment.objects.get(pk=att_id)
 
-            from booki.utils import log
-            import os.path
+                from booki.utils import log
+                import os.path
 
-            log.logBookHistory(book = book,
-                               version = book_version,
-                               args = {'filename': os.path.split(att.attachment.name)[1]},
-                               user = request.user,
-                               kind = 'attachment_delete')
-
-            att.delete()
-
-            
-            
+                log.logBookHistory(book = book,
+                                   version = book_version,
+                                   args = {'filename': os.path.split(att.attachment.name)[1]},
+                                   user = request.user,
+                                   kind = 'attachment_delete')
+                
+                att.delete()
+            except models.Attachment.DoesNotExist:
+                # should i return some kind of error now?!
+                pass
+                       
         transaction.commit()
 
         return {"result": True}
