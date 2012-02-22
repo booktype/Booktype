@@ -53,7 +53,11 @@ def dispatcher(request, **sputnik_dict):
     results = []
 
     clientID = None
-    messages = simplejson.loads(inp.get("messages", "[]"))
+
+    try:
+        messages = simplejson.loads(inp.get("messages", "[]"))
+    except ValueError:
+        return HttpResponse(simplejson.dumps({"result": False, "messages": []}), mimetype="text/json")
 
     if inp.has_key("clientID") and inp["clientID"]:
         clientID = inp["clientID"]
