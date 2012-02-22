@@ -424,5 +424,6 @@ class PublishWizzard(models.Model):
     class Meta:
         verbose_name = _('Publish Wizzard')
         verbose_name_plural = _('Publish Wizzard')
+        unique_together = ('book', 'user', 'wizz_type')
 
     
