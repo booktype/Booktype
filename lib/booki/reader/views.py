@@ -58,6 +58,14 @@ def view_full(request, bookid, version=None):
 
     book_version = getVersion(book, version)
 
+    from booki.utils import security
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    hasPermission = security.canEditBook(book, bookSecurity)
+
+    if book.hidden and not hasPermission:
+        return pages.ErrorPage(request, "errors/no_permissions.html")
+
     for chapter in  models.BookToc.objects.filter(version=book_version).order_by("-weight"):
         if chapter.isChapter():
             chapters.append({"type": "chapter",
@@ -165,8 +173,16 @@ def draft_book(request, bookid, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-
     book_version = getVersion(book, version)
+
+    from booki.utils import security
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    hasPermission = security.canEditBook(book, bookSecurity)
+
+    if book.hidden and not hasPermission:
+        return pages.ErrorPage(request, "errors/no_permissions.html")
+
 
     chapters = []
 
@@ -205,6 +221,15 @@ def draft_chapter(request, bookid, chapter, version=None):
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = getVersion(book, version)
+
+    from booki.utils import security
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    hasPermission = security.canEditBook(book, bookSecurity)
+
+    if book.hidden and not hasPermission:
+        return pages.ErrorPage(request, "errors/no_permissions.html")
+
 
     chapters = []
 
@@ -253,6 +278,15 @@ def book_view(request, bookid, version=None):
 
     book_version = getVersion(book, version)
 
+    from booki.utils import security
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    hasPermission = security.canEditBook(book, bookSecurity)
+
+    if book.hidden and not hasPermission:
+        return pages.ErrorPage(request, "errors/no_permissions.html")
+
+
     chapters = []
 
     for chapter in  models.BookToc.objects.filter(version=book_version).order_by("-weight"):
@@ -292,6 +326,15 @@ def book_chapter(request, bookid, chapter, version=None):
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = getVersion(book, version)
+
+    from booki.utils import security
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    hasPermission = security.canEditBook(book, bookSecurity)
+
+    if book.hidden and not hasPermission:
+        return pages.ErrorPage(request, "errors/no_permissions.html")
+
 
     chapters = []
 
