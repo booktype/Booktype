@@ -3174,7 +3174,11 @@ def remote_publish_book2(request, message, bookid, version):
         _isSet('column_margin')
                        
 
-    data = urllib.urlencode(args)
+    try:
+        data = urllib.urlencode(args)
+    except UnicodeEncodeError:
+        return {"status": False}
+
     req = urllib2.Request(OBJAVI_URL, data)
 
     try:
