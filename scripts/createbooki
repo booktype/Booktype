@@ -43,6 +43,7 @@ def show_after(destination):
     logln("   booki.env      -  Environment variables")
     logln("   booki.wsgi     -  WSGI file for Apache")
     logln("   wsgi.apache    -  Apache config file")
+    logln("   gunicorn.nginx -  Nginx config file")
     logln("   settings.py    -  Booki settings file")
     logln("")
     logln("   templates/     -  Local Booki template files")
@@ -315,7 +316,9 @@ def create_apache(destination):
 
     # TODO add path to booki
 
-    s = '''<VirtualHost *:80>
+    s = '''# Apache configuration for Booktype server V1.0
+
+<VirtualHost *:80>
 
      # CHANGE THIS
      ServerName www.booki.cc
@@ -371,6 +374,80 @@ def create_apache(destination):
         raise InstallError()
     else:
         logln("[OK]")
+
+def create_nginx(destination):
+    log("+ Creating gunicorn.nginx file.  ")
+
+    import booki
+
+    booki_source = os.path.dirname(booki.__file__)
+
+    try:
+        import django
+        django_path = os.path.dirname(django.__file__)
+    except ImportError:
+        django_path=''
+
+    s = '''# Nginx configuration file v1.0
+
+# This configuration assumes you are using Gunicorn (http://gunicorn.org/)
+# to run your Booktype installation on port 8000
+
+server {
+    # We assume you are running your web server on port 80
+    listen   80;
+
+    # You should insert your server name here. For instance: booktype.myserver.com
+    server_name __INSERT_SERVER_NAME__;
+
+    # Path to the log files
+    access_log /var/log/nginx/booktype_access.log;
+    error_log  /var/log/nginx/booktype_error.log;
+
+    location /media/ {
+        # this changes depending on your python version
+        alias %(django_path)s/contrib/admin/media/;
+    }
+
+    location /static/ {
+        alias %(destination)s/static/;
+
+        if ($query_string) {
+            expires max;
+        }
+    }
+
+    location /site_static/ {
+        alias %(booki_source)s/site_static/;
+        # if asset versioning is used
+        if ($query_string) {
+            expires max;
+        }
+    }
+
+    location / {
+        proxy_pass_header Server;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_connect_timeout 10;
+        proxy_read_timeout 10;
+        proxy_pass http://localhost:8000/;
+    }
+}''' % {'destination': destination,
+        'booki_source': booki_source,
+        'django_path': django_path}
+
+    try:
+        f = open('%s/nginx.config' % destination, 'wt')
+        f.write(s)
+        f.close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
 
 
 if __name__ == '__main__':
@@ -452,6 +529,9 @@ if __name__ == '__main__':
 
         # create apache file for wsgi
         create_apache(project_destination)
+
+        # create nginx
+        create_nginx(project_destination)
 
         # show after message
         show_after(project_destination)
