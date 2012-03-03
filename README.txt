@@ -4,6 +4,8 @@ Booktype
 A booktype is like a wiki, but instead of ending up with a web page you get a book.  
 Booktype is built on top of the Django web framework.
 
+This fork is for the fi.flossmanuals.net site. Just small tweaking, localization and a gloomy Finnish new look. Nothing to see here, move ahead!
+
 
 Installation
 ------------
