@@ -44,7 +44,7 @@ class Post(models.Model):
                 url = reverse("view_profile", args=[part[1:]])
             elif part.startswith("!"):
                 url = reverse("view_group", args=[part[1:]])
-            elif part.startswith(u"\u212c"):
+            elif part.startswith("&#8492;"):
                 url = reverse("view_book", args=[part[1:]])
             elif part.startswith("#"):
                 url = reverse("view_tag", args=[part[1:]])
