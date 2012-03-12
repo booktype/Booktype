@@ -1,0 +1,54 @@
+How to use Booktype with Apache 2 and mod_wsgi
+----------------------------------------------
+
+This document will describe how to use Booktype with Apache and mod_wsgi.
+For more information consult the Django documentation at: 
+https://docs.djangoproject.com/en/dev/howto/deployment/wsgi/modwsgi/
+
+Example commands are for Debian/Ubuntu based system.
+
+
+1. Install Apache2. It is recommended to use Prefork MPM.
+
+   apt-get install apache2-mpm-prefork
+
+2. Install mod_wsgi
+
+   apt-get install libapache2-mod-wsgi
+
+3. Create Booktype project
+
+   This part is covered in INSTALL document. Let us imagine we created our Booktype 
+   project at /var/www/mybooktype/. Directory /var/www/mybooktype/ should be owned by 'www-data' user.
+
+4. Copy Apache configuration. We call it "booktype" for this example but you can call it anyway you like.
+
+   cp /var/www/mybooktype/wsgi.apache /etc/apache2/sites-available/booktype
+
+5. Edit configuration file
+
+   vi /etc/apache2/sites-available/booktype
+
+   You should change: ServerAdmin, ServerName, SetEnv HTTP_HOST and possible port.
+
+6. Enable your Booktype site (when site name is "booktype")
+
+   a2ensite booktype
+
+7. Restart Apache 2
+
+   service apache2 restart
+
+
+More info
+---------
+
+- You can have more then one Booktype site installed on your server. You have to create multiple Booktype projects in different locations and copy Apache2 configuration from each Booktype project to Apache 2 config directory.
+  to /etc/apache2/sites-available/ under different names, enable each site and at the end restart Apache2.
+- It is possible to server Booktype site under url like: http://www.mysite.com/booktype/. All you have to do
+  is setup your Apache config file and THIS_BOOKI_SERVER variable in your project settings.py file.
+
+
+Possible problems
+-----------------
+- Check your Apache 2 log file. Most of the times problems are wrong permission on directories and wrong access rights to connect to PostgreSQL.

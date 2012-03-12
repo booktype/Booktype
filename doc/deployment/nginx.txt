@@ -1,0 +1,109 @@
+How to use Booktype with Nginx
+------------------------------
+
+This document will describe how to use Booktype with Nginx (with Gunicorn and as FastCGI).
+For more information consult the Django documentation at: 
+  https://code.djangoproject.com/wiki/DjangoAndNginx
+  https://docs.djangoproject.com/en/dev/howto/deployment/fastcgi/
+
+Example commands are for Debian/Ubuntu based system. 
+
+
+As Gunicorn
+-----------
+
+1. Install basic Nginx.
+
+   sudo apt-get install nginx
+
+2. Install Gunicorn (http://gunicorn.org/)
+
+   pip install gunicorn
+
+3. Create Booktype project
+
+   This part is covered in INSTALL document. Let us imagine we created our Booktype 
+   project at /var/www/mybooktype/. Directory /var/www/mybooktype/ should be owned by 'www-data' user.
+
+4. Copy Nginx configuration. We call it "booktype" for this example but you can call it anyway you like.
+
+   cp /var/www/mybooktype/gunicorn.nginx /etc/nginx/sites-available/booktype
+
+5. Edit configuration file
+
+   vi /etc/nginx/sites-available/booktype
+
+   You should change: server_name and proxy_pass.
+
+6. Enable your Booktype site (when site name is "booktype")
+
+   ln -s /etc/nginx/sites-available/booktype /etc/nginx/sites-enabled/booktype
+
+7. Restart Nginx
+
+   service nginx restart
+
+8. Load environment variables
+
+   source /var/www/mybooktype/booki.env
+
+9. Start Gunicorn (Basic example)
+
+   gunicorn_django -b 127.0.0.1:8080 -w 4
+
+
+
+As FastCGI
+----------
+
+1. Install basic Nginx.
+
+   sudo apt-get install nginx
+
+2. Install flup (http://www.saddi.com/software/flup/)
+
+   apt-get install python-flup
+
+3. Create Booktype project
+
+   This part is covered in INSTALL document. Let us imagine we created our Booktype 
+   project at /var/www/mybooktype/. Directory /var/www/mybooktype/ should be owned by 'www-data' user.
+
+4. Copy Nginx configuration. We call it "booktype" for this example but you can call it anyway you like.
+
+   cp /var/www/mybooktype/fastcgi.nginx /etc/nginx/sites-available/booktype
+
+5. Edit configuration file
+
+   vi /etc/nginx/sites-available/booktype
+
+   You should change: server_name and fastcgi_pass.
+
+6. Enable your Booktype site (when site name is "booktype")
+
+   ln -s /etc/nginx/sites-available/booktype /etc/nginx/sites-enabled/booktype
+
+7. Restart Nginx
+
+   service nginx restart
+
+8. Load environment variables
+
+   source /var/www/mybooktype/booki.env
+
+9. Start FastCGI process (Basic example)
+
+   django-admin.py runfcgi host=127.0.0.1 port=8080 
+
+
+
+More info
+---------
+- It is recommended to use Supervisor (http://supervisord.org/) or similar software (Upstart on Ubuntu) to control your Gunicorn or FastCGI processes.
+
+
+Possible problems
+-----------------
+- Trying to use manage.py instead of django-admin.py.
+- Not loading environment variables before running Gunicorn or FastCGI process.
+

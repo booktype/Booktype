@@ -1,0 +1,39 @@
+Howto create PostgreSQL database
+================================
+
+Check the documentation:
+  https://docs.djangoproject.com/en/dev/ref/databases/
+
+
+1. Install PostgreSQL and Python modules
+
+   apt-get install  postgresql python-psycopg2
+
+2. Change the password for PostgreSQL. This you need to do _ONLY_ if you don't already know the password.
+
+    sudo su postgres -c psql template1
+    template1=# ALTER USER postgres WITH PASSWORD 'password';
+    template1=# \q
+
+    sudo passwd -d postgres
+    sudo su postgres -c passwd
+
+3. Create PostgreSQL user "booktype"
+
+    sudo su postgres -c createuser booktype
+
+4. Create database named "booktype" where user "booktype" is owner. This could depend of your OS version and can ask for another template.
+
+    createdb -D template1 -E utf8 -O booktype booktype
+
+5. Allow connections to database booktype for user booktype. This can depend of your requirements.
+
+    vi /etc/postgresql/*/main/pg_hba.conf  (full file name depends of PostgreSQL version)
+
+    local   booktype    booktype                      md5
+
+6. Restart PostgreSQL
+
+    service postgresql restart
+
+
