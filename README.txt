@@ -4,7 +4,6 @@ Booktype
 A booktype is like a wiki, but instead of ending up with a web page you get a book.  
 Booktype is built on top of the Django web framework.
 
-
 Installation
 ------------
 
