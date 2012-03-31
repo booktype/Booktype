@@ -19,6 +19,8 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('',
     url(r'^$', 'booki.account.views.view_accounts', name='view_accounts'),
 
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+
     url(r'^signin/$', 'booki.account.views.signin', name='signin'),  
     url(r'^login/$', 'booki.account.views.signin', name='login'),  
     url(r'^forgot_password/$', 'booki.account.views.forgotpassword', name='forgotpassword'),  
