@@ -28,6 +28,7 @@ urlpatterns = patterns('',
 
     url(r'^signout/$', 'booki.account.views.signout', name='signout'),  
 
+# to be removed                       
 #    url(r'^register/$', 'booki.account.views.register', name='register'),
 
     # Username
@@ -35,9 +36,6 @@ urlpatterns = patterns('',
     # For now, even space.                       
 
     url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/$', 'booki.account.views.view_profile', name='view_profile'),
-    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/my_books/$', 'booki.account.views.my_books', name='my_books'),                     
-    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/my_groups/$', 'booki.account.views.my_groups', name='my_groups'),                     
-    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/my_people/$', 'booki.account.views.my_people', name='my_people'),
 
     url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/_create_book/$', 'booki.account.views.create_book', name='create_book'),
     url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/_create_group/$', 'booki.account.views.create_group', name='create_group'),
