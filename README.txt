@@ -32,6 +32,21 @@ More info
 Booktype demo site
 http://booktype-demo.sourcefabric.org
 
+Booktype manual
+http://en.flossmanuals.net/booktype/
+
 Booktype tracker
 http://dev.sourcefabric.org/browse/BK
+
+Booktype wiki
+https://wiki.sourcefabric.org/display/Booktype/Booktype
+
+Booktype support forum
+http://forum.sourcefabric.org/categories/booktype-support
+
+Booktype development forum
+http://forum.sourcefabric.org/categories/booktype-development
+
+Booktype documentation forum
+http://forum.sourcefabric.org/categories/booktype-documentation
 
