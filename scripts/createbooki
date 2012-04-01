@@ -48,6 +48,7 @@ def show_after(destination):
     logln("   settings.py    -  Booki settings file")
     logln("")
     logln("   templates/     -  Local Booki template files")
+    logln("   locale/        -  Local directory with translations")
     logln("   static/        -  Local web files")
     logln("   lib/           -  Local python libraries")
     logln("   data/          -  Place for attachments")
@@ -175,7 +176,7 @@ def check_unidecode_available():
 
 def make_directory_structure(destination):    
     try:
-        for d in ['data', 'logs', 'static', 'templates', 'lib']:
+        for d in ['data', 'logs', 'static', 'templates', 'lib', 'locale']:
             log("+ Creating %s directory.  " % d)
             os.mkdir('%s/%s' % (destination, d))
             logln("[OK]")
