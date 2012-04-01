@@ -1,3 +1,3 @@
-# Booki package
+# Booktype package
 # XXX  can this be done from setup.py ? 
-version = (0,3,0)
+version = (1,5,2)
