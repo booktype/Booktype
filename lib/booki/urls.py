@@ -22,6 +22,15 @@ from django.contrib import admin
 admin.autodiscover()
 
 
+# This is dispatcher for Sputnik connections.
+
+SPUTNIK_DISPATCHER = ((r'^/booki/$',                                       'booki.channels.main'),
+                      (r'^/booki/book/(?P<bookid>\d+)/(?P<version>[\w\d\.\-]+)/$', 'booki.channels.editor'),
+                      (r'^/booki/profile/(?P<profileid>.+)/$',             'booki.channels.profile'),
+                      (r'^/booki/group/(?P<groupid>.+)/$',                 'booki.channels.group'),
+                      (r'^/chat/(?P<bookid>\d+)/$',                        'booki.channels.chat')
+                      )
+
 if settings.BOOKI_MAINTENANCE_MODE:
     urlpatterns = patterns('',
                            url(r'^admin/', include(admin.site.urls)),
@@ -95,15 +104,7 @@ else:
                            url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.export', name='export_booki'), 
                            
                            # sputnik dispatcher                       
-                           url(r'^_sputnik/$', 'sputnik.views.dispatcher', {
-                              "map": (  
-                                 (r'^/booki/$',                                       'booki.channels.main'),
-                                 (r'^/booki/book/(?P<bookid>\d+)/(?P<version>[\w\d\.\-]+)/$', 'booki.channels.editor'),
-                                 (r'^/booki/profile/(?P<profileid>.+)/$',             'booki.channels.profile'),
-                                 (r'^/booki/group/(?P<groupid>.+)/$',                 'booki.channels.group'),
-                                 (r'^/chat/(?P<bookid>\d+)/$',                        'booki.channels.chat')
-                                      )
-                              }),                     
+                           url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}),
 
                            url(r'^messaging/', include('booki.messaging.urls')),
 
