@@ -111,7 +111,7 @@ def debug_redis(request):
 
 def view_frontpage(request):
     """
-    Django View. This is main Booki Front Page. 
+    Django View. This is main Booktype Front Page. 
 
     @type request: C{django.http.HttpRequest}
     @param request: Client Request object
@@ -121,13 +121,13 @@ def view_frontpage(request):
 
     return render_to_response('portal/frontpage.html', {"request": request, 
                                                         "activity_history": activity_history,
-                                                        "title": "Booki"})
+                                                        "title": "Booktype"})
 
 # GROUPS
 
 def view_group(request, groupid):
     """
-    Django View. This is main Booki Groups page.
+    Django View. This is main Booktype Groups page.
 
     @type request: C{django.http.HttpRequest}
     @param request: Client Request object
@@ -249,7 +249,7 @@ def view_groups(request):
         groups = paginator.page(paginator.num_pages)
 
     return render_to_response('portal/groups.html', {"request": request, 
-                                                     "title": "Booki groups", 
+                                                     "title": "Booktype groups", 
                                                      "groups": groups })
 
 def view_books(request):
@@ -290,7 +290,7 @@ def view_books(request):
     latest_active = [models.Book.objects.get(id=b['book']) for b in models.BookHistory.objects.filter(modified__gte = now, book__hidden=False).values('book').annotate(Count('book')).order_by("-book__count")[:5]]
     
     return render_to_response('portal/books.html', {"request": request, 
-                                                    "title": "Booki books", 
+                                                    "title": "Booktype books", 
                                                     "books":      books,
                                                     "page": page, 
                                                     "latest_books": latest_books,
@@ -332,7 +332,7 @@ def view_people(request):
                                                      "page":          page,
                                                      "latest_people": latest_people,
                                                      "latest_active": latest_active,
-                                                     "title":         "Booki people", 
+                                                     "title":         "Booktype people", 
                                                      "people":        people })
 
 def maintenance(request):
