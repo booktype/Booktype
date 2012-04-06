@@ -64,7 +64,7 @@
             {% user_followbutton user.username request.user.username %}
             
             {% endif %}</p>
-          <p><a class="rss" href="/kirjoita/feeds/rss/user/{{ user.username }}/">{% trans "Follow my changes" %}</a></p>
+          <p><a class="rss" href="{{ request.META.SCRIPT_NAME }}/feeds/rss/user/{{ user.username }}/">{% trans "Follow my changes" %}</a></p>
       </section>
       <section class="profile-description">
            <h5>{% trans "Description" %}</h5>
