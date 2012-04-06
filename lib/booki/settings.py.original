@@ -108,6 +108,10 @@ SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
 
+LOCALE_PATHS = (
+     '%s/locale' % os.path.dirname(booki.__file__),
+)
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'enc*ln*vp^o2p1p6of8ip9v5_tt6r#fh2-!-@pl0ur^6ul6e)l'
 
@@ -132,6 +136,7 @@ TEMPLATE_DIRS = (
     '%s/templates/' % BOOKI_ROOT,
     '%s/templates/' % os.path.dirname(booki.__file__)
 )
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',
