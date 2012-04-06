@@ -181,6 +181,11 @@ How to migrate to Booktype 1.5.2
 
 3. By default "createbooki" script will now create "locale" directory in your Booktype project.
 
+4. Update you project settings.py
+
+   LOCALE_PATHS = (
+         '%s/locale' % os.path.dirname(booki.__file__),
+   )
 
 
 How to migrate to latest Booki 1.4
