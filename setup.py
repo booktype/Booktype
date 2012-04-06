@@ -22,7 +22,7 @@ long_description = (
 
 setup(
     name = "Booktype",
-    version = "1.5",
+    version = "1.5.2",
 
     packages = find_packages('lib'),  # include all packages under lib
     package_dir = {'':'lib'},   # tell distutils packages are under lib
@@ -30,7 +30,7 @@ setup(
     author = "Aleksandar Erkalovic",
     author_email = "aerkalov@gmail.com",
 
-    description = "FLOSS Manuals collaborative book writing tool",
+    description = "Booktype is a free, open source platform that produces beautiful, engaging books formatted for print, Amazon, iBooks and almost any ereader within minutes.",
     long_description = long_description,
 
     url = "http://booktype.sourcefabric.org/",
@@ -51,7 +51,7 @@ setup(
 	  "Framework :: Django",
       ],
       keywords='collaborative book writing sprint',
-      license='GPL',
+      license='AGPL',
 
 )
 
