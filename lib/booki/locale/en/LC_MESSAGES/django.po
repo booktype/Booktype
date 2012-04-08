@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-31 19:42+0200\n"
+"POT-Creation-Date: 2012-04-08 23:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,8 +28,8 @@ msgstr ""
 
 #: account/models.py:41 account/models.py:56 editor/models.py:179
 #: editor/models.py:300 editor/models.py:393 editor/models.py:405
-#: editor/models.py:417 editor/templates/editor/edit_book.html:596
-#: editor/templates/editor/edit_book.html:690
+#: editor/models.py:417 editor/templates/editor/edit_book.html:560
+#: editor/templates/editor/edit_book.html:654
 msgid "user"
 msgstr ""
 
@@ -39,7 +39,7 @@ msgstr ""
 
 #: account/models.py:58 editor/models.py:100 editor/models.py:131
 #: editor/models.py:239 editor/models.py:273 editor/models.py:337
-#: editor/templates/editor/edit_book.html:702
+#: editor/templates/editor/edit_book.html:666
 msgid "created"
 msgstr ""
 
@@ -232,7 +232,6 @@ msgid "Import book"
 msgstr ""
 
 #: account/templates/account/import_book.html:11
-#: account/templates/account/my_books.html:165
 msgid "Select Import Type"
 msgstr ""
 
@@ -251,115 +250,6 @@ msgstr ""
 #: account/templates/account/import_book.html:27
 msgid ""
 "Please wait. It will take couple of moments. Your book is being imported!"
-msgstr ""
-
-#: account/templates/account/my_books.html:6
-#: account/templates/account/my_books.html:118
-#: account/templates/account/view_profile.html:47
-#: account/templates/account/view_profile.html:100
-#: account/templates/account/view_profile.html:140
-msgid "My Books"
-msgstr ""
-
-#: account/templates/account/my_books.html:121
-#: account/templates/account/my_books.html:153
-#: account/templates/account/view_profile.html:142
-msgid "Create new book"
-msgstr ""
-
-#: account/templates/account/my_books.html:121
-#: account/templates/account/my_books.html:161
-#: account/templates/account/view_profile.html:142
-msgid "Import Book"
-msgstr ""
-
-#: account/templates/account/my_books.html:130
-#: account/templates/account/view_profile.html:104
-#: account/templates/account/view_profile.html:151
-msgid "edit"
-msgstr ""
-
-#: account/templates/account/my_books.html:131
-#: account/templates/account/view_profile.html:151
-msgid "info"
-msgstr ""
-
-#: account/templates/account/my_books.html:132
-#: account/templates/account/view_profile.html:151
-msgid "draft"
-msgstr ""
-
-#: account/templates/account/my_books.html:133
-msgid "full"
-msgstr ""
-
-#: account/templates/account/my_books.html:137
-#: account/templates/account/view_profile.html:155
-#: account/templates/account/view_profile.html:170
-msgid "Show to others"
-msgstr ""
-
-#: account/templates/account/my_books.html:143
-#: account/templates/account/view_profile.html:161
-#: account/templates/account/view_profile.html:170
-msgid "Hide from others"
-msgstr ""
-
-#: account/templates/account/my_books.html:158
-#: editor/templates/editor/edit_book.html:642
-msgid "Create"
-msgstr ""
-
-#: account/templates/account/my_books.html:166
-msgid "Import epub"
-msgstr ""
-
-#: account/templates/account/my_books.html:167
-msgid "Import FM"
-msgstr ""
-
-#: account/templates/account/my_books.html:168
-msgid "Import Archive.org book"
-msgstr ""
-
-#: account/templates/account/my_books.html:169
-msgid "Import Wikibook"
-msgstr ""
-
-#: account/templates/account/my_books.html:170
-msgid "Import Booki"
-msgstr ""
-
-#: account/templates/account/my_books.html:179
-msgid "Import"
-msgstr ""
-
-#: account/templates/account/my_groups.html:6
-#: account/templates/account/my_groups.html:46
-#: account/templates/account/view_profile.html:120
-msgid "My Groups"
-msgstr ""
-
-#: account/templates/account/my_groups.html:58
-#: account/templates/account/my_groups.html:65
-msgid "Create new group"
-msgstr ""
-
-#: account/templates/account/my_groups.html:61
-msgid "Group name:"
-msgstr ""
-
-#: account/templates/account/my_groups.html:63
-msgid "What is this group about:"
-msgstr ""
-
-#: account/templates/account/my_people.html:6
-#: account/templates/account/my_people.html:12
-msgid "My People"
-msgstr ""
-
-#: account/templates/account/my_people.html:13
-msgid "Not yet Implemented"
 msgstr ""
 
 #: account/templates/account/signin.html:6
@@ -423,6 +313,12 @@ msgid "My Dashboard"
 msgstr ""
 
 #: account/templates/account/view_profile.html:47
+#: account/templates/account/view_profile.html:100
+#: account/templates/account/view_profile.html:140
+msgid "My Books"
+msgstr ""
+
+#: account/templates/account/view_profile.html:47
 #: account/templates/account/view_profile.html:140 editor/models.py:148
 #: editor/templates/base_edit.html:89 portal/templates/base.html:89
 #: portal/templates/portal/books.html:13 portal/templates/portal/books.html:54
@@ -454,6 +350,11 @@ msgstr ""
 msgid "CREATE NEW BOOK"
 msgstr ""
 
+#: account/templates/account/view_profile.html:104
+#: account/templates/account/view_profile.html:151
+msgid "edit"
+msgstr ""
+
 #: account/templates/account/view_profile.html:106
 msgid ""
 "\n"
@@ -473,6 +374,10 @@ msgstr ""
 msgid "CREATE NEW GROUP"
 msgstr ""
 
+#: account/templates/account/view_profile.html:120
+msgid "My Groups"
+msgstr ""
+
 #: account/templates/account/view_profile.html:124
 msgid "go"
 msgstr ""
@@ -484,6 +389,32 @@ msgstr ""
 
 #: account/templates/account/view_profile.html:129
 msgid "This user has no groups."
+msgstr ""
+
+#: account/templates/account/view_profile.html:142
+msgid "Create new book"
+msgstr ""
+
+#: account/templates/account/view_profile.html:142
+msgid "Import Book"
+msgstr ""
+
+#: account/templates/account/view_profile.html:151
+msgid "info"
+msgstr ""
+
+#: account/templates/account/view_profile.html:151
+msgid "draft"
+msgstr ""
+
+#: account/templates/account/view_profile.html:155
+#: account/templates/account/view_profile.html:170
+msgid "Show to others"
+msgstr ""
+
+#: account/templates/account/view_profile.html:161
+#: account/templates/account/view_profile.html:170
+msgid "Hide from others"
 msgstr ""
 
 #: account/templates/account/view_profile.html:175
@@ -518,7 +449,7 @@ msgstr ""
 
 #: editor/models.py:28 editor/models.py:41 editor/models.py:64
 #: editor/models.py:91 editor/models.py:200 editor/models.py:236
-#: editor/models.py:364 editor/templates/editor/edit_book.html:699
+#: editor/models.py:364 editor/templates/editor/edit_book.html:663
 #: editor/templates/editor/edit_strings.html:52
 msgid "name"
 msgstr ""
@@ -527,7 +458,7 @@ msgstr ""
 msgid "abbrevation"
 msgstr ""
 
-#: editor/models.py:35 editor/templates/editor/edit_book.html:473
+#: editor/models.py:35 editor/templates/editor/edit_book.html:437
 msgid "License"
 msgstr ""
 
@@ -535,7 +466,7 @@ msgstr ""
 msgid "Licenses"
 msgstr ""
 
-#: editor/models.py:48 editor/templates/editor/edit_book.html:454
+#: editor/models.py:48 editor/templates/editor/edit_book.html:418
 msgid "Language"
 msgstr ""
 
@@ -643,7 +574,7 @@ msgstr ""
 msgid "cover"
 msgstr ""
 
-#: editor/models.py:147
+#: editor/models.py:147 editor/templates/editor/edit_publish.html:7
 msgid "Book"
 msgstr ""
 
@@ -696,7 +627,7 @@ msgid "minor"
 msgstr ""
 
 #: editor/models.py:276 editor/models.py:301
-#: editor/templates/editor/edit_book.html:689
+#: editor/templates/editor/edit_book.html:653
 msgid "revision"
 msgstr ""
 
@@ -712,7 +643,7 @@ msgstr ""
 msgid "Chapters"
 msgstr ""
 
-#: editor/models.py:302 editor/templates/editor/edit_book.html:692
+#: editor/models.py:302 editor/templates/editor/edit_book.html:656
 msgid "comment"
 msgstr ""
 
@@ -724,7 +655,7 @@ msgstr ""
 msgid "filename"
 msgstr ""
 
-#: editor/models.py:347 editor/templates/editor/edit_book.html:651
+#: editor/models.py:347 editor/templates/editor/edit_book.html:615
 msgid "Attachment"
 msgstr ""
 
@@ -892,12 +823,12 @@ msgid "Versions"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:113
-#: editor/templates/editor/edit_book.html:580
+#: editor/templates/editor/edit_book.html:544
 msgid "Notes"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:117
-#: editor/templates/editor/edit_book.html:448
+#: editor/templates/editor/edit_book.html:412
 #: portal/templates/portal/group.html:68
 #: portal/templates/portal/group.html:169
 msgid "Settings"
@@ -1041,7 +972,7 @@ msgid "Hold chapters"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:290
-#: editor/templates/editor/edit_book.html:643
+#: editor/templates/editor/edit_book.html:607
 msgid "Save"
 msgstr ""
 
@@ -1095,7 +1026,7 @@ msgid "Upload a new image or file"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:346
-#: editor/templates/editor/edit_book.html:622
+#: editor/templates/editor/edit_book.html:586
 #: editor/templates/editor/edit_strings.html:58
 msgid "Upload"
 msgstr ""
@@ -1125,7 +1056,7 @@ msgstr ""
 
 #: editor/templates/editor/edit_book.html:369
 #: editor/templates/editor/edit_book.html:382
-#: editor/templates/editor/edit_book.html:616
+#: editor/templates/editor/edit_book.html:580
 msgid "New version"
 msgstr ""
 
@@ -1148,204 +1079,195 @@ msgstr ""
 msgid "All versions"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:435
-msgid ""
-"Please wait. It will take couple of moments. Your book is being generated."
-msgstr ""
-
-#: editor/templates/editor/edit_book.html:438
-msgid "Your book has been generated at this url:"
-msgstr ""
-
-#: editor/templates/editor/edit_book.html:441
-msgid "Unknown error while trying to publish this book."
-msgstr ""
-
-#: editor/templates/editor/edit_book.html:449
+#: editor/templates/editor/edit_book.html:413
 msgid "Manage the settings of your book."
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:457
+#: editor/templates/editor/edit_book.html:421
 msgid "This book is written in: "
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:462
+#: editor/templates/editor/edit_book.html:426
 msgid "Set new language"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:466
+#: editor/templates/editor/edit_book.html:430
 msgid "Right to left text"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:476
+#: editor/templates/editor/edit_book.html:440
 msgid "This book is licensed with:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:481
+#: editor/templates/editor/edit_book.html:445
 msgid "Set new license"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:483
+#: editor/templates/editor/edit_book.html:447
 msgid "Read full text of the license"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:484
+#: editor/templates/editor/edit_book.html:448
 msgid "Manage copyright attribution"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:488
+#: editor/templates/editor/edit_book.html:452
 msgid "Manage Copyright Attribution"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:489
+#: editor/templates/editor/edit_book.html:453
 msgid "If you want to exclude some people from the copyright attribution..."
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:510
+#: editor/templates/editor/edit_book.html:474
 msgid "Roles"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:513
+#: editor/templates/editor/edit_book.html:477
 msgid "Manage roles"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:516
+#: editor/templates/editor/edit_book.html:480
 msgid "Manage Roles"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:524
+#: editor/templates/editor/edit_book.html:488
 msgid "Select role"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:525
+#: editor/templates/editor/edit_book.html:489
 msgid "Administrator"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:526
+#: editor/templates/editor/edit_book.html:490
 msgid "Editor"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:530
+#: editor/templates/editor/edit_book.html:494
 msgid "New user:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:534
+#: editor/templates/editor/edit_book.html:498
 msgid "Add"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:536
+#: editor/templates/editor/edit_book.html:500
 msgid "Role:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:541
+#: editor/templates/editor/edit_book.html:505
 msgid "Remove"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:546
-#: editor/templates/editor/edit_book.html:730
+#: editor/templates/editor/edit_book.html:510
+#: editor/templates/editor/edit_book.html:694
 msgid "Chapter status"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:549
+#: editor/templates/editor/edit_book.html:513
 msgid "Available statuses:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:551
+#: editor/templates/editor/edit_book.html:515
 msgid "Manage chapter status"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:556
+#: editor/templates/editor/edit_book.html:520
 msgid "Permissions and visibility"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:559
+#: editor/templates/editor/edit_book.html:523
 msgid "This book can be edited by:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:568
+#: editor/templates/editor/edit_book.html:532
 msgid "Set permissions"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:572
+#: editor/templates/editor/edit_book.html:536
 msgid "This interface is still work in progress."
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:582
+#: editor/templates/editor/edit_book.html:546
 msgid "Shared notes for this book"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:585
+#: editor/templates/editor/edit_book.html:549
 msgid "Save the notes"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:590
+#: editor/templates/editor/edit_book.html:554
 msgid "<span class=\"icon\">JOINED</span> <span class=\"notice\">notice</span>"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:591
+#: editor/templates/editor/edit_book.html:555
 msgid "<span class=\"info\">INFO</span> <span class=\"notice\">notice</span>"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:594
+#: editor/templates/editor/edit_book.html:558
 msgid "action"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:597
-#: editor/templates/editor/edit_book.html:691
+#: editor/templates/editor/edit_book.html:561
+#: editor/templates/editor/edit_book.html:655
 msgid "time"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:617
+#: editor/templates/editor/edit_book.html:581
 msgid "Switched to <span class=\"entryVersion\">entry.version.version</span>"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:623
+#: editor/templates/editor/edit_book.html:587
 msgid "Uploaded <span class=\"entryFilename\">entry.args.filename</span>."
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:628
+#: editor/templates/editor/edit_book.html:592
 msgid "Delete"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:629
+#: editor/templates/editor/edit_book.html:593
 msgid "Deleted <span class=\"entryFilename\">entry.args.filename</span>."
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:641
+#: editor/templates/editor/edit_book.html:605
 msgid "Unknown"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:644
+#: editor/templates/editor/edit_book.html:606
+msgid "Create"
+msgstr ""
+
+#: editor/templates/editor/edit_book.html:608
 msgid "Rename"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:645
+#: editor/templates/editor/edit_book.html:609
 msgid "Reorder"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:646
+#: editor/templates/editor/edit_book.html:610
 msgid "Split"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:647
+#: editor/templates/editor/edit_book.html:611
 #: reader/templates/reader/book_info.html:159
 msgid "Section create"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:648
+#: editor/templates/editor/edit_book.html:612
 #: reader/templates/reader/book_info.html:166
 msgid "Book create"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:649
+#: editor/templates/editor/edit_book.html:613
 msgid "Minor"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:650
+#: editor/templates/editor/edit_book.html:614
 msgid "Major"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:676
+#: editor/templates/editor/edit_book.html:640
 #: reader/templates/reader/book_chapter.html:51
 #: reader/templates/reader/book_chapter.html:57
 #: reader/templates/reader/book_view.html:40
@@ -1354,105 +1276,146 @@ msgstr ""
 msgid "EDIT"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:676
+#: editor/templates/editor/edit_book.html:640
 msgid "VIEW"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:684
+#: editor/templates/editor/edit_book.html:648
 msgid "back to history index"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:684
+#: editor/templates/editor/edit_book.html:648
 msgid "Compare revisions"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:688
+#: editor/templates/editor/edit_book.html:652
 msgid "compare"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:700
+#: editor/templates/editor/edit_book.html:664
 #: editor/templates/editor/edit_strings.html:54
 msgid "dimension"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:701
+#: editor/templates/editor/edit_book.html:665
 #: editor/templates/editor/edit_strings.html:55
 msgid "size"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:705
-#: editor/templates/editor/edit_book.html:725
+#: editor/templates/editor/edit_book.html:669
+#: editor/templates/editor/edit_book.html:689
 msgid "back to chapter history"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:707
+#: editor/templates/editor/edit_book.html:671
 msgid "Normal view"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:709
+#: editor/templates/editor/edit_book.html:673
 msgid "Source view"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:710
+#: editor/templates/editor/edit_book.html:674
 msgid "Revert to this revision"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:711
+#: editor/templates/editor/edit_book.html:675
 msgid "No such revision."
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:714
+#: editor/templates/editor/edit_book.html:678
 msgid "User:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:715
+#: editor/templates/editor/edit_book.html:679
 msgid "Modified:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:716
+#: editor/templates/editor/edit_book.html:680
 msgid "Version:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:717
+#: editor/templates/editor/edit_book.html:681
 msgid "Revision:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:718
+#: editor/templates/editor/edit_book.html:682
 msgid "Comment"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:720
+#: editor/templates/editor/edit_book.html:684
 msgid "previous"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:720
+#: editor/templates/editor/edit_book.html:684
 msgid "next"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:725
+#: editor/templates/editor/edit_book.html:689
 msgid "Show side by side"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:726
+#: editor/templates/editor/edit_book.html:690
 msgid ""
 "Compare revision <span class=\"revision1Name\">revision1</span> with "
 "revision <span class=\"revision2Name\">revision2</span>"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:731
+#: editor/templates/editor/edit_book.html:695
 msgid "Select new chapter status:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:744
+#: editor/templates/editor/edit_book.html:708
 msgid "Chapter statuses"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:749
+#: editor/templates/editor/edit_book.html:713
 msgid "New status:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:754
+#: editor/templates/editor/edit_book.html:718
 msgid "Chapter statuses:"
+msgstr ""
+
+#: editor/templates/editor/edit_publish.html:8
+#: editor/templates/editor/edit_publish.html:12
+#: editor/templates/editor/edit_publish.html:16
+#: editor/templates/editor/edit_publish.html:20
+#: editor/templates/editor/edit_publish.html:24
+msgid "settings"
+msgstr ""
+
+#: editor/templates/editor/edit_publish.html:11
+msgid "Ebook"
+msgstr ""
+
+#: editor/templates/editor/edit_publish.html:15
+msgid "Lulu.com"
+msgstr ""
+
+#: editor/templates/editor/edit_publish.html:19
+msgid "Screen PDF"
+msgstr ""
+
+#: editor/templates/editor/edit_publish.html:23
+msgid "Open Document Text"
+msgstr ""
+
+#: editor/templates/editor/edit_publish.html:29
+msgid "Publish this book"
+msgstr ""
+
+#: editor/templates/editor/edit_publish.html:32
+msgid ""
+"Please wait. It will take couple of moments. Your book is being generated."
+msgstr ""
+
+#: editor/templates/editor/edit_publish.html:35
+msgid "Your book has been generated at this url:"
+msgstr ""
+
+#: editor/templates/editor/edit_publish.html:38
+msgid "Unknown error while trying to publish this book."
 msgstr ""
 
 #: editor/templates/editor/edit_strings.html:3
