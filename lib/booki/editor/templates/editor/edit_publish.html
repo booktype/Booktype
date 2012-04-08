@@ -1,0 +1,40 @@
+{% load i18n %}
+
+<div id="wizzardcontainer" style="position: absolute; display: none; z-index: 1000;"> </div>
+<form name="formexport" onsubmit="return false;">
+  <table class="publish-table" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td><label><input type="radio" name="publish" group="publishtype" value="book" checked="checked">Book</label></td>
+      <td><a name="bookwizzard" onclick="return false">settings</a></td>
+    </tr>
+    <tr>
+      <td><label><input type="radio" name="publish" group="publishtype" value="ebook">Ebook</label></td>
+      <td><a name="ebookwizzard" onclick="return false">settings</a></td>
+    </tr>
+    <tr>
+      <td><label><input type="radio" name="publish" group="publishtype" value="lulu">Lulu.com</label></td>
+      <td><a name="luluwizzard" onclick="return false">settings</a></td>
+    </tr>
+    <tr>
+      <td><label><input type="radio" name="publish" group="publishtype" value="pdf">Screen PDF</label></td>
+      <td><a name="pdfwizzard" onclick="return false">settings</a></td>
+    </tr>
+    <tr>
+      <td><label><input type="radio" name="publish" group="publishtype" value="odt">Open Document Text</label></td>
+      <td><a name="odtwizzard" onclick="return false">settings</a></td>
+    </tr>
+  </table>
+</form>
+<br/>
+<a name="exportbutton">Publish this book</a>
+<div class="info" style="padding-top: 20px"> </div>
+<div class="progress template">
+  <div class="alert-box" style="padding: 10px"> <img src="{{ request.META.SCRIPT_NAME }}/site_static/images/loading.gif"/>&nbsp;&nbsp;{% trans "Please wait. It will take couple of moments. Your book is being generated." %} </div>
+</div>
+<div class="downloadpublish template">
+  <div style="padding: 10px"> {% trans "Your book has been generated at this url:" %} <span class="url"></span> </div>
+</div>
+<div class="publisherror template">
+  <div class="alert-box error" style="padding: 10px"> {% trans "Unknown error while trying to publish this book." %} </div>
+</div>
+</div>
