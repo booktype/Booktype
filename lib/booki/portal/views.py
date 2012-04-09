@@ -26,19 +26,19 @@ from booki.utils import security, pages
 from django.conf import settings
 from booki.utils.json_wrapper import json
 from booki.utils.log import logWarning
+from booki import constants
 
 BOOKI_URL = settings.BOOKI_URL
 
 try:
     OBJAVI_URL = settings.OBJAVI_URL
 except AttributeError:
-    OBJAVI_URL = "http://objavi.booki.cc/objavi.cgi"
+    OBJAVI_URL = constants.OBJAVI_URL
 
 try:
     THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
 except AttributeError:
-    import os
-    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
+    THIS_BOOKI_SERVER = constants.THIS_BOOKI_SERVER
 
 
 # debug

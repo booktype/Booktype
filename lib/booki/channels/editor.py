@@ -27,19 +27,19 @@ from booki.editor import models
 from booki.editor.views import getVersion
 from booki.utils import security
 from booki.utils.misc import bookiSlugify
+from booki import constants
 
 from django.conf import settings
 
 try:
     OBJAVI_URL = settings.OBJAVI_URL
 except AttributeError:
-    OBJAVI_URL = "http://objavi.booki.cc/objavi.cgi"
+    OBJAVI_URL = constants.OBJAVI_URL
 
 try:
     THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
 except AttributeError:
-    import os
-    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
+    THIS_BOOKI_SERVER = constants.THIS_BOOKI_SERVER
 
 
 # this couple of functions should go to models.BookVersion
@@ -2934,7 +2934,7 @@ def remote_publish_book2(request, message, bookid, version):
     try:
         publish_options = settings.PUBLISH_OPTIONS
     except AttributeError:
-        publish_options = ['book', 'ebook', 'lulu', 'pdf', 'odt']
+        publish_options = constants.PUBLISH_OPTIONS
 
     if not message.get('publish_mode', 'epub') in publish_options:
         return {"status": False}
