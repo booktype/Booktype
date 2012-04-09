@@ -33,7 +33,7 @@
         <dt><label for="hidden">License</label></dt>
 		<dd><select name="license" style="min-width:300px;">
               {% for license in licenses %}
-             <option value="{{license.abbrevation}}">{{license.name}}</option>
+             <option value="{{license.abbrevation}}" {% if book_license == license.abbrevation %}selected="selected"{% endif %}>{{license.name}}</option>
               {% endfor %}
 			</select>
         </dd>

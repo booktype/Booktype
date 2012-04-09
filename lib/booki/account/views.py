@@ -673,8 +673,14 @@ def create_book(request, username):
         book_visible = constants.CREATE_BOOK_VISIBLE
 
     try:
+        book_license = settings.CREATE_BOOK_LICENSE
+    except AttributeError:
+        book_license = constants.CREATE_BOOK_LICENSE
+
+    try:
         return render_to_response('account/create_book.html', {"request": request,
                                                                "book_visible": book_visible,
+                                                               "book_license": book_license,
                                                                "licenses": licenses,
                                                                "user": user})
     except:
