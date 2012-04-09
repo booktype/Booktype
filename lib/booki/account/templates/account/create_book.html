@@ -54,7 +54,7 @@
 	<p style="width:90%;">Would you like to keep your book private or make it public? If the book is public others can find the book to help you.<br>
 	  <strong>Note:</strong> this setting can be changed later from your dashboard.</p>
 	<dl>
-        <dt><label><input type="checkbox" name="hidden">initially hide from others</label></dt>
+        <dt><label><input type="checkbox" name="hidden" {% if not book_visible %} checked="checked" {% endif %}>initially hide from others</label></dt>
     </dl>
     </div>
 

@@ -31,6 +31,7 @@ except:
 
 from django import forms
 
+from booki import constants
 from booki.utils import pages
 from django.utils.translation import ugettext as _
 
@@ -667,7 +668,13 @@ def create_book(request, username):
     licenses = License.objects.all().order_by('name')
 
     try:
+        book_visible = settings.CREATE_BOOK_VISIBLE
+    except AttributeError:
+        book_visible = constants.CREATE_BOOK_VISIBLE
+
+    try:
         return render_to_response('account/create_book.html', {"request": request,
+                                                               "book_visible": book_visible,
                                                                "licenses": licenses,
                                                                "user": user})
     except:
@@ -863,9 +870,14 @@ def import_book(request, username):
         finally:
             transaction.commit()    
 
+    try:
+        book_visible = settings.CREATE_BOOK_VISIBLE
+    except AttributeError:
+        book_visible = constants.CREATE_BOOK_VISIBLE
 
     try:
         return render_to_response('account/import_book.html', {"request": request,
+                                                               "book_visible": book_visible,
                                                                "user": user})
     except:
         transaction.rollback()

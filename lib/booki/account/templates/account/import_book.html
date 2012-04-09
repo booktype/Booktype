@@ -20,7 +20,7 @@
         <dt><label>New title (optional):</label></dt>
         <dd><input type="text" name="title" style="min-width:360px;"/></dd>
     
-        <dt><label><input type="checkbox" name="hidden"/> Initially hidden from others</label></dt>
+        <dt><label><input type="checkbox" name="hidden" {% if not book_visible %} checked="checked" {% endif %}/> Initially hidden from others</label></dt>
 	</dl>
     </div>
     <div class="importmessage" style="display: none">
