@@ -37,7 +37,12 @@ class ProfileImageNode(Node):
         profile = UserProfile.objects.get(user=user)
 
         if not profile.image:
-            return '<img src="http://www.gravatar.com/avatar/'+hashlib.md5(profile.user.email.lower()).hexdigest()+"?"+urllib.urlencode({"d": "%s/images/anonymous.jpg" % settings.SITE_STATIC_URL, "s": str(100)})+'">'
+            try:
+                name = '%simages/%s' % (settings.STATIC_URL, settings.DEFAULT_PROFILE_IMAGE)
+            except AttributeError:
+                name = '%s%s' % (settings.SITE_STATIC_URL, '/images/anonymous.jpg')
+
+            return '<img src="http://www.gravatar.com/avatar/'+hashlib.md5(profile.user.email.lower()).hexdigest()+"?"+urllib.urlencode({"d": name, "s": str(100)})+'">'
 
         filename = profile.image.name
             

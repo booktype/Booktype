@@ -533,7 +533,10 @@ def view_profilethumbnail(request, profileid):
     # this should be a seperate function
 
     if not u.get_profile().image:
-        name = '%s%s' % (settings.SITE_STATIC_ROOT, '/images/anonymous.jpg')
+        try:
+            name = '%s/images/%s' % (settings.STATIC_ROOT, settings.DEFAULT_PROFILE_IMAGE)
+        except AttributeError:
+            name = '%s%s' % (settings.SITE_STATIC_ROOT, '/images/anonymous.jpg')
     else:
         name =  u.get_profile().image.path
 
