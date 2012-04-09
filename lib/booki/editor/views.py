@@ -139,6 +139,11 @@ def edit_book(request, bookid, version=None):
 
     if browserMeta.find('MSIE') != -1:
         isBrowserSupported = False
+
+    try:
+        publish_options = settings.PUBLISH_OPTIONS
+    except AttributeError:
+        publish_options = ['book', 'ebook', 'lulu', 'pdf', 'odt']
         
     return render_to_response('editor/edit_book.html', {"book": book, 
                                                         "book_version": book_version.getVersion(),
@@ -152,6 +157,7 @@ def edit_book(request, bookid, version=None):
                                                         "is_owner": book.owner == request.user,
                                                         "tabs": tabs,
                                                         "is_browser_supported": isBrowserSupported,
+                                                        "publish_options": publish_options,
                                                         "request": request})
 
 def thumbnail_attachment(request, bookid, attachment, version=None):

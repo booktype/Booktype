@@ -3,26 +3,42 @@
 <div id="wizzardcontainer" style="position: absolute; display: none; z-index: 1000;"> </div>
 <form name="formexport" onsubmit="return false;">
   <table class="publish-table" border="0" cellpadding="0" cellspacing="0">
+
+    {% if "book" in publish_options %}
     <tr>
       <td><label><input type="radio" name="publish" group="publishtype" value="book" checked="checked">{% trans "Book" %}</label></td>
       <td><a name="bookwizzard" onclick="return false">{% trans "settings" %}</a></td>
     </tr>
+    {% endif %}
+
+    {% if "ebook" in publish_options %}
     <tr>
       <td><label><input type="radio" name="publish" group="publishtype" value="ebook">{% trans "Ebook" %}</label></td>
       <td><a name="ebookwizzard" onclick="return false">{% trans "settings" %}</a></td>
     </tr>
+    {% endif %}
+
+    {% if "lulu" in publish_options %}
     <tr>
       <td><label><input type="radio" name="publish" group="publishtype" value="lulu">{% trans "Lulu.com" %}</label></td>
       <td><a name="luluwizzard" onclick="return false">{% trans "settings" %}</a></td>
     </tr>
+    {% endif %}
+
+    {% if "pdf" in publish_options %}
     <tr>
       <td><label><input type="radio" name="publish" group="publishtype" value="pdf">{% trans "Screen PDF" %}</label></td>
       <td><a name="pdfwizzard" onclick="return false">{% trans "settings" %}</a></td>
     </tr>
+    {% endif %}
+
+    {% if "odt" in publish_options %}
     <tr>
       <td><label><input type="radio" name="publish" group="publishtype" value="odt">{% trans "Open Document Text" %}</label></td>
       <td><a name="odtwizzard" onclick="return false">{% trans "settings" %}</a></td>
     </tr>
+    {% endif %}
+
   </table>
 </form>
 <br/>

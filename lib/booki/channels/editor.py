@@ -2931,6 +2931,15 @@ def remote_publish_book2(request, message, bookid, version):
     @return: Returns info with URL-s where to fetch the result
     """
 
+    try:
+        publish_options = settings.PUBLISH_OPTIONS
+    except AttributeError:
+        publish_options = ['book', 'ebook', 'lulu', 'pdf', 'odt']
+
+    if not message.get('publish_mode', 'epub') in publish_options:
+        return {"status": False}
+
+
     from booki.utils.json_wrapper import simplejson
 
     book = models.Book.objects.get(id=bookid)
