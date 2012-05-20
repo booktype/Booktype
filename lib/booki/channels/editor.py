@@ -3079,8 +3079,8 @@ def remote_publish_book2(request, message, bookid, version):
 
         # in this case, just the css you entered
         if _getValue('custom_override') == 'on':
-            _css = _getValue('additional_css') or ''
-            _css += _getValue('special_css') or ''
+            _css = _getValue('special_css') or ''
+            _css += _getValue('additional_css') or ''
         else:
             _css = _getValue('special_css') or ''
             _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
@@ -3088,6 +3088,7 @@ def remote_publish_book2(request, message, bookid, version):
             _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
             _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
             _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
+            _css += _getValue('additional_css') or ''
 
         if _getValue('control-css') == 'on':
             args['css'] = _css
@@ -3107,8 +3108,8 @@ def remote_publish_book2(request, message, bookid, version):
         _isSet('pagesize')
 
         if _getValue('custom_override') == 'on':
-            _css = _getValue('additional_css') or ''
-            _css += _getValue('special_css') or ''
+            _css = _getValue('special_css') or ''
+            _css += _getValue('additional_css') or ''
         else:
             _css = _getValue('special_css') or ''
             _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
@@ -3116,6 +3117,7 @@ def remote_publish_book2(request, message, bookid, version):
             _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
             _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
             _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
+            _css += _getValue('additional_css') or ''
 
         args['css'] = _css
         
@@ -3154,8 +3156,8 @@ def remote_publish_book2(request, message, bookid, version):
         _isSet('custom_height')
 
         if _getValue('custom_override') == 'on':
-            _css = _getValue('additional_css') or ''
-            _css += _getValue('special_css') or ''
+            _css = _getValue('special_css') or ''
+            _css += _getValue('additional_css') or ''
         else:
             _css = _getValue('special_css') or ''
             _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
@@ -3163,6 +3165,7 @@ def remote_publish_book2(request, message, bookid, version):
             _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
             _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
             _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
+            _css += _getValue('additional_css') or ''
 
         args['css'] = _css
 
