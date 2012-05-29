@@ -137,6 +137,11 @@ class Book(models.Model):
     description = models.TextField(_('description'), null=False, default='')
     cover = models.ImageField(_('cover'), upload_to=settings.COVER_IMAGE_UPLOAD_DIR, null=True)
 
+    def setCover(self, fileName):
+        from booki.utils.book import setBookCover
+
+        setBookCover(self, fileName)
+
     def get_absolute_url(self):
         return '%s/%s/' % (settings.BOOKI_URL, self.url_title)
 

@@ -442,8 +442,6 @@ def save_settings(request, username):
     if request.user.username != username:
         return HttpResponse("No, can't do!", "text/plain")
 
-    from django.core.files import File
-
     profile = user.get_profile()
 
     user.email      = request.POST.get('email' ,'')
@@ -453,47 +451,15 @@ def save_settings(request, username):
     profile.description = request.POST.get('aboutyourself', '')
 
     if request.FILES.has_key('profile'):
-        import tempfile
-        import os
+        from booki.utils import misc
 
-        # check this later
-        fh, fname = tempfile.mkstemp(suffix='', prefix='profile')
-        
-        f = open(fname, 'wb')
-        for chunk in request.FILES['profile'].chunks():
-            f.write(chunk)
-        f.close()
-            
-        import Image
+        # Check for any kind of error at the moment.
+        # Notify user later with different messages.
 
         try:
-            im = Image.open(fname)
-            THUMB_SIZE = 100, 100
-            width, height = im.size
-
-            if width > height:
-                delta = width - height
-                left = int(delta/2)
-                upper = 0
-                right = height + left
-                lower = height
-            else:
-                delta = height - width
-                left = 0
-                upper = int(delta/2)
-                right = width
-                lower = width + upper
-                
-            im = im.crop((left, upper, right, lower))
-            im.thumbnail(THUMB_SIZE, Image.ANTIALIAS)
-            im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, user.username), 'JPEG')
- 
-            profile.image = '%s%s.jpg' % (settings.PROFILE_IMAGE_UPLOAD_DIR, user.username)
+            misc.setProfileImage(user, request.FILES['profile'])
         except:
-            # handle this in better way
             pass
-
-        os.unlink(fname)
         
     profile.save()
         
@@ -623,30 +589,16 @@ def create_book(request, username):
             from django.core.files import File
 
             if request.FILES.has_key('cover'):
-                import tempfile
+                # TODO: Show some kind of error message to the user
+                from booki.utils import misc
                 import os
 
-                fh, fname = tempfile.mkstemp(suffix='', prefix='cover')
-                
-                f = open(fname, 'wb')
-                for chunk in request.FILES['cover'].chunks():
-                    f.write(chunk)
-                f.close()
-
-
                 try:
-                    import Image
-                    
-                    im = Image.open(fname)
-                    im.thumbnail((240, 240), Image.ANTIALIAS)
-                    imageName = '%s.jpg' % fname
-                    im.save(imageName)
-                    
-                    book.cover.save('%s.jpg' % book.url_title, File(file(imageName)))
+                    fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
+                    book.setCover(fname)
+                    os.unlink(fname)
                 except:
                     pass
-
-                os.unlink(fname)
 
             book.save()
                 

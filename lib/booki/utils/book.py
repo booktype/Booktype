@@ -178,4 +178,29 @@ def checkGroupAvailability(groupName):
     return False
 
 
+def setBookCover(book, fileName):
+    """
+    Creates thumbnail image from uploaded file
     
+    @type text; C{booki.editor.models.Book}
+    @param: Book object
+    
+    @type text: C{UploadedFile}
+    @param: Image file
+    """
+
+    from django.conf import settings
+    import os
+
+    try:
+        import Image
+                    
+        im = Image.open(fileName)
+        im.thumbnail((240, 240), Image.ANTIALIAS)
+        im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.COVER_IMAGE_UPLOAD_DIR, book.id), "JPEG") 
+        
+        # If we have used book.cover.save we would end up with obsolete files  on disk
+        book.cover = '%s%s.jpg' % (settings.COVER_IMAGE_UPLOAD_DIR, book.id)
+    except:
+        pass
+        

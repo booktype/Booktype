@@ -451,31 +451,17 @@ def edit_info(request, bookid, version=None):
 
     if request.method == 'POST':
         book.description = request.POST.get('description', '')
-        from django.core.files import File
 
         if request.FILES.has_key('cover'):
-            import tempfile
+            from booki.utils import misc
             import os
 
-            fh, fname = tempfile.mkstemp(suffix='', prefix='cover')
-                
-            f = open(fname, 'wb')
-            for chunk in request.FILES['cover'].chunks():
-                f.write(chunk)
-            f.close()
-            
             try:
-                import Image
-                    
-                im = Image.open(fname)
-                im.thumbnail((240, 240), Image.ANTIALIAS)
-
-                im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.COVER_IMAGE_UPLOAD_DIR, book.id), "JPEG") 
-                book.cover = '%s%s.jpg' % (settings.COVER_IMAGE_UPLOAD_DIR, book.id)
+                fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
+                book.setCover(fname)
+                os.unlink(fname)
             except:
-                transaction.rollback()
-
-            os.unlink(fname)
+                pass
 
         try:
             book.save()

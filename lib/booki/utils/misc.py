@@ -35,3 +35,96 @@ def bookiSlugify(text):
         pass
 
     return slugify(text)
+
+
+def createThumbnail(fname, size = (100, 100)):
+    """
+
+    @type text: C{string}
+    @param: Full path to image file
+    @type size: C{tuple}
+    @param: Width and height of the thumbnail
+
+    @rtype: C{Image}
+    @return: Returns PIL Image object
+    """
+
+    import Image
+
+    im = Image.open(fname)
+    width, height = im.size
+    
+    if width > height:
+        delta = width - height
+        left = int(delta/2)
+        upper = 0
+        right = height + left
+        lower = height
+    else:
+        delta = height - width
+        left = 0
+        upper = int(delta/2)
+        right = width
+        lower = width + upper
+        
+    im = im.crop((left, upper, right, lower))
+    im.thumbnail(size, Image.ANTIALIAS)
+
+    return im
+
+
+def saveUploadedAsFile(fileObject):
+    """
+    Saves UploadedFile into file on disk.
+    
+    @type text: C{UploadedFile}
+    @param: Image file
+
+    @rtype: C{Tuple}
+    @return: Retursns file handler and file name as tuple
+    """
+
+    import tempfile
+    import os
+
+    fh, fname = tempfile.mkstemp(suffix='', prefix='profile')
+        
+    f = open(fname, 'wb')
+
+    for chunk in fileObject.chunks():
+        f.write(chunk)
+
+    f.close()
+
+    return (fh, fname)
+
+
+def setProfileImage(user, fileObject):
+    """
+    Creates thumbnail image from uploaded file and saves it as profile image.
+    
+    @type text; C{django.contrib.auth.models.User}
+    @param: Booktype user 
+    
+    @type text: C{UploadedFile}
+    @param: Image file
+    """
+
+    from django.conf import settings
+    import os
+
+    fh, fname = saveUploadedAsFile(fileObject)
+        
+    try:
+        im = createThumbnail(fname, size = (100, 100))
+        im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, user.username), 'JPEG')
+
+        # If we would use just profile.image.save method then out files would just end up with _1, _2, ... postfixes
+
+        profile = user.get_profile()
+        profile.image = '%s%s.jpg' % (settings.PROFILE_IMAGE_UPLOAD_DIR, user.username)
+        profile.save()
+    except:
+        pass
+
+    os.unlink(fname)
