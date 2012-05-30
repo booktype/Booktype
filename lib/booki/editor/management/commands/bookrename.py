@@ -62,21 +62,8 @@ class Command(BaseCommand):
             book.title = options['new_book_title']
 
         if options['new_book_url']:
-            import os
-            os.rename('%s/books/%s' % (settings.DATA_ROOT, book.url_title), '%s/books/%s' % (settings.DATA_ROOT, options['new_book_url']))
-
-            book.url_title = options['new_book_url']
-
-            # TODO: test this
-            n = len(settings.DATA_ROOT)+len('books/')+1
-
-            for attachment in models.Attachment.objects.filter(version__book=book):
-                name = attachment.attachment.name
-                j = name[n:].find('/')
-                newName = '%s/books/%s%s' % (settings.DATA_ROOT, book.url_title, name[n:][j:])
-
-                attachment.attachment.name = newName
-                attachment.save()
+            from booki.utils.book import renameBook
+            renameBook(book,  book.title, options['new_book_url'])
 
         if options['owner']:
             try:

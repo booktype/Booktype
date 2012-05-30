@@ -182,10 +182,10 @@ def setBookCover(book, fileName):
     """
     Creates thumbnail image from uploaded file
     
-    @type text; C{booki.editor.models.Book}
+    @type book; C{booki.editor.models.Book}
     @param: Book object
     
-    @type text: C{UploadedFile}
+    @type fileName: C{UploadedFile}
     @param: Image file
     """
 
@@ -204,3 +204,46 @@ def setBookCover(book, fileName):
     except:
         pass
         
+
+def renameBook(book, newTitle, newURLTitle):
+    """
+    Rename the Book. This function will also rename the path for Attachments.
+
+    @type book; C{booki.editor.models.Book}
+    @param: Book object
+    
+    @type newTitle: C{string}
+    @param: New book title
+
+    @type newURLTitle: C{string}
+    @param: New URL title
+    """
+
+    from django.conf import settings
+    import os
+
+    try:
+        os.rename('%s/books/%s' % (settings.DATA_ROOT, book.url_title), '%s/books/%s' % (settings.DATA_ROOT, newURLTitle))
+    except OSError:
+        return False
+
+    book.title = newTitle
+    book.url_title = newURLTitle
+
+    n = len(settings.DATA_ROOT)+len('books/')+1
+
+    # This entire thing with full path in attachments is silly and kind of legacy problem from early versions of
+    # Django. This should be fixed in the future.
+
+    for attachment in models.Attachment.objects.filter(version__book=book):
+        name = attachment.attachment.name
+
+        if name.startswith('/'):
+            j = name[n:].find('/')
+            newName = '%s/books/%s%s' % (settings.DATA_ROOT, book.url_title, name[n:][j:])
+
+            attachment.attachment.name = newName
+            attachment.save()
+
+    return True
+
