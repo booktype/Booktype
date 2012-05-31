@@ -15,6 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.template.defaultfilters import slugify
+import os
 
 def bookiSlugify(text):
     """
@@ -40,7 +41,7 @@ def bookiSlugify(text):
 def createThumbnail(fname, size = (100, 100)):
     """
 
-    @type text: C{string}
+    @type fname: C{string}
     @param: Full path to image file
     @type size: C{tuple}
     @param: Width and height of the thumbnail
@@ -77,7 +78,7 @@ def saveUploadedAsFile(fileObject):
     """
     Saves UploadedFile into file on disk.
     
-    @type text: C{UploadedFile}
+    @type fileObject: C{UploadedFile}
     @param: Image file
 
     @rtype: C{Tuple}
@@ -85,7 +86,6 @@ def saveUploadedAsFile(fileObject):
     """
 
     import tempfile
-    import os
 
     fh, fname = tempfile.mkstemp(suffix='', prefix='profile')
         
@@ -103,15 +103,14 @@ def setProfileImage(user, fileObject):
     """
     Creates thumbnail image from uploaded file and saves it as profile image.
     
-    @type text; C{django.contrib.auth.models.User}
+    @type user; C{django.contrib.auth.models.User}
     @param: Booktype user 
     
-    @type text: C{UploadedFile}
+    @type fileObject: C{UploadedFile}
     @param: Image file
     """
 
     from django.conf import settings
-    import os
 
     fh, fname = saveUploadedAsFile(fileObject)
         
@@ -128,3 +127,25 @@ def setProfileImage(user, fileObject):
         pass
 
     os.unlink(fname)
+
+
+def getDirectorySize(dirPath):
+    """
+    Returns total file size of all files in this directory and subdirectories.
+    
+    @type dirPath; C{string}
+    @param: Directory path
+    
+    @rtype text: C{int}
+    @param: Returns total size of all files in subdirectories
+    """
+    
+    total_size = 0
+
+    for dirpath, dirnames, filenames in os.walk(dirPath):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            total_size += os.path.getsize(fp)
+
+    return total_size
+
