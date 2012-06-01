@@ -1,0 +1,52 @@
+{% extends "control_base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="intro">
+<h2>{% trans "Books" %}</h2>
+
+<style>
+  #people {
+    padding: 3px;
+  }
+  #people TD {
+     padding: 5px;
+  }
+
+</style>
+<script>
+  $(function() {
+    $("button[name=add]").click(function() {
+       window.location = '_add/';
+    });
+
+  $("#tabs").tabs();
+
+  })();
+</script>
+
+<div style="float: right">
+ <form method="GET" action="" onsubmit="return false;">
+  <button name="add">ADD NEW BOOK</button>
+ </form>
+</div>
+
+<div style="clear: both; height: 20px;"></div>
+
+<table border="0" id="people">
+ <tr>
+   <th>short title</th>
+   <th>full title</th>
+<!--   <th></th> -->
+ </tr> 
+{% for book in books %}
+ <tr>
+  <td><a href="{% url control_book book.url_title %}">{{ book.url_title }}</a></td>
+  <td>{{ book.title }}</td>
+<!--  <td><nobr><a href="#">download</a></nobr></td> -->
+ </tr>
+{% endfor %}
+</table>
+
+</div>
+{% endblock %}

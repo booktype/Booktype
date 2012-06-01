@@ -325,5 +325,284 @@ def add_person(request):
                                "form": frm
                                })
 
+def books(request):
+    books = models.Book.objects.all().order_by("title")
+
+    return render_to_response('booktypecontrol/books.html', 
+                              {"request": request,
+                               "books": books,
+                               "admin_options": ADMIN_OPTIONS
+                               })
+
+
+def view_book(request, bookid):
+    from booki.editor.views import getVersion
+    from booki.utils import misc
+
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+    book_version = getVersion(book, None)
+
+    # this only shows info for latest version
+    book_history =  models.BookHistory.objects.filter(version = book_version).order_by("-modified")[:20]
+    book_collaborators =  [e.values()[0] for e in models.BookHistory.objects.filter(version = book_version, kind = 2).values("user__username").distinct()]
+
+    from booki.utils import security
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+    isBookAdmin = bookSecurity.isAdmin()
+
+    import sputnik
+    channel_name = "/booki/book/%s/%s/" % (book.id, book_version.getVersion())
+    online_users = sputnik.smembers("sputnik:channel:%s:users" % channel_name)
+
+    book_versions = models.BookVersion.objects.filter(book=book).order_by("created")
+
+    from django.utils.html import escape
+    bookDescription = escape(book.description)
+
+    attachmentDirectory = '%s/books/%s' % (settings.DATA_ROOT, book.url_title)
+    attachmentsSize = misc.getDirectorySize(attachmentDirectory)
+
+
+    return render_to_response('booktypecontrol/book.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "book": book,
+                               "book_version": book_version.getVersion(),
+                               "book_versions": book_versions,
+                               "book_history": book_history, 
+                               "book_collaborators": book_collaborators,
+                               "is_book_admin": isBookAdmin,
+                               "online_users": online_users,
+                               "book_description": '<br/>'.join(bookDescription.replace('\r','').split('\n')),
+                               "attachments_size": attachmentsSize
+                               },
+                              context_instance=RequestContext(request)
+                              )
+
+from django.contrib.auth.models import User
+
+class NewBookForm(forms.Form):
+    title = forms.CharField(label=_("Title"), required=True, max_length=100)
+    description = forms.CharField(required=False, widget=forms.Textarea)
+    owner = forms.ModelChoiceField(queryset=User.objects.all().order_by("username"), required=True)
+    license = forms.ModelChoiceField(queryset=models.License.objects.all().order_by("name"), required=True)
+    is_hidden = forms.BooleanField(label=_('Initially hide from others'), required=False)
+    cover = forms.ImageField(required=False)
+
+    def clean_title(self):
+        from booki.utils.book import checkBookAvailability
+
+        if not checkBookAvailability(self.cleaned_data['title']):
+            raise forms.ValidationError(_("This Book already exists."))
+
+        return self.cleaned_data['title']
+
+
+    def __unicode__(self):
+        return self.username
+
+
+def add_book(request):
+    from booki.utils.book import createBook
+
+    if request.method == 'POST': 
+        frm = NewBookForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == u'Cancel':
+            return HttpResponseRedirect(reverse('control_books')) 
+
+        if frm.is_valid(): 
+            try:
+                book = createBook(frm.cleaned_data['owner'], frm.cleaned_data['title'])
+                book.license = frm.cleaned_data['license']
+                book.description = frm.cleaned_data['description']
+                book.is_hidden = frm.cleaned_data['is_hidden']
+                book.save()
+
+                if request.FILES.has_key('cover'):
+                    from booki.utils import misc
+                    import os
+
+                    try:
+                        fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
+
+                        book.setCover(fname)
+                        os.unlink(fname)
+                    except:
+                        pass
+                    
+                book.save()
+
+                return HttpResponseRedirect(reverse('control_books')) 
+            except:
+                pass
+    else:
+        frm = NewBookForm()
+
+    return render_to_response('booktypecontrol/add_book.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm
+                               })
+
+
+class BookForm(forms.Form):
+    description = forms.CharField(required=False, widget=forms.Textarea)
+    owner = forms.ModelChoiceField(queryset=User.objects.all().order_by("username"), required=True)
+    license = forms.ModelChoiceField(queryset=models.License.objects.all().order_by("name"), required=True)
+    is_hidden = forms.BooleanField(label=_('Initially hide from others'), required=False)
+    cover = forms.ImageField(required=False)
+
+    def clean_title(self):
+        from booki.utils.book import checkBookAvailability
+
+        if not checkBookAvailability(self.cleaned_data['title']):
+            raise forms.ValidationError(_("This Book already exists."))
+
+        return self.cleaned_data['title']
+
+
+    def __unicode__(self):
+        return self.username
+
+
+def edit_book(request, bookid):
+    from booki.editor.views import getVersion
+
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+    book_version = getVersion(book, None)
+
+    if request.method == 'POST': 
+        frm = BookForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == u'Cancel':
+            return HttpResponseRedirect(reverse('control_book', args=[book.url_title])) 
+
+        if frm.is_valid(): 
+            try:
+                book.license = frm.cleaned_data['license']
+                book.description = frm.cleaned_data['description']
+                book.is_hidden = frm.cleaned_data['is_hidden']
+                book.save()
+
+                if request.FILES.has_key('cover'):
+                    from booki.utils import misc
+                    import os
+
+                    try:
+                        fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
+                        book.setCover(fname)
+                        os.unlink(fname)
+                    except:
+                        pass
+                    
+                book.save()
+
+#                messages.success(request, 'Successfuly saved changes.')
+
+                return HttpResponseRedirect(reverse('control_book', args=[book.url_title])) 
+            except:
+                pass
+    else:
+        data = {'description': book.description,
+                'cover': book.cover}
+
+        if book.owner:
+            data['owner'] = book.owner.id
+        if book.license:
+            data['license'] = book.license.id
+        
+        frm = BookForm(initial=data)
+
+    return render_to_response('booktypecontrol/edit_book.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm,
+                               "book": book
+                               })
+
+
+
+class BookRenameForm(forms.Form):
+    title = forms.CharField(label=_("Title"), required=True, max_length=200)
+    url_title = forms.CharField(label=_("URL title"), 
+                                required=False, 
+                                max_length=200, 
+                                validators=[RegexValidator(r"^[\w\s\_\.\-\d]+$", message=_("Illegal characters in URL title."))],
+                                help_text=_("If you leave this field empty URL title will be assigned automatically."))
+
+#    def clean_url_title(self):
+#        if self.cleaned_data['url_title'].strip() == '':
+#            return ''
+#
+#        try:
+#            book = models.Book.objects.get(url_title__iexact=self.cleaned_data['url_title'])
+#        except models.Book.DoesNotExist:
+#            return self.cleaned_data['url_title']
+#
+#        raise forms.ValidationError(_("This Book already exists."))
+        
+    def __unicode__(self):
+        return self.username
+
+
+def rename_book(request, bookid):
+    from booki.editor.views import getVersion
+
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+    book_version = getVersion(book, None)
+
+    if request.method == 'POST': 
+        frm = BookRenameForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == u'Cancel':
+            return HttpResponseRedirect(reverse('control_book', args=[book.url_title])) 
+
+        if frm.is_valid(): 
+            from booki.utils.book import renameBook
+            from booki.utils.misc import bookiSlugify
+
+            title =  frm.cleaned_data['title']
+            URLTitle = frm.cleaned_data['url_title']
+
+            if URLTitle.strip() == '':
+                URLTitle = bookiSlugify(title)
+
+            # this is not the nice way to solve this
+            if book.url_title != URLTitle:
+                try:
+                    b = models.Book.objects.get(url_title__iexact=URLTitle)
+                except models.Book.DoesNotExist:
+                    renameBook(book, title, URLTitle)
+                    book.save()
+                    return redirect('control_book', bookid=book.url_title)
+            else:
+                    renameBook(book, title, URLTitle)
+                    book.save()
+                    return redirect('control_book', bookid=book.url_title)
+
+    else:
+        frm = BookRenameForm(initial={'title': book.title, 'url_title': book.url_title})
+
+    return render_to_response('booktypecontrol/rename_book.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm,
+                               "book": book
+                               })
+
+
 
 

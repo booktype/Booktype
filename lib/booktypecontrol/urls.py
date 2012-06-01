@@ -28,4 +28,10 @@ urlpatterns = patterns('',
     url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/$', 'booktypecontrol.views.profile', name='control_profile'),
     url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/_edit/$', 'booktypecontrol.views.edit_profile', name='control_edit_profile'),
     url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/_password/$', 'booktypecontrol.views.edit_password', name='control_password'),
+
+    url(r'^books/$', 'booktypecontrol.views.books', name='control_books'),
+    url(r'^books/_add/$', 'booktypecontrol.views.add_book', name='control_add_book'),
+    url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/_edit/$', 'booktypecontrol.views.edit_book', name='control_edit_book'),
+    url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/_rename/$', 'booktypecontrol.views.rename_book', name='control_rename_book'),
+    url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/$', 'booktypecontrol.views.view_book', name='control_book'),
 )
