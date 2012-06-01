@@ -21,5 +21,11 @@ from django.conf.urls.defaults import *
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'booktypecontrol.views.frontpage', name='control_frontpage')
+    url(r'^$', 'booktypecontrol.views.frontpage', name='control_frontpage'),
+
+    url(r'^people/$', 'booktypecontrol.views.people', name='control_people'),
+    url(r'^people/_add/$', 'booktypecontrol.views.add_person', name='control_add_person'),
+    url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/$', 'booktypecontrol.views.profile', name='control_profile'),
+    url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/_edit/$', 'booktypecontrol.views.edit_profile', name='control_edit_profile'),
+    url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/_password/$', 'booktypecontrol.views.edit_password', name='control_password'),
 )
