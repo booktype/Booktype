@@ -40,6 +40,7 @@ from booki.utils.book import createBook
 from booki.editor import common
 
 from booki.messaging.views import get_endpoint_or_none
+from booki.utils import config
 
 try:
     ESPRI_URL = settings.ESPRI_URL
@@ -619,15 +620,8 @@ def create_book(request, username):
     
     licenses = License.objects.all().order_by('name')
 
-    try:
-        book_visible = settings.CREATE_BOOK_VISIBLE
-    except AttributeError:
-        book_visible = constants.CREATE_BOOK_VISIBLE
-
-    try:
-        book_license = settings.CREATE_BOOK_LICENSE
-    except AttributeError:
-        book_license = constants.CREATE_BOOK_LICENSE
+    book_visible = config.getConfiguration('CREATE_BOOK_VISIBLE')
+    book_license = config.getConfiguration('CREATE_BOOK_LICENSE')
 
     try:
         return render_to_response('account/create_book.html', {"request": request,
@@ -828,10 +822,7 @@ def import_book(request, username):
         finally:
             transaction.commit()    
 
-    try:
-        book_visible = settings.CREATE_BOOK_VISIBLE
-    except AttributeError:
-        book_visible = constants.CREATE_BOOK_VISIBLE
+    book_visible = config.getConfiguration('CREATE_BOOK_VISIBLE')
 
     try:
         return render_to_response('account/import_book.html', {"request": request,

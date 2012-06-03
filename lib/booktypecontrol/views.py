@@ -539,17 +539,6 @@ class BookRenameForm(forms.Form):
                                 validators=[RegexValidator(r"^[\w\s\_\.\-\d]+$", message=_("Illegal characters in URL title."))],
                                 help_text=_("If you leave this field empty URL title will be assigned automatically."))
 
-#    def clean_url_title(self):
-#        if self.cleaned_data['url_title'].strip() == '':
-#            return ''
-#
-#        try:
-#            book = models.Book.objects.get(url_title__iexact=self.cleaned_data['url_title'])
-#        except models.Book.DoesNotExist:
-#            return self.cleaned_data['url_title']
-#
-#        raise forms.ValidationError(_("This Book already exists."))
-        
     def __unicode__(self):
         return self.username
 
@@ -611,15 +600,11 @@ def viewsettings(request):
                                })
 
 
-# open graph for facebook
 
 class SiteDescriptionForm(forms.Form):
     title = forms.CharField(label=_("Site title"), required=True, max_length=200)
     tagline = forms.CharField(label=_("Tagline"), required=False, max_length=200)
     favicon = forms.FileField(label=_("Favicon"), required=False, help_text=_("Upload .ico file"))
-
-# description da bude neki front page na pocetku
-#    description = forms.CharField(required=False, widget=forms.Textarea)
         
     def __unicode__(self):
         return self.username
@@ -661,6 +646,58 @@ def settings_description(request):
 
 
     return render_to_response('booktypecontrol/settings_description.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm                               
+                               })
+
+from django.forms.fields import ChoiceField
+
+class BookCreateForm(forms.Form):
+    visible = forms.BooleanField(label=_('Visibility'), required=False, help_text=_('If it is turned on then all books will be visible to everyone.'))
+    license = forms.ModelChoiceField(queryset=models.License.objects.all().order_by("name"), required=False, help_text=_("Default license for newly created book."))
+        
+    def __unicode__(self):
+        return 'Book create'
+
+
+def settings_book_create(request):
+    if request.method == 'POST': 
+        frm = BookCreateForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == u'Cancel':
+            return HttpResponseRedirect(reverse('control_settings')) 
+
+        if frm.is_valid(): 
+            from booki.utils import config
+
+            config.setConfiguration('CREATE_BOOK_VISIBLE', frm.cleaned_data['visible'])
+
+            if frm.cleaned_data['license']:
+                config.setConfiguration('CREATE_BOOK_LICENSE', frm.cleaned_data['license'].abbrevation)
+            else:
+                config.setConfiguration('CREATE_BOOK_LICENSE', '')
+
+            config.saveConfiguration()
+
+            return HttpResponseRedirect(reverse('control_settings'))             
+    else:
+        from booki.utils import config
+
+        _l = config.getConfiguration('CREATE_BOOK_LICENSE')
+        if _l and _l != '':
+            try:
+                license = models.License.objects.get(abbrevation = _l)
+            except models.License.DoesNotExist:
+                license = None
+        else:
+            license = None
+            
+        frm = BookCreateForm(initial={'visible': config.getConfiguration('CREATE_BOOK_VISIBLE'),
+                                      'license': license})
+
+
+    return render_to_response('booktypecontrol/settings_book_create.html', 
                               {"request": request,
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm                               

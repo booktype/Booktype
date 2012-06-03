@@ -36,5 +36,6 @@ urlpatterns = patterns('',
     url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/$', 'booktypecontrol.views.view_book', name='control_book'),
 
     url(r'^settings/$', 'booktypecontrol.views.viewsettings', name='control_settings'),
-    url(r'^settings/description/$', 'booktypecontrol.views.settings_description', name='control_settings_description')
+    url(r'^settings/description/$', 'booktypecontrol.views.settings_description', name='control_settings_description'),
+    url(r'^settings/book_create/$', 'booktypecontrol.views.settings_book_create', name='control_settings_book_create')
 )
