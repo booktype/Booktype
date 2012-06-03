@@ -225,7 +225,7 @@ def renameBook(book, newTitle, newURLTitle):
     try:
         os.rename('%s/books/%s' % (settings.DATA_ROOT, book.url_title), '%s/books/%s' % (settings.DATA_ROOT, newURLTitle))
     except OSError:
-        return False
+        pass
 
     book.title = newTitle
     book.url_title = newURLTitle
