@@ -34,4 +34,7 @@ urlpatterns = patterns('',
     url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/_edit/$', 'booktypecontrol.views.edit_book', name='control_edit_book'),
     url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/_rename/$', 'booktypecontrol.views.rename_book', name='control_rename_book'),
     url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/$', 'booktypecontrol.views.view_book', name='control_book'),
+
+    url(r'^settings/$', 'booktypecontrol.views.viewsettings', name='control_settings'),
+    url(r'^settings/description/$', 'booktypecontrol.views.settings_description', name='control_settings_description')
 )

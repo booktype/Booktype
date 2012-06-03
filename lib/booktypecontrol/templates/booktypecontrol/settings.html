@@ -1,0 +1,89 @@
+{% extends "control_base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="intro">
+<h2>{% trans "Settings" %}</h2>
+
+<style>
+
+#limits { 
+   width: 200px;
+}
+
+#limits SPAN {
+ font-size: 12px;
+ font-weight: bold;
+}
+
+#limits .bar {
+ margin-top: 5px;
+ margin-bottom: 5px;
+ height: 20px;
+ background-color: white;
+}
+
+</style>
+<div style="float: right">
+</div>
+<div style="clear: both; height: 20px;"></div>
+
+<table>
+ <tr>
+  <td valign="top">
+    <h3>Site</h3>
+    <ul>
+      <li><a href="{% url control_settings_description %}">Description</a></li>
+      <li><a href="">Appearance</a></li>
+      <li><a href="">Frontpage</a></li>
+    </ul>
+<!--
+Change default CSS. 
+Change Favicon
+Change text on front page
+Name of website
+-->
+  </td>
+  <td width="60"></td>
+  <td valign="top">
+    <h3>General</h3>
+    <ul>
+     <li><a href="">Licenses</a></li>
+<!--     <li><a href="">Languages</a></li> -->
+     <li><a href="">Book creation</a></li>
+     <li><a href="">Privacy</a></li>
+    </ul>
+<!--
+What kind of User register system do you want - public (open) or managed (through admin)
+Set site in maintenance mode
+Default language for the site
+Edit list of available Licences
+Default hidden or visible setting 
+-->
+  </td>
+ </tr>
+ <tr>
+  <td colspan="3" height="30"></td>
+ </tr>
+ <tr>
+  <td valign="top">
+    <h3>Publish options</h3>
+    <ul>
+      <li><a href="">Allowed publishing options</a></li>
+      <li><a href="">Default settings</a></li>
+    </ul>
+<!--
+Choose output format types available on the publish tab. 
+Set default CSS for each output
+Set default size format etc
+-->
+  </td>
+  <td width="60"></td>
+  <td valign="top">
+  </td>
+ </tr>
+</table>
+
+
+</div>
+{% endblock %}

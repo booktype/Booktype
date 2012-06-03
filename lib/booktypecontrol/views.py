@@ -568,7 +568,7 @@ def rename_book(request, bookid):
         frm = BookRenameForm(request.POST, request.FILES) 
 
         if request.POST['submit'] == u'Cancel':
-            return HttpResponseRedirect(reverse('control_book', args=[book.url_title])) 
+            return HttpResponseRedirect(reverse('control_book', args=[book.url_title]))
 
         if frm.is_valid(): 
             from booki.utils.book import renameBook
@@ -587,11 +587,12 @@ def rename_book(request, bookid):
                 except models.Book.DoesNotExist:
                     renameBook(book, title, URLTitle)
                     book.save()
-                    return redirect('control_book', bookid=book.url_title)
+                    return HttpResponseRedirect(reverse('control_book', args=[book.url_title]))
             else:
                     renameBook(book, title, URLTitle)
                     book.save()
-                    return redirect('control_book', bookid=book.url_title)
+                    return HttpResponseRedirect(reverse('control_book', args=[book.url_title]))
+
 
     else:
         frm = BookRenameForm(initial={'title': book.title, 'url_title': book.url_title})
@@ -601,6 +602,68 @@ def rename_book(request, bookid):
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm,
                                "book": book
+                               })
+
+def viewsettings(request):
+    return render_to_response('booktypecontrol/settings.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS                               
+                               })
+
+
+# open graph for facebook
+
+class SiteDescriptionForm(forms.Form):
+    title = forms.CharField(label=_("Site title"), required=True, max_length=200)
+    tagline = forms.CharField(label=_("Tagline"), required=False, max_length=200)
+    favicon = forms.FileField(label=_("Favicon"), required=False, help_text=_("Upload .ico file"))
+
+# description da bude neki front page na pocetku
+#    description = forms.CharField(required=False, widget=forms.Textarea)
+        
+    def __unicode__(self):
+        return self.username
+
+
+def settings_description(request):
+    if request.method == 'POST': 
+        frm = SiteDescriptionForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == u'Cancel':
+            return HttpResponseRedirect(reverse('control_settings')) 
+
+        if frm.is_valid(): 
+            from booki.utils import config
+
+            config.setConfiguration('BOOKTYPE_SITE_NAME', frm.cleaned_data['title'])
+            config.setConfiguration('BOOKTYPE_SITE_TAGLINE', frm.cleaned_data['tagline'])
+
+            if request.FILES.has_key('favicon'):
+                from booki.utils import misc
+                import shutil
+
+                # just check for any kind of silly error
+                try:
+                    fh, fname = misc.saveUploadedAsFile(request.FILES['favicon'])
+                    shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
+
+                    config.setConfiguration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKI_URL)
+                except:
+                    pass
+
+            config.saveConfiguration()
+
+            return HttpResponseRedirect(reverse('control_settings'))             
+    else:
+        from booki.utils import config
+        frm = SiteDescriptionForm(initial={'title': config.getConfiguration('BOOKTYPE_SITE_NAME'),
+                                           'tagline': config.getConfiguration('BOOKTYPE_SITE_TAGLINE')})
+
+
+    return render_to_response('booktypecontrol/settings_description.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm                               
                                })
 
 

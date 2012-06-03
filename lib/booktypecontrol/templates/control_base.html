@@ -64,6 +64,10 @@
                 <li><a href="{% url control_books %}">{% trans "Books" %}</a></li>
               {% endif %}
 
+              {% if "settings" in admin_options %}
+                <li><a href="{% url control_settings %}">{% trans "Settings" %}</a></li>
+              {% endif %}
+
             </ul>      
         </div><!-- End of .navbox -->       
     </div>
