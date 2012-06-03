@@ -164,3 +164,56 @@ def jsonlookup(d, key):
     d2 = simplejson.loads(d)
 
     return d2[key]
+
+
+@register.simple_tag
+def booki_site_metadata():
+    from booki.utils import config
+    import cgi
+
+    s = ''
+
+    # probably should add namespace to html tag
+    name = config.getConfiguration('BOOKTYPE_SITE_NAME', None)
+    if name:
+        s += '<meta property="og:site_name" content="%s"/>' % cgi.escape(name, True)
+
+    tagline = config.getConfiguration('BOOKTYPE_SITE_TAGLINE', None)
+    if tagline:
+        s += '<meta name="description" content="%s"/>' % cgi.escape(tagline, True)
+
+    return s
+
+@register.simple_tag
+def booki_site_name():
+    from django.core.urlresolvers import reverse
+    from django.conf import settings
+    from booki.utils import config
+
+    frontpageURL = reverse('frontpage')
+
+    name = config.getConfiguration('BOOKTYPE_SITE_NAME', None)
+    if name:
+        s = '<div class="logotext"><a href="%s%s">%s</a> </div>' % (settings.BOOKI_URL, frontpageURL, name)
+    else:
+	s = '<div class="logo"><a href="%s%s"></a></div>' % (settings.BOOKI_URL, frontpageURL)
+
+    return s
+
+@register.simple_tag
+def booki_site_favicon():
+    from django.core.urlresolvers import reverse
+    from django.conf import settings
+    from booki.utils import config
+    import cgi
+
+    frontpageURL = reverse('frontpage')
+
+    favicon = config.getConfiguration('BOOKTYPE_SITE_FAVICON', None)
+    if favicon:
+        s = '<link rel="SHORTCUT ICON" href="%s" type="image/x-icon">' % cgi.escape(favicon, True)
+    else:
+        s = '<link rel="SHORTCUT ICON" href="%s/site_static/images/favicon.ico" type="image/x-icon">' % settings.BOOKI_URL
+
+    return s
+
