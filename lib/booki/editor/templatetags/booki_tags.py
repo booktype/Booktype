@@ -217,3 +217,8 @@ def booki_site_favicon():
 
     return s
 
+@register.filter
+def booki_anyone_register(object):
+    from booki.utils import config
+
+    return config.getConfiguration('FREE_REGISTRATION', True)

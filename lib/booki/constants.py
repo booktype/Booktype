@@ -24,3 +24,7 @@ THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org'
 
 CREATE_BOOK_VISIBLE = True
 CREATE_BOOK_LICENSE = ""
+
+FREE_REGISTRATION = True
+ADMIN_CREATE_BOOKS = False
+ADMIN_IMPORT_BOOKS = False
