@@ -830,3 +830,57 @@ def settings_privacy(request):
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm
                                })
+
+
+
+class PublishingForm(forms.Form):
+    publish_book = forms.BooleanField(label=_('Publish as a book'), required=False)
+    publish_ebook = forms.BooleanField(label=_('Publish as ebook'), required=False)
+    publish_lulu = forms.BooleanField(label=_('Publish to lulu'), required=False)
+    publish_pdf = forms.BooleanField(label=_('Publish to PDF'), required=False)
+    publish_odt = forms.BooleanField(label=_('Publish to ODT'), required=False)
+
+    def __unicode__(self):
+        return u'Publishing'
+
+
+def settings_publishing(request):
+    from booki.utils import config
+    
+    publishOptions = config.getConfiguration('PUBLISH_OPTIONS')
+
+# PUBLISH_OPTIONS =  ['book', 'ebook', 'lulu', 'pdf', 'odt']
+
+    if request.method == 'POST': 
+        frm = PublishingForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == u'Cancel':
+            return HttpResponseRedirect(reverse('control_settings')) 
+
+        if frm.is_valid(): 
+            opts = []
+            # a bit silly way to create a list
+
+            if frm.cleaned_data['publish_book']: opts.append('book')
+            if frm.cleaned_data['publish_ebook']: opts.append('ebook')
+            if frm.cleaned_data['publish_lulu']: opts.append('lulu')
+            if frm.cleaned_data['publish_pdf']: opts.append('pdf')
+            if frm.cleaned_data['publish_odt']: opts.append('odt')
+
+            config.setConfiguration('PUBLISH_OPTIONS', opts)
+            config.saveConfiguration()
+
+            return HttpResponseRedirect(reverse('control_settings'))             
+    else:
+        frm = PublishingForm(initial = {'publish_book': 'book' in publishOptions,
+                                        'publish_ebook': 'ebook' in publishOptions,
+                                        'publish_lulu': 'lulu' in publishOptions,
+                                        'publish_pdf': 'pdf' in publishOptions,
+                                        'publish_odt': 'odt' in publishOptions})
+
+
+    return render_to_response('booktypecontrol/settings_publishing.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm
+                               })
