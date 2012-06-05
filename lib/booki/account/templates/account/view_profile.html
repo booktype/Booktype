@@ -95,7 +95,12 @@
     <div class="main-content">
       <div class="alert-box info">{% blocktrans %}Do you want to learn more how to use Booktype? Read the  <a target="_new" title="Booktype user guide" href="http://en.flossmanuals.net/booktype"><i>user guide</i></a>!{% endblocktrans %} </div>
       <div class="widget-box">
-        <h4> {% if user.username == request.user.username %} <a class="action-button createbook" href="#">{% trans "CREATE NEW BOOK" %}</a> {% endif %}
+        <h4> 
+          {% if user.username == request.user.username %} 
+           {% if not admin_create  %}
+             <a class="action-button createbook" href="#">{% trans "CREATE NEW BOOK" %}</a>
+           {% endif %}
+          {% endif %}
           {% if user.username == request.user.username %} <a href="#/books/"> {% endif %}
           {% trans "My Books" %}
           {% if user.username == request.user.username %} </a> {% endif %} </h4>
@@ -139,7 +144,14 @@
   <div id="tabs-books">
     <h3>{% if user.username == request.user.username %}{% trans "My Books" %}{% else %} {% trans "Books" %} {% endif %}</h3>
     {% if user.username == request.user.username %}
-        <div class="action-menu big"> <a class="createbook prime" href="#">{% trans "Create new book" %}</a> <a class="importbook prime" href="#">{% trans "Import Book" %}</a> </div>
+        <div class="action-menu big"> 
+           {% if not admin_create  %}
+              <a class="createbook prime" href="#">{% trans "Create new book" %}</a> 
+           {% endif %}
+	   {% if not admin_import  %}
+              <a class="importbook prime" href="#">{% trans "Import Book" %}</a>
+           {% endif %}
+        </div>
     {% endif %}
     <table border="0" cellspacing="0" class="basic-table">
       {% for book in books %}

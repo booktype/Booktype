@@ -1,5 +1,15 @@
 {% load i18n %}
 
+{% if admin_create %}
+<div class="dialog" title="{% trans "Create a Book" %}">
+
+ <p>
+   {% trans "You don't have permissions to create new books. At the moment only administrators can do that." %}
+ </p>
+ <span class="nopermissions"></span>
+</div>
+
+{% else %}
 <div class="dialog" title="{% trans "Create a Book" %}">
 
 <form method="post" action="{% url create_book request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">
@@ -62,3 +72,5 @@
 </form>
 <iframe name="hidden_frame" style="border: 0px; width: 0px; height: 0px; display:inline; margin:0; padding:0;"></iframe>
 </div>
+
+{% endif %}

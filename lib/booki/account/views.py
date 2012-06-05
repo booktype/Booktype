@@ -106,7 +106,7 @@ def signin(request):
     if request.POST.get("ajax", "") == "1":
         ret = {"result": 0}
 
-        if request.POST.get("method", "") == "register":
+        if request.POST.get("method", "") == "register" and config.getConfiguration('FREE_REGISTRATION'):
             def _checkIfEmpty(key):
                 return request.POST.get(key, "").strip() == ""
 
@@ -424,8 +424,17 @@ def view_profile(request, username):
     from django.utils.html import escape
     userDescription = escape(user.get_profile().description)
 
+    admin_create = config.getConfiguration('ADMIN_CREATE_BOOKS')
+    admin_import = config.getConfiguration('ADMIN_IMPORT_BOOKS')
+
+    if request.user.is_superuser:
+        admin_create = False
+        admin_import = False
+
     return render_to_response('account/view_profile.html', {"request": request,
                                                             "user": user,
+                                                            "admin_create": admin_create,
+                                                            "admin_import": admin_import,
                                                             "user_description": '<br/>'.join(userDescription.replace('\r','').split('\n')),
                                                             "books": books,
                                                             "groups": groups})
@@ -554,6 +563,14 @@ def create_book(request, username):
     from booki.utils.book import checkBookAvailability, createBook
     from booki.editor import models
 
+    book_visible = config.getConfiguration('CREATE_BOOK_VISIBLE')
+    book_license = config.getConfiguration('CREATE_BOOK_LICENSE')
+    admin_create = config.getConfiguration('ADMIN_CREATE_BOOKS')
+
+    if request.user.is_superuser:
+        admin_create = False
+
+
     if request.GET.get("q", "") == "check":
         from booki.utils.json_wrapper import json
 
@@ -566,7 +583,7 @@ def create_book(request, username):
         finally:
             transaction.commit()    
 
-    if request.method == 'POST':
+    if request.method == 'POST' and admin_create == False:
         book = None
         try:
             # hidden on
@@ -620,13 +637,12 @@ def create_book(request, username):
     
     licenses = License.objects.all().order_by('name')
 
-    book_visible = config.getConfiguration('CREATE_BOOK_VISIBLE')
-    book_license = config.getConfiguration('CREATE_BOOK_LICENSE')
 
     try:
         return render_to_response('account/create_book.html', {"request": request,
                                                                "book_visible": book_visible,
                                                                "book_license": book_license,
+                                                               "admin_create": admin_create,
                                                                "licenses": licenses,
                                                                "user": user})
     except:
@@ -767,7 +783,14 @@ def import_book(request, username):
         finally:
             transaction.commit()    
 
-    if request.GET.get("q", "") == "import":
+    book_visible = config.getConfiguration('CREATE_BOOK_VISIBLE')
+    admin_import = config.getConfiguration('ADMIN_IMPORT_BOOKS')
+
+    if request.user.is_superuser:
+        admin_import = False
+
+
+    if request.GET.get("q", "") == "import" and admin_import == False:
         from booki.utils.json_wrapper import json
 
         data = {}
@@ -822,11 +845,11 @@ def import_book(request, username):
         finally:
             transaction.commit()    
 
-    book_visible = config.getConfiguration('CREATE_BOOK_VISIBLE')
 
     try:
         return render_to_response('account/import_book.html', {"request": request,
                                                                "book_visible": book_visible,
+                                                               "admin_import": admin_import,
                                                                "user": user})
     except:
         transaction.rollback()

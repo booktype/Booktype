@@ -1,5 +1,16 @@
 {% load i18n %}
 
+{% if admin_import %}
+<div class="dialog" title="{% trans "Import book" %}">
+
+ <p>
+   {% trans "You don't have permissions to import content. At the moment only administrators can do that." %}
+ </p>
+ <span class="nopermissions"></span>
+</div>
+
+{% else %}
+
 <div class="dialog" title="{% trans "Import book" %}">
   <iframe name="hidden_frame" style="border: 0px; width: 0px; height: 0px"></iframe>
   <form method="post" action="{% url import_book request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">
@@ -28,3 +39,4 @@
     </div>
   </form>
 </div>
+{% endif %}
