@@ -255,7 +255,6 @@ class NewPersonForm(forms.Form):
     password2 = forms.CharField(label=_('Password confirmation'), required=True, max_length=100, widget=forms.PasswordInput, help_text = _("Enter the same password as above, for verification."))
     send_email = forms.BooleanField(label=_('Notify person by email'), required=False)
 
-
     def clean_username(self):
         from django.contrib.auth.models import User
 
@@ -793,5 +792,41 @@ def settings_license_edit(request, licenseid):
                                })
 
 
+class PrivacyForm(forms.Form):
+    user_register = forms.BooleanField(label=_('Anyone can register'), required=False, help_text=_('Anyone can register on the site and create account'))
+    create_books = forms.BooleanField(label=_('Only admin can create books'), required=False)
+    import_books = forms.BooleanField(label=_('Only admin can import books'), required=False)
+
+    def __unicode__(self):
+        return u'Privacy'
 
 
+def settings_privacy(request):
+    from booki.utils import config
+
+    if request.method == 'POST': 
+        frm = PrivacyForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == u'Cancel':
+            return HttpResponseRedirect(reverse('control_settings')) 
+
+        if frm.is_valid(): 
+
+            config.setConfiguration('FREE_REGISTRATION', frm.cleaned_data['user_register'])
+            config.setConfiguration('ADMIN_CREATE_BOOKS', frm.cleaned_data['create_books'])
+            config.setConfiguration('ADMIN_IMPORT_BOOKS', frm.cleaned_data['import_books'])
+
+            config.saveConfiguration()
+
+            return HttpResponseRedirect(reverse('control_settings'))             
+    else:
+        frm = PrivacyForm(initial = {'user_register': config.getConfiguration('FREE_REGISTRATION'),
+                                     'create_books': config.getConfiguration('ADMIN_CREATE_BOOKS'),
+                                     'import_books': config.getConfiguration('ADMIN_IMPORT_BOOKS')
+                                     })
+
+    return render_to_response('booktypecontrol/settings_privacy.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm
+                               })

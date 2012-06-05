@@ -39,6 +39,7 @@ urlpatterns = patterns('',
     url(r'^settings/description/$', 'booktypecontrol.views.settings_description', name='control_settings_description'),
     url(r'^settings/book_create/$', 'booktypecontrol.views.settings_book_create', name='control_settings_book_create'),
     url(r'^settings/license/$', 'booktypecontrol.views.settings_license', name='control_settings_license'),
-    url(r'^settings/license/(?P<licenseid>[\d]+)/$', 'booktypecontrol.views.settings_license_edit', name='control_settings_license_edit')
+    url(r'^settings/license/(?P<licenseid>[\d]+)/$', 'booktypecontrol.views.settings_license_edit', name='control_settings_license_edit'),
+    url(r'^settings/privacy/$', 'booktypecontrol.views.settings_privacy', name='control_settings_privacy'),
 
 )
