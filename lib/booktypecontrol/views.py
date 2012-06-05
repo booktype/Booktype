@@ -705,4 +705,93 @@ def settings_book_create(request):
 
 
 
+class LicenseForm(forms.Form):
+    abbrevation = forms.CharField(label=_("Abbrevation"), required=True, max_length=30)
+    name = forms.CharField(label=_("Name"), required=True, max_length=100)
+        
+    def __unicode__(self):
+        return self.abbrevation
+
+
+def settings_license(request):
+    if request.method == 'POST': 
+        frm = LicenseForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == u'Cancel':
+            return HttpResponseRedirect(reverse('control_settings')) 
+
+        if frm.is_valid(): 
+            from booki.utils import config
+
+            license = models.License(abbrevation = frm.cleaned_data['abbrevation'],
+                                     name = frm.cleaned_data['name'])
+            license.save()
+
+            return HttpResponseRedirect(reverse('control_settings_license'))             
+    else:
+        frm = LicenseForm()
+
+    licenses = models.License.objects.all().order_by("name")
+
+    return render_to_response('booktypecontrol/settings_license.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm,
+                               "licenses": licenses
+                               })
+
+def settings_license_edit(request, licenseid):
+
+    books = []
+
+    if request.method == 'POST': 
+        frm = LicenseForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == _('Cancel'):
+            return HttpResponseRedirect(reverse('control_settings_license')) 
+
+        if request.POST['submit'] == _('Remove it'):
+            # this could delete all books with this license
+            try:
+                license = models.License.objects.get(pk=licenseid)
+            except models.License.DoesNotExist:
+                return pages.ErrorPage(request, "errors/license_does_not_exist.html", {"username": ''})
+
+            license.delete()
+
+            return HttpResponseRedirect(reverse('control_settings_license')) 
+
+        if frm.is_valid(): 
+            try:
+                license = models.License.objects.get(pk=licenseid)
+            except models.License.DoesNotExist:
+                return pages.ErrorPage(request, "errors/license_does_not_exist.html", {"username": ''})
+
+            license.abbrevation = frm.cleaned_data['abbrevation']
+            license.name = frm.cleaned_data['name']
+            license.save()
+
+            return HttpResponseRedirect(reverse('control_settings_license'))             
+    else:
+        try:
+            license = models.License.objects.get(pk=licenseid)
+        except models.License.DoesNotExist:
+            # change this
+            return pages.ErrorPage(request, "errors/license_does_not_exist.html", {"username": ''})
+
+        books = models.Book.objects.filter(license=license).order_by("title")
+            
+        frm = LicenseForm(initial = {'abbrevation': license.abbrevation,
+                                     'name': license.name})
+
+    return render_to_response('booktypecontrol/settings_license_edit.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm,
+                               "licenseid": licenseid,
+                               "books": books
+                               })
+
+
+
 
