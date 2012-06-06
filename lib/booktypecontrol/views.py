@@ -849,8 +849,6 @@ def settings_publishing(request):
     
     publishOptions = config.getConfiguration('PUBLISH_OPTIONS')
 
-# PUBLISH_OPTIONS =  ['book', 'ebook', 'lulu', 'pdf', 'odt']
-
     if request.method == 'POST': 
         frm = PublishingForm(request.POST, request.FILES) 
 
@@ -880,6 +878,49 @@ def settings_publishing(request):
 
 
     return render_to_response('booktypecontrol/settings_publishing.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm
+                               })
+
+
+class AppearanceForm(forms.Form):
+    css = forms.CharField(label=_('CSS'), required=False, widget=forms.Textarea)
+
+    def __unicode__(self):
+        return u'Appearance'
+
+
+def settings_appearance(request):
+    staticRoot = settings.STATIC_ROOT
+
+    if request.method == 'POST': 
+        frm = AppearanceForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == u'Cancel':
+            return HttpResponseRedirect(reverse('control_settings')) 
+
+        if frm.is_valid(): 
+            try:
+                f = open('%s/css/_user.css' % staticRoot, 'w')
+                f.write(frm.cleaned_data['css'].encode('utf8'))
+                f.close()
+            except IOError:
+                pass
+
+            return HttpResponseRedirect(reverse('control_settings'))             
+    else:
+        try:
+            f = open('%s/css/_user.css' % staticRoot, 'r')
+            cssContent = f.read()
+            f.close()
+        except IOError:
+            cssContent = ''
+
+        frm = AppearanceForm(initial = {'css': cssContent})
+
+
+    return render_to_response('booktypecontrol/settings_appearance.html', 
                               {"request": request,
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm
