@@ -9,7 +9,15 @@ class Migration(DataMigration):
     def forwards(self, orm):
         "Write your forwards methods here."
         from django.conf import settings
+        import os, os.path
+        
         try:
+            if not os.path.exists('%s/css/' % settings.STATIC_ROOT):
+                try:
+                    os.mkdir('%s/css/' % settings.STATIC_ROOT)
+                except OSError:
+                    raise RuntimeError("Can not create css directory.")
+                    
             f = open('%s/css/_user.css' % settings.STATIC_ROOT, 'w')
             f.write(' ')
             f.close()
