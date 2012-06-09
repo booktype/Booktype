@@ -18,15 +18,15 @@
 <script>
   $(function() {
     $("button[name=edit]").click(function() {
-       window.location = '_edit/';
+       window.location = '{% url control_profile person.username %}_edit/';
     });
 
     $("button[name=change]").click(function() {
-       window.location = '_password/';
+       window.location = '{% url control_profile person.username %}_password/';
     });
 
     $("button[name=lock]").click(function() {
-       window.location = 'lock/';
+       window.location = '{% url control_profile person.username %}lock/';
     });
 
   $("#tabs").tabs();
@@ -67,7 +67,7 @@
   <div id="tabs-books"> 
    <ul>
     {% for book in books %}
-     <li><a href="{% url book_view book.url_title %}">{{ book.title }}</a>
+     <li><a href="{% url control_edit_book book.url_title %}">{{ book.title }}</a>
     {% empty %}
      <p>This person has no Books.</p>
     {% endfor %}
@@ -100,7 +100,7 @@
                  </div>     
 				{% endif %}
                 {% if activity.kind == 10 %}
-                {% trans "Created new book" %} <a href="{% url book_view activity.book.url_title  %}">"{{activity.book.title}}"</a>.
+                {% trans "Created new book" %} <a href="{% url control_edit_book activity.book.url_title  %}">"{{activity.book.title}}"</a>.
                  <div class="book-title">#{{activity.book.url_title}}
                  </div>     
 				{% endif %}

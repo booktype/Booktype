@@ -42,18 +42,16 @@
 </div><!-- End top bar -->
 
 	<div class="menubar shadow">
-<!--        {% if request.user.is_authenticated %} -->
         <div class="navbox">
              <ul>
       		   <li><a href="/">{% trans "Site" %}</a></li>
              </ul>
         </div>
-<!--		{% endif %} -->
     
         <div class="navbox">
             <ul>
 	      {% if "dashboard" in admin_options %}
-                <li><a href="{% url control_frontpage %}">{% trans "Dashboard" %}</a></li>
+                <li><a href="{% url control_frontpage %}">{% trans "Admin Control Center" %}</a></li>
    	      {% endif %}
 
               {% if "people" in admin_options %}

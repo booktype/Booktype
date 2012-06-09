@@ -157,7 +157,7 @@ class ProfileForm(forms.Form):
     first_name = forms.CharField(required=True, max_length=100)
     email = forms.EmailField(required=True,max_length=100)
     profile = forms.ImageField(required=False)
-    description = forms.CharField(required=False, widget=forms.Textarea)
+    description = forms.CharField(label=_("User description"), required=False, widget=forms.Textarea)
 
     def __unicode__(self):
         return self.first_name
@@ -250,7 +250,7 @@ class NewPersonForm(forms.Form):
     username = forms.CharField(required=True, max_length=100, validators=[RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), MinLengthValidator(3)])
     first_name = forms.CharField(required=True, max_length=100)
     email = forms.EmailField(required=True,max_length=100)
-    description = forms.CharField(required=False, widget=forms.Textarea)
+    description = forms.CharField(label=_("User description"), required=False, widget=forms.Textarea)
     password1 = forms.CharField(label=_('Password'), required=True, max_length=100, widget=forms.PasswordInput)
     password2 = forms.CharField(label=_('Password confirmation'), required=True, max_length=100, widget=forms.PasswordInput, help_text = _("Enter the same password as above, for verification."))
     send_email = forms.BooleanField(label=_('Notify person by email'), required=False)
@@ -653,8 +653,8 @@ def settings_description(request):
 from django.forms.fields import ChoiceField
 
 class BookCreateForm(forms.Form):
-    visible = forms.BooleanField(label=_('Visibility'), required=False, help_text=_('If it is turned on then all books will be visible to everyone.'))
-    license = forms.ModelChoiceField(queryset=models.License.objects.all().order_by("name"), required=False, help_text=_("Default license for newly created book."))
+    visible = forms.BooleanField(label=_('Default visibility'), required=False, help_text=_('If it is turned on then all books will be visible to everyone.'))
+    license = forms.ModelChoiceField(label=_('Default License'), queryset=models.License.objects.all().order_by("name"), required=False, help_text=_("Default license for newly created books."))
         
     def __unicode__(self):
         return 'Book create'
@@ -788,6 +788,7 @@ def settings_license_edit(request, licenseid):
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm,
                                "licenseid": licenseid,
+                               "license": license,
                                "books": books
                                })
 
@@ -834,11 +835,11 @@ def settings_privacy(request):
 
 
 class PublishingForm(forms.Form):
-    publish_book = forms.BooleanField(label=_('Publish as a book'), required=False)
-    publish_ebook = forms.BooleanField(label=_('Publish as ebook'), required=False)
-    publish_lulu = forms.BooleanField(label=_('Publish to lulu'), required=False)
-    publish_pdf = forms.BooleanField(label=_('Publish to PDF'), required=False)
-    publish_odt = forms.BooleanField(label=_('Publish to ODT'), required=False)
+    publish_book = forms.BooleanField(label=_('book'), required=False)
+    publish_ebook = forms.BooleanField(label=_('ebook'), required=False)
+    publish_lulu = forms.BooleanField(label=_('lulu'), required=False)
+    publish_pdf = forms.BooleanField(label=_('PDF'), required=False)
+    publish_odt = forms.BooleanField(label=_('ODT'), required=False)
 
     def __unicode__(self):
         return u'Publishing'
@@ -885,7 +886,7 @@ def settings_publishing(request):
 
 
 class AppearanceForm(forms.Form):
-    css = forms.CharField(label=_('CSS'), required=False, widget=forms.Textarea)
+    css = forms.CharField(label=_('CSS'), required=False, widget=forms.Textarea(attrs={'rows': 30}))
 
     def __unicode__(self):
         return u'Appearance'
@@ -902,6 +903,7 @@ def settings_appearance(request):
 
         if frm.is_valid(): 
             try:
+                # should really save it in a safe way
                 f = open('%s/css/_user.css' % staticRoot, 'w')
                 f.write(frm.cleaned_data['css'].encode('utf8'))
                 f.close()

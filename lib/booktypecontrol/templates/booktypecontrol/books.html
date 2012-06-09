@@ -37,14 +37,12 @@
  <tr>
    <th>short title</th>
    <th>full title</th>
-<!--   <th></th> -->
  </tr> 
 {% for book in books %}
  <tr>
-  <td><a href="{% url control_book book.url_title %}">{{ book.url_title }}</a></td>
+  <td><a href="{% url control_book book.url_title %}">{{ book.title }}</a></td>
   <td>{{ book.title }}</td>
-<!--  <td><nobr><a href="#">download</a></nobr></td> -->
- </tr>
+  </tr>
 {% endfor %}
 </table>
 

@@ -17,6 +17,14 @@
 
 <script>
   $(function() {
+    $("button[name=editbook]").click(function() {
+       window.location = '{% url edit_book book.url_title %}';
+    });
+
+    $("button[name=bookinfo]").click(function() {
+       window.location = '{% url book_info book.url_title %}';
+    });
+
     $("button[name=edit]").click(function() {
        window.location = '{% url control_book book.url_title %}_edit/';
     });
@@ -31,7 +39,11 @@
 
 <div style="float: right">
 <form method="GET" action="" onsubmit="return false;">
- <button name="edit">EDIT INFO</button>
+ <button name="editbook">EDIT BOOK</button>
+ &nbsp;&nbsp;
+ <button name="bookinfo">BOOK INFO</button>
+ &nbsp;&nbsp;
+ <button name="edit">EDIT DESCRIPTION</button>
  &nbsp;&nbsp;
  <button name="rename">RENAME</button>
 <!--
@@ -49,7 +61,9 @@
 -->
 <div class="book-cover">{% if book.cover %}<img src="{% url book_info book.url_title %}cover.jpg"/>{% endif %}</div>
 <p class="book-description">{{ book_description|safe }}</p>
+
 <p style="clear:both; margin-top:0;">&nbsp;</p>
+
 <ul id="bookdetails">
   <li><b>{% trans "Owner:" %}</b> <a href="{% url view_profile book.owner.username %}" class="user">{{ book.owner.username }}</a></li>
   <li><b>{% trans "Status:" %}</b> {{ book.status.name }}
