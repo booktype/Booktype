@@ -153,14 +153,22 @@ def profile(request, username):
 
 
 class ProfileForm(forms.Form):
-    username = forms.CharField(required=True, 
+    username = forms.CharField(label=_('Username'),
+                               required=True, 
                                max_length=100, 
+                               error_messages={'required': _('Username is required.'),
+                                               'ivalid': _("Illegal characters in username.")},
                                validators=[RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), MinLengthValidator(3)])
-    first_name = forms.CharField(required=True, 
-                                 max_length=100)
-    email = forms.EmailField(required=True,
+    first_name = forms.CharField(label=_('First name'),
+                                 required=True, 
+                                 error_messages={'required': _('First name is required.')},                                 
+                                 max_length=32)
+    email = forms.EmailField(label=_('Email'),
+                             required=True,
+                             error_messages={'required': _('Email is required.')},                                 
                              max_length=100)
-    profile = forms.ImageField(required=False)
+    profile = forms.ImageField(label=_('Profile picture'),
+                               required=False)
     description = forms.CharField(label=_("User description"), 
                                   required=False, 
                                   widget=forms.Textarea)
@@ -214,8 +222,17 @@ def edit_profile(request, username):
 
 
 class PasswordForm(forms.Form):
-    password1 = forms.CharField(label='Password', required=True, max_length=100, widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', required=True, max_length=100, widget=forms.PasswordInput, help_text = _("Enter the same password as above, for verification."))
+    password1 = forms.CharField(label=_('Password'), 
+                                required=True, 
+                                error_messages={'required': _('Password is required.')},
+                                max_length=100, 
+                                widget=forms.PasswordInput)
+    password2 = forms.CharField(label=_('Password confirmation'), 
+                                required=True, 
+                                max_length=100, 
+                                error_messages={'required': _('Password is required.')},
+                                widget=forms.PasswordInput, 
+                                help_text = _("Enter the same password as above, for verification."))
 
 
     def __unicode__(self):
@@ -253,13 +270,36 @@ def edit_password(request, username):
                                })
 
 class NewPersonForm(forms.Form):
-    username = forms.CharField(required=True, max_length=100, validators=[RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), MinLengthValidator(3)])
-    first_name = forms.CharField(required=True, max_length=100)
-    email = forms.EmailField(required=True,max_length=100)
-    description = forms.CharField(label=_("User description"), required=False, widget=forms.Textarea)
-    password1 = forms.CharField(label=_('Password'), required=True, max_length=100, widget=forms.PasswordInput)
-    password2 = forms.CharField(label=_('Password confirmation'), required=True, max_length=100, widget=forms.PasswordInput, help_text = _("Enter the same password as above, for verification."))
-    send_email = forms.BooleanField(label=_('Notify person by email'), required=False)
+    username = forms.CharField(label=_('Username'),
+                               required=True, 
+                               error_messages={'required': _('Username is required.'),
+                                               'ivalid': _("Illegal characters in username.")},
+                               max_length=100, 
+                               validators=[RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), MinLengthValidator(3)])
+    first_name = forms.CharField(label=_('First name'),
+                                 required=True, 
+                                 error_messages={'required': _('First name is required.')},                                 
+                                 max_length=32)
+    email = forms.EmailField(label=_('Email'),
+                             required=True,
+                             error_messages={'required': _('Email is required.')},                                 
+                             max_length=100)
+    description = forms.CharField(label=_("User description"), 
+                                  required=False, 
+                                  widget=forms.Textarea)
+    password1 = forms.CharField(label=_('Password'), 
+                                required=True, 
+                                error_messages={'required': _('Password is required.')},
+                                max_length=100, 
+                                widget=forms.PasswordInput)
+    password2 = forms.CharField(label=_('Password confirmation'), 
+                                required=True, 
+                                error_messages={'required': _('Password is required.')},
+                                max_length=100, 
+                                widget=forms.PasswordInput, 
+                                help_text = _("Enter the same password as above, for verification."))
+    send_email = forms.BooleanField(label=_('Notify person by email'), 
+                                    required=False)
 
     def clean_username(self):
         from django.contrib.auth.models import User
@@ -269,14 +309,13 @@ class NewPersonForm(forms.Form):
         except User.DoesNotExist:
             pass
         else:
-            raise forms.ValidationError("This Person already exists.")
+            raise forms.ValidationError(_("This Person already exists."))
 
         return self.cleaned_data['username']
 
     def clean_password2(self):
         if self.cleaned_data['password2'] != self.cleaned_data['password1']:
-            raise forms.ValidationError("Passwords do not match.")
-
+            raise forms.ValidationError(_("Passwords do not match."))
 
     def __unicode__(self):
         return self.username
@@ -391,12 +430,25 @@ def view_book(request, bookid):
 from django.contrib.auth.models import User
 
 class NewBookForm(forms.Form):
-    title = forms.CharField(label=_("Title"), required=True, max_length=100)
-    description = forms.CharField(required=False, widget=forms.Textarea)
-    owner = forms.ModelChoiceField(queryset=User.objects.all().order_by("username"), required=True)
-    license = forms.ModelChoiceField(queryset=models.License.objects.all().order_by("name"), required=True)
-    is_hidden = forms.BooleanField(label=_('Initially hide from others'), required=False)
-    cover = forms.ImageField(required=False)
+    title = forms.CharField(label=_("Title"), 
+                            error_messages={'required': _('Title is required.')},                                 
+                            required=True, 
+                            max_length=100)
+    description = forms.CharField(label=_('Description'),
+                                  required=False, 
+                                  widget=forms.Textarea)
+    owner = forms.ModelChoiceField(label=_('Owner'),
+                                   error_messages={'required': _('Book owner is required.')},                                 
+                                   queryset=User.objects.all().order_by("username"), 
+                                   required=True)
+    license = forms.ModelChoiceField(label=_('License'),
+                                     queryset=models.License.objects.all().order_by("name"), 
+                                     error_messages={'required': _('License is required.')},                                 
+                                     required=True)
+    is_hidden = forms.BooleanField(label=_('Initially hide from others'), 
+                                   required=False)
+    cover = forms.ImageField(label=_('Cover image'),
+                             required=False)
 
     def clean_title(self):
         from booki.utils.book import checkBookAvailability
@@ -456,11 +508,21 @@ def add_book(request):
 
 
 class BookForm(forms.Form):
-    description = forms.CharField(required=False, widget=forms.Textarea)
-    owner = forms.ModelChoiceField(queryset=User.objects.all().order_by("username"), required=True)
-    license = forms.ModelChoiceField(queryset=models.License.objects.all().order_by("name"), required=True)
-    is_hidden = forms.BooleanField(label=_('Initially hide from others'), required=False)
-    cover = forms.ImageField(required=False)
+    description = forms.CharField(label=_('Description'),
+                                  required=False, 
+                                  widget=forms.Textarea)
+    owner = forms.ModelChoiceField(label=_('Owner'),
+                                   error_messages={'required': _('Owner is required.')},                                 
+                                   queryset=User.objects.all().order_by("username"), 
+                                   required=True)
+    license = forms.ModelChoiceField(label=_('License'),
+                                     error_messages={'required': _('License is required.')},                                 
+                                     queryset=models.License.objects.all().order_by("name"), 
+                                     required=True)
+    is_hidden = forms.BooleanField(label=_('Initially hide from others'), 
+                                   required=False)
+    cover = forms.ImageField(label=_('Cover image'),
+                             required=False)
 
     def clean_title(self):
         from booki.utils.book import checkBookAvailability
@@ -537,7 +599,10 @@ def edit_book(request, bookid):
 
 
 class BookRenameForm(forms.Form):
-    title = forms.CharField(label=_("Title"), required=True, max_length=200)
+    title = forms.CharField(label=_("Title"), 
+                            required=True, 
+                            error_messages={'required': _('Title is required.')},                                 
+                            max_length=200)
     url_title = forms.CharField(label=_("URL title"), 
                                 required=False, 
                                 max_length=200, 
@@ -607,9 +672,16 @@ def viewsettings(request):
 
 
 class SiteDescriptionForm(forms.Form):
-    title = forms.CharField(label=_("Site title"), required=True, max_length=200)
-    tagline = forms.CharField(label=_("Tagline"), required=False, max_length=200)
-    favicon = forms.FileField(label=_("Favicon"), required=False, help_text=_("Upload .ico file"))
+    title = forms.CharField(label=_("Site title"), 
+                            required=True, 
+                            error_messages={'required': _('Site title is required.')},                                 
+                            max_length=200)
+    tagline = forms.CharField(label=_("Tagline"), 
+                              required=False, 
+                              max_length=200)
+    favicon = forms.FileField(label=_("Favicon"), 
+                              required=False, 
+                              help_text=_("Upload .ico file"))
         
     def __unicode__(self):
         return self.username
@@ -659,8 +731,13 @@ def settings_description(request):
 from django.forms.fields import ChoiceField
 
 class BookCreateForm(forms.Form):
-    visible = forms.BooleanField(label=_('Default visibility'), required=False, help_text=_('If it is turned on then all books will be visible to everyone.'))
-    license = forms.ModelChoiceField(label=_('Default License'), queryset=models.License.objects.all().order_by("name"), required=False, help_text=_("Default license for newly created books."))
+    visible = forms.BooleanField(label=_('Default visibility'), 
+                                 required=False, 
+                                 help_text=_('If it is turned on then all books will be visible to everyone.'))
+    license = forms.ModelChoiceField(label=_('Default License'), 
+                                     queryset=models.License.objects.all().order_by("name"), 
+                                     required=False, 
+                                     help_text=_("Default license for newly created books."))
         
     def __unicode__(self):
         return 'Book create'
@@ -701,7 +778,6 @@ def settings_book_create(request):
         frm = BookCreateForm(initial={'visible': config.getConfiguration('CREATE_BOOK_VISIBLE'),
                                       'license': license})
 
-
     return render_to_response('booktypecontrol/settings_book_create.html', 
                               {"request": request,
                                "admin_options": ADMIN_OPTIONS,
@@ -711,8 +787,14 @@ def settings_book_create(request):
 
 
 class LicenseForm(forms.Form):
-    abbrevation = forms.CharField(label=_("Abbrevation"), required=True, max_length=30)
-    name = forms.CharField(label=_("Name"), required=True, max_length=100)
+    abbrevation = forms.CharField(label=_("Abbrevation"), 
+                                  required=True, 
+                                  error_messages={'required': _('Abbrevation is required.')},                                 
+                                  max_length=30)
+    name = forms.CharField(label=_("Name"), 
+                           required=True, 
+                           error_messages={'required': _('License name is required.')},                                                            
+                           max_length=100)
         
     def __unicode__(self):
         return self.abbrevation
@@ -800,9 +882,13 @@ def settings_license_edit(request, licenseid):
 
 
 class PrivacyForm(forms.Form):
-    user_register = forms.BooleanField(label=_('Anyone can register'), required=False, help_text=_('Anyone can register on the site and create account'))
-    create_books = forms.BooleanField(label=_('Only admin can create books'), required=False)
-    import_books = forms.BooleanField(label=_('Only admin can import books'), required=False)
+    user_register = forms.BooleanField(label=_('Anyone can register'), 
+                                       required=False, 
+                                       help_text=_('Anyone can register on the site and create account'))
+    create_books = forms.BooleanField(label=_('Only admin can create books'), 
+                                      required=False)
+    import_books = forms.BooleanField(label=_('Only admin can import books'), 
+                                      required=False)
 
     def __unicode__(self):
         return u'Privacy'
@@ -841,11 +927,16 @@ def settings_privacy(request):
 
 
 class PublishingForm(forms.Form):
-    publish_book = forms.BooleanField(label=_('book'), required=False)
-    publish_ebook = forms.BooleanField(label=_('ebook'), required=False)
-    publish_lulu = forms.BooleanField(label=_('lulu'), required=False)
-    publish_pdf = forms.BooleanField(label=_('PDF'), required=False)
-    publish_odt = forms.BooleanField(label=_('ODT'), required=False)
+    publish_book = forms.BooleanField(label=_('book'), 
+                                      required=False)
+    publish_ebook = forms.BooleanField(label=_('ebook'), 
+                                       required=False)
+    publish_lulu = forms.BooleanField(label=_('lulu'), 
+                                      required=False)
+    publish_pdf = forms.BooleanField(label=_('PDF'), 
+                                     required=False)
+    publish_odt = forms.BooleanField(label=_('ODT'), 
+                                     required=False)
 
     def __unicode__(self):
         return u'Publishing'
@@ -892,7 +983,9 @@ def settings_publishing(request):
 
 
 class AppearanceForm(forms.Form):
-    css = forms.CharField(label=_('CSS'), required=False, widget=forms.Textarea(attrs={'rows': 30}))
+    css = forms.CharField(label=_('CSS'), 
+                          required=False, 
+                          widget=forms.Textarea(attrs={'rows': 30}))
 
     def __unicode__(self):
         return u'Appearance'
@@ -920,7 +1013,7 @@ def settings_appearance(request):
     else:
         try:
             f = open('%s/css/_user.css' % staticRoot, 'r')
-            cssContent = f.read()
+            cssContent = unicode(f.read(), 'utf8')
             f.close()
         except IOError:
             cssContent = ''
