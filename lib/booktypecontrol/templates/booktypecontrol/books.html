@@ -3,48 +3,47 @@
 
 {% block content %}
 <div id="intro">
-<h2>{% trans "Books" %}</h2>
+ <h2>{% trans "Books" %}</h2>
 
-<style>
-  #people {
-    padding: 3px;
-  }
-  #people TD {
-     padding: 5px;
-  }
+ <style>
+   #books {
+     padding: 3px;
+   }
 
-</style>
-<script>
+   #books TD {
+      padding: 5px;
+   }
+ </style>
+
+ <script>
   $(function() {
     $("button[name=add]").click(function() {
-       window.location = '_add/';
+       window.location = '{% url control_add_book %}';
     });
 
-  $("#tabs").tabs();
-
+    $("#tabs").tabs();
   })();
-</script>
+ </script>
 
-<div style="float: right">
- <form method="GET" action="" onsubmit="return false;">
-  <button name="add">ADD NEW BOOK</button>
- </form>
-</div>
+ <div style="float: right">
+  <form method="GET" action="" onsubmit="return false;">
+   <button name="add">{% trans "ADD NEW BOOK" %}</button>
+  </form>
+ </div>
 
-<div style="clear: both; height: 20px;"></div>
+ <div style="clear: both; height: 20px;"></div>
 
-<table border="0" id="people">
- <tr>
-   <th>short title</th>
-   <th>full title</th>
- </tr> 
-{% for book in books %}
- <tr>
-  <td><a href="{% url control_book book.url_title %}">{{ book.title }}</a></td>
-  <td>{{ book.title }}</td>
-  </tr>
-{% endfor %}
-</table>
-
+ <table border="0" id="books">
+  <tr>
+    <th>{% trans "short title" %}</th>
+    <th>{% trans "full title" %}</th>
+  </tr> 
+  {% for book in books %}
+   <tr>
+    <td><a href="{% url control_book book.url_title %}">{{ book.title }}</a></td>
+    <td>{{ book.title }}</td>
+   </tr>
+  {% endfor %}
+ </table>
 </div>
 {% endblock %}

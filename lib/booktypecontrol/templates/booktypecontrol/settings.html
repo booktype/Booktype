@@ -3,80 +3,46 @@
 
 {% block content %}
 <div id="intro">
-<h2>{% trans "Settings" %}</h2>
+ <h2>{% trans "Settings" %}</h2>
 
-<style>
+ <div style="clear: both; height: 20px;"></div>
 
-#limits { 
-   width: 200px;
-}
-
-#limits SPAN {
- font-size: 12px;
- font-weight: bold;
-}
-
-#limits .bar {
- margin-top: 5px;
- margin-bottom: 5px;
- height: 20px;
- background-color: white;
-}
-
-</style>
-<div style="float: right">
-</div>
-<div style="clear: both; height: 20px;"></div>
-
-<table>
- <tr>
-  <td valign="top">
-    <h3>Site</h3>
+ <table>
+  <tr>
+   <td valign="top">
+     <h3>{% trans "Site" %}</h3>
+     <ul>
+      <li><a href="{% url control_settings_description %}">{% trans "Description" %}</a></li>
+      <li><a href="{% url control_settings_appearance %}">{% trans "Appearance" %}</a></li>
+      <li><a href="">{% trans "Frontpage" %}</a></li>
+     </ul>
+   </td>
+   <td width="60"></td>
+   <td valign="top">
+    <h3>{% trans "General" %}</h3>
     <ul>
-      <li><a href="{% url control_settings_description %}">Description</a></li>
-      <li><a href="{% url control_settings_appearance %}">Appearance</a></li>
-      <li><a href="">Frontpage</a></li>
+     <li><a href="{% url control_settings_license %}">{% trans "Licenses" %}</a></li>
+     <li><a href="{% url control_settings_book_create %}">{% trans "Default Book Settings" %}</a></li>
+     <li><a href="{% url control_settings_privacy %}">{% trans "Privacy" %}</a></li>
     </ul>
-  </td>
-  <td width="60"></td>
-  <td valign="top">
-    <h3>General</h3>
-    <ul>
-     <li><a href="{% url control_settings_license %}">Licenses</a></li>
-     <li><a href="{% url control_settings_book_create %}">Default Book Settings</a></li>
-     <li><a href="{% url control_settings_privacy %}">Privacy</a></li>
-    </ul>
-<!--
-What kind of User register system do you want - public (open) or managed (through admin)
-Set site in maintenance mode
-Default language for the site
-Edit list of available Licences
-Default hidden or visible setting 
--->
-  </td>
- </tr>
- <tr>
-  <td colspan="3" height="30"></td>
- </tr>
- <tr>
-  <td valign="top">
-    <h3>Publish options</h3>
-    <ul>
-      <li><a href="{% url control_settings_publishing %}">Allowed publishing options</a></li>
-      <li><a href="">Default settings</a></li>
-    </ul>
-<!--
-Choose output format types available on the publish tab. 
-Set default CSS for each output
-Set default size format etc
--->
-  </td>
-  <td width="60"></td>
-  <td valign="top">
-  </td>
- </tr>
-</table>
+   </td>
+  </tr>
 
+  <tr>
+   <td colspan="3" height="30"></td>
+  </tr>
 
+  <tr>
+   <td valign="top">
+    <h3>{% trans "Publish options" %}</h3>
+    <ul>
+      <li><a href="{% url control_settings_publishing %}">{% trans "Allowed publishing options" %}</a></li>
+      <li><a href="">{% trans "Default settings" %}</a></li>
+    </ul>
+   </td>
+   <td width="60"></td>
+   <td valign="top"></td>
+  </tr>
+ </table>
 </div>
 {% endblock %}

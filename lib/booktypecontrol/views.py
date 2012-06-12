@@ -153,11 +153,17 @@ def profile(request, username):
 
 
 class ProfileForm(forms.Form):
-    username = forms.CharField(required=True, max_length=100, validators=[RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), MinLengthValidator(3)])
-    first_name = forms.CharField(required=True, max_length=100)
-    email = forms.EmailField(required=True,max_length=100)
+    username = forms.CharField(required=True, 
+                               max_length=100, 
+                               validators=[RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), MinLengthValidator(3)])
+    first_name = forms.CharField(required=True, 
+                                 max_length=100)
+    email = forms.EmailField(required=True,
+                             max_length=100)
     profile = forms.ImageField(required=False)
-    description = forms.CharField(label=_("User description"), required=False, widget=forms.Textarea)
+    description = forms.CharField(label=_("User description"), 
+                                  required=False, 
+                                  widget=forms.Textarea)
 
     def __unicode__(self):
         return self.first_name
@@ -174,7 +180,7 @@ def edit_profile(request, username):
     if request.method == 'POST': 
         frm = ProfileForm(request.POST, request.FILES) 
 
-        if request.POST['submit'] == u'Cancel':
+        if request.POST['submit'] == _('Cancel'):
             return HttpResponseRedirect(reverse('control_profile', args=[person.username])) 
 
         if frm.is_valid(): 
@@ -227,7 +233,7 @@ def edit_password(request, username):
     if request.method == 'POST': 
         frm = PasswordForm(request.POST) 
 
-        if request.POST['submit'] == u'Cancel':
+        if request.POST['submit'] == _('Cancel'):
             return HttpResponseRedirect('../') 
 
         if frm.is_valid(): 
@@ -282,7 +288,7 @@ def add_person(request):
     if request.method == 'POST': 
         frm = NewPersonForm(request.POST) 
 
-        if request.POST['submit'] == u'Cancel':
+        if request.POST['submit'] == _('Cancel'):
             return HttpResponseRedirect(reverse('control_people')) 
 
         if frm.is_valid(): 
@@ -411,7 +417,7 @@ def add_book(request):
     if request.method == 'POST': 
         frm = NewBookForm(request.POST, request.FILES) 
 
-        if request.POST['submit'] == u'Cancel':
+        if request.POST['submit'] == _('Cancel'):
             return HttpResponseRedirect(reverse('control_books')) 
 
         if frm.is_valid(): 
@@ -482,7 +488,7 @@ def edit_book(request, bookid):
     if request.method == 'POST': 
         frm = BookForm(request.POST, request.FILES) 
 
-        if request.POST['submit'] == u'Cancel':
+        if request.POST['submit'] == _('Cancel'):
             return HttpResponseRedirect(reverse('control_book', args=[book.url_title])) 
 
         if frm.is_valid(): 
@@ -555,7 +561,7 @@ def rename_book(request, bookid):
     if request.method == 'POST': 
         frm = BookRenameForm(request.POST, request.FILES) 
 
-        if request.POST['submit'] == u'Cancel':
+        if request.POST['submit'] == _('Cancel'):
             return HttpResponseRedirect(reverse('control_book', args=[book.url_title]))
 
         if frm.is_valid(): 
@@ -613,7 +619,7 @@ def settings_description(request):
     if request.method == 'POST': 
         frm = SiteDescriptionForm(request.POST, request.FILES) 
 
-        if request.POST['submit'] == u'Cancel':
+        if request.POST['submit'] == _('Cancel'):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
@@ -664,7 +670,7 @@ def settings_book_create(request):
     if request.method == 'POST': 
         frm = BookCreateForm(request.POST, request.FILES) 
 
-        if request.POST['submit'] == u'Cancel':
+        if request.POST['submit'] == _('Cancel'):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
@@ -716,7 +722,7 @@ def settings_license(request):
     if request.method == 'POST': 
         frm = LicenseForm(request.POST, request.FILES) 
 
-        if request.POST['submit'] == u'Cancel':
+        if request.POST['submit'] == _('Cancel'):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
@@ -808,7 +814,7 @@ def settings_privacy(request):
     if request.method == 'POST': 
         frm = PrivacyForm(request.POST, request.FILES) 
 
-        if request.POST['submit'] == u'Cancel':
+        if request.POST['submit'] == _('Cancel'):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
@@ -853,7 +859,7 @@ def settings_publishing(request):
     if request.method == 'POST': 
         frm = PublishingForm(request.POST, request.FILES) 
 
-        if request.POST['submit'] == u'Cancel':
+        if request.POST['submit'] == _('Cancel'):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
@@ -898,7 +904,7 @@ def settings_appearance(request):
     if request.method == 'POST': 
         frm = AppearanceForm(request.POST, request.FILES) 
 
-        if request.POST['submit'] == u'Cancel':
+        if request.POST['submit'] == _('Cancel'):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 

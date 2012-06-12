@@ -3,37 +3,22 @@
 
 {% block content %}
 <div id="intro">
-<h2>{% trans "New license" %}</h2>
+ <h2>{% trans "New license" %}</h2>
 
-<style>
-  #people {
-    padding: 3px;
-  }
-  #people TD {
-     padding: 5px;
-  }
+ <div style="clear: both; height: 20px;"></div>
+  <form  enctype="multipart/form-data" action="{% url control_settings_license %}" method="POST">{% csrf_token %}
+    <ul class="form-list">
+      {{ form.as_ul }}
+      <li><input type="submit" name="submit" value="{% trans "Add new license" %}"/><input type="submit" name="submit" value="{% trans "Cancel" %}"/></li>
+    </ul>
+  </form>
 
-</style>
-<div style="float: right">
-</div>
-<div style="clear: both; height: 20px;"></div>
-<form  enctype="multipart/form-data" action="{% url control_settings_license %}" method="POST">{% csrf_token %}
- <ul class="form-list">
-   {{ form.as_ul }}
-   <li><input type="submit" name="submit" value="Add new license"/><input type="submit" name="submit" value="Cancel"/></li>
- </ul>
-</form>
+ <div style="height: 30px"></div>
 
-<div style="height: 30px"></div>
+ <h2>{% trans "Licenses" %}</h2>
 
-<h2>{% trans "Licenses" %}</h2>
-
-{% for lic in licenses %}
- <h3><a href="{% url control_settings_license_edit lic.id %}">{{ lic.abbrevation }} - {{ lic.name }}</a></h3>
-
-{% endfor %}
-
-
-
+ {% for lic in licenses %}
+   <h3><a href="{% url control_settings_license_edit lic.id %}">{{ lic.abbrevation }} - {{ lic.name }}</a></h3>
+ {% endfor %}
 </div>
 {% endblock %}

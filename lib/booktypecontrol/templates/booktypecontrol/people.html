@@ -3,67 +3,48 @@
 
 {% block content %}
 <div id="intro">
-<!--
-<div style="float: right">
-<input type="text">
-</div>
--->
-<h2>{% trans "People" %}</h2>
+ <h2>{% trans "People" %}</h2>
 
-<style>
-  #people {
-    padding: 3px;
-  }
-  #people TD {
-     padding: 5px;
-  }
+ <style>
+   #people {
+      padding: 3px;
+   }
 
-</style>
-<script>
-  $(function() {
-    $("button[name=add]").click(function() {
-       window.location = '_add/';
-    });
+   #people TD {
+       padding: 5px;
+   }
+ </style>
+ <script>
+   $(function() {
+     $("button[name=add]").click(function() {
+        window.location = '{% url control_add_person %}';
+     });
 
-  $("#tabs").tabs();
-
+   $("#tabs").tabs();
   })();
-</script>
-<!--
-<div style="float: left">
- Sort by: 
- <select>
-   <option>Username</option>
-   <option>Full name</option>
-   <option>Created account</option>
-   <option>E-mail</option>
- </select>
- &nbsp;&nbsp;&nbsp;
- Filter: <a href="">ALL</a>&nbsp;&nbsp;<a href="">ACTIVE</a>&nbsp;&nbsp;<a href="">DELETED</a>
-</div>
--->
+ </script>
 
-<div style="float: right">
- <form method="GET" action="" onsubmit="return false;">
-  <button name="add">ADD NEW PERSON</button>
- </form>
-</div>
+ <div style="float: right">
+  <form method="GET" action="" onsubmit="return false;">
+    <button name="add">{% trans "ADD NEW PERSON" %}</button>
+  </form>
+ </div>
+
  <div style="clear: both; height: 20px;"></div>
 
-<table border="0" id="people">
- <tr>
-   <th>username</th>
-   <th>full name</th>
-   <th>email</th>
- </tr> 
-{% for user in people %}
- <tr>
-  <td><a href="{% url control_profile user.username %}">{{ user.username }}</a></td>
-  <td>{{ user.first_name }}</td>
-  <td>{{ user.email }}</td>
- </tr>
-{% endfor %}
-</table>
-
+ <table border="0" id="people">
+  <tr>
+    <th>{% trans "username" %}</th>
+    <th>{% trans "full name" %}</th>
+    <th>{% trans "email" %}</th>
+  </tr> 
+  {% for user in people %}
+    <tr>
+      <td><a href="{% url control_profile user.username %}">{{ user.username }}</a></td>
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.email }}</td>
+    </tr>
+  {% endfor %}
+ </table>
 </div>
 {% endblock %}

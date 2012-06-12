@@ -3,42 +3,31 @@
 
 {% block content %}
 <div id="intro">
-<h2>{% trans "License" %}</h2>
+ <h2>{% trans "License" %}</h2>
 
-<style>
-  #people {
-    padding: 3px;
-  }
-  #people TD {
-     padding: 5px;
-  }
+ <div style="clear: both; height: 20px;"></div>
 
-</style>
-<div style="float: right">
-</div>
-<div style="clear: both; height: 20px;"></div>
+ <form  enctype="multipart/form-data" action="{% url control_settings_license_edit licenseid %}" method="POST">{% csrf_token %}
+   <ul class="form-list">
+     {{ form.as_ul }}
+     <li><input type="submit" name="submit" value="{% trans "Save changes" %}"/>
+     {% if books|length == 0 %}
+       <input type="submit" name="submit" value="{% trans "Remove it" %}"/>
+     {% endif %}
+       <input type="submit" name="submit" value="{% trans "Cancel" %}"/>
+     </li>
+   </ul>
+ </form>
 
-<form  enctype="multipart/form-data" action="{% url control_settings_license_edit licenseid %}" method="POST">{% csrf_token %}
- <ul class="form-list">
-   {{ form.as_ul }}
-   <li><input type="submit" name="submit" value="Save changes"/>
-{% if books|length == 0 %}
-<input type="submit" name="submit" value="Remove it"/>
-{% endif %}
-<input type="submit" name="submit" value="Cancel"/>
-   </li>
-  </ul>
-</form>
+ <div style="padding: 15px"></div>
 
-<div style="padding: 15px"></div>
-
-<h2>{% trans "Books licensed with" %} "{{ license.name }}"</h2>
-<ol>
-{% for book in books %}
- <li><a href="{% url control_edit_book book.url_title %}">{{ book.title }}</a></li>
-{% empty %}
- <li>{% trans "No such books." %}</li>
-{% endfor %}
-</ol>
+ <h2>{% trans "Books licensed with" %} "{{ license.name }}"</h2>
+  <ol>
+   {% for book in books %}
+     <li><a href="{% url control_edit_book book.url_title %}">{{ book.title }}</a></li>
+   {% empty %}
+     <li>{% trans "No such books." %}</li>
+   {% endfor %}
+  </ol>
 </div>
 {% endblock %}

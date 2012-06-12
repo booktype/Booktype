@@ -3,31 +3,29 @@
 
 {% block content %}
 <div id="intro">
-<h2>{% trans "Admin Control Center" %}</h2>
+ <h2>{% trans "Admin Control Center" %}</h2>
 
-<style>
+ <style>
+   #limits { 
+      width: 200px;
+   }
 
-#limits { 
-   width: 200px;
-}
+   #limits SPAN {
+      font-size: 12px;
+      font-weight: bold;
+   }
 
-#limits SPAN {
- font-size: 12px;
- font-weight: bold;
-}
-
-#limits .bar {
- margin-top: 5px;
- margin-bottom: 5px;
- height: 20px;
- background-color: white;
-}
-
+   #limits .bar {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      height: 20px;
+      background-color: white;
+   }
 </style>
 
 
  <div style="float: left; width: 200px;">
-  <div style="font-size: 16px; font-weight: bold">Info</div>
+  <div style="font-size: 16px; font-weight: bold">{% trans "Info" %}</div>
   <div id="limits" class="recent-activity">
     <b>{% trans "Books:" %}</b> {{ number_of_books }}<br/>
     <b>{% trans "Groups:" %}</b> {{ number_of_groups }}<br/>
@@ -38,7 +36,7 @@
  </div>
 
  <div style="float: left; margin-left: 40px; width: 60%;">
-  <div style="font-size: 16px; font-weight: bold">Online users</div>
+  <div style="font-size: 16px; font-weight: bold">{% trans "Online users" %}</div>
    <div>
      {% for us in online_users %}
        <div class="recent-activity">
@@ -57,11 +55,11 @@
         <div style="clear: both"></div>
        </div>
      {% empty %}
-      <p>No online users</p>
+      <p>{% trans "No online users" %}</p>
      {% endfor %}
   </div>
 
-  <div style="font-size: 16px; font-weight: bold; margin-top: 30px;">Recent activity</div>
+  <div style="font-size: 16px; font-weight: bold; margin-top: 30px;">{% trans "Recent activity" %}</div>
   <div style="width: 100%">
      {% for activity in activity_history %}
        <div class="recent-activity">

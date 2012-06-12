@@ -3,27 +3,15 @@
 
 {% block content %}
 <div id="intro">
-<h2>Add Person</h2>
+ <h2>{% trans "Add Person" %}</h2>
+ <!-- <div style="float: right"> </div> -->
+ <div style="clear: both; height: 20px;"></div>
 
-<style>
-  #people {
-    padding: 3px;
-  }
-  #people TD {
-     padding: 5px;
-  }
-
-</style>
-<div style="float: right">
-</div>
-<div style="clear: both; height: 20px;"></div>
-
-<form action="{% url control_add_person %}" method="POST">{% csrf_token %}
- <ul class="form-list">
-  {{ form.as_ul }}
-  <li><input type="submit" name="submit" value="Add Person"/> <input type="submit" name="submit" value="Cancel"/></li>
- </ul>
-</form>
-
+ <form action="{% url control_add_person %}" method="POST">{% csrf_token %}
+  <ul class="form-list">
+   {{ form.as_ul }}
+   <li><input type="submit" name="submit" value="{% trans "Add Person" %}"/> <input type="submit" name="submit" value="{% trans "Cancel" %}"/></li>
+  </ul>
+ </form>
 </div>
 {% endblock %}

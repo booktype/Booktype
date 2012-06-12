@@ -3,73 +3,61 @@
 
 {% block content %}
 <div id="intro">
-<h2>{% trans "Profile" %}</h2>
+ <h2>{{ person.username }}</h2>
 
-<style>
-  #people {
-    padding: 3px;
-  }
-  #people TD {
-     padding: 5px;
-  }
+ <script>
+   $(function() {
+      $("button[name=edit]").click(function() {
+         window.location = '{% url control_edit_profile person.username %}';
+      });
 
-</style>
+      $("button[name=change]").click(function() {
+         window.location = '{% url control_password person.username %}';
+      });
 
-<script>
-  $(function() {
-    $("button[name=edit]").click(function() {
-       window.location = '{% url control_profile person.username %}_edit/';
-    });
+      $("button[name=lock]").click(function() {
+         window.location = '{% url control_profile person.username %}lock/';
+      });
 
-    $("button[name=change]").click(function() {
-       window.location = '{% url control_profile person.username %}_password/';
-    });
+       $("#tabs").tabs();
+    })();
+ </script>
 
-    $("button[name=lock]").click(function() {
-       window.location = '{% url control_profile person.username %}lock/';
-    });
+ <div style="float: right">
+  <form method="GET" action="" onsubmit="return false;">
+    <button name="edit">{% trans "EDIT INFO" %}</button>&nbsp;&nbsp;
+    <button name="change">{% trans "CHANGE PASSWORD" %}</button>
+  </form>
+ </div>
 
-  $("#tabs").tabs();
+ <div style="clear: both; height: 20px;"></div>
 
-  })();
-</script>
+ {% profile_image  person %}
 
-<div style="float: right">
-<form method="GET" action="" onsubmit="return false;">
- <button name="edit">EDIT INFO</button>
- &nbsp;&nbsp;
- <button name="change">CHANGE PASSWORD</button>
-<!-- &nbsp;&nbsp;
- <button name="lock">LOCK PERSON</button> -->
-</form>
-</div>
-<div style="clear: both; height: 20px;"></div>
+ <div style="line-height: 1.6em; padding-top: 10px;">
+   <b>{% trans "Username:" %}</b> {{ person.username }}<br/>
+   <b>{% trans "Full name:" %}</b> {{ person.first_name }}<br/>
+   <b>{% trans "Email:" %}</b> {{ person.email }}<br/>
+   <b>{% trans "Joined:" %}</b> {{ person.date_joined }} <br/>
+   <b>{% trans "Last login:" %}</b> {{ person.last_login }} <br/>
+   <b>{% trans "About yourself:" %}</b><br/>
+   <p>{{ description }}</p>
+ </div>
 
-{% profile_image  person %}
+ <div style="padding-top: 20px"></div>
 
-<div style="line-height: 1.6em; padding-top: 10px;">
-<b>{% trans "Username:" %}</b> {{ person.username }}<br/>
-<b>{% trans "Full name:" %}</b> {{ person.first_name }}<br/>
-<b>{% trans "Email:" %}</b> {{ person.email }}<br/>
-<b>{% trans "Joined:" %}</b> {{ person.date_joined }} <br/>
-<b>{% trans "Last login:" %}</b> {{ person.last_login }} <br/>
-<b>{% trans "About yourself:" %}</b><br/>
-<p>{{ description }}</p>
-</div>
-<div style="padding-top: 20px"></div>
-
-<div id="tabs">
+ <div id="tabs">
   <ul>
-    <li><a href="#tabs-books">Books</a></li>
-    <li><a href="#tabs-groups">Groups</a></li>
-    <li><a href="#tabs-activity">Activity</a></li>
+    <li><a href="#tabs-books">{% trans "Books" %}</a></li>
+    <li><a href="#tabs-groups">{% trans "Groups" %}</a></li>
+    <li><a href="#tabs-activity">{% trans "Activity" %}</a></li>
   </ul>
   <div id="tabs-books"> 
    <ul>
     {% for book in books %}
      <li><a href="{% url control_edit_book book.url_title %}">{{ book.title }}</a>
     {% empty %}
-     <p>This person has no Books.</p>
+     <p>{% trans "This person has no Books." %}</p>
     {% endfor %}
    </ul>
   </div>
@@ -79,7 +67,7 @@
     {% for group in groups %}
      <li><a href="{% url view_group group.url_name %}">{{ group.name }}</a>
     {% empty %}
-     <p>This person has no Groups.</p>
+     <p>{% trans "This person has no Groups." %}</p>
     {% endfor %}
    </ul>
   </div>
@@ -108,10 +96,8 @@
 		</div><!-- end .user-->
 	</div><!-- end .recent-activity-->
      {% endfor %}
-
   </div>
-
-</div>
+ </div>
 
 </div>
 {% endblock %}
