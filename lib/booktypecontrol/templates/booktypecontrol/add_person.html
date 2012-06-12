@@ -19,12 +19,10 @@
 <div style="clear: both; height: 20px;"></div>
 
 <form action="{% url control_add_person %}" method="POST">{% csrf_token %}
-<table>
-{{ form.as_table }}
-</table>
-<br/>
-<input type="submit" name="submit" value="Add Person"/>
-<input type="submit" name="submit" value="Cancel"/>
+ <ul class="form-list">
+  {{ form.as_ul }}
+  <li><input type="submit" name="submit" value="Add Person"/> <input type="submit" name="submit" value="Cancel"/></li>
+ </ul>
 </form>
 
 </div>

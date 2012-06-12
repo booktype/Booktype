@@ -19,15 +19,15 @@
 <div style="clear: both; height: 20px;"></div>
 
 <form  enctype="multipart/form-data" action="{% url control_settings_license_edit licenseid %}" method="POST">{% csrf_token %}
-<table>
-{{ form.as_table }}
-</table>
-<br/>
-<input type="submit" name="submit" value="Save changes"/>
+ <ul class="form-list">
+   {{ form.as_ul }}
+   <li><input type="submit" name="submit" value="Save changes"/>
 {% if books|length == 0 %}
 <input type="submit" name="submit" value="Remove it"/>
 {% endif %}
 <input type="submit" name="submit" value="Cancel"/>
+   </li>
+  </ul>
 </form>
 
 <div style="padding: 15px"></div>

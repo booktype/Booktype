@@ -9,12 +9,10 @@
 </div>
 <div style="clear: both; height: 20px;"></div>
 <form  enctype="multipart/form-data" action="{% url control_settings_appearance %}" method="POST">{% csrf_token %}
-<table>
-{{ form.as_table }}
-</table>
-<br/>
-<input type="submit" name="submit" value="Save changes"/>
-<input type="submit" name="submit" value="Cancel"/>
+ <ul class="form-list">
+  {{ form.as_ul }}
+  <li><input type="submit" name="submit" value="Save changes"/><input type="submit" name="submit" value="Cancel"/></li>
+ </ul>
 </form>
 
 

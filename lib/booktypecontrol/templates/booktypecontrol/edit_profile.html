@@ -19,11 +19,10 @@
 <div style="clear: both; height: 20px;"></div>
 
 <form enctype="multipart/form-data" action="{% url control_edit_profile person.username %}" method="POST">{% csrf_token %}
-<table>
-{{ form.as_table }}
-</table>
-<input type="submit" name="submit" value="Save Changes"/>
-<input type="submit" name="submit" value="Cancel"/>
+ <ul class="form-list">
+  {{ form.as_ul }}
+  <li><input type="submit" name="submit" value="Save Changes"/><input type="submit" name="submit" value="Cancel"/></li>
+ </ul>
 </form>
 
 </div>
