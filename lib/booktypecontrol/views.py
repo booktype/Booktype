@@ -34,6 +34,7 @@ from django import forms
 from django.template import RequestContext
 
 from django.utils.translation import ugettext as _
+from django.contrib import messages
 
 from booki.editor import models
 from booki.utils import pages
@@ -118,7 +119,8 @@ def people(request):
                               {"request": request,
                                "people": people,
                                "admin_options": ADMIN_OPTIONS                               
-                               })
+                               },
+                              context_instance=RequestContext(request))
 
 
 def profile(request, username):
@@ -149,7 +151,8 @@ def profile(request, username):
                                "books": books,
                                "groups": groups,
                                "activity_history": activityHistory
-                               })
+                               },
+                              context_instance=RequestContext(request))
 
 
 class ProfileForm(forms.Form):
@@ -205,6 +208,7 @@ def edit_profile(request, username):
 
                 misc.setProfileImage(person, request.FILES['profile'])
 
+            messages.success(request, _('Successfuly saved changes.'))
             return HttpResponseRedirect(reverse('control_profile', args=[person.username])) 
     else:
         frm = ProfileForm({'username': person.username,
@@ -218,7 +222,8 @@ def edit_profile(request, username):
                                "admin_options": ADMIN_OPTIONS,
                                "person": person,
                                "form": frm
-                               })
+                               },
+                              context_instance=RequestContext(request))
 
 
 class PasswordForm(forms.Form):
@@ -258,7 +263,10 @@ def edit_password(request, username):
                 person.set_password(frm.cleaned_data['password1']) 
                 person.save() 
 
+                messages.success(request, _('Successfuly saved changes.'))
                 return HttpResponseRedirect(reverse('control_profile', args=[person.username])) 
+
+            messages.warning(request, _('Passwords do not match'))
     else:
         frm = PasswordForm()
 
@@ -267,7 +275,9 @@ def edit_password(request, username):
                                "admin_options": ADMIN_OPTIONS,
                                "person": person,
                                "form": frm
-                               })
+                               },
+                              context_instance=RequestContext(request))
+
 
 class NewPersonForm(forms.Form):
     username = forms.CharField(label=_('Username'),
@@ -356,9 +366,11 @@ def add_person(request):
                     msg.attach_alternative(content, "text/html")
                     msg.send(fail_silently=True)
 
+                messages.success(request, 'Successfuly created new account.')
+
                 return HttpResponseRedirect(reverse('control_people')) 
             except IntegrityError:
-                pass
+                messages.warning(request, _('Unknown error while creating new account.'))
                 
     else:
         frm = NewPersonForm()
@@ -367,7 +379,9 @@ def add_person(request):
                               {"request": request,
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm
-                               })
+                               },
+                              context_instance=RequestContext(request))
+
 
 def books(request):
     books = models.Book.objects.all().order_by("title")
@@ -376,7 +390,8 @@ def books(request):
                               {"request": request,
                                "books": books,
                                "admin_options": ADMIN_OPTIONS
-                               })
+                               },
+                              context_instance=RequestContext(request))
 
 
 def view_book(request, bookid):
@@ -494,9 +509,12 @@ def add_book(request):
                     
                 book.save()
 
+                messages.success(request, _('Successfuly created new book.'))
+
                 return HttpResponseRedirect(reverse('control_books')) 
             except:
-                pass
+                messages.warning(request, _('Unknown error while creating new book.'))
+
     else:
         frm = NewBookForm()
 
@@ -504,7 +522,8 @@ def add_book(request):
                               {"request": request,
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm
-                               })
+                               },
+                              context_instance=RequestContext(request))
 
 
 class BookForm(forms.Form):
@@ -573,11 +592,12 @@ def edit_book(request, bookid):
                     
                 book.save()
 
-#                messages.success(request, 'Successfuly saved changes.')
+                messages.success(request, _('Successfuly saved changes.'))
 
                 return HttpResponseRedirect(reverse('control_book', args=[book.url_title])) 
             except:
-                pass
+                messages.warning(request, _('Unknown error while saving changes.'))
+
     else:
         data = {'description': book.description,
                 'cover': book.cover}
@@ -594,8 +614,8 @@ def edit_book(request, bookid):
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm,
                                "book": book
-                               })
-
+                               },
+                              context_instance=RequestContext(request))
 
 
 class BookRenameForm(forms.Form):
@@ -646,10 +666,16 @@ def rename_book(request, bookid):
                 except models.Book.DoesNotExist:
                     renameBook(book, title, URLTitle)
                     book.save()
+
+                    messages.success(request, _('Successfuly renamed book.'))
+
                     return HttpResponseRedirect(reverse('control_book', args=[book.url_title]))
             else:
                     renameBook(book, title, URLTitle)
                     book.save()
+
+                    messages.success(request, _('Successfuly renamed book.'))
+
                     return HttpResponseRedirect(reverse('control_book', args=[book.url_title]))
 
 
@@ -661,14 +687,16 @@ def rename_book(request, bookid):
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm,
                                "book": book
-                               })
+                               },
+                              context_instance=RequestContext(request))
+
 
 def viewsettings(request):
     return render_to_response('booktypecontrol/settings.html', 
                               {"request": request,
                                "admin_options": ADMIN_OPTIONS                               
-                               })
-
+                               },
+                              context_instance=RequestContext(request))
 
 
 class SiteDescriptionForm(forms.Form):
@@ -715,6 +743,8 @@ def settings_description(request):
 
             config.saveConfiguration()
 
+            messages.success(request, _('Successfuly saved settings.'))
+
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
         from booki.utils import config
@@ -726,7 +756,8 @@ def settings_description(request):
                               {"request": request,
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm                               
-                               })
+                               },
+                              context_instance=RequestContext(request))
 
 from django.forms.fields import ChoiceField
 
@@ -762,6 +793,8 @@ def settings_book_create(request):
 
             config.saveConfiguration()
 
+            messages.success(request, _('Successfuly saved settings.'))
+
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
         from booki.utils import config
@@ -782,7 +815,8 @@ def settings_book_create(request):
                               {"request": request,
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm                               
-                               })
+                               },
+                              context_instance=RequestContext(request))
 
 
 
@@ -814,6 +848,8 @@ def settings_license(request):
                                      name = frm.cleaned_data['name'])
             license.save()
 
+            messages.success(request, _('Successfuly created new license.'))
+
             return HttpResponseRedirect(reverse('control_settings_license'))             
     else:
         frm = LicenseForm()
@@ -825,7 +861,9 @@ def settings_license(request):
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm,
                                "licenses": licenses
-                               })
+                               },
+                              context_instance=RequestContext(request))
+
 
 def settings_license_edit(request, licenseid):
 
@@ -846,6 +884,8 @@ def settings_license_edit(request, licenseid):
 
             license.delete()
 
+            messages.success(request, _('Successfuly removed license.'))
+
             return HttpResponseRedirect(reverse('control_settings_license')) 
 
         if frm.is_valid(): 
@@ -857,6 +897,8 @@ def settings_license_edit(request, licenseid):
             license.abbrevation = frm.cleaned_data['abbrevation']
             license.name = frm.cleaned_data['name']
             license.save()
+
+            messages.success(request, _('Successfuly saved changes.'))
 
             return HttpResponseRedirect(reverse('control_settings_license'))             
     else:
@@ -878,7 +920,9 @@ def settings_license_edit(request, licenseid):
                                "licenseid": licenseid,
                                "license": license,
                                "books": books
-                               })
+                               },
+                              context_instance=RequestContext(request))
+
 
 
 class PrivacyForm(forms.Form):
@@ -910,6 +954,8 @@ def settings_privacy(request):
             config.setConfiguration('ADMIN_IMPORT_BOOKS', frm.cleaned_data['import_books'])
 
             config.saveConfiguration()
+
+            messages.success(request, _('Successfuly saved changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
@@ -966,6 +1012,8 @@ def settings_publishing(request):
             config.setConfiguration('PUBLISH_OPTIONS', opts)
             config.saveConfiguration()
 
+            messages.success(request, _('Successfuly saved changes.'))
+
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
         frm = PublishingForm(initial = {'publish_book': 'book' in publishOptions,
@@ -1006,8 +1054,10 @@ def settings_appearance(request):
                 f = open('%s/css/_user.css' % staticRoot, 'w')
                 f.write(frm.cleaned_data['css'].encode('utf8'))
                 f.close()
+
+                messages.success(request, _('Successfuly saved changes.'))
             except IOError:
-                pass
+                messages.warning(request, _('Unknown error while saving changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
