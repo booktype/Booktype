@@ -37,13 +37,19 @@
  </div>
 
  <div style="clear: both; height: 20px;"></div>
-<!--
-{% if messages %}
+
+ {% if messages %}
+  <div id="resultmessages">
     {% for message in messages %}
-    <div class="ui-state-highlight ui-corner-all">{{ message }}</div>
+      {% if "warning" in message.tags %}
+        <div class="ui-state-error ui-corner-all">{{ message }}</div>
+      {% else %}
+        <div class="ui-state-highlight ui-corner-all">{{ message }}</div>
+      {% endif %}
     {% endfor %}
-{% endif %}
--->
+  </div>
+ {% endif %}
+
  <div class="book-cover">{% if book.cover %}<img src="{% url book_info book.url_title %}cover.jpg"/>{% endif %}</div>
  <p class="book-description">{{ book_description|safe }}</p>
  <p style="clear:both; margin-top:0;">&nbsp;</p>

@@ -15,6 +15,18 @@
 
  <div style="height: 30px"></div>
 
+ {% if messages %}
+  <div id="resultmessages">
+    {% for message in messages %}
+      {% if "warning" in message.tags %}
+        <div class="ui-state-error ui-corner-all">{{ message }}</div>
+      {% else %}
+        <div class="ui-state-highlight ui-corner-all">{{ message }}</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+ {% endif %}
+
  <h2>{% trans "Licenses" %}</h2>
 
  {% for lic in licenses %}
