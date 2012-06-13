@@ -154,6 +154,30 @@ Createbooki script has created booki.wsgi script for the Apache. Use that
 file as part of your Apache config.
 
 
+How to migrate to Booktype 1.5.3
+--------------------------------
+
+1. Update your project settings.py file to use messaging framework. You have to:
+    - Add new options
+
+       MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage' 
+       TEMPLATE_CONTEXT_PROCESSORS = ('django.contrib.auth.context_processors.auth', 
+                                      'django.contrib.messages.context_processors.messages') 
+
+    - Add new messaging middleware to the list:
+       MIDDLEWARE_CLASSES = (...,
+                             'django.contrib.messages.middleware.MessageMiddleware',
+                             ...)
+
+    - Add new Django app to the list:
+       INSTALLED_APPS = (...,
+                         'django.contrib.messages', 
+                         ...)
+
+    Notice: All of these changes will require "django-admin migrate" at the end.
+      
+
+
 How to migrate to Booktype 1.5.2
 --------------------------------
 
