@@ -2882,10 +2882,6 @@ def remote_set_wizzard(request, message, bookid, version):
     pw.wizz_options=simplejson.dumps(options)
     pw.save()
 
-#    f = open('/tmp/opcije_%s.json' % message['wizzard_type'], 'wt')
-#    f.write(simplejson.dumps(options))
-#    f.close()
-
     transaction.commit()
 
     return {"status": True, "options": {}}
