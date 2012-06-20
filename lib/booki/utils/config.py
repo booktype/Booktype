@@ -17,6 +17,9 @@
 
 from booki.utils.json_wrapper import simplejson
 from django.conf import settings
+import threading
+
+writeLock = threading.RLock()
 
 class ConfigurationError(Exception):
     def __init__(self, description = ''):
@@ -82,6 +85,8 @@ def saveConfiguration():
     if not hasattr(settings, 'BOOKTYPE_CONFIG'):
         return False
 
+    writeLock.acquire()
+
     data = settings.BOOKTYPE_CONFIG
 
     configPath = '%s/configuration.json' % settings.BOOKI_ROOT
@@ -102,6 +107,8 @@ def saveConfiguration():
         raise ConfigurationError("Can't write to file %s." % configPath)
     except:
         raise ConfigurationError("Unknown error.")
+    finally:
+        writeLock.release()
 
 
 def getConfiguration(name, value = None):
@@ -148,10 +155,16 @@ def setConfiguration(name, value):
     @param: Value for the variable
     """
 
-    if hasattr(settings, 'BOOKTYPE_CONFIG'):
-        settings.BOOKTYPE_CONFIG[name] = value
+    writeLock.acquire()
 
-    setattr(settings, name, value)
+    try:
+        if hasattr(settings, 'BOOKTYPE_CONFIG'):
+            settings.BOOKTYPE_CONFIG[name] = value
+
+        setattr(settings, name, value)
+    finally:
+        writeLock.release()
+
 
 def delConfiguration(name):
     """
@@ -162,4 +175,9 @@ def delConfiguration(name):
     """
 
     if hasattr(settings, 'BOOKTYPE_CONFIG'):
-        del settings.BOOKTYPE_CONFIG[name]
+        writeLock.acquire()
+
+        try:
+            del settings.BOOKTYPE_CONFIG[name]
+        finally:
+            writeLock.release()
