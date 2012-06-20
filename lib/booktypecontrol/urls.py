@@ -43,6 +43,7 @@ urlpatterns = patterns('',
     url(r'^settings/privacy/$', 'booktypecontrol.views.settings_privacy', name='control_settings_privacy'),
 
     url(r'^settings/publishing/$', 'booktypecontrol.views.settings_publishing', name='control_settings_publishing'),
+    url(r'^settings/publishing_defaults/$', 'booktypecontrol.views.settings_publishing_defaults', name='control_settings_publishing_defaults'),
 
     url(r'^settings/appearance/$', 'booktypecontrol.views.settings_appearance', name='control_settings_appearance'),
 

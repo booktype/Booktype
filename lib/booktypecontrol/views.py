@@ -1076,3 +1076,69 @@ def settings_appearance(request):
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm
                                })
+
+
+class PublishingDefaultsForm(forms.Form):
+    book_css = forms.CharField(label=_('Book CSS'), 
+                          required=False, 
+                          widget=forms.Textarea(attrs={'rows': 30}))
+    ebook_css = forms.CharField(label=_('E-Book CSS'), 
+                          required=False, 
+                          widget=forms.Textarea(attrs={'rows': 30}))
+    lulu_css = forms.CharField(label=_('Lulu CSS'), 
+                          required=False, 
+                          widget=forms.Textarea(attrs={'rows': 30}))
+    pdf_css = forms.CharField(label=_('PDF CSS'), 
+                          required=False, 
+                          widget=forms.Textarea(attrs={'rows': 30}))
+    odt_css = forms.CharField(label=_('ODT CSS'), 
+                          required=False, 
+                          widget=forms.Textarea(attrs={'rows': 30}))
+
+    def __unicode__(self):
+        return u'Default settings'
+
+
+def settings_publishing_defaults(request):
+    from booki.utils import config
+
+    data = {'book_css':  config.getConfiguration('BOOKTYPE_CSS_BOOK', ''),
+            'ebook_css': config.getConfiguration('BOOKTYPE_CSS_EBOOK', ''),
+            'lulu_css':  config.getConfiguration('BOOKTYPE_CSS_LULU', ''),
+            'pdf_css':   config.getConfiguration('BOOKTYPE_CSS_PDF', '')}
+            #'odt_css':   config.getConfiguration('BOOKTYPE_CSS_ODT', '')}
+
+    if request.method == 'POST': 
+        frm = PublishingDefaultsForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == _('Cancel'):
+            return HttpResponseRedirect(reverse('control_settings')) 
+
+        if frm.is_valid(): 
+            if frm.cleaned_data['book_css'] != data['book_css']:
+                config.setConfiguration('BOOKTYPE_CSS_BOOK', frm.cleaned_data['book_css'])
+
+            if frm.cleaned_data['ebook_css'] != data['ebook_css']:
+                config.setConfiguration('BOOKTYPE_CSS_EBOOK', frm.cleaned_data['ebook_css'])
+
+            if frm.cleaned_data['lulu_css'] != data['lulu_css']:
+                config.setConfiguration('BOOKTYPE_CSS_LULU', frm.cleaned_data['lulu_css'])
+
+            if frm.cleaned_data['pdf_css'] != data['pdf_css']:
+                config.setConfiguration('BOOKTYPE_CSS_PDF', frm.cleaned_data['pdf_css'])
+
+            if frm.cleaned_data['odt_css'] != data['odt_css']:
+                config.setConfiguration('BOOKTYPE_CSS_ODT', frm.cleaned_data['odt_css'])
+
+            messages.success(request, _('Successfuly saved changes.'))
+
+            return HttpResponseRedirect(reverse('control_settings'))             
+    else:
+        frm = PublishingDefaultsForm(initial = data)
+
+
+    return render_to_response('booktypecontrol/settings_publishing_defaults.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm
+                               })
