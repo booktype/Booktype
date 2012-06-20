@@ -1105,8 +1105,8 @@ def settings_publishing_defaults(request):
     data = {'book_css':  config.getConfiguration('BOOKTYPE_CSS_BOOK', ''),
             'ebook_css': config.getConfiguration('BOOKTYPE_CSS_EBOOK', ''),
             'lulu_css':  config.getConfiguration('BOOKTYPE_CSS_LULU', ''),
-            'pdf_css':   config.getConfiguration('BOOKTYPE_CSS_PDF', '')}
-            #'odt_css':   config.getConfiguration('BOOKTYPE_CSS_ODT', '')}
+            'pdf_css':   config.getConfiguration('BOOKTYPE_CSS_PDF', ''),
+            'odt_css':   config.getConfiguration('BOOKTYPE_CSS_ODT', '')}
 
     if request.method == 'POST': 
         frm = PublishingDefaultsForm(request.POST, request.FILES) 
