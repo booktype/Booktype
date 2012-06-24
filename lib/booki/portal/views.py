@@ -117,10 +117,18 @@ def view_frontpage(request):
     @param request: Client Request object
     """
 
-    activity_history = models.BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:20]
+    from booki.utils import config
+
+    showHistory = config.getConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', True)
+
+    if showHistory:
+        activityHistory = models.BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:20]
+    else:
+        activityHistory = []
 
     return render_to_response('portal/frontpage.html', {"request": request, 
-                                                        "activity_history": activity_history,
+                                                        "activity_history": activityHistory,
+                                                        "show_history": showHistory,
                                                         "title": "Booktype"})
 
 # GROUPS
