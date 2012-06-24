@@ -24,6 +24,8 @@ from django.conf import settings
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError, transaction
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+
 try:
     from django.core.validators import email_re, RegexValidator, MinLengthValidator
 except:
@@ -44,6 +46,7 @@ from booki.utils import pages
 #ADMIN_OPTIONS = ["dashboard", "people", "books", "filebrowse", "templates", "activity", "messages", "settings"]
 ADMIN_OPTIONS = ["dashboard", "people", "books", "settings"]
 
+@user_passes_test(lambda u: u.is_superuser)
 def frontpage(request):
 
     # check all active online users and what are they doing
@@ -106,6 +109,7 @@ def frontpage(request):
                                })
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def people(request):
     """
     Front page for the people tab. Shows list of all the users.
@@ -123,6 +127,7 @@ def people(request):
                               context_instance=RequestContext(request))
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def profile(request, username):
     """
     Shows info about one person.
@@ -180,6 +185,7 @@ class ProfileForm(forms.Form):
         return self.first_name
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def edit_profile(request, username):
     from django.contrib.auth.models import User
 
@@ -244,6 +250,7 @@ class PasswordForm(forms.Form):
         return self.first_name
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def edit_password(request, username):
     from django.contrib.auth.models import User
 
@@ -331,6 +338,7 @@ class NewPersonForm(forms.Form):
         return self.username
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def add_person(request):
     from django.contrib.auth.models import User
 
@@ -383,6 +391,7 @@ def add_person(request):
                               context_instance=RequestContext(request))
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def books(request):
     books = models.Book.objects.all().order_by("title")
 
@@ -394,6 +403,7 @@ def books(request):
                               context_instance=RequestContext(request))
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def view_book(request, bookid):
     from booki.editor.views import getVersion
     from booki.utils import misc
@@ -478,6 +488,7 @@ class NewBookForm(forms.Form):
         return self.username
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def add_book(request):
     from booki.utils.book import createBook
 
@@ -556,6 +567,7 @@ class BookForm(forms.Form):
         return self.username
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def edit_book(request, bookid):
     from booki.editor.views import getVersion
 
@@ -633,6 +645,7 @@ class BookRenameForm(forms.Form):
         return self.username
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def rename_book(request, bookid):
     from booki.editor.views import getVersion
 
@@ -691,6 +704,7 @@ def rename_book(request, bookid):
                               context_instance=RequestContext(request))
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def viewsettings(request):
     return render_to_response('booktypecontrol/settings.html', 
                               {"request": request,
@@ -715,6 +729,7 @@ class SiteDescriptionForm(forms.Form):
         return self.username
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def settings_description(request):
     if request.method == 'POST': 
         frm = SiteDescriptionForm(request.POST, request.FILES) 
@@ -774,6 +789,7 @@ class BookCreateForm(forms.Form):
         return 'Book create'
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def settings_book_create(request):
     if request.method == 'POST': 
         frm = BookCreateForm(request.POST, request.FILES) 
@@ -834,6 +850,7 @@ class LicenseForm(forms.Form):
         return self.abbrevation
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def settings_license(request):
     if request.method == 'POST': 
         frm = LicenseForm(request.POST, request.FILES) 
@@ -865,6 +882,7 @@ def settings_license(request):
                               context_instance=RequestContext(request))
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def settings_license_edit(request, licenseid):
 
     books = []
@@ -938,6 +956,7 @@ class PrivacyForm(forms.Form):
         return u'Privacy'
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def settings_privacy(request):
     from booki.utils import config
 
@@ -988,6 +1007,7 @@ class PublishingForm(forms.Form):
         return u'Publishing'
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def settings_publishing(request):
     from booki.utils import config
     
@@ -1039,6 +1059,7 @@ class AppearanceForm(forms.Form):
         return u'Appearance'
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def settings_appearance(request):
     staticRoot = settings.STATIC_ROOT
 
@@ -1099,6 +1120,7 @@ class PublishingDefaultsForm(forms.Form):
         return u'Default settings'
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def settings_publishing_defaults(request):
     from booki.utils import config
 
@@ -1154,6 +1176,7 @@ class FrontpageForm(forms.Form):
         return u'Frontpage'
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def settings_frontpage(request):
     from booki.utils import config
 
