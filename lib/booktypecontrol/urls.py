@@ -47,4 +47,5 @@ urlpatterns = patterns('',
 
     url(r'^settings/appearance/$', 'booktypecontrol.views.settings_appearance', name='control_settings_appearance'),
 
+    url(r'^settings/frontpage/$', 'booktypecontrol.views.settings_frontpage', name='control_settings_frontpage'),
 )

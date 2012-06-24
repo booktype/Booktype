@@ -1142,3 +1142,66 @@ def settings_publishing_defaults(request):
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm
                                })
+
+class FrontpageForm(forms.Form):
+    description = forms.CharField(label=_('Welcome message'), 
+                                  required=False, 
+                                  widget=forms.Textarea(attrs={'rows': 30}))
+    show_changes = forms.BooleanField(label=_('Show activity'), 
+                                      required=False)
+
+    def __unicode__(self):
+        return u'Frontpage'
+
+
+def settings_frontpage(request):
+    from booki.utils import config
+
+
+    staticRoot = settings.BOOKI_ROOT
+
+    if request.method == 'POST': 
+        frm = FrontpageForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == _('Cancel'):
+            return HttpResponseRedirect(reverse('control_settings')) 
+
+        if frm.is_valid(): 
+            config.setConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', frm.cleaned_data['show_changes'])
+
+            import os.path, os
+
+            if not os.path.exists('%s/templates/portal/' % staticRoot):
+                os.makedirs('%s/templates/portal/' % staticRoot)
+
+            try:
+                f = open('%s/templates/portal/welcome_message.html' % staticRoot, 'w')
+                
+                textData = frm.cleaned_data['description'] 
+                textData = textData.replace('{%', '').replace('%}', '').replace('{{', '').replace('}}', '')
+
+                f.write(textData.encode('utf8'))
+                f.close()
+
+                messages.success(request, _('Successfuly saved changes.'))
+            except IOError:
+                messages.warning(request, _('Error while saving changes'))
+
+            return HttpResponseRedirect(reverse('control_settings'))             
+    else:
+        try:
+            f = open('%s/templates/portal/welcome_message.html' % staticRoot, 'r')
+            textContent = unicode(f.read(), 'utf8')
+            f.close()
+        except IOError:
+            textContent = ''
+
+        frm = FrontpageForm(initial = {'show_changes': config.getConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', True),
+                                       'description': textContent})
+
+    return render_to_response('booktypecontrol/settings_frontpage.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm
+                               })
+
