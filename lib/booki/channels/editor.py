@@ -24,7 +24,6 @@ from django.db.models import Q
 from booki.utils.log import logBookHistory, logChapterHistory, printStack
 
 from booki.editor import models
-from booki.editor.views import getVersion
 from booki.utils import security
 from booki.utils.misc import bookiSlugify
 from booki import constants
@@ -152,7 +151,7 @@ def remote_init_editor(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     ## get chapters
 
@@ -291,7 +290,7 @@ def remote_attachments_list(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     try:
         attachments = getAttachments(book_version)
@@ -320,7 +319,7 @@ def remote_attachments_delete(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     bookSecurity = security.getUserSecurityForBook(request.user, book)
     
@@ -458,7 +457,7 @@ def remote_chapter_save(request, message, bookid, version):
     # or maybe even betterm put it in the Model
 
     book = models.Book.objects.get(id=bookid)
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
 
     if message.get("minor", False) != True:
@@ -532,7 +531,7 @@ def remote_chapter_rename(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
 
     oldTitle = chapter.title
@@ -598,7 +597,7 @@ def remote_chapters_changed(request, message, bookid, version):
     lstHold = [chap[5:] for chap in message["hold"]]
 
     book = models.Book.objects.get(id=bookid)
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
     weight = len(lst)
 
     logBookHistory(book = book,
@@ -780,7 +779,7 @@ def remote_chapter_split(request, message, bookid, version):
     Not used at the moment.
     """
     book = models.Book.objects.get(id=bookid)
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
 
     logBookHistory(book = book,
@@ -896,7 +895,7 @@ def remote_create_chapter(request, message, bookid, version):
     # BookVersion treba uzeti
 
     book = models.Book.objects.get(id=bookid)
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     url_title = bookiSlugify(message["chapter"])
 
@@ -1031,7 +1030,7 @@ def remote_clone_chapter(request, message, bookid, version):
     # BookVersion treba uzeti
 
     book = models.Book.objects.get(id=bookid)
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     try:
         source_book = models.Book.objects.get(url_title=message["book"])
@@ -1331,7 +1330,7 @@ def remote_create_section(request, message, bookid, version):
     import datetime
 
     book = models.Book.objects.get(id=bookid)
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     ch = models.BookToc.objects.filter(book=book,
                                        version=book_version,
@@ -1483,10 +1482,9 @@ def remote_get_chapter_history(request, message, bookid, version):
     """
 
     import datetime
-    from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
     chapter_history = models.ChapterHistory.objects.filter(chapter__book=book, chapter__url_title=message["chapter"]).order_by("-modified")
 
@@ -1523,10 +1521,8 @@ def remote_revert_revision(request, message, bookid, version):
     """
 
 
-    from booki.editor.views import getVersion
-
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
     chapter = models.Chapter.objects.get(version=book_ver, url_title=message["chapter"])
 
@@ -1599,7 +1595,6 @@ def remote_get_chapter_revision(request, message, bookid, version):
     """
 
     import datetime
-    from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
 
@@ -1862,10 +1857,8 @@ def remote_create_major_version(request, message, bookid, version):
     @return: Returns new version number
     """
 
-    from booki.editor.views import getVersion
-
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
     try:
         new_version = create_new_version(book, book_ver, message, book_ver.major+1, 0)
@@ -1902,10 +1895,8 @@ def remote_create_minor_version(request, message, bookid, version):
     @return: Returns new version number
     """
 
-    from booki.editor.views import getVersion
-
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
     try:
         new_version = create_new_version(book, book_ver, message, book_ver.major, book_ver.minor+1)
@@ -2008,7 +1999,6 @@ def remote_chapter_diff(request, message, bookid, version):
     """
 
     import datetime
-    from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
 
@@ -2107,7 +2097,6 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
     """
 
     import datetime
-    from booki.editor.views import getVersion
 
     book = models.Book.objects.get(id=bookid)
 
@@ -2217,10 +2206,8 @@ def remote_settings_options(request, message, bookid, version):
     @return: Returns needed data for Settings tab
     """
 
-    from booki.editor.views import getVersion
-
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
     licenses = [(lic.abbrevation, lic.name)  for lic in models.License.objects.all().order_by("name") if lic]
     languages = [(lic.abbrevation, lic.name) for lic in models.Language.objects.all().order_by("name") if lic] + [('unknown', 'Unknown')]
@@ -2264,10 +2251,7 @@ def remote_license_save(request, message, bookid, version):
     @return: Returns if operation was successful
     """
 
-    from booki.editor.views import getVersion
-
     book = models.Book.objects.get(id=bookid)
-    #book_ver = getVersion(book, version)
 
     lic = models.License.objects.filter(abbrevation=message["license"])[0]
     book.license = lic
@@ -2297,10 +2281,8 @@ def remote_license_attributions(request, message, bookid, version):
     @return: Returns if operation was successful
     """
 
-    from booki.editor.views import getVersion
-
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
     from django.contrib.auth.models import User
 
@@ -2335,10 +2317,8 @@ def remote_license_attributions_save(request, message, bookid, version):
     @return: Returns if operation was successful
     """
 
-    from booki.editor.views import getVersion
-
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
     from django.contrib.auth.models import User
 
@@ -2375,10 +2355,8 @@ def remote_settings_language_save(request, message, bookid, version):
     @return: Returns if operation was successful
     """
 
-    from booki.editor.views import getVersion
-
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
     if message['language'] != 'unknown':
         l = models.Language.objects.get(abbrevation=message['language'])
@@ -2427,10 +2405,8 @@ def remote_users_suggest(request, message, bookid, version):
     @return: Returns list of users
     """
 
-    from booki.editor.views import getVersion
-
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
     from django.contrib.auth.models import User
 
@@ -2461,10 +2437,8 @@ def remote_roles_list(request, message, bookid, version):
     @return: Returns list of users
     """
 
-    from booki.editor.views import getVersion
-
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
     users = [(u.user.username, '%s (%s)' % (u.user.username, u.user.first_name)) for u in models.BookiPermission.objects.filter(book = book, permission = message["role"]).order_by("user__username")]
 
@@ -2478,11 +2452,10 @@ def remote_roles_list(request, message, bookid, version):
 
 # remove this
 def _remote_roles_save(request, message, bookid, version):
-    from booki.editor.views import getVersion
     from django.contrib.auth.models import User
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
     userList = set(message["users"][:])
     usersExisting = set([u.user.username for u in models.BookiPermission.objects.filter(book = book, permission = 1) if u.user])
@@ -2532,13 +2505,12 @@ def remote_roles_add(request, message, bookid, version):
     @return: Returns True if operation was successful
     """
 
-    from booki.editor.views import getVersion
     from django.contrib.auth.models import User
 
     # check permissions
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
     try:
         u = User.objects.get(username = message["username"])
@@ -2575,13 +2547,12 @@ def remote_roles_delete(request, message, bookid, version):
     @return: Returns True if operation was successful
     """
 
-    from booki.editor.views import getVersion
     from django.contrib.auth.models import User
 
     # check permissions
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = getVersion(book, version)
+    book_ver = book.getVersion(version)
 
 
     try:

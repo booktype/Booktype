@@ -41,7 +41,6 @@ class Command(BaseCommand):
     requires_model_validation = False
 
     def handle(self, *args, **options):
-        from booki.editor.views import getVersion
 
         if len(args) == 0:
             raise CommandError("You must specify book name!")
@@ -51,9 +50,9 @@ class Command(BaseCommand):
         except models.Book.DoesNotExist:
             raise CommandError('Book "%s" does not exist.' % args[0])
 
-        try:
-            book_version = getVersion(book, options['book_version'])
-        except models.BookVersion.DoesNotExist:
+        book_version = book.getVersion(options['book_version'])
+
+        if not book_version:
             raise CommandError('Book version %s does not exist.' % options['book_version'])
 
         fileName = common.exportBook(book_version)

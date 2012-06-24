@@ -137,6 +137,55 @@ class Book(models.Model):
     description = models.TextField(_('description'), null=False, default='')
     cover = models.ImageField(_('cover'), upload_to=settings.COVER_IMAGE_UPLOAD_DIR, null=True)
 
+    def getVersion(self, version=None):
+        """
+        Returns object of type C{BookiVersion}. If version is None it returns latest version.
+
+        @type version: C{string}
+        @param version: Book version.
+
+        @rtype version: C{booki.editor.models.BookVersion}
+        @return: BookVersion object.
+        """
+
+        from booki.editor import models as emodels
+
+        if not version:
+            return self.version
+        else:
+            if version.find('.') == -1:
+                try:
+                    return emodels.BookVersion.objects.get(book=self, name=version)
+                except emodels.BookVersion.DoesNotExist:
+                    return None
+                except emodels.BookVersion.MultipleObjectsReturned:
+                    # would it be better to return first item in this situation?
+                    return None
+            else:
+                v = version.split('.')
+                if len(v) != 2: return None
+
+                try:
+                    book_ver = emodels.BookVersion.objects.get(book=self, major = int(v[0]), minor = int(v[1]))
+                except ValueError:
+                    return None
+                except emodels.BookVersion.DoesNotExist:
+                    return None
+                except emodels.BookVersion.MultipleObjectsReturned:
+                    # would it be better to return first item in this situation?
+                    return None                
+
+        return book_ver
+
+    def getVersions(self):
+        """
+        @rtype: C{list}
+        @return: List of all BookVersions for this Book.
+        """
+
+        from booki.editor import models as emodels
+        return emodels.BookVersion.objects.filter(book=self)
+
     def setCover(self, fileName):
         from booki.utils.book import setBookCover
 

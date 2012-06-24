@@ -405,7 +405,6 @@ def books(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def view_book(request, bookid):
-    from booki.editor.views import getVersion
     from booki.utils import misc
 
     try:
@@ -413,7 +412,7 @@ def view_book(request, bookid):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = getVersion(book, None)
+    book_version = book.getVersion(None)
 
     # this only shows info for latest version
     book_history =  models.BookHistory.objects.filter(version = book_version).order_by("-modified")[:20]
@@ -569,14 +568,13 @@ class BookForm(forms.Form):
 
 @user_passes_test(lambda u: u.is_superuser)
 def edit_book(request, bookid):
-    from booki.editor.views import getVersion
 
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = getVersion(book, None)
+    book_version = book.getVersion(None)
 
     if request.method == 'POST': 
         frm = BookForm(request.POST, request.FILES) 
@@ -647,14 +645,13 @@ class BookRenameForm(forms.Form):
 
 @user_passes_test(lambda u: u.is_superuser)
 def rename_book(request, bookid):
-    from booki.editor.views import getVersion
 
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = getVersion(book, None)
+    book_version = book.getVersion(None)
 
     if request.method == 'POST': 
         frm = BookRenameForm(request.POST, request.FILES) 

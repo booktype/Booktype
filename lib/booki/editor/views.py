@@ -37,27 +37,18 @@ def getVersion(book, version):
     Returns object of type C{BookiVersion}. If version is None it returns latest version.
 
     @type book: C{booki.editor.models.Book}
-    @param book: Booki book.
-    @type version: C{booki.editor.models.BookVersion}
+    @param version: Book.
+    
+    @type version: C{string}
     @param version: Book version.
-
-    @todo: This does not belong here. Must move to booki.utils.
+    
+    @rtype version: C{booki.editor.models.BookVersion}
+    @return: BookVersion object.
+    
+    @todo: This does not belong here. It has been moved to the right place, but we left reference here just in case.
     """
 
-    book_ver = None
-
-    if not version:
-        book_ver = book.version
-        #models.BookVersion.objects.filter(book=book).order_by("-created")[:1][0]
-    else:
-        if version.find('.') == -1:
-            # what if there is more then one version with the same name ?!
-            book_ver = models.BookVersion.objects.get(book=book, name=version)
-        else:
-            v = version.split('.')
-            book_ver = models.BookVersion.objects.get(book=book, major = int(v[0]), minor = int(v[1]))
-
-    return book_ver
+    return book.getVersion(version)
 
 
 # BOOK
@@ -75,7 +66,7 @@ def export(request, bookid):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = getVersion(book, None)
+    book_version = book.getVersion(None)
 
     response = HttpResponse(mimetype='application/zip')
     response['Content-Disposition'] = 'attachment; filename=%s.zip' % book.url_title
@@ -111,7 +102,7 @@ def edit_book(request, bookid, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     bookSecurity = security.getUserSecurityForBook(request.user, book)
 
@@ -177,7 +168,7 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     path = '%s/%s' % (book_version.getVersion(), attachment)
 
@@ -219,7 +210,7 @@ def upload_attachment(request, bookid, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     stat = models.BookStatus.objects.filter(book = book)[0]
 

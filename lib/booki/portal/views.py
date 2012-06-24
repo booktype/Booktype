@@ -366,9 +366,9 @@ def _is_book_modified(book):
     @return: Returns True or False
     """
 
-    from booki.editor.views import getVersion
     from time import mktime
-    bv = getVersion(book, None)
+
+    bv = book.getVersion(None)
     created = mktime(book.created.timetuple())
     for chapter in models.Chapter.objects.filter(version=bv):
         logWarning("chapter %s created %s mod %s" % (chapter.id, book.created, chapter.modified))

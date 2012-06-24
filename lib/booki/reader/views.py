@@ -22,7 +22,6 @@ from django.contrib.auth.models import User
 
 from booki.editor import models
 from booki.utils import pages
-from booki.editor.views import getVersion
 from django.conf import settings
 
 # this is just temporary
@@ -56,7 +55,7 @@ def view_full(request, bookid, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     from booki.utils import security
     bookSecurity = security.getUserSecurityForBook(request.user, book)
@@ -101,7 +100,7 @@ def book_info(request, bookid, version=None):
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
 
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     book_history =  models.BookHistory.objects.filter(version = book_version).order_by("-modified")[:20]
 
@@ -173,7 +172,7 @@ def draft_book(request, bookid, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     from booki.utils import security
     bookSecurity = security.getUserSecurityForBook(request.user, book)
@@ -220,7 +219,7 @@ def draft_chapter(request, bookid, chapter, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     from booki.utils import security
     bookSecurity = security.getUserSecurityForBook(request.user, book)
@@ -276,7 +275,7 @@ def book_view(request, bookid, version=None):
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
 
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     from booki.utils import security
     bookSecurity = security.getUserSecurityForBook(request.user, book)
@@ -325,7 +324,7 @@ def book_chapter(request, bookid, chapter, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     from booki.utils import security
     bookSecurity = security.getUserSecurityForBook(request.user, book)
@@ -387,7 +386,7 @@ def attachment(request, bookid,  attachment, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
         
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     path = '%s/%s' % (version, attachment)
 
@@ -419,7 +418,7 @@ def staticattachment(request, bookid,  attachment, version=None, chapter = None)
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     path = '%s/%s' % (book_version.getVersion(), attachment)
 
@@ -447,7 +446,7 @@ def edit_info(request, bookid, version=None):
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
 
-    book_version = getVersion(book, version)
+    book_version = book.getVersion(version)
 
     if request.method == 'POST':
         book.description = request.POST.get('description', '')
