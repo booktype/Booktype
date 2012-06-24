@@ -1,0 +1,61 @@
+{% extends "control_base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="intro">
+ <h2>{% trans "Books" %}</h2>
+
+ <style>
+   #books {
+     padding: 3px;
+   }
+
+   #books TD {
+      padding: 5px;
+   }
+ </style>
+
+ <script>
+  $(function() {
+    $("button[name=add]").click(function() {
+       window.location = '{% url control_add_book %}';
+    });
+
+    $("#tabs").tabs();
+  })();
+ </script>
+
+ <div style="float: right">
+  <form method="GET" action="" onsubmit="return false;">
+   <button name="add">{% trans "ADD NEW BOOK" %}</button>
+  </form>
+ </div>
+
+ <div style="clear: both; height: 20px;"></div>
+
+ {% if messages %}
+  <div id="resultmessages">
+    {% for message in messages %}
+      {% if "warning" in message.tags %}
+        <div class="ui-state-error ui-corner-all">{{ message }}</div>
+      {% else %}
+        <div class="ui-state-highlight ui-corner-all">{{ message }}</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+ {% endif %}
+
+ <table border="0" id="books">
+  <tr>
+    <th>{% trans "short title" %}</th>
+    <th>{% trans "full title" %}</th>
+  </tr> 
+  {% for book in books %}
+   <tr>
+    <td><a href="{% url control_book book.url_title %}">{{ book.title }}</a></td>
+    <td>{{ book.title }}</td>
+   </tr>
+  {% endfor %}
+ </table>
+</div>
+{% endblock %}

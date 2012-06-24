@@ -1,0 +1,115 @@
+{% extends "control_base.html" %}
+{% load i18n profile %}
+
+{% block content %}
+<div id="intro">
+ <h2>{{ person.username }}</h2>
+
+ <script>
+   $(function() {
+      $("button[name=edit]").click(function() {
+         window.location = '{% url control_edit_profile person.username %}';
+      });
+
+      $("button[name=change]").click(function() {
+         window.location = '{% url control_password person.username %}';
+      });
+
+      $("button[name=lock]").click(function() {
+         window.location = '{% url control_profile person.username %}lock/';
+      });
+
+       $("#tabs").tabs();
+    })();
+ </script>
+
+ <div style="float: right">
+  <form method="GET" action="" onsubmit="return false;">
+    <button name="edit">{% trans "EDIT INFO" %}</button>&nbsp;&nbsp;
+    <button name="change">{% trans "CHANGE PASSWORD" %}</button>
+  </form>
+ </div>
+
+ <div style="clear: both; height: 20px;"></div>
+
+ {% if messages %}
+  <div id="resultmessages">
+    {% for message in messages %}
+      {% if "warning" in message.tags %}
+        <div class="ui-state-error ui-corner-all">{{ message }}</div>
+      {% else %}
+        <div class="ui-state-highlight ui-corner-all">{{ message }}</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+ {% endif %}
+
+ {% profile_image  person %}
+
+ <div style="line-height: 1.6em; padding-top: 10px;">
+   <b>{% trans "Username:" %}</b> {{ person.username }}<br/>
+   <b>{% trans "Full name:" %}</b> {{ person.first_name }}<br/>
+   <b>{% trans "Email:" %}</b> {{ person.email }}<br/>
+   <b>{% trans "Joined:" %}</b> {{ person.date_joined }} <br/>
+   <b>{% trans "Last login:" %}</b> {{ person.last_login }} <br/>
+   <b>{% trans "About yourself:" %}</b><br/>
+   <p>{{ description }}</p>
+ </div>
+
+ <div style="padding-top: 20px"></div>
+
+ <div id="tabs">
+  <ul>
+    <li><a href="#tabs-books">{% trans "Books" %}</a></li>
+    <li><a href="#tabs-groups">{% trans "Groups" %}</a></li>
+    <li><a href="#tabs-activity">{% trans "Activity" %}</a></li>
+  </ul>
+  <div id="tabs-books"> 
+   <ul>
+    {% for book in books %}
+     <li><a href="{% url control_edit_book book.url_title %}">{{ book.title }}</a>
+    {% empty %}
+     <p>{% trans "This person has no Books." %}</p>
+    {% endfor %}
+   </ul>
+  </div>
+
+  <div id="tabs-groups"> 
+   <ul>
+    {% for group in groups %}
+     <li><a href="{% url view_group group.url_name %}">{{ group.name }}</a>
+    {% empty %}
+     <p>{% trans "This person has no Groups." %}</p>
+    {% endfor %}
+   </ul>
+  </div>
+
+  <div id="tabs-activity"> 
+     {% for activity in activity_history %}
+       <div class="recent-activity">
+        <div class="image">
+           <img src="{% url view_profilethumbnail activity.user %}?width=48" alt="{{activity.user}}">
+        </div><!--end .image-->
+
+    	<div class="user">
+          <a href="{% url view_profile activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; {{ activity.modified|timesince}} {% trans "ago" %}
+  	  <div class="chapter">  
+                 {% if activity.kind == 1 %}
+                 {% trans "Created new chapter" %} <a href="{% url book_chapter activity.book.url_title activity.chapter.url_title %}">"{{activity.chapter.title}}"</a>.
+                 <div class="book-title">#{{activity.book.url_title}}
+                 </div>     
+				{% endif %}
+                {% if activity.kind == 10 %}
+                {% trans "Created new book" %} <a href="{% url control_edit_book activity.book.url_title  %}">"{{activity.book.title}}"</a>.
+                 <div class="book-title">#{{activity.book.url_title}}
+                 </div>     
+				{% endif %}
+			</div><!-- End of .chapter -->     
+		</div><!-- end .user-->
+	</div><!-- end .recent-activity-->
+     {% endfor %}
+  </div>
+ </div>
+
+</div>
+{% endblock %}

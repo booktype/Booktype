@@ -1,0 +1,99 @@
+{% extends "control_base.html" %}
+{% load i18n profile %}
+
+{% block content %}
+<div id="intro">
+ <h2>{{ book.title }}</h2>
+
+ <script>
+  $(function() {
+    $("button[name=editbook]").click(function() {
+       window.location = '{% url edit_book book.url_title %}';
+    });
+
+    $("button[name=bookinfo]").click(function() {
+       window.location = '{% url book_info book.url_title %}';
+    });
+
+    $("button[name=edit]").click(function() {
+       window.location = '{% url control_edit_book book.url_title %}';
+    });
+
+    $("button[name=rename]").click(function() {
+       window.location = '{% url control_rename_book book.url_title %}';
+    });
+
+    $("#tabs").tabs();
+  })();
+ </script>
+
+ <div style="float: right">
+  <form method="GET" action="" onsubmit="return false;">
+   <button name="editbook">{% trans "EDIT BOOK" %}</button>&nbsp;&nbsp;
+   <button name="bookinfo">{% trans "BOOK INFO" %}</button>&nbsp;&nbsp;
+   <button name="edit">{% trans "EDIT DESCRIPTION" %}</button>&nbsp;&nbsp;
+   <button name="rename">{% trans "RENAME" %}</button>
+  </form>
+ </div>
+
+ <div style="clear: both; height: 20px;"></div>
+
+ {% if messages %}
+  <div id="resultmessages">
+    {% for message in messages %}
+      {% if "warning" in message.tags %}
+        <div class="ui-state-error ui-corner-all">{{ message }}</div>
+      {% else %}
+        <div class="ui-state-highlight ui-corner-all">{{ message }}</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+ {% endif %}
+
+ <div class="book-cover">{% if book.cover %}<img src="{% url book_info book.url_title %}cover.jpg"/>{% endif %}</div>
+ <p class="book-description">{{ book_description|safe }}</p>
+ <p style="clear:both; margin-top:0;">&nbsp;</p>
+
+ <ul id="bookdetails">
+  <li><b>{% trans "Owner:" %}</b> <a href="{% url view_profile book.owner.username %}" class="user">{{ book.owner.username }}</a></li>
+  <li><b>{% trans "Status:" %}</b> {{ book.status.name }}
+  {% if book.hidden %}
+    <i>{% trans "(this book is hidden from others)" %}</i>
+  {% else %}
+    <i>{% trans "(this book is visible to everyone)" %}</i>
+  {% endif %}
+  </li>
+  {% if book.group %}
+    <li><b>{% trans "Member of group:" %}</b> <a href="{% url view_group book.group.url_name %}">{{ book.group.name }}</a></li>
+  {% endif %}
+  <li><b>{% trans "Current version:" %}</b> <a href="{% url draft_book book.url_title book_version %}">{{ book.version.getVersion }}</a></li>
+  <li><b>{% trans "Attachments size:" %}</b> {{ attachments_size|filesizeformat }}</li>
+  <li>&nbsp;</li>
+  <li><b>{% trans "Created:" %}</b> {{ book.created }}</li>
+  <li><b>{% trans "Published:" %}</b> {{ book.published }}</li>
+  <li>&nbsp;</li>
+  <li><b>{% trans "Collaborators:" %}</b>
+    {% for username in book_collaborators %}
+      <a href="{% url view_profile book.owner.username %}" class="user">{{ username }}</a>
+      {% if not forloop.last %},{% endif %}
+    {% endfor %}
+  </li>
+  {% if online_users %}
+    <li>
+      <b>{% trans "Online editing:" %}</b> 
+      {% for username in online_users %}
+        <a href="{% url view_profile book.owner.username %}" class="user">{{ username }}</a>
+        {% if not forloop.last %},{% endif %}
+      {% endfor %}
+    </li>
+  {% endif %}
+ </ul>
+
+ <h3 class="inner">{% trans "Versions" %}</h3>
+ <ul class="simple-list solo no-bg">
+  {% for ver in book_versions %}
+    <li><a href="{% url draft_book book.url_title ver.getVersion %}"> {{ ver.getVersion }}</a></li>
+  {% endfor %}
+ </ul>
+</div>
+{% endblock %}

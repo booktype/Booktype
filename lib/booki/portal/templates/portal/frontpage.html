@@ -32,7 +32,9 @@
  <div class="clearfix"></div>
 {% endif %}
 
+{% include "portal/welcome_message.html" %}
 
+{% if show_history %}
 <h3>{% trans "Recent activity" %}</h3>
 
 {% for activity in activity_history %}
@@ -59,7 +61,7 @@
 	</div><!-- end .recent-activity-->
 
 {% endfor %}
-
+{% endif %}
 </div><!-- end intro -->
 
 

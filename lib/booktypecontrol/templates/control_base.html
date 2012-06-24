@@ -1,8 +1,9 @@
-{% load i18n messaging_tags booki_tags %}
+{% load i18n messaging_tags %}
 <!DOCTYPE HTML>
 <html>
  <head>
    <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/booki.css" rel="Stylesheet" >
+   <link rel="SHORTCUT ICON" href="{{ request.META.SCRIPT_NAME }}/site_static/images/favicon.ico" type="image/x-icon">
    <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery/themes/base/jquery.ui.all.css" rel="Stylesheet" >
    <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery/themes/smoothness/jquery.ui.all.css" rel="Stylesheet" >
    <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery/jquery-1.4.4.js"></script>
@@ -14,58 +15,20 @@
    <link href="{{ request.META.SCRIPT_NAME }}/site_static/css/jquery.bubblepopup.v2.3.1.css" rel="stylesheet" type="text/css" />
    <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/jquery-ui_overrides.css" rel="Stylesheet" >
    <script src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.bubblepopup.v2.3.1.min.js" type="text/javascript"></script>
-
-   {% booki_site_favicon %}
-   {% booki_site_metadata %}
-
-
-   <script type="text/javascript">
-     $(function() {
-	 $.booki.sputnikDispatcherURL = "{% url sputnik.views.dispatcher %}";
-     });
-   </script>
-
-   <script type="text/javascript">
-     $(function() {
-	 // open debug window
-	 $.booki.debug.init();
-	 
-	 $("#dialog-sputnik-error").dialog({
-	     modal: true,
-	     autoOpen: false,
-	     buttons: {
-		 Ok: function() {
-		     $(this).dialog('close');
-		     window.location = '.';
-		 }
-	     }
-	 });
-	 
-	 $("A.debug").click(function() {
-	     $("#bookidebug").dialog("open");
-	     return false;
-	 });
-
-          $("FORM.messagefield").messagefield('init', {'view_post': '{% url booki.messaging.views.view_post %}' });
-
-     });
-   </script>
-
    {% block header %}
    {% endblock %}
-
-   <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/_user.css" rel="Stylesheet" >
  </head>
 <body>
 
 <div class="topbar"> 
-        {% booki_site_name %}
-
+    <div class="logo" style="font-size: 24px; font-weight: bold; width: 300px; text-align: left"> 
+	Booktype Control Center
+    </div> 
 	<div class="meta-bar">
     {% if request.user.is_authenticated %}
 		<ul>
         	<li>
-               <a href="{% url view_profile request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url signout %}">{% trans "Sign out" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;{% messagefield_button %} 
+               <a href="{% url view_profile request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url signout %}">{% trans "Sign out" %}</a>
             </li>
         </ul>
     {% else %}
@@ -79,19 +42,30 @@
 </div><!-- End top bar -->
 
 	<div class="menubar shadow">
-        {% if request.user.is_authenticated %}
         <div class="navbox">
              <ul>
-      		   <li><a href="{% url view_profile request.user.username %}">{% trans "My Dashboard" %}</a></li>
+      		   <li><a href="/">{% trans "Site" %}</a></li>
              </ul>
         </div>
-		{% endif %}
     
         <div class="navbox">
             <ul>
-                <li><a href="{% url booki.portal.views.view_books %}">{% trans "Books" %}</a></li>
-                <li><a href="{% url booki.portal.views.view_groups %}">{% trans "Groups" %}</a></li>
-                <li><a href="{% url booki.portal.views.view_people %}">{% trans "People" %}</a></li>
+	      {% if "dashboard" in admin_options %}
+                <li><a href="{% url control_frontpage %}">{% trans "Admin Control Center" %}</a></li>
+   	      {% endif %}
+
+              {% if "people" in admin_options %}
+                <li><a href="{% url control_people %}">{% trans "People" %}</a></li>
+              {% endif %}
+
+              {% if "books" in admin_options %}
+                <li><a href="{% url control_books %}">{% trans "Books" %}</a></li>
+              {% endif %}
+
+              {% if "settings" in admin_options %}
+                <li><a href="{% url control_settings %}">{% trans "Settings" %}</a></li>
+              {% endif %}
+
             </ul>      
         </div><!-- End of .navbox -->       
     </div>
@@ -107,23 +81,6 @@
 </div>
 <!-- End of content -->
 
-
-<!-- DEV TOOLS -->
-<div id="bookidebug">
-</div>
-
-<!-- sputnik error page -->
-<div id="dialog-sputnik-qrac" style="display: none"></div>
-<div id="dialog-sputnik-error" title="Can't communicate with booki">
-	<p>
-		<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
-		{% trans "There has been error in communication with booki server." %}
-                {% trans "Not sure right now where is the problem." %}
-	</p>
-	<p>
-		{% trans "You should refresh this page." %}
-	</p>
-</div>
 </body>
 </html>
 

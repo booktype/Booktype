@@ -1,0 +1,60 @@
+{% extends "control_base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="intro">
+ <h2>{% trans "Settings" %}</h2>
+
+ <div style="clear: both; height: 20px;"></div>
+
+ {% if messages %}
+  <div id="resultmessages">
+    {% for message in messages %}
+      {% if "warning" in message.tags %}
+        <div class="ui-state-error ui-corner-all">{{ message }}</div>
+      {% else %}
+        <div class="ui-state-highlight ui-corner-all">{{ message }}</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+ {% endif %}
+
+ <table>
+  <tr>
+   <td valign="top">
+     <h3>{% trans "Site" %}</h3>
+     <ul>
+      <li><a href="{% url control_settings_description %}">{% trans "Description" %}</a></li>
+      <li><a href="{% url control_settings_appearance %}">{% trans "Appearance" %}</a></li>
+      <li><a href="{% url control_settings_frontpage %}">{% trans "Frontpage" %}</a></li>
+     </ul>
+   </td>
+   <td width="60"></td>
+   <td valign="top">
+    <h3>{% trans "General" %}</h3>
+    <ul>
+     <li><a href="{% url control_settings_license %}">{% trans "Licenses" %}</a></li>
+     <li><a href="{% url control_settings_book_create %}">{% trans "Default Book Settings" %}</a></li>
+     <li><a href="{% url control_settings_privacy %}">{% trans "Privacy" %}</a></li>
+    </ul>
+   </td>
+  </tr>
+
+  <tr>
+   <td colspan="3" height="30"></td>
+  </tr>
+
+  <tr>
+   <td valign="top">
+    <h3>{% trans "Publish options" %}</h3>
+    <ul>
+      <li><a href="{% url control_settings_publishing %}">{% trans "Allowed publishing options" %}</a></li>
+      <li><a href="{% url control_settings_publishing_defaults %}">{% trans "Default settings" %}</a></li>
+    </ul>
+   </td>
+   <td width="60"></td>
+   <td valign="top"></td>
+  </tr>
+ </table>
+</div>
+{% endblock %}

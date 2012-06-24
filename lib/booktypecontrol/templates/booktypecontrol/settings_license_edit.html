@@ -1,0 +1,44 @@
+{% extends "control_base.html" %}
+{% load i18n profile %}
+
+{% block content %}
+<div id="intro">
+ <h2>{% trans "License" %}</h2>
+
+ <div style="clear: both; height: 20px;"></div>
+ {% if messages %}
+  <div id="resultmessages">
+    {% for message in messages %}
+      {% if "warning" in message.tags %}
+        <div class="ui-state-error ui-corner-all">{{ message }}</div>
+      {% else %}
+        <div class="ui-state-highlight ui-corner-all">{{ message }}</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+ {% endif %}
+
+ <form  enctype="multipart/form-data" action="{% url control_settings_license_edit licenseid %}" method="POST">{% csrf_token %}
+   <ul class="form-list">
+     {{ form.as_ul }}
+     <li><input type="submit" name="submit" value="{% trans "Save changes" %}"/>
+     {% if books|length == 0 %}
+       <input type="submit" name="submit" value="{% trans "Remove it" %}"/>
+     {% endif %}
+       <input type="submit" name="submit" value="{% trans "Cancel" %}"/>
+     </li>
+   </ul>
+ </form>
+
+ <div style="padding: 15px"></div>
+
+ <h2>{% trans "Books licensed with" %} "{{ license.name }}"</h2>
+  <ol>
+   {% for book in books %}
+     <li><a href="{% url control_edit_book book.url_title %}">{{ book.title }}</a></li>
+   {% empty %}
+     <li>{% trans "No such books." %}</li>
+   {% endfor %}
+  </ol>
+</div>
+{% endblock %}

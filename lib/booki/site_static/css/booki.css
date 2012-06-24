@@ -213,6 +213,20 @@ fieldset.plain {border:none; padding:0;}
     margin: 0;
     width: 160px;
 }
+
+.logotext {
+    float: left;
+    height: 40px;
+    margin: 6px 20px;
+    width: 360px;
+    text-align: left;
+}
+.logotext a	
+{ 
+    text-align: left;
+    font-size: 24pt;
+}
+
 .menubar	{
 	background-color: #2f2f2f;
 	height:25px;
@@ -285,17 +299,18 @@ body > .content-container {
 }
 
 input {
-        background-color: white;
-        border:1px solid #9d9d9d;
-}
+	background-color: white;
+	border:1px solid #9d9d9d;
+	}
+	input[type="file"] {border: none !important;}
 
 select {
-        background-color: #fff;
-        border:1px solid #9d9d9d;
-		font-family:Arial, Helvetica, sans-serif;
-		font-size:12px !important;
-		padding:2px;
-}
+	background-color: #fff;
+	border:1px solid #9d9d9d;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px !important;
+	padding:2px;
+	}
 
 .paginator { 
 	padding:.5em 0;
@@ -1645,3 +1660,70 @@ label.error {
 .wizard-table td {
 	padding: 3px 5px 3px 0;
 }
+
+/* CONTROL CENTER ////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////*/
+
+.form-list {
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+.form-list > li {
+	margin-bottom:8px;
+	list-style-type:none;
+	overflow:hidden;
+	position:relative;
+	padding-left:190px;
+	min-height:24px;
+	}
+	.form-list > li > label {
+		display:block;
+		position:absolute;
+		left:0;
+		top:3px;
+		width:180px;
+		padding-right:10px;
+		text-align:right;
+		font-weight:bold;
+		font-size:13px;
+		line-height:160%;
+		}
+	.form-list > li > input[type="checkbox"] {
+		margin:6px 0 0 0;
+		padding:0;
+		height:13px;
+		width:13px;
+		}
+	.form-list > li > input[type="text"], .form-list > li > input[type="password"], .form-list > li > textarea {
+		min-width:260px;
+		margin:0;
+		}
+	.form-list > li > p, .form-list > li {
+		color:#636363;
+		line-height:160%;
+		}
+		.form-list > li > p {margin:6px 0 0;}
+		
+	.form-list > li > input[type="submit"], .form-list > li > button {
+		margin:0 5px 0 0;
+		padding: 6px 16px;
+		}
+	.form-list > li > .errorlist {
+		margin:4px 0 0 0;
+		padding:0;
+		}
+	.form-list > li > .errorlist > li {
+		list-style-type:none;
+		margin:0 0 3px;
+		padding:0;
+		font-size:12px;
+		color:#B94A48;
+		}
+
+   #resultmessages {
+     padding-bottom: 20px;
+   }
+   #resultmessages > DIV {
+    padding: 5px;
+   }

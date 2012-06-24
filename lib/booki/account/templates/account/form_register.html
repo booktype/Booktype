@@ -1,4 +1,6 @@
-{% load i18n  %}
+{% load i18n  booki_tags %}
+
+{% if 1|booki_anyone_register  %}
 
 <h3>{% trans "Create account" %}</h3>
 <form id="formregister" onsubmit="return false;" action="#" method="GET">
@@ -29,3 +31,11 @@
   
   <input value="{% trans "Create account" %}" type="submit" />
 </form>
+
+{% else %}
+<h3>{% trans "Registration" %}</h3>
+<p>
+ {% trans "Only administrator is allowed to create new accounts at the moment." %}
+</p>
+
+{% endif %}

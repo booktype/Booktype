@@ -1,0 +1,92 @@
+{% extends "control_base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="intro">
+ <h2>{% trans "Admin Control Center" %}</h2>
+
+ <style>
+   #limits { 
+      width: 200px;
+   }
+
+   #limits SPAN {
+      font-size: 12px;
+      font-weight: bold;
+   }
+
+   #limits .bar {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      height: 20px;
+      background-color: white;
+   }
+</style>
+
+
+ <div style="float: left; width: 200px;">
+  <div style="font-size: 16px; font-weight: bold">{% trans "Info" %}</div>
+  <div id="limits" class="recent-activity">
+    <b>{% trans "Books:" %}</b> {{ number_of_books }}<br/>
+    <b>{% trans "Groups:" %}</b> {{ number_of_groups }}<br/>
+    <b>{% trans "Users:" %}</b> {{ number_of_users }}<br/>
+    <b>{% trans "Database size:" %}</b> {{ database_size|filesizeformat }}<br/>
+    <b>{% trans "Files size:" %}</b> {{ attachments_size|filesizeformat }}<br/>
+    </div>
+ </div>
+
+ <div style="float: left; margin-left: 40px; width: 60%;">
+  <div style="font-size: 16px; font-weight: bold">{% trans "Online users" %}</div>
+   <div>
+     {% for us in online_users %}
+       <div class="recent-activity">
+        <div class="image">
+           <img src="{% url view_profilethumbnail us.0 %}?width=48" alt="{{us.0}}">
+        </div><!--end .image-->
+
+    	<div class="user">         
+          <a href="{% url view_profile us.0 %}">{{ us.0 }}</a> <br/><br/>
+          {% trans "Working on:" %} &nbsp;
+            {% for b in us.1 %}
+              {% if not forloop.first %}, {% endif %}
+                <a href="{% url book_view b.url_title %}">{{ b.title }}</a>
+            {% endfor %}
+        </div>
+        <div style="clear: both"></div>
+       </div>
+     {% empty %}
+      <p>{% trans "No online users" %}</p>
+     {% endfor %}
+  </div>
+
+  <div style="font-size: 16px; font-weight: bold; margin-top: 30px;">{% trans "Recent activity" %}</div>
+  <div style="width: 100%">
+     {% for activity in activity_history %}
+       <div class="recent-activity">
+        <div class="image">
+           <img src="{% url view_profilethumbnail activity.user %}?width=48" alt="{{activity.user}}">
+        </div><!--end .image-->
+
+    	<div class="user">
+          <a href="{% url view_profile activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; {{ activity.modified|timesince}} {% trans "ago" %}
+  	  <div class="chapter">  
+                 {% if activity.kind == 1 %}
+                 {% trans "Created new chapter" %} <a href="{% url book_chapter activity.book.url_title activity.chapter.url_title %}">"{{activity.chapter.title}}"</a>.
+                 <div class="book-title">#{{activity.book.url_title}}
+                 </div>     
+				{% endif %}
+                {% if activity.kind == 10 %}
+                {% trans "Created new book" %} <a href="{% url book_view activity.book.url_title  %}">"{{activity.book.title}}"</a>.
+                 <div class="book-title">#{{activity.book.url_title}}
+                 </div>     
+				{% endif %}
+			</div><!-- End of .chapter -->     
+		</div><!-- end .user-->
+	</div><!-- end .recent-activity-->
+     {% endfor %}
+
+
+  </div>
+ </div>
+</div>
+{% endblock %}

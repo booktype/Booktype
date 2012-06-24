@@ -1,0 +1,17 @@
+{% extends "control_base.html" %}
+{% load i18n profile %}
+
+{% block content %}
+<div id="intro">
+ <h2>{{ person.username }}</h2>
+
+ <div style="clear: both; height: 20px;"></div>
+
+ <form enctype="multipart/form-data" action="{% url control_edit_profile person.username %}" method="POST">{% csrf_token %}
+   <ul class="form-list">
+     {{ form.as_ul }}
+     <li><input type="submit" name="submit" value="{% trans "Save Changes" %}"/><input type="submit" name="submit" value="{% trans "Cancel" %}"/></li>
+   </ul>
+ </form>
+</div>
+{% endblock %}

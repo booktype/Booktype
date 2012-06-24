@@ -1,0 +1,29 @@
+{% extends "control_base.html" %}
+{% load i18n profile %}
+
+{% block content %}
+<div id="intro">
+ <h2>{% trans "Add Person" %}</h2>
+
+ <div style="clear: both; height: 20px;"></div>
+
+ {% if messages %}
+  <div id="resultmessages">
+    {% for message in messages %}
+      {% if "warning" in message.tags %}
+        <div class="ui-state-error ui-corner-all">{{ message }}</div>
+      {% else %}
+        <div class="ui-state-highlight ui-corner-all">{{ message }}</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+ {% endif %}
+
+ <form action="{% url control_add_person %}" method="POST">{% csrf_token %}
+  <ul class="form-list">
+   {{ form.as_ul }}
+   <li><input type="submit" name="submit" value="{% trans "Add Person" %}"/> <input type="submit" name="submit" value="{% trans "Cancel" %}"/></li>
+  </ul>
+ </form>
+</div>
+{% endblock %}
