@@ -5,7 +5,7 @@
 <a href="{% url view_profile post.sender.as_user.username %}"><img src="{% url view_profilethumbnail post.sender.as_user %}?width=48"></a>
 </div>
 <a href="{% url view_profile post.sender.as_user.username %}" class="sender">{{ post.sender }}</a>
-<a class="action-button" href="{% url view_profile post.sender.as_user.username %}" onclick="$.bookiReply($('.post{{post.id}}')[0]);return false">send a reply</a>
+<a class="action-button" href="{% url view_profile post.sender.as_user.username %}" onclick="$.bookiReply($('.post{{post.id}}')[0]);return false">{% trans "send a reply" %}</a>
 <br />
 <div class="post-time">
 {{ post.timestamp|timesince }} {% trans "ago" %}

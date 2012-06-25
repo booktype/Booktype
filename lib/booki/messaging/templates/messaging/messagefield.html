@@ -5,11 +5,11 @@
   <form class="messagefield" id="messagefield" enctype="multipart/form-data" method="POST" action="{% url booki.messaging.views.view_post %}">
    <input type="text" name="content" size="40" value="{{syntax}}" style="width: 320px;"/>
    <div class="myaccordion">
-   <div class="myheader"><a class="expander attach" href="#">Attach file</a></div> <div style="display: none"><input type="file" name="attachment" style="width: 320px;" /></div>
+   <div class="myheader"><a class="expander attach" href="#">{% trans "Attach file" %}</a></div> <div style="display: none"><input type="file" name="attachment" style="width: 320px;" /></div>
    </div>
    <div class="myaccordion">
-   <div class="myheader"><a class="expander expand" id="snippet_expander" href="#">Add Snippet</a><br/></div><div style="display: none"> <textarea class="tinyeditor" id="snippetTextArea" name="snippet" style="width: 318px;"></textarea>
-   Optional snippet context URL: <input type="text" name="context_url" style="width: 320px;" /></div></div>
+   <div class="myheader"><a class="expander expand" id="snippet_expander" href="#">{% trans "Add Snippet" %}</a><br/></div><div style="display: none"> <textarea class="tinyeditor" id="snippetTextArea" name="snippet" style="width: 318px;"></textarea>
+   {% trans "Optional snippet context URL:" %} <input type="text" name="context_url" style="width: 320px;" /></div></div>
    <div id="messages" align="left"></div>
    <div style="clear: all; margin-top:3px;margin-right:3px;" align="right">
       <button>{% trans "Share" %}</button>
