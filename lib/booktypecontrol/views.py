@@ -89,9 +89,14 @@ def frontpage(request):
     # check the database size
     from django.db import connection
     cursor = connection.cursor()
-    # This will not work if user has new style of configuration for the database
-    cursor.execute("SELECT pg_database_size(%s)", [settings.DATABASE_NAME]);
-    databaseSize = cursor.fetchone()[0]
+
+    try:
+        # This will not work if user has new style of configuration for the database
+        # This will also only work for PostgreSQL. Should make another method for checking sqlite database size.
+        cursor.execute("SELECT pg_database_size(%s)", [settings.DATABASE_NAME]);
+        databaseSize = cursor.fetchone()[0]
+    except:
+        databaseSize = 0
 
     # Book activity
     activityHistory = models.BookHistory.objects.filter(kind__in=[1, 10]).order_by('-modified')[:20]
