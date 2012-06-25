@@ -758,9 +758,11 @@ def settings_description(request):
                 except:
                     pass
 
-            config.saveConfiguration()
-
-            messages.success(request, _('Successfuly saved settings.'))
+            try:
+                config.saveConfiguration()
+                messages.success(request, _('Successfuly saved settings.'))
+            except config.ConfigurationError:
+                messages.warning(request, _('Unknown error while saving changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
@@ -809,9 +811,11 @@ def settings_book_create(request):
             else:
                 config.setConfiguration('CREATE_BOOK_LICENSE', '')
 
-            config.saveConfiguration()
-
-            messages.success(request, _('Successfuly saved settings.'))
+            try:
+                config.saveConfiguration()
+                messages.success(request, _('Successfuly saved settings.'))
+            except config.ConfigurationError:
+                messages.warning(request, _('Unknown error while saving changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
@@ -974,9 +978,11 @@ def settings_privacy(request):
             config.setConfiguration('ADMIN_CREATE_BOOKS', frm.cleaned_data['create_books'])
             config.setConfiguration('ADMIN_IMPORT_BOOKS', frm.cleaned_data['import_books'])
 
-            config.saveConfiguration()
-
-            messages.success(request, _('Successfuly saved changes.'))
+            try:
+                config.saveConfiguration()
+                messages.success(request, _('Successfuly saved changes.'))
+            except config.ConfigurationError:
+                messages.warning(request, _('Unknown error while saving changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
@@ -1032,10 +1038,13 @@ def settings_publishing(request):
             if frm.cleaned_data['publish_odt']: opts.append('odt')
 
             config.setConfiguration('PUBLISH_OPTIONS', opts)
-            config.saveConfiguration()
 
-            messages.success(request, _('Successfuly saved changes.'))
-
+            try:
+                config.saveConfiguration()
+                messages.success(request, _('Successfuly saved changes.'))
+            except config.ConfigurationError:
+                messages.warning(request, _('Unknown error while saving changes.'))
+                
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
         frm = PublishingForm(initial = {'publish_book': 'book' in publishOptions,
@@ -1154,7 +1163,11 @@ def settings_publishing_defaults(request):
             if frm.cleaned_data['odt_css'] != data['odt_css']:
                 config.setConfiguration('BOOKTYPE_CSS_ODT', frm.cleaned_data['odt_css'])
 
-            messages.success(request, _('Successfuly saved changes.'))
+            try:
+                config.saveConfiguration()
+                messages.success(request, _('Successfuly saved changes.'))
+            except config.ConfigurationError:
+                messages.warning(request, _('Unknown error while saving changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
@@ -1209,8 +1222,12 @@ def settings_frontpage(request):
                 f.close()
 
                 messages.success(request, _('Successfuly saved changes.'))
+
+                config.saveConfiguration()
             except IOError:
                 messages.warning(request, _('Error while saving changes'))
+            except config.ConfigurationError:
+                messages.warning(request, _('Unknown error while saving changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
