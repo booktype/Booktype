@@ -3,13 +3,13 @@
 <div class="dialog" title="{% trans "Create a Group" %}">
 <form method="post" action="{% url create_group request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">
 	<dl>
-      <dt><label>Group name:</label></dt>
+      <dt><label>{% trans "Group name:" %}</label></dt>
       <dd><input type="text" name="title" style="width:99.5%;" />
           <div class="groupexists alert-box error" style="display: none; margin-top:12px;">
             {% trans "There is already a group with this name." %}
           </div>
       </dd>
-      <dt><label>Description:</label></dt>
+      <dt><label>{% trans "Description:" %}</label></dt>
       <dd><textarea cols="50" rows="10" name="description" style="width:99.5%; height:140px;" ></textarea></dd>
 	</dl>
 </form>

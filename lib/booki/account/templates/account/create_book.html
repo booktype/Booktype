@@ -15,10 +15,10 @@
 <form method="post" action="{% url create_book request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">
 <div>
     <div class="step">
-	<h4><strong>Step 1</strong> - Title</h4>
+	<h4><strong>{% trans "Step 1" %}</strong> - {% trans "Title" %}</h4>
 	<p>What is the title of your book?</p>
     <dl>
-        <dt><label for="title">Title of Book</label></dt>
+        <dt><label for="title">{% trans "Title of Book" %}</label></dt>
         <dd><input type="text" name="title" style="width:99.5%;" /></dd>
     </dl>
         <div class="bookexists alert-box error" style="display: none; margin-top:12px;">
@@ -27,20 +27,20 @@
     </div>
 
     <div class="step">
-	<h4><strong>Step 2</strong> - Description</h4>
-	<p>Give some information so others can find it to help you (this can be added or changed later).</p>
+	<h4><strong>{% trans "Step 2" %}</strong> - {% trans "Description" %}</h4>
+	<p>{% trans "Give some information so others can find it to help you (this can be added or changed later)." %}</p>
 
 	<dl>
-        <dt><label for="description">Description</label></dt>
+        <dt><label for="description">{% trans "Description" %}</label></dt>
 		<dd><textarea name="description" rows="12" style="width:99.5% !important; height:140px;"/></textarea></dd>
     </dl>
     </div>
 
     <div class="step">
-	<h4><strong>Step 3</strong> - Choose your license</h4>
-	<p>Choose from the following licenses</p>
+	<h4><strong>{% trans "Step 3" %}</strong> - {% trans "Choose your license" %}</h4>
+	<p>{% trans "Choose from the following licenses" %}</p>
 	<dl>
-        <dt><label for="hidden">License</label></dt>
+        <dt><label for="hidden">{% trans "License" %}</label></dt>
 		<dd><select name="license" style="min-width:300px;">
               {% for license in licenses %}
              <option value="{{license.abbrevation}}" {% if book_license == license.abbrevation %}selected="selected"{% endif %}>{{license.name}}</option>
@@ -51,18 +51,18 @@
     </div>
 
     <div class="step">
-	<h4><strong>Step 4</strong> - Image</h4>
-	<p>If you have an image for the book then add it now (this can be added or changed later)</p>
+	<h4><strong>{% trans "Step 4" %}</strong> - {% trans "Image" %}</h4>
+	<p>{% trans "If you have an image for the book then add it now (this can be added or changed later)" %}</p>
 	<dl>
-        <dt><label for="hidden">Book Image</label></dt>
+        <dt><label for="hidden">{% trans "Book Image" %}</label></dt>
 		<dd><input type="file" name="cover" size="40"></dd>
     </dl>
     </div>
 
     <div id="makebook5" class="step">
-	<h4><strong>Step 5</strong> - Make Public?</h4>
-	<p style="width:90%;">Would you like to keep your book private or make it public? If the book is public others can find the book to help you.<br>
-	  <strong>Note:</strong> this setting can be changed later from your dashboard.</p>
+	<h4><strong>{% trans "Step 5" %}</strong> - {% trans "Make Public?" %}</h4>
+	<p style="width:90%;">{% trans "Would you like to keep your book private or make it public? If the book is public others can find the book to help you." %}<br>
+	  {% trans "<strong>Note:</strong> this setting can be changed later from your dashboard.</p>" %}
 	<dl>
         <dt><label><input type="checkbox" name="hidden" {% if not book_visible %} checked="checked" {% endif %}>initially hide from others</label></dt>
     </dl>

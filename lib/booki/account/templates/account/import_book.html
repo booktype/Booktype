@@ -16,7 +16,7 @@
   <form method="post" action="{% url import_book request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">
    <div class="forms">
    <dl>
-   <dt><label>Import type:</label></dt>
+   <dt><label>{% trans "Import type:" %}</label></dt>
        <dd>
           <select name="importtype" style="min-width:360px;">
            <option value="">{% trans "Select Import Type" %}</option>
@@ -25,13 +25,13 @@
            <option value="booki">{% trans "Copy or import Booktype book" %}</option>
           </select>
         </dd>
-        <dt><label>Source:</label></dt>
+        <dt><label>{% trans "Source:" %}</label></dt>
         <dd><input type="text" name="source" style="min-width:360px;"/></dd>
     
-        <dt><label>New title (optional):</label></dt>
+        <dt><label>{% trans "New title (optional):" %}</label></dt>
         <dd><input type="text" name="title" style="min-width:360px;"/></dd>
     
-        <dt><label><input type="checkbox" name="hidden" {% if not book_visible %} checked="checked" {% endif %}/> Initially hidden from others</label></dt>
+        <dt><label><input type="checkbox" name="hidden" {% if not book_visible %} checked="checked" {% endif %}/> {% trans "Initially hidden from others" %}</label></dt>
 	</dl>
     </div>
     <div class="importmessage" style="display: none">
