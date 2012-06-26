@@ -43,10 +43,10 @@
 <h2>{% if user.username == request.user.username %}{% trans "My Dashboard" %}{% else %} {{user.username}} {% endif %}</h2>
 <div id="tabs">
   <ul>
-    <li><a href="#tabs-dashboard">Dashboard</a></li>
+    <li><a href="#tabs-dashboard">{% trans "Dashboard" %}</a></li>
     <li><a href="#tabs-books">{% if user.username == request.user.username %}{% trans "My Books" %}{% else %} {% trans "Books" %} {% endif %}</a></li>
     {% if user.username == request.user.username %}
-      <li><a href="#tabs-settings">Settings</a></li>
+      <li><a href="#tabs-settings">{% trans "Settings" %}</a></li>
     {% endif %}
   </ul>
   <div id="tabs-dashboard"> 
@@ -75,9 +75,9 @@
            {% endif %}
       </section>
       <section>
-          <p>Following tags: {% user_tagbox user.username %}</p>
-          <p>Following: {% user_followingbox user.username %}</p>
-          <p>Followers: {% user_followersbox user.username %}</p>
+          <p>{% trans "Following tags:" %} {% user_tagbox user.username %}</p>
+          <p>{% trans "Following:" %} {% user_followingbox user.username %}</p>
+          <p>{% trans "Followers:" %} {% user_followersbox user.username %}</p>
       </section>
     </div>
     <!-- END Personal info -->
