@@ -97,7 +97,7 @@ def add_appearance_for_user(message, word, sent, direct=False, orig_word=None):
                 reason = message.sender
             else:
                 reason = orig_word
-            send_mail(_('Message from %s at Booki') % reason, 
+            send_mail(_('Message from %s') % reason, 
                       body,
                       settings.EMAIL_HOST_USER,
                       [user.email], fail_silently=False)
@@ -155,12 +155,15 @@ def add_appearance_for_tag(message, word, sent, direct=False, orig_word=None):
 
 @login_required
 def view_post(request):
+    if request.method != 'POST': 
+        return HttpResponse("Error", mimetype="text/plain")
+
     # XXX validate:
-    content = request.POST.get('content')
+    content = request.POST.get('content', '')
     attachment = request.FILES.get('attachment')
-    context_url = request.POST.get('context_url')
-    snippet = request.POST.get('snippet')
-    ajax = request.POST.get('ajax')
+    context_url = request.POST.get('context_url', '')
+    snippet = request.POST.get('snippet', '')
+    ajax = request.POST.get('ajax', '')
 
     message = Post(sender=user2endpoint(request.user), content=content, 
                    attachment=attachment, context_url=context_url,
