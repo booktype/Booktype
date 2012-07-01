@@ -94,7 +94,7 @@ def getInfo():
             pass
 
     cursor = connection.cursor()
-    cursor.execute("SELECT pg_database_size(%s)", [settings.DATABASE_NAME]);
+    cursor.execute("SELECT pg_database_size(%s)", [settings.DATABASES['default']['NAME']]);
     databaseSize = cursor.fetchone()[0]
 
     return {'users_num': numOfUsers,

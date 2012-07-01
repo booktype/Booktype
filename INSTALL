@@ -195,6 +195,27 @@ How to migrate to Booktype 1.5.3
     - Template file lib/booki/portal/templates/base.html has been modified. 
 
     Notice: All of these changes will require "django-admin migrate" at the end.
+
+3. Style of database configuration has been changed so please update your configuration. This is a normal 
+   Django database configuration and please check Django documentation for more information and options.
+
+   It used to be:
+     DATABASE_ENGINE = 'postgresql_psycopg2'
+     DATABASE_NAME = '' 
+     DATABASE_USER = '' 
+     DATABASE_PASSWORD = '' 
+     DATABASE_HOST = 'localhost'
+     DATABASE_PORT = ''
+
+   Now it is:
+     DATABASES = {'default': {'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+     	                      'NAME': '', 
+                              'USER': '', 
+                              'PASSWORD': '', 
+                              'HOST': 'localhost', 
+                              'PORT': '' 
+                              } 
+                   } 
     
 
 

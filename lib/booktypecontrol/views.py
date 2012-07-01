@@ -93,7 +93,7 @@ def frontpage(request):
     try:
         # This will not work if user has new style of configuration for the database
         # This will also only work for PostgreSQL. Should make another method for checking sqlite database size.
-        cursor.execute("SELECT pg_database_size(%s)", [settings.DATABASE_NAME]);
+        cursor.execute("SELECT pg_database_size(%s)", [settings.DATABASES['default']['NAME']]);
         databaseSize = cursor.fetchone()[0]
     except:
         databaseSize = 0
