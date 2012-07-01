@@ -18,9 +18,10 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 from django.views.generic.simple import direct_to_template
 
+
+# By default Django admin interface is turned on. This is just until Control Center becomes powerful enough to replace it
 from django.contrib import admin
 admin.autodiscover()
-
 
 # This is dispatcher for Sputnik connections.
 
@@ -40,7 +41,6 @@ else:
     from booki.portal import feeds
 
     urlpatterns = patterns('',
-                           # administration
                            # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
                            url(r'^admin/', include(admin.site.urls)),
 
@@ -61,10 +61,6 @@ else:
 
                            (r'^data/(?P<path>.*)$', 'django.views.static.serve',
                             {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
-
-                           
-                           # debug
-                           (r'^debug/redis/$', 'booki.portal.views.debug_redis'),                       
                            
                            # front page listing views
                            url(r'list-groups/', 'booki.portal.views.view_groups'),
@@ -106,6 +102,7 @@ else:
                            # sputnik dispatcher                       
                            url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}),
 
+                           # messaging application
                            url(r'^messaging/', include('booki.messaging.urls')),
 
                            # reader
