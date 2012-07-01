@@ -216,10 +216,10 @@ def create_settings(destination, database):
             'BOOKI_ROOT': os.path.abspath(destination)}
 
     if database == 'postgresql':
-        vals['DATABASE_ENGINE'] = 'postgresql_psycopg2'
+        vals['DATABASE_ENGINE'] = 'django.db.backends.postgresql_psycopg2'
         vals['DATABASE_NAME'] = ''
     elif database == 'sqlite':
-        vals['DATABASE_ENGINE'] = 'sqlite3'
+        vals['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'
         vals['DATABASE_NAME'] = '%s/database.sqlite' % destination
 
     for k in vals.keys():

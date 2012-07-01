@@ -130,11 +130,20 @@ SECRET_KEY = 'enc*ln*vp^o2p1p6of8ip9v5_tt6r#fh2-!-@pl0ur^6ul6e)l'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage' 
 
 # List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-    'django.template.loaders.eggs.load_template_source',
-)
+import django
+
+if django.VERSION[1] < 3:
+    TEMPLATE_LOADERS = (
+                        'django.template.loaders.filesystem.load_template_source',
+                        'django.template.loaders.app_directories.load_template_source',
+                        'django.template.loaders.eggs.load_template_source',
+                       )
+else:
+    TEMPLATE_LOADERS = (
+                        'django.template.loaders.filesystem.Loader',
+                        'django.template.loaders.app_directories.Loader',
+                        'django.template.loaders.eggs.Loader',
+                       )
 
 TEMPLATE_CONTEXT_PROCESSORS = ('django.contrib.auth.context_processors.auth', 
                                'django.contrib.messages.context_processors.messages') 
