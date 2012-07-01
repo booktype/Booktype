@@ -1,3 +1,76 @@
+1.5.3 (2012-07-01)
+==================
+  Read INSTALL file about instructions how to upgrade to version 1.5.3.
+
+  - BK-318 Update english locale files
+  - BK-317 Change configuration for TEMPLATE_LOADERS
+  - BK-316 Change style of database configuration
+  - BK-315 Integrate Control Center in Booktype
+  - BK-314 Disallow access to redis debug
+  - BK-313 Submit form for chapter rename is broken if you press enter
+  - BK-307 Messaging library does not check input arguments
+  - BK-306 Untranslated strings in create book template
+  - BK-303 User profile pages has some untranslatable text
+  - BK-302 In the configuration library there is no check if BOOKTYPE_CONFIG is None while setting and getting values
+  - BK-301 Check if saving of configuration was successful in Control Center
+  - BK-300 Report for database size in Control Center works only for PostgreSQL
+  - BK-299 Parts of book create, group create and import book templates are not made translatable
+  - BK-298 Parts of messaging templates are not made translatable
+  - BK-297 Implement new methods for model Book
+  - BK-296 Welcome message had dummy text inside
+  - BK-294 Customize FrontPage - upload html file
+  - BK-295 Check for user permissions in Control Center
+  - BK-294 Customize FrontPage
+  - BK-293 Editing of Frontpage options in Control Center
+  - BK-285 Uncomment ODT options for editing default CSS in Control Center
+  - BK-284 Web interface to change default CSS options in Control Center - added new template file
+  - BK-284 Web interface to change default CSS options in Control Center
+  - BK-283 Configuration library is not thread safe
+  - BK-282 Not sending custom options when publishing as ODT
+  - BK-281 Configuration parameters for default publishing CSS
+  - BK-271 Update initial settings file and update documentation with messages framework
+  - BK-270 Implement notifications in Control Center with Django messages framework [added views.py]
+  - BK-270 Implement notifications in Control Center with Django messages framework
+  - BK-267 Implement custom error messages for Django forms and organize Form models
+  - BK-265 Translate all templates and forms in Booktype Control Center
+  - BK-264 Implement new CSS style for Django forms in Booktype Control Center
+  - BK-262 Bunch of changes after review
+  - BK-259 Create css directory during the data migration in Booktype Control Center
+  - BK-255 Change the order of loading external css file and put _user.css at the end
+  - BK-254 Edit Booktype appearance from the Booktype Control Center
+  - BK-253 Editing publishing options from Booktype Control Center
+  - BK-252 Editing of privacy options in Booktype Control Center
+  - BK-251 Prevent users from creating or importing books
+  - BK-250 Prevent users from creating accounts on Booktype instance
+  - BK-249 License editing inside of Booktype Control Center
+  - BK-241 Editing of default Book creation settings in Booktype Control Center
+  - BK-240 Site description editing in Booktype Control Center
+  - BK-239 New template tags for metadata and favicon
+  - BK-220 People Page in Booktype Control Center - missing people.html file
+  - BK-238 renameBook function should ignore if it can't rename book directory in DATA_ROOT/books/ directory
+  - BK-237 New management commands to access Booktype configuration
+  - BK-236 New API for managing configuration parameters
+  - BK-221 Books Page in Control Center
+  - BK-220 Implemented Page tab in Control Center
+  - BK-219 Dashboard Status page (frontpage)
+  - BK-235 Import basic Django application for Control Center
+  - BK-234 Create utility function for calculating disk usage
+  - BK-232 Separate book rename functionality from management command into new function
+  - BK-230 Create separate functions for changing profile image and book covers
+  - BK-129 Advanced CSS panel should send CSS when overide not set
+  - BK-229 Use JSON.stringify instead of $.toJSON in booki.js
+  - BK-228 Broken html in edit templates
+  - BK-173 Separate constant values in booki.constants.py file
+  - BK-175 Implement default book licence configuration parameter
+  - BK-174 Implement default book visibility configuration parameter
+  - BK-173 Separate constant values in booki.constants.py file
+  - BK-172 Configuration option to limit publishing options in editor interface
+  - BK-171 Setting for default profile image
+  - BK-170 Strings were not translated in publish tab
+  - BK-169 Separate content of publish tab in new file
+  - BK-168 View profile page has wrong link to rss feed
+  - BK-167 Change info in setup.py for PyPI repository
+  
 1.5.2 (2012-04-06)
 ==================
   Read INSTALL file about instructions how to upgrade to version 1.5.2.
