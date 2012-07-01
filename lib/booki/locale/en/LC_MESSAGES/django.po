@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-08 23:25+0200\n"
+"POT-Creation-Date: 2012-07-01 20:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,14 +22,14 @@ msgid "image"
 msgstr ""
 
 #: account/models.py:40 editor/models.py:93 editor/models.py:137
-#: editor/models.py:237
+#: editor/models.py:291
 msgid "description"
 msgstr ""
 
-#: account/models.py:41 account/models.py:56 editor/models.py:179
-#: editor/models.py:300 editor/models.py:393 editor/models.py:405
-#: editor/models.py:417 editor/templates/editor/edit_book.html:560
-#: editor/templates/editor/edit_book.html:654
+#: account/models.py:41 account/models.py:56 editor/models.py:233
+#: editor/models.py:354 editor/models.py:447 editor/models.py:459
+#: editor/models.py:471 editor/templates/editor/edit_book.html:560
+#: editor/templates/editor/edit_book.html:659
 msgid "user"
 msgstr ""
 
@@ -38,8 +38,8 @@ msgid "secretcode"
 msgstr ""
 
 #: account/models.py:58 editor/models.py:100 editor/models.py:131
-#: editor/models.py:239 editor/models.py:273 editor/models.py:337
-#: editor/templates/editor/edit_book.html:666
+#: editor/models.py:293 editor/models.py:327 editor/models.py:391
+#: editor/templates/editor/edit_book.html:671
 msgid "created"
 msgstr ""
 
@@ -55,24 +55,127 @@ msgstr ""
 msgid "remote host"
 msgstr ""
 
-#: account/views.py:311
+#: account/views.py:313
 msgid "Reset password"
 msgstr ""
 
-#: account/templates/account/create_book.html:3
+#: account/templates/account/create_book.html:4
+#: account/templates/account/create_book.html:13
 msgid "Create a Book"
 msgstr ""
 
-#: account/templates/account/create_book.html:15
+#: account/templates/account/create_book.html:7
+msgid ""
+"You don't have permissions to create new books. At the moment only "
+"administrators can do that."
+msgstr ""
+
+#: account/templates/account/create_book.html:18
+msgid "Step 1"
+msgstr ""
+
+#: account/templates/account/create_book.html:18
+msgid "Title"
+msgstr ""
+
+#: account/templates/account/create_book.html:19
+msgid "What is the title of your book?"
+msgstr ""
+
+#: account/templates/account/create_book.html:21
+msgid "Title of Book"
+msgstr ""
+
+#: account/templates/account/create_book.html:25
 msgid "There is already a book with this name."
+msgstr ""
+
+#: account/templates/account/create_book.html:30
+msgid "Step 2"
+msgstr ""
+
+#: account/templates/account/create_book.html:30
+#: account/templates/account/create_book.html:34
+#: account/templates/account/view_profile.html:70
+msgid "Description"
+msgstr ""
+
+#: account/templates/account/create_book.html:31
+msgid ""
+"Give some information so others can find it to help you (this can be added "
+"or changed later)."
+msgstr ""
+
+#: account/templates/account/create_book.html:40
+msgid "Step 3"
+msgstr ""
+
+#: account/templates/account/create_book.html:40
+msgid "Choose your license"
+msgstr ""
+
+#: account/templates/account/create_book.html:41
+msgid "Choose from the following licenses"
+msgstr ""
+
+#: account/templates/account/create_book.html:43 editor/models.py:35
+#: editor/templates/editor/edit_book.html:437
+msgid "License"
+msgstr ""
+
+#: account/templates/account/create_book.html:54
+msgid "Step 4"
+msgstr ""
+
+#: account/templates/account/create_book.html:54
+#: editor/templates/editor/edit_book.html:220
+msgid "Image"
+msgstr ""
+
+#: account/templates/account/create_book.html:55
+msgid ""
+"If you have an image for the book then add it now (this can be added or "
+"changed later)"
+msgstr ""
+
+#: account/templates/account/create_book.html:57
+msgid "Book Image"
+msgstr ""
+
+#: account/templates/account/create_book.html:63
+msgid "Step 5"
+msgstr ""
+
+#: account/templates/account/create_book.html:63
+msgid "Make Public?"
+msgstr ""
+
+#: account/templates/account/create_book.html:64
+msgid ""
+"Would you like to keep your book private or make it public? If the book is "
+"public others can find the book to help you."
+msgstr ""
+
+#: account/templates/account/create_book.html:65
+msgid ""
+"<strong>Note:</strong> this setting can be changed later from your dashboard."
+"</p>"
 msgstr ""
 
 #: account/templates/account/create_group.html:3
 msgid "Create a Group"
 msgstr ""
 
+#: account/templates/account/create_group.html:6
+msgid "Group name:"
+msgstr ""
+
 #: account/templates/account/create_group.html:9
 msgid "There is already a group with this name."
+msgstr ""
+
+#: account/templates/account/create_group.html:12
+msgid "Description:"
 msgstr ""
 
 #: account/templates/account/error_import.html:6
@@ -138,47 +241,47 @@ msgstr ""
 msgid "NEW PASSWORD AGAIN"
 msgstr ""
 
-#: account/templates/account/form_register.html:3
-#: account/templates/account/form_register.html:30
+#: account/templates/account/form_register.html:5
+#: account/templates/account/form_register.html:32
 msgid "Create account"
 msgstr ""
 
-#: account/templates/account/form_register.html:5
+#: account/templates/account/form_register.html:7
 #: account/templates/account/form_signin.html:6
 msgid "User name"
 msgstr ""
 
-#: account/templates/account/form_register.html:7
+#: account/templates/account/form_register.html:9
 msgid "Password (6 characters at least)"
 msgstr ""
 
-#: account/templates/account/form_register.html:9
-#: account/templates/account/view_profile.html:184
+#: account/templates/account/form_register.html:11
+#: account/templates/account/view_profile.html:196
 msgid "Full name"
 msgstr ""
 
-#: account/templates/account/form_register.html:11
-#: account/templates/account/view_profile.html:180
+#: account/templates/account/form_register.html:13
+#: account/templates/account/view_profile.html:192
 msgid "Email"
 msgstr ""
 
-#: account/templates/account/form_register.html:16
+#: account/templates/account/form_register.html:18
 msgid "Missing username!"
 msgstr ""
 
-#: account/templates/account/form_register.html:17
+#: account/templates/account/form_register.html:19
 msgid "Missing e-mail!"
 msgstr ""
 
-#: account/templates/account/form_register.html:18
+#: account/templates/account/form_register.html:20
 msgid "Missing password!"
 msgstr ""
 
-#: account/templates/account/form_register.html:19
+#: account/templates/account/form_register.html:21
 msgid "Please provide your real name."
 msgstr ""
 
-#: account/templates/account/form_register.html:20
+#: account/templates/account/form_register.html:22
 msgid ""
 "Username is invalid. Please try a different one. You may use alhpanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
@@ -186,29 +289,37 @@ msgid ""
 "li></ul>"
 msgstr ""
 
-#: account/templates/account/form_register.html:21
+#: account/templates/account/form_register.html:23
 msgid "This is not a valid e-mail"
 msgstr ""
 
-#: account/templates/account/form_register.html:22
+#: account/templates/account/form_register.html:24
 msgid "Your passwords dont match. Please try a different one."
 msgstr ""
 
-#: account/templates/account/form_register.html:23
+#: account/templates/account/form_register.html:25
 msgid "Password must be 6 characters or more!"
 msgstr ""
 
-#: account/templates/account/form_register.html:24
+#: account/templates/account/form_register.html:26
 msgid "Username already taken. Please try a different one."
 msgstr ""
 
-#: account/templates/account/form_register.html:25
+#: account/templates/account/form_register.html:27
 #: account/templates/account/form_signin.html:17
 msgid "Unknown error!"
 msgstr ""
 
-#: account/templates/account/form_register.html:26
+#: account/templates/account/form_register.html:28
 msgid "Fullname is too long!"
+msgstr ""
+
+#: account/templates/account/form_register.html:36
+msgid "Registration"
+msgstr ""
+
+#: account/templates/account/form_register.html:38
+msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr ""
 
 #: account/templates/account/form_signin.html:3
@@ -227,27 +338,50 @@ msgstr ""
 msgid "Password is wrong! Please try again."
 msgstr ""
 
-#: account/templates/account/import_book.html:3
+#: account/templates/account/import_book.html:4
+#: account/templates/account/import_book.html:14
 msgid "Import book"
 msgstr ""
 
-#: account/templates/account/import_book.html:11
+#: account/templates/account/import_book.html:7
+msgid ""
+"You don't have permissions to import content. At the moment only "
+"administrators can do that."
+msgstr ""
+
+#: account/templates/account/import_book.html:19
+msgid "Import type:"
+msgstr ""
+
+#: account/templates/account/import_book.html:22
 msgid "Select Import Type"
 msgstr ""
 
-#: account/templates/account/import_book.html:12
+#: account/templates/account/import_book.html:23
 msgid "Import EPUB"
 msgstr ""
 
-#: account/templates/account/import_book.html:13
+#: account/templates/account/import_book.html:24
 msgid "Import archive.org book"
 msgstr ""
 
-#: account/templates/account/import_book.html:14
+#: account/templates/account/import_book.html:25
 msgid "Copy or import Booktype book"
 msgstr ""
 
-#: account/templates/account/import_book.html:27
+#: account/templates/account/import_book.html:28
+msgid "Source:"
+msgstr ""
+
+#: account/templates/account/import_book.html:31
+msgid "New title (optional):"
+msgstr ""
+
+#: account/templates/account/import_book.html:34
+msgid "Initially hidden from others"
+msgstr ""
+
+#: account/templates/account/import_book.html:38
 msgid ""
 "Please wait. It will take couple of moments. Your book is being imported!"
 msgstr ""
@@ -308,35 +442,55 @@ msgid "/user: %(username)s"
 msgstr ""
 
 #: account/templates/account/view_profile.html:43
-#: editor/templates/base_edit.html:82 portal/templates/base.html:82
+#: editor/templates/base_edit.html:82 portal/templates/base.html:89
 msgid "My Dashboard"
 msgstr ""
 
+#: account/templates/account/view_profile.html:46
+msgid "Dashboard"
+msgstr ""
+
 #: account/templates/account/view_profile.html:47
-#: account/templates/account/view_profile.html:100
-#: account/templates/account/view_profile.html:140
+#: account/templates/account/view_profile.html:105
+#: account/templates/account/view_profile.html:145
 msgid "My Books"
 msgstr ""
 
 #: account/templates/account/view_profile.html:47
-#: account/templates/account/view_profile.html:140 editor/models.py:148
-#: editor/templates/base_edit.html:89 portal/templates/base.html:89
+#: account/templates/account/view_profile.html:145 editor/models.py:202
+#: editor/templates/base_edit.html:89 portal/templates/base.html:96
 #: portal/templates/portal/books.html:13 portal/templates/portal/books.html:54
 #: portal/templates/portal/group.html:65
 #: portal/templates/portal/group.html:126
 msgid "Books"
 msgstr ""
 
+#: account/templates/account/view_profile.html:49
+#: editor/templates/editor/edit_book.html:117
+#: editor/templates/editor/edit_book.html:412
+#: portal/templates/portal/group.html:68
+#: portal/templates/portal/group.html:169
+msgid "Settings"
+msgstr ""
+
 #: account/templates/account/view_profile.html:67
 msgid "Follow my changes"
 msgstr ""
 
-#: account/templates/account/view_profile.html:70
-msgid "Description"
-msgstr ""
-
 #: account/templates/account/view_profile.html:74
 msgid "There is no description for this user."
+msgstr ""
+
+#: account/templates/account/view_profile.html:78
+msgid "Following tags:"
+msgstr ""
+
+#: account/templates/account/view_profile.html:79
+msgid "Following:"
+msgstr ""
+
+#: account/templates/account/view_profile.html:80
+msgid "Followers:"
 msgstr ""
 
 #: account/templates/account/view_profile.html:96
@@ -346,16 +500,16 @@ msgid ""
 "\"><i>user guide</i></a>!"
 msgstr ""
 
-#: account/templates/account/view_profile.html:98
+#: account/templates/account/view_profile.html:101
 msgid "CREATE NEW BOOK"
 msgstr ""
 
-#: account/templates/account/view_profile.html:104
-#: account/templates/account/view_profile.html:151
+#: account/templates/account/view_profile.html:109
+#: account/templates/account/view_profile.html:163
 msgid "edit"
 msgstr ""
 
-#: account/templates/account/view_profile.html:106
+#: account/templates/account/view_profile.html:111
 msgid ""
 "\n"
 "          <p>This is a perfect moment to start writing your book, just click "
@@ -363,77 +517,77 @@ msgid ""
 "          "
 msgstr ""
 
-#: account/templates/account/view_profile.html:110
+#: account/templates/account/view_profile.html:115
 msgid ""
 "\n"
 "          <p>This user has no books.</p>\n"
 "          "
 msgstr ""
 
-#: account/templates/account/view_profile.html:118
+#: account/templates/account/view_profile.html:123
 msgid "CREATE NEW GROUP"
 msgstr ""
 
-#: account/templates/account/view_profile.html:120
+#: account/templates/account/view_profile.html:125
 msgid "My Groups"
 msgstr ""
 
-#: account/templates/account/view_profile.html:124
+#: account/templates/account/view_profile.html:129
 msgid "go"
 msgstr ""
 
-#: account/templates/account/view_profile.html:127
+#: account/templates/account/view_profile.html:132
 msgid ""
 "Work with others in Groups. To create a Group click on the button above."
 msgstr ""
 
-#: account/templates/account/view_profile.html:129
+#: account/templates/account/view_profile.html:134
 msgid "This user has no groups."
 msgstr ""
 
-#: account/templates/account/view_profile.html:142
+#: account/templates/account/view_profile.html:149
 msgid "Create new book"
 msgstr ""
 
-#: account/templates/account/view_profile.html:142
+#: account/templates/account/view_profile.html:152
 msgid "Import Book"
 msgstr ""
 
-#: account/templates/account/view_profile.html:151
+#: account/templates/account/view_profile.html:163
 msgid "info"
 msgstr ""
 
-#: account/templates/account/view_profile.html:151
+#: account/templates/account/view_profile.html:163
 msgid "draft"
 msgstr ""
 
-#: account/templates/account/view_profile.html:155
-#: account/templates/account/view_profile.html:170
+#: account/templates/account/view_profile.html:167
+#: account/templates/account/view_profile.html:182
 msgid "Show to others"
 msgstr ""
 
-#: account/templates/account/view_profile.html:161
-#: account/templates/account/view_profile.html:170
+#: account/templates/account/view_profile.html:173
+#: account/templates/account/view_profile.html:182
 msgid "Hide from others"
 msgstr ""
 
-#: account/templates/account/view_profile.html:175
+#: account/templates/account/view_profile.html:187
 msgid "User settings"
 msgstr ""
 
-#: account/templates/account/view_profile.html:188
+#: account/templates/account/view_profile.html:200
 msgid "About yourself"
 msgstr ""
 
-#: account/templates/account/view_profile.html:192
+#: account/templates/account/view_profile.html:204
 msgid "Profile image"
 msgstr ""
 
-#: account/templates/account/view_profile.html:196
+#: account/templates/account/view_profile.html:208
 msgid "Notification filter"
 msgstr ""
 
-#: account/templates/account/view_profile.html:202
+#: account/templates/account/view_profile.html:214
 #: editor/templates/editor/edit_strings.html:19
 msgid "Save changes"
 msgstr ""
@@ -448,18 +602,14 @@ msgid "Can't find user \"%(username)s\"."
 msgstr ""
 
 #: editor/models.py:28 editor/models.py:41 editor/models.py:64
-#: editor/models.py:91 editor/models.py:200 editor/models.py:236
-#: editor/models.py:364 editor/templates/editor/edit_book.html:663
+#: editor/models.py:91 editor/models.py:254 editor/models.py:290
+#: editor/models.py:418 editor/templates/editor/edit_book.html:668
 #: editor/templates/editor/edit_strings.html:52
 msgid "name"
 msgstr ""
 
 #: editor/models.py:29 editor/models.py:42
 msgid "abbrevation"
-msgstr ""
-
-#: editor/models.py:35 editor/templates/editor/edit_book.html:437
-msgid "License"
 msgstr ""
 
 #: editor/models.py:36
@@ -486,14 +636,14 @@ msgstr ""
 msgid "not translated"
 msgstr ""
 
-#: editor/models.py:63 editor/models.py:78 editor/models.py:172
-#: editor/models.py:198 editor/models.py:233 editor/models.py:268
-#: editor/models.py:332 editor/models.py:363 editor/models.py:394
-#: editor/models.py:404 editor/models.py:416
+#: editor/models.py:63 editor/models.py:78 editor/models.py:226
+#: editor/models.py:252 editor/models.py:287 editor/models.py:322
+#: editor/models.py:386 editor/models.py:417 editor/models.py:448
+#: editor/models.py:458 editor/models.py:470
 msgid "book"
 msgstr ""
 
-#: editor/models.py:65 editor/models.py:366
+#: editor/models.py:65 editor/models.py:420
 msgid "weight"
 msgstr ""
 
@@ -533,15 +683,15 @@ msgstr ""
 msgid "Booki groups"
 msgstr ""
 
-#: editor/models.py:115 editor/models.py:270
+#: editor/models.py:115 editor/models.py:324
 msgid "url title"
 msgstr ""
 
-#: editor/models.py:116 editor/models.py:271
+#: editor/models.py:116 editor/models.py:325
 msgid "title"
 msgstr ""
 
-#: editor/models.py:117 editor/models.py:272 editor/models.py:336
+#: editor/models.py:117 editor/models.py:326 editor/models.py:390
 msgid "status"
 msgstr ""
 
@@ -549,12 +699,12 @@ msgstr ""
 msgid "language"
 msgstr ""
 
-#: editor/models.py:121 editor/models.py:174 editor/models.py:266
-#: editor/models.py:330 editor/models.py:361
+#: editor/models.py:121 editor/models.py:228 editor/models.py:320
+#: editor/models.py:384 editor/models.py:415
 msgid "version"
 msgstr ""
 
-#: editor/models.py:123 editor/models.py:395
+#: editor/models.py:123 editor/models.py:449
 msgid "group"
 msgstr ""
 
@@ -566,7 +716,7 @@ msgstr ""
 msgid "hidden"
 msgstr ""
 
-#: editor/models.py:135 editor/models.py:396
+#: editor/models.py:135 editor/models.py:450
 msgid "permission"
 msgstr ""
 
@@ -574,132 +724,132 @@ msgstr ""
 msgid "cover"
 msgstr ""
 
-#: editor/models.py:147 editor/templates/editor/edit_publish.html:7
+#: editor/models.py:201 editor/templates/editor/edit_publish.html:9
 msgid "Book"
 msgstr ""
 
-#: editor/models.py:175 editor/models.py:297 editor/models.py:365
+#: editor/models.py:229 editor/models.py:351 editor/models.py:419
 msgid "chapter"
 msgstr ""
 
-#: editor/models.py:176
+#: editor/models.py:230
 msgid "chapter history"
 msgstr ""
 
-#: editor/models.py:177 editor/models.py:274 editor/models.py:299
+#: editor/models.py:231 editor/models.py:328 editor/models.py:353
 msgid "modified"
 msgstr ""
 
-#: editor/models.py:178
+#: editor/models.py:232
 msgid "args"
 msgstr ""
 
-#: editor/models.py:180 editor/models.py:201
+#: editor/models.py:234 editor/models.py:255
 msgid "kind"
 msgstr ""
 
-#: editor/models.py:203
+#: editor/models.py:257
 msgid "value string"
 msgstr ""
 
-#: editor/models.py:204
+#: editor/models.py:258
 msgid "value integer"
 msgstr ""
 
-#: editor/models.py:205
+#: editor/models.py:259
 msgid "value text"
 msgstr ""
 
-#: editor/models.py:206
+#: editor/models.py:260
 msgid "value date"
 msgstr ""
 
-#: editor/models.py:226 editor/models.py:227
+#: editor/models.py:280 editor/models.py:281
 msgid "Metadata"
 msgstr ""
 
-#: editor/models.py:234
+#: editor/models.py:288
 msgid "major"
 msgstr ""
 
-#: editor/models.py:235
+#: editor/models.py:289
 msgid "minor"
 msgstr ""
 
-#: editor/models.py:276 editor/models.py:301
-#: editor/templates/editor/edit_book.html:653
+#: editor/models.py:330 editor/models.py:355
+#: editor/templates/editor/edit_book.html:658
 msgid "revision"
 msgstr ""
 
-#: editor/models.py:281 messaging/models.py:34
+#: editor/models.py:335 messaging/models.py:34
 msgid "content"
 msgstr ""
 
-#: editor/models.py:291
+#: editor/models.py:345
 msgid "Chapter"
 msgstr ""
 
-#: editor/models.py:292 editor/templates/editor/edit_book.html:97
+#: editor/models.py:346 editor/templates/editor/edit_book.html:97
 msgid "Chapters"
 msgstr ""
 
-#: editor/models.py:302 editor/templates/editor/edit_book.html:656
+#: editor/models.py:356 editor/templates/editor/edit_book.html:661
 msgid "comment"
 msgstr ""
 
-#: editor/models.py:308
+#: editor/models.py:362
 msgid "Chapter history"
 msgstr ""
 
-#: editor/models.py:334 editor/templates/editor/edit_strings.html:53
+#: editor/models.py:388 editor/templates/editor/edit_strings.html:53
 msgid "filename"
 msgstr ""
 
-#: editor/models.py:347 editor/templates/editor/edit_book.html:615
+#: editor/models.py:401 editor/templates/editor/edit_book.html:619
 msgid "Attachment"
 msgstr ""
 
-#: editor/models.py:348
+#: editor/models.py:402
 msgid "Attachments"
 msgstr ""
 
-#: editor/models.py:354
+#: editor/models.py:408
 msgid "section name"
 msgstr ""
 
-#: editor/models.py:355
+#: editor/models.py:409
 msgid "chapter name"
 msgstr ""
 
-#: editor/models.py:356
+#: editor/models.py:410
 msgid "line"
 msgstr ""
 
-#: editor/models.py:367
+#: editor/models.py:421
 msgid "typeof"
 msgstr ""
 
-#: editor/models.py:381
+#: editor/models.py:435
 msgid "Book TOC"
 msgstr ""
 
-#: editor/models.py:382
+#: editor/models.py:436
 msgid "Book TOCs"
 msgstr ""
 
-#: editor/models.py:411 editor/models.py:412
+#: editor/models.py:465 editor/models.py:466
 msgid "Attribution Exclude"
 msgstr ""
 
-#: editor/models.py:418
+#: editor/models.py:472
 msgid "wizzard type"
 msgstr ""
 
-#: editor/models.py:419
+#: editor/models.py:473
 msgid "wizzard options"
 msgstr ""
 
-#: editor/models.py:425 editor/models.py:426
+#: editor/models.py:479 editor/models.py:480
 msgid "Publish Wizzard"
 msgstr ""
 
@@ -707,33 +857,33 @@ msgstr ""
 msgid "Modifications:"
 msgstr ""
 
-#: editor/templates/base_edit.html:65 portal/templates/base.html:65
+#: editor/templates/base_edit.html:65 portal/templates/base.html:72
 msgid "Sign out"
 msgstr ""
 
-#: editor/templates/base_edit.html:71 portal/templates/base.html:71
+#: editor/templates/base_edit.html:71 portal/templates/base.html:78
 msgid "Sign In / Create Account"
 msgstr ""
 
-#: editor/templates/base_edit.html:90 portal/templates/base.html:90
+#: editor/templates/base_edit.html:90 portal/templates/base.html:97
 #: portal/templates/portal/groups.html:12
 msgid "Groups"
 msgstr ""
 
-#: editor/templates/base_edit.html:91 portal/templates/base.html:91
+#: editor/templates/base_edit.html:91 portal/templates/base.html:98
 #: portal/templates/portal/people.html:13
 msgid "People"
 msgstr ""
 
-#: editor/templates/base_edit.html:126 portal/templates/base.html:117
+#: editor/templates/base_edit.html:126 portal/templates/base.html:124
 msgid "There has been error in communication with booki server."
 msgstr ""
 
-#: editor/templates/base_edit.html:127 portal/templates/base.html:118
+#: editor/templates/base_edit.html:127 portal/templates/base.html:125
 msgid "Not sure right now where is the problem."
 msgstr ""
 
-#: editor/templates/base_edit.html:130 portal/templates/base.html:121
+#: editor/templates/base_edit.html:130 portal/templates/base.html:128
 msgid "You should refresh this page."
 msgstr ""
 
@@ -827,13 +977,6 @@ msgstr ""
 msgid "Notes"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:117
-#: editor/templates/editor/edit_book.html:412
-#: portal/templates/portal/group.html:68
-#: portal/templates/portal/group.html:169
-msgid "Settings"
-msgstr ""
-
 #: editor/templates/editor/edit_book.html:122
 #: editor/templates/editor/edit_book.html:404
 msgid "Publish"
@@ -911,10 +1054,6 @@ msgstr ""
 msgid "Edit Image"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:220
-msgid "Image"
-msgstr ""
-
 #: editor/templates/editor/edit_book.html:223
 msgid "Image:"
 msgstr ""
@@ -972,7 +1111,7 @@ msgid "Hold chapters"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:290
-#: editor/templates/editor/edit_book.html:607
+#: editor/templates/editor/edit_book.html:611
 msgid "Save"
 msgstr ""
 
@@ -1026,7 +1165,7 @@ msgid "Upload a new image or file"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:346
-#: editor/templates/editor/edit_book.html:586
+#: editor/templates/editor/edit_book.html:587
 #: editor/templates/editor/edit_strings.html:58
 msgid "Upload"
 msgstr ""
@@ -1160,7 +1299,7 @@ msgid "Remove"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:510
-#: editor/templates/editor/edit_book.html:694
+#: editor/templates/editor/edit_book.html:699
 msgid "Chapter status"
 msgstr ""
 
@@ -1209,7 +1348,7 @@ msgid "action"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:561
-#: editor/templates/editor/edit_book.html:655
+#: editor/templates/editor/edit_book.html:660
 msgid "time"
 msgstr ""
 
@@ -1217,57 +1356,57 @@ msgstr ""
 msgid "Switched to <span class=\"entryVersion\">entry.version.version</span>"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:587
+#: editor/templates/editor/edit_book.html:588
 msgid "Uploaded <span class=\"entryFilename\">entry.args.filename</span>."
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:592
+#: editor/templates/editor/edit_book.html:594
 msgid "Delete"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:593
+#: editor/templates/editor/edit_book.html:595
 msgid "Deleted <span class=\"entryFilename\">entry.args.filename</span>."
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:605
+#: editor/templates/editor/edit_book.html:609
 msgid "Unknown"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:606
+#: editor/templates/editor/edit_book.html:610
 msgid "Create"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:608
+#: editor/templates/editor/edit_book.html:612
 msgid "Rename"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:609
+#: editor/templates/editor/edit_book.html:613
 msgid "Reorder"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:610
+#: editor/templates/editor/edit_book.html:614
 msgid "Split"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:611
+#: editor/templates/editor/edit_book.html:615
 #: reader/templates/reader/book_info.html:159
 msgid "Section create"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:612
+#: editor/templates/editor/edit_book.html:616
 #: reader/templates/reader/book_info.html:166
 msgid "Book create"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:613
+#: editor/templates/editor/edit_book.html:617
 msgid "Minor"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:614
+#: editor/templates/editor/edit_book.html:618
 msgid "Major"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:640
+#: editor/templates/editor/edit_book.html:644
 #: reader/templates/reader/book_chapter.html:51
 #: reader/templates/reader/book_chapter.html:57
 #: reader/templates/reader/book_view.html:40
@@ -1276,145 +1415,145 @@ msgstr ""
 msgid "EDIT"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:640
+#: editor/templates/editor/edit_book.html:644
 msgid "VIEW"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:648
+#: editor/templates/editor/edit_book.html:653
 msgid "back to history index"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:648
+#: editor/templates/editor/edit_book.html:653
 msgid "Compare revisions"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:652
+#: editor/templates/editor/edit_book.html:657
 msgid "compare"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:664
+#: editor/templates/editor/edit_book.html:669
 #: editor/templates/editor/edit_strings.html:54
 msgid "dimension"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:665
+#: editor/templates/editor/edit_book.html:670
 #: editor/templates/editor/edit_strings.html:55
 msgid "size"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:669
-#: editor/templates/editor/edit_book.html:689
+#: editor/templates/editor/edit_book.html:674
+#: editor/templates/editor/edit_book.html:694
 msgid "back to chapter history"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:671
+#: editor/templates/editor/edit_book.html:676
 msgid "Normal view"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:673
+#: editor/templates/editor/edit_book.html:678
 msgid "Source view"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:674
+#: editor/templates/editor/edit_book.html:679
 msgid "Revert to this revision"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:675
+#: editor/templates/editor/edit_book.html:680
 msgid "No such revision."
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:678
+#: editor/templates/editor/edit_book.html:683
 msgid "User:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:679
+#: editor/templates/editor/edit_book.html:684
 msgid "Modified:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:680
+#: editor/templates/editor/edit_book.html:685
 msgid "Version:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:681
+#: editor/templates/editor/edit_book.html:686
 msgid "Revision:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:682
+#: editor/templates/editor/edit_book.html:687
 msgid "Comment"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:684
+#: editor/templates/editor/edit_book.html:689
 msgid "previous"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:684
+#: editor/templates/editor/edit_book.html:689
 msgid "next"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:689
+#: editor/templates/editor/edit_book.html:694
 msgid "Show side by side"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:690
+#: editor/templates/editor/edit_book.html:695
 msgid ""
 "Compare revision <span class=\"revision1Name\">revision1</span> with "
 "revision <span class=\"revision2Name\">revision2</span>"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:695
+#: editor/templates/editor/edit_book.html:700
 msgid "Select new chapter status:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:708
+#: editor/templates/editor/edit_book.html:713
 msgid "Chapter statuses"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:713
+#: editor/templates/editor/edit_book.html:718
 msgid "New status:"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:718
+#: editor/templates/editor/edit_book.html:723
 msgid "Chapter statuses:"
 msgstr ""
 
-#: editor/templates/editor/edit_publish.html:8
-#: editor/templates/editor/edit_publish.html:12
-#: editor/templates/editor/edit_publish.html:16
-#: editor/templates/editor/edit_publish.html:20
+#: editor/templates/editor/edit_publish.html:10
+#: editor/templates/editor/edit_publish.html:17
 #: editor/templates/editor/edit_publish.html:24
+#: editor/templates/editor/edit_publish.html:31
+#: editor/templates/editor/edit_publish.html:38
 msgid "settings"
 msgstr ""
 
-#: editor/templates/editor/edit_publish.html:11
+#: editor/templates/editor/edit_publish.html:16
 msgid "Ebook"
 msgstr ""
 
-#: editor/templates/editor/edit_publish.html:15
+#: editor/templates/editor/edit_publish.html:23
 msgid "Lulu.com"
 msgstr ""
 
-#: editor/templates/editor/edit_publish.html:19
+#: editor/templates/editor/edit_publish.html:30
 msgid "Screen PDF"
 msgstr ""
 
-#: editor/templates/editor/edit_publish.html:23
+#: editor/templates/editor/edit_publish.html:37
 msgid "Open Document Text"
 msgstr ""
 
-#: editor/templates/editor/edit_publish.html:29
+#: editor/templates/editor/edit_publish.html:45
 msgid "Publish this book"
 msgstr ""
 
-#: editor/templates/editor/edit_publish.html:32
+#: editor/templates/editor/edit_publish.html:48
 msgid ""
 "Please wait. It will take couple of moments. Your book is being generated."
 msgstr ""
 
-#: editor/templates/editor/edit_publish.html:35
+#: editor/templates/editor/edit_publish.html:51
 msgid "Your book has been generated at this url:"
 msgstr ""
 
-#: editor/templates/editor/edit_publish.html:38
+#: editor/templates/editor/edit_publish.html:54
 msgid "Unknown error while trying to publish this book."
 msgstr ""
 
@@ -1712,7 +1851,7 @@ msgstr ""
 
 #: messaging/views.py:100
 #, python-format
-msgid "Message from %s at Booki"
+msgid "Message from %s"
 msgstr ""
 
 #: messaging/templates/messaging/book_followbutton.html:5
@@ -1723,13 +1862,33 @@ msgstr ""
 msgid "Stop following this book"
 msgstr ""
 
+#: messaging/templates/messaging/messagefield.html:8
+msgid "Attach file"
+msgstr ""
+
+#: messaging/templates/messaging/messagefield.html:11
+msgid "Add Snippet"
+msgstr ""
+
+#: messaging/templates/messaging/messagefield.html:12
+msgid "Optional snippet context URL:"
+msgstr ""
+
 #: messaging/templates/messaging/messagefield.html:15
 msgid "Share"
 msgstr ""
 
+#: messaging/templates/messaging/messagefield_button.html:3
+msgid "Post a message"
+msgstr ""
+
+#: messaging/templates/messaging/post.html:8
+msgid "send a reply"
+msgstr ""
+
 #: messaging/templates/messaging/post.html:11
 #: portal/templates/portal/books.html:45
-#: portal/templates/portal/frontpage.html:45
+#: portal/templates/portal/frontpage.html:47
 msgid "ago"
 msgstr ""
 
@@ -1770,6 +1929,10 @@ msgstr ""
 msgid "Tag timeline"
 msgstr ""
 
+#: portal/templates/base.html:70
+msgid "Control Center"
+msgstr ""
+
 #: portal/templates/booki_paginator.html:5
 msgid "Previous"
 msgstr ""
@@ -1803,16 +1966,16 @@ msgstr ""
 msgid "Welcome to Booktype"
 msgstr ""
 
-#: portal/templates/portal/frontpage.html:36
+#: portal/templates/portal/frontpage.html:38
 #: reader/templates/reader/book_info.html:123
 msgid "Recent activity"
 msgstr ""
 
-#: portal/templates/portal/frontpage.html:48
+#: portal/templates/portal/frontpage.html:50
 msgid "Created new chapter"
 msgstr ""
 
-#: portal/templates/portal/frontpage.html:53
+#: portal/templates/portal/frontpage.html:55
 msgid "Created new book"
 msgstr ""
 
