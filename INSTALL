@@ -175,7 +175,28 @@ How to migrate to Booktype 1.5.3
                          ...)
 
     Notice: All of these changes will require "django-admin migrate" at the end.
-      
+
+2. Upgrade your config files to include Control Center
+    - Upgrade settings.py file with:
+      INSTALLED_APPS = (...,
+                        'booktypecontrol'
+                        ,...)
+
+
+    - Add to the end of settings.py file
+
+      from booki.utils import config
+
+      try:
+        BOOKTYPE_CONFIG = config.loadConfiguration()
+      except config.ConfigurationError:
+        BOOKTYPE_CONFIG = {}
+
+    - Template file lib/booki/portal/templates/base.html has been modified. 
+
+    Notice: All of these changes will require "django-admin migrate" at the end.
+    
+
 
 
 How to migrate to Booktype 1.5.2

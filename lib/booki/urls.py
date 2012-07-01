@@ -47,6 +47,9 @@ else:
                            # front page                       
                            url(r'^$', 'booki.portal.views.view_frontpage', name="frontpage"),
 
+                           # booktype control center
+                           url(r'^_control/', include('booktypecontrol.urls')),
+
                            # favicon 
                            (r'^favicon\.ico', 'django.views.generic.simple.redirect_to', {'url': '/site_static/images/favicon.png'}),
 

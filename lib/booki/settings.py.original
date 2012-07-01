@@ -170,7 +170,8 @@ INSTALLED_APPS = (
     'booki.portal',
     'booki.messaging',
 
-    'sputnik'
+    'sputnik',
+    'booktypecontrol'
 )
 
 
@@ -192,3 +193,10 @@ logInitDone=False
 if not logInitDone:
     logInitDone = True
     init_logging()
+
+from booki.utils import config
+
+try:
+    BOOKTYPE_CONFIG = config.loadConfiguration()
+except config.ConfigurationError:
+    BOOKTYPE_CONFIG = {}

@@ -65,7 +65,11 @@
     {% if request.user.is_authenticated %}
 		<ul>
         	<li>
-               <a href="{% url view_profile request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url signout %}">{% trans "Sign out" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;{% messagefield_button %} 
+               <a href="{% url view_profile request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;
+               {% if request.user.is_superuser %}
+                 |&nbsp;&nbsp;<a href="{% url control_frontpage %}">{% trans "Control Center" %}</a>&nbsp;&nbsp;
+               {% endif %}
+               |&nbsp;&nbsp;<a href="{% url signout %}">{% trans "Sign out" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;{% messagefield_button %} 
             </li>
         </ul>
     {% else %}
