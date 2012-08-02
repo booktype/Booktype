@@ -149,3 +149,65 @@ def getDirectorySize(dirPath):
 
     return total_size
 
+
+def isUserLimitReached():
+    """
+    Checks if maximum number of user is reached.
+    
+    @rtype text: C{book}
+    @param: Returns True if maximum number of users is reached
+    """
+
+    from booki.utils import config
+    from django.contrib.auth.models import User
+
+    maxUsers = config.getConfiguration('BOOKTYPE_MAX_USERS')
+
+    if not isinstance(maxUsers, int):
+        # We should show some kind of warning here
+        return False
+
+    # 0 means unlimited and that is the default value
+    if maxUsers == 0: 
+        return False
+
+    # get list of all active accounts
+    numUsers = User.objects.filter(is_active=True).count()
+
+    if numUsers >= maxUsers: 
+        return True
+
+    return False
+
+def isBookLimitReached():
+    """
+    Checks if maximum number of books is reaced.
+    
+    @rtype text: C{book}
+    @param: Returns True if maximum number of books is reached
+    """
+
+    from booki.utils import config
+    from booki.editor import models
+
+    maxBooks = config.getConfiguration('BOOKTYPE_MAX_BOOKS')
+
+    if not isinstance(maxBooks, int):
+        # We should show some kind of warning here
+        return False
+
+    # 0 means unlimited and that is the default value
+    if maxBooks == 0: 
+        return False
+
+    # get list of all active books
+    numBooks = models.Book.objects.all().count()
+
+    if numBooks >= maxBooks: 
+        return True
+
+    return False
+
+
+
+

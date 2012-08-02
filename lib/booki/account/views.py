@@ -97,16 +97,18 @@ def signin(request):
 
 
     from booki.utils.json_wrapper import simplejson
-
+    from booki.utils.misc import  isUserLimitReached
     from booki.editor.models import BookiGroup
 
     from django.core.exceptions import ObjectDoesNotExist
     from django.contrib import auth
 
+    limitReached = isUserLimitReached()
+
     if request.POST.get("ajax", "") == "1":
         ret = {"result": 0}
 
-        if request.POST.get("method", "") == "register" and config.getConfiguration('FREE_REGISTRATION'):
+        if request.POST.get("method", "") == "register" and config.getConfiguration('FREE_REGISTRATION') and not limitReached:
             def _checkIfEmpty(key):
                 return request.POST.get(key, "").strip() == ""
 
@@ -234,7 +236,10 @@ def signin(request):
             pass
 
     try:
-        return render_to_response('account/signin.html', {"request": request, 'redirect': redirect, 'joingroups': joinGroups})
+        return render_to_response('account/signin.html', {'request': request, 
+                                                          'redirect': redirect, 
+                                                          'joingroups': joinGroups, 
+                                                          'limit_reached': limitReached})
     except:
         transaction.rollback()
     finally:
@@ -404,6 +409,7 @@ def view_profile(request, username):
 
     from django.contrib.auth.models import User
     from booki.editor import models
+    from booki.utils.misc import isBookLimitReached
 
     try:
         user = User.objects.get(username=username)
@@ -437,6 +443,7 @@ def view_profile(request, username):
                                                             "admin_import": admin_import,
                                                             "user_description": '<br/>'.join(userDescription.replace('\r','').split('\n')),
                                                             "books": books,
+                                                            "limit_reached": isBookLimitReached(),
                                                             "groups": groups})
 
 @transaction.commit_manually
@@ -540,6 +547,7 @@ def create_book(request, username):
     """
 
     from django.contrib.auth.models import User
+    from booki.utils.misc import isBookLimitReached
 
     try:
         user = User.objects.get(username=username)
@@ -551,14 +559,13 @@ def create_book(request, username):
         finally:
             transaction.commit()    
 
-    if not request.user.is_authenticated():
+    if isBookLimitReached() or not request.user.is_authenticated():
         try:
             return pages.ErrorPage(request, "errors/no_permissions.html")
         except:
             transaction.rollback()
         finally:
             transaction.commit()    
-
 
     from booki.utils.book import checkBookAvailability, createBook
     from booki.editor import models
@@ -749,6 +756,7 @@ def import_book(request, username):
     """
 
     from django.contrib.auth.models import User
+    from booki.utils.misc import isBookLimitReached
 
     try:
         user = User.objects.get(username=username)
@@ -760,7 +768,7 @@ def import_book(request, username):
         finally:
             transaction.commit()    
 
-    if not request.user.is_authenticated():
+    if isBookLimitReached() or not request.user.is_authenticated():
         try:
             return pages.ErrorPage(request, "errors/no_permissions.html")
         except:
