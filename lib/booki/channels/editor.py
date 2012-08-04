@@ -2512,19 +2512,27 @@ def remote_roles_add(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_ver = book.getVersion(version)
 
+    result = False
+
     try:
         u = User.objects.get(username = message["username"])
 
-        up = models.BookiPermission(book = book,
-                                    user = u,
-                                    permission = message["role"])
-        up.save()
+        # we do some black magic if user is book owner and we try to make him administrator        
+        if not (book.owner == u and message["role"] == 1):
+            # Do not add if user is already in the list
+            if not models.BookiPermission.objects.filter(book = book, user = u, permission = message["role"]).exists():
+                up = models.BookiPermission(book = book,
+                                            user = u,
+                                            permission = message["role"])
+                up.save()
+
+                result = True
     except User.DoesNotExist:
         pass
 
     transaction.commit()
 
-    return {"status": True}
+    return {"status": result}
 
 
 def remote_roles_delete(request, message, bookid, version):
