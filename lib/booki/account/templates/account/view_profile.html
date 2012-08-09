@@ -190,6 +190,7 @@
   <div id="tabs-settings">
   <h3>{% trans "User settings" %}</h3>
  <iframe name="hidden_settings" style="border: 0px; width: 0px; height: 0px;"></iframe>
+ <div style="float: left; margin-right: 20px">
  <form method="post" action="{% url save_settings user.username %}" target="hidden_settings" enctype="multipart/form-data" name="formsettings">
   <fieldset class="plain">
    <dl>
@@ -218,7 +219,43 @@
     <p><button>{% trans "Save changes" %}</button></p>
    </fieldset>
  </form>
+   </div>
+   <div style="float: left; width: 380px; ">
+ <form method="post" action="" enctype="multipart/form-data" name="formpassword">
+  <fieldset class="plain">
+   <dl>
+    <dt><label>{% trans "Old Password" %}</label></dt>
+    <dd>
+      <input type="password" name="password0" value=""/>
+    </dd>
+
+   <dl>
+    <dt><label>{% trans "New Password" %}</label></dt>
+    <dd>
+      <input type="password" name="password1" value=""/>
+    </dd>
+
+    <dt><label>{% trans "Password (again)" %}</label></dt>
+    <dd>
+      <input type="password" name="password2" value=""/>
+    </dd>
+   </dl>
+    <small><a href="{% url forgotpassword %}">Forgotten your password?</a></small>
+
+    <p><button>{% trans "Change password" %}</button></p>
+   </fieldset>
+  </form>
+    <div class="notificationpassword"></div>
+   </div>
   </div>
   {% endif %}
  </div>
+ <ul class="strings template">
+  <li class="passwordmissingold">{% trans "Unable to change password. Old password is missing." %}</li>
+  <li class="passwordwrongold">{% trans "Unable to change password. Old password is incorrect." %}</li>
+  <li class="passwordnotequal">{% trans "Unable to change password. The new and confirmation passwords are not equal." %}</li>
+  <li class="passwordshort">{% trans "Password must be 6 characters or more!" %}</li>
+  <li class="passwordchanged">{% trans "Password changed." %}</li>
+ </ul>
+
 {% endblock %} 
