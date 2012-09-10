@@ -27,7 +27,14 @@ sed -i "1s:(1.5.4-1):(${VERSION}):g" debian/changelog
 
 # Fixes for 1.5.4  #############
 
-# these are all moved to debian/copyright
+# moved to debian/copyright
+rm AUTHORS.txt
+rm LICENSE.txt
+rm lib/booki/site_static/js/tiny_mce/classes/firebug/FIREBUG.LICENSE
+rm lib/booki/site_static/js/tiny_mce/license.txt
+rm lib/booki/site_static/js/jquery/AUTHORS.txt
+rm lib/booki/site_static/js/jquery/MIT-LICENSE.txt
+rm lib/booki/site_static/js/jquery/GPL-LICENSE.txt
 
 #Fix permissions
 
