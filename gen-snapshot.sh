@@ -27,6 +27,10 @@ sed -i "1s:(1.5.4-1):(${VERSION}):g" debian/changelog
 
 # Fixes for 1.5.4  #############
 
+# remove directories not needed by users
+rm -r tests
+rm -r tools
+
 # moved to debian/copyright
 rm AUTHORS.txt
 rm LICENSE.txt
