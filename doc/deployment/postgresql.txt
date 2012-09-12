@@ -37,3 +37,38 @@ Check the documentation:
     service postgresql restart
 
 
+Instructions for Ubuntu
+=======================
+
+The following instructions were tested on Ubuntu Lucid 10.04 and slightly differ from the generic instructions above.
+
+1. Install PostgreSQL and Python modules
+
+   sudo apt-get install postgresql python-psycopg2
+
+2. Change the password for PostgreSQL. This you need to do _ONLY_ if you don't already know the password.
+
+    sudo -u postgres psql postgres
+    postgres=# \password postgres
+    postgres=# \q
+
+    sudo passwd -d postgres
+    sudo su postgres -c passwd
+
+3. Create PostgreSQL user "booktype"
+
+    sudo -u postgres createuser -SDR booktype
+
+4. Create database named "booktype" where user "booktype" is owner.
+
+    sudo -u postgres createdb -E utf8 -O booktype booktype
+
+5. Allow connections to database booktype for user booktype.
+
+    sudo nano /etc/postgresql/8.4/main/pg_hba.conf  (exact file name depends on PostgreSQL version)
+
+    local   booktype    booktype                         md5
+
+6. Restart PostgreSQL
+
+    sudo invoke-rc.d postgresql-8.4 restart
