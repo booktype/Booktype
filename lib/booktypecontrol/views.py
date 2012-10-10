@@ -339,6 +339,8 @@ class NewPersonForm(forms.Form):
         if self.cleaned_data['password2'] != self.cleaned_data['password1']:
             raise forms.ValidationError(_("Passwords do not match."))
 
+        return self.cleaned_data['password2']
+
     def __unicode__(self):
         return self.username
 
