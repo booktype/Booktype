@@ -370,12 +370,13 @@ def add_person(request):
 
                     t = template.loader.get_template('booktypecontrol/new_person_email.html')
                     content = t.render(template.Context({"username": frm.cleaned_data['username'],
-                                                         "password": frm.cleaned_data['password2']}))
+                                                         "password": frm.cleaned_data['password2'],
+                                                         "server":   settings.BOOKI_URL}))
 
                     from django.core.mail import EmailMultiAlternatives
                     emails = [frm.cleaned_data['email']]
 
-                    msg = EmailMultiAlternatives('We have just created account for you', content, settings.REPORT_EMAIL_USER, emails)
+                    msg = EmailMultiAlternatives('You have a new Booktype Account ', content, settings.REPORT_EMAIL_USER, emails)
                     msg.attach_alternative(content, "text/html")
                     msg.send(fail_silently=True)
 
