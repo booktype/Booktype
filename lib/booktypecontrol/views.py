@@ -101,8 +101,13 @@ def frontpage(request):
     # Book activity
     activityHistory = models.BookHistory.objects.filter(kind__in=[1, 10]).order_by('-modified')[:20]
 
+    # Booktype version
+    import booki
+    booktypeVersion = '.'.join([str(num) for num in booki.version])
+
     return render_to_response('booktypecontrol/frontpage.html', 
                               {"request": request,
+                               "booktype_version": booktypeVersion,
                                "admin_options": ADMIN_OPTIONS,
                                "online_users": onlineUsers,
                                "attachments_size": attachmentsSize,
