@@ -10,8 +10,6 @@
 	<script type="text/javascript" src="js/dialog2.js"></script>
 </head>
 <body id="advimage" style="display: none" role="application">
-<form onsubmit="FilebrowserDialog.insert(); return false;" action="#">
-
  <div class="tabs">
   <ul>
     <li id="browse_tab" class="current" aria-controls="browse_panel"><span><a href="javascript:mcTabs.displayTab('browse_tab','browse_panel');" onmousedown="return false;">Browse</a></span></li>
@@ -45,7 +43,8 @@
   <div id="upload_panel" class="panel">
     <fieldset>
      <legend>Upload image</legend>
-           <iframe width="300" height="200" name="frameupload2" border="0" style="border: 0px"></iframe>
+         <div id="frameupload2" style="overflow: auto; width: 300px; height: 200px;"></div>
+         <!-- <iframe width="300" height="200" name="frameupload2" border="0" style="border: 0px"></iframe> -->
      </fieldset>
 
   </div>
@@ -55,7 +54,5 @@
   <input type="button" id="insert" name="insert" value="{#insert}" onclick="FileBrowserDialogue.insert();" /> 
   <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
  </div>
-</form>
-
 </body>
 </html>

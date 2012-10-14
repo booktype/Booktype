@@ -253,7 +253,8 @@ def upload_attachment(request, bookid, version=None):
         return HttpResponse('<html><body><script> parent.closeAttachmentUpload();  </script></body></html>')
 
     if request.POST.get("attachmenttab", "") == "2":
-        return HttpResponse('<html><body><script>  parent.FileBrowserDialogue.loadAttachments(); parent.FileBrowserDialogue.showUpload(); parent.mcTabs.displayTab("browse_tab","browse_panel");</script></body></html>')
+        return HttpResponse('<html><body><script>  parent.FileBrowserDialogue.loadAttachments(); parent.FileBrowserDialogue.displayBrowseTab();  parent.FileBrowserDialogue.showUpload(); </script></body></html>')
+#        return HttpResponse('<html><body><script>  console.debug("load attachments"); parent.FileBrowserDialogue.loadAttachments(); console.debug("show upload"); parent.FileBrowserDialogue.showUpload();  parent.FileBrowserDialogue.displayBrowseTab();  console.debug("after show browse panel");</script></body></html>')
 
     # should not call showAttachmentsTab, but it works for now
     if operationResult:
