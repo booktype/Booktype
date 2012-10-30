@@ -2956,7 +2956,6 @@ def remote_publish_book2(request, message, bookid, version):
 
     except models.PublishWizzard.DoesNotExist:
         options = PUBLISH_OPTIONS[message.get('wizzard_type', 'book')]
-    
 
     # converstion for names
     publishOptions = {'ebook': 'epub',
@@ -3080,6 +3079,12 @@ def remote_publish_book2(request, message, bookid, version):
         if _getValue('control-css') == 'on':
             args['css'] = _css
 
+        # We have been using wrong argument name for this. Considering people have saved in their publishing settings old values this 
+        # seems to be best way to fix this issue for now.
+
+        if args.get('booksize', '') == 'custom':
+            args['page_width']  = args.get('custom_width', '')
+            args['page_height'] = args.get('custom_height', '')
 
     if publishMode == 'book' and message.get("publish_mode", "") == 'lulu':
         args['to_lulu'] = 'yes' 
@@ -3112,6 +3117,13 @@ def remote_publish_book2(request, message, bookid, version):
         
         _isSet('p_pagebreak')
         _isSet('footnotes_pagebreak')
+
+        # We have been using wrong argument name for this. Considering people have saved in their publishing settings old values this 
+        # seems to be best way to fix this issue for now.
+
+        if args.get('booksize', '') == 'custom':
+            args['page_width']  = args.get('custom_width', '')
+            args['page_height'] = args.get('custom_height', '')
         
 
     if publishMode == 'epub':
@@ -3179,6 +3191,12 @@ def remote_publish_book2(request, message, bookid, version):
         _isSet('columns')
         _isSet('column_margin')
 
+        # We have been using wrong argument name for this. Considering people have saved in their publishing settings old values this 
+        # seems to be best way to fix this issue for now.
+
+        if args.get('booksize', '') == 'custom':
+            args['page_width']  = args.get('custom_width', '')
+            args['page_height'] = args.get('custom_height', '')
 
     try:
         data = urllib.urlencode(args)
