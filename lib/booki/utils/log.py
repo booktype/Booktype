@@ -40,14 +40,19 @@ def logBookHistory(book = None, version = None, chapter = None, chapter_history 
     @param kind: What kind of modification was done
     """
 
-    history = models.BookHistory(book = book,
-                                 version = version,
-                                 chapter = chapter,
-                                 chapter_history = chapter_history,
-                                 args = simplejson.dumps(args),
-                                 user = user,
-                                 kind = models.HISTORY_CHOICES.get(kind, 0))
-    history.save()
+    try:
+        history = models.BookHistory(book = book,
+                                     version = version,
+                                     chapter = chapter,
+                                     chapter_history = chapter_history,
+                                     args = simplejson.dumps(args),
+                                     user = user,
+                                     kind = models.HISTORY_CHOICES.get(kind, 0))
+        history.save()
+
+        return history
+    except ValueError:
+        return None
 
 # logChapterHistory
 
@@ -67,14 +72,17 @@ def logChapterHistory(chapter = None, content = None, user = None, comment = '',
     @param revision: Revision number for this change
     """
 
-    history = models.ChapterHistory(chapter = chapter,
-                                    content = content,
-                                    user = user,
-                                    revision = revision,
-                                    comment = comment)
-    history.save()
+    try:
+        history = models.ChapterHistory(chapter = chapter,
+                                        content = content,
+                                        user = user,
+                                        revision = revision,
+                                        comment = comment)
+        history.save()
 
-    return history
+        return history
+    except ValueError:
+        return None
 
 
 

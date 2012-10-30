@@ -467,15 +467,16 @@ def remote_chapter_save(request, message, bookid, version):
                                     comment = message.get("comment", ""),
                                     revision = chapter.revision+1)
 
-        logBookHistory(book = chapter.book,
-                       version = book_version,
-                       chapter = chapter,
-                       chapter_history = history,
-                       user = request.user,
-                       args = {"comment": message.get("comment", ""),
-                               "author": message.get("author", ""),
-                               "authorcomment": message.get("authorcomment", "")},
-                       kind = 'chapter_save')
+        if history:
+            logBookHistory(book = chapter.book,
+                           version = book_version,
+                           chapter = chapter,
+                           chapter_history = history,
+                           user = request.user,
+                           args = {"comment": message.get("comment", ""),
+                                   "author": message.get("author", ""),
+                                   "authorcomment": message.get("authorcomment", "")},
+                           kind = 'chapter_save')
 
         chapter.revision += 1
 
@@ -958,12 +959,13 @@ def remote_create_chapter(request, message, bookid, version):
                                     comment = message.get("comment", ""),
                                     revision = chapter.revision)
 
-        logBookHistory(book = book,
-                       version = book_version,
-                       chapter = chapter,
-                       chapter_history = history,
-                       user = request.user,
-                       kind = 'chapter_create')
+        if history:
+            logBookHistory(book = book,
+                           version = book_version,
+                           chapter = chapter,
+                           chapter_history = history,
+                           user = request.user,
+                           kind = 'chapter_create')
 
         transaction.commit()
 
@@ -1537,13 +1539,14 @@ def remote_revert_revision(request, message, bookid, version):
                       comment = "Reverted to revision %s." % message["revision"],
                       revision = chapter.revision+1)
 
-    logBookHistory(book = book,
-                   version = book_ver,
-                   chapter = chapter,
-                   chapter_history = history,
-                   user = request.user,
-                   args = {},
-                   kind = 'chapter_save')
+    if history:
+        logBookHistory(book = book,
+                       version = book_ver,
+                       chapter = chapter,
+                       chapter_history = history,
+                       user = request.user,
+                       args = {},
+                       kind = 'chapter_save')
 
     chapter.revision += 1
     chapter.content = revision.content;
