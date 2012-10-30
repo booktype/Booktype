@@ -1,7 +1,7 @@
 Booktype
 -------------------
 
-A booktype is like a wiki, but instead of ending up with a web page you get a book.  
+A Booktype is like a wiki, but instead of ending up with a web page you get a book.  
 Booktype is built on top of the Django web framework.
 
 Installation
@@ -16,21 +16,21 @@ Contents of the Booktype package
 lib/
   python modules, django application
 
-tools/
-  scripts for importing books from other formats, CMSs
+doc/
+  documentation
 
-tests/
-  testing scripts
-
-site_media/
-  static web resources - JS, CSS, TinyMCE, Images
+scripts/
+  scripts for creating Booktype project, backup, report
 
 
 More info
 ---------
 
+Realtime chat
+Channel #booktype on irc.freenode.net server
+
 Booktype demo site
-http://booktype-demo.sourcefabric.org
+http://booktype-demo.sourcefabric.org/
 
 Booktype manual
 http://en.flossmanuals.net/booktype/
