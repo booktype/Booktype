@@ -1,22 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# RUSSIAN (ru_RU) translation for Booktype.
+# Copyright (C) 2012 Booktype contributors
+# This file is distributed under the same license as the Booktype package.
+# Aleksandar Erkalović <aleksandar.erkalovic@sourcefabric.org>, 2012.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Booktype 1.5.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-19 15:26+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2012-11-12 16:17+0100\n"
+"Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
+"Language-Team: Russian <contact@sourcefabric.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
 
 #: account/models.py:38
 #, fuzzy
@@ -28,14 +28,21 @@ msgstr "модель:"
 msgid "image"
 msgstr "сообщение"
 
-#: account/models.py:40 editor/models.py:93 editor/models.py:137
+#: account/models.py:40
+#: editor/models.py:93
+#: editor/models.py:137
 #: editor/models.py:291
 msgid "description"
 msgstr ""
 
-#: account/models.py:41 account/models.py:56 editor/models.py:233
-#: editor/models.py:354 editor/models.py:447 editor/models.py:459
-#: editor/models.py:471 editor/templates/editor/edit_book.html:560
+#: account/models.py:41
+#: account/models.py:56
+#: editor/models.py:233
+#: editor/models.py:354
+#: editor/models.py:447
+#: editor/models.py:459
+#: editor/models.py:471
+#: editor/templates/editor/edit_book.html:560
 #: editor/templates/editor/edit_book.html:659
 msgid "user"
 msgstr "пользователь"
@@ -44,8 +51,12 @@ msgstr "пользователь"
 msgid "secretcode"
 msgstr ""
 
-#: account/models.py:58 editor/models.py:100 editor/models.py:131
-#: editor/models.py:293 editor/models.py:327 editor/models.py:391
+#: account/models.py:58
+#: editor/models.py:100
+#: editor/models.py:131
+#: editor/models.py:293
+#: editor/models.py:327
+#: editor/models.py:391
 #: editor/templates/editor/edit_book.html:671
 msgid "created"
 msgstr ""
@@ -75,9 +86,7 @@ msgid "Create a Book"
 msgstr "Создана новая книга"
 
 #: account/templates/account/create_book.html:7
-msgid ""
-"You don't have permissions to create new books. At the moment only "
-"administrators can do that."
+msgid "You don't have permissions to create new books. At the moment only administrators can do that."
 msgstr ""
 
 #: account/templates/account/create_book.html:18
@@ -113,9 +122,7 @@ msgid "Description"
 msgstr ""
 
 #: account/templates/account/create_book.html:31
-msgid ""
-"Give some information so others can find it to help you (this can be added "
-"or changed later)."
+msgid "Give some information so others can find it to help you (this can be added or changed later)."
 msgstr ""
 
 #: account/templates/account/create_book.html:40
@@ -131,7 +138,8 @@ msgstr "Отправить ваш комментарий"
 msgid "Choose from the following licenses"
 msgstr ""
 
-#: account/templates/account/create_book.html:43 editor/models.py:35
+#: account/templates/account/create_book.html:43
+#: editor/models.py:35
 #: editor/templates/editor/edit_book.html:437
 msgid "License"
 msgstr ""
@@ -147,9 +155,7 @@ msgid "Image"
 msgstr "сообщение"
 
 #: account/templates/account/create_book.html:55
-msgid ""
-"If you have an image for the book then add it now (this can be added or "
-"changed later)"
+msgid "If you have an image for the book then add it now (this can be added or changed later)"
 msgstr ""
 
 #: account/templates/account/create_book.html:57
@@ -166,15 +172,11 @@ msgid "Make Public?"
 msgstr ""
 
 #: account/templates/account/create_book.html:64
-msgid ""
-"Would you like to keep your book private or make it public? If the book is "
-"public others can find the book to help you."
+msgid "Would you like to keep your book private or make it public? If the book is public others can find the book to help you."
 msgstr ""
 
 #: account/templates/account/create_book.html:65
-msgid ""
-"<strong>Note:</strong> this setting can be changed later from your dashboard."
-"</p>"
+msgid "<strong>Note:</strong> this setting can be changed later from your dashboard.</p>"
 msgstr ""
 
 #: account/templates/account/create_group.html:3
@@ -221,9 +223,7 @@ msgid "USERNAME OR E-MAIL ADDRESS"
 msgstr ""
 
 #: account/templates/account/forgot_password.html:55
-msgid ""
-"Give us your username or e-mail you used to create booki account and we will "
-"send you new password."
+msgid "Give us your username or e-mail you used to create booki account and we will send you new password."
 msgstr ""
 
 #: account/templates/account/forgot_password.html:57
@@ -241,9 +241,7 @@ msgid "Send request"
 msgstr ""
 
 #: account/templates/account/forgot_password.html:64
-msgid ""
-"<h2>Check your email!</h2><p>Password reset instructions were sent to your "
-"email.</p>"
+msgid "<h2>Check your email!</h2><p>Password reset instructions were sent to your email.</p>"
 msgstr ""
 
 #: account/templates/account/forgot_password_enter.html:40
@@ -320,11 +318,7 @@ msgid "Please provide your real name."
 msgstr ""
 
 #: account/templates/account/form_register.html:28
-msgid ""
-"Username is invalid. Please try a different one. You may use alhpanumeric "
-"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
-"li></ul>"
+msgid "Username is invalid. Please try a different one. You may use alhpanumeric characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
 msgstr ""
 
 #: account/templates/account/form_register.html:29
@@ -383,9 +377,7 @@ msgid "Import book"
 msgstr ""
 
 #: account/templates/account/import_book.html:7
-msgid ""
-"You don't have permissions to import content. At the moment only "
-"administrators can do that."
+msgid "You don't have permissions to import content. At the moment only administrators can do that."
 msgstr ""
 
 #: account/templates/account/import_book.html:19
@@ -422,8 +414,7 @@ msgid "Initially hidden from others"
 msgstr ""
 
 #: account/templates/account/import_book.html:38
-msgid ""
-"Please wait. It will take couple of moments. Your book is being imported!"
+msgid "Please wait. It will take couple of moments. Your book is being imported!"
 msgstr ""
 
 #: account/templates/account/signin.html:6
@@ -442,14 +433,9 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"    <p>Thank you. We have created your account and signed you in. Do you "
-"want to learn more how to use Booktype? Read the <a href=\"http://en."
-"flossmanuals.net/booktype\">user guide</a>!</p>\n"
+"    <p>Thank you. We have created your account and signed you in. Do you want to learn more how to use Booktype? Read the <a href=\"http://en.flossmanuals.net/booktype\">user guide</a>!</p>\n"
 "    \n"
-"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! "
-"Let's use Booktype now!</button><span class=\"redirectmessage\" style="
-"\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</"
-"span> seconds.</span></form></p>\n"
+"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! Let's use Booktype now!</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</span> seconds.</span></form></p>\n"
 "    "
 msgstr ""
 
@@ -458,9 +444,7 @@ msgid "Why do I need account ?"
 msgstr ""
 
 #: account/templates/account/signin.html:61
-msgid ""
-"Your real name is compulsory for reasons of copyright attribution on books "
-"you create and contribute to."
+msgid "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to."
 msgstr ""
 
 #: account/templates/account/signin.html:64
@@ -482,7 +466,8 @@ msgid "/user: %(username)s"
 msgstr "имя пользователя"
 
 #: account/templates/account/view_profile.html:43
-#: editor/templates/base_edit.html:82 portal/templates/base.html:89
+#: editor/templates/base_edit.html:82
+#: portal/templates/base.html:89
 msgid "My Dashboard"
 msgstr ""
 
@@ -497,9 +482,12 @@ msgid "My Books"
 msgstr ""
 
 #: account/templates/account/view_profile.html:47
-#: account/templates/account/view_profile.html:147 editor/models.py:202
-#: editor/templates/base_edit.html:89 portal/templates/base.html:96
-#: portal/templates/portal/books.html:13 portal/templates/portal/books.html:54
+#: account/templates/account/view_profile.html:147
+#: editor/models.py:202
+#: editor/templates/base_edit.html:89
+#: portal/templates/base.html:96
+#: portal/templates/portal/books.html:13
+#: portal/templates/portal/books.html:54
 #: portal/templates/portal/group.html:65
 #: portal/templates/portal/group.html:126
 msgid "Books"
@@ -535,10 +523,7 @@ msgid "Followers:"
 msgstr ""
 
 #: account/templates/account/view_profile.html:96
-msgid ""
-"Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" "
-"title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype"
-"\"><i>user guide</i></a>!"
+msgid "Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype\"><i>user guide</i></a>!"
 msgstr ""
 
 #: account/templates/account/view_profile.html:102
@@ -554,8 +539,7 @@ msgstr "восемь"
 #: account/templates/account/view_profile.html:113
 msgid ""
 "\n"
-"          <p>This is a perfect moment to start writing your book, just click "
-"on the button above!</p>\n"
+"          <p>This is a perfect moment to start writing your book, just click on the button above!</p>\n"
 "          "
 msgstr ""
 
@@ -581,8 +565,7 @@ msgid "go"
 msgstr "назад"
 
 #: account/templates/account/view_profile.html:134
-msgid ""
-"Work with others in Groups. To create a Group click on the button above."
+msgid "Work with others in Groups. To create a Group click on the button above."
 msgstr ""
 
 #: account/templates/account/view_profile.html:136
@@ -666,8 +649,7 @@ msgid "Unable to change password. Old password is incorrect."
 msgstr ""
 
 #: account/templates/account/view_profile.html:256
-msgid ""
-"Unable to change password. The new and confirmation passwords are not equal."
+msgid "Unable to change password. The new and confirmation passwords are not equal."
 msgstr ""
 
 #: account/templates/account/view_profile.html:258
@@ -684,14 +666,20 @@ msgstr ""
 msgid "Can't find user \"%(username)s\"."
 msgstr ""
 
-#: editor/models.py:28 editor/models.py:41 editor/models.py:64
-#: editor/models.py:91 editor/models.py:254 editor/models.py:290
-#: editor/models.py:418 editor/templates/editor/edit_book.html:668
+#: editor/models.py:28
+#: editor/models.py:41
+#: editor/models.py:64
+#: editor/models.py:91
+#: editor/models.py:254
+#: editor/models.py:290
+#: editor/models.py:418
+#: editor/templates/editor/edit_book.html:668
 #: editor/templates/editor/edit_strings.html:52
 msgid "name"
 msgstr "имя"
 
-#: editor/models.py:29 editor/models.py:42
+#: editor/models.py:29
+#: editor/models.py:42
 msgid "abbrevation"
 msgstr ""
 
@@ -699,7 +687,8 @@ msgstr ""
 msgid "Licenses"
 msgstr ""
 
-#: editor/models.py:48 editor/templates/editor/edit_book.html:418
+#: editor/models.py:48
+#: editor/templates/editor/edit_book.html:418
 msgid "Language"
 msgstr ""
 
@@ -707,7 +696,8 @@ msgstr ""
 msgid "Languages"
 msgstr ""
 
-#: editor/models.py:54 editor/models.py:132
+#: editor/models.py:54
+#: editor/models.py:132
 msgid "published"
 msgstr ""
 
@@ -719,20 +709,29 @@ msgstr ""
 msgid "not translated"
 msgstr ""
 
-#: editor/models.py:63 editor/models.py:78 editor/models.py:226
-#: editor/models.py:252 editor/models.py:287 editor/models.py:322
-#: editor/models.py:386 editor/models.py:417 editor/models.py:448
-#: editor/models.py:458 editor/models.py:470
+#: editor/models.py:63
+#: editor/models.py:78
+#: editor/models.py:226
+#: editor/models.py:252
+#: editor/models.py:287
+#: editor/models.py:322
+#: editor/models.py:386
+#: editor/models.py:417
+#: editor/models.py:448
+#: editor/models.py:458
+#: editor/models.py:470
 #, fuzzy
 msgid "book"
 msgstr "Поиск"
 
-#: editor/models.py:65 editor/models.py:420
+#: editor/models.py:65
+#: editor/models.py:420
 #, fuzzy
 msgid "weight"
 msgstr "восемь"
 
-#: editor/models.py:71 editor/models.py:72
+#: editor/models.py:71
+#: editor/models.py:72
 #, fuzzy
 msgid "Book status"
 msgstr "Закладки"
@@ -755,7 +754,8 @@ msgstr ""
 msgid "url name"
 msgstr "имя пользователя"
 
-#: editor/models.py:95 editor/models.py:125
+#: editor/models.py:95
+#: editor/models.py:125
 #, fuzzy
 msgid "owner"
 msgstr "один"
@@ -775,16 +775,20 @@ msgstr "группа"
 msgid "Booki groups"
 msgstr "группы"
 
-#: editor/models.py:115 editor/models.py:324
+#: editor/models.py:115
+#: editor/models.py:324
 #, fuzzy
 msgid "url title"
 msgstr "заголовок"
 
-#: editor/models.py:116 editor/models.py:325
+#: editor/models.py:116
+#: editor/models.py:325
 msgid "title"
 msgstr "заголовок"
 
-#: editor/models.py:117 editor/models.py:326 editor/models.py:390
+#: editor/models.py:117
+#: editor/models.py:326
+#: editor/models.py:390
 #, fuzzy
 msgid "status"
 msgstr "статус сотрудников"
@@ -794,13 +798,17 @@ msgstr "статус сотрудников"
 msgid "language"
 msgstr "отмечен"
 
-#: editor/models.py:121 editor/models.py:228 editor/models.py:320
-#: editor/models.py:384 editor/models.py:415
+#: editor/models.py:121
+#: editor/models.py:228
+#: editor/models.py:320
+#: editor/models.py:384
+#: editor/models.py:415
 #, fuzzy
 msgid "version"
 msgstr "Персидский"
 
-#: editor/models.py:123 editor/models.py:449
+#: editor/models.py:123
+#: editor/models.py:449
 msgid "group"
 msgstr "группа"
 
@@ -812,7 +820,8 @@ msgstr ""
 msgid "hidden"
 msgstr ""
 
-#: editor/models.py:135 editor/models.py:450
+#: editor/models.py:135
+#: editor/models.py:450
 msgid "permission"
 msgstr "разрешение"
 
@@ -821,12 +830,15 @@ msgstr "разрешение"
 msgid "cover"
 msgstr "октября"
 
-#: editor/models.py:201 editor/templates/editor/edit_publish.html:9
+#: editor/models.py:201
+#: editor/templates/editor/edit_publish.html:9
 #, fuzzy
 msgid "Book"
 msgstr "Поиск"
 
-#: editor/models.py:229 editor/models.py:351 editor/models.py:419
+#: editor/models.py:229
+#: editor/models.py:351
+#: editor/models.py:419
 #, fuzzy
 msgid "chapter"
 msgstr "апр"
@@ -836,7 +848,9 @@ msgstr "апр"
 msgid "chapter history"
 msgstr "Изменить историю: %s"
 
-#: editor/models.py:231 editor/models.py:328 editor/models.py:353
+#: editor/models.py:231
+#: editor/models.py:328
+#: editor/models.py:353
 msgid "modified"
 msgstr ""
 
@@ -844,7 +858,8 @@ msgstr ""
 msgid "args"
 msgstr ""
 
-#: editor/models.py:234 editor/models.py:255
+#: editor/models.py:234
+#: editor/models.py:255
 #, fuzzy
 msgid "kind"
 msgstr "Хинди"
@@ -868,7 +883,8 @@ msgstr ""
 msgid "value date"
 msgstr "Все даты"
 
-#: editor/models.py:280 editor/models.py:281
+#: editor/models.py:280
+#: editor/models.py:281
 msgid "Metadata"
 msgstr "Метаданные"
 
@@ -881,13 +897,15 @@ msgstr "март"
 msgid "minor"
 msgstr ""
 
-#: editor/models.py:330 editor/models.py:355
+#: editor/models.py:330
+#: editor/models.py:355
 #: editor/templates/editor/edit_book.html:658
 #, fuzzy
 msgid "revision"
 msgstr "Фризский"
 
-#: editor/models.py:335 messaging/models.py:34
+#: editor/models.py:335
+#: messaging/models.py:34
 msgid "content"
 msgstr "контент"
 
@@ -896,11 +914,13 @@ msgstr "контент"
 msgid "Chapter"
 msgstr "Изменить"
 
-#: editor/models.py:346 editor/templates/editor/edit_book.html:97
+#: editor/models.py:346
+#: editor/templates/editor/edit_book.html:97
 msgid "Chapters"
 msgstr ""
 
-#: editor/models.py:356 editor/templates/editor/edit_book.html:661
+#: editor/models.py:356
+#: editor/templates/editor/edit_book.html:661
 msgid "comment"
 msgstr "комментарий"
 
@@ -909,12 +929,14 @@ msgstr "комментарий"
 msgid "Chapter history"
 msgstr "Изменить историю: %s"
 
-#: editor/models.py:388 editor/templates/editor/edit_strings.html:53
+#: editor/models.py:388
+#: editor/templates/editor/edit_strings.html:53
 #, fuzzy
 msgid "filename"
 msgstr "Вьетнамский"
 
-#: editor/models.py:401 editor/templates/editor/edit_book.html:619
+#: editor/models.py:401
+#: editor/templates/editor/edit_book.html:619
 msgid "Attachment"
 msgstr ""
 
@@ -950,7 +972,8 @@ msgstr ""
 msgid "Book TOCs"
 msgstr ""
 
-#: editor/models.py:465 editor/models.py:466
+#: editor/models.py:465
+#: editor/models.py:466
 msgid "Attribution Exclude"
 msgstr ""
 
@@ -963,7 +986,8 @@ msgstr ""
 msgid "wizzard options"
 msgstr "Дополнительные настройки"
 
-#: editor/models.py:479 editor/models.py:480
+#: editor/models.py:479
+#: editor/models.py:480
 msgid "Publish Wizzard"
 msgstr ""
 
@@ -971,34 +995,41 @@ msgstr ""
 msgid "Modifications:"
 msgstr ""
 
-#: editor/templates/base_edit.html:65 portal/templates/base.html:72
+#: editor/templates/base_edit.html:65
+#: portal/templates/base.html:72
 #, fuzzy
 msgid "Sign out"
 msgstr "Выход"
 
-#: editor/templates/base_edit.html:71 portal/templates/base.html:78
+#: editor/templates/base_edit.html:71
+#: portal/templates/base.html:78
 msgid "Sign In / Create Account"
 msgstr ""
 
-#: editor/templates/base_edit.html:90 portal/templates/base.html:97
+#: editor/templates/base_edit.html:90
+#: portal/templates/base.html:97
 #: portal/templates/portal/groups.html:12
 msgid "Groups"
 msgstr "Группы"
 
-#: editor/templates/base_edit.html:91 portal/templates/base.html:98
+#: editor/templates/base_edit.html:91
+#: portal/templates/base.html:98
 #: portal/templates/portal/people.html:13
 msgid "People"
 msgstr ""
 
-#: editor/templates/base_edit.html:126 portal/templates/base.html:124
+#: editor/templates/base_edit.html:126
+#: portal/templates/base.html:124
 msgid "There has been error in communication with booki server."
 msgstr ""
 
-#: editor/templates/base_edit.html:127 portal/templates/base.html:125
+#: editor/templates/base_edit.html:127
+#: portal/templates/base.html:125
 msgid "Not sure right now where is the problem."
 msgstr ""
 
-#: editor/templates/base_edit.html:130 portal/templates/base.html:128
+#: editor/templates/base_edit.html:130
+#: portal/templates/base.html:128
 msgid "You should refresh this page."
 msgstr ""
 
@@ -1112,11 +1143,7 @@ msgid "Publish"
 msgstr "Польский"
 
 #: editor/templates/editor/edit_book.html:132
-msgid ""
-"We are very sorry, but we are not fully compatible with your browser. We are "
-"working hard to fix this problem. Until we fix this, you can try to use this "
-"site with Firefox, Chrome, Safari, Opera or some other compatible browser. "
-"Thank you for your understanding."
+msgid "We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding."
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:134
@@ -1140,9 +1167,7 @@ msgid "IMPORT CHAPTER"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:136
-msgid ""
-"All books should contain at least one section and can have as many chapters "
-"as you like."
+msgid "All books should contain at least one section and can have as many chapters as you like."
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:145
@@ -1284,9 +1309,7 @@ msgid "Author comment:"
 msgstr "Отправить ваш комментарий"
 
 #: editor/templates/editor/edit_book.html:320
-msgid ""
-"Seems like You have changed the structure of the chapters. What do you want "
-"to do?"
+msgid "Seems like You have changed the structure of the chapters. What do you want to do?"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:323
@@ -1295,9 +1318,7 @@ msgid "New chapters:"
 msgstr "Создана новая глава"
 
 #: editor/templates/editor/edit_book.html:339
-msgid ""
-"All images added to your book are listed here as well as any additional "
-"files you have uploaded."
+msgid "All images added to your book are listed here as well as any additional files you have uploaded."
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:341
@@ -1321,11 +1342,8 @@ msgstr ""
 
 #: editor/templates/editor/edit_book.html:366
 msgid ""
-"With different versions you can easily organise your book. But be careful! "
-"Other users will not be able to edit\n"
-"      and work on previous versions once you create new one. Create new "
-"<i>major</i> version if you plan to make a lot of changes, and <i>minor</i> "
-"version if you plan to make just a few of them."
+"With different versions you can easily organise your book. But be careful! Other users will not be able to edit\n"
+"      and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them."
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:368
@@ -1666,9 +1684,7 @@ msgid "Show side by side"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:695
-msgid ""
-"Compare revision <span class=\"revision1Name\">revision1</span> with "
-"revision <span class=\"revision2Name\">revision2</span>"
+msgid "Compare revision <span class=\"revision1Name\">revision1</span> with revision <span class=\"revision2Name\">revision2</span>"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:700
@@ -1721,8 +1737,7 @@ msgid "Publish this book"
 msgstr ""
 
 #: editor/templates/editor/edit_publish.html:48
-msgid ""
-"Please wait. It will take couple of moments. Your book is being generated."
+msgid "Please wait. It will take couple of moments. Your book is being generated."
 msgstr ""
 
 #: editor/templates/editor/edit_publish.html:51
@@ -1782,8 +1797,7 @@ msgid "Revert to this revision?"
 msgstr ""
 
 #: editor/templates/editor/edit_strings.html:16
-msgid ""
-"Current chapter content will be reverted to this revision. Are you sure?"
+msgid "Current chapter content will be reverted to this revision. Are you sure?"
 msgstr ""
 
 #: editor/templates/editor/edit_strings.html:17
@@ -1840,9 +1854,7 @@ msgid "Delete this status?"
 msgstr ""
 
 #: editor/templates/editor/edit_strings.html:30
-msgid ""
-"Can't delete because some chapters have this status. Change chapter status "
-"first."
+msgid "Can't delete because some chapters have this status. Change chapter status first."
 msgstr ""
 
 #: editor/templates/editor/edit_strings.html:31
@@ -1966,7 +1978,8 @@ msgstr "У вас нет прав доступа для редактирован
 msgid "sender"
 msgstr "Пользователь"
 
-#: messaging/models.py:33 messaging/models.py:67
+#: messaging/models.py:33
+#: messaging/models.py:67
 msgid "timestamp"
 msgstr ""
 
@@ -2285,9 +2298,7 @@ msgstr ""
 
 #: reader/templates/errors/chapter_duplicate.html:5
 #, python-format
-msgid ""
-"There is more then one chapter named - \"%(chapter_name)s\". I am not sure "
-"which one to show."
+msgid "There is more then one chapter named - \"%(chapter_name)s\". I am not sure which one to show."
 msgstr ""
 
 #: reader/templates/reader/book_chapter.html:6
@@ -2423,304 +2434,209 @@ msgstr "У вас нет прав доступа для редактирован
 
 #~ msgid "Hrvatski"
 #~ msgstr "Хорватский"
-
 #~ msgid "English"
 #~ msgstr "Английский"
-
 #~ msgid "Arabic"
 #~ msgstr "Арабский"
-
 #~ msgid "Bulgarian"
 #~ msgstr "Болгарский"
-
 #~ msgid "Bengali"
 #~ msgstr "Бенгальский"
-
 #~ msgid "Bosnian"
 #~ msgstr "Боснийский"
-
 #~ msgid "Catalan"
 #~ msgstr "Каталонский"
-
 #~ msgid "Czech"
 #~ msgstr "Чешский"
-
 #~ msgid "Welsh"
 #~ msgstr "Уэльский"
-
 #~ msgid "Danish"
 #~ msgstr "Датский"
-
 #~ msgid "German"
 #~ msgstr "Немецкий"
-
 #~ msgid "Greek"
 #~ msgstr "Греческий"
-
 #~ msgid "British English"
 #~ msgstr "Британский английский"
-
 #~ msgid "Spanish"
 #~ msgstr "Испанский"
-
 #~ msgid "Argentinian Spanish"
 #~ msgstr "Аргентинский испанский"
-
 #~ msgid "Basque"
 #~ msgstr "Язык басков"
-
 #~ msgid "Finnish"
 #~ msgstr "Финский"
-
 #~ msgid "French"
 #~ msgstr "Французский"
-
 #~ msgid "Irish"
 #~ msgstr "Ирландский"
-
 #~ msgid "Galician"
 #~ msgstr "Галисийский"
-
 #~ msgid "Hebrew"
 #~ msgstr "Иврит"
-
 #~ msgid "Croatian"
 #~ msgstr "Хорватский"
-
 #~ msgid "Hungarian"
 #~ msgstr "Венгерский"
-
 #~ msgid "Indonesian"
 #~ msgstr "Индонезийский"
-
 #~ msgid "Icelandic"
 #~ msgstr "Ирландский"
-
 #~ msgid "Italian"
 #~ msgstr "Итальянский"
-
 #~ msgid "Japanese"
 #~ msgstr "Японский"
-
 #~ msgid "Georgian"
 #~ msgstr "Грузинский"
-
 #~ msgid "Khmer"
 #~ msgstr "Язык кхмеров"
-
 #~ msgid "Kannada"
 #~ msgstr "Язык каннада"
-
 #~ msgid "Korean"
 #~ msgstr "Корейский"
-
 #~ msgid "Lithuanian"
 #~ msgstr "Литовский"
-
 #~ msgid "Latvian"
 #~ msgstr "Латвийский"
-
 #~ msgid "Macedonian"
 #~ msgstr "Македонский"
-
 #~ msgid "Malayalam"
 #~ msgstr "Малаялам"
-
 #~ msgid "Mongolian"
 #~ msgstr "Монгольский"
-
 #~ msgid "Dutch"
 #~ msgstr "Голландский"
-
 #~ msgid "Norwegian"
 #~ msgstr "Норвежский"
-
 #~ msgid "Norwegian Bokmal"
 #~ msgstr "Норвежский букмол"
-
 #~ msgid "Norwegian Nynorsk"
 #~ msgstr "Норвежский нюнорск"
-
 #~ msgid "Portuguese"
 #~ msgstr "Португальский"
-
 #~ msgid "Brazilian Portuguese"
 #~ msgstr "Бразильский португальский"
-
 #~ msgid "Romanian"
 #~ msgstr "Румынский"
-
 #~ msgid "Russian"
 #~ msgstr "Русский"
-
 #~ msgid "Slovak"
 #~ msgstr "Словацкий"
-
 #~ msgid "Slovenian"
 #~ msgstr "Словенский"
-
 #~ msgid "Albanian"
 #~ msgstr "Албанский"
-
 #~ msgid "Serbian"
 #~ msgstr "Сербский"
-
 #~ msgid "Serbian Latin"
 #~ msgstr "Сербский латинский"
-
 #~ msgid "Swedish"
 #~ msgstr "Швецкий"
-
 #~ msgid "Tamil"
 #~ msgstr "Тамильский"
-
 #~ msgid "Telugu"
 #~ msgstr "Язык телугу"
-
 #~ msgid "Thai"
 #~ msgstr "Тайский"
-
 #~ msgid "Turkish"
 #~ msgstr "Турецкий"
-
 #~ msgid "Ukrainian"
 #~ msgstr "Украинский"
-
 #~ msgid "Simplified Chinese"
 #~ msgstr "Упрощенный китайский"
-
 #~ msgid "Traditional Chinese"
 #~ msgstr "Традиционный китайский"
-
 #~ msgid "Successfully deleted %(count)d %(items)s."
 #~ msgstr "%(count)d %(items)s успешно удален(ы)."
-
 #~ msgid "Are you sure?"
 #~ msgstr "Вы уверены?"
-
 #~ msgid ""
 #~ "<h3>By %s:</h3>\n"
 #~ "<ul>\n"
 #~ msgstr "<h3> %s:</h3> <ul> "
-
 #~ msgid "Any date"
 #~ msgstr "Любая дата"
-
 #~ msgid "Today"
 #~ msgstr "Сегодня"
-
 #~ msgid "Past 7 days"
 #~ msgstr "Последние 7 дней"
-
 #~ msgid "This month"
 #~ msgstr "В этом месяце"
-
 #~ msgid "This year"
 #~ msgstr "В этом году"
-
 #~ msgid "Yes"
 #~ msgstr "Да"
-
 #~ msgid "No"
 #~ msgstr "Нет"
-
 #~ msgid "object id"
 #~ msgstr "id объекта"
-
 #~ msgid "object repr"
 #~ msgstr "репр объекта"
-
 #~ msgid "action flag"
 #~ msgstr "флаг действия"
-
 #~ msgid "change message"
 #~ msgstr "изменить сообщение"
-
 #~ msgid "log entry"
 #~ msgstr "запись журнала"
-
 #~ msgid "log entries"
 #~ msgstr "записи журнала"
-
 #~ msgid "Changed %s."
 #~ msgstr "%s изменен."
-
 #~ msgid "and"
 #~ msgstr "и"
-
 #~ msgid "Added %(name)s \"%(object)s\"."
 #~ msgstr "%(name)s \"%(object)s\" добавлен(ы)."
-
 #~ msgid "Changed %(list)s for %(name)s \"%(object)s\"."
 #~ msgstr "%(list)s для %(name)s \"%(object)s\" изменен(ы)."
-
 #~ msgid "Deleted %(name)s \"%(object)s\"."
 #~ msgstr "%(name)s \"%(object)s\" удален(ы)."
-
 #~ msgid "No fields changed."
 #~ msgstr "Нет измененных полей."
-
 #~ msgid "The %(name)s \"%(obj)s\" was added successfully."
 #~ msgstr "%(name)s \"%(obj)s\" успешно добавлен(ы)."
-
 #~ msgid "You may edit it again below."
 #~ msgstr "Возможно вы хотите редактировать это ниже?"
-
 #~ msgid "You may add another %s below."
 #~ msgstr "Возможно вы хотите добавить другие %s ниже?"
-
 #~ msgid "The %(name)s \"%(obj)s\" was changed successfully."
 #~ msgstr "%(name)s \"%(obj)s\" успешно изменен(ы)."
-
 #~ msgid ""
 #~ "The %(name)s \"%(obj)s\" was added successfully. You may edit it again "
 #~ "below."
 #~ msgstr ""
 #~ "%(name)s \"%(obj)s\" успешно изменен(ы). Возможно вы захотите "
 #~ "редактировать данные ниже?"
-
 #~ msgid ""
 #~ "Items must be selected in order to perform actions on them. No items have "
 #~ "been changed."
 #~ msgstr ""
 #~ "Должны быть выбраны элементы для выполнения данных действий над ними. Ни "
 #~ "один из элементов не был изменен."
-
 #~ msgid "No action selected."
 #~ msgstr "Не выбрано ни одно из действий."
-
 #~ msgid "Add %s"
 #~ msgstr "Добавить %s"
-
 #~ msgid "%(name)s object with primary key %(key)r does not exist."
 #~ msgstr "%(name)s объектов с первичным ключом %(key)r не существуют."
-
 #~ msgid "Change %s"
 #~ msgstr "Изменить %s"
-
 #~ msgid "%(count)s %(name)s was changed successfully."
 #~ msgid_plural "%(count)s %(name)s were changed successfully."
 #~ msgstr[0] "%(count)s %(name)s успешно изменен(ы)."
-
 #~ msgid "%(total_count)s selected"
 #~ msgid_plural "All %(total_count)s selected"
 #~ msgstr[0] "Выбран(ы) %(total_count)s"
-
 #~ msgid "0 of %(cnt)s selected"
 #~ msgstr "Выбран(ы) 0 из %(cnt)s"
-
 #~ msgid "The %(name)s \"%(obj)s\" was deleted successfully."
 #~ msgstr "%(name)s \"%(obj)s\" успешно удален(ы)."
-
 #~ msgid ""
 #~ "Please enter a correct username and password. Note that both fields are "
 #~ "case-sensitive."
 #~ msgstr ""
 #~ "Введите правильный логин и пароль. Внимание, оба поля зависят от регистра."
-
 #~ msgid "Please log in again, because your session has expired."
 #~ msgstr "Время работы сессии истекло, введите снова свой логин и пароль."
-
 #~ msgid ""
 #~ "Looks like your browser isn't configured to accept cookies. Please enable "
 #~ "cookies, reload this page, and try again."
@@ -2728,41 +2644,29 @@ msgstr "У вас нет прав доступа для редактирован
 #~ "По всей видимости, ваш браузер не настроен на прием Cookies. Пожалуйста, "
 #~ "включите Cookies в настройках браузера, обновите страницу и попробуйте "
 #~ "еще раз.\n"
-
 #~ msgid "Usernames cannot contain the '@' character."
 #~ msgstr "Имя пользователя не может иметь символ '@'."
-
 #~ msgid "Your e-mail address is not your username. Try '%s' instead."
 #~ msgstr ""
 #~ "Ваш e-mail не является именем пользователя. Попробуйте вместо этого '%s'."
-
 #~ msgid "Site administration"
 #~ msgstr "Администрирование сайта"
-
 #~ msgid "Time:"
 #~ msgstr "Время:"
-
 #~ msgid "Add Another"
 #~ msgstr "Добавить другую"
-
 #~ msgid "Page not found"
 #~ msgstr "Страница не найдена"
-
 #~ msgid "We're sorry, but the requested page could not be found."
 #~ msgstr "Извините, данная страница не найдена."
-
 #~ msgid "Home"
 #~ msgstr "Главная"
-
 #~ msgid "Server error"
 #~ msgstr "Ошибка сервера"
-
 #~ msgid "Server error (500)"
 #~ msgstr "Ошибка сервера (500)"
-
 #~ msgid "Server Error <em>(500)</em>"
 #~ msgstr "Ошибка сервера <em>(500)</em>"
-
 #~ msgid ""
 #~ "There's been an error. It's been reported to the site administrators via "
 #~ "e-mail and should be fixed shortly. Thanks for your patience."
@@ -2770,47 +2674,33 @@ msgstr "У вас нет прав доступа для редактирован
 #~ "Произошла ошибка. Администраторам сайта отправлено сообщение по "
 #~ "электронной почте. Ошибка должна быть исправлена в ближайшее время. "
 #~ "Спасибо за терпение!"
-
 #~ msgid "Run the selected action"
 #~ msgstr "Произвести выбранные действия"
-
 #~ msgid "Go"
 #~ msgstr "Идти"
-
 #~ msgid "Click here to select the objects across all pages"
 #~ msgstr "Кликнуть по ссылке, чтобы выбрать объекты для всех страниц"
-
 #~ msgid "Select all %(total_count)s %(module_name)s"
 #~ msgstr "Выбрать все %(total_count)s %(module_name)s"
-
 #~ msgid "%(name)s"
 #~ msgstr "%(name)s"
-
 #~ msgid "Welcome,"
 #~ msgstr "Добро пожаловать,"
-
 #~ msgid "Documentation"
 #~ msgstr "Документация"
-
 #~ msgid "Django site admin"
 #~ msgstr "Django сайт администратор"
-
 #~ msgid "Django administration"
 #~ msgstr "Django администрирование"
-
 #~ msgid "View on site"
 #~ msgstr "Просмотр на сайте"
-
 #~ msgid "Please correct the error below."
 #~ msgid_plural "Please correct the errors below."
 #~ msgstr[0] "Исправьте ошибку ниже."
-
 #~ msgid "Add %(name)s"
 #~ msgstr "Добавить %(name)s"
-
 #~ msgid "Filter"
 #~ msgstr "Фильтровать"
-
 #~ msgid ""
 #~ "Deleting the %(object_name)s '%(escaped_object)s' would result in "
 #~ "deleting related objects, but your account doesn't have permission to "
@@ -2819,20 +2709,16 @@ msgstr "У вас нет прав доступа для редактирован
 #~ "Удаление %(object_name)s '%(escaped_object)s' приведет к удалению "
 #~ "связанных с ним(и) объектов, но ваша учетная запись не имеет прав доступа "
 #~ "на удаление следующих типов объектов:"
-
 #~ msgid ""
 #~ "Are you sure you want to delete the %(object_name)s \"%(escaped_object)s"
 #~ "\"? All of the following related items will be deleted:"
 #~ msgstr ""
 #~ "Вы уверены, что хотите удалить %(object_name)s \"%(escaped_object)s\"? "
 #~ "Все из следующих связанных с ним(и) элементов будут удалены:"
-
 #~ msgid "Yes, I'm sure"
 #~ msgstr "Да, уверен(а)"
-
 #~ msgid "Delete multiple objects"
 #~ msgstr "Удалить несколько объектов"
-
 #~ msgid ""
 #~ "Deleting the %(object_name)s would result in deleting related objects, "
 #~ "but your account doesn't have permission to delete the following types of "
@@ -2841,32 +2727,24 @@ msgstr "У вас нет прав доступа для редактирован
 #~ "Удаление %(object_name)s приведет к удалению связанных с ним(и) объектов, "
 #~ "но ваша учетная запись не имеет прав доступа на удаление следующих типов "
 #~ "объектов:"
-
 #~ msgid ""
 #~ "Are you sure you want to delete the selected %(object_name)s objects? All "
 #~ "of the following objects and their related items will be deleted:"
 #~ msgstr ""
 #~ "Вы уверены, что хотите удалить выделенные %(object_name)s? Все из "
 #~ "следующих связанных с ним(и) элементов будут удалены:"
-
 #~ msgid " By %(filter_title)s "
 #~ msgstr "С помощью %(filter_title)s "
-
 #~ msgid "Models available in the %(name)s application."
 #~ msgstr "Модели доступны в приложении %(name)s."
-
 #~ msgid "Recent Actions"
 #~ msgstr "Текущие действия"
-
 #~ msgid "My Actions"
 #~ msgstr "Мои действия"
-
 #~ msgid "None available"
 #~ msgstr "Недоступно"
-
 #~ msgid "Unknown content"
 #~ msgstr "Неизвестный контент"
-
 #~ msgid ""
 #~ "Something's wrong with your database installation. Make sure the "
 #~ "appropriate database tables have been created, and make sure the database "
@@ -2875,181 +2753,132 @@ msgstr "У вас нет прав доступа для редактирован
 #~ "Что-то случилось с вашей базой данных установки. Убедитесь, что были "
 #~ "созданы соответствующие таблицы базы данных и убедитесь, что база данных "
 #~ "доступна для чтения соответствующим пользователем."
-
 #~ msgid "Password:"
 #~ msgstr "Пароль:"
-
 #~ msgid "Date/time"
 #~ msgstr "Дата/Время"
-
 #~ msgid ""
 #~ "This object doesn't have a change history. It probably wasn't added via "
 #~ "this admin site."
 #~ msgstr ""
 #~ "У этого объекта нет истории изменений. Вероятно, он не был добавлен через "
 #~ "админ-панель сайта."
-
 #~ msgid "Show all"
 #~ msgstr "Показать все"
-
 #~ msgid "1 result"
 #~ msgid_plural "%(counter)s results"
 #~ msgstr[0] "1 результат"
-
 #~ msgid "%(full_result_count)s total"
 #~ msgstr "Итого: %(full_result_count)s"
-
 #~ msgid "Save and add another"
 #~ msgstr "Сохранить и добавить другой"
-
 #~ msgid ""
 #~ "First, enter a username and password. Then, you'll be able to edit more "
 #~ "user options."
 #~ msgstr ""
 #~ "Сначала введите имя пользователя и пароль. В этом случае вы сможете "
 #~ "изменить другие параметры пользователя."
-
 #~ msgid "Enter a username and password."
 #~ msgstr "Введите имя пользователя и пароль."
-
 #~ msgid "Enter a new password for the user <strong>%(username)s</strong>."
 #~ msgstr ""
 #~ "Введите новый пароль для пользователя <strong>%(username)s</strong>."
-
 #~ msgid "Enter the same password as above, for verification."
 #~ msgstr "Введите тот же пароль, что и выше для проверки."
-
 #~ msgid "Add another %(verbose_name)s"
 #~ msgstr "Добавить другое %(verbose_name)s"
-
 #~ msgid "Delete?"
 #~ msgstr "Удалить?"
-
 #~ msgid "Thanks for spending some quality time with the Web site today."
 #~ msgstr "Спасибо за потраченное на работу с сайтом время!"
-
 #~ msgid "Log in again"
 #~ msgstr "Войти снова"
-
 #~ msgid "Password change successful"
 #~ msgstr "Успешное изменение пароля"
-
 #~ msgid "Your password was changed."
 #~ msgstr "Ваш пароль был изменен."
-
 #~ msgid ""
 #~ "Please enter your old password, for security's sake, and then enter your "
 #~ "new password twice so we can verify you typed it in correctly."
 #~ msgstr ""
 #~ "Введите старый пароль с целью проверки безопасности, а затем свой новый "
 #~ "пароль дважды, для проверки правильности ввода."
-
 #~ msgid "Change my password"
 #~ msgstr "Изменить мой пароль"
-
 #~ msgid "Password reset"
 #~ msgstr "Очистка пароля"
-
 #~ msgid "Your password has been set.  You may go ahead and log in now."
 #~ msgstr ""
 #~ "Ваш пароль создан. Возможно вы захотите пойти дальше и снова войти в "
 #~ "админ панель."
-
 #~ msgid "Password reset confirmation"
 #~ msgstr "Подтверждение очистки пароля"
-
 #~ msgid "Enter new password"
 #~ msgstr "Введите новый пароль"
-
 #~ msgid ""
 #~ "Please enter your new password twice so we can verify you typed it in "
 #~ "correctly."
 #~ msgstr "Введите свой новый пароль дважды для проверки правильности ввода."
-
 #~ msgid "Confirm password:"
 #~ msgstr "Подтвердить пароль:"
-
 #~ msgid "Password reset unsuccessful"
 #~ msgstr "Ваш пароль не обновлен"
-
 #~ msgid ""
 #~ "The password reset link was invalid, possibly because it has already been "
 #~ "used.  Please request a new password reset."
 #~ msgstr ""
 #~ "Ссылка для смены пароля является недействительной, возможно, потому что "
 #~ "она уже была использована. Запросите новое обновление пароля."
-
 #~ msgid "Password reset successful"
 #~ msgstr "Ваш пароль успешно обновлен"
-
 #~ msgid ""
 #~ "We've e-mailed you instructions for setting your password to the e-mail "
 #~ "address you submitted. You should be receiving it shortly."
 #~ msgstr ""
 #~ "Мы отправили Вам инструкции для установки пароля на email-адрес, который "
 #~ "Вы указали в настройках. Вы должны получить сообщение в ближайшее время."
-
 #~ msgid "You're receiving this e-mail because you requested a password reset"
 #~ msgstr "Вы получили это письмо, потому что запросили изменение пароля."
-
 #~ msgid "for your user account at %(site_name)s"
 #~ msgstr "для вашего пользовательского аккаунта на %(site_name)s"
-
 #~ msgid "Please go to the following page and choose a new password:"
 #~ msgstr "Зайдите на данную страницу и выберите новый пароль:"
-
 #~ msgid "Your username, in case you've forgotten:"
 #~ msgstr "Ваш имя пользователя, на случай, если вы забыли:"
-
 #~ msgid "Thanks for using our site!"
 #~ msgstr "Спасибо за работу на нашем сайте!"
-
 #~ msgid "The %(site_name)s team"
 #~ msgstr "Команда %(site_name)s"
-
 #~ msgid ""
 #~ "Forgotten your password? Enter your e-mail address below, and we'll e-"
 #~ "mail instructions for setting a new one."
 #~ msgstr ""
 #~ "Забыли пароль? Введите свой e-mail ниже и мы отправим вам инструкции для "
 #~ "замены пароля на новый."
-
 #~ msgid "E-mail address:"
 #~ msgstr "E-mail адрес:"
-
 #~ msgid "Select %s to change"
 #~ msgstr "Выбрать %s для смены"
-
 #~ msgid "template"
 #~ msgstr "шаблон"
-
 #~ msgid "filter:"
 #~ msgstr "фильтр:"
-
 #~ msgid "view:"
 #~ msgstr "предосмотр:"
-
 #~ msgid "Model %(model_name)r not found in app %(app_label)r"
 #~ msgstr "Модель %(model_name)r не найдена в app %(app_label)r"
-
 #~ msgid "the related `%(app_label)s.%(data_type)s` object"
 #~ msgstr "связанный %(app_label)s.%(data_type)s` объект"
-
 #~ msgid "related `%(app_label)s.%(object_name)s` objects"
 #~ msgstr "связанные %(app_label)s.%(data_type)s` объекты"
-
 #~ msgid "all %s"
 #~ msgstr "все %s"
-
 #~ msgid "Fields on %s objects"
 #~ msgstr "Поля на %s объектах"
-
 #~ msgid "%s does not appear to be a urlpattern object"
 #~ msgstr "%s , похоже, не является объектом типа URL"
-
 #~ msgid "Documentation bookmarklets"
 #~ msgstr "Закладки документации"
-
 #~ msgid ""
 #~ "\n"
 #~ "<p class=\"help\">To install bookmarklets, drag the link to your "
@@ -3071,142 +2900,108 @@ msgstr "У вас нет прав доступа для редактирован
 #~ "требуют, чтобы вы просматривали сайт с компьютера, определенного как "
 #~ "\"внутренний\" (поговорите с вашим системным администратором, если вы не "
 #~ "уверены, если ваш компьютер является \"внутренним\").</p> "
-
 #~ msgid "Documentation for this page"
 #~ msgstr "Документирование для этой страницы"
-
 #~ msgid ""
 #~ "Jumps you from any page to the documentation for the view that generates "
 #~ "that page."
 #~ msgstr ""
 #~ "Ведет с любой страницы на страницу документации для просмотра, что "
 #~ "генерирует эту страницу."
-
 #~ msgid "Show object ID"
 #~ msgstr "Показать ID объекта"
-
 #~ msgid ""
 #~ "Shows the content-type and unique ID for pages that represent a single "
 #~ "object."
 #~ msgstr ""
 #~ "Показывает тип содержания и уникальный ID для страниц, представляющих "
 #~ "одиночный объект."
-
 #~ msgid "Edit this object (current window)"
 #~ msgstr "Редактировать этот объект (текущее окно)"
-
 #~ msgid "Jumps to the admin page for pages that represent a single object."
 #~ msgstr ""
 #~ "Ведет на админ-страницу для страниц, представляющих одиночный объект."
-
 #~ msgid "Edit this object (new window)"
 #~ msgstr "Редактировать этот объект (новое окно)"
-
 #~ msgid "As above, but opens the admin page in a new window."
 #~ msgstr "Как и выше, но откроет админ страницу в новом окне."
-
 #~ msgid "Personal info"
 #~ msgstr "Личная информация"
-
 #~ msgid "Password changed successfully."
 #~ msgstr "Пароль успешно изменен."
-
 #~ msgid "Change password: %s"
 #~ msgstr "Изменить пароль: %s"
-
 #~ msgid ""
 #~ "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 #~ msgstr ""
 #~ "Обязательные требования. 30 символов или меньше. Только буквы, цифры и "
 #~ "символы @/./+/-/_."
-
 #~ msgid ""
 #~ "This value may contain only letters, numbers and @/./+/-/_ characters."
 #~ msgstr ""
 #~ "Это значение может содержать только буквы, цифры и символы @/./+/-/_."
-
 #~ msgid "Password confirmation"
 #~ msgstr "Подтверждение пароля"
-
 #~ msgid "A user with that username already exists."
 #~ msgstr "Пользователь с таким именем уже существует."
-
 #~ msgid "The two password fields didn't match."
 #~ msgstr "Содержимое двух полей отличается друг от друга."
-
 #~ msgid "This account is inactive."
 #~ msgstr "Этот аккаунт неактивен."
-
 #~ msgid ""
 #~ "Your Web browser doesn't appear to have cookies enabled. Cookies are "
 #~ "required for logging in."
 #~ msgstr ""
 #~ "Вероятно, ваш веб-браузер не поддерживает Cookies. Сервис Cookies нужен "
 #~ "для процесса входа в админ панель."
-
 #~ msgid ""
 #~ "That e-mail address doesn't have an associated user account. Are you sure "
 #~ "you've registered?"
 #~ msgstr ""
 #~ "Этот e-mail не имеет ассоциированного имени пользователя. Вы уверены, что "
 #~ "зарегистрированы?"
-
 #~ msgid "Password reset on %s"
 #~ msgstr "Пароль очищен на %s"
-
 #~ msgid "New password confirmation"
 #~ msgstr "Подтверждение нового пароля"
-
 #~ msgid "codename"
 #~ msgstr "кодовое имя"
-
 #~ msgid ""
 #~ "Required. 30 characters or fewer. Letters, numbers and @/./+/-/_ "
 #~ "characters"
 #~ msgstr ""
 #~ "Обязательные требования. 30 символов или меньше. Только буквы, цифры и "
 #~ "символы @/./+/-/_."
-
 #~ msgid "first name"
 #~ msgstr "имя"
-
 #~ msgid "e-mail address"
 #~ msgstr "e-mail"
-
 #~ msgid "password"
 #~ msgstr "пароль"
-
 #~ msgid ""
 #~ "Use '[algo]$[salt]$[hexdigest]' or use the <a href=\"password/\">change "
 #~ "password form</a>."
 #~ msgstr ""
 #~ "Используйте '[algo]$[salt]$[hexdigest]' или <a href=\"password/\">идти на "
 #~ "форму изменения пароля</a>. \t"
-
 #~ msgid "Designates whether the user can log into this admin site."
 #~ msgstr "Отмечает, может ли пользователь войти в админ панель сайта."
-
 #~ msgid "active"
 #~ msgstr "активный"
-
 #~ msgid ""
 #~ "Designates whether this user should be treated as active. Unselect this "
 #~ "instead of deleting accounts."
 #~ msgstr ""
 #~ "Обозначает, рассматривать ли данного пользователя, как активного. Снять "
 #~ "флажок вместо удаления аккаунта."
-
 #~ msgid ""
 #~ "Designates that this user has all permissions without explicitly "
 #~ "assigning them."
 #~ msgstr "Обозначает, что данный пользователь имеет все права по-умолчанию."
-
 #~ msgid "last login"
 #~ msgstr "последний вход"
-
 #~ msgid "date joined"
 #~ msgstr "дата регистрации"
-
 #~ msgid ""
 #~ "In addition to the permissions manually assigned, this user will also get "
 #~ "all permissions granted to each group he/she is in."
@@ -3214,104 +3009,77 @@ msgstr "У вас нет прав доступа для редактирован
 #~ "В дополнение к правам, присвоенным вручную, этот пользователь также "
 #~ "получит все права доступа, предоставленные каждой группе, к которой он(а) "
 #~ "относятся."
-
 #~ msgid "user permissions"
 #~ msgstr "права доступа пользователя"
-
 #~ msgid "users"
 #~ msgstr "пользователи"
-
 #~ msgid "Logged out"
 #~ msgstr "Выход из"
-
 #~ msgid "Flag selected comments"
 #~ msgstr "Отмеченные флажком комментарии"
-
 #~ msgid "approved"
 #~ msgid_plural "approved"
 #~ msgstr[0] "утвержден(ы)"
-
 #~ msgid "Approve selected comments"
 #~ msgstr "Утвердить выделенные комментарии "
-
 #~ msgid "1 comment was successfully %(action)s."
 #~ msgid_plural "%(count)s comments were successfully %(action)s."
 #~ msgstr[0] "1 комментарий был успешно %(action)s."
-
 #~ msgid "%(site_name)s comments"
 #~ msgstr "%(site_name)s комментариев"
-
 #~ msgid "Latest comments on %(site_name)s"
 #~ msgstr "Последние комментарии на %(site_name)s"
-
 #~ msgid "Name"
 #~ msgstr "Имя"
-
 #~ msgid "Email address"
 #~ msgstr "E-mail"
-
 #~ msgid "URL"
 #~ msgstr "URL"
-
 #~ msgid "Watch your mouth! The word %s is not allowed here."
 #~ msgid_plural "Watch your mouth! The words %s are not allowed here."
 #~ msgstr[0] "Следите за своими словами! Слово %s здесь не допускается."
-
 #~ msgid ""
 #~ "If you enter anything in this field your comment will be treated as spam"
 #~ msgstr ""
 #~ "Если вы введете что-нибудь в это поле, ваш комментарий будет "
 #~ "рассматриваться как спам"
-
 #~ msgid "content type"
 #~ msgstr "тип контента"
-
 #~ msgid "object ID"
 #~ msgstr "ID объекта"
-
 #~ msgid "user's email address"
 #~ msgstr "e-mail пользователя"
-
 #~ msgid "user's URL"
 #~ msgstr "URL пользователя"
-
 #~ msgid "date/time submitted"
 #~ msgstr "дата/время утверждения"
-
 #~ msgid "IP address"
 #~ msgstr "IP-адрес"
-
 #~ msgid "is public"
 #~ msgstr "общедоступен(ы)"
-
 #~ msgid ""
 #~ "Uncheck this box to make the comment effectively disappear from the site."
 #~ msgstr "Снимите этот флажок, чтобы сделать комментарий невидимым."
-
 #~ msgid "is removed"
 #~ msgstr "удален"
-
 #~ msgid ""
 #~ "Check this box if the comment is inappropriate. A \"This comment has been "
 #~ "removed\" message will be displayed instead."
 #~ msgstr ""
 #~ "Отметьте, если этот комментарий нежелателен. Вместо этого будет "
 #~ "отображаться сообщение - \"Этот комментарий был удален\"."
-
 #~ msgid ""
 #~ "This comment was posted by an authenticated user and thus the name is "
 #~ "read-only."
 #~ msgstr ""
 #~ "Этот комментарий отправлен идентифицированным пользователя и, таким "
 #~ "образом, его имя доступно только для чтения."
-
 #~ msgid ""
 #~ "This comment was posted by an authenticated user and thus the email is "
 #~ "read-only."
 #~ msgstr ""
 #~ "Этот комментарий отправлен идентифицированным пользователя и, таким "
 #~ "образом, его e-mail доступен только для чтения."
-
 #~ msgid ""
 #~ "Posted by %(user)s at %(date)s\n"
 #~ "\n"
@@ -3319,953 +3087,680 @@ msgstr "У вас нет прав доступа для редактирован
 #~ "\n"
 #~ "http://%(domain)s%(url)s"
 #~ msgstr "Отправлен %(user)s %(date)s %(comment)s http://%(domain)s%(url)s"
-
 #~ msgid "flag"
 #~ msgstr "отметить"
-
 #~ msgid "comment flag"
 #~ msgstr "флаг комментария"
-
 #~ msgid "comment flags"
 #~ msgstr "флаги комментария"
-
 #~ msgid "Approve a comment"
 #~ msgstr "Утвердить комментарий"
-
 #~ msgid "Really make this comment public?"
 #~ msgstr "Открыть комментарий для общего доступа?"
-
 #~ msgid "Approve"
 #~ msgstr "Утвердить"
-
 #~ msgid "Thanks for approving"
 #~ msgstr "Спасибо за утверждение"
-
 #~ msgid ""
 #~ "Thanks for taking the time to improve the quality of discussion on our "
 #~ "site"
 #~ msgstr ""
 #~ "Спасибо, что нашли время, чтобы улучшить качество обсуждения нашего "
 #~ "контента на нашем сайте"
-
 #~ msgid "Remove a comment"
 #~ msgstr "Удалить комментарий"
-
 #~ msgid "Really remove this comment?"
 #~ msgstr "Удалить этот комментарий?"
-
 #~ msgid "Thanks for removing"
 #~ msgstr "Спасибо за удаление"
-
 #~ msgid "Flag this comment"
 #~ msgstr "Отметить этот комментарий"
-
 #~ msgid "Really flag this comment?"
 #~ msgstr "Отметить этот комментарий?"
-
 #~ msgid "Flag"
 #~ msgstr "Отметить"
-
 #~ msgid "Thanks for flagging"
 #~ msgstr "Спасибо за отметку"
-
 #~ msgid "Thanks for commenting"
 #~ msgstr "Спасибо за комментирование"
-
 #~ msgid "Thank you for your comment"
 #~ msgstr "Спасибо за ваш комментарий"
-
 #~ msgid "Preview your comment"
 #~ msgstr "Предварительный просмотр комментария"
-
 #~ msgid "Please correct the error below"
 #~ msgid_plural "Please correct the errors below"
 #~ msgstr[0] "Исправьте ошибку ниже"
-
 #~ msgid "python model class name"
 #~ msgstr "имя класса python-модели "
-
 #~ msgid "content types"
 #~ msgstr "типы контента"
-
 #~ msgid ""
 #~ "Example: '/about/contact/'. Make sure to have leading and trailing "
 #~ "slashes."
 #~ msgstr ""
 #~ "Пример: '/about/contact/'. Убедитесь в наличии первого и последнего "
 #~ "символа \"/\"."
-
 #~ msgid ""
 #~ "This value must contain only letters, numbers, underscores, dashes or "
 #~ "slashes."
 #~ msgstr ""
 #~ "Это значение должно содержать только буквы, цифры, подчеркивания, тире "
 #~ "или \"/\"."
-
 #~ msgid "template name"
 #~ msgstr "имя шаблона"
-
 #~ msgid ""
 #~ "Example: 'flatpages/contact_page.html'. If this isn't provided, the "
 #~ "system will use 'flatpages/default.html'."
 #~ msgstr ""
 #~ "Например: 'flatpages/contact_page.html'. Если это не предусмотрено, "
 #~ "система будет использовать 'flatpages/default.html'."
-
 #~ msgid ""
 #~ "If this is checked, only logged-in users will be able to view the page."
 #~ msgstr ""
 #~ "Если установлен этот флажок, только зарегистрированные пользователи будут "
 #~ "иметь возможность просматривать эту страницу."
-
 #~ msgid "flat page"
 #~ msgstr "страница с горизонтальной ориентацией"
-
 #~ msgid "flat pages"
 #~ msgstr "страницы с горизонтальной ориентацией"
-
 #~ msgid ""
 #~ "We apologize, but your form has expired. Please continue filling out the "
 #~ "form from this page."
 #~ msgstr ""
 #~ "Приносим свои извинения, но время заполнения формы истекло. Пожалуйста, "
 #~ "продолжайте заполнять форму с этой страницы."
-
 #~ msgid ""
 #~ "The base GIS field -- maps to the OpenGIS Specification Geometry type."
 #~ msgstr "Поле на базе GIS - карты типа OpenGIS Specification Geometry."
-
 #~ msgid "Polygon"
 #~ msgstr "Полигональная"
-
 #~ msgid "Multi-point"
 #~ msgstr "Многоточие"
-
 #~ msgid "Multi-line string"
 #~ msgstr "Мультилинейная строка"
-
 #~ msgid "Multi polygon"
 #~ msgstr "Мультиполигональная"
-
 #~ msgid "Geometry collection"
 #~ msgstr "Коллекция геометрических форм"
-
 #~ msgid "No geometry value provided."
 #~ msgstr "Не поддерживается ни одна геометрическая форма."
-
 #~ msgid "Invalid geometry value."
 #~ msgstr "Неверное значение геометрической формы."
-
 #~ msgid "Invalid geometry type."
 #~ msgstr "Неверный тип геометрической формы."
-
 #~ msgid ""
 #~ "An error occurred when transforming the geometry to the SRID of the "
 #~ "geometry form field."
 #~ msgstr "Ошибка при преобразовании геометрии формы к полю формы SRID."
-
 #~ msgid "%(value).1f million"
 #~ msgid_plural "%(value).1f million"
 #~ msgstr[0] "%(value).1f миллиона(ов)"
-
 #~ msgid "%(value).1f billion"
 #~ msgid_plural "%(value).1f billion"
 #~ msgstr[0] "%(value).1f биллиона(ов)"
-
 #~ msgid "%(value).1f trillion"
 #~ msgid_plural "%(value).1f trillion"
 #~ msgstr[0] "%(value).1f триллиона(ов)"
-
 #~ msgid "two"
 #~ msgstr "два"
-
 #~ msgid "three"
 #~ msgstr "три"
-
 #~ msgid "four"
 #~ msgstr "четыре"
-
 #~ msgid "five"
 #~ msgstr "пять"
-
 #~ msgid "six"
 #~ msgstr "шесть"
-
 #~ msgid "seven"
 #~ msgstr "семь"
-
 #~ msgid "today"
 #~ msgstr "сегодня"
-
 #~ msgid "tomorrow"
 #~ msgstr "завтра"
-
 #~ msgid "yesterday"
 #~ msgstr "вчера"
-
 #~ msgid "Enter a postal code in the format NNNN or ANNNNAAA."
 #~ msgstr "Введите почтовый индекс в формате NNNN или ANNNNAAA."
-
 #~ msgid "This field requires only numbers."
 #~ msgstr "Для этого поля допускаются только цифровые данные. "
-
 #~ msgid "This field requires 7 or 8 digits."
 #~ msgstr "Для этого поля допускаются только 7 или 8 цифр."
-
 #~ msgid "Enter a valid CUIT in XX-XXXXXXXX-X or XXXXXXXXXXXX format."
 #~ msgstr "Введите правильный CUIT в XX-XXXXXXXX-X или XXXXXXXXXXXX формате."
-
 #~ msgid "Invalid CUIT."
 #~ msgstr "Неправильный CUIT."
-
 #~ msgid "Enter a zip code in the format XXXX."
 #~ msgstr "Введите почтовый индекс в формате XXXX."
-
 #~ msgid "Enter a valid Austrian Social Security Number in XXXX XXXXXX format."
 #~ msgstr ""
 #~ "Введите правильный австрийской номер социального страхования в формате "
 #~ "XXXX XXXXXX."
-
 #~ msgid "Enter a 4 digit post code."
 #~ msgstr "Введите 4 цифры почтового индекса."
-
 #~ msgid "Enter a zip code in the format XXXXX-XXX."
 #~ msgstr "Введите почтовый индекс в формате XXXXX-XXX."
-
 #~ msgid "Phone numbers must be in XX-XXXX-XXXX format."
 #~ msgstr "Номер телефона должен быть в формате XX-XXXX-XXXX."
-
 #~ msgid ""
 #~ "Select a valid brazilian state. That state is not one of the available "
 #~ "states."
 #~ msgstr ""
 #~ "Выберите правильный штат бразильского государства. Этот штат не является "
 #~ "одним из доступных доступных для выбора штатов."
-
 #~ msgid "Invalid CPF number."
 #~ msgstr "Неправильный CPF номер."
-
 #~ msgid "This field requires at most 11 digits or 14 characters."
 #~ msgstr "Это поле требует не менее 11 цифр или 14 символов."
-
 #~ msgid "Invalid CNPJ number."
 #~ msgstr "Неправильный CNPJ номер."
-
 #~ msgid "This field requires at least 14 digits"
 #~ msgstr "Это поле требует по крайней мере 14 цифр"
-
 #~ msgid "Enter a postal code in the format XXX XXX."
 #~ msgstr "Введите почтовый индекс в формате XXX XXX."
-
 #~ msgid ""
 #~ "Enter a valid Canadian Social Insurance number in XXX-XXX-XXX format."
 #~ msgstr ""
 #~ "Введите правильный канадский номер социального страхования в формате XXX-"
 #~ "XXX-XXX."
-
 #~ msgid ""
 #~ "Enter a valid Swiss identity or passport card number in X1234567<0 or "
 #~ "1234567890 format."
 #~ msgstr ""
 #~ "Введите правильный швейцарский идентификатор личности или номер паспорта "
 #~ "в X1234567<0 или 1234567890 формате."
-
 #~ msgid "Enter a valid Chilean RUT."
 #~ msgstr "Введите правильный чилийский RUT."
-
 #~ msgid "Enter a valid Chilean RUT. The format is XX.XXX.XXX-X."
 #~ msgstr "Введите правильный чилийский RUT. Формат: XX.XXX.XXX-X."
-
 #~ msgid "The Chilean RUT is not valid."
 #~ msgstr "Неправильный чилийский RUT."
-
 #~ msgid "Enter a postal code in the format XXXXX or XXX XX."
 #~ msgstr "Введите почтовый индекс в формате XXXXX или XXX XX."
-
 #~ msgid "Enter a birth number in the format XXXXXX/XXXX or XXXXXXXXXX."
 #~ msgstr "Введите дату рождения в формате XXXXXX / хххх или XXXXXXXXXX."
-
 #~ msgid "Invalid optional parameter Gender, valid values are 'f' and 'm'"
 #~ msgstr "Неверный параметр пола, допустимые значения: 'f' и 'm'"
-
 #~ msgid "Enter a valid birth number."
 #~ msgstr "Введите правильную дату рождения."
-
 #~ msgid "Enter a valid IC number."
 #~ msgstr "Введите правильный номер IC."
-
 #~ msgid "Enter a zip code in the format XXXXX."
 #~ msgstr "Введите почтовый индекс в формате XXXXX."
-
 #~ msgid ""
 #~ "Enter a valid German identity card number in XXXXXXXXXXX-XXXXXXX-XXXXXXX-"
 #~ "X format."
 #~ msgstr ""
 #~ "Введите действительный номер немецкого удостоверения личности в формате "
 #~ "XXXXXXXXXXX-XXXXXXX-XXXXXXX-X."
-
 #~ msgid "Enter a valid postal code in the range and format 01XXX - 52XXX."
 #~ msgstr ""
 #~ "Введите правильный почтовый индекс в диапазоне и формате 01XXX - 52XXX."
-
 #~ msgid ""
 #~ "Enter a valid phone number in one of the formats 6XXXXXXXX, 8XXXXXXXX or "
 #~ "9XXXXXXXX."
 #~ msgstr ""
 #~ "Введите правильный номер телефона в одном из форматов 6XXXXXXXX, "
 #~ "8XXXXXXXX или 9XXXXXXXX."
-
 #~ msgid "Please enter a valid NIF, NIE, or CIF."
 #~ msgstr "Введите правильный NIF, NIE, или CIF."
-
 #~ msgid "Please enter a valid NIF or NIE."
 #~ msgstr "Введите правильный NIF или NIE."
-
 #~ msgid "Invalid checksum for NIF."
 #~ msgstr "Неверная контрольная сумма для NIF."
-
 #~ msgid "Invalid checksum for NIE."
 #~ msgstr "Неверная контрольная сумма для NIE."
-
 #~ msgid "Invalid checksum for CIF."
 #~ msgstr "Неверная контрольная сумма для CIF."
-
 #~ msgid ""
 #~ "Please enter a valid bank account number in format XXXX-XXXX-XX-"
 #~ "XXXXXXXXXX."
 #~ msgstr ""
 #~ "Введите правильный номер банковского счета в формате XXXX-XXXX-ХX-"
 #~ "XXXXXXXXXX.\n"
-
 #~ msgid "Invalid checksum for bank account number."
 #~ msgstr "Неверная контрольная сумма для номера банковского счета."
-
 #~ msgid "Enter a valid Finnish social security number."
 #~ msgstr "Введите действительный финский номер социального страхования."
-
 #~ msgid "Phone numbers must be in 0X XX XX XX XX format."
 #~ msgstr "Номер телефона должен быть в формате 0X XX XX XX XX."
-
 #~ msgid "Enter a valid post code"
 #~ msgstr "Введите правильный почтовый индекс"
-
 #~ msgid "Enter a valid phone number"
 #~ msgstr "Введите правильный номер телефона"
-
 #~ msgid "Enter a valid vehicle license plate number"
 #~ msgstr "Введите правильные числа номерного знака автомобиля"
-
 #~ msgid "Enter a valid NIK/KTP number"
 #~ msgstr "Введите правильный номер NIK/KTP"
-
 #~ msgid "Enter a zip code in the format XXXXXXX."
 #~ msgstr "Введите почтовый индекс в формате XXXXXXX."
-
 #~ msgid ""
 #~ "Enter a valid Icelandic identification number. The format is XXXXXX-XXXX."
 #~ msgstr ""
 #~ "Введите правильный исландский идентификационный номер в формате XXXXXX-"
 #~ "XXXX."
-
 #~ msgid "The Icelandic identification number is not valid."
 #~ msgstr "Исландский идентификационный номер не является действительным."
-
 #~ msgid "Enter a valid zip code."
 #~ msgstr "Введите действительный почтовый индекс."
-
 #~ msgid "Enter a valid Social Security number."
 #~ msgstr "Введите действительный номер социального страхования."
-
 #~ msgid "Enter a valid VAT number."
 #~ msgstr "Введите действительный номер VAT."
-
 #~ msgid "Enter a postal code in the format XXXXXXX or XXX-XXXX."
 #~ msgstr "Введите почтовый индекс в формате XXXXXXX или ХХХ-ХХХХ."
-
 #~ msgid "Enter a valid Norwegian social security number."
 #~ msgstr "Введите правильный норвежский номер социального страхования."
-
 #~ msgid "This field requires 8 digits."
 #~ msgstr "Для этого поля требуется 8 цифр."
-
 #~ msgid "This field requires 11 digits."
 #~ msgstr "Для этого поля требуется 11 цифр."
-
 #~ msgid "National Identification Number consists of 11 digits."
 #~ msgstr "Национальный идентификационный номер состоит из 11 цифр."
-
 #~ msgid "Wrong checksum for the National Identification Number."
 #~ msgstr ""
 #~ "Неверная контрольная сумма для национального идентификационного номера."
-
 #~ msgid ""
 #~ "Enter a tax number field (NIP) in the format XXX-XXX-XX-XX or XX-XX-XXX-"
 #~ "XXX."
 #~ msgstr ""
 #~ "Введите налоговый номер (NIP) в формате XXX-XXX-XX-XX или XX-XX-XXX-XXX."
-
 #~ msgid "Wrong checksum for the Tax Number (NIP)."
 #~ msgstr "Неверная контрольная сумма для налогового номера (NIP)."
-
 #~ msgid ""
 #~ "National Business Register Number (REGON) consists of 9 or 14 digits."
 #~ msgstr ""
 #~ "Национальный бизнес-регистрационный номер (REGON) состоит из 9 или 14 "
 #~ "цифр."
-
 #~ msgid "Wrong checksum for the National Business Register Number (REGON)."
 #~ msgstr ""
 #~ "Неверная контрольная сумма для Национального бизнес-регистрационного "
 #~ "номера (REGON)."
-
 #~ msgid "Enter a postal code in the format XX-XXX."
 #~ msgstr "Введите почтовый индекс в формате XX-XXX."
-
 #~ msgid "Enter a zip code in the format XXXX-XXX."
 #~ msgstr "Введите почтовый индекс в формате XXXX-XXX. "
-
 #~ msgid "Phone numbers must have 9 digits, or start by + or 00."
 #~ msgstr "Телефонный номер должен иметь 9 цифр или начинаться с + или 00."
-
 #~ msgid "Enter a valid CNP."
 #~ msgstr "Введите правильный CNP."
-
 #~ msgid "Enter a valid IBAN in ROXX-XXXX-XXXX-XXXX-XXXX-XXXX format"
 #~ msgstr "Введите правильный IBAN в формате ROXX-XXXX-XXXX-XXXX-XXXX-XXXX"
-
 #~ msgid "Phone numbers must be in XXXX-XXXXXX format."
 #~ msgstr "Телефонный номер должен в формате XXXX-XXXXXX."
-
 #~ msgid "Enter a valid postal code in the format XXXXXX"
 #~ msgstr "Введите правильный почтовый индекс в формате XXXXXX"
-
 #~ msgid "Enter a valid Swedish organisation number."
 #~ msgstr "Введите правильный номер шведской организации."
-
 #~ msgid "Enter a valid Swedish personal identity number."
 #~ msgstr "Введите правильный шведский персональный код."
-
 #~ msgid "Co-ordination numbers are not allowed."
 #~ msgstr "Координация номеров не допускается."
-
 #~ msgid "Enter a Swedish postal code in the format XXXXX."
 #~ msgstr "Введите шведский почтовый индекс в формате XXXXX."
-
 #~ msgid "Enter a valid postcode."
 #~ msgstr "Введите правильный почтовый индекс."
-
 #~ msgid "Enter a zip code in the format XXXXX or XXXXX-XXXX."
 #~ msgstr "Введите почтовый индекс в формате XXXXX или XXXXX-XXXX."
-
 #~ msgid "Phone numbers must be in XXX-XXX-XXXX format."
 #~ msgstr "Телефонный номер должен в формате XXX-XXX-XXXX."
-
 #~ msgid "Enter a valid U.S. Social Security number in XXX-XX-XXXX format."
 #~ msgstr ""
 #~ "Введите правильный номер социального страхования США в формате XXX-XX-"
 #~ "XXXX."
-
 #~ msgid "Enter a U.S. state or territory."
 #~ msgstr "Введите название американского штата или территории."
-
 #~ msgid "U.S. state (two uppercase letters)"
 #~ msgstr "Штат США (две заглавные буквы)"
-
 #~ msgid "Phone number"
 #~ msgstr "Номер телефона"
-
 #~ msgid "Enter a valid CI number in X.XXX.XXX-X,XXXXXXX-X or XXXXXXXX format."
 #~ msgstr ""
 #~ "Введите правильный CI номер в формате X.XXX.XXX-X,XXXXXXX-X или XXXXXXXX"
-
 #~ msgid "Enter a valid CI number."
 #~ msgstr "Введите правильный CI номер."
-
 #~ msgid "Enter a valid South African ID number"
 #~ msgstr "Введите правильный южноафриканский идентификационный номер"
-
 #~ msgid "Enter a valid South African postal code"
 #~ msgstr "Введите правильный южноафриканский почтовый индекс"
-
 #~ msgid ""
 #~ "This should be an absolute path, excluding the domain name. Example: '/"
 #~ "events/search/'."
 #~ msgstr ""
 #~ "Должен быть прописан абсолютный путь без доменного имени. Например: '/"
 #~ "events/search/'."
-
 #~ msgid "redirect to"
 #~ msgstr "переадресовать на"
-
 #~ msgid ""
 #~ "This can be either an absolute path (as above) or a full URL starting "
 #~ "with 'http://'."
 #~ msgstr ""
 #~ "Может быть указан либо абсолютный путь (см. выше), либо полный URL, "
 #~ "начиная с \"http://\"."
-
 #~ msgid "redirect"
 #~ msgstr "переадресация"
-
 #~ msgid "redirects"
 #~ msgstr "переадресации"
-
 #~ msgid "session key"
 #~ msgstr "ключ сессии"
-
 #~ msgid "session data"
 #~ msgstr "данные сессии"
-
 #~ msgid "expire date"
 #~ msgstr "дата окончания"
-
 #~ msgid "domain name"
 #~ msgstr "доменное имя"
-
 #~ msgid "display name"
 #~ msgstr "отображаемое имя"
-
 #~ msgid "sites"
 #~ msgstr "сайты"
-
 #~ msgid "Enter a valid value."
 #~ msgstr "Введите правильное значение."
-
 #~ msgid "Enter a valid URL."
 #~ msgstr "Введите правильный URL."
-
 #~ msgid "This URL appears to be a broken link."
 #~ msgstr "По-видимому, этот URL - неработающая ссылка."
-
 #~ msgid ""
 #~ "Enter a valid 'slug' consisting of letters, numbers, underscores or "
 #~ "hyphens."
 #~ msgstr ""
 #~ "Введите правильный \"блочок\", состоящий из букв, цифр, подчеркивания и "
 #~ "дефисов."
-
 #~ msgid "Enter a valid IPv4 address."
 #~ msgstr "Введите правильный IPv4 адрес."
-
 #~ msgid "Enter only digits separated by commas."
 #~ msgstr "Вводите только цифры, разделенные запятыми."
-
 #~ msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
 #~ msgstr "Убедитесь, что это значение - %(limit_value)s (это %(show_value)s)."
-
 #~ msgid "Ensure this value is less than or equal to %(limit_value)s."
 #~ msgstr "Убедитесь, что это значение меньше или равно %(limit_value)s."
-
 #~ msgid "Ensure this value is greater than or equal to %(limit_value)s."
 #~ msgstr "Убедитесь, что это значение больше или равно %(limit_value)s."
-
 #~ msgid ""
 #~ "Ensure this value has at least %(limit_value)d characters (it has %"
 #~ "(show_value)d)."
 #~ msgstr ""
 #~ "Убедитесь, что это значение имеет по крайней мере %(limit_value)d "
 #~ "символов (он содержит %(show_value)d)."
-
 #~ msgid ""
 #~ "Ensure this value has at most %(limit_value)d characters (it has %"
 #~ "(show_value)d)."
 #~ msgstr ""
 #~ "Убедитесь, что это значение имеет не более %(limit_value)d символов (он "
 #~ "содержит %(show_value)d)."
-
 #~ msgid "%(field_name)s must be unique for %(date_field)s %(lookup)s."
 #~ msgstr ""
 #~ "%(field_name)s должно быть уникальным для %(date_field)s %(lookup)s."
-
 #~ msgid "%(model_name)s with this %(field_label)s already exists."
 #~ msgstr "%(model_name)s с этим %(field_label)s уже существует.  "
-
 #~ msgid "Value %r is not a valid choice."
 #~ msgstr "Значение %r - неправильный выбор."
-
 #~ msgid "This field cannot be null."
 #~ msgstr "Это поле не может иметь нулевое значение."
-
 #~ msgid "This field cannot be blank."
 #~ msgstr "Это поле не должно быть пустым."
-
 #~ msgid "Field of type: %(field_type)s"
 #~ msgstr "Поле с типом: %(field_type)s"
-
 #~ msgid "Integer"
 #~ msgstr "Целое число"
-
 #~ msgid "This value must be either True or False."
 #~ msgstr "Это значение должно True или False."
-
 #~ msgid "Boolean (Either True or False)"
 #~ msgstr "Логическое (True или False)"
-
 #~ msgid "String (up to %(max_length)s)"
 #~ msgstr "Строковое (до %(max_length)s)"
-
 #~ msgid "Comma-separated integers"
 #~ msgstr "Целые числа, разделенные запятыми"
-
 #~ msgid "Date (without time)"
 #~ msgstr "Дата (без времени)"
-
 #~ msgid "Enter a valid date in YYYY-MM-DD format."
 #~ msgstr "Укажите правильную дату в формате YYYY-MM-DD."
-
 #~ msgid "Invalid date: %s"
 #~ msgstr "Правильная дата: %s"
-
 #~ msgid "Enter a valid date/time in YYYY-MM-DD HH:MM[:ss[.uuuuuu]] format."
 #~ msgstr "Укажите дату и время в формате YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
-
 #~ msgid "Date (with time)"
 #~ msgstr "Дата (и время)"
-
 #~ msgid "This value must be a decimal number."
 #~ msgstr "Это значение должно быть десятичным числом."
-
 #~ msgid "Decimal number"
 #~ msgstr "Десятичное число"
-
 #~ msgid "E-mail address"
 #~ msgstr "E-mail"
-
 #~ msgid "File path"
 #~ msgstr "Путь файла"
-
 #~ msgid "This value must be a float."
 #~ msgstr "Это значение должно быть дробным с плавающей запятой."
-
 #~ msgid "Floating point number"
 #~ msgstr "Число с плавающей запятой"
-
 #~ msgid "Big (8 byte) integer"
 #~ msgstr "Большое (8 байтовое) целое число"
-
 #~ msgid "This value must be either None, True or False."
 #~ msgstr "Это значение должно быть либо None, True или False."
-
 #~ msgid "Boolean (Either True, False or None)"
 #~ msgstr "Логическое (True, False или None)"
-
 #~ msgid "Enter a valid time in HH:MM[:ss[.uuuuuu]] format."
 #~ msgstr "Введите правильное время в формате HH:MM[:ss[.uuuuuu]]."
-
 #~ msgid "XML text"
 #~ msgstr "XML текст"
-
 #~ msgid "Model %(model)s with pk %(pk)r does not exist."
 #~ msgstr "Модель %(model)s с pk %(pk)r не существует."
-
 #~ msgid "Foreign Key (type determined by related field)"
 #~ msgstr "Внешний ключ (тип определяется соответствующим полем)"
-
 #~ msgid "One-to-one relationship"
 #~ msgstr "Взаимно-однозначное соответствие"
-
 #~ msgid "Many-to-many relationship"
 #~ msgstr "Соответствие многие ко многим"
-
 #~ msgid ""
 #~ "Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
 #~ msgstr ""
 #~ "Удерживайте нажатой клавишу \"Control \", или \"Command \" на Mac, чтобы "
 #~ "выбрать более одного варианта."
-
 #~ msgid "Please enter valid %(self)s IDs. The value %(value)r is invalid."
 #~ msgid_plural ""
 #~ "Please enter valid %(self)s IDs. The values %(value)r are invalid."
 #~ msgstr[0] "Введите правильное %(self)s IDs. Значение %(value)r - неверное."
-
 #~ msgid "This field is required."
 #~ msgstr "Это поле является обязательным."
-
 #~ msgid "Enter a whole number."
 #~ msgstr "Введите целое число."
-
 #~ msgid "Enter a number."
 #~ msgstr "Введите число."
-
 #~ msgid "Ensure that there are no more than %s digits in total."
 #~ msgstr "Убедитесь, что в наличии не более %s цифр в общей сумме."
-
 #~ msgid "Ensure that there are no more than %s decimal places."
 #~ msgstr "Убедитесь, что в наличии не более чем %s знаков после запятой."
-
 #~ msgid ""
 #~ "Ensure that there are no more than %s digits before the decimal point."
 #~ msgstr "Убедитесь, что в наличии не более чем %s знаков перед запятой."
-
 #~ msgid "Enter a valid date."
 #~ msgstr "Введите правильную дату."
-
 #~ msgid "Enter a valid date/time."
 #~ msgstr "Введите правильные дату/время."
-
 #~ msgid "No file was submitted. Check the encoding type on the form."
 #~ msgstr "Файл не был принят. Проверьте тип кодировки в форме."
-
 #~ msgid "No file was submitted."
 #~ msgstr "Файл не принят."
-
 #~ msgid "The submitted file is empty."
 #~ msgstr "Принятый файл - пустой."
-
 #~ msgid ""
 #~ "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 #~ msgstr ""
 #~ "Убедитесь, что это имя файла содержит не более %(max)d символов (он "
 #~ "содержит %(length)d)."
-
 #~ msgid ""
 #~ "Upload a valid image. The file you uploaded was either not an image or a "
 #~ "corrupted image."
 #~ msgstr ""
 #~ "Загрузите изображение в правильном формате. Загруженный вами файл либо не "
 #~ "изображение, либо поврежденный файл."
-
 #~ msgid ""
 #~ "Select a valid choice. %(value)s is not one of the available choices."
 #~ msgstr ""
 #~ "Сделайте правильный выбор. %(value)s не является одним из возможных "
 #~ "вариантов."
-
 #~ msgid "Enter a list of values."
 #~ msgstr "Введите список значений."
-
 #~ msgid "Please correct the duplicate data for %(field)s."
 #~ msgstr "Исправьте дублирующиеся данные для %(field)s."
-
 #~ msgid ""
 #~ "Please correct the duplicate data for %(field)s, which must be unique."
 #~ msgstr ""
 #~ "Исправьте дублирующиеся данные для %(field)s, которые быть уникальными."
-
 #~ msgid ""
 #~ "Please correct the duplicate data for %(field_name)s which must be unique "
 #~ "for the %(lookup)s in %(date_field)s."
 #~ msgstr ""
 #~ "Исправьте дублирующиеся данные для %(field)s, которые быть уникальными "
 #~ "для %(lookup)s в %(date_field)s."
-
 #~ msgid "Please correct the duplicate values below."
 #~ msgstr "Исправьте дублирующиеся данные ниже."
-
 #~ msgid ""
 #~ "The inline foreign key did not match the parent instance primary key."
 #~ msgstr ""
 #~ "Встроенный внешний ключ не соответствует первичному ключу родительского "
 #~ "экземпляра."
-
 #~ msgid ""
 #~ "Select a valid choice. That choice is not one of the available choices."
 #~ msgstr ""
 #~ "Сделайте правильный выбор. Этот выбор не является одним из возможных "
 #~ "вариантов."
-
 #~ msgid "Select a valid choice. %s is not one of the available choices."
 #~ msgstr ""
 #~ "Сделайте правильный выбор. %s не является одним из возможных вариантов."
-
 #~ msgid "\"%s\" is not a valid value for a primary key."
 #~ msgstr "\"%s\" не является допустимым значением для первичного ключа."
-
 #~ msgid "yes,no,maybe"
 #~ msgstr "да, нет, возможно"
-
 #~ msgid "%(size)d byte"
 #~ msgid_plural "%(size)d bytes"
 #~ msgstr[0] "%(size)d байт"
-
 #~ msgid "%.1f KB"
 #~ msgstr "%.1f KB"
-
 #~ msgid "%.1f MB"
 #~ msgstr "%.1f MB"
-
 #~ msgid "%.1f GB"
 #~ msgstr "%.1f GB"
-
 #~ msgid "%.1f TB"
 #~ msgstr "%.1f TB"
-
 #~ msgid "%.1f PB"
 #~ msgstr "%.1f PB"
-
 #~ msgid "midnight"
 #~ msgstr "полдень"
-
 #~ msgid "noon"
 #~ msgstr "день"
-
 #~ msgid "Monday"
 #~ msgstr "Понедельник"
-
 #~ msgid "Tuesday"
 #~ msgstr "Вторник"
-
 #~ msgid "Wednesday"
 #~ msgstr "Среда"
-
 #~ msgid "Thursday"
 #~ msgstr "Четверг"
-
 #~ msgid "Friday"
 #~ msgstr "Пятница"
-
 #~ msgid "Saturday"
 #~ msgstr "Суббота"
-
 #~ msgid "Sunday"
 #~ msgstr "Воскресенье"
-
 #~ msgid "Mon"
 #~ msgstr "Пн"
-
 #~ msgid "Tue"
 #~ msgstr "Вт"
-
 #~ msgid "Wed"
 #~ msgstr "Ср"
-
 #~ msgid "Thu"
 #~ msgstr "Чт"
-
 #~ msgid "Fri"
 #~ msgstr "Пт"
-
 #~ msgid "Sun"
 #~ msgstr "Вс"
-
 #~ msgid "January"
 #~ msgstr "января"
-
 #~ msgid "February"
 #~ msgstr "февраля"
-
 #~ msgid "April"
 #~ msgstr "апреля"
-
 #~ msgid "May"
 #~ msgstr "мая"
-
 #~ msgid "June"
 #~ msgstr "июня"
-
 #~ msgid "July"
 #~ msgstr "июля"
-
 #~ msgid "August"
 #~ msgstr "августа"
-
 #~ msgid "September"
 #~ msgstr "сентября"
-
 #~ msgid "December"
 #~ msgstr "декабря"
-
 #~ msgid "jan"
 #~ msgstr "янв"
-
 #~ msgid "feb"
 #~ msgstr "фев"
-
 #~ msgid "may"
 #~ msgstr "май"
-
 #~ msgid "jun"
 #~ msgstr "июнь"
-
 #~ msgid "jul"
 #~ msgstr "июль"
-
 #~ msgid "aug"
 #~ msgstr "авг"
-
 #~ msgid "sep"
 #~ msgstr "сен"
-
 #~ msgid "oct"
 #~ msgstr "окт"
-
 #~ msgid "nov"
 #~ msgstr "ноя"
-
 #~ msgid "dec"
 #~ msgstr "дек"
-
 #~ msgid "Jan."
 #~ msgstr "Янв."
-
 #~ msgid "Feb."
 #~ msgstr "Фев."
-
 #~ msgid "Aug."
 #~ msgstr "Авг."
-
 #~ msgid "Oct."
 #~ msgstr "Окт."
-
 #~ msgid "Nov."
 #~ msgstr "Нбр."
-
 #~ msgid "Dec."
 #~ msgstr "Дек."
-
 #~ msgid "or"
 #~ msgstr "или"
-
 #~ msgid "year"
 #~ msgid_plural "years"
 #~ msgstr[0] "год"
-
 #~ msgid "month"
 #~ msgid_plural "months"
 #~ msgstr[0] "месяц"
-
 #~ msgid "week"
 #~ msgid_plural "weeks"
 #~ msgstr[0] "неделя"
-
 #~ msgid "day"
 #~ msgid_plural "days"
 #~ msgstr[0] "день"
-
 #~ msgid "hour"
 #~ msgid_plural "hours"
 #~ msgstr[0] "час"
-
 #~ msgid "minute"
 #~ msgid_plural "minutes"
 #~ msgstr[0] "минута"
-
 #~ msgid "%(number)d %(type)s"
 #~ msgstr "%(number)d %(type)s"
-
 #~ msgid ", %(number)d %(type)s"
 #~ msgstr ", %(number)d %(type)s"
-
 #~ msgid "DATE_FORMAT"
 #~ msgstr "ДАТА_ФОРМАТ"
-
 #~ msgid "DATETIME_FORMAT"
 #~ msgstr "ДАТАВРЕМЯ_ФОРМАТ"
-
 #~ msgid "TIME_FORMAT"
 #~ msgstr "ВРЕМЯ_ФОРМАТ"
-
 #~ msgid "YEAR_MONTH_FORMAT"
 #~ msgstr "ГОД_МЕСЯЦ_ФОРМАТ"
-
 #~ msgid "MONTH_DAY_FORMAT"
 #~ msgstr "МЕСЯЦ_ДЕНЬ_ФОРМАТ"
-
 #~ msgid "The %(verbose_name)s was created successfully."
 #~ msgstr "%(verbose_name)s успешно создан(ы)."
-
 #~ msgid "The %(verbose_name)s was updated successfully."
 #~ msgstr "%(verbose_name)s успешно обновлен(ы)."
-
 #~ msgid "The %(verbose_name)s was deleted."
 #~ msgstr "%(verbose_name)s успешно удален(ы)."
+
