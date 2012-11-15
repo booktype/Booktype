@@ -1,366 +1,66 @@
 Installing Booktype 1.5
 -----------------------
 
-Note : there are three components to the Booktype Tool Set. This doc
+There are three components to the Booktype Tool Set. This doc
 covers only the Booktype (editor/book manager) component and not Espri
 (importer) or Objavi (exporter). By default Booktype is hardwired to the
-FLOSS Manuals install of Objavi and Espri so you still acquire that
-functionality. To detach yourself from the FLOSS Manuals mothership
+Sourcefabric install of Objavi and Espri so you still acquire that
+functionality. To detach yourself from the Sourcefabric mothership
 you need to install Espri and Objavi and configure your install of
 Booki accordingly.
 
-This document describes how to install the latest stable versions of 
-Django, simplejson, and Redis, using python's easy_install.  If you 
-have a sufficiently recent distribution (e.g., Debian Squeeze), you 
-can just use the distro versions.  In that case, skip the easy_install 
-steps and do whatever is appropriate with your package manager.
+Find out more about Objavi and Espri: https://github.com/sourcefabric/Objavi
 
 
-Booktype prerequisites
-----------------------
+Booktype Install script
+-----------------------
 
-Command examples are for Debian/Ubuntu. Depending of your OS you might
-need to install some of the python packages using easy_install 
-(http://pypi.python.org/pypi/setuptools) or pip (http://pypi.python.org/pypi/pip). 
-Please check how to install them on your OS if they are not present.
+Booktype can be installed on various Linux distributions and Mac OS X. There are no native 
+packages at the moment but you can try Booktype install script:
+  https://github.com/aerkalov/booktype-scrolls/tree/master/scripts/install
 
- - Python, minimum 2.5 (http://www.python.org/) and headers 
-
-       $ sudo apt-get install python-dev 
-
- - PostgreSQL (recommended) or Sqlite3 (not recommended)
-       
-       $ sudo apt-get install postgresql
-      or 
-       $ sudo apt-get install sqlite3
-
- - Psycopg (must use this adapter with PostgreSQL)
-
-       $ sudo apt-get install python-psycopg2
-
- - git repository manager (http://git-scm.com/)
-
-       $ sudo apt-get install git-core
-
- - Python Set Up Tools and pip (http://pypi.python.org/pypi/pip)
-
-       $ sudo apt-get install python-setuptools python-pip
-
- - Django, minimum 1.2 (http://http://www.djangoproject.com/)
-
-       $ sudo easy_install django
-       or
-       $ sudo apt-get install python-django
-
- - SimpleJSON
-
-       $ sudo easy_install simplejson
-
- - Redis (http://redis.io/)
-
-       $ sudo apt-get install redis-server
-
- - South (http://south.aeracode.org/)
-
-       $ sudo easy_install South
-
- - lxml (http://codespeak.net/lxml/)
-
-       $ sudo apt-get install libxml2-dev and libxslt-dev
-       $ sudo easy_install lxml
-
- - Unidecode (http://pypi.python.org/pypi/Unidecode)
-
-       $ sudo pip install unidecode
-      
-
-Installing from the git repository
-----------------------------------
-
-This install doc uses sqlite3 (it is recommended to use PostgreSQL) as its the 
-easiest to setup so make sure sqlite3 is installed. 
-
-IMPORTANT: Do all of the steps as "www-data" user.
-
-More information about Booktype deployment can be found in doc/deployment/ directory.
-
-1. Clone Booktype
-
-   git clone https://github.com/sourcefabric/Booktype.git
-
-2. Change dir to 'Booktype/scripts'
-
-   cd Booktype/scripts
-
-3. Create booktype instance. If you have write permissions, script will create directory /var/www/mybooktype/. If you don't
-   have write permissions, administrator should create that directory first.
-      sudo mkdir /var/www/mybooktype/
-      sudo chown www-data:www-data /var/www/mybooktype/
-
-   ./createbooki --database sqlite /var/www/mybooktype/  
-
-   You can also let create script check if you have installed all needed libraries:
-
-   ./createbooki --check-versions --database sqlite /var/www/mybooktype/  
-
-4. Change directory
-
-   cd /var/www/mybooktype/
-
-5. Edit settings
-
-   vi settings.py
-
-6. Load environment variables
-
-   . ./booki.env
-
-7. Initialize database
-
-   django-admin.py syncdb --noinput
-
-8. Migrate
-
-   django-admin.py migrate
-
-9. Create superuser account
-
-   django-admin.py createsuperuser
-
-10. Start the whole thing. 
-
-   django-admin.py runserver 0.0.0.0:8000
-
-Then if all is well open your browser and point to something like:
-   http://127.0.0.1:8000/
-
-If you are running Booktype inside of virtual machine then you should
-use ip address of your virtual machine.
+Be aware it will setup Booktype with Sqlite3 and biltin web server. You will have to
+manually setup PostgreSQL or Apache/Nginx configuration.
 
 
-How to use Booktype with Apache and mod_wsgi
---------------------------------------------
+Booktype install instructions
+-----------------------------
+
+- Ubuntu
+  Read doc/deployment/Ubuntu.md file.
+  https://github.com/sourcefabric/Booktype/wiki/How-to-install-it-on-Ubuntu
+
+- Debian
+  Read doc/deployment/Debian.md file.
+  https://github.com/sourcefabric/Booktype/wiki/How-to-install-it-on-Debian
+
+- CentOS
+  Read doc/deployment/CentOS.md file.
+  https://github.com/sourcefabric/Booktype/wiki/How-to-install-it-on-CentOS
+
+- Mac OS X
+  Read doc/deployment/MacOSX.md file.
+  https://github.com/sourcefabric/Booktype/wiki/How-to-install-it-on-Mac-OS-X
+
+
+Booktype and Apache
+-------------------
 
 To install Booktype with Apache, you need to use WSGI or FCGI/SCGI.  Consult the
-Django documentation at
-http://docs.djangoproject.com/en/dev/howto/deployment/.
+Django documentation at http://docs.djangoproject.com/en/dev/howto/deployment/.
 
-Createbooki script has created booki.wsgi script for the Apache. Use that
-file as part of your Apache config.
+Createbooki script has created booki.wsgi script for the Apache. Use that file as part of your Apache config.
 
 
-How to migrate to Booktype 1.5.3
+Booktype and Nginx
+------------------
+
+Read doc/deployment/Nginx.md or check https://github.com/sourcefabric/Booktype/wiki/How-to-use-Booktype-with-Nginx page.
+
+Createbooki script has created gunicorn.nginx and fastcgi.nginx scripts for the Nginx. Use them as part of your Nginx config.
+
+
+Migrating from previous version?
 --------------------------------
 
-1. Update your project settings.py file to use messaging framework. You have to:
-    - Add new options
-
-       MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage' 
-       TEMPLATE_CONTEXT_PROCESSORS = ('django.contrib.auth.context_processors.auth', 
-                                      'django.contrib.messages.context_processors.messages') 
-
-    - Add new messaging middleware to the list:
-       MIDDLEWARE_CLASSES = (...,
-                             'django.contrib.messages.middleware.MessageMiddleware',
-                             ...)
-
-    - Add new Django app to the list:
-       INSTALLED_APPS = (...,
-                         'django.contrib.messages', 
-                         ...)
-
-    Notice: All of these changes will require "django-admin migrate" at the end.
-
-2. Upgrade your config files to include Control Center
-    - Upgrade settings.py file with:
-      INSTALLED_APPS = (...,
-                        'booktypecontrol'
-                        ,...)
-
-
-    - Add to the end of settings.py file
-
-      from booki.utils import config
-
-      try:
-        BOOKTYPE_CONFIG = config.loadConfiguration()
-      except config.ConfigurationError:
-        BOOKTYPE_CONFIG = {}
-
-    - Template file lib/booki/portal/templates/base.html has been modified. 
-
-    Notice: All of these changes will require "django-admin migrate" at the end.
-
-3. Style of database configuration has been changed so please update your configuration. This is a normal 
-   Django database configuration and please check Django documentation for more information and options.
-
-   It used to be:
-     DATABASE_ENGINE = 'postgresql_psycopg2'
-     DATABASE_NAME = '' 
-     DATABASE_USER = '' 
-     DATABASE_PASSWORD = '' 
-     DATABASE_HOST = 'localhost'
-     DATABASE_PORT = ''
-
-   Now it is:
-     DATABASES = {'default': {'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-     	                      'NAME': '', 
-                              'USER': '', 
-                              'PASSWORD': '', 
-                              'HOST': 'localhost', 
-                              'PORT': '' 
-                              } 
-                   } 
-
-4. New configuration for load Django templates. Please change your configuration:
-
-    import django
-
-    if django.VERSION[1] < 3:
-        TEMPLATE_LOADERS = (
-                            'django.template.loaders.filesystem.load_template_source',
-                            'django.template.loaders.app_directories.load_template_source',
-                            'django.template.loaders.eggs.load_template_source',
-                           )
-    else:
-        TEMPLATE_LOADERS = (
-                            'django.template.loaders.filesystem.Loader',
-                            'django.template.loaders.app_directories.Loader',
-                            'django.template.loaders.eggs.Loader',
-                           )
-    
-
-
-How to migrate to Booktype 1.5.2
---------------------------------
-
-1. Update your project settings.py. You have to add new middleware called "LocaleMiddleware" to the list.
-
-    MIDDLEWARE_CLASSES = (
-        'django.middleware.common.CommonMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.locale.LocaleMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.middleware.transaction.TransactionMiddleware'
-    )
-
-2. Update your project settings.py. You don't have to but you can comment LANGUAGES options.
-
-    LANGUAGE_CODE = 'en-us'
-
-    # Uncomment this if you want to limit language translations only to specific list of languages
-    #
-    # gettext = lambda s: s
-    #
-    # LANGUAGES = (
-    #  ('en-us', gettext('English'))
-    # )
-
-3. By default "createbooki" script will now create "locale" directory in your Booktype project.
-
-4. Update you project settings.py
-
-   LOCALE_PATHS = (
-         '%s/locale' % os.path.dirname(booki.__file__),
-   )
-
-
-How to migrate to latest Booki 1.4
-----------------------------------
-
-1. The following should be added to settings.py:
-
-# lulu.com export credentials that override Objavi settings
-LULU_USER = None
-LULU_PASSWORD = None
-LULU_API_KEY = None
-
-2. Templates have been changed. If you have modified template "editor/edit_book.html" you will
-   have to modify it again. Please be careful about this part of template:
-
-       <ul class="bookStatuses template">
-         {% for s0, s1 in statuses %}
-           <li id="{{s0}}">{% trans s1 %}</li>
-         {% endfor %}
-       </ul>
-
-   Some part of template have been separated into:
-       editor/edit_strings.html
-       editor/edit_init.html
-
-
-How to migrate to Booki 1.2
----------------------------
-
-1. There are new template files. Be aware if you have changed template files.
-
-   reader/book_info.html       (new file)
-
-   reader/book_view.html       (used to be reader/book.html)
-   reader/book_chapter.html    (used to be reader/chapter.html)
-
-   reader/draft_book.html      (used to be reader/book.html)
-   reader/draft_chapter.html   (used to be reader/chapter.html)
-
-2. There are new named URL patterns.
-
-   book_view         (used to be view_book, does not have book version argument anymore)
-   book_chapter      (used to be view_chapter, does not have book version argument anymore)
-
-   book_info         (new)
- 
-   draft_book        (used to be view_book)
-   draft_chapter     (used to be view_chapter)
-   draft_attachment
-
-   For instance. If you had in your template:
-    
-       {% url view_chapter  book.url_title book_version chap.url_title %}
-
-   Now you must use this syntax (notice there is no book version argument):
-
-       {% url book_chapter  book.url_title  chap.url_title %}
-
-3. You must add new default template directory to settings.py file. This is how TEMPLATE_DIR should look like:
-
-   TEMPLATE_DIRS = (
-      '%s/templates/' % BOOKI_ROOT,
-      '%s/templates/' % os.path.dirname(booki.__file__)
-   )
-
-4. Read lib/booki/messaging/README.txt how to install new Messaging app.
-
-   
-
-How to migrate to Booki 1.1
----------------------------
-
-1. Install Booki again with 'createbooki' script
-
-2. Change configuration in new setting.py file (compare it with old configuration)
-
-3. Change attachment path in database. Please change OLD_PATH and NEW_PATH to point to new directories. If you don't do this, attachments will not be accessable.
-
-   $ django-admin shell
-   >>> from booki.editor import models
-   >>> OLD_PATH = '/Users/aerkalov/Work/git/booki/site_media/static/'
-   >>> NEW_PATH = '/Users/aerkalov/Work/git/mybooki/data/books/'
-   >>>
-   >>> for att in models.Attachment.objects.all():
-   ...     print '>> ', att.attachment.name
-   ...     name = att.attachment.name.replace(OLD_PATH, NEW_PATH)
-   ...     att.attachment.name = name
-   ...     att.save()
-   >>>
-   >>> from django.contrib.auth.models import User
-   >>> OLD_PATH = '/Users/aerkalov/Work/git/booki/site_media/static/_profile_images/'
-   >>> NEW_PATH = '/Users/aerkalov/Work/git/mybooki/data/profile_images/'
-   >>>
-   >>> for u in User.objects.all():
-   ...     p = u.get_profile()
-   ...     print '>>> ', p.image.name
-   ...     name = p.image.name.replace(OLD_PATH, NEW_PATH)
-   ...     p.image.name = name
-   ...     p.save()
-
-
+Check doc/MIGRATING.txt for more information.
