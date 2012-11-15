@@ -18,7 +18,8 @@ import os
 
 PUBLISH_OPTIONS =  ['book', 'ebook', 'lulu', 'pdf', 'odt']
 
-OBJAVI_URL =  "http://objavi.booki.cc/objavi.cgi"
+OBJAVI_URL =  "http://objavi.booktype.pro/objavi.cgi"
+ESPRI_URL = "http://objavi.booktype.pro/espri.cgi"
 
 THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
 

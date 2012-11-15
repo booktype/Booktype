@@ -42,21 +42,7 @@ from booki.editor import common
 from booki.messaging.views import get_endpoint_or_none
 from booki.utils import config
 
-try:
-    ESPRI_URL = settings.ESPRI_URL
-    TWIKI_GATEWAY_URL = settings.TWIKI_GATEWAY_URL
-except AttributeError:
-    # for backwards compatibility
-    ESPRI_URL = "http://objavi.booki.cc/espri.cgi"
-    TWIKI_GATEWAY_URL = "http://objavi.booki.cc/booki-twiki-gateway.cgi"
-    
-try:
-    THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
-except AttributeError:
-    import os
-    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
 
-    
 def view_accounts(request):
     """
     Django View for /accounts/ url. Does nothing at the moment.
@@ -312,7 +298,7 @@ def forgotpassword(request):
                     else:
                         transaction.commit()
 
-                    #
+                    THIS_BOOKI_SERVER = config.getConfiguration('THIS_BOOKI_SERVER')
                     body = render_to_string('account/password_reset_email.txt', 
                                             dict(secretcode=secretcode))
                     send_mail(_('Reset password'), body,
@@ -816,8 +802,9 @@ def import_book(request, username):
             if request.GET.get('hidden', '') != '':
                 extraOptions['hidden'] = True
 
+            ESPRI_URL = config.getConfiguration('ESPRI_URL')
+
             importSources = {  
-                'flossmanuals': (TWIKI_GATEWAY_URL, "en.flossmanuals.net"),
                 "archive":      (ESPRI_URL, "archive.org"),
                 "wikibooks":    (ESPRI_URL, "wikibooks"),
                 "epub":         (ESPRI_URL, "url"),
