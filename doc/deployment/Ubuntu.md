@@ -30,7 +30,6 @@ This example works with Sqlite3 and Python built in web server. This method is n
     source mybook/booki.env
     django-admin.py syncdb --noinput
     django-admin.py migrate
-    django-admin.py loaddata documentation_licenses
     django-admin.py createsuperuser
 
 ### Deploy using built in web server (not recommended but good for testing)
@@ -124,7 +123,6 @@ You can continue now with initialisation.
     source mybook/booki.env
     django-admin.py syncdb --noinput
     django-admin.py migrate
-    django-admin.py loaddata documentation_licenses
     django-admin.py createsuperuser
 
 ### Deploy using built in web server (not recommended but good for testing)
