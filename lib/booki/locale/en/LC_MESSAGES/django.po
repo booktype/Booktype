@@ -5,10 +5,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-01 20:21+0200\n"
+"POT-Creation-Date: 2012-11-21 15:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -55,7 +56,7 @@ msgstr ""
 msgid "remote host"
 msgstr ""
 
-#: account/views.py:313
+#: account/views.py:304
 msgid "Reset password"
 msgstr ""
 
@@ -202,8 +203,8 @@ msgstr ""
 
 #: account/templates/account/forgot_password.html:55
 msgid ""
-"Give us your username or e-mail you used to create booki account and we will "
-"send you new password."
+"Give us your username or e-mail you used to create Booktype account and we "
+"will send you new password."
 msgstr ""
 
 #: account/templates/account/forgot_password.html:57
@@ -241,47 +242,56 @@ msgstr ""
 msgid "NEW PASSWORD AGAIN"
 msgstr ""
 
-#: account/templates/account/form_register.html:5
-#: account/templates/account/form_register.html:32
+#: account/templates/account/form_register.html:6
+#: account/templates/account/form_register.html:42
+msgid "Registration"
+msgstr ""
+
+#: account/templates/account/form_register.html:8
+msgid "User limit has been reached."
+msgstr ""
+
+#: account/templates/account/form_register.html:11
+#: account/templates/account/form_register.html:38
 msgid "Create account"
 msgstr ""
 
-#: account/templates/account/form_register.html:7
+#: account/templates/account/form_register.html:13
 #: account/templates/account/form_signin.html:6
 msgid "User name"
 msgstr ""
 
-#: account/templates/account/form_register.html:9
+#: account/templates/account/form_register.html:15
 msgid "Password (6 characters at least)"
 msgstr ""
 
-#: account/templates/account/form_register.html:11
-#: account/templates/account/view_profile.html:196
+#: account/templates/account/form_register.html:17
+#: account/templates/account/view_profile.html:201
 msgid "Full name"
 msgstr ""
 
-#: account/templates/account/form_register.html:13
-#: account/templates/account/view_profile.html:192
+#: account/templates/account/form_register.html:19
+#: account/templates/account/view_profile.html:197
 msgid "Email"
 msgstr ""
 
-#: account/templates/account/form_register.html:18
+#: account/templates/account/form_register.html:24
 msgid "Missing username!"
 msgstr ""
 
-#: account/templates/account/form_register.html:19
+#: account/templates/account/form_register.html:25
 msgid "Missing e-mail!"
 msgstr ""
 
-#: account/templates/account/form_register.html:20
+#: account/templates/account/form_register.html:26
 msgid "Missing password!"
 msgstr ""
 
-#: account/templates/account/form_register.html:21
+#: account/templates/account/form_register.html:27
 msgid "Please provide your real name."
 msgstr ""
 
-#: account/templates/account/form_register.html:22
+#: account/templates/account/form_register.html:28
 msgid ""
 "Username is invalid. Please try a different one. You may use alhpanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
@@ -289,36 +299,33 @@ msgid ""
 "li></ul>"
 msgstr ""
 
-#: account/templates/account/form_register.html:23
+#: account/templates/account/form_register.html:29
 msgid "This is not a valid e-mail"
 msgstr ""
 
-#: account/templates/account/form_register.html:24
+#: account/templates/account/form_register.html:30
 msgid "Your passwords dont match. Please try a different one."
 msgstr ""
 
-#: account/templates/account/form_register.html:25
+#: account/templates/account/form_register.html:31
+#: account/templates/account/view_profile.html:257
 msgid "Password must be 6 characters or more!"
 msgstr ""
 
-#: account/templates/account/form_register.html:26
+#: account/templates/account/form_register.html:32
 msgid "Username already taken. Please try a different one."
 msgstr ""
 
-#: account/templates/account/form_register.html:27
+#: account/templates/account/form_register.html:33
 #: account/templates/account/form_signin.html:17
 msgid "Unknown error!"
 msgstr ""
 
-#: account/templates/account/form_register.html:28
+#: account/templates/account/form_register.html:34
 msgid "Fullname is too long!"
 msgstr ""
 
-#: account/templates/account/form_register.html:36
-msgid "Registration"
-msgstr ""
-
-#: account/templates/account/form_register.html:38
+#: account/templates/account/form_register.html:44
 msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr ""
 
@@ -451,13 +458,13 @@ msgid "Dashboard"
 msgstr ""
 
 #: account/templates/account/view_profile.html:47
-#: account/templates/account/view_profile.html:105
-#: account/templates/account/view_profile.html:145
+#: account/templates/account/view_profile.html:107
+#: account/templates/account/view_profile.html:147
 msgid "My Books"
 msgstr ""
 
 #: account/templates/account/view_profile.html:47
-#: account/templates/account/view_profile.html:145 editor/models.py:202
+#: account/templates/account/view_profile.html:147 editor/models.py:202
 #: editor/templates/base_edit.html:89 portal/templates/base.html:96
 #: portal/templates/portal/books.html:13 portal/templates/portal/books.html:54
 #: portal/templates/portal/group.html:65
@@ -500,16 +507,16 @@ msgid ""
 "\"><i>user guide</i></a>!"
 msgstr ""
 
-#: account/templates/account/view_profile.html:101
+#: account/templates/account/view_profile.html:102
 msgid "CREATE NEW BOOK"
 msgstr ""
 
-#: account/templates/account/view_profile.html:109
-#: account/templates/account/view_profile.html:163
+#: account/templates/account/view_profile.html:111
+#: account/templates/account/view_profile.html:167
 msgid "edit"
 msgstr ""
 
-#: account/templates/account/view_profile.html:111
+#: account/templates/account/view_profile.html:113
 msgid ""
 "\n"
 "          <p>This is a perfect moment to start writing your book, just click "
@@ -517,79 +524,112 @@ msgid ""
 "          "
 msgstr ""
 
-#: account/templates/account/view_profile.html:115
+#: account/templates/account/view_profile.html:117
 msgid ""
 "\n"
 "          <p>This user has no books.</p>\n"
 "          "
 msgstr ""
 
-#: account/templates/account/view_profile.html:123
+#: account/templates/account/view_profile.html:125
 msgid "CREATE NEW GROUP"
 msgstr ""
 
-#: account/templates/account/view_profile.html:125
+#: account/templates/account/view_profile.html:127
 msgid "My Groups"
 msgstr ""
 
-#: account/templates/account/view_profile.html:129
+#: account/templates/account/view_profile.html:131
 msgid "go"
 msgstr ""
 
-#: account/templates/account/view_profile.html:132
+#: account/templates/account/view_profile.html:134
 msgid ""
 "Work with others in Groups. To create a Group click on the button above."
 msgstr ""
 
-#: account/templates/account/view_profile.html:134
+#: account/templates/account/view_profile.html:136
 msgid "This user has no groups."
 msgstr ""
 
-#: account/templates/account/view_profile.html:149
+#: account/templates/account/view_profile.html:152
 msgid "Create new book"
 msgstr ""
 
-#: account/templates/account/view_profile.html:152
+#: account/templates/account/view_profile.html:155
 msgid "Import Book"
 msgstr ""
 
-#: account/templates/account/view_profile.html:163
+#: account/templates/account/view_profile.html:167
 msgid "info"
 msgstr ""
 
-#: account/templates/account/view_profile.html:163
+#: account/templates/account/view_profile.html:167
 msgid "draft"
 msgstr ""
 
-#: account/templates/account/view_profile.html:167
-#: account/templates/account/view_profile.html:182
+#: account/templates/account/view_profile.html:171
+#: account/templates/account/view_profile.html:186
 msgid "Show to others"
 msgstr ""
 
-#: account/templates/account/view_profile.html:173
-#: account/templates/account/view_profile.html:182
+#: account/templates/account/view_profile.html:177
+#: account/templates/account/view_profile.html:186
 msgid "Hide from others"
 msgstr ""
 
-#: account/templates/account/view_profile.html:187
+#: account/templates/account/view_profile.html:191
 msgid "User settings"
 msgstr ""
 
-#: account/templates/account/view_profile.html:200
+#: account/templates/account/view_profile.html:205
 msgid "About yourself"
 msgstr ""
 
-#: account/templates/account/view_profile.html:204
+#: account/templates/account/view_profile.html:209
 msgid "Profile image"
 msgstr ""
 
-#: account/templates/account/view_profile.html:208
+#: account/templates/account/view_profile.html:213
 msgid "Notification filter"
 msgstr ""
 
-#: account/templates/account/view_profile.html:214
+#: account/templates/account/view_profile.html:219
 #: editor/templates/editor/edit_strings.html:19
 msgid "Save changes"
+msgstr ""
+
+#: account/templates/account/view_profile.html:227
+msgid "Old Password"
+msgstr ""
+
+#: account/templates/account/view_profile.html:233
+msgid "New Password"
+msgstr ""
+
+#: account/templates/account/view_profile.html:238
+msgid "Password (again)"
+msgstr ""
+
+#: account/templates/account/view_profile.html:245
+msgid "Change password"
+msgstr ""
+
+#: account/templates/account/view_profile.html:254
+msgid "Unable to change password. Old password is missing."
+msgstr ""
+
+#: account/templates/account/view_profile.html:255
+msgid "Unable to change password. Old password is incorrect."
+msgstr ""
+
+#: account/templates/account/view_profile.html:256
+msgid ""
+"Unable to change password. The new and confirmation passwords are not equal."
+msgstr ""
+
+#: account/templates/account/view_profile.html:258
+msgid "Password changed."
 msgstr ""
 
 #: account/templates/errors/user_does_not_exist.html:4
@@ -876,7 +916,7 @@ msgid "People"
 msgstr ""
 
 #: editor/templates/base_edit.html:126 portal/templates/base.html:124
-msgid "There has been error in communication with booki server."
+msgid "There has been error in communication with Booktype server."
 msgstr ""
 
 #: editor/templates/base_edit.html:127 portal/templates/base.html:125
@@ -1755,6 +1795,10 @@ msgstr ""
 
 #: editor/templates/editor/edit_strings.html:63
 msgid "You don't have permission to delete attachments."
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:64
+msgid "I can not find description for this license."
 msgstr ""
 
 #: editor/templates/errors/editing_forbidden.html:4
