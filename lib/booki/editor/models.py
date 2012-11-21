@@ -21,6 +21,7 @@ from django.contrib.auth import models as auth_models
 import booki.editor.signals
 
 from django.conf import settings
+import datetime
 
 # License
 
@@ -128,7 +129,7 @@ class Book(models.Model):
     # and null=False should be
     license = models.ForeignKey(License,null=True, verbose_name=_("license"))
 
-    created = models.DateTimeField(_('created'), auto_now=True)
+    created = models.DateTimeField(_('created'), auto_now=False, default=datetime.datetime.now)
     published = models.DateTimeField(_('published'), null=True)
 
     hidden = models.BooleanField(_('hidden'))
@@ -290,7 +291,7 @@ class BookVersion(models.Model):
     name = models.CharField(_('name'), max_length=50, blank=True)
     description = models.CharField(_('description'), max_length=250, blank=True)
 
-    created = models.DateTimeField(_('created'), auto_now=True, null=False)
+    created = models.DateTimeField(_('created'), auto_now=False, null=False, default=datetime.datetime.now)
     # add published
 
     def getTOC(self):
@@ -324,7 +325,7 @@ class Chapter(models.Model):
     url_title = models.CharField(_('url title'), max_length=2500)
     title = models.CharField(_('title'), max_length=2500)
     status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status")) # this will probably change
-    created = models.DateTimeField(_('created'), null=False, auto_now=True)
+    created = models.DateTimeField(_('created'), null=False, auto_now=False, default=datetime.datetime.now)
     modified = models.DateTimeField(_('modified'), null=True, auto_now=True)
     #
     revision = models.IntegerField(_('revision'), default=1)
@@ -388,7 +389,7 @@ class Attachment(models.Model):
     attachment = models.FileField(_('filename'), upload_to=uploadAttachmentTo, max_length=2500)
 
     status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status"))
-    created = models.DateTimeField(_('created'), null=False, auto_now=True)
+    created = models.DateTimeField(_('created'), null=False, auto_now=False, default=datetime.datetime.now)
 
     def getName(self):
         name = self.attachment.name

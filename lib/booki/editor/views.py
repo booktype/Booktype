@@ -205,6 +205,8 @@ def upload_attachment(request, bookid, version=None):
     @param version: Book version or None
     """
 
+    import datetime
+
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
@@ -226,10 +228,12 @@ def upload_attachment(request, bookid, version=None):
                                version = book_version,
                                args = {'filename': request.FILES[name].name},
                                user = request.user,
-                               kind = 'attachment_upload')
+                               kind = 'attachment_upload'
+                               )
 
             att = models.Attachment(version = book_version,
                                     # must remove this reference
+                                    created = datetime.datetime.now(),
                                     book = book,
                                     status = stat)
             att.save()

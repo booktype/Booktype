@@ -996,7 +996,8 @@ def copy_attachment(attachment, target_book):
 
     att = models.Attachment(book = target_book,
                             version = target_book.version,
-                            status = target_book.status)
+                            status = target_book.status,
+                            created = datime.datetime.now())
 
     att.attachment.save(os.path.basename(attachment.attachment.name), attachment.attachment, save=False)
     att.save()
@@ -1784,11 +1785,14 @@ def create_new_version(book, book_ver, message, major, minor):
     @return: Returns Book version object
     """
 
+    import datetime
+
     new_version = models.BookVersion(book=book,
                                      major=major,
                                      minor=minor,
                                      name=message.get("name", ""),
-                                     description=message.get("description", ""))
+                                     description=message.get("description", ""),
+                                     created=datetime.datetime.now())
     new_version.save()
 
     for toc in book_ver.getTOC():
@@ -1798,12 +1802,13 @@ def create_new_version(book, book_ver, message, major, minor):
             chap = toc.chapter
 
             nchap = models.Chapter(version=new_version,
-                                  book=book, # this should be removed
-                                  url_title=chap.url_title,
-                                  title=chap.title,
-                                  status=chap.status,
-                                  revision=chap.revision,
-                                  content=chap.content)
+                                   book=book, # this should be removed
+                                   url_title=chap.url_title,
+                                   title=chap.title,
+                                   status=chap.status,
+                                   revision=chap.revision,
+                                   created=datetime.datetime.now(),
+                                   content=chap.content)
             nchap.save()
 
         ntoc = models.BookToc(version=new_version,
@@ -1823,16 +1828,17 @@ def create_new_version(book, book_ver, message, major, minor):
                            title=chap.title,
                            status=chap.status,
                            revision=chap.revision,
+                           created=datetime.datetime.now(),
                            content=chap.content)
         c.save()
 
     for att in book_ver.getAttachments():
         a = models.Attachment(version = new_version,
-                              book = book,
-                              status = att.status)
+                              book=book,
+                              status=att.status,
+                              created=datetime.datetime.now())
         a.attachment.save(att.getName(), att.attachment, save = False)
         a.save()
-
 
     book.version = new_version
     book.save()
@@ -1867,6 +1873,7 @@ def remote_create_major_version(request, message, bookid, version):
         new_version = create_new_version(book, book_ver, message, book_ver.major+1, 0)
     except:
         transaction.rollback()
+        return {"result": False}
     else:
         logBookHistory(book = book,
                        version = new_version,
@@ -1877,7 +1884,7 @@ def remote_create_major_version(request, message, bookid, version):
                        kind = 'major_version')
         transaction.commit()
 
-    return {"version": new_version.getVersion()}
+        return {"version": new_version.getVersion()}
 
 
 def remote_create_minor_version(request, message, bookid, version):
@@ -1911,12 +1918,12 @@ def remote_create_minor_version(request, message, bookid, version):
         logBookHistory(book = book,
                        version = new_version,
                        chapter = None,
-                       chapter_history = None,
+                      chapter_history = None,
                        user = request.user,
                        args = {"version": new_version.getVersion()},
                        kind = 'minor_version')
         transaction.commit()
-
+        
         return {"version": new_version.getVersion()}
 
 

@@ -75,6 +75,7 @@ def createBook(user, bookTitle, status = "new", bookURL = None):
     book = models.Book(url_title = url_title,
                        title = bookTitle,
                        owner = user, 
+                       created = datetime.datetime.now(),
                        published = datetime.datetime.now())
 
     book.save()
@@ -97,7 +98,8 @@ def createBook(user, bookTitle, status = "new", bookURL = None):
                                  major = 1,
                                  minor = 0,
                                  name = 'initial',
-                                 description = '')
+                                 description = '',
+                                 created=datetime.datetime.now())
     version.save()
 
     book.version = version
