@@ -100,7 +100,7 @@ def add_appearance_for_user(message, word, sent, direct=False, orig_word=None):
             send_mail(_('Message from %s') % reason, 
                       body,
                       settings.EMAIL_HOST_USER,
-                      [user.email], fail_silently=False)
+                      [user.email], fail_silently=True)
 
 def add_appearance_for_followers(message, word, sent, direct=False, orig_word=None):
     source_endpoint = get_endpoint_or_none(word)

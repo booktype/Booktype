@@ -303,7 +303,7 @@ def forgotpassword(request):
                                             dict(secretcode=secretcode))
                     send_mail(_('Reset password'), body,
                               'info@' + THIS_BOOKI_SERVER,
-                              [usr.email], fail_silently=False)
+                              [usr.email], fail_silently=True)
 
                 else:
                     ret["result"] = 3
