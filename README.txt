@@ -54,6 +54,12 @@ Only 4 steps:
        https://help.github.com/articles/creating-a-pull-request
 
 
+How to help with interface translation
+--------------------------------------
+
+Read doc/translate.md document or visit https://github.com/sourcefabric/Booktype/wiki/How-to-translate-interface page.
+
+
 License
 -------
 
