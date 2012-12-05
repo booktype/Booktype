@@ -2975,22 +2975,17 @@ def remote_publish_book2(request, message, bookid, version):
                       'lulu': 'book',
                       'pdf': 'web'}
 
-    licenses = {'PD': 'public domain',
-                'MIT': 'MIT',
-                'CC0': 'CC-BY',
-                'CC BY': 'CC-BY',
-                'CC BY-SA': 'CC-BY',
-                'CC BY-ND': 'CC BY',
-                'CC BY-NC': 'CC BY',
-                'CC BY-NC-SA': 'CC-BY',
-                'CC BY-NC-ND': 'CC-BY',
-                'GPL': 'GPL'
-        }
-
-    licenseText = 'CC-BY'
+    # At one point Booktype and Objavi did not have same list of licenses.
+    # This would create problems and this was a dirty way how it was
+    # "solved". This will be changed in the future protocol for communication
+    # between Booktype and Objavi
+    licenses = {'PD': 'public domain'}
+    licenseText = 'CC BY'
 
     if book.license:
-        licenseText = licenses.get(book.license.abbrevation, 'GPL')
+        # If you can find it in the list then return how the license should be called.
+        # Otherwise just return abbrevation name.
+        licenseText = licenses.get(book.license.abbrevation, book.license.abbrevation)
 
     publishMode = publishOptions[message.get("publish_mode", "epub")]
 
