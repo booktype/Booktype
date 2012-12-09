@@ -7,14 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 1.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-28 14:26+0000\n"
+"POT-Creation-Date: 2012-12-09 21:42+0100\n"
 "PO-Revision-Date: 2012-11-28 15:08+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Polish <contact@sourcefabric.org>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2)\n"
 "X-Poedit-Language: Polish\n"
 "X-Poedit-Country: POLAND\n"
 
@@ -26,21 +28,14 @@ msgstr ""
 msgid "image"
 msgstr ""
 
-#: account/models.py:40
-#: editor/models.py:94
-#: editor/models.py:138
+#: account/models.py:40 editor/models.py:94 editor/models.py:138
 #: editor/models.py:292
 msgid "description"
 msgstr ""
 
-#: account/models.py:41
-#: account/models.py:56
-#: editor/models.py:234
-#: editor/models.py:355
-#: editor/models.py:448
-#: editor/models.py:460
-#: editor/models.py:472
-#: editor/templates/editor/edit_book.html:560
+#: account/models.py:41 account/models.py:56 editor/models.py:234
+#: editor/models.py:355 editor/models.py:448 editor/models.py:460
+#: editor/models.py:472 editor/templates/editor/edit_book.html:560
 #: editor/templates/editor/edit_book.html:659
 msgid "user"
 msgstr ""
@@ -49,12 +44,8 @@ msgstr ""
 msgid "secretcode"
 msgstr ""
 
-#: account/models.py:58
-#: editor/models.py:101
-#: editor/models.py:132
-#: editor/models.py:294
-#: editor/models.py:328
-#: editor/models.py:392
+#: account/models.py:58 editor/models.py:101 editor/models.py:132
+#: editor/models.py:294 editor/models.py:328 editor/models.py:392
 #: editor/templates/editor/edit_book.html:671
 msgid "created"
 msgstr ""
@@ -81,7 +72,9 @@ msgid "Create a Book"
 msgstr ""
 
 #: account/templates/account/create_book.html:7
-msgid "You don't have permissions to create new books. At the moment only administrators can do that."
+msgid ""
+"You don't have permissions to create new books. At the moment only "
+"administrators can do that."
 msgstr ""
 
 #: account/templates/account/create_book.html:18
@@ -89,6 +82,7 @@ msgid "Step 1"
 msgstr ""
 
 #: account/templates/account/create_book.html:18
+#: editor/templates/editor/wizzard_lulu.html:30
 msgid "Title"
 msgstr ""
 
@@ -111,11 +105,14 @@ msgstr ""
 #: account/templates/account/create_book.html:30
 #: account/templates/account/create_book.html:34
 #: account/templates/account/view_profile.html:70
+#: editor/templates/editor/wizzard_lulu.html:42
 msgid "Description"
 msgstr ""
 
 #: account/templates/account/create_book.html:31
-msgid "Give some information so others can find it to help you (this can be added or changed later)."
+msgid ""
+"Give some information so others can find it to help you (this can be added "
+"or changed later)."
 msgstr ""
 
 #: account/templates/account/create_book.html:40
@@ -130,8 +127,7 @@ msgstr ""
 msgid "Choose from the following licenses"
 msgstr ""
 
-#: account/templates/account/create_book.html:43
-#: editor/models.py:36
+#: account/templates/account/create_book.html:43 editor/models.py:36
 #: editor/templates/editor/edit_book.html:437
 msgid "License"
 msgstr ""
@@ -146,7 +142,9 @@ msgid "Image"
 msgstr ""
 
 #: account/templates/account/create_book.html:55
-msgid "If you have an image for the book then add it now (this can be added or changed later)"
+msgid ""
+"If you have an image for the book then add it now (this can be added or "
+"changed later)"
 msgstr ""
 
 #: account/templates/account/create_book.html:57
@@ -162,11 +160,15 @@ msgid "Make Public?"
 msgstr ""
 
 #: account/templates/account/create_book.html:64
-msgid "Would you like to keep your book private or make it public? If the book is public others can find the book to help you."
+msgid ""
+"Would you like to keep your book private or make it public? If the book is "
+"public others can find the book to help you."
 msgstr ""
 
 #: account/templates/account/create_book.html:65
-msgid "<strong>Note:</strong> this setting can be changed later from your dashboard.</p>"
+msgid ""
+"<strong>Note:</strong> this setting can be changed later from your dashboard."
+"</p>"
 msgstr ""
 
 #: account/templates/account/create_group.html:3
@@ -208,7 +210,9 @@ msgid "USERNAME OR E-MAIL ADDRESS"
 msgstr ""
 
 #: account/templates/account/forgot_password.html:55
-msgid "Give us your username or e-mail you used to create Booktype account and we will send you new password."
+msgid ""
+"Give us your username or e-mail you used to create Booktype account and we "
+"will send you new password."
 msgstr ""
 
 #: account/templates/account/forgot_password.html:57
@@ -225,7 +229,9 @@ msgid "Send request"
 msgstr ""
 
 #: account/templates/account/forgot_password.html:64
-msgid "<h2>Check your email!</h2><p>Password reset instructions were sent to your email.</p>"
+msgid ""
+"<h2>Check your email!</h2><p>Password reset instructions were sent to your "
+"email.</p>"
 msgstr ""
 
 #: account/templates/account/forgot_password_enter.html:40
@@ -294,7 +300,11 @@ msgid "Please provide your real name."
 msgstr ""
 
 #: account/templates/account/form_register.html:28
-msgid "Username is invalid. Please try a different one. You may use alhpanumeric characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+msgid ""
+"Username is invalid. Please try a different one. You may use alhpanumeric "
+"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
+"li></ul>"
 msgstr ""
 
 #: account/templates/account/form_register.html:29
@@ -328,6 +338,7 @@ msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr ""
 
 #: account/templates/account/form_signin.html:3
+#: account/templates/account/form_signin.html:20
 msgid "Sign in"
 msgstr ""
 
@@ -349,7 +360,9 @@ msgid "Import book"
 msgstr ""
 
 #: account/templates/account/import_book.html:7
-msgid "You don't have permissions to import content. At the moment only administrators can do that."
+msgid ""
+"You don't have permissions to import content. At the moment only "
+"administrators can do that."
 msgstr ""
 
 #: account/templates/account/import_book.html:19
@@ -385,12 +398,8 @@ msgid "Initially hidden from others"
 msgstr ""
 
 #: account/templates/account/import_book.html:38
-msgid "Please wait. It will take couple of moments. Your book is being imported!"
-msgstr ""
-
-#: account/templates/account/password_reset_email.txt:3
-#, python-format
-msgid "Your secret code is %(secretcode)s. Go to %(url)s"
+msgid ""
+"Please wait. It will take couple of moments. Your book is being imported!"
 msgstr ""
 
 #: account/templates/account/signin.html:6
@@ -409,9 +418,14 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"    <p>Thank you. We have created your account and signed you in. Do you want to learn more how to use Booktype? Read the <a href=\"http://en.flossmanuals.net/booktype\">user guide</a>!</p>\n"
+"    <p>Thank you. We have created your account and signed you in. Do you "
+"want to learn more how to use Booktype? Read the <a href=\"http://en."
+"flossmanuals.net/booktype\">user guide</a>!</p>\n"
 "    \n"
-"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! Let's use Booktype now!</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</span> seconds.</span></form></p>\n"
+"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! "
+"Let's use Booktype now!</button><span class=\"redirectmessage\" style="
+"\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</"
+"span> seconds.</span></form></p>\n"
 "    "
 msgstr ""
 
@@ -420,7 +434,9 @@ msgid "Why do I need account ?"
 msgstr ""
 
 #: account/templates/account/signin.html:61
-msgid "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to."
+msgid ""
+"Your real name is compulsory for reasons of copyright attribution on books "
+"you create and contribute to."
 msgstr ""
 
 #: account/templates/account/signin.html:64
@@ -442,8 +458,7 @@ msgid "/user: %(username)s"
 msgstr ""
 
 #: account/templates/account/view_profile.html:43
-#: editor/templates/base_edit.html:82
-#: portal/templates/base.html:89
+#: editor/templates/base_edit.html:82 portal/templates/base.html:89
 msgid "My Dashboard"
 msgstr ""
 
@@ -458,14 +473,11 @@ msgid "My Books"
 msgstr ""
 
 #: account/templates/account/view_profile.html:47
-#: account/templates/account/view_profile.html:147
-#: editor/models.py:203
-#: editor/templates/base_edit.html:89
-#: portal/templates/base.html:96
-#: portal/templates/portal/books.html:13
-#: portal/templates/portal/books.html:54
+#: account/templates/account/view_profile.html:147 editor/models.py:203
+#: editor/templates/base_edit.html:89 portal/templates/base.html:96
+#: portal/templates/portal/books.html:13 portal/templates/portal/books.html:54
 #: portal/templates/portal/group.html:65
-#: portal/templates/portal/group.html:126
+#: portal/templates/portal/group.html:115
 msgid "Books"
 msgstr ""
 
@@ -473,7 +485,6 @@ msgstr ""
 #: editor/templates/editor/edit_book.html:117
 #: editor/templates/editor/edit_book.html:412
 #: portal/templates/portal/group.html:68
-#: portal/templates/portal/group.html:169
 msgid "Settings"
 msgstr ""
 
@@ -498,7 +509,10 @@ msgid "Followers:"
 msgstr ""
 
 #: account/templates/account/view_profile.html:96
-msgid "Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype\"><i>user guide</i></a>!"
+msgid ""
+"Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" "
+"title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype"
+"\"><i>user guide</i></a>!"
 msgstr ""
 
 #: account/templates/account/view_profile.html:102
@@ -513,7 +527,8 @@ msgstr ""
 #: account/templates/account/view_profile.html:113
 msgid ""
 "\n"
-"          <p>This is a perfect moment to start writing your book, just click on the button above!</p>\n"
+"          <p>This is a perfect moment to start writing your book, just click "
+"on the button above!</p>\n"
 "          "
 msgstr ""
 
@@ -537,7 +552,8 @@ msgid "go"
 msgstr ""
 
 #: account/templates/account/view_profile.html:134
-msgid "Work with others in Groups. To create a Group click on the button above."
+msgid ""
+"Work with others in Groups. To create a Group click on the button above."
 msgstr ""
 
 #: account/templates/account/view_profile.html:136
@@ -587,7 +603,7 @@ msgid "Notification filter"
 msgstr ""
 
 #: account/templates/account/view_profile.html:219
-#: editor/templates/editor/edit_strings.html:19
+#: editor/templates/editor/edit_strings.html:19 portal/templates/base.html:139
 msgid "Save changes"
 msgstr ""
 
@@ -616,7 +632,8 @@ msgid "Unable to change password. Old password is incorrect."
 msgstr ""
 
 #: account/templates/account/view_profile.html:256
-msgid "Unable to change password. The new and confirmation passwords are not equal."
+msgid ""
+"Unable to change password. The new and confirmation passwords are not equal."
 msgstr ""
 
 #: account/templates/account/view_profile.html:258
@@ -632,20 +649,14 @@ msgstr ""
 msgid "Can't find user \"%(username)s\"."
 msgstr ""
 
-#: editor/models.py:29
-#: editor/models.py:42
-#: editor/models.py:65
-#: editor/models.py:92
-#: editor/models.py:255
-#: editor/models.py:291
-#: editor/models.py:419
-#: editor/templates/editor/edit_book.html:668
+#: editor/models.py:29 editor/models.py:42 editor/models.py:65
+#: editor/models.py:92 editor/models.py:255 editor/models.py:291
+#: editor/models.py:419 editor/templates/editor/edit_book.html:668
 #: editor/templates/editor/edit_strings.html:52
 msgid "name"
 msgstr ""
 
-#: editor/models.py:30
-#: editor/models.py:43
+#: editor/models.py:30 editor/models.py:43
 msgid "abbrevation"
 msgstr ""
 
@@ -653,8 +664,7 @@ msgstr ""
 msgid "Licenses"
 msgstr ""
 
-#: editor/models.py:49
-#: editor/templates/editor/edit_book.html:418
+#: editor/models.py:49 editor/templates/editor/edit_book.html:418
 msgid "Language"
 msgstr ""
 
@@ -662,8 +672,7 @@ msgstr ""
 msgid "Languages"
 msgstr ""
 
-#: editor/models.py:55
-#: editor/models.py:133
+#: editor/models.py:55 editor/models.py:133
 msgid "published"
 msgstr ""
 
@@ -675,27 +684,18 @@ msgstr ""
 msgid "not translated"
 msgstr ""
 
-#: editor/models.py:64
-#: editor/models.py:79
-#: editor/models.py:227
-#: editor/models.py:253
-#: editor/models.py:288
-#: editor/models.py:323
-#: editor/models.py:387
-#: editor/models.py:418
-#: editor/models.py:449
-#: editor/models.py:459
-#: editor/models.py:471
+#: editor/models.py:64 editor/models.py:79 editor/models.py:227
+#: editor/models.py:253 editor/models.py:288 editor/models.py:323
+#: editor/models.py:387 editor/models.py:418 editor/models.py:449
+#: editor/models.py:459 editor/models.py:471
 msgid "book"
 msgstr ""
 
-#: editor/models.py:66
-#: editor/models.py:421
+#: editor/models.py:66 editor/models.py:421
 msgid "weight"
 msgstr ""
 
-#: editor/models.py:72
-#: editor/models.py:73
+#: editor/models.py:72 editor/models.py:73
 msgid "Book status"
 msgstr ""
 
@@ -715,8 +715,7 @@ msgstr ""
 msgid "url name"
 msgstr ""
 
-#: editor/models.py:96
-#: editor/models.py:126
+#: editor/models.py:96 editor/models.py:126
 msgid "owner"
 msgstr ""
 
@@ -732,19 +731,15 @@ msgstr ""
 msgid "Booki groups"
 msgstr ""
 
-#: editor/models.py:116
-#: editor/models.py:325
+#: editor/models.py:116 editor/models.py:325
 msgid "url title"
 msgstr ""
 
-#: editor/models.py:117
-#: editor/models.py:326
+#: editor/models.py:117 editor/models.py:326
 msgid "title"
 msgstr ""
 
-#: editor/models.py:118
-#: editor/models.py:327
-#: editor/models.py:391
+#: editor/models.py:118 editor/models.py:327 editor/models.py:391
 msgid "status"
 msgstr ""
 
@@ -752,16 +747,12 @@ msgstr ""
 msgid "language"
 msgstr ""
 
-#: editor/models.py:122
-#: editor/models.py:229
-#: editor/models.py:321
-#: editor/models.py:385
-#: editor/models.py:416
+#: editor/models.py:122 editor/models.py:229 editor/models.py:321
+#: editor/models.py:385 editor/models.py:416
 msgid "version"
 msgstr ""
 
-#: editor/models.py:124
-#: editor/models.py:450
+#: editor/models.py:124 editor/models.py:450
 msgid "group"
 msgstr ""
 
@@ -773,8 +764,7 @@ msgstr ""
 msgid "hidden"
 msgstr ""
 
-#: editor/models.py:136
-#: editor/models.py:451
+#: editor/models.py:136 editor/models.py:451
 msgid "permission"
 msgstr ""
 
@@ -782,14 +772,11 @@ msgstr ""
 msgid "cover"
 msgstr ""
 
-#: editor/models.py:202
-#: editor/templates/editor/edit_publish.html:9
+#: editor/models.py:202 editor/templates/editor/edit_publish.html:9
 msgid "Book"
 msgstr ""
 
-#: editor/models.py:230
-#: editor/models.py:352
-#: editor/models.py:420
+#: editor/models.py:230 editor/models.py:352 editor/models.py:420
 msgid "chapter"
 msgstr ""
 
@@ -797,9 +784,7 @@ msgstr ""
 msgid "chapter history"
 msgstr ""
 
-#: editor/models.py:232
-#: editor/models.py:329
-#: editor/models.py:354
+#: editor/models.py:232 editor/models.py:329 editor/models.py:354
 msgid "modified"
 msgstr ""
 
@@ -807,8 +792,7 @@ msgstr ""
 msgid "args"
 msgstr ""
 
-#: editor/models.py:235
-#: editor/models.py:256
+#: editor/models.py:235 editor/models.py:256
 msgid "kind"
 msgstr ""
 
@@ -828,8 +812,7 @@ msgstr ""
 msgid "value date"
 msgstr ""
 
-#: editor/models.py:281
-#: editor/models.py:282
+#: editor/models.py:281 editor/models.py:282
 msgid "Metadata"
 msgstr ""
 
@@ -841,14 +824,12 @@ msgstr ""
 msgid "minor"
 msgstr ""
 
-#: editor/models.py:331
-#: editor/models.py:356
+#: editor/models.py:331 editor/models.py:356
 #: editor/templates/editor/edit_book.html:658
 msgid "revision"
 msgstr ""
 
-#: editor/models.py:336
-#: messaging/models.py:34
+#: editor/models.py:336 messaging/models.py:34
 msgid "content"
 msgstr ""
 
@@ -856,13 +837,11 @@ msgstr ""
 msgid "Chapter"
 msgstr ""
 
-#: editor/models.py:347
-#: editor/templates/editor/edit_book.html:97
+#: editor/models.py:347 editor/templates/editor/edit_book.html:97
 msgid "Chapters"
 msgstr ""
 
-#: editor/models.py:357
-#: editor/templates/editor/edit_book.html:661
+#: editor/models.py:357 editor/templates/editor/edit_book.html:661
 msgid "comment"
 msgstr ""
 
@@ -870,13 +849,11 @@ msgstr ""
 msgid "Chapter history"
 msgstr ""
 
-#: editor/models.py:389
-#: editor/templates/editor/edit_strings.html:53
+#: editor/models.py:389 editor/templates/editor/edit_strings.html:53
 msgid "filename"
 msgstr ""
 
-#: editor/models.py:402
-#: editor/templates/editor/edit_book.html:619
+#: editor/models.py:402 editor/templates/editor/edit_book.html:619
 msgid "Attachment"
 msgstr ""
 
@@ -908,8 +885,7 @@ msgstr ""
 msgid "Book TOCs"
 msgstr ""
 
-#: editor/models.py:466
-#: editor/models.py:467
+#: editor/models.py:466 editor/models.py:467
 msgid "Attribution Exclude"
 msgstr ""
 
@@ -921,8 +897,7 @@ msgstr ""
 msgid "wizzard options"
 msgstr ""
 
-#: editor/models.py:480
-#: editor/models.py:481
+#: editor/models.py:480 editor/models.py:481
 msgid "Publish Wizzard"
 msgstr ""
 
@@ -930,40 +905,33 @@ msgstr ""
 msgid "Modifications:"
 msgstr ""
 
-#: editor/templates/base_edit.html:65
-#: portal/templates/base.html:72
+#: editor/templates/base_edit.html:65 portal/templates/base.html:72
 msgid "Sign out"
 msgstr ""
 
-#: editor/templates/base_edit.html:71
-#: portal/templates/base.html:78
+#: editor/templates/base_edit.html:71 portal/templates/base.html:78
 msgid "Sign In / Create Account"
 msgstr ""
 
-#: editor/templates/base_edit.html:90
-#: portal/templates/base.html:97
+#: editor/templates/base_edit.html:90 portal/templates/base.html:97
 #: portal/templates/portal/groups.html:12
 msgid "Groups"
 msgstr ""
 
-#: editor/templates/base_edit.html:91
-#: portal/templates/base.html:98
+#: editor/templates/base_edit.html:91 portal/templates/base.html:98
 #: portal/templates/portal/people.html:13
 msgid "People"
 msgstr ""
 
-#: editor/templates/base_edit.html:126
-#: portal/templates/base.html:124
+#: editor/templates/base_edit.html:126 portal/templates/base.html:124
 msgid "There has been error in communication with Booktype server."
 msgstr ""
 
-#: editor/templates/base_edit.html:127
-#: portal/templates/base.html:125
+#: editor/templates/base_edit.html:127 portal/templates/base.html:125
 msgid "Not sure right now where is the problem."
 msgstr ""
 
-#: editor/templates/base_edit.html:130
-#: portal/templates/base.html:128
+#: editor/templates/base_edit.html:130 portal/templates/base.html:128
 msgid "You should refresh this page."
 msgstr ""
 
@@ -1063,7 +1031,11 @@ msgid "Publish"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:132
-msgid "We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding."
+msgid ""
+"We are very sorry, but we are not fully compatible with your browser. We are "
+"working hard to fix this problem. Until we fix this, you can try to use this "
+"site with Firefox, Chrome, Safari, Opera or some other compatible browser. "
+"Thank you for your understanding."
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:134
@@ -1086,7 +1058,9 @@ msgid "IMPORT CHAPTER"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:136
-msgid "All books should contain at least one section and can have as many chapters as you like."
+msgid ""
+"All books should contain at least one section and can have as many chapters "
+"as you like."
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:145
@@ -1198,7 +1172,7 @@ msgid "View chapter"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:290
-#: editor/templates/editor/edit_strings.html:4
+#: editor/templates/editor/edit_strings.html:4 portal/templates/base.html:136
 msgid "Cancel"
 msgstr ""
 
@@ -1215,7 +1189,9 @@ msgid "Author comment:"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:320
-msgid "Seems like You have changed the structure of the chapters. What do you want to do?"
+msgid ""
+"Seems like You have changed the structure of the chapters. What do you want "
+"to do?"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:323
@@ -1223,7 +1199,9 @@ msgid "New chapters:"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:339
-msgid "All images added to your book are listed here as well as any additional files you have uploaded."
+msgid ""
+"All images added to your book are listed here as well as any additional "
+"files you have uploaded."
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:341
@@ -1246,8 +1224,11 @@ msgstr ""
 
 #: editor/templates/editor/edit_book.html:366
 msgid ""
-"With different versions you can easily organise your book. But be careful! Other users will not be able to edit\n"
-"      and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them."
+"With different versions you can easily organise your book. But be careful! "
+"Other users will not be able to edit\n"
+"      and work on previous versions once you create new one. Create new "
+"<i>major</i> version if you plan to make a lot of changes, and <i>minor</i> "
+"version if you plan to make just a few of them."
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:368
@@ -1439,7 +1420,7 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:610
+#: editor/templates/editor/edit_book.html:610 portal/templates/base.html:135
 msgid "Create"
 msgstr ""
 
@@ -1563,7 +1544,9 @@ msgid "Show side by side"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:695
-msgid "Compare revision <span class=\"revision1Name\">revision1</span> with revision <span class=\"revision2Name\">revision2</span>"
+msgid ""
+"Compare revision <span class=\"revision1Name\">revision1</span> with "
+"revision <span class=\"revision2Name\">revision2</span>"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:700
@@ -1611,7 +1594,8 @@ msgid "Publish this book"
 msgstr ""
 
 #: editor/templates/editor/edit_publish.html:48
-msgid "Please wait. It will take couple of moments. Your book is being generated."
+msgid ""
+"Please wait. It will take couple of moments. Your book is being generated."
 msgstr ""
 
 #: editor/templates/editor/edit_publish.html:51
@@ -1671,7 +1655,8 @@ msgid "Revert to this revision?"
 msgstr ""
 
 #: editor/templates/editor/edit_strings.html:16
-msgid "Current chapter content will be reverted to this revision. Are you sure?"
+msgid ""
+"Current chapter content will be reverted to this revision. Are you sure?"
 msgstr ""
 
 #: editor/templates/editor/edit_strings.html:17
@@ -1723,7 +1708,9 @@ msgid "Delete this status?"
 msgstr ""
 
 #: editor/templates/editor/edit_strings.html:30
-msgid "Can't delete because some chapters have this status. Change chapter status first."
+msgid ""
+"Can't delete because some chapters have this status. Change chapter status "
+"first."
 msgstr ""
 
 #: editor/templates/editor/edit_strings.html:31
@@ -1823,6 +1810,741 @@ msgstr ""
 msgid "I can not find description for this license."
 msgstr ""
 
+#: editor/templates/editor/wizzard_book.html:4
+msgid "Book Formatted PDF Settings"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:11
+#: editor/templates/editor/wizzard_lulu.html:84
+#: editor/templates/editor/wizzard_pdf.html:10
+msgid "Book Size"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:13
+#: editor/templates/editor/wizzard_pdf.html:12
+msgid "custom"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:14
+#: editor/templates/editor/wizzard_lulu.html:88
+msgid "POCKET (107mm x 174mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:15
+msgid "US5x8 (126mm x 203mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:16
+#: editor/templates/editor/wizzard_lulu.html:89
+msgid "DIGEST (139mm x 215mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:17
+msgid "US5.5x8.5 (139mm x 215mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:18
+#: editor/templates/editor/wizzard_lulu.html:90
+#: editor/templates/editor/wizzard_pdf.html:13
+msgid "A5 (148mm x 210mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:19
+#: editor/templates/editor/wizzard_lulu.html:91
+msgid "USTRADE6x9 (152mm x 228mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:20
+#: editor/templates/editor/wizzard_lulu.html:92
+msgid "SQUARE7.5 (190mm x 190mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:21
+#: editor/templates/editor/wizzard_lulu.html:93
+msgid "ROYAL (155mm x 233mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:22
+#: editor/templates/editor/wizzard_lulu.html:94
+msgid "LANDSCAPE9x7 (228mm x 177mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:23
+#: editor/templates/editor/wizzard_lulu.html:95
+msgid "COMICBOOK (168mm x 260mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:24
+msgid "B5 (176mm x 250mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:25
+msgid "US7x10 (177mm x 253mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:26
+#: editor/templates/editor/wizzard_lulu.html:96
+msgid "CROWNQUARTO (189mm x 245mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:27
+#: editor/templates/editor/wizzard_lulu.html:97
+msgid "SQUARE8.5 (215mm x 215mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:28
+#: editor/templates/editor/wizzard_lulu.html:98
+msgid "USLETTER (215mm x 279mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:29
+#: editor/templates/editor/wizzard_lulu.html:99
+#: editor/templates/editor/wizzard_pdf.html:14
+msgid "A4 (210mm x 297mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:30
+msgid "Foolscap (F4) (210mm x 330mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:31
+msgid "B4 (250mm x 353mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:32
+msgid "Oamaru Tabloid (265mm x 380mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:33
+msgid "UK Tabloid (279mm x 431mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:34
+msgid "A3 (NZ Tabloid) (297mm x 420mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:35
+msgid "Berliner (315mm x 470mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:36
+msgid "B3 (353mm x 500mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:37
+msgid "Oamaru Broadsheet (382mm x 540mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:38
+msgid "US Broadsheet (380mm x 577mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:39
+msgid "A2 (NZ Broadsheet) (420mm x 594mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:40
+msgid "UK Broadsheet (457mm x 609mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:41
+msgid "B2 (500mm x 707mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:42
+msgid "A1 (594mm x 841mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:43
+msgid "B1 (707mm x 1000mm)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:45
+#: editor/templates/editor/wizzard_pdf.html:16
+msgid "Custom Size"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:48
+#: editor/templates/editor/wizzard_book.html:50
+#: editor/templates/editor/wizzard_book.html:68
+#: editor/templates/editor/wizzard_book.html:78
+#: editor/templates/editor/wizzard_book.html:97
+#: editor/templates/editor/wizzard_book.html:116
+#: editor/templates/editor/wizzard_book.html:135
+#: editor/templates/editor/wizzard_ebook.html:36
+#: editor/templates/editor/wizzard_ebook.html:46
+#: editor/templates/editor/wizzard_ebook.html:65
+#: editor/templates/editor/wizzard_ebook.html:84
+#: editor/templates/editor/wizzard_ebook.html:103
+#: editor/templates/editor/wizzard_lulu.html:118
+#: editor/templates/editor/wizzard_lulu.html:147
+#: editor/templates/editor/wizzard_lulu.html:166
+#: editor/templates/editor/wizzard_lulu.html:185
+#: editor/templates/editor/wizzard_odt.html:20
+#: editor/templates/editor/wizzard_odt.html:30
+#: editor/templates/editor/wizzard_odt.html:49
+#: editor/templates/editor/wizzard_odt.html:68
+#: editor/templates/editor/wizzard_odt.html:87
+#: editor/templates/editor/wizzard_pdf.html:20
+#: editor/templates/editor/wizzard_pdf.html:25
+#: editor/templates/editor/wizzard_pdf.html:44
+#: editor/templates/editor/wizzard_pdf.html:54
+#: editor/templates/editor/wizzard_pdf.html:73
+#: editor/templates/editor/wizzard_pdf.html:92
+#: editor/templates/editor/wizzard_pdf.html:111
+msgid "Size"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:48
+#: editor/templates/editor/wizzard_book.html:50
+#: editor/templates/editor/wizzard_book.html:230
+#: editor/templates/editor/wizzard_book.html:232
+#: editor/templates/editor/wizzard_book.html:234
+#: editor/templates/editor/wizzard_book.html:236
+#: editor/templates/editor/wizzard_book.html:240
+#: editor/templates/editor/wizzard_pdf.html:190
+#: editor/templates/editor/wizzard_pdf.html:192
+#: editor/templates/editor/wizzard_pdf.html:194
+#: editor/templates/editor/wizzard_pdf.html:196
+#: editor/templates/editor/wizzard_pdf.html:200
+msgid "mm"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:59
+#: editor/templates/editor/wizzard_ebook.html:27
+#: editor/templates/editor/wizzard_lulu.html:109
+#: editor/templates/editor/wizzard_odt.html:11
+#: editor/templates/editor/wizzard_pdf.html:35
+msgid "Font"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:62
+#: editor/templates/editor/wizzard_ebook.html:30
+#: editor/templates/editor/wizzard_lulu.html:112
+#: editor/templates/editor/wizzard_odt.html:14
+#: editor/templates/editor/wizzard_pdf.html:38
+msgid "Body Text"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:64
+#: editor/templates/editor/wizzard_book.html:74
+#: editor/templates/editor/wizzard_book.html:93
+#: editor/templates/editor/wizzard_book.html:112
+#: editor/templates/editor/wizzard_ebook.html:32
+#: editor/templates/editor/wizzard_ebook.html:42
+#: editor/templates/editor/wizzard_ebook.html:61
+#: editor/templates/editor/wizzard_ebook.html:80
+#: editor/templates/editor/wizzard_lulu.html:114
+#: editor/templates/editor/wizzard_lulu.html:124
+#: editor/templates/editor/wizzard_lulu.html:143
+#: editor/templates/editor/wizzard_lulu.html:162
+#: editor/templates/editor/wizzard_odt.html:16
+#: editor/templates/editor/wizzard_odt.html:26
+#: editor/templates/editor/wizzard_odt.html:45
+#: editor/templates/editor/wizzard_odt.html:64
+#: editor/templates/editor/wizzard_pdf.html:40
+#: editor/templates/editor/wizzard_pdf.html:50
+#: editor/templates/editor/wizzard_pdf.html:69
+#: editor/templates/editor/wizzard_pdf.html:88
+msgid "Fontin Sans"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:65
+#: editor/templates/editor/wizzard_book.html:75
+#: editor/templates/editor/wizzard_book.html:94
+#: editor/templates/editor/wizzard_book.html:113
+#: editor/templates/editor/wizzard_ebook.html:33
+#: editor/templates/editor/wizzard_ebook.html:43
+#: editor/templates/editor/wizzard_ebook.html:62
+#: editor/templates/editor/wizzard_ebook.html:81
+#: editor/templates/editor/wizzard_lulu.html:115
+#: editor/templates/editor/wizzard_lulu.html:125
+#: editor/templates/editor/wizzard_lulu.html:144
+#: editor/templates/editor/wizzard_lulu.html:163
+#: editor/templates/editor/wizzard_odt.html:17
+#: editor/templates/editor/wizzard_odt.html:27
+#: editor/templates/editor/wizzard_odt.html:46
+#: editor/templates/editor/wizzard_odt.html:65
+#: editor/templates/editor/wizzard_pdf.html:41
+#: editor/templates/editor/wizzard_pdf.html:51
+#: editor/templates/editor/wizzard_pdf.html:70
+#: editor/templates/editor/wizzard_pdf.html:89
+msgid "Arial"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:66
+#: editor/templates/editor/wizzard_book.html:76
+#: editor/templates/editor/wizzard_book.html:95
+#: editor/templates/editor/wizzard_book.html:114
+#: editor/templates/editor/wizzard_ebook.html:34
+#: editor/templates/editor/wizzard_ebook.html:44
+#: editor/templates/editor/wizzard_ebook.html:63
+#: editor/templates/editor/wizzard_ebook.html:82
+#: editor/templates/editor/wizzard_lulu.html:116
+#: editor/templates/editor/wizzard_lulu.html:126
+#: editor/templates/editor/wizzard_lulu.html:145
+#: editor/templates/editor/wizzard_lulu.html:164
+#: editor/templates/editor/wizzard_odt.html:18
+#: editor/templates/editor/wizzard_odt.html:28
+#: editor/templates/editor/wizzard_odt.html:47
+#: editor/templates/editor/wizzard_odt.html:66
+#: editor/templates/editor/wizzard_pdf.html:42
+#: editor/templates/editor/wizzard_pdf.html:52
+#: editor/templates/editor/wizzard_pdf.html:71
+#: editor/templates/editor/wizzard_pdf.html:90
+msgid "Helvetica"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:72
+#: editor/templates/editor/wizzard_ebook.html:40
+#: editor/templates/editor/wizzard_lulu.html:122
+#: editor/templates/editor/wizzard_odt.html:24
+#: editor/templates/editor/wizzard_pdf.html:48
+msgid "Heading 1"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:81
+#: editor/templates/editor/wizzard_book.html:100
+#: editor/templates/editor/wizzard_book.html:119
+#: editor/templates/editor/wizzard_ebook.html:49
+#: editor/templates/editor/wizzard_ebook.html:68
+#: editor/templates/editor/wizzard_ebook.html:87
+#: editor/templates/editor/wizzard_lulu.html:131
+#: editor/templates/editor/wizzard_lulu.html:150
+#: editor/templates/editor/wizzard_lulu.html:169
+#: editor/templates/editor/wizzard_odt.html:33
+#: editor/templates/editor/wizzard_odt.html:52
+#: editor/templates/editor/wizzard_odt.html:71
+#: editor/templates/editor/wizzard_pdf.html:57
+#: editor/templates/editor/wizzard_pdf.html:76
+#: editor/templates/editor/wizzard_pdf.html:95
+msgid "UPPERCASE"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:82
+#: editor/templates/editor/wizzard_book.html:101
+#: editor/templates/editor/wizzard_book.html:120
+#: editor/templates/editor/wizzard_ebook.html:50
+#: editor/templates/editor/wizzard_ebook.html:69
+#: editor/templates/editor/wizzard_ebook.html:88
+#: editor/templates/editor/wizzard_lulu.html:132
+#: editor/templates/editor/wizzard_lulu.html:151
+#: editor/templates/editor/wizzard_lulu.html:170
+#: editor/templates/editor/wizzard_odt.html:34
+#: editor/templates/editor/wizzard_odt.html:53
+#: editor/templates/editor/wizzard_odt.html:72
+#: editor/templates/editor/wizzard_pdf.html:58
+#: editor/templates/editor/wizzard_pdf.html:77
+#: editor/templates/editor/wizzard_pdf.html:96
+msgid "lowercase"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:83
+#: editor/templates/editor/wizzard_book.html:102
+#: editor/templates/editor/wizzard_book.html:121
+#: editor/templates/editor/wizzard_ebook.html:51
+#: editor/templates/editor/wizzard_ebook.html:70
+#: editor/templates/editor/wizzard_ebook.html:89
+#: editor/templates/editor/wizzard_lulu.html:133
+#: editor/templates/editor/wizzard_lulu.html:152
+#: editor/templates/editor/wizzard_lulu.html:171
+#: editor/templates/editor/wizzard_odt.html:35
+#: editor/templates/editor/wizzard_odt.html:54
+#: editor/templates/editor/wizzard_odt.html:73
+#: editor/templates/editor/wizzard_pdf.html:59
+#: editor/templates/editor/wizzard_pdf.html:78
+#: editor/templates/editor/wizzard_pdf.html:97
+msgid "Captialise"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:86
+#: editor/templates/editor/wizzard_book.html:105
+#: editor/templates/editor/wizzard_book.html:124
+#: editor/templates/editor/wizzard_ebook.html:54
+#: editor/templates/editor/wizzard_ebook.html:73
+#: editor/templates/editor/wizzard_ebook.html:92
+#: editor/templates/editor/wizzard_lulu.html:136
+#: editor/templates/editor/wizzard_lulu.html:155
+#: editor/templates/editor/wizzard_lulu.html:174
+#: editor/templates/editor/wizzard_odt.html:38
+#: editor/templates/editor/wizzard_odt.html:57
+#: editor/templates/editor/wizzard_odt.html:76
+#: editor/templates/editor/wizzard_pdf.html:62
+#: editor/templates/editor/wizzard_pdf.html:81
+#: editor/templates/editor/wizzard_pdf.html:100
+msgid "Heavy"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:87
+#: editor/templates/editor/wizzard_book.html:106
+#: editor/templates/editor/wizzard_book.html:125
+#: editor/templates/editor/wizzard_ebook.html:55
+#: editor/templates/editor/wizzard_ebook.html:74
+#: editor/templates/editor/wizzard_ebook.html:93
+#: editor/templates/editor/wizzard_lulu.html:137
+#: editor/templates/editor/wizzard_lulu.html:156
+#: editor/templates/editor/wizzard_lulu.html:175
+#: editor/templates/editor/wizzard_odt.html:39
+#: editor/templates/editor/wizzard_odt.html:58
+#: editor/templates/editor/wizzard_odt.html:77
+#: editor/templates/editor/wizzard_pdf.html:63
+#: editor/templates/editor/wizzard_pdf.html:82
+#: editor/templates/editor/wizzard_pdf.html:101
+msgid "normal"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:91
+#: editor/templates/editor/wizzard_ebook.html:59
+#: editor/templates/editor/wizzard_lulu.html:141
+#: editor/templates/editor/wizzard_odt.html:43
+#: editor/templates/editor/wizzard_pdf.html:67
+msgid "Heading 2"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:110
+#: editor/templates/editor/wizzard_ebook.html:78
+#: editor/templates/editor/wizzard_lulu.html:160
+#: editor/templates/editor/wizzard_odt.html:62
+#: editor/templates/editor/wizzard_pdf.html:86
+msgid "Heading 3"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:129
+#: editor/templates/editor/wizzard_ebook.html:97
+#: editor/templates/editor/wizzard_lulu.html:179
+#: editor/templates/editor/wizzard_odt.html:81
+#: editor/templates/editor/wizzard_pdf.html:105
+msgid "Formatted"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:131
+#: editor/templates/editor/wizzard_ebook.html:99
+#: editor/templates/editor/wizzard_lulu.html:181
+#: editor/templates/editor/wizzard_odt.html:83
+#: editor/templates/editor/wizzard_pdf.html:107
+msgid "Courier"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:132
+#: editor/templates/editor/wizzard_ebook.html:100
+#: editor/templates/editor/wizzard_lulu.html:182
+#: editor/templates/editor/wizzard_odt.html:84
+#: editor/templates/editor/wizzard_pdf.html:108
+msgid "Courier New"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:133
+#: editor/templates/editor/wizzard_ebook.html:101
+#: editor/templates/editor/wizzard_lulu.html:183
+#: editor/templates/editor/wizzard_odt.html:85
+#: editor/templates/editor/wizzard_pdf.html:109
+msgid "Monospace"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:145
+#: editor/templates/editor/wizzard_lulu.html:196
+#: editor/templates/editor/wizzard_odt.html:98
+#: editor/templates/editor/wizzard_pdf.html:122
+msgid "Page breaks"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:148
+#: editor/templates/editor/wizzard_lulu.html:199
+#: editor/templates/editor/wizzard_odt.html:101
+#: editor/templates/editor/wizzard_pdf.html:125
+msgid "Avoid page break in paragraphs?"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:150
+#: editor/templates/editor/wizzard_lulu.html:201
+#: editor/templates/editor/wizzard_odt.html:103
+#: editor/templates/editor/wizzard_pdf.html:127
+msgid "Pagebreak before footnotes?"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:158
+#: editor/templates/editor/wizzard_pdf.html:136
+msgid "Advanced"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:168
+#: editor/templates/editor/wizzard_pdf.html:146
+msgid "General"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:172
+#: editor/templates/editor/wizzard_pdf.html:150
+msgid "Override Server Default CSS"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:175
+#: editor/templates/editor/wizzard_pdf.html:152
+msgid "Grey Scale Output"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:178
+msgid "For RTL books on LTR printing presses, and vice versa."
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:180
+msgid "Page Numbers"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:182
+#: editor/templates/editor/wizzard_pdf.html:159
+msgid "LTR"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:183
+#: editor/templates/editor/wizzard_pdf.html:158
+msgid "none"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:184
+#: editor/templates/editor/wizzard_pdf.html:160
+msgid "my"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:185
+#: editor/templates/editor/wizzard_pdf.html:161
+msgid "fa"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:186
+#: editor/templates/editor/wizzard_pdf.html:162
+msgid "hi"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:187
+#: editor/templates/editor/wizzard_pdf.html:163
+msgid "RTL"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:188
+#: editor/templates/editor/wizzard_pdf.html:164
+msgid "ar"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:189
+#: editor/templates/editor/wizzard_pdf.html:165
+msgid "auto"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:191
+msgid "If in doubt, choose 'auto'"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:194
+#: editor/templates/editor/wizzard_pdf.html:170
+msgid "Force Embed Fonts"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:194
+#: editor/templates/editor/wizzard_pdf.html:170
+msgid "PDFs: force embedding of PDF default fonts"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:196
+#: editor/templates/editor/wizzard_pdf.html:172
+msgid "Cancel Page Break Control"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:196
+#: editor/templates/editor/wizzard_pdf.html:172
+msgid "Let page breaks occur immediately after headings"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:209
+msgid "Table of Contents"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:212
+msgid "Table of Contents Header"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:226
+#: editor/templates/editor/wizzard_pdf.html:186
+msgid "Page Margins and Gutter"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:229
+#: editor/templates/editor/wizzard_pdf.html:189
+msgid "Top Margin"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:231
+#: editor/templates/editor/wizzard_pdf.html:191
+msgid "Side Margin"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:233
+#: editor/templates/editor/wizzard_pdf.html:193
+msgid "Bottom Margin"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:235
+#: editor/templates/editor/wizzard_pdf.html:195
+msgid "Gutter"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:237
+#: editor/templates/editor/wizzard_book.html:239
+#: editor/templates/editor/wizzard_pdf.html:197
+#: editor/templates/editor/wizzard_pdf.html:199
+msgid "Columns"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:253
+#: editor/templates/editor/wizzard_pdf.html:213
+msgid "Advanced (style sheets)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:256
+#: editor/templates/editor/wizzard_lulu.html:212
+#: editor/templates/editor/wizzard_pdf.html:216
+msgid "Your Custom CSS"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:259
+#: editor/templates/editor/wizzard_lulu.html:214
+#: editor/templates/editor/wizzard_odt.html:116
+#: editor/templates/editor/wizzard_pdf.html:219
+msgid "Booktype CSS (be careful if changing)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:263
+#: editor/templates/editor/wizzard_ebook.html:118
+#: editor/templates/editor/wizzard_lulu.html:217
+#: editor/templates/editor/wizzard_odt.html:119
+#: editor/templates/editor/wizzard_pdf.html:223
+msgid "Override ALL previous settings with custom CSS"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:272
+#: editor/templates/editor/wizzard_ebook.html:125
+#: editor/templates/editor/wizzard_lulu.html:224
+#: editor/templates/editor/wizzard_odt.html:126
+#: editor/templates/editor/wizzard_pdf.html:232 portal/templates/base.html:134
+msgid "Back"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:273
+#: editor/templates/editor/wizzard_ebook.html:126
+#: editor/templates/editor/wizzard_lulu.html:225
+#: editor/templates/editor/wizzard_odt.html:127
+#: editor/templates/editor/wizzard_pdf.html:233 portal/templates/base.html:137
+#: portal/templates/booki_paginator.html:29
+msgid "Next"
+msgstr ""
+
+#: editor/templates/editor/wizzard_ebook.html:4
+msgid "Ebook Settings"
+msgstr ""
+
+#: editor/templates/editor/wizzard_ebook.html:12
+msgid "Type of Ebook"
+msgstr ""
+
+#: editor/templates/editor/wizzard_ebook.html:15
+msgid "ipad"
+msgstr ""
+
+#: editor/templates/editor/wizzard_ebook.html:17
+msgid "kindle"
+msgstr ""
+
+#: editor/templates/editor/wizzard_ebook.html:19
+msgid "general"
+msgstr ""
+
+#: editor/templates/editor/wizzard_ebook.html:113
+#: editor/templates/editor/wizzard_lulu.html:210
+#: editor/templates/editor/wizzard_odt.html:112
+msgid "CSS (Advanced)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_ebook.html:115
+#: editor/templates/editor/wizzard_odt.html:114
+msgid "Your custom CSS"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:5
+msgid "Lulu.com Settings"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:14
+msgid "Lulu Account Details"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:16
+msgid "Lulu.com Username"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:18
+msgid "Lulu.com Password"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:28
+msgid "Book Title"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:40
+msgid "Book Description"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:52
+msgid "Book Authors"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:54
+msgid "Authors"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:64
+msgid "Pricing"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:66
+msgid "Price for download (PDF)"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:68
+msgid "Price for printed book"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:70
+msgid "Currency"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:72
+msgid "EUR"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:73
+msgid "USD"
+msgstr ""
+
+#: editor/templates/editor/wizzard_lulu.html:74
+msgid "GBP"
+msgstr ""
+
+#: editor/templates/editor/wizzard_odt.html:3
+msgid "Open Document Text (.odt) Settings"
+msgstr ""
+
+#: editor/templates/editor/wizzard_pdf.html:3
+msgid "Screen Formatted PDF Settings"
+msgstr ""
+
+#: editor/templates/editor/wizzard_pdf.html:154
+#: editor/templates/editor/wizzard_pdf.html:156
+msgid "Rotate"
+msgstr ""
+
+#: editor/templates/editor/wizzard_pdf.html:167
+msgid "If in doubt, choose 'none'"
+msgstr ""
+
 #: editor/templates/errors/editing_forbidden.html:4
 msgid "Access error"
 msgstr ""
@@ -1835,8 +2557,7 @@ msgstr ""
 msgid "sender"
 msgstr ""
 
-#: messaging/models.py:33
-#: messaging/models.py:67
+#: messaging/models.py:33 messaging/models.py:67
 msgid "timestamp"
 msgstr ""
 
@@ -1949,52 +2670,6 @@ msgstr ""
 msgid "Post a message"
 msgstr ""
 
-#: messaging/templates/messaging/new_message_email.txt:2
-#, python-format
-msgid "Hi %(first_name)s!"
-msgstr ""
-
-#: messaging/templates/messaging/new_message_email.txt:4
-msgid "This is a notification of a new message for you at your Booki profile:"
-msgstr ""
-
-#: messaging/templates/messaging/new_message_email.txt:7
-msgid "Sender:"
-msgstr ""
-
-#: messaging/templates/messaging/new_message_email.txt:8
-msgid "Date:"
-msgstr ""
-
-#: messaging/templates/messaging/new_message_email.txt:9
-msgid "Content:"
-msgstr ""
-
-#: messaging/templates/messaging/new_message_email.txt:12
-msgid "Attachment:"
-msgstr ""
-
-#: messaging/templates/messaging/new_message_email.txt:14
-#: messaging/templates/messaging/post.html:22
-msgid "Snippet:"
-msgstr ""
-
-#: messaging/templates/messaging/new_message_email.txt:14
-msgid "not shown"
-msgstr ""
-
-#: messaging/templates/messaging/new_message_email.txt:16
-msgid "Snippet context:"
-msgstr ""
-
-#: messaging/templates/messaging/new_message_email.txt:19
-msgid "This email address receives these notifications because of your settings:"
-msgstr ""
-
-#: messaging/templates/messaging/new_message_email.txt:22
-msgid "Need a new password?"
-msgstr ""
-
 #: messaging/templates/messaging/post.html:8
 msgid "send a reply"
 msgstr ""
@@ -2003,6 +2678,10 @@ msgstr ""
 #: portal/templates/portal/books.html:45
 #: portal/templates/portal/frontpage.html:47
 msgid "ago"
+msgstr ""
+
+#: messaging/templates/messaging/post.html:22
+msgid "Snippet:"
 msgstr ""
 
 #: messaging/templates/messaging/post.html:24
@@ -2042,12 +2721,36 @@ msgstr ""
 msgid "Control Center"
 msgstr ""
 
-#: portal/templates/booki_paginator.html:5
-msgid "Previous"
+#: portal/templates/base.html:133
+msgid "OK"
 msgstr ""
 
-#: portal/templates/booki_paginator.html:29
-msgid "Next"
+#: portal/templates/base.html:138
+msgid "Import"
+msgstr ""
+
+#: portal/templates/base.html:140
+msgid "Couldn't create a group!"
+msgstr ""
+
+#: portal/templates/base.html:141
+msgid "enter epub URL"
+msgstr ""
+
+#: portal/templates/base.html:142
+msgid "enter Archive.org ID"
+msgstr ""
+
+#: portal/templates/base.html:143
+msgid "enter Wikibooks URL"
+msgstr ""
+
+#: portal/templates/base.html:144
+msgid "enter Booktype URL"
+msgstr ""
+
+#: portal/templates/booki_paginator.html:5
+msgid "Previous"
 msgstr ""
 
 #: portal/templates/errors/group_does_not_exist.html:4
@@ -2069,6 +2772,10 @@ msgstr ""
 
 #: portal/templates/portal/books.html:33
 msgid "Latest Books"
+msgstr ""
+
+#: portal/templates/portal/frontpage.html:5
+msgid "Booktype"
 msgstr ""
 
 #: portal/templates/portal/frontpage.html:18
@@ -2098,7 +2805,7 @@ msgid "Group"
 msgstr ""
 
 #: portal/templates/portal/group.html:66
-#: portal/templates/portal/group.html:158
+#: portal/templates/portal/group.html:141
 msgid "Members"
 msgstr ""
 
@@ -2120,15 +2827,11 @@ msgstr ""
 msgid "BOOKS: %(n_books)s"
 msgstr ""
 
-#: portal/templates/portal/group.html:97
-msgid "ANNOUNCEMENTS"
-msgstr ""
-
-#: portal/templates/portal/group.html:112
+#: portal/templates/portal/group.html:101
 msgid "STATUS"
 msgstr ""
 
-#: portal/templates/portal/group.html:151
+#: portal/templates/portal/group.html:134
 msgid "ADD THIS BOOK TO GROUP"
 msgstr ""
 
@@ -2180,7 +2883,9 @@ msgstr ""
 
 #: reader/templates/errors/chapter_duplicate.html:5
 #, python-format
-msgid "There is more then one chapter named - \"%(chapter_name)s\". I am not sure which one to show."
+msgid ""
+"There is more then one chapter named - \"%(chapter_name)s\". I am not sure "
+"which one to show."
 msgstr ""
 
 #: reader/templates/reader/book_chapter.html:6
@@ -2297,6 +3002,14 @@ msgstr ""
 msgid "Edit Book Info"
 msgstr ""
 
+#: reader/templates/reader/edit_info.html:7
+msgid "Book description:"
+msgstr ""
+
+#: reader/templates/reader/edit_info.html:9
+msgid "Book image:"
+msgstr ""
+
 #: reader/templates/reader/full.html:6
 #, python-format
 msgid "/_full: %(booktitle)s"
@@ -2305,4 +3018,3 @@ msgstr ""
 #: templates/errors/no_permissions.html:4
 msgid "You have no permissions to do this!"
 msgstr ""
-
