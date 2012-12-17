@@ -299,17 +299,28 @@ def forgotpassword(request):
                         transaction.commit()
 
                     THIS_BOOKI_SERVER = config.getConfiguration('THIS_BOOKI_SERVER')
-                    body = render_to_string('account/password_reset_email.txt', 
-                                            dict(secretcode=secretcode))
-                    send_mail(_('Reset password'), body,
-                              'info@' + THIS_BOOKI_SERVER,
-                              [usr.email], fail_silently=True)
+                    body = render_to_string('account/password_reset_email.html', 
+                                            dict(secretcode=secretcode,
+                                                 hostname=settings.THIS_BOOKI_SERVER))
+                    
+                    from django.core.mail import EmailMessage
 
+                    msg = EmailMessage(_('Reset password'), body, settings.REPORT_EMAIL_USER, [usr.email])
+                    msg.content_subtype = 'html'
+
+                    try:
+                        msg.send()
+                    except:
+                        ret["result"] = 4
                 else:
                     ret["result"] = 3
 
-
-        return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+        try:
+            return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()
 
     try:
         return render_to_response('account/forgot_password.html', {"request": request})
