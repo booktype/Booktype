@@ -131,7 +131,10 @@ def getConfiguration(name, value = None):
 
     # Check if we have it in the configuration file
     if hasattr(settings, 'BOOKTYPE_CONFIG'):
-        settings.BOOKTYPE_CONFIG = loadConfiguration()
+        try:
+            settings.BOOKTYPE_CONFIG = loadConfiguration()
+        except ConfigurationError:
+            pass
 
         if settings.BOOKTYPE_CONFIG != None and settings.BOOKTYPE_CONFIG.has_key(name):
             return settings.BOOKTYPE_CONFIG[name]
