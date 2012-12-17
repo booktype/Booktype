@@ -23,6 +23,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError, transaction
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 try:
     from django.core.validators import email_re
@@ -261,21 +262,10 @@ def forgotpassword(request):
             ret["result"] = _doChecksForEmpty()
 
             if ret["result"] == 0:
-                allOK = True
-                try:
-                    usr = User.objects.get(username=request.POST.get("username", ""))
-                except User.DoesNotExist:
-                    pass
+                usersToEmail = list(User.objects.filter(Q(username=request.POST.get("username", "")) | Q(email=request.POST.get("username", ""))))
 
-                if not usr:
-                    try:
-                        usr = User.objects.get(email=request.POST.get("username", ""))
-                    except User.DoesNotExist:
-                        allOK = False
-
-                if allOK:
+                for usr in usersToEmail:
                     from booki.account import models as account_models
-                    from django.core.mail import send_mail
 
                     def generateSecretCode():
                         import string
@@ -301,7 +291,7 @@ def forgotpassword(request):
                     THIS_BOOKI_SERVER = config.getConfiguration('THIS_BOOKI_SERVER')
                     body = render_to_string('account/password_reset_email.html', 
                                             dict(secretcode=secretcode,
-                                                 hostname=settings.THIS_BOOKI_SERVER))
+                                                 hostname=THIS_BOOKI_SERVER))
                     
                     from django.core.mail import EmailMessage
 
@@ -312,7 +302,8 @@ def forgotpassword(request):
                         msg.send()
                     except:
                         ret["result"] = 4
-                else:
+
+                if len(usersToEmail) == 0:
                     ret["result"] = 3
 
         try:
