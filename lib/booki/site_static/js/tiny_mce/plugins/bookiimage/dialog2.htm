@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Insert Image</title>
+	<title>{#bookiimage_dlg.dialog_title}</title>
 	<script type="text/javascript" src="../../tiny_mce_popup.js?v={tinymce_version}"></script>
 	<script type="text/javascript" src="../../utils/mctabs.js?v={tinymce_version}"></script>
 	<script type="text/javascript" src="../../utils/form_utils.js?v={tinymce_version}"></script>
@@ -12,8 +12,8 @@
 <body id="advimage" style="display: none" role="application">
  <div class="tabs">
   <ul>
-    <li id="browse_tab" class="current" aria-controls="browse_panel"><span><a href="javascript:mcTabs.displayTab('browse_tab','browse_panel');" onmousedown="return false;">Browse</a></span></li>
-    <li id="upload_tab" aria-controls="upload_panel"><span><a href="javascript:mcTabs.displayTab('upload_tab','upload_panel');" onmousedown="return false;">Upload</a></span></li>
+    <li id="browse_tab" class="current" aria-controls="browse_panel"><span><a href="javascript:mcTabs.displayTab('browse_tab','browse_panel');" onmousedown="return false;">{#bookiimage_dlg.browse}</a></span></li>
+    <li id="upload_tab" aria-controls="upload_panel"><span><a href="javascript:mcTabs.displayTab('upload_tab','upload_panel');" onmousedown="return false;">{#bookiimage_dlg.upload}</a></span></li>
   </ul>
  </div>
 
@@ -24,15 +24,14 @@
     <tr>
     <td valign="top">   
     <fieldset>
-     <legend>Images</legend>
-       <!-- <iframe id="filesframe" name="filesframe" width="480" height="270" frameborder="0" scrolling="auto" src="dialog3.htm"></iframe> -->
+     <legend>{#bookiimage_dlg.images}</legend>
        <div id="filesframe" style="overflow: auto; width: 480px; height: 270px;"></div>
      </fieldset>
     </td>
 
     <td width="200" valign="top">
      <fieldset>
-       <legend>Preview</legend>
+       <legend>{#bookiimage_dlg.preview}</legend>
        <div id="previewdiv"></div>
      </fieldset>
     </td>
@@ -42,9 +41,8 @@
 
   <div id="upload_panel" class="panel">
     <fieldset>
-     <legend>Upload image</legend>
+     <legend>{#bookiimage_dlg.upload_image}</legend>
          <div id="frameupload2" style="overflow: auto; width: 300px; height: 200px;"></div>
-         <!-- <iframe width="300" height="200" name="frameupload2" border="0" style="border: 0px"></iframe> -->
      </fieldset>
 
   </div>
