@@ -1,0 +1,2228 @@
+# Albanian Translation of booktype.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Booktype package.
+# Besnik Bleta <besnik@programeshqip.org>, 2012.
+#msgid ""
+msgid ""
+msgstr ""
+"Project-Id-Version: Booktype\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-01 20:21+0200\n"
+"PO-Revision-Date: 2012-12-21 20:04+0200\n"
+"Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: account/models.py:38
+msgid "mood"
+msgstr "humor"
+
+#: account/models.py:39
+msgid "image"
+msgstr "figurë"
+
+#: account/models.py:40
+#: editor/models.py:93
+#: editor/models.py:137
+#: editor/models.py:291
+msgid "description"
+msgstr "përshkrim"
+
+#: account/models.py:41
+#: account/models.py:56
+#: editor/models.py:233
+#: editor/models.py:354
+#: editor/models.py:447
+#: editor/models.py:459
+#: editor/models.py:471
+#: editor/templates/editor/edit_book.html:560
+#: editor/templates/editor/edit_book.html:659
+msgid "user"
+msgstr "përdorues"
+
+#: account/models.py:57
+msgid "secretcode"
+msgstr "kod i fshehtë"
+
+#: account/models.py:58
+#: editor/models.py:100
+#: editor/models.py:131
+#: editor/models.py:293
+#: editor/models.py:327
+#: editor/models.py:391
+#: editor/templates/editor/edit_book.html:671
+msgid "created"
+msgstr "krijuar"
+
+#: account/models.py:60
+msgid "remote useragent"
+msgstr "agjent i largët përdoruesiShteg i Largët"
+
+#: account/models.py:61
+msgid "remote addr"
+msgstr "adresë e largët"
+
+#: account/models.py:62
+msgid "remote host"
+msgstr "strehë e largët"
+
+#: account/views.py:313
+msgid "Reset password"
+msgstr "Ricaktoni fjalëkalimin"
+
+#: account/templates/account/create_book.html:4
+#: account/templates/account/create_book.html:13
+msgid "Create a Book"
+msgstr "Krijoni një Libër"
+
+#: account/templates/account/create_book.html:7
+msgid "You don't have permissions to create new books. At the moment only administrators can do that."
+msgstr "Nuk keni leje të krijoni libra të rinj. Hëpërhë, këtë mund ta bëjnë vetëm përgjegjësit."
+
+#: account/templates/account/create_book.html:18
+msgid "Step 1"
+msgstr "Hapi 1"
+
+#: account/templates/account/create_book.html:18
+msgid "Title"
+msgstr "Titull"
+
+#: account/templates/account/create_book.html:19
+msgid "What is the title of your book?"
+msgstr "Cili është titulli i librit tuaj?"
+
+#: account/templates/account/create_book.html:21
+msgid "Title of Book"
+msgstr "Titulli i Librit"
+
+#: account/templates/account/create_book.html:25
+msgid "There is already a book with this name."
+msgstr "Ka tashmë një libër me këtë emër."
+
+#: account/templates/account/create_book.html:30
+msgid "Step 2"
+msgstr "Hapi 2"
+
+#: account/templates/account/create_book.html:30
+#: account/templates/account/create_book.html:34
+#: account/templates/account/view_profile.html:70
+msgid "Description"
+msgstr "Përshkrim"
+
+#: account/templates/account/create_book.html:31
+msgid "Give some information so others can find it to help you (this can be added or changed later)."
+msgstr "Jepuni të tjerëve ca të dhëna që të mund t'i gjejnë e t'ju ndihmojnë (kjo mund të shtohet ose të ndryshohet edhe më vonë)."
+
+#: account/templates/account/create_book.html:40
+msgid "Step 3"
+msgstr "Hapi 3"
+
+#: account/templates/account/create_book.html:40
+msgid "Choose your license"
+msgstr "Zgjidhni lejen tuaj"
+
+#: account/templates/account/create_book.html:41
+msgid "Choose from the following licenses"
+msgstr "Zgjidhni prej lejeve vijuese"
+
+#: account/templates/account/create_book.html:43
+#: editor/models.py:35
+#: editor/templates/editor/edit_book.html:437
+msgid "License"
+msgstr "Leje"
+
+#: account/templates/account/create_book.html:54
+msgid "Step 4"
+msgstr "Hapi 4"
+
+#: account/templates/account/create_book.html:54
+#: editor/templates/editor/edit_book.html:220
+msgid "Image"
+msgstr "Figurë"
+
+#: account/templates/account/create_book.html:55
+msgid "If you have an image for the book then add it now (this can be added or changed later)"
+msgstr "Nëse keni një figurë për librin, shtojeni tani (kjo mund të shtohet ose ndryshohet edhe më vonë)"
+
+#: account/templates/account/create_book.html:57
+msgid "Book Image"
+msgstr "Figurë Libri"
+
+#: account/templates/account/create_book.html:63
+msgid "Step 5"
+msgstr "Hapi 5"
+
+#: account/templates/account/create_book.html:63
+msgid "Make Public?"
+msgstr "Të Bëhet Publike?"
+
+#: account/templates/account/create_book.html:64
+msgid "Would you like to keep your book private or make it public? If the book is public others can find the book to help you."
+msgstr "Do të donit ta mbani librin tuaj privat apo ta bëni publik? Nëse libri është publik, mund të gjendet nga të tjerët për t;ju ndihmuar."
+
+#: account/templates/account/create_book.html:65
+msgid "<strong>Note:</strong> this setting can be changed later from your dashboard.</p>"
+msgstr "<strong>Shënim:</strong> ky rregullim mund të ndryshohet më vonë që nga pulti juaj.</p>"
+
+#: account/templates/account/create_group.html:3
+msgid "Create a Group"
+msgstr "Krijoni një Grup"
+
+#: account/templates/account/create_group.html:6
+msgid "Group name:"
+msgstr "Emër grupi:"
+
+#: account/templates/account/create_group.html:9
+msgid "There is already a group with this name."
+msgstr "Ka tashmë një grup me këtë emër."
+
+#: account/templates/account/create_group.html:12
+msgid "Description:"
+msgstr "Përshkrim:"
+
+#: account/templates/account/error_import.html:6
+#: account/templates/account/error_import.html:11
+msgid "Error while doing import"
+msgstr "Gabim ndërsa bëhej importimi"
+
+#: account/templates/account/error_import.html:12
+msgid "This is a first version of error message. Not much to see here."
+msgstr ""
+
+#: account/templates/account/forgot_password.html:6
+#: account/templates/account/forgot_password_enter.html:6
+msgid "Forgot Password"
+msgstr "Harruat Fjalëkalimin"
+
+#: account/templates/account/forgot_password.html:47
+msgid "Forgot your password"
+msgstr "Harruat fjalëkalimin tuaj"
+
+#: account/templates/account/forgot_password.html:53
+msgid "USERNAME OR E-MAIL ADDRESS"
+msgstr "EMËR PËRDORUESI OSE ADRESË E-MAIL"
+
+#: account/templates/account/forgot_password.html:55
+msgid "Give us your username or e-mail you used to create booki account and we will send you new password."
+msgstr "Na jepni emrin tuaj të përdoruesit ose e-mail-in që përdorët për të krijuar llogarinë te Booki dhe do t'ju dërgojmë një fjalëkalim të ri."
+
+#: account/templates/account/forgot_password.html:57
+msgid "Enter username."
+msgstr "Jepni emër përdoruesi."
+
+#: account/templates/account/forgot_password.html:58
+msgid "No such user."
+msgstr "Nuk ka përdorues të tillë."
+
+#: account/templates/account/forgot_password.html:60
+#: account/templates/account/forgot_password_enter.html:55
+msgid "Send request"
+msgstr "Dërgoje kërkesën"
+
+#: account/templates/account/forgot_password.html:64
+msgid "<h2>Check your email!</h2><p>Password reset instructions were sent to your email.</p>"
+msgstr "<h2>Kontrolloni email-in tuaj!</h2><p>Udhëzimet për ricaktimin e fjalëkalimit ju janë dërguar te email-i juaj.</p>"
+
+#: account/templates/account/forgot_password_enter.html:40
+msgid "Reset your password"
+msgstr "Ricaktoni fjalëkalimi tuaj"
+
+#: account/templates/account/forgot_password_enter.html:46
+msgid "SECRETCODE"
+msgstr ""
+
+#: account/templates/account/forgot_password_enter.html:49
+msgid "NEW PASSWORD"
+msgstr "FJALËKALIM I RI"
+
+#: account/templates/account/forgot_password_enter.html:52
+msgid "NEW PASSWORD AGAIN"
+msgstr "FJALËKALIMI I RI SËRISH"
+
+#: account/templates/account/form_register.html:5
+#: account/templates/account/form_register.html:32
+msgid "Create account"
+msgstr "Krijo llogari"
+
+#: account/templates/account/form_register.html:7
+#: account/templates/account/form_signin.html:6
+msgid "User name"
+msgstr "Emër përdoruesi"
+
+#: account/templates/account/form_register.html:9
+msgid "Password (6 characters at least)"
+msgstr "Fjalëkalim (e pakta 6 shenja i gjatë)"
+
+#: account/templates/account/form_register.html:11
+#: account/templates/account/view_profile.html:196
+msgid "Full name"
+msgstr "Emër i plotë"
+
+#: account/templates/account/form_register.html:13
+#: account/templates/account/view_profile.html:192
+msgid "Email"
+msgstr "Email"
+
+#: account/templates/account/form_register.html:18
+msgid "Missing username!"
+msgstr "Mungon emri përdoruesi!"
+
+#: account/templates/account/form_register.html:19
+msgid "Missing e-mail!"
+msgstr "Mungon e-mail-i!"
+
+#: account/templates/account/form_register.html:20
+msgid "Missing password!"
+msgstr "Mungon fjalëkalimi!"
+
+#: account/templates/account/form_register.html:21
+msgid "Please provide your real name."
+msgstr "Ju lutemi, jepni emrin tuaj real."
+
+#: account/templates/account/form_register.html:22
+msgid "Username is invalid. Please try a different one. You may use alhpanumeric characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+msgstr "Emri i përdoruesit është i pavlefshëm. Ju lutemi, provoni një tjetër. Mund të përdorni shenja alfanumerike dhe shenjat \".\", \"_\", \"-\" (pikë, nënvijë dhe minus). <br/><br/>Shembuj:<ul><li>ante_literam</li><li>Vlash.Shkurti</li><li>skulptori</li></ul>"
+
+#: account/templates/account/form_register.html:23
+msgid "This is not a valid e-mail"
+msgstr "Kjo nuk është adresë e-mail e vlefshme"
+
+#: account/templates/account/form_register.html:24
+msgid "Your passwords dont match. Please try a different one."
+msgstr "Fjalëkalimet tuaj nuk përputhen me njëri-tjetrin. Ju lutemi, provoni një tjetër."
+
+#: account/templates/account/form_register.html:25
+msgid "Password must be 6 characters or more!"
+msgstr "Fjalëkalimi duhet të jetë 6 ose më shumë shenja!"
+
+#: account/templates/account/form_register.html:26
+msgid "Username already taken. Please try a different one."
+msgstr "Emër përdoruesi i zënë. Ju lutemi, provoni një tjetër."
+
+#: account/templates/account/form_register.html:27
+#: account/templates/account/form_signin.html:17
+msgid "Unknown error!"
+msgstr "Gabim i panjohur!"
+
+#: account/templates/account/form_register.html:28
+msgid "Fullname is too long!"
+msgstr "Emri i plotë është shumë e gjatë!"
+
+#: account/templates/account/form_register.html:36
+msgid "Registration"
+msgstr "Regjistrim"
+
+#: account/templates/account/form_register.html:38
+msgid "Only administrator is allowed to create new accounts at the moment."
+msgstr "Hëpërhë vetëm përgjegjësit i lejohet të krijojë llogari të reja "
+
+#: account/templates/account/form_signin.html:3
+msgid "Sign in"
+msgstr "Hyni"
+
+#: account/templates/account/form_signin.html:8
+msgid "Password"
+msgstr "Fjalëkalim"
+
+#: account/templates/account/form_signin.html:15
+msgid "User does not exist."
+msgstr "Përdoruesi nuk ekziston."
+
+#: account/templates/account/form_signin.html:16
+msgid "Password is wrong! Please try again."
+msgstr "Fjalëkalimi është i gabuar! Ju lutemi, riprovoni."
+
+#: account/templates/account/import_book.html:4
+#: account/templates/account/import_book.html:14
+msgid "Import book"
+msgstr "Importoni libër"
+
+#: account/templates/account/import_book.html:7
+msgid "You don't have permissions to import content. At the moment only administrators can do that."
+msgstr "Nuk keni leje për importim lënde. Hëpërhë këtë mund ta bëjnë vetëm përgjegjësit."
+
+#: account/templates/account/import_book.html:19
+msgid "Import type:"
+msgstr "Lloj importimi:"
+
+#: account/templates/account/import_book.html:22
+msgid "Select Import Type"
+msgstr "Përzgjidhni Lloj Importimi"
+
+#: account/templates/account/import_book.html:23
+msgid "Import EPUB"
+msgstr "Importo EPUB"
+
+#: account/templates/account/import_book.html:24
+msgid "Import archive.org book"
+msgstr "Importoni libër prej archive.org"
+
+#: account/templates/account/import_book.html:25
+msgid "Copy or import Booktype book"
+msgstr "Kopjoni ose importoni një libër Booktype"
+
+#: account/templates/account/import_book.html:28
+msgid "Source:"
+msgstr "Burim:"
+
+#: account/templates/account/import_book.html:31
+msgid "New title (optional):"
+msgstr "Titull i ri (në daçi):"
+
+#: account/templates/account/import_book.html:34
+msgid "Initially hidden from others"
+msgstr "Fillimisht i fshehur për të tjerët"
+
+#: account/templates/account/import_book.html:38
+msgid "Please wait. It will take couple of moments. Your book is being imported!"
+msgstr "Ju lutemi, prisni. Do të marrë ca çaste. Libri juaj po importohet!"
+
+#: account/templates/account/signin.html:6
+msgid "Booktype Sign In"
+msgstr "Hyrje në Booktype"
+
+#: account/templates/account/signin.html:30
+msgid "You are already signed in!"
+msgstr "Jeni i futur tashmë!"
+
+#: account/templates/account/signin.html:49
+msgid "Your account has been created!"
+msgstr "Llogari juaj u krijua!"
+
+#: account/templates/account/signin.html:50
+#, python-format
+msgid ""
+"\n"
+"    <p>Thank you. We have created your account and signed you in. Do you want to learn more how to use Booktype? Read the <a href=\"http://en.flossmanuals.net/booktype\">user guide</a>!</p>\n"
+"    \n"
+"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! Let's use Booktype now!</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</span> seconds.</span></form></p>\n"
+"    "
+msgstr ""
+"\n"
+"    <p>Faleminderit. Ju krijuam llogarinë dhe kemi bërë dhe hyrjen tuaj. Doni të mësoni më tepër se si të përdoret Booktype-i? Lexoni <a href=\"http://en.flossmanuals.net/booktype\">udhërrëfyesin për përdoruesit</a>!</p>\n"
+"    \n"
+"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Bukuri! Le t'ia fillojmë me Booktype-in tani!</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Ridrejtim i vetvetishëm për <span class=\"sec\">sec</span> sekonda.</span></form></p>\n"
+"    "
+
+#: account/templates/account/signin.html:60
+msgid "Why do I need account ?"
+msgstr "Pse më duhet një llogari?"
+
+#: account/templates/account/signin.html:61
+msgid "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to."
+msgstr "Emri juaj i vërtetë është i domosdoshëm për arsye përcaktimi të të drejtave të kopjimit mbi librat që krijoni dhe mbi ata ku kontribuoni."
+
+#: account/templates/account/signin.html:64
+msgid "I forgot my password. What now ?!"
+msgstr "Harrova fjalëkalimin tim. Po tani?!"
+
+#: account/templates/account/signin.html:65
+#, python-format
+msgid "<p>Please <a href=\"%(forgotpassword_url)s\">request new one</a>.</p>"
+msgstr "<p>Ju lutemi, <a href=\"%(forgotpassword_url)s\">kërkoni një të ri</a>.</p>"
+
+#: account/templates/account/signin.html:68
+msgid "I forgot my username ?"
+msgstr "Harrova emrin tim të përdoruesit ?"
+
+#: account/templates/account/view_profile.html:5
+#, python-format
+msgid "/user: %(username)s"
+msgstr "/përdoruesi: %(username)s"
+
+#: account/templates/account/view_profile.html:43
+#: editor/templates/base_edit.html:82
+#: portal/templates/base.html:89
+msgid "My Dashboard"
+msgstr "Pulti Im"
+
+#: account/templates/account/view_profile.html:46
+msgid "Dashboard"
+msgstr "Pult"
+
+#: account/templates/account/view_profile.html:47
+#: account/templates/account/view_profile.html:105
+#: account/templates/account/view_profile.html:145
+msgid "My Books"
+msgstr "Librat e Mi"
+
+#: account/templates/account/view_profile.html:47
+#: account/templates/account/view_profile.html:145
+#: editor/models.py:202
+#: editor/templates/base_edit.html:89
+#: portal/templates/base.html:96
+#: portal/templates/portal/books.html:13
+#: portal/templates/portal/books.html:54
+#: portal/templates/portal/group.html:65
+#: portal/templates/portal/group.html:126
+msgid "Books"
+msgstr "Libra"
+
+#: account/templates/account/view_profile.html:49
+#: editor/templates/editor/edit_book.html:117
+#: editor/templates/editor/edit_book.html:412
+#: portal/templates/portal/group.html:68
+#: portal/templates/portal/group.html:169
+msgid "Settings"
+msgstr "Rregullime"
+
+#: account/templates/account/view_profile.html:67
+msgid "Follow my changes"
+msgstr "Ndiqi Ndryshimet e Mia"
+
+#: account/templates/account/view_profile.html:74
+msgid "There is no description for this user."
+msgstr "Nuk ka përshkrim për këtë përdorues."
+
+#: account/templates/account/view_profile.html:78
+msgid "Following tags:"
+msgstr "Etiketa të ndjekura:"
+
+#: account/templates/account/view_profile.html:79
+msgid "Following:"
+msgstr "Ndjekur Prej Jush:"
+
+#: account/templates/account/view_profile.html:80
+msgid "Followers:"
+msgstr "Pasues:"
+
+#: account/templates/account/view_profile.html:96
+msgid "Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype\"><i>user guide</i></a>!"
+msgstr "Doni të mësoni më tepër se si të përdoret Booktype-i? Lexoni  <a target=\"_new\" title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype\"><i>udhërrëfyesin e përdoruesit</i></a>!"
+
+#: account/templates/account/view_profile.html:101
+msgid "CREATE NEW BOOK"
+msgstr "KRIJONI LIBËR TË RI"
+
+#: account/templates/account/view_profile.html:109
+#: account/templates/account/view_profile.html:163
+msgid "edit"
+msgstr "përpunoni"
+
+#: account/templates/account/view_profile.html:111
+msgid ""
+"\n"
+"          <p>This is a perfect moment to start writing your book, just click on the button above!</p>\n"
+"          "
+msgstr ""
+"\n"
+"          <p>Ky është çasti i përkryer që të filloni të shkruani librin tuaj, thjesht klikoni mbi butonin më sipër!</p>\n"
+"          "
+
+#: account/templates/account/view_profile.html:115
+msgid ""
+"\n"
+"          <p>This user has no books.</p>\n"
+"          "
+msgstr ""
+"\n"
+"          <p>Ky përdorues nuk ka libra.</p>\n"
+"          "
+
+#: account/templates/account/view_profile.html:123
+msgid "CREATE NEW GROUP"
+msgstr "KRIJONI GRUP TË RI"
+
+#: account/templates/account/view_profile.html:125
+msgid "My Groups"
+msgstr "Grupet e Mia"
+
+#: account/templates/account/view_profile.html:129
+msgid "go"
+msgstr "shko"
+
+#: account/templates/account/view_profile.html:132
+msgid "Work with others in Groups. To create a Group click on the button above."
+msgstr "Punoni në Grupe me të tjerët. Që të krijoni një Grup klikoni mbi butonin më sipër."
+
+#: account/templates/account/view_profile.html:134
+msgid "This user has no groups."
+msgstr "Ky përdoruesi nuk ka grupe."
+
+#: account/templates/account/view_profile.html:149
+msgid "Create new book"
+msgstr "Krijoni një libër të ri"
+
+#: account/templates/account/view_profile.html:152
+msgid "Import Book"
+msgstr "Import Libër"
+
+#: account/templates/account/view_profile.html:163
+msgid "info"
+msgstr "info"
+
+#: account/templates/account/view_profile.html:163
+msgid "draft"
+msgstr "skicë"
+
+#: account/templates/account/view_profile.html:167
+#: account/templates/account/view_profile.html:182
+msgid "Show to others"
+msgstr "Shfaqua të tjerëve"
+
+#: account/templates/account/view_profile.html:173
+#: account/templates/account/view_profile.html:182
+msgid "Hide from others"
+msgstr "Fshihua të tjerëve"
+
+#: account/templates/account/view_profile.html:187
+msgid "User settings"
+msgstr "Rregullime përdoruesi"
+
+#: account/templates/account/view_profile.html:200
+msgid "About yourself"
+msgstr "Rreth vetes suaj"
+
+#: account/templates/account/view_profile.html:204
+msgid "Profile image"
+msgstr "Figurë profili"
+
+#: account/templates/account/view_profile.html:208
+msgid "Notification filter"
+msgstr "Filtër njoftimesh"
+
+#: account/templates/account/view_profile.html:214
+#: editor/templates/editor/edit_strings.html:19
+msgid "Save changes"
+msgstr "Ruaji ndryshimet"
+
+#: account/templates/errors/user_does_not_exist.html:4
+msgid "User does not exist!"
+msgstr "Përdoruesi nuk ekziston!"
+
+#: account/templates/errors/user_does_not_exist.html:5
+#, python-format
+msgid "Can't find user \"%(username)s\"."
+msgstr "S'gjen dot përdoruesin \"%(username)s\"."
+
+#: editor/models.py:28
+#: editor/models.py:41
+#: editor/models.py:64
+#: editor/models.py:91
+#: editor/models.py:254
+#: editor/models.py:290
+#: editor/models.py:418
+#: editor/templates/editor/edit_book.html:668
+#: editor/templates/editor/edit_strings.html:52
+msgid "name"
+msgstr "emër"
+
+#: editor/models.py:29
+#: editor/models.py:42
+msgid "abbrevation"
+msgstr "shkurtim"
+
+#: editor/models.py:36
+msgid "Licenses"
+msgstr "Leje"
+
+#: editor/models.py:48
+#: editor/templates/editor/edit_book.html:418
+msgid "Language"
+msgstr "Gjuhë"
+
+#: editor/models.py:49
+msgid "Languages"
+msgstr "Gjuhë"
+
+#: editor/models.py:54
+#: editor/models.py:132
+msgid "published"
+msgstr "i botuar"
+
+#: editor/models.py:55
+msgid "not published"
+msgstr "i pabotuar"
+
+#: editor/models.py:56
+msgid "not translated"
+msgstr "i papërkthyer"
+
+#: editor/models.py:63
+#: editor/models.py:78
+#: editor/models.py:226
+#: editor/models.py:252
+#: editor/models.py:287
+#: editor/models.py:322
+#: editor/models.py:386
+#: editor/models.py:417
+#: editor/models.py:448
+#: editor/models.py:458
+#: editor/models.py:470
+msgid "book"
+msgstr "libër"
+
+#: editor/models.py:65
+#: editor/models.py:420
+msgid "weight"
+msgstr "peshë"
+
+#: editor/models.py:71
+#: editor/models.py:72
+msgid "Book status"
+msgstr "Gjendje libri"
+
+#: editor/models.py:79
+msgid "notes"
+msgstr "shënime"
+
+#: editor/models.py:85
+msgid "Book note"
+msgstr "Shënim libri"
+
+#: editor/models.py:86
+msgid "Book notes"
+msgstr "Shënime Libri"
+
+#: editor/models.py:92
+msgid "url name"
+msgstr "emër url-je"
+
+#: editor/models.py:95
+#: editor/models.py:125
+msgid "owner"
+msgstr "i zoti"
+
+#: editor/models.py:98
+msgid "members"
+msgstr "anëtarë"
+
+#: editor/models.py:109
+msgid "Booki group"
+msgstr "Grup Booki"
+
+#: editor/models.py:110
+msgid "Booki groups"
+msgstr "Grupe Booki"
+
+#: editor/models.py:115
+#: editor/models.py:324
+msgid "url title"
+msgstr "titull url-je"
+
+#: editor/models.py:116
+#: editor/models.py:325
+msgid "title"
+msgstr "titull"
+
+#: editor/models.py:117
+#: editor/models.py:326
+#: editor/models.py:390
+msgid "status"
+msgstr "gjendje"
+
+#: editor/models.py:118
+msgid "language"
+msgstr "gjuhë"
+
+#: editor/models.py:121
+#: editor/models.py:228
+#: editor/models.py:320
+#: editor/models.py:384
+#: editor/models.py:415
+msgid "version"
+msgstr "version"
+
+#: editor/models.py:123
+#: editor/models.py:449
+msgid "group"
+msgstr "grup"
+
+#: editor/models.py:129
+msgid "license"
+msgstr "leje"
+
+#: editor/models.py:134
+msgid "hidden"
+msgstr "i fshehur"
+
+#: editor/models.py:135
+#: editor/models.py:450
+msgid "permission"
+msgstr "leje"
+
+#: editor/models.py:138
+msgid "cover"
+msgstr "kapak"
+
+#: editor/models.py:201
+#: editor/templates/editor/edit_publish.html:9
+msgid "Book"
+msgstr "Libër"
+
+#: editor/models.py:229
+#: editor/models.py:351
+#: editor/models.py:419
+msgid "chapter"
+msgstr "kapitull"
+
+#: editor/models.py:230
+msgid "chapter history"
+msgstr "historik kapitulli"
+
+#: editor/models.py:231
+#: editor/models.py:328
+#: editor/models.py:353
+msgid "modified"
+msgstr "i ndryshuar"
+
+#: editor/models.py:232
+msgid "args"
+msgstr ""
+
+#: editor/models.py:234
+#: editor/models.py:255
+msgid "kind"
+msgstr "lloj"
+
+#: editor/models.py:257
+msgid "value string"
+msgstr "vlerë varg"
+
+#: editor/models.py:258
+msgid "value integer"
+msgstr "vlerë numër i plotë"
+
+#: editor/models.py:259
+msgid "value text"
+msgstr "vlerë tekst"
+
+#: editor/models.py:260
+msgid "value date"
+msgstr "vlerë datë"
+
+#: editor/models.py:280
+#: editor/models.py:281
+msgid "Metadata"
+msgstr "Tejtëdhëna"
+
+#: editor/models.py:288
+msgid "major"
+msgstr "i madh"
+
+#: editor/models.py:289
+msgid "minor"
+msgstr "i vogël"
+
+#: editor/models.py:330
+#: editor/models.py:355
+#: editor/templates/editor/edit_book.html:658
+msgid "revision"
+msgstr "rishikim"
+
+#: editor/models.py:335
+#: messaging/models.py:34
+msgid "content"
+msgstr "lëndë"
+
+#: editor/models.py:345
+msgid "Chapter"
+msgstr "Kapitull"
+
+#: editor/models.py:346
+#: editor/templates/editor/edit_book.html:97
+msgid "Chapters"
+msgstr "Kapituj"
+
+#: editor/models.py:356
+#: editor/templates/editor/edit_book.html:661
+msgid "comment"
+msgstr "koment"
+
+#: editor/models.py:362
+msgid "Chapter history"
+msgstr "Historik Kapitulli"
+
+#: editor/models.py:388
+#: editor/templates/editor/edit_strings.html:53
+msgid "filename"
+msgstr "emër kartele"
+
+#: editor/models.py:401
+#: editor/templates/editor/edit_book.html:619
+msgid "Attachment"
+msgstr "Bashkangjitje"
+
+#: editor/models.py:402
+msgid "Attachments"
+msgstr "Bashkangjitje"
+
+#: editor/models.py:408
+msgid "section name"
+msgstr "emër ndarjeje"
+
+#: editor/models.py:409
+msgid "chapter name"
+msgstr "emër kapitulli"
+
+#: editor/models.py:410
+msgid "line"
+msgstr "rresht"
+
+#: editor/models.py:421
+msgid "typeof"
+msgstr ""
+
+#: editor/models.py:435
+msgid "Book TOC"
+msgstr "TEL e Librit"
+
+#: editor/models.py:436
+msgid "Book TOCs"
+msgstr "TEL-e Librash"
+
+#: editor/models.py:465
+#: editor/models.py:466
+msgid "Attribution Exclude"
+msgstr ""
+
+#: editor/models.py:472
+msgid "wizzard type"
+msgstr "Lloj mekanizmi"
+
+#: editor/models.py:473
+msgid "wizzard options"
+msgstr "Mundësi mekanizmi"
+
+#: editor/models.py:479
+#: editor/models.py:480
+msgid "Publish Wizzard"
+msgstr "Mekanizëm Botimi"
+
+#: editor/templates/authors.html:13
+msgid "Modifications:"
+msgstr "Modifikime:"
+
+#: editor/templates/base_edit.html:65
+#: portal/templates/base.html:72
+msgid "Sign out"
+msgstr "Dilni"
+
+#: editor/templates/base_edit.html:71
+#: portal/templates/base.html:78
+msgid "Sign In / Create Account"
+msgstr "Hyni / Krijoni Llogari"
+
+#: editor/templates/base_edit.html:90
+#: portal/templates/base.html:97
+#: portal/templates/portal/groups.html:12
+msgid "Groups"
+msgstr "Grupe"
+
+#: editor/templates/base_edit.html:91
+#: portal/templates/base.html:98
+#: portal/templates/portal/people.html:13
+msgid "People"
+msgstr "Njerëz"
+
+#: editor/templates/base_edit.html:126
+#: portal/templates/base.html:124
+msgid "There has been error in communication with booki server."
+msgstr "Pati një gabim në ndërlidhjen me shërbyesin Booki."
+
+#: editor/templates/base_edit.html:127
+#: portal/templates/base.html:125
+msgid "Not sure right now where is the problem."
+msgstr "Jo e qartë tani për tani se ku është problemi."
+
+#: editor/templates/base_edit.html:130
+#: portal/templates/base.html:128
+msgid "You should refresh this page."
+msgstr "Do të duhej ta rifreskonit këtë faqe."
+
+#: editor/templates/booki_report.html:5
+#, python-format
+msgid "Report for %(booki_name)s (%(date)s)"
+msgstr "Raport mbi %(booki_name)s (%(date)s)"
+
+#: editor/templates/booki_report.html:7
+msgid "Info"
+msgstr "Të dhëna"
+
+#: editor/templates/booki_report.html:10
+msgid "Total number of books:"
+msgstr "Numër librash gjithsej:"
+
+#: editor/templates/booki_report.html:15
+msgid "Total number of users:"
+msgstr "Numër përdoruesish gjithsej:"
+
+#: editor/templates/booki_report.html:20
+msgid "Attachments size:"
+msgstr "Madhësi bashkangjitje:"
+
+#: editor/templates/booki_report.html:25
+msgid "Database size:"
+msgstr "Madhësi baze të dhënash:"
+
+#: editor/templates/booki_report.html:31
+msgid "New Users"
+msgstr "Përdorues të Rinj"
+
+#: editor/templates/booki_report.html:36
+msgid "No new users"
+msgstr "Nuk ka përdorues të rinj"
+
+#: editor/templates/booki_report.html:41
+msgid "New Books"
+msgstr "Libra të Rinj"
+
+#: editor/templates/booki_report.html:46
+msgid "No new books"
+msgstr "Nuk ka libra të rinj"
+
+#: editor/templates/booki_report.html:50
+msgid "New Groups"
+msgstr "Grupe të Rinj"
+
+#: editor/templates/booki_report.html:55
+msgid "No new groups"
+msgstr "Nuk ka grupe të rinj"
+
+#: editor/templates/booki_report.html:60
+msgid "Activity"
+msgstr "Veprimtari"
+
+#: editor/templates/booki_report.html:71
+msgid "No Activity"
+msgstr "Nuk Ka Veprimtari"
+
+#: editor/templates/editor/edit_book.html:69
+msgid "Chat"
+msgstr "Fjalosje"
+
+#: editor/templates/editor/edit_book.html:73
+msgid "Currently editing"
+msgstr "Në përpunim tani"
+
+#: editor/templates/editor/edit_book.html:88
+msgid "Search"
+msgstr "Kërkoni"
+
+#: editor/templates/editor/edit_book.html:101
+#: editor/templates/editor/edit_book.html:338
+msgid "Images and Files"
+msgstr "Figura dhe Kartela"
+
+#: editor/templates/editor/edit_book.html:105
+#: editor/templates/editor/edit_book.html:355
+msgid "History"
+msgstr "Historik"
+
+#: editor/templates/editor/edit_book.html:109
+#: editor/templates/editor/edit_book.html:364
+#: reader/templates/reader/book_info.html:116
+msgid "Versions"
+msgstr "Versione"
+
+#: editor/templates/editor/edit_book.html:113
+#: editor/templates/editor/edit_book.html:544
+msgid "Notes"
+msgstr "Shënime"
+
+#: editor/templates/editor/edit_book.html:122
+#: editor/templates/editor/edit_book.html:404
+msgid "Publish"
+msgstr "Botoje"
+
+#: editor/templates/editor/edit_book.html:132
+msgid "We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding."
+msgstr "Na vjen shumë keq, por programi ynë nuk është plotësisht i pajtueshëm me shfletuesin tuaj. Po punojmë fort që ta ndreqim këtë problem. Derisa ta ndreqim, mund të provoni ta përdorni këtë site me Firefox, Chrome, Safari, Opera ose të tjerë shfletues të përputhshëm. Faleminderit për mirëkuptimin."
+
+#: editor/templates/editor/edit_book.html:134
+msgid "Table of contents"
+msgstr "Tabelë e lëndës"
+
+#: editor/templates/editor/edit_book.html:135
+#: editor/templates/editor/edit_book.html:141
+msgid "NEW CHAPTER"
+msgstr "KAPITULL I RI"
+
+#: editor/templates/editor/edit_book.html:135
+#: editor/templates/editor/edit_book.html:141
+msgid "NEW SECTION"
+msgstr "NDARJE E RE"
+
+#: editor/templates/editor/edit_book.html:135
+#: editor/templates/editor/edit_book.html:141
+msgid "IMPORT CHAPTER"
+msgstr "IMPORTONI KAPITULL"
+
+#: editor/templates/editor/edit_book.html:136
+msgid "All books should contain at least one section and can have as many chapters as you like."
+msgstr "Çdo libër do të duhej të përmbante të paktën një ndarje dhe mund të ketë aq kapituj sa dëshironi."
+
+#: editor/templates/editor/edit_book.html:145
+msgid "New chapter"
+msgstr "Kapitull i RI"
+
+#: editor/templates/editor/edit_book.html:153
+#: editor/templates/editor/edit_strings.html:43
+msgid "Clone chapter"
+msgstr "Klononi kapitull"
+
+#: editor/templates/editor/edit_book.html:161
+msgid "New title (optional)"
+msgstr "Titull i ri (opsional)"
+
+#: editor/templates/editor/edit_book.html:166
+msgid "New section"
+msgstr "Ndarje e re"
+
+#: editor/templates/editor/edit_book.html:176
+#: editor/templates/editor/edit_strings.html:60
+msgid "Insert image"
+msgstr "Futni figurë"
+
+#: editor/templates/editor/edit_book.html:179
+msgid "Images"
+msgstr "Figura"
+
+#: editor/templates/editor/edit_book.html:180
+msgid "Upload image"
+msgstr "Ngarkoni figurë"
+
+#: editor/templates/editor/edit_book.html:191
+#: editor/templates/editor/edit_book.html:216
+msgid "Preview"
+msgstr "Paraparje"
+
+#: editor/templates/editor/edit_book.html:213
+msgid "Edit Image"
+msgstr "Përpunoni Figurën"
+
+#: editor/templates/editor/edit_book.html:223
+msgid "Image:"
+msgstr "Figurë:"
+
+#: editor/templates/editor/edit_book.html:227
+msgid "Alt:"
+msgstr "Alt:"
+
+#: editor/templates/editor/edit_book.html:233
+msgid "Positioning"
+msgstr "Pozicionim"
+
+#: editor/templates/editor/edit_book.html:236
+msgid "Border:"
+msgstr "Anë:"
+
+#: editor/templates/editor/edit_book.html:240
+msgid "Align:"
+msgstr "Drejtim:"
+
+#: editor/templates/editor/edit_book.html:244
+msgid "Width:"
+msgstr "Gjerësi:"
+
+#: editor/templates/editor/edit_book.html:248
+msgid "Height:"
+msgstr "Lartësi:"
+
+#: editor/templates/editor/edit_book.html:254
+msgid "Style"
+msgstr "Stil"
+
+#: editor/templates/editor/edit_book.html:257
+msgid "CSS Class:"
+msgstr "Klasë CSS:"
+
+#: editor/templates/editor/edit_book.html:262
+msgid "Padding:"
+msgstr "Zbutje:"
+
+#: editor/templates/editor/edit_book.html:264
+msgid "Margin:"
+msgstr "Mënjanë:"
+
+#: editor/templates/editor/edit_book.html:268
+msgid "Background color:"
+msgstr "Ngjyrë sfondi:"
+
+#: editor/templates/editor/edit_book.html:270
+msgid "Border color:"
+msgstr "Ngjyrë ane:"
+
+#: editor/templates/editor/edit_book.html:280
+msgid "Hold chapters"
+msgstr "Mbaji kapitujt"
+
+#: editor/templates/editor/edit_book.html:290
+#: editor/templates/editor/edit_book.html:611
+msgid "Save"
+msgstr "Ruaje"
+
+#: editor/templates/editor/edit_book.html:290
+msgid "Save and continue editing"
+msgstr "Ruajeni dhe vazhdoni përpunimin"
+
+#: editor/templates/editor/edit_book.html:290
+msgid "View chapter"
+msgstr "Shiheni kapitullin"
+
+#: editor/templates/editor/edit_book.html:290
+#: editor/templates/editor/edit_strings.html:4
+msgid "Cancel"
+msgstr "Anuloje"
+
+#: editor/templates/editor/edit_book.html:298
+msgid "Minor change, don't notify."
+msgstr "Ndryshim i vockël, mos e njofto."
+
+#: editor/templates/editor/edit_book.html:304
+msgid "Author:"
+msgstr "Autor:"
+
+#: editor/templates/editor/edit_book.html:310
+msgid "Author comment:"
+msgstr "Koment autori:"
+
+#: editor/templates/editor/edit_book.html:320
+msgid "Seems like You have changed the structure of the chapters. What do you want to do?"
+msgstr "Duket se e keni ndryshuar shtrukturën e kapitujve. Çfarë dëshironi të bëni?"
+
+#: editor/templates/editor/edit_book.html:323
+msgid "New chapters:"
+msgstr "Kapituj të rinj:"
+
+#: editor/templates/editor/edit_book.html:339
+msgid "All images added to your book are listed here as well as any additional files you have uploaded."
+msgstr "Krejt figurat e shtuara te libri juaj tregohen këtu, si edhe çfarëdo kartelash shtesë që keni ngarkuar."
+
+#: editor/templates/editor/edit_book.html:341
+msgid "Deleted selected items"
+msgstr "U fshinë objektet e përzgjedhur"
+
+#: editor/templates/editor/edit_book.html:342
+msgid "Upload a new image or file"
+msgstr "Ngarkoni një figurë ose kartelë të re"
+
+#: editor/templates/editor/edit_book.html:346
+#: editor/templates/editor/edit_book.html:587
+#: editor/templates/editor/edit_strings.html:58
+msgid "Upload"
+msgstr "Ngarkoje"
+
+#: editor/templates/editor/edit_book.html:356
+msgid "Here you can follow the edit history of your book."
+msgstr "Këtu mund të ndiqni historikun e përpunimeve të librit tuaj."
+
+#: editor/templates/editor/edit_book.html:366
+msgid ""
+"With different versions you can easily organise your book. But be careful! Other users will not be able to edit\n"
+"      and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them."
+msgstr ""
+"Me versionet e ndryshme mund ta organizoni lehtësisht librin tuaj. Por kini kujdes! Pasi të krijoni një të ri, përdoruesit\n"
+"      e tjerë nuk do të jenë në gjendje të përpunojnë versione të mëparshëmew one. Krijoni një version të ri <i>të dorës së parë</i>, nëse keni në plan të bëni shumë ndryshime, dhe një version <i>të dorës së dytë</i>, nëse keni në plan të bëni vetën pak të tilla."
+
+#: editor/templates/editor/edit_book.html:368
+#: editor/templates/editor/edit_strings.html:33
+msgid "Create major version"
+msgstr "Krijoni version të dorës së parë"
+
+#: editor/templates/editor/edit_book.html:368
+#: editor/templates/editor/edit_strings.html:34
+msgid "Create minor version"
+msgstr "Krijoni version të dorës së dytë"
+
+#: editor/templates/editor/edit_book.html:369
+#: editor/templates/editor/edit_book.html:382
+#: editor/templates/editor/edit_book.html:580
+msgid "New version"
+msgstr "Version i ri"
+
+#: editor/templates/editor/edit_book.html:372
+#: editor/templates/editor/edit_book.html:385
+msgid "You can name this version (optional):"
+msgstr "Mundeni ta emërtoni këtë version (në daçi):"
+
+#: editor/templates/editor/edit_book.html:375
+#: editor/templates/editor/edit_book.html:388
+msgid "e.g. initial, dragon, test"
+msgstr "p.sh. fillestar, shumë i përqendruar, provë"
+
+#: editor/templates/editor/edit_book.html:377
+#: editor/templates/editor/edit_book.html:390
+msgid "Description (optional)"
+msgstr "Përshkrim (në dëshirë)"
+
+#: editor/templates/editor/edit_book.html:396
+msgid "All versions"
+msgstr "Krejt versionet"
+
+#: editor/templates/editor/edit_book.html:413
+msgid "Manage the settings of your book."
+msgstr "Administroni rregullimet për librin tuaj!"
+
+#: editor/templates/editor/edit_book.html:421
+msgid "This book is written in: "
+msgstr "Ky libër është shkruar në:"
+
+#: editor/templates/editor/edit_book.html:426
+msgid "Set new language"
+msgstr "Caktoni gjuhë të re"
+
+#: editor/templates/editor/edit_book.html:430
+msgid "Right to left text"
+msgstr "Tekst nga e djathta në të majtë"
+
+#: editor/templates/editor/edit_book.html:440
+msgid "This book is licensed with:"
+msgstr "Ky libër lejohet sipas lejes:"
+
+#: editor/templates/editor/edit_book.html:445
+msgid "Set new license"
+msgstr "Caktoni leje të re"
+
+#: editor/templates/editor/edit_book.html:447
+msgid "Read full text of the license"
+msgstr "Lexoni tekstin e plotë të lejes"
+
+#: editor/templates/editor/edit_book.html:448
+msgid "Manage copyright attribution"
+msgstr "Administroni përcaktim të drejtash kopjimi"
+
+#: editor/templates/editor/edit_book.html:452
+msgid "Manage Copyright Attribution"
+msgstr "Administroni Përcaktim të Drejtash Kopjimi"
+
+#: editor/templates/editor/edit_book.html:453
+msgid "If you want to exclude some people from the copyright attribution..."
+msgstr "Nëse doni të përjashtoni disa persona prej përcaktimit të të drejtave të kopjimit..."
+
+#: editor/templates/editor/edit_book.html:474
+msgid "Roles"
+msgstr "Role"
+
+#: editor/templates/editor/edit_book.html:477
+msgid "Manage roles"
+msgstr "Administroni role"
+
+#: editor/templates/editor/edit_book.html:480
+msgid "Manage Roles"
+msgstr "Administroni Role"
+
+#: editor/templates/editor/edit_book.html:488
+msgid "Select role"
+msgstr "Përzgjidhni rol"
+
+#: editor/templates/editor/edit_book.html:489
+msgid "Administrator"
+msgstr "Administrator"
+
+#: editor/templates/editor/edit_book.html:490
+msgid "Editor"
+msgstr "Redaktor"
+
+#: editor/templates/editor/edit_book.html:494
+msgid "New user:"
+msgstr "Përdorues i ri:"
+
+#: editor/templates/editor/edit_book.html:498
+msgid "Add"
+msgstr "Shtoni"
+
+#: editor/templates/editor/edit_book.html:500
+msgid "Role:"
+msgstr "Rol:"
+
+#: editor/templates/editor/edit_book.html:505
+msgid "Remove"
+msgstr "Hiqe"
+
+#: editor/templates/editor/edit_book.html:510
+#: editor/templates/editor/edit_book.html:699
+msgid "Chapter status"
+msgstr "Gjendje kapitulli"
+
+#: editor/templates/editor/edit_book.html:513
+msgid "Available statuses:"
+msgstr "Gjendje të passhme:"
+
+#: editor/templates/editor/edit_book.html:515
+msgid "Manage chapter status"
+msgstr "Administroni gjendje kapitulli"
+
+#: editor/templates/editor/edit_book.html:520
+msgid "Permissions and visibility"
+msgstr "Leje dhe dukshmëri"
+
+#: editor/templates/editor/edit_book.html:523
+msgid "This book can be edited by:"
+msgstr "Ky libër mund të përpunohet nga:"
+
+#: editor/templates/editor/edit_book.html:532
+msgid "Set permissions"
+msgstr "Caktoni lejet"
+
+#: editor/templates/editor/edit_book.html:536
+msgid "This interface is still work in progress."
+msgstr "Kjo ndërfaqe është ende në përpunim e sipër."
+
+#: editor/templates/editor/edit_book.html:546
+msgid "Shared notes for this book"
+msgstr "Shënime të përbashkëta për këtë libër"
+
+#: editor/templates/editor/edit_book.html:549
+msgid "Save the notes"
+msgstr "Ruaji shënimet"
+
+#: editor/templates/editor/edit_book.html:554
+msgid "<span class=\"icon\">JOINED</span> <span class=\"notice\">notice</span>"
+msgstr "<span class=\"notice\">Shënim</span> <span class=\"icon\">Anëtarësimi</span>"
+
+#: editor/templates/editor/edit_book.html:555
+msgid "<span class=\"info\">INFO</span> <span class=\"notice\">notice</span>"
+msgstr "<span class=\"notice\">Shënim</span> <span class=\"info\">TË DHËNASH</span>"
+
+#: editor/templates/editor/edit_book.html:558
+msgid "action"
+msgstr "veprim"
+
+#: editor/templates/editor/edit_book.html:561
+#: editor/templates/editor/edit_book.html:660
+msgid "time"
+msgstr "kohë"
+
+#: editor/templates/editor/edit_book.html:581
+msgid "Switched to <span class=\"entryVersion\">entry.version.version</span>"
+msgstr "U kalua te <span class=\"entryVersion\">entry.version.version</span>"
+
+#: editor/templates/editor/edit_book.html:588
+msgid "Uploaded <span class=\"entryFilename\">entry.args.filename</span>."
+msgstr "U ngarkua <span class=\"entryFilename\">entry.args.filename</span>."
+
+#: editor/templates/editor/edit_book.html:594
+msgid "Delete"
+msgstr "Fshije"
+
+#: editor/templates/editor/edit_book.html:595
+msgid "Deleted <span class=\"entryFilename\">entry.args.filename</span>."
+msgstr "U fshi <span class=\"entryFilename\">entry.args.filename</span>."
+
+#: editor/templates/editor/edit_book.html:609
+msgid "Unknown"
+msgstr "E panjohur"
+
+#: editor/templates/editor/edit_book.html:610
+msgid "Create"
+msgstr "Krijoni"
+
+#: editor/templates/editor/edit_book.html:612
+msgid "Rename"
+msgstr "Riemërtoni"
+
+#: editor/templates/editor/edit_book.html:613
+msgid "Reorder"
+msgstr "Rirenditi"
+
+#: editor/templates/editor/edit_book.html:614
+msgid "Split"
+msgstr "Ndaji"
+
+#: editor/templates/editor/edit_book.html:615
+#: reader/templates/reader/book_info.html:159
+msgid "Section create"
+msgstr "Krijim ndarjeje"
+
+#: editor/templates/editor/edit_book.html:616
+#: reader/templates/reader/book_info.html:166
+msgid "Book create"
+msgstr "Krijim libri"
+
+#: editor/templates/editor/edit_book.html:617
+msgid "Minor"
+msgstr "i vogël"
+
+#: editor/templates/editor/edit_book.html:618
+msgid "Major"
+msgstr "i madh"
+
+#: editor/templates/editor/edit_book.html:644
+#: reader/templates/reader/book_chapter.html:51
+#: reader/templates/reader/book_chapter.html:57
+#: reader/templates/reader/book_view.html:40
+#: reader/templates/reader/draft_book.html:34
+#: reader/templates/reader/draft_chapter.html:42
+msgid "EDIT"
+msgstr "PËRPUNONI"
+
+#: editor/templates/editor/edit_book.html:644
+msgid "VIEW"
+msgstr "SHIHENI"
+
+#: editor/templates/editor/edit_book.html:653
+msgid "back to history index"
+msgstr "mbrapsh te treguesi i historikut"
+
+#: editor/templates/editor/edit_book.html:653
+msgid "Compare revisions"
+msgstr "Krahasoni rishikimet"
+
+#: editor/templates/editor/edit_book.html:657
+msgid "compare"
+msgstr "krahasoji"
+
+#: editor/templates/editor/edit_book.html:669
+#: editor/templates/editor/edit_strings.html:54
+msgid "dimension"
+msgstr "përmasë"
+
+#: editor/templates/editor/edit_book.html:670
+#: editor/templates/editor/edit_strings.html:55
+msgid "size"
+msgstr "madhësi"
+
+#: editor/templates/editor/edit_book.html:674
+#: editor/templates/editor/edit_book.html:694
+msgid "back to chapter history"
+msgstr "mbrapsht te historiku i kapitullit"
+
+#: editor/templates/editor/edit_book.html:676
+msgid "Normal view"
+msgstr "Parje normale"
+
+#: editor/templates/editor/edit_book.html:678
+msgid "Source view"
+msgstr "Parje e burimit"
+
+#: editor/templates/editor/edit_book.html:679
+msgid "Revert to this revision"
+msgstr "Riktheje te ky rishikin"
+
+#: editor/templates/editor/edit_book.html:680
+msgid "No such revision."
+msgstr "S'ka version të tillë."
+
+#: editor/templates/editor/edit_book.html:683
+msgid "User:"
+msgstr "Përdorues:"
+
+#: editor/templates/editor/edit_book.html:684
+msgid "Modified:"
+msgstr "Ndryshuar:"
+
+#: editor/templates/editor/edit_book.html:685
+msgid "Version:"
+msgstr "Version:"
+
+#: editor/templates/editor/edit_book.html:686
+msgid "Revision:"
+msgstr "Rishikim:"
+
+#: editor/templates/editor/edit_book.html:687
+msgid "Comment"
+msgstr "Koment"
+
+#: editor/templates/editor/edit_book.html:689
+msgid "previous"
+msgstr "i mëparshmi"
+
+#: editor/templates/editor/edit_book.html:689
+msgid "next"
+msgstr "pasuesi"
+
+#: editor/templates/editor/edit_book.html:694
+msgid "Show side by side"
+msgstr "Shfaqi krah njëra-tjetrës"
+
+#: editor/templates/editor/edit_book.html:695
+msgid "Compare revision <span class=\"revision1Name\">revision1</span> with revision <span class=\"revision2Name\">revision2</span>"
+msgstr "Krahasoni rishikimin <span class=\"revision1Name\">rishikimi1</span> me rishikimin <span class=\"revision2Name\">rishikimi2</span>"
+
+#: editor/templates/editor/edit_book.html:700
+msgid "Select new chapter status:"
+msgstr "Përzgjidhni gjendje të re kapitulli:"
+
+#: editor/templates/editor/edit_book.html:713
+msgid "Chapter statuses"
+msgstr "Gjendje kapitulli"
+
+#: editor/templates/editor/edit_book.html:718
+msgid "New status:"
+msgstr "Gjendje e re:"
+
+#: editor/templates/editor/edit_book.html:723
+msgid "Chapter statuses:"
+msgstr "Gjendje kapitulli:"
+
+#: editor/templates/editor/edit_publish.html:10
+#: editor/templates/editor/edit_publish.html:17
+#: editor/templates/editor/edit_publish.html:24
+#: editor/templates/editor/edit_publish.html:31
+#: editor/templates/editor/edit_publish.html:38
+msgid "settings"
+msgstr "rregullimet"
+
+#: editor/templates/editor/edit_publish.html:16
+msgid "Ebook"
+msgstr ""
+
+#: editor/templates/editor/edit_publish.html:23
+msgid "Lulu.com"
+msgstr "Lulu.com"
+
+#: editor/templates/editor/edit_publish.html:30
+msgid "Screen PDF"
+msgstr ""
+
+#: editor/templates/editor/edit_publish.html:37
+msgid "Open Document Text"
+msgstr "Tekst Dokumentesh të Hapët (ODT)"
+
+#: editor/templates/editor/edit_publish.html:45
+msgid "Publish this book"
+msgstr "Botojeni këtë libër"
+
+#: editor/templates/editor/edit_publish.html:48
+msgid "Please wait. It will take couple of moments. Your book is being generated."
+msgstr "Ju lutemi, prisni. Do të marrë pak çaste. Libri juaj po prodhohet."
+
+#: editor/templates/editor/edit_publish.html:51
+msgid "Your book has been generated at this url:"
+msgstr "Libri juaj është gati te kjo url:"
+
+#: editor/templates/editor/edit_publish.html:54
+msgid "Unknown error while trying to publish this book."
+msgstr "Gabim i panjohur ndërkohë që provohej të botohej ky libër."
+
+#: editor/templates/editor/edit_strings.html:3
+msgid "Error while uploading file!"
+msgstr "Gabim gjatë ngarkimit të kartelës!"
+
+#: editor/templates/editor/edit_strings.html:5
+msgid "Yes, revert !"
+msgstr "Po, riktheje !"
+
+#: editor/templates/editor/edit_strings.html:6
+msgid "Loading..."
+msgstr "Po ngarkohet..."
+
+#: editor/templates/editor/edit_strings.html:7
+msgid "LOADING DATA...."
+msgstr "PO NGARKOHEN TË DHËNA..."
+
+#: editor/templates/editor/edit_strings.html:8
+msgid "Loading data. Please wait..."
+msgstr "Po ngarkohen të dhëna. Ju lutemi, prisni..."
+
+#: editor/templates/editor/edit_strings.html:9
+msgid "Loading chapter data..."
+msgstr "Po ngarkohen të dhëna kapitulli..."
+
+#: editor/templates/editor/edit_strings.html:10
+msgid "Reading history data..."
+msgstr "Po lexohen të dhëna historiku..."
+
+#: editor/templates/editor/edit_strings.html:11
+msgid "Reading settings data..."
+msgstr "Po lexohen të dhëna rregullimesh..."
+
+#: editor/templates/editor/edit_strings.html:12
+msgid "Reading attachments data..."
+msgstr "Po lexohen të dhëna bashkangjitjesh..."
+
+#: editor/templates/editor/edit_strings.html:13
+msgid "Reading notes data..."
+msgstr "Po lexohen të dhëna shënimesh..."
+
+#: editor/templates/editor/edit_strings.html:14
+msgid "Reading version data..."
+msgstr "Po lexohen të dhëna shënimesh..."
+
+#: editor/templates/editor/edit_strings.html:15
+msgid "Revert to this revision?"
+msgstr "Të rikthehet te ky rishikim?"
+
+#: editor/templates/editor/edit_strings.html:16
+msgid "Current chapter content will be reverted to this revision. Are you sure?"
+msgstr "Lënda e kapitullit të tanishëm do të rikthehet te ky rishikim. Jeni i sigurt?"
+
+#: editor/templates/editor/edit_strings.html:17
+msgid "Sending data..."
+msgstr "Po dërgohen të dhënat..."
+
+#: editor/templates/editor/edit_strings.html:18
+msgid "SAVE"
+msgstr "RUAJE"
+
+#: editor/templates/editor/edit_strings.html:20
+msgid "Save new order"
+msgstr "Ruaje renditjen e re"
+
+#: editor/templates/editor/edit_strings.html:21
+msgid "Saving data. Please wait..."
+msgstr "Po ruhen të dhënat. Ju lutemi, prisni..."
+
+#: editor/templates/editor/edit_strings.html:22
+msgid "CANCEL"
+msgstr "ANULOJE"
+
+#: editor/templates/editor/edit_strings.html:23
+msgid "Set status"
+msgstr "Caktojini gjendjen"
+
+#: editor/templates/editor/edit_strings.html:24
+msgid "Revision"
+msgstr "Rishikim"
+
+#: editor/templates/editor/edit_strings.html:25
+msgid "Booktype Reader"
+msgstr "Lexuesi i Booktype-it"
+
+#: editor/templates/editor/edit_strings.html:26
+msgid "Hide advanced options"
+msgstr "Fshihi mundësitë e mëtejshme"
+
+#: editor/templates/editor/edit_strings.html:27
+msgid "Show advanced options"
+msgstr "Shfaqi mundësitë e mëtejshme"
+
+#: editor/templates/editor/edit_strings.html:28
+msgid "New status name"
+msgstr "Emër gjendjeje të re"
+
+#: editor/templates/editor/edit_strings.html:29
+msgid "Delete this status?"
+msgstr "Të fshihet kjo gjendje?"
+
+#: editor/templates/editor/edit_strings.html:30
+msgid "Can't delete because some chapters have this status. Change chapter status first."
+msgstr "Nuk fshihen dot, ngaqë disa kapituj kanë këtë gjendje. Së pari ndryshoni gjendjen e kapitullit."
+
+#: editor/templates/editor/edit_strings.html:31
+msgid "Removing chapter from Table of Contents."
+msgstr "Po hiqet kapitulli prej Tabeles së Lëndës."
+
+#: editor/templates/editor/edit_strings.html:32
+msgid "Reordering the chapters..."
+msgstr "Po rirenditen kapitujt..."
+
+#: editor/templates/editor/edit_strings.html:35
+msgid "Delete attachments"
+msgstr "Fshiji bashkangjitjet"
+
+#: editor/templates/editor/edit_strings.html:36
+msgid "Delete these attachments"
+msgstr "Fshiji këto bashkangjitje"
+
+#: editor/templates/editor/edit_strings.html:37
+msgid "Delete selected attachments"
+msgstr "Fshiji bashkangjitjet e përzgjedhura"
+
+#: editor/templates/editor/edit_strings.html:38
+msgid "Update"
+msgstr "Përditësoje"
+
+#: editor/templates/editor/edit_strings.html:39
+msgid "Create chapter"
+msgstr "Krijoje kapitullin"
+
+#: editor/templates/editor/edit_strings.html:40
+msgid "Creating chapter"
+msgstr "Po krijohet kapitulli"
+
+#: editor/templates/editor/edit_strings.html:41
+#: editor/templates/editor/edit_strings.html:45
+msgid "Can not create duplicate chapter name."
+msgstr "Nuk mund të krijohet dublikatë emri kapitulli."
+
+#: editor/templates/editor/edit_strings.html:42
+msgid "Enter new Chapter title."
+msgstr "Jepni titull të ri Kapitulli."
+
+#: editor/templates/editor/edit_strings.html:44
+msgid "Cloning chapter"
+msgstr "Po klonohet kapitulli"
+
+#: editor/templates/editor/edit_strings.html:46
+msgid "Enter book id"
+msgstr "Jepni id libri"
+
+#: editor/templates/editor/edit_strings.html:47
+msgid "Enter Chapter id."
+msgstr "Jepni id Kapitulli."
+
+#: editor/templates/editor/edit_strings.html:48
+msgid "Create section"
+msgstr "Krijo ndarje"
+
+#: editor/templates/editor/edit_strings.html:49
+msgid "Creating section"
+msgstr "Po krijohet ndarja"
+
+#: editor/templates/editor/edit_strings.html:50
+msgid "Can not create duplicate section name."
+msgstr "Nuk mund të krijohet dublikatë emri ndarjeje."
+
+#: editor/templates/editor/edit_strings.html:51
+msgid "Enter new section title"
+msgstr "Jepni titull të ri ndarjeje"
+
+#: editor/templates/editor/edit_strings.html:56
+msgid "Adding chapter to Table of Contents."
+msgstr "Po shtohet kapitulli te Tabela e lëndës."
+
+#: editor/templates/editor/edit_strings.html:57
+msgid "Reordering the chapter..."
+msgstr "Po rirenditet kapitulli..."
+
+#: editor/templates/editor/edit_strings.html:59
+msgid "Rights holder"
+msgstr "Zotëruesi i të drejtave"
+
+#: editor/templates/editor/edit_strings.html:61
+msgid "You will loose unsaved changes. You are currently editing chapter"
+msgstr "Do të humbni ndryshime të paruajtura. Jeni ende duke përpunuar një kapitull"
+
+#: editor/templates/editor/edit_strings.html:62
+msgid "You are leaving Booktype Editor."
+msgstr "Po dilni nga Përpunuesi i Booktype-it."
+
+#: editor/templates/editor/edit_strings.html:63
+msgid "You don't have permission to delete attachments."
+msgstr "Nuk keni leje për fshirje bashkangjitjesh."
+
+#: editor/templates/errors/editing_forbidden.html:4
+msgid "Access error"
+msgstr "Gabim hyrjeje"
+
+#: editor/templates/errors/editing_forbidden.html:5
+msgid "You have no permission to edit this book."
+msgstr "Nuk keni të drejta të përpunoni këtë libër."
+
+#: messaging/models.py:32
+msgid "sender"
+msgstr "dërgues"
+
+#: messaging/models.py:33
+#: messaging/models.py:67
+msgid "timestamp"
+msgstr "vulë kohore"
+
+#: messaging/models.py:35
+msgid "attachment"
+msgstr "bashkangjitje"
+
+#: messaging/models.py:36
+msgid "snippet"
+msgstr "copëz"
+
+#: messaging/models.py:37
+msgid "context"
+msgstr "konteks"
+
+#: messaging/models.py:61
+msgid "Post"
+msgstr "Postim"
+
+#: messaging/models.py:62
+msgid "Posts"
+msgstr "Postime"
+
+#: messaging/models.py:66
+msgid "post"
+msgstr "postim"
+
+#: messaging/models.py:68
+msgid "endpoint"
+msgstr ""
+
+#: messaging/models.py:74
+msgid "Post appearance"
+msgstr "Pamje postimi"
+
+#: messaging/models.py:75
+msgid "Post appearances"
+msgstr "Pamje postimi"
+
+#: messaging/models.py:85
+msgid "syntax"
+msgstr "sintaksë"
+
+#: messaging/models.py:146
+msgid "Endpoint"
+msgstr ""
+
+#: messaging/models.py:147
+msgid "Endpoints"
+msgstr ""
+
+#: messaging/models.py:150
+msgid "notification filter"
+msgstr "filtër njoftimesh"
+
+#: messaging/models.py:156
+msgid "Endpoint config"
+msgstr "Formësim pikë fundi"
+
+#: messaging/models.py:157
+msgid "Endpoint configs"
+msgstr ""
+
+#: messaging/models.py:160
+msgid "follower"
+msgstr "ndjekës"
+
+#: messaging/models.py:161
+msgid "target"
+msgstr "objektiv"
+
+#: messaging/models.py:167
+msgid "Following"
+msgstr "Ndjekur Prej Jush"
+
+#: messaging/models.py:168
+msgid "Followings"
+msgstr "Ndjekje"
+
+#: messaging/views.py:100
+#, python-format
+msgid "Message from %s"
+msgstr "Mesazh prej %s"
+
+#: messaging/templates/messaging/book_followbutton.html:5
+msgid "Follow this book"
+msgstr "Ndiqe këtë libër"
+
+#: messaging/templates/messaging/book_followbutton.html:10
+msgid "Stop following this book"
+msgstr "Resht së ndjekuri këtë libër"
+
+#: messaging/templates/messaging/messagefield.html:8
+msgid "Attach file"
+msgstr "Bashkangjitni një kartelë"
+
+#: messaging/templates/messaging/messagefield.html:11
+msgid "Add Snippet"
+msgstr "Shtoni Copëz"
+
+#: messaging/templates/messaging/messagefield.html:12
+msgid "Optional snippet context URL:"
+msgstr ""
+
+#: messaging/templates/messaging/messagefield.html:15
+msgid "Share"
+msgstr "Ndajeni Me të Tjerët"
+
+#: messaging/templates/messaging/messagefield_button.html:3
+msgid "Post a message"
+msgstr "Postoni një mesazh"
+
+#: messaging/templates/messaging/post.html:8
+msgid "send a reply"
+msgstr "dërgoni përgjigje"
+
+#: messaging/templates/messaging/post.html:11
+#: portal/templates/portal/books.html:45
+#: portal/templates/portal/frontpage.html:47
+msgid "ago"
+msgstr "më parë"
+
+#: messaging/templates/messaging/post.html:22
+msgid "Snippet:"
+msgstr "Copëz:"
+
+#: messaging/templates/messaging/post.html:24
+msgid "Context"
+msgstr "Kontekst"
+
+#: messaging/templates/messaging/tag_followbutton.html:5
+msgid "Follow this tag"
+msgstr "Ndiqeni këtë etiketë"
+
+#: messaging/templates/messaging/tag_followbutton.html:10
+msgid "Stop following this tag"
+msgstr "Resht së ndjekuri këtë etiketë"
+
+#: messaging/templates/messaging/timeline.html:4
+#, python-format
+msgid "Timeline of %(syntax)s:"
+msgstr "Rrjedhë kohore për %(syntax)s:"
+
+#: messaging/templates/messaging/timeline.html:10
+msgid "No messages."
+msgstr "Nuk ka mesazhe."
+
+#: messaging/templates/messaging/user_followbutton.html:5
+msgid "Follow me"
+msgstr "Ndiqmë"
+
+#: messaging/templates/messaging/user_followbutton.html:10
+msgid "Stop following me"
+msgstr "Mos më ndiq"
+
+#: messaging/templates/messaging/view_tag.html:5
+msgid "Tag timeline"
+msgstr "Rrjedhë kohore për etiketën"
+
+#: portal/templates/base.html:70
+msgid "Control Center"
+msgstr "Qendër Kontrollesh"
+
+#: portal/templates/booki_paginator.html:5
+msgid "Previous"
+msgstr "I mëparshmi"
+
+#: portal/templates/booki_paginator.html:29
+msgid "Next"
+msgstr "Pasuesi"
+
+#: portal/templates/errors/group_does_not_exist.html:4
+msgid "Group not found!"
+msgstr "Nuk u gjet grup!"
+
+#: portal/templates/errors/group_does_not_exist.html:5
+#, python-format
+msgid "Can't find group \"%(group_name)s\"."
+msgstr "S'gjen dot grupin \"%(group_name)s\"."
+
+#: portal/templates/portal/books.html:5
+msgid "Booktype Books"
+msgstr "Libra  Booktype"
+
+#: portal/templates/portal/books.html:15
+msgid "Active books"
+msgstr "Libra aktivë"
+
+#: portal/templates/portal/books.html:33
+msgid "Latest Books"
+msgstr "Libra Më të Rinj"
+
+#: portal/templates/portal/frontpage.html:18
+msgid "Welcome to Booktype"
+msgstr "Mirë se vini te Booktype"
+
+#: portal/templates/portal/frontpage.html:38
+#: reader/templates/reader/book_info.html:123
+msgid "Recent activity"
+msgstr "Veprimtari së fundmi"
+
+#: portal/templates/portal/frontpage.html:50
+msgid "Created new chapter"
+msgstr "U krijua kapitull i ri"
+
+#: portal/templates/portal/frontpage.html:55
+msgid "Created new book"
+msgstr "U krijua libër i ri"
+
+#: portal/templates/portal/group.html:5
+#, python-format
+msgid "/group: %(groupname)s"
+msgstr "/grup: %(groupname)s"
+
+#: portal/templates/portal/group.html:64
+msgid "Group"
+msgstr "Grup"
+
+#: portal/templates/portal/group.html:66
+#: portal/templates/portal/group.html:158
+msgid "Members"
+msgstr "Anëtarë"
+
+#: portal/templates/portal/group.html:82
+msgid "Leave this group"
+msgstr "Braktiseni këtë grup"
+
+#: portal/templates/portal/group.html:84
+msgid "Join this group"
+msgstr "Bëhuni pjesë e këtij grupi"
+
+#: portal/templates/portal/group.html:92
+#, python-format
+msgid "MEMBERS: %(n_members)s"
+msgstr "ANËTARË: %(n_members)s"
+
+#: portal/templates/portal/group.html:93
+#, python-format
+msgid "BOOKS: %(n_books)s"
+msgstr "LIBRA: %(n_books)s"
+
+#: portal/templates/portal/group.html:97
+msgid "ANNOUNCEMENTS"
+msgstr "LAJMËRIME"
+
+#: portal/templates/portal/group.html:112
+msgid "STATUS"
+msgstr "GJENDJE"
+
+#: portal/templates/portal/group.html:151
+msgid "ADD THIS BOOK TO GROUP"
+msgstr "SHTOJE KËTË LIBËR TE GRUPI"
+
+#: portal/templates/portal/groups.html:5
+msgid "Booktype Groups"
+msgstr "Grupe Booktype"
+
+#: portal/templates/portal/maintenance.html:4
+msgid "Booktype is in maintenance mode right now"
+msgstr "Booktype-it këtë çast po i bëhen shërbimet e mirëmbajtes"
+
+#: portal/templates/portal/people.html:5
+msgid "Booktype People"
+msgstr "Persona Booktype"
+
+#: portal/templates/portal/people.html:14
+msgid "Active people"
+msgstr "Persona aktivë"
+
+#: portal/templates/portal/people.html:33
+msgid "New people"
+msgstr "Persona të rinj"
+
+#: portal/templates/portal/people.html:55
+msgid "All"
+msgstr "Krejt"
+
+#: reader/templates/errors/book_does_not_exist.html:4
+msgid "Book does not exist!"
+msgstr "Libri nuk ekziston!"
+
+#: reader/templates/errors/book_does_not_exist.html:5
+#, python-format
+msgid "Can't find book \"%(book_name)s\"."
+msgstr "S'gjen dot librin \"%(book_name)s\"."
+
+#: reader/templates/errors/chapter_does_not_exist.html:4
+msgid "Chapter does not exist!"
+msgstr "Kapitulli nuk ekziston!"
+
+#: reader/templates/errors/chapter_does_not_exist.html:5
+#, python-format
+msgid "Can't find chapter \"%(chapter_name)s\"."
+msgstr "S'gjen dot kapitullin \"%(chapter_name)s\"."
+
+#: reader/templates/errors/chapter_duplicate.html:4
+msgid "I don't know what to do!"
+msgstr "Nuk di ç'të bëj!"
+
+#: reader/templates/errors/chapter_duplicate.html:5
+#, python-format
+msgid "There is more then one chapter named - \"%(chapter_name)s\". I am not sure which one to show."
+msgstr "Ka më tepër se një kapitull të quajtur - \"%(chapter_name)s\". Nuk jam i sigurt cilin të shfaq."
+
+#: reader/templates/reader/book_chapter.html:6
+#: reader/templates/reader/draft_chapter.html:6
+#, python-format
+msgid "/chapter: %(chaptertitle)s / %(booktitle)s"
+msgstr "/kapitulli: %(chaptertitle)s / %(booktitle)s"
+
+#: reader/templates/reader/book_info.html:5
+#: reader/templates/reader/book_view.html:5
+#: reader/templates/reader/draft_book.html:5
+#, python-format
+msgid "/book: %(booktitle)s"
+msgstr "/libri: %(booktitle)s"
+
+#: reader/templates/reader/book_info.html:69
+msgid "Edit this Book"
+msgstr "Përpunojeni këtë Libër"
+
+#: reader/templates/reader/book_info.html:70
+msgid "View draft"
+msgstr "Shihni skicën"
+
+#: reader/templates/reader/book_info.html:72
+msgid "Edit book info"
+msgstr "Përpunoni të dhëna libri"
+
+#: reader/templates/reader/book_info.html:75
+msgid "Book details"
+msgstr "Hollësi libri"
+
+#: reader/templates/reader/book_info.html:80
+msgid "Owner:"
+msgstr "Pronar:"
+
+#: reader/templates/reader/book_info.html:81
+msgid "Status:"
+msgstr "Gjendje:"
+
+#: reader/templates/reader/book_info.html:84
+msgid "(this book is hidden from others)"
+msgstr "(ky libër u është fshehur të tjerëve)"
+
+#: reader/templates/reader/book_info.html:86
+msgid "(this book is visible to everyone)"
+msgstr "(ky libër është i dukshëm për këdo)"
+
+#: reader/templates/reader/book_info.html:90
+msgid "Member of group:"
+msgstr "Anëtar i grupit:"
+
+#: reader/templates/reader/book_info.html:92
+msgid "Current version:"
+msgstr "Versioni i tanishëm:"
+
+#: reader/templates/reader/book_info.html:95
+msgid "Created:"
+msgstr "Krijuar më:"
+
+#: reader/templates/reader/book_info.html:96
+msgid "Published:"
+msgstr "Botuar më:"
+
+#: reader/templates/reader/book_info.html:99
+msgid "Collaborators:"
+msgstr "Bashkëpunëtorë:"
+
+#: reader/templates/reader/book_info.html:107
+msgid "Online editing:"
+msgstr "Përpunim online:"
+
+#: reader/templates/reader/book_info.html:129
+msgid "Chapter create"
+msgstr "Krijim kapitulli"
+
+#: reader/templates/reader/book_info.html:135
+msgid "Chapter save"
+msgstr "Ruajtje kapitulli"
+
+#: reader/templates/reader/book_info.html:141
+msgid "Chapter rename"
+msgstr "Riemërtim kapitulli"
+
+#: reader/templates/reader/book_info.html:147
+msgid "Chapter reorder"
+msgstr "Rirenditje Kapitulli"
+
+#: reader/templates/reader/book_info.html:153
+msgid "Split chapter"
+msgstr "Ndajeni kapitullin"
+
+#: reader/templates/reader/book_info.html:172
+msgid "Minor version"
+msgstr "Version i vogël"
+
+#: reader/templates/reader/book_info.html:178
+msgid "Major version"
+msgstr "Version i madh"
+
+#: reader/templates/reader/book_info.html:185
+msgid "Uploaded"
+msgstr "U ngarkua"
+
+#: reader/templates/reader/book_info.html:202
+msgid "Follow changes"
+msgstr "Ndiqi ndryshimet"
+
+#: reader/templates/reader/book_view.html:36
+#: reader/templates/reader/draft_book.html:32
+msgid "click on the chapter name"
+msgstr "klikoni mbi emrin e kapitullit"
+
+#: reader/templates/reader/edit_info.html:3
+msgid "Edit Book Info"
+msgstr "Përpunoni të Dhëna Libri"
+
+#: reader/templates/reader/full.html:6
+#, python-format
+msgid "/_full: %(booktitle)s"
+msgstr ""
+
+#: templates/errors/no_permissions.html:4
+msgid "You have no permissions to do this!"
+msgstr "Nuk keni leje për ta bërë këtë!"
+
