@@ -419,7 +419,9 @@ def remote_change_status(request, message, bookid, version):
         sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
                                     {"command": "message_info",
                                      "from": request.user.username,
-                                     "message": 'User %s has changed status of  chapter "%s" to "%s".' % (request.user.username, chapter.title, status.name)}, myself=True)
+                                     "message_id": "user_changed_chapter_status",
+                                     "message_args": [request.user.username, chapter.title, status.name]},
+                                    myself=True)
     except:
         transaction.rollback()
     else:
@@ -487,7 +489,9 @@ def remote_chapter_save(request, message, bookid, version):
 
         sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
                                                                     "from": request.user.username,
-                                                                    "message": 'User %s has saved chapter "%s".' % (request.user.username, chapter.title)}, myself=True)
+                                                                    "message_id": "user_saved_chapter",
+                                                                    "message_args": [request.user.username, chapter.title]},
+                                    myself=True)
     except:
         transaction.rollback()
     else:
@@ -553,7 +557,8 @@ def remote_chapter_rename(request, message, bookid, version):
         sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
                                     {"command": "message_info",
                                      "from": request.user.username,
-                                     "message": 'User %s has renamed chapter "%s" to "%s".' % (request.user.username, oldTitle, message["chapter"])},
+                                     "message_id": "user_renamed_chapter",
+                                     "message_args": [request.user.username, oldTitle, message["chapter"]]},
                                     myself=True)
 
         sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),
@@ -833,7 +838,9 @@ def remote_chapter_split(request, message, bookid, version):
         n += 1
 
     if originalChapter:
-        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", "from": request.user.username, "message": 'User %s has split chapter "%s".' % (request.user.username, originalChapter.title)}, myself=True)
+        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
+                                                                    "from": request.user.username, 
+                                                                    "message": 'User %s has split chapter "%s".' % (request.user.username, originalChapter.title)}, myself=True)
 
         originalChapter.delete()
 
@@ -973,8 +980,9 @@ def remote_create_chapter(request, message, bookid, version):
 
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
                                                                 "from": request.user.username,
-                                                                "message": 'User %s has created new chapter "%s".' % (request.user.username, message["chapter"])},
-                        myself=True)
+                                                                "message_id": "user_new_chapter",
+                                                                "message_args": [request.user.username, message["chapter"]]},
+                                myself=True)
 
     sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
 
@@ -1167,9 +1175,10 @@ def remote_clone_chapter(request, message, bookid, version):
 
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
                                                                 "from": request.user.username,
-                                                                "message": 'User %s has cloned chapter "%s" from book "%s".' % (request.user.username, chapter.title, source_book.title)},
+                                                                "message_id": "user_cloned_chapter",
+                                                                "message_args": [request.user.username, chapter.title, source_book.title]},
                                 myself=True)
-
+    
     sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
 
 
@@ -1230,8 +1239,9 @@ def remote_publish_book(request, message, bookid, version):
 
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
                                                                 "from": request.user.username,
-                                                                "message": '"%s" is being published.' % (book.title, )},
-                        myself=True)
+                                                                "message_id": "published",
+                                                                "message_args": [book.title]},
+                                myself=True)
 
     import urllib2
     import urllib
@@ -1369,7 +1379,8 @@ def remote_create_section(request, message, bookid, version):
 
         sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
                                                                     "from": request.user.username,
-                                                                    "message": 'User %s has created new section "%s".' % (request.user.username, message["chapter"])},
+                                                                    "message_id": "user_new_section",
+                                                                    "message_args": [request.user.username, message["chapter"]]},
                                     myself=True)
 
         sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" %  (bookid, version),
@@ -1562,7 +1573,9 @@ def remote_revert_revision(request, message, bookid, version):
         sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
                                     {"command": "message_info",
                                      "from": request.user.username,
-                                     "message": 'User %s has reverted chapter "%s" to revision %s.' % (request.user.username, chapter.title, message["revision"])}, myself=True)
+                                     "message_id": "user_reverted_chapter",
+                                     "message_args": [request.user.username, chapter.title, message["revision"]]}, 
+                                    myself=True)
 
     return {}
 
@@ -1687,7 +1700,9 @@ def remote_notes_save(request, message, bookid, version):
     else:
         sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
                                                                     "from": request.user.username,
-                                                                    "message": 'User %s has saved notes for book "%s".' % (request.user.username, book.title)}, myself=True)
+                                                                    "message_id": "user_saved_notes",
+                                                                    "message_args": [request.user.username, book.title]},
+                                    myself=True)
         transaction.commit()
 
     return {}
@@ -2941,8 +2956,9 @@ def remote_publish_book2(request, message, bookid, version):
 
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
                                                                 "from": request.user.username,
-                                                                "message": '"%s" is being published.' % (book.title, )},
-                        myself=True)
+                                                                "message_id": "published",
+                                                                "message_args": [book.title]},
+                                myself=True)
 
     import urllib2
     import urllib
