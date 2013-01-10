@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 1.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-09 21:42+0100\n"
+"POT-Creation-Date: 2013-01-10 15:56+0100\n"
 "PO-Revision-Date: 2012-12-04 16:48+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Spanish Localization <contact@sourcefabric.org>\n"
@@ -59,7 +59,7 @@ msgstr "dirección remota"
 msgid "remote host"
 msgstr "servidor remoto"
 
-#: account/views.py:304
+#: account/views.py:298
 msgid "Reset password"
 msgstr "Restablecer contraseña"
 
@@ -208,15 +208,15 @@ msgstr ""
 msgid "Forgot Password"
 msgstr "¿Olvidaste tu contraseña?"
 
-#: account/templates/account/forgot_password.html:47
+#: account/templates/account/forgot_password.html:51
 msgid "Forgot your password"
 msgstr "¿Olvidaste tu contraseña?"
 
-#: account/templates/account/forgot_password.html:53
+#: account/templates/account/forgot_password.html:55
 msgid "USERNAME OR E-MAIL ADDRESS"
 msgstr "USUARIO O DIRECCIÓN DE CORREO ELECTRÓNICO"
 
-#: account/templates/account/forgot_password.html:55
+#: account/templates/account/forgot_password.html:57
 #, fuzzy
 msgid ""
 "Give us your username or e-mail you used to create Booktype account and we "
@@ -225,23 +225,31 @@ msgstr ""
 "Por favor indica el usuario o correo electrónico que utilizaste para crear "
 "tu cuenta en Booktype y te enviaremos una nueva contraseña."
 
-#: account/templates/account/forgot_password.html:57
+#: account/templates/account/forgot_password.html:59
 msgid "Enter username."
 msgstr "Indica tu nombre de usuario."
 
-#: account/templates/account/forgot_password.html:58
+#: account/templates/account/forgot_password.html:60
 msgid "No such user."
 msgstr "Este usuario no existe."
 
-#: account/templates/account/forgot_password.html:60
+#: account/templates/account/forgot_password.html:61
+#, fuzzy
+msgid "Unknown error."
+msgstr "¡Error desconocido!"
+
+#: account/templates/account/forgot_password.html:63
 #: account/templates/account/forgot_password_enter.html:55
 msgid "Send request"
 msgstr "Solicítala"
 
-#: account/templates/account/forgot_password.html:64
-msgid ""
-"<h2>Check your email!</h2><p>Password reset instructions were sent to your "
-"email.</p>"
+#: account/templates/account/forgot_password.html:70
+msgid "Check your email!"
+msgstr ""
+
+#: account/templates/account/forgot_password.html:71
+#, fuzzy
+msgid "Password reset instructions were sent to your email."
 msgstr ""
 "<h2>¡Revisa tu correo electrónico!</h2><p>Enviamos las instrucciones para "
 "restablecer la contraseña a tu correo electrónico.</p>"
@@ -424,6 +432,23 @@ msgid ""
 msgstr ""
 "Por favor espera. En breve tu libro estará listo. Por el momento está en la "
 "fase de importación."
+
+#: account/templates/account/password_reset_email.html:5
+msgid ""
+"To reset your Booktype password, simply click the link below. That will take "
+"you to a web page where you can create a new password."
+msgstr ""
+
+#: account/templates/account/password_reset_email.html:6
+msgid "Go to:"
+msgstr ""
+
+#: account/templates/account/password_reset_email.html:7
+msgid ""
+"If you weren't trying to reset your password, don't worry – your account is "
+"still secure and no one has been given access to it. Most likely, someone "
+"just mistyped their email address while trying to reset their own password."
+msgstr ""
 
 #: account/templates/account/signin.html:6
 msgid "Booktype Sign In"
@@ -649,7 +674,7 @@ msgid "Notification filter"
 msgstr "Filtro de notificación"
 
 #: account/templates/account/view_profile.html:219
-#: editor/templates/editor/edit_strings.html:19 portal/templates/base.html:139
+#: editor/templates/editor/edit_strings.html:22 portal/templates/base.html:139
 msgid "Save changes"
 msgstr "Guardar cambios"
 
@@ -701,7 +726,7 @@ msgstr "No es posible encontrar el usuario \"%(username)s\""
 #: editor/models.py:29 editor/models.py:42 editor/models.py:65
 #: editor/models.py:92 editor/models.py:255 editor/models.py:291
 #: editor/models.py:419 editor/templates/editor/edit_book.html:668
-#: editor/templates/editor/edit_strings.html:52
+#: editor/templates/editor/edit_strings.html:55
 msgid "name"
 msgstr "nombre"
 
@@ -898,7 +923,7 @@ msgstr "comentario"
 msgid "Chapter history"
 msgstr "Historial del capítulo"
 
-#: editor/models.py:389 editor/templates/editor/edit_strings.html:53
+#: editor/models.py:389 editor/templates/editor/edit_strings.html:56
 msgid "filename"
 msgstr "nombre del archivo"
 
@@ -1124,7 +1149,7 @@ msgid "New chapter"
 msgstr "Capítulo nuevo"
 
 #: editor/templates/editor/edit_book.html:153
-#: editor/templates/editor/edit_strings.html:43
+#: editor/templates/editor/edit_strings.html:46
 msgid "Clone chapter"
 msgstr "Clonar capítulo"
 
@@ -1137,7 +1162,7 @@ msgid "New section"
 msgstr "Nueva sección"
 
 #: editor/templates/editor/edit_book.html:176
-#: editor/templates/editor/edit_strings.html:60
+#: editor/templates/editor/edit_strings.html:63
 msgid "Insert image"
 msgstr "Insertar imagen"
 
@@ -1274,7 +1299,7 @@ msgstr "Cargar una nueva imagen o archivo"
 
 #: editor/templates/editor/edit_book.html:346
 #: editor/templates/editor/edit_book.html:587
-#: editor/templates/editor/edit_strings.html:58
+#: editor/templates/editor/edit_strings.html:61
 msgid "Upload"
 msgstr "Subir"
 
@@ -1297,12 +1322,12 @@ msgstr ""
 "versión <i>menor</i> si sólo piensas hacer algunos."
 
 #: editor/templates/editor/edit_book.html:368
-#: editor/templates/editor/edit_strings.html:33
+#: editor/templates/editor/edit_strings.html:36
 msgid "Create major version"
 msgstr "Crear una versión principal"
 
 #: editor/templates/editor/edit_book.html:368
-#: editor/templates/editor/edit_strings.html:34
+#: editor/templates/editor/edit_strings.html:37
 msgid "Create minor version"
 msgstr "crear una versión menor"
 
@@ -1549,12 +1574,12 @@ msgid "compare"
 msgstr "comparar"
 
 #: editor/templates/editor/edit_book.html:669
-#: editor/templates/editor/edit_strings.html:54
+#: editor/templates/editor/edit_strings.html:57
 msgid "dimension"
 msgstr "dimensión"
 
 #: editor/templates/editor/edit_book.html:670
-#: editor/templates/editor/edit_strings.html:55
+#: editor/templates/editor/edit_strings.html:58
 msgid "size"
 msgstr "tamaño"
 
@@ -1682,105 +1707,128 @@ msgid "Error while uploading file!"
 msgstr "¡Se registró un error al cargar el archivo!"
 
 #: editor/templates/editor/edit_strings.html:5
+msgid "Submit"
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:6
+#: editor/templates/editor/wizzard_book.html:273
+#: editor/templates/editor/wizzard_ebook.html:126
+#: editor/templates/editor/wizzard_lulu.html:225
+#: editor/templates/editor/wizzard_odt.html:127
+#: editor/templates/editor/wizzard_pdf.html:233 portal/templates/base.html:137
+#: portal/templates/booki_paginator.html:29
+msgid "Next"
+msgstr "Siguiente"
+
+#: editor/templates/editor/edit_strings.html:7
+#: editor/templates/editor/wizzard_book.html:272
+#: editor/templates/editor/wizzard_ebook.html:125
+#: editor/templates/editor/wizzard_lulu.html:224
+#: editor/templates/editor/wizzard_odt.html:126
+#: editor/templates/editor/wizzard_pdf.html:232 portal/templates/base.html:134
+msgid "Back"
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:8
 msgid "Yes, revert !"
 msgstr "Sí, revertir!"
 
-#: editor/templates/editor/edit_strings.html:6
+#: editor/templates/editor/edit_strings.html:9
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: editor/templates/editor/edit_strings.html:7
+#: editor/templates/editor/edit_strings.html:10
 msgid "LOADING DATA...."
 msgstr "CARGANDO DATOS..."
 
-#: editor/templates/editor/edit_strings.html:8
+#: editor/templates/editor/edit_strings.html:11
 msgid "Loading data. Please wait..."
 msgstr "Cargando datos.  Espera por favor..."
 
-#: editor/templates/editor/edit_strings.html:9
+#: editor/templates/editor/edit_strings.html:12
 msgid "Loading chapter data..."
 msgstr "Cargando datos de capítulo..."
 
-#: editor/templates/editor/edit_strings.html:10
+#: editor/templates/editor/edit_strings.html:13
 msgid "Reading history data..."
 msgstr "Leyendo datos del historial..."
 
-#: editor/templates/editor/edit_strings.html:11
+#: editor/templates/editor/edit_strings.html:14
 msgid "Reading settings data..."
 msgstr "Leyendo datos de configuración..."
 
-#: editor/templates/editor/edit_strings.html:12
+#: editor/templates/editor/edit_strings.html:15
 msgid "Reading attachments data..."
 msgstr "Leyendo datos de adjuntos..."
 
-#: editor/templates/editor/edit_strings.html:13
+#: editor/templates/editor/edit_strings.html:16
 msgid "Reading notes data..."
 msgstr "Leyendo datos de notas..."
 
-#: editor/templates/editor/edit_strings.html:14
+#: editor/templates/editor/edit_strings.html:17
 msgid "Reading version data..."
 msgstr "Leyendo datos de la versión..."
 
-#: editor/templates/editor/edit_strings.html:15
+#: editor/templates/editor/edit_strings.html:18
 msgid "Revert to this revision?"
 msgstr "¿Revertir a esta versión?"
 
-#: editor/templates/editor/edit_strings.html:16
+#: editor/templates/editor/edit_strings.html:19
 msgid ""
 "Current chapter content will be reverted to this revision. Are you sure?"
 msgstr ""
 "El contenido actual del capítulo se revertirá a esta revisión.  ¿Estás "
 "seguro?"
 
-#: editor/templates/editor/edit_strings.html:17
+#: editor/templates/editor/edit_strings.html:20
 msgid "Sending data..."
 msgstr "Enviando datos..."
 
-#: editor/templates/editor/edit_strings.html:18
+#: editor/templates/editor/edit_strings.html:21
 msgid "SAVE"
 msgstr "GUARDAR"
 
-#: editor/templates/editor/edit_strings.html:20
+#: editor/templates/editor/edit_strings.html:23
 msgid "Save new order"
 msgstr "Guardar nuevo orden"
 
-#: editor/templates/editor/edit_strings.html:21
+#: editor/templates/editor/edit_strings.html:24
 msgid "Saving data. Please wait..."
 msgstr "Guardando datos.  Espera por favor..."
 
-#: editor/templates/editor/edit_strings.html:22
+#: editor/templates/editor/edit_strings.html:25
 msgid "CANCEL"
 msgstr "CANCELAR"
 
-#: editor/templates/editor/edit_strings.html:23
+#: editor/templates/editor/edit_strings.html:26
 msgid "Set status"
 msgstr "Asignar estatus"
 
-#: editor/templates/editor/edit_strings.html:24
+#: editor/templates/editor/edit_strings.html:27
 msgid "Revision"
 msgstr "Revisión:"
 
-#: editor/templates/editor/edit_strings.html:25
+#: editor/templates/editor/edit_strings.html:28
 msgid "Booktype Reader"
 msgstr "Lector de Booktype"
 
-#: editor/templates/editor/edit_strings.html:26
+#: editor/templates/editor/edit_strings.html:29
 msgid "Hide advanced options"
 msgstr "Ocultar las opciones avanzadas"
 
-#: editor/templates/editor/edit_strings.html:27
+#: editor/templates/editor/edit_strings.html:30
 msgid "Show advanced options"
 msgstr "Mostrar las opciones avanzadas"
 
-#: editor/templates/editor/edit_strings.html:28
+#: editor/templates/editor/edit_strings.html:31
 msgid "New status name"
 msgstr "Nuevo nombre de estatus"
 
-#: editor/templates/editor/edit_strings.html:29
+#: editor/templates/editor/edit_strings.html:32
 msgid "Delete this status?"
 msgstr "¿Borrar este estatus?"
 
-#: editor/templates/editor/edit_strings.html:30
+#: editor/templates/editor/edit_strings.html:33
 msgid ""
 "Can't delete because some chapters have this status. Change chapter status "
 "first."
@@ -1788,102 +1836,139 @@ msgstr ""
 "No fue posible eliminar debido a que algunos capítulos tienen este estatus.  "
 "Cambia primero el estatus de los capítulos."
 
-#: editor/templates/editor/edit_strings.html:31
+#: editor/templates/editor/edit_strings.html:34
 msgid "Removing chapter from Table of Contents."
 msgstr "Removiendo el capítulo de la Tabla de Contenidos."
 
-#: editor/templates/editor/edit_strings.html:32
+#: editor/templates/editor/edit_strings.html:35
 msgid "Reordering the chapters..."
 msgstr "Reorganizando los capítulos..."
 
-#: editor/templates/editor/edit_strings.html:35
+#: editor/templates/editor/edit_strings.html:38
 msgid "Delete attachments"
 msgstr "Eliminar adjuntos"
 
-#: editor/templates/editor/edit_strings.html:36
+#: editor/templates/editor/edit_strings.html:39
 msgid "Delete these attachments"
 msgstr "Eliminar estos adjuntos"
 
-#: editor/templates/editor/edit_strings.html:37
+#: editor/templates/editor/edit_strings.html:40
 msgid "Delete selected attachments"
 msgstr "Eliminar los adjuntos seleccionados"
 
-#: editor/templates/editor/edit_strings.html:38
+#: editor/templates/editor/edit_strings.html:41
 msgid "Update"
 msgstr "Actualización"
 
-#: editor/templates/editor/edit_strings.html:39
+#: editor/templates/editor/edit_strings.html:42
 msgid "Create chapter"
 msgstr "Crear nuevo capítulo"
 
-#: editor/templates/editor/edit_strings.html:40
+#: editor/templates/editor/edit_strings.html:43
 msgid "Creating chapter"
 msgstr "Creando un nuevo capítulo"
 
-#: editor/templates/editor/edit_strings.html:41
-#: editor/templates/editor/edit_strings.html:45
+#: editor/templates/editor/edit_strings.html:44
+#: editor/templates/editor/edit_strings.html:48
 msgid "Can not create duplicate chapter name."
 msgstr "No es posible repetir el nombre de un capítulo."
 
-#: editor/templates/editor/edit_strings.html:42
+#: editor/templates/editor/edit_strings.html:45
 msgid "Enter new Chapter title."
 msgstr "Indicar el título del capítulo nuevo"
 
-#: editor/templates/editor/edit_strings.html:44
+#: editor/templates/editor/edit_strings.html:47
 msgid "Cloning chapter"
 msgstr "Clonando capítulo"
 
-#: editor/templates/editor/edit_strings.html:46
+#: editor/templates/editor/edit_strings.html:49
 msgid "Enter book id"
 msgstr "Ingresar id de libro"
 
-#: editor/templates/editor/edit_strings.html:47
+#: editor/templates/editor/edit_strings.html:50
 msgid "Enter Chapter id."
 msgstr "Ingresar id de Capítulo."
 
-#: editor/templates/editor/edit_strings.html:48
+#: editor/templates/editor/edit_strings.html:51
 msgid "Create section"
 msgstr "Crear sección"
 
-#: editor/templates/editor/edit_strings.html:49
+#: editor/templates/editor/edit_strings.html:52
 msgid "Creating section"
 msgstr "Creando una nueva sección"
 
-#: editor/templates/editor/edit_strings.html:50
+#: editor/templates/editor/edit_strings.html:53
 msgid "Can not create duplicate section name."
 msgstr "No es posible crear nombres de sección duplicados."
 
-#: editor/templates/editor/edit_strings.html:51
+#: editor/templates/editor/edit_strings.html:54
 msgid "Enter new section title"
 msgstr "Ingresar título de la nueva sección"
 
-#: editor/templates/editor/edit_strings.html:56
+#: editor/templates/editor/edit_strings.html:59
 msgid "Adding chapter to Table of Contents."
 msgstr "Agregando un capítulo a la Tabla de Contenidos."
 
-#: editor/templates/editor/edit_strings.html:57
+#: editor/templates/editor/edit_strings.html:60
 msgid "Reordering the chapter..."
 msgstr "Reorganizando el capítulo..."
 
-#: editor/templates/editor/edit_strings.html:59
+#: editor/templates/editor/edit_strings.html:62
 msgid "Rights holder"
 msgstr "Propietario de los derechos"
 
-#: editor/templates/editor/edit_strings.html:61
+#: editor/templates/editor/edit_strings.html:64
 msgid "You will loose unsaved changes. You are currently editing chapter"
 msgstr "Perderás cambios no guardados.  Actualmente estás editando el capítulo"
 
-#: editor/templates/editor/edit_strings.html:62
+#: editor/templates/editor/edit_strings.html:65
 msgid "You are leaving Booktype Editor."
 msgstr "Estás saliendo del Editor de Booktype."
 
-#: editor/templates/editor/edit_strings.html:63
+#: editor/templates/editor/edit_strings.html:66
 msgid "You don't have permission to delete attachments."
 msgstr "No cuentas con los permisos para eliminar adjuntos."
 
-#: editor/templates/editor/edit_strings.html:64
+#: editor/templates/editor/edit_strings.html:67
 msgid "I can not find description for this license."
 msgstr "No puedo encontrar descripción para esta licencia."
+
+#: editor/templates/editor/edit_strings.html:68
+msgid "User {0} has changed status of  chapter \"{1}\" to \"{2}\"."
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:69
+msgid "User {0} has saved chapter \"{1}\"."
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:70
+msgid "User {0} has renamed chapter \"{1}\" to \"{2}\"."
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:71
+#, fuzzy
+msgid "User {0} has created new chapter \"{1}\"."
+msgstr "Nuevo capítulo creado"
+
+#: editor/templates/editor/edit_strings.html:72
+msgid "User {0} has cloned chapter \"{1}\" from book \"{2}\"."
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:73
+msgid "\"{0}\" is being published."
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:74
+msgid "User {0} has created new section \"{1}\"."
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:75
+msgid "User {0} has reverted chapter \"{1}\" to revision {2}."
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:76
+msgid "User {0} has saved notes for book \"{1}\"."
+msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:4
 msgid "Book Formatted PDF Settings"
@@ -2506,23 +2591,6 @@ msgstr ""
 #: editor/templates/editor/wizzard_pdf.html:223
 msgid "Override ALL previous settings with custom CSS"
 msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:272
-#: editor/templates/editor/wizzard_ebook.html:125
-#: editor/templates/editor/wizzard_lulu.html:224
-#: editor/templates/editor/wizzard_odt.html:126
-#: editor/templates/editor/wizzard_pdf.html:232 portal/templates/base.html:134
-msgid "Back"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:273
-#: editor/templates/editor/wizzard_ebook.html:126
-#: editor/templates/editor/wizzard_lulu.html:225
-#: editor/templates/editor/wizzard_odt.html:127
-#: editor/templates/editor/wizzard_pdf.html:233 portal/templates/base.html:137
-#: portal/templates/booki_paginator.html:29
-msgid "Next"
-msgstr "Siguiente"
 
 #: editor/templates/editor/wizzard_ebook.html:4
 #, fuzzy
