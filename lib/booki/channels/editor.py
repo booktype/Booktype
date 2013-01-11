@@ -1434,7 +1434,8 @@ def remote_get_history(request, message, bookid, version):
             11: 'minor',
             12: 'major',
             13: 'attachment',
-            14: 'attachment_delete'}
+            14: 'attachment_delete',
+            15: 'clone'}
 
 
     history = []
@@ -1464,6 +1465,13 @@ def remote_get_history(request, message, bookid, version):
                             "args": parseJSON(entry.args),
                             "user": entry.user.username,
                             "kind": temp.get(entry.kind,'')})
+        elif entry.kind in [15]:
+            history.append({"chapter": entry.chapter.title,
+                            "chapter_url": entry.chapter.url_title,
+                            "description": entry.args,
+                            "modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
+                            "user": entry.user.username,
+                            "kind": temp.get(entry.kind,'')})            
         else:
             history.append({"modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
                             "description": entry.args,
