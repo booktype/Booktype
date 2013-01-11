@@ -103,9 +103,7 @@
              {% endif %}
            {% endif %}
           {% endif %}
-          {% if user.username == request.user.username %} <a href="#/books/"> {% endif %}
-          {% trans "My Books" %}
-          {% if user.username == request.user.username %} </a> {% endif %} </h4>
+          {% trans "My Books" %}</h4>
         <ul class="simple-list no-bullet with-button">          {% for book in books %}
           <li> <a href="{% url book_info  book.url_title %}"> {% if book.hidden %} <i>{{ book.title }}</i> {% else %}            {{ book.title }}
             {% endif %} </a> <a class="action-button" href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a> </li>
@@ -123,9 +121,7 @@
       </div>
       <div class="widget-box">
         <h4> {% if user.username == request.user.username %} <a class="action-button creategroup" href="#">{% trans "CREATE NEW GROUP" %}</a> {% endif %}
-          {% if user.username == request.user.username %} <a href="my_groups"> {% endif %}
-          {% trans "My Groups" %}
-          {% if user.username == request.user.username %} </a> {% endif %} </h4>
+          {% trans "My Groups" %}</h4>
         <ul class="simple-list no-bullet with-button">
           {% for group in groups %}
           <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a><a class="action-button" href="{% url view_group  group.url_name %}">{% trans "go" %}</a></li>
