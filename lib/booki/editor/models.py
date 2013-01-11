@@ -212,6 +212,7 @@ HISTORY_CHOICES = {'unknown': 0,
                    'chapter_rename': 3,
                    'chapter_reorder': 4,
                    'chapter_split': 5,
+                   'chapter_clone': 15,
 
                    'section_create': 6,
 
