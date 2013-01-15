@@ -501,25 +501,39 @@ def view_profilethumbnail(request, profileid):
     except User.DoesNotExist:
         return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
 
+    name = ''
 
-    # this should be a seperate function
+    def _getDefaultProfile():
+        "Return path to default profile image."
 
-    if not u.get_profile().image:
         try:
             name = '%s/images/%s' % (settings.STATIC_ROOT, settings.DEFAULT_PROFILE_IMAGE)
         except AttributeError:
             name = '%s%s' % (settings.SITE_STATIC_ROOT, '/images/anonymous.jpg')
+
+        return name
+
+    # this should be a seperate function
+
+    if not u.get_profile().image:
+        name = _getDefaultProfile()
     else:
         name =  u.get_profile().image.path
 
     import Image
+    
+    try:
+        image = Image.open(name)
+    except IOError:
+        image = Image.open(_getDefaultProfile())
 
-    image = Image.open(name)
     image.thumbnail((int(request.GET.get('width', 24)), int(request.GET.get('width', 24))), Image.ANTIALIAS)
 
     # serialize to HTTP response
+    # this could throw exception if PIL does not have support for jpeg
     response = HttpResponse(mimetype="image/jpg")
     image.save(response, "JPEG")
+
     return response
 
 
