@@ -20,16 +20,7 @@ from booki.editor import models
 from booki.utils import security
 
 def remote_get_status_messages(request, message, groupid):
-    from booki.statusnet.models import searchMessages
-
-    group = models.BookiGroup.objects.get(url_name=groupid)
-
-    mess = searchMessages('%%23%s' % group.url_name)
-    # remove this hard code
-    messages = ['<a href="http://status.flossmanuals.net/notice/%s">%s: %s</a>' % (m['id'], m['from_user'], m['text']) for m in mess['results']]
-
-    return {"list": messages}
-
+    return {"list": []}
 
 def remote_init_group(request, message, groupid):
     import sputnik
