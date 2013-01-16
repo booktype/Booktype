@@ -45,10 +45,25 @@ def dispatcher(request, **sputnik_dict):
     @return: Return C{django.http.HttpResponse} object.
     """
 
+    resultFail = False
+
     try:
         inp =  request.POST
     except IOError:
-        return HttpResponse(simplejson.dumps({"result": False, "messages": []}), mimetype="text/json")
+        resultFail = True
+    except:
+        resultFail = True
+
+    if resultFail:
+        try:
+            resp = HttpResponse(simplejson.dumps({"result": False, "messages": []}), mimetype="text/json")
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
 
     results = []
 
@@ -57,11 +72,23 @@ def dispatcher(request, **sputnik_dict):
     try:
         messages = simplejson.loads(inp.get("messages", "[]"))
     except ValueError:
-        return HttpResponse(simplejson.dumps({"result": False, "messages": []}), mimetype="text/json")
+        resultFail = True
+    except:
+        resultFail = True
+
+    if resultFail:
+        try:
+            resp = HttpResponse(simplejson.dumps({"result": False, "messages": []}), mimetype="text/json")
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
 
     if inp.has_key("clientID") and inp["clientID"]:
         clientID = inp["clientID"]
-
 
     for message in messages:
         ret = None
@@ -84,7 +111,13 @@ def dispatcher(request, **sputnik_dict):
                         request.clientID  = clientID
 
                     if fnc:
-                        ret = fnc(request, message, **a)
+                        try:
+                            ret = fnc(request, message, **a)
+                        except:
+                            transaction.rollback()
+                        else:
+                            transaction.commit()
+                            
                         if not ret:
                             ret = {}
 
@@ -116,10 +149,6 @@ def dispatcher(request, **sputnik_dict):
             import logging
             logging.getLogger("booki").debug("Sputnik - Coult not get the latest message from the queue session: %s clientID:%s" %(request.session.session_key, clientID))
 
-#            from booki.utils.log import printStack
-#            printStack(None)
-
-
         n += 1
 
         if not v: break
@@ -130,10 +159,6 @@ def dispatcher(request, **sputnik_dict):
             import logging
             logging.getLogger("booki").debug(v)
 
-#            from booki.utils.log import printStack
-#            printStack(None)
-
-
     import time, decimal
     try:
         if request.sputnikID and request.sputnikID.find(' ') == -1:
@@ -142,10 +167,6 @@ def dispatcher(request, **sputnik_dict):
 
         import logging
         logging.getLogger("booki").debug("Sputnik - CAN NOT SET TIMESTAMP.")
-
-#        from booki.utils.log import printStack
-#        printStack(None)
-
 
     # this should not be here!
     # timeout old edit locks
@@ -170,16 +191,15 @@ def dispatcher(request, **sputnik_dict):
         import logging
         logging.getLogger("booki").debug("Sputnik - can not get all the last accesses")
 
-#        from booki.utils.log import printStack
-#        printStack(None)
-
-
     ret = {"result": True, "messages": results}
 
     try:
-        return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+        resp = HttpResponse(simplejson.dumps(ret), mimetype="text/json")
     except:
         transaction.rollback()
-    finally:
+        raise
+    else:
         transaction.commit()
+
+    return resp
 

@@ -53,7 +53,15 @@ def view_full(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        try:
+            resp = pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
 
     book_version = book.getVersion(version)
 
@@ -63,7 +71,15 @@ def view_full(request, bookid, version=None):
     hasPermission = security.canEditBook(book, bookSecurity)
 
     if book.hidden and not hasPermission:
-        return pages.ErrorPage(request, "errors/no_permissions.html")
+        try:
+            resp = pages.ErrorPage(request, "errors/no_permissions.html")
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
 
     for chapter in  models.BookToc.objects.filter(version=book_version).order_by("-weight"):
         if chapter.isChapter():
@@ -75,11 +91,19 @@ def view_full(request, bookid, version=None):
             chapters.append({"type": "section",
                              "title": chapter.name})
 
-    return render_to_response('reader/full.html', {"book": book, 
-                                                   "book_version": book_version.getVersion(),
-                                                   "chapters": chapters, 
-                                                   "has_css": _customCSSExists(book.url_title),
-                                                   "request": request})
+    try:
+        resp = render_to_response('reader/full.html', {"book": book, 
+                                                       "book_version": book_version.getVersion(),
+                                                       "chapters": chapters, 
+                                                       "has_css": _customCSSExists(book.url_title),
+                                                       "request": request})
+    except:
+        transaction.rollback()
+        raise
+    else:
+        transaction.commit()
+
+    return resp
 
 
 def book_info(request, bookid, version=None):
@@ -97,8 +121,15 @@ def book_info(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        try:
+            resp = pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
 
+        return resp
 
     book_version = book.getVersion(version)
 
@@ -119,16 +150,24 @@ def book_info(request, bookid, version=None):
     from django.utils.html import escape
     bookDescription = escape(book.description)
 
-    return render_to_response('reader/book_info.html', {"book": book, 
-                                                        "book_version": book_version.getVersion(),
-                                                        "book_versions": book_versions,
-                                                        "book_history": book_history, 
-                                                        "book_collaborators": book_collaborators,
-                                                        "has_css": _customCSSExists(book.url_title),
-                                                        "is_book_admin": isBookAdmin,
-                                                        "online_users": online_users,
-                                                        "book_description": '<br/>'.join(bookDescription.replace('\r','').split('\n')),
-                                                        "request": request})
+    try:
+        resp = render_to_response('reader/book_info.html', {"book": book, 
+                                                            "book_version": book_version.getVersion(),
+                                                            "book_versions": book_versions,
+                                                            "book_history": book_history, 
+                                                            "book_collaborators": book_collaborators,
+                                                            "has_css": _customCSSExists(book.url_title),
+                                                            "is_book_admin": isBookAdmin,
+                                                            "online_users": online_users,
+                                                            "book_description": '<br/>'.join(bookDescription.replace('\r','').split('\n')),
+                                                            "request": request})
+    except:
+        transaction.rollback()
+        raise
+    else:
+        transaction.commit()
+
+    return resp
 
 
 def book_cover(request, bookid, version=None):
@@ -150,7 +189,15 @@ def book_cover(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        try:
+            resp = pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
 
     return static.serve(request, book.cover.name, settings.MEDIA_ROOT)
 
@@ -170,7 +217,15 @@ def draft_book(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        try:
+            resp = pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
 
     book_version = book.getVersion(version)
 
@@ -180,7 +235,15 @@ def draft_book(request, bookid, version=None):
     hasPermission = security.canEditBook(book, bookSecurity)
 
     if book.hidden and not hasPermission:
-        return pages.ErrorPage(request, "errors/no_permissions.html")
+        try:
+            resp = pages.ErrorPage(request, "errors/no_permissions.html")
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
 
 
     chapters = []
@@ -194,11 +257,19 @@ def draft_book(request, bookid, version=None):
                              "name": chapter.name})
         
 
-    return render_to_response('reader/draft_book.html', {"book": book, 
-                                                   "book_version": book_version.getVersion(),
-                                                   "chapters": chapters, 
-                                                   "has_css": _customCSSExists(book.url_title),
-                                                   "request": request})
+    try:
+        resp = render_to_response('reader/draft_book.html', {"book": book, 
+                                                             "book_version": book_version.getVersion(),
+                                                             "chapters": chapters, 
+                                                             "has_css": _customCSSExists(book.url_title),
+                                                             "request": request})
+    except:
+        transaction.rollback()
+        raise
+    else:
+        transaction.commit()
+
+    return resp
 
 def draft_chapter(request, bookid, chapter, version=None):
     """
@@ -217,7 +288,15 @@ def draft_chapter(request, bookid, chapter, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        try:
+            resp =pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
 
     book_version = book.getVersion(version)
 
@@ -227,7 +306,15 @@ def draft_chapter(request, bookid, chapter, version=None):
     hasPermission = security.canEditBook(book, bookSecurity)
 
     if book.hidden and not hasPermission:
-        return pages.ErrorPage(request, "errors/no_permissions.html")
+        try:
+            resp = pages.ErrorPage(request, "errors/no_permissions.html")
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
 
 
     chapters = []
@@ -243,19 +330,42 @@ def draft_chapter(request, bookid, chapter, version=None):
     try:
         content = models.Chapter.objects.get(version=book_version, url_title = chapter)
     except models.Chapter.DoesNotExist:
-        return pages.ErrorPage(request, "errors/chapter_does_not_exist.html", {"chapter_name": chapter, "book": book})
+        try:
+            resp = pages.ErrorPage(request, "errors/chapter_does_not_exist.html", {"chapter_name": chapter, "book": book})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
     except models.Chapter.MultipleObjectsReturned:
-        return pages.ErrorPage(request, "errors/chapter_duplicate.html", {"chapter_name": chapter, "book": book})
+        try:
+            resp = pages.ErrorPage(request, "errors/chapter_duplicate.html", {"chapter_name": chapter, "book": book})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
         
-    return render_to_response('reader/draft_chapter.html', {"chapter": chapter, 
-                                                      "book": book, 
-                                                      "book_version": book_version.getVersion(),
-                                                      "chapters": chapters, 
-                                                      "has_css": _customCSSExists(book.url_title),
-                                                      "request": request, 
-                                                      "content": content})
+    try:
+        resp = render_to_response('reader/draft_chapter.html', {"chapter": chapter, 
+                                                                "book": book, 
+                                                                "book_version": book_version.getVersion(),
+                                                                "chapters": chapters, 
+                                                                "has_css": _customCSSExists(book.url_title),
+                                                                "request": request, 
+                                                                "content": content})
+    except:
+        transaction.rollback()
+        raise
+    else:
+        transaction.commit()
 
-
+    return resp
+        
 
 def book_view(request, bookid, version=None):
     """
@@ -272,8 +382,15 @@ def book_view(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        try:
+            resp = pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
 
+        return resp
 
     book_version = book.getVersion(version)
 
@@ -283,8 +400,15 @@ def book_view(request, bookid, version=None):
     hasPermission = security.canEditBook(book, bookSecurity)
 
     if book.hidden and not hasPermission:
-        return pages.ErrorPage(request, "errors/no_permissions.html")
+        try:
+            resp = pages.ErrorPage(request, "errors/no_permissions.html")
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
 
+        return resp
 
     chapters = []
 
@@ -297,12 +421,19 @@ def book_view(request, bookid, version=None):
                              "name": chapter.name})
         
 
-    return render_to_response('reader/book_view.html', {"book": book, 
-                                                   "book_version": book_version.getVersion(),
-                                                   "chapters": chapters, 
-                                                   "has_css": _customCSSExists(book.url_title),
-                                                   "request": request})
+    try:
+        resp = render_to_response('reader/book_view.html', {"book": book, 
+                                                            "book_version": book_version.getVersion(),
+                                                            "chapters": chapters, 
+                                                            "has_css": _customCSSExists(book.url_title),
+                                                            "request": request})
+    except:
+        transaction.rollback()
+        raise
+    else:
+        transaction.commit()
 
+    return resp
 
 
 def book_chapter(request, bookid, chapter, version=None):
@@ -322,7 +453,15 @@ def book_chapter(request, bookid, chapter, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        try:
+            resp = pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
 
     book_version = book.getVersion(version)
 
@@ -332,8 +471,15 @@ def book_chapter(request, bookid, chapter, version=None):
     hasPermission = security.canEditBook(book, bookSecurity)
 
     if book.hidden and not hasPermission:
-        return pages.ErrorPage(request, "errors/no_permissions.html")
+        try:
+            resp = pages.ErrorPage(request, "errors/no_permissions.html")
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
 
+        return resp
 
     chapters = []
 
@@ -348,18 +494,38 @@ def book_chapter(request, bookid, chapter, version=None):
     try:
         content = models.Chapter.objects.get(version=book_version, url_title = chapter)
     except models.Chapter.DoesNotExist:
-        return pages.ErrorPage(request, "errors/chapter_does_not_exist.html", {"chapter_name": chapter, "book": book})
+        try:
+            resp = pages.ErrorPage(request, "errors/chapter_does_not_exist.html", {"chapter_name": chapter, "book": book})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
     except models.Chapter.MultipleObjectsReturned:
-        return pages.ErrorPage(request, "errors/chapter_duplicate.html", {"chapter_name": chapter, "book": book})
+        try:
+            resp = pages.ErrorPage(request, "errors/chapter_duplicate.html", {"chapter_name": chapter, "book": book})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
 
+    try:
+        resp = render_to_response('reader/book_chapter.html', {"chapter": chapter, 
+                                                               "book": book, 
+                                                               "book_version": book_version.getVersion(),
+                                                               "chapters": chapters, 
+                                                               "has_css": _customCSSExists(book.url_title),
+                                                               "request": request, 
+                                                               "content": content})
+    except:
+        transaction.rollback()
+    else:
+        transaction.commit()
 
-    return render_to_response('reader/book_chapter.html', {"chapter": chapter, 
-                                                      "book": book, 
-                                                      "book_version": book_version.getVersion(),
-                                                      "chapters": chapters, 
-                                                      "has_css": _customCSSExists(book.url_title),
-                                                      "request": request, 
-                                                      "content": content})
+    return resp
 
 # PROJECT
 
@@ -384,7 +550,15 @@ def attachment(request, bookid,  attachment, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        try:
+            resp = pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
         
     book_version = book.getVersion(version)
 
@@ -416,7 +590,15 @@ def staticattachment(request, bookid,  attachment, version=None, chapter = None)
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        try:
+            resp = pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
 
     book_version = book.getVersion(version)
 
@@ -443,8 +625,15 @@ def edit_info(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        try:
+            resp = pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
 
+        return resp
 
     book_version = book.getVersion(version)
 
@@ -465,19 +654,25 @@ def edit_info(request, bookid, version=None):
         try:
             book.save()
 
-            return render_to_response('reader/edit_info_redirect.html', {"request": request,
+            resp = render_to_response('reader/edit_info_redirect.html', {"request": request,
                                                                          "book": book})
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
+
+        return resp
 
         
     try:
-        return render_to_response('reader/edit_info.html', {"request": request,
+        resp = render_to_response('reader/edit_info.html', {"request": request,
                                                             "book": book})
     except:
         transaction.rollback()
-    finally:
+        raise
+    else:
         transaction.commit()    
+
+    return resp
 

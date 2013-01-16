@@ -243,15 +243,15 @@ def upload_attachment(request, bookid, version=None):
 
         # TODO:
         # must write info about this to log!
-
-        # maybe check file name now and save with new name
-        transaction.commit()
     except IOError:
         operationResult = False
         transaction.rollback()
     except:
         oprerationResult = False
         transaction.rollback()
+    else:
+        # maybe check file name now and save with new name
+        transaction.commit()
 
     if request.POST.get("attachmenttab", "") == "":
         return HttpResponse('<html><body><script> parent.closeAttachmentUpload();  </script></body></html>')

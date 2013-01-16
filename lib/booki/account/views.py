@@ -149,15 +149,18 @@ def signin(request):
                                                                     password=request.POST["password"].strip())
                     except IntegrityError:
                         ret["result"] = 10
+                    except:
+                        ret["result"] = 10
+                        user = None
 
                     # this is not a good place to fire signal, but i need password for now
                     # should create function createUser for future use
 
                     if user:
+                        user.first_name = request.POST["fullname"].strip()
+
                         import booki.account.signals
                         booki.account.signals.account_created.send(sender = user, password = request.POST["password"])
-
-                        user.first_name = request.POST["fullname"].strip()
 
                         try:
                             user.save()
@@ -183,6 +186,8 @@ def signin(request):
                             ret["result"] = 666
                         else:
                             transaction.commit()
+                    else:
+                        transaction.rollback()
 
         if request.POST.get("method", "") == "signin":
             user = auth.authenticate(username=request.POST["username"].strip(), password=request.POST["password"].strip())
@@ -202,8 +207,15 @@ def signin(request):
                     # User does not exist
                     ret["result"] = 2
 
-        transaction.commit()
-        return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+        try:
+            resp = HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+            
+        return resp
 
     from django.core.urlresolvers import reverse
     redirect = request.GET.get('redirect', '')
@@ -223,14 +235,17 @@ def signin(request):
             pass
 
     try:
-        return render_to_response('account/signin.html', {'request': request, 
+        resp = render_to_response('account/signin.html', {'request': request, 
                                                           'redirect': redirect, 
                                                           'joingroups': joinGroups, 
                                                           'limit_reached': limitReached})
     except:
         transaction.rollback()
-    finally:
+        raise
+    else:
         transaction.commit()
+        
+    return resp
 
 
 # forgotpassword
@@ -281,6 +296,7 @@ def forgotpassword(request):
                     account_models.remote_host = request.META.get('REMOTE_HOST','')
                     account_models.secretcode = secretcode
 
+                    # In case of an error we really should not send email to user and do rest of the procedure
                     try:
                         account_models.save()
                     except:
@@ -306,19 +322,27 @@ def forgotpassword(request):
                 if len(usersToEmail) == 0:
                     ret["result"] = 3
 
+        # Do we need rollback for this?!
         try:
-            return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+            resp = HttpResponse(simplejson.dumps(ret), mimetype="text/json")
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()
 
+        return resp
+
+    # Do we need commit for this?!
     try:
-        return render_to_response('account/forgot_password.html', {"request": request})
+        resp = render_to_response('account/forgot_password.html', {"request": request})
     except:
         transaction.rollback()
-    finally:
+        raise
+    else:
         transaction.commit()
+
+    return resp
 
 
 # forgotpasswordenter
@@ -371,17 +395,25 @@ def forgotpasswordenter(request):
                 else:
                     ret["result"] = 5
 
+        try:
+            resp = HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
 
-        transaction.commit()
-
-        return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+        return resp
 
     try:
-        return render_to_response('account/forgot_password_enter.html', {"request": request, "secretcode": secretcode})
+        resp = render_to_response('account/forgot_password_enter.html', {"request": request, "secretcode": secretcode})
     except:
         transaction.rollback()
-    finally:
+        raise
+    else:
         transaction.commit()
+
+    return resp
 
 def view_profile(request, username):
     """
@@ -402,8 +434,15 @@ def view_profile(request, username):
     try:
         user = User.objects.get(username=username)
     except User.DoesNotExist:
-        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
-
+        try:
+            resp = pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+            
+        return resp
 
     if request.user.username == username:
         books = models.Book.objects.filter(owner=user)
@@ -425,14 +464,22 @@ def view_profile(request, username):
         admin_create = False
         admin_import = False
 
-    return render_to_response('account/view_profile.html', {"request": request,
-                                                            "user": user,
-                                                            "admin_create": admin_create,
-                                                            "admin_import": admin_import,
-                                                            "user_description": '<br/>'.join(userDescription.replace('\r','').split('\n')),
-                                                            "books": books,
-                                                            "limit_reached": isBookLimitReached(),
-                                                            "groups": groups})
+    try:
+        resp = render_to_response('account/view_profile.html', {"request": request,
+                                                                "user": user,
+                                                                "admin_create": admin_create,
+                                                                "admin_import": admin_import,
+                                                                "user_description": '<br/>'.join(userDescription.replace('\r','').split('\n')),
+                                                                "books": books,
+                                                                "limit_reached": isBookLimitReached(),
+                                                                "groups": groups})
+    except:
+        transaction.rollback()
+        raise
+    else:
+        transaction.commit()
+
+    return resp
 
 @transaction.commit_manually
 def save_settings(request, username):
@@ -465,19 +512,28 @@ def save_settings(request, username):
             misc.setProfileImage(user, request.FILES['profile'])
         except:
             pass
-        
-    profile.save()
-        
-    endpoint_config = get_endpoint_or_none("@"+user.username).get_config()
-    endpoint_config.notification_filter = request.POST.get('notification', '')
-    endpoint_config.save()
-    
+
     try:
-        return HttpResponse('<html><head><script>var j = parent.jQuery; j(function() { j.booki.profile.reloadProfileInfo(); });</script></head></html>', 'text/html')
+        profile.save()
+        
+        endpoint_config = get_endpoint_or_none("@"+user.username).get_config()
+        endpoint_config.notification_filter = request.POST.get('notification', '')
+        endpoint_config.save()
+    except:
+        # Should set some error code here
+        transaction.rollback()
+    else:
+        transaction.commit()
+
+    try:
+        resp = HttpResponse('<html><head><script>var j = parent.jQuery; j(function() { j.booki.profile.reloadProfileInfo(); });</script></head></html>', 'text/html')
     except:
         transaction.rollback()
-    finally:
+        raise
+    else:
         transaction.commit()
+
+    return resp
 
 
 def view_profilethumbnail(request, profileid):
@@ -499,7 +555,15 @@ def view_profilethumbnail(request, profileid):
     try:
         u = User.objects.get(username=profileid)
     except User.DoesNotExist:
-        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        try:
+            resp = pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
 
     name = ''
 
@@ -531,9 +595,15 @@ def view_profilethumbnail(request, profileid):
 
     # serialize to HTTP response
     # this could throw exception if PIL does not have support for jpeg
-    response = HttpResponse(mimetype="image/jpg")
-    image.save(response, "JPEG")
-
+    try:
+        response = HttpResponse(mimetype="image/jpg")
+        image.save(response, "JPEG")
+    except:
+        transaction.rollback()
+        raise
+    else:
+        transaction.commit()
+        
     return response
 
 
@@ -555,19 +625,25 @@ def create_book(request, username):
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         try:
-            return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+            resp = pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
+
+        return resp
 
     if isBookLimitReached() or not request.user.is_authenticated():
         try:
-            return pages.ErrorPage(request, "errors/no_permissions.html")
+            resp = pages.ErrorPage(request, "errors/no_permissions.html")
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
+
+        return resp
 
     from booki.utils.book import checkBookAvailability, createBook
     from booki.editor import models
@@ -586,11 +662,14 @@ def create_book(request, username):
         data = {"available": checkBookAvailability(request.GET.get('bookname', '').strip())}
 
         try:
-            return HttpResponse(json.dumps(data), "text/plain")
+            resp = HttpResponse(json.dumps(data), "text/plain")
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
+
+        return resp
 
     if request.method == 'POST' and admin_create == False:
         book = None
@@ -633,14 +712,19 @@ def create_book(request, username):
             transaction.rollback()
         else:
             transaction.commit()
+
+
         try:
-            return render_to_response('account/create_book_redirect.html', {"request": request,
+            resp = render_to_response('account/create_book_redirect.html', {"request": request,
                                                                             "user": user,
                                                                             "book": book})
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
+
+        return resp
         
     from booki.editor.models import License
     
@@ -648,7 +732,7 @@ def create_book(request, username):
 
 
     try:
-        return render_to_response('account/create_book.html', {"request": request,
+        resp = render_to_response('account/create_book.html', {"request": request,
                                                                "book_visible": book_visible,
                                                                "book_license": book_license,
                                                                "admin_create": admin_create,
@@ -656,8 +740,11 @@ def create_book(request, username):
                                                                "user": user})
     except:
         transaction.rollback()
-    finally:
+        raise
+    else:
         transaction.commit()    
+
+    return resp
 
 
 @transaction.commit_manually
@@ -677,19 +764,25 @@ def create_group(request, username):
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         try:
-            return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+            resp = pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
+
+        return resp
 
     if not request.user.is_authenticated():
         try:
-            return pages.ErrorPage(request, "errors/no_permissions.html")
+            resp = pages.ErrorPage(request, "errors/no_permissions.html")
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
+
+        return resp
 
             
     from booki.utils.book import checkGroupAvailability, createBookiGroup
@@ -701,12 +794,14 @@ def create_group(request, username):
         data = {"available": checkGroupAvailability(request.GET.get('groupname', '').strip())}
 
         try:
-            return HttpResponse(json.dumps(data), "text/plain")
+            resp = HttpResponse(json.dumps(data), "text/plain")
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
 
+        return resp
 
     if request.GET.get("q", "") == "create":
         from booki.utils.json_wrapper import json
@@ -730,20 +825,25 @@ def create_group(request, username):
         data = {'created': groupCreated}
 
         try:
-            return HttpResponse(json.dumps(data), "text/plain")
+            resp = HttpResponse(json.dumps(data), "text/plain")
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
 
+        return resp
 
     try:
-        return render_to_response('account/create_group.html', {"request": request,
-                                                               "user": user})
+        resp = render_to_response('account/create_group.html', {"request": request,
+                                                                "user": user})
     except:
         transaction.rollback()
-    finally:
+        raise
+    else:
         transaction.commit()    
+
+    return resp
 
 
 @transaction.commit_manually
@@ -764,19 +864,25 @@ def import_book(request, username):
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         try:
-            return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+            resp = pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
+
+        return resp
 
     if isBookLimitReached() or not request.user.is_authenticated():
         try:
-            return pages.ErrorPage(request, "errors/no_permissions.html")
+            resp = pages.ErrorPage(request, "errors/no_permissions.html")
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
+
+        return resp
             
     from booki.utils.book import checkGroupAvailability, createBookiGroup
     from booki.editor import models
@@ -787,11 +893,14 @@ def import_book(request, username):
         data = {"available": checkGroupAvailability(request.GET.get('groupname', '').strip())}
 
         try:
-            return HttpResponse(json.dumps(data), "text/plain")
+            resp = HttpResponse(json.dumps(data), "text/plain")
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
+
+        return resp
 
     book_visible = config.getConfiguration('CREATE_BOOK_VISIBLE')
     admin_import = config.getConfiguration('ADMIN_IMPORT_BOOKS')
@@ -850,19 +959,25 @@ def import_book(request, username):
             data['info_url'] = reverse('book_info', args=[book.url_title])
 
         try:
-            return HttpResponse(json.dumps(data), "text/plain")
+            resp = HttpResponse(json.dumps(data), "text/plain")
         except:
             transaction.rollback()
-        finally:
+            raise
+        else:
             transaction.commit()    
+
+        return resp
 
 
     try:
-        return render_to_response('account/import_book.html', {"request": request,
+        resp = render_to_response('account/import_book.html', {"request": request,
                                                                "book_visible": book_visible,
                                                                "admin_import": admin_import,
                                                                "user": user})
     except:
         transaction.rollback()
-    finally:
+        raise
+    else:
         transaction.commit()    
+
+    return resp

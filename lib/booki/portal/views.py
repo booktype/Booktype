@@ -204,7 +204,15 @@ def add_book(request, groupid):
     else:
         transaction.commit()
 
-    return HttpResponseRedirect(reverse("view_group", args=[group.url_name]))
+    try:
+        resp = HttpResponseRedirect(reverse("view_group", args=[group.url_name]))
+    except:
+        transaction.rollback()
+        raise
+    else:
+        transaction.commit()
+
+    return resp
 
 @transaction.commit_manually
 def remove_book(request, groupid):
@@ -230,7 +238,15 @@ def remove_book(request, groupid):
     else:
         transaction.commit()
 
-    return HttpResponseRedirect(reverse("view_group", args=[groupid]))
+    try:
+        resp =HttpResponseRedirect(reverse("view_group", args=[groupid]))
+    except:
+        transaction.rollback()
+        raise
+    else:
+        transaction.commit()
+
+    return resp
 
 
 #
