@@ -5,14 +5,11 @@
 # crontab entry (or something similar)
 # 45     23     *     *     *         cron_reports.sh
 
+# EDIT THIS LINE: Define full path where is Booktype project
+BOOKTYPE_PROJECT=
+
 # django settings
-export DJANGO_SETTINGS_MODULE=booki.settings
-
-# maybe you do, and maybe you don't need to setup your path
-# life is full of surprises
-
-# export PYTHONPATH=$PYTHONPATH:.
-# export PATH=$PATH:.
+source $BOOKTYPE_PROJECT/booki.env
 
 # send reports
 django-admin.py report --send-email
