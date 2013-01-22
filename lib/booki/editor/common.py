@@ -457,8 +457,8 @@ def exportBook(book_version):
         fn = os.path.basename(attachment.attachment.name.encode("utf-8"))
 
         ID = "att%03d_%s" % (i, bookiSlugify(fn))
-        if '.' in ID:
-            ID, ext = ID.rsplit('.', 1)
+        if '.' in fn:
+            _, ext = fn.rsplit('.', 1)
             mediatype = bookizip.MEDIATYPES.get(ext.lower(), bookizip.MEDIATYPES[None])
         else:
             mediatype = bookizip.MEDIATYPES[None]
