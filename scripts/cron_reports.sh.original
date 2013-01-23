@@ -9,7 +9,7 @@
 BOOKTYPE_PROJECT=
 
 # django settings
-source $BOOKTYPE_PROJECT/booki.env
+. $BOOKTYPE_PROJECT/booki.env
 
 # send reports
 django-admin.py report --send-email
