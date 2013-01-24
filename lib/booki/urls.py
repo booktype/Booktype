@@ -19,9 +19,9 @@ from django.conf import settings
 from django.views.generic.simple import direct_to_template
 
 
-# By default Django admin interface is turned on. This is just until Control Center becomes powerful enough to replace it
-from django.contrib import admin
-admin.autodiscover()
+# By default Django admin interface is turned off. If you want it you will need to uncomment couple of lines here.
+# from django.contrib import admin
+# admin.autodiscover()
 
 # This is dispatcher for Sputnik connections.
 
@@ -41,8 +41,10 @@ else:
     from booki.portal import feeds
 
     urlpatterns = patterns('',
+                           # Django Admin interface is disabled by default. If you want it
+                           # enabled you will have to uncomment couple of lines here.
                            # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-                           url(r'^admin/', include(admin.site.urls)),
+                           # url(r'^admin/', include(admin.site.urls)),
 
                            # front page                       
                            url(r'^$', 'booki.portal.views.view_frontpage', name="frontpage"),
