@@ -12,7 +12,11 @@
 	                {% if request.LANGUAGE_CODE == "es" %}
    	                  'language': 'es',
                         {% endif %}
-	
+
+	                {% if request.LANGUAGE_CODE == "sq" %}
+   	                  'language': 'sq',
+                        {% endif %}
+
                         // Location of TinyMCE script
                         script_url : '{{ request.META.SCRIPT_NAME}}/site_static/js/tiny_mce/tiny_mce.js',
 
