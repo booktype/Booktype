@@ -155,12 +155,18 @@
             <dt style="display:none;"></dt>
             <dd><label for="page-numbers">{% trans "Rotate" %}</label>
             <select id="page-numbers" name="page-numbers">
+              {% comment %}Translators: Option for Page Numbers{% endcomment %}
               <option value="none">{% trans "none" %}</option>
               <option value="LTR">{% trans "LTR" %}</option>
+              {% comment %}Translators: Option for Page Numbers. Burmese.{% endcomment %}
               <option value="my">{% trans "my" %}</option>
+              {% comment %}Translators: Option for Page Numbers. Farsi.{% endcomment %}
               <option value="fa">{% trans "fa" %}</option>
+              {% comment %}Translators: Option for Page Numbers. Hindi.{% endcomment %}
               <option value="hi">{% trans "hi" %}</option>
+              {% comment %}Translators: Option for Page Numbers. Right to left.{% endcomment %}
               <option value="RTL">{% trans "RTL" %}</option>
+              {% comment %}Translators: Option for Page Numbers. Arabic.{% endcomment %}
               <option value="ar">{% trans "ar" %}</option>
               <option selected="selected" value="auto">{% trans "auto" %}</option>
             </select>

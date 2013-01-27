@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-25 11:38+0100\n"
+"POT-Creation-Date: 2013-01-27 22:33+0100\n"
 "PO-Revision-Date: 2013-01-25 11:26+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Finnish FLOSS Manuals <tomi@flossmanuals.net>\n"
@@ -25,21 +25,14 @@ msgstr "mielentila"
 msgid "image"
 msgstr "kuva"
 
-#: account/models.py:40
-#: editor/models.py:94
-#: editor/models.py:138
+#: account/models.py:40 editor/models.py:94 editor/models.py:138
 #: editor/models.py:293
 msgid "description"
 msgstr "kuvaus"
 
-#: account/models.py:41
-#: account/models.py:56
-#: editor/models.py:235
-#: editor/models.py:356
-#: editor/models.py:449
-#: editor/models.py:461
-#: editor/models.py:473
-#: editor/templates/editor/edit_book.html:560
+#: account/models.py:41 account/models.py:56 editor/models.py:235
+#: editor/models.py:356 editor/models.py:449 editor/models.py:461
+#: editor/models.py:473 editor/templates/editor/edit_book.html:560
 #: editor/templates/editor/edit_book.html:666
 msgid "user"
 msgstr "käyttäjä"
@@ -48,25 +41,24 @@ msgstr "käyttäjä"
 msgid "secretcode"
 msgstr "salainen koodi"
 
-#: account/models.py:58
-#: editor/models.py:101
-#: editor/models.py:132
-#: editor/models.py:295
-#: editor/models.py:329
-#: editor/models.py:393
+#: account/models.py:58 editor/models.py:101 editor/models.py:132
+#: editor/models.py:295 editor/models.py:329 editor/models.py:393
 #: editor/templates/editor/edit_book.html:678
 msgid "created"
 msgstr "luotu"
 
-#: account/models.py:60
+#. Translators: Visible only in Django Admin interface. No need to translate this.
+#: account/models.py:61
 msgid "remote useragent"
 msgstr "etäkäyttäjän agentti"
 
-#: account/models.py:61
+#. Translators: Visible only in Django Admin interface. No need to translate this.
+#: account/models.py:63
 msgid "remote addr"
 msgstr "etäosoite"
 
-#: account/models.py:62
+#. Translators: Visible only in Django Admin interface. No need to translate this.
+#: account/models.py:65
 msgid "remote host"
 msgstr "etäisäntä"
 
@@ -80,7 +72,9 @@ msgid "Create a Book"
 msgstr "Luo kirja"
 
 #: account/templates/account/create_book.html:7
-msgid "You don't have permissions to create new books. At the moment only administrators can do that."
+msgid ""
+"You don't have permissions to create new books. At the moment only "
+"administrators can do that."
 msgstr ""
 
 #: account/templates/account/create_book.html:18
@@ -119,7 +113,9 @@ msgid "Description"
 msgstr "Kuvaus"
 
 #: account/templates/account/create_book.html:31
-msgid "Give some information so others can find it to help you (this can be added or changed later)."
+msgid ""
+"Give some information so others can find it to help you (this can be added "
+"or changed later)."
 msgstr ""
 
 #: account/templates/account/create_book.html:40
@@ -134,8 +130,7 @@ msgstr ""
 msgid "Choose from the following licenses"
 msgstr ""
 
-#: account/templates/account/create_book.html:43
-#: editor/models.py:36
+#: account/templates/account/create_book.html:43 editor/models.py:36
 #: editor/templates/editor/edit_book.html:437
 msgid "License"
 msgstr "Lisenssi"
@@ -150,7 +145,9 @@ msgid "Image"
 msgstr "Kuva"
 
 #: account/templates/account/create_book.html:55
-msgid "If you have an image for the book then add it now (this can be added or changed later)"
+msgid ""
+"If you have an image for the book then add it now (this can be added or "
+"changed later)"
 msgstr ""
 
 #: account/templates/account/create_book.html:57
@@ -167,11 +164,15 @@ msgid "Make Public?"
 msgstr ""
 
 #: account/templates/account/create_book.html:64
-msgid "Would you like to keep your book private or make it public? If the book is public others can find the book to help you."
+msgid ""
+"Would you like to keep your book private or make it public? If the book is "
+"public others can find the book to help you."
 msgstr ""
 
 #: account/templates/account/create_book.html:65
-msgid "<strong>Note:</strong> this setting can be changed later from your dashboard.</p>"
+msgid ""
+"<strong>Note:</strong> this setting can be changed later from your dashboard."
+"</p>"
 msgstr ""
 
 #: account/templates/account/create_book.html:67
@@ -221,8 +222,12 @@ msgstr "SALASANA TAI SÄHKÖPOSTIOSOITE"
 
 #: account/templates/account/forgot_password.html:57
 #, fuzzy
-msgid "Give us your username or e-mail you used to create Booktype account and we will send you new password."
-msgstr "Anna käyttäjätunnuksesi tai sähköpostiosoite, jolla loit BookType-käyttäjätilisi ja lähetämme sinulle uuden salasanan. "
+msgid ""
+"Give us your username or e-mail you used to create Booktype account and we "
+"will send you new password."
+msgstr ""
+"Anna käyttäjätunnuksesi tai sähköpostiosoite, jolla loit BookType-"
+"käyttäjätilisi ja lähetämme sinulle uuden salasanan. "
 
 #: account/templates/account/forgot_password.html:59
 msgid "Enter username."
@@ -249,7 +254,9 @@ msgstr ""
 #: account/templates/account/forgot_password.html:71
 #, fuzzy
 msgid "Password reset instructions were sent to your email."
-msgstr "<h2>Katso sähköpostisi!</h2><p>Salasanan nollausohjeet lähetettiin sähköpostiisi.</p>"
+msgstr ""
+"<h2>Katso sähköpostisi!</h2><p>Salasanan nollausohjeet lähetettiin "
+"sähköpostiisi.</p>"
 
 #: account/templates/account/forgot_password_enter.html:40
 msgid "Reset your password"
@@ -319,8 +326,16 @@ msgid "Please provide your real name."
 msgstr "Syötä oikea nimesi."
 
 #: account/templates/account/form_register.html:28
-msgid "Username is invalid. Please try a different one. You may use alhpanumeric characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "Käyttäjätunnus ei kelpaa. Kokeile toista käyttäjätunnusta. Voit käyttää kirjaimia, numeroita ja merkkejä \".\", \"_\", \"-\" (piste, alaviiva ja miinus). <br/><br/>Esimerkkejä:<ul><li>mvirtanen</li><li>Mikko.Virtanen</li><li>mikko_virtanen</li></ul>"
+msgid ""
+"Username is invalid. Please try a different one. You may use alhpanumeric "
+"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
+"li></ul>"
+msgstr ""
+"Käyttäjätunnus ei kelpaa. Kokeile toista käyttäjätunnusta. Voit käyttää "
+"kirjaimia, numeroita ja merkkejä \".\", \"_\", \"-\" (piste, alaviiva ja "
+"miinus). <br/><br/>Esimerkkejä:<ul><li>mvirtanen</li><li>Mikko.Virtanen</"
+"li><li>mikko_virtanen</li></ul>"
 
 #: account/templates/account/form_register.html:29
 msgid "This is not a valid e-mail"
@@ -375,7 +390,9 @@ msgid "Import book"
 msgstr "Tuo kirja"
 
 #: account/templates/account/import_book.html:7
-msgid "You don't have permissions to import content. At the moment only administrators can do that."
+msgid ""
+"You don't have permissions to import content. At the moment only "
+"administrators can do that."
 msgstr ""
 
 #: account/templates/account/import_book.html:19
@@ -415,11 +432,14 @@ msgid "Initially hidden from others"
 msgstr "(tämä kirja on piilossa muilta)"
 
 #: account/templates/account/import_book.html:38
-msgid "Please wait. It will take couple of moments. Your book is being imported!"
+msgid ""
+"Please wait. It will take couple of moments. Your book is being imported!"
 msgstr "Ole hyvä ja odota. Tässä menee pieni hetki. Kirjaasi tuodaan! "
 
 #: account/templates/account/password_reset_email.html:5
-msgid "To reset your Booktype password, simply click the link below. That will take you to a web page where you can create a new password."
+msgid ""
+"To reset your Booktype password, simply click the link below. That will take "
+"you to a web page where you can create a new password."
 msgstr ""
 
 #: account/templates/account/password_reset_email.html:6
@@ -427,7 +447,10 @@ msgid "Go to:"
 msgstr ""
 
 #: account/templates/account/password_reset_email.html:7
-msgid "If you weren't trying to reset your password, don't worry – your account is still secure and no one has been given access to it. Most likely, someone just mistyped their email address while trying to reset their own password."
+msgid ""
+"If you weren't trying to reset your password, don't worry – your account is "
+"still secure and no one has been given access to it. Most likely, someone "
+"just mistyped their email address while trying to reset their own password."
 msgstr ""
 
 #: account/templates/account/signin.html:6
@@ -446,15 +469,25 @@ msgstr "Käyttäjätilisi on luotu! "
 #, python-format
 msgid ""
 "\n"
-"    <p>Thank you. We have created your account and signed you in. Do you want to learn more how to use Booktype? Read the <a href=\"http://en.flossmanuals.net/booktype\">user guide</a>!</p>\n"
+"    <p>Thank you. We have created your account and signed you in. Do you "
+"want to learn more how to use Booktype? Read the <a href=\"http://en."
+"flossmanuals.net/booktype\">user guide</a>!</p>\n"
 "    \n"
-"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! Let's use Booktype now!</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</span> seconds.</span></form></p>\n"
+"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! "
+"Let's use Booktype now!</button><span class=\"redirectmessage\" style="
+"\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</"
+"span> seconds.</span></form></p>\n"
 "    "
 msgstr ""
 "\n"
-"    <p>Kiitos. Olemme luoneet käyttäjätilisi ja kirjanneet sinut sisään. Tahdotko oppia käyttämään Booktypeä? Lue <a href=\"http://en.flossmanuals.net/booktype\">käyttöopas</a>!</p>\n"
+"    <p>Kiitos. Olemme luoneet käyttäjätilisi ja kirjanneet sinut sisään. "
+"Tahdotko oppia käyttämään Booktypeä? Lue <a href=\"http://en.flossmanuals."
+"net/booktype\">käyttöopas</a>!</p>\n"
 "    \n"
-"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Hienoa! Käytetäänpä Booktypeä!</button><span class=\"redirectmessage\" style=\"padding-left:20px\">Automaattinen uudelleenohjaus <span class=\"sec\">sec</span> sekunnin kuluttua.</span></form></p>\n"
+"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Hienoa! "
+"Käytetäänpä Booktypeä!</button><span class=\"redirectmessage\" style="
+"\"padding-left:20px\">Automaattinen uudelleenohjaus <span class=\"sec\">sec</"
+"span> sekunnin kuluttua.</span></form></p>\n"
 "    "
 
 #: account/templates/account/signin.html:60
@@ -462,8 +495,13 @@ msgid "Why do I need account ?"
 msgstr "Miksi tarvitset käyttäjätunnuksen?"
 
 #: account/templates/account/signin.html:61
-msgid "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to."
-msgstr "Oikeaa nimeäsi tarvitaan, jotta saat kirjoittamiesi kirjojen tekijänoikeudet. Saat myös tekijänoikeudet niihin kirjoihin, joihin osallistut. "
+msgid ""
+"Your real name is compulsory for reasons of copyright attribution on books "
+"you create and contribute to."
+msgstr ""
+"Oikeaa nimeäsi tarvitaan, jotta saat kirjoittamiesi kirjojen "
+"tekijänoikeudet. Saat myös tekijänoikeudet niihin kirjoihin, joihin "
+"osallistut. "
 
 #: account/templates/account/signin.html:64
 msgid "I forgot my password. What now ?!"
@@ -472,7 +510,9 @@ msgstr "Unohdin salasanani. Mitä nyt? "
 #: account/templates/account/signin.html:65
 #, python-format
 msgid "<p>Please <a href=\"%(forgotpassword_url)s\">request new one</a>.</p>"
-msgstr "<p>Ole hyvä ja <a href=\"%(forgotpassword_url)s\">pyydä uusi salasana</a>.</p>"
+msgstr ""
+"<p>Ole hyvä ja <a href=\"%(forgotpassword_url)s\">pyydä uusi salasana</a>.</"
+"p>"
 
 #: account/templates/account/signin.html:68
 msgid "I forgot my username ?"
@@ -484,8 +524,7 @@ msgid "/user: %(username)s"
 msgstr "/käyttäjä: %(username)s"
 
 #: account/templates/account/view_profile.html:43
-#: editor/templates/base_edit.html:82
-#: portal/templates/base.html:89
+#: editor/templates/base_edit.html:82 portal/templates/base.html:89
 msgid "My Dashboard"
 msgstr "Kojelautani"
 
@@ -501,12 +540,9 @@ msgid "My Books"
 msgstr "Kirjani"
 
 #: account/templates/account/view_profile.html:47
-#: account/templates/account/view_profile.html:143
-#: editor/models.py:203
-#: editor/templates/base_edit.html:89
-#: portal/templates/base.html:96
-#: portal/templates/portal/books.html:13
-#: portal/templates/portal/books.html:54
+#: account/templates/account/view_profile.html:143 editor/models.py:203
+#: editor/templates/base_edit.html:89 portal/templates/base.html:96
+#: portal/templates/portal/books.html:13 portal/templates/portal/books.html:54
 #: portal/templates/portal/group.html:65
 #: portal/templates/portal/group.html:115
 msgid "Books"
@@ -543,8 +579,14 @@ msgid "Followers:"
 msgstr "seuraaja"
 
 #: account/templates/account/view_profile.html:96
-msgid "Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype\"><i>user guide</i></a>!"
-msgstr "Tahdotko oppia käyttämään Booktypeä? <a target=\"_new\" title=\"Booktypen käyttöohje\" href=\"http://en.flossmanuals.net/booktype\"><i>käyttöohje</i></a>!"
+msgid ""
+"Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" "
+"title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype"
+"\"><i>user guide</i></a>!"
+msgstr ""
+"Tahdotko oppia käyttämään Booktypeä? <a target=\"_new\" title=\"Booktypen "
+"käyttöohje\" href=\"http://en.flossmanuals.net/booktype\"><i>käyttöohje</i></"
+"a>!"
 
 #: account/templates/account/view_profile.html:102
 msgid "CREATE NEW BOOK"
@@ -558,11 +600,13 @@ msgstr "muokkaa"
 #: account/templates/account/view_profile.html:111
 msgid ""
 "\n"
-"          <p>This is a perfect moment to start writing your book, just click on the button above!</p>\n"
+"          <p>This is a perfect moment to start writing your book, just click "
+"on the button above!</p>\n"
 "          "
 msgstr ""
 "\n"
-"          <p>Tämä on loistava hetki aloittaa uuden kirjasi kirjoittaminen, joten napsauta vain yläpuolella olevaa nappia!</p>\n"
+"          <p>Tämä on loistava hetki aloittaa uuden kirjasi kirjoittaminen, "
+"joten napsauta vain yläpuolella olevaa nappia!</p>\n"
 "          "
 
 #: account/templates/account/view_profile.html:115
@@ -588,8 +632,11 @@ msgid "go"
 msgstr "mene"
 
 #: account/templates/account/view_profile.html:130
-msgid "Work with others in Groups. To create a Group click on the button above."
-msgstr "Työskentele muiden ryhmän jäsenien kanssa. Luodaksesi ryhmän voit napsauttaa yläpuolella olevaa nappia. "
+msgid ""
+"Work with others in Groups. To create a Group click on the button above."
+msgstr ""
+"Työskentele muiden ryhmän jäsenien kanssa. Luodaksesi ryhmän voit napsauttaa "
+"yläpuolella olevaa nappia. "
 
 #: account/templates/account/view_profile.html:132
 msgid "This user has no groups."
@@ -639,8 +686,7 @@ msgstr "Viestisuodatin"
 
 #: account/templates/account/view_profile.html:215
 #: account/templates/account/view_profile.html:266
-#: editor/templates/editor/edit_strings.html:22
-#: portal/templates/base.html:139
+#: editor/templates/editor/edit_strings.html:22 portal/templates/base.html:139
 msgid "Save changes"
 msgstr "Tallenna muutokset"
 
@@ -673,7 +719,8 @@ msgid "Unable to change password. Old password is incorrect."
 msgstr ""
 
 #: account/templates/account/view_profile.html:252
-msgid "Unable to change password. The new and confirmation passwords are not equal."
+msgid ""
+"Unable to change password. The new and confirmation passwords are not equal."
 msgstr ""
 
 #: account/templates/account/view_profile.html:254
@@ -688,36 +735,32 @@ msgstr ""
 
 #: account/templates/account/view_profile.html:256
 #: editor/templates/editor/edit_strings.html:7
-#: editor/templates/editor/wizzard_book.html:272
+#: editor/templates/editor/wizzard_book.html:278
 #: editor/templates/editor/wizzard_ebook.html:125
 #: editor/templates/editor/wizzard_lulu.html:224
 #: editor/templates/editor/wizzard_odt.html:126
-#: editor/templates/editor/wizzard_pdf.html:232
-#: portal/templates/base.html:134
+#: editor/templates/editor/wizzard_pdf.html:238 portal/templates/base.html:134
 msgid "Back"
 msgstr ""
 
 #: account/templates/account/view_profile.html:257
-#: editor/templates/editor/edit_book.html:617
-#: portal/templates/base.html:135
+#: editor/templates/editor/edit_book.html:617 portal/templates/base.html:135
 msgid "Create"
 msgstr "Luo"
 
 #: account/templates/account/view_profile.html:258
 #: editor/templates/editor/edit_book.html:290
-#: editor/templates/editor/edit_strings.html:4
-#: portal/templates/base.html:136
+#: editor/templates/editor/edit_strings.html:4 portal/templates/base.html:136
 msgid "Cancel"
 msgstr "Peruuta"
 
 #: account/templates/account/view_profile.html:259
 #: editor/templates/editor/edit_strings.html:6
-#: editor/templates/editor/wizzard_book.html:273
+#: editor/templates/editor/wizzard_book.html:279
 #: editor/templates/editor/wizzard_ebook.html:126
 #: editor/templates/editor/wizzard_lulu.html:225
 #: editor/templates/editor/wizzard_odt.html:127
-#: editor/templates/editor/wizzard_pdf.html:233
-#: portal/templates/base.html:137
+#: editor/templates/editor/wizzard_pdf.html:239 portal/templates/base.html:137
 #: portal/templates/booki_paginator.html:29
 msgid "Next"
 msgstr "Seuraava"
@@ -765,20 +808,14 @@ msgstr "Käyttäjää ei ole olemassa! "
 msgid "Can't find user \"%(username)s\"."
 msgstr "Ei löydy käyttäjää \"%(username)s\"."
 
-#: editor/models.py:29
-#: editor/models.py:42
-#: editor/models.py:65
-#: editor/models.py:92
-#: editor/models.py:256
-#: editor/models.py:292
-#: editor/models.py:420
-#: editor/templates/editor/edit_book.html:675
+#: editor/models.py:29 editor/models.py:42 editor/models.py:65
+#: editor/models.py:92 editor/models.py:256 editor/models.py:292
+#: editor/models.py:420 editor/templates/editor/edit_book.html:675
 #: editor/templates/editor/edit_strings.html:55
 msgid "name"
 msgstr "nimi"
 
-#: editor/models.py:30
-#: editor/models.py:43
+#: editor/models.py:30 editor/models.py:43
 msgid "abbrevation"
 msgstr "lyhenne"
 
@@ -786,8 +823,7 @@ msgstr "lyhenne"
 msgid "Licenses"
 msgstr "Lisenssit"
 
-#: editor/models.py:49
-#: editor/templates/editor/edit_book.html:418
+#: editor/models.py:49 editor/templates/editor/edit_book.html:418
 msgid "Language"
 msgstr "Kieli"
 
@@ -795,8 +831,7 @@ msgstr "Kieli"
 msgid "Languages"
 msgstr "Kielet"
 
-#: editor/models.py:55
-#: editor/models.py:133
+#: editor/models.py:55 editor/models.py:133
 msgid "published"
 msgstr "julkaistu"
 
@@ -808,27 +843,18 @@ msgstr "ei julkaistu"
 msgid "not translated"
 msgstr "ei käännetty"
 
-#: editor/models.py:64
-#: editor/models.py:79
-#: editor/models.py:228
-#: editor/models.py:254
-#: editor/models.py:289
-#: editor/models.py:324
-#: editor/models.py:388
-#: editor/models.py:419
-#: editor/models.py:450
-#: editor/models.py:460
-#: editor/models.py:472
+#: editor/models.py:64 editor/models.py:79 editor/models.py:228
+#: editor/models.py:254 editor/models.py:289 editor/models.py:324
+#: editor/models.py:388 editor/models.py:419 editor/models.py:450
+#: editor/models.py:460 editor/models.py:472
 msgid "book"
 msgstr "kirja"
 
-#: editor/models.py:66
-#: editor/models.py:422
+#: editor/models.py:66 editor/models.py:422
 msgid "weight"
 msgstr "paino"
 
-#: editor/models.py:72
-#: editor/models.py:73
+#: editor/models.py:72 editor/models.py:73
 msgid "Book status"
 msgstr "Kirjan tila"
 
@@ -848,8 +874,7 @@ msgstr "Kirjan muistiinpanot"
 msgid "url name"
 msgstr "url-osoitteen nimi"
 
-#: editor/models.py:96
-#: editor/models.py:126
+#: editor/models.py:96 editor/models.py:126
 msgid "owner"
 msgstr "omistaja"
 
@@ -865,19 +890,15 @@ msgstr "Booktype-ryhmä"
 msgid "Booki groups"
 msgstr "Booktype-ryhmät"
 
-#: editor/models.py:116
-#: editor/models.py:326
+#: editor/models.py:116 editor/models.py:326
 msgid "url title"
 msgstr "url-otsikko"
 
-#: editor/models.py:117
-#: editor/models.py:327
+#: editor/models.py:117 editor/models.py:327
 msgid "title"
 msgstr "otsikko"
 
-#: editor/models.py:118
-#: editor/models.py:328
-#: editor/models.py:392
+#: editor/models.py:118 editor/models.py:328 editor/models.py:392
 msgid "status"
 msgstr "tila"
 
@@ -885,16 +906,12 @@ msgstr "tila"
 msgid "language"
 msgstr "kieli"
 
-#: editor/models.py:122
-#: editor/models.py:230
-#: editor/models.py:322
-#: editor/models.py:386
-#: editor/models.py:417
+#: editor/models.py:122 editor/models.py:230 editor/models.py:322
+#: editor/models.py:386 editor/models.py:417
 msgid "version"
 msgstr "versio"
 
-#: editor/models.py:124
-#: editor/models.py:451
+#: editor/models.py:124 editor/models.py:451
 msgid "group"
 msgstr "ryhmä"
 
@@ -906,8 +923,7 @@ msgstr "lisenssi"
 msgid "hidden"
 msgstr "piilossa"
 
-#: editor/models.py:136
-#: editor/models.py:452
+#: editor/models.py:136 editor/models.py:452
 msgid "permission"
 msgstr "käyttöoikeus"
 
@@ -915,14 +931,11 @@ msgstr "käyttöoikeus"
 msgid "cover"
 msgstr "kansikuva"
 
-#: editor/models.py:202
-#: editor/templates/editor/edit_publish.html:9
+#: editor/models.py:202 editor/templates/editor/edit_publish.html:9
 msgid "Book"
 msgstr "Kirja"
 
-#: editor/models.py:231
-#: editor/models.py:353
-#: editor/models.py:421
+#: editor/models.py:231 editor/models.py:353 editor/models.py:421
 msgid "chapter"
 msgstr "luku"
 
@@ -930,9 +943,7 @@ msgstr "luku"
 msgid "chapter history"
 msgstr "luvun historia"
 
-#: editor/models.py:233
-#: editor/models.py:330
-#: editor/models.py:355
+#: editor/models.py:233 editor/models.py:330 editor/models.py:355
 msgid "modified"
 msgstr "muokattu"
 
@@ -940,8 +951,7 @@ msgstr "muokattu"
 msgid "args"
 msgstr "argumentit"
 
-#: editor/models.py:236
-#: editor/models.py:257
+#: editor/models.py:236 editor/models.py:257
 msgid "kind"
 msgstr "tyyppiä"
 
@@ -961,8 +971,7 @@ msgstr "tekstin arvo"
 msgid "value date"
 msgstr "päivämäärän arvo"
 
-#: editor/models.py:282
-#: editor/models.py:283
+#: editor/models.py:282 editor/models.py:283
 msgid "Metadata"
 msgstr "Metatieto"
 
@@ -974,14 +983,12 @@ msgstr "suuri"
 msgid "minor"
 msgstr "pieni"
 
-#: editor/models.py:332
-#: editor/models.py:357
+#: editor/models.py:332 editor/models.py:357
 #: editor/templates/editor/edit_book.html:665
 msgid "revision"
 msgstr "revisio"
 
-#: editor/models.py:337
-#: messaging/models.py:34
+#: editor/models.py:337 messaging/models.py:34
 msgid "content"
 msgstr "sisältö"
 
@@ -989,13 +996,11 @@ msgstr "sisältö"
 msgid "Chapter"
 msgstr "Luku"
 
-#: editor/models.py:348
-#: editor/templates/editor/edit_book.html:97
+#: editor/models.py:348 editor/templates/editor/edit_book.html:97
 msgid "Chapters"
 msgstr "Luvut"
 
-#: editor/models.py:358
-#: editor/templates/editor/edit_book.html:668
+#: editor/models.py:358 editor/templates/editor/edit_book.html:668
 msgid "comment"
 msgstr "kommentti"
 
@@ -1003,13 +1008,11 @@ msgstr "kommentti"
 msgid "Chapter history"
 msgstr "Luvun historia"
 
-#: editor/models.py:390
-#: editor/templates/editor/edit_strings.html:56
+#: editor/models.py:390 editor/templates/editor/edit_strings.html:56
 msgid "filename"
 msgstr "tiedostonimi"
 
-#: editor/models.py:403
-#: editor/templates/editor/edit_book.html:626
+#: editor/models.py:403 editor/templates/editor/edit_book.html:626
 msgid "Attachment"
 msgstr "Liite"
 
@@ -1041,8 +1044,7 @@ msgstr "Kirjan sisällysluettelo"
 msgid "Book TOCs"
 msgstr "Kirjan sisällysluettelot"
 
-#: editor/models.py:467
-#: editor/models.py:468
+#: editor/models.py:467 editor/models.py:468
 msgid "Attribution Exclude"
 msgstr "Poista tekijänoikeus"
 
@@ -1054,8 +1056,7 @@ msgstr "velhon tyyppi"
 msgid "wizzard options"
 msgstr "velhon asetukset"
 
-#: editor/models.py:481
-#: editor/models.py:482
+#: editor/models.py:481 editor/models.py:482
 msgid "Publish Wizzard"
 msgstr "Julkaisuvelho"
 
@@ -1063,41 +1064,34 @@ msgstr "Julkaisuvelho"
 msgid "Modifications:"
 msgstr "Muokkaukset:"
 
-#: editor/templates/base_edit.html:65
-#: portal/templates/base.html:72
+#: editor/templates/base_edit.html:65 portal/templates/base.html:72
 msgid "Sign out"
 msgstr "Kirjaudu sisään"
 
-#: editor/templates/base_edit.html:71
-#: portal/templates/base.html:78
+#: editor/templates/base_edit.html:71 portal/templates/base.html:78
 msgid "Sign In / Create Account"
 msgstr "Kirjaudu sisään / luo tunnus"
 
-#: editor/templates/base_edit.html:90
-#: portal/templates/base.html:97
+#: editor/templates/base_edit.html:90 portal/templates/base.html:97
 #: portal/templates/portal/groups.html:12
 msgid "Groups"
 msgstr "Ryhmät"
 
-#: editor/templates/base_edit.html:91
-#: portal/templates/base.html:98
+#: editor/templates/base_edit.html:91 portal/templates/base.html:98
 #: portal/templates/portal/people.html:13
 msgid "People"
 msgstr "Ihmiset"
 
-#: editor/templates/base_edit.html:126
-#: portal/templates/base.html:124
+#: editor/templates/base_edit.html:126 portal/templates/base.html:124
 #, fuzzy
 msgid "There has been error in communication with Booktype server."
 msgstr "Viestinnässä Booktype-palvelimen kanssa on tapahtunut virhe. "
 
-#: editor/templates/base_edit.html:127
-#: portal/templates/base.html:125
+#: editor/templates/base_edit.html:127 portal/templates/base.html:125
 msgid "Not sure right now where is the problem."
 msgstr "En juuri nyt tiedä ongelman syytä. "
 
-#: editor/templates/base_edit.html:130
-#: portal/templates/base.html:128
+#: editor/templates/base_edit.html:130 portal/templates/base.html:128
 msgid "You should refresh this page."
 msgstr "Sinun pitäisi päivittää tämä sivu. "
 
@@ -1197,8 +1191,16 @@ msgid "Publish"
 msgstr "Julkaisu"
 
 #: editor/templates/editor/edit_book.html:132
-msgid "We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding."
-msgstr "Olemme pahoillamme, mutta selaimesi kanssa on yhteensopivuusongelma. Yritämme korjata tämän ongelman. Sillä aikaa voit käyttää tätä sivustoa Firefoxilla, Chromella, Safarilla, Operalla tai muilla yhteensopivilla selaimilla. Kiitos kärsivällisyydestäsi! "
+msgid ""
+"We are very sorry, but we are not fully compatible with your browser. We are "
+"working hard to fix this problem. Until we fix this, you can try to use this "
+"site with Firefox, Chrome, Safari, Opera or some other compatible browser. "
+"Thank you for your understanding."
+msgstr ""
+"Olemme pahoillamme, mutta selaimesi kanssa on yhteensopivuusongelma. "
+"Yritämme korjata tämän ongelman. Sillä aikaa voit käyttää tätä sivustoa "
+"Firefoxilla, Chromella, Safarilla, Operalla tai muilla yhteensopivilla "
+"selaimilla. Kiitos kärsivällisyydestäsi! "
 
 #: editor/templates/editor/edit_book.html:134
 msgid "Table of contents"
@@ -1220,8 +1222,12 @@ msgid "IMPORT CHAPTER"
 msgstr "TUO LUKU"
 
 #: editor/templates/editor/edit_book.html:136
-msgid "All books should contain at least one section and can have as many chapters as you like."
-msgstr "Kaikissa kirjoissa pitäisi olla ainakin yksi osa ja niin monta lukua kuin tahdot. "
+msgid ""
+"All books should contain at least one section and can have as many chapters "
+"as you like."
+msgstr ""
+"Kaikissa kirjoissa pitäisi olla ainakin yksi osa ja niin monta lukua kuin "
+"tahdot. "
 
 #: editor/templates/editor/edit_book.html:145
 msgid "New chapter"
@@ -1344,7 +1350,9 @@ msgid "Author comment:"
 msgstr "Tekijän kommentti:"
 
 #: editor/templates/editor/edit_book.html:320
-msgid "Seems like You have changed the structure of the chapters. What do you want to do?"
+msgid ""
+"Seems like You have changed the structure of the chapters. What do you want "
+"to do?"
 msgstr "Aivan kuin olisit muuttanut lukujen rakennetta. Mitä tahdot tehdä? "
 
 #: editor/templates/editor/edit_book.html:323
@@ -1352,8 +1360,12 @@ msgid "New chapters:"
 msgstr "Uusia lukuja:"
 
 #: editor/templates/editor/edit_book.html:339
-msgid "All images added to your book are listed here as well as any additional files you have uploaded."
-msgstr "Kaikki kirjaasi lisätyt kuvat on listattu tässä, samoin kuin palvelimelle lataamasi tiedostot. "
+msgid ""
+"All images added to your book are listed here as well as any additional "
+"files you have uploaded."
+msgstr ""
+"Kaikki kirjaasi lisätyt kuvat on listattu tässä, samoin kuin palvelimelle "
+"lataamasi tiedostot. "
 
 #: editor/templates/editor/edit_book.html:341
 msgid "Deleted selected items"
@@ -1375,11 +1387,17 @@ msgstr "Tässä voit seurata kirjasi muokkaushistoriaa."
 
 #: editor/templates/editor/edit_book.html:366
 msgid ""
-"With different versions you can easily organise your book. But be careful! Other users will not be able to edit\n"
-"      and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them."
+"With different versions you can easily organise your book. But be careful! "
+"Other users will not be able to edit\n"
+"      and work on previous versions once you create new one. Create new "
+"<i>major</i> version if you plan to make a lot of changes, and <i>minor</i> "
+"version if you plan to make just a few of them."
 msgstr ""
-"Erilaisilla versioilla voit helposti organisoida kirjasi. Ole kuitenkin varovainen! Muut käyttäjät eivät voi muokata\n"
-" vanhoja versioita uuden luotuasi. Luo uusi <i>suuri</i> versio, jos tahdot tehdä suuria muutoksia, ja <i>pieni</i> versio, jos tahdot tehdä vain pieniä muutoksia. "
+"Erilaisilla versioilla voit helposti organisoida kirjasi. Ole kuitenkin "
+"varovainen! Muut käyttäjät eivät voi muokata\n"
+" vanhoja versioita uuden luotuasi. Luo uusi <i>suuri</i> versio, jos tahdot "
+"tehdä suuria muutoksia, ja <i>pieni</i> versio, jos tahdot tehdä vain pieniä "
+"muutoksia. "
 
 #: editor/templates/editor/edit_book.html:368
 #: editor/templates/editor/edit_strings.html:36
@@ -1535,7 +1553,8 @@ msgstr "Tallenna muistiinpanot"
 
 #: editor/templates/editor/edit_book.html:554
 msgid "<span class=\"icon\">JOINED</span> <span class=\"notice\">notice</span>"
-msgstr "<span class=\"icon\">LIITTYI</span> <span class=\"notice\">notice</span>"
+msgstr ""
+"<span class=\"icon\">LIITTYI</span> <span class=\"notice\">notice</span>"
 
 #: editor/templates/editor/edit_book.html:555
 msgid "<span class=\"info\">INFO</span> <span class=\"notice\">notice</span>"
@@ -1552,11 +1571,13 @@ msgstr "aika"
 
 #: editor/templates/editor/edit_book.html:581
 msgid "Switched to <span class=\"entryVersion\">entry.version.version</span>"
-msgstr "Muutettu versioon <span class=\"entryVersion\">entry.version.version</span>"
+msgstr ""
+"Muutettu versioon <span class=\"entryVersion\">entry.version.version</span>"
 
 #: editor/templates/editor/edit_book.html:588
 msgid "Uploaded <span class=\"entryFilename\">entry.args.filename</span>."
-msgstr "Ladattu tiedosto <span class=\"entryFilename\">entry.args.filename</span>."
+msgstr ""
+"Ladattu tiedosto <span class=\"entryFilename\">entry.args.filename</span>."
 
 #: editor/templates/editor/edit_book.html:594
 #, fuzzy
@@ -1695,8 +1716,12 @@ msgid "Show side by side"
 msgstr "Näytä vierekkäin"
 
 #: editor/templates/editor/edit_book.html:702
-msgid "Compare revision <span class=\"revision1Name\">revision1</span> with revision <span class=\"revision2Name\">revision2</span>"
-msgstr "Vertaile revisiota <span class=\"revision1Name\">revision1</span> revisioon <span class=\"revision2Name\">revision2</span>."
+msgid ""
+"Compare revision <span class=\"revision1Name\">revision1</span> with "
+"revision <span class=\"revision2Name\">revision2</span>"
+msgstr ""
+"Vertaile revisiota <span class=\"revision1Name\">revision1</span> revisioon "
+"<span class=\"revision2Name\">revision2</span>."
 
 #: editor/templates/editor/edit_book.html:707
 msgid "Select new chapter status:"
@@ -1743,7 +1768,8 @@ msgid "Publish this book"
 msgstr "Julkaise tämä kirja"
 
 #: editor/templates/editor/edit_publish.html:48
-msgid "Please wait. It will take couple of moments. Your book is being generated."
+msgid ""
+"Please wait. It will take couple of moments. Your book is being generated."
 msgstr "Ole hyvä ja odota. Tämä kestää pari minuuttia. Kirjasi luodaan."
 
 #: editor/templates/editor/edit_publish.html:51
@@ -1807,7 +1833,8 @@ msgid "Revert to this revision?"
 msgstr "Palaa tähän revisioon?"
 
 #: editor/templates/editor/edit_strings.html:19
-msgid "Current chapter content will be reverted to this revision. Are you sure?"
+msgid ""
+"Current chapter content will be reverted to this revision. Are you sure?"
 msgstr "Nykyisen luvun sisältö palautetaan tähän revisioon. Oletko varma? "
 
 #: editor/templates/editor/edit_strings.html:20
@@ -1859,8 +1886,12 @@ msgid "Delete this status?"
 msgstr "Poista tämä tila?"
 
 #: editor/templates/editor/edit_strings.html:33
-msgid "Can't delete because some chapters have this status. Change chapter status first."
-msgstr "Ei voida poistaa, koska joillain luvuilla on tämä tila. Muuta ensin lukujen tilaa. "
+msgid ""
+"Can't delete because some chapters have this status. Change chapter status "
+"first."
+msgstr ""
+"Ei voida poistaa, koska joillain luvuilla on tämä tila. Muuta ensin lukujen "
+"tilaa. "
 
 #: editor/templates/editor/edit_strings.html:34
 msgid "Removing chapter from Table of Contents."
@@ -2185,16 +2216,16 @@ msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:48
 #: editor/templates/editor/wizzard_book.html:50
-#: editor/templates/editor/wizzard_book.html:230
-#: editor/templates/editor/wizzard_book.html:232
-#: editor/templates/editor/wizzard_book.html:234
 #: editor/templates/editor/wizzard_book.html:236
+#: editor/templates/editor/wizzard_book.html:238
 #: editor/templates/editor/wizzard_book.html:240
-#: editor/templates/editor/wizzard_pdf.html:190
-#: editor/templates/editor/wizzard_pdf.html:192
-#: editor/templates/editor/wizzard_pdf.html:194
+#: editor/templates/editor/wizzard_book.html:242
+#: editor/templates/editor/wizzard_book.html:246
 #: editor/templates/editor/wizzard_pdf.html:196
+#: editor/templates/editor/wizzard_pdf.html:198
 #: editor/templates/editor/wizzard_pdf.html:200
+#: editor/templates/editor/wizzard_pdf.html:202
+#: editor/templates/editor/wizzard_pdf.html:206
 msgid "mm"
 msgstr ""
 
@@ -2487,140 +2518,146 @@ msgid "Page Numbers"
 msgstr "jäsenet"
 
 #: editor/templates/editor/wizzard_book.html:182
-#: editor/templates/editor/wizzard_pdf.html:159
+#: editor/templates/editor/wizzard_pdf.html:160
 msgid "LTR"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:183
-#: editor/templates/editor/wizzard_pdf.html:158
+#. Translators: Option for Page Numbers
+#: editor/templates/editor/wizzard_book.html:184
+#: editor/templates/editor/wizzard_pdf.html:159
 msgid "none"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:184
-#: editor/templates/editor/wizzard_pdf.html:160
+#. Translators: Option for Page Numbers. Burmese.
+#: editor/templates/editor/wizzard_book.html:186
+#: editor/templates/editor/wizzard_pdf.html:162
 msgid "my"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:185
-#: editor/templates/editor/wizzard_pdf.html:161
+#. Translators: Option for Page Numbers. Farsi.
+#: editor/templates/editor/wizzard_book.html:188
+#: editor/templates/editor/wizzard_pdf.html:164
 msgid "fa"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:186
-#: editor/templates/editor/wizzard_pdf.html:162
+#. Translators: Option for Page Numbers. Hindi.
+#: editor/templates/editor/wizzard_book.html:190
+#: editor/templates/editor/wizzard_pdf.html:166
 msgid "hi"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:187
-#: editor/templates/editor/wizzard_pdf.html:163
+#. Translators: Option for Page Numbers. Right to left.
+#: editor/templates/editor/wizzard_book.html:192
+#: editor/templates/editor/wizzard_pdf.html:168
 msgid "RTL"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:188
-#: editor/templates/editor/wizzard_pdf.html:164
+#. Translators: Option for Page Numbers. Arabic.
+#: editor/templates/editor/wizzard_book.html:194
+#: editor/templates/editor/wizzard_pdf.html:170
 #, fuzzy
 msgid "ar"
 msgstr "argumentit"
 
-#: editor/templates/editor/wizzard_book.html:189
-#: editor/templates/editor/wizzard_pdf.html:165
+#: editor/templates/editor/wizzard_book.html:195
+#: editor/templates/editor/wizzard_pdf.html:171
 msgid "auto"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:191
+#: editor/templates/editor/wizzard_book.html:197
 msgid "If in doubt, choose 'auto'"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:194
-#: editor/templates/editor/wizzard_pdf.html:170
+#: editor/templates/editor/wizzard_book.html:200
+#: editor/templates/editor/wizzard_pdf.html:176
 msgid "Force Embed Fonts"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:194
-#: editor/templates/editor/wizzard_pdf.html:170
+#: editor/templates/editor/wizzard_book.html:200
+#: editor/templates/editor/wizzard_pdf.html:176
 msgid "PDFs: force embedding of PDF default fonts"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:196
-#: editor/templates/editor/wizzard_pdf.html:172
+#: editor/templates/editor/wizzard_book.html:202
+#: editor/templates/editor/wizzard_pdf.html:178
 msgid "Cancel Page Break Control"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:196
-#: editor/templates/editor/wizzard_pdf.html:172
+#: editor/templates/editor/wizzard_book.html:202
+#: editor/templates/editor/wizzard_pdf.html:178
 msgid "Let page breaks occur immediately after headings"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:209
+#: editor/templates/editor/wizzard_book.html:215
 #, fuzzy
 msgid "Table of Contents"
 msgstr "Sisällysluettelo"
 
-#: editor/templates/editor/wizzard_book.html:212
+#: editor/templates/editor/wizzard_book.html:218
 #, fuzzy
 msgid "Table of Contents Header"
 msgstr "Sisällysluettelo"
 
-#: editor/templates/editor/wizzard_book.html:226
-#: editor/templates/editor/wizzard_pdf.html:186
+#: editor/templates/editor/wizzard_book.html:232
+#: editor/templates/editor/wizzard_pdf.html:192
 msgid "Page Margins and Gutter"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:229
-#: editor/templates/editor/wizzard_pdf.html:189
+#: editor/templates/editor/wizzard_book.html:235
+#: editor/templates/editor/wizzard_pdf.html:195
 #, fuzzy
 msgid "Top Margin"
 msgstr "Marginaali:"
 
-#: editor/templates/editor/wizzard_book.html:231
-#: editor/templates/editor/wizzard_pdf.html:191
+#: editor/templates/editor/wizzard_book.html:237
+#: editor/templates/editor/wizzard_pdf.html:197
 #, fuzzy
 msgid "Side Margin"
 msgstr "Marginaali:"
 
-#: editor/templates/editor/wizzard_book.html:233
-#: editor/templates/editor/wizzard_pdf.html:193
+#: editor/templates/editor/wizzard_book.html:239
+#: editor/templates/editor/wizzard_pdf.html:199
 #, fuzzy
 msgid "Bottom Margin"
 msgstr "Marginaali:"
 
-#: editor/templates/editor/wizzard_book.html:235
-#: editor/templates/editor/wizzard_pdf.html:195
+#: editor/templates/editor/wizzard_book.html:241
+#: editor/templates/editor/wizzard_pdf.html:201
 msgid "Gutter"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:237
+#: editor/templates/editor/wizzard_book.html:243
 #, fuzzy
 msgid "Number of columns"
 msgstr "Ryhmän jäsen:"
 
-#: editor/templates/editor/wizzard_book.html:239
+#: editor/templates/editor/wizzard_book.html:245
 msgid "Column margin"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:253
-#: editor/templates/editor/wizzard_pdf.html:213
+#: editor/templates/editor/wizzard_book.html:259
+#: editor/templates/editor/wizzard_pdf.html:219
 msgid "Advanced (style sheets)"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:256
+#: editor/templates/editor/wizzard_book.html:262
 #: editor/templates/editor/wizzard_lulu.html:212
-#: editor/templates/editor/wizzard_pdf.html:216
+#: editor/templates/editor/wizzard_pdf.html:222
 msgid "Your Custom CSS"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:259
+#: editor/templates/editor/wizzard_book.html:265
 #: editor/templates/editor/wizzard_lulu.html:214
 #: editor/templates/editor/wizzard_odt.html:116
-#: editor/templates/editor/wizzard_pdf.html:219
+#: editor/templates/editor/wizzard_pdf.html:225
 msgid "Booktype CSS (be careful if changing)"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:263
+#: editor/templates/editor/wizzard_book.html:269
 #: editor/templates/editor/wizzard_ebook.html:118
 #: editor/templates/editor/wizzard_lulu.html:217
 #: editor/templates/editor/wizzard_odt.html:119
-#: editor/templates/editor/wizzard_pdf.html:223
+#: editor/templates/editor/wizzard_pdf.html:229
 msgid "Override ALL previous settings with custom CSS"
 msgstr ""
 
@@ -2733,12 +2770,12 @@ msgstr "Open Document Text -formaatti"
 msgid "Screen Formatted PDF Settings"
 msgstr ""
 
-#: editor/templates/editor/wizzard_pdf.html:167
+#: editor/templates/editor/wizzard_pdf.html:173
 msgid "If in doubt, choose 'none'"
 msgstr ""
 
-#: editor/templates/editor/wizzard_pdf.html:197
-#: editor/templates/editor/wizzard_pdf.html:199
+#: editor/templates/editor/wizzard_pdf.html:203
+#: editor/templates/editor/wizzard_pdf.html:205
 msgid "Columns"
 msgstr ""
 
@@ -2754,8 +2791,7 @@ msgstr "Sinulla ei ole lupaa muokata tätä kirjaa."
 msgid "sender"
 msgstr "lähettäjä"
 
-#: messaging/models.py:33
-#: messaging/models.py:67
+#: messaging/models.py:33 messaging/models.py:67
 msgid "timestamp"
 msgstr "aikaleima"
 
@@ -3062,8 +3098,12 @@ msgstr "En tiedä mitä tehdä! "
 
 #: reader/templates/errors/chapter_duplicate.html:5
 #, python-format
-msgid "There is more then one chapter named - \"%(chapter_name)s\". I am not sure which one to show."
-msgstr "One enemmän kuin yksi luku nimeltä \"%(chapter_name)s\". En tiedä mikä niistä pitäisi näyttää. "
+msgid ""
+"There is more then one chapter named - \"%(chapter_name)s\". I am not sure "
+"which one to show."
+msgstr ""
+"One enemmän kuin yksi luku nimeltä \"%(chapter_name)s\". En tiedä mikä "
+"niistä pitäisi näyttää. "
 
 #: reader/templates/reader/book_chapter.html:6
 #: reader/templates/reader/draft_chapter.html:6
@@ -3200,4 +3240,3 @@ msgstr "Sinulla ei ole lupaa tehdä tätä! "
 
 #~ msgid "ANNOUNCEMENTS"
 #~ msgstr "VIESTIT"
-

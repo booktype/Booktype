@@ -57,8 +57,11 @@ class UserPassword(models.Model):
     secretcode = models.CharField(_('secretcode'), max_length=30, blank=False, null=False)
     created = models.DateTimeField(_('created'), auto_now=True)
 
+    # Translators: Visible only in Django Admin interface. No need to translate this.
     remote_useragent = models.CharField(_('remote useragent'), max_length=1000, blank=True, null=False, default='')
+    # Translators: Visible only in Django Admin interface. No need to translate this.
     remote_addr = models.CharField(_('remote addr'), max_length=1000, blank=True, null=False, default='')
+    # Translators: Visible only in Django Admin interface. No need to translate this.
     remote_host = models.CharField(_('remote host'), max_length=1000, blank=True, null=False, default='')
 
 

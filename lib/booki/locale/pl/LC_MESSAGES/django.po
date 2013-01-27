@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 1.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-14 20:35+0100\n"
+"POT-Creation-Date: 2013-01-27 22:33+0100\n"
 "PO-Revision-Date: 2012-11-28 15:08+0100\n"
 "Last-Translator: Sourcefabric <contact@sourcefabric.org>\n"
 "Language-Team: Polish Localization <contact@sourcefabric.org>\n"
@@ -50,19 +50,22 @@ msgstr ""
 msgid "created"
 msgstr ""
 
-#: account/models.py:60
+#. Translators: Visible only in Django Admin interface. No need to translate this.
+#: account/models.py:61
 msgid "remote useragent"
 msgstr ""
 
-#: account/models.py:61
+#. Translators: Visible only in Django Admin interface. No need to translate this.
+#: account/models.py:63
 msgid "remote addr"
 msgstr ""
 
-#: account/models.py:62
+#. Translators: Visible only in Django Admin interface. No need to translate this.
+#: account/models.py:65
 msgid "remote host"
 msgstr ""
 
-#: account/views.py:298
+#: account/views.py:314
 msgid "Reset password"
 msgstr ""
 
@@ -169,6 +172,10 @@ msgstr ""
 msgid ""
 "<strong>Note:</strong> this setting can be changed later from your dashboard."
 "</p>"
+msgstr ""
+
+#: account/templates/account/create_book.html:67
+msgid "Initially hide from others"
 msgstr ""
 
 #: account/templates/account/create_group.html:3
@@ -626,6 +633,7 @@ msgid "Notification filter"
 msgstr ""
 
 #: account/templates/account/view_profile.html:215
+#: account/templates/account/view_profile.html:266
 #: editor/templates/editor/edit_strings.html:22 portal/templates/base.html:139
 msgid "Save changes"
 msgstr ""
@@ -661,6 +669,72 @@ msgstr ""
 
 #: account/templates/account/view_profile.html:254
 msgid "Password changed."
+msgstr ""
+
+#: account/templates/account/view_profile.html:255
+#: portal/templates/base.html:133
+msgid "OK"
+msgstr ""
+
+#: account/templates/account/view_profile.html:256
+#: editor/templates/editor/edit_strings.html:7
+#: editor/templates/editor/wizzard_book.html:278
+#: editor/templates/editor/wizzard_ebook.html:125
+#: editor/templates/editor/wizzard_lulu.html:224
+#: editor/templates/editor/wizzard_odt.html:126
+#: editor/templates/editor/wizzard_pdf.html:238 portal/templates/base.html:134
+msgid "Back"
+msgstr ""
+
+#: account/templates/account/view_profile.html:257
+#: editor/templates/editor/edit_book.html:617 portal/templates/base.html:135
+msgid "Create"
+msgstr ""
+
+#: account/templates/account/view_profile.html:258
+#: editor/templates/editor/edit_book.html:290
+#: editor/templates/editor/edit_strings.html:4 portal/templates/base.html:136
+msgid "Cancel"
+msgstr ""
+
+#: account/templates/account/view_profile.html:259
+#: editor/templates/editor/edit_strings.html:6
+#: editor/templates/editor/wizzard_book.html:279
+#: editor/templates/editor/wizzard_ebook.html:126
+#: editor/templates/editor/wizzard_lulu.html:225
+#: editor/templates/editor/wizzard_odt.html:127
+#: editor/templates/editor/wizzard_pdf.html:239 portal/templates/base.html:137
+#: portal/templates/booki_paginator.html:29
+msgid "Next"
+msgstr ""
+
+#: account/templates/account/view_profile.html:260
+msgid "Couldn't create a group"
+msgstr ""
+
+#: account/templates/account/view_profile.html:261
+#: portal/templates/base.html:141
+msgid "enter epub URL"
+msgstr ""
+
+#: account/templates/account/view_profile.html:262
+#: portal/templates/base.html:142
+msgid "enter Archive.org ID"
+msgstr ""
+
+#: account/templates/account/view_profile.html:263
+#: portal/templates/base.html:143
+msgid "enter Wikibooks URL"
+msgstr ""
+
+#: account/templates/account/view_profile.html:264
+#: portal/templates/base.html:144
+msgid "enter Booktype URL"
+msgstr ""
+
+#: account/templates/account/view_profile.html:265
+#: portal/templates/base.html:138
+msgid "Import"
 msgstr ""
 
 #: account/templates/errors/user_does_not_exist.html:4
@@ -1194,11 +1268,6 @@ msgstr ""
 msgid "View chapter"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:290
-#: editor/templates/editor/edit_strings.html:4 portal/templates/base.html:136
-msgid "Cancel"
-msgstr ""
-
 #: editor/templates/editor/edit_book.html:298
 msgid "Minor change, don't notify."
 msgstr ""
@@ -1447,10 +1516,6 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: editor/templates/editor/edit_book.html:617 portal/templates/base.html:135
-msgid "Create"
-msgstr ""
-
 #: editor/templates/editor/edit_book.html:619
 msgid "Rename"
 msgstr ""
@@ -1639,25 +1704,6 @@ msgstr ""
 
 #: editor/templates/editor/edit_strings.html:5
 msgid "Submit"
-msgstr ""
-
-#: editor/templates/editor/edit_strings.html:6
-#: editor/templates/editor/wizzard_book.html:273
-#: editor/templates/editor/wizzard_ebook.html:126
-#: editor/templates/editor/wizzard_lulu.html:225
-#: editor/templates/editor/wizzard_odt.html:127
-#: editor/templates/editor/wizzard_pdf.html:233 portal/templates/base.html:137
-#: portal/templates/booki_paginator.html:29
-msgid "Next"
-msgstr ""
-
-#: editor/templates/editor/edit_strings.html:7
-#: editor/templates/editor/wizzard_book.html:272
-#: editor/templates/editor/wizzard_ebook.html:125
-#: editor/templates/editor/wizzard_lulu.html:224
-#: editor/templates/editor/wizzard_odt.html:126
-#: editor/templates/editor/wizzard_pdf.html:232 portal/templates/base.html:134
-msgid "Back"
 msgstr ""
 
 #: editor/templates/editor/edit_strings.html:8
@@ -2083,16 +2129,16 @@ msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:48
 #: editor/templates/editor/wizzard_book.html:50
-#: editor/templates/editor/wizzard_book.html:230
-#: editor/templates/editor/wizzard_book.html:232
-#: editor/templates/editor/wizzard_book.html:234
 #: editor/templates/editor/wizzard_book.html:236
+#: editor/templates/editor/wizzard_book.html:238
 #: editor/templates/editor/wizzard_book.html:240
-#: editor/templates/editor/wizzard_pdf.html:190
-#: editor/templates/editor/wizzard_pdf.html:192
-#: editor/templates/editor/wizzard_pdf.html:194
+#: editor/templates/editor/wizzard_book.html:242
+#: editor/templates/editor/wizzard_book.html:246
 #: editor/templates/editor/wizzard_pdf.html:196
+#: editor/templates/editor/wizzard_pdf.html:198
 #: editor/templates/editor/wizzard_pdf.html:200
+#: editor/templates/editor/wizzard_pdf.html:202
+#: editor/templates/editor/wizzard_pdf.html:206
 msgid "mm"
 msgstr ""
 
@@ -2369,6 +2415,12 @@ msgid "Grey Scale Output"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:178
+#: editor/templates/editor/wizzard_pdf.html:154
+#: editor/templates/editor/wizzard_pdf.html:156
+msgid "Rotate"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:178
 msgid "For RTL books on LTR printing presses, and vice versa."
 msgstr ""
 
@@ -2377,133 +2429,139 @@ msgid "Page Numbers"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:182
-#: editor/templates/editor/wizzard_pdf.html:159
+#: editor/templates/editor/wizzard_pdf.html:160
 msgid "LTR"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:183
-#: editor/templates/editor/wizzard_pdf.html:158
+#. Translators: Option for Page Numbers
+#: editor/templates/editor/wizzard_book.html:184
+#: editor/templates/editor/wizzard_pdf.html:159
 msgid "none"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:184
-#: editor/templates/editor/wizzard_pdf.html:160
+#. Translators: Option for Page Numbers. Burmese.
+#: editor/templates/editor/wizzard_book.html:186
+#: editor/templates/editor/wizzard_pdf.html:162
 msgid "my"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:185
-#: editor/templates/editor/wizzard_pdf.html:161
+#. Translators: Option for Page Numbers. Farsi.
+#: editor/templates/editor/wizzard_book.html:188
+#: editor/templates/editor/wizzard_pdf.html:164
 msgid "fa"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:186
-#: editor/templates/editor/wizzard_pdf.html:162
+#. Translators: Option for Page Numbers. Hindi.
+#: editor/templates/editor/wizzard_book.html:190
+#: editor/templates/editor/wizzard_pdf.html:166
 msgid "hi"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:187
-#: editor/templates/editor/wizzard_pdf.html:163
+#. Translators: Option for Page Numbers. Right to left.
+#: editor/templates/editor/wizzard_book.html:192
+#: editor/templates/editor/wizzard_pdf.html:168
 msgid "RTL"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:188
-#: editor/templates/editor/wizzard_pdf.html:164
+#. Translators: Option for Page Numbers. Arabic.
+#: editor/templates/editor/wizzard_book.html:194
+#: editor/templates/editor/wizzard_pdf.html:170
 msgid "ar"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:189
-#: editor/templates/editor/wizzard_pdf.html:165
+#: editor/templates/editor/wizzard_book.html:195
+#: editor/templates/editor/wizzard_pdf.html:171
 msgid "auto"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:191
+#: editor/templates/editor/wizzard_book.html:197
 msgid "If in doubt, choose 'auto'"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:194
-#: editor/templates/editor/wizzard_pdf.html:170
+#: editor/templates/editor/wizzard_book.html:200
+#: editor/templates/editor/wizzard_pdf.html:176
 msgid "Force Embed Fonts"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:194
-#: editor/templates/editor/wizzard_pdf.html:170
+#: editor/templates/editor/wizzard_book.html:200
+#: editor/templates/editor/wizzard_pdf.html:176
 msgid "PDFs: force embedding of PDF default fonts"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:196
-#: editor/templates/editor/wizzard_pdf.html:172
+#: editor/templates/editor/wizzard_book.html:202
+#: editor/templates/editor/wizzard_pdf.html:178
 msgid "Cancel Page Break Control"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:196
-#: editor/templates/editor/wizzard_pdf.html:172
+#: editor/templates/editor/wizzard_book.html:202
+#: editor/templates/editor/wizzard_pdf.html:178
 msgid "Let page breaks occur immediately after headings"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:209
+#: editor/templates/editor/wizzard_book.html:215
 msgid "Table of Contents"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:212
+#: editor/templates/editor/wizzard_book.html:218
 msgid "Table of Contents Header"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:226
-#: editor/templates/editor/wizzard_pdf.html:186
+#: editor/templates/editor/wizzard_book.html:232
+#: editor/templates/editor/wizzard_pdf.html:192
 msgid "Page Margins and Gutter"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:229
-#: editor/templates/editor/wizzard_pdf.html:189
-msgid "Top Margin"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:231
-#: editor/templates/editor/wizzard_pdf.html:191
-msgid "Side Margin"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:233
-#: editor/templates/editor/wizzard_pdf.html:193
-msgid "Bottom Margin"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:235
 #: editor/templates/editor/wizzard_pdf.html:195
-msgid "Gutter"
+msgid "Top Margin"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:237
-msgid "Number of columns"
+#: editor/templates/editor/wizzard_pdf.html:197
+msgid "Side Margin"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:239
+#: editor/templates/editor/wizzard_pdf.html:199
+msgid "Bottom Margin"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:241
+#: editor/templates/editor/wizzard_pdf.html:201
+msgid "Gutter"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:243
+msgid "Number of columns"
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:245
 msgid "Column margin"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:253
-#: editor/templates/editor/wizzard_pdf.html:213
+#: editor/templates/editor/wizzard_book.html:259
+#: editor/templates/editor/wizzard_pdf.html:219
 msgid "Advanced (style sheets)"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:256
+#: editor/templates/editor/wizzard_book.html:262
 #: editor/templates/editor/wizzard_lulu.html:212
-#: editor/templates/editor/wizzard_pdf.html:216
+#: editor/templates/editor/wizzard_pdf.html:222
 msgid "Your Custom CSS"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:259
+#: editor/templates/editor/wizzard_book.html:265
 #: editor/templates/editor/wizzard_lulu.html:214
 #: editor/templates/editor/wizzard_odt.html:116
-#: editor/templates/editor/wizzard_pdf.html:219
+#: editor/templates/editor/wizzard_pdf.html:225
 msgid "Booktype CSS (be careful if changing)"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:263
+#: editor/templates/editor/wizzard_book.html:269
 #: editor/templates/editor/wizzard_ebook.html:118
 #: editor/templates/editor/wizzard_lulu.html:217
 #: editor/templates/editor/wizzard_odt.html:119
-#: editor/templates/editor/wizzard_pdf.html:223
+#: editor/templates/editor/wizzard_pdf.html:229
 msgid "Override ALL previous settings with custom CSS"
 msgstr ""
 
@@ -2606,17 +2664,12 @@ msgstr ""
 msgid "Screen Formatted PDF Settings"
 msgstr ""
 
-#: editor/templates/editor/wizzard_pdf.html:154
-#: editor/templates/editor/wizzard_pdf.html:156
-msgid "Rotate"
-msgstr ""
-
-#: editor/templates/editor/wizzard_pdf.html:167
+#: editor/templates/editor/wizzard_pdf.html:173
 msgid "If in doubt, choose 'none'"
 msgstr ""
 
-#: editor/templates/editor/wizzard_pdf.html:197
-#: editor/templates/editor/wizzard_pdf.html:199
+#: editor/templates/editor/wizzard_pdf.html:203
+#: editor/templates/editor/wizzard_pdf.html:205
 msgid "Columns"
 msgstr ""
 
@@ -2796,32 +2849,8 @@ msgstr ""
 msgid "Control Center"
 msgstr ""
 
-#: portal/templates/base.html:133
-msgid "OK"
-msgstr ""
-
-#: portal/templates/base.html:138
-msgid "Import"
-msgstr ""
-
 #: portal/templates/base.html:140
 msgid "Couldn't create a group!"
-msgstr ""
-
-#: portal/templates/base.html:141
-msgid "enter epub URL"
-msgstr ""
-
-#: portal/templates/base.html:142
-msgid "enter Archive.org ID"
-msgstr ""
-
-#: portal/templates/base.html:143
-msgid "enter Wikibooks URL"
-msgstr ""
-
-#: portal/templates/base.html:144
-msgid "enter Booktype URL"
 msgstr ""
 
 #: portal/templates/booki_paginator.html:5
