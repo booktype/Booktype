@@ -1,0 +1,71 @@
+{% load i18n %}
+<html>
+
+<body>
+<! -- date:"d M Y" -->
+ <h1>Weekly report for {{ booki_name }} ({{ week_ago|date:"d M Y" }} - {{ now_date|date:"d M Y" }})</h1>
+
+ <h2>{% trans "Activity" %}</h2>
+ <p><img src="cid:graph.png"></p>
+
+ <h2>{% trans "Info" %}</h2>
+ <p>
+  <table border="0">
+   <tr>
+    <td>{% trans "Total number of books:" %}</td>
+    <td align="right">{{info.books_num}}</td>
+   </tr>
+
+   <tr>
+    <td>{% trans "Total number of users:" %}</td>
+    <td align="right">{{info.users_num}}</td>
+   </tr>
+
+   <tr>
+    <td>{% trans "Total number of groups:" %}</td>
+    <td align="right">{{info.groups_num}}</td>
+   </tr>
+
+   <tr>
+    <td>{% trans "Attachments size:" %}</td>
+    <td align="right">{{info.attachments_size|filesizeformat}}</td>
+   </tr>
+
+   <tr>
+    <td>{% trans "Database size:" %}</td>
+    <td align="right">{{info.database_size|filesizeformat}}</td>
+   </tr>
+  </table>
+ </p>
+
+ <h2>{% trans "Updates" %}</h2>
+ <p>
+   {% trans "New users" %}: {{ users|length}} <br />
+   {% trans "New books" %}: {{ books|length}} <br />
+   {% trans "New groups" %}: {{ groups|length}} <br />
+ </p>
+
+ <h2>{% trans "Most active books" %}</h2>
+ <p>
+  <ul>
+  {% for book in active_books %}
+   <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{ book.url_title }})</li>
+  {% empty %}
+   <li>{% trans "No active books" %}</li>
+  {% endfor %}
+  </ul>
+ </p>
+
+ <h2>{% trans "Most active users" %}</h2>
+ <p>
+  <ul>
+   {% for user in active_users %}
+    <li><a href="{{ site_url }}{% url view_profile  user.username %}">{{ user.username }}</a> ({{ user.first_name }})</li>
+   {% empty %}
+    <li>{% trans "No active users" %}</li>
+   {% endfor %}
+  </ul>
+ </p>
+
+</body>
+</html>
