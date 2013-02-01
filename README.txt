@@ -12,6 +12,8 @@ More info
 Realtime chat
 Channel #booktype on irc.freenode.net server
 
+Check #booktype hashtag on Twitter
+
 Booktype demo site
 http://booktype-demo.sourcefabric.org/
 
@@ -23,6 +25,9 @@ http://dev.sourcefabric.org/browse/BK
 
 Booktype wiki
 https://wiki.sourcefabric.org/display/Booktype/Booktype
+
+Booktype-dev mailing list
+https://groups.google.com/forum/#!forum/booktype-dev
 
 Booktype support forum
 http://forum.sourcefabric.org/categories/booktype-support
@@ -39,6 +44,8 @@ Installation
 
 Read INSTALL file and check "doc/deployment/" directory for more details.
 
+Read up to date online instructions - https://wiki.sourcefabric.org/display/Booktype/Installing
+
 
 How to contribute
 -----------------
@@ -52,12 +59,6 @@ Only 4 steps:
        http://learn.github.com/p/branching.html
 4) Create pull request with your feature/bugfix
        https://help.github.com/articles/creating-a-pull-request
-
-
-How to help with interface translation
---------------------------------------
-
-Read doc/translate.md document or visit https://github.com/sourcefabric/Booktype/wiki/How-to-translate-interface page.
 
 
 License
