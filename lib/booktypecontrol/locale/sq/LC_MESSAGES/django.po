@@ -7,151 +7,76 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-01 20:34+0200\n"
-"PO-Revision-Date: 2012-12-21 20:03+0200\n"
+"POT-Creation-Date: 2012-12-09 21:43+0100\n"
+"PO-Revision-Date: 2013-02-01 16:55+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <besnik@programeshqip.org>\n"
+"Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: _views.py:169
-#: _views.py:212
-#: views.py:251
-#: views.py:322
-msgid "Enter the same password as above, for verification."
-msgstr "Jepni, për verifikim, të njëjtin fjalëkalim si më sipër."
-
-#: _views.py:207
-#: views.py:173
 #: views.py:174
-#: views.py:298
 #: views.py:300
-msgid "Illegal characters in username."
-msgstr "Shenja të paligjshme te emri i përdoruesit."
-
-#: _views.py:211
-#: views.py:241
-#: views.py:312
-msgid "Password"
-msgstr "Fjalëkalim"
-
-#: _views.py:212
-#: views.py:246
-#: views.py:317
-msgid "Password confirmation"
-msgstr "Ripohim fjalëkalimi"
-
-#: _views.py:213
-#: views.py:323
-msgid "Notify person by email"
-msgstr "Njoftoje personin me email"
-
-#: _views.py:333
-#: _views.py:479
-#: views.py:462
-#: views.py:637
-msgid "Title"
-msgstr "Titull"
-
-#: _views.py:337
-#: _views.py:401
-#: views.py:477
-#: views.py:556
-msgid "Initially hide from others"
-msgstr "Fshihua fillimisht të tjerëve"
-
-#: _views.py:344
-#: _views.py:408
-#: _views.py:495
-#: views.py:486
-#: views.py:565
-msgid "This Book already exists."
-msgstr "Ka tashmë një libër të tillë."
-
-#: _views.py:480
-#: views.py:641
-msgid "URL title"
-msgstr "Titull URL-je"
-
-#: _views.py:483
-#: views.py:644
-msgid "Illegal characters in URL title."
-msgstr "Shenja të paligjshme te titulli i URL-së."
-
-#: _views.py:484
-#: views.py:645
-msgid "If you leave this field empty URL title will be assigned automatically."
-msgstr "Nëse e lini të zbrazët këtë fushë titulli i URL-së do të plotësohet vetvetiu."
-
-#: _views.py:572
-#: views.py:719
-msgid "Site title"
-msgstr "Titull site-i"
-
-#: _views.py:573
-#: views.py:723
-msgid "Tagline"
-msgstr "Përmbledhje"
-
-#: _views.py:574
-msgid "Keywords"
-msgstr "Fjalëkyçe"
-
-#: views.py:169
-#: views.py:295
 msgid "Username"
 msgstr "Emër përdoruesi"
 
-#: views.py:172
-#: views.py:297
+#: views.py:177
+#: views.py:302
 msgid "Username is required."
 msgstr "Emri i përdoruesit është i domosdoshëm."
 
-#: views.py:175
-#: views.py:301
+#: views.py:178
+#: views.py:179
+#: views.py:303
+#: views.py:305
+msgid "Illegal characters in username."
+msgstr "Shenja të paligjshme te emri i përdoruesit."
+
+#: views.py:180
+#: views.py:306
 msgid "First name"
 msgstr "Emër"
 
-#: views.py:177
-#: views.py:303
+#: views.py:182
+#: views.py:308
 msgid "First name is required."
 msgstr "Emri është i domosdoshëm."
 
-#: views.py:179
-#: views.py:305
+#: views.py:184
+#: views.py:310
 msgid "Email"
 msgstr "Email"
 
-#: views.py:181
-#: views.py:307
+#: views.py:186
+#: views.py:312
 msgid "Email is required."
 msgstr "Email-i është i domosdoshëm."
 
-#: views.py:183
+#: views.py:188
 msgid "Profile picture"
 msgstr "Foto profili"
 
-#: views.py:185
-#: views.py:309
+#: views.py:190
+#: views.py:314
 msgid "User description"
 msgstr "Përshkrim përdoruesi"
 
-#: views.py:205
-#: views.py:270
-#: views.py:353
-#: views.py:502
-#: views.py:587
-#: views.py:664
-#: views.py:739
-#: views.py:801
-#: views.py:864
-#: views.py:899
-#: views.py:972
-#: views.py:1027
-#: views.py:1080
-#: views.py:1147
-#: views.py:1204
+#: views.py:210
+#: views.py:275
+#: views.py:360
+#: views.py:510
+#: views.py:595
+#: views.py:672
+#: views.py:747
+#: views.py:809
+#: views.py:872
+#: views.py:907
+#: views.py:980
+#: views.py:1035
+#: views.py:1088
+#: views.py:1155
+#: views.py:1212
 #: templates/booktypecontrol/add_book.html:24
 #: templates/booktypecontrol/add_person.html:25
 #: templates/booktypecontrol/edit_book.html:13
@@ -170,326 +95,330 @@ msgstr "Përshkrim përdoruesi"
 msgid "Cancel"
 msgstr "Anuloje"
 
-#: views.py:222
-#: views.py:278
-#: views.py:610
-#: views.py:925
-#: views.py:983
-#: views.py:1044
-#: views.py:1090
-#: views.py:1168
-#: views.py:1224
+#: views.py:227
+#: views.py:283
+#: views.py:618
+#: views.py:933
+#: views.py:991
+#: views.py:1052
+#: views.py:1098
+#: views.py:1176
+#: views.py:1232
 msgid "Successfuly saved changes."
 msgstr "Ndryshimet u ruajtën me sukses."
 
-#: views.py:243
-#: views.py:249
-#: views.py:314
+#: views.py:246
+#: views.py:317
+msgid "Password"
+msgstr "Fjalëkalim"
+
+#: views.py:248
+#: views.py:254
 #: views.py:319
+#: views.py:324
 msgid "Password is required."
 msgstr "Fjalëkalimi është i domosdoshëm."
 
-#: views.py:281
+#: views.py:251
+#: views.py:322
+msgid "Password confirmation"
+msgstr "Ripohim fjalëkalimi"
+
+#: views.py:256
+#: views.py:327
+msgid "Enter the same password as above, for verification."
+msgstr "Jepni, për verifikim, të njëjtin fjalëkalim si më sipër."
+
+#: views.py:286
 msgid "Passwords do not match"
 msgstr "Fjalëkalimet nuk përputhen"
 
-#: views.py:334
+#: views.py:328
+msgid "Notify person by email"
+msgstr "Njoftoje personin me email"
+
+#: views.py:339
 msgid "This Person already exists."
 msgstr "Ka tashmë një Person të tillë."
 
-#: views.py:340
+#: views.py:345
 msgid "Passwords do not match."
 msgstr "Fjalëkalimet nuk përputhen."
 
-#: views.py:386
+#: views.py:394
 msgid "Unknown error while creating new account."
 msgstr "Gabim i panjohur teksa krijohej llogaria e re."
 
-#: views.py:463
-#: views.py:639
+#: views.py:470
+#: views.py:645
+msgid "Title"
+msgstr "Titull"
+
+#: views.py:471
+#: views.py:647
 msgid "Title is required."
 msgstr "Titulli është fushë e domosdoshme"
 
-#: views.py:466
-#: views.py:545
+#: views.py:474
+#: views.py:553
 #: templates/booktypecontrol/settings.html:27
 msgid "Description"
 msgstr "Përshkrim"
 
-#: views.py:469
-#: views.py:548
+#: views.py:477
+#: views.py:556
 msgid "Owner"
 msgstr "Pronar"
 
-#: views.py:470
+#: views.py:478
 msgid "Book owner is required."
 msgstr "I zoti i librit është i domosdoshëm"
 
-#: views.py:473
-#: views.py:552
+#: views.py:481
+#: views.py:560
 #: templates/booktypecontrol/settings_license_edit.html:6
 msgid "License"
 msgstr "Leje"
 
-#: views.py:475
-#: views.py:553
+#: views.py:483
+#: views.py:561
 msgid "License is required."
 msgstr "Leja është e domosdoshme."
 
-#: views.py:479
-#: views.py:558
+#: views.py:485
+#: views.py:564
+msgid "Initially hide from others"
+msgstr "Fshihua fillimisht të tjerëve"
+
+#: views.py:487
+#: views.py:566
 msgid "Cover image"
 msgstr "Figurë kapaku"
 
-#: views.py:527
+#: views.py:494
+#: views.py:573
+msgid "This Book already exists."
+msgstr "Ka tashmë një libër të tillë."
+
+#: views.py:535
 msgid "Successfuly created new book."
 msgstr "Libri i ri u krijua me sukse."
 
-#: views.py:531
+#: views.py:539
 msgid "Unknown error while creating new book."
 msgstr "Gabim i panjohur gjatë krijimit të librit të ri."
 
-#: views.py:549
+#: views.py:557
 msgid "Owner is required."
 msgstr "I zoti është i domosdoshëm."
 
-#: views.py:614
-#: views.py:765
-#: views.py:818
-#: views.py:985
-#: views.py:1046
-#: views.py:1092
-#: views.py:1170
-#: views.py:1230
+#: views.py:622
+#: views.py:773
+#: views.py:826
+#: views.py:993
+#: views.py:1054
+#: views.py:1100
+#: views.py:1178
+#: views.py:1238
 msgid "Unknown error while saving changes."
 msgstr "Gabim i panjohur teksa ruheshin ndryshimet."
 
-#: views.py:685
-#: views.py:692
+#: views.py:649
+msgid "URL title"
+msgstr "Titull URL-je"
+
+#: views.py:652
+msgid "Illegal characters in URL title."
+msgstr "Shenja të paligjshme te titulli i URL-së."
+
+#: views.py:653
+msgid "If you leave this field empty URL title will be assigned automatically."
+msgstr "Nëse e lini të zbrazët këtë fushë titulli i URL-së do të plotësohet vetvetiu."
+
+#: views.py:693
+#: views.py:700
 msgid "Successfuly renamed book."
 msgstr "Libri u riemërtua me sukses."
 
-#: views.py:721
+#: views.py:727
+msgid "Site title"
+msgstr "Titull site-i"
+
+#: views.py:729
 msgid "Site title is required."
 msgstr "Titulli i site-it është fushë e domosdoshme."
 
-#: views.py:726
+#: views.py:731
+msgid "Tagline"
+msgstr "Përmbledhje"
+
+#: views.py:734
 msgid "Favicon"
 msgstr "Favikon"
 
-#: views.py:728
+#: views.py:736
 msgid "Upload .ico file"
 msgstr "Ngarkoni një kartelë ico."
 
-#: views.py:763
-#: views.py:816
+#: views.py:771
+#: views.py:824
 msgid "Successfuly saved settings."
 msgstr "Rregullimet u ruajtën me sukses."
 
-#: views.py:784
+#: views.py:792
 msgid "Default visibility"
 msgstr "Dukshmëri parazgjedhje"
 
-#: views.py:786
+#: views.py:794
 msgid "If it is turned on then all books will be visible to everyone."
 msgstr "Nëse këtë e aktivizoni, atëherë krejt librat do të jenë të dukshëm për këdo."
 
-#: views.py:787
+#: views.py:795
 msgid "Default License"
 msgstr "Licencë Parazgjedhje"
 
-#: views.py:790
+#: views.py:798
 msgid "Default license for newly created books."
 msgstr "Licencë parazgjedhje për libra të sapokrijuar."
 
-#: views.py:846
+#: views.py:854
 msgid "Abbrevation"
 msgstr "Shkurtim"
 
-#: views.py:848
+#: views.py:856
 msgid "Abbrevation is required."
 msgstr "Shkurtimi është i domosdoshëm."
 
-#: views.py:850
+#: views.py:858
 msgid "Name"
 msgstr "Emër"
 
-#: views.py:852
+#: views.py:860
 msgid "License name is required."
 msgstr "Emri i licencës është i domosdoshëm."
 
-#: views.py:874
+#: views.py:882
 msgid "Successfuly created new license."
 msgstr "Licenca e re u krijua me sukses."
 
-#: views.py:902
+#: views.py:910
 #: templates/booktypecontrol/settings_license_edit.html:26
 msgid "Remove it"
 msgstr "Hiqe"
 
-#: views.py:911
+#: views.py:919
 msgid "Successfuly removed license."
 msgstr "Licenca u hoq me sukses."
 
-#: views.py:953
+#: views.py:961
 msgid "Anyone can register"
 msgstr "Mund të regjistrohet kushdo"
 
-#: views.py:955
+#: views.py:963
 msgid "Anyone can register on the site and create account"
 msgstr "Mund të regjistrohet dhe të krijojë llogari kushdo"
 
-#: views.py:956
+#: views.py:964
 msgid "Only admin can create books"
 msgstr "Libra mund të krijojë vetëm përgjegjësi"
 
-#: views.py:958
+#: views.py:966
 msgid "Only admin can import books"
 msgstr "Libra mund të importojë vetëm përgjegjësi"
 
-#: views.py:1003
+#: views.py:1011
 msgid "book"
 msgstr "libër"
 
-#: views.py:1005
+#: views.py:1013
 msgid "ebook"
 msgstr "elibër"
 
-#: views.py:1007
+#: views.py:1015
 msgid "lulu"
 msgstr "lulu"
 
-#: views.py:1009
+#: views.py:1017
 msgid "PDF"
 msgstr "PDF"
 
-#: views.py:1011
+#: views.py:1019
 msgid "ODT"
 msgstr "ODT"
 
-#: views.py:1065
+#: views.py:1073
 msgid "CSS"
 msgstr "CSS"
 
-#: views.py:1114
+#: views.py:1122
 msgid "Book CSS"
 msgstr "CSS libri"
 
-#: views.py:1117
+#: views.py:1125
 msgid "E-Book CSS"
 msgstr "CSS E-libri"
 
-#: views.py:1120
+#: views.py:1128
 msgid "Lulu CSS"
 msgstr "CSS Lulu-je"
 
-#: views.py:1123
+#: views.py:1131
 msgid "PDF CSS"
 msgstr "CSS PDF-je"
 
-#: views.py:1126
+#: views.py:1134
 msgid "ODT CSS"
 msgstr "CSS ODT-je"
 
-#: views.py:1184
+#: views.py:1192
 msgid "Welcome message"
 msgstr "Mesazh mirëseardhjeje"
 
-#: views.py:1187
+#: views.py:1195
 msgid "Show activity"
 msgstr "Shfaq veprimtarinë"
 
-#: views.py:1228
+#: views.py:1236
 msgid "Error while saving changes"
 msgstr "Gabim gjatë ruajtjes së ndryshimeve"
 
-#: templates/_control_base.html:31
+#: templates/control_base.html:25
+msgid "Booktype Control Center"
+msgstr "Qendra e Kontrollit Booktype"
+
 #: templates/control_base.html:31
 msgid "Sign out"
 msgstr "Dilni"
 
-#: templates/_control_base.html:37
 #: templates/control_base.html:37
 msgid "Sign In / Create Account"
 msgstr "Hyni / Krijoni Llogari"
 
-#: templates/_control_base.html:48
 #: templates/control_base.html:47
 #: templates/booktypecontrol/settings.html:25
 msgid "Site"
 msgstr "Site"
-
-#: templates/_control_base.html:56
-#: templates/booktypecontrol/_frontpage.html:6
-msgid "Dashboard"
-msgstr "Pult"
-
-#: templates/_control_base.html:60
-#: templates/control_base.html:58
-#: templates/booktypecontrol/people.html:6
-msgid "People"
-msgstr "Njerëz"
-
-#: templates/_control_base.html:64
-#: templates/control_base.html:62
-#: templates/booktypecontrol/books.html:6
-#: templates/booktypecontrol/profile.html:63
-msgid "Books"
-msgstr "Libra"
-
-#: templates/_control_base.html:68
-#: templates/booktypecontrol/file-browse.html:6
-msgid "File Browse"
-msgstr "Shfletim Kartelash"
-
-#: templates/_control_base.html:72
-msgid "Templates"
-msgstr "Gjedhe"
-
-#: templates/_control_base.html:76
-#: templates/booktypecontrol/profile.html:65
-msgid "Activity"
-msgstr "Veprimtari"
-
-#: templates/_control_base.html:80
-msgid "Messages"
-msgstr "Mesazhe"
-
-#: templates/_control_base.html:84
-#: templates/control_base.html:66
-#: templates/booktypecontrol/settings.html:6
-msgid "Settings"
-msgstr "Rregullime"
 
 #: templates/control_base.html:54
 #: templates/booktypecontrol/frontpage.html:6
 msgid "Admin Control Center"
 msgstr "Qendër Kontrolli e Përgjegjësit"
 
-#: templates/booktypecontrol/_frontpage.html:49
-#: templates/booktypecontrol/frontpage.html:30
-msgid "Books:"
-msgstr "Libra:"
+#: templates/control_base.html:58
+#: templates/booktypecontrol/people.html:6
+msgid "People"
+msgstr "Njerëz"
 
-#: templates/booktypecontrol/_frontpage.html:50
-#: templates/booktypecontrol/frontpage.html:31
-msgid "Groups:"
-msgstr "Grupe:"
+#: templates/control_base.html:62
+#: templates/booktypecontrol/books.html:6
+#: templates/booktypecontrol/profile.html:63
+msgid "Books"
+msgstr "Libra"
 
-#: templates/booktypecontrol/_frontpage.html:51
-#: templates/booktypecontrol/frontpage.html:32
-msgid "Users:"
-msgstr "Përdoruesa:"
-
-#: templates/booktypecontrol/_frontpage.html:52
-#: templates/booktypecontrol/frontpage.html:33
-msgid "Database size:"
-msgstr "Madhësi baze të dhënash:"
-
-#: templates/booktypecontrol/_frontpage.html:53
-#: templates/booktypecontrol/book.html:70
-msgid "Attachments size:"
-msgstr "Madhësi bashkangjitjeje:"
+#: templates/control_base.html:66
+#: templates/booktypecontrol/settings.html:6
+msgid "Settings"
+msgstr "Rregullime"
 
 #: templates/booktypecontrol/add_book.html:6
 #: templates/booktypecontrol/add_book.html:24
@@ -540,6 +469,10 @@ msgstr "Anëtar i grupit:"
 #: templates/booktypecontrol/book.html:69
 msgid "Current version:"
 msgstr "Versioni i tanishëm"
+
+#: templates/booktypecontrol/book.html:70
+msgid "Attachments size:"
+msgstr "Madhësi bashkangjitjeje:"
 
 #: templates/booktypecontrol/book.html:72
 msgid "Created:"
@@ -597,37 +530,57 @@ msgstr "Ruaji Ndryshimet"
 msgid "Info"
 msgstr "Të dhëna"
 
+#: templates/booktypecontrol/frontpage.html:30
+msgid "Version:"
+msgstr "Version:"
+
+#: templates/booktypecontrol/frontpage.html:31
+msgid "Books:"
+msgstr "Libra:"
+
+#: templates/booktypecontrol/frontpage.html:32
+msgid "Groups:"
+msgstr "Grupe:"
+
+#: templates/booktypecontrol/frontpage.html:33
+msgid "Users:"
+msgstr "Përdoruesa:"
+
 #: templates/booktypecontrol/frontpage.html:34
+msgid "Database size:"
+msgstr "Madhësi baze të dhënash:"
+
+#: templates/booktypecontrol/frontpage.html:35
 msgid "Files size:"
 msgstr "Madhësi kartele:"
 
-#: templates/booktypecontrol/frontpage.html:39
+#: templates/booktypecontrol/frontpage.html:40
 msgid "Online users"
 msgstr "Përdorues në linjë"
 
-#: templates/booktypecontrol/frontpage.html:49
+#: templates/booktypecontrol/frontpage.html:50
 msgid "Working on:"
 msgstr "Po punon për:"
 
-#: templates/booktypecontrol/frontpage.html:58
+#: templates/booktypecontrol/frontpage.html:59
 msgid "No online users"
 msgstr "S'u gjetën përdorues në linjë"
 
-#: templates/booktypecontrol/frontpage.html:62
+#: templates/booktypecontrol/frontpage.html:63
 msgid "Recent activity"
 msgstr "Veprimtari së fundmi"
 
-#: templates/booktypecontrol/frontpage.html:71
+#: templates/booktypecontrol/frontpage.html:72
 #: templates/booktypecontrol/profile.html:95
 msgid "ago"
 msgstr "më parë"
 
-#: templates/booktypecontrol/frontpage.html:74
+#: templates/booktypecontrol/frontpage.html:75
 #: templates/booktypecontrol/profile.html:98
 msgid "Created new chapter"
 msgstr "U krijua kapitull i ri"
 
-#: templates/booktypecontrol/frontpage.html:79
+#: templates/booktypecontrol/frontpage.html:80
 #: templates/booktypecontrol/profile.html:103
 msgid "Created new book"
 msgstr "U krijua libër i ri"
@@ -683,6 +636,10 @@ msgstr "Rreth vetes suaj:"
 #: templates/booktypecontrol/profile.html:64
 msgid "Groups"
 msgstr "Grupe"
+
+#: templates/booktypecontrol/profile.html:65
+msgid "Activity"
+msgstr "Veprimtari"
 
 #: templates/booktypecontrol/profile.html:72
 msgid "This person has no Books."
@@ -777,3 +734,17 @@ msgstr "Nuk u gjet leja!"
 msgid "Can't find license \"%(name)s\"."
 msgstr "S'gjendet dot licenca \"%(name)s\"."
 
+#~ msgid "Keywords"
+#~ msgstr "Fjalëkyçe"
+
+#~ msgid "Dashboard"
+#~ msgstr "Pult"
+
+#~ msgid "File Browse"
+#~ msgstr "Shfletim Kartelash"
+
+#~ msgid "Templates"
+#~ msgstr "Gjedhe"
+
+#~ msgid "Messages"
+#~ msgstr "Mesazhe"
