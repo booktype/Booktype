@@ -156,7 +156,7 @@ def add_appearance_for_tag(message, word, sent, direct=False, orig_word=None):
 @login_required
 def view_post(request):
     if request.method != 'POST': 
-        return HttpResponse("Error", mimetype="text/plain")
+        return HttpResponse(unicode(_("Error")), mimetype="text/plain")
 
     # XXX validate:
     content = request.POST.get('content', '')
@@ -202,7 +202,7 @@ def view_post(request):
     if not ajax:
         return redirect('view_profile', request.user.username)
     else:
-        return HttpResponse("Sent.", mimetype="text/plain")
+        return HttpResponse(unicode(_("Sent.")), mimetype="text/plain")
 
 @login_required
 def view_follow(request):
