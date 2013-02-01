@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# This is a cron script that sends over email weekly reports to admins.
+#
+# crontab entry (or something similar)
+# 0     8     *     *     1         cron_reports_weekly.sh
+
+# EDIT THIS LINE: Define full path where is Booktype project
+BOOKTYPE_PROJECT=
+
+
+# send reports
+. $BOOKTYPE_PROJECT/booki.env && django-admin.py reportweekly --send-email
