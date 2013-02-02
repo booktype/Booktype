@@ -51,21 +51,24 @@ def group_timeline(groupname):
     endpoint = get_endpoint_or_none("!"+groupname)
     appearances = PostAppearance.objects.filter(endpoint=endpoint)
     group_posts = (x.post for x in appearances.order_by("-timestamp"))
-    return dict(syntax="!"+groupname, posts=group_posts)
+    return dict(syntax="!"+groupname, posts=group_posts,
+                DATA_URL=settings.DATA_URL)
 
 @register.inclusion_tag("messaging/timeline.html")
 def book_timeline(bookname):
     endpoint = get_endpoint_or_none(u"\u212c"+bookname)
     appearances = PostAppearance.objects.filter(endpoint=endpoint)
     book_posts = (x.post for x in appearances.order_by("-timestamp"))
-    return dict(syntax=u"\u212c"+bookname, posts=book_posts)
+    return dict(syntax=u"\u212c"+bookname, posts=book_posts,
+                DATA_URL=settings.DATA_URL)
 
 @register.inclusion_tag("messaging/timeline.html")
 def tag_timeline(tagname):
     endpoint = get_endpoint_or_none("#"+tagname)
     appearances = PostAppearance.objects.filter(endpoint=endpoint)
     tag_posts = (x.post for x in appearances.order_by("-timestamp"))
-    return dict(syntax="#"+tagname, posts=tag_posts)
+    return dict(syntax="#"+tagname, posts=tag_posts,
+                DATA_URL=settings.DATA_URL)
 
 ### messagefields:
 @register.inclusion_tag("messaging/messagefield.html", takes_context=True)

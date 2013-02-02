@@ -467,15 +467,16 @@ def remote_chapter_save(request, message, bookid, version):
                                     comment = message.get("comment", ""),
                                     revision = chapter.revision+1)
 
-        logBookHistory(book = chapter.book,
-                       version = book_version,
-                       chapter = chapter,
-                       chapter_history = history,
-                       user = request.user,
-                       args = {"comment": message.get("comment", ""),
-                               "author": message.get("author", ""),
-                               "authorcomment": message.get("authorcomment", "")},
-                       kind = 'chapter_save')
+        if history:
+            logBookHistory(book = chapter.book,
+                           version = book_version,
+                           chapter = chapter,
+                           chapter_history = history,
+                           user = request.user,
+                           args = {"comment": message.get("comment", ""),
+                                   "author": message.get("author", ""),
+                                   "authorcomment": message.get("authorcomment", "")},
+                           kind = 'chapter_save')
 
         chapter.revision += 1
 
@@ -958,12 +959,13 @@ def remote_create_chapter(request, message, bookid, version):
                                     comment = message.get("comment", ""),
                                     revision = chapter.revision)
 
-        logBookHistory(book = book,
-                       version = book_version,
-                       chapter = chapter,
-                       chapter_history = history,
-                       user = request.user,
-                       kind = 'chapter_create')
+        if history:
+            logBookHistory(book = book,
+                           version = book_version,
+                           chapter = chapter,
+                           chapter_history = history,
+                           user = request.user,
+                           kind = 'chapter_create')
 
         transaction.commit()
 
@@ -994,7 +996,8 @@ def copy_attachment(attachment, target_book):
 
     att = models.Attachment(book = target_book,
                             version = target_book.version,
-                            status = target_book.status)
+                            status = target_book.status,
+                            created = datime.datetime.now())
 
     att.attachment.save(os.path.basename(attachment.attachment.name), attachment.attachment, save=False)
     att.save()
@@ -1537,13 +1540,14 @@ def remote_revert_revision(request, message, bookid, version):
                       comment = "Reverted to revision %s." % message["revision"],
                       revision = chapter.revision+1)
 
-    logBookHistory(book = book,
-                   version = book_ver,
-                   chapter = chapter,
-                   chapter_history = history,
-                   user = request.user,
-                   args = {},
-                   kind = 'chapter_save')
+    if history:
+        logBookHistory(book = book,
+                       version = book_ver,
+                       chapter = chapter,
+                       chapter_history = history,
+                       user = request.user,
+                       args = {},
+                       kind = 'chapter_save')
 
     chapter.revision += 1
     chapter.content = revision.content;
@@ -1781,11 +1785,14 @@ def create_new_version(book, book_ver, message, major, minor):
     @return: Returns Book version object
     """
 
+    import datetime
+
     new_version = models.BookVersion(book=book,
                                      major=major,
                                      minor=minor,
                                      name=message.get("name", ""),
-                                     description=message.get("description", ""))
+                                     description=message.get("description", ""),
+                                     created=datetime.datetime.now())
     new_version.save()
 
     for toc in book_ver.getTOC():
@@ -1795,12 +1802,13 @@ def create_new_version(book, book_ver, message, major, minor):
             chap = toc.chapter
 
             nchap = models.Chapter(version=new_version,
-                                  book=book, # this should be removed
-                                  url_title=chap.url_title,
-                                  title=chap.title,
-                                  status=chap.status,
-                                  revision=chap.revision,
-                                  content=chap.content)
+                                   book=book, # this should be removed
+                                   url_title=chap.url_title,
+                                   title=chap.title,
+                                   status=chap.status,
+                                   revision=chap.revision,
+                                   created=datetime.datetime.now(),
+                                   content=chap.content)
             nchap.save()
 
         ntoc = models.BookToc(version=new_version,
@@ -1820,16 +1828,17 @@ def create_new_version(book, book_ver, message, major, minor):
                            title=chap.title,
                            status=chap.status,
                            revision=chap.revision,
+                           created=datetime.datetime.now(),
                            content=chap.content)
         c.save()
 
     for att in book_ver.getAttachments():
         a = models.Attachment(version = new_version,
-                              book = book,
-                              status = att.status)
+                              book=book,
+                              status=att.status,
+                              created=datetime.datetime.now())
         a.attachment.save(att.getName(), att.attachment, save = False)
         a.save()
-
 
     book.version = new_version
     book.save()
@@ -1864,6 +1873,7 @@ def remote_create_major_version(request, message, bookid, version):
         new_version = create_new_version(book, book_ver, message, book_ver.major+1, 0)
     except:
         transaction.rollback()
+        return {"result": False}
     else:
         logBookHistory(book = book,
                        version = new_version,
@@ -1874,7 +1884,7 @@ def remote_create_major_version(request, message, bookid, version):
                        kind = 'major_version')
         transaction.commit()
 
-    return {"version": new_version.getVersion()}
+        return {"version": new_version.getVersion()}
 
 
 def remote_create_minor_version(request, message, bookid, version):
@@ -1908,12 +1918,12 @@ def remote_create_minor_version(request, message, bookid, version):
         logBookHistory(book = book,
                        version = new_version,
                        chapter = None,
-                       chapter_history = None,
+                      chapter_history = None,
                        user = request.user,
                        args = {"version": new_version.getVersion()},
                        kind = 'minor_version')
         transaction.commit()
-
+        
         return {"version": new_version.getVersion()}
 
 
@@ -2512,19 +2522,27 @@ def remote_roles_add(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_ver = book.getVersion(version)
 
+    result = False
+
     try:
         u = User.objects.get(username = message["username"])
 
-        up = models.BookiPermission(book = book,
-                                    user = u,
-                                    permission = message["role"])
-        up.save()
+        # we do some black magic if user is book owner and we try to make him administrator        
+        if not (book.owner == u and message["role"] == 1):
+            # Do not add if user is already in the list
+            if not models.BookiPermission.objects.filter(book = book, user = u, permission = message["role"]).exists():
+                up = models.BookiPermission(book = book,
+                                            user = u,
+                                            permission = message["role"])
+                up.save()
+
+                result = True
     except User.DoesNotExist:
         pass
 
     transaction.commit()
 
-    return {"status": True}
+    return {"status": result}
 
 
 def remote_roles_delete(request, message, bookid, version):
@@ -2948,7 +2966,6 @@ def remote_publish_book2(request, message, bookid, version):
 
     except models.PublishWizzard.DoesNotExist:
         options = PUBLISH_OPTIONS[message.get('wizzard_type', 'book')]
-    
 
     # converstion for names
     publishOptions = {'ebook': 'epub',
@@ -2958,22 +2975,17 @@ def remote_publish_book2(request, message, bookid, version):
                       'lulu': 'book',
                       'pdf': 'web'}
 
-    licenses = {'PD': 'public domain',
-                'MIT': 'MIT',
-                'CC0': 'CC-BY',
-                'CC BY': 'CC-BY',
-                'CC BY-SA': 'CC-BY',
-                'CC BY-ND': 'CC BY',
-                'CC BY-NC': 'CC BY',
-                'CC BY-NC-SA': 'CC-BY',
-                'CC BY-NC-ND': 'CC-BY',
-                'GPL': 'GPL'
-        }
-
-    licenseText = 'CC-BY'
+    # At one point Booktype and Objavi did not have same list of licenses.
+    # This would create problems and this was a dirty way how it was
+    # "solved". This will be changed in the future protocol for communication
+    # between Booktype and Objavi
+    licenses = {'PD': 'public domain'}
+    licenseText = 'CC BY'
 
     if book.license:
-        licenseText = licenses.get(book.license.abbrevation, 'GPL')
+        # If you can find it in the list then return how the license should be called.
+        # Otherwise just return abbrevation name.
+        licenseText = licenses.get(book.license.abbrevation, book.license.abbrevation)
 
     publishMode = publishOptions[message.get("publish_mode", "epub")]
 
@@ -3072,6 +3084,12 @@ def remote_publish_book2(request, message, bookid, version):
         if _getValue('control-css') == 'on':
             args['css'] = _css
 
+        # We have been using wrong argument name for this. Considering people have saved in their publishing settings old values this 
+        # seems to be best way to fix this issue for now.
+
+        if args.get('booksize', '') == 'custom':
+            args['page_width']  = args.get('custom_width', '')
+            args['page_height'] = args.get('custom_height', '')
 
     if publishMode == 'book' and message.get("publish_mode", "") == 'lulu':
         args['to_lulu'] = 'yes' 
@@ -3104,6 +3122,13 @@ def remote_publish_book2(request, message, bookid, version):
         
         _isSet('p_pagebreak')
         _isSet('footnotes_pagebreak')
+
+        # We have been using wrong argument name for this. Considering people have saved in their publishing settings old values this 
+        # seems to be best way to fix this issue for now.
+
+        if args.get('booksize', '') == 'custom':
+            args['page_width']  = args.get('custom_width', '')
+            args['page_height'] = args.get('custom_height', '')
         
 
     if publishMode == 'epub':
@@ -3171,6 +3196,12 @@ def remote_publish_book2(request, message, bookid, version):
         _isSet('columns')
         _isSet('column_margin')
 
+        # We have been using wrong argument name for this. Considering people have saved in their publishing settings old values this 
+        # seems to be best way to fix this issue for now.
+
+        if args.get('booksize', '') == 'custom':
+            args['page_width']  = args.get('custom_width', '')
+            args['page_height'] = args.get('custom_height', '')
 
     try:
         data = urllib.urlencode(args)

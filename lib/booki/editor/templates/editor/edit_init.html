@@ -4,6 +4,14 @@
                 window.EVIL_TINY_OPTIONS = {
 	                //mode: 'specific_textarea',
                         mode: 'exact', 
+
+	                {% if request.LANGUAGE_CODE == "ru" %}
+   	                  'language': 'ru',
+                        {% endif %}
+
+	                {% if request.LANGUAGE_CODE == "es" %}
+   	                  'language': 'es',
+                        {% endif %}
 	
                         // Location of TinyMCE script
                         script_url : '{{ request.META.SCRIPT_NAME}}/site_static/js/tiny_mce/tiny_mce.js',

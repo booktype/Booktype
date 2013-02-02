@@ -213,3 +213,53 @@ def remote_load_info(request, message, profileid):
         }
 
     return {"result": True, "info": info}
+
+
+def remote_change_password(request, message, profileid):
+    """
+    Change password.
+
+    Input:
+     - password0
+     - password1
+     - password2
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type profileid: C{string}
+    @param profile: Unique Profile id
+    """
+
+    from django.contrib.auth.models import User
+
+#    except:
+#        transaction.rollback()
+#    else:
+#        transaction.commit()
+
+    try:
+        user = User.objects.get(username=profileid)
+    except User.DoesNotExist:
+        transaction.rollback()
+        return {"result": False}
+
+    if user.username != request.user.username:
+        transaction.rollback()
+        return {"result": False}
+
+    if not user.check_password(message.get('password0', '')):
+        transaction.rollback()
+        # invalid password
+        return {"result": True, "status": 2}
+
+    if message.get('password1','') != message.get('password2', ''):
+        transaction.rollback()
+        # invalid password
+        return {"result": True, "status": 3}
+        
+    user.set_password(message.get('password1'))
+    user.save()
+
+    return {"result": True, "status": 1}

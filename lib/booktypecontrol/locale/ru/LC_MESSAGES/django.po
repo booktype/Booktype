@@ -1,0 +1,679 @@
+# LANGUAGE (LOCALE) translation for Booktype.
+# Copyright (C) 2012 Booktype contributors
+# This file is distributed under the same license as the Booktype package.
+# Aleksandar Erkalović <aleksandar.erkalovic@sourcefabric.org>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Booktype 1.5.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-09 21:43+0100\n"
+"PO-Revision-Date: 2012-11-12 15:33+0100\n"
+"Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
+"Language-Team: Russian <contact@sourcefabric.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+#: views.py:174 views.py:300
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: views.py:177 views.py:302
+msgid "Username is required."
+msgstr "Указать имя пользователя"
+
+#: views.py:178 views.py:179 views.py:303 views.py:305
+msgid "Illegal characters in username."
+msgstr "Некорректные символы в имени пользователя"
+
+#: views.py:180 views.py:306
+msgid "First name"
+msgstr "Имя"
+
+#: views.py:182 views.py:308
+msgid "First name is required."
+msgstr "Указать имя"
+
+#: views.py:184 views.py:310
+msgid "Email"
+msgstr "Email"
+
+#: views.py:186 views.py:312
+msgid "Email is required."
+msgstr "Указать email"
+
+#: views.py:188
+msgid "Profile picture"
+msgstr "Фото профиля"
+
+#: views.py:190 views.py:314
+msgid "User description"
+msgstr "Описание пользователя"
+
+#: views.py:210 views.py:275 views.py:360 views.py:510 views.py:595
+#: views.py:672 views.py:747 views.py:809 views.py:872 views.py:907
+#: views.py:980 views.py:1035 views.py:1088 views.py:1155 views.py:1212
+#: templates/booktypecontrol/add_book.html:24
+#: templates/booktypecontrol/add_person.html:25
+#: templates/booktypecontrol/edit_book.html:13
+#: templates/booktypecontrol/edit_password.html:25
+#: templates/booktypecontrol/edit_profile.html:13
+#: templates/booktypecontrol/rename_book.html:13
+#: templates/booktypecontrol/settings_appearance.html:13
+#: templates/booktypecontrol/settings_book_create.html:13
+#: templates/booktypecontrol/settings_description.html:13
+#: templates/booktypecontrol/settings_frontpage.html:13
+#: templates/booktypecontrol/settings_license.html:12
+#: templates/booktypecontrol/settings_license_edit.html:28
+#: templates/booktypecontrol/settings_privacy.html:13
+#: templates/booktypecontrol/settings_publishing.html:13
+#: templates/booktypecontrol/settings_publishing_defaults.html:13
+msgid "Cancel"
+msgstr "Отмена"
+
+#: views.py:227 views.py:283 views.py:618 views.py:933 views.py:991
+#: views.py:1052 views.py:1098 views.py:1176 views.py:1232
+msgid "Successfuly saved changes."
+msgstr "Изменения успешно сохранены"
+
+#: views.py:246 views.py:317
+msgid "Password"
+msgstr "Пароль"
+
+#: views.py:248 views.py:254 views.py:319 views.py:324
+msgid "Password is required."
+msgstr "Указать пароль"
+
+#: views.py:251 views.py:322
+msgid "Password confirmation"
+msgstr "Подтвердить пароль"
+
+#: views.py:256 views.py:327
+msgid "Enter the same password as above, for verification."
+msgstr "Повторите пароль для контроля"
+
+#: views.py:286
+msgid "Passwords do not match"
+msgstr "Пароли не совпадают"
+
+#: views.py:328
+msgid "Notify person by email"
+msgstr "Уведомить по email"
+
+#: views.py:339
+msgid "This Person already exists."
+msgstr "Такой пользователь уже существует"
+
+#: views.py:345
+msgid "Passwords do not match."
+msgstr "Пароли не совпадают"
+
+#: views.py:394
+msgid "Unknown error while creating new account."
+msgstr "Неизвестная ошибка при создании новой учетной записи"
+
+#: views.py:470 views.py:645
+msgid "Title"
+msgstr "Заголовок"
+
+#: views.py:471 views.py:647
+msgid "Title is required."
+msgstr "Указать заголовок"
+
+#: views.py:474 views.py:553 templates/booktypecontrol/settings.html:27
+msgid "Description"
+msgstr "Описание"
+
+#: views.py:477 views.py:556
+msgid "Owner"
+msgstr "Владелец"
+
+#: views.py:478
+msgid "Book owner is required."
+msgstr "Ввести имя владелеца книги"
+
+#: views.py:481 views.py:560
+#: templates/booktypecontrol/settings_license_edit.html:6
+msgid "License"
+msgstr "Лицензия"
+
+#: views.py:483 views.py:561
+msgid "License is required."
+msgstr "Указать лицензию"
+
+#: views.py:485 views.py:564
+msgid "Initially hide from others"
+msgstr "Изначально скрыто от остальных"
+
+#: views.py:487 views.py:566
+msgid "Cover image"
+msgstr "Изображение обложки"
+
+#: views.py:494 views.py:573
+msgid "This Book already exists."
+msgstr "Данная книга уже существует"
+
+#: views.py:535
+msgid "Successfuly created new book."
+msgstr "Новая книга успешно создана"
+
+#: views.py:539
+msgid "Unknown error while creating new book."
+msgstr "Неизвестная ошибка при создании новой книги"
+
+#: views.py:557
+msgid "Owner is required."
+msgstr "Ввести имя владельца"
+
+#: views.py:622 views.py:773 views.py:826 views.py:993 views.py:1054
+#: views.py:1100 views.py:1178 views.py:1238
+msgid "Unknown error while saving changes."
+msgstr "Неизвестная ошибка при сохранении изменений"
+
+#: views.py:649
+msgid "URL title"
+msgstr "Заголовок URL"
+
+#: views.py:652
+msgid "Illegal characters in URL title."
+msgstr "Некорректные символы в заголовке URL"
+
+#: views.py:653
+msgid "If you leave this field empty URL title will be assigned automatically."
+msgstr ""
+"Если вы не заполните это поле, заголовок URL будет назначен автоматически"
+
+#: views.py:693 views.py:700
+msgid "Successfuly renamed book."
+msgstr "Книга успешно переименована"
+
+#: views.py:727
+msgid "Site title"
+msgstr "Заголовок сайта"
+
+#: views.py:729
+msgid "Site title is required."
+msgstr "Указать заголовок сайта"
+
+#: views.py:731
+msgid "Tagline"
+msgstr "ПОдзаголовок"
+
+#: views.py:734
+msgid "Favicon"
+msgstr "Фавикон"
+
+#: views.py:736
+msgid "Upload .ico file"
+msgstr "Загрузить файл .ico"
+
+#: views.py:771 views.py:824
+msgid "Successfuly saved settings."
+msgstr "Настройки успешно сохранены"
+
+#: views.py:792
+msgid "Default visibility"
+msgstr "Видимость по умолчанию"
+
+#: views.py:794
+msgid "If it is turned on then all books will be visible to everyone."
+msgstr "При данной отметке все книги будут отображаться для всех пользователей"
+
+#: views.py:795
+msgid "Default License"
+msgstr "Лицензия по умолчанию"
+
+#: views.py:798
+msgid "Default license for newly created books."
+msgstr "Лицензия по умолчанию для недавно созданных книг"
+
+#: views.py:854
+msgid "Abbrevation"
+msgstr "Аббревиатура"
+
+#: views.py:856
+msgid "Abbrevation is required."
+msgstr "Указать аббревиатуру"
+
+#: views.py:858
+msgid "Name"
+msgstr "Название"
+
+#: views.py:860
+msgid "License name is required."
+msgstr "Указать название лицензии"
+
+#: views.py:882
+msgid "Successfuly created new license."
+msgstr "Новая лицензия успешно создана"
+
+#: views.py:910 templates/booktypecontrol/settings_license_edit.html:26
+msgid "Remove it"
+msgstr "Удалить"
+
+#: views.py:919
+msgid "Successfuly removed license."
+msgstr "Лицензия успешно удалена"
+
+#: views.py:961
+msgid "Anyone can register"
+msgstr "Регистрация доступна для всех"
+
+#: views.py:963
+msgid "Anyone can register on the site and create account"
+msgstr "Регистрация на сайте и создание учетной записи доступны для всех"
+
+#: views.py:964
+msgid "Only admin can create books"
+msgstr "Создать книгу может только администратор"
+
+#: views.py:966
+msgid "Only admin can import books"
+msgstr "Импортировать книгу может только администратор"
+
+#: views.py:1011
+msgid "book"
+msgstr "книга"
+
+#: views.py:1013
+msgid "ebook"
+msgstr "электронная книга"
+
+#: views.py:1015
+msgid "lulu"
+msgstr "lulu"
+
+#: views.py:1017
+msgid "PDF"
+msgstr "PDF"
+
+#: views.py:1019
+msgid "ODT"
+msgstr "ODT"
+
+#: views.py:1073
+msgid "CSS"
+msgstr "CSS"
+
+#: views.py:1122
+msgid "Book CSS"
+msgstr "Книга CSS"
+
+#: views.py:1125
+msgid "E-Book CSS"
+msgstr "Электронная книга CSS"
+
+#: views.py:1128
+msgid "Lulu CSS"
+msgstr "Lulu CSS"
+
+#: views.py:1131
+msgid "PDF CSS"
+msgstr "PDF CSS"
+
+#: views.py:1134
+msgid "ODT CSS"
+msgstr "ODT CSS"
+
+#: views.py:1192
+msgid "Welcome message"
+msgstr "Приветствие"
+
+#: views.py:1195
+msgid "Show activity"
+msgstr "Показать текущую деятельность"
+
+#: views.py:1236
+msgid "Error while saving changes"
+msgstr "Ошибка при сохранении изменений"
+
+#: templates/control_base.html:25
+msgid "Booktype Control Center"
+msgstr "Центр управления"
+
+#: templates/control_base.html:31
+msgid "Sign out"
+msgstr "Выйти"
+
+#: templates/control_base.html:37
+msgid "Sign In / Create Account"
+msgstr "Войти / Создать учетную запись"
+
+#: templates/control_base.html:47 templates/booktypecontrol/settings.html:25
+msgid "Site"
+msgstr "Сайт"
+
+#: templates/control_base.html:54 templates/booktypecontrol/frontpage.html:6
+msgid "Admin Control Center"
+msgstr "Центр управления"
+
+#: templates/control_base.html:58 templates/booktypecontrol/people.html:6
+msgid "People"
+msgstr "Люди"
+
+#: templates/control_base.html:62 templates/booktypecontrol/books.html:6
+#: templates/booktypecontrol/profile.html:63
+msgid "Books"
+msgstr "Книги"
+
+#: templates/control_base.html:66 templates/booktypecontrol/settings.html:6
+msgid "Settings"
+msgstr "Настройки"
+
+#: templates/booktypecontrol/add_book.html:6
+#: templates/booktypecontrol/add_book.html:24
+msgid "Add Book"
+msgstr "Добавить книгу"
+
+#: templates/booktypecontrol/add_person.html:6
+#: templates/booktypecontrol/add_person.html:25
+msgid "Add Person"
+msgstr "Добавить пользователя"
+
+#: templates/booktypecontrol/book.html:32
+msgid "EDIT BOOK"
+msgstr "РЕДАКТИРОВАТЬ КНИГУ"
+
+#: templates/booktypecontrol/book.html:33
+msgid "BOOK INFO"
+msgstr "ИНФОРМАЦИЯ О КНИГЕ"
+
+#: templates/booktypecontrol/book.html:34
+msgid "EDIT DESCRIPTION"
+msgstr "РЕДАКТИРОВАТЬ ОПИСАНИЕ"
+
+#: templates/booktypecontrol/book.html:35
+msgid "RENAME"
+msgstr "ПЕРЕИМЕНОВАТЬ"
+
+#: templates/booktypecontrol/book.html:58
+msgid "Owner:"
+msgstr "Владелец:"
+
+#: templates/booktypecontrol/book.html:59
+msgid "Status:"
+msgstr "Статус:"
+
+#: templates/booktypecontrol/book.html:61
+msgid "(this book is hidden from others)"
+msgstr " (эта книга не видна остальным пользователям)"
+
+#: templates/booktypecontrol/book.html:63
+msgid "(this book is visible to everyone)"
+msgstr " (эта книга видна всем пользователям)"
+
+#: templates/booktypecontrol/book.html:67
+msgid "Member of group:"
+msgstr "Член группы:"
+
+#: templates/booktypecontrol/book.html:69
+msgid "Current version:"
+msgstr "Текущая версия"
+
+#: templates/booktypecontrol/book.html:70
+msgid "Attachments size:"
+msgstr "Размер приложений"
+
+#: templates/booktypecontrol/book.html:72
+msgid "Created:"
+msgstr "Создано"
+
+#: templates/booktypecontrol/book.html:73
+msgid "Published:"
+msgstr "Опубликовано"
+
+#: templates/booktypecontrol/book.html:75
+msgid "Collaborators:"
+msgstr "Сотрудничающие:"
+
+#: templates/booktypecontrol/book.html:83
+msgid "Online editing:"
+msgstr "Онлайн-редактирование:"
+
+#: templates/booktypecontrol/book.html:92
+msgid "Versions"
+msgstr "Версии:"
+
+#: templates/booktypecontrol/books.html:30
+msgid "ADD NEW BOOK"
+msgstr "ДОБАВИТЬ НОВУЮ КНИГУ"
+
+#: templates/booktypecontrol/books.html:50
+msgid "short title"
+msgstr "короткий заголовок"
+
+#: templates/booktypecontrol/books.html:51
+msgid "full title"
+msgstr "полный заголовок"
+
+#: templates/booktypecontrol/edit_book.html:13
+#: templates/booktypecontrol/settings_appearance.html:13
+#: templates/booktypecontrol/settings_book_create.html:13
+#: templates/booktypecontrol/settings_description.html:13
+#: templates/booktypecontrol/settings_frontpage.html:13
+#: templates/booktypecontrol/settings_license_edit.html:24
+#: templates/booktypecontrol/settings_privacy.html:13
+#: templates/booktypecontrol/settings_publishing.html:13
+#: templates/booktypecontrol/settings_publishing_defaults.html:13
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: templates/booktypecontrol/edit_password.html:25
+msgid "Change Password"
+msgstr "Изменить пароль"
+
+#: templates/booktypecontrol/edit_profile.html:13
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#: templates/booktypecontrol/frontpage.html:28
+msgid "Info"
+msgstr "Информация"
+
+#: templates/booktypecontrol/frontpage.html:30
+msgid "Version:"
+msgstr "Версия"
+
+#: templates/booktypecontrol/frontpage.html:31
+msgid "Books:"
+msgstr "Книги"
+
+#: templates/booktypecontrol/frontpage.html:32
+msgid "Groups:"
+msgstr "Группы"
+
+#: templates/booktypecontrol/frontpage.html:33
+msgid "Users:"
+msgstr "Пользователи"
+
+#: templates/booktypecontrol/frontpage.html:34
+msgid "Database size:"
+msgstr "Размер базы данных"
+
+#: templates/booktypecontrol/frontpage.html:35
+msgid "Files size:"
+msgstr "Размер файлов"
+
+#: templates/booktypecontrol/frontpage.html:40
+msgid "Online users"
+msgstr "Пользователи онлайн"
+
+#: templates/booktypecontrol/frontpage.html:50
+msgid "Working on:"
+msgstr "работа над:"
+
+#: templates/booktypecontrol/frontpage.html:59
+msgid "No online users"
+msgstr "Нет пользователей онлайн"
+
+#: templates/booktypecontrol/frontpage.html:63
+msgid "Recent activity"
+msgstr "Последние действия"
+
+#: templates/booktypecontrol/frontpage.html:72
+#: templates/booktypecontrol/profile.html:95
+msgid "ago"
+msgstr "ранее"
+
+#: templates/booktypecontrol/frontpage.html:75
+#: templates/booktypecontrol/profile.html:98
+msgid "Created new chapter"
+msgstr "Создана новая глава"
+
+#: templates/booktypecontrol/frontpage.html:80
+#: templates/booktypecontrol/profile.html:103
+msgid "Created new book"
+msgstr "Создана новая книга"
+
+#: templates/booktypecontrol/people.html:29
+msgid "ADD NEW PERSON"
+msgstr "ДОБАВИТЬ НОВОГО ПОЛЬЗОВАТЕЛЯ"
+
+#: templates/booktypecontrol/people.html:49
+msgid "username"
+msgstr "имя пользователя"
+
+#: templates/booktypecontrol/people.html:50
+msgid "full name"
+msgstr "полное имя"
+
+#: templates/booktypecontrol/people.html:51
+msgid "email"
+msgstr "email"
+
+#: templates/booktypecontrol/profile.html:28
+msgid "EDIT INFO"
+msgstr "РЕДАКТИРОВАТЬ ИНФОРМАЦИЮ"
+
+#: templates/booktypecontrol/profile.html:29
+msgid "CHANGE PASSWORD"
+msgstr "ИЗМЕНИТЬ ПАРОЛЬ"
+
+#: templates/booktypecontrol/profile.html:50
+msgid "Username:"
+msgstr "Имя пользователя:"
+
+#: templates/booktypecontrol/profile.html:51
+msgid "Full name:"
+msgstr "Полное имя:"
+
+#: templates/booktypecontrol/profile.html:52
+msgid "Email:"
+msgstr "Email:"
+
+#: templates/booktypecontrol/profile.html:53
+msgid "Joined:"
+msgstr "Присоединились:"
+
+#: templates/booktypecontrol/profile.html:54
+msgid "Last login:"
+msgstr "Последний вход:"
+
+#: templates/booktypecontrol/profile.html:55
+msgid "About yourself:"
+msgstr "О себе:"
+
+#: templates/booktypecontrol/profile.html:64
+msgid "Groups"
+msgstr "Группы"
+
+#: templates/booktypecontrol/profile.html:65
+msgid "Activity"
+msgstr "Деятельность"
+
+#: templates/booktypecontrol/profile.html:72
+msgid "This person has no Books."
+msgstr "У данного пользователя нет книг"
+
+#: templates/booktypecontrol/profile.html:82
+msgid "This person has no Groups."
+msgstr "Данный пользователь не входит в группы"
+
+#: templates/booktypecontrol/rename_book.html:13
+msgid "Rename Book"
+msgstr "Переименовать книгу"
+
+#: templates/booktypecontrol/settings.html:28
+#: templates/booktypecontrol/settings_appearance.html:6
+msgid "Appearance"
+msgstr "Внешний вид"
+
+#: templates/booktypecontrol/settings.html:29
+#: templates/booktypecontrol/settings_frontpage.html:6
+msgid "Frontpage"
+msgstr "Первая страница"
+
+#: templates/booktypecontrol/settings.html:34
+msgid "General"
+msgstr "Общее"
+
+#: templates/booktypecontrol/settings.html:36
+#: templates/booktypecontrol/settings_license.html:30
+msgid "Licenses"
+msgstr "Лицензии"
+
+#: templates/booktypecontrol/settings.html:37
+msgid "Default Book Settings"
+msgstr "Настройки книги по умолчанию"
+
+#: templates/booktypecontrol/settings.html:38
+#: templates/booktypecontrol/settings_privacy.html:6
+msgid "Privacy"
+msgstr "Безопасность"
+
+#: templates/booktypecontrol/settings.html:49
+msgid "Publish options"
+msgstr "Опции опубликования"
+
+#: templates/booktypecontrol/settings.html:51
+msgid "Allowed publishing options"
+msgstr "Разрешенные опции опубликования"
+
+#: templates/booktypecontrol/settings.html:52
+msgid "Default settings"
+msgstr "Настройки по умолчанию"
+
+#: templates/booktypecontrol/settings_book_create.html:6
+msgid "Book create"
+msgstr "Создать книгу"
+
+#: templates/booktypecontrol/settings_description.html:6
+msgid "Site description"
+msgstr "Описание сайта"
+
+#: templates/booktypecontrol/settings_license.html:6
+msgid "New license"
+msgstr "Новая лицензия"
+
+#: templates/booktypecontrol/settings_license.html:12
+msgid "Add new license"
+msgstr "Добавить новую лицензию"
+
+#: templates/booktypecontrol/settings_license_edit.html:35
+msgid "Books licensed with"
+msgstr "Книга в рамках лицензии"
+
+#: templates/booktypecontrol/settings_license_edit.html:40
+msgid "No such books."
+msgstr "Такой книги не найдено"
+
+#: templates/booktypecontrol/settings_publishing.html:6
+msgid "Publishing"
+msgstr "Издание"
+
+#: templates/booktypecontrol/settings_publishing_defaults.html:6
+msgid "Publishing defaults"
+msgstr "Издание по умолчанию"
+
+#: templates/errors/license_does_not_exist.html:4
+msgid "License not found!"
+msgstr "Лицензия не найдена"
+
+#: templates/errors/license_does_not_exist.html:5
+#, python-format
+msgid "Can't find license \"%(name)s\"."
+msgstr "Невозможность найти лицензию \"%(name)s\"."

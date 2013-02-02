@@ -157,7 +157,7 @@ class Command(BaseCommand):
             try:
                 REPORT_EMAIL_USER = settings.REPORT_EMAIL_USER
             except AttributeError:
-                REPORT_EMAIL_USER = 'booki@booki.cc'
+                REPORT_EMAIL_USER = 'booktype@booktype.pro'
 
             emails = [em[1] for em in settings.ADMINS]
 

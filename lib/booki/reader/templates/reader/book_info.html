@@ -66,10 +66,10 @@
 <h2>{{ book.title }}</h2>
 <div class="padded">
 <div class="action-menu big">
-    <a class="prime editbook" href="{% url edit_book book.url_title  %}">{% trans "Edit this Book" %}</a>
-    <a class="prime viewdraft" href="{% url draft_book book.url_title  book_version %}">{% trans "View draft" %}</a>
+    <a class="prime editbook" href="{% url edit_book book.url_title  %}"><nobr>{% trans "Edit this Book" %}</nobr></a>
+    <a class="prime viewdraft" href="{% url draft_book book.url_title  book_version %}"><nobr>{% trans "View draft" %}</nobr></a>
     {% if is_book_admin %}
-        <a class="prime viewdraft editinfo" href="#">{% trans "Edit book info" %}</a>
+        <a class="prime viewdraft editinfo" href="#"><nobr>{% trans "Edit book info" %}</nobr></a>
     {% endif %}
 </div>
 <h3>{% trans "Book details" %}</h3>

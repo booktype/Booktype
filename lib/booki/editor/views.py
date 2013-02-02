@@ -205,6 +205,8 @@ def upload_attachment(request, bookid, version=None):
     @param version: Book version or None
     """
 
+    import datetime
+
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
@@ -226,10 +228,12 @@ def upload_attachment(request, bookid, version=None):
                                version = book_version,
                                args = {'filename': request.FILES[name].name},
                                user = request.user,
-                               kind = 'attachment_upload')
+                               kind = 'attachment_upload'
+                               )
 
             att = models.Attachment(version = book_version,
                                     # must remove this reference
+                                    created = datetime.datetime.now(),
                                     book = book,
                                     status = stat)
             att.save()
@@ -253,7 +257,8 @@ def upload_attachment(request, bookid, version=None):
         return HttpResponse('<html><body><script> parent.closeAttachmentUpload();  </script></body></html>')
 
     if request.POST.get("attachmenttab", "") == "2":
-        return HttpResponse('<html><body><script>  parent.FileBrowserDialogue.loadAttachments(); parent.FileBrowserDialogue.showUpload(); parent.mcTabs.displayTab("browse_tab","browse_panel");</script></body></html>')
+        return HttpResponse('<html><body><script>  parent.FileBrowserDialogue.loadAttachments(); parent.FileBrowserDialogue.displayBrowseTab();  parent.FileBrowserDialogue.showUpload(); </script></body></html>')
+#        return HttpResponse('<html><body><script>  console.debug("load attachments"); parent.FileBrowserDialogue.loadAttachments(); console.debug("show upload"); parent.FileBrowserDialogue.showUpload();  parent.FileBrowserDialogue.displayBrowseTab();  console.debug("after show browse panel");</script></body></html>')
 
     # should not call showAttachmentsTab, but it works for now
     if operationResult:

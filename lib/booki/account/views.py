@@ -23,6 +23,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError, transaction
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 try:
     from django.core.validators import email_re
@@ -42,21 +43,7 @@ from booki.editor import common
 from booki.messaging.views import get_endpoint_or_none
 from booki.utils import config
 
-try:
-    ESPRI_URL = settings.ESPRI_URL
-    TWIKI_GATEWAY_URL = settings.TWIKI_GATEWAY_URL
-except AttributeError:
-    # for backwards compatibility
-    ESPRI_URL = "http://objavi.booki.cc/espri.cgi"
-    TWIKI_GATEWAY_URL = "http://objavi.booki.cc/booki-twiki-gateway.cgi"
-    
-try:
-    THIS_BOOKI_SERVER = settings.THIS_BOOKI_SERVER
-except AttributeError:
-    import os
-    THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
 
-    
 def view_accounts(request):
     """
     Django View for /accounts/ url. Does nothing at the moment.
@@ -97,16 +84,18 @@ def signin(request):
 
 
     from booki.utils.json_wrapper import simplejson
-
+    from booki.utils.misc import  isUserLimitReached
     from booki.editor.models import BookiGroup
 
     from django.core.exceptions import ObjectDoesNotExist
     from django.contrib import auth
 
+    limitReached = isUserLimitReached()
+
     if request.POST.get("ajax", "") == "1":
         ret = {"result": 0}
 
-        if request.POST.get("method", "") == "register" and config.getConfiguration('FREE_REGISTRATION'):
+        if request.POST.get("method", "") == "register" and config.getConfiguration('FREE_REGISTRATION') and not limitReached:
             def _checkIfEmpty(key):
                 return request.POST.get(key, "").strip() == ""
 
@@ -234,7 +223,10 @@ def signin(request):
             pass
 
     try:
-        return render_to_response('account/signin.html', {"request": request, 'redirect': redirect, 'joingroups': joinGroups})
+        return render_to_response('account/signin.html', {'request': request, 
+                                                          'redirect': redirect, 
+                                                          'joingroups': joinGroups, 
+                                                          'limit_reached': limitReached})
     except:
         transaction.rollback()
     finally:
@@ -270,21 +262,10 @@ def forgotpassword(request):
             ret["result"] = _doChecksForEmpty()
 
             if ret["result"] == 0:
-                allOK = True
-                try:
-                    usr = User.objects.get(username=request.POST.get("username", ""))
-                except User.DoesNotExist:
-                    pass
+                usersToEmail = list(User.objects.filter(Q(username=request.POST.get("username", "")) | Q(email=request.POST.get("username", ""))))
 
-                if not usr:
-                    try:
-                        usr = User.objects.get(email=request.POST.get("username", ""))
-                    except User.DoesNotExist:
-                        allOK = False
-
-                if allOK:
+                for usr in usersToEmail:
                     from booki.account import models as account_models
-                    from django.core.mail import send_mail
 
                     def generateSecretCode():
                         import string
@@ -307,18 +288,30 @@ def forgotpassword(request):
                     else:
                         transaction.commit()
 
-                    #
-                    body = render_to_string('account/password_reset_email.txt', 
-                                            dict(secretcode=secretcode))
-                    send_mail(_('Reset password'), body,
-                              'info@' + THIS_BOOKI_SERVER,
-                              [usr.email], fail_silently=False)
+                    THIS_BOOKI_SERVER = config.getConfiguration('THIS_BOOKI_SERVER')
+                    body = render_to_string('account/password_reset_email.html', 
+                                            dict(secretcode=secretcode,
+                                                 hostname=THIS_BOOKI_SERVER))
+                    
+                    from django.core.mail import EmailMessage
 
-                else:
+                    msg = EmailMessage(_('Reset password'), body, settings.REPORT_EMAIL_USER, [usr.email])
+                    msg.content_subtype = 'html'
+
+                    try:
+                        msg.send()
+                    except:
+                        ret["result"] = 4
+
+                if len(usersToEmail) == 0:
                     ret["result"] = 3
 
-
-        return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+        try:
+            return HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+        except:
+            transaction.rollback()
+        finally:
+            transaction.commit()
 
     try:
         return render_to_response('account/forgot_password.html', {"request": request})
@@ -404,6 +397,7 @@ def view_profile(request, username):
 
     from django.contrib.auth.models import User
     from booki.editor import models
+    from booki.utils.misc import isBookLimitReached
 
     try:
         user = User.objects.get(username=username)
@@ -437,6 +431,7 @@ def view_profile(request, username):
                                                             "admin_import": admin_import,
                                                             "user_description": '<br/>'.join(userDescription.replace('\r','').split('\n')),
                                                             "books": books,
+                                                            "limit_reached": isBookLimitReached(),
                                                             "groups": groups})
 
 @transaction.commit_manually
@@ -540,6 +535,7 @@ def create_book(request, username):
     """
 
     from django.contrib.auth.models import User
+    from booki.utils.misc import isBookLimitReached
 
     try:
         user = User.objects.get(username=username)
@@ -551,14 +547,13 @@ def create_book(request, username):
         finally:
             transaction.commit()    
 
-    if not request.user.is_authenticated():
+    if isBookLimitReached() or not request.user.is_authenticated():
         try:
             return pages.ErrorPage(request, "errors/no_permissions.html")
         except:
             transaction.rollback()
         finally:
             transaction.commit()    
-
 
     from booki.utils.book import checkBookAvailability, createBook
     from booki.editor import models
@@ -749,6 +744,7 @@ def import_book(request, username):
     """
 
     from django.contrib.auth.models import User
+    from booki.utils.misc import isBookLimitReached
 
     try:
         user = User.objects.get(username=username)
@@ -760,7 +756,7 @@ def import_book(request, username):
         finally:
             transaction.commit()    
 
-    if not request.user.is_authenticated():
+    if isBookLimitReached() or not request.user.is_authenticated():
         try:
             return pages.ErrorPage(request, "errors/no_permissions.html")
         except:
@@ -808,8 +804,9 @@ def import_book(request, username):
             if request.GET.get('hidden', '') != '':
                 extraOptions['hidden'] = True
 
+            ESPRI_URL = config.getConfiguration('ESPRI_URL')
+
             importSources = {  
-                'flossmanuals': (TWIKI_GATEWAY_URL, "en.flossmanuals.net"),
                 "archive":      (ESPRI_URL, "archive.org"),
                 "wikibooks":    (ESPRI_URL, "wikibooks"),
                 "epub":         (ESPRI_URL, "url"),

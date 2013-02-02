@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os.path
 
 # DJANGO DEBUG
@@ -28,11 +30,11 @@ BOOKI_URL = ''
 #BOOKI_URL = 'http://%s' % THIS_BOOKI_SERVER
 
 # E-MAIL OPTIONS
-REPORT_EMAIL_USER = 'booki@booki.cc'
+REPORT_EMAIL_USER = 'booktype@booktype.pro'
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
-#EMAIL_HOST_USER = 'booki@' + THIS_BOOKI_SERVER
+#EMAIL_HOST_USER = 'booktype@' + THIS_BOOKI_SERVER
 #EMAIL_HOST_PASSWORD = ''
 #EMAIL_USE_TLS = False
 
@@ -69,9 +71,8 @@ MEDIA_URL = DATA_URL
 ADMIN_MEDIA_PREFIX = '%s/media/' % BOOKI_URL
 
 # URLS
-OBJAVI_URL = "http://objavi.booki.cc/objavi.cgi"
-ESPRI_URL = "http://objavi.booki.cc/espri.cgi"
-TWIKI_GATEWAY_URL = "http://objavi.booki.cc/booki-twiki-gateway.cgi"
+OBJAVI_URL = "http://objavi.booktype.pro/objavi.cgi"
+ESPRI_URL = "http://objavi.booktype.pro/espri.cgi"
 
 # lulu.com export credentials that override Objavi settings
 LULU_USER = None

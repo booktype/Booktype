@@ -118,6 +118,7 @@ def view_frontpage(request):
     """
 
     from booki.utils import config
+    from booki.utils.misc import isUserLimitReached
 
     showHistory = config.getConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', True)
 
@@ -129,6 +130,7 @@ def view_frontpage(request):
     return render_to_response('portal/frontpage.html', {"request": request, 
                                                         "activity_history": activityHistory,
                                                         "show_history": showHistory,
+                                                        "limit_reached": isUserLimitReached(),
                                                         "title": "Booktype"})
 
 # GROUPS

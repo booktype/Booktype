@@ -92,17 +92,6 @@
 <div class="group-members"> {% blocktrans %}MEMBERS: {{ n_members }}{% endblocktrans %} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
  {% blocktrans %}BOOKS: {{ n_books }}{% endblocktrans %}</div>
  
-<!--
-<div class="announcements">
- <h4 class="group">{% trans "ANNOUNCEMENTS" %}</h4>
- <div class="announcement">
-    <h5 class="group">Dummy title</h5>
-    <p>
-      Announcement text.
-    </p>
- </div>
-</div>
--->
             </td>
 			<td width="5%"><td>
             </td>
@@ -134,12 +123,6 @@
 {% endfor %}
 </ul>
 
-<!--
-{% if is_member %}
-  <a href="javascript:void(0)" class="butt">Add your book to this group!</a>
-{% endif %}
--->
-
 {% if is_member %}
 <form method="POST" action="add_book/">
 <select name="book" style="width:400px;">
@@ -163,12 +146,6 @@
 
 <div style="clear: both"></div>
 </div>
-
-<!--{% if security.isGroupAdmin %}
-<div id="tabsettings">
-<h3>{% trans "Settings" %}</h3>
-</div>
-{% endif %}-->
 
 </div>
 
