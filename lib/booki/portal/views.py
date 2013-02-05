@@ -157,7 +157,7 @@ def view_group(request, groupid):
 
     isMember = request.user in members
     if request.user.is_authenticated():
-        yourBooks = models.Book.objects.filter(owner=request.user)
+        yourBooks = models.Book.objects.filter(owner=request.user, hidden=False)
     else:
         yourBooks = []
 
