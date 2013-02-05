@@ -14,14 +14,16 @@ This example works with Sqlite3 and Python built in web server. This method is n
     apt-get install python python-dev sqlite3 git-core python-pip python-virtualenv 
     apt-get install redis-server libxml2-dev libxslt-dev
 
-    # Create Python Virtual Environment and install needed Python modules
+    # Create Python Virtual Environment
     virtualenv --distribute mybooktype
     cd mybooktype
     source bin/activate
-    pip install Django==1.3 South==0.7.5 unidecode lxml PIL
 
     # Fetch Booktype source
     git clone https://github.com/sourcefabric/Booktype.git
+
+    # Install needed python modules
+    pip install -f Booktype/requirements/sqlite.txt
 
     # Create Booktype project
     ./Booktype/scripts/createbooki --database sqlite mybook
@@ -82,10 +84,12 @@ This example works with PostgreSQL and Python built in web server. Version of Po
     virtualenv --distribute mybooktype
     cd mybooktype
     source bin/activate
-    pip install Django==1.3 South==0.7.5 unidecode lxml PIL
 
     # Fetch Booktype source
     git clone https://github.com/sourcefabric/Booktype.git
+
+    # Install needed python modules
+    pip install -f Booktype/requirements/postgresql.txt
 
     # Create Booktype project
     ./Booktype/scripts/createbooki --database postgresql mybook
