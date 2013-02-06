@@ -1,3 +1,105 @@
+1.5.4 (2012-02-06)
+==================
+  Read INSTALL file about instructions how to upgrade to version 1.5.4.
+
+  - BK-503 Implement language switch on the base template
+  - BK-502 Fix Albanian translation for insert image dialog
+  - BK-501 Fix install documentation to use requirements.txt files
+  - BK-498 Only some of books created by owner could be added to newly created group
+  - BK-476 Manage Roles dialog contains two items which are not translated to russian
+  - BK-470 Publishing -> wait message -> is not translate into Russian
+  - BK-485 Attach file and further messages not translated into russian
+  - BK-481 History -> page navigation keywords are not translated into russian
+  - BK-497 Update README, INSTALL and UPGRADE.txt file with updated links and information for Booktype 1.5.4
+  - BK-125 replace draft background with something more subtle
+  - BK-496 Add shell script which starts weekly reports
+  - BK-495 i18n support in JavaScript can return multiple strings instead of one
+  - BK-494 Booktype daily cron report needs updating
+  - BK-493 Implement new weekly cron report
+  - BK-492 Escape messages in chat window
+  - BK-491 Add Translator comments for some confusing translations
+  - BK-490 Depending of the language set auto configure TinyMCE to use Albanian language
+  - BK-489 Install Albanian translations for TinyMCE editor
+  - BK-488 Misspelled word in Publish wizard
+  - BK-417 Version, Setting Tabs -> some captions are in Croatian
+  - BK-472 Upload Finnish translation
+  - BK-471 Upload italian translation for Booktype and Booktype Control Center
+  - BK-468 Disable Django admin interface by default
+  - BK-466 Do not load environment variables with source inside of report shell script
+  - BK-231 add 3 lines to default css
+  - BK-462 russian version of Book creation wizard contains untranslated buttons and other controls
+  - BK-464 Attachment ID inside of exported file can have invalid characters in ID
+  - BK-464 Attachment ID inside of exported file can have invalid characters in ID
+  - BK-462 russian version of Book creation wizard contains untranslated buttons and other controls
+  - BK-463 Cron script for reporting needs updating
+  - BK-461 Remove script which does user registration on StatusNet service
+  - BK-460 Upgrade .gitignore with new entries
+  - BK-459 Rename MIGRATE.txt into UPGRADE.txt and change all references to it
+  - BK-431 Publishing wizard -> Advanced - 'general' subsection related russian translations are incomplete and reverted in meaning
+  - BK-458 Implement multiple files for PIP requirements
+  - BK-450 Transaction handing in Django views can fail in case of failure
+  - BK-449 Remove statusnet Django application
+  - BK-447 Update localisation files
+  - BK-448 Profile image is not generated if Image can not be read
+  - BK-424 My Dashboard -> My Groups -> leads to crash
+  - BK-427 Russian translations do not fit the size of the control they are contained in
+  - BK-429 Publishing wizard -> an ambiguity is introduced by using Column keyword twice
+  - BK-425 History Tab -> Cloning the chapter -> The action name is set to 'unknown'
+  - BK-447 Update localisation files
+  - BK-446 Must wait until TinyMCE is initialised before text is set
+  - BK-412 Spanish translation for custom Booktype TinyMCE plugins
+  - BK-410 Info messages send from Booktype to client over Sputnik channel are not translated
+  - BK-407 In Russian version, the dropdown lists are out of border in some page
+  - BK-406 Password reset fails if there is more then one person with the same email
+  - BK-405 Reading configuration fails if configuration.json does not exists
+  - BK-403 Add requirements.txt file to the distribution
+  - BK-208 Improve forgot password email
+  - BK-404 It is needed to reload Apache server to reload configuration
+  - BK-402 Add support for i18n in custom Booktype plugins
+  - BK-401 Add TinyMCE language files for languages - Russian, Spanish, Italian
+  - BK-400 Update translation files for Russian and Spanish
+  - BK-399 Buttons in publishing wizards must be made translatable
+  - BK-397 Fix untranslated string in html templates
+  - BK-396 Dialogs on profile page should support i18n
+  - BK-395 Text in publishing wizards should be translatable
+  - BK-393 Booktype and Objavi do not have synchronized list of licenses
+  - BK-392 Add document about interface translation
+  - BK-391 Remove __init__.py files from locale directories
+  - BK-388 Draft view does not have a good HTML structure and is missing edit buttons
+  - BK-386 Remove auto field update from Book.created field
+  - BK-387 Update models and remove auto update functionality of some date fields
+  - BK-379 References to Booki in Booktype interface messages
+  - BK-162 Dashboard->Book Activity->Send Reply dialog does not dissapear
+  - BK-385 Update documentation files in doc/deployment/ directory
+  - BK-382 Remove reference to booki.cc in settings and report file
+  - BK-379 References to Booki in Booktype interface messages
+  - BK-381 Make objavi.booktype.pro default Objavi server
+  - BK-380 Better organize README, INSTALL and doc/deployment directory.
+  - BK-351 Default settings.py should have predefined utf8 encoding
+  - BK-350 Organize README file
+  - BK-349 Remove outdated files from tools/ directory
+  - BK-348 Can not save Book history for AnonymousUser
+  - BK-347 Publishing the Book leads to a dead URL on Objavi server when custom is selected as a BookSize
+  - BK-345 Add Spanish translation to Booktype and Booktype Control Center
+  - BK-344 Upgrade django.po files for Booktype and Booktype Control Center and add Russian translation
+  - BK-212 Booktype needs a version string shown in the admin interface
+  - BK-101 Booktype Tinymce Image plugin shows blank window in Firefox
+  - BK-343 Form for creating new Person in Booktype Control Center does not return password
+  - BTPRO-23 Booktype 'new user' emails need some updating
+  - BTPRO-22 Settings->Language- displays Unknown as language
+  - BK-330: Added machine-readable copyright file
+  - BK-330: Added copyright and contact information to gettext files
+  - BK-330 Script for generating nightly snapshot package
+  - BK-121 Change Password
+  - BK-333 Show notification for missing license description
+  - BK-161 MyBooks->BookName->View Draft ->Upload Image leads to a deadlink
+  - BK-158 MyBook->Settings->Role : It is possible to add same user several times
+  - BK-329 Settings->License Information should be available for all available options
+  - BK-332 Management command to create Booktype user
+  - BK-331 Create configuration variables to limit number of users and books
+  - BK-328 Load initial language data as part of South migration
+  - BK-327 Load initial license data as South data migration 
+
 1.5.3 (2012-07-01)
 ==================
   Read INSTALL file about instructions how to upgrade to version 1.5.3.
