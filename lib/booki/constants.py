@@ -16,7 +16,7 @@
 
 import os
 
-PUBLISH_OPTIONS =  ['book', 'ebook', 'lulu', 'pdf', 'odt']
+PUBLISH_OPTIONS =  ['book', 'ebook', 'pdf', 'odt']
 
 OBJAVI_URL =  "http://objavi.booktype.pro/objavi.cgi"
 ESPRI_URL = "http://objavi.booktype.pro/espri.cgi"
