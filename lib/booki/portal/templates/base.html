@@ -84,37 +84,21 @@
 <script>
  $(function() {
   var $frm = $("FORM[name=changelang]");
-  $(".langen", $frm).click(function() {
-     $("INPUT[name=language]", $frm).val("en");
-     $frm.submit();
-     return false;
-   });
-   $(".langru", $frm).click(function() {
-     $("INPUT[name=language]", $frm).val("ru");
-     $frm.submit();
-     return false;
-  });
 
-   $(".langes", $frm).click(function() {
-     $("INPUT[name=language]", $frm).val("es");
+  $("A[href=#]", $frm).click(function() {
+     var lang = $(this).attr("class").substr(4);
+
+     $("INPUT[name=language]", $frm).val(lang);
      $frm.submit();
+
      return false;
   });
-
-   $(".langsq", $frm).click(function() {
-     $("INPUT[name=language]", $frm).val("sq");
-     $frm.submit();
-     return false;
-  });
-
-
-
  });
 </script>
 <form name="changelang" method="POST" action="{{ request.META.SCRIPT_NAME }}/accounts/i18n/setlang/?language=en-us">
        <input type="hidden" name="language" value="en-us">
 
-       {% if request.LANGUAGE_CODE == "en-us" %}
+       {% if request.LANGUAGE_CODE == "en" or request.LANGUAGE_CODE == "en-us" %}
          &nbsp;English&nbsp;|
        {% else %}
          &nbsp;<a class="langen" href="#">English</a>&nbsp;|
@@ -124,6 +108,12 @@
          &nbsp;Español&nbsp;|
        {% else %}
          &nbsp;<a class="langes" href="#">Español</a>&nbsp;|
+       {% endif %}
+
+       {% if request.LANGUAGE_CODE == "it" %}
+         &nbsp;Italiano&nbsp;|
+       {% else %}
+         &nbsp;<a class="langit" href="#">Italiano</a>&nbsp;|
        {% endif %}
 
        {% if request.LANGUAGE_CODE == "ru" %}
@@ -137,6 +127,7 @@
        {% else %}
          &nbsp;<a class="langsq" href="#">Shqip</a>
        {% endif %}
+
 </form>
      </div>
 
