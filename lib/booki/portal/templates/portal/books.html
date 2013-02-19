@@ -18,7 +18,7 @@
  				<div class="book">
             		<div class="block">
              			<div class="title">
-			                {{ book.title }}
+			                <a href="{% url book_info  book.url_title %}" title="{{book.title}}">{{ book.title }}</a>
 						</div>
                     </div>    
  	          		<div class="link">
@@ -36,7 +36,7 @@
  				<div class="book">
             		<div class="block">
              			<div class="title">
-                        	{{ book.title }}
+                        	<a href="{% url book_info  book.url_title %}" title="{{book.title}}">{{ book.title }}</a>
 			            </div>
                     </div>
 	               <div class="link">
