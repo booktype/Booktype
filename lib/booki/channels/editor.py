@@ -2995,7 +2995,7 @@ def remote_publish_book2(request, message, bookid, version):
             options = PUBLISH_OPTIONS[pm]
 
     except models.PublishWizzard.DoesNotExist:
-        options = PUBLISH_OPTIONS[message.get('publish_mode', 'book')]
+        options = PUBLISH_OPTIONS[pm]
 
     # converstion for names
     publishOptions = {'ebook': 'epub',
