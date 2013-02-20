@@ -464,6 +464,59 @@ def view_book(request, bookid):
                               context_instance=RequestContext(request)
                               )
 
+
+from django.contrib.auth.models import User
+
+class DeleteBookForm(forms.Form):
+    title = forms.CharField(label=_("Title"), 
+                            error_messages={'required': _('Title is required.')},                                 
+                            required=True, 
+                            max_length=100)
+    def __unicode__(self):
+        return self.title
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_book(request, bookid):
+    from booki.utils import misc
+
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+
+    if request.method == 'POST': 
+        frm = DeleteBookForm(request.POST, request.FILES) 
+
+        if request.POST['submit'] == _('Cancel'):
+            return HttpResponseRedirect(reverse('control_book', args=[book.url_title]))
+
+        if frm.is_valid(): 
+            try:
+                if frm.cleaned_data['title'].upper() == book.title.upper():
+                    book.delete()
+
+                    messages.success(request, _('Successfuly deleted the book'))
+
+                    return HttpResponseRedirect(reverse('control_books')) 
+                else:
+                    messages.warning(request, _('Wrong title.'))
+            except:
+                messages.warning(request, _('Unknown error while deleting the book'))
+
+    else:
+        frm = DeleteBookForm()
+
+    return render_to_response('booktypecontrol/delete_book.html', 
+                              {"request": request,
+                               "admin_options": ADMIN_OPTIONS,
+                               "form": frm,
+                               "book": book
+                               },
+                              context_instance=RequestContext(request))
+
+
 from django.contrib.auth.models import User
 
 class NewBookForm(forms.Form):

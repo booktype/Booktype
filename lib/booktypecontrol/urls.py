@@ -33,6 +33,7 @@ urlpatterns = patterns('',
     url(r'^books/_add/$', 'booktypecontrol.views.add_book', name='control_add_book'),
     url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/_edit/$', 'booktypecontrol.views.edit_book', name='control_edit_book'),
     url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/_rename/$', 'booktypecontrol.views.rename_book', name='control_rename_book'),
+    url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/_delete/$', 'booktypecontrol.views.delete_book', name='control_delete_book'),
     url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/$', 'booktypecontrol.views.view_book', name='control_book'),
 
     url(r'^settings/$', 'booktypecontrol.views.viewsettings', name='control_settings'),

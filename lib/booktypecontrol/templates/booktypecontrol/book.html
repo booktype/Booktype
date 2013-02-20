@@ -23,6 +23,10 @@
        window.location = '{% url control_rename_book book.url_title %}';
     });
 
+    $("button[name=delete]").click(function() {
+       window.location = '{% url control_delete_book book.url_title %}';
+    });
+
     $("#tabs").tabs();
   })();
  </script>
@@ -32,7 +36,8 @@
    <button name="editbook">{% trans "EDIT BOOK" %}</button>&nbsp;&nbsp;
    <button name="bookinfo">{% trans "BOOK INFO" %}</button>&nbsp;&nbsp;
    <button name="edit">{% trans "EDIT DESCRIPTION" %}</button>&nbsp;&nbsp;
-   <button name="rename">{% trans "RENAME" %}</button>
+   <button name="rename">{% trans "RENAME" %}</button>&nbsp;&nbsp;
+   <button name="delete">{% trans "DELETE" %}</button>
   </form>
  </div>
 
