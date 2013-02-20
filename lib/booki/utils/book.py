@@ -249,3 +249,41 @@ def renameBook(book, newTitle, newURLTitle):
 
     return True
 
+def removeBook(book):
+    """
+    Remove the Book. 
+
+    @type book; C{booki.editor.models.Book}
+    @param: Book object
+        """
+
+    from django.conf import settings
+
+    import os
+    import shutil
+    
+    bookURLTitle = book.url_title
+    bookID = book.id
+
+    # delete the book
+    book.delete()
+
+    # remove attachments directory
+    bookPath = '%s/books/%s' % (settings.DATA_ROOT, bookURLTitle)
+
+    if os.path.isdir(bookPath):
+        try:
+            shutil.rmtree(bookPath)
+        except OSError:
+            # ignore errors for now
+            pass
+        
+    # remove cover image
+    try:
+        os.remove('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.COVER_IMAGE_UPLOAD_DIR, bookID))
+    except OSError:
+        # ignore errors for now
+        pass
+
+    return True
+

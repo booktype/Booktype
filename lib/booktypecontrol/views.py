@@ -495,7 +495,9 @@ def delete_book(request, bookid):
         if frm.is_valid(): 
             try:
                 if frm.cleaned_data['title'].upper() == book.title.upper():
-                    book.delete()
+                    from booki.utils.book import removeBook
+
+                    removeBook(book)
 
                     messages.success(request, _('Successfuly deleted the book'))
 
