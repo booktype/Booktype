@@ -2978,22 +2978,29 @@ def remote_publish_book2(request, message, bookid, version):
 
     options = []
 
+
+    # so we can steel book options even when we are bookjs/pdf
+    pm = message.get("publish_mode", "epub")
+    if pm == 'bookjs/pdf': 
+        pm = 'book'
+
     try:
         pw = models.PublishWizzard.objects.get(book=book,
                                                user=request.user,
-                                               wizz_type= message.get("publish_mode", "epub")
+                                               wizz_type=pm
                                                )
         try:
             options = simplejson.loads(pw.wizz_options)
         except:
-            options = PUBLISH_OPTIONS[message.get('wizzard_type', 'book')]
+            options = PUBLISH_OPTIONS[pm]
 
     except models.PublishWizzard.DoesNotExist:
-        options = PUBLISH_OPTIONS[message.get('wizzard_type', 'book')]
+        options = PUBLISH_OPTIONS[message.get('publish_mode', 'book')]
 
     # converstion for names
     publishOptions = {'ebook': 'epub',
                       'book': 'book',
+                      'bookjs/pdf': 'bookjs/pdf',
                       'odt': 'openoffice',
                       'newpaper': 'pdf',
                       'lulu': 'book',
@@ -3071,7 +3078,7 @@ def remote_publish_book2(request, message, bookid, version):
         return s
  
 
-    if publishMode == 'book' and message.get("publish_mode", "") != 'lulu':
+    if publishMode in ['book', 'bookjs/pdf'] and message.get("publish_mode", "") != 'lulu':
         _isSet('booksize')
         _isSet('custom_width')
         _isSet('custom_height')

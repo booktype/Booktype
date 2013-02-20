@@ -11,6 +11,13 @@
     </tr>
     {% endif %}
 
+    {% if "bookjs/pdf" in publish_options %}
+    <tr>
+      <td><label><input type="radio" name="publish" group="publishtype" value="bookjs/pdf" checked="checked">{% trans "BookJS" %}</label></td>
+      <td></td>
+    </tr>
+    {% endif %}
+
     {% if "ebook" in publish_options %}
     <tr>
       <td><label><input type="radio" name="publish" group="publishtype" value="ebook">{% trans "Ebook" %}</label></td>
