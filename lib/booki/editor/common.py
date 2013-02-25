@@ -221,14 +221,22 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
                 sc = ('{%s}' % scheme if scheme else '')
                 key = "%s%s%s" % (ns, keyword, sc)
                 for v in values:
-                    info = models.Info(book=book, name=key)
-                    if len(v) >= 2500:
-                        info.value_text = v
-                        info.kind = 2
-                    else:
-                        info.value_string = v
-                        info.kind = 0
-                    info.save()
+                    if not v: continue
+                    try:
+                        info = models.Info(book=book, name=key)
+                        if len(v) >= 2500:
+                            info.value_text = v
+                            info.kind = 2
+                        else:
+                            info.value_string = v
+                            info.kind = 0
+                        info.save()
+                    except:
+                        # For now just ignore any kind of error here.
+                        # Considering we don't handle metadata as we
+                        # should it is not such a problem.
+                        pass
+
     zf.close()
 
     return book
