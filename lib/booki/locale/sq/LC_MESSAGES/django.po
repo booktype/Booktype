@@ -1,30 +1,21 @@
-# Albanian Translation of booktype.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# ALBANIAN (sq_AL) translation of Booki component.
+# Copyright (C) 2012 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
 # Besnik Bleta <besnik@programeshqip.org>, 2012.
-# msgid ""
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Booktype\n"
-"Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-<<<<<<< HEAD
-"POT-Creation-Date: 2013-01-27 22:33+0100\n"
-"PO-Revision-Date: 2012-12-21 20:04+0200\n"
-=======
-"POT-Creation-Date: 2013-01-27 22:31+0100\n"
-"PO-Revision-Date: 2013-02-01 16:51+0200\n"
->>>>>>> 43f9449... updating sq for the first release
-=======
-"POT-Creation-Date: 2013-01-14 20:35+0100\n"
-"PO-Revision-Date: 2013-02-02 11:57+0200\n"
->>>>>>> 8e8301f... few updates and rewording
-"Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Project-Id-Version: Booktype 1.5.4\n"
+"Report-Msgid-Bugs-To: <contact@sourcefabric.org>\n"
+"POT-Creation-Date: 2012-07-01 20:21+0200\n"
+"PO-Revision-Date: 2013-02-26 11:49+0100\n"
+"Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
+"Language-Team: Albanian Localization <contact@sourcefabric.org>\n"
+"Language: Albanian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: account/models.py:38
 msgid "mood"
@@ -34,22 +25,13 @@ msgstr "humor"
 msgid "image"
 msgstr "figurë"
 
-<<<<<<< HEAD
-#: account/models.py:40 editor/models.py:94 editor/models.py:138
-=======
 #: account/models.py:40
 #: editor/models.py:94
 #: editor/models.py:138
->>>>>>> 43f9449... updating sq for the first release
 #: editor/models.py:293
 msgid "description"
 msgstr "përshkrim"
 
-<<<<<<< HEAD
-#: account/models.py:41 account/models.py:56 editor/models.py:235
-#: editor/models.py:356 editor/models.py:449 editor/models.py:461
-#: editor/models.py:473 editor/templates/editor/edit_book.html:560
-=======
 #: account/models.py:41
 #: account/models.py:56
 #: editor/models.py:235
@@ -58,7 +40,6 @@ msgstr "përshkrim"
 #: editor/models.py:461
 #: editor/models.py:473
 #: editor/templates/editor/edit_book.html:560
->>>>>>> 43f9449... updating sq for the first release
 #: editor/templates/editor/edit_book.html:666
 msgid "user"
 msgstr "përdorues"
@@ -67,34 +48,32 @@ msgstr "përdorues"
 msgid "secretcode"
 msgstr "kod i fshehtë"
 
-<<<<<<< HEAD
-#: account/models.py:58 editor/models.py:101 editor/models.py:132
-#: editor/models.py:295 editor/models.py:329 editor/models.py:393
-=======
 #: account/models.py:58
-#: editor/models.py:101
-#: editor/models.py:132
-#: editor/models.py:295
-#: editor/models.py:329
-#: editor/models.py:393
->>>>>>> 43f9449... updating sq for the first release
-#: editor/templates/editor/edit_book.html:678
+#: editor/models.py:100
+#: editor/models.py:131
+#: editor/models.py:293
+#: editor/models.py:327
+#: editor/models.py:391
+#: editor/templates/editor/edit_book.html:671
 msgid "created"
 msgstr "krijuar"
 
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: account/models.py:60
 msgid "remote useragent"
-msgstr "agjent i largët përdoruesiShteg i Largët"
+msgstr ""
 
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: account/models.py:61
 msgid "remote addr"
-msgstr "adresë e largët"
+msgstr ""
 
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: account/models.py:62
 msgid "remote host"
-msgstr "strehë e largët"
+msgstr ""
 
-#: account/views.py:298
+#: account/views.py:313
 msgid "Reset password"
 msgstr "Ricaktoni fjalëkalimin"
 
@@ -104,19 +83,14 @@ msgid "Create a Book"
 msgstr "Krijoni një Libër"
 
 #: account/templates/account/create_book.html:7
-msgid ""
-"You don't have permissions to create new books. At the moment only "
-"administrators can do that."
-msgstr ""
-"Nuk keni leje të krijoni libra të rinj. Hëpërhë, këtë mund ta bëjnë vetëm "
-"përgjegjësit."
+msgid "You don't have permissions to create new books. At the moment only administrators can do that."
+msgstr "Nuk keni leje të krijoni libra të rinj. Hëpërhë, këtë mund ta bëjnë vetëm përgjegjësit."
 
 #: account/templates/account/create_book.html:18
 msgid "Step 1"
 msgstr "Hapi 1"
 
 #: account/templates/account/create_book.html:18
-#: editor/templates/editor/wizzard_lulu.html:30
 msgid "Title"
 msgstr "Titull"
 
@@ -139,17 +113,12 @@ msgstr "Hapi 2"
 #: account/templates/account/create_book.html:30
 #: account/templates/account/create_book.html:34
 #: account/templates/account/view_profile.html:70
-#: editor/templates/editor/wizzard_lulu.html:42
 msgid "Description"
 msgstr "Përshkrim"
 
 #: account/templates/account/create_book.html:31
-msgid ""
-"Give some information so others can find it to help you (this can be added "
-"or changed later)."
-msgstr ""
-"Jepuni të tjerëve ca të dhëna që të mund t'i gjejnë e t'ju ndihmojnë (kjo "
-"mund të shtohet ose të ndryshohet edhe më vonë)."
+msgid "Give some information so others can find it to help you (this can be added or changed later)."
+msgstr "Jepuni të tjerëve ca të dhëna që të mund t'i gjejnë e t'ju ndihmojnë (kjo mund të shtohet ose të ndryshohet edhe më vonë)."
 
 #: account/templates/account/create_book.html:40
 msgid "Step 3"
@@ -163,12 +132,8 @@ msgstr "Zgjidhni lejen tuaj"
 msgid "Choose from the following licenses"
 msgstr "Zgjidhni prej lejeve vijuese"
 
-<<<<<<< HEAD
-#: account/templates/account/create_book.html:43 editor/models.py:36
-=======
 #: account/templates/account/create_book.html:43
-#: editor/models.py:36
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:35
 #: editor/templates/editor/edit_book.html:437
 msgid "License"
 msgstr "Leje"
@@ -183,12 +148,8 @@ msgid "Image"
 msgstr "Figurë"
 
 #: account/templates/account/create_book.html:55
-msgid ""
-"If you have an image for the book then add it now (this can be added or "
-"changed later)"
-msgstr ""
-"Nëse keni një figurë për librin, shtojeni tani (kjo mund të shtohet ose "
-"ndryshohet edhe më vonë)"
+msgid "If you have an image for the book then add it now (this can be added or changed later)"
+msgstr "Nëse keni një figurë për librin, shtojeni tani (kjo mund të shtohet ose ndryshohet edhe më vonë)"
 
 #: account/templates/account/create_book.html:57
 msgid "Book Image"
@@ -203,23 +164,14 @@ msgid "Make Public?"
 msgstr "Të Bëhet Publike?"
 
 #: account/templates/account/create_book.html:64
-msgid ""
-"Would you like to keep your book private or make it public? If the book is "
-"public others can find the book to help you."
-msgstr ""
-"Do të donit ta mbani librin tuaj privat apo ta bëni publik? Nëse libri është "
-"publik, mund të gjendet nga të tjerët për t;ju ndihmuar."
+msgid "Would you like to keep your book private or make it public? If the book is public others can find the book to help you."
+msgstr "Do të donit ta mbani librin tuaj privat apo ta bëni publik? Nëse libri është publik, mund të gjendet nga të tjerët për t;ju ndihmuar."
 
 #: account/templates/account/create_book.html:65
-msgid ""
-"<strong>Note:</strong> this setting can be changed later from your dashboard."
-"</p>"
-msgstr ""
-"<strong>Shënim:</strong> ky rregullim mund të ndryshohet më vonë që nga "
-"pulti juaj.</p>"
+msgid "<strong>Note:</strong> this setting can be changed later from your dashboard.</p>"
+msgstr "<strong>Shënim:</strong> ky rregullim mund të ndryshohet më vonë që nga pulti juaj.</p>"
 
 #: account/templates/account/create_book.html:67
-#, fuzzy
 msgid "Initially hide from others"
 msgstr "Fillimisht i fshehur për të tjerët"
 
@@ -262,18 +214,8 @@ msgid "USERNAME OR E-MAIL ADDRESS"
 msgstr "EMËR PËRDORUESI OSE ADRESË E-MAIL"
 
 #: account/templates/account/forgot_password.html:57
-<<<<<<< HEAD
-#, fuzzy
-msgid ""
-"Give us your username or e-mail you used to create Booktype account and we "
-"will send you new password."
-msgstr ""
-"Na jepni emrin tuaj të përdoruesit ose e-mail-in që përdorët për të krijuar "
-"llogarinë te Booki dhe do t'ju dërgojmë një fjalëkalim të ri."
-=======
 msgid "Give us your username or e-mail you used to create Booktype account and we will send you new password."
 msgstr "Na jepni emrin tuaj të përdoruesit ose e-mail-in që përdorët për të krijuar llogarinë te Booktype dhe do t'ju dërgojmë një fjalëkalim të ri."
->>>>>>> 43f9449... updating sq for the first release
 
 #: account/templates/account/forgot_password.html:59
 msgid "Enter username."
@@ -283,39 +225,14 @@ msgstr "Jepni emër përdoruesi."
 msgid "No such user."
 msgstr "Nuk ka përdorues të tillë."
 
-#: account/templates/account/forgot_password.html:61
-<<<<<<< HEAD
-#, fuzzy
-msgid "Unknown error."
-msgstr "Gabim i panjohur!"
-=======
-msgid "Unknown error."
-msgstr "Gabim i panjohur."
->>>>>>> 43f9449... updating sq for the first release
-
-#: account/templates/account/forgot_password.html:63
+#: account/templates/account/forgot_password.html:60
 #: account/templates/account/forgot_password_enter.html:55
 msgid "Send request"
 msgstr "Dërgoje kërkesën"
 
-#: account/templates/account/forgot_password.html:70
-msgid "Check your email!"
-<<<<<<< HEAD
-msgstr ""
-
-#: account/templates/account/forgot_password.html:71
-#, fuzzy
-msgid "Password reset instructions were sent to your email."
-msgstr ""
-"<h2>Kontrolloni email-in tuaj!</h2><p>Udhëzimet për ricaktimin e "
-"fjalëkalimit ju janë dërguar te email-i juaj.</p>"
-=======
-msgstr "Kontrolloni email-in tuaj!"
-
-#: account/templates/account/forgot_password.html:71
-msgid "Password reset instructions were sent to your email."
-msgstr "Udhëzimet për ricaktimin e fjalëkalimit ju janë dërguar me email."
->>>>>>> 43f9449... updating sq for the first release
+#: account/templates/account/forgot_password.html:64
+msgid "<h2>Check your email!</h2><p>Password reset instructions were sent to your email.</p>"
+msgstr "<h2>Kontrolloni email-in tuaj!</h2><p>Udhëzimet për ricaktimin e fjalëkalimit ju janë dërguar te email-i juaj.</p>"
 
 #: account/templates/account/forgot_password_enter.html:40
 msgid "Reset your password"
@@ -333,112 +250,84 @@ msgstr "FJALËKALIM I RI"
 msgid "NEW PASSWORD AGAIN"
 msgstr "FJALËKALIMI I RI SËRISH"
 
-#: account/templates/account/form_register.html:6
-#: account/templates/account/form_register.html:42
-msgid "Registration"
-msgstr "Regjistrim"
-
-#: account/templates/account/form_register.html:8
-<<<<<<< HEAD
-#, fuzzy
-msgid "User limit has been reached."
-msgstr "Llogari juaj u krijua!"
-=======
-msgid "User limit has been reached."
-msgstr "U mbërrit te kufiri për përdoruesin."
->>>>>>> 43f9449... updating sq for the first release
-
-#: account/templates/account/form_register.html:11
-#: account/templates/account/form_register.html:38
+#: account/templates/account/form_register.html:5
+#: account/templates/account/form_register.html:32
 msgid "Create account"
 msgstr "Krijoni llogari"
 
-#: account/templates/account/form_register.html:13
+#: account/templates/account/form_register.html:7
 #: account/templates/account/form_signin.html:6
 msgid "User name"
 msgstr "Emër përdoruesi"
 
-#: account/templates/account/form_register.html:15
+#: account/templates/account/form_register.html:9
 msgid "Password (6 characters at least)"
 msgstr "Fjalëkalim (e pakta 6 shenja i gjatë)"
 
-#: account/templates/account/form_register.html:17
-#: account/templates/account/view_profile.html:197
+#: account/templates/account/form_register.html:11
+#: account/templates/account/view_profile.html:196
 msgid "Full name"
 msgstr "Emër i plotë"
 
-#: account/templates/account/form_register.html:19
-#: account/templates/account/view_profile.html:193
+#: account/templates/account/form_register.html:13
+#: account/templates/account/view_profile.html:192
 msgid "Email"
 msgstr "Email"
 
-#: account/templates/account/form_register.html:24
+#: account/templates/account/form_register.html:18
 msgid "Missing username!"
 msgstr "Mungon emri përdoruesi!"
 
-#: account/templates/account/form_register.html:25
+#: account/templates/account/form_register.html:19
 msgid "Missing e-mail!"
 msgstr "Mungon e-mail-i!"
 
-#: account/templates/account/form_register.html:26
+#: account/templates/account/form_register.html:20
 msgid "Missing password!"
 msgstr "Mungon fjalëkalimi!"
 
-#: account/templates/account/form_register.html:27
+#: account/templates/account/form_register.html:21
 msgid "Please provide your real name."
 msgstr "Ju lutemi, jepni emrin tuaj real."
 
-#: account/templates/account/form_register.html:28
-<<<<<<< HEAD
-msgid ""
-"Username is invalid. Please try a different one. You may use alhpanumeric "
-"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
-"li></ul>"
-msgstr ""
-"Emri i përdoruesit është i pavlefshëm. Ju lutemi, provoni një tjetër. Mund "
-"të përdorni shenja alfanumerike dhe shenjat \".\", \"_\", \"-\" (pikë, "
-"nënvijë dhe minus). <br/><br/>Shembuj:<ul><li>ante_literam</li><li>Vlash."
-"Shkurti</li><li>skulptori</li></ul>"
-=======
+#: account/templates/account/form_register.html:22
 msgid "Username is invalid. Please try a different one. You may use alhpanumeric characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
 msgstr "Emri i përdoruesit është i pavlefshëm. Ju lutemi, provoni një tjetër. Mund të përdorni shenja alfanumerike dhe shenjat \".\", \"_\", \"-\" (pikë, nënvijë dhe minus). <br/><br/>Shembuj:<ul><li>ante_literam</li><li>Vlash.Shkurti</li><li>skulptori</li></ul>"
->>>>>>> 43f9449... updating sq for the first release
 
-#: account/templates/account/form_register.html:29
+#: account/templates/account/form_register.html:23
 msgid "This is not a valid e-mail"
 msgstr "Kjo nuk është adresë e-mail e vlefshme"
 
-#: account/templates/account/form_register.html:30
+#: account/templates/account/form_register.html:24
 msgid "Your passwords dont match. Please try a different one."
-msgstr ""
-"Fjalëkalimet tuaj nuk përputhen me njëri-tjetrin. Ju lutemi, provoni një "
-"tjetër."
+msgstr "Fjalëkalimet tuaj nuk përputhen me njëri-tjetrin. Ju lutemi, provoni një tjetër."
 
-#: account/templates/account/form_register.html:31
-#: account/templates/account/view_profile.html:253
+#: account/templates/account/form_register.html:25
 msgid "Password must be 6 characters or more!"
 msgstr "Fjalëkalimi duhet të jetë 6 ose më shumë shenja!"
 
-#: account/templates/account/form_register.html:32
+#: account/templates/account/form_register.html:26
 msgid "Username already taken. Please try a different one."
 msgstr "Emër përdoruesi i zënë. Ju lutemi, provoni një tjetër."
 
-#: account/templates/account/form_register.html:33
+#: account/templates/account/form_register.html:27
 #: account/templates/account/form_signin.html:17
 msgid "Unknown error!"
 msgstr "Gabim i panjohur!"
 
-#: account/templates/account/form_register.html:34
+#: account/templates/account/form_register.html:28
 msgid "Fullname is too long!"
 msgstr "Emri i plotë është shumë e gjatë!"
 
-#: account/templates/account/form_register.html:44
+#: account/templates/account/form_register.html:36
+msgid "Registration"
+msgstr "Regjistrim"
+
+#: account/templates/account/form_register.html:38
 msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr "Hëpërhë vetëm përgjegjësit i lejohet të krijojë llogari të reja "
 
 #: account/templates/account/form_signin.html:3
-#: account/templates/account/form_signin.html:20
 msgid "Sign in"
 msgstr "Hyni"
 
@@ -460,12 +349,8 @@ msgid "Import book"
 msgstr "Importoni libër"
 
 #: account/templates/account/import_book.html:7
-msgid ""
-"You don't have permissions to import content. At the moment only "
-"administrators can do that."
-msgstr ""
-"Nuk keni leje për importim lënde. Hëpërhë këtë mund ta bëjnë vetëm "
-"përgjegjësit."
+msgid "You don't have permissions to import content. At the moment only administrators can do that."
+msgstr "Nuk keni leje për importim lënde. Hëpërhë këtë mund ta bëjnë vetëm përgjegjësit."
 
 #: account/templates/account/import_book.html:19
 msgid "Import type:"
@@ -500,39 +385,8 @@ msgid "Initially hidden from others"
 msgstr "Fillimisht i fshehur për të tjerët"
 
 #: account/templates/account/import_book.html:38
-msgid ""
-"Please wait. It will take couple of moments. Your book is being imported!"
+msgid "Please wait. It will take couple of moments. Your book is being imported!"
 msgstr "Ju lutemi, prisni. Do të marrë ca çaste. Libri juaj po importohet!"
-
-#: account/templates/account/password_reset_email.html:5
-<<<<<<< HEAD
-msgid ""
-"To reset your Booktype password, simply click the link below. That will take "
-"you to a web page where you can create a new password."
-msgstr ""
-
-#: account/templates/account/password_reset_email.html:6
-msgid "Go to:"
-msgstr ""
-
-#: account/templates/account/password_reset_email.html:7
-msgid ""
-"If you weren't trying to reset your password, don't worry – your account is "
-"still secure and no one has been given access to it. Most likely, someone "
-"just mistyped their email address while trying to reset their own password."
-msgstr ""
-=======
-msgid "To reset your Booktype password, simply click the link below. That will take you to a web page where you can create a new password."
-msgstr "Që të ricaktoni fjalëkalimin tuaj te Booktype, thjesht klikoni mbi lidhjen më poshtë. Ajo do t'ju shpjerë te një faqe web te e cila mund të krijoni një fjalëkalim të ri."
-
-#: account/templates/account/password_reset_email.html:6
-msgid "Go to:"
-msgstr "Shko tek:"
-
-#: account/templates/account/password_reset_email.html:7
-msgid "If you weren't trying to reset your password, don't worry – your account is still secure and no one has been given access to it. Most likely, someone just mistyped their email address while trying to reset their own password."
-msgstr "Nëse nuk po përpiqeshit të ricaktoni fjalëkalimin tuaj, mos u shqetësoni – llogaria juaj ende është e sigurt dhe nuk i është dhënë askujt hyrje në të. Ka shumë të ngjarë që dikush shkroi gabim adresën e vet email, ndërkohë që po provonte të ricaktonte fjalëkalimin e tij."
->>>>>>> 43f9449... updating sq for the first release
 
 #: account/templates/account/signin.html:6
 msgid "Booktype Sign In"
@@ -550,26 +404,15 @@ msgstr "Llogari juaj u krijua!"
 #, python-format
 msgid ""
 "\n"
-"    <p>Thank you. We have created your account and signed you in. Do you "
-"want to learn more how to use Booktype? Read the <a href=\"http://en."
-"flossmanuals.net/booktype\">user guide</a>!</p>\n"
+"    <p>Thank you. We have created your account and signed you in. Do you want to learn more how to use Booktype? Read the <a href=\"http://en.flossmanuals.net/booktype\">user guide</a>!</p>\n"
 "    \n"
-"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! "
-"Let's use Booktype now!</button><span class=\"redirectmessage\" style="
-"\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</"
-"span> seconds.</span></form></p>\n"
+"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! Let's use Booktype now!</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</span> seconds.</span></form></p>\n"
 "    "
 msgstr ""
 "\n"
-"    <p>Faleminderit. Ju krijuam llogarinë dhe kemi bërë dhe hyrjen tuaj. "
-"Doni të mësoni më tepër se si të përdoret Booktype-i? Lexoni <a href="
-"\"http://en.flossmanuals.net/booktype\">udhërrëfyesin për përdoruesit</a>!</"
-"p>\n"
+"    <p>Faleminderit. Ju krijuam llogarinë dhe kemi bërë dhe hyrjen tuaj. Doni të mësoni më tepër se si të përdoret Booktype-i? Lexoni <a href=\"http://en.flossmanuals.net/booktype\">udhërrëfyesin për përdoruesit</a>!</p>\n"
 "    \n"
-"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Bukuri! Le "
-"t'ia fillojmë me Booktype-in tani!</button><span class=\"redirectmessage\" "
-"style=\"padding-left: 20px\">Ridrejtim i vetvetishëm për <span class=\"sec"
-"\">sec</span> sekonda.</span></form></p>\n"
+"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Bukuri! Le t'ia fillojmë me Booktype-in tani!</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Ridrejtim i vetvetishëm për <span class=\"sec\">sec</span> sekonda.</span></form></p>\n"
 "    "
 
 #: account/templates/account/signin.html:60
@@ -577,12 +420,8 @@ msgid "Why do I need account ?"
 msgstr "Pse më duhet një llogari?"
 
 #: account/templates/account/signin.html:61
-msgid ""
-"Your real name is compulsory for reasons of copyright attribution on books "
-"you create and contribute to."
-msgstr ""
-"Emri juaj i vërtetë është i domosdoshëm për arsye përcaktimi të të drejtave "
-"të kopjimit mbi librat që krijoni dhe mbi ata ku kontribuoni."
+msgid "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to."
+msgstr "Emri juaj i vërtetë është i domosdoshëm për arsye përcaktimi të të drejtave të kopjimit mbi librat që krijoni dhe mbi ata ku kontribuoni."
 
 #: account/templates/account/signin.html:64
 msgid "I forgot my password. What now ?!"
@@ -591,8 +430,7 @@ msgstr "Harrova fjalëkalimin tim. Po tani?!"
 #: account/templates/account/signin.html:65
 #, python-format
 msgid "<p>Please <a href=\"%(forgotpassword_url)s\">request new one</a>.</p>"
-msgstr ""
-"<p>Ju lutemi, <a href=\"%(forgotpassword_url)s\">kërkoni një të ri</a>.</p>"
+msgstr "<p>Ju lutemi, <a href=\"%(forgotpassword_url)s\">kërkoni një të ri</a>.</p>"
 
 #: account/templates/account/signin.html:68
 msgid "I forgot my username ?"
@@ -604,7 +442,8 @@ msgid "/user: %(username)s"
 msgstr "/përdoruesi: %(username)s"
 
 #: account/templates/account/view_profile.html:43
-#: editor/templates/base_edit.html:82 portal/templates/base.html:89
+#: editor/templates/base_edit.html:82
+#: portal/templates/base.html:89
 msgid "My Dashboard"
 msgstr "Pulti Im"
 
@@ -613,26 +452,20 @@ msgid "Dashboard"
 msgstr "Pult"
 
 #: account/templates/account/view_profile.html:47
-#: account/templates/account/view_profile.html:106
-#: account/templates/account/view_profile.html:143
+#: account/templates/account/view_profile.html:105
+#: account/templates/account/view_profile.html:145
 msgid "My Books"
 msgstr "Librat e Mi"
 
 #: account/templates/account/view_profile.html:47
-<<<<<<< HEAD
-#: account/templates/account/view_profile.html:143 editor/models.py:203
-#: editor/templates/base_edit.html:89 portal/templates/base.html:96
-#: portal/templates/portal/books.html:13 portal/templates/portal/books.html:54
-=======
-#: account/templates/account/view_profile.html:143
-#: editor/models.py:203
+#: account/templates/account/view_profile.html:145
+#: editor/models.py:202
 #: editor/templates/base_edit.html:89
 #: portal/templates/base.html:96
 #: portal/templates/portal/books.html:13
 #: portal/templates/portal/books.html:54
->>>>>>> 43f9449... updating sq for the first release
 #: portal/templates/portal/group.html:65
-#: portal/templates/portal/group.html:115
+#: portal/templates/portal/group.html:126
 msgid "Books"
 msgstr "Libra"
 
@@ -640,12 +473,13 @@ msgstr "Libra"
 #: editor/templates/editor/edit_book.html:117
 #: editor/templates/editor/edit_book.html:412
 #: portal/templates/portal/group.html:68
+#: portal/templates/portal/group.html:169
 msgid "Settings"
 msgstr "Rregullime"
 
 #: account/templates/account/view_profile.html:67
 msgid "Follow my changes"
-msgstr "Ndiqni ndryshimet e mia"
+msgstr "Ndiqni Ndryshimet e Mia"
 
 #: account/templates/account/view_profile.html:74
 msgid "There is no description for this user."
@@ -657,23 +491,17 @@ msgstr "Etiketa të ndjekura:"
 
 #: account/templates/account/view_profile.html:79
 msgid "Following:"
-msgstr "Ndjekur prej jush:"
+msgstr "Ndjekur Prej Jush:"
 
 #: account/templates/account/view_profile.html:80
 msgid "Followers:"
-msgstr "Ndjekës:"
+msgstr "Pasues:"
 
 #: account/templates/account/view_profile.html:96
-msgid ""
-"Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" "
-"title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype"
-"\"><i>user guide</i></a>!"
-msgstr ""
-"Doni të mësoni më tepër se si të përdoret Booktype-i? Lexoni  <a target="
-"\"_new\" title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/"
-"booktype\"><i>udhërrëfyesin e përdoruesit</i></a>!"
+msgid "Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype\"><i>user guide</i></a>!"
+msgstr "Doni të mësoni më tepër se si të përdoret Booktype-i? Lexoni  <a target=\"_new\" title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype\"><i>udhërrëfyesin e përdoruesit</i></a>!"
 
-#: account/templates/account/view_profile.html:102
+#: account/templates/account/view_profile.html:101
 msgid "CREATE NEW BOOK"
 msgstr "KRIJONI LIBËR TË RI"
 
@@ -685,13 +513,11 @@ msgstr "përpunoni"
 #: account/templates/account/view_profile.html:111
 msgid ""
 "\n"
-"          <p>This is a perfect moment to start writing your book, just click "
-"on the button above!</p>\n"
+"          <p>This is a perfect moment to start writing your book, just click on the button above!</p>\n"
 "          "
 msgstr ""
 "\n"
-"          <p>Ky është çasti i përkryer që të filloni të shkruani librin "
-"tuaj, thjesht klikoni mbi butonin më sipër!</p>\n"
+"          <p>Ky është çasti i përkryer që të filloni të shkruani librin tuaj, thjesht klikoni mbi butonin më sipër!</p>\n"
 "          "
 
 #: account/templates/account/view_profile.html:115
@@ -708,35 +534,27 @@ msgstr ""
 msgid "CREATE NEW GROUP"
 msgstr "KRIJONI GRUP TË RI"
 
-#: account/templates/account/view_profile.html:124
+#: account/templates/account/view_profile.html:125
 msgid "My Groups"
 msgstr "Grupet e Mia"
 
-#: account/templates/account/view_profile.html:127
+#: account/templates/account/view_profile.html:129
 msgid "go"
 msgstr "shko"
 
-#: account/templates/account/view_profile.html:130
-<<<<<<< HEAD
-msgid ""
-"Work with others in Groups. To create a Group click on the button above."
-msgstr ""
-"Punoni në Grupe me të tjerët. Që të krijoni një Grup klikoni mbi butonin më "
-"sipër."
-=======
+#: account/templates/account/view_profile.html:132
 msgid "Work with others in Groups. To create a Group click on the button above."
 msgstr "Punoni në Grupe me të tjerët. Që të krijoni një Grup klikoni mbi butonin më sipër."
->>>>>>> 43f9449... updating sq for the first release
 
-#: account/templates/account/view_profile.html:132
+#: account/templates/account/view_profile.html:134
 msgid "This user has no groups."
 msgstr "Ky përdoruesi nuk ka grupe."
 
-#: account/templates/account/view_profile.html:148
+#: account/templates/account/view_profile.html:149
 msgid "Create new book"
 msgstr "Krijoni një libër të ri"
 
-#: account/templates/account/view_profile.html:151
+#: account/templates/account/view_profile.html:152
 msgid "Import Book"
 msgstr "Importoni Libër"
 
@@ -762,233 +580,23 @@ msgstr "Fshihua të tjerëve"
 msgid "User settings"
 msgstr "Rregullime përdoruesi"
 
-#: account/templates/account/view_profile.html:201
+#: account/templates/account/view_profile.html:200
 msgid "About yourself"
 msgstr "Rreth vetes suaj"
 
-#: account/templates/account/view_profile.html:205
+#: account/templates/account/view_profile.html:204
 msgid "Profile image"
 msgstr "Figurë profili"
 
-#: account/templates/account/view_profile.html:209
+#: account/templates/account/view_profile.html:208
 msgid "Notification filter"
 msgstr "Filtër njoftimesh"
 
-#: account/templates/account/view_profile.html:215
-<<<<<<< HEAD
-#: account/templates/account/view_profile.html:266
-<<<<<<< HEAD
-#: editor/templates/editor/edit_strings.html:22 portal/templates/base.html:139
-=======
-=======
->>>>>>> 8e8301f... few updates and rewording
-#: editor/templates/editor/edit_strings.html:22
-#: portal/templates/base.html:139
->>>>>>> 43f9449... updating sq for the first release
+#: account/templates/account/view_profile.html:214
+#: editor/templates/editor/edit_strings.html:19
 msgid "Save changes"
 msgstr "Ruaji ndryshimet"
 
-#: account/templates/account/view_profile.html:223
-<<<<<<< HEAD
-#, fuzzy
-msgid "Old Password"
-msgstr "Fjalëkalim"
-
-#: account/templates/account/view_profile.html:229
-#, fuzzy
-msgid "New Password"
-msgstr "Fjalëkalim"
-
-#: account/templates/account/view_profile.html:234
-#, fuzzy
-msgid "Password (again)"
-msgstr "Fjalëkalim"
-
-#: account/templates/account/view_profile.html:241
-#, fuzzy
-msgid "Change password"
-msgstr "Ricaktoni fjalëkalimin"
-
-#: account/templates/account/view_profile.html:250
-msgid "Unable to change password. Old password is missing."
-msgstr ""
-
-#: account/templates/account/view_profile.html:251
-msgid "Unable to change password. Old password is incorrect."
-msgstr ""
-
-#: account/templates/account/view_profile.html:252
-msgid ""
-"Unable to change password. The new and confirmation passwords are not equal."
-msgstr ""
-
-#: account/templates/account/view_profile.html:254
-#, fuzzy
-msgid "Password changed."
-msgstr "Fjalëkalim"
-=======
-msgid "Old Password"
-msgstr "Fjalëkalimi i Vjetër"
-
-#: account/templates/account/view_profile.html:229
-msgid "New Password"
-msgstr "Fjalëkalim i Ri"
-
-#: account/templates/account/view_profile.html:234
-msgid "Password (again)"
-msgstr "Fjalëkalim (sërish)"
-
-#: account/templates/account/view_profile.html:241
-msgid "Change password"
-msgstr "Ndryshoni fjalëkalimin"
-
-#: account/templates/account/view_profile.html:250
-msgid "Unable to change password. Old password is missing."
-msgstr "I pazoti të ndryshojë fjalëkalimin. Mungon fjalëkalimi i vjetër."
-
-#: account/templates/account/view_profile.html:251
-msgid "Unable to change password. Old password is incorrect."
-msgstr "I pazoti të ndryshojë fjalëkalimin. Fjalëkalimi i vjetër është i pasaktë."
-
-#: account/templates/account/view_profile.html:252
-msgid "Unable to change password. The new and confirmation passwords are not equal."
-msgstr "I pazoti të ndryshojë fjalëkalimin. Fjalëkalimi i ri dhe ai ripohimit nuk janë i njëjti."
-
-#: account/templates/account/view_profile.html:254
-msgid "Password changed."
-msgstr "Fjalëkalimi u ndryshua."
->>>>>>> 43f9449... updating sq for the first release
-
-<<<<<<< HEAD
-#: account/templates/account/view_profile.html:255
-#: portal/templates/base.html:133
-msgid "OK"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "OK"
->>>>>>> 43f9449... updating sq for the first release
-
-#: account/templates/account/view_profile.html:256
-#: editor/templates/editor/edit_strings.html:7
-#: editor/templates/editor/wizzard_book.html:278
-#: editor/templates/editor/wizzard_ebook.html:125
-#: editor/templates/editor/wizzard_lulu.html:224
-#: editor/templates/editor/wizzard_odt.html:126
-<<<<<<< HEAD
-#: editor/templates/editor/wizzard_pdf.html:238 portal/templates/base.html:134
-msgid "Back"
-msgstr ""
-
-#: account/templates/account/view_profile.html:257
-#: editor/templates/editor/edit_book.html:617 portal/templates/base.html:135
-=======
-#: editor/templates/editor/wizzard_pdf.html:238
-#: portal/templates/base.html:134
-msgid "Back"
-msgstr "Mbrapsht"
-
-#: account/templates/account/view_profile.html:257
-#: editor/templates/editor/edit_book.html:617
-#: portal/templates/base.html:135
->>>>>>> 43f9449... updating sq for the first release
-msgid "Create"
-msgstr "Krijoni"
-
-#: account/templates/account/view_profile.html:258
-#: editor/templates/editor/edit_book.html:290
-<<<<<<< HEAD
-#: editor/templates/editor/edit_strings.html:4 portal/templates/base.html:136
-=======
-#: editor/templates/editor/edit_strings.html:4
-#: portal/templates/base.html:136
->>>>>>> 43f9449... updating sq for the first release
-msgid "Cancel"
-msgstr "Anuloje"
-
-#: account/templates/account/view_profile.html:259
-#: editor/templates/editor/edit_strings.html:6
-#: editor/templates/editor/wizzard_book.html:279
-#: editor/templates/editor/wizzard_ebook.html:126
-#: editor/templates/editor/wizzard_lulu.html:225
-#: editor/templates/editor/wizzard_odt.html:127
-<<<<<<< HEAD
-#: editor/templates/editor/wizzard_pdf.html:239 portal/templates/base.html:137
-#: portal/templates/booki_paginator.html:29
-msgid "Next"
-msgstr "Pasuesi"
-
-#: account/templates/account/view_profile.html:260
-#, fuzzy
-msgid "Couldn't create a group"
-msgstr "Krijoni një Grup"
-=======
-#: editor/templates/editor/wizzard_pdf.html:239
-#: portal/templates/base.html:137
-#: portal/templates/booki_paginator.html:29
-msgid "Next"
-msgstr "Pasuesja"
-
-#: account/templates/account/view_profile.html:260
-msgid "Couldn't create a group"
-msgstr "Nuk u krijua dot grupi"
->>>>>>> 43f9449... updating sq for the first release
-
-#: account/templates/account/view_profile.html:261
-#: portal/templates/base.html:141
-msgid "enter epub URL"
-<<<<<<< HEAD
-msgstr ""
-
-#: account/templates/account/view_profile.html:262
-#: portal/templates/base.html:142
-#, fuzzy
-msgid "enter Archive.org ID"
-msgstr "Importoni libër prej archive.org"
-
-#: account/templates/account/view_profile.html:263
-#: portal/templates/base.html:143
-#, fuzzy
-msgid "enter Wikibooks URL"
-msgstr "Jepni id libri"
-
-#: account/templates/account/view_profile.html:264
-#: portal/templates/base.html:144
-#, fuzzy
-msgid "enter Booktype URL"
-msgstr "Lexuesi i Booktype-it"
-
-#: account/templates/account/view_profile.html:265
-#: portal/templates/base.html:138
-#, fuzzy
-msgid "Import"
-msgstr "Importoni libër"
-=======
-msgstr "jepni URL epub-i"
-
-#: account/templates/account/view_profile.html:262
-#: portal/templates/base.html:142
-msgid "enter Archive.org ID"
-msgstr "jepni ID Archive.org"
-
-#: account/templates/account/view_profile.html:263
-#: portal/templates/base.html:143
-msgid "enter Wikibooks URL"
-msgstr "jepni URL për te Wikibooks"
-
-#: account/templates/account/view_profile.html:264
-#: portal/templates/base.html:144
-msgid "enter Booktype URL"
-msgstr "jepni URL për te Booktype"
-
-#: account/templates/account/view_profile.html:265
-#: portal/templates/base.html:138
-msgid "Import"
-msgstr "Importoje"
->>>>>>> 43f9449... updating sq for the first release
-
-=======
->>>>>>> 8e8301f... few updates and rewording
 #: account/templates/errors/user_does_not_exist.html:4
 msgid "User does not exist!"
 msgstr "Përdoruesi nuk ekziston!"
@@ -998,411 +606,297 @@ msgstr "Përdoruesi nuk ekziston!"
 msgid "Can't find user \"%(username)s\"."
 msgstr "S'gjen dot përdoruesin \"%(username)s\"."
 
-<<<<<<< HEAD
-#: editor/models.py:29 editor/models.py:42 editor/models.py:65
-#: editor/models.py:92 editor/models.py:256 editor/models.py:292
-#: editor/models.py:420 editor/templates/editor/edit_book.html:675
-=======
-#: editor/models.py:29
-#: editor/models.py:42
-#: editor/models.py:65
-#: editor/models.py:92
-#: editor/models.py:256
-#: editor/models.py:292
-#: editor/models.py:420
-#: editor/templates/editor/edit_book.html:675
->>>>>>> 43f9449... updating sq for the first release
-#: editor/templates/editor/edit_strings.html:55
+#: editor/models.py:28
+#: editor/models.py:41
+#: editor/models.py:64
+#: editor/models.py:91
+#: editor/models.py:254
+#: editor/models.py:290
+#: editor/models.py:418
+#: editor/templates/editor/edit_book.html:668
+#: editor/templates/editor/edit_strings.html:52
 msgid "name"
 msgstr "emër"
 
-<<<<<<< HEAD
-#: editor/models.py:30 editor/models.py:43
-=======
-#: editor/models.py:30
-#: editor/models.py:43
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:29
+#: editor/models.py:42
 msgid "abbrevation"
 msgstr "shkurtim"
 
-#: editor/models.py:37
+#: editor/models.py:36
 msgid "Licenses"
 msgstr "Leje"
 
-<<<<<<< HEAD
-#: editor/models.py:49 editor/templates/editor/edit_book.html:418
-=======
-#: editor/models.py:49
+#: editor/models.py:48
 #: editor/templates/editor/edit_book.html:418
->>>>>>> 43f9449... updating sq for the first release
 msgid "Language"
 msgstr "Gjuhë"
 
-#: editor/models.py:50
+#: editor/models.py:49
 msgid "Languages"
 msgstr "Gjuhë"
 
-<<<<<<< HEAD
-#: editor/models.py:55 editor/models.py:133
-=======
-#: editor/models.py:55
-#: editor/models.py:133
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:54
+#: editor/models.py:132
 msgid "published"
 msgstr "i botuar"
 
-#: editor/models.py:56
+#: editor/models.py:55
 msgid "not published"
 msgstr "i pabotuar"
 
-#: editor/models.py:57
+#: editor/models.py:56
 msgid "not translated"
 msgstr "i papërkthyer"
 
-<<<<<<< HEAD
-#: editor/models.py:64 editor/models.py:79 editor/models.py:228
-#: editor/models.py:254 editor/models.py:289 editor/models.py:324
-#: editor/models.py:388 editor/models.py:419 editor/models.py:450
-#: editor/models.py:460 editor/models.py:472
-msgid "book"
-msgstr "libër"
-
-#: editor/models.py:66 editor/models.py:422
-msgid "weight"
-msgstr "peshë"
-
-#: editor/models.py:72 editor/models.py:73
-=======
-#: editor/models.py:64
-#: editor/models.py:79
-#: editor/models.py:228
-#: editor/models.py:254
-#: editor/models.py:289
-#: editor/models.py:324
-#: editor/models.py:388
-#: editor/models.py:419
-#: editor/models.py:450
-#: editor/models.py:460
-#: editor/models.py:472
-msgid "book"
-msgstr "libër"
-
-#: editor/models.py:66
-#: editor/models.py:422
-msgid "weight"
-msgstr "peshë"
-
-#: editor/models.py:72
-#: editor/models.py:73
->>>>>>> 43f9449... updating sq for the first release
-msgid "Book status"
-msgstr "Gjendje libri"
-
-#: editor/models.py:80
-msgid "notes"
-msgstr "shënime"
-
-#: editor/models.py:86
-msgid "Book note"
-msgstr "Shënim libri"
-
-#: editor/models.py:87
-msgid "Book notes"
-msgstr "Shënime Libri"
-
-#: editor/models.py:93
-msgid "url name"
-msgstr "emër url-je"
-
-<<<<<<< HEAD
-#: editor/models.py:96 editor/models.py:126
-=======
-#: editor/models.py:96
-#: editor/models.py:126
->>>>>>> 43f9449... updating sq for the first release
-msgid "owner"
-msgstr "i zoti"
-
-#: editor/models.py:99
-msgid "members"
-msgstr "anëtarë"
-
-#: editor/models.py:110
-msgid "Booki group"
-msgstr "Grup Booki"
-
-#: editor/models.py:111
-msgid "Booki groups"
-msgstr "Grupe Booki"
-
-<<<<<<< HEAD
-#: editor/models.py:116 editor/models.py:326
-msgid "url title"
-msgstr "titull url-je"
-
-#: editor/models.py:117 editor/models.py:327
-msgid "title"
-msgstr "titull"
-
-#: editor/models.py:118 editor/models.py:328 editor/models.py:392
-=======
-#: editor/models.py:116
-#: editor/models.py:326
-msgid "url title"
-msgstr "titull url-je"
-
-#: editor/models.py:117
-#: editor/models.py:327
-msgid "title"
-msgstr "titull"
-
-#: editor/models.py:118
-#: editor/models.py:328
-#: editor/models.py:392
->>>>>>> 43f9449... updating sq for the first release
-msgid "status"
-msgstr "gjendje"
-
-#: editor/models.py:119
-msgid "language"
-msgstr "gjuhë"
-
-<<<<<<< HEAD
-#: editor/models.py:122 editor/models.py:230 editor/models.py:322
-#: editor/models.py:386 editor/models.py:417
-msgid "version"
-msgstr "version"
-
-#: editor/models.py:124 editor/models.py:451
-=======
-#: editor/models.py:122
-#: editor/models.py:230
+#: editor/models.py:63
+#: editor/models.py:78
+#: editor/models.py:226
+#: editor/models.py:252
+#: editor/models.py:287
 #: editor/models.py:322
 #: editor/models.py:386
 #: editor/models.py:417
+#: editor/models.py:448
+#: editor/models.py:458
+#: editor/models.py:470
+msgid "book"
+msgstr "libër"
+
+#: editor/models.py:65
+#: editor/models.py:420
+msgid "weight"
+msgstr "peshë"
+
+#: editor/models.py:71
+#: editor/models.py:72
+msgid "Book status"
+msgstr "Gjendje libri"
+
+#: editor/models.py:79
+msgid "notes"
+msgstr "shënime"
+
+#: editor/models.py:85
+msgid "Book note"
+msgstr "Shënim libri"
+
+#: editor/models.py:86
+msgid "Book notes"
+msgstr "Shënime Libri"
+
+#: editor/models.py:92
+msgid "url name"
+msgstr "emër url-je"
+
+#: editor/models.py:95
+#: editor/models.py:125
+msgid "owner"
+msgstr "i zoti"
+
+#: editor/models.py:98
+msgid "members"
+msgstr "anëtarë"
+
+#: editor/models.py:109
+msgid "Booki group"
+msgstr "Grup Booki"
+
+#: editor/models.py:110
+msgid "Booki groups"
+msgstr "Grupe Booki"
+
+#: editor/models.py:115
+#: editor/models.py:324
+msgid "url title"
+msgstr "titull url-je"
+
+#: editor/models.py:116
+#: editor/models.py:325
+msgid "title"
+msgstr "titull"
+
+#: editor/models.py:117
+#: editor/models.py:326
+#: editor/models.py:390
+msgid "status"
+msgstr "gjendje"
+
+#: editor/models.py:118
+msgid "language"
+msgstr "gjuhë"
+
+#: editor/models.py:121
+#: editor/models.py:228
+#: editor/models.py:320
+#: editor/models.py:384
+#: editor/models.py:415
 msgid "version"
 msgstr "version"
 
-#: editor/models.py:124
-#: editor/models.py:451
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:123
+#: editor/models.py:449
 msgid "group"
 msgstr "grup"
 
-#: editor/models.py:130
+#: editor/models.py:129
 msgid "license"
 msgstr "leje"
 
-#: editor/models.py:135
+#: editor/models.py:134
 msgid "hidden"
 msgstr "i fshehur"
 
-<<<<<<< HEAD
-#: editor/models.py:136 editor/models.py:452
-=======
-#: editor/models.py:136
-#: editor/models.py:452
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:135
+#: editor/models.py:450
 msgid "permission"
 msgstr "leje"
 
-#: editor/models.py:139
+#: editor/models.py:138
 msgid "cover"
 msgstr "kapak"
 
-<<<<<<< HEAD
-#: editor/models.py:202 editor/templates/editor/edit_publish.html:9
-msgid "Book"
-msgstr "Libër"
-
-#: editor/models.py:231 editor/models.py:353 editor/models.py:421
-=======
-#: editor/models.py:202
+#: editor/models.py:201
 #: editor/templates/editor/edit_publish.html:9
 msgid "Book"
 msgstr "Libër"
 
-#: editor/models.py:231
-#: editor/models.py:353
-#: editor/models.py:421
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:229
+#: editor/models.py:351
+#: editor/models.py:419
 msgid "chapter"
 msgstr "kre"
 
-#: editor/models.py:232
+#: editor/models.py:230
 msgid "chapter history"
 msgstr "historik kreu"
 
-<<<<<<< HEAD
-#: editor/models.py:233 editor/models.py:330 editor/models.py:355
-=======
-#: editor/models.py:233
-#: editor/models.py:330
-#: editor/models.py:355
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:231
+#: editor/models.py:328
+#: editor/models.py:353
 msgid "modified"
 msgstr "i ndryshuar"
 
-#: editor/models.py:234
+#: editor/models.py:232
 msgid "args"
 msgstr ""
 
-<<<<<<< HEAD
-#: editor/models.py:236 editor/models.py:257
-=======
-#: editor/models.py:236
-#: editor/models.py:257
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:234
+#: editor/models.py:255
 msgid "kind"
 msgstr "lloj"
 
-#: editor/models.py:259
+#: editor/models.py:257
 msgid "value string"
 msgstr "vlerë varg"
 
-#: editor/models.py:260
+#: editor/models.py:258
 msgid "value integer"
 msgstr "vlerë numër i plotë"
 
-#: editor/models.py:261
+#: editor/models.py:259
 msgid "value text"
 msgstr "vlerë tekst"
 
-#: editor/models.py:262
+#: editor/models.py:260
 msgid "value date"
 msgstr "vlerë datë"
 
-<<<<<<< HEAD
-#: editor/models.py:282 editor/models.py:283
-=======
-#: editor/models.py:282
-#: editor/models.py:283
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:280
+#: editor/models.py:281
 msgid "Metadata"
 msgstr "Tejtëdhëna"
 
-#: editor/models.py:290
+#: editor/models.py:288
 msgid "major"
 msgstr "i madh"
 
-#: editor/models.py:291
+#: editor/models.py:289
 msgid "minor"
 msgstr "i vogël"
 
-<<<<<<< HEAD
-#: editor/models.py:332 editor/models.py:357
-=======
-#: editor/models.py:332
-#: editor/models.py:357
->>>>>>> 43f9449... updating sq for the first release
-#: editor/templates/editor/edit_book.html:665
+#: editor/models.py:330
+#: editor/models.py:355
+#: editor/templates/editor/edit_book.html:658
 msgid "revision"
 msgstr "rishikim"
 
-<<<<<<< HEAD
-#: editor/models.py:337 messaging/models.py:34
-=======
-#: editor/models.py:337
+#: editor/models.py:335
 #: messaging/models.py:34
->>>>>>> 43f9449... updating sq for the first release
 msgid "content"
 msgstr "lëndë"
 
-#: editor/models.py:347
+#: editor/models.py:345
 msgid "Chapter"
 msgstr "Krye"
 
-<<<<<<< HEAD
-#: editor/models.py:348 editor/templates/editor/edit_book.html:97
-msgid "Chapters"
-msgstr "Kapituj"
-
-#: editor/models.py:358 editor/templates/editor/edit_book.html:668
-=======
-#: editor/models.py:348
+#: editor/models.py:346
 #: editor/templates/editor/edit_book.html:97
 msgid "Chapters"
 msgstr "Kapituj"
 
-#: editor/models.py:358
-#: editor/templates/editor/edit_book.html:668
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:356
+#: editor/templates/editor/edit_book.html:661
 msgid "comment"
 msgstr "koment"
 
-#: editor/models.py:364
+#: editor/models.py:362
 msgid "Chapter history"
 msgstr "Historik Kreu"
 
-<<<<<<< HEAD
-#: editor/models.py:390 editor/templates/editor/edit_strings.html:56
+#: editor/models.py:388
+#: editor/templates/editor/edit_strings.html:53
 msgid "filename"
 msgstr "emër kartele"
 
-#: editor/models.py:403 editor/templates/editor/edit_book.html:626
-=======
-#: editor/models.py:390
-#: editor/templates/editor/edit_strings.html:56
-msgid "filename"
-msgstr "emër kartele"
-
-#: editor/models.py:403
-#: editor/templates/editor/edit_book.html:626
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:401
+#: editor/templates/editor/edit_book.html:619
 msgid "Attachment"
 msgstr "Bashkangjitje"
 
-#: editor/models.py:404
+#: editor/models.py:402
 msgid "Attachments"
 msgstr "Bashkangjitje"
 
-#: editor/models.py:410
+#: editor/models.py:408
 msgid "section name"
 msgstr "emër ndarjeje"
 
-#: editor/models.py:411
+#: editor/models.py:409
 msgid "chapter name"
 msgstr "emër kreu"
 
-#: editor/models.py:412
+#: editor/models.py:410
 msgid "line"
 msgstr "rresht"
 
-#: editor/models.py:423
+#: editor/models.py:421
 msgid "typeof"
 msgstr "lloj"
 
-#: editor/models.py:437
+#: editor/models.py:435
 msgid "Book TOC"
 msgstr "TEL e Librit"
 
-#: editor/models.py:438
+#: editor/models.py:436
 msgid "Book TOCs"
 msgstr "TEL-e Librash"
 
-<<<<<<< HEAD
-#: editor/models.py:467 editor/models.py:468
-=======
-#: editor/models.py:467
-#: editor/models.py:468
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:465
+#: editor/models.py:466
 msgid "Attribution Exclude"
 msgstr "Persona Jopjesë"
 
-#: editor/models.py:474
+#: editor/models.py:472
 msgid "wizzard type"
 msgstr "Lloj mekanizmi"
 
-#: editor/models.py:475
+#: editor/models.py:473
 msgid "wizzard options"
 msgstr "Mundësi mekanizmi"
 
-<<<<<<< HEAD
-#: editor/models.py:481 editor/models.py:482
-=======
-#: editor/models.py:481
-#: editor/models.py:482
->>>>>>> 43f9449... updating sq for the first release
+#: editor/models.py:479
+#: editor/models.py:480
 msgid "Publish Wizzard"
 msgstr "Mekanizëm Botimi"
 
@@ -1410,41 +904,40 @@ msgstr "Mekanizëm Botimi"
 msgid "Modifications:"
 msgstr "Modifikime:"
 
-#: editor/templates/base_edit.html:65 portal/templates/base.html:72
+#: editor/templates/base_edit.html:65
+#: portal/templates/base.html:72
 msgid "Sign out"
 msgstr "Dilni"
 
-#: editor/templates/base_edit.html:71 portal/templates/base.html:78
+#: editor/templates/base_edit.html:71
+#: portal/templates/base.html:78
 msgid "Sign In / Create Account"
 msgstr "Hyni / Krijoni Llogari"
 
-#: editor/templates/base_edit.html:90 portal/templates/base.html:97
+#: editor/templates/base_edit.html:90
+#: portal/templates/base.html:97
 #: portal/templates/portal/groups.html:12
 msgid "Groups"
 msgstr "Grupe"
 
-#: editor/templates/base_edit.html:91 portal/templates/base.html:98
+#: editor/templates/base_edit.html:91
+#: portal/templates/base.html:98
 #: portal/templates/portal/people.html:13
 msgid "People"
 msgstr "Persona"
 
-<<<<<<< HEAD
-#: editor/templates/base_edit.html:126 portal/templates/base.html:124
-#, fuzzy
-msgid "There has been error in communication with Booktype server."
-msgstr "Pati një gabim në ndërlidhjen me shërbyesin Booki."
-=======
 #: editor/templates/base_edit.html:126
 #: portal/templates/base.html:124
-msgid "There has been error in communication with Booktype server."
-msgstr "Pati gabim gjatë ndërlidhjes me shërbyesin e Booktype-it."
->>>>>>> 43f9449... updating sq for the first release
+msgid "There has been error in communication with booki server."
+msgstr "Pati një gabim në ndërlidhjen me shërbyesin Booki."
 
-#: editor/templates/base_edit.html:127 portal/templates/base.html:125
+#: editor/templates/base_edit.html:127
+#: portal/templates/base.html:125
 msgid "Not sure right now where is the problem."
 msgstr "Jo e qartë tani për tani se ku është problemi."
 
-#: editor/templates/base_edit.html:130 portal/templates/base.html:128
+#: editor/templates/base_edit.html:130
+#: portal/templates/base.html:128
 msgid "You should refresh this page."
 msgstr "Do të duhej ta rifreskonit këtë faqe."
 
@@ -1544,16 +1037,8 @@ msgid "Publish"
 msgstr "Botoje"
 
 #: editor/templates/editor/edit_book.html:132
-msgid ""
-"We are very sorry, but we are not fully compatible with your browser. We are "
-"working hard to fix this problem. Until we fix this, you can try to use this "
-"site with Firefox, Chrome, Safari, Opera or some other compatible browser. "
-"Thank you for your understanding."
-msgstr ""
-"Na vjen shumë keq, por programi ynë nuk është plotësisht i pajtueshëm me "
-"shfletuesin tuaj. Po punojmë fort që ta ndreqim këtë problem. Derisa ta "
-"ndreqim, mund të provoni ta përdorni këtë site me Firefox, Chrome, Safari, "
-"Opera ose të tjerë shfletues të përputhshëm. Faleminderit për mirëkuptimin."
+msgid "We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding."
+msgstr "Na vjen shumë keq, por programi ynë nuk është plotësisht i pajtueshëm me shfletuesin tuaj. Po punojmë fort që ta ndreqim këtë problem. Derisa ta ndreqim, mund të provoni ta përdorni këtë site me Firefox, Chrome, Safari, Opera ose të tjerë shfletues të përputhshëm. Faleminderit për mirëkuptimin."
 
 #: editor/templates/editor/edit_book.html:134
 msgid "Table of contents"
@@ -1575,24 +1060,15 @@ msgid "IMPORT CHAPTER"
 msgstr "IMPORTONI KRYE"
 
 #: editor/templates/editor/edit_book.html:136
-<<<<<<< HEAD
-msgid ""
-"All books should contain at least one section and can have as many chapters "
-"as you like."
-msgstr ""
-"Çdo libër do të duhej të përmbante të paktën një ndarje dhe mund të ketë aq "
-"kapituj sa dëshironi."
-=======
 msgid "All books should contain at least one section and can have as many chapters as you like."
-msgstr "Çdo libër do të duhej të përmbante të paktën një ndarje dhe mund të ketë aq krerë sa dëshironi."
->>>>>>> 43f9449... updating sq for the first release
+msgstr "Çdo libër do të duhej të përmbante të paktën një ndarje dhe mund të ketë aq kapituj sa dëshironi."
 
 #: editor/templates/editor/edit_book.html:145
 msgid "New chapter"
 msgstr "Kre i ri"
 
 #: editor/templates/editor/edit_book.html:153
-#: editor/templates/editor/edit_strings.html:46
+#: editor/templates/editor/edit_strings.html:43
 msgid "Clone chapter"
 msgstr "Klononi kreun"
 
@@ -1605,7 +1081,7 @@ msgid "New section"
 msgstr "Ndarje e re"
 
 #: editor/templates/editor/edit_book.html:176
-#: editor/templates/editor/edit_strings.html:63
+#: editor/templates/editor/edit_strings.html:60
 msgid "Insert image"
 msgstr "Futni figurë"
 
@@ -1683,7 +1159,7 @@ msgid "Hold chapters"
 msgstr "Mbaji krerët"
 
 #: editor/templates/editor/edit_book.html:290
-#: editor/templates/editor/edit_book.html:618
+#: editor/templates/editor/edit_book.html:611
 msgid "Save"
 msgstr "Ruaje"
 
@@ -1693,15 +1169,10 @@ msgstr "Ruajeni dhe vazhdoni përpunimin"
 
 #: editor/templates/editor/edit_book.html:290
 msgid "View chapter"
-<<<<<<< HEAD
 msgstr "Shiheni kapitullin"
-=======
-msgstr "Shiheni kreun"
->>>>>>> 43f9449... updating sq for the first release
 
 #: editor/templates/editor/edit_book.html:290
 #: editor/templates/editor/edit_strings.html:4
-#: portal/templates/base.html:136
 msgid "Cancel"
 msgstr "Anuloje"
 
@@ -1718,28 +1189,16 @@ msgid "Author comment:"
 msgstr "Koment autori:"
 
 #: editor/templates/editor/edit_book.html:320
-<<<<<<< HEAD
-msgid ""
-"Seems like You have changed the structure of the chapters. What do you want "
-"to do?"
-msgstr ""
-"Duket se e keni ndryshuar shtrukturën e kapitujve. Çfarë dëshironi të bëni?"
-=======
 msgid "Seems like You have changed the structure of the chapters. What do you want to do?"
-msgstr "Duket se e keni ndryshuar shtrukturën e krerëve. Çfarë dëshironi të bëni?"
->>>>>>> 43f9449... updating sq for the first release
+msgstr "Duket se e keni ndryshuar shtrukturën e kapitujve. Çfarë dëshironi të bëni?"
 
 #: editor/templates/editor/edit_book.html:323
 msgid "New chapters:"
 msgstr "Kapituj të rinj:"
 
 #: editor/templates/editor/edit_book.html:339
-msgid ""
-"All images added to your book are listed here as well as any additional "
-"files you have uploaded."
-msgstr ""
-"Krejt figurat e shtuara te libri juaj tregohen këtu, si edhe çfarëdo "
-"kartelash shtesë që keni ngarkuar."
+msgid "All images added to your book are listed here as well as any additional files you have uploaded."
+msgstr "Krejt figurat e shtuara te libri juaj tregohen këtu, si edhe çfarëdo kartelash shtesë që keni ngarkuar."
 
 #: editor/templates/editor/edit_book.html:341
 msgid "Deleted selected items"
@@ -1751,7 +1210,7 @@ msgstr "Ngarkoni një figurë ose kartelë të re"
 
 #: editor/templates/editor/edit_book.html:346
 #: editor/templates/editor/edit_book.html:587
-#: editor/templates/editor/edit_strings.html:61
+#: editor/templates/editor/edit_strings.html:58
 msgid "Upload"
 msgstr "Ngarkoje"
 
@@ -1761,31 +1220,19 @@ msgstr "Këtu mund të ndiqni historikun e përpunimeve të librit tuaj."
 
 #: editor/templates/editor/edit_book.html:366
 msgid ""
-"With different versions you can easily organise your book. But be careful! "
-"Other users will not be able to edit\n"
-"      and work on previous versions once you create new one. Create new "
-"<i>major</i> version if you plan to make a lot of changes, and <i>minor</i> "
-"version if you plan to make just a few of them."
+"With different versions you can easily organise your book. But be careful! Other users will not be able to edit\n"
+"      and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them."
 msgstr ""
-<<<<<<< HEAD
-"Me versionet e ndryshme mund ta organizoni lehtësisht librin tuaj. Por kini "
-"kujdes! Pasi të krijoni një të ri, përdoruesit\n"
-"      e tjerë nuk do të jenë në gjendje të përpunojnë versione të "
-"mëparshëmew one. Krijoni një version të ri <i>të dorës së parë</i>, nëse "
-"keni në plan të bëni shumë ndryshime, dhe një version <i>të dorës së dytë</"
-"i>, nëse keni në plan të bëni vetën pak të tilla."
-=======
 "Me versionet e ndryshme mund ta organizoni lehtësisht librin tuaj. Por kini kujdes! Pasi të krijoni një të ri, përdoruesit\n"
-"      e tjerë nuk do të jenë në gjendje të përpunojnë versione të mëparshëm. Krijoni një version të ri <i>të dorës së parë</i>, nëse keni në plan të bëni shumë ndryshime, dhe një version <i>të dorës së dytë</i>, nëse keni në plan të bëni vetëm pak të tilla."
->>>>>>> 43f9449... updating sq for the first release
+"      e tjerë nuk do të jenë në gjendje të përpunojnë versione të mëparshëmew one. Krijoni një version të ri <i>të dorës së parë</i>, nëse keni në plan të bëni shumë ndryshime, dhe një version <i>të dorës së dytë</i>, nëse keni në plan të bëni vetën pak të tilla."
 
 #: editor/templates/editor/edit_book.html:368
-#: editor/templates/editor/edit_strings.html:36
+#: editor/templates/editor/edit_strings.html:33
 msgid "Create major version"
 msgstr "Krijoni version të dorës së parë"
 
 #: editor/templates/editor/edit_book.html:368
-#: editor/templates/editor/edit_strings.html:37
+#: editor/templates/editor/edit_strings.html:34
 msgid "Create minor version"
 msgstr "Krijoni version të dorës së dytë"
 
@@ -1852,9 +1299,7 @@ msgstr "Administroni Përcaktim të Drejtash Kopjimi"
 
 #: editor/templates/editor/edit_book.html:453
 msgid "If you want to exclude some people from the copyright attribution..."
-msgstr ""
-"Nëse doni të përjashtoni disa persona prej përcaktimit të të drejtave të "
-"kopjimit..."
+msgstr "Nëse doni të përjashtoni disa persona prej përcaktimit të të drejtave të kopjimit..."
 
 #: editor/templates/editor/edit_book.html:474
 msgid "Roles"
@@ -1897,7 +1342,7 @@ msgid "Remove"
 msgstr "Hiqe"
 
 #: editor/templates/editor/edit_book.html:510
-#: editor/templates/editor/edit_book.html:706
+#: editor/templates/editor/edit_book.html:699
 msgid "Chapter status"
 msgstr "Gjendje kreu"
 
@@ -1935,23 +1380,18 @@ msgstr "Ruaji shënimet"
 
 #: editor/templates/editor/edit_book.html:554
 msgid "<span class=\"icon\">JOINED</span> <span class=\"notice\">notice</span>"
-msgstr ""
-"<span class=\"notice\">Shënim</span> <span class=\"icon\">Anëtarësimi</span>"
+msgstr "<span class=\"notice\">Shënim</span> <span class=\"icon\">Anëtarësimi</span>"
 
 #: editor/templates/editor/edit_book.html:555
 msgid "<span class=\"info\">INFO</span> <span class=\"notice\">notice</span>"
-msgstr ""
-<<<<<<< HEAD
-"<span class=\"notice\">Shënim</span> <span class=\"info\">TË DHËNASH</span>"
-=======
->>>>>>> 43f9449... updating sq for the first release
+msgstr "<span class=\"notice\">Shënim</span> <span class=\"info\">TË DHËNASH</span>"
 
 #: editor/templates/editor/edit_book.html:558
 msgid "action"
 msgstr "veprim"
 
 #: editor/templates/editor/edit_book.html:561
-#: editor/templates/editor/edit_book.html:667
+#: editor/templates/editor/edit_book.html:660
 msgid "time"
 msgstr "kohë"
 
@@ -1964,177 +1404,156 @@ msgid "Uploaded <span class=\"entryFilename\">entry.args.filename</span>."
 msgstr "U ngarkua <span class=\"entryFilename\">entry.args.filename</span>."
 
 #: editor/templates/editor/edit_book.html:594
-<<<<<<< HEAD
-#, fuzzy
-msgid "Imported chapter"
-msgstr "Krijoje kapitullin"
-=======
-msgid "Imported chapter"
-msgstr "Kre i importuar"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/edit_book.html:601
 msgid "Delete"
 msgstr "Fshije"
 
-#: editor/templates/editor/edit_book.html:602
+#: editor/templates/editor/edit_book.html:595
 msgid "Deleted <span class=\"entryFilename\">entry.args.filename</span>."
 msgstr "U fshi <span class=\"entryFilename\">entry.args.filename</span>."
 
-#: editor/templates/editor/edit_book.html:616
+#: editor/templates/editor/edit_book.html:609
 msgid "Unknown"
 msgstr "E panjohur"
 
-#: editor/templates/editor/edit_book.html:617
-#: portal/templates/base.html:135
+#: editor/templates/editor/edit_book.html:610
 msgid "Create"
-msgstr "Krijoje"
+msgstr "Krijoni"
 
-#: editor/templates/editor/edit_book.html:619
+#: editor/templates/editor/edit_book.html:612
 msgid "Rename"
 msgstr "Riemërtoni"
 
-#: editor/templates/editor/edit_book.html:620
+#: editor/templates/editor/edit_book.html:613
 msgid "Reorder"
 msgstr "Rirenditi"
 
-#: editor/templates/editor/edit_book.html:621
+#: editor/templates/editor/edit_book.html:614
 msgid "Split"
 msgstr "Ndaji"
 
-#: editor/templates/editor/edit_book.html:622
+#: editor/templates/editor/edit_book.html:615
 #: reader/templates/reader/book_info.html:159
 msgid "Section create"
 msgstr "Krijim ndarjeje"
 
-#: editor/templates/editor/edit_book.html:623
+#: editor/templates/editor/edit_book.html:616
 #: reader/templates/reader/book_info.html:166
 msgid "Book create"
 msgstr "Krijim libri"
 
-#: editor/templates/editor/edit_book.html:624
+#: editor/templates/editor/edit_book.html:617
 msgid "Minor"
 msgstr "i vogël"
 
-#: editor/templates/editor/edit_book.html:625
+#: editor/templates/editor/edit_book.html:618
 msgid "Major"
 msgstr "i madh"
 
-#: editor/templates/editor/edit_book.html:651
+#: editor/templates/editor/edit_book.html:644
 #: reader/templates/reader/book_chapter.html:51
 #: reader/templates/reader/book_chapter.html:57
 #: reader/templates/reader/book_view.html:40
-#: reader/templates/reader/draft_book.html:40
-#: reader/templates/reader/draft_chapter.html:39
-#: reader/templates/reader/draft_chapter.html:46
+#: reader/templates/reader/draft_book.html:34
+#: reader/templates/reader/draft_chapter.html:42
 msgid "EDIT"
 msgstr "PËRPUNONI"
 
-#: editor/templates/editor/edit_book.html:651
+#: editor/templates/editor/edit_book.html:644
 msgid "VIEW"
 msgstr "SHIHENI"
 
-#: editor/templates/editor/edit_book.html:660
+#: editor/templates/editor/edit_book.html:653
 msgid "back to history index"
 msgstr "mbrapsh te treguesi i historikut"
 
-#: editor/templates/editor/edit_book.html:660
+#: editor/templates/editor/edit_book.html:653
 msgid "Compare revisions"
 msgstr "Krahasoni rishikimet"
 
-#: editor/templates/editor/edit_book.html:664
+#: editor/templates/editor/edit_book.html:657
 msgid "compare"
 msgstr "krahasoji"
 
-#: editor/templates/editor/edit_book.html:676
-#: editor/templates/editor/edit_strings.html:57
+#: editor/templates/editor/edit_book.html:669
+#: editor/templates/editor/edit_strings.html:54
 msgid "dimension"
 msgstr "përmasë"
 
-#: editor/templates/editor/edit_book.html:677
-#: editor/templates/editor/edit_strings.html:58
+#: editor/templates/editor/edit_book.html:670
+#: editor/templates/editor/edit_strings.html:55
 msgid "size"
 msgstr "madhësi"
 
-#: editor/templates/editor/edit_book.html:681
-#: editor/templates/editor/edit_book.html:701
+#: editor/templates/editor/edit_book.html:674
+#: editor/templates/editor/edit_book.html:694
 msgid "back to chapter history"
 msgstr "mbrapsht te historiku i kreut"
 
-#: editor/templates/editor/edit_book.html:683
+#: editor/templates/editor/edit_book.html:676
 msgid "Normal view"
 msgstr "Parje normale"
 
-#: editor/templates/editor/edit_book.html:685
+#: editor/templates/editor/edit_book.html:678
 msgid "Source view"
 msgstr "Parje e burimit"
 
-#: editor/templates/editor/edit_book.html:686
+#: editor/templates/editor/edit_book.html:679
 msgid "Revert to this revision"
 msgstr "Riktheje te ky rishikin"
 
-#: editor/templates/editor/edit_book.html:687
+#: editor/templates/editor/edit_book.html:680
 msgid "No such revision."
 msgstr "S'ka version të tillë."
 
-#: editor/templates/editor/edit_book.html:690
+#: editor/templates/editor/edit_book.html:683
 msgid "User:"
 msgstr "Përdorues:"
 
-#: editor/templates/editor/edit_book.html:691
+#: editor/templates/editor/edit_book.html:684
 msgid "Modified:"
 msgstr "Ndryshuar:"
 
-#: editor/templates/editor/edit_book.html:692
+#: editor/templates/editor/edit_book.html:685
 msgid "Version:"
 msgstr "Version:"
 
-#: editor/templates/editor/edit_book.html:693
+#: editor/templates/editor/edit_book.html:686
 msgid "Revision:"
 msgstr "Rishikim:"
 
-#: editor/templates/editor/edit_book.html:694
+#: editor/templates/editor/edit_book.html:687
 msgid "Comment"
 msgstr "Koment"
 
-#: editor/templates/editor/edit_book.html:696
+#: editor/templates/editor/edit_book.html:689
 msgid "previous"
 msgstr "e mëparshmja"
 
-#: editor/templates/editor/edit_book.html:696
+#: editor/templates/editor/edit_book.html:689
 msgid "next"
 msgstr "pasuesja"
 
-#: editor/templates/editor/edit_book.html:701
+#: editor/templates/editor/edit_book.html:694
 msgid "Show side by side"
 msgstr "Shfaqi krah njëra-tjetrës"
 
-#: editor/templates/editor/edit_book.html:702
-<<<<<<< HEAD
-msgid ""
-"Compare revision <span class=\"revision1Name\">revision1</span> with "
-"revision <span class=\"revision2Name\">revision2</span>"
-msgstr ""
-"Krahasoni rishikimin <span class=\"revision1Name\">rishikimi1</span> me "
-"rishikimin <span class=\"revision2Name\">rishikimi2</span>"
-=======
+#: editor/templates/editor/edit_book.html:695
 msgid "Compare revision <span class=\"revision1Name\">revision1</span> with revision <span class=\"revision2Name\">revision2</span>"
 msgstr "Krahasoni rishikimin <span class=\"revision1Name\">rishikimi1</span> me rishikimin <span class=\"revision2Name\">rishikimi2</span>"
->>>>>>> 43f9449... updating sq for the first release
 
-#: editor/templates/editor/edit_book.html:707
+#: editor/templates/editor/edit_book.html:700
 msgid "Select new chapter status:"
 msgstr "Përzgjidhni gjendje të re kreu:"
 
-#: editor/templates/editor/edit_book.html:720
+#: editor/templates/editor/edit_book.html:713
 msgid "Chapter statuses"
 msgstr "Gjendje kreu"
 
-#: editor/templates/editor/edit_book.html:725
+#: editor/templates/editor/edit_book.html:718
 msgid "New status:"
 msgstr "Gjendje e re:"
 
-#: editor/templates/editor/edit_book.html:730
+#: editor/templates/editor/edit_book.html:723
 msgid "Chapter statuses:"
 msgstr "Gjendje kreu:"
 
@@ -2167,8 +1586,7 @@ msgid "Publish this book"
 msgstr "Botojeni këtë libër"
 
 #: editor/templates/editor/edit_publish.html:48
-msgid ""
-"Please wait. It will take couple of moments. Your book is being generated."
+msgid "Please wait. It will take couple of moments. Your book is being generated."
 msgstr "Ju lutemi, prisni. Do të marrë pak çaste. Libri juaj po prodhohet."
 
 #: editor/templates/editor/edit_publish.html:51
@@ -2184,1546 +1602,197 @@ msgid "Error while uploading file!"
 msgstr "Gabim gjatë ngarkimit të kartelës!"
 
 #: editor/templates/editor/edit_strings.html:5
-msgid "Submit"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Parashtroje"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/edit_strings.html:6
-#: editor/templates/editor/wizzard_book.html:273
-#: editor/templates/editor/wizzard_ebook.html:126
-#: editor/templates/editor/wizzard_lulu.html:225
-#: editor/templates/editor/wizzard_odt.html:127
-#: editor/templates/editor/wizzard_pdf.html:233
-#: portal/templates/base.html:137
-#: portal/templates/booki_paginator.html:29
-msgid "Next"
-msgstr "Pasuesja"
-
-#: editor/templates/editor/edit_strings.html:7
-#: editor/templates/editor/wizzard_book.html:272
-#: editor/templates/editor/wizzard_ebook.html:125
-#: editor/templates/editor/wizzard_lulu.html:224
-#: editor/templates/editor/wizzard_odt.html:126
-#: editor/templates/editor/wizzard_pdf.html:232
-#: portal/templates/base.html:134
-msgid "Back"
-msgstr "Mbrapsht"
-
-#: editor/templates/editor/edit_strings.html:8
 msgid "Yes, revert !"
 msgstr "Po, riktheje !"
 
-#: editor/templates/editor/edit_strings.html:9
+#: editor/templates/editor/edit_strings.html:6
 msgid "Loading..."
 msgstr "Po ngarkohet..."
 
-#: editor/templates/editor/edit_strings.html:10
+#: editor/templates/editor/edit_strings.html:7
 msgid "LOADING DATA...."
 msgstr "PO NGARKOHEN TË DHËNA..."
 
-#: editor/templates/editor/edit_strings.html:11
+#: editor/templates/editor/edit_strings.html:8
 msgid "Loading data. Please wait..."
 msgstr "Po ngarkohen të dhëna. Ju lutemi, prisni..."
 
-#: editor/templates/editor/edit_strings.html:12
+#: editor/templates/editor/edit_strings.html:9
 msgid "Loading chapter data..."
 msgstr "Po ngarkohen të dhëna kreu..."
 
-#: editor/templates/editor/edit_strings.html:13
+#: editor/templates/editor/edit_strings.html:10
 msgid "Reading history data..."
 msgstr "Po lexohen të dhëna historiku..."
 
-#: editor/templates/editor/edit_strings.html:14
+#: editor/templates/editor/edit_strings.html:11
 msgid "Reading settings data..."
 msgstr "Po lexohen të dhëna rregullimesh..."
 
-#: editor/templates/editor/edit_strings.html:15
+#: editor/templates/editor/edit_strings.html:12
 msgid "Reading attachments data..."
 msgstr "Po lexohen të dhëna bashkangjitjesh..."
 
-#: editor/templates/editor/edit_strings.html:16
+#: editor/templates/editor/edit_strings.html:13
 msgid "Reading notes data..."
 msgstr "Po lexohen të dhëna shënimesh..."
 
-#: editor/templates/editor/edit_strings.html:17
+#: editor/templates/editor/edit_strings.html:14
 msgid "Reading version data..."
 msgstr "Po lexohen të dhëna shënimesh..."
 
-#: editor/templates/editor/edit_strings.html:18
+#: editor/templates/editor/edit_strings.html:15
 msgid "Revert to this revision?"
 msgstr "Të rikthehet te ky rishikim?"
 
-#: editor/templates/editor/edit_strings.html:19
-<<<<<<< HEAD
-msgid ""
-"Current chapter content will be reverted to this revision. Are you sure?"
-msgstr ""
-"Lënda e kapitullit të tanishëm do të rikthehet te ky rishikim. Jeni i sigurt?"
-=======
+#: editor/templates/editor/edit_strings.html:16
 msgid "Current chapter content will be reverted to this revision. Are you sure?"
-msgstr "Lënda e kreut të tanishëm do të rikthehet te ky rishikim. Jeni i sigurt?"
->>>>>>> 43f9449... updating sq for the first release
+msgstr "Lënda e kapitullit të tanishëm do të rikthehet te ky rishikim. Jeni i sigurt?"
 
-#: editor/templates/editor/edit_strings.html:20
+#: editor/templates/editor/edit_strings.html:17
 msgid "Sending data..."
 msgstr "Po dërgohen të dhënat..."
 
-#: editor/templates/editor/edit_strings.html:21
+#: editor/templates/editor/edit_strings.html:18
 msgid "SAVE"
 msgstr "RUAJE"
 
-#: editor/templates/editor/edit_strings.html:23
+#: editor/templates/editor/edit_strings.html:20
 msgid "Save new order"
 msgstr "Ruaje renditjen e re"
 
-#: editor/templates/editor/edit_strings.html:24
+#: editor/templates/editor/edit_strings.html:21
 msgid "Saving data. Please wait..."
 msgstr "Po ruhen të dhënat. Ju lutemi, prisni..."
 
-#: editor/templates/editor/edit_strings.html:25
+#: editor/templates/editor/edit_strings.html:22
 msgid "CANCEL"
 msgstr "ANULOJE"
 
-#: editor/templates/editor/edit_strings.html:26
+#: editor/templates/editor/edit_strings.html:23
 msgid "Set status"
 msgstr "Caktojini gjendjen"
 
-#: editor/templates/editor/edit_strings.html:27
+#: editor/templates/editor/edit_strings.html:24
 msgid "Revision"
 msgstr "Rishikim"
 
-#: editor/templates/editor/edit_strings.html:28
+#: editor/templates/editor/edit_strings.html:25
 msgid "Booktype Reader"
 msgstr "Lexuesi i Booktype-it"
 
-#: editor/templates/editor/edit_strings.html:29
+#: editor/templates/editor/edit_strings.html:26
 msgid "Hide advanced options"
 msgstr "Fshihi mundësitë e mëtejshme"
 
-#: editor/templates/editor/edit_strings.html:30
+#: editor/templates/editor/edit_strings.html:27
 msgid "Show advanced options"
 msgstr "Shfaqi mundësitë e mëtejshme"
 
-#: editor/templates/editor/edit_strings.html:31
+#: editor/templates/editor/edit_strings.html:28
 msgid "New status name"
 msgstr "Emër gjendjeje të re"
 
-#: editor/templates/editor/edit_strings.html:32
+#: editor/templates/editor/edit_strings.html:29
 msgid "Delete this status?"
 msgstr "Të fshihet kjo gjendje?"
 
-#: editor/templates/editor/edit_strings.html:33
-<<<<<<< HEAD
-msgid ""
-"Can't delete because some chapters have this status. Change chapter status "
-"first."
-msgstr ""
-"Nuk fshihen dot, ngaqë disa kapituj kanë këtë gjendje. Së pari ndryshoni "
-"gjendjen e kapitullit."
-=======
+#: editor/templates/editor/edit_strings.html:30
 msgid "Can't delete because some chapters have this status. Change chapter status first."
-msgstr "Nuk fshihen dot, ngaqë disa krerë kanë këtë gjendje. Së pari ndryshoni gjendjen e kreut."
->>>>>>> 43f9449... updating sq for the first release
+msgstr "Nuk fshihen dot, ngaqë disa kapituj kanë këtë gjendje. Së pari ndryshoni gjendjen e kapitullit."
 
-#: editor/templates/editor/edit_strings.html:34
+#: editor/templates/editor/edit_strings.html:31
 msgid "Removing chapter from Table of Contents."
-msgstr "Po hiqet kreu prej Tabelës së Lëndës."
+msgstr "Po hiqet kreu prej Tabeles së Lëndës."
 
-#: editor/templates/editor/edit_strings.html:35
+#: editor/templates/editor/edit_strings.html:32
 msgid "Reordering the chapters..."
 msgstr "Po rirenditen krerët..."
 
-#: editor/templates/editor/edit_strings.html:38
+#: editor/templates/editor/edit_strings.html:35
 msgid "Delete attachments"
 msgstr "Fshiji bashkangjitjet"
 
-#: editor/templates/editor/edit_strings.html:39
+#: editor/templates/editor/edit_strings.html:36
 msgid "Delete these attachments"
 msgstr "Fshiji këto bashkangjitje"
 
-#: editor/templates/editor/edit_strings.html:40
+#: editor/templates/editor/edit_strings.html:37
 msgid "Delete selected attachments"
 msgstr "Fshiji bashkangjitjet e përzgjedhura"
 
-#: editor/templates/editor/edit_strings.html:41
+#: editor/templates/editor/edit_strings.html:38
 msgid "Update"
 msgstr "Përditësoje"
 
-#: editor/templates/editor/edit_strings.html:42
+#: editor/templates/editor/edit_strings.html:39
 msgid "Create chapter"
 msgstr "Krijoje kreun"
 
-#: editor/templates/editor/edit_strings.html:43
+#: editor/templates/editor/edit_strings.html:40
 msgid "Creating chapter"
 msgstr "Po krijohet kreu"
 
-#: editor/templates/editor/edit_strings.html:44
-#: editor/templates/editor/edit_strings.html:48
+#: editor/templates/editor/edit_strings.html:41
+#: editor/templates/editor/edit_strings.html:45
 msgid "Can not create duplicate chapter name."
 msgstr "Nuk mund të krijohet dublikatë emri kreu."
 
-#: editor/templates/editor/edit_strings.html:45
+#: editor/templates/editor/edit_strings.html:42
 msgid "Enter new Chapter title."
 msgstr "Jepni titull të ri Kreu."
 
-#: editor/templates/editor/edit_strings.html:47
+#: editor/templates/editor/edit_strings.html:44
 msgid "Cloning chapter"
 msgstr "Po klonohet kreu"
 
-#: editor/templates/editor/edit_strings.html:49
+#: editor/templates/editor/edit_strings.html:46
 msgid "Enter book id"
 msgstr "Jepni id libri"
 
-#: editor/templates/editor/edit_strings.html:50
+#: editor/templates/editor/edit_strings.html:47
 msgid "Enter Chapter id."
 msgstr "Jepni id Kreu."
 
-#: editor/templates/editor/edit_strings.html:51
+#: editor/templates/editor/edit_strings.html:48
 msgid "Create section"
 msgstr "Krijo ndarje"
 
-#: editor/templates/editor/edit_strings.html:52
+#: editor/templates/editor/edit_strings.html:49
 msgid "Creating section"
 msgstr "Po krijohet ndarja"
 
-#: editor/templates/editor/edit_strings.html:53
+#: editor/templates/editor/edit_strings.html:50
 msgid "Can not create duplicate section name."
 msgstr "Nuk mund të krijohet dublikatë emri ndarjeje."
 
-#: editor/templates/editor/edit_strings.html:54
+#: editor/templates/editor/edit_strings.html:51
 msgid "Enter new section title"
 msgstr "Jepni titull të ri ndarjeje"
 
-#: editor/templates/editor/edit_strings.html:59
+#: editor/templates/editor/edit_strings.html:56
 msgid "Adding chapter to Table of Contents."
 msgstr "Po shtohet kreu te Tabela e lëndës."
 
-#: editor/templates/editor/edit_strings.html:60
+#: editor/templates/editor/edit_strings.html:57
 msgid "Reordering the chapter..."
 msgstr "Po rirenditet kreu..."
 
-#: editor/templates/editor/edit_strings.html:62
+#: editor/templates/editor/edit_strings.html:59
 msgid "Rights holder"
 msgstr "Zotëruesi i të drejtave"
 
-#: editor/templates/editor/edit_strings.html:64
+#: editor/templates/editor/edit_strings.html:61
 msgid "You will loose unsaved changes. You are currently editing chapter"
-<<<<<<< HEAD
-msgstr ""
-"Do të humbni ndryshime të paruajtura. Jeni ende duke përpunuar një kapitull"
-=======
-msgstr "Do të humbni ndryshime të paruajtura. Jeni ende duke përpunuar një krye"
->>>>>>> 43f9449... updating sq for the first release
+msgstr "Do të humbni ndryshime të paruajtura. Jeni ende duke përpunuar një kapitull"
 
-#: editor/templates/editor/edit_strings.html:65
+#: editor/templates/editor/edit_strings.html:62
 msgid "You are leaving Booktype Editor."
 msgstr "Po dilni nga Përpunuesi i Booktype-it."
 
-#: editor/templates/editor/edit_strings.html:66
+#: editor/templates/editor/edit_strings.html:63
 msgid "You don't have permission to delete attachments."
 msgstr "Nuk keni leje për fshirje bashkangjitjesh."
-
-#: editor/templates/editor/edit_strings.html:67
-<<<<<<< HEAD
-#, fuzzy
-msgid "I can not find description for this license."
-msgstr "Nuk ka përshkrim për këtë përdorues."
-
-#: editor/templates/editor/edit_strings.html:68
-msgid "User {0} has changed status of  chapter \"{1}\" to \"{2}\"."
-msgstr ""
-
-#: editor/templates/editor/edit_strings.html:69
-msgid "User {0} has saved chapter \"{1}\"."
-msgstr ""
-
-#: editor/templates/editor/edit_strings.html:70
-msgid "User {0} has renamed chapter \"{1}\" to \"{2}\"."
-msgstr ""
-
-#: editor/templates/editor/edit_strings.html:71
-#, fuzzy
-msgid "User {0} has created new chapter \"{1}\"."
-msgstr "U krijua kapitull i ri"
-
-#: editor/templates/editor/edit_strings.html:72
-msgid "User {0} has cloned chapter \"{1}\" from book \"{2}\"."
-msgstr ""
-
-#: editor/templates/editor/edit_strings.html:73
-msgid "\"{0}\" is being published."
-msgstr ""
-
-#: editor/templates/editor/edit_strings.html:74
-msgid "User {0} has created new section \"{1}\"."
-msgstr ""
-
-#: editor/templates/editor/edit_strings.html:75
-msgid "User {0} has reverted chapter \"{1}\" to revision {2}."
-msgstr ""
-
-#: editor/templates/editor/edit_strings.html:76
-msgid "User {0} has saved notes for book \"{1}\"."
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:4
-msgid "Book Formatted PDF Settings"
-msgstr ""
-=======
-msgid "I can not find description for this license."
-msgstr "Nuk gjej dot përshkrim për këtë licencë."
-
-#: editor/templates/editor/edit_strings.html:68
-msgid "User {0} has changed status of  chapter \"{1}\" to \"{2}\"."
-msgstr "Përdoruesi {0} ndryshoi gjendjen e kreut \"{1}\" në \"{2}\"."
-
-#: editor/templates/editor/edit_strings.html:69
-msgid "User {0} has saved chapter \"{1}\"."
-msgstr "Përdoruesi {0} ruajti kreun \"{1}\"."
-
-#: editor/templates/editor/edit_strings.html:70
-msgid "User {0} has renamed chapter \"{1}\" to \"{2}\"."
-msgstr "Përdoruesi {0} emërtoi kreun \"{1}\" si \"{2}\"."
-
-#: editor/templates/editor/edit_strings.html:71
-msgid "User {0} has created new chapter \"{1}\"."
-msgstr "Përdoruesi {0} krijoi kreun e ri \"{1}\"."
-
-#: editor/templates/editor/edit_strings.html:72
-msgid "User {0} has cloned chapter \"{1}\" from book \"{2}\"."
-msgstr "Përdoruesi {0} klonoi kreun \"{1}\" prej librit \"{2}\"."
-
-#: editor/templates/editor/edit_strings.html:73
-msgid "\"{0}\" is being published."
-msgstr "\"{0}\" po botohet."
-
-#: editor/templates/editor/edit_strings.html:74
-msgid "User {0} has created new section \"{1}\"."
-msgstr "Përdoruesi {0} krijoi ndarjen e re \"{1}\"."
-
-#: editor/templates/editor/edit_strings.html:75
-msgid "User {0} has reverted chapter \"{1}\" to revision {2}."
-msgstr "Përdoruesi {0} e ka rikthyer kreun \"{1}\" te rishikimi {2}."
-
-#: editor/templates/editor/edit_strings.html:76
-msgid "User {0} has saved notes for book \"{1}\"."
-msgstr "Përdoruesi {0} ruajti shënimet për librin \"{1}\"."
-
-#: editor/templates/editor/wizzard_book.html:4
-msgid "Book Formatted PDF Settings"
-msgstr "Rregullime Formatimi PDF për Librin"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:11
-#: editor/templates/editor/wizzard_lulu.html:84
-#: editor/templates/editor/wizzard_pdf.html:10
-<<<<<<< HEAD
-#, fuzzy
-msgid "Book Size"
-msgstr "Shënim libri"
-=======
-msgid "Book Size"
-msgstr "Madhësi Libri"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:13
-#: editor/templates/editor/wizzard_pdf.html:12
-msgid "custom"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "vetjake"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:14
-#: editor/templates/editor/wizzard_lulu.html:88
-msgid "POCKET (107mm x 174mm)"
-<<<<<<< HEAD
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:15
-msgid "US5x8 (126mm x 203mm)"
-msgstr ""
-=======
-msgstr "XHEPI (107mm x 174mm)"
-
-#: editor/templates/editor/wizzard_book.html:15
-msgid "US5x8 (126mm x 203mm)"
-msgstr "US5x8 (126mm x 203mm)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:16
-#: editor/templates/editor/wizzard_lulu.html:89
-msgid "DIGEST (139mm x 215mm)"
-<<<<<<< HEAD
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:17
-msgid "US5.5x8.5 (139mm x 215mm)"
-msgstr ""
-=======
-msgstr "DIGEST (139mm x 215mm)"
-
-#: editor/templates/editor/wizzard_book.html:17
-msgid "US5.5x8.5 (139mm x 215mm)"
-msgstr "US5.5x8.5 (139mm x 215mm)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:18
-#: editor/templates/editor/wizzard_lulu.html:90
-#: editor/templates/editor/wizzard_pdf.html:13
-msgid "A5 (148mm x 210mm)"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "A5 (148mm x 210mm)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:19
-#: editor/templates/editor/wizzard_lulu.html:91
-msgid "USTRADE6x9 (152mm x 228mm)"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "USTRADE6x9 (152mm x 228mm)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:20
-#: editor/templates/editor/wizzard_lulu.html:92
-msgid "SQUARE7.5 (190mm x 190mm)"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "SQUARE7.5 (190mm x 190mm)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:21
-#: editor/templates/editor/wizzard_lulu.html:93
-msgid "ROYAL (155mm x 233mm)"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "ROYAL (155mm x 233mm)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:22
-#: editor/templates/editor/wizzard_lulu.html:94
-msgid "LANDSCAPE9x7 (228mm x 177mm)"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "LANDSCAPE9x7 (228mm x 177mm)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:23
-#: editor/templates/editor/wizzard_lulu.html:95
-msgid "COMICBOOK (168mm x 260mm)"
-<<<<<<< HEAD
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:24
-msgid "B5 (176mm x 250mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:25
-msgid "US7x10 (177mm x 253mm)"
-msgstr ""
-=======
-msgstr "COMICBOOK (168mm x 260mm)"
-
-#: editor/templates/editor/wizzard_book.html:24
-msgid "B5 (176mm x 250mm)"
-msgstr "B5 (176mm x 250mm)"
-
-#: editor/templates/editor/wizzard_book.html:25
-msgid "US7x10 (177mm x 253mm)"
-msgstr "US7x10 (177mm x 253mm)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:26
-#: editor/templates/editor/wizzard_lulu.html:96
-msgid "CROWNQUARTO (189mm x 245mm)"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "CROWNQUARTO (189mm x 245mm)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:27
-#: editor/templates/editor/wizzard_lulu.html:97
-msgid "SQUARE8.5 (215mm x 215mm)"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "SQUARE8.5 (215mm x 215mm)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:28
-#: editor/templates/editor/wizzard_lulu.html:98
-msgid "USLETTER (215mm x 279mm)"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "USLETTER (215mm x 279mm)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:29
-#: editor/templates/editor/wizzard_lulu.html:99
-#: editor/templates/editor/wizzard_pdf.html:14
-msgid "A4 (210mm x 297mm)"
-<<<<<<< HEAD
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:30
-msgid "Foolscap (F4) (210mm x 330mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:31
-msgid "B4 (250mm x 353mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:32
-msgid "Oamaru Tabloid (265mm x 380mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:33
-msgid "UK Tabloid (279mm x 431mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:34
-msgid "A3 (NZ Tabloid) (297mm x 420mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:35
-msgid "Berliner (315mm x 470mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:36
-msgid "B3 (353mm x 500mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:37
-msgid "Oamaru Broadsheet (382mm x 540mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:38
-msgid "US Broadsheet (380mm x 577mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:39
-msgid "A2 (NZ Broadsheet) (420mm x 594mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:40
-msgid "UK Broadsheet (457mm x 609mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:41
-msgid "B2 (500mm x 707mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:42
-msgid "A1 (594mm x 841mm)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:43
-msgid "B1 (707mm x 1000mm)"
-msgstr ""
-=======
-msgstr "A4 (210mm x 297mm)"
-
-#: editor/templates/editor/wizzard_book.html:30
-msgid "Foolscap (F4) (210mm x 330mm)"
-msgstr "Foolscap (F4) (210mm x 330mm)"
-
-#: editor/templates/editor/wizzard_book.html:31
-msgid "B4 (250mm x 353mm)"
-msgstr "B4 (250mm x 353mm)"
-
-#: editor/templates/editor/wizzard_book.html:32
-msgid "Oamaru Tabloid (265mm x 380mm)"
-msgstr "Oamaru Tabloid (265mm x 380mm)"
-
-#: editor/templates/editor/wizzard_book.html:33
-msgid "UK Tabloid (279mm x 431mm)"
-msgstr "UK Tabloid (279mm x 431mm)"
-
-#: editor/templates/editor/wizzard_book.html:34
-msgid "A3 (NZ Tabloid) (297mm x 420mm)"
-msgstr "A3 (NZ Tabloid) (297mm x 420mm)"
-
-#: editor/templates/editor/wizzard_book.html:35
-msgid "Berliner (315mm x 470mm)"
-msgstr "Berliner (315mm x 470mm)"
-
-#: editor/templates/editor/wizzard_book.html:36
-msgid "B3 (353mm x 500mm)"
-msgstr "B3 (353mm x 500mm)"
-
-#: editor/templates/editor/wizzard_book.html:37
-msgid "Oamaru Broadsheet (382mm x 540mm)"
-msgstr "Oamaru Broadsheet (382mm x 540mm)"
-
-#: editor/templates/editor/wizzard_book.html:38
-msgid "US Broadsheet (380mm x 577mm)"
-msgstr "US Broadsheet (380mm x 577mm)"
-
-#: editor/templates/editor/wizzard_book.html:39
-msgid "A2 (NZ Broadsheet) (420mm x 594mm)"
-msgstr "A2 (NZ Broadsheet) (420mm x 594mm)"
-
-#: editor/templates/editor/wizzard_book.html:40
-msgid "UK Broadsheet (457mm x 609mm)"
-msgstr "UK Broadsheet (457mm x 609mm)"
-
-#: editor/templates/editor/wizzard_book.html:41
-msgid "B2 (500mm x 707mm)"
-msgstr "B2 (500mm x 707mm)"
-
-#: editor/templates/editor/wizzard_book.html:42
-msgid "A1 (594mm x 841mm)"
-msgstr "A1 (594mm x 841mm)"
-
-#: editor/templates/editor/wizzard_book.html:43
-msgid "B1 (707mm x 1000mm)"
-msgstr "B1 (707mm x 1000mm)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:45
-#: editor/templates/editor/wizzard_pdf.html:16
-msgid "Custom Size"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Madhësi Vetjake "
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:48
-#: editor/templates/editor/wizzard_book.html:50
-#: editor/templates/editor/wizzard_book.html:68
-#: editor/templates/editor/wizzard_book.html:78
-#: editor/templates/editor/wizzard_book.html:97
-#: editor/templates/editor/wizzard_book.html:116
-#: editor/templates/editor/wizzard_book.html:135
-#: editor/templates/editor/wizzard_ebook.html:36
-#: editor/templates/editor/wizzard_ebook.html:46
-#: editor/templates/editor/wizzard_ebook.html:65
-#: editor/templates/editor/wizzard_ebook.html:84
-#: editor/templates/editor/wizzard_ebook.html:103
-#: editor/templates/editor/wizzard_lulu.html:118
-#: editor/templates/editor/wizzard_lulu.html:147
-#: editor/templates/editor/wizzard_lulu.html:166
-#: editor/templates/editor/wizzard_lulu.html:185
-#: editor/templates/editor/wizzard_odt.html:20
-#: editor/templates/editor/wizzard_odt.html:30
-#: editor/templates/editor/wizzard_odt.html:49
-#: editor/templates/editor/wizzard_odt.html:68
-#: editor/templates/editor/wizzard_odt.html:87
-#: editor/templates/editor/wizzard_pdf.html:20
-#: editor/templates/editor/wizzard_pdf.html:25
-#: editor/templates/editor/wizzard_pdf.html:44
-#: editor/templates/editor/wizzard_pdf.html:54
-#: editor/templates/editor/wizzard_pdf.html:73
-#: editor/templates/editor/wizzard_pdf.html:92
-#: editor/templates/editor/wizzard_pdf.html:111
-msgid "Size"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Madhësi"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:48
-#: editor/templates/editor/wizzard_book.html:50
-#: editor/templates/editor/wizzard_book.html:230
-#: editor/templates/editor/wizzard_book.html:232
-#: editor/templates/editor/wizzard_book.html:234
-#: editor/templates/editor/wizzard_book.html:236
-#: editor/templates/editor/wizzard_book.html:240
-#: editor/templates/editor/wizzard_pdf.html:190
-#: editor/templates/editor/wizzard_pdf.html:192
-#: editor/templates/editor/wizzard_pdf.html:194
-#: editor/templates/editor/wizzard_pdf.html:196
-#: editor/templates/editor/wizzard_pdf.html:200
-msgid "mm"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "mm"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:59
-#: editor/templates/editor/wizzard_ebook.html:27
-#: editor/templates/editor/wizzard_lulu.html:109
-#: editor/templates/editor/wizzard_odt.html:11
-#: editor/templates/editor/wizzard_pdf.html:35
-msgid "Font"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Shkronja"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:62
-#: editor/templates/editor/wizzard_ebook.html:30
-#: editor/templates/editor/wizzard_lulu.html:112
-#: editor/templates/editor/wizzard_odt.html:14
-#: editor/templates/editor/wizzard_pdf.html:38
-msgid "Body Text"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Teksti i Lëndës"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:64
-#: editor/templates/editor/wizzard_book.html:74
-#: editor/templates/editor/wizzard_book.html:93
-#: editor/templates/editor/wizzard_book.html:112
-#: editor/templates/editor/wizzard_ebook.html:32
-#: editor/templates/editor/wizzard_ebook.html:42
-#: editor/templates/editor/wizzard_ebook.html:61
-#: editor/templates/editor/wizzard_ebook.html:80
-#: editor/templates/editor/wizzard_lulu.html:114
-#: editor/templates/editor/wizzard_lulu.html:124
-#: editor/templates/editor/wizzard_lulu.html:143
-#: editor/templates/editor/wizzard_lulu.html:162
-#: editor/templates/editor/wizzard_odt.html:16
-#: editor/templates/editor/wizzard_odt.html:26
-#: editor/templates/editor/wizzard_odt.html:45
-#: editor/templates/editor/wizzard_odt.html:64
-#: editor/templates/editor/wizzard_pdf.html:40
-#: editor/templates/editor/wizzard_pdf.html:50
-#: editor/templates/editor/wizzard_pdf.html:69
-#: editor/templates/editor/wizzard_pdf.html:88
-msgid "Fontin Sans"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Fontin Sans"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:65
-#: editor/templates/editor/wizzard_book.html:75
-#: editor/templates/editor/wizzard_book.html:94
-#: editor/templates/editor/wizzard_book.html:113
-#: editor/templates/editor/wizzard_ebook.html:33
-#: editor/templates/editor/wizzard_ebook.html:43
-#: editor/templates/editor/wizzard_ebook.html:62
-#: editor/templates/editor/wizzard_ebook.html:81
-#: editor/templates/editor/wizzard_lulu.html:115
-#: editor/templates/editor/wizzard_lulu.html:125
-#: editor/templates/editor/wizzard_lulu.html:144
-#: editor/templates/editor/wizzard_lulu.html:163
-#: editor/templates/editor/wizzard_odt.html:17
-#: editor/templates/editor/wizzard_odt.html:27
-#: editor/templates/editor/wizzard_odt.html:46
-#: editor/templates/editor/wizzard_odt.html:65
-#: editor/templates/editor/wizzard_pdf.html:41
-#: editor/templates/editor/wizzard_pdf.html:51
-#: editor/templates/editor/wizzard_pdf.html:70
-#: editor/templates/editor/wizzard_pdf.html:89
-msgid "Arial"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Arial"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:66
-#: editor/templates/editor/wizzard_book.html:76
-#: editor/templates/editor/wizzard_book.html:95
-#: editor/templates/editor/wizzard_book.html:114
-#: editor/templates/editor/wizzard_ebook.html:34
-#: editor/templates/editor/wizzard_ebook.html:44
-#: editor/templates/editor/wizzard_ebook.html:63
-#: editor/templates/editor/wizzard_ebook.html:82
-#: editor/templates/editor/wizzard_lulu.html:116
-#: editor/templates/editor/wizzard_lulu.html:126
-#: editor/templates/editor/wizzard_lulu.html:145
-#: editor/templates/editor/wizzard_lulu.html:164
-#: editor/templates/editor/wizzard_odt.html:18
-#: editor/templates/editor/wizzard_odt.html:28
-#: editor/templates/editor/wizzard_odt.html:47
-#: editor/templates/editor/wizzard_odt.html:66
-#: editor/templates/editor/wizzard_pdf.html:42
-#: editor/templates/editor/wizzard_pdf.html:52
-#: editor/templates/editor/wizzard_pdf.html:71
-#: editor/templates/editor/wizzard_pdf.html:90
-msgid "Helvetica"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Helvetica"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:72
-#: editor/templates/editor/wizzard_ebook.html:40
-#: editor/templates/editor/wizzard_lulu.html:122
-#: editor/templates/editor/wizzard_odt.html:24
-#: editor/templates/editor/wizzard_pdf.html:48
-msgid "Heading 1"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Titull 1"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:81
-#: editor/templates/editor/wizzard_book.html:100
-#: editor/templates/editor/wizzard_book.html:119
-#: editor/templates/editor/wizzard_ebook.html:49
-#: editor/templates/editor/wizzard_ebook.html:68
-#: editor/templates/editor/wizzard_ebook.html:87
-#: editor/templates/editor/wizzard_lulu.html:131
-#: editor/templates/editor/wizzard_lulu.html:150
-#: editor/templates/editor/wizzard_lulu.html:169
-#: editor/templates/editor/wizzard_odt.html:33
-#: editor/templates/editor/wizzard_odt.html:52
-#: editor/templates/editor/wizzard_odt.html:71
-#: editor/templates/editor/wizzard_pdf.html:57
-#: editor/templates/editor/wizzard_pdf.html:76
-#: editor/templates/editor/wizzard_pdf.html:95
-msgid "UPPERCASE"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "ME TË MËDHAJA"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:82
-#: editor/templates/editor/wizzard_book.html:101
-#: editor/templates/editor/wizzard_book.html:120
-#: editor/templates/editor/wizzard_ebook.html:50
-#: editor/templates/editor/wizzard_ebook.html:69
-#: editor/templates/editor/wizzard_ebook.html:88
-#: editor/templates/editor/wizzard_lulu.html:132
-#: editor/templates/editor/wizzard_lulu.html:151
-#: editor/templates/editor/wizzard_lulu.html:170
-#: editor/templates/editor/wizzard_odt.html:34
-#: editor/templates/editor/wizzard_odt.html:53
-#: editor/templates/editor/wizzard_odt.html:72
-#: editor/templates/editor/wizzard_pdf.html:58
-#: editor/templates/editor/wizzard_pdf.html:77
-#: editor/templates/editor/wizzard_pdf.html:96
-<<<<<<< HEAD
-#, fuzzy
-msgid "lowercase"
-msgstr "Pasues:"
-=======
-msgid "lowercase"
-msgstr "me të vogla"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:83
-#: editor/templates/editor/wizzard_book.html:102
-#: editor/templates/editor/wizzard_book.html:121
-#: editor/templates/editor/wizzard_ebook.html:51
-#: editor/templates/editor/wizzard_ebook.html:70
-#: editor/templates/editor/wizzard_ebook.html:89
-#: editor/templates/editor/wizzard_lulu.html:133
-#: editor/templates/editor/wizzard_lulu.html:152
-#: editor/templates/editor/wizzard_lulu.html:171
-#: editor/templates/editor/wizzard_odt.html:35
-#: editor/templates/editor/wizzard_odt.html:54
-#: editor/templates/editor/wizzard_odt.html:73
-#: editor/templates/editor/wizzard_pdf.html:59
-#: editor/templates/editor/wizzard_pdf.html:78
-#: editor/templates/editor/wizzard_pdf.html:97
-msgid "Capitalise"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Shkronja Kapitale"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:86
-#: editor/templates/editor/wizzard_book.html:105
-#: editor/templates/editor/wizzard_book.html:124
-#: editor/templates/editor/wizzard_ebook.html:54
-#: editor/templates/editor/wizzard_ebook.html:73
-#: editor/templates/editor/wizzard_ebook.html:92
-#: editor/templates/editor/wizzard_lulu.html:136
-#: editor/templates/editor/wizzard_lulu.html:155
-#: editor/templates/editor/wizzard_lulu.html:174
-#: editor/templates/editor/wizzard_odt.html:38
-#: editor/templates/editor/wizzard_odt.html:57
-#: editor/templates/editor/wizzard_odt.html:76
-#: editor/templates/editor/wizzard_pdf.html:62
-#: editor/templates/editor/wizzard_pdf.html:81
-#: editor/templates/editor/wizzard_pdf.html:100
-msgid "Heavy"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Të trasha"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:87
-#: editor/templates/editor/wizzard_book.html:106
-#: editor/templates/editor/wizzard_book.html:125
-#: editor/templates/editor/wizzard_ebook.html:55
-#: editor/templates/editor/wizzard_ebook.html:74
-#: editor/templates/editor/wizzard_ebook.html:93
-#: editor/templates/editor/wizzard_lulu.html:137
-#: editor/templates/editor/wizzard_lulu.html:156
-#: editor/templates/editor/wizzard_lulu.html:175
-#: editor/templates/editor/wizzard_odt.html:39
-#: editor/templates/editor/wizzard_odt.html:58
-#: editor/templates/editor/wizzard_odt.html:77
-#: editor/templates/editor/wizzard_pdf.html:63
-#: editor/templates/editor/wizzard_pdf.html:82
-#: editor/templates/editor/wizzard_pdf.html:101
-msgid "normal"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "normal"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:91
-#: editor/templates/editor/wizzard_ebook.html:59
-#: editor/templates/editor/wizzard_lulu.html:141
-#: editor/templates/editor/wizzard_odt.html:43
-#: editor/templates/editor/wizzard_pdf.html:67
-msgid "Heading 2"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Titull 2"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:110
-#: editor/templates/editor/wizzard_ebook.html:78
-#: editor/templates/editor/wizzard_lulu.html:160
-#: editor/templates/editor/wizzard_odt.html:62
-#: editor/templates/editor/wizzard_pdf.html:86
-msgid "Heading 3"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Titull 3"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:129
-#: editor/templates/editor/wizzard_ebook.html:97
-#: editor/templates/editor/wizzard_lulu.html:179
-#: editor/templates/editor/wizzard_odt.html:81
-#: editor/templates/editor/wizzard_pdf.html:105
-msgid "Formatted"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:131
-#: editor/templates/editor/wizzard_ebook.html:99
-#: editor/templates/editor/wizzard_lulu.html:181
-#: editor/templates/editor/wizzard_odt.html:83
-#: editor/templates/editor/wizzard_pdf.html:107
-msgid "Courier"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Courier"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:132
-#: editor/templates/editor/wizzard_ebook.html:100
-#: editor/templates/editor/wizzard_lulu.html:182
-#: editor/templates/editor/wizzard_odt.html:84
-#: editor/templates/editor/wizzard_pdf.html:108
-msgid "Courier New"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Courier New"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:133
-#: editor/templates/editor/wizzard_ebook.html:101
-#: editor/templates/editor/wizzard_lulu.html:183
-#: editor/templates/editor/wizzard_odt.html:85
-#: editor/templates/editor/wizzard_pdf.html:109
-msgid "Monospace"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Monospace"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:145
-#: editor/templates/editor/wizzard_lulu.html:196
-#: editor/templates/editor/wizzard_odt.html:98
-#: editor/templates/editor/wizzard_pdf.html:122
-<<<<<<< HEAD
-#, fuzzy
-msgid "Page breaks"
-msgstr "Administroni role"
-=======
-msgid "Page breaks"
-msgstr "Ndërprerje faqeje"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:148
-#: editor/templates/editor/wizzard_lulu.html:199
-#: editor/templates/editor/wizzard_odt.html:101
-#: editor/templates/editor/wizzard_pdf.html:125
-msgid "Avoid page break in paragraphs?"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Të shmangen ndërprerje faqesh në paragrafë?"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:150
-#: editor/templates/editor/wizzard_lulu.html:201
-#: editor/templates/editor/wizzard_odt.html:103
-#: editor/templates/editor/wizzard_pdf.html:127
-msgid "Pagebreak before footnotes?"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Ndërprerje faqesh përpara fundshënimesh?"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:158
-#: editor/templates/editor/wizzard_pdf.html:136
-msgid "Advanced"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Të mëtejshme"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:168
-#: editor/templates/editor/wizzard_pdf.html:146
-msgid "General"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Të përgjithshme"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:172
-#: editor/templates/editor/wizzard_pdf.html:150
-msgid "Override Server Default CSS"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Anashkalo CSS-në Parazgjedhje të Shërbyesit"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:175
-#: editor/templates/editor/wizzard_pdf.html:152
-msgid "Grey Scale Output"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Përfundim Në Shkallë të Grisë"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:178
-<<<<<<< HEAD
-#: editor/templates/editor/wizzard_pdf.html:154
-#: editor/templates/editor/wizzard_pdf.html:156
-msgid "Rotate"
-<<<<<<< HEAD
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:178
-msgid "For RTL books on LTR printing presses, and vice versa."
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:180
-#, fuzzy
-msgid "Page Numbers"
-msgstr "anëtarë"
-=======
-msgstr "Rrotulloje"
-
-#: editor/templates/editor/wizzard_book.html:178
-=======
->>>>>>> 8e8301f... few updates and rewording
-msgid "For RTL books on LTR printing presses, and vice versa."
-msgstr "Për libra të shkruar DNM në shtypshkronja MND, dhe anasjelltas."
-
-#: editor/templates/editor/wizzard_book.html:180
-msgid "Page Numbers"
-msgstr "Numra Faqesh"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:182
-#: editor/templates/editor/wizzard_pdf.html:159
-msgid "LTR"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "MND"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:183
-#: editor/templates/editor/wizzard_pdf.html:158
-msgid "none"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "asnjë"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:184
-#: editor/templates/editor/wizzard_pdf.html:160
-msgid "my"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "my"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:185
-#: editor/templates/editor/wizzard_pdf.html:161
-msgid "fa"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "fa"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:186
-#: editor/templates/editor/wizzard_pdf.html:162
-msgid "hi"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "hi"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:187
-#: editor/templates/editor/wizzard_pdf.html:163
-msgid "RTL"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "DNM"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:188
-#: editor/templates/editor/wizzard_pdf.html:164
-msgid "ar"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "ar"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:189
-#: editor/templates/editor/wizzard_pdf.html:165
-msgid "auto"
-<<<<<<< HEAD
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:197
-msgid "If in doubt, choose 'auto'"
-msgstr ""
-=======
-msgstr "auto"
-
-#: editor/templates/editor/wizzard_book.html:191
-msgid "If in doubt, choose 'auto'"
-msgstr "Po qetë në mëdyshje, zgjidhni 'auto'"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:194
-#: editor/templates/editor/wizzard_pdf.html:170
-msgid "Force Embed Fonts"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Bëje të Detyrueshëm Përdorimin e Shkronjave të Trupëzuara"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:194
-#: editor/templates/editor/wizzard_pdf.html:170
-msgid "PDFs: force embedding of PDF default fonts"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "PDF-ra: bëje të detyrueshëm përdorimin e shkronjave parazgjedhje të trupëzuara te PDF-ja"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:196
-#: editor/templates/editor/wizzard_pdf.html:172
-msgid "Cancel Page Break Control"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Anulo Kontroll Ndërprerje Faqesh"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:196
-#: editor/templates/editor/wizzard_pdf.html:172
-msgid "Let page breaks occur immediately after headings"
-<<<<<<< HEAD
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:215
-#, fuzzy
-msgid "Table of Contents"
-msgstr "Tabelë e lëndës"
-
-#: editor/templates/editor/wizzard_book.html:218
-#, fuzzy
-msgid "Table of Contents Header"
-msgstr "Tabelë e lëndës"
-=======
-msgstr "Lejoji ndërprerjet e faqeve të vendosen menjëherë pas titujsh"
-
-#: editor/templates/editor/wizzard_book.html:209
-msgid "Table of Contents"
-msgstr "Tryezë e Lëndës"
-
-#: editor/templates/editor/wizzard_book.html:212
-msgid "Table of Contents Header"
-msgstr "Titull për Tabelën e Lëndës"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:226
-#: editor/templates/editor/wizzard_pdf.html:186
-msgid "Page Margins and Gutter"
-<<<<<<< HEAD
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:235
-#: editor/templates/editor/wizzard_pdf.html:195
-#, fuzzy
-msgid "Top Margin"
-msgstr "Mënjanë:"
-
-#: editor/templates/editor/wizzard_book.html:237
-#: editor/templates/editor/wizzard_pdf.html:197
-#, fuzzy
-msgid "Side Margin"
-msgstr "Mënjanë:"
-
-#: editor/templates/editor/wizzard_book.html:239
-#: editor/templates/editor/wizzard_pdf.html:199
-#, fuzzy
-msgid "Bottom Margin"
-msgstr "Mënjanë:"
-=======
-msgstr "Mënjana dhe Ullukë Faqesh"
-
-#: editor/templates/editor/wizzard_book.html:229
-#: editor/templates/editor/wizzard_pdf.html:189
-msgid "Top Margin"
-msgstr "Mënjana e Sipërme"
-
-#: editor/templates/editor/wizzard_book.html:231
-#: editor/templates/editor/wizzard_pdf.html:191
-msgid "Side Margin"
-msgstr "Mënjana Anësore"
-
-#: editor/templates/editor/wizzard_book.html:233
-#: editor/templates/editor/wizzard_pdf.html:193
-msgid "Bottom Margin"
-msgstr "Mënjana e Poshtme"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:235
-#: editor/templates/editor/wizzard_pdf.html:195
-msgid "Gutter"
-<<<<<<< HEAD
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:243
-#, fuzzy
-msgid "Number of columns"
-msgstr "Anëtar i grupit:"
-
-#: editor/templates/editor/wizzard_book.html:245
-msgid "Column margin"
-msgstr ""
-=======
-msgstr "Ulluk"
-
-#: editor/templates/editor/wizzard_book.html:237
-msgid "Number of columns"
-msgstr "Numri i shtyllave"
-
-#: editor/templates/editor/wizzard_book.html:239
-msgid "Column margin"
-msgstr "Mënjanë shtylle"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:253
-#: editor/templates/editor/wizzard_pdf.html:213
-msgid "Advanced (style sheets)"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Të mëtejshme (fletëstile)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:256
-#: editor/templates/editor/wizzard_lulu.html:212
-#: editor/templates/editor/wizzard_pdf.html:216
-msgid "Your Custom CSS"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "CSS-ja Juaj e Personalizuar"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:259
-#: editor/templates/editor/wizzard_lulu.html:214
-#: editor/templates/editor/wizzard_odt.html:116
-#: editor/templates/editor/wizzard_pdf.html:219
-msgid "Booktype CSS (be careful if changing)"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "CSS e Booktype-it (jini i kujdesshëm, nëse e ndryshoni)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_book.html:263
-#: editor/templates/editor/wizzard_ebook.html:118
-#: editor/templates/editor/wizzard_lulu.html:217
-#: editor/templates/editor/wizzard_odt.html:119
-#: editor/templates/editor/wizzard_pdf.html:223
-msgid "Override ALL previous settings with custom CSS"
-<<<<<<< HEAD
-msgstr ""
-
-#: editor/templates/editor/wizzard_ebook.html:4
-#, fuzzy
-msgid "Ebook Settings"
-msgstr "Rregullime"
-
-#: editor/templates/editor/wizzard_ebook.html:12
-#, fuzzy
-msgid "Type of Ebook"
-msgstr "Titulli i Librit"
-
-#: editor/templates/editor/wizzard_ebook.html:15
-msgid "ipad"
-msgstr ""
-
-#: editor/templates/editor/wizzard_ebook.html:17
-#, fuzzy
-msgid "kindle"
-msgstr "lloj"
-
-#: editor/templates/editor/wizzard_ebook.html:19
-msgid "general"
-msgstr ""
-=======
-msgstr "Anashkalo KREJT rregullimet e mëparshme me CSS të personalizuar"
-
-#: editor/templates/editor/wizzard_ebook.html:4
-msgid "Ebook Settings"
-msgstr "Rregullime për Elibra"
-
-#: editor/templates/editor/wizzard_ebook.html:12
-msgid "Type of Ebook"
-msgstr "Lloj Elibri"
-
-#: editor/templates/editor/wizzard_ebook.html:15
-msgid "ipad"
-msgstr "ipad"
-
-#: editor/templates/editor/wizzard_ebook.html:17
-msgid "kindle"
-msgstr "Kindle"
-
-#: editor/templates/editor/wizzard_ebook.html:19
-msgid "general"
-msgstr "të përgjithshme"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_ebook.html:113
-#: editor/templates/editor/wizzard_lulu.html:210
-#: editor/templates/editor/wizzard_odt.html:112
-msgid "CSS (Advanced)"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "CSS (Të mëtejshme)"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_ebook.html:115
-#: editor/templates/editor/wizzard_odt.html:114
-msgid "Your custom CSS"
-<<<<<<< HEAD
-msgstr ""
-
-#: editor/templates/editor/wizzard_lulu.html:5
-#, fuzzy
-msgid "Lulu.com Settings"
-msgstr "Rregullime"
-
-#: editor/templates/editor/wizzard_lulu.html:14
-msgid "Lulu Account Details"
-msgstr ""
-
-#: editor/templates/editor/wizzard_lulu.html:16
-#, fuzzy
-msgid "Lulu.com Username"
-msgstr "Lulu.com"
-
-#: editor/templates/editor/wizzard_lulu.html:18
-#, fuzzy
-msgid "Lulu.com Password"
-msgstr "Fjalëkalim"
-
-#: editor/templates/editor/wizzard_lulu.html:28
-#, fuzzy
-msgid "Book Title"
-msgstr "Shënim libri"
-
-#: editor/templates/editor/wizzard_lulu.html:40
-#, fuzzy
-msgid "Book Description"
-msgstr "Përshkrim"
-
-#: editor/templates/editor/wizzard_lulu.html:52
-#, fuzzy
-msgid "Book Authors"
-msgstr "Shënime Libri"
-
-#: editor/templates/editor/wizzard_lulu.html:54
-#, fuzzy
-msgid "Authors"
-msgstr "Autor:"
-
-#: editor/templates/editor/wizzard_lulu.html:64
-msgid "Pricing"
-msgstr ""
-
-#: editor/templates/editor/wizzard_lulu.html:66
-msgid "Price for download (PDF)"
-msgstr ""
-
-#: editor/templates/editor/wizzard_lulu.html:68
-msgid "Price for printed book"
-msgstr ""
-
-#: editor/templates/editor/wizzard_lulu.html:70
-msgid "Currency"
-msgstr ""
-
-#: editor/templates/editor/wizzard_lulu.html:72
-msgid "EUR"
-msgstr ""
-
-#: editor/templates/editor/wizzard_lulu.html:73
-msgid "USD"
-msgstr ""
-
-#: editor/templates/editor/wizzard_lulu.html:74
-msgid "GBP"
-msgstr ""
-
-#: editor/templates/editor/wizzard_odt.html:3
-#, fuzzy
-msgid "Open Document Text (.odt) Settings"
-msgstr "Tekst Dokumentesh të Hapët (ODT)"
-
-#: editor/templates/editor/wizzard_pdf.html:3
-msgid "Screen Formatted PDF Settings"
-msgstr ""
-
-#: editor/templates/editor/wizzard_pdf.html:173
-msgid "If in doubt, choose 'none'"
-msgstr ""
-=======
-msgstr "CSS-ja juaj e personalizuar"
-
-#: editor/templates/editor/wizzard_lulu.html:5
-msgid "Lulu.com Settings"
-msgstr "Rregullime për Lulu.com"
-
-#: editor/templates/editor/wizzard_lulu.html:14
-msgid "Lulu Account Details"
-msgstr "Hollësi Llogarie te Lulu"
-
-#: editor/templates/editor/wizzard_lulu.html:16
-msgid "Lulu.com Username"
-msgstr "Emër përdoruesi te Lulu.com"
-
-#: editor/templates/editor/wizzard_lulu.html:18
-msgid "Lulu.com Password"
-msgstr "Fjalëkalim për te Lulu.com"
-
-#: editor/templates/editor/wizzard_lulu.html:28
-msgid "Book Title"
-msgstr "Titull Libri"
-
-#: editor/templates/editor/wizzard_lulu.html:40
-msgid "Book Description"
-msgstr "Përshkrim i Librit"
-
-#: editor/templates/editor/wizzard_lulu.html:52
-msgid "Book Authors"
-msgstr "Autorë të Librit"
-
-#: editor/templates/editor/wizzard_lulu.html:54
-msgid "Authors"
-msgstr "Autorë"
-
-#: editor/templates/editor/wizzard_lulu.html:64
-msgid "Pricing"
-msgstr "Çmime"
-
-#: editor/templates/editor/wizzard_lulu.html:66
-msgid "Price for download (PDF)"
-msgstr "Çmim për shkarkimin (PDF)"
-
-#: editor/templates/editor/wizzard_lulu.html:68
-msgid "Price for printed book"
-msgstr "Çmim për librin e shtypur"
-
-#: editor/templates/editor/wizzard_lulu.html:70
-msgid "Currency"
-msgstr "Monedhë"
-
-#: editor/templates/editor/wizzard_lulu.html:72
-msgid "EUR"
-msgstr "EUR"
-
-#: editor/templates/editor/wizzard_lulu.html:73
-msgid "USD"
-msgstr "USD"
-
-#: editor/templates/editor/wizzard_lulu.html:74
-msgid "GBP"
-msgstr "GBP"
-
-#: editor/templates/editor/wizzard_odt.html:3
-msgid "Open Document Text (.odt) Settings"
-msgstr "Rregullime për Tekst Dokumeti të Hapur (.odt)"
-
-#: editor/templates/editor/wizzard_pdf.html:3
-msgid "Screen Formatted PDF Settings"
-msgstr "Rregullime për PDF të Formatuar për Ekran"
-
-#: editor/templates/editor/wizzard_pdf.html:154
-#: editor/templates/editor/wizzard_pdf.html:156
-msgid "Rotate"
-msgstr "Rrotulloje"
-
-#: editor/templates/editor/wizzard_pdf.html:167
-msgid "If in doubt, choose 'none'"
-msgstr "Po qetë në mëdyshje, zgjidhni 'asnjë'"
->>>>>>> 43f9449... updating sq for the first release
-
-#: editor/templates/editor/wizzard_pdf.html:197
-#: editor/templates/editor/wizzard_pdf.html:199
-msgid "Columns"
-<<<<<<< HEAD
-msgstr ""
-=======
-msgstr "Shtylla"
->>>>>>> 43f9449... updating sq for the first release
 
 #: editor/templates/errors/editing_forbidden.html:4
 msgid "Access error"
@@ -3737,7 +1806,8 @@ msgstr "Nuk keni të drejta të përpunoni këtë libër."
 msgid "sender"
 msgstr "dërgues"
 
-#: messaging/models.py:33 messaging/models.py:67
+#: messaging/models.py:33
+#: messaging/models.py:67
 msgid "timestamp"
 msgstr "vulë kohore"
 
@@ -3901,47 +1971,13 @@ msgstr "Rrjedhë kohore për etiketën"
 msgid "Control Center"
 msgstr "Qendër Kontrollesh"
 
-#: portal/templates/base.html:133
-msgid "OK"
-msgstr "OK"
-
-#: portal/templates/base.html:138
-msgid "Import"
-msgstr "Importoje"
-
-#: portal/templates/base.html:140
-<<<<<<< HEAD
-#, fuzzy
-msgid "Couldn't create a group!"
-msgstr "Krijoni një Grup"
-
 #: portal/templates/booki_paginator.html:5
 msgid "Previous"
 msgstr "I mëparshmi"
-=======
-msgid "Couldn't create a group!"
-msgstr "Nuk u krijua dot grupi!"
 
-#: portal/templates/base.html:141
-msgid "enter epub URL"
-msgstr "jepni URL epub-i"
-
-#: portal/templates/base.html:142
-msgid "enter Archive.org ID"
-msgstr "jepni ID Archive.org"
-
-#: portal/templates/base.html:143
-msgid "enter Wikibooks URL"
-msgstr "jepni URL për te Wikibooks"
-
-#: portal/templates/base.html:144
-msgid "enter Booktype URL"
-msgstr "jepni URL për te Booktype"
-
-#: portal/templates/booki_paginator.html:5
-msgid "Previous"
-msgstr "E mëparshmja"
->>>>>>> 43f9449... updating sq for the first release
+#: portal/templates/booki_paginator.html:29
+msgid "Next"
+msgstr "Pasuesi"
 
 #: portal/templates/errors/group_does_not_exist.html:4
 msgid "Group not found!"
@@ -3964,15 +2000,6 @@ msgstr "Librat aktivë"
 msgid "Latest Books"
 msgstr "Librat më të rinj"
 
-#: portal/templates/portal/frontpage.html:5
-msgid "Booktype"
-msgstr "Booktype"
-
-#: portal/templates/portal/frontpage.html:5
-#, fuzzy
-msgid "Booktype"
-msgstr "Libra  Booktype"
-
 #: portal/templates/portal/frontpage.html:18
 msgid "Welcome to Booktype"
 msgstr "Mirë se vini te Booktype"
@@ -3984,11 +2011,11 @@ msgstr "Veprimtari së fundmi"
 
 #: portal/templates/portal/frontpage.html:50
 msgid "Created new chapter"
-msgstr "Krijoi kreun e ri"
+msgstr "U krijua krye i ri"
 
 #: portal/templates/portal/frontpage.html:55
 msgid "Created new book"
-msgstr "Krijoi librin e ri"
+msgstr "U krijua libër i ri"
 
 #: portal/templates/portal/group.html:5
 #, python-format
@@ -4000,7 +2027,7 @@ msgid "Group"
 msgstr "Grup"
 
 #: portal/templates/portal/group.html:66
-#: portal/templates/portal/group.html:141
+#: portal/templates/portal/group.html:158
 msgid "Members"
 msgstr "Anëtarë"
 
@@ -4022,13 +2049,17 @@ msgstr "ANËTARË: %(n_members)s"
 msgid "BOOKS: %(n_books)s"
 msgstr "LIBRA: %(n_books)s"
 
-#: portal/templates/portal/group.html:101
+#: portal/templates/portal/group.html:97
+msgid "ANNOUNCEMENTS"
+msgstr "LAJMËRIME"
+
+#: portal/templates/portal/group.html:112
 msgid "STATUS"
 msgstr "GJENDJE"
 
-#: portal/templates/portal/group.html:134
+#: portal/templates/portal/group.html:151
 msgid "ADD THIS BOOK TO GROUP"
-msgstr "SHTOJENI KËTË LIBËR TE GRUPI"
+msgstr "SHTOJE KËTË LIBËR TE GRUPI"
 
 #: portal/templates/portal/groups.html:5
 msgid "Booktype Groups"
@@ -4078,17 +2109,8 @@ msgstr "Nuk di ç'të bëj!"
 
 #: reader/templates/errors/chapter_duplicate.html:5
 #, python-format
-<<<<<<< HEAD
-msgid ""
-"There is more then one chapter named - \"%(chapter_name)s\". I am not sure "
-"which one to show."
-msgstr ""
-"Ka më tepër se një kapitull të quajtur - \"%(chapter_name)s\". Nuk jam i "
-"sigurt cilin të shfaq."
-=======
 msgid "There is more then one chapter named - \"%(chapter_name)s\". I am not sure which one to show."
-msgstr "Ka më tepër se një krye të quajtur - \"%(chapter_name)s\". Nuk jam i sigurt cilin të shfaq."
->>>>>>> 43f9449... updating sq for the first release
+msgstr "Ka më tepër se një kapitull të quajtur - \"%(chapter_name)s\". Nuk jam i sigurt cilin të shfaq."
 
 #: reader/templates/reader/book_chapter.html:6
 #: reader/templates/reader/draft_chapter.html:6
@@ -4196,32 +2218,13 @@ msgid "Follow changes"
 msgstr "Ndiqi ndryshimet"
 
 #: reader/templates/reader/book_view.html:36
-#: reader/templates/reader/draft_book.html:37
+#: reader/templates/reader/draft_book.html:32
 msgid "click on the chapter name"
 msgstr "klikoni mbi emrin e kreut"
 
 #: reader/templates/reader/edit_info.html:3
 msgid "Edit Book Info"
 msgstr "Përpunoni të Dhëna Libri"
-
-#: reader/templates/reader/edit_info.html:7
-<<<<<<< HEAD
-#, fuzzy
-msgid "Book description:"
-msgstr "përshkrim"
-
-#: reader/templates/reader/edit_info.html:9
-#, fuzzy
-msgid "Book image:"
-msgstr "Figurë Libri"
-=======
-msgid "Book description:"
-msgstr "Përshkrim i librit:"
-
-#: reader/templates/reader/edit_info.html:9
-msgid "Book image:"
-msgstr "Figurë e librit:"
->>>>>>> 43f9449... updating sq for the first release
 
 #: reader/templates/reader/full.html:6
 #, python-format
@@ -4232,5 +2235,3 @@ msgstr "/i_plotë: %(booktitle)s"
 msgid "You have no permissions to do this!"
 msgstr "Nuk keni leje për ta bërë këtë!"
 
-#~ msgid "ANNOUNCEMENTS"
-#~ msgstr "LAJMËRIME"
