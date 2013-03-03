@@ -11,13 +11,6 @@
     </tr>
     {% endif %}
 
-    {% if "bookjs/pdf" in publish_options %}
-    <tr>
-      <td><label><input type="radio" name="publish" group="publishtype" value="bookjs/pdf" checked="checked">{% trans "BookJS" %}</label></td>
-      <td></td>
-    </tr>
-    {% endif %}
-
     {% if "ebook" in publish_options %}
     <tr>
       <td><label><input type="radio" name="publish" group="publishtype" value="ebook">{% trans "Ebook" %}</label></td>
@@ -45,6 +38,28 @@
       <td><a name="odtwizzard" onclick="return false">{% trans "settings" %}</a></td>
     </tr>
     {% endif %}
+
+    {% if "bookjs/pdf" in publish_options %}
+    <tr>
+     <td colspan="2"> <div style="padding-top: 5px; padding-bottom: 5px; border: 1px solid white;"><div style="height: 1px; border-top: 1px solid #a0a0a0"></div></div> </td>
+    </tr>
+
+    <tr>
+      <td><label><input type="radio" name="publish" group="publishtype" value="bookjs/pdf" checked="checked">{% trans "Try out our new renderer for Books" %}</label></td>
+      <td><a name="bookjswizzard" onclick="return false">{% trans "settings" %}</a></td>
+    </tr>
+    <tr>
+     <td>
+       <div style="margin-left: 20px;">
+          <input type="radio" name="style" group="style" value="style1">Modern style
+          <input type="radio" name="style" group="style" value="style2">Old style
+          <input type="radio" name="style" group="style" value="style2" checked="checked">Custom
+       </div>
+     </td>
+     <td></td>
+    </tr>
+    {% endif %}
+
 
   </table>
 </form>
