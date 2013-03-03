@@ -1194,11 +1194,6 @@ def remote_publish_book(request, message, bookid, version):
     Input:
      - publish_mode
      - is_archive
-     - is_lulu
-     - lulu_user
-     - lulu_password
-     - lulu_api_key
-     - lulu_project
      - book
      - project
      - mode
@@ -1271,16 +1266,6 @@ def remote_publish_book(request, message, bookid, version):
                     args[name] = message.get(name)
         elif default:
             args[name] = default
-
-    if message.get("is_lulu", False):
-        args["to_lulu"] = "yes"
-        _isSet("lulu_user", settings.LULU_USER)
-        _isSet("lulu_password", settings.LULU_PASSWORD)
-
-        if settings.LULU_API_KEY:
-            args["lulu_api_key"] = settings.LULU_API_KEY
-
-        _isSet("lulu_project")
 
     _isSet('title')
     _isSet('license')
@@ -2834,8 +2819,6 @@ PUBLISH_OPTIONS = {
 
     'ebook': [{"name": "body_font-family", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "h1_font-family", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_font-weight", "value": "heavy"}, {"name": "h2_font-weightamily", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-family", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_text-transform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-family", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": ""}, {"name": "ebook_format", "value": "epub"},  {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}],
 
-    'lulu': [{"name": "lulu_user", "value": ""}, {"name": "lulu_password", "value": ""}, {"name": "lulu_title", "value": ""}, {"name": "description", "value": ""}, {"name": "authors", "value": ""}, {"name": "lulu_download_price", "value": ""}, {"name": "lulu_print_price", "value": ""}, {"name": "lulu_currency_code", "value": "EUR"}, {"name": "pagesize", "value": "COMICBOOK"}, {"name": "body_font-family", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "heading_font", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_fontweight", "value": "heavy"}, {"name": "h2_font-family", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-family", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_texttransform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-family", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "p_pagebreak", "value": "on"}, {"name": "footnotes_pagebreak", "value": "on"}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": " "}, {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}],
-
     'odt': [{"name": "body_font-weight", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "h1_font-weight", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_font-weight", "value": "heavy"}, {"name": "h2_font-weight", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-weight", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_text-transform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-weight", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "p_pagebreak", "value": "on"}, {"name": "footnotes_pagebreak", "value": "on"}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": ""}, {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}],
 
     'pdf': [{"name": "booksize", "value": "A4"}, {"name": "custom_width", "value": ""}, {"name": "custom_height", "value": ""}, {"name": "body_font-family", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "h1_font-family", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_font-weight", "value": "heavy"}, {"name": "h2_font-family", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-family", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_text-transform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-family", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "p_pagebreak", "value": "on"}, {"name": "footnotes_pagebreak", "value": "on"}, {"name": "control-css", "value": "on"}, {"name": "page-numbers", "value": "auto"}, {"name": "embed-fonts", "value": "yes"}, {"name": "top_margin", "value": ""}, {"name": "side_margin", "value": ""}, {"name": "bottom_margin", "value": ""}, {"name": "gutter", "value": ""}, {"name": "columns", "value": ""}, {"name": "column_margin", "value": ""}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": ""}, {"name": "grey_scale", "value": "off"}, {"name": "rotate", "value": "off"}, {"name": "allow-breaks", "value": "off"}, {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}]}
@@ -2866,7 +2849,7 @@ def remote_get_wizzard(request, message, bookid, version):
     import django.template.loader
     from django.template import Context
 
-    # book, ebook, pdf, odt, lulu
+    # book, ebook, pdf, odt
 
     for op in options:
         if op.get('name', '') == 'special_css':
@@ -2910,11 +2893,6 @@ def remote_publish_book2(request, message, bookid, version):
     Input:
      - publish_mode
      - is_archive
-     - is_lulu
-     - lulu_user
-     - lulu_password
-     - lulu_api_key
-     - lulu_project
      - book
      - project
      - mode
@@ -3003,7 +2981,6 @@ def remote_publish_book2(request, message, bookid, version):
                       'bookjs': 'bookjs/pdf',
                       'odt': 'openoffice',
                       'newpaper': 'pdf',
-                      'lulu': 'book',
                       'pdf': 'web'}
 
     # At one point Booktype and Objavi did not have same list of licenses.
@@ -3078,7 +3055,7 @@ def remote_publish_book2(request, message, bookid, version):
         return s
  
 
-    if publishMode in ['book'] and message.get("publish_mode", "") != 'lulu':
+    if publishMode in ['book']:
         _isSet('booksize')
         _isSet('custom_width')
         _isSet('custom_height')
@@ -3122,7 +3099,7 @@ def remote_publish_book2(request, message, bookid, version):
             args['page_width']  = args.get('custom_width', '')
             args['page_height'] = args.get('custom_height', '')
 
-    if publishMode in ['bookjs/pdf'] and message.get("publish_mode", "") != 'lulu':
+    if publishMode in ['bookjs/pdf']:
         _isSet('booksize')
         _isSet('custom_width')
         _isSet('custom_height')
@@ -3165,47 +3142,6 @@ def remote_publish_book2(request, message, bookid, version):
         if args.get('booksize', '') == 'custom':
             args['page_width']  = args.get('custom_width', '')
             args['page_height'] = args.get('custom_height', '')
-
-
-    if publishMode == 'book' and message.get("publish_mode", "") == 'lulu':
-        args['to_lulu'] = 'yes' 
-        args['lulu_user'] = message.get('lulu_user', '')
-        args['lulu_password'] = message.get('lulu_password', '')
-
-        _isSet('lulu_title')
-        _isSet('description')
-        _isSet('authors')
-        _isSet('lulu_download_price')
-        _isSet('lulu_print_price')
-        _isSet('lulu_currency_code')
-        _isSet('pagesize')
-
-        if _getValue('custom_override') == 'on':
-            _css = config.getConfiguration('BOOKTYPE_CSS_LULU', '')
-
-            _css += _getValue('additional_css') or ''
-        else:
-            _css = config.getConfiguration('BOOKTYPE_CSS_LULU', '')
-
-            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
-            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
-            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
-            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
-            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
-            _css += _getValue('additional_css') or ''
-
-        args['css'] = _css
-        
-        _isSet('p_pagebreak')
-        _isSet('footnotes_pagebreak')
-
-        # We have been using wrong argument name for this. Considering people have saved in their publishing settings old values this 
-        # seems to be best way to fix this issue for now.
-
-        if args.get('booksize', '') == 'custom':
-            args['page_width']  = args.get('custom_width', '')
-            args['page_height'] = args.get('custom_height', '')
-        
 
     if publishMode == 'epub':
         # ebook_format ipad,kindle,epub

@@ -18,13 +18,6 @@
     </tr>
     {% endif %}
 
-    {% if "lulu" in publish_options %}
-    <tr>
-      <td><label><input type="radio" name="publish" group="publishtype" value="lulu">{% trans "Lulu.com" %}</label></td>
-      <td><a name="luluwizzard" onclick="return false">{% trans "settings" %}</a></td>
-    </tr>
-    {% endif %}
-
     {% if "pdf" in publish_options %}
     <tr>
       <td><label><input type="radio" name="publish" group="publishtype" value="pdf">{% trans "Screen PDF" %}</label></td>

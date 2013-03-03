@@ -1067,8 +1067,6 @@ class PublishingForm(forms.Form):
                                       required=False)
     publish_ebook = forms.BooleanField(label=_('ebook'), 
                                        required=False)
-    publish_lulu = forms.BooleanField(label=_('lulu'), 
-                                      required=False)
     publish_pdf = forms.BooleanField(label=_('PDF'), 
                                      required=False)
     publish_odt = forms.BooleanField(label=_('ODT'), 
@@ -1096,7 +1094,6 @@ def settings_publishing(request):
 
             if frm.cleaned_data['publish_book']: opts.append('book')
             if frm.cleaned_data['publish_ebook']: opts.append('ebook')
-            if frm.cleaned_data['publish_lulu']: opts.append('lulu')
             if frm.cleaned_data['publish_pdf']: opts.append('pdf')
             if frm.cleaned_data['publish_odt']: opts.append('odt')
 
@@ -1112,7 +1109,6 @@ def settings_publishing(request):
     else:
         frm = PublishingForm(initial = {'publish_book': 'book' in publishOptions,
                                         'publish_ebook': 'ebook' in publishOptions,
-                                        'publish_lulu': 'lulu' in publishOptions,
                                         'publish_pdf': 'pdf' in publishOptions,
                                         'publish_odt': 'odt' in publishOptions})
 
@@ -1180,9 +1176,6 @@ class PublishingDefaultsForm(forms.Form):
     ebook_css = forms.CharField(label=_('E-Book CSS'), 
                           required=False, 
                           widget=forms.Textarea(attrs={'rows': 30}))
-    lulu_css = forms.CharField(label=_('Lulu CSS'), 
-                          required=False, 
-                          widget=forms.Textarea(attrs={'rows': 30}))
     pdf_css = forms.CharField(label=_('PDF CSS'), 
                           required=False, 
                           widget=forms.Textarea(attrs={'rows': 30}))
@@ -1200,7 +1193,6 @@ def settings_publishing_defaults(request):
 
     data = {'book_css':  config.getConfiguration('BOOKTYPE_CSS_BOOK', ''),
             'ebook_css': config.getConfiguration('BOOKTYPE_CSS_EBOOK', ''),
-            'lulu_css':  config.getConfiguration('BOOKTYPE_CSS_LULU', ''),
             'pdf_css':   config.getConfiguration('BOOKTYPE_CSS_PDF', ''),
             'odt_css':   config.getConfiguration('BOOKTYPE_CSS_ODT', '')}
 
@@ -1216,9 +1208,6 @@ def settings_publishing_defaults(request):
 
             if frm.cleaned_data['ebook_css'] != data['ebook_css']:
                 config.setConfiguration('BOOKTYPE_CSS_EBOOK', frm.cleaned_data['ebook_css'])
-
-            if frm.cleaned_data['lulu_css'] != data['lulu_css']:
-                config.setConfiguration('BOOKTYPE_CSS_LULU', frm.cleaned_data['lulu_css'])
 
             if frm.cleaned_data['pdf_css'] != data['pdf_css']:
                 config.setConfiguration('BOOKTYPE_CSS_PDF', frm.cleaned_data['pdf_css'])
