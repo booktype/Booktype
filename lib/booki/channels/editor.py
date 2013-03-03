@@ -1723,10 +1723,13 @@ def remote_unlock_chapter(request, message, bookid, version):
 
     import re
 
-    if request.user.username == 'booki':
+    book = models.Book.objects.get(id=bookid)
+
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    if bookSecurity.isAdmin():
         for key in sputnik.rkeys("booki:%s:locks:%s:*" % (bookid, message["chapterID"])):
             m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
-
             if m:
                 sputnik.set("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], m.group(3)), 1)
 
