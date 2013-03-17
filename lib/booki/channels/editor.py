@@ -2202,6 +2202,282 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
     return {"output": info+'<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: '+message["revision2"]+'</div></td></tr>\n'.join(output)+'</table>\n'}
 
 
+def remote_covers_data(request, message, bookid, version):
+    """
+    Get info about covers.
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Cover Manager tab
+    """
+
+    book = models.Book.objects.get(id=bookid)
+    book_ver = book.getVersion(version)
+
+    covers = []
+
+    for cover in models.BookCover.objects.filter(book = book):
+        frm = []
+        
+        if cover.is_book:
+            frm.append("book")
+            
+        if cover.is_ebook:
+            frm.append("ebook")
+
+        if cover.is_pdf:
+            frm.append("pdf")
+
+        covers.append({'cid': cover.cid,
+                       'placement': cover.cover_type,
+                       'format': frm,
+                       'title': cover.title,
+                       'approved': cover.approved})
+
+    transaction.commit()
+
+    return {"covers": covers}
+
+
+def remote_cover_approve(request, message, bookid, version):
+    """
+    Set cover approve status.
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Cover Manager tab
+    """
+
+    book = models.Book.objects.get(id=bookid)
+
+    try:
+        cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
+        cover.approved = message.get('cover_status', False)
+        cover.save()
+    except models.BookCover.DoesNotExist:
+
+        transaction.rollback()
+        return {"result": False}
+    else:
+        transaction.commit()
+
+    return {"result": True}
+
+
+def remote_cover_delete(request, message, bookid, version):
+    """
+    Set cover approve status.
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Cover Manager tab
+    """
+
+    book = models.Book.objects.get(id=bookid)
+
+    try:
+        cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
+
+        filename = cover.attachment.name[:]
+
+        cover.delete()
+    except models.BookCover.DoesNotExist:
+
+        transaction.rollback()
+        return {"result": False}
+    else:
+        transaction.commit()
+
+    try:
+        import os
+
+        os.remove(cover.attachment.name)
+    except OSError:
+        pass
+
+    return {"result": True}
+
+
+def remote_cover_save(request, message, bookid, version):
+    """
+    Update cover data.
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Cover Manager tab
+    """
+
+    book = models.Book.objects.get(id=bookid)
+
+    try:
+        cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
+        cover.title =  message.get('title', '').strip()
+
+        try:
+            width = int(message.get('width', 0))
+        except ValueError:
+            width = 0
+            
+        try:
+            height = int(message.get('height', 0))
+        except ValueError:
+            height = 0
+
+        cover.width = width
+        cover.height = height
+        cover.unit = message.get('units', 'mm')
+
+        license = models.License.objects.get(abbrevation=message.get('license', ''))
+        
+        cover.license = license
+        cover.notes = message.get('notes', '')
+
+        frm = message.get('format', '').split(',')
+        cover.is_book = "book" in frm
+        cover.is_ebook = "ebook" in frm
+        cover.is_pdf = "pdf" in frm
+
+        cover.creator = message.get('creator', '')
+        cover.cover_type = message.get('cover_type', '')
+
+        cover.save()
+    except models.BookCover.DoesNotExist:
+        transaction.rollback()
+        return {"result": False}
+    else:
+        transaction.commit()
+
+    return {"result": True}
+
+
+def remote_cover_upload(request, message, bookid, version):
+    """
+    Get info about specific cover.
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Cover panel.
+    """
+
+    licenses =  [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
+
+    transaction.commit()
+
+    return {"licenses": licenses}
+
+
+def remote_cover_load(request, message, bookid, version):
+    """
+    Get info about specific cover.
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Cover panel.
+    """
+
+    book = models.Book.objects.get(id=bookid)
+
+    cover = models.BookCover.objects.get(book=book, cid=message.get('cid', ''))
+
+    # TODO 
+    # - placement
+    # - filename
+
+    frm = []
+
+    if cover.is_book:
+        frm.append("book")
+
+    if cover.is_ebook:
+        frm.append("ebook")
+
+    if cover.is_pdf:
+        frm.append("pdf")
+
+    import Image
+
+    size = (0, 0)
+    filetype = ""
+
+    try:
+        im = Image.open(cover.attachment.name)
+        size = im.size
+
+        filetype = cover.filename.split('.')[-1].upper()
+    except:
+        pass
+
+    # temporary data
+    cover = {"cid": cover.cid,
+             "filename": cover.filename,
+             "cover_type": cover.cover_type,
+             "format": frm,
+             "width": cover.width,
+             "filetype": filetype,
+             "img_size": size,
+             "height": cover.height,
+             "units": cover.unit, 
+             "title": cover.title,
+             "type": cover.cover_type,
+             "creator": cover.creator,
+             "notes": cover.notes,
+             "license": cover.license.abbrevation,
+             "approved": cover.approved}
+
+    licenses =  [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
+
+    transaction.commit()
+
+    return {"cover": cover, "licenses": licenses}
+
 
 def remote_settings_options(request, message, bookid, version):
     """
@@ -2854,12 +3130,24 @@ def remote_get_wizzard(request, message, bookid, version):
 
     # book, ebook, pdf, odt
 
+    output_type = message.get('wizzard_type', '').upper()
+
     for op in options:
         if op.get('name', '') == 'special_css':
-            name = message.get('wizzard_type', '').upper()
-            op['value'] = config.getConfiguration('BOOKTYPE_CSS_%s' % name, '')
+            op['value'] = config.getConfiguration('BOOKTYPE_CSS_%s' % output_type, '')
 
-    c = Context({})
+    covers = []
+
+    if output_type in ['BOOK', 'BOOKJS']:
+        covers = models.BookCover.objects.filter(is_book=True, approved=True)
+
+    if output_type in ['EBOOK']:
+        covers = models.BookCover.objects.filter(is_ebook=True, approved=True)
+
+    if output_type in ['PDF']:
+        covers = models.BookCover.objects.filter(is_pdf=True, approved=True)
+
+    c = Context({"covers": covers})
     tmpl = django.template.loader.get_template('editor/wizzard_%s.html' % message.get('wizzard_type', 'book')) 
     html = tmpl.render(c)
         
@@ -3158,6 +3446,10 @@ def remote_publish_book2(request, message, bookid, version):
         # ebook_format ipad,kindle,epub
 
         ebookFormat = _getValue('ebook_format')
+
+        cover = _getValue('cover_image')
+        if cover:
+            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/' % (book.url_title, cover)
 
         if ebookFormat == 'kindle':
             args['output_profile'] = 'kindle'

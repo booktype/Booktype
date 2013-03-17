@@ -1,0 +1,205 @@
+{% load i18n %}
+<div id="tabcovers">
+ <div id="cover_manager">
+  <h3>{% trans "Cover Manager" %}</h3>
+
+  <nav id="cover_usage">
+   <h4>{% trans "View files of status:" %}</h4>
+   <ul>
+    <li><a href="#" class="active" name="all">{% trans "All" %}</a></li>
+    <li><a href="#" name="approved">{% trans "Approved" %}</a></li>
+    <li><a href="#" name="pending">{% trans "Pending" %}</a></li>
+   </ul>
+  </nav>
+
+  <iframe name="hidden_cover" class="hidden_frame"></iframe>
+
+  <form id="cover_upload" method="POST" action="{% url upload_cover book.url_title %}" target="hidden_cover" enctype="multipart/form-data" name="formcover">
+    <fieldset>
+      <legend>{% trans "Upload cover image" %}</legend>
+      <input type="file" name="cover"/>
+      <input type="hidden" name="title" value=""/>
+      <input type="hidden" name="filename" value=""/>
+      <input type="hidden" name="width" value=""/>
+      <input type="hidden" name="height" value=""/>
+      <input type="hidden" name="units" value=""/>
+      <input type="hidden" name="format" value=""/>
+      <input type="hidden" name="type" value=""/>
+      <input type="hidden" name="creator" value=""/>
+      <input type="hidden" name="license" value=""/>
+      <input type="hidden" name="notes" value=""/>
+    </fieldset>
+  </form>
+
+  <div id="cover_meta">
+    <h3>{% trans "Enter Meta-data" %}</h3>
+    <form action="javascript:void(0)" method="GET">
+      <fieldset>
+        <legend></legend>
+        <div>
+          <label for="title">{% trans "Title" %}</label>
+          <input type="text" id="title" />
+        </div>
+        <div>
+          <label for="filename">{% trans "Filename" %}</label>
+          <input type="text" id="filename" placeholder="front_cover.jpg" disabled />
+        </div>
+        <div>
+          <label for="width">{% trans "Book Size" %}</label>
+          <input type="text" id="width" placeholder="{% trans "W" %}" />
+          <input type="text" id="height" placeholder="{% trans "H" %}" />
+          <select id="units">
+            <option>{% trans "mm" %}</option>
+            <option>{% trans "inches" %}</option>
+          </select>
+        </div>
+        <div>
+          <label for="format">{% trans "Format" %}</label>
+          <select multiple id="format">
+            <option value="ebook">{% trans "ePub" %}</option>
+            <option value="pdf">{% trans "PDF" %}</option>
+            <option value="book">{% trans "Book" %}</option>
+          </select>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend></legend>
+        <div>
+          <label for="type">{% trans "Type" %}</label>
+          <select id="type">
+            <option id="front" value="front">{% trans "Front Cover" %}</option>
+            <option id="back" value="back">{% trans "Back Cover" %}</option>
+            <option id="spine" value="spine">{% trans "Spine" %}</option>
+          </select>
+        </div>
+        <div>
+          <label for="creator">{% trans "Creator" %}</label>
+          <input type="text" id="creator" />
+        </div>
+        <div>
+          <label for="license">{% trans "License" %}</label>
+          <select id="license">
+          </select>
+        </div>
+        <div>
+          <label for="notes">{% trans "Notes" %}</label>
+          <textarea id="notes"></textarea>
+        </div>
+      </fieldset>
+      <figure>
+        <img src="" class="imagepreview"/>
+        <ficaption>
+          <dl>
+            <dt>{% trans "Filetype" %}</dt>
+            <dd class="filetype">{% trans "JPEG" %}</dd>
+            <dt>{% trans "Height" %}</dt>
+            <dd class="preview_width">800</dd>
+            <dt>{% trans "Width" %}</dt>
+            <dd class="preview_height">600</dd>
+          </dl>
+        </figcaption>
+      </figure>
+      <button>{% trans "Save" %}</button>
+    </form>
+  </div>
+
+   <!-- start covers -->
+   <div id="covers">
+   </div>
+   <!-- end covers -->
+
+ </div>
+</div>
+
+<div class="coverPanel template" title="{% trans "Enter information" %}">
+  <form method="GET" action="javascript:void(0)">
+    <fieldset>
+      <div>
+        <label for="title">{% trans "Title" %}</label>
+        <input type="text" id="title" placeholder="{% trans "Cover title" %}" />
+      </div>
+      <div>
+        <label for="filename">{% trans "Filename" %}</label>
+        <input type="text" id="filename" placeholder="front_cover.jpg" disabled />
+      </div>
+      <div>
+        <label for="width">{% trans "Book Size" %}</label>
+        <input type="text" id="width" placeholder="150" />
+        <input type="text" id="height" placeholder="200" />
+        <select id="units">
+          <option class="mm" value="mm">{% trans "mm" %}</option>
+          <option class="inches" value="inches">{% trans "inches" %}</option>
+        </select>
+      </div>
+        <div>
+          <label for="type">{% trans "Type" %}</label>
+          <select id="type">
+            <option id="front" value="front">{% trans "Front Cover" %}</option>
+            <option id="back" value="back">{% trans "Back Cover" %}</option>
+            <option id="spine" value="spine">{% trans "Spine" %}</option>
+          </select>
+        </div>
+      <div>
+        <label for="format">{% trans "Format" %}</label>
+        <select multiple="multiple" id="format">
+          <option value="ebook">{% trans "ePub" %}</option>
+          <option value="pdf">{% trans "PDF" %}</option>
+          <option value="book">{% trans "Book" %}</option>
+        </select>
+      </div>
+      <div>
+        <label for="creator">{% trans "Creator" %}</label>
+        <input type="text" id="creator" placeholder="Matt Damon" />
+      </div>
+      <div>
+        <label for="license">{% trans "License" %}</label>
+        <select id="license" class="type">
+        </select>
+      </div>
+      <div>
+        <label for="notes">{% trans "Notes" %}</label>
+        <textarea id="notes"></textarea>
+      </div>
+    </fieldset>
+    <figure>
+      <img src="" style="max-width: 141px; max-height: 188px"/>
+
+      <ficaption>
+        <dl>
+          <dt>{% trans "Filetype" %}</dt>
+          <dd class="filetype">JPEG</dd>
+          <dt>{% trans "Height" %}</dt>
+          <dd class="preview_width">800</dd>
+          <dt>{% trans "Width" %}</dt>
+          <dd class="preview_height">600</dd>
+        </dl>
+       </figcaption>
+       <!-- <button>{% trans "Replace" %}</button> -->
+      </figure>
+     </form>
+</div>
+
+<div class="coverThumbnail cover template">
+  <figure>
+    <img src="" style="max-width: 200px; max-height: 210px"/>
+    <figcaption><p class="title" style="width: 190px;"></p></figcaption>
+  </figure>
+  <dl>
+    <dt>{% trans "This image is currently assigned as the following cover type:" %}</dt>
+    <dd class="usage" title="Back cover">{% trans "Back cover" %}</dd>
+    <dt>{% trans "This image is used in the following BookTypes:" %}</dt>
+    <dd class="coverbook">{% trans "Book" %}</dd>
+    <dd class="coverpdf">{% trans "PDF" %}</dd>
+    <dd class="coverebook">{% trans "eBook" %}</dd>
+  </dl>
+  <form method="GET" action="javascript:void(0)">
+    <fieldset>
+      <legend>{% trans "Approval status" %}</legend>
+      <label for="cover">{% trans "Approved" %}</label>
+      <input type="checkbox" name="approved"/>
+    </fieldset>
+   <a href=""><span class="ui-icon ui-icon-trash"></span></a>
+   <button name="edit">{% trans "Edit" %}</button>
+  </form>
+</div>
+

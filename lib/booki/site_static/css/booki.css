@@ -1,3 +1,10 @@
+iframe.hidden_frame {
+    border: 0px;
+    width: 0px;
+    width: 0px;
+    height: 0px;
+}
+
 .template {
 	display: none !important;
 }
@@ -110,7 +117,7 @@ fieldset {
 		font-size:13px;
 		}
 		fieldset legend.toggle {
-			background:url(../images/icon_expand_small.png) no-repeat 0 center;
+			background:url(/site_static/images/icon_expand_small.png) no-repeat 0 center;
 			padding-left:10px;
 			cursor:pointer;
 			color:#4B2582;
@@ -207,7 +214,7 @@ fieldset.plain {border:none; padding:0;}
     width: 160px;
 }
 .logo a	{
-	background: url(../images/booki_logo_topleft.png) no-repeat scroll 0 0 transparent;
+	background: url(/site_static/images/booki_logo_topleft.png) no-repeat scroll 0 0 transparent;
     display:block;
     height: 40px;
     margin: 0;
@@ -427,7 +434,7 @@ select {
 	padding: 6px 14px;
 }
 .block > .arrow-down {
-    background: url(../images/ui-icons_666666_256x240.png) no-repeat scroll -67px -18px transparent;
+    background: url(/site_static/images/ui-icons_666666_256x240.png) no-repeat scroll -67px -18px transparent;
     display: block;
     float: left;
     height: 12px;
@@ -497,7 +504,7 @@ input[type="checkbox"] {
 	position: relative;
 }
 .book > .block	{
-	background:url(../images/book-bg.png) no-repeat;
+	background:url(/site_static/images/book-bg.png) no-repeat;
 	color: #c9bdd9; 
 	font-size: 10px; 
 	height: 123px; 
@@ -543,7 +550,7 @@ ul.simple-list.solo	{
 }
 ul.list li, ul.simple-list li {
 	border-bottom: 1px solid #ebebeb;
-	background:url(../images/list-arrows.png) no-repeat 2px 45%;
+	background:url(/site_static/images/list-arrows.png) no-repeat 2px 45%;
 	position:relative;
 }
 ul.simple-list li {
@@ -585,7 +592,7 @@ ul.simple-list li a:hover	{
 }
 ul.list li a:hover	{
 	color: #515151;
-	background:#ede9f2 url(../images/list-arrows.png) no-repeat 2px 45%;
+	background:#ede9f2 url(/site_static/images/list-arrows.png) no-repeat 2px 45%;
 }
 .people	{
 	float:left;
@@ -730,7 +737,7 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 #chapterslist li span.drag-handle, #holdchapterslist li span.drag-handle {
 	position:absolute !important; 
 	width:14px;
-	background:url(../images/drag_handle_bg.png) repeat-y 0 0;
+	background:url(/site_static/images/drag_handle_bg.png) repeat-y 0 0;
 	top:5px;
 	bottom:5px;
 	left:3px;
@@ -1040,7 +1047,7 @@ div.list.list-container {
 
 .list ul li {
 	border-bottom: 1px solid #ebebeb;
-	background:url(../images/list-arrows.png) no-repeat 2px 45%;
+	background:url(/site_static/images/list-arrows.png) no-repeat 2px 45%;
 	padding: 6px 4px 6px 20px;
 }
 
@@ -1124,7 +1131,7 @@ div.list.list-container {
 				}
 .rss { 
 	font-size:11px;
-	background:url(../images/icon_rss.png) no-repeat 0 1px;
+	background:url(/site_static/images/icon_rss.png) no-repeat 0 1px;
 	display:inline-block;
 	padding:0 0 0 18px;
 	color: #5D3A8E !important;
@@ -1202,10 +1209,10 @@ div.list.list-container {
 		padding:2px 0 2px 20px;
 		}
 		#mood .myheader a.attach {
-			background:url(../images/icon_attach.png) no-repeat 0 center;
+			background:url(/site_static/images/icon_attach.png) no-repeat 0 center;
 			}
 		#mood .myheader a.expand {
-			background:url(../images/icon_expand.png) no-repeat 0 center;
+			background:url(/site_static/images/icon_expand.png) no-repeat 0 center;
 			}
 /*	#Xstatus_messages div, .group-timeline div {
 		-moz-border-radius: 0 !important;
@@ -1366,7 +1373,7 @@ h5.group {
 	color:#bcbcbc;
 }
 .group-logo {
-	background:#f9f9f9 url(../images/group_logo_bg.png) no-repeat center center;
+	background:#f9f9f9 url(/site_static/images/group_logo_bg.png) no-repeat center center;
 	margin-bottom:16px;
 }
 .group-block {
@@ -1733,3 +1740,436 @@ label.error {
    #resultmessages > DIV {
     padding: 5px;
    }
+
+/* Cover Manager styles for ingestion into main branch */
+#cover_manager {
+	}
+	#cover_manager h3 {
+		background: url(/site_static/images/bg_header_shadow.gif) 0 bottom repeat-x transparent;
+		padding: 0 0 17px;
+		}
+	#cover_manager h3 + #cover_usage {
+		position: relative;
+		top: -37px;
+		margin-bottom: -25px;
+		}
+	#cover_manager #cover_usage {
+	  height: 40px;
+	  width: 300px;
+	  display: block;
+	  margin: 0 auto;
+	  }
+	  #cover_manager #cover_usage h4 {
+	  	font-weight: normal;
+	  	font-size: 10pt;
+	  	margin: 0;
+	  	color: #949494;
+	  	position: absolute;
+	  	}
+	  #cover_manager #cover_usage ul {
+	  	margin: 0;
+	  	padding: 0;
+	    list-style: none;
+	    float: right;
+	    }
+	    #cover_manager #cover_usage ul li {
+				font-size: 10pt;
+	    	display: inline;
+	    	margin: 0;
+	    	}
+	    	#cover_manager #cover_usage ul li a {
+	    		color: #4b2582;
+	    		text-decoration: none;
+	  			padding: 4px 9px;
+	    		}
+	    		#cover_manager #cover_usage ul li a.active {
+	    			background: #e1e1e1;
+	    			border-radius: 1px;
+	    			}
+		    	#cover_manager #cover_usage ul li a:link {
+		    		color: #4b2582;
+		    		}
+		    	#cover_manager #cover_usage ul li a:visited {
+		    		color: #926dc7;
+		    		}
+		#cover_manager #cover_upload {
+			margin: 0 0 20px 0;
+			}
+			#cover_manager #cover_upload fieldset {
+				padding: 0;
+				margin: 0;
+				border: none;
+				}
+				#cover_manager #cover_upload fieldset legend {
+					display: none;
+					}
+		#cover_manager #cover_meta {
+			background: #cccccc;
+			margin-bottom: 30px;
+			}
+			#cover_manager #cover_meta h3 {
+				background: none;
+				padding: 0;
+				color: #545454;
+				font-size: 14pt;
+				text-shadow: 0 1px 0 #fff;
+				border: none;
+				line-height: 45px;
+				text-indent: 20px
+				}
+			#cover_manager #cover_meta form {
+				padding: 0 20px 10px 0;
+				margin: 0;
+				overflow: hidden;
+				position: relative;
+				}
+				#cover_manager #cover_meta form fieldset {
+					float: left;
+					border: none;
+					padding: 0 0 0 20px;
+					margin: 0;
+					}
+					#cover_manager #cover_meta form fieldset + fieldset {
+						margin: 0 0 0 320px;
+						float: none;
+						}
+					#cover_manager #cover_meta form fieldset legend {
+						display: none;
+						}
+					#cover_manager #cover_meta form fieldset div {
+						position: relative;
+						padding: 0 0 17px 80px;
+						}
+						#cover_manager #cover_meta form fieldset div label {
+							position: absolute;
+							left: 0;
+							line-height: 30px;
+							}
+						#cover_manager #cover_meta form fieldset div input {
+							text-indent: 10px;
+							}
+						#cover_manager #cover_meta form fieldset div #width,
+						#cover_manager #cover_meta form fieldset div #height {
+							text-indent: 0;
+							text-align: center;
+							max-width: 32px;
+							}
+						#cover_manager #cover_meta form fieldset div select[multiple] {
+							height: 50px;
+							width: 150px;
+							}
+
+						#cover_manager #cover_meta form fieldset div select {
+							width: 150px;
+							}
+
+						#cover_manager #cover_meta form fieldset div textarea {
+							resize: none;
+							min-height: 50px;
+							padding: 10px 7px;
+							}
+						#cover_manager #cover_meta form figure {
+							position: absolute;
+							padding: 0;
+							margin: 0;
+							top: 0;
+							right: 20px;
+							}
+							#cover_manager #cover_meta form figure dl {
+								margin: 5px 0 0;
+								}
+								#cover_manager #cover_meta form figure dl dt {
+									display: none;
+									}
+								#cover_manager #cover_meta form figure dl dd {
+									float: left;
+									font-size: 11px;
+									color: #666;
+									margin: 0 3px 0 0;
+									}
+								#cover_manager #cover_meta form figure dl dd:nth-of-type(1):after {
+									content: ":";
+									}
+								#cover_manager #cover_meta form figure dl dd:nth-of-type(2):after {
+									content: " x";
+									}
+						#cover_manager #cover_meta form button {
+							float: right;
+							}
+	/* cover manager block view */
+	#cover_manager #view_type {
+		position: absolute;
+		top: 46px;
+		right: 20px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		}
+		#cover_manager #view_type li {
+			position: relative;
+			padding: 0;
+			display: block;
+			float: left;
+			width: 50px;
+			height: 22px;
+			overflow: hidden;
+			text-indent: -10000em;
+			}
+			#cover_manager #view_type li {
+				background: #fff;
+				border: solid 1px #ccc;
+				-webkit-border-radius: 0 1px 1px 0;
+					 -moz-border-radius: 0 1px 1px 0;
+						-ms-border-radius: 0 1px 1px 0;
+						 -o-border-radius: 0 1px 1px 0;
+								border-radius: 0 1px 1px 0;
+				}
+				#cover_manager #view_type li.block {
+					border-right: 0;
+					-webkit-border-radius: 1px 0 0 1px;
+						 -moz-border-radius: 1px 0 0 1px;
+							-ms-border-radius: 1px 0 0 1px;
+							 -o-border-radius: 1px 0 0 1px;
+									border-radius: 1px 0 0 1px;
+					}
+				#cover_manager #view_type li.active,
+				#cover_manager #view_type li:active {
+					background: #ccc;
+					border-left: solid 1px #999;
+					border-top: solid 1px #999;
+					border-right: solid 1px #999;
+					-webkit-box-shadow: inset 0 1px 3px #000;
+						 -moz-box-shadow: inset 0 1px 3px #000;
+							-ms-box-shadow: inset 0 1px 3px #000;
+							 -o-box-shadow: inset 0 1px 3px #000;
+									box-shadow: inset 0 1px 3px #000;
+					}
+				#cover_manager #view_type li.block {
+					background-image: url(/site_static/images/bg_viewtype_block.gif);
+					background-repeat: no-repeat;
+					background-position: center 4px;
+					}
+				#cover_manager #view_type li.list {
+					background-image: url(/site_static/images/bg_viewtype_list.gif);
+					background-repeat: no-repeat;
+					background-position: center 4px;
+					}
+					#cover_manager #view_type li + li,
+					#cover_manager #view_type li.active + li,
+					#cover_manager #view_type li:active + li {
+						border-left: 0;
+						}
+				#cover_manager #view_type li a {
+					position: absolute;
+					left: 0;
+					top: 0;
+					height: 100%;
+					width: 100%;
+					}
+	/* covers */
+	#cover_manager #covers {
+		}
+		#cover_manager #covers .cover {
+			position: relative;
+			display: inline-block;
+			width: 277px;
+			margin: 0 26px 20px 0;
+			}
+			#cover_manager #covers .cover:nth-of-type(3n) {
+				margin: 0 0 20px 0;
+				}
+				#cover_manager #covers .cover dl {
+					position: absolute;
+					left: 0;
+					top: 0;
+					margin: 0;
+					padding: 0;
+					}
+					#cover_manager #covers .cover dl dt {
+						display: none;
+						}
+					#cover_manager #covers .cover dl dd {
+						margin: 0 0 10px;
+						padding: 0;
+						text-align: center;
+						font-size: 11px;
+						line-height: 18px;
+						-webkit-border-radius: 1px 1px 1px 1px;
+							 -moz-border-radius: 1px 1px 1px 1px;
+								-ms-border-radius: 1px 1px 1px 1px;
+								 -o-border-radius: 1px 1px 1px 1px;
+										border-radius: 1px 1px 1px 1px;
+						background: #e1e1e1;
+						color: #333;
+						}
+						#cover_manager #covers .cover dl dd.usage {
+							background: url(/site_static/images/bg_usage_unassigned.gif) 0 0 no-repeat transparent;
+							width: 65px;
+							height: 30px;
+							overflow: hidden;
+							text-indent: -10000em;
+							}
+							#cover_manager #covers .cover dl dd.usage.back {
+								background-image: url(/site_static/images/bg_usage_back.gif);
+								}
+							#cover_manager #covers .cover dl dd.usage.spine {
+								background-image: url(/site_static/images/bg_usage_spine.gif);
+								}
+							#cover_manager #covers .cover dl dd.usage.front {
+								background-image: url(/site_static/images/bg_usage_front.gif);
+								}
+							#cover_manager #covers .cover dl dd.usage.whole {
+								background-image: url(/site_static/images/bg_usage_whole.gif);
+								}
+				#cover_manager #covers .cover figure {
+					background: #ccc;
+					max-height: 210px;
+					min-width: 200px;
+					text-align: center;
+					border-top: solid 1px #666;
+					border-left: solid 1px #666;
+					margin: 0 0 30px;
+					float: right;
+					}
+				#cover_manager #covers .cover figure figcaption {
+					position: relative;
+					text-align: left;
+					color: #333;
+					line-height: 0;
+					/*top: 30px;*/
+					}
+				#cover_manager #covers .cover form {
+					clear: both;
+					padding: 0 0 0 75px;
+					}
+					#cover_manager #covers .cover form fieldset {
+						position: relative;
+						padding: 0;
+						margin: 0;
+						border: none;
+						}
+						#cover_manager #covers .cover form fieldset legend {
+							display: none;
+							}
+						#cover_manager #covers .cover form fieldset label {
+							position: relative;
+							text-indent: 17px;
+							display: block;
+							z-index: 100;
+							}
+						#cover_manager #covers .cover form fieldset input[type=checkbox] {
+							position: absolute;
+							left: 0;
+							top: 2px;
+							}
+						#cover_manager #covers .cover button {
+
+							position: absolute;
+							bottom: -2px;
+							right: 0;
+
+							}
+	#settings_pane {
+		}
+
+		#settings_pane form {
+			}
+
+			#settings_pane form fieldset {
+				border: 0;
+				}
+				#settings_pane form fieldset legend {
+					display: none;
+					}
+				#settings_pane form fieldset div {
+					position: relative;
+					padding: 0 0 17px 80px;
+					}
+					#settings_pane form fieldset div label {
+						position: absolute;
+						left: 0;
+						line-height: 30px;
+						}
+					#settings_pane form fieldset div input {
+						text-indent: 10px;
+						}
+					#settings_pane form fieldset div #width,
+					#settings_pane form fieldset div #height {
+						max-width: 32px;
+						text-indent: 0;
+						text-align: center;
+						}
+					#settings_pane form fieldset div select[multiple] {
+						height: 50px;
+						width: 150px;
+						}
+					#settings_pane form fieldset div textarea {
+						resize: none;
+						min-height: 50px;
+						padding: 10px 7px;
+						}
+					#settings_pane form figure {
+						position: absolute;
+						padding: 0;
+						margin: 0 auto;
+						top: 50px;
+						right: 20px;
+						}
+						#settings_pane form figure dl {
+							margin: 5px 0 0;
+							}
+							#settings_pane form figure dl dt {
+								display: none;
+								}
+							#settings_pane form figure dl dd {
+								float: left;
+								font-size: 11px;
+								color: #666;
+								margin: 0 3px 0 0;
+								}
+							#settings_pane form figure dl dd:nth-of-type(1):after {
+								content: ":";
+								}
+							#settings_pane form figure dl dd:nth-of-type(2):after {
+								content: " x";
+								}
+							#settings_pane form figure button {
+								margin: 10px 0 0 0;
+								}
+				#settings_pane form button {
+					float: right;
+					margin: 0 20px 20px 0;
+					}
+
+				#settings_pane SELECT.type {
+				    width: 150px;
+				}
+
+
+/* the overlay is just for demo, I presume there's some sort of takeover already in place - if not this works nicely in a lot of circumstances */
+#overlay {
+	background: #fff;
+	opacity: .75;
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	bottom: 0;
+	right: 0;
+	z-index: 100;
+	}
+
+#cover_meta IMG.imagepreview {
+     max-width: 160px; 
+     max-height: 190px; 
+     border: none;
+}
+
+.coverApproved {
+    
+}
+
+.coverPending {
+    
+}

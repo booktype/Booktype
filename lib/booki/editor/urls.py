@@ -26,6 +26,8 @@ urlpatterns = patterns('',
     url(r'^_utils/thumbnail/(?P<attachment>.*)$',  'booki.editor.views.thumbnail_attachment', name='thumbnail_attachment'),
 
     url(r'^_upload/$',  'booki.editor.views.upload_attachment', name='upload_attachment'),
+    url(r'^_upload_cover/$',  'booki.editor.views.upload_cover', name='upload_cover'),
+    url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/$',  'booki.editor.views.view_cover', name='view_cover'),
 
     url(r'^_full/$', 'booki.reader.views.view_full', name='view_full'),                       
 

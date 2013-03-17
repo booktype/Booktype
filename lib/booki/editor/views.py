@@ -18,7 +18,7 @@ from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from django.http import Http404, HttpResponse,HttpResponseRedirect
+from django.http import Http404, HttpResponse,HttpResponseRedirect, HttpResponse
 from django import forms
 from django.contrib.auth.models import User
 from django.db import transaction
@@ -114,10 +114,8 @@ def edit_book(request, bookid, version=None):
     chapters = models.Chapter.objects.filter(version=book_version)
 
     tabs = ["chapters"]
-
-    if True: # bookSecurity.isAdmin():
-        tabs += ["attachments"]
-
+    tabs += ["attachments"]
+    tabs += ["covers"]
     tabs += ["history", "versions", "notes"]
 
     if bookSecurity.isAdmin():
@@ -265,6 +263,133 @@ def upload_attachment(request, bookid, version=None):
         return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); </script></body></html>')
     else:
         return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); alert(parent.jQuery.booki._("errorupload", "Error while uploading file!"));</script></body></html>')
+
+
+def view_cover(request, bookid, cid, version=None):
+    from django.views import static
+
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+    cover = models.BookCover.objects.get(cid = cid)
+
+    document_path = '%s/book_covers/%s' % (settings.DATA_ROOT, cover.id)
+    # extenstion
+
+    data = open(document_path, 'rb').read()
+    import mimetypes
+    mimetypes.init()
+
+    extension = '.'+cover.attachment.name.split('.')[-1]
+
+    content_type = mimetypes.types_map.get(extension, 'image/jpeg')
+        
+    response = HttpResponse(data, content_type=content_type)
+    return response
+
+
+
+@transaction.commit_manually
+def upload_cover(request, bookid, version=None):
+    """
+    Uploades attachments. Used from Upload dialog.
+
+    @param request: Django Request
+    @param bookid: Book ID
+    @param version: Book version or None
+    """
+
+    import datetime
+
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+
+    book_version = book.getVersion(version)
+
+    stat = models.BookStatus.objects.filter(book = book)[0]
+    
+    operationResult = True
+
+    # check this for transactions
+    try:
+
+        for name, fileData in request.FILES.items():
+            if 1 == 1:
+                import hashlib
+
+                h = hashlib.sha1()
+                h.update(name)
+                h.update(request.POST.get('format', ''))
+                h.update(request.POST.get('license', ''))
+                h.update(str(datetime.datetime.now()))
+
+                license = models.License.objects.get(name=request.POST.get('license', ''))
+
+                frm = request.POST.get('format', '').split(',')
+
+                try:
+                    width = int(request.POST.get('width', '0'))
+                except ValueError:
+                    width = 0
+
+                try:
+                    height = int(request.POST.get('height', '0'))
+                except ValueError:
+                    height = 0
+
+                cov = models.BookCover(book = book,
+                                       user = request.user,
+                                       cid = h.hexdigest(),
+                                       title = request.POST.get('title', ''),
+                                       filename = request.POST.get('filename', ''),
+                                       width = width,
+                                       height = height,
+                                       unit = request.POST.get('unit', ''),
+                                       cover_type = request.POST.get('type', ''),
+                                       creator = request.POST.get('creator', ''),
+                                       license = license,
+                                       notes = request.POST.get('notes', ''),
+                                       approved = False,
+                                       is_book = 'book' in frm,
+                                       is_ebook = 'ebook' in frm,
+                                       is_pdf = 'pdf' in frm,
+                                       created = datetime.datetime.now())
+                cov.save()
+                
+                cov.attachment.save(request.FILES[name].name, fileData, save = False)
+                cov.save()
+
+        # TODO:
+        # must write info about this to log!
+    except IOError:
+        operationResult = False
+        transaction.rollback()
+    except:
+        from booki.utils import log
+        log.printStack()
+        oprerationResult = False
+        transaction.rollback()
+    else:
+        # maybe check file name now and save with new name
+        transaction.commit()
+
+    if request.POST.get("attachmenttab", "") == "":
+        return HttpResponse('<html><body><script> parent.closeAttachmentUpload();  </script></body></html>')
+
+    if request.POST.get("attachmenttab", "") == "2":
+        return HttpResponse('<html><body><script>  parent.FileBrowserDialogue.loadAttachments(); parent.FileBrowserDialogue.displayBrowseTab();  parent.FileBrowserDialogue.showUpload(); </script></body></html>')
+#        return HttpResponse('<html><body><script>  console.debug("load attachments"); parent.FileBrowserDialogue.loadAttachments(); console.debug("show upload"); parent.FileBrowserDialogue.showUpload();  parent.FileBrowserDialogue.displayBrowseTab();  console.debug("after show browse panel");</script></body></html>')
+
+    # should not call showAttachmentsTab, but it works for now
+    if operationResult:
+        return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); </script></body></html>')
+    else:
+        return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); alert(parent.jQuery.booki._("errorupload", "Error while uploading file!"));</script></body></html>')
+
 
 def view_books_json(request):
     """

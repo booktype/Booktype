@@ -107,7 +107,24 @@
                 </fieldset>    
 				</div>
             </div>	
-			<div id="CSS_Advanced" class="step">
+
+    	     <div id="Cover_Advanced" class="step">
+	      <div class="input">
+               <fieldset>
+	        <legend>{% trans "Cover" %}</legend>
+                <dl>
+          	 <dt><label for="cover_image">{% trans "Select cover image" %}</label></dt>
+		 <dd><select name="cover_image" id="cover_image">
+                      {% for cover in covers %}
+                        <option value="{{ cover.cid }}">{{ cover.title }}</option>
+                      {% endfor %}
+                     </select></dd>
+                </dl> 
+               </fieldset>       
+	      </div>
+            </div>
+
+	    <div id="CSS_Advanced" class="step">
 				<div class="input">
                 <fieldset>
 					<legend>{% trans "CSS (Advanced)" %}</legend>

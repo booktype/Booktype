@@ -100,6 +100,11 @@ temporarily comment search box
     {% if "attachments" in tabs %}
     <li><a href="#tabattachments">{% trans "Images and Files" %}</a></li>
     {% endif %}
+
+    {% if "covers" in tabs %}
+    <li><a href="#tabcovers">{% trans "Cover Manager" %}</a></li>
+    {% endif %}
+
     
     {% if "history" in tabs %}
     <li><a href="#tabhistory">{% trans "History" %}</a></li>
@@ -348,6 +353,10 @@ temporarily comment search box
     <iframe width="0" height="0" name="frameupload2" border="0" style="border: 0px"></iframe>
     <div class="dialogs"></div>
   </div>
+  {% endif %}
+
+  {% if "covers" in tabs %}
+    {% include "editor/cover_manager.html" %}
   {% endif %}
   
   {% if "history" in tabs %}

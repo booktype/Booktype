@@ -482,4 +482,40 @@ class PublishWizzard(models.Model):
         verbose_name_plural = _('Publish Wizzard')
         unique_together = ('book', 'user', 'wizz_type')
 
-    
+
+def uploadCoverTo(att, filename):
+    return '%s/book_covers/%s' % (settings.DATA_ROOT, att.id)
+
+
+class BookCover(models.Model):
+    book = models.ForeignKey(Book, null=True, verbose_name=_("book"))
+    user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
+
+    cid = models.CharField('cid', max_length=40, null=False, default='', unique=True)
+
+    attachment = models.FileField(_('filename'), upload_to=uploadCoverTo, max_length=2500)
+    filename = models.CharField('file name', max_length=250, unique=False, default='')
+    title = models.CharField(_('Cover title'), max_length=250, blank=False, unique=False)
+
+    width = models.IntegerField(_('Width'), blank=True)
+    height = models.IntegerField(_('Height'), blank=True)
+    unit = models.CharField(_('Unit'), max_length=20, blank=True)
+
+    is_book = models.BooleanField(_('Book cover'), default=False)
+    is_ebook = models.BooleanField(_('E-book cover'), default=False)
+    is_pdf = models.BooleanField(_('PDF cover'), default=False)
+
+    cover_type = models.CharField(_('Cover type'), max_length=20, blank=True)
+
+    creator = models.CharField(_('Cover'), max_length=40, blank=True)
+    license = models.ForeignKey(License,null=True, verbose_name=_("license"))
+
+    notes = models.TextField(_('notes'))
+
+    approved = models.BooleanField(_('Approved'), blank=False, default=False)
+
+    created = models.DateTimeField(_('created'), auto_now=False, null=False)
+
+    def __unicode__(self):
+        return '%s' % (self.id, )
+
