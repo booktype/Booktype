@@ -168,21 +168,6 @@
 	      </div>
             </div>
 
-<!--
-    <div id="paragraphs" class="step">
-      <div class="input">
-      <fieldset>
-      <legend>{% trans "Page breaks" %}</legend>
-        <dl>
-			<dt style="display:none;"></dt>
-            <dd><label for="p_pagebreak"><input class="input_field_12em" name="p_pagebreak" id="p_pagebreak" type="checkbox" checked/>{% trans "Avoid page break in paragraphs?" %}</label></dd>
-			<dt style="display:none;"></dt>
-            <dd><label for="footnotes_pagebreak"><input class="input_field_12em" name="footnotes_pagebreak" id="footnotes_pagebreak" type="checkbox" checked/>{% trans "Pagebreak before footnotes?" %}</label></dd>
-        </dl>
-        </fieldset>
-      </div>
-    </div>
--->
 
     <div id="Advanced_options" class="step">
       <div class="input">
@@ -202,38 +187,6 @@
 		<dl>
 			<dt style="display:none;"></dt>
             <dd><label for="css-control"><input type="checkbox" checked class="input_field_12em" name="control-css" id="control-css" />{% trans "Override Server Default CSS" %}</label></dd>
-<!--          
-			<dt style="display:none;"></dt>
-
-			<dd><label for="grey_scale"><input type="checkbox" class="input_field_12em" name="grey_scale" id="grey_scale" />{% trans "Grey Scale Output" %}</label></dd>
-          
-			<dt style="display:none;"></dt>
-			<dd><label for="rotate"><input type="checkbox" class="input_field_12em" name="rotate" id="rotate" />{% trans "Rotate" %}</label> <small>{% trans "For RTL books on LTR printing presses, and vice versa." %}</small></dd>
-			<dt style="display:none;"></dt>
-            <dd><label for="page-numbers">{% trans "Page Numbers" %}</label>
-              <select id="page-numbers" name="page-numbers">
-                <option value="LTR">{% trans "LTR" %}</option>
-                {% comment %}Translators: Option for Page Numbers{% endcomment %}
-                <option value="none">{% trans "none" %}</option>
-                {% comment %}Translators: Option for Page Numbers. Burmese.{% endcomment %}
-                <option value="my">{% trans "my" %}</option>
-                {% comment %}Translators: Option for Page Numbers. Farsi.{% endcomment %}
-                <option value="fa">{% trans "fa" %}</option>
-                {% comment %}Translators: Option for Page Numbers. Hindi.{% endcomment %}
-                <option value="hi">{% trans "hi" %}</option>
-                {% comment %}Translators: Option for Page Numbers. Right to left.{% endcomment %}
-                <option value="RTL">{% trans "RTL" %}</option>
-                {% comment %}Translators: Option for Page Numbers. Arabic.{% endcomment %}
-                <option value="ar">{% trans "ar" %}</option>
-                <option selected="selected" value="auto">{% trans "auto" %}</option>
-              </select>
-              <small>{% trans "If in doubt, choose 'auto'" %}</small>
-            </dd>
-            <dt style="display:none;"></dt>
-            <dd><label for="embed-fonts"><input type="checkbox" id="embed-fonts" name="embed-fonts" checked value="on">{% trans "Force Embed Fonts" %}</label> <small>{% trans "PDFs: force embedding of PDF default fonts" %}</small></dd>
-            <dt style="display:none;"></dt>
-            <dd><label for="allow-breaks"><input type="checkbox" id="allow-breaks" name="allow-breaks">{% trans "Cancel Page Break Control" %}</label> <small>{% trans "Let page breaks occur immediately after headings" %}</small></dd>
--->
           </dl>
         </div>
         </fieldset>
@@ -245,17 +198,6 @@
       		  });
       		});
 	  </script> 
-<!--
-      	<fieldset class="collapsed">
-        <legend class="toggle" id="toggle1">{% trans "Table of Contents" %}</legend>
-        <div id="ad1" style="display:none;">
-        <dl>
-			<dt><label for="toc_header">{% trans "Table of Contents Header" %}</label></dt>
-			<dd><input type="text" id="toc_header" name="toc_header" value="" style="width:99%;"></dd>
-        </dl>
-        </div>
-        </fieldset>
--->
         <script type="text/javascript">
 		jQuery(document).ready(function() {
 		  $("#toggle2").click(function(){
