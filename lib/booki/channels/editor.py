@@ -3448,7 +3448,15 @@ def remote_publish_book2(request, message, bookid, version):
 
         cover = _getValue('cover_image')
         if cover:
-            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/' % (book.url_title, cover)
+            filetype = 'jpg'
+
+            try:
+                cover_obj = models.BookCover.objects.get(book=book, cid=cover)
+                filetype = cover_obj.filename.split('.')[-1]
+            except models.BookCover.DoesNotExist:
+                pass
+                
+            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/cover.%s' % (book.url_title, cover, filetype)
 
         if ebookFormat == 'kindle':
             args['output_profile'] = 'kindle'

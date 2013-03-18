@@ -18,7 +18,7 @@ from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from django.http import Http404, HttpResponse,HttpResponseRedirect, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django import forms
 from django.contrib.auth.models import User
 from django.db import transaction
@@ -265,7 +265,7 @@ def upload_attachment(request, bookid, version=None):
         return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); alert(parent.jQuery.booki._("errorupload", "Error while uploading file!"));</script></body></html>')
 
 
-def view_cover(request, bookid, cid, version=None):
+def view_cover(request, bookid, cid, fname = None, version=None):
     from django.views import static
 
     try:
@@ -273,12 +273,19 @@ def view_cover(request, bookid, cid, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    cover = models.BookCover.objects.get(cid = cid)
+    try:
+        cover = models.BookCover.objects.get(cid = cid)
+    except models.BookCover.DoesNotExist:
+        return HttpResponse(status=500)
 
     document_path = '%s/book_covers/%s' % (settings.DATA_ROOT, cover.id)
     # extenstion
 
-    data = open(document_path, 'rb').read()
+    try:
+        data = open(document_path, 'rb').read()
+    except IOError:
+        return HttpResponse(status=500)
+        
     import mimetypes
     mimetypes.init()
 
