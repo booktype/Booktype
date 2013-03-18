@@ -3139,13 +3139,13 @@ def remote_get_wizzard(request, message, bookid, version):
     covers = []
 
     if output_type in ['BOOK', 'BOOKJS']:
-        covers = models.BookCover.objects.filter(book=book, is_book=True, approved=True)
+        covers = models.BookCover.objects.filter(book=book, is_book=True)
 
     if output_type in ['EBOOK']:
-        covers = models.BookCover.objects.filter(book=book, is_ebook=True, approved=True)
+        covers = models.BookCover.objects.filter(book=book, is_ebook=True)
 
     if output_type in ['PDF']:
-        covers = models.BookCover.objects.filter(book=book, is_pdf=True, approved=True)
+        covers = models.BookCover.objects.filter(book=book, is_pdf=True)
 
     c = Context({"covers": covers})
     tmpl = django.template.loader.get_template('editor/wizzard_%s.html' % message.get('wizzard_type', 'book')) 
@@ -3335,7 +3335,7 @@ def remote_publish_book2(request, message, bookid, version):
         
         if cid:
             try:
-                cover = models.BookCover.objects.get(book=book, cid=cid, approved=True)
+                cover = models.BookCover.objects.get(book=book, cid=cid)
             except models.BookCover.DoesNotExist:
                 pass
 
