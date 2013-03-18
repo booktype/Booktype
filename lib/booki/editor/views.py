@@ -281,18 +281,33 @@ def view_cover(request, bookid, cid, fname = None, version=None):
     document_path = '%s/book_covers/%s' % (settings.DATA_ROOT, cover.id)
     # extenstion
 
+    import mimetypes
+    mimetypes.init()
+
+    extension = cover.filename.split('.')[-1]
+    content_type = mimetypes.types_map.get('.'+extension, 'image/jpeg')
+
+    if request.GET.get('preview', '') == '1' and extension.lower() in ['jpg', 'jpeg', 'tiff', 'png', 'gif', 'bmp']:
+        try:
+            import Image
+
+            im = Image.open(cover.attachment.name)
+            im.thumbnail((250, 250), Image.ANTIALIAS)
+
+            response = HttpResponse(content_type=content_type)
+
+            if extension.upper() == 'JPG': extension = 'JPEG'
+            im.save(response, extension.upper())
+
+            return response
+        except:
+            pass
+
     try:
         data = open(document_path, 'rb').read()
     except IOError:
         return HttpResponse(status=500)
-        
-    import mimetypes
-    mimetypes.init()
-
-    extension = '.'+cover.attachment.name.split('.')[-1]
-
-    content_type = mimetypes.types_map.get(extension, 'image/jpeg')
-        
+                
     response = HttpResponse(data, content_type=content_type)
     return response
 
