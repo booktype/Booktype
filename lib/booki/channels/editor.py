@@ -3293,6 +3293,7 @@ def remote_publish_book2(request, message, bookid, version):
     publishMode = publishOptions[message.get("publish_mode", "epub")]
 
     destination = "nowhere"
+    cover = None
 
     args = {'book': book.url_title.encode('utf8'),
             'license': licenseText,
@@ -3394,6 +3395,8 @@ def remote_publish_book2(request, message, bookid, version):
             args['page_width']  = args.get('custom_width', '')
             args['page_height'] = args.get('custom_height', '')
 
+        cover = _getValue('cover_image')
+
     if publishMode in ['bookjs/pdf']:
         theme = message.get('theme', 'style3')
 
@@ -3430,10 +3433,6 @@ def remote_publish_book2(request, message, bookid, version):
 
         if theme == 'style2':
             args['css'] = THEME_STYLE2
-
-        f = open('/tmp/style.css', 'w')
-        f.write(_css)
-        f.close()
 
         # We have been using wrong argument name for this. Considering people have saved in their publishing settings old values this
         # seems to be best way to fix this issue for now.
@@ -3518,6 +3517,10 @@ def remote_publish_book2(request, message, bookid, version):
             args['page_width']  = args.get('custom_width', '')
             args['page_height'] = args.get('custom_height', '')
 
+        cover = _getValue('cover_image')
+        if cover:
+            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/' % (book.url_title, cover)
+
     try:
         data = urllib.urlencode(args)
     except UnicodeEncodeError:
@@ -3544,4 +3547,11 @@ def remote_publish_book2(request, message, bookid, version):
         if len(lst) > 1:
             dtas3 = lst[1]
 
-    return {"status": True, "dtaall": ta, "dta": dta, "dtas3": dtas3}
+
+    # out of all this, only 
+    result = {"status": True, "dtaall": ta, "dta": dta, "dtas3": dtas3, "cover_url": None}
+    
+    if cover:
+        result['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/' % (book.url_title, cover)
+
+    return result
