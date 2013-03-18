@@ -3293,7 +3293,6 @@ def remote_publish_book2(request, message, bookid, version):
     publishMode = publishOptions[message.get("publish_mode", "epub")]
 
     destination = "nowhere"
-    cover = None
 
     args = {'book': book.url_title.encode('utf8'),
             'license': licenseText,
@@ -3329,6 +3328,20 @@ def remote_publish_book2(request, message, bookid, version):
                 return opt['value']
 
         return None
+
+    def _getCover():
+        cover = None
+        cid = _getValue('cover_image')
+        
+        if cid:
+            try:
+                cover = models.BookCover.objects.get(book=book, cid=cid, approved=True)
+            except models.BookCover.DoesNotExist:
+                pass
+
+        return cover
+
+    cover = _getCover()
 
     # todo
     # - title
@@ -3395,7 +3408,6 @@ def remote_publish_book2(request, message, bookid, version):
             args['page_width']  = args.get('custom_width', '')
             args['page_height'] = args.get('custom_height', '')
 
-        cover = _getValue('cover_image')
 
     if publishMode in ['bookjs/pdf']:
         theme = message.get('theme', 'style3')
@@ -3446,17 +3458,8 @@ def remote_publish_book2(request, message, bookid, version):
 
         ebookFormat = _getValue('ebook_format')
 
-        cover = _getValue('cover_image')
         if cover:
-            filetype = 'jpg'
-
-            try:
-                cover_obj = models.BookCover.objects.get(book=book, cid=cover)
-                filetype = cover_obj.filename.split('.')[-1]
-            except models.BookCover.DoesNotExist:
-                pass
-                
-            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/cover.%s' % (book.url_title, cover, filetype)
+            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s' % (book.url_title, cover.cid, cover.filename)
 
         if ebookFormat == 'kindle':
             args['output_profile'] = 'kindle'
@@ -3525,9 +3528,14 @@ def remote_publish_book2(request, message, bookid, version):
             args['page_width']  = args.get('custom_width', '')
             args['page_height'] = args.get('custom_height', '')
 
-        cover = _getValue('cover_image')
         if cover:
-            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/' % (book.url_title, cover)
+            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s' % (book.url_title, cover.cid, cover.filename)
+
+
+    if publishMode in ['openoffice']:
+        if cover:
+            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s' % (book.url_title, cover.cid, cover.filename)
+        
 
     try:
         data = urllib.urlencode(args)
@@ -3555,11 +3563,10 @@ def remote_publish_book2(request, message, bookid, version):
         if len(lst) > 1:
             dtas3 = lst[1]
 
-
     # out of all this, only 
     result = {"status": True, "dtaall": ta, "dta": dta, "dtas3": dtas3, "cover_url": None}
     
     if cover:
-        result['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/' % (book.url_title, cover)
+        result['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/' % (book.url_title, cover.cid)
 
     return result
