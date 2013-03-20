@@ -1982,17 +1982,19 @@ label.error {
 		#cover_manager #covers .cover {
 			position: relative;
                         float: left;
-			/*display: inline-block;*/
 			width: 277px;
 			margin: 0 25px 20px 0;
 			}
+
 			#cover_manager #covers .cover:nth-of-type(3n) {
 				margin: 0 0 20px 0;
 				}
+
                         #cover_manager #covers .cover:nth-of-type(3n + 1) {
 				margin: 0 25px 20px 0;
 				clear: left;
 				}
+
 				#cover_manager #covers .cover dl {
 					position: absolute;
 					left: 0;
@@ -2000,9 +2002,11 @@ label.error {
 					margin: 0;
 					padding: 0;
 					}
+
 					#cover_manager #covers .cover dl dt {
 						display: none;
 						}
+
 					#cover_manager #covers .cover dl dd {
 						margin: 0 0 10px;
 						padding: 0;
@@ -2115,9 +2119,14 @@ label.error {
 							opacity: .25;
 							box-shadow: 1px 1px 1px #000;
 							}
-							#cover_manager .cover .delete:hover {
+							#cover_manager #covers .cover .delete:hover {
 								opacity: 1;
 								}
+
+							#cover_manager #covers .cover figure img {
+							    max-height: 209px;
+							    max-width: 200px;
+							}
 
 	 #settings_pane {
 		background: #fff;
