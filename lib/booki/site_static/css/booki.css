@@ -117,7 +117,7 @@ fieldset {
 		font-size:13px;
 		}
 		fieldset legend.toggle {
-			background:url(/site_static/images/icon_expand_small.png) no-repeat 0 center;
+			background:url(../images/icon_expand_small.png) no-repeat 0 center;
 			padding-left:10px;
 			cursor:pointer;
 			color:#4B2582;
@@ -214,7 +214,7 @@ fieldset.plain {border:none; padding:0;}
     width: 160px;
 }
 .logo a	{
-	background: url(/site_static/images/booki_logo_topleft.png) no-repeat scroll 0 0 transparent;
+	background: url(../images/booki_logo_topleft.png) no-repeat scroll 0 0 transparent;
     display:block;
     height: 40px;
     margin: 0;
@@ -434,7 +434,7 @@ select {
 	padding: 6px 14px;
 }
 .block > .arrow-down {
-    background: url(/site_static/images/ui-icons_666666_256x240.png) no-repeat scroll -67px -18px transparent;
+    background: url(../images/ui-icons_666666_256x240.png) no-repeat scroll -67px -18px transparent;
     display: block;
     float: left;
     height: 12px;
@@ -501,15 +501,24 @@ input[type="checkbox"] {
 	float: left; 
 	margin: 10px 36px 40px 0; 
 	width: 120px; 
-	position: relative;
+	/* position: relative; */
 }
 .book > .block	{
-	background:url(/site_static/images/book-bg.png) no-repeat;
+	background:url(../images/book-bg.png) no-repeat;
 	color: #c9bdd9; 
 	font-size: 10px; 
 	height: 123px; 
 	width: 119px;
 }
+
+.block > .title	{
+	overflow: hidden; 
+	width: 80px; 
+	height: 80px; 
+	padding-top: 19px; 
+	padding-left: 9px; 
+}
+/*
 .block > .title a	{
 	position: absolute;
 	left: 0;
@@ -525,6 +534,7 @@ input[type="checkbox"] {
 	text-align: center;
 	word-break: break-all;
 	}
+*/
 .book > .link	{
 	color:#474747;
 	font-size:12px;
@@ -550,7 +560,7 @@ ul.simple-list.solo	{
 }
 ul.list li, ul.simple-list li {
 	border-bottom: 1px solid #ebebeb;
-	background:url(/site_static/images/list-arrows.png) no-repeat 2px 45%;
+	background:url(../images/list-arrows.png) no-repeat 2px 45%;
 	position:relative;
 }
 ul.simple-list li {
@@ -592,7 +602,7 @@ ul.simple-list li a:hover	{
 }
 ul.list li a:hover	{
 	color: #515151;
-	background:#ede9f2 url(/site_static/images/list-arrows.png) no-repeat 2px 45%;
+	background:#ede9f2 url(../images/list-arrows.png) no-repeat 2px 45%;
 }
 .people	{
 	float:left;
@@ -737,7 +747,7 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 #chapterslist li span.drag-handle, #holdchapterslist li span.drag-handle {
 	position:absolute !important; 
 	width:14px;
-	background:url(/site_static/images/drag_handle_bg.png) repeat-y 0 0;
+	background:url(../images/drag_handle_bg.png) repeat-y 0 0;
 	top:5px;
 	bottom:5px;
 	left:3px;
@@ -1047,7 +1057,7 @@ div.list.list-container {
 
 .list ul li {
 	border-bottom: 1px solid #ebebeb;
-	background:url(/site_static/images/list-arrows.png) no-repeat 2px 45%;
+	background:url(../images/list-arrows.png) no-repeat 2px 45%;
 	padding: 6px 4px 6px 20px;
 }
 
@@ -1131,7 +1141,7 @@ div.list.list-container {
 				}
 .rss { 
 	font-size:11px;
-	background:url(/site_static/images/icon_rss.png) no-repeat 0 1px;
+	background:url(../images/icon_rss.png) no-repeat 0 1px;
 	display:inline-block;
 	padding:0 0 0 18px;
 	color: #5D3A8E !important;
@@ -1209,10 +1219,10 @@ div.list.list-container {
 		padding:2px 0 2px 20px;
 		}
 		#mood .myheader a.attach {
-			background:url(/site_static/images/icon_attach.png) no-repeat 0 center;
+			background:url(../images/icon_attach.png) no-repeat 0 center;
 			}
 		#mood .myheader a.expand {
-			background:url(/site_static/images/icon_expand.png) no-repeat 0 center;
+			background:url(../images/icon_expand.png) no-repeat 0 center;
 			}
 /*	#Xstatus_messages div, .group-timeline div {
 		-moz-border-radius: 0 !important;
@@ -1373,7 +1383,7 @@ h5.group {
 	color:#bcbcbc;
 }
 .group-logo {
-	background:#f9f9f9 url(/site_static/images/group_logo_bg.png) no-repeat center center;
+	background:#f9f9f9 url(../images/group_logo_bg.png) no-repeat center center;
 	margin-bottom:16px;
 }
 .group-block {
@@ -1745,7 +1755,7 @@ label.error {
 #cover_manager {
 	}
 	#cover_manager h3 {
-		background: url(/site_static/images/bg_header_shadow.gif) 0 bottom repeat-x transparent;
+		background: url(../images/bg_header_shadow.gif) 0 bottom repeat-x transparent;
 		padding: 0 0 17px;
 		}
 	#cover_manager h3 + #cover_usage {
@@ -1945,12 +1955,12 @@ label.error {
 									box-shadow: inset 0 1px 3px #000;
 					}
 				#cover_manager #view_type li.block {
-					background-image: url(/site_static/images/bg_viewtype_block.gif);
+					background-image: url(../images/bg_viewtype_block.gif);
 					background-repeat: no-repeat;
 					background-position: center 4px;
 					}
 				#cover_manager #view_type li.list {
-					background-image: url(/site_static/images/bg_viewtype_list.gif);
+					background-image: url(../images/bg_viewtype_list.gif);
 					background-repeat: no-repeat;
 					background-position: center 4px;
 					}
@@ -1971,12 +1981,17 @@ label.error {
 		}
 		#cover_manager #covers .cover {
 			position: relative;
-			display: inline-block;
+                        float: left;
+			/*display: inline-block;*/
 			width: 277px;
-			margin: 0 26px 20px 0;
+			margin: 0 25px 20px 0;
 			}
 			#cover_manager #covers .cover:nth-of-type(3n) {
 				margin: 0 0 20px 0;
+				}
+                        #cover_manager #covers .cover:nth-of-type(3n + 1) {
+				margin: 0 25px 20px 0;
+				clear: left;
 				}
 				#cover_manager #covers .cover dl {
 					position: absolute;
@@ -2003,41 +2018,57 @@ label.error {
 						color: #333;
 						}
 						#cover_manager #covers .cover dl dd.usage {
-							background: url(/site_static/images/bg_usage_unassigned.gif) 0 0 no-repeat transparent;
+							background: url(../images/bg_usage_unassigned.gif) 0 0 no-repeat transparent;
 							width: 65px;
 							height: 30px;
 							overflow: hidden;
 							text-indent: -10000em;
 							}
 							#cover_manager #covers .cover dl dd.usage.back {
-								background-image: url(/site_static/images/bg_usage_back.gif);
+								background-image: url(../images/bg_usage_back.gif);
 								}
 							#cover_manager #covers .cover dl dd.usage.spine {
-								background-image: url(/site_static/images/bg_usage_spine.gif);
+								background-image: url(../images/bg_usage_spine.gif);
 								}
 							#cover_manager #covers .cover dl dd.usage.front {
-								background-image: url(/site_static/images/bg_usage_front.gif);
+								background-image: url(../images/bg_usage_front.gif);
 								}
 							#cover_manager #covers .cover dl dd.usage.whole {
-								background-image: url(/site_static/images/bg_usage_whole.gif);
+								background-image: url(../images/bg_usage_whole.gif);
 								}
-				#cover_manager #covers .cover figure {
-					background: #ccc;
-					max-height: 210px;
+                                #cover_manager #covers .cover figure {
 					min-width: 200px;
+					max-width: 200px;
+					margin: 0;
+					float: right;
+					}
+
+				#cover_manager #covers .cover figure > span {
+					background: #ccc;
+					display: block;
 					text-align: center;
 					border-top: solid 1px #666;
 					border-left: solid 1px #666;
-					margin: 0 0 30px;
-					float: right;
+					height: 209px;
+					width: 200px;
 					}
 				#cover_manager #covers .cover figure figcaption {
 					position: relative;
 					text-align: left;
 					color: #333;
 					line-height: 0;
-					/*top: 30px;*/
+					width: 200px;
 					}
+				#cover_manager #covers .cover figure figcaption p {
+					line-height: 16px;
+					-ms-word-break: break-all;
+     					word-break: break-all;
+     					/* Non standard for webkit */
+     					word-break: break-word;
+					-webkit-hyphens: auto;
+   					-moz-hyphens: auto;
+        				hyphens: auto;
+        			}
 				#cover_manager #covers .cover form {
 					clear: both;
 					padding: 0 0 0 75px;
@@ -2069,9 +2100,61 @@ label.error {
 							right: 0;
 
 							}
-	#settings_pane {
-		}
 
+						#cover_manager #covers .cover .delete {
+							background: url(../images/bg_delete.gif) center center no-repeat #ad2201;
+							position: absolute;
+							top: 6px;
+							right: 5px;
+							height: 19px;
+							width: 19px;
+							border-radius: 3px;
+							border: solid 1px #fff;
+							text-indent: -10000em;
+							overflow: hidden;
+							opacity: .25;
+							box-shadow: 1px 1px 1px #000;
+							}
+							#cover_manager .cover .delete:hover {
+								opacity: 1;
+								}
+
+	 #settings_pane {
+		background: #fff;
+		z-index: 200;
+		width: 429px;
+	 }
+
+	 #settings_pane h3 {
+	     background: rgb(225,225,225); /* Old browsers */
+	     background: -moz-linear-gradient(top,  rgba(225,225,225,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6+ */
+	     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(225,225,225,1)), color-stop(100%,rgba(204,204,204,1))); /* Chrome,Safari4+ */
+	     background: -webkit-linear-gradient(top,  rgba(225,225,225,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10+,Safari5.1+ */
+	     background: -o-linear-gradient(top,  rgba(225,225,225,1) 0%,rgba(204,204,204,1) 100%); /* Opera 11.10+ */
+	     background: -ms-linear-gradient(top,  rgba(225,225,225,1) 0%,rgba(204,204,204,1) 100%); /* IE10+ */
+	     background: linear-gradient(to bottom,  rgba(225,225,225,1) 0%,rgba(204,204,204,1) 100%); /* W3C */
+	     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1e1e1', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+	     line-height: 30px;
+	     margin: 3px 2px;
+	     padding: 0;
+	     text-indent: 20px;
+	     border: solid 1px #999;
+	     font-size: 18px;
+	     color: #fff;
+	     text-shadow: 1px 1px 0 #333;
+	 }
+
+	 #cover_manager .close {
+	     background: url(../images/bg_close.png) 0 0 no-repeat transparent;
+	     position: absolute;
+	     top: 15px;
+	     right: 13px;
+	     width: 9px;
+	     height: 10px;
+	     overflow: hidden;
+	     text-indent: -10000em;
+	     cursor: pointer;
+	 }
 		#settings_pane form {
 			}
 
