@@ -583,7 +583,7 @@ def view_profilethumbnail(request, profileid):
         try:
             name = '%s/images/%s' % (settings.STATIC_ROOT, settings.DEFAULT_PROFILE_IMAGE)
         except AttributeError:
-            name = '%s%s' % (settings.SITE_STATIC_ROOT, '/images/anonymous.jpg')
+            name = '%s%s' % (settings.SITE_STATIC_ROOT, '/images/anonymous.png')
 
         return name
 
