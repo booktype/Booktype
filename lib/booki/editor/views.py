@@ -287,21 +287,26 @@ def view_cover(request, bookid, cid, fname = None, version=None):
     extension = cover.filename.split('.')[-1]
     content_type = mimetypes.types_map.get('.'+extension, 'image/jpeg')
 
-    if request.GET.get('preview', '') == '1' and extension.lower() in ['jpg', 'jpeg', 'tiff', 'png', 'gif', 'bmp']:
-        try:
-            import Image
+    if request.GET.get('preview', '') == '1':
+        import Image
 
+        try:
             im = Image.open(cover.attachment.name)
             im.thumbnail((250, 250), Image.ANTIALIAS)
-
-            response = HttpResponse(content_type=content_type)
-
-            if extension.upper() == 'JPG': extension = 'JPEG'
-            im.save(response, extension.upper())
-
-            return response
         except:
-            pass
+            # Not just IOError but anything else
+            im = Image.new("RGB", (200, 210), (255, 255, 255))
+
+        response = HttpResponse(content_type=content_type)
+
+        if extension.lower() in ['jpg', 'jpeg', 'png', 'gif', 'tiff', 'bmp']:
+            if extension.upper() == 'JPG': extension = 'JPEG'
+        else:
+            extension = 'jpeg'
+
+        im.save(response, extension.upper())
+        
+        return response
 
     try:
         data = open(document_path, 'rb').read()
