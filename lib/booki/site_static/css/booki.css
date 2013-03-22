@@ -1985,7 +1985,7 @@ label.error {
 			width: 277px;
 			margin: 0 25px 20px 0;
 			}
-
+		/*
 			#cover_manager #covers .cover:nth-of-type(3n) {
 				margin: 0 0 20px 0;
 				}
@@ -1994,6 +1994,7 @@ label.error {
 				margin: 0 25px 20px 0;
 				clear: left;
 				}
+				*/
 
 				#cover_manager #covers .cover dl {
 					position: absolute;
@@ -2056,6 +2057,12 @@ label.error {
 					height: 209px;
 					width: 200px;
 					}
+
+				#cover_manager #covers .cover figure img {
+				    max-height: 209px;
+				    max-width: 200px;
+				}
+
 				#cover_manager #covers .cover figure figcaption {
 					position: relative;
 					text-align: left;
@@ -2102,7 +2109,7 @@ label.error {
 							position: absolute;
 							bottom: -2px;
 							right: 0;
-
+							z-index: 150;
 							}
 
 						#cover_manager #covers .cover .delete {
