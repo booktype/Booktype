@@ -500,6 +500,7 @@ class BookCover(models.Model):
     width = models.IntegerField(_('Width'), blank=True)
     height = models.IntegerField(_('Height'), blank=True)
     unit = models.CharField(_('Unit'), max_length=20, blank=True)
+    booksize = models.CharField(_('Booksize'), max_length=30, blank=True)
 
     is_book = models.BooleanField(_('Book cover'), default=False)
     is_ebook = models.BooleanField(_('E-book cover'), default=False)

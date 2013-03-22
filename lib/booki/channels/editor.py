@@ -2224,7 +2224,7 @@ def remote_covers_data(request, message, bookid, version):
 
     covers = []
 
-    for cover in models.BookCover.objects.filter(book = book):
+    for cover in models.BookCover.objects.filter(book = book).order_by("title"):
         frm = []
         
         if cover.is_book:
@@ -2243,6 +2243,7 @@ def remote_covers_data(request, message, bookid, version):
                        'approved': cover.approved})
 
     transaction.commit()
+    covers.reverse()
 
     return {"covers": covers}
 
@@ -2358,6 +2359,7 @@ def remote_cover_save(request, message, bookid, version):
         cover.width = width
         cover.height = height
         cover.unit = message.get('units', 'mm')
+        cover.booksize = message.get('booksize', '')
 
         license = models.License.objects.get(abbrevation=message.get('license', ''))
         
@@ -2465,6 +2467,7 @@ def remote_cover_load(request, message, bookid, version):
              "img_size": size,
              "height": cover.height,
              "units": cover.unit, 
+             "booksize": cover.booksize,
              "title": cover.title,
              "type": cover.cover_type,
              "creator": cover.creator,

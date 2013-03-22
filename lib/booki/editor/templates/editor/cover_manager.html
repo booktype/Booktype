@@ -20,9 +20,11 @@
       <input type="file" name="cover"/>
       <input type="hidden" name="title" value=""/>
       <input type="hidden" name="filename" value=""/>
-      <input type="hidden" name="width" value=""/>
+      <input type="hidden" name="booksize" value=""/>
+<!--
       <input type="hidden" name="height" value=""/>
       <input type="hidden" name="units" value=""/>
+-->
       <input type="hidden" name="format" value=""/>
       <input type="hidden" name="type" value=""/>
       <input type="hidden" name="creator" value=""/>
@@ -45,12 +47,40 @@
           <input type="text" id="filename" placeholder="front_cover.jpg" disabled />
         </div>
         <div>
-          <label for="width">{% trans "Book Size" %}</label>
-          <input type="text" id="width" placeholder="{% trans "W" %}" />
-          <input type="text" id="height" placeholder="{% trans "H" %}" />
-          <select id="units">
-            <option>{% trans "mm" %}</option>
-            <option>{% trans "inches" %}</option>
+          <label for="booksize">{% trans "Book Size" %}</label>
+          <select id="booksize">
+            <!-- <option value="custom" class="custom">{% trans "custom" %}</option> -->
+            <option value="" class="custom"></option>
+            <option value="POCKET" class="lulu">{% trans "POCKET (107mm x 174mm)" %}</option>
+            <option value="US5x8" class="us">{% trans "US5x8 (126mm x 203mm)" %}</option>
+            <option value="DIGEST" class="us lulu">{% trans "DIGEST (139mm x 215mm)" %}</option>
+            <option value="US5.5x8.5" class="us">{% trans "US5.5x8.5 (139mm x 215mm)" %}</option>
+            <option value="A5" class="lulu iso">{% trans "A5 (148mm x 210mm)" %}</option>
+            <option value="USTRADE6x9" class="lulu us">{% trans "USTRADE6x9 (152mm x 228mm)" %}</option>
+            <option value="SQUARE7.5" class="lulu">{% trans "SQUARE7.5 (190mm x 190mm)" %}</option>
+            <option value="ROYAL" class="lulu us">{% trans "ROYAL (155mm x 233mm)" %}</option>
+            <option value="LANDSCAPE9x7" class="lulu us">{% trans "LANDSCAPE9x7 (228mm x 177mm)" %}</option>
+            <option value="COMICBOOK" class="lulu">{% trans "COMICBOOK (168mm x 260mm)" %}</option>
+            <option value="B5" class="iso">{% trans "B5 (176mm x 250mm)" %}</option>
+            <option value="US7x10" class="us">{% trans "US7x10 (177mm x 253mm)" %}</option>
+            <option value="CROWNQUARTO" class="lulu us">{% trans "CROWNQUARTO (189mm x 245mm)" %}</option>
+            <option value="SQUARE8.5" class="lulu">{% trans "SQUARE8.5 (215mm x 215mm)" %}</option>
+            <option value="USLETTER" class="lulu us">{% trans "USLETTER (215mm x 279mm)" %}</option>
+            <option value="A4" class="lulu iso">{% trans "A4 (210mm x 297mm)" %}</option>
+            <option value="Foolscap (F4)" class="">{% trans "Foolscap (F4) (210mm x 330mm)" %}</option>
+            <option value="B4" class="iso">{% trans "B4 (250mm x 353mm)" %}</option>
+            <option value="Oamaru Tabloid" class="newspaper">{% trans "Oamaru Tabloid (265mm x 380mm)" %}</option>
+            <option value="UK Tabloid" class="newspaper">{% trans "UK Tabloid (279mm x 431mm)" %}</option>
+            <option value="A3 (NZ Tabloid)" class="iso newspaper">{% trans "A3 (NZ Tabloid) (297mm x 420mm)" %}</option>
+            <option value="Berliner" class="newspaper">{% trans "Berliner (315mm x 470mm)" %}</option>
+            <option value="B3" class="iso">{% trans "B3 (353mm x 500mm)" %}</option>
+            <option value="Oamaru Broadsheet" class="newspaper">{% trans "Oamaru Broadsheet (382mm x 540mm)" %}</option>
+            <option value="US Broadsheet" class="newspaper us">{% trans "US Broadsheet (380mm x 577mm)" %}</option>
+            <option value="A2 (NZ Broadsheet)" class="iso newspaper">{% trans "A2 (NZ Broadsheet) (420mm x 594mm)" %}</option>
+            <option value="UK Broadsheet" class="newspaper">{% trans "UK Broadsheet (457mm x 609mm)" %}</option>
+            <option value="B2" class="iso">{% trans "B2 (500mm x 707mm)" %}</option>
+            <option value="A1" class="iso">{% trans "A1 (594mm x 841mm)" %}</option>
+            <option value="B1" class="iso">{% trans "B1 (707mm x 1000mm)" %}</option>
           </select>
         </div>
         <div>
@@ -99,7 +129,7 @@
             <dd class="preview_height">600</dd>
           </dl>
         </figcaption>
-      </figure>
+      </figure>    
       <button name="save">{% trans "Save" %}</button>
       <button name="cancel">{% trans "Cancel" %}</button>
     </form>
@@ -125,14 +155,52 @@
         <input type="text" id="filename" placeholder="front_cover.jpg" disabled />
       </div>
       <div>
-        <label for="width">{% trans "Book Size" %}</label>
+        <label for="booksize">{% trans "Book Size" %}</label>
+          <select id="booksize" style="width: 150px;">
+            <option value=""></option>
+            <option value="custom" class="custom">{% trans "custom" %}</option> 
+            <option value="POCKET" class="lulu">{% trans "POCKET (107mm x 174mm)" %}</option>
+            <option value="US5x8" class="us">{% trans "US5x8 (126mm x 203mm)" %}</option>
+            <option value="DIGEST" class="us lulu">{% trans "DIGEST (139mm x 215mm)" %}</option>
+            <option value="US5.5x8.5" class="us">{% trans "US5.5x8.5 (139mm x 215mm)" %}</option>
+            <option value="A5" class="lulu iso">{% trans "A5 (148mm x 210mm)" %}</option>
+            <option value="USTRADE6x9" class="lulu us">{% trans "USTRADE6x9 (152mm x 228mm)" %}</option>
+            <option value="SQUARE7.5" class="lulu">{% trans "SQUARE7.5 (190mm x 190mm)" %}</option>
+            <option value="ROYAL" class="lulu us">{% trans "ROYAL (155mm x 233mm)" %}</option>
+            <option value="LANDSCAPE9x7" class="lulu us">{% trans "LANDSCAPE9x7 (228mm x 177mm)" %}</option>
+            <option value="COMICBOOK" class="lulu">{% trans "COMICBOOK (168mm x 260mm)" %}</option>
+            <option value="B5" class="iso">{% trans "B5 (176mm x 250mm)" %}</option>
+            <option value="US7x10" class="us">{% trans "US7x10 (177mm x 253mm)" %}</option>
+            <option value="CROWNQUARTO" class="lulu us">{% trans "CROWNQUARTO (189mm x 245mm)" %}</option>
+            <option value="SQUARE8.5" class="lulu">{% trans "SQUARE8.5 (215mm x 215mm)" %}</option>
+            <option value="USLETTER" class="lulu us">{% trans "USLETTER (215mm x 279mm)" %}</option>
+            <option value="A4" class="lulu iso">{% trans "A4 (210mm x 297mm)" %}</option>
+            <option value="Foolscap (F4)" class="">{% trans "Foolscap (F4) (210mm x 330mm)" %}</option>
+            <option value="B4" class="iso">{% trans "B4 (250mm x 353mm)" %}</option>
+            <option value="Oamaru Tabloid" class="newspaper">{% trans "Oamaru Tabloid (265mm x 380mm)" %}</option>
+            <option value="UK Tabloid" class="newspaper">{% trans "UK Tabloid (279mm x 431mm)" %}</option>
+            <option value="A3 (NZ Tabloid)" class="iso newspaper">{% trans "A3 (NZ Tabloid) (297mm x 420mm)" %}</option>
+            <option value="Berliner" class="newspaper">{% trans "Berliner (315mm x 470mm)" %}</option>
+            <option value="B3" class="iso">{% trans "B3 (353mm x 500mm)" %}</option>
+            <option value="Oamaru Broadsheet" class="newspaper">{% trans "Oamaru Broadsheet (382mm x 540mm)" %}</option>
+            <option value="US Broadsheet" class="newspaper us">{% trans "US Broadsheet (380mm x 577mm)" %}</option>
+            <option value="A2 (NZ Broadsheet)" class="iso newspaper">{% trans "A2 (NZ Broadsheet) (420mm x 594mm)" %}</option>
+            <option value="UK Broadsheet" class="newspaper">{% trans "UK Broadsheet (457mm x 609mm)" %}</option>
+            <option value="B2" class="iso">{% trans "B2 (500mm x 707mm)" %}</option>
+            <option value="A1" class="iso">{% trans "A1 (594mm x 841mm)" %}</option>
+            <option value="B1" class="iso">{% trans "B1 (707mm x 1000mm)" %}</option>
+          </select>
+       </div>
+       <div class="customsize">
+        <label for="width">{% trans "Custom Size" %}</label>
+
         <input type="text" id="width" placeholder="150" />
         <input type="text" id="height" placeholder="200" />
         <select id="units">
           <option class="mm" value="mm">{% trans "mm" %}</option>
           <option class="inches" value="inches">{% trans "inches" %}</option>
         </select>
-      </div>
+       </div>
         <div>
           <label for="type">{% trans "Type" %}</label>
           <select id="type">
