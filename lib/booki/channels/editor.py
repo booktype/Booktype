@@ -2236,10 +2236,12 @@ def remote_covers_data(request, message, bookid, version):
         if cover.is_pdf:
             frm.append("pdf")
 
+        title = cover.title.strip() or cover.filename
+
         covers.append({'cid': cover.cid,
                        'placement': cover.cover_type,
                        'format': frm,
-                       'title': cover.title,
+                       'title': title,
                        'approved': cover.approved})
 
     transaction.commit()

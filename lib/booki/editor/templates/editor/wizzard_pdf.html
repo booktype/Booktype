@@ -124,7 +124,7 @@
           	 <dt><label for="cover_image">{% trans "Select cover image" %}</label></dt>
 		 <dd><select name="cover_image" id="cover_image">
                       {% for cover in covers %}
-                        <option value="{{ cover.cid }}">{{ cover.title }}</option>
+                        <option value="{{ cover.cid }}">{{ cover.title|default:cover.filename }}</option>
                       {% endfor %}
                      </select></dd>
                 </dl> 
