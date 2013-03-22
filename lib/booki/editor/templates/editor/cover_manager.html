@@ -21,10 +21,9 @@
       <input type="hidden" name="title" value=""/>
       <input type="hidden" name="filename" value=""/>
       <input type="hidden" name="booksize" value=""/>
-<!--
+      <input type="hidden" name="width" value=""/>
       <input type="hidden" name="height" value=""/>
       <input type="hidden" name="units" value=""/>
--->
       <input type="hidden" name="format" value=""/>
       <input type="hidden" name="type" value=""/>
       <input type="hidden" name="creator" value=""/>
@@ -49,8 +48,8 @@
         <div>
           <label for="booksize">{% trans "Book Size" %}</label>
           <select id="booksize">
-            <!-- <option value="custom" class="custom">{% trans "custom" %}</option> -->
             <option value="" class="custom"></option>
+            <option value="custom" class="custom">{% trans "custom" %}</option> 
             <option value="POCKET" class="lulu">{% trans "POCKET (107mm x 174mm)" %}</option>
             <option value="US5x8" class="us">{% trans "US5x8 (126mm x 203mm)" %}</option>
             <option value="DIGEST" class="us lulu">{% trans "DIGEST (139mm x 215mm)" %}</option>
@@ -83,6 +82,16 @@
             <option value="B1" class="iso">{% trans "B1 (707mm x 1000mm)" %}</option>
           </select>
         </div>
+       <div class="customsize">
+        <label for="width">{% trans "Custom Size" %}</label>
+
+        <input type="text" id="width" placeholder="200" />
+        <input type="text" id="height" placeholder="200" />
+        <select id="units">
+          <option class="mm" value="mm">{% trans "mm" %}</option>
+          <option class="inches" value="inches">{% trans "inches" %}</option>
+        </select>
+       </div>
         <div>
           <label for="format">{% trans "Format" %}</label>
           <select multiple id="format">
