@@ -3349,6 +3349,15 @@ def remote_publish_book2(request, message, bookid, version):
 
         return cover
 
+    def _getCoverSize(c):
+        try:
+            im = Image.open(c.attachment.name)
+            size = im.size
+            return '#%s,%s' % size
+        except:
+            # In case of any kind of error
+            return ''
+
     cover = _getCover()
 
     # todo
@@ -3467,7 +3476,8 @@ def remote_publish_book2(request, message, bookid, version):
         ebookFormat = _getValue('ebook_format')
 
         if cover:
-            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s' % (book.url_title, cover.cid, cover.filename)
+            _extra = _getCoverSize(cover)
+            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s%s' % (book.url_title, cover.cid, cover.filename, _extra)
 
         if ebookFormat == 'kindle':
             args['output_profile'] = 'kindle'
@@ -3537,12 +3547,14 @@ def remote_publish_book2(request, message, bookid, version):
             args['page_height'] = args.get('custom_height', '')
 
         if cover:
-            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s' % (book.url_title, cover.cid, cover.filename)
+            _extra = _getCoverSize(cover)
+            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s%s' % (book.url_title, cover.cid, cover.filename, _extra)
 
 
     if publishMode in ['openoffice']:
         if cover:
-            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s' % (book.url_title, cover.cid, cover.filename)
+            _extra = _getCoverSize(cover)
+            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s%s' % (book.url_title, cover.cid, cover.filename, _extra)
         
 
     try:
