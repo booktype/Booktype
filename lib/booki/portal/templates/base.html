@@ -116,6 +116,12 @@
          &nbsp;<a class="langit" href="#">Italiano</a>&nbsp;|
        {% endif %}
 
+       {% if request.LANGUAGE_CODE == "pt" %}
+         &nbsp;Português&nbsp;|
+       {% else %}
+         &nbsp;<a class="langpt" href="#">Português</a>&nbsp;|
+       {% endif %}
+
        {% if request.LANGUAGE_CODE == "ru" %}
          &nbsp;Русский&nbsp;|
        {% else %}
