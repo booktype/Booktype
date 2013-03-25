@@ -2238,6 +2238,9 @@ def remote_covers_data(request, message, bookid, version):
 
         title = cover.title.strip() or cover.filename
 
+        if len(title) > 50:
+            title = title[:50] + '...'
+
         covers.append({'cid': cover.cid,
                        'placement': cover.cover_type,
                        'format': frm,
