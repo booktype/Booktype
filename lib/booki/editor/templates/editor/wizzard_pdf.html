@@ -123,6 +123,8 @@
                 <dl>
           	 <dt><label for="cover_image">{% trans "Select cover image" %}</label></dt>
 		 <dd><select name="cover_image" id="cover_image">
+		     <option value="">{% trans "No Cover" %}</option>
+		     <option disabled="disabled" role="separator">-------------------</option>
                       {% for cover in covers %}
                         <option value="{{ cover.cid }}">{{ cover.title|default:cover.filename }}</option>
                       {% endfor %}

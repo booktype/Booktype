@@ -3341,7 +3341,7 @@ def remote_publish_book2(request, message, bookid, version):
         cover = None
         cid = _getValue('cover_image')
         
-        if cid:
+        if cid and cid.strip() != '':
             try:
                 cover = models.BookCover.objects.get(book=book, cid=cid)
             except models.BookCover.DoesNotExist:
