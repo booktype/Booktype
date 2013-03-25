@@ -289,8 +289,10 @@ def view_cover(request, bookid, cid, fname = None, version=None):
 
     if request.GET.get('preview', '') == '1':
         import Image
-
         try:
+            if extension.lower() in ['pdf', 'psd']:
+                raise
+
             im = Image.open(cover.attachment.name)
             im.thumbnail((250, 250), Image.ANTIALIAS)
         except:
