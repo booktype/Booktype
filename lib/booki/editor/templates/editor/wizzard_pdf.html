@@ -4,6 +4,7 @@
   <div style="clear: both; margin-bottom: 5px; padding-bottom: 5px;"></div>
   <form  id="demoForm" method="post" action="#" onsubmit="return false;" class="bbq">
     <div id="fieldWrapper">
+
       <div class="step" id="format">
         <div class="input">
           <fieldset>
@@ -29,6 +30,7 @@
           </fieldset>
         </div>
       </div>
+
       <div id="fonts" class="step">
         <div class="input">
           <fieldset>
@@ -116,41 +118,41 @@
         </div>
       </div>
 
-    	     <div id="Cover_Advanced" class="step">
-	      <div class="input">
-               <fieldset>
-	        <legend>{% trans "Cover" %}</legend>
-                <dl>
-          	 <dt><label for="cover_image">{% trans "Select cover image" %}</label></dt>
-		 <dd><select name="cover_image" id="cover_image">
-		     <option value="">{% trans "No Cover" %}</option>
-		     <option disabled="disabled" role="separator">-------------------</option>
-                      {% for cover in covers %}
-                        <option value="{{ cover.cid }}">{{ cover.title|default:cover.filename }}</option>
-                      {% endfor %}
-                     </select></dd>
-                </dl> 
-               </fieldset>       
-	      </div>
-            </div>
-
-
+      <div id="Cover_Advanced" class="step">
+	<div class="input bottomSpace">
+          <fieldset>
+	    <legend>{% trans "Cover" %}</legend>
+            <dl>
+              <dt><label for="cover_image">{% trans "Select cover image" %}</label></dt>
+	      <dd><select name="cover_image" id="cover_image">
+		  <option value="">{% trans "No Cover" %}</option>
+		  <option disabled="disabled" role="separator">-------------------</option>
+                  {% for cover in covers %}
+                  <option value="{{ cover.cid }}">{{ cover.title|default:cover.filename }}</option>
+                  {% endfor %}
+              </select></dd>
+            </dl> 
+          </fieldset>       
+	</div>
+      </div>
+      
+      
       <div id="paragraphs" class="step">
-        <div class="input">
-      <fieldset>
-      <legend>{% trans "Page breaks" %}</legend>
-        <dl>
-			<dt style="display:none;"></dt>
-          	<dd><label for="p_pagebreak"><input name="p_pagebreak" id="p_pagebreak" type="checkbox" checked/>{% trans "Avoid page break in paragraphs?" %}</label></dd>
-            <dt style="display:none;"></dt>
-            <dd><label for="footnotes_pagebreak"><input name="footnotes_pagebreak" id="footnotes_pagebreak" type="checkbox" checked/>{% trans "Pagebreak before footnotes?" %}</label></dd>
-        </dl>
-        </fieldset>
+        <div class="input bottomSpace">
+	  <fieldset>
+	    <legend>{% trans "Page breaks" %}</legend>
+            <dl>
+	      <dt style="display:none;"></dt>
+              <dd><label for="p_pagebreak"><input name="p_pagebreak" id="p_pagebreak" type="checkbox" checked/>{% trans "Avoid page break in paragraphs?" %}</label></dd>
+              <dt style="display:none;"></dt>
+              <dd><label for="footnotes_pagebreak"><input name="footnotes_pagebreak" id="footnotes_pagebreak" type="checkbox" checked/>{% trans "Pagebreak before footnotes?" %}</label></dd>
+            </dl>
+          </fieldset>
         </div>
       </div>
       
       <div id="Advanced_options" class="step">
-        <div class="input">
+        <div class="input bottomSpaceSmall">
       <fieldset style="padding-top:20px;">
       <legend>{% trans "Advanced" %}</legend>
       <script type="text/javascript">
