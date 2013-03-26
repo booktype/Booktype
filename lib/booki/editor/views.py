@@ -298,7 +298,7 @@ def view_cover(request, bookid, cid, fname = None, version=None):
         except:
             # Not just IOError but anything else
             im = Image.open('%s/images/booktype-cover-error.png' % settings.SITE_STATIC_ROOT)
-            extension = 'jpg'
+            extension = 'png'
 
         response = HttpResponse(content_type=content_type)
 
