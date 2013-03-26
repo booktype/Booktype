@@ -3145,9 +3145,27 @@ def remote_get_wizzard(request, message, bookid, version):
             op['value'] = config.getConfiguration('BOOKTYPE_CSS_%s' % output_type, '')
 
     covers = []
+    
+    class DummyCover(object):
+        def __init__(self, title):
+            self.cid = title
+            
+    def _getCovers(coverType):
+        ls =  [cover for cover in models.BookCover.objects.filter(book=book, is_book=True, cover_type = coverType)]
 
-    if output_type in ['BOOK', 'BOOKJS']:
-        covers = models.BookCover.objects.filter(book=book, is_book=True)
+        if len(ls) > 0:
+            return [DummyCover(coverType)] + ls
+
+        return ls
+
+
+    if output_type in ['BOOK', 'BOOKJS']:        
+        _front = _getCovers('front')
+        _back = _getCovers('back')
+        _spine = _getCovers('spine')
+        _whole = _getCovers('whole')
+
+        covers = _front + _back + _spine + _whole
 
     if output_type in ['EBOOK']:
         covers = models.BookCover.objects.filter(book=book, is_ebook=True)
@@ -3351,6 +3369,8 @@ def remote_publish_book2(request, message, bookid, version):
 
     def _getCoverSize(c):
         try:
+            import Image
+
             im = Image.open(c.attachment.name)
             size = im.size
             return '#%s,%s' % size
