@@ -3358,7 +3358,10 @@ def remote_publish_book2(request, message, bookid, version):
     def _getCover():
         cover = None
         cid = _getValue('cover_image')
-        
+
+        if type(cid) == type([]):
+            return cover
+
         if cid and cid.strip() != '':
             try:
                 cover = models.BookCover.objects.get(book=book, cid=cid)
@@ -3366,6 +3369,26 @@ def remote_publish_book2(request, message, bookid, version):
                 pass
 
         return cover
+
+    def _getCoverList():
+        cid = _getValue('cover_image')
+        clist = []
+        cres = []
+
+        if type(cid) != type([]):
+            clist = [cid]
+        else:
+            clist = cid
+
+        for c in clist:
+            try:
+                cvr = models.BookCover.objects.get(book=book, cid=c)
+                cres.append(cvr)
+            except models.BookCover.DoesNotExist:
+                pass
+
+        return cres
+
 
     def _getCoverSize(c):
         try:
@@ -3379,6 +3402,7 @@ def remote_publish_book2(request, message, bookid, version):
             return ''
 
     cover = _getCover()
+    coverList = _getCoverList()
 
     # todo
     # - title
@@ -3444,7 +3468,6 @@ def remote_publish_book2(request, message, bookid, version):
         if args.get('booksize', '') == 'custom':
             args['page_width']  = args.get('custom_width', '')
             args['page_height'] = args.get('custom_height', '')
-
 
     if publishMode in ['bookjs/pdf']:
         theme = message.get('theme', 'style3')
@@ -3604,9 +3627,11 @@ def remote_publish_book2(request, message, bookid, version):
             dtas3 = lst[1]
 
     # out of all this, only 
-    result = {"status": True, "dtaall": ta, "dta": dta, "dtas3": dtas3, "cover_url": None}
+    result = {"status": True, "dtaall": ta, "dta": dta, "dtas3": dtas3}
     
-    if cover:
-        result['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/' % (book.url_title, cover.cid)
+    if len(coverList) > 0:
+        r = [(c.cover_type, settings.BOOKI_URL+'/%s/_cover/%s/' % (book.url_title, c.cid), c.cid, c.title, c.filename) for c in coverList]
+                
+        result['covers'] = r
 
     return result
