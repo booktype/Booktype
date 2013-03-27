@@ -280,15 +280,18 @@ fieldset.plain {border:none; padding:0;}
 }
 body > .content-container {
     margin: 22px 30px;
-	min-width:960px;
 }
+
 .content {
 	background: #ffffff;
 	border: 1px solid #9d9d9d;
 	padding: 14px 0;
-	min-width:760px;
-	margin: 10px 31% 10px 0;
+	min-width:706px;
+	margin: 10px 0 10px 0;
 	}
+body > .content-container.with-sidebar .content {
+	margin: 10px 31% 10px 0;
+}
 .sidebar	{
 	width:30%;
 	float:right;
@@ -499,9 +502,9 @@ input[type="checkbox"] {
 }
 .book	{
 	float: left; 
-	margin: 10px 36px 40px 0; 
+	margin: 10px 36px 20px 0; 
 	width: 120px; 
-	/* position: relative; */
+	min-height: 180px;
 }
 .book > .block	{
 	background:url(../images/book-bg.png) no-repeat;
@@ -2283,4 +2286,12 @@ label.error {
 
 .coverPending {
     
+}
+
+
+@media only screen and (min-width: 1400px) {
+		.content {
+	    max-width: 1340px; 
+     	}
+
 }
