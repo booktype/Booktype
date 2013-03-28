@@ -48,20 +48,32 @@ def get_endpoint_or_none(syntax):
             user = get_or_none(auth_models.User.objects, username=syntax[1:])
             if user:
                 timeline = Endpoint(syntax=syntax)
-                timeline.save()
+                try:
+                    timeline.save()
+                except IntegrityError:
+                    return None
         if syntax.startswith('!'):
             group = get_or_none(BookiGroup.objects, url_name=syntax[1:])
             if group:
                 timeline = Endpoint(syntax=syntax)
-                timeline.save()
+                try:
+                    timeline.save()
+                except IntegrityError:
+                    return None                
         if syntax.startswith(u'\u212c'):
             book = get_or_none(Book.objects, url_title=syntax[1:])
             if book:
                 timeline = Endpoint(syntax=syntax)
-                timeline.save()
+                try:
+                    timeline.save()
+                except IntegrityError:
+                    return None
         if syntax.startswith('#'):
             timeline = Endpoint(syntax=syntax)
-            timeline.save()
+            try:
+                timeline.save()
+            except IntegrityError:
+                return None
 
     return timeline
 
