@@ -566,7 +566,7 @@ def view_profilethumbnail(request, profileid):
         u = User.objects.get(username=profileid)
     except User.DoesNotExist:
         try:
-            resp = pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+            resp = pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": profileid})
         except:
             transaction.rollback()
             raise
