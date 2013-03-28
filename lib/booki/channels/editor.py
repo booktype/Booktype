@@ -2523,7 +2523,7 @@ def remote_settings_options(request, message, bookid, version):
     # get rtl
     try:
         rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind=0).getValue()
-    except models.Info.DoesNotExist:
+    except (models.Info.DoesNotExist, models.Info.MultipleObjectsReturned):
         rtl = "LTR"
 
     transaction.commit()
