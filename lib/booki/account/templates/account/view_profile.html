@@ -105,7 +105,7 @@
           {% endif %}
           {% trans "My Books" %}</h4>
         <ul class="simple-list no-bullet with-button">          {% for book in books %}
-          <li> <a href="{% url book_info  book.url_title %}"> {% if book.hidden %} <i>{{ book.title }}</i> {% else %}            {{ book.title }}
+          <li> <a href="{% url book_info  book.url_title %}"> {% if book.hidden %}  {% if book.title|length > 80 %} <i>{{ book.title|slice:":80" }}...</i> {% else %}  <i>{{ book.title }}</i> {% endif %} {% else %} {% if book.title|length > 80 %} {{ book.title|slice:":80" }}... {% else %}  {{ book.title }} {% endif %}
             {% endif %} </a> <a class="action-button" href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a> </li>
           {% empty %}
           {% if user.username == request.user.username %}          {% blocktrans %}
@@ -156,8 +156,7 @@
     <table border="0" cellspacing="0" class="basic-table">
       {% for book in books %}
       <tr>
-        <td width="40%"><a href="{% url book_view book.url_title %}"> {% if book.hidden %} <i>{{ book.title }}</i> {% else %}
-          {{ book.title }}
+        <td width="40%"><a href="{% url book_view book.url_title %}"> {% if book.hidden %} {% if book.title|length > 80 %} <i>{{ book.title|slice:":80" }}...</i> {% else %}  <i>{{ book.title }}</i> {% endif %} {% else %}  {% if book.title|length > 80 %} {{ book.title|slice:":80" }}... {% else %}  {{ book.title }} {% endif %}
           {% endif %} </a></td>
         <td width="5%"></td>
         <td width="37%"><a class="action-button" href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a> <a class="action-button" href="{% url book_info  book.url_title %}">{% trans "info" %}</a> <a class="action-button" href="{% url draft_book  book.url_title %}">{% trans "draft" %}</a> 
