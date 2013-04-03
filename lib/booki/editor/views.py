@@ -284,7 +284,7 @@ def view_cover(request, bookid, cid, fname = None, version=None):
     import mimetypes
     mimetypes.init()
 
-    extension = cover.filename.split('.')[-1]
+    extension = cover.filename.split('.')[-1].lower()
     content_type = mimetypes.types_map.get('.'+extension, 'binary/octet-stream')
 
     if request.GET.get('preview', '') == '1':
@@ -310,12 +310,6 @@ def view_cover(request, bookid, cid, fname = None, version=None):
         im.save(response, extension.upper())
         
         return response
-
-    print '--------------------'
-    print document_path
-    print extension
-    print content_type
-    print cover.filename
 
     try:
         data = open(document_path, 'rb').read()
