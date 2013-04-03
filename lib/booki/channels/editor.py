@@ -3520,7 +3520,7 @@ def remote_publish_book2(request, message, bookid, version):
 
         if cover:
             _extra = _getCoverSize(cover)
-            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s%s' % (book.url_title, cover.cid, cover.filename, _extra)
+            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s%s' % (book.url_title, cover.cid, urllib.quote(cover.filename), _extra)
 
         if ebookFormat == 'kindle':
             args['output_profile'] = 'kindle'
@@ -3591,13 +3591,13 @@ def remote_publish_book2(request, message, bookid, version):
 
         if cover:
             _extra = _getCoverSize(cover)
-            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s%s' % (book.url_title, cover.cid, cover.filename, _extra)
+            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s%s' % (book.url_title, cover.cid, urllib.quote(cover.filename), _extra)
 
 
     if publishMode in ['openoffice']:
         if cover:
             _extra = _getCoverSize(cover)
-            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s%s' % (book.url_title, cover.cid, cover.filename, _extra)
+            args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s%s' % (book.url_title, cover.cid, urllib.quote(cover.filename), _extra)
         
 
     try:
