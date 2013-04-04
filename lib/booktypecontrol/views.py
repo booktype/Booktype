@@ -64,8 +64,11 @@ def frontpage(request):
                 _s = chan.split('/')
                 if len(_s) > 3:
                     bookID = _s[3]
-                    b = models.Book.objects.get(pk=bookID)
-                    channelList.append(b)
+                    try:
+                        b = models.Book.objects.get(pk=bookID)
+                        channelList.append(b)
+                    except models.Book.DoesNotExist:
+                        pass
             
         _u = sputnik.get(us)
         onlineUsers.append((_u, channelList))
