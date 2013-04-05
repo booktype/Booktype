@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 1.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-08 13:31+0100\n"
+"POT-Creation-Date: 2013-04-05 15:40+0200\n"
 "PO-Revision-Date: 2013-02-26 09:56+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Russian Localization <contact@sourcefabric.org>\n"
@@ -34,8 +34,9 @@ msgstr "описание"
 
 #: account/models.py:41 account/models.py:56 editor/models.py:235
 #: editor/models.py:356 editor/models.py:449 editor/models.py:461
-#: editor/models.py:473 editor/templates/editor/edit_book.html:569
-#: editor/templates/editor/edit_book.html:675
+#: editor/models.py:473 editor/models.py:492
+#: editor/templates/editor/edit_book.html:568
+#: editor/templates/editor/edit_book.html:674
 msgid "user"
 msgstr "пользователь"
 
@@ -45,7 +46,7 @@ msgstr "секретный код"
 
 #: account/models.py:58 editor/models.py:101 editor/models.py:132
 #: editor/models.py:295 editor/models.py:329 editor/models.py:393
-#: editor/templates/editor/edit_book.html:687
+#: editor/models.py:518 editor/templates/editor/edit_book.html:686
 msgid "created"
 msgstr "создано"
 
@@ -86,7 +87,8 @@ msgid "Step 1"
 msgstr "Шаг 1"
 
 #: account/templates/account/create_book.html:18
-#: editor/templates/editor/cover_manager.html:36
+#: editor/templates/editor/cover_manager.html:50
+#: editor/templates/editor/cover_manager.html:171
 msgid "Title"
 msgstr "Заголовок"
 
@@ -133,7 +135,8 @@ msgid "Choose from the following licenses"
 msgstr "Выберите из нижеперечисленных лицензий"
 
 #: account/templates/account/create_book.html:43 editor/models.py:36
-#: editor/templates/editor/cover_manager.html:76
+#: editor/templates/editor/cover_manager.html:130
+#: editor/templates/editor/cover_manager.html:248
 #: editor/templates/editor/edit_book.html:446
 msgid "License"
 msgstr "Лицензия"
@@ -298,12 +301,12 @@ msgid "Password (6 characters at least)"
 msgstr "Пароль (минимум 6 символов)"
 
 #: account/templates/account/form_register.html:17
-#: account/templates/account/view_profile.html:197
+#: account/templates/account/view_profile.html:196
 msgid "Full name"
 msgstr "Полное имя"
 
 #: account/templates/account/form_register.html:19
-#: account/templates/account/view_profile.html:193
+#: account/templates/account/view_profile.html:192
 msgid "Email"
 msgstr "Email"
 
@@ -344,7 +347,7 @@ msgid "Your passwords dont match. Please try a different one."
 msgstr "Ваши пароли не совпадают. Повторите попытку снова."
 
 #: account/templates/account/form_register.html:31
-#: account/templates/account/view_profile.html:253
+#: account/templates/account/view_profile.html:252
 msgid "Password must be 6 characters or more!"
 msgstr "Пароль должен иметь минимум шесть символов!"
 
@@ -525,7 +528,7 @@ msgid "/user: %(username)s"
 msgstr "/пользователь: %(username)s"
 
 #: account/templates/account/view_profile.html:43
-#: editor/templates/base_edit.html:82 portal/templates/base.html:142
+#: editor/templates/base_edit.html:82 portal/templates/base.html:148
 msgid "My Dashboard"
 msgstr "Моя панель пользователя"
 
@@ -541,7 +544,7 @@ msgstr "Мои книги"
 
 #: account/templates/account/view_profile.html:47
 #: account/templates/account/view_profile.html:143 editor/models.py:203
-#: editor/templates/base_edit.html:89 portal/templates/base.html:149
+#: editor/templates/base_edit.html:89 portal/templates/base.html:155
 #: portal/templates/portal/books.html:13 portal/templates/portal/books.html:54
 #: portal/templates/portal/group.html:65
 #: portal/templates/portal/group.html:115
@@ -590,7 +593,7 @@ msgid "CREATE NEW BOOK"
 msgstr "СОЗДАТЬ НОВУЮ КНИГУ"
 
 #: account/templates/account/view_profile.html:109
-#: account/templates/account/view_profile.html:163
+#: account/templates/account/view_profile.html:162
 msgid "edit"
 msgstr "редактировать"
 
@@ -646,144 +649,145 @@ msgstr "Создать новую книгу"
 msgid "Import Book"
 msgstr "Импортировать книгу"
 
-#: account/templates/account/view_profile.html:163
+#: account/templates/account/view_profile.html:162
 msgid "info"
 msgstr "Информация"
 
-#: account/templates/account/view_profile.html:163
+#: account/templates/account/view_profile.html:162
 msgid "draft"
 msgstr "черновик"
 
-#: account/templates/account/view_profile.html:167
-#: account/templates/account/view_profile.html:182
+#: account/templates/account/view_profile.html:166
+#: account/templates/account/view_profile.html:181
 msgid "Show to others"
 msgstr "Показывать остальным пользователям"
 
-#: account/templates/account/view_profile.html:173
-#: account/templates/account/view_profile.html:182
+#: account/templates/account/view_profile.html:172
+#: account/templates/account/view_profile.html:181
 msgid "Hide from others"
 msgstr "Скрывать от остальных пользователей"
 
-#: account/templates/account/view_profile.html:187
+#: account/templates/account/view_profile.html:186
 msgid "User settings"
 msgstr "Настройки пользователя"
 
-#: account/templates/account/view_profile.html:201
+#: account/templates/account/view_profile.html:200
 msgid "About yourself"
 msgstr "О себе"
 
-#: account/templates/account/view_profile.html:205
+#: account/templates/account/view_profile.html:204
 msgid "Profile image"
 msgstr "Изображение профиля"
 
-#: account/templates/account/view_profile.html:209
+#: account/templates/account/view_profile.html:208
 msgid "Notification filter"
 msgstr "Фильтр уведомлений"
 
-#: account/templates/account/view_profile.html:215
-#: account/templates/account/view_profile.html:266
-#: editor/templates/editor/edit_strings.html:23 portal/templates/base.html:192
+#: account/templates/account/view_profile.html:214
+#: account/templates/account/view_profile.html:265
+#: editor/templates/editor/edit_strings.html:23 portal/templates/base.html:198
 msgid "Save changes"
 msgstr "Сохранить изменения"
 
-#: account/templates/account/view_profile.html:223
+#: account/templates/account/view_profile.html:222
 msgid "Old Password"
 msgstr "Старый пароль"
 
-#: account/templates/account/view_profile.html:229
+#: account/templates/account/view_profile.html:228
 msgid "New Password"
 msgstr "Новый пароль"
 
-#: account/templates/account/view_profile.html:234
+#: account/templates/account/view_profile.html:233
 msgid "Password (again)"
 msgstr "Пароль (повторить)"
 
-#: account/templates/account/view_profile.html:241
+#: account/templates/account/view_profile.html:240
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: account/templates/account/view_profile.html:250
+#: account/templates/account/view_profile.html:249
 msgid "Unable to change password. Old password is missing."
 msgstr "Невозможно изменить пароль. Старый пароль пропущен."
 
-#: account/templates/account/view_profile.html:251
+#: account/templates/account/view_profile.html:250
 msgid "Unable to change password. Old password is incorrect."
 msgstr "Невозможно изменить пароль. Старый пароль введен неверно."
 
-#: account/templates/account/view_profile.html:252
+#: account/templates/account/view_profile.html:251
 msgid ""
 "Unable to change password. The new and confirmation passwords are not equal."
 msgstr ""
 "Невозможно изменить пароль. Новый пароль и его дубль для подтверждения не "
 "совпадают."
 
-#: account/templates/account/view_profile.html:254
+#: account/templates/account/view_profile.html:253
 msgid "Password changed."
 msgstr "Пароль изменен."
 
-#: account/templates/account/view_profile.html:255
-#: portal/templates/base.html:186
+#: account/templates/account/view_profile.html:254
+#: portal/templates/base.html:192
 msgid "OK"
 msgstr "OK"
 
-#: account/templates/account/view_profile.html:256
+#: account/templates/account/view_profile.html:255
 #: editor/templates/editor/edit_strings.html:8
-#: editor/templates/editor/wizzard_book.html:278
-#: editor/templates/editor/wizzard_bookjs.html:298
-#: editor/templates/editor/wizzard_ebook.html:125
-#: editor/templates/editor/wizzard_odt.html:126
-#: editor/templates/editor/wizzard_pdf.html:238 portal/templates/base.html:187
+#: editor/templates/editor/wizzard_book.html:326
+#: editor/templates/editor/wizzard_bookjs.html:275
+#: editor/templates/editor/wizzard_ebook.html:147
+#: editor/templates/editor/wizzard_odt.html:144
+#: editor/templates/editor/wizzard_pdf.html:259 portal/templates/base.html:193
 msgid "Back"
 msgstr "Назад"
 
-#: account/templates/account/view_profile.html:257
-#: editor/templates/editor/edit_book.html:626 portal/templates/base.html:188
+#: account/templates/account/view_profile.html:256
+#: editor/templates/editor/edit_book.html:625 portal/templates/base.html:194
 msgid "Create"
 msgstr "Создать"
 
-#: account/templates/account/view_profile.html:258
+#: account/templates/account/view_profile.html:257
+#: editor/templates/editor/cover_manager.html:154
 #: editor/templates/editor/edit_book.html:295
-#: editor/templates/editor/edit_strings.html:4 portal/templates/base.html:189
+#: editor/templates/editor/edit_strings.html:4 portal/templates/base.html:195
 msgid "Cancel"
 msgstr "Отменить"
 
-#: account/templates/account/view_profile.html:259
+#: account/templates/account/view_profile.html:258
 #: editor/templates/editor/edit_strings.html:6
-#: editor/templates/editor/wizzard_book.html:279
-#: editor/templates/editor/wizzard_bookjs.html:299
-#: editor/templates/editor/wizzard_ebook.html:126
-#: editor/templates/editor/wizzard_odt.html:127
-#: editor/templates/editor/wizzard_pdf.html:239 portal/templates/base.html:190
+#: editor/templates/editor/wizzard_book.html:327
+#: editor/templates/editor/wizzard_bookjs.html:276
+#: editor/templates/editor/wizzard_ebook.html:148
+#: editor/templates/editor/wizzard_odt.html:145
+#: editor/templates/editor/wizzard_pdf.html:260 portal/templates/base.html:196
 #: portal/templates/booki_paginator.html:29
 msgid "Next"
 msgstr "Следующий"
 
-#: account/templates/account/view_profile.html:260
+#: account/templates/account/view_profile.html:259
 msgid "Couldn't create a group"
 msgstr "Не получилось создать группу!"
 
-#: account/templates/account/view_profile.html:261
-#: portal/templates/base.html:194
+#: account/templates/account/view_profile.html:260
+#: portal/templates/base.html:200
 msgid "enter epub URL"
 msgstr "введите URL epub "
 
-#: account/templates/account/view_profile.html:262
-#: portal/templates/base.html:195
+#: account/templates/account/view_profile.html:261
+#: portal/templates/base.html:201
 msgid "enter Archive.org ID"
 msgstr "введите ID Archive.org"
 
-#: account/templates/account/view_profile.html:263
-#: portal/templates/base.html:196
+#: account/templates/account/view_profile.html:262
+#: portal/templates/base.html:202
 msgid "enter Wikibooks URL"
 msgstr "Введите URL Wikibooks "
 
-#: account/templates/account/view_profile.html:264
-#: portal/templates/base.html:197
+#: account/templates/account/view_profile.html:263
+#: portal/templates/base.html:203
 msgid "enter Booktype URL"
 msgstr "Введите URL Booktype"
 
-#: account/templates/account/view_profile.html:265
-#: portal/templates/base.html:191
+#: account/templates/account/view_profile.html:264
+#: portal/templates/base.html:197
 msgid "Import"
 msgstr "Импортировать книгу"
 
@@ -798,7 +802,7 @@ msgstr "Пользователь \"%(username)s\" не найден."
 
 #: editor/models.py:29 editor/models.py:42 editor/models.py:65
 #: editor/models.py:92 editor/models.py:256 editor/models.py:292
-#: editor/models.py:420 editor/templates/editor/edit_book.html:684
+#: editor/models.py:420 editor/templates/editor/edit_book.html:683
 #: editor/templates/editor/edit_strings.html:56
 msgid "name"
 msgstr "имя"
@@ -834,7 +838,7 @@ msgstr "не переведено"
 #: editor/models.py:64 editor/models.py:79 editor/models.py:228
 #: editor/models.py:254 editor/models.py:289 editor/models.py:324
 #: editor/models.py:388 editor/models.py:419 editor/models.py:450
-#: editor/models.py:460 editor/models.py:472
+#: editor/models.py:460 editor/models.py:472 editor/models.py:491
 msgid "book"
 msgstr "книга"
 
@@ -846,7 +850,7 @@ msgstr "вес"
 msgid "Book status"
 msgstr "Статус книги"
 
-#: editor/models.py:80
+#: editor/models.py:80 editor/models.py:514
 msgid "notes"
 msgstr "заметки"
 
@@ -903,7 +907,7 @@ msgstr "версия"
 msgid "group"
 msgstr "группа"
 
-#: editor/models.py:130
+#: editor/models.py:130 editor/models.py:512
 msgid "license"
 msgstr "лицензия"
 
@@ -919,7 +923,9 @@ msgstr "разрешение"
 msgid "cover"
 msgstr "обложка"
 
-#: editor/models.py:202 editor/templates/editor/cover_manager.html:57
+#: editor/models.py:202 editor/templates/editor/cover_manager.html:109
+#: editor/templates/editor/cover_manager.html:240
+#: editor/templates/editor/cover_manager.html:286
 #: editor/templates/editor/edit_publish.html:9
 msgid "Book"
 msgstr "Книга"
@@ -973,7 +979,7 @@ msgid "minor"
 msgstr "второстепенная"
 
 #: editor/models.py:332 editor/models.py:357
-#: editor/templates/editor/edit_book.html:674
+#: editor/templates/editor/edit_book.html:673
 msgid "revision"
 msgstr "проверка"
 
@@ -989,7 +995,7 @@ msgstr "Глава"
 msgid "Chapters"
 msgstr "Главы"
 
-#: editor/models.py:358 editor/templates/editor/edit_book.html:677
+#: editor/models.py:358 editor/templates/editor/edit_book.html:676
 msgid "comment"
 msgstr "комментировать"
 
@@ -997,11 +1003,12 @@ msgstr "комментировать"
 msgid "Chapter history"
 msgstr "История главы"
 
-#: editor/models.py:390 editor/templates/editor/edit_strings.html:57
+#: editor/models.py:390 editor/models.py:496
+#: editor/templates/editor/edit_strings.html:57
 msgid "filename"
 msgstr "имя файла"
 
-#: editor/models.py:403 editor/templates/editor/edit_book.html:635
+#: editor/models.py:403 editor/templates/editor/edit_book.html:634
 msgid "Attachment"
 msgstr "Вложение"
 
@@ -1049,6 +1056,66 @@ msgstr "настройки мастера"
 msgid "Publish Wizzard"
 msgstr "Мастер опубликования"
 
+#: editor/models.py:498 editor/templates/editor/cover_manager.html:172
+#, fuzzy
+msgid "Cover title"
+msgstr "заголовок url"
+
+#: editor/models.py:500 editor/templates/editor/cover_manager.html:147
+#: editor/templates/editor/cover_manager.html:266
+#, fuzzy
+msgid "Width"
+msgstr "Ширина:"
+
+#: editor/models.py:501 editor/templates/editor/cover_manager.html:145
+#: editor/templates/editor/cover_manager.html:264
+#, fuzzy
+msgid "Height"
+msgstr "Высота:"
+
+#: editor/models.py:502
+msgid "Unit"
+msgstr ""
+
+#: editor/models.py:503
+#, fuzzy
+msgid "Booksize"
+msgstr "Формат печати книги"
+
+#: editor/models.py:505
+#, fuzzy
+msgid "Book cover"
+msgstr "Аннотация на книгу"
+
+#: editor/models.py:506
+msgid "E-book cover"
+msgstr ""
+
+#: editor/models.py:507
+#, fuzzy
+msgid "PDF cover"
+msgstr "обложка"
+
+#: editor/models.py:509
+#, fuzzy
+msgid "Cover type"
+msgstr "Тип импорта"
+
+#: editor/models.py:511 editor/templates/editor/wizzard_book.html:157
+#: editor/templates/editor/wizzard_bookjs.html:158
+#: editor/templates/editor/wizzard_ebook.html:116
+#: editor/templates/editor/wizzard_odt.html:98
+#: editor/templates/editor/wizzard_pdf.html:124
+#, fuzzy
+msgid "Cover"
+msgstr "обложка"
+
+#: editor/models.py:516 editor/templates/editor/cover_manager.html:10
+#: editor/templates/editor/cover_manager.html:293
+#, fuzzy
+msgid "Approved"
+msgstr "Утвердить"
+
 #: editor/templates/authors.html:13
 msgid "Modifications:"
 msgstr "Изменения:"
@@ -1061,25 +1128,25 @@ msgstr "Выход"
 msgid "Sign In / Create Account"
 msgstr "Войти / Создать учетную запись"
 
-#: editor/templates/base_edit.html:90 portal/templates/base.html:150
+#: editor/templates/base_edit.html:90 portal/templates/base.html:156
 #: portal/templates/portal/groups.html:12
 msgid "Groups"
 msgstr "Группы"
 
-#: editor/templates/base_edit.html:91 portal/templates/base.html:151
+#: editor/templates/base_edit.html:91 portal/templates/base.html:157
 #: portal/templates/portal/people.html:13
 msgid "People"
 msgstr "Люди"
 
-#: editor/templates/base_edit.html:126 portal/templates/base.html:177
+#: editor/templates/base_edit.html:126 portal/templates/base.html:183
 msgid "There has been error in communication with Booktype server."
 msgstr "Ошибка во время связи с сервером Bootkype."
 
-#: editor/templates/base_edit.html:127 portal/templates/base.html:178
+#: editor/templates/base_edit.html:127 portal/templates/base.html:184
 msgid "Not sure right now where is the problem."
 msgstr "Невозможно определить проблему немедленно."
 
-#: editor/templates/base_edit.html:130 portal/templates/base.html:181
+#: editor/templates/base_edit.html:130 portal/templates/base.html:187
 msgid "You should refresh this page."
 msgstr "Вы должны обновить эту страницу."
 
@@ -1202,140 +1269,430 @@ msgstr "Нет новых пользователей"
 msgid "Cover Manager"
 msgstr ""
 
-#: editor/templates/editor/cover_manager.html:25
+#: editor/templates/editor/cover_manager.html:7
+#, fuzzy
+msgid "View files of status:"
+msgstr "Новый статус:"
+
+#: editor/templates/editor/cover_manager.html:9
+#: portal/templates/portal/people.html:55
+msgid "All"
+msgstr "Все"
+
+#: editor/templates/editor/cover_manager.html:11
+#, fuzzy
+msgid "Pending"
+msgstr "Заполнение:"
+
+#: editor/templates/editor/cover_manager.html:16
+msgid ""
+"The Cover manager allows you to upload and manage (but not create) your "
+"covers for your books - no matter if it´s printed or produced as an ebook. "
+"Please upload your images in the appropriate dimensions for your book. For "
+"each format you can upload different images. Please choose the corresponding "
+"format and approve those images you want to be published with your book."
+msgstr ""
+
+#: editor/templates/editor/cover_manager.html:22
 #, fuzzy
 msgid "Upload cover image"
 msgstr "Загрузить изображение"
 
-#: editor/templates/editor/cover_manager.html:31
+#: editor/templates/editor/cover_manager.html:40
+msgid ""
+"Only covers of the following filetypes can be used: PNG, JPEG, GIF, TIFF, "
+"XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+msgstr ""
+
+#: editor/templates/editor/cover_manager.html:45
 #, fuzzy
 msgid "Enter Meta-data"
 msgstr "Метаданные"
 
-#: editor/templates/editor/cover_manager.html:40
+#: editor/templates/editor/cover_manager.html:54
+#: editor/templates/editor/cover_manager.html:175
 #, fuzzy
 msgid "Filename"
 msgstr "имя файла"
 
-#: editor/templates/editor/cover_manager.html:44
-#: editor/templates/editor/wizzard_book.html:11
+#: editor/templates/editor/cover_manager.html:58
+#: editor/templates/editor/cover_manager.html:179
+#: editor/templates/editor/wizzard_book.html:12
 #: editor/templates/editor/wizzard_bookjs.html:11
-#: editor/templates/editor/wizzard_pdf.html:10
+#: editor/templates/editor/wizzard_pdf.html:11
 msgid "Book Size"
 msgstr "Формат печати книги"
 
-#: editor/templates/editor/cover_manager.html:45
-msgid "W"
-msgstr ""
+#: editor/templates/editor/cover_manager.html:61
+#: editor/templates/editor/cover_manager.html:182
+#: editor/templates/editor/wizzard_book.html:14
+#: editor/templates/editor/wizzard_bookjs.html:13
+#: editor/templates/editor/wizzard_pdf.html:13
+msgid "custom"
+msgstr "пользовательский"
 
-#: editor/templates/editor/cover_manager.html:46
-msgid "H"
-msgstr ""
+#: editor/templates/editor/cover_manager.html:62
+#: editor/templates/editor/cover_manager.html:183
+#: editor/templates/editor/wizzard_book.html:15
+#: editor/templates/editor/wizzard_bookjs.html:14
+msgid "POCKET (107mm x 174mm)"
+msgstr "POCKET (107mm x 174mm)"
 
-#: editor/templates/editor/cover_manager.html:48
-#: editor/templates/editor/wizzard_book.html:48
-#: editor/templates/editor/wizzard_book.html:50
-#: editor/templates/editor/wizzard_book.html:236
-#: editor/templates/editor/wizzard_book.html:238
-#: editor/templates/editor/wizzard_book.html:240
-#: editor/templates/editor/wizzard_book.html:242
-#: editor/templates/editor/wizzard_book.html:246
+#: editor/templates/editor/cover_manager.html:63
+#: editor/templates/editor/cover_manager.html:184
+#: editor/templates/editor/wizzard_book.html:16
+#: editor/templates/editor/wizzard_bookjs.html:15
+msgid "US5x8 (126mm x 203mm)"
+msgstr "US5x8 (126mm x 203mm)"
+
+#: editor/templates/editor/cover_manager.html:64
+#: editor/templates/editor/cover_manager.html:185
+#: editor/templates/editor/wizzard_book.html:17
+#: editor/templates/editor/wizzard_bookjs.html:16
+msgid "DIGEST (139mm x 215mm)"
+msgstr "DIGEST (139mm x 215mm)"
+
+#: editor/templates/editor/cover_manager.html:65
+#: editor/templates/editor/cover_manager.html:186
+#: editor/templates/editor/wizzard_book.html:18
+#: editor/templates/editor/wizzard_bookjs.html:17
+msgid "US5.5x8.5 (139mm x 215mm)"
+msgstr "US5.5x8.5 (139mm x 215mm)"
+
+#: editor/templates/editor/cover_manager.html:66
+#: editor/templates/editor/cover_manager.html:187
+#: editor/templates/editor/wizzard_book.html:19
+#: editor/templates/editor/wizzard_bookjs.html:18
+#: editor/templates/editor/wizzard_pdf.html:14
+msgid "A5 (148mm x 210mm)"
+msgstr "A5 (148mm x 210mm)"
+
+#: editor/templates/editor/cover_manager.html:67
+#: editor/templates/editor/cover_manager.html:188
+#: editor/templates/editor/wizzard_book.html:20
+#: editor/templates/editor/wizzard_bookjs.html:19
+msgid "USTRADE6x9 (152mm x 228mm)"
+msgstr "USTRADE6x9 (152mm x 228mm)"
+
+#: editor/templates/editor/cover_manager.html:68
+#: editor/templates/editor/cover_manager.html:189
+#: editor/templates/editor/wizzard_book.html:21
+#: editor/templates/editor/wizzard_bookjs.html:20
+msgid "SQUARE7.5 (190mm x 190mm)"
+msgstr "SQUARE7.5 (190mm x 190mm)"
+
+#: editor/templates/editor/cover_manager.html:69
+#: editor/templates/editor/cover_manager.html:190
+#: editor/templates/editor/wizzard_book.html:22
+#: editor/templates/editor/wizzard_bookjs.html:21
+msgid "ROYAL (155mm x 233mm)"
+msgstr "ROYAL (155mm x 233mm)"
+
+#: editor/templates/editor/cover_manager.html:70
+#: editor/templates/editor/cover_manager.html:191
+#: editor/templates/editor/wizzard_book.html:23
+#: editor/templates/editor/wizzard_bookjs.html:22
+msgid "LANDSCAPE9x7 (228mm x 177mm)"
+msgstr "LANDSCAPE9x7 (228mm x 177mm)"
+
+#: editor/templates/editor/cover_manager.html:71
+#: editor/templates/editor/cover_manager.html:192
+#: editor/templates/editor/wizzard_book.html:24
+#: editor/templates/editor/wizzard_bookjs.html:23
+msgid "COMICBOOK (168mm x 260mm)"
+msgstr "COMICBOOK (168mm x 260mm)"
+
+#: editor/templates/editor/cover_manager.html:72
+#: editor/templates/editor/cover_manager.html:193
+#: editor/templates/editor/wizzard_book.html:25
+#: editor/templates/editor/wizzard_bookjs.html:24
+msgid "B5 (176mm x 250mm)"
+msgstr "B5 (176mm x 250mm)"
+
+#: editor/templates/editor/cover_manager.html:73
+#: editor/templates/editor/cover_manager.html:194
+#: editor/templates/editor/wizzard_book.html:26
+#: editor/templates/editor/wizzard_bookjs.html:25
+msgid "US7x10 (177mm x 253mm)"
+msgstr "US7x10 (177mm x 253mm)"
+
+#: editor/templates/editor/cover_manager.html:74
+#: editor/templates/editor/cover_manager.html:195
+#: editor/templates/editor/wizzard_book.html:27
+#: editor/templates/editor/wizzard_bookjs.html:26
+msgid "CROWNQUARTO (189mm x 245mm)"
+msgstr "CROWNQUARTO (189mm x 245mm)"
+
+#: editor/templates/editor/cover_manager.html:75
+#: editor/templates/editor/cover_manager.html:196
+#: editor/templates/editor/wizzard_book.html:28
+#: editor/templates/editor/wizzard_bookjs.html:27
+msgid "SQUARE8.5 (215mm x 215mm)"
+msgstr "SQUARE8.5 (215mm x 215mm)"
+
+#: editor/templates/editor/cover_manager.html:76
+#: editor/templates/editor/cover_manager.html:197
+#: editor/templates/editor/wizzard_book.html:29
+#: editor/templates/editor/wizzard_bookjs.html:28
+msgid "USLETTER (215mm x 279mm)"
+msgstr "USLETTER (215mm x 279mm)"
+
+#: editor/templates/editor/cover_manager.html:77
+#: editor/templates/editor/cover_manager.html:198
+#: editor/templates/editor/wizzard_book.html:30
+#: editor/templates/editor/wizzard_bookjs.html:29
+#: editor/templates/editor/wizzard_pdf.html:15
+msgid "A4 (210mm x 297mm)"
+msgstr "A4 (210mm x 297mm)"
+
+#: editor/templates/editor/cover_manager.html:78
+#: editor/templates/editor/cover_manager.html:199
+#: editor/templates/editor/wizzard_book.html:31
+#: editor/templates/editor/wizzard_bookjs.html:30
+msgid "Foolscap (F4) (210mm x 330mm)"
+msgstr "Foolscap (F4) (210mm x 330mm)"
+
+#: editor/templates/editor/cover_manager.html:79
+#: editor/templates/editor/cover_manager.html:200
+#: editor/templates/editor/wizzard_book.html:32
+#: editor/templates/editor/wizzard_bookjs.html:31
+msgid "B4 (250mm x 353mm)"
+msgstr "B4 (250mm x 353mm)"
+
+#: editor/templates/editor/cover_manager.html:80
+#: editor/templates/editor/cover_manager.html:201
+#: editor/templates/editor/wizzard_book.html:33
+#: editor/templates/editor/wizzard_bookjs.html:32
+msgid "Oamaru Tabloid (265mm x 380mm)"
+msgstr "Oamaru Tabloid (265mm x 380mm)"
+
+#: editor/templates/editor/cover_manager.html:81
+#: editor/templates/editor/cover_manager.html:202
+#: editor/templates/editor/wizzard_book.html:34
+#: editor/templates/editor/wizzard_bookjs.html:33
+msgid "UK Tabloid (279mm x 431mm)"
+msgstr "UK Tabloid (279mm x 431mm)"
+
+#: editor/templates/editor/cover_manager.html:82
+#: editor/templates/editor/cover_manager.html:203
+#: editor/templates/editor/wizzard_book.html:35
+#: editor/templates/editor/wizzard_bookjs.html:34
+msgid "A3 (NZ Tabloid) (297mm x 420mm)"
+msgstr "A3 (NZ Tabloid) (297mm x 420mm)"
+
+#: editor/templates/editor/cover_manager.html:83
+#: editor/templates/editor/cover_manager.html:204
+#: editor/templates/editor/wizzard_book.html:36
+#: editor/templates/editor/wizzard_bookjs.html:35
+msgid "Berliner (315mm x 470mm)"
+msgstr "Berliner (315mm x 470mm)"
+
+#: editor/templates/editor/cover_manager.html:84
+#: editor/templates/editor/cover_manager.html:205
+#: editor/templates/editor/wizzard_book.html:37
+#: editor/templates/editor/wizzard_bookjs.html:36
+msgid "B3 (353mm x 500mm)"
+msgstr "B3 (353mm x 500mm)"
+
+#: editor/templates/editor/cover_manager.html:85
+#: editor/templates/editor/cover_manager.html:206
+#: editor/templates/editor/wizzard_book.html:38
+#: editor/templates/editor/wizzard_bookjs.html:37
+msgid "Oamaru Broadsheet (382mm x 540mm)"
+msgstr "Oamaru Broadsheet (382mm x 540mm)"
+
+#: editor/templates/editor/cover_manager.html:86
+#: editor/templates/editor/cover_manager.html:207
+#: editor/templates/editor/wizzard_book.html:39
+#: editor/templates/editor/wizzard_bookjs.html:38
+msgid "US Broadsheet (380mm x 577mm)"
+msgstr "US Broadsheet (380mm x 577mm)"
+
+#: editor/templates/editor/cover_manager.html:87
+#: editor/templates/editor/cover_manager.html:208
+#: editor/templates/editor/wizzard_book.html:40
+#: editor/templates/editor/wizzard_bookjs.html:39
+msgid "A2 (NZ Broadsheet) (420mm x 594mm)"
+msgstr "A2 (NZ Broadsheet) (420mm x 594mm)"
+
+#: editor/templates/editor/cover_manager.html:88
+#: editor/templates/editor/cover_manager.html:209
+#: editor/templates/editor/wizzard_book.html:41
+#: editor/templates/editor/wizzard_bookjs.html:40
+msgid "UK Broadsheet (457mm x 609mm)"
+msgstr "UK Broadsheet (457mm x 609mm)"
+
+#: editor/templates/editor/cover_manager.html:89
+#: editor/templates/editor/cover_manager.html:210
+#: editor/templates/editor/wizzard_book.html:42
+#: editor/templates/editor/wizzard_bookjs.html:41
+msgid "B2 (500mm x 707mm)"
+msgstr "B2 (500mm x 707mm)"
+
+#: editor/templates/editor/cover_manager.html:90
+#: editor/templates/editor/cover_manager.html:211
+#: editor/templates/editor/wizzard_book.html:43
+#: editor/templates/editor/wizzard_bookjs.html:42
+msgid "A1 (594mm x 841mm)"
+msgstr "A1 (594mm x 841mm)"
+
+#: editor/templates/editor/cover_manager.html:91
+#: editor/templates/editor/cover_manager.html:212
+#: editor/templates/editor/wizzard_book.html:44
+#: editor/templates/editor/wizzard_bookjs.html:43
+msgid "B1 (707mm x 1000mm)"
+msgstr "B1 (707mm x 1000mm)"
+
+#: editor/templates/editor/cover_manager.html:95
+#: editor/templates/editor/cover_manager.html:216
+#: editor/templates/editor/wizzard_book.html:46
+#: editor/templates/editor/wizzard_bookjs.html:45
+#: editor/templates/editor/wizzard_pdf.html:17
+msgid "Custom Size"
+msgstr "Пользовательский размер"
+
+#: editor/templates/editor/cover_manager.html:100
+#: editor/templates/editor/cover_manager.html:221
+#: editor/templates/editor/wizzard_book.html:49
+#: editor/templates/editor/wizzard_book.html:51
+#: editor/templates/editor/wizzard_book.html:284
+#: editor/templates/editor/wizzard_book.html:286
+#: editor/templates/editor/wizzard_book.html:288
+#: editor/templates/editor/wizzard_book.html:290
+#: editor/templates/editor/wizzard_book.html:294
 #: editor/templates/editor/wizzard_bookjs.html:48
 #: editor/templates/editor/wizzard_bookjs.html:50
-#: editor/templates/editor/wizzard_bookjs.html:256
-#: editor/templates/editor/wizzard_bookjs.html:258
-#: editor/templates/editor/wizzard_bookjs.html:260
-#: editor/templates/editor/wizzard_bookjs.html:262
-#: editor/templates/editor/wizzard_bookjs.html:266
-#: editor/templates/editor/wizzard_pdf.html:196
-#: editor/templates/editor/wizzard_pdf.html:198
-#: editor/templates/editor/wizzard_pdf.html:200
-#: editor/templates/editor/wizzard_pdf.html:202
-#: editor/templates/editor/wizzard_pdf.html:206
+#: editor/templates/editor/wizzard_bookjs.html:233
+#: editor/templates/editor/wizzard_bookjs.html:235
+#: editor/templates/editor/wizzard_bookjs.html:237
+#: editor/templates/editor/wizzard_bookjs.html:239
+#: editor/templates/editor/wizzard_bookjs.html:243
+#: editor/templates/editor/wizzard_pdf.html:217
+#: editor/templates/editor/wizzard_pdf.html:219
+#: editor/templates/editor/wizzard_pdf.html:221
+#: editor/templates/editor/wizzard_pdf.html:223
+#: editor/templates/editor/wizzard_pdf.html:227
 msgid "mm"
 msgstr "мм"
 
-#: editor/templates/editor/cover_manager.html:49
+#: editor/templates/editor/cover_manager.html:101
+#: editor/templates/editor/cover_manager.html:222
 msgid "inches"
 msgstr ""
 
-#: editor/templates/editor/cover_manager.html:53
+#: editor/templates/editor/cover_manager.html:105
+#: editor/templates/editor/cover_manager.html:236
 #, fuzzy
 msgid "Format"
 msgstr "Форматированный"
 
-#: editor/templates/editor/cover_manager.html:55
-msgid "ePub"
-msgstr ""
+#: editor/templates/editor/cover_manager.html:107
+#: editor/templates/editor/cover_manager.html:122
+#: editor/templates/editor/cover_manager.html:232
+#: editor/templates/editor/cover_manager.html:238
+#: editor/templates/editor/cover_manager.html:288
+#, fuzzy
+msgid "E-book"
+msgstr "Ebook"
 
-#: editor/templates/editor/cover_manager.html:56
+#: editor/templates/editor/cover_manager.html:108
+#: editor/templates/editor/cover_manager.html:239
+#: editor/templates/editor/cover_manager.html:287
 msgid "PDF"
 msgstr ""
 
-#: editor/templates/editor/cover_manager.html:64
+#: editor/templates/editor/cover_manager.html:116
+#: editor/templates/editor/cover_manager.html:226
 msgid "Type"
 msgstr ""
 
-#: editor/templates/editor/cover_manager.html:66
+#: editor/templates/editor/cover_manager.html:118
+#: editor/templates/editor/cover_manager.html:228
+#: editor/templates/editor/wizzard_book.html:166
+#: editor/templates/editor/wizzard_bookjs.html:167
 msgid "Front Cover"
 msgstr ""
 
-#: editor/templates/editor/cover_manager.html:67
+#: editor/templates/editor/cover_manager.html:119
+#: editor/templates/editor/cover_manager.html:229
+#: editor/templates/editor/wizzard_book.html:172
+#: editor/templates/editor/wizzard_bookjs.html:173
 #, fuzzy
 msgid "Back Cover"
 msgstr "обложка"
 
-#: editor/templates/editor/cover_manager.html:68
+#: editor/templates/editor/cover_manager.html:120
+#: editor/templates/editor/cover_manager.html:230
+#: editor/templates/editor/edit_strings.html:84
+#: editor/templates/editor/wizzard_book.html:169
+#: editor/templates/editor/wizzard_bookjs.html:170
 msgid "Spine"
 msgstr ""
 
-#: editor/templates/editor/cover_manager.html:72
+#: editor/templates/editor/cover_manager.html:121
+#: editor/templates/editor/cover_manager.html:231
+#: editor/templates/editor/wizzard_book.html:175
+#: editor/templates/editor/wizzard_bookjs.html:176
+#, fuzzy
+msgid "Full Cover"
+msgstr "Полное имя"
+
+#: editor/templates/editor/cover_manager.html:126
+#: editor/templates/editor/cover_manager.html:244
 #, fuzzy
 msgid "Creator"
 msgstr "Создать"
 
-#: editor/templates/editor/cover_manager.html:78
-#, fuzzy
-msgid "Creative Commons"
-msgstr "Создать книгу"
-
-#: editor/templates/editor/cover_manager.html:79
-msgid "Apache"
-msgstr ""
-
-#: editor/templates/editor/cover_manager.html:80
-msgid "To Kill"
-msgstr ""
-
-#: editor/templates/editor/cover_manager.html:84
+#: editor/templates/editor/cover_manager.html:135
+#: editor/templates/editor/cover_manager.html:253
 #: editor/templates/editor/edit_book.html:118
-#: editor/templates/editor/edit_book.html:553
+#: editor/templates/editor/edit_book.html:552
 msgid "Notes"
 msgstr "Заметки"
 
-#: editor/templates/editor/cover_manager.html:92
+#: editor/templates/editor/cover_manager.html:143
+#: editor/templates/editor/cover_manager.html:262
 msgid "Filetype"
 msgstr ""
 
-#: editor/templates/editor/cover_manager.html:93
-msgid "JPEG"
-msgstr ""
-
-#: editor/templates/editor/cover_manager.html:94
-#, fuzzy
-msgid "Height"
-msgstr "Высота:"
-
-#: editor/templates/editor/cover_manager.html:96
-#, fuzzy
-msgid "Width"
-msgstr "Ширина:"
-
-#: editor/templates/editor/cover_manager.html:101
+#: editor/templates/editor/cover_manager.html:153
 #: editor/templates/editor/edit_book.html:295
-#: editor/templates/editor/edit_book.html:627
+#: editor/templates/editor/edit_book.html:626
 msgid "Save"
 msgstr "Сохранить"
+
+#: editor/templates/editor/cover_manager.html:167
+#, fuzzy
+msgid "Enter information"
+msgstr "Администрирование сайта"
+
+#: editor/templates/editor/cover_manager.html:270
+msgid "Replace"
+msgstr ""
+
+#: editor/templates/editor/cover_manager.html:281
+msgid "This image is currently assigned as the following cover type:"
+msgstr ""
+
+#: editor/templates/editor/cover_manager.html:282
+#: editor/templates/editor/edit_strings.html:82
+#, fuzzy
+msgid "Back cover"
+msgstr "обложка"
+
+#: editor/templates/editor/cover_manager.html:283
+msgid "This image is used in the following BookTypes:"
+msgstr ""
+
+#: editor/templates/editor/cover_manager.html:292
+#, fuzzy
+msgid "Approval status"
+msgstr "Доступные статусы:"
+
+#: editor/templates/editor/cover_manager.html:297
+#, fuzzy
+msgid "Edit"
+msgstr "Редактор"
 
 #: editor/templates/editor/edit_book.html:69
 msgid "Chat"
@@ -1550,7 +1907,7 @@ msgid "Upload a new image or file"
 msgstr "Загрузить новое изображение или файл"
 
 #: editor/templates/editor/edit_book.html:351
-#: editor/templates/editor/edit_book.html:596
+#: editor/templates/editor/edit_book.html:595
 #: editor/templates/editor/edit_strings.html:62
 msgid "Upload"
 msgstr "Загрузить"
@@ -1586,7 +1943,7 @@ msgstr "Создать второстепенную версию"
 
 #: editor/templates/editor/edit_book.html:378
 #: editor/templates/editor/edit_book.html:391
-#: editor/templates/editor/edit_book.html:589
+#: editor/templates/editor/edit_book.html:588
 msgid "New version"
 msgstr "Новая версия"
 
@@ -1695,7 +2052,7 @@ msgid "Remove"
 msgstr "Переместить"
 
 #: editor/templates/editor/edit_book.html:519
-#: editor/templates/editor/edit_book.html:715
+#: editor/templates/editor/edit_book.html:714
 msgid "Chapter status"
 msgstr "Статус главы"
 
@@ -1719,95 +2076,92 @@ msgstr "Эту книгу может редактировать:"
 msgid "Set permissions"
 msgstr "Назначить права"
 
-#: editor/templates/editor/edit_book.html:545
-msgid "This interface is still work in progress."
-msgstr "Этот интерфейс находится в разработке."
-
-#: editor/templates/editor/edit_book.html:555
+#: editor/templates/editor/edit_book.html:554
 msgid "Shared notes for this book"
 msgstr "Совместные заметки для этой книги"
 
-#: editor/templates/editor/edit_book.html:558
+#: editor/templates/editor/edit_book.html:557
 msgid "Save the notes"
 msgstr "Сохранить заметки"
 
-#: editor/templates/editor/edit_book.html:563
+#: editor/templates/editor/edit_book.html:562
 msgid "<span class=\"icon\">JOINED</span> <span class=\"notice\">notice</span>"
 msgstr ""
 "<span class=\"icon\">ПРИСОЕДИНИЛСЯ</span> <span class=\"notice"
 "\">уведомление</span>"
 
-#: editor/templates/editor/edit_book.html:564
+#: editor/templates/editor/edit_book.html:563
 msgid "<span class=\"info\">INFO</span> <span class=\"notice\">notice</span>"
 msgstr ""
 "<span class=\"info\">ИНФОРМАЦИЯ</span> <span class=\"notice\">уведомление</"
 "span>"
 
-#: editor/templates/editor/edit_book.html:567
+#: editor/templates/editor/edit_book.html:566
 msgid "action"
 msgstr "действие"
 
-#: editor/templates/editor/edit_book.html:570
-#: editor/templates/editor/edit_book.html:676
+#: editor/templates/editor/edit_book.html:569
+#: editor/templates/editor/edit_book.html:675
 msgid "time"
 msgstr "время"
 
-#: editor/templates/editor/edit_book.html:590
+#: editor/templates/editor/edit_book.html:589
 msgid "Switched to <span class=\"entryVersion\">entry.version.version</span>"
 msgstr ""
 "Переключение на <span class=\"entryVersion\">entry.version.version</span>"
 
-#: editor/templates/editor/edit_book.html:597
+#: editor/templates/editor/edit_book.html:596
 msgid "Uploaded <span class=\"entryFilename\">entry.args.filename</span>."
 msgstr "Загружено <span class=\"entryFilename\">entry.args.filename</span>."
 
-#: editor/templates/editor/edit_book.html:603
+#: editor/templates/editor/edit_book.html:602
 msgid "Imported chapter"
 msgstr "Импортированная глава"
 
-#: editor/templates/editor/edit_book.html:610
+#: editor/templates/editor/edit_book.html:609
 msgid "Delete"
 msgstr "Удалить"
 
-#: editor/templates/editor/edit_book.html:611
+#: editor/templates/editor/edit_book.html:610
 msgid "Deleted <span class=\"entryFilename\">entry.args.filename</span>."
 msgstr "Удалено <span class=\"entryFilename\">entry.args.filename</span>."
 
-#: editor/templates/editor/edit_book.html:625
+#: editor/templates/editor/edit_book.html:624
+#: editor/templates/editor/edit_strings.html:86
 msgid "Unknown"
 msgstr "Неизвестно"
 
-#: editor/templates/editor/edit_book.html:628
+#: editor/templates/editor/edit_book.html:627
 msgid "Rename"
 msgstr "Переименовать"
 
-#: editor/templates/editor/edit_book.html:629
+#: editor/templates/editor/edit_book.html:628
 msgid "Reorder"
 msgstr "Реорганизовать"
 
-#: editor/templates/editor/edit_book.html:630
+#: editor/templates/editor/edit_book.html:629
 msgid "Split"
 msgstr "Разделить"
 
-#: editor/templates/editor/edit_book.html:631
+#: editor/templates/editor/edit_book.html:630
 #: reader/templates/reader/book_info.html:159
 msgid "Section create"
 msgstr "Создание раздела"
 
-#: editor/templates/editor/edit_book.html:632
+#: editor/templates/editor/edit_book.html:631
 #: reader/templates/reader/book_info.html:166
 msgid "Book create"
 msgstr "Создание книги"
 
-#: editor/templates/editor/edit_book.html:633
+#: editor/templates/editor/edit_book.html:632
 msgid "Minor"
 msgstr "Второстепенная"
 
-#: editor/templates/editor/edit_book.html:634
+#: editor/templates/editor/edit_book.html:633
 msgid "Major"
 msgstr "Главная"
 
-#: editor/templates/editor/edit_book.html:660
+#: editor/templates/editor/edit_book.html:659
 #: reader/templates/reader/book_chapter.html:51
 #: reader/templates/reader/book_chapter.html:57
 #: reader/templates/reader/book_view.html:40
@@ -1817,86 +2171,86 @@ msgstr "Главная"
 msgid "EDIT"
 msgstr "РЕДАКТИРОВАТЬ"
 
-#: editor/templates/editor/edit_book.html:660
+#: editor/templates/editor/edit_book.html:659
 msgid "VIEW"
 msgstr "ПРОСМОТР"
 
-#: editor/templates/editor/edit_book.html:669
+#: editor/templates/editor/edit_book.html:668
 msgid "back to history index"
 msgstr "вернуться к перечню истории"
 
-#: editor/templates/editor/edit_book.html:669
+#: editor/templates/editor/edit_book.html:668
 msgid "Compare revisions"
 msgstr "Сравнить правки"
 
-#: editor/templates/editor/edit_book.html:673
+#: editor/templates/editor/edit_book.html:672
 msgid "compare"
 msgstr "сравнить"
 
-#: editor/templates/editor/edit_book.html:685
+#: editor/templates/editor/edit_book.html:684
 #: editor/templates/editor/edit_strings.html:58
 msgid "dimension"
 msgstr "величина"
 
-#: editor/templates/editor/edit_book.html:686
+#: editor/templates/editor/edit_book.html:685
 #: editor/templates/editor/edit_strings.html:59
 msgid "size"
 msgstr "размер"
 
-#: editor/templates/editor/edit_book.html:690
-#: editor/templates/editor/edit_book.html:710
+#: editor/templates/editor/edit_book.html:689
+#: editor/templates/editor/edit_book.html:709
 msgid "back to chapter history"
 msgstr "вернуться к истории главы"
 
-#: editor/templates/editor/edit_book.html:692
+#: editor/templates/editor/edit_book.html:691
 msgid "Normal view"
 msgstr "Обычный вид"
 
-#: editor/templates/editor/edit_book.html:694
+#: editor/templates/editor/edit_book.html:693
 msgid "Source view"
 msgstr "Представление источника"
 
-#: editor/templates/editor/edit_book.html:695
+#: editor/templates/editor/edit_book.html:694
 msgid "Revert to this revision"
 msgstr "Вернуться к этому исправлению"
 
-#: editor/templates/editor/edit_book.html:696
+#: editor/templates/editor/edit_book.html:695
 msgid "No such revision."
 msgstr "Нет такого исправления."
 
-#: editor/templates/editor/edit_book.html:699
+#: editor/templates/editor/edit_book.html:698
 msgid "User:"
 msgstr "Пользователь:"
 
-#: editor/templates/editor/edit_book.html:700
+#: editor/templates/editor/edit_book.html:699
 msgid "Modified:"
 msgstr "Изменено:"
 
-#: editor/templates/editor/edit_book.html:701
+#: editor/templates/editor/edit_book.html:700
 msgid "Version:"
 msgstr "Версия:"
 
-#: editor/templates/editor/edit_book.html:702
+#: editor/templates/editor/edit_book.html:701
 msgid "Revision:"
 msgstr "Исправление:"
 
-#: editor/templates/editor/edit_book.html:703
+#: editor/templates/editor/edit_book.html:702
 msgid "Comment"
 msgstr "Комментировать"
 
-#: editor/templates/editor/edit_book.html:705
+#: editor/templates/editor/edit_book.html:704
 msgid "previous"
 msgstr "предыдущий"
 
-#: editor/templates/editor/edit_book.html:705
+#: editor/templates/editor/edit_book.html:704
 msgid "next"
 msgstr "следующий"
 
-#: editor/templates/editor/edit_book.html:710
+#: editor/templates/editor/edit_book.html:709
 msgid "Show side by side"
 msgstr "Показать рядом"
 
-#: editor/templates/editor/edit_book.html:711
+#: editor/templates/editor/edit_book.html:710
 msgid ""
 "Compare revision <span class=\"revision1Name\">revision1</span> with "
 "revision <span class=\"revision2Name\">revision2</span>"
@@ -1904,19 +2258,19 @@ msgstr ""
 "Сравнить исправление <span class=\"revision1Name\">revision1</span> с "
 "исправлением <span class=\"revision2Name\">revision2</span>"
 
-#: editor/templates/editor/edit_book.html:716
+#: editor/templates/editor/edit_book.html:715
 msgid "Select new chapter status:"
 msgstr "Выбрать новый статус главы:"
 
-#: editor/templates/editor/edit_book.html:729
+#: editor/templates/editor/edit_book.html:728
 msgid "Chapter statuses"
 msgstr "Статусы главы"
 
-#: editor/templates/editor/edit_book.html:734
+#: editor/templates/editor/edit_book.html:733
 msgid "New status:"
 msgstr "Новый статус:"
 
-#: editor/templates/editor/edit_book.html:739
+#: editor/templates/editor/edit_book.html:738
 msgid "Chapter statuses:"
 msgstr "Статусы главы:"
 
@@ -1957,7 +2311,7 @@ msgstr "Подождите, пожалуйста. Создание вашей к
 msgid "Your book has been generated at this url:"
 msgstr "Ваша книга создана и доступна по этому url:"
 
-#: editor/templates/editor/edit_publish.html:69
+#: editor/templates/editor/edit_publish.html:70
 msgid "Unknown error while trying to publish this book."
 msgstr "Неизвестная ошибка при опубликовании этой книги."
 
@@ -2229,182 +2583,32 @@ msgstr "Пользователь {0} сохранил заметки для кн
 msgid "Close"
 msgstr ""
 
+#: editor/templates/editor/edit_strings.html:81
+msgid "Do you want to delete this cover?"
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:83
+#, fuzzy
+msgid "Front cover"
+msgstr "обложка"
+
+#: editor/templates/editor/edit_strings.html:85
+#, fuzzy
+msgid "Full cover"
+msgstr "обложка"
+
 #: editor/templates/editor/wizzard_book.html:4
 #: editor/templates/editor/wizzard_bookjs.html:4
 msgid "Book Formatted PDF Settings"
 msgstr "PDF настройки для книжного формата"
 
-#: editor/templates/editor/wizzard_book.html:13
-#: editor/templates/editor/wizzard_bookjs.html:13
-#: editor/templates/editor/wizzard_pdf.html:12
-msgid "custom"
-msgstr "пользовательский"
-
-#: editor/templates/editor/wizzard_book.html:14
-#: editor/templates/editor/wizzard_bookjs.html:14
-msgid "POCKET (107mm x 174mm)"
-msgstr "POCKET (107mm x 174mm)"
-
-#: editor/templates/editor/wizzard_book.html:15
-#: editor/templates/editor/wizzard_bookjs.html:15
-msgid "US5x8 (126mm x 203mm)"
-msgstr "US5x8 (126mm x 203mm)"
-
-#: editor/templates/editor/wizzard_book.html:16
-#: editor/templates/editor/wizzard_bookjs.html:16
-msgid "DIGEST (139mm x 215mm)"
-msgstr "DIGEST (139mm x 215mm)"
-
-#: editor/templates/editor/wizzard_book.html:17
-#: editor/templates/editor/wizzard_bookjs.html:17
-msgid "US5.5x8.5 (139mm x 215mm)"
-msgstr "US5.5x8.5 (139mm x 215mm)"
-
-#: editor/templates/editor/wizzard_book.html:18
-#: editor/templates/editor/wizzard_bookjs.html:18
-#: editor/templates/editor/wizzard_pdf.html:13
-msgid "A5 (148mm x 210mm)"
-msgstr "A5 (148mm x 210mm)"
-
-#: editor/templates/editor/wizzard_book.html:19
-#: editor/templates/editor/wizzard_bookjs.html:19
-msgid "USTRADE6x9 (152mm x 228mm)"
-msgstr "USTRADE6x9 (152mm x 228mm)"
-
-#: editor/templates/editor/wizzard_book.html:20
-#: editor/templates/editor/wizzard_bookjs.html:20
-msgid "SQUARE7.5 (190mm x 190mm)"
-msgstr "SQUARE7.5 (190mm x 190mm)"
-
-#: editor/templates/editor/wizzard_book.html:21
-#: editor/templates/editor/wizzard_bookjs.html:21
-msgid "ROYAL (155mm x 233mm)"
-msgstr "ROYAL (155mm x 233mm)"
-
-#: editor/templates/editor/wizzard_book.html:22
-#: editor/templates/editor/wizzard_bookjs.html:22
-msgid "LANDSCAPE9x7 (228mm x 177mm)"
-msgstr "LANDSCAPE9x7 (228mm x 177mm)"
-
-#: editor/templates/editor/wizzard_book.html:23
-#: editor/templates/editor/wizzard_bookjs.html:23
-msgid "COMICBOOK (168mm x 260mm)"
-msgstr "COMICBOOK (168mm x 260mm)"
-
-#: editor/templates/editor/wizzard_book.html:24
-#: editor/templates/editor/wizzard_bookjs.html:24
-msgid "B5 (176mm x 250mm)"
-msgstr "B5 (176mm x 250mm)"
-
-#: editor/templates/editor/wizzard_book.html:25
-#: editor/templates/editor/wizzard_bookjs.html:25
-msgid "US7x10 (177mm x 253mm)"
-msgstr "US7x10 (177mm x 253mm)"
-
-#: editor/templates/editor/wizzard_book.html:26
-#: editor/templates/editor/wizzard_bookjs.html:26
-msgid "CROWNQUARTO (189mm x 245mm)"
-msgstr "CROWNQUARTO (189mm x 245mm)"
-
-#: editor/templates/editor/wizzard_book.html:27
-#: editor/templates/editor/wizzard_bookjs.html:27
-msgid "SQUARE8.5 (215mm x 215mm)"
-msgstr "SQUARE8.5 (215mm x 215mm)"
-
-#: editor/templates/editor/wizzard_book.html:28
-#: editor/templates/editor/wizzard_bookjs.html:28
-msgid "USLETTER (215mm x 279mm)"
-msgstr "USLETTER (215mm x 279mm)"
-
-#: editor/templates/editor/wizzard_book.html:29
-#: editor/templates/editor/wizzard_bookjs.html:29
-#: editor/templates/editor/wizzard_pdf.html:14
-msgid "A4 (210mm x 297mm)"
-msgstr "A4 (210mm x 297mm)"
-
-#: editor/templates/editor/wizzard_book.html:30
-#: editor/templates/editor/wizzard_bookjs.html:30
-msgid "Foolscap (F4) (210mm x 330mm)"
-msgstr "Foolscap (F4) (210mm x 330mm)"
-
-#: editor/templates/editor/wizzard_book.html:31
-#: editor/templates/editor/wizzard_bookjs.html:31
-msgid "B4 (250mm x 353mm)"
-msgstr "B4 (250mm x 353mm)"
-
-#: editor/templates/editor/wizzard_book.html:32
-#: editor/templates/editor/wizzard_bookjs.html:32
-msgid "Oamaru Tabloid (265mm x 380mm)"
-msgstr "Oamaru Tabloid (265mm x 380mm)"
-
-#: editor/templates/editor/wizzard_book.html:33
-#: editor/templates/editor/wizzard_bookjs.html:33
-msgid "UK Tabloid (279mm x 431mm)"
-msgstr "UK Tabloid (279mm x 431mm)"
-
-#: editor/templates/editor/wizzard_book.html:34
-#: editor/templates/editor/wizzard_bookjs.html:34
-msgid "A3 (NZ Tabloid) (297mm x 420mm)"
-msgstr "A3 (NZ Tabloid) (297mm x 420mm)"
-
-#: editor/templates/editor/wizzard_book.html:35
-#: editor/templates/editor/wizzard_bookjs.html:35
-msgid "Berliner (315mm x 470mm)"
-msgstr "Berliner (315mm x 470mm)"
-
-#: editor/templates/editor/wizzard_book.html:36
-#: editor/templates/editor/wizzard_bookjs.html:36
-msgid "B3 (353mm x 500mm)"
-msgstr "B3 (353mm x 500mm)"
-
-#: editor/templates/editor/wizzard_book.html:37
-#: editor/templates/editor/wizzard_bookjs.html:37
-msgid "Oamaru Broadsheet (382mm x 540mm)"
-msgstr "Oamaru Broadsheet (382mm x 540mm)"
-
-#: editor/templates/editor/wizzard_book.html:38
-#: editor/templates/editor/wizzard_bookjs.html:38
-msgid "US Broadsheet (380mm x 577mm)"
-msgstr "US Broadsheet (380mm x 577mm)"
-
-#: editor/templates/editor/wizzard_book.html:39
-#: editor/templates/editor/wizzard_bookjs.html:39
-msgid "A2 (NZ Broadsheet) (420mm x 594mm)"
-msgstr "A2 (NZ Broadsheet) (420mm x 594mm)"
-
-#: editor/templates/editor/wizzard_book.html:40
-#: editor/templates/editor/wizzard_bookjs.html:40
-msgid "UK Broadsheet (457mm x 609mm)"
-msgstr "UK Broadsheet (457mm x 609mm)"
-
-#: editor/templates/editor/wizzard_book.html:41
-#: editor/templates/editor/wizzard_bookjs.html:41
-msgid "B2 (500mm x 707mm)"
-msgstr "B2 (500mm x 707mm)"
-
-#: editor/templates/editor/wizzard_book.html:42
-#: editor/templates/editor/wizzard_bookjs.html:42
-msgid "A1 (594mm x 841mm)"
-msgstr "A1 (594mm x 841mm)"
-
-#: editor/templates/editor/wizzard_book.html:43
-#: editor/templates/editor/wizzard_bookjs.html:43
-msgid "B1 (707mm x 1000mm)"
-msgstr "B1 (707mm x 1000mm)"
-
-#: editor/templates/editor/wizzard_book.html:45
-#: editor/templates/editor/wizzard_bookjs.html:45
-#: editor/templates/editor/wizzard_pdf.html:16
-msgid "Custom Size"
-msgstr "Пользовательский размер"
-
-#: editor/templates/editor/wizzard_book.html:48
-#: editor/templates/editor/wizzard_book.html:50
-#: editor/templates/editor/wizzard_book.html:68
-#: editor/templates/editor/wizzard_book.html:78
-#: editor/templates/editor/wizzard_book.html:97
-#: editor/templates/editor/wizzard_book.html:116
-#: editor/templates/editor/wizzard_book.html:135
+#: editor/templates/editor/wizzard_book.html:49
+#: editor/templates/editor/wizzard_book.html:51
+#: editor/templates/editor/wizzard_book.html:69
+#: editor/templates/editor/wizzard_book.html:79
+#: editor/templates/editor/wizzard_book.html:98
+#: editor/templates/editor/wizzard_book.html:117
+#: editor/templates/editor/wizzard_book.html:136
 #: editor/templates/editor/wizzard_bookjs.html:48
 #: editor/templates/editor/wizzard_bookjs.html:50
 #: editor/templates/editor/wizzard_bookjs.html:71
@@ -2412,472 +2616,468 @@ msgstr "Пользовательский размер"
 #: editor/templates/editor/wizzard_bookjs.html:106
 #: editor/templates/editor/wizzard_bookjs.html:128
 #: editor/templates/editor/wizzard_bookjs.html:147
-#: editor/templates/editor/wizzard_ebook.html:36
-#: editor/templates/editor/wizzard_ebook.html:46
-#: editor/templates/editor/wizzard_ebook.html:65
-#: editor/templates/editor/wizzard_ebook.html:84
-#: editor/templates/editor/wizzard_ebook.html:103
+#: editor/templates/editor/wizzard_ebook.html:38
+#: editor/templates/editor/wizzard_ebook.html:48
+#: editor/templates/editor/wizzard_ebook.html:67
+#: editor/templates/editor/wizzard_ebook.html:86
+#: editor/templates/editor/wizzard_ebook.html:105
 #: editor/templates/editor/wizzard_odt.html:20
 #: editor/templates/editor/wizzard_odt.html:30
 #: editor/templates/editor/wizzard_odt.html:49
 #: editor/templates/editor/wizzard_odt.html:68
 #: editor/templates/editor/wizzard_odt.html:87
-#: editor/templates/editor/wizzard_pdf.html:20
-#: editor/templates/editor/wizzard_pdf.html:25
-#: editor/templates/editor/wizzard_pdf.html:44
-#: editor/templates/editor/wizzard_pdf.html:54
-#: editor/templates/editor/wizzard_pdf.html:73
-#: editor/templates/editor/wizzard_pdf.html:92
-#: editor/templates/editor/wizzard_pdf.html:111
+#: editor/templates/editor/wizzard_pdf.html:21
+#: editor/templates/editor/wizzard_pdf.html:26
+#: editor/templates/editor/wizzard_pdf.html:46
+#: editor/templates/editor/wizzard_pdf.html:56
+#: editor/templates/editor/wizzard_pdf.html:75
+#: editor/templates/editor/wizzard_pdf.html:94
+#: editor/templates/editor/wizzard_pdf.html:113
 msgid "Size"
 msgstr "Размер"
 
-#: editor/templates/editor/wizzard_book.html:59
+#: editor/templates/editor/wizzard_book.html:60
 #: editor/templates/editor/wizzard_bookjs.html:59
-#: editor/templates/editor/wizzard_ebook.html:27
+#: editor/templates/editor/wizzard_ebook.html:29
 #: editor/templates/editor/wizzard_odt.html:11
-#: editor/templates/editor/wizzard_pdf.html:35
+#: editor/templates/editor/wizzard_pdf.html:37
 msgid "Font"
 msgstr "Шрифт "
 
-#: editor/templates/editor/wizzard_book.html:62
+#: editor/templates/editor/wizzard_book.html:63
 #: editor/templates/editor/wizzard_bookjs.html:62
-#: editor/templates/editor/wizzard_ebook.html:30
+#: editor/templates/editor/wizzard_ebook.html:32
 #: editor/templates/editor/wizzard_odt.html:14
-#: editor/templates/editor/wizzard_pdf.html:38
+#: editor/templates/editor/wizzard_pdf.html:40
 msgid "Body Text"
 msgstr "Основной текст"
-
-#: editor/templates/editor/wizzard_book.html:64
-#: editor/templates/editor/wizzard_book.html:74
-#: editor/templates/editor/wizzard_book.html:93
-#: editor/templates/editor/wizzard_book.html:112
-#: editor/templates/editor/wizzard_ebook.html:32
-#: editor/templates/editor/wizzard_ebook.html:42
-#: editor/templates/editor/wizzard_ebook.html:61
-#: editor/templates/editor/wizzard_ebook.html:80
-#: editor/templates/editor/wizzard_odt.html:16
-#: editor/templates/editor/wizzard_odt.html:26
-#: editor/templates/editor/wizzard_odt.html:45
-#: editor/templates/editor/wizzard_odt.html:64
-#: editor/templates/editor/wizzard_pdf.html:40
-#: editor/templates/editor/wizzard_pdf.html:50
-#: editor/templates/editor/wizzard_pdf.html:69
-#: editor/templates/editor/wizzard_pdf.html:88
-msgid "Fontin Sans"
-msgstr "Fontin Sans"
 
 #: editor/templates/editor/wizzard_book.html:65
 #: editor/templates/editor/wizzard_book.html:75
 #: editor/templates/editor/wizzard_book.html:94
 #: editor/templates/editor/wizzard_book.html:113
-#: editor/templates/editor/wizzard_bookjs.html:65
-#: editor/templates/editor/wizzard_bookjs.html:78
-#: editor/templates/editor/wizzard_bookjs.html:100
-#: editor/templates/editor/wizzard_bookjs.html:122
-#: editor/templates/editor/wizzard_ebook.html:33
-#: editor/templates/editor/wizzard_ebook.html:43
-#: editor/templates/editor/wizzard_ebook.html:62
-#: editor/templates/editor/wizzard_ebook.html:81
-#: editor/templates/editor/wizzard_odt.html:17
-#: editor/templates/editor/wizzard_odt.html:27
-#: editor/templates/editor/wizzard_odt.html:46
-#: editor/templates/editor/wizzard_odt.html:65
-#: editor/templates/editor/wizzard_pdf.html:41
-#: editor/templates/editor/wizzard_pdf.html:51
-#: editor/templates/editor/wizzard_pdf.html:70
-#: editor/templates/editor/wizzard_pdf.html:89
-msgid "Arial"
-msgstr "Arial"
+#: editor/templates/editor/wizzard_ebook.html:34
+#: editor/templates/editor/wizzard_ebook.html:44
+#: editor/templates/editor/wizzard_ebook.html:63
+#: editor/templates/editor/wizzard_ebook.html:82
+#: editor/templates/editor/wizzard_odt.html:16
+#: editor/templates/editor/wizzard_odt.html:26
+#: editor/templates/editor/wizzard_odt.html:45
+#: editor/templates/editor/wizzard_odt.html:64
+#: editor/templates/editor/wizzard_pdf.html:42
+#: editor/templates/editor/wizzard_pdf.html:52
+#: editor/templates/editor/wizzard_pdf.html:71
+#: editor/templates/editor/wizzard_pdf.html:90
+msgid "Fontin Sans"
+msgstr "Fontin Sans"
 
 #: editor/templates/editor/wizzard_book.html:66
 #: editor/templates/editor/wizzard_book.html:76
 #: editor/templates/editor/wizzard_book.html:95
 #: editor/templates/editor/wizzard_book.html:114
+#: editor/templates/editor/wizzard_bookjs.html:65
+#: editor/templates/editor/wizzard_bookjs.html:78
+#: editor/templates/editor/wizzard_bookjs.html:100
+#: editor/templates/editor/wizzard_bookjs.html:122
+#: editor/templates/editor/wizzard_ebook.html:35
+#: editor/templates/editor/wizzard_ebook.html:45
+#: editor/templates/editor/wizzard_ebook.html:64
+#: editor/templates/editor/wizzard_ebook.html:83
+#: editor/templates/editor/wizzard_odt.html:17
+#: editor/templates/editor/wizzard_odt.html:27
+#: editor/templates/editor/wizzard_odt.html:46
+#: editor/templates/editor/wizzard_odt.html:65
+#: editor/templates/editor/wizzard_pdf.html:43
+#: editor/templates/editor/wizzard_pdf.html:53
+#: editor/templates/editor/wizzard_pdf.html:72
+#: editor/templates/editor/wizzard_pdf.html:91
+msgid "Arial"
+msgstr "Arial"
+
+#: editor/templates/editor/wizzard_book.html:67
+#: editor/templates/editor/wizzard_book.html:77
+#: editor/templates/editor/wizzard_book.html:96
+#: editor/templates/editor/wizzard_book.html:115
 #: editor/templates/editor/wizzard_bookjs.html:66
 #: editor/templates/editor/wizzard_bookjs.html:79
 #: editor/templates/editor/wizzard_bookjs.html:101
 #: editor/templates/editor/wizzard_bookjs.html:123
-#: editor/templates/editor/wizzard_ebook.html:34
-#: editor/templates/editor/wizzard_ebook.html:44
-#: editor/templates/editor/wizzard_ebook.html:63
-#: editor/templates/editor/wizzard_ebook.html:82
+#: editor/templates/editor/wizzard_ebook.html:36
+#: editor/templates/editor/wizzard_ebook.html:46
+#: editor/templates/editor/wizzard_ebook.html:65
+#: editor/templates/editor/wizzard_ebook.html:84
 #: editor/templates/editor/wizzard_odt.html:18
 #: editor/templates/editor/wizzard_odt.html:28
 #: editor/templates/editor/wizzard_odt.html:47
 #: editor/templates/editor/wizzard_odt.html:66
-#: editor/templates/editor/wizzard_pdf.html:42
-#: editor/templates/editor/wizzard_pdf.html:52
-#: editor/templates/editor/wizzard_pdf.html:71
-#: editor/templates/editor/wizzard_pdf.html:90
+#: editor/templates/editor/wizzard_pdf.html:44
+#: editor/templates/editor/wizzard_pdf.html:54
+#: editor/templates/editor/wizzard_pdf.html:73
+#: editor/templates/editor/wizzard_pdf.html:92
 msgid "Helvetica"
 msgstr "Helvetica"
 
-#: editor/templates/editor/wizzard_book.html:72
+#: editor/templates/editor/wizzard_book.html:73
 #: editor/templates/editor/wizzard_bookjs.html:75
-#: editor/templates/editor/wizzard_ebook.html:40
+#: editor/templates/editor/wizzard_ebook.html:42
 #: editor/templates/editor/wizzard_odt.html:24
-#: editor/templates/editor/wizzard_pdf.html:48
+#: editor/templates/editor/wizzard_pdf.html:50
 msgid "Heading 1"
 msgstr "Заголовок 1"
-
-#: editor/templates/editor/wizzard_book.html:81
-#: editor/templates/editor/wizzard_book.html:100
-#: editor/templates/editor/wizzard_book.html:119
-#: editor/templates/editor/wizzard_bookjs.html:87
-#: editor/templates/editor/wizzard_bookjs.html:109
-#: editor/templates/editor/wizzard_bookjs.html:131
-#: editor/templates/editor/wizzard_ebook.html:49
-#: editor/templates/editor/wizzard_ebook.html:68
-#: editor/templates/editor/wizzard_ebook.html:87
-#: editor/templates/editor/wizzard_odt.html:33
-#: editor/templates/editor/wizzard_odt.html:52
-#: editor/templates/editor/wizzard_odt.html:71
-#: editor/templates/editor/wizzard_pdf.html:57
-#: editor/templates/editor/wizzard_pdf.html:76
-#: editor/templates/editor/wizzard_pdf.html:95
-msgid "UPPERCASE"
-msgstr "ПИСАТЬ ЗАГЛАВНЫМИ"
 
 #: editor/templates/editor/wizzard_book.html:82
 #: editor/templates/editor/wizzard_book.html:101
 #: editor/templates/editor/wizzard_book.html:120
-#: editor/templates/editor/wizzard_bookjs.html:88
-#: editor/templates/editor/wizzard_bookjs.html:110
-#: editor/templates/editor/wizzard_bookjs.html:132
-#: editor/templates/editor/wizzard_ebook.html:50
-#: editor/templates/editor/wizzard_ebook.html:69
-#: editor/templates/editor/wizzard_ebook.html:88
-#: editor/templates/editor/wizzard_odt.html:34
-#: editor/templates/editor/wizzard_odt.html:53
-#: editor/templates/editor/wizzard_odt.html:72
-#: editor/templates/editor/wizzard_pdf.html:58
-#: editor/templates/editor/wizzard_pdf.html:77
-#: editor/templates/editor/wizzard_pdf.html:96
-msgid "lowercase"
-msgstr "писать строчными"
+#: editor/templates/editor/wizzard_bookjs.html:87
+#: editor/templates/editor/wizzard_bookjs.html:109
+#: editor/templates/editor/wizzard_bookjs.html:131
+#: editor/templates/editor/wizzard_ebook.html:51
+#: editor/templates/editor/wizzard_ebook.html:70
+#: editor/templates/editor/wizzard_ebook.html:89
+#: editor/templates/editor/wizzard_odt.html:33
+#: editor/templates/editor/wizzard_odt.html:52
+#: editor/templates/editor/wizzard_odt.html:71
+#: editor/templates/editor/wizzard_pdf.html:59
+#: editor/templates/editor/wizzard_pdf.html:78
+#: editor/templates/editor/wizzard_pdf.html:97
+msgid "UPPERCASE"
+msgstr "ПИСАТЬ ЗАГЛАВНЫМИ"
 
 #: editor/templates/editor/wizzard_book.html:83
 #: editor/templates/editor/wizzard_book.html:102
 #: editor/templates/editor/wizzard_book.html:121
+#: editor/templates/editor/wizzard_bookjs.html:88
+#: editor/templates/editor/wizzard_bookjs.html:110
+#: editor/templates/editor/wizzard_bookjs.html:132
+#: editor/templates/editor/wizzard_ebook.html:52
+#: editor/templates/editor/wizzard_ebook.html:71
+#: editor/templates/editor/wizzard_ebook.html:90
+#: editor/templates/editor/wizzard_odt.html:34
+#: editor/templates/editor/wizzard_odt.html:53
+#: editor/templates/editor/wizzard_odt.html:72
+#: editor/templates/editor/wizzard_pdf.html:60
+#: editor/templates/editor/wizzard_pdf.html:79
+#: editor/templates/editor/wizzard_pdf.html:98
+msgid "lowercase"
+msgstr "писать строчными"
+
+#: editor/templates/editor/wizzard_book.html:84
+#: editor/templates/editor/wizzard_book.html:103
+#: editor/templates/editor/wizzard_book.html:122
 #: editor/templates/editor/wizzard_bookjs.html:89
 #: editor/templates/editor/wizzard_bookjs.html:111
 #: editor/templates/editor/wizzard_bookjs.html:133
-#: editor/templates/editor/wizzard_ebook.html:51
-#: editor/templates/editor/wizzard_ebook.html:70
-#: editor/templates/editor/wizzard_ebook.html:89
+#: editor/templates/editor/wizzard_ebook.html:53
+#: editor/templates/editor/wizzard_ebook.html:72
+#: editor/templates/editor/wizzard_ebook.html:91
 #: editor/templates/editor/wizzard_odt.html:35
 #: editor/templates/editor/wizzard_odt.html:54
 #: editor/templates/editor/wizzard_odt.html:73
-#: editor/templates/editor/wizzard_pdf.html:59
-#: editor/templates/editor/wizzard_pdf.html:78
-#: editor/templates/editor/wizzard_pdf.html:97
+#: editor/templates/editor/wizzard_pdf.html:61
+#: editor/templates/editor/wizzard_pdf.html:80
+#: editor/templates/editor/wizzard_pdf.html:99
 msgid "Capitalise"
 msgstr "Писать с заглавной"
-
-#: editor/templates/editor/wizzard_book.html:86
-#: editor/templates/editor/wizzard_book.html:105
-#: editor/templates/editor/wizzard_book.html:124
-#: editor/templates/editor/wizzard_bookjs.html:92
-#: editor/templates/editor/wizzard_bookjs.html:114
-#: editor/templates/editor/wizzard_bookjs.html:136
-#: editor/templates/editor/wizzard_ebook.html:54
-#: editor/templates/editor/wizzard_ebook.html:73
-#: editor/templates/editor/wizzard_ebook.html:92
-#: editor/templates/editor/wizzard_odt.html:38
-#: editor/templates/editor/wizzard_odt.html:57
-#: editor/templates/editor/wizzard_odt.html:76
-#: editor/templates/editor/wizzard_pdf.html:62
-#: editor/templates/editor/wizzard_pdf.html:81
-#: editor/templates/editor/wizzard_pdf.html:100
-msgid "Heavy"
-msgstr "Плотный"
 
 #: editor/templates/editor/wizzard_book.html:87
 #: editor/templates/editor/wizzard_book.html:106
 #: editor/templates/editor/wizzard_book.html:125
+#: editor/templates/editor/wizzard_bookjs.html:92
+#: editor/templates/editor/wizzard_bookjs.html:114
+#: editor/templates/editor/wizzard_bookjs.html:136
+#: editor/templates/editor/wizzard_ebook.html:56
+#: editor/templates/editor/wizzard_ebook.html:75
+#: editor/templates/editor/wizzard_ebook.html:94
+#: editor/templates/editor/wizzard_odt.html:38
+#: editor/templates/editor/wizzard_odt.html:57
+#: editor/templates/editor/wizzard_odt.html:76
+#: editor/templates/editor/wizzard_pdf.html:64
+#: editor/templates/editor/wizzard_pdf.html:83
+#: editor/templates/editor/wizzard_pdf.html:102
+msgid "Heavy"
+msgstr "Плотный"
+
+#: editor/templates/editor/wizzard_book.html:88
+#: editor/templates/editor/wizzard_book.html:107
+#: editor/templates/editor/wizzard_book.html:126
 #: editor/templates/editor/wizzard_bookjs.html:93
 #: editor/templates/editor/wizzard_bookjs.html:115
 #: editor/templates/editor/wizzard_bookjs.html:137
-#: editor/templates/editor/wizzard_ebook.html:55
-#: editor/templates/editor/wizzard_ebook.html:74
-#: editor/templates/editor/wizzard_ebook.html:93
+#: editor/templates/editor/wizzard_ebook.html:57
+#: editor/templates/editor/wizzard_ebook.html:76
+#: editor/templates/editor/wizzard_ebook.html:95
 #: editor/templates/editor/wizzard_odt.html:39
 #: editor/templates/editor/wizzard_odt.html:58
 #: editor/templates/editor/wizzard_odt.html:77
-#: editor/templates/editor/wizzard_pdf.html:63
-#: editor/templates/editor/wizzard_pdf.html:82
-#: editor/templates/editor/wizzard_pdf.html:101
+#: editor/templates/editor/wizzard_pdf.html:65
+#: editor/templates/editor/wizzard_pdf.html:84
+#: editor/templates/editor/wizzard_pdf.html:103
 msgid "normal"
 msgstr "нормальный"
 
-#: editor/templates/editor/wizzard_book.html:91
+#: editor/templates/editor/wizzard_book.html:92
 #: editor/templates/editor/wizzard_bookjs.html:97
-#: editor/templates/editor/wizzard_ebook.html:59
+#: editor/templates/editor/wizzard_ebook.html:61
 #: editor/templates/editor/wizzard_odt.html:43
-#: editor/templates/editor/wizzard_pdf.html:67
+#: editor/templates/editor/wizzard_pdf.html:69
 msgid "Heading 2"
 msgstr "Заголовок 2"
 
-#: editor/templates/editor/wizzard_book.html:110
+#: editor/templates/editor/wizzard_book.html:111
 #: editor/templates/editor/wizzard_bookjs.html:119
-#: editor/templates/editor/wizzard_ebook.html:78
+#: editor/templates/editor/wizzard_ebook.html:80
 #: editor/templates/editor/wizzard_odt.html:62
-#: editor/templates/editor/wizzard_pdf.html:86
+#: editor/templates/editor/wizzard_pdf.html:88
 msgid "Heading 3"
 msgstr "Заголовок 3"
 
-#: editor/templates/editor/wizzard_book.html:129
+#: editor/templates/editor/wizzard_book.html:130
 #: editor/templates/editor/wizzard_bookjs.html:141
-#: editor/templates/editor/wizzard_ebook.html:97
+#: editor/templates/editor/wizzard_ebook.html:99
 #: editor/templates/editor/wizzard_odt.html:81
-#: editor/templates/editor/wizzard_pdf.html:105
+#: editor/templates/editor/wizzard_pdf.html:107
 msgid "Formatted"
 msgstr "Форматированный"
 
-#: editor/templates/editor/wizzard_book.html:131
+#: editor/templates/editor/wizzard_book.html:132
 #: editor/templates/editor/wizzard_bookjs.html:143
-#: editor/templates/editor/wizzard_ebook.html:99
+#: editor/templates/editor/wizzard_ebook.html:101
 #: editor/templates/editor/wizzard_odt.html:83
-#: editor/templates/editor/wizzard_pdf.html:107
+#: editor/templates/editor/wizzard_pdf.html:109
 msgid "Courier"
 msgstr "Courier"
 
-#: editor/templates/editor/wizzard_book.html:132
+#: editor/templates/editor/wizzard_book.html:133
 #: editor/templates/editor/wizzard_bookjs.html:144
-#: editor/templates/editor/wizzard_ebook.html:100
+#: editor/templates/editor/wizzard_ebook.html:102
 #: editor/templates/editor/wizzard_odt.html:84
-#: editor/templates/editor/wizzard_pdf.html:108
+#: editor/templates/editor/wizzard_pdf.html:110
 msgid "Courier New"
 msgstr "Courier New"
 
-#: editor/templates/editor/wizzard_book.html:133
+#: editor/templates/editor/wizzard_book.html:134
 #: editor/templates/editor/wizzard_bookjs.html:145
-#: editor/templates/editor/wizzard_ebook.html:101
+#: editor/templates/editor/wizzard_ebook.html:103
 #: editor/templates/editor/wizzard_odt.html:85
-#: editor/templates/editor/wizzard_pdf.html:109
+#: editor/templates/editor/wizzard_pdf.html:111
 msgid "Monospace"
 msgstr "Monospace"
 
-#: editor/templates/editor/wizzard_book.html:145
-#: editor/templates/editor/wizzard_bookjs.html:159
-#: editor/templates/editor/wizzard_odt.html:98
-#: editor/templates/editor/wizzard_pdf.html:122
+#: editor/templates/editor/wizzard_book.html:159
+#: editor/templates/editor/wizzard_bookjs.html:160
+#: editor/templates/editor/wizzard_ebook.html:118
+#: editor/templates/editor/wizzard_odt.html:100
+#: editor/templates/editor/wizzard_pdf.html:126
+#, fuzzy
+msgid "Select cover image"
+msgstr "Загрузить изображение"
+
+#: editor/templates/editor/wizzard_book.html:161
+#: editor/templates/editor/wizzard_bookjs.html:162
+#: editor/templates/editor/wizzard_ebook.html:120
+#: editor/templates/editor/wizzard_odt.html:102
+#: editor/templates/editor/wizzard_pdf.html:128
+#, fuzzy
+msgid "No Cover"
+msgstr "обложка"
+
+#: editor/templates/editor/wizzard_book.html:193
+#: editor/templates/editor/wizzard_odt.html:116
+#: editor/templates/editor/wizzard_pdf.html:143
 msgid "Page breaks"
 msgstr "Разбиение страниц"
 
-#: editor/templates/editor/wizzard_book.html:148
-#: editor/templates/editor/wizzard_bookjs.html:162
-#: editor/templates/editor/wizzard_odt.html:101
-#: editor/templates/editor/wizzard_pdf.html:125
+#: editor/templates/editor/wizzard_book.html:196
+#: editor/templates/editor/wizzard_odt.html:119
+#: editor/templates/editor/wizzard_pdf.html:146
 msgid "Avoid page break in paragraphs?"
 msgstr "Избегать разбиения страниц внутри абзаца?"
 
-#: editor/templates/editor/wizzard_book.html:150
-#: editor/templates/editor/wizzard_bookjs.html:164
-#: editor/templates/editor/wizzard_odt.html:103
-#: editor/templates/editor/wizzard_pdf.html:127
+#: editor/templates/editor/wizzard_book.html:198
+#: editor/templates/editor/wizzard_odt.html:121
+#: editor/templates/editor/wizzard_pdf.html:148
 msgid "Pagebreak before footnotes?"
 msgstr "Разрыв страницы перед сноской?"
 
-#: editor/templates/editor/wizzard_book.html:158
-#: editor/templates/editor/wizzard_bookjs.html:174
-#: editor/templates/editor/wizzard_pdf.html:136
+#: editor/templates/editor/wizzard_book.html:206
+#: editor/templates/editor/wizzard_bookjs.html:194
+#: editor/templates/editor/wizzard_pdf.html:157
 msgid "Advanced"
 msgstr "Расширенные"
 
-#: editor/templates/editor/wizzard_book.html:168
-#: editor/templates/editor/wizzard_bookjs.html:184
-#: editor/templates/editor/wizzard_pdf.html:146
+#: editor/templates/editor/wizzard_book.html:216
+#: editor/templates/editor/wizzard_bookjs.html:204
+#: editor/templates/editor/wizzard_pdf.html:167
 msgid "General"
 msgstr "Общий"
 
-#: editor/templates/editor/wizzard_book.html:172
-#: editor/templates/editor/wizzard_bookjs.html:188
-#: editor/templates/editor/wizzard_pdf.html:150
+#: editor/templates/editor/wizzard_book.html:220
+#: editor/templates/editor/wizzard_bookjs.html:208
+#: editor/templates/editor/wizzard_pdf.html:171
 msgid "Override Server Default CSS"
 msgstr "Заменить CSS по умолчанию"
 
-#: editor/templates/editor/wizzard_book.html:175
-#: editor/templates/editor/wizzard_bookjs.html:192
-#: editor/templates/editor/wizzard_pdf.html:152
+#: editor/templates/editor/wizzard_book.html:223
+#: editor/templates/editor/wizzard_pdf.html:173
 msgid "Grey Scale Output"
 msgstr "Выпуск серой шкалы"
 
-#: editor/templates/editor/wizzard_book.html:178
-#: editor/templates/editor/wizzard_bookjs.html:195
-#: editor/templates/editor/wizzard_pdf.html:154
-#: editor/templates/editor/wizzard_pdf.html:156
+#: editor/templates/editor/wizzard_book.html:226
+#: editor/templates/editor/wizzard_pdf.html:175
+#: editor/templates/editor/wizzard_pdf.html:177
 msgid "Rotate"
 msgstr "Повернуть"
 
-#: editor/templates/editor/wizzard_book.html:178
-#: editor/templates/editor/wizzard_bookjs.html:195
+#: editor/templates/editor/wizzard_book.html:226
 msgid "For RTL books on LTR printing presses, and vice versa."
 msgstr "Для книг в формате RTL на печатающих устройствах LTR и наоборот"
 
-#: editor/templates/editor/wizzard_book.html:180
-#: editor/templates/editor/wizzard_bookjs.html:197
+#: editor/templates/editor/wizzard_book.html:228
 msgid "Page Numbers"
 msgstr "Номера страниц"
 
-#: editor/templates/editor/wizzard_book.html:182
-#: editor/templates/editor/wizzard_bookjs.html:199
-#: editor/templates/editor/wizzard_pdf.html:160
+#: editor/templates/editor/wizzard_book.html:230
+#: editor/templates/editor/wizzard_pdf.html:181
 msgid "LTR"
 msgstr "LTR"
 
 #. Translators: Option for Page Numbers
-#: editor/templates/editor/wizzard_book.html:184
-#: editor/templates/editor/wizzard_bookjs.html:201
-#: editor/templates/editor/wizzard_pdf.html:159
+#: editor/templates/editor/wizzard_book.html:232
+#: editor/templates/editor/wizzard_pdf.html:180
 msgid "none"
 msgstr "none"
 
 #. Translators: Option for Page Numbers. Burmese.
-#: editor/templates/editor/wizzard_book.html:186
-#: editor/templates/editor/wizzard_bookjs.html:203
-#: editor/templates/editor/wizzard_pdf.html:162
+#: editor/templates/editor/wizzard_book.html:234
+#: editor/templates/editor/wizzard_pdf.html:183
 msgid "my"
 msgstr "my"
 
 #. Translators: Option for Page Numbers. Farsi.
-#: editor/templates/editor/wizzard_book.html:188
-#: editor/templates/editor/wizzard_bookjs.html:205
-#: editor/templates/editor/wizzard_pdf.html:164
+#: editor/templates/editor/wizzard_book.html:236
+#: editor/templates/editor/wizzard_pdf.html:185
 msgid "fa"
 msgstr "fa"
 
 #. Translators: Option for Page Numbers. Hindi.
-#: editor/templates/editor/wizzard_book.html:190
-#: editor/templates/editor/wizzard_bookjs.html:207
-#: editor/templates/editor/wizzard_pdf.html:166
+#: editor/templates/editor/wizzard_book.html:238
+#: editor/templates/editor/wizzard_pdf.html:187
 msgid "hi"
 msgstr "hi"
 
 #. Translators: Option for Page Numbers. Right to left.
-#: editor/templates/editor/wizzard_book.html:192
-#: editor/templates/editor/wizzard_bookjs.html:209
-#: editor/templates/editor/wizzard_pdf.html:168
+#: editor/templates/editor/wizzard_book.html:240
+#: editor/templates/editor/wizzard_pdf.html:189
 msgid "RTL"
 msgstr "RTL"
 
 #. Translators: Option for Page Numbers. Arabic.
-#: editor/templates/editor/wizzard_book.html:194
-#: editor/templates/editor/wizzard_bookjs.html:211
-#: editor/templates/editor/wizzard_pdf.html:170
+#: editor/templates/editor/wizzard_book.html:242
+#: editor/templates/editor/wizzard_pdf.html:191
 msgid "ar"
 msgstr "ar"
 
-#: editor/templates/editor/wizzard_book.html:195
-#: editor/templates/editor/wizzard_bookjs.html:212
-#: editor/templates/editor/wizzard_pdf.html:171
+#: editor/templates/editor/wizzard_book.html:243
+#: editor/templates/editor/wizzard_pdf.html:192
 msgid "auto"
 msgstr "auto"
 
-#: editor/templates/editor/wizzard_book.html:197
-#: editor/templates/editor/wizzard_bookjs.html:214
+#: editor/templates/editor/wizzard_book.html:245
 msgid "If in doubt, choose 'auto'"
 msgstr "Если есть сомнения, выбирайте 'авто'"
 
-#: editor/templates/editor/wizzard_book.html:200
-#: editor/templates/editor/wizzard_bookjs.html:217
-#: editor/templates/editor/wizzard_pdf.html:176
+#: editor/templates/editor/wizzard_book.html:248
+#: editor/templates/editor/wizzard_pdf.html:197
 msgid "Force Embed Fonts"
 msgstr "Принудительное внедрение шрифтов"
 
-#: editor/templates/editor/wizzard_book.html:200
-#: editor/templates/editor/wizzard_bookjs.html:217
-#: editor/templates/editor/wizzard_pdf.html:176
+#: editor/templates/editor/wizzard_book.html:248
+#: editor/templates/editor/wizzard_pdf.html:197
 msgid "PDFs: force embedding of PDF default fonts"
 msgstr "PDF: принудительное вложение PDF шрифта по умолчанию"
 
-#: editor/templates/editor/wizzard_book.html:202
-#: editor/templates/editor/wizzard_bookjs.html:219
-#: editor/templates/editor/wizzard_pdf.html:178
+#: editor/templates/editor/wizzard_book.html:250
+#: editor/templates/editor/wizzard_pdf.html:199
 msgid "Cancel Page Break Control"
 msgstr "Отменить контроль разбиения страниц"
 
-#: editor/templates/editor/wizzard_book.html:202
-#: editor/templates/editor/wizzard_bookjs.html:219
-#: editor/templates/editor/wizzard_pdf.html:178
+#: editor/templates/editor/wizzard_book.html:250
+#: editor/templates/editor/wizzard_pdf.html:199
 msgid "Let page breaks occur immediately after headings"
 msgstr "Позволить  разбиение страниц сразу после заголовков"
 
-#: editor/templates/editor/wizzard_book.html:215
-#: editor/templates/editor/wizzard_bookjs.html:234
+#: editor/templates/editor/wizzard_book.html:263
 msgid "Table of Contents"
 msgstr "Оглавление"
 
-#: editor/templates/editor/wizzard_book.html:218
-#: editor/templates/editor/wizzard_bookjs.html:237
+#: editor/templates/editor/wizzard_book.html:266
 msgid "Table of Contents Header"
 msgstr "Заголовок оглавления"
 
-#: editor/templates/editor/wizzard_book.html:232
-#: editor/templates/editor/wizzard_bookjs.html:252
-#: editor/templates/editor/wizzard_pdf.html:192
+#: editor/templates/editor/wizzard_book.html:280
+#: editor/templates/editor/wizzard_bookjs.html:229
+#: editor/templates/editor/wizzard_pdf.html:213
 msgid "Page Margins and Gutter"
 msgstr "Поля и внутренние поля страницы"
 
-#: editor/templates/editor/wizzard_book.html:235
-#: editor/templates/editor/wizzard_bookjs.html:255
-#: editor/templates/editor/wizzard_pdf.html:195
+#: editor/templates/editor/wizzard_book.html:283
+#: editor/templates/editor/wizzard_bookjs.html:232
+#: editor/templates/editor/wizzard_pdf.html:216
 msgid "Top Margin"
 msgstr "Верхнее поле"
 
-#: editor/templates/editor/wizzard_book.html:237
-#: editor/templates/editor/wizzard_bookjs.html:257
-#: editor/templates/editor/wizzard_pdf.html:197
+#: editor/templates/editor/wizzard_book.html:285
+#: editor/templates/editor/wizzard_bookjs.html:234
+#: editor/templates/editor/wizzard_pdf.html:218
 msgid "Side Margin"
 msgstr "Боковое поле"
 
-#: editor/templates/editor/wizzard_book.html:239
-#: editor/templates/editor/wizzard_bookjs.html:259
-#: editor/templates/editor/wizzard_pdf.html:199
+#: editor/templates/editor/wizzard_book.html:287
+#: editor/templates/editor/wizzard_bookjs.html:236
+#: editor/templates/editor/wizzard_pdf.html:220
 msgid "Bottom Margin"
 msgstr "Нижнее поле"
 
-#: editor/templates/editor/wizzard_book.html:241
-#: editor/templates/editor/wizzard_bookjs.html:261
-#: editor/templates/editor/wizzard_pdf.html:201
+#: editor/templates/editor/wizzard_book.html:289
+#: editor/templates/editor/wizzard_bookjs.html:238
+#: editor/templates/editor/wizzard_pdf.html:222
 msgid "Gutter"
 msgstr "Внутреннее поле"
 
-#: editor/templates/editor/wizzard_book.html:243
-#: editor/templates/editor/wizzard_bookjs.html:263
+#: editor/templates/editor/wizzard_book.html:291
+#: editor/templates/editor/wizzard_bookjs.html:240
 msgid "Number of columns"
 msgstr "Число столбцов"
 
-#: editor/templates/editor/wizzard_book.html:245
-#: editor/templates/editor/wizzard_bookjs.html:265
+#: editor/templates/editor/wizzard_book.html:293
+#: editor/templates/editor/wizzard_bookjs.html:242
 msgid "Column margin"
 msgstr "Поле столбца"
 
-#: editor/templates/editor/wizzard_book.html:259
-#: editor/templates/editor/wizzard_bookjs.html:279
-#: editor/templates/editor/wizzard_pdf.html:219
+#: editor/templates/editor/wizzard_book.html:307
+#: editor/templates/editor/wizzard_bookjs.html:256
+#: editor/templates/editor/wizzard_pdf.html:240
 msgid "Advanced (style sheets)"
 msgstr "Расширенная (таблица стилей)"
 
-#: editor/templates/editor/wizzard_book.html:262
-#: editor/templates/editor/wizzard_bookjs.html:282
-#: editor/templates/editor/wizzard_pdf.html:222
+#: editor/templates/editor/wizzard_book.html:310
+#: editor/templates/editor/wizzard_bookjs.html:259
+#: editor/templates/editor/wizzard_pdf.html:243
 msgid "Your Custom CSS"
 msgstr "Ваш пользовательский CSS"
 
-#: editor/templates/editor/wizzard_book.html:265
-#: editor/templates/editor/wizzard_bookjs.html:285
-#: editor/templates/editor/wizzard_odt.html:116
-#: editor/templates/editor/wizzard_pdf.html:225
+#: editor/templates/editor/wizzard_book.html:313
+#: editor/templates/editor/wizzard_bookjs.html:262
+#: editor/templates/editor/wizzard_odt.html:134
+#: editor/templates/editor/wizzard_pdf.html:246
 msgid "Booktype CSS (be careful if changing)"
 msgstr "Booktype CSS (если вносите изменения, будьте внимательны)"
 
-#: editor/templates/editor/wizzard_book.html:269
-#: editor/templates/editor/wizzard_bookjs.html:289
-#: editor/templates/editor/wizzard_ebook.html:118
-#: editor/templates/editor/wizzard_odt.html:119
-#: editor/templates/editor/wizzard_pdf.html:229
+#: editor/templates/editor/wizzard_book.html:317
+#: editor/templates/editor/wizzard_bookjs.html:266
+#: editor/templates/editor/wizzard_ebook.html:139
+#: editor/templates/editor/wizzard_odt.html:137
+#: editor/templates/editor/wizzard_pdf.html:250
 msgid "Override ALL previous settings with custom CSS"
 msgstr "Заменить ВСЕ предыдущие настройки пользовательским CSS "
 
@@ -2913,29 +3113,29 @@ msgstr ""
 msgid "Ebook Settings"
 msgstr "Настройки Ebook"
 
-#: editor/templates/editor/wizzard_ebook.html:12
+#: editor/templates/editor/wizzard_ebook.html:13
 msgid "Type of Ebook"
 msgstr "Тип электронной книги"
 
-#: editor/templates/editor/wizzard_ebook.html:15
+#: editor/templates/editor/wizzard_ebook.html:16
 msgid "ipad"
 msgstr "ipad"
 
-#: editor/templates/editor/wizzard_ebook.html:17
+#: editor/templates/editor/wizzard_ebook.html:18
 msgid "kindle"
 msgstr "kindle"
 
-#: editor/templates/editor/wizzard_ebook.html:19
+#: editor/templates/editor/wizzard_ebook.html:20
 msgid "general"
 msgstr "general"
 
-#: editor/templates/editor/wizzard_ebook.html:113
-#: editor/templates/editor/wizzard_odt.html:112
+#: editor/templates/editor/wizzard_ebook.html:134
+#: editor/templates/editor/wizzard_odt.html:130
 msgid "CSS (Advanced)"
 msgstr "CSS (Расширенный)"
 
-#: editor/templates/editor/wizzard_ebook.html:115
-#: editor/templates/editor/wizzard_odt.html:114
+#: editor/templates/editor/wizzard_ebook.html:136
+#: editor/templates/editor/wizzard_odt.html:132
 msgid "Your custom CSS"
 msgstr "Ваш пользовательский CSS"
 
@@ -2947,12 +3147,12 @@ msgstr "Настройки формата Open Document Text (.odt)"
 msgid "Screen Formatted PDF Settings"
 msgstr "PDF настройки для экранного формата"
 
-#: editor/templates/editor/wizzard_pdf.html:173
+#: editor/templates/editor/wizzard_pdf.html:194
 msgid "If in doubt, choose 'none'"
 msgstr "Если есть сомнения, выберите 'none'"
 
-#: editor/templates/editor/wizzard_pdf.html:203
-#: editor/templates/editor/wizzard_pdf.html:205
+#: editor/templates/editor/wizzard_pdf.html:224
+#: editor/templates/editor/wizzard_pdf.html:226
 msgid "Columns"
 msgstr "Колонки"
 
@@ -3048,16 +3248,16 @@ msgstr "Следующий"
 msgid "Followings"
 msgstr "Следующие"
 
-#: messaging/views.py:100
+#: messaging/views.py:112
 #, python-format
 msgid "Message from %s"
 msgstr "Сообщение от %s"
 
-#: messaging/views.py:159
+#: messaging/views.py:171
 msgid "Error"
 msgstr ""
 
-#: messaging/views.py:205
+#: messaging/views.py:217
 msgid "Sent."
 msgstr ""
 
@@ -3140,7 +3340,7 @@ msgstr "Тег ленты сообщений"
 msgid "Control Center"
 msgstr "Центр управления"
 
-#: portal/templates/base.html:193
+#: portal/templates/base.html:199
 msgid "Couldn't create a group!"
 msgstr "Не получилось создать группу!"
 
@@ -3245,10 +3445,6 @@ msgstr "Активные люди"
 #: portal/templates/portal/people.html:33
 msgid "New people"
 msgstr "Новые люди"
-
-#: portal/templates/portal/people.html:55
-msgid "All"
-msgstr "Все"
 
 #: reader/templates/errors/book_does_not_exist.html:4
 msgid "Book does not exist!"
@@ -3411,6 +3607,13 @@ msgstr "/_full: %(booktitle)s"
 #: templates/errors/no_permissions.html:4
 msgid "You have no permissions to do this!"
 msgstr "У вас нет прав доступа для этих действий!"
+
+#, fuzzy
+#~ msgid "Creative Commons"
+#~ msgstr "Создать книгу"
+
+#~ msgid "This interface is still work in progress."
+#~ msgstr "Этот интерфейс находится в разработке."
 
 #~ msgid "Lulu.com"
 #~ msgstr "Lulu.com"
@@ -3771,9 +3974,6 @@ msgstr "У вас нет прав доступа для этих действи�
 #~ msgid "Your e-mail address is not your username. Try '%s' instead."
 #~ msgstr ""
 #~ "Ваш e-mail не является именем пользователя. Попробуйте вместо этого '%s'."
-
-#~ msgid "Site administration"
-#~ msgstr "Администрирование сайта"
 
 #~ msgid "Time:"
 #~ msgstr "Время:"
@@ -4366,9 +4566,6 @@ msgstr "У вас нет прав доступа для этих действи�
 
 #~ msgid "Really make this comment public?"
 #~ msgstr "Открыть комментарий для общего доступа?"
-
-#~ msgid "Approve"
-#~ msgstr "Утвердить"
 
 #~ msgid "Thanks for approving"
 #~ msgstr "Спасибо за утверждение"

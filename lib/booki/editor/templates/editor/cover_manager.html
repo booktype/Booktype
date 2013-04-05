@@ -35,6 +35,12 @@
     </fieldset>
   </form>
 
+  <div id="cover_error">
+   <div class="alert-box error">
+      <p>{% trans "Only covers of the following filetypes can be used: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD." %}</p>
+   </div>
+  </div>
+
   <div id="cover_meta">
     <h3>{% trans "Enter Meta-data" %}</h3>
     <form action="javascript:void(0)" method="GET">
