@@ -3167,11 +3167,45 @@ def remote_get_wizzard(request, message, bookid, version):
 
         covers = _front + _back + _spine + _whole
 
-    if output_type in ['EBOOK']:
-        covers = models.BookCover.objects.filter(book=book, is_ebook=True)
+    if output_type in ['EBOOK', 'PDF', 'ODT']:
+        covers = []
 
-    if output_type in ['PDF']:
-        covers = models.BookCover.objects.filter(book=book, is_pdf=True)
+        for cover in models.BookCover.objects.filter(book=book):
+            title = cover.title or cover.filename
+            is_ok = False
+
+            for e in ['.jpg', 'jpe', '.jpeg', '.gif', '.png']:
+                if cover.filename.lower().endswith(e):
+                    is_ok = True
+
+            if not is_ok:
+                continue
+
+            if len(title) > 50:
+                title = title[:50]+'...'
+ 
+            _class = ''
+            if cover.is_book or cover.is_ebook or cover.is_pdf:
+                if cover.is_book:
+                    _class = 'book' 
+                elif cover.is_ebook:
+                    _class = 'ebook'
+                elif cover.is_pdf:
+                    _class = 'pdf'
+
+#            if not cover.approved:
+#                _class += ' notapproved'
+
+            if cover.approved:
+                _class += ' approved'
+
+            covers.append({'cid': cover.cid,
+                           'class': _class, 
+                           'approved': cover.approved,
+                           'title': title})
+
+#    if output_type in ['PDF']:
+#        covers = models.BookCover.objects.filter(book=book, is_pdf=True)
 
     c = Context({"covers": covers})
     tmpl = django.template.loader.get_template('editor/wizzard_%s.html' % message.get('wizzard_type', 'book')) 

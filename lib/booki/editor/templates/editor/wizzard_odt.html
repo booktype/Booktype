@@ -102,11 +102,41 @@
 		  <option value="">{% trans "No Cover" %}</option>
 		  <option disabled="disabled" role="separator">-------------------</option>
                   {% for cover in covers %}
-                  <option value="{{ cover.cid }}">{{  cover.title|default:cover.filename  }}</option>
+                  <option value="{{ cover.cid }}" class="{{ cover.class }}">{{ cover.title }}</option>
                   {% endfor %}
               </select></dd>
             </dl> 
+            <p style="max-width: 450px;">{% trans "Only covers of the following filetypes can be used to publish an Open Document Text: PNG, JPG or GIF." %}</p>
           </fieldset>       
+        <script>
+          $(function() {
+	     $("SELECT#cover_image OPTION").each(function(i, a) {
+	        var v = $(a);
+
+	        if(v.hasClass("book")) {
+	           v.html(v.html()+" ("+$.booki._('cover_book', 'BOOK')+")");
+	        }
+
+	        if(v.hasClass("ebook")) {
+	           v.html(v.html()+" ("+$.booki._('cover_ebook', 'E-BOOK')+")");
+	        }
+
+	        if(v.hasClass("pdf")) {
+	           v.html(v.html()+" ("+$.booki._('cover_ebook', 'PDF')+")");
+	        }
+
+	        if(v.hasClass("notapproved")) {
+	           v.html(v.html()+" ("+$.booki._('cover_notapproved', 'NOT APPROVED')+")");
+	        }
+
+	        if(v.hasClass("approved")) {
+	           v.html(v.html()+" ("+$.booki._('cover_approved', 'APPROVED')+")");
+	        }
+	     });
+
+	  });
+        </script>
+
 	</div>
       </div>
       

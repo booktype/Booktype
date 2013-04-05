@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-05 15:39+0200\n"
+"POT-Creation-Date: 2013-04-05 17:41+0200\n"
 "PO-Revision-Date: 2013-01-27 01:03+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -677,9 +677,9 @@ msgstr ""
 #: editor/templates/editor/edit_strings.html:8
 #: editor/templates/editor/wizzard_book.html:326
 #: editor/templates/editor/wizzard_bookjs.html:275
-#: editor/templates/editor/wizzard_ebook.html:147
-#: editor/templates/editor/wizzard_odt.html:144
-#: editor/templates/editor/wizzard_pdf.html:259 portal/templates/base.html:193
+#: editor/templates/editor/wizzard_ebook.html:176
+#: editor/templates/editor/wizzard_odt.html:174
+#: editor/templates/editor/wizzard_pdf.html:288 portal/templates/base.html:193
 msgid "Back"
 msgstr ""
 
@@ -699,9 +699,9 @@ msgstr ""
 #: editor/templates/editor/edit_strings.html:6
 #: editor/templates/editor/wizzard_book.html:327
 #: editor/templates/editor/wizzard_bookjs.html:276
-#: editor/templates/editor/wizzard_ebook.html:148
-#: editor/templates/editor/wizzard_odt.html:145
-#: editor/templates/editor/wizzard_pdf.html:260 portal/templates/base.html:196
+#: editor/templates/editor/wizzard_ebook.html:177
+#: editor/templates/editor/wizzard_odt.html:175
+#: editor/templates/editor/wizzard_pdf.html:289 portal/templates/base.html:196
 #: portal/templates/booki_paginator.html:29
 msgid "Next"
 msgstr ""
@@ -1487,11 +1487,11 @@ msgstr ""
 #: editor/templates/editor/wizzard_bookjs.html:237
 #: editor/templates/editor/wizzard_bookjs.html:239
 #: editor/templates/editor/wizzard_bookjs.html:243
-#: editor/templates/editor/wizzard_pdf.html:217
-#: editor/templates/editor/wizzard_pdf.html:219
-#: editor/templates/editor/wizzard_pdf.html:221
-#: editor/templates/editor/wizzard_pdf.html:223
-#: editor/templates/editor/wizzard_pdf.html:227
+#: editor/templates/editor/wizzard_pdf.html:246
+#: editor/templates/editor/wizzard_pdf.html:248
+#: editor/templates/editor/wizzard_pdf.html:250
+#: editor/templates/editor/wizzard_pdf.html:252
+#: editor/templates/editor/wizzard_pdf.html:256
 msgid "mm"
 msgstr ""
 
@@ -1516,6 +1516,7 @@ msgstr ""
 #: editor/templates/editor/cover_manager.html:108
 #: editor/templates/editor/cover_manager.html:239
 #: editor/templates/editor/cover_manager.html:287
+#: editor/templates/editor/edit_strings.html:89
 msgid "PDF"
 msgstr ""
 
@@ -2478,6 +2479,22 @@ msgstr ""
 msgid "Full cover"
 msgstr ""
 
+#: editor/templates/editor/edit_strings.html:87
+msgid "BOOK"
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:88
+msgid "E-BOOK"
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:90
+msgid "NOT APPROVED"
+msgstr ""
+
+#: editor/templates/editor/edit_strings.html:91
+msgid "APPROVED"
+msgstr ""
+
 #: editor/templates/editor/wizzard_book.html:4
 #: editor/templates/editor/wizzard_bookjs.html:4
 msgid "Book Formatted PDF Settings"
@@ -2761,49 +2778,49 @@ msgid "No Cover"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:193
-#: editor/templates/editor/wizzard_odt.html:116
-#: editor/templates/editor/wizzard_pdf.html:143
+#: editor/templates/editor/wizzard_odt.html:146
+#: editor/templates/editor/wizzard_pdf.html:172
 msgid "Page breaks"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:196
-#: editor/templates/editor/wizzard_odt.html:119
-#: editor/templates/editor/wizzard_pdf.html:146
+#: editor/templates/editor/wizzard_odt.html:149
+#: editor/templates/editor/wizzard_pdf.html:175
 msgid "Avoid page break in paragraphs?"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:198
-#: editor/templates/editor/wizzard_odt.html:121
-#: editor/templates/editor/wizzard_pdf.html:148
+#: editor/templates/editor/wizzard_odt.html:151
+#: editor/templates/editor/wizzard_pdf.html:177
 msgid "Pagebreak before footnotes?"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:206
 #: editor/templates/editor/wizzard_bookjs.html:194
-#: editor/templates/editor/wizzard_pdf.html:157
+#: editor/templates/editor/wizzard_pdf.html:186
 msgid "Advanced"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:216
 #: editor/templates/editor/wizzard_bookjs.html:204
-#: editor/templates/editor/wizzard_pdf.html:167
+#: editor/templates/editor/wizzard_pdf.html:196
 msgid "General"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:220
 #: editor/templates/editor/wizzard_bookjs.html:208
-#: editor/templates/editor/wizzard_pdf.html:171
+#: editor/templates/editor/wizzard_pdf.html:200
 msgid "Override Server Default CSS"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:223
-#: editor/templates/editor/wizzard_pdf.html:173
+#: editor/templates/editor/wizzard_pdf.html:202
 msgid "Grey Scale Output"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:226
-#: editor/templates/editor/wizzard_pdf.html:175
-#: editor/templates/editor/wizzard_pdf.html:177
+#: editor/templates/editor/wizzard_pdf.html:204
+#: editor/templates/editor/wizzard_pdf.html:206
 msgid "Rotate"
 msgstr ""
 
@@ -2816,48 +2833,48 @@ msgid "Page Numbers"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:230
-#: editor/templates/editor/wizzard_pdf.html:181
+#: editor/templates/editor/wizzard_pdf.html:210
 msgid "LTR"
 msgstr ""
 
 #. Translators: Option for Page Numbers
 #: editor/templates/editor/wizzard_book.html:232
-#: editor/templates/editor/wizzard_pdf.html:180
+#: editor/templates/editor/wizzard_pdf.html:209
 msgid "none"
 msgstr ""
 
 #. Translators: Option for Page Numbers. Burmese.
 #: editor/templates/editor/wizzard_book.html:234
-#: editor/templates/editor/wizzard_pdf.html:183
+#: editor/templates/editor/wizzard_pdf.html:212
 msgid "my"
 msgstr ""
 
 #. Translators: Option for Page Numbers. Farsi.
 #: editor/templates/editor/wizzard_book.html:236
-#: editor/templates/editor/wizzard_pdf.html:185
+#: editor/templates/editor/wizzard_pdf.html:214
 msgid "fa"
 msgstr ""
 
 #. Translators: Option for Page Numbers. Hindi.
 #: editor/templates/editor/wizzard_book.html:238
-#: editor/templates/editor/wizzard_pdf.html:187
+#: editor/templates/editor/wizzard_pdf.html:216
 msgid "hi"
 msgstr ""
 
 #. Translators: Option for Page Numbers. Right to left.
 #: editor/templates/editor/wizzard_book.html:240
-#: editor/templates/editor/wizzard_pdf.html:189
+#: editor/templates/editor/wizzard_pdf.html:218
 msgid "RTL"
 msgstr ""
 
 #. Translators: Option for Page Numbers. Arabic.
 #: editor/templates/editor/wizzard_book.html:242
-#: editor/templates/editor/wizzard_pdf.html:191
+#: editor/templates/editor/wizzard_pdf.html:220
 msgid "ar"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:243
-#: editor/templates/editor/wizzard_pdf.html:192
+#: editor/templates/editor/wizzard_pdf.html:221
 msgid "auto"
 msgstr ""
 
@@ -2866,22 +2883,22 @@ msgid "If in doubt, choose 'auto'"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:248
-#: editor/templates/editor/wizzard_pdf.html:197
+#: editor/templates/editor/wizzard_pdf.html:226
 msgid "Force Embed Fonts"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:248
-#: editor/templates/editor/wizzard_pdf.html:197
+#: editor/templates/editor/wizzard_pdf.html:226
 msgid "PDFs: force embedding of PDF default fonts"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:250
-#: editor/templates/editor/wizzard_pdf.html:199
+#: editor/templates/editor/wizzard_pdf.html:228
 msgid "Cancel Page Break Control"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:250
-#: editor/templates/editor/wizzard_pdf.html:199
+#: editor/templates/editor/wizzard_pdf.html:228
 msgid "Let page breaks occur immediately after headings"
 msgstr ""
 
@@ -2895,31 +2912,31 @@ msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:280
 #: editor/templates/editor/wizzard_bookjs.html:229
-#: editor/templates/editor/wizzard_pdf.html:213
+#: editor/templates/editor/wizzard_pdf.html:242
 msgid "Page Margins and Gutter"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:283
 #: editor/templates/editor/wizzard_bookjs.html:232
-#: editor/templates/editor/wizzard_pdf.html:216
+#: editor/templates/editor/wizzard_pdf.html:245
 msgid "Top Margin"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:285
 #: editor/templates/editor/wizzard_bookjs.html:234
-#: editor/templates/editor/wizzard_pdf.html:218
+#: editor/templates/editor/wizzard_pdf.html:247
 msgid "Side Margin"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:287
 #: editor/templates/editor/wizzard_bookjs.html:236
-#: editor/templates/editor/wizzard_pdf.html:220
+#: editor/templates/editor/wizzard_pdf.html:249
 msgid "Bottom Margin"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:289
 #: editor/templates/editor/wizzard_bookjs.html:238
-#: editor/templates/editor/wizzard_pdf.html:222
+#: editor/templates/editor/wizzard_pdf.html:251
 msgid "Gutter"
 msgstr ""
 
@@ -2935,28 +2952,28 @@ msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:307
 #: editor/templates/editor/wizzard_bookjs.html:256
-#: editor/templates/editor/wizzard_pdf.html:240
+#: editor/templates/editor/wizzard_pdf.html:269
 msgid "Advanced (style sheets)"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:310
 #: editor/templates/editor/wizzard_bookjs.html:259
-#: editor/templates/editor/wizzard_pdf.html:243
+#: editor/templates/editor/wizzard_pdf.html:272
 msgid "Your Custom CSS"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:313
 #: editor/templates/editor/wizzard_bookjs.html:262
-#: editor/templates/editor/wizzard_odt.html:134
-#: editor/templates/editor/wizzard_pdf.html:246
+#: editor/templates/editor/wizzard_odt.html:164
+#: editor/templates/editor/wizzard_pdf.html:275
 msgid "Booktype CSS (be careful if changing)"
 msgstr ""
 
 #: editor/templates/editor/wizzard_book.html:317
 #: editor/templates/editor/wizzard_bookjs.html:266
-#: editor/templates/editor/wizzard_ebook.html:139
-#: editor/templates/editor/wizzard_odt.html:137
-#: editor/templates/editor/wizzard_pdf.html:250
+#: editor/templates/editor/wizzard_ebook.html:168
+#: editor/templates/editor/wizzard_odt.html:167
+#: editor/templates/editor/wizzard_pdf.html:279
 msgid "Override ALL previous settings with custom CSS"
 msgstr ""
 
@@ -3008,13 +3025,19 @@ msgstr ""
 msgid "general"
 msgstr ""
 
-#: editor/templates/editor/wizzard_ebook.html:134
-#: editor/templates/editor/wizzard_odt.html:130
+#: editor/templates/editor/wizzard_ebook.html:127
+msgid ""
+"Only covers of the following filetypes can be used to publish an E-book: "
+"PNG, JPG or GIF."
+msgstr ""
+
+#: editor/templates/editor/wizzard_ebook.html:163
+#: editor/templates/editor/wizzard_odt.html:160
 msgid "CSS (Advanced)"
 msgstr ""
 
-#: editor/templates/editor/wizzard_ebook.html:136
-#: editor/templates/editor/wizzard_odt.html:132
+#: editor/templates/editor/wizzard_ebook.html:165
+#: editor/templates/editor/wizzard_odt.html:162
 msgid "Your custom CSS"
 msgstr ""
 
@@ -3022,16 +3045,28 @@ msgstr ""
 msgid "Open Document Text (.odt) Settings"
 msgstr ""
 
+#: editor/templates/editor/wizzard_odt.html:109
+msgid ""
+"Only covers of the following filetypes can be used to publish an Open "
+"Document Text: PNG, JPG or GIF."
+msgstr ""
+
 #: editor/templates/editor/wizzard_pdf.html:3
 msgid "Screen Formatted PDF Settings"
 msgstr ""
 
-#: editor/templates/editor/wizzard_pdf.html:194
+#: editor/templates/editor/wizzard_pdf.html:135
+msgid ""
+"Only covers of the following filetypes can be used to publish an Screen PDF: "
+"PNG, JPG or GIF."
+msgstr ""
+
+#: editor/templates/editor/wizzard_pdf.html:223
 msgid "If in doubt, choose 'none'"
 msgstr ""
 
-#: editor/templates/editor/wizzard_pdf.html:224
-#: editor/templates/editor/wizzard_pdf.html:226
+#: editor/templates/editor/wizzard_pdf.html:253
+#: editor/templates/editor/wizzard_pdf.html:255
 msgid "Columns"
 msgstr ""
 
