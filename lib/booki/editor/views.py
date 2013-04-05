@@ -408,18 +408,7 @@ def upload_cover(request, bookid, version=None):
         # maybe check file name now and save with new name
         transaction.commit()
 
-    if request.POST.get("attachmenttab", "") == "":
-        return HttpResponse('<html><body><script> parent.closeAttachmentUpload();  </script></body></html>')
-
-    if request.POST.get("attachmenttab", "") == "2":
-        return HttpResponse('<html><body><script>  parent.FileBrowserDialogue.loadAttachments(); parent.FileBrowserDialogue.displayBrowseTab();  parent.FileBrowserDialogue.showUpload(); </script></body></html>')
-#        return HttpResponse('<html><body><script>  console.debug("load attachments"); parent.FileBrowserDialogue.loadAttachments(); console.debug("show upload"); parent.FileBrowserDialogue.showUpload();  parent.FileBrowserDialogue.displayBrowseTab();  console.debug("after show browse panel");</script></body></html>')
-
-    # should not call showAttachmentsTab, but it works for now
-    if operationResult:
-        return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); </script></body></html>')
-    else:
-        return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showAttachmentsTab(); parent.jQuery("#tabattachments FORM")[0].reset(); alert(parent.jQuery.booki._("errorupload", "Error while uploading file!"));</script></body></html>')
+    return HttpResponse('<html><body><script> parent.jQuery.booki.editor.showCovers(); </script></body></html>')
 
 
 def view_books_json(request):

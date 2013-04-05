@@ -12,6 +12,9 @@
    </ul>
   </nav>
 
+
+  <p>{% blocktrans %}The Cover manager allows you to upload and manage (but not create) your covers for your books - no matter if it´s printed or produced as an ebook. Please upload your images in the appropriate dimensions for your book. For each format you can upload different images. Please choose the corresponding format and approve those images you want to be published with your book.{% endblocktrans %}</p>
+
   <iframe name="hidden_cover" class="hidden_frame"></iframe>
 
   <form id="cover_upload" method="POST" action="{% url upload_cover book.url_title %}" target="hidden_cover" enctype="multipart/form-data" name="formcover">
