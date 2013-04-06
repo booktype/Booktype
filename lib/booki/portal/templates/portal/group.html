@@ -125,13 +125,18 @@
 
 {% if is_member %}
 <form method="POST" action="add_book/">
-<select name="book" style="width:400px;">
-{% for book in your_books %}
-   <option value="{{book.url_title}}"> {% if book.title|length > 90 %} {{ book.title|slice:":90" }}... {% else %} {{ book.title }} {% endif %}</option>
-{% endfor %}
-</select>
-<br/><br/>
-<button>{% trans "ADD THIS BOOK TO GROUP" %}</button>
+
+{% if your_books|length > 0 %}
+    <select name="book" style="width:400px;">
+        {% for book in your_books %}
+            <option value="{{book.url_title}}"> {% if book.title|length > 90 %} {{ book.title|slice:":90" }}... {% else %} {{ book.title }} {% endif %}</option>
+        {% endfor %}
+    </select>
+    <br/><br/>
+    <button>{% trans "ADD THIS BOOK TO GROUP" %}</button>
+{% else %}
+ <p>{% trans "You have no books." %}</p>
+{% endif %}
 </form>
 {% endif %}
 
