@@ -2349,7 +2349,7 @@ def remote_cover_save(request, message, bookid, version):
 
     try:
         cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
-        cover.title =  message.get('title', '').strip()
+        cover.title =  message.get('title', '').strip()[:250]
 
         try:
             width = int(message.get('width', 0))
@@ -2369,14 +2369,14 @@ def remote_cover_save(request, message, bookid, version):
         license = models.License.objects.get(abbrevation=message.get('license', ''))
         
         cover.license = license
-        cover.notes = message.get('notes', '')
+        cover.notes = message.get('notes', '')[:500]
 
         frm = message.get('format', '').split(',')
         cover.is_book = "book" in frm
         cover.is_ebook = "ebook" in frm
         cover.is_pdf = "pdf" in frm
 
-        cover.creator = message.get('creator', '')
+        cover.creator = message.get('creator', '')[:40]
         cover.cover_type = message.get('cover_type', '')
 
         cover.save()
