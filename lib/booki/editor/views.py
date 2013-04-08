@@ -296,9 +296,14 @@ def view_cover(request, bookid, cid, fname = None, version=None):
             im = Image.open(cover.attachment.name)
             im.thumbnail((250, 250), Image.ANTIALIAS)
         except:
-            # Not just IOError but anything else
-            im = Image.open('%s/images/booktype-cover-error.png' % settings.SITE_STATIC_ROOT)
-            extension = 'png'
+            try:
+                print '%s/images/booktype-cover-%s.png' % (settings.SITE_STATIC_ROOT, extension.lower())
+                im = Image.open('%s/images/booktype-cover-%s.png' % (settings.SITE_STATIC_ROOT, extension.lower()))
+                extension = 'png'
+            except:
+                # Not just IOError but anything else
+                im = Image.open('%s/images/booktype-cover-error.png' % settings.SITE_STATIC_ROOT)
+                extension = 'png'
 
         response = HttpResponse(content_type=content_type)
 
