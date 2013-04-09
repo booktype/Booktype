@@ -2000,8 +2000,13 @@ label.error {
 		#cover_manager #covers .cover {
 			position: relative;
                         float: left;
-			width: 277px;
-			margin: 0 25px 20px 0;
+			/* width: 277px;
+			margin: 0 25px 20px 0; */
+			min-height: 285px;
+			width: 33%;
+			min-width: 270px;
+			margin: 0 0 20px;
+
 			}
 		/*
 			#cover_manager #covers .cover:nth-of-type(3n) {
@@ -2037,16 +2042,19 @@ label.error {
 								-ms-border-radius: 1px 1px 1px 1px;
 								 -o-border-radius: 1px 1px 1px 1px;
 										border-radius: 1px 1px 1px 1px;
+						border: solid 1px #fff;
 						background: #e1e1e1;
 						color: #333;
+						box-shadow: 0 1px 1px #999;
 						}
 						#cover_manager #covers .cover dl dd.usage {
 							background: url(../images/bg_usage_unassigned.gif) 0 0 no-repeat transparent;
 							width: 65px;
-							height: 43px; 
-
 							overflow: hidden;
 							text-indent: -10000em;
+							direction: ltr;
+							border: none;
+							box-shadow: none;
 							}
 							#cover_manager #covers .cover dl dd.usage.back {
 								background-image: url(../images/bg_usage_back.gif);
@@ -2067,7 +2075,7 @@ label.error {
                                 #cover_manager #covers .cover figure {
 					min-width: 200px;
 					max-width: 200px;
-					margin: 0;
+					margin: 0 5% 0 0;
 					float: right;
 					}
 
@@ -2128,10 +2136,9 @@ label.error {
 							top: 2px;
 							}
 						#cover_manager #covers .cover button {
-
-							position: absolute;
-							bottom: -2px;
-							right: 0;
+							position: relative;
+							float: right;
+							margin: -18px 0 0 0;
 							z-index: 150;
 							}
 
@@ -2139,12 +2146,13 @@ label.error {
 							background: url(../images/bg_delete.gif) center center no-repeat #ad2201;
 							position: absolute;
 							top: 6px;
-							right: 5px;
+							right: 7%;
 							height: 19px;
 							width: 19px;
 							border-radius: 3px;
 							border: solid 1px #fff;
 							text-indent: -10000em;
+							direction: ltr;
 							overflow: hidden;
 							opacity: .25;
 							box-shadow: 1px 1px 1px #000;
@@ -2157,13 +2165,11 @@ label.error {
 							    max-height: 209px;
 							    max-width: 200px;
 							}
-
 	 #settings_pane {
 		background: #fff;
 		z-index: 200;
 		width: 429px;
 	 }
-
 	 #settings_pane h3 {
 	     background: rgb(225,225,225); /* Old browsers */
 	     background: -moz-linear-gradient(top,  rgba(225,225,225,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6+ */
@@ -2182,18 +2188,17 @@ label.error {
 	     color: #fff;
 	     text-shadow: 1px 1px 0 #333;
 	 }
-
-	 #cover_manager .close {
-	     background: url(../images/bg_close.png) 0 0 no-repeat transparent;
-	     position: absolute;
-	     top: 15px;
-	     right: 13px;
-	     width: 9px;
-	     height: 10px;
-	     overflow: hidden;
-	     text-indent: -10000em;
-	     cursor: pointer;
-	 }
+   	     #cover_manager .close {
+	         background: url(../images/bg_close.png) 0 0 no-repeat transparent;
+		 position: absolute;
+		 top: 15px;
+		 right: 13px;
+		 width: 9px;
+		 height: 10px;
+		 overflow: hidden;
+		 text-indent: -10000em;
+		 cursor: pointer;
+	     }
 		#settings_pane form {
 			}
 
@@ -2296,10 +2301,11 @@ label.error {
     
 }
 
-
+/*
 @media only screen and (min-width: 1400px) {
 		.content {
 	    max-width: 1340px; 
      	}
 
 }
+*/

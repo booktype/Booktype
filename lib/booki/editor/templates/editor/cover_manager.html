@@ -36,8 +36,11 @@
   </form>
 
   <div id="cover_error">
-   <div class="alert-box error">
+   <div class="alert-box error wrong-extension">
       <p>{% trans "Only covers of the following filetypes can be used: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD." %}</p>
+   </div>
+   <div class="alert-box error big-file">
+      <p>{% trans "Error: The selected file is bigger than 15MB. Please select a smaller file and try again. " %}</p>
    </div>
   </div>
 
