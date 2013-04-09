@@ -3535,10 +3535,14 @@ def remote_publish_book2(request, message, bookid, version):
             args['css'] = _css
 
         if theme == 'style1':
-            args['css'] = THEME_STYLE1
+            args['css'] = THEME_STYLE1+"\n\n"
+            # Let's try with additional CSS also
+            args['css'] += _getValue('additional_css') or ''
 
         if theme == 'style2':
-            args['css'] = THEME_STYLE2
+            args['css'] = THEME_STYLE2+"\n\n"
+            # Let's try with additional CSS also
+            args['css'] += _getValue('additional_css') or ''
 
         # We have been using wrong argument name for this. Considering people have saved in their publishing settings old values this
         # seems to be best way to fix this issue for now.
