@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 1.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-09 23:07+0200\n"
+"POT-Creation-Date: 2013-04-10 19:04+0200\n"
 "PO-Revision-Date: 2013-02-26 11:49+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Albanian Localization <contact@sourcefabric.org>\n"
@@ -86,7 +86,7 @@ msgstr "Hapi 1"
 
 #: account/templates/account/create_book.html:18
 #: editor/templates/editor/cover_manager.html:53
-#: editor/templates/editor/cover_manager.html:177
+#: editor/templates/editor/cover_manager.html:180
 msgid "Title"
 msgstr "Titull"
 
@@ -134,7 +134,7 @@ msgstr "Zgjidhni prej lejeve vijuese"
 
 #: account/templates/account/create_book.html:43 editor/models.py:36
 #: editor/templates/editor/cover_manager.html:133
-#: editor/templates/editor/cover_manager.html:254
+#: editor/templates/editor/cover_manager.html:257
 #: editor/templates/editor/edit_book.html:446
 msgid "License"
 msgstr "Leje"
@@ -736,8 +736,8 @@ msgstr ""
 
 #: account/templates/account/view_profile.html:255
 #: editor/templates/editor/edit_strings.html:8
-#: editor/templates/editor/wizzard_book.html:326
-#: editor/templates/editor/wizzard_bookjs.html:275
+#: editor/templates/editor/wizzard_book.html:327
+#: editor/templates/editor/wizzard_bookjs.html:276
 #: editor/templates/editor/wizzard_ebook.html:176
 #: editor/templates/editor/wizzard_odt.html:174
 #: editor/templates/editor/wizzard_pdf.html:288 portal/templates/base.html:193
@@ -750,7 +750,7 @@ msgid "Create"
 msgstr "Krijoni"
 
 #: account/templates/account/view_profile.html:257
-#: editor/templates/editor/cover_manager.html:160
+#: editor/templates/editor/cover_manager.html:163
 #: editor/templates/editor/edit_book.html:295
 #: editor/templates/editor/edit_strings.html:4 portal/templates/base.html:195
 msgid "Cancel"
@@ -758,8 +758,8 @@ msgstr "Anuloje"
 
 #: account/templates/account/view_profile.html:258
 #: editor/templates/editor/edit_strings.html:6
-#: editor/templates/editor/wizzard_book.html:327
-#: editor/templates/editor/wizzard_bookjs.html:276
+#: editor/templates/editor/wizzard_book.html:328
+#: editor/templates/editor/wizzard_bookjs.html:277
 #: editor/templates/editor/wizzard_ebook.html:177
 #: editor/templates/editor/wizzard_odt.html:175
 #: editor/templates/editor/wizzard_pdf.html:289 portal/templates/base.html:196
@@ -934,8 +934,8 @@ msgid "cover"
 msgstr "kapak"
 
 #: editor/models.py:202 editor/templates/editor/cover_manager.html:112
-#: editor/templates/editor/cover_manager.html:246
-#: editor/templates/editor/cover_manager.html:293
+#: editor/templates/editor/cover_manager.html:249
+#: editor/templates/editor/cover_manager.html:296
 #: editor/templates/editor/edit_publish.html:9
 msgid "Book"
 msgstr "Libër"
@@ -1066,19 +1066,19 @@ msgstr "Mundësi mekanizmi"
 msgid "Publish Wizzard"
 msgstr "Mekanizëm Botimi"
 
-#: editor/models.py:498 editor/templates/editor/cover_manager.html:178
+#: editor/models.py:498 editor/templates/editor/cover_manager.html:181
 #, fuzzy
 msgid "Cover title"
 msgstr "titull url-je"
 
 #: editor/models.py:500 editor/templates/editor/cover_manager.html:150
-#: editor/templates/editor/cover_manager.html:272
+#: editor/templates/editor/cover_manager.html:275
 #, fuzzy
 msgid "Width"
 msgstr "Gjerësi:"
 
 #: editor/models.py:501 editor/templates/editor/cover_manager.html:148
-#: editor/templates/editor/cover_manager.html:270
+#: editor/templates/editor/cover_manager.html:273
 #, fuzzy
 msgid "Height"
 msgstr "Lartësi:"
@@ -1121,7 +1121,7 @@ msgid "Cover"
 msgstr "kapak"
 
 #: editor/models.py:516 editor/templates/editor/cover_manager.html:10
-#: editor/templates/editor/cover_manager.html:300
+#: editor/templates/editor/cover_manager.html:303
 msgid "Approved"
 msgstr ""
 
@@ -1296,11 +1296,12 @@ msgstr "Zbutje:"
 
 #: editor/templates/editor/cover_manager.html:16
 msgid ""
-"The Cover manager allows you to upload and manage (but not create) your "
-"covers for your books - no matter if it´s printed or produced as an ebook. "
-"Please upload your images in the appropriate dimensions for your book. For "
-"each format you can upload different images. Please choose the corresponding "
-"format and approve those images you want to be published with your book."
+"The cover manager allows you to upload, manage and publish your book covers. "
+"Please upload your ebook cover image files (JPEG, GIF or PNG format) in the "
+"appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
+"(in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front "
+"cover, spine and back cover of your print books can be uploaded and managed, "
+"but will be kept separate from the text of the book when publishing it."
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:22
@@ -1310,14 +1311,15 @@ msgstr "Ngarkoni figurë"
 
 #: editor/templates/editor/cover_manager.html:40
 msgid ""
-"Only covers of the following filetypes can be used: PNG, JPEG, GIF, TIFF, "
-"XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+"Error: The selected filetype is not supported. Please select one of the "
+"following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
+"SVG, EPS, AI, INDD."
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:43
 msgid ""
 "Error: The selected file is bigger than 15MB. Please select a smaller file "
-"and try again. "
+"and try again."
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:48
@@ -1326,13 +1328,13 @@ msgid "Enter Meta-data"
 msgstr "Tejtëdhëna"
 
 #: editor/templates/editor/cover_manager.html:57
-#: editor/templates/editor/cover_manager.html:181
+#: editor/templates/editor/cover_manager.html:184
 #, fuzzy
 msgid "Filename"
 msgstr "emër kartele"
 
 #: editor/templates/editor/cover_manager.html:61
-#: editor/templates/editor/cover_manager.html:185
+#: editor/templates/editor/cover_manager.html:188
 #: editor/templates/editor/wizzard_book.html:12
 #: editor/templates/editor/wizzard_bookjs.html:11
 #: editor/templates/editor/wizzard_pdf.html:11
@@ -1341,7 +1343,7 @@ msgid "Book Size"
 msgstr "Shënim libri"
 
 #: editor/templates/editor/cover_manager.html:64
-#: editor/templates/editor/cover_manager.html:188
+#: editor/templates/editor/cover_manager.html:191
 #: editor/templates/editor/wizzard_book.html:14
 #: editor/templates/editor/wizzard_bookjs.html:13
 #: editor/templates/editor/wizzard_pdf.html:13
@@ -1349,35 +1351,35 @@ msgid "custom"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:65
-#: editor/templates/editor/cover_manager.html:189
+#: editor/templates/editor/cover_manager.html:192
 #: editor/templates/editor/wizzard_book.html:15
 #: editor/templates/editor/wizzard_bookjs.html:14
 msgid "POCKET (107mm x 174mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:66
-#: editor/templates/editor/cover_manager.html:190
+#: editor/templates/editor/cover_manager.html:193
 #: editor/templates/editor/wizzard_book.html:16
 #: editor/templates/editor/wizzard_bookjs.html:15
 msgid "US5x8 (126mm x 203mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:67
-#: editor/templates/editor/cover_manager.html:191
+#: editor/templates/editor/cover_manager.html:194
 #: editor/templates/editor/wizzard_book.html:17
 #: editor/templates/editor/wizzard_bookjs.html:16
 msgid "DIGEST (139mm x 215mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:68
-#: editor/templates/editor/cover_manager.html:192
+#: editor/templates/editor/cover_manager.html:195
 #: editor/templates/editor/wizzard_book.html:18
 #: editor/templates/editor/wizzard_bookjs.html:17
 msgid "US5.5x8.5 (139mm x 215mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:69
-#: editor/templates/editor/cover_manager.html:193
+#: editor/templates/editor/cover_manager.html:196
 #: editor/templates/editor/wizzard_book.html:19
 #: editor/templates/editor/wizzard_bookjs.html:18
 #: editor/templates/editor/wizzard_pdf.html:14
@@ -1385,77 +1387,77 @@ msgid "A5 (148mm x 210mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:70
-#: editor/templates/editor/cover_manager.html:194
+#: editor/templates/editor/cover_manager.html:197
 #: editor/templates/editor/wizzard_book.html:20
 #: editor/templates/editor/wizzard_bookjs.html:19
 msgid "USTRADE6x9 (152mm x 228mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:71
-#: editor/templates/editor/cover_manager.html:195
+#: editor/templates/editor/cover_manager.html:198
 #: editor/templates/editor/wizzard_book.html:21
 #: editor/templates/editor/wizzard_bookjs.html:20
 msgid "SQUARE7.5 (190mm x 190mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:72
-#: editor/templates/editor/cover_manager.html:196
+#: editor/templates/editor/cover_manager.html:199
 #: editor/templates/editor/wizzard_book.html:22
 #: editor/templates/editor/wizzard_bookjs.html:21
 msgid "ROYAL (155mm x 233mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:73
-#: editor/templates/editor/cover_manager.html:197
+#: editor/templates/editor/cover_manager.html:200
 #: editor/templates/editor/wizzard_book.html:23
 #: editor/templates/editor/wizzard_bookjs.html:22
 msgid "LANDSCAPE9x7 (228mm x 177mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:74
-#: editor/templates/editor/cover_manager.html:198
+#: editor/templates/editor/cover_manager.html:201
 #: editor/templates/editor/wizzard_book.html:24
 #: editor/templates/editor/wizzard_bookjs.html:23
 msgid "COMICBOOK (168mm x 260mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:75
-#: editor/templates/editor/cover_manager.html:199
+#: editor/templates/editor/cover_manager.html:202
 #: editor/templates/editor/wizzard_book.html:25
 #: editor/templates/editor/wizzard_bookjs.html:24
 msgid "B5 (176mm x 250mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:76
-#: editor/templates/editor/cover_manager.html:200
+#: editor/templates/editor/cover_manager.html:203
 #: editor/templates/editor/wizzard_book.html:26
 #: editor/templates/editor/wizzard_bookjs.html:25
 msgid "US7x10 (177mm x 253mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:77
-#: editor/templates/editor/cover_manager.html:201
+#: editor/templates/editor/cover_manager.html:204
 #: editor/templates/editor/wizzard_book.html:27
 #: editor/templates/editor/wizzard_bookjs.html:26
 msgid "CROWNQUARTO (189mm x 245mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:78
-#: editor/templates/editor/cover_manager.html:202
+#: editor/templates/editor/cover_manager.html:205
 #: editor/templates/editor/wizzard_book.html:28
 #: editor/templates/editor/wizzard_bookjs.html:27
 msgid "SQUARE8.5 (215mm x 215mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:79
-#: editor/templates/editor/cover_manager.html:203
+#: editor/templates/editor/cover_manager.html:206
 #: editor/templates/editor/wizzard_book.html:29
 #: editor/templates/editor/wizzard_bookjs.html:28
 msgid "USLETTER (215mm x 279mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:80
-#: editor/templates/editor/cover_manager.html:204
+#: editor/templates/editor/cover_manager.html:207
 #: editor/templates/editor/wizzard_book.html:30
 #: editor/templates/editor/wizzard_bookjs.html:29
 #: editor/templates/editor/wizzard_pdf.html:15
@@ -1463,105 +1465,105 @@ msgid "A4 (210mm x 297mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:81
-#: editor/templates/editor/cover_manager.html:205
+#: editor/templates/editor/cover_manager.html:208
 #: editor/templates/editor/wizzard_book.html:31
 #: editor/templates/editor/wizzard_bookjs.html:30
 msgid "Foolscap (F4) (210mm x 330mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:82
-#: editor/templates/editor/cover_manager.html:206
+#: editor/templates/editor/cover_manager.html:209
 #: editor/templates/editor/wizzard_book.html:32
 #: editor/templates/editor/wizzard_bookjs.html:31
 msgid "B4 (250mm x 353mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:83
-#: editor/templates/editor/cover_manager.html:207
+#: editor/templates/editor/cover_manager.html:210
 #: editor/templates/editor/wizzard_book.html:33
 #: editor/templates/editor/wizzard_bookjs.html:32
 msgid "Oamaru Tabloid (265mm x 380mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:84
-#: editor/templates/editor/cover_manager.html:208
+#: editor/templates/editor/cover_manager.html:211
 #: editor/templates/editor/wizzard_book.html:34
 #: editor/templates/editor/wizzard_bookjs.html:33
 msgid "UK Tabloid (279mm x 431mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:85
-#: editor/templates/editor/cover_manager.html:209
+#: editor/templates/editor/cover_manager.html:212
 #: editor/templates/editor/wizzard_book.html:35
 #: editor/templates/editor/wizzard_bookjs.html:34
 msgid "A3 (NZ Tabloid) (297mm x 420mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:86
-#: editor/templates/editor/cover_manager.html:210
+#: editor/templates/editor/cover_manager.html:213
 #: editor/templates/editor/wizzard_book.html:36
 #: editor/templates/editor/wizzard_bookjs.html:35
 msgid "Berliner (315mm x 470mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:87
-#: editor/templates/editor/cover_manager.html:211
+#: editor/templates/editor/cover_manager.html:214
 #: editor/templates/editor/wizzard_book.html:37
 #: editor/templates/editor/wizzard_bookjs.html:36
 msgid "B3 (353mm x 500mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:88
-#: editor/templates/editor/cover_manager.html:212
+#: editor/templates/editor/cover_manager.html:215
 #: editor/templates/editor/wizzard_book.html:38
 #: editor/templates/editor/wizzard_bookjs.html:37
 msgid "Oamaru Broadsheet (382mm x 540mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:89
-#: editor/templates/editor/cover_manager.html:213
+#: editor/templates/editor/cover_manager.html:216
 #: editor/templates/editor/wizzard_book.html:39
 #: editor/templates/editor/wizzard_bookjs.html:38
 msgid "US Broadsheet (380mm x 577mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:90
-#: editor/templates/editor/cover_manager.html:214
+#: editor/templates/editor/cover_manager.html:217
 #: editor/templates/editor/wizzard_book.html:40
 #: editor/templates/editor/wizzard_bookjs.html:39
 msgid "A2 (NZ Broadsheet) (420mm x 594mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:91
-#: editor/templates/editor/cover_manager.html:215
+#: editor/templates/editor/cover_manager.html:218
 #: editor/templates/editor/wizzard_book.html:41
 #: editor/templates/editor/wizzard_bookjs.html:40
 msgid "UK Broadsheet (457mm x 609mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:92
-#: editor/templates/editor/cover_manager.html:216
+#: editor/templates/editor/cover_manager.html:219
 #: editor/templates/editor/wizzard_book.html:42
 #: editor/templates/editor/wizzard_bookjs.html:41
 msgid "B2 (500mm x 707mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:93
-#: editor/templates/editor/cover_manager.html:217
+#: editor/templates/editor/cover_manager.html:220
 #: editor/templates/editor/wizzard_book.html:43
 #: editor/templates/editor/wizzard_bookjs.html:42
 msgid "A1 (594mm x 841mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:94
-#: editor/templates/editor/cover_manager.html:218
+#: editor/templates/editor/cover_manager.html:221
 #: editor/templates/editor/wizzard_book.html:44
 #: editor/templates/editor/wizzard_bookjs.html:43
 msgid "B1 (707mm x 1000mm)"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:98
-#: editor/templates/editor/cover_manager.html:222
+#: editor/templates/editor/cover_manager.html:225
 #: editor/templates/editor/wizzard_book.html:46
 #: editor/templates/editor/wizzard_bookjs.html:45
 #: editor/templates/editor/wizzard_pdf.html:17
@@ -1569,21 +1571,21 @@ msgid "Custom Size"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:103
-#: editor/templates/editor/cover_manager.html:227
+#: editor/templates/editor/cover_manager.html:230
 #: editor/templates/editor/wizzard_book.html:49
 #: editor/templates/editor/wizzard_book.html:51
-#: editor/templates/editor/wizzard_book.html:284
-#: editor/templates/editor/wizzard_book.html:286
-#: editor/templates/editor/wizzard_book.html:288
-#: editor/templates/editor/wizzard_book.html:290
-#: editor/templates/editor/wizzard_book.html:294
+#: editor/templates/editor/wizzard_book.html:285
+#: editor/templates/editor/wizzard_book.html:287
+#: editor/templates/editor/wizzard_book.html:289
+#: editor/templates/editor/wizzard_book.html:291
+#: editor/templates/editor/wizzard_book.html:295
 #: editor/templates/editor/wizzard_bookjs.html:48
 #: editor/templates/editor/wizzard_bookjs.html:50
-#: editor/templates/editor/wizzard_bookjs.html:233
-#: editor/templates/editor/wizzard_bookjs.html:235
-#: editor/templates/editor/wizzard_bookjs.html:237
-#: editor/templates/editor/wizzard_bookjs.html:239
-#: editor/templates/editor/wizzard_bookjs.html:243
+#: editor/templates/editor/wizzard_bookjs.html:234
+#: editor/templates/editor/wizzard_bookjs.html:236
+#: editor/templates/editor/wizzard_bookjs.html:238
+#: editor/templates/editor/wizzard_bookjs.html:240
+#: editor/templates/editor/wizzard_bookjs.html:244
 #: editor/templates/editor/wizzard_pdf.html:246
 #: editor/templates/editor/wizzard_pdf.html:248
 #: editor/templates/editor/wizzard_pdf.html:250
@@ -1593,45 +1595,45 @@ msgid "mm"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:104
-#: editor/templates/editor/cover_manager.html:228
+#: editor/templates/editor/cover_manager.html:231
 msgid "inches"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:108
-#: editor/templates/editor/cover_manager.html:242
+#: editor/templates/editor/cover_manager.html:245
 msgid "Format"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:110
 #: editor/templates/editor/cover_manager.html:125
-#: editor/templates/editor/cover_manager.html:238
-#: editor/templates/editor/cover_manager.html:244
-#: editor/templates/editor/cover_manager.html:295
+#: editor/templates/editor/cover_manager.html:241
+#: editor/templates/editor/cover_manager.html:247
+#: editor/templates/editor/cover_manager.html:298
 #, fuzzy
 msgid "E-book"
 msgstr "Elibër"
 
 #: editor/templates/editor/cover_manager.html:111
-#: editor/templates/editor/cover_manager.html:245
-#: editor/templates/editor/cover_manager.html:294
+#: editor/templates/editor/cover_manager.html:248
+#: editor/templates/editor/cover_manager.html:297
 #: editor/templates/editor/edit_strings.html:89
 msgid "PDF"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:119
-#: editor/templates/editor/cover_manager.html:232
+#: editor/templates/editor/cover_manager.html:235
 msgid "Type"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:121
-#: editor/templates/editor/cover_manager.html:234
+#: editor/templates/editor/cover_manager.html:237
 #: editor/templates/editor/wizzard_book.html:166
 #: editor/templates/editor/wizzard_bookjs.html:167
 msgid "Front Cover"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:122
-#: editor/templates/editor/cover_manager.html:235
+#: editor/templates/editor/cover_manager.html:238
 #: editor/templates/editor/wizzard_book.html:172
 #: editor/templates/editor/wizzard_bookjs.html:173
 #, fuzzy
@@ -1639,7 +1641,7 @@ msgid "Back Cover"
 msgstr "kapak"
 
 #: editor/templates/editor/cover_manager.html:123
-#: editor/templates/editor/cover_manager.html:236
+#: editor/templates/editor/cover_manager.html:239
 #: editor/templates/editor/edit_strings.html:84
 #: editor/templates/editor/wizzard_book.html:169
 #: editor/templates/editor/wizzard_bookjs.html:170
@@ -1647,7 +1649,7 @@ msgid "Spine"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:124
-#: editor/templates/editor/cover_manager.html:237
+#: editor/templates/editor/cover_manager.html:240
 #: editor/templates/editor/wizzard_book.html:175
 #: editor/templates/editor/wizzard_bookjs.html:176
 #, fuzzy
@@ -1655,63 +1657,69 @@ msgid "Full Cover"
 msgstr "Emër i plotë"
 
 #: editor/templates/editor/cover_manager.html:129
-#: editor/templates/editor/cover_manager.html:250
+#: editor/templates/editor/cover_manager.html:253
 #, fuzzy
 msgid "Creator"
 msgstr "Krijoni"
 
 #: editor/templates/editor/cover_manager.html:138
-#: editor/templates/editor/cover_manager.html:259
+#: editor/templates/editor/cover_manager.html:262
 #: editor/templates/editor/edit_book.html:118
 #: editor/templates/editor/edit_book.html:552
 msgid "Notes"
 msgstr "Shënime"
 
 #: editor/templates/editor/cover_manager.html:146
-#: editor/templates/editor/cover_manager.html:268
+#: editor/templates/editor/cover_manager.html:271
 msgid "Filetype"
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:156
 msgid ""
-"Depends of the output format but this cover image might be too small. Ideal "
-"height/width ratio would be 1.6."
+"Tip: The selected image file is very small. Please think of using a bigger "
+"file for better results."
 msgstr ""
 
 #: editor/templates/editor/cover_manager.html:159
+msgid ""
+"Tip: The selected image file is in landscape orientation. Most book covers "
+"need portrait images."
+msgstr ""
+
+#: editor/templates/editor/cover_manager.html:162
 #: editor/templates/editor/edit_book.html:295
 #: editor/templates/editor/edit_book.html:626
 msgid "Save"
 msgstr "Ruaje"
 
-#: editor/templates/editor/cover_manager.html:173
+#: editor/templates/editor/cover_manager.html:176
 msgid "Enter information"
 msgstr ""
 
-#: editor/templates/editor/cover_manager.html:276
+#: editor/templates/editor/cover_manager.html:279
 msgid "download file"
 msgstr ""
 
-#: editor/templates/editor/cover_manager.html:288
+#: editor/templates/editor/cover_manager.html:291
 msgid "This image is currently assigned as the following cover type:"
 msgstr ""
 
-#: editor/templates/editor/cover_manager.html:289
+#: editor/templates/editor/cover_manager.html:292
 #: editor/templates/editor/edit_strings.html:82
 #, fuzzy
 msgid "Back cover"
 msgstr "kapak"
 
-#: editor/templates/editor/cover_manager.html:290
+#: editor/templates/editor/cover_manager.html:293
 msgid "This image is used in the following BookTypes:"
 msgstr ""
 
-#: editor/templates/editor/cover_manager.html:299
+#: editor/templates/editor/cover_manager.html:302
 #, fuzzy
 msgid "Approval status"
 msgstr "Gjendje të passhme:"
 
-#: editor/templates/editor/cover_manager.html:304
+#: editor/templates/editor/cover_manager.html:307
 #, fuzzy
 msgid "Edit"
 msgstr "Redaktor"
@@ -2617,7 +2625,7 @@ msgid "Close"
 msgstr ""
 
 #: editor/templates/editor/edit_strings.html:81
-msgid "Do you want to delete this cover?"
+msgid "Do you really want to delete this cover?"
 msgstr ""
 
 #: editor/templates/editor/edit_strings.html:83
@@ -2931,208 +2939,215 @@ msgstr "Ngarkoni figurë"
 msgid "No Cover"
 msgstr "kapak"
 
-#: editor/templates/editor/wizzard_book.html:193
+#: editor/templates/editor/wizzard_book.html:186
+#: editor/templates/editor/wizzard_bookjs.html:187
+msgid ""
+"Tip: To select multiple cover files for your book (front, spine, back) "
+"please press the Control key (Ctrl)."
+msgstr ""
+
+#: editor/templates/editor/wizzard_book.html:194
 #: editor/templates/editor/wizzard_odt.html:146
 #: editor/templates/editor/wizzard_pdf.html:172
 #, fuzzy
 msgid "Page breaks"
 msgstr "Administroni role"
 
-#: editor/templates/editor/wizzard_book.html:196
+#: editor/templates/editor/wizzard_book.html:197
 #: editor/templates/editor/wizzard_odt.html:149
 #: editor/templates/editor/wizzard_pdf.html:175
 msgid "Avoid page break in paragraphs?"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:198
+#: editor/templates/editor/wizzard_book.html:199
 #: editor/templates/editor/wizzard_odt.html:151
 #: editor/templates/editor/wizzard_pdf.html:177
 msgid "Pagebreak before footnotes?"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:206
-#: editor/templates/editor/wizzard_bookjs.html:194
+#: editor/templates/editor/wizzard_book.html:207
+#: editor/templates/editor/wizzard_bookjs.html:195
 #: editor/templates/editor/wizzard_pdf.html:186
 msgid "Advanced"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:216
-#: editor/templates/editor/wizzard_bookjs.html:204
+#: editor/templates/editor/wizzard_book.html:217
+#: editor/templates/editor/wizzard_bookjs.html:205
 #: editor/templates/editor/wizzard_pdf.html:196
 msgid "General"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:220
-#: editor/templates/editor/wizzard_bookjs.html:208
+#: editor/templates/editor/wizzard_book.html:221
+#: editor/templates/editor/wizzard_bookjs.html:209
 #: editor/templates/editor/wizzard_pdf.html:200
 msgid "Override Server Default CSS"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:223
+#: editor/templates/editor/wizzard_book.html:224
 #: editor/templates/editor/wizzard_pdf.html:202
 msgid "Grey Scale Output"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:226
+#: editor/templates/editor/wizzard_book.html:227
 #: editor/templates/editor/wizzard_pdf.html:204
 #: editor/templates/editor/wizzard_pdf.html:206
 msgid "Rotate"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:226
+#: editor/templates/editor/wizzard_book.html:227
 msgid "For RTL books on LTR printing presses, and vice versa."
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:228
+#: editor/templates/editor/wizzard_book.html:229
 #, fuzzy
 msgid "Page Numbers"
 msgstr "anëtarë"
 
-#: editor/templates/editor/wizzard_book.html:230
+#: editor/templates/editor/wizzard_book.html:231
 #: editor/templates/editor/wizzard_pdf.html:210
 msgid "LTR"
 msgstr ""
 
 #. Translators: Option for Page Numbers
-#: editor/templates/editor/wizzard_book.html:232
+#: editor/templates/editor/wizzard_book.html:233
 #: editor/templates/editor/wizzard_pdf.html:209
 msgid "none"
 msgstr ""
 
 #. Translators: Option for Page Numbers. Burmese.
-#: editor/templates/editor/wizzard_book.html:234
+#: editor/templates/editor/wizzard_book.html:235
 #: editor/templates/editor/wizzard_pdf.html:212
 msgid "my"
 msgstr ""
 
 #. Translators: Option for Page Numbers. Farsi.
-#: editor/templates/editor/wizzard_book.html:236
+#: editor/templates/editor/wizzard_book.html:237
 #: editor/templates/editor/wizzard_pdf.html:214
 msgid "fa"
 msgstr ""
 
 #. Translators: Option for Page Numbers. Hindi.
-#: editor/templates/editor/wizzard_book.html:238
+#: editor/templates/editor/wizzard_book.html:239
 #: editor/templates/editor/wizzard_pdf.html:216
 msgid "hi"
 msgstr ""
 
 #. Translators: Option for Page Numbers. Right to left.
-#: editor/templates/editor/wizzard_book.html:240
+#: editor/templates/editor/wizzard_book.html:241
 #: editor/templates/editor/wizzard_pdf.html:218
 msgid "RTL"
 msgstr ""
 
 #. Translators: Option for Page Numbers. Arabic.
-#: editor/templates/editor/wizzard_book.html:242
+#: editor/templates/editor/wizzard_book.html:243
 #: editor/templates/editor/wizzard_pdf.html:220
 msgid "ar"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:243
+#: editor/templates/editor/wizzard_book.html:244
 #: editor/templates/editor/wizzard_pdf.html:221
 msgid "auto"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:245
+#: editor/templates/editor/wizzard_book.html:246
 msgid "If in doubt, choose 'auto'"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:248
+#: editor/templates/editor/wizzard_book.html:249
 #: editor/templates/editor/wizzard_pdf.html:226
 msgid "Force Embed Fonts"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:248
+#: editor/templates/editor/wizzard_book.html:249
 #: editor/templates/editor/wizzard_pdf.html:226
 msgid "PDFs: force embedding of PDF default fonts"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:250
+#: editor/templates/editor/wizzard_book.html:251
 #: editor/templates/editor/wizzard_pdf.html:228
 msgid "Cancel Page Break Control"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:250
+#: editor/templates/editor/wizzard_book.html:251
 #: editor/templates/editor/wizzard_pdf.html:228
 msgid "Let page breaks occur immediately after headings"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:263
+#: editor/templates/editor/wizzard_book.html:264
 #, fuzzy
 msgid "Table of Contents"
 msgstr "Tabelë e lëndës"
 
-#: editor/templates/editor/wizzard_book.html:266
+#: editor/templates/editor/wizzard_book.html:267
 #, fuzzy
 msgid "Table of Contents Header"
 msgstr "Tabelë e lëndës"
 
-#: editor/templates/editor/wizzard_book.html:280
-#: editor/templates/editor/wizzard_bookjs.html:229
+#: editor/templates/editor/wizzard_book.html:281
+#: editor/templates/editor/wizzard_bookjs.html:230
 #: editor/templates/editor/wizzard_pdf.html:242
 msgid "Page Margins and Gutter"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:283
-#: editor/templates/editor/wizzard_bookjs.html:232
+#: editor/templates/editor/wizzard_book.html:284
+#: editor/templates/editor/wizzard_bookjs.html:233
 #: editor/templates/editor/wizzard_pdf.html:245
 #, fuzzy
 msgid "Top Margin"
 msgstr "Mënjanë:"
 
-#: editor/templates/editor/wizzard_book.html:285
-#: editor/templates/editor/wizzard_bookjs.html:234
+#: editor/templates/editor/wizzard_book.html:286
+#: editor/templates/editor/wizzard_bookjs.html:235
 #: editor/templates/editor/wizzard_pdf.html:247
 #, fuzzy
 msgid "Side Margin"
 msgstr "Mënjanë:"
 
-#: editor/templates/editor/wizzard_book.html:287
-#: editor/templates/editor/wizzard_bookjs.html:236
+#: editor/templates/editor/wizzard_book.html:288
+#: editor/templates/editor/wizzard_bookjs.html:237
 #: editor/templates/editor/wizzard_pdf.html:249
 #, fuzzy
 msgid "Bottom Margin"
 msgstr "Mënjanë:"
 
-#: editor/templates/editor/wizzard_book.html:289
-#: editor/templates/editor/wizzard_bookjs.html:238
+#: editor/templates/editor/wizzard_book.html:290
+#: editor/templates/editor/wizzard_bookjs.html:239
 #: editor/templates/editor/wizzard_pdf.html:251
 msgid "Gutter"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:291
-#: editor/templates/editor/wizzard_bookjs.html:240
+#: editor/templates/editor/wizzard_book.html:292
+#: editor/templates/editor/wizzard_bookjs.html:241
 #, fuzzy
 msgid "Number of columns"
 msgstr "Anëtar i grupit:"
 
-#: editor/templates/editor/wizzard_book.html:293
-#: editor/templates/editor/wizzard_bookjs.html:242
+#: editor/templates/editor/wizzard_book.html:294
+#: editor/templates/editor/wizzard_bookjs.html:243
 msgid "Column margin"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:307
-#: editor/templates/editor/wizzard_bookjs.html:256
+#: editor/templates/editor/wizzard_book.html:308
+#: editor/templates/editor/wizzard_bookjs.html:257
 #: editor/templates/editor/wizzard_pdf.html:269
 msgid "Advanced (style sheets)"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:310
-#: editor/templates/editor/wizzard_bookjs.html:259
+#: editor/templates/editor/wizzard_book.html:311
+#: editor/templates/editor/wizzard_bookjs.html:260
 #: editor/templates/editor/wizzard_pdf.html:272
 msgid "Your Custom CSS"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:313
-#: editor/templates/editor/wizzard_bookjs.html:262
+#: editor/templates/editor/wizzard_book.html:314
+#: editor/templates/editor/wizzard_bookjs.html:263
 #: editor/templates/editor/wizzard_odt.html:164
 #: editor/templates/editor/wizzard_pdf.html:275
 msgid "Booktype CSS (be careful if changing)"
 msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:317
-#: editor/templates/editor/wizzard_bookjs.html:266
+#: editor/templates/editor/wizzard_book.html:318
+#: editor/templates/editor/wizzard_bookjs.html:267
 #: editor/templates/editor/wizzard_ebook.html:168
 #: editor/templates/editor/wizzard_odt.html:167
 #: editor/templates/editor/wizzard_pdf.html:279
@@ -3191,9 +3206,11 @@ msgid "general"
 msgstr ""
 
 #: editor/templates/editor/wizzard_ebook.html:127
+#: editor/templates/editor/wizzard_odt.html:109
+#: editor/templates/editor/wizzard_pdf.html:135
 msgid ""
-"Only covers of the following filetypes can be used to publish an E-book: "
-"PNG, JPG or GIF."
+"Tip: Only images of the following filetypes can be used to publish an ebook: "
+"PNG, JPEG, GIF."
 msgstr ""
 
 #: editor/templates/editor/wizzard_ebook.html:163
@@ -3211,20 +3228,8 @@ msgstr ""
 msgid "Open Document Text (.odt) Settings"
 msgstr "Tekst Dokumentesh të Hapët (ODT)"
 
-#: editor/templates/editor/wizzard_odt.html:109
-msgid ""
-"Only covers of the following filetypes can be used to publish an Open "
-"Document Text: PNG, JPG or GIF."
-msgstr ""
-
 #: editor/templates/editor/wizzard_pdf.html:3
 msgid "Screen Formatted PDF Settings"
-msgstr ""
-
-#: editor/templates/editor/wizzard_pdf.html:135
-msgid ""
-"Only covers of the following filetypes can be used to publish an Screen PDF: "
-"PNG, JPG or GIF."
 msgstr ""
 
 #: editor/templates/editor/wizzard_pdf.html:223

@@ -13,7 +13,7 @@
   </nav>
 
 
-  <p>{% blocktrans %}The Cover manager allows you to upload and manage (but not create) your covers for your books - no matter if it´s printed or produced as an ebook. Please upload your images in the appropriate dimensions for your book. For each format you can upload different images. Please choose the corresponding format and approve those images you want to be published with your book.{% endblocktrans %}</p>
+  <p>{% blocktrans %}The cover manager allows you to upload, manage and publish your book covers. Please upload your ebook cover image files (JPEG, GIF or PNG format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, spine and back cover of your print books can be uploaded and managed, but will be kept separate from the text of the book when publishing it.{% endblocktrans %}</p>
 
   <iframe name="hidden_cover" class="hidden_frame"></iframe>
 
@@ -37,10 +37,10 @@
 
   <div id="cover_error">
    <div class="alert-box error wrong-extension">
-      <p>{% trans "Only covers of the following filetypes can be used: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD." %}</p>
+      <p>{% trans "Error: The selected filetype is not supported. Please select one of the following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD." %}</p>
    </div>
    <div class="alert-box error big-file">
-      <p>{% trans "Error: The selected file is bigger than 15MB. Please select a smaller file and try again. " %}</p>
+      <p>{% trans "Error: The selected file is bigger than 15MB. Please select a smaller file and try again." %}</p>
    </div>
   </div>
 
@@ -153,7 +153,10 @@
         </figcaption>
       </figure>    
       <div class="message" style="display: none">
-          <p>* {% trans "Depends of the output format but this cover image might be too small. Ideal height/width ratio would be 1.6." %}</p>
+          <p>{% trans "Tip: The selected image file is very small. Please think of using a bigger file for better results." %}</p>
+      </div>
+      <div class="messageratio" style="display: none">
+          <p>{% trans "Tip: The selected image file is in landscape orientation. Most book covers need portrait images." %}</p>
       </div>
       <div class="buttons">
           <button name="save">{% trans "Save" %}</button>
