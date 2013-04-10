@@ -2004,7 +2004,7 @@ label.error {
 			margin: 0 25px 20px 0; */
 			min-height: 285px;
 			width: 33%;
-			min-width: 270px;
+			min-width: 266px;
 			margin: 0 0 20px;
 
 			}
@@ -2050,6 +2050,7 @@ label.error {
 						#cover_manager #covers .cover dl dd.usage {
 							background: url(../images/bg_usage_unassigned.gif) 0 0 no-repeat transparent;
 							width: 65px;
+                                                        height: 30px;
 							overflow: hidden;
 							text-indent: -10000em;
 							direction: ltr;
@@ -2069,6 +2070,7 @@ label.error {
 								background-image: url(../images/bg_usage_whole.gif);
 								}
 							#cover_manager #covers .cover dl dd.usage.digital {
+                                                                height: 42px;
 								background-image: url(../images/bg_usage_digital.gif);
 								}
 
@@ -2309,3 +2311,9 @@ label.error {
 
 }
 */
+
+@media screen and (max-width: 1279px) {
+  #cover_manager #covers .cover {
+    width: 37%!important;
+  }
+}
