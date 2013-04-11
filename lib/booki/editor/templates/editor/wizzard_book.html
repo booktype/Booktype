@@ -177,7 +177,13 @@
                                   {% if cover.cid == "other" %}
            		                  <option disabled="disabled"> {% trans "Others" %} </option>
                                   {% else %}
-                                          <option value="{{ cover.cid }}">  {{ cover.title|default:cover.filename }} 
+                                          <option value="{{ cover.cid }}">  
+                                              {% if cover.title|length > 50 %}
+                                                 {{ cover.title|default:cover.filename|slice:"50" }}...  
+                                              {% else %}
+                                                 {{ cover.title|default:cover.filename }} 
+                                              {% endif %}
+                                              {% if cover.is_book %} ({% trans "BOOK" %}) {% endif %}
                                               {% if cover.is_pdf %} ({% trans "PDF" %}) {% endif %}
                                               {% if cover.is_ebook %} ({% trans "E-BOOK" %}) {% endif %}
                                           </option>
