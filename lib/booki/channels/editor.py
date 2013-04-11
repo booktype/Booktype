@@ -3159,13 +3159,28 @@ def remote_get_wizzard(request, message, bookid, version):
         return ls
 
 
+    def _getOtherCovers(coverType):
+        ls = []
+
+        for cover in models.BookCover.objects.filter(book=book):
+            if cover.is_book == True:
+                if cover.cover_type != 'digital':
+                    continue
+            ls.append(cover)
+
+        if len(ls) > 0:
+            return [DummyCover(coverType)] + ls
+
+        return ls
+
     if output_type in ['BOOK', 'BOOKJS']:        
         _front = _getCovers('front')
         _back = _getCovers('back')
         _spine = _getCovers('spine')
         _whole = _getCovers('whole')
+        _other = _getOtherCovers('other')
 
-        covers = _front + _back + _spine + _whole
+        covers = _front + _back + _spine + _whole + _other
 
     if output_type in ['EBOOK', 'PDF', 'ODT']:
         covers = []
