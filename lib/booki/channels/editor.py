@@ -3208,11 +3208,11 @@ def remote_get_wizzard(request, message, bookid, version):
                 if cover.is_pdf:
                     _class += ' coverpdf'
 
-#            if not cover.approved:
-#                _class += ' notapproved'
+            if not cover.approved:
+                _class += ' notapproved'
 
-            if cover.approved:
-                _class += ' approved'
+#            if cover.approved:
+#                _class += ' approved'
 
             covers.append({'cid': cover.cid,
                            'class': _class, 

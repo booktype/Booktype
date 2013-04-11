@@ -151,12 +151,12 @@
 	           v.html(v.html()+" ("+$.booki._('cover_pdf', 'PDF')+")");
 	        }
 
-	        if(v.hasClass("covernotapproved")) {
-	           v.html(v.html()+" ("+$.booki._('cover_notapproved', 'NOT APPROVED')+")");
+	        if(v.hasClass("notapproved")) {
+	           v.html(v.html()+" ("+$.booki._('cover_notapproved', 'Pending').toUpperCase()+")");
 	        }
 
-	        if(v.hasClass("coverapproved")) {
-	           v.html(v.html()+" ("+$.booki._('cover_approved', 'APPROVED')+")");
+	        if(v.hasClass("approved")) {
+	           v.html(v.html()+" ("+$.booki._('cover_approved', 'APPROVED').toUpperCase()+")");
 	        }
 	     });
 

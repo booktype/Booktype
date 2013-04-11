@@ -126,11 +126,11 @@
 	        }
 
 	        if(v.hasClass("notapproved")) {
-	           v.html(v.html()+" ("+$.booki._('cover_notapproved', 'NOT APPROVED')+")");
+	           v.html(v.html()+" ("+$.booki._('cover_notapproved', 'Pending').toUpperCase()+")");
 	        }
 
 	        if(v.hasClass("approved")) {
-	           v.html(v.html()+" ("+$.booki._('cover_approved', 'APPROVED')+")");
+	           v.html(v.html()+" ("+$.booki._('cover_approved', 'APPROVED').toUpperCase()+")");
 	        }
 	     });
 
