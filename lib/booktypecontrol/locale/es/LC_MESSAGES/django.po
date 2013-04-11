@@ -1,13 +1,13 @@
 # SPANISH (es_GT) translation for Booktype Control Center.
-# Copyright (C) 2012 Booktype contributors
+# Copyright (C) 2013 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# Aleksandar Erkalović <aleksandar.erkalovic@sourcefabric.org>, 2012.
+# Aleksandar Erkalović <aleksandar.erkalovic@sourcefabric.org>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: Booktype 1.5.4\n"
+"Project-Id-Version: Booktype 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-04 12:31+0200\n"
-"PO-Revision-Date: 2013-01-30 10:57+0100\n"
+"PO-Revision-Date: 2013-04-11 11:37+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Spanish <contact@sourcefabric.org>\n"
 "Language: es\n"
@@ -18,31 +18,40 @@ msgstr ""
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: GUATEMALA\n"
 
-#: views.py:177 views.py:303
+#: views.py:177
+#: views.py:303
 msgid "Username"
 msgstr "Usuario"
 
-#: views.py:180 views.py:305
+#: views.py:180
+#: views.py:305
 msgid "Username is required."
 msgstr "Se requiere el nombre de usuario"
 
-#: views.py:181 views.py:182 views.py:306 views.py:308
+#: views.py:181
+#: views.py:182
+#: views.py:306
+#: views.py:308
 msgid "Illegal characters in username."
 msgstr "El usuario tiene caracteres no aceptados."
 
-#: views.py:183 views.py:309
+#: views.py:183
+#: views.py:309
 msgid "First name"
 msgstr "Primer nombre"
 
-#: views.py:185 views.py:311
+#: views.py:185
+#: views.py:311
 msgid "First name is required."
 msgstr "Se requiere el primer nombre."
 
-#: views.py:187 views.py:313
+#: views.py:187
+#: views.py:313
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: views.py:189 views.py:315
+#: views.py:189
+#: views.py:315
 msgid "Email is required."
 msgstr "Se requiere el correo electrónico"
 
@@ -50,14 +59,28 @@ msgstr "Se requiere el correo electrónico"
 msgid "Profile picture"
 msgstr "Imagen de perfil"
 
-#: views.py:193 views.py:317
+#: views.py:193
+#: views.py:317
 msgid "User description"
 msgstr "Descripción del usuario"
 
-#: views.py:213 views.py:278 views.py:363 views.py:495 views.py:568
-#: views.py:653 views.py:730 views.py:805 views.py:867 views.py:930
-#: views.py:965 views.py:1038 views.py:1091 views.py:1142 views.py:1205
-#: views.py:1259 templates/booktypecontrol/add_book.html:24
+#: views.py:213
+#: views.py:278
+#: views.py:363
+#: views.py:495
+#: views.py:568
+#: views.py:653
+#: views.py:730
+#: views.py:805
+#: views.py:867
+#: views.py:930
+#: views.py:965
+#: views.py:1038
+#: views.py:1091
+#: views.py:1142
+#: views.py:1205
+#: views.py:1259
+#: templates/booktypecontrol/add_book.html:24
 #: templates/booktypecontrol/add_person.html:25
 #: templates/booktypecontrol/delete_book.html:26
 #: templates/booktypecontrol/edit_book.html:13
@@ -76,24 +99,37 @@ msgstr "Descripción del usuario"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: views.py:230 views.py:286 views.py:676 views.py:991 views.py:1049
-#: views.py:1107 views.py:1152 views.py:1223 views.py:1279
+#: views.py:230
+#: views.py:286
+#: views.py:676
+#: views.py:991
+#: views.py:1049
+#: views.py:1107
+#: views.py:1152
+#: views.py:1223
+#: views.py:1279
 msgid "Successfuly saved changes."
 msgstr "Los cambios se almacenaron exitosamente."
 
-#: views.py:249 views.py:320
+#: views.py:249
+#: views.py:320
 msgid "Password"
 msgstr "Contraseña"
 
-#: views.py:251 views.py:257 views.py:322 views.py:327
+#: views.py:251
+#: views.py:257
+#: views.py:322
+#: views.py:327
 msgid "Password is required."
 msgstr "Se requiere la contraseña."
 
-#: views.py:254 views.py:325
+#: views.py:254
+#: views.py:325
 msgid "Password confirmation"
 msgstr "Confirmación de contraseña"
 
-#: views.py:259 views.py:330
+#: views.py:259
+#: views.py:330
 msgid "Enter the same password as above, for verification."
 msgstr "Para efectos de verificación, ingresa la misma contraseña de arriba."
 
@@ -117,11 +153,15 @@ msgstr "Las contraseñas no coinciden."
 msgid "Unknown error while creating new account."
 msgstr "Se ha encontrado un error desconocido al crear la cuenta nueva."
 
-#: views.py:474 views.py:528 views.py:703
+#: views.py:474
+#: views.py:528
+#: views.py:703
 msgid "Title"
 msgstr "Título"
 
-#: views.py:475 views.py:529 views.py:705
+#: views.py:475
+#: views.py:529
+#: views.py:705
 msgid "Title is required."
 msgstr "Se requiere el título"
 
@@ -140,11 +180,14 @@ msgstr "título corto"
 msgid "Unknown error while deleting the book"
 msgstr "Se encontró un error desconocido al crear el libro nuevo."
 
-#: views.py:532 views.py:611 templates/booktypecontrol/settings.html:27
+#: views.py:532
+#: views.py:611
+#: templates/booktypecontrol/settings.html:27
 msgid "Description"
 msgstr "Descripción"
 
-#: views.py:535 views.py:614
+#: views.py:535
+#: views.py:614
 msgid "Owner"
 msgstr "Propietario"
 
@@ -152,24 +195,29 @@ msgstr "Propietario"
 msgid "Book owner is required."
 msgstr "Se requiere un propietario para el libro."
 
-#: views.py:539 views.py:618
+#: views.py:539
+#: views.py:618
 #: templates/booktypecontrol/settings_license_edit.html:6
 msgid "License"
 msgstr "Licencia"
 
-#: views.py:541 views.py:619
+#: views.py:541
+#: views.py:619
 msgid "License is required."
 msgstr "Se requiere una licencia"
 
-#: views.py:543 views.py:622
+#: views.py:543
+#: views.py:622
 msgid "Initially hide from others"
 msgstr "Inicialmente marcarlo como oculto"
 
-#: views.py:545 views.py:624
+#: views.py:545
+#: views.py:624
 msgid "Cover image"
 msgstr "Imagen de portada"
 
-#: views.py:552 views.py:631
+#: views.py:552
+#: views.py:631
 msgid "This Book already exists."
 msgstr "Este libro ya existe."
 
@@ -185,8 +233,14 @@ msgstr "Se encontró un error desconocido al crear el libro nuevo."
 msgid "Owner is required."
 msgstr "Se require un propietario"
 
-#: views.py:680 views.py:831 views.py:884 views.py:1051 views.py:1109
-#: views.py:1154 views.py:1225 views.py:1285
+#: views.py:680
+#: views.py:831
+#: views.py:884
+#: views.py:1051
+#: views.py:1109
+#: views.py:1154
+#: views.py:1225
+#: views.py:1285
 msgid "Unknown error while saving changes."
 msgstr "Se registró un error desconocido al almacenar los cambios."
 
@@ -200,10 +254,10 @@ msgstr "El URL contiene caracteres no aceptados."
 
 #: views.py:711
 msgid "If you leave this field empty URL title will be assigned automatically."
-msgstr ""
-"Si dejas este campo vacío el título del URL se asignará automáticamente."
+msgstr "Si dejas este campo vacío el título del URL se asignará automáticamente."
 
-#: views.py:751 views.py:758
+#: views.py:751
+#: views.py:758
 msgid "Successfuly renamed book."
 msgstr "Se renombró exitosamente el libro."
 
@@ -227,7 +281,8 @@ msgstr "Favicon"
 msgid "Upload .ico file"
 msgstr "Carga el archivo .ico"
 
-#: views.py:829 views.py:882
+#: views.py:829
+#: views.py:882
 msgid "Successfuly saved settings."
 msgstr "La configuración se almacenó exitosamente."
 
@@ -237,9 +292,7 @@ msgstr "Visibilidad por defecto"
 
 #: views.py:852
 msgid "If it is turned on then all books will be visible to everyone."
-msgstr ""
-"Si se marca como activa, todos los libros serán visibles para cualquier "
-"persona."
+msgstr "Si se marca como activa, todos los libros serán visibles para cualquier persona."
 
 #: views.py:853
 msgid "Default License"
@@ -269,7 +322,8 @@ msgstr "Se requiere el nombre de la licencia."
 msgid "Successfuly created new license."
 msgstr "La nueva licencia se creó exitosamente."
 
-#: views.py:968 templates/booktypecontrol/settings_license_edit.html:26
+#: views.py:968
+#: templates/booktypecontrol/settings_license_edit.html:26
 msgid "Remove it"
 msgstr "Removerla"
 
@@ -353,24 +407,29 @@ msgstr "Salir"
 msgid "Sign In / Create Account"
 msgstr "Ingresar / Crear cuenta"
 
-#: templates/control_base.html:47 templates/booktypecontrol/settings.html:25
+#: templates/control_base.html:47
+#: templates/booktypecontrol/settings.html:25
 msgid "Site"
 msgstr "Sitio"
 
-#: templates/control_base.html:54 templates/booktypecontrol/frontpage.html:6
+#: templates/control_base.html:54
+#: templates/booktypecontrol/frontpage.html:6
 msgid "Admin Control Center"
 msgstr "Centro de control administrativo"
 
-#: templates/control_base.html:58 templates/booktypecontrol/people.html:6
+#: templates/control_base.html:58
+#: templates/booktypecontrol/people.html:6
 msgid "People"
 msgstr "Personas"
 
-#: templates/control_base.html:62 templates/booktypecontrol/books.html:6
+#: templates/control_base.html:62
+#: templates/booktypecontrol/books.html:6
 #: templates/booktypecontrol/profile.html:63
 msgid "Books"
 msgstr "Libros"
 
-#: templates/control_base.html:66 templates/booktypecontrol/settings.html:6
+#: templates/control_base.html:66
+#: templates/booktypecontrol/settings.html:6
 msgid "Settings"
 msgstr "Configuraciones"
 
@@ -471,9 +530,7 @@ msgid "Delete Book"
 msgstr "Renombrar libro"
 
 #: templates/booktypecontrol/delete_book.html:20
-msgid ""
-"Are you sure you would like to delete this book? You will lose all data "
-"associated to this book and you will not be able to undo this operation!"
+msgid "Are you sure you would like to delete this book? You will lose all data associated to this book and you will not be able to undo this operation!"
 msgstr ""
 
 #: templates/booktypecontrol/delete_book.html:21
@@ -710,6 +767,6 @@ msgstr "No es posible encontrar esa licencia \"%(name)s\"."
 
 #~ msgid "lulu"
 #~ msgstr "lulu"
-
 #~ msgid "Lulu CSS"
 #~ msgstr "CSS de Lulu"
+
