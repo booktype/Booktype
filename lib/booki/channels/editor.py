@@ -3202,11 +3202,11 @@ def remote_get_wizzard(request, message, bookid, version):
             _class = ''
             if cover.is_book or cover.is_ebook or cover.is_pdf:
                 if cover.is_book:
-                    _class = 'book' 
-                elif cover.is_ebook:
-                    _class = 'ebook'
-                elif cover.is_pdf:
-                    _class = 'pdf'
+                    _class += ' coverbook' 
+                if cover.is_ebook:
+                    _class += ' coverebook'
+                if cover.is_pdf:
+                    _class += ' coverpdf'
 
 #            if not cover.approved:
 #                _class += ' notapproved'

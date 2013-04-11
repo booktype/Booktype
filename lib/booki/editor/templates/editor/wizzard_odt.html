@@ -113,15 +113,15 @@
 	     $("SELECT#cover_image OPTION").each(function(i, a) {
 	        var v = $(a);
 
-	        if(v.hasClass("book")) {
+	        if(v.hasClass("coverbook")) {
 	           v.html(v.html()+" ("+$.booki._('cover_book', 'BOOK')+")");
 	        }
 
-	        if(v.hasClass("ebook")) {
+	        if(v.hasClass("coverebook")) {
 	           v.html(v.html()+" ("+$.booki._('cover_ebook', 'E-BOOK')+")");
 	        }
 
-	        if(v.hasClass("pdf")) {
+	        if(v.hasClass("coverpdf")) {
 	           v.html(v.html()+" ("+$.booki._('cover_pdf', 'PDF')+")");
 	        }
 
