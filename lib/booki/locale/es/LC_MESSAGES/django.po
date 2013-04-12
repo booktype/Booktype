@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Booktype 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-10 19:03+0200\n"
-"PO-Revision-Date: 2013-04-11 11:36+0100\n"
+"PO-Revision-Date: 2013-04-12 11:11+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Spanish Localization <contact@sourcefabric.org>\n"
 "Language: Spanish\n"
@@ -1045,51 +1045,44 @@ msgstr "Publicar Asistente"
 
 #: editor/models.py:498
 #: editor/templates/editor/cover_manager.html:181
-#, fuzzy
 msgid "Cover title"
-msgstr "título de URL"
+msgstr "Título de la portada"
 
 #: editor/models.py:500
 #: editor/templates/editor/cover_manager.html:150
 #: editor/templates/editor/cover_manager.html:275
-#, fuzzy
 msgid "Width"
-msgstr "Anchura:"
+msgstr "Ancho:"
 
 #: editor/models.py:501
 #: editor/templates/editor/cover_manager.html:148
 #: editor/templates/editor/cover_manager.html:273
-#, fuzzy
 msgid "Height"
-msgstr "Altura:"
+msgstr "Alto:"
 
 #: editor/models.py:502
 msgid "Unit"
-msgstr ""
+msgstr "Unidad"
 
 #: editor/models.py:503
-#, fuzzy
 msgid "Booksize"
-msgstr "Tamaño del libro"
+msgstr "Tamaño del libro "
 
 #: editor/models.py:505
-#, fuzzy
 msgid "Book cover"
-msgstr "Nota de libro"
+msgstr "Portada del libro"
 
 #: editor/models.py:506
 msgid "E-book cover"
-msgstr ""
+msgstr "Portada del e-libro"
 
 #: editor/models.py:507
-#, fuzzy
 msgid "PDF cover"
-msgstr "portada"
+msgstr "Portada PDF"
 
 #: editor/models.py:509
-#, fuzzy
 msgid "Cover type"
-msgstr "Importar tipo:"
+msgstr "Tipo de portada"
 
 #: editor/models.py:511
 #: editor/templates/editor/wizzard_book.html:157
@@ -1097,15 +1090,14 @@ msgstr "Importar tipo:"
 #: editor/templates/editor/wizzard_ebook.html:116
 #: editor/templates/editor/wizzard_odt.html:98
 #: editor/templates/editor/wizzard_pdf.html:124
-#, fuzzy
 msgid "Cover"
-msgstr "portada"
+msgstr "Portada"
 
 #: editor/models.py:516
 #: editor/templates/editor/cover_manager.html:10
 #: editor/templates/editor/cover_manager.html:303
 msgid "Approved"
-msgstr ""
+msgstr "Aprobado"
 
 #: editor/templates/authors.html:13
 msgid "Modifications:"
@@ -1175,9 +1167,8 @@ msgstr "Número total de usuarios:"
 
 #: editor/templates/booktype_daily_report.html:24
 #: editor/templates/booktype_weekly_report.html:25
-#, fuzzy
 msgid "Total number of groups:"
-msgstr "Número total de libros."
+msgstr "Número total de grupos:"
 
 #: editor/templates/booktype_daily_report.html:29
 #: editor/templates/booktype_weekly_report.html:30
@@ -1214,63 +1205,53 @@ msgid "No new groups"
 msgstr "No hay grupos nuevos"
 
 #: editor/templates/booktype_daily_report.html:73
-#, fuzzy
 msgid "Modified chapters"
-msgstr "Capítulos en espera"
+msgstr "Capítulos modificados"
 
 #: editor/templates/booktype_daily_report.html:85
 msgid "No Activity"
 msgstr "Sin actividad"
 
 #: editor/templates/booktype_weekly_report.html:41
-#, fuzzy
 msgid "Updates"
-msgstr "Actualización"
+msgstr "Actualizaciones"
 
 #: editor/templates/booktype_weekly_report.html:43
-#, fuzzy
 msgid "New users"
-msgstr "Usuario nuevo:"
+msgstr "Usuarios nuevos"
 
 #: editor/templates/booktype_weekly_report.html:44
-#, fuzzy
 msgid "New books"
-msgstr "Libros nuevos"
+msgstr "Libros nuevos "
 
 #: editor/templates/booktype_weekly_report.html:45
-#, fuzzy
 msgid "New groups"
-msgstr "Nuevos grupos"
+msgstr "Grupos nuevos"
 
 #: editor/templates/booktype_weekly_report.html:48
-#, fuzzy
 msgid "Most active books"
-msgstr "Libros activos"
+msgstr "Libros más activos"
 
 #: editor/templates/booktype_weekly_report.html:54
-#, fuzzy
 msgid "No active books"
-msgstr "Libros activos"
+msgstr "No hay libros activos"
 
 #: editor/templates/booktype_weekly_report.html:59
-#, fuzzy
 msgid "Most active users"
-msgstr "No hay usuarios nuevos"
+msgstr "Usuarios más activos"
 
 #: editor/templates/booktype_weekly_report.html:65
-#, fuzzy
 msgid "No active users"
-msgstr "No hay usuarios nuevos"
+msgstr "No hay usuarios activos"
 
 #: editor/templates/editor/cover_manager.html:4
 #: editor/templates/editor/edit_book.html:105
 msgid "Cover Manager"
-msgstr ""
+msgstr "Administrador de portada"
 
 #: editor/templates/editor/cover_manager.html:7
-#, fuzzy
 msgid "View files of status:"
-msgstr "Nuevo estatus:"
+msgstr "Ver los archivos de estatus:"
 
 #: editor/templates/editor/cover_manager.html:9
 #: portal/templates/portal/people.html:55
@@ -1278,37 +1259,33 @@ msgid "All"
 msgstr "Todo"
 
 #: editor/templates/editor/cover_manager.html:11
-#, fuzzy
 msgid "Pending"
-msgstr "Margen interno (padding):"
+msgstr "Pendiente"
 
 #: editor/templates/editor/cover_manager.html:16
 msgid "The cover manager allows you to upload, manage and publish your book covers. Please upload your ebook cover image files (JPEG, GIF or PNG format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, spine and back cover of your print books can be uploaded and managed, but will be kept separate from the text of the book when publishing it."
-msgstr ""
+msgstr "El admnistrador de portada te permite cargar, administrar y publicar las portadas de tus libros.  Por favor carga los archivos de "
 
 #: editor/templates/editor/cover_manager.html:22
-#, fuzzy
 msgid "Upload cover image"
-msgstr "Subir imagen"
+msgstr "Subir imagen de portada"
 
 #: editor/templates/editor/cover_manager.html:40
 msgid "Error: The selected filetype is not supported. Please select one of the following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
-msgstr ""
+msgstr "Error el tipo de archivo seleccionado no cuenta con respaldo.  Por favor seleccionar uno de los siguientes tipos de archivos e intentar de nuevo:   PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
 
 #: editor/templates/editor/cover_manager.html:43
 msgid "Error: The selected file is bigger than 15MB. Please select a smaller file and try again."
-msgstr ""
+msgstr "Error:  el archivo seleccionado es mayor a 15MB.  Por favor selecciona un archivo más pequeño e inténtalo de nuevo."
 
 #: editor/templates/editor/cover_manager.html:48
-#, fuzzy
 msgid "Enter Meta-data"
-msgstr "Metadatos"
+msgstr "Ingresar metadatos"
 
 #: editor/templates/editor/cover_manager.html:57
 #: editor/templates/editor/cover_manager.html:184
-#, fuzzy
 msgid "Filename"
-msgstr "nombre del archivo"
+msgstr "Nombre del archivo"
 
 #: editor/templates/editor/cover_manager.html:61
 #: editor/templates/editor/cover_manager.html:188
@@ -1573,49 +1550,46 @@ msgstr "mm"
 #: editor/templates/editor/cover_manager.html:104
 #: editor/templates/editor/cover_manager.html:231
 msgid "inches"
-msgstr ""
+msgstr "pulgadas"
 
 #: editor/templates/editor/cover_manager.html:108
 #: editor/templates/editor/cover_manager.html:245
-#, fuzzy
 msgid "Format"
-msgstr "Formateado"
+msgstr "Formato"
 
 #: editor/templates/editor/cover_manager.html:110
 #: editor/templates/editor/cover_manager.html:125
 #: editor/templates/editor/cover_manager.html:241
 #: editor/templates/editor/cover_manager.html:247
 #: editor/templates/editor/cover_manager.html:298
-#, fuzzy
 msgid "E-book"
-msgstr "Libro Electrónico"
+msgstr "Libro Electrónico "
 
 #: editor/templates/editor/cover_manager.html:111
 #: editor/templates/editor/cover_manager.html:248
 #: editor/templates/editor/cover_manager.html:297
 #: editor/templates/editor/edit_strings.html:89
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: editor/templates/editor/cover_manager.html:119
 #: editor/templates/editor/cover_manager.html:235
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: editor/templates/editor/cover_manager.html:121
 #: editor/templates/editor/cover_manager.html:237
 #: editor/templates/editor/wizzard_book.html:166
 #: editor/templates/editor/wizzard_bookjs.html:167
 msgid "Front Cover"
-msgstr ""
+msgstr "Portada frontal"
 
 #: editor/templates/editor/cover_manager.html:122
 #: editor/templates/editor/cover_manager.html:238
 #: editor/templates/editor/wizzard_book.html:172
 #: editor/templates/editor/wizzard_bookjs.html:173
-#, fuzzy
 msgid "Back Cover"
-msgstr "portada"
+msgstr "Contraportada"
 
 #: editor/templates/editor/cover_manager.html:123
 #: editor/templates/editor/cover_manager.html:239
@@ -1623,21 +1597,19 @@ msgstr "portada"
 #: editor/templates/editor/wizzard_book.html:169
 #: editor/templates/editor/wizzard_bookjs.html:170
 msgid "Spine"
-msgstr ""
+msgstr "Lomo"
 
 #: editor/templates/editor/cover_manager.html:124
 #: editor/templates/editor/cover_manager.html:240
 #: editor/templates/editor/wizzard_book.html:175
 #: editor/templates/editor/wizzard_bookjs.html:176
-#, fuzzy
 msgid "Full Cover"
-msgstr "Nombre completo"
+msgstr "Portada completa"
 
 #: editor/templates/editor/cover_manager.html:129
 #: editor/templates/editor/cover_manager.html:253
-#, fuzzy
 msgid "Creator"
-msgstr "Crear"
+msgstr "Creador"
 
 #: editor/templates/editor/cover_manager.html:138
 #: editor/templates/editor/cover_manager.html:262
@@ -1649,15 +1621,15 @@ msgstr "Notas"
 #: editor/templates/editor/cover_manager.html:146
 #: editor/templates/editor/cover_manager.html:271
 msgid "Filetype"
-msgstr ""
+msgstr "Tipo de archivo"
 
 #: editor/templates/editor/cover_manager.html:156
 msgid "Tip: The selected image file is very small. Please think of using a bigger file for better results."
-msgstr ""
+msgstr "Consejo:  El archivo de imagen seleccionado es muy pequeño.  Por favor contempla utilizar un archivo más grande para mejores resultados."
 
 #: editor/templates/editor/cover_manager.html:159
 msgid "Tip: The selected image file is in landscape orientation. Most book covers need portrait images."
-msgstr ""
+msgstr "Consejo:  el archivo de imagen seleccionado tiene un formato horizontal.  La mayoría de portadas de libros necesitan imágenes en formato vertical."
 
 #: editor/templates/editor/cover_manager.html:162
 #: editor/templates/editor/edit_book.html:295
@@ -1667,35 +1639,32 @@ msgstr "Guardar"
 
 #: editor/templates/editor/cover_manager.html:176
 msgid "Enter information"
-msgstr ""
+msgstr "Ingresar información"
 
 #: editor/templates/editor/cover_manager.html:279
 msgid "download file"
-msgstr ""
+msgstr "Descargar archivo"
 
 #: editor/templates/editor/cover_manager.html:291
 msgid "This image is currently assigned as the following cover type:"
-msgstr ""
+msgstr "Esta imagen está actualmente asignada como el siguiente tipo de portada:"
 
 #: editor/templates/editor/cover_manager.html:292
 #: editor/templates/editor/edit_strings.html:82
-#, fuzzy
 msgid "Back cover"
-msgstr "portada"
+msgstr "Contraportada"
 
 #: editor/templates/editor/cover_manager.html:293
 msgid "This image is used in the following BookTypes:"
-msgstr ""
+msgstr "Esta imagen está siendo utilizada en los siguientes BookTypes:"
 
 #: editor/templates/editor/cover_manager.html:302
-#, fuzzy
 msgid "Approval status"
-msgstr "Estatus disponibles:"
+msgstr "Estatus de aprobación"
 
 #: editor/templates/editor/cover_manager.html:307
-#, fuzzy
 msgid "Edit"
-msgstr "Editor"
+msgstr "Editar"
 
 #: editor/templates/editor/edit_book.html:69
 msgid "Chat"
@@ -1987,11 +1956,11 @@ msgstr "S‎i deseas excluir a alguien de la atribución de derechos de autor...
 
 #: editor/templates/editor/edit_book.html:466
 msgid "Contributors"
-msgstr ""
+msgstr "Colaboradores"
 
 #: editor/templates/editor/edit_book.html:468
 msgid "Excluded contributors"
-msgstr ""
+msgstr "Colaboradores excluídos"
 
 #: editor/templates/editor/edit_book.html:483
 msgid "Roles"
@@ -2006,9 +1975,8 @@ msgid "Manage Roles"
 msgstr "Administra Roles"
 
 #: editor/templates/editor/edit_book.html:493
-#, fuzzy
 msgid "Role"
-msgstr "Roles"
+msgstr "Roles "
 
 #: editor/templates/editor/edit_book.html:497
 msgid "Select role"
@@ -2274,7 +2242,7 @@ msgstr "Abrir texto del documento"
 
 #: editor/templates/editor/edit_publish.html:41
 msgid "Try out our new beta renderer for Books"
-msgstr ""
+msgstr "Prueba nuestro nuevo renderer beta para Libros"
 
 #: editor/templates/editor/edit_publish.html:60
 msgid "Publish this book"
@@ -2503,14 +2471,12 @@ msgid "I can not find description for this license."
 msgstr "No puedo encontrar descripción para esta licencia."
 
 #: editor/templates/editor/edit_strings.html:69
-#, fuzzy
 msgid "Saving the book notes"
-msgstr "Guardar las notas"
+msgstr "Almacenando las notas del libro"
 
 #: editor/templates/editor/edit_strings.html:70
-#, fuzzy
 msgid "Book notes saved."
-msgstr "Notas de libro"
+msgstr "Se guardaron las notas del libro."
 
 #: editor/templates/editor/edit_strings.html:71
 msgid "User {0} has changed status of  chapter \"{1}\" to \"{2}\"."
@@ -2550,37 +2516,35 @@ msgstr "El usuario {0} guardó notas para el libro s\"{1}\"."
 
 #: editor/templates/editor/edit_strings.html:80
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #: editor/templates/editor/edit_strings.html:81
 msgid "Do you really want to delete this cover?"
-msgstr ""
+msgstr "¿Realmente deseas eliminar esta portada?"
 
 #: editor/templates/editor/edit_strings.html:83
-#, fuzzy
 msgid "Front cover"
-msgstr "portada"
+msgstr "Portada frontal"
 
 #: editor/templates/editor/edit_strings.html:85
-#, fuzzy
 msgid "Full cover"
-msgstr "portada"
+msgstr "Portada entera"
 
 #: editor/templates/editor/edit_strings.html:87
 msgid "BOOK"
-msgstr ""
+msgstr "LIBRO"
 
 #: editor/templates/editor/edit_strings.html:88
 msgid "E-BOOK"
-msgstr ""
+msgstr "E-Libro"
 
 #: editor/templates/editor/edit_strings.html:90
 msgid "NOT APPROVED"
-msgstr ""
+msgstr "No aprobado"
 
 #: editor/templates/editor/edit_strings.html:91
 msgid "APPROVED"
-msgstr ""
+msgstr "Aprobado"
 
 #: editor/templates/editor/wizzard_book.html:4
 #: editor/templates/editor/wizzard_bookjs.html:4
@@ -2853,23 +2817,21 @@ msgstr "Monospace"
 #: editor/templates/editor/wizzard_ebook.html:118
 #: editor/templates/editor/wizzard_odt.html:100
 #: editor/templates/editor/wizzard_pdf.html:126
-#, fuzzy
 msgid "Select cover image"
-msgstr "Subir imagen"
+msgstr "Seleccionar imagen de portada"
 
 #: editor/templates/editor/wizzard_book.html:161
 #: editor/templates/editor/wizzard_bookjs.html:162
 #: editor/templates/editor/wizzard_ebook.html:120
 #: editor/templates/editor/wizzard_odt.html:102
 #: editor/templates/editor/wizzard_pdf.html:128
-#, fuzzy
 msgid "No Cover"
-msgstr "portada"
+msgstr "Sin portada"
 
 #: editor/templates/editor/wizzard_book.html:186
 #: editor/templates/editor/wizzard_bookjs.html:187
 msgid "Tip: To select multiple cover files for your book (front, spine, back) please press the Control key (Ctrl)."
-msgstr ""
+msgstr "Consejo:  para seleccionar múltiples archivos de portadas para tu libro (frente, lomo y contraportada) presiona la tecla de Control (Ctrl)."
 
 #: editor/templates/editor/wizzard_book.html:194
 #: editor/templates/editor/wizzard_odt.html:146
@@ -3076,28 +3038,28 @@ msgstr "Anular TODAS las configuraciones previas con el CSS personalizado"
 #: editor/templates/editor/wizzard_bookjs.html:99
 #: editor/templates/editor/wizzard_bookjs.html:121
 msgid "Century Schoolbook"
-msgstr ""
+msgstr "Century Schoolbook"
 
 #: editor/templates/editor/wizzard_bookjs.html:67
 #: editor/templates/editor/wizzard_bookjs.html:80
 #: editor/templates/editor/wizzard_bookjs.html:102
 #: editor/templates/editor/wizzard_bookjs.html:124
 msgid "Gentium"
-msgstr ""
+msgstr "Gentium"
 
 #: editor/templates/editor/wizzard_bookjs.html:68
 #: editor/templates/editor/wizzard_bookjs.html:81
 #: editor/templates/editor/wizzard_bookjs.html:103
 #: editor/templates/editor/wizzard_bookjs.html:125
 msgid "Liberation Serif"
-msgstr ""
+msgstr "Liberation Serif"
 
 #: editor/templates/editor/wizzard_bookjs.html:69
 #: editor/templates/editor/wizzard_bookjs.html:82
 #: editor/templates/editor/wizzard_bookjs.html:104
 #: editor/templates/editor/wizzard_bookjs.html:126
 msgid "Times New Roman"
-msgstr ""
+msgstr "Times New Roman"
 
 #: editor/templates/editor/wizzard_ebook.html:4
 msgid "Ebook Settings"
@@ -3123,7 +3085,7 @@ msgstr "general"
 #: editor/templates/editor/wizzard_odt.html:109
 #: editor/templates/editor/wizzard_pdf.html:135
 msgid "Tip: Only images of the following filetypes can be used to publish an ebook: PNG, JPEG, GIF."
-msgstr ""
+msgstr "Consejo:  Solo las imágenes de los siguientes tipos se pueden usar para publicar un elibro:  PNG, JPEG, GIF."
 
 #: editor/templates/editor/wizzard_ebook.html:163
 #: editor/templates/editor/wizzard_odt.html:160
@@ -3252,11 +3214,11 @@ msgstr "Mensaje de %s"
 
 #: messaging/views.py:171
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: messaging/views.py:217
 msgid "Sent."
-msgstr ""
+msgstr "Enviado."
 
 #: messaging/templates/messaging/book_followbutton.html:5
 msgid "Follow this book"
@@ -3424,9 +3386,8 @@ msgid "ADD THIS BOOK TO GROUP"
 msgstr "AÑADIR ESTE LIBRO AL GRUPO"
 
 #: portal/templates/portal/group.html:138
-#, fuzzy
 msgid "You have no books."
-msgstr "Libros activos"
+msgstr "No tienes libros."
 
 #: portal/templates/portal/groups.html:5
 msgid "Booktype Groups"

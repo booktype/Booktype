@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Booktype 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-04 12:31+0200\n"
-"PO-Revision-Date: 2013-04-11 11:37+0100\n"
+"PO-Revision-Date: 2013-04-12 11:12+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Spanish <contact@sourcefabric.org>\n"
 "Language: es\n"
@@ -33,7 +33,7 @@ msgstr "Se requiere el nombre de usuario"
 #: views.py:306
 #: views.py:308
 msgid "Illegal characters in username."
-msgstr "El usuario tiene caracteres no aceptados."
+msgstr "El nombre del usuario tiene caracteres no aceptados."
 
 #: views.py:183
 #: views.py:309
@@ -109,7 +109,7 @@ msgstr "Cancelar"
 #: views.py:1223
 #: views.py:1279
 msgid "Successfuly saved changes."
-msgstr "Los cambios se almacenaron exitosamente."
+msgstr "Los cambios se almacenaron con éxito."
 
 #: views.py:249
 #: views.py:320
@@ -151,7 +151,7 @@ msgstr "Las contraseñas no coinciden."
 
 #: views.py:397
 msgid "Unknown error while creating new account."
-msgstr "Se ha encontrado un error desconocido al crear la cuenta nueva."
+msgstr "Se ha encontrado un error desconocido al intentar crear la cuenta nueva."
 
 #: views.py:474
 #: views.py:528
@@ -166,19 +166,16 @@ msgid "Title is required."
 msgstr "Se requiere el título"
 
 #: views.py:505
-#, fuzzy
 msgid "Successfuly deleted the book"
-msgstr "Se creó exitosamente un libro nuevo."
+msgstr "Se eliminó con éxito el libro"
 
 #: views.py:509
-#, fuzzy
 msgid "Wrong title."
-msgstr "título corto"
+msgstr "Título incorrecto."
 
 #: views.py:511
-#, fuzzy
 msgid "Unknown error while deleting the book"
-msgstr "Se encontró un error desconocido al crear el libro nuevo."
+msgstr "Se encontró un error desconocido al intentar borrar el libro"
 
 #: views.py:532
 #: views.py:611
@@ -227,7 +224,7 @@ msgstr "Se creó exitosamente un libro nuevo."
 
 #: views.py:597
 msgid "Unknown error while creating new book."
-msgstr "Se encontró un error desconocido al crear el libro nuevo."
+msgstr "Se encontró un error desconocido al intentar crear el libro nuevo."
 
 #: views.py:615
 msgid "Owner is required."
@@ -242,7 +239,7 @@ msgstr "Se require un propietario"
 #: views.py:1225
 #: views.py:1285
 msgid "Unknown error while saving changes."
-msgstr "Se registró un error desconocido al almacenar los cambios."
+msgstr "Se registró un error desconocido al intentar almacenar los cambios."
 
 #: views.py:707
 msgid "URL title"
@@ -250,7 +247,7 @@ msgstr "título del URL"
 
 #: views.py:710
 msgid "Illegal characters in URL title."
-msgstr "El URL contiene caracteres no aceptados."
+msgstr "El título del URL contiene caracteres no aceptados."
 
 #: views.py:711
 msgid "If you leave this field empty URL title will be assigned automatically."
@@ -284,7 +281,7 @@ msgstr "Carga el archivo .ico"
 #: views.py:829
 #: views.py:882
 msgid "Successfuly saved settings."
-msgstr "La configuración se almacenó exitosamente."
+msgstr "La configuración se almacenó con éxito."
 
 #: views.py:850
 msgid "Default visibility"
@@ -300,7 +297,7 @@ msgstr "Licencia por defecto"
 
 #: views.py:856
 msgid "Default license for newly created books."
-msgstr "Licencia por defecto para los libros de reciente creación."
+msgstr "Licencia por defecto para los libros recién creados."
 
 #: views.py:912
 msgid "Abbrevation"
@@ -320,7 +317,7 @@ msgstr "Se requiere el nombre de la licencia."
 
 #: views.py:940
 msgid "Successfuly created new license."
-msgstr "La nueva licencia se creó exitosamente."
+msgstr "La nueva licencia se creó con éxito."
 
 #: views.py:968
 #: templates/booktypecontrol/settings_license_edit.html:26
@@ -333,11 +330,11 @@ msgstr "Se removió la licencia exitosamente."
 
 #: views.py:1019
 msgid "Anyone can register"
-msgstr "Cualquiera se puede registrar"
+msgstr "Cualquiera puede registrarse"
 
 #: views.py:1021
 msgid "Anyone can register on the site and create account"
-msgstr "Cualquier se puede registrar en el sitio y crear una cuenta"
+msgstr "Cualquier puede registrarse en el sitio y crear una cuenta"
 
 #: views.py:1022
 msgid "Only admin can create books"
@@ -345,7 +342,7 @@ msgstr "Solo los administradores pueden crear libros"
 
 #: views.py:1024
 msgid "Only admin can import books"
-msgstr "Solos los administradores pueden importar libros"
+msgstr "Solo los administradores pueden importar libros"
 
 #: views.py:1069
 msgid "book"
@@ -393,7 +390,7 @@ msgstr "Mostrar actividad"
 
 #: views.py:1283
 msgid "Error while saving changes"
-msgstr "Hubo un error al almacenar los cambios"
+msgstr "Hubo un error al intentar almacenar los cambios"
 
 #: templates/control_base.html:25
 msgid "Booktype Control Center"
@@ -449,27 +446,27 @@ msgstr "EDITAR LIBRO"
 
 #: templates/booktypecontrol/book.html:37
 msgid "BOOK INFO"
-msgstr "Informamación del libro"
+msgstr "INFORMACIÓN DEL LIBRO"
 
 #: templates/booktypecontrol/book.html:38
 msgid "EDIT DESCRIPTION"
-msgstr "Editar descripción"
+msgstr "EDITAR DESCRIPCIÓN"
 
 #: templates/booktypecontrol/book.html:39
 msgid "RENAME"
-msgstr "Renombrar"
+msgstr "CAMBIAR NOMBRE"
 
 #: templates/booktypecontrol/book.html:40
 msgid "DELETE"
-msgstr ""
+msgstr "BORRAR"
 
 #: templates/booktypecontrol/book.html:63
 msgid "Owner:"
-msgstr "Propietario"
+msgstr "Propietario:"
 
 #: templates/booktypecontrol/book.html:64
 msgid "Status:"
-msgstr "Estatus"
+msgstr "Estatus:"
 
 #: templates/booktypecontrol/book.html:66
 msgid "(this book is hidden from others)"
@@ -477,7 +474,7 @@ msgstr "(este libro no es público)"
 
 #: templates/booktypecontrol/book.html:68
 msgid "(this book is visible to everyone)"
-msgstr "este libro es visible para todos"
+msgstr "(este libro está visible para todos)"
 
 #: templates/booktypecontrol/book.html:72
 msgid "Member of group:"
@@ -489,7 +486,7 @@ msgstr "Versión actual:"
 
 #: templates/booktypecontrol/book.html:75
 msgid "Attachments size:"
-msgstr "Tamaño del adjunto:"
+msgstr "Tamaño de los adjuntos:"
 
 #: templates/booktypecontrol/book.html:77
 msgid "Created:"
@@ -513,7 +510,7 @@ msgstr "Versiones"
 
 #: templates/booktypecontrol/books.html:30
 msgid "ADD NEW BOOK"
-msgstr "Añadir un nuevo libro"
+msgstr "AÑADIR UN NUEVO LIBRO"
 
 #: templates/booktypecontrol/books.html:50
 msgid "short title"
@@ -525,17 +522,16 @@ msgstr "título completo"
 
 #: templates/booktypecontrol/delete_book.html:6
 #: templates/booktypecontrol/delete_book.html:26
-#, fuzzy
 msgid "Delete Book"
-msgstr "Renombrar libro"
+msgstr "Eliminar el libro"
 
 #: templates/booktypecontrol/delete_book.html:20
 msgid "Are you sure you would like to delete this book? You will lose all data associated to this book and you will not be able to undo this operation!"
-msgstr ""
+msgstr "¿Estás seguro de querer eliminar este libro?  ¡Se perderán todos los datos asociados con este libro y no podrás deshacer esta operación!"
 
 #: templates/booktypecontrol/delete_book.html:21
 msgid "Type full title of the book to delete it"
-msgstr ""
+msgstr "Escribe el título completo del libro para eliminarlo"
 
 #: templates/booktypecontrol/edit_book.html:13
 #: templates/booktypecontrol/settings_appearance.html:13
@@ -551,11 +547,11 @@ msgstr "Almacenar cambios"
 
 #: templates/booktypecontrol/edit_password.html:25
 msgid "Change Password"
-msgstr "Cambiar contraseña"
+msgstr "Cambiar Contraseña"
 
 #: templates/booktypecontrol/edit_profile.html:13
 msgid "Save Changes"
-msgstr "Almacenar cambios"
+msgstr "Almacenar Cambios"
 
 #: templates/booktypecontrol/frontpage.html:28
 msgid "Info"
@@ -583,7 +579,7 @@ msgstr "Tamaño de la base de datos:"
 
 #: templates/booktypecontrol/frontpage.html:35
 msgid "Files size:"
-msgstr "Tamaño de los archivos"
+msgstr "Tamaño de los archivos:"
 
 #: templates/booktypecontrol/frontpage.html:40
 msgid "Online users"
@@ -634,11 +630,11 @@ msgstr "correo electrónico"
 
 #: templates/booktypecontrol/profile.html:28
 msgid "EDIT INFO"
-msgstr "editar información"
+msgstr "EDITAR INFORMACIÓN"
 
 #: templates/booktypecontrol/profile.html:29
 msgid "CHANGE PASSWORD"
-msgstr "cambiar contraseña"
+msgstr "CAMBIAR CONTRASEÑA"
 
 #: templates/booktypecontrol/profile.html:50
 msgid "Username:"
