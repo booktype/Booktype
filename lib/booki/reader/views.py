@@ -429,9 +429,13 @@ def book_view(request, bookid, version=None):
         return resp
 
     chapters = []
+    firstChapter = None
 
     for chapter in  models.BookToc.objects.filter(version=book_version).order_by("-weight"):
         if chapter.isChapter():
+            if not firstChapter:
+                firstChapter = chapter.chapter
+
             chapters.append({"url_title": chapter.chapter.url_title,
                              "name": chapter.chapter.title})
         else:
@@ -440,11 +444,14 @@ def book_view(request, bookid, version=None):
         
 
     try:
-        resp = render_to_response('reader/book_view.html', {"book": book, 
-                                                            "book_version": book_version.getVersion(),
-                                                            "chapters": chapters, 
-                                                            "has_css": _customCSSExists(book.url_title),
-                                                            "request": request})
+        if firstChapter:
+            resp = redirect('book_chapter', bookid = book.url_title, chapter=firstChapter.url_title) 
+        else:
+            resp = render_to_response('reader/book_view.html', {"book": book, 
+                                                                "book_version": book_version.getVersion(),
+                                                                "chapters": chapters, 
+                                                                "has_css": _customCSSExists(book.url_title),
+                                                                "request": request})
     except:
         transaction.rollback()
         raise
