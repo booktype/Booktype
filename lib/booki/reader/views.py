@@ -258,9 +258,15 @@ def draft_book(request, bookid, version=None):
         
 
     try:
+        editingEnabled = False
+
+        if request.user.is_authenticated() and book.version == book_version:
+            editingEnabled = True
+
         resp = render_to_response('reader/draft_book.html', {"book": book, 
                                                              "book_version": book_version.getVersion(),
                                                              "chapters": chapters, 
+                                                             "editing_enabled": editingEnabled,
                                                              "has_css": _customCSSExists(book.url_title),
                                                              "request": request})
     except:
@@ -351,10 +357,16 @@ def draft_chapter(request, bookid, chapter, version=None):
         return resp
         
     try:
+        editingEnabled = False
+
+        if request.user.is_authenticated() and book.version == book_version:
+            editingEnabled = True
+
         resp = render_to_response('reader/draft_chapter.html', {"chapter": chapter, 
                                                                 "book": book, 
                                                                 "book_version": book_version.getVersion(),
                                                                 "chapters": chapters, 
+                                                                "editing_enabled": editingEnabled,
                                                                 "has_css": _customCSSExists(book.url_title),
                                                                 "request": request, 
                                                                 "content": content})

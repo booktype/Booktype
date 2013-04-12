@@ -35,7 +35,7 @@
 
  <div id="bookcontent"  style="background: url({{ request.META.SCRIPT_NAME }}/site_static/images/draft_bg.png) repeat !important;">
    {% trans "click on the chapter name" %}
-   {% if request.user.is_authenticated %}
+   {% if editing_enabled %}
      <div class="action-menu bottom">
       	<a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
      </div>
