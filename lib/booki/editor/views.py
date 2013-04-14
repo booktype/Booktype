@@ -290,20 +290,21 @@ def view_cover(request, bookid, cid, fname = None, version=None):
     if request.GET.get('preview', '') == '1':
         import Image
         try:
-            if extension.lower() in ['pdf', 'psd']:
+            if extension.lower() in ['pdf', 'psd', 'svg']:
                 raise
 
             im = Image.open(cover.attachment.name)
             im.thumbnail((250, 250), Image.ANTIALIAS)
         except:
             try:
-                print '%s/images/booktype-cover-%s.png' % (settings.SITE_STATIC_ROOT, extension.lower())
                 im = Image.open('%s/images/booktype-cover-%s.png' % (settings.SITE_STATIC_ROOT, extension.lower()))
                 extension = 'png'
+                content_type = 'image/png'
             except:
                 # Not just IOError but anything else
                 im = Image.open('%s/images/booktype-cover-error.png' % settings.SITE_STATIC_ROOT)
                 extension = 'png'
+                content_type = 'image/png'
 
         response = HttpResponse(content_type=content_type)
 
