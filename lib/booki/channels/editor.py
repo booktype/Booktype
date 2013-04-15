@@ -2222,6 +2222,8 @@ def remote_covers_data(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_ver = book.getVersion(version)
 
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+    
     covers = []
 
     for cover in models.BookCover.objects.filter(book = book).order_by("title"):
@@ -2250,7 +2252,7 @@ def remote_covers_data(request, message, bookid, version):
     transaction.commit()
     covers.reverse()
 
-    return {"covers": covers}
+    return {"covers": covers, "can_update": bookSecurity.isAdmin()}
 
 
 def remote_cover_approve(request, message, bookid, version):
@@ -2271,6 +2273,11 @@ def remote_cover_approve(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    if not bookSecurity.isAdmin():
+        transaction.rollback()
+        return {"result": False}
 
     try:
         cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
