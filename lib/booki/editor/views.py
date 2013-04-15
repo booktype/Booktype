@@ -361,7 +361,9 @@ def upload_cover(request, bookid, version=None):
     try:
 
         for name, fileData in request.FILES.items():
-            if 1 == 1:
+            if True:
+                print '>> ', name
+                print request.FILES[name].name
                 import hashlib
 
                 h = hashlib.sha1()
@@ -384,11 +386,16 @@ def upload_cover(request, bookid, version=None):
                 except ValueError:
                     height = 0
 
+                try:
+                    filename = request.FILES[name].name
+                except:
+                    filename = ''
+                
                 cov = models.BookCover(book = book,
                                        user = request.user,
                                        cid = h.hexdigest(),
                                        title = request.POST.get('title', '')[:250],
-                                       filename = request.POST.get('filename', '')[:250],
+                                       filename = filename[:250],
                                        width = width,
                                        height = height,
                                        unit = request.POST.get('unit', 'mm'),
