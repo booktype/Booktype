@@ -285,6 +285,13 @@ def view_cover(request, bookid, cid, fname = None, version=None):
     mimetypes.init()
 
     extension = cover.filename.split('.')[-1].lower()
+
+    if extension == 'tif':
+        extension = 'tiff'
+
+    if extension == 'jpg':
+        extension = 'jpeg'
+
     content_type = mimetypes.types_map.get('.'+extension, 'binary/octet-stream')
 
     if request.GET.get('preview', '') == '1':
@@ -308,7 +315,7 @@ def view_cover(request, bookid, cid, fname = None, version=None):
 
         response = HttpResponse(content_type=content_type)
 
-        if extension.lower() in ['jpg', 'jpeg', 'png', 'gif', 'tiff', 'bmp']:
+        if extension.lower() in ['jpg', 'jpeg', 'png', 'gif', 'tiff', 'bmp', 'tif']:
             if extension.upper() == 'JPG': extension = 'JPEG'
         else:
             extension = 'jpeg'

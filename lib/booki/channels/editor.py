@@ -3648,6 +3648,13 @@ def remote_publish_book2(request, message, bookid, version):
             _extra = _getCoverSize(cover)
             args['cover_url'] = settings.BOOKI_URL+'/%s/_cover/%s/%s%s' % (book.url_title, cover.cid, urllib.quote(cover.filename), _extra)
         
+    for key in args.keys():
+        if isinstance(args[key], basestring):
+            # Ignore any kind of error. There will be no time to test this fully so just ignore everything for now
+            try:
+                args[key] = unicode(args[key]).encode('utf8')
+            except:
+                pass
 
     try:
         data = urllib.urlencode(args)
