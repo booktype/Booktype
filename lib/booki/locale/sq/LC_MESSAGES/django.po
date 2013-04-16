@@ -1,20 +1,21 @@
-# Albanian Translation of booktype.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# ALBANIAN (sq_AL) translation of Booktype.
+# Copyright (C) 2013 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# Besnik Bleta <besnik@programeshqip.org>, 2012.
-# msgid ""
+# Besnik Bleta <besnik@programeshqip.org>, 2012, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: Booktype\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-14 20:35+0100\n"
-"PO-Revision-Date: 2013-02-02 11:57+0200\n"
+"Project-Id-Version: Booktype 1.6.0\n"
+"Report-Msgid-Bugs-To: <contact@sourcefabric.org>\n"
+"POT-Creation-Date: 2013-04-10 19:04+0200\n"
+"PO-Revision-Date: 2013-04-16 23:02+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language-Team: sq\n"
+"Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
 
 #: account/models.py:38
 msgid "mood"
@@ -38,8 +39,9 @@ msgstr "përshkrim"
 #: editor/models.py:449
 #: editor/models.py:461
 #: editor/models.py:473
-#: editor/templates/editor/edit_book.html:560
-#: editor/templates/editor/edit_book.html:666
+#: editor/models.py:492
+#: editor/templates/editor/edit_book.html:568
+#: editor/templates/editor/edit_book.html:674
 msgid "user"
 msgstr "përdorues"
 
@@ -53,23 +55,27 @@ msgstr "kod i fshehtë"
 #: editor/models.py:295
 #: editor/models.py:329
 #: editor/models.py:393
-#: editor/templates/editor/edit_book.html:678
+#: editor/models.py:518
+#: editor/templates/editor/edit_book.html:686
 msgid "created"
 msgstr "krijuar"
 
-#: account/models.py:60
-msgid "remote useragent"
-msgstr "agjent i largët përdoruesiShteg i Largët"
-
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: account/models.py:61
+msgid "remote useragent"
+msgstr "agjent i largët përdoruesi"
+
+#. Translators: Visible only in Django Admin interface. No need to translate this.
+#: account/models.py:63
 msgid "remote addr"
 msgstr "adresë e largët"
 
-#: account/models.py:62
+#. Translators: Visible only in Django Admin interface. No need to translate this.
+#: account/models.py:65
 msgid "remote host"
 msgstr "strehë e largët"
 
-#: account/views.py:298
+#: account/views.py:314
 msgid "Reset password"
 msgstr "Ricaktoni fjalëkalimin"
 
@@ -87,7 +93,8 @@ msgid "Step 1"
 msgstr "Hapi 1"
 
 #: account/templates/account/create_book.html:18
-#: editor/templates/editor/wizzard_lulu.html:30
+#: editor/templates/editor/cover_manager.html:53
+#: editor/templates/editor/cover_manager.html:180
 msgid "Title"
 msgstr "Titull"
 
@@ -110,7 +117,6 @@ msgstr "Hapi 2"
 #: account/templates/account/create_book.html:30
 #: account/templates/account/create_book.html:34
 #: account/templates/account/view_profile.html:70
-#: editor/templates/editor/wizzard_lulu.html:42
 msgid "Description"
 msgstr "Përshkrim"
 
@@ -124,24 +130,26 @@ msgstr "Hapi 3"
 
 #: account/templates/account/create_book.html:40
 msgid "Choose your license"
-msgstr "Zgjidhni lejen tuaj"
+msgstr "Zgjidhni licencën tuaj"
 
 #: account/templates/account/create_book.html:41
 msgid "Choose from the following licenses"
-msgstr "Zgjidhni prej lejeve vijuese"
+msgstr "Zgjidhni prej licencave vijuese"
 
 #: account/templates/account/create_book.html:43
 #: editor/models.py:36
-#: editor/templates/editor/edit_book.html:437
+#: editor/templates/editor/cover_manager.html:133
+#: editor/templates/editor/cover_manager.html:257
+#: editor/templates/editor/edit_book.html:446
 msgid "License"
-msgstr "Leje"
+msgstr "Licencë"
 
 #: account/templates/account/create_book.html:54
 msgid "Step 4"
 msgstr "Hapi 4"
 
 #: account/templates/account/create_book.html:54
-#: editor/templates/editor/edit_book.html:220
+#: editor/templates/editor/edit_book.html:225
 msgid "Image"
 msgstr "Figurë"
 
@@ -168,6 +176,10 @@ msgstr "Do të donit ta mbani librin tuaj privat apo ta bëni publik? Nëse libr
 #: account/templates/account/create_book.html:65
 msgid "<strong>Note:</strong> this setting can be changed later from your dashboard.</p>"
 msgstr "<strong>Shënim:</strong> ky rregullim mund të ndryshohet më vonë që nga pulti juaj.</p>"
+
+#: account/templates/account/create_book.html:67
+msgid "Initially hide from others"
+msgstr "Fillimisht i fshehur për të tjerët"
 
 #: account/templates/account/create_group.html:3
 msgid "Create a Group"
@@ -276,12 +288,12 @@ msgid "Password (6 characters at least)"
 msgstr "Fjalëkalim (e pakta 6 shenja i gjatë)"
 
 #: account/templates/account/form_register.html:17
-#: account/templates/account/view_profile.html:197
+#: account/templates/account/view_profile.html:196
 msgid "Full name"
 msgstr "Emër i plotë"
 
 #: account/templates/account/form_register.html:19
-#: account/templates/account/view_profile.html:193
+#: account/templates/account/view_profile.html:192
 msgid "Email"
 msgstr "Email"
 
@@ -314,7 +326,7 @@ msgid "Your passwords dont match. Please try a different one."
 msgstr "Fjalëkalimet tuaj nuk përputhen me njëri-tjetrin. Ju lutemi, provoni një tjetër."
 
 #: account/templates/account/form_register.html:31
-#: account/templates/account/view_profile.html:253
+#: account/templates/account/view_profile.html:252
 msgid "Password must be 6 characters or more!"
 msgstr "Fjalëkalimi duhet të jetë 6 ose më shumë shenja!"
 
@@ -333,7 +345,7 @@ msgstr "Emri i plotë është shumë e gjatë!"
 
 #: account/templates/account/form_register.html:44
 msgid "Only administrator is allowed to create new accounts at the moment."
-msgstr "Hëpërhë vetëm përgjegjësit i lejohet të krijojë llogari të reja "
+msgstr "Hëpërhë vetëm përgjegjësit i lejohet të krijojë llogari të reja."
 
 #: account/templates/account/form_signin.html:3
 #: account/templates/account/form_signin.html:20
@@ -399,15 +411,15 @@ msgstr "Ju lutemi, prisni. Do të marrë ca çaste. Libri juaj po importohet!"
 
 #: account/templates/account/password_reset_email.html:5
 msgid "To reset your Booktype password, simply click the link below. That will take you to a web page where you can create a new password."
-msgstr "Që të ricaktoni fjalëkalimin tuaj te Booktype, thjesht klikoni mbi lidhjen më poshtë. Ajo do t'ju shpjerë te një faqe web te e cila mund të krijoni një fjalëkalim të ri."
+msgstr "Që të ricaktoni fjalëkalimin tuaj te Booktype, thjesht klikoni mbi lidhjen më poshtë. Ajo do t'ju shpjerë në një faqe web te e cila mund të krijoni një fjalëkalim të ri."
 
 #: account/templates/account/password_reset_email.html:6
 msgid "Go to:"
-msgstr "Shko tek:"
+msgstr "Shko te:"
 
 #: account/templates/account/password_reset_email.html:7
 msgid "If you weren't trying to reset your password, don't worry – your account is still secure and no one has been given access to it. Most likely, someone just mistyped their email address while trying to reset their own password."
-msgstr "Nëse nuk po përpiqeshit të ricaktoni fjalëkalimin tuaj, mos u shqetësoni – llogaria juaj ende është e sigurt dhe nuk i është dhënë askujt hyrje në të. Ka shumë të ngjarë që dikush shkroi gabim adresën e vet email, ndërkohë që po provonte të ricaktonte fjalëkalimin e tij."
+msgstr "Nëse nuk po përpiqeshit të ricaktonit fjalëkalimin tuaj, mos u shqetësoni – llogaria juaj ende është e sigurt dhe askujt nuk i është dhënë hyrje në të. Ka shumë të ngjarë që dikush shkroi gabim adresën e vet email, ndërkohë që po provonte të ricaktonte fjalëkalimin e tij."
 
 #: account/templates/account/signin.html:6
 msgid "Booktype Sign In"
@@ -464,7 +476,7 @@ msgstr "/përdoruesi: %(username)s"
 
 #: account/templates/account/view_profile.html:43
 #: editor/templates/base_edit.html:82
-#: portal/templates/base.html:89
+#: portal/templates/base.html:148
 msgid "My Dashboard"
 msgstr "Pulti Im"
 
@@ -482,7 +494,7 @@ msgstr "Librat e Mi"
 #: account/templates/account/view_profile.html:143
 #: editor/models.py:203
 #: editor/templates/base_edit.html:89
-#: portal/templates/base.html:96
+#: portal/templates/base.html:155
 #: portal/templates/portal/books.html:13
 #: portal/templates/portal/books.html:54
 #: portal/templates/portal/group.html:65
@@ -491,8 +503,8 @@ msgid "Books"
 msgstr "Libra"
 
 #: account/templates/account/view_profile.html:49
-#: editor/templates/editor/edit_book.html:117
-#: editor/templates/editor/edit_book.html:412
+#: editor/templates/editor/edit_book.html:122
+#: editor/templates/editor/edit_book.html:421
 #: portal/templates/portal/group.html:68
 msgid "Settings"
 msgstr "Rregullime"
@@ -526,7 +538,7 @@ msgid "CREATE NEW BOOK"
 msgstr "KRIJONI LIBËR TË RI"
 
 #: account/templates/account/view_profile.html:109
-#: account/templates/account/view_profile.html:163
+#: account/templates/account/view_profile.html:162
 msgid "edit"
 msgstr "përpunoni"
 
@@ -578,77 +590,149 @@ msgstr "Krijoni një libër të ri"
 msgid "Import Book"
 msgstr "Importoni Libër"
 
-#: account/templates/account/view_profile.html:163
+#: account/templates/account/view_profile.html:162
 msgid "info"
 msgstr "info"
 
-#: account/templates/account/view_profile.html:163
+#: account/templates/account/view_profile.html:162
 msgid "draft"
 msgstr "skicë"
 
-#: account/templates/account/view_profile.html:167
-#: account/templates/account/view_profile.html:182
+#: account/templates/account/view_profile.html:166
+#: account/templates/account/view_profile.html:181
 msgid "Show to others"
 msgstr "Shfaqua të tjerëve"
 
-#: account/templates/account/view_profile.html:173
-#: account/templates/account/view_profile.html:182
+#: account/templates/account/view_profile.html:172
+#: account/templates/account/view_profile.html:181
 msgid "Hide from others"
 msgstr "Fshihua të tjerëve"
 
-#: account/templates/account/view_profile.html:187
+#: account/templates/account/view_profile.html:186
 msgid "User settings"
 msgstr "Rregullime përdoruesi"
 
-#: account/templates/account/view_profile.html:201
+#: account/templates/account/view_profile.html:200
 msgid "About yourself"
 msgstr "Rreth vetes suaj"
 
-#: account/templates/account/view_profile.html:205
+#: account/templates/account/view_profile.html:204
 msgid "Profile image"
 msgstr "Figurë profili"
 
-#: account/templates/account/view_profile.html:209
+#: account/templates/account/view_profile.html:208
 msgid "Notification filter"
 msgstr "Filtër njoftimesh"
 
-#: account/templates/account/view_profile.html:215
-#: editor/templates/editor/edit_strings.html:22
-#: portal/templates/base.html:139
+#: account/templates/account/view_profile.html:214
+#: account/templates/account/view_profile.html:265
+#: editor/templates/editor/edit_strings.html:23
+#: portal/templates/base.html:198
 msgid "Save changes"
 msgstr "Ruaji ndryshimet"
 
-#: account/templates/account/view_profile.html:223
+#: account/templates/account/view_profile.html:222
 msgid "Old Password"
 msgstr "Fjalëkalimi i Vjetër"
 
-#: account/templates/account/view_profile.html:229
+#: account/templates/account/view_profile.html:228
 msgid "New Password"
 msgstr "Fjalëkalim i Ri"
 
-#: account/templates/account/view_profile.html:234
+#: account/templates/account/view_profile.html:233
 msgid "Password (again)"
 msgstr "Fjalëkalim (sërish)"
 
-#: account/templates/account/view_profile.html:241
+#: account/templates/account/view_profile.html:240
 msgid "Change password"
 msgstr "Ndryshoni fjalëkalimin"
 
-#: account/templates/account/view_profile.html:250
+#: account/templates/account/view_profile.html:249
 msgid "Unable to change password. Old password is missing."
 msgstr "I pazoti të ndryshojë fjalëkalimin. Mungon fjalëkalimi i vjetër."
 
-#: account/templates/account/view_profile.html:251
+#: account/templates/account/view_profile.html:250
 msgid "Unable to change password. Old password is incorrect."
 msgstr "I pazoti të ndryshojë fjalëkalimin. Fjalëkalimi i vjetër është i pasaktë."
 
-#: account/templates/account/view_profile.html:252
+#: account/templates/account/view_profile.html:251
 msgid "Unable to change password. The new and confirmation passwords are not equal."
-msgstr "I pazoti të ndryshojë fjalëkalimin. Fjalëkalimi i ri dhe ai ripohimit nuk janë i njëjti."
+msgstr "I pazoti të ndryshojë fjalëkalimin. Fjalëkalimi i ri dhe ai i ripohimit nuk janë të njëjtë."
 
-#: account/templates/account/view_profile.html:254
+#: account/templates/account/view_profile.html:253
 msgid "Password changed."
 msgstr "Fjalëkalimi u ndryshua."
+
+#: account/templates/account/view_profile.html:254
+#: portal/templates/base.html:192
+msgid "OK"
+msgstr "OK"
+
+#: account/templates/account/view_profile.html:255
+#: editor/templates/editor/edit_strings.html:8
+#: editor/templates/editor/wizzard_book.html:327
+#: editor/templates/editor/wizzard_bookjs.html:276
+#: editor/templates/editor/wizzard_ebook.html:176
+#: editor/templates/editor/wizzard_odt.html:174
+#: editor/templates/editor/wizzard_pdf.html:288
+#: portal/templates/base.html:193
+msgid "Back"
+msgstr "Mbrapsht"
+
+#: account/templates/account/view_profile.html:256
+#: editor/templates/editor/edit_book.html:625
+#: portal/templates/base.html:194
+msgid "Create"
+msgstr "Krijoje"
+
+#: account/templates/account/view_profile.html:257
+#: editor/templates/editor/cover_manager.html:163
+#: editor/templates/editor/edit_book.html:295
+#: editor/templates/editor/edit_strings.html:4
+#: portal/templates/base.html:195
+msgid "Cancel"
+msgstr "Anuloje"
+
+#: account/templates/account/view_profile.html:258
+#: editor/templates/editor/edit_strings.html:6
+#: editor/templates/editor/wizzard_book.html:328
+#: editor/templates/editor/wizzard_bookjs.html:277
+#: editor/templates/editor/wizzard_ebook.html:177
+#: editor/templates/editor/wizzard_odt.html:175
+#: editor/templates/editor/wizzard_pdf.html:289
+#: portal/templates/base.html:196
+#: portal/templates/booki_paginator.html:29
+msgid "Next"
+msgstr "Pasuesi"
+
+#: account/templates/account/view_profile.html:259
+msgid "Couldn't create a group"
+msgstr "S'krijoi dot grup"
+
+#: account/templates/account/view_profile.html:260
+#: portal/templates/base.html:200
+msgid "enter epub URL"
+msgstr "jepni URL epub"
+
+#: account/templates/account/view_profile.html:261
+#: portal/templates/base.html:201
+msgid "enter Archive.org ID"
+msgstr "jepni ID Archive.org"
+
+#: account/templates/account/view_profile.html:262
+#: portal/templates/base.html:202
+msgid "enter Wikibooks URL"
+msgstr "Jepni URL Wikibooks"
+
+#: account/templates/account/view_profile.html:263
+#: portal/templates/base.html:203
+msgid "enter Booktype URL"
+msgstr "jepni URL Booktype"
+
+#: account/templates/account/view_profile.html:264
+#: portal/templates/base.html:197
+msgid "Import"
+msgstr "Importoni"
 
 #: account/templates/errors/user_does_not_exist.html:4
 msgid "User does not exist!"
@@ -666,8 +750,8 @@ msgstr "S'gjen dot përdoruesin \"%(username)s\"."
 #: editor/models.py:256
 #: editor/models.py:292
 #: editor/models.py:420
-#: editor/templates/editor/edit_book.html:675
-#: editor/templates/editor/edit_strings.html:55
+#: editor/templates/editor/edit_book.html:683
+#: editor/templates/editor/edit_strings.html:56
 msgid "name"
 msgstr "emër"
 
@@ -681,7 +765,7 @@ msgid "Licenses"
 msgstr "Leje"
 
 #: editor/models.py:49
-#: editor/templates/editor/edit_book.html:418
+#: editor/templates/editor/edit_book.html:427
 msgid "Language"
 msgstr "Gjuhë"
 
@@ -713,6 +797,7 @@ msgstr "i papërkthyer"
 #: editor/models.py:450
 #: editor/models.py:460
 #: editor/models.py:472
+#: editor/models.py:491
 msgid "book"
 msgstr "libër"
 
@@ -727,6 +812,7 @@ msgid "Book status"
 msgstr "Gjendje libri"
 
 #: editor/models.py:80
+#: editor/models.py:514
 msgid "notes"
 msgstr "shënime"
 
@@ -736,7 +822,7 @@ msgstr "Shënim libri"
 
 #: editor/models.py:87
 msgid "Book notes"
-msgstr "Shënime Libri"
+msgstr "Shënime libri"
 
 #: editor/models.py:93
 msgid "url name"
@@ -793,6 +879,7 @@ msgid "group"
 msgstr "grup"
 
 #: editor/models.py:130
+#: editor/models.py:512
 msgid "license"
 msgstr "leje"
 
@@ -810,6 +897,9 @@ msgid "cover"
 msgstr "kapak"
 
 #: editor/models.py:202
+#: editor/templates/editor/cover_manager.html:112
+#: editor/templates/editor/cover_manager.html:249
+#: editor/templates/editor/cover_manager.html:296
 #: editor/templates/editor/edit_publish.html:9
 msgid "Book"
 msgstr "Libër"
@@ -832,7 +922,7 @@ msgstr "i ndryshuar"
 
 #: editor/models.py:234
 msgid "args"
-msgstr ""
+msgstr "argumente"
 
 #: editor/models.py:236
 #: editor/models.py:257
@@ -870,7 +960,7 @@ msgstr "i vogël"
 
 #: editor/models.py:332
 #: editor/models.py:357
-#: editor/templates/editor/edit_book.html:665
+#: editor/templates/editor/edit_book.html:673
 msgid "revision"
 msgstr "rishikim"
 
@@ -889,21 +979,22 @@ msgid "Chapters"
 msgstr "Kapituj"
 
 #: editor/models.py:358
-#: editor/templates/editor/edit_book.html:668
+#: editor/templates/editor/edit_book.html:676
 msgid "comment"
 msgstr "koment"
 
 #: editor/models.py:364
 msgid "Chapter history"
-msgstr "Historik Kreu"
+msgstr "Historik kreu"
 
 #: editor/models.py:390
-#: editor/templates/editor/edit_strings.html:56
+#: editor/models.py:496
+#: editor/templates/editor/edit_strings.html:57
 msgid "filename"
 msgstr "emër kartele"
 
 #: editor/models.py:403
-#: editor/templates/editor/edit_book.html:626
+#: editor/templates/editor/edit_book.html:634
 msgid "Attachment"
 msgstr "Bashkangjitje"
 
@@ -942,16 +1033,72 @@ msgstr "Persona Jopjesë"
 
 #: editor/models.py:474
 msgid "wizzard type"
-msgstr "Lloj mekanizmi"
+msgstr "lloj mekanizmi"
 
 #: editor/models.py:475
 msgid "wizzard options"
-msgstr "Mundësi mekanizmi"
+msgstr "mundësi mekanizmi"
 
 #: editor/models.py:481
 #: editor/models.py:482
 msgid "Publish Wizzard"
 msgstr "Mekanizëm Botimi"
+
+#: editor/models.py:498
+#: editor/templates/editor/cover_manager.html:181
+msgid "Cover title"
+msgstr "Titull kapaku"
+
+#: editor/models.py:500
+#: editor/templates/editor/cover_manager.html:150
+#: editor/templates/editor/cover_manager.html:275
+msgid "Width"
+msgstr "Gjerësi"
+
+#: editor/models.py:501
+#: editor/templates/editor/cover_manager.html:148
+#: editor/templates/editor/cover_manager.html:273
+msgid "Height"
+msgstr "Lartësi"
+
+#: editor/models.py:502
+msgid "Unit"
+msgstr "Njësi"
+
+#: editor/models.py:503
+msgid "Booksize"
+msgstr "Shënim libri"
+
+#: editor/models.py:505
+msgid "Book cover"
+msgstr "Shënim libri"
+
+#: editor/models.py:506
+msgid "E-book cover"
+msgstr "Kapak e-libri"
+
+#: editor/models.py:507
+msgid "PDF cover"
+msgstr "Kapak PDF-je"
+
+#: editor/models.py:509
+msgid "Cover type"
+msgstr "Lloj kapaku:"
+
+#: editor/models.py:511
+#: editor/templates/editor/wizzard_book.html:157
+#: editor/templates/editor/wizzard_bookjs.html:158
+#: editor/templates/editor/wizzard_ebook.html:116
+#: editor/templates/editor/wizzard_odt.html:98
+#: editor/templates/editor/wizzard_pdf.html:124
+msgid "Cover"
+msgstr "Kapak"
+
+#: editor/models.py:516
+#: editor/templates/editor/cover_manager.html:10
+#: editor/templates/editor/cover_manager.html:303
+msgid "Approved"
+msgstr "I miratuar"
 
 #: editor/templates/authors.html:13
 msgid "Modifications:"
@@ -968,88 +1115,557 @@ msgid "Sign In / Create Account"
 msgstr "Hyni / Krijoni Llogari"
 
 #: editor/templates/base_edit.html:90
-#: portal/templates/base.html:97
+#: portal/templates/base.html:156
 #: portal/templates/portal/groups.html:12
 msgid "Groups"
 msgstr "Grupe"
 
 #: editor/templates/base_edit.html:91
-#: portal/templates/base.html:98
+#: portal/templates/base.html:157
 #: portal/templates/portal/people.html:13
 msgid "People"
 msgstr "Persona"
 
 #: editor/templates/base_edit.html:126
-#: portal/templates/base.html:124
+#: portal/templates/base.html:183
 msgid "There has been error in communication with Booktype server."
 msgstr "Pati gabim gjatë ndërlidhjes me shërbyesin e Booktype-it."
 
 #: editor/templates/base_edit.html:127
-#: portal/templates/base.html:125
+#: portal/templates/base.html:184
 msgid "Not sure right now where is the problem."
 msgstr "Jo e qartë tani për tani se ku është problemi."
 
 #: editor/templates/base_edit.html:130
-#: portal/templates/base.html:128
+#: portal/templates/base.html:187
 msgid "You should refresh this page."
 msgstr "Do të duhej ta rifreskonit këtë faqe."
 
-#: editor/templates/booki_report.html:5
+#: editor/templates/booktype_daily_report.html:5
 #, python-format
 msgid "Report for %(booki_name)s (%(date)s)"
 msgstr "Raport mbi %(booki_name)s (%(date)s)"
 
-#: editor/templates/booki_report.html:7
-msgid "Info"
-msgstr "Të dhëna"
-
-#: editor/templates/booki_report.html:10
-msgid "Total number of books:"
-msgstr "Numër librash gjithsej:"
-
-#: editor/templates/booki_report.html:15
-msgid "Total number of users:"
-msgstr "Numër përdoruesish gjithsej:"
-
-#: editor/templates/booki_report.html:20
-msgid "Attachments size:"
-msgstr "Madhësi bashkangjitje:"
-
-#: editor/templates/booki_report.html:25
-msgid "Database size:"
-msgstr "Madhësi baze të dhënash:"
-
-#: editor/templates/booki_report.html:31
-msgid "New Users"
-msgstr "Përdorues të Rinj"
-
-#: editor/templates/booki_report.html:36
-msgid "No new users"
-msgstr "Nuk ka përdorues të rinj"
-
-#: editor/templates/booki_report.html:41
-msgid "New Books"
-msgstr "Libra të Rinj"
-
-#: editor/templates/booki_report.html:46
-msgid "No new books"
-msgstr "Nuk ka libra të rinj"
-
-#: editor/templates/booki_report.html:50
-msgid "New Groups"
-msgstr "Grupe të Rinj"
-
-#: editor/templates/booki_report.html:55
-msgid "No new groups"
-msgstr "Nuk ka grupe të rinj"
-
-#: editor/templates/booki_report.html:60
+#: editor/templates/booktype_daily_report.html:7
+#: editor/templates/booktype_weekly_report.html:8
 msgid "Activity"
 msgstr "Veprimtari"
 
-#: editor/templates/booki_report.html:71
+#: editor/templates/booktype_daily_report.html:10
+#: editor/templates/booktype_weekly_report.html:11
+msgid "Info"
+msgstr "Të dhëna"
+
+#: editor/templates/booktype_daily_report.html:14
+#: editor/templates/booktype_weekly_report.html:15
+msgid "Total number of books:"
+msgstr "Numër librash gjithsej:"
+
+#: editor/templates/booktype_daily_report.html:19
+#: editor/templates/booktype_weekly_report.html:20
+msgid "Total number of users:"
+msgstr "Numër përdoruesish gjithsej:"
+
+#: editor/templates/booktype_daily_report.html:24
+#: editor/templates/booktype_weekly_report.html:25
+msgid "Total number of groups:"
+msgstr "Numër grupesh gjithsej:"
+
+#: editor/templates/booktype_daily_report.html:29
+#: editor/templates/booktype_weekly_report.html:30
+msgid "Attachments size:"
+msgstr "Madhësi bashkangjitje:"
+
+#: editor/templates/booktype_daily_report.html:34
+#: editor/templates/booktype_weekly_report.html:35
+msgid "Database size:"
+msgstr "Madhësi baze të dhënash:"
+
+#: editor/templates/booktype_daily_report.html:40
+msgid "New Users"
+msgstr "Përdorues të Rinj"
+
+#: editor/templates/booktype_daily_report.html:46
+msgid "No new users"
+msgstr "Nuk ka përdorues të rinj"
+
+#: editor/templates/booktype_daily_report.html:51
+msgid "New Books"
+msgstr "Libra të Rinj"
+
+#: editor/templates/booktype_daily_report.html:57
+msgid "No new books"
+msgstr "Nuk ka libra të rinj"
+
+#: editor/templates/booktype_daily_report.html:62
+msgid "New Groups"
+msgstr "Grupe të Rinj"
+
+#: editor/templates/booktype_daily_report.html:68
+msgid "No new groups"
+msgstr "Nuk ka grupe të rinj"
+
+#: editor/templates/booktype_daily_report.html:73
+msgid "Modified chapters"
+msgstr "Krerë të ndryshuar"
+
+#: editor/templates/booktype_daily_report.html:85
 msgid "No Activity"
 msgstr "Nuk Ka Veprimtari"
+
+#: editor/templates/booktype_weekly_report.html:41
+msgid "Updates"
+msgstr "Përditësime"
+
+#: editor/templates/booktype_weekly_report.html:43
+msgid "New users"
+msgstr "Përdorues të rinj"
+
+#: editor/templates/booktype_weekly_report.html:44
+msgid "New books"
+msgstr "Libra të rinj"
+
+#: editor/templates/booktype_weekly_report.html:45
+msgid "New groups"
+msgstr "Grupe të rinj"
+
+#: editor/templates/booktype_weekly_report.html:48
+msgid "Most active books"
+msgstr "Librat më aktivë"
+
+#: editor/templates/booktype_weekly_report.html:54
+msgid "No active books"
+msgstr "Pa libra aktivë"
+
+#: editor/templates/booktype_weekly_report.html:59
+msgid "Most active users"
+msgstr "Përdoruesit më aktivë"
+
+#: editor/templates/booktype_weekly_report.html:65
+msgid "No active users"
+msgstr "Pa përdorues aktivë"
+
+#: editor/templates/editor/cover_manager.html:4
+#: editor/templates/editor/edit_book.html:105
+msgid "Cover Manager"
+msgstr "Përgjegjës Kapakësh"
+
+#: editor/templates/editor/cover_manager.html:7
+msgid "View files of status:"
+msgstr "Shihni kartela me gjendjen:"
+
+#: editor/templates/editor/cover_manager.html:9
+#: portal/templates/portal/people.html:55
+msgid "All"
+msgstr "Krejt"
+
+#: editor/templates/editor/cover_manager.html:11
+msgid "Pending"
+msgstr "Në pritje"
+
+#: editor/templates/editor/cover_manager.html:16
+msgid "The cover manager allows you to upload, manage and publish your book covers. Please upload your ebook cover image files (JPEG, GIF or PNG format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, spine and back cover of your print books can be uploaded and managed, but will be kept separate from the text of the book when publishing it."
+msgstr "Përgjegjësi i kapakëve ju lejon të ngarkoni, administroni dhe botoni kapakët e librave tuaj. Ju lutemi, ngarkojini kartelat figurë të kapakëve të elibrave tuaj (në format JPEG, GIF ose PNG) sipas përmasave të përshtatshme për EPUB, MOBI, PDF dhe ODT. Mund të ngarkohet dhe administrohet edhe grafikë (në format TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI ose INDD) për kapakun e përparmë, shpinën dhe kapakun e mbrapmë të librave tuaj për shtyp, por do të mbahen veçmas nga teksti i librit, kur ky botohet."
+
+#: editor/templates/editor/cover_manager.html:22
+msgid "Upload cover image"
+msgstr "Ngarkoni figurë kapaku"
+
+#: editor/templates/editor/cover_manager.html:40
+msgid "Error: The selected filetype is not supported. Please select one of the following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+msgstr "Gabim: Lloji i përzgjedhur i kartelës nuk mbulohet. Ju lutemi, përzgjidhni një nga llojet vijuese të kartelave dhe riprovoni: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+
+#: editor/templates/editor/cover_manager.html:43
+msgid "Error: The selected file is bigger than 15MB. Please select a smaller file and try again."
+msgstr "Gabim: Kartela e përzgjedhur është më e madhe se 15MB. Ju lutemi, përzgjidhni një kartelë më të vogël dhe riprovoni."
+
+#: editor/templates/editor/cover_manager.html:48
+msgid "Enter Meta-data"
+msgstr "Jepni Tejtëdhëna"
+
+#: editor/templates/editor/cover_manager.html:57
+#: editor/templates/editor/cover_manager.html:184
+msgid "Filename"
+msgstr "Emër kartele"
+
+#: editor/templates/editor/cover_manager.html:61
+#: editor/templates/editor/cover_manager.html:188
+#: editor/templates/editor/wizzard_book.html:12
+#: editor/templates/editor/wizzard_bookjs.html:11
+#: editor/templates/editor/wizzard_pdf.html:11
+msgid "Book Size"
+msgstr "Madhësi Libri"
+
+#: editor/templates/editor/cover_manager.html:64
+#: editor/templates/editor/cover_manager.html:191
+#: editor/templates/editor/wizzard_book.html:14
+#: editor/templates/editor/wizzard_bookjs.html:13
+#: editor/templates/editor/wizzard_pdf.html:13
+msgid "custom"
+msgstr "e përshtatur"
+
+#: editor/templates/editor/cover_manager.html:65
+#: editor/templates/editor/cover_manager.html:192
+#: editor/templates/editor/wizzard_book.html:15
+#: editor/templates/editor/wizzard_bookjs.html:14
+msgid "POCKET (107mm x 174mm)"
+msgstr "POCKET (107mm x 174mm)"
+
+#: editor/templates/editor/cover_manager.html:66
+#: editor/templates/editor/cover_manager.html:193
+#: editor/templates/editor/wizzard_book.html:16
+#: editor/templates/editor/wizzard_bookjs.html:15
+msgid "US5x8 (126mm x 203mm)"
+msgstr "US5x8 (126mm x 203mm)"
+
+#: editor/templates/editor/cover_manager.html:67
+#: editor/templates/editor/cover_manager.html:194
+#: editor/templates/editor/wizzard_book.html:17
+#: editor/templates/editor/wizzard_bookjs.html:16
+msgid "DIGEST (139mm x 215mm)"
+msgstr "DIGEST (139mm x 215mm)"
+
+#: editor/templates/editor/cover_manager.html:68
+#: editor/templates/editor/cover_manager.html:195
+#: editor/templates/editor/wizzard_book.html:18
+#: editor/templates/editor/wizzard_bookjs.html:17
+msgid "US5.5x8.5 (139mm x 215mm)"
+msgstr "US5.5x8.5 (139mm x 215mm)"
+
+#: editor/templates/editor/cover_manager.html:69
+#: editor/templates/editor/cover_manager.html:196
+#: editor/templates/editor/wizzard_book.html:19
+#: editor/templates/editor/wizzard_bookjs.html:18
+#: editor/templates/editor/wizzard_pdf.html:14
+msgid "A5 (148mm x 210mm)"
+msgstr "A5 (148mm x 210mm)"
+
+#: editor/templates/editor/cover_manager.html:70
+#: editor/templates/editor/cover_manager.html:197
+#: editor/templates/editor/wizzard_book.html:20
+#: editor/templates/editor/wizzard_bookjs.html:19
+msgid "USTRADE6x9 (152mm x 228mm)"
+msgstr "USTRADE6x9 (152mm x 228mm)"
+
+#: editor/templates/editor/cover_manager.html:71
+#: editor/templates/editor/cover_manager.html:198
+#: editor/templates/editor/wizzard_book.html:21
+#: editor/templates/editor/wizzard_bookjs.html:20
+msgid "SQUARE7.5 (190mm x 190mm)"
+msgstr "SQUARE7.5 (190mm x 190mm)"
+
+#: editor/templates/editor/cover_manager.html:72
+#: editor/templates/editor/cover_manager.html:199
+#: editor/templates/editor/wizzard_book.html:22
+#: editor/templates/editor/wizzard_bookjs.html:21
+msgid "ROYAL (155mm x 233mm)"
+msgstr "ROYAL (155mm x 233mm)"
+
+#: editor/templates/editor/cover_manager.html:73
+#: editor/templates/editor/cover_manager.html:200
+#: editor/templates/editor/wizzard_book.html:23
+#: editor/templates/editor/wizzard_bookjs.html:22
+msgid "LANDSCAPE9x7 (228mm x 177mm)"
+msgstr "LANDSCAPE9x7 (228mm x 177mm)"
+
+#: editor/templates/editor/cover_manager.html:74
+#: editor/templates/editor/cover_manager.html:201
+#: editor/templates/editor/wizzard_book.html:24
+#: editor/templates/editor/wizzard_bookjs.html:23
+msgid "COMICBOOK (168mm x 260mm)"
+msgstr "COMICBOOK (168mm x 260mm)"
+
+#: editor/templates/editor/cover_manager.html:75
+#: editor/templates/editor/cover_manager.html:202
+#: editor/templates/editor/wizzard_book.html:25
+#: editor/templates/editor/wizzard_bookjs.html:24
+msgid "B5 (176mm x 250mm)"
+msgstr "B5 (176mm x 250mm)"
+
+#: editor/templates/editor/cover_manager.html:76
+#: editor/templates/editor/cover_manager.html:203
+#: editor/templates/editor/wizzard_book.html:26
+#: editor/templates/editor/wizzard_bookjs.html:25
+msgid "US7x10 (177mm x 253mm)"
+msgstr "US7x10 (177mm x 253mm)"
+
+#: editor/templates/editor/cover_manager.html:77
+#: editor/templates/editor/cover_manager.html:204
+#: editor/templates/editor/wizzard_book.html:27
+#: editor/templates/editor/wizzard_bookjs.html:26
+msgid "CROWNQUARTO (189mm x 245mm)"
+msgstr "CROWNQUARTO (189mm x 245mm)"
+
+#: editor/templates/editor/cover_manager.html:78
+#: editor/templates/editor/cover_manager.html:205
+#: editor/templates/editor/wizzard_book.html:28
+#: editor/templates/editor/wizzard_bookjs.html:27
+msgid "SQUARE8.5 (215mm x 215mm)"
+msgstr "SQUARE8.5 (215mm x 215mm)"
+
+#: editor/templates/editor/cover_manager.html:79
+#: editor/templates/editor/cover_manager.html:206
+#: editor/templates/editor/wizzard_book.html:29
+#: editor/templates/editor/wizzard_bookjs.html:28
+msgid "USLETTER (215mm x 279mm)"
+msgstr "USLETTER (215mm x 279mm)"
+
+#: editor/templates/editor/cover_manager.html:80
+#: editor/templates/editor/cover_manager.html:207
+#: editor/templates/editor/wizzard_book.html:30
+#: editor/templates/editor/wizzard_bookjs.html:29
+#: editor/templates/editor/wizzard_pdf.html:15
+msgid "A4 (210mm x 297mm)"
+msgstr "A4 (210mm x 297mm)"
+
+#: editor/templates/editor/cover_manager.html:81
+#: editor/templates/editor/cover_manager.html:208
+#: editor/templates/editor/wizzard_book.html:31
+#: editor/templates/editor/wizzard_bookjs.html:30
+msgid "Foolscap (F4) (210mm x 330mm)"
+msgstr "Foolscap (F4) (210mm x 330mm)"
+
+#: editor/templates/editor/cover_manager.html:82
+#: editor/templates/editor/cover_manager.html:209
+#: editor/templates/editor/wizzard_book.html:32
+#: editor/templates/editor/wizzard_bookjs.html:31
+msgid "B4 (250mm x 353mm)"
+msgstr "B4 (250mm x 353mm)"
+
+#: editor/templates/editor/cover_manager.html:83
+#: editor/templates/editor/cover_manager.html:210
+#: editor/templates/editor/wizzard_book.html:33
+#: editor/templates/editor/wizzard_bookjs.html:32
+msgid "Oamaru Tabloid (265mm x 380mm)"
+msgstr "Oamaru Tabloid (265mm x 380mm)"
+
+#: editor/templates/editor/cover_manager.html:84
+#: editor/templates/editor/cover_manager.html:211
+#: editor/templates/editor/wizzard_book.html:34
+#: editor/templates/editor/wizzard_bookjs.html:33
+msgid "UK Tabloid (279mm x 431mm)"
+msgstr "UK Tabloid (279mm x 431mm)"
+
+#: editor/templates/editor/cover_manager.html:85
+#: editor/templates/editor/cover_manager.html:212
+#: editor/templates/editor/wizzard_book.html:35
+#: editor/templates/editor/wizzard_bookjs.html:34
+msgid "A3 (NZ Tabloid) (297mm x 420mm)"
+msgstr "A3 (NZ Tabloid) (297mm x 420mm)"
+
+#: editor/templates/editor/cover_manager.html:86
+#: editor/templates/editor/cover_manager.html:213
+#: editor/templates/editor/wizzard_book.html:36
+#: editor/templates/editor/wizzard_bookjs.html:35
+msgid "Berliner (315mm x 470mm)"
+msgstr "Berliner (315mm x 470mm)"
+
+#: editor/templates/editor/cover_manager.html:87
+#: editor/templates/editor/cover_manager.html:214
+#: editor/templates/editor/wizzard_book.html:37
+#: editor/templates/editor/wizzard_bookjs.html:36
+msgid "B3 (353mm x 500mm)"
+msgstr "B3 (353mm x 500mm)"
+
+#: editor/templates/editor/cover_manager.html:88
+#: editor/templates/editor/cover_manager.html:215
+#: editor/templates/editor/wizzard_book.html:38
+#: editor/templates/editor/wizzard_bookjs.html:37
+msgid "Oamaru Broadsheet (382mm x 540mm)"
+msgstr "Oamaru Broadsheet (382mm x 540mm)"
+
+#: editor/templates/editor/cover_manager.html:89
+#: editor/templates/editor/cover_manager.html:216
+#: editor/templates/editor/wizzard_book.html:39
+#: editor/templates/editor/wizzard_bookjs.html:38
+msgid "US Broadsheet (380mm x 577mm)"
+msgstr "US Broadsheet (380mm x 577mm)"
+
+#: editor/templates/editor/cover_manager.html:90
+#: editor/templates/editor/cover_manager.html:217
+#: editor/templates/editor/wizzard_book.html:40
+#: editor/templates/editor/wizzard_bookjs.html:39
+msgid "A2 (NZ Broadsheet) (420mm x 594mm)"
+msgstr "A2 (NZ Broadsheet) (420mm x 594mm)"
+
+#: editor/templates/editor/cover_manager.html:91
+#: editor/templates/editor/cover_manager.html:218
+#: editor/templates/editor/wizzard_book.html:41
+#: editor/templates/editor/wizzard_bookjs.html:40
+msgid "UK Broadsheet (457mm x 609mm)"
+msgstr "UK Broadsheet (457mm x 609mm)"
+
+#: editor/templates/editor/cover_manager.html:92
+#: editor/templates/editor/cover_manager.html:219
+#: editor/templates/editor/wizzard_book.html:42
+#: editor/templates/editor/wizzard_bookjs.html:41
+msgid "B2 (500mm x 707mm)"
+msgstr "B2 (500mm x 707mm)"
+
+#: editor/templates/editor/cover_manager.html:93
+#: editor/templates/editor/cover_manager.html:220
+#: editor/templates/editor/wizzard_book.html:43
+#: editor/templates/editor/wizzard_bookjs.html:42
+msgid "A1 (594mm x 841mm)"
+msgstr "A1 (594mm x 841mm)"
+
+#: editor/templates/editor/cover_manager.html:94
+#: editor/templates/editor/cover_manager.html:221
+#: editor/templates/editor/wizzard_book.html:44
+#: editor/templates/editor/wizzard_bookjs.html:43
+msgid "B1 (707mm x 1000mm)"
+msgstr "B1 (707mm x 1000mm)"
+
+#: editor/templates/editor/cover_manager.html:98
+#: editor/templates/editor/cover_manager.html:225
+#: editor/templates/editor/wizzard_book.html:46
+#: editor/templates/editor/wizzard_bookjs.html:45
+#: editor/templates/editor/wizzard_pdf.html:17
+msgid "Custom Size"
+msgstr "Madhësi e Përshtatur"
+
+#: editor/templates/editor/cover_manager.html:103
+#: editor/templates/editor/cover_manager.html:230
+#: editor/templates/editor/wizzard_book.html:49
+#: editor/templates/editor/wizzard_book.html:51
+#: editor/templates/editor/wizzard_book.html:285
+#: editor/templates/editor/wizzard_book.html:287
+#: editor/templates/editor/wizzard_book.html:289
+#: editor/templates/editor/wizzard_book.html:291
+#: editor/templates/editor/wizzard_book.html:295
+#: editor/templates/editor/wizzard_bookjs.html:48
+#: editor/templates/editor/wizzard_bookjs.html:50
+#: editor/templates/editor/wizzard_bookjs.html:234
+#: editor/templates/editor/wizzard_bookjs.html:236
+#: editor/templates/editor/wizzard_bookjs.html:238
+#: editor/templates/editor/wizzard_bookjs.html:240
+#: editor/templates/editor/wizzard_bookjs.html:244
+#: editor/templates/editor/wizzard_pdf.html:246
+#: editor/templates/editor/wizzard_pdf.html:248
+#: editor/templates/editor/wizzard_pdf.html:250
+#: editor/templates/editor/wizzard_pdf.html:252
+#: editor/templates/editor/wizzard_pdf.html:256
+msgid "mm"
+msgstr "mm"
+
+#: editor/templates/editor/cover_manager.html:104
+#: editor/templates/editor/cover_manager.html:231
+msgid "inches"
+msgstr "inç"
+
+#: editor/templates/editor/cover_manager.html:108
+#: editor/templates/editor/cover_manager.html:245
+msgid "Format"
+msgstr "Format"
+
+#: editor/templates/editor/cover_manager.html:110
+#: editor/templates/editor/cover_manager.html:125
+#: editor/templates/editor/cover_manager.html:241
+#: editor/templates/editor/cover_manager.html:247
+#: editor/templates/editor/cover_manager.html:298
+msgid "E-book"
+msgstr "Elibër"
+
+#: editor/templates/editor/cover_manager.html:111
+#: editor/templates/editor/cover_manager.html:248
+#: editor/templates/editor/cover_manager.html:297
+#: editor/templates/editor/edit_strings.html:89
+msgid "PDF"
+msgstr "PDF"
+
+#: editor/templates/editor/cover_manager.html:119
+#: editor/templates/editor/cover_manager.html:235
+msgid "Type"
+msgstr "Lloj"
+
+#: editor/templates/editor/cover_manager.html:121
+#: editor/templates/editor/cover_manager.html:237
+#: editor/templates/editor/wizzard_book.html:166
+#: editor/templates/editor/wizzard_bookjs.html:167
+msgid "Front Cover"
+msgstr "Kapak i Përparmë"
+
+#: editor/templates/editor/cover_manager.html:122
+#: editor/templates/editor/cover_manager.html:238
+#: editor/templates/editor/wizzard_book.html:172
+#: editor/templates/editor/wizzard_bookjs.html:173
+msgid "Back Cover"
+msgstr "Kapak i Pasmë"
+
+#: editor/templates/editor/cover_manager.html:123
+#: editor/templates/editor/cover_manager.html:239
+#: editor/templates/editor/edit_strings.html:84
+#: editor/templates/editor/wizzard_book.html:169
+#: editor/templates/editor/wizzard_bookjs.html:170
+msgid "Spine"
+msgstr "Shpinë"
+
+#: editor/templates/editor/cover_manager.html:124
+#: editor/templates/editor/cover_manager.html:240
+#: editor/templates/editor/wizzard_book.html:175
+#: editor/templates/editor/wizzard_bookjs.html:176
+msgid "Full Cover"
+msgstr "Kapak i Plotë"
+
+#: editor/templates/editor/cover_manager.html:129
+#: editor/templates/editor/cover_manager.html:253
+msgid "Creator"
+msgstr "Krijues"
+
+#: editor/templates/editor/cover_manager.html:138
+#: editor/templates/editor/cover_manager.html:262
+#: editor/templates/editor/edit_book.html:118
+#: editor/templates/editor/edit_book.html:552
+msgid "Notes"
+msgstr "Shënime"
+
+#: editor/templates/editor/cover_manager.html:146
+#: editor/templates/editor/cover_manager.html:271
+msgid "Filetype"
+msgstr "Lloj kartele"
+
+#: editor/templates/editor/cover_manager.html:156
+msgid "Tip: The selected image file is very small. Please think of using a bigger file for better results."
+msgstr "Ndihmëz: Kartela figurë e përzgjedhur është shumë e vogël. Ju lutemi, për përfundime më të mira, merrni parasysh përdorimin e një kartele më të madhe."
+
+#: editor/templates/editor/cover_manager.html:159
+msgid "Tip: The selected image file is in landscape orientation. Most book covers need portrait images."
+msgstr "Ndihmëz: Kartela figurë e përzgjedhur është vendosur sipas orientimit së gjeri. Shumica e kapakëve të librave lypin figura në orientim portret."
+
+#: editor/templates/editor/cover_manager.html:162
+#: editor/templates/editor/edit_book.html:295
+#: editor/templates/editor/edit_book.html:626
+msgid "Save"
+msgstr "Ruaje"
+
+#: editor/templates/editor/cover_manager.html:176
+msgid "Enter information"
+msgstr "Jepni të dhëna"
+
+#: editor/templates/editor/cover_manager.html:279
+msgid "download file"
+msgstr "shkarkoje kartelën"
+
+#: editor/templates/editor/cover_manager.html:291
+msgid "This image is currently assigned as the following cover type:"
+msgstr "Kjo figurë është caktuar si lloji vijues i kapakut:"
+
+#: editor/templates/editor/cover_manager.html:292
+#: editor/templates/editor/edit_strings.html:82
+msgid "Back cover"
+msgstr "Kapak i pasmë"
+
+#: editor/templates/editor/cover_manager.html:293
+msgid "This image is used in the following BookTypes:"
+msgstr "Kjo figurë është përdorur në BookTypes vijues:"
+
+#: editor/templates/editor/cover_manager.html:302
+msgid "Approval status"
+msgstr "Gjendje miratimi"
+
+#: editor/templates/editor/cover_manager.html:307
+msgid "Edit"
+msgstr "Përpunim"
 
 #: editor/templates/editor/edit_book.html:69
 msgid "Chat"
@@ -1064,215 +1680,199 @@ msgid "Search"
 msgstr "Kërkoni"
 
 #: editor/templates/editor/edit_book.html:101
-#: editor/templates/editor/edit_book.html:338
+#: editor/templates/editor/edit_book.html:343
 msgid "Images and Files"
 msgstr "Figura dhe Kartela"
 
-#: editor/templates/editor/edit_book.html:105
-#: editor/templates/editor/edit_book.html:355
+#: editor/templates/editor/edit_book.html:110
+#: editor/templates/editor/edit_book.html:364
 msgid "History"
 msgstr "Historik"
 
-#: editor/templates/editor/edit_book.html:109
-#: editor/templates/editor/edit_book.html:364
+#: editor/templates/editor/edit_book.html:114
+#: editor/templates/editor/edit_book.html:373
 #: reader/templates/reader/book_info.html:116
 msgid "Versions"
 msgstr "Versione"
 
-#: editor/templates/editor/edit_book.html:113
-#: editor/templates/editor/edit_book.html:544
-msgid "Notes"
-msgstr "Shënime"
-
-#: editor/templates/editor/edit_book.html:122
-#: editor/templates/editor/edit_book.html:404
+#: editor/templates/editor/edit_book.html:127
+#: editor/templates/editor/edit_book.html:413
 msgid "Publish"
 msgstr "Botoje"
 
-#: editor/templates/editor/edit_book.html:132
+#: editor/templates/editor/edit_book.html:137
 msgid "We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding."
 msgstr "Na vjen shumë keq, por programi ynë nuk është plotësisht i pajtueshëm me shfletuesin tuaj. Po punojmë fort që ta ndreqim këtë problem. Derisa ta ndreqim, mund të provoni ta përdorni këtë site me Firefox, Chrome, Safari, Opera ose të tjerë shfletues të përputhshëm. Faleminderit për mirëkuptimin."
 
-#: editor/templates/editor/edit_book.html:134
+#: editor/templates/editor/edit_book.html:139
 msgid "Table of contents"
 msgstr "Tabelë e lëndës"
 
-#: editor/templates/editor/edit_book.html:135
-#: editor/templates/editor/edit_book.html:141
+#: editor/templates/editor/edit_book.html:140
+#: editor/templates/editor/edit_book.html:146
 msgid "NEW CHAPTER"
 msgstr "KRYE I RI"
 
-#: editor/templates/editor/edit_book.html:135
-#: editor/templates/editor/edit_book.html:141
+#: editor/templates/editor/edit_book.html:140
+#: editor/templates/editor/edit_book.html:146
 msgid "NEW SECTION"
 msgstr "NDARJE E RE"
 
-#: editor/templates/editor/edit_book.html:135
-#: editor/templates/editor/edit_book.html:141
+#: editor/templates/editor/edit_book.html:140
+#: editor/templates/editor/edit_book.html:146
 msgid "IMPORT CHAPTER"
 msgstr "IMPORTONI KRYE"
 
-#: editor/templates/editor/edit_book.html:136
+#: editor/templates/editor/edit_book.html:141
 msgid "All books should contain at least one section and can have as many chapters as you like."
-msgstr "Çdo libër do të duhej të përmbante të paktën një ndarje dhe mund të ketë aq krerë sa dëshironi."
+msgstr "Çdo libër do të duhej të përmbante të paktën një ndarje dhe mund të ketë aq kapituj sa dëshironi."
 
-#: editor/templates/editor/edit_book.html:145
+#: editor/templates/editor/edit_book.html:150
 msgid "New chapter"
 msgstr "Kre i ri"
 
-#: editor/templates/editor/edit_book.html:153
-#: editor/templates/editor/edit_strings.html:46
+#: editor/templates/editor/edit_book.html:158
+#: editor/templates/editor/edit_strings.html:47
 msgid "Clone chapter"
 msgstr "Klononi kreun"
 
-#: editor/templates/editor/edit_book.html:161
+#: editor/templates/editor/edit_book.html:166
 msgid "New title (optional)"
 msgstr "Titull i ri (opsional)"
 
-#: editor/templates/editor/edit_book.html:166
+#: editor/templates/editor/edit_book.html:171
 msgid "New section"
 msgstr "Ndarje e re"
 
-#: editor/templates/editor/edit_book.html:176
-#: editor/templates/editor/edit_strings.html:63
+#: editor/templates/editor/edit_book.html:181
+#: editor/templates/editor/edit_strings.html:64
 msgid "Insert image"
 msgstr "Futni figurë"
 
-#: editor/templates/editor/edit_book.html:179
+#: editor/templates/editor/edit_book.html:184
 msgid "Images"
 msgstr "Figura"
 
-#: editor/templates/editor/edit_book.html:180
+#: editor/templates/editor/edit_book.html:185
 msgid "Upload image"
 msgstr "Ngarkoni figurë"
 
-#: editor/templates/editor/edit_book.html:191
-#: editor/templates/editor/edit_book.html:216
+#: editor/templates/editor/edit_book.html:196
+#: editor/templates/editor/edit_book.html:221
 msgid "Preview"
 msgstr "Paraparje"
 
-#: editor/templates/editor/edit_book.html:213
+#: editor/templates/editor/edit_book.html:218
 msgid "Edit Image"
 msgstr "Përpunoni Figurën"
 
-#: editor/templates/editor/edit_book.html:223
+#: editor/templates/editor/edit_book.html:228
 msgid "Image:"
 msgstr "Figurë:"
 
-#: editor/templates/editor/edit_book.html:227
+#: editor/templates/editor/edit_book.html:232
 msgid "Alt:"
 msgstr "Alt:"
 
-#: editor/templates/editor/edit_book.html:233
+#: editor/templates/editor/edit_book.html:238
 msgid "Positioning"
 msgstr "Pozicionim"
 
-#: editor/templates/editor/edit_book.html:236
+#: editor/templates/editor/edit_book.html:241
 msgid "Border:"
 msgstr "Anë:"
 
-#: editor/templates/editor/edit_book.html:240
+#: editor/templates/editor/edit_book.html:245
 msgid "Align:"
 msgstr "Drejtim:"
 
-#: editor/templates/editor/edit_book.html:244
+#: editor/templates/editor/edit_book.html:249
 msgid "Width:"
 msgstr "Gjerësi:"
 
-#: editor/templates/editor/edit_book.html:248
+#: editor/templates/editor/edit_book.html:253
 msgid "Height:"
 msgstr "Lartësi:"
 
-#: editor/templates/editor/edit_book.html:254
+#: editor/templates/editor/edit_book.html:259
 msgid "Style"
 msgstr "Stil"
 
-#: editor/templates/editor/edit_book.html:257
+#: editor/templates/editor/edit_book.html:262
 msgid "CSS Class:"
 msgstr "Klasë CSS:"
 
-#: editor/templates/editor/edit_book.html:262
+#: editor/templates/editor/edit_book.html:267
 msgid "Padding:"
 msgstr "Zbutje:"
 
-#: editor/templates/editor/edit_book.html:264
+#: editor/templates/editor/edit_book.html:269
 msgid "Margin:"
 msgstr "Mënjanë:"
 
-#: editor/templates/editor/edit_book.html:268
+#: editor/templates/editor/edit_book.html:273
 msgid "Background color:"
 msgstr "Ngjyrë sfondi:"
 
-#: editor/templates/editor/edit_book.html:270
+#: editor/templates/editor/edit_book.html:275
 msgid "Border color:"
 msgstr "Ngjyrë ane:"
 
-#: editor/templates/editor/edit_book.html:280
+#: editor/templates/editor/edit_book.html:285
 msgid "Hold chapters"
 msgstr "Mbaji krerët"
 
-#: editor/templates/editor/edit_book.html:290
-#: editor/templates/editor/edit_book.html:618
-msgid "Save"
-msgstr "Ruaje"
-
-#: editor/templates/editor/edit_book.html:290
+#: editor/templates/editor/edit_book.html:295
 msgid "Save and continue editing"
 msgstr "Ruajeni dhe vazhdoni përpunimin"
 
-#: editor/templates/editor/edit_book.html:290
+#: editor/templates/editor/edit_book.html:295
 msgid "View chapter"
 msgstr "Shiheni kreun"
 
-#: editor/templates/editor/edit_book.html:290
-#: editor/templates/editor/edit_strings.html:4
-#: portal/templates/base.html:136
-msgid "Cancel"
-msgstr "Anuloje"
-
-#: editor/templates/editor/edit_book.html:298
+#: editor/templates/editor/edit_book.html:303
 msgid "Minor change, don't notify."
 msgstr "Ndryshim i vockël, mos e njofto."
 
-#: editor/templates/editor/edit_book.html:304
+#: editor/templates/editor/edit_book.html:309
 msgid "Author:"
 msgstr "Autor:"
 
-#: editor/templates/editor/edit_book.html:310
+#: editor/templates/editor/edit_book.html:315
 msgid "Author comment:"
 msgstr "Koment autori:"
 
-#: editor/templates/editor/edit_book.html:320
+#: editor/templates/editor/edit_book.html:325
 msgid "Seems like You have changed the structure of the chapters. What do you want to do?"
 msgstr "Duket se e keni ndryshuar shtrukturën e krerëve. Çfarë dëshironi të bëni?"
 
-#: editor/templates/editor/edit_book.html:323
+#: editor/templates/editor/edit_book.html:328
 msgid "New chapters:"
 msgstr "Kapituj të rinj:"
 
-#: editor/templates/editor/edit_book.html:339
+#: editor/templates/editor/edit_book.html:344
 msgid "All images added to your book are listed here as well as any additional files you have uploaded."
 msgstr "Krejt figurat e shtuara te libri juaj tregohen këtu, si edhe çfarëdo kartelash shtesë që keni ngarkuar."
 
-#: editor/templates/editor/edit_book.html:341
+#: editor/templates/editor/edit_book.html:346
 msgid "Deleted selected items"
 msgstr "U fshinë objektet e përzgjedhur"
 
-#: editor/templates/editor/edit_book.html:342
+#: editor/templates/editor/edit_book.html:347
 msgid "Upload a new image or file"
 msgstr "Ngarkoni një figurë ose kartelë të re"
 
-#: editor/templates/editor/edit_book.html:346
-#: editor/templates/editor/edit_book.html:587
-#: editor/templates/editor/edit_strings.html:61
+#: editor/templates/editor/edit_book.html:351
+#: editor/templates/editor/edit_book.html:595
+#: editor/templates/editor/edit_strings.html:62
 msgid "Upload"
 msgstr "Ngarkoje"
 
-#: editor/templates/editor/edit_book.html:356
+#: editor/templates/editor/edit_book.html:365
 msgid "Here you can follow the edit history of your book."
 msgstr "Këtu mund të ndiqni historikun e përpunimeve të librit tuaj."
 
-#: editor/templates/editor/edit_book.html:366
+#: editor/templates/editor/edit_book.html:375
 msgid ""
 "With different versions you can easily organise your book. But be careful! Other users will not be able to edit\n"
 "      and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them."
@@ -1280,235 +1880,239 @@ msgstr ""
 "Me versionet e ndryshme mund ta organizoni lehtësisht librin tuaj. Por kini kujdes! Pasi të krijoni një të ri, përdoruesit\n"
 "      e tjerë nuk do të jenë në gjendje të përpunojnë versione të mëparshëm. Krijoni një version të ri <i>të dorës së parë</i>, nëse keni në plan të bëni shumë ndryshime, dhe një version <i>të dorës së dytë</i>, nëse keni në plan të bëni vetëm pak të tilla."
 
-#: editor/templates/editor/edit_book.html:368
-#: editor/templates/editor/edit_strings.html:36
+#: editor/templates/editor/edit_book.html:377
+#: editor/templates/editor/edit_strings.html:37
 msgid "Create major version"
 msgstr "Krijoni version të dorës së parë"
 
-#: editor/templates/editor/edit_book.html:368
-#: editor/templates/editor/edit_strings.html:37
+#: editor/templates/editor/edit_book.html:377
+#: editor/templates/editor/edit_strings.html:38
 msgid "Create minor version"
 msgstr "Krijoni version të dorës së dytë"
 
-#: editor/templates/editor/edit_book.html:369
-#: editor/templates/editor/edit_book.html:382
-#: editor/templates/editor/edit_book.html:580
+#: editor/templates/editor/edit_book.html:378
+#: editor/templates/editor/edit_book.html:391
+#: editor/templates/editor/edit_book.html:588
 msgid "New version"
 msgstr "Version i ri"
 
-#: editor/templates/editor/edit_book.html:372
-#: editor/templates/editor/edit_book.html:385
+#: editor/templates/editor/edit_book.html:381
+#: editor/templates/editor/edit_book.html:394
 msgid "You can name this version (optional):"
 msgstr "Mundeni ta emërtoni këtë version (në daçi):"
 
-#: editor/templates/editor/edit_book.html:375
-#: editor/templates/editor/edit_book.html:388
+#: editor/templates/editor/edit_book.html:384
+#: editor/templates/editor/edit_book.html:397
 msgid "e.g. initial, dragon, test"
 msgstr "p.sh. fillestar, shumë i përqendruar, provë"
 
-#: editor/templates/editor/edit_book.html:377
-#: editor/templates/editor/edit_book.html:390
+#: editor/templates/editor/edit_book.html:386
+#: editor/templates/editor/edit_book.html:399
 msgid "Description (optional)"
 msgstr "Përshkrim (në dëshirë)"
 
-#: editor/templates/editor/edit_book.html:396
+#: editor/templates/editor/edit_book.html:405
 msgid "All versions"
 msgstr "Krejt versionet"
 
-#: editor/templates/editor/edit_book.html:413
+#: editor/templates/editor/edit_book.html:422
 msgid "Manage the settings of your book."
-msgstr "Administroni rregullimet për librin tuaj!"
+msgstr "Administroni rregullimet për librin tuaj."
 
-#: editor/templates/editor/edit_book.html:421
+#: editor/templates/editor/edit_book.html:430
 msgid "This book is written in: "
-msgstr "Ky libër është shkruar në:"
+msgstr "Ky libër është shkruar në: "
 
-#: editor/templates/editor/edit_book.html:426
+#: editor/templates/editor/edit_book.html:435
 msgid "Set new language"
 msgstr "Caktoni gjuhë të re"
 
-#: editor/templates/editor/edit_book.html:430
+#: editor/templates/editor/edit_book.html:439
 msgid "Right to left text"
 msgstr "Tekst nga e djathta në të majtë"
 
-#: editor/templates/editor/edit_book.html:440
+#: editor/templates/editor/edit_book.html:449
 msgid "This book is licensed with:"
-msgstr "Ky libër qarkullon sipas lejes:"
+msgstr "Ky libër qarkullon sipas licencës:"
 
-#: editor/templates/editor/edit_book.html:445
+#: editor/templates/editor/edit_book.html:454
 msgid "Set new license"
-msgstr "Vendosini lejen e re"
+msgstr "Vendosini licencën e re"
 
-#: editor/templates/editor/edit_book.html:447
+#: editor/templates/editor/edit_book.html:456
 msgid "Read full text of the license"
-msgstr "Lexoni tekstin e plotë të lejes"
+msgstr "Lexoni tekstin e plotë të licencës"
 
-#: editor/templates/editor/edit_book.html:448
+#: editor/templates/editor/edit_book.html:457
 msgid "Manage copyright attribution"
 msgstr "Administroni përcaktim të drejtash kopjimi"
 
-#: editor/templates/editor/edit_book.html:452
+#: editor/templates/editor/edit_book.html:461
 msgid "Manage Copyright Attribution"
 msgstr "Administroni Përcaktim të Drejtash Kopjimi"
 
-#: editor/templates/editor/edit_book.html:453
+#: editor/templates/editor/edit_book.html:462
 msgid "If you want to exclude some people from the copyright attribution..."
 msgstr "Nëse doni të përjashtoni disa persona prej përcaktimit të të drejtave të kopjimit..."
 
-#: editor/templates/editor/edit_book.html:474
+#: editor/templates/editor/edit_book.html:466
+msgid "Contributors"
+msgstr "Kontribues"
+
+#: editor/templates/editor/edit_book.html:468
+msgid "Excluded contributors"
+msgstr "Kontribues të përjashtuar"
+
+#: editor/templates/editor/edit_book.html:483
 msgid "Roles"
 msgstr "Role"
 
-#: editor/templates/editor/edit_book.html:477
+#: editor/templates/editor/edit_book.html:486
 msgid "Manage roles"
 msgstr "Administroni role"
 
-#: editor/templates/editor/edit_book.html:480
+#: editor/templates/editor/edit_book.html:489
 msgid "Manage Roles"
 msgstr "Administroni Role"
 
-#: editor/templates/editor/edit_book.html:488
+#: editor/templates/editor/edit_book.html:493
+msgid "Role"
+msgstr "Rol"
+
+#: editor/templates/editor/edit_book.html:497
 msgid "Select role"
 msgstr "Përzgjidhni rol"
 
-#: editor/templates/editor/edit_book.html:489
+#: editor/templates/editor/edit_book.html:498
 msgid "Administrator"
 msgstr "Administrator"
 
-#: editor/templates/editor/edit_book.html:490
+#: editor/templates/editor/edit_book.html:499
 msgid "Editor"
 msgstr "Redaktor"
 
-#: editor/templates/editor/edit_book.html:494
+#: editor/templates/editor/edit_book.html:503
 msgid "New user:"
 msgstr "Përdorues i ri:"
 
-#: editor/templates/editor/edit_book.html:498
+#: editor/templates/editor/edit_book.html:507
 msgid "Add"
 msgstr "Shtoni"
 
-#: editor/templates/editor/edit_book.html:500
+#: editor/templates/editor/edit_book.html:509
 msgid "Role:"
 msgstr "Rol:"
 
-#: editor/templates/editor/edit_book.html:505
+#: editor/templates/editor/edit_book.html:514
 msgid "Remove"
 msgstr "Hiqe"
 
-#: editor/templates/editor/edit_book.html:510
-#: editor/templates/editor/edit_book.html:706
+#: editor/templates/editor/edit_book.html:519
+#: editor/templates/editor/edit_book.html:714
 msgid "Chapter status"
 msgstr "Gjendje kreu"
 
-#: editor/templates/editor/edit_book.html:513
+#: editor/templates/editor/edit_book.html:522
 msgid "Available statuses:"
 msgstr "Gjendje të passhme:"
 
-#: editor/templates/editor/edit_book.html:515
+#: editor/templates/editor/edit_book.html:524
 msgid "Manage chapter status"
 msgstr "Administroni gjendje kreu"
 
-#: editor/templates/editor/edit_book.html:520
+#: editor/templates/editor/edit_book.html:529
 msgid "Permissions and visibility"
 msgstr "Leje dhe dukshmëri"
 
-#: editor/templates/editor/edit_book.html:523
+#: editor/templates/editor/edit_book.html:532
 msgid "This book can be edited by:"
 msgstr "Ky libër mund të përpunohet nga:"
 
-#: editor/templates/editor/edit_book.html:532
+#: editor/templates/editor/edit_book.html:541
 msgid "Set permissions"
 msgstr "Caktoni lejet"
 
-#: editor/templates/editor/edit_book.html:536
-msgid "This interface is still work in progress."
-msgstr "Kjo ndërfaqe është ende në përpunim e sipër."
-
-#: editor/templates/editor/edit_book.html:546
+#: editor/templates/editor/edit_book.html:554
 msgid "Shared notes for this book"
 msgstr "Shënime të përbashkëta për këtë libër"
 
-#: editor/templates/editor/edit_book.html:549
+#: editor/templates/editor/edit_book.html:557
 msgid "Save the notes"
 msgstr "Ruaji shënimet"
 
-#: editor/templates/editor/edit_book.html:554
+#: editor/templates/editor/edit_book.html:562
 msgid "<span class=\"icon\">JOINED</span> <span class=\"notice\">notice</span>"
 msgstr "<span class=\"notice\">Shënim</span> <span class=\"icon\">Anëtarësimi</span>"
 
-#: editor/templates/editor/edit_book.html:555
+#: editor/templates/editor/edit_book.html:563
 msgid "<span class=\"info\">INFO</span> <span class=\"notice\">notice</span>"
-msgstr ""
+msgstr "<span class=\"notice\">Shënim</span> <span class=\"info\">TË DHËNASH</span>"
 
-#: editor/templates/editor/edit_book.html:558
+#: editor/templates/editor/edit_book.html:566
 msgid "action"
 msgstr "veprim"
 
-#: editor/templates/editor/edit_book.html:561
-#: editor/templates/editor/edit_book.html:667
+#: editor/templates/editor/edit_book.html:569
+#: editor/templates/editor/edit_book.html:675
 msgid "time"
 msgstr "kohë"
 
-#: editor/templates/editor/edit_book.html:581
+#: editor/templates/editor/edit_book.html:589
 msgid "Switched to <span class=\"entryVersion\">entry.version.version</span>"
 msgstr "U kalua te <span class=\"entryVersion\">entry.version.version</span>"
 
-#: editor/templates/editor/edit_book.html:588
+#: editor/templates/editor/edit_book.html:596
 msgid "Uploaded <span class=\"entryFilename\">entry.args.filename</span>."
 msgstr "U ngarkua <span class=\"entryFilename\">entry.args.filename</span>."
 
-#: editor/templates/editor/edit_book.html:594
+#: editor/templates/editor/edit_book.html:602
 msgid "Imported chapter"
-msgstr "Kre i importuar"
+msgstr "Krye i importuar"
 
-#: editor/templates/editor/edit_book.html:601
+#: editor/templates/editor/edit_book.html:609
 msgid "Delete"
 msgstr "Fshije"
 
-#: editor/templates/editor/edit_book.html:602
+#: editor/templates/editor/edit_book.html:610
 msgid "Deleted <span class=\"entryFilename\">entry.args.filename</span>."
 msgstr "U fshi <span class=\"entryFilename\">entry.args.filename</span>."
 
-#: editor/templates/editor/edit_book.html:616
+#: editor/templates/editor/edit_book.html:624
+#: editor/templates/editor/edit_strings.html:86
 msgid "Unknown"
 msgstr "E panjohur"
 
-#: editor/templates/editor/edit_book.html:617
-#: portal/templates/base.html:135
-msgid "Create"
-msgstr "Krijoje"
-
-#: editor/templates/editor/edit_book.html:619
+#: editor/templates/editor/edit_book.html:627
 msgid "Rename"
 msgstr "Riemërtoni"
 
-#: editor/templates/editor/edit_book.html:620
+#: editor/templates/editor/edit_book.html:628
 msgid "Reorder"
 msgstr "Rirenditi"
 
-#: editor/templates/editor/edit_book.html:621
+#: editor/templates/editor/edit_book.html:629
 msgid "Split"
 msgstr "Ndaji"
 
-#: editor/templates/editor/edit_book.html:622
+#: editor/templates/editor/edit_book.html:630
 #: reader/templates/reader/book_info.html:159
 msgid "Section create"
 msgstr "Krijim ndarjeje"
 
-#: editor/templates/editor/edit_book.html:623
+#: editor/templates/editor/edit_book.html:631
 #: reader/templates/reader/book_info.html:166
 msgid "Book create"
 msgstr "Krijim libri"
 
-#: editor/templates/editor/edit_book.html:624
+#: editor/templates/editor/edit_book.html:632
 msgid "Minor"
-msgstr "i vogël"
+msgstr "I vogël"
 
-#: editor/templates/editor/edit_book.html:625
+#: editor/templates/editor/edit_book.html:633
 msgid "Major"
-msgstr "i madh"
+msgstr "I madh"
 
-#: editor/templates/editor/edit_book.html:651
+#: editor/templates/editor/edit_book.html:659
 #: reader/templates/reader/book_chapter.html:51
 #: reader/templates/reader/book_chapter.html:57
 #: reader/templates/reader/book_view.html:40
@@ -1518,102 +2122,102 @@ msgstr "i madh"
 msgid "EDIT"
 msgstr "PËRPUNONI"
 
-#: editor/templates/editor/edit_book.html:651
+#: editor/templates/editor/edit_book.html:659
 msgid "VIEW"
 msgstr "SHIHENI"
 
-#: editor/templates/editor/edit_book.html:660
+#: editor/templates/editor/edit_book.html:668
 msgid "back to history index"
 msgstr "mbrapsh te treguesi i historikut"
 
-#: editor/templates/editor/edit_book.html:660
+#: editor/templates/editor/edit_book.html:668
 msgid "Compare revisions"
 msgstr "Krahasoni rishikimet"
 
-#: editor/templates/editor/edit_book.html:664
+#: editor/templates/editor/edit_book.html:672
 msgid "compare"
 msgstr "krahasoji"
 
-#: editor/templates/editor/edit_book.html:676
-#: editor/templates/editor/edit_strings.html:57
+#: editor/templates/editor/edit_book.html:684
+#: editor/templates/editor/edit_strings.html:58
 msgid "dimension"
 msgstr "përmasë"
 
-#: editor/templates/editor/edit_book.html:677
-#: editor/templates/editor/edit_strings.html:58
+#: editor/templates/editor/edit_book.html:685
+#: editor/templates/editor/edit_strings.html:59
 msgid "size"
 msgstr "madhësi"
 
-#: editor/templates/editor/edit_book.html:681
-#: editor/templates/editor/edit_book.html:701
+#: editor/templates/editor/edit_book.html:689
+#: editor/templates/editor/edit_book.html:709
 msgid "back to chapter history"
 msgstr "mbrapsht te historiku i kreut"
 
-#: editor/templates/editor/edit_book.html:683
+#: editor/templates/editor/edit_book.html:691
 msgid "Normal view"
 msgstr "Parje normale"
 
-#: editor/templates/editor/edit_book.html:685
+#: editor/templates/editor/edit_book.html:693
 msgid "Source view"
 msgstr "Parje e burimit"
 
-#: editor/templates/editor/edit_book.html:686
+#: editor/templates/editor/edit_book.html:694
 msgid "Revert to this revision"
 msgstr "Riktheje te ky rishikin"
 
-#: editor/templates/editor/edit_book.html:687
+#: editor/templates/editor/edit_book.html:695
 msgid "No such revision."
 msgstr "S'ka version të tillë."
 
-#: editor/templates/editor/edit_book.html:690
+#: editor/templates/editor/edit_book.html:698
 msgid "User:"
 msgstr "Përdorues:"
 
-#: editor/templates/editor/edit_book.html:691
+#: editor/templates/editor/edit_book.html:699
 msgid "Modified:"
 msgstr "Ndryshuar:"
 
-#: editor/templates/editor/edit_book.html:692
+#: editor/templates/editor/edit_book.html:700
 msgid "Version:"
 msgstr "Version:"
 
-#: editor/templates/editor/edit_book.html:693
+#: editor/templates/editor/edit_book.html:701
 msgid "Revision:"
 msgstr "Rishikim:"
 
-#: editor/templates/editor/edit_book.html:694
+#: editor/templates/editor/edit_book.html:702
 msgid "Comment"
 msgstr "Koment"
 
-#: editor/templates/editor/edit_book.html:696
+#: editor/templates/editor/edit_book.html:704
 msgid "previous"
 msgstr "e mëparshmja"
 
-#: editor/templates/editor/edit_book.html:696
+#: editor/templates/editor/edit_book.html:704
 msgid "next"
 msgstr "pasuesja"
 
-#: editor/templates/editor/edit_book.html:701
+#: editor/templates/editor/edit_book.html:709
 msgid "Show side by side"
 msgstr "Shfaqi krah njëra-tjetrës"
 
-#: editor/templates/editor/edit_book.html:702
+#: editor/templates/editor/edit_book.html:710
 msgid "Compare revision <span class=\"revision1Name\">revision1</span> with revision <span class=\"revision2Name\">revision2</span>"
 msgstr "Krahasoni rishikimin <span class=\"revision1Name\">rishikimi1</span> me rishikimin <span class=\"revision2Name\">rishikimi2</span>"
 
-#: editor/templates/editor/edit_book.html:707
+#: editor/templates/editor/edit_book.html:715
 msgid "Select new chapter status:"
 msgstr "Përzgjidhni gjendje të re kreu:"
 
-#: editor/templates/editor/edit_book.html:720
+#: editor/templates/editor/edit_book.html:728
 msgid "Chapter statuses"
 msgstr "Gjendje kreu"
 
-#: editor/templates/editor/edit_book.html:725
+#: editor/templates/editor/edit_book.html:733
 msgid "New status:"
 msgstr "Gjendje e re:"
 
-#: editor/templates/editor/edit_book.html:730
+#: editor/templates/editor/edit_book.html:738
 msgid "Chapter statuses:"
 msgstr "Gjendje kreu:"
 
@@ -1621,7 +2225,7 @@ msgstr "Gjendje kreu:"
 #: editor/templates/editor/edit_publish.html:17
 #: editor/templates/editor/edit_publish.html:24
 #: editor/templates/editor/edit_publish.html:31
-#: editor/templates/editor/edit_publish.html:38
+#: editor/templates/editor/edit_publish.html:42
 msgid "settings"
 msgstr "rregullimet"
 
@@ -1630,30 +2234,30 @@ msgid "Ebook"
 msgstr "Elibër"
 
 #: editor/templates/editor/edit_publish.html:23
-msgid "Lulu.com"
-msgstr "Lulu.com"
-
-#: editor/templates/editor/edit_publish.html:30
 msgid "Screen PDF"
 msgstr "PDF Ekrani"
 
-#: editor/templates/editor/edit_publish.html:37
+#: editor/templates/editor/edit_publish.html:30
 msgid "Open Document Text"
 msgstr "Tekst Dokumentesh të Hapët (ODT)"
 
-#: editor/templates/editor/edit_publish.html:45
+#: editor/templates/editor/edit_publish.html:41
+msgid "Try out our new beta renderer for Books"
+msgstr "Provoni formuesin tonë të ri beta për Libra"
+
+#: editor/templates/editor/edit_publish.html:60
 msgid "Publish this book"
 msgstr "Botojeni këtë libër"
 
-#: editor/templates/editor/edit_publish.html:48
+#: editor/templates/editor/edit_publish.html:63
 msgid "Please wait. It will take couple of moments. Your book is being generated."
 msgstr "Ju lutemi, prisni. Do të marrë pak çaste. Libri juaj po prodhohet."
 
-#: editor/templates/editor/edit_publish.html:51
+#: editor/templates/editor/edit_publish.html:66
 msgid "Your book has been generated at this url:"
 msgstr "Libri juaj është gati te kjo url:"
 
-#: editor/templates/editor/edit_publish.html:54
+#: editor/templates/editor/edit_publish.html:70
 msgid "Unknown error while trying to publish this book."
 msgstr "Gabim i panjohur ndërkohë që provohej të botohej ky libër."
 
@@ -1665,961 +2269,834 @@ msgstr "Gabim gjatë ngarkimit të kartelës!"
 msgid "Submit"
 msgstr "Parashtroje"
 
-#: editor/templates/editor/edit_strings.html:6
-#: editor/templates/editor/wizzard_book.html:273
-#: editor/templates/editor/wizzard_ebook.html:126
-#: editor/templates/editor/wizzard_lulu.html:225
-#: editor/templates/editor/wizzard_odt.html:127
-#: editor/templates/editor/wizzard_pdf.html:233
-#: portal/templates/base.html:137
-#: portal/templates/booki_paginator.html:29
-msgid "Next"
-msgstr "Pasuesja"
-
 #: editor/templates/editor/edit_strings.html:7
-#: editor/templates/editor/wizzard_book.html:272
-#: editor/templates/editor/wizzard_ebook.html:125
-#: editor/templates/editor/wizzard_lulu.html:224
-#: editor/templates/editor/wizzard_odt.html:126
-#: editor/templates/editor/wizzard_pdf.html:232
-#: portal/templates/base.html:134
-msgid "Back"
-msgstr "Mbrapsht"
+#: portal/templates/booki_paginator.html:5
+msgid "Previous"
+msgstr "I mëparshmi"
 
-#: editor/templates/editor/edit_strings.html:8
+#: editor/templates/editor/edit_strings.html:9
 msgid "Yes, revert !"
 msgstr "Po, riktheje !"
 
-#: editor/templates/editor/edit_strings.html:9
+#: editor/templates/editor/edit_strings.html:10
 msgid "Loading..."
 msgstr "Po ngarkohet..."
 
-#: editor/templates/editor/edit_strings.html:10
+#: editor/templates/editor/edit_strings.html:11
 msgid "LOADING DATA...."
 msgstr "PO NGARKOHEN TË DHËNA..."
 
-#: editor/templates/editor/edit_strings.html:11
+#: editor/templates/editor/edit_strings.html:12
 msgid "Loading data. Please wait..."
 msgstr "Po ngarkohen të dhëna. Ju lutemi, prisni..."
 
-#: editor/templates/editor/edit_strings.html:12
+#: editor/templates/editor/edit_strings.html:13
 msgid "Loading chapter data..."
 msgstr "Po ngarkohen të dhëna kreu..."
 
-#: editor/templates/editor/edit_strings.html:13
+#: editor/templates/editor/edit_strings.html:14
 msgid "Reading history data..."
 msgstr "Po lexohen të dhëna historiku..."
 
-#: editor/templates/editor/edit_strings.html:14
+#: editor/templates/editor/edit_strings.html:15
 msgid "Reading settings data..."
 msgstr "Po lexohen të dhëna rregullimesh..."
 
-#: editor/templates/editor/edit_strings.html:15
+#: editor/templates/editor/edit_strings.html:16
 msgid "Reading attachments data..."
 msgstr "Po lexohen të dhëna bashkangjitjesh..."
 
-#: editor/templates/editor/edit_strings.html:16
+#: editor/templates/editor/edit_strings.html:17
 msgid "Reading notes data..."
 msgstr "Po lexohen të dhëna shënimesh..."
 
-#: editor/templates/editor/edit_strings.html:17
+#: editor/templates/editor/edit_strings.html:18
 msgid "Reading version data..."
 msgstr "Po lexohen të dhëna shënimesh..."
 
-#: editor/templates/editor/edit_strings.html:18
+#: editor/templates/editor/edit_strings.html:19
 msgid "Revert to this revision?"
 msgstr "Të rikthehet te ky rishikim?"
 
-#: editor/templates/editor/edit_strings.html:19
+#: editor/templates/editor/edit_strings.html:20
 msgid "Current chapter content will be reverted to this revision. Are you sure?"
 msgstr "Lënda e kreut të tanishëm do të rikthehet te ky rishikim. Jeni i sigurt?"
 
-#: editor/templates/editor/edit_strings.html:20
+#: editor/templates/editor/edit_strings.html:21
 msgid "Sending data..."
 msgstr "Po dërgohen të dhënat..."
 
-#: editor/templates/editor/edit_strings.html:21
+#: editor/templates/editor/edit_strings.html:22
 msgid "SAVE"
 msgstr "RUAJE"
 
-#: editor/templates/editor/edit_strings.html:23
+#: editor/templates/editor/edit_strings.html:24
 msgid "Save new order"
 msgstr "Ruaje renditjen e re"
 
-#: editor/templates/editor/edit_strings.html:24
+#: editor/templates/editor/edit_strings.html:25
 msgid "Saving data. Please wait..."
 msgstr "Po ruhen të dhënat. Ju lutemi, prisni..."
 
-#: editor/templates/editor/edit_strings.html:25
+#: editor/templates/editor/edit_strings.html:26
 msgid "CANCEL"
 msgstr "ANULOJE"
 
-#: editor/templates/editor/edit_strings.html:26
+#: editor/templates/editor/edit_strings.html:27
 msgid "Set status"
 msgstr "Caktojini gjendjen"
 
-#: editor/templates/editor/edit_strings.html:27
+#: editor/templates/editor/edit_strings.html:28
 msgid "Revision"
 msgstr "Rishikim"
 
-#: editor/templates/editor/edit_strings.html:28
+#: editor/templates/editor/edit_strings.html:29
 msgid "Booktype Reader"
 msgstr "Lexuesi i Booktype-it"
 
-#: editor/templates/editor/edit_strings.html:29
+#: editor/templates/editor/edit_strings.html:30
 msgid "Hide advanced options"
 msgstr "Fshihi mundësitë e mëtejshme"
 
-#: editor/templates/editor/edit_strings.html:30
+#: editor/templates/editor/edit_strings.html:31
 msgid "Show advanced options"
 msgstr "Shfaqi mundësitë e mëtejshme"
 
-#: editor/templates/editor/edit_strings.html:31
+#: editor/templates/editor/edit_strings.html:32
 msgid "New status name"
 msgstr "Emër gjendjeje të re"
 
-#: editor/templates/editor/edit_strings.html:32
+#: editor/templates/editor/edit_strings.html:33
 msgid "Delete this status?"
 msgstr "Të fshihet kjo gjendje?"
 
-#: editor/templates/editor/edit_strings.html:33
+#: editor/templates/editor/edit_strings.html:34
 msgid "Can't delete because some chapters have this status. Change chapter status first."
 msgstr "Nuk fshihen dot, ngaqë disa krerë kanë këtë gjendje. Së pari ndryshoni gjendjen e kreut."
 
-#: editor/templates/editor/edit_strings.html:34
+#: editor/templates/editor/edit_strings.html:35
 msgid "Removing chapter from Table of Contents."
 msgstr "Po hiqet kreu prej Tabelës së Lëndës."
 
-#: editor/templates/editor/edit_strings.html:35
+#: editor/templates/editor/edit_strings.html:36
 msgid "Reordering the chapters..."
 msgstr "Po rirenditen krerët..."
 
-#: editor/templates/editor/edit_strings.html:38
+#: editor/templates/editor/edit_strings.html:39
 msgid "Delete attachments"
 msgstr "Fshiji bashkangjitjet"
 
-#: editor/templates/editor/edit_strings.html:39
+#: editor/templates/editor/edit_strings.html:40
 msgid "Delete these attachments"
 msgstr "Fshiji këto bashkangjitje"
 
-#: editor/templates/editor/edit_strings.html:40
+#: editor/templates/editor/edit_strings.html:41
 msgid "Delete selected attachments"
 msgstr "Fshiji bashkangjitjet e përzgjedhura"
 
-#: editor/templates/editor/edit_strings.html:41
+#: editor/templates/editor/edit_strings.html:42
 msgid "Update"
 msgstr "Përditësoje"
 
-#: editor/templates/editor/edit_strings.html:42
+#: editor/templates/editor/edit_strings.html:43
 msgid "Create chapter"
 msgstr "Krijoje kreun"
 
-#: editor/templates/editor/edit_strings.html:43
+#: editor/templates/editor/edit_strings.html:44
 msgid "Creating chapter"
 msgstr "Po krijohet kreu"
 
-#: editor/templates/editor/edit_strings.html:44
-#: editor/templates/editor/edit_strings.html:48
+#: editor/templates/editor/edit_strings.html:45
+#: editor/templates/editor/edit_strings.html:49
 msgid "Can not create duplicate chapter name."
 msgstr "Nuk mund të krijohet dublikatë emri kreu."
 
-#: editor/templates/editor/edit_strings.html:45
+#: editor/templates/editor/edit_strings.html:46
 msgid "Enter new Chapter title."
 msgstr "Jepni titull të ri Kreu."
 
-#: editor/templates/editor/edit_strings.html:47
+#: editor/templates/editor/edit_strings.html:48
 msgid "Cloning chapter"
 msgstr "Po klonohet kreu"
 
-#: editor/templates/editor/edit_strings.html:49
+#: editor/templates/editor/edit_strings.html:50
 msgid "Enter book id"
 msgstr "Jepni id libri"
 
-#: editor/templates/editor/edit_strings.html:50
+#: editor/templates/editor/edit_strings.html:51
 msgid "Enter Chapter id."
 msgstr "Jepni id Kreu."
 
-#: editor/templates/editor/edit_strings.html:51
+#: editor/templates/editor/edit_strings.html:52
 msgid "Create section"
 msgstr "Krijo ndarje"
 
-#: editor/templates/editor/edit_strings.html:52
+#: editor/templates/editor/edit_strings.html:53
 msgid "Creating section"
 msgstr "Po krijohet ndarja"
 
-#: editor/templates/editor/edit_strings.html:53
+#: editor/templates/editor/edit_strings.html:54
 msgid "Can not create duplicate section name."
 msgstr "Nuk mund të krijohet dublikatë emri ndarjeje."
 
-#: editor/templates/editor/edit_strings.html:54
+#: editor/templates/editor/edit_strings.html:55
 msgid "Enter new section title"
 msgstr "Jepni titull të ri ndarjeje"
 
-#: editor/templates/editor/edit_strings.html:59
+#: editor/templates/editor/edit_strings.html:60
 msgid "Adding chapter to Table of Contents."
 msgstr "Po shtohet kreu te Tabela e lëndës."
 
-#: editor/templates/editor/edit_strings.html:60
+#: editor/templates/editor/edit_strings.html:61
 msgid "Reordering the chapter..."
 msgstr "Po rirenditet kreu..."
 
-#: editor/templates/editor/edit_strings.html:62
+#: editor/templates/editor/edit_strings.html:63
 msgid "Rights holder"
 msgstr "Zotëruesi i të drejtave"
 
-#: editor/templates/editor/edit_strings.html:64
+#: editor/templates/editor/edit_strings.html:65
 msgid "You will loose unsaved changes. You are currently editing chapter"
 msgstr "Do të humbni ndryshime të paruajtura. Jeni ende duke përpunuar një krye"
 
-#: editor/templates/editor/edit_strings.html:65
+#: editor/templates/editor/edit_strings.html:66
 msgid "You are leaving Booktype Editor."
 msgstr "Po dilni nga Përpunuesi i Booktype-it."
 
-#: editor/templates/editor/edit_strings.html:66
+#: editor/templates/editor/edit_strings.html:67
 msgid "You don't have permission to delete attachments."
 msgstr "Nuk keni leje për fshirje bashkangjitjesh."
 
-#: editor/templates/editor/edit_strings.html:67
+#: editor/templates/editor/edit_strings.html:68
 msgid "I can not find description for this license."
 msgstr "Nuk gjej dot përshkrim për këtë licencë."
 
-#: editor/templates/editor/edit_strings.html:68
-msgid "User {0} has changed status of  chapter \"{1}\" to \"{2}\"."
-msgstr "Përdoruesi {0} ndryshoi gjendjen e kreut \"{1}\" në \"{2}\"."
-
 #: editor/templates/editor/edit_strings.html:69
-msgid "User {0} has saved chapter \"{1}\"."
-msgstr "Përdoruesi {0} ruajti kreun \"{1}\"."
+msgid "Saving the book notes"
+msgstr "Po ruhen shënimet e librit"
 
 #: editor/templates/editor/edit_strings.html:70
-msgid "User {0} has renamed chapter \"{1}\" to \"{2}\"."
-msgstr "Përdoruesi {0} emërtoi kreun \"{1}\" si \"{2}\"."
+msgid "Book notes saved."
+msgstr "Shënimet e librit u ruajtën."
 
 #: editor/templates/editor/edit_strings.html:71
-msgid "User {0} has created new chapter \"{1}\"."
-msgstr "Përdoruesi {0} krijoi kreun e ri \"{1}\"."
+msgid "User {0} has changed status of  chapter \"{1}\" to \"{2}\"."
+msgstr "Përdoruesi {0} ka ndryshuar gjendjen e kreut \"{1}\" në \"{2}\"."
 
 #: editor/templates/editor/edit_strings.html:72
-msgid "User {0} has cloned chapter \"{1}\" from book \"{2}\"."
-msgstr "Përdoruesi {0} klonoi kreun \"{1}\" prej librit \"{2}\"."
+msgid "User {0} has saved chapter \"{1}\"."
+msgstr "Përdoruesi {0} ka ruajtur kreun \"{1}\"."
 
 #: editor/templates/editor/edit_strings.html:73
+msgid "User {0} has renamed chapter \"{1}\" to \"{2}\"."
+msgstr "Përdoruesi {0} ka riemërtuar kreun \"{1}\" si \"{2}\"."
+
+#: editor/templates/editor/edit_strings.html:74
+msgid "User {0} has created new chapter \"{1}\"."
+msgstr "Përdoruesi {0} ka krijuar kreun e ri \"{1}\"."
+
+#: editor/templates/editor/edit_strings.html:75
+msgid "User {0} has cloned chapter \"{1}\" from book \"{2}\"."
+msgstr "Përdoruesi {0} ka klonuar kreun \"{1}\" prej librit \"{2}\"."
+
+#: editor/templates/editor/edit_strings.html:76
 msgid "\"{0}\" is being published."
 msgstr "\"{0}\" po botohet."
 
-#: editor/templates/editor/edit_strings.html:74
+#: editor/templates/editor/edit_strings.html:77
 msgid "User {0} has created new section \"{1}\"."
-msgstr "Përdoruesi {0} krijoi ndarjen e re \"{1}\"."
+msgstr "Përdoruesi {0} ka krijuar ndarjen e re \"{1}\"."
 
-#: editor/templates/editor/edit_strings.html:75
+#: editor/templates/editor/edit_strings.html:78
 msgid "User {0} has reverted chapter \"{1}\" to revision {2}."
-msgstr "Përdoruesi {0} e ka rikthyer kreun \"{1}\" te rishikimi {2}."
+msgstr "Përdoruesi {0} ka rikthyer kreun \"{1}\" te rishikimi {2}."
 
-#: editor/templates/editor/edit_strings.html:76
+#: editor/templates/editor/edit_strings.html:79
 msgid "User {0} has saved notes for book \"{1}\"."
-msgstr "Përdoruesi {0} ruajti shënimet për librin \"{1}\"."
+msgstr "Përdoruesi {0} ka ruajtur shënime për librin \"{1}\"."
+
+#: editor/templates/editor/edit_strings.html:80
+msgid "Close"
+msgstr "Mbylle"
+
+#: editor/templates/editor/edit_strings.html:81
+msgid "Do you really want to delete this cover?"
+msgstr "Doni vërtet të fshihet ky kapak?"
+
+#: editor/templates/editor/edit_strings.html:83
+msgid "Front cover"
+msgstr "Kapak ballor"
+
+#: editor/templates/editor/edit_strings.html:85
+msgid "Full cover"
+msgstr "Kapak i plotë"
+
+#: editor/templates/editor/edit_strings.html:87
+msgid "BOOK"
+msgstr "LIBËR"
+
+#: editor/templates/editor/edit_strings.html:88
+msgid "E-BOOK"
+msgstr "E-LIBËR"
+
+#: editor/templates/editor/edit_strings.html:90
+msgid "NOT APPROVED"
+msgstr "I PAMIRATUAR"
+
+#: editor/templates/editor/edit_strings.html:91
+msgid "APPROVED"
+msgstr "I MIRATUAR"
 
 #: editor/templates/editor/wizzard_book.html:4
+#: editor/templates/editor/wizzard_bookjs.html:4
 msgid "Book Formatted PDF Settings"
-msgstr "Rregullime Formatimi PDF për Librin"
+msgstr "Rregullime PDF-je Formatimi Libri"
 
-#: editor/templates/editor/wizzard_book.html:11
-#: editor/templates/editor/wizzard_lulu.html:84
-#: editor/templates/editor/wizzard_pdf.html:10
-msgid "Book Size"
-msgstr "Madhësi Libri"
-
-#: editor/templates/editor/wizzard_book.html:13
-#: editor/templates/editor/wizzard_pdf.html:12
-msgid "custom"
-msgstr "vetjake"
-
-#: editor/templates/editor/wizzard_book.html:14
-#: editor/templates/editor/wizzard_lulu.html:88
-msgid "POCKET (107mm x 174mm)"
-msgstr "XHEPI (107mm x 174mm)"
-
-#: editor/templates/editor/wizzard_book.html:15
-msgid "US5x8 (126mm x 203mm)"
-msgstr "US5x8 (126mm x 203mm)"
-
-#: editor/templates/editor/wizzard_book.html:16
-#: editor/templates/editor/wizzard_lulu.html:89
-msgid "DIGEST (139mm x 215mm)"
-msgstr "DIGEST (139mm x 215mm)"
-
-#: editor/templates/editor/wizzard_book.html:17
-msgid "US5.5x8.5 (139mm x 215mm)"
-msgstr "US5.5x8.5 (139mm x 215mm)"
-
-#: editor/templates/editor/wizzard_book.html:18
-#: editor/templates/editor/wizzard_lulu.html:90
-#: editor/templates/editor/wizzard_pdf.html:13
-msgid "A5 (148mm x 210mm)"
-msgstr "A5 (148mm x 210mm)"
-
-#: editor/templates/editor/wizzard_book.html:19
-#: editor/templates/editor/wizzard_lulu.html:91
-msgid "USTRADE6x9 (152mm x 228mm)"
-msgstr "USTRADE6x9 (152mm x 228mm)"
-
-#: editor/templates/editor/wizzard_book.html:20
-#: editor/templates/editor/wizzard_lulu.html:92
-msgid "SQUARE7.5 (190mm x 190mm)"
-msgstr "SQUARE7.5 (190mm x 190mm)"
-
-#: editor/templates/editor/wizzard_book.html:21
-#: editor/templates/editor/wizzard_lulu.html:93
-msgid "ROYAL (155mm x 233mm)"
-msgstr "ROYAL (155mm x 233mm)"
-
-#: editor/templates/editor/wizzard_book.html:22
-#: editor/templates/editor/wizzard_lulu.html:94
-msgid "LANDSCAPE9x7 (228mm x 177mm)"
-msgstr "LANDSCAPE9x7 (228mm x 177mm)"
-
-#: editor/templates/editor/wizzard_book.html:23
-#: editor/templates/editor/wizzard_lulu.html:95
-msgid "COMICBOOK (168mm x 260mm)"
-msgstr "COMICBOOK (168mm x 260mm)"
-
-#: editor/templates/editor/wizzard_book.html:24
-msgid "B5 (176mm x 250mm)"
-msgstr "B5 (176mm x 250mm)"
-
-#: editor/templates/editor/wizzard_book.html:25
-msgid "US7x10 (177mm x 253mm)"
-msgstr "US7x10 (177mm x 253mm)"
-
-#: editor/templates/editor/wizzard_book.html:26
-#: editor/templates/editor/wizzard_lulu.html:96
-msgid "CROWNQUARTO (189mm x 245mm)"
-msgstr "CROWNQUARTO (189mm x 245mm)"
-
-#: editor/templates/editor/wizzard_book.html:27
-#: editor/templates/editor/wizzard_lulu.html:97
-msgid "SQUARE8.5 (215mm x 215mm)"
-msgstr "SQUARE8.5 (215mm x 215mm)"
-
-#: editor/templates/editor/wizzard_book.html:28
-#: editor/templates/editor/wizzard_lulu.html:98
-msgid "USLETTER (215mm x 279mm)"
-msgstr "USLETTER (215mm x 279mm)"
-
-#: editor/templates/editor/wizzard_book.html:29
-#: editor/templates/editor/wizzard_lulu.html:99
-#: editor/templates/editor/wizzard_pdf.html:14
-msgid "A4 (210mm x 297mm)"
-msgstr "A4 (210mm x 297mm)"
-
-#: editor/templates/editor/wizzard_book.html:30
-msgid "Foolscap (F4) (210mm x 330mm)"
-msgstr "Foolscap (F4) (210mm x 330mm)"
-
-#: editor/templates/editor/wizzard_book.html:31
-msgid "B4 (250mm x 353mm)"
-msgstr "B4 (250mm x 353mm)"
-
-#: editor/templates/editor/wizzard_book.html:32
-msgid "Oamaru Tabloid (265mm x 380mm)"
-msgstr "Oamaru Tabloid (265mm x 380mm)"
-
-#: editor/templates/editor/wizzard_book.html:33
-msgid "UK Tabloid (279mm x 431mm)"
-msgstr "UK Tabloid (279mm x 431mm)"
-
-#: editor/templates/editor/wizzard_book.html:34
-msgid "A3 (NZ Tabloid) (297mm x 420mm)"
-msgstr "A3 (NZ Tabloid) (297mm x 420mm)"
-
-#: editor/templates/editor/wizzard_book.html:35
-msgid "Berliner (315mm x 470mm)"
-msgstr "Berliner (315mm x 470mm)"
-
-#: editor/templates/editor/wizzard_book.html:36
-msgid "B3 (353mm x 500mm)"
-msgstr "B3 (353mm x 500mm)"
-
-#: editor/templates/editor/wizzard_book.html:37
-msgid "Oamaru Broadsheet (382mm x 540mm)"
-msgstr "Oamaru Broadsheet (382mm x 540mm)"
-
-#: editor/templates/editor/wizzard_book.html:38
-msgid "US Broadsheet (380mm x 577mm)"
-msgstr "US Broadsheet (380mm x 577mm)"
-
-#: editor/templates/editor/wizzard_book.html:39
-msgid "A2 (NZ Broadsheet) (420mm x 594mm)"
-msgstr "A2 (NZ Broadsheet) (420mm x 594mm)"
-
-#: editor/templates/editor/wizzard_book.html:40
-msgid "UK Broadsheet (457mm x 609mm)"
-msgstr "UK Broadsheet (457mm x 609mm)"
-
-#: editor/templates/editor/wizzard_book.html:41
-msgid "B2 (500mm x 707mm)"
-msgstr "B2 (500mm x 707mm)"
-
-#: editor/templates/editor/wizzard_book.html:42
-msgid "A1 (594mm x 841mm)"
-msgstr "A1 (594mm x 841mm)"
-
-#: editor/templates/editor/wizzard_book.html:43
-msgid "B1 (707mm x 1000mm)"
-msgstr "B1 (707mm x 1000mm)"
-
-#: editor/templates/editor/wizzard_book.html:45
-#: editor/templates/editor/wizzard_pdf.html:16
-msgid "Custom Size"
-msgstr "Madhësi Vetjake "
-
-#: editor/templates/editor/wizzard_book.html:48
-#: editor/templates/editor/wizzard_book.html:50
-#: editor/templates/editor/wizzard_book.html:68
-#: editor/templates/editor/wizzard_book.html:78
-#: editor/templates/editor/wizzard_book.html:97
-#: editor/templates/editor/wizzard_book.html:116
-#: editor/templates/editor/wizzard_book.html:135
-#: editor/templates/editor/wizzard_ebook.html:36
-#: editor/templates/editor/wizzard_ebook.html:46
-#: editor/templates/editor/wizzard_ebook.html:65
-#: editor/templates/editor/wizzard_ebook.html:84
-#: editor/templates/editor/wizzard_ebook.html:103
-#: editor/templates/editor/wizzard_lulu.html:118
-#: editor/templates/editor/wizzard_lulu.html:147
-#: editor/templates/editor/wizzard_lulu.html:166
-#: editor/templates/editor/wizzard_lulu.html:185
+#: editor/templates/editor/wizzard_book.html:49
+#: editor/templates/editor/wizzard_book.html:51
+#: editor/templates/editor/wizzard_book.html:69
+#: editor/templates/editor/wizzard_book.html:79
+#: editor/templates/editor/wizzard_book.html:98
+#: editor/templates/editor/wizzard_book.html:117
+#: editor/templates/editor/wizzard_book.html:136
+#: editor/templates/editor/wizzard_bookjs.html:48
+#: editor/templates/editor/wizzard_bookjs.html:50
+#: editor/templates/editor/wizzard_bookjs.html:71
+#: editor/templates/editor/wizzard_bookjs.html:84
+#: editor/templates/editor/wizzard_bookjs.html:106
+#: editor/templates/editor/wizzard_bookjs.html:128
+#: editor/templates/editor/wizzard_bookjs.html:147
+#: editor/templates/editor/wizzard_ebook.html:38
+#: editor/templates/editor/wizzard_ebook.html:48
+#: editor/templates/editor/wizzard_ebook.html:67
+#: editor/templates/editor/wizzard_ebook.html:86
+#: editor/templates/editor/wizzard_ebook.html:105
 #: editor/templates/editor/wizzard_odt.html:20
 #: editor/templates/editor/wizzard_odt.html:30
 #: editor/templates/editor/wizzard_odt.html:49
 #: editor/templates/editor/wizzard_odt.html:68
 #: editor/templates/editor/wizzard_odt.html:87
-#: editor/templates/editor/wizzard_pdf.html:20
-#: editor/templates/editor/wizzard_pdf.html:25
-#: editor/templates/editor/wizzard_pdf.html:44
-#: editor/templates/editor/wizzard_pdf.html:54
-#: editor/templates/editor/wizzard_pdf.html:73
-#: editor/templates/editor/wizzard_pdf.html:92
-#: editor/templates/editor/wizzard_pdf.html:111
+#: editor/templates/editor/wizzard_pdf.html:21
+#: editor/templates/editor/wizzard_pdf.html:26
+#: editor/templates/editor/wizzard_pdf.html:46
+#: editor/templates/editor/wizzard_pdf.html:56
+#: editor/templates/editor/wizzard_pdf.html:75
+#: editor/templates/editor/wizzard_pdf.html:94
+#: editor/templates/editor/wizzard_pdf.html:113
 msgid "Size"
 msgstr "Madhësi"
 
-#: editor/templates/editor/wizzard_book.html:48
-#: editor/templates/editor/wizzard_book.html:50
-#: editor/templates/editor/wizzard_book.html:230
-#: editor/templates/editor/wizzard_book.html:232
-#: editor/templates/editor/wizzard_book.html:234
-#: editor/templates/editor/wizzard_book.html:236
-#: editor/templates/editor/wizzard_book.html:240
-#: editor/templates/editor/wizzard_pdf.html:190
-#: editor/templates/editor/wizzard_pdf.html:192
-#: editor/templates/editor/wizzard_pdf.html:194
-#: editor/templates/editor/wizzard_pdf.html:196
-#: editor/templates/editor/wizzard_pdf.html:200
-msgid "mm"
-msgstr "mm"
-
-#: editor/templates/editor/wizzard_book.html:59
-#: editor/templates/editor/wizzard_ebook.html:27
-#: editor/templates/editor/wizzard_lulu.html:109
+#: editor/templates/editor/wizzard_book.html:60
+#: editor/templates/editor/wizzard_bookjs.html:59
+#: editor/templates/editor/wizzard_ebook.html:29
 #: editor/templates/editor/wizzard_odt.html:11
-#: editor/templates/editor/wizzard_pdf.html:35
+#: editor/templates/editor/wizzard_pdf.html:37
 msgid "Font"
 msgstr "Shkronja"
 
-#: editor/templates/editor/wizzard_book.html:62
-#: editor/templates/editor/wizzard_ebook.html:30
-#: editor/templates/editor/wizzard_lulu.html:112
+#: editor/templates/editor/wizzard_book.html:63
+#: editor/templates/editor/wizzard_bookjs.html:62
+#: editor/templates/editor/wizzard_ebook.html:32
 #: editor/templates/editor/wizzard_odt.html:14
-#: editor/templates/editor/wizzard_pdf.html:38
+#: editor/templates/editor/wizzard_pdf.html:40
 msgid "Body Text"
 msgstr "Teksti i Lëndës"
-
-#: editor/templates/editor/wizzard_book.html:64
-#: editor/templates/editor/wizzard_book.html:74
-#: editor/templates/editor/wizzard_book.html:93
-#: editor/templates/editor/wizzard_book.html:112
-#: editor/templates/editor/wizzard_ebook.html:32
-#: editor/templates/editor/wizzard_ebook.html:42
-#: editor/templates/editor/wizzard_ebook.html:61
-#: editor/templates/editor/wizzard_ebook.html:80
-#: editor/templates/editor/wizzard_lulu.html:114
-#: editor/templates/editor/wizzard_lulu.html:124
-#: editor/templates/editor/wizzard_lulu.html:143
-#: editor/templates/editor/wizzard_lulu.html:162
-#: editor/templates/editor/wizzard_odt.html:16
-#: editor/templates/editor/wizzard_odt.html:26
-#: editor/templates/editor/wizzard_odt.html:45
-#: editor/templates/editor/wizzard_odt.html:64
-#: editor/templates/editor/wizzard_pdf.html:40
-#: editor/templates/editor/wizzard_pdf.html:50
-#: editor/templates/editor/wizzard_pdf.html:69
-#: editor/templates/editor/wizzard_pdf.html:88
-msgid "Fontin Sans"
-msgstr "Fontin Sans"
 
 #: editor/templates/editor/wizzard_book.html:65
 #: editor/templates/editor/wizzard_book.html:75
 #: editor/templates/editor/wizzard_book.html:94
 #: editor/templates/editor/wizzard_book.html:113
-#: editor/templates/editor/wizzard_ebook.html:33
-#: editor/templates/editor/wizzard_ebook.html:43
-#: editor/templates/editor/wizzard_ebook.html:62
-#: editor/templates/editor/wizzard_ebook.html:81
-#: editor/templates/editor/wizzard_lulu.html:115
-#: editor/templates/editor/wizzard_lulu.html:125
-#: editor/templates/editor/wizzard_lulu.html:144
-#: editor/templates/editor/wizzard_lulu.html:163
-#: editor/templates/editor/wizzard_odt.html:17
-#: editor/templates/editor/wizzard_odt.html:27
-#: editor/templates/editor/wizzard_odt.html:46
-#: editor/templates/editor/wizzard_odt.html:65
-#: editor/templates/editor/wizzard_pdf.html:41
-#: editor/templates/editor/wizzard_pdf.html:51
-#: editor/templates/editor/wizzard_pdf.html:70
-#: editor/templates/editor/wizzard_pdf.html:89
-msgid "Arial"
-msgstr "Arial"
+#: editor/templates/editor/wizzard_ebook.html:34
+#: editor/templates/editor/wizzard_ebook.html:44
+#: editor/templates/editor/wizzard_ebook.html:63
+#: editor/templates/editor/wizzard_ebook.html:82
+#: editor/templates/editor/wizzard_odt.html:16
+#: editor/templates/editor/wizzard_odt.html:26
+#: editor/templates/editor/wizzard_odt.html:45
+#: editor/templates/editor/wizzard_odt.html:64
+#: editor/templates/editor/wizzard_pdf.html:42
+#: editor/templates/editor/wizzard_pdf.html:52
+#: editor/templates/editor/wizzard_pdf.html:71
+#: editor/templates/editor/wizzard_pdf.html:90
+msgid "Fontin Sans"
+msgstr "Fontin Sans"
 
 #: editor/templates/editor/wizzard_book.html:66
 #: editor/templates/editor/wizzard_book.html:76
 #: editor/templates/editor/wizzard_book.html:95
 #: editor/templates/editor/wizzard_book.html:114
-#: editor/templates/editor/wizzard_ebook.html:34
-#: editor/templates/editor/wizzard_ebook.html:44
-#: editor/templates/editor/wizzard_ebook.html:63
-#: editor/templates/editor/wizzard_ebook.html:82
-#: editor/templates/editor/wizzard_lulu.html:116
-#: editor/templates/editor/wizzard_lulu.html:126
-#: editor/templates/editor/wizzard_lulu.html:145
-#: editor/templates/editor/wizzard_lulu.html:164
+#: editor/templates/editor/wizzard_bookjs.html:65
+#: editor/templates/editor/wizzard_bookjs.html:78
+#: editor/templates/editor/wizzard_bookjs.html:100
+#: editor/templates/editor/wizzard_bookjs.html:122
+#: editor/templates/editor/wizzard_ebook.html:35
+#: editor/templates/editor/wizzard_ebook.html:45
+#: editor/templates/editor/wizzard_ebook.html:64
+#: editor/templates/editor/wizzard_ebook.html:83
+#: editor/templates/editor/wizzard_odt.html:17
+#: editor/templates/editor/wizzard_odt.html:27
+#: editor/templates/editor/wizzard_odt.html:46
+#: editor/templates/editor/wizzard_odt.html:65
+#: editor/templates/editor/wizzard_pdf.html:43
+#: editor/templates/editor/wizzard_pdf.html:53
+#: editor/templates/editor/wizzard_pdf.html:72
+#: editor/templates/editor/wizzard_pdf.html:91
+msgid "Arial"
+msgstr "Arial"
+
+#: editor/templates/editor/wizzard_book.html:67
+#: editor/templates/editor/wizzard_book.html:77
+#: editor/templates/editor/wizzard_book.html:96
+#: editor/templates/editor/wizzard_book.html:115
+#: editor/templates/editor/wizzard_bookjs.html:66
+#: editor/templates/editor/wizzard_bookjs.html:79
+#: editor/templates/editor/wizzard_bookjs.html:101
+#: editor/templates/editor/wizzard_bookjs.html:123
+#: editor/templates/editor/wizzard_ebook.html:36
+#: editor/templates/editor/wizzard_ebook.html:46
+#: editor/templates/editor/wizzard_ebook.html:65
+#: editor/templates/editor/wizzard_ebook.html:84
 #: editor/templates/editor/wizzard_odt.html:18
 #: editor/templates/editor/wizzard_odt.html:28
 #: editor/templates/editor/wizzard_odt.html:47
 #: editor/templates/editor/wizzard_odt.html:66
-#: editor/templates/editor/wizzard_pdf.html:42
-#: editor/templates/editor/wizzard_pdf.html:52
-#: editor/templates/editor/wizzard_pdf.html:71
-#: editor/templates/editor/wizzard_pdf.html:90
+#: editor/templates/editor/wizzard_pdf.html:44
+#: editor/templates/editor/wizzard_pdf.html:54
+#: editor/templates/editor/wizzard_pdf.html:73
+#: editor/templates/editor/wizzard_pdf.html:92
 msgid "Helvetica"
 msgstr "Helvetica"
 
-#: editor/templates/editor/wizzard_book.html:72
-#: editor/templates/editor/wizzard_ebook.html:40
-#: editor/templates/editor/wizzard_lulu.html:122
+#: editor/templates/editor/wizzard_book.html:73
+#: editor/templates/editor/wizzard_bookjs.html:75
+#: editor/templates/editor/wizzard_ebook.html:42
 #: editor/templates/editor/wizzard_odt.html:24
-#: editor/templates/editor/wizzard_pdf.html:48
+#: editor/templates/editor/wizzard_pdf.html:50
 msgid "Heading 1"
 msgstr "Titull 1"
-
-#: editor/templates/editor/wizzard_book.html:81
-#: editor/templates/editor/wizzard_book.html:100
-#: editor/templates/editor/wizzard_book.html:119
-#: editor/templates/editor/wizzard_ebook.html:49
-#: editor/templates/editor/wizzard_ebook.html:68
-#: editor/templates/editor/wizzard_ebook.html:87
-#: editor/templates/editor/wizzard_lulu.html:131
-#: editor/templates/editor/wizzard_lulu.html:150
-#: editor/templates/editor/wizzard_lulu.html:169
-#: editor/templates/editor/wizzard_odt.html:33
-#: editor/templates/editor/wizzard_odt.html:52
-#: editor/templates/editor/wizzard_odt.html:71
-#: editor/templates/editor/wizzard_pdf.html:57
-#: editor/templates/editor/wizzard_pdf.html:76
-#: editor/templates/editor/wizzard_pdf.html:95
-msgid "UPPERCASE"
-msgstr "ME TË MËDHAJA"
 
 #: editor/templates/editor/wizzard_book.html:82
 #: editor/templates/editor/wizzard_book.html:101
 #: editor/templates/editor/wizzard_book.html:120
-#: editor/templates/editor/wizzard_ebook.html:50
-#: editor/templates/editor/wizzard_ebook.html:69
-#: editor/templates/editor/wizzard_ebook.html:88
-#: editor/templates/editor/wizzard_lulu.html:132
-#: editor/templates/editor/wizzard_lulu.html:151
-#: editor/templates/editor/wizzard_lulu.html:170
-#: editor/templates/editor/wizzard_odt.html:34
-#: editor/templates/editor/wizzard_odt.html:53
-#: editor/templates/editor/wizzard_odt.html:72
-#: editor/templates/editor/wizzard_pdf.html:58
-#: editor/templates/editor/wizzard_pdf.html:77
-#: editor/templates/editor/wizzard_pdf.html:96
-msgid "lowercase"
-msgstr "me të vogla"
+#: editor/templates/editor/wizzard_bookjs.html:87
+#: editor/templates/editor/wizzard_bookjs.html:109
+#: editor/templates/editor/wizzard_bookjs.html:131
+#: editor/templates/editor/wizzard_ebook.html:51
+#: editor/templates/editor/wizzard_ebook.html:70
+#: editor/templates/editor/wizzard_ebook.html:89
+#: editor/templates/editor/wizzard_odt.html:33
+#: editor/templates/editor/wizzard_odt.html:52
+#: editor/templates/editor/wizzard_odt.html:71
+#: editor/templates/editor/wizzard_pdf.html:59
+#: editor/templates/editor/wizzard_pdf.html:78
+#: editor/templates/editor/wizzard_pdf.html:97
+msgid "UPPERCASE"
+msgstr "ME TË MËDHAJA"
 
 #: editor/templates/editor/wizzard_book.html:83
 #: editor/templates/editor/wizzard_book.html:102
 #: editor/templates/editor/wizzard_book.html:121
-#: editor/templates/editor/wizzard_ebook.html:51
-#: editor/templates/editor/wizzard_ebook.html:70
-#: editor/templates/editor/wizzard_ebook.html:89
-#: editor/templates/editor/wizzard_lulu.html:133
-#: editor/templates/editor/wizzard_lulu.html:152
-#: editor/templates/editor/wizzard_lulu.html:171
+#: editor/templates/editor/wizzard_bookjs.html:88
+#: editor/templates/editor/wizzard_bookjs.html:110
+#: editor/templates/editor/wizzard_bookjs.html:132
+#: editor/templates/editor/wizzard_ebook.html:52
+#: editor/templates/editor/wizzard_ebook.html:71
+#: editor/templates/editor/wizzard_ebook.html:90
+#: editor/templates/editor/wizzard_odt.html:34
+#: editor/templates/editor/wizzard_odt.html:53
+#: editor/templates/editor/wizzard_odt.html:72
+#: editor/templates/editor/wizzard_pdf.html:60
+#: editor/templates/editor/wizzard_pdf.html:79
+#: editor/templates/editor/wizzard_pdf.html:98
+msgid "lowercase"
+msgstr "me të vogla"
+
+#: editor/templates/editor/wizzard_book.html:84
+#: editor/templates/editor/wizzard_book.html:103
+#: editor/templates/editor/wizzard_book.html:122
+#: editor/templates/editor/wizzard_bookjs.html:89
+#: editor/templates/editor/wizzard_bookjs.html:111
+#: editor/templates/editor/wizzard_bookjs.html:133
+#: editor/templates/editor/wizzard_ebook.html:53
+#: editor/templates/editor/wizzard_ebook.html:72
+#: editor/templates/editor/wizzard_ebook.html:91
 #: editor/templates/editor/wizzard_odt.html:35
 #: editor/templates/editor/wizzard_odt.html:54
 #: editor/templates/editor/wizzard_odt.html:73
-#: editor/templates/editor/wizzard_pdf.html:59
-#: editor/templates/editor/wizzard_pdf.html:78
-#: editor/templates/editor/wizzard_pdf.html:97
+#: editor/templates/editor/wizzard_pdf.html:61
+#: editor/templates/editor/wizzard_pdf.html:80
+#: editor/templates/editor/wizzard_pdf.html:99
 msgid "Capitalise"
 msgstr "Shkronja Kapitale"
-
-#: editor/templates/editor/wizzard_book.html:86
-#: editor/templates/editor/wizzard_book.html:105
-#: editor/templates/editor/wizzard_book.html:124
-#: editor/templates/editor/wizzard_ebook.html:54
-#: editor/templates/editor/wizzard_ebook.html:73
-#: editor/templates/editor/wizzard_ebook.html:92
-#: editor/templates/editor/wizzard_lulu.html:136
-#: editor/templates/editor/wizzard_lulu.html:155
-#: editor/templates/editor/wizzard_lulu.html:174
-#: editor/templates/editor/wizzard_odt.html:38
-#: editor/templates/editor/wizzard_odt.html:57
-#: editor/templates/editor/wizzard_odt.html:76
-#: editor/templates/editor/wizzard_pdf.html:62
-#: editor/templates/editor/wizzard_pdf.html:81
-#: editor/templates/editor/wizzard_pdf.html:100
-msgid "Heavy"
-msgstr "Të trasha"
 
 #: editor/templates/editor/wizzard_book.html:87
 #: editor/templates/editor/wizzard_book.html:106
 #: editor/templates/editor/wizzard_book.html:125
-#: editor/templates/editor/wizzard_ebook.html:55
-#: editor/templates/editor/wizzard_ebook.html:74
-#: editor/templates/editor/wizzard_ebook.html:93
-#: editor/templates/editor/wizzard_lulu.html:137
-#: editor/templates/editor/wizzard_lulu.html:156
-#: editor/templates/editor/wizzard_lulu.html:175
+#: editor/templates/editor/wizzard_bookjs.html:92
+#: editor/templates/editor/wizzard_bookjs.html:114
+#: editor/templates/editor/wizzard_bookjs.html:136
+#: editor/templates/editor/wizzard_ebook.html:56
+#: editor/templates/editor/wizzard_ebook.html:75
+#: editor/templates/editor/wizzard_ebook.html:94
+#: editor/templates/editor/wizzard_odt.html:38
+#: editor/templates/editor/wizzard_odt.html:57
+#: editor/templates/editor/wizzard_odt.html:76
+#: editor/templates/editor/wizzard_pdf.html:64
+#: editor/templates/editor/wizzard_pdf.html:83
+#: editor/templates/editor/wizzard_pdf.html:102
+msgid "Heavy"
+msgstr "Të trasha"
+
+#: editor/templates/editor/wizzard_book.html:88
+#: editor/templates/editor/wizzard_book.html:107
+#: editor/templates/editor/wizzard_book.html:126
+#: editor/templates/editor/wizzard_bookjs.html:93
+#: editor/templates/editor/wizzard_bookjs.html:115
+#: editor/templates/editor/wizzard_bookjs.html:137
+#: editor/templates/editor/wizzard_ebook.html:57
+#: editor/templates/editor/wizzard_ebook.html:76
+#: editor/templates/editor/wizzard_ebook.html:95
 #: editor/templates/editor/wizzard_odt.html:39
 #: editor/templates/editor/wizzard_odt.html:58
 #: editor/templates/editor/wizzard_odt.html:77
-#: editor/templates/editor/wizzard_pdf.html:63
-#: editor/templates/editor/wizzard_pdf.html:82
-#: editor/templates/editor/wizzard_pdf.html:101
+#: editor/templates/editor/wizzard_pdf.html:65
+#: editor/templates/editor/wizzard_pdf.html:84
+#: editor/templates/editor/wizzard_pdf.html:103
 msgid "normal"
 msgstr "normal"
 
-#: editor/templates/editor/wizzard_book.html:91
-#: editor/templates/editor/wizzard_ebook.html:59
-#: editor/templates/editor/wizzard_lulu.html:141
+#: editor/templates/editor/wizzard_book.html:92
+#: editor/templates/editor/wizzard_bookjs.html:97
+#: editor/templates/editor/wizzard_ebook.html:61
 #: editor/templates/editor/wizzard_odt.html:43
-#: editor/templates/editor/wizzard_pdf.html:67
+#: editor/templates/editor/wizzard_pdf.html:69
 msgid "Heading 2"
 msgstr "Titull 2"
 
-#: editor/templates/editor/wizzard_book.html:110
-#: editor/templates/editor/wizzard_ebook.html:78
-#: editor/templates/editor/wizzard_lulu.html:160
+#: editor/templates/editor/wizzard_book.html:111
+#: editor/templates/editor/wizzard_bookjs.html:119
+#: editor/templates/editor/wizzard_ebook.html:80
 #: editor/templates/editor/wizzard_odt.html:62
-#: editor/templates/editor/wizzard_pdf.html:86
+#: editor/templates/editor/wizzard_pdf.html:88
 msgid "Heading 3"
 msgstr "Titull 3"
 
-#: editor/templates/editor/wizzard_book.html:129
-#: editor/templates/editor/wizzard_ebook.html:97
-#: editor/templates/editor/wizzard_lulu.html:179
-#: editor/templates/editor/wizzard_odt.html:81
-#: editor/templates/editor/wizzard_pdf.html:105
-msgid "Formatted"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:131
+#: editor/templates/editor/wizzard_book.html:130
+#: editor/templates/editor/wizzard_bookjs.html:141
 #: editor/templates/editor/wizzard_ebook.html:99
-#: editor/templates/editor/wizzard_lulu.html:181
-#: editor/templates/editor/wizzard_odt.html:83
+#: editor/templates/editor/wizzard_odt.html:81
 #: editor/templates/editor/wizzard_pdf.html:107
+msgid "Formatted"
+msgstr "I formatuar"
+
+#: editor/templates/editor/wizzard_book.html:132
+#: editor/templates/editor/wizzard_bookjs.html:143
+#: editor/templates/editor/wizzard_ebook.html:101
+#: editor/templates/editor/wizzard_odt.html:83
+#: editor/templates/editor/wizzard_pdf.html:109
 msgid "Courier"
 msgstr "Courier"
 
-#: editor/templates/editor/wizzard_book.html:132
-#: editor/templates/editor/wizzard_ebook.html:100
-#: editor/templates/editor/wizzard_lulu.html:182
+#: editor/templates/editor/wizzard_book.html:133
+#: editor/templates/editor/wizzard_bookjs.html:144
+#: editor/templates/editor/wizzard_ebook.html:102
 #: editor/templates/editor/wizzard_odt.html:84
-#: editor/templates/editor/wizzard_pdf.html:108
+#: editor/templates/editor/wizzard_pdf.html:110
 msgid "Courier New"
 msgstr "Courier New"
 
-#: editor/templates/editor/wizzard_book.html:133
-#: editor/templates/editor/wizzard_ebook.html:101
-#: editor/templates/editor/wizzard_lulu.html:183
+#: editor/templates/editor/wizzard_book.html:134
+#: editor/templates/editor/wizzard_bookjs.html:145
+#: editor/templates/editor/wizzard_ebook.html:103
 #: editor/templates/editor/wizzard_odt.html:85
-#: editor/templates/editor/wizzard_pdf.html:109
+#: editor/templates/editor/wizzard_pdf.html:111
 msgid "Monospace"
 msgstr "Monospace"
 
-#: editor/templates/editor/wizzard_book.html:145
-#: editor/templates/editor/wizzard_lulu.html:196
-#: editor/templates/editor/wizzard_odt.html:98
-#: editor/templates/editor/wizzard_pdf.html:122
+#: editor/templates/editor/wizzard_book.html:159
+#: editor/templates/editor/wizzard_bookjs.html:160
+#: editor/templates/editor/wizzard_ebook.html:118
+#: editor/templates/editor/wizzard_odt.html:100
+#: editor/templates/editor/wizzard_pdf.html:126
+msgid "Select cover image"
+msgstr "Përzgjidhni figurë kapaku"
+
+#: editor/templates/editor/wizzard_book.html:161
+#: editor/templates/editor/wizzard_bookjs.html:162
+#: editor/templates/editor/wizzard_ebook.html:120
+#: editor/templates/editor/wizzard_odt.html:102
+#: editor/templates/editor/wizzard_pdf.html:128
+msgid "No Cover"
+msgstr "Pa Kapak"
+
+#: editor/templates/editor/wizzard_book.html:186
+#: editor/templates/editor/wizzard_bookjs.html:187
+msgid "Tip: To select multiple cover files for your book (front, spine, back) please press the Control key (Ctrl)."
+msgstr "Ndihmëz: Që të përzgjidhni disa kartela kapaku për librin tuaj (i përparmi, shpina, i mbrapmi), ju lutemi, shtypni tastin Control (Ctrl)."
+
+#: editor/templates/editor/wizzard_book.html:194
+#: editor/templates/editor/wizzard_odt.html:146
+#: editor/templates/editor/wizzard_pdf.html:172
 msgid "Page breaks"
 msgstr "Ndërprerje faqeje"
 
-#: editor/templates/editor/wizzard_book.html:148
-#: editor/templates/editor/wizzard_lulu.html:199
-#: editor/templates/editor/wizzard_odt.html:101
-#: editor/templates/editor/wizzard_pdf.html:125
+#: editor/templates/editor/wizzard_book.html:197
+#: editor/templates/editor/wizzard_odt.html:149
+#: editor/templates/editor/wizzard_pdf.html:175
 msgid "Avoid page break in paragraphs?"
 msgstr "Të shmangen ndërprerje faqesh në paragrafë?"
 
-#: editor/templates/editor/wizzard_book.html:150
-#: editor/templates/editor/wizzard_lulu.html:201
-#: editor/templates/editor/wizzard_odt.html:103
-#: editor/templates/editor/wizzard_pdf.html:127
+#: editor/templates/editor/wizzard_book.html:199
+#: editor/templates/editor/wizzard_odt.html:151
+#: editor/templates/editor/wizzard_pdf.html:177
 msgid "Pagebreak before footnotes?"
 msgstr "Ndërprerje faqesh përpara fundshënimesh?"
 
-#: editor/templates/editor/wizzard_book.html:158
-#: editor/templates/editor/wizzard_pdf.html:136
+#: editor/templates/editor/wizzard_book.html:207
+#: editor/templates/editor/wizzard_bookjs.html:195
+#: editor/templates/editor/wizzard_pdf.html:186
 msgid "Advanced"
 msgstr "Të mëtejshme"
 
-#: editor/templates/editor/wizzard_book.html:168
-#: editor/templates/editor/wizzard_pdf.html:146
+#: editor/templates/editor/wizzard_book.html:217
+#: editor/templates/editor/wizzard_bookjs.html:205
+#: editor/templates/editor/wizzard_pdf.html:196
 msgid "General"
 msgstr "Të përgjithshme"
 
-#: editor/templates/editor/wizzard_book.html:172
-#: editor/templates/editor/wizzard_pdf.html:150
+#: editor/templates/editor/wizzard_book.html:221
+#: editor/templates/editor/wizzard_bookjs.html:209
+#: editor/templates/editor/wizzard_pdf.html:200
 msgid "Override Server Default CSS"
 msgstr "Anashkalo CSS-në Parazgjedhje të Shërbyesit"
 
-#: editor/templates/editor/wizzard_book.html:175
-#: editor/templates/editor/wizzard_pdf.html:152
+#: editor/templates/editor/wizzard_book.html:224
+#: editor/templates/editor/wizzard_pdf.html:202
 msgid "Grey Scale Output"
 msgstr "Përfundim Në Shkallë të Grisë"
 
-#: editor/templates/editor/wizzard_book.html:178
+#: editor/templates/editor/wizzard_book.html:227
+#: editor/templates/editor/wizzard_pdf.html:204
+#: editor/templates/editor/wizzard_pdf.html:206
+msgid "Rotate"
+msgstr "Rrotulloje"
+
+#: editor/templates/editor/wizzard_book.html:227
 msgid "For RTL books on LTR printing presses, and vice versa."
 msgstr "Për libra të shkruar DNM në shtypshkronja MND, dhe anasjelltas."
 
-#: editor/templates/editor/wizzard_book.html:180
+#: editor/templates/editor/wizzard_book.html:229
 msgid "Page Numbers"
 msgstr "Numra Faqesh"
 
-#: editor/templates/editor/wizzard_book.html:182
-#: editor/templates/editor/wizzard_pdf.html:159
+#: editor/templates/editor/wizzard_book.html:231
+#: editor/templates/editor/wizzard_pdf.html:210
 msgid "LTR"
 msgstr "MND"
 
-#: editor/templates/editor/wizzard_book.html:183
-#: editor/templates/editor/wizzard_pdf.html:158
+#. Translators: Option for Page Numbers
+#: editor/templates/editor/wizzard_book.html:233
+#: editor/templates/editor/wizzard_pdf.html:209
 msgid "none"
 msgstr "asnjë"
 
-#: editor/templates/editor/wizzard_book.html:184
-#: editor/templates/editor/wizzard_pdf.html:160
+#. Translators: Option for Page Numbers. Burmese.
+#: editor/templates/editor/wizzard_book.html:235
+#: editor/templates/editor/wizzard_pdf.html:212
 msgid "my"
 msgstr "my"
 
-#: editor/templates/editor/wizzard_book.html:185
-#: editor/templates/editor/wizzard_pdf.html:161
+#. Translators: Option for Page Numbers. Farsi.
+#: editor/templates/editor/wizzard_book.html:237
+#: editor/templates/editor/wizzard_pdf.html:214
 msgid "fa"
 msgstr "fa"
 
-#: editor/templates/editor/wizzard_book.html:186
-#: editor/templates/editor/wizzard_pdf.html:162
+#. Translators: Option for Page Numbers. Hindi.
+#: editor/templates/editor/wizzard_book.html:239
+#: editor/templates/editor/wizzard_pdf.html:216
 msgid "hi"
 msgstr "hi"
 
-#: editor/templates/editor/wizzard_book.html:187
-#: editor/templates/editor/wizzard_pdf.html:163
+#. Translators: Option for Page Numbers. Right to left.
+#: editor/templates/editor/wizzard_book.html:241
+#: editor/templates/editor/wizzard_pdf.html:218
 msgid "RTL"
 msgstr "DNM"
 
-#: editor/templates/editor/wizzard_book.html:188
-#: editor/templates/editor/wizzard_pdf.html:164
+#. Translators: Option for Page Numbers. Arabic.
+#: editor/templates/editor/wizzard_book.html:243
+#: editor/templates/editor/wizzard_pdf.html:220
 msgid "ar"
 msgstr "ar"
 
-#: editor/templates/editor/wizzard_book.html:189
-#: editor/templates/editor/wizzard_pdf.html:165
+#: editor/templates/editor/wizzard_book.html:244
+#: editor/templates/editor/wizzard_pdf.html:221
 msgid "auto"
 msgstr "auto"
 
-#: editor/templates/editor/wizzard_book.html:191
+#: editor/templates/editor/wizzard_book.html:246
 msgid "If in doubt, choose 'auto'"
 msgstr "Po qetë në mëdyshje, zgjidhni 'auto'"
 
-#: editor/templates/editor/wizzard_book.html:194
-#: editor/templates/editor/wizzard_pdf.html:170
+#: editor/templates/editor/wizzard_book.html:249
+#: editor/templates/editor/wizzard_pdf.html:226
 msgid "Force Embed Fonts"
 msgstr "Bëje të Detyrueshëm Përdorimin e Shkronjave të Trupëzuara"
 
-#: editor/templates/editor/wizzard_book.html:194
-#: editor/templates/editor/wizzard_pdf.html:170
+#: editor/templates/editor/wizzard_book.html:249
+#: editor/templates/editor/wizzard_pdf.html:226
 msgid "PDFs: force embedding of PDF default fonts"
 msgstr "PDF-ra: bëje të detyrueshëm përdorimin e shkronjave parazgjedhje të trupëzuara te PDF-ja"
 
-#: editor/templates/editor/wizzard_book.html:196
-#: editor/templates/editor/wizzard_pdf.html:172
+#: editor/templates/editor/wizzard_book.html:251
+#: editor/templates/editor/wizzard_pdf.html:228
 msgid "Cancel Page Break Control"
 msgstr "Anulo Kontroll Ndërprerje Faqesh"
 
-#: editor/templates/editor/wizzard_book.html:196
-#: editor/templates/editor/wizzard_pdf.html:172
+#: editor/templates/editor/wizzard_book.html:251
+#: editor/templates/editor/wizzard_pdf.html:228
 msgid "Let page breaks occur immediately after headings"
-msgstr "Lejoji ndërprerjet e faqeve të vendosen menjëherë pas titujsh"
+msgstr "Lejo që ndërprerjet e faqeve të ndodhin menjëherë pas titujsh"
 
-#: editor/templates/editor/wizzard_book.html:209
+#: editor/templates/editor/wizzard_book.html:264
 msgid "Table of Contents"
-msgstr "Tryezë e Lëndës"
+msgstr "Tabelë e Lëndës"
 
-#: editor/templates/editor/wizzard_book.html:212
+#: editor/templates/editor/wizzard_book.html:267
 msgid "Table of Contents Header"
 msgstr "Titull për Tabelën e Lëndës"
 
-#: editor/templates/editor/wizzard_book.html:226
-#: editor/templates/editor/wizzard_pdf.html:186
+#: editor/templates/editor/wizzard_book.html:281
+#: editor/templates/editor/wizzard_bookjs.html:230
+#: editor/templates/editor/wizzard_pdf.html:242
 msgid "Page Margins and Gutter"
 msgstr "Mënjana dhe Ullukë Faqesh"
 
-#: editor/templates/editor/wizzard_book.html:229
-#: editor/templates/editor/wizzard_pdf.html:189
+#: editor/templates/editor/wizzard_book.html:284
+#: editor/templates/editor/wizzard_bookjs.html:233
+#: editor/templates/editor/wizzard_pdf.html:245
 msgid "Top Margin"
 msgstr "Mënjana e Sipërme"
 
-#: editor/templates/editor/wizzard_book.html:231
-#: editor/templates/editor/wizzard_pdf.html:191
+#: editor/templates/editor/wizzard_book.html:286
+#: editor/templates/editor/wizzard_bookjs.html:235
+#: editor/templates/editor/wizzard_pdf.html:247
 msgid "Side Margin"
 msgstr "Mënjana Anësore"
 
-#: editor/templates/editor/wizzard_book.html:233
-#: editor/templates/editor/wizzard_pdf.html:193
+#: editor/templates/editor/wizzard_book.html:288
+#: editor/templates/editor/wizzard_bookjs.html:237
+#: editor/templates/editor/wizzard_pdf.html:249
 msgid "Bottom Margin"
 msgstr "Mënjana e Poshtme"
 
-#: editor/templates/editor/wizzard_book.html:235
-#: editor/templates/editor/wizzard_pdf.html:195
+#: editor/templates/editor/wizzard_book.html:290
+#: editor/templates/editor/wizzard_bookjs.html:239
+#: editor/templates/editor/wizzard_pdf.html:251
 msgid "Gutter"
 msgstr "Ulluk"
 
-#: editor/templates/editor/wizzard_book.html:237
+#: editor/templates/editor/wizzard_book.html:292
+#: editor/templates/editor/wizzard_bookjs.html:241
 msgid "Number of columns"
 msgstr "Numri i shtyllave"
 
-#: editor/templates/editor/wizzard_book.html:239
+#: editor/templates/editor/wizzard_book.html:294
+#: editor/templates/editor/wizzard_bookjs.html:243
 msgid "Column margin"
 msgstr "Mënjanë shtylle"
 
-#: editor/templates/editor/wizzard_book.html:253
-#: editor/templates/editor/wizzard_pdf.html:213
+#: editor/templates/editor/wizzard_book.html:308
+#: editor/templates/editor/wizzard_bookjs.html:257
+#: editor/templates/editor/wizzard_pdf.html:269
 msgid "Advanced (style sheets)"
 msgstr "Të mëtejshme (fletëstile)"
 
-#: editor/templates/editor/wizzard_book.html:256
-#: editor/templates/editor/wizzard_lulu.html:212
-#: editor/templates/editor/wizzard_pdf.html:216
+#: editor/templates/editor/wizzard_book.html:311
+#: editor/templates/editor/wizzard_bookjs.html:260
+#: editor/templates/editor/wizzard_pdf.html:272
 msgid "Your Custom CSS"
 msgstr "CSS-ja Juaj e Personalizuar"
 
-#: editor/templates/editor/wizzard_book.html:259
-#: editor/templates/editor/wizzard_lulu.html:214
-#: editor/templates/editor/wizzard_odt.html:116
-#: editor/templates/editor/wizzard_pdf.html:219
+#: editor/templates/editor/wizzard_book.html:314
+#: editor/templates/editor/wizzard_bookjs.html:263
+#: editor/templates/editor/wizzard_odt.html:164
+#: editor/templates/editor/wizzard_pdf.html:275
 msgid "Booktype CSS (be careful if changing)"
 msgstr "CSS e Booktype-it (jini i kujdesshëm, nëse e ndryshoni)"
 
-#: editor/templates/editor/wizzard_book.html:263
-#: editor/templates/editor/wizzard_ebook.html:118
-#: editor/templates/editor/wizzard_lulu.html:217
-#: editor/templates/editor/wizzard_odt.html:119
-#: editor/templates/editor/wizzard_pdf.html:223
+#: editor/templates/editor/wizzard_book.html:318
+#: editor/templates/editor/wizzard_bookjs.html:267
+#: editor/templates/editor/wizzard_ebook.html:168
+#: editor/templates/editor/wizzard_odt.html:167
+#: editor/templates/editor/wizzard_pdf.html:279
 msgid "Override ALL previous settings with custom CSS"
 msgstr "Anashkalo KREJT rregullimet e mëparshme me CSS të personalizuar"
 
+#: editor/templates/editor/wizzard_bookjs.html:64
+#: editor/templates/editor/wizzard_bookjs.html:77
+#: editor/templates/editor/wizzard_bookjs.html:99
+#: editor/templates/editor/wizzard_bookjs.html:121
+msgid "Century Schoolbook"
+msgstr "Century Schoolbook"
+
+#: editor/templates/editor/wizzard_bookjs.html:67
+#: editor/templates/editor/wizzard_bookjs.html:80
+#: editor/templates/editor/wizzard_bookjs.html:102
+#: editor/templates/editor/wizzard_bookjs.html:124
+msgid "Gentium"
+msgstr "Gentium"
+
+#: editor/templates/editor/wizzard_bookjs.html:68
+#: editor/templates/editor/wizzard_bookjs.html:81
+#: editor/templates/editor/wizzard_bookjs.html:103
+#: editor/templates/editor/wizzard_bookjs.html:125
+msgid "Liberation Serif"
+msgstr "Liberation Serif"
+
+#: editor/templates/editor/wizzard_bookjs.html:69
+#: editor/templates/editor/wizzard_bookjs.html:82
+#: editor/templates/editor/wizzard_bookjs.html:104
+#: editor/templates/editor/wizzard_bookjs.html:126
+msgid "Times New Roman"
+msgstr "Times New Roman"
+
 #: editor/templates/editor/wizzard_ebook.html:4
 msgid "Ebook Settings"
-msgstr "Rregullime për Elibra"
+msgstr "Rregullime Elibri"
 
-#: editor/templates/editor/wizzard_ebook.html:12
+#: editor/templates/editor/wizzard_ebook.html:13
 msgid "Type of Ebook"
 msgstr "Lloj Elibri"
 
-#: editor/templates/editor/wizzard_ebook.html:15
+#: editor/templates/editor/wizzard_ebook.html:16
 msgid "ipad"
 msgstr "ipad"
 
-#: editor/templates/editor/wizzard_ebook.html:17
+#: editor/templates/editor/wizzard_ebook.html:18
 msgid "kindle"
 msgstr "Kindle"
 
-#: editor/templates/editor/wizzard_ebook.html:19
+#: editor/templates/editor/wizzard_ebook.html:20
 msgid "general"
-msgstr "të përgjithshme"
+msgstr "i përgjithshëm"
 
-#: editor/templates/editor/wizzard_ebook.html:113
-#: editor/templates/editor/wizzard_lulu.html:210
-#: editor/templates/editor/wizzard_odt.html:112
+#: editor/templates/editor/wizzard_ebook.html:127
+#: editor/templates/editor/wizzard_odt.html:109
+#: editor/templates/editor/wizzard_pdf.html:135
+msgid "Tip: Only images of the following filetypes can be used to publish an ebook: PNG, JPEG, GIF."
+msgstr "Ndihmëz: Vetëm figurat në llojet vijuese të kartelave mund të përdoren për botimin e një elibri: PNG, JPEG, GIF."
+
+#: editor/templates/editor/wizzard_ebook.html:163
+#: editor/templates/editor/wizzard_odt.html:160
 msgid "CSS (Advanced)"
 msgstr "CSS (Të mëtejshme)"
 
-#: editor/templates/editor/wizzard_ebook.html:115
-#: editor/templates/editor/wizzard_odt.html:114
+#: editor/templates/editor/wizzard_ebook.html:165
+#: editor/templates/editor/wizzard_odt.html:162
 msgid "Your custom CSS"
 msgstr "CSS-ja juaj e personalizuar"
-
-#: editor/templates/editor/wizzard_lulu.html:5
-msgid "Lulu.com Settings"
-msgstr "Rregullime për Lulu.com"
-
-#: editor/templates/editor/wizzard_lulu.html:14
-msgid "Lulu Account Details"
-msgstr "Hollësi Llogarie te Lulu"
-
-#: editor/templates/editor/wizzard_lulu.html:16
-msgid "Lulu.com Username"
-msgstr "Emër përdoruesi te Lulu.com"
-
-#: editor/templates/editor/wizzard_lulu.html:18
-msgid "Lulu.com Password"
-msgstr "Fjalëkalim për te Lulu.com"
-
-#: editor/templates/editor/wizzard_lulu.html:28
-msgid "Book Title"
-msgstr "Titull Libri"
-
-#: editor/templates/editor/wizzard_lulu.html:40
-msgid "Book Description"
-msgstr "Përshkrim i Librit"
-
-#: editor/templates/editor/wizzard_lulu.html:52
-msgid "Book Authors"
-msgstr "Autorë të Librit"
-
-#: editor/templates/editor/wizzard_lulu.html:54
-msgid "Authors"
-msgstr "Autorë"
-
-#: editor/templates/editor/wizzard_lulu.html:64
-msgid "Pricing"
-msgstr "Çmime"
-
-#: editor/templates/editor/wizzard_lulu.html:66
-msgid "Price for download (PDF)"
-msgstr "Çmim për shkarkimin (PDF)"
-
-#: editor/templates/editor/wizzard_lulu.html:68
-msgid "Price for printed book"
-msgstr "Çmim për librin e shtypur"
-
-#: editor/templates/editor/wizzard_lulu.html:70
-msgid "Currency"
-msgstr "Monedhë"
-
-#: editor/templates/editor/wizzard_lulu.html:72
-msgid "EUR"
-msgstr "EUR"
-
-#: editor/templates/editor/wizzard_lulu.html:73
-msgid "USD"
-msgstr "USD"
-
-#: editor/templates/editor/wizzard_lulu.html:74
-msgid "GBP"
-msgstr "GBP"
 
 #: editor/templates/editor/wizzard_odt.html:3
 msgid "Open Document Text (.odt) Settings"
@@ -2629,17 +3106,12 @@ msgstr "Rregullime për Tekst Dokumeti të Hapur (.odt)"
 msgid "Screen Formatted PDF Settings"
 msgstr "Rregullime për PDF të Formatuar për Ekran"
 
-#: editor/templates/editor/wizzard_pdf.html:154
-#: editor/templates/editor/wizzard_pdf.html:156
-msgid "Rotate"
-msgstr "Rrotulloje"
-
-#: editor/templates/editor/wizzard_pdf.html:167
+#: editor/templates/editor/wizzard_pdf.html:223
 msgid "If in doubt, choose 'none'"
 msgstr "Po qetë në mëdyshje, zgjidhni 'asnjë'"
 
-#: editor/templates/editor/wizzard_pdf.html:197
-#: editor/templates/editor/wizzard_pdf.html:199
+#: editor/templates/editor/wizzard_pdf.html:253
+#: editor/templates/editor/wizzard_pdf.html:255
 msgid "Columns"
 msgstr "Shtylla"
 
@@ -2736,10 +3208,18 @@ msgstr "Ndjekur Prej Jush"
 msgid "Followings"
 msgstr "Ndjekje"
 
-#: messaging/views.py:100
+#: messaging/views.py:112
 #, python-format
 msgid "Message from %s"
 msgstr "Mesazh prej %s"
+
+#: messaging/views.py:171
+msgid "Error"
+msgstr "Gabim"
+
+#: messaging/views.py:217
+msgid "Sent."
+msgstr "U dërgua."
 
 #: messaging/templates/messaging/book_followbutton.html:5
 msgid "Follow this book"
@@ -2820,37 +3300,9 @@ msgstr "Rrjedhë kohore për etiketën"
 msgid "Control Center"
 msgstr "Qendër Kontrollesh"
 
-#: portal/templates/base.html:133
-msgid "OK"
-msgstr "OK"
-
-#: portal/templates/base.html:138
-msgid "Import"
-msgstr "Importoje"
-
-#: portal/templates/base.html:140
+#: portal/templates/base.html:199
 msgid "Couldn't create a group!"
 msgstr "Nuk u krijua dot grupi!"
-
-#: portal/templates/base.html:141
-msgid "enter epub URL"
-msgstr "jepni URL epub-i"
-
-#: portal/templates/base.html:142
-msgid "enter Archive.org ID"
-msgstr "jepni ID Archive.org"
-
-#: portal/templates/base.html:143
-msgid "enter Wikibooks URL"
-msgstr "jepni URL për te Wikibooks"
-
-#: portal/templates/base.html:144
-msgid "enter Booktype URL"
-msgstr "jepni URL për te Booktype"
-
-#: portal/templates/booki_paginator.html:5
-msgid "Previous"
-msgstr "E mëparshmja"
 
 #: portal/templates/errors/group_does_not_exist.html:4
 msgid "Group not found!"
@@ -2904,7 +3356,7 @@ msgid "Group"
 msgstr "Grup"
 
 #: portal/templates/portal/group.html:66
-#: portal/templates/portal/group.html:141
+#: portal/templates/portal/group.html:146
 msgid "Members"
 msgstr "Anëtarë"
 
@@ -2930,9 +3382,13 @@ msgstr "LIBRA: %(n_books)s"
 msgid "STATUS"
 msgstr "GJENDJE"
 
-#: portal/templates/portal/group.html:134
+#: portal/templates/portal/group.html:136
 msgid "ADD THIS BOOK TO GROUP"
 msgstr "SHTOJENI KËTË LIBËR TE GRUPI"
+
+#: portal/templates/portal/group.html:138
+msgid "You have no books."
+msgstr "Nuk keni libra."
 
 #: portal/templates/portal/groups.html:5
 msgid "Booktype Groups"
@@ -2953,10 +3409,6 @@ msgstr "Persona aktivë"
 #: portal/templates/portal/people.html:33
 msgid "New people"
 msgstr "Persona të rinj"
-
-#: portal/templates/portal/people.html:55
-msgid "All"
-msgstr "Krejt"
 
 #: reader/templates/errors/book_does_not_exist.html:4
 msgid "Book does not exist!"
@@ -3116,5 +3568,3 @@ msgstr "/i_plotë: %(booktitle)s"
 msgid "You have no permissions to do this!"
 msgstr "Nuk keni leje për ta bërë këtë!"
 
-#~ msgid "ANNOUNCEMENTS"
-#~ msgstr "LAJMËRIME"
