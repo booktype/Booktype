@@ -1,4 +1,112 @@
-1.5.4 (2012-02-06)
+1.6.0 (2013-04-16)
+==================
+  Read INSTALL file about instructions how to upgrade to version 1.6.0.
+
+  - BK-674 Cover images uploaded using Safari browser are not available in settings dialog for Ebook,ScreenPDF, ODT
+  - BK-673 Only administrator should be able to change Cover approval status
+  - BK-665 The icons representing back, spine, full , etc. covers in Cover Manager are dislocated in misleading positions
+  - BK-670 GIF image has incorrect text info under image in 'Enter Meta-data'
+  - BK-658 CoverManager Tab->TIF icon misrepresented
+  - BK-659 OperaBrowser -> XML parsing failed for SVG file preview in Cover Manager
+  - BK-663 Russian and albanian translation-> access error message translation is broken
+  - BK-629 Show first chapter by default in reader view
+  - BK-480 Edit Book -> Versions -> Edit Chapter- > inconsistency observed
+  - BK-637 change wording in settings dialogue of publish wizard from non approved to pending
+  - BK-656 Cover select box on Firefox in Publish Wizard does not show correctly
+  - BK-439 Improve Russian translation of 'Submit'
+  - BK-655 Length of Cover Title should be limited in Publish Wizard
+  - BK-654 Covers without selected format or with format e-book are not shown in Book Publish Wizard
+  - BK-651 PDF cover is showed as E-book in Publish process
+  - BK-643 please check if user messages for cover manager are written in correct english
+  - BK-585 update markup and css for the UI of the cover manager
+  - BK-631 NewRenderer -> Custom Style -> unless played with Settings Dialog Libertine Serif is substituted by DejaVuSerif in output PDF
+  - BK-644 Do not allow upload of cover files bigger then 15Mb
+  - BK-619 'View files of status' has not user friendly place in 'Cover Manager' tab
+  - BK-638 Show warning message if you are uploading small cover image
+  - BK-635 It would be much better NOT to offer fonts and sizes for NewRenderer->Modern and New->Renderer->Old styles
+  - BK-634 Cover dialog is not enabled if previous upload was canceled
+  - BK-633 Cover Manager should have different thumbnails for different source files
+  - BK-630 Cover Metadata should be sanitized
+  - BK-523 User guide links point to versioned manual for English
+  - BK-627 Available licenses are appended each time to the list in Cover Manager
+  - BK-626 Cover image preview size display needs updating
+  - BK-625 Make some strings in Manage contributions dialog translatable
+  - BK-612 ADD THIS BOOK TO GROUP on group without some books made Internat Server Error
+  - BK-624 Links in book thumbnail has wrong color
+  - BK-622 Change placeholder name for Cover author
+  - BK-621 Link for downloading cover file
+  - BK-620 Limit available covers in Publish wizard
+  - BK-618 Only allow upload of covers with certain extension
+  - BK-614 Newly uploaded cover is NOT visible unless user switches tabs
+  - BK-611 Modify message for Book deletion interface
+  - BK-610 Frontpage in Control Center fails if user has activity in book which does not exist
+  - OB-122 Ebook->all formats -> certain Cover Image leads to Unknown error
+  - BK-609 Content type guess for cover images returns default value
+  - BK-130 Add page wrap to sup in default CSS
+  - BK-608 Update default settings for Objavi server
+  - BK-605 Remove notification "This interface is still work in progress." from editing interface.
+  - BK-107 More then one saved settings data throws exception
+  - BK-97 While saving message there could be error due to duplicate key
+  - BK-566 Dropdown menu on the group page is using url title instead of full title
+  - BK-511 Profile image fails with error for unknown user
+  - BK-60 Apply maximum chars displayed for book title in Dashboard
+  - BK-115 grid spacing with unnecessary break of images
+  - BK-604 Show used covers when the publish process is finished
+  - BK-603 Implement multi cover select for Book publishing wizard
+  - BK-601 Publish wizard Dialogs needs some updating with sizes
+  - BK-600 Default cover image has wrong image format
+  - BK-570 The text in published output is trimmed due to initializations of gutters and margins
+  - BK-596 History Tab- > Larger URL contained in chapter gets out of frame
+  - BK-599 Send cover image dimension to Objavi during the publish process
+  - BK-598 Offer empty option for cover in publish wizard
+  - BK-597 Show default cover image when you can not show default one in the upload form
+  - BK-595 increase distance to buttons in upload form
+  - BK-581 allow 50 characters max for titles of a cover
+  - BK-590 create one more icon for type of books - ebook
+  - BK-580 Default image for cover images for which preview can not be made
+  - Portuguese localization, many thanks to Alberto Costa :-)
+  - BK-584 change "choose booksize options" as we have them in the publish settings
+  - BK-589 make list of covers more responsive
+  - BK-592 show filename if there os no title
+  - BK-584 change "choose booksize options" as we have them in the publish settings
+  - BK-588 Show empty image if Cover thumbnail can not be used
+  - BK-587 Add cancel button to upload form
+  - BK-584 change choose booksize options as we habe them in the publish settings
+  - BK-583 add missing type "Full Cover" to uploadform
+  - BK-585 Update markup and css for the UI of the cover manager
+  - BK-582 change title of icons according to usage
+  - BK-25 Replace default avatar image
+  - BK-577 Undo ticket BK-575. Show all covers in the publish wizard.
+  - BK-576 Create thumbnail images for covers
+  - BK-575 Do not show Cover information in the publishing wizard if there is no approved covers
+  - BK-574 Send cover information when creation OpenOffice documents
+  - BK-573 Create fake file names for cover images
+  - BK-572 Cover should be sent to Objavi for screen pdf
+  - BK-568 Initial support for Book covers
+  - BK-562 Button 'Close' not made translatable in Roles Management dialog
+  - BK-557 Modify default styles for PDF publishing
+  - BK-556 Styles for PDF publishing
+  - BK-555 Extra styles for new renderer should be disabled by default
+  - BK-539 Chapter lock should be removed by the super user or book administrator
+  - BK-528 Remove code for Lulu pdf generation
+  - BK-554 Add new renderer to the list of available publishing options
+  - BK-554 Add new renderer to the list of available publishing options
+  - BK-553 Implement new publish layout with option for new renderer
+  - BK-533 Book import crashes for invalid metadata values
+  - BK-531 Notification filter in Dashboard tab does not work at all
+  - BK-527 Implement switch in the interface for BookJS/PDF renderer
+  - BK-525 Create utility function to delete the books
+  - BK-524 Delete books from Booktype Control Center
+  - BK-520 Add Italian language to the list of languages
+  - BK-519 TinyMCE should switch to Italian interface if user selected Italian interface
+  - BK-518 Install Italian translation for custom Booktype TinyMCE plugins
+  - BK-517 Fix argument for pip in the installation documentation
+  - BK-516 Disable Lulu interface in the configuration
+  - BK-515 Do not escape strings in the notes tab
+  - BK-514 Escape strings while formatting messages in JavaScript code for the editor
+  
+
+1.5.4 (2013-02-06)
 ==================
   Read INSTALL file about instructions how to upgrade to version 1.5.4.
 
