@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: Booktype 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-10 19:04+0200\n"
-"PO-Revision-Date: 2013-04-11 12:28+0100\n"
+"PO-Revision-Date: 2013-04-16 10:51+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Portuguese Localization <contact@sourcefabric.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.5\n"
 
 #: account/models.py:38
 msgid "mood"
@@ -68,7 +68,7 @@ msgstr "Referer remoto"
 #. Translators: Visible only in Django Admin interface. No need to translate this.
 #: account/models.py:63
 msgid "remote addr"
-msgstr "remoto addr"
+msgstr " addr remoto"
 
 #. Translators: Visible only in Django Admin interface. No need to translate this.
 #: account/models.py:65
@@ -77,7 +77,7 @@ msgstr "host remoto"
 
 #: account/views.py:314
 msgid "Reset password"
-msgstr "Repor senha"
+msgstr "Pedir uma nova senha"
 
 #: account/templates/account/create_book.html:4
 #: account/templates/account/create_book.html:13
@@ -204,7 +204,7 @@ msgstr "Erro ao fazer importação"
 
 #: account/templates/account/error_import.html:12
 msgid "This is a first version of error message. Not much to see here."
-msgstr "Trata-se de uma primeira versão de mensagem de erro. Não há muito para ver aqui."
+msgstr "Trata-se de uma primeira versão de mensagem de erro. Não há nada para ver aqui."
 
 #: account/templates/account/forgot_password.html:6
 #: account/templates/account/forgot_password_enter.html:6
@@ -221,7 +221,7 @@ msgstr "Nome de utilizador ou E-MAIL"
 
 #: account/templates/account/forgot_password.html:57
 msgid "Give us your username or e-mail you used to create Booktype account and we will send you new password."
-msgstr "Dê-nos o seu nome de utilizador ou e-mail que você usou para criar a conta booktype e nós lhe enviaremos a nova senha"
+msgstr "Dê-nos o seu nome de utilizador ou e-mail que usou para criar a conta booktype e nós enviaremos a nova senha"
 
 #: account/templates/account/forgot_password.html:59
 msgid "Enter username."
@@ -319,11 +319,11 @@ msgstr "Nome de utilizador é inválido. Por favor, tente um diferente. Você po
 
 #: account/templates/account/form_register.html:29
 msgid "This is not a valid e-mail"
-msgstr "Este não é um endereço válido de e-mail"
+msgstr "Este não é um endereço de e-mail válido"
 
 #: account/templates/account/form_register.html:30
 msgid "Your passwords dont match. Please try a different one."
-msgstr "Suas senhas não correspondem. Por favor, tente uma diferente."
+msgstr "AS suas senhas não correspondem. Por favor, tente uma diferente."
 
 #: account/templates/account/form_register.html:31
 #: account/templates/account/view_profile.html:252
@@ -371,7 +371,7 @@ msgstr "Importar Livro "
 
 #: account/templates/account/import_book.html:7
 msgid "You don't have permissions to import content. At the moment only administrators can do that."
-msgstr "Você não tem permissões para importar conteúdo. Apenas os administradores o podem fazer."
+msgstr "Não tem permissões para importar conteúdo. Apenas os administradores o podem fazer."
 
 #: account/templates/account/import_book.html:19
 msgid "Import type:"
@@ -450,7 +450,7 @@ msgstr ""
 
 #: account/templates/account/signin.html:60
 msgid "Why do I need account ?"
-msgstr "Por que preciso conta?"
+msgstr "Por que preciso de conta?"
 
 #: account/templates/account/signin.html:61
 msgid "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to."
@@ -629,7 +629,7 @@ msgstr "Filtro de notificação"
 #: editor/templates/editor/edit_strings.html:23
 #: portal/templates/base.html:198
 msgid "Save changes"
-msgstr "Guardar Alterações"
+msgstr "Guardar alterações"
 
 #: account/templates/account/view_profile.html:222
 msgid "Old Password"
@@ -1265,7 +1265,7 @@ msgstr "Pendente"
 
 #: editor/templates/editor/cover_manager.html:16
 msgid "The cover manager allows you to upload, manage and publish your book covers. Please upload your ebook cover image files (JPEG, GIF or PNG format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, spine and back cover of your print books can be uploaded and managed, but will be kept separate from the text of the book when publishing it."
-msgstr ""
+msgstr "O gestor de capa permite carregar, gerir e publicar capas de livros. Por favor carregue as capas do seu ebook (formato JPEG, GIF ou PNG) com as dimensões corretas para EPUB, MOBI,  PDF Ecrã e ODT. Imagem (em formato TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI ou INDD ) para a capa frontal, lombada e contra-capa  dos seus livros para imprimir podem ser carregadas e geridas, mas serão mantidas em separadas do texto do livro ao serem publicadas."
 
 #: editor/templates/editor/cover_manager.html:22
 msgid "Upload cover image"
@@ -1273,11 +1273,11 @@ msgstr "Carregar imagem da capa"
 
 #: editor/templates/editor/cover_manager.html:40
 msgid "Error: The selected filetype is not supported. Please select one of the following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
-msgstr ""
+msgstr "Erro: o tipo de ficheiro selecionado não é suportado. Selecione um dos seguintes tipos de ficheiros e tente outra vez: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
 
 #: editor/templates/editor/cover_manager.html:43
 msgid "Error: The selected file is bigger than 15MB. Please select a smaller file and try again."
-msgstr ""
+msgstr "Erro: o ficheiro selecionado é maior que 15MB. Por favor selecione um ficheiro mais pequeno e tente outra vez."
 
 #: editor/templates/editor/cover_manager.html:48
 msgid "Enter Meta-data"
@@ -1626,11 +1626,11 @@ msgstr "Tipo de ficheiro"
 
 #: editor/templates/editor/cover_manager.html:156
 msgid "Tip: The selected image file is very small. Please think of using a bigger file for better results."
-msgstr ""
+msgstr "Dica: A imagem selecionada é muito pequena. Use uma imagem melhor para obter resultados melhores."
 
 #: editor/templates/editor/cover_manager.html:159
 msgid "Tip: The selected image file is in landscape orientation. Most book covers need portrait images."
-msgstr ""
+msgstr "Dica: a imagem selecionada está na horizontal. A maior parte das capas usam imagens na vertical."
 
 #: editor/templates/editor/cover_manager.html:162
 #: editor/templates/editor/edit_book.html:295
@@ -1644,7 +1644,7 @@ msgstr "Inserir informações"
 
 #: editor/templates/editor/cover_manager.html:279
 msgid "download file"
-msgstr ""
+msgstr "descarregar ficheiro"
 
 #: editor/templates/editor/cover_manager.html:291
 msgid "This image is currently assigned as the following cover type:"
@@ -1957,11 +1957,11 @@ msgstr "Se quiser excluir algumas pessoas da atribuição de direitos de autor .
 
 #: editor/templates/editor/edit_book.html:466
 msgid "Contributors"
-msgstr ""
+msgstr "Contribuidores"
 
 #: editor/templates/editor/edit_book.html:468
 msgid "Excluded contributors"
-msgstr ""
+msgstr "Contribuidores excluídos"
 
 #: editor/templates/editor/edit_book.html:483
 msgid "Roles"
@@ -2520,7 +2520,6 @@ msgid "Close"
 msgstr "Fechar"
 
 #: editor/templates/editor/edit_strings.html:81
-#, fuzzy
 msgid "Do you really want to delete this cover?"
 msgstr "Quer excluir esta capa?"
 
@@ -2534,19 +2533,19 @@ msgstr "Capa total"
 
 #: editor/templates/editor/edit_strings.html:87
 msgid "BOOK"
-msgstr ""
+msgstr "LIVRO"
 
 #: editor/templates/editor/edit_strings.html:88
 msgid "E-BOOK"
-msgstr ""
+msgstr "E-BOOK"
 
 #: editor/templates/editor/edit_strings.html:90
 msgid "NOT APPROVED"
-msgstr ""
+msgstr "NÃO APROVADO"
 
 #: editor/templates/editor/edit_strings.html:91
 msgid "APPROVED"
-msgstr ""
+msgstr "aPROVADO"
 
 #: editor/templates/editor/wizzard_book.html:4
 #: editor/templates/editor/wizzard_bookjs.html:4
@@ -2827,14 +2826,13 @@ msgstr "Selecione imagem da capa"
 #: editor/templates/editor/wizzard_ebook.html:120
 #: editor/templates/editor/wizzard_odt.html:102
 #: editor/templates/editor/wizzard_pdf.html:128
-#, fuzzy
 msgid "No Cover"
-msgstr "Capa"
+msgstr "Sem Capa"
 
 #: editor/templates/editor/wizzard_book.html:186
 #: editor/templates/editor/wizzard_bookjs.html:187
 msgid "Tip: To select multiple cover files for your book (front, spine, back) please press the Control key (Ctrl)."
-msgstr ""
+msgstr "Dica: para selecionar vários ficheiros para o seu livro (frontal, lombada, contra-capa), pressione a tecla Control (Ctrl)."
 
 #: editor/templates/editor/wizzard_book.html:194
 #: editor/templates/editor/wizzard_odt.html:146
@@ -3088,7 +3086,7 @@ msgstr "geral"
 #: editor/templates/editor/wizzard_odt.html:109
 #: editor/templates/editor/wizzard_pdf.html:135
 msgid "Tip: Only images of the following filetypes can be used to publish an ebook: PNG, JPEG, GIF."
-msgstr ""
+msgstr "Dica: só podem ser usadas imagens, para publicar um e-book, com o formato:  PNG, JPEG, GIF."
 
 #: editor/templates/editor/wizzard_ebook.html:163
 #: editor/templates/editor/wizzard_odt.html:160
@@ -3389,7 +3387,6 @@ msgid "ADD THIS BOOK TO GROUP"
 msgstr "ADICIONAR ESTE LIVRO AO GRUPO"
 
 #: portal/templates/portal/group.html:138
-#, fuzzy
 msgid "You have no books."
 msgstr "Nenhum livro ativo"
 
