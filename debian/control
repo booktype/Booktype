@@ -1,0 +1,31 @@
+Source: booktype
+Section: web
+Priority: optional
+Maintainer: Daniel James <daniel@64studio.com>
+Build-Depends: debhelper (>= 7.0.50~), po-debconf
+Standards-Version: 3.8.4
+Homepage: http://www.sourcefabric.org/en/booktype/
+
+Package: booktype
+Architecture: all
+Pre-Depends: postgresql
+Depends: apache2-mpm-prefork,
+ libapache2-mod-wsgi,
+ python,
+ python-django,
+ python-django-south,
+ python-lxml,
+ python-pip,
+ python-psycopg2,
+ python-setuptools,
+ python-simplejson,
+ python-unidecode,
+ redis-server,
+ ${misc:Depends}
+Description: open source platform to write and publish print and digital books.
+Booktype is a free, open source platform that produces beautiful, engaging 
+books formatted for print, Amazon, iBooks and almost any ereader within minutes. 
+.
+Create books on your own or with others via an easy-to-use web interface. Build 
+a community around your content with social tools and use the reach of mobile, 
+tablet and ebook technology to engage new audiences.
