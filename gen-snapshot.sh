@@ -30,13 +30,26 @@ rm -r tests
 rm -r tools
 
 # moved to debian/copyright
-#rm AUTHORS.txt
 rm LICENSE.txt
 rm lib/booki/site_static/js/tiny_mce/classes/firebug/FIREBUG.LICENSE
 rm lib/booki/site_static/js/tiny_mce/license.txt
 rm lib/booki/site_static/js/jquery/AUTHORS.txt
 rm lib/booki/site_static/js/jquery/MIT-LICENSE.txt
 rm lib/booki/site_static/js/jquery/GPL-LICENSE.txt
+
+# remove Windows thumbnail files
+rm lib/booki/site_static/images/jquerybubblepopup-theme/all-black/Thumbs.db
+rm lib/booki/site_static/images/jquerybubblepopup-theme/all-black/ie/Thumbs.db
+rm lib/booki/site_static/images/jquerybubblepopup-theme/green/Thumbs.db
+rm lib/booki/site_static/images/jquerybubblepopup-theme/orange/Thumbs.db
+rm lib/booki/site_static/images/jquerybubblepopup-theme/violet/Thumbs.db
+rm lib/booki/site_static/images/jquerybubblepopup-theme/yellow/Thumbs.db
+
+# fix permissions
+chmod +x scripts/cron_reports.sh.original
+chmod +x scripts/cron_reports_weekly.sh.original
+chmod -x lib/booki/site_static/js/editor.js
+chmod -x lib/booki/site_static/images/feed-icon-14x14.png
 
 #############################
 

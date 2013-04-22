@@ -1,0 +1,25 @@
+#!/bin/bash
+#postrm script for Booktype
+
+set -e
+
+if [ "$DPKG_DEBUG" = "developer" ]; then
+    set -x
+fi
+
+case "$1" in
+  purge|remove)
+  ;;
+
+  upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+  ;;
+
+  *)
+      echo "postrm called with unknown argument \`$1'" >&2
+      exit 1
+  ;;
+esac
+
+#DEBHELPER#
+
+exit 0
