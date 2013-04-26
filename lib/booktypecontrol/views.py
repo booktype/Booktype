@@ -657,7 +657,7 @@ def edit_book(request, bookid):
             try:
                 book.license = frm.cleaned_data['license']
                 book.description = frm.cleaned_data['description']
-                book.is_hidden = frm.cleaned_data['is_hidden']
+                book.hidden = frm.cleaned_data['is_hidden']
                 book.save()
 
                 if request.FILES.has_key('cover'):
@@ -687,6 +687,8 @@ def edit_book(request, bookid):
             data['owner'] = book.owner.id
         if book.license:
             data['license'] = book.license.id
+        if book.hidden:
+            data['is_hidden'] = True
         
         frm = BookForm(initial=data)
 
