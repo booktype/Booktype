@@ -1,20 +1,21 @@
 # ALBANIAN (sq_AL) translation of Booktype Control Centre.
 # Copyright (C) 2013 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# Besnik Bleta <besnik@programeshqip.org>, 2013.
-#
+# Besnik Bleta <besnik@programeshqip.org>, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 1.6.0\n"
 "Report-Msgid-Bugs-To: <contact@sourcefabric.org>\n"
 "POT-Creation-Date: 2013-04-04 12:31+0200\n"
-"PO-Revision-Date: 2013-04-11 15:57+0100\n"
-"Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
+"PO-Revision-Date: 2013-04-16 23:03+0200\n"
+"Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <besnik@programeshqip.org>\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
 
 #: views.py:177
 #: views.py:303
@@ -161,22 +162,19 @@ msgstr "Titull"
 #: views.py:529
 #: views.py:705
 msgid "Title is required."
-msgstr "Titulli është fushë e domosdoshme"
+msgstr "Titulli është fushë e domosdoshme."
 
 #: views.py:505
-#, fuzzy
 msgid "Successfuly deleted the book"
-msgstr "Libri i ri u krijua me sukse."
+msgstr "Libri u fshi me sukses"
 
 #: views.py:509
-#, fuzzy
 msgid "Wrong title."
-msgstr "titull i shkurtër"
+msgstr "Titull gabim."
 
 #: views.py:511
-#, fuzzy
 msgid "Unknown error while deleting the book"
-msgstr "Gabim i panjohur gjatë krijimit të librit të ri."
+msgstr "Gabim i panjohur gjatë fshirjes së librit"
 
 #: views.py:532
 #: views.py:611
@@ -191,18 +189,18 @@ msgstr "Pronar"
 
 #: views.py:536
 msgid "Book owner is required."
-msgstr "I zoti i librit është i domosdoshëm"
+msgstr "I zoti i librit është i domosdoshëm."
 
 #: views.py:539
 #: views.py:618
 #: templates/booktypecontrol/settings_license_edit.html:6
 msgid "License"
-msgstr "Leje"
+msgstr "Licencë"
 
 #: views.py:541
 #: views.py:619
 msgid "License is required."
-msgstr "Leja është e domosdoshme."
+msgstr "Licenca është e domosdoshme."
 
 #: views.py:543
 #: views.py:622
@@ -459,7 +457,7 @@ msgstr "RIEMËRTOJENI"
 
 #: templates/booktypecontrol/book.html:40
 msgid "DELETE"
-msgstr ""
+msgstr "FSHIJE"
 
 #: templates/booktypecontrol/book.html:63
 msgid "Owner:"
@@ -471,7 +469,7 @@ msgstr "Gjendje:"
 
 #: templates/booktypecontrol/book.html:66
 msgid "(this book is hidden from others)"
-msgstr "(Ky libër iu është fshehur të tjerëve)"
+msgstr "(ky libër iu është fshehur të tjerëve)"
 
 #: templates/booktypecontrol/book.html:68
 msgid "(this book is visible to everyone)"
@@ -483,7 +481,7 @@ msgstr "Anëtar i grupit:"
 
 #: templates/booktypecontrol/book.html:74
 msgid "Current version:"
-msgstr "Versioni i tanishëm"
+msgstr "Versioni i tanishëm:"
 
 #: templates/booktypecontrol/book.html:75
 msgid "Attachments size:"
@@ -523,17 +521,16 @@ msgstr "titull i plotë"
 
 #: templates/booktypecontrol/delete_book.html:6
 #: templates/booktypecontrol/delete_book.html:26
-#, fuzzy
 msgid "Delete Book"
-msgstr "Riemërtoni LIBRIN"
+msgstr "Fshije Librin"
 
 #: templates/booktypecontrol/delete_book.html:20
 msgid "Are you sure you would like to delete this book? You will lose all data associated to this book and you will not be able to undo this operation!"
-msgstr ""
+msgstr "Jeni i sigurt që dëshironi të fshihet ky libër? Do të humbni krejt të dhënat e përshoqëruara këtij libri dhe nuk do të jeni në gjendje ta zhbëni këtë ndërhyrje!"
 
 #: templates/booktypecontrol/delete_book.html:21
 msgid "Type full title of the book to delete it"
-msgstr ""
+msgstr "Shtypni titullin e plotë të librit që do të fshihet"
 
 #: templates/booktypecontrol/edit_book.html:13
 #: templates/booktypecontrol/settings_appearance.html:13
@@ -680,7 +677,7 @@ msgstr "Ky person nuk ka GRUPE."
 
 #: templates/booktypecontrol/rename_book.html:13
 msgid "Rename Book"
-msgstr "Riemërtoni LIBRIN"
+msgstr "Riemërtoni Librin"
 
 #: templates/booktypecontrol/settings.html:28
 #: templates/booktypecontrol/settings_appearance.html:6
@@ -699,7 +696,7 @@ msgstr "Të përgjithshme"
 #: templates/booktypecontrol/settings.html:36
 #: templates/booktypecontrol/settings_license.html:30
 msgid "Licenses"
-msgstr "Leje"
+msgstr "Licenca"
 
 #: templates/booktypecontrol/settings.html:37
 msgid "Default Book Settings"
@@ -732,11 +729,11 @@ msgstr "Përshkrim site-i"
 
 #: templates/booktypecontrol/settings_license.html:6
 msgid "New license"
-msgstr "Leje e re"
+msgstr "Licencë e re"
 
 #: templates/booktypecontrol/settings_license.html:12
 msgid "Add new license"
-msgstr "Shtoni leje të re"
+msgstr "Shtoni licencë të re"
 
 #: templates/booktypecontrol/settings_license_edit.html:35
 msgid "Books licensed with"
@@ -762,19 +759,4 @@ msgstr "Nuk u gjet leja!"
 #, python-format
 msgid "Can't find license \"%(name)s\"."
 msgstr "S'gjendet dot licenca \"%(name)s\"."
-
-#~ msgid "lulu"
-#~ msgstr "lulu"
-#~ msgid "Lulu CSS"
-#~ msgstr "CSS Lulu-je"
-#~ msgid "Keywords"
-#~ msgstr "Fjalëkyçe"
-#~ msgid "Dashboard"
-#~ msgstr "Pult"
-#~ msgid "File Browse"
-#~ msgstr "Shfletim Kartelash"
-#~ msgid "Templates"
-#~ msgstr "Gjedhe"
-#~ msgid "Messages"
-#~ msgstr "Mesazhe"
 
