@@ -68,9 +68,9 @@ else:
                             {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
                            
                            # front page listing views
-                           url(r'list-groups/', 'booki.portal.views.view_groups'),
-                           url(r'list-books/', 'booki.portal.views.view_books'),
-                           url(r'list-people/', 'booki.portal.views.view_people'),
+                           url(r'list-groups/', 'booki.portal.views.view_groups', name='list_groups'),
+                           url(r'list-books/', 'booki.portal.views.view_books', name='list_books'),
+                           url(r'list-people/', 'booki.portal.views.view_people', name='list_people'),
 
                            # json booklist for objavi
                            url(r'^list-books.json$', 'booki.editor.views.view_books_json'),
@@ -105,7 +105,7 @@ else:
                            url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.export', name='export_booki'), 
                            
                            # sputnik dispatcher                       
-                           url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}),
+                           url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),
 
                            # messaging application
                            url(r'^messaging/', include('booki.messaging.urls')),

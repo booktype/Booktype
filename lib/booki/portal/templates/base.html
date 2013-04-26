@@ -21,7 +21,7 @@
 
    <script type="text/javascript">
      $(function() {
-	 $.booki.sputnikDispatcherURL = "{% url sputnik.views.dispatcher %}";
+	 $.booki.sputnikDispatcherURL = "{% url sputnik_dispatcher %}";
      });
    </script>
 
@@ -46,7 +46,7 @@
 	     return false;
 	 });
 
-          $("FORM.messagefield").messagefield('init', {'view_post': '{% url booki.messaging.views.view_post %}' });
+          $("FORM.messagefield").messagefield('init', {'view_post': '{% url messaging_post %}' });
 
      });
    </script>
@@ -152,9 +152,9 @@
     
         <div class="navbox">
             <ul>
-                <li><a href="{% url booki.portal.views.view_books %}">{% trans "Books" %}</a></li>
-                <li><a href="{% url booki.portal.views.view_groups %}">{% trans "Groups" %}</a></li>
-                <li><a href="{% url booki.portal.views.view_people %}">{% trans "People" %}</a></li>
+                <li><a href="{% url list_books %}">{% trans "Books" %}</a></li>
+                <li><a href="{% url list_groups %}">{% trans "Groups" %}</a></li>
+                <li><a href="{% url list_people %}">{% trans "People" %}</a></li>
             </ul>      
         </div><!-- End of .navbox -->       
     </div>
