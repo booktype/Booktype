@@ -362,8 +362,6 @@ def upload_cover(request, bookid, version=None):
 
         for name, fileData in request.FILES.items():
             if True:
-                print '>> ', name
-                print request.FILES[name].name
                 import hashlib
 
                 h = hashlib.sha1()
@@ -386,8 +384,10 @@ def upload_cover(request, bookid, version=None):
                 except ValueError:
                     height = 0
 
+                import unidecode
+
                 try:
-                    filename = request.FILES[name].name
+                    filename = unidecode.unidecode(request.FILES[name].name)
                 except:
                     filename = ''
                 
