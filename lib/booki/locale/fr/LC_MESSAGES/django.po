@@ -1,0 +1,2138 @@
+# FRENCH (fr_FR) translation for Booktype.
+# Copyright (C) 2013 Booktype contributors
+# This file is distributed under the same license as the Booktype package.
+# Aleksandar Erkalović <aleksandar.erkalovic@sourcefabric.org>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Booktype 1.6.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-29 18:53+0100\n"
+"PO-Revision-Date: 2013-04-29 10:16+0100\n"
+"Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
+"Language-Team: French Localization <elisa.dcg@gmail.com>\n"
+"Language: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: France\n"
+
+#: lib/booki/account/models.py:24
+msgid "mood"
+msgstr "humeur"
+
+#: lib/booki/account/models.py:25
+msgid "image"
+msgstr "image"
+
+#: lib/booki/account/models.py:26
+#: lib/booki/editor/models.py:77
+#: lib/booki/editor/models.py:218
+msgid "description"
+msgstr "description"
+
+#: lib/booki/account/models.py:27
+#: lib/booki/account/models.py:42
+#: lib/booki/editor/models.py:160
+#: lib/booki/editor/models.py:281
+#: lib/booki/editor/models.py:374
+#: lib/booki/editor/models.py:386
+#: lib/booki/editor/templates/editor/edit_book.html:823
+#: lib/booki/editor/templates/editor/edit_book.html:926
+msgid "user"
+msgstr "utilisateur"
+
+#: lib/booki/account/models.py:43
+msgid "secretcode"
+msgstr "code secret"
+
+#: lib/booki/account/models.py:44
+#: lib/booki/editor/models.py:84
+#: lib/booki/editor/models.py:115
+#: lib/booki/editor/models.py:220
+#: lib/booki/editor/models.py:254
+#: lib/booki/editor/models.py:318
+#: lib/booki/editor/templates/editor/edit_book.html:933
+msgid "created"
+msgstr "créé"
+
+#: lib/booki/account/models.py:46
+msgid "remote useragent"
+msgstr "agent utilisateur distant"
+
+#: lib/booki/account/models.py:47
+msgid "remote addr"
+msgstr "addr distant"
+
+#: lib/booki/account/models.py:48
+msgid "remote host"
+msgstr "hôte distant"
+
+#: lib/booki/account/views.py:286
+msgid "Reset password"
+msgstr "Réinitialiser le mot de passe"
+
+#: lib/booki/account/views.py:375
+msgid "Title"
+msgstr "Titre"
+
+#: lib/booki/account/views.py:376
+#: lib/booki/editor/models.py:19
+#: lib/booki/editor/templates/editor/edit_book.html:673
+msgid "License"
+msgstr "Licence"
+
+#: lib/booki/account/views.py:377
+#: lib/booki/account/views.py:397
+msgid "Initially hidden from others"
+msgstr "Initialement caché"
+
+#: lib/booki/account/views.py:452
+msgid "Email"
+msgstr "Courriel"
+
+#: lib/booki/account/views.py:453
+msgid "Full name"
+msgstr "Nom complet"
+
+#: lib/booki/account/views.py:455
+msgid "Blurb about yourself"
+msgstr "Quelques mots sur vous"
+
+#: lib/booki/account/views.py:457
+#: lib/booki/editor/templates/editor/edit_book.html:242
+msgid "Image"
+msgstr "Image"
+
+#: lib/booki/account/views.py:458
+msgid "Notification filter"
+msgstr "Filtre de notification"
+
+#: lib/booki/account/templates/account/error_import.html:6
+#: lib/booki/account/templates/account/error_import.html:11
+msgid "Error while doing import"
+msgstr "Erreur lors de l'importation"
+
+#: lib/booki/account/templates/account/error_import.html:12
+msgid "This is a first version of error message. Not much to see here."
+msgstr "Il s'agit d'une première version du message d'erreur. Il n'y a pas encore grand chose à lire."
+
+#: lib/booki/account/templates/account/forgot_password.html:6
+#: lib/booki/account/templates/account/forgot_password_enter.html:6
+msgid "Forgot Password"
+msgstr "Mot de passe oublié"
+
+#: lib/booki/account/templates/account/forgot_password.html:51
+msgid "Forgot your password"
+msgstr "Vous avez oublié votre mot de passe"
+
+#: lib/booki/account/templates/account/forgot_password.html:53
+msgid "USERNAME OR E-MAIL ADDRESS"
+msgstr "IDENTIFIANT OU COURRIEL"
+
+#: lib/booki/account/templates/account/forgot_password.html:55
+msgid "Give us your username or e-mail you used to create booki account and we will send you new password."
+msgstr "Donnez-nous votre nom d'utilisateur ou le courriel enregistré lors de la création du compte booki et nous vous ferons parvenir un nouveau mot de passe."
+
+#: lib/booki/account/templates/account/forgot_password.html:58
+msgid "Enter username."
+msgstr "Entrer votre nom utilisateur"
+
+#: lib/booki/account/templates/account/forgot_password.html:59
+msgid "No such user."
+msgstr "Utilisateur inconnu."
+
+#: lib/booki/account/templates/account/forgot_password.html:61
+#: lib/booki/account/templates/account/forgot_password_enter.html:55
+msgid "Send request"
+msgstr "Envoyer une demande"
+
+#: lib/booki/account/templates/account/forgot_password.html:65
+msgid "<h2>Check your email!</h2><p>Password reset instructions were sent to your email.</p>"
+msgstr "<h2>Consultez vos courriels !</h2><p>Des instructions pour réinitialiser votre mot de passe ont été envoyées par courriel.</p>"
+
+#: lib/booki/account/templates/account/forgot_password_enter.html:44
+msgid "Reset your password"
+msgstr "Réinitialiser votre mot de passe"
+
+#: lib/booki/account/templates/account/forgot_password_enter.html:46
+msgid "SECRETCODE"
+msgstr "CODE SECRET"
+
+#: lib/booki/account/templates/account/forgot_password_enter.html:49
+msgid "NEW PASSWORD"
+msgstr "NOUVEAU MOT DE PASSE"
+
+#: lib/booki/account/templates/account/forgot_password_enter.html:52
+msgid "NEW PASSWORD AGAIN"
+msgstr "NOUVEAU MOT DE PASSE ENCORE"
+
+#: lib/booki/account/templates/account/my_books.html:6
+#: lib/booki/account/templates/account/my_books.html:123
+#: lib/booki/portal/templates/base.html:161
+msgid "My Books"
+msgstr "Mes livres"
+
+#: lib/booki/account/templates/account/my_books.html:147
+msgid "Show to others"
+msgstr "Montrer aux autres"
+
+#: lib/booki/account/templates/account/my_books.html:153
+msgid "Hide from others"
+msgstr "Cacher aux autres"
+
+#: lib/booki/account/templates/account/my_books.html:168
+msgid "Create new book"
+msgstr "Créer un nouveau livre"
+
+#: lib/booki/account/templates/account/my_books.html:173
+#: lib/booki/editor/templates/editor/edit_book.html:876
+msgid "Create"
+msgstr "Créer"
+
+#: lib/booki/account/templates/account/my_books.html:177
+msgid "Import Book"
+msgstr "Importer un livre"
+
+#: lib/booki/account/templates/account/my_books.html:183
+msgid "Select Import Type"
+msgstr "Sélectionner le type d'importation"
+
+#: lib/booki/account/templates/account/my_books.html:184
+msgid "Import epub"
+msgstr "Importer un epub"
+
+#: lib/booki/account/templates/account/my_books.html:185
+msgid "Import FM"
+msgstr "Importer de FM"
+
+#: lib/booki/account/templates/account/my_books.html:186
+msgid "Import Archive.org book"
+msgstr "Importer un livre d'Archive.org"
+
+#: lib/booki/account/templates/account/my_books.html:187
+msgid "Import Wikibook"
+msgstr "Importer un Wikibook"
+
+#: lib/booki/account/templates/account/my_books.html:188
+msgid "Import Booki"
+msgstr "Importer de Booki"
+
+#: lib/booki/account/templates/account/my_books.html:205
+msgid "Import"
+msgstr "Importer"
+
+#: lib/booki/account/templates/account/my_groups.html:6
+#: lib/booki/account/templates/account/my_groups.html:45
+#: lib/booki/portal/templates/base.html:162
+msgid "My Groups"
+msgstr "Mes groupes"
+
+#: lib/booki/account/templates/account/my_groups.html:65
+#: lib/booki/account/templates/account/my_groups.html:72
+msgid "Create new group"
+msgstr "Créer un nouveau groupe"
+
+#: lib/booki/account/templates/account/my_groups.html:68
+msgid "Group name:"
+msgstr "Nom du groupe :"
+
+#: lib/booki/account/templates/account/my_groups.html:70
+msgid "What is this group about:"
+msgstr "Le sujet de ce groupe est :"
+
+#: lib/booki/account/templates/account/my_people.html:6
+#: lib/booki/account/templates/account/my_people.html:12
+#: lib/booki/portal/templates/base.html:163
+msgid "My People"
+msgstr "Mes contacts"
+
+#: lib/booki/account/templates/account/my_people.html:13
+msgid "Not yet Implemented"
+msgstr "Pas encore implémenté"
+
+#: lib/booki/account/templates/account/signin.html:6
+msgid "Booki Sign In"
+msgstr "Se connecter à Booki"
+
+#: lib/booki/account/templates/account/signin.html:169
+msgid "You are already signed in!"
+msgstr "Vous êtes déjà connecté !"
+
+#: lib/booki/account/templates/account/signin.html:173
+#: lib/booki/account/templates/account/signin.html:185
+msgid "Sign in"
+msgstr "Se connecter"
+
+#: lib/booki/account/templates/account/signin.html:175
+#: lib/booki/account/templates/account/signin.html:204
+msgid "USERNAME"
+msgstr "NOM UTILISATEUR"
+
+#: lib/booki/account/templates/account/signin.html:177
+msgid "PASSWORD"
+msgstr "MOT DE PASSE"
+
+#: lib/booki/account/templates/account/signin.html:180
+msgid "User does not exist."
+msgstr "Cet utilisateur n'existe pas."
+
+#: lib/booki/account/templates/account/signin.html:181
+msgid "Password is wrong! Please try again."
+msgstr "Mauvais mot de passe, merci d'essayer à nouveau."
+
+#: lib/booki/account/templates/account/signin.html:182
+#: lib/booki/account/templates/account/signin.html:225
+msgid "Unknown error!"
+msgstr "Erreur inconnue !"
+
+#: lib/booki/account/templates/account/signin.html:185
+msgid "Forgot your password ?"
+msgstr "Vous avez oublié votre mot de passe ?"
+
+#: lib/booki/account/templates/account/signin.html:196
+msgid "You are already signed in."
+msgstr "Vous êtes déjà inscrit."
+
+#: lib/booki/account/templates/account/signin.html:201
+msgid "Create Account"
+msgstr "Créer un compte"
+
+#: lib/booki/account/templates/account/signin.html:206
+msgid "E-MAIL"
+msgstr "COURRIEL"
+
+#: lib/booki/account/templates/account/signin.html:208
+msgid "PASSWORD (6 characters at least)"
+msgstr "MOT DE PASSE (au moins 6 caractères)"
+
+#: lib/booki/account/templates/account/signin.html:210
+msgid "PASSWORD confirmation"
+msgstr "Confirmation du mot de passe"
+
+#: lib/booki/account/templates/account/signin.html:212
+msgid "FULL NAME"
+msgstr "NOM COMPLET"
+
+#: lib/booki/account/templates/account/signin.html:214
+#: lib/booki/account/templates/account/signin.html:255
+msgid "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to."
+msgstr "Votre vrai nom est obligatoire pour des raisons d'attributions du droit d'auteur sur les livres auxquels vous contribuez et ceux que vous créez."
+
+#: lib/booki/account/templates/account/signin.html:216
+msgid "Missing username!"
+msgstr "Il manque un nom utilisateur !"
+
+#: lib/booki/account/templates/account/signin.html:217
+msgid "Missing e-mail!"
+msgstr "Il manque l'adresse courriel !"
+
+#: lib/booki/account/templates/account/signin.html:218
+msgid "Missing password!"
+msgstr "Il manque un mot de passe !"
+
+#: lib/booki/account/templates/account/signin.html:219
+msgid "Please provide your real name."
+msgstr "Merci de fournir votre vrai nom."
+
+#: lib/booki/account/templates/account/signin.html:220
+msgid "Username is invalid. Please try a different one. You may use alhpanumeric characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+msgstr "Ce nom utilisateur n'est pas valide. Merci d'en essayer un autre. Vous pouvez utiliser des caractères alphanumériques ainsi que \".\", \"_\", \"-\" (point, trait d'union, moins).<br/><br/>Examples :<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+
+#: lib/booki/account/templates/account/signin.html:221
+msgid "This is not a valid e-mail"
+msgstr "Ce courriel n'est pas valide"
+
+#: lib/booki/account/templates/account/signin.html:222
+msgid "Your passwords dont match. Please try a different one."
+msgstr "Les mots de passe ne sont pas identiques, réessayez s'il-vous-plaît."
+
+#: lib/booki/account/templates/account/signin.html:223
+msgid "Password must be 6 characters or more!"
+msgstr "Le mot de passe doit contenir au moins 6 caractères !"
+
+#: lib/booki/account/templates/account/signin.html:224
+msgid "Username already taken. Please try a different one."
+msgstr "Nom d'utilisateur déjà utilisé. Choisissez en un autre s'il-vous-plaît."
+
+#: lib/booki/account/templates/account/signin.html:226
+msgid "Fullname is too long!"
+msgstr ""
+
+#: lib/booki/account/templates/account/signin.html:230
+msgid "Create account"
+msgstr "Créer un compte"
+
+#: lib/booki/account/templates/account/signin.html:235
+msgid "You will also be joining this groups if you create account:"
+msgstr "Vous rejoindrez ce groupe également si vous créez un compte :"
+
+#: lib/booki/account/templates/account/signin.html:249
+msgid "Your account has been created!"
+msgstr "Votre compte est créé !"
+
+#: lib/booki/account/templates/account/signin.html:249
+#, python-format
+msgid "<p>Thank you. We have created your account and signed you in. If you are new to Booki we recommend you to read <a href=\"http://www.booki.cc/booki-user-guide/\">Booki User Guide</a>.</p><p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! Let's use Booki now!</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</span> seconds.</span></form></p>"
+msgstr "<p>Merci. Nous avons créé votre compte et vous vous êtes connecté. Si vous êtes nouveau à Booki, nous vous recommandons de lire notre Guide utilisateur de Booki.</p><p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Génial ! Utilisons Booki maintenant !</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Vous serez automatiquement redirigé dans <span class=\"sec\">sec</span> seconds.</span></form></p>"
+
+#: lib/booki/account/templates/account/signin.html:254
+msgid "Why do I need account ?"
+msgstr "Pourquoi avoir besoin d'un compte ?"
+
+#: lib/booki/account/templates/account/signin.html:258
+msgid "I forgot my password. What now ?!"
+msgstr "J'ai oublié mon mot de passe. Que dois-je faire maintenant ?!"
+
+#: lib/booki/account/templates/account/signin.html:259
+#, python-format
+msgid "<p>Please <a href=\"%(forgotpassword_url)s\">request new one</a>.</p>"
+msgstr "<p>Merci <a href=\"%(forgotpassword_url)s\">d'en demander un autre</a>.</p>"
+
+#: lib/booki/account/templates/account/signin.html:262
+msgid "I forgot my username ?"
+msgstr "J'ai oublié mon nom d'utilisateur !"
+
+#: lib/booki/account/templates/account/user_settings.html:6
+#, python-format
+msgid "/settings: %(username)s"
+msgstr "/settings: %(username)s"
+
+#: lib/booki/account/templates/account/user_settings.html:13
+#: lib/booki/portal/templates/base.html:160
+msgid "My Settings"
+msgstr "Mes paramètres"
+
+#: lib/booki/account/templates/account/user_settings.html:35
+msgid "Save user profile"
+msgstr "Enregistrer le profil de l'utilisateur"
+
+#: lib/booki/account/templates/account/view_profile.html:7
+#, python-format
+msgid "/user: %(username)s"
+msgstr "/user: %(username)s"
+
+#: lib/booki/account/templates/account/view_profile.html:44
+#: lib/booki/portal/templates/base.html:159
+msgid "My Profile"
+msgstr "Mon profil"
+
+#: lib/booki/account/templates/account/view_profile.html:64
+msgid "Do you want to learn more how to use Booki? We recommend you reading  through the <a target=\"_new\" title=\"Booki user guide\" href=\"http://www.booki.cc/booki-user-guide/\"><i>booki-user-guide</i></a>! If you have any questions please check our <a target=\"_new\" title=\"Support page\" href=\"http://support.booki.cc/\"><i>support page</i></a>."
+msgstr "Pour en savoir plus sur l'utilisation de Booki, nous vous recommandonsla lecture du manuel <a title=\"Utiliser Booki\" href=\"http://fr.flossmanuals.net/ecrire/utiliser-booki/_full/\"><i>Utiliser Booki</i></a>. En cas de question, consultez la <a title=\"Foire aux questions\" href=\"http://fr.flossmanuals.net/faq-floss-manuals-francophone/\">Foire aux questions</a> ou posez-nous directement vous questions (voir <a title=\"Page d'accueil\" href=\"http://fr.flossmanuals.net\">page d'accueil</a> rubrique <i>Nous joindre</i>."
+
+#: lib/booki/account/templates/account/view_profile.html:67
+#: lib/booki/editor/models.py:129
+#: lib/booki/portal/templates/base.html:148
+#: lib/booki/portal/templates/portal/books.html:43
+#: lib/booki/portal/templates/portal/group.html:64
+#: lib/booki/portal/templates/portal/group.html:118
+msgid "Books"
+msgstr "Livres"
+
+#: lib/booki/account/templates/account/view_profile.html:89
+msgid "<p>This user has no books.</p>"
+msgstr ""
+
+#: lib/booki/account/templates/account/view_profile.html:94
+#: lib/booki/portal/templates/base.html:149
+msgid "Groups"
+msgstr "Groupes"
+
+#: lib/booki/account/templates/account/view_profile.html:107
+msgid "This user has no groups."
+msgstr ""
+
+#: lib/booki/account/templates/account/view_profile.html:112
+msgid "RSS feed of my changes"
+msgstr "Flux RSS de mes modifications"
+
+#: lib/booki/account/templates/errors/user_does_not_exist.html:4
+msgid "User does not exist!"
+msgstr "Cet utilisateur n'existe pas !"
+
+#: lib/booki/account/templates/errors/user_does_not_exist.html:5
+#, python-format
+msgid "Can't find user \"%(username)s\"."
+msgstr "Ne trouves pas l'utilisateur \"%(username)s\"."
+
+#: lib/booki/editor/models.py:12
+#: lib/booki/editor/models.py:25
+#: lib/booki/editor/models.py:48
+#: lib/booki/editor/models.py:75
+#: lib/booki/editor/models.py:181
+#: lib/booki/editor/models.py:217
+#: lib/booki/editor/models.py:345
+#: lib/booki/editor/templates/editor/edit_book.html:933
+#: lib/booki/editor/templates/editor/edit_strings.html:51
+msgid "name"
+msgstr "nom"
+
+#: lib/booki/editor/models.py:13
+#: lib/booki/editor/models.py:26
+msgid "abbrevation"
+msgstr "abbréviation"
+
+#: lib/booki/editor/models.py:20
+msgid "Licenses"
+msgstr "Licences"
+
+#: lib/booki/editor/models.py:32
+#: lib/booki/editor/templates/editor/edit_book.html:651
+msgid "Language"
+msgstr "Langue"
+
+#: lib/booki/editor/models.py:33
+msgid "Languages"
+msgstr "Langues"
+
+#: lib/booki/editor/models.py:38
+#: lib/booki/editor/models.py:116
+msgid "published"
+msgstr "publié"
+
+#: lib/booki/editor/models.py:39
+msgid "not published"
+msgstr "non publié"
+
+# non traduis ??
+#: lib/booki/editor/models.py:40
+msgid "not translated"
+msgstr "non traduis"
+
+#: lib/booki/editor/models.py:47
+#: lib/booki/editor/models.py:62
+#: lib/booki/editor/models.py:153
+#: lib/booki/editor/models.py:179
+#: lib/booki/editor/models.py:214
+#: lib/booki/editor/models.py:249
+#: lib/booki/editor/models.py:313
+#: lib/booki/editor/models.py:344
+#: lib/booki/editor/models.py:375
+#: lib/booki/editor/models.py:385
+msgid "book"
+msgstr "livre"
+
+#: lib/booki/editor/models.py:49
+#: lib/booki/editor/models.py:347
+msgid "weight"
+msgstr "poids"
+
+#: lib/booki/editor/models.py:55
+#: lib/booki/editor/models.py:56
+msgid "Book status"
+msgstr "État du livre"
+
+#: lib/booki/editor/models.py:63
+msgid "notes"
+msgstr "notes"
+
+#: lib/booki/editor/models.py:69
+msgid "Book note"
+msgstr "Remarque sur le livre"
+
+#: lib/booki/editor/models.py:70
+msgid "Book notes"
+msgstr "Remarques sur le livre"
+
+#: lib/booki/editor/models.py:76
+msgid "url name"
+msgstr "nom url"
+
+#: lib/booki/editor/models.py:79
+#: lib/booki/editor/models.py:109
+msgid "owner"
+msgstr "propriétaire"
+
+#: lib/booki/editor/models.py:82
+msgid "members"
+msgstr "membres"
+
+#: lib/booki/editor/models.py:93
+msgid "Booki group"
+msgstr "Groupe Booki"
+
+#: lib/booki/editor/models.py:94
+msgid "Booki groups"
+msgstr "Groupes Booki"
+
+#: lib/booki/editor/models.py:99
+#: lib/booki/editor/models.py:251
+msgid "url title"
+msgstr "titre url"
+
+#: lib/booki/editor/models.py:100
+#: lib/booki/editor/models.py:252
+msgid "title"
+msgstr "titre"
+
+#: lib/booki/editor/models.py:101
+#: lib/booki/editor/models.py:253
+#: lib/booki/editor/models.py:317
+msgid "status"
+msgstr "états"
+
+#: lib/booki/editor/models.py:102
+msgid "language"
+msgstr "langue"
+
+#: lib/booki/editor/models.py:105
+#: lib/booki/editor/models.py:155
+#: lib/booki/editor/models.py:247
+#: lib/booki/editor/models.py:311
+#: lib/booki/editor/models.py:342
+msgid "version"
+msgstr "version"
+
+#: lib/booki/editor/models.py:107
+#: lib/booki/editor/models.py:376
+msgid "group"
+msgstr "groupe"
+
+#: lib/booki/editor/models.py:113
+msgid "license"
+msgstr "licence"
+
+#: lib/booki/editor/models.py:118
+msgid "hidden"
+msgstr "caché"
+
+#: lib/booki/editor/models.py:119
+#: lib/booki/editor/models.py:377
+msgid "permission"
+msgstr "autorisation"
+
+#: lib/booki/editor/models.py:128
+msgid "Book"
+msgstr "Livre"
+
+#: lib/booki/editor/models.py:156
+#: lib/booki/editor/models.py:278
+#: lib/booki/editor/models.py:346
+msgid "chapter"
+msgstr "chapitre"
+
+#: lib/booki/editor/models.py:157
+msgid "chapter history"
+msgstr "historique du chapitre"
+
+#: lib/booki/editor/models.py:158
+#: lib/booki/editor/models.py:255
+#: lib/booki/editor/models.py:280
+msgid "modified"
+msgstr "modifié"
+
+# args??? arguments ?
+#: lib/booki/editor/models.py:159
+msgid "args"
+msgstr "args"
+
+#: lib/booki/editor/models.py:161
+#: lib/booki/editor/models.py:182
+msgid "kind"
+msgstr "type"
+
+#: lib/booki/editor/models.py:184
+msgid "value string"
+msgstr "variable chaîne"
+
+#: lib/booki/editor/models.py:185
+msgid "value integer"
+msgstr "variable entier"
+
+#: lib/booki/editor/models.py:186
+msgid "value text"
+msgstr "variable text"
+
+#: lib/booki/editor/models.py:187
+msgid "value date"
+msgstr "variable date"
+
+#: lib/booki/editor/models.py:207
+#: lib/booki/editor/models.py:208
+msgid "Metadata"
+msgstr "Métadonnées"
+
+#: lib/booki/editor/models.py:215
+msgid "major"
+msgstr "majeur"
+
+#: lib/booki/editor/models.py:216
+msgid "minor"
+msgstr "mineur"
+
+#: lib/booki/editor/models.py:257
+#: lib/booki/editor/models.py:282
+#: lib/booki/editor/templates/editor/edit_book.html:926
+msgid "revision"
+msgstr "révision"
+
+#: lib/booki/editor/models.py:262
+#: lib/booki/messaging/models.py:18
+msgid "content"
+msgstr "contenu"
+
+#: lib/booki/editor/models.py:272
+msgid "Chapter"
+msgstr "Chapitre"
+
+#: lib/booki/editor/models.py:273
+#: lib/booki/editor/templates/editor/edit_book.html:93
+msgid "Chapters"
+msgstr "Chapitres"
+
+#: lib/booki/editor/models.py:283
+#: lib/booki/editor/templates/editor/edit_book.html:926
+msgid "comment"
+msgstr "commentaire"
+
+#: lib/booki/editor/models.py:289
+msgid "Chapter history"
+msgstr "Historique du chapitre"
+
+#: lib/booki/editor/models.py:315
+#: lib/booki/editor/templates/editor/edit_strings.html:52
+msgid "filename"
+msgstr "nom du fichier"
+
+#: lib/booki/editor/models.py:328
+#: lib/booki/editor/templates/editor/edit_book.html:885
+msgid "Attachment"
+msgstr "Pièce jointe"
+
+#: lib/booki/editor/models.py:329
+#: lib/booki/editor/templates/editor/edit_book.html:97
+msgid "Attachments"
+msgstr "Pièces jointes"
+
+#: lib/booki/editor/models.py:335
+msgid "section name"
+msgstr "nom de la section"
+
+#: lib/booki/editor/models.py:336
+msgid "chapter name"
+msgstr "nom du chapitre"
+
+#: lib/booki/editor/models.py:337
+msgid "line"
+msgstr "ligne"
+
+#: lib/booki/editor/models.py:348
+msgid "typeof"
+msgstr "type"
+
+#: lib/booki/editor/models.py:362
+msgid "Book TOC"
+msgstr "T.D.M. du livre"
+
+#: lib/booki/editor/models.py:363
+msgid "Book TOCs"
+msgstr "T.D.M. du livre"
+
+#: lib/booki/editor/models.py:392
+#: lib/booki/editor/models.py:393
+msgid "Attribution Exclude"
+msgstr "Exclure la paternité"
+
+#: lib/booki/editor/templates/authors.html:13
+msgid "Modifications:"
+msgstr "Modifications :"
+
+#: lib/booki/editor/templates/booki_report.html:5
+#, python-format
+msgid "Report for %(booki_name)s (%(date)s)"
+msgstr "Rapport pour %(booki_name)s (%(date)s)"
+
+#: lib/booki/editor/templates/booki_report.html:7
+msgid "Info"
+msgstr "Infos"
+
+#: lib/booki/editor/templates/booki_report.html:10
+msgid "Total number of books:"
+msgstr "Nombre total de livres :"
+
+#: lib/booki/editor/templates/booki_report.html:15
+msgid "Total number of users:"
+msgstr "Nombre total d'utilisateurs :"
+
+#: lib/booki/editor/templates/booki_report.html:20
+msgid "Attachments size:"
+msgstr "Taille des pièces jointes :"
+
+#: lib/booki/editor/templates/booki_report.html:25
+msgid "Database size:"
+msgstr "Taille de la base de donnée :"
+
+#: lib/booki/editor/templates/booki_report.html:31
+msgid "New Users"
+msgstr "Nouveaux utilisateurs"
+
+#: lib/booki/editor/templates/booki_report.html:36
+msgid "No new users"
+msgstr "Pas de nouveaux utilisateurs"
+
+#: lib/booki/editor/templates/booki_report.html:41
+msgid "New Books"
+msgstr "Nouveaux livres"
+
+#: lib/booki/editor/templates/booki_report.html:46
+msgid "No new books"
+msgstr "Pas de nouveaux livres"
+
+#: lib/booki/editor/templates/booki_report.html:50
+msgid "New Groups"
+msgstr "Nouveaux groupes"
+
+#: lib/booki/editor/templates/booki_report.html:55
+msgid "No new groups"
+msgstr "Pas de nouveaux groupes"
+
+#: lib/booki/editor/templates/booki_report.html:60
+msgid "Activity"
+msgstr "Activité"
+
+#: lib/booki/editor/templates/booki_report.html:71
+msgid "No Activity"
+msgstr "Pas d'activité"
+
+#: lib/booki/editor/templates/editor/edit_book.html:83
+msgid "Search"
+msgstr "Recherche"
+
+#: lib/booki/editor/templates/editor/edit_book.html:101
+msgid "History"
+msgstr "Historique"
+
+#: lib/booki/editor/templates/editor/edit_book.html:105
+#: lib/booki/reader/templates/reader/book_info.html:134
+msgid "Versions"
+msgstr "Versions"
+
+#: lib/booki/editor/templates/editor/edit_book.html:109
+msgid "Notes"
+msgstr "Notes"
+
+#: lib/booki/editor/templates/editor/edit_book.html:113
+#: lib/booki/portal/templates/portal/group.html:67
+#: lib/booki/portal/templates/portal/group.html:161
+msgid "Settings"
+msgstr "Réglagles"
+
+#: lib/booki/editor/templates/editor/edit_book.html:118
+msgid "Export"
+msgstr "Exporter"
+
+#: lib/booki/editor/templates/editor/edit_book.html:133
+msgid "We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding."
+msgstr "Nous sommes désolée mais le site n'est pas compatible avec votre navigateur. Nous travaillons sur le problème. En attendant, vous pouvez consultez ce site avec Firefox, Chrome, Safari, Opéra et d'autres navigateurs compatibles. Merci pour votre compréhension."
+
+#: lib/booki/editor/templates/editor/edit_book.html:138
+#: lib/booki/editor/templates/editor/edit_book.html:147
+msgid "NEW CHAPTER"
+msgstr "NOUVEAU CHAPITRE"
+
+#: lib/booki/editor/templates/editor/edit_book.html:138
+#: lib/booki/editor/templates/editor/edit_book.html:147
+msgid "NEW SECTION"
+msgstr "NOUVELLE SECTION"
+
+#: lib/booki/editor/templates/editor/edit_book.html:138
+#: lib/booki/editor/templates/editor/edit_book.html:147
+msgid "IMPORT CHAPTER"
+msgstr "IMPORTER CHAPITRE"
+
+#: lib/booki/editor/templates/editor/edit_book.html:144
+msgid "(drag new chapters into the area above here)"
+msgstr "(glisser de nouveaux chapitres dans la zone ci-dessus)"
+
+#: lib/booki/editor/templates/editor/edit_book.html:156
+msgid "New chapter"
+msgstr "Nouveau chapitre"
+
+#: lib/booki/editor/templates/editor/edit_book.html:165
+#: lib/booki/editor/templates/editor/edit_strings.html:42
+msgid "Clone chapter"
+msgstr "Cloner le chapitre"
+
+#: lib/booki/editor/templates/editor/edit_book.html:171
+msgid "New title (optional)"
+msgstr "Nouveau titre (factultatif)"
+
+#: lib/booki/editor/templates/editor/edit_book.html:177
+msgid "New section"
+msgstr "Nouvelle section"
+
+#: lib/booki/editor/templates/editor/edit_book.html:187
+#: lib/booki/editor/templates/editor/edit_strings.html:59
+msgid "Insert image"
+msgstr "Insérer une image"
+
+#: lib/booki/editor/templates/editor/edit_book.html:190
+msgid "Images"
+msgstr "Images"
+
+#: lib/booki/editor/templates/editor/edit_book.html:191
+msgid "Upload image"
+msgstr "Téléverser une image"
+
+#: lib/booki/editor/templates/editor/edit_book.html:205
+#: lib/booki/editor/templates/editor/edit_book.html:237
+msgid "Preview"
+msgstr "Aperçu"
+
+#: lib/booki/editor/templates/editor/edit_book.html:234
+msgid "Edit Image"
+msgstr "Éditer l'image"
+
+#: lib/booki/editor/templates/editor/edit_book.html:244
+msgid "Image:"
+msgstr "Image :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:245
+msgid "Alt:"
+msgstr "Alt :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:250
+msgid "Positioning"
+msgstr "Positionnement"
+
+#: lib/booki/editor/templates/editor/edit_book.html:252
+msgid "Border:"
+msgstr "Bordure :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:253
+msgid "Align:"
+msgstr "Alignement :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:254
+msgid "Width:"
+msgstr "Largeur :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:255
+msgid "Height:"
+msgstr "Hauteur :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:261
+msgid "Style"
+msgstr "Style"
+
+#: lib/booki/editor/templates/editor/edit_book.html:263
+msgid "CSS Class:"
+msgstr "Classe CSS"
+
+#: lib/booki/editor/templates/editor/edit_book.html:264
+msgid "Padding:"
+msgstr "Padding :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:265
+msgid "Margin:"
+msgstr "Margin :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:266
+msgid "Background color:"
+msgstr "Couleur de fond :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:267
+msgid "Border color:"
+msgstr "Couleur de bordure :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:279
+msgid "Hold chapters"
+msgstr "Chapitres mis de côté"
+
+#: lib/booki/editor/templates/editor/edit_book.html:291
+#: lib/booki/editor/templates/editor/edit_book.html:298
+#: lib/booki/editor/templates/editor/edit_book.html:877
+msgid "Save"
+msgstr "Enregistrer"
+
+#: lib/booki/editor/templates/editor/edit_book.html:292
+#: lib/booki/editor/templates/editor/edit_book.html:299
+msgid "Save and continue editing"
+msgstr "Enregistrer et poursuivre l'édition"
+
+#: lib/booki/editor/templates/editor/edit_book.html:294
+msgid "View chapter"
+msgstr "Voir le chapitre"
+
+#: lib/booki/editor/templates/editor/edit_book.html:296
+#: lib/booki/editor/templates/editor/edit_book.html:301
+#: lib/booki/editor/templates/editor/edit_strings.html:3
+msgid "Cancel"
+msgstr "Annuler"
+
+#: lib/booki/editor/templates/editor/edit_book.html:310
+msgid "Minor change, don't notify."
+msgstr "Changement mineur, ne pas notifier."
+
+#: lib/booki/editor/templates/editor/edit_book.html:318
+msgid "Author:"
+msgstr "Auteur :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:321
+msgid "Author comment:"
+msgstr "Commentaire de l'auteur :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:331
+msgid "Seems like You have changed the structure of the chapters. What do you want to do?"
+msgstr "Il semblerait que la structure du chapitre ait été modifiée. Que souhaitez-vous faire ?"
+
+#: lib/booki/editor/templates/editor/edit_book.html:335
+msgid "New chapters:"
+msgstr "Nouveaux chapitres :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:362
+msgid "Deleted selected items"
+msgstr "Effacer les éléments sélectionnés"
+
+#: lib/booki/editor/templates/editor/edit_book.html:364
+msgid "Upload a new attachment"
+msgstr "Téléverser une pièce jointe"
+
+#: lib/booki/editor/templates/editor/edit_book.html:368
+#: lib/booki/editor/templates/editor/edit_book.html:850
+#: lib/booki/editor/templates/editor/edit_strings.html:57
+msgid "Upload"
+msgstr "Téléchargement"
+
+#: lib/booki/editor/templates/editor/edit_book.html:388
+#: lib/booki/editor/templates/editor/edit_book.html:400
+#: lib/booki/editor/templates/editor/edit_book.html:412
+#: lib/booki/editor/templates/editor/edit_book.html:843
+msgid "New version"
+msgstr "Nouvelle version"
+
+#: lib/booki/editor/templates/editor/edit_book.html:390
+msgid ""
+"With different versions you can easily organise your book. But be careful! Other users will not be able to edit\n"
+"and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them.\n"
+"\t   "
+msgstr ""
+"Avec les différentes versions, vous pouvez aisément organiser votre livre. Mais attention&nbsp;! Les autres utilisateurs ne seront pas en mesure de le modifier \n"
+"et de travailler sur les versions précédentes lorsque vous créer une nouvelle version. Créer une nouvelle version <i>majeure</i> si vous envisagez de faire beaucoup de changement et une version <i>mineure</i> si vous prévoyez d'en faire peu. \n"
+" \t"
+
+#: lib/booki/editor/templates/editor/edit_book.html:394
+#: lib/booki/editor/templates/editor/edit_strings.html:32
+msgid "Create major version"
+msgstr "Créer une version majeure"
+
+#: lib/booki/editor/templates/editor/edit_book.html:395
+#: lib/booki/editor/templates/editor/edit_strings.html:33
+msgid "Create minor version"
+msgstr "Créer une version mineure"
+
+#: lib/booki/editor/templates/editor/edit_book.html:403
+#: lib/booki/editor/templates/editor/edit_book.html:415
+msgid "You can name this version (optional):"
+msgstr "Vous pouvez nommer cette version (facultatif) :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:405
+#: lib/booki/editor/templates/editor/edit_book.html:417
+msgid "e.g. initial, dragon, test"
+msgstr "c'est-à-dire initiale, dragon, test"
+
+#: lib/booki/editor/templates/editor/edit_book.html:406
+#: lib/booki/editor/templates/editor/edit_book.html:418
+msgid "Description (optional)"
+msgstr "Description (factultative)"
+
+#: lib/booki/editor/templates/editor/edit_book.html:425
+msgid "All versions"
+msgstr "Toutes les versions"
+
+#: lib/booki/editor/templates/editor/edit_book.html:439
+msgid "Book title:"
+msgstr "Titre du livre :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:444
+msgid "Document type:"
+msgstr "Type de document :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:446
+msgid "book (PDF)"
+msgstr "livre (PDF)"
+
+#: lib/booki/editor/templates/editor/edit_book.html:447
+msgid "epub"
+msgstr "epub"
+
+#: lib/booki/editor/templates/editor/edit_book.html:448
+msgid "newspaper (PDF)"
+msgstr "journal (PDF)"
+
+#: lib/booki/editor/templates/editor/edit_book.html:449
+msgid "openoffice"
+msgstr "openoffice"
+
+#: lib/booki/editor/templates/editor/edit_book.html:450
+msgid "web (PDF)"
+msgstr "web (PDF)"
+
+#: lib/booki/editor/templates/editor/edit_book.html:455
+msgid "License:"
+msgstr "Licence :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:476
+msgid "Lulu.com settings (each optional)"
+msgstr "Paramètres Lulu.com (optionnels)"
+
+#: lib/booki/editor/templates/editor/edit_book.html:479
+msgid "Cover PDF attachment:"
+msgstr "Couverture PDF attachée :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:482
+msgid "Loading list..."
+msgstr "Chargement de la liste..."
+
+#: lib/booki/editor/templates/editor/edit_book.html:487
+msgid "Lulu.com user:"
+msgstr "Utilisateur Lulu.com :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:491
+msgid "Lulu.com password:"
+msgstr "Mot de passe Lulu.com :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:495
+msgid "Lulu.com project number:"
+msgstr "Numéro de projet Lulu.com :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:500
+msgid "send to archive.org"
+msgstr "envoyer à archive.org"
+
+#: lib/booki/editor/templates/editor/edit_book.html:503
+msgid "send to lulu.com"
+msgstr "envoyer à Lulu.com"
+
+#: lib/booki/editor/templates/editor/edit_book.html:510
+msgid "Publish this book"
+msgstr "Publier ce livre"
+
+#: lib/booki/editor/templates/editor/edit_book.html:512
+#: lib/booki/editor/templates/editor/edit_strings.html:26
+msgid "Show advanced options"
+msgstr "Afficher les options avancées"
+
+#: lib/booki/editor/templates/editor/edit_book.html:530
+msgid "ISBN"
+msgstr "ISBN"
+
+#: lib/booki/editor/templates/editor/edit_book.html:531
+msgid "(13 digits)"
+msgstr "(13 chiffres)"
+
+#: lib/booki/editor/templates/editor/edit_book.html:535
+msgid "Table of Contents header"
+msgstr "En-tête de la table des matières"
+
+#: lib/booki/editor/templates/editor/edit_book.html:540
+msgid "Page size"
+msgstr "Taille de la page"
+
+#: lib/booki/editor/templates/editor/edit_book.html:543
+msgid "custom"
+msgstr "personnalisé"
+
+#: lib/booki/editor/templates/editor/edit_book.html:578
+msgid "CSS mode:"
+msgstr "mode CSS :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:581
+msgid "Server default"
+msgstr "Valeurs par défaut du serveur"
+
+#: lib/booki/editor/templates/editor/edit_book.html:583
+msgid "Custom"
+msgstr "Personnalisé"
+
+#: lib/booki/editor/templates/editor/edit_book.html:595
+msgid "Page width:"
+msgstr "Largeur de la page :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:600
+msgid "Page height:"
+msgstr "Hauteur de la page :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:605
+msgid "Top margin"
+msgstr "Marge supérieure"
+
+#: lib/booki/editor/templates/editor/edit_book.html:610
+msgid "Side margin"
+msgstr "Marge latérale"
+
+#: lib/booki/editor/templates/editor/edit_book.html:615
+msgid "Bottom margin"
+msgstr "Marge inférieure"
+
+#: lib/booki/editor/templates/editor/edit_book.html:620
+msgid "Gutter"
+msgstr "Gouttière"
+
+#: lib/booki/editor/templates/editor/edit_book.html:625
+msgid "Columns"
+msgstr "Colonnes"
+
+#: lib/booki/editor/templates/editor/edit_book.html:630
+msgid "Column margin"
+msgstr "Marge de la colonne"
+
+#: lib/booki/editor/templates/editor/edit_book.html:635
+msgid "Grey-scale"
+msgstr "Échelle de gris"
+
+#: lib/booki/editor/templates/editor/edit_book.html:636
+msgid "(for black and white printing)"
+msgstr "(pour l'impression en noir et blanc)"
+
+#: lib/booki/editor/templates/editor/edit_book.html:657
+msgid "This book is written in "
+msgstr "Ce livre est écrit en"
+
+#: lib/booki/editor/templates/editor/edit_book.html:663
+msgid "Set new language"
+msgstr "Choisir la nouvelle langue"
+
+#: lib/booki/editor/templates/editor/edit_book.html:667
+msgid "Right to left text"
+msgstr "Écriture de la droite vers la gauche"
+
+#: lib/booki/editor/templates/editor/edit_book.html:677
+msgid "This book is licensed with:"
+msgstr "Ce livre est sous licence :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:685
+msgid "Set new license"
+msgstr "Choisir la nouvelle licence"
+
+#: lib/booki/editor/templates/editor/edit_book.html:689
+msgid "Read full text of the license"
+msgstr "Lire le texte complet de la licence"
+
+#: lib/booki/editor/templates/editor/edit_book.html:694
+msgid "Manage copyright attribution."
+msgstr "Gérer l'attribution des droits d'auteurs"
+
+#: lib/booki/editor/templates/editor/edit_book.html:696
+msgid "Manage Copyright Attribution"
+msgstr "Gérer l'attribution des droits d'auteurs"
+
+#: lib/booki/editor/templates/editor/edit_book.html:697
+msgid "If you want to exclude some people from the copyright attribution..."
+msgstr "Si vous souhaitez exclure certaines personnes des attributions de droits..."
+
+#: lib/booki/editor/templates/editor/edit_book.html:716
+msgid "Roles"
+msgstr "Rôles"
+
+#: lib/booki/editor/templates/editor/edit_book.html:718
+msgid "Manage roles"
+msgstr "Gérer les rôles"
+
+#: lib/booki/editor/templates/editor/edit_book.html:720
+msgid "Manage Roles"
+msgstr "Gérer les rôles"
+
+#: lib/booki/editor/templates/editor/edit_book.html:727
+msgid "Select role"
+msgstr "Sélectionner un rôle"
+
+#: lib/booki/editor/templates/editor/edit_book.html:728
+msgid "Administrator"
+msgstr "Administrateur"
+
+#: lib/booki/editor/templates/editor/edit_book.html:729
+msgid "Editor"
+msgstr "Éditeur"
+
+#: lib/booki/editor/templates/editor/edit_book.html:735
+msgid "New user:"
+msgstr "Nouvel utilisateur :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:737
+msgid "Add"
+msgstr "Ajouter"
+
+#: lib/booki/editor/templates/editor/edit_book.html:741
+msgid "Role:"
+msgstr "Rôle :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:743
+msgid "Remove"
+msgstr "Retirer"
+
+#: lib/booki/editor/templates/editor/edit_book.html:749
+#: lib/booki/editor/templates/editor/edit_book.html:969
+msgid "Chapter status"
+msgstr "État du chapitre"
+
+#: lib/booki/editor/templates/editor/edit_book.html:750
+msgid "Available statuses:"
+msgstr "États disponibles :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:751
+msgid "Manage chapter status"
+msgstr "Gérer l'état du chapitre"
+
+#: lib/booki/editor/templates/editor/edit_book.html:754
+msgid "Permissions and visibility"
+msgstr "Autorisation et visibilité"
+
+#: lib/booki/editor/templates/editor/edit_book.html:760
+msgid "This book can be edited by"
+msgstr "Ce livre peut être édité par"
+
+#: lib/booki/editor/templates/editor/edit_book.html:770
+msgid "Set permissions"
+msgstr "Définir les autorisations"
+
+#: lib/booki/editor/templates/editor/edit_book.html:777
+msgid "This interface is still work in progress."
+msgstr "Cette interface est encore en cours de conception."
+
+#: lib/booki/editor/templates/editor/edit_book.html:788
+msgid "Shared notes for this book"
+msgstr "Notes partagées pour ce livre"
+
+#: lib/booki/editor/templates/editor/edit_book.html:795
+msgid "Save the notes"
+msgstr "Enregistrer les notes"
+
+#: lib/booki/editor/templates/editor/edit_book.html:810
+msgid "Chat"
+msgstr "Chat"
+
+#: lib/booki/editor/templates/editor/edit_book.html:812
+msgid "Currently editing"
+msgstr "Actuellement en édition"
+
+#: lib/booki/editor/templates/editor/edit_book.html:819
+msgid "<span class=\"icon\">JOINED</span>  <span class=\"notice\">notice</span>"
+msgstr "<span class=\"icon\">JOINT</span>  <span class=\"notice\">notice</span>"
+
+#: lib/booki/editor/templates/editor/edit_book.html:821
+msgid "<span class=\"info\">INFO</span>  <span class=\"notice\">notice</span>"
+msgstr "<span class=\"info\">INFO</span>  <span class=\"notice\">notice</span>"
+
+#: lib/booki/editor/templates/editor/edit_book.html:823
+msgid "action"
+msgstr "action"
+
+#: lib/booki/editor/templates/editor/edit_book.html:823
+#: lib/booki/editor/templates/editor/edit_book.html:926
+msgid "time"
+msgstr "date"
+
+#: lib/booki/editor/templates/editor/edit_book.html:844
+msgid "Switched to <span class=\"entryVersion\">entry.version.version</span>"
+msgstr "Changer vers <span class=\"entryVersion\">entry.version.version</span>"
+
+#: lib/booki/editor/templates/editor/edit_book.html:851
+msgid "Uploaded <span class=\"entryFilename\">entry.args.filename</span>."
+msgstr "Téléchargés <span class=\"entryFilename\">entry.args.filename</span>."
+
+#: lib/booki/editor/templates/editor/edit_book.html:857
+msgid "Delete"
+msgstr "Supprimer"
+
+#: lib/booki/editor/templates/editor/edit_book.html:858
+msgid "Deleted <span class=\"entryFilename\">entry.args.filename</span>."
+msgstr "Supprimé <span class=\"entryFilename\">entry.args.filename</span>."
+
+#: lib/booki/editor/templates/editor/edit_book.html:875
+msgid "Unknown"
+msgstr "Inconnue"
+
+#: lib/booki/editor/templates/editor/edit_book.html:878
+msgid "Rename"
+msgstr "Renommer"
+
+#: lib/booki/editor/templates/editor/edit_book.html:879
+msgid "Reorder"
+msgstr "Ré-organiser"
+
+#: lib/booki/editor/templates/editor/edit_book.html:880
+msgid "Split"
+msgstr "Diviser"
+
+#: lib/booki/editor/templates/editor/edit_book.html:881
+#: lib/booki/reader/templates/reader/book_info.html:177
+msgid "Section create"
+msgstr "Créer une section"
+
+#: lib/booki/editor/templates/editor/edit_book.html:882
+#: lib/booki/reader/templates/reader/book_info.html:184
+msgid "Book create"
+msgstr "Créer un livre"
+
+#: lib/booki/editor/templates/editor/edit_book.html:883
+msgid "Minor"
+msgstr "Mineure"
+
+#: lib/booki/editor/templates/editor/edit_book.html:884
+msgid "Major"
+msgstr "Majeure"
+
+#: lib/booki/editor/templates/editor/edit_book.html:910
+#: lib/booki/reader/templates/reader/book_chapter.html:41
+#: lib/booki/reader/templates/reader/book_view.html:39
+#: lib/booki/reader/templates/reader/draft_book.html:34
+#: lib/booki/reader/templates/reader/draft_chapter.html:40
+msgid "EDIT"
+msgstr "MODIFIER"
+
+#: lib/booki/editor/templates/editor/edit_book.html:910
+msgid "VIEW"
+msgstr "VOIR"
+
+#: lib/booki/editor/templates/editor/edit_book.html:919
+msgid "back to history index"
+msgstr "Retour à l'historique"
+
+#: lib/booki/editor/templates/editor/edit_book.html:921
+msgid "Compare revisions"
+msgstr "Comparer les révisions"
+
+#: lib/booki/editor/templates/editor/edit_book.html:926
+msgid "compare"
+msgstr "comparer"
+
+#: lib/booki/editor/templates/editor/edit_book.html:933
+#: lib/booki/editor/templates/editor/edit_strings.html:53
+msgid "dimension"
+msgstr "dimension"
+
+#: lib/booki/editor/templates/editor/edit_book.html:933
+#: lib/booki/editor/templates/editor/edit_strings.html:54
+msgid "size"
+msgstr "taille"
+
+#: lib/booki/editor/templates/editor/edit_book.html:939
+#: lib/booki/editor/templates/editor/edit_book.html:961
+msgid "back to chapter history"
+msgstr "revenir à l'historique du chapitre"
+
+#: lib/booki/editor/templates/editor/edit_book.html:940
+msgid "Normal view"
+msgstr "Vue normale"
+
+#: lib/booki/editor/templates/editor/edit_book.html:940
+msgid "Source view"
+msgstr "Vue de la source"
+
+#: lib/booki/editor/templates/editor/edit_book.html:941
+msgid "Revert to this revision"
+msgstr "Revenir à cette révision"
+
+#: lib/booki/editor/templates/editor/edit_book.html:943
+msgid "No such revision."
+msgstr "Cette révision n'existe pas."
+
+#: lib/booki/editor/templates/editor/edit_book.html:946
+msgid "User:"
+msgstr "Utilisateur :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:947
+msgid "Modified:"
+msgstr "Mis à jour :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:948
+msgid "Version:"
+msgstr "Version :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:949
+msgid "Revision:"
+msgstr "Révision :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:950
+msgid "Comment"
+msgstr "Commentaire"
+
+#: lib/booki/editor/templates/editor/edit_book.html:953
+msgid "previous"
+msgstr "précédent"
+
+#: lib/booki/editor/templates/editor/edit_book.html:954
+msgid "next"
+msgstr "suivant"
+
+#: lib/booki/editor/templates/editor/edit_book.html:962
+msgid "Show side by side"
+msgstr "Afficher côte à côte"
+
+#: lib/booki/editor/templates/editor/edit_book.html:964
+msgid "Compare revision <span class=\"revision1Name\">revision1</span> with revision <span class=\"revision2Name\">revision2</span>"
+msgstr "Comparez la révision <span class=\"revision1Nom\">révision1</span> avec la révision <span class=\"revision2Nom\">révision2</span>"
+
+#: lib/booki/editor/templates/editor/edit_book.html:970
+msgid "Select new chapter status:"
+msgstr "Sélectionnez un nouvel état de chapitre :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:986
+msgid "Chapter statuses"
+msgstr "État des chapitres"
+
+#: lib/booki/editor/templates/editor/edit_book.html:991
+msgid "New status:"
+msgstr "Nouvel état :"
+
+#: lib/booki/editor/templates/editor/edit_book.html:997
+msgid "Chapter statuses:"
+msgstr "État des chapitres :"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:4
+msgid "Yes, revert !"
+msgstr "Oui, revenez !"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:5
+msgid "Loading..."
+msgstr "Chargement..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:6
+msgid "LOADING DATA...."
+msgstr "Données en cours de chargement..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:7
+msgid "Loading data. Please wait..."
+msgstr "Données en cours de chargement, merci de patienter..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:8
+msgid "Loading chapter data..."
+msgstr "Chargement des données du chapitre..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:9
+msgid "Reading history data..."
+msgstr "Lecture des données historiques..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:10
+msgid "Reading settings data..."
+msgstr "Lecture des paramètres..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:11
+msgid "Reading attachments data..."
+msgstr "Lecture des attachements..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:12
+msgid "Reading notes data..."
+msgstr "Lecture des notes..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:13
+msgid "Reading version data..."
+msgstr "Lecture des données de version..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:14
+msgid "Revert to this revision?"
+msgstr "Revenir à cette révision ?"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:15
+msgid "Current chapter content will be reverted to this revision. Are you sure?"
+msgstr "Le contenu du chapitre courant sera réinitialisé avec celui de cette révision. Voulez-vous confirmer ?"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:16
+msgid "Sending data..."
+msgstr "Envoi des données..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:17
+msgid "SAVE"
+msgstr "ENREGISTRER"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:18
+msgid "Save changes"
+msgstr "Enregistrer les modifications"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:19
+msgid "Save new order"
+msgstr "Enregistrer la nouvelle organisation"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:20
+msgid "Saving data. Please wait..."
+msgstr "Enregistrement des données. Merci de patienter..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:21
+msgid "CANCEL"
+msgstr "ANNULER"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:22
+msgid "Set status"
+msgstr "Définir l'état"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:23
+msgid "Revision"
+msgstr "Révision :"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:24
+msgid "Booki Reader"
+msgstr "Visionneuse Booki"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:25
+msgid "Hide advanced options"
+msgstr "Masquer les options avancées"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:27
+msgid "New status name"
+msgstr "Nom du nouvel état :"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:28
+msgid "Delete this status?"
+msgstr "Supprimer cet état ?"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:29
+msgid "Can't delete because some chapters have this status. Change chapter status first."
+msgstr "La suppression est actuellement impossible car cet état est attribué à des chapitres. Merci de modifier ces chapitres auparavant."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:30
+msgid "Removing chapter from Table of Contents."
+msgstr "Suppression d'un chapitre de la table des matières."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:31
+msgid "Reordering the chapters..."
+msgstr "Réorganisation des chapitres..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:34
+msgid "Delete attachments"
+msgstr "Supprimer des pièces jointes"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:35
+msgid "Delete these attachments"
+msgstr "Supprimer ces pièces jointes"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:36
+msgid "Delete selected attachments"
+msgstr "Supprimer les pièces jointes sélectionnées"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:37
+msgid "Update"
+msgstr "Mise à jour"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:38
+msgid "Create chapter"
+msgstr "Ajouter le chapitre"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:39
+msgid "Creating chapter"
+msgstr "Création d'un nouveau chapitre"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:40
+#: lib/booki/editor/templates/editor/edit_strings.html:44
+msgid "Can not create duplicate chapter name."
+msgstr "Création impossible, le nom du chapitre doit être unique."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:41
+msgid "Enter new Chapter title."
+msgstr "Saisissez le titre du nouveau chapitre."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:43
+msgid "Cloning chapter"
+msgstr "Clonage d'un chapitre"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:45
+msgid "Enter book id"
+msgstr "Saisissez l'identifiant du livre"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:46
+msgid "Enter Chapter id."
+msgstr "Saisissez l'identifiant du chapitre."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:47
+msgid "Create section"
+msgstr "Créer une section"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:48
+msgid "Creating section"
+msgstr "Création d'une section"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:49
+msgid "Can not create duplicate section name."
+msgstr "Création impossible, le nom de la section doit être unique."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:50
+msgid "Enter new section title"
+msgstr "Saisissez l'identifiant de la section"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:55
+msgid "Adding chapter to Table of Contents."
+msgstr "Ajout d'un chapitre de la table des matières."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:56
+msgid "Reordering the chapter..."
+msgstr "Réorganisation du chapitre..."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:58
+msgid "Rights holder"
+msgstr "Détenteur des droits"
+
+#: lib/booki/editor/templates/editor/edit_strings.html:60
+msgid "You will loose unsaved changes. You are currently editing chapter"
+msgstr "Vous êtes actuellement en train d'éditer un chapitre. Toutes les modifications non enregistrées seront perdues."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:61
+msgid "You are leaving Booki Editor."
+msgstr "Vous quittez l'éditeur Booki."
+
+#: lib/booki/editor/templates/editor/edit_strings.html:62
+msgid "You don't have permission to delete attachments."
+msgstr "Vous n'avez pas l'autorisation de supprimer cette pièce jointe."
+
+#: lib/booki/editor/templates/errors/editing_forbidden.html:4
+msgid "Access error"
+msgstr "Erreur d'accès"
+
+#: lib/booki/editor/templates/errors/editing_forbidden.html:5
+msgid "You have no permission to edit this book."
+msgstr "Vous n'avez pas l'autorisation de modifier ce livre."
+
+#: lib/booki/messaging/models.py:16
+msgid "sender"
+msgstr "expéditeur"
+
+#: lib/booki/messaging/models.py:17
+#: lib/booki/messaging/models.py:51
+msgid "timestamp"
+msgstr "horodatage"
+
+#: lib/booki/messaging/models.py:19
+msgid "attachment"
+msgstr "pièce jointe"
+
+#: lib/booki/messaging/models.py:20
+msgid "snippet"
+msgstr "fragment"
+
+#: lib/booki/messaging/models.py:21
+msgid "context"
+msgstr "contexte"
+
+#: lib/booki/messaging/models.py:45
+msgid "Post"
+msgstr "Message"
+
+#: lib/booki/messaging/models.py:46
+msgid "Posts"
+msgstr "Messages"
+
+#: lib/booki/messaging/models.py:50
+msgid "post"
+msgstr "message"
+
+#: lib/booki/messaging/models.py:52
+msgid "endpoint"
+msgstr "critère d'évaluation"
+
+#: lib/booki/messaging/models.py:58
+msgid "Post appearance"
+msgstr "Apparence du message"
+
+#: lib/booki/messaging/models.py:59
+msgid "Post appearances"
+msgstr "Apparence des messages"
+
+#: lib/booki/messaging/models.py:69
+msgid "syntax"
+msgstr "syntaxe"
+
+#: lib/booki/messaging/models.py:130
+msgid "Endpoint"
+msgstr "Critère d'évaluation"
+
+#: lib/booki/messaging/models.py:131
+msgid "Endpoints"
+msgstr "Critères d'évaluation"
+
+#: lib/booki/messaging/models.py:134
+msgid "notification filter"
+msgstr "filtre de notification"
+
+#: lib/booki/messaging/models.py:140
+msgid "Endpoint config"
+msgstr "Configuration du critère d'évaluation"
+
+#: lib/booki/messaging/models.py:141
+msgid "Endpoint configs"
+msgstr "Configuration des critères d'évaluation"
+
+#: lib/booki/messaging/models.py:144
+msgid "follower"
+msgstr "abonné"
+
+#: lib/booki/messaging/models.py:145
+msgid "target"
+msgstr "cible"
+
+#: lib/booki/messaging/models.py:151
+msgid "Following"
+msgstr "Abonnement"
+
+#: lib/booki/messaging/models.py:152
+msgid "Followings"
+msgstr "Abonnements"
+
+#: lib/booki/messaging/views.py:84
+#, python-format
+msgid "Message from %s at Booki"
+msgstr "Message de %s sur Booki"
+
+#: lib/booki/messaging/templates/messaging/book_followbutton.html:5
+msgid "Follow this book"
+msgstr "Suivre ce livre"
+
+#: lib/booki/messaging/templates/messaging/book_followbutton.html:10
+msgid "Stop following this book"
+msgstr "Arrêter de suivre ce livre"
+
+#: lib/booki/messaging/templates/messaging/messagefield.html:72
+msgid "Share"
+msgstr "Partager"
+
+#: lib/booki/messaging/templates/messaging/post.html:10
+#: lib/booki/portal/templates/portal/books.html:36
+msgid "ago"
+msgstr "il y a"
+
+#: lib/booki/messaging/templates/messaging/post.html:21
+msgid "Snippet:"
+msgstr "Fragment :"
+
+#: lib/booki/messaging/templates/messaging/post.html:23
+msgid "Context"
+msgstr "Contexte"
+
+#: lib/booki/messaging/templates/messaging/tag_followbutton.html:5
+msgid "Follow this tag"
+msgstr "Suivre ce tag"
+
+#: lib/booki/messaging/templates/messaging/tag_followbutton.html:10
+msgid "Stop following this tag"
+msgstr "Arrêter de suivre ce tag"
+
+#: lib/booki/messaging/templates/messaging/timeline.html:8
+#, python-format
+msgid "Timeline of %(syntax)s"
+msgstr "Chronologie de %(syntax)s"
+
+#: lib/booki/messaging/templates/messaging/timeline.html:10
+msgid "No messages."
+msgstr "Pas de messages."
+
+#: lib/booki/messaging/templates/messaging/user_followbutton.html:5
+msgid "Stalk me"
+msgstr "Suis moi"
+
+#: lib/booki/messaging/templates/messaging/user_followbutton.html:10
+msgid "Stop stalking me"
+msgstr "Fin de la poursuite"
+
+#: lib/booki/messaging/templates/messaging/view_tag.html:5
+msgid "Tag timeline"
+msgstr "Chronologie du tag"
+
+#: lib/booki/portal/templates/base.html:150
+#: lib/booki/portal/templates/portal/people.html:45
+msgid "People"
+msgstr "Communauté"
+
+#: lib/booki/portal/templates/base.html:172
+msgid "Sign out"
+msgstr "Déconnexion"
+
+#: lib/booki/portal/templates/base.html:174
+msgid "Debug"
+msgstr "Débogage"
+
+#: lib/booki/portal/templates/base.html:181
+msgid "Sign In / Create Account"
+msgstr "Connexion / Créer un compte"
+
+#: lib/booki/portal/templates/base.html:206
+msgid "There has been error in communication with booki server."
+msgstr "Il y a une erreure de communication avec le serveur booki."
+
+#: lib/booki/portal/templates/base.html:207
+msgid "Not sure right now where is the problem."
+msgstr "Nous ne savons pas actuellement où est le problème."
+
+#: lib/booki/portal/templates/base.html:210
+msgid "You should refresh this page."
+msgstr "Vous devriez rafraîchir la page."
+
+#: lib/booki/portal/templates/booki_paginator.html:5
+msgid "Previous"
+msgstr "Précédent"
+
+#: lib/booki/portal/templates/booki_paginator.html:29
+msgid "Next"
+msgstr "Suivant"
+
+#: lib/booki/portal/templates/errors/group_does_not_exist.html:4
+msgid "Group not found!"
+msgstr "Groupe non trouvé !"
+
+#: lib/booki/portal/templates/errors/group_does_not_exist.html:5
+#, python-format
+msgid "Can't find group \"%(group_name)s\"."
+msgstr "Ne trouve pas le groupe \"%(group_name)s\"."
+
+#: lib/booki/portal/templates/portal/books.html:5
+#: lib/booki/portal/templates/portal/books.html:9
+msgid "Booki Books"
+msgstr "Livres Booki"
+
+#: lib/booki/portal/templates/portal/books.html:14
+msgid "Active books"
+msgstr "Livres actifs"
+
+#: lib/booki/portal/templates/portal/books.html:27
+msgid "Latest Books"
+msgstr "Derniers livres"
+
+#: lib/booki/portal/templates/portal/frontpage.html:118
+msgid "Created new chapter"
+msgstr "Nouveau chapitre créé"
+
+#: lib/booki/portal/templates/portal/frontpage.html:123
+msgid "Created new book"
+msgstr "Nouveau livre créé"
+
+#: lib/booki/portal/templates/portal/group.html:5
+#, python-format
+msgid "/group: %(groupname)s"
+msgstr "/groupe: %(groupname)s"
+
+#: lib/booki/portal/templates/portal/group.html:63
+msgid "Group"
+msgstr "Groupe"
+
+#: lib/booki/portal/templates/portal/group.html:65
+#: lib/booki/portal/templates/portal/group.html:150
+msgid "Members"
+msgstr "Membres"
+
+#: lib/booki/portal/templates/portal/group.html:83
+msgid "Leave this group"
+msgstr "Quitter ce groupe"
+
+#: lib/booki/portal/templates/portal/group.html:85
+msgid "Join this group"
+msgstr "Joindre ce groupe"
+
+#: lib/booki/portal/templates/portal/group.html:88
+#, python-format
+msgid "MEMBERS: %(n_members)s"
+msgstr "MEMBRES : %(n_members)s"
+
+#: lib/booki/portal/templates/portal/group.html:89
+#, python-format
+msgid "BOOKS: %(n_books)s"
+msgstr "LIVRE : %(n_books)s"
+
+#: lib/booki/portal/templates/portal/group.html:95
+msgid "ANNOUNCEMENTS"
+msgstr "ANNONCES"
+
+#: lib/booki/portal/templates/portal/group.html:106
+msgid "STATUS"
+msgstr "ÉTAT"
+
+#: lib/booki/portal/templates/portal/group.html:143
+msgid "ADD THIS BOOK TO GROUP"
+msgstr "AJOUTER CE LIVRE AU GROUPE"
+
+#: lib/booki/portal/templates/portal/groups.html:5
+#: lib/booki/portal/templates/portal/groups.html:10
+msgid "Booki Groups"
+msgstr "Les groupes Booki"
+
+#: lib/booki/portal/templates/portal/maintenance.html:4
+msgid "Booki is in maintenance mode right now"
+msgstr "Booki est actuellement en maintenance"
+
+#: lib/booki/portal/templates/portal/people.html:5
+#: lib/booki/portal/templates/portal/people.html:9
+msgid "Booki People"
+msgstr "La communauté Booki"
+
+#: lib/booki/portal/templates/portal/people.html:13
+msgid "Active people"
+msgstr "Personnes actives"
+
+#: lib/booki/portal/templates/portal/people.html:28
+msgid "New people"
+msgstr "Nouvelles personnes"
+
+#: lib/booki/reader/templates/errors/book_does_not_exist.html:4
+msgid "Book does not exist!"
+msgstr "Le livre n'existe pas !"
+
+#: lib/booki/reader/templates/errors/book_does_not_exist.html:5
+#, python-format
+msgid "Can't find book \"%(book_name)s\"."
+msgstr "Ne trouve pas le livre \"%(book_name)s\"."
+
+#: lib/booki/reader/templates/errors/chapter_does_not_exist.html:4
+msgid "Chapter does not exist!"
+msgstr "Le chapitre n'existe pas !"
+
+#: lib/booki/reader/templates/errors/chapter_does_not_exist.html:5
+#, python-format
+msgid "Can't find chapter \"%(chapter_name)s\"."
+msgstr "Ne trouve pas le chapitre \"%(chapter_name)s\"."
+
+#: lib/booki/reader/templates/errors/chapter_duplicate.html:4
+msgid "I don't know what to do!"
+msgstr ""
+
+#: lib/booki/reader/templates/errors/chapter_duplicate.html:5
+#, python-format
+msgid "There is more then one chapter named - \"%(chapter_name)s\". I am not sure which one to show."
+msgstr ""
+
+#: lib/booki/reader/templates/reader/book_chapter.html:6
+#: lib/booki/reader/templates/reader/draft_chapter.html:6
+#, python-format
+msgid "/chapter: %(chaptertitle)s / %(booktitle)s"
+msgstr "/chapitre : %(chaptertitle)s / %(booktitle)s"
+
+#: lib/booki/reader/templates/reader/book_info.html:5
+#: lib/booki/reader/templates/reader/book_view.html:5
+#: lib/booki/reader/templates/reader/draft_book.html:5
+#, python-format
+msgid "/book: %(booktitle)s"
+msgstr "/livre : %(booktitle)s"
+
+#: lib/booki/reader/templates/reader/book_info.html:92
+msgid "VIEW PUBLISHED BOOK"
+msgstr "VOIR LE LIVRE PUBLIÉ"
+
+#: lib/booki/reader/templates/reader/book_info.html:93
+msgid "EDIT THIS BOOK"
+msgstr "MODIFIER CE LIVRE"
+
+#: lib/booki/reader/templates/reader/book_info.html:94
+msgid "VIEW DRAFT"
+msgstr "VOIR LE BROUILLON"
+
+#: lib/booki/reader/templates/reader/book_info.html:96
+msgid "Book details"
+msgstr "Détails du livre"
+
+#: lib/booki/reader/templates/reader/book_info.html:98
+msgid "Owner:"
+msgstr "Propriétaire :"
+
+#: lib/booki/reader/templates/reader/book_info.html:99
+msgid "Status:"
+msgstr "État :"
+
+#: lib/booki/reader/templates/reader/book_info.html:102
+msgid "(this book is hidden from others)"
+msgstr "(ce livre est caché aux autres contributeurs)"
+
+#: lib/booki/reader/templates/reader/book_info.html:104
+msgid "(this book is visible to everyone)"
+msgstr "(ce livre est visible par tout le monde)"
+
+#: lib/booki/reader/templates/reader/book_info.html:108
+msgid "Member of group:"
+msgstr "Membre du groupe :"
+
+#: lib/booki/reader/templates/reader/book_info.html:110
+msgid "Current version:"
+msgstr "Version actuelle :"
+
+#: lib/booki/reader/templates/reader/book_info.html:113
+msgid "Created:"
+msgstr "Créé le :"
+
+#: lib/booki/reader/templates/reader/book_info.html:114
+msgid "Published:"
+msgstr "Publié le :"
+
+#: lib/booki/reader/templates/reader/book_info.html:117
+msgid "Collaborators:"
+msgstr "Contributeurs :"
+
+#: lib/booki/reader/templates/reader/book_info.html:125
+msgid "Online editing:"
+msgstr "Actuellement en édition :"
+
+#: lib/booki/reader/templates/reader/book_info.html:141
+msgid "Recent activity"
+msgstr "Activité récente"
+
+#: lib/booki/reader/templates/reader/book_info.html:147
+msgid "Chapter create"
+msgstr "Création d'un chapitre"
+
+#: lib/booki/reader/templates/reader/book_info.html:153
+msgid "Chapter save"
+msgstr "Enregistrement d'un chapitre"
+
+#: lib/booki/reader/templates/reader/book_info.html:159
+msgid "Chapter rename"
+msgstr "Renommage d'un chapitre"
+
+#: lib/booki/reader/templates/reader/book_info.html:165
+msgid "Chapter reorder"
+msgstr "Réorganisation"
+
+#: lib/booki/reader/templates/reader/book_info.html:171
+msgid "Split chapter"
+msgstr "Division d'un chapitre"
+
+#: lib/booki/reader/templates/reader/book_info.html:190
+msgid "Minor version"
+msgstr "Version mineure"
+
+#: lib/booki/reader/templates/reader/book_info.html:196
+msgid "Major version"
+msgstr "Version majeure"
+
+#: lib/booki/reader/templates/reader/book_info.html:203
+msgid "Uploaded"
+msgstr "Téléchargement"
+
+#: lib/booki/reader/templates/reader/book_info.html:220
+msgid "Follow changes"
+msgstr "Suivre les changements"
+
+#: lib/booki/reader/templates/reader/book_view.html:35
+#: lib/booki/reader/templates/reader/draft_book.html:32
+msgid "click on the chapter name"
+msgstr "cliquez sur le nom du chapitre"
+
+#: lib/booki/reader/templates/reader/full.html:6
+#, python-format
+msgid "/_full: %(booktitle)s"
+msgstr "/_complet : %(booktitle)s"
+
+#: lib/booki/site_static/js/booki.js:277
+msgid "This is introduction"
+msgstr ""
+
+#~ msgid "Suggestions:"
+#~ msgstr "Suggestions :"
+
+#~ msgid "To create new books go to \"My Books\"."
+#~ msgstr "Pour créer de nouveaux livres, allez à \"Mes Livres\"."
+
+#~ msgid ""
+#~ "Read the <a href='http://www.booki.cc/booki-user-guide/'>booki-user-"
+#~ "guide</a>"
+#~ msgstr "Lire le <a href='#'>Guide utilisateur de Booki</a>"
+
+#~ msgid "edit"
+#~ msgstr "modifier"
+
+#~ msgid "Blog"
+#~ msgstr "Blog"
+
+#~ msgid "Get Booki"
+#~ msgstr "Obtenir Booki"
+
+#~ msgid "Support"
+#~ msgstr "Soutien"
+
+#~ msgid "Welcome to Booki"
+#~ msgstr "Bienvenue sur Booki"
