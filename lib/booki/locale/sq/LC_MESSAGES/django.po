@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-02 15:21+0200\n"
+"POT-Creation-Date: 2013-05-02 23:29+0200\n"
 "PO-Revision-Date: 2013-04-16 23:02+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian Localization <contact@sourcefabric.org>\n"
@@ -1731,7 +1731,7 @@ msgstr "Historik"
 
 #: editor/templates/editor/edit_book.html:114
 #: editor/templates/editor/edit_book.html:373
-#: reader/templates/reader/book_info.html:116
+#: reader/templates/reader/book_info.html:119
 msgid "Versions"
 msgstr "Versione"
 
@@ -2187,12 +2187,12 @@ msgid "Split"
 msgstr "Ndaji"
 
 #: editor/templates/editor/edit_book.html:651
-#: reader/templates/reader/book_info.html:159
+#: reader/templates/reader/book_info.html:162
 msgid "Section create"
 msgstr "Krijim ndarjeje"
 
 #: editor/templates/editor/edit_book.html:652
-#: reader/templates/reader/book_info.html:166
+#: reader/templates/reader/book_info.html:169
 msgid "Book create"
 msgstr "Krijim libri"
 
@@ -3331,7 +3331,7 @@ msgstr "Ndjekje"
 msgid "Message from %s"
 msgstr "Mesazh prej %s"
 
-#: messaging/views.py:171
+#: messaging/views.py:171 reader/templates/reader/book_delete_error.html:7
 msgid "Error"
 msgstr "Gabim"
 
@@ -3422,6 +3422,11 @@ msgstr "Qendër Kontrollesh"
 msgid "Couldn't create a group!"
 msgstr "Nuk u krijua dot grupi!"
 
+#: portal/templates/base.html:204 reader/templates/reader/book_info.html:74
+#, fuzzy
+msgid "Delete book"
+msgstr "Fshije"
+
 #: portal/templates/errors/group_does_not_exist.html:8
 msgid "Group not found!"
 msgstr "Nuk u gjet grup!"
@@ -3452,7 +3457,7 @@ msgid "Welcome to Booktype"
 msgstr "Mirë se vini te Booktype"
 
 #: portal/templates/portal/frontpage.html:38
-#: reader/templates/reader/book_info.html:123
+#: reader/templates/reader/book_info.html:126
 msgid "Recent activity"
 msgstr "Veprimtari së fundmi"
 
@@ -3565,6 +3570,21 @@ msgstr ""
 msgid "/chapter: %(chaptertitle)s / %(booktitle)s"
 msgstr "/kreu: %(chaptertitle)s / %(booktitle)s"
 
+#: reader/templates/reader/book_delete.html:3
+#, fuzzy
+msgid "Delete Book"
+msgstr "Fshije"
+
+#: reader/templates/reader/book_delete.html:6
+msgid ""
+"Are you sure you would like to delete this book? You will lose all data "
+"associated to this book and you will not be able to undo this operation!"
+msgstr ""
+
+#: reader/templates/reader/book_delete.html:7
+msgid "Type full title of the book to delete it"
+msgstr ""
+
 #: reader/templates/reader/book_info.html:5
 #: reader/templates/reader/book_view.html:5
 #: reader/templates/reader/draft_book.html:5
@@ -3572,95 +3592,95 @@ msgstr "/kreu: %(chaptertitle)s / %(booktitle)s"
 msgid "/book: %(booktitle)s"
 msgstr "/libri: %(booktitle)s"
 
-#: reader/templates/reader/book_info.html:69
+#: reader/templates/reader/book_info.html:70
 msgid "Edit this Book"
 msgstr "Përpunojeni këtë Libër"
 
-#: reader/templates/reader/book_info.html:70
+#: reader/templates/reader/book_info.html:71
 msgid "View draft"
 msgstr "Shihni skicën"
 
-#: reader/templates/reader/book_info.html:72
+#: reader/templates/reader/book_info.html:73
 msgid "Edit book info"
 msgstr "Përpunoni të dhëna libri"
 
-#: reader/templates/reader/book_info.html:75
+#: reader/templates/reader/book_info.html:78
 msgid "Book details"
 msgstr "Hollësi libri"
 
-#: reader/templates/reader/book_info.html:80
+#: reader/templates/reader/book_info.html:83
 msgid "Owner:"
 msgstr "Pronar:"
 
-#: reader/templates/reader/book_info.html:81
+#: reader/templates/reader/book_info.html:84
 msgid "Status:"
 msgstr "Gjendje:"
 
-#: reader/templates/reader/book_info.html:84
+#: reader/templates/reader/book_info.html:87
 msgid "(this book is hidden from others)"
 msgstr "(ky libër u është fshehur të tjerëve)"
 
-#: reader/templates/reader/book_info.html:86
+#: reader/templates/reader/book_info.html:89
 msgid "(this book is visible to everyone)"
 msgstr "(ky libër është i dukshëm për këdo)"
 
-#: reader/templates/reader/book_info.html:90
+#: reader/templates/reader/book_info.html:93
 msgid "Member of group:"
 msgstr "Anëtar i grupit:"
 
-#: reader/templates/reader/book_info.html:92
+#: reader/templates/reader/book_info.html:95
 msgid "Current version:"
 msgstr "Versioni i tanishëm:"
 
-#: reader/templates/reader/book_info.html:95
+#: reader/templates/reader/book_info.html:98
 msgid "Created:"
 msgstr "Krijuar më:"
 
-#: reader/templates/reader/book_info.html:96
+#: reader/templates/reader/book_info.html:99
 msgid "Published:"
 msgstr "Botuar më:"
 
-#: reader/templates/reader/book_info.html:99
+#: reader/templates/reader/book_info.html:102
 msgid "Collaborators:"
 msgstr "Bashkëpunëtorë:"
 
-#: reader/templates/reader/book_info.html:107
+#: reader/templates/reader/book_info.html:110
 msgid "Online editing:"
 msgstr "Përpunim online:"
 
-#: reader/templates/reader/book_info.html:129
+#: reader/templates/reader/book_info.html:132
 msgid "Chapter create"
 msgstr "Krijim kreu"
 
-#: reader/templates/reader/book_info.html:135
+#: reader/templates/reader/book_info.html:138
 msgid "Chapter save"
 msgstr "Ruajtje kreu"
 
-#: reader/templates/reader/book_info.html:141
+#: reader/templates/reader/book_info.html:144
 msgid "Chapter rename"
 msgstr "Riemërtim kreu"
 
-#: reader/templates/reader/book_info.html:147
+#: reader/templates/reader/book_info.html:150
 msgid "Chapter reorder"
 msgstr "Rirenditje Kreu"
 
-#: reader/templates/reader/book_info.html:153
+#: reader/templates/reader/book_info.html:156
 msgid "Split chapter"
 msgstr "Ndarje kreu"
 
-#: reader/templates/reader/book_info.html:172
+#: reader/templates/reader/book_info.html:175
 msgid "Minor version"
 msgstr "Version i vogël"
 
-#: reader/templates/reader/book_info.html:178
+#: reader/templates/reader/book_info.html:181
 msgid "Major version"
 msgstr "Version i madh"
 
-#: reader/templates/reader/book_info.html:185
+#: reader/templates/reader/book_info.html:188
 msgid "Uploaded"
 msgstr "U ngarkua"
 
-#: reader/templates/reader/book_info.html:202
+#: reader/templates/reader/book_info.html:205
 msgid "Follow changes"
 msgstr "Ndiqi ndryshimet"
 

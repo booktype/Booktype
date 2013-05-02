@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<html>
+ <body>
+
+  <script>
+    setTimeout(function() {
+        parent.window.location = '{% url view_profile request.user.username %}';
+    }, 500);
+  </script>
+
+ </body>
+</html>

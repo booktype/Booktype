@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-02 15:20+0200\n"
+"POT-Creation-Date: 2013-05-02 23:29+0200\n"
 "PO-Revision-Date: 2013-04-08 17:29+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: English Localization <contact@sourcefabric.org>\n"
@@ -1666,7 +1666,7 @@ msgstr ""
 
 #: editor/templates/editor/edit_book.html:114
 #: editor/templates/editor/edit_book.html:373
-#: reader/templates/reader/book_info.html:116
+#: reader/templates/reader/book_info.html:119
 msgid "Versions"
 msgstr ""
 
@@ -2099,12 +2099,12 @@ msgid "Split"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:651
-#: reader/templates/reader/book_info.html:159
+#: reader/templates/reader/book_info.html:162
 msgid "Section create"
 msgstr ""
 
 #: editor/templates/editor/edit_book.html:652
-#: reader/templates/reader/book_info.html:166
+#: reader/templates/reader/book_info.html:169
 msgid "Book create"
 msgstr ""
 
@@ -3231,7 +3231,7 @@ msgstr ""
 msgid "Message from %s"
 msgstr ""
 
-#: messaging/views.py:171
+#: messaging/views.py:171 reader/templates/reader/book_delete_error.html:7
 msgid "Error"
 msgstr ""
 
@@ -3322,6 +3322,10 @@ msgstr ""
 msgid "Couldn't create a group!"
 msgstr ""
 
+#: portal/templates/base.html:204 reader/templates/reader/book_info.html:74
+msgid "Delete book"
+msgstr ""
+
 #: portal/templates/errors/group_does_not_exist.html:8
 msgid "Group not found!"
 msgstr ""
@@ -3352,7 +3356,7 @@ msgid "Welcome to Booktype"
 msgstr ""
 
 #: portal/templates/portal/frontpage.html:38
-#: reader/templates/reader/book_info.html:123
+#: reader/templates/reader/book_info.html:126
 msgid "Recent activity"
 msgstr ""
 
@@ -3463,6 +3467,20 @@ msgstr ""
 msgid "/chapter: %(chaptertitle)s / %(booktitle)s"
 msgstr ""
 
+#: reader/templates/reader/book_delete.html:3
+msgid "Delete Book"
+msgstr ""
+
+#: reader/templates/reader/book_delete.html:6
+msgid ""
+"Are you sure you would like to delete this book? You will lose all data "
+"associated to this book and you will not be able to undo this operation!"
+msgstr ""
+
+#: reader/templates/reader/book_delete.html:7
+msgid "Type full title of the book to delete it"
+msgstr ""
+
 #: reader/templates/reader/book_info.html:5
 #: reader/templates/reader/book_view.html:5
 #: reader/templates/reader/draft_book.html:5
@@ -3470,95 +3488,95 @@ msgstr ""
 msgid "/book: %(booktitle)s"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:69
+#: reader/templates/reader/book_info.html:70
 msgid "Edit this Book"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:70
+#: reader/templates/reader/book_info.html:71
 msgid "View draft"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:72
+#: reader/templates/reader/book_info.html:73
 msgid "Edit book info"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:75
+#: reader/templates/reader/book_info.html:78
 msgid "Book details"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:80
+#: reader/templates/reader/book_info.html:83
 msgid "Owner:"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:81
+#: reader/templates/reader/book_info.html:84
 msgid "Status:"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:84
+#: reader/templates/reader/book_info.html:87
 msgid "(this book is hidden from others)"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:86
+#: reader/templates/reader/book_info.html:89
 msgid "(this book is visible to everyone)"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:90
+#: reader/templates/reader/book_info.html:93
 msgid "Member of group:"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:92
+#: reader/templates/reader/book_info.html:95
 msgid "Current version:"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:95
+#: reader/templates/reader/book_info.html:98
 msgid "Created:"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:96
+#: reader/templates/reader/book_info.html:99
 msgid "Published:"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:99
+#: reader/templates/reader/book_info.html:102
 msgid "Collaborators:"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:107
+#: reader/templates/reader/book_info.html:110
 msgid "Online editing:"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:129
+#: reader/templates/reader/book_info.html:132
 msgid "Chapter create"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:135
+#: reader/templates/reader/book_info.html:138
 msgid "Chapter save"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:141
+#: reader/templates/reader/book_info.html:144
 msgid "Chapter rename"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:147
+#: reader/templates/reader/book_info.html:150
 msgid "Chapter reorder"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:153
+#: reader/templates/reader/book_info.html:156
 msgid "Split chapter"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:172
+#: reader/templates/reader/book_info.html:175
 msgid "Minor version"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:178
+#: reader/templates/reader/book_info.html:181
 msgid "Major version"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:185
+#: reader/templates/reader/book_info.html:188
 msgid "Uploaded"
 msgstr ""
 
-#: reader/templates/reader/book_info.html:202
+#: reader/templates/reader/book_info.html:205
 msgid "Follow changes"
 msgstr ""
 

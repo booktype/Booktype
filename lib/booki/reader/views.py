@@ -701,3 +701,69 @@ def edit_info(request, bookid, version=None):
 
     return resp
 
+
+@transaction.commit_manually
+def book_delete(request, bookid, version=None):
+    """
+    Django View. 
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type bookid: C{string}
+    @param bookid: Unique Book ID
+    @type version: C{string}
+    @param verson: Book version
+    """
+
+    try:
+        book = models.Book.objects.get(url_title__iexact=bookid)
+    except models.Book.DoesNotExist:
+        try:
+            resp = pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()
+
+        return resp
+
+    book_version = book.getVersion(version)
+
+    if request.method == 'POST':
+        title = request.POST.get('title', '')
+
+        try:
+            from booki.utils import security
+
+            bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+            resp = render_to_response('reader/book_delete_error.html', {"request": request})
+
+            if bookSecurity.isAdmin():
+                if title.strip() == book.title.strip():
+                    from booki.utils.book import removeBook
+                
+                    removeBook(book)
+
+                    resp = render_to_response('reader/book_delete_redirect.html', {"request": request})
+        except:
+            transaction.rollback()
+            raise
+        else:
+            transaction.commit()    
+
+        return resp
+
+        
+    try:
+        resp = render_to_response('reader/book_delete.html', {"request": request,
+                                                              "book": book})
+    except:
+        transaction.rollback()
+        raise
+    else:
+        transaction.commit()    
+
+    return resp
+

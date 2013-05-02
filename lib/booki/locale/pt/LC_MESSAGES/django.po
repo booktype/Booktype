@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-02 15:21+0200\n"
+"POT-Creation-Date: 2013-05-02 23:29+0200\n"
 "PO-Revision-Date: 2013-04-16 10:51+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Portuguese Localization <contact@sourcefabric.org>\n"
@@ -1722,7 +1722,7 @@ msgstr "Histórico"
 
 #: editor/templates/editor/edit_book.html:114
 #: editor/templates/editor/edit_book.html:373
-#: reader/templates/reader/book_info.html:116
+#: reader/templates/reader/book_info.html:119
 msgid "Versions"
 msgstr "Versões"
 
@@ -2176,12 +2176,12 @@ msgid "Split"
 msgstr "Dividir"
 
 #: editor/templates/editor/edit_book.html:651
-#: reader/templates/reader/book_info.html:159
+#: reader/templates/reader/book_info.html:162
 msgid "Section create"
 msgstr "Criar secção"
 
 #: editor/templates/editor/edit_book.html:652
-#: reader/templates/reader/book_info.html:166
+#: reader/templates/reader/book_info.html:169
 msgid "Book create"
 msgstr "Criar livro"
 
@@ -3319,7 +3319,7 @@ msgstr "Seguimentos"
 msgid "Message from %s"
 msgstr "Mensagem do %s"
 
-#: messaging/views.py:171
+#: messaging/views.py:171 reader/templates/reader/book_delete_error.html:7
 msgid "Error"
 msgstr "Erro"
 
@@ -3410,6 +3410,11 @@ msgstr "Centro de Controlo"
 msgid "Couldn't create a group!"
 msgstr "Não foi possível criar grupo!"
 
+#: portal/templates/base.html:204 reader/templates/reader/book_info.html:74
+#, fuzzy
+msgid "Delete book"
+msgstr "Apagar"
+
 #: portal/templates/errors/group_does_not_exist.html:8
 msgid "Group not found!"
 msgstr "Grupo não encontrado!"
@@ -3440,7 +3445,7 @@ msgid "Welcome to Booktype"
 msgstr "Bem-vindo ao Booktype"
 
 #: portal/templates/portal/frontpage.html:38
-#: reader/templates/reader/book_info.html:123
+#: reader/templates/reader/book_info.html:126
 msgid "Recent activity"
 msgstr "Atividade recente"
 
@@ -3552,6 +3557,21 @@ msgstr ""
 msgid "/chapter: %(chaptertitle)s / %(booktitle)s"
 msgstr "/capítulo: %(chaptertitle)s / %(booktitle)s"
 
+#: reader/templates/reader/book_delete.html:3
+#, fuzzy
+msgid "Delete Book"
+msgstr "Apagar"
+
+#: reader/templates/reader/book_delete.html:6
+msgid ""
+"Are you sure you would like to delete this book? You will lose all data "
+"associated to this book and you will not be able to undo this operation!"
+msgstr ""
+
+#: reader/templates/reader/book_delete.html:7
+msgid "Type full title of the book to delete it"
+msgstr ""
+
 #: reader/templates/reader/book_info.html:5
 #: reader/templates/reader/book_view.html:5
 #: reader/templates/reader/draft_book.html:5
@@ -3559,95 +3579,95 @@ msgstr "/capítulo: %(chaptertitle)s / %(booktitle)s"
 msgid "/book: %(booktitle)s"
 msgstr "/livro: %(booktitle)s"
 
-#: reader/templates/reader/book_info.html:69
+#: reader/templates/reader/book_info.html:70
 msgid "Edit this Book"
 msgstr "Editar este Livro"
 
-#: reader/templates/reader/book_info.html:70
+#: reader/templates/reader/book_info.html:71
 msgid "View draft"
 msgstr "Ver rascunho"
 
-#: reader/templates/reader/book_info.html:72
+#: reader/templates/reader/book_info.html:73
 msgid "Edit book info"
 msgstr "Editar informações do livro"
 
-#: reader/templates/reader/book_info.html:75
+#: reader/templates/reader/book_info.html:78
 msgid "Book details"
 msgstr "Detalhes do livro"
 
-#: reader/templates/reader/book_info.html:80
+#: reader/templates/reader/book_info.html:83
 msgid "Owner:"
 msgstr "Proprietário"
 
-#: reader/templates/reader/book_info.html:81
+#: reader/templates/reader/book_info.html:84
 msgid "Status:"
 msgstr "Estado:"
 
-#: reader/templates/reader/book_info.html:84
+#: reader/templates/reader/book_info.html:87
 msgid "(this book is hidden from others)"
 msgstr "(este livro está escondido dos outros)"
 
-#: reader/templates/reader/book_info.html:86
+#: reader/templates/reader/book_info.html:89
 msgid "(this book is visible to everyone)"
 msgstr "(este livro está visível para todos)"
 
-#: reader/templates/reader/book_info.html:90
+#: reader/templates/reader/book_info.html:93
 msgid "Member of group:"
 msgstr "Membro do grupo:"
 
-#: reader/templates/reader/book_info.html:92
+#: reader/templates/reader/book_info.html:95
 msgid "Current version:"
 msgstr "Versão atual:"
 
-#: reader/templates/reader/book_info.html:95
+#: reader/templates/reader/book_info.html:98
 msgid "Created:"
 msgstr "Criado:"
 
-#: reader/templates/reader/book_info.html:96
+#: reader/templates/reader/book_info.html:99
 msgid "Published:"
 msgstr "Publicadas:"
 
-#: reader/templates/reader/book_info.html:99
+#: reader/templates/reader/book_info.html:102
 msgid "Collaborators:"
 msgstr "Colaboradores:"
 
-#: reader/templates/reader/book_info.html:107
+#: reader/templates/reader/book_info.html:110
 msgid "Online editing:"
 msgstr "Edição on-line:"
 
-#: reader/templates/reader/book_info.html:129
+#: reader/templates/reader/book_info.html:132
 msgid "Chapter create"
 msgstr "Criar capítulo"
 
-#: reader/templates/reader/book_info.html:135
+#: reader/templates/reader/book_info.html:138
 msgid "Chapter save"
 msgstr "Guardar Capítulo"
 
-#: reader/templates/reader/book_info.html:141
+#: reader/templates/reader/book_info.html:144
 msgid "Chapter rename"
 msgstr "Renomear capítulo "
 
-#: reader/templates/reader/book_info.html:147
+#: reader/templates/reader/book_info.html:150
 msgid "Chapter reorder"
 msgstr "Reordenar capítulo"
 
-#: reader/templates/reader/book_info.html:153
+#: reader/templates/reader/book_info.html:156
 msgid "Split chapter"
 msgstr "Dividir capítulo"
 
-#: reader/templates/reader/book_info.html:172
+#: reader/templates/reader/book_info.html:175
 msgid "Minor version"
 msgstr "Versão secundária"
 
-#: reader/templates/reader/book_info.html:178
+#: reader/templates/reader/book_info.html:181
 msgid "Major version"
 msgstr "Versão principal"
 
-#: reader/templates/reader/book_info.html:185
+#: reader/templates/reader/book_info.html:188
 msgid "Uploaded"
 msgstr "Carregado"
 
-#: reader/templates/reader/book_info.html:202
+#: reader/templates/reader/book_info.html:205
 msgid "Follow changes"
 msgstr "Siga as alterações"
 

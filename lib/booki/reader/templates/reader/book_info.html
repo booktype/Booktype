@@ -55,6 +55,7 @@
                              });
 
      $("A.editinfo").booksparkEditBookInfo({"url": "{% url edit_info book.url_title %}"});
+     $("A.deletebook").booktypeDeleteBook({"url": "{% url book_delete book.url_title %}"});
  
  });
 </script>
@@ -70,6 +71,8 @@
     <a class="prime viewdraft" href="{% url draft_book book.url_title  book_version %}"><nobr>{% trans "View draft" %}</nobr></a>
     {% if is_book_admin %}
         <a class="prime viewdraft editinfo" href="#"><nobr>{% trans "Edit book info" %}</nobr></a>
+        <a class="prime viewdraft deletebook" href="#"><nobr>{% trans "Delete book" %}</nobr></a>
+
     {% endif %}
 </div>
 <h3>{% trans "Book details" %}</h3>

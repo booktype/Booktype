@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-02 15:20+0200\n"
+"POT-Creation-Date: 2013-05-02 23:29+0200\n"
 "PO-Revision-Date: 2013-04-11 11:46+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Finnish FLOSS Manuals <tomi@flossmanuals.net>\n"
@@ -1754,7 +1754,7 @@ msgstr "Historia"
 
 #: editor/templates/editor/edit_book.html:114
 #: editor/templates/editor/edit_book.html:373
-#: reader/templates/reader/book_info.html:116
+#: reader/templates/reader/book_info.html:119
 msgid "Versions"
 msgstr "Versiot"
 
@@ -2210,12 +2210,12 @@ msgid "Split"
 msgstr "Jaa"
 
 #: editor/templates/editor/edit_book.html:651
-#: reader/templates/reader/book_info.html:159
+#: reader/templates/reader/book_info.html:162
 msgid "Section create"
 msgstr "Luo osa"
 
 #: editor/templates/editor/edit_book.html:652
-#: reader/templates/reader/book_info.html:166
+#: reader/templates/reader/book_info.html:169
 msgid "Book create"
 msgstr "Luo kirja"
 
@@ -3366,7 +3366,7 @@ msgstr "Seuraamiset"
 msgid "Message from %s"
 msgstr "Viesti käyttäjältä %s Booktypessä"
 
-#: messaging/views.py:171
+#: messaging/views.py:171 reader/templates/reader/book_delete_error.html:7
 msgid "Error"
 msgstr ""
 
@@ -3461,6 +3461,11 @@ msgstr ""
 msgid "Couldn't create a group!"
 msgstr "Luo ryhmä"
 
+#: portal/templates/base.html:204 reader/templates/reader/book_info.html:74
+#, fuzzy
+msgid "Delete book"
+msgstr "Poista"
+
 #: portal/templates/errors/group_does_not_exist.html:8
 msgid "Group not found!"
 msgstr "Ryhmää ei löydy! "
@@ -3492,7 +3497,7 @@ msgid "Welcome to Booktype"
 msgstr "Tervetuloa Booktypeen"
 
 #: portal/templates/portal/frontpage.html:38
-#: reader/templates/reader/book_info.html:123
+#: reader/templates/reader/book_info.html:126
 msgid "Recent activity"
 msgstr "Uusimmat toiminnot"
 
@@ -3606,6 +3611,21 @@ msgstr ""
 msgid "/chapter: %(chaptertitle)s / %(booktitle)s"
 msgstr "/luku: %(chaptertitle)s / %(booktitle)s"
 
+#: reader/templates/reader/book_delete.html:3
+#, fuzzy
+msgid "Delete Book"
+msgstr "Poista"
+
+#: reader/templates/reader/book_delete.html:6
+msgid ""
+"Are you sure you would like to delete this book? You will lose all data "
+"associated to this book and you will not be able to undo this operation!"
+msgstr ""
+
+#: reader/templates/reader/book_delete.html:7
+msgid "Type full title of the book to delete it"
+msgstr ""
+
 #: reader/templates/reader/book_info.html:5
 #: reader/templates/reader/book_view.html:5
 #: reader/templates/reader/draft_book.html:5
@@ -3613,95 +3633,95 @@ msgstr "/luku: %(chaptertitle)s / %(booktitle)s"
 msgid "/book: %(booktitle)s"
 msgstr "/kirja: %(booktitle)s"
 
-#: reader/templates/reader/book_info.html:69
+#: reader/templates/reader/book_info.html:70
 msgid "Edit this Book"
 msgstr "Muokkaa tätä kirjaa"
 
-#: reader/templates/reader/book_info.html:70
+#: reader/templates/reader/book_info.html:71
 msgid "View draft"
 msgstr "Katso luonnosta"
 
-#: reader/templates/reader/book_info.html:72
+#: reader/templates/reader/book_info.html:73
 msgid "Edit book info"
 msgstr "Muokkaa kirjan tietoa"
 
-#: reader/templates/reader/book_info.html:75
+#: reader/templates/reader/book_info.html:78
 msgid "Book details"
 msgstr "Kirjan yksityiskohdat"
 
-#: reader/templates/reader/book_info.html:80
+#: reader/templates/reader/book_info.html:83
 msgid "Owner:"
 msgstr "Omistaja:"
 
-#: reader/templates/reader/book_info.html:81
+#: reader/templates/reader/book_info.html:84
 msgid "Status:"
 msgstr "Tila"
 
-#: reader/templates/reader/book_info.html:84
+#: reader/templates/reader/book_info.html:87
 msgid "(this book is hidden from others)"
 msgstr "(tämä kirja on piilossa muilta)"
 
-#: reader/templates/reader/book_info.html:86
+#: reader/templates/reader/book_info.html:89
 msgid "(this book is visible to everyone)"
 msgstr "(tämä kirja näkyy muille)"
 
-#: reader/templates/reader/book_info.html:90
+#: reader/templates/reader/book_info.html:93
 msgid "Member of group:"
 msgstr "Ryhmän jäsen:"
 
-#: reader/templates/reader/book_info.html:92
+#: reader/templates/reader/book_info.html:95
 msgid "Current version:"
 msgstr "Nykyinen versio:"
 
-#: reader/templates/reader/book_info.html:95
+#: reader/templates/reader/book_info.html:98
 msgid "Created:"
 msgstr "Luotu:"
 
-#: reader/templates/reader/book_info.html:96
+#: reader/templates/reader/book_info.html:99
 msgid "Published:"
 msgstr "Julkaistu:"
 
-#: reader/templates/reader/book_info.html:99
+#: reader/templates/reader/book_info.html:102
 msgid "Collaborators:"
 msgstr "Kirjoittajat:"
 
-#: reader/templates/reader/book_info.html:107
+#: reader/templates/reader/book_info.html:110
 msgid "Online editing:"
 msgstr "Muokkaamassa nyt:"
 
-#: reader/templates/reader/book_info.html:129
+#: reader/templates/reader/book_info.html:132
 msgid "Chapter create"
 msgstr "Luo luku"
 
-#: reader/templates/reader/book_info.html:135
+#: reader/templates/reader/book_info.html:138
 msgid "Chapter save"
 msgstr "Tallenna luku"
 
-#: reader/templates/reader/book_info.html:141
+#: reader/templates/reader/book_info.html:144
 msgid "Chapter rename"
 msgstr "Luvun nimeäminen uudelleen"
 
-#: reader/templates/reader/book_info.html:147
+#: reader/templates/reader/book_info.html:150
 msgid "Chapter reorder"
 msgstr "Luvun järjestäminen"
 
-#: reader/templates/reader/book_info.html:153
+#: reader/templates/reader/book_info.html:156
 msgid "Split chapter"
 msgstr "Luvun jakaminen"
 
-#: reader/templates/reader/book_info.html:172
+#: reader/templates/reader/book_info.html:175
 msgid "Minor version"
 msgstr "Pieni versio"
 
-#: reader/templates/reader/book_info.html:178
+#: reader/templates/reader/book_info.html:181
 msgid "Major version"
 msgstr "Suuri versio"
 
-#: reader/templates/reader/book_info.html:185
+#: reader/templates/reader/book_info.html:188
 msgid "Uploaded"
 msgstr "Ladattu"
 
-#: reader/templates/reader/book_info.html:202
+#: reader/templates/reader/book_info.html:205
 msgid "Follow changes"
 msgstr "Seuraa muutoksia"
 
