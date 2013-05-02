@@ -1420,7 +1420,10 @@ def remote_get_history(request, message, bookid, version):
             12: 'major',
             13: 'attachment',
             14: 'attachment_delete',
-            15: 'clone'}
+            15: 'clone',
+            16: 'cover_upload',
+            17: 'cover_delete',
+            18: 'cover_update'}
 
 
     history = []
@@ -1445,7 +1448,7 @@ def remote_get_history(request, message, bookid, version):
                             "version": parseJSON(entry.args),
                             "user": entry.user.username,
                             "kind": temp.get(entry.kind,'')})
-        elif entry.kind in [13, 14]:
+        elif entry.kind in [13, 14, 16, 17, 18]:
             history.append({"modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
                             "args": parseJSON(entry.args),
                             "user": entry.user.username,
@@ -2273,6 +2276,8 @@ def remote_cover_approve(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
+    book_version = book.getVersion(version)
+
     bookSecurity = security.getUserSecurityForBook(request.user, book)
 
     if not bookSecurity.isAdmin():
@@ -2283,6 +2288,15 @@ def remote_cover_approve(request, message, bookid, version):
         cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
         cover.approved = message.get('cover_status', False)
         cover.save()
+
+        from booki.utils import log
+
+        log.logBookHistory(book = book,
+                           version = book_version,
+                           args = {'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
+                           user = request.user,
+                           kind = 'cover_update'
+                           )
     except models.BookCover.DoesNotExist:
 
         transaction.rollback()
@@ -2311,6 +2325,7 @@ def remote_cover_delete(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
+    book_version = book.getVersion(version)
 
     try:
         cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
@@ -2318,6 +2333,15 @@ def remote_cover_delete(request, message, bookid, version):
         filename = cover.attachment.name[:]
 
         cover.delete()
+
+        from booki.utils import log
+
+        log.logBookHistory(book = book,
+                           version = book_version,
+                           args = {'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
+                           user = request.user,
+                           kind = 'cover_delete'
+                           )
     except models.BookCover.DoesNotExist:
 
         transaction.rollback()
@@ -2353,6 +2377,7 @@ def remote_cover_save(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
+    book_version = book.getVersion(version)
 
     try:
         cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
@@ -2387,6 +2412,16 @@ def remote_cover_save(request, message, bookid, version):
         cover.cover_type = message.get('cover_type', '')
 
         cover.save()
+
+        from booki.utils import log
+
+        log.logBookHistory(book = book,
+                           version = book_version,
+                           args = {'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
+                           user = request.user,
+                           kind = 'cover_update'
+                           )
+
     except models.BookCover.DoesNotExist:
         transaction.rollback()
         return {"result": False}

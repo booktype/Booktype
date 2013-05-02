@@ -390,11 +390,13 @@ def upload_cover(request, bookid, version=None):
                     filename = unidecode.unidecode(request.FILES[name].name)
                 except:
                     filename = ''
+
+                title = request.POST.get('title', '').strip()[:250]
                 
                 cov = models.BookCover(book = book,
                                        user = request.user,
                                        cid = h.hexdigest(),
-                                       title = request.POST.get('title', '')[:250],
+                                       title = title,
                                        filename = filename[:250],
                                        width = width,
                                        height = height,
@@ -413,6 +415,16 @@ def upload_cover(request, bookid, version=None):
                 
                 cov.attachment.save(request.FILES[name].name, fileData, save = False)
                 cov.save()
+
+                from booki.utils import log
+
+                log.logBookHistory(book = book,
+                                   version = book_version,
+                                   args = {'filename': filename[:250], 'title': title, 'cid': cov.pk},
+                                   user = request.user,
+                                   kind = 'cover_upload'
+                                   )
+
 
         # TODO:
         # must write info about this to log!

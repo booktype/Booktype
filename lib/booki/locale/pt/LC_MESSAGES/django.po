@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-10 19:04+0200\n"
+"POT-Creation-Date: 2013-05-02 15:21+0200\n"
 "PO-Revision-Date: 2013-04-16 10:51+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Portuguese Localization <contact@sourcefabric.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,23 +26,16 @@ msgstr "Modo"
 msgid "image"
 msgstr "imagem"
 
-#: account/models.py:40
-#: editor/models.py:94
-#: editor/models.py:138
-#: editor/models.py:293
+#: account/models.py:40 editor/models.py:94 editor/models.py:138
+#: editor/models.py:297
 msgid "description"
 msgstr "descrição"
 
-#: account/models.py:41
-#: account/models.py:56
-#: editor/models.py:235
-#: editor/models.py:356
-#: editor/models.py:449
-#: editor/models.py:461
-#: editor/models.py:473
-#: editor/models.py:492
+#: account/models.py:41 account/models.py:56 editor/models.py:239
+#: editor/models.py:360 editor/models.py:453 editor/models.py:465
+#: editor/models.py:477 editor/models.py:496
 #: editor/templates/editor/edit_book.html:568
-#: editor/templates/editor/edit_book.html:674
+#: editor/templates/editor/edit_book.html:695
 msgid "user"
 msgstr "utilizador"
 
@@ -49,14 +43,9 @@ msgstr "utilizador"
 msgid "secretcode"
 msgstr "código secreto"
 
-#: account/models.py:58
-#: editor/models.py:101
-#: editor/models.py:132
-#: editor/models.py:295
-#: editor/models.py:329
-#: editor/models.py:393
-#: editor/models.py:518
-#: editor/templates/editor/edit_book.html:686
+#: account/models.py:58 editor/models.py:101 editor/models.py:132
+#: editor/models.py:299 editor/models.py:333 editor/models.py:397
+#: editor/models.py:522 editor/templates/editor/edit_book.html:707
 msgid "created"
 msgstr "criadas"
 
@@ -85,8 +74,11 @@ msgid "Create a Book"
 msgstr "Criar um livro"
 
 #: account/templates/account/create_book.html:7
-msgid "You don't have permissions to create new books. At the moment only administrators can do that."
-msgstr "Não tem permissões para criar livros. Só os administradores o podem fazer."
+msgid ""
+"You don't have permissions to create new books. At the moment only "
+"administrators can do that."
+msgstr ""
+"Não tem permissões para criar livros. Só os administradores o podem fazer."
 
 #: account/templates/account/create_book.html:18
 msgid "Step 1"
@@ -121,8 +113,12 @@ msgid "Description"
 msgstr "Descrição"
 
 #: account/templates/account/create_book.html:31
-msgid "Give some information so others can find it to help you (this can be added or changed later)."
-msgstr "Dê algumas informações para que outros possam encontrá-lo e ajudá-lo (isso pode ser adicionado ou alterado mais tarde)."
+msgid ""
+"Give some information so others can find it to help you (this can be added "
+"or changed later)."
+msgstr ""
+"Dê algumas informações para que outros possam encontrá-lo e ajudá-lo (isso "
+"pode ser adicionado ou alterado mais tarde)."
 
 #: account/templates/account/create_book.html:40
 msgid "Step 3"
@@ -136,8 +132,7 @@ msgstr "Escolha a sua licença"
 msgid "Choose from the following licenses"
 msgstr "Escolha entre as seguintes licenças"
 
-#: account/templates/account/create_book.html:43
-#: editor/models.py:36
+#: account/templates/account/create_book.html:43 editor/models.py:36
 #: editor/templates/editor/cover_manager.html:133
 #: editor/templates/editor/cover_manager.html:257
 #: editor/templates/editor/edit_book.html:446
@@ -154,8 +149,12 @@ msgid "Image"
 msgstr "Imagem"
 
 #: account/templates/account/create_book.html:55
-msgid "If you have an image for the book then add it now (this can be added or changed later)"
-msgstr "Se tiver uma imagem para o livro, então adicione-a agora (pode ser adicionado ou alterado mais tarde)"
+msgid ""
+"If you have an image for the book then add it now (this can be added or "
+"changed later)"
+msgstr ""
+"Se tiver uma imagem para o livro, então adicione-a agora (pode ser "
+"adicionado ou alterado mais tarde)"
 
 #: account/templates/account/create_book.html:57
 msgid "Book Image"
@@ -170,12 +169,20 @@ msgid "Make Public?"
 msgstr "Tornar público?"
 
 #: account/templates/account/create_book.html:64
-msgid "Would you like to keep your book private or make it public? If the book is public others can find the book to help you."
-msgstr "Gostaria de manter o seu livro privado ou torná-lo público? Se o livro for público outros podem encontrá-lo e ajudá-lo."
+msgid ""
+"Would you like to keep your book private or make it public? If the book is "
+"public others can find the book to help you."
+msgstr ""
+"Gostaria de manter o seu livro privado ou torná-lo público? Se o livro for "
+"público outros podem encontrá-lo e ajudá-lo."
 
 #: account/templates/account/create_book.html:65
-msgid "<strong>Note:</strong> this setting can be changed later from your dashboard.</p>"
-msgstr "<strong>Nota:</strong> esta configuração pode ser alterada posteriormente no painel de utilizador.</p>"
+msgid ""
+"<strong>Note:</strong> this setting can be changed later from your dashboard."
+"</p>"
+msgstr ""
+"<strong>Nota:</strong> esta configuração pode ser alterada posteriormente no "
+"painel de utilizador.</p>"
 
 #: account/templates/account/create_book.html:67
 msgid "Initially hide from others"
@@ -204,7 +211,9 @@ msgstr "Erro ao fazer importação"
 
 #: account/templates/account/error_import.html:12
 msgid "This is a first version of error message. Not much to see here."
-msgstr "Trata-se de uma primeira versão de mensagem de erro. Não há nada para ver aqui."
+msgstr ""
+"Trata-se de uma primeira versão de mensagem de erro. Não há nada para ver "
+"aqui."
 
 #: account/templates/account/forgot_password.html:6
 #: account/templates/account/forgot_password_enter.html:6
@@ -220,8 +229,12 @@ msgid "USERNAME OR E-MAIL ADDRESS"
 msgstr "Nome de utilizador ou E-MAIL"
 
 #: account/templates/account/forgot_password.html:57
-msgid "Give us your username or e-mail you used to create Booktype account and we will send you new password."
-msgstr "Dê-nos o seu nome de utilizador ou e-mail que usou para criar a conta booktype e nós enviaremos a nova senha"
+msgid ""
+"Give us your username or e-mail you used to create Booktype account and we "
+"will send you new password."
+msgstr ""
+"Dê-nos o seu nome de utilizador ou e-mail que usou para criar a conta "
+"booktype e nós enviaremos a nova senha"
 
 #: account/templates/account/forgot_password.html:59
 msgid "Enter username."
@@ -314,8 +327,16 @@ msgid "Please provide your real name."
 msgstr "Por favor, indique o seu nome real."
 
 #: account/templates/account/form_register.html:28
-msgid "Username is invalid. Please try a different one. You may use alhpanumeric characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "Nome de utilizador é inválido. Por favor, tente um diferente. Você pode usar caracteres alfanuméricos e caracteres \".\", \"_\", \"-\" (Ponto, sublinhado e menos). <br/><br/>Exemplos:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+msgid ""
+"Username is invalid. Please try a different one. You may use alhpanumeric "
+"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
+"li></ul>"
+msgstr ""
+"Nome de utilizador é inválido. Por favor, tente um diferente. Você pode usar "
+"caracteres alfanuméricos e caracteres \".\", \"_\", \"-\" (Ponto, sublinhado "
+"e menos). <br/><br/>Exemplos:<ul><li>vnazor</li><li>Marin.Drzic</"
+"li><li>kamilo_kamili</li></ul>"
 
 #: account/templates/account/form_register.html:29
 msgid "This is not a valid e-mail"
@@ -370,8 +391,12 @@ msgid "Import book"
 msgstr "Importar Livro "
 
 #: account/templates/account/import_book.html:7
-msgid "You don't have permissions to import content. At the moment only administrators can do that."
-msgstr "Não tem permissões para importar conteúdo. Apenas os administradores o podem fazer."
+msgid ""
+"You don't have permissions to import content. At the moment only "
+"administrators can do that."
+msgstr ""
+"Não tem permissões para importar conteúdo. Apenas os administradores o podem "
+"fazer."
 
 #: account/templates/account/import_book.html:19
 msgid "Import type:"
@@ -406,20 +431,33 @@ msgid "Initially hidden from others"
 msgstr "Inicialmente escondido dos outros"
 
 #: account/templates/account/import_book.html:38
-msgid "Please wait. It will take couple of moments. Your book is being imported!"
-msgstr "Por favor, aguarde. Vai levar alguns momentos. O seu livro está a ser importado!"
+msgid ""
+"Please wait. It will take couple of moments. Your book is being imported!"
+msgstr ""
+"Por favor, aguarde. Vai levar alguns momentos. O seu livro está a ser "
+"importado!"
 
 #: account/templates/account/password_reset_email.html:5
-msgid "To reset your Booktype password, simply click the link below. That will take you to a web page where you can create a new password."
-msgstr "Para redefinir sua senha booktype, basta clicar no link abaixo. Isso o levará a uma página web onde pode criar uma nova senha."
+msgid ""
+"To reset your Booktype password, simply click the link below. That will take "
+"you to a web page where you can create a new password."
+msgstr ""
+"Para redefinir sua senha booktype, basta clicar no link abaixo. Isso o "
+"levará a uma página web onde pode criar uma nova senha."
 
 #: account/templates/account/password_reset_email.html:6
 msgid "Go to:"
 msgstr "Ir para"
 
 #: account/templates/account/password_reset_email.html:7
-msgid "If you weren't trying to reset your password, don't worry – your account is still secure and no one has been given access to it. Most likely, someone just mistyped their email address while trying to reset their own password."
-msgstr "Se não tentou redefinir a sua senha, não se preocupe - a sua conta ainda está segura e ninguém teve acesso a ela. Muito provavelmente, alguém introduziu mal o endereço de e-mail ao tentar redefinir a sua própria senha."
+msgid ""
+"If you weren't trying to reset your password, don't worry – your account is "
+"still secure and no one has been given access to it. Most likely, someone "
+"just mistyped their email address while trying to reset their own password."
+msgstr ""
+"Se não tentou redefinir a sua senha, não se preocupe - a sua conta ainda "
+"está segura e ninguém teve acesso a ela. Muito provavelmente, alguém "
+"introduziu mal o endereço de e-mail ao tentar redefinir a sua própria senha."
 
 #: account/templates/account/signin.html:6
 msgid "Booktype Sign In"
@@ -437,15 +475,25 @@ msgstr "A conta foi criada!"
 #, python-format
 msgid ""
 "\n"
-"    <p>Thank you. We have created your account and signed you in. Do you want to learn more how to use Booktype? Read the <a href=\"http://en.flossmanuals.net/booktype\">user guide</a>!</p>\n"
+"    <p>Thank you. We have created your account and signed you in. Do you "
+"want to learn more how to use Booktype? Read the <a href=\"http://en."
+"flossmanuals.net/booktype\">user guide</a>!</p>\n"
 "    \n"
-"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! Let's use Booktype now!</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</span> seconds.</span></form></p>\n"
+"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! "
+"Let's use Booktype now!</button><span class=\"redirectmessage\" style="
+"\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</"
+"span> seconds.</span></form></p>\n"
 "    "
 msgstr ""
 "\n"
-"    <p>Obrigado. Nós criamos a sua conta e está autenticado. Quer aprender mais sobre como usar o Booktype? Leia o <a href=\"http://en.flossmanuals.net/booktype\">guia do utilizador</a>!</p>\n"
+"    <p>Obrigado. Nós criamos a sua conta e está autenticado. Quer aprender "
+"mais sobre como usar o Booktype? Leia o <a href=\"http://en.flossmanuals.net/"
+"booktype\">guia do utilizador</a>!</p>\n"
 "    \n"
-"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Formidáve! Vamos usar o Booktype agora!</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Redirecionamento automático em <span class=\"sec\">sec</span> segundos.</span></form></p>\n"
+"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Formidáve! "
+"Vamos usar o Booktype agora!</button><span class=\"redirectmessage\" style="
+"\"padding-left: 20px\">Redirecionamento automático em <span class=\"sec"
+"\">sec</span> segundos.</span></form></p>\n"
 "    "
 
 #: account/templates/account/signin.html:60
@@ -453,8 +501,12 @@ msgid "Why do I need account ?"
 msgstr "Por que preciso de conta?"
 
 #: account/templates/account/signin.html:61
-msgid "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to."
-msgstr "O seu nome verdadeiro é obrigatório por razões de atribuição de direitos de autor dos livros que criar/contribuir."
+msgid ""
+"Your real name is compulsory for reasons of copyright attribution on books "
+"you create and contribute to."
+msgstr ""
+"O seu nome verdadeiro é obrigatório por razões de atribuição de direitos de "
+"autor dos livros que criar/contribuir."
 
 #: account/templates/account/signin.html:64
 msgid "I forgot my password. What now ?!"
@@ -475,8 +527,7 @@ msgid "/user: %(username)s"
 msgstr "/user: %(username)s"
 
 #: account/templates/account/view_profile.html:43
-#: editor/templates/base_edit.html:82
-#: portal/templates/base.html:148
+#: editor/templates/base_edit.html:82 portal/templates/base.html:148
 msgid "My Dashboard"
 msgstr "O meu Painel"
 
@@ -491,12 +542,9 @@ msgid "My Books"
 msgstr "Os Meus Livros"
 
 #: account/templates/account/view_profile.html:47
-#: account/templates/account/view_profile.html:143
-#: editor/models.py:203
-#: editor/templates/base_edit.html:89
-#: portal/templates/base.html:155
-#: portal/templates/portal/books.html:13
-#: portal/templates/portal/books.html:54
+#: account/templates/account/view_profile.html:143 editor/models.py:203
+#: editor/templates/base_edit.html:89 portal/templates/base.html:155
+#: portal/templates/portal/books.html:13 portal/templates/portal/books.html:54
 #: portal/templates/portal/group.html:65
 #: portal/templates/portal/group.html:115
 msgid "Books"
@@ -530,8 +578,14 @@ msgid "Followers:"
 msgstr "Seguidores:"
 
 #: account/templates/account/view_profile.html:96
-msgid "Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype\"><i>user guide</i></a>!"
-msgstr "Quer aprender mais sobre como usar o booktype? Leia o <a target=\"_new\" title=\"Booktype utilizador guide\" href=\"http://en.flossmanuals.net/booktype\"><i>guia do utilizador</i></a>!"
+msgid ""
+"Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" "
+"title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype"
+"\"><i>user guide</i></a>!"
+msgstr ""
+"Quer aprender mais sobre como usar o booktype? Leia o <a target=\"_new\" "
+"title=\"Booktype utilizador guide\" href=\"http://en.flossmanuals.net/"
+"booktype\"><i>guia do utilizador</i></a>!"
 
 #: account/templates/account/view_profile.html:102
 msgid "CREATE NEW BOOK"
@@ -545,11 +599,13 @@ msgstr "editar"
 #: account/templates/account/view_profile.html:111
 msgid ""
 "\n"
-"          <p>This is a perfect moment to start writing your book, just click on the button above!</p>\n"
+"          <p>This is a perfect moment to start writing your book, just click "
+"on the button above!</p>\n"
 "          "
 msgstr ""
 "\n"
-"          <p>Este é um momento perfeito para começar a escrever o seu livro, basta clicar no botão acima!</p>\n"
+"          <p>Este é um momento perfeito para começar a escrever o seu livro, "
+"basta clicar no botão acima!</p>\n"
 "          "
 
 #: account/templates/account/view_profile.html:115
@@ -575,8 +631,10 @@ msgid "go"
 msgstr "ir"
 
 #: account/templates/account/view_profile.html:130
-msgid "Work with others in Groups. To create a Group click on the button above."
-msgstr "Trabalhar com outros em grupos. Para criar um grupo clique no botão acima."
+msgid ""
+"Work with others in Groups. To create a Group click on the button above."
+msgstr ""
+"Trabalhar com outros em grupos. Para criar um grupo clique no botão acima."
 
 #: account/templates/account/view_profile.html:132
 msgid "This user has no groups."
@@ -626,8 +684,7 @@ msgstr "Filtro de notificação"
 
 #: account/templates/account/view_profile.html:214
 #: account/templates/account/view_profile.html:265
-#: editor/templates/editor/edit_strings.html:23
-#: portal/templates/base.html:198
+#: editor/templates/editor/edit_strings.html:23 portal/templates/base.html:198
 msgid "Save changes"
 msgstr "Guardar alterações"
 
@@ -656,8 +713,10 @@ msgid "Unable to change password. Old password is incorrect."
 msgstr "Não é possível alterar a senha. A senha antiga está incorreta."
 
 #: account/templates/account/view_profile.html:251
-msgid "Unable to change password. The new and confirmation passwords are not equal."
-msgstr "Não é possível alterar a senha. A senha nova e a confirmação não são iguais."
+msgid ""
+"Unable to change password. The new and confirmation passwords are not equal."
+msgstr ""
+"Não é possível alterar a senha. A senha nova e a confirmação não são iguais."
 
 #: account/templates/account/view_profile.html:253
 msgid "Password changed."
@@ -670,37 +729,33 @@ msgstr "OK"
 
 #: account/templates/account/view_profile.html:255
 #: editor/templates/editor/edit_strings.html:8
-#: editor/templates/editor/wizzard_book.html:327
-#: editor/templates/editor/wizzard_bookjs.html:276
+#: editor/templates/editor/wizzard_book.html:340
+#: editor/templates/editor/wizzard_bookjs.html:289
 #: editor/templates/editor/wizzard_ebook.html:176
 #: editor/templates/editor/wizzard_odt.html:174
-#: editor/templates/editor/wizzard_pdf.html:288
-#: portal/templates/base.html:193
+#: editor/templates/editor/wizzard_pdf.html:288 portal/templates/base.html:193
 msgid "Back"
 msgstr "Anterior"
 
 #: account/templates/account/view_profile.html:256
-#: editor/templates/editor/edit_book.html:625
-#: portal/templates/base.html:194
+#: editor/templates/editor/edit_book.html:646 portal/templates/base.html:194
 msgid "Create"
 msgstr "Criar"
 
 #: account/templates/account/view_profile.html:257
 #: editor/templates/editor/cover_manager.html:163
 #: editor/templates/editor/edit_book.html:295
-#: editor/templates/editor/edit_strings.html:4
-#: portal/templates/base.html:195
+#: editor/templates/editor/edit_strings.html:4 portal/templates/base.html:195
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: account/templates/account/view_profile.html:258
 #: editor/templates/editor/edit_strings.html:6
-#: editor/templates/editor/wizzard_book.html:328
-#: editor/templates/editor/wizzard_bookjs.html:277
+#: editor/templates/editor/wizzard_book.html:341
+#: editor/templates/editor/wizzard_bookjs.html:290
 #: editor/templates/editor/wizzard_ebook.html:177
 #: editor/templates/editor/wizzard_odt.html:175
-#: editor/templates/editor/wizzard_pdf.html:289
-#: portal/templates/base.html:196
+#: editor/templates/editor/wizzard_pdf.html:289 portal/templates/base.html:196
 #: portal/templates/booki_paginator.html:29
 msgid "Next"
 msgstr "Seguinte"
@@ -743,20 +798,14 @@ msgstr "O utilizador não existe!"
 msgid "Can't find user \"%(username)s\"."
 msgstr "Não é possível encontrar utilizador \"%(username)s\"."
 
-#: editor/models.py:29
-#: editor/models.py:42
-#: editor/models.py:65
-#: editor/models.py:92
-#: editor/models.py:256
-#: editor/models.py:292
-#: editor/models.py:420
-#: editor/templates/editor/edit_book.html:683
+#: editor/models.py:29 editor/models.py:42 editor/models.py:65
+#: editor/models.py:92 editor/models.py:260 editor/models.py:296
+#: editor/models.py:424 editor/templates/editor/edit_book.html:704
 #: editor/templates/editor/edit_strings.html:56
 msgid "name"
 msgstr "nome"
 
-#: editor/models.py:30
-#: editor/models.py:43
+#: editor/models.py:30 editor/models.py:43
 msgid "abbrevation"
 msgstr "abreviatura"
 
@@ -764,8 +813,7 @@ msgstr "abreviatura"
 msgid "Licenses"
 msgstr "Licenças"
 
-#: editor/models.py:49
-#: editor/templates/editor/edit_book.html:427
+#: editor/models.py:49 editor/templates/editor/edit_book.html:427
 msgid "Language"
 msgstr "Idioma"
 
@@ -773,8 +821,7 @@ msgstr "Idioma"
 msgid "Languages"
 msgstr "Idiomas"
 
-#: editor/models.py:55
-#: editor/models.py:133
+#: editor/models.py:55 editor/models.py:133
 msgid "published"
 msgstr "Publicado"
 
@@ -786,33 +833,22 @@ msgstr "não publicado"
 msgid "not translated"
 msgstr "não traduzido"
 
-#: editor/models.py:64
-#: editor/models.py:79
-#: editor/models.py:228
-#: editor/models.py:254
-#: editor/models.py:289
-#: editor/models.py:324
-#: editor/models.py:388
-#: editor/models.py:419
-#: editor/models.py:450
-#: editor/models.py:460
-#: editor/models.py:472
-#: editor/models.py:491
+#: editor/models.py:64 editor/models.py:79 editor/models.py:232
+#: editor/models.py:258 editor/models.py:293 editor/models.py:328
+#: editor/models.py:392 editor/models.py:423 editor/models.py:454
+#: editor/models.py:464 editor/models.py:476 editor/models.py:495
 msgid "book"
 msgstr "Livro"
 
-#: editor/models.py:66
-#: editor/models.py:422
+#: editor/models.py:66 editor/models.py:426
 msgid "weight"
 msgstr "peso"
 
-#: editor/models.py:72
-#: editor/models.py:73
+#: editor/models.py:72 editor/models.py:73
 msgid "Book status"
 msgstr "Estado do livro"
 
-#: editor/models.py:80
-#: editor/models.py:514
+#: editor/models.py:80 editor/models.py:518
 msgid "notes"
 msgstr "notas:"
 
@@ -828,8 +864,7 @@ msgstr "Notas do livro"
 msgid "url name"
 msgstr "nome do url"
 
-#: editor/models.py:96
-#: editor/models.py:126
+#: editor/models.py:96 editor/models.py:126
 msgid "owner"
 msgstr "Proprietário"
 
@@ -845,19 +880,15 @@ msgstr "Grupo Booki"
 msgid "Booki groups"
 msgstr "Grupos Booki"
 
-#: editor/models.py:116
-#: editor/models.py:326
+#: editor/models.py:116 editor/models.py:330
 msgid "url title"
 msgstr "título url"
 
-#: editor/models.py:117
-#: editor/models.py:327
+#: editor/models.py:117 editor/models.py:331
 msgid "title"
 msgstr "Título:"
 
-#: editor/models.py:118
-#: editor/models.py:328
-#: editor/models.py:392
+#: editor/models.py:118 editor/models.py:332 editor/models.py:396
 msgid "status"
 msgstr "estado"
 
@@ -865,21 +896,16 @@ msgstr "estado"
 msgid "language"
 msgstr "Idioma"
 
-#: editor/models.py:122
-#: editor/models.py:230
-#: editor/models.py:322
-#: editor/models.py:386
-#: editor/models.py:417
+#: editor/models.py:122 editor/models.py:234 editor/models.py:326
+#: editor/models.py:390 editor/models.py:421
 msgid "version"
 msgstr "versão "
 
-#: editor/models.py:124
-#: editor/models.py:451
+#: editor/models.py:124 editor/models.py:455
 msgid "group"
 msgstr "grupo"
 
-#: editor/models.py:130
-#: editor/models.py:512
+#: editor/models.py:130 editor/models.py:516
 msgid "license"
 msgstr "licença"
 
@@ -887,8 +913,7 @@ msgstr "licença"
 msgid "hidden"
 msgstr "escondido"
 
-#: editor/models.py:136
-#: editor/models.py:452
+#: editor/models.py:136 editor/models.py:456
 msgid "permission"
 msgstr "permissão"
 
@@ -896,197 +921,178 @@ msgstr "permissão"
 msgid "cover"
 msgstr "capa"
 
-#: editor/models.py:202
-#: editor/templates/editor/cover_manager.html:112
+#: editor/models.py:202 editor/templates/editor/cover_manager.html:112
 #: editor/templates/editor/cover_manager.html:249
 #: editor/templates/editor/cover_manager.html:296
 #: editor/templates/editor/edit_publish.html:9
 msgid "Book"
 msgstr "Livro"
 
-#: editor/models.py:231
-#: editor/models.py:353
-#: editor/models.py:421
+#: editor/models.py:235 editor/models.py:357 editor/models.py:425
 msgid "chapter"
 msgstr "capítulo"
 
-#: editor/models.py:232
+#: editor/models.py:236
 msgid "chapter history"
 msgstr "Histórico do capítulo"
 
-#: editor/models.py:233
-#: editor/models.py:330
-#: editor/models.py:355
+#: editor/models.py:237 editor/models.py:334 editor/models.py:359
 msgid "modified"
 msgstr "modificado"
 
-#: editor/models.py:234
+#: editor/models.py:238
 msgid "args"
 msgstr "args"
 
-#: editor/models.py:236
-#: editor/models.py:257
+#: editor/models.py:240 editor/models.py:261
 msgid "kind"
 msgstr "tipo"
 
-#: editor/models.py:259
+#: editor/models.py:263
 msgid "value string"
 msgstr "cadeia de valor"
 
-#: editor/models.py:260
+#: editor/models.py:264
 msgid "value integer"
 msgstr "valor inteiro"
 
-#: editor/models.py:261
+#: editor/models.py:265
 msgid "value text"
 msgstr "texto de valor"
 
-#: editor/models.py:262
+#: editor/models.py:266
 msgid "value date"
 msgstr "data-valor"
 
-#: editor/models.py:282
-#: editor/models.py:283
+#: editor/models.py:286 editor/models.py:287
 msgid "Metadata"
 msgstr "Metadados"
 
-#: editor/models.py:290
+#: editor/models.py:294
 msgid "major"
 msgstr "principal"
 
-#: editor/models.py:291
+#: editor/models.py:295
 msgid "minor"
 msgstr "Pequena"
 
-#: editor/models.py:332
-#: editor/models.py:357
-#: editor/templates/editor/edit_book.html:673
+#: editor/models.py:336 editor/models.py:361
+#: editor/templates/editor/edit_book.html:694
 msgid "revision"
 msgstr "revisão"
 
-#: editor/models.py:337
-#: messaging/models.py:34
+#: editor/models.py:341 messaging/models.py:34
 msgid "content"
 msgstr "Conteúdo"
 
-#: editor/models.py:347
+#: editor/models.py:351
 msgid "Chapter"
 msgstr "Capítulo"
 
-#: editor/models.py:348
-#: editor/templates/editor/edit_book.html:97
+#: editor/models.py:352 editor/templates/editor/edit_book.html:97
 msgid "Chapters"
 msgstr "Capítulos"
 
-#: editor/models.py:358
-#: editor/templates/editor/edit_book.html:676
+#: editor/models.py:362 editor/templates/editor/edit_book.html:697
 msgid "comment"
 msgstr "comentário"
 
-#: editor/models.py:364
+#: editor/models.py:368
 msgid "Chapter history"
 msgstr "Histórico capítulo"
 
-#: editor/models.py:390
-#: editor/models.py:496
+#: editor/models.py:394 editor/models.py:500
 #: editor/templates/editor/edit_strings.html:57
 msgid "filename"
 msgstr "Nome do ficheiro "
 
-#: editor/models.py:403
-#: editor/templates/editor/edit_book.html:634
+#: editor/models.py:407 editor/templates/editor/edit_book.html:655
 msgid "Attachment"
 msgstr "Anexo"
 
-#: editor/models.py:404
+#: editor/models.py:408
 msgid "Attachments"
 msgstr "Anexos"
 
-#: editor/models.py:410
+#: editor/models.py:414
 msgid "section name"
 msgstr "nome da seção"
 
-#: editor/models.py:411
+#: editor/models.py:415
 msgid "chapter name"
 msgstr "nome do capítulo"
 
-#: editor/models.py:412
+#: editor/models.py:416
 msgid "line"
 msgstr "linha"
 
-#: editor/models.py:423
+#: editor/models.py:427
 msgid "typeof"
 msgstr "typeof"
 
-#: editor/models.py:437
+#: editor/models.py:441
 msgid "Book TOC"
 msgstr "Conteúdos do Livro"
 
-#: editor/models.py:438
+#: editor/models.py:442
 msgid "Book TOCs"
 msgstr "Índice de Conteúdos"
 
-#: editor/models.py:467
-#: editor/models.py:468
+#: editor/models.py:471 editor/models.py:472
 msgid "Attribution Exclude"
 msgstr "Excluir"
 
-#: editor/models.py:474
+#: editor/models.py:478
 msgid "wizzard type"
 msgstr "Assistente"
 
-#: editor/models.py:475
+#: editor/models.py:479
 msgid "wizzard options"
 msgstr "opções do assistente"
 
-#: editor/models.py:481
-#: editor/models.py:482
+#: editor/models.py:485 editor/models.py:486
 msgid "Publish Wizzard"
 msgstr "Assistente de publicação"
 
-#: editor/models.py:498
-#: editor/templates/editor/cover_manager.html:181
+#: editor/models.py:502 editor/templates/editor/cover_manager.html:181
 msgid "Cover title"
 msgstr "Título da capa"
 
-#: editor/models.py:500
-#: editor/templates/editor/cover_manager.html:150
+#: editor/models.py:504 editor/templates/editor/cover_manager.html:150
 #: editor/templates/editor/cover_manager.html:275
 msgid "Width"
 msgstr "Largura"
 
-#: editor/models.py:501
-#: editor/templates/editor/cover_manager.html:148
+#: editor/models.py:505 editor/templates/editor/cover_manager.html:148
 #: editor/templates/editor/cover_manager.html:273
 msgid "Height"
 msgstr "Altura"
 
-#: editor/models.py:502
+#: editor/models.py:506
 msgid "Unit"
 msgstr "Unidade"
 
-#: editor/models.py:503
+#: editor/models.py:507
 msgid "Booksize"
 msgstr "Tamanho"
 
-#: editor/models.py:505
+#: editor/models.py:509
 msgid "Book cover"
 msgstr "Capa do livro"
 
-#: editor/models.py:506
+#: editor/models.py:510
 msgid "E-book cover"
 msgstr "Capa E-book"
 
-#: editor/models.py:507
+#: editor/models.py:511
 msgid "PDF cover"
 msgstr "Capa PDF"
 
-#: editor/models.py:509
+#: editor/models.py:513
 msgid "Cover type"
 msgstr "Tipo de capa"
 
-#: editor/models.py:511
-#: editor/templates/editor/wizzard_book.html:157
+#: editor/models.py:515 editor/templates/editor/wizzard_book.html:157
 #: editor/templates/editor/wizzard_bookjs.html:158
 #: editor/templates/editor/wizzard_ebook.html:116
 #: editor/templates/editor/wizzard_odt.html:98
@@ -1094,8 +1100,7 @@ msgstr "Tipo de capa"
 msgid "Cover"
 msgstr "Capa"
 
-#: editor/models.py:516
-#: editor/templates/editor/cover_manager.html:10
+#: editor/models.py:520 editor/templates/editor/cover_manager.html:10
 #: editor/templates/editor/cover_manager.html:303
 msgid "Approved"
 msgstr "Aprovados"
@@ -1104,40 +1109,33 @@ msgstr "Aprovados"
 msgid "Modifications:"
 msgstr "Modificações:"
 
-#: editor/templates/base_edit.html:65
-#: portal/templates/base.html:72
+#: editor/templates/base_edit.html:65 portal/templates/base.html:72
 msgid "Sign out"
 msgstr "Terminar sessão"
 
-#: editor/templates/base_edit.html:71
-#: portal/templates/base.html:78
+#: editor/templates/base_edit.html:71 portal/templates/base.html:78
 msgid "Sign In / Create Account"
 msgstr "Entrar / Criar Conta"
 
-#: editor/templates/base_edit.html:90
-#: portal/templates/base.html:156
+#: editor/templates/base_edit.html:90 portal/templates/base.html:156
 #: portal/templates/portal/groups.html:12
 msgid "Groups"
 msgstr "Grupos"
 
-#: editor/templates/base_edit.html:91
-#: portal/templates/base.html:157
+#: editor/templates/base_edit.html:91 portal/templates/base.html:157
 #: portal/templates/portal/people.html:13
 msgid "People"
 msgstr "Pessoas"
 
-#: editor/templates/base_edit.html:126
-#: portal/templates/base.html:183
+#: editor/templates/base_edit.html:126 portal/templates/base.html:183
 msgid "There has been error in communication with Booktype server."
 msgstr "Erro na comunicação com o servidor booktype."
 
-#: editor/templates/base_edit.html:127
-#: portal/templates/base.html:184
+#: editor/templates/base_edit.html:127 portal/templates/base.html:184
 msgid "Not sure right now where is the problem."
 msgstr "Não tenho certeza onde está o problema."
 
-#: editor/templates/base_edit.html:130
-#: portal/templates/base.html:187
+#: editor/templates/base_edit.html:130 portal/templates/base.html:187
 msgid "You should refresh this page."
 msgstr "Deve atualizar esta página."
 
@@ -1260,24 +1258,47 @@ msgid "All"
 msgstr "Todos"
 
 #: editor/templates/editor/cover_manager.html:11
+#: editor/templates/editor/edit_strings.html:90
 msgid "Pending"
 msgstr "Pendente"
 
 #: editor/templates/editor/cover_manager.html:16
-msgid "The cover manager allows you to upload, manage and publish your book covers. Please upload your ebook cover image files (JPEG, GIF or PNG format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, spine and back cover of your print books can be uploaded and managed, but will be kept separate from the text of the book when publishing it."
-msgstr "O gestor de capa permite carregar, gerir e publicar capas de livros. Por favor carregue as capas do seu ebook (formato JPEG, GIF ou PNG) com as dimensões corretas para EPUB, MOBI,  PDF Ecrã e ODT. Imagem (em formato TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI ou INDD ) para a capa frontal, lombada e contra-capa  dos seus livros para imprimir podem ser carregadas e geridas, mas serão mantidas em separadas do texto do livro ao serem publicadas."
+msgid ""
+"The cover manager allows you to upload, manage and publish your book covers. "
+"Please upload your ebook cover image files (JPEG, GIF or PNG format) in the "
+"appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
+"(in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front "
+"cover, spine and back cover of your print books can be uploaded and managed, "
+"but will be kept separate from the text of the book when publishing it."
+msgstr ""
+"O gestor de capa permite carregar, gerir e publicar capas de livros. Por "
+"favor carregue as capas do seu ebook (formato JPEG, GIF ou PNG) com as "
+"dimensões corretas para EPUB, MOBI,  PDF Ecrã e ODT. Imagem (em formato "
+"TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI ou INDD ) para a capa frontal, lombada "
+"e contra-capa  dos seus livros para imprimir podem ser carregadas e geridas, "
+"mas serão mantidas em separadas do texto do livro ao serem publicadas."
 
 #: editor/templates/editor/cover_manager.html:22
 msgid "Upload cover image"
 msgstr "Carregar imagem da capa"
 
 #: editor/templates/editor/cover_manager.html:40
-msgid "Error: The selected filetype is not supported. Please select one of the following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
-msgstr "Erro: o tipo de ficheiro selecionado não é suportado. Selecione um dos seguintes tipos de ficheiros e tente outra vez: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+msgid ""
+"Error: The selected filetype is not supported. Please select one of the "
+"following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
+"SVG, EPS, AI, INDD."
+msgstr ""
+"Erro: o tipo de ficheiro selecionado não é suportado. Selecione um dos "
+"seguintes tipos de ficheiros e tente outra vez: PNG, JPEG, GIF, TIFF, XCF, "
+"PSD, PDF, PS, SVG, EPS, AI, INDD."
 
 #: editor/templates/editor/cover_manager.html:43
-msgid "Error: The selected file is bigger than 15MB. Please select a smaller file and try again."
-msgstr "Erro: o ficheiro selecionado é maior que 15MB. Por favor selecione um ficheiro mais pequeno e tente outra vez."
+msgid ""
+"Error: The selected file is bigger than 15MB. Please select a smaller file "
+"and try again."
+msgstr ""
+"Erro: o ficheiro selecionado é maior que 15MB. Por favor selecione um "
+"ficheiro mais pequeno e tente outra vez."
 
 #: editor/templates/editor/cover_manager.html:48
 msgid "Enter Meta-data"
@@ -1528,18 +1549,18 @@ msgstr "Tamanho personalizado"
 #: editor/templates/editor/cover_manager.html:230
 #: editor/templates/editor/wizzard_book.html:49
 #: editor/templates/editor/wizzard_book.html:51
-#: editor/templates/editor/wizzard_book.html:285
-#: editor/templates/editor/wizzard_book.html:287
-#: editor/templates/editor/wizzard_book.html:289
-#: editor/templates/editor/wizzard_book.html:291
-#: editor/templates/editor/wizzard_book.html:295
+#: editor/templates/editor/wizzard_book.html:298
+#: editor/templates/editor/wizzard_book.html:300
+#: editor/templates/editor/wizzard_book.html:302
+#: editor/templates/editor/wizzard_book.html:304
+#: editor/templates/editor/wizzard_book.html:308
 #: editor/templates/editor/wizzard_bookjs.html:48
 #: editor/templates/editor/wizzard_bookjs.html:50
-#: editor/templates/editor/wizzard_bookjs.html:234
-#: editor/templates/editor/wizzard_bookjs.html:236
-#: editor/templates/editor/wizzard_bookjs.html:238
-#: editor/templates/editor/wizzard_bookjs.html:240
-#: editor/templates/editor/wizzard_bookjs.html:244
+#: editor/templates/editor/wizzard_bookjs.html:247
+#: editor/templates/editor/wizzard_bookjs.html:249
+#: editor/templates/editor/wizzard_bookjs.html:251
+#: editor/templates/editor/wizzard_bookjs.html:253
+#: editor/templates/editor/wizzard_bookjs.html:257
 #: editor/templates/editor/wizzard_pdf.html:246
 #: editor/templates/editor/wizzard_pdf.html:248
 #: editor/templates/editor/wizzard_pdf.html:250
@@ -1570,6 +1591,8 @@ msgstr "E-book"
 #: editor/templates/editor/cover_manager.html:248
 #: editor/templates/editor/cover_manager.html:297
 #: editor/templates/editor/edit_strings.html:89
+#: editor/templates/editor/wizzard_book.html:187
+#: editor/templates/editor/wizzard_bookjs.html:188
 msgid "PDF"
 msgstr "PDF"
 
@@ -1625,16 +1648,24 @@ msgid "Filetype"
 msgstr "Tipo de ficheiro"
 
 #: editor/templates/editor/cover_manager.html:156
-msgid "Tip: The selected image file is very small. Please think of using a bigger file for better results."
-msgstr "Dica: A imagem selecionada é muito pequena. Use uma imagem melhor para obter resultados melhores."
+msgid ""
+"Tip: The selected image file is very small. Please think of using a bigger "
+"file for better results."
+msgstr ""
+"Dica: A imagem selecionada é muito pequena. Use uma imagem melhor para obter "
+"resultados melhores."
 
 #: editor/templates/editor/cover_manager.html:159
-msgid "Tip: The selected image file is in landscape orientation. Most book covers need portrait images."
-msgstr "Dica: a imagem selecionada está na horizontal. A maior parte das capas usam imagens na vertical."
+msgid ""
+"Tip: The selected image file is in landscape orientation. Most book covers "
+"need portrait images."
+msgstr ""
+"Dica: a imagem selecionada está na horizontal. A maior parte das capas usam "
+"imagens na vertical."
 
 #: editor/templates/editor/cover_manager.html:162
 #: editor/templates/editor/edit_book.html:295
-#: editor/templates/editor/edit_book.html:626
+#: editor/templates/editor/edit_book.html:647
 msgid "Save"
 msgstr "Guardar"
 
@@ -1701,8 +1732,16 @@ msgid "Publish"
 msgstr "<li>publicar</li>"
 
 #: editor/templates/editor/edit_book.html:137
-msgid "We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding."
-msgstr "Lamentamos muito, mas não somos totalmente compatíveis com o seu navegador. Estamos a trabalhar para corrigir esse problema. Até corrigirmos isso, pode tentar usar este site com o Firefox, Chrome, Safari, Opera ou outro navegador compatível. Obrigado por sua compreensão."
+msgid ""
+"We are very sorry, but we are not fully compatible with your browser. We are "
+"working hard to fix this problem. Until we fix this, you can try to use this "
+"site with Firefox, Chrome, Safari, Opera or some other compatible browser. "
+"Thank you for your understanding."
+msgstr ""
+"Lamentamos muito, mas não somos totalmente compatíveis com o seu navegador. "
+"Estamos a trabalhar para corrigir esse problema. Até corrigirmos isso, pode "
+"tentar usar este site com o Firefox, Chrome, Safari, Opera ou outro "
+"navegador compatível. Obrigado por sua compreensão."
 
 #: editor/templates/editor/edit_book.html:139
 msgid "Table of contents"
@@ -1724,8 +1763,12 @@ msgid "IMPORT CHAPTER"
 msgstr "IMPORTAR CAPÍTULO"
 
 #: editor/templates/editor/edit_book.html:141
-msgid "All books should contain at least one section and can have as many chapters as you like."
-msgstr "Todos os livros devem conter pelo menos uma secção e pode ter quantos capítulos quiser."
+msgid ""
+"All books should contain at least one section and can have as many chapters "
+"as you like."
+msgstr ""
+"Todos os livros devem conter pelo menos uma secção e pode ter quantos "
+"capítulos quiser."
 
 #: editor/templates/editor/edit_book.html:150
 msgid "New chapter"
@@ -1843,7 +1886,9 @@ msgid "Author comment:"
 msgstr "Comentário do autor:"
 
 #: editor/templates/editor/edit_book.html:325
-msgid "Seems like You have changed the structure of the chapters. What do you want to do?"
+msgid ""
+"Seems like You have changed the structure of the chapters. What do you want "
+"to do?"
 msgstr "Parece que mudaram a estrutura dos capítulos. O que quer fazer?"
 
 #: editor/templates/editor/edit_book.html:328
@@ -1851,8 +1896,12 @@ msgid "New chapters:"
 msgstr "Novos capítulos:"
 
 #: editor/templates/editor/edit_book.html:344
-msgid "All images added to your book are listed here as well as any additional files you have uploaded."
-msgstr "Todas as imagens adicionadas ao seu livro estão listadas aqui, bem como os ficheiros adicionais que enviou."
+msgid ""
+"All images added to your book are listed here as well as any additional "
+"files you have uploaded."
+msgstr ""
+"Todas as imagens adicionadas ao seu livro estão listadas aqui, bem como os "
+"ficheiros adicionais que enviou."
 
 #: editor/templates/editor/edit_book.html:346
 msgid "Deleted selected items"
@@ -1874,11 +1923,18 @@ msgstr "Aqui pode acompanhar o histórico de edição do seu livro."
 
 #: editor/templates/editor/edit_book.html:375
 msgid ""
-"With different versions you can easily organise your book. But be careful! Other users will not be able to edit\n"
-"      and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them."
+"With different versions you can easily organise your book. But be careful! "
+"Other users will not be able to edit\n"
+"      and work on previous versions once you create new one. Create new "
+"<i>major</i> version if you plan to make a lot of changes, and <i>minor</i> "
+"version if you plan to make just a few of them."
 msgstr ""
-"Com versões diferentes pode facilmente organizar o seu livro. Mas cuidado! Outros utilizadores não poderão editar\n"
-"      trabalhar em versões anteriores logo que você crie uma versão nova. Crie uma nova versão <i>principal</i>, se você pretende fazer uma série de mudanças, e versão <i>secúndária</i>, se pretende fazer apenas algumas mudanças."
+"Com versões diferentes pode facilmente organizar o seu livro. Mas cuidado! "
+"Outros utilizadores não poderão editar\n"
+"      trabalhar em versões anteriores logo que você crie uma versão nova. "
+"Crie uma nova versão <i>principal</i>, se você pretende fazer uma série de "
+"mudanças, e versão <i>secúndária</i>, se pretende fazer apenas algumas "
+"mudanças."
 
 #: editor/templates/editor/edit_book.html:377
 #: editor/templates/editor/edit_strings.html:37
@@ -1953,7 +2009,8 @@ msgstr "Gerir atribuição de copyright"
 
 #: editor/templates/editor/edit_book.html:462
 msgid "If you want to exclude some people from the copyright attribution..."
-msgstr "Se quiser excluir algumas pessoas da atribuição de direitos de autor ..."
+msgstr ""
+"Se quiser excluir algumas pessoas da atribuição de direitos de autor ..."
 
 #: editor/templates/editor/edit_book.html:466
 msgid "Contributors"
@@ -2008,7 +2065,7 @@ msgid "Remove"
 msgstr "Remover"
 
 #: editor/templates/editor/edit_book.html:519
-#: editor/templates/editor/edit_book.html:714
+#: editor/templates/editor/edit_book.html:735
 msgid "Chapter status"
 msgstr "Estado do capítulo"
 
@@ -2042,7 +2099,8 @@ msgstr "Guardar notas"
 
 #: editor/templates/editor/edit_book.html:562
 msgid "<span class=\"icon\">JOINED</span> <span class=\"notice\">notice</span>"
-msgstr "<span class=\"icon\">Juntou-se</span> <span class=\"notice\">aviso</span>"
+msgstr ""
+"<span class=\"icon\">Juntou-se</span> <span class=\"notice\">aviso</span>"
 
 #: editor/templates/editor/edit_book.html:563
 msgid "<span class=\"info\">INFO</span> <span class=\"notice\">notice</span>"
@@ -2053,66 +2111,89 @@ msgid "action"
 msgstr "Ação"
 
 #: editor/templates/editor/edit_book.html:569
-#: editor/templates/editor/edit_book.html:675
+#: editor/templates/editor/edit_book.html:696
 msgid "time"
 msgstr "hora"
 
 #: editor/templates/editor/edit_book.html:589
 msgid "Switched to <span class=\"entryVersion\">entry.version.version</span>"
-msgstr "Alterado para <span class=\"entryVersion\">entry.version.version</span>"
+msgstr ""
+"Alterado para <span class=\"entryVersion\">entry.version.version</span>"
 
 #: editor/templates/editor/edit_book.html:596
+#: editor/templates/editor/edit_book.html:603
 msgid "Uploaded <span class=\"entryFilename\">entry.args.filename</span>."
 msgstr "Enviado <span class=\"entryFilename\">entry.args.filename</span>."
 
 #: editor/templates/editor/edit_book.html:602
-msgid "Imported chapter"
-msgstr "Capítulo importado"
+#, fuzzy
+msgid "Upload cover"
+msgstr "Carregar imagem da capa"
 
 #: editor/templates/editor/edit_book.html:609
-msgid "Delete"
-msgstr "Apagar"
+#, fuzzy
+msgid "Delete cover"
+msgstr "Capa PDF"
 
 #: editor/templates/editor/edit_book.html:610
+#: editor/templates/editor/edit_book.html:631
 msgid "Deleted <span class=\"entryFilename\">entry.args.filename</span>."
 msgstr "Apagados <span class=\"entryFilename\">entry.args.filename</span>."
 
-#: editor/templates/editor/edit_book.html:624
+#: editor/templates/editor/edit_book.html:616
+#, fuzzy
+msgid "Modify cover"
+msgstr "Capa do livro"
+
+#: editor/templates/editor/edit_book.html:617
+#, fuzzy
+msgid "Modified <span class=\"entryFilename\">entry.args.filename</span>."
+msgstr "Enviado <span class=\"entryFilename\">entry.args.filename</span>."
+
+#: editor/templates/editor/edit_book.html:623
+msgid "Imported chapter"
+msgstr "Capítulo importado"
+
+#: editor/templates/editor/edit_book.html:630
+msgid "Delete"
+msgstr "Apagar"
+
+#: editor/templates/editor/edit_book.html:645
 #: editor/templates/editor/edit_strings.html:86
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: editor/templates/editor/edit_book.html:627
+#: editor/templates/editor/edit_book.html:648
 msgid "Rename"
 msgstr "Renomear"
 
-#: editor/templates/editor/edit_book.html:628
+#: editor/templates/editor/edit_book.html:649
 msgid "Reorder"
 msgstr "Reordenar"
 
-#: editor/templates/editor/edit_book.html:629
+#: editor/templates/editor/edit_book.html:650
 msgid "Split"
 msgstr "Dividir"
 
-#: editor/templates/editor/edit_book.html:630
+#: editor/templates/editor/edit_book.html:651
 #: reader/templates/reader/book_info.html:159
 msgid "Section create"
 msgstr "Criar secção"
 
-#: editor/templates/editor/edit_book.html:631
+#: editor/templates/editor/edit_book.html:652
 #: reader/templates/reader/book_info.html:166
 msgid "Book create"
 msgstr "Criar livro"
 
-#: editor/templates/editor/edit_book.html:632
+#: editor/templates/editor/edit_book.html:653
 msgid "Minor"
 msgstr "Secundária"
 
-#: editor/templates/editor/edit_book.html:633
+#: editor/templates/editor/edit_book.html:654
 msgid "Major"
 msgstr "Principa"
 
-#: editor/templates/editor/edit_book.html:659
+#: editor/templates/editor/edit_book.html:680
 #: reader/templates/reader/book_chapter.html:51
 #: reader/templates/reader/book_chapter.html:57
 #: reader/templates/reader/book_view.html:40
@@ -2122,102 +2203,106 @@ msgstr "Principa"
 msgid "EDIT"
 msgstr "EDITAR"
 
-#: editor/templates/editor/edit_book.html:659
+#: editor/templates/editor/edit_book.html:680
 msgid "VIEW"
 msgstr "VISUALIZAR"
 
-#: editor/templates/editor/edit_book.html:668
+#: editor/templates/editor/edit_book.html:689
 msgid "back to history index"
 msgstr "Voltar para o índice do histórico"
 
-#: editor/templates/editor/edit_book.html:668
+#: editor/templates/editor/edit_book.html:689
 msgid "Compare revisions"
 msgstr "Comparar revisões"
 
-#: editor/templates/editor/edit_book.html:672
+#: editor/templates/editor/edit_book.html:693
 msgid "compare"
 msgstr "comparar"
 
-#: editor/templates/editor/edit_book.html:684
+#: editor/templates/editor/edit_book.html:705
 #: editor/templates/editor/edit_strings.html:58
 msgid "dimension"
 msgstr "dimensão"
 
-#: editor/templates/editor/edit_book.html:685
+#: editor/templates/editor/edit_book.html:706
 #: editor/templates/editor/edit_strings.html:59
 msgid "size"
 msgstr "tamanho"
 
-#: editor/templates/editor/edit_book.html:689
-#: editor/templates/editor/edit_book.html:709
+#: editor/templates/editor/edit_book.html:710
+#: editor/templates/editor/edit_book.html:730
 msgid "back to chapter history"
 msgstr "voltar ao histórico do capítulo"
 
-#: editor/templates/editor/edit_book.html:691
+#: editor/templates/editor/edit_book.html:712
 msgid "Normal view"
 msgstr "Visualização normal"
 
-#: editor/templates/editor/edit_book.html:693
+#: editor/templates/editor/edit_book.html:714
 msgid "Source view"
 msgstr "Exibição da fonte"
 
-#: editor/templates/editor/edit_book.html:694
+#: editor/templates/editor/edit_book.html:715
 msgid "Revert to this revision"
 msgstr "Reverter para esta revisão"
 
-#: editor/templates/editor/edit_book.html:695
+#: editor/templates/editor/edit_book.html:716
 msgid "No such revision."
 msgstr "Essa revisão não existe."
 
-#: editor/templates/editor/edit_book.html:698
+#: editor/templates/editor/edit_book.html:719
 msgid "User:"
 msgstr "Utilizador:"
 
-#: editor/templates/editor/edit_book.html:699
+#: editor/templates/editor/edit_book.html:720
 msgid "Modified:"
 msgstr "Modificado:"
 
-#: editor/templates/editor/edit_book.html:700
+#: editor/templates/editor/edit_book.html:721
 msgid "Version:"
 msgstr "Versão "
 
-#: editor/templates/editor/edit_book.html:701
+#: editor/templates/editor/edit_book.html:722
 msgid "Revision:"
 msgstr "Revisão:"
 
-#: editor/templates/editor/edit_book.html:702
+#: editor/templates/editor/edit_book.html:723
 msgid "Comment"
 msgstr "Comentários "
 
-#: editor/templates/editor/edit_book.html:704
+#: editor/templates/editor/edit_book.html:725
 msgid "previous"
 msgstr "anterior"
 
-#: editor/templates/editor/edit_book.html:704
+#: editor/templates/editor/edit_book.html:725
 msgid "next"
 msgstr "seguinte"
 
-#: editor/templates/editor/edit_book.html:709
+#: editor/templates/editor/edit_book.html:730
 msgid "Show side by side"
 msgstr "Mostrar lado a lado"
 
-#: editor/templates/editor/edit_book.html:710
-msgid "Compare revision <span class=\"revision1Name\">revision1</span> with revision <span class=\"revision2Name\">revision2</span>"
-msgstr "Compare revisão <span class=\"revision1Name\">revision1</span> com revisão <span class=\"revision2Name\">revision2</span>"
+#: editor/templates/editor/edit_book.html:731
+msgid ""
+"Compare revision <span class=\"revision1Name\">revision1</span> with "
+"revision <span class=\"revision2Name\">revision2</span>"
+msgstr ""
+"Compare revisão <span class=\"revision1Name\">revision1</span> com revisão "
+"<span class=\"revision2Name\">revision2</span>"
 
-#: editor/templates/editor/edit_book.html:715
+#: editor/templates/editor/edit_book.html:736
 msgid "Select new chapter status:"
 msgstr "Selecione estado do novo capítulo:"
 
-#: editor/templates/editor/edit_book.html:728
+#: editor/templates/editor/edit_book.html:749
 msgid "Chapter statuses"
 msgstr "Estado do Capítulo"
 
-#: editor/templates/editor/edit_book.html:733
+#: editor/templates/editor/edit_book.html:754
 msgid "New status:"
 msgstr "Novo estado:"
 
-#: editor/templates/editor/edit_book.html:738
+#: editor/templates/editor/edit_book.html:759
 msgid "Chapter statuses:"
 msgstr "Estado do capítulo:"
 
@@ -2250,8 +2335,10 @@ msgid "Publish this book"
 msgstr "Publicar este livro"
 
 #: editor/templates/editor/edit_publish.html:63
-msgid "Please wait. It will take couple of moments. Your book is being generated."
-msgstr "Por favor, aguarde. Vai levar alguns momentos. O livro está a ser criado."
+msgid ""
+"Please wait. It will take couple of moments. Your book is being generated."
+msgstr ""
+"Por favor, aguarde. Vai levar alguns momentos. O livro está a ser criado."
 
 #: editor/templates/editor/edit_publish.html:66
 msgid "Your book has been generated at this url:"
@@ -2319,8 +2406,10 @@ msgid "Revert to this revision?"
 msgstr "Reverter para esta revisão?"
 
 #: editor/templates/editor/edit_strings.html:20
-msgid "Current chapter content will be reverted to this revision. Are you sure?"
-msgstr "Conteúdo do capítulo atual será revertido para esta revisão. Tem certeza?"
+msgid ""
+"Current chapter content will be reverted to this revision. Are you sure?"
+msgstr ""
+"Conteúdo do capítulo atual será revertido para esta revisão. Tem certeza?"
 
 #: editor/templates/editor/edit_strings.html:21
 msgid "Sending data..."
@@ -2371,8 +2460,12 @@ msgid "Delete this status?"
 msgstr "Excluir este estado?"
 
 #: editor/templates/editor/edit_strings.html:34
-msgid "Can't delete because some chapters have this status. Change chapter status first."
-msgstr "Não é possível excluir porque alguns capítulos têm esse estado. Primeiro altere o estado do capítulo."
+msgid ""
+"Can't delete because some chapters have this status. Change chapter status "
+"first."
+msgstr ""
+"Não é possível excluir porque alguns capítulos têm esse estado. Primeiro "
+"altere o estado do capítulo."
 
 #: editor/templates/editor/edit_strings.html:35
 msgid "Removing chapter from Table of Contents."
@@ -2457,7 +2550,8 @@ msgstr "Detentor dos direitos"
 
 #: editor/templates/editor/edit_strings.html:65
 msgid "You will loose unsaved changes. You are currently editing chapter"
-msgstr "Você vai perder as alterações não guardadas. Você está a editar capítulo"
+msgstr ""
+"Você vai perder as alterações não guardadas. Você está a editar capítulo"
 
 #: editor/templates/editor/edit_strings.html:66
 msgid "You are leaving Booktype Editor."
@@ -2532,16 +2626,16 @@ msgid "Full cover"
 msgstr "Capa total"
 
 #: editor/templates/editor/edit_strings.html:87
+#: editor/templates/editor/wizzard_book.html:186
+#: editor/templates/editor/wizzard_bookjs.html:187
 msgid "BOOK"
 msgstr "LIVRO"
 
 #: editor/templates/editor/edit_strings.html:88
+#: editor/templates/editor/wizzard_book.html:188
+#: editor/templates/editor/wizzard_bookjs.html:189
 msgid "E-BOOK"
 msgstr "E-BOOK"
-
-#: editor/templates/editor/edit_strings.html:90
-msgid "NOT APPROVED"
-msgstr "NÃO APROVADO"
 
 #: editor/templates/editor/edit_strings.html:91
 msgid "APPROVED"
@@ -2829,205 +2923,214 @@ msgstr "Selecione imagem da capa"
 msgid "No Cover"
 msgstr "Sem Capa"
 
-#: editor/templates/editor/wizzard_book.html:186
-#: editor/templates/editor/wizzard_bookjs.html:187
-msgid "Tip: To select multiple cover files for your book (front, spine, back) please press the Control key (Ctrl)."
-msgstr "Dica: para selecionar vários ficheiros para o seu livro (frontal, lombada, contra-capa), pressione a tecla Control (Ctrl)."
+#: editor/templates/editor/wizzard_book.html:178
+#: editor/templates/editor/wizzard_bookjs.html:179
+msgid "Others"
+msgstr ""
 
-#: editor/templates/editor/wizzard_book.html:194
+#: editor/templates/editor/wizzard_book.html:199
+#: editor/templates/editor/wizzard_bookjs.html:200
+msgid ""
+"Tip: To select multiple cover files for your book (front, spine, back) "
+"please press the Control key (Ctrl)."
+msgstr ""
+"Dica: para selecionar vários ficheiros para o seu livro (frontal, lombada, "
+"contra-capa), pressione a tecla Control (Ctrl)."
+
+#: editor/templates/editor/wizzard_book.html:207
 #: editor/templates/editor/wizzard_odt.html:146
 #: editor/templates/editor/wizzard_pdf.html:172
 msgid "Page breaks"
 msgstr "Quebras de página"
 
-#: editor/templates/editor/wizzard_book.html:197
+#: editor/templates/editor/wizzard_book.html:210
 #: editor/templates/editor/wizzard_odt.html:149
 #: editor/templates/editor/wizzard_pdf.html:175
 msgid "Avoid page break in paragraphs?"
 msgstr "Evitar quebra de página em parágrafos?"
 
-#: editor/templates/editor/wizzard_book.html:199
+#: editor/templates/editor/wizzard_book.html:212
 #: editor/templates/editor/wizzard_odt.html:151
 #: editor/templates/editor/wizzard_pdf.html:177
 msgid "Pagebreak before footnotes?"
 msgstr "PageBreak antes de notas de rodapé?"
 
-#: editor/templates/editor/wizzard_book.html:207
-#: editor/templates/editor/wizzard_bookjs.html:195
+#: editor/templates/editor/wizzard_book.html:220
+#: editor/templates/editor/wizzard_bookjs.html:208
 #: editor/templates/editor/wizzard_pdf.html:186
 msgid "Advanced"
 msgstr "Avançado "
 
-#: editor/templates/editor/wizzard_book.html:217
-#: editor/templates/editor/wizzard_bookjs.html:205
+#: editor/templates/editor/wizzard_book.html:230
+#: editor/templates/editor/wizzard_bookjs.html:218
 #: editor/templates/editor/wizzard_pdf.html:196
 msgid "General"
 msgstr "Geral"
 
-#: editor/templates/editor/wizzard_book.html:221
-#: editor/templates/editor/wizzard_bookjs.html:209
+#: editor/templates/editor/wizzard_book.html:234
+#: editor/templates/editor/wizzard_bookjs.html:222
 #: editor/templates/editor/wizzard_pdf.html:200
 msgid "Override Server Default CSS"
 msgstr "Substituir Padrão CSS do Servidor "
 
-#: editor/templates/editor/wizzard_book.html:224
+#: editor/templates/editor/wizzard_book.html:237
 #: editor/templates/editor/wizzard_pdf.html:202
 msgid "Grey Scale Output"
 msgstr "Saída em Escala Cinza "
 
-#: editor/templates/editor/wizzard_book.html:227
+#: editor/templates/editor/wizzard_book.html:240
 #: editor/templates/editor/wizzard_pdf.html:204
 #: editor/templates/editor/wizzard_pdf.html:206
 msgid "Rotate"
 msgstr "Rodar"
 
-#: editor/templates/editor/wizzard_book.html:227
+#: editor/templates/editor/wizzard_book.html:240
 msgid "For RTL books on LTR printing presses, and vice versa."
 msgstr "Para livros RTL em impressoras LTR, e vice-versa."
 
-#: editor/templates/editor/wizzard_book.html:229
+#: editor/templates/editor/wizzard_book.html:242
 msgid "Page Numbers"
 msgstr "Números de Página"
 
-#: editor/templates/editor/wizzard_book.html:231
+#: editor/templates/editor/wizzard_book.html:244
 #: editor/templates/editor/wizzard_pdf.html:210
 msgid "LTR"
 msgstr "LTR"
 
 #. Translators: Option for Page Numbers
-#: editor/templates/editor/wizzard_book.html:233
+#: editor/templates/editor/wizzard_book.html:246
 #: editor/templates/editor/wizzard_pdf.html:209
 msgid "none"
 msgstr "nenhum"
 
 #. Translators: Option for Page Numbers. Burmese.
-#: editor/templates/editor/wizzard_book.html:235
+#: editor/templates/editor/wizzard_book.html:248
 #: editor/templates/editor/wizzard_pdf.html:212
 msgid "my"
 msgstr "my"
 
 #. Translators: Option for Page Numbers. Farsi.
-#: editor/templates/editor/wizzard_book.html:237
+#: editor/templates/editor/wizzard_book.html:250
 #: editor/templates/editor/wizzard_pdf.html:214
 msgid "fa"
 msgstr "fa"
 
 #. Translators: Option for Page Numbers. Hindi.
-#: editor/templates/editor/wizzard_book.html:239
+#: editor/templates/editor/wizzard_book.html:252
 #: editor/templates/editor/wizzard_pdf.html:216
 msgid "hi"
 msgstr "hi"
 
 #. Translators: Option for Page Numbers. Right to left.
-#: editor/templates/editor/wizzard_book.html:241
+#: editor/templates/editor/wizzard_book.html:254
 #: editor/templates/editor/wizzard_pdf.html:218
 msgid "RTL"
 msgstr "RTL"
 
 #. Translators: Option for Page Numbers. Arabic.
-#: editor/templates/editor/wizzard_book.html:243
+#: editor/templates/editor/wizzard_book.html:256
 #: editor/templates/editor/wizzard_pdf.html:220
 msgid "ar"
 msgstr "ar"
 
-#: editor/templates/editor/wizzard_book.html:244
+#: editor/templates/editor/wizzard_book.html:257
 #: editor/templates/editor/wizzard_pdf.html:221
 msgid "auto"
 msgstr "auto"
 
-#: editor/templates/editor/wizzard_book.html:246
+#: editor/templates/editor/wizzard_book.html:259
 msgid "If in doubt, choose 'auto'"
 msgstr "Em caso de dúvida, escolha 'auto'"
 
-#: editor/templates/editor/wizzard_book.html:249
+#: editor/templates/editor/wizzard_book.html:262
 #: editor/templates/editor/wizzard_pdf.html:226
 msgid "Force Embed Fonts"
 msgstr "Forçar Embed Fonts"
 
-#: editor/templates/editor/wizzard_book.html:249
+#: editor/templates/editor/wizzard_book.html:262
 #: editor/templates/editor/wizzard_pdf.html:226
 msgid "PDFs: force embedding of PDF default fonts"
 msgstr "PDFs: forçar incorporação de fontes PDF padrão"
 
-#: editor/templates/editor/wizzard_book.html:251
+#: editor/templates/editor/wizzard_book.html:264
 #: editor/templates/editor/wizzard_pdf.html:228
 msgid "Cancel Page Break Control"
 msgstr "Cancelar o controlo de quebra de página"
 
-#: editor/templates/editor/wizzard_book.html:251
+#: editor/templates/editor/wizzard_book.html:264
 #: editor/templates/editor/wizzard_pdf.html:228
 msgid "Let page breaks occur immediately after headings"
 msgstr "Deixar as quebras de página ocorrerem imediatamente após títulos"
 
-#: editor/templates/editor/wizzard_book.html:264
+#: editor/templates/editor/wizzard_book.html:277
 msgid "Table of Contents"
 msgstr "Índice"
 
-#: editor/templates/editor/wizzard_book.html:267
+#: editor/templates/editor/wizzard_book.html:280
 msgid "Table of Contents Header"
 msgstr "Cabeçalho Índice"
 
-#: editor/templates/editor/wizzard_book.html:281
-#: editor/templates/editor/wizzard_bookjs.html:230
+#: editor/templates/editor/wizzard_book.html:294
+#: editor/templates/editor/wizzard_bookjs.html:243
 #: editor/templates/editor/wizzard_pdf.html:242
 msgid "Page Margins and Gutter"
 msgstr "Margens da página e espaço entre colunas"
 
-#: editor/templates/editor/wizzard_book.html:284
-#: editor/templates/editor/wizzard_bookjs.html:233
+#: editor/templates/editor/wizzard_book.html:297
+#: editor/templates/editor/wizzard_bookjs.html:246
 #: editor/templates/editor/wizzard_pdf.html:245
 msgid "Top Margin"
 msgstr "Margem superior"
 
-#: editor/templates/editor/wizzard_book.html:286
-#: editor/templates/editor/wizzard_bookjs.html:235
+#: editor/templates/editor/wizzard_book.html:299
+#: editor/templates/editor/wizzard_bookjs.html:248
 #: editor/templates/editor/wizzard_pdf.html:247
 msgid "Side Margin"
 msgstr "Margem lateral"
 
-#: editor/templates/editor/wizzard_book.html:288
-#: editor/templates/editor/wizzard_bookjs.html:237
+#: editor/templates/editor/wizzard_book.html:301
+#: editor/templates/editor/wizzard_bookjs.html:250
 #: editor/templates/editor/wizzard_pdf.html:249
 msgid "Bottom Margin"
 msgstr "Margem inferior"
 
-#: editor/templates/editor/wizzard_book.html:290
-#: editor/templates/editor/wizzard_bookjs.html:239
+#: editor/templates/editor/wizzard_book.html:303
+#: editor/templates/editor/wizzard_bookjs.html:252
 #: editor/templates/editor/wizzard_pdf.html:251
 msgid "Gutter"
 msgstr "Espaço entre colunas"
 
-#: editor/templates/editor/wizzard_book.html:292
-#: editor/templates/editor/wizzard_bookjs.html:241
+#: editor/templates/editor/wizzard_book.html:305
+#: editor/templates/editor/wizzard_bookjs.html:254
 msgid "Number of columns"
 msgstr "Número de colunas"
 
-#: editor/templates/editor/wizzard_book.html:294
-#: editor/templates/editor/wizzard_bookjs.html:243
+#: editor/templates/editor/wizzard_book.html:307
+#: editor/templates/editor/wizzard_bookjs.html:256
 msgid "Column margin"
 msgstr "Margem de coluna"
 
-#: editor/templates/editor/wizzard_book.html:308
-#: editor/templates/editor/wizzard_bookjs.html:257
+#: editor/templates/editor/wizzard_book.html:321
+#: editor/templates/editor/wizzard_bookjs.html:270
 #: editor/templates/editor/wizzard_pdf.html:269
 msgid "Advanced (style sheets)"
 msgstr "Avançado (folhas de estilo)"
 
-#: editor/templates/editor/wizzard_book.html:311
-#: editor/templates/editor/wizzard_bookjs.html:260
+#: editor/templates/editor/wizzard_book.html:324
+#: editor/templates/editor/wizzard_bookjs.html:273
 #: editor/templates/editor/wizzard_pdf.html:272
 msgid "Your Custom CSS"
 msgstr "CSS personalizado"
 
-#: editor/templates/editor/wizzard_book.html:314
-#: editor/templates/editor/wizzard_bookjs.html:263
+#: editor/templates/editor/wizzard_book.html:327
+#: editor/templates/editor/wizzard_bookjs.html:276
 #: editor/templates/editor/wizzard_odt.html:164
 #: editor/templates/editor/wizzard_pdf.html:275
 msgid "Booktype CSS (be careful if changing)"
 msgstr "Booktype CSS (cuidado se mudar)"
 
-#: editor/templates/editor/wizzard_book.html:318
-#: editor/templates/editor/wizzard_bookjs.html:267
+#: editor/templates/editor/wizzard_book.html:331
+#: editor/templates/editor/wizzard_bookjs.html:280
 #: editor/templates/editor/wizzard_ebook.html:168
 #: editor/templates/editor/wizzard_odt.html:167
 #: editor/templates/editor/wizzard_pdf.html:279
@@ -3085,8 +3188,12 @@ msgstr "geral"
 #: editor/templates/editor/wizzard_ebook.html:127
 #: editor/templates/editor/wizzard_odt.html:109
 #: editor/templates/editor/wizzard_pdf.html:135
-msgid "Tip: Only images of the following filetypes can be used to publish an ebook: PNG, JPEG, GIF."
-msgstr "Dica: só podem ser usadas imagens, para publicar um e-book, com o formato:  PNG, JPEG, GIF."
+msgid ""
+"Tip: Only images of the following filetypes can be used to publish an ebook: "
+"PNG, JPEG, GIF."
+msgstr ""
+"Dica: só podem ser usadas imagens, para publicar um e-book, com o formato:  "
+"PNG, JPEG, GIF."
 
 #: editor/templates/editor/wizzard_ebook.html:163
 #: editor/templates/editor/wizzard_odt.html:160
@@ -3115,11 +3222,11 @@ msgstr "Em caso de dúvida, escolha a opção 'nenhum'"
 msgid "Columns"
 msgstr "Colunas"
 
-#: editor/templates/errors/editing_forbidden.html:4
+#: editor/templates/errors/editing_forbidden.html:8
 msgid "Access error"
 msgstr "Erro de acesso"
 
-#: editor/templates/errors/editing_forbidden.html:5
+#: editor/templates/errors/editing_forbidden.html:9
 msgid "You have no permission to edit this book."
 msgstr "Não tem permissão para editar este livro."
 
@@ -3127,8 +3234,7 @@ msgstr "Não tem permissão para editar este livro."
 msgid "sender"
 msgstr "remetente"
 
-#: messaging/models.py:33
-#: messaging/models.py:67
+#: messaging/models.py:33 messaging/models.py:67
 msgid "timestamp"
 msgstr "hora"
 
@@ -3304,11 +3410,11 @@ msgstr "Centro de Controlo"
 msgid "Couldn't create a group!"
 msgstr "Não foi possível criar grupo!"
 
-#: portal/templates/errors/group_does_not_exist.html:4
+#: portal/templates/errors/group_does_not_exist.html:8
 msgid "Group not found!"
 msgstr "Grupo não encontrado!"
 
-#: portal/templates/errors/group_does_not_exist.html:5
+#: portal/templates/errors/group_does_not_exist.html:9
 #, python-format
 msgid "Can't find group \"%(group_name)s\"."
 msgstr "Não é possível encontrar o grupo \"%(group_name)s\"."
@@ -3410,32 +3516,35 @@ msgstr "Pessoas ativas"
 msgid "New people"
 msgstr "Novas pessoas"
 
-#: reader/templates/errors/book_does_not_exist.html:4
+#: reader/templates/errors/book_does_not_exist.html:8
 msgid "Book does not exist!"
 msgstr "Livro não existe!"
 
-#: reader/templates/errors/book_does_not_exist.html:5
+#: reader/templates/errors/book_does_not_exist.html:9
 #, python-format
 msgid "Can't find book \"%(book_name)s\"."
 msgstr "Não é possível encontrar o livro \"%(book_name)s\"."
 
-#: reader/templates/errors/chapter_does_not_exist.html:4
+#: reader/templates/errors/chapter_does_not_exist.html:8
 msgid "Chapter does not exist!"
 msgstr "Capítulo não existe!"
 
-#: reader/templates/errors/chapter_does_not_exist.html:5
+#: reader/templates/errors/chapter_does_not_exist.html:9
 #, python-format
 msgid "Can't find chapter \"%(chapter_name)s\"."
 msgstr "Não é possível encontrar o capítulo \"%(chapter_name)s\"."
 
-#: reader/templates/errors/chapter_duplicate.html:4
+#: reader/templates/errors/chapter_duplicate.html:8
 msgid "I don't know what to do!"
 msgstr "Eu não sei o que fazer."
 
-#: reader/templates/errors/chapter_duplicate.html:5
+#: reader/templates/errors/chapter_duplicate.html:9
 #, python-format
-msgid "There is more then one chapter named - \"%(chapter_name)s\". I am not sure which one to show."
-msgstr "Há mais que um capítulo chamado - \"%(chapter_name)s\". Não sei qual mostrar."
+msgid ""
+"There is more then one chapter named - \"%(chapter_name)s\". I am not sure "
+"which one to show."
+msgstr ""
+"Há mais que um capítulo chamado - \"%(chapter_name)s\". Não sei qual mostrar."
 
 #: reader/templates/reader/book_chapter.html:6
 #: reader/templates/reader/draft_chapter.html:6
@@ -3564,40 +3673,54 @@ msgstr "Imagem do livro:"
 msgid "/_full: %(booktitle)s"
 msgstr "/_full: %(booktitle)s"
 
-#: templates/errors/no_permissions.html:4
+#: templates/errors/no_permissions.html:8
 msgid "You have no permissions to do this!"
 msgstr "Não tem permissão para fazer isso!"
 
+#~ msgid "NOT APPROVED"
+#~ msgstr "NÃO APROVADO"
+
 #~ msgid "Replace"
 #~ msgstr "Substituir"
+
 #~ msgid "JPEG"
 #~ msgstr "JPEG"
+
 #~ msgid "This interface is still work in progress."
 #~ msgstr "Esta interface ainda está a ser desenvolvida."
+
 #~ msgid "Hi %(first_name)s!"
 #~ msgstr "Olá %(first_name)s!"
+
 #~ msgid ""
 #~ "This is a notification of a new message for you at your Booki profile:"
 #~ msgstr ""
 #~ "Esta é uma notificação de uma nova mensagem para si no seu perfil "
 #~ "Booktype:"
+
 #~ msgid "Sender:"
 #~ msgstr "Remetente:"
+
 #~ msgid "Date:"
 #~ msgstr "Data:"
+
 #~ msgid "Content:"
 #~ msgstr "Conteúdo:"
+
 #~ msgid "Attachment:"
 #~ msgstr "Anexo"
+
 #~ msgid "not shown"
 #~ msgstr "não mostrado"
+
 #~ msgid "Snippet context:"
 #~ msgstr "Contexto de snippet:"
+
 #~ msgid ""
 #~ "This email address receives these notifications because of your settings:"
 #~ msgstr ""
 #~ "Este endereço de e-mail recebe as notificações por causa de suas "
 #~ "configurações:"
+
 #~ msgid "Need a new password?"
 #~ msgstr "Precisa de uma nova senha?"
-

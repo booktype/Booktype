@@ -221,7 +221,11 @@ HISTORY_CHOICES = {'unknown': 0,
                    'major_version': 12,
 
                    'attachment_upload': 13,
-                   'attachment_delete': 14
+                   'attachment_delete': 14,
+
+                   'cover_upload': 16,
+                   'cover_delete': 17,
+                   'cover_update': 18
 }
 
 class BookHistory(models.Model):

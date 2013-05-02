@@ -598,6 +598,27 @@ temporarily comment search box
     <td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
     <td></td>
   </tr>
+  <tr class="rowCoverUpload template">
+    <td>{% trans "Upload cover" %}</td>
+    <td valign="top">{% blocktrans %}Uploaded <span class="entryFilename">entry.args.filename</span>.{% endblocktrans %}</td>
+    <td class="entryUser">entry.user</td>
+    <td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+    <td></td>
+  </tr>
+  <tr class="rowCoverDelete template">
+    <td>{% trans "Delete cover" %}</td>
+    <td valign="top">{% blocktrans %}Deleted <span class="entryFilename">entry.args.filename</span>.{% endblocktrans %}</td>
+    <td class="entryUser">entry.user</td>
+    <td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+    <td></td>
+  </tr>
+  <tr class="rowCoverUpdate template">
+    <td>{% trans "Modify cover" %}</td>
+    <td valign="top">{% blocktrans %}Modified <span class="entryFilename">entry.args.filename</span>.{% endblocktrans %}</td>
+    <td class="entryUser">entry.user</td>
+    <td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+    <td></td>
+  </tr>
   <tr class="rowClone template">
     <td>{% trans "Imported chapter" %}</td>
     <td valign="top"><a class="setChapterLink entryChapter" style="text-decoration: underline" href="javascript:void(0)">entry.chapter</a></td>
