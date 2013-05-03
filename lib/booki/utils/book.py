@@ -35,7 +35,7 @@ def checkBookAvailability(bookTitle):
     @return: Returns true or false
     """
 
-    url_title = bookiSlugify(bookTitle)
+    url_title = bookiSlugify(bookTitle[:100])
 
     if url_title == '':
         return False
@@ -68,9 +68,9 @@ def createBook(user, bookTitle, status = "new", bookURL = None):
     """
 
     if bookURL:
-        url_title = bookURL
+        url_title = bookURL[:100]
     else:
-        url_title = bookiSlugify(bookTitle)
+        url_title = bookiSlugify(bookTitle[:100])
 
     book = models.Book(url_title = url_title,
                        title = bookTitle,
