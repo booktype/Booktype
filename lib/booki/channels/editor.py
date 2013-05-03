@@ -1006,7 +1006,7 @@ def copy_attachment(attachment, target_book):
     att = models.Attachment(book = target_book,
                             version = target_book.version,
                             status = target_book.status,
-                            created = datime.datetime.now())
+                            created = datetime.datetime.now())
 
     att.attachment.save(os.path.basename(attachment.attachment.name), attachment.attachment, save=False)
     att.save()
