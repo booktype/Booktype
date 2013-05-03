@@ -900,8 +900,6 @@ def remote_create_chapter(request, message, bookid, version):
 
     import datetime
 
-    # BookVersion treba uzeti
-
     book = models.Book.objects.get(id=bookid)
     book_version = book.getVersion(version)
 
@@ -910,6 +908,8 @@ def remote_create_chapter(request, message, bookid, version):
     if len(url_title) == 0:
         return {"created": False, "silly_url": True}
 
+    # for now, just limit it to max 100 characters
+    url_title = url_title[:100]
 
     # here i should probably set it to default project status
     s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
