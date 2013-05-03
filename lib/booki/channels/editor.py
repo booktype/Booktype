@@ -1001,6 +1001,7 @@ def copy_attachment(attachment, target_book):
     @return: Returns new Attachment object
     """
     import os.path
+    import datetime
 
     att = models.Attachment(book = target_book,
                             version = target_book.version,
