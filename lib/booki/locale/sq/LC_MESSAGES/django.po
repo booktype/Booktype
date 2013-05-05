@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-03 15:26+0200\n"
+"POT-Creation-Date: 2013-05-05 19:17+0200\n"
 "PO-Revision-Date: 2013-04-16 23:02+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian Localization <contact@sourcefabric.org>\n"
@@ -27,15 +27,15 @@ msgid "image"
 msgstr "figurë"
 
 #: account/models.py:40 editor/models.py:94 editor/models.py:138
-#: editor/models.py:297
+#: editor/models.py:298
 msgid "description"
 msgstr "përshkrim"
 
-#: account/models.py:41 account/models.py:56 editor/models.py:239
-#: editor/models.py:360 editor/models.py:453 editor/models.py:465
-#: editor/models.py:477 editor/models.py:496
+#: account/models.py:41 account/models.py:56 editor/models.py:240
+#: editor/models.py:361 editor/models.py:454 editor/models.py:466
+#: editor/models.py:478 editor/models.py:497
 #: editor/templates/editor/edit_book.html:568
-#: editor/templates/editor/edit_book.html:695
+#: editor/templates/editor/edit_book.html:702
 msgid "user"
 msgstr "përdorues"
 
@@ -44,8 +44,8 @@ msgid "secretcode"
 msgstr "kod i fshehtë"
 
 #: account/models.py:58 editor/models.py:101 editor/models.py:132
-#: editor/models.py:299 editor/models.py:333 editor/models.py:397
-#: editor/models.py:522 editor/templates/editor/edit_book.html:707
+#: editor/models.py:300 editor/models.py:334 editor/models.py:398
+#: editor/models.py:523 editor/templates/editor/edit_book.html:714
 msgid "created"
 msgstr "krijuar"
 
@@ -746,7 +746,7 @@ msgid "Back"
 msgstr "Mbrapsht"
 
 #: account/templates/account/view_profile.html:256
-#: editor/templates/editor/edit_book.html:646 portal/templates/base.html:194
+#: editor/templates/editor/edit_book.html:653 portal/templates/base.html:194
 msgid "Create"
 msgstr "Krijoje"
 
@@ -807,8 +807,8 @@ msgid "Can't find user \"%(username)s\"."
 msgstr "S'gjen dot përdoruesin \"%(username)s\"."
 
 #: editor/models.py:29 editor/models.py:42 editor/models.py:65
-#: editor/models.py:92 editor/models.py:260 editor/models.py:296
-#: editor/models.py:424 editor/templates/editor/edit_book.html:704
+#: editor/models.py:92 editor/models.py:261 editor/models.py:297
+#: editor/models.py:425 editor/templates/editor/edit_book.html:711
 #: editor/templates/editor/edit_strings.html:56
 msgid "name"
 msgstr "emër"
@@ -841,14 +841,14 @@ msgstr "i pabotuar"
 msgid "not translated"
 msgstr "i papërkthyer"
 
-#: editor/models.py:64 editor/models.py:79 editor/models.py:232
-#: editor/models.py:258 editor/models.py:293 editor/models.py:328
-#: editor/models.py:392 editor/models.py:423 editor/models.py:454
-#: editor/models.py:464 editor/models.py:476 editor/models.py:495
+#: editor/models.py:64 editor/models.py:79 editor/models.py:233
+#: editor/models.py:259 editor/models.py:294 editor/models.py:329
+#: editor/models.py:393 editor/models.py:424 editor/models.py:455
+#: editor/models.py:465 editor/models.py:477 editor/models.py:496
 msgid "book"
 msgstr "libër"
 
-#: editor/models.py:66 editor/models.py:426
+#: editor/models.py:66 editor/models.py:427
 msgid "weight"
 msgstr "peshë"
 
@@ -856,7 +856,7 @@ msgstr "peshë"
 msgid "Book status"
 msgstr "Gjendje libri"
 
-#: editor/models.py:80 editor/models.py:518
+#: editor/models.py:80 editor/models.py:519
 msgid "notes"
 msgstr "shënime"
 
@@ -888,15 +888,15 @@ msgstr "Grup Booki"
 msgid "Booki groups"
 msgstr "Grupe Booki"
 
-#: editor/models.py:116 editor/models.py:330
+#: editor/models.py:116 editor/models.py:331
 msgid "url title"
 msgstr "titull url-je"
 
-#: editor/models.py:117 editor/models.py:331
+#: editor/models.py:117 editor/models.py:332
 msgid "title"
 msgstr "titull"
 
-#: editor/models.py:118 editor/models.py:332 editor/models.py:396
+#: editor/models.py:118 editor/models.py:333 editor/models.py:397
 msgid "status"
 msgstr "gjendje"
 
@@ -904,16 +904,16 @@ msgstr "gjendje"
 msgid "language"
 msgstr "gjuhë"
 
-#: editor/models.py:122 editor/models.py:234 editor/models.py:326
-#: editor/models.py:390 editor/models.py:421
+#: editor/models.py:122 editor/models.py:235 editor/models.py:327
+#: editor/models.py:391 editor/models.py:422
 msgid "version"
 msgstr "version"
 
-#: editor/models.py:124 editor/models.py:455
+#: editor/models.py:124 editor/models.py:456
 msgid "group"
 msgstr "grup"
 
-#: editor/models.py:130 editor/models.py:516
+#: editor/models.py:130 editor/models.py:517
 msgid "license"
 msgstr "leje"
 
@@ -921,7 +921,7 @@ msgstr "leje"
 msgid "hidden"
 msgstr "i fshehur"
 
-#: editor/models.py:136 editor/models.py:456
+#: editor/models.py:136 editor/models.py:457
 msgid "permission"
 msgstr "leje"
 
@@ -936,171 +936,171 @@ msgstr "kapak"
 msgid "Book"
 msgstr "Libër"
 
-#: editor/models.py:235 editor/models.py:357 editor/models.py:425
+#: editor/models.py:236 editor/models.py:358 editor/models.py:426
 msgid "chapter"
 msgstr "kre"
 
-#: editor/models.py:236
+#: editor/models.py:237
 msgid "chapter history"
 msgstr "historik kreu"
 
-#: editor/models.py:237 editor/models.py:334 editor/models.py:359
+#: editor/models.py:238 editor/models.py:335 editor/models.py:360
 msgid "modified"
 msgstr "i ndryshuar"
 
-#: editor/models.py:238
+#: editor/models.py:239
 msgid "args"
 msgstr "argumente"
 
-#: editor/models.py:240 editor/models.py:261
+#: editor/models.py:241 editor/models.py:262
 msgid "kind"
 msgstr "lloj"
 
-#: editor/models.py:263
+#: editor/models.py:264
 msgid "value string"
 msgstr "vlerë varg"
 
-#: editor/models.py:264
+#: editor/models.py:265
 msgid "value integer"
 msgstr "vlerë numër i plotë"
 
-#: editor/models.py:265
+#: editor/models.py:266
 msgid "value text"
 msgstr "vlerë tekst"
 
-#: editor/models.py:266
+#: editor/models.py:267
 msgid "value date"
 msgstr "vlerë datë"
 
-#: editor/models.py:286 editor/models.py:287
+#: editor/models.py:287 editor/models.py:288
 msgid "Metadata"
 msgstr "Tejtëdhëna"
 
-#: editor/models.py:294
+#: editor/models.py:295
 msgid "major"
 msgstr "i madh"
 
-#: editor/models.py:295
+#: editor/models.py:296
 msgid "minor"
 msgstr "i vogël"
 
-#: editor/models.py:336 editor/models.py:361
-#: editor/templates/editor/edit_book.html:694
+#: editor/models.py:337 editor/models.py:362
+#: editor/templates/editor/edit_book.html:701
 msgid "revision"
 msgstr "rishikim"
 
-#: editor/models.py:341 messaging/models.py:34
+#: editor/models.py:342 messaging/models.py:34
 msgid "content"
 msgstr "lëndë"
 
-#: editor/models.py:351
+#: editor/models.py:352
 msgid "Chapter"
 msgstr "Krye"
 
-#: editor/models.py:352 editor/templates/editor/edit_book.html:97
+#: editor/models.py:353 editor/templates/editor/edit_book.html:97
 msgid "Chapters"
 msgstr "Kapituj"
 
-#: editor/models.py:362 editor/templates/editor/edit_book.html:697
+#: editor/models.py:363 editor/templates/editor/edit_book.html:704
 msgid "comment"
 msgstr "koment"
 
-#: editor/models.py:368
+#: editor/models.py:369
 msgid "Chapter history"
 msgstr "Historik kreu"
 
-#: editor/models.py:394 editor/models.py:500
+#: editor/models.py:395 editor/models.py:501
 #: editor/templates/editor/edit_strings.html:57
 msgid "filename"
 msgstr "emër kartele"
 
-#: editor/models.py:407 editor/templates/editor/edit_book.html:655
+#: editor/models.py:408 editor/templates/editor/edit_book.html:662
 msgid "Attachment"
 msgstr "Bashkangjitje"
 
-#: editor/models.py:408
+#: editor/models.py:409
 msgid "Attachments"
 msgstr "Bashkangjitje"
 
-#: editor/models.py:414
+#: editor/models.py:415
 msgid "section name"
 msgstr "emër ndarjeje"
 
-#: editor/models.py:415
+#: editor/models.py:416
 msgid "chapter name"
 msgstr "emër kreu"
 
-#: editor/models.py:416
+#: editor/models.py:417
 msgid "line"
 msgstr "rresht"
 
-#: editor/models.py:427
+#: editor/models.py:428
 msgid "typeof"
 msgstr "lloj"
 
-#: editor/models.py:441
+#: editor/models.py:442
 msgid "Book TOC"
 msgstr "TEL e Librit"
 
-#: editor/models.py:442
+#: editor/models.py:443
 msgid "Book TOCs"
 msgstr "TEL-e Librash"
 
-#: editor/models.py:471 editor/models.py:472
+#: editor/models.py:472 editor/models.py:473
 msgid "Attribution Exclude"
 msgstr "Persona Jopjesë"
 
-#: editor/models.py:478
+#: editor/models.py:479
 msgid "wizzard type"
 msgstr "lloj mekanizmi"
 
-#: editor/models.py:479
+#: editor/models.py:480
 msgid "wizzard options"
 msgstr "mundësi mekanizmi"
 
-#: editor/models.py:485 editor/models.py:486
+#: editor/models.py:486 editor/models.py:487
 msgid "Publish Wizzard"
 msgstr "Mekanizëm Botimi"
 
-#: editor/models.py:502 editor/templates/editor/cover_manager.html:181
+#: editor/models.py:503 editor/templates/editor/cover_manager.html:181
 msgid "Cover title"
 msgstr "Titull kapaku"
 
-#: editor/models.py:504 editor/templates/editor/cover_manager.html:150
+#: editor/models.py:505 editor/templates/editor/cover_manager.html:150
 #: editor/templates/editor/cover_manager.html:275
 msgid "Width"
 msgstr "Gjerësi"
 
-#: editor/models.py:505 editor/templates/editor/cover_manager.html:148
+#: editor/models.py:506 editor/templates/editor/cover_manager.html:148
 #: editor/templates/editor/cover_manager.html:273
 msgid "Height"
 msgstr "Lartësi"
 
-#: editor/models.py:506
+#: editor/models.py:507
 msgid "Unit"
 msgstr "Njësi"
 
-#: editor/models.py:507
+#: editor/models.py:508
 msgid "Booksize"
 msgstr "Shënim libri"
 
-#: editor/models.py:509
+#: editor/models.py:510
 msgid "Book cover"
 msgstr "Shënim libri"
 
-#: editor/models.py:510
+#: editor/models.py:511
 msgid "E-book cover"
 msgstr "Kapak e-libri"
 
-#: editor/models.py:511
+#: editor/models.py:512
 msgid "PDF cover"
 msgstr "Kapak PDF-je"
 
-#: editor/models.py:513
+#: editor/models.py:514
 msgid "Cover type"
 msgstr "Lloj kapaku:"
 
-#: editor/models.py:515 editor/templates/editor/wizzard_book.html:157
+#: editor/models.py:516 editor/templates/editor/wizzard_book.html:157
 #: editor/templates/editor/wizzard_bookjs.html:158
 #: editor/templates/editor/wizzard_ebook.html:116
 #: editor/templates/editor/wizzard_odt.html:98
@@ -1108,7 +1108,7 @@ msgstr "Lloj kapaku:"
 msgid "Cover"
 msgstr "Kapak"
 
-#: editor/models.py:520 editor/templates/editor/cover_manager.html:10
+#: editor/models.py:521 editor/templates/editor/cover_manager.html:10
 #: editor/templates/editor/cover_manager.html:303
 msgid "Approved"
 msgstr "I miratuar"
@@ -1266,7 +1266,7 @@ msgid "All"
 msgstr "Krejt"
 
 #: editor/templates/editor/cover_manager.html:11
-#: editor/templates/editor/edit_strings.html:90
+#: editor/templates/editor/edit_strings.html:91
 msgid "Pending"
 msgstr "Në pritje"
 
@@ -1599,7 +1599,7 @@ msgstr "Elibër"
 #: editor/templates/editor/cover_manager.html:111
 #: editor/templates/editor/cover_manager.html:248
 #: editor/templates/editor/cover_manager.html:297
-#: editor/templates/editor/edit_strings.html:89
+#: editor/templates/editor/edit_strings.html:90
 #: editor/templates/editor/wizzard_book.html:187
 #: editor/templates/editor/wizzard_bookjs.html:188
 msgid "PDF"
@@ -1626,7 +1626,7 @@ msgstr "Kapak i Pasmë"
 
 #: editor/templates/editor/cover_manager.html:123
 #: editor/templates/editor/cover_manager.html:239
-#: editor/templates/editor/edit_strings.html:84
+#: editor/templates/editor/edit_strings.html:85
 #: editor/templates/editor/wizzard_book.html:169
 #: editor/templates/editor/wizzard_bookjs.html:170
 msgid "Spine"
@@ -1674,7 +1674,7 @@ msgstr ""
 
 #: editor/templates/editor/cover_manager.html:162
 #: editor/templates/editor/edit_book.html:295
-#: editor/templates/editor/edit_book.html:647
+#: editor/templates/editor/edit_book.html:654
 msgid "Save"
 msgstr "Ruaje"
 
@@ -1691,7 +1691,7 @@ msgid "This image is currently assigned as the following cover type:"
 msgstr "Kjo figurë është caktuar si lloji vijues i kapakut:"
 
 #: editor/templates/editor/cover_manager.html:292
-#: editor/templates/editor/edit_strings.html:82
+#: editor/templates/editor/edit_strings.html:83
 msgid "Back cover"
 msgstr "Kapak i pasmë"
 
@@ -2076,7 +2076,7 @@ msgid "Remove"
 msgstr "Hiqe"
 
 #: editor/templates/editor/edit_book.html:519
-#: editor/templates/editor/edit_book.html:735
+#: editor/templates/editor/edit_book.html:742
 msgid "Chapter status"
 msgstr "Gjendje kreu"
 
@@ -2140,7 +2140,7 @@ msgid "action"
 msgstr "veprim"
 
 #: editor/templates/editor/edit_book.html:569
-#: editor/templates/editor/edit_book.html:696
+#: editor/templates/editor/edit_book.html:703
 msgid "time"
 msgstr "kohë"
 
@@ -2186,42 +2186,54 @@ msgstr "Krye i importuar"
 msgid "Delete"
 msgstr "Fshije"
 
-#: editor/templates/editor/edit_book.html:645
-#: editor/templates/editor/edit_strings.html:86
+#: editor/templates/editor/edit_book.html:637
+#: editor/templates/editor/edit_book.html:772
+#: editor/templates/editor/edit_strings.html:93
+#, fuzzy
+msgid "Delete chapter"
+msgstr "Krijoje kreun"
+
+#: editor/templates/editor/edit_book.html:638
+#, fuzzy
+msgid "Deleted <span class=\"entryFilename\"></span>."
+msgstr "U fshi <span class=\"entryFilename\">entry.args.filename</span>."
+
+#: editor/templates/editor/edit_book.html:652
+#: editor/templates/editor/edit_strings.html:87
 msgid "Unknown"
 msgstr "E panjohur"
 
-#: editor/templates/editor/edit_book.html:648
+#: editor/templates/editor/edit_book.html:655
 msgid "Rename"
 msgstr "Riemërtoni"
 
-#: editor/templates/editor/edit_book.html:649
+#: editor/templates/editor/edit_book.html:656
 msgid "Reorder"
 msgstr "Rirenditi"
 
-#: editor/templates/editor/edit_book.html:650
+#: editor/templates/editor/edit_book.html:657
 msgid "Split"
 msgstr "Ndaji"
 
-#: editor/templates/editor/edit_book.html:651
+#: editor/templates/editor/edit_book.html:658
 #: reader/templates/reader/book_info.html:162
 msgid "Section create"
 msgstr "Krijim ndarjeje"
 
-#: editor/templates/editor/edit_book.html:652
+#: editor/templates/editor/edit_book.html:659
 #: reader/templates/reader/book_info.html:169
 msgid "Book create"
 msgstr "Krijim libri"
 
-#: editor/templates/editor/edit_book.html:653
+#: editor/templates/editor/edit_book.html:660
 msgid "Minor"
 msgstr "I vogël"
 
-#: editor/templates/editor/edit_book.html:654
+#: editor/templates/editor/edit_book.html:661
 msgid "Major"
 msgstr "I madh"
 
-#: editor/templates/editor/edit_book.html:680
+#: editor/templates/editor/edit_book.html:687
 #: reader/templates/reader/book_chapter.html:51
 #: reader/templates/reader/book_chapter.html:57
 #: reader/templates/reader/book_view.html:40
@@ -2231,86 +2243,86 @@ msgstr "I madh"
 msgid "EDIT"
 msgstr "PËRPUNONI"
 
-#: editor/templates/editor/edit_book.html:680
+#: editor/templates/editor/edit_book.html:687
 msgid "VIEW"
 msgstr "SHIHENI"
 
-#: editor/templates/editor/edit_book.html:689
+#: editor/templates/editor/edit_book.html:696
 msgid "back to history index"
 msgstr "mbrapsh te treguesi i historikut"
 
-#: editor/templates/editor/edit_book.html:689
+#: editor/templates/editor/edit_book.html:696
 msgid "Compare revisions"
 msgstr "Krahasoni rishikimet"
 
-#: editor/templates/editor/edit_book.html:693
+#: editor/templates/editor/edit_book.html:700
 msgid "compare"
 msgstr "krahasoji"
 
-#: editor/templates/editor/edit_book.html:705
+#: editor/templates/editor/edit_book.html:712
 #: editor/templates/editor/edit_strings.html:58
 msgid "dimension"
 msgstr "përmasë"
 
-#: editor/templates/editor/edit_book.html:706
+#: editor/templates/editor/edit_book.html:713
 #: editor/templates/editor/edit_strings.html:59
 msgid "size"
 msgstr "madhësi"
 
-#: editor/templates/editor/edit_book.html:710
-#: editor/templates/editor/edit_book.html:730
+#: editor/templates/editor/edit_book.html:717
+#: editor/templates/editor/edit_book.html:737
 msgid "back to chapter history"
 msgstr "mbrapsht te historiku i kreut"
 
-#: editor/templates/editor/edit_book.html:712
+#: editor/templates/editor/edit_book.html:719
 msgid "Normal view"
 msgstr "Parje normale"
 
-#: editor/templates/editor/edit_book.html:714
+#: editor/templates/editor/edit_book.html:721
 msgid "Source view"
 msgstr "Parje e burimit"
 
-#: editor/templates/editor/edit_book.html:715
+#: editor/templates/editor/edit_book.html:722
 msgid "Revert to this revision"
 msgstr "Riktheje te ky rishikin"
 
-#: editor/templates/editor/edit_book.html:716
+#: editor/templates/editor/edit_book.html:723
 msgid "No such revision."
 msgstr "S'ka version të tillë."
 
-#: editor/templates/editor/edit_book.html:719
+#: editor/templates/editor/edit_book.html:726
 msgid "User:"
 msgstr "Përdorues:"
 
-#: editor/templates/editor/edit_book.html:720
+#: editor/templates/editor/edit_book.html:727
 msgid "Modified:"
 msgstr "Ndryshuar:"
 
-#: editor/templates/editor/edit_book.html:721
+#: editor/templates/editor/edit_book.html:728
 msgid "Version:"
 msgstr "Version:"
 
-#: editor/templates/editor/edit_book.html:722
+#: editor/templates/editor/edit_book.html:729
 msgid "Revision:"
 msgstr "Rishikim:"
 
-#: editor/templates/editor/edit_book.html:723
+#: editor/templates/editor/edit_book.html:730
 msgid "Comment"
 msgstr "Koment"
 
-#: editor/templates/editor/edit_book.html:725
+#: editor/templates/editor/edit_book.html:732
 msgid "previous"
 msgstr "e mëparshmja"
 
-#: editor/templates/editor/edit_book.html:725
+#: editor/templates/editor/edit_book.html:732
 msgid "next"
 msgstr "pasuesja"
 
-#: editor/templates/editor/edit_book.html:730
+#: editor/templates/editor/edit_book.html:737
 msgid "Show side by side"
 msgstr "Shfaqi krah njëra-tjetrës"
 
-#: editor/templates/editor/edit_book.html:731
+#: editor/templates/editor/edit_book.html:738
 msgid ""
 "Compare revision <span class=\"revision1Name\">revision1</span> with "
 "revision <span class=\"revision2Name\">revision2</span>"
@@ -2318,21 +2330,31 @@ msgstr ""
 "Krahasoni rishikimin <span class=\"revision1Name\">rishikimi1</span> me "
 "rishikimin <span class=\"revision2Name\">rishikimi2</span>"
 
-#: editor/templates/editor/edit_book.html:736
+#: editor/templates/editor/edit_book.html:743
 msgid "Select new chapter status:"
 msgstr "Përzgjidhni gjendje të re kreu:"
 
-#: editor/templates/editor/edit_book.html:749
+#: editor/templates/editor/edit_book.html:756
 msgid "Chapter statuses"
 msgstr "Gjendje kreu"
 
-#: editor/templates/editor/edit_book.html:754
+#: editor/templates/editor/edit_book.html:761
 msgid "New status:"
 msgstr "Gjendje e re:"
 
-#: editor/templates/editor/edit_book.html:759
+#: editor/templates/editor/edit_book.html:766
 msgid "Chapter statuses:"
 msgstr "Gjendje kreu:"
+
+#: editor/templates/editor/edit_book.html:773
+msgid ""
+"Are you sure you would like to delete this chapter? You will lose all data "
+"associated to this chapter and you will not be able to undo this operation!"
+msgstr ""
+
+#: editor/templates/editor/edit_book.html:775
+msgid "I understand and agree"
+msgstr ""
 
 #: editor/templates/editor/edit_publish.html:10
 #: editor/templates/editor/edit_publish.html:17
@@ -2613,58 +2635,63 @@ msgid "User {0} has renamed chapter \"{1}\" to \"{2}\"."
 msgstr "Përdoruesi {0} ka riemërtuar kreun \"{1}\" si \"{2}\"."
 
 #: editor/templates/editor/edit_strings.html:74
+#, fuzzy
+msgid "User {0} has deleted chapter \"{1}\"\"."
+msgstr "Përdoruesi {0} ka ruajtur kreun \"{1}\"."
+
+#: editor/templates/editor/edit_strings.html:75
 msgid "User {0} has created new chapter \"{1}\"."
 msgstr "Përdoruesi {0} ka krijuar kreun e ri \"{1}\"."
 
-#: editor/templates/editor/edit_strings.html:75
+#: editor/templates/editor/edit_strings.html:76
 msgid "User {0} has cloned chapter \"{1}\" from book \"{2}\"."
 msgstr "Përdoruesi {0} ka klonuar kreun \"{1}\" prej librit \"{2}\"."
 
-#: editor/templates/editor/edit_strings.html:76
+#: editor/templates/editor/edit_strings.html:77
 msgid "\"{0}\" is being published."
 msgstr "\"{0}\" po botohet."
 
-#: editor/templates/editor/edit_strings.html:77
+#: editor/templates/editor/edit_strings.html:78
 msgid "User {0} has created new section \"{1}\"."
 msgstr "Përdoruesi {0} ka krijuar ndarjen e re \"{1}\"."
 
-#: editor/templates/editor/edit_strings.html:78
+#: editor/templates/editor/edit_strings.html:79
 msgid "User {0} has reverted chapter \"{1}\" to revision {2}."
 msgstr "Përdoruesi {0} ka rikthyer kreun \"{1}\" te rishikimi {2}."
 
-#: editor/templates/editor/edit_strings.html:79
+#: editor/templates/editor/edit_strings.html:80
 msgid "User {0} has saved notes for book \"{1}\"."
 msgstr "Përdoruesi {0} ka ruajtur shënime për librin \"{1}\"."
 
-#: editor/templates/editor/edit_strings.html:80
+#: editor/templates/editor/edit_strings.html:81
 msgid "Close"
 msgstr "Mbylle"
 
-#: editor/templates/editor/edit_strings.html:81
+#: editor/templates/editor/edit_strings.html:82
 msgid "Do you really want to delete this cover?"
 msgstr "Doni vërtet të fshihet ky kapak?"
 
-#: editor/templates/editor/edit_strings.html:83
+#: editor/templates/editor/edit_strings.html:84
 msgid "Front cover"
 msgstr "Kapak ballor"
 
-#: editor/templates/editor/edit_strings.html:85
+#: editor/templates/editor/edit_strings.html:86
 msgid "Full cover"
 msgstr "Kapak i plotë"
 
-#: editor/templates/editor/edit_strings.html:87
+#: editor/templates/editor/edit_strings.html:88
 #: editor/templates/editor/wizzard_book.html:186
 #: editor/templates/editor/wizzard_bookjs.html:187
 msgid "BOOK"
 msgstr "LIBËR"
 
-#: editor/templates/editor/edit_strings.html:88
+#: editor/templates/editor/edit_strings.html:89
 #: editor/templates/editor/wizzard_book.html:188
 #: editor/templates/editor/wizzard_bookjs.html:189
 msgid "E-BOOK"
 msgstr "E-LIBËR"
 
-#: editor/templates/editor/edit_strings.html:91
+#: editor/templates/editor/edit_strings.html:92
 msgid "APPROVED"
 msgstr "I MIRATUAR"
 

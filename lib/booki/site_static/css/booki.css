@@ -800,6 +800,18 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 #holdchapterslist {
 	background-color:#fcf8f8 !important;
 }
+
+#holdchapterslist  a.deletechapter {
+	background: #fcf8f8; /* Old browsers */
+	background: -moz-linear-gradient(top,  #fcf8f8 0%, #f9f2f2 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcf8f8), color-stop(100%,#f9f2f2)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #fcf8f8 0%,#f9f2f2 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #fcf8f8 0%,#f9f2f2 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #fcf8f8 0%,#f9f2f2 100%); /* IE10+ */
+	background: linear-gradient(top,  #fcf8f8 0%,#f9f2f2 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcf8f8', endColorstr='#f9f2f2',GradientType=0 ); /* IE6-9 */
+
+}
 .publish-table {
 	width:400px;
 	}
@@ -855,6 +867,12 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 	margin:0 4px 0 0;
 	float:left;
 	}
+
+.chapterLinks a.deletechapter {
+   border: 0px;
+/*   background: #fcf8f8 ; */
+}
+
 #chapteraction a, .action-menu a, .chapteredit a {
 	margin:0 0 0 4px !important;
 }
@@ -888,6 +906,19 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 	border:1px solid #3d1e69;
 	color:#FFF !important;
 }
+
+.chapterLinks a.deletechapter:hover {  
+   border: 0px;
+   box-shadow: 0px 0px 0px white;
+   background: ;
+}
+
+#chapterslist .deletechapter {
+    display: none;
+}
+
+
+
 #chapteraction a, .action-menu a, .chapteredit a {
 	display:inline-block;
 	padding:4px 10px;

@@ -633,6 +633,13 @@ temporarily comment search box
     <td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
     <td></td>
   </tr>
+  <tr class="rowChapterDelete template">
+    <td>{% trans "Delete chapter" %}</td>
+    <td valign="top">{% blocktrans %}Deleted <span class="entryFilename"></span>.{% endblocktrans %}</td>
+    <td class="entryUser">entry.user</td>
+    <td class="entryModified" valign="top" style="white-space: nowrap">entry.modified</td>
+    <td></td>
+  </tr>
   <tr class="rowGeneric template">
     <td class="entryKind">entry.kind</td>
     <td></td>
@@ -676,8 +683,8 @@ temporarily comment search box
   <div class="cont">
     <table border="0" cellspacing="0" cellpadding="0" width="100%">
       <tr>
-        <td width="70%"><div class="title">name</div></td>
-        <td width="15%" class="edit"><div class="chapterLinks"><a class="editLink" href="javascript:void(0)">{% trans "EDIT" %}</a> <a class="viewLink" href="javascript:void(0)">{% trans "VIEW" %}</a></div>
+        <td><div class="title">name</div></td>
+        <td width="20%" class="edit"><div class="chapterLinks"><a class="editLink" href="javascript:void(0)">{% trans "EDIT" %}</a> <a class="viewLink" href="javascript:void(0)">{% trans "VIEW" %}</a> <a class="deletechapter" href="javascript:void(0)"><span class="ui-icon ui-icon-trash"></span></a></div>
           <div class="lock"><a name="unlockLink" class="lockUser" style="color: white" href="javascript:void(0)">v</a></div></td>
         <td width="15%"><div class="status"><a class="statusLink statusName" href="javascript:void(0)">status</a></div>
           <div class="extra"></div></td>
@@ -759,6 +766,13 @@ temporarily comment search box
     <p><b>{% trans "Chapter statuses:" %}</b></p>
     <ul style="padding-left: 0px" id="sortablestatus">
     </ul>
+  </form>
+</div>
+
+<div class="chapterDeleteDialog template" title="{% trans "Delete chapter" %}">
+  <p>{% trans "Are you sure you would like to delete this chapter? You will lose all data associated to this chapter and you will not be able to undo this operation!" %}</p>
+  <form>
+    <input type="checkbox" name="agree"> {% trans "I understand and agree" %}
   </form>
 </div>
 {% endblock %} 

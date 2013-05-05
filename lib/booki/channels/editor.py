@@ -262,11 +262,14 @@ def remote_init_editor(request, message, bookid, version):
     except:
         pass
 
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+    
     return {"licenses": licenses,
             "chapters": chapters,
             "metadata": metadata,
             "hold": holdChapters,
             "users": users,
+            "is_admin":  bookSecurity.isAdmin(),
             "locks": locks,
             "statuses": statuses,
             "attachments": attachments,
@@ -513,9 +516,9 @@ def remote_chapter_save(request, message, bookid, version):
     return {}
 
 
-def remote_chapter_rename(request, message, bookid, version):
+def remote_chapter_delete(request, message, bookid, version):
     """
-    Renames chapter name.
+    Delete chapter.
 
     Creates Book history record. Sends notification to chat. Sends "chapter_status" message to the channel. Sends "chapter_rename" message to the channel.
 
@@ -537,6 +540,69 @@ def remote_chapter_rename(request, message, bookid, version):
 
     book = models.Book.objects.get(id=bookid)
     book_version = book.getVersion(version)
+
+    # check security
+
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    if not bookSecurity.isAdmin():
+        transaction.commit()
+
+        return {"result": False, "permission": False}
+
+    try:
+        chap = models.Chapter.objects.get(id=int(message["chapterID"]))
+        chap.delete()
+
+        sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
+                                    {"command": "message_info",
+                                     "from": request.user.username,
+                                     "message_id": "user_delete_chapter",
+                                     "message_args": [request.user.username, chap.title]},
+                                    myself=True)
+        logBookHistory(book = book,
+                       version = book_version,
+                       args = {'chapter': chap.title},
+                       user = request.user,
+                       kind = 'chapter_delete')
+
+        sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),
+                                    {"command": "chapter_delete",
+                                     "chapterID": message["chapterID"]},
+                                    myself = True)
+    except:
+        transaction.rollback()
+    else:
+
+        transaction.commit()
+
+    return {"result": True}
+
+def remote_chapter_rename(request, message, bookid, version):
+    """
+    Rename chapter name.
+
+    Creates Book history record. Sends notification to chat. Sends "chapter_status" message to the channel. Sends "chapter_rename" message to the channel.
+
+    @todo: check security
+
+    Input:
+     - chapterID
+     - chapter - new chapter name
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    """
+
+    book = models.Book.objects.get(id=bookid)
+    book_version = book.getVersion(version)
+    # check security
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
 
     oldTitle = chapter.title
@@ -1424,7 +1490,8 @@ def remote_get_history(request, message, bookid, version):
             15: 'clone',
             16: 'cover_upload',
             17: 'cover_delete',
-            18: 'cover_update'}
+            18: 'cover_update',
+            19: 'chapter_delete'}
 
 
     history = []
@@ -1458,6 +1525,11 @@ def remote_get_history(request, message, bookid, version):
             history.append({"chapter": entry.chapter.title,
                             "chapter_url": entry.chapter.url_title,
                             "description": entry.args,
+                            "modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
+                            "user": entry.user.username,
+                            "kind": temp.get(entry.kind,'')})            
+        elif entry.kind in [19]:
+            history.append({"args": parseJSON(entry.args),
                             "modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
                             "user": entry.user.username,
                             "kind": temp.get(entry.kind,'')})            
