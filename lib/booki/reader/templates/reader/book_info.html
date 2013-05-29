@@ -131,69 +131,76 @@
        <td valign="top"> 
          {% trans "Chapter create" %}
        </td>
+       {% else %}
+         {% if ln.kind == 2 %}
+           <td valign="top"> 
+             {% trans "Chapter save" %}
+           </td>
+         {% else %}
+           {% if ln.kind == 3 %}
+             <td valign="top"> 
+               {% trans "Chapter rename" %}
+             </td>
+           {% else %}
+             {% if ln.kind == 4 %}
+               <td valign="top" colspan="2"> 
+                 {% trans "Chapter reorder" %}
+               </td>
+             {% else %}
+               {% if ln.kind == 5 %}
+                  <td valign="top" colspan="2"> 
+                    {% trans "Split chapter" %}
+                  </td>
+               {% else %}
+                 {% if ln.kind == 6 %}
+                   <td valign="top" colspan="2"> 
+                     {% trans "Section create" %}
+                   </td>
+                 {% else %}
+                   {% if ln.kind == 10 %}
+                     <td valign="top" colspan="2"> 
+                       {% trans "Book create" %}
+                     </td>
+                   {% else %}
+                     {% if ln.kind == 11 %}
+                       <td valign="top" colspan="2"> 
+                         {% trans "Minor version" %}
+                       </td>
+                     {% else %}
+                       {% if ln.kind == 12 %}
+                         <td valign="top" colspan="2"> 
+                           {% trans "Major version" %}
+                         </td>
+                       {% else %}
+                         {% if ln.kind == 13 %}
+                           <td valign="top" colspan="2"> 
+                             {% trans "Uploaded" %} "<a class="attachment" href="{% url draft_attachment book.url_title book_version ln.args|jsonlookup:"filename" %}">{{ ln.args|jsonlookup:"filename" }}</a>"
+                           </td>
+                         {% else %}
+                           {% if ln.kind == 19 %}
+                             <td valign="top" colspan="2"> 
+                               {% trans "Delete chapter" %}
+                              </td>        
+                           {% else %}
+                             <td colspan="2"> {{ ln.kind }}</td>
+                           {% endif %}
+                         {% endif %}
+                       {% endif %}
+                     {% endif %}
+                   {% endif %}
+                 {% endif %}
+               {% endif %}
+             {% endif %}
+           {% endif %}
+         {% endif %}
        {% endif %}
-
-       {% if ln.kind == 2 %}
-       <td valign="top"> 
-         {% trans "Chapter save" %}
-       </td>
-       {% endif %}
-
-       {% if ln.kind == 3 %}
-       <td valign="top"> 
-         {% trans "Chapter rename" %}
-       </td>
-       {% endif %}
-
-       {% if ln.kind == 4 %}
-       <td valign="top" colspan="2"> 
-         {% trans "Chapter reorder" %}
-       </td>
-       {% endif %}
-
-       {% if ln.kind == 5 %}
-        <td valign="top" colspan="2"> 
-         {% trans "Split chapter" %}
-        </td>
-       {% endif %}
-
-       {% if ln.kind == 6 %}
-        <td valign="top" colspan="2"> 
-         {% trans "Section create" %}
-        </td>
-       {% endif %}
-
-
-       {% if ln.kind == 10 %}
-       <td valign="top" colspan="2"> 
-         {% trans "Book create" %}
-       </td>
-       {% endif %}
-
-       {% if ln.kind == 11 %}
-       <td valign="top" colspan="2"> 
-         {% trans "Minor version" %}
-       </td>
-       {% endif %}
-
-       {% if ln.kind == 12 %}
-       <td valign="top" colspan="2"> 
-         {% trans "Major version" %}
-       </td>
-       {% endif %}
-
-
-       {% if ln.kind == 13 %}
-       <td valign="top" colspan="2"> 
-         {% trans "Uploaded" %} "<a class="attachment" href="{% url draft_attachment book.url_title book_version ln.args|jsonlookup:"filename" %}">{{ ln.args|jsonlookup:"filename" }}</a>"
-       </td>
-       {% endif %}
-
 
        {% if ln.chapter %}
-       <td valign="top"> 
-         <a href="{% url draft_chapter book.url_title  book_version  ln.chapter.url_title %}">{{ln.chapter.title}}</a>
-       </td>
+         <td valign="top"> 
+           <a href="{% url draft_chapter book.url_title  book_version  ln.chapter.url_title %}">{{ln.chapter.title}}</a>
+         </td>
+       {% else %}
+         <td></td>
        {% endif %}
 
      <td valign="top"> <a href="{% url view_profile book.owner.username %}" class="user">{{ ln.user.username }}</a> </td>
