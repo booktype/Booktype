@@ -182,7 +182,25 @@
                                {% trans "Delete chapter" %}
                               </td>        
                            {% else %}
-                             <td colspan="2"> {{ ln.kind }}</td>
+                             {% if ln.kind == 16 %}
+                               <td valign="top" colspan="2"> 
+                                 {% trans "Upload cover" %}
+                                </td>        
+                             {% else %}
+                               {% if ln.kind == 17 %}
+                                 <td valign="top" colspan="2"> 
+                                   {% trans "Delete cover" %}
+                                  </td>        
+                               {% else %}
+                                 {% if ln.kind == 14 %}
+                                   <td valign="top" colspan="2"> 
+                                     {% trans "Attachment delete" %}
+                                    </td>        
+                                 {% else %}
+                                  <td colspan="2"></td>
+                                 {% endif %}
+                               {% endif %}
+                             {% endif %}
                            {% endif %}
                          {% endif %}
                        {% endif %}
