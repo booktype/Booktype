@@ -1,0 +1,38 @@
+{% load i18n %}
+
+<div id="tabversions">
+  <h3>{% trans "Versions" %}</h3>
+  {% if security.isAdmin or is_owner %}
+  <p class="version"> {% blocktrans %}With different versions you can easily organise your book. But be careful! Other users will not be able to edit
+    and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them.{% endblocktrans %} </p>
+  <p class="version"> <a class="major" href="javascript:void(0)">{% trans "Create major version" %}</a> <a class="minor" href="javascript:void(0)">{% trans "Create minor version" %}</a> </p>
+  <div id="newversionmajor" title="{% trans "New version" %}">
+    <form onsubmit="javascript:return false">
+      <!--	    <fieldset> --> 
+      {% trans "You can name this version (optional):" %}
+      <input type="text" style="width: 100%" class="text ui-widget-content ui-corner-all">
+      <br/>
+      <i>{% trans "e.g. initial, dragon, test" %}</i><br/>
+      <br/>
+      {% trans "Description (optional)" %}<br/>
+      <textarea style="width: 100%; height: 150px"></textarea>
+      <!--	      </fieldset> -->
+    </form>
+  </div>
+  <div id="newversionminor" title="{% trans "New version" %}">
+    <form onsubmit="javascript:return false">
+      <!--	    <fieldset> --> 
+      {% trans "You can name this version (optional):" %}
+      <input type="text" style="width: 100%" class="text ui-widget-content ui-corner-all">
+      <br/>
+      <i>{% trans "e.g. initial, dragon, test" %}</i><br/>
+      <br/>
+      {% trans "Description (optional)" %}<br/>
+      <textarea style="width: 100%; height: 150px"></textarea>
+      <!--	      </fieldset> -->
+    </form>
+  </div>
+  {% endif %}
+  <h3>{% trans "All versions" %}</h3>
+  <div class="list list-container"></div>
+</div>

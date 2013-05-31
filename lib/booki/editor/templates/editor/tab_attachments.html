@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<div id="tabattachments">
+  <h3>{% trans "Images and Files" %}</h3>
+  <p>{% blocktrans %}All images added to your book are listed here as well as any additional files you have uploaded.{% endblocktrans %}</p>
+  <div id="attachmentscontainer"> </div>
+  <div style="margin: 0px 0 20px;"> <a name="delete" href="javascript:void(0)">{% trans "Deleted selected items" %}</a> </div>
+  <h3>{% trans "Upload a new image or file" %}</h3>
+  <form method="POST" target="frameupload2" action="../_upload/" enctype="multipart/form-data">
+    <input type="file" name="entry0">
+    <input type="hidden" name="attachmenttab" value="1"/>
+    <input type="submit" value="{% trans "Upload" %}" />
+  </form>
+  <iframe width="0" height="0" name="frameupload2" border="0" style="border: 0px"></iframe>
+  <div class="dialogs"></div>
+</div>
+

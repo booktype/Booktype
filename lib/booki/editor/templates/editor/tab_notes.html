@@ -1,0 +1,12 @@
+{% load i18n %}
+
+<div id="tabnotes">
+  <h3>{% trans "Notes" %}</h3>
+  <!-- START notes TAB -->
+  <p> {% trans "Shared notes for this book" %} </p>
+  <form onsubmit="return false;" action="" method="">
+    <textarea border="0" name="notes" class="notes" rows="20" cols="65" style="width:100%; margin-bottom:12px;"></textarea>
+    <button>{% trans "Save the notes" %}</button>
+  </form>
+  <div class="info"> </div>
+</div>
