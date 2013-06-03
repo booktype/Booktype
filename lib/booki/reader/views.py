@@ -267,7 +267,7 @@ def draft_book(request, bookid, version=None):
             editingEnabled = True
 
         if firstChapter:
-            resp = redirect('draft_chapter', bookid = book.url_title, version=version, chapter=firstChapter.url_title) 
+            resp = redirect('draft_chapter', bookid = book.url_title, version=book_version.getVersion(), chapter=firstChapter.url_title) 
         else:
             resp = render_to_response('reader/draft_book.html', {"book": book, 
                                                                  "book_version": book_version.getVersion(),
