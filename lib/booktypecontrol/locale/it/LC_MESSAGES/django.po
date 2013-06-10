@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Booktype 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-04 12:31+0200\n"
-"PO-Revision-Date: 2013-04-11 12:04+0100\n"
+"PO-Revision-Date: 2013-06-10 16:43+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Italian Localization <contact@sourcefabric.org>\n"
 "Language: Italian\n"
@@ -166,19 +166,16 @@ msgid "Title is required."
 msgstr "Titolo è obbligatorio."
 
 #: views.py:505
-#, fuzzy
 msgid "Successfuly deleted the book"
-msgstr "Nuovo libro creato con successo."
+msgstr "Libro cancellato con successo"
 
 #: views.py:509
-#, fuzzy
 msgid "Wrong title."
-msgstr "titolo breve"
+msgstr "Titolo errato."
 
 #: views.py:511
-#, fuzzy
 msgid "Unknown error while deleting the book"
-msgstr "Errore sconosciuto durante la creazione nuovo libro."
+msgstr "Errore sconosciuto durante la cancellazione del lbrio"
 
 #: views.py:532
 #: views.py:611
@@ -461,7 +458,7 @@ msgstr "RINOMINA"
 
 #: templates/booktypecontrol/book.html:40
 msgid "DELETE"
-msgstr ""
+msgstr "CANCELLA"
 
 #: templates/booktypecontrol/book.html:63
 msgid "Owner:"
@@ -525,17 +522,16 @@ msgstr "titolo completo"
 
 #: templates/booktypecontrol/delete_book.html:6
 #: templates/booktypecontrol/delete_book.html:26
-#, fuzzy
 msgid "Delete Book"
-msgstr "Rinomina Libro"
+msgstr "Cancella Libro"
 
 #: templates/booktypecontrol/delete_book.html:20
 msgid "Are you sure you would like to delete this book? You will lose all data associated to this book and you will not be able to undo this operation!"
-msgstr ""
+msgstr "Sei sicuro di voler cancellare questo libro? Perderai tutte le informazioni associate a questo libro e non potrai annulare questa operazione!"
 
 #: templates/booktypecontrol/delete_book.html:21
 msgid "Type full title of the book to delete it"
-msgstr ""
+msgstr "Digita il titolo completo del libro per cancellarlo"
 
 #: templates/booktypecontrol/edit_book.html:13
 #: templates/booktypecontrol/settings_appearance.html:13
@@ -767,6 +763,6 @@ msgstr "Non riesci a trovare licenza \"%(name)s\"."
 
 #~ msgid "lulu"
 #~ msgstr "lulu"
+
 #~ msgid "Lulu CSS"
 #~ msgstr "Lulu CSS"
-
