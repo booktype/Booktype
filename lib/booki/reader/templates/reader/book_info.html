@@ -217,8 +217,6 @@
          <td valign="top"> 
            <a href="{% url draft_chapter book.url_title  book_version  ln.chapter.url_title %}">{{ln.chapter.title}}</a>
          </td>
-       {% else %}
-         <td></td>
        {% endif %}
 
      <td valign="top"> <a href="{% url view_profile book.owner.username %}" class="user">{{ ln.user.username }}</a> </td>
