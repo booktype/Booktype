@@ -315,11 +315,20 @@ def _format_metadata(book):
     else:
         lastmod = mods[0].strftime("%Y.%m.%d-%H.%M")
 
+    author = 'Author'
+    if book.owner:
+        if book.owner.first_name:
+            author = book.owner.first_name
+
+    language = 'en'
+    if book.language:
+        language = getattr(book.language, 'abbrevation', 'en')
+
     # add some default values if values are not otherwise specified
     for namespace, keyword, scheme, value in (
         (DC, "publisher", "", DEFAULT_PUBLISHER),
-        (DC, "language", "", "en"),
-        (DC, "creator", "", "The Contributors"),
+        (DC, "language", "", language),
+        (DC, "creator", "", author),
         (DC, "title", "", book.title),
         (DC, "date", "start", created),
         (DC, "date", "last-modified", lastmod),
