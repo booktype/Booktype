@@ -29,6 +29,12 @@
   {% else %}
     &nbsp;<a class="langes" href="#">Español</a>&nbsp;|
   {% endif %}
+
+  {% if request.LANGUAGE_CODE == "fr" %}
+    &nbsp;Français&nbsp;|
+  {% else %}
+    &nbsp;<a class="langfr" href="#">Français</a>&nbsp;|
+  {% endif %}
 	
   {% if request.LANGUAGE_CODE == "it" %}
     &nbsp;Italiano&nbsp;|
