@@ -16,7 +16,8 @@
 
 from django.conf.urls.defaults import *
 from django.conf import settings
-from django.views.generic.simple import direct_to_template
+#from django.views.generic.simple import direct_to_template
+from django.views.generic.base import TemplateView, RedirectView
 
 
 # By default Django admin interface is turned off. If you want it you will need to uncomment couple of lines here.
@@ -53,7 +54,8 @@ else:
                            url(r'^_control/', include('booktypecontrol.urls')),
 
                            # favicon 
-                           (r'^favicon\.ico', 'django.views.generic.simple.redirect_to', {'url': '/site_static/images/favicon.png'}),
+
+                           (r'^favicon\.ico', RedirectView.as_view(url='/site_static/images/favicon.png')),
 
                            # static files
                            # TODO
@@ -99,7 +101,7 @@ else:
                            url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booki.account.views.view_profilethumbnail', name='view_profilethumbnail'),                             url(r'^_utils/profileinfo/(?P<profileid>[\w\d\_\.\-]+)/$', 'booki.utils.pages.profileinfo', name='view_profileinfo'),                      
                            url(r'^_utils/attachmentinfo/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<version>[\w\d\.\-]+)/(?P<attachment>.*)$', 'booki.utils.pages.attachmentinfo'),                      
 
-                           (r'^robots.txt$', direct_to_template, {'template':'robots.txt', 'mimetype':'text/plain'}),
+                           (r'^robots.txt$', TemplateView.as_view(template_name='robots.txt')), #, mimetype='text/plain')), 
 
                            # export
                            url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.export', name='export_booki'), 
