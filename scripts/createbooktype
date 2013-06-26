@@ -41,10 +41,10 @@ def show_after(destination):
     logln("")
     logln("Check [%s] directory for config files:" % destination)
     logln("   booki.env      -  Environment variables")
-    logln("   booki.wsgi     -  WSGI file for Apache")
-    logln("   wsgi.apache    -  Apache config file")
-    logln("   gunicorn.nginx -  Nginx config file")
-    logln("   fastcgi.nginx  -  Nginx config file")
+    logln("   conf/booki.wsgi     -  WSGI file for Apache")
+    logln("   conf/wsgi.apache    -  Apache config file")
+    logln("   conf/gunicorn.nginx -  Nginx config file")
+    logln("   conf/fastcgi.nginx  -  Nginx config file")
     logln("   settings.py    -  Booki settings file")
     logln("")
     logln("   templates/     -  Local Booki template files")
@@ -172,13 +172,18 @@ def check_unidecode_available():
     else:
         logln("[OK]")
 
-
-
 def make_directory_structure(destination):    
     try:
-        for d in ['data', 'logs', 'static', 'templates', 'lib', 'locale']:
+        project = get_project_name(destination)
+
+        for d in ['data', 'logs', 'static', 'media', 'lib', 'conf', '%s_site' % project]:
             log("+ Creating %s directory.  " % d)
             os.mkdir('%s/%s' % (destination, d))
+            logln("[OK]")
+
+        for d in ['settings', 'urls', 'templates', 'locale', 'static']:
+            log("+ Creating %s directory." % d)
+            os.mkdir('%s/%s_site/%s' % (destination, project, d))
             logln("[OK]")
 
         for d in ['books', 'profile_images', 'cover_images']:
@@ -195,25 +200,32 @@ def create_settings(destination, database):
     import booki
 
     booki_source = os.path.dirname(booki.__file__)
+    project = get_project_name(destination)
 
-    log("+ Creating __init__.py file.  ")
     try:
-        f = open('%s/__init__.py' % destination, 'wb').close()
-    except OSError:
-        raise InstallError()
-    else:
+        log("+ Creating %s_site/__init__.py file.  " % project)
+        open('%s/%s_site/__init__.py' % (destination, project), 'wb').close()
         logln("[OK]")
 
+        log("+ Creating %s_site/settings/__init__.py file.  " % project)
+        open('%s/%s_site/settings/__init__.py' % (destination, project), 'wb').close()
+        logln("[OK]")
+
+        log("+ Creating %s_site/urls/__init__.py file.  " % project)        
+        open('%s/%s_site/urls/__init__.py' % (destination, project), 'wb').close()
+        logln("[OK]")
+    except OSError:
+        raise InstallError()
+
     try:
-        content = open('%s/settings.py.original' % booki_source, 'rt').read()
+        content = open('%s/skeleton/settings.py.original' % booki_source, 'rt').read()
     except IOError:
         raise MajorError("[ERROR] Can't read settings.py.original file.")
 
-#    booki_name = raw_input("\nEnter name for your Booki site: ")
-    booki_name = "Booki site"
+    booki_name = "Booktype site"
 
-    vals = {'BOOKI_NAME': booki_name,
-            'BOOKI_ROOT': os.path.abspath(destination)}
+    vals = {'BOOKTYPE_NAME': booki_name,
+            'BOOKTYPE_ROOT': os.path.abspath(destination)}
 
     if database == 'postgresql':
         vals['DATABASE_ENGINE'] = 'django.db.backends.postgresql_psycopg2'
@@ -225,10 +237,10 @@ def create_settings(destination, database):
     for k in vals.keys():
         content = set_var(content, k, vals[k])
 
-    log("+ Creating settings.py file.  ")
+    log("+ Creating %s_site/settings/base.py file.  " % project)
 
     try:
-        f = open('%s/settings.py' % destination, 'wt').write(content)
+        f = open('%s/%s_site/settings/base.py' % (destination, project), 'wt').write(content)
     except IOError:
         raise InstallError()
     else:
@@ -250,12 +262,12 @@ def create_env(destination):
     booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
 
     try:
-        f = open('%s/booki.env' % destination, 'wt')
-        f.write('''export DJANGO_SETTINGS_MODULE=%s.settings
+        f = open('%s/booktype.env' % destination, 'wt')
+        f.write('''export DJANGO_SETTINGS_MODULE=%(project_name)s_site.settings.base
 
 # Add Booki to PATH.
 # If your libraries are in non standard place, you should add path to them here.
-PYTHONPATH=$PYTHONPATH:/%s/:%s/lib/:%s
+PYTHONPATH=$PYTHONPATH:/%(location)s/:%(destination)s/lib/:%(booktype_path)s
 
 # Add Django to PATH 
 # If your libraries/apps are in non standard place, you should add path to them here.
@@ -263,7 +275,10 @@ PYTHONPATH=$PYTHONPATH:/%s/:%s/lib/:%s
 #    PATH=$PATH:/Users/aerkalov/Work/svn/django/django/bin
 
 export PYTHONPATH PATH
-''' % (get_project_name(destination), get_project_directory(destination), destination, booki_path))
+''' % {'project_name': get_project_name(destination), 
+       'location': get_project_directory(destination), 
+       'destination': destination, 
+       'booktype_path': booki_path})
         f.close()
     except OSError:
         raise InstallError()
@@ -277,7 +292,7 @@ def create_wsgi(destination):
     booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
 
     try:
-        f = open('%s/booki.wsgi' % destination, 'wt')
+        f = open('%s/conf/booktype.wsgi' % destination, 'wt')
         f.write('''import os, sys
 
 #Calculate the path based on the location of the WSGI script.
@@ -371,7 +386,7 @@ def create_apache(destination):
 
 
     try:
-        f = open('%s/wsgi.apache' % destination, 'wt')
+        f = open('%s/conf/wsgi.apache' % destination, 'wt')
         f.write(s)
         f.close()
     except OSError:
@@ -444,7 +459,7 @@ server {
         'django_path': django_path}
 
     try:
-        f = open('%s/gunicorn.nginx' % destination, 'wt')
+        f = open('%s/conf/gunicorn.nginx' % destination, 'wt')
         f.write(s)
         f.close()
     except OSError:
@@ -520,13 +535,15 @@ server {
         'django_path': django_path}
 
     try:
-        f = open('%s/fastcgi.nginx' % destination, 'wt')
+        f = open('%s/conf/fastcgi.nginx' % destination, 'wt')
         f.write(s)
         f.close()
     except OSError:
         raise InstallError()
     else:
         logln("[OK]")
+
+
 
 
 if __name__ == '__main__':

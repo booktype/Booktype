@@ -13,6 +13,10 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# Hosts/domain names that are valid for this site; required if DEBUG is False
+# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = []
+
 DEFAULT_NOTIFICATION_FILTER=u"#* !* ~* \u212c*"
 
 # You can customize which publish options this installation can use.
@@ -22,10 +26,10 @@ DEFAULT_NOTIFICATION_FILTER=u"#* !* ~* \u212c*"
 # BOOKI
 BOOKI_MAINTENANCE_MODE = False
 
-BOOKI_NAME = '##BOOKI_NAME##'
+BOOKI_NAME = '##BOOKTYPE_NAME##'
 THIS_BOOKI_SERVER = '' # the name of the booki server (comment out to use os.environ['HTTP_HOST'])
 
-BOOKI_ROOT = '##BOOKI_ROOT##'  # edit this
+BOOKI_ROOT = '##BOOKTYPE_ROOT##'  # edit this
 BOOKI_URL = ''
 #BOOKI_URL = 'http://%s' % THIS_BOOKI_SERVER
 
@@ -48,11 +52,26 @@ SITE_STATIC_URL  = '%s/site_static' % BOOKI_URL
 
 # static
 STATIC_ROOT = '%s/static' % BOOKI_ROOT
-STATIC_URL  = '%s/static' % BOOKI_URL
+STATIC_URL  = '%s/static/' % BOOKI_URL
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
 
 # data
 DATA_ROOT = '%s/data' % BOOKI_ROOT
-DATA_URL  = '%s/data' % BOOKI_URL
+DATA_URL  = '%s/data/' % BOOKI_URL
 
 # profile images
 PROFILE_IMAGE_UPLOAD_DIR = 'profile_images/' 
@@ -117,8 +136,16 @@ LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 
+# If you set this to False, Django will make some optimizations so as not
+# to load the internationalization machinery.
 USE_I18N = True
+
+# If you set this to False, Django will not format dates, numbers and
+# calendars according to the current locale.
 USE_L10N = True
+
+# If you set this to False, Django will not use timezone-aware datetimes.
+USE_TZ = True
 
 LOCALE_PATHS = (
      '%s/locale' % os.path.dirname(booki.__file__),
@@ -152,6 +179,7 @@ TEMPLATE_CONTEXT_PROCESSORS = ('django.contrib.auth.context_processors.auth',
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
@@ -159,6 +187,9 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'booki.urls'
+
+# Python dotted path to the WSGI application used by Django's runserver.
+WSGI_APPLICATION = 'aaa.wsgi.application'
 
 TEMPLATE_DIRS = (
     '%s/templates/' % BOOKI_ROOT,
@@ -173,6 +204,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.messages', 
+    'django.contrib.staticfiles',
 
     'south',
 
