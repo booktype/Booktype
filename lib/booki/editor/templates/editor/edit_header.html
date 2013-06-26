@@ -18,11 +18,11 @@
            $.booki.currentBookURL = "{{book.url_title|escapejs}}";
 
            $.booki.currentVersion = "{{book_version|escapejs}}";
-           $.booki.sputnikDispatcherURL = "{% url sputnik.views.dispatcher %}";
-           $.booki.bookViewUrlTemplate = "{% url book_view 'XXX' %}";
-           $.booki.bookDraftViewUrlTemplate = "{% url draft_book 'XXX' %}";
+           $.booki.sputnikDispatcherURL = "{% url "sputnik.views.dispatcher" %}";
+           $.booki.bookViewUrlTemplate = "{% url "book_view" 'XXX' %}";
+           $.booki.bookDraftViewUrlTemplate = "{% url "draft_book" 'XXX' %}";
 
-           $.booki.profileThumbnailViewUrlTemplate = "{% url view_profilethumbnail 'XXX' %}";
+           $.booki.profileThumbnailViewUrlTemplate = "{% url "view_profilethumbnail" 'XXX' %}";
 
 	    /* call when page is loaded */
 

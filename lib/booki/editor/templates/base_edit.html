@@ -19,7 +19,7 @@
 
    <script type="text/javascript">
      $(function() {
-	 $.booki.sputnikDispatcherURL = "{% url sputnik_dispatcher %}";
+	 $.booki.sputnikDispatcherURL = "{% url "sputnik_dispatcher" %}";
      });
    </script>
 
@@ -44,7 +44,7 @@
 	     return false;
 	 });
 
-          $("FORM.messagefield").messagefield('init', {'view_post': '{% url messaging_post %}' });
+          $("FORM.messagefield").messagefield('init', {'view_post': '{% url "messaging_post" %}' });
 
      });
    </script>
@@ -56,19 +56,19 @@
 
 <div class="topbar"> 
 	<div class="logo">
-		<a href="{% url frontpage %}"></a>
+		<a href="{% url "frontpage" %}"></a>
     </div>
 	<div class="meta-bar">
     {% if request.user.is_authenticated %}
 		<ul>
         	<li>
-               <a href="{% url view_profile request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url signout %}">{% trans "Sign out" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;{% messagefield_button %} 
+               <a href="{% url "view_profile" request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url "signout" %}">{% trans "Sign out" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;{% messagefield_button %} 
             </li>
         </ul>
     {% else %}
     	<ul>
             <li>
-            	<a href="{% url signin %}?redirect={{ request.path }}">{% trans "Sign In / Create Account" %}</a>
+            	<a href="{% url "signin" %}?redirect={{ request.path }}">{% trans "Sign In / Create Account" %}</a>
             </li>
         </ul>
      {% endif %}
@@ -79,16 +79,16 @@
         {% if request.user.is_authenticated %}
         <div class="navbox">
              <ul>
-      		   <li><a href="{% url view_profile request.user.username %}">{% trans "My Dashboard" %}</a></li>
+      		   <li><a href="{% url "view_profile" request.user.username %}">{% trans "My Dashboard" %}</a></li>
              </ul>
         </div>
 		{% endif %}
     
         <div class="navbox">
             <ul>
-                <li><a href="{% url list_books %}">{% trans "Books" %}</a></li>
-                <li><a href="{% url list_groups %}">{% trans "Groups" %}</a></li>
-                <li><a href="{% url list_people %}">{% trans "People" %}</a></li>
+                <li><a href="{% url "list_books" %}">{% trans "Books" %}</a></li>
+                <li><a href="{% url "list_groups" %}">{% trans "Groups" %}</a></li>
+                <li><a href="{% url "list_people" %}">{% trans "People" %}</a></li>
             </ul>      
         </div><!-- End of .navbox -->       
     </div>

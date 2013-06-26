@@ -26,7 +26,7 @@
   <ul>
    {% for chap in chapters %}
     {% ifnotequal chap.url_title  None%}
-      <li><a href="{% url draft_chapter  book.url_title  book_version chap.url_title %}">{{ chap.name }}</a></li>
+      <li><a href="{% url "draft_chapter"  book.url_title  book_version chap.url_title %}">{{ chap.name }}</a></li>
     {% else %}
       <li><b>{{ chap.name }}</b></li>
     {% endifnotequal %}
@@ -36,14 +36,14 @@
  <div id="bookcontent"   style="background: url(/site_static/images/draft_bg.png) repeat !important;">
    {% if editing_enabled %}
      <div class="action-menu top">
-      	<a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
+      	<a href="{% url "edit_book" book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
      </div>
    {% endif %}
 
   {% booki_format content %}
    {% if editing_enabled %}
     <div class="action-menu bottom">
-      	<a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
+      	<a href="{% url "edit_book" book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
      </div>
    {% endif %}
   </div>

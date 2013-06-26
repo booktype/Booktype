@@ -54,8 +54,8 @@
                                 });
                              });
 
-     $("A.editinfo").booksparkEditBookInfo({"url": "{% url edit_info book.url_title %}"});
-     $("A.deletebook").booktypeDeleteBook({"url": "{% url book_delete book.url_title %}"});
+     $("A.editinfo").booksparkEditBookInfo({"url": "{% url "edit_info" book.url_title %}"});
+     $("A.deletebook").booktypeDeleteBook({"url": "{% url "book_delete" book.url_title %}"});
  
  });
 </script>
@@ -67,8 +67,8 @@
 <h2>{{ book.title }}</h2>
 <div class="padded">
 <div class="action-menu big">
-    <a class="prime editbook" href="{% url edit_book book.url_title  %}"><nobr>{% trans "Edit this Book" %}</nobr></a>
-    <a class="prime viewdraft" href="{% url draft_book book.url_title  book_version %}"><nobr>{% trans "View draft" %}</nobr></a>
+    <a class="prime editbook" href="{% url "edit_book" book.url_title  %}"><nobr>{% trans "Edit this Book" %}</nobr></a>
+    <a class="prime viewdraft" href="{% url "draft_book" book.url_title  book_version %}"><nobr>{% trans "View draft" %}</nobr></a>
     {% if is_book_admin %}
         <a class="prime viewdraft editinfo" href="#"><nobr>{% trans "Edit book info" %}</nobr></a>
         <a class="prime viewdraft deletebook" href="#"><nobr>{% trans "Delete book" %}</nobr></a>
@@ -80,7 +80,7 @@
 <p class="book-description">{{ book_description|safe }}</p>
 <p style="clear:both; margin-top:0;">&nbsp;</p>
 <ul id="bookdetails">
-  <li><b>{% trans "Owner:" %}</b> <a href="{% url view_profile book.owner.username %}" class="user">{{ book.owner.username }}</a></li>
+  <li><b>{% trans "Owner:" %}</b> <a href="{% url "view_profile" book.owner.username %}" class="user">{{ book.owner.username }}</a></li>
   <li><b>{% trans "Status:" %}</b> {{ book.status.name }}
 
 {% if book.hidden %}
@@ -90,9 +90,9 @@
 {% endif %}
   </li>
 {% if book.group %}
-  <li><b>{% trans "Member of group:" %}</b> <a href="{% url view_group book.group.url_name %}">{{ book.group.name }}</a></li>
+  <li><b>{% trans "Member of group:" %}</b> <a href="{% url "view_group" book.group.url_name %}">{{ book.group.name }}</a></li>
 {% endif %}
-  <li><b>{% trans "Current version:" %}</b> <a href="{% url draft_book book.url_title book_version %}">{{ book.version.getVersion }}</a></li>
+  <li><b>{% trans "Current version:" %}</b> <a href="{% url "draft_book" book.url_title book_version %}">{{ book.version.getVersion }}</a></li>
 
   <li>&nbsp;</li>
   <li><b>{% trans "Created:" %}</b> {{ book.created }}</li>
@@ -101,7 +101,7 @@
 <li>
 <b>{% trans "Collaborators:" %}</b>
 {% for username in book_collaborators %}
-  <a href="{% url view_profile book.owner.username %}" class="user">{{ username }}</a>
+  <a href="{% url "view_profile" book.owner.username %}" class="user">{{ username }}</a>
   {% if not forloop.last %},{% endif %}
 {% endfor %}
 </li>
@@ -109,7 +109,7 @@
 <li>
 <b>{% trans "Online editing:" %}</b> 
 {% for username in online_users %}
-  <a href="{% url view_profile book.owner.username %}" class="user">{{ username }}</a>
+  <a href="{% url "view_profile" book.owner.username %}" class="user">{{ username }}</a>
   {% if not forloop.last %},{% endif %}
 {% endfor %}
 </li>
@@ -119,7 +119,7 @@
 <h3 class="inner">{% trans "Versions" %}</h3>
 <ul class="simple-list solo no-bg">
  {% for ver in book_versions %}
-   <li><a href="{% url draft_book book.url_title ver.getVersion %}"> {{ ver.getVersion }}</a></li>
+   <li><a href="{% url "draft_book" book.url_title ver.getVersion %}"> {{ ver.getVersion }}</a></li>
  {% endfor %}
 </ul>
 
@@ -174,7 +174,7 @@
                        {% else %}
                          {% if ln.kind == 13 %}
                            <td valign="top" colspan="2"> 
-                             {% trans "Uploaded" %} "<a class="attachment" href="{% url draft_attachment book.url_title book_version ln.args|jsonlookup:"filename" %}">{{ ln.args|jsonlookup:"filename" }}</a>"
+                             {% trans "Uploaded" %} "<a class="attachment" href="{% url "draft_attachment" book.url_title book_version ln.args|jsonlookup:"filename" %}">{{ ln.args|jsonlookup:"filename" }}</a>"
                            </td>
                          {% else %}
                            {% if ln.kind == 19 %}
@@ -215,11 +215,11 @@
 
        {% if ln.chapter %}
          <td valign="top"> 
-           <a href="{% url draft_chapter book.url_title  book_version  ln.chapter.url_title %}">{{ln.chapter.title}}</a>
+           <a href="{% url "draft_chapter" book.url_title  book_version  ln.chapter.url_title %}">{{ln.chapter.title}}</a>
          </td>
        {% endif %}
 
-     <td valign="top"> <a href="{% url view_profile book.owner.username %}" class="user">{{ ln.user.username }}</a> </td>
+     <td valign="top"> <a href="{% url "view_profile" book.owner.username %}" class="user">{{ ln.user.username }}</a> </td>
      <td valign="top"> {{ ln.modified }} </td>
    </tr>
  {% endfor %}

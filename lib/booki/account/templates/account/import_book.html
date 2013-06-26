@@ -13,7 +13,7 @@
 
 <div class="dialog" title="{% trans "Import book" %}">
   <iframe name="hidden_frame" style="border: 0px; width: 0px; height: 0px"></iframe>
-  <form method="post" action="{% url import_book request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">
+  <form method="post" action="{% url "import_book" request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">
    <div class="forms">
    <dl>
    <dt><label>{% trans "Import type:" %}</label></dt>

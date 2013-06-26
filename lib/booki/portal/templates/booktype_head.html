@@ -18,7 +18,7 @@
 
 <script type="text/javascript">
   $(function() {
-      $.booki.sputnikDispatcherURL = "{% url sputnik_dispatcher %}";
+      $.booki.sputnikDispatcherURL = "{% url "sputnik_dispatcher" %}";
 
       $("#dialog-sputnik-error").dialog({
           modal: true,
@@ -31,6 +31,6 @@
           }
       });
   
-      $("FORM.messagefield").messagefield('init', {'view_post': '{% url messaging_post %}' });  
+      $("FORM.messagefield").messagefield('init', {'view_post': '{% url "messaging_post" %}' });  
   });
 </script>

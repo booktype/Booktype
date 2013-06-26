@@ -12,7 +12,7 @@
 {% else %}
 <div class="dialog" title="{% trans "Create a Book" %}">
 
-<form method="post" action="{% url create_book request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">
+<form method="post" action="{% url "create_book" request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">
 <div>
     <div class="step">
 	<h4><strong>{% trans "Step 1" %}</strong> - {% trans "Title" %}</h4>

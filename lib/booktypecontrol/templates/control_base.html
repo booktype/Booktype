@@ -28,13 +28,13 @@
     {% if request.user.is_authenticated %}
 		<ul>
         	<li>
-               <a href="{% url view_profile request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url signout %}">{% trans "Sign out" %}</a>
+               <a href="{% url "view_profile" request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url signout %}">{% trans "Sign out" %}</a>
             </li>
         </ul>
     {% else %}
     	<ul>
             <li>
-            	<a href="{% url signin %}?redirect={{ request.path }}">{% trans "Sign In / Create Account" %}</a>
+            	<a href="{% url "signin" %}?redirect={{ request.path }}">{% trans "Sign In / Create Account" %}</a>
             </li>
         </ul>
      {% endif %}
@@ -51,19 +51,19 @@
         <div class="navbox">
             <ul>
 	      {% if "dashboard" in admin_options %}
-                <li><a href="{% url control_frontpage %}">{% trans "Admin Control Center" %}</a></li>
+                <li><a href="{% url "control_frontpage" %}">{% trans "Admin Control Center" %}</a></li>
    	      {% endif %}
 
               {% if "people" in admin_options %}
-                <li><a href="{% url control_people %}">{% trans "People" %}</a></li>
+                <li><a href="{% url "control_people" %}">{% trans "People" %}</a></li>
               {% endif %}
 
               {% if "books" in admin_options %}
-                <li><a href="{% url control_books %}">{% trans "Books" %}</a></li>
+                <li><a href="{% url "control_books" %}">{% trans "Books" %}</a></li>
               {% endif %}
 
               {% if "settings" in admin_options %}
-                <li><a href="{% url control_settings %}">{% trans "Settings" %}</a></li>
+                <li><a href="{% url "control_settings" %}">{% trans "Settings" %}</a></li>
               {% endif %}
 
             </ul>      

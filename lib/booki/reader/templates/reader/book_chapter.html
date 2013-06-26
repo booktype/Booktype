@@ -38,7 +38,7 @@ SPAN.bookicommentmarker > IMG.markerimage {
 <ul>
 {% for chap in chapters %}
  {% ifnotequal chap.url_title  None%}
-   <li><a href="{% url book_chapter  book.url_title  chap.url_title %}">{{ chap.name }}</a></li>
+   <li><a href="{% url "book_chapter"  book.url_title  chap.url_title %}">{{ chap.name }}</a></li>
  {% else %}
    <li><b>{{ chap.name }}</b></li>
  {% endifnotequal %}
@@ -48,13 +48,13 @@ SPAN.bookicommentmarker > IMG.markerimage {
 <div id="bookcontent">
    {% if request.user.is_authenticated %}
      <div class="action-menu top">
-      	<a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
+      	<a href="{% url "edit_book" book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
      </div>
    {% endif %}
 {% booki_format content %}
    {% if request.user.is_authenticated %}
      <div class="action-menu bottom">
-      	<a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
+      	<a href="{% url "edit_book" book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
      </div>
    {% endif %}
 
