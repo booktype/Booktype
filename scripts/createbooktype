@@ -201,6 +201,30 @@ def read_file(file_name):
 def set_var(content, name, value):
     return content.replace('##%s##' % name, value)
 
+def create_urls(destination):
+    import booki
+
+    booki_source = os.path.dirname(booki.__file__)
+    project = get_project_name(destination)
+
+    try:
+        dev_content = read_file('%s/skeleton/dev_urls.py.original' % booki_source)
+        prod_content = read_file('%s/skeleton/prod_urls.py.original' % booki_source)
+    except IOError:
+        raise MajorError("[ERROR] Can't read dev_urls.py.original file.")
+
+    try:
+        log("+ Creating %s_site/urls/dev.py file.  " % project)
+        f = open('%s/%s_site/urls/dev.py' % (destination, project), 'wt').write(dev_content)
+        logln("[OK]")
+
+        log("+ Creating %s_site/urls/prod.py file.  " % project)
+        f = open('%s/%s_site/urls/prod.py' % (destination, project), 'wt').write(prod_content)
+        logln("[OK]")
+    except IOError:
+        raise InstallError()
+
+
 def create_settings(destination, database):
     import booki
 
@@ -244,7 +268,8 @@ def create_settings(destination, database):
 
     for k in vals.keys():
         content = set_var(content, k, vals[k])
-
+        dev_content = set_var(dev_content, k, vals[k])
+        prod_content = set_var(prod_content, k, vals[k])
 
     try:
         log("+ Creating %s_site/settings/base.py file.  " % project)
@@ -274,6 +299,7 @@ def create_manage(destination):
     log("+ Creating manage.py file.")
 
     import booki
+    import stat
 
     booki_source = os.path.dirname(booki.__file__)
     booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
@@ -291,7 +317,16 @@ def create_manage(destination):
 
     try:
         log("+ Creating manage.py file.  ")
-        f = open('%s/manage.py' % (destination, ), 'wt').write(content)
+        f = open('%s/manage.py' % (destination, ), 'wt')
+        f.write(content)
+
+        # Set execute flag
+        s = stat.S_IRWXU|stat.S_IWUSR|stat.S_IXUSR
+        s = s|stat.S_IRGRP
+        s = s|stat.S_IROTH
+        os.fchmod(f.fileno(), s)        
+
+        f.close()
         logln("[OK]")
     except IOError:
         raise InstallError()
@@ -693,6 +728,9 @@ if __name__ == '__main__':
 
         # create settings.py file
         create_settings(project_destination, database = options.database)
+
+        # create urls
+        create_urls(project_destination)
 
         # create wsgi file
         create_wsgi(project_destination)

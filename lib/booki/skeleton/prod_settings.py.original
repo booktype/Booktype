@@ -2,6 +2,8 @@ from .base import *
 
 DEBUG = TEMPLATE_DEBUG = False
 
+ROOT_URLCONF = '##BOOKTYPE_SITE_NAME##.urls.prod'
+
 from booki.utils import config
 
 try:

@@ -2,6 +2,8 @@ from .base import *
 
 DEBUG = TEMPLATE_DEBUG = True
 
+ROOT_URLCONF = '##BOOKTYPE_SITE_NAME##.urls.dev'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
