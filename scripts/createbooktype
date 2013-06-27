@@ -193,6 +193,11 @@ def make_directory_structure(destination):
     except OSError:
         raise InstallError()
 
+def read_file(file_name):
+    content = open(file_name, 'rt').read()
+
+    return content
+
 def set_var(content, name, value):
     return content.replace('##%s##' % name, value)
 
@@ -218,7 +223,9 @@ def create_settings(destination, database):
         raise InstallError()
 
     try:
-        content = open('%s/skeleton/settings.py.original' % booki_source, 'rt').read()
+        content = read_file('%s/skeleton/base_settings.py.original' % booki_source)
+        dev_content = read_file('%s/skeleton/dev_settings.py.original' % booki_source)
+        prod_content = read_file('%s/skeleton/prod_settings.py.original' % booki_source)
     except IOError:
         raise MajorError("[ERROR] Can't read settings.py.original file.")
 
@@ -237,14 +244,21 @@ def create_settings(destination, database):
     for k in vals.keys():
         content = set_var(content, k, vals[k])
 
-    log("+ Creating %s_site/settings/base.py file.  " % project)
 
     try:
+        log("+ Creating %s_site/settings/base.py file.  " % project)
         f = open('%s/%s_site/settings/base.py' % (destination, project), 'wt').write(content)
+        logln("[OK]")
+
+        log("+ Creating %s_site/settings/dev.py file.  " % project)
+        f = open('%s/%s_site/settings/dev.py' % (destination, project), 'wt').write(dev_content)
+        logln("[OK]")
+
+        log("+ Creating %s_site/settings/prod.py file.  " % project)
+        f = open('%s/%s_site/settings/prod.py' % (destination, project), 'wt').write(prod_content)
+        logln("[OK]")
     except IOError:
         raise InstallError()
-    else:
-        logln("[OK]")
 
 def get_project_name(destination):
     dirs = [n for n in os.path.abspath(destination).split(os.sep) if n.strip() != '']
@@ -263,7 +277,7 @@ def create_env(destination):
 
     try:
         f = open('%s/booktype.env' % destination, 'wt')
-        f.write('''export DJANGO_SETTINGS_MODULE=%(project_name)s_site.settings.base
+        f.write('''export DJANGO_SETTINGS_MODULE=%(project_name)s_site.settings.dev
 
 # Add Booki to PATH.
 # If your libraries are in non standard place, you should add path to them here.

@@ -67,6 +67,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder'
 )
 
 # data
@@ -179,7 +180,7 @@ TEMPLATE_CONTEXT_PROCESSORS = ('django.contrib.auth.context_processors.auth',
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
@@ -189,7 +190,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'booki.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'aaa.wsgi.application'
+#WSGI_APPLICATION = 'aaa.wsgi.application'
 
 TEMPLATE_DIRS = (
     '%s/templates/' % BOOKI_ROOT,
@@ -207,6 +208,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'south',
+    'compressor',
 
     # list of booki apps
     'booki.editor',
@@ -239,9 +241,3 @@ if not logInitDone:
     logInitDone = True
     init_logging()
 
-from booki.utils import config
-
-try:
-    BOOKTYPE_CONFIG = config.loadConfiguration()
-except config.ConfigurationError:
-    BOOKTYPE_CONFIG = {}

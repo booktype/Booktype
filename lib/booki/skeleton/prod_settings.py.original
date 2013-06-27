@@ -1,0 +1,10 @@
+from .base import *
+
+DEBUG = TEMPLATE_DEBUG = False
+
+from booki.utils import config
+
+try:
+    BOOKTYPE_CONFIG = config.loadConfiguration()
+except config.ConfigurationError:
+    BOOKTYPE_CONFIG = {}
