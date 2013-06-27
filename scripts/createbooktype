@@ -232,6 +232,7 @@ def create_settings(destination, database):
     booki_name = "Booktype site"
 
     vals = {'BOOKTYPE_NAME': booki_name,
+            'BOOKTYPE_SITE_NAME': '%s_site' % project,
             'BOOKTYPE_ROOT': os.path.abspath(destination)}
 
     if database == 'postgresql':
@@ -269,24 +270,53 @@ def get_project_directory(destination):
 
     return os.sep.join(dirs[:-1])
 
+def create_manage(destination):
+    log("+ Creating manage.py file.")
+
+    import booki
+
+    booki_source = os.path.dirname(booki.__file__)
+    booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
+
+    project = get_project_name(destination)
+
+    try:
+        content = read_file('%s/skeleton/manage.py.original' % booki_source)
+    except IOError:
+        raise MajorError("[ERROR] Can't read manage.py.original file.")
+
+    content = set_var(content, "SETTINGS", "%s_site.settings.dev" % project)    
+    content = set_var(content, "DESTINATION_PATH", destination)
+    content = set_var(content, "BOOKTYPE_PATH", booki_path)
+
+    try:
+        log("+ Creating manage.py file.  ")
+        f = open('%s/manage.py' % (destination, ), 'wt').write(content)
+        logln("[OK]")
+    except IOError:
+        raise InstallError()
+
 def create_env(destination):
-    log("+ Creating booki.env file.  ")
+    log("+ Creating booktype.env file.  ")
 
     import booki
     booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
 
     try:
         f = open('%s/booktype.env' % destination, 'wt')
-        f.write('''export DJANGO_SETTINGS_MODULE=%(project_name)s_site.settings.dev
+        f.write('''# Booktype comes with predefined settings:
+# %(project_name)s_site.settings.dev [for development]
+# %(project_name)s_site.settings.prod [for production]
 
-# Add Booki to PATH.
+export DJANGO_SETTINGS_MODULE=%(project_name)s_site.settings.dev
+
 # If your libraries are in non standard place, you should add path to them here.
-PYTHONPATH=$PYTHONPATH:/%(location)s/:%(destination)s/lib/:%(booktype_path)s
 
-# Add Django to PATH 
+export PYTHONPATH=$PYTHONPATH:%(destination)s/:%(destination)s/lib/:%(booktype_path)s
+
 # If your libraries/apps are in non standard place, you should add path to them here.
 # e.g.
-#    PATH=$PATH:/Users/aerkalov/Work/svn/django/django/bin
+#    PATH=$PATH:/Users/mirko/bin/
 
 export PYTHONPATH PATH
 ''' % {'project_name': get_project_name(destination), 
@@ -306,25 +336,47 @@ def create_wsgi(destination):
     booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
 
     try:
-        f = open('%s/conf/booktype.wsgi' % destination, 'wt')
-        f.write('''import os, sys
+        f = open('%s/%s_site/wsgi.py' % (destination, get_project_name(destination)), 'wt')
+        f.write('''"""
+This module contains the WSGI application used by Django's development server
+and any production WSGI deployments. It should expose a module-level variable
+named ``application``. Django's ``runserver`` and ``runfcgi`` commands discover
+this application via the ``WSGI_APPLICATION`` setting.
 
-#Calculate the path based on the location of the WSGI script.
-#apache_configuration= os.path.dirname(__file__)
-#project = os.path.dirname(apache_configuration)
-#workspace = os.path.dirname(project)
-#sys.path.append(workspace)
+Usually you will have the standard Django WSGI application here, but it also
+might make sense to replace the whole Django WSGI application with a custom one
+that later delegates to the Django one. For example, you could introduce WSGI
+middleware here, or combine a Django application with an application of another
+framework.
 
-#Add the path to 3rd party django application and to django itself.
-sys.path.insert(0, '/%s/')
-sys.path.insert(1, '%s/lib/')
-sys.path.insert(2, '%s/')
+"""
+import os, sys
 
-os.environ['DJANGO_SETTINGS_MODULE'] = '%s.settings'
-import django.core.handlers.wsgi
-application = django.core.handlers.wsgi.WSGIHandler()
+sys.path.insert(0, '%(destination)s/')
+sys.path.insert(0, '%(destination)s/lib/')
+sys.path.insert(0, '%(booki_path)s/')
 
-''' % (get_project_directory(destination), destination,  booki_path, get_project_name(destination)))
+
+# We defer to a DJANGO_SETTINGS_MODULE already in the environment. This breaks
+# if running multiple sites in the same mod_wsgi process. To fix this, use
+# mod_wsgi daemon mode with each site in its own daemon process, or use
+
+os.environ["DJANGO_SETTINGS_MODULE"] = "%(project_name)s.settings.dev"
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%(project_name)s.settings.dev")
+
+# This application object is used by any WSGI server configured to use this
+# file. This includes Django's development server, if the WSGI_APPLICATION
+# setting points here.
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+
+# Apply WSGI middleware here.
+# from helloworld.wsgi import HelloWorldApplication
+# application = HelloWorldApplication(application)
+''' % {'directory': get_project_directory(destination),
+        'destination': destination,
+        'booki_path': booki_path, 
+        'project_name': get_project_name(destination)})
         f.close()
     except OSError:
         raise InstallError()
@@ -358,7 +410,7 @@ def create_apache(destination):
      SetEnv LC_TIME "en_GB.UTF-8"
      SetEnv LANG "en_GB.UTF-8"
 
-     WSGIScriptAlias / %(destination)s/booki.wsgi
+     WSGIScriptAlias / %(destination)s/%(project_name)s/wsgi.py
 
      <Location "/">
        Allow from all
@@ -396,6 +448,7 @@ def create_apache(destination):
      CustomLog /var/log/apache2/booktype-access.log combined
 </VirtualHost>''' % {'destination': destination,
                      'booki_source': booki_source,
+                     'project_name': get_project_name(destination),
                      'django_path': django_path}
 
 
@@ -634,6 +687,9 @@ if __name__ == '__main__':
 
         # create environment variables
         create_env(project_destination)
+
+        # create manage.py file
+        create_manage(project_destination)
 
         # create settings.py file
         create_settings(project_destination, database = options.database)
