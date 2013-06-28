@@ -16,13 +16,7 @@
 
 from django.conf.urls.defaults import *
 from django.conf import settings
-#from django.views.generic.simple import direct_to_template
 from django.views.generic.base import TemplateView, RedirectView
-
-
-# By default Django admin interface is turned off. If you want it you will need to uncomment couple of lines here.
-# from django.contrib import admin
-# admin.autodiscover()
 
 # This is dispatcher for Sputnik connections.
 
@@ -33,85 +27,51 @@ SPUTNIK_DISPATCHER = ((r'^/booki/$',                                       'book
                       (r'^/chat/(?P<bookid>\d+)/$',                        'booki.channels.chat')
                       )
 
-if settings.BOOKI_MAINTENANCE_MODE:
-    urlpatterns = patterns('',
-                           url(r'^admin/', include(admin.site.urls)),
-                           url(r'^.*$', 'booki.portal.views.maintenance', name='maintenance')
-                           )
-else:
-    from booki.portal import feeds
+urlpatterns = patterns('',
+                   # front page                       
+                   url(r'^$', 'booki.portal.views.view_frontpage', name="frontpage"),
 
-    urlpatterns = patterns('',
-                           # Django Admin interface is disabled by default. If you want it
-                           # enabled you will have to uncomment couple of lines here.
-                           # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-                           # url(r'^admin/', include(admin.site.urls)),
+                   # booktype control center
+                   url(r'^_control/', include('booktypecontrol.urls')),
 
-                           # front page                       
-                           url(r'^$', 'booki.portal.views.view_frontpage', name="frontpage"),
+                   # favicon 
+                   (r'^favicon\.ico', RedirectView.as_view(url='/static/profile/images/favicon.png')),
 
-                           # booktype control center
-                           url(r'^_control/', include('booktypecontrol.urls')),
+                   # static files
+                   # TODO
+#                   (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+#                    {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
 
-                           # favicon 
+                   (r'^data/(?P<path>.*)$', 'django.views.static.serve',
+                    {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
+                                      
+                   # user accounts                     
+                   url(r'^accounts/', include('booki.account.urls')),                    
+                   
+                   # misc
+                   url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booki.account.views.view_profilethumbnail', name='view_profilethumbnail'),                             url(r'^_utils/profileinfo/(?P<profileid>[\w\d\_\.\-]+)/$', 'booki.utils.pages.profileinfo', name='view_profileinfo'),                      
+                   url(r'^_utils/attachmentinfo/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<version>[\w\d\.\-]+)/(?P<attachment>.*)$', 'booki.utils.pages.attachmentinfo'),                      
 
-                           (r'^favicon\.ico', RedirectView.as_view(url='/site_static/images/favicon.png')),
+                   (r'^robots.txt$', TemplateView.as_view(template_name='robots.txt')), #, mimetype='text/plain')), 
 
-                           # static files
-                           # TODO
-                           #      - move outside of django
-                           (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-                            {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
+                   # export
+                   url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.export', name='export_booki'), 
+                   
+                   # sputnik dispatcher                       
+                   url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),
 
-                           (r'^site_static/(?P<path>.*)$', 'django.views.static.serve',
-                            {'document_root': settings.SITE_STATIC_ROOT, 'show_indexes': True}),
+                   # messaging application
+                   url(r'^messaging/', include('booki.messaging.urls')),
 
-                           (r'^data/(?P<path>.*)$', 'django.views.static.serve',
-                            {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
-                           
-                           # front page listing views
-                           url(r'list-groups/', 'booki.portal.views.view_groups', name='list_groups'),
-                           url(r'list-books/', 'booki.portal.views.view_books', name='list_books'),
-                           url(r'list-people/', 'booki.portal.views.view_people', name='list_people'),
+                   # editor
+                   url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls')),
 
-                           # json booklist for objavi
-                           url(r'^list-books.json$', 'booki.editor.views.view_books_json'),
+                   # reader
+                   url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.reader.urls')),
+                   )
 
-                           # list of books by ID
-                           url(r'^list-books-by-id/(?P<scheme>[\w. -]+).json?$', 'booki.portal.views.view_books_by_id'),
-                           
-                           # user accounts                     
-                           url(r'^accounts/', include('booki.account.urls')),                    
 
-                           # feeds
-                           url(r'^feeds/rss/book/(?P<bookid>[\w\s\_\.\-\d]+)/$', feeds.BookFeedRSS()),
-                           url(r'^feeds/atom/book/(?P<bookid>[\w\s\_\.\-\d]+)/$', feeds.BookFeedAtom()),
-                           url(r'^feeds/rss/chapter/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<chapterid>[\w\s\_\.\-\d]+)/$', feeds.ChapterFeedRSS()),
-                           url(r'^feeds/atom/chapter/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<chapterid>[\w\s\_\.\-\d]+)/$', feeds.ChapterFeedAtom()),
-                           url(r'^feeds/rss/user/(?P<userid>[\w\s\_\.\-\d]+)/$', feeds.UserFeedRSS()),
-                           url(r'^feeds/atom/user/(?P<userid>[\w\s\_\.\-\d]+)/$', feeds.UserFeedAtom()),
+# Add dispatcher from portal
+from  .portal import urls as portal_urls
 
-                           # groups
-                           url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', 'booki.portal.views.add_book'),                    
-                           url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/remove_book/$', 'booki.portal.views.remove_book'),                    
-                           
-                           url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.portal.views.view_group', name="view_group"),                    
-                           
-                           # misc
-                           url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booki.account.views.view_profilethumbnail', name='view_profilethumbnail'),                             url(r'^_utils/profileinfo/(?P<profileid>[\w\d\_\.\-]+)/$', 'booki.utils.pages.profileinfo', name='view_profileinfo'),                      
-                           url(r'^_utils/attachmentinfo/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<version>[\w\d\.\-]+)/(?P<attachment>.*)$', 'booki.utils.pages.attachmentinfo'),                      
-
-                           (r'^robots.txt$', TemplateView.as_view(template_name='robots.txt')), #, mimetype='text/plain')), 
-
-                           # export
-                           url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.export', name='export_booki'), 
-                           
-                           # sputnik dispatcher                       
-                           url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),
-
-                           # messaging application
-                           url(r'^messaging/', include('booki.messaging.urls')),
-
-                           # reader
-                           url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls'))
-                           )
+urlpatterns += portal_urls.urlpatterns
