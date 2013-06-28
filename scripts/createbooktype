@@ -396,8 +396,8 @@ sys.path.insert(0, '%(booki_path)s/')
 # if running multiple sites in the same mod_wsgi process. To fix this, use
 # mod_wsgi daemon mode with each site in its own daemon process, or use
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "%(project_name)s.settings.dev"
-#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%(project_name)s.settings.dev")
+os.environ["DJANGO_SETTINGS_MODULE"] = "%(project_name)s_site.settings.dev"
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%(project_name)s_site.settings.dev")
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
@@ -445,7 +445,7 @@ def create_apache(destination):
      SetEnv LC_TIME "en_GB.UTF-8"
      SetEnv LANG "en_GB.UTF-8"
 
-     WSGIScriptAlias / %(destination)s/%(project_name)s/wsgi.py
+     WSGIScriptAlias / %(destination)s/%(project_name)s_site/wsgi.py
 
      <Location "/">
        Allow from all
@@ -460,27 +460,17 @@ def create_apache(destination):
        IndexOptions FancyIndexing
      </Directory>
 
-     Alias /site_static/ "%(booki_source)s/site_static/"
-     <Directory "%(booki_source)s/site_static/">
+     Alias /data/ "%(destination)s/data/"
+     <Directory "%(destination)s/data/">
        Order allow,deny
        Options Indexes
-       Options FollowSymLinks
        Allow from all
        IndexOptions FancyIndexing
      </Directory>
 
-     Alias /media/ "%(django_path)s/contrib/admin/media/"
-     <Directory "%(django_path)s/contrib/admin/media">
-       Order allow,deny
-       Options Indexes
-       Options FollowSymLinks
-       Allow from all
-       IndexOptions FancyIndexing
-     </Directory>
-
-     ErrorLog /var/log/apache2/booktype-error.log
+     ErrorLog ${APACHE_LOG_DIR}/bookdev-error.log
      LogLevel warn
-     CustomLog /var/log/apache2/booktype-access.log combined
+     CustomLog ${APACHE_LOG_DIR}/bookdev-access.log combined
 </VirtualHost>''' % {'destination': destination,
                      'booki_source': booki_source,
                      'project_name': get_project_name(destination),
@@ -677,9 +667,16 @@ if __name__ == '__main__':
     sys.path.insert(0, os.path.normpath(os.path.join(os.path.abspath(sys.argv[0]), os.pardir, os.pardir, 'lib')))
 
     try:
-#        check for project name
-#        can't be Booktype, booki, redis, sputnik...
-#        os.path.basename(project_destination)
+        project_name = get_project_name(project_destination)
+
+        if project_name.lower() in ['booktype', 'booki', 'objavi']:
+            raise MajorError("Not a valid project name")
+
+        if ' ' in project_name:
+            raise MajorError("Space not allowed in project name")
+
+        if '-' in project_name:
+            raise MajorError("Minus not allowed in project name. Try to use '_' instead.")
 
         # check versions of software
         if options.check_versions:
@@ -700,11 +697,11 @@ if __name__ == '__main__':
         # check if project directory exists
         if os.path.exists(project_destination):
             if os.access(project_destination, os.W_OK):
-                if os.path.exists('%s/settings.py' % project_destination):
-                    raise MajorError("\nBooki project does exist [%s]. I don't know what to do now. Choose another directory or manualy fix issues. Sorry about that.\n" % project_destination)
+                if os.path.exists('%s/%s_site/settings/base.py' % (project_destination,  get_project_name(project_destination))):
+                    raise MajorError("\nBooktype project does exist [%s]. I don't know what to do now. Choose another directory or manualy fix issues. Sorry about that.\n" % project_destination)
                 else:
                     while True:
-                        proceed_anyway = raw_input("\nProject directory does exist [%s]. Directory might be already created by administrator and you just need to populate it with booki project files...\n * If that is the case, type 'yes'.\n * If you are not sure, type 'no'.\nProceed anyway [yes/no] ? : " % project_destination)
+                        proceed_anyway = raw_input("\nProject directory does exist [%s]. Directory might be already created by administrator and you just need to populate it with booktype project files...\n * If that is the case, type 'yes'.\n * If you are not sure, type 'no'.\nProceed anyway [yes/no] ? : " % project_destination)
                         if proceed_anyway.strip().lower() == 'no':
                             sys.exit(-1)
                         elif proceed_anyway.strip().lower() == 'yes':
