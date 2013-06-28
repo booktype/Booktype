@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% load i18n profile messaging_tags %}
+{% load i18n profile messaging_tags staticfiles %}
 
 {% block header %}
 <title>{% blocktrans with user.username as username %}/user: {{ username }}{% endblocktrans %}</title>
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.url.js"></script> 
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/profile.js"></script> 
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/general.js"></script> 
+<script type="text/javascript" src="{% static "portal/js/jquery.url.js" %}"></script> 
+<script type="text/javascript" src="{% static "portal/js/profile.js" %}"></script> 
+<script type="text/javascript" src="{% static "portal/js/general.js" %}"></script> 
 <script type="text/javascript">
     $(function() {
 

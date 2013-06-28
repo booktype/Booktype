@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n staticfiles %}
 
 {% if admin_import %}
 <div class="dialog" title="{% trans "Import book" %}">
@@ -35,7 +35,7 @@
 	</dl>
     </div>
     <div class="importmessage" style="display: none">
-         <p><img src="{{ request.META.SCRIPT_NAME }}/site_static/images/loading.gif"/>&nbsp;&nbsp;{% trans "Please wait. It will take couple of moments. Your book is being imported!" %}</p>
+         <p><img src="{% static "portal/images/loading.gif" %}"/>&nbsp;&nbsp;{% trans "Please wait. It will take couple of moments. Your book is being imported!" %}</p>
     </div>
   </form>
 </div>

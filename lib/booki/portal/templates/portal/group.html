@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load i18n profile messaging_tags %}
+{% load i18n profile messaging_tags staticfiles %}
 
 {% block header %}
 <title>{% blocktrans with group.name as groupname %}/group: {{ groupname }}{% endblocktrans %}</title>
-<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/editor.css" rel="Stylesheet" />
+<link type="text/css" href="{% static "editor/css/editor.css" %}" rel="Stylesheet" />
 
 
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/group.js"></script>
+<script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
 
 
 <script type="text/javascript">

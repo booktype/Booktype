@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% load i18n messaging_tags %}
+{% load i18n messaging_tags staticfiles %}
 
 {% block header %}
 <title>{% blocktrans with book.title as booktitle %}/book: {{ booktitle }}{% endblocktrans %}</title>
-<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/draft.css" rel="Stylesheet" /> 
-<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/published.css" rel="Stylesheet" />
+<link type="text/css" href="{% static "reader/css/draft.css" %}" rel="Stylesheet" /> 
+<link type="text/css" href="{% static "reader/css/published.css" %}" rel="Stylesheet" />
 
 <link rel="alternate" type="application/rss+xml" title="RSS feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/rss/book/{{ book.url_title }}/" /> 
 <link rel="alternate" type="application/atom+xml" title="Atom feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/atom/book/{{ book.url_title }}/" /> 
 {% if has_css %}
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
 {% endif %}
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/draft.js"></script> 
+<script type="text/javascript" src="{% static "reader/js/draft.js" %}"></script> 
 {% endblock %}
 
 
@@ -21,7 +21,7 @@
 <div class="padded">
  {% book_followbutton book.url_title request.user.username %}
 
- <div id="bookmenu" style="background: url({{ request.META.SCRIPT_NAME }}/site_static/images/draft_bg.png) repeat !important;"> 
+ <div id="bookmenu" style="background: url({% static "reader/images/draft_bg.png" %}) repeat !important;"> 
   <ul>
     {% for chap in chapters %}
       {% ifnotequal chap.url_title  None%}
@@ -33,7 +33,7 @@
   </ul>
  </div>
 
- <div id="bookcontent"  style="background: url({{ request.META.SCRIPT_NAME }}/site_static/images/draft_bg.png) repeat !important;">
+ <div id="bookcontent"  style="background: url({% static "reader/images/draft_bg.png" %}) repeat !important;">
    {% trans "click on the chapter name" %}
    {% if editing_enabled %}
      <div class="action-menu bottom">

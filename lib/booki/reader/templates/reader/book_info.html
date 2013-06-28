@@ -1,18 +1,18 @@
 {% extends "base.html" %}
-{% load i18n booki_tags %}
+{% load i18n booki_tags staticfiles %}
 
 {% block header %}
 <title>{% blocktrans with book.title as booktitle %}/book: {{ booktitle }}{% endblocktrans %}</title>
-<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/editor.css" rel="Stylesheet" />
+<link type="text/css" href="{% static "editor/css/editor.css" %}" rel="Stylesheet" />
+
 <link rel="alternate" type="application/rss+xml" title="RSS feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/rss/book/{{ book.url_title }}/" /> 
 <link rel="alternate" type="application/atom+xml" title="Atom feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/atom/book/{{ book.url_title }}/" /> 
 {% if has_css %}
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
-
 {% endif %}
 
-<link href="{{ request.META.SCRIPT_NAME }}/site_static/css/jquery.bubblepopup.v2.3.1.css" rel="stylesheet" type="text/css" />
-<script src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.bubblepopup.v2.3.1.min.js" type="text/javascript"></script>
+<link href="{% static "portal/css/jquery.bubblepopup.v2.3.1.css" %} rel="stylesheet" type="text/css" />
+<script src="{% static "portal/js/jquery.bubblepopup.v2.3.1.min.js" %}" type="text/javascript"></script>
 
 <script type="text/javascript">
  $(function() {
@@ -22,10 +22,10 @@
                                   selectable: false,
                                   position: 'top',
                                   align: 'center',
-                                  innerHtml: '<div style="height: 50px"><img src="{{ request.META.SCRIPT_NAME }}/site_static/images/loading.gif" style="border:0px; vertical-align:middle; margin-right:10px; display:inline;" />loading!</div>',
+                                  innerHtml: '<div style="height: 50px"><img src="{% static "portal/images/loading.gif" %}" style="border:0px; vertical-align:middle; margin-right:10px; display:inline;" />loading!</div>',
                                   innerHtmlStyle: { color:'#000000', 'text-align':'center' },
                                   themeName: 'grey',
-                                  themePath: '{{ request.META.SCRIPT_NAME }}/site_static/images/jquerybubblepopup-theme'
+                                  themePath: '{% static "portal/images/jquerybubblepopup-theme" %}'
                                   });
 
      $('A.user').mouseover(function(){
@@ -40,10 +40,10 @@
                                   selectable: false,
                                   position: 'top',
                                   align: 'center',
-                                  innerHtml: '<div style="height: 150px"><img src="{{ request.META.SCRIPT_NAME }}/site_static/images/loading.gif" style="border:0px; vertical-align:middle; margin-right:10px; display:inline;" />loading!</div>',
+                                  innerHtml: '<div style="height: 150px"><img src="{% static "portal/images/loading.gif" %}" style="border:0px; vertical-align:middle; margin-right:10px; display:inline;" />loading!</div>',
                                   innerHtmlStyle: { color:'#000000', 'text-align':'center' },
                                   themeName: 'grey',
-                                  themePath: '{{ request.META.SCRIPT_NAME }}/site_static/images/jquerybubblepopup-theme'
+                                  themePath: '{% static "portal/images/jquerybubblepopup-theme" %}'
                                   });
 
      $('A.attachment').mouseover(function(){

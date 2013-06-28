@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% load i18n booki_tags %}
+{% load i18n booki_tags staticfiles %}
 
 {% block header %}
  <title>{% blocktrans with chapter.title as chaptertitle and book.title as booktitle %}/chapter: {{ chaptertitle }} / {{ booktitle }}{% endblocktrans %}</title>
- <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/draft.css" rel="Stylesheet" />
+ <link type="text/css" href="{% static "reader/css/draft.css" %}" rel="Stylesheet" />
 
  <link rel="alternate" type="application/rss+xml" title="RSS feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/rss/book/{{ book.url_title }}/" /> 
  <link rel="alternate" type="application/atom+xml" title="Atom feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/atom/book/{{ book.url_title }}/" /> 
@@ -14,7 +14,7 @@
  {% if has_css %}
   <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
  {% endif %}
- <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/draft.js"></script>
+ <script type="text/javascript" src="{% static "reader/js/draft.js" %}"></script>
 {% endblock %}
 
 
@@ -22,7 +22,7 @@
 
 <h2>{{ book.title }}</h2>
 <div class="padded">
- <div id="bookmenu" style="background: url(/site_static/images/draft_bg.png) repeat !important;"> 
+ <div id="bookmenu" style="background: url({% static "reader/images/draft_bg.png" %}) repeat !important;"> 
   <ul>
    {% for chap in chapters %}
     {% ifnotequal chap.url_title  None%}
@@ -33,7 +33,7 @@
    {% endfor %}
   </ul>
  </div>
- <div id="bookcontent"   style="background: url(/site_static/images/draft_bg.png) repeat !important;">
+ <div id="bookcontent"   style="background: url({% static "reader/images/draft_bg.png" %}) repeat !important;">
    {% if editing_enabled %}
      <div class="action-menu top">
       	<a href="{% url "edit_book" book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>

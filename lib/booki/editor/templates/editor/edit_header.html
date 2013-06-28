@@ -1,11 +1,12 @@
-{% load i18n %}
-  <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/editor.css" rel="Stylesheet" />
-  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/editor.js"></script> 
-  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.url.js"></script> 
-  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.validate.js"></script> 
-  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.form.js"></script> 
-  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.form.wizard.js"></script> 
-  <script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/bbq.js"></script> 
+{% load i18n staticfiles %}
+  <link type="text/css" href="{% static "editor/css/editor.css" %}" rel="Stylesheet" />
+  <script type="text/javascript" src="{% static "editor/js/editor.js" %}"></script> 
+
+  <script type="text/javascript" src="{% static "portal/js/jquery.url.js" %}"></script> 
+  <script type="text/javascript" src="{% static "editor/js/jquery.validate.js" %}"></script> 
+  <script type="text/javascript" src="{% static "editor/js/jquery.form.js" %}"></script> 
+  <script type="text/javascript" src="{% static "editor/js/jquery.form.wizard.js" %}"></script> 
+<!--   <script type="text/javascript" src="{% static "editor/js/bbq.js" %}"></script>   -->
   <script type="text/javascript">
 	$(function() {
 	    /* booki part */

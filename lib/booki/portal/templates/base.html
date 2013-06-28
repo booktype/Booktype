@@ -1,4 +1,4 @@
-{% load i18n messaging_tags booki_tags %}
+{% load i18n messaging_tags booki_tags staticfiles %}
 <!DOCTYPE HTML>
 <html>
  <head>
@@ -7,7 +7,7 @@
    {% block header %}
    {% endblock %}
 
-   <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/_user.css" rel="Stylesheet" >
+   <link type="text/css" href="{% static "css/_user.css" %}" rel="Stylesheet" >
  </head>
 <body>
 
