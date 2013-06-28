@@ -16,7 +16,6 @@
 
 from django.conf.urls.defaults import *
 from django.conf import settings
-from django.views.generic.base import TemplateView, RedirectView
 
 # This is dispatcher for Sputnik connections.
 
@@ -34,13 +33,6 @@ urlpatterns = patterns('',
                    # booktype control center
                    url(r'^_control/', include('booktypecontrol.urls')),
 
-                   # favicon 
-                   (r'^favicon\.ico', RedirectView.as_view(url='/static/profile/images/favicon.png')),
-
-                   # static files
-                   # TODO
-#                   (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-#                    {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
 
                    (r'^data/(?P<path>.*)$', 'django.views.static.serve',
                     {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
@@ -52,8 +44,6 @@ urlpatterns = patterns('',
                    url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booki.account.views.view_profilethumbnail', name='view_profilethumbnail'),                             url(r'^_utils/profileinfo/(?P<profileid>[\w\d\_\.\-]+)/$', 'booki.utils.pages.profileinfo', name='view_profileinfo'),                      
                    url(r'^_utils/attachmentinfo/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<version>[\w\d\.\-]+)/(?P<attachment>.*)$', 'booki.utils.pages.attachmentinfo'),                      
 
-                   (r'^robots.txt$', TemplateView.as_view(template_name='robots.txt')), #, mimetype='text/plain')), 
-
                    # export
                    url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.export', name='export_booki'), 
                    
@@ -61,13 +51,7 @@ urlpatterns = patterns('',
                    url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),
 
                    # messaging application
-                   url(r'^messaging/', include('booki.messaging.urls')),
-
-                   # editor
-                   url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls')),
-
-                   # reader
-                   url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.reader.urls')),
+                   url(r'^messaging/', include('booki.messaging.urls'))
                    )
 
 
@@ -75,3 +59,12 @@ urlpatterns = patterns('',
 from  .portal import urls as portal_urls
 
 urlpatterns += portal_urls.urlpatterns
+
+# rest of the matching
+urlpatterns += patterns('',
+                        # editor
+                        url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls')),
+
+                        # reader
+                        url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.reader.urls'))
+              )

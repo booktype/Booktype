@@ -15,6 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls.defaults import *
+from django.views.generic.base import TemplateView, RedirectView
 
 from booki.portal import feeds
 
@@ -37,6 +38,10 @@ urlpatterns = patterns('',
                    url(r'list-groups/', 'booki.portal.views.view_groups', name='list_groups'),
                    url(r'list-books/', 'booki.portal.views.view_books', name='list_books'),
                    url(r'list-people/', 'booki.portal.views.view_people', name='list_people'),
+
+                   # favicon 
+                   (r'^favicon\.ico', RedirectView.as_view(url='/static/profile/images/favicon.png')),
+                   (r'^robots.txt$', TemplateView.as_view(template_name='robots.txt')), #, mimetype='text/plain')), 
 
                    # json booklist for objavi
                    # TODO: remove this

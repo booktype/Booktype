@@ -51,7 +51,7 @@ SITE_STATIC_ROOT = '%s/site_static' % os.path.dirname(booki.__file__)
 SITE_STATIC_URL  = '%s/site_static' % BOOKI_URL
 
 # static
-STATIC_ROOT = '%s/static' % BOOKI_ROOT
+STATIC_ROOT = '%s/static/' % BOOKI_ROOT
 STATIC_URL  = '%s/static/' % BOOKI_URL
 
 # Additional locations of static files
@@ -219,24 +219,4 @@ INSTALLED_APPS = (
     'sputnik',
     'booktypecontrol'
 )
-
-
-# LOGGING
-
-def init_logging():
-    import logging
-    import logging.handlers
-
-    logger = logging.getLogger("booki")
-    logger.setLevel(logging.DEBUG)
-    ch = logging.handlers.RotatingFileHandler('%s/logs/booki.log' % BOOKI_ROOT, maxBytes=100000, backupCount=5)
-    ch.setLevel(logging.DEBUG)
-    ch.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s"))
-    logger.addHandler(ch)
-
-logInitDone=False
-
-if not logInitDone:
-    logInitDone = True
-    init_logging()
 
