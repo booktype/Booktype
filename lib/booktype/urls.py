@@ -56,11 +56,13 @@ urlpatterns = patterns('',
 
 
 # Add dispatcher from portal
-from  .portal import urls as portal_urls
+from  booki.portal import urls as portal_urls
 
 urlpatterns += portal_urls.urlpatterns
 
 # rest of the matching
+# this has to be always at the end!
+
 urlpatterns += patterns('',
                         # editor
                         url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls')),

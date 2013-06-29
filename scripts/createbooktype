@@ -202,14 +202,14 @@ def set_var(content, name, value):
     return content.replace('##%s##' % name, value)
 
 def create_urls(destination):
-    import booki
+    import booktype
 
-    booki_source = os.path.dirname(booki.__file__)
+    booktype_source = os.path.dirname(booktype.__file__)
     project = get_project_name(destination)
 
     try:
-        dev_content = read_file('%s/skeleton/dev_urls.py.original' % booki_source)
-        prod_content = read_file('%s/skeleton/prod_urls.py.original' % booki_source)
+        dev_content = read_file('%s/skeleton/dev_urls.py.original' % booktype_source)
+        prod_content = read_file('%s/skeleton/prod_urls.py.original' % booktype_source)
     except IOError:
         raise MajorError("[ERROR] Can't read dev_urls.py.original file.")
 
@@ -226,9 +226,9 @@ def create_urls(destination):
 
 
 def create_settings(destination, database):
-    import booki
+    import booktype
 
-    booki_source = os.path.dirname(booki.__file__)
+    booktype_source = os.path.dirname(booktype.__file__)
     project = get_project_name(destination)
 
     try:
@@ -247,15 +247,15 @@ def create_settings(destination, database):
         raise InstallError()
 
     try:
-        content = read_file('%s/skeleton/base_settings.py.original' % booki_source)
-        dev_content = read_file('%s/skeleton/dev_settings.py.original' % booki_source)
-        prod_content = read_file('%s/skeleton/prod_settings.py.original' % booki_source)
+        content = read_file('%s/skeleton/base_settings.py.original' % booktype_source)
+        dev_content = read_file('%s/skeleton/dev_settings.py.original' % booktype_source)
+        prod_content = read_file('%s/skeleton/prod_settings.py.original' % booktype_source)
     except IOError:
         raise MajorError("[ERROR] Can't read settings.py.original file.")
 
-    booki_name = "Booktype site"
+    booktype_name = "Booktype site"
 
-    vals = {'BOOKTYPE_NAME': booki_name,
+    vals = {'BOOKTYPE_NAME': booktype_name,
             'BOOKTYPE_SITE_NAME': '%s_site' % project,
             'BOOKTYPE_ROOT': os.path.abspath(destination)}
 
@@ -298,22 +298,21 @@ def get_project_directory(destination):
 def create_manage(destination):
     log("+ Creating manage.py file.")
 
-    import booki
+    import booktype
     import stat
 
-    booki_source = os.path.dirname(booki.__file__)
-    booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
-
+    booktype_source = os.path.dirname(booktype.__file__)
+    booktype_path = os.path.abspath(os.path.dirname(booktype.__file__)+'/..')
     project = get_project_name(destination)
 
     try:
-        content = read_file('%s/skeleton/manage.py.original' % booki_source)
+        content = read_file('%s/skeleton/manage.py.original' % booktype_source)
     except IOError:
         raise MajorError("[ERROR] Can't read manage.py.original file.")
 
     content = set_var(content, "SETTINGS", "%s_site.settings.dev" % project)    
     content = set_var(content, "DESTINATION_PATH", destination)
-    content = set_var(content, "BOOKTYPE_PATH", booki_path)
+    content = set_var(content, "BOOKTYPE_PATH", booktype_path)
 
     try:
         log("+ Creating manage.py file.  ")
