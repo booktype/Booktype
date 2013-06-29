@@ -208,6 +208,22 @@ def isBookLimitReached():
 
     return False
 
+def isValidEmail(email):
+    from django.core.exceptions import ValidationError
 
+    try:
+        from django.core.validators import email_re
+
+        return email_re.match(email)
+    except:
+        from django.core.validators import validate_email
+
+        try:
+            validate_email(email)
+            return True
+        except ValidationError:
+            return False
+
+    return False
 
 

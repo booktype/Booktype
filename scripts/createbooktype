@@ -40,7 +40,7 @@ def show_info():
 def show_after(destination):
     logln("")
     logln("Check [%s] directory for config files:" % destination)
-    logln("   booki.env      -  Environment variables")
+    logln("   booktype.env        -  Environment variables")
     logln("   conf/booki.wsgi     -  WSGI file for Apache")
     logln("   conf/wsgi.apache    -  Apache config file")
     logln("   conf/gunicorn.nginx -  Nginx config file")

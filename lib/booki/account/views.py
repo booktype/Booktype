@@ -25,10 +25,6 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError, transaction
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-try:
-    from django.core.validators import email_re
-except:
-    from django.forms.fields import email_re
 
 from django import forms
 
@@ -119,8 +115,10 @@ def signin(request):
                     mtch = re.match('^[\w\d\_\.\-]{2,20}$', request.POST.get("username", "").strip())
                     if not mtch:  return 6
 
+                    from booki.utils.misc import  isValidEmail
+
                     # check if it is valid email
-                    if not bool(email_re.match(request.POST["email"].strip())): return 7
+                    if not bool(isValidEmail(request.POST["email"].strip())): return 7
 
                     if request.POST.get("password", "") != request.POST.get("password2", "").strip(): return 8
                     if len(request.POST.get("password", "").strip()) < 6: return 9
