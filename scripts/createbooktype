@@ -515,10 +515,6 @@ server {
     access_log /var/log/nginx/booktype_access.log;
     error_log  /var/log/nginx/booktype_error.log;
 
-    location /media/ {
-        # this changes depending on your python version
-        alias %(django_path)s/contrib/admin/media/;
-    }
 
     location /static/ {
         alias %(destination)s/static/;
@@ -528,9 +524,9 @@ server {
         }
     }
 
-    location /site_static/ {
-        alias %(booki_source)s/site_static/;
-        # if asset versioning is used
+    location /data/ {
+        alias %(destination)s/data/;
+
         if ($query_string) {
             expires max;
         }
@@ -589,11 +585,6 @@ server {
     access_log /var/log/nginx/booktype_access.log;
     error_log  /var/log/nginx/booktype_error.log;
 
-    location /media/ {
-        # this changes depending on your python version
-        alias %(django_path)s/contrib/admin/media/;
-    }
-
     location /static/ {
         alias %(destination)s/static/;
 
@@ -602,10 +593,9 @@ server {
         }
     }
 
-    location /site_static/ {
-        alias %(booki_source)s/site_static/;
+    location /data/ {
+        alias %(destination)s/data/;
 
-        # if asset versioning is used
         if ($query_string) {
             expires max;
         }

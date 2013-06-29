@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls.defaults import *
+from django.conf.urls import patterns, url, include
 
 
 urlpatterns = patterns('',
