@@ -94,11 +94,6 @@ ADMIN_MEDIA_PREFIX = '%s/media/' % BOOKI_URL
 OBJAVI_URL = "http://objavi.booktype.pro/"
 ESPRI_URL = "http://objavi.booktype.pro/espri"
 
-# lulu.com export credentials that override Objavi settings
-LULU_USER = None
-LULU_PASSWORD = None
-LULU_API_KEY = None
-
 # who gets credited as publisher if not otherwise specified
 DEFAULT_PUBLISHER = "Unknown"
 
@@ -174,17 +169,23 @@ else:
                         'django.template.loaders.eggs.Loader',
                        )
 
-TEMPLATE_CONTEXT_PROCESSORS = ('django.contrib.auth.context_processors.auth', 
-                               'django.contrib.messages.context_processors.messages') 
+TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
+                                "django.core.context_processors.debug",
+                                "django.core.context_processors.i18n",
+                                "django.core.context_processors.media",
+                                "django.core.context_processors.static",
+                                "django.core.context_processors.tz",
+                                "django.contrib.messages.context_processors.messages",
+                                "django.core.context_processors.csrf")
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.transaction.TransactionMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware'
+                    'django.middleware.common.CommonMiddleware',
+                    'django.contrib.sessions.middleware.SessionMiddleware',
+                    #'django.middleware.csrf.CsrfViewMiddleware',
+                    'django.middleware.locale.LocaleMiddleware',
+                    'django.contrib.auth.middleware.AuthenticationMiddleware',
+                    'django.middleware.transaction.TransactionMiddleware',
+                    'django.contrib.messages.middleware.MessageMiddleware'
 )
 
 
@@ -215,6 +216,8 @@ INSTALLED_APPS = (
     'booki.reader',
     'booki.portal',
     'booki.messaging',
+
+    'booktype.apps.loadsave',
 
     'sputnik',
     'booktypecontrol'

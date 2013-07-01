@@ -64,9 +64,13 @@ urlpatterns += portal_urls.urlpatterns
 # this has to be always at the end!
 
 urlpatterns += patterns('',
+                        # export
+                        url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.loadsave.urls')),
+
                         # editor
                         url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls')),
 
                         # reader
+                        # - must be at the end
                         url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.reader.urls'))
               )
