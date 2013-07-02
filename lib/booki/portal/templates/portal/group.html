@@ -29,7 +29,8 @@
 	
 	// start Sputnik
 	//jQuery.booki.network._transport.connect();
-
+        jQuery.booki.initCSRF();
+        
 	// we have to be very carefull when it comes to session timeout on server side !
         jQuery.booki.network._transport.connect({'poll': false, 'iteration': 1000});
 

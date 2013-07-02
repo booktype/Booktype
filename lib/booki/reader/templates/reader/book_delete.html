@@ -2,7 +2,7 @@
 
 <div class="dialog" title="{% trans "Delete Book" %}">
   <iframe name="hidden_frame" style="border: 0px; width: 0px; height: 0px"></iframe>
-  <form method="post" action="{% url "book_delete" book.url_title %}"  target="hidden_frame" enctype="multipart/form-data">
+  <form method="post" action="{% url "book_delete" book.url_title %}"  target="hidden_frame" enctype="multipart/form-data">{% csrf_token %}
    <p>{% trans "Are you sure you would like to delete this book? You will lose all data associated to this book and you will not be able to undo this operation!" %}</p>
    <p><b>{% trans "Type full title of the book to delete it" %} - <i>"{{ book.title }}"</i>.</b></p>
    <input type="text" style="width: 100%;" placeholder="{{ book.title }}" name="title"/>

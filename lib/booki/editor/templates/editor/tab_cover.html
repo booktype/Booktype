@@ -17,7 +17,7 @@
 
   <iframe name="hidden_cover" class="hidden_frame"></iframe>
 
-  <form id="cover_upload" method="POST" action="{% url "upload_cover" book.url_title %}" target="hidden_cover" enctype="multipart/form-data" name="formcover">
+  <form id="cover_upload" method="POST" action="{% url "upload_cover" book.url_title %}" target="hidden_cover" enctype="multipart/form-data" name="formcover">{% csrf_token %}
     <fieldset>
       <legend>{% trans "Upload cover image" %}</legend>
       <input type="file" name="cover"/>

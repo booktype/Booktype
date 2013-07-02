@@ -16,6 +16,7 @@
 
 <script type="text/javascript">
  $(function() {
+     $.booki.initCSRF();
 
 
      $('a.user').CreateBubblePopup({
@@ -30,7 +31,6 @@
 
      $('A.user').mouseover(function(){
 				var lnk = $(this);
-
 				$.get('{{ request.META.SCRIPT_NAME }}/_utils/profileinfo/'+lnk.html()+'/', function(data) {
                                        lnk.SetBubblePopupInnerHtml(data, false);
                                 });
@@ -48,7 +48,7 @@
 
      $('A.attachment').mouseover(function(){
 				var lnk = $(this);
-
+       
 				$.get('{{ request.META.SCRIPT_NAME }}/_utils/attachmentinfo/{{book.url_title}}/{{book_version}}/'+lnk.html(), function(data) {
                                        lnk.SetBubblePopupInnerHtml(data, false);
                                 });
