@@ -2,7 +2,7 @@
 
 <h3>{% trans "Sign in" %}</h3>
 
-<form id="formsignin" onsubmit="return false;" action="#" method="GET">
+<form id="formsignin" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
   <label for="username">{% trans "User name" %}</label>        
   <input name="username" type="text" />
   <label for="password">{% trans "Password" %}</label>

@@ -31,8 +31,9 @@
         $("A.importbook").booksparkImportBook({"url": "{% url "import_book" user.username %}"});
 
         $("A.creategroup").booksparkCreateGroup({"url": "{% url "create_group" user.username %}"});
-	// start Sputnik
-	jQuery.booki.network._transport.connect();
+        
+      	// start Sputnik
+      	jQuery.booki.connect();
     });
 
 
@@ -162,13 +163,13 @@
         <td width="37%"><a class="action-button" href="{% url "edit_book"  book.url_title %}">{% trans "edit" %}</a> <a class="action-button" href="{% url "book_info"  book.url_title %}">{% trans "info" %}</a> <a class="action-button" href="{% url "draft_book"  book.url_title %}">{% trans "draft" %}</a> 
         <td class="buttons last" width="18%"><div style="white-space: nowrap;"> {% if user.username == request.user.username %}
             {% if book.hidden %}
-            <form class="formvisibility" style="display: inline" action="." method="POST">
+            <form class="formvisibility" style="display: inline" action="." method="POST">{% csrf_token %}
               <button>{% trans "Show to others" %}</button>
               <input type="hidden" name="book" value="{{book.url_title}}" />
               <input type="hidden" name="action" value="unhide" />
             </form>
             {% else %}
-            <form class="formvisibility"  style="display: inline" action="." method="POST">
+            <form class="formvisibility"  style="display: inline" action="." method="POST">{% csrf_token %}
               <button>{% trans "Hide from others" %}</button>
               <input type="hidden" name="book" value="{{book.url_title}}" />
               <input type="hidden" name="action" value="hide" />
@@ -186,7 +187,7 @@
   <h3>{% trans "User settings" %}</h3>
  <iframe name="hidden_settings" style="border: 0px; width: 0px; height: 0px;"></iframe>
  <div style="float: left; margin-right: 20px">
- <form method="post" action="{% url "save_settings" user.username %}" target="hidden_settings" enctype="multipart/form-data" name="formsettings">
+ <form method="post" action="{% url "save_settings" user.username %}" target="hidden_settings" enctype="multipart/form-data" name="formsettings">{% csrf_token %}
   <fieldset class="plain">
    <dl>
     <dt><label>{% trans "Email" %}</label></dt>
@@ -216,7 +217,7 @@
  </form>
    </div>
    <div style="float: left; width: 380px; ">
- <form method="post" action="" enctype="multipart/form-data" name="formpassword">
+ <form method="post" action="" enctype="multipart/form-data" name="formpassword">{% csrf_token %}
   <fieldset class="plain">
    <dl>
     <dt><label>{% trans "Old Password" %}</label></dt>
