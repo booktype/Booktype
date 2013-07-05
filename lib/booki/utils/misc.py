@@ -50,7 +50,10 @@ def createThumbnail(fname, size = (100, 100)):
     @return: Returns PIL Image object
     """
 
-    import Image
+    try:
+        from PIL import Image
+    except ImportError:
+        import Image
 
     im = Image.open(fname)
     width, height = im.size

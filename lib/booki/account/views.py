@@ -592,7 +592,10 @@ def view_profilethumbnail(request, profileid):
     else:
         name =  u.get_profile().image.path
 
-    import Image
+    try:
+        from PIL import Image
+    except ImportError:
+        import Image
     
     try:
         image = Image.open(name)

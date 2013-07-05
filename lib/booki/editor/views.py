@@ -174,7 +174,10 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
 #    document_root = '%s/static/%s/%s' % (settings.STATIC_DOC_ROOT, bookid, path)
 
     # should have one  "broken image" in case of error
-    import Image
+    try:
+        from PIL import Image
+    except ImportError:
+        import Image
 
     try:
         im = Image.open(document_root)
@@ -295,7 +298,11 @@ def view_cover(request, bookid, cid, fname = None, version=None):
     content_type = mimetypes.types_map.get('.'+extension, 'binary/octet-stream')
 
     if request.GET.get('preview', '') == '1':
-        import Image
+        try:
+            from PIL import Image
+        except ImportError:
+            import Image
+            
         try:
             if extension.lower() in ['pdf', 'psd', 'svg']:
                 raise
