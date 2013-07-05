@@ -2,6 +2,11 @@
 
 import os.path
 
+import djcelery
+
+djcelery.setup_loader()
+
+
 # DJANGO DEBUG
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -209,6 +214,7 @@ INSTALLED_APPS = (
 
     'south',
     'compressor',
+    'djcelery',
 
     # list of booki apps
     'booki.editor',
@@ -217,9 +223,11 @@ INSTALLED_APPS = (
     'booki.portal',
     'booki.messaging',
 
-    'booktype.apps.loadsave',
+#    'booktype.apps.loadsave',
+    'booktype.apps.convert',
 
     'sputnik',
     'booktypecontrol'
 )
 
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'

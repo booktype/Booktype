@@ -135,7 +135,7 @@ def check_feedparser_available():
 def check_pil_available():
     log("+ Trying to import Python Imaging Library (PIL).  ")
 
-    try:
+    try:        
         import Image
     except ImportError:
         raise InstallError()
@@ -385,6 +385,11 @@ framework.
 
 """
 import os, sys
+
+import djcelery
+
+djcelery.setup_loader()
+
 
 sys.path.insert(0, '%(destination)s/')
 sys.path.insert(0, '%(destination)s/lib/')
