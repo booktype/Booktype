@@ -14,17 +14,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+import uuid
+
 import celery
 import celery.result
 
 from django.views.generic.base import View
 from django.http import HttpResponse, Http404
+from django.conf import settings
 
 from django.utils import simplejson as json
 
-from booki.utils import log
-
 from . import tasks
+from .utils.uploadhandler import FileUploadHandler
 
 
 class OutputData(object):
@@ -50,8 +53,24 @@ class RequestData(object):
 
 class ConvertView(View):
     def post(self, request):
-        request_data = RequestData.parse(request.body)
+        token = str(uuid.uuid1())
+
+        # sandbox directory for this request
+        base_path = os.path.join(settings.MEDIA_ROOT, "tmp", token)
+        os.makedirs(base_path)
+
+        request.upload_handlers = (FileUploadHandler(base_path), )
+
+        # parse the request
+        request_spec = get_request_spec(request)
+        request_data = RequestData.parse(request_spec)
+
+        # name:path for all uploaded files
+        request_data.files = {name : file.file_path() for (name, file) in request.FILES.iteritems()}
+
+        # start the task in the background
         async_result = tasks.convert.apply_async((request_data,))
+
         response_data = {
             "state"   : async_result.state,
             "task_id" : async_result.task_id,
@@ -67,6 +86,13 @@ class ConvertView(View):
             "result"  : str(async_result.result),
         }
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+
+def get_request_spec(request):
+    if request.POST:
+        return request.POST["request-spec"]
+    else:
+        return request.body
 
 
 __all__ = ("ConvertView", )
