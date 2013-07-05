@@ -33,6 +33,9 @@ urlpatterns = patterns('',
                    # booktype control center
                    url(r'^_control/', include('booktypecontrol.urls')),
 
+                   # convert
+                   url(r'^_convert/', include('booktype.apps.convert.urls')),
+
 
                    (r'^data/(?P<path>.*)$', 'django.views.static.serve',
                     {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
