@@ -32,7 +32,6 @@ class SaveView(View):
         export_book(fileName, book_version)
 
     	# write file
-
         response.write(open(fileName, 'rb').read())
 
         os.unlink(fileName)
