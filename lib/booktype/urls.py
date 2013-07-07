@@ -54,7 +54,10 @@ urlpatterns = patterns('',
                    url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),
 
                    # messaging application
-                   url(r'^messaging/', include('booki.messaging.urls'))
+                   url(r'^messaging/', include('booki.messaging.urls')),
+
+                   # importer application
+                   url(r'^importer/', include('booktype.apps.importer.urls'))                   
                    )
 
 

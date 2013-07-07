@@ -40,8 +40,12 @@ def tidy_cleanup(content, **extra):
                              stderr=subprocess.PIPE, close_fds=True)
     except OSError:
         return (3, None)
+    
+    try:
+        p.stdin.write(content.encode('utf8'))
+    except:
+        p.stdin.write(content)
 
-    p.stdin.write(content)
 
     (cont, p_err) = p.communicate()
 

@@ -1,5 +1,5 @@
 # This file is part of Booktype.
-# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+# Copyright (c) 2013 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
 #
 # Booktype is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,11 +18,11 @@ from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 from django.contrib.auth.models import User
 
-from booki.editor import common
+from booktype.utils.misc import import_book_from_file
 
 class Command(BaseCommand):
-    args = "<booki-zip file> [, <booki-zip file>, ...]"
-    help = "Imports one or many books from booki-zip file."
+    args = "<epub file> [, <epub file>, ...]"
+    help = "Imports one or many books from epub files."
 
     option_list = BaseCommand.option_list + (
         make_option('--owner',
@@ -66,11 +66,11 @@ class Command(BaseCommand):
                 if options['new_book_url']:
                     extraOptions['book_url'] = options['new_book_url']
 
-                common.importBookFromFile(user, fileName, createTOC=True, **extraOptions)
+                import_book_from_file(fileName, user)
             except IOError:
                 raise CommandError('File "%s" does not exist. Can not finish import.' % fileName)
             else:
                 if options['verbosity'] in ['1', '2']:
-                    print 'Booki-zip "%s" file successfully imported.' % fileName
+                    print 'EPUB "%s" file successfully imported.' % fileName
                 
         
