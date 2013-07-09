@@ -17,6 +17,8 @@
 import os
 
 import celery
+import celery.result
+
 import logging
 
 from django.core.files import File
@@ -84,6 +86,10 @@ def download(src_url, dst_file):
 
 @task
 def convert_one(profile, config, book, output):
+    import time
+    for i in range(0, 10):
+        celery.current_task.update_state(state="PROGRESS", meta = {"bla" : i})
+        time.sleep(5)
     result = {
         "status" : "ok",
     }
@@ -98,10 +104,18 @@ def convert(request_data, sandbox_path):
     assets.add_files(request_data.files)
     logger.debug(assets)
 
-    result = {
-        "status" : "ok",
-    }
-    return result
+    subtasks = {}
+    for (name, output) in request_data.outputs.iteritems():
+        subtask = convert_one.s(output.profile, output.config, request_data.input, None)
+        subtasks[name] = subtask.apply_async()
+
+    subtasks_info = {name : async_result.task_id for (name, async_result) in subtasks.iteritems()}
+    celery.current_task.update_state(state="PROGRESS", meta=subtasks_info)
+
+    result_set = celery.result.ResultSet(subtasks.values())
+    result_set.join()
+
+    return subtasks_info
 
 
 __all__ = ("convert", )

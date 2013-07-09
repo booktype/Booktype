@@ -54,6 +54,7 @@ class RequestData(object):
 
 
 class ConvertView(View):
+
     def post(self, request):
         token = str(uuid.uuid1())
 
@@ -80,16 +81,35 @@ class ConvertView(View):
         }
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
+
     def get(self, request, task_id):
         task_id = sputnik.rcon.get("convert:task_id:" + task_id)
 
         async_result = celery.current_app.AsyncResult(task_id)
 
-        response_data = {
-            "state"   : async_result.state,
-            "result"  : str(async_result.result),
-        }
+        task_info     = get_task_info(async_result)
+        subtasks_info = {subtask.task_id : get_task_info(subtask) for subtask in async_result.children}
+
+        # fix-up result field of the task info
+        task_result = task_info.get("result")
+        if task_result:
+            task_info["result"] = {name : subtasks_info[subtask_id] for (name, subtask_id) in task_result.iteritems()}
+
+        response_data = task_info
+
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+
+def get_task_info(async_result):
+    status = {
+        "state" : async_result.state,
+        #"meta" : repr(celery.current_app.backend.get_task_meta(async_result.task_id)),
+    }
+    if async_result.failed():
+        status["error"] = str(async_result.result)
+    elif async_result.result is not None:
+        status["result"] = async_result.result
+    return status
 
 
 def get_request_spec(request):
