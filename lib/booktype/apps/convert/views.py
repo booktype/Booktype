@@ -36,8 +36,8 @@ class OutputData(object):
 
     def __init__(self, data):
         self.profile = data["profile"]
-        self.config  = data["config"]
         self.output  = data["output"]
+        self.config  = data.get("config", {})
 
 
 class RequestData(object):
@@ -88,7 +88,7 @@ class ConvertView(View):
         async_result = celery.current_app.AsyncResult(task_id)
 
         task_info     = get_task_info(async_result)
-        subtasks_info = {subtask.task_id : get_task_info(subtask) for subtask in async_result.children}
+        subtasks_info = {subtask.task_id : get_task_info(subtask) for subtask in async_result.children or []}
 
         # fix-up result field of the task info
         task_result = task_info.get("result")
