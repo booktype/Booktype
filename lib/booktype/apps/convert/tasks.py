@@ -21,47 +21,19 @@ import celery.result
 
 import logging
 
-from django.core.files import File
-from django.template.defaultfilters import slugify
+from booktype.convert import loader
+from booktype.convert.runner import run_conversion
+from booktype.convert.assets import AssetCollection
 
 
 logger = logging.getLogger("booktype.apps.convert")
-
-
-class AssetCollection(object):
-    def __init__(self, base_path):
-        self.base_path = base_path
-        self.files = {}
-
-    def add_files(self, files):
-        for (asset_id, file_path) in files.iteritems():
-            self.files[asset_id] = AssetFile(asset_id, file_path)
-
-    def add_urls(self, urls):
-        for (asset_id, url) in urls.iteritems():
-            file_path = os.path.join(self.base_path, slugify(asset_id))
-            download(url, file_path)
-            self.files[asset_id] = AssetFile(asset_id, file_path, original_url=url)
-
-    def __repr__(self):
-        return repr(self.files)
-
-
-class AssetFile(object):
-    def __init__(self, asset_id, file_path, original_url=None):
-        self.asset_id     = asset_id
-        self.file_path    = file_path
-        self.file_url     = "file://" + file_path
-        self.original_url = original_url
-
-    def __repr__(self):
-        return "<%s %s: %s>" % ("AssetFile", repr(self.asset_id), repr(self.file_path))
 
 
 class Task(celery.Task):
     def __init__(self):
         celery.Task.__init__(self)
         os.putenv("LC_ALL", "en_US.UTF-8")
+        self.converters = loader.find_all()
 
 
 def task(func):
@@ -73,47 +45,46 @@ def task(func):
     return decorated_func
 
 
-def download(src_url, dst_file):
-    import urllib2
-    src = urllib2.urlopen(src_url)
-    try:
-        with open(dst_file, "w") as dst:
-            for chunk in src:
-                dst.write(chunk)
-    finally:
-        src.close()
+@task
+def convert_one(*args, **kwargs):
+    """Runs one conversion with the specified arguments."""
+
+    def callback(meta):
+        celery.current_task.update_state(state="PROGRESS", meta=meta)
+
+    kwargs.update({
+        "converters" : celery.current_task.converters,
+        "callback"   : callback,
+    })
+
+    return run_conversion(*args, **kwargs)
+
 
 
 @task
-def convert_one(profile, config, book, output):
-    import time
-    for i in range(0, 10):
-        celery.current_task.update_state(state="PROGRESS", meta = {"bla" : i})
-        time.sleep(5)
-    result = {
-        "status" : "ok",
-    }
-    return result
-
-
-@task
-def convert(request_data, sandbox_path):
-    assets = AssetCollection(sandbox_path)
+def convert(request_data, base_path):
+    assets = AssetCollection(base_path)
 
     assets.add_urls(request_data.assets)
     assets.add_files(request_data.files)
-    logger.debug(assets)
 
     subtasks = {}
     for (name, output) in request_data.outputs.iteritems():
-        subtask = convert_one.s(output.profile, output.config, request_data.input, None)
+        subtask_args = (output.profile, request_data.input, output.output)
+        subtask_kwargs = {
+            "assets"       : assets,
+            "config"       : output.config,
+            "sandbox_path" : os.path.join(base_path, name),
+        }
+
+        subtask = convert_one.subtask(args=subtask_args, kwargs=subtask_kwargs)
         subtasks[name] = subtask.apply_async()
 
     subtasks_info = {name : async_result.task_id for (name, async_result) in subtasks.iteritems()}
     celery.current_task.update_state(state="PROGRESS", meta=subtasks_info)
 
     result_set = celery.result.ResultSet(subtasks.values())
-    result_set.join()
+    result_set.join(propagate=False)
 
     return subtasks_info
 
