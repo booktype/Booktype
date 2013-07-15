@@ -19,6 +19,7 @@ import os
 import logging
 
 from . import loader
+from . import ConversionError
 from .assets import AssetCollection
 
 
@@ -39,7 +40,7 @@ def run_conversion(profile, book, output, config=None, sandbox_path=None, assets
         converters = loader.find_all()
 
     if not converters.has_key(profile):
-        raise Exception("no converter registered for " + profile)
+        raise ConversionError("no converter registered for " + profile)
 
     converter = converters[profile]()
 
