@@ -34,6 +34,9 @@ class AssetCollection(object):
             download(url, file_path)
             self.files[asset_id] = AssetFile(asset_id, file_path, original_url=url)
 
+    def get(self, asset_id):
+        return self.files.get(asset_id)
+
     def __repr__(self):
         return repr(self.files)
 

@@ -14,9 +14,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from .base import BaseConverter
+import lxml
+import lxml.html
+from lxml import etree
 
 import logging
+
+import ebooklib
+import ebooklib.epub
+import ebooklib.utils
+
+from .base import BaseConverter
 
 
 logger = logging.getLogger("booktype.convert")
@@ -25,5 +33,5 @@ logger = logging.getLogger("booktype.convert")
 class PdfConverter(BaseConverter):
     name = "pdf"
 
-    def __init__(self):
-        pass
+    def convert(self, book, output_path):
+        raise NotImplementedError("not implemented")

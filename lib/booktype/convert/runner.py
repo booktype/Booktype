@@ -26,7 +26,7 @@ from .assets import AssetCollection
 logger = logging.getLogger("booktype.convert")
 
 
-def run_conversion(profile, book, output, config=None, sandbox_path=None, assets=None, converters=None, callback=None):
+def run_conversion(profile, input, output, config=None, sandbox_path=None, assets=None, converters=None, callback=None):
     if config is None:
         config = {}
 
@@ -42,22 +42,22 @@ def run_conversion(profile, book, output, config=None, sandbox_path=None, assets
     if not converters.has_key(profile):
         raise ConversionError("no converter registered for " + profile)
 
-    converter = converters[profile]()
+    book_path = assets.get(input).file_path
 
-    logger.debug(assets)
-    logger.debug(converter)
+    if book_path is None:
+        raise ConversionError("no asset for input file")
 
-    # TODO: run the converter
-    #
-    import time
-    for i in range(0, 3):
-        if callable(callback):
-            callback({"bla" : i })
-        time.sleep(2)
+    os.makedirs(sandbox_path)
+
+    converter_class = converters[profile]
+    converter = converter_class(config, assets, sandbox_path, callback)
+
+    converter.validate_config()
+    book = converter.load_book(book_path)
+    converter.convert(book, output)
 
     result = {
         "status" : "ok",
         "output" : output,
     }
     return result
-
