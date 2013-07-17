@@ -17,12 +17,23 @@
 import os
 
 import celery
+import celery.result
+
+import logging
+
+from booktype.convert import loader
+from booktype.convert.runner import run_conversion
+from booktype.convert.assets import AssetCollection
+
+
+logger = logging.getLogger("booktype.apps.convert")
 
 
 class Task(celery.Task):
     def __init__(self):
         celery.Task.__init__(self)
         os.putenv("LC_ALL", "en_US.UTF-8")
+        self.converters = loader.find_all()
 
 
 def task(func):
@@ -35,19 +46,47 @@ def task(func):
 
 
 @task
-def convert_one(profile, config, book, output):
-    result = {
-        "status" : "ok",
-    }
-    return result
+def convert_one(*args, **kwargs):
+    """Runs one conversion with the specified arguments."""
+
+    def callback(meta):
+        celery.current_task.update_state(state="PROGRESS", meta=meta)
+
+    kwargs.update({
+        "converters" : celery.current_task.converters,
+        "callback"   : callback,
+    })
+
+    return run_conversion(*args, **kwargs)
+
 
 
 @task
-def convert(request_data):
-    result = {
-        "status" : "ok",
-    }
-    return result
+def convert(request_data, base_path):
+    assets = AssetCollection(base_path)
+
+    assets.add_urls(request_data.assets)
+    assets.add_files(request_data.files)
+
+    subtasks = {}
+    for (name, output) in request_data.outputs.iteritems():
+        subtask_args = (output.profile, request_data.input, output.output)
+        subtask_kwargs = {
+            "assets"       : assets,
+            "config"       : output.config,
+            "sandbox_path" : os.path.join(base_path, name),
+        }
+
+        subtask = convert_one.subtask(args=subtask_args, kwargs=subtask_kwargs)
+        subtasks[name] = subtask.apply_async()
+
+    subtasks_info = {name : async_result.task_id for (name, async_result) in subtasks.iteritems()}
+    celery.current_task.update_state(state="PROGRESS", meta=subtasks_info)
+
+    result_set = celery.result.ResultSet(subtasks.values())
+    result_set.join(propagate=False)
+
+    return subtasks_info
 
 
-__all__ = ("convert", "convert_one", )
+__all__ = ("convert", )

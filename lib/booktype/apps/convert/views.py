@@ -18,13 +18,14 @@ import os
 import uuid
 
 import celery
-import celery.result
 
 from django.views.generic.base import View
 from django.http import HttpResponse, Http404
 from django.conf import settings
 
 from django.utils import simplejson as json
+
+import sputnik
 
 from . import tasks
 from .utils.uploadhandler import FileUploadHandler
@@ -35,8 +36,8 @@ class OutputData(object):
 
     def __init__(self, data):
         self.profile = data["profile"]
-        self.config  = data["config"]
         self.output  = data["output"]
+        self.config  = data.get("config", {})
 
 
 class RequestData(object):
@@ -47,11 +48,13 @@ class RequestData(object):
         return klass(json.loads(text))
 
     def __init__(self, data):
-        self.book = data["book"]
+        self.assets  = data.get("assets", {}) # TODO: check type is dict
+        self.input   = data["input"]
         self.outputs = {k: OutputData(v) for (k,v) in data["outputs"].iteritems()}
 
 
 class ConvertView(View):
+
     def post(self, request):
         token = str(uuid.uuid1())
 
@@ -66,26 +69,47 @@ class ConvertView(View):
         request_data = RequestData.parse(request_spec)
 
         # name:path for all uploaded files
-        request_data.files = {name : file.file_path() for (name, file) in request.FILES.iteritems()}
+        request_data.files = {field_name : file.file_path() for (field_name, file) in request.FILES.iteritems()}
 
         # start the task in the background
-        async_result = tasks.convert.apply_async((request_data,))
+        async_result = tasks.convert.apply_async((request_data, base_path))
+        task_id = map_task_id(async_result.task_id, token)
 
         response_data = {
             "state"   : async_result.state,
-            "task_id" : async_result.task_id,
+            "task_id" : task_id,
         }
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
 
     def get(self, request, task_id):
+        task_id = sputnik.rcon.get("convert:task_id:" + task_id)
+
         async_result = celery.current_app.AsyncResult(task_id)
-        #if async_result.task_name != tasks.convert.name:
-        #    raise Http404
-        response_data = {
-            "state"   : async_result.state,
-            "result"  : str(async_result.result),
-        }
+
+        task_info     = get_task_info(async_result)
+        subtasks_info = {subtask.task_id : get_task_info(subtask) for subtask in async_result.children or []}
+
+        # fix-up result field of the task info
+        task_result = task_info.get("result")
+        if task_result:
+            task_info["result"] = {name : subtasks_info[subtask_id] for (name, subtask_id) in task_result.iteritems()}
+
+        response_data = task_info
+
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+
+def get_task_info(async_result):
+    status = {
+        "state" : async_result.state,
+        #"meta" : repr(celery.current_app.backend.get_task_meta(async_result.task_id)),
+    }
+    if async_result.failed():
+        status["error"] = str(async_result.result)
+    elif async_result.result is not None:
+        status["result"] = async_result.result
+    return status
 
 
 def get_request_spec(request):
@@ -93,6 +117,14 @@ def get_request_spec(request):
         return request.POST["request-spec"]
     else:
         return request.body
+
+
+def map_task_id(task_id, token):
+    sputnik.rcon.set("convert:task_id:" + token, task_id)
+    return token
+
+def get_task_id(token):
+    return sputnik.rcon.get("convert:task_id:" + token)
 
 
 __all__ = ("ConvertView", )
