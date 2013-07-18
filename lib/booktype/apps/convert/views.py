@@ -85,6 +85,9 @@ class ConvertView(View):
     def get(self, request, task_id):
         task_id = sputnik.rcon.get("convert:task_id:" + task_id)
 
+        if task_id is None:
+            raise Http404
+
         async_result = celery.current_app.AsyncResult(task_id)
 
         task_info     = get_task_info(async_result)
