@@ -132,4 +132,5 @@ class PdfConverter(BaseConverter):
 
 
     def _run_renderer(self, html_path, pdf_path):
-        raise NotImplementedError("not implemented")
+        from . import bookjs
+        bookjs.render(html_path, pdf_path)
