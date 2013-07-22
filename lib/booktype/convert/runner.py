@@ -42,18 +42,19 @@ def run_conversion(profile, input, output, config=None, sandbox_path=None, asset
     if not converters.has_key(profile):
         raise ConversionError("no converter registered for " + profile)
 
-    book_path = assets.get(input).file_path
+    book_asset = assets.get(input)
 
-    if book_path is None:
-        raise ConversionError("no asset for input file")
+    if book_asset is None:
+        raise ConversionError("no asset for input file '{}'".format(input))
 
-    os.makedirs(sandbox_path)
+    if not os.path.exists(sandbox_path):
+        os.makedirs(sandbox_path)
 
     converter_class = converters[profile]
     converter = converter_class(config, assets, sandbox_path, callback)
 
     converter.validate_config()
-    book = converter.load_book(book_path)
+    book = converter.load_book(book_asset.file_path)
     converter.convert(book, output)
 
     result = {
