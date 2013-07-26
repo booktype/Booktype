@@ -25,6 +25,8 @@ from booktype.convert import loader
 from booktype.convert.runner import run_conversion
 from booktype.convert.assets import AssetCollection
 
+from . import utils
+
 
 logger = logging.getLogger("booktype.apps.convert")
 
@@ -33,7 +35,7 @@ class Task(celery.Task):
     def __init__(self):
         celery.Task.__init__(self)
         os.putenv("LC_ALL", "en_US.UTF-8")
-        self.converters = loader.find_all()
+        self.converters = loader.find_all(module_names = utils.get_converter_module_names())
 
 
 def task(func):

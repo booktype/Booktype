@@ -14,14 +14,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf import settings
-
-from .. import default_settings
-
-
-def get_converter_module_names():
-    try:
-        return settings.BOOKTYPE_CONVERTER_MODULES
-    except AttributeError:
-        return default_settings.BOOKTYPE_CONVERTER_MODULES
-
+BOOKTYPE_CONVERTER_MODULES = (
+    "booktype.convert.converters",
+)

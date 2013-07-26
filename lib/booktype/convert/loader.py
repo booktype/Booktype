@@ -25,9 +25,11 @@ from .base import BaseConverter
 logger = logging.getLogger("booktype.apps.convert")
 
 
-def find_all():
+def find_all(module_names=None):
+    if module_names is None:
+        module_names = ("booktype.convert.converters", )
     registry = {}
-    for module_name in ("booktype.convert.converters", ):
+    for module_name in module_names:
         try:
             module = importlib.import_module(module_name)
         except:
