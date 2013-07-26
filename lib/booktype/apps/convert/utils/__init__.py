@@ -25,3 +25,19 @@ def get_converter_module_names():
     except AttributeError:
         return default_settings.BOOKTYPE_CONVERTER_MODULES
 
+
+def path2url(path, base=None):
+    if base is None:
+        base_path, base_url = settings.MEDIA_ROOT, settings.MEDIA_URL
+    else:
+        base_path, base_url = base
+
+    if not base_path.endswith("/"):
+        base_path += "/"
+    if not base_url.endswith("/"):
+        base_url += "/"
+
+    if not path.startswith(base_path):
+        raise ValueError("path not inside base path")
+
+    return base_url + path[len(base_path):]

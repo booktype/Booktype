@@ -102,6 +102,8 @@ class PdfConverter(BaseConverter):
 
         self._run_renderer(html_path, pdf_path)
 
+        os.rename(pdf_path, output_path)
+
 
     def _save_images(self, book):
         if not os.path.exists(self.images_path):

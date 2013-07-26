@@ -59,8 +59,13 @@ def convert_one(*args, **kwargs):
         "callback"   : callback,
     })
 
-    return run_conversion(*args, **kwargs)
+    result = run_conversion(*args, **kwargs)
 
+    result.update({
+        "output" : utils.path2url(result["output"]),
+    })
+
+    return result
 
 
 @task
@@ -72,11 +77,14 @@ def convert(request_data, base_path):
 
     subtasks = {}
     for (name, output) in request_data.outputs.iteritems():
-        subtask_args = (output.profile, request_data.input, output.output)
+        sandbox_path = os.path.join(base_path, name)
+        output_path  = os.path.join(sandbox_path, output.output)
+
+        subtask_args = (output.profile, request_data.input, output_path)
         subtask_kwargs = {
             "assets"       : assets,
             "config"       : output.config,
-            "sandbox_path" : os.path.join(base_path, name),
+            "sandbox_path" : sandbox_path,
         }
 
         subtask = convert_one.subtask(args=subtask_args, kwargs=subtask_kwargs)
