@@ -30,7 +30,8 @@ import ebooklib
 import ebooklib.epub
 import ebooklib.utils
 
-from .base import BaseConverter
+from ..base import BaseConverter
+from . import bookjs
 
 
 logger = logging.getLogger("booktype.convert")
@@ -132,5 +133,4 @@ class PdfConverter(BaseConverter):
 
 
     def _run_renderer(self, html_path, pdf_path):
-        from . import bookjs
         bookjs.render(html_path, pdf_path)

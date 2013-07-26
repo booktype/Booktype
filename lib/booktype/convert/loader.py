@@ -27,7 +27,7 @@ logger = logging.getLogger("booktype.apps.convert")
 
 def find_all():
     registry = {}
-    for module_name in ("booktype.convert.all", ):
+    for module_name in ("booktype.convert.converters", ):
         try:
             module = importlib.import_module(module_name)
         except:
