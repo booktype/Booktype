@@ -14,4 +14,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from .pdf import PdfConverter
+BOOKTYPE_CONVERTER_MODULES = (
+    "booktype.convert.converters",
+)
