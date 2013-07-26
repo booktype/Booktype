@@ -19,6 +19,8 @@ import subprocess
 
 import logging
 
+from . import constants
+
 
 logger = logging.getLogger("booktype.convert")
 
@@ -63,3 +65,64 @@ def render(html_path, pdf_path, **kwargs):
     finally:
         if custom_css_file:
             custom_css_file.close()
+
+
+def make_pagination_config(args):
+    """Creates pagination config. text using page setting arguments.
+    """
+    page_settings = _get_page_settings(args)
+
+    # NOTE: size values from page settings are always in "points"
+
+    page_width    = page_settings.get("page_width",    420) # A
+    page_height   = page_settings.get("page_height",   595) # 5
+    top_margin    = page_settings.get("top_margin",    0.8 * 72)
+    bottom_margin = page_settings.get("bottom_margin", 0.8 * 72)
+    side_margin   = page_settings.get("side_margin",   0.5 * 72)
+    gutter        = page_settings.get("gutter",        0.8 * 72)
+
+    def unit(x):
+        # Convert from points (pt) to whatever is specified by lengthUnit.
+        # Division by 0.75 is because of a bug currently present in the
+        # renderer using pt as device pixel instead of px.
+        return x / 72.0 / 0.75
+
+    config = {
+        "lengthUnit"  : "in",
+        "pageWidth"   : unit(page_width),
+        "pageHeight"  : unit(page_height),
+        "outerMargin" : unit(side_margin),
+        "innerMargin" : unit(gutter),
+        "contentsTopMargin"    : unit(top_margin),
+        "contentsBottomMargin" : unit(bottom_margin),
+    }
+
+    items = ["%s:%s" % (key,repr(val)) for key,val in config.items()]
+    text = ",".join(items)
+
+    return text
+
+
+def _get_page_settings(args):
+    settings = {}
+
+    for key, (min_val, max_val, multiplier) in constants.PAGE_EXTREMA.iteritems():
+        if not args.has_key(key):
+            continue
+
+        val = float(args.get(key))
+
+        if val < min_val or val > max_val:
+            logger.error('rejecting %s: outside %s' % (val, extrema))
+        else:
+            settings[key] = val * multiplier
+
+    if args.has_key("page_size"):
+        page_size = args.get("page_size")
+
+        if constants.PAGE_SIZE_DATA.has_key(page_size):
+            settings.update(constants.PAGE_SIZE_DATA.get(page_size))
+        else:
+            raise ValueError("invalid page size specifier")
+
+    return settings

@@ -133,4 +133,6 @@ class PdfConverter(BaseConverter):
 
 
     def _run_renderer(self, html_path, pdf_path):
-        bookjs.render(html_path, pdf_path)
+        css_text = self.config.get("css")
+        page_config = bookjs.make_pagination_config(self.config)
+        bookjs.render(html_path, pdf_path, custom_css=css_text, page_config=page_config)
