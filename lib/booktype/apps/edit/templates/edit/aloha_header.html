@@ -1,0 +1,48 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" href="{% static "edit/js/aloha/css/aloha.css" %}" type="text/css">
+<script src="{% static "edit/js/aloha/lib/vendor/jquery-1.7.2.js" %}"></script>   
+
+<script>
+    Aloha = window.Aloha || {};
+
+    Aloha.settings = {
+        jQuery: window.jQuery.noConflict(true),
+        baseUrl: '{% static "edit/js/aloha/lib/" %}',
+
+        sidebar: { disabled: true },
+        predefinedModules: {
+            'booktype': window.booktype,
+            'jqueryui': window.jQuery.ui
+        },
+        plugins: {
+            highlighteditables: {
+                config: ['highlight'],        
+                editables: {
+                    '#mirko': [ 'highlight' ],
+                    '#content': [ ] 
+                }   
+            }
+        }
+    };
+</script>
+<script src="{% static "edit/js/aloha/lib/require.js" %}"></script>
+
+<script src="{% static "edit/js/aloha/lib/aloha.js" %}"
+    data-aloha-plugins="common/ui,
+                        oer/toolbar,
+                        common/format,
+                        booktype/test,
+                        common/table,
+                        common/list,
+                        common/link,
+                        common/highlighteditables,
+                        common/block,
+                        common/undo,
+                        oer/undobutton,
+                        common/image,
+                        common/contenthandler,
+                        common/paste,
+                        common/commands,
+                        common/align"></script>
+                        

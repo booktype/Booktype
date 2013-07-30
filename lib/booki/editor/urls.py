@@ -19,8 +19,7 @@ from django.conf.urls import patterns, url, include
 
 urlpatterns = patterns('',
                         # utility views                      
-                        url(r'^_utils/thumbnail/(?P<attachment>.*)$',  'booki.editor.views.thumbnail_attachment', name='thumbnail_attachment'),                        
-                        url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/(?P<fname>.*)$',  'booki.editor.views.view_cover', name='view_cover'),
+                        url(r'^_utils/thumbnail/(?P<attachment>.*)$',  'booki.editor.views.thumbnail_attachment', name='thumbnail_attachment'),                                                url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/(?P<fname>.*)$',  'booki.editor.views.view_cover', name='view_cover'),
 
                         # upload
                         url(r'^_upload/$',  'booki.editor.views.upload_attachment', name='upload_attachment'),
