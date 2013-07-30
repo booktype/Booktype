@@ -208,14 +208,14 @@
   </div>
   <div class="modal-body">
     <form>
-       <input type="hidden" name="chapter_id" value="">
+       <input type="hidden" name="chapter_id" value=""/>
        <p>{% trans "Are you sure you would like to delete this chapter? You will lose all data associated to this chapter and you will not be able to undo this operation!" %}</p>
-       <p><input type="checkbox" name="understand"> {% trans "I understand and agree" %}</p>
+       <p><input type="checkbox" name="understand" value="on"/> {% trans "I understand and agree" %}</p>
     </form>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn close-button">{% trans "Close" %}</a>
-    <a href="#" class="btn btn-primary">{% trans "Remove" %}</a>
+    <button class="btn btn-primary">{% trans "Remove" %}</button>
   </div>
 </div>
 
