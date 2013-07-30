@@ -14,5 +14,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from .pdf.converter import PdfConverter
-from .mobi.converter import MobiConverter
+import logging
+import subprocess
+
+
+logger = logging.getLogger("booktype.convert")
+
+
+def run_command(cmd):
+    try:
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        out, err = p.communicate()
+    except Exception:
+        logger.error("Error while running the command: %r" % cmd)
+        raise
+
+    logger.debug("%s\n%s returned %s and produced\nstdout:%s\nstderr:%s" %
+        (' '.join(cmd), cmd[0], p.poll(), out, err))
+
+    return (p.poll(), out, err)

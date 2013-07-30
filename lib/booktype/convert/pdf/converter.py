@@ -34,7 +34,7 @@ from ..base import BaseConverter
 from . import bookjs
 
 
-logger = logging.getLogger("booktype.convert")
+logger = logging.getLogger("booktype.convert.pdf")
 
 
 class PdfConverter(BaseConverter):
