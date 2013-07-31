@@ -106,8 +106,6 @@
 <!-- Tabs content -->
 <div class="tablist left-tablist">
     <ul class="navigation-tabs">
-<!--        <li><a href="#" id="online-users-tab"><i class="big-icon-online-users"></i></a></li>
-        <li><a href="#" id="chat-tab"><i class="big-icon-chat"></i></a></li> -->
     </ul>
 </div>    
 
@@ -128,7 +126,13 @@
     </section>
     <section class="tab-content" source_id="chat-tab">
         <h3>{% trans "Chat" %}</h3>
-        <p>some chat here</p>
+
+        <div style="border: 1px solid gray; width: 100%; height: 300px; padding: 0px; overflow: auto; " class="content">
+        </div>
+
+        <form action="return false;" onsubmit="javascript: return false;">
+           <input type="text" name="message" style="width: 95%;" value=""/>
+        </form>
     </section>
 </div>
 
@@ -290,5 +294,21 @@
   <div class="notification">
   </div>
 </div>
+
+<p class="joinMsg template">{% blocktrans %}<span class="icon">JOINED</span> <span class="notice">notice</span>{% endblocktrans %}</p>
+<p class="infoMsg template">{% blocktrans %}<span class="info">INFO</span> <span class="notice">notice</span>{% endblocktrans %}</p>
+
+<ul class="strings template">
+  <li class="message_info_user_changed_chapter_status">{% trans 'User {0} has changed status of  chapter "{1}" to "{2}".' %}</li>
+  <li class="message_info_user_saved_chapter">{% trans 'User {0} has saved chapter "{1}".' %}</li>
+  <li class="message_info_user_renamed_chapter">{% trans 'User {0} has renamed chapter "{1}" to "{2}".' %}</li>
+  <li class="message_info_user_delete_chapter">{% trans 'User {0} has deleted chapter "{1}".' %}</li>
+  <li class="message_info_user_new_chapter">{% trans 'User {0} has created new chapter "{1}".' %}</li>
+  <li class="message_info_user_cloned_chapter">{% trans 'User {0} has cloned chapter "{1}" from book "{2}".' %}</li>
+  <li class="message_info_published">{% trans '"{0}" is being published.' %}</li>
+  <li class="message_info_user_new_section">{% trans 'User {0} has created new section "{1}".' %}</li>
+  <li class="message_info_user_reverted_chapter">{% trans 'User {0} has reverted chapter "{1}" to revision {2}.' %}</li>
+  <li class="message_info_user_saved_notes">{% trans 'User {0} has saved notes for book "{1}".' %}</li>
+</ul>
 
 {% endblock %}
