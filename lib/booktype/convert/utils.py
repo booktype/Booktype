@@ -50,29 +50,39 @@ def parse_toc_nav(book):
     if nav_item is None:
         raise Exception("could not find the 'nav' item")
 
-    html_node = ebooklib.utils.parse_html_string(nav_item.content)
-    toc_node = html_node.xpath("//nav[@*='toc']")[0]
-
     # directory containing the nav document
     base_name = os.path.dirname(nav_item.file_name)
 
-    toc = []
+    return _parse_nav_content(nav_item.content, base_name)
 
-    for section_li_node in toc_node.find("ol"):
-        section_name = section_li_node[0].text
-        section_chapters = []
 
-        for chapter_li_node in section_li_node.find("ol"):
-            chapter_node = chapter_li_node.find("a")
+def _parse_nav_content(content, base_name):
+    html_node = ebooklib.utils.parse_html_string(content)
+    nav_node = html_node.xpath("//nav[@*='toc']")[0]
 
-            chapter_name = chapter_node.text
-            chapter_path = os.path.normpath(os.path.join(base_name, chapter_node.get("href")))
+    def parse_list(list_node):
+        items = []
 
-            section_chapters.append((chapter_name, chapter_path))
+        for item_node in list_node.findall("li"):
 
-        toc.append((section_name, section_chapters))
+            sublist_node = item_node.find("ol")
+            link_node    = item_node.find("a")
 
-    return toc
+            if sublist_node is not None:
+                section_name = item_node[0].text
+                chapters     = parse_list(sublist_node)
+
+                items.append((section_name, chapters))
+
+            elif link_node is not None:
+                chapter_name = link_node.text
+                chapter_path = os.path.normpath(os.path.join(base_name, link_node.get("href")))
+
+                items.append((chapter_name, chapter_path))
+
+        return items
+
+    return parse_list(nav_node.find("ol"))
 
 
 def parse_toc_ncx(book):
