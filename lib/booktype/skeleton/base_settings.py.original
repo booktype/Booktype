@@ -64,6 +64,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    '%s/%s/static/' % (BOOKI_ROOT, '##BOOKTYPE_SITE_NAME##'),
 )
 
 # List of finder classes that know how to find static files in
@@ -198,7 +199,7 @@ MIDDLEWARE_CLASSES = (
 WSGI_APPLICATION = '##BOOKTYPE_SITE_NAME##.wsgi.application'
 
 TEMPLATE_DIRS = (
-    '%s/templates/' % BOOKI_ROOT,
+    '%s/%s/templates/' % (BOOKI_ROOT, '##BOOKTYPE_SITE_NAME##'),
     '%s/templates/' % os.path.dirname(booki.__file__)
 )
 
@@ -226,6 +227,7 @@ INSTALLED_APPS = (
     'booktype.apps.loadsave',
     'booktype.apps.importer',    
     'booktype.apps.convert',
+    'booktype.apps.edit',
 
     'sputnik',
     'booktypecontrol'

@@ -5,25 +5,25 @@
 <title>{% blocktrans with user.username as username %}/user: {{ username }}{% endblocktrans %}</title>
 <script type="text/javascript" src="{% static "portal/js/jquery.url.js" %}"></script> 
 <script type="text/javascript" src="{% static "portal/js/profile.js" %}"></script> 
-<script type="text/javascript" src="{% static "portal/js/general.js" %}"></script> 
+<!-- <script type="text/javascript" src="{% static "portal/js/general.js" %}"></script>  -->
 <script type="text/javascript">
     $(function() {
 
 	// current browser
-	$.booki.username = "{{request.user.username}}";
+	window.booktype.username = "{{request.user.username}}";
 	
 	// profile user should be different variable
 	
-	$.booki.profileName = "{{user.username}}";
+	window.booktype.profileName = "{{user.username}}";
 
-	$.booki.sputnikDispatcherURL = "{% url "sputnik.views.dispatcher" %}";
+	window.booktype.sputnikDispatcherURL = "{% url "sputnik.views.dispatcher" %}";
 
 	/* call when page is loaded */
 	
-	$.booki.profile.initProfile();
+	window.booktype.profile.initProfile();
 	
 	// probably subscribe to /booki/profile/<username>/
-	$.booki.subscribeToChannel("/booki/", function(message) {
+	window.booktype.subscribeToChannel("/booki/", function(message) {
 	    
 	});
 
@@ -33,7 +33,7 @@
         $("A.creategroup").booksparkCreateGroup({"url": "{% url "create_group" user.username %}"});
         
       	// start Sputnik
-      	jQuery.booki.connect();
+      	window.booktype.connect();
     });
 
 

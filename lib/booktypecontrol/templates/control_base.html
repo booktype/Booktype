@@ -33,7 +33,7 @@
     {% if request.user.is_authenticated %}
 		<ul>
         	<li>
-               <a href="{% url "view_profile" request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url signout %}">{% trans "Sign out" %}</a>
+               <a href="{% url "view_profile" request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url "signout" %}">{% trans "Sign out" %}</a>
             </li>
         </ul>
     {% else %}
