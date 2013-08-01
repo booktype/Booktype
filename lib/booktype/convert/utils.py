@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+
 import logging
 import subprocess
 
@@ -33,3 +35,45 @@ def run_command(cmd):
         (' '.join(cmd), cmd[0], p.poll(), out, err))
 
     return (p.poll(), out, err)
+
+
+################################################################################
+
+import ebooklib
+import ebooklib.epub
+import ebooklib.utils
+
+
+def parse_toc_nav(book):
+    nav_item = next((item for item in book.items if isinstance(item, ebooklib.epub.EpubNav)), None)
+
+    if nav_item is None:
+        raise Exception("could not find the 'nav' item")
+
+    html_node = ebooklib.utils.parse_html_string(nav_item.content)
+    toc_node = html_node.xpath("//nav[@*='toc']")[0]
+
+    # directory containing the nav document
+    base_name = os.path.dirname(nav_item.file_name)
+
+    toc = []
+
+    for section_li_node in toc_node.find("ol"):
+        section_name = section_li_node[0].text
+        section_chapters = []
+
+        for chapter_li_node in section_li_node.find("ol"):
+            chapter_node = chapter_li_node.find("a")
+
+            chapter_name = chapter_node.text
+            chapter_path = os.path.normpath(os.path.join(base_name, chapter_node.get("href")))
+
+            section_chapters.append((chapter_name, chapter_path))
+
+        toc.append((section_name, section_chapters))
+
+    return toc
+
+
+def parse_toc_ncx(book):
+    raise NotImplementedError("NCX parsing not implemented")
