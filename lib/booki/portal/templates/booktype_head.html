@@ -1,21 +1,33 @@
-{% load i18n messaging_tags booki_tags staticfiles %}
+{% load i18n messaging_tags booki_tags staticfiles compress %}
 
+{% compress css %}
 <link type="text/css" href="{% static "portal/css/booktype.css" %}" rel="Stylesheet" >
+{% endcompress %}
 
+{% compress js %}
 <script type="text/javascript" src="{% static "portal/js/jquery-1.9.1.js" %}"></script>
 <script type="text/javascript" src="{% static "portal/js/ui/jquery-ui.min.js" %}"></script>
+<script type="text/javascript" src="{% static "portal/js/underscore-min.js" %}"></script>
+{% endcompress %}
 
+{% compress css %}
 <link type="text/css" href="{% static "portal/css/ui/jquery-ui.min.css" %}" rel="Stylesheet" >
 <link type="text/css" href="{% static "portal/css/ui/smoothness/jquery.ui.all.css" %}" rel="Stylesheet" >
+{% endcompress %}
 
+{% compress js %}
 <script type="text/javascript" src="{% static "portal/js/jquery.json-1.3.js" %}"></script>
 <script type="text/javascript" src="{% static "portal/js/booki.js" %}"></script>
 <script type="text/javascript" src="{% static "portal/js/messaging.js" %}"></script>   
 <script type="text/javascript" src="{% static "portal/js/general.js" %}"></script>
 
+<script type="text/javascript" src="{% static "portal/js/jquery.bubblepopup.v2.3.1.min.js" %}"></script>
+{% endcompress %}
+
+{% compress css %}
 <link type="text/css" href="{% static "portal/css/jquery.bubblepopup.v2.3.1.css" %}" rel="stylesheet" />
 <link type="text/css" href="{% static "portal/css/jquery-ui_overrides.css" %}" rel="Stylesheet" />
-<script type="text/javascript" src="{% static "portal/js/jquery.bubblepopup.v2.3.1.min.js" %}"></script>
+{% endcompress %}
 
 {% booki_site_favicon %}
 {% booki_site_metadata %}
