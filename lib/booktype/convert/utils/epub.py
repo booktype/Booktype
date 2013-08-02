@@ -16,29 +16,6 @@
 
 import os
 
-import logging
-import subprocess
-
-
-logger = logging.getLogger("booktype.convert")
-
-
-def run_command(cmd):
-    try:
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out, err = p.communicate()
-    except Exception:
-        logger.error("Error while running the command: %r" % cmd)
-        raise
-
-    logger.debug("%s\n%s returned %s and produced\nstdout:%s\nstderr:%s" %
-        (' '.join(cmd), cmd[0], p.poll(), out, err))
-
-    return (p.poll(), out, err)
-
-
-################################################################################
-
 import ebooklib
 import ebooklib.epub
 import ebooklib.utils
