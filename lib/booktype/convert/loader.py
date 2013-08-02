@@ -22,7 +22,7 @@ import logging
 from .base import BaseConverter
 
 
-logger = logging.getLogger("booktype.apps.convert")
+logger = logging.getLogger("booktype.convert")
 
 
 def find_all(module_names=None):

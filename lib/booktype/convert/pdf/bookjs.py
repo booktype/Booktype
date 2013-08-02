@@ -15,26 +15,13 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import tempfile
-import subprocess
-
 import logging
 
 from . import constants
+from .. import utils
 
 
-logger = logging.getLogger("booktype.convert")
-
-
-def run(cmd):
-    try:
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out, err = p.communicate()
-    except Exception:
-        logger.error("Failed on command: %r" % cmd)
-        raise
-    logger.debug("%s\n%s returned %s and produced\nstdout:%s\nstderr:%s" %
-        (' '.join(cmd), cmd[0], p.poll(), out, err))
-    return p.poll()
+logger = logging.getLogger("booktype.convert.pdf")
 
 
 def render(html_path, pdf_path, **kwargs):
@@ -61,7 +48,7 @@ def render(html_path, pdf_path, **kwargs):
     cmd = [ program ] + params + [ html_path ]
 
     try:
-        run(cmd)
+        utils.run_command(cmd)
     finally:
         if custom_css_file:
             custom_css_file.close()
