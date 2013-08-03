@@ -15,11 +15,12 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls import patterns, url, include
+from django.views.decorators.csrf import csrf_exempt
 
 from .views import ConvertView
 
 
 urlpatterns = patterns('',
     url(r'^(?P<task_id>.+)$', ConvertView.as_view(), name='convert_status'),
-    url(r'^$', ConvertView.as_view(), name='convert'),
+    url(r'^$', csrf_exempt(ConvertView.as_view()), name='convert'),
 )
