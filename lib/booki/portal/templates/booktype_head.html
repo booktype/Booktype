@@ -36,17 +36,6 @@
   $(function() {
       window.booktype.sputnikDispatcherURL = "{% url "sputnik_dispatcher" %}";
 
-      $("#dialog-sputnik-error").dialog({
-          modal: true,
-          autoOpen: false,
-          buttons: {
-            Ok: function() {
-               $(this).dialog('close');
-               window.location = '.';
-            }
-          }
-      });
-  
       $("FORM.messagefield").messagefield('init', {'view_post': '{% url "messaging_post" %}' });  
   });
 </script>

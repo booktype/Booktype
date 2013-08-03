@@ -8,27 +8,10 @@
     
     {% include "edit/edit_header.html" %}
     {% include "edit/aloha_header.html" %}
+    {% include "edit/edit_custom_header.html" %}
 
-    <script type="text/javascript">  
-           window.booktype.username = "{{request.user.username|escapejs}}";
-           window.booktype.currentBookID  = {{book.id}};
-           window.booktype.currentBook    = "{{book.title|escapejs}}";
-           window.booktype.currentBookURL = "{{book.url_title|escapejs}}";
+    {% include "edit/edit_config.html" %}
 
-           window.booktype.currentVersion = "{{book_version|escapejs}}";
-           window.booktype.sputnikDispatcherURL = "{% url "sputnik.views.dispatcher" %}";
-
-           window.booktype.subscribeToChannel("/booktype/", function(message) {
-            });
-
-
-            Aloha.ready( function() {
-                Aloha.require(['jquery', 'aloha', 'booktype'], function(j, aloha, booktype) {
-                    booktype.editor.initEditor();    
-                    booktype.connect();  
-                });
-            });
-    </script>
     <style>
         div.contentHeader span.info-message { font-size: 12px; margin-right: 10px;}
         .template {
