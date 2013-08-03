@@ -1,0 +1,27 @@
+<script type="text/javascript">  
+       window.booktype.username = "{{request.user.username|escapejs}}";
+       window.booktype.currentBookID  = {{book.id}};
+       window.booktype.currentBook    = "{{book.title|escapejs}}";
+       window.booktype.currentBookURL = "{{book.url_title|escapejs}}";
+
+       window.booktype.currentVersion = "{{book_version|escapejs}}";
+       window.booktype.sputnikDispatcherURL = "{% url "sputnik.views.dispatcher" %}";
+
+       window.booktype.subscribeToChannel("/booktype/", function(message) {
+        });
+
+       var settings = {'panels': {'edit': 'win.booktype.editor.edit',
+                                  'toc' : 'win.booktype.editor.toc',            
+                                  'media' : 'win.booktype.editor.media'},
+                                  
+
+                      };
+
+        Aloha.ready( function() {
+            Aloha.require(['jquery', 'aloha', 'booktype'], function(j, aloha, booktype) {
+
+                booktype.editor.initEditor(settings);    
+                booktype.connect();  
+            });
+        });
+</script>

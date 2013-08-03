@@ -712,6 +712,35 @@ a:focus, a:hover {
 	font-weight: 600;
 }
 
+/* Media
+------------------------------------------------------*/
+.mediaTable {
+	width: 100%;
+	border-top: 1px solid #ccc;
+	margin-bottom:20px;
+}
+.mediaTable th, .mediaTable td {
+	text-align: left;
+	white-space: no-wrap;
+	padding:5px 6px;
+	vertical-align: top;
+	vertical-align: middle;
+	border-bottom: 1px solid #e6e6e6;
+}
+.mediaTable th {
+
+}
+.mediaTable td:first-child {
+	width: 30px;
+}
+.mediaTable input[type="checkbox"] {
+	margin: 5px 0 0 !important;
+	vertical-align: top;
+}
+.mediaTable td.size {
+	text-align: right;
+}
+
 
 /* Bootstrap custom
 ------------------------------------------------------*/

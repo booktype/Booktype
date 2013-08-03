@@ -105,12 +105,12 @@ def getAttachments(book_version):
         import Image
 
     def _getDimension(att):
-        if att.attachment.name.endswith(".jpg"):
-            try:
-                im = Image.open(att.attachment.name)
-                return im.size
-            except:
-                return (0, 0)
+        try:
+            im = Image.open(att.attachment.name)
+            return im.size
+        except:
+            pass
+
         return None
 
     attachments = [{"id":        att.id, 
