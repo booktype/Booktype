@@ -38,15 +38,7 @@
     <!-- Navbar -->
     <div class="user">
         <div class="btn-group float-right">
-            <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{{ request.user.first_name }}<span class="caret"></span></button>
-            <ul class="dropdown-menu pull-right">
-              <li><a href="{% url "view_profile" request.user.username %}" target="_blank"><i class="icon-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Profile" %}</a></li>
-              {% if request.user.is_superuser %}
-                 <li><a href="{% url "control_frontpage" %}" target="_blank"><i class="icon-gears"></i>&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Control Center" %}</a></li>
-              {% endif %}
-              <li class="divider"></li>
-              <li><a href="{% url "signout" %}"><i class="icon-signout"></i>&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Logout" %}</a></li>
-            </ul>
+            {% include "edit/toolbar_user.html" %}
         </div>
     </div>
     <div class="navbar">
@@ -56,15 +48,7 @@
 
     <!-- Bookbar -->
     <div class="bookbar">
-        <h1>{{ book.title }}</h1>
-        <div class="btn-toolbar float-right">
-
-          <div class="btn-group">
-            <button type="button" class="btn"  rel="tooltip" title="{% trans "Table Of Contents" %}" id="button-toc" data-placement="bottom"><i class="icon-list-alt"></i></button>
-            <button type="button" class="btn" rel="tooltip" title="{% trans "Media" %}" id="button-media" data-placement="bottom"><i class="icon-picture"></i></button>        
-            <button type="button" class="btn" rel="tooltip" title="{% trans "Publishing" %}" data-placement="bottom"><i class="icon-print"></i></button> 
-            </div>
-        </div>
+       {% include "edit/toolbar_book.html" %}
     </div>
     <!-- end Bookbar -->
 
@@ -143,6 +127,7 @@
 {% include "edit/panel_toc.html" %}
 {% include "edit/panel_aloha.html" %}
 {% include "edit/panel_media.html" %}
+{% include "edit/panel_publish.html" %}
 
 <!-- Notifications -->
 <div class="notificationContainer">

@@ -1259,7 +1259,7 @@ def remote_clone_chapter(request, message, bookid, version):
     return {"created": True}
 
 
-def remote_publish_book(request, message, bookid, version):
+def _remote_publish_book(request, message, bookid, version):
     """
     This is called when you want to publish your book. HTTP Request is sent to Objavi. Objavi then grabs content from Booki, renders it and creates output file.
 
@@ -3819,3 +3819,15 @@ def remote_publish_book2(request, message, bookid, version):
         result['covers'] = r
 
     return result
+
+######################################################################################################
+
+
+
+def remote_publish_book(request, message, bookid, version):
+    from . import tasks
+
+    tasks.publish_book(bookid=bookid, version=version, clientid=request.clientID, sputnikid=request.sputnikID)
+
+    return {'result': True}
+
