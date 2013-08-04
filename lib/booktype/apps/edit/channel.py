@@ -1442,7 +1442,7 @@ def remote_create_section(request, message, bookid, version):
                                                                     "message_args": [request.user.username, message["chapter"]]},
                                     myself=True)
 
-        sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" %  (bookid, version),
+        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" %  (bookid, version),
                                     {"command": "chapter_create",
                                      "chapter": result,
                                      "typeof": c.typeof},
