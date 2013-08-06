@@ -157,7 +157,6 @@ def remote_init_editor(request, message, bookid, version):
     book_version = book.getVersion(version)
 
     ## get chapters
-
     chapters = getTOCForBook(book_version)
     holdChapters = getHoldChapters(book_version)
 
@@ -797,6 +796,50 @@ def remote_chapters_changed(request, message, bookid, version):
     transaction.commit()
 
     return {}
+
+
+def remote_chapter_hold(request, message, bookid, version):
+
+    book = models.Book.objects.get(id=bookid)
+    book_version = book.getVersion(version)
+
+    chapterID = message["chapterID"]
+
+    m =  models.BookToc.objects.get(chapter__id__exact=chapterID)
+    m.delete()
+
+    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+                                {"command": "chapter_hold",
+                                 "chapterID": chapterID}, myself=True)
+    transaction.commit()
+
+    return {}
+
+
+def remote_chapter_unhold(request, message, bookid, version):
+
+    book = models.Book.objects.get(id=bookid)
+    book_version = book.getVersion(version)
+
+    chapterID = message["chapterID"]
+
+    chptr = models.Chapter.objects.get(id__exact=chapterID)
+
+    m = models.BookToc(book = book,
+                       version = book_version,
+                       name = chptr.title,
+                       chapter = chptr,
+                       weight = -1,
+                       typeof=1)
+    m.save()
+
+    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+                                {"command": "chapter_unhold",
+                                 "chapterID": chapterID}, myself=True)
+    transaction.commit()
+
+    return {}
+
 
 
 def remote_get_users(request, message, bookid, version):
