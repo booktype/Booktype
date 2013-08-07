@@ -21,7 +21,7 @@ from django.conf import settings
 
 SPUTNIK_DISPATCHER = ((r'^/booki/$',                                       'booki.channels.main'),
 #                      (r'^/booki/book/(?P<bookid>\d+)/(?P<version>[\w\d\.\-]+)/$', 'booki.channels.editor'),
-#                      (r'^/booki/profile/(?P<profileid>.+)/$',             'booki.channels.profile'),
+                      (r'^/booki/profile/(?P<profileid>.+)/$',             'booki.channels.profile'),
 #                      (r'^/booki/group/(?P<groupid>.+)/$',                 'booki.channels.group'),
                       (r'^/chat/(?P<bookid>\d+)/$',                        'booki.channels.chat'),
                       (r'^/booktype/book/(?P<bookid>\d+)/(?P<version>[\w\d\.\-.]+)/$', 'booktype.apps.edit.channel')
