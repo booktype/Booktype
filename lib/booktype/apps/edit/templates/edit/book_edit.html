@@ -13,10 +13,12 @@
     {% include "edit/edit_config.html" %}
 
     <style>
+    /*
         #content.aloha-editable A {
           text-decoration: underline;
           color: red;
         }
+        */
         div.contentHeader span.info-message { font-size: 12px; margin-right: 10px;}
         .template {
             display: none;
@@ -35,6 +37,7 @@
         }    
     </style>
 
+    <link id="aloha-embeded-style" type="text/css" href="/data/style1.css" rel="stylesheet">
 
 {% endblock %}
 
@@ -92,6 +95,7 @@
     <section class="tab-content hold" source_id="online-users-tab">
       <h3>{% trans "Online users" %}</h3>
     </section>
+
     <section class="tab-content" source_id="chat-tab">
         <h3>{% trans "Chat" %}</h3>
 
@@ -102,6 +106,16 @@
            <input type="text" name="message" style="width: 95%;" value=""/>
         </form>
     </section>
+
+    <section class="tab-content" source_id="style-tab">
+        <h3>{% trans "Style" %}</h3>
+        <ol>
+          <li><a href="#" data-style="style1">Style 1</a></li>
+          <li><a href="#" data-style="style2">Style 2</a></li>
+          <li><a href="#" data-style="style3">Style 3</a></li>
+        </ol>
+    </section>
+
 </div>
 
 <div id="right-tabpane" class="tabpane right-tabpane">
