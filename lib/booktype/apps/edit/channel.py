@@ -697,16 +697,82 @@ def remote_chapter_rename(request, message, bookid, version):
                                      "message_args": [request.user.username, oldTitle, message["chapter"]]},
                                     myself=True)
 
-        sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),
-                                    {"command": "chapter_status",
-                                     "chapterID": message["chapterID"],
-                                     "status": "normal",
-                                     "username": request.user.username})
+        # sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+        #                             {"command": "chapter_status",
+        #                              "chapterID": message["chapterID"],
+        #                              "status": "normal",
+        #                              "username": request.user.username})
 
-        sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),
+        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
                                     {"command": "chapter_rename",
                                      "chapterID": message["chapterID"],
-                                     "chapter": message["chapter"]})
+                                     "chapter": message["chapter"]}, myself=True)
+
+        transaction.commit()
+
+    return {}
+
+def remote_section_rename(request, message, bookid, version):
+    """
+    Rename section name.
+
+    Creates Book history record. Sends notification to chat. Sends "chapter_status" message to the channel. Sends "chapter_rename" message to the channel.
+
+    @todo: check security
+
+    Input:
+     - chapterID
+     - chapter - new chapter name
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    """
+
+    book = models.Book.objects.get(id=bookid)
+    book_version = book.getVersion(version)
+
+    # check security
+    sectionID = message["chapterID"][1:]
+
+    m =  models.BookToc.objects.get(id__exact=int(sectionID))
+    oldTitle = m.name
+    m.name = message["chapter"]
+
+    try:
+        m.save()
+    except:
+        transaction.rollback()
+    else:
+        logBookHistory(book = chapter.book,
+                       version = book_version,
+                       chapter = chapter,
+                       user = request.user,
+                       args = {"old": oldTitle, "new": message["chapter"]},
+                       kind = "section_rename")
+
+        sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
+                                    {"command": "message_info",
+                                     "from": request.user.username,
+                                     "message_id": "user_renamed_section",
+                                     "message_args": [request.user.username, oldTitle, message["chapter"]]},
+                                    myself=True)
+
+        # sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+        #                             {"command": "chapter_status",
+        #                              "chapterID": message["chapterID"],
+        #                              "status": "normal",
+        #                              "username": request.user.username})
+
+        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+                                    {"command": "section_rename",
+                                     "chapterID": message["chapterID"],
+                                     "chapter": message["chapter"]}, myself=True)
 
         transaction.commit()
 
