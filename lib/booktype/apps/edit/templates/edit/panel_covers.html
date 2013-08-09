@@ -1,0 +1,23 @@
+{% load i18n %}
+<div class="template templateCoversToolbar">
+    <h2>{% trans "Cover Manager" %}</h2>
+    <div class="btn-toolbar" style="float: right;">
+        <div class="btn-group" data-toggle="buttons-radio">
+          <button id="expand" class="btn" rel="tooltip" data-toggle="button" data-placement="bottom" data-original-title="{% trans "Expand All" %}">All</button>
+          <button id="collapse" class="btn" rel="tooltip" data-toggle="button" data-placement="bottom" data-original-title="{% trans "Collapse All" %}">Approved</button>
+          <button id="collapse" class="btn" rel="tooltip" data-toggle="button" data-placement="bottom" data-original-title="{% trans "Collapse All" %}">Pending</button>
+        </div>
+        <button type="button" class="btn"  id="detail-switch">{% trans "Delete selected items" %}</button>
+
+    </div>
+</div>
+
+<div class="template templateCoversContent">
+ <p>{% trans "The cover manager allows you to upload, manage and publish your book covers. Please upload your ebook cover image files (JPEG, GIF or PNG format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, spine and back cover of your print books can be uploaded and managed, but will be kept separate from the text of the book when publishing it." %}</p>
+ <div style="float: left; margin:10px; border: 1px solid black; width: 150px; height: 200px"></div>
+  <div style="float: left; margin:10px; border: 1px solid black; width: 150px; height: 200px"></div>
+ <div style="float: left; margin:10px; border: 1px solid black; width: 150px; height: 200px"></div>
+ <div style="float: left; margin:10px; border: 1px solid black; width: 150px; height: 200px"></div>
+
+</div>
+

@@ -1,0 +1,1536 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"acti",
+				"activateTabs"
+			],
+			[
+				"pro",
+				"prototype"
+			],
+			[
+				"chap",
+				"chapterID"
+			],
+			[
+				"ri",
+				"rightPanel"
+			],
+			[
+				"lef",
+				"leftPanel"
+			],
+			[
+				"remov",
+				"removeChapter"
+			],
+			[
+				"T",
+				"TOCWidget"
+			],
+			[
+				"ch",
+				"chapterID"
+			],
+			[
+				"cid",
+				"cid"
+			],
+			[
+				"sa",
+				"saveContent"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"coll",
+				"collapseChapters"
+			],
+			[
+				"expand",
+				"expandChapters"
+			],
+			[
+				"jqu",
+				"jquery"
+			],
+			[
+				"act",
+				"activePanel"
+			],
+			[
+				"t",
+				"timeout	setTimeout function"
+			],
+			[
+				"ae",
+				"activeEditable"
+			],
+			[
+				"epub",
+				"epub_book"
+			],
+			[
+				"epu",
+				"epub_book"
+			],
+			[
+				"IT",
+				"ITEM_DOCUMENT"
+			],
+			[
+				"ret",
+				"returncode"
+			],
+			[
+				"ep",
+				"epub_book"
+			],
+			[
+				"out",
+				"output_name"
+			],
+			[
+				"prodes",
+				"project_destination"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "lib/booktype/apps/edit/channel.py",
+			"settings":
+			{
+				"buffer_size": 137544,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/booktype/urls.py",
+			"settings":
+			{
+				"buffer_size": 4286,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/booktype/apps/edit/templates/edit/aloha_toolbar.html",
+			"settings":
+			{
+				"buffer_size": 3913,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/booktype/apps/edit/views.py",
+			"settings":
+			{
+				"buffer_size": 1196,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/booktype/apps/edit/templates/edit/aloha_menu.html",
+			"settings":
+			{
+				"buffer_size": 1230,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/booktype/apps/edit/static/edit/css/booki-new.css",
+			"settings":
+			{
+				"buffer_size": 17501,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "lib/booktype/apps/edit/static/edit/js/edit.js",
+			"settings":
+			{
+				"buffer_size": 6564,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Kako bi trebao izorganizirati \n\n// da se zove Tab\n// ili npr Sidebar\n\nvar Tab = function() {\n	this.dom_id = '';\n	this.show = function() { console.log('show');  }\n}\n\nTab.prototype.init = function() {\n	console.log('init');\n	this.show();\n}\n\n\nvar HoldChapters = function() {\n	this.dom_id = 'hold-tab';\n	this.show = function() {\n	   console.log('hold chapters show');\n\n	}\n	this.init = function() {\n	  Tab.prototype.init.call(this);\n	  console.log('hold chapters init');\n	}\n}\n\nHoldChapters.prototype = new Tab();\n\nvar h = new HoldChapters();\nh.init();\n\n-----------------------------------------------------------------------\n\nili da je svaki za sebe ovako aktiviran\ntreba viditi neke zajednicke metode\n\np = new Panel()\np.init()\np.show()\np.activate\np.deactivate\n\n",
+			"settings":
+			{
+				"buffer_size": 756,
+				"line_ending": "Unix",
+				"name": "Kako bi trebao izorganizirati"
+			}
+		},
+		{
+			"file": "lib/booktype/apps/edit/static/edit/js/toc.js",
+			"settings":
+			{
+				"buffer_size": 23105,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/booktype/apps/edit/templates/edit/book_edit.html",
+			"settings":
+			{
+				"buffer_size": 13064,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/booki/portal/static/portal/js/booki.js",
+			"settings":
+			{
+				"buffer_size": 16819,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/booktype/apps/edit/static/edit/js/editor.js",
+			"settings":
+			{
+				"buffer_size": 16240,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/booki/account/views.py",
+			"settings":
+			{
+				"buffer_size": 31891,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"py",
+				"Set Syntax: Python"
+			],
+			[
+				"inspa",
+				"Package Control: Install Package"
+			],
+			[
+				"pa",
+				"Package Control: List Packages"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Discover Packages"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 125.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/js/editor.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/js/toc.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/account/urls.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktypecontrol/urls.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktypecontrol/templates/booktypecontrol/frontpage.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktypecontrol/templates/control_base.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/templates/edit/edit_header.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/portal/templates/booktype_head.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/js/booktype-init.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/portal/static/portal/js/booki.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/models.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/templates/edit/aloha_menu.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/templates/edit/aloha_toolbar.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/templates/edit/book_edit.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/portal/static/portal/js/general.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/templates/editor/edit_book.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/templates/editor/edit_content.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/templates/editor/tab_publish.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/templates/editor/edit_publish.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/templates/editor/edit_header.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/templates/edit/aloha_header.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/templates/edit/base.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/js/media.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/js/aloha/plugins/oer/undobutton/lib/undobutton-plugin.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/static/editor/js/editor.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/js/aloha/plugins/booktype/test/lib/test-plugin.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/js/aloha/plugins/oer/title/lib/title-plugin.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/js/aloha/plugins/oer/toolbar/lib/toolbar-plugin.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/js/aloha/plugins/oer/format/lib/format-plugin.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/portal/views.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktypecontrol/views.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/urls.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/channel.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/channels/editor.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/urls.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/urls.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/sputnik/views.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/js/booktype.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/views.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/views.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktypecontrol/templates/booktypecontrol/edit_book.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/channels/main.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/sputnik/__init__.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/css/booki-new.css",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/js/jquery.dropdown.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/static/edit/js/main.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/templates/edit/test.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/edit/templates/edit/content.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/account/templates/account/view_profile.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/portal/static/portal/js/profile.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/portal/templates/base.html",
+		"/Users/aerkalov/Work/git/Booktype/scripts/createbooktype",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/skeleton/base_settings.py.original",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/loadsave/management/commands/bookload.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/common.py",
+		"/Users/aerkalov/Work/git/Booktype/requirements/_base.txt",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/importer/views.py",
+		"/Users/aerkalov/Work/Projects/20/ekran/uidesign.lab.sourcefabric.org/booktype/toc-screen.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/editor/views.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/loadsave/views.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/loadsave/management/commands/booksave.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/utils/misc.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/utils/tidy.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/importer/templates/importer/frontpage.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/reader/urls.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/loadsave/urls.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/reader/templates/reader/draft_chapter.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/reader/views.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/importer/urls.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/importer/management/commands/bookimport.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/account/views.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/management/commands/report.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/loadsave/management/commands/bookimport.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/convert/views.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/convert/tasks.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/redis/client.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/utils/misc.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/management/commands/reportweekly.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/utils/book.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/portal/templates/booktype_language.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/management/commands/bookimport.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/management/commands/bookexport.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/utils/pages.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/portal/templates/portal/group.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/reader/templates/reader/book_delete.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/reader/templates/reader/book_info.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/reader/templates/reader/edit_info.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/templates/base_edit.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/templates/editor/tab_attachments.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/editor/templates/editor/tab_cover.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/messaging/views.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/portal/static/portal/js/messaging.js",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/messaging/templates/messaging/book_followbutton.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/messaging/templates/messaging/messagefield.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/messaging/templates/messaging/tag_followbutton.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/messaging/templates/messaging/user_followbutton.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/account/templates/account/create_book.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/account/templates/account/create_book_redirect.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/account/templates/account/import_book.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/account/templates/account/form_register.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/account/templates/account/forgot_password_enter.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/account/templates/account/forgot_password.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/account/templates/account/create_group.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/skeleton/dev_settings.py.original",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/account/templates/account/form_signin.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/utils/export.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booktype/apps/export/views.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/account/templates/account/signin.html",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/urls.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/portal/urls.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/messaging/urls.py",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/skeleton/dev_urls.py.original",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/skeleton/prod_urls.py.original",
+		"/Users/aerkalov/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/Users/aerkalov/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/Users/aerkalov/Work/git/Booktype/CHANGES.txt",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/skeleton/base_settings.py.original",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/skeleton/prod_settings.py.original",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/skeleton/dev_settings.py.original",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/utils/log.py",
+		"/Users/aerkalov/Work/git/Booktype/AUTHORS.txt",
+		"/Users/aerkalov/Work/git/Booktype/lib/booki/locale/fr/LC_MESSAGES/django.po",
+		"/Users/aerkalov/Work/git/Booktype/INSTALL",
+		"/Users/aerkalov/Work/git/Booktype/booktype.sublime-project",
+		"/Users/aerkalov/Work/git/ebooklib/ebooklib/epub.py",
+		"/Users/aerkalov/Work/git/ebooklib/tests/epub_parse.py",
+		"/Users/aerkalov/Work/git/ebooklib/ebooklib/__init__.py",
+		"/Users/aerkalov/Work/git/ebooklib/tests/epub_booktype.py"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"User",
+			"escapeJS",
+			"element",
+			"getTem",
+			"eq",
+			"create.",
+			"name",
+			"create",
+			"createLe",
+			"callback",
+			"create",
+			"Panel",
+			"rightPanel",
+			"Panel",
+			"removeCha",
+			"chapter_dele",
+			"chapter-dele",
+			"_toc",
+			"ol.sortable",
+			"jquery('.disclose')",
+			"section",
+			"wrap",
+			"chapters",
+			"chapter",
+			"hold",
+			"left-",
+			"Chapter on",
+			"chapter on ho",
+			"remove",
+			"modal",
+			"view_profi",
+			"url ",
+			"url",
+			"ol",
+			"tooltip",
+			"templateTOCHEa",
+			"templateTOCHe",
+			"Import",
+			"Import ch",
+			"sec",
+			"templateTOC",
+			"CREATE_CH",
+			"CREATE_CHA",
+			"CREATE_C",
+			"CREATE_CH",
+			"addChap",
+			"CREATE_CHA",
+			"sendToCu",
+			"item",
+			"===",
+			"console.lo",
+			"setChapterID",
+			"chapterID",
+			"editCHa",
+			"subscribed to",
+			"console.",
+			"jquery.mjs.nestedSortable.js",
+			"$(",
+			"chapter-content",
+			"chapter-container",
+			"chapter-header",
+			"/*",
+			"chapter-header",
+			"console.de",
+			"console.debug",
+			"curren",
+			"save_chap",
+			"save_ch",
+			"booktype.",
+			"save",
+			"SAVE",
+			"chapters",
+			"attach",
+			"data-",
+			"console.de",
+			"data-",
+			"console.de",
+			"chapters",
+			"rldr",
+			"template",
+			"bind",
+			"console.log",
+			"initSide",
+			"makeItem",
+			"console.debug",
+			"render_to-r",
+			"print",
+			"$(",
+			"connec",
+			"remote_init",
+			"$.booki",
+			"Chapter on",
+			"jQue",
+			"$.booki.",
+			"jquery.booki.",
+			"jQuery.",
+			"$.booki.",
+			"win.booki",
+			"jQuery.",
+			"hold-tab",
+			"hold-ta",
+			"jQuery.",
+			"jQuery",
+			"jQuery.booki",
+			"$.",
+			"content",
+			"console",
+			"_site",
+			"STATIC",
+			"conte",
+			"portal",
+			"lxml",
+			"print",
+			"chapters",
+			"print",
+			"chapters",
+			"TRANSA",
+			"UploadForm",
+			"_t",
+			"parse",
+			"Reque",
+			"INSTA",
+			"_convert",
+			"import Image",
+			"Image",
+			"chap.",
+			"chap",
+			"bookiSlugify"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"win.booktype.",
+			"jquery.",
+			"window.booktype.",
+			"win.booktype",
+			"win.",
+			"jquery.",
+			"win.booktype",
+			"jQuery."
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 12,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "lib/booktype/apps/edit/channel.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 137544,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								368,
+								368
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "lib/booktype/urls.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4286,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4286,
+								4286
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "lib/booktype/apps/edit/templates/edit/aloha_toolbar.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3913,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3452,
+								3452
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 234.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "lib/booktype/apps/edit/views.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1196,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								260,
+								260
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "lib/booktype/apps/edit/templates/edit/aloha_menu.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1230,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15,
+								15
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "lib/booktype/apps/edit/static/edit/css/booki-new.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 17501,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13001,
+								13001
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 8743.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "lib/booktype/apps/edit/static/edit/js/edit.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6564,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5073,
+								5073
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1127.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 756,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								68,
+								68
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Kako bi trebao izorganizirati",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "lib/booktype/apps/edit/static/edit/js/toc.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23105,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16267,
+								16267
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5250.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "lib/booktype/apps/edit/templates/edit/book_edit.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13064,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "lib/booki/portal/static/portal/js/booki.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16819,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15463,
+								15463
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 7608.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "lib/booktype/apps/edit/static/edit/js/editor.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16240,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6672,
+								6740
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1773.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "lib/booki/account/views.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 31891,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5555,
+								5555
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2251.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"project": "booktype.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"lib/booki/ac",
+				"lib/booki/account/views.py"
+			],
+			[
+				"chan",
+				"lib/booktype/apps/edit/channel.py"
+			],
+			[
+				"booki.js",
+				"lib/booki/portal/static/portal/js/booki.js"
+			],
+			[
+				"alo",
+				"lib/booktype/apps/edit/templates/edit/aloha_menu.html"
+			],
+			[
+				"editorjs",
+				"lib/booktype/apps/edit/static/edit/js/editor.js"
+			],
+			[
+				"toc.js",
+				"lib/booktype/apps/edit/static/edit/js/toc.js"
+			],
+			[
+				"accur",
+				"lib/booki/account/urls.py"
+			],
+			[
+				"bookfr",
+				"lib/booktypecontrol/templates/booktypecontrol/frontpage.html"
+			],
+			[
+				"contba",
+				"lib/booktypecontrol/templates/control_base.html"
+			],
+			[
+				"booktypeco",
+				"lib/booktypecontrol/urls.py"
+			],
+			[
+				"accour",
+				"lib/booki/account/urls.py"
+			],
+			[
+				"toc.",
+				"lib/booktype/apps/edit/static/edit/js/toc.js"
+			],
+			[
+				"chann",
+				"lib/booktype/apps/edit/channel.py"
+			],
+			[
+				"bookine",
+				"lib/booktype/apps/edit/static/edit/css/booki-new.css"
+			],
+			[
+				"alomen",
+				"lib/booktype/apps/edit/templates/edit/aloha_menu.html"
+			],
+			[
+				"boohe",
+				"lib/booki/portal/templates/booktype_head.html"
+			],
+			[
+				"edithe",
+				"lib/booktype/apps/edit/templates/edit/edit_header.html"
+			],
+			[
+				"bookhe",
+				"lib/booki/portal/templates/booktype_head.html"
+			],
+			[
+				"alotoo",
+				"lib/booktype/apps/edit/templates/edit/aloha_toolbar.html"
+			],
+			[
+				"aloto",
+				"lib/booktype/apps/edit/templates/edit/aloha_toolbar.html"
+			],
+			[
+				"portalstatic",
+				"lib/booki/portal/static/portal/js/booki.js"
+			],
+			[
+				"booktappedi",
+				"lib/booktype/apps/edit/templates/edit/book_edit.html"
+			],
+			[
+				"edit/vi",
+				"lib/booktype/apps/edit/views.py"
+			],
+			[
+				"editmode",
+				"lib/booki/editor/models.py"
+			],
+			[
+				"genera",
+				"lib/booki/portal/static/portal/js/general.js"
+			],
+			[
+				"edipu",
+				"lib/booki/editor/templates/editor/edit_publish.html"
+			],
+			[
+				"tab_pu",
+				"lib/booki/editor/templates/editor/tab_publish.html"
+			],
+			[
+				"edit_cn",
+				"lib/booki/editor/templates/editor/edit_content.html"
+			],
+			[
+				"bookieditortempeditbo",
+				"lib/booki/editor/templates/editor/edit_book.html"
+			],
+			[
+				"portal.js",
+				"lib/booki/portal/static/portal/js/booki.js"
+			],
+			[
+				"alohahea",
+				"lib/booktype/apps/edit/templates/edit/aloha_header.html"
+			],
+			[
+				"headerhtml",
+				"lib/booki/editor/templates/editor/edit_header.html"
+			],
+			[
+				"editbase.html",
+				"lib/booktype/apps/edit/templates/edit/base.html"
+			],
+			[
+				"booki-n",
+				"lib/booktype/apps/edit/static/edit/js/booktype-init.js"
+			],
+			[
+				"medi",
+				"lib/booktype/apps/edit/static/edit/js/media.js"
+			],
+			[
+				"generaljs",
+				"lib/booki/portal/static/portal/js/general.js"
+			],
+			[
+				"alohatoo",
+				"lib/booktype/apps/edit/templates/edit/aloha_toolbar.html"
+			],
+			[
+				"undo",
+				"lib/booktype/apps/edit/static/edit/js/aloha/plugins/oer/undobutton/lib/undobutton-plugin.js"
+			],
+			[
+				"edit/base.html",
+				"lib/booktype/apps/edit/templates/edit/base.html"
+			],
+			[
+				"edijs",
+				"lib/booktype/apps/edit/static/edit/js/editor.js"
+			],
+			[
+				"editor.js",
+				"lib/booki/editor/static/editor/js/editor.js"
+			],
+			[
+				"editojs",
+				"lib/booktype/apps/edit/static/edit/js/editor.js"
+			],
+			[
+				"edito",
+				"lib/booktype/apps/edit/static/edit/js/editor.js"
+			],
+			[
+				"book-",
+				"lib/booktype/apps/edit/static/edit/js/booktype-init.js"
+			],
+			[
+				"channe",
+				"lib/booktype/apps/edit/channel.py"
+			],
+			[
+				"edithea",
+				"lib/booktype/apps/edit/templates/edit/edit_header.html"
+			],
+			[
+				"edihe",
+				"lib/booki/editor/templates/editor/edit_header.html"
+			],
+			[
+				"alohto",
+				"lib/booktype/apps/edit/templates/edit/aloha_toolbar.html"
+			],
+			[
+				"alohahe",
+				"lib/booktype/apps/edit/templates/edit/aloha_header.html"
+			],
+			[
+				"bookijs",
+				"lib/booki/portal/static/portal/js/booki.js"
+			],
+			[
+				"alohhe",
+				"lib/booktype/apps/edit/templates/edit/aloha_header.html"
+			],
+			[
+				"booktypeur",
+				"lib/booktype/urls.py"
+			],
+			[
+				"fron",
+				"lib/booktypecontrol/templates/booktypecontrol/frontpage.html"
+			],
+			[
+				"portvi",
+				"lib/booki/portal/views.py"
+			],
+			[
+				"view",
+				"lib/booktypecontrol/views.py"
+			],
+			[
+				"spuvi",
+				"lib/sputnik/views.py"
+			],
+			[
+				"booktpejs",
+				"lib/booktype/apps/edit/static/edit/js/booktype.js"
+			],
+			[
+				"bookieditur",
+				"lib/booki/editor/urls.py"
+			],
+			[
+				"editor.p",
+				"lib/booki/channels/editor.py"
+			],
+			[
+				"head",
+				"lib/booktype/apps/edit/templates/edit/edit_header.html"
+			],
+			[
+				"edibo",
+				"lib/booktype/apps/edit/templates/edit/book_edit.html"
+			],
+			[
+				"edib",
+				"lib/booktypecontrol/templates/booktypecontrol/edit_book.html"
+			],
+			[
+				"sputni",
+				"lib/sputnik/__init__.py"
+			],
+			[
+				"channems",
+				"lib/booki/channels/main.py"
+			],
+			[
+				"editorvi",
+				"lib/booki/editor/views.py"
+			],
+			[
+				"editormode",
+				"lib/booki/editor/models.py"
+			],
+			[
+				"portalbookjs",
+				"lib/booki/portal/static/portal/js/booki.js"
+			],
+			[
+				"booktur",
+				"lib/booktype/urls.py"
+			],
+			[
+				"bookiedithe",
+				"lib/booki/editor/templates/editor/edit_header.html"
+			],
+			[
+				"channedi",
+				"lib/booki/channels/editor.py"
+			],
+			[
+				"editor/vi",
+				"lib/booki/editor/views.py"
+			],
+			[
+				"editvi",
+				"lib/booki/editor/views.py"
+			],
+			[
+				"boo-ne",
+				"lib/booktype/apps/edit/static/edit/css/booki-new.css"
+			],
+			[
+				"jqdro",
+				"lib/booktype/apps/edit/static/edit/js/jquery.dropdown.js"
+			],
+			[
+				"gener",
+				"lib/booki/portal/static/portal/js/general.js"
+			],
+			[
+				"bookhea",
+				"lib/booki/portal/templates/booktype_head.html"
+			],
+			[
+				"base.ht",
+				"lib/booki/portal/templates/base.html"
+			],
+			[
+				"profile.js",
+				"lib/booki/portal/static/portal/js/profile.js"
+			],
+			[
+				"account/temp/prof",
+				"lib/booki/account/templates/account/view_profile.html"
+			],
+			[
+				"profijs",
+				"lib/booki/portal/static/portal/js/profile.js"
+			],
+			[
+				"bookinitjs",
+				"lib/booktype/apps/edit/static/edit/js/booktype-init.js"
+			],
+			[
+				"bookinecs",
+				"lib/booktype/apps/edit/static/edit/css/booki-new.css"
+			],
+			[
+				"bokijs",
+				"lib/booki/portal/static/portal/js/booki.js"
+			],
+			[
+				"toolb",
+				"lib/booktype/apps/edit/static/edit/js/aloha/plugins/oer/toolbar/lib/toolbar-plugin.js"
+			],
+			[
+				"booki-ne",
+				"lib/booktype/apps/edit/static/edit/css/booki-new.css"
+			],
+			[
+				"booktypeeditur",
+				"lib/booktype/apps/edit/urls.py"
+			],
+			[
+				"ediur",
+				"lib/booki/editor/urls.py"
+			],
+			[
+				"booktyur",
+				"lib/booktype/urls.py"
+			],
+			[
+				"skeleba",
+				"lib/booktype/skeleton/base_settings.py.original"
+			],
+			[
+				"cre",
+				"scripts/createbooktype"
+			],
+			[
+				"conte",
+				"lib/booktype/apps/edit/templates/edit/content.html"
+			],
+			[
+				"test.ht",
+				"lib/booktype/apps/edit/templates/edit/test.html"
+			],
+			[
+				"mai",
+				"lib/booktype/apps/edit/static/edit/js/main.js"
+			],
+			[
+				"booktyini",
+				"lib/booktype/apps/edit/static/edit/js/booktype-init.js"
+			],
+			[
+				"",
+				"lib/booktype/apps/edit/views.py"
+			],
+			[
+				"basse",
+				"lib/booktype/skeleton/base_settings.py.original"
+			],
+			[
+				"bookiediur",
+				"lib/booki/editor/urls.py"
+			],
+			[
+				"appediu",
+				"lib/booktype/apps/edit/urls.py"
+			],
+			[
+				"appedivi",
+				"lib/booktype/apps/edit/views.py"
+			],
+			[
+				"appseditvi",
+				"lib/booktype/apps/editor/views.py"
+			],
+			[
+				"bas",
+				"lib/booktype/skeleton/base_settings.py.original"
+			],
+			[
+				"comm",
+				"lib/booki/editor/common.py"
+			],
+			[
+				"readur",
+				"lib/booki/reader/urls.py"
+			],
+			[
+				"urls.",
+				"lib/booktype/urls.py"
+			],
+			[
+				"fro",
+				"lib/booktype/apps/importer/templates/importer/frontpage.html"
+			],
+			[
+				"mis",
+				"lib/booktype/utils/misc.py"
+			],
+			[
+				"tid",
+				"lib/booktype/utils/tidy.py"
+			],
+			[
+				"booksa",
+				"lib/booktype/apps/loadsave/management/commands/booksave.py"
+			],
+			[
+				"loadsvi",
+				"lib/booktype/apps/loadsave/views.py"
+			],
+			[
+				"mi",
+				"lib/booktype/utils/misc.py"
+			],
+			[
+				"loadsur",
+				"lib/booktype/apps/loadsave/urls.py"
+			],
+			[
+				"draft",
+				"lib/booki/reader/templates/reader/draft_chapter.html"
+			],
+			[
+				"base",
+				"lib/booktype/skeleton/base_settings.py.original"
+			],
+			[
+				"readvi",
+				"lib/booki/reader/views.py"
+			],
+			[
+				"impofro",
+				"lib/booktype/apps/importer/templates/importer/frontpage.html"
+			],
+			[
+				"portalbas",
+				"lib/booki/portal/templates/base.html"
+			],
+			[
+				"impourl",
+				"lib/booktype/apps/importer/urls.py"
+			],
+			[
+				"ur",
+				"lib/booktype/apps/importer/urls.py"
+			],
+			[
+				"bookimp",
+				"lib/booktype/apps/importer/management/commands/bookimport.py"
+			],
+			[
+				"booktypeurls",
+				"lib/booktype/urls.py"
+			],
+			[
+				"importerur",
+				"lib/booktype/apps/importer/urls.py"
+			],
+			[
+				"importervi",
+				"lib/booktype/apps/importer/views.py"
+			],
+			[
+				"impo",
+				"lib/booktype/apps/loadsave/management/commands/bookimport.py"
+			],
+			[
+				"bass",
+				"lib/booktype/skeleton/base_settings.py.original"
+			],
+			[
+				"contas",
+				"lib/booktype/apps/convert/tasks.py"
+			],
+			[
+				"apps/",
+				"lib/booktype/apps/convert/views.py"
+			],
+			[
+				"creb",
+				"scripts/createbooktype"
+			],
+			[
+				"reqba",
+				"requirements/_base.txt"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"Attac",
+				"Attachment"
+			],
+			[
+				"bookto",
+				"BookToc"
+			]
+		],
+		"width": 719.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 242.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 1
+	}
+}
