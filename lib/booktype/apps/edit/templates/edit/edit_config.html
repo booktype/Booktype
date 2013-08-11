@@ -7,8 +7,8 @@
        window.booktype.currentVersion = "{{book_version|escapejs}}";
        window.booktype.sputnikDispatcherURL = "{% url "sputnik.views.dispatcher" %}";
 
-       window.booktype.subscribeToChannel("/booktype/", function(message) {
-        });
+       // window.booktype.subscribeToChannel("/booktype/", function(message) {
+       //  });
 
        var settings = {'panels': {'edit': 'win.booktype.editor.edit',
                                   'toc' : 'win.booktype.editor.toc',            
@@ -19,6 +19,9 @@
                        'styles': {'style1': '/static/edit/css/style1.css',
                                   'style2': '/static/edit/css/style2.css',
                                   'style3': '/static/edit/css/style3.css',
+                                 },
+                       'config': {
+                                  //'global': {'tabs': ['chat']}
                                  }
                       };
 

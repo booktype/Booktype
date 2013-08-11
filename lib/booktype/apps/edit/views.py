@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
+from django.contrib.auth.decorators import login_required
 
 from booki.utils import log
 
@@ -25,7 +26,7 @@ def getTOCForBook(version):
             results.append(('s%s' % chap.id, chap.name, chap.name, chap.typeof))
     return results
 
-
+@login_required
 def edit(request, bookid):
     book = models.Book.objects.get(url_title__iexact=bookid)
 
