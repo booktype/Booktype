@@ -19,6 +19,7 @@ from django.conf.urls import patterns, url, include
 
 
 urlpatterns = patterns('',                      
-                       url(r'^_edit/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),	
+                       url(r'^_upload/$',  'booktype.apps.edit.views.upload_attachment', name='upload_attachment'),
+                       url(r'^_edit/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),	                       
 					   url(r'^_edit/$', 'booktype.apps.edit.views.edit', name='book_edit')
                       )

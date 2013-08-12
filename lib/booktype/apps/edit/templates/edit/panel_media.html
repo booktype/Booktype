@@ -1,6 +1,32 @@
-{% load i18n %}
+{% load i18n static %}
 
+<div class="template templateMediaToolbar">
+    <h2>{% trans "Media" %}</h2>
+
+    <div class="btn-toolbar" style="float: right;">
+      <span class="btn cancel-upload">
+          <i class="icon-remove"></i>
+          <span>{% trans "Cancel upload" %}</span>
+      </span>
+
+      <span class="btn btn-success fileinput-button">
+          <i class="icon-plus icon-white"></i>
+          <span>{% trans "Add files..." %}</span>
+          <input id="fileupload" type="file" name="files[]" multiple data-url="../_upload/">
+      </span>
+    </div>
+
+    <div id="progress" style="float: right">
+      <div style="width: 200px; margin-right: 20px; position: relative;">
+          <div class="bar" style="position: absolute; top: 0px; left: 0px; height: 18px; background-color: green; width: 0%;"></div>      
+          <div style="position: absolute; top: 0px; left: 0px; width: 200px; text-align:center; color: black; font-weight: bold;" class="perc"></div>
+      </div>
+    </div>
+
+</div>
 <div class="template templateMediaContent">
+
+
     <p>{% trans "All images added to your book are listed here as well as any additional files you have uploaded." %}</p>
 
 	<table border="0" cellspacing="0" cellpadding="0" class="mediaTable">
