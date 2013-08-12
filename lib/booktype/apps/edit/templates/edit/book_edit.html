@@ -42,17 +42,8 @@
 {% endblock %}
 
 {% block navigation %} 
-    <!-- Navbar -->
-    <div class="user">
-        <div class="btn-group float-right">
-            {% include "edit/toolbar_user.html" %}
-        </div>
-    </div>
-    <div class="navbar">
-      <div class="logo"><a href="/"></a></div>      
-    </div>
-    <!-- end Navbar -->
-
+    {% include "edit/toolbar_nav.html" %}
+    
     <!-- Bookbar -->
     <div class="bookbar">
        {% include "edit/toolbar_book.html" %}
