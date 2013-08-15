@@ -14,6 +14,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from .pdf.converter import PdfConverter
-from .epub.converter import EpubConverter
-from .mobi.converter import MobiConverter
+import os
+
+from ebooklib import epub
+
+from ..base import BaseConverter
+from .. import ConversionError
+
+
+class EpubConverter(BaseConverter):
+    name = "epub"
+
+    def convert(self, book, output_path):
+        epub_writer = epub.EpubWriter(output_path, book)
+        epub_writer.process()
+        epub_writer.write()
