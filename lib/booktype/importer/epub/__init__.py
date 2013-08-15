@@ -26,30 +26,43 @@ from .readerplugins import TidyPlugin, ImportPlugin
 logger = logging.getLogger("booktype.importer.epub")
 
 
-def import_file_to_book(uploaded_epub_file, book):
-    epub_file = tempfile.NamedTemporaryFile(prefix="jaspers-", suffix=".epub", delete=False)
-    epub_file_name = epub_file.name
+def import_epub(epub_file, book):
+    """
+    Imports the EPUB book.
+    """
+    if isinstance(epub_file, file):
+        # file on disk
+        _do_import_file(epub_file.name, book)
+    elif isinstance(epub_file, str) or isinstance(epub_file, unicode):
+        # path to file on disk
+        _do_import_file(epub_file, book)
+    elif isinstance(epub_file, object):
+        # some file-like object
 
-    for chunk in uploaded_epub_file.chunks():
-        epub_file.write(chunk)
+        temp_file = tempfile.NamedTemporaryFile(prefix="booktype-", suffix=".epub", delete=False)
+        for chunk in epub_file:
+            temp_file.write(chunk)
+        temp_file.close()
 
-    epub_file.close()
+        _do_import_file(temp_file.name, book)
 
+        os.remove(temp_file.name)
+
+
+def _do_import_file(file_path, book):
     reader_options = {
         'plugins': [TidyPlugin(), ImportPlugin()]
     }
 
-    epub_reader = ebooklib.epub.EpubReader(epub_file_name, options=reader_options)
+    epub_reader = ebooklib.epub.EpubReader(file_path, options=reader_options)
 
     epub_book = epub_reader.load()
     epub_reader.process()
 
-    _do_import(epub_book, book)
-
-    os.remove(epub_file_name)
+    _do_import_book(epub_book, book)
 
 
-def _do_import(epub_book, book):
+def _do_import_book(epub_book, book):
     pp = pprint.PrettyPrinter(indent=4)
 
     chapters = {}
@@ -197,5 +210,5 @@ def _do_import(epub_book, book):
 
 
 __all__ = (
-    "import_file_to_book",
+    "import_epub",
 )
