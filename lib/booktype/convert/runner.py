@@ -55,10 +55,13 @@ def run_conversion(profile, input, output, config=None, sandbox_path=None, asset
 
     converter.validate_config()
     book = converter.load_book(book_asset.file_path)
-    converter.convert(book, output)
+    conversion_result = converter.convert(book, output)
 
     result = {
-        "status" : "ok",
         "output" : output,
     }
+
+    if isinstance(conversion_result, dict):
+        result.update(conversion_result)
+
     return result
