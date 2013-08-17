@@ -31,6 +31,7 @@ import ebooklib.epub
 import ebooklib.utils
 
 from ..base import BaseConverter
+from ..utils.epub import parse_toc_nav
 from . import bookjs
 
 
@@ -76,33 +77,59 @@ class PdfConverter(BaseConverter):
         }
 
         document = ebooklib.utils.parse_html_string(self._html_template % head_params)
-        document_body = document.find("body")
 
-        document_items = {item.id : item for item in book.get_items_of_type(ebooklib.ITEM_DOCUMENT)}
-
-        for item_id, linear in book.spine:
-            item = document_items[item_id]
-
-            base_path = os.path.dirname(item.file_name)
-
-            chapter = ebooklib.utils.parse_html_string(item.content)
-            chapter_body = chapter.find("body")
-
-            for chapter_child in chapter_body:
-                content = deepcopy(chapter_child)
-                self._fix_images(content, base_path)
-                document_body.append(content)
+        self._document_body = document.find("body")
+        self._items_by_path = {item.file_name : item for item in book.get_items_of_type(ebooklib.ITEM_DOCUMENT)}
+        map(self._write_toc_item, parse_toc_nav(book))
 
         html_path = os.path.join(self.sandbox_path, self._body_html_name)
         pdf_path  = os.path.join(self.sandbox_path, self._body_pdf_name)
 
         with open(html_path, "w") as file:
-            html_text = etree.tostring(document, method='html')
+            html_text = etree.tostring(document, method='html', pretty_print=True)
             file.write(html_text.encode("utf-8"))
 
         self._run_renderer(html_path, pdf_path)
 
         os.rename(pdf_path, output_path)
+
+
+    def _write_toc_item(self, toc_item):
+        if isinstance(toc_item[1], list):
+            section_title, chapters = toc_item
+            self._write_section_heading(section_title)
+            map(self._write_toc_item, chapters)
+        else:
+            chapter_title, chapter_href = toc_item
+            self._write_chapter_content(chapter_title, chapter_href)
+
+
+    def _write_section_heading(self, section_title):
+        section = etree.Element("div", {"class" : "objavi-subsection"})
+
+        heading = etree.Element("div", {"class" : "objavi-subsection-heading"})
+        heading.text = section_title
+
+        section.append(heading)
+
+        self._document_body.append(section)
+        self._section = section
+
+
+    def _write_chapter_content(self, chapter_title, chapter_href):
+        chapter_item = self._items_by_path[chapter_href]
+        base_path = os.path.dirname(chapter_item.file_name)
+
+        heading = etree.Element("div", {"class" : "objavi-chapter"})
+        heading.text = chapter_title
+        self._section.append(heading)
+
+        chapter = ebooklib.utils.parse_html_string(chapter_item.content)
+
+        for chapter_child in chapter.find("body"):
+            content = deepcopy(chapter_child)
+            self._fix_images(content, base_path)
+            self._document_body.append(content)
 
 
     def _save_images(self, book):
@@ -129,7 +156,7 @@ class PdfConverter(BaseConverter):
     def _fix_images(self, root, base_path):
         for element in root.iter("img"):
             src_url = urllib2.unquote(element.get("src"))
-            item_name = os.path.normpath("{}/{}".format(base_path, src_url))
+            item_name = os.path.normpath(os.path.join(base_path, src_url))
             file_name = self.images[item_name]
             element.set("src", self._images_dir + file_name)
 
