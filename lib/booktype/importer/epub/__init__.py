@@ -153,11 +153,9 @@ def _do_import_book(epub_book, book):
         except:
             pass
 
-        root = tree.getroottree()
+        body = tree.find('body')
 
-        if len(root.find('body')) != 0:
-            body = tree.find('body')
-
+        if body is not None:
             to_save = False
 
             for _item in body.iter():
