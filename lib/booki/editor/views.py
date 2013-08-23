@@ -377,7 +377,7 @@ def upload_cover(request, bookid, version=None):
                 h.update(request.POST.get('license', ''))
                 h.update(str(datetime.datetime.now()))
 
-                license = models.License.objects.get(name=request.POST.get('license', ''))
+                license = models.License.objects.get(abbrevation=request.POST.get('license', ''))
 
                 frm = request.POST.get('format', '').split(',')
 
