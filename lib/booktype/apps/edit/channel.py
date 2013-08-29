@@ -749,9 +749,9 @@ def remote_section_rename(request, message, bookid, version):
     except:
         transaction.rollback()
     else:
-        logBookHistory(book = chapter.book,
+        logBookHistory(book = book,
                        version = book_version,
-                       chapter = chapter,
+                       chapter = None,
                        user = request.user,
                        args = {"old": oldTitle, "new": message["chapter"]},
                        kind = "section_rename")
@@ -768,6 +768,7 @@ def remote_section_rename(request, message, bookid, version):
         #                              "chapterID": message["chapterID"],
         #                              "status": "normal",
         #                              "username": request.user.username})
+
 
         sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
                                     {"command": "section_rename",
