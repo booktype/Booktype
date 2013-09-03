@@ -465,11 +465,31 @@ def remote_chapter_save(request, message, bookid, version):
 
     book = models.Book.objects.get(id=bookid)
     book_version = book.getVersion(version)
+
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
+    content = message['content']
+
+    if len(message['footnotes']) > 0:
+        from lxml import html
+
+        utf8_parser = html.HTMLParser(encoding='utf-8')
+        tree = html.document_fromstring(content, parser=utf8_parser)
+
+        root = tree.getroottree()
+
+        for _footnote in root.find('body').xpath('//sup[@class="footnote"]'):
+            footID = _footnote.get('id')
+            footnote_content = message['footnotes']['content_'+footID]
+
+            _footnote.text = ''
+            ftn = etree.SubElement(_footnote, 'span')
+            ftn.text = footnote_content
+
+        content = etree.tostring(tree, pretty_print=True, encoding='utf-8')
 
     if message.get("minor", False) != True:
         history = logChapterHistory(chapter = chapter,
-                                    content = message["content"],
+                                    content = content,
                                     user = request.user,
                                     comment = message.get("comment", ""),
                                     revision = chapter.revision+1)
@@ -487,7 +507,7 @@ def remote_chapter_save(request, message, bookid, version):
 
         chapter.revision += 1
 
-    chapter.content = message["content"];
+    chapter.content = content
 
     try:
         chapter.save()
