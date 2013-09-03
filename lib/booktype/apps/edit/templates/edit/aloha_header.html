@@ -22,7 +22,7 @@
                 config: ['highlight'],        
                 editables: {
                     '#mirko': [ 'highlight' ],
-                    '#content': [ ] 
+                    '#contenteditor': [ ] 
                 }   
             }
         },
@@ -34,7 +34,7 @@
                 allows: {
                     elements: [
                         'strong', 'em', 'i', 'b', 'blockquote', 'br', 'cite', 'code', 'dd', 'div', 'dl', 'dt', 'em',
-                        'i', 'li', 'ol', 'p', 'pre', 'q', 'small', 'strike', 'sub',
+                        'i', 'li', 'ol', 'p', 'pre', 'q', 'small', 'strike', 'sub', 'hr',
                         'sup', 'u', 'ul', 'img', 'table', 'th', 'tr', 'td'],
              
                     attributes: {
@@ -42,7 +42,8 @@
                         'a'         : ['href', 'id', 'class'],
                         'blockquote': ['cite'],
                         'q'         : ['cite'],
-                        'sup'       : ['id', 'class']
+                        'sup'       : ['id', 'class'],
+                        'hr'        : ['id', 'style'] 
                      },
              
                     protocols: {
@@ -72,6 +73,7 @@
                         booktype/linkbooktype,
                         booktype/colorbooktype,
                         booktype/footnotes,
+                        booktype/horizontalline,
                         common/table,
                         common/list,
                         common/highlighteditables,
