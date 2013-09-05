@@ -5,6 +5,14 @@
    {% include "edit/aloha_toolbar.html" %} 
 </div>
 
+<div class="template templateAlohaContent">
+  <div id="contenteditor"></div>
+  <div id="footnotes">
+    <ol>
+    </ol>
+  </div>
+</div>
+
 <div id="newLink" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -35,3 +43,18 @@
 <!--    <button class="btn btn-primary">{% trans "Set" %}</button> -->
   </div>
 </div>
+
+<div id="footnoteDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">{% trans "Footnote" %}</h3>
+  </div>
+  <div class="modal-body">
+      <textarea style="width: 95%" rows="10"></textarea>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+    <button class="btn btn-primary">{% trans "Insert footnote" %}</button>
+  </div>
+</div>
+
