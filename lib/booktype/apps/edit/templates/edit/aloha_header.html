@@ -38,21 +38,30 @@
             }
         },
         contentHandler : {
-                insertHtml: [ 'word', 'generic', 'oembed', 'sanitize' ],
+                insertHtml: [ 'word', 'generic', 'oembed', 'sanitize', 'block', 'formatless' ],
                 initEditable: [ 'sanitize' ],
                 getContents: [ 'blockelement', 'sanitize', 'basic' ],
                 sanitize: 'relaxed', // relaxed, restricted, basic,
                 allows: {
                     elements: [
-                        'strong', 'em', 'i', 'b', 'blockquote', 'br', 'cite', 'code', 'dd', 'div', 'dl', 'dt', 'em',
-                        'i', 'li', 'ol', 'p', 'pre', 'q', 'small', 'strike', 'sub', 'hr',
-                        'sup', 'u', 'ul', 'img', 'table', 'th', 'tr', 'td'],
+                        'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                        'a', 'br', 'hr',
+                        'b', 'i', 'strong', 'em', 'blockquote', 'del', 'ins', 'dfn', 'q', 's', 'small', 'span', 'u',
+                        'bdi', 'rt', 'ruby',
+                        'abbr', 'address', 'article', 'aside', 'audio', 'caption', 'cite', 'code', 'section',
+                        'col', 'colgroup', 'dd', 
+                        'div', 'dl', 'dt', 'figure', 'figcaption', 'footer', 'header',
+                        'img', 'li', 'mark', 'ol', 'ul', 'p', 'pre', 'style', 'sub', 'sup', 
+                        'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'wbr'],
              
-                    attributes: {
+                attributes: {
                         'img'       : ['src', 'alt', 'width', 'height', 'align'],
                         'a'         : ['href', 'id', 'class'],
                         'blockquote': ['cite'],
                         'q'         : ['cite'],
+                        'p'         : ['id', 'class', 'style'],
+                        'div'       : ['id', 'class', 'style'],
+                        'span'      : ['id', 'class', 'style'],
                         'sup'       : ['id', 'class'],
                         'hr'        : ['id', 'style'] 
                      },
@@ -86,6 +95,7 @@
                         booktype/footnotes,
                         booktype/horizontalline,
                         booktype/extraformat,
+                        booktype/htmledit,
                         common/table,
                         common/list,
                         common/highlighteditables,
