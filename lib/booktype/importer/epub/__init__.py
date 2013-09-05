@@ -39,7 +39,7 @@ from booki.utils.misc import bookiSlugify
 
 from ..utils import convert_file_name
 from .readerplugins import TidyPlugin, ImportPlugin
-from .cover import get_cover_image
+from .cover import get_cover_image, is_valid_cover
 
 
 logger = logging.getLogger("booktype.importer.epub")
@@ -236,6 +236,11 @@ def _do_import_book(epub_book, book):
 def _set_cover(book, cover_image):
     """ Assigns the specified cover.
     """
+
+    is_valid, reason = is_valid_cover(cover_image)
+    if not is_valid:
+        return # TODO: propagate reason to user
+
     cover_file = ContentFile(cover_image.get_content())
     file_name  = os.path.basename(cover_image.file_name)
     created    = datetime.datetime.now()

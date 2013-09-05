@@ -24,6 +24,9 @@ import ebooklib.utils
 __all__ = ("get_cover_image", )
 
 
+################################################################################
+
+
 def get_cover_image(book):
     """ Returns the book's cover image item, or None if none can be found.
     """
@@ -106,3 +109,50 @@ def get_cover_html(book):
 
     # last ditch
     return book.get_item_with_id("cover")
+
+
+################################################################################
+
+
+MIN_DPI           = 300               # minimal DPI of the image (if specified)
+MIN_SIZE          = 500               # minimal size on the shorter axis (pixels)
+MAX_SIZE          = 2800              # maximal size on the longer axis (pixels)
+MAX_PIXELS        = 3200000           # maximum number of pixels (width * height)
+MAX_CONTENT_SIZE  = MAX_PIXELS * 4    # maximum size of image content
+
+
+def is_valid_cover(item):
+    from PIL import Image
+    from StringIO import StringIO
+
+    if item.media_type not in ebooklib.epub.IMAGE_MEDIA_TYPES:
+        return False, "unsupporter media type: {}".format(item.media_type)
+
+    content = item.get_content()
+
+    if len(content) > MAX_CONTENT_SIZE:
+        return False, "image content too big"
+
+    image = Image.open(StringIO(content))
+
+    dpi = image.info.get("dpi")
+    width, height = image.size
+
+    if min(width, height) < MIN_SIZE:
+        return False, "image size too small: {}".format(image.size)
+
+    if max(width, height) > MAX_SIZE:
+        return False, "image size too big: {}".format(image.size)
+
+    if isinstance(dpi, float):
+        if dpi < MIN_DPI:
+            return False, "DPI too small: {}".format(dpi)
+    elif isinstance(dpi, tuple):
+        dpi_x, dpi_y = dpi
+        if dpi_x < MIN_DPI or dpi_y < MIN_DPI:
+            return False, "DPI too small: {}".format(dpi)
+
+    if width * height > MAX_PIXELS:
+        return False, "resolution too big: {} x {}".format(width, height)
+
+    return True, ""
