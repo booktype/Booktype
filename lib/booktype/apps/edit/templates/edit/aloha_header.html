@@ -18,6 +18,17 @@
             'underscore': _
         },
         plugins: {
+            format: {
+                config: ['removeFormat'],
+                removeFormats: ['strong', 'em', 'b', 'i', 's', 'cite', 'q', 'code', 'abbr', 'del', 'sub', 'sup']
+            },            
+            image: {
+                config: ['img'],
+                autoResize: false,
+                ui: {
+                    resizable: false,
+                }
+            },
             highlighteditables: {
                 config: ['highlight'],        
                 editables: {
@@ -74,6 +85,7 @@
                         booktype/colorbooktype,
                         booktype/footnotes,
                         booktype/horizontalline,
+                        booktype/extraformat,
                         common/table,
                         common/list,
                         common/highlighteditables,
