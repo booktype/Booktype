@@ -1,7 +1,24 @@
+# This file is part of Booktype.
+# Copyright (c) 2013 Borko Jandras <borko.jandras@sourcefabric.org>
+#
+# Booktype is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Booktype is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+
 import os
 import pprint
 import urllib
 import logging
+import hashlib
 import urlparse
 import datetime
 import StringIO
@@ -15,12 +32,14 @@ import ebooklib.utils
 
 from django.utils.timezone import utc
 from django.core.files import File
+from django.core.files.base import ContentFile
 
 from booki.editor import models
 from booki.utils.misc import bookiSlugify
 
 from ..utils import convert_file_name
 from .readerplugins import TidyPlugin, ImportPlugin
+from .cover import get_cover_image, is_valid_cover
 
 
 logger = logging.getLogger("booktype.importer.epub")
@@ -93,7 +112,14 @@ def _do_import_book(epub_book, book):
 
     stat = models.BookStatus.objects.filter(book=book, name="new")[0]
 
+    cover_image = get_cover_image(epub_book)
+    if cover_image:
+        _set_cover(book, cover_image)
+
     for attach in epub_book.get_items_of_type(ebooklib.ITEM_IMAGE):
+        if attach == cover_image:
+            continue
+
         att = models.Attachment(book = book,
                                 version = book.version,
                                 status = stat)
@@ -153,11 +179,9 @@ def _do_import_book(epub_book, book):
         except:
             pass
 
-        root = tree.getroottree()
+        body = tree.find('body')
 
-        if len(root.find('body')) != 0:
-            body = tree.find('body')
-
+        if body is not None:
             to_save = False
 
             for _item in body.iter():
@@ -207,6 +231,42 @@ def _do_import_book(epub_book, book):
         n -= 1
 
     # done
+
+
+def _set_cover(book, cover_image):
+    """ Assigns the specified cover.
+    """
+
+    is_valid, reason = is_valid_cover(cover_image)
+    if not is_valid:
+        return # TODO: propagate reason to user
+
+    cover_file = ContentFile(cover_image.get_content())
+    file_name  = os.path.basename(cover_image.file_name)
+    created    = datetime.datetime.now()
+    title      = ''
+
+    h = hashlib.sha1()
+    h.update(cover_image.file_name)
+    h.update(title)
+    h.update(str(created))
+
+    cover = models.BookCover(book = book,
+                             user = book.owner,
+                             cid = h.hexdigest(),
+                             title = title,
+                             filename = file_name[:250],
+                             width = 0,
+                             height = 0,
+                             approved = False,
+                             is_book = False,
+                             is_ebook = True,
+                             is_pdf = False,
+                             created = created)
+    cover.save()
+
+    cover.attachment.save(file_name, cover_file, save = False)
+    cover.save()
 
 
 __all__ = (
