@@ -24,6 +24,7 @@ import datetime
 import StringIO
 import tempfile
 
+import lxml.html
 from lxml import etree
 
 import ebooklib
@@ -187,6 +188,22 @@ def _do_import_book(epub_book, book):
 
 def _create_content(document, title):
     content = document.get_body_content()
+
+    heading = etree.Element("h1")
+    heading.text = title
+
+    tree = lxml.html.fragment_fromstring(content, create_parent=True, parser=lxml.html.HTMLParser(encoding='utf-8'))
+
+    tree.insert(0, heading)
+    heading.tail = tree.text
+    tree.text = ""
+
+    tree_str = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=False)
+
+    a = len("<div>")
+    b = tree_str.rfind("</div>")
+    content = tree_str[a:b]
+
     return content
 
 
