@@ -4,7 +4,7 @@
     <h2>{% trans "Media" %}</h2>
 
     <div class="btn-toolbar" style="float: right;">
-      <span class="btn cancel-upload">
+      <span class="btn btn-default cancel-upload">
           <i class="icon-remove"></i>
           <span>{% trans "Cancel upload" %}</span>
       </span>
@@ -42,24 +42,27 @@
 	    <tbody>
 	    </tbody>	   
 	</table>    
-	<button type="button" class="btn" id="delete-selected-items">{% trans "Delete selected items" %}</button>
+	<button type="button" class="btn btn-default" id="delete-selected-items">{% trans "Delete selected items" %}</button>
 </div>
 
-<div id="removeMedia" class="modal hide fade">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>{% trans "Remove media files" %}</h3>
+<div id="removeMedia" class="modal fade">
+ <div class="modal-dialog">
+  <div class="modal-content"> 
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>{% trans "Remove media files" %}</h3>
+    </div>
+    <div class="modal-body">
+      <form>
+         <input type="hidden" name="attachments" value=""/>
+         <p>{% trans "Are you sure you would like to delete media files? You will not be able to undo this operation!" %}</p>
+         <p><input type="checkbox" name="understand" value="on"/> {% trans "I understand and agree" %}</p>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Close" %}</button>
+      <button class="btn btn-default btn-primary">{% trans "Remove" %}</button>
+    </div>
   </div>
-  <div class="modal-body">
-    <form>
-       <input type="hidden" name="attachments" value=""/>
-       <p>{% trans "Are you sure you would like to delete media files? You will not be able to undo this operation!" %}</p>
-       <p><input type="checkbox" name="understand" value="on"/> {% trans "I understand and agree" %}</p>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn close-button">{% trans "Close" %}</a>
-    <button class="btn btn-primary">{% trans "Remove" %}</button>
-  </div>
+ </div>
 </div>
-

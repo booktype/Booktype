@@ -72,7 +72,6 @@ a:focus, a:hover {
 	font-size: 1.1em;
 	line-height: 160%;
 }
-/*
 .content h1 {
 	font-size: 2em;
 	margin: 10px 0 20px 0;
@@ -91,7 +90,6 @@ a:focus, a:hover {
    top: -22px;
    left: -1px;
 }
-*/
 .content h2 {
 	font-size: 1.5em;
 	color:#4b2e82;
@@ -105,7 +103,7 @@ a:focus, a:hover {
 
 /* Layout
 ------------------------------------------------- */
-.navbar {
+.navigation-bar {
 	background: #333333;
 	background: -moz-linear-gradient(top,  #333333 0%, #222222 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(100%,#222222));
@@ -168,7 +166,7 @@ a:focus, a:hover {
 	}
 .bookbar h1 {
 	float: left;
-	width: 75%;
+	width: 85%;
 	box-sizing:border-box;
 	-moz-box-sizing: border-box;
 	-o-box-sizing: border-box;
@@ -244,12 +242,13 @@ a:focus, a:hover {
 .tablist .navigation-tabs { 
 	list-style: none;
 	margin: 0; 
+	padding: 0;
 	}
 	.tablist .navigation-tabs li a {
 		display: block;
 		width: 48px;
 		min-width: 48px;
-		height: 46px;
+		height: 47px;
 		padding: 0;
 		margin-bottom: 0;
 		margin-right: 0;
@@ -261,7 +260,7 @@ a:focus, a:hover {
 		}
 
 	.tablist .navigation-tabs li a i[class^="big-icon-"] {
-		margin: 7px 0 0 5px;
+		margin: 8px 0 0 5px;
 	}
 	.tablist .navigation-tabs .active .big-icon-hold, 
 	.tablist .navigation-tabs .active a:hover .big-icon-hold {
@@ -290,6 +289,10 @@ a:focus, a:hover {
 	.tablist .navigation-tabs .active .big-icon-notes, 
 	.tablist .navigation-tabs .active a:hover .big-icon-notes {
 		background-position: -80px -245px;
+	}
+	.tablist .navigation-tabs .active .big-icon-style, 
+	.tablist .navigation-tabs .active a:hover .big-icon-style {
+		background-position: -80px -285px;
 	}
 
 	.big-icon-hold {
@@ -334,7 +337,12 @@ a:focus, a:hover {
 	a:hover .big-icon-notes {
 		background-position: 0 -245px;
 		}
-
+	.big-icon-style {
+		background-position: 0 -285px;
+		}
+	a:hover .big-icon-style {
+		background-position: 0 -285px;
+		}
 
 	.tablist .navigation-tabs .active a,
 	.tablist .navigation-tabs .active a:hover {
@@ -409,20 +417,25 @@ a:focus, a:hover {
 		.tabpane .tab-content ul.hold-chapters { 
 			list-style: none; margin: 0;
 			padding-bottom: 10px;
+			padding-left: 0;
 			}
 		.tabpane .tab-content ul.hold-chapters li {
 			border: 1px solid #f3cccc;
 			background: #f9e2e2;
-			padding: 4px 60px 4px 6px;
+			padding: 4px 95px 4px 6px;
 			margin: 8px 0;
 			position: relative;
 			cursor: default;
-		}
-		.tabpane .tab-content ul.hold-chapters li .btn-group {
+			}
+			.tabpane .tab-content ul.hold-chapters li > div:first-child {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				}
+		.tabpane .tab-content ul.hold-chapters li .btn-toolbar {
 			position: absolute;
 			top: 2px;
 			right: 4px;
-			/*display: none;*/
 		}
 		.tabpane .tab-content ul.hold-chapters li .btn-group .icon-arrow-left {
 			margin-top: -1px;
@@ -430,7 +443,7 @@ a:focus, a:hover {
 
 		.tabpane .tab-content ul.edit-toc { 
 			list-style: none; margin: 0;
-			padding-bottom: 10px;
+			padding: 0 0 10px 0;
 			}
 		.tabpane .tab-content ul.edit-toc li {
 			padding: 0;
@@ -676,6 +689,104 @@ a:focus, a:hover {
 	height:30px;	
 }
 
+.linktochapter {
+	margin-bottom: 20px;
+	}
+	.linktochapter .linktochapter-header {
+		position: relative;
+		margin-bottom: 10px;
+	}
+	.linktochapter .linktochapter-header:before {
+		content: " ";
+		position: absolute;
+		border-bottom: 1px solid #dcdcdc;
+		height: 1px;
+		top: 9px;
+		left: 20px;
+		right: 0;
+	}
+	.linktochapter .linktochapter-content {
+		display:none;
+		max-height: 200px;
+		overflow:auto;
+	}
+	.linktochapter .linktochapter-header .linktochapter-title {
+		background: #fff;
+		padding: 0 5px;
+		font-size: 11px;
+		text-transform: uppercase;
+		color: #666;
+		position: relative;
+	}
+	.linktochapter .linktochapter-header i {
+		margin-top: 2px;
+		display: none;
+	}
+	.linktochapter .linktochapter-header i:hover {
+		cursor:pointer;
+	}
+	.linktochapter .linktochapter-header [class^="icon-"], [class*=" icon-"] {
+		width: 14px;
+		height: 14px;
+		line-height: 14px;
+	}
+	.linktochapter .linktochapter-header i.toggle-open {
+		display: inline-block;
+	}
+	.linktochapter.open .linktochapter-content {
+		display: block!important;
+	}
+	.linktochapter.open .toggle-close {
+		display: inline-block!important;
+	}
+	.linktochapter.open .toggle-open {
+		display:none!important;
+	}
+	.linktochapter .linktochapter-content ul {
+		list-style:none;
+		margin:0;
+		padding: 0;
+		border: 1px solid #dcdcdc;
+		}
+		.linktochapter .linktochapter-content li {
+			border-bottom: 1px solid #E6E6E6;
+		}
+		.linktochapter .linktochapter-content li:last-child {
+			border-bottom: none;
+		}
+		.linktochapter .linktochapter-content li a {
+			background-color: #FAFAFA;
+			padding: 4px 7px 5px 18px;
+			display:block;
+			-moz-box-sizing: border-box;
+			-o-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.linktochapter .linktochapter-content li a:hover {
+			background-color: #E6E6E6;
+			text-decoration: none;
+		}
+		.linktochapter .linktochapter-content li:nth-child(2n+0) a {
+			background-color: #F2F2F2;
+		}
+		.linktochapter .linktochapter-content li:nth-child(2n+0) a:hover {
+			background-color: #E6E6E6;
+		}
+		.linktochapter .linktochapter-content li a > i {
+			margin-left: -15px;
+			margin-right: 3px;
+			font-size: 14px;
+			display: none;
+		}
+		.linktochapter .linktochapter-content li a.selected > i {
+			display:inline-block !important;
+		}
+		
+
+
 /* Notifications
 ------------------------------------------------------*/
 .notificationContainer {
@@ -739,9 +850,6 @@ a:focus, a:hover {
 	margin: 5px 0 0 !important;
 	vertical-align: top;
 }
-.mediaTable td.size {
-	text-align: right;
-}
 
 
 /* Bootstrap custom
@@ -771,7 +879,7 @@ a:focus, a:hover {
 }
 .user .btn .caret {
 	margin-left: 10px;
-	margin-top: 9px;
+	margin-top: -2px;
 }
 .user .btn-group.open .btn-inverse.dropdown-toggle {
 	background-color: transparent !important;
@@ -785,10 +893,14 @@ a:focus, a:hover {
 	margin-top: 1px;
 	font-size: 14px;
 }
-
-.btn [class^="icon-"] {
+.btn [class^="icon-"],
+.dropdown-menu [class^="icon-"] {
 	font-size: 14px;
 }
+.dropdown-menu [class^="icon-"] {
+	min-width: 24px;
+	display: inline-block;	
+	}
 .edit-menu {
 	margin-right: 40px;
 }
@@ -812,9 +924,7 @@ a:focus, a:hover {
 	border: none !important;
 	box-shadow: 0 0 3px rgba(94,94,94,0.8) !important;
 }
-.edit-menu .btn-group+.btn-group, .btn+.btn-group, .btn+.btn, .btn-group+.btn {
-	margin-left: 5px !important;
-}
+.btn+.btn {margin-left: 5px !important;}
 .edit-menu .dropdown-menu {
 	left: 0px;
 	top: 41px;
@@ -832,3 +942,15 @@ a:focus, a:hover {
 	border-top-left-radius: 0px !important;
 	border-top-right-radius: 0px !important;
 } 
+.hold-chapters li .btn-toolbar>.btn-group+.btn-group {
+	margin-left: 6px !important;
+}
+.btn.btn-xs [class^="icon-"] {
+	line-height: 0.5;
+}
+
+/* Tooltip fix */
+.btn-group > .tooltip + .btn,
+.btn-group > .popover + .btn{
+	margin-left:-1px;
+}

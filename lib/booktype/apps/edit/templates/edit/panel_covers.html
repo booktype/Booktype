@@ -1,175 +1,168 @@
 {% load i18n %}
 <div class="template templateCoversToolbar">
     <h2>{% trans "Cover Manager" %}</h2>
-    <div class="btn-toolbar" style="float: right;">
-      <div class="btn-group" data-toggle="buttons-radio">
-        <button id="expand" class="btn" rel="tooltip" data-toggle="button" data-placement="bottom" data-original-title="{% trans "Expand All" %}">All</button>
-        <button id="collapse" class="btn" rel="tooltip" data-toggle="button" data-placement="bottom" data-original-title="{% trans "Collapse All" %}">Approved</button>
-        <button id="collapse" class="btn" rel="tooltip" data-toggle="button" data-placement="bottom" data-original-title="{% trans "Collapse All" %}">Pending</button>
+    <div class="btn-toolbar float-right">
+      <div class="btn-group" data-toggle="buttons">
+         <label class="btn btn-default">
+           <input type="radio" name="filtercover" id="button-all" rel="tooltip" data-original-title="{% trans "All" %}"> {% trans "All" %}
+         </label>
+         <label class="btn btn-default">
+           <input type="radio" name="filtercover" id="button-approved" rel="tooltip" data-original-title="{% trans "Approved" %}"> {% trans "Approved" %}
+         </label>
+         <label class="btn btn-default">
+           <input type="radio" name="filtercover" id="button-pending" rel="tooltip" data-original-title="{% trans "Pending" %}"> {% trans "Pending" %}
+         </label>
       </div>
 
-      <span class="btn btn-success fileinput-button">
-          <i class="icon-plus icon-white"></i>
-          <span>{% trans "Upload cover" %}</span>
-          <input id="fileupload" type="file" name="files[]"  data-url="../_upload_cover/">
-      </span>
-
+      <div class="btn-group">
+        <span class="btn btn-success fileinput-button">
+            <i class="icon-plus icon-white"></i>
+            <span>{% trans "Upload cover" %}</span>
+            <input id="fileupload" type="file" name="files[]"  data-url="../_upload_cover/">
+        </span>
+      </div>
     </div>
 </div>
 
 <div class="template templateCoversContent">
  <p>{% trans "The cover manager allows you to upload, manage and publish your book covers. Please upload your ebook cover image files (JPEG, GIF or PNG format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, spine and back cover of your print books can be uploaded and managed, but will be kept separate from the text of the book when publishing it." %}</p>
 <style>
-.thumbnail > img {
-    display: block;
-    height: 200px; /* add this */
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%;
-}</style>
+    #uploadCover, #editCover {
+      width: 800px;
+    }
+</style>
  <div class="row-fluid">
   <ul class="thumbnails">
-
-    <li class="span3">
-      <div class="thumbnail">
-        <img data-src="holder.js/300x200" src="http://www.tcd.ie/Political_Science/staff/michael_gallagher/BookCoversFolder/pri4c.jpg" alt="">
-        <h4>Thumbnail label</h4>
-        <input type="checkbox"/> Approved
-        <button class="btn btn-mini float-right">Edit</button>
-      </div>    
-    </li>
-
-    <li class="span3">
-      <div class="thumbnail">
-        <img data-src="holder.js/300x200" src="http://persnicketygraphics.com/blog/wp-content/uploads/2010/08/book-cover-image.jpg" alt="">
-        <h4>Thumbnail label</h4>
-        <input type="checkbox"/> Approved
-        <button class="btn btn-mini float-right">Edit</button>
-      </div>    
-    </li>
-
 
   </ul>
 </div>
 
 </div>
 
-<div id="uploadCover" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="uploadCover" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content"> 
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">{% trans "Enter Meta-data" %}</h3>
+    </div>
+    <div class="modal-body">
+      <div class="row-fluid">
+
+          <div class="span5">
+            <form class="form-horizontal">
+                <div class="control-group">
+                  <label class="control-label" for="inputTitle">Title</label>
+                  <div class="controls">
+                    <input type="text" id="inputTitle" name="title" placeholder="Title" class="form-control">
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label class="control-label" for="inputCreator">Creator</label>
+                  <div class="controls">
+                    <input type="text" id="inputCreator" name="creator" placeholder="Creator" class="form-control">
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label class="control-label" for="inputLicense">License</label>
+                  <div class="controls">
+                    <select id="inputLicense" name="license"  class="form-control">
+                    </select>                
+                  </div>
+                </div>
+
+              </form>
+            </div>
+
+            <div class="span5">
+              <form class="form-horizontal">
+                <div class="control-group">
+                  <label class="control-label" for="inputNotes">Notes</label>
+                  <div class="controls">
+                    <textarea id="inputNotes" name="notes" rows="10"  class="form-control"></textarea>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div> <!-- row -->
+     </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+      <button class="btn btn-default btn-primary">{% trans "Upload cover" %}</button>
+    </div>
+  </div>
+ </div>
+</div>
+
+<div id="editCover" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">{% trans "Enter Meta-data" %}</h3>
   </div>
   <div class="modal-body">
-
-      <div class="row">
-        <div class="span6>"
+    <div class="row-fluid">
+        <input type="hidden" name="cid" value="">
+        <div class="span5">
           <form class="form-horizontal">
               <div class="control-group">
-                <label class="control-label" for="inputEmail">Title</label>
+                <label class="control-label" for="inputTitle">Title</label>
                 <div class="controls">
-                  <input type="text" id="inputEmail" placeholder="Title">
-                </div>
-              </div>
-              <div class="control-group">
-                  <label class="control-label" for="inputPassword">Book Size</label>
-                  <div class="controls">
-                  <select id="booksize">
-                    <option value="" class="custom"></option>
-                    <option value="custom" class="custom">{% trans "custom" %}</option>
-                    <option value="POCKET" class="lulu">{% trans "POCKET (107mm x 174mm)" %}</option>
-                    <option value="US5x8" class="us">{% trans "US5x8 (126mm x 203mm)" %}</option>
-                    <option value="DIGEST" class="us lulu">{% trans "DIGEST (139mm x 215mm)" %}</option>
-                    <option value="US5.5x8.5" class="us">{% trans "US5.5x8.5 (139mm x 215mm)" %}</option>
-                    <option value="A5" class="lulu iso">{% trans "A5 (148mm x 210mm)" %}</option>
-                    <option value="USTRADE6x9" class="lulu us">{% trans "USTRADE6x9 (152mm x 228mm)" %}</option>
-                    <option value="SQUARE7.5" class="lulu">{% trans "SQUARE7.5 (190mm x 190mm)" %}</option>
-                    <option value="ROYAL" class="lulu us">{% trans "ROYAL (155mm x 233mm)" %}</option>
-                    <option value="LANDSCAPE9x7" class="lulu us">{% trans "LANDSCAPE9x7 (228mm x 177mm)" %}</option>
-                    <option value="COMICBOOK" class="lulu">{% trans "COMICBOOK (168mm x 260mm)" %}</option>
-                    <option value="B5" class="iso">{% trans "B5 (176mm x 250mm)" %}</option>
-                    <option value="US7x10" class="us">{% trans "US7x10 (177mm x 253mm)" %}</option>
-                    <option value="CROWNQUARTO" class="lulu us">{% trans "CROWNQUARTO (189mm x 245mm)" %}</option>
-                    <option value="SQUARE8.5" class="lulu">{% trans "SQUARE8.5 (215mm x 215mm)" %}</option>
-                    <option value="USLETTER" class="lulu us">{% trans "USLETTER (215mm x 279mm)" %}</option>
-                    <option value="A4" class="lulu iso">{% trans "A4 (210mm x 297mm)" %}</option>
-                    <option value="Foolscap (F4)" class="">{% trans "Foolscap (F4) (210mm x 330mm)" %}</option>
-                    <option value="B4" class="iso">{% trans "B4 (250mm x 353mm)" %}</option>
-                    <option value="Oamaru Tabloid" class="newspaper">{% trans "Oamaru Tabloid (265mm x 380mm)" %}</option>
-                    <option value="UK Tabloid" class="newspaper">{% trans "UK Tabloid (279mm x 431mm)" %}</option>
-                    <option value="A3 (NZ Tabloid)" class="iso newspaper">{% trans "A3 (NZ Tabloid) (297mm x 420mm)" %}</option>
-                    <option value="Berliner" class="newspaper">{% trans "Berliner (315mm x 470mm)" %}</option>
-                    <option value="B3" class="iso">{% trans "B3 (353mm x 500mm)" %}</option>
-                    <option value="Oamaru Broadsheet" class="newspaper">{% trans "Oamaru Broadsheet (382mm x 540mm)" %}</option>
-                    <option value="US Broadsheet" class="newspaper us">{% trans "US Broadsheet (380mm x 577mm)" %}</option>
-                    <option value="A2 (NZ Broadsheet)" class="iso newspaper">{% trans "A2 (NZ Broadsheet) (420mm x 594mm)" %}</option>
-                    <option value="UK Broadsheet" class="newspaper">{% trans "UK Broadsheet (457mm x 609mm)" %}</option>
-                    <option value="B2" class="iso">{% trans "B2 (500mm x 707mm)" %}</option>
-                    <option value="A1" class="iso">{% trans "A1 (594mm x 841mm)" %}</option>
-                    <option value="B1" class="iso">{% trans "B1 (707mm x 1000mm)" %}</option>
-                  </select> 
-                </div>
-
-                <div class="control-group">
-                  <label class="control-label" for="inputEmail">Format</label>
-                  <div class="controls">
-                      <select multiple id="format">
-                        <option value="ebook">{% trans "E-book" %}</option>
-                        <option value="pdf">{% trans "PDF" %}</option>
-                        <option value="book">{% trans "Book" %}</option>
-                      </select>                
-                  </div>
-                </div>
-
-              </div>        
-            </form>
-          </div>
-
-          <div class="span6>"
-            <form class="form-horizontal">
-              <div class="control-group">
-                <label class="control-label" for="inputEmail">Type</label>
-                <div class="controls">
-                    <select id="type">
-                      <option value="front">{% trans "Front Cover" %}</option>
-                      <option value="back">{% trans "Back Cover" %}</option>
-                      <option value="spine">{% trans "Spine" %}</option>
-                      <option value="whole">{% trans "Full Cover" %}</option>
-                      <option value="digital">{% trans "E-book" %}</option>
-                    </select>                
+                  <input type="text" id="inputTitle" name="title" placeholder="Title">
                 </div>
               </div>
 
               <div class="control-group">
-                <label class="control-label" for="inputPassword">Creator</label>
+                <label class="control-label" for="inputCreator">Creator</label>
                 <div class="controls">
-                  <input type="text" id="inputPassword" placeholder="Password">
+                  <input type="text" id="inputCreator" name="creator" placeholder="Creator">
                 </div>
               </div>
 
               <div class="control-group">
-                <label class="control-label" for="inputPassword">License</label>
+                <label class="control-label" for="inputLicense">License</label>
                 <div class="controls">
-                  <select id="license">
+                  <select id="inputLicense" name="license">
                   </select>                
                 </div>
               </div>
 
+            </form>
+          </div>
+
+          <div class="span5">
+            <form class="form-horizontal">
               <div class="control-group">
-                <label class="control-label" for="inputPassword">Notes</label>
+                <label class="control-label" for="inputNotes">Notes</label>
                 <div class="controls">
-                  <textarea id="notes"></textarea>
+                  <textarea id="inputNotes" name="notes" rows="10"></textarea>
                 </div>
               </div>
-
-
             </form>
           </div>
 
         </div> <!-- row -->
-
    </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
     <button class="btn btn-primary">{% trans "Upload cover" %}</button>
   </div>
 </div>
+
+
+<script id="templateCovers" type="text/x-tmpl">
+  <% _.each(covers, function(item) { %>
+    <li class="span3" data-cid="<%= item.cid %>">
+      <div class="thumbnail">
+        <div style="height: 200px; padding: 0; margin: 0; text-align: center;" align="center">
+          <img data-src="holder.js/300x200" src="../_cover/<%= item.cid %>/cover.jpg?preview=1" alt=""/>
+        </div>
+        <h4><%= item.title %></h4>
+        <input type="checkbox" <%= item.approved ? "checked" : "" %> /> Approved
+        <button class="btn btn-mini float-right">Edit</button>
+      </div>    
+    </li>
+  <% });%>
+</script>

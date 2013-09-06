@@ -2,10 +2,18 @@
 <h1>{{ book.title }}</h1>
 <div class="btn-toolbar float-right">
 
-  <div class="btn-group" data-toggle="buttons-radio">
-    <button type="button" data-toggle="button" class="btn"  rel="tooltip" title="{% trans "Table Of Contents" %}" id="button-toc" data-placement="bottom"><i class="icon-list-alt"></i></button>
-    <button type="button" data-toggle="button"  class="btn" rel="tooltip" title="{% trans "Media" %}" id="button-media" data-placement="bottom"><i class="icon-picture"></i></button>        
-    <button type="button" data-toggle="button"  class="btn" rel="tooltip" title="{% trans "Cover Manager" %}" id="button-cover" data-placement="bottom"><i class="icon-tablet"></i></button>            
-    <button type="button" data-toggle="button"  class="btn" rel="tooltip" id="button-publish" title="{% trans "Publishing" %}" data-placement="bottom"><i class="icon-print"></i></button> 
-    </div>
+  <div class="btn-group" data-toggle="buttons">
+	 <label class="btn btn-default">
+	   <input type="radio" name="panelname" id="button-toc" rel="tooltip" data-original-title="{% trans "Table Of Contents" %}"><i class="icon-list-alt"></i> 
+	 </label>
+	 <label class="btn btn-default">
+	   <input type="radio" name="panelname" id="button-media" rel="tooltip" data-original-title="{% trans "Media" %}"><i class="icon-picture"></i>
+	 </label>
+	 <label class="btn btn-default">
+	   <input type="radio" name="panelname" id="button-cover" rel="tooltip" data-original-title="{% trans "Cover Manager" %}"><i class="icon-tablet"></i>
+	 </label>
+	 <label class="btn btn-default">
+	   <input type="radio" name="panelname" id="button-publish" rel="tooltip" data-original-title="{% trans "Publishing" %}"><i class="icon-print"></i>
+	 </label>
+ </div>
 </div>
