@@ -176,9 +176,8 @@ def _do_import_book(epub_book, book):
 
     # fix links to chapters
     #
-    for document in epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
-        if document.is_chapter():
-             _fix_links(document, chapters)
+    for chapter in chapters.itervalues():
+        _fix_links(chapter, chapters)
 
     # create TOC objects
     _make_toc(book, toc, chapters)
@@ -221,11 +220,11 @@ def _make_toc(book, toc, chapters):
         n -= 1
 
 
-def _fix_links(document, chapters):
+def _fix_links(chapter, chapters):
     """ Fixes internal links so they point to chapter URLs
     """
     try:
-        tree = ebooklib.utils.parse_html_string(document.get_content())
+        tree = ebooklib.utils.parse_html_string(chapter.content)
     except:
         return
 
@@ -252,10 +251,7 @@ def _fix_links(document, chapters):
             to_save = True
 
     if to_save:
-        document.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
-        name = urllib.unquote(os.path.basename(document.file_name))
-        chapter = chapters[name]
-        chapter.content = document.content
+        chapter.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
         chapter.save()
 
 
