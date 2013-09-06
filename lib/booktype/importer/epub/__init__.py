@@ -45,6 +45,11 @@ from .cover import get_cover_image, is_valid_cover
 logger = logging.getLogger("booktype.importer.epub")
 
 
+__all__ = (
+    "import_epub",
+)
+
+
 def import_epub(epub_file, book):
     """
     Imports the EPUB book.
@@ -82,9 +87,7 @@ def _do_import_file(file_path, book):
 
 
 def _do_import_book(epub_book, book):
-    pp = pprint.PrettyPrinter(indent=4)
-
-    chapters = {}
+    titles = {}
     toc = []
 
     def _parse_toc(elements):
@@ -98,139 +101,162 @@ def _do_import_book(epub_book, book):
                 _u = urlparse.urlparse(_elem.href)
                 _name = urllib.unquote(os.path.basename(_u.path))
 
-                if not _name in chapters:
-                    chapters[_name] = _elem.title
+                if not _name in titles:
+                    titles[_name] = _elem.title
                     toc.append((0, _name))
 
     _parse_toc(epub_book.toc)
-
+    pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(toc)
-
-    title = epub_book.title
 
     now = datetime.datetime.utcnow().replace(tzinfo=utc)
 
     stat = models.BookStatus.objects.filter(book=book, name="new")[0]
 
+    # assign cover image if there is one
+    #
     cover_image = get_cover_image(epub_book)
     if cover_image:
         _set_cover(book, cover_image)
 
-    for attach in epub_book.get_items_of_type(ebooklib.ITEM_IMAGE):
-        if attach == cover_image:
+    # import all images in the EPUB
+    #
+    for image in epub_book.get_items_of_type(ebooklib.ITEM_IMAGE):
+        if image == cover_image:
             continue
 
         att = models.Attachment(book = book,
                                 version = book.version,
                                 status = stat)
 
-        s = attach.get_content()
-        f = StringIO.StringIO(s)
-        f2 = File(f)
-        f2.size = len(s)
-        att.attachment.save(attach.file_name, f2, save=False)
-        att.save()
-        f.close()
+        with ContentFile(image.get_content()) as content_file:
+            att.attachment.save(image.file_name, content_file, save=False)
+            att.save()
 
-    _imported = {}
+    # Chapter objects indexed by document file name
+    chapters = {}
 
-    for chap in epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
+    # import all document items from the EPUB
+    #
+    for document in epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
         # Nav and Cover are not imported
-        if not chap.is_chapter():
+        if not document.is_chapter():
              continue
 
-        # check if this chapter name already exists
-        name = urllib.unquote(os.path.basename(chap.file_name))
-        content = chap.get_body_content()
+        name = urllib.unquote(os.path.basename(document.file_name))
+        title = ''
 
         # maybe this part has to go to the plugin
         # but you can not get title from <title>
-        if chapters.has_key(name):
-            name = chapters[name]
+        if titles.has_key(name):
+            title = titles[name]
         else:
-            name = convert_file_name(name)
+            title = convert_file_name(name)
 
-            if name.rfind('.') != -1:
-                name = name[:name.rfind('.')]
+            if title.rfind('.') != -1:
+                title = title[:name.rfind('.')]
 
-            name = name.replace('.', '')
+            title = title.replace('.', '')
+
+        # TODO: check if this chapter title already exists
+
+        content = _create_content(document, title)
 
         chapter = models.Chapter(book = book,
                                  version = book.version,
-                                 url_title = bookiSlugify(name),
-                                 title = name,
+                                 url_title = bookiSlugify(title),
+                                 title = title,
                                  status = stat,
                                  content = content,
                                  created = now,
                                  modified = now)
-
         chapter.save()
-        _imported[urllib.unquote(os.path.basename(chap.file_name))] = chapter
 
-    # fix links
-    for chap in  epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
-        if not chap.is_chapter():
-             continue
+        chapters[name] = chapter
 
-        content = chap.get_content()
+    # fix links to chapters
+    #
+    for document in epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
+        if document.is_chapter():
+             _fix_links(document, chapters)
 
-        try:
-            tree = ebooklib.utils.parse_html_string(content)
-        except:
-            pass
+    # create TOC objects
+    _make_toc(book, toc, chapters)
 
-        body = tree.find('body')
+    # done
 
-        if body is not None:
-            to_save = False
 
-            for _item in body.iter():
-                if _item.tag == 'a':
-                    _href = _item.get('href')
+def _create_content(document, title):
+    content = document.get_body_content()
+    return content
 
-                    if _href:
-                        _u = urlparse.urlparse(_href)
-                        pth = urllib.unquote(os.path.basename(_u.path))
 
-                        if pth in _imported:
-                            _name = _imported[pth].url_title
+def _make_toc(book, toc, chapters):
+    """ Creates TOC objects.
+    """
+    n = len(toc) + 1
 
-                            _u2 = urlparse.urljoin(_href, '../'+_name+'/')
-                            _item.set('href', _u2)
-                            to_save = True
-
-            if to_save:
-                chap.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
-                _imported[urllib.unquote(os.path.basename(chap.file_name))].content = chap.content
-                _imported[urllib.unquote(os.path.basename(chap.file_name))].save()
-
-    n = len(toc)+1
-
-    for _elem in toc:
-        if _elem[0] == 1: #section
+    for toc_type, name in toc:
+        if toc_type == 1: # section
             c = models.BookToc(book = book,
                                version = book.version,
-                               name = _elem[1],
+                               name = name,
                                chapter = None,
                                weight = n,
                                typeof = 2)
-            c.save()
         else:
-            if not _elem[1] in _imported:
+            chapter = chapters.get(name)
+
+            if chapter is None:
                 continue
 
-            chap = _imported[_elem[1]]
             c = models.BookToc(book = book,
                                version = book.version,
-                               name = chap.title,
-                               chapter = chap,
+                               name = chapter.title,
+                               chapter = chapter,
                                weight = n,
                                typeof = 1)
-            c.save()
 
+        c.save()
         n -= 1
 
-    # done
+
+def _fix_links(document, chapters):
+    """ Fixes internal links so they point to chapter URLs
+    """
+    try:
+        tree = ebooklib.utils.parse_html_string(document.get_content())
+    except:
+        return
+
+    body = tree.find('body')
+
+    if body is None:
+        return
+
+    to_save = False
+
+    for anchor in body.iter('a'):
+        href = anchor.get('href')
+
+        if href is None:
+            continue
+
+        urlp = urlparse.urlparse(href)
+        name = urllib.unquote(os.path.basename(urlp.path))
+
+        if name in chapters:
+            title = chapters[name].url_title
+            fixed_href = urlparse.urljoin(href, '../{}/'.format(title))
+            anchor.set('href', fixed_href)
+            to_save = True
+
+    if to_save:
+        document.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
+        name = urllib.unquote(os.path.basename(document.file_name))
+        chapter = chapters[name]
+        chapter.content = document.content
+        chapter.save()
 
 
 def _set_cover(book, cover_image):
@@ -267,8 +293,3 @@ def _set_cover(book, cover_image):
 
     cover.attachment.save(file_name, cover_file, save = False)
     cover.save()
-
-
-__all__ = (
-    "import_epub",
-)
