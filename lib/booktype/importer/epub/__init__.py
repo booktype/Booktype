@@ -20,12 +20,17 @@ import tempfile
 from .epubimporter import EpubImporter
 
 
-def import_epub(epub_file, book, notifier=None):
+def import_epub(epub_file, book, notifier=None, delegate=None):
     """
     Imports the EPUB book.
     """
 
-    importer = EpubImporter(notifier=notifier)
+    importer = EpubImporter()
+
+    if delegate:
+        importer.delegate = delegate
+    if notifier:
+        importer.notifier = notifier
 
     if isinstance(epub_file, file):
         # file on disk

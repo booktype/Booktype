@@ -38,6 +38,7 @@ from booki.utils.misc import bookiSlugify
 
 from ..utils import convert_file_name
 from ..notifier import Notifier
+from ..delegate import Delegate
 from .readerplugins import TidyPlugin, ImportPlugin
 from .cover import get_cover_image, is_valid_cover
 
@@ -50,18 +51,18 @@ __all__ = ("EpubImporter", )
 
 class EpubImporter(object):
 
-    def __init__(self, notifier=None):
-        self.notifier = notifier
-
-        if self.notifier is None:
-            # null notifier
-            self.notifier = Notifier()
+    def __init__(self):
+        self.notifier = Notifier() # null notifier
+        self.delegate = Delegate() # null delegate
 
 
     def import_file(self, file_path, book):
+        reader_plugins  = [TidyPlugin(), ImportPlugin()]
+        reader_plugins += self.delegate.get_reader_plugins()
+
         reader_options = {
-            'plugins': [TidyPlugin(), ImportPlugin()]
-            }
+            'plugins': reader_plugins,
+        }
 
         epub_reader = ebooklib.epub.EpubReader(file_path, options=reader_options)
 
@@ -91,8 +92,7 @@ class EpubImporter(object):
                         toc.append((0, _name))
 
         _parse_toc(epub_book.toc)
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(toc)
+        self.notifier.debug("TOC structure: \n{}".format(pprint.pformat(toc, indent=4)))
 
         now = datetime.datetime.utcnow().replace(tzinfo=utc)
 
@@ -110,6 +110,9 @@ class EpubImporter(object):
             if image == cover_image:
                 continue
 
+            if not self.delegate.should_import_image(image):
+                continue
+
             att = models.Attachment(book = book,
                                     version = book.version,
                                     status = stat)
@@ -117,6 +120,8 @@ class EpubImporter(object):
             with ContentFile(image.get_content()) as content_file:
                 att.attachment.save(image.file_name, content_file, save=False)
                 att.save()
+
+            self.notifier.debug("Imported image: {} -> {}".format(image, att))
 
         # Chapter objects indexed by document file name
         chapters = {}
@@ -126,6 +131,9 @@ class EpubImporter(object):
         for document in epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
             # Nav and Cover are not imported
             if not document.is_chapter():
+                continue
+
+            if not self.delegate.should_import_document(document):
                 continue
 
             name = urllib.unquote(os.path.basename(document.file_name))
@@ -158,6 +166,8 @@ class EpubImporter(object):
             chapter.save()
 
             chapters[name] = chapter
+
+            self.notifier.debug("Imported chapter: {} -> {}".format(document, chapter))
 
         # fix links to chapters
         #
@@ -262,7 +272,8 @@ class EpubImporter(object):
 
         is_valid, reason = is_valid_cover(cover_image)
         if not is_valid:
-            return # TODO: propagate reason to user
+            self.notifier.warning("Not using {} as a cover image -- {}.".format(file_name, reason))
+            return
 
         cover_file = ContentFile(cover_image.get_content())
         file_name  = os.path.basename(cover_image.file_name)
@@ -290,3 +301,5 @@ class EpubImporter(object):
 
         cover.attachment.save(file_name, cover_file, save = False)
         cover.save()
+
+        self.notifier.info("Using {} as cover image.".format(file_name))

@@ -17,11 +17,61 @@
 
 class Notifier(object):
 
-    def info(self, message, *args, **kwargs):
+    def debug(self, message):
+        """Debugging message not for the end-user."""
         pass
 
-    def warning(self, message, *args, **kwargs):
+    def info(self, message):
+        """Information that could interest the end-user."""
         pass
 
-    def error(self, message, *args, **kwargs):
+    def warning(self, message):
+        """Important information that the end-user should be aware of."""
         pass
+
+    def error(self, message):
+        """Information about an error condition."""
+        pass
+
+
+class StreamNotifier(Notifier):
+
+    def __init__(self, stream):
+        self.stream = stream
+
+    def debug(self, message):
+        self.stream.write("[DEBUG] " + message + "\n")
+        self.stream.flush()
+
+    def info(self, message):
+        self.stream.write("[INFO] " + message + "\n")
+        self.stream.flush()
+
+    def warning(self, message):
+        self.stream.write("[WARNING] " + message + "\n")
+        self.stream.flush()
+
+    def error(self, message):
+        self.stream.write("[ERROR] " + message + "\n")
+        self.stream.flush()
+
+
+class CollectNotifier(Notifier):
+
+    def __init__(self):
+        self.debugs  = []
+        self.infos   = []
+        self.wrnings = []
+        self.errors  = []
+
+    def debug(self, message):
+        self.debugs.append(message)
+
+    def info(self, message):
+        self.infos.append(message)
+
+    def warning(self, message):
+        self.warnings.append(message)
+
+    def error(self, message):
+        self.errors.append(message)
