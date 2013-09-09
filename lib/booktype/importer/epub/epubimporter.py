@@ -272,7 +272,7 @@ class EpubImporter(object):
 
         is_valid, reason = is_valid_cover(cover_image)
         if not is_valid:
-            self.notifier.warning("Not using {} as a cover image -- {}.".format(file_name, reason))
+            self.notifier.warning("Not using {} as a cover image -- {}".format(cover_image.file_name, reason))
             return
 
         cover_file = ContentFile(cover_image.get_content())
@@ -302,4 +302,4 @@ class EpubImporter(object):
         cover.attachment.save(file_name, cover_file, save = False)
         cover.save()
 
-        self.notifier.info("Using {} as cover image.".format(file_name))
+        self.notifier.info("Using {} as cover image".format(file_name))
