@@ -163,7 +163,7 @@ def upload_cover(request, bookid, version=None):
 
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
-@login_required
+
 def cover(request, bookid, cid, fname = None, version=None):
     from django.views import static
 
