@@ -177,7 +177,8 @@ def cover(request, bookid, cid, fname = None, version=None):
     except models.BookCover.DoesNotExist:
         return HttpResponse(status=500)
 
-    document_path = '%s/book_covers/%s' % (settings.DATA_ROOT, cover.id)
+    document_path = cover.attachment.path
+
     # extenstion
 
     import mimetypes
