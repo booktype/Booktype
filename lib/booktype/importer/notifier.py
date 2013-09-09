@@ -59,10 +59,10 @@ class StreamNotifier(Notifier):
 class CollectNotifier(Notifier):
 
     def __init__(self):
-        self.debugs  = []
-        self.infos   = []
-        self.wrnings = []
-        self.errors  = []
+        self.debugs   = []
+        self.infos    = []
+        self.warnings = []
+        self.errors   = []
 
     def debug(self, message):
         self.debugs.append(message)
