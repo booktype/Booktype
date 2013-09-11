@@ -1,15 +1,62 @@
-
-#content.aloha-editable  P { color: black;
-                     font-size: 1em; 
-                     text-align: justify;
-                    text-indent: 2em;  }
-
-/*
-#content.aloha-editable  P:first-line {
-    text-transform: uppercase;
-    font-weight: bold;
+#contenteditor P.bod-first {
+    font-size:1em;
+    text-align:justify;
+    text-indent:0em;
+    margin-top:0em;
+    margin-bottom:0em;
+        line-height:1.8em;  
 }
-*/
 
-#content.aloha-editable  A { color: green; } 
+
+#contenteditor P.bod-normal {
+    font-size:1em;
+    text-align:justify;
+    text-indent:3em;
+    margin-top:0em;
+    margin-bottom:0em;
+        line-height:1.8em;  
+}
+
+#contenteditor .bod-word {
+    font-family:MerriweatherSans700;
+    font-size:1em;
+    line-height:1.8em;
+    margin-bottom:0em;
+    margin-right:0.3em;
+    color:#084B8A;  
+ 	text-transform: uppercase;
+}
+
+#contenteditor  P { 
+     font-family:MerriweatherSans300,sans-serif;
+    widows:2;
+    orphans:2;
+}
+
+#contenteditor img {
+max-width:100%;
+max-height:100%;
+display:inline-block;
+}
+
+
+
+#contenteditor h1, #contenteditor h2, #contenteditor h3, #contenteditor h4, #contenteditor h5, #contenteditor h6 {
+    -webkit-hyphens:none;
+    hyphens:none;
+    adobe-hyphenate:none;
+    page-break-after:avoid;
+}
+
+#contenteditor h1 {
+    font-family:MerriweatherSans700,sans-serif;
+        text-align:right;
+    font-size:2em;
+        margin-right:0;
+        margin-left:5%;
+    margin-top:1em;
+    margin-bottom: 4em;
+        border-bottom: 3px #084B8A solid;
+    color:#084B8A;
+}
 
