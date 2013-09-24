@@ -61,15 +61,43 @@
                         'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'wbr'],
              
                 attributes: {
-                        'img'       : ['src', 'alt', 'width', 'height', 'align'],
-                        'a'         : ['href', 'id', 'class'],
-                        'blockquote': ['cite'],
+                        'h1'        : ['id', 'class', 'style'],
+                        'h2'        : ['id', 'class', 'style'],
+                        'h3'        : ['id', 'class', 'style'],
+                        'h4'        : ['id', 'class', 'style'],
+                        'h5'        : ['id', 'class', 'style'],
+                        'h6'        : ['id', 'class', 'style'],
+
+                        'a'         : ['href', 'id', 'class', 'target', 'hreflang', 'media', 'rel', 'type'],
+                        'br'        : ['id', 'class'],
+                        'hr'        : ['id', 'style'],
+                        'del'       : ['id', 'class', 'cite', 'datetime'],
+                        'ins'       : ['id', 'class', 'cite', 'datetime'],
+                        
+                        'img'       : ['id', 'class', 'style', 'src', 'alt', 'width', 'height'],
+                        'blockquote': ['id', 'class', 'style', 'cite'],
                         'q'         : ['cite'],
-                        'p'         : ['id', 'class', 'style'],
-                        'div'       : ['id', 'class', 'style'],
-                        'span'      : ['id', 'class', 'style'],
-                        'sup'       : ['id', 'class'],
-                        'hr'        : ['id', 'style'] 
+                        'li'        : ['id', 'class', 'style', 'value'],
+                        'ol'        : ['id', 'class', 'style', 'reversed', 'start', 'type'],                                                
+                        'ul'        : ['id', 'class', 'style'],
+                        'mark'      : ['id', 'class', 'style'],                        
+                        'figure'    : ['id', 'class', 'style'],
+                        'figcaption': ['id', 'class', 'style'],
+                        'footer'    : ['id', 'class', 'style'],
+                        'header'    : ['id', 'class', 'style'],                        
+                        'col'       : ['id', 'class', 'style', 'span'],
+                        'colgroup'  : ['id', 'class', 'style', 'span'],
+                        'table'     : ['id', 'class', 'style', 'border'],
+                        'td'        : ['id', 'class', 'style', 'colspan', 'headers', 'rowspan'],
+                        'p'         : ['id', 'class', 'style', 'dir', 'lang'],
+                        'div'       : ['id', 'class', 'style', 'dir', 'lang'],
+                        'span'      : ['id', 'class', 'style', 'dir', 'lang'],
+                        'code'      : ['id', 'class', 'style'],
+                        'pre'       : ['id', 'class', 'style', 'dir', 'lang'],                        
+                        'sup'       : ['id', 'class', 'style'],
+                        'sub'       : ['id', 'class', 'style'],
+
+                        'audio'     : ['id', 'class', 'style', 'autoplay', 'controls', 'loop', 'muted', 'preload', 'src']
                      },
              
                     protocols: {
@@ -103,6 +131,7 @@
                         booktype/extraformat,
                         booktype/htmledit,
                         booktype/bookstyle,
+                        booktype/booktitle,
                         common/table,
                         common/list,
                         common/highlighteditables,
@@ -113,5 +142,4 @@
                         common/contenthandler,
                         common/paste,
                         common/commands,
-                        common/align"></script>
-                        
+                        common/align"></script>                        
