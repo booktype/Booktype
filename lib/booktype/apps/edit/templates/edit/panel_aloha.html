@@ -1,0 +1,103 @@
+{% load i18n %}
+
+<div class="template templateAlohaToolbar">
+   {% include "edit/aloha_menu.html" %} 
+   {% include "edit/aloha_toolbar.html" %} 
+</div>
+
+<div class="template templateAlohaContent">
+  <div id="contenteditor"></div>
+  <div id="footnotes">
+    <ol>
+    </ol>
+  </div>
+</div>
+
+<div id="newLink" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">{% trans "Link" %}</h3>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+            <input type="text" class="form-control" name="url" placeholder="URL">
+        </div>
+      <div class="form-group">
+            <input type="text" class="form-control" name="title" placeholder="Title">
+      </div>    
+      <div class="linktochapter">
+        <div class="linktochapter-header">
+          <i class="icon-chevron-down toggle-close"></i>
+          <i class="icon-chevron-right toggle-open"></i>
+          <span class="linktochapter-title">Or link to existing chapter</span>
+        </div>
+        <div class="linktochapter-content">
+          <ul>
+          </ul>                    
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+      <button class="btn btn-default operation-unlink" aria-hidden="true">{% trans "Break link" %}</button>    
+      <button class="btn btn-default btn-primary">{% trans "Insert link" %}</button>
+    </div>
+  </div>
+ </div>
+</div>
+
+<div id="colorDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+     <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">{% trans "Color" %}</h3>
+    </div>
+    <div class="modal-body">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+  <!--    <button class="btn btn-primary">{% trans "Set" %}</button> -->
+    </div>
+  </div>
+ </div>
+</div>
+
+<div id="footnoteDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">{% trans "Footnote" %}</h3>
+    </div>
+    <div class="modal-body">
+        <textarea style="width: 95%" rows="10" class="form-control"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+      <button class="btn btn-default btn-primary">{% trans "Insert footnote" %}</button>
+    </div>
+  </div>
+ </div>
+</div>
+
+<div id="htmleditDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">{% trans "HTML Edit" %}</h3>
+    </div>
+    <div class="modal-body" style="height: 500px;">
+        <textarea class="form-control"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+      <button class="btn btn-default btn-primary">{% trans "Set" %}</button>
+    </div>
+  </div>
+ </div>
+</div>

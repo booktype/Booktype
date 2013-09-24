@@ -1,4 +1,6 @@
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME}}/site_static/js/tiny_mce/jquery.tinymce.js"></script>
+{% load staticfiles %}
+
+<script type="text/javascript" src="{% static "editor/js/tiny_mce/jquery.tinymce.js" %}"></script>
 <script type="text/javascript">
         $(function() {
                 window.EVIL_TINY_OPTIONS = {
@@ -22,7 +24,7 @@
                         {% endif %}
 
                         // Location of TinyMCE script
-                        script_url : '{{ request.META.SCRIPT_NAME}}/site_static/js/tiny_mce/tiny_mce.js',
+                        script_url : '{% static "editor/js/tiny_mce/tiny_mce.js" %}',
 
                         // General options
                         theme : "advanced",
@@ -50,7 +52,7 @@
 	                bookiadv_hidden: 1,
 
                         // Example content CSS (should be your site CSS)
-                        content_css : "{{ request.META.SCRIPT_NAME}}/site_static/css/content.css",
+                        content_css : "{% static "editor/css/content.css" %}",
      	                theme_advanced_font_sizes: "10px,12px,13px,14px,16px,18px,20px",
 	                font_size_style_values : "10px,12px,13px,14px,16px,18px,20px",
 

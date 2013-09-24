@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load i18n profile messaging_tags %}
+{% load i18n profile messaging_tags staticfiles %}
 
 {% block header %}
 <title>{% blocktrans with group.name as groupname %}/group: {{ groupname }}{% endblocktrans %}</title>
-<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/editor.css" rel="Stylesheet" />
+<link type="text/css" href="{% static "editor/css/editor.css" %}" rel="Stylesheet" />
 
 
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/group.js"></script>
+<script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
 
 
 <script type="text/javascript">
@@ -18,7 +18,7 @@
 	$.booki.groupName = "{{ group.name }}";
 	$.booki.groupNameURL = "{{ group.url_name }}";
 
-	$.booki.sputnikDispatcherURL = "{% url sputnik.views.dispatcher %}";
+	$.booki.sputnikDispatcherURL = "{% url "sputnik.views.dispatcher" %}";
 
 	/* call when page is loaded */
 	$.booki.group.initGroup();
@@ -29,7 +29,8 @@
 	
 	// start Sputnik
 	//jQuery.booki.network._transport.connect();
-
+        jQuery.booki.initCSRF();
+        
 	// we have to be very carefull when it comes to session timeout on server side !
         jQuery.booki.network._transport.connect({'poll': false, 'iteration': 1000});
 
@@ -115,7 +116,7 @@
 <h3>{% trans "Books" %}</h3>
 <ul class="simple-list solo">
 {% for book in books %}
-   <li><a href="{% url book_view  book.url_title %}">{{ book.title }}</a>
+   <li><a href="{% url "book_view"  book.url_title %}">{{ book.title }}</a>
    {% if security.isGroupAdmin %}
       <a class="action-button" href="remove_book/?book={{ book.url_title }}">remove</a>
    {% endif %}
@@ -146,7 +147,7 @@
 <h3>{% trans "Members" %}</h3>
 
 {% for member in members %}
-   <div class="group-members"><div class="member-thumb"><img src="{% url view_profilethumbnail member.username %}?width=36"></div><b>{{member.first_name }}</b> <br/>{{ member.username }}</div>
+   <div class="group-members"><div class="member-thumb"><img src="{% url "view_profilethumbnail" member.username %}?width=36"></div><b>{{member.first_name }}</b> <br/>{{ member.username }}</div>
 {% endfor %}
 
 <div style="clear: both"></div>

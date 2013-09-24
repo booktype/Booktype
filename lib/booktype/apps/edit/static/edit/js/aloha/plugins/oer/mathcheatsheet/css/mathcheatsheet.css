@@ -1,0 +1,99 @@
+.math-container {
+    width: 85%;
+}
+
+.math-editor-dialog .math-help-link {
+    float: right;
+}
+
+.math-editor-help-text {
+    max-width: 45%;
+}
+
+.math-editor-help-text-inner {
+    position: relative;
+}
+
+.math-editor-help-text-close {
+    display: inline-block;
+    background-image: url(../img/remove-01.png);
+    background-repeat: no-repeat;
+    background-position: right top;
+    position: absolute;
+    right: -16px;
+    width: 16px;
+    top: -1px;
+    height: 16px;
+    margin-right: 1em;
+}
+
+#math-cheatsheet {
+    position: fixed;
+    bottom: 0;
+    color: #DDDDDD;
+    z-index: 1015;
+    width: 100%;
+}
+
+#math-cheatsheet .cheatsheet {
+    display: none;
+    background-color: #444444;
+    border-top: 1px solid black;
+    box-shadow: -10px 0 10px #BBBBBB;
+    padding: 0.5em 1em 1em;
+}
+
+#math-cheatsheet .cheatsheet-open {
+    display: none;
+    background-color: #444444;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    cursor: pointer;
+    float: right;
+    padding: 0 0.75em;
+    margin: 0 0.25em;
+}
+
+#math-cheatsheet .cheatsheet-close {
+    cursor: pointer;
+    float: right;
+}
+
+#math-cheatsheet .cheatsheet-type {
+    float: left;
+    margin-right: 1em;
+    white-space: nowrap;
+}
+
+#math-cheatsheet .cheatsheet-type label {
+    font-weight: normal;
+    display: inline;
+}
+
+#math-cheatsheet .cheatsheet-title {
+    margin-bottom: 0.75em;
+}
+
+#math-cheatsheet .cheatsheet-values {
+    background-color: #FFFFFF;
+    color: #000000;
+    overflow-x: auto;
+}
+
+#math-cheatsheet .cheatsheet-latex {
+    display: none;
+}
+
+#math-cheatsheet .cheatsheet-values table {
+    border-collapse: collapse;
+    border-width: 0;
+    font-family: courier new,courier;
+}
+
+#math-cheatsheet .cheatsheet-values td {
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px solid #444444;
+    border-width: 0 1px 1px 0;
+    text-align: center;
+    white-space: nowrap;
+}
