@@ -38,7 +38,7 @@
 	$(document).on('booktype-document-deleted', function($evt, doc_id) {
 		console.log('Unhold document '+doc_id);
 	});
-d
+
 	$(document).on('booktype-document-rename', function($evt, doc, oldName, newName) {
 		console.log('Unhold document '+doc);
 		console.log(oldName);
@@ -62,7 +62,7 @@ d
 
 	$(document).on('booktype-section-created', function($evt, sec_id, name) {
 		console.log('Section created '+sec_id);
-d		console.log(name);
+		console.log(name);
 	});
 
 	$(document).on('booktype-section-rename', function($evt, sec, oldName, newName) {
@@ -79,6 +79,5 @@ d		console.log(name);
 	$(document).on('booktype-attachment-deleted', function($evt) {
 		console.log('Deleted attachment');
 	});
-f
 
 </script>
