@@ -5,4 +5,80 @@
 	    console.log('Booktype has finished with loading.');
 	});
 
+	$(document).on('booktype-ui-panel-active', function($evt, name, panel) {
+		console.log('Activated panel '+name);
+	});
+
+	$(document).on('booktype-document-loaded', function($evt, doc) {
+		console.log('Loaded document '+doc.chapterID);
+		console.log(doc);
+	});
+
+	$(document).on('booktype-document-saved', function($evt, doc) {
+		console.log('Saved document '+doc.chapterID);
+		console.log(doc);
+	});
+
+	$(document).on('booktype-document-created', function($evt, chap_id, title) {
+		console.log('Created chapter '+chap_id);
+		console.log(title);
+	});
+
+
+	$(document).on('booktype-document-hold', function($evt, doc) {
+		console.log('Hold document '+doc.chapterID);
+		console.log(doc);
+	});
+
+	$(document).on('booktype-document-unhold', function($evt, doc) {
+		console.log('Unhold document '+doc.chapterID);
+		console.log(doc);
+	});
+
+	$(document).on('booktype-document-deleted', function($evt, doc_id) {
+		console.log('Unhold document '+doc_id);
+	});
+d
+	$(document).on('booktype-document-rename', function($evt, doc, oldName, newName) {
+		console.log('Unhold document '+doc);
+		console.log(oldName);
+		console.log(newName);
+	});
+
+	$(document).on('booktype-document-status', function($evt, doc, oldStatus, newStatus) {
+		console.log('Status document '+doc);
+		console.log(oldStatus);
+		console.log(newStatus);
+	});
+
+	$(document).on('booktype-toc-reorder', function($evt) {
+		console.log('Reordered TOC');
+	});
+
+	$(document).on('booktype-section-deleted', function($evt, sec) {
+		console.log('Section deleted '+sec.chapterID);
+		console.log(sec);
+	});
+
+	$(document).on('booktype-section-created', function($evt, sec_id, name) {
+		console.log('Section created '+sec_id);
+d		console.log(name);
+	});
+
+	$(document).on('booktype-section-rename', function($evt, sec, oldName, newName) {
+		console.log('Section rename '+sec.chapterID);
+		console.log(oldName);
+		console.log(newName);
+	});
+
+	$(document).on('booktype-attachment-uploaded', function($evt, files) {
+		console.log('Uploaded attachment');
+		console.log(files);
+	});
+
+	$(document).on('booktype-attachment-deleted', function($evt) {
+		console.log('Deleted attachment');
+	});
+f
+
 </script>
