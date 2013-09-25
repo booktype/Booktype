@@ -17,6 +17,7 @@
 import os
 import pprint
 import urllib
+import difflib
 import logging
 import hashlib
 import urlparse
@@ -181,16 +182,28 @@ class EpubImporter(object):
 
 
     def _create_content(self, document, title):
-        content = document.get_body_content()
+        if not isinstance(title, unicode):
+            title = unicode(title, 'utf-8')
 
-        heading = etree.Element("h1")
-        heading.text = title
+        content = document.get_body_content()
 
         tree = lxml.html.fragment_fromstring(content, create_parent=True, parser=lxml.html.HTMLParser(encoding='utf-8'))
 
-        tree.insert(0, heading)
-        heading.tail = tree.text
-        tree.text = ""
+        heading = self._find_heading(tree, title)
+
+        if heading:
+            if heading.tag != 'h1':
+                heading.tag = 'h1' # promote to h1
+        else:
+            self._demote_headings(tree)
+
+            heading = etree.Element('h1')
+            heading.text = title
+
+            tree.insert(0, heading)
+            heading.tail = tree.text
+            tree.text = ''
+
 
         tree_str = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=False)
 
@@ -199,6 +212,38 @@ class EpubImporter(object):
         content = tree_str[a:b]
 
         return content
+
+
+    def _demote_headings(self, tree, n=1):
+        headings = list(tree.iter('h{}'.format(n)))
+
+        if headings and n < 5:
+            self._demote_headings(tree, n+1)
+
+        for h in headings:
+            h.tag = 'h{}'.format(n+1)
+
+
+    def _find_heading(self, tree, title):
+        if tree.text:
+            # text before heading
+            return None
+
+        heading = None
+
+        for n in range(1, 7):
+            elm = list(tree.iter('h{}'.format(n)))
+
+            if elm:
+                if len(elm) == 1:
+                    # must be only one heading at this level
+                    heading = elm[0]
+                break
+
+        if heading is not None:
+            heading_text = unicode(etree.tostring(heading, method='text', encoding='utf-8'), 'utf-8')
+            if difflib.SequenceMatcher(None, heading_text, title).ratio() > 0.9:
+                return heading
 
 
     def _make_toc(self, book, toc, chapters):
