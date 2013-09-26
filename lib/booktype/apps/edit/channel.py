@@ -1258,7 +1258,7 @@ def remote_create_chapter(request, message, bookid, version):
     sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
 
 
-    return {"created": True}
+    return {"created": True, "chapter_id": chapter.id}
 
 def copy_attachment(attachment, target_book):
     """
@@ -1646,7 +1646,7 @@ def remote_create_section(request, message, bookid, version):
                                      "typeof": c.typeof},
                                     myself = True)
 
-    return {"created": result}
+    return {"created": result, "chapter_id": 's{}'.format(c.id)}
 
 
 def remote_get_history(request, message, bookid, version):
