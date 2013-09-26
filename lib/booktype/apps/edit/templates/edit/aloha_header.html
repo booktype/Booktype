@@ -76,7 +76,7 @@
 
                         'i'         : ['class'],
                         
-                        'img'       : ['id', 'class', 'style', 'src', 'alt', 'width', 'height'],
+                        'img'       : ['id', 'class', 'style', 'src', 'alt', 'width', 'height', 'align'],
                         'blockquote': ['id', 'class', 'style', 'cite'],
                         'q'         : ['cite'],
                         'li'        : ['id', 'class', 'style', 'value'],
@@ -122,6 +122,7 @@
 </script>
 <script src="{% static "edit/js/aloha/lib/require.js" %}"></script>
 
+
 <script src="{% static "edit/js/aloha/lib/aloha.js" %}"
     data-aloha-plugins="common/ui,
                         oer/toolbar,
@@ -134,8 +135,12 @@
                         booktype/htmledit,
                         booktype/bookstyle,
                         booktype/booktitle,
+<<<<<<< HEAD
                         booktype/pbreak,                        
                         booktype/wcount,
+=======
+                        booktype/pbreak,   
+>>>>>>> sf_booktype/2.0
                         common/table,
                         common/list,
                         common/highlighteditables,
@@ -146,4 +151,5 @@
                         common/contenthandler,
                         common/paste,
                         common/commands,
-                        common/align"></script>                        
+                        common/align,
+                        booktype/imagesimple"></script>                        
