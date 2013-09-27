@@ -50,16 +50,7 @@ class TidyPlugin(BasePlugin):
         if not chapter.content:
             return None
 
-        (_, chapter.content) = tidy_cleanup(chapter.content, **self.options)
-
-        return chapter.content
-
-
-    def html_before_write(self, book, chapter):
-        if not chapter.content:
-            return None
-
-        (_, chapter.content) = tidy.tidy_cleanup(chapter.content, **self.options)
+        (_, chapter.content) = tidy_cleanup(chapter.get_content(), **self.options)
 
         return chapter.content
 
@@ -72,7 +63,7 @@ class ImportPlugin(BasePlugin):
             self.remove_attributes = remove_attributes
         else:
             # different kind of onmouse
-            self.remove_attributes = ['class', 'style', 'id', 'onkeydown', 'onkeypress', 'onkeyup',
+            self.remove_attributes = ['class', 'style', 'onkeydown', 'onkeypress', 'onkeyup',
                                       'onclick', 'ondblclik', 'ondrag', 'ondragend', 'ondragenter',
                                       'ondragleave', 'ondragover', 'ondragstart', 'ondrop',
                                       'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover',

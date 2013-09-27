@@ -191,7 +191,7 @@ class EpubImporter(object):
 
         heading = self._find_heading(tree, title)
 
-        if heading:
+        if heading is not None:
             if heading.tag != 'h1':
                 heading.tag = 'h1' # promote to h1
         else:
@@ -303,6 +303,10 @@ class EpubImporter(object):
             if name in chapters:
                 title = chapters[name].url_title
                 fixed_href = urlparse.urljoin(href, '../{}/'.format(title))
+
+                if urlp.fragment:
+                    fixed_href = "{}#{}".format(fixed_href, urlp.fragment)
+
                 anchor.set('href', fixed_href)
                 to_save = True
 

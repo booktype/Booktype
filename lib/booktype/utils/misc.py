@@ -16,6 +16,7 @@
 
 import os
 import urllib
+import urlparse
 
 from lxml import etree, html
 from ebooklib import epub
@@ -49,7 +50,7 @@ class TidyPlugin(BasePlugin):
 
         from .tidy import tidy_cleanup
         print chapter.file_name
-        (_, chapter.content) = tidy_cleanup(chapter.content, **self.options)
+        (_, chapter.content) = tidy_cleanup(chapter.get_content(), **self.options)
 
         return chapter.content
 
@@ -60,7 +61,7 @@ class TidyPlugin(BasePlugin):
 
         from .tidy import tidy_cleanup
 
-        (_, chapter.content) = tidy_cleanup(chapter.content, **self.options)
+        (_, chapter.content) = tidy_cleanup(chapter.get_content(), **self.options)
 
         return chapter.content
 
@@ -474,8 +475,14 @@ def export_book(fileName, book_version):
                 if elem.tag == 'a':
                     href = elem.get('href')
                     if href and href.startswith('../'):
-                        # this is very stupid method
-                        elem.set('href', href[3:-1]+'.xhtml')
+                        urlp = urlparse.urlparse(href)
+
+                        fixed_href = urlp.path[3:-1] + '.xhtml'
+
+                        if urlp.fragment:
+                            fixed_href = "{}#{}".format(fixed_href, urlp.fragment)
+
+                        elem.set('href', fixed_href)
 
                 if elem.tag == 'img':
                     src = elem.get('src')
@@ -535,4 +542,4 @@ def export_book(fileName, book_version):
                         ]
             }
 
-    epub.write_epub(fileName, epub_book, opts)	    
+    epub.write_epub(fileName, epub_book, opts)
