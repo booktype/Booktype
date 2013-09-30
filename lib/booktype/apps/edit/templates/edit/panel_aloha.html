@@ -118,3 +118,103 @@
   </div>
  </div>
 </div>
+
+<!-- Insert Image Modal -->
+<div class="modal fade responsive-popup" id="imageManager" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">{% trans "Insert Image" %}</h4>
+        </div>
+        <div class="modal-body tabbable">
+          <div class="modal-left-pane">
+            <h4>{% trans "Sources" %}</h4>
+              <ul class="nav nav-tabs">
+                <li class="active"><a class="medialibrary" href="#medialibrary" data-toggle="tab">{% trans "Media library" %}</a></li>
+                <li><a href="#uploadimage" data-toggle="tab">{% trans "Upload Image" %}</a></li>
+                <!-- <li><a href="#from_web" data-toggle="tab">From Web</a></li> -->
+              </ul>
+          </div><!-- end modal-left-pane -->
+          <div class="modal-right-pane tab-content">
+            <div class="tab-pane" id="uploadimage">
+              <div class="drag-area">
+                  <div class="drag-area-title">
+                    {% trans "Drag Your Images Here" %}
+                  </div>
+                  <div class="drag-area-button">
+                   <span class="btn btn-default btn-success fileinput-button">
+                      <i class="icon-upload"></i> {% trans "or Select them from folder" %}
+                        <input class="upload-file" type="file" name="files[]" multiple data-url="../_upload/">
+                   </span>
+                  </div>
+              </div>
+            </div>
+            <div class="tab-pane active" id="medialibrary">
+              <div class="image-info-container">
+                <div class="image-preview">
+                  <img src="0">
+                </div>
+                <div class="image-info">
+                </div>
+                <div class="edit-metadata">
+                  <div class="form-group">
+                    <label for="imageTitle">{% trans "Image Title" %}</label>
+                    <input type="email" class="form-control image-title"  placeholder="{% trans "Enter Title" %}">
+                  </div>
+                  <div class="form-group">
+                    <label for="imageTitle">{% trans "Image Description" %}</label>
+                    <textarea rows="8" class="form-control image-description" placeholder="{% trans "Description" %}"></textarea>
+                  </div>
+                </div>
+                
+                <a class="btn btn-default btn-xs cancel-metadata-btn" href="#">{% trans "Cancel" %}</a>
+                <!--
+                <a class="btn btn-primary btn-xs save-metadata-btn" href="#">{% trans "Save Metadata" %}</a>
+                -->
+                <a class="btn btn-default btn-xs metadata-btn" href="#"><i class="icon-pencil"></i> {% trans "Edit caption" %}</a> 
+                <a class="btn btn-default btn-xs closeinfo" href="#"><i class="icon-chevron-right"></i></a> 
+              </div>
+
+              <ul class="uploads-grid">
+              </ul>
+            </div>
+            <div class="tab-pane" id="from_web">
+              <input type="text" class="form-control" id="webSearch" placeholder="{% trans "Enter image link" %}">
+            </div>
+          </div><!-- end modal-right-pane -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+          <button type="button" class="btn btn-primary insert-image">{% trans "Insert" %}</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <script type="text/html" id='templateImageInfo'>
+      <ul>
+        <li><span>{% trans "File Name" %}:</span> <%= name %></li>
+        <li><span>{% trans "Modified" %}:</span> <%= timestamp %></li>
+        <li><span>{% trans "File Size" %}:</span> <%= filesize %></li>
+        <li><span>{% trans "Dimensions" %}:</span> <%= dimension %></li>
+      </ul>
+      <h5>dsfsdfds</h5>
+      <p>sdfsadfsdfsd</p> 
+  </script>
+  <script type="text/html" id='templateImageThumbnail'>
+     <li data-media-id="<%= media_id %>"><img src="static/<%= name %>" style="max-width: 150px">
+         <a class="image-dropdown-button" data-toggle="dropdown"><i class="icon-caret-down"></i></a>
+         <ul class="dropdown-menu" style="">
+<!--           <li><a href="#"><i class="icon-list-alt"></i> {% trans "Edit metadata" %}</a></li> -->
+           <li><a href="static/<%= name %>" target="_blank"><i class="icon-download-alt"></i> {% trans "Download" %}</a></li>
+           <li><a href="#" class="delete-attachment"><i class="icon-trash"></i> {% trans "Delete" %}</a></li>
+         </ul>
+     </li>
+  </script>  
+
+  <div id="imagePopup" style="position: absolute; background-color: white; margin: 1px; border: 1px solid black; display: none; padding: 4px;">
+    <a href="#" class="remove"><i class="icon-remove-sign"></i>  {% trans "REMOVE" %}</a>&nbsp;&nbsp;
+  </div>
+<!-- End Insert Image Modal -->
+
