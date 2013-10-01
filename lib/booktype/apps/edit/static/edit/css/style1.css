@@ -1,14 +1,14 @@
-#contenteditor P.bod-first {
-    font-size:1em;
+#contenteditor A {
+  color: red;
+  text-decoration: underline;
+}
+
+#contenteditor P {
     text-align:justify;
-    text-indent:0em;
-    margin-top:0em;
-    margin-bottom:0em;
-        line-height:1.8em;  
 }
 
 
-#contenteditor P.bod-normal {
+#contenteditor P.something {
     font-size:1em;
     text-align:justify;
     text-indent:3em;
@@ -34,9 +34,13 @@
 }
 
 #contenteditor img {
-max-width:100%;
-max-height:100%;
-display:inline-block;
+  max-width:100%;
+  max-height:100%;
+  display:inline-block;
+}
+
+#contenteditor p.caption {
+    font-style: italic;
 }
 
 
@@ -48,6 +52,32 @@ display:inline-block;
     page-break-after:avoid;
 }
 
+/* WITHOUT MARGIN */
+#contenteditor h1 {
+    font-family:MerriweatherSans700,sans-serif;
+/*        text-align:right; */
+    font-size:2em;
+    margin-top:1em;
+    margin-bottom: 2em;
+    /*
+        border-bottom: 3px #084B8A solid;
+        */
+    color:#084B8A;
+    color: black;
+}
+
+#contenteditor h3 {
+  text-align: right;
+
+}
+
+#contenteditor .aloha-book-title h1, #contentedtor .aloha-book-title  h2, #contenteditor .aloha-book-title h3 {
+    border: 1px solid yellow;
+}
+
+
+/* WITH MARGIN */
+/*
 #contenteditor h1 {
     font-family:MerriweatherSans700,sans-serif;
         text-align:right;
@@ -59,4 +89,4 @@ display:inline-block;
         border-bottom: 3px #084B8A solid;
     color:#084B8A;
 }
-
+*/
