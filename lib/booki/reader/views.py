@@ -16,7 +16,7 @@
 
 import os
 from django.db import IntegrityError, transaction
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import redirect, render
 from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 
@@ -92,11 +92,11 @@ def view_full(request, bookid, version=None):
                              "title": chapter.name})
 
     try:
-        resp = render_to_response('reader/full.html', {"book": book, 
-                                                       "book_version": book_version.getVersion(),
-                                                       "chapters": chapters, 
-                                                       "has_css": _customCSSExists(book.url_title),
-                                                       "request": request})
+        resp = render(request, 'reader/full.html', {"book": book, 
+                                                    "book_version": book_version.getVersion(),
+                                                    "chapters": chapters, 
+                                                    "has_css": _customCSSExists(book.url_title),
+                                                    "request": request})
     except:
         transaction.rollback()
         raise
@@ -151,16 +151,16 @@ def book_info(request, bookid, version=None):
     bookDescription = escape(book.description)
 
     try:
-        resp = render_to_response('reader/book_info.html', {"book": book, 
-                                                            "book_version": book_version.getVersion(),
-                                                            "book_versions": book_versions,
-                                                            "book_history": book_history, 
-                                                            "book_collaborators": book_collaborators,
-                                                            "has_css": _customCSSExists(book.url_title),
-                                                            "is_book_admin": isBookAdmin,
-                                                            "online_users": online_users,
-                                                            "book_description": '<br/>'.join(bookDescription.replace('\r','').split('\n')),
-                                                            "request": request})
+        resp = render(request, 'reader/book_info.html', {"book": book, 
+                                                         "book_version": book_version.getVersion(),
+                                                         "book_versions": book_versions,
+                                                         "book_history": book_history, 
+                                                         "book_collaborators": book_collaborators,
+                                                         "has_css": _customCSSExists(book.url_title),
+                                                         "is_book_admin": isBookAdmin,
+                                                         "online_users": online_users,
+                                                         "book_description": '<br/>'.join(bookDescription.replace('\r','').split('\n')),
+                                                         "request": request})
     except:
         transaction.rollback()
         raise
@@ -269,12 +269,12 @@ def draft_book(request, bookid, version=None):
         if firstChapter:
             resp = redirect('draft_chapter', bookid = book.url_title, version=book_version.getVersion(), chapter=firstChapter.url_title) 
         else:
-            resp = render_to_response('reader/draft_book.html', {"book": book, 
-                                                                 "book_version": book_version.getVersion(),
-                                                                 "chapters": chapters, 
-                                                                 "editing_enabled": editingEnabled,
-                                                                 "has_css": _customCSSExists(book.url_title),
-                                                                 "request": request})
+            resp = render(request, 'reader/draft_book.html', {"book": book, 
+                                                             "book_version": book_version.getVersion(),
+                                                             "chapters": chapters, 
+                                                             "editing_enabled": editingEnabled,
+                                                             "has_css": _customCSSExists(book.url_title),
+                                                             "request": request})
     except:
         transaction.rollback()
         raise
@@ -368,14 +368,14 @@ def draft_chapter(request, bookid, chapter, version=None):
         if request.user.is_authenticated() and book.version == book_version:
             editingEnabled = True
 
-        resp = render_to_response('reader/draft_chapter.html', {"chapter": chapter, 
-                                                                "book": book, 
-                                                                "book_version": book_version.getVersion(),
-                                                                "chapters": chapters, 
-                                                                "editing_enabled": editingEnabled,
-                                                                "has_css": _customCSSExists(book.url_title),
-                                                                "request": request, 
-                                                                "content": content})
+        resp = render(request, 'reader/draft_chapter.html', {"chapter": chapter, 
+                                                             "book": book, 
+                                                             "book_version": book_version.getVersion(),
+                                                             "chapters": chapters, 
+                                                             "editing_enabled": editingEnabled,
+                                                             "has_css": _customCSSExists(book.url_title),
+                                                             "request": request, 
+                                                             "content": content})
     except:
         transaction.rollback()
         raise
@@ -447,11 +447,11 @@ def book_view(request, bookid, version=None):
         if firstChapter:
             resp = redirect('book_chapter', bookid = book.url_title, chapter=firstChapter.url_title) 
         else:
-            resp = render_to_response('reader/book_view.html', {"book": book, 
-                                                                "book_version": book_version.getVersion(),
-                                                                "chapters": chapters, 
-                                                                "has_css": _customCSSExists(book.url_title),
-                                                                "request": request})
+            resp = render(request, 'reader/book_view.html', {"book": book, 
+                                                             "book_version": book_version.getVersion(),
+                                                             "chapters": chapters, 
+                                                             "has_css": _customCSSExists(book.url_title),
+                                                             "request": request})
     except:
         transaction.rollback()
         raise
@@ -538,13 +538,13 @@ def book_chapter(request, bookid, chapter, version=None):
             transaction.commit()
 
     try:
-        resp = render_to_response('reader/book_chapter.html', {"chapter": chapter, 
-                                                               "book": book, 
-                                                               "book_version": book_version.getVersion(),
-                                                               "chapters": chapters, 
-                                                               "has_css": _customCSSExists(book.url_title),
-                                                               "request": request, 
-                                                               "content": content})
+        resp = render(request, 'reader/book_chapter.html', {"chapter": chapter, 
+                                                            "book": book, 
+                                                            "book_version": book_version.getVersion(),
+                                                            "chapters": chapters, 
+                                                            "has_css": _customCSSExists(book.url_title),
+                                                            "request": request, 
+                                                            "content": content})
     except:
         transaction.rollback()
     else:
@@ -679,8 +679,8 @@ def edit_info(request, bookid, version=None):
         try:
             book.save()
 
-            resp = render_to_response('reader/edit_info_redirect.html', {"request": request,
-                                                                         "book": book})
+            resp = render(request, 'reader/edit_info_redirect.html', {"request": request,
+                                                                      "book": book})
         except:
             transaction.rollback()
             raise
@@ -691,8 +691,8 @@ def edit_info(request, bookid, version=None):
 
         
     try:
-        resp = render_to_response('reader/edit_info.html', {"request": request,
-                                                            "book": book})
+        resp = render(request, 'reader/edit_info.html', {"request": request,
+                                                         "book": book})
     except:
         transaction.rollback()
         raise
@@ -738,7 +738,7 @@ def book_delete(request, bookid, version=None):
 
             bookSecurity = security.getUserSecurityForBook(request.user, book)
 
-            resp = render_to_response('reader/book_delete_error.html', {"request": request})
+            resp = render(request, 'reader/book_delete_error.html', {"request": request})
 
             if bookSecurity.isAdmin():
                 if title.strip() == book.title.strip():
@@ -746,7 +746,7 @@ def book_delete(request, bookid, version=None):
                 
                     removeBook(book)
 
-                    resp = render_to_response('reader/book_delete_redirect.html', {"request": request})
+                    resp = render(request, 'reader/book_delete_redirect.html', {"request": request})
         except:
             transaction.rollback()
             raise
@@ -757,8 +757,8 @@ def book_delete(request, bookid, version=None):
 
         
     try:
-        resp = render_to_response('reader/book_delete.html', {"request": request,
-                                                              "book": book})
+        resp = render(request, 'reader/book_delete.html', {"request": request,
+                                                           "book": book})
     except:
         transaction.rollback()
         raise

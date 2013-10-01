@@ -16,13 +16,13 @@
 	{% for p in latest_active %}
     <div class="people shadow">
   		<div class="image">
-            <a href="{% url view_profile  p.username %}" title="{{p.username}}">{% profile_image p %}</a>
+            <a href="{% url "view_profile"  p.username %}" title="{{p.username}}">{% profile_image p %}</a>
 		</div>
         <div class="user">                 
-              <a href="{% url view_profile  p.username %}" title="{{p.username}}">            
+              <a href="{% url "view_profile"  p.username %}" title="{{p.username}}">            
               	<b>{{ p.first_name }}</b>
               </a><br />
-             <a href="{% url view_profile  p.username %}" title="{{p.username}}"><i>{{ p.username }}</i></a>
+             <a href="{% url "view_profile"  p.username %}" title="{{p.username}}"><i>{{ p.username }}</i></a>
 		</div>
 	</div>              
     {% endfor %}
@@ -35,13 +35,13 @@
     {% for p in latest_people %}
     <div class="people shadow">
     	<div class="image">
-      		<a href="{% url view_profile  p.username %}" title="{{p.username}}">{% profile_image p %}</a>
+      		<a href="{% url "view_profile"  p.username %}" title="{{p.username}}">{% profile_image p %}</a>
 		</div>
         <div class="user">    
-	        <a href="{% url view_profile  p.username %}" title="{{p.username}}">
+	        <a href="{% url "view_profile"  p.username %}" title="{{p.username}}">
           	<b>{{ p.first_name }}</b>
           </a><br/>
-          <a href="{% url view_profile  p.username %}" title="{{p.username}}"><i>{{ p.username }}</i></a>
+          <a href="{% url "view_profile"  p.username %}" title="{{p.username}}"><i>{{ p.username }}</i></a>
 		</div>
      </div>
 
@@ -55,7 +55,7 @@
 	<h3>{% trans "All" %}</h3>
 	<ul class="list">
 	{% for p in people.object_list %}
-	   <li><a href="{% url view_profile p.username %}"><b>{{ p.username }}</b> - <i> {{p.first_name}}</i></a></li>
+	   <li><a href="{% url "view_profile" p.username %}"><b>{{ p.username }}</b> - <i> {{p.first_name}}</i></a></li>
 	{% endfor %}
 	</ul>
 

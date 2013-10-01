@@ -16,7 +16,7 @@
 
 import datetime
 import traceback
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
@@ -25,10 +25,6 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError, transaction
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-try:
-    from django.core.validators import email_re
-except:
-    from django.forms.fields import email_re
 
 from django import forms
 
@@ -119,8 +115,10 @@ def signin(request):
                     mtch = re.match('^[\w\d\_\.\-]{2,20}$', request.POST.get("username", "").strip())
                     if not mtch:  return 6
 
+                    from booki.utils.misc import  isValidEmail
+
                     # check if it is valid email
-                    if not bool(email_re.match(request.POST["email"].strip())): return 7
+                    if not bool(isValidEmail(request.POST["email"].strip())): return 7
 
                     if request.POST.get("password", "") != request.POST.get("password2", "").strip(): return 8
                     if len(request.POST.get("password", "").strip()) < 6: return 9
@@ -235,10 +233,10 @@ def signin(request):
             pass
 
     try:
-        resp = render_to_response('account/signin.html', {'request': request, 
-                                                          'redirect': redirect, 
-                                                          'joingroups': joinGroups, 
-                                                          'limit_reached': limitReached})
+        resp = render(request, 'account/signin.html', {'request': request, 
+                                                       'redirect': redirect, 
+                                                       'joingroups': joinGroups, 
+                                                       'limit_reached': limitReached})
     except:
         transaction.rollback()
         raise
@@ -335,7 +333,7 @@ def forgotpassword(request):
 
     # Do we need commit for this?!
     try:
-        resp = render_to_response('account/forgot_password.html', {"request": request})
+        resp = render(request, 'account/forgot_password.html', {"request": request})
     except:
         transaction.rollback()
         raise
@@ -406,7 +404,7 @@ def forgotpasswordenter(request):
         return resp
 
     try:
-        resp = render_to_response('account/forgot_password_enter.html', {"request": request, "secretcode": secretcode})
+        resp = render(request, 'account/forgot_password_enter.html', {"request": request, "secretcode": secretcode})
     except:
         transaction.rollback()
         raise
@@ -474,15 +472,15 @@ def view_profile(request, username):
         admin_import = False
 
     try:
-        resp = render_to_response('account/view_profile.html', {"request": request,
-                                                                "user": user,
-                                                                "admin_create": admin_create,
-                                                                "admin_import": admin_import,
-                                                                "user_description": '<br/>'.join(userDescription.replace('\r','').split('\n')),
-                                                                "books": books,
-                                                                "limit_reached": isBookLimitReached(),
-                                                                "notification_filter": notification_filter,
-                                                                "groups": groups})
+        resp = render(request, 'account/view_profile.html', {"request": request,
+                                                             "user": user,
+                                                             "admin_create": admin_create,
+                                                             "admin_import": admin_import,
+                                                             "user_description": '<br/>'.join(userDescription.replace('\r','').split('\n')),
+                                                             "books": books,
+                                                             "limit_reached": isBookLimitReached(),
+                                                             "notification_filter": notification_filter,
+                                                             "groups": groups})
     except:
         transaction.rollback()
         raise
@@ -581,9 +579,9 @@ def view_profilethumbnail(request, profileid):
         "Return path to default profile image."
 
         try:
-            name = '%s/images/%s' % (settings.STATIC_ROOT, settings.DEFAULT_PROFILE_IMAGE)
+            name = '%saccount/images/%s' % (settings.STATIC_ROOT, settings.DEFAULT_PROFILE_IMAGE)
         except AttributeError:
-            name = '%s%s' % (settings.SITE_STATIC_ROOT, '/images/anonymous.png')
+            name = '%s%s' % (settings.STATIC_ROOT, 'account/images/anonymous.png')
 
         return name
 
@@ -594,7 +592,10 @@ def view_profilethumbnail(request, profileid):
     else:
         name =  u.get_profile().image.path
 
-    import Image
+    try:
+        from PIL import Image
+    except ImportError:
+        import Image
     
     try:
         image = Image.open(name)
@@ -725,9 +726,9 @@ def create_book(request, username):
 
 
         try:
-            resp = render_to_response('account/create_book_redirect.html', {"request": request,
-                                                                            "user": user,
-                                                                            "book": book})
+            resp = render(request, 'account/create_book_redirect.html', {"request": request,
+                                                                         "user": user,
+                                                                         "book": book})
         except:
             transaction.rollback()
             raise
@@ -742,12 +743,12 @@ def create_book(request, username):
 
 
     try:
-        resp = render_to_response('account/create_book.html', {"request": request,
-                                                               "book_visible": book_visible,
-                                                               "book_license": book_license,
-                                                               "admin_create": admin_create,
-                                                               "licenses": licenses,
-                                                               "user": user})
+        resp = render(request, 'account/create_book.html', {"request": request,
+                                                            "book_visible": book_visible,
+                                                            "book_license": book_license,
+                                                            "admin_create": admin_create,
+                                                            "licenses": licenses,
+                                                            "user": user})
     except:
         transaction.rollback()
         raise
@@ -845,8 +846,8 @@ def create_group(request, username):
         return resp
 
     try:
-        resp = render_to_response('account/create_group.html', {"request": request,
-                                                                "user": user})
+        resp = render(request, 'account/create_group.html', {"request": request,
+                                                             "user": user})
     except:
         transaction.rollback()
         raise
@@ -980,10 +981,10 @@ def import_book(request, username):
 
 
     try:
-        resp = render_to_response('account/import_book.html', {"request": request,
-                                                               "book_visible": book_visible,
-                                                               "admin_import": admin_import,
-                                                               "user": user})
+        resp = render(request, 'account/import_book.html', {"request": request,
+                                                            "book_visible": book_visible,
+                                                            "admin_import": admin_import,
+                                                            "user": user})
     except:
         transaction.rollback()
         raise

@@ -1,0 +1,19 @@
+{% load i18n %}
+<h1>{{ book.title }}</h1>
+<div class="btn-toolbar float-right">
+
+  <div class="btn-group" data-toggle="buttons">
+	 <label class="btn btn-default">
+	   <input type="radio" name="panelname" id="button-toc" rel="tooltip" data-original-title="{% trans "Table Of Contents" %}"><i class="icon-list-alt"></i> 
+	 </label>
+	 <label class="btn btn-default">
+	   <input type="radio" name="panelname" id="button-media" rel="tooltip" data-original-title="{% trans "Media" %}"><i class="icon-picture"></i>
+	 </label>
+	 <label class="btn btn-default">
+	   <input type="radio" name="panelname" id="button-cover" rel="tooltip" data-original-title="{% trans "Cover Manager" %}"><i class="icon-tablet"></i>
+	 </label>
+	 <label class="btn btn-default">
+	   <input type="radio" name="panelname" id="button-publish" rel="tooltip" data-original-title="{% trans "Publishing" %}"><i class="icon-print"></i>
+	 </label>
+ </div>
+</div>
