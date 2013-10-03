@@ -56,6 +56,11 @@ class EpubImporter(object):
         self.notifier = Notifier() # null notifier
         self.delegate = Delegate() # null delegate
 
+        # Attachment objects indexed by image file name
+        self._attachments = {}
+        # Chapter objects indexed by document file name
+        self._chapters = {}
+
 
     def import_file(self, file_path, book):
         reader_plugins  = [TidyPlugin(), ImportPlugin()]
@@ -114,6 +119,8 @@ class EpubImporter(object):
             if not self.delegate.should_import_image(image):
                 continue
 
+            name = os.path.basename(image.file_name)
+
             att = models.Attachment(book = book,
                                     version = book.version,
                                     status = stat)
@@ -122,10 +129,9 @@ class EpubImporter(object):
                 att.attachment.save(image.file_name, content_file, save=False)
                 att.save()
 
-            self.notifier.debug("Imported image: {} -> {}".format(image, att))
+            self._attachments[name] = att
 
-        # Chapter objects indexed by document file name
-        chapters = {}
+            self.notifier.debug("Imported image: {} -> {}".format(image, att))
 
         # URL titles assigned so far
         url_titles = []
@@ -150,7 +156,7 @@ class EpubImporter(object):
             if not self.delegate.should_import_document(document):
                 continue
 
-            name = urllib.unquote(os.path.basename(document.file_name))
+            name = os.path.basename(document.file_name)
             title = ''
 
             # maybe this part has to go to the plugin
@@ -179,17 +185,17 @@ class EpubImporter(object):
                                      modified = now)
             chapter.save()
 
-            chapters[name] = chapter
+            self._chapters[name] = chapter
 
             self.notifier.debug("Imported chapter: {} -> {}".format(document, chapter))
 
         # fix links to chapters
         #
-        for chapter in chapters.itervalues():
-            self._fix_links(chapter, chapters)
+        for chapter in self._chapters.itervalues():
+            self._fix_links(chapter)
 
         # create TOC objects
-        self._make_toc(book, toc, chapters)
+        self._make_toc(book, toc)
 
         # done
 
@@ -259,7 +265,7 @@ class EpubImporter(object):
                 return heading
 
 
-    def _make_toc(self, book, toc, chapters):
+    def _make_toc(self, book, toc):
         """ Creates TOC objects.
         """
         n = len(toc) + 1
@@ -273,7 +279,7 @@ class EpubImporter(object):
                                    weight = n,
                                    typeof = 2)
             else:
-                chapter = chapters.get(name)
+                chapter = self._chapters.get(name)
 
                 if chapter is None:
                     continue
@@ -289,7 +295,7 @@ class EpubImporter(object):
             n -= 1
 
 
-    def _fix_links(self, chapter, chapters):
+    def _fix_links(self, chapter):
         """ Fixes internal links so they point to chapter URLs
         """
         try:
@@ -313,14 +319,32 @@ class EpubImporter(object):
             urlp = urlparse.urlparse(href)
             name = urllib.unquote(os.path.basename(urlp.path))
 
-            if name in chapters:
-                title = chapters[name].url_title
+            if name in self._chapters:
+                title = self._chapters[name].url_title
                 fixed_href = urlparse.urljoin(href, '../{}/'.format(title))
 
                 if urlp.fragment:
                     fixed_href = "{}#{}".format(fixed_href, urlp.fragment)
 
                 anchor.set('href', fixed_href)
+                to_save = True
+
+        for image in body.iter('img'):
+            src = image.get('src')
+
+            if src is None:
+                continue
+
+            urlp = urlparse.urlparse(src)
+            name = urllib.unquote(os.path.basename(urlp.path))
+
+            if urlp.netloc:
+                continue
+
+            if name in self._attachments:
+                file_name = os.path.basename(self._attachments[name].attachment.name)
+                fixed_src = urllib.quote('static/%s' % file_name)
+                image.set('src', fixed_src)
                 to_save = True
 
         if to_save:

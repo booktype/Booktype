@@ -101,12 +101,6 @@ class ImportPlugin(BasePlugin):
             # - fix ....
 
             for _item in body.iter():
-                if _item.tag == 'img':
-                    _name = _item.get('src')
-                    # this is not a good check
-                    if _name and not _name.lower().startswith('http'): 
-                        _item.set('src', 'static/%s' % convert_file_name(_name))
-
                 for t in self.remove_attributes:
                     if t in _item.attrib:
                         del _item.attrib[t]
