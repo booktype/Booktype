@@ -69,15 +69,6 @@ class ImportPlugin(BasePlugin):
                                       'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover',
                                       'onmouseup', 'onmousewheel', 'onscroll']
 
-
-    def after_read(self, book):
-        # change all the file names for images
-        #   - should fix if attachment name has non ascii characters in the name
-        #   - should remove the space if file name has it inside
-
-        for att in  book.get_items_of_type(ebooklib.ITEM_IMAGE):            
-            att.file_name = convert_file_name(att.file_name)
-
     def html_after_read(self, book, chapter):
         try:
             tree = parse_html_string(chapter.content)

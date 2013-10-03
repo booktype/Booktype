@@ -90,8 +90,8 @@ class EpubImporter(object):
                 elif isinstance(_elem, ebooklib.epub.Section):
                     pass
                 elif isinstance(_elem, ebooklib.epub.Link):
-                    _u = urlparse.urlparse(_elem.href)
-                    _name = urllib.unquote(os.path.basename(_u.path))
+                    _urlp = urlparse.urlparse(_elem.href)
+                    _name = os.path.normpath(urllib.unquote(_urlp.path))
 
                     if not _name in titles:
                         titles[_name] = _elem.title
@@ -119,14 +119,14 @@ class EpubImporter(object):
             if not self.delegate.should_import_image(image):
                 continue
 
-            name = os.path.basename(image.file_name)
+            name = os.path.normpath(image.file_name)
 
             att = models.Attachment(book = book,
                                     version = book.version,
                                     status = stat)
 
             with ContentFile(image.get_content()) as content_file:
-                att.attachment.save(image.file_name, content_file, save=False)
+                att.attachment.save(os.path.basename(image.file_name), content_file, save=False)
                 att.save()
 
             self._attachments[name] = att
@@ -156,7 +156,7 @@ class EpubImporter(object):
             if not self.delegate.should_import_document(document):
                 continue
 
-            name = os.path.basename(document.file_name)
+            name = os.path.normpath(document.file_name)
             title = ''
 
             # maybe this part has to go to the plugin
@@ -167,7 +167,7 @@ class EpubImporter(object):
                 title = convert_file_name(name)
 
                 if title.rfind('.') != -1:
-                    title = title[:name.rfind('.')]
+                    title = title[:title.rfind('.')]
 
                 title = title.replace('.', '')
 
@@ -191,8 +191,8 @@ class EpubImporter(object):
 
         # fix links to chapters
         #
-        for chapter in self._chapters.itervalues():
-            self._fix_links(chapter)
+        for file_name, chapter in self._chapters.iteritems():
+            self._fix_links(chapter, base_path=os.path.dirname(file_name))
 
         # create TOC objects
         self._make_toc(book, toc)
@@ -295,7 +295,7 @@ class EpubImporter(object):
             n -= 1
 
 
-    def _fix_links(self, chapter):
+    def _fix_links(self, chapter, base_path):
         """ Fixes internal links so they point to chapter URLs
         """
         try:
@@ -317,7 +317,7 @@ class EpubImporter(object):
                 continue
 
             urlp = urlparse.urlparse(href)
-            name = urllib.unquote(os.path.basename(urlp.path))
+            name = os.path.normpath(os.path.join(base_path, urllib.unquote(urlp.path)))
 
             if name in self._chapters:
                 title = self._chapters[name].url_title
@@ -336,7 +336,7 @@ class EpubImporter(object):
                 continue
 
             urlp = urlparse.urlparse(src)
-            name = urllib.unquote(os.path.basename(urlp.path))
+            name = os.path.normpath(os.path.join(base_path, urllib.unquote(urlp.path)))
 
             if urlp.netloc:
                 continue
