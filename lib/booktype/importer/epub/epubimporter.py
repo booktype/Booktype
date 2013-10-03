@@ -127,6 +127,19 @@ class EpubImporter(object):
         # Chapter objects indexed by document file name
         chapters = {}
 
+        # URL titles assigned so far
+        url_titles = []
+
+        def _make_url_title(title, i=0):
+            url_title = bookiSlugify(title)
+            if i > 0:
+                url_title += "_" + str(i)
+            if not url_title in url_titles:
+                url_titles.append(url_title)
+                return url_title
+            else:
+                return _make_url_title(title, i+1)
+
         # import all document items from the EPUB
         #
         for document in epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
@@ -152,13 +165,13 @@ class EpubImporter(object):
 
                 title = title.replace('.', '')
 
-            # TODO: check if this chapter title already exists
+            url_title = _make_url_title(title)
 
             content = self._create_content(document, title)
 
             chapter = models.Chapter(book = book,
                                      version = book.version,
-                                     url_title = bookiSlugify(title),
+                                     url_title = url_title,
                                      title = title,
                                      status = stat,
                                      content = content,
