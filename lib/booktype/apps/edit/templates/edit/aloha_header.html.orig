@@ -19,11 +19,10 @@
         },
         plugins: {
             booktitle: {
-                enabled: true
+                enabled: false
             },
             bookstyle: {
-                dynamicFormatting: false,
-                titleAsBlock: true
+                dynamicFormatting: false
             },
             format: {
                 config: ['removeFormat'],
@@ -136,10 +135,12 @@
                         booktype/htmledit,
                         booktype/bookstyle,
                         booktype/booktitle,
+<<<<<<< HEAD
                         booktype/pbreak,                        
                         booktype/wcount,
+=======
                         booktype/pbreak,   
-                        booktype/font,  
+>>>>>>> sf_booktype/2.0
                         common/table,
                         common/list,
                         common/highlighteditables,
