@@ -18,11 +18,11 @@
  				<div class="book">
             		<div class="block">
              			<div class="title">
-			                <a href="{% url book_info  book.url_title %}" title="{{book.title}}">{{ book.title }}</a>
+			                <a href="{% url "book_info"  book.url_title %}" title="{{book.title}}">{{ book.title }}</a>
 						</div>
                     </div>    
  	          		<div class="link">
-			            <a href="{% url book_info  book.url_title %}" title="{{book.title}}">{{ book.title }}</a>
+			            <a href="{% url "book_info"  book.url_title %}" title="{{book.title}}">{{ book.title }}</a>
                     </div>
 				</div><!-- end .book -->
 
@@ -36,11 +36,11 @@
  				<div class="book">
             		<div class="block">
              			<div class="title">
-                        	<a href="{% url book_info  book.url_title %}" title="{{book.title}}">{{ book.title }}</a>
+                        	<a href="{% url "book_info"  book.url_title %}" title="{{book.title}}">{{ book.title }}</a>
 			            </div>
                     </div>
 	               <div class="link">
-		           		 <a href="{% url book_info  book.url_title %}" title="{{book.title}}">{{ book.title }}</a>
+		           		 <a href="{% url "book_info"  book.url_title %}" title="{{book.title}}">{{ book.title }}</a>
                     	 <div class="timesince">
                          	{{ book.created|timesince }} {% trans "ago" %}
                          </div>
@@ -55,7 +55,7 @@
 
 	<ul class="list">
 	{% for book in books.object_list %}
-	   <li><a href="{% url book_info  book.url_title %}">{{ book.title }}</a></li>
+	   <li><a href="{% url "book_info"  book.url_title %}">{{ book.title }}</a></li>
 	{% endfor %}
 	</ul>
 

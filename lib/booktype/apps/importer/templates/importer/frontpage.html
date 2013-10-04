@@ -1,0 +1,51 @@
+{% load i18n  staticfiles %}
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Importer 3000</title>
+  <link href='http://fonts.googleapis.com/css?family=Trade+Winds' rel='stylesheet' type='text/css'>
+  <style>
+  	 H1 {
+		font-family: 'Trade Winds', cursive;
+		text-align: center;
+		font-size: 40pt;
+  	 }
+  	 #main {
+  	 	width: 600px;
+  	 	margin-left:auto;
+        margin-right:auto;
+  	 }
+  	 #form {
+  	 	padding: 10px;
+  	 	background-color: #FFCCCC;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px; /* future proofing */
+		-khtml-border-radius: 10px; /* for old Konqueror browsers */  	 	
+  	 }
+  	 #upload {
+  	 	width: 100%;
+  	 	font-size: 20pt;
+  	 	font-weight: bold;
+  	 	padding: 10px;
+  	 }
+  	 #id_title {
+  	 	width: 80%;
+  	 }
+  </style>
+ </head>
+<body>
+<div id="main">
+	<h1>Importer 3000</h1>
+	<div id="form"> 
+	<form action="{% url "importer" %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+		    {{ form.as_p }}
+		<br/>
+		<button type="Submit" id="upload"/>Upload</button>
+	</form>
+	</div>
+</div>
+</body>
+</html>
+

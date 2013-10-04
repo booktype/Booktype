@@ -1,0 +1,169 @@
+{% extends "edit/base.html" %}
+{% load i18n staticfiles compress %}
+
+{%  block header %}
+    <style>
+        #main { padding-top: 200px; margin-left: 50px; margin-right: 50px;}
+    </style>
+    
+    {% include "edit/edit_header.html" %}
+    {% include "edit/aloha_header.html" %}
+    {% include "edit/edit_custom_header.html" %}
+
+    {% include "edit/edit_config.html" %}
+
+    <style>
+    /*
+        #content.aloha-editable A {
+          text-decoration: underline;
+          color: red;
+        }
+        */
+        div.contentHeader span.info-message { font-size: 12px; margin-right: 10px;}
+        .template {
+            display: none;
+        }
+
+        div.aloha-toolbar {
+          display: none !important;
+        }
+       
+       .aloha-editable-highlight {
+        outline: 0 !important;
+        }
+
+       .aloha-editable-active, .aloha-editable-active[contenteditable=true]:focus {
+          outline: 0 !important;
+        }    
+
+       .aloha-editable-active .aloha-block, .aloha-block.aloha-block-highlighted {
+         box-shadow: none !important;
+       }
+
+       .aloha-block.aloha-block-active, .aloha-block.aloha-block-active:hover {
+         box-shadow: 0 0 0 3px #80b5f2 !important;
+       }
+    </style>
+
+    <link id="aloha-embeded-style" type="text/css" href="{% static "edit/css/style1.css" %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block navigation %} 
+    {% include "edit/toolbar_nav.html" %}
+    
+    <!-- Bookbar -->
+    <div class="bookbar">
+       {% include "edit/toolbar_book.html" %}
+    </div>
+    <!-- end Bookbar -->
+
+    <!-- ToC / Chapter header -->
+    <div class="contentHeader">
+    </div>
+    <!-- end ToC/Chapter header -->
+{% endblock %}
+
+{% block content %}
+
+<!-- start of content -->
+ <div class="contentContainer">
+   <div class="content" id="content">
+   </div>
+ </div>
+<!-- end of content -->
+
+<!-- Tabs content -->
+<div class="tablist left-tablist">
+    <ul class="navigation-tabs">
+    </ul>
+</div>    
+
+<div class="tablist right-tablist">
+    <ul class="navigation-tabs">        
+    </ul>
+</div>
+
+<div id="left-tabpane" class="tabpane left-tabpane">
+    <section class="tab-content" source_id="chapters-tab">
+        <h3>{% trans "Chapters" %}</h3>
+        <button href="#" role="button" class="btn btn-default btn-xs" id="" rel="tooltip" title="" data-placement="bottom" data-original-title="Expand Table of Contents">EXPAND TOC</button>        
+        <ul class="edit-toc">
+        </ul>
+    </section>
+
+    <section class="tab-content hold" source_id="online-users-tab">
+      <h3>{% trans "Online users" %}</h3>
+    </section>
+
+    <section class="tab-content" source_id="chat-tab">
+        <h3>{% trans "Chat" %}</h3>
+
+        <div style="border: 1px solid gray; width: 100%; height: 300px; padding: 0px; overflow: auto; " class="content">
+        </div>
+
+        <form action="return false;" onsubmit="javascript: return false;">
+           <input type="text" name="message" style="width: 95%;" value=""/>
+        </form>
+    </section>
+
+    <section class="tab-content" source_id="style-tab">
+        {% include "edit/tab_style.html" %}
+    </section>
+
+</div>
+
+<div id="right-tabpane" class="tabpane right-tabpane">
+    <section class="tab-content hold" source_id="hold-tab">
+        <h3>{% trans "Chapters on Hold" %}</h3>
+        <ul class="hold-chapters">
+        </ul>
+    </section>
+    
+    <section class="tab-content" source_id="attachments-tab">
+        <h3>{% trans "Attachments" %}</h3>
+    </section>
+    <section class="tab-content" source_id="notes-tab">
+        <h3>{% trans "Notes" %}</h3>
+    </section>
+    <section class="tab-content" source_id="history-tab">
+        <h3>{% trans "History" %}</h3>
+    </section>    
+</div>
+{% endblock %}
+
+
+<!-- ########################################################################################## -->
+
+
+{% block misc %}
+<!-- Modal windows -->
+{% include "edit/panel_toc.html" %}
+{% include "edit/panel_aloha.html" %}
+{% include "edit/panel_media.html" %}
+{% include "edit/panel_covers.html" %}
+{% include "edit/panel_publish.html" %}
+
+<!-- Notifications -->
+<div class="notificationContainer">
+  <div class="notification">
+  </div>
+</div>
+
+<p class="joinMsg template">{% blocktrans %}<span class="icon">JOINED</span> <span class="notice">notice</span>{% endblocktrans %}</p>
+<p class="infoMsg template">{% blocktrans %}<span class="info">INFO</span> <span class="notice">notice</span>{% endblocktrans %}</p>
+
+<ul class="strings template">
+  <li class="message_info_user_changed_chapter_status">{% trans 'User {0} has changed status of  chapter "{1}" to "{2}".' %}</li>
+  <li class="message_info_user_saved_chapter">{% trans 'User {0} has saved chapter "{1}".' %}</li>
+  <li class="message_info_user_renamed_chapter">{% trans 'User {0} has renamed chapter "{1}" to "{2}".' %}</li>
+  <li class="message_info_user_delete_chapter">{% trans 'User {0} has deleted chapter "{1}".' %}</li>
+  <li class="message_info_user_new_chapter">{% trans 'User {0} has created new chapter "{1}".' %}</li>
+  <li class="message_info_user_cloned_chapter">{% trans 'User {0} has cloned chapter "{1}" from book "{2}".' %}</li>
+  <li class="message_info_published">{% trans '"{0}" is being published.' %}</li>
+  <li class="message_info_user_new_section">{% trans 'User {0} has created new section "{1}".' %}</li>
+  <li class="message_info_user_reverted_chapter">{% trans 'User {0} has reverted chapter "{1}" to revision {2}.' %}</li>
+  <li class="message_info_user_saved_notes">{% trans 'User {0} has saved notes for book "{1}".' %}</li>
+</ul>
+
+{% endblock %}

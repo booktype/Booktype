@@ -2,7 +2,7 @@
 
 <div id="notify" class="alert-box info"> </div>
 
-<h2><a href="{% url book_info book.url_title %}">{{ book }}</a> </h2>
+<h2><a href="{% url "book_info" book.url_title %}">{{ book }}</a> </h2>
 <div id="tabs">
   <ul>
     {% if "chapters" in tabs %}

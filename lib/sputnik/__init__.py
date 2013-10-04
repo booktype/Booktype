@@ -331,6 +331,30 @@ def addMessageToChannel(request, channelName, message, myself = False ):
             except:
                 pass
                 
+def addMessageToChannel2(clientID, sputnikID, channelName, message, myself = False ):
+    import sputnik
+    import json
+
+    try:
+        clnts = sputnik.smembers("sputnik:channel:%s:channel" % channelName)
+    except:
+        from booki.utils.log import printStack
+        printStack(None)
+        return
+
+    message["channel"] = channelName
+    message["clientID"] = clientID
+
+    for c in clnts:
+        if not myself and c == sputnikID:
+            continue
+
+        if c.strip() != '':
+            try:
+                sputnik.push( "ses:%s:messages" % c, json.dumps(message))
+            except:
+                logger.debug('*ERROR PUSH*')
+
 
 def removeClient(request, clientName):
     """

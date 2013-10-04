@@ -1,0 +1,60 @@
+{% load i18n %}
+  <!-- ToC / Chapter header -->
+
+<div class="btn-toolbar float-left">
+  <div class="btn-group">
+   <button type="button" class="btn btn-default btn-sm action undo" id="button-undo" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Undo" %}"><i class="icon-undo"></i></button> 
+  </div>
+
+  <div class="btn-group headings">
+    <button class="btn btn-default btn-sm currentHeading" title="{% trans "Text Heading" %}">{% trans "Nothing" %}</button>
+    <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" rel="tooltip" title="" data-original-title="{% trans "Change Heading" %}" data-placement="bottom" ><span class="caret"></span></button>
+      <ul class="dropdown-menu">
+          <li><a href="#" class="action changeHeading" data-tagname="p" data-placement="bottom">{% trans "Normal Text" %}</a></li>
+          <li><a href="#" class="action changeHeading" data-tagname="h1" data-placement="bottom">{% trans "Heading" %}</a></li>
+          <li><a href="#" class="action changeHeading" data-tagname="h2" data-placement="bottom">{% trans "Subheading" %}</a></li>
+          <li><a href="#" class="action changeHeading" data-tagname="h3" data-placement="bottom">{% trans "SubSubHeading" %}</a></li>
+          <li><a href="#" class="action changeHeading" data-tagname="pre" data-placement="bottom">{% trans "Preformated" %}</a></li>
+      </ul>
+  </div>
+
+  <div class="btn-group">
+      <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" rel="tooltip" data-original-title="{% trans "Font" %}" data-placement="bottom"><i class="icon-font"></i></button>
+      <ul class='dropdown-menu' id='font'>
+    </ul> 
+
+      <button class="btn btn-default btn-sm action aloha-dialog color" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Color" %}"><i class="icon-tint"></i></button>      
+  </div>
+
+  <div class="btn-group">
+      <button id="expand" class="btn btn-default btn-sm action aloha-dialog bold" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Bold" %}"><i class="icon-bold"></i></button>
+      <button id="collapse" class="btn btn-default btn-sm action aloha-dialog italic" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Italic" %}"><i class="icon-italic"></i></button>   
+      <button id="collapse" class="btn btn-default btn-sm action aloha-dialog underline" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Underline" %}"><i class="icon-underline"></i></button>
+  </div>
+
+  <div class="btn-group">
+    <button class="btn btn-default btn-sm action aloha-dialog insertLink" rel="tooltip" title="{% trans "Insert Link" %}" data-placement="bottom"><i class="icon-link"></i></button>
+    <button class="btn btn-default btn-sm action aloha-dialog insertImage" rel="tooltip" title="{% trans "Insert Figure" %}" data-placement="bottom"><i class="icon-picture"></i></button>
+    <button class="btn btn-default btn-sm action aloha-dialog wcount" rel="tooltip" title="{% trans "Word Count" %}" data-placement="bottom"><i class="icon-picture"></i></button>    
+  </div>            
+
+
+  <div class="btn-group">
+    <button class="btn btn-default btn-sm action aloha-dialog alignLeft" rel="tooltip" title="{% trans "Left align" %}" data-placement="bottom"><i class="icon-align-left"></i></button>
+    <button class="btn btn-default btn-sm action aloha-dialog alignCenter" rel="tooltip" title="{% trans "Centre align" %}" data-placement="bottom"><i class="icon-align-center"></i></button>
+    <button class="btn btn-default btn-sm action aloha-dialog alignRight" rel="tooltip" title="{% trans "Right align" %}" data-placement="bottom"><i class="icon-align-right"></i></button>
+    <button class="btn btn-default btn-sm action aloha-dialog alignJustify" rel="tooltip" title="{% trans "Justify" %}" data-placement="bottom"><i class="icon-align-justify"></i></button>
+  </div>
+
+
+  <div class="btn-group">
+    <button class="btn btn-default btn-sm action aloha-dialog unorderedList" rel="tooltip" title="{% trans "Unordered List" %}" data-placement="bottom"><i class="icon-list-ul"></i></button>
+    <button class="btn btn-default btn-sm action aloha-dialog orderedList" rel="tooltip" title="{% trans "Ordered List" %}" data-placement="bottom"><i class="icon-list-ol"></i></button>
+  </div>
+</div>  <!-- end btn-toolbar -->
+
+<div class="btn-toolbar float-right">
+    <span class="info-message"></span>
+    <button href="#save" role="button" class="btn btn-success" data-toggle="modal" id="button-save" rel="tooltip"  title="{% trans "Save chapter" %}" data-placement="bottom">{% trans "SAVE" %}</button>
+    <button href="#cancel" role="button" class="btn btn-default" data-toggle="modal" id="button-cancel" rel="tooltip" title="{% trans "Cancel editing" %}" data-placement="bottom">{% trans "CLOSE" %}</button>
+</div>
