@@ -975,7 +975,7 @@ a:focus, a:hover {
 				max-height: 226px;
 			}
 		.image-info-container .image-info {
-			padding: 0px 10px 5px 0;
+			padding: 0px 0px 5px 0;
 			color: #555;
 			margin-top: 3px;
 			font-size:12px;
@@ -997,7 +997,9 @@ a:focus, a:hover {
 		.image-info-container .image-info ul {
 			list-style-type: none;
 			margin:0;
-			padding:0 0 10px 0;	
+			padding:1px 0;
+			width: 300px;
+			word-wrap: break-word;	
 			border-bottom: 1px solid #ddd;		
 			}
 		.image-info-container .image-info ul li {
