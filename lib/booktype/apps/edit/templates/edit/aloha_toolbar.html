@@ -19,7 +19,11 @@
   </div>
 
   <div class="btn-group">
-      <button class="btn btn-default btn-sm action aloha-dialog font" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Font" %}"><i class="icon-font"></i></button>
+      <button class="btn btn-default btn-sm dropdown-toggle action aloha-dialog font" data-toggle="dropdown" rel="tooltip" data-original-title="{% trans "Font" %}" data-placement="bottom"><i class="icon-font"></i></button>
+      <!-- <ul class='dropdown-menu' id="font"> -->
+      <ul class = "dropdown-menu font-dropdown">
+    </ul> 
+
       <button class="btn btn-default btn-sm action aloha-dialog color" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Color" %}"><i class="icon-tint"></i></button>      
   </div>
 
@@ -32,6 +36,7 @@
   <div class="btn-group">
     <button class="btn btn-default btn-sm action aloha-dialog insertLink" rel="tooltip" title="{% trans "Insert Link" %}" data-placement="bottom"><i class="icon-link"></i></button>
     <button class="btn btn-default btn-sm action aloha-dialog insertImage" rel="tooltip" title="{% trans "Insert Figure" %}" data-placement="bottom"><i class="icon-picture"></i></button>
+    <button class="btn btn-default btn-sm action aloha-dialog wcount" rel="tooltip" title="{% trans "Word Count" %}" data-placement="bottom"><i class="icon-picture"></i></button>    
   </div>            
 
 
