@@ -2,13 +2,13 @@
 
 <h3>{% trans "Sign in" %}</h3>
 
-<form id="formsignin" onsubmit="return false;" action="#" method="GET">
+<form id="formsignin" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
   <label for="username">{% trans "User name" %}</label>        
   <input name="username" type="text" />
   <label for="password">{% trans "Password" %}</label>
   <input name="password" id="password" type="password" />
   <br>
-  <small><a href="{% url forgotpassword %}">Forgotten your password?</a></small>
+  <small><a href="{% url "forgotpassword" %}">Forgotten your password?</a></small>
   <br>
   
   <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">

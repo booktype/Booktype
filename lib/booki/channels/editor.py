@@ -99,7 +99,10 @@ def getAttachments(book_version):
     """
 
     import os.path
-    import Image
+    try:
+        from PIL import Image
+    except ImportError:
+        import Image
 
     def _getDimension(att):
         if att.attachment.name.endswith(".jpg"):
@@ -2564,7 +2567,10 @@ def remote_cover_load(request, message, bookid, version):
     if cover.is_pdf:
         frm.append("pdf")
 
-    import Image
+    try:
+        from PIL import Image
+    except ImportError:
+        import Image
 
     size = (0, 0)
     filetype = ""
@@ -3556,7 +3562,10 @@ def remote_publish_book2(request, message, bookid, version):
 
     def _getCoverSize(c):
         try:
-            import Image
+            try:
+                from PIL import Image
+            except ImportError:
+                import Image
 
             im = Image.open(c.attachment.name)
             size = im.size

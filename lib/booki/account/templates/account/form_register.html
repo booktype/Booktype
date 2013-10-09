@@ -9,7 +9,7 @@
   </p>
  {% else %}
 <h3>{% trans "Create account" %}</h3>
-<form id="formregister" onsubmit="return false;" action="#" method="GET">
+<form id="formregister" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
   <label for="username">{% trans "User name" %}</label>        
   <input name="username" type="text"/>
   <label for="password">{% trans "Password (6 characters at least)" %}</label>

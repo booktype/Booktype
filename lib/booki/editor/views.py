@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -135,20 +135,20 @@ def edit_book(request, bookid, version=None):
         from booki import constants
         publish_options = constants.PUBLISH_OPTIONS
         
-    return render_to_response('editor/edit_book.html', {"book": book, 
-                                                        "book_version": book_version.getVersion(),
-                                                        "version": book_version,
+    return render(request, 'editor/edit_book.html', {"book": book, 
+                                                    "book_version": book_version.getVersion(),
+                                                    "version": book_version,
 
-                                                        ## this change will break older versions of template
-                                                        "statuses": [(s.name.replace(' ', '_'), s.name) for s in models.BookStatus.objects.filter(book = book)],
-                                                        "chapters": chapters, 
-                                                        "security": bookSecurity,
-                                                        "is_admin": bookSecurity.isGroupAdmin() or bookSecurity.isBookAdmin() or bookSecurity.isSuperuser(),
-                                                        "is_owner": book.owner == request.user,
-                                                        "tabs": tabs,
-                                                        "is_browser_supported": isBrowserSupported,
-                                                        "publish_options": publish_options,
-                                                        "request": request})
+                                                    ## this change will break older versions of template
+                                                    "statuses": [(s.name.replace(' ', '_'), s.name) for s in models.BookStatus.objects.filter(book = book)],
+                                                    "chapters": chapters, 
+                                                    "security": bookSecurity,
+                                                    "is_admin": bookSecurity.isGroupAdmin() or bookSecurity.isBookAdmin() or bookSecurity.isSuperuser(),
+                                                    "is_owner": book.owner == request.user,
+                                                    "tabs": tabs,
+                                                    "is_browser_supported": isBrowserSupported,
+                                                    "publish_options": publish_options,
+                                                    "request": request})
 
 def thumbnail_attachment(request, bookid, attachment, version=None):
     """
@@ -174,7 +174,10 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
 #    document_root = '%s/static/%s/%s' % (settings.STATIC_DOC_ROOT, bookid, path)
 
     # should have one  "broken image" in case of error
-    import Image
+    try:
+        from PIL import Image
+    except ImportError:
+        import Image
 
     try:
         im = Image.open(document_root)
@@ -278,7 +281,8 @@ def view_cover(request, bookid, cid, fname = None, version=None):
     except models.BookCover.DoesNotExist:
         return HttpResponse(status=500)
 
-    document_path = '%s/book_covers/%s' % (settings.DATA_ROOT, cover.id)
+    document_path = cover.attachment.path
+
     # extenstion
 
     import mimetypes
@@ -295,7 +299,11 @@ def view_cover(request, bookid, cid, fname = None, version=None):
     content_type = mimetypes.types_map.get('.'+extension, 'binary/octet-stream')
 
     if request.GET.get('preview', '') == '1':
-        import Image
+        try:
+            from PIL import Image
+        except ImportError:
+            import Image
+            
         try:
             if extension.lower() in ['pdf', 'psd', 'svg']:
                 raise
@@ -304,12 +312,12 @@ def view_cover(request, bookid, cid, fname = None, version=None):
             im.thumbnail((250, 250), Image.ANTIALIAS)
         except:
             try:
-                im = Image.open('%s/images/booktype-cover-%s.png' % (settings.SITE_STATIC_ROOT, extension.lower()))
+                im = Image.open('%s/editor/images/booktype-cover-%s.png' % (settings.SITE_STATIC_ROOT, extension.lower()))
                 extension = 'png'
                 content_type = 'image/png'
             except:
                 # Not just IOError but anything else
-                im = Image.open('%s/images/booktype-cover-error.png' % settings.SITE_STATIC_ROOT)
+                im = Image.open('%s/editor/images/booktype-cover-error.png' % settings.SITE_STATIC_ROOT)
                 extension = 'png'
                 content_type = 'image/png'
 
@@ -370,7 +378,7 @@ def upload_cover(request, bookid, version=None):
                 h.update(request.POST.get('license', ''))
                 h.update(str(datetime.datetime.now()))
 
-                license = models.License.objects.get(name=request.POST.get('license', ''))
+                license = models.License.objects.get(abbrevation=request.POST.get('license', ''))
 
                 frm = request.POST.get('format', '').split(',')
 

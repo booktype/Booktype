@@ -17,7 +17,7 @@
  <script>
    $(function() {
      $("button[name=add]").click(function() {
-        window.location = '{% url control_add_person %}';
+        window.location = '{% url "control_add_person" %}';
      });
 
    $("#tabs").tabs();
@@ -52,7 +52,7 @@
   </tr> 
   {% for user in people %}
     <tr>
-      <td><a href="{% url control_profile user.username %}">{{ user.username }}</a></td>
+      <td><a href="{% url "control_profile" user.username %}">{{ user.username }}</a></td>
       <td>{{ user.first_name }}</td>
       <td>{{ user.email }}</td>
     </tr>
