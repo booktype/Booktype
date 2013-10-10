@@ -20,6 +20,16 @@ class Delegate(object):
     def get_reader_plugins(self):
         return []
 
+    def is_valid_cover(self, image):
+        """ Checks whether the provided image is a valid cover image.
+
+        Returns True if it is valid or (False, reason) if it is not.
+
+        Returning None signals that the validity check is not performed
+        by the delegate.
+        """
+        return None
+
     def should_import_image(self, image):
         return True
 
