@@ -356,9 +356,21 @@ class EpubImporter(object):
         """ Assigns the specified cover.
         """
 
-        is_valid, reason = is_valid_cover(cover_image)
+        validity = self.delegate.is_valid_cover(cover_image)
+
+        if validity is None:
+            # not checked by the assigned delegate
+            is_valid, reason = is_valid_cover(cover_image)
+        elif isinstance(validity, bool):
+            is_valid, reason = validity, None
+        else:
+            is_valid, reason = validity
+
         if not is_valid:
-            self.notifier.warning("Not using {} as a cover image -- {}".format(cover_image.file_name, reason))
+            if reason:
+                self.notifier.warning("Not using {} as a cover image -- {}".format(cover_image.file_name, reason))
+            else:
+                self.notifier.warning("Not using {} as a cover image".format(cover_image.file_name))
             return
 
         cover_file = ContentFile(cover_image.get_content())
