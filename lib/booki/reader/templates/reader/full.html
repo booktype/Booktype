@@ -4,7 +4,6 @@
 
 {% block header %}
 <title>{% blocktrans with book.title as booktitle %}/_full: {{ booktitle }}{% endblocktrans %}</title>
-<link type="text/css" href="{% static "editor/css/editor.css" %}" rel="Stylesheet" />
 {% if has_css %}
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
 {% endif %}
