@@ -6,7 +6,8 @@
   <div id="attachmentscontainer"> </div>
   <div style="margin: 0px 0 20px;"> <a name="delete" href="javascript:void(0)">{% trans "Deleted selected items" %}</a> </div>
   <h3>{% trans "Upload a new image or file" %}</h3>
-  <form method="POST" target="frameupload2" action="../_upload/" enctype="multipart/form-data">
+  <form method="POST" target="frameupload2" action="../_upload/" enctype="multipart/form-data">{% csrf_token %}
+
     <input type="file" name="entry0">
     <input type="hidden" name="attachmenttab" value="1"/>
     <input type="submit" value="{% trans "Upload" %}" />

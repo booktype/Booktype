@@ -1,4 +1,4 @@
-{% load i18n messaging_tags booki_tags %}
+{% load i18n messaging_tags booki_tags staticfiles %}
 <!DOCTYPE HTML>
 <html>
  <head>
@@ -7,7 +7,7 @@
    {% block header %}
    {% endblock %}
 
-   <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/_user.css" rel="Stylesheet" >
+   <link type="text/css" href="{% static "css/_user.css" %}" rel="Stylesheet" >
  </head>
 <body>
 
@@ -18,17 +18,17 @@
     {% if request.user.is_authenticated %}
     <ul>
       <li>
-        <a href="{% url view_profile request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;
+        <a href="{% url "view_profile" request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;
         {% if request.user.is_superuser %}
-            |&nbsp;&nbsp;<a href="{% url control_frontpage %}">{% trans "Control Center" %}</a>&nbsp;&nbsp;
+            |&nbsp;&nbsp;<a href="{% url "control_frontpage" %}">{% trans "Control Center" %}</a>&nbsp;&nbsp;
         {% endif %}
-        |&nbsp;&nbsp;<a href="{% url signout %}">{% trans "Sign out" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;{% messagefield_button %} 
+        |&nbsp;&nbsp;<a href="{% url "signout" %}">{% trans "Sign out" %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;{% messagefield_button %} 
       </li>
     </ul>
     {% else %}
     <ul>
       <li>
-        <a href="{% url signin %}?redirect={{ request.path }}">{% trans "Sign In / Create Account" %}</a>
+        <a href="{% url "signin" %}?redirect={{ request.path }}">{% trans "Sign In / Create Account" %}</a>
       </li>
     </ul>
     {% endif %}
@@ -45,16 +45,16 @@
   {% if request.user.is_authenticated %}
   <div class="navbox">
     <ul>
-      <li><a href="{% url view_profile request.user.username %}">{% trans "My Dashboard" %}</a></li>
+      <li><a href="{% url "view_profile" request.user.username %}">{% trans "My Dashboard" %}</a></li>
     </ul>
   </div>
   {% endif %}
   
   <div class="navbox">
     <ul>
-      <li><a href="{% url list_books %}">{% trans "Books" %}</a></li>
-      <li><a href="{% url list_groups %}">{% trans "Groups" %}</a></li>
-      <li><a href="{% url list_people %}">{% trans "People" %}</a></li>
+      <li><a href="{% url "list_books" %}">{% trans "Books" %}</a></li>
+      <li><a href="{% url "list_groups" %}">{% trans "Groups" %}</a></li>
+      <li><a href="{% url "list_people" %}">{% trans "People" %}</a></li>
     </ul>      
   </div><!-- End of .navbox -->       
 </div>

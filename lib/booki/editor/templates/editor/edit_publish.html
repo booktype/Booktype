@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n staticfiles %}
 
 <div id="wizzardcontainer" style="position: absolute; display: none; z-index: 1000;"> </div>
 <form name="formexport" onsubmit="return false;">
@@ -60,7 +60,7 @@
 <a name="exportbutton">{% trans "Publish this book" %}</a>
 <div class="info" style="padding-top: 20px"> </div>
 <div class="progress template">
-  <div class="alert-box" style="padding: 10px"> <img src="{{ request.META.SCRIPT_NAME }}/site_static/images/loading.gif"/>&nbsp;&nbsp;{% trans "Please wait. It will take couple of moments. Your book is being generated." %} </div>
+  <div class="alert-box" style="padding: 10px"> <img src="{% static "portal/images/loading.gif" %}"/>&nbsp;&nbsp;{% trans "Please wait. It will take couple of moments. Your book is being generated." %} </div>
 </div>
 <div class="downloadpublish template">
   <div style="padding: 10px"> {% trans "Your book has been generated at this url:" %} <span class="url"></span> </div>

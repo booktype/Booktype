@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% load i18n messaging_tags %}
+{% load i18n messaging_tags staticfiles %}
 
 {% block header %}
 <title>{% blocktrans with book.title as booktitle %}/book: {{ booktitle }}{% endblocktrans %}</title>
-<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/draft.css" rel="Stylesheet" /> 
-<link type="text/css" href="{{ request.META.SCRIPT_NAME }}/site_static/css/published.css" rel="Stylesheet" />
+<link type="text/css" href="{% static "reader/css/draft.css" %}" rel="Stylesheet" /> 
+<link type="text/css" href="{% static "reader/css/published.css" %}" rel="Stylesheet" />
 
 <link rel="alternate" type="application/rss+xml" title="RSS feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/rss/book/{{ book.url_title }}/" /> 
 <link rel="alternate" type="application/atom+xml" title="Atom feed for {{ book.title }}" href="{{ request.META.SCRIPT_NAME }}/feeds/atom/book/{{ book.url_title }}/" /> 
 {% if has_css %}
 <link type="text/css" href="{{ request.META.SCRIPT_NAME }}/static/css/book.{{ book.url_title }}.css" rel="Stylesheet" />
 {% endif %}
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/draft.js"></script> 
+<script type="text/javascript" src="{% static "reader/js/draft.js" %}"></script> 
 {% endblock %}
 
 
@@ -21,11 +21,11 @@
 <div class="padded">
  {% book_followbutton book.url_title request.user.username %}
 
- <div id="bookmenu" style="background: url({{ request.META.SCRIPT_NAME }}/site_static/images/draft_bg.png) repeat !important;"> 
+ <div id="bookmenu" style="background: url({% static "reader/images/draft_bg.png" %}) repeat !important;"> 
   <ul>
     {% for chap in chapters %}
       {% ifnotequal chap.url_title  None%}
-         <li><a href="{% url draft_chapter  book.url_title book_version chap.url_title %}">{{ chap.name }}</a></li>
+         <li><a href="{% url "draft_chapter"  book.url_title book_version chap.url_title %}">{{ chap.name }}</a></li>
       {% else %}
          <li><b>{{ chap.name }}</b></li>
       {% endifnotequal %}
@@ -33,11 +33,11 @@
   </ul>
  </div>
 
- <div id="bookcontent"  style="background: url({{ request.META.SCRIPT_NAME }}/site_static/images/draft_bg.png) repeat !important;">
+ <div id="bookcontent"  style="background: url({% static "reader/images/draft_bg.png" %}) repeat !important;">
    {% trans "click on the chapter name" %}
    {% if editing_enabled %}
      <div class="action-menu bottom">
-      	<a href="{% url edit_book book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
+      	<a href="{% url "edit_book" book.url_title %}#/edit/{{ content.url_title }}">{% trans "EDIT" %}</a>
      </div>
    {% endif %}
       <div style="width:325px; border: 1px solid #c0c0c0; background-color: #f0f0f0; padding: 5px;" id="mood">

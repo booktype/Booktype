@@ -1,0 +1,35 @@
+{% load i18n %}
+<div class="edit-menu float-left">
+  <div class="btn-toolbar">
+        <div class="btn-group">
+          <button class="btn dropdown-toggle" data-toggle="dropdown">{% trans "Insert" %}</button>
+          <ul class="dropdown-menu">
+            <li><a class="action footnote-insert" href="#"><i class="icon-asterisk"></i> &nbsp;&nbsp;{% trans "Insert footnote" %}</a></li>
+            <li><a class="action horizontalline" href="#"><i class="icon-ellipsis-horizontal"></i> &nbsp;&nbsp;{% trans "Insert horizontal line" %}</a></li>
+            <li><a class="action pbreak" href="#"><i class="icon-ellipsis-horizontal"></i> &nbsp;&nbsp;{% trans "Insert page break" %}</a></li>            
+          </ul>
+        </div>
+        <div class="btn-group">
+          <button class="btn dropdown-toggle" data-toggle="dropdown">{% trans "Edit" %}</button>
+          <ul class="dropdown-menu">
+            <li><a class="action undo" href="#"><i class="icon-undo"></i> &nbsp;&nbsp;{% trans "Undo" %}</a></li>
+            <li><a class="action redo" href="#"><i class="icon-repeat"></i> &nbsp;&nbsp;{% trans "Redo" %}</a></li>
+            <li class="divider"></li>
+            <li><a class="action font" href="#"><i class="icon-font"></i> &nbsp;&nbsp;{% trans "Font" %}</a></li>
+            <li><a class="action color" href="#"><i class="icon-tint"></i> &nbsp;&nbsp;{% trans "Color" %}</a></li>
+            <li class="divider"></li>
+            <li><a class="action removeFormat" href="#"><i class="icon-eraser"></i> &nbsp;&nbsp;{% trans "Remove formatting" %}</a></li>
+            <li class="divider"></li>
+            <li><a class="action htmledit" href="#"><i class="icon-html5"></i> &nbsp;&nbsp;{% trans "Edit raw HTML" %}</a></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <button class="btn dropdown-toggle" data-toggle="dropdown">{% trans "Tools" %}</button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li><a class="action wcount" href="#"><i class="icon-stethoscope"></i> &nbsp;&nbsp;{% trans "Word count" %}</a></li>            
+          </ul>
+        </div>
+  </div>
+</div>
