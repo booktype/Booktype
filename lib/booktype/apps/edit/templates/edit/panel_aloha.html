@@ -13,11 +13,12 @@
   </div>
 </div>
 
+
 <div id="elCount" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          Word count
+          Element counter
         </div>
         <div class="modal-body">
             Word count: <span class="wcount">wcount</span><br/>
@@ -25,10 +26,12 @@
             Character count (with spaces): <span class="charspacecount"></span>
         </div> 
         <div class="modal-footer">
-          <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "OK" %}</button>
+          <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
         </div>
       </div>
   </div>
+</div>
+
 </div>
 
 <div id="newLink" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -154,7 +157,7 @@
             <div class="tab-pane active" id="medialibrary">
               <div class="image-info-container">
                 <div class="image-preview">
-                  <img src="">
+                  <img src="0">
                 </div>
                 <div class="image-info">
                 </div>
@@ -200,8 +203,8 @@
         <li><span>{% trans "File Size" %}:</span> <%= filesize %></li>
         <li><span>{% trans "Dimensions" %}:</span> <%= dimension %></li>
       </ul>
-      <h5></h5>
-      <p></p> 
+      <h5>dsfsdfds</h5>
+      <p>sdfsadfsdfsd</p> 
   </script>
   <script type="text/html" id='templateImageThumbnail'>
      <li data-media-id="<%= media_id %>"><img src="static/<%= name %>" style="max-width: 150px">
