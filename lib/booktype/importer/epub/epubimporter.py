@@ -33,6 +33,7 @@ import ebooklib.utils
 from django.utils.timezone import utc
 from django.core.files import File
 from django.core.files.base import ContentFile
+from django.utils.translation import ugettext as _
 
 from booki.editor import models
 from booki.utils.misc import bookiSlugify
@@ -368,9 +369,9 @@ class EpubImporter(object):
 
         if not is_valid:
             if reason:
-                self.notifier.warning("Not using {} as a cover image -- {}".format(cover_image.file_name, reason))
+                self.notifier.warning(_("Not using {} as a cover image -- {}").format(cover_image.file_name, reason))
             else:
-                self.notifier.warning("Not using {} as a cover image".format(cover_image.file_name))
+                self.notifier.warning(_("Not using {} as a cover image").format(cover_image.file_name))
             return
 
         cover_file = ContentFile(cover_image.get_content())
@@ -400,4 +401,4 @@ class EpubImporter(object):
         cover.attachment.save(file_name, cover_file, save = False)
         cover.save()
 
-        self.notifier.info("Using {} as cover image".format(file_name))
+        self.notifier.info(_("Using {} as cover image").format(file_name))
