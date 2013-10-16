@@ -41,6 +41,10 @@
                     '#mirko': [ 'highlight' ],
                     '#contenteditor': [ ] 
                 }   
+            },
+            font: {
+                fontlist : ["Swiss","Arial"],
+                fontpaths : {"Swiss": "path_for_swiss", "Arial": "path_for_arial"}
             }
         },
         contentHandler : {
@@ -135,8 +139,11 @@
                         booktype/htmledit,
                         booktype/bookstyle,
                         booktype/booktitle,
-                        booktype/pbreak,  
-                        booktype/wcount,                      
+                        booktype/pbreak,                        
+                        booktype/wcount,
+                        booktype/pbreak,   
+                        booktype/font,
+                        booktype/styling,  
                         common/table,
                         common/list,
                         common/highlighteditables,
