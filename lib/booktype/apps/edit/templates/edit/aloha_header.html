@@ -18,6 +18,7 @@
             'underscore': _
         },
         plugins: {
+
             booktitle: {
                 enabled: true
             },
@@ -41,7 +42,10 @@
                     '#mirko': [ 'highlight' ],
                     '#contenteditor': [ ] 
                 }   
-            }
+            },            
+            font: {
+                fontlist : [["Serif", "serif"], ["Sans Serif", "sans-serif"]]
+            }                        
         },
         contentHandler : {
                 insertHtml: [ 'word', 'generic', 'oembed', 'sanitize', 'block', 'formatless' ],
@@ -136,7 +140,8 @@
                         booktype/bookstyle,
                         booktype/booktitle,
                         booktype/pbreak,  
-                        booktype/wcount,                      
+                        booktype/wcount,              
+                        booktype/font,        
                         common/table,
                         common/list,
                         common/highlighteditables,
