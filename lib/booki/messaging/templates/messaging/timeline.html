@@ -18,9 +18,9 @@
 
 <script>
 $(function() {
-    $.booki.subscribeToChannel("/messaging/{{syntax}}/", function(message) {
+    window.booktype.subscribeToChannel("/messaging/{{syntax}}/", function(message) {
         $('.timeline_notifications').prepend(message.message).hide().slideDown(2000);
     });
-    $.booki.connect();
+    window.booktype.connect();
 });
 </script>

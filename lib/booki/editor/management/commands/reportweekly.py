@@ -205,7 +205,10 @@ class Command(BaseCommand):
             msg.attach_alternative(html_content, "text/html")
 
             # Make graph
-            import ImageFont, ImageDraw, Image
+            try:
+                from PIL import ImageFont, ImageDraw, Image
+            except ImportError:
+                import ImageFont, ImageDraw, Image
 
             from booki.editor import models as ed
             import os.path

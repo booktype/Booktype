@@ -18,12 +18,6 @@ from django.db import transaction
 
 from django.conf import settings
 
-try:
-    STATUS_URL = settings.STATUS_URL
-except AttributeError:
-    STATUS_URL = 'http://status.flossmanuals.net/'
-
-
 def remote_get_status_messages(request, message, profileid):
     """
     Fetches RSS feed from status.net and returns its content. 
