@@ -46,6 +46,19 @@ def wordcount(text):
     return _wordcount(iter(text))
 
 
+def charcount(text):
+    if isinstance(text, str):
+        text = unicode(text, "utf-8")
+    count = 0
+    try:
+        i = iter(text)
+        while True:
+            if not _is_delimiter(next(i)):
+                count += 1
+    except StopIteration:
+        return count
+
+
 if __name__ == "__main__":
     print wordcount("")
     print wordcount("    ")
