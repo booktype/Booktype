@@ -79,7 +79,11 @@ def upload_attachment(request, bookid, version=None):
                                 "delete_url":"",
                                 "delete_type":"DELETE"}]}
 
-    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+    if "application/json" in request.META['HTTP_ACCEPT']:
+        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+    else:
+        return HttpResponse(json.dumps(response_data), mimetype="text/html")
 
 
 @login_required
@@ -161,7 +165,10 @@ def upload_cover(request, bookid, version=None):
                                 "delete_url":"",
                                 "delete_type":"DELETE"}]}
 
-    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+    if "application/json" in request.META['HTTP_ACCEPT']:
+        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+    else:
+        return HttpResponse(json.dumps(response_data), mimetype="text/html")
 
 
 def cover(request, bookid, cid, fname = None, version=None):
