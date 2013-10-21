@@ -76,6 +76,8 @@ class EpubImporter(object):
         epub_book = epub_reader.load()
         epub_reader.process()
 
+        self.delegate.notifier = self.notifier
+
         self._import_book(epub_book, book)
 
 
