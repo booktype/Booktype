@@ -4029,3 +4029,20 @@ def remote_publish_book(request, message, bookid, version):
 
     return {'result': True}
 
+def remote_word_count(request, message, bookid, version):
+    book = models.Book.objects.get(id=bookid)
+    book_version = book.getVersion(version)
+
+    ## get chapters
+    chapters = getTOCForBook(book_version)
+
+    #get chapter data    
+    res = {}
+    data = ""
+    for j in chapters:
+        chapter = models.Chapter.objects.get(id=j[0])  
+        data = data + " "+chapter.content          
+    res = {"data": data, "title": chapter.title, "chapter": chapters}
+
+    return res
+
