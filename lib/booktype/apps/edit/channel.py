@@ -4038,14 +4038,18 @@ def remote_word_count(request, message, bookid, version):
 
     ## get chapters
     chapters = models.BookToc.objects.filter(book=book, version=book_version)
+    current_chapter = message["current_chapter_id"]
 
     #get chapter data    
     res = {}
-    data = ""
+    all_wcount = 0
+    all_charcount = 0
     for j in chapters:
-        if j.isChapter():
-            data = data + " "+strip_tags(j.chapter.content)
-    res = {"wcount": wordcount(data), "charcount": charcount(data)}
+        if j.isChapter() and j.chapter.id!=current_chapter:
+            stripped_data = strip_tags(j.chapter.content)
+            all_wcount += wordcount(stripped_data)
+            all_charcount += charcount(stripped_data)
+    res = {"status": True, "wcount": all_wcount, "charcount": all_charcount }
 
     return res
 
