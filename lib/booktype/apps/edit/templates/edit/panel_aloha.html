@@ -20,9 +20,13 @@
           Word count
         </div>
         <div class="modal-body">
-            Word count: <span class="wcount">wcount</span><br/>
-            Character count: <span class="charcount"></span><br/>
-            Character count (with spaces): <span class="charspacecount"></span>
+            {% trans "Whole book" %}:<br/>
+            {% trans "Book word count" %}: <span class="all_wcount">-</span><br/>
+            {% trans "Book character count" %}: <span class="all_charcount"></span><br/><br/>
+            {% trans "Chapter" %}:<br>
+            {% trans "Word count" %}: <span class="wcount"></span><br/>
+            {% trans "Character count" %}: <span class="charcount"></span><br/>
+            {% trans "Character count (with spaces)" %}: <span class="charspacecount"></span>
         </div> 
         <div class="modal-footer">
           <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "OK" %}</button>
