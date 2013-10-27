@@ -4029,3 +4029,27 @@ def remote_publish_book(request, message, bookid, version):
 
     return {'result': True}
 
+def remote_word_count(request, message, bookid, version):
+    from django.utils.html import strip_tags
+    from booktype.utils.wordcount import wordcount,charcount
+
+    book = models.Book.objects.get(id=bookid)
+    book_version = book.getVersion(version)
+
+    ## get chapters
+    chapters = models.BookToc.objects.filter(book=book, version=book_version)
+    current_chapter = message["current_chapter_id"]
+
+    #get chapter data    
+    res = {}
+    all_wcount = 0
+    all_charcount = 0
+    for j in chapters:
+        if j.isChapter() and j.chapter.id!=current_chapter:
+            stripped_data = strip_tags(j.chapter.content)
+            all_wcount += wordcount(stripped_data)
+            all_charcount += charcount(stripped_data)
+    res = {"status": True, "wcount": all_wcount, "charcount": all_charcount }
+
+    return res
+
