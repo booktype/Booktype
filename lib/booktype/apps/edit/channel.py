@@ -1188,7 +1188,7 @@ def remote_create_chapter(request, message, bookid, version):
     ch = models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title)
 
     if len(list(ch)) > 0:
-        return {"created": False, "silly_url": False}
+        return {"created": False, "chapter_exists": True}
 
     content = u'<h1>%s</h1><p>Chapter content.</p>' % message["chapter"]
 
@@ -1608,7 +1608,7 @@ def remote_create_section(request, message, bookid, version):
                                        typeof=0)
 
     if len(list(ch)) > 0:
-        return {"created": False}
+        return {"created": False, "section_exists": True}
 
     c = models.BookToc(book = book,
                        version = book_version,
