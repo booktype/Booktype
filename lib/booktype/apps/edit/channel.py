@@ -1190,7 +1190,7 @@ def remote_create_chapter(request, message, bookid, version):
     if len(list(ch)) > 0:
         return {"created": False, "chapter_exists": True}
 
-    content = u'<h1>%s</h1><p>Chapter content.</p>' % message["chapter"]
+    content = u'<h1>%s</h1><p><br/></p>' % message["chapter"]
 
     chapter = models.Chapter(book = book,
                              version = book_version,
