@@ -27,6 +27,16 @@ def _is_delimiter(c):
     except UnicodeEncodeError:
         return False
 
+def _is_punctuation(c):
+    try:
+        c = c.encode("ascii")
+        if c in string.punctuation:
+            return True
+        else:
+            return False
+    except UnicodeEncodeError:
+        return False
+
 
 def _wordcount(i):
     count = 0
@@ -58,6 +68,18 @@ def charcount(text):
     except StopIteration:
         return count
 
+def charspacecount(text):
+    if isinstance(text,str):
+        text = unicode(text, "utf-8")
+    count = 0
+    try:
+        i = iter(text)
+        while True:
+            if not _is_punctuation(next(i)):
+                count += 1
+    except StopIteration:
+        return count
+
 
 if __name__ == "__main__":
     print wordcount("")
@@ -67,3 +89,4 @@ if __name__ == "__main__":
     print wordcount(" a b  ,., ....")
     print wordcount(" a b  ,., .... c ")
     print wordcount(",,, 1 2 3 4 5 6 7 8 9 deset ,,,.. jedanaest")
+    print charspacecount("ab cd")
