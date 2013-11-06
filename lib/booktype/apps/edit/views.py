@@ -34,6 +34,9 @@ def getTOCForBook(version):
 def upload_attachment(request, bookid, version=None):
     import json
     import datetime
+    import os.path
+
+    from booki.utils.misc import bookiSlugify
 
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
@@ -55,7 +58,9 @@ def upload_attachment(request, bookid, version=None):
                                 book = book,
                                 status = stat)
         att.save()
-        att.attachment.save(fileData.name, fileData, save = False)
+
+        attName, attExt = os.path.splitext(fileData.name)
+        att.attachment.save('{}{}'.format(bookiSlugify(attName), attExt), fileData, save = False)
         att.save()
 
         # TODO:

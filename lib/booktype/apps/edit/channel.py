@@ -1188,9 +1188,9 @@ def remote_create_chapter(request, message, bookid, version):
     ch = models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title)
 
     if len(list(ch)) > 0:
-        return {"created": False, "silly_url": False}
+        return {"created": False, "chapter_exists": True}
 
-    content = u'<h1>%s</h1><p>Chapter content.</p>' % message["chapter"]
+    content = u'<h1>%s</h1><p><br/></p>' % message["chapter"]
 
     chapter = models.Chapter(book = book,
                              version = book_version,
@@ -1608,7 +1608,7 @@ def remote_create_section(request, message, bookid, version):
                                        typeof=0)
 
     if len(list(ch)) > 0:
-        return {"created": False}
+        return {"created": False, "section_exists": True}
 
     c = models.BookToc(book = book,
                        version = book_version,
@@ -4044,12 +4044,15 @@ def remote_word_count(request, message, bookid, version):
     res = {}
     all_wcount = 0
     all_charcount = 0
-    for j in chapters:
-        if j.isChapter() and j.chapter.id!=current_chapter:
-            stripped_data = strip_tags(j.chapter.content)
+
+    for chap in chapters:
+        if chap.isChapter() and chap.chapter.id!=current_chapter:
+            stripped_data = strip_tags(chap.chapter.content)
             all_wcount += wordcount(stripped_data)
             all_charcount += charcount(stripped_data)
+            
     res = {"status": True, "wcount": all_wcount, "charcount": all_charcount }
 
     return res
+
 
