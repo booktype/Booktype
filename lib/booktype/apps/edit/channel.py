@@ -4031,7 +4031,7 @@ def remote_publish_book(request, message, bookid, version):
 
 def remote_word_count(request, message, bookid, version):
     from django.utils.html import strip_tags
-    from booktype.utils.wordcount import wordcount,charcount
+    from booktype.utils.wordcount import wordcount,charcount,charspacecount
 
     book = models.Book.objects.get(id=bookid)
     book_version = book.getVersion(version)
