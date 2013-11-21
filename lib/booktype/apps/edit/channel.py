@@ -2676,9 +2676,12 @@ def remote_cover_save(request, message, bookid, version):
         cover.unit = message.get('units', 'mm')
         cover.booksize = message.get('booksize', '')
 
-        license = models.License.objects.get(abbrevation=message.get('license', ''))
-        
-        cover.license = license
+        license_id = message.get('license', '')
+
+        if license_id != '':
+            license = models.License.objects.get(abbrevation=license_id)
+            cover.license = license
+
         cover.notes = message.get('notes', '')[:500]
 
         frm = message.get('format', '').split(',')
