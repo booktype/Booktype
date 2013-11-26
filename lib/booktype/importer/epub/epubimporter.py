@@ -129,7 +129,9 @@ class EpubImporter(object):
                                     status = stat)
 
             with ContentFile(image.get_content()) as content_file:
-                att.attachment.save(os.path.basename(image.file_name), content_file, save=False)
+                attName, attExt = os.path.splitext(os.path.basename(name))
+
+                att.attachment.save('{}{}'.format(bookiSlugify(attName), attExt), content_file, save=False)
                 att.save()
 
             self._attachments[name] = att
@@ -346,7 +348,9 @@ class EpubImporter(object):
 
             if name in self._attachments:
                 file_name = os.path.basename(self._attachments[name].attachment.name)
-                fixed_src = urllib.quote('static/%s' % file_name)
+                attName, attExt = os.path.splitext(file_name)
+
+                fixed_src = urllib.quote('static/{}{}'.format(bookiSlugify(attName), attExt))
                 image.set('src', fixed_src)
                 to_save = True
 
@@ -378,6 +382,10 @@ class EpubImporter(object):
 
         cover_file = ContentFile(cover_image.get_content())
         file_name  = os.path.basename(cover_image.file_name)
+
+        attName, attExt = os.path.splitext(file_name)
+        file_name = '{}{}'.format(bookiSlugify(attName), attExt)
+
         created    = datetime.datetime.now()
         title      = ''
 

@@ -427,6 +427,7 @@ def load_book_from_file(epub_file, user):
 
 def export_book(fileName, book_version):
     import urlparse
+    import os.path
 
     book = book_version.book
 
@@ -512,7 +513,7 @@ def export_book(fileName, book_version):
         toc.append(section[:])
 
     for i, attachment in enumerate(models.Attachment.objects.filter(version=book_version)):
-        if  embededImages.has_key('static/'+attachment.attachment.name):
+        if  not embededImages.has_key('static/'+os.path.basename(attachment.attachment.name)):
             continue
 
         try:

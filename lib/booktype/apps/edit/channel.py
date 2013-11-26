@@ -2676,9 +2676,12 @@ def remote_cover_save(request, message, bookid, version):
         cover.unit = message.get('units', 'mm')
         cover.booksize = message.get('booksize', '')
 
-        license = models.License.objects.get(abbrevation=message.get('license', ''))
-        
-        cover.license = license
+        license_id = message.get('license', '')
+
+        if license_id != '':
+            license = models.License.objects.get(abbrevation=license_id)
+            cover.license = license
+
         cover.notes = message.get('notes', '')[:500]
 
         frm = message.get('format', '').split(',')
@@ -4031,7 +4034,7 @@ def remote_publish_book(request, message, bookid, version):
 
 def remote_word_count(request, message, bookid, version):
     from django.utils.html import strip_tags
-    from booktype.utils.wordcount import wordcount,charcount
+    from booktype.utils.wordcount import wordcount,charcount,charspacecount
 
     book = models.Book.objects.get(id=bookid)
     book_version = book.getVersion(version)
@@ -4044,14 +4047,17 @@ def remote_word_count(request, message, bookid, version):
     res = {}
     all_wcount = 0
     all_charcount = 0
+    all_charspacecount = 0
 
     for chap in chapters:
         if chap.isChapter() and chap.chapter.id!=current_chapter:
             stripped_data = strip_tags(chap.chapter.content)
             all_wcount += wordcount(stripped_data)
             all_charcount += charcount(stripped_data)
+            all_charspacecount += charspacecount(stripped_data)
             
-    res = {"status": True, "wcount": all_wcount, "charcount": all_charcount }
+    res = {"status": True, "wcount": all_wcount, "charcount": all_charcount, "charspacecount" : all_charspacecount }
+
 
     return res
 
