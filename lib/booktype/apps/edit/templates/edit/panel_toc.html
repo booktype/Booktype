@@ -86,7 +86,14 @@
       <form>
          <input type="hidden" name="chapter_id" value=""/>
          <p>{% trans "Are you sure you would like to delete this chapter? You will lose all data associated to this chapter and you will not be able to undo this operation!" %}</p>
-         <p><input type="checkbox" name="understand" value="on"  class="form-control"/> {% trans "I understand and agree" %}</p>
+
+        <div class="row">
+          <div class="col-md-9">
+            <input type="checkbox" id="toc_delete_chapter" name="understand" value="on"/>
+            <label for="toc_delete_chapter"><span></span>{% trans "I understand and agree" %}</label>
+          </div>
+        </div>
+
       </form>
     </div>
     <div class="modal-footer">
@@ -108,7 +115,14 @@
       <form>
          <input type="hidden" name="chapter_id" value=""/>
          <p>{% trans "Are you sure you would like to delete this section?" %}</p>
-         <p><input type="checkbox" name="understand" value="on"  class="form-control"/> {% trans "I understand and agree" %}</p>
+
+         <div class="row">
+           <div class="col-md-9">
+             <input type="checkbox" name="understand" value="on"  id="toc_delete_section"/>
+             <label for="toc_delete_section"><span></span>{% trans "I understand and agree" %}</label>
+           </div>
+         </div>
+         
       </form>
     </div>
     <div class="modal-footer">
