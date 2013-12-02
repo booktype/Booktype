@@ -600,7 +600,7 @@ def remote_chapter_delete(request, message, bookid, version):
 
         transaction.commit()
 
-    return {"result": True}
+    return {"status": True, "result": True}
 
 def remote_section_delete(request, message, bookid, version):
     """
@@ -666,7 +666,7 @@ def remote_section_delete(request, message, bookid, version):
 
         transaction.commit()
 
-    return {"result": True}
+    return {"status": True, "result": True}
 
 def remote_chapter_rename(request, message, bookid, version):
     """
@@ -730,7 +730,7 @@ def remote_chapter_rename(request, message, bookid, version):
 
         transaction.commit()
 
-    return {}
+    return {"status": True}
 
 def remote_section_rename(request, message, bookid, version):
     """
@@ -797,7 +797,7 @@ def remote_section_rename(request, message, bookid, version):
 
         transaction.commit()
 
-    return {}
+    return {"status": True}
 
 
 def remote_chapters_changed(request, message, bookid, version):
@@ -1258,7 +1258,7 @@ def remote_create_chapter(request, message, bookid, version):
     sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
 
 
-    return {"created": True, "chapter_id": chapter.id}
+    return {"status": True, "created": True, "chapter_id": chapter.id}
 
 def copy_attachment(attachment, target_book):
     """
@@ -1646,7 +1646,7 @@ def remote_create_section(request, message, bookid, version):
                                      "typeof": c.typeof},
                                     myself = True)
 
-    return {"created": result, "chapter_id": 's{}'.format(c.id)}
+    return {"status": True, "created": result, "chapter_id": 's{}'.format(c.id)}
 
 
 def remote_get_history(request, message, bookid, version):
