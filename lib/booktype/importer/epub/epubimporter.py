@@ -216,17 +216,17 @@ class EpubImporter(object):
         heading = self._find_heading(tree, title)
 
         if heading is not None:
-            if heading.tag != 'h1':
-                heading.tag = 'h1' # promote to h1
-        else:
-            self._demote_headings(tree)
+            heading.getparent().remove(heading)
+            del heading
 
-            heading = etree.Element('h1')
-            heading.text = title
+        self._demote_headings(tree)
 
-            tree.insert(0, heading)
-            heading.tail = tree.text
-            tree.text = ''
+        heading = etree.Element('h1')
+        heading.text = title
+
+        tree.insert(0, heading)
+        heading.tail = tree.text
+        tree.text = ''
 
 
         tree_str = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=False)
@@ -253,21 +253,28 @@ class EpubImporter(object):
             # text before heading
             return None
 
-        heading = None
+        def matches(heading):
+            heading_text = unicode(etree.tostring(heading, method='text', encoding='utf-8'), 'utf-8')
+            return difflib.SequenceMatcher(None, heading_text, title).ratio() > 0.8
+
+        def tail(heading):
+            if heading.tail:
+                return heading.tail.strip()
 
         for n in range(1, 7):
             elm = list(tree.iter('h{}'.format(n)))
 
             if elm:
-                if len(elm) == 1:
-                    # must be only one heading at this level
-                    heading = elm[0]
+                for heading in elm:
+                    if matches(heading):
+                        return heading
+                    elif tail(heading):
+                        # can't be in the next element
+                        break
+                # can't be at lower level
                 break
 
-        if heading is not None:
-            heading_text = unicode(etree.tostring(heading, method='text', encoding='utf-8'), 'utf-8')
-            if difflib.SequenceMatcher(None, heading_text, title).ratio() > 0.9:
-                return heading
+        return None
 
 
     def _make_toc(self, book, toc):
