@@ -403,9 +403,9 @@ class Attachment(models.Model):
         return name[name.rindex('/')+1:]
 
     def delete(self):
-        super(Attachment, self).delete()
-
         self.attachment.delete(save=False)
+
+        super(Attachment, self).delete()
 
     def __unicode__(self):
         return self.attachment.name
@@ -529,9 +529,9 @@ class BookCover(models.Model):
     created = models.DateTimeField(_('created'), auto_now=False, null=False)
 
     def delete(self):
-        super(BookCover, self).delete()
-
         self.attachment.delete(save=False)
+
+        super(BookCover, self).delete()
 
     def __unicode__(self):
         return '%s' % (self.id, )
