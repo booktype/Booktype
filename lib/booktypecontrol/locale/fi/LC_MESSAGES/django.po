@@ -1,67 +1,69 @@
-# FINNISH (fi_FI) translation for Booktype Control Centre.
-# Copyright (C) 2013 Booktype contributors
+# LANGUAGE (LOCALE) translation for Booktype.
+# Copyright (C) 2012 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# Tomi Toivio <tomi@flossmanuals.net>, 2013.
 #
+# Translators:
+# Aleksandar Erkalović <aleksandar.erkalovic@sourcefabric.org>, 2012
+# Tomi Toivio <tomi@flossmanuals.net>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: Booktype 1.6.0\n"
-"Report-Msgid-Bugs-To: <contact@sourcefabric.org>\n"
+"Project-Id-Version: Booktype\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-04 12:31+0200\n"
-"PO-Revision-Date: 2013-04-11 11:46+0100\n"
-"Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
-"Language-Team: Finnish FLOSS Manuals <tomi@flossmanuals.net>\n"
-"Language: fi\n"
+"PO-Revision-Date: 2013-12-20 04:05+0200\n"
+"Last-Translator: Tomi Toivio <tomi@flossmanuals.net>\n"
+"Language-Team: Finnish (http://www.transifex.com/projects/p/booktype/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: views.py:177
 #: views.py:303
 msgid "Username"
-msgstr ""
+msgstr "Käyttäjätunnus"
 
 #: views.py:180
 #: views.py:305
 msgid "Username is required."
-msgstr ""
+msgstr "Käyttäjätunnus vaaditaan."
 
 #: views.py:181
 #: views.py:182
 #: views.py:306
 #: views.py:308
 msgid "Illegal characters in username."
-msgstr ""
+msgstr "Kelvottomia merkkejä käyttäjänimessä."
 
 #: views.py:183
 #: views.py:309
 msgid "First name"
-msgstr ""
+msgstr "Etunimi"
 
 #: views.py:185
 #: views.py:311
 msgid "First name is required."
-msgstr ""
+msgstr "Etunimi vaaditaan."
 
 #: views.py:187
 #: views.py:313
 msgid "Email"
-msgstr ""
+msgstr "Sähköposti"
 
 #: views.py:189
 #: views.py:315
 msgid "Email is required."
-msgstr ""
+msgstr "Sähköposti vaaditaan."
 
 #: views.py:191
 msgid "Profile picture"
-msgstr ""
+msgstr "Profiilikuva"
 
 #: views.py:193
 #: views.py:317
 msgid "User description"
-msgstr ""
+msgstr "Käyttäjän kuvaus"
 
 #: views.py:213
 #: views.py:278
@@ -96,7 +98,7 @@ msgstr ""
 #: templates/booktypecontrol/settings_publishing.html:13
 #: templates/booktypecontrol/settings_publishing_defaults.html:13
 msgid "Cancel"
-msgstr ""
+msgstr "Peruuta"
 
 #: views.py:230
 #: views.py:286
@@ -108,126 +110,126 @@ msgstr ""
 #: views.py:1223
 #: views.py:1279
 msgid "Successfuly saved changes."
-msgstr ""
+msgstr "Muutokset tallennettu onnistuneesti."
 
 #: views.py:249
 #: views.py:320
 msgid "Password"
-msgstr ""
+msgstr "Salasana"
 
 #: views.py:251
 #: views.py:257
 #: views.py:322
 #: views.py:327
 msgid "Password is required."
-msgstr ""
+msgstr "Salasana vaaditaan."
 
 #: views.py:254
 #: views.py:325
 msgid "Password confirmation"
-msgstr ""
+msgstr "Salasanan vahvistus"
 
 #: views.py:259
 #: views.py:330
 msgid "Enter the same password as above, for verification."
-msgstr ""
+msgstr "Kirjoita varmistusta varten sama salasana kuin yllä."
 
 #: views.py:289
 msgid "Passwords do not match"
-msgstr ""
+msgstr "Salasanat eivät ole yhteensopivia"
 
 #: views.py:331
 msgid "Notify person by email"
-msgstr ""
+msgstr "Lähetä henkilölle muistutus sähköpostilla"
 
 #: views.py:342
 msgid "This Person already exists."
-msgstr ""
+msgstr "Tämä henkilö on jo olemassa."
 
 #: views.py:348
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Salasanat eivät täsmää."
 
 #: views.py:397
 msgid "Unknown error while creating new account."
-msgstr ""
+msgstr "Tuntematon virhe uutta käyttäjätunnusta luotaessa."
 
 #: views.py:474
 #: views.py:528
 #: views.py:703
 msgid "Title"
-msgstr ""
+msgstr "Otsikko"
 
 #: views.py:475
 #: views.py:529
 #: views.py:705
 msgid "Title is required."
-msgstr ""
+msgstr "Otsikko vaaditaan."
 
 #: views.py:505
 msgid "Successfuly deleted the book"
-msgstr ""
+msgstr "Kirja poistettu onnistuneesti."
 
 #: views.py:509
 msgid "Wrong title."
-msgstr ""
+msgstr "Väärä otsikko."
 
 #: views.py:511
 msgid "Unknown error while deleting the book"
-msgstr ""
+msgstr "Tuntematon virhe kirjaa poistettaessa"
 
 #: views.py:532
 #: views.py:611
 #: templates/booktypecontrol/settings.html:27
 msgid "Description"
-msgstr ""
+msgstr "Kuvaus"
 
 #: views.py:535
 #: views.py:614
 msgid "Owner"
-msgstr ""
+msgstr "Omistaja"
 
 #: views.py:536
 msgid "Book owner is required."
-msgstr ""
+msgstr "Kirjan omistaja vaaditaan."
 
 #: views.py:539
 #: views.py:618
 #: templates/booktypecontrol/settings_license_edit.html:6
 msgid "License"
-msgstr ""
+msgstr "Lisenssi"
 
 #: views.py:541
 #: views.py:619
 msgid "License is required."
-msgstr ""
+msgstr "Lisenssi vaaditaan."
 
 #: views.py:543
 #: views.py:622
 msgid "Initially hide from others"
-msgstr ""
+msgstr "Piilota aluksi muilta"
 
 #: views.py:545
 #: views.py:624
 msgid "Cover image"
-msgstr ""
+msgstr "Kansikuva"
 
 #: views.py:552
 #: views.py:631
 msgid "This Book already exists."
-msgstr ""
+msgstr "Kirja on jo olemassa."
 
 #: views.py:593
 msgid "Successfuly created new book."
-msgstr ""
+msgstr "Uusi kirja luotu onnistuneesti."
 
 #: views.py:597
 msgid "Unknown error while creating new book."
-msgstr ""
+msgstr "Tuntematon virhe uutta kirjaa luotaessa."
 
 #: views.py:615
 msgid "Owner is required."
-msgstr ""
+msgstr "Omistaja vaaditaan."
 
 #: views.py:680
 #: views.py:831
@@ -238,299 +240,299 @@ msgstr ""
 #: views.py:1225
 #: views.py:1285
 msgid "Unknown error while saving changes."
-msgstr ""
+msgstr "Tuntematon virhe muutoksia tallennettaessa."
 
 #: views.py:707
 msgid "URL title"
-msgstr ""
+msgstr "URL-otsikko."
 
 #: views.py:710
 msgid "Illegal characters in URL title."
-msgstr ""
+msgstr "Kelvottomia merkkejä URL-otsikossa."
 
 #: views.py:711
 msgid "If you leave this field empty URL title will be assigned automatically."
-msgstr ""
+msgstr "Jos jätät tämän kentän tyhjäksi, URL-otsikko annetaan automaattisesti."
 
 #: views.py:751
 #: views.py:758
 msgid "Successfuly renamed book."
-msgstr ""
+msgstr "Kirja nimetty onnistuneesti uudelleen."
 
 #: views.py:785
 msgid "Site title"
-msgstr ""
+msgstr "Sivuston otsikko"
 
 #: views.py:787
 msgid "Site title is required."
-msgstr ""
+msgstr "Sivuston otsikko vaaditaan."
 
 #: views.py:789
 msgid "Tagline"
-msgstr ""
+msgstr "Iskulause"
 
 #: views.py:792
 msgid "Favicon"
-msgstr ""
+msgstr "Favicon"
 
 #: views.py:794
 msgid "Upload .ico file"
-msgstr ""
+msgstr "Lataa .ico-tiedosto"
 
 #: views.py:829
 #: views.py:882
 msgid "Successfuly saved settings."
-msgstr ""
+msgstr "Asetukset tallennettu onnistuneesti."
 
 #: views.py:850
 msgid "Default visibility"
-msgstr ""
+msgstr "Oletusarvoinen näkyvyys"
 
 #: views.py:852
 msgid "If it is turned on then all books will be visible to everyone."
-msgstr ""
+msgstr "Jos tämä on päällä, kaikki kirjat näkyvät kaikille."
 
 #: views.py:853
 msgid "Default License"
-msgstr ""
+msgstr "Oletuslisenssi"
 
 #: views.py:856
 msgid "Default license for newly created books."
-msgstr ""
+msgstr "Oletuslisenssi uusille kirjoille."
 
 #: views.py:912
 msgid "Abbrevation"
-msgstr ""
+msgstr "Lyhenne"
 
 #: views.py:914
 msgid "Abbrevation is required."
-msgstr ""
+msgstr "Lyhenne vaaditaan."
 
 #: views.py:916
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: views.py:918
 msgid "License name is required."
-msgstr ""
+msgstr "Lisenssin nimi vaaditaan."
 
 #: views.py:940
 msgid "Successfuly created new license."
-msgstr ""
+msgstr "Uusi lisenssi luotu onnistuneesti."
 
 #: views.py:968
 #: templates/booktypecontrol/settings_license_edit.html:26
 msgid "Remove it"
-msgstr ""
+msgstr "Poista se"
 
 #: views.py:977
 msgid "Successfuly removed license."
-msgstr ""
+msgstr "Lisenssi poistettu onnistuneesti."
 
 #: views.py:1019
 msgid "Anyone can register"
-msgstr ""
+msgstr "Kuka tahansa voi rekisteröityä"
 
 #: views.py:1021
 msgid "Anyone can register on the site and create account"
-msgstr ""
+msgstr "Kuka tahansa voi rekisteröityä sivustolle ja luoda käyttäjätunnuksen"
 
 #: views.py:1022
 msgid "Only admin can create books"
-msgstr ""
+msgstr "Vain ylläpitäjä voi luoda kirjoja"
 
 #: views.py:1024
 msgid "Only admin can import books"
-msgstr ""
+msgstr "Vain ylläpitäjä voi tuoda kirjoja"
 
 #: views.py:1069
 msgid "book"
-msgstr ""
+msgstr "kirja"
 
 #: views.py:1071
 msgid "ebook"
-msgstr ""
+msgstr "ekirja"
 
 #: views.py:1073
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: views.py:1075
 msgid "ODT"
-msgstr ""
+msgstr "ODT"
 
 #: views.py:1127
 msgid "CSS"
-msgstr ""
+msgstr "CSS"
 
 #: views.py:1176
 msgid "Book CSS"
-msgstr ""
+msgstr "Kirjan CSS"
 
 #: views.py:1179
 msgid "E-Book CSS"
-msgstr ""
+msgstr "E-kirjan CSS"
 
 #: views.py:1182
 msgid "PDF CSS"
-msgstr ""
+msgstr "PDF-tiedoston CSS"
 
 #: views.py:1185
 msgid "ODT CSS"
-msgstr ""
+msgstr "ODT-tiedoston CSS"
 
 #: views.py:1239
 msgid "Welcome message"
-msgstr ""
+msgstr "Etusivun tervehdys"
 
 #: views.py:1242
 msgid "Show activity"
-msgstr ""
+msgstr "Näytä toiminnot"
 
 #: views.py:1283
 msgid "Error while saving changes"
-msgstr ""
+msgstr "Virhe muutoksia tallennettaessa"
 
 #: templates/control_base.html:25
 msgid "Booktype Control Center"
-msgstr ""
+msgstr "Booktypen hallintakeskus"
 
 #: templates/control_base.html:31
 msgid "Sign out"
-msgstr ""
+msgstr "Kirjaudu ulos"
 
 #: templates/control_base.html:37
 msgid "Sign In / Create Account"
-msgstr ""
+msgstr "Kirjaudu sisään / luo tunnus"
 
 #: templates/control_base.html:47
 #: templates/booktypecontrol/settings.html:25
 msgid "Site"
-msgstr ""
+msgstr "Sivusto"
 
 #: templates/control_base.html:54
 #: templates/booktypecontrol/frontpage.html:6
 msgid "Admin Control Center"
-msgstr ""
+msgstr "Hallintakeskus"
 
 #: templates/control_base.html:58
 #: templates/booktypecontrol/people.html:6
 msgid "People"
-msgstr ""
+msgstr "Ihmiset"
 
 #: templates/control_base.html:62
 #: templates/booktypecontrol/books.html:6
 #: templates/booktypecontrol/profile.html:63
 msgid "Books"
-msgstr ""
+msgstr "Kirjat"
 
 #: templates/control_base.html:66
 #: templates/booktypecontrol/settings.html:6
 msgid "Settings"
-msgstr ""
+msgstr "Asetukset"
 
 #: templates/booktypecontrol/add_book.html:6
 #: templates/booktypecontrol/add_book.html:24
 msgid "Add Book"
-msgstr ""
+msgstr "Lisää kirja"
 
 #: templates/booktypecontrol/add_person.html:6
 #: templates/booktypecontrol/add_person.html:25
 msgid "Add Person"
-msgstr ""
+msgstr "Lisää henkilö"
 
 #: templates/booktypecontrol/book.html:36
 msgid "EDIT BOOK"
-msgstr ""
+msgstr "MUOKKAA KIRJAA"
 
 #: templates/booktypecontrol/book.html:37
 msgid "BOOK INFO"
-msgstr ""
+msgstr "KIRJAN TIETO"
 
 #: templates/booktypecontrol/book.html:38
 msgid "EDIT DESCRIPTION"
-msgstr ""
+msgstr "MUOKKAA KUVAUSTA"
 
 #: templates/booktypecontrol/book.html:39
 msgid "RENAME"
-msgstr ""
+msgstr "NIMEÄ UUDELLEEN"
 
 #: templates/booktypecontrol/book.html:40
 msgid "DELETE"
-msgstr ""
+msgstr "POISTA"
 
 #: templates/booktypecontrol/book.html:63
 msgid "Owner:"
-msgstr ""
+msgstr "Omistaja:"
 
 #: templates/booktypecontrol/book.html:64
 msgid "Status:"
-msgstr ""
+msgstr "Tila:"
 
 #: templates/booktypecontrol/book.html:66
 msgid "(this book is hidden from others)"
-msgstr ""
+msgstr "(tämä kirja on piilossa muilta)"
 
 #: templates/booktypecontrol/book.html:68
 msgid "(this book is visible to everyone)"
-msgstr ""
+msgstr "(tämä kirja näkyy kaikille)"
 
 #: templates/booktypecontrol/book.html:72
 msgid "Member of group:"
-msgstr ""
+msgstr "Ryhmässä:"
 
 #: templates/booktypecontrol/book.html:74
 msgid "Current version:"
-msgstr ""
+msgstr "Nykyinen versio:"
 
 #: templates/booktypecontrol/book.html:75
 msgid "Attachments size:"
-msgstr ""
+msgstr "Liitetiedostojen koko:"
 
 #: templates/booktypecontrol/book.html:77
 msgid "Created:"
-msgstr ""
+msgstr "Luotu:"
 
 #: templates/booktypecontrol/book.html:78
 msgid "Published:"
-msgstr ""
+msgstr "Julkaistu:"
 
 #: templates/booktypecontrol/book.html:80
 msgid "Collaborators:"
-msgstr ""
+msgstr "Kirjoittajat:"
 
 #: templates/booktypecontrol/book.html:88
 msgid "Online editing:"
-msgstr ""
+msgstr "Muokkaamassa nyt:"
 
 #: templates/booktypecontrol/book.html:97
 msgid "Versions"
-msgstr ""
+msgstr "Versiot"
 
 #: templates/booktypecontrol/books.html:30
 msgid "ADD NEW BOOK"
-msgstr ""
+msgstr "LISÄÄ UUSI KIRJA"
 
 #: templates/booktypecontrol/books.html:50
 msgid "short title"
-msgstr ""
+msgstr "lyhyt otsikko"
 
 #: templates/booktypecontrol/books.html:51
 msgid "full title"
-msgstr ""
+msgstr "koko otsikko"
 
 #: templates/booktypecontrol/delete_book.html:6
 #: templates/booktypecontrol/delete_book.html:26
 msgid "Delete Book"
-msgstr ""
+msgstr "Poista kirja"
 
 #: templates/booktypecontrol/delete_book.html:20
 msgid "Are you sure you would like to delete this book? You will lose all data associated to this book and you will not be able to undo this operation!"
-msgstr ""
+msgstr "Tahdotko varmasti poistaa tämän kirjan? Menetät kaiken kirjaan liitetyn tiedon etkä voi peruuttaa tätä toimintoa!"
 
 #: templates/booktypecontrol/delete_book.html:21
 msgid "Type full title of the book to delete it"
-msgstr ""
+msgstr "Kirjoita kirjan koko otsikko poistaaksesi sen"
 
 #: templates/booktypecontrol/edit_book.html:13
 #: templates/booktypecontrol/settings_appearance.html:13
@@ -542,221 +544,221 @@ msgstr ""
 #: templates/booktypecontrol/settings_publishing.html:13
 #: templates/booktypecontrol/settings_publishing_defaults.html:13
 msgid "Save changes"
-msgstr ""
+msgstr "Tallenna muutokset"
 
 #: templates/booktypecontrol/edit_password.html:25
 msgid "Change Password"
-msgstr ""
+msgstr "Vaihda salasana"
 
 #: templates/booktypecontrol/edit_profile.html:13
 msgid "Save Changes"
-msgstr ""
+msgstr "Tallenna muutokset"
 
 #: templates/booktypecontrol/frontpage.html:28
 msgid "Info"
-msgstr ""
+msgstr "Tietoa"
 
 #: templates/booktypecontrol/frontpage.html:30
 msgid "Version:"
-msgstr ""
+msgstr "Versio:"
 
 #: templates/booktypecontrol/frontpage.html:31
 msgid "Books:"
-msgstr ""
+msgstr "Kirjat:"
 
 #: templates/booktypecontrol/frontpage.html:32
 msgid "Groups:"
-msgstr ""
+msgstr "Ryhmät:"
 
 #: templates/booktypecontrol/frontpage.html:33
 msgid "Users:"
-msgstr ""
+msgstr "Käyttäjät:"
 
 #: templates/booktypecontrol/frontpage.html:34
 msgid "Database size:"
-msgstr ""
+msgstr "Tietokannan koko:"
 
 #: templates/booktypecontrol/frontpage.html:35
 msgid "Files size:"
-msgstr ""
+msgstr "Tiedostojen koko:"
 
 #: templates/booktypecontrol/frontpage.html:40
 msgid "Online users"
-msgstr ""
+msgstr "Käyttäjiä paikalla"
 
 #: templates/booktypecontrol/frontpage.html:50
 msgid "Working on:"
-msgstr ""
+msgstr "Muokkaa kirjaa:"
 
 #: templates/booktypecontrol/frontpage.html:59
 msgid "No online users"
-msgstr ""
+msgstr "Ei käyttäjiä paikalla"
 
 #: templates/booktypecontrol/frontpage.html:63
 msgid "Recent activity"
-msgstr ""
+msgstr "Uusimmat toiminnot"
 
 #: templates/booktypecontrol/frontpage.html:72
 #: templates/booktypecontrol/profile.html:95
 msgid "ago"
-msgstr ""
+msgstr "sitten"
 
 #: templates/booktypecontrol/frontpage.html:75
 #: templates/booktypecontrol/profile.html:98
 msgid "Created new chapter"
-msgstr ""
+msgstr "Loi uuden luvun."
 
 #: templates/booktypecontrol/frontpage.html:80
 #: templates/booktypecontrol/profile.html:103
 msgid "Created new book"
-msgstr ""
+msgstr "Loi uuden kirjan"
 
 #: templates/booktypecontrol/people.html:29
 msgid "ADD NEW PERSON"
-msgstr ""
+msgstr "LISÄÄ UUSI HENKILÖ"
 
 #: templates/booktypecontrol/people.html:49
 msgid "username"
-msgstr ""
+msgstr "käyttäjänimi"
 
 #: templates/booktypecontrol/people.html:50
 msgid "full name"
-msgstr ""
+msgstr "koko nimi"
 
 #: templates/booktypecontrol/people.html:51
 msgid "email"
-msgstr ""
+msgstr "sähköposti"
 
 #: templates/booktypecontrol/profile.html:28
 msgid "EDIT INFO"
-msgstr ""
+msgstr "MUOKKAA TIETOA"
 
 #: templates/booktypecontrol/profile.html:29
 msgid "CHANGE PASSWORD"
-msgstr ""
+msgstr "MUUTA SALASANAA"
 
 #: templates/booktypecontrol/profile.html:50
 msgid "Username:"
-msgstr ""
+msgstr "Käyttäjänimi:"
 
 #: templates/booktypecontrol/profile.html:51
 msgid "Full name:"
-msgstr ""
+msgstr "Koko nimi:"
 
 #: templates/booktypecontrol/profile.html:52
 msgid "Email:"
-msgstr ""
+msgstr "Sähköposti:"
 
 #: templates/booktypecontrol/profile.html:53
 msgid "Joined:"
-msgstr ""
+msgstr "Liittyi:"
 
 #: templates/booktypecontrol/profile.html:54
 msgid "Last login:"
-msgstr ""
+msgstr "Viimeisin kirjautuminen:"
 
 #: templates/booktypecontrol/profile.html:55
 msgid "About yourself:"
-msgstr ""
+msgstr "Tietoa sinusta:"
 
 #: templates/booktypecontrol/profile.html:64
 msgid "Groups"
-msgstr ""
+msgstr "Ryhmät"
 
 #: templates/booktypecontrol/profile.html:65
 msgid "Activity"
-msgstr ""
+msgstr "Toiminto"
 
 #: templates/booktypecontrol/profile.html:72
 msgid "This person has no Books."
-msgstr ""
+msgstr "Tällä käyttäjällä ei ole kirjoja."
 
 #: templates/booktypecontrol/profile.html:82
 msgid "This person has no Groups."
-msgstr ""
+msgstr "Tällä käyttäjällä ei ole ryhmiä."
 
 #: templates/booktypecontrol/rename_book.html:13
 msgid "Rename Book"
-msgstr ""
+msgstr "Nimeä kirja uudelleen"
 
 #: templates/booktypecontrol/settings.html:28
 #: templates/booktypecontrol/settings_appearance.html:6
 msgid "Appearance"
-msgstr ""
+msgstr "Ulkoasu"
 
 #: templates/booktypecontrol/settings.html:29
 #: templates/booktypecontrol/settings_frontpage.html:6
 msgid "Frontpage"
-msgstr ""
+msgstr "Etusivu"
 
 #: templates/booktypecontrol/settings.html:34
 msgid "General"
-msgstr ""
+msgstr "Yleinen"
 
 #: templates/booktypecontrol/settings.html:36
 #: templates/booktypecontrol/settings_license.html:30
 msgid "Licenses"
-msgstr ""
+msgstr "Lisenssit"
 
 #: templates/booktypecontrol/settings.html:37
 msgid "Default Book Settings"
-msgstr ""
+msgstr "Kirjan oletusarvoiset asetukset"
 
 #: templates/booktypecontrol/settings.html:38
 #: templates/booktypecontrol/settings_privacy.html:6
 msgid "Privacy"
-msgstr ""
+msgstr "Yksityisyys"
 
 #: templates/booktypecontrol/settings.html:49
 msgid "Publish options"
-msgstr ""
+msgstr "Julkaisuasetukset"
 
 #: templates/booktypecontrol/settings.html:51
 msgid "Allowed publishing options"
-msgstr ""
+msgstr "Sallitut julkaisuasetukset"
 
 #: templates/booktypecontrol/settings.html:52
 msgid "Default settings"
-msgstr ""
+msgstr "Oletusasetukset"
 
 #: templates/booktypecontrol/settings_book_create.html:6
 msgid "Book create"
-msgstr ""
+msgstr "Luo kirja"
 
 #: templates/booktypecontrol/settings_description.html:6
 msgid "Site description"
-msgstr ""
+msgstr "Sivuston kuvaus"
 
 #: templates/booktypecontrol/settings_license.html:6
 msgid "New license"
-msgstr ""
+msgstr "Uusi lisenssi"
 
 #: templates/booktypecontrol/settings_license.html:12
 msgid "Add new license"
-msgstr ""
+msgstr "Lisää uusi lisenssi"
 
 #: templates/booktypecontrol/settings_license_edit.html:35
 msgid "Books licensed with"
-msgstr ""
+msgstr "Kirjat, joilla on lisenssi"
 
 #: templates/booktypecontrol/settings_license_edit.html:40
 msgid "No such books."
-msgstr ""
+msgstr "Ei sellaisia kirjoja."
 
 #: templates/booktypecontrol/settings_publishing.html:6
 msgid "Publishing"
-msgstr ""
+msgstr "Julkaiseminen"
 
 #: templates/booktypecontrol/settings_publishing_defaults.html:6
 msgid "Publishing defaults"
-msgstr ""
+msgstr "Julkaisemisen oletusasetukset"
 
 #: templates/errors/license_does_not_exist.html:4
 msgid "License not found!"
-msgstr ""
+msgstr "Lisenssiä ei löydy!"
 
 #: templates/errors/license_does_not_exist.html:5
 #, python-format
 msgid "Can't find license \"%(name)s\"."
-msgstr ""
+msgstr "Ei löydy lisenssiä \"%(name)s\". "
 
