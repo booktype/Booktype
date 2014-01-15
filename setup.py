@@ -22,7 +22,7 @@ long_description = (
 
 setup(
     name = "Booktype",
-    version = "1.6.1",
+    version = "2.0.0",
 
     packages = find_packages('lib'),  # include all packages under lib
     package_dir = {'':'lib'},   # tell distutils packages are under lib

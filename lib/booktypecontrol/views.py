@@ -26,10 +26,7 @@ from django.db import IntegrityError, transaction
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
-try:
-    from django.core.validators import email_re, RegexValidator, MinLengthValidator
-except:
-    from django.forms.fields import email_re
+from django.core.validators import RegexValidator, MinLengthValidator
 
 from django import forms
 

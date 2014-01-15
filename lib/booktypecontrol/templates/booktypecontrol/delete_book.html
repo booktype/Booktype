@@ -20,7 +20,7 @@
   <p>{% trans "Are you sure you would like to delete this book? You will lose all data associated to this book and you will not be able to undo this operation!" %}</p>
   <p><b>{% trans "Type full title of the book to delete it" %} - <i>"{{ book.title }}"</i>.</b></p>
 
- <form  enctype="multipart/form-data" action="{% url control_delete_book book.url_title %}" method="POST">{% csrf_token %}
+ <form  enctype="multipart/form-data" action="{% url "control_delete_book" book.url_title %}" method="POST">{% csrf_token %}
   <ul class="form-list">
    {{ form.as_ul }} 
    <li><input type="submit" name="submit" value="{% trans "Delete Book" %}"/> <input type="submit" name="submit" value="{% trans "Cancel" %}"/></li>

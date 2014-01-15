@@ -4,7 +4,7 @@
 <script>
 {% if book %}
   setTimeout(function() {
-       parent.window.location = '{% url book_info book.url_title %}';
+       parent.window.location = '{% url "book_info" book.url_title %}';
   }, 500);
 {% endif %}
 </script>
