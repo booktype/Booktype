@@ -2,6 +2,8 @@ from .base import *
 
 DEBUG = TEMPLATE_DEBUG = True
 
+PROFILE_ACTIVE = 'dev'
+
 ROOT_URLCONF = '##BOOKTYPE_SITE_NAME##.urls.dev'
 
 DATABASES = {
