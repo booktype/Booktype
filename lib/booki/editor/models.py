@@ -216,6 +216,7 @@ HISTORY_CHOICES = {'unknown': 0,
                    'chapter_delete': 19,
 
                    'section_create': 6,
+                   'section_rename': 7,
 
                    'book_create': 10,
                    'minor_version': 11,
@@ -401,6 +402,11 @@ class Attachment(models.Model):
         name = self.attachment.name
         return name[name.rindex('/')+1:]
 
+    def delete(self):
+        self.attachment.delete(save=False)
+
+        super(Attachment, self).delete()
+
     def __unicode__(self):
         return self.attachment.name
 
@@ -521,6 +527,11 @@ class BookCover(models.Model):
     approved = models.BooleanField(_('Approved'), blank=False, default=False)
 
     created = models.DateTimeField(_('created'), auto_now=False, null=False)
+
+    def delete(self):
+        self.attachment.delete(save=False)
+
+        super(BookCover, self).delete()
 
     def __unicode__(self):
         return '%s' % (self.id, )

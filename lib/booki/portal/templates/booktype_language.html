@@ -15,7 +15,7 @@
   });
  </script>
 
-<form name="changelang" method="POST" action="{{ request.META.SCRIPT_NAME }}/accounts/i18n/setlang/?language=en-us">
+<form name="changelang" method="POST" action="{{ request.META.SCRIPT_NAME }}/accounts/i18n/setlang/?language=en-us">{% csrf_token %}
   <input type="hidden" name="language" value="en-us">
   
   {% if request.LANGUAGE_CODE == "en" or request.LANGUAGE_CODE == "en-us" %}

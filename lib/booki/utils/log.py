@@ -95,7 +95,7 @@ def logError(msg, *args):
     """
 
     import logging
-    logging.getLogger("booki").error(msg, *args)
+    logging.getLogger("booktype").error(msg, *args)
 
 def logWarning(msg, *args):
     """
@@ -106,7 +106,7 @@ def logWarning(msg, *args):
     """
 
     import logging
-    logging.getLogger("booki").warning(msg, *args)
+    logging.getLogger("booktype").warning(msg, *args)
 
 def printStack(*extra):
     """

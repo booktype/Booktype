@@ -17,7 +17,7 @@
 
 from django.utils.translation import ugettext_lazy as _
 
-from django.shortcuts import render_to_response, get_object_or_404, redirect
+from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
 from django.conf import settings
@@ -247,7 +247,7 @@ def view_unfollow(request):
 def view_tag(request, tagname):
     tag = get_object_or_404(Endpoint, syntax="#"+tagname)
 
-    return render_to_response("messaging/view_tag.html",
+    return render(request, "messaging/view_tag.html",
                               dict(tag=tag,
                                    tagname=tagname,
                                    request=request))

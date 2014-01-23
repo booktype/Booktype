@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse,HttpResponseRedirect
@@ -96,16 +96,15 @@ def debug_redis(request):
         killlocks[ch] = sputnik.get(ch)
 
 
-    return render_to_response('portal/debug_redis.html', {"request": request, 
-                                                          "client_id": client_id,
-                                                          "sputnikchannels": sputnikchannels,
-                                                          "channel": chnl.items(),
-                                                          "users": usrs.items(),
-                                                          "sessions": allValues.items(),
-                                                          "locks": locks.items(),
-                                                          "killlocks": killlocks.items()
-                                                          })
-
+    return render(request, 'portal/debug_redis.html', {"request": request, 
+                                                       "client_id": client_id,
+                                                       "sputnikchannels": sputnikchannels,
+                                                       "channel": chnl.items(),
+                                                       "users": usrs.items(),
+                                                       "sessions": allValues.items(),
+                                                       "locks": locks.items(),
+                                                       "killlocks": killlocks.items()
+                                                       })
 
 # FRONT PAGE
 
@@ -127,11 +126,11 @@ def view_frontpage(request):
     else:
         activityHistory = []
 
-    return render_to_response('portal/frontpage.html', {"request": request, 
-                                                        "activity_history": activityHistory,
-                                                        "show_history": showHistory,
-                                                        "limit_reached": isUserLimitReached(),
-                                                        "title": "Booktype"})
+    return render(request, 'portal/frontpage.html', {"request": request, 
+                                                     "activity_history": activityHistory,
+                                                     "show_history": showHistory,
+                                                     "limit_reached": isUserLimitReached(),
+                                                    "title": "Booktype"})
 
 # GROUPS
 
@@ -167,17 +166,17 @@ def view_group(request, groupid):
     n_members = len(members)
     n_books = len(books)
 
-    return render_to_response('portal/group.html', {"request":    request, 
-                                                    "title":      "Ovo je neki naslov",
-                                                    "group":      group,
-                                                    "books":      books,
-                                                    "n_books":    n_books,
-                                                    "your_books": yourBooks,
-                                                    "members":    members,
-                                                    "n_members": n_members,
-                                                    "security":   bs,
-                                                    "history": history,
-                                                    "is_member":  isMember})
+    return render(request, 'portal/group.html', {"request":    request, 
+                                                 "title":      "Ovo je neki naslov",
+                                                 "group":      group,
+                                                 "books":      books,
+                                                 "n_books":    n_books,
+                                                 "your_books": yourBooks,
+                                                 "members":    members,
+                                                 "n_members": n_members,
+                                                 "security":   bs,
+                                                 "history": history,
+                                                 "is_member":  isMember})
 @transaction.commit_manually
 def add_book(request, groupid):
     """
@@ -274,9 +273,9 @@ def view_groups(request):
     except (EmptyPage, InvalidPage):
         groups = paginator.page(paginator.num_pages)
 
-    return render_to_response('portal/groups.html', {"request": request, 
-                                                     "title": "Booktype groups", 
-                                                     "groups": groups })
+    return render(request, 'portal/groups.html', {"request": request, 
+                                                  "title": "Booktype groups", 
+                                                  "groups": groups })
 
 def view_books(request):
     """
@@ -315,13 +314,13 @@ def view_books(request):
 
     latest_active = [models.Book.objects.get(id=b['book']) for b in models.BookHistory.objects.filter(modified__gte = now, book__hidden=False).values('book').annotate(Count('book')).order_by("-book__count")[:5]]
     
-    return render_to_response('portal/books.html', {"request": request, 
-                                                    "title": "Booktype books", 
-                                                    "books":      books,
-                                                    "page": page, 
-                                                    "latest_books": latest_books,
-                                                    "latest_active": latest_active
-                                                    })
+    return render(request, 'portal/books.html', {"request": request, 
+                                                "title": "Booktype books", 
+                                                "books":      books,
+                                                "page": page, 
+                                                "latest_books": latest_books,
+                                                "latest_active": latest_active
+                                                })
 
 def view_people(request):
     """
@@ -354,12 +353,12 @@ def view_people(request):
 
     latest_active = [User.objects.get(id=b['user']) for b in models.BookHistory.objects.filter(modified__gte = now).values('user').annotate(Count('user')).order_by("-user__count")[:5]]
 
-    return render_to_response('portal/people.html', {"request":       request, 
-                                                     "page":          page,
-                                                     "latest_people": latest_people,
-                                                     "latest_active": latest_active,
-                                                     "title":         "Booktype people", 
-                                                     "people":        people })
+    return render(request, 'portal/people.html', {"request":       request, 
+                                                  "page":          page,
+                                                  "latest_people": latest_people,
+                                                  "latest_active": latest_active,
+                                                  "title":         "Booktype people", 
+                                                  "people":        people })
 
 def maintenance(request):
     """
@@ -369,7 +368,7 @@ def maintenance(request):
     @param request: Client Request object
     """
 
-    return render_to_response('portal/maintenance.html', {"request":    request})
+    return render(request, 'portal/maintenance.html', {"request":    request})
 
 
 def _is_book_modified(book):

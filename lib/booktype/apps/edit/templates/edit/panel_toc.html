@@ -1,0 +1,199 @@
+{% load i18n %}
+
+<div id="renameChapter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">{% trans "Rename Chapter" %}</h3>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" name="chapter_id" value=""/>
+      <input type="text" name="chapter" placeholder="{% trans "New chapter title" %}" class="form-control">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default operation-cancel" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+      <button class="btn btn-default btn-primary operation-rename">{% trans "Save" %}</button>
+    </div>
+   </div>
+ </div>
+</div>
+
+<div id="renameSection" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">{% trans "Rename Section" %}</h3>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" name="chapter_id" value=""/>
+      <input type="text" name="chapter" placeholder="{% trans "New section title" %}" class="form-control">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default operation-cancel" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+      <button class="btn btn-default btn-primary operation-rename">{% trans "Save" %}</button>
+    </div>
+  </div>
+ </div>
+</div>
+
+
+<div id="newChapter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">{% trans "Create New Chapter" %}</h3>
+    </div>
+    <div class="modal-body">
+      <input type="text" name="chapter" class="form-control" placeholder="{% trans "Enter new Chapter title" %}">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default operation-cancel" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+      <button class="btn btn-default btn-primary operation-create">{% trans "Create Chapter" %}</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="newSection" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">{% trans "Create New Section" %}</h3>
+    </div>
+    <div class="modal-body">
+      <input type="text" class="form-control" placeholder="{% trans "Enter new Section title" %}">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default operation-cancel" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+      <button class="btn btn-default btn-primary operation-create">{% trans "Create Section" %}</button>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div id="removeChapter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>{% trans "Remove chapter" %}</h3>
+    </div>
+    <div class="modal-body">
+      <form>
+         <input type="hidden" name="chapter_id" value=""/>
+         <p>{% trans "Are you sure you would like to delete this chapter? You will lose all data associated to this chapter and you will not be able to undo this operation!" %}</p>
+
+        <div class="row">
+          <div class="col-md-9">
+            <input type="checkbox" id="toc_delete_chapter" name="understand" value="on"/>
+            <label for="toc_delete_chapter"><span></span>{% trans "I understand and agree" %}</label>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn btn-default operation-cancel" data-dismiss="modal" aria-hidden="true">{% trans "Close" %}</a>
+      <button class="btn btn-default btn-primary operation-remove">{% trans "Remove" %}</button>
+    </div>
+  </div>
+ </div>
+</div>
+
+<div id="removeSection" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>{% trans "Remove section" %}</h3>
+    </div>
+    <div class="modal-body">
+      <form>
+         <input type="hidden" name="chapter_id" value=""/>
+         <p>{% trans "Are you sure you would like to delete this section?" %}</p>
+
+         <div class="row">
+           <div class="col-md-9">
+             <input type="checkbox" name="understand" value="on"  id="toc_delete_section"/>
+             <label for="toc_delete_section"><span></span>{% trans "I understand and agree" %}</label>
+           </div>
+         </div>
+         
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn btn-default operation-cancel" data-dismiss="modal" aria-hidden="true">{% trans "Close" %}</a>
+      <button class="btn btn-default btn-primary operation-remove">{% trans "Remove" %}</button>
+    </div>
+   </div>
+  </div>
+ </div>
+
+<div class="template templateTOCContent">
+ <div id="edit-info" class="alert template" style="margin-bottom:10px;">All books should contain at least one section and can have as many chapters as you like.</div>
+
+ <div class="toc">
+ </div>
+</div>
+
+<div class="template templateTOCToolbar">
+    <h2>{% trans "Table of Contents" %}</h2>
+    <div class="btn-toolbar float-right">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" data-toggle="button" id="detail-switch">{% trans "Detail View" %}</button>
+        </div>
+        <div class="btn-group">
+          <button id="expand" class="btn btn-default" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Expand All" %}"><i class="icon-arrow-down"></i></button>
+          <button id="collapse" class="btn btn-default" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Collapse All" %}"><i class="icon-arrow-up"></i></button>
+        </div>
+        <div class="btn-group">
+          <button href="#newChapter" role="button" class="btn btn-default" data-toggle="modal">{% trans "New Chapter" %}</button>
+          <button href="#newSection" role="button" class="btn btn-default" data-toggle="modal">{% trans "New Section" %}</button>
+        </div>
+    </div>
+</div>
+
+<li class="item chapter template templateTOCChapter" data-id="">
+    <div><a href="" style="color: rgb(51, 51, 51);" class="operation-edit"><i class="toc-icon-chapter"></i></a>
+        <a style="color: rgb(51, 51, 51);" href="" class="operation-edit"><span class="title"></span></a>
+        <div class="toc-chapter-detail">                               
+            <div class="username"></div>
+            <div class="status"></div>
+        </div>
+    </div>
+    <div class="btn-toolbar">                                          
+        <div class="btn-group">
+            <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
+            <ul class="dropdown-menu status-options">
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default btn-xs edit">{% trans "EDIT CHAPTER" %}</button>
+            <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#" class="option-rename">{% trans "Rename" %}</a></li>
+                <li><a href="#" class="option-hold">{% trans "Hold" %}</a></li>              
+                <li><a href="#" class="option-delete">{% trans "Delete" %}</a></li>
+            </ul>
+        </div>
+    </div>
+</li>
+
+
+<li class="item section template templateTOCSection" data-id="">
+  <div><span class="disclose"></span><span class="title"></span></div>
+  <div class="btn-toolbar">
+      <div class="btn-group">
+        <button class="btn btn-default btn-xs option-rename">{% trans "RENAME" %}</button>
+      </div>
+      <div class="btn-group">
+          <button class="btn btn-default btn-xs option-delete"><i class="icon-trash"></i></button>
+      </div>
+  </div>
+  <ol>
+  </ol>
+</li> 
