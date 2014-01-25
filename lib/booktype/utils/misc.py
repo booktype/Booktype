@@ -34,7 +34,7 @@ class TidyPlugin(BasePlugin):
     NAME = 'Tidy HTML'
     OPTIONS = {#'utf8': None,
                'tidy-mark': 'no',
-               'drop-font-tags': 'yes',
+               'drop-font-tags': 'no',
                'uppercase-attributes': 'no',
                'uppercase-tags': 'no',
 #               'anchor-as-name': 'no'
