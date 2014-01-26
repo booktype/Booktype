@@ -60,7 +60,7 @@
  <p>
   <ul>
    {% for user in active_users %}
-    <li><a href="{{ site_url }}{% url view_profile  user.username %}">{{ user.username }}</a> ({{ user.first_name }})</li>
+    <li><a href="{{ site_url }}{% url "view_profile"  user.username %}">{{ user.username }}</a> ({{ user.first_name }})</li>
    {% empty %}
     <li>{% trans "No active users" %}</li>
    {% endfor %}

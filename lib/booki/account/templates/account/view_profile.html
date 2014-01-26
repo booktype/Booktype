@@ -1,38 +1,39 @@
 {% extends "base.html" %}
-{% load i18n profile messaging_tags %}
+{% load i18n profile messaging_tags staticfiles %}
 
 {% block header %}
 <title>{% blocktrans with user.username as username %}/user: {{ username }}{% endblocktrans %}</title>
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/jquery.url.js"></script> 
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/profile.js"></script> 
-<script type="text/javascript" src="{{ request.META.SCRIPT_NAME }}/site_static/js/general.js"></script> 
+<script type="text/javascript" src="{% static "portal/js/jquery.url.js" %}"></script> 
+<script type="text/javascript" src="{% static "portal/js/profile.js" %}"></script> 
+<!-- <script type="text/javascript" src="{% static "portal/js/general.js" %}"></script>  -->
 <script type="text/javascript">
     $(function() {
 
 	// current browser
-	$.booki.username = "{{request.user.username}}";
+	window.booktype.username = "{{request.user.username}}";
 	
 	// profile user should be different variable
 	
-	$.booki.profileName = "{{user.username}}";
+	window.booktype.profileName = "{{user.username}}";
 
-	$.booki.sputnikDispatcherURL = "{% url sputnik.views.dispatcher %}";
+	window.booktype.sputnikDispatcherURL = "{% url "sputnik.views.dispatcher" %}";
 
 	/* call when page is loaded */
 	
-	$.booki.profile.initProfile();
+	window.booktype.profile.initProfile();
 	
 	// probably subscribe to /booki/profile/<username>/
-	$.booki.subscribeToChannel("/booki/", function(message) {
+	window.booktype.subscribeToChannel("/booki/", function(message) {
 	    
 	});
 
-        $("a.createbook").booksparkCreateBook({"url": "{% url create_book user.username %}"});
-        $("A.importbook").booksparkImportBook({"url": "{% url import_book user.username %}"});
+        $("a.createbook").booksparkCreateBook({"url": "{% url "create_book" user.username %}"});
+        $("A.importbook").booksparkImportBook({"url": "{% url "import_book" user.username %}"});
 
-        $("A.creategroup").booksparkCreateGroup({"url": "{% url create_group user.username %}"});
-	// start Sputnik
-	jQuery.booki.network._transport.connect();
+        $("A.creategroup").booksparkCreateGroup({"url": "{% url "create_group" user.username %}"});
+        
+      	// start Sputnik
+      	window.booktype.connect();
     });
 
 
@@ -105,8 +106,8 @@
           {% endif %}
           {% trans "My Books" %}</h4>
         <ul class="simple-list no-bullet with-button">          {% for book in books %}
-          <li> <a href="{% url book_info  book.url_title %}"> {% if book.hidden %}  {% if book.title|length > 80 %} <i>{{ book.title|slice:":80" }}...</i> {% else %}  <i>{{ book.title }}</i> {% endif %} {% else %} {% if book.title|length > 80 %} {{ book.title|slice:":80" }}... {% else %}  {{ book.title }} {% endif %}
-            {% endif %} </a> <a class="action-button" href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a> </li>
+          <li> <a href="{% url "book_info"  book.url_title %}"> {% if book.hidden %}  {% if book.title|length > 80 %} <i>{{ book.title|slice:":80" }}...</i> {% else %}  <i>{{ book.title }}</i> {% endif %} {% else %} {% if book.title|length > 80 %} {{ book.title|slice:":80" }}... {% else %}  {{ book.title }} {% endif %}
+            {% endif %} </a> <a class="action-button" href="{% url "edit_book"  book.url_title %}">{% trans "edit" %}</a> </li>
           {% empty %}
           {% if user.username == request.user.username %}          {% blocktrans %}
           <p>This is a perfect moment to start writing your book, just click on the button above!</p>
@@ -124,7 +125,7 @@
           {% trans "My Groups" %}</h4>
         <ul class="simple-list no-bullet with-button">
           {% for group in groups %}
-          <li><a href="{% url view_group  group.url_name %}">{{ group.name }}</a><a class="action-button" href="{% url view_group  group.url_name %}">{% trans "go" %}</a></li>
+          <li><a href="{% url "view_group"  group.url_name %}">{{ group.name }}</a><a class="action-button" href="{% url "view_group"  group.url_name %}">{% trans "go" %}</a></li>
           {% empty %}
           {% if user.username == request.user.username %}
           <p>{% blocktrans %}Work with others in Groups. To create a Group click on the button above.{% endblocktrans %}</p>
@@ -156,19 +157,19 @@
     <table border="0" cellspacing="0" class="basic-table">
       {% for book in books %}
       <tr>
-        <td width="40%"><a href="{% url book_view book.url_title %}"> {% if book.hidden %} {% if book.title|length > 80 %} <i>{{ book.title|slice:":80" }}...</i> {% else %}  <i>{{ book.title }}</i> {% endif %} {% else %}  {% if book.title|length > 80 %} {{ book.title|slice:":80" }}... {% else %}  {{ book.title }} {% endif %}
+        <td width="40%"><a href="{% url "book_view" book.url_title %}"> {% if book.hidden %} {% if book.title|length > 80 %} <i>{{ book.title|slice:":80" }}...</i> {% else %}  <i>{{ book.title }}</i> {% endif %} {% else %}  {% if book.title|length > 80 %} {{ book.title|slice:":80" }}... {% else %}  {{ book.title }} {% endif %}
           {% endif %} </a></td>
         <td width="5%"></td>
-        <td width="37%"><a class="action-button" href="{% url edit_book  book.url_title %}">{% trans "edit" %}</a> <a class="action-button" href="{% url book_info  book.url_title %}">{% trans "info" %}</a> <a class="action-button" href="{% url draft_book  book.url_title %}">{% trans "draft" %}</a> 
+        <td width="37%"><a class="action-button" href="{% url "edit_book"  book.url_title %}">{% trans "edit" %}</a> <a class="action-button" href="{% url "book_info"  book.url_title %}">{% trans "info" %}</a> <a class="action-button" href="{% url "draft_book"  book.url_title %}">{% trans "draft" %}</a> 
         <td class="buttons last" width="18%"><div style="white-space: nowrap;"> {% if user.username == request.user.username %}
             {% if book.hidden %}
-            <form class="formvisibility" style="display: inline" action="." method="POST">
+            <form class="formvisibility" style="display: inline" action="." method="POST">{% csrf_token %}
               <button>{% trans "Show to others" %}</button>
               <input type="hidden" name="book" value="{{book.url_title}}" />
               <input type="hidden" name="action" value="unhide" />
             </form>
             {% else %}
-            <form class="formvisibility"  style="display: inline" action="." method="POST">
+            <form class="formvisibility"  style="display: inline" action="." method="POST">{% csrf_token %}
               <button>{% trans "Hide from others" %}</button>
               <input type="hidden" name="book" value="{{book.url_title}}" />
               <input type="hidden" name="action" value="hide" />
@@ -186,7 +187,7 @@
   <h3>{% trans "User settings" %}</h3>
  <iframe name="hidden_settings" style="border: 0px; width: 0px; height: 0px;"></iframe>
  <div style="float: left; margin-right: 20px">
- <form method="post" action="{% url save_settings user.username %}" target="hidden_settings" enctype="multipart/form-data" name="formsettings">
+ <form method="post" action="{% url "save_settings" user.username %}" target="hidden_settings" enctype="multipart/form-data" name="formsettings">{% csrf_token %}
   <fieldset class="plain">
    <dl>
     <dt><label>{% trans "Email" %}</label></dt>
@@ -216,7 +217,7 @@
  </form>
    </div>
    <div style="float: left; width: 380px; ">
- <form method="post" action="" enctype="multipart/form-data" name="formpassword">
+ <form method="post" action="" enctype="multipart/form-data" name="formpassword">{% csrf_token %}
   <fieldset class="plain">
    <dl>
     <dt><label>{% trans "Old Password" %}</label></dt>
@@ -235,7 +236,7 @@
       <input type="password" name="password2" value=""/>
     </dd>
    </dl>
-    <small><a href="{% url forgotpassword %}">Forgotten your password?</a></small>
+    <small><a href="{% url "forgotpassword" %}">Forgotten your password?</a></small>
 
     <p><button>{% trans "Change password" %}</button></p>
    </fieldset>

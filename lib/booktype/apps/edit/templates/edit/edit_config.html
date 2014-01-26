@@ -1,0 +1,37 @@
+<script type="text/javascript">  
+       window.booktype.username = "{{request.user.username|escapejs}}";
+       window.booktype.fullname = "{{request.user.first_name|escapejs}}";       
+       window.booktype.currentBookID  = {{book.id}};
+       window.booktype.currentBook    = "{{book.title|escapejs}}";
+       window.booktype.currentBookURL = "{{book.url_title|escapejs}}";
+
+       window.booktype.currentVersion = "{{book_version|escapejs}}";
+       window.booktype.sputnikDispatcherURL = "{% url "sputnik.views.dispatcher" %}";
+       window.booktype.activeProfile = "{{ ACTIVE_PROFILE }}";
+
+       // window.booktype.subscribeToChannel("/booktype/", function(message) {
+       //  });
+
+       var settings = {'panels': {'edit': 'win.booktype.editor.edit',
+                                  'toc' : 'win.booktype.editor.toc',            
+                                  'media' : 'win.booktype.editor.media',
+                                  'cover' : 'win.booktype.editor.covers',
+                                  'publish': 'win.booktype.editor.publish'},
+
+                       'styles': {'style1': '/static/edit/css/style1.css',
+                                  'style2': '/static/edit/css/style2.css',
+                                  'style3': '/static/edit/css/style3.css',
+                                 },
+                       'config': {
+                                  //'global': {'tabs': ['chat']}
+                                 }
+                      };
+
+        Aloha.ready( function() {
+            Aloha.require(['jquery', 'aloha', 'booktype'], function(j, aloha, booktype) {
+
+                booktype.editor.initEditor(settings);    
+                booktype.connect();  
+            });
+        });
+</script>

@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="dialog" title="{% trans "Create a Group" %}">
-<form method="post" action="{% url create_group request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">
+<form method="post" action="{% url "create_group" request.user.username %}"  target="hidden_frame" enctype="multipart/form-data">{% csrf_token %}
 	<dl>
       <dt><label>{% trans "Group name:" %}</label></dt>
       <dd><input type="text" name="title" style="width:99.5%;" />

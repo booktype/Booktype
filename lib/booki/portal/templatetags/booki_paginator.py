@@ -35,10 +35,20 @@ def booki_paginator(context, pages):
         pages_outside_leading_range = [n + pages.paginator.num_pages for n in range(0, -NUM_PAGES_OUTSIDE_RANGE, -1)]
         pages_outside_trailing_range = [n + 1 for n in range(0, NUM_PAGES_OUTSIDE_RANGE)]
 
+    try:
+        previous = pages.previous_page_number()
+    except:
+        previous = 1
+
+    try:
+        next = pages.next_page_number()
+    except:
+        next = 1
+
     return {
-        "previous": pages.previous_page_number(),
+        "previous": previous,
         "has_previous": pages.has_previous(),
-        "next": pages.next_page_number(),
+        "next": next,
         "has_next": pages.has_next(),
         "page": pages.number,
         "results_per_page": 50,

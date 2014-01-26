@@ -18,7 +18,7 @@
  <script>
   $(function() {
     $("button[name=add]").click(function() {
-       window.location = '{% url control_add_book %}';
+       window.location = '{% url "control_add_book" %}';
     });
 
     $("#tabs").tabs();
@@ -52,7 +52,7 @@
   </tr> 
   {% for book in books %}
    <tr>
-    <td><a href="{% url control_book book.url_title %}">{{ book.title }}</a></td>
+    <td><a href="{% url "control_book" book.url_title %}">{{ book.title }}</a></td>
     <td>{{ book.title }}</td>
    </tr>
   {% endfor %}

@@ -1,0 +1,753 @@
+#!/usr/bin/env python
+
+# This file is part of Booktype.
+# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+#
+# Booktype is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Booktype is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+
+
+import sys, os, optparse, string
+
+verbose = 0
+
+def log(msg):
+    if verbose:
+        print msg,
+
+def logln(msg):
+    if verbose:
+        print msg
+
+def show_info():
+    logln("Hi!\nI will use these information to create new project:")
+    logln("     login: %s" % os.getlogin())
+    logln("     user id: %s" % os.geteuid())
+    logln("     group id: %s" % os.getegid())
+
+    logln("\n\n\n")
+
+def show_after(destination):
+    logln("")
+    logln("Check [%s] directory for config files:" % destination)
+    logln("   booktype.env        -  Environment variables")
+    logln("   conf/booki.wsgi     -  WSGI file for Apache")
+    logln("   conf/wsgi.apache    -  Apache config file")
+    logln("   conf/gunicorn.nginx -  Nginx config file")
+    logln("   conf/fastcgi.nginx  -  Nginx config file")
+    logln("   settings.py    -  Booki settings file")
+    logln("")
+    logln("   templates/     -  Local Booki template files")
+    logln("   locale/        -  Local directory with translations")
+    logln("   static/        -  Local web files")
+    logln("   lib/           -  Local python libraries")
+    logln("   data/          -  Place for attachments")
+    logln("")
+    logln("For further instructions read INSTALL file.\n")
+
+class MajorError(Exception):
+    def __init__(self, description = ''):
+        self.description = description
+
+    def __str__(self):
+        return repr(self.description)
+
+class InstallError(MajorError):
+    pass
+
+
+def check_python_version():
+    """Check what version of Python user has."""
+
+    major, minor = sys.version_info[:2]
+
+    if major == 2:
+        if minor == 5:
+            logln("I see you have python 2.5... Maybe you should think about upgrading to latest version?!")
+        elif minor == 6:
+            pass
+        elif minor < 5:
+            raise MajorError("You have old version of Python. Please upgrade.")
+    elif major == 3:
+        raise MajorError("I don't think i can work with Python 3.")
+    else:
+        logln("You should upgrade your python installation....")
+
+def check_django_version():
+    """Check what version of Django user has."""
+
+    log("+ Trying to import Django.  ")
+
+    try:
+        import django
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+    major, minor = django.VERSION[:2]
+
+    if major == 1:
+        if minor < 2:
+            raise MajorError("You have old version of Django. Please upgrade.")
+
+
+def check_booki_available():
+    log("+ Trying to import booki.  ")
+
+    try:
+        import booki
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def check_lxml_available():
+    log("+ Trying to import lxml.  ")
+
+    try:
+        import lxml
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def check_feedparser_available():
+    log("+ Trying to import feedparser.  ")
+
+    try:
+        import feedparser
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def check_pil_available():
+    log("+ Trying to import Python Imaging Library (PIL).  ")
+
+    try:        
+        import Image
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def check_redis_available():
+    log("+ Trying to import Redis module.  ")
+
+    try:
+        import redis
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def check_south_available():
+    log("+ Trying to import South module.  ")
+
+    try:
+        import south
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def check_unidecode_available():
+    log("+ Trying to import Unidecode module.  ")
+
+    try:
+        import unidecode
+    except ImportError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def make_directory_structure(destination):    
+    try:
+        project = get_project_name(destination)
+
+        for d in ['data', 'logs', 'static', 'media', 'lib', 'conf', '%s_site' % project]:
+            log("+ Creating %s directory.  " % d)
+            os.mkdir('%s/%s' % (destination, d))
+            logln("[OK]")
+
+        for d in ['settings', 'urls', 'templates', 'locale', 'static']:
+            log("+ Creating %s directory." % d)
+            os.mkdir('%s/%s_site/%s' % (destination, project, d))
+            logln("[OK]")
+
+        for d in ['books', 'profile_images', 'cover_images']:
+            log("+ Creating data/%s directory.  " % d)
+            os.mkdir('%s/data/%s' % (destination, d))
+            logln("[OK]")
+    except OSError:
+        raise InstallError()
+
+def read_file(file_name):
+    content = open(file_name, 'rt').read()
+
+    return content
+
+def set_var(content, name, value):
+    return content.replace('##%s##' % name, value)
+
+def create_urls(destination):
+    import booktype
+
+    booktype_source = os.path.dirname(booktype.__file__)
+    project = get_project_name(destination)
+
+    try:
+        dev_content = read_file('%s/skeleton/dev_urls.py.original' % booktype_source)
+        prod_content = read_file('%s/skeleton/prod_urls.py.original' % booktype_source)
+    except IOError:
+        raise MajorError("[ERROR] Can't read dev_urls.py.original file.")
+
+    try:
+        log("+ Creating %s_site/urls/dev.py file.  " % project)
+        f = open('%s/%s_site/urls/dev.py' % (destination, project), 'wt').write(dev_content)
+        logln("[OK]")
+
+        log("+ Creating %s_site/urls/prod.py file.  " % project)
+        f = open('%s/%s_site/urls/prod.py' % (destination, project), 'wt').write(prod_content)
+        logln("[OK]")
+    except IOError:
+        raise InstallError()
+
+
+def create_settings(destination, database):
+    import booktype
+
+    booktype_source = os.path.dirname(booktype.__file__)
+    project = get_project_name(destination)
+
+    try:
+        log("+ Creating %s_site/__init__.py file.  " % project)
+        open('%s/%s_site/__init__.py' % (destination, project), 'wb').close()
+        logln("[OK]")
+
+        log("+ Creating %s_site/settings/__init__.py file.  " % project)
+        open('%s/%s_site/settings/__init__.py' % (destination, project), 'wb').close()
+        logln("[OK]")
+
+        log("+ Creating %s_site/urls/__init__.py file.  " % project)        
+        open('%s/%s_site/urls/__init__.py' % (destination, project), 'wb').close()
+        logln("[OK]")
+    except OSError:
+        raise InstallError()
+
+    try:
+        content = read_file('%s/skeleton/base_settings.py.original' % booktype_source)
+        dev_content = read_file('%s/skeleton/dev_settings.py.original' % booktype_source)
+        prod_content = read_file('%s/skeleton/prod_settings.py.original' % booktype_source)
+    except IOError:
+        raise MajorError("[ERROR] Can't read settings.py.original file.")
+
+    booktype_name = "Booktype site"
+
+    vals = {'BOOKTYPE_NAME': booktype_name,
+            'BOOKTYPE_SITE_NAME': '%s_site' % project,
+            'BOOKTYPE_ROOT': os.path.abspath(destination)}
+
+    if database == 'postgresql':
+        vals['DATABASE_ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+        vals['DATABASE_NAME'] = ''
+    elif database == 'sqlite':
+        vals['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'
+        vals['DATABASE_NAME'] = '%s/database.sqlite' % destination
+
+    for k in vals.keys():
+        content = set_var(content, k, vals[k])
+        dev_content = set_var(dev_content, k, vals[k])
+        prod_content = set_var(prod_content, k, vals[k])
+
+    try:
+        log("+ Creating %s_site/settings/base.py file.  " % project)
+        f = open('%s/%s_site/settings/base.py' % (destination, project), 'wt').write(content)
+        logln("[OK]")
+
+        log("+ Creating %s_site/settings/dev.py file.  " % project)
+        f = open('%s/%s_site/settings/dev.py' % (destination, project), 'wt').write(dev_content)
+        logln("[OK]")
+
+        log("+ Creating %s_site/settings/prod.py file.  " % project)
+        f = open('%s/%s_site/settings/prod.py' % (destination, project), 'wt').write(prod_content)
+        logln("[OK]")
+    except IOError:
+        raise InstallError()
+
+def get_project_name(destination):
+    dirs = [n for n in os.path.abspath(destination).split(os.sep) if n.strip() != '']
+    return dirs[-1]
+
+def get_project_directory(destination):
+    dirs = [n for n in os.path.abspath(destination).split(os.sep) if n.strip() != '']
+
+    return os.sep.join(dirs[:-1])
+
+def create_manage(destination):
+    log("+ Creating manage.py file.")
+
+    import booktype
+    import stat
+
+    booktype_source = os.path.dirname(booktype.__file__)
+    booktype_path = os.path.abspath(os.path.dirname(booktype.__file__)+'/..')
+    project = get_project_name(destination)
+
+    try:
+        content = read_file('%s/skeleton/manage.py.original' % booktype_source)
+    except IOError:
+        raise MajorError("[ERROR] Can't read manage.py.original file.")
+
+    content = set_var(content, "SETTINGS", "%s_site.settings.dev" % project)    
+    content = set_var(content, "DESTINATION_PATH", destination)
+    content = set_var(content, "BOOKTYPE_PATH", booktype_path)
+
+    try:
+        log("+ Creating manage.py file.  ")
+        f = open('%s/manage.py' % (destination, ), 'wt')
+        f.write(content)
+
+        # Set execute flag
+        s = stat.S_IRWXU|stat.S_IWUSR|stat.S_IXUSR
+        s = s|stat.S_IRGRP
+        s = s|stat.S_IROTH
+        os.fchmod(f.fileno(), s)        
+
+        f.close()
+        logln("[OK]")
+    except IOError:
+        raise InstallError()
+
+def create_env(destination):
+    log("+ Creating booktype.env file.  ")
+
+    import booki
+    booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
+
+    try:
+        f = open('%s/booktype.env' % destination, 'wt')
+        f.write('''# Booktype comes with predefined settings:
+# %(project_name)s_site.settings.dev [for development]
+# %(project_name)s_site.settings.prod [for production]
+
+export DJANGO_SETTINGS_MODULE=%(project_name)s_site.settings.dev
+
+# If your libraries are in non standard place, you should add path to them here.
+
+export PYTHONPATH=$PYTHONPATH:%(destination)s/:%(destination)s/lib/:%(booktype_path)s
+
+# If your libraries/apps are in non standard place, you should add path to them here.
+# e.g.
+#    PATH=$PATH:/Users/mirko/bin/
+
+export PYTHONPATH PATH
+''' % {'project_name': get_project_name(destination), 
+       'location': get_project_directory(destination), 
+       'destination': destination, 
+       'booktype_path': booki_path})
+        f.close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def create_wsgi(destination):
+    log("+ Creating booki.wsgi file.  ")
+
+    import booki
+    booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
+
+    try:
+        f = open('%s/%s_site/wsgi.py' % (destination, get_project_name(destination)), 'wt')
+        f.write('''"""
+This module contains the WSGI application used by Django's development server
+and any production WSGI deployments. It should expose a module-level variable
+named ``application``. Django's ``runserver`` and ``runfcgi`` commands discover
+this application via the ``WSGI_APPLICATION`` setting.
+
+Usually you will have the standard Django WSGI application here, but it also
+might make sense to replace the whole Django WSGI application with a custom one
+that later delegates to the Django one. For example, you could introduce WSGI
+middleware here, or combine a Django application with an application of another
+framework.
+
+"""
+import os, sys
+
+import djcelery
+
+djcelery.setup_loader()
+
+
+sys.path.insert(0, '%(destination)s/')
+sys.path.insert(0, '%(destination)s/lib/')
+sys.path.insert(0, '%(booki_path)s/')
+
+
+# We defer to a DJANGO_SETTINGS_MODULE already in the environment. This breaks
+# if running multiple sites in the same mod_wsgi process. To fix this, use
+# mod_wsgi daemon mode with each site in its own daemon process, or use
+
+os.environ["DJANGO_SETTINGS_MODULE"] = "%(project_name)s_site.settings.dev"
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%(project_name)s_site.settings.dev")
+
+# This application object is used by any WSGI server configured to use this
+# file. This includes Django's development server, if the WSGI_APPLICATION
+# setting points here.
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+
+# Apply WSGI middleware here.
+# from helloworld.wsgi import HelloWorldApplication
+# application = HelloWorldApplication(application)
+''' % {'directory': get_project_directory(destination),
+        'destination': destination,
+        'booki_path': booki_path, 
+        'project_name': get_project_name(destination)})
+        f.close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+
+def create_apache(destination):
+    log("+ Creating wsgi.apache file.  ")
+
+    import booki
+
+    booki_source = os.path.dirname(booki.__file__)
+
+    try:
+        import django
+        django_path = os.path.dirname(django.__file__)
+    except ImportError:
+        django_path=''
+
+    # TODO add path to booki
+
+    s = '''# Apache configuration for Booktype server V1.0.1
+
+<VirtualHost *:80>
+
+     # CHANGE THIS
+     ServerName __INSERT_SERVER_NAME__
+     SetEnv HTTP_HOST "__INSERT_SERVER_NAME__"
+
+     SetEnv LC_TIME "en_GB.UTF-8"
+     SetEnv LANG "en_GB.UTF-8"
+
+     WSGIScriptAlias / %(destination)s/%(project_name)s_site/wsgi.py
+
+     <Location "/">
+       Allow from all
+       Options FollowSymLinks
+     </Location>
+
+     Alias /static/ "%(destination)s/static/"
+     <Directory "%(destination)s/static/">
+       Order allow,deny
+       Options Indexes
+       Allow from all
+       IndexOptions FancyIndexing
+     </Directory>
+
+     Alias /data/ "%(destination)s/data/"
+     <Directory "%(destination)s/data/">
+       Order allow,deny
+       Options Indexes
+       Allow from all
+       IndexOptions FancyIndexing
+     </Directory>
+
+     ErrorLog ${APACHE_LOG_DIR}/bookdev-error.log
+     LogLevel warn
+     CustomLog ${APACHE_LOG_DIR}/bookdev-access.log combined
+</VirtualHost>''' % {'destination': destination,
+                     'booki_source': booki_source,
+                     'project_name': get_project_name(destination),
+                     'django_path': django_path}
+
+
+    try:
+        f = open('%s/conf/wsgi.apache' % destination, 'wt')
+        f.write(s)
+        f.close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+def create_nginx_gunicorn(destination):
+    log("+ Creating gunicorn.nginx file.  ")
+
+    import booki
+
+    booki_source = os.path.dirname(booki.__file__)
+
+    try:
+        import django
+        django_path = os.path.dirname(django.__file__)
+    except ImportError:
+        django_path=''
+
+    s = '''# Nginx configuration file for gunicorn v1.0
+
+# This configuration assumes you are using Gunicorn (http://gunicorn.org/)
+# to run your Booktype installation on port 8000
+
+server {
+    # We assume you are running your web server on port 80
+    listen   80;
+
+    # You should insert your server name here. For instance: booktype.myserver.com
+    server_name __INSERT_SERVER_NAME__;
+
+    # Path to the log files
+    access_log /var/log/nginx/booktype_access.log;
+    error_log  /var/log/nginx/booktype_error.log;
+
+
+    location /static/ {
+        alias %(destination)s/static/;
+
+        if ($query_string) {
+            expires max;
+        }
+    }
+
+    location /data/ {
+        alias %(destination)s/data/;
+
+        if ($query_string) {
+            expires max;
+        }
+    }
+
+    location / {
+        proxy_pass_header Server;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_connect_timeout 10;
+        proxy_read_timeout 10;
+        proxy_pass http://localhost:8000/;
+    }
+}''' % {'destination': destination,
+        'booki_source': booki_source,
+        'django_path': django_path}
+
+    try:
+        f = open('%s/conf/gunicorn.nginx' % destination, 'wt')
+        f.write(s)
+        f.close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+
+def create_nginx_fastcgi(destination):
+    log("+ Creating factcgi.nginx file.  ")
+
+    import booki
+
+    booki_source = os.path.dirname(booki.__file__)
+
+    try:
+        import django
+        django_path = os.path.dirname(django.__file__)
+    except ImportError:
+        django_path=''
+
+    s = '''# Nginx configuration file for fastcgi v1.0
+
+# This configuration assumes you are using fastcgi
+# to run your Booktype installation on port 8000
+
+server {
+    # We assume you are running your web server on port 80
+    listen   80;
+
+    # You should insert your server name here. For instance: booktype.myserver.com
+    server_name __INSERT_SERVER_NAME__;
+
+    # Path to the log files
+    access_log /var/log/nginx/booktype_access.log;
+    error_log  /var/log/nginx/booktype_error.log;
+
+    location /static/ {
+        alias %(destination)s/static/;
+
+        if ($query_string) {
+            expires max;
+        }
+    }
+
+    location /data/ {
+        alias %(destination)s/data/;
+
+        if ($query_string) {
+            expires max;
+        }
+    }
+
+    location / {
+      # host and port to fastcgi server
+      fastcgi_pass 127.0.0.1:8000;
+      fastcgi_param PATH_INFO $fastcgi_script_name;
+      fastcgi_param REQUEST_METHOD $request_method;
+      fastcgi_param QUERY_STRING $query_string;
+      fastcgi_param CONTENT_TYPE $content_type;
+      fastcgi_param CONTENT_LENGTH $content_length;
+      fastcgi_pass_header Authorization;
+      fastcgi_intercept_errors off;
+    }
+}''' % {'destination': destination,
+        'booki_source': booki_source,
+        'django_path': django_path}
+
+    try:
+        f = open('%s/conf/fastcgi.nginx' % destination, 'wt')
+        f.write(s)
+        f.close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+
+
+
+if __name__ == '__main__':
+    parser = optparse.OptionParser("usage: %prog [options] booki_install_path\n  e.g. createbooki /var/www/mybooki/")
+
+    parser.add_option("-q", "--quiet",
+                      action="store_const", const=0, dest="verbose")
+    parser.add_option("-v", "--verbose",
+                      action="store_const", const=1, dest="verbose")
+
+    parser.add_option("-d", "--database",
+                      action="store", type="string", dest="database")
+    parser.add_option("--check-versions", 
+                      action="store_true", dest="check_versions")
+
+    parser.set_defaults(verbose=1,
+                        database="postgresql",
+                        check_versions=False)
+    
+    (options, args) = parser.parse_args()
+
+    if len(args) != 1:
+        parser.error("incorrect number of arguments")
+
+    verbose = options.verbose
+    project_destination = os.path.abspath(args[0])
+
+    #if string.find(os.path.abspath(sys.argv[0]), os.sep+'Booki') != -1:
+    sys.path.insert(0, os.path.normpath(os.path.join(os.path.abspath(sys.argv[0]), os.pardir, os.pardir, 'lib')))
+
+    try:
+        project_name = get_project_name(project_destination)
+
+        if project_name.lower() in ['booktype', 'booki', 'objavi']:
+            raise MajorError("Not a valid project name")
+
+        if ' ' in project_name:
+            raise MajorError("Space not allowed in project name")
+
+        if '-' in project_name:
+            raise MajorError("Minus not allowed in project name. Try to use '_' instead.")
+
+        # check versions of software
+        if options.check_versions:
+            check_python_version()
+            check_django_version()
+            check_booki_available()
+            check_lxml_available()
+            # don't need it for now
+            #check_feedparser_available()
+            check_pil_available()
+            check_redis_available()
+            check_south_available()
+            check_unidecode_available()
+        
+        # show info about user id, group id and etc...
+        #show_info()
+        
+        # check if project directory exists
+        if os.path.exists(project_destination):
+            if os.access(project_destination, os.W_OK):
+                if os.path.exists('%s/%s_site/settings/base.py' % (project_destination,  get_project_name(project_destination))):
+                    raise MajorError("\nBooktype project does exist [%s]. I don't know what to do now. Choose another directory or manualy fix issues. Sorry about that.\n" % project_destination)
+                else:
+                    while True:
+                        proceed_anyway = raw_input("\nProject directory does exist [%s]. Directory might be already created by administrator and you just need to populate it with booktype project files...\n * If that is the case, type 'yes'.\n * If you are not sure, type 'no'.\nProceed anyway [yes/no] ? : " % project_destination)
+                        if proceed_anyway.strip().lower() == 'no':
+                            sys.exit(-1)
+                        elif proceed_anyway.strip().lower() == 'yes':
+                            break
+            else:
+                raise MajorError("Project directory exists [%s]. Can't write to this directory! Check your permissions before we continue." % project_destination)
+        else:
+            try:
+                os.mkdir(project_destination)
+            except OSError:
+                raise MajorError("Can't create directory [%s]. Check your permissions before we continue." % project_destination)
+                        
+        # create directory structure    
+        make_directory_structure(project_destination)
+
+        # create environment variables
+        create_env(project_destination)
+
+        # create manage.py file
+        create_manage(project_destination)
+
+        # create settings.py file
+        create_settings(project_destination, database = options.database)
+
+        # create urls
+        create_urls(project_destination)
+
+        # create wsgi file
+        create_wsgi(project_destination)
+
+        # create apache file for wsgi
+        create_apache(project_destination)
+
+        # create nginx gunicorn
+        create_nginx_gunicorn(project_destination)
+
+        # create nginx fastcgi
+        create_nginx_fastcgi(project_destination)
+
+        # show after message
+        show_after(project_destination)
+    except InstallError, e:
+        logln("[ERROR]")
+        sys.exit(-1)
+    except MajorError, e:
+        logln(e.description)
+        sys.exit(-1)
+        
+    
+
+
+
+
+
+
