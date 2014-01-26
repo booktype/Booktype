@@ -26,6 +26,15 @@
                                   //'global': {'tabs': ['chat']}
                                  }
                       };
+                      
+        if (!window.console) {
+          var noOp = function(){}; // no-op function
+          console = {
+            log: noOp,
+            warn: noOp,
+            error: noOp
+          }
+        }                      
 
         Aloha.ready( function() {
             Aloha.require(['jquery', 'aloha', 'booktype'], function(j, aloha, booktype) {
