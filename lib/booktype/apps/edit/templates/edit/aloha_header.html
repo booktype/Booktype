@@ -48,7 +48,10 @@
             },
             indent: {
                 marginLeft: "48px"
-            }                    
+            },
+            bookalign: {
+                alignment: ['right','left','center','justify']
+                }
         },
         contentHandler : {
                 insertHtml: [ 'word', 'generic', 'oembed', 'sanitize', 'block', 'formatless' ],
@@ -147,6 +150,7 @@
                         booktype/font,
                         booktype/indent,  
                         booktype/styling,
+                        booktype/bookalign,                        
                         common/undo,
                         booktype/bookundo,      
                         common/list,
