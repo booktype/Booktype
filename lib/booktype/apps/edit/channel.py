@@ -987,7 +987,27 @@ def remote_get_chapter(request, message, bookid, version):
 
     res = {}
 
+    try:
+        book = models.Book.objects.get(id=bookid)
+    except models.Book.DoesNotExist:
+        return {"status": False}
+
+    # check if you can access book on this channel
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+    hasPermission = security.canEditBook(book, bookSecurity)
+    
+    if not hasPermission:
+        return {"status": False}
+
+    # check if you can access book this chapter belongs to
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
+
+    bookSecurity = security.getUserSecurityForBook(request.user, chapter.version.book)
+    hasPermission = security.canEditBook(chapter.version.book, bookSecurity)
+    
+    if not hasPermission:
+        return {"status": False}
+
     res["title"] = chapter.title
     res["content"] = chapter.content
     res["current_revision"] = chapter.revision
