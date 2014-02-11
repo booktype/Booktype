@@ -18,7 +18,7 @@
   </div>
  {% endif %}
 
- <form  enctype="multipart/form-data" action="{% url control_settings_license_edit licenseid %}" method="POST">{% csrf_token %}
+ <form  enctype="multipart/form-data" action="{% url "control_settings_license_edit" licenseid %}" method="POST">{% csrf_token %}
    <ul class="form-list">
      {{ form.as_ul }}
      <li><input type="submit" name="submit" value="{% trans "Save changes" %}"/>
@@ -35,7 +35,7 @@
  <h2>{% trans "Books licensed with" %} "{{ license.name }}"</h2>
   <ol>
    {% for book in books %}
-     <li><a href="{% url control_edit_book book.url_title %}">{{ book.title }}</a></li>
+     <li><a href="{% url "control_edit_book" book.url_title %}">{{ book.title }}</a></li>
    {% empty %}
      <li>{% trans "No such books." %}</li>
    {% endfor %}

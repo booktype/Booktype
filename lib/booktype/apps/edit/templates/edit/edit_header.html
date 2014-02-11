@@ -1,0 +1,51 @@
+{% load staticfiles compress %}
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'> 
+{% compress css %}
+<link href='{% static "edit/css/bootstrap.css" %}' rel='stylesheet' type='text/css' />
+<link href="{% static "edit/css/font-awesome/css/font-awesome.min.css" %}" type="text/css"  rel="stylesheet" >
+<link href='{% static "edit/css/booki-new.css" %}' rel='stylesheet' type='text/css' />
+<link href='{% static "edit/css/jquery.fileupload-ui.css" %}' rel='stylesheet' type='text/css' />
+<link href='{% static "edit/css/edit.css" %}' rel='stylesheet' type='text/css' />
+<link href='{% static "edit/css/codemirror.css" %}' rel='stylesheet' type='text/css' />
+<link href="{% static "edit/css/slider.css" %}" rel='stylesheet' type='text/css'>
+{% endcompress %}
+
+{% compress js %}
+<script type="text/javascript" src="{% static "portal/js/jquery-1.9.1.js" %}"></script>
+<script type="text/javascript" src="{% static "portal/js/ui/jquery-ui.min.js" %}"></script>
+<script type="text/javascript" src="{% static "portal/js/underscore-min.js" %}"></script>
+<script type="text/javascript" src="{% static "portal/js/backbone-min.js" %}"></script>
+
+<script type="text/javascript" src="{% static "portal/js/booki.js" %}"></script>
+
+<script type="text/javascript" src="{% static "edit/js/codemirror/codemirror.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/codemirror/mode/htmlmixed/htmlmixed.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/codemirror/mode/xml/xml.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/codemirror/mode/javascript/javascript.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/codemirror/mode/css/css.js" %}"></script>
+
+<script type="text/javascript" src="{% static "edit/js/bootstrap-button.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/bootstrap-dropdown.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/bootstrap-tooltip.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/bootstrap-modal.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/bootstrap-tab.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/bootstrap-transition.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/bootstrap-popover.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/jquery.ui.touch-punch.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/jquery.mjs.nestedSortable.js" %}"></script>
+
+<script type="text/javascript" src="{% static "edit/js/jquery.iframe-transport.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/jquery.fileupload.js" %}"></script>
+
+<script type="text/javascript" src="{% static "edit/js/jscolor/jscolor.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/bootstrap-slider.js" %}"></script>
+
+
+<script type="text/javascript" src="{% static "edit/js/booktype/editor.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/booktype/edit.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/booktype/toc.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/booktype/media.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/booktype/covers.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/booktype/publish.js" %}"></script>
+{% endcompress %}

@@ -76,7 +76,10 @@ def createBook(user, bookTitle, status = "new", bookURL = None):
                        title = bookTitle,
                        owner = user, 
                        created = datetime.datetime.now(),
-                       published = datetime.datetime.now())
+                       published = datetime.datetime.now(),
+                       hidden = False,
+                       description = '',
+                       cover = None)
 
     book.save()
 

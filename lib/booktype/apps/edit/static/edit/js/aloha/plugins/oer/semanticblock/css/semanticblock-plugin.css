@@ -1,0 +1,211 @@
+/*  Logic for displaying placeholder text.
+    There are 2 cases when placeholder text should become visible:
+    1. If the user is hovering over a semantic element
+    2. If the user is editing a semantic element
+
+    Then, the placeholder text should appear on an element when all of the following occur:
+    - has a `placeholder` attribute
+    - does not contain text in the children (`.aloha-empty` is set on init/blur)
+    - is not currently being edited (no cursor inside)
+
+    The placeholder text is added to the DOM using `:before { content: '...'; }`.
+    This way, the browser does most of the heavy lifting AND the actual text
+    is never part of the DOM for serializing.
+ */
+.aloha-oer-block       *[placeholder].aloha-empty:not(:focus):before {
+    content: attr(placeholder);
+    color: #AAA;
+    font-style: italic;
+}
+.aloha-oer-block:hover *[hover-placeholder].aloha-empty:not(:focus):before {
+    content: attr(hover-placeholder);
+    color: #AAA;
+    font-style: italic;
+}
+
+/* Make titles inline so they show up next to the type dropdown if there is one */
+.aloha-oer-block > .title { display: inline; }
+
+.semantic-drag-helper {
+    display: block;
+    height: auto !important;
+}
+
+.semantic-container.drag-active {
+    background: #F0F0F0;
+}
+
+.semantic-container.delete-hover {
+    background: #F0F0F0;
+}
+.semantic-container.delete-hover > .aloha-oer-block {
+    opacity: 0.3; 
+}
+
+.semantic-container {
+    cursor: auto !important; /* override default aloha cursor for blocks */
+    position: relative;
+    padding: 10px 0 10px;
+    margin: 10px 0 10px 0;
+}
+.semantic-container.focused {
+    border: 1px solid #ccc;
+}
+
+.semantic-container .aloha-block-handle {
+    background-image:
+        linear-gradient(45deg, #C0C0C0 25%, transparent 25%, transparent 75%, #C0C0C0 75%),
+        linear-gradient(45deg, #C0C0C0 25%, transparent 25%, transparent 75%, #C0C0C0 75%);
+    background-position: 0 0, 2px 2px;
+    background-color: #FAFAFA;
+    background-size: 4px 4px;
+    border-radius: 0;
+    border: 1px solid #ccc;
+    height: 12px;
+    width: 50px;
+    margin: 5px 0 0 0;
+    position: absolute;
+    left: 50%;
+    display: none !important; /* override the default aloha display logic for handles */
+    cursor: url('openhand.cur'), default;
+}
+.semantic-container.aloha-oer-dragging .aloha-block-handle {
+    cursor: url('closedhand.cur'), default;
+}
+.semantic-container.drag-active .aloha-block-handle {
+    background-color: #F0F0F0;
+}
+.semantic-container.focused > .aloha-block-handle {
+    display: block !important; /* override the default aloha display logic for handles */
+}
+.semantic-container > .aloha-block-handle {
+    display: none !important; /* override the default aloha display logic for handles */
+}
+
+.semantic-container .semantic-controls {
+    border-left: 1px solid #ccc;
+    background: #F5F5F5;
+    padding-left: 1px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 15px;
+    height: 100%;
+    display: none;
+}
+.semantic-container.focused > .semantic-controls {
+    display: block;
+}
+.semantic-container > .semantic-controls {
+    display: none;
+}
+
+.semantic-controls button:hover {
+    background: #CCC;
+}
+.semantic-controls button {
+    outline: 0;
+    border: 0;
+    background: #F5F5F5;
+    margin: 0;
+    padding: 0;
+}
+
+.aloha-oer-block {
+  padding: 20px 10px 5px 20px;
+  min-height: 50px;
+  margin: 0 30px 0 30px;
+  border: 1px solid #333;
+  border-top-color: #ccc;
+  border-left-color: #ccc;
+}
+
+.aloha-oer-block .type:before {
+    content: "\25A0";
+    margin-right: 3px;
+}
+
+.semantic-container > * > .type-container .type:before {
+    content: "\25BE";
+    margin-right: 3px;
+}
+
+.semantic-container .type-container {
+    margin-bottom: 10px;
+}
+
+.aloha-oer-block .type {
+    font-weight: bold;
+    margin: 5px 10px 0 5px;
+    color: #369;
+    text-decoration: none;
+}
+
+.aloha-oer-block .type-container ul.dropdown-menu {
+    margin: -1.5em 0 0 0 !important;
+}
+
+.aloha-oer-block .type-container li {
+    list-style-type: none !important;
+}
+.aloha-oer-block .type-container li.checked a:before {
+    content: "\2713";
+    margin: 0 3px 0 -14px;
+}
+
+.aloha-oer-block .title {
+    font-size: 1em;
+}
+.aloha-oer-block .title:not(.aloha-empty) {
+    font-weight: bold;
+}
+
+/* ========== note ========== */
+.semantic-drag-source > * > * {
+    display: none;
+}
+.semantic-drag-source > *:hover {
+    background: #DDD;
+}
+.semantic-drag-source > * {
+    margin: 5px;
+    padding: 5px 0 5px 10px;
+    border: 1px solid black;
+    min-height: 0 !important;
+    height: 20px;
+    width: 155px;
+    border-radius: 5px;
+    background: #EEE;
+    cursor: url('openhand.cur'), default;
+}
+
+.semantic-drag-helper {
+    border-radius: 5px;
+    margin: 10px;
+    padding: 4px 20px 4px 20px;
+    background: white;
+    border: 1px solid black;
+    width: 300px;
+    height: 50px;
+    max-width: 300px;
+    max-height: 50px;
+    cursor: url('closedhand.cur'), default;
+}
+
+.semantic-drag-helper .title,
+.semantic-drag-helper .body {
+    display: inline;
+}
+.semantic-drag-helper .title:before {
+    content: "\25A0";
+    margin-right: 3px;
+}
+.semantic-drag-helper .title:after {
+    content: ":";
+    margin-right: 10px;
+}
+.semantic-drag-helper .title {
+    color: #369;
+}
+
+

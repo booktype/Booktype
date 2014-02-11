@@ -9,8 +9,8 @@
     $(function() {
     var groupsToJoin = [ {% for group in joingroups %}"{{ group.url_name }}",{% endfor %}''];
     
-    $("#formsignin").booksparkSignin({'url': '{% url signin %}', 'redirect': '{{ redirect|escapejs }}'});
-    $("#formregister").booksparkRegister({'url': '{% url signin %}', 'redirect': '{% url view_profile 'XXX' %}'});   
+    $("#formsignin").booksparkSignin({'url': '{% url "signin" %}', 'redirect': '{{ redirect|escapejs }}'});
+    $("#formregister").booksparkRegister({'url': '{% url "signin" %}', 'redirect': '{% url "view_profile" 'XXX' %}'});   
     });
 
 
@@ -43,7 +43,7 @@
  <div class="clearfix"></div>
 </div>
 
-{% url frontpage as frontpage_url%}
+{% url "frontpage" as frontpage_url%}
 <div id="signinmessage" style="display: none">
 <div class="signin-confirm account">
     <h3>{% trans "Your account has been created!" %}</h3>
@@ -60,7 +60,7 @@
 <h3>{% trans "Why do I need account ?" %}</h3>
 <p>{% trans "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to." %}</p>
 
-{% url forgotpassword as forgotpassword_url%}
+{% url "forgotpassword" as forgotpassword_url%}
 <h3>{% trans "I forgot my password. What now ?!" %}</h3>
 {% blocktrans %}<p>Please <a href="{{ forgotpassword_url }}">request new one</a>.</p>{% endblocktrans %}
 

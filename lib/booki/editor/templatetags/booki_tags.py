@@ -213,7 +213,7 @@ def booki_site_favicon():
     if favicon:
         s = '<link rel="SHORTCUT ICON" href="%s" type="image/x-icon">' % cgi.escape(favicon, True)
     else:
-        s = '<link rel="SHORTCUT ICON" href="%s/site_static/images/favicon.ico" type="image/x-icon">' % settings.BOOKI_URL
+        s = '<link rel="SHORTCUT ICON" href="%sprofile/images/favicon.ico" type="image/x-icon">' % settings.STATIC_URL
 
     return s
 
