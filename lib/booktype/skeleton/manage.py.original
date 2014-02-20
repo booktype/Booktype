@@ -2,11 +2,20 @@
 import os
 import sys
 
+from unipath import Path
+
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "##SETTINGS##")
 
-    sys.path.insert(0, '##DESTINATION_PATH##')
-    sys.path.insert(0, '##DESTINATION_PATH##/lib/')
+    BASE_DIR = Path(os.path.abspath(__file__))
+
+    # Set PYTHONPATH to include project directory
+    sys.path.insert(0, BASE_DIR)
+
+    # Also include lib/ directory in our project
+    sys.path.insert(0, BASE_DIR.child('lib'))
+
+    # Let us find where we have Booktype installed
     sys.path.insert(0, '##BOOKTYPE_PATH##')
 
     from django.core.management import execute_from_command_line

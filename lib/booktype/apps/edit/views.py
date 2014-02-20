@@ -220,12 +220,12 @@ def cover(request, bookid, cid, fname = None, version=None):
             im.thumbnail((300, 200), Image.ANTIALIAS)
         except:
             try:
-                im = Image.open('%s/editor/images/booktype-cover-%s.png' % (settings.SITE_STATIC_ROOT, extension.lower()))
+                im = Image.open('%s/editor/images/booktype-cover-%s.png' % (settings.STATIC_ROOT, extension.lower()))
                 extension = 'png'
                 content_type = 'image/png'
             except:
                 # Not just IOError but anything else
-                im = Image.open('%s/editor/images/booktype-cover-error.png' % settings.SITE_STATIC_ROOT)
+                im = Image.open('%s/editor/images/booktype-cover-error.png' % settings.STATIC_ROOT)
                 extension = 'png'
                 content_type = 'image/png'
 

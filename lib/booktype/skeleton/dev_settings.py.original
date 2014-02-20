@@ -1,26 +1,48 @@
 from .base import *
 
+
+# DEBUGGING
 DEBUG = TEMPLATE_DEBUG = True
 
+# COMPRESSION
+COMPRESS_ENABLED = False
+COMPRESS_OFFLINE = False
+
+# PROFILE
 PROFILE_ACTIVE = 'dev'
 
-ROOT_URLCONF = '##BOOKTYPE_SITE_NAME##.urls.dev'
+# URL ROUTER
+ROOT_URLCONF = '{}.urls.dev'.format(BOOKTYPE_SITE_NAME)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'dev.db',
-    }
-}
+# DATABASE 
+DATABASES = {'default': {'ENGINE': '##DATABASE_ENGINE##',
+                         'NAME': '##DATABASE_NAME##',
+                         'USER': '',
+                         'PASSWORD': '',
+                         'HOST': 'localhost',
+                         'PORT': ''
+                        }
+            }
 
+
+# REDIS
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
+REDIS_PASSWORD = None
+
+
+# E-MAIL
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# CACHE
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
 
+# DEVELOPMENT TOOLS
 try:
     import debug_toolbar
     MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
@@ -38,6 +60,7 @@ try:
 except ImportError:
     pass
 
+# LOGGING
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -55,7 +78,7 @@ LOGGING = {
         'logfile': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': BOOKI_ROOT + "/logs/booktype.log",
+            'filename': BOOKTYPE_ROOT + "/logs/booktype.log",
             'maxBytes': 50000,
             'backupCount': 2,
             'formatter': 'standard',
@@ -90,6 +113,7 @@ LOGGING = {
 }
 
 
+# READ CONFIGURAION
 from booki.utils import config
 
 try:

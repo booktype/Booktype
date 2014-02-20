@@ -17,7 +17,11 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import sys, os, optparse, string
+import sys
+import os
+import optparse
+import string
+import unipath
 
 verbose = 0
 
@@ -37,21 +41,35 @@ def show_info():
 
     logln("\n\n\n")
 
-def show_after(destination):
+def show_after(destination, name):
     logln("")
-    logln("Check [%s] directory for config files:" % destination)
+    logln("Check [%s] directory for created files:" % destination)
     logln("   booktype.env        -  Environment variables")
-    logln("   conf/booki.wsgi     -  WSGI file for Apache")
-    logln("   conf/wsgi.apache    -  Apache config file")
-    logln("   conf/gunicorn.nginx -  Nginx config file")
-    logln("   conf/fastcgi.nginx  -  Nginx config file")
-    logln("   settings.py    -  Booki settings file")
+    logln("   manage.py           -  Manage file")    
+    logln("")    
+    logln("   conf/                 -  Configuration files")
+    logln("     wsgi.apache         -  Apache config file")
+    logln("     gunicorn.nginx      -  Nginx config file")
+    logln("     fastcgi.nginx       -  Nginx config file")
+    logln("")    
+    logln("   lib/                  -  Local python libraries")
+    logln("   static/               -  Deployed static files")    
+    logln("   data/                 -  Attachments, Covers, ...")
     logln("")
-    logln("   templates/     -  Local Booki template files")
-    logln("   locale/        -  Local directory with translations")
-    logln("   static/        -  Local web files")
-    logln("   lib/           -  Local python libraries")
-    logln("   data/          -  Place for attachments")
+    logln("   {:<10}            -  Booktype project".format(name+"_site"))
+    logln("     locale/             -  Local translations")
+    logln("     templates/          -  Local templates")
+    logln("     static/             -  Local static files")
+    logln("     wsgi.py             -  WSGI file for Apache")
+    logln("")
+    logln("     settings/           -  Settings configurations")
+    logln("       base.py           -  Base configuration")
+    logln("       dev.py            -  Development configuration")
+    logln("       prod.py           -  Production configuration")
+    logln("")
+    logln("     urls/               -  URL routers")
+    logln("       dev.py            -  For Development profile")
+    logln("       prod.py           -  For Production profile")
     logln("")
     logln("For further instructions read INSTALL file.\n")
 
@@ -72,11 +90,7 @@ def check_python_version():
     major, minor = sys.version_info[:2]
 
     if major == 2:
-        if minor == 5:
-            logln("I see you have python 2.5... Maybe you should think about upgrading to latest version?!")
-        elif minor == 6:
-            pass
-        elif minor < 5:
+        if minor < 7:
             raise MajorError("You have old version of Python. Please upgrade.")
     elif major == 3:
         raise MajorError("I don't think i can work with Python 3.")
@@ -98,7 +112,7 @@ def check_django_version():
     major, minor = django.VERSION[:2]
 
     if major == 1:
-        if minor < 2:
+        if minor < 5:
             raise MajorError("You have old version of Django. Please upgrade.")
 
 
@@ -176,7 +190,7 @@ def make_directory_structure(destination):
     try:
         project = get_project_name(destination)
 
-        for d in ['data', 'logs', 'static', 'media', 'lib', 'conf', '%s_site' % project]:
+        for d in ['data', 'logs', 'static', 'lib', 'conf', '%s_site' % project]:
             log("+ Creating %s directory.  " % d)
             os.mkdir('%s/%s' % (destination, d))
             logln("[OK]")
@@ -259,7 +273,7 @@ def create_settings(destination, database):
             'BOOKTYPE_SITE_NAME': '%s_site' % project,
             'BOOKTYPE_ROOT': os.path.abspath(destination)}
 
-    if database == 'postgresql':
+    if database in ['postgresql', 'postgres']:
         vals['DATABASE_ENGINE'] = 'django.db.backends.postgresql_psycopg2'
         vals['DATABASE_NAME'] = ''
     elif database == 'sqlite':
@@ -295,7 +309,7 @@ def get_project_directory(destination):
 
     return os.sep.join(dirs[:-1])
 
-def create_manage(destination):
+def create_manage(destination, profile):
     log("+ Creating manage.py file.")
 
     import booktype
@@ -310,7 +324,7 @@ def create_manage(destination):
     except IOError:
         raise MajorError("[ERROR] Can't read manage.py.original file.")
 
-    content = set_var(content, "SETTINGS", "%s_site.settings.dev" % project)    
+    content = set_var(content, "SETTINGS", "{}_site.settings.{}".format(project, profile))
     content = set_var(content, "DESTINATION_PATH", destination)
     content = set_var(content, "BOOKTYPE_PATH", booktype_path)
 
@@ -330,7 +344,7 @@ def create_manage(destination):
     except IOError:
         raise InstallError()
 
-def create_env(destination):
+def create_env(destination, profile):
     log("+ Creating booktype.env file.  ")
 
     import booki
@@ -342,7 +356,7 @@ def create_env(destination):
 # %(project_name)s_site.settings.dev [for development]
 # %(project_name)s_site.settings.prod [for production]
 
-export DJANGO_SETTINGS_MODULE=%(project_name)s_site.settings.dev
+export DJANGO_SETTINGS_MODULE=%(project_name)s_site.settings.%(profile)s
 
 # If your libraries are in non standard place, you should add path to them here.
 
@@ -356,6 +370,7 @@ export PYTHONPATH PATH
 ''' % {'project_name': get_project_name(destination), 
        'location': get_project_directory(destination), 
        'destination': destination, 
+       'profile': profile,
        'booktype_path': booki_path})
         f.close()
     except OSError:
@@ -363,8 +378,8 @@ export PYTHONPATH PATH
     else:
         logln("[OK]")
 
-def create_wsgi(destination):
-    log("+ Creating booki.wsgi file.  ")
+def create_wsgi(destination, profile):
+    log("+ Creating booktype.wsgi file.  ")
 
     import booki
     booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
@@ -384,15 +399,18 @@ middleware here, or combine a Django application with an application of another
 framework.
 
 """
-import os, sys
+import os
+import sys
 
 import djcelery
+from unipath import Path
 
 djcelery.setup_loader()
 
+BASE_DIR = Path(os.path.abspath(__file__)).ancestor(2)
 
-sys.path.insert(0, '%(destination)s/')
-sys.path.insert(0, '%(destination)s/lib/')
+sys.path.insert(0, BASE_DIR)
+sys.path.insert(0, BASE_DIR.child("lib"))
 sys.path.insert(0, '%(booki_path)s/')
 
 
@@ -400,8 +418,7 @@ sys.path.insert(0, '%(booki_path)s/')
 # if running multiple sites in the same mod_wsgi process. To fix this, use
 # mod_wsgi daemon mode with each site in its own daemon process, or use
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "%(project_name)s_site.settings.dev"
-#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%(project_name)s_site.settings.dev")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%(project_name)s_site.settings.%(profile)s")
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
@@ -409,12 +426,10 @@ os.environ["DJANGO_SETTINGS_MODULE"] = "%(project_name)s_site.settings.dev"
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
-# Apply WSGI middleware here.
-# from helloworld.wsgi import HelloWorldApplication
-# application = HelloWorldApplication(application)
 ''' % {'directory': get_project_directory(destination),
         'destination': destination,
         'booki_path': booki_path, 
+        'profile': profile,
         'project_name': get_project_name(destination)})
         f.close()
     except OSError:
@@ -438,7 +453,7 @@ def create_apache(destination):
 
     # TODO add path to booki
 
-    s = '''# Apache configuration for Booktype server V1.0.1
+    s = '''# Apache configuration for Booktype server V1.0.5
 
 <VirtualHost *:80>
 
@@ -472,9 +487,9 @@ def create_apache(destination):
        IndexOptions FancyIndexing
      </Directory>
 
-     ErrorLog ${APACHE_LOG_DIR}/bookdev-error.log
+     ErrorLog ${APACHE_LOG_DIR}/booktype-%(project_name)s-error.log
      LogLevel warn
-     CustomLog ${APACHE_LOG_DIR}/bookdev-access.log combined
+     CustomLog ${APACHE_LOG_DIR}/booktype-%(project_name)s-access.log combined
 </VirtualHost>''' % {'destination': destination,
                      'booki_source': booki_source,
                      'project_name': get_project_name(destination),
@@ -633,7 +648,7 @@ server {
 
 
 if __name__ == '__main__':
-    parser = optparse.OptionParser("usage: %prog [options] booki_install_path\n  e.g. createbooki /var/www/mybooki/")
+    parser = optparse.OptionParser("usage: %prog [options] booktype_install_path\n  e.g. createbooktype /var/www/mybook/")
 
     parser.add_option("-q", "--quiet",
                       action="store_const", const=0, dest="verbose")
@@ -642,6 +657,8 @@ if __name__ == '__main__':
 
     parser.add_option("-d", "--database",
                       action="store", type="string", dest="database")
+    parser.add_option("-p", "--profile",
+                      action="store", type="string", dest="profile", default="dev")    
     parser.add_option("--check-versions", 
                       action="store_true", dest="check_versions")
 
@@ -712,10 +729,10 @@ if __name__ == '__main__':
         make_directory_structure(project_destination)
 
         # create environment variables
-        create_env(project_destination)
+        create_env(project_destination, options.profile)
 
         # create manage.py file
-        create_manage(project_destination)
+        create_manage(project_destination, options.profile)
 
         # create settings.py file
         create_settings(project_destination, database = options.database)
@@ -724,7 +741,7 @@ if __name__ == '__main__':
         create_urls(project_destination)
 
         # create wsgi file
-        create_wsgi(project_destination)
+        create_wsgi(project_destination, options.profile)
 
         # create apache file for wsgi
         create_apache(project_destination)
@@ -736,7 +753,7 @@ if __name__ == '__main__':
         create_nginx_fastcgi(project_destination)
 
         # show after message
-        show_after(project_destination)
+        show_after(project_destination, project_name)
     except InstallError, e:
         logln("[ERROR]")
         sys.exit(-1)

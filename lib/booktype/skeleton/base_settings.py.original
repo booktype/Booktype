@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import os.path
+import os
+
+from unipath import Path
 
 import djcelery
 
 djcelery.setup_loader()
-
-
-# DJANGO DEBUG
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 # DJANGO ADMIN
 ADMINS = (
@@ -28,43 +25,43 @@ DEFAULT_NOTIFICATION_FILTER=u"#* !* ~* \u212c*"
 # Options are: book, ebook, pdf, lulu, odt
 # PUBLISH_OPTIONS = ("book", "ebook")
 
-# BOOKI
-BOOKI_MAINTENANCE_MODE = False
+# BOOKTYPE
+PROFILE_ACTIVE = ''
 
-BOOKI_NAME = '##BOOKTYPE_NAME##'
-THIS_BOOKI_SERVER = '' # the name of the booki server (comment out to use os.environ['HTTP_HOST'])
+BOOKTYPE_NAME = '##BOOKTYPE_NAME##'
+BOOKTYPE_SITE_NAME = '##BOOKTYPE_SITE_NAME##'
+THIS_BOOKTYPE_SERVER = '' # the name of the booki server (comment out to use os.environ['HTTP_HOST'])
 
-BOOKI_ROOT = '##BOOKTYPE_ROOT##'  # edit this
-BOOKI_URL = ''
-#BOOKI_URL = 'http://%s' % THIS_BOOKI_SERVER
+#BOOKTYPE_ROOT = '##BOOKTYPE_ROOT##' 
+BOOKTYPE_ROOT = Path(os.path.abspath(__file__)).ancestor(3)
+
+BOOKTYPE_URL = ''
+#BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
 
 # E-MAIL OPTIONS
 REPORT_EMAIL_USER = 'booktype@booktype.pro'
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
-#EMAIL_HOST_USER = 'booktype@' + THIS_BOOKI_SERVER
+#EMAIL_HOST_USER = 'booktype@' + THIS_BOOKTYPE_SERVER
 #EMAIL_HOST_PASSWORD = ''
 #EMAIL_USE_TLS = False
 
-# BOOKI DIRECTORIES
+# BOOKTYPE DIRECTORIES
 
 # site_static
 import booki
 
-SITE_STATIC_ROOT = '%s/site_static' % os.path.dirname(booki.__file__)
-SITE_STATIC_URL  = '%s/site_static' % BOOKI_URL
-
 # static
-STATIC_ROOT = '%s/static/' % BOOKI_ROOT
-STATIC_URL  = '%s/static/' % BOOKI_URL
+STATIC_ROOT = BOOKTYPE_ROOT.child('static')
+STATIC_URL  = '{}/static/'.format(BOOKTYPE_URL)
 
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '%s/%s/static/' % (BOOKI_ROOT, '##BOOKTYPE_SITE_NAME##'),
+    BOOKTYPE_ROOT.child(BOOKTYPE_SITE_NAME).child('static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -77,8 +74,8 @@ STATICFILES_FINDERS = (
 )
 
 # data
-DATA_ROOT = '%s/data' % BOOKI_ROOT
-DATA_URL  = '%s/data/' % BOOKI_URL
+DATA_ROOT = BOOKTYPE_ROOT.child('data')
+DATA_URL  = '{}/data/'.format(BOOKTYPE_URL)
 
 # profile images
 PROFILE_IMAGE_UPLOAD_DIR = 'profile_images/' 
@@ -94,24 +91,11 @@ COVER_IMAGE_UPLOAD_DIR = 'cover_images/'
 MEDIA_ROOT = DATA_ROOT
 MEDIA_URL = DATA_URL
 
-ADMIN_MEDIA_PREFIX = '%s/media/' % BOOKI_URL
-
-# URLS
-OBJAVI_URL = "http://objavi.booktype.pro/"
-ESPRI_URL = "http://objavi.booktype.pro/espri"
+ADMIN_MEDIA_PREFIX = '{}/media/'.format(BOOKTYPE_URL)
 
 # who gets credited as publisher if not otherwise specified
 DEFAULT_PUBLISHER = "Unknown"
 
-# DATABASE STUFF
-DATABASES = {'default': {'ENGINE': '##DATABASE_ENGINE##',
-                         'NAME': '##DATABASE_NAME##',
-                         'USER': '',
-                         'PASSWORD': '',
-                         'HOST': 'localhost',
-                         'PORT': ''
-                        }
-            }
 
 
 # REDIS STUFF
@@ -147,10 +131,12 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
+USE_TZ = False
 
 LOCALE_PATHS = (
-     '%s/locale' % os.path.dirname(booki.__file__),
+     BOOKTYPE_ROOT.child(BOOKTYPE_SITE_NAME).child('locale'),
+      Path(booki.__file__).parent.child('locale'),
+      Path(booki.__file__).parent.child('booktype').child('locale')
 )
 
 # Make this unique, and don't share it with anybody.
@@ -160,20 +146,13 @@ SECRET_KEY = 'enc*ln*vp^o2p1p6of8ip9v5_tt6r#fh2-!-@pl0ur^6ul6e)l'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage' 
 
 # List of callables that know how to import templates from various sources.
-import django
 
-if django.VERSION[1] < 3:
-    TEMPLATE_LOADERS = (
-                        'django.template.loaders.filesystem.load_template_source',
-                        'django.template.loaders.app_directories.load_template_source',
-                        'django.template.loaders.eggs.load_template_source',
-                       )
-else:
-    TEMPLATE_LOADERS = (
-                        'django.template.loaders.filesystem.Loader',
-                        'django.template.loaders.app_directories.Loader',
-                        'django.template.loaders.eggs.Loader',
-                       )
+TEMPLATE_LOADERS = (
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                    'django.template.loaders.eggs.Loader',
+                   )
+
 
 TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
                                 "django.core.context_processors.debug",
@@ -196,11 +175,11 @@ MIDDLEWARE_CLASSES = (
 
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = '##BOOKTYPE_SITE_NAME##.wsgi.application'
+WSGI_APPLICATION = '{}.wsgi.application'.format('##BOOKTYPE_SITE_NAME##')
 
 TEMPLATE_DIRS = (
-    '%s/%s/templates/' % (BOOKI_ROOT, '##BOOKTYPE_SITE_NAME##'),
-    '%s/templates/' % os.path.dirname(booki.__file__)
+    BOOKTYPE_ROOT.child(BOOKTYPE_SITE_NAME).child('templates'),
+    Path(booki.__file__).parent.child('templates')
 )
 
 
@@ -233,4 +212,18 @@ INSTALLED_APPS = (
     'booktypecontrol'
 )
 
+BOOKTYPE_CONVERTER_MODULES = (
+    'booktype.convert.converters',
+)
+
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+# DEPRECATED CONFIG
+
+BOOKI_NAME = BOOKTYPE_NAME
+BOOKI_ROOT = BOOKTYPE_ROOT
+BOOKI_URL = BOOKTYPE_URL
+THIS_BOOKI_SERVER = THIS_BOOKTYPE_SERVER
+BOOKI_MAINTENANCE_MODE = False
+
