@@ -402,17 +402,20 @@ framework.
 import os
 import sys
 
-import djcelery
 from unipath import Path
 
-djcelery.setup_loader()
 
 BASE_DIR = Path(os.path.abspath(__file__)).ancestor(2)
+
+# EDIT THIS VALUE
+VIRTUAL_PATH=''
 
 sys.path.insert(0, BASE_DIR)
 sys.path.insert(0, BASE_DIR.child("lib"))
 sys.path.insert(0, '%(booki_path)s/')
 
+activate_this = '{}/bin/activate_this.py'.format(VIRTUAL_PATH)
+execfile(activate_this, dict(__file__=activate_this))
 
 # We defer to a DJANGO_SETTINGS_MODULE already in the environment. This breaks
 # if running multiple sites in the same mod_wsgi process. To fix this, use
@@ -420,11 +423,16 @@ sys.path.insert(0, '%(booki_path)s/')
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%(project_name)s_site.settings.%(profile)s")
 
+# Initialise celery
+import djcelery
+djcelery.setup_loader()
+
+
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
-from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
+import django.core.handlers.wsgi
+application = django.core.handlers.wsgi.WSGIHandler()
 
 ''' % {'directory': get_project_directory(destination),
         'destination': destination,
