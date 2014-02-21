@@ -1,39 +1,56 @@
 from .base import *
 
+# WEB SITE URL
+
+THIS_BOOKTYPE_SERVER=''
+BOOKTYPE_URL = ''
+#BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
+
+STATIC_URL  = '{}/static/'.format(BOOKTYPE_URL)
+DATA_URL  = '{}/data/'.format(BOOKTYPE_URL)
+MEDIA_URL = DATA_URL
+
+# DEBUG
 DEBUG = TEMPLATE_DEBUG = False
 
+# PROFILE
 PROFILE_ACTIVE = 'prod'
 
+# URL ROUTER
 ROOT_URLCONF = '{}.urls.prod'.format(BOOKTYPE_SITE_NAME)
 
-# REDIS STUFF
+# REDIS 
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 0
 REDIS_PASSWORD = None
 
-# DATABASE STUFF
-DATABASES = {'default': {'ENGINE': '##DATABASE_ENGINE##',
-                         'NAME': '##DATABASE_NAME##',
-                         'USER': '',
-                         'PASSWORD': '',
-                         'HOST': 'localhost',
-                         'PORT': ''
-                        }
+# DATABASE
+DATABASES = {'default': 
+                   {'ENGINE': '##DATABASE_ENGINE##',
+                    'NAME': '##DATABASE_NAME##',
+                    'USER': '',
+                    'PASSWORD': '',
+                    'HOST': 'localhost',
+                    'PORT': ''
+                   }
             }
 
+# E-MAIL
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-# Enable Compresson
+# COMPRESSION
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
 
+# CACHE
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
 
+# LOGGING
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -95,7 +112,7 @@ LOGGING = {
     }
 }
 
-
+# READ CONFIGURAION
 from booki.utils import config
 
 try:

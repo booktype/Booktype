@@ -1,5 +1,14 @@
 from .base import *
 
+# WEB SITE URL
+
+THIS_BOOKTYPE_SERVER=''
+BOOKTYPE_URL = ''
+#BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
+
+STATIC_URL  = '{}/static/'.format(BOOKTYPE_URL)
+DATA_URL  = '{}/data/'.format(BOOKTYPE_URL)
+MEDIA_URL = DATA_URL
 
 # DEBUGGING
 DEBUG = TEMPLATE_DEBUG = True
@@ -15,15 +24,15 @@ PROFILE_ACTIVE = 'dev'
 ROOT_URLCONF = '{}.urls.dev'.format(BOOKTYPE_SITE_NAME)
 
 # DATABASE 
-DATABASES = {'default': {'ENGINE': '##DATABASE_ENGINE##',
-                         'NAME': '##DATABASE_NAME##',
-                         'USER': '',
-                         'PASSWORD': '',
-                         'HOST': 'localhost',
-                         'PORT': ''
-                        }
+DATABASES = {'default': 
+                     {'ENGINE': '##DATABASE_ENGINE##',
+                      'NAME': '##DATABASE_NAME##',
+                      'USER': '',
+                      'PASSWORD': '',
+                      'HOST': 'localhost',
+                      'PORT': ''
+                     }
             }
-
 
 # REDIS
 REDIS_HOST = 'localhost'
