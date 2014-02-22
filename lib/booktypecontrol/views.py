@@ -378,7 +378,7 @@ def add_person(request):
                     t = template.loader.get_template('booktypecontrol/new_person_email.html')
                     content = t.render(template.Context({"username": frm.cleaned_data['username'],
                                                          "password": frm.cleaned_data['password2'],
-                                                         "server":   settings.BOOKI_URL}))
+                                                         "server":   settings.BOOKTYPE_URL}))
 
                     from django.core.mail import EmailMultiAlternatives
                     emails = [frm.cleaned_data['email']]
@@ -819,7 +819,7 @@ def settings_description(request):
                     fh, fname = misc.saveUploadedAsFile(request.FILES['favicon'])
                     shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
 
-                    config.setConfiguration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKI_URL)
+                    config.setConfiguration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
                 except:
                     pass
 
@@ -1250,7 +1250,7 @@ def settings_frontpage(request):
     from booki.utils import config
 
 
-    staticRoot = settings.BOOKI_ROOT
+    staticRoot = settings.BOOKTYPE_ROOT
 
     if request.method == 'POST': 
         frm = FrontpageForm(request.POST, request.FILES) 
