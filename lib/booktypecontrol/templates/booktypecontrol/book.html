@@ -71,7 +71,7 @@
   {% if book.group %}
     <li><b>{% trans "Member of group:" %}</b> <a href="{% url "view_group" book.group.url_name %}">{{ book.group.name }}</a></li>
   {% endif %}
-  <li><b>{% trans "Current version:" %}</b> <a href="{% url "draft_book" book.url_title book_version %}">{{ book.version.getVersion }}</a></li>
+  <li><b>{% trans "Current version:" %}</b> <a href="{% url "draft_book" book.url_title book_version %}">{{ book.version.get_version }}</a></li>
   <li><b>{% trans "Attachments size:" %}</b> {{ attachments_size|filesizeformat }}</li>
   <li>&nbsp;</li>
   <li><b>{% trans "Created:" %}</b> {{ book.created }}</li>
@@ -97,7 +97,7 @@
  <h3 class="inner">{% trans "Versions" %}</h3>
  <ul class="simple-list solo no-bg">
   {% for ver in book_versions %}
-    <li><a href="{% url "draft_book" book.url_title ver.getVersion %}"> {{ ver.getVersion }}</a></li>
+    <li><a href="{% url "draft_book" book.url_title ver.get_version %}"> {{ ver.get_version }}</a></li>
   {% endfor %}
  </ul>
 </div>

@@ -53,7 +53,7 @@ class Command(BaseCommand):
         except models.Book.DoesNotExist:
             raise CommandError('Book "%s" does not exist.' % args[0])
 
-        book_version = book.getVersion(options['book_version'])
+        book_version = book.get_version(options['book_version'])
 
         if not book_version:
             raise CommandError('Book version %s does not exist.' % options['book_version'])

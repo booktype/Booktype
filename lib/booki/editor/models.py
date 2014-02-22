@@ -138,7 +138,7 @@ class Book(models.Model):
     description = models.TextField(_('description'), null=False, default='')
     cover = models.ImageField(_('cover'), upload_to=settings.COVER_IMAGE_UPLOAD_DIR, null=True)
 
-    def getVersion(self, version=None):
+    def get_version(self, version=None):
         """
         Returns object of type C{BookiVersion}. If version is None it returns latest version.
 
@@ -178,7 +178,7 @@ class Book(models.Model):
 
         return book_ver
 
-    def getVersions(self):
+    def get_versions(self):
         """
         @rtype: C{list}
         @return: List of all BookVersions for this Book.
@@ -187,7 +187,7 @@ class Book(models.Model):
         from booki.editor import models as emodels
         return emodels.BookVersion.objects.filter(book=self)
 
-    def setCover(self, fileName):
+    def set_cover(self, fileName):
         from booki.utils.book import setBookCover
 
         setBookCover(self, fileName)
@@ -201,6 +201,12 @@ class Book(models.Model):
     class Meta:
         verbose_name = _('Book')
         verbose_name_plural = _('Books')
+
+    # DEPRECATED API NAMES
+    getVersion = get_version
+    getVersions = get_versions
+    setCover = set_cover
+
 
 # BookHistory
 
@@ -268,7 +274,7 @@ class Info(models.Model):
     value_date = models.DateTimeField(_('value date'), auto_now=False, null=True)
 
     
-    def getValue(self):
+    def get_value(self):
         if self.kind == 0:
             return self.value_string
         if self.kind == 1:
@@ -288,6 +294,9 @@ class Info(models.Model):
         verbose_name = _('Metadata')
         verbose_name_plural = _('Metadata')
 
+    # DEPRECATED API NAMES
+    getValue = get_value        
+
 
 # Book Version
 
@@ -301,26 +310,31 @@ class BookVersion(models.Model):
     created = models.DateTimeField(_('created'), auto_now=False, null=False, default=datetime.datetime.now)
     # add published
 
-    def getTOC(self):
+    def get_toc(self):
         return BookToc.objects.filter(version=self).order_by("-weight")
 
-    def getHoldChapters(self):
+    def get_hold_chapters(self):
         return Chapter.objects.raw('SELECT editor_chapter.* FROM editor_chapter LEFT OUTER JOIN editor_booktoc ON (editor_chapter.id=editor_booktoc.chapter_id)  WHERE editor_chapter.book_id=%s AND editor_chapter.version_id=%s AND editor_booktoc.chapter_id IS NULL', (self.book.id, self.id))
 
-
-    def getAttachments(self):
+    def get_attachments(self):
         "Return all attachments for this version."
         return Attachment.objects.filter(version=self)
 
-    def getVersion(self):
+    def get_version(self):
         return '%d.%d' % (self.major, self.minor)
 
     def get_absolute_url(self):
-        return '%s/%s/_v/%s/' % (settings.BOOKI_URL, self.url_title, self.getVersion())
+        return '%s/%s/_v/%s/' % (settings.BOOKI_URL, self.url_title, self.get_version())
         
     def __unicode__(self):
         return '%d.%d (%s)' % (self.major, self.minor, self.name)
-        
+
+    # DEPRECATED API NAMES
+    getTOC = get_toc        
+    getHoldChapters = get_hold_chapters
+    getAttachments = get_attachments
+    getVersion = get_version
+
 
 # Chapter
 
@@ -374,8 +388,8 @@ class ChapterHistory(models.Model):
 # Attachment
 
 def uploadAttachmentTo(att, filename):
-    return '%s/books/%s/%s/%s' % (settings.DATA_ROOT, att.book.url_title, att.version.getVersion(), filename)
-#    return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, att.version.getVersion(), filename)
+    return '%s/books/%s/%s/%s' % (settings.DATA_ROOT, att.book.url_title, att.version.get_version(), filename)
+#    return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, att.version.get_version(), filename)
 
 
 
@@ -398,7 +412,7 @@ class Attachment(models.Model):
     status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status"))
     created = models.DateTimeField(_('created'), null=False, auto_now=False, default=datetime.datetime.now)
 
-    def getName(self):
+    def get_name(self):
         name = self.attachment.name
         return name[name.rindex('/')+1:]
 
@@ -413,6 +427,9 @@ class Attachment(models.Model):
     class Meta:
         verbose_name = _('Attachment')
         verbose_name_plural = _('Attachments')
+
+    # DEPRECATED API NAMES
+    getName = get_name        
 
     
 # Book Toc
@@ -433,21 +450,22 @@ class BookToc(models.Model):
     weight = models.IntegerField(_('weight'))
     typeof = models.SmallIntegerField(_('typeof'), choices=TYPEOF_CHOICES)
 
-    def isSection(self):
+    def is_section(self):
         return self.typeof == 0
 
-    def isChapter(self):
+    def is_chapter(self):
         return self.typeof == 1
-
 
     def __unicode__(self):
         return unicode(self.weight)
-
 
     class Meta:
         verbose_name = _('Book TOC')
         verbose_name_plural = _('Book TOCs')
 
+    # DEPRECATED API NAMES
+    isSection = is_section
+    isChapter = is_chapter
 
 
 class BookiPermission(models.Model):
@@ -461,7 +479,6 @@ class BookiPermission(models.Model):
     book = models.ForeignKey(Book, null=True, verbose_name=_("book"))
     group = models.ForeignKey(BookiGroup, null=True, verbose_name=_("group"))
     permission = models.SmallIntegerField(_('permission'))
-
 
     def __unicode__(self):
         return '%s %s ' % (self.user.username, self.permission)

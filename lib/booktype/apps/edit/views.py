@@ -16,7 +16,7 @@ from booki.editor import models
 
 def getTOCForBook(version):
     results = []
-    for chap in version.getTOC():
+    for chap in version.get_toc():
         # is it a section or chapter?
         if chap.chapter:
             results.append((chap.chapter.id,
@@ -43,7 +43,7 @@ def upload_attachment(request, bookid, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     stat = models.BookStatus.objects.filter(book = book)[0]
 
@@ -102,7 +102,7 @@ def upload_cover(request, bookid, version=None):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     operationResult = True
 
@@ -252,8 +252,8 @@ def cover(request, bookid, cid, fname = None, version=None):
 def edit(request, bookid):
     book = models.Book.objects.get(url_title__iexact=bookid)
 
-    toc = getTOCForBook(book.getVersion(None))
-    book_version = book.getVersion(None)
+    toc = getTOCForBook(book.get_version(None))
+    book_version = book.get_version(None)
     book_version = '1.0'
     resp =  render(request, 'edit/book_edit.html', {'request': request,
     		                                        'chapters': toc,

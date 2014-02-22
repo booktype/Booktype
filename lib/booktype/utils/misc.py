@@ -460,7 +460,7 @@ def export_book(fileName, book_version):
     # parse and fetch only images which are inside
     embededImages = {}
 
-    for chapter in book_version.getTOC():
+    for chapter in book_version.get_toc():
         if chapter.chapter:
             c1 = epub.EpubHtml(title=chapter.chapter.title, file_name='%s.xhtml' % (chapter.chapter.url_title, ))
             cont = chapter.chapter.content

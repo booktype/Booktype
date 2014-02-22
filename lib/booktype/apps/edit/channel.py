@@ -44,7 +44,7 @@ def getTOCForBook(version):
     """
 
     results = []
-    for chap in version.getTOC():
+    for chap in version.get_toc():
         # is it a section or chapter?
         if chap.chapter:
             results.append((chap.chapter.id,
@@ -68,7 +68,7 @@ def getHoldChapters(book_version):
     @return: Returns list with hold chapters
     """
 
-    return [(ch.id, ch.title, ch.url_title, 1, ch.status.id) for ch in book_version.getHoldChapters()]
+    return [(ch.id, ch.title, ch.url_title, 1, ch.status.id) for ch in book_version.get_hold_chapters()]
 
 
 def getAttachments(book_version):
@@ -108,7 +108,7 @@ def getAttachments(book_version):
                     "name":      os.path.split(att.attachment.name)[1], 
                     "created":   str(att.created.strftime("%d.%m.%Y %H:%M:%S")),
                     "size":      att.attachment.size} 
-                   for att in book_version.getAttachments().order_by("attachment") if att.attachment]
+                   for att in book_version.get_attachments().order_by("attachment") if att.attachment]
 
     return attachments
 
@@ -143,7 +143,7 @@ def remote_init_editor(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     ## get chapters
     chapters = getTOCForBook(book_version)
@@ -170,7 +170,7 @@ def remote_init_editor(request, message, bookid, version):
         attachments = []
 
     ## get metadata
-    metadata = [{'name': v.name, 'value': v.getValue()} for v in models.Info.objects.filter(book=book)]
+    metadata = [{'name': v.name, 'value': v.get_value()} for v in models.Info.objects.filter(book=book)]
 
     ## notify others
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
@@ -284,7 +284,7 @@ def remote_attachments_list(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     try:
         attachments = getAttachments(book_version)
@@ -313,7 +313,7 @@ def remote_attachments_delete(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     bookSecurity = security.getUserSecurityForBook(request.user, book)
     
@@ -453,7 +453,7 @@ def remote_chapter_save(request, message, bookid, version):
     # or maybe even betterm put it in the Model
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
     content = message['content']
@@ -550,7 +550,7 @@ def remote_chapter_delete(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     # check security
 
@@ -614,7 +614,7 @@ def remote_section_delete(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     # check security
 
@@ -680,7 +680,7 @@ def remote_chapter_rename(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
     # check security
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
 
@@ -744,7 +744,7 @@ def remote_section_rename(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     # check security
     sectionID = message["chapterID"][1:]
@@ -819,7 +819,7 @@ def remote_chapters_changed(request, message, bookid, version):
 
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
     weight = len(lst)
 
     logBookHistory(book = book,
@@ -877,7 +877,7 @@ def remote_chapters_changed(request, message, bookid, version):
 def remote_chapter_hold(request, message, bookid, version):
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     chapterID = message["chapterID"]
 
@@ -895,7 +895,7 @@ def remote_chapter_hold(request, message, bookid, version):
 def remote_chapter_unhold(request, message, bookid, version):
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     chapterID = message["chapterID"]
 
@@ -1065,7 +1065,7 @@ def remote_chapter_split(request, message, bookid, version):
     Not used at the moment.
     """
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
 
     logBookHistory(book = book,
@@ -1181,7 +1181,7 @@ def remote_create_chapter(request, message, bookid, version):
     import datetime
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     url_title = bookiSlugify(message["chapter"])
 
@@ -1219,7 +1219,7 @@ def remote_create_chapter(request, message, bookid, version):
         # this should be solved in better way
         # should have createChapter in booki.utils.book module
 
-        toc_items = len(book_version.getTOC())+1
+        toc_items = len(book_version.get_toc())+1
 
         for itm in models.BookToc.objects.filter(version = book_version, book = book).order_by("-weight"):
             itm.weight = toc_items
@@ -1322,7 +1322,7 @@ def remote_clone_chapter(request, message, bookid, version):
     # BookVersion treba uzeti
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     try:
         source_book = models.Book.objects.get(url_title=message["book"])
@@ -1374,7 +1374,7 @@ def remote_clone_chapter(request, message, bookid, version):
         # this should be solved in better way
         # should have createChapter in booki.utils.book module
 
-        toc_items = len(book_version.getTOC())+1
+        toc_items = len(book_version.get_toc())+1
 
         for itm in models.BookToc.objects.filter(version = book_version, book = book):
             itm.weight = toc_items
@@ -1420,11 +1420,11 @@ def remote_clone_chapter(request, message, bookid, version):
         transaction.commit()
 
     try:
-        attachments = source_book_version.getAttachments()
-        attachmentnames = dict([(att.getName(), att) for att in attachments])
+        attachments = source_book_version.get_attachments()
+        attachmentnames = dict([(att.get_name(), att) for att in attachments])
 
-        target_attachments = book_version.getAttachments()
-        target_attachmentnames = dict([(att.getName(), att) 
+        target_attachments = book_version.get_attachments()
+        target_attachmentnames = dict([(att.get_name(), att) 
                                        for att in target_attachments])
 
         # keep track of already copied source and destination names
@@ -1441,7 +1441,7 @@ def remote_clone_chapter(request, message, bookid, version):
                     att = attachmentnames.get(name)
                     if att and not name in name2copy:
                         new_att = copy_attachment(att, book)
-                        name2copy[name] = new_att.getName()
+                        name2copy[name] = new_att.get_name()
                     if att and name in name2copy:
                         e.set('src', "static/"+name2copy[name])
 
@@ -1493,7 +1493,7 @@ def remote_create_section(request, message, bookid, version):
     import datetime
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     ch = models.BookToc.objects.filter(book=book,
                                        version=book_version,
@@ -1665,7 +1665,7 @@ def remote_get_chapter_history(request, message, bookid, version):
     import datetime
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     chapter_history = models.ChapterHistory.objects.filter(chapter__book=book, chapter__url_title=message["chapter"]).order_by("-modified")
 
@@ -1703,7 +1703,7 @@ def remote_revert_revision(request, message, bookid, version):
 
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     chapter = models.Chapter.objects.get(version=book_ver, url_title=message["chapter"])
 
@@ -1980,7 +1980,7 @@ def create_new_version(book, book_ver, message, major, minor):
                                      created=datetime.datetime.now())
     new_version.save()
 
-    for toc in book_ver.getTOC():
+    for toc in book_ver.get_toc():
         nchap = None
 
         if toc.chapter:
@@ -2006,7 +2006,7 @@ def create_new_version(book, book_ver, message, major, minor):
 
     # hold chapters
 
-    for chap in book_ver.getHoldChapters():
+    for chap in book_ver.get_hold_chapters():
         c = models.Chapter(version=new_version,
                            book=book, # this should be removed
                            url_title=chap.url_title,
@@ -2017,12 +2017,12 @@ def create_new_version(book, book_ver, message, major, minor):
                            content=chap.content)
         c.save()
 
-    for att in book_ver.getAttachments():
+    for att in book_ver.get_attachments():
         a = models.Attachment(version = new_version,
                               book=book,
                               status=att.status,
                               created=datetime.datetime.now())
-        a.attachment.save(att.getName(), att.attachment, save = False)
+        a.attachment.save(att.get_name(), att.attachment, save = False)
         a.save()
 
     book.version = new_version
@@ -2052,7 +2052,7 @@ def remote_create_major_version(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     try:
         new_version = create_new_version(book, book_ver, message, book_ver.major+1, 0)
@@ -2065,11 +2065,11 @@ def remote_create_major_version(request, message, bookid, version):
                        chapter = None,
                        chapter_history = None,
                        user = request.user,
-                       args = {"version": new_version.getVersion()},
+                       args = {"version": new_version.get_version()},
                        kind = 'major_version')
         transaction.commit()
 
-        return {"version": new_version.getVersion()}
+        return {"version": new_version.get_version()}
 
 
 def remote_create_minor_version(request, message, bookid, version):
@@ -2091,7 +2091,7 @@ def remote_create_minor_version(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     try:
         new_version = create_new_version(book, book_ver, message, book_ver.major, book_ver.minor+1)
@@ -2105,11 +2105,11 @@ def remote_create_minor_version(request, message, bookid, version):
                        chapter = None,
                       chapter_history = None,
                        user = request.user,
-                       args = {"version": new_version.getVersion()},
+                       args = {"version": new_version.get_version()},
                        kind = 'minor_version')
         transaction.commit()
         
-        return {"version": new_version.getVersion()}
+        return {"version": new_version.get_version()}
 
 
 def color_me(l, rgb, pos):
@@ -2394,7 +2394,7 @@ def remote_covers_data(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     bookSecurity = security.getUserSecurityForBook(request.user, book)
     
@@ -2447,7 +2447,7 @@ def remote_cover_approve(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     bookSecurity = security.getUserSecurityForBook(request.user, book)
 
@@ -2496,7 +2496,7 @@ def remote_cover_delete(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     try:
         cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
@@ -2548,7 +2548,7 @@ def remote_cover_save(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     try:
         cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
@@ -2731,7 +2731,7 @@ def remote_settings_options(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     licenses = [(lic.abbrevation, lic.name)  for lic in models.License.objects.all().order_by("name") if lic]
     languages = [(lic.abbrevation, lic.name) for lic in models.Language.objects.all().order_by("name") if lic] + [('unknown', 'Unknown')]
@@ -2741,7 +2741,7 @@ def remote_settings_options(request, message, bookid, version):
 
     # get rtl
     try:
-        rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind=0).getValue()
+        rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind=0).get_value()
     except (models.Info.DoesNotExist, models.Info.MultipleObjectsReturned):
         rtl = "LTR"
 
@@ -2806,7 +2806,7 @@ def remote_license_attributions(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     from django.contrib.auth.models import User
 
@@ -2842,7 +2842,7 @@ def remote_license_attributions_save(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     from django.contrib.auth.models import User
 
@@ -2880,7 +2880,7 @@ def remote_settings_language_save(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     if message['language'] != 'unknown':
         l = models.Language.objects.get(abbrevation=message['language'])
@@ -2930,7 +2930,7 @@ def remote_users_suggest(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     from django.contrib.auth.models import User
 
@@ -2962,7 +2962,7 @@ def remote_roles_list(request, message, bookid, version):
     """
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     users = [(u.user.username, '%s (%s)' % (u.user.username, u.user.first_name)) for u in models.BookiPermission.objects.filter(book = book, permission = message["role"]).order_by("user__username")]
 
@@ -2979,7 +2979,7 @@ def _remote_roles_save(request, message, bookid, version):
     from django.contrib.auth.models import User
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     userList = set(message["users"][:])
     usersExisting = set([u.user.username for u in models.BookiPermission.objects.filter(book = book, permission = 1) if u.user])
@@ -3034,7 +3034,7 @@ def remote_roles_add(request, message, bookid, version):
     # check permissions
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
     result = False
 
@@ -3084,7 +3084,7 @@ def remote_roles_delete(request, message, bookid, version):
     # check permissions
 
     book = models.Book.objects.get(id=bookid)
-    book_ver = book.getVersion(version)
+    book_ver = book.get_version(version)
 
 
     try:
@@ -3485,7 +3485,7 @@ def remote_word_count(request, message, bookid, version):
     from booktype.utils.wordcount import wordcount,charcount,charspacecount
 
     book = models.Book.objects.get(id=bookid)
-    book_version = book.getVersion(version)
+    book_version = book.get_version(version)
 
     ## get chapters
     chapters = models.BookToc.objects.filter(book=book, version=book_version)
@@ -3498,7 +3498,7 @@ def remote_word_count(request, message, bookid, version):
     all_charspacecount = 0
 
     for chap in chapters:
-        if chap.isChapter() and chap.chapter.id!=current_chapter:
+        if chap.is_chapter() and chap.chapter.id!=current_chapter:
             stripped_data = strip_tags(chap.chapter.content)
             all_wcount += wordcount(stripped_data)
             all_charcount += charcount(stripped_data)

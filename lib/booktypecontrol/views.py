@@ -425,7 +425,7 @@ def view_book(request, bookid):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = book.getVersion(None)
+    book_version = book.get_version(None)
 
     # this only shows info for latest version
     book_history =  models.BookHistory.objects.filter(version = book_version).order_by("-modified")[:20]
@@ -436,7 +436,7 @@ def view_book(request, bookid):
     isBookAdmin = bookSecurity.isAdmin()
 
     import sputnik
-    channel_name = "/booki/book/%s/%s/" % (book.id, book_version.getVersion())
+    channel_name = "/booki/book/%s/%s/" % (book.id, book_version.get_version())
     online_users = sputnik.smembers("sputnik:channel:%s:users" % channel_name)
 
     book_versions = models.BookVersion.objects.filter(book=book).order_by("created")
@@ -452,7 +452,7 @@ def view_book(request, bookid):
                               {"request": request,
                                "admin_options": ADMIN_OPTIONS,
                                "book": book,
-                               "book_version": book_version.getVersion(),
+                               "book_version": book_version.get_version(),
                                "book_versions": book_versions,
                                "book_history": book_history, 
                                "book_collaborators": book_collaborators,
@@ -580,7 +580,7 @@ def add_book(request):
                     try:
                         fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
 
-                        book.setCover(fname)
+                        book.set_cover(fname)
                         os.unlink(fname)
                     except:
                         pass
@@ -642,7 +642,7 @@ def edit_book(request, bookid):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = book.getVersion(None)
+    book_version = book.get_version(None)
 
     if request.method == 'POST': 
         frm = BookForm(request.POST, request.FILES) 
@@ -663,7 +663,7 @@ def edit_book(request, bookid):
 
                     try:
                         fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
-                        book.setCover(fname)
+                        book.set_cover(fname)
                         os.unlink(fname)
                     except:
                         pass
@@ -721,7 +721,7 @@ def rename_book(request, bookid):
     except models.Book.DoesNotExist:
         return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = book.getVersion(None)
+    book_version = book.get_version(None)
 
     if request.method == 'POST': 
         frm = BookRenameForm(request.POST, request.FILES) 

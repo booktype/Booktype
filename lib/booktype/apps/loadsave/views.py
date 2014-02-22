@@ -17,7 +17,7 @@ class SaveView(View):
     	except models.Book.DoesNotExist:
     		pass
 
-    	book_version = book.getVersion(None)
+    	book_version = book.get_version(None)
 
     	response = HttpResponse(mimetype='application/epub+zip')
     	response['Content-Disposition'] = 'attachment; filename=%s.epub' % book.url_title
