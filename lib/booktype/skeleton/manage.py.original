@@ -7,7 +7,7 @@ from unipath import Path
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "##SETTINGS##")
 
-    BASE_DIR = Path(os.path.abspath(__file__))
+    BASE_DIR = Path(os.path.abspath(__file__)).parent
 
     # Set PYTHONPATH to include project directory
     sys.path.insert(0, BASE_DIR)

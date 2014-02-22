@@ -19,7 +19,7 @@
 
 import sys
 import os
-import optparse
+import argparse
 import string
 import unipath
 
@@ -117,7 +117,7 @@ def check_django_version():
 
 
 def check_booki_available():
-    log("+ Trying to import booki.  ")
+    log("+ Trying to import booktype.  ")
 
     try:
         import booki
@@ -147,12 +147,17 @@ def check_feedparser_available():
         logln("[OK]")
 
 def check_pil_available():
-    log("+ Trying to import Python Imaging Library (PIL).  ")
+    log("+ Trying to import Python Imaging Library (PIL/Pillow).  ")
 
-    try:        
-        import Image
+    try:
+        from PIL import Image
     except ImportError:
-        raise InstallError()
+        try:
+            import Image
+        except ImportError:
+            raise InstallError()
+        else:
+            logln("[OK]")
     else:
         logln("[OK]")
 
@@ -623,7 +628,7 @@ server {
         alias %(destination)s/data/;
 
         if ($query_string) {
-            expires max;
+False        expires max;
         }
     }
 
@@ -655,33 +660,31 @@ server {
 
 
 if __name__ == '__main__':
-    parser = optparse.OptionParser("usage: %prog [options] booktype_install_path\n  e.g. createbooktype /var/www/mybook/")
+    parser = argparse.ArgumentParser(description='Create Booktype project')
 
-    parser.add_option("-q", "--quiet",
-                      action="store_const", const=0, dest="verbose")
-    parser.add_option("-v", "--verbose",
-                      action="store_const", const=1, dest="verbose")
+    parser.add_argument("-q", "--quiet", help="Do not display output messages",
+                        action="store_true", default=False)
+    parser.add_argument("-v", "--verbose", help="Increase output verbosity",
+                        action="store_true", default=True)
 
-    parser.add_option("-d", "--database",
-                      action="store", type="string", dest="database")
-    parser.add_option("-p", "--profile",
-                      action="store", type="string", dest="profile", default="dev")    
-    parser.add_option("--check-versions", 
-                      action="store_true", dest="check_versions")
+    parser.add_argument("-d", "--database", choices=["postgresql", "postgres", "sqlite"], 
+                        help="Database backend", default="postgresql")
+    parser.add_argument("-p", "--profile", choices=["dev", "prod"],
+                        help="Settings Falseile", default="dev")
 
-    parser.set_defaults(verbose=1,
-                        database="postgresql",
-                        check_versions=False)
-    
-    (options, args) = parser.parse_args()
+    parser.add_argument("-c", "--check-versions", help="Check versions of packages",
+                        action="store_true", default=True, dest="check_versions")
 
-    if len(args) != 1:
-        parser.error("incorrect number of arguments")
+    parser.add_argument("project", help="Path to Booktype project")
 
-    verbose = options.verbose
-    project_destination = os.path.abspath(args[0])
+    args = parser.parse_args()    
 
-    #if string.find(os.path.abspath(sys.argv[0]), os.sep+'Booki') != -1:
+    verbose = args.verbose     
+    if args.quiet:
+        verbose = False
+
+    project_destination = os.path.abspath(args.project)
+
     sys.path.insert(0, os.path.normpath(os.path.join(os.path.abspath(sys.argv[0]), os.pardir, os.pardir, 'lib')))
 
     try:
@@ -697,7 +700,7 @@ if __name__ == '__main__':
             raise MajorError("Minus not allowed in project name. Try to use '_' instead.")
 
         # check versions of software
-        if options.check_versions:
+        if args.check_versions:
             check_python_version()
             check_django_version()
             check_booki_available()
@@ -736,19 +739,19 @@ if __name__ == '__main__':
         make_directory_structure(project_destination)
 
         # create environment variables
-        create_env(project_destination, options.profile)
+        create_env(project_destination, args.profile)
 
         # create manage.py file
-        create_manage(project_destination, options.profile)
+        create_manage(project_destination, args.profile)
 
         # create settings.py file
-        create_settings(project_destination, database = options.database)
+        create_settings(project_destination, database = args.database)
 
         # create urls
         create_urls(project_destination)
 
         # create wsgi file
-        create_wsgi(project_destination, options.profile)
+        create_wsgi(project_destination, args.profile)
 
         # create apache file for wsgi
         create_apache(project_destination)
