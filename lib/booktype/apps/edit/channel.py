@@ -20,6 +20,7 @@ import sputnik
 
 from django.db import transaction
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist, SuspiciousOperation, PermissionDenied
 
 from booki.utils.log import logBookHistory, logChapterHistory, printStack
 
@@ -33,7 +34,7 @@ from django.conf import settings
 from booki.utils import config
 
 # this couple of functions should go to models.BookVersion
-def getTOCForBook(version):
+def get_toc_for_book(version):
     """
     Function returns list of TOC elements. Elements of list are tuples. 
      - If chapter - (chapter_id, chapter_title, chapter_url_title, type_of, chapter_status_ud)
@@ -57,8 +58,7 @@ def getTOCForBook(version):
     return results
 
 
-
-def getHoldChapters(book_version):
+def get_hold_chapters(book_version):
     """
     Function returns list of hold chapters. Elements of list are tuples with structure - (chapter_id, chapter_title, chapter_url_title, 1, chapter_status_id).
 
@@ -71,7 +71,7 @@ def getHoldChapters(book_version):
     return [(ch.id, ch.title, ch.url_title, 1, ch.status.id) for ch in book_version.get_hold_chapters()]
 
 
-def getAttachments(book_version):
+def get_attachments(book_version):
     """
     Function returns list of attachments for L{book_version}. Elements of list are dictionaries and are sorted by attachment name. Each dictionary has keys:
       - id (attachment id)
@@ -113,6 +113,28 @@ def getAttachments(book_version):
     return attachments
 
 
+def get_book(request, bookid, versionid):
+    try:
+        book = models.Book.objects.get(id=int(bookid))
+    except models.Book.DoesNotExist:
+        raise ObjectDoesNotExist
+    except models.Book.MultipleObjectsReturned:
+        raise ObjectDoesNotExist
+
+    book_security = security.getUserSecurityForBook(request.user, book)
+    hasPermission = security.canEditBook(book, book_security)
+
+    if not hasPermission:
+        raise PermissionDeined
+
+    book_version = book.get_version(versionid)
+
+    if not book_version:
+        raise ObjectDoesNotExist
+
+    return book, book_version, book_security
+
+
 def remote_init_editor(request, message, bookid, version):
     """
     Called when Booki editor is being initialized. 
@@ -142,21 +164,20 @@ def remote_init_editor(request, message, bookid, version):
     @return: Returns info needed for editor initialization
     """
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     ## get chapters
-    chapters = getTOCForBook(book_version)
-    holdChapters = getHoldChapters(book_version)
+    chapters = get_toc_for_book(book_version)
+    holdChapters = get_hold_chapters(book_version)
 
     ## get users
-    def _getUserName(a):
+    def _get_username(a):
         if a == request.sputnikID:
             return "<b>%s</b>" % a
         return a
 
     try:
-        users = [_getUserName(m) for m in list(sputnik.smembers("sputnik:channel:%s:channel" % message["channel"]))]
+        users = [_get_username(m) for m in list(sputnik.smembers("sputnik:channel:%s:channel" % message["channel"]))]
     except:
         users = []
 
@@ -165,7 +186,7 @@ def remote_init_editor(request, message, bookid, version):
 
     ## get attachments
     try:
-        attachments = getAttachments(book_version)
+        attachments = get_attachments(book_version)
     except:
         attachments = []
 
@@ -232,6 +253,7 @@ def remote_init_editor(request, message, bookid, version):
     # for now, this is one big temp here
 
     import time, decimal, re
+
     _now = time.time()
     locks = {}
 
@@ -252,15 +274,13 @@ def remote_init_editor(request, message, bookid, version):
                             locks[m.group(2)] = m.group(3)
     except:
         pass
-
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
     
     return {"licenses": licenses,
             "chapters": chapters,
             "metadata": metadata,
             "hold": holdChapters,
             "users": users,
-            "is_admin":  bookSecurity.isAdmin(),
+            "is_admin":  book_security.isAdmin(),
             "locks": locks,
             "statuses": statuses,
             "attachments": attachments,
@@ -283,15 +303,15 @@ def remote_attachments_list(request, message, bookid, version):
     @return: Returns list of attachments
     """
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     try:
-        attachments = getAttachments(book_version)
+        attachments = get_attachments(book_version)
     except:
         attachments = []
 
     return {"attachments": attachments}
+
 
 def remote_attachments_delete(request, message, bookid, version):
     """
@@ -312,36 +332,24 @@ def remote_attachments_delete(request, message, bookid, version):
     @return: Returns success of this command
     """
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
-
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
+    book, book_version, book_security = get_book(request, bookid, version)
     
-    if bookSecurity.isAdmin():
+    if book_security.isAdmin():
         for att_id in message['attachments']:
-            # should check if you can delete it
-            try:
-                att = models.Attachment.objects.get(pk=att_id)
+            att = models.Attachment.objects.get(pk=att_id, version=book_version)
 
-                from booki.utils import log
-                import os.path
+            from booki.utils import log
+            import os.path
 
-                log.logBookHistory(book = book,
-                                   version = book_version,
-                                   args = {'filename': os.path.split(att.attachment.name)[1]},
-                                   user = request.user,
-                                   kind = 'attachment_delete')
-                
-                att.delete()
-            except models.Attachment.DoesNotExist:
-                # should i return some kind of error now?!
-                pass
-                       
-        transaction.commit()
+            log.logBookHistory(book = book,
+                               version = book_version,
+                               args = {'filename': os.path.split(att.attachment.name)[1]},
+                               user = request.user,
+                               kind = 'attachment_delete')
+            
+            att.delete()
 
-        return {"result": True}
-
-    return {"result": False}
+    return {"result": True}
 
 def remote_chapter_status(request, message, bookid, version):
     """
@@ -372,6 +380,7 @@ def remote_chapter_status(request, message, bookid, version):
 
     return {}
 
+
 def remote_change_status(request, message, bookid, version):
     """
     Change status for the chapter.
@@ -394,34 +403,29 @@ def remote_change_status(request, message, bookid, version):
     @return: Returns success of this command
     """
 
-    # chapterID
-    # statusID
+    book, book_version = get_book(request, bookid, version)
 
-    chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
+    chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
     status  = models.BookStatus.objects.get(id=int(message["statusID"]))
 
     chapter.status = status
-    try:
-        chapter.save()
 
-        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                    {"command": "change_status",
-                                     "chapterID": message["chapterID"],
-                                     "statusID": int(message["statusID"]),
-                                     "username": request.user.username})
+    chapter.save()
 
-        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
-                                    {"command": "message_info",
-                                     "from": request.user.username,
-                                     "message_id": "user_changed_chapter_status",
-                                     "message_args": [request.user.username, chapter.title, status.name]},
-                                    myself=True)
-    except:
-        transaction.rollback()
-    else:
-        transaction.commit()
+    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+                                {"command": "change_status",
+                                 "chapterID": message["chapterID"],
+                                 "statusID": int(message["statusID"]),
+                                 "username": request.user.username})
 
-    return {}
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
+                                {"command": "message_info",
+                                 "from": request.user.username,
+                                 "message_id": "user_changed_chapter_status",
+                                 "message_args": [request.user.username, chapter.title, status.name]},
+                                myself=True)
+
+    return {'result': True}
 
 
 def remote_chapter_save(request, message, bookid, version):
@@ -452,10 +456,10 @@ def remote_chapter_save(request, message, bookid, version):
     # put this outside in common module
     # or maybe even betterm put it in the Model
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
-    chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
+    chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+
     content = message['content']
 
     if len(message['footnotes']) > 0:
@@ -498,18 +502,13 @@ def remote_chapter_save(request, message, bookid, version):
 
     chapter.content = content
 
-    try:
-        chapter.save()
+    chapter.save()
 
-        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
-                                                                    "from": request.user.username,
-                                                                    "message_id": "user_saved_chapter",
-                                                                    "message_args": [request.user.username, chapter.title]},
-                                    myself=True)
-    except:
-        transaction.rollback()
-    else:
-        transaction.commit()
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
+                                                                "from": request.user.username,
+                                                                "message_id": "user_saved_chapter",
+                                                                "message_args": [request.user.username, chapter.title]},
+                                myself=True)
 
     if not message['continue']:
         sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),
@@ -549,47 +548,37 @@ def remote_chapter_delete(request, message, bookid, version):
     @param version: Book version
     """
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
-    # check security
+    if not book_security.isAdmin():
+        raise PermissionDenied
 
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
+    chap = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
 
-    if not bookSecurity.isAdmin():
-        transaction.commit()
+    chap.delete()
 
-        return {"result": False, "permission": False}
+    # MUST DELETE FROM TOC ALSO
 
-    try:
-        chap = models.Chapter.objects.get(id=int(message["chapterID"]))
-        chap.delete()
+    sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
+                                {"command": "message_info",
+                                 "from": request.user.username,
+                                 "message_id": "user_delete_chapter",
+                                 "message_args": [request.user.username, chap.title]},
+                                myself=True)
 
-        # MUST DELETE FROM TOC ALSO
+    logBookHistory(book = book,
+                   version = book_version,
+                   args = {'chapter': chap.title},
+                   user = request.user,
+                   kind = 'chapter_delete')
 
-        sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
-                                    {"command": "message_info",
-                                     "from": request.user.username,
-                                     "message_id": "user_delete_chapter",
-                                     "message_args": [request.user.username, chap.title]},
-                                    myself=True)
-        logBookHistory(book = book,
-                       version = book_version,
-                       args = {'chapter': chap.title},
-                       user = request.user,
-                       kind = 'chapter_delete')
+    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+                                {"command": "chapter_delete",
+                                 "chapterID": message["chapterID"]},
+                                myself = True)
 
-        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                    {"command": "chapter_delete",
-                                     "chapterID": message["chapterID"]},
-                                    myself = True)
-    except:
-        transaction.rollback()
-    else:
+    return {"result": True}
 
-        transaction.commit()
-
-    return {"status": True, "result": True}
 
 def remote_section_delete(request, message, bookid, version):
     """
@@ -613,49 +602,37 @@ def remote_section_delete(request, message, bookid, version):
     @param version: Book version
     """
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
-    # check security
+    if not book_security.isAdmin():
+        raise PermissionDenied
 
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
+    section_id = str(message["chapterID"])[1:]
+    sec = models.BookToc.objects.get(pk=section_id, version=book_version)
 
-    if not bookSecurity.isAdmin():
-        transaction.commit()
+    sec.delete()
 
-        return {"result": False, "permission": False}
+    # MUST DELETE FROM TOC ALSO
 
-    try:
-        section_id = str(message["chapterID"])[1:]
+    # sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
+    #                             {"command": "message_info",
+    #                              "from": request.user.username,
+    #                              "message_id": "user_delete_chapter",
+    #                              "message_args": [request.user.username, chap.title]},
+    #                             myself=True)
+    # logBookHistory(book = book,
+    #                version = book_version,
+    #                args = {'chapter': chap.title},
+    #                user = request.user,
+    #                kind = 'chapter_delete')
 
-        sec = models.BookToc.objects.get(pk=section_id)
-        sec.delete()
+    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+                                {"command": "section_delete",
+                                 "chapterID": message["chapterID"]},
+                                myself = True)
 
-        # MUST DELETE FROM TOC ALSO
+    return {"result": True}
 
-        # sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
-        #                             {"command": "message_info",
-        #                              "from": request.user.username,
-        #                              "message_id": "user_delete_chapter",
-        #                              "message_args": [request.user.username, chap.title]},
-        #                             myself=True)
-        # logBookHistory(book = book,
-        #                version = book_version,
-        #                args = {'chapter': chap.title},
-        #                user = request.user,
-        #                kind = 'chapter_delete')
-
-        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                    {"command": "section_delete",
-                                     "chapterID": message["chapterID"]},
-                                    myself = True)
-    except:
-        transaction.rollback()
-    else:
-
-        transaction.commit()
-
-    return {"status": True, "result": True}
 
 def remote_chapter_rename(request, message, bookid, version):
     """
@@ -679,47 +656,42 @@ def remote_chapter_rename(request, message, bookid, version):
     @param version: Book version
     """
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
+
     # check security
-    chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
+    chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
 
     oldTitle = chapter.title
     chapter.title = message["chapter"];
+    chapter.save()
 
-    try:
-        chapter.save()
-    except:
-        transaction.rollback()
-    else:
-        logBookHistory(book = chapter.book,
-                       version = book_version,
-                       chapter = chapter,
-                       user = request.user,
-                       args = {"old": oldTitle, "new": message["chapter"]},
-                       kind = "chapter_rename")
+    logBookHistory(book = chapter.book,
+                   version = book_version,
+                   chapter = chapter,
+                   user = request.user,
+                   args = {"old": oldTitle, "new": message["chapter"]},
+                   kind = "chapter_rename")
 
-        sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
-                                    {"command": "message_info",
-                                     "from": request.user.username,
-                                     "message_id": "user_renamed_chapter",
-                                     "message_args": [request.user.username, oldTitle, message["chapter"]]},
-                                    myself=True)
+    sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
+                                {"command": "message_info",
+                                 "from": request.user.username,
+                                 "message_id": "user_renamed_chapter",
+                                 "message_args": [request.user.username, oldTitle, message["chapter"]]},
+                                myself=True)
 
-        # sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-        #                             {"command": "chapter_status",
-        #                              "chapterID": message["chapterID"],
-        #                              "status": "normal",
-        #                              "username": request.user.username})
+    # sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+    #                             {"command": "chapter_status",
+    #                              "chapterID": message["chapterID"],
+    #                              "status": "normal",
+    #                              "username": request.user.username})
 
-        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                    {"command": "chapter_rename",
-                                     "chapterID": message["chapterID"],
-                                     "chapter": message["chapter"]}, myself=True)
+    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+                                {"command": "chapter_rename",
+                                 "chapterID": message["chapterID"],
+                                 "chapter": message["chapter"]}, myself=True)
 
-        transaction.commit()
+    return {"result": True}
 
-    return {"status": True}
 
 def remote_section_rename(request, message, bookid, version):
     """
@@ -743,50 +715,43 @@ def remote_section_rename(request, message, bookid, version):
     @param version: Book version
     """
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     # check security
     sectionID = message["chapterID"][1:]
 
-    m =  models.BookToc.objects.get(id__exact=int(sectionID))
+    m =  models.BookToc.objects.get(id__exact=int(sectionID), version=book_version)
     oldTitle = m.name
     m.name = message["chapter"]
+    m.save()
 
-    try:
-        m.save()
-    except:
-        transaction.rollback()
-    else:
-        logBookHistory(book = book,
-                       version = book_version,
-                       chapter = None,
-                       user = request.user,
-                       args = {"old": oldTitle, "new": message["chapter"]},
-                       kind = "section_rename")
+    logBookHistory(book = book,
+                   version = book_version,
+                   chapter = None,
+                   user = request.user,
+                   args = {"old": oldTitle, "new": message["chapter"]},
+                   kind = "section_rename")
 
-        sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
-                                    {"command": "message_info",
-                                     "from": request.user.username,
-                                     "message_id": "user_renamed_section",
-                                     "message_args": [request.user.username, oldTitle, message["chapter"]]},
-                                    myself=True)
+    sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
+                                {"command": "message_info",
+                                 "from": request.user.username,
+                                 "message_id": "user_renamed_section",
+                                 "message_args": [request.user.username, oldTitle, message["chapter"]]},
+                                myself=True)
 
-        # sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-        #                             {"command": "chapter_status",
-        #                              "chapterID": message["chapterID"],
-        #                              "status": "normal",
-        #                              "username": request.user.username})
+    # sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+    #                             {"command": "chapter_status",
+    #                              "chapterID": message["chapterID"],
+    #                              "status": "normal",
+    #                              "username": request.user.username})
 
 
-        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                    {"command": "section_rename",
-                                     "chapterID": message["chapterID"],
-                                     "chapter": message["chapter"]}, myself=True)
+    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+                                {"command": "section_rename",
+                                 "chapterID": message["chapterID"],
+                                 "chapter": message["chapter"]}, myself=True)
 
-        transaction.commit()
-
-    return {"status": True}
+    return {"result": True}
 
 
 def remote_chapters_changed(request, message, bookid, version):
@@ -817,9 +782,8 @@ def remote_chapters_changed(request, message, bookid, version):
 #    lst = [chap[5:] for chap in message["chapters"]]
 #    lstHold = [chap[5:] for chap in message["hold"]]
 
+    book, book_version, book_security = get_book(request, bookid, version)
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
     weight = len(lst)
 
     logBookHistory(book = book,
@@ -829,12 +793,12 @@ def remote_chapters_changed(request, message, bookid, version):
 
     for chap in lst:
         if chap[0] == 's':
-            m =  models.BookToc.objects.get(id__exact=int(chap[1:]))
+            m =  models.BookToc.objects.get(id__exact=int(chap[1:]), version=book_version)
             m.weight = weight
             m.save()
         else:
             try:
-                m =  models.BookToc.objects.get(chapter__id__exact=int(chap))
+                m =  models.BookToc.objects.get(chapter__id__exact=int(chap), version=book_version)
                 m.weight = weight
                 m.save()
             except:
@@ -851,10 +815,10 @@ def remote_chapters_changed(request, message, bookid, version):
 
     if message["kind"] == "remove":
         if type(message["chapter_id"]) == type(u' ') and message["chapter_id"][0] == 's':
-            m =  models.BookToc.objects.get(id__exact=message["chapter_id"][1:])
+            m =  models.BookToc.objects.get(id__exact=message["chapter_id"][1:], version=book_version)
             m.delete()
         else:
-            m =  models.BookToc.objects.get(chapter__id__exact=int(message["chapter_id"]))
+            m =  models.BookToc.objects.get(chapter__id__exact=int(message["chapter_id"]), version=book_version)
             m.delete()
 
 #        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has rearranged chapters.' % request.user.username})
@@ -869,37 +833,31 @@ def remote_chapters_changed(request, message, bookid, version):
     # TODO
     # this should be changed, to check for errors
 
-    transaction.commit()
-
-    return {}
+    return {"result": True}
 
 
 def remote_chapter_hold(request, message, bookid, version):
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     chapterID = message["chapterID"]
 
-    m =  models.BookToc.objects.get(chapter__id__exact=chapterID)
+    m =  models.BookToc.objects.get(chapter__id__exact=chapterID, version=book_version)
     m.delete()
 
     sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
                                 {"command": "chapter_hold",
                                  "chapterID": chapterID}, myself=True)
-    transaction.commit()
 
-    return {}
+    return {"result": True}
 
 
 def remote_chapter_unhold(request, message, bookid, version):
-
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     chapterID = message["chapterID"]
 
-    chptr = models.Chapter.objects.get(id__exact=chapterID)
+    chptr = models.Chapter.objects.get(id__exact=chapterID, version=book_version)
 
     m = models.BookToc(book = book,
                        version = book_version,
@@ -912,36 +870,8 @@ def remote_chapter_unhold(request, message, bookid, version):
     sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
                                 {"command": "chapter_unhold",
                                  "chapterID": chapterID}, myself=True)
-    transaction.commit()
 
-    return {}
-
-
-
-def remote_get_users(request, message, bookid, version):
-    """
-    Returns list of users currently editing L{bookid}.
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: List of users
-    """
-
-    res = {}
-    def vidi(a):
-        if a == request.sputnikID:
-            return "!%s!" % a
-        return a
-
-    res["users"] = [vidi(m) for m in list(sputnik.smembers("sputnik:channel:%s:channel" % message["channel"]))]
-    return res
+    return {"result": True}
 
 
 def remote_get_chapter(request, message, bookid, version):
@@ -974,28 +904,12 @@ def remote_get_chapter(request, message, bookid, version):
     @return: Chapter info
     """
 
-    res = {}
+    res = {"result": True}
 
-    try:
-        book = models.Book.objects.get(id=bookid)
-    except models.Book.DoesNotExist:
-        return {"status": False}
-
-    # check if you can access book on this channel
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
-    hasPermission = security.canEditBook(book, bookSecurity)
-    
-    if not hasPermission:
-        return {"status": False}
+    book, book_version, book_security = get_book(request, bookid, version)
 
     # check if you can access book this chapter belongs to
-    chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
-
-    bookSecurity = security.getUserSecurityForBook(request.user, chapter.version.book)
-    hasPermission = security.canEditBook(chapter.version.book, bookSecurity)
-    
-    if not hasPermission:
-        return {"status": False}
+    chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
 
     res["title"] = chapter.title
     res["content"] = chapter.content
@@ -1027,133 +941,6 @@ def remote_get_chapter(request, message, bookid, version):
     return res
 
 
-def remote_book_notification(request, message, bookid, version):
-    """
-    Editor is constantly sending ping message to notify us that it is still alive.
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Should it kill the seasson
-    """
-
-    res = {}
-
-    import time
-
-    # rcon.delete(key)
-    # set the initial timer for editor
-
-    if request.user.username and request.user.username != '':
-        sputnik.set("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username), time.time())
-
-        if '%s' % sputnik.get("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username)) == '1':
-            sputnik.rdelete("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username))
-            res = {"kill": "please"}
-
-    return res
-
-
-def remote_chapter_split(request, message, bookid, version):
-    """
-    Not used at the moment.
-    """
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
-
-
-    logBookHistory(book = book,
-                   version = book_version,
-                   user = request.user,
-                   kind = 'chapter_split')
-
-    allChapters = []
-
-    try:
-        originalChapter = models.Chapter.objects.get(id=int(message["chapterID"]))
-    except:
-        originalChapter = None
-
-    try:
-        tocChapter = models.BookToc.objects.get(book=book, chapter__id__exact=message["chapterID"])
-    except:
-        tocChapter = None
-
-    import datetime
-
-    if tocChapter:
-        allChapters = [chap for chap in models.BookToc.objects.filter(book=book).order_by("-weight")]
-        initialPosition =  len(allChapters)-tocChapter.weight
-    else:
-        initialPosition = 0
-
-    s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
-
-    n = 0
-    for chap in message["chapters"]:
-        chapter = models.Chapter(book = book,
-                                 url_title = bookiSlugify(chap[0]),
-                                 title = chap[0],
-                                 status = s,
-                                 content = '<h1>%s</h1>%s' % (chap[0], chap[1]),
-                                 created = datetime.datetime.now(),
-                                 modified = datetime.datetime.now())
-        chapter.save()
-
-        if tocChapter:
-            m = models.BookToc(book = book,
-                               chapter = chapter,
-                               name = chap[0],
-                               weight = 0,
-                               typeof = 1)
-            m.save()
-            allChapters.insert(1+initialPosition+n, m)
-
-        n += 1
-
-    if originalChapter:
-        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info", 
-                                                                    "from": request.user.username, 
-                                                                    "message": 'User %s has split chapter "%s".' % (request.user.username, originalChapter.title)}, myself=True)
-
-        originalChapter.delete()
-
-    if tocChapter:
-        tocChapter.delete()
-
-    n = len(allChapters)
-    for chap in allChapters:
-        try:
-            chap.weight = n
-            chap.save()
-            n -= 1
-        except:
-            pass
-
-    ## get chapters
-
-    chapters = getTOCForBook(book_version)
-    holdChapters =  getHoldChapters(book_version)
-
-    sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_split",
-                                 "chapterID": message["chapterID"],
-                                 "chapters": chapters,
-                                 "hold": holdChapters,
-                                 "username": request.user.username},
-                                myself = True)
-
-    transaction.commit()
-
-    return {}
-
-
 def remote_create_chapter(request, message, bookid, version):
     """
     Creates new chapters. New chapter is always added at the end of the TOC. Creates empty chapter content only with chapter title as heading.
@@ -1180,13 +967,12 @@ def remote_create_chapter(request, message, bookid, version):
 
     import datetime
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     url_title = bookiSlugify(message["chapter"])
 
     if len(url_title) == 0:
-        return {"created": False, "silly_url": True}
+        return {"result": False, "created": False, "silly_url": True}
 
     # for now, just limit it to max 100 characters
     url_title = url_title[:100]
@@ -1210,51 +996,41 @@ def remote_create_chapter(request, message, bookid, version):
                              created = datetime.datetime.now(),
                              modified = datetime.datetime.now())
 
-    try:
-        chapter.save()
-    except:
-        transaction.rollback()
-        return {"created": False}
-    else:
-        # this should be solved in better way
-        # should have createChapter in booki.utils.book module
+    chapter.save()
 
-        toc_items = len(book_version.get_toc())+1
+    # TODO
+    # used to send created; False if it fails
+    toc_items = len(book_version.get_toc())+1
 
-        for itm in models.BookToc.objects.filter(version = book_version, book = book).order_by("-weight"):
-            itm.weight = toc_items
-            itm.save()
+    for itm in models.BookToc.objects.filter(version = book_version, book = book).order_by("-weight"):
+        itm.weight = toc_items
+        itm.save()
 
-            toc_items -= 1
-            
-        tc = models.BookToc(version = book_version,
-                            book = book,
-                            name = message["chapter"],
-                            chapter = chapter,
-                            weight = 1,
-                            typeof = 1)
+        toc_items -= 1
+        
+    tc = models.BookToc(version = book_version,
+                        book = book,
+                        name = message["chapter"],
+                        chapter = chapter,
+                        weight = 1,
+                        typeof = 1)
 
-        try:
-            tc.save()
-        except:
-            transaction.rollback()
-            return {"created": False}
+    tc.save()
 
-        history = logChapterHistory(chapter = chapter,
-                                    content = content,
-                                    user = request.user,
-                                    comment = message.get("comment", ""),
-                                    revision = chapter.revision)
+    history = logChapterHistory(chapter = chapter,
+                                content = content,
+                                user = request.user,
+                                comment = message.get("comment", ""),
+                                revision = chapter.revision)
 
-        if history:
-            logBookHistory(book = book,
-                           version = book_version,
-                           chapter = chapter,
-                           chapter_history = history,
-                           user = request.user,
-                           kind = 'chapter_create')
+    if history:
+        logBookHistory(book = book,
+                       version = book_version,
+                       chapter = chapter,
+                       chapter_history = history,
+                       user = request.user,
+                       kind = 'chapter_create')
 
-        transaction.commit()
 
     result = (chapter.id, chapter.title, chapter.url_title, 1, s.id)
 
@@ -1267,7 +1043,8 @@ def remote_create_chapter(request, message, bookid, version):
     sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
 
 
-    return {"status": True, "created": True, "chapter_id": chapter.id}
+    return {"result": True, "created": True, "chapter_id": chapter.id}
+
 
 def copy_attachment(attachment, target_book):
     """
@@ -1291,6 +1068,7 @@ def copy_attachment(attachment, target_book):
     att.attachment.save(os.path.basename(attachment.attachment.name), attachment.attachment, save=False)
     att.save()
     return att
+
 
 def remote_clone_chapter(request, message, bookid, version):
     """
@@ -1321,15 +1099,14 @@ def remote_clone_chapter(request, message, bookid, version):
 
     # BookVersion treba uzeti
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     try:
         source_book = models.Book.objects.get(url_title=message["book"])
     except models.Book.DoesNotExist:
-        return {"created": False}
+        return {"result": False, "created": False}
     except models.Book.MultipleObjectsReturned:
-        return {"created": False}
+        return {"result": False, "created": False}
 
     source_book_version = source_book.version
     source_url_title = message["chapter"]
@@ -1337,9 +1114,9 @@ def remote_clone_chapter(request, message, bookid, version):
     try:
         source_chapter = models.Chapter.objects.get(book=source_book, version=source_book_version, url_title=source_url_title)
     except models.Chapter.DoesNotExist:
-        return {"created": False}
+        return {"result": False, "created": False}
     except models.Chapter.MultipleObjectsReturned:
-        return {"created": False}
+        return {"result": False, "created": False}
 
     title = message.get("renameTitle", "")
     if title.strip():
@@ -1365,92 +1142,66 @@ def remote_clone_chapter(request, message, bookid, version):
                              created = datetime.datetime.now(),
                              modified = datetime.datetime.now())
 
-    try:
-        chapter.save()
-    except:
-        transaction.rollback()
-        return {"created": False, "errormsg": "chapter.save() failed"}
-    else:
-        # this should be solved in better way
-        # should have createChapter in booki.utils.book module
+    chapter.save()
+    # this should be solved in better way
+    # should have createChapter in booki.utils.book module
 
-        toc_items = len(book_version.get_toc())+1
+    toc_items = len(book_version.get_toc())+1
 
-        for itm in models.BookToc.objects.filter(version = book_version, book = book):
-            itm.weight = toc_items
-            itm.save()
+    for itm in models.BookToc.objects.filter(version = book_version, book = book):
+        itm.weight = toc_items
+        itm.save()
 
-            toc_items -= 1
-            
-        tc = models.BookToc(version = book_version,
-                            book = book,
-                            name = title,
-                            chapter = chapter,
-                            weight = 1,
-                            typeof = 1)
+        toc_items -= 1
+        
+    tc = models.BookToc(version = book_version,
+                        book = book,
+                        name = title,
+                        chapter = chapter,
+                        weight = 1,
+                        typeof = 1)
 
-        try:
-            tc.save()
-        except:
-            transaction.rollback()
-            return {"created": False, "errormsg": "tc.save() failed"}
+    tc.save()
 
-        try:
-            history = logChapterHistory(chapter = chapter,
-                                        content = chapter.content,
-                                        user = request.user,
-                                        comment = message.get("comment", ""),
-                                        revision = chapter.revision)
-        except:
-            transaction.rollback()
-            import traceback
-            return {"created": False, "errormsg": "logChapterHistory failed", "stacktrace": traceback.format_exc()}
+    history = logChapterHistory(chapter = chapter,
+                                content = chapter.content,
+                                user = request.user,
+                                comment = message.get("comment", ""),
+                                revision = chapter.revision)
+    logBookHistory(book = book,
+                   version = book_version,
+                   chapter = chapter,
+                   chapter_history = history,
+                   user = request.user,
+                   kind = 'chapter_clone')
 
-        try:
-            logBookHistory(book = book,
-                           version = book_version,
-                           chapter = chapter,
-                           chapter_history = history,
-                           user = request.user,
-                           kind = 'chapter_clone')
-        except:
-            transaction.rollback()
-            return {"created": False, "errormsg": "logBookHistory failed"}
+    attachments = source_book_version.get_attachments()
+    attachmentnames = dict([(att.get_name(), att) for att in attachments])
 
-        transaction.commit()
+    target_attachments = book_version.get_attachments()
+    target_attachmentnames = dict([(att.get_name(), att) 
+                                   for att in target_attachments])
 
-    try:
-        attachments = source_book_version.get_attachments()
-        attachmentnames = dict([(att.get_name(), att) for att in attachments])
+    # keep track of already copied source and destination names
+    name2copy = {}
 
-        target_attachments = book_version.get_attachments()
-        target_attachmentnames = dict([(att.get_name(), att) 
-                                       for att in target_attachments])
+    tree = html.document_fromstring(chapter.content)
 
-        # keep track of already copied source and destination names
-        name2copy = {}
+    for e in tree.iter():
+        src = e.get('src')
+        if src is not None:
+            dirname, rest = src.split('/', 1)
+            if dirname ==  "static":
+                name = src.split('/',1)[1]
+                att = attachmentnames.get(name)
+                if att and not name in name2copy:
+                    new_att = copy_attachment(att, book)
+                    name2copy[name] = new_att.get_name()
+                if att and name in name2copy:
+                    e.set('src', "static/"+name2copy[name])
 
-        tree = html.document_fromstring(chapter.content)
-
-        for e in tree.iter():
-            src = e.get('src')
-            if src is not None:
-                dirname, rest = src.split('/', 1)
-                if dirname ==  "static":
-                    name = src.split('/',1)[1]
-                    att = attachmentnames.get(name)
-                    if att and not name in name2copy:
-                        new_att = copy_attachment(att, book)
-                        name2copy[name] = new_att.get_name()
-                    if att and name in name2copy:
-                        e.set('src', "static/"+name2copy[name])
-
-        chapter.content = etree.tostring(tree, encoding='UTF-8', method='html')
-        chapter.save()
-        transaction.commit()
-    except:
-        printStack()
-        transaction.rollback()
+    chapter.content = etree.tostring(tree, encoding='UTF-8', method='html')
+    chapter.save()
 
     result = (chapter.id, chapter.title, chapter.url_title, 1, s.id)
 
@@ -1462,10 +1213,7 @@ def remote_clone_chapter(request, message, bookid, version):
     
     sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
 
-
-    return {"created": True}
-
-
+    return {"result": True, "created": True}
 
 
 def remote_create_section(request, message, bookid, version):
@@ -1492,8 +1240,7 @@ def remote_create_section(request, message, bookid, version):
 
     import datetime
 
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     ch = models.BookToc.objects.filter(book=book,
                                        version=book_version,
@@ -1512,34 +1259,959 @@ def remote_create_section(request, message, bookid, version):
 
     result = True
 
-    try:
-        c.save()
-    except:
-        result = False
-        transaction.rollback()
-    else:
-        logBookHistory(book = book,
+    c.save()
+
+    logBookHistory(book = book,
+                   version = book_version,
+                   user = request.user,
+                   args = {"title": message["chapter"]},
+                   kind = 'section_create')
+
+    result = ("s%s" % c.id, c.name, None, c.typeof)
+
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
+                                                                "from": request.user.username,
+                                                                "message_id": "user_new_section",
+                                                                "message_args": [request.user.username, message["chapter"]]},
+                                myself=True)
+
+    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" %  (bookid, version),
+                                {"command": "chapter_create",
+                                 "chapter": result,
+                                 "typeof": c.typeof},
+                                myself = True)
+
+    return {"result": True, "created": True, "chapter_id": 's{}'.format(c.id)}
+
+
+def remote_covers_data(request, message, bookid, version):
+    """
+    Get info about covers.
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Cover Manager tab
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+    
+    covers = []
+
+    for cover in models.BookCover.objects.filter(book = book).order_by("title"):
+        frm = []
+        
+        if cover.is_book:
+            frm.append("book")
+            
+        if cover.is_ebook:
+            frm.append("ebook")
+
+        if cover.is_pdf:
+            frm.append("pdf")
+
+        title = cover.title.strip() or cover.filename
+
+        if len(title) > 50:
+            title = title[:50] + '...'
+
+        covers.append({'cid': cover.cid,
+                       'placement': cover.cover_type,
+                       'format': frm,
+                       'title': title,
+                       'approved': cover.approved})
+
+    covers.reverse()
+
+    return {"covers": covers, "can_update": bookSecurity.isAdmin()}
+
+
+def remote_cover_approve(request, message, bookid, version):
+    """
+    Set cover approve status.
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Cover Manager tab
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.isAdmin():
+        raise PermissionDenied
+
+    cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
+    cover.approved = message.get('cover_status', False)
+    cover.save()
+
+    from booki.utils import log
+
+    log.logBookHistory(book = book,
                        version = book_version,
+                       args = {'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
                        user = request.user,
-                       args = {"title": message["chapter"]},
-                       kind = 'section_create')
-        transaction.commit()
+                       kind = 'cover_update'
+                       )
 
-        result = ("s%s" % c.id, c.name, None, c.typeof)
+    return {"result": True}
 
-        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
-                                                                    "from": request.user.username,
-                                                                    "message_id": "user_new_section",
-                                                                    "message_args": [request.user.username, message["chapter"]]},
-                                    myself=True)
 
-        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" %  (bookid, version),
-                                    {"command": "chapter_create",
-                                     "chapter": result,
-                                     "typeof": c.typeof},
-                                    myself = True)
+def remote_cover_delete(request, message, bookid, version):
+    """
+    Set cover approve status.
 
-    return {"status": True, "created": result, "chapter_id": 's{}'.format(c.id)}
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Cover Manager tab
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
+
+    filename = cover.attachment.name[:]
+
+    cover.delete()
+
+    from booki.utils import log
+
+    log.logBookHistory(book = book,
+                       version = book_version,
+                       args = {'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
+                       user = request.user,
+                       kind = 'cover_delete'
+                       )
+
+    try:
+        import os
+
+        os.remove(cover.attachment.name)
+    except OSError:
+        pass
+
+    return {"result": True}
+
+
+def remote_cover_save(request, message, bookid, version):
+    """
+    Update cover data.
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Cover Manager tab
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
+    cover.title =  message.get('title', '').strip()[:250]
+
+    try:
+        width = int(message.get('width', 0))
+    except ValueError:
+        width = 0
+        
+    try:
+        height = int(message.get('height', 0))
+    except ValueError:
+        height = 0
+
+    cover.width = width
+    cover.height = height
+    cover.unit = message.get('units', 'mm')
+    cover.booksize = message.get('booksize', '')
+
+    license_id = message.get('license', '')
+
+    if license_id != '':
+        license = models.License.objects.get(abbrevation=license_id)
+        cover.license = license
+
+    cover.notes = message.get('notes', '')[:500]
+
+    frm = message.get('format', '').split(',')
+    cover.is_book = "book" in frm
+    cover.is_ebook = "ebook" in frm
+    cover.is_pdf = "pdf" in frm
+
+    cover.creator = message.get('creator', '')[:40]
+    cover.cover_type = message.get('cover_type', '')
+
+    cover.save()
+
+    from booki.utils import log
+
+    log.logBookHistory(book = book,
+                       version = book_version,
+                       args = {'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
+                       user = request.user,
+                       kind = 'cover_update'
+                       )
+
+    return {"result": True}
+
+
+def remote_cover_upload(request, message, bookid, version):
+    """
+    Get info about specific cover.
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Cover panel.
+    """
+
+    licenses =  [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
+
+    return {"result": True, "licenses": licenses}
+
+
+def remote_cover_load(request, message, bookid, version):
+    """
+    Get info about specific cover.
+
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Cover panel.
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    cover = models.BookCover.objects.get(book=book, cid=message.get('cid', ''))
+
+    # TODO 
+    # - placement
+    # - filename
+
+    frm = []
+
+    if cover.is_book:
+        frm.append("book")
+
+    if cover.is_ebook:
+        frm.append("ebook")
+
+    if cover.is_pdf:
+        frm.append("pdf")
+
+    try:
+        from PIL import Image
+    except ImportError:
+        import Image
+
+    size = (0, 0)
+    filetype = ""
+
+    try:
+        im = Image.open(cover.attachment.name)
+        size = im.size
+
+        filetype = cover.filename.split('.')[-1].upper()
+    except:
+        pass
+
+    # temporary data
+    cover = {"cid": cover.cid,
+             "filename": cover.filename,
+             "cover_type": cover.cover_type,
+             "format": frm,
+             "width": cover.width,
+             "filetype": filetype,
+             "img_size": size,
+             "height": cover.height,
+             "units": cover.unit, 
+             "booksize": cover.booksize,
+             "title": cover.title,
+             "type": cover.cover_type,
+             "creator": cover.creator,
+             "notes": cover.notes,
+             "license": cover.license.abbrevation,
+             "approved": cover.approved}
+
+    licenses =  [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
+
+    transaction.commit()
+
+    return {"result": True, "cover": cover, "licenses": licenses}
+
+
+def remote_settings_options(request, message, bookid, version):
+    """
+    Returns minimal amount of data needed to show on the Settings tab in the Editor. This call is used when user clicks on the Settings tab.
+
+    Output:
+     - licenses
+     - permission
+     - current_licence
+     - languages
+     - current_language
+     - rtl
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns needed data for Settings tab
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    licenses = [(lic.abbrevation, lic.name)  for lic in models.License.objects.all().order_by("name") if lic]
+    languages = [(lic.abbrevation, lic.name) for lic in models.Language.objects.all().order_by("name") if lic] + [('unknown', 'Unknown')]
+    
+    current_license = getattr(book.license, "abbrevation","")
+    current_language = getattr(book.language, "abbrevation", "unknown")
+
+    # get rtl
+    try:
+        rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind=0).get_value()
+    except (models.Info.DoesNotExist, models.Info.MultipleObjectsReturned):
+        rtl = "LTR"
+
+    return {"result": True, 
+            "licenses": licenses, 
+            "permission": book.permission,
+            "current_licence": current_license,
+            "languages": languages,
+            "current_language": current_language,
+            "rtl": rtl
+            }
+
+
+def remote_license_save(request, message, bookid, version):
+    """
+    This call is used from the Settings tab. It is used to save new license data for the book.
+
+    Input:
+     - license
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns if operation was successful
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    lic = models.License.objects.filter(abbrevation=message["license"])[0]
+    book.license = lic
+    book.save()
+
+
+    return {"status": 1}
+
+
+def remote_license_attributions(request, message, bookid, version):
+    """
+    This call is used from the Settings tab. You get list of users who have attribution rights and list of people who have been excluded from the list.
+
+    Output:
+     - users
+     - users_exclude
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns if operation was successful
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    from django.contrib.auth.models import User
+
+    # not so cool idea
+    excl = [a.user.username for a in models.AttributionExclude.objects.filter(book = book)]
+    users = [(u['user__username'], u['user__first_name']) for u in models.ChapterHistory.objects.filter(chapter__version__book=book).values("user", "user__username", "user__first_name").distinct()  if u['user__username'] not in excl]
+    users_exclude = [(u.user.username, u.user.first_name) for u in models.AttributionExclude.objects.filter(book = book).order_by("user__username")]
+
+
+    return {"result": True, 
+            "users": users,
+            "users_exclude": users_exclude }
+
+
+def remote_license_attributions_save(request, message, bookid, version):
+    """
+    This call is used from the Settings tab. Saves new list of excluded users from the attribution rights.
+
+    Input:
+     - excluded_users
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns if operation was successful
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    from django.contrib.auth.models import User
+
+    # delete all elements
+    models.AttributionExclude.objects.filter(book=book).delete()
+
+    for userName in message["excluded_users"]:
+        u = User.objects.get(username = userName)
+        a = models.AttributionExclude(book = book, user = u)
+        a.save()
+
+    transaction.commit()
+
+    return {"result": True}
+
+
+def remote_publish_book(request, message, bookid, version):
+    from . import tasks
+
+    tasks.publish_book(bookid=bookid, version=version, clientid=request.clientID, sputnikid=request.sputnikID)
+
+    return {'result': True}
+
+
+def remote_word_count(request, message, bookid, version):
+    from django.utils.html import strip_tags
+    from booktype.utils.wordcount import wordcount,charcount,charspacecount
+
+    book = models.Book.objects.get(id=bookid)
+    book_version = book.get_version(version)
+
+    ## get chapters
+    chapters = models.BookToc.objects.filter(book=book, version=book_version)
+    current_chapter = message["current_chapter_id"]
+
+    #get chapter data    
+    res = {}
+    all_wcount = 0
+    all_charcount = 0
+    all_charspacecount = 0
+
+    for chap in chapters:
+        if chap.is_chapter() and chap.chapter.id!=current_chapter:
+            stripped_data = strip_tags(chap.chapter.content)
+            all_wcount += wordcount(stripped_data)
+            all_charcount += charcount(stripped_data)
+            all_charspacecount += charspacecount(stripped_data)
+            
+    res = {"result": True, "status": True, "wcount": all_wcount, "charcount": all_charcount, "charspacecount" : all_charspacecount }
+
+    return res
+
+######################################################################################################
+
+def remote_book_permission_save(request, message, bookid, version):
+    """
+    Sets book permissions.
+
+    Input:
+     - permission
+     
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns True if operation was successful
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.isAdmin():
+        raise PermissionDenied
+    
+    book.permission = message["permission"]
+    book.save()
+        
+    return {"result": True}
+
+
+def remote_book_status_order(request, message, bookid, version):
+    """
+    Reorders list of book statuses.
+
+    Sends notification to chat.
+   
+    Input:
+     - order
+     
+    Output:
+     - status
+     - statuses
+   
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of all statuses
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.isAdmin():
+        raise PermissionDenied        
+    
+    weight = 100
+
+    for status_id in [x[11:] for x in message["order"]]:
+        up = models.BookStatus.objects.get(book = book, id = status_id)
+        up.weight = weight
+        up.save()
+
+        weight -= 1
+        
+
+    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+
+    sputnik.addMessageToChannel(request,
+                                "/booki/book/%s/%s/" % (bookid, version),
+                                {"command": "chapter_status_changed",
+                                 "statuses": allStatuses},
+                                myself = False
+                                )
+
+    return {"result": True,
+            "statuses": allStatuses }
+
+
+def remote_book_status_remove(request, message, bookid, version):
+    """
+    Removes book status.
+
+    Sends notification to chat.
+   
+    Input:
+     - status_id
+     
+    Output:
+     - status
+     - result
+     - statuses
+   
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of all statuses
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.isAdmin():
+        raise PermissionDenied
+
+    result = True
+    
+    up = models.BookStatus.objects.get(book = book, id = message["status_id"])
+    # this is a quick fix
+    # check - no chapter has this status + no attachment has this status and no book has this status
+    if len(list(models.Chapter.objects.filter(status = up, book = book))) == 0 and \
+            len(list(models.Attachment.objects.filter(status = up, version__book = book))) == 0 and \
+            book.status != up:
+        up.delete()
+    else:
+        result = False
+
+    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+
+    sputnik.addMessageToChannel(request,
+                                "/booki/book/%s/%s/" % (bookid, version),
+                                {"command": "chapter_status_changed",
+                                 "statuses": allStatuses},
+                                myself = False
+                                )
+
+    return {"status": True,
+            "result": result,
+            "statuses": allStatuses}
+
+
+def remote_book_status_create(request, message, bookid, version):
+    """
+    Creates new book status.
+
+    Sends notification to chat.
+   
+    Input:
+     - status_name
+     
+    Output:
+     - status
+     - status_id
+     - statuses
+   
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of all statuses and id of the newly created one
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    status_id = None
+
+    if not book_security.isAdmin():
+        raise PermissionDenied
+
+    from django.utils.html import strip_tags
+
+    bs = models.BookStatus(book = book,
+                           name = strip_tags(message["status_name"].strip()),
+                           weight = 0)
+    bs.save()
+
+    status_id = bs.id
+
+    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+
+    sputnik.addMessageToChannel(request,
+                                "/booki/book/%s/%s/" % (bookid, version),
+                                {"command": "chapter_status_changed",
+                                 "statuses": allStatuses},
+                                myself = False
+                                )
+    
+    return {"result": True,
+            "status_id": status_id,
+            "statuses": allStatuses
+            }
+
+
+def remote_roles_delete(request, message, bookid, version):
+    """
+    Removes role from this specific user.
+   
+    Input:
+     - username
+     - role
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns True if operation was successful
+    """
+
+    from django.contrib.auth.models import User
+
+    # check permissions
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    try:
+        for up in models.BookiPermission.objects.filter(book = book, 
+                                                     user__username = message["username"], 
+                                                     permission = message["role"]):
+            up.delete()
+    except models.BookiPermission.DoesNotExist:
+        pass
+
+    return {"status": True}
+
+
+def remote_roles_add(request, message, bookid, version):
+    """
+    Adds user to specific role.
+   
+    Input:
+     - username
+     - role
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns True if operation was successful
+    """
+
+    from django.contrib.auth.models import User
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    result = False
+
+    try:
+        u = User.objects.get(username = message["username"])
+
+        # we do some black magic if user is book owner and we try to make him administrator        
+        if not (book.owner == u and message["role"] == 1):
+            # Do not add if user is already in the list
+            if not models.BookiPermission.objects.filter(book = book, user = u, permission = message["role"]).exists():
+                up = models.BookiPermission(book = book,
+                                            user = u,
+                                            permission = message["role"])
+                up.save()
+
+                result = True
+    except User.DoesNotExist:
+        pass
+
+    return {"result": result}
+
+
+def remote_roles_list(request, message, bookid, version):
+    """
+    Returns list of users who have specific role on this book.
+   
+    Input:
+     - role
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of users
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    users = [(u.user.username, '%s (%s)' % (u.user.username, u.user.first_name)) for u in models.BookiPermission.objects.filter(book = book, permission = message["role"]).order_by("user__username")]
+
+    if int(message["role"]) == 1:
+        users.append((book.owner.username, '%s (%s) [owner]' % (book.owner.username, book.owner.first_name)))
+
+    return {"result": True, "users": users}
+
+
+def remote_users_suggest(request, message, bookid, version):
+    """
+    This call is used from the Settings tab, Manage roles dialog. This called is used to autofill username field.
+
+    Input:
+     - possible_user
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of users
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    from django.contrib.auth.models import User
+
+#    users = ['%s' % (u.username, ) for u in User.objects.filter(Q(username__contains=message["possible_user"]) | Q(first_name__contains=message["possible_user"]))[:20]]
+    users = ['%s (%s)' % (u.username, u.first_name) for u in User.objects.filter(Q(username__contains=message["possible_user"]) | Q(first_name__contains=message["possible_user"]))[:20]]
+
+
+    return {"result": True, "possible_users": users}
+
+
+def remote_settings_language_save(request, message, bookid, version):
+    """
+    This call is used from the Settings tab. Saves new book language and rtl setting for the book.
+
+    Input:
+     - language
+     - rtl
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns if operation was successful
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if message['language'] != 'unknown':
+        l = models.Language.objects.get(abbrevation=message['language'])
+
+        book.language = l
+        book.save()
+
+    if message['rtl']:
+        rtl_value = "RTL"
+    else:
+        rtl_value = "LTR"
+
+    try:
+        rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind = 0)
+        rtl.value_string = rtl_value
+        rtl.save()
+    except models.Info.DoesNotExist:
+
+        rtl = models.Info(book = book,
+                          name = '{http://booki.cc/}dir',
+                          kind = 0,
+                          value_string = rtl_value)
+        rtl.save()
+
+    return {"result": True}
+
+
+def remote_get_users(request, message, bookid, version):
+    """
+    Returns list of users currently editing L{bookid}.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: List of users
+    """
+
+    res = {"result": True}
+
+    def vidi(a):
+        if a == request.sputnikID:
+            return "!%s!" % a
+        return a
+
+    res["users"] = [vidi(m) for m in list(sputnik.smembers("sputnik:channel:%s:channel" % message["channel"]))]
+
+    return res
+
+
+def remote_book_notification(request, message, bookid, version):
+    """
+    Editor is constantly sending ping message to notify us that it is still alive.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Should it kill the seasson
+    """
+
+    res = {"result": True}
+
+    import time
+
+    # rcon.delete(key)
+    # set the initial timer for editor
+
+    if request.user.username and request.user.username != '':
+        sputnik.set("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username), time.time())
+
+        if '%s' % sputnik.get("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username)) == '1':
+            sputnik.rdelete("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username))
+            res = {"kill": "please"}
+
+    return res
 
 
 def remote_get_history(request, message, bookid, version):
@@ -1567,7 +2239,7 @@ def remote_get_history(request, message, bookid, version):
     import datetime
     from booki.editor.common import parseJSON
 
-    book = models.Book.objects.get(id=bookid)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     page = int(message.get("page", 1))
 
@@ -1664,8 +2336,7 @@ def remote_get_chapter_history(request, message, bookid, version):
 
     import datetime
 
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     chapter_history = models.ChapterHistory.objects.filter(chapter__book=book, chapter__url_title=message["chapter"]).order_by("-modified")
 
@@ -1680,6 +2351,7 @@ def remote_get_chapter_history(request, message, bookid, version):
                         "comment": entry.comment})
 
     return {"history": history}
+
 
 def remote_revert_revision(request, message, bookid, version):
     """
@@ -1702,12 +2374,11 @@ def remote_revert_revision(request, message, bookid, version):
     """
 
 
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
-    chapter = models.Chapter.objects.get(version=book_ver, url_title=message["chapter"])
+    chapter = models.Chapter.objects.get(version=book_version, url_title=message["chapter"])
 
-    revision = models.ChapterHistory.objects.get(revision=message["revision"], chapter__url_title=message["chapter"], chapter__version=book_ver.id)
+    revision = models.ChapterHistory.objects.get(revision=message["revision"], chapter__url_title=message["chapter"], chapter__version=book_version.id)
 
     # TODO
     # does chapter history really needs to keep content or it can only keep reference to chapter
@@ -1720,7 +2391,7 @@ def remote_revert_revision(request, message, bookid, version):
 
     if history:
         logBookHistory(book = book,
-                       version = book_ver,
+                       version = book_version,
                        chapter = chapter,
                        chapter_history = history,
                        user = request.user,
@@ -1730,22 +2401,16 @@ def remote_revert_revision(request, message, bookid, version):
     chapter.revision += 1
     chapter.content = revision.content;
 
-    try:
-        chapter.save()
-    except:
-        transaction.rollback()
-    else:
-        transaction.commit()
+    chapter.save()
 
-        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
-                                    {"command": "message_info",
-                                     "from": request.user.username,
-                                     "message_id": "user_reverted_chapter",
-                                     "message_args": [request.user.username, chapter.title, message["revision"]]}, 
-                                    myself=True)
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
+                                {"command": "message_info",
+                                 "from": request.user.username,
+                                 "message_id": "user_reverted_chapter",
+                                 "message_args": [request.user.username, chapter.title, message["revision"]]}, 
+                                myself=True)
 
-    return {}
-
+    return {"result": True}
 
 
 def remote_get_chapter_revision(request, message, bookid, version):
@@ -1780,21 +2445,19 @@ def remote_get_chapter_revision(request, message, bookid, version):
 
     import datetime
 
-    book = models.Book.objects.get(id=bookid)
+    book, book_version, book_security = get_book(request, bookid, version)
 
-    try:
-        revision = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision"])
+    revision = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision"])
 
-        return {"chapter": revision.chapter.title,
-                "chapter_url": revision.chapter.url_title,
-                "modified": revision.modified.strftime("%d.%m.%Y %H:%M:%S"),
-                "user": revision.user.username,
-                "revision": revision.revision,
-                "version": '%d.%d' % (revision.chapter.version.major, revision.chapter.version.minor),
-                "content": revision.content,
-                "comment": revision.comment}
-    except:
-        return {}
+    return {"result": True,
+            "chapter": revision.chapter.title,
+            "chapter_url": revision.chapter.url_title,
+            "modified": revision.modified.strftime("%d.%m.%Y %H:%M:%S"),
+            "user": revision.user.username,
+            "revision": revision.revision,
+            "version": '%d.%d' % (revision.chapter.version.major, revision.chapter.version.minor),
+            "content": revision.content,
+            "comment": revision.comment}
 
 
 def remote_get_notes(request, message, bookid, version):
@@ -1818,7 +2481,7 @@ def remote_get_notes(request, message, bookid, version):
 
     import datetime
 
-    book = models.Book.objects.get(id=bookid)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     book_notes = models.BookNotes.objects.filter(book=book)
 
@@ -1826,7 +2489,7 @@ def remote_get_notes(request, message, bookid, version):
     for entry in book_notes:
         notes.append({"notes": entry.notes})
 
-    return {"notes": notes}
+    return {"result": True, "notes": notes}
 
 
 def remote_notes_save(request, message, bookid, version):
@@ -1848,7 +2511,8 @@ def remote_notes_save(request, message, bookid, version):
     @param version: Book version
     """
 
-    book = models.Book.objects.get(id=bookid)
+    book, book_version, book_security = get_book(request, bookid, version)
+
     book_notes = models.BookNotes.objects.filter(book=book)
     notes = message.get("notes")
     book_notes_obj = None
@@ -1860,20 +2524,15 @@ def remote_notes_save(request, message, bookid, version):
     book_notes_obj.notes = notes
 
 
-    try:
-        book_notes_obj.save()
-    except:
-        transaction.rollback()
-    else:
-        sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
-                                                                    "from": request.user.username,
-                                                                    "message_id": "user_saved_notes",
-                                                                    "message_args": [request.user.username, book.title]},
-                                    myself=True)
-        transaction.commit()
+    book_notes_obj.save()
 
-    return {}
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
+                                                                "from": request.user.username,
+                                                                "message_id": "user_saved_notes",
+                                                                "message_args": [request.user.username, book.title]},
+                                myself=True)
 
+    return {"result": True}
 
 
 def remote_unlock_chapter(request, message, bookid, version):
@@ -1897,17 +2556,15 @@ def remote_unlock_chapter(request, message, bookid, version):
 
     import re
 
-    book = models.Book.objects.get(id=bookid)
+    book, book_version, book_security = get_book(request, bookid, version)
 
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
-
-    if bookSecurity.isAdmin():
+    if book_security.isAdmin():
         for key in sputnik.rkeys("booki:%s:locks:%s:*" % (bookid, message["chapterID"])):
             m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
             if m:
                 sputnik.set("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], m.group(3)), 1)
 
-    return {}
+    return {"result": True}
 
 
 def remote_get_versions(request, message, bookid, version):
@@ -1934,7 +2591,7 @@ def remote_get_versions(request, message, bookid, version):
     @return: Returns list of dictionaries with data about all Book versions
     """
 
-    book = models.Book.objects.get(id=bookid)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     book_versions = [{"major": v.major,
                       "minor": v.minor,
@@ -1943,8 +2600,7 @@ def remote_get_versions(request, message, bookid, version):
                       "created": str(v.created.strftime('%a, %d %b %Y %H:%M:%S GMT'))}
                      for v in models.BookVersion.objects.filter(book=book).order_by("-created")]
 
-    return {"versions": book_versions}
-
+    return {"result": True, "versions": book_versions}
 
 
 # put this outside of this module
@@ -2051,25 +2707,19 @@ def remote_create_major_version(request, message, bookid, version):
     @return: Returns new version number
     """
 
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
-    try:
-        new_version = create_new_version(book, book_ver, message, book_ver.major+1, 0)
-    except:
-        transaction.rollback()
-        return {"result": False}
-    else:
-        logBookHistory(book = book,
-                       version = new_version,
-                       chapter = None,
-                       chapter_history = None,
-                       user = request.user,
-                       args = {"version": new_version.get_version()},
-                       kind = 'major_version')
-        transaction.commit()
+    new_version = create_new_version(book, book_version, message, book_version.major+1, 0)
 
-        return {"version": new_version.get_version()}
+    logBookHistory(book = book,
+                   version = new_version,
+                   chapter = None,
+                   chapter_history = None,
+                   user = request.user,
+                   args = {"version": new_version.get_version()},
+                   kind = 'major_version')
+
+    return {"result": True, "version": new_version.get_version()}
 
 
 def remote_create_minor_version(request, message, bookid, version):
@@ -2090,26 +2740,19 @@ def remote_create_minor_version(request, message, bookid, version):
     @return: Returns new version number
     """
 
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
-    try:
-        new_version = create_new_version(book, book_ver, message, book_ver.major, book_ver.minor+1)
-    except:
-        transaction.rollback()
+    new_version = create_new_version(book, book_version, message, book_version.major, book_version.minor+1)
 
-        return {"result": False}
-    else:
-        logBookHistory(book = book,
-                       version = new_version,
-                       chapter = None,
-                      chapter_history = None,
-                       user = request.user,
-                       args = {"version": new_version.get_version()},
-                       kind = 'minor_version')
-        transaction.commit()
+    logBookHistory(book = book,
+                   version = new_version,
+                   chapter = None,
+                  chapter_history = None,
+                   user = request.user,
+                   args = {"version": new_version.get_version()},
+                   kind = 'minor_version')
         
-        return {"version": new_version.get_version()}
+    return {"result": True, "version": new_version.get_version()}
 
 
 def color_me(l, rgb, pos):
@@ -2172,6 +2815,7 @@ def color_me(l, rgb, pos):
 
     return out
 
+
 def remote_chapter_diff(request, message, bookid, version):
     """
     Returns diff between two revisions of the chapter. Diff is returned as HTML string.
@@ -2195,7 +2839,7 @@ def remote_chapter_diff(request, message, bookid, version):
 
     import datetime
 
-    book = models.Book.objects.get(id=bookid)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     revision1 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision1"])
     revision2 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision2"])
@@ -2267,7 +2911,7 @@ def remote_chapter_diff(request, message, bookid, version):
 
         n += 1
 
-    return {"output": '\n'.join(output)}
+    return {"result": True, "output": '\n'.join(output)}
 
 
 def remote_chapter_diff_parallel(request, message, bookid, version):
@@ -2293,7 +2937,7 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
 
     import datetime
 
-    book = models.Book.objects.get(id=bookid)
+    book, book_version, book_security = get_book(request, bookid, version)
 
     revision1 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision1"])
     revision2 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision2"])
@@ -2373,1140 +3017,5 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
     
     info = '''<div style="padding-bottom: 5px"><span class="diff changed" style="width: 10px; height: 10px; display: inline-block;"></span> Changed <span class="diff added" style="width: 10px; height: 10px; display: inline-block;"></span> Added <span class="diff deleted" style="width: 10px; height: 10px; display: inline-block;"></span> Deleted </div>'''
     
-    return {"output": info+'<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: '+message["revision2"]+'</div></td></tr>\n'.join(output)+'</table>\n'}
-
-
-def remote_covers_data(request, message, bookid, version):
-    """
-    Get info about covers.
-
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns needed data for Cover Manager tab
-    """
-
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
-
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
+    return {"result": True, "output": info+'<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: '+message["revision2"]+'</div></td></tr>\n'.join(output)+'</table>\n'}
     
-    covers = []
-
-    for cover in models.BookCover.objects.filter(book = book).order_by("title"):
-        frm = []
-        
-        if cover.is_book:
-            frm.append("book")
-            
-        if cover.is_ebook:
-            frm.append("ebook")
-
-        if cover.is_pdf:
-            frm.append("pdf")
-
-        title = cover.title.strip() or cover.filename
-
-        if len(title) > 50:
-            title = title[:50] + '...'
-
-        covers.append({'cid': cover.cid,
-                       'placement': cover.cover_type,
-                       'format': frm,
-                       'title': title,
-                       'approved': cover.approved})
-
-    transaction.commit()
-    covers.reverse()
-
-    return {"covers": covers, "can_update": bookSecurity.isAdmin()}
-
-
-def remote_cover_approve(request, message, bookid, version):
-    """
-    Set cover approve status.
-
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns needed data for Cover Manager tab
-    """
-
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
-
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
-
-    if not bookSecurity.isAdmin():
-        transaction.rollback()
-        return {"result": False}
-
-    try:
-        cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
-        cover.approved = message.get('cover_status', False)
-        cover.save()
-
-        from booki.utils import log
-
-        log.logBookHistory(book = book,
-                           version = book_version,
-                           args = {'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
-                           user = request.user,
-                           kind = 'cover_update'
-                           )
-    except models.BookCover.DoesNotExist:
-
-        transaction.rollback()
-        return {"result": False}
-    else:
-        transaction.commit()
-
-    return {"result": True}
-
-
-def remote_cover_delete(request, message, bookid, version):
-    """
-    Set cover approve status.
-
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns needed data for Cover Manager tab
-    """
-
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
-
-    try:
-        cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
-
-        filename = cover.attachment.name[:]
-
-        cover.delete()
-
-        from booki.utils import log
-
-        log.logBookHistory(book = book,
-                           version = book_version,
-                           args = {'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
-                           user = request.user,
-                           kind = 'cover_delete'
-                           )
-    except models.BookCover.DoesNotExist:
-
-        transaction.rollback()
-        return {"result": False}
-    else:
-        transaction.commit()
-
-    try:
-        import os
-
-        os.remove(cover.attachment.name)
-    except OSError:
-        pass
-
-    return {"result": True}
-
-
-def remote_cover_save(request, message, bookid, version):
-    """
-    Update cover data.
-
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns needed data for Cover Manager tab
-    """
-
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
-
-    try:
-        cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
-        cover.title =  message.get('title', '').strip()[:250]
-
-        try:
-            width = int(message.get('width', 0))
-        except ValueError:
-            width = 0
-            
-        try:
-            height = int(message.get('height', 0))
-        except ValueError:
-            height = 0
-
-        cover.width = width
-        cover.height = height
-        cover.unit = message.get('units', 'mm')
-        cover.booksize = message.get('booksize', '')
-
-        license_id = message.get('license', '')
-
-        if license_id != '':
-            license = models.License.objects.get(abbrevation=license_id)
-            cover.license = license
-
-        cover.notes = message.get('notes', '')[:500]
-
-        frm = message.get('format', '').split(',')
-        cover.is_book = "book" in frm
-        cover.is_ebook = "ebook" in frm
-        cover.is_pdf = "pdf" in frm
-
-        cover.creator = message.get('creator', '')[:40]
-        cover.cover_type = message.get('cover_type', '')
-
-        cover.save()
-
-        from booki.utils import log
-
-        log.logBookHistory(book = book,
-                           version = book_version,
-                           args = {'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
-                           user = request.user,
-                           kind = 'cover_update'
-                           )
-
-    except models.BookCover.DoesNotExist:
-        transaction.rollback()
-        return {"result": False}
-    else:
-        transaction.commit()
-
-    return {"result": True}
-
-
-def remote_cover_upload(request, message, bookid, version):
-    """
-    Get info about specific cover.
-
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns needed data for Cover panel.
-    """
-
-    licenses =  [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
-
-    transaction.commit()
-
-    return {"licenses": licenses}
-
-
-def remote_cover_load(request, message, bookid, version):
-    """
-    Get info about specific cover.
-
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns needed data for Cover panel.
-    """
-
-    book = models.Book.objects.get(id=bookid)
-
-    cover = models.BookCover.objects.get(book=book, cid=message.get('cid', ''))
-
-    # TODO 
-    # - placement
-    # - filename
-
-    frm = []
-
-    if cover.is_book:
-        frm.append("book")
-
-    if cover.is_ebook:
-        frm.append("ebook")
-
-    if cover.is_pdf:
-        frm.append("pdf")
-
-    try:
-        from PIL import Image
-    except ImportError:
-        import Image
-
-    size = (0, 0)
-    filetype = ""
-
-    try:
-        im = Image.open(cover.attachment.name)
-        size = im.size
-
-        filetype = cover.filename.split('.')[-1].upper()
-    except:
-        pass
-
-    # temporary data
-    cover = {"cid": cover.cid,
-             "filename": cover.filename,
-             "cover_type": cover.cover_type,
-             "format": frm,
-             "width": cover.width,
-             "filetype": filetype,
-             "img_size": size,
-             "height": cover.height,
-             "units": cover.unit, 
-             "booksize": cover.booksize,
-             "title": cover.title,
-             "type": cover.cover_type,
-             "creator": cover.creator,
-             "notes": cover.notes,
-             "license": cover.license.abbrevation,
-             "approved": cover.approved}
-
-    licenses =  [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
-
-    transaction.commit()
-
-    return {"cover": cover, "licenses": licenses}
-
-
-def remote_settings_options(request, message, bookid, version):
-    """
-    Returns minimal amount of data needed to show on the Settings tab in the Editor. This call is used when user clicks on the Settings tab.
-
-    Output:
-     - licenses
-     - permission
-     - current_licence
-     - languages
-     - current_language
-     - rtl
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns needed data for Settings tab
-    """
-
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
-
-    licenses = [(lic.abbrevation, lic.name)  for lic in models.License.objects.all().order_by("name") if lic]
-    languages = [(lic.abbrevation, lic.name) for lic in models.Language.objects.all().order_by("name") if lic] + [('unknown', 'Unknown')]
-    
-    current_license = getattr(book.license, "abbrevation","")
-    current_language = getattr(book.language, "abbrevation", "unknown")
-
-    # get rtl
-    try:
-        rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind=0).get_value()
-    except (models.Info.DoesNotExist, models.Info.MultipleObjectsReturned):
-        rtl = "LTR"
-
-    transaction.commit()
-
-    return {"licenses": licenses, 
-            "permission": book.permission,
-            "current_licence": current_license,
-            "languages": languages,
-            "current_language": current_language,
-            "rtl": rtl
-            }
-
-
-def remote_license_save(request, message, bookid, version):
-    """
-    This call is used from the Settings tab. It is used to save new license data for the book.
-
-    Input:
-     - license
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns if operation was successful
-    """
-
-    book = models.Book.objects.get(id=bookid)
-
-    lic = models.License.objects.filter(abbrevation=message["license"])[0]
-    book.license = lic
-    book.save()
-
-    transaction.commit()
-
-    return {"status": 1}
-
-def remote_license_attributions(request, message, bookid, version):
-    """
-    This call is used from the Settings tab. You get list of users who have attribution rights and list of people who have been excluded from the list.
-
-    Output:
-     - users
-     - users_exclude
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns if operation was successful
-    """
-
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
-
-    from django.contrib.auth.models import User
-
-    # not so cool idea
-    excl = [a.user.username for a in models.AttributionExclude.objects.filter(book = book)]
-    users = [(u['user__username'], u['user__first_name']) for u in models.ChapterHistory.objects.filter(chapter__version__book=book).values("user", "user__username", "user__first_name").distinct()  if u['user__username'] not in excl]
-    users_exclude = [(u.user.username, u.user.first_name) for u in models.AttributionExclude.objects.filter(book = book).order_by("user__username")]
-
-
-    transaction.commit()
-
-    return {"users": users,
-            "users_exclude": users_exclude }
-
-
-def remote_license_attributions_save(request, message, bookid, version):
-    """
-    This call is used from the Settings tab. Saves new list of excluded users from the attribution rights.
-
-    Input:
-     - excluded_users
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns if operation was successful
-    """
-
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
-
-    from django.contrib.auth.models import User
-
-    # delete all elements
-    models.AttributionExclude.objects.filter(book=book).delete()
-
-    for userName in message["excluded_users"]:
-        u = User.objects.get(username = userName)
-        a = models.AttributionExclude(book = book, user = u)
-        a.save()
-
-    transaction.commit()
-
-    return {"status": True}
-
-
-def remote_settings_language_save(request, message, bookid, version):
-    """
-    This call is used from the Settings tab. Saves new book language and rtl setting for the book.
-
-    Input:
-     - language
-     - rtl
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns if operation was successful
-    """
-
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
-
-    if message['language'] != 'unknown':
-        l = models.Language.objects.get(abbrevation=message['language'])
-
-        book.language = l
-        book.save()
-
-    if message['rtl']:
-        rtl_value = "RTL"
-    else:
-        rtl_value = "LTR"
-
-    try:
-        rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind = 0)
-        rtl.value_string = rtl_value
-        rtl.save()
-    except models.Info.DoesNotExist:
-
-        rtl = models.Info(book = book,
-                          name = '{http://booki.cc/}dir',
-                          kind = 0,
-                          value_string = rtl_value)
-        rtl.save()
-
-    transaction.commit()
-
-    return {"status": True}
-
-
-def remote_users_suggest(request, message, bookid, version):
-    """
-    This call is used from the Settings tab, Manage roles dialog. This called is used to autofill username field.
-
-    Input:
-     - possible_user
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns list of users
-    """
-
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
-
-    from django.contrib.auth.models import User
-
-#    users = ['%s' % (u.username, ) for u in User.objects.filter(Q(username__contains=message["possible_user"]) | Q(first_name__contains=message["possible_user"]))[:20]]
-    users = ['%s (%s)' % (u.username, u.first_name) for u in User.objects.filter(Q(username__contains=message["possible_user"]) | Q(first_name__contains=message["possible_user"]))[:20]]
-
-    transaction.commit()
-
-    return {"status": True, "possible_users": users}
-
-
-def remote_roles_list(request, message, bookid, version):
-    """
-    Returns list of users who have specific role on this book.
-   
-    Input:
-     - role
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns list of users
-    """
-
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
-
-    users = [(u.user.username, '%s (%s)' % (u.user.username, u.user.first_name)) for u in models.BookiPermission.objects.filter(book = book, permission = message["role"]).order_by("user__username")]
-
-    if int(message["role"]) == 1:
-        users.append((book.owner.username, '%s (%s) [owner]' % (book.owner.username, book.owner.first_name)))
-
-    transaction.commit()
-
-    return {"status": True, "users": users}
-
-
-# remove this
-def _remote_roles_save(request, message, bookid, version):
-    from django.contrib.auth.models import User
-
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
-
-    userList = set(message["users"][:])
-    usersExisting = set([u.user.username for u in models.BookiPermission.objects.filter(book = book, permission = 1) if u.user])
-
-    newUsers =  userList - usersExisting
-    removedUsers = usersExisting-userList
-
-    for userName in newUsers:
-        try:
-            u = User.objects.get(username = userName)
-            up = models.BookiPermission(book = book,
-                                        user = u,
-                                        permission = 1)
-            up.save()
-        except User.DoesNotExist:
-            pass
-
-    for userName in removedUsers:
-        try:
-            up = models.BookiPermission.objects.get(book = book, user__username = userName, permission = 1)
-            up.delete()
-        except models.BookiPermission.DoesNotExist:
-            pass
-
-    transaction.commit()
-
-    return {"status": True}
-
-
-def remote_roles_add(request, message, bookid, version):
-    """
-    Adds user to specific role.
-   
-    Input:
-     - username
-     - role
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns True if operation was successful
-    """
-
-    from django.contrib.auth.models import User
-
-    # check permissions
-
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
-
-    result = False
-
-    try:
-        u = User.objects.get(username = message["username"])
-
-        # we do some black magic if user is book owner and we try to make him administrator        
-        if not (book.owner == u and message["role"] == 1):
-            # Do not add if user is already in the list
-            if not models.BookiPermission.objects.filter(book = book, user = u, permission = message["role"]).exists():
-                up = models.BookiPermission(book = book,
-                                            user = u,
-                                            permission = message["role"])
-                up.save()
-
-                result = True
-    except User.DoesNotExist:
-        pass
-
-    transaction.commit()
-
-    return {"status": result}
-
-
-def remote_roles_delete(request, message, bookid, version):
-    """
-    Removes role from this specific user.
-   
-    Input:
-     - username
-     - role
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns True if operation was successful
-    """
-
-    from django.contrib.auth.models import User
-
-    # check permissions
-
-    book = models.Book.objects.get(id=bookid)
-    book_ver = book.get_version(version)
-
-
-    try:
-        for up in models.BookiPermission.objects.filter(book = book, 
-                                                     user__username = message["username"], 
-                                                     permission = message["role"]):
-            up.delete()
-    except models.BookiPermission.DoesNotExist:
-        pass
-
-    transaction.commit()
-
-    return {"status": True}
-
-
-def remote_book_status_create(request, message, bookid, version):
-    """
-    Creates new book status.
-
-    Sends notification to chat.
-   
-    Input:
-     - status_name
-     
-    Output:
-     - status
-     - status_id
-     - statuses
-   
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns list of all statuses and id of the newly created one
-    """
-
-    book = models.Book.objects.get(id=bookid)
-    status_id = None
-
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
-
-    if not bookSecurity.isAdmin():
-        return {"status": False}        
-
-    from django.utils.html import strip_tags
-
-    try:
-        bs = models.BookStatus(book = book,
-                               name = strip_tags(message["status_name"].strip()),
-                               weight = 0)
-        bs.save()
-    except:
-        transaction.rollback()
-    else:
-        status_id = bs.id
-        transaction.commit()
-
-    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
-
-    sputnik.addMessageToChannel(request,
-                                "/booki/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_status_changed",
-                                 "statuses": allStatuses},
-                                myself = False
-                                )
-    
-    return {"status": True,
-            "status_id": status_id,
-            "statuses": allStatuses
-            }
-
-
-def remote_book_status_remove(request, message, bookid, version):
-    """
-    Removes book status.
-
-    Sends notification to chat.
-   
-    Input:
-     - status_id
-     
-    Output:
-     - status
-     - result
-     - statuses
-   
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns list of all statuses
-    """
-
-    book = models.Book.objects.get(id=bookid)
-
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
-
-    if not bookSecurity.isAdmin():
-        return {"status": False}        
-
-    result = True
-    
-    try:
-        up = models.BookStatus.objects.get(book = book, id = message["status_id"])
-        # this is a quick fix
-        # check - no chapter has this status + no attachment has this status and no book has this status
-        if len(list(models.Chapter.objects.filter(status = up, book = book))) == 0 and \
-                len(list(models.Attachment.objects.filter(status = up, version__book = book))) == 0 and \
-                book.status != up:
-            up.delete()
-        else:
-            result = False
-    except models.BookStatus.DoesNotExist:
-        transaction.rollback()
-    else:
-        transaction.commit()
-
-    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
-
-    sputnik.addMessageToChannel(request,
-                                "/booki/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_status_changed",
-                                 "statuses": allStatuses},
-                                myself = False
-                                )
-
-    return {"status": True,
-            "result": result,
-            "statuses": allStatuses}
-
-
-def remote_book_status_order(request, message, bookid, version):
-    """
-    Reorders list of book statuses.
-
-    Sends notification to chat.
-   
-    Input:
-     - order
-     
-    Output:
-     - status
-     - statuses
-   
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns list of all statuses
-    """
-
-    book = models.Book.objects.get(id=bookid)
-
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
-
-    if not bookSecurity.isAdmin():
-        return {"status": False}        
-    
-    weight = 100
-
-    for status_id in [x[11:] for x in message["order"]]:
-        up = models.BookStatus.objects.get(book = book, id = status_id)
-        up.weight = weight
-        up.save()
-
-        weight -= 1
-        
-    transaction.commit()
-
-    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
-
-    sputnik.addMessageToChannel(request,
-                                "/booki/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_status_changed",
-                                 "statuses": allStatuses},
-                                myself = False
-                                )
-
-    return {"status": True,
-            "statuses": allStatuses }
-
-
-def remote_book_permission_save(request, message, bookid, version):
-    """
-    Sets book permissions.
-
-    Input:
-     - permission
-     
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns True if operation was successful
-    """
-
-    book = models.Book.objects.get(id=bookid)
-
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
-
-    if not bookSecurity.isAdmin():
-        return {"status": False}        
-    
-    book.permission = message["permission"]
-    book.save()
-        
-    transaction.commit()
-
-    return {"status": True}
-
-
-###############################################################################################################
-
-PUBLISH_OPTIONS = {
-    'book': [{"name": "booksize", "value": "COMICBOOK"}, {"name": "custom_width", "value": ""}, {"name": "custom_height", "value": ""}, {"name": "body_font-family", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "h1_font-family", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_font-weight", "value": "heavy"}, {"name": "h2_font-family", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-family", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_text-transform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-family", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "p_pagebreak", "value": "on"}, {"name": "footnotes_pagebreak", "value": "on"}, {"name": "control-css", "value": "on"}, {"name": "page-numbers", "value": "auto"}, {"name": "embed-fonts", "value": "on"}, {"name": "toc_header", "value": ""}, {"name": "top_margin", "value": ""}, {"name": "side_margin", "value": ""}, {"name": "bottom_margin", "value": ""}, {"name": "gutter", "value": ""}, {"name": "columns", "value": ""}, {"name": "column_margin", "value": ""}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": ""}, {"name": "grey_scale", "value": "off"}, {"name": "rotate", "value": "off"}, {"name": "allow-breaks", "value": "off"}, {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}],
-
-    'bookjs': [{"name": "booksize", "value": "COMICBOOK"}, {"name": "custom_width", "value": ""}, {"name": "custom_height", "value": ""}, {"name": "body_font-family", "value": "Liberation Serif"}, {"name": "body_font-size", "value": "18"}, {"name": "h1_font-family", "value": "Liberation Serif"}, {"name": "h1_font-size", "value": "24"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_font-weight", "value": "heavy"}, {"name": "h2_font-family", "value": "Liberation Serif"}, {"name": "h2_font-size", "value": "24"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-family", "value": "Liberation Serif"}, {"name": "h3_font-size", "value": "20"}, {"name": "h3_text-transform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-family", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "p_pagebreak", "value": "on"}, {"name": "footnotes_pagebreak", "value": "on"}, {"name": "control-css", "value": "on"}, {"name": "page-numbers", "value": "auto"}, {"name": "embed-fonts", "value": "on"}, {"name": "toc_header", "value": ""}, {"name": "top_margin", "value": ""}, {"name": "side_margin", "value": ""}, {"name": "bottom_margin", "value": ""}, {"name": "gutter", "value": ""}, {"name": "columns", "value": ""}, {"name": "column_margin", "value": ""}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": ""}, {"name": "grey_scale", "value": "off"}, {"name": "rotate", "value": "off"}, {"name": "allow-breaks", "value": "off"}, {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}],
-
-    'ebook': [{"name": "body_font-family", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "h1_font-family", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_font-weight", "value": "heavy"}, {"name": "h2_font-weightamily", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-family", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_text-transform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-family", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": ""}, {"name": "ebook_format", "value": "epub"},  {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}],
-
-    'odt': [{"name": "body_font-weight", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "h1_font-weight", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_font-weight", "value": "heavy"}, {"name": "h2_font-weight", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-weight", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_text-transform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-weight", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "p_pagebreak", "value": "on"}, {"name": "footnotes_pagebreak", "value": "on"}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": ""}, {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}],
-
-    'pdf': [{"name": "booksize", "value": "A4"}, {"name": "custom_width", "value": ""}, {"name": "custom_height", "value": ""}, {"name": "body_font-family", "value": "Fontin_Sans"}, {"name": "body_font-size", "value": "10"}, {"name": "h1_font-family", "value": "Fontin_Sans"}, {"name": "h1_font-size", "value": "14"}, {"name": "h1_text-transform", "value": "uppercase"}, {"name": "h1_font-weight", "value": "heavy"}, {"name": "h2_font-family", "value": "Fontin_Sans"}, {"name": "h2_font-size", "value": "12"}, {"name": "h2_text-transform", "value": "uppercase"}, {"name": "h2_font-weight", "value": "heavy"}, {"name": "h3_font-family", "value": "Fontin_Sans"}, {"name": "h3_font-size", "value": "10"}, {"name": "h3_text-transform", "value": "uppercase"}, {"name": "h3_font-weight", "value": "heavy"}, {"name": "pre_font-family", "value": "Courier"}, {"name": "pre_font-size", "value": "10"}, {"name": "p_pagebreak", "value": "on"}, {"name": "footnotes_pagebreak", "value": "on"}, {"name": "control-css", "value": "on"}, {"name": "page-numbers", "value": "auto"}, {"name": "embed-fonts", "value": "yes"}, {"name": "top_margin", "value": ""}, {"name": "side_margin", "value": ""}, {"name": "bottom_margin", "value": ""}, {"name": "gutter", "value": ""}, {"name": "columns", "value": ""}, {"name": "column_margin", "value": ""}, {"name": "additional_css", "value": ""}, {"name": "special_css", "value": ""}, {"name": "grey_scale", "value": "off"}, {"name": "rotate", "value": "off"}, {"name": "allow-breaks", "value": "off"}, {"name": "custom_override", "value": "off"}, {"name": "", "value": "off"}, {"name": "", "value": "off"}]}
-
-
-def remote_get_wizzard(request, message, bookid, version):
-    from booki.editor import models
-    from booki.utils.json_wrapper import simplejson
-
-    book = models.Book.objects.get(id=bookid)
-
-    options = []
-
-    try:
-        pw = models.PublishWizzard.objects.get(book=book,
-                                               user=request.user,
-                                               wizz_type=message['wizzard_type']
-                                               )
-        
-        try:
-            options = simplejson.loads(pw.wizz_options)
-        except:
-            options = PUBLISH_OPTIONS[message.get('wizzard_type', 'book')]
-
-    except models.PublishWizzard.DoesNotExist:
-        options = PUBLISH_OPTIONS[message.get('wizzard_type', 'book')]
-
-    import django.template.loader
-    from django.template import Context
-
-    # book, ebook, pdf, odt
-
-    output_type = message.get('wizzard_type', '').upper()
-
-    for op in options:
-        if op.get('name', '') == 'special_css':
-            op['value'] = config.getConfiguration('BOOKTYPE_CSS_%s' % output_type, '')
-
-    covers = []
-    
-    class DummyCover(object):
-        def __init__(self, title):
-            self.cid = title
-            
-    def _getCovers(coverType):
-        ls =  [cover for cover in models.BookCover.objects.filter(book=book, is_book=True, cover_type = coverType)]
-
-        if len(ls) > 0:
-            return [DummyCover(coverType)] + ls
-
-        return ls
-
-
-    def _getOtherCovers(coverType):
-        ls = []
-
-        for cover in models.BookCover.objects.filter(book=book):
-            if cover.is_book == True:
-                if cover.cover_type != 'digital':
-                    continue
-            ls.append(cover)
-
-        if len(ls) > 0:
-            return [DummyCover(coverType)] + ls
-
-        return ls
-
-    if output_type in ['BOOK', 'BOOKJS']:        
-        _front = _getCovers('front')
-        _back = _getCovers('back')
-        _spine = _getCovers('spine')
-        _whole = _getCovers('whole')
-        _other = _getOtherCovers('other')
-
-        covers = _front + _back + _spine + _whole + _other
-
-    if output_type in ['EBOOK', 'PDF', 'ODT']:
-        covers = []
-
-        for cover in models.BookCover.objects.filter(book=book):
-            title = cover.title or cover.filename
-            is_ok = False
-
-            for e in ['.jpg', 'jpe', '.jpeg', '.gif', '.png']:
-                if cover.filename.lower().endswith(e):
-                    is_ok = True
-
-            if not is_ok:
-                continue
-
-            if len(title) > 50:
-                title = title[:50]+'...'
- 
-            _class = ''
-            if cover.is_book or cover.is_ebook or cover.is_pdf:
-                if cover.is_book:
-                    _class += ' coverbook' 
-                if cover.is_ebook:
-                    _class += ' coverebook'
-                if cover.is_pdf:
-                    _class += ' coverpdf'
-
-            if not cover.approved:
-                _class += ' notapproved'
-
-#            if cover.approved:
-#                _class += ' approved'
-
-            covers.append({'cid': cover.cid,
-                           'class': _class, 
-                           'approved': cover.approved,
-                           'title': title})
-
-#    if output_type in ['PDF']:
-#        covers = models.BookCover.objects.filter(book=book, is_pdf=True)
-
-    c = Context({"covers": covers})
-    tmpl = django.template.loader.get_template('editor/wizzard_%s.html' % message.get('wizzard_type', 'book')) 
-    html = tmpl.render(c)
-        
-    return {"status": True, "options": options, "html": html}
-
-
-def remote_set_wizzard(request, message, bookid, version):
-    from booki.editor import models
-    from booki.utils.json_wrapper import simplejson
-
-    book = models.Book.objects.get(id=bookid)
-    
-
-    options = message.get('wizzard_options', '')
-    
-    pw, created = models.PublishWizzard.objects.get_or_create(book=book, 
-                                                              user=request.user,
-                                                              wizz_type=message.get('wizzard_type', 'book'))
-    
-    pw.wizz_options=simplejson.dumps(options)
-    pw.save()
-
-    transaction.commit()
-
-    return {"status": True, "options": {}}
-
-# Two predefined themes
-
-
-######################################################################################################
-
-def remote_publish_book(request, message, bookid, version):
-    from . import tasks
-
-    tasks.publish_book(bookid=bookid, version=version, clientid=request.clientID, sputnikid=request.sputnikID)
-
-    return {'result': True}
-
-def remote_word_count(request, message, bookid, version):
-    from django.utils.html import strip_tags
-    from booktype.utils.wordcount import wordcount,charcount,charspacecount
-
-    book = models.Book.objects.get(id=bookid)
-    book_version = book.get_version(version)
-
-    ## get chapters
-    chapters = models.BookToc.objects.filter(book=book, version=book_version)
-    current_chapter = message["current_chapter_id"]
-
-    #get chapter data    
-    res = {}
-    all_wcount = 0
-    all_charcount = 0
-    all_charspacecount = 0
-
-    for chap in chapters:
-        if chap.is_chapter() and chap.chapter.id!=current_chapter:
-            stripped_data = strip_tags(chap.chapter.content)
-            all_wcount += wordcount(stripped_data)
-            all_charcount += charcount(stripped_data)
-            all_charspacecount += charspacecount(stripped_data)
-            
-    res = {"status": True, "wcount": all_wcount, "charcount": all_charcount, "charspacecount" : all_charspacecount }
-
-
-    return res
-
-
