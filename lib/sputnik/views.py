@@ -14,13 +14,81 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+import re
+import logging
+import json
+import time
+import decimal
+import importlib
+
 from django.db import transaction
 from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.core.exceptions import ObjectDoesNotExist, SuspiciousOperation, PermissionDenied
 
-from booki.utils.json_wrapper import simplejson
-import re
 import redis
 import sputnik
+
+
+logger = logging.getLogger("booktype.sputnik")
+
+
+def set_last_access(request):
+    try:
+        if request.sputnikID and request.sputnikID.find(' ') == -1:
+            sputnik.set("ses:%s:last_access" % request.sputnikID, time.time())
+    except:
+        logger.error("Sputnik - CAN NOT SET TIMESTAMP.")
+
+
+def remove_timeout_clients(request):
+    _now = time.time() 
+
+    try:
+        for k in sputnik.rkeys("ses:*:last_access"):
+            tm = sputnik.get(k)
+
+            if type(tm) in [type(' '), type(u' ')]:
+                try:
+                    tm = decimal.Decimal(tm)
+                except:
+                    continue
+
+        # timeout after 2 minute
+            if  tm and decimal.Decimal("%f" % _now) - tm > 60*2:
+                sputnik.removeClient(request, k[4:-12])
+    except:
+        logger.debug("Sputnik - can not get all the last accesses")
+
+
+def collect_messages(request, clientID):
+    results = []
+    n = 0
+
+    while True:
+        v = None
+
+        try:
+            if clientID and clientID.find(' ') == -1:
+                v = sputnik.rpop("ses:%s:%s:messages" % (request.session.session_key, clientID))
+        except:
+            # Limit only to 20 messages
+            if n > 20:
+                break            
+
+            logger.error("Sputnik - Coult not get the latest message from the queue session: %s clientID:%s" %(request.session.session_key, clientID))
+
+        n += 1
+
+        if not v: break
+
+        try:
+            results.append(json.loads(v))
+        except:
+            pass
+    
+    return results
+
+
 
 @transaction.commit_manually
 def dispatcher(request, **sputnik_dict):
@@ -45,159 +113,97 @@ def dispatcher(request, **sputnik_dict):
     @return: Return C{django.http.HttpResponse} object.
     """
 
-    resultFail = False
-
-    try:
-        inp =  request.POST
-    except IOError:
-        resultFail = True
-    except:
-        resultFail = True
-
-    if resultFail:
-        try:
-            resp = HttpResponse(simplejson.dumps({"result": False, "messages": []}), mimetype="text/json")
-        except:
-            transaction.rollback()
-            raise
-        else:
-            transaction.commit()
-
-        return resp
-
+    status_code = True
     results = []
-
     clientID = None
 
+    if request.method != 'POST':
+        status_code = False
+
     try:
-        messages = simplejson.loads(inp.get("messages", "[]"))
+        messages = json.loads(request.POST.get("messages", "[]"))
     except ValueError:
-        resultFail = True
+        status_code = False
     except:
-        resultFail = True
+        status_code = False
 
-    if resultFail:
-        try:
-            resp = HttpResponse(simplejson.dumps({"result": False, "messages": []}), mimetype="text/json")
-        except:
-            transaction.rollback()
-            raise
-        else:
-            transaction.commit()
 
-        return resp
+    if status_code:
+        clientID = request.POST.get("clientID", None)
 
-    if inp.has_key("clientID") and inp["clientID"]:
-        clientID = inp["clientID"]
+        if not hasattr(request, "sputnikID"):
+            request.sputnikID = "%s:%s" % (request.session.session_key, clientID)
+            request.clientID  = clientID
 
-    for message in messages:
-        ret = None
-        for mpr in sputnik_dict['map']:
-            mtch = re.match(mpr[0], message["channel"])
+        for message in messages:            
+            for mpr in sputnik_dict['map']:
+                mtch = re.match(mpr[0], message.get("channel", ""))
 
-            if mtch:
-                a =  mtch.groupdict()
-                _m = __import__(mpr[1])
+                if mtch:
+                    a =  mtch.groupdict()
 
-                for nam in mpr[1].split('.')[1:]:
-                    _m = getattr(_m, nam)
+                    try:
+                        _m = importlib.import_module(mpr[1])                        
+                    except ImportError:
+                        _m = None
 
-                if _m:
-                    # should do hasattr first and then getattr
-                    fnc = getattr(_m, "remote_%s" % message['command'])
+                    if _m:
+                        # should do hasattr first and then getattr                        
+                        fnc = getattr(_m, "remote_%s" % message.get('command', ''))
 
-                    if not hasattr(request, "sputnikID"):
-                        request.sputnikID = "%s:%s" % (request.session.session_key, clientID)
-                        request.clientID  = clientID
+                        if fnc:
+                            execute_status = True
+                            ret = None
 
-                    if fnc:
-                        try:
-                            ret = fnc(request, message, **a)
-                        except:
-                            transaction.rollback()
+                            # Catch different kind of errors
+                            # For now they all do the same thing but this might change in the future
+                            try:
+                                ret = fnc(request, message, **a)
+                            except ObjectDoesNotExist:
+                                execute_status = False
+                            except SuspiciousOperation:
+                                execute_status = False
+                            except PermissionDenied:
+                                execute_status = False
+                            except:
+                                  execute_status = False
+                                
+                            # For different compatibility reasons return result and status now
+                            if not ret:
+                                ret = {"result": execute_status}
+
+                            # result and some other things might be a problem here
+                            ret["status"] = execute_status
+                            ret["uid"] = message.get("uid", None)
+
+                            results.append(ret)
+
+                            if not execute_status:
+                                transaction.rollback()
+                            else:
+                                transaction.commit()
                         else:
-                            transaction.commit()
-                            
-                        if not ret:
-                            ret = {}
+                            logger.error("Could not find function '%s' for Sputnik channel '%d'!" % (message.get('command', ''), message.get('channel', '')))
 
-                        ret["uid"] = message.get("uid")
-                        break
-                    else:
-                        import logging
-                        logging.getLogger("booki").error("Could not find function '%s' for Sputnik channel '%d'!" % (message['command'], message['channel']))
+        # Collect other messages waiting for this user
+        results.extend(collect_messages(request, clientID))
 
-        if ret:
-            results.append(ret)
-        else:
-            import logging
-            logging.getLogger("booki").error("Sputnik - %s." % simplejson.dumps(message))
+        # Set timestamp for this access
+        set_last_access(request)
 
-    n = 0
+        # This will be moved to background workers
+        remove_timeout_clients(request)
 
-    while True:
-        v = None
+    # Besides status we are still using result
+    return_objects = {"status": status_code, "result": status_code, "messages": results}
 
-        try:
-            if clientID and clientID.find(' ') == -1:
-                v = sputnik.rpop("ses:%s:%s:messages" % (request.session.session_key, clientID))
-        except:
-            if n > 20:
-                break
-
-
-            import logging
-            logging.getLogger("booki").debug("Sputnik - Coult not get the latest message from the queue session: %s clientID:%s" %(request.session.session_key, clientID))
-
-        n += 1
-
-        if not v: break
-        try:
-            results.append(simplejson.loads(v))
-        except:
-
-            import logging
-            logging.getLogger("booki").debug(v)
-
-    import time, decimal
-    try:
-        if request.sputnikID and request.sputnikID.find(' ') == -1:
-            sputnik.set("ses:%s:last_access" % request.sputnikID, time.time())
-    except:
-
-        import logging
-        logging.getLogger("booki").debug("Sputnik - CAN NOT SET TIMESTAMP.")
-
-    # this should not be here!
-    # timeout old edit locks
-
-    locks = {}
-
-    _now = time.time() 
-    try:
-        for k in sputnik.rkeys("ses:*:last_access"):
-            tm = sputnik.get(k)
-
-            if type(tm) in [type(' '), type(u' ')]:
-                try:
-                    tm = decimal.Decimal(tm)
-                except:
-                    continue
-
-        # timeout after 2 minute
-            if  tm and decimal.Decimal("%f" % _now) - tm > 60*2:
-                sputnik.removeClient(request, k[4:-12])
-    except:
-        import logging
-        logging.getLogger("booki").debug("Sputnik - can not get all the last accesses")
-
-    ret = {"result": True, "messages": results}
+    # Always return HTTP status 200
+    # In the future we should change this and return different kind of statuses in case of error
 
     try:
-        resp = HttpResponse(simplejson.dumps(ret), mimetype="text/json")
+        resp = HttpResponse(json.dumps(return_objects), mimetype="text/json")
     except:
         transaction.rollback()
-        raise
     else:
         transaction.commit()
 
