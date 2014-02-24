@@ -425,7 +425,8 @@ sys.path.insert(0, '%(booki_path)s/')
 # if running multiple sites in the same mod_wsgi process. To fix this, use
 # mod_wsgi daemon mode with each site in its own daemon process, or use
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%(project_name)s_site.settings.%(profile)s")
+os.environ["DJANGO_SETTINGS_MODULE"] = "%(project_name)s_site.settings.%(profile)s"
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%(project_name)s_site.settings.%(profile)s")
 
 # Initialise celery
 import djcelery
