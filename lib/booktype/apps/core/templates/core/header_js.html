@@ -1,0 +1,19 @@
+{% load staticfiles compress %}
+
+{% compress js %}
+<!-- TODO: Move all of this to core instead of portal -->
+<script type="text/javascript" src="{% static "core/js/jquery-1.9.1.js" %}"></script>
+<script type="text/javascript" src="{% static "core/js/ui/jquery-ui.min.js" %}"></script>
+<script type="text/javascript" src="{% static "core/js/underscore-min.js" %}"></script>
+<script type="text/javascript" src="{% static "core/js/backbone-min.js" %}"></script>
+
+<!-- TODO; Thse files are also in editor at the moment -->
+<script type="text/javascript" src="{% static "core/js/button.js" %}"></script>
+<script type="text/javascript" src="{% static "core/js/dropdown.js" %}"></script>
+<script type="text/javascript" src="{% static "core/js/tooltip.js" %}"></script>
+<script type="text/javascript" src="{% static "core/js/modal.js" %}"></script>
+<script type="text/javascript" src="{% static "core/js/tab.js" %}"></script>
+<script type="text/javascript" src="{% static "core/js/transition.js" %}"></script>
+<script type="text/javascript" src="{% static "core/js/jquery.ui.touch-punch.js" %}"></script>
+<script type="text/javascript" src="{% static "core/js/jquery.mjs.nestedSortable.js" %}"></script>
+{% endcompress %}

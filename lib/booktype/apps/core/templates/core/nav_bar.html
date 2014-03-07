@@ -1,0 +1,34 @@
+{% load i18n booktype_tags %}
+<!-- Navbar -->
+<div class="navigation-bar">
+  <div class="user">
+    <div class="btn-group">
+        {% if request.user.is_authenticated %}        
+          <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{%  username request.user %}<span class="caret"></span></button>
+	        <ul class="dropdown-menu pull-right">
+	          <li><a href="{% url "view_profile" request.user.username %}" target="_blank"><i class="icon-user"></i>{% trans "Profile" %}</a></li>          
+	          {% if request.user.is_superuser %}
+	             <li><a href="{% url "control_frontpage" %}" target="_blank"><i class="icon-gears"></i>{% trans "Control Center" %}</a></li>
+	          {% endif %}
+	          <li class="divider"></li>
+	          <li><a href="{% url "signout" %}"><i class="icon-signout"></i>{% trans "Logout" %}</a></li>
+	        </ul>
+	    {% else %}
+          <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{%  trans "Sign In" %}<span class="caret"></span></button>	    
+        {% endif %}
+    </div>
+
+    <!-- TODO: Translate languages and manage list of available languages -->
+    <div class="btn-group">
+        <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">en<span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right">
+          <li><a href="#" target="_blank"><i class="icon-flag"></i>en</a></li>
+          <li><a href="#" target="_blank"><i class="icon-flag"></i>de</a></li>
+        </ul>
+    </div>
+
+  </div>
+  <div class="collapse-navigation"><a href="#"></a></div>
+  <div class="logo"><a href=""></a></div>
+</div>
+<!-- end Navbar -->
