@@ -35,6 +35,9 @@ ROOT_URLCONF = 'urls'
 SOUTH_TESTS_MIGRATE = False
 SKIP_SOUTH_TESTS = True
 
+COMPRESS_ENABLED = False
+COMPRESS_OFFLINE = False
+
 SECRET_KEY = 'enc*ln*vp^o2p1p6of8ip9v5_tt6r#fh2-!-@pl0ur^6ul6e)l'
 COVER_IMAGE_UPLOAD_DIR = 'cover_images/'
 PROFILE_IMAGE_UPLOAD_DIR = 'profile_images/'
@@ -83,18 +86,22 @@ INSTALLED_APPS = (
 
     'south',
     'djcelery',
+    'compressor',
 
     # list of booki apps
     'booki.editor',
-    'booki.account',
-#    'booki.reader',
-#    'booki.portal',
-    'booki.messaging',
 
+    'booktype.apps.core',
+    'booktype.apps.portal',
     'booktype.apps.loadsave',
     'booktype.apps.importer',
     'booktype.apps.convert',
     'booktype.apps.edit',
+
+    'booki.account',
+    'booki.reader',
+    'booki.portal',
+    'booki.messaging',
 
     'sputnik',
     'booktypecontrol',

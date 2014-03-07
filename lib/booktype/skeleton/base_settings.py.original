@@ -198,16 +198,20 @@ INSTALLED_APPS = (
 
     # list of booki apps
     'booki.editor',
-    'booki.account',
-    'booki.reader',
-    'booki.portal',
-    'booki.messaging',
 
+    # list of booktype apps
     'booktype.apps.core',
+    'booktype.apps.portal',
     'booktype.apps.loadsave',
     'booktype.apps.importer',    
     'booktype.apps.convert',
     'booktype.apps.edit',
+
+    # to be removed
+    'booki.account',
+    'booki.reader',
+    'booki.portal',
+    'booki.messaging',
 
     'sputnik',
     'booktypecontrol'

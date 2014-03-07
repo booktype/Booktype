@@ -65,7 +65,7 @@ def signout(request):
 
     auth.logout(request)
 
-    return HttpResponseRedirect(reverse("frontpage"))
+    return HttpResponseRedirect(reverse("portal:frontpage"))
 
 # signin
 
@@ -218,7 +218,7 @@ def signin(request):
     from django.core.urlresolvers import reverse
     redirect = request.GET.get('redirect', '')
 
-    if(redirect == reverse('frontpage')): 
+    if(redirect == reverse('portal:frontpage')): 
         redirect = ''
     
     if request.GET.get('next', None):

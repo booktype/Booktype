@@ -20,68 +20,65 @@ from django.conf import settings
 # This is dispatcher for Sputnik connections.
 
 SPUTNIK_DISPATCHER = ((r'^/booki/$',                                       'booki.channels.main'),
-#                      (r'^/booki/book/(?P<bookid>\d+)/(?P<version>[\w\d\.\-]+)/$', 'booki.channels.editor'),
                       (r'^/booki/profile/(?P<profileid>.+)/$',             'booki.channels.profile'),
-#                      (r'^/booki/group/(?P<groupid>.+)/$',                 'booki.channels.group'),
                       (r'^/chat/(?P<bookid>\d+)/$',                        'booki.channels.chat'),
                       (r'^/booktype/book/(?P<bookid>\d+)/(?P<version>[\w\d\.\-.]+)/$', 'booktype.apps.edit.channel')
                       )
 
 urlpatterns = patterns('',
                    # front page                       
-                   url(r'^$', 'booki.portal.views.view_frontpage', name="frontpage"),
+                   url(r'', include('booktype.apps.portal.urls', namespace="portal")),
 
                    # booktype control center
+                   # TODO: Add namespace
                    url(r'^_control/', include('booktypecontrol.urls')),
 
                    # convert
+                   # TODO: Add namespace
                    url(r'^_convert/', include('booktype.apps.convert.urls')),
-
 
                    (r'^data/(?P<path>.*)$', 'django.views.static.serve',
                     {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
                                       
                    # user accounts                     
+                   # TODO; replace with new app
                    url(r'^accounts/', include('booki.account.urls')),                    
                    
                    # misc
-                   url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booki.account.views.view_profilethumbnail', name='view_profilethumbnail'),                             url(r'^_utils/profileinfo/(?P<profileid>[\w\d\_\.\-]+)/$', 'booki.utils.pages.profileinfo', name='view_profileinfo'),                      
+                   # TODO: replace with new apps
+                   url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booki.account.views.view_profilethumbnail', name='view_profilethumbnail'),                             
+                   url(r'^_utils/profileinfo/(?P<profileid>[\w\d\_\.\-]+)/$', 'booki.utils.pages.profileinfo', name='view_profileinfo'),                      
                    url(r'^_utils/attachmentinfo/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<version>[\w\d\.\-]+)/(?P<attachment>.*)$', 'booki.utils.pages.attachmentinfo'),                      
 
                    # export
-                   url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.export', name='export_booki'), 
+                   #url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.export', name='export_booki'), 
                    
                    # sputnik dispatcher                       
                    url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),
 
                    # messaging application
+                   # TODO: remove this application
                    url(r'^messaging/', include('booki.messaging.urls')),
 
                    # importer application
+                   # TODO: Add namespace
                    url(r'^importer/', include('booktype.apps.importer.urls'))                   
                    )
 
-
-# Add dispatcher from portal
-from  booki.portal import urls as portal_urls
-
-urlpatterns += portal_urls.urlpatterns
-
-# rest of the matching
-# this has to be always at the end!
-
 urlpatterns += patterns('',
                         # export
+                        # TODO; Add namespace
                         url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.loadsave.urls')),
 
                         # new editor
+                        # TODO: Add namespace
                         url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.edit.urls')),
-
 
                         # editor
                         url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls')),
 
                         # reader
+                        # TODO: replace with new app
                         # - must be at the end
                         url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.reader.urls'))
               )

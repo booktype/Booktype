@@ -190,7 +190,7 @@ def booki_site_name():
     from django.conf import settings
     from booki.utils import config
 
-    frontpageURL = reverse('frontpage')
+    frontpageURL = reverse('portal:frontpage')
 
     name = config.getConfiguration('BOOKTYPE_SITE_NAME', None)
     if name:
@@ -207,7 +207,7 @@ def booki_site_favicon():
     from booki.utils import config
     import cgi
 
-    frontpageURL = reverse('frontpage')
+    frontpageURL = reverse('portal:frontpage')
 
     favicon = config.getConfiguration('BOOKTYPE_SITE_FAVICON', None)
     if favicon:
