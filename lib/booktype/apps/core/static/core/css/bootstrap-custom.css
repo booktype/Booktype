@@ -1,0 +1,189 @@
+/* Bootstrap custom
+------------------------------------------------------*/
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	line-height: 1.7;
+}
+.btn {
+	font-size: 13px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius: 2px;
+}
+.btn-xs {
+	font-size: 9px;
+	line-height: 1.5;
+	border-radius: 2px;
+	padding: 3px 5px;
+	font-weight: 600;
+}
+.user .btn-inverse {
+	border: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-webkit-box-shadow:none;
+	background: none;
+	color: #ccc;
+}
+.user .btn-inverse:hover {
+	background: none;
+	color: #fff;
+}
+.user .btn-inverse:active {
+	background-color: transparent !important;
+}
+.user .btn-group>.btn:focus {
+	outline: 0;
+	border: none !important;
+	box-shadow: none;
+}
+.user .btn {
+	margin-bottom: 5px;
+}
+.user .btn .caret {
+	margin-left: 10px;
+	margin-top: -2px;
+	border-top: 4px solid #FFF;
+}
+.user .btn-group.open .btn-inverse.dropdown-toggle {
+	background-color: transparent !important;
+}
+.user .dropdown-menu>li>a {
+	padding: 4px 12px;
+}
+.contentHeader .btn-small {
+}
+.contentHeader .btn-small [class^="icon-"] {
+	margin-top: 1px;
+	font-size: 14px;
+}
+.dropdown-menu {
+	margin:0;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius: 2px;
+	font-size: 13px;
+}
+.dropdown-menu>li>a {
+	padding: 5px 12px;
+}
+.btn [class^="icon-"],
+.dropdown-menu [class^="icon-"] {
+	font-size: 14px;
+}
+.dropdown-menu [class^="icon-"] {
+	min-width: 24px;
+	display: inline-block;	
+	}
+.edit-menu {
+	margin-right: 40px;
+}
+.edit-menu .btn {
+	background: none !important;
+	border: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	z-index:1001 !important;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
+}
+.edit-menu .btn:hover {
+	background: #ddd !important;
+}
+.edit-menu .btn-group>.btn:focus {
+	outline: 0;
+	background: #FFF !important;
+	border: none !important;
+	box-shadow: 0 0 3px rgba(94,94,94,0.8) !important;
+}
+.edit-menu .dropdown-menu {
+	left: 0px;
+	top: 41px;
+	-webkit-border-bottom-right-radius: 2px;
+	-webkit-border-bottom-left-radius: 2px;
+	-moz-border-radius-bottomright: 2px;
+	-moz-border-radius-bottomleft: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+	-webkit-border-top-left-radius: 0px !important;
+	-webkit-border-top-right-radius: 0px !important;
+	-moz-border-radius-topleft: 0px !important;
+	-moz-border-radius-topright: 0px !important;
+	border-top-left-radius: 0px !important;
+	border-top-right-radius: 0px !important;
+} 
+.hold-chapters li .btn-toolbar>.btn-group+.btn-group {
+	margin-left: 6px !important;
+}
+.btn.btn-xs [class^="icon-"] {
+	line-height: 0.5;
+}
+.dropdown-menu.pull-right { 
+	left:auto !important;
+}
+.form-control {
+	border-radius: 0px;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	height: 32px;
+}
+.form-control:focus {
+	border-color: rgba(137,83,237,0.8);
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(137,83,237,0.6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(137,83,237,0.6);
+}
+
+/* Tooltip fix */
+.tooltip-inner {
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius: 2px;	
+}
+.btn-group > .tooltip + .btn,
+.btn-group > .popover + .btn{
+	margin-left:-1px;
+}
+
+/* Booktype Flat Colors Fixes */
+.btn-primary {
+	background-color: #7656b2;
+	border-color: #50397d;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+	background-color: #64459f;
+	border-color:#64459f;
+}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+	background-color: #7656b2;
+	color:#FFF;
+}
+
+/* Modal styles */
+
+.modal-content {
+	border-radius: 3px;
+}
+
+.modal-backdrop.in {
+	opacity: .5;
+	filter: alpha(opacity=50);
+}
+
+.modal-backdrop {
+	background-color: #000;
+}
+
+
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+
+@media (min-width: 1200px) {
+	.container {
+	max-width: 1140px;
+	}
+}
