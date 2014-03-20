@@ -6,6 +6,7 @@ Development
 
    contribute
    style
+   js_style
    profile
    testing
 

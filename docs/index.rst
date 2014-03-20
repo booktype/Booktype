@@ -4,6 +4,8 @@
 Booktype documentation!
 =======================
 
+.. node::
+
 .. toctree::
    :maxdepth: 2
 
@@ -58,7 +60,7 @@ Learn about the various components and tools to help you in the development and 
 
 * **Code:**
   :doc:`Python style <development/style>` |
-  JavaScript style
+  :doc:`JavaScript style <development/js_style>`
 
 * **Testing:** 
   :doc:`Booktype core testing <development/testing>`
