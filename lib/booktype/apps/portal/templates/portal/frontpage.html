@@ -1,11 +1,156 @@
 {% extends "core/base.html" %}
+{% load i18n profile messaging_tags staticfiles %}
 
 {% block content %}
-<div class="container">
-  <div class="row three-col">
+    <div class="container">
+        <div class="row three-col">
+            <div class="col-xs-4">
+                <div class="box white">
+                    <h2 class="box-title">
+                        {% trans "Books" %}
+                        <div class="btn-toolbar float-right">
+                            
+                            <div class="btn-group float-right">
+                                <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="{% trans "" %}" data-placement="bottom" data-original-title="{% trans "Show grid" %}"><i class="icon-th"></i></button>
+                                <button class="btn btn-default btn-sm showList" rel="tooltip" title="{% trans "" %}" data-placement="bottom" data-original-title="{% trans "Show List" %}"><i class="icon-list-ul"></i></button>
+                            </div>
 
-  <!-- missing templates -->
+                        </div>
 
- 	</div>
-</div> <!-- End of container -->
+                    </h2>
+
+                        <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
+                            {% for book in booksList %}
+                                <div class="grid-2">
+                                    <figure class="custom-cover">
+                                        {% if book.cover %}
+                                            <img src="{% url "book_info" book.url_title %}cover.jpg" />
+                                        {% else %}
+                                            <img src="static/core/img/thumb-default.png" />
+                                        {% endif %}
+                                    </figure>
+                                    <div class="book-info">
+                                        <h4><a href="{% url "book_info" book.url_title %}">{{ book.title }}</a></h4>
+                                        {% if request.user.is_authenticated %}
+                                            <div class="btn-group float-right">
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit_book" book.url_title %}"><i class="icon-pencil"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url "view_profile" request.user.username %}" target="_blank"><i class="icon-eye-open"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "view_profile"    request.user.username %}"><i class="icon-trash"></i></a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div> <!-- End of book list (book-thumb or book-list) -->
+
+                    {% if request.user.is_authenticated %}
+                        <div class="box-bottom-gray">
+                            <button data-href="{% url "view_profile" request.user.username %}" role="button" class="btn btn-default float-left create-book" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create book" %}">{% trans "CREATE BOOK" %}</button>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div> <!-- End of col-xs-4 -->
+
+            <div class="col-xs-4">
+                <div class="box white">
+                    <h2 class="box-title">
+                        {% trans "People" %}
+                        <a class="view_all show_people" href="#">{% trans "view all" %}</a>
+                    </h2>
+                    <ul class="list-people list user-avatar">
+                        {% for user in userList %}
+                            <li>
+                               <figure>{% profile_image user %}</figure>
+                                <div class="people-info gray">
+                                    <h4><a href="{% url "view_profile" user.username %}">{{ user.username }}</a></h4>
+                                    <span>{{ user.first_name }}</span>
+                                </div> 
+                            </li>
+                        {% endfor %}
+                    </ul>  
+                    {% if request.user.is_authenticated %}
+                        <div class="box-bottom-gray">
+                            <button data-href="{% url "accounts:register" %}" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Invite people" %}">{% trans "INVITE PEOPLE" %}</button>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="box white">
+                    <h2 class="box-title">
+                        {% trans "Groups" %}
+                        <a class="view_all show_groups" href="#">{% trans "view all" %}</a>
+                    </h2>
+
+                    <ul class="list">
+                          {% for group in groupList %}
+                            <li>
+                                <figure><img src="groups.png"></figure>
+                                <div class="list-info">
+                                <h4><a href="{% url "portal:view_group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
+                                    <span>{% trans "Members:" %} {{ group.members.count }}  {% trans "Books:" %} {{ booksList|length }}</span> 
+                                </div>
+                            </li>
+                        {% endfor %}                            
+                    </ul>
+                    {% if request.user.is_authenticated %}
+                        <div class="box-bottom-gray">
+                            <button data-href="{% url "view_profile" request.user.username %}" role="button" class="btn btn-default create-group" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create new group" %}">{% trans "CREATE NEW GROUP" %}</button>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div> <!-- End of col-xs-4 -->
+
+            <div class="col-xs-4">
+                <div class="box gray">
+                    <script>
+                        $(function() {
+                        $("#formsignin").booksparkSignin({'url': '{% url "signin" %}'});
+                        $("#formregister").booksparkRegister({'url': '{% url "signin" %}', 'redirect': '{% url "view_profile" 'XXX' %}'});
+                        });
+                    </script>     
+
+                    {% if request.user.is_authenticated %}
+
+                        {% include "accounts/form_signedin.html" %}
+                    {% else %}
+                        <div class="signin-block">
+                            {% include "accounts/form_signin.html" %}
+                        </div>
+                        <div class="box-bottom-white">
+                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:register" %}">{% trans "Registration form" %}</a></p> 
+                        </div> 
+                    {% endif %}
+                </div>        
+
+                <div class="box white">
+                    <h2 class="box-title">{% trans "Recent Activity" %}</h2>
+                    <ul class="list border-top user-avatar circle">
+
+                        {% for activity in recentActivities %}
+                            <li>
+                                <figure><img src="{% url "view_profilethumbnail" activity.user %}?width=48" alt="{{activity.user}}"></figure>
+                                <div class="list-info">
+                                    <span class="time">{{ activity.modified|timesince}} {% trans "ago" %}</span>
+                                    <h4><a href="{% url "view_profile" activity.user.username %}">{{ activity.user }}</a></h4>
+                                    <p>
+                                        {% if activity.kind == 1 %}
+                                            {% trans "New chapter" %} <a href="{% url "book_chapter" activity.book.url_title activity.chapter.url_title %}">"{{activity.chapter.title}}"</a>.
+                                            <span class="book-title">#{{activity.book.url_title|slugify}}</span>     
+                                        {% endif %}
+                                        {% if activity.kind == 10 %}
+                                            {% trans "New book" %} <a href="{% url "book_view" activity.book.url_title  %}">"{{activity.book.title}}"</a>.
+                                            <span class="book-title">#{{activity.book.url_title|slugify}}</span>     
+                                        {% endif %}                                        
+                                    </p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div> <!-- End of col-xs-4 -->
+        </div>
+    </div> <!-- End of container -->
+
 {% endblock %}
