@@ -1,0 +1,28 @@
+{% load i18n profile staticfiles %}
+
+<h2 class="box-title">{% trans "My Profile" %}</h2>
+  <ul class="list-people list user-avatar">
+    <li>
+     <figure>{% profile_image user  %}</figure> 
+      <div class="people-info">
+         <h4><a href="{% url "view_profile" request.user.username %}">{{ request.user.username }}</a></h4>
+         <span>{{ request.user.get_profile.user.get_full_name }}</span> 
+      </div>  
+    </li> 
+  </ul>
+
+<div class="box-bottom-white"> 
+  <button href="{% url "view_profile" request.user.username %}" role="button" class="btn btn-default float-left dashboard" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "My Dashboard" %}">{% trans "MY DASHBOARD" %}</button>
+  <script>
+    $("button.dashboard").click(function(){
+      window.location.href = $(this).attr("href");
+    });
+  </script>
+  <button href="{% url "view_profile" request.user.username %}" role="button" class="btn btn-default float-right settings" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Go to settings" %}">{% trans "SETTINGS" %}</button>
+  <script>
+    $("button.settings").click(function(){
+      window.location.href = $(this).attr("href");
+    });
+  </script>
+</div> 
+
