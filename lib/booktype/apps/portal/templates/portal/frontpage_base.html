@@ -1,0 +1,42 @@
+{% load i18n staticfiles compress %}
+<!doctype html>
+<html lang="en" class="custom-scroll">
+ <head>
+  <meta charset="UTF-8">
+  <title>{{ page_title }}</title>
+
+  {% block header %}
+    {% include "core/header_styles.html" %}
+    {% include "portal/header_js.html" %}
+    {% include "core/header_custom.html" %}
+    {% include "core/header_init.html" %}
+  {% endblock %}
+
+  {% block extra_header %}
+  {% endblock %}
+ </head>  
+<body>
+ {% block navigation %}
+   {% include "core/nav_menu.html" %}
+   {% include "core/nav_bar.html" %}
+ {% endblock %}
+
+ {% block bar %}
+   <!-- Bookbar -->
+   <div class="bookbar">
+     <h1>{{ title }}</h1>             
+   </div>
+   <!-- end Bookbar -->
+ {% endblock %}
+
+ {% block content %}
+ {% endblock %}
+
+ {% block footer %}
+   {% include "core/footer.html" %}
+ {% endblock %}
+
+ {% block misc %}
+ {% endblock %}
+</body>
+</html>
