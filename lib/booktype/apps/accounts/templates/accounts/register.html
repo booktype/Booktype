@@ -1,25 +1,24 @@
 {% extends "core/base.html" %}
 
-{% block content %}
-{% load i18n  booki_tags %} 
+{% load i18n booki_tags staticfiles %}
+{% block extra_header %}
+    <script type="text/javascript" src="{% static "accounts/js/register.js" %}"></script>
+{% endblock %}
 
-<script>
-    $(function() {
-      $("#formregister").booksparkRegister({'url': '{% url "signin" %}', 'redirect': '{% url "portal:frontpage" %}'});
-    });
- </script>
+{% block content %}
+
 <div class="container">
   <div class = "row three-col">
     <div class="col-xs-4">
       <div class="box gray">
          <h2 class="box-title">{% trans "Log in" %}</h2>
 
-          <form id="formsignin" class="form-group" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
+          <form id="formsignin" signin-href="{% url "signin" %}" class="form-group" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
             <div class="form-group">
-              <input type="text" class="form-control" name="username" placeholder="Enter username">  
+              <input type="text" class="form-control" name="username" placeholder="{% trans "Enter username" %}">  
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" name="password" placeholder="Password">
+              <input type="password" class="form-control" name="password" placeholder="{% trans "Password" %}">
             </div>  
   
             <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">
@@ -41,7 +40,7 @@
       <div class="box gray">
         <h2 class="box-title">{% trans "Create Account" %}</h2>
 
-        <form id="formregister" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
+        <form id="formregister" register-href="{% url "signin" %}" register-redirect="{% url "portal:frontpage" %}" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
           <div class="form-group">
             <input name="username" type="text" class="form-control" placeholder="{% trans "User name" %}"/>
           </div>
