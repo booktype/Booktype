@@ -1,0 +1,184 @@
+{% extends "core/base.html" %}
+{% load i18n staticfiles profile reader_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row two-col">
+        <div class="col-xs-8">
+            <div class="box profile-box black">
+                <figure><img src="http://lorempixel.com/240/368/technics"></figure>
+                <div class="list-info">
+                  <h2 class="box-title">{{ book.title }}</h2>
+
+                  <p>{{ book.description|safe }}</p>
+                  <p>
+                    {% trans "Status:" %} <span class="status">{{ book.status|title }}</span>
+                    {% if book.hidden %}
+                        {% trans "(this book is hidden from others)" %}
+                    {% else %}
+                        {% trans "(this book is visible to everyone)" %}
+                    {% endif %}
+                  </p>
+                  <p>{% trans "Current version:" %} <a href="{% url 'draft_book' book.url_title book.version.get_version %}">{{ book.get_version }}</a></p>
+                  <p>{% trans "Created:" %} {{ book.created }}</p>
+                  <p>{% trans "Published:" %} {{ book.published }}</p>
+
+                  <p><a href="#">{% trans "Follow changes" %} </a> <img src="{% static 'core/img/rss.png' %}"></p>
+
+                </div>
+
+                <div class="box-bottom-white btn-space btn-box-uppercase">
+                    <button data-href="{% url 'book_edit' book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Edit this Book' %}">
+                        {% trans "Edit this Book" %}
+                    </button>
+                    <button data-href="{% url 'draft_book' book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'View draft' %}">
+                        {% trans "View draft" %}
+                    </button>
+                    {% if is_book_admin %}
+                    <button data-remote="{% url 'reader:edit_info_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Edit book info' %}">
+                        {% trans "Edit book info" %}
+                    </button>
+                    <button data-remote="{% url 'reader:delete_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Delete Book' %}">
+                        {% trans "Delete Book" %}
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# modal window for edit book info #}
+            <div id="bookInfoModal" class="modal fade bookInfoModal" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
+            </div>
+
+            {% if book_group %}
+            <div class="box white">
+                <h2 class="box-title">{% trans "Group that book belongs to" %}</h2>
+                <ul class="list border-top">
+                    <li>
+                        <figure><img src="{% static 'core/img/groups.png' %}"></figure>
+                        <div class="list-info">
+                            <h4><a href="#">{{ book_group.name }}</a> - {{ book_group.description|safe }}</h4>
+                            <span>{% trans "Members" %}: {{ book_group.members.count }}  {% trans "Books" %}: {{ book_group.book_set.all.count }}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="box white">
+                <h2 class="box-title">{% trans "Recent activity" %}</h2>
+                <ul class="list border-top">
+                    {% for base_activ in book_history %}
+                    {% verbose_activity base_activ as activity %}
+                    <li>
+                        <figure><img src="{{ activity.image_url }}"></figure>
+                        <div class="list-info">
+                          <span class="time">{{ base_activ.modified|timesince }} {% trans "ago" %}</span>
+                          <h4><a href="{% url 'view_profile' base_activ.user %}">{{ base_activ.user }}</a></h4>
+                          <p>
+                            {{ activity.verbose }}
+                            {% if activity.link_url %}
+                                <a href="{{ activity.link_url }}">{{ activity.link_text }}</a>.
+                            {% endif %}
+
+                            <span>#{{ base_activ.book.url_title }}</span>
+                          </p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-xs-4">
+            {% if user.is_autheticated %}
+            <div class="box gray">
+                <h2 class="box-title">{% trans "My Profile" %}</h2>
+                <ul class="list-people list user-avatar">
+                    <li>
+                        <figure>
+                            {% profile_image user %}
+                        </figure>
+                        <div class="people-info">
+                            <h4><a href="{% url "view_profile" user.username %}">{{ user.username }}</a></h4>
+                            <span>{{ user.get_full_name }}</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="box-bottom-white btn-box-uppercase">
+                    <button data-href="{% url 'view_profile' user.username %}" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="My Dashboard">{% trans "My Dashboard" %}</button>
+                    <button data-href="{% url 'view_profile' user.username %}#tabs-settings" role="button" class="btn btn-default float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="Go to settings">{% trans "Settings" %}</button>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="box white">
+                <h2 class="box-title">{% trans "Owner" %}</h2>
+                <ul class="list border-top user-avatar circle">
+                    <li>
+                        <figure>
+                            {% profile_image book.owner %}
+                        </figure>
+                        <div class="list-info">
+                            <h4><a href="{% url 'view_profile' book.owner %}">{{ book.owner.username }}</a></h4>
+                            <p>{{ book.owner.get_full_name }}</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+
+                <br>
+                
+                {% if book_admins %}
+                <h2 class="box-title">{% trans "Admins" %}</h2>
+                <ul class="list border-top user-avatar circle">
+                    {% for admin in book_admins %}
+                    <li>
+                        <figure>
+                            {% profile_image admin %}
+                        </figure>
+                        <div class="list-info">
+                            <h4><a href="{{ admin.get_absolute_url }}">{{ admin.username }}</a></h4>
+                            <p>{{ admin.get_full_name }}</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <br>
+                {% endif %}
+
+                {% if book_collaborators %}
+                <h2 class="box-title">{% trans "Contributors" %}</h2>
+                <ul class="list border-top user-avatar circle">
+                    {% for collaborator in book_collaborators %}
+                    <li>
+                        <figure>
+                            {% profile_image collaborator %}
+                        </figure>
+                        <div class="list-info">
+                          <h4><a href="{{ collaborator.get_absolute_url }}">{{ collaborator.username }}</a></h4>
+                          <p>{{ collaborator.get_full_name }}</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+            {% if book.get_versions %}
+            <div class="box white">
+                <h2 class="box-title">{% trans "Book versions" %}</h2>
+                <ul class="list border-top">
+                    {% for version in book.get_versions %}
+                    <li>
+                        <span class="time">{{ version.created|timesince }}</span>
+                        <h4><a href="{% url 'draft_book' book.url_title version.get_version %}">{{ version.get_version }}</a></h4>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div> <!-- End of container -->
+{% endblock %}
