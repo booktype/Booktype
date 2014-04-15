@@ -28,6 +28,8 @@ SPUTNIK_DISPATCHER = ((r'^/booki/$',                                       'book
 urlpatterns = patterns('',
                    # front page                       
                    url(r'', include('booktype.apps.portal.urls', namespace="portal")),
+                   # accounts
+                   url(r'^newaccounts/', include('booktype.apps.accounts.urls', namespace="accounts")),
 
                    # booktype control center
                    # TODO: Add namespace

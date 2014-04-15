@@ -98,6 +98,7 @@ INSTALLED_APPS = (
     'booktype.apps.convert',
     'booktype.apps.edit',
     'booktype.apps.reader',
+    'booktype.apps.accounts',
 
     'booki.account',
     'booki.reader',

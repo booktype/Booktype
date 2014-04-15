@@ -198,7 +198,10 @@ def setBookCover(book, fileName):
     import os
 
     try:
-        import Image
+        try:
+            from PIL import Image
+        except ImportError:
+            import Image
                     
         im = Image.open(fileName)
         im.thumbnail((240, 240), Image.ANTIALIAS)
