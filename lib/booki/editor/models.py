@@ -324,7 +324,7 @@ class BookVersion(models.Model):
         return '%d.%d' % (self.major, self.minor)
 
     def get_absolute_url(self):
-        return '%s/%s/_v/%s/' % (settings.BOOKI_URL, self.url_title, self.get_version())
+        return '%s/%s/_v/%s/' % (settings.BOOKI_URL, self.book.url_title, self.get_version())
         
     def __unicode__(self):
         return '%d.%d (%s)' % (self.major, self.minor, self.name)
