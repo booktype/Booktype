@@ -410,8 +410,9 @@ import sys
 # EDIT THIS VALUE
 VIRTUAL_PATH=''
 
-activate_this = '{}/bin/activate_this.py'.format(VIRTUAL_PATH)
-execfile(activate_this, dict(__file__=activate_this))
+if VIRTUAL_PATH != '':
+    activate_this = '{}/bin/activate_this.py'.format(VIRTUAL_PATH)
+    execfile(activate_this, dict(__file__=activate_this))
 
 from unipath import Path
 
