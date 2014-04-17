@@ -124,7 +124,7 @@
 </ul>
 
 {% if is_member %}
-<form method="POST" action="add_book/">
+<form method="POST" action="add_book/">{% csrf_token %}
 
 {% if your_books|length > 0 %}
     <select name="book" style="width:400px;">

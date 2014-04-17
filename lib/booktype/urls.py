@@ -31,6 +31,11 @@ urlpatterns = patterns('',
                    # accounts
                    url(r'^newaccounts/', include('booktype.apps.accounts.urls', namespace="accounts")),
 
+                   #booki portal for view groups
+                   url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.portal.views.view_group', name="view_group"), 
+                   #booki portal to add book to group
+                   url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', 'booki.portal.views.add_book'),                   
+
                    # booktype control center
                    # TODO: Add namespace
                    url(r'^_control/', include('booktypecontrol.urls')),
