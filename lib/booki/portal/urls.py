@@ -21,12 +21,12 @@ from booki.portal import feeds
 
 
 urlpatterns = patterns('',
-                       # groups
-                   url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', 'booki.portal.views.add_book'),                    
-                   url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/remove_book/$', 'booki.portal.views.remove_book'),                                       
-                   url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.portal.views.view_group', name="view_group"),                    
+                   # groups
+                   url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', 'booki.portal.views.add_book'),                    
+                   url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/remove_book/$', 'booki.portal.views.remove_book'),                                       
+                   url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.portal.views.view_group', name="view_group"),                    
 
-                                      # feeds
+                   # feeds
                    url(r'^feeds/rss/book/(?P<bookid>[\w\s\_\.\-\d]+)/$', feeds.BookFeedRSS()),
                    url(r'^feeds/atom/book/(?P<bookid>[\w\s\_\.\-\d]+)/$', feeds.BookFeedAtom()),
                    url(r'^feeds/rss/chapter/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<chapterid>[\w\s\_\.\-\d]+)/$', feeds.ChapterFeedRSS()),

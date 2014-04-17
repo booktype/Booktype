@@ -96,7 +96,7 @@ def debug_redis(request):
         killlocks[ch] = sputnik.get(ch)
 
 
-    return render(request, 'portal/debug_redis.html', {"request": request, 
+    return render(request, 'bookiportal/debug_redis.html', {"request": request, 
                                                        "client_id": client_id,
                                                        "sputnikchannels": sputnikchannels,
                                                        "channel": chnl.items(),
@@ -126,7 +126,7 @@ def view_frontpage(request):
     else:
         activityHistory = []
 
-    return render(request, 'portal/frontpage.html', {"request": request, 
+    return render(request, 'bookiportal/frontpage.html', {"request": request, 
                                                      "activity_history": activityHistory,
                                                      "show_history": showHistory,
                                                      "limit_reached": isUserLimitReached(),
@@ -166,7 +166,7 @@ def view_group(request, groupid):
     n_members = len(members)
     n_books = len(books)
 
-    return render(request, 'portal/group.html', {"request":    request, 
+    return render(request, 'bookiportal/group.html', {"request":    request, 
                                                  "title":      "Ovo je neki naslov",
                                                  "group":      group,
                                                  "books":      books,
@@ -273,7 +273,7 @@ def view_groups(request):
     except (EmptyPage, InvalidPage):
         groups = paginator.page(paginator.num_pages)
 
-    return render(request, 'portal/groups.html', {"request": request, 
+    return render(request, 'bookiportal/groups.html', {"request": request, 
                                                   "title": "Booktype groups", 
                                                   "groups": groups })
 
@@ -314,7 +314,7 @@ def view_books(request):
 
     latest_active = [models.Book.objects.get(id=b['book']) for b in models.BookHistory.objects.filter(modified__gte = now, book__hidden=False).values('book').annotate(Count('book')).order_by("-book__count")[:5]]
     
-    return render(request, 'portal/books.html', {"request": request, 
+    return render(request, 'bookiportal/books.html', {"request": request, 
                                                 "title": "Booktype books", 
                                                 "books":      books,
                                                 "page": page, 
@@ -353,7 +353,7 @@ def view_people(request):
 
     latest_active = [User.objects.get(id=b['user']) for b in models.BookHistory.objects.filter(modified__gte = now).values('user').annotate(Count('user')).order_by("-user__count")[:5]]
 
-    return render(request, 'portal/people.html', {"request":       request, 
+    return render(request, 'bookiportal/people.html', {"request":       request, 
                                                   "page":          page,
                                                   "latest_people": latest_people,
                                                   "latest_active": latest_active,

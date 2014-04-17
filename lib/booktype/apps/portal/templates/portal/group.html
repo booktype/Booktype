@@ -1,0 +1,110 @@
+{% extends "core/base.html" %}
+
+{% load i18n booki_tags profile staticfiles %}
+{% block extra_header %}
+    <script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
+    <script type="text/javascript" src="{% static "portal/js/general.js" %}"></script>
+{% endblock %}
+{% block content %}
+
+    <div class="container group">
+    	<div class="row two-col">
+    		<div class="col-xs-8">
+    			<div class="box profile-box black">
+					 <figure><img src="{% static "core/img/groups-big.png" %}"></figure>
+					 <div class="list-info">
+                        <h2 class="box-title">{{userGroup.name}}</h2>
+                            <p>{{userGroup.description}}</p>
+	    			        <p>
+                                {% trans "Members" %}: {{userGroup.num_members}}  <br>
+							     {% trans "Books" %}: {{userGroup.num_books}}
+	    			        </p>
+    			     </div>
+
+    			     <div class="box-bottom-white">
+                        {% if request.user.is_authenticated %}
+                            {% if amIAMember == 0 %} 
+                                <button group-name-url="{% url "portal:group" userGroup.url_name %}" role="button" class="btn btn-default float-left join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
+                            {% else %}
+                                <button group-name-url="{% url "portal:group" userGroup.url_name %}" role="button" class="btn btn-success float-left leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
+                                <button data-href="{% url "view_profile" request.user.username %}" role="button" class="btn btn-default float-right group-settings-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Group settings" %}">{% trans "GROUP SETTINGS" %}</button>              
+                            {% endif %}
+                        {% endif %}
+    			     </div>
+    		      </div>
+
+
+                    <div class="box gray books-widget">
+                    <h2 class="box-title-alter">
+                        {% trans "Books" %}
+    				            <div class="btn-toolbar float-right">
+	    			                <div class="btn-group float-right">
+                                        <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show grid" %}"><i class="icon-th"></i></button>
+                                        <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show List" %}"><i class="icon-list-ul"></i></button>
+                                    </div>
+    				            </div>
+                    </h2>
+                    <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
+                        {% for book in booksList %}              
+                            <div class="grid-4">
+                                <figure class="custom-cover">
+                                    {% if book.cover %}
+                                        <img src="{% url "book_info" book.url_title %}cover.jpg" />
+                                    {% else %}
+                                        <img src="{% static "core/img/thumb-default.png" %}"/>
+                                    {% endif %}
+                                </figure>
+                                <div class="book-info">
+                                    <h4><a href="{% url "book_info" book.url_title %}">{{book.title}}</a></h4>
+                                        {% if request.user.is_authenticated %}
+                                            <div class="btn-group float-right">
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit_book" book.url_title %}"><i class="icon-pencil"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url "view_profile" request.user.username %}" target="_blank"><i class="icon-eye-open"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "view_profile"    request.user.username %}"><i class="icon-trash"></i></a>
+                                            </div>
+                                        {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div> <!-- End of book list (book-thumb or book-list) -->
+                </div>
+            </div>
+
+            <div class="col-xs-4">
+                <div class="login-widget box gray">
+                    <script>
+                        $(function() {
+                            $("#formsignin").booksparkSignin({'url': '{% url "signin" %}'});
+                        });
+                    </script>     
+
+                    {% if request.user.is_authenticated %}
+                        {% include "accounts/form_signedin.html" %}
+                    {% else %}
+                        <div class="signin-block">
+                            {% include "accounts/form_signin.html" %}
+                        </div>
+                        <div class="box-bottom-white">
+                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:register" %}">{% trans "Registration form" %}</a></p> 
+                        </div> 
+                    {% endif %}
+                </div> 
+
+                <div class="box white">
+                    <h2 class="box-title">Members</h2>
+                    <ul class="list border-top user-avatar circle">
+                        {% for member in groupMembers %}
+                            <li>
+                                <figure>{% profile_image member  %}</figure>
+                                <div class="list-info">
+                                    <h4><a href="{% url "view_profile" member.username %}">{{ member.username }}</a></h4>
+                                    <p>{{ member.name }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End of container -->
+{% endblock %}
