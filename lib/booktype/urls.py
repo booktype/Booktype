@@ -19,17 +19,22 @@ from django.conf import settings
 
 # This is dispatcher for Sputnik connections.
 
-SPUTNIK_DISPATCHER = ((r'^/booki/$',                                       'booki.channels.main'),
-                      (r'^/booki/profile/(?P<profileid>.+)/$',             'booki.channels.profile'),
-                      (r'^/chat/(?P<bookid>\d+)/$',                        'booki.channels.chat'),
+SPUTNIK_DISPATCHER = ((r'^/booki/$', 'booki.channels.main'),
+                      (r'^/booki/profile/(?P<profileid>.+)/$', 'booki.channels.profile'),
+                      (r'^/chat/(?P<bookid>\d+)/$', 'booki.channels.chat'),
                       (r'^/booktype/book/(?P<bookid>\d+)/(?P<version>[\w\d\.\-.]+)/$', 'booktype.apps.edit.channel')
                       )
 
 urlpatterns = patterns('',
-                   # front page                       
+                   # front page
                    url(r'', include('booktype.apps.portal.urls', namespace="portal")),
                    # accounts
                    url(r'^newaccounts/', include('booktype.apps.accounts.urls', namespace="accounts")),
+
+                   # booki portal for view groups
+                   url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.portal.views.view_group', name="view_group"),
+                   # booki portal to add book to group
+                   url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', 'booki.portal.views.add_book'),
 
                    # booktype control center
                    # TODO: Add namespace
@@ -41,21 +46,21 @@ urlpatterns = patterns('',
 
                    (r'^data/(?P<path>.*)$', 'django.views.static.serve',
                     {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
-                                      
-                   # user accounts                     
+
+                   # user accounts
                    # TODO; replace with new app
-                   url(r'^accounts/', include('booki.account.urls')),                    
-                   
+                   url(r'^accounts/', include('booki.account.urls')),
+
                    # misc
                    # TODO: replace with new apps
-                   url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booki.account.views.view_profilethumbnail', name='view_profilethumbnail'),                             
-                   url(r'^_utils/profileinfo/(?P<profileid>[\w\d\_\.\-]+)/$', 'booki.utils.pages.profileinfo', name='view_profileinfo'),                      
-                   url(r'^_utils/attachmentinfo/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<version>[\w\d\.\-]+)/(?P<attachment>.*)$', 'booki.utils.pages.attachmentinfo'),                      
+                   url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booki.account.views.view_profilethumbnail', name='view_profilethumbnail'),
+                   url(r'^_utils/profileinfo/(?P<profileid>[\w\d\_\.\-]+)/$', 'booki.utils.pages.profileinfo', name='view_profileinfo'),
+                   url(r'^_utils/attachmentinfo/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<version>[\w\d\.\-]+)/(?P<attachment>.*)$', 'booki.utils.pages.attachmentinfo'),
 
                    # export
-                   #url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.export', name='export_booki'), 
-                   
-                   # sputnik dispatcher                       
+                   # url(r'^export/(?P<bookid>[\w\s\_\.\-]+)/export/{0,1}$',  'booki.editor.views.export', name='export_booki'),
+
+                   # sputnik dispatcher
                    url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),
 
                    # messaging application
@@ -64,8 +69,8 @@ urlpatterns = patterns('',
 
                    # importer application
                    # TODO: Add namespace
-                   url(r'^importer/', include('booktype.apps.importer.urls'))                   
-                   )
+                   url(r'^importer/', include('booktype.apps.importer.urls'))
+)
 
 urlpatterns += patterns('',
                         # export
