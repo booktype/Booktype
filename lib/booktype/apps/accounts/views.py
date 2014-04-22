@@ -1,7 +1,8 @@
 import datetime
 
 from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.db import transaction, models
 
@@ -65,5 +66,24 @@ class AllGroupsPageView(PageView):
             .values('book__group__url_name', 'book__group__name', 'book__group__description', 'book__group__members') \
             .annotate(num_members=models.Count('book__group__members'), num_books=models.Count('book'))
         context['newGroups'] = allGroups.order_by('-created')[:4]
+
+        return context
+
+
+class GroupSettingsPageView(PageView):
+    template_name = "accounts/group-settings.html"
+    page_title = _("Group settings")
+    title = _("Group settings")
+
+    def post(self, request, groupid):
+        group = BookiGroup.objects.get(url_name=groupid)
+        group.name = request.POST['name']
+        group.description = request.POST['description']
+        group.save()
+        return HttpResponseRedirect(reverse('accounts:group', kwargs={'groupid': groupid}))
+
+    def get_context_data(self, **kwargs):
+        context = super(GroupSettingsPageView, self).get_context_data(**kwargs)
+        context['selectedGroup'] = BookiGroup.objects.filter(url_name=kwargs['groupid'])
 
         return context

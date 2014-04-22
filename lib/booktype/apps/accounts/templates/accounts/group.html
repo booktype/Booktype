@@ -27,7 +27,7 @@
                                 <button group-name="{{userGroup.0.url_name}}" role="button" class="btn btn-default float-left join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
                             {% else %}
                                 <button group-name="{{userGroup.0.url_name}}" role="button" class="btn btn-success float-left leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
-                                <button data-href="{% url "view_profile" request.user.username %}" role="button" class="btn btn-default float-right group-settings-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Group settings" %}">{% trans "GROUP SETTINGS" %}</button>              
+                                <button data-href="{% url "accounts:groupsettings" userGroup.0.url_name %}" role="button" class="btn btn-default float-right group-settings-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Group settings" %}">{% trans "GROUP SETTINGS" %}</button>              
                             {% endif %}
                         {% endif %}
     			     </div>
@@ -91,7 +91,7 @@
                 </div> 
 
                 <div class="box white">
-                    <h2 class="box-title">Members</h2>
+                    <h2 class="box-title">{% trans "Members" %}</h2>
                     <ul class="list border-top user-avatar circle">
                         {% for member in userGroup.0.members.all %}
                             <li>
