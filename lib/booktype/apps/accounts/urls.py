@@ -19,7 +19,8 @@ from django.conf.urls import patterns, url, include
 from .views import RegisterPageView
 
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^signin/$', 'booki.account.views.signin', name='signin'),
-    url(r'^register/$', RegisterPageView.as_view(), name = 'register'),
-    )
+    url(r'^register/$', RegisterPageView.as_view(), name='register'),
+)

@@ -12,43 +12,32 @@ from booki.editor.models import Book, BookStatus, Language, BookVersion, BookiGr
 from booki.account.models import UserProfile
 
 
-class FrontpageTest(TestCase):
+class GrouppageTest(TestCase):
     def setUp(self):
-        self.dispatcher = reverse('portal:frontpage')
         self.user = UserFactory()
 
 # setup for groups
-        bookiGroup = BookiGroupFactory(members=(0, 1))
+        self.bookiGroup = BookiGroupFactory(members=(0, 1))
 
 # setup for books
-        book = BookFactory()
+        self.book = BookFactory()
 
     def tearDown(self):
         self.user.delete()
 
-    def test_frontpage(self):
+    def test_accounts(self):
+        self.dispatcher = reverse('accounts:group', kwargs={'groupid': self.bookiGroup.url_name})
         response = self.client.get(self.dispatcher)
         self.assertEquals(response.status_code, 200)
-        self.assertEquals(response.context['title'], 'Home')
+        self.assertEquals(response.context['title'], 'Group used')
 
-    def test_books(self):
-        response = self.client.get(self.dispatcher)
-        self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'book title')
-
-    def test_people(self):
-        response = self.client.get(self.dispatcher)
-        self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'user_')
-        self.assertContains(response, 'description')
-
-    def test_groups(self):
+    def test_group(self):
+        self.dispatcher = reverse('accounts:group', kwargs={'groupid': self.bookiGroup.url_name})
         response = self.client.get(self.dispatcher)
         self.assertEquals(response.status_code, 200)
 
-        self.assertContains(response, 'group name')
-        self.assertContains(response, 'url_group_name')
-        self.assertContains(response, 'booki group description')
+        self.assertContains(response, self.bookiGroup.name)
+        self.assertContains(response, self.bookiGroup.description)
         self.assertContains(response, 'Members: 2')
         self.assertContains(response, 'Books: ')
 
@@ -88,13 +77,14 @@ class BookiGroupFactory(factory.django.DjangoModelFactory):
 class BookFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = Book
 
-    owner = factory.SubFactory(UserFactory)
     url_title = factory.Sequence(lambda n: 'title_{}'.format(n))
     title = 'book title'
     status = BookStatus()
     language = Language(0, 'test language', 'tl')
     version = BookVersion(0, 0, 0, 0)
     group = factory.SubFactory(BookiGroupFactory)
+    owner = factory.SubFactory(UserFactory)
+    hidden = False
 
 
 class BookStatusFactory(factory.django.DjangoModelFactory):
