@@ -1,0 +1,53 @@
+{% extends "core/base.html" %}
+
+{% load i18n booki_tags profile staticfiles %}
+{% block extra_header %}
+    <script type="text/javascript" src="{% static "accounts/js/group.js" %}"></script>
+    <script type="text/javascript" src="{% static "portal/js/general.js" %}"></script>
+{% endblock %}
+{% block content %}
+
+    <div class="container groupsettings">
+        <div class="row two-col">
+            <div class="col-xs-8">
+
+                <div class="box gray">
+
+                    <h2 class="box-title-alter">{% trans "Group settings" %}</h2>
+                    <form method="post" action="#"  enctype="multipart/form-data" name="formsettings">{% csrf_token %}
+                        <fieldset class="plain">
+                            <ul class="list">
+
+                                <li>
+                                    <label>{% trans "Name" %}</label>
+                                    <input type="text" name="name" class="form-control" value="{{selectedGroup.0.name}}">
+                                </li>
+
+                                <li>
+                                    <label>{% trans "Description" %}</label>
+                                    <textarea name="description" class="form-control" cols="40" rows="20">{{selectedGroup.0.description}}</textarea>
+                                </li>
+
+                                <li>
+                                    <label>{% trans "Group image" %}</label>
+                                    <input type="file" name="profile">
+                                </li>
+
+                                <li>
+                                    <label>{% trans "Notification filter" %}</label>
+                                    <input type="text" name="notification" class="form-control" value="">
+                                </li>
+                            </ul>
+
+                             <button class="btn btn-default float-left">{% trans "Save changes" %}</button>
+
+                        </fieldset>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div> <!-- End of container -->
+{% endblock %}

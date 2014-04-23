@@ -4,8 +4,11 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.db import models
-from django.http import HttpResponse
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.template.defaultfilters import slugify
 
+from booki.utils.misc import bookiSlugify
 from booktype.apps.core.views import PageView
 from booki.editor.models import Book, BookiGroup, BookHistory
 from booktype.apps.core.views import PageView
@@ -23,16 +26,16 @@ class FrontPageView(PageView):
         context['booksList'] = Book.objects.filter(hidden=False).order_by('-created')[:4]
         context['userList'] = User.objects.all().order_by('-date_joined')[:2]
         bookGroupSizes = Book.objects.filter(group__url_name__isnull=False).values('group__url_name').annotate(models.Count('id'))
-        bookiGroupsList = BookiGroup.objects.values('url_name','name','description').annotate(models.Count('members'))
+        bookiGroupsList = BookiGroup.objects.values('url_name', 'name', 'description').annotate(models.Count('members'))
         lista = []
         for i in bookiGroupsList:
             num_books = 0
-            book_count = filter(lambda x:x['group__url_name']==i['url_name'],bookGroupSizes)
-            if len(book_count)>0:
+            book_count = filter(lambda x: x['group__url_name'] == i['url_name'], bookGroupSizes)
+            if len(book_count) > 0:
                 num_books = book_count[0]['id__count']
-            lista.append({'url_name': i['url_name'],'name': i['name'], 'description': i['description'],'num_members': i['members__count'], 'num_books': num_books})
+            lista.append({'url_name': i['url_name'], 'name': i['name'], 'description': i['description'], 'num_members': i['members__count'], 'num_books': num_books})
         context['groupList'] = lista
-        context['bookList'] = BookiGroup.objects.annotate(num_books = models.Count('book__group'))
+        context['bookList'] = BookiGroup.objects.annotate(num_books=models.Count('book__group'))
         context['booksInGroup'] = Book.objects.filter(hidden=False)
 
         context['recentActivities'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
@@ -58,12 +61,12 @@ class GroupPageView(PageView):
         context = super(GroupPageView, self).get_context_data(**kwargs)
 
         bookGroupSizes = Book.objects.filter(group__url_name__isnull=False).values('group__url_name').annotate(models.Count('id'))
-        bookiGroupElement = BookiGroup.objects.values('url_name','name','description').annotate(models.Count('members')).get(url_name=context['groupid'])
+        bookiGroupElement = BookiGroup.objects.values('url_name', 'name', 'description').annotate(models.Count('members')).get(url_name=context['groupid'])
         num_books = 0
-        book_count = filter(lambda x:x['group__url_name']==bookiGroupElement['url_name'],bookGroupSizes)
-        if len(book_count)>0:
+        book_count = filter(lambda x: x['group__url_name'] == bookiGroupElement['url_name'], bookGroupSizes)
+        if len(book_count) > 0:
             num_books = book_count[0]['id__count']
-        userGroup = {'url_name': bookiGroupElement['url_name'],'name': bookiGroupElement['name'], 'description': bookiGroupElement['description'],'num_members': bookiGroupElement['members__count'], 'num_books': num_books}
+        userGroup = {'url_name': bookiGroupElement['url_name'], 'name': bookiGroupElement['name'], 'description': bookiGroupElement['description'], 'num_members': bookiGroupElement['members__count'], 'num_books': num_books}
         context['userGroup'] = userGroup
 
         context['groupMembers'] = BookiGroup.objects.get(url_name=context['groupid']).members.all()
@@ -88,7 +91,7 @@ class AllGroupsPageView(PageView):
                 group.members.add(request.user)
             else:
                 group.members.remove(request.user)
-        return HttpResponse()    
+        return HttpResponse()
 
     def get_context_data(self, **kwargs):
         context = super(AllGroupsPageView, self).get_context_data(**kwargs)
@@ -98,17 +101,43 @@ class AllGroupsPageView(PageView):
 
         cutoffDate = datetime.datetime.today() - datetime.timedelta(days=30)
         bookGroupSizes = Book.objects.filter(group__url_name__isnull=False).values('group__url_name').annotate(models.Count('id'))
-        bookHistoryActivity =  BookHistory.objects.filter(modified__gte=cutoffDate).filter(book__group__isnull=False) \
-        .values('book__group__url_name', 'book__group__name', 'book__group__description', 'book__group__members').annotate(num_members=models.Count('book__group__members'))
+        bookHistoryActivity = BookHistory.objects.filter(modified__gte=cutoffDate).filter(book__group__isnull=False) \
+            .values('book__group__url_name', 'book__group__name', 'book__group__description', 'book__group__members').annotate(num_members=models.Count('book__group__members'))
 
         lista = []
         for i in bookHistoryActivity:
             num_books = 0
-            book_count = filter(lambda x:x['group__url_name']==i['book__group__url_name'],bookGroupSizes)
-            if len(book_count)>0:
+            book_count = filter(lambda x: x['group__url_name'] == i['book__group__url_name'], bookGroupSizes)
+            if len(book_count) > 0:
                 num_books = book_count[0]['id__count']
-            lista.append({'url_name': i['book__group__url_name'],'name': i['book__group__name'], 'description': i['book__group__description'],'num_members': i['num_members'], 'num_books': num_books})        
-        context['activeGroups'] = lista     
+            lista.append({'url_name': i['book__group__url_name'], 'name': i['book__group__name'], 'description': i['book__group__description'], 'num_members': i['num_members'], 'num_books': num_books})
+        context['activeGroups'] = lista
         context['newGroups'] = allGroups.order_by('-created')[:4]
+
+        return context
+
+
+class GroupSettingsPageView(PageView):
+    template_name = "portal/group-settings.html"
+    page_title = _("Group settings")
+    title = _("Group settings")
+
+    def post(self, request, groupid):
+        try:
+            group = BookiGroup.objects.get(url_name=groupid, members__username=request.user)
+            if(request.user.is_authenticated()):
+                newName = request.POST['name']
+                if(len(newName) > 0):
+                    group.name = newName
+                    group.url_name = bookiSlugify(newName)
+                    group.description = request.POST['description']
+                    group.save()
+        except BookiGroup.DoesNotExist:
+            pass
+        return HttpResponseRedirect(reverse('portal:group', kwargs={'groupid': groupid}))
+
+    def get_context_data(self, **kwargs):
+        context = super(GroupSettingsPageView, self).get_context_data(**kwargs)
+        context['selectedGroup'] = BookiGroup.objects.filter(url_name=kwargs['groupid'])
 
         return context        
