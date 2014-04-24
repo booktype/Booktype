@@ -16,7 +16,7 @@
 
 import os
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.views.generic import DetailView, DeleteView, UpdateView
 from django.utils.decorators import method_decorator
@@ -27,7 +27,7 @@ from braces.views import LoginRequiredMixin
 
 from booki.utils import misc, security
 from booki.utils.book import removeBook
-from booki.editor.models import Book, BookHistory
+from booki.editor.models import Book, BookHistory, BookToc, Chapter
 from booktype.apps.core.views import BasePageView
 
 class BaseReaderView(object):
@@ -106,3 +106,38 @@ class DeleteBookView(LoginRequiredMixin, BaseReaderView, DeleteView):
         return self.render_to_response({
             'request': request
         })
+
+class DraftChapterView(BaseReaderView, BasePageView, DetailView):
+    template_name = "reader/book_draft_page.html"
+    page_title = _("Chapter Draft")
+    title = ""
+
+    def get_context_data(self, **kwargs):
+        book = self.object        
+        book_version = book.get_version(self.kwargs.get('version', None))
+        content = None
+
+        # check permissions
+        book_security = security.getUserSecurityForBook(self.request.user, book)
+        has_permission = security.canEditBook(book, book_security)
+
+        if book.hidden and not has_permission:
+            return HttpResponseForbidden()
+
+        if 'chapter' in self.kwargs:
+            content = get_object_or_404(Chapter, version=book_version, url_title=self.kwargs['chapter'])
+
+        toc_items = BookToc.objects.filter(version=book_version).order_by("-weight")
+        
+        for chapter in toc_items:
+            if not content and chapter.is_chapter():
+                content = chapter.chapter
+                break
+
+        context = super(DraftChapterView, self).get_context_data(**kwargs)        
+        context['content'] = content
+        context['toc_items'] = toc_items
+        context['book_version'] = book_version.get_version()
+        context['can_edit'] = (self.request.user.is_authenticated() and book.version == book_version)
+
+        return context

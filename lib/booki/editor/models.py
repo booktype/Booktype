@@ -456,6 +456,11 @@ class BookToc(models.Model):
     def is_chapter(self):
         return self.typeof == 1
 
+    def url_title(self):
+        if self.is_chapter():
+            return self.chapter.url_title
+        return None
+
     def __unicode__(self):
         return unicode(self.weight)
 
