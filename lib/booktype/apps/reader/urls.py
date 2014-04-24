@@ -17,9 +17,19 @@
 from django.conf.urls import patterns, url, include
 
 from .views import InfoPageView, DeleteBookView, EditBookInfoView
+from .views import DraftChapterView
 
 urlpatterns = patterns('',
    url(r'^_info/$', InfoPageView.as_view(), name='infopage'),
    url(r'^_info/edit/$', EditBookInfoView.as_view(), name='edit_info_book'),
    url(r'^_info/delete/$', DeleteBookView.as_view(), name='delete_book'),
+
+   # draft book page
+   url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/(?P<chapter>[\w\s\_\.\-]+)/$', DraftChapterView.as_view(), name='draft_chapter_page'),
+   url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/(?P<chapter>[\w\s\_\.\-]+)/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
+   url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment', name='draft_attachment'),
+   url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/$', DraftChapterView.as_view(), name='draft_chapter_page'),
+   url(r'^_draft/(?P<chapter>[\w\s\_\.\-]+)/$', DraftChapterView.as_view(), name='draft_chapter_page'),
+   url(r'^_draft/(?P<chapter>[\w\s\_\.\-]+)/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
+   url(r'^_draft/$', DraftChapterView.as_view(), name='draft_chapter_page'),
 )

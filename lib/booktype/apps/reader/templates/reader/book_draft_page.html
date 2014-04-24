@@ -1,0 +1,58 @@
+{% extends "core/base.html" %}
+{% load i18n staticfiles reader_tags booki_tags %}
+
+{% block content %}
+<!-- Bookbar -->
+<div class="bookbar">
+  <h1><span class="draft-stat">{% trans "Draft" %}</span>{{ book.title }}</h1>
+</div>
+<!-- end Bookbar -->
+
+<div class="container">
+    <div class="row two-col">
+        <div class="col-xs-4 toc_sidebar">
+            <div class="box white table_of_contents">
+                <h2 class="box-title">{% trans "Table of Contents" %}</h2>
+
+                <div class="toc_wrap">
+                    {% for item in toc_items %}
+                    {% if item.is_section %}
+                        {% ifchanged item.typeof and not forloop.first %}
+                        </ul>
+                        {% endifchanged %}
+                        <h4>{{ item.name }}</h4>
+                        <ul class="list border-top smaller-spacing">
+                    {% else %}
+                        <li {% if item.url_title == content.url_title %}class="selected-chapter"{% endif %}>
+                            <div class="list-info">
+                                <h4>
+                                <a href="{% url 'reader:draft_chapter_page' book.url_title book_version item.url_title %}">
+                                    {{ item.name }}
+                                </a>
+                                </h4>
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% if forloop.last %}
+                        </ul>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-8 col-sm-offset-4 col-md-offset-4 col-lg-offset-4">
+            <div class="box white" id="bookcontent">
+                {% if can_edit %}
+                <button data-href="{% url 'book_edit' book.url_title %}#edit/{{ content.id }}" role="button" class="btn btn-default float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit this chapter" %}">
+                    {% trans "EDIT" %}
+                </button>
+                {% endif %}
+                
+                <h1>{{ content.title }}</h1>
+                {% booki_format content %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

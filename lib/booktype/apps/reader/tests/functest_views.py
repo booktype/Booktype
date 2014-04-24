@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from .factory_models import UserFactory, BookFactory, BookVersionFactory
+from .factory_models import ChapterFactory, BookTocFactory
 from .factory_models import PLAIN_USER_PASSWORD
 
 class ReaderBaseTestCase(TestCase):
@@ -59,7 +60,7 @@ class InfoPageTest(ReaderBaseTestCase):
         self.assertTrueMultiple(response, self.vars_to_check)
         
         # check if anonymous user is book admin
-        self.assertEquals(response.context['is_book_admin'], False)        
+        self.assertEquals(response.context['is_book_admin'], False)
 
         # check absence of some elements in template
         self.assertNotContains(response, 'Edit book info')
@@ -138,7 +139,6 @@ class EditBookInfoTest(ReaderBaseTestCase):
         # in post method, the template must have changed
         self.assertTemplateUsed(response, "reader/book_info_edit_redirect.html")
 
-
 class DeleteBookTest(EditBookInfoTest):
     # NOTE: Inheriting from EditBookInfoTest because we need first
     # if login required is working good (def test_anon_user). 
@@ -200,3 +200,44 @@ class DeleteBookTest(EditBookInfoTest):
         # check if book registry is not in database anymore
         Book = self.book.__class__
         self.assertRaises(Book.DoesNotExist, Book.objects.get, pk=self.book.id)
+
+class DraftChapterTest(ReaderBaseTestCase):
+    
+    def setUp(self):
+        # call parent setUp method
+        super(DraftChapterTest, self).setUp()
+        self.chapter = ChapterFactory()
+        self.dispatcher = reverse('reader:draft_chapter_page', args=[self.book.url_title])
+        self.book_toc = BookTocFactory.create_toc(self.book, self.book.version, self.chapter)
+
+        # list of variables to check in context
+        self.vars_to_check = [
+            'content',
+            'toc_items',
+            'book_version',
+            'can_edit'
+        ]
+
+    def test_context_as_anon(self):
+        response = self.client.get(self.dispatcher)
+
+        # response status code should be 200
+        self.assertEquals(response.status_code, 200)
+
+        # as anonymous user you can't edit the book
+        self.assertEquals(response.context['can_edit'], False)
+
+        # test if context is well formed
+        self.assertTrueMultiple(response, self.vars_to_check)
+
+    def test_can_edit_logged_in(self):
+        # first login as book owner user
+        self.client.login(
+            username=self.user.username,
+            password=PLAIN_USER_PASSWORD
+        )
+        
+        response = self.client.get(self.dispatcher)
+
+        # as anonymous user you can't edit the book
+        self.assertEquals(response.context['can_edit'], True)
