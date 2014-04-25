@@ -16,10 +16,13 @@
 
 from django.conf.urls import patterns, url, include
 
-from .views import FrontPageView
+from .views import FrontPageView, GroupPageView, AllGroupsPageView
 
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^$', FrontPageView.as_view(), name='frontpage'),
-    url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.portal.views.view_group', name="view_group"),
-    )
+    url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.portal.views.view_group', name="view_group"),
+    url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', GroupPageView.as_view(), name='group'),
+    url(r'^list-groups/$', AllGroupsPageView.as_view(), name='groups'),
+)
