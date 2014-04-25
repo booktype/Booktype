@@ -5,7 +5,7 @@
 <title>{% blocktrans with group.name as groupname %}/group: {{ groupname }}{% endblocktrans %}</title>
 
 
-<script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
+<script type="text/javascript" src="{% static "portal/js/bookigroup.js" %}"></script>
 
 
 <script type="text/javascript">
@@ -124,7 +124,7 @@
 </ul>
 
 {% if is_member %}
-<form method="POST" action="add_book/">
+<form method="POST" action="add_book/">{% csrf_token %}
 
 {% if your_books|length > 0 %}
     <select name="book" style="width:400px;">

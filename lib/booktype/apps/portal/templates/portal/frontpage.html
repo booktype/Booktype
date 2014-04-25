@@ -83,16 +83,16 @@
                 <div class="groups-widget box white">
                     <h2 class="box-title">
                         {% trans "Groups" %}
-                        <a class="view_all show_groups" href="#">{% trans "view all" %}</a>
+                        <a class="view_all show_groups" href="{% url "portal:groups" %}">{% trans "view all" %}</a>
                     </h2>
 
                     <ul class="list">
                           {% for group in groupList %}
                             <li>
-                                <figure><img src="groups.png"></figure>
+                                <figure><img src="{% static "core/img/groups.png" %}"></figure>
                                 <div class="list-info">
-                                <h4><a href="{% url "portal:view_group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
-                                    <span>{% trans "Members:" %} {{ group.members.count }}  {% trans "Books:" %} {{ booksList|length }}</span> 
+                                <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
+                                    <span>{% trans "Members:" %} {{ group.num_members }}  {% trans "Books:" %} {{ group.num_books }}</span> 
                                 </div>
                             </li>
                         {% endfor %}                            
@@ -133,18 +133,18 @@
 
                         {% for activity in recentActivities %}
                             <li>
-                                <figure><img src="{% url "view_profilethumbnail" activity.user %}?width=48" alt="{{activity.user}}"></figure>
+                                <figure><img src="{% url "view_profilethumbnail" activity.user %}?width=48" alt="{{ activity.user }}"></figure>
                                 <div class="list-info">
                                     <span class="time">{{ activity.modified|timesince}} {% trans "ago" %}</span>
                                     <h4><a href="{% url "view_profile" activity.user.username %}">{{ activity.user }}</a></h4>
                                     <p>
                                         {% if activity.kind == 1 %}
-                                            {% trans "New chapter" %} <a href="{% url "book_chapter" activity.book.url_title activity.chapter.url_title %}">"{{activity.chapter.title}}"</a>.
-                                            <span class="book-title">#{{activity.book.url_title|slugify}}</span>     
+                                            {% trans "New chapter" %} <a href="{% url "book_chapter" activity.book.url_title activity.chapter.url_title %}">"{{ activity.chapter.title }}"</a>.
+                                            <span class="book-title">#{{ activity.book.url_title|slugify }}</span>     
                                         {% endif %}
                                         {% if activity.kind == 10 %}
-                                            {% trans "New book" %} <a href="{% url "book_view" activity.book.url_title  %}">"{{activity.book.title}}"</a>.
-                                            <span class="book-title">#{{activity.book.url_title|slugify}}</span>     
+                                            {% trans "New book" %} <a href="{% url "book_view" activity.book.url_title  %}">"{{ activity.book.title }}"</a>.
+                                            <span class="book-title">#{{ activity.book.url_title|slugify }}</span>     
                                         {% endif %}                                        
                                     </p>
                                 </div>

@@ -2,7 +2,7 @@
 
 <h2 class="box-title">{% trans "Sign in" %}</h2>  
 
-<form id="formsignin" class="form-group" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
+<form id="formsignin" signin-href="{% url "signin" %}" class="form-group" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
   <div class="form-group">
     <input type="text" class="form-control" name="username" placeholder="{% trans "Enter username" %}">  
   </div>
