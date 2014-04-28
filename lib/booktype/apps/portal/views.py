@@ -1,15 +1,17 @@
 import datetime
 
 from django.utils.translation import ugettext_lazy as _
+from django.utils.html import escape
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.db import models
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django import forms
 
 from booktype.apps.core.views import PageView
 from booki.editor.models import Book, BookiGroup, BookHistory
-from booktype.apps.core.views import PageView
-from django.views.generic import View, RedirectView
+from booki.utils.misc import bookiSlugify
 
 
 class FrontPageView(PageView):
@@ -103,4 +105,47 @@ class AllGroupsPageView(PageView):
         bookiGroup4 = BookiGroup.objects.all().order_by('-created')[:4]
         context['newGroups'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'num_members': g.members.count(), 'num_books': g.book_set.count()} for g in bookiGroup4]
 
-        return context        
+        return context
+
+
+class GroupSettingsPageForm(forms.Form):
+    name = forms.CharField()
+    description = forms.CharField(required=False)
+
+
+class GroupSettingsPageView(PageView):
+    template_name = "portal/group_settings.html"
+    form_class = GroupSettingsPageForm
+
+    def post(self, request, groupid):
+        form = self.form_class(request.POST)
+        context = super(GroupSettingsPageView, self).get_context_data()
+        newDesc = escape(form['description'].value())[:250]  # 250 characters
+
+        if form.is_valid():
+            if(request.user.is_authenticated()):
+                newName = form['name'].value()
+                newUrl_name = bookiSlugify(newName)
+
+                if(len(newUrl_name) == 0):
+                    context['error'] = {'name_error': 'Do not use special characters'}
+                    context['selectedGroup'] = {'description': newDesc}
+                    return render(request, self.template_name, context)
+
+                group = BookiGroup.objects.get(url_name=groupid)
+                group.url_name = newUrl_name
+                group.name = newName
+                group.description = newDesc
+                group.save()
+        else:
+            context['error'] = {'name_error': 'Name should not be empty'}
+            context['selectedGroup'] = {'description': newDesc}
+            return render(request, self.template_name, context)
+
+        return HttpResponseRedirect(reverse('portal:group', args=[newUrl_name]))
+
+    def get_context_data(self, **kwargs):
+        context = super(GroupSettingsPageView, self).get_context_data(**kwargs)
+        context['selectedGroup'] = BookiGroup.objects.get(url_name=kwargs['groupid'])
+
+        return context
