@@ -18,7 +18,7 @@ Booktype demo site
 http://booktype-demo.sourcefabric.org/
 
 Booktype manual
-http://en.flossmanuals.net/booktype/
+http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/
 
 Booktype tracker
 http://dev.sourcefabric.org/browse/BK
