@@ -26,10 +26,11 @@ urlpatterns = patterns('',
 
    # draft book page
    url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/(?P<chapter>[\w\s\_\.\-]+)/$', DraftChapterView.as_view(), name='draft_chapter_page'),
-   url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/(?P<chapter>[\w\s\_\.\-]+)/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
-   url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment', name='draft_attachment'),
+   url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/(?P<chapter>[\w\s\_\.\-]+)/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment'),
+   url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment', name='draft_attachment'),
    url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/$', DraftChapterView.as_view(), name='draft_chapter_page'),
    url(r'^_draft/(?P<chapter>[\w\s\_\.\-]+)/$', DraftChapterView.as_view(), name='draft_chapter_page'),
-   url(r'^_draft/(?P<chapter>[\w\s\_\.\-]+)/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
+   url(r'^_draft/(?P<chapter>[\w\s\_\.\-]+)/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment'),
+   url(r'^_draft/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment'),
    url(r'^_draft/$', DraftChapterView.as_view(), name='draft_chapter_page'),
 )

@@ -63,7 +63,7 @@ def verbose_activity(activity):
         if activity.chapter:
             link_text = activity.chapter.title
             link_url = reverse(
-                'draft_chapter', 
+                'reader:draft_chapter_page',
                 args=[book.url_title, book_version, activity.chapter.url_title]
             )
 
