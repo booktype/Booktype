@@ -19,7 +19,7 @@
                         {% trans "(this book is visible to everyone)" %}
                     {% endif %}
                   </p>
-                  <p>{% trans "Current version:" %} <a href="{% url 'draft_book' book.url_title book.version.get_version %}">{{ book.get_version }}</a></p>
+                  <p>{% trans "Current version:" %} <a href="{% url 'reader:draft_chapter_page' bookid=book.url_title version=book.version.get_version %}">{{ book.get_version }}</a></p>
                   <p>{% trans "Created:" %} {{ book.created }}</p>
                   <p>{% trans "Published:" %} {{ book.published }}</p>
 
@@ -31,7 +31,7 @@
                     <button data-href="{% url 'book_edit' book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Edit this Book' %}">
                         {% trans "Edit this Book" %}
                     </button>
-                    <button data-href="{% url 'draft_book' book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'View draft' %}">
+                    <button data-href="{% url 'reader:draft_chapter_page' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'View draft' %}">
                         {% trans "View draft" %}
                     </button>
                     {% if is_book_admin %}
@@ -56,7 +56,7 @@
                     <li>
                         <figure><img src="{% static 'core/img/groups.png' %}"></figure>
                         <div class="list-info">
-                            <h4><a href="#">{{ book_group.name }}</a> - {{ book_group.description|safe }}</h4>
+                            <h4><a href="{% url "portal:group" book_group.url_name %}">{{ book_group.name }}</a> - {{ book_group.description|safe }}</h4>
                             <span>{% trans "Members" %}: {{ book_group.members.count }}  {% trans "Books" %}: {{ book_group.book_set.all.count }}</span>
                         </div>
                     </li>
@@ -90,25 +90,9 @@
         </div>
 
         <div class="col-xs-4">
-            {% if user.is_autheticated %}
+            {% if user.is_authenticated %}
             <div class="box gray">
-                <h2 class="box-title">{% trans "My Profile" %}</h2>
-                <ul class="list-people list user-avatar">
-                    <li>
-                        <figure>
-                            {% profile_image user %}
-                        </figure>
-                        <div class="people-info">
-                            <h4><a href="{% url "view_profile" user.username %}">{{ user.username }}</a></h4>
-                            <span>{{ user.get_full_name }}</span>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="box-bottom-white btn-box-uppercase">
-                    <button data-href="{% url 'view_profile' user.username %}" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="My Dashboard">{% trans "My Dashboard" %}</button>
-                    <button data-href="{% url 'view_profile' user.username %}#tabs-settings" role="button" class="btn btn-default float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="Go to settings">{% trans "Settings" %}</button>
-                </div>
+                {% include "accounts/form_signedin.html" %}
             </div>
             {% endif %}
 
@@ -138,7 +122,7 @@
                             {% profile_image admin %}
                         </figure>
                         <div class="list-info">
-                            <h4><a href="{{ admin.get_absolute_url }}">{{ admin.username }}</a></h4>
+                            <h4><a href="{% url 'view_profile' admin %}">{{ admin.username }}</a></h4>
                             <p>{{ admin.get_full_name }}</p>
                         </div>
                     </li>
@@ -156,7 +140,7 @@
                             {% profile_image collaborator %}
                         </figure>
                         <div class="list-info">
-                          <h4><a href="{{ collaborator.get_absolute_url }}">{{ collaborator.username }}</a></h4>
+                          <h4><a href="{% url 'view_profile' collaborator %}">{{ collaborator.username }}</a></h4>
                           <p>{{ collaborator.get_full_name }}</p>
                         </div>
                     </li>
@@ -172,7 +156,7 @@
                     {% for version in book.get_versions %}
                     <li>
                         <span class="time">{{ version.created|timesince }}</span>
-                        <h4><a href="{% url 'draft_book' book.url_title version.get_version %}">{{ version.get_version }}</a></h4>
+                        <h4><a href="{% url 'reader:draft_chapter_page' bookid=book.url_title version=version.get_version %}">{{ version.get_version }}</a></h4>
                     </li>
                     {% endfor %}
                 </ul>

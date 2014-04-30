@@ -84,11 +84,11 @@ urlpatterns += patterns('',
                         # editor
                         url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls')),
 
+                        # new booktype reader app
+                        url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.reader.urls', namespace='reader')),
+                        
                         # reader
                         # TODO: replace with new app
                         # - must be at the end
                         url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.reader.urls')),
-
-                        # new booktype reader app
-                        url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/reader/', include('booktype.apps.reader.urls', namespace='reader')),
               )
