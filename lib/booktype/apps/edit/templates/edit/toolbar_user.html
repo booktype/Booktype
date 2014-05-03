@@ -1,10 +1,15 @@
-{% load i18n %}
-<button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{{ request.user.first_name }}<span class="caret"></span></button>
-<ul class="dropdown-menu pull-right">
-  <li><a href="{% url "view_profile" request.user.username %}" target="_blank"><i class="icon-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Profile" %}</a></li>
-  {% if request.user.is_superuser %}
-     <li><a href="{% url "control_frontpage" %}" target="_blank"><i class="icon-gears"></i>&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Control Center" %}</a></li>
-  {% endif %}
-  <li class="divider"></li>
-  <li><a href="{% url "signout" %}"><i class="icon-signout"></i>&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Logout" %}</a></li>
-</ul>
+{% load i18n booktype_tags %}
+
+{% if request.user.is_authenticated %}
+  <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{% username request.user %}<span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right">
+          <li><a href="{% url "view_profile" request.user.username %}" target="_blank"><i class="icon-user"></i>{% trans "Profile" %}</a></li>
+          {% if request.user.is_superuser %}
+             <li><a href="{% url "control_frontpage" %}" target="_blank"><i class="icon-gears"></i>{% trans "Control Center" %}</a></li>
+          {% endif %}
+          <li class="divider"></li>
+          <li><a href="{% url "signout" %}"><i class="icon-signout"></i>{% trans "Logout" %}</a></li>
+        </ul>
+    {% else %}
+  <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{%  trans "Sign In" %}<span class="caret"></span></button>
+{% endif %}
