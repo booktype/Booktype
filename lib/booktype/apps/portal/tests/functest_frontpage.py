@@ -8,20 +8,14 @@ from django.contrib.auth.models import User
 from django.core.files import uploadedfile
 from django.db.models.signals import post_save
 
-from booki.editor.models import Book, BookStatus, Language, BookVersion, BookiGroup
-from booki.account.models import UserProfile
+from .factory_models import UserFactory, BookFactory, BookiGroupFactory, BookHistoryFactory
+from .factory_models import PLAIN_USER_PASSWORD
 
 
 class FrontpageTest(TestCase):
     def setUp(self):
         self.dispatcher = reverse('portal:frontpage')
         self.user = UserFactory()
-
-# setup for groups
-        bookiGroup = BookiGroupFactory(members=(0, 1))
-
-# setup for books
-        book = BookFactory()
 
     def tearDown(self):
         self.user.delete()
@@ -31,74 +25,57 @@ class FrontpageTest(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.context['title'], 'Home')
 
-    def test_books(self):
+    def test_anonymous_user(self):
         response = self.client.get(self.dispatcher)
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'book title')
+        self.assertEquals(response.context['user'].is_authenticated(), False)
+        self.assertNotContains(response, 'MY DASHBOARD')
+        self.assertContains(response, 'SIGN IN')
 
-    def test_people(self):
+    def test_loggedin_user(self):
+        self.client.login(
+            username=self.user.username,
+            password=PLAIN_USER_PASSWORD
+        )
         response = self.client.get(self.dispatcher)
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'user_')
-        self.assertContains(response, 'description')
+        self.assertEquals(response.context['user'].is_authenticated(), True)
+        self.assertContains(response, 'MY DASHBOARD')
+        self.assertNotContains(response, 'SIGN IN')
 
-    def test_groups(self):
+    def test_many_books(self):
+        i = 0
+        while (i < 10):
+            book = BookFactory()
+            i += 1
         response = self.client.get(self.dispatcher)
         self.assertEquals(response.status_code, 200)
 
-        self.assertContains(response, 'group name')
-        self.assertContains(response, 'url_group_name')
-        self.assertContains(response, 'booki group description')
-        self.assertContains(response, 'Members: 2')
-        self.assertContains(response, 'Books: ')
+        self.assertEquals(str(response).count('book-info'), 4)
 
+    def test_many_people(self):
+        i = 0
+        while(i < 10):
+            user = UserFactory()
+            i += 1
+        response = self.client.get(self.dispatcher)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(str(response).count('people-info'), 2)
 
-class UserFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = User
+    def test_many_groups(self):
+        i = 0
+        while i < 10:
+            bookiGroup = BookiGroupFactory()
+            i += 1
+        response = self.client.get(self.dispatcher)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(str(response).count('list-info'), 5)
 
-    username = factory.Sequence(lambda n: "user_%d" % n)
-
-
-class UserProfileFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = UserProfile
-
-    description = 'description'
-
-    user = factory.SubFactory(UserFactory, profile=None)
-
-
-class BookiGroupFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = BookiGroup
-
-    name = 'group name'
-    url_name = 'url_group_name'
-    description = 'booki group description'
-    owner = factory.SubFactory(UserFactory)
-
-    @factory.post_generation
-    def members(self, create, extracted, **kwargs):
-        if not create:
-            return
-
-        if extracted:
-            for member in extracted:
-                self.members.add(member)
-
-
-class BookFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = Book
-
-    owner = factory.SubFactory(UserFactory)
-    url_title = factory.Sequence(lambda n: 'title_{}'.format(n))
-    title = 'book title'
-    status = BookStatus()
-    language = Language(0, 'test language', 'tl')
-    version = BookVersion(0, 0, 0, 0)
-    group = factory.SubFactory(BookiGroupFactory)
-
-
-class BookStatusFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = BookStatus
-    book = factory.SubFactory(BookFactory)
-    name = 'status name'
-    weight = 0
+    def test_recent_activity(self):
+        i = 0
+        while (i < 10):
+            bookHistory = BookHistoryFactory()
+            i += 1
+        response = self.client.get(self.dispatcher)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(str(response).count('list-info'), 5)
