@@ -103,7 +103,7 @@ class AllGroupsPageView(PageView):
         context['activeGroups'] = lista
 
         bookiGroup4 = BookiGroup.objects.all().order_by('-created')[:4]
-        context['newGroups'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'num_members': g.members.count(), 'num_books': g.book_set.count()} for g in bookiGroup4]
+        context['newGroups'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'members': g.members, 'num_members': g.members.count(), 'num_books': g.book_set.count()} for g in bookiGroup4]
 
         return context
 
