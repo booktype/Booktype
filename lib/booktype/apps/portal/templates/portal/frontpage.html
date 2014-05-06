@@ -60,7 +60,7 @@
                 <div class="people-widget box white">
                     <h2 class="box-title">
                         {% trans "People" %}
-                        <a class="view_all show_people" href="#">{% trans "view all" %}</a>
+                        <a class="view_all show_people" href="{% url "portal:list_people" %}">{% trans "view all" %}</a>
                     </h2>
                     <ul class="list-people list user-avatar">
                         {% for user in userList %}
