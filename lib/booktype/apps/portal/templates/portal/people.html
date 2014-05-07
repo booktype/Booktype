@@ -1,0 +1,90 @@
+{% extends "core/base.html" %}
+
+{% load i18n booki_tags profile staticfiles %}
+{% block extra_header %}
+    <script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
+    <script type="text/javascript" src="{% static "portal/js/general.js" %}"></script>
+{% endblock %}
+{% block content %}
+
+    <div class="container">
+    	<div class="row two-col">
+    		<div class="col-xs-8 all-people-widget">
+    			<div class="box white">
+    				<h2 class="box-title">
+    					{% trans "All people" %}
+    				</h2>
+
+    				<ul class="list border-top user-avatar circle">
+                        {% for user in all_people %}
+    					   <li>
+                                <figure>{% profile_image user %}</figure>
+                                <div class="list-info">
+                                    <p class="float-right"><a href="{{ request.META.SCRIPT_NAME }}/feeds/rss/user/{{ user }}/">{% trans "Follow my changes" %} </a> <img src="{% static "core/img/rss.png" %}"></p>
+                                    <h4><a href="{% url "view_profile" user %}">{{ user.username }}</a></h4>
+                                    <p>{{ user.first_name }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+    				</ul>
+    			</div>
+
+    		</div> <!-- End of col-xs-4 -->
+
+
+    		<div class="col-xs-4">
+                <div class="login-widget box gray">
+                    <script>
+                        $(function() {
+                            $("#formsignin").booksparkSignin({'url': '{% url "signin" %}'});
+                        });
+                    </script>     
+
+                    {% if request.user.is_authenticated %}
+                        {% include "accounts/form_signedin.html" %}
+                    {% else %}
+                        <div class="signin-block">
+                            {% include "accounts/form_signin.html" %}
+                        </div>
+                        <div class="box-bottom-white">
+                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:register" %}">{% trans "Registration form" %}</a></p> 
+                        </div> 
+                    {% endif %}
+                </div> 
+
+    			<div class="box white active-people-widget">
+    				<h2 class="box-title">{% trans "Active people" %}</h2>
+    				<ul class="list border-top user-avatar circle">
+                        {% for user in active_people %}
+    					   <li>
+	    					  <figure>{% profile_image user %}</figure>
+	    					  <div class="list-info">
+	    					  	   <h4><a href="{% url "view_profile" user %}">{{ user }}</a></h4>
+                                    <p>{{ user.first_name }}</p>
+    						  </div>
+    					   </li>
+                        {% endfor %}
+    				</ul>
+    			</div>
+
+    			<div class="box white new-people-widget">
+    				<h2 class="box-title">{% trans "New people" %}</h2>
+    				<ul class="list border-top user-avatar circle">
+                        {% for user in new_people %}
+                            <li>
+                                <figure>{% profile_image user %}</figure>
+                                <div class="list-info">
+                                    <h4><a href="{% url "view_profile" user %}">{{ user }}</a></h4>
+                                    <p>{{ user.first_name }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+    				</ul>
+    			</div>
+
+    		</div> <!-- End of col-xs-4 -->
+
+
+    	</div>
+    </div> <!-- End of container -->
+{% endblock %}

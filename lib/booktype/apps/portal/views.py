@@ -11,6 +11,7 @@ from django import forms
 
 from booktype.apps.core.views import PageView
 from booki.editor.models import Book, BookiGroup, BookHistory
+from booki.account.models import UserProfile
 from booki.utils.misc import bookiSlugify
 
 
@@ -147,5 +148,23 @@ class GroupSettingsPageView(PageView):
     def get_context_data(self, **kwargs):
         context = super(GroupSettingsPageView, self).get_context_data(**kwargs)
         context['selectedGroup'] = BookiGroup.objects.get(url_name=kwargs['groupid'])
+
+        return context
+
+
+class PeoplePageView(PageView):
+    template_name = "portal/people.html"
+    page_title = _('People')
+    title = _('People')
+
+    def get_context_data(self, **kwargs):
+        context = super(PeoplePageView, self).get_context_data(**kwargs)
+
+        context['all_people'] = User.objects.all().extra(select={'lower_username': 'lower(username)'}).order_by('lower_username')
+
+        now = datetime.datetime.now() - datetime.timedelta(30)
+        context['active_people'] = [User.objects.get(id=b['user']) for b in BookHistory.objects.filter(modified__gte=now).values('user').annotate(models.Count('user')).order_by("-user__count")[:4]]
+
+        context['new_people'] = User.objects.all().order_by('-date_joined')[:4]
 
         return context
