@@ -16,7 +16,8 @@
 
 from django.conf.urls import patterns, url, include
 
-from .views import FrontPageView, GroupPageView, AllGroupsPageView, GroupSettingsPageView
+from booktype.apps.portal import feeds
+from .views import FrontPageView, GroupPageView, AllGroupsPageView, GroupSettingsPageView, PeoplePageView
 
 
 urlpatterns = patterns(
@@ -26,4 +27,13 @@ urlpatterns = patterns(
     url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', GroupPageView.as_view(), name='group'),
     url(r'^groups/_settings/(?P<groupid>[\w\s\_\.\-]+)/$', GroupSettingsPageView.as_view(), name='group_settings'),
     url(r'^list-groups/$', AllGroupsPageView.as_view(), name='groups'),
+    url(r'^list-people/', PeoplePageView.as_view(), name='list_people'),
+
+    # feeds
+    url(r'^feeds/rss/book/(?P<bookid>[\w\s\_\.\-\d]+)/$', feeds.BookFeedRSS()),
+    url(r'^feeds/atom/book/(?P<bookid>[\w\s\_\.\-\d]+)/$', feeds.BookFeedAtom()),
+    url(r'^feeds/rss/chapter/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<chapterid>[\w\s\_\.\-\d]+)/$', feeds.ChapterFeedRSS()),
+    url(r'^feeds/atom/chapter/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<chapterid>[\w\s\_\.\-\d]+)/$', feeds.ChapterFeedAtom()),
+    url(r'^feeds/rss/user/(?P<userid>[\w\s\_\.\-\d]+)/$', feeds.UserFeedRSS()),
+    url(r'^feeds/atom/user/(?P<userid>[\w\s\_\.\-\d]+)/$', feeds.UserFeedAtom()),
 )
