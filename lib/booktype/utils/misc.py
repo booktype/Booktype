@@ -18,29 +18,31 @@ import os
 import urllib
 import urlparse
 
+
+from django.conf import settings
+
 from lxml import etree, html
 from ebooklib import epub
 import ebooklib
 
 from booki.editor import models
+from booki.utils import misc
 
 #################
 
 from ebooklib.plugins.base import BasePlugin
 from ebooklib.utils import parse_html_string
+try:
+    from PIL import Image
+except ImportError:
+    import Image
 
 
 class TidyPlugin(BasePlugin):
     NAME = 'Tidy HTML'
-    OPTIONS = {#'utf8': None,
-               'tidy-mark': 'no',
-               'drop-font-tags': 'no',
-               'uppercase-attributes': 'no',
-               'uppercase-tags': 'no',
-#               'anchor-as-name': 'no'
-              }
+    OPTIONS = {'tidy-mark': 'no', 'drop-font-tags': 'no', 'uppercase-attributes': 'no', 'uppercase-tags': 'no'}
 
-    def __init__(self, extra = {}):
+    def __init__(self, extra={}):
         self.options = dict(self.OPTIONS)
         self.options.update(extra)
 
@@ -53,7 +55,6 @@ class TidyPlugin(BasePlugin):
         (_, chapter.content) = tidy_cleanup(chapter.get_content(), **self.options)
 
         return chapter.content
-
 
     def html_before_write(self, book, chapter):
         if not chapter.content:
@@ -70,12 +71,12 @@ def _convert_file_name(file_name):
     import os.path
 
     from booki.utils.misc import bookiSlugify
-    
+
     name = os.path.basename(file_name)
     if name.rfind('.') != -1:
         _np = name[:name.rfind('.')]
         _ext = name[name.rfind('.'):]
-        name = bookiSlugify(_np)+_ext
+        name = bookiSlugify(_np) + _ext
 
     name = urllib.unquote(name)
     name = name.replace(' ', '_')
@@ -86,7 +87,7 @@ def _convert_file_name(file_name):
 class ImportPlugin(BasePlugin):
     NAME = 'Import Plugin'
 
-    def __init__(self, remove_attributes = None):
+    def __init__(self, remove_attributes=None):
         if remove_attributes:
             self.remove_attributes = remove_attributes
         else:
@@ -97,20 +98,19 @@ class ImportPlugin(BasePlugin):
                                       'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover',
                                       'onmouseup', 'onmousewheel', 'onscroll']
 
-
     def after_read(self, book):
         # change all the file names for images
         #   - should fix if attachment name has non ascii characters in the name
         #   - should remove the space if file name has it inside
 
-        for att in  book.get_items_of_type(ebooklib.ITEM_IMAGE):            
+        for att in book.get_items_of_type(ebooklib.ITEM_IMAGE):
             att.file_name = _convert_file_name(att.file_name)
 
     def html_after_read(self, book, chapter):
         import os.path
         import urlparse
 
-        from lxml import etree 
+        from lxml import etree
         from ebooklib.utils import parse_html_string
 
         try:
@@ -125,7 +125,7 @@ class ImportPlugin(BasePlugin):
             title = head.find('title')
 
             if title is not None:
-                chapter.title = title.text        
+                chapter.title = title.text
 
         if len(root.find('body')) != 0:
             body = tree.find('body')
@@ -138,7 +138,7 @@ class ImportPlugin(BasePlugin):
                 if _item.tag == 'img':
                     _name = _item.get('src')
                     # this is not a good check
-                    if _name and not _name.lower().startswith('http'): 
+                    if _name and not _name.lower().startswith('http'):
                         _item.set('src', 'static/%s' % _convert_file_name(_name))
 
                 for t in self.remove_attributes:
@@ -147,15 +147,15 @@ class ImportPlugin(BasePlugin):
 
         chapter.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
 
+
 class LoadPlugin(BasePlugin):
     NAME = 'Load Plugin'
-
 
     def after_read(self, book):
         import os.path
 
         # change all the file names for images
-        for att in  book.get_items_of_type(ebooklib.ITEM_IMAGE):            
+        for att in book.get_items_of_type(ebooklib.ITEM_IMAGE):
             att.file_name = os.path.basename(att.file_name)
 
     def html_after_read(self, book, chapter):
@@ -193,20 +193,14 @@ def import_book_from_file(epub_file, user, book_title=None):
 
     from django.utils.timezone import utc
     from django.core.files import File
-    from lxml import etree 
+    from lxml import etree
     from ebooklib.utils import parse_html_string
 
     from booki.editor import models
     from booki.utils.book import createBook, checkBookAvailability
     from booki.utils.misc import bookiSlugify
-    
 
-
-    opts = {'plugins': [
-                        TidyPlugin(),
-                        ImportPlugin()
-                        ]
-            }
+    opts = {'plugins': [TidyPlugin(), ImportPlugin()]}
     epub_book = epub.read_epub(epub_file, opts)
 
     pp = pprint.PrettyPrinter(indent=4)
@@ -222,10 +216,10 @@ def import_book_from_file(epub_file, user, book_title=None):
             elif isinstance(_elem, epub.Section):
                 pass
             elif isinstance(_elem, epub.Link):
-                _u = urlparse.urlparse(_elem.href)                
+                _u = urlparse.urlparse(_elem.href)
                 _name = urllib.unquote(os.path.basename(_u.path))
 
-                if not _name in chapters:
+                if _name not in chapters:
                     chapters[_name] = _elem.title
                     toc.append((0, _name))
 
@@ -242,11 +236,10 @@ def import_book_from_file(epub_file, user, book_title=None):
 
     stat = models.BookStatus.objects.filter(book=book, name="new")[0]
 
-
-    for attach in  epub_book.get_items_of_type(ebooklib.ITEM_IMAGE):
-        att = models.Attachment(book = book,
-                                version = book.version,
-                                status = stat)
+    for attach in epub_book.get_items_of_type(ebooklib.ITEM_IMAGE):
+        att = models.Attachment(book=book,
+                                version=book.version,
+                                status=stat)
 
         s = attach.get_content()
         f = StringIO.StringIO(s)
@@ -258,10 +251,10 @@ def import_book_from_file(epub_file, user, book_title=None):
 
     _imported = {}
 
-    for chap in  epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
+    for chap in epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
         # Nav and Cover are not imported
         if not chap.is_chapter():
-             continue
+            continue
 
         # check if this chapter name already exists
         name = urllib.unquote(os.path.basename(chap.file_name))
@@ -269,32 +262,32 @@ def import_book_from_file(epub_file, user, book_title=None):
 
         # maybe this part has to go to the plugin
         # but you can not get title from <title>
-        if chapters.has_key(name):
+        if name in chapters:
             name = chapters[name]
         else:
             name = _convert_file_name(name)
 
             if name.rfind('.') != -1:
                 name = name[:name.rfind('.')]
-                
+
             name = name.replace('.', '')
 
-        chapter = models.Chapter(book = book,
-                                 version = book.version,
-                                 url_title = bookiSlugify(name),
-                                 title = name,
-                                 status = stat,
-                                 content = content,
-                                 created = now,
-                                 modified = now)
+        chapter = models.Chapter(book=book,
+                                 version=book.version,
+                                 url_title=bookiSlugify(name),
+                                 title=name,
+                                 status=stat,
+                                 content=content,
+                                 created=now,
+                                 modified=now)
 
         chapter.save()
         _imported[urllib.unquote(os.path.basename(chap.file_name))] = chapter
 
     # fix links
-    for chap in  epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
+    for chap in epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
         if not chap.is_chapter():
-             continue
+            continue
 
         content = chap.get_content()
 
@@ -321,7 +314,7 @@ def import_book_from_file(epub_file, user, book_title=None):
                         if pth in _imported:
                             _name = _imported[pth].url_title
 
-                            _u2 = urlparse.urljoin(_href, '../'+_name+'/')
+                            _u2 = urlparse.urljoin(_href, '../' + _name + '/')
                             _item.set('href', _u2)
                             to_save = True
 
@@ -330,41 +323,39 @@ def import_book_from_file(epub_file, user, book_title=None):
                 _imported[urllib.unquote(os.path.basename(chap.file_name))].content = chap.content
                 _imported[urllib.unquote(os.path.basename(chap.file_name))].save()
 
-    n = len(toc)+1
+    n = len(toc) + 1
 
     for _elem in toc:
-        if _elem[0] == 1: #section
-            c = models.BookToc(book = book,
-                               version = book.version,
-                               name = _elem[1],
-                               chapter = None,
-                               weight = n,
-                               typeof = 2)
-            c.save()        
-        else: 
+        if _elem[0] == 1:  # section
+            c = models.BookToc(book=book,
+                               version=book.version,
+                               name=_elem[1],
+                               chapter=None,
+                               weight=n,
+                               typeof=2)
+            c.save()
+        else:
             if not _elem[1] in _imported:
                 continue
 
             chap = _imported[_elem[1]]
-            c = models.BookToc(book = book,
-                               version = book.version,
-                               name = chap.title,
-                               chapter = chap,
-                               weight = n,
-                               typeof = 1)
+            c = models.BookToc(book=book,
+                               version=book.version,
+                               name=chap.title,
+                               chapter=chap,
+                               weight=n,
+                               typeof=1)
             c.save()
 
     return book
 
 ############################################################################################################
 
+
 def load_book_from_file(epub_file, user):
     from booki.editor import models
 
-    opts = {'plugins': [
-                         LoadPlugin()
-                         ]
-             }
+    opts = {'plugins': [LoadPlugin()]}
 
     epub_book = epub.read_epub(epub_file, opts)
 
@@ -375,7 +366,7 @@ def load_book_from_file(epub_file, user):
 
     pp = pprint.PrettyPrinter(indent=4)
 
-    pp.pprint(epub_book.toc)    
+    pp.pprint(epub_book.toc)
 
     from booki.utils.book import createBook, checkBookAvailability
     from booki.utils.misc import bookiSlugify
@@ -396,23 +387,23 @@ def load_book_from_file(epub_file, user):
     from booki.utils.misc import bookiSlugify
 
     for _item in epub_book.get_items():
-        if _item.get_type() == ebooklib.ITEM_DOCUMENT and _item.is_chapter(): # CHECK IF IT IS NOT NAV
+        if _item.get_type() == ebooklib.ITEM_DOCUMENT and _item.is_chapter():  # CHECK IF IT IS NOT NAV
             title = _item.title
             title_url = os.path.splitext(_item.file_name)[0]
 
-            chapter = models.Chapter(book = book,
-                                     version = book.version,
-                                     url_title = title_url,
-                                     title = title,
-                                     status = stat,
-                                     content = _item.get_content(),
-                                     created = now,
-                                     modified = now)
+            chapter = models.Chapter(book=book,
+                                     version=book.version,
+                                     url_title=title_url,
+                                     title=title,
+                                     status=stat,
+                                     content=_item.get_content(),
+                                     created=now,
+                                     modified=now)
             chapter.save()
         elif _item.get_type() != ebooklib.ITEM_DOCUMENT:
-            att = models.Attachment(book = book,
-                                    version = book.version,
-                                    status = stat)
+            att = models.Attachment(book=book,
+                                    version=book.version,
+                                    status=stat)
 
             s = _item.get_content()
             f = StringIO.StringIO(s)
@@ -488,7 +479,7 @@ def export_book(fileName, book_version):
                 if elem.tag == 'img':
                     src = elem.get('src')
                     if src:
-                        elem.set('src', 'static/'+src[7:])
+                        elem.set('src', 'static/' + src[7:])
                         embededImages[src] = True
 
             c1.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
@@ -513,7 +504,7 @@ def export_book(fileName, book_version):
         toc.append(section[:])
 
     for i, attachment in enumerate(models.Attachment.objects.filter(version=book_version)):
-        if  not embededImages.has_key('static/'+os.path.basename(attachment.attachment.name)):
+        if ('static/' + os.path.basename(attachment.attachment.name)) not in embededImages:
             continue
 
         try:
@@ -536,11 +527,41 @@ def export_book(fileName, book_version):
 
     from ebooklib.plugins import booktype, standard
 
-    opts = {'plugins': [#booktype.BooktypeLinks(book),
-                        #booktype.BooktypeFootnotes(book),
-                        TidyPlugin(),
-                        standard.SyntaxPlugin()
-                        ]
-            }
+    opts = {'plugins': [TidyPlugin(), standard.SyntaxPlugin()]}
 
     epub.write_epub(fileName, epub_book, opts)
+
+
+def set_group_image(groupid, file_object, x_size, y_size):
+    """
+    Creates thumbnail image from uploaded file
+
+    @type groupid; C{booki.editor.models.BookiGroup}
+    @param: Group object
+
+    @type fileObject: C{UploadedFile}
+    @param: Image file
+    """
+
+    try:
+        GROUP_IMAGE_UPLOAD_DIR = settings.GROUP_IMAGE_UPLOAD_DIR
+    except AttributeError:
+        GROUP_IMAGE_UPLOAD_DIR = 'group_images/'
+
+    fh, fname = misc.saveUploadedAsFile(file_object)
+    try:
+        im = Image.open(fname)
+        im.thumbnail((x_size, y_size), Image.ANTIALIAS)
+
+        new_path = '%s/%s' % (settings.MEDIA_ROOT, GROUP_IMAGE_UPLOAD_DIR)
+        if not os.path.exists(new_path):
+            os.mkdir(new_path)
+
+        file_name = '%s/%s.jpg' % (new_path, groupid)
+        im.save(file_name, "JPEG")
+    except:
+        file_name = ''
+
+    os.unlink(fname)
+
+    return file_name    

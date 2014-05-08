@@ -89,7 +89,7 @@
                     <ul class="list">
                           {% for group in groupList %}
                             <li>
-                                <figure><img src="{% static "core/img/groups.png" %}"></figure>
+                                <figure><img src="{{ group.small_group_image }}" /></figure>
                                 <div class="list-info">
                                 <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
                                     <span>{% trans "Members:" %} {{ group.num_members }}  {% trans "Books:" %} {{ group.num_books }}</span> 
