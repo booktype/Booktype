@@ -127,6 +127,7 @@ class GroupSettingsPageView(PageView):
             if(request.user.is_authenticated()):
                 newName = form['name'].value()
                 newUrl_name = bookiSlugify(newName)
+                new_group_file_name = form['profile'].value()
 
                 if(len(newUrl_name) == 0):
                     context['error'] = {'name_error': 'Do not use special characters'}
