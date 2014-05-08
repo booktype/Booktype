@@ -127,6 +127,11 @@ class GroupSettingsPageView(PageView):
             if(request.user.is_authenticated()):
                 newName = form['name'].value()
                 newUrl_name = bookiSlugify(newName)
+                check_new_url = BookiGroup.objects.filter(url_name=newUrl_name)
+                if(len(check_new_url) > 0):
+                    context['error'] = {'name_error': 'Group name already used'}
+                    context['selectedGroup'] = {'name': newName, 'description': newDesc}
+                    return render(request, self.template_name, context)
 
                 if(len(newUrl_name) == 0):
                     context['error'] = {'name_error': 'Do not use special characters'}
