@@ -47,7 +47,7 @@ class ProfileImageNode(Node):
         filename = profile.image.name
             
             
-        return """<img src="%s/profile_images/%s"/>""" % (settings.DATA_URL, filename.split('/')[-1])
+        return """<img src="%sprofile_images/%s"/>""" % (settings.DATA_URL, filename.split('/')[-1])
 
 @register.tag
 def profile_image(parser, token):

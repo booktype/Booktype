@@ -15,16 +15,13 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import random
-
-from django.conf import settings
-
-from django import template
-
 from itertools import chain
 
-from booki.messaging.models import Post, PostAppearance, Endpoint, Following
+from django import template
+from django.conf import settings
 from django.contrib.auth import models as auth_models
 
+from booki.messaging.models import Post, PostAppearance, Endpoint, Following
 from booki.messaging.views import get_endpoint_or_none
 
 register = template.Library()
@@ -113,19 +110,21 @@ def messagefield_button(context):
 
 ### stalking:
 
-@register.inclusion_tag("messaging/followingbox.html")
-def user_followingbox(username):
+@register.simple_tag
+def user_followingbox(username, template_name="messaging/followingbox.html"):
     user = get_endpoint_or_none(syntax="@"+username)
     followings = Following.objects.filter(follower=user)
     target_users = (following.target.syntax[1:] for following in followings if following.target.syntax.startswith("@"))
-    return dict(target_users=target_users)
+    t = template.loader.get_template(template_name)
+    return t.render(template.Context(dict(target_users=target_users)))
 
-@register.inclusion_tag("messaging/followersbox.html")
-def user_followersbox(username):
+@register.simple_tag
+def user_followersbox(username, template_name="messaging/followersbox.html"):
     endpoint = get_endpoint_or_none(syntax="@"+username)
     followings = Following.objects.filter(target=endpoint)
     followers = (following.follower.syntax[1:] for following in followings)
-    return dict(followers=followers)
+    t = template.loader.get_template(template_name)
+    return t.render(template.Context(dict(followers=followers)))
 
 @register.inclusion_tag("messaging/tags.html")
 def user_tagbox(username):

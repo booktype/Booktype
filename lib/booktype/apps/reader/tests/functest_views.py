@@ -1,9 +1,9 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from .factory_models import UserFactory, BookFactory, BookVersionFactory
-from .factory_models import ChapterFactory, BookTocFactory
-from .factory_models import PLAIN_USER_PASSWORD
+from booktype.apps.core.tests.factory_models import UserFactory, BookFactory, BookVersionFactory
+from booktype.apps.core.tests.factory_models import ChapterFactory, BookTocFactory
+from booktype.apps.core.tests.factory_models import PLAIN_USER_PASSWORD
 
 class ReaderBaseTestCase(TestCase):
     """

@@ -1,0 +1,69 @@
+{% load i18n %}
+
+<div class="modal fade" id="createBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog new_book">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h2 class="modal-title" id="myModalLabel">{% trans "Create New Book" %}</h2>
+        </div>
+        <div class="modal-body">
+            <section id="basic">
+                <form method="post" action="{% url 'accounts:create_book' current_user.username %}" target="hidden_frame" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div id="wizard-1">
+
+                        <h3>{% trans "Title" %}</h3>
+                        <section>
+                            <p class="wizard_desc">{% trans "What is the title of your book?" %}</p>
+                            <label for="title">{% trans "Title of Book" %}</label> <input class="form-control" maxlength="200" name="title" type="text">
+                            <div class="bookexists alert alert-danger" style="display: none;">
+                                {% trans "There is already a book with this name." %}
+                            </div>
+                        </section>                        
+
+                        <h3>{% trans "Description" %}</h3>
+                        <section>
+                            <p class="wizard_desc">{% trans "Give some information so others can find it to help you (this can be added or changed later)." %}</p>
+                            <label for="description">{% trans "Description" %}</label>
+                            <textarea class="form-control" name="description" cols="40" rows="7"></textarea>
+
+                        </section>
+
+                        <h3>{% trans "Choose license" %}</h3>
+                        <section>
+                            <p class="wizard_desc">{% trans "Choose from the following license" %}</p>
+                            <label for="hidden">{% trans "License" %}</label>
+                            <select id="id_license" name="license">
+                                {% for license in licenses %}
+                                <option value="{{license.abbrevation}}" {% if book_license == license.abbrevation %}selected="selected"{% endif %}>{{license.name}}</option>
+                                {% endfor %}
+                            </select>
+                            
+                        </section>
+
+                        <h3>{% trans "Image" %}</h3>
+                        <section>
+                            <p class="wizard_desc">{% trans "If you have an image for the book then add it now (this can be added or changed later)" %}</p>
+                            <label for="hidden">{% trans "Book Image" %}</label>
+                            <input type="file" name="cover" size="40">
+                        </section>
+
+                        <h3>{% trans "Make Public?"%}</h3>
+                        <section>
+                            <p class="wizard_desc">{% trans "Would you like to keep your book private or make it public? If the book is public others can find the book to help you." %}
+                            <b>{% trans "Note" %}:</b> {% trans "this setting can be changed later from your dashboard." %}
+                            </p>
+
+                            <label for="hidden">{% trans "Initially hide from others" %}</label> <input checked="checked" name="hidden" type="checkbox" >
+                        </section>
+                    </div>
+                </form>
+
+                <iframe name="hidden_frame" style="display:none;"></iframe>
+            </section>
+        </div>
+    </div>
+  </div>
+</div>

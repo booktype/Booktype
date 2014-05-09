@@ -1,0 +1,169 @@
+{% extends "core/base.html" %}
+{% load i18n staticfiles profile reader_tags messaging_tags %}
+
+{% block extra_header %}
+<script type="text/javascript" src="{% static 'core/js/jquery.steps.min.js' %}"></script>
+<script type="text/javascript">
+    var createBookUrl = "{% url 'accounts:create_book' current_user.username %}";
+</script>
+<script type="text/javascript" src="{% static 'accounts/js/dashboard.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row two-col">
+        <div class="col-xs-8">
+            {% if current_user != request.user %}
+            <div class="box profile-box purple">
+                <figure><img src="http://lorempixel.com/240/240/people/"></figure>
+                <div class="list-info">
+                    <h2 class="box-title">{{ current_user.get_full_name }}</h2>
+                    <a href="#">{{ current_user.username }}</a>
+
+                    <p>{{ current_user.get_profile.description|escape }}</p>
+                    <p>
+                        {% user_followingbox user.username "accounts/dashboard_following.html" %}<br>
+                        {% user_followersbox user.username "accounts/dashboard_followers.html" %}
+                    </p>
+                    <p><a href="#">{% trans "Follow my changes" %}</a> <img src="{% static 'core/img/rss.png' %}"></p>
+                </div>
+
+                <div class="box-bottom-white">
+                    <button href="#" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Follow me' %}">{% trans "FOLLOW ME" %}</button>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="box gray">
+                <h2 class="box-title-alter">
+                    {% if current_user == request.user %}
+                        {% trans "My Books" %}
+                    {% else %}
+                        {% trans "Books" %}
+                    {% endif %}
+
+                    <div class="btn-toolbar float-right">
+                        {% if current_user == request.user %}
+                        <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Create new book' as create_text %} {{ create_text }}">{{ create_text|upper }}</button>
+                        {% endif %}
+                        
+                        <div class="btn-group float-right">
+                            <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show grid' %}"><i class="icon-th"></i></button>
+                            <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show List' %}"><i class="icon-list-ul"></i></button>
+                        </div>
+
+                        {% include "accounts/dashboard_create_book_modal.html" %}
+
+                    </div>
+
+                </h2>
+
+                <div class="book-thumb" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
+                    {% for book in books %}
+                    {% include "accounts/dashboard_book_template.html" %}
+                    {% endfor %}
+                </div> <!-- End of book list (book-thumb or book-list) -->
+                
+                {% if books_collaborating %}
+                <h4>{% trans "Participating Books" %}</h4>                
+
+                <div class="book-thumb" id="books-prew-2"> <!-- For list view add white-list class, and remove book-thumb -->
+                    {% for book in books_collaborating %}
+                    {% include "accounts/dashboard_book_template.html" %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+            </div>
+
+            {% if groups and current_user == request.user %}
+            <div class="box white">
+                <h2 class="box-title">{% trans "My Groups" %}</h2>
+                <ul class="list">
+                    {% for group in groups %}
+                    {% include "accounts/dashboard_group_template.html" %}
+                    {% endfor %}
+                </ul>
+                <div class="box-bottom-gray">
+                    <button href="#" role="button" class="btn btn-default" rel="tooltip" title="" data-placement="bottom" data-original-title="Create new group">{% trans "Create New Group" as create_group %} {{ create_group|upper }}</button>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-xs-4">
+            {% if current_user == request.user %}
+            <div class="box gray">
+                <h2 class="box-title">{% trans "My Profile" %}</h2>
+                <ul class="list-people list user-avatar">
+                    <li>
+                        <figure>{% profile_image user %}</figure>
+                        <div class="people-info">
+                            <h4><a href=".">{{ current_user.username }}</a></h4>
+                            <span>{{ current_user.get_full_name }}</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <p>{{ current_user.get_profile.description|escape }}</p>
+                <p><a href="#">{% trans "Follow my changes" %}</a> <img src="{% static 'core/img/rss.png' %}"></p>
+
+                <div class="content-divider"></div>
+
+                <p>
+                    {% user_followingbox user.username "accounts/dashboard_following.html" %}<br>
+                    {% user_followersbox user.username "accounts/dashboard_followers.html" %}
+                </p>
+
+                <div class="box-bottom-white">
+                    <button href="#" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="Go to settings">{% trans "Settings" as set_text %} {{ set_text|upper }}</button>
+                    <button data-href="{% url 'signout' %}" role="button" class="btn btn-success float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="Log out">{% trans "Log out" as log_text %} {{ log_text|upper }}</button>
+
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="box white">
+                {% if current_user == request.user %}
+                <h2 class="box-title">{% trans "My Recent Activity" %}</h2>
+                {% else %}
+                <h2 class="box-title">{% trans "Recent Activity" %}</h2>
+                {% endif %}
+                <ul class="list border-top">
+                    {% for base_activ in recent_activity %}
+                    {% verbose_activity base_activ as activity %}
+                    <li>
+                        <figure><img src="{{ activity.image_url }}"></figure>
+                        <div class="list-info">
+                          <span class="time">{{ base_activ.modified|timesince }} {% trans "ago" %}</span>
+                          <h4><a href="{% url 'view_profile' base_activ.user %}">{{ base_activ.user }}</a></h4>
+                          <p>
+                            {{ activity.verbose }}
+                            {% if activity.link_url %}
+                                <a href="{{ activity.link_url }}">{{ activity.link_text }}</a>.
+                            {% endif %}
+
+                            <span>#{{ base_activ.book.url_title }}</span>
+                          </p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% if current_user != request.user %}
+            <div class="box white">
+                <h2 class="box-title">{% trans "Groups" %}</h2>                
+                <ul class="list">
+                    {% for group in groups %}
+                    {% include "accounts/dashboard_group_template.html" %}
+                    {% empty %}
+                    <p>{% trans "This user has no groups" %}</p>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div> <!-- End of container -->
+{% endblock %}

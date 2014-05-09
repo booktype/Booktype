@@ -16,11 +16,14 @@
 
 from django.conf.urls import patterns, url, include
 
-from .views import RegisterPageView
+from .views import RegisterPageView, DashboardPageView
+from .views import CreateBookView
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = patterns('',
     url(r'^signin/$', 'booki.account.views.signin', name='signin'),
     url(r'^register/$', RegisterPageView.as_view(), name='register'),
+
+    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/$', DashboardPageView.as_view(), name='view_profile'),
+    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/_create_book/$', CreateBookView.as_view(), name='create_book'),
 )
