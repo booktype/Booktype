@@ -11,7 +11,7 @@
     	<div class="row two-col">
     		<div class="col-xs-8">
     			<div class="box profile-box black">
-					 <figure><img src="{% static "core/img/groups-big.png" %}"></figure>
+					 <figure><img src="{{ userGroup.group_image }}" /></figure>
 					 <div class="list-info">
                         <h2 class="box-title">{{ userGroup.name }}</h2>
                             <p>{{ userGroup.description }}</p>

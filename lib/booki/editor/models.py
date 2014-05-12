@@ -21,7 +21,9 @@ from django.contrib.auth import models as auth_models
 import booki.editor.signals
 
 from django.conf import settings
+
 import datetime
+import os
 
 # License
 
@@ -102,6 +104,29 @@ class BookiGroup(models.Model):
 
     def get_absolute_url(self):
         return '%s/groups/%s/' % (settings.BOOKI_URL, self.url_name)
+
+    try:
+        GROUP_IMAGE_UPLOAD_DIR = settings.GROUP_IMAGE_UPLOAD_DIR
+    except AttributeError:
+        GROUP_IMAGE_UPLOAD_DIR = 'group_images/'
+
+    def get_big_group_image(self):
+        group_image_path = '%s/%s' % (settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
+        if(os.path.isfile(('%s/%s.jpg') % (group_image_path, self.pk)) is False):
+            group_image = '%score/img/groups-big.png' % settings.STATIC_URL
+        else:
+            group_image = '%s%s%s.jpg' % (settings.MEDIA_URL, self.GROUP_IMAGE_UPLOAD_DIR, self.pk)
+
+        return group_image
+
+    def get_group_image(self):
+        group_image_path = '%s/%s' % (settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
+        if(os.path.isfile(('%s/%s_small.jpg') % (group_image_path, self.pk)) is False):
+            group_image = '%score/img/groups.png' % settings.STATIC_URL
+        else:
+            group_image = '%s%s%s_small.jpg' % (settings.MEDIA_URL, self.GROUP_IMAGE_UPLOAD_DIR, self.pk)
+
+        return group_image
 
     def __unicode__(self):
         return self.name
