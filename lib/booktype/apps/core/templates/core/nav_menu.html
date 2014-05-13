@@ -1,13 +1,12 @@
 {% load i18n %}
 
-<!-- TODO: Put real links -->
 <!-- Main menu left -->
 <div class="sf-main-menu">
   <div class="sf-menu-header-bar"></div>
   <div class="sf-menu-content">
     <ul>
       <li class="active">
-        <a href="#">{% trans "Home" %}</a>
+        <a href='{% url "portal:frontpage" %}'>{% trans "Home" %}</a>
       </li>
       <li>
         <a href="#">{% trans "My Dashboard" %}</a>

@@ -80,12 +80,12 @@
                             <li>
                                 <figure><img src="{% static "core/img/groups.png" %}"></figure>
                                 <div class="list-info">
-                                    {% if request.user.is_authenticated %}
-                                        {% if request.user in group.members.all %}
+                                    {% if request.user.is_authenticated %} 
+                                        {% if request.user in group.members.all %} 
                                             <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-success float-right btn-xs leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
                                         {% else %}
                                             <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-default float-right btn-xs join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
-                                        {% endif %} 
+                                        {% endif %}                                        
                                     {% endif %}
                                     <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
                                     <span>{% trans "Members" %}: {{ group.num_members }}  {% trans "Books" %}: {{ group.num_books }}</span>
