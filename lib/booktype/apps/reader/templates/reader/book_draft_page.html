@@ -50,7 +50,11 @@
                 {% endif %}
                 
                 <h1>{{ content.title }}</h1>
+                {% if content %}
                 {% booki_format content %}
+                {% else %}
+                {% trans "No content yet." %}
+                {% endif %}
             </div>
         </div>
     </div>
