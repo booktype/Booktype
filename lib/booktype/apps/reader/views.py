@@ -16,12 +16,11 @@
 
 import os
 
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseForbidden
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.views.generic import DetailView, DeleteView, UpdateView
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.decorators import login_required
 
 from braces.views import LoginRequiredMixin
 
