@@ -1,0 +1,11 @@
+<html>
+<body>
+
+<script>
+{% if book %}
+  parent.window.location = '{% url "reader:infopage" book.url_title %}';
+{% endif %}
+</script>
+
+</body>
+</html>

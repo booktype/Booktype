@@ -1,3 +1,19 @@
+# This file is part of Booktype.
+# Copyright (c) 2014 Helmy Giacoman <helmy.giacoman@sourcefabric.org>
+#
+# Booktype is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Booktype is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+
 import factory
 
 from django.contrib.auth.models import User
@@ -5,7 +21,9 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.webdesign.lorem_ipsum import paragraphs
 
 from booki.editor.models import Book, BookVersion, Chapter
-from booki.editor.models import BookStatus, BookToc
+from booki.editor.models import BookStatus, BookToc, BookHistory
+
+from booki.account.models import UserProfile
 
 PLAIN_USER_PASSWORD = 'top_secret'
 
@@ -15,6 +33,12 @@ class UserFactory(factory.DjangoModelFactory):
     username = factory.Sequence(lambda n: 'user%d' % n)
     email = factory.LazyAttribute(lambda obj: '%s@test.sourcefabric.org' % obj.username)
     password = make_password(PLAIN_USER_PASSWORD)
+
+class UserProfileFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = UserProfile
+
+    description = 'description'
+    user = factory.SubFactory(UserFactory, profile=None)
 
 class BookFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Book
@@ -73,3 +97,9 @@ class BookTocFactory(factory.DjangoModelFactory):
             weight = 1,
             typeof = 1
         )
+
+class BookHistoryFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = BookHistory
+
+    book = factory.SubFactory(BookFactory)
+    user = factory.SubFactory(UserFactory)

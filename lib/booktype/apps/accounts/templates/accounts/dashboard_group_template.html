@@ -1,0 +1,15 @@
+{% load i18n staticfiles %}
+<li>
+    <figure><img src="{% static 'core/img/groups.png' %}"></figure>
+    <div class="list-info">
+        <h4>
+            <a href="{% url "portal:group" group.url_name %}">
+                {{ group.name }}
+            </a> - {{ group.description }}
+        </h4>
+        <span>
+            {% trans "Members" %}: {{ group.members.count }}  
+            {% trans "Books" %}: {{ group.book_set.count }}
+        </span>
+    </div>
+</li>

@@ -1,0 +1,6 @@
+{% load i18n %}
+{% for user in followers %}
+{% trans "Followers:" %} <a href="{% url "view_profile" username=user %}">@{{ user }}</a>
+{% empty %}
+{% trans "No followers." %}
+{% endfor %}
