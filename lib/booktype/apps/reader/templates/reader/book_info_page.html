@@ -1,6 +1,10 @@
 {% extends "core/base.html" %}
 {% load i18n staticfiles profile reader_tags %}
 
+{% block extra_header %}
+<script type="text/javascript" src="{% static 'reader/js/infopage.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="row two-col">
