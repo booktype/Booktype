@@ -134,12 +134,18 @@ class GroupSettingsPageView(PageView):
                 new_name = form['name'].value()
                 new_url_name = bookiSlugify(new_name)
 
+                group = BookiGroup.objects.get(url_name=groupid)
+                group_data_url_name = BookiGroup.objects.filter(url_name=new_url_name).exclude(pk=group.pk)
+
+                if (len(group_data_url_name) > 0):
+                    context['error'] = {'name_error': _('Group name already used')}
+                    context['selectedGroup'] = {'name': new_name, 'description': new_desc}
+                    return render(request, self.template_name, context)
+
                 if(len(new_url_name) == 0):
                     context['error'] = {'name_error': 'Do not use special characters'}
                     context['selectedGroup'] = {'description': new_desc}
                     return render(request, self.template_name, context)
-
-                group = BookiGroup.objects.get(url_name=groupid)
 
                 try:
                     file_name = misc.set_group_image(str(group.pk), request.FILES['profile'], 240, 240)
@@ -157,7 +163,7 @@ class GroupSettingsPageView(PageView):
                 group.description = new_desc
                 group.save()
         else:
-            context['error'] = {'name_error': 'Name should not be empty'}
+            context['error'] = {'name_error': unicode(_('Name should not be empty'))}
             context['selectedGroup'] = {'description': new_desc}
             return render(request, self.template_name, context)
 
@@ -203,4 +209,4 @@ class BooksPageView(PageView):
         context['published_books'] = Book.objects.filter(hidden=False, bookstatus=0).order_by('-created')[:2]
 
         context['latest_activity'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
-        return context        
+        return context
