@@ -143,7 +143,7 @@ class GroupSettingsPageView(PageView):
                     return render(request, self.template_name, context)
 
                 if(len(new_url_name) == 0):
-                    context['error'] = {'name_error': 'Do not use special characters'}
+                    context['error'] = {'name_error': _('Do not use special characters')}
                     context['selectedGroup'] = {'description': new_desc}
                     return render(request, self.template_name, context)
 
@@ -163,7 +163,7 @@ class GroupSettingsPageView(PageView):
                 group.description = new_desc
                 group.save()
         else:
-            context['error'] = {'name_error': unicode(_('Name should not be empty'))}
+            context['error'] = {'name_error': _('Name should not be empty')}
             context['selectedGroup'] = {'description': new_desc}
             return render(request, self.template_name, context)
 
