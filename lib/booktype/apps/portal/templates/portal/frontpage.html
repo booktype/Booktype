@@ -24,7 +24,7 @@
                     </h2>
 
                         <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
-                            {% for book in booksList %}
+                            {% for book in books_list %}
                                 <div class="grid-2">
                                     <figure class="custom-cover">
                                         {% if book.cover %}
@@ -63,7 +63,7 @@
                         <a class="view_all show_people" href="{% url "portal:list_people" %}">{% trans "view all" %}</a>
                     </h2>
                     <ul class="list-people list user-avatar">
-                        {% for user in userList %}
+                        {% for user in user_list %}
                             <li>
                                <figure>{% profile_image user %}</figure>
                                 <div class="people-info gray">
@@ -87,7 +87,7 @@
                     </h2>
 
                     <ul class="list">
-                          {% for group in groupList %}
+                          {% for group in group_list %}
                             <li>
                                 <figure><img src="{{ group.small_group_image }}" /></figure>
                                 <div class="list-info">
@@ -131,7 +131,7 @@
                     <h2 class="box-title">{% trans "Recent Activity" %}</h2>
                     <ul class="list border-top user-avatar circle">
 
-                        {% for activity in recentActivities %}
+                        {% for activity in recent_activities %}
                             <li>
                                 <figure><img src="{% url "view_profilethumbnail" activity.user %}?width=48" alt="{{ activity.user }}"></figure>
                                 <div class="list-info">

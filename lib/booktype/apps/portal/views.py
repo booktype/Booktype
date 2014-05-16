@@ -25,13 +25,13 @@ class FrontPageView(PageView):
     def get_context_data(self, **kwargs):
         context = super(FrontPageView, self).get_context_data(**kwargs)
 
-        context['booksList'] = Book.objects.filter(hidden=False).order_by('-created')[:4]
-        context['userList'] = User.objects.all().order_by('-date_joined')[:2]
-        bookiGroup5 = BookiGroup.objects.all().order_by('-created')[:5]
+        context['books_list'] = Book.objects.filter(hidden=False).order_by('-created')[:4]
+        context['user_list'] = User.objects.all().order_by('-date_joined')[:2]
+        booki_group5 = BookiGroup.objects.all().order_by('-created')[:5]
 
-        context['groupList'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'num_members': g.members.count(), 'num_books': g.book_set.count(), 'small_group_image': g.get_group_image} for g in bookiGroup5]
+        context['group_list'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'num_members': g.members.count(), 'num_books': g.book_set.count(), 'small_group_image': g.get_group_image} for g in booki_group5]
 
-        context['recentActivities'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
+        context['recent_activities'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
 
         return context
 
@@ -43,7 +43,7 @@ class GroupPageView(PageView):
 
     def post(self, request, groupid):
         group = BookiGroup.objects.get(url_name=groupid)
-        if(request.user.is_authenticated()):
+        if request.user.is_authenticated():
             if(request.POST["task"] == "join-group"):
                 group.members.add(request.user)
             else:
@@ -52,19 +52,21 @@ class GroupPageView(PageView):
 
     def get_context_data(self, **kwargs):
         context = super(GroupPageView, self).get_context_data(**kwargs)
-        selectedGroup = BookiGroup.objects.get(url_name=context['groupid'])
+        selected_group = BookiGroup.objects.get(url_name=context['groupid'])
 
-        context['userGroup'] = {'url_name': selectedGroup.url_name, 'name': selectedGroup.name,
-                                'description': selectedGroup.description, 'num_members': selectedGroup.members.count(),
-                                'num_books': selectedGroup.book_set.count(), 'group_image': selectedGroup.get_big_group_image}
+        context['user_group'] = {
+            'url_name': selected_group.url_name, 'name': selected_group.name,
+            'description': selected_group.description, 'num_members': selected_group.members.count(),
+            'num_books': selected_group.book_set.count(), 'group_image': selected_group.get_big_group_image
+        }
 
-        context['groupMembers'] = selectedGroup.members.all()
-        context['userBooks'] = Book.objects.filter(group=selectedGroup, hidden=False)
-        context['booksList'] = context['userBooks'].order_by('-created')[:4]
-        if(self.request.user.is_authenticated()):
-            context['amIAMember'] = BookiGroup.objects.filter(members=self.request.user, url_name=context['groupid']).count()
+        context['group_members'] = selected_group.members.all()
+        context['user_books'] = Book.objects.filter(group=selected_group, hidden=False)
+        context['books_list'] = context['user_books'].order_by('-created')[:4]
+        if self.request.user.is_authenticated():
+            context['am_I_a_member'] = BookiGroup.objects.filter(members=self.request.user, url_name=context['groupid']).count()
         else:
-            context['amIAMember'] = 0
+            context['am_I_a_member'] = 0
         return context
 
 
@@ -75,8 +77,8 @@ class AllGroupsPageView(PageView):
 
     def post(self, request, groupid):
         group = BookiGroup.objects.get(url_name=groupid)
-        if(request.user.is_authenticated()):
-            if(request.POST["task"] == "join-group"):
+        if request.user.is_authenticated():
+            if request.POST["task"] == "join-group":
                 group.members.add(request.user)
             else:
                 group.members.remove(request.user)
@@ -85,32 +87,32 @@ class AllGroupsPageView(PageView):
     def get_context_data(self, **kwargs):
         context = super(AllGroupsPageView, self).get_context_data(**kwargs)
 
-        bookGroupSizes = Book.objects.filter(group__url_name__isnull=False).values('group__url_name').annotate(models.Count('id'))
-        bookiGroupsList = BookiGroup.objects.all()
+        book_group_sizes = Book.objects.filter(group__url_name__isnull=False).values('group__url_name').annotate(models.Count('id'))
+        booki_groups_list = BookiGroup.objects.all()
 
         lista = []
-        for i in bookiGroupsList:
+        for i in booki_groups_list:
             num_books = 0
-            book_count = filter(lambda x: x['group__url_name'] == i.url_name, bookGroupSizes)
+            book_count = filter(lambda x: x['group__url_name'] == i.url_name, book_group_sizes)
             if len(book_count) > 0:
                 num_books = book_count[0]['id__count']
             lista.append({'url_name': i.url_name, 'name': i.name, 'description': i.description, 'members': i.members, 'num_books': num_books, 'small_group_image': i.get_group_image})
-        context['allGroups'] = lista
+        context['all_groups'] = lista
 
-        cutoffDate = datetime.datetime.today() - datetime.timedelta(days=30)
-        bookHistoryActivity = BookHistory.objects.filter(modified__gte=cutoffDate).filter(book__group__isnull=False)
+        cut_off_date = datetime.datetime.today() - datetime.timedelta(days=30)
+        book_history_activity = BookHistory.objects.filter(modified__gte=cut_off_date).filter(book__group__isnull=False)
         lista = []
-        for i in bookHistoryActivity:
+        for i in book_history_activity:
             num_books = 0
-            book_count = filter(lambda x: x['group__url_name'] == i.book.group.url_name, bookGroupSizes)
+            book_count = filter(lambda x: x['group__url_name'] == i.book.group.url_name, book_group_sizes)
             if len(book_count) > 0:
                 num_books = book_count[0]['id__count']
             if len(filter(lambda x: x['url_name'] == i.book.group.url_name, lista)) == 0:
                 lista.append({'url_name': i.book.group.url_name, 'name': i.book.group.name, 'description': i.book.group.description, 'members': i.book.group.members, 'num_books': num_books, 'small_group_image': i.book.group.get_group_image})
-        context['activeGroups'] = lista
+        context['active_groups'] = lista
 
-        bookiGroup4 = BookiGroup.objects.all().order_by('-created')[:4]
-        context['newGroups'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'members': g.members, 'num_members': g.members.count(), 'num_books': g.book_set.count(), 'small_group_image': g.get_group_image} for g in bookiGroup4]
+        booki_group4 = BookiGroup.objects.all().order_by('-created')[:4]
+        context['new_groups'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'members': g.members, 'num_members': g.members.count(), 'num_books': g.book_set.count(), 'small_group_image': g.get_group_image} for g in booki_group4]
 
         return context
 
@@ -130,28 +132,28 @@ class GroupSettingsPageView(PageView):
         new_desc = escape(form['description'].value())[:250]  # 250 characters
 
         if form.is_valid():
-            if(request.user.is_authenticated()):
+            if request.user.is_authenticated():
                 new_name = form['name'].value()
                 new_url_name = bookiSlugify(new_name)
 
                 group = BookiGroup.objects.get(url_name=groupid)
                 group_data_url_name = BookiGroup.objects.filter(url_name=new_url_name).exclude(pk=group.pk)
 
-                if (len(group_data_url_name) > 0):
+                if len(group_data_url_name) > 0:
                     context['error'] = {'name_error': _('Group name already used')}
-                    context['selectedGroup'] = {'name': new_name, 'description': new_desc}
+                    context['selected_group'] = {'name': new_name, 'description': new_desc}
                     return render(request, self.template_name, context)
 
-                if(len(new_url_name) == 0):
+                if len(new_url_name) == 0:
                     context['error'] = {'name_error': _('Do not use special characters')}
-                    context['selectedGroup'] = {'description': new_desc}
+                    context['selected_group'] = {'description': new_desc}
                     return render(request, self.template_name, context)
 
                 try:
                     file_name = misc.set_group_image(str(group.pk), request.FILES['profile'], 240, 240)
-                    if(len(file_name) == 0):
+                    if len(file_name) == 0:
                         context['error'] = {'image_error': _('Only JPEG file is allowed for group image.')}
-                        context['selectedGroup'] = {'name': new_name, 'description': new_desc}
+                        context['selected_group'] = {'name': new_name, 'description': new_desc}
                         return render(request, self.template_name, context)
                     else:
                         misc.set_group_image(str(group.pk) + "_small", request.FILES['profile'], 18, 18)
@@ -164,14 +166,14 @@ class GroupSettingsPageView(PageView):
                 group.save()
         else:
             context['error'] = {'name_error': _('Name should not be empty')}
-            context['selectedGroup'] = {'description': new_desc}
+            context['selected_group'] = {'description': new_desc}
             return render(request, self.template_name, context)
 
         return HttpResponseRedirect(reverse('portal:group', args=[new_url_name]))
 
     def get_context_data(self, **kwargs):
         context = super(GroupSettingsPageView, self).get_context_data(**kwargs)
-        context['selectedGroup'] = BookiGroup.objects.get(url_name=kwargs['groupid'])
+        context['selected_group'] = BookiGroup.objects.get(url_name=kwargs['groupid'])
 
         return context
 
