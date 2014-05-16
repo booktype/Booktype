@@ -22,6 +22,7 @@ from django.contrib.webdesign.lorem_ipsum import paragraphs
 
 from booki.editor.models import Book, BookVersion, Chapter
 from booki.editor.models import BookStatus, BookToc, BookHistory
+from booki.editor.models import BookiGroup
 
 from booki.account.models import UserProfile
 
@@ -40,12 +41,30 @@ class UserProfileFactory(factory.DjangoModelFactory):
     description = 'description'
     user = factory.SubFactory(UserFactory, profile=None)
 
+class BookGroupFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = BookiGroup
+
+    name = factory.Sequence(lambda n: 'group name %d' % n)
+    url_name = factory.Sequence(lambda n: 'url-group-name-%d' % n)
+    description = 'booki group description'
+    owner = factory.SubFactory(UserFactory)
+
+    @factory.post_generation
+    def members(self, create, extracted, **kwargs):
+        if not create:
+            return
+
+        if extracted:
+            for member in extracted:
+                self.members.add(member)
+
 class BookFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Book
 
     url_title = factory.Sequence(lambda n: 'first-book-test-bla-foo-%d' % n)
     title = factory.Sequence(lambda n: 'First Book Test Bla Foo %d' % n)
     owner = factory.SubFactory(UserFactory)
+    group = factory.SubFactory(BookGroupFactory)
 
 class BookStatusFactory(factory.DjangoModelFactory):
     FACTORY_FOR = BookStatus

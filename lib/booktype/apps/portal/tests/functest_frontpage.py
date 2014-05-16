@@ -17,10 +17,10 @@ class FrontpageTest(TestCase):
         self.dispatcher = reverse('portal:frontpage')
         self.user = UserFactory()
 
-# setup for groups
+        # setup for groups
         bookiGroup = BookiGroupFactory(members=(0, 1))
 
-# setup for books
+        # setup for books
         book = BookFactory()
 
     def tearDown(self):
@@ -49,7 +49,7 @@ class FrontpageTest(TestCase):
         self.assertContains(response, 'group name')
         self.assertContains(response, 'url_group_name')
         self.assertContains(response, 'booki group description')
-        self.assertContains(response, 'Members: 2')
+        self.assertContains(response, 'Members: 1')
         self.assertContains(response, 'Books: ')
 
 
