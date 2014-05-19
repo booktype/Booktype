@@ -11,23 +11,23 @@
     	<div class="row two-col">
     		<div class="col-xs-8">
     			<div class="box profile-box black">
-					 <figure><img src="{% static "core/img/groups-big.png" %}"></figure>
+					 <figure><img src="{{ user_group.group_image }}" /></figure>
 					 <div class="list-info">
-                        <h2 class="box-title">{{ userGroup.name }}</h2>
-                            <p>{{ userGroup.description }}</p>
+                        <h2 class="box-title">{{ user_group.name }}</h2>
+                            <p>{{ user_group.description }}</p>
 	    			        <p>
-                                {% trans "Members" %}: {{ userGroup.num_members }}  <br>
-							     {% trans "Books" %}: {{ userGroup.num_books }}
+                                {% trans "Members" %}: {{ user_group.num_members }}  <br>
+							     {% trans "Books" %}: {{ user_group.num_books }}
 	    			        </p>
     			     </div>
 
     			     <div class="box-bottom-white">
                         {% if request.user.is_authenticated %}
-                            {% if amIAMember == 0 %} 
-                                <button group-name-url="{% url "portal:group" userGroup.url_name %}" role="button" class="btn btn-default float-left join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
+                            {% if am_I_a_member == 0 %} 
+                                <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-default float-left join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
                             {% else %}
-                                <button group-name-url="{% url "portal:group" userGroup.url_name %}" role="button" class="btn btn-success float-left leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
-                                <button data-href="{% url "portal:group_settings" userGroup.url_name %}" role="button" class="btn btn-default float-right group-settings-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Group settings" %}">{% trans "GROUP SETTINGS" %}</button>              
+                                <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-success float-left leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
+                                <button data-href="{% url "portal:group_settings" user_group.url_name %}" role="button" class="btn btn-default float-right group-settings-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Group settings" %}">{% trans "GROUP SETTINGS" %}</button>              
                             {% endif %}
                         {% endif %}
     			     </div>
@@ -45,7 +45,7 @@
     				            </div>
                     </h2>
                     <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
-                        {% for book in booksList %}              
+                        {% for book in books_list %}              
                             <div class="grid-4">
                                 <figure class="custom-cover">
                                     {% if book.cover %}
@@ -93,7 +93,7 @@
                 <div class="box white">
                     <h2 class="box-title">{% trans "Members" %}</h2>
                     <ul class="list border-top user-avatar circle">
-                        {% for member in groupMembers %}
+                        {% for member in group_members %}
                             <li>
                                 <figure>{% profile_image member  %}</figure>
                                 <div class="list-info">

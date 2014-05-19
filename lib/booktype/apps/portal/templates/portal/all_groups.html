@@ -16,9 +16,9 @@
     			</h2>
 
                 <ul class="list border-top">
-                    {% for group in allGroups %}
+                    {% for group in all_groups %}
                         <li>
-                            <figure><img src="{% static "core/img/groups.png" %}"></figure>
+                            <figure><img src="{{ group.small_group_image }}" /></figure>
                                 <div class="list-info">
                                     {% if request.user.is_authenticated %} 
                                         {% if request.user in group.members.all %} 
@@ -61,12 +61,12 @@
     		<div class="box white">
     			<h2 class="box-title">{% trans "Active groups" %}</h2>
     			<ul class="list border-top">
-                    {% for activeGroup in activeGroups %}
+                    {% for active_group in active_groups %}
                         <li>
-                            <figure><img src="{% static "core/img/groups.png" %}"></figure>
+                            <figure><img src="{{ active_group.small_group_image }}" /></figure>
                             <div class="list-info">
-                                <h4><a href="{% url "portal:group" activeGroup.url_name %}">{{ activeGroup.name }}</a> - {{ activeGroup.description }}</h4>
-                                <span>{% trans "Members" %}: {{ activeGroup.members.all.count }}  {% trans "Books" %}: {{ activeGroup.num_books }}</span>
+                                <h4><a href="{% url "portal:group" active_group.url_name %}">{{ active_group.name }}</a> - {{ active_group.description }}</h4>
+                                <span>{% trans "Members" %}: {{ active_group.members.all.count }}  {% trans "Books" %}: {{ active_group.num_books }}</span>
                             </div>
                         </li>
                         {% endfor %}
@@ -76,9 +76,9 @@
     			<div class="box white">
     				<h2 class="box-title">{% trans "New groups" %}</h2>
     				<ul class="list border-top">
-                        {% for group in newGroups %}
+                        {% for group in new_groups %}
                             <li>
-                                <figure><img src="{% static "core/img/groups.png" %}"></figure>
+                                <figure><img src="{{ group.small_group_image }}" /></figure>
                                 <div class="list-info">
                                     {% if request.user.is_authenticated %} 
                                         {% if request.user in group.members.all %} 

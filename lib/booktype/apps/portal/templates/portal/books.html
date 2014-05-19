@@ -6,12 +6,14 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container front-page">
-        <div class="row three-col">
-            <div class="books-widget col-xs-4">
-                <div class="box white">
-                    <h2 class="box-title">
+
+    <div class="container">
+        <div class="row two-col">
+            <div class="books-widget col-xs-8">
+                <div class="box gray">
+                    <h2 class="box-title-alter">
                         {% trans "Books" %}
+
                         <div class="btn-toolbar float-right">
                             
                             <div class="btn-group float-right">
@@ -25,7 +27,7 @@
 
                         <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
                             {% for book in books_list %}
-                                <div class="grid-2">
+                                <div class="grid-4">
                                     <figure class="custom-cover">
                                         {% if book.cover %}
                                             <img src="{% url "book_info" book.url_title %}cover.jpg" />
@@ -47,66 +49,12 @@
                             {% endfor %}
                         </div> <!-- End of book list (book-thumb or book-list) -->
 
-                    {% if request.user.is_authenticated %}
-                        <div class="box-bottom-gray">
-                            <button data-href="{% url "view_profile" request.user.username %}" role="button" class="btn btn-default float-left create-book" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create book" %}">{% trans "CREATE BOOK" %}</button>
-                        </div>
-                    {% endif %}
-
                 </div>
-            </div> <!-- End of col-xs-4 -->
+
+            </div>
 
             <div class="col-xs-4">
-                <div class="people-widget box white">
-                    <h2 class="box-title">
-                        {% trans "People" %}
-                        <a class="view_all show_people" href="{% url "portal:list_people" %}">{% trans "view all" %}</a>
-                    </h2>
-                    <ul class="list-people list user-avatar">
-                        {% for user in user_list %}
-                            <li>
-                               <figure>{% profile_image user %}</figure>
-                                <div class="people-info gray">
-                                    <h4><a href="{% url "view_profile" user.username %}">{{ user.username }}</a></h4>
-                                    <span>{{ user.first_name }}</span>
-                                </div> 
-                            </li>
-                        {% endfor %}
-                    </ul>  
-                    {% if request.user.is_authenticated %}
-                        <div class="box-bottom-gray">
-                            <button data-href="{% url "accounts:register" %}" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Invite people" %}">{% trans "INVITE PEOPLE" %}</button>
-                        </div>
-                    {% endif %}
-                </div>
 
-                <div class="groups-widget box white">
-                    <h2 class="box-title">
-                        {% trans "Groups" %}
-                        <a class="view_all show_groups" href="{% url "portal:list_groups" %}">{% trans "view all" %}</a>
-                    </h2>
-
-                    <ul class="list">
-                          {% for group in group_list %}
-                            <li>
-                                <figure><img src="{{ group.small_group_image }}" /></figure>
-                                <div class="list-info">
-                                <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
-                                    <span>{% trans "Members:" %} {{ group.num_members }}  {% trans "Books:" %} {{ group.num_books }}</span> 
-                                </div>
-                            </li>
-                        {% endfor %}                            
-                    </ul>
-                    {% if request.user.is_authenticated %}
-                        <div class="box-bottom-gray">
-                            <button data-href="{% url "view_profile" request.user.username %}" role="button" class="btn btn-default create-group" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create new group" %}">{% trans "CREATE NEW GROUP" %}</button>
-                        </div>
-                    {% endif %}
-
-                </div>
-            </div> <!-- End of col-xs-4 -->
-
-            <div class="col-xs-4">
                 <div class="login-widget box gray">
                     <script>
                         $(function() {
@@ -125,13 +73,50 @@
                             <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:register" %}">{% trans "Registration form" %}</a></p> 
                         </div> 
                     {% endif %}
-                </div>        
+                </div> 
 
-                <div class="activities-widget box white">
+                <div class="box white">
+                    <h2 class="box-title">{% trans "Latest Books" %}</h2>
+                    <ul class="list border-top">
+                        {% for book in latest_books %}
+                            <li>
+                                <figure>
+                                    {% if book.cover %}
+                                        <img src="{% url "book_info" book.url_title %}cover.jpg" />
+                                    {% else %}
+                                        <img src="{% static "core/img/list-default.png" %}"/>
+                                    {% endif %}
+                                </figure>
+                                <div class="list-info">
+                                    <h4><a href="{% url "reader:infopage" book.url_title %}">{{ book.title }}</a></h4>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <h2 class="box-title">{% trans "Published Books" %}</h2>
+                    <ul class="list border-top">
+                        {% for book in published_books %}                        
+                            <li>
+                                <figure>
+                                        {% if book.cover %}
+                                            <img src="{% url "book_info" book.url_title %}cover.jpg" />
+                                        {% else %}
+                                            <img src="{% static "core/img/list-default.png" %}"/>
+                                        {% endif %}
+                                </figure>
+                                <div class="list-info">
+                                    <h4><a href="{% url "reader:infopage" book.url_title %}">{{ book.title }}</a></h4>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="box white">
                     <h2 class="box-title">{% trans "Recent Activity" %}</h2>
                     <ul class="list border-top user-avatar circle">
-
-                        {% for activity in recent_activities %}
+                        {% for activity in latest_activity %}
                             <li>
                                 <figure><img src="{% url "view_profilethumbnail" activity.user %}?width=48" alt="{{ activity.user }}"></figure>
                                 <div class="list-info">
@@ -149,11 +134,11 @@
                                     </p>
                                 </div>
                             </li>
-                        {% endfor %}
+                      {% endfor %}
+
                     </ul>
                 </div>
-            </div> <!-- End of col-xs-4 -->
+            </div>
         </div>
     </div> <!-- End of container -->
-
 {% endblock %}

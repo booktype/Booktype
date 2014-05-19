@@ -19,7 +19,7 @@
 
                                 <li>
                                     <label>{% trans "Name" %}</label>
-                                    <input type="text" name="name" class="form-control" value="{{ selectedGroup.name }}">
+                                    <input type="text" name="name" class="form-control" value="{{ selected_group.name }}">
                                     <span style="color: red">{{ error.name_error }}</span>
                                 </li>
 
@@ -31,6 +31,7 @@
                                 <li>
                                     <label>{% trans "Group image" %}</label>
                                     <input type="file" name="profile">
+                                    <span style="color: red">{{ error.image_error }}</span>
                                 </li>
 
                             </ul>
