@@ -15,6 +15,20 @@ from booktype.utils import misc
 from booki.editor.models import Book, BookiGroup, BookHistory
 from booki.account.models import UserProfile
 from booki.utils.misc import bookiSlugify
+from booki.utils import pages
+
+
+class GroupManipulation(PageView):
+    def post(self, request, groupid):
+        group = BookiGroup.objects.get(url_name=groupid)
+        if request.user.is_authenticated():
+            if "task" not in request.POST:
+                return pages.ErrorPage(request, "500.html")
+            if(request.POST["task"] == "join-group"):
+                group.members.add(request.user)
+            else:
+                group.members.remove(request.user)
+        return HttpResponse()
 
 
 class FrontPageView(PageView):
@@ -36,19 +50,10 @@ class FrontPageView(PageView):
         return context
 
 
-class GroupPageView(PageView):
+class GroupPageView(GroupManipulation):
     template_name = "portal/group.html"
     page_title = _('Group')
     title = _('Group used')
-
-    def post(self, request, groupid):
-        group = BookiGroup.objects.get(url_name=groupid)
-        if request.user.is_authenticated():
-            if(request.POST["task"] == "join-group"):
-                group.members.add(request.user)
-            else:
-                group.members.remove(request.user)
-        return HttpResponse()
 
     def get_context_data(self, **kwargs):
         context = super(GroupPageView, self).get_context_data(**kwargs)
@@ -70,19 +75,10 @@ class GroupPageView(PageView):
         return context
 
 
-class AllGroupsPageView(PageView):
+class AllGroupsPageView(GroupManipulation):
     template_name = "portal/all_groups.html"
     page_title = _('All groups')
     title = _('All groups')
-
-    def post(self, request, groupid):
-        group = BookiGroup.objects.get(url_name=groupid)
-        if request.user.is_authenticated():
-            if request.POST["task"] == "join-group":
-                group.members.add(request.user)
-            else:
-                group.members.remove(request.user)
-        return HttpResponse()
 
     def get_context_data(self, **kwargs):
         context = super(AllGroupsPageView, self).get_context_data(**kwargs)
