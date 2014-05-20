@@ -32,7 +32,7 @@
           <h4>{% trans "Why do I need account ?" %}</h4>
           <p>{% trans "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to." %}</p>
           <h5>{% trans "I forgot my password. What now ?!" %} </h5>
-           <a href="#">{% trans "Please request new one." %}</a>
+           <a href="{% url 'accounts:forgotpassword' %}">{% trans "Please request new one." %}</a>
       </div>
    </div> <!-- End of col-xs-4 -->
 
