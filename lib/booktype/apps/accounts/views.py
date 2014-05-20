@@ -182,7 +182,8 @@ class ForgotPasswordEnterView(PageView):
 
     def post(self, request, *args, **kwargs):
         context = super(ForgotPasswordEnterView, self).get_context_data(**kwargs)
-        if ("secretcode" or "password1" or "password2") not in request.POST:
+        print request
+        if "secretcode" and "password1" and "password2" not in request.POST:
             return pages.ErrorPage(request, "500.html")
 
         secretcode = request.POST["secretcode"].strip()
@@ -207,7 +208,7 @@ class ForgotPasswordEnterView(PageView):
             all_ok = False
 
         if all_ok:
-            pswd.user.set_password(request.POST.get("password1", ""))
+            pswd.user.set_password(password1)
             pswd.user.save()
             return redirect("/")
         else:
