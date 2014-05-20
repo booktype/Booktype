@@ -16,6 +16,7 @@ from booki.editor.models import Book, BookiGroup, BookHistory
 from booki.account.models import UserProfile
 from booki.utils.misc import bookiSlugify
 from booki.utils import pages
+from booktype.utils import security
 
 
 class GroupManipulation(PageView):
@@ -72,6 +73,14 @@ class GroupPageView(GroupManipulation):
             context['am_I_a_member'] = BookiGroup.objects.filter(members=self.request.user, url_name=context['groupid']).count()
         else:
             context['am_I_a_member'] = 0
+
+        user_group_security = security.get_user_security_for_group(self.request.user, selected_group)
+
+        if user_group_security.is_group_admin():
+            context['show_group_settings'] = 1
+        else:
+            context['show_group_settings'] = 0
+
         return context
 
 
