@@ -27,7 +27,9 @@
                                 <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-default float-left join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
                             {% else %}
                                 <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-success float-left leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
-                                <button data-href="{% url "portal:group_settings" user_group.url_name %}" role="button" class="btn btn-default float-right group-settings-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Group settings" %}">{% trans "GROUP SETTINGS" %}</button>              
+                                {% if show_group_settings == 1 %}
+                                    <button data-href="{% url "portal:group_settings" user_group.url_name %}" role="button" class="btn btn-default float-right group-settings-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Group settings" %}">{% trans "GROUP SETTINGS" %}</button>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
     			     </div>
