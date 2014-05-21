@@ -169,6 +169,7 @@ class ForgotPasswordView(PageView):
             try:
                 account_models.save()
                 msg.send()
+                context['mail_sent'] = True
             except:
                 context['error'] = _('Unknown error')
 
@@ -210,7 +211,7 @@ class ForgotPasswordEnterView(PageView):
         if all_ok:
             pswd.user.set_password(password1)
             pswd.user.save()
-            return redirect("/")
+            return redirect(reverse('accounts:register'))
         else:
             context['code_error'] = _('Wrong secret code')
             context['secretcode'] = secretcode
@@ -220,4 +221,4 @@ class ForgotPasswordEnterView(PageView):
         context = super(ForgotPasswordEnterView, self).get_context_data(**kwargs)
         context['secretcode'] = self.request.GET['secretcode']
 
-        return context    
+        return context
