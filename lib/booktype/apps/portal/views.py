@@ -3,7 +3,7 @@ import os
 
 from django.utils.translation import ugettext_lazy as _
 from django.utils.html import escape
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.db import models
 from django.http import HttpResponse, HttpResponseRedirect
@@ -16,6 +16,7 @@ from booki.editor.models import Book, BookiGroup, BookHistory
 from booki.account.models import UserProfile
 from booki.utils.misc import bookiSlugify
 from booki.utils import pages
+from booktype.utils import security
 
 
 class GroupManipulation(PageView):
@@ -72,6 +73,14 @@ class GroupPageView(GroupManipulation):
             context['am_I_a_member'] = BookiGroup.objects.filter(members=self.request.user, url_name=context['groupid']).count()
         else:
             context['am_I_a_member'] = 0
+
+        user_group_security = security.get_user_security_for_group(self.request.user, selected_group)
+
+        if user_group_security.is_group_admin():
+            context['show_group_settings'] = 1
+        else:
+            context['show_group_settings'] = 0
+
         return context
 
 
@@ -123,6 +132,12 @@ class GroupSettingsPageView(PageView):
     form_class = GroupSettingsPageForm
 
     def post(self, request, groupid):
+
+        selected_group = BookiGroup.objects.get(url_name=groupid)
+        user_group_security = security.get_user_security_for_group(self.request.user, selected_group)
+        if not user_group_security.is_group_admin():
+            return pages.ErrorPage(request, "errors/nopermissions.html")
+
         form = self.form_class(request.POST)
         context = super(GroupSettingsPageView, self).get_context_data()
         new_desc = escape(form['description'].value())[:250]  # 250 characters

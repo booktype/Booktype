@@ -14,16 +14,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+
 import os
+import string
+from random import choice
 
 from django.contrib import messages
-from django.http import HttpResponse
 from django.views.generic import DetailView
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import BaseCreateView, UpdateView
+
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.db.models import Q
+from django.conf import settings
 
 from braces.views import LoginRequiredMixin
 
@@ -32,6 +40,8 @@ from booki.utils.json_wrapper import json
 from booki.messaging.views import get_endpoint_or_none
 from booki.utils.book import checkBookAvailability, createBook
 from booki.editor.models import Book, License, BookHistory, BookiGroup
+from booki.account.models import UserPassword
+from booki.utils import pages
 
 from booktype.apps.core.views import BasePageView, PageView
 
@@ -96,7 +106,7 @@ class CreateBookView(LoginRequiredMixin, BaseCreateView):
         book.description = request.POST.get('description', '')
         book.hidden = (request.POST.get('hidden', None) == 'on')
 
-        if request.FILES.has_key('cover'):
+        if 'cover' in request.FILES:
             try:
                 fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
                 book.setCover(fname)
@@ -105,10 +115,10 @@ class CreateBookView(LoginRequiredMixin, BaseCreateView):
                 pass
 
         book.save()
-    
+
         return render(
-            request, 
-            'accounts/create_book_redirect.html', 
+            request,
+            'accounts/create_book_redirect.html',
             {"request": request, "book": book}
         )
 
@@ -209,3 +219,103 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
                 return self.render_to_response(context)
 
         return super(self.__class__, self).post(request, *args, **kwargs)
+
+class ForgotPasswordView(PageView):
+    template_name = "accounts/forgot_password.html"
+    page_title = _('Forgot your password')
+    title = _('Forgot your password')
+
+    def generate_secret_code(self):
+        return ''.join([choice(string.letters + string.digits) for i in range(30)])
+
+    def post(self, request, *args, **kwargs):
+        context = super(ForgotPasswordView, self).get_context_data(**kwargs)
+        if "name" not in request.POST:
+            return pages.ErrorPage(request, "500.html")
+
+        name = request.POST["name"].strip()
+
+        users_to_email = list(User.objects.filter(Q(username=name) | Q(email=name)))
+        if len(name) == 0:
+            context['error'] = _('Missing username')
+            return render(request, self.template_name, context)
+
+        if len(users_to_email) == 0:
+            context['error'] = _('No such user')
+            return render(request, self.template_name, context)
+
+        THIS_BOOKTYPE_SERVER = config.getConfiguration('THIS_BOOKTYPE_SERVER')
+        for usr in users_to_email:
+            secretcode = self.generate_secret_code()
+
+            account_models = UserPassword()
+            account_models.user = usr
+            account_models.remote_useragent = request.META.get('HTTP_USER_AGENT', '')
+            account_models.remote_addr = request.META.get('REMOTE_ADDR', '')
+            account_models.remote_host = request.META.get('REMOTE_HOST', '')
+            account_models.secretcode = secretcode
+
+            body = render_to_string('accounts/password_reset_email.html',
+                                    dict(secretcode=secretcode, hostname=THIS_BOOKTYPE_SERVER))
+
+            msg = EmailMessage(_('Reset password'), body, settings.REPORT_EMAIL_USER, [usr.email])
+            msg.content_subtype = 'html'
+
+            # In case of an error we really should not send email to user and do rest of the procedure
+
+            try:
+                account_models.save()
+                msg.send()
+                context['mail_sent'] = True
+            except:
+                context['error'] = _('Unknown error')
+
+        return render(request, self.template_name, context)
+
+
+class ForgotPasswordEnterView(PageView):
+    template_name = "accounts/forgot_password_enter.html"
+    page_title = _('Reset your password')
+    title = _('Reset your password')
+
+    def post(self, request, *args, **kwargs):
+        context = super(ForgotPasswordEnterView, self).get_context_data(**kwargs)
+
+        if "secretcode" and "password1" and "password2" not in request.POST:
+            return pages.ErrorPage(request, "500.html")
+
+        secretcode = request.POST["secretcode"].strip()
+        password1 = request.POST["password1"].strip()
+        password2 = request.POST["password2"].strip()
+
+        if len(password1) == 0 or len(password2) == 0:
+            context['password2_error'] = _('Password can\'t be empty')
+            context['secretcode'] = secretcode
+            return render(request, self.template_name, context)
+
+        if password1 != password2:
+            context['password2_error'] = _('Passwords don\'t match')
+            context['secretcode'] = secretcode
+            return render(request, self.template_name, context)
+
+        all_ok = True
+
+        try:
+            pswd = UserPassword.objects.get(secretcode=secretcode)
+        except UserPassword.DoesNotExist:
+            all_ok = False
+
+        if all_ok:
+            pswd.user.set_password(password1)
+            pswd.user.save()
+            return redirect(reverse('accounts:register'))
+        else:
+            context['code_error'] = _('Wrong secret code')
+            context['secretcode'] = secretcode
+            return render(request, self.template_name, context)
+
+    def get_context_data(self, **kwargs):
+        context = super(ForgotPasswordEnterView, self).get_context_data(**kwargs)
+        context['secretcode'] = self.request.GET['secretcode']
+
+        return context
