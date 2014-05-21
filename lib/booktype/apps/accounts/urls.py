@@ -14,11 +14,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import patterns, url
 
-from .views import RegisterPageView, DashboardPageView, ForgotPasswordView, ForgotPasswordEnterView
-from .views import CreateBookView
-
+from .views import RegisterPageView, DashboardPageView
+from .views import CreateBookView, UserSettingsPage
+from .views import ForgotPasswordView, ForgotPasswordEnterView
 
 urlpatterns = patterns(
     '',
@@ -29,4 +29,5 @@ urlpatterns = patterns(
 
     url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/$', DashboardPageView.as_view(), name='view_profile'),
     url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/_create_book/$', CreateBookView.as_view(), name='create_book'),
+    url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/_settings/$', UserSettingsPage.as_view(), name='user_settings'),
 )
