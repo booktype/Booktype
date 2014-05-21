@@ -33,8 +33,15 @@
                 </div>
             </div>
             {% endif %}
+            
+            {% for message in messages %}
+            <div class="{% if message.tags %}alert alert-{{ message.tags }}{% endif %} alert-dismissable fade in bk-dismiss" data-dismiss-secs="10">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
 
-            <div class="box gray">
+            <div class="box gray">                
                 <h2 class="box-title-alter">
                     {% if current_user == request.user %}
                         {% trans "My Books" %}
@@ -116,7 +123,7 @@
                 </p>
 
                 <div class="box-bottom-white">
-                    <button href="#" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="Go to settings">{% trans "Settings" as set_text %} {{ set_text|upper }}</button>
+                    <button data-href="{% url 'accounts:user_settings' user.username %}" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="Go to settings">{% trans "Settings" as set_text %} {{ set_text|upper }}</button>
                     <button data-href="{% url 'signout' %}" role="button" class="btn btn-success float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="Log out">{% trans "Log out" as log_text %} {{ log_text|upper }}</button>
 
                 </div>
