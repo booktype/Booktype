@@ -49,7 +49,7 @@
 
                     {% if request.user.is_authenticated %}
                         <div class="box-bottom-gray">
-                            <button data-href="{% url "view_profile" request.user.username %}" role="button" class="btn btn-default float-left create-book" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create book" %}">{% trans "CREATE BOOK" %}</button>
+                            <button data-href="{% url "accounts:view_profile" request.user.username %}#create-book" role="button" class="btn btn-default float-left create-book" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create book" %}">{% trans "CREATE BOOK" %}</button>
                         </div>
                     {% endif %}
 
@@ -99,7 +99,7 @@
                     </ul>
                     {% if request.user.is_authenticated %}
                         <div class="box-bottom-gray">
-                            <button data-href="{% url "view_profile" request.user.username %}" role="button" class="btn btn-default create-group" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create new group" %}">{% trans "CREATE NEW GROUP" %}</button>
+                            <button data-href="{% url "accounts:view_profile" request.user.username %}#create-group" role="button" class="btn btn-default create-group" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create new group" %}">{% trans "CREATE NEW GROUP" %}</button>
                         </div>
                     {% endif %}
 

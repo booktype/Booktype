@@ -12,21 +12,11 @@
   </ul>
 
 <div class="box-bottom-white"> 
-  <button href="{% url "view_profile" request.user.username %}" role="button" class="btn btn-default float-left dashboard" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "My Dashboard" %}">
+  <button data-href="{% url "accounts:view_profile" request.user.username %}" role="button" class="btn btn-default float-left dashboard" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "My Dashboard" %}">
     {% trans "My Dashboard" as dashboard_text %} {{ dashboard_text|upper }}
   </button>
-  <script>
-    $("button.dashboard").click(function(){
-      window.location.href = $(this).attr("href");
-    });
-  </script>
-  <button href="{% url "view_profile" request.user.username %}" role="button" class="btn btn-default float-right settings" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Go to settings" %}">
+  <button data-href="{% url "accounts:user_settings" request.user.username %}" role="button" class="btn btn-default float-right settings" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Go to settings" %}">
     {% trans "Settings" as settings_text %} {{ settings_text|upper }}
   </button>
-  <script>
-    $("button.settings").click(function(){
-      window.location.href = $(this).attr("href");
-    });
-  </script>
 </div> 
 
