@@ -13,7 +13,7 @@
       <div class="box gray">
          <h2 class="box-title">{% trans "Log in" %}</h2>
 
-          <form id="formsignin" signin-href="{% url "signin" %}" class="form-group" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
+            <form id="formsignin" signin-href="{% url "accounts:signin" %}" signin-redirect="{% url "portal:frontpage" %}" class="form-group" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
             <div class="form-group">
               <input type="text" class="form-control" name="username" placeholder="{% trans "Enter username" %}">  
             </div>
@@ -40,7 +40,8 @@
       <div class="box gray">
         <h2 class="box-title">{% trans "Create Account" %}</h2>
 
-        <form id="formregister" register-href="{% url "signin" %}" register-redirect="{% url "portal:frontpage" %}" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
+                <form id="formregister" register-href="{% url "accounts:signin" %}" register-redirect="{% url "portal:frontpage" %}" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
+
           <div class="form-group">
             <input name="username" type="text" class="form-control" placeholder="{% trans "User name" %}"/>
           </div>

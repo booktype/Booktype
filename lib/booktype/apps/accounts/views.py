@@ -25,9 +25,10 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.views.generic.edit import BaseCreateView, UpdateView
-
+from django.contrib import auth
+from django.db import IntegrityError
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.db.models import Q
@@ -42,10 +43,11 @@ from booki.utils.book import checkBookAvailability, createBook
 from booki.editor.models import Book, License, BookHistory, BookiGroup
 from booki.account.models import UserPassword
 from booki.utils import pages
-
-from booktype.apps.core.views import BasePageView, PageView
-
+from booki.utils.misc import isUserLimitReached
+import booki.account.signals
+from booktype.apps.core.views import BasePageView, PageView, _doCheckValid, _doChecksForEmpty
 from .forms import UserSettingsForm, UserPasswordChangeForm
+
 
 class RegisterPageView(PageView):
     template_name = "accounts/register.html"
@@ -56,6 +58,7 @@ class RegisterPageView(PageView):
         context = super(RegisterPageView, self).get_context_data(**kwargs)
 
         return context
+
 
 class DashboardPageView(BasePageView, DetailView):
     template_name = "accounts/dashboard.html"
@@ -84,6 +87,7 @@ class DashboardPageView(BasePageView, DetailView):
         context['book_visible'] = config.getConfiguration('CREATE_BOOK_VISIBLE')
 
         return context
+
 
 class CreateBookView(LoginRequiredMixin, BaseCreateView):
     model = User
@@ -121,6 +125,7 @@ class CreateBookView(LoginRequiredMixin, BaseCreateView):
             'accounts/create_book_redirect.html',
             {"request": request, "book": book}
         )
+
 
 class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
     template_name = "accounts/dashboard_settings.html"
@@ -195,7 +200,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
         Overrides the post method in order to handle settings form and
         also password form
         '''
-        
+
         if 'password_change' in request.POST:
             form = self.password_form_class(user=request.user, data=request.POST)
             if form.is_valid():
@@ -219,6 +224,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
                 return self.render_to_response(context)
 
         return super(self.__class__, self).post(request, *args, **kwargs)
+
 
 class ForgotPasswordView(PageView):
     template_name = "accounts/forgot_password.html"
@@ -319,3 +325,116 @@ class ForgotPasswordEnterView(PageView):
         context['secretcode'] = self.request.GET['secretcode']
 
         return context
+
+
+def signin(request):
+    """
+    Django View. Gets called when user wants to signin or create new account.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    """
+
+    limit_reached = isUserLimitReached()
+
+    username = request.POST["username"].strip()
+    password = request.POST["password"].strip()
+
+    if request.POST.get("ajax", "") == "1":
+        ret = {"result": 0}
+
+        if request.POST.get("method", "") == "register" and config.getConfiguration('FREE_REGISTRATION') and not limit_reached:
+            email = request.POST["email"].strip()
+            fullname = request.POST["fullname"].strip()
+            ret["result"] = _doChecksForEmpty(request)
+
+            if ret["result"] == 0:  # if there was no errors
+                ret["result"] = _doCheckValid(request)
+
+                if ret["result"] == 0:
+                    ret["result"] = 1
+
+                    user = None
+                    try:
+                        user = auth.models.User.objects.create_user(username=username,
+                                                                    email=email,
+                                                                    password=password)
+                    except IntegrityError:
+                        ret["result"] = 10
+                    except:
+                        ret["result"] = 10
+                        user = None
+
+                    # this is not a good place to fire signal, but i need password for now
+                    # should create function createUser for future use
+
+                    if user:
+                        user.first_name = fullname
+
+                        booki.account.signals.account_created.send(sender=user, password=request.POST["password"])
+
+                        try:
+                            user.save()
+
+                            # groups
+
+                            for group_name in json.loads(request.POST.get("groups")):
+                                if group_name.strip() != '':
+                                    try:
+                                        group = BookiGroup.objects.get(url_name=group_name)
+                                        group.members.add(user)
+                                    except:
+                                        pass
+
+                            user2 = auth.authenticate(username=username, password=password)
+                            auth.login(request, user2)
+                        except:
+                            ret["result"] = 666
+
+        if request.POST.get("method", "") == "signin":
+            user = auth.authenticate(username=username, password=password)
+
+            if user:
+                auth.login(request, user)
+                ret["result"] = 1
+                ret["redirect"] = reverse('view_profile', args=[user.username])
+            else:
+                try:
+                    usr = auth.models.User.objects.get(username=username)
+                    # User does exist. Must be wrong password then
+                    ret["result"] = 3
+                except auth.models.User.DoesNotExist:
+                    # User does not exist
+                    ret["result"] = 2
+
+        try:
+            resp = HttpResponse(json.dumps(ret), mimetype="text/json")
+        except:
+            raise
+
+        return resp
+
+    redirect = request.GET.get('redirect', '')
+
+    if(redirect == reverse('portal:frontpage')):
+        redirect = ''
+
+    if request.GET.get('next', None):
+        redirect = request.GET.get('next')
+
+    join_groups = []
+    for group_name in request.GET.getlist("group"):
+        try:
+            join_groups.append(BookiGroup.objects.get(url_name=group_name))
+        except BookiGroup.DoesNotExist:
+            pass
+
+    try:
+        resp = render(request, 'account/signin.html', {'request': request,
+                                                       'redirect': redirect,
+                                                       'joingroups': join_groups,
+                                                       'limit_reached': limit_reached})
+    except:
+        raise
+
+    return resp
