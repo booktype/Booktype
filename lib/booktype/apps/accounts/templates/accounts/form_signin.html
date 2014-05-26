@@ -2,14 +2,15 @@
 
 <h2 class="box-title">{% trans "Sign in" %}</h2>  
 
-<form id="formsignin" signin-href="{% url "signin" %}" class="form-group" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
+<form id="formsignin" signin-href="{% url "portal:frontpage" %}" signin-redirect="{% url "portal:frontpage" %}" class="form-group" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
   <div class="form-group">
     <input type="text" class="form-control" name="username" placeholder="{% trans "Enter username" %}">  
   </div>
   <div class="form-group">
     <input type="password" class="form-control" name="password" placeholder="{% trans "Password" %}">
   </div>  
-  
+ 
+ {{ sign_in_error }} 
   <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">
     <div class="no-such-user template">{% trans "User does not exist." %}</div>
     <div class="wrong-password template">{% trans "Password is wrong! Please try again." %}</div>

@@ -15,6 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 
+import re
 import os
 import string
 from random import choice
@@ -25,9 +26,10 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.views.generic.edit import BaseCreateView, UpdateView
-
+from django.contrib import auth
+from django.db import IntegrityError
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.db.models import Q
@@ -42,10 +44,13 @@ from booki.utils.book import checkBookAvailability, createBook
 from booki.editor.models import Book, License, BookHistory, BookiGroup
 from booki.account.models import UserPassword
 from booki.utils import pages
-
+from booki.utils.misc import isUserLimitReached
+import booki.account.signals
 from booktype.apps.core.views import BasePageView, PageView
+from booki.utils.misc import isValidEmail
 
 from .forms import UserSettingsForm, UserPasswordChangeForm
+
 
 class RegisterPageView(PageView):
     template_name = "accounts/register.html"
@@ -55,7 +60,10 @@ class RegisterPageView(PageView):
     def get_context_data(self, **kwargs):
         context = super(RegisterPageView, self).get_context_data(**kwargs)
 
+        context['limit_reached'] = isUserLimitReached()
+
         return context
+
 
 class DashboardPageView(BasePageView, DetailView):
     template_name = "accounts/dashboard.html"
@@ -84,6 +92,7 @@ class DashboardPageView(BasePageView, DetailView):
         context['book_visible'] = config.getConfiguration('CREATE_BOOK_VISIBLE')
 
         return context
+
 
 class CreateBookView(LoginRequiredMixin, BaseCreateView):
     model = User
@@ -121,6 +130,7 @@ class CreateBookView(LoginRequiredMixin, BaseCreateView):
             'accounts/create_book_redirect.html',
             {"request": request, "book": book}
         )
+
 
 class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
     template_name = "accounts/dashboard_settings.html"
@@ -195,7 +205,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
         Overrides the post method in order to handle settings form and
         also password form
         '''
-        
+
         if 'password_change' in request.POST:
             form = self.password_form_class(user=request.user, data=request.POST)
             if form.is_valid():
@@ -219,6 +229,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
                 return self.render_to_response(context)
 
         return super(self.__class__, self).post(request, *args, **kwargs)
+
 
 class ForgotPasswordView(PageView):
     template_name = "accounts/forgot_password.html"
@@ -319,3 +330,137 @@ class ForgotPasswordEnterView(PageView):
         context['secretcode'] = self.request.GET['secretcode']
 
         return context
+
+
+class SignInView(PageView):
+    template_name = "accounts/form_signin.html"
+    page_title = _('Sign in')
+    title = _('Sign in')
+
+    def _check_if_empty(self, request, key):
+        return request.POST.get(key, "").strip() == ""
+
+    def _do_checks_for_empty(self, request):
+        if self._check_if_empty(request, "username"):
+            return 2
+        if self._check_if_empty(request, "email"):
+            return 3
+        if self._check_if_empty(request, "password") or self._check_if_empty(request, "password2"):
+            return 4
+        if self._check_if_empty(request, "fullname"):
+            return 5
+
+        return 0
+
+    def _do_check_valid(self, request):
+        # check if it is valid username
+        # - from 2 to 20 characters long
+        # - word, number, ., _, -
+        mtch = re.match('^[\w\d\_\.\-]{2,20}$', request.POST.get("username", "").strip())
+        if not mtch:
+            return 6
+
+        # check if it is valid email
+        if not bool(isValidEmail(request.POST["email"].strip())):
+            return 7
+
+        if request.POST.get("password", "") != request.POST.get("password2", "").strip():
+            return 8
+        if len(request.POST.get("password", "").strip()) < 6:
+            return 9
+
+        if len(request.POST.get("fullname", "").strip()) > 30:
+            return 11
+
+        # check if this user exists
+        try:
+            u = auth.models.User.objects.get(username=request.POST.get("username", "").strip())
+            return 10
+        except auth.models.User.DoesNotExist:
+            pass
+
+        return 0
+
+    def get_context_data(self, **kwargs):
+        context = super(self.__class__, self).get_context_data(**kwargs)
+        context['password_form'] = self.password_form_class(user=self.object)
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        limit_reached = isUserLimitReached()
+
+        username = request.POST["username"].strip()
+        password = request.POST["password"].strip()
+
+        if request.POST.get("ajax", "") == "1":
+            ret = {"result": 0}
+
+            if request.POST.get("method", "") == "register" and config.getConfiguration('FREE_REGISTRATION') and not limit_reached:
+                email = request.POST["email"].strip()
+                fullname = request.POST["fullname"].strip()
+                ret["result"] = self._do_checks_for_empty(request)
+
+                if ret["result"] == 0:  # if there was no errors
+                    ret["result"] = self._do_check_valid(request)
+
+                    if ret["result"] == 0:
+                        ret["result"] = 1
+
+                        user = None
+                        try:
+                            user = auth.models.User.objects.create_user(username=username,
+                                                                        email=email,
+                                                                        password=password)
+                        except IntegrityError:
+                            ret["result"] = 10
+                        except:
+                            ret["result"] = 10
+                            user = None
+
+                        # this is not a good place to fire signal, but i need password for now
+                        # should create function createUser for future use
+
+                        if user:
+                            user.first_name = fullname
+
+                            booki.account.signals.account_created.send(sender=user, password=request.POST["password"])
+
+                            try:
+                                user.save()
+
+                                # groups
+
+                                for group_name in json.loads(request.POST.get("groups")):
+                                    if group_name.strip() != '':
+                                        try:
+                                            group = BookiGroup.objects.get(url_name=group_name)
+                                            group.members.add(user)
+                                        except:
+                                            pass
+
+                                user2 = auth.authenticate(username=username, password=password)
+                                auth.login(request, user2)
+                            except:
+                                ret["result"] = 666
+
+            if request.POST.get("method", "") == "signin":
+                user = auth.authenticate(username=username, password=password)
+
+                if user:
+                    auth.login(request, user)
+                    ret["result"] = 1
+                else:
+                    try:
+                        usr = auth.models.User.objects.get(username=username)
+                        # User does exist. Must be wrong password then
+                        ret["result"] = 3
+                    except auth.models.User.DoesNotExist:
+                        # User does not exist
+                        ret["result"] = 2
+
+            try:
+                resp = HttpResponse(json.dumps(ret), mimetype="text/json")
+            except:
+                raise
+        return resp
