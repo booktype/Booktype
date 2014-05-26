@@ -1,8 +1,8 @@
 {% extends "core/base.html" %}
 {% load i18n profile messaging_tags staticfiles %}
 {% block extra_header %}
-    <script type="text/javascript" src="{% static "portal/js/frontpage.js" %}"></script>
-    <script type="text/javascript" src="{% static "portal/js/general.js" %}"></script>
+    <script type="text/javascript" src="{% static 'portal/js/frontpage.js' %}"></script>
+    <script type="text/javascript" src="{% static 'portal/js/general.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -38,8 +38,8 @@
                                         {% if request.user.is_authenticated %}
                                             <div class="btn-group float-right">
                                                 <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit_book" book.url_title %}"><i class="icon-pencil"></i></a>
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url "view_profile" request.user.username %}" target="_blank"><i class="icon-eye-open"></i></a>
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "view_profile"    request.user.username %}"><i class="icon-trash"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url "accounts:view_profile" request.user.username %}" target="_blank"><i class="icon-eye-open"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "accounts:view_profile" request.user.username %}"><i class="icon-trash"></i></a>
                                             </div>
                                         {% endif %}
                                     </div>
@@ -67,7 +67,9 @@
                             <li>
                                <figure>{% profile_image user %}</figure>
                                 <div class="people-info gray">
-                                    <h4><a href="{% url "view_profile" user.username %}">{{ user.username }}</a></h4>
+                                    <h4>
+                                        <a href="{% url "accounts:view_profile" user.username %}">{{ user.username }}</a>
+                                    </h4>
                                     <span>{{ user.first_name }}</span>
                                 </div> 
                             </li>
@@ -110,12 +112,11 @@
                 <div class="login-widget box gray">
                     <script>
                         $(function() {
-                        $("#formsignin").booksparkSignin({'url': '{% url "signin" %}'});
+                            $("#formsignin").booksparkSignin({'url': '{% url "signin" %}'});
                         });
-                    </script>     
+                    </script>
 
                     {% if request.user.is_authenticated %}
-
                         {% include "accounts/form_signedin.html" %}
                     {% else %}
                         <div class="signin-block">
@@ -125,7 +126,7 @@
                             <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:register" %}">{% trans "Registration form" %}</a></p> 
                         </div> 
                     {% endif %}
-                </div>        
+                </div>
 
                 <div class="activities-widget box white">
                     <h2 class="box-title">{% trans "Recent Activity" %}</h2>
@@ -136,7 +137,7 @@
                                 <figure><img src="{% url "view_profilethumbnail" activity.user %}?width=48" alt="{{ activity.user }}"></figure>
                                 <div class="list-info">
                                     <span class="time">{{ activity.modified|timesince}} {% trans "ago" %}</span>
-                                    <h4><a href="{% url "view_profile" activity.user.username %}">{{ activity.user }}</a></h4>
+                                    <h4><a href="{% url "accounts:view_profile" activity.user.username %}">{{ activity.user }}</a></h4>
                                     <p>
                                         {% if activity.kind == 1 %}
                                             {% trans "New chapter" %} <a href="{% url "book_chapter" activity.book.url_title activity.chapter.url_title %}">"{{ activity.chapter.title }}"</a>.
@@ -145,7 +146,7 @@
                                         {% if activity.kind == 10 %}
                                             {% trans "New book" %} <a href="{% url "book_view" activity.book.url_title  %}">"{{ activity.book.title }}"</a>.
                                             <span class="book-title">#{{ activity.book.url_title|slugify }}</span>     
-                                        {% endif %}                                        
+                                        {% endif %}
                                     </p>
                                 </div>
                             </li>
