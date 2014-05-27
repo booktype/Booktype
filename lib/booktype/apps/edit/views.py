@@ -254,10 +254,12 @@ def edit(request, bookid):
 
     toc = getTOCForBook(book.get_version(None))
     book_version = book.get_version(None)
-    book_version = '1.0'
+
     resp =  render(request, 'edit/book_edit.html', {'request': request,
     		                                        'chapters': toc,
     		   										'book': book,
-    		   										'book_version': book_version})
+    		   										'book_version': book_version.get_version(),
+                                                    'base_url': settings.BOOKTYPE_URL,
+                                                    'static_url': settings.STATIC_URL})
 
     return resp
