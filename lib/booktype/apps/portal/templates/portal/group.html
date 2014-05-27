@@ -4,6 +4,7 @@
 {% block extra_header %}
     <script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
     <script type="text/javascript" src="{% static "portal/js/general.js" %}"></script>
+    <script type="text/javascript" src="{% static "accounts/js/register.js" %}"></script>    
 {% endblock %}
 {% block content %}
 
@@ -74,12 +75,6 @@
 
             <div class="col-xs-4">
                 <div class="login-widget box gray">
-                    <script>
-                        $(function() {
-                            $("#formsignin").booksparkSignin({'url': '{% url "signin" %}'});
-                        });
-                    </script>     
-
                     {% if request.user.is_authenticated %}
                         {% include "accounts/form_signedin.html" %}
                     {% else %}
