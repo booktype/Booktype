@@ -75,41 +75,10 @@
                                     {{ form.new_password2.errors }}
                                 </li>
                                 {% endwith %}
-
-                                <small><a href="/accounts/forgot_password/" data-toggle="modal" data-target="#myModal">{% trans "Forgotten your password?" %}</a></small>
                             </ul>
                             <button class="btn btn-default float-left">{% trans "Change password" %}</button>
                         </fieldset>
                     </form>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h2 class="modal-title" id="myModalLabel">{% trans "Forgot your password" %}</h2>
-                          </div>
-                          <div class="modal-body">
-                            <form method="POST" action="/" id="loginform" name="loginform" onsubmit="return false;">
-                            <ul class="list">
-                                <li>
-                                  <label>{% trans "Username or E-mail Address" %}</label>
-                                  <input type="text" name="username" class="form-control" value="">
-                                </li>
-                              <p>{% trans "Give us your username or e-mail you used to create Booktype account and we will send you new password."%}</p>
-                            </ul>
-                          </div>
-
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">{% trans "Send request" %}</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
-                            </form>
-                          </div>
-                        </div><!-- /.modal-content -->
-                      </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-
                 </div>
             </div>
 

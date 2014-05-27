@@ -25,7 +25,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseForbidden
 from django.views.generic.edit import BaseCreateView, UpdateView
 
 from django.core.mail import EmailMessage
@@ -35,13 +35,12 @@ from django.conf import settings
 
 from braces.views import LoginRequiredMixin
 
-from booki.utils import config, misc
 from booki.utils.json_wrapper import json
+from booki.utils import config, misc, pages
 from booki.messaging.views import get_endpoint_or_none
 from booki.utils.book import checkBookAvailability, createBook
 from booki.editor.models import Book, License, BookHistory, BookiGroup
 from booki.account.models import UserPassword
-from booki.utils import pages
 
 from booktype.apps.core.views import BasePageView, PageView
 
@@ -83,6 +82,16 @@ class DashboardPageView(BasePageView, DetailView):
         context['book_license'] = config.getConfiguration('CREATE_BOOK_LICENSE')
         context['book_visible'] = config.getConfiguration('CREATE_BOOK_VISIBLE')
 
+        # add some restrictions variables to context
+        context['admin_create'] = config.getConfiguration('ADMIN_CREATE_BOOKS')
+        context['admin_import'] = config.getConfiguration('ADMIN_IMPORT_BOOKS')
+
+        if self.object.is_superuser:
+            context['admin_create'] = False
+            context['admin_import'] = False
+
+        context['limit_reached'] = misc.isBookLimitReached()
+
         return context
 
 class CreateBookView(LoginRequiredMixin, BaseCreateView):
@@ -91,12 +100,26 @@ class CreateBookView(LoginRequiredMixin, BaseCreateView):
     slug_url_kwarg = 'username'
     context_object_name = 'user'
 
+    def dispatch(self, request, *args, **kwargs):
+        current_user = self.get_object()
+        admin_create = config.getConfiguration('ADMIN_CREATE_BOOKS')
+
+        if current_user.is_superuser:
+            admin_create = False
+
+        if misc.isBookLimitReached() or admin_create:
+            return HttpResponseForbidden(_('You have no permissions to do this!'))
+
+        return super(CreateBookView, self).dispatch(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         if request.GET.get('q', None) == "check":
             data = {
                 "available": checkBookAvailability(request.GET.get('bookname', '').strip())
             }
             return HttpResponse(json.dumps(data), "application/json")
+
+        return HttpResponse()
 
     def post(self, request, *args, **kwargs):
         book = createBook(request.user, request.POST.get('title'))

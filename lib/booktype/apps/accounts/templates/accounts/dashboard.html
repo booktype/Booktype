@@ -51,7 +51,15 @@
 
                     <div class="btn-toolbar float-right">
                         {% if current_user == request.user %}
-                        <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Create new book' as create_text %} {{ create_text }}">{{ create_text|upper }}</button>
+                            {% if not limit_reached %}
+                                {% if not admin_create %}
+                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Create new book' as create_text %} {{ create_text }}">{{ create_text|upper }}</button>
+                                {% endif %}
+
+                                {% if not admin_import  %}
+                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#importBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Import Book' as import_text %} {{ import_text }}">{{ import_text|upper }}</button>
+                                {% endif %}
+                            {% endif %}
                         {% endif %}
                         
                         <div class="btn-group float-right">
@@ -60,9 +68,7 @@
                         </div>
 
                         {% include "accounts/dashboard_create_book_modal.html" %}
-
                     </div>
-
                 </h2>
 
                 <div class="book-thumb" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
@@ -154,6 +160,8 @@
                           </p>
                         </div>
                     </li>
+                    {% empty %}
+                    <li>{% trans "There is no activity yet" %}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -172,5 +180,5 @@
             {% endif %}
         </div>
     </div>
-</div> <!-- End of container -->
+</div>
 {% endblock %}
