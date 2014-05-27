@@ -14,7 +14,7 @@
 	          <li><a href="{% url "signout" %}"><i class="icon-signout"></i>{% trans "Logout" %}</a></li>
 	        </ul>
 	    {% else %}
-          <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{%  trans "Sign In" %}<span class="caret"></span></button>	    
+          <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" data-href="{% url "accounts:register" %}?redirect={{ request.path }}">{%  trans "Sign In" %}<span class="caret"></span></button>	    
         {% endif %}
     </div>
 
