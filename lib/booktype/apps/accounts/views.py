@@ -21,12 +21,12 @@ import string
 from random import choice
 
 from django.contrib import messages
-from django.views.generic import DetailView
+from django.views.generic import DetailView, View
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import BaseCreateView, UpdateView
 from django.contrib import auth
 from django.db import IntegrityError
@@ -34,6 +34,7 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.db.models import Q
 from django.conf import settings
+
 
 from braces.views import LoginRequiredMixin
 
@@ -450,3 +451,11 @@ class SignInView(PageView):
             except:
                 raise
         return resp
+
+
+class SignOutView(View):
+
+    def get(self, request):
+
+        auth.logout(request)
+        return HttpResponseRedirect(reverse("portal:frontpage"))

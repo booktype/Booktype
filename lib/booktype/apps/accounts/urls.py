@@ -17,11 +17,12 @@
 from django.conf.urls import patterns, url
 
 from .views import CreateBookView, UserSettingsPage, DashboardPageView
-from .views import ForgotPasswordView, ForgotPasswordEnterView, SignInView
+from .views import ForgotPasswordView, ForgotPasswordEnterView, SignInView, SignOutView
 
 urlpatterns = patterns(
     '',
     url(r'^signin/$', SignInView.as_view(), name='signin'),
+    url(r'^signout/$', SignOutView.as_view(), name='signout'),
     url(r'^forgot_password/$', ForgotPasswordView.as_view(), name='forgotpassword'),
     url(r'^forgot_password/enter/$', ForgotPasswordEnterView.as_view(), name='forgotpasswordenter'),
 
