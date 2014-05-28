@@ -44,7 +44,7 @@
         <div class="col-xs-8 col-sm-offset-4 col-md-offset-4 col-lg-offset-4">
             <div class="box white" id="bookcontent">
                 {% if can_edit %}
-                <button data-href="{% url 'book_edit' book.url_title %}#edit/{{ content.id }}" role="button" class="btn btn-default float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit this chapter" %}">
+                <button data-href="{% url 'edit:editor' book.url_title %}#edit/{{ content.id }}" role="button" class="btn btn-default float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit this chapter" %}">
                     {% trans "EDIT" %}
                 </button>
                 {% endif %}

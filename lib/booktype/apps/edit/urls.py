@@ -24,5 +24,5 @@ urlpatterns = patterns('',
                        url(r'^_upload_cover/$', 'booktype.apps.edit.views.upload_cover', name='upload_cover'),
                        url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/(?P<fname>.*)$',  'booktype.apps.edit.views.cover', name='view_cover'),
                        url(r'^_edit/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment'),
-                       url(r'^_edit/$', EditBookPage.as_view(), name='book_edit')
+                       url(r'^_edit/$', EditBookPage.as_view(), name='editor')
                       )

@@ -61,7 +61,7 @@
                                     <h4><a href="{% url "book_info" book.url_title %}">{{ book.title }}</a></h4>
                                         {% if request.user.is_authenticated %}
                                             <div class="btn-group float-right">
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit_book" book.url_title %}"><i class="icon-pencil"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit:editor" book.url_title %}"><i class="icon-pencil"></i></a>
                                                 <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url "view_profile" request.user.username %}" target="_blank"><i class="icon-eye-open"></i></a>
                                                 <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "view_profile"    request.user.username %}"><i class="icon-trash"></i></a>
                                             </div>
