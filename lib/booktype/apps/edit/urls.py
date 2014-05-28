@@ -17,11 +17,12 @@
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import patterns, url, include
 
+from .views import EditBookPage
 
 urlpatterns = patterns('',                      
                        url(r'^_upload/$', 'booktype.apps.edit.views.upload_attachment', name='upload_attachment'),
-                       url(r'^_upload_cover/$', 'booktype.apps.edit.views.upload_cover', name='upload_cover'),     
-                       url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/(?P<fname>.*)$',  'booktype.apps.edit.views.cover', name='view_cover'),                                         
-                       url(r'^_edit/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment'),	                       
-					   url(r'^_edit/$', 'booktype.apps.edit.views.edit', name='book_edit')
+                       url(r'^_upload_cover/$', 'booktype.apps.edit.views.upload_cover', name='upload_cover'),
+                       url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/(?P<fname>.*)$',  'booktype.apps.edit.views.cover', name='view_cover'),
+                       url(r'^_edit/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment'),
+                       url(r'^_edit/$', EditBookPage.as_view(), name='book_edit')
                       )
