@@ -4,6 +4,7 @@
 {% block extra_header %}
     <script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
     <script type="text/javascript" src="{% static "portal/js/general.js" %}"></script>
+    <script type="text/javascript" src="{% static "accounts/js/register.js" %}"></script>    
 {% endblock %}
 {% block content %}
 
@@ -36,10 +37,9 @@
                 <div class="login-widget box gray">
                     <script>
                         $(function() {
-                            $("#formsignin").booksparkSignin({'url': '{% url "signin" %}'});
+                            $("#formsignin").booktypeSignin({'url': '{% url "accounts:signin" %}'});
                         });
-                    </script>     
-
+                    </script>
                     {% if request.user.is_authenticated %}
                         {% include "accounts/form_signedin.html" %}
                     {% else %}
@@ -47,7 +47,7 @@
                             {% include "accounts/form_signin.html" %}
                         </div>
                         <div class="box-bottom-white">
-                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:register" %}">{% trans "Registration form" %}</a></p> 
+                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}">{% trans "Registration form" %}</a></p> 
                         </div> 
                     {% endif %}
                 </div> 
