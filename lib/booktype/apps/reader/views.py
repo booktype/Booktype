@@ -112,7 +112,7 @@ class DraftChapterView(BaseReaderView, BasePageView, DetailView):
     title = ""
 
     def get_context_data(self, **kwargs):
-        book = self.object        
+        book = self.object
         book_version = book.get_version(self.kwargs.get('version', None))
         content = None
 
@@ -133,10 +133,26 @@ class DraftChapterView(BaseReaderView, BasePageView, DetailView):
                 content = chapter.chapter
                 break
 
-        context = super(DraftChapterView, self).get_context_data(**kwargs)        
+        context = super(DraftChapterView, self).get_context_data(**kwargs)
         context['content'] = content
         context['toc_items'] = toc_items
         context['book_version'] = book_version.get_version()
         context['can_edit'] = (self.request.user.is_authenticated() and book.version == book_version)
+
+        return context
+
+class FullView(BaseReaderView, BasePageView, DetailView):
+    template_name = "reader/book_full_view.html"
+    page_title = _("Book full view")
+    title = ""
+
+    def get_context_data(self, **kwargs):
+        book = self.object
+        book_version = book.get_version(self.kwargs.get('version', None))
+        toc_items = BookToc.objects.filter(version=book_version).order_by("-weight")
+
+        context = super(FullView, self).get_context_data(**kwargs)
+        context['book_version'] = book_version.get_version()
+        context['toc_items'] = toc_items
 
         return context

@@ -1,0 +1,68 @@
+{% extends "core/base.html" %}
+{% load i18n staticfiles reader_tags booki_tags %}
+
+{% block extra_header %}
+<script type="text/javascript" src="{% static 'reader/js/fullview.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<!-- Bookbar -->
+<div class="bookbar">
+  <h1><span class="draft-stat">{% trans "Full View" %}</span>{{ book.title }}</h1>
+</div>
+<!-- end Bookbar -->
+
+<div class="container">
+    <div class="row two-col">
+        <div class="col-xs-12">
+            <div class="box white table_of_contents">
+                <h2 class="box-title">{% trans "Table of Contents" %}</h2>
+
+                <div>
+                    {% for item in toc_items %}
+                    {% if item.is_section %}
+                        {% if not forloop.first %}
+                        </ul>
+                        {% endif %}                        
+                        <h4>{{ item.name }}</h4>
+                        <ul class="list border-top smaller-spacing">
+                    {% else %}
+                        <li {% if item.url_title == content.url_title %}class="selected-chapter"{% endif %}>
+                            <div class="list-info">
+                                <h4>
+                                <a href="#{{ item.url_title }}" class="chapter_link">
+                                    {{ item.name }}
+                                </a>
+                                </h4>
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% if forloop.last %}
+                        </ul>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="box white" id="bookcontent">
+                {% if can_edit %}
+                <button data-href="{% url 'book_edit' book.url_title %}#edit/{{ content.id }}" role="button" class="btn btn-default float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit this chapter" %}">
+                    {% trans "EDIT" %}
+                </button>
+                {% endif %}
+
+                {% for item in toc_items %}
+                {% if item.is_section %}
+                <h1>{{ item.name }}</h1>
+                {% else %}
+                <div class="chapter_anchor" id="{{ item.chapter.url_title }}"></div>
+                {% booki_format item.chapter %}
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
