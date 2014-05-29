@@ -6,7 +6,7 @@ from booktype.apps.core.tests.factory_models import UserFactory, BookGroupFactor
 
 class GrouppageTest(TestCase):
     def setUp(self):
-        self.dispatcher = reverse('portal:groups')
+        self.dispatcher = reverse('portal:list_groups')
         self.user = UserFactory()
 
         # setup for groups
@@ -20,7 +20,7 @@ class GrouppageTest(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.context['title'], 'All groups')
 
-    def test_group(self):
+    def test_anonymous_group(self):
         response = self.client.get(self.dispatcher)
         self.assertEquals(response.status_code, 200)
 
@@ -28,4 +28,4 @@ class GrouppageTest(TestCase):
         self.assertContains(response, self.bookGroup.url_name)
         self.assertContains(response, 'booki group description')
         self.assertContains(response, 'Members: 1')
-        self.assertContains(response, 'Books: ')
+        self.assertContains(response, 'Books: 0')
