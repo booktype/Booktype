@@ -26,6 +26,7 @@ from booki.account.models import UserProfile
 
 register = Library()
 
+
 class ProfileImageNode(Node):
     def __init__(self, user):
         self.user = user
@@ -42,12 +43,12 @@ class ProfileImageNode(Node):
             except AttributeError:
                 name = '%s%s' % (settings.STATIC_URL, 'account/images/anonymous.png')
 
-            return '<img src="http://www.gravatar.com/avatar/'+hashlib.md5(profile.user.email.lower()).hexdigest()+"?"+urllib.urlencode({"d": name, "s": str(100)})+'">'
+            return '<img src="http://www.gravatar.com/avatar/' + hashlib.md5(profile.user.email.lower()).hexdigest() + "?" + urllib.urlencode({"d": name, "s": str(100)}) + '">'
 
         filename = profile.image.name
-            
-            
+
         return """<img src="%sprofile_images/%s"/>""" % (settings.DATA_URL, filename.split('/')[-1])
+
 
 @register.tag
 def profile_image(parser, token):
@@ -64,4 +65,3 @@ def profile_image(parser, token):
         raise TemplateSyntaxError
 
     return ProfileImageNode(bits[1])
-
