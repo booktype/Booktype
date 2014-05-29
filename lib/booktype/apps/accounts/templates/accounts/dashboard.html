@@ -130,7 +130,7 @@
 
                 <div class="box-bottom-white">
                     <button id="user-settings" data-href="{% url 'accounts:user_settings' user.username %}" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="Go to settings">{% trans "Settings" as set_text %} {{ set_text|upper }}</button>
-                    <button data-href="{% url 'signout' %}" role="button" class="btn btn-success float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="Log out">{% trans "Log out" as log_text %} {{ log_text|upper }}</button>
+                    <button data-href="{% url 'accounts:signout' %}" role="button" class="btn btn-success float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="Log out">{% trans "Log out" as log_text %} {{ log_text|upper }}</button>
 
                 </div>
             </div>
