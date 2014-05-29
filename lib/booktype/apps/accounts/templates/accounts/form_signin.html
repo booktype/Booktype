@@ -2,7 +2,7 @@
 
 <h2 class="box-title">{% trans "Sign in" %}</h2>  
 
-<form id="formsignin" signin-href="{% url "signin" %}" class="form-group" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
+<form id="formsignin" signin-href="{% url "accounts:signin" %}" redirect-href="{{ redirect|escapejs }}" class="form-group" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
   <div class="form-group">
     <input type="text" class="form-control" name="username" placeholder="{% trans "Enter username" %}">  
   </div>
@@ -16,6 +16,6 @@
     <div class="unknown-error template">{% trans "Unknown error!" %}</div>
   </div>
 
- <input class="navigation_button btn btn-success" value="{% trans "SIGN IN" %}" type="submit" /> 
+ <input class="navigation_button btn btn-success" id="next" value="{% trans "SIGN IN" %}" type="submit" /> 
 <a class="float-right" href="{% url 'accounts:forgotpassword' %}">{% trans "Forgotten your password?" %}</a> 
 </form>  

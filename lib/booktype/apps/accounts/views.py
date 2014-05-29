@@ -15,46 +15,43 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 
+import re
 import os
 import string
 from random import choice
 
 from django.contrib import messages
-from django.views.generic import DetailView
+from django.views.generic import DetailView, View
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import BaseCreateView, UpdateView
-
+from django.contrib import auth
+from django.db import IntegrityError
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.db.models import Q
 from django.conf import settings
 
+
 from braces.views import LoginRequiredMixin
 
+from booki.utils import config, misc
 from booki.utils.json_wrapper import json
-from booki.utils import config, misc, pages
 from booki.messaging.views import get_endpoint_or_none
 from booki.utils.book import checkBookAvailability, createBook
 from booki.editor.models import Book, License, BookHistory, BookiGroup
 from booki.account.models import UserPassword
-
+from booki.utils import pages
+from booki.utils.misc import isUserLimitReached
+import booki.account.signals
 from booktype.apps.core.views import BasePageView, PageView
+from booki.utils.misc import isValidEmail
 
 from .forms import UserSettingsForm, UserPasswordChangeForm
 
-class RegisterPageView(PageView):
-    template_name = "accounts/register.html"
-    page_title = _('Register')
-    title = _('Please register')
-
-    def get_context_data(self, **kwargs):
-        context = super(RegisterPageView, self).get_context_data(**kwargs)
-
-        return context
 
 class DashboardPageView(BasePageView, DetailView):
     template_name = "accounts/dashboard.html"
@@ -82,17 +79,8 @@ class DashboardPageView(BasePageView, DetailView):
         context['book_license'] = config.getConfiguration('CREATE_BOOK_LICENSE')
         context['book_visible'] = config.getConfiguration('CREATE_BOOK_VISIBLE')
 
-        # add some restrictions variables to context
-        context['admin_create'] = config.getConfiguration('ADMIN_CREATE_BOOKS')
-        context['admin_import'] = config.getConfiguration('ADMIN_IMPORT_BOOKS')
-
-        if self.object.is_superuser:
-            context['admin_create'] = False
-            context['admin_import'] = False
-
-        context['limit_reached'] = misc.isBookLimitReached()
-
         return context
+
 
 class CreateBookView(LoginRequiredMixin, BaseCreateView):
     model = User
@@ -100,26 +88,12 @@ class CreateBookView(LoginRequiredMixin, BaseCreateView):
     slug_url_kwarg = 'username'
     context_object_name = 'user'
 
-    def dispatch(self, request, *args, **kwargs):
-        current_user = self.get_object()
-        admin_create = config.getConfiguration('ADMIN_CREATE_BOOKS')
-
-        if current_user.is_superuser:
-            admin_create = False
-
-        if misc.isBookLimitReached() or admin_create:
-            return HttpResponseForbidden(_('You have no permissions to do this!'))
-
-        return super(CreateBookView, self).dispatch(request, *args, **kwargs)
-
     def get(self, request, *args, **kwargs):
         if request.GET.get('q', None) == "check":
             data = {
                 "available": checkBookAvailability(request.GET.get('bookname', '').strip())
             }
             return HttpResponse(json.dumps(data), "application/json")
-
-        return HttpResponse()
 
     def post(self, request, *args, **kwargs):
         book = createBook(request.user, request.POST.get('title'))
@@ -144,6 +118,7 @@ class CreateBookView(LoginRequiredMixin, BaseCreateView):
             'accounts/create_book_redirect.html',
             {"request": request, "book": book}
         )
+
 
 class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
     template_name = "accounts/dashboard_settings.html"
@@ -218,7 +193,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
         Overrides the post method in order to handle settings form and
         also password form
         '''
-        
+
         if 'password_change' in request.POST:
             form = self.password_form_class(user=request.user, data=request.POST)
             if form.is_valid():
@@ -242,6 +217,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
                 return self.render_to_response(context)
 
         return super(self.__class__, self).post(request, *args, **kwargs)
+
 
 class ForgotPasswordView(PageView):
     template_name = "accounts/forgot_password.html"
@@ -331,7 +307,7 @@ class ForgotPasswordEnterView(PageView):
         if all_ok:
             pswd.user.set_password(password1)
             pswd.user.save()
-            return redirect(reverse('accounts:register'))
+            return redirect(reverse('accounts:signin'))
         else:
             context['code_error'] = _('Wrong secret code')
             context['secretcode'] = secretcode
@@ -342,3 +318,202 @@ class ForgotPasswordEnterView(PageView):
         context['secretcode'] = self.request.GET['secretcode']
 
         return context
+
+
+class SignInView(PageView):
+    template_name = "accounts/register.html"
+    page_title = _('Sign in')
+    title = _('Sign in')
+
+    def get_context_data(self, **kwargs):
+        context = super(self.__class__, self).get_context_data(**kwargs)
+
+        return context
+
+    def _check_if_empty(self, request, key):
+        return request.POST.get(key, "").strip() == ""
+
+    def _do_checks_for_empty(self, request):
+        if self._check_if_empty(request, "username"):
+            return 2
+        if self._check_if_empty(request, "email"):
+            return 3
+        if self._check_if_empty(request, "password") or self._check_if_empty(request, "password2"):
+            return 4
+        if self._check_if_empty(request, "fullname"):
+            return 5
+
+        return 0
+
+    def _do_check_valid(self, request):
+        # check if it is valid username
+        # - from 2 to 20 characters long
+        # - word, number, ., _, -
+        mtch = re.match('^[\w\d\_\.\-]{2,20}$', request.POST.get("username", "").strip())
+        if not mtch:
+            return 6
+
+        # check if it is valid email
+        if not bool(isValidEmail(request.POST["email"].strip())):
+            return 7
+
+        if request.POST.get("password", "") != request.POST.get("password2", "").strip():
+            return 8
+        if len(request.POST.get("password", "").strip()) < 6:
+            return 9
+
+        if len(request.POST.get("fullname", "").strip()) > 30:
+            return 11
+
+        # check if this user exists
+        try:
+            u = auth.models.User.objects.get(username=request.POST.get("username", "").strip())
+            return 10
+        except auth.models.User.DoesNotExist:
+            pass
+
+        return 0
+
+    def post(self, request, *args, **kwargs):
+        limit_reached = isUserLimitReached()
+
+        username = request.POST["username"].strip()
+        password = request.POST["password"].strip()
+
+        if request.POST.get("ajax", "") == "1":
+            ret = {"result": 0}
+
+            if request.POST.get("method", "") == "register" and config.getConfiguration('FREE_REGISTRATION') and not limit_reached:
+                email = request.POST["email"].strip()
+                fullname = request.POST["fullname"].strip()
+                ret["result"] = self._do_checks_for_empty(request)
+
+                if ret["result"] == 0:  # if there was no errors
+                    ret["result"] = self._do_check_valid(request)
+
+                    if ret["result"] == 0:
+                        ret["result"] = 1
+
+                        user = None
+                        try:
+                            user = auth.models.User.objects.create_user(username=username,
+                                                                        email=email,
+                                                                        password=password)
+                        except IntegrityError:
+                            ret["result"] = 10
+                        except:
+                            ret["result"] = 10
+                            user = None
+
+                        # this is not a good place to fire signal, but i need password for now
+                        # should create function createUser for future use
+
+                        if user:
+                            user.first_name = fullname
+
+                            booki.account.signals.account_created.send(sender=user, password=request.POST["password"])
+
+                            try:
+                                user.save()
+
+                                # groups
+
+                                for group_name in json.loads(request.POST.get("groups")):
+                                    if group_name.strip() != '':
+                                        try:
+                                            group = BookiGroup.objects.get(url_name=group_name)
+                                            group.members.add(user)
+                                        except:
+                                            pass
+
+                                user2 = auth.authenticate(username=username, password=password)
+                                auth.login(request, user2)
+                            except:
+                                ret["result"] = 666
+
+            if request.POST.get("method", "") == "signin":
+                user = auth.authenticate(username=username, password=password)
+
+                if user:
+                    auth.login(request, user)
+                    ret["result"] = 1
+                else:
+                    try:
+                        usr = auth.models.User.objects.get(username=username)
+                        # User does exist. Must be wrong password then
+                        ret["result"] = 3
+                    except auth.models.User.DoesNotExist:
+                        # User does not exist
+                        ret["result"] = 2
+
+            try:
+                resp = HttpResponse(json.dumps(ret), mimetype="text/json")
+            except:
+                raise
+        return resp
+
+
+class SignOutView(View):
+
+    def get(self, request):
+
+        auth.logout(request)
+        return HttpResponseRedirect(reverse("portal:frontpage"))
+
+
+def profilethumbnail(request, profileid):
+    """
+    Django View. Shows user profile image.
+
+    One of the problems with this view is that it does not handle gravatar images.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type profileid: C{string}
+    @param profileid: Username.
+
+    @todo: Check if user exists. 
+    """
+
+    try:
+        u = User.objects.get(username=profileid)
+    except User.DoesNotExist:
+        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": profileid})
+
+    name = ''
+
+    def _get_default_profile():
+        "Return path to default profile image."
+
+        try:
+            name = '%s/account/images/%s' % (settings.STATIC_ROOT, settings.DEFAULT_PROFILE_IMAGE)
+        except AttributeError:
+            name = '%s%s' % (settings.STATIC_ROOT, '/account/images/anonymous.png')
+
+        return name
+
+    # this should be a seperate function
+
+    if not u.get_profile().image:
+        name = _get_default_profile()
+    else:
+        name =  u.get_profile().image.path
+
+    try:
+        from PIL import Image
+    except ImportError:
+        import Image
+
+    # Don't do much in case of Image handling errors
+    
+    try:
+        image = Image.open(name)
+    except IOError:
+        image = Image.open(_get_default_profile())
+
+    image.thumbnail((int(request.GET.get('width', 24)), int(request.GET.get('width', 24))), Image.ANTIALIAS)
+
+    response = HttpResponse(mimetype="image/jpg")
+    image.save(response, "JPEG")
+        
+    return response

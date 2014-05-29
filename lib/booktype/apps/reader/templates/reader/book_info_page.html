@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="box-bottom-white btn-space btn-box-uppercase">
-                    <button data-href="{% url 'book_edit' book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Edit this Book' %}">
+                    <button data-href="{% url 'edit:editor' book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Edit this Book' %}">
                         {% trans "Edit this Book" %}
                     </button>
                     <button data-href="{% url 'reader:draft_chapter_page' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'View draft' %}">

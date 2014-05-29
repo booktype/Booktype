@@ -1,11 +1,13 @@
 <script type="text/javascript">  
-       window.booktype.username = "{{request.user.username|escapejs}}";
-       window.booktype.fullname = "{{request.user.first_name|escapejs}}";       
-       window.booktype.currentBookID  = {{book.id}};
-       window.booktype.currentBook    = "{{book.title|escapejs}}";
-       window.booktype.currentBookURL = "{{book.url_title|escapejs}}";
+       window.booktype.username = "{{ request.user.username|escapejs }}";
+       window.booktype.fullname = "{{ request.user.first_name|escapejs }}";       
+       window.booktype.currentBookID  = {{ book.id }};
+       window.booktype.currentBook    = "{{ book.title|escapejs }}";
+       window.booktype.currentBookURL = "{{ book.url_title|escapejs }}";
+       window.booktype.staticURL = "{{ static_url|escapejs }}";
+       window.booktype.baseURL = "{{ base_url|escapejs }}";
 
-       window.booktype.currentVersion = "{{book_version|escapejs}}";
+       window.booktype.currentVersion = "{{ book_version|escapejs }}";
        window.booktype.sputnikDispatcherURL = "{% url "sputnik.views.dispatcher" %}";
        window.booktype.activeProfile = "{{ ACTIVE_PROFILE }}";
 
@@ -26,7 +28,7 @@
                                   //'global': {'tabs': ['chat']}
                                  }
                       };
-                      
+
         if (!window.console) {
           var noOp = function(){}; // no-op function
           console = {
@@ -37,10 +39,11 @@
         }                      
 
         Aloha.ready( function() {
-            Aloha.require(['jquery', 'aloha', 'booktype'], function(j, aloha, booktype) {
+            Aloha.require(['jquery', 'aloha', 'booktype', 'underscore', 'underscorestring'], function(j, aloha, booktypei, underscore, understring) {
+              underscore.mixin(understring.exports());
 
-                booktype.editor.initEditor(settings);    
-                booktype.connect();  
+              booktype.editor.initEditor(settings);    
+              booktype.connect();  
             });
         });
 </script>

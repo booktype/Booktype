@@ -2,8 +2,11 @@
 
 import datetime
 
-from django.shortcuts import render
+from braces.views import LoginRequiredMixin, UserPassesTestMixin
 
+from django.views.generic import TemplateView
+from django.core.urlresolvers import reverse
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
@@ -13,8 +16,10 @@ from django.conf import settings
 
 from booki.utils import log
 from booki.editor import models
+from booki.utils import pages
+from booktype.utils import security
 
-def getTOCForBook(version):
+def get_toc_for_book(version):
     results = []
     for chap in version.get_toc():
         # is it a section or chapter?
@@ -27,6 +32,8 @@ def getTOCForBook(version):
         else:
             results.append(('s%s' % chap.id, chap.name, chap.name, chap.typeof))
     return results
+
+getTOCForBook = get_toc_for_book
 
 
 @login_required
@@ -248,16 +255,66 @@ def cover(request, bookid, cid, fname = None, version=None):
     response = HttpResponse(data, content_type=content_type)
     return response
 
-@login_required
-def edit(request, bookid):
-    book = models.Book.objects.get(url_title__iexact=bookid)
 
-    toc = getTOCForBook(book.get_version(None))
-    book_version = book.get_version(None)
-    book_version = '1.0'
-    resp =  render(request, 'edit/book_edit.html', {'request': request,
-    		                                        'chapters': toc,
-    		   										'book': book,
-    		   										'book_version': book_version})
+class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    """Basic Edito Book View which opens up the editor. 
 
-    return resp
+    Most of the initial data is loaded from the browser over the Sputnik. In the view we just check Basic
+    security permissions and availability of the book.
+    """
+
+    template_name = 'edit/book_edit.html'
+    redirect_unauthorized_user = True
+    redirect_field_name = 'redirect'
+
+    def render_to_response(self, context, **response_kwargs):
+        # Check for errors
+        if context['book'] == None:
+            return pages.ErrorPage(self.request, "errors/book_does_not_exist.html", {'book_name': context['book_id']})
+
+        if context.get('has_permission', True) == False:
+            return pages.ErrorPage(self.request, "errors/editing_forbidden.html", {'book': context['book']})    
+
+        return super(TemplateView, self).render_to_response(context, **response_kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(TemplateView, self).get_context_data(**kwargs)
+
+        try:
+            book = models.Book.objects.get(url_title__iexact=kwargs['bookid'])
+        except models.Book.DoesNotExist:
+            return {'book': None, 'book_id': kwargs['bookid']}
+
+        book_version = book.get_version(None)
+
+        book_security = security.get_user_security_for_book(self.request.user, book)
+        has_permission = security.can_edit_book(book, book_security)
+
+        if not has_permission:
+            return {'book': book, 'has_permission': False}
+
+        toc = get_toc_for_book(book_version)
+
+        context['request'] = self.request
+        context['book'] = book
+        context['book_version'] = book_version.get_version()
+
+        context['chapters'] = toc        
+
+        context['base_url'] = settings.BOOKTYPE_URL
+        context['static_url'] = settings.STATIC_URL
+        context['is_admin'] = book_security.is_group_admin() or book_security.is_book_admin() or book_security.is_superuser()
+        context['is_owner'] = book.owner == self.request.user
+
+        return context
+
+    def test_func(self, user):
+        """Filters list of user who can and who can not edit the book.
+
+        This does not do much at the moment but is left for the future use. 
+        """
+
+        return True
+
+    def get_login_url(self):
+        return reverse('accounts:signin')

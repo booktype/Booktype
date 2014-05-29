@@ -16,14 +16,13 @@
 
 from django.conf.urls import patterns, url
 
-from .views import RegisterPageView, DashboardPageView
-from .views import CreateBookView, UserSettingsPage
-from .views import ForgotPasswordView, ForgotPasswordEnterView
+from .views import CreateBookView, UserSettingsPage, DashboardPageView
+from .views import ForgotPasswordView, ForgotPasswordEnterView, SignInView, SignOutView
 
 urlpatterns = patterns(
     '',
-    url(r'^signin/$', 'booki.account.views.signin', name='signin'),
-    url(r'^register/$', RegisterPageView.as_view(), name='register'),
+    url(r'^signin/$', SignInView.as_view(), name='signin'),
+    url(r'^signout/$', SignOutView.as_view(), name='signout'),
     url(r'^forgot_password/$', ForgotPasswordView.as_view(), name='forgotpassword'),
     url(r'^forgot_password/enter/$', ForgotPasswordEnterView.as_view(), name='forgotpasswordenter'),
 

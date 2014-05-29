@@ -3,6 +3,7 @@
 {% block extra_header %}
     <script type="text/javascript" src="{% static 'portal/js/frontpage.js' %}"></script>
     <script type="text/javascript" src="{% static 'portal/js/general.js' %}"></script>
+    <script type="text/javascript" src="{% static 'accounts/js/register.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -37,7 +38,7 @@
                                         <h4><a href="{% url "reader:infopage" book.url_title %}">{{ book.title }}</a></h4>
                                         {% if request.user.is_authenticated %}
                                             <div class="btn-group float-right">
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit_book" book.url_title %}"><i class="icon-pencil"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit:editor" book.url_title %}"><i class="icon-pencil"></i></a>
                                                 <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url "accounts:view_profile" request.user.username %}" target="_blank"><i class="icon-eye-open"></i></a>
                                                 <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "accounts:view_profile" request.user.username %}"><i class="icon-trash"></i></a>
                                             </div>
@@ -77,7 +78,7 @@
                     </ul>  
                     {% if request.user.is_authenticated %}
                         <div class="box-bottom-gray">
-                            <button data-href="{% url "accounts:register" %}" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Invite people" %}">{% trans "INVITE PEOPLE" %}</button>
+                            <button data-href="{% url "accounts:signin" %}" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Invite people" %}">{% trans "INVITE PEOPLE" %}</button>
                         </div>
                     {% endif %}
                 </div>
@@ -112,10 +113,9 @@
                 <div class="login-widget box gray">
                     <script>
                         $(function() {
-                            $("#formsignin").booksparkSignin({'url': '{% url "signin" %}'});
+                            $("#formsignin").booktypeSignin({'url': '{% url "accounts:signin" %}'});
                         });
-                    </script>
-
+                    </script>                 
                     {% if request.user.is_authenticated %}
                         {% include "accounts/form_signedin.html" %}
                     {% else %}
@@ -123,7 +123,7 @@
                             {% include "accounts/form_signin.html" %}
                         </div>
                         <div class="box-bottom-white">
-                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:register" %}">{% trans "Registration form" %}</a></p> 
+                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}?redirect={{ request.path }}">{% trans "Registration form" %}</a></p> 
                         </div> 
                     {% endif %}
                 </div>
