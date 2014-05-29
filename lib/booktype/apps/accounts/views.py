@@ -459,3 +459,61 @@ class SignOutView(View):
 
         auth.logout(request)
         return HttpResponseRedirect(reverse("portal:frontpage"))
+
+
+def profilethumbnail(request, profileid):
+    """
+    Django View. Shows user profile image.
+
+    One of the problems with this view is that it does not handle gravatar images.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Django Request
+    @type profileid: C{string}
+    @param profileid: Username.
+
+    @todo: Check if user exists. 
+    """
+
+    try:
+        u = User.objects.get(username=profileid)
+    except User.DoesNotExist:
+        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": profileid})
+
+    name = ''
+
+    def _get_default_profile():
+        "Return path to default profile image."
+
+        try:
+            name = '%s/account/images/%s' % (settings.STATIC_ROOT, settings.DEFAULT_PROFILE_IMAGE)
+        except AttributeError:
+            name = '%s%s' % (settings.STATIC_ROOT, '/account/images/anonymous.png')
+
+        return name
+
+    # this should be a seperate function
+
+    if not u.get_profile().image:
+        name = _get_default_profile()
+    else:
+        name =  u.get_profile().image.path
+
+    try:
+        from PIL import Image
+    except ImportError:
+        import Image
+
+    # Don't do much in case of Image handling errors
+    
+    try:
+        image = Image.open(name)
+    except IOError:
+        image = Image.open(_get_default_profile())
+
+    image.thumbnail((int(request.GET.get('width', 24)), int(request.GET.get('width', 24))), Image.ANTIALIAS)
+
+    response = HttpResponse(mimetype="image/jpg")
+    image.save(response, "JPEG")
+        
+    return response

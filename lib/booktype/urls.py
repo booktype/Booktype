@@ -53,7 +53,7 @@ urlpatterns = patterns('',
 
                    # misc
                    # TODO: replace with new apps
-                   url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booki.account.views.view_profilethumbnail', name='view_profilethumbnail'),
+                   url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booktype.apps.accounts.views.profilethumbnail', name='view_profilethumbnail'),
 
                    # sputnik dispatcher
                    url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),
