@@ -9,7 +9,7 @@ from django.core.files import uploadedfile
 from django.db.models.signals import post_save
 
 from booki.editor.models import Book, BookStatus, Language, BookVersion, BookiGroup
-from booki.account.models import UserProfile
+from booktype.apps.account.models import UserProfile
 
 
 class FrontpageTest(TestCase):

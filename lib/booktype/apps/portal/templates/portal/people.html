@@ -4,7 +4,7 @@
 {% block extra_header %}
     <script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
     <script type="text/javascript" src="{% static "portal/js/general.js" %}"></script>
-    <script type="text/javascript" src="{% static "accounts/js/register.js" %}"></script>    
+    <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>    
 {% endblock %}
 {% block content %}
 
@@ -41,10 +41,10 @@
                         });
                     </script>
                     {% if request.user.is_authenticated %}
-                        {% include "accounts/form_signedin.html" %}
+                        {% include "account/form_signedin.html" %}
                     {% else %}
                         <div class="signin-block">
-                            {% include "accounts/form_signin.html" %}
+                            {% include "account/form_signin.html" %}
                         </div>
                         <div class="box-bottom-white">
                             <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}">{% trans "Registration form" %}</a></p> 

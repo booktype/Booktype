@@ -17,7 +17,7 @@
 import models
 from django.contrib import admin
 
-from booki.account.models import UserProfile
+from booktype.apps.account.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 

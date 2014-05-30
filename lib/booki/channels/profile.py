@@ -135,8 +135,8 @@ def remote_mood_set(request, message, profileid):
     ## html tags are removed
     moodMessage = strip_tags(message.get("value",""))[:30]
 
-    import booki.account.signals
-    booki.account.signals.account_status_changed.send(sender = request.user, message = message.get('value', ''))
+    import booktype.apps.account.signals
+    booktype.apps.account.signals.account_status_changed.send(sender = request.user, message = message.get('value', ''))
 
     # save new permissions
     profile = request.user.get_profile()

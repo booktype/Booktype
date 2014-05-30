@@ -1,5 +1,7 @@
 import os
 import django
+import booktype.apps
+
 from unipath import Path
 
 BASE_DIR = Path(os.path.abspath(__file__))
@@ -98,9 +100,8 @@ INSTALLED_APPS = (
     'booktype.apps.convert',
     'booktype.apps.edit',
     'booktype.apps.reader',
-    'booktype.apps.accounts',
+    'booktype.apps.account',
 
-    'booki.account',
     'booki.reader',
     'booki.portal',
     'booki.messaging',

@@ -22,7 +22,7 @@ from django.db.models import get_model
 from django.template import Library, Node, TemplateSyntaxError, resolve_variable
 from django.conf import settings
 
-from booki.account.models import UserProfile
+from booktype.apps.account.models import UserProfile
 
 register = Library()
 
@@ -39,9 +39,9 @@ class ProfileImageNode(Node):
 
         if not profile.image:
             try:
-                name = '%saccounts/images/%s' % (settings.STATIC_URL, settings.DEFAULT_PROFILE_IMAGE)
+                name = '%saccount/images/%s' % (settings.STATIC_URL, settings.DEFAULT_PROFILE_IMAGE)
             except AttributeError:
-                name = '%s%s' % (settings.STATIC_URL, 'accounts/images/anonymous.png')
+                name = '%s%s' % (settings.STATIC_URL, 'account/images/anonymous.png')
 
             return '<img src="http://www.gravatar.com/avatar/' + hashlib.md5(profile.user.email.lower()).hexdigest() + "?" + urllib.urlencode({"d": name, "s": str(100)}) + '">'
 

@@ -18,7 +18,7 @@ SKIP_SOUTH_TESTS = True
 # BOOKTYPE
 BOOKTYPE_NAME = 'Booktype site'
 BOOKTYPE_SITE_NAME = 'tests'
-THIS_BOOKTYPE_SERVER = ''  
+THIS_BOOKTYPE_SERVER = ''
 
 BOOKTYPE_ROOT = Path(os.path.abspath(__file__)).ancestor(3)
 
@@ -157,10 +157,9 @@ INSTALLED_APPS = (
     'booktype.apps.importer',
     'booktype.apps.convert',
     'booktype.apps.edit',
-    'booktype.apps.accounts',
+    'booktype.apps.account',
 
     # to be removed
-    'booki.account',
     'booki.reader',
     'booki.portal',
     'booki.messaging',

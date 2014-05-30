@@ -43,10 +43,10 @@ from booki.utils.json_wrapper import json
 from booki.messaging.views import get_endpoint_or_none
 from booki.utils.book import checkBookAvailability, createBook
 from booki.editor.models import Book, License, BookHistory, BookiGroup
-from booki.account.models import UserPassword
+from booktype.apps.account.models import UserPassword
 from booki.utils import pages
 from booki.utils.misc import isUserLimitReached
-import booktype.apps.accounts.signals
+import booktype.apps.account.signals
 from booktype.apps.core.views import BasePageView, PageView
 from booki.utils.misc import isValidEmail
 
@@ -54,7 +54,7 @@ from .forms import UserSettingsForm, UserPasswordChangeForm
 
 
 class DashboardPageView(BasePageView, DetailView):
-    template_name = "accounts/dashboard.html"
+    template_name = "account/dashboard.html"
     page_title = _('Dashboard')
     title = _('My Dashboard')
 
@@ -115,13 +115,13 @@ class CreateBookView(LoginRequiredMixin, BaseCreateView):
 
         return render(
             request,
-            'accounts/create_book_redirect.html',
+            'account/create_book_redirect.html',
             {"request": request, "book": book}
         )
 
 
 class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
-    template_name = "accounts/dashboard_settings.html"
+    template_name = "account/dashboard_settings.html"
     page_title = _('Settings')
     title = _('Settings')
 
@@ -220,7 +220,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
 
 
 class ForgotPasswordView(PageView):
-    template_name = "accounts/forgot_password.html"
+    template_name = "account/forgot_password.html"
     page_title = _('Forgot your password')
     title = _('Forgot your password')
 
@@ -254,7 +254,7 @@ class ForgotPasswordView(PageView):
             account_models.remote_host = request.META.get('REMOTE_HOST', '')
             account_models.secretcode = secretcode
 
-            body = render_to_string('accounts/password_reset_email.html',
+            body = render_to_string('account/password_reset_email.html',
                                     dict(secretcode=secretcode, hostname=THIS_BOOKTYPE_SERVER))
 
             msg = EmailMessage(_('Reset password'), body, settings.REPORT_EMAIL_USER, [usr.email])
@@ -273,7 +273,7 @@ class ForgotPasswordView(PageView):
 
 
 class ForgotPasswordEnterView(PageView):
-    template_name = "accounts/forgot_password_enter.html"
+    template_name = "account/forgot_password_enter.html"
     page_title = _('Reset your password')
     title = _('Reset your password')
 
@@ -321,7 +321,7 @@ class ForgotPasswordEnterView(PageView):
 
 
 class SignInView(PageView):
-    template_name = "accounts/register.html"
+    template_name = "account/register.html"
     page_title = _('Sign in')
     title = _('Sign in')
 
@@ -411,7 +411,7 @@ class SignInView(PageView):
                         if user:
                             user.first_name = fullname
 
-                            booktype.apps.accounts.signals.account_created.send(sender=user, password=request.POST["password"])
+                            booktype.apps.account.signals.account_created.send(sender=user, password=request.POST["password"])
 
                             try:
                                 user.save()
@@ -486,9 +486,9 @@ def profilethumbnail(request, profileid):
         "Return path to default profile image."
 
         try:
-            name = '%s/accounts/images/%s' % (settings.STATIC_ROOT, settings.DEFAULT_PROFILE_IMAGE)
+            name = '%s/account/images/%s' % (settings.STATIC_ROOT, settings.DEFAULT_PROFILE_IMAGE)
         except AttributeError:
-            name = '%s%s' % (settings.STATIC_ROOT, '/accounts/images/anonymous.png')
+            name = '%s%s' % (settings.STATIC_ROOT, '/account/images/anonymous.png')
 
         return name
 

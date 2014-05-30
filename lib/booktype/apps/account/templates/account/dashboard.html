@@ -6,7 +6,7 @@
 <script type="text/javascript">
     var createBookUrl = "{% url 'accounts:create_book' current_user.username %}";
 </script>
-<script type="text/javascript" src="{% static 'accounts/js/dashboard.js' %}"></script>
+<script type="text/javascript" src="{% static 'account/js/dashboard.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -22,8 +22,8 @@
 
                     <p>{{ current_user.get_profile.description|escape }}</p>
                     <p>
-                        {% user_followingbox user.username "accounts/dashboard_following.html" %}<br>
-                        {% user_followersbox user.username "accounts/dashboard_followers.html" %}
+                        {% user_followingbox user.username "account/dashboard_following.html" %}<br>
+                        {% user_followersbox user.username "account/dashboard_followers.html" %}
                     </p>
                     <p><a href="#">{% trans "Follow my changes" %}</a> <img src="{% static 'core/img/rss.png' %}"></p>
                 </div>
@@ -67,13 +67,13 @@
                             <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show List' %}"><i class="icon-list-ul"></i></button>
                         </div>
 
-                        {% include "accounts/dashboard_create_book_modal.html" %}
+                        {% include "account/dashboard_create_book_modal.html" %}
                     </div>
                 </h2>
 
                 <div class="book-thumb" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
                     {% for book in books %}
-                    {% include "accounts/dashboard_book_template.html" %}
+                    {% include "account/dashboard_book_template.html" %}
                     {% endfor %}
                 </div> <!-- End of book list (book-thumb or book-list) -->
                 
@@ -82,7 +82,7 @@
 
                 <div class="book-thumb" id="books-prew-2"> <!-- For list view add white-list class, and remove book-thumb -->
                     {% for book in books_collaborating %}
-                    {% include "accounts/dashboard_book_template.html" %}
+                    {% include "account/dashboard_book_template.html" %}
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -94,7 +94,7 @@
                 <h2 class="box-title">{% trans "My Groups" %}</h2>
                 <ul class="list">
                     {% for group in groups %}
-                    {% include "accounts/dashboard_group_template.html" %}
+                    {% include "account/dashboard_group_template.html" %}
                     {% endfor %}
                 </ul>
                 <div class="box-bottom-gray">
@@ -124,8 +124,8 @@
                 <div class="content-divider"></div>
 
                 <p>
-                    {% user_followingbox user.username "accounts/dashboard_following.html" %}<br>
-                    {% user_followersbox user.username "accounts/dashboard_followers.html" %}
+                    {% user_followingbox user.username "account/dashboard_following.html" %}<br>
+                    {% user_followersbox user.username "account/dashboard_followers.html" %}
                 </p>
 
                 <div class="box-bottom-white">
@@ -171,7 +171,7 @@
                 <h2 class="box-title">{% trans "Groups" %}</h2>                
                 <ul class="list">
                     {% for group in groups %}
-                    {% include "accounts/dashboard_group_template.html" %}
+                    {% include "account/dashboard_group_template.html" %}
                     {% empty %}
                     <p>{% trans "This user has no groups" %}</p>
                     {% endfor %}

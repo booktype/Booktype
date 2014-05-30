@@ -30,7 +30,7 @@ urlpatterns = patterns(
     # front page
     url(r'', include('booktype.apps.portal.urls', namespace="portal")),
     # accounts
-    url(r'^accounts/', include('booktype.apps.accounts.urls', namespace="accounts")),
+    url(r'^accounts/', include('booktype.apps.account.urls', namespace="accounts")),
 
     # booki portal for view groups
     url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.portal.views.view_group', name="view_group"),
@@ -50,7 +50,7 @@ urlpatterns = patterns(
 
     # misc
     # TODO: replace with new apps
-    url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booktype.apps.accounts.views.profilethumbnail', name='view_profilethumbnail'),
+    url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booktype.apps.account.views.profilethumbnail', name='view_profilethumbnail'),
 
     # sputnik dispatcher
     url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),

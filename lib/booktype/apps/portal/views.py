@@ -13,7 +13,7 @@ from django import forms
 from booktype.apps.core.views import PageView
 from booktype.utils import misc
 from booki.editor.models import Book, BookiGroup, BookHistory
-from booki.account.models import UserProfile
+from booktype.apps.account.models import UserProfile
 from booki.utils.misc import bookiSlugify
 from booki.utils import pages
 from booktype.utils import security

@@ -24,7 +24,7 @@ from booki.editor.models import Book, BookVersion, Chapter
 from booki.editor.models import BookStatus, BookToc, BookHistory
 from booki.editor.models import BookiGroup
 
-from booki.account.models import UserProfile
+from booktype.apps.account.models import UserProfile
 
 PLAIN_USER_PASSWORD = 'top_secret'
 

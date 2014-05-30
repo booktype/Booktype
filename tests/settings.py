@@ -86,7 +86,6 @@ INSTALLED_APPS = (
 
     # list of booki apps
     'booki.editor',
-    'booki.account',
 #    'booki.reader',
 #    'booki.portal',
     'booki.messaging',
@@ -95,6 +94,7 @@ INSTALLED_APPS = (
     'booktype.apps.importer',
     'booktype.apps.convert',
     'booktype.apps.edit',
+    'booktype.apps.account',
 
     'sputnik',
     'booktypecontrol',

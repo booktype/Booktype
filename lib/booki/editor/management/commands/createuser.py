@@ -61,7 +61,7 @@ class Command(BaseCommand):
             user.first_name = fullname
             user.save()
 
-            from booki.account.models import UserProfile
+            from booktype.apps.account.models import UserProfile
             user_profile = UserProfile(user = user)
             user_profile.save()
         except:
