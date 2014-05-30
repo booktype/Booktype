@@ -1,5 +1,6 @@
 import factory
 
+from django.core.urlresolvers import reverse
 from django.test import LiveServerTestCase
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.common.exceptions import NoSuchElementException
@@ -18,7 +19,7 @@ class MySeleniumTests(LiveServerTestCase):
         super(MySeleniumTests, cls).tearDownClass()
 
     def test_login(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/newaccounts/register'))
+        self.selenium.get('%s%s' % (self.live_server_url, reverse('accounts:signin')))
         signin_input = self.selenium.find_element_by_id('formsignin')
         username_input = signin_input.find_element_by_name("username")
         username_input.send_keys('myuser')
@@ -32,7 +33,7 @@ class MySeleniumTests(LiveServerTestCase):
         self.assertEquals(noSuchUser.text, 'User does not exist.')
 
     def test_register_missing_username(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/newaccounts/register'))
+        self.selenium.get('%s%s' % (self.live_server_url, reverse('accounts:signin')))
         register_form = self.selenium.find_element_by_id('formregister')
 
         self.selenium.find_element_by_xpath('//input[@value="CREATE ACCOUNT"]').click()
@@ -42,7 +43,7 @@ class MySeleniumTests(LiveServerTestCase):
         self.assertEquals(register_form.find_element_by_class_name('missing-username').text, 'Missing username!')
 
     def test_register_missing_email(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/newaccounts/register'))
+        self.selenium.get('%s%s' % (self.live_server_url, reverse('accounts:signin')))
         register_form = self.selenium.find_element_by_id('formregister')
         username_input = register_form.find_element_by_name("username")
         username_input.send_keys('myuser')
@@ -54,7 +55,7 @@ class MySeleniumTests(LiveServerTestCase):
         self.assertEquals(register_form.find_element_by_class_name('missing-email').text, 'Missing e-mail!')
 
     def test_register_missing_password(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/newaccounts/register'))
+        self.selenium.get('%s%s' % (self.live_server_url, reverse('accounts:signin')))
         register_form = self.selenium.find_element_by_id('formregister')
         username_input = register_form.find_element_by_name("username")
         username_input.send_keys('myuser')
@@ -68,7 +69,7 @@ class MySeleniumTests(LiveServerTestCase):
         self.assertEquals(register_form.find_element_by_class_name('missing-password').text, 'Missing password!')
 
     def test_register_missing_fullname(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/newaccounts/register'))
+        self.selenium.get('%s%s' % (self.live_server_url, reverse('accounts:signin')))
         register_form = self.selenium.find_element_by_id('formregister')
         username_input = register_form.find_element_by_name("username")
         username_input.send_keys('myuser')
@@ -84,7 +85,7 @@ class MySeleniumTests(LiveServerTestCase):
         self.assertEquals(register_form.find_element_by_class_name('missing-fullname').text, 'Please provide your real name.')
 
     def test_register_short_password(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/newaccounts/register'))
+        self.selenium.get('%s%s' % (self.live_server_url, reverse('accounts:signin')))
         register_form = self.selenium.find_element_by_id('formregister')
         username_input = register_form.find_element_by_name("username")
         username_input.send_keys('myuser')
