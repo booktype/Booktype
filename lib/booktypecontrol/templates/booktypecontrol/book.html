@@ -60,7 +60,7 @@
  <p style="clear:both; margin-top:0;">&nbsp;</p>
 
  <ul id="bookdetails">
-  <li><b>{% trans "Owner:" %}</b> <a href="{% url "view_profile" book.owner.username %}" class="user">{{ book.owner.username }}</a></li>
+  <li><b>{% trans "Owner:" %}</b> <a href="{% url "accounts:view_profile" book.owner.username %}" class="user">{{ book.owner.username }}</a></li>
   <li><b>{% trans "Status:" %}</b> {{ book.status.name }}
   {% if book.hidden %}
     <i>{% trans "(this book is hidden from others)" %}</i>
@@ -79,7 +79,7 @@
   <li>&nbsp;</li>
   <li><b>{% trans "Collaborators:" %}</b>
     {% for username in book_collaborators %}
-      <a href="{% url "view_profile" book.owner.username %}" class="user">{{ username }}</a>
+      <a href="{% url "accounts:view_profile" book.owner.username %}" class="user">{{ username }}</a>
       {% if not forloop.last %},{% endif %}
     {% endfor %}
   </li>
@@ -87,7 +87,7 @@
     <li>
       <b>{% trans "Online editing:" %}</b> 
       {% for username in online_users %}
-        <a href="{% url "view_profile" book.owner.username %}" class="user">{{ username }}</a>
+        <a href="{% url "accounts:view_profile" book.owner.username %}" class="user">{{ username }}</a>
         {% if not forloop.last %},{% endif %}
       {% endfor %}
     </li>

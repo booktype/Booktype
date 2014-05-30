@@ -25,7 +25,7 @@
                   <script>
                       $(function() {                      
                           $("#formsignin").booktypeSignin({'url': '{% url "accounts:signin" %}'});
-                          $("#formregister").booktypeRegister({'url': '{% url "accounts:signin" %}', 'redirect': '{% url "view_profile" 'XXX' %}'});
+                          $("#formregister").booktypeRegister({'url': '{% url "accounts:signin" %}', 'redirect': '{% url "accounts:view_profile" 'XXX' %}'});
                       });
                   </script>                 
                   <div class="signin-block">

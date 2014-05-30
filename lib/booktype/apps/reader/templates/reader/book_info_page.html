@@ -77,7 +77,7 @@
                         <figure><img src="{{ activity.image_url }}"></figure>
                         <div class="list-info">
                           <span class="time">{{ base_activ.modified|timesince }} {% trans "ago" %}</span>
-                          <h4><a href="{% url 'view_profile' base_activ.user %}">{{ base_activ.user }}</a></h4>
+                          <h4><a href="{% url 'accounts:view_profile' base_activ.user %}">{{ base_activ.user }}</a></h4>
                           <p>
                             {{ activity.verbose }}
                             {% if activity.link_url %}
@@ -108,7 +108,7 @@
                             {% profile_image book.owner %}
                         </figure>
                         <div class="list-info">
-                            <h4><a href="{% url 'view_profile' book.owner %}">{{ book.owner.username }}</a></h4>
+                            <h4><a href="{% url 'accounts:view_profile' book.owner %}">{{ book.owner.username }}</a></h4>
                             <p>{{ book.owner.get_full_name }}</p>
                         </div>
                         <div class="clearfix"></div>
@@ -126,7 +126,7 @@
                             {% profile_image admin %}
                         </figure>
                         <div class="list-info">
-                            <h4><a href="{% url 'view_profile' admin %}">{{ admin.username }}</a></h4>
+                            <h4><a href="{% url 'accounts:view_profile' admin %}">{{ admin.username }}</a></h4>
                             <p>{{ admin.get_full_name }}</p>
                         </div>
                     </li>
@@ -144,7 +144,7 @@
                             {% profile_image collaborator %}
                         </figure>
                         <div class="list-info">
-                          <h4><a href="{% url 'view_profile' collaborator %}">{{ collaborator.username }}</a></h4>
+                          <h4><a href="{% url 'accounts:view_profile' collaborator %}">{{ collaborator.username }}</a></h4>
                           <p>{{ collaborator.get_full_name }}</p>
                         </div>
                     </li>

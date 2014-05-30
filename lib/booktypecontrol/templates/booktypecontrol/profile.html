@@ -92,7 +92,7 @@
         </div><!--end .image-->
 
     	<div class="user">
-          <a href="{% url "view_profile" activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; {{ activity.modified|timesince}} {% trans "ago" %}
+          <a href="{% url "accounts:view_profile" activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; {{ activity.modified|timesince}} {% trans "ago" %}
   	  <div class="chapter">  
                  {% if activity.kind == 1 %}
                  {% trans "Created new chapter" %} <a href="{% url "book_chapter" activity.book.url_title activity.chapter.url_title %}">"{{activity.chapter.title}}"</a>.

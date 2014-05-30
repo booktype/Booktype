@@ -46,7 +46,7 @@ from booki.editor.models import Book, License, BookHistory, BookiGroup
 from booki.account.models import UserPassword
 from booki.utils import pages
 from booki.utils.misc import isUserLimitReached
-import booki.account.signals
+import booktype.apps.accounts.signals
 from booktype.apps.core.views import BasePageView, PageView
 from booki.utils.misc import isValidEmail
 
@@ -411,7 +411,7 @@ class SignInView(PageView):
                         if user:
                             user.first_name = fullname
 
-                            booki.account.signals.account_created.send(sender=user, password=request.POST["password"])
+                            booktype.apps.accounts.signals.account_created.send(sender=user, password=request.POST["password"])
 
                             try:
                                 user.save()
@@ -472,7 +472,7 @@ def profilethumbnail(request, profileid):
     @type profileid: C{string}
     @param profileid: Username.
 
-    @todo: Check if user exists. 
+    @todo: Check if user exists.
     """
 
     try:
@@ -486,9 +486,9 @@ def profilethumbnail(request, profileid):
         "Return path to default profile image."
 
         try:
-            name = '%s/account/images/%s' % (settings.STATIC_ROOT, settings.DEFAULT_PROFILE_IMAGE)
+            name = '%s/accounts/images/%s' % (settings.STATIC_ROOT, settings.DEFAULT_PROFILE_IMAGE)
         except AttributeError:
-            name = '%s%s' % (settings.STATIC_ROOT, '/account/images/anonymous.png')
+            name = '%s%s' % (settings.STATIC_ROOT, '/accounts/images/anonymous.png')
 
         return name
 
@@ -497,7 +497,7 @@ def profilethumbnail(request, profileid):
     if not u.get_profile().image:
         name = _get_default_profile()
     else:
-        name =  u.get_profile().image.path
+        name = u.get_profile().image.path
 
     try:
         from PIL import Image
@@ -505,7 +505,7 @@ def profilethumbnail(request, profileid):
         import Image
 
     # Don't do much in case of Image handling errors
-    
+
     try:
         image = Image.open(name)
     except IOError:
@@ -515,5 +515,5 @@ def profilethumbnail(request, profileid):
 
     response = HttpResponse(mimetype="image/jpg")
     image.save(response, "JPEG")
-        
+
     return response

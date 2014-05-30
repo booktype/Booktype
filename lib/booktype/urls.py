@@ -25,46 +25,43 @@ SPUTNIK_DISPATCHER = ((r'^/booki/$', 'booki.channels.main'),
                       (r'^/booktype/book/(?P<bookid>\d+)/(?P<version>[\w\d\.\-.]+)/$', 'booktype.apps.edit.channel')
                       )
 
-urlpatterns = patterns('',
-                   # front page
-                   url(r'', include('booktype.apps.portal.urls', namespace="portal")),
-                   # accounts
-                   url(r'^newaccounts/', include('booktype.apps.accounts.urls', namespace="accounts")),
+urlpatterns = patterns(
+    '',
+    # front page
+    url(r'', include('booktype.apps.portal.urls', namespace="portal")),
+    # accounts
+    url(r'^accounts/', include('booktype.apps.accounts.urls', namespace="accounts")),
 
-                   # booki portal for view groups
-                   url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.portal.views.view_group', name="view_group"),
-                   # booki portal to add book to group
-                   url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', 'booki.portal.views.add_book'),
+    # booki portal for view groups
+    url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.portal.views.view_group', name="view_group"),
+    # booki portal to add book to group
+    url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', 'booki.portal.views.add_book'),
 
-                   # booktype control center
-                   # TODO: Add namespace
-                   url(r'^_control/', include('booktypecontrol.urls')),
+    # booktype control center
+    # TODO: Add namespace
+    url(r'^_control/', include('booktypecontrol.urls')),
 
-                   # convert
-                   # TODO: Add namespace
-                   url(r'^_convert/', include('booktype.apps.convert.urls')),
+    # convert
+    # TODO: Add namespace
+    url(r'^_convert/', include('booktype.apps.convert.urls')),
 
-                   (r'^data/(?P<path>.*)$', 'django.views.static.serve',
-                    {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
+    (r'^data/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': settings.DATA_ROOT, 'show_indexes': True}),
 
-                   # user accounts
-                   # TODO; replace with new app
-                   url(r'^accounts/', include('booki.account.urls')),
+    # misc
+    # TODO: replace with new apps
+    url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booktype.apps.accounts.views.profilethumbnail', name='view_profilethumbnail'),
 
-                   # misc
-                   # TODO: replace with new apps
-                   url(r'^_utils/profilethumb/(?P<profileid>[\w\d\_\.\-]+)/thumbnail.jpg$', 'booktype.apps.accounts.views.profilethumbnail', name='view_profilethumbnail'),
+    # sputnik dispatcher
+    url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),
 
-                   # sputnik dispatcher
-                   url(r'^_sputnik/$', 'sputnik.views.dispatcher', {"map": SPUTNIK_DISPATCHER}, name='sputnik_dispatcher'),
+    # messaging application
+    # TODO: remove this application
+    url(r'^messaging/', include('booki.messaging.urls')),
 
-                   # messaging application
-                   # TODO: remove this application
-                   url(r'^messaging/', include('booki.messaging.urls')),
-
-                   # importer application
-                   # TODO: Add namespace
-                   url(r'^importer/', include('booktype.apps.importer.urls'))
+    # importer application
+    # TODO: Add namespace
+    url(r'^importer/', include('booktype.apps.importer.urls'))
 )
 
 urlpatterns += patterns('',
@@ -81,7 +78,7 @@ urlpatterns += patterns('',
 
                         # new booktype reader app
                         url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.reader.urls', namespace='reader')),
-                        
+
                         # reader
                         # TODO: replace with new app
                         # - must be at the end

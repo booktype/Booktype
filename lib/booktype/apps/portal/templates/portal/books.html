@@ -41,8 +41,8 @@
                                         {% if request.user.is_authenticated %}
                                             <div class="btn-group float-right">
                                                 <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit:editor" book.url_title %}"><i class="icon-pencil"></i></a>
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url "view_profile" request.user.username %}" target="_blank"><i class="icon-eye-open"></i></a>
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "view_profile"    request.user.username %}"><i class="icon-trash"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url "accounts:view_profile" request.user.username %}" target="_blank"><i class="icon-eye-open"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "accounts:view_profile"    request.user.username %}"><i class="icon-trash"></i></a>
                                             </div>
                                         {% endif %}
                                     </div>
@@ -121,7 +121,7 @@
                                 <figure><img src="{% url "view_profilethumbnail" activity.user %}?width=48" alt="{{ activity.user }}"></figure>
                                 <div class="list-info">
                                     <span class="time">{{ activity.modified|timesince}} {% trans "ago" %}</span>
-                                    <h4><a href="{% url "view_profile" activity.user.username %}">{{ activity.user }}</a></h4>
+                                    <h4><a href="{% url "accounts:view_profile" activity.user.username %}">{{ activity.user }}</a></h4>
                                     <p>
                                         {% if activity.kind == 1 %}
                                             {% trans "New chapter" %} <a href="{% url "book_chapter" activity.book.url_title activity.chapter.url_title %}">"{{ activity.chapter.title }}"</a>.

@@ -1,6 +1,6 @@
 {% load i18n %}
 {% for user in target_users %}
-{% trans "Following:" %} <a href="{% url "view_profile" username=user %}">@{{ user }}</a>
+{% trans "Following:" %} <a href="{% url "accounts:view_profile" username=user %}">@{{ user }}</a>
 {% empty %}
 {% trans "Not following yet." %}
 {% endfor %}

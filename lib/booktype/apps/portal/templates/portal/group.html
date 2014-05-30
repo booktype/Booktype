@@ -62,8 +62,8 @@
                                         {% if request.user.is_authenticated %}
                                             <div class="btn-group float-right">
                                                 <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit:editor" book.url_title %}"><i class="icon-pencil"></i></a>
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url "view_profile" request.user.username %}" target="_blank"><i class="icon-eye-open"></i></a>
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "view_profile"    request.user.username %}"><i class="icon-trash"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url "accounts:view_profile" request.user.username %}" target="_blank"><i class="icon-eye-open"></i></a>
+                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "accounts:view_profile"    request.user.username %}"><i class="icon-trash"></i></a>
                                             </div>
                                         {% endif %}
                                 </div>
@@ -99,7 +99,7 @@
                             <li>
                                 <figure>{% profile_image member  %}</figure>
                                 <div class="list-info">
-                                    <h4><a href="{% url "view_profile" member.username %}">{{ member.username }}</a></h4>
+                                    <h4><a href="{% url "accounts:view_profile" member.username %}">{{ member.username }}</a></h4>
                                     <p>{{ member.name }}</p>
                                 </div>
                             </li>

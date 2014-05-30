@@ -39,9 +39,9 @@ class ProfileImageNode(Node):
 
         if not profile.image:
             try:
-                name = '%saccount/images/%s' % (settings.STATIC_URL, settings.DEFAULT_PROFILE_IMAGE)
+                name = '%saccounts/images/%s' % (settings.STATIC_URL, settings.DEFAULT_PROFILE_IMAGE)
             except AttributeError:
-                name = '%s%s' % (settings.STATIC_URL, 'account/images/anonymous.png')
+                name = '%s%s' % (settings.STATIC_URL, 'accounts/images/anonymous.png')
 
             return '<img src="http://www.gravatar.com/avatar/' + hashlib.md5(profile.user.email.lower()).hexdigest() + "?" + urllib.urlencode({"d": name, "s": str(100)}) + '">'
 

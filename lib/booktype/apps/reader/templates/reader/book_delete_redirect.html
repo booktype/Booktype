@@ -4,7 +4,7 @@
 
   <script>
     setTimeout(function() {
-        parent.window.location = '{% url "view_profile" request.user.username %}';
+        parent.window.location = '{% url "accounts:view_profile" request.user.username %}';
     }, 500);
   </script>
 
