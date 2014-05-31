@@ -79,6 +79,11 @@ class DashboardPageView(BasePageView, DetailView):
         context['book_license'] = config.getConfiguration('CREATE_BOOK_LICENSE')
         context['book_visible'] = config.getConfiguration('CREATE_BOOK_VISIBLE')
 
+        # change title in case of not authenticated user
+        if not self.request.user.is_authenticated() or self.object != self.request.user:
+            context['title'] = _('User profile')
+            context['page_title'] = _('User profile')
+
         return context
 
 

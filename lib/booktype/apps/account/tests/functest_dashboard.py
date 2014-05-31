@@ -46,3 +46,89 @@ class DashboardTest(TestCase):
             user=self.user_2,
             chapter=chapter_2
         )
+
+        self.dispatcher = reverse('accounts:view_profile', args=[self.user_1.username])
+
+    def _test_base_details(self, response):
+        # context should contain all below variables
+        context_vars = [
+            'books',
+            'books_collaborating',
+            'licenses',
+            'groups',
+            'recent_activity',
+            'book_license',
+            'book_visible'
+        ]
+
+        for var in context_vars:
+            self.assertTrue(var in response.context)
+
+    def test_as_anonymous(self):
+        response = self.client.get(self.dispatcher)
+
+        # response status code should be 200
+        self.assertEquals(response.status_code, 200)
+
+        # page title should be "User profile"
+        self.assertContains(response, 'User profile')
+
+        # create button shouldn't be available
+        self.assertNotContains(response, 'Create new book')
+
+        # as anonymous, check basic details
+        self._test_base_details(response)
+
+    def test_as_account_owner(self):
+        self.client.login(
+            username=self.user_2.username,
+            password=PLAIN_USER_PASSWORD
+        )
+
+        own_dispatcher = reverse('accounts:view_profile', args=[self.user_2.username])
+        response = self.client.get(own_dispatcher)
+        context = response.context
+
+        # as authenticated user, test basic details
+        self._test_base_details(response)
+
+        # response should contain next things
+        self.assertContains(response, 'My Dashboard')
+        self.assertContains(response, 'Create new book')
+        self.assertContains(response, 'Go to settings')
+        self.assertContains(response, 'Log out')
+        self.assertContains(response, 'Import Book')
+        self.assertContains(response, 'Participating Books')
+
+        # this user is collaborating with other books
+        self.assertTrue(len(context['books_collaborating']) >= 1)
+        self.assertTrue(self.book in context['books_collaborating'])
+
+        # this user has no groups belonging
+        self.assertTrue(len(context['groups']) == 0)
+
+
+    def test_other_user_dashboard(self):
+        self.client.login(
+            username=self.user_2.username,
+            password=PLAIN_USER_PASSWORD
+        )
+
+        response = self.client.get(self.dispatcher)
+        context = response.context
+        
+        # as authenticated user, test basic details
+        self._test_base_details(response)
+
+        # response should contain next things
+        self.assertContains(response, 'FOLLOW ME')
+        
+        # response shouldn't contain
+        self.assertNotContains(response, 'Go to settings')
+        self.assertNotContains(response, 'Create new book')
+        self.assertNotContains(response, 'Log out')
+
+        # this user has created one book and one group at least
+        self.assertTrue(len(context['books']) >= 1)
+        self.assertTrue(self.book in context['books'])
+        self.assertTrue(len(context['groups']) >= 1)

@@ -63,8 +63,8 @@ class BookFactory(factory.DjangoModelFactory):
 
     url_title = factory.Sequence(lambda n: 'first-book-test-bla-foo-%d' % n)
     title = factory.Sequence(lambda n: 'First Book Test Bla Foo %d' % n)
-    owner = factory.SubFactory(UserFactory)
     group = factory.SubFactory(BookGroupFactory)
+    owner = factory.SelfAttribute('group.owner')
 
 class BookStatusFactory(factory.DjangoModelFactory):
     FACTORY_FOR = BookStatus
