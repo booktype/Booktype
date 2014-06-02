@@ -75,11 +75,7 @@ class GroupPageView(GroupManipulation):
             context['am_I_a_member'] = 0
 
         user_group_security = security.get_user_security_for_group(self.request.user, selected_group)
-
-        if user_group_security.is_group_admin():
-            context['show_group_settings'] = 1
-        else:
-            context['show_group_settings'] = 0
+        context['is_group_admin'] = user_group_security.is_group_admin()
 
         return context
 
@@ -101,7 +97,7 @@ class AllGroupsPageView(GroupManipulation):
             book_count = filter(lambda x: x['group__url_name'] == i.url_name, book_group_sizes)
             if len(book_count) > 0:
                 num_books = book_count[0]['id__count']
-            lista.append({'url_name': i.url_name, 'name': i.name, 'description': i.description, 'members': i.members, 'num_books': num_books, 'small_group_image': i.get_group_image})
+            lista.append({'url_name': i.url_name, 'name': i.name, 'description': i.description, 'owner': i.owner, 'members': i.members, 'num_books': num_books, 'small_group_image': i.get_group_image})
         context['all_groups'] = lista
 
         cut_off_date = datetime.datetime.today() - datetime.timedelta(days=30)
@@ -117,7 +113,7 @@ class AllGroupsPageView(GroupManipulation):
         context['active_groups'] = lista
 
         booki_group4 = BookiGroup.objects.all().order_by('-created')[:4]
-        context['new_groups'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'members': g.members, 'num_members': g.members.count(), 'num_books': g.book_set.count(), 'small_group_image': g.get_group_image} for g in booki_group4]
+        context['new_groups'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'members': g.members, 'owner': g.owner, 'num_members': g.members.count(), 'num_books': g.book_set.count(), 'small_group_image': g.get_group_image} for g in booki_group4]
 
         return context
 
@@ -184,9 +180,19 @@ class GroupSettingsPageView(PageView):
 
     def get_context_data(self, **kwargs):
         context = super(GroupSettingsPageView, self).get_context_data(**kwargs)
-        context['selected_group'] = BookiGroup.objects.get(url_name=kwargs['groupid'])
+        selected_group = BookiGroup.objects.get(url_name=kwargs['groupid'])
+        context['selected_group'] = selected_group
 
         return context
+
+    def get(self, request, *args, **kwargs):
+        selected_group = BookiGroup.objects.get(url_name=kwargs['groupid'])
+        user_group_security = security.get_user_security_for_group(self.request.user, selected_group)
+
+        if not user_group_security.is_group_admin():
+            return pages.ErrorPage(request, "errors/nopermissions.html")
+
+        return super(self.__class__, self).get(request, *args, **kwargs)
 
 
 class PeoplePageView(PageView):
