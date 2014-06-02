@@ -46,6 +46,9 @@
                         {% trans "Delete Book" %}
                     </button>
                     {% endif %}
+                    <button data-href="{% url 'reader:full_view' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'View full book' %}">
+                        {% trans "View full book" %}
+                    </button>
                 </div>
             </div>
 
