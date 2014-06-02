@@ -65,13 +65,13 @@ class DashboardPageView(BasePageView, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(self.__class__, self).get_context_data(**kwargs)
-        context['books'] = Book.objects.filter(owner=self.object)
+        context['books'] = Book.objects.filter(owner=self.object).order_by('title')
         context['licenses'] = License.objects.all().order_by('name')
-        context['groups'] = BookiGroup.objects.filter(owner=self.object)
+        context['groups'] = BookiGroup.objects.filter(owner=self.object).order_by('name')
 
         # get books with user has collaborated with
         book_ids = BookHistory.objects.filter(user=self.object).values_list('book', flat=True).distinct()
-        context['books_collaborating'] = Book.objects.filter(id__in=book_ids).exclude(owner=self.object)
+        context['books_collaborating'] = Book.objects.filter(id__in=book_ids).exclude(owner=self.object).order_by('title')
 
         # get user recent activity
         context['recent_activity'] = BookHistory.objects.filter(user=self.object).order_by('-modified')[:3]
