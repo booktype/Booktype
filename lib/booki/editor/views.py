@@ -27,7 +27,7 @@ from django.core import serializers
 from booki.editor import models
 from booki.utils import pages
 
-from booki.utils.json_wrapper import json
+import json
 
 import logging
 

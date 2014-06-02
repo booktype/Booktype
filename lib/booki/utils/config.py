@@ -15,7 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from booki.utils.json_wrapper import simplejson
+import json
 from django.conf import settings
 import threading
 
@@ -49,7 +49,7 @@ def readConfiguration():
         raise ConfigurationError("Unknown error.")
 
     try:
-        confData = simplejson.loads(data)
+        confData = json.loads(data)
     except:
         return None
 
@@ -91,7 +91,7 @@ def saveConfiguration():
 
     configPath = '%s/configuration.json' % settings.BOOKI_ROOT
     # check for errors
-    jsonData = simplejson.dumps(data)
+    jsonData = json.dumps(data)
 
     try:
         fh, fname = tempfile.mkstemp(suffix='', prefix='configuration', dir=settings.BOOKI_ROOT)

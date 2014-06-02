@@ -3234,7 +3234,7 @@ PUBLISH_OPTIONS = {
 
 def remote_get_wizzard(request, message, bookid, version):
     from booki.editor import models
-    from booki.utils.json_wrapper import simplejson
+    import json
 
     book = models.Book.objects.get(id=bookid)
 
@@ -3247,7 +3247,7 @@ def remote_get_wizzard(request, message, bookid, version):
                                                )
         
         try:
-            options = simplejson.loads(pw.wizz_options)
+            options = json.loads(pw.wizz_options)
         except:
             options = PUBLISH_OPTIONS[message.get('wizzard_type', 'book')]
 
@@ -3352,7 +3352,7 @@ def remote_get_wizzard(request, message, bookid, version):
 
 def remote_set_wizzard(request, message, bookid, version):
     from booki.editor import models
-    from booki.utils.json_wrapper import simplejson
+    import json
 
     book = models.Book.objects.get(id=bookid)
     
@@ -3363,7 +3363,7 @@ def remote_set_wizzard(request, message, bookid, version):
                                                               user=request.user,
                                                               wizz_type=message.get('wizzard_type', 'book'))
     
-    pw.wizz_options=simplejson.dumps(options)
+    pw.wizz_options=json.dumps(options)
     pw.save()
 
     transaction.commit()
@@ -3429,7 +3429,7 @@ def remote_publish_book2(request, message, bookid, version):
         return {"status": False}
 
 
-    from booki.utils.json_wrapper import simplejson
+    import json
 
     book = models.Book.objects.get(id=bookid)
 
@@ -3459,7 +3459,7 @@ def remote_publish_book2(request, message, bookid, version):
                                                wizz_type=pm
                                                )
         try:
-            options = simplejson.loads(pw.wizz_options)
+            options = json.loads(pw.wizz_options)
         except:
             options = PUBLISH_OPTIONS[pm]
 
