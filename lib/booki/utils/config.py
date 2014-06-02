@@ -15,7 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from booki.utils.json_wrapper import simplejson
+import json as simplejson
 from django.conf import settings
 import threading
 

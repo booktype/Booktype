@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from booki.utils.json_wrapper import simplejson
+import json as simplejson
 
 from booki.editor import models
 
