@@ -24,7 +24,7 @@ from django.db import transaction
 from booki.editor import models
 from booki.utils import security, pages
 from django.conf import settings
-from booki.utils.json_wrapper import json
+import json
 from booki.utils.log import logWarning
 from booki import constants
 

@@ -29,7 +29,7 @@ from cStringIO import StringIO
 import traceback
 import time
 
-from booki.utils.json_wrapper import json
+import json
 
 from lxml import etree, html
 

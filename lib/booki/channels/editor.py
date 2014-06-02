@@ -3234,7 +3234,7 @@ PUBLISH_OPTIONS = {
 
 def remote_get_wizzard(request, message, bookid, version):
     from booki.editor import models
-    from booki.utils.json_wrapper import simplejson
+    import json as simplejson
 
     book = models.Book.objects.get(id=bookid)
 
@@ -3352,7 +3352,7 @@ def remote_get_wizzard(request, message, bookid, version):
 
 def remote_set_wizzard(request, message, bookid, version):
     from booki.editor import models
-    from booki.utils.json_wrapper import simplejson
+    import json as simplejson
 
     book = models.Book.objects.get(id=bookid)
     
@@ -3429,7 +3429,7 @@ def remote_publish_book2(request, message, bookid, version):
         return {"status": False}
 
 
-    from booki.utils.json_wrapper import simplejson
+    import json as simplejson
 
     book = models.Book.objects.get(id=bookid)
 

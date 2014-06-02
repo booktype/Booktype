@@ -15,8 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os, sys
-
-from booki.utils.json_wrapper import json
+import json
 
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED, ZIP_STORED
 
