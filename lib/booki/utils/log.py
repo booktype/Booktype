@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from booki.utils.json_wrapper import simplejson
+import json
 
 from booki.editor import models
 
@@ -45,7 +45,7 @@ def logBookHistory(book = None, version = None, chapter = None, chapter_history 
                                      version = version,
                                      chapter = chapter,
                                      chapter_history = chapter_history,
-                                     args = simplejson.dumps(args),
+                                     args = json.dumps(args),
                                      user = user,
                                      kind = models.HISTORY_CHOICES.get(kind, 0))
         history.save()

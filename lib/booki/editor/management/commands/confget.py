@@ -20,7 +20,7 @@ from optparse import make_option
 from django.conf import settings
 
 from booki.utils import config
-from booki.utils.json_wrapper import json
+import json
 
 class Command(BaseCommand):
     args = "<key>"

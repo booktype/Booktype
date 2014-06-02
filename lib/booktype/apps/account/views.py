@@ -18,6 +18,7 @@
 import re
 import os
 import string
+import json
 from random import choice
 
 from django.contrib import messages
@@ -37,9 +38,7 @@ from django.conf import settings
 
 
 from braces.views import LoginRequiredMixin
-
 from booki.utils import config, misc
-from booki.utils.json_wrapper import json
 from booki.messaging.views import get_endpoint_or_none
 from booki.utils.book import checkBookAvailability, createBook
 from booki.editor.models import Book, License, BookHistory, BookiGroup

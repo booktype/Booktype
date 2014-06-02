@@ -46,7 +46,7 @@ Sputnik message
 from __future__ import with_statement 
 
 import time
-from booki.utils.json_wrapper import simplejson
+import json
 import redis
 import base64
 
@@ -327,7 +327,7 @@ def addMessageToChannel(request, channelName, message, myself = False ):
 
         if c.strip() != '':
             try:
-                sputnik.push( "ses:%s:messages" % c, simplejson.dumps(message))
+                sputnik.push( "ses:%s:messages" % c, json.dumps(message))
             except:
                 pass
                 
