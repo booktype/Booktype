@@ -4,7 +4,8 @@
 {% block extra_header %}
     <script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
     <script type="text/javascript" src="{% static "portal/js/general.js" %}"></script>
-    <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>    
+    <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>
+    <script type="text/javascript" src="{% static "portal/js/addbook.js" %}"></script>    
 {% endblock %}
 {% block content %}
 
@@ -71,6 +72,12 @@
                             </div>
                         {% endfor %}
                     </div> <!-- End of book list (book-thumb or book-list) -->
+                    {% if am_I_a_member != 0 %} 
+                        <div class="box-bottom-white">
+                            {% include "portal/portal_add_book_modal.html" %}                        
+                            <button href="#" role="button" class="btn btn-default float-left" data-toggle="modal" data-target="#addBookModal" rel="tooltip" title="" rel="tooltip" title="" data-placement="bottom" data-original-title="Add book to the group">ADD BOOK TO THE GROUP</button>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
 

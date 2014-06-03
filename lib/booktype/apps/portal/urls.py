@@ -18,7 +18,7 @@ from django.conf.urls import patterns, url, include
 
 from booktype.apps.portal import feeds
 from .views import FrontPageView, GroupPageView, AllGroupsPageView, GroupSettingsPageView, PeoplePageView
-from .views import BooksPageView
+from .views import BooksPageView, AddBooksView
 
 
 urlpatterns = patterns(
@@ -30,6 +30,7 @@ urlpatterns = patterns(
     url(r'^list-groups/$', AllGroupsPageView.as_view(), name='list_groups'),
     url(r'^list-people/$', PeoplePageView.as_view(), name='list_people'),
     url(r'^list-books/$', BooksPageView.as_view(), name='list_books'),
+    url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', AddBooksView.as_view(), name='add_book'),
 
     # feeds
     url(r'^feeds/rss/book/(?P<bookid>[\w\s\_\.\-\d]+)/$', feeds.BookFeedRSS()),

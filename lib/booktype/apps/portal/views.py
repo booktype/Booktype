@@ -27,7 +27,7 @@ class GroupManipulation(PageView):
                 return pages.ErrorPage(request, "500.html")
             if(request.POST["task"] == "join-group"):
                 group.members.add(request.user)
-            else:
+            if(request.POST["task"] == "leave-group"):
                 group.members.remove(request.user)
         return HttpResponse()
 
@@ -83,6 +83,17 @@ class GroupPageView(GroupManipulation):
         context['group_members'] = context['selected_group'].members.all()
         context['user_books'] = Book.objects.filter(group=context['selected_group'], hidden=False)
         context['books_list'] = context['user_books'].order_by('-created')[:4]
+
+        list_of_books = Book.objects.exclude(group=context['selected_group'])
+
+        context['books_to_add'] = []
+        for b in list_of_books:
+            if security.get_user_security_for_book(self.request.user, b).is_book_admin():
+                context['books_to_add'].append({'cover': b.cover, 'url_title': b.url_title, 'title': b.title})
+
+        if self.request.user.is_superuser:
+            context['books_to_add'] = list_of_books
+
         if self.request.user.is_authenticated():
             context['am_I_a_member'] = BookiGroup.objects.filter(members=self.request.user, url_name=context['groupid']).count()
         else:
@@ -242,3 +253,22 @@ class BooksPageView(PageView):
 
         context['latest_activity'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
         return context
+
+
+class AddBooksView(PageView):
+    template_name = "portal/portal_add_book_modal.html"
+
+    def post(self, request, groupid):
+        if request.user.is_authenticated():
+            if "task" not in request.POST:
+                return pages.ErrorPage(request, "500.html")
+
+            if(request.POST["task"] == "add-book"):
+                group = BookiGroup.objects.get(url_name=groupid)
+                books_list = request.POST["books"].split(',')
+                for i in books_list:
+                    book = Book.objects.get(url_title=i)
+                    book.group = group
+                    book.save()
+
+        return HttpResponse()
