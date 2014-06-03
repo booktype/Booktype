@@ -89,12 +89,14 @@
 
             </div>
 
-            {% if groups and current_user == request.user %}
+            {% if current_user == request.user %}
             <div class="box white">
                 <h2 class="box-title">{% trans "My Groups" %}</h2>
                 <ul class="list">
                     {% for group in groups %}
                     {% include "account/dashboard_group_template.html" %}
+                    {% empty %}
+                    <li>{% trans "There is no groups here yet. Create one!" %}</li>
                     {% endfor %}
                 </ul>
                 <div class="box-bottom-gray">
