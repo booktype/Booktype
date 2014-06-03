@@ -159,9 +159,9 @@ def booki_authors(parser, token):
         
 @register.filter
 def jsonlookup(d, key):
-    from booki.utils.json_wrapper import simplejson
+    import json
 
-    d2 = simplejson.loads(d)
+    d2 = json.loads(d)
 
     return d2[key]
 

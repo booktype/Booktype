@@ -10,18 +10,18 @@
 
 <div class="container all-groups">
     <div class="row two-col">
-    	<div class="col-xs-8">
-    		<div class="box white">
-    			<h2 class="box-title">
-    				{% trans "All groups" %}
-    			</h2>
+        <div class="col-xs-8">
+            <div class="box white">
+                <h2 class="box-title">
+                    {% trans "All groups" %}
+                </h2>
 
                 <ul class="list border-top">
                     {% for group in all_groups %}
                         <li>
                             <figure><img src="{{ group.small_group_image }}" /></figure>
                                 <div class="list-info">
-                                    {% if request.user.is_authenticated %} 
+                                    {% if request.user.is_authenticated and request.user != group.owner %} 
                                         {% if request.user in group.members.all %} 
                                             <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-success float-right btn-xs leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
                                         {% else %}
@@ -35,11 +35,11 @@
                     {% endfor %}
                 </ul>
 
-    		</div>
-    	</div> <!-- End of col-xs-4 -->
+            </div>
+        </div> <!-- End of col-xs-4 -->
 
 
-    	<div class="col-xs-4">
+        <div class="col-xs-4">
             <div class="login-widget box gray">
                 <script>
                     $(function() {
@@ -58,9 +58,9 @@
                 {% endif %}
             </div> 
 
-    		<div class="box white">
-    			<h2 class="box-title">{% trans "Active groups" %}</h2>
-    			<ul class="list border-top">
+            <div class="box white">
+                <h2 class="box-title">{% trans "Active groups" %}</h2>
+                <ul class="list border-top">
                     {% for active_group in active_groups %}
                         <li>
                             <figure><img src="{{ active_group.small_group_image }}" /></figure>
@@ -71,16 +71,16 @@
                         </li>
                         {% endfor %}
                     </ul>
-    			</div>
+                </div>
 
-    			<div class="box white">
-    				<h2 class="box-title">{% trans "New groups" %}</h2>
-    				<ul class="list border-top">
+                <div class="box white">
+                    <h2 class="box-title">{% trans "New groups" %}</h2>
+                    <ul class="list border-top">
                         {% for group in new_groups %}
                             <li>
                                 <figure><img src="{{ group.small_group_image }}" /></figure>
                                 <div class="list-info">
-                                    {% if request.user.is_authenticated %} 
+                                    {% if request.user.is_authenticated and request.user != group.owner %} 
                                         {% if request.user in group.members.all %} 
                                             <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-success float-right btn-xs leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
                                         {% else %}
@@ -93,8 +93,8 @@
                             </li>
                         {% endfor %}
                     </ul>
-    			</div>
-    		</div> <!-- End of col-xs-4 -->
-    	</div>
+                </div>
+            </div> <!-- End of col-xs-4 -->
+        </div>
     </div> <!-- End of container -->
 {% endblock %}

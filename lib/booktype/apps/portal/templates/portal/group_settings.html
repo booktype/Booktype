@@ -10,7 +10,6 @@
     <div class="container groupsettings">
         <div class="row two-col">
             <div class="col-xs-8">
-
                 <div class="box gray">
                     <h2 class="box-title-alter">{% trans "Group settings" %}</h2> 
                     <form method="post" action="#"  enctype="multipart/form-data" name="formsettings">{% csrf_token %}
@@ -25,7 +24,7 @@
 
                                 <li>
                                     <label>{% trans "Description (250 characters)" %}</label>
-                                    <textarea name="description" class="form-control" cols="40" rows="20">{{ selectedGroup.description }}</textarea>
+                                    <textarea name="description" class="form-control" cols="40" rows="20">{{ selected_group.description }}</textarea>
                                 </li>
 
                                 <li>
@@ -40,11 +39,8 @@
 
                         </fieldset>
                     </form>
-
                 </div>
-
             </div>
-
         </div>
     </div> <!-- End of container -->
 {% endblock %}

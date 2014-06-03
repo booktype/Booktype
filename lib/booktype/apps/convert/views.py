@@ -23,7 +23,7 @@ from django.views.generic.base import View
 from django.http import HttpResponse, Http404
 from django.conf import settings
 
-from django.utils import simplejson as json
+import json
 
 import sputnik
 
