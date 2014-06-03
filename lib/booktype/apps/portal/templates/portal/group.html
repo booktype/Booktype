@@ -9,43 +9,44 @@
 {% block content %}
 
     <div class="container group">
-    	<div class="row two-col">
-    		<div class="col-xs-8">
-    			<div class="box profile-box black">
-					 <figure><img src="{{ user_group.group_image }}" /></figure>
-					 <div class="list-info">
+        <div class="row two-col">
+            <div class="col-xs-8">
+                <div class="box profile-box black">
+                     <figure><img src="{{ user_group.group_image }}" /></figure>
+                     <div class="list-info">
                         <h2 class="box-title">{{ user_group.name }}</h2>
                             <p>{{ user_group.description }}</p>
-	    			        <p>
+                            <p>
                                 {% trans "Members" %}: {{ user_group.num_members }}  <br>
-							     {% trans "Books" %}: {{ user_group.num_books }}
-	    			        </p>
-    			     </div>
+                                 {% trans "Books" %}: {{ user_group.num_books }}
+                            </p>
+                     </div>
 
-    			     <div class="box-bottom-white">
+                     <div class="box-bottom-white">
                         {% if request.user.is_authenticated %}
                             {% if am_I_a_member == 0 %} 
                                 <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-default float-left join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
                             {% else %}
-                                <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-success float-left leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
-                                {% if show_group_settings == 1 %}
+                                {% if not is_group_admin %}
+                                    <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-success float-left leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
+                                {% else %}
                                     <button data-href="{% url "portal:group_settings" user_group.url_name %}" role="button" class="btn btn-default float-right group-settings-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Group settings" %}">{% trans "GROUP SETTINGS" %}</button>
                                 {% endif %}
                             {% endif %}
                         {% endif %}
-    			     </div>
-    		      </div>
+                     </div>
+                  </div>
 
 
                     <div class="box gray books-widget">
                     <h2 class="box-title-alter">
                         {% trans "Books" %}
-    				            <div class="btn-toolbar float-right">
-	    			                <div class="btn-group float-right">
+                                <div class="btn-toolbar float-right">
+                                    <div class="btn-group float-right">
                                         <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show grid" %}"><i class="icon-th"></i></button>
                                         <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show List" %}"><i class="icon-list-ul"></i></button>
                                     </div>
-    				            </div>
+                                </div>
                     </h2>
                     <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
                         {% for book in books_list %}              
