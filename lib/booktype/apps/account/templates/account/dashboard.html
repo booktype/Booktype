@@ -67,7 +67,7 @@
                             <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show List' %}"><i class="icon-list-ul"></i></button>
                         </div>
 
-                        {% include "account/dashboard_create_book_modal.html" %}
+                        {% include "account/dashboard_create_book_modal.html" %}                        
                     </div>
                 </h2>
 
@@ -99,9 +99,13 @@
                     <li>{% trans "There is no groups here yet. Create one!" %}</li>
                     {% endfor %}
                 </ul>
-                <div class="box-bottom-gray">
-                    <button href="#" role="button" class="btn btn-default" rel="tooltip" title="" data-placement="bottom" data-original-title="Create new group">{% trans "Create New Group" as create_group %} {{ create_group|upper }}</button>
+                <div class="box-bottom-gray">                    
+                    <button id="create-group-btn" data-remote="{% url 'portal:group_create' %}" data-toggle="modal" data-target="#createGroupModal" class="btn btn-default" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Create New Group' as create_group %} {{ create_group }}">
+                        {{ create_group|upper }}
+                    </button>
                 </div>
+
+                <div id="createGroupModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
             </div>
             {% endif %}
         </div>

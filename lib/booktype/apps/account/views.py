@@ -167,7 +167,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
 
         try:
             endpoint_config = get_endpoint_or_none("@"+user.username).get_config()
-            endpoint_config.notification_filter = request.POST.get('notification', '')
+            endpoint_config.notification_filter = form.data.get('notification', '')
             endpoint_config.save()
         except:
             pass

@@ -3,21 +3,9 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import PasswordChangeForm
 
-class BaseAccountsForm(object):
-    '''
-    Generic class to add form-control class to all fields
-    in a form
-    '''
+from booktype.apps.core.forms import BaseBooktypeForm
 
-    def __init__(self, *args, **kwargs):
-        super(BaseAccountsForm, self).__init__(*args, **kwargs)
-
-        for name, field in self.fields.items():
-            css_class = field.widget.attrs.get('class', '')
-            field.widget.attrs['class'] = '%s form-control' % css_class
-
-
-class UserSettingsForm(BaseAccountsForm, forms.ModelForm):
+class UserSettingsForm(BaseBooktypeForm, forms.ModelForm):
     email = forms.EmailField(label=_('Email'))
     first_name = forms.CharField(label=_('Full name'))
 
@@ -39,8 +27,8 @@ class UserSettingsForm(BaseAccountsForm, forms.ModelForm):
         model = User
         fields = ['email', 'first_name']
 
-class UserPasswordChangeForm(BaseAccountsForm, PasswordChangeForm):
+class UserPasswordChangeForm(BaseBooktypeForm, PasswordChangeForm):
     new_password2 = forms.CharField(
-        label=_("Password (again)"),
+        label=_('Password (again)'),
         widget=forms.PasswordInput
     )

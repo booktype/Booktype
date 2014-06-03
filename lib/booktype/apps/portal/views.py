@@ -1,22 +1,27 @@
-import datetime
 import os
+import datetime
 
-from django.utils.translation import ugettext_lazy as _
-from django.utils.html import escape
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.db import models
-from django.http import HttpResponse, HttpResponseRedirect
-from django.core.urlresolvers import reverse
 from django import forms
+from django.db import models
+from django.utils import timezone
+from django.utils.html import escape
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.shortcuts import render, redirect
+from django.utils.translation import ugettext_lazy as _
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic.edit import CreateView, UpdateView
 
-from booktype.apps.core.views import PageView
-from booktype.utils import misc
-from booki.editor.models import Book, BookiGroup, BookHistory
-from booktype.apps.account.models import UserProfile
-from booki.utils.misc import bookiSlugify
+from braces.views import LoginRequiredMixin
+
 from booki.utils import pages
+from booktype.utils import misc
 from booktype.utils import security
+from booki.utils.misc import bookiSlugify
+from booktype.apps.core.views import PageView, BasePageView
+from booki.editor.models import Book, BookiGroup, BookHistory
+
+from .forms import GroupCreateForm, GroupUpdateForm
 
 
 class GroupManipulation(PageView):
@@ -132,80 +137,59 @@ class AllGroupsPageView(GroupManipulation):
         return context
 
 
-class GroupSettingsPageForm(forms.Form):
-    name = forms.CharField()
-    description = forms.CharField(required=False)
+class GroupCreateView(LoginRequiredMixin, BasePageView, CreateView):
+    template_name = "portal/group_create.html"
+    model = BookiGroup
+    slug_field = 'url_name'
+    form_class = GroupCreateForm
+    slug_url_kwarg = 'groupid'
+    page_title = _('Create new group')
 
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Checks if request is an ajax call and change template_name
+        to a modal window
+        """
 
-class GroupSettingsPageView(PageView):
+        if request.is_ajax():
+            self.template_name = "portal/group_create_modal.html"
+
+        return super(GroupCreateView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        group = form.save(commit=False)
+        group.owner = self.request.user
+        group.url_name = bookiSlugify(group.name)
+        group.created = timezone.now()
+        group.save()
+
+        # set group image if exists in post data
+        group_image = form.files.get('group_image', None)
+        if group_image:
+            form.set_group_image(group.pk, group_image)
+
+        return super(GroupCreateView, self).form_valid(form)
+
+class GroupUpdateView(LoginRequiredMixin, BasePageView, UpdateView):
     template_name = "portal/group_settings.html"
-    form_class = GroupSettingsPageForm
+    model = BookiGroup
+    slug_field = 'url_name'
+    slug_url_kwarg = 'groupid'
+    form_class = GroupUpdateForm
+    page_title = _('Group settings')
 
-    def post(self, request, groupid):
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Checks if user is a group admin. If not, return no permissions page
+        """
 
-        selected_group = BookiGroup.objects.get(url_name=groupid)
-        user_group_security = security.get_user_security_for_group(self.request.user, selected_group)
-        if not user_group_security.is_group_admin():
+        self.object = self.get_object()
+        group_security = security.get_user_security_for_group(request.user, self.object)
+        
+        if not group_security.is_group_admin():
             return pages.ErrorPage(request, "errors/nopermissions.html")
 
-        form = self.form_class(request.POST)
-        context = super(GroupSettingsPageView, self).get_context_data()
-        new_desc = escape(form['description'].value())[:250]  # 250 characters
-
-        if form.is_valid():
-            if request.user.is_authenticated():
-                new_name = form['name'].value()
-                new_url_name = bookiSlugify(new_name)
-
-                group = BookiGroup.objects.get(url_name=groupid)
-                group_data_url_name = BookiGroup.objects.filter(url_name=new_url_name).exclude(pk=group.pk)
-
-                if len(group_data_url_name) > 0:
-                    context['error'] = {'name_error': _('Group name already used')}
-                    context['selected_group'] = {'name': new_name, 'description': new_desc}
-                    return render(request, self.template_name, context)
-
-                if len(new_url_name) == 0:
-                    context['error'] = {'name_error': _('Do not use special characters')}
-                    context['selected_group'] = {'description': new_desc}
-                    return render(request, self.template_name, context)
-
-                try:
-                    file_name = misc.set_group_image(str(group.pk), request.FILES['profile'], 240, 240)
-                    if len(file_name) == 0:
-                        context['error'] = {'image_error': _('Only JPEG file is allowed for group image.')}
-                        context['selected_group'] = {'name': new_name, 'description': new_desc}
-                        return render(request, self.template_name, context)
-                    else:
-                        misc.set_group_image(str(group.pk) + "_small", request.FILES['profile'], 18, 18)
-                except:
-                    pass
-
-                group.url_name = new_url_name
-                group.name = new_name
-                group.description = new_desc
-                group.save()
-        else:
-            context['error'] = {'name_error': _('Name should not be empty')}
-            context['selected_group'] = {'description': new_desc}
-            return render(request, self.template_name, context)
-
-        return HttpResponseRedirect(reverse('portal:group', args=[new_url_name]))
-
-    def render_to_response(self, context, **response_kwargs):
-        user_group_security = security.get_user_security_for_group(self.request.user, context['selected_group'])
-
-        if not user_group_security.is_group_admin():
-            return pages.ErrorPage(self.request, "errors/nopermissions.html")
-
-        return super(self.__class__, self).render_to_response(context, **response_kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(GroupSettingsPageView, self).get_context_data(**kwargs)
-        selected_group = BookiGroup.objects.get(url_name=kwargs['groupid'])
-        context['selected_group'] = selected_group
-
-        return context
+        return super(GroupUpdateView, self).dispatch(request, *args, **kwargs)
 
 
 class PeoplePageView(PageView):

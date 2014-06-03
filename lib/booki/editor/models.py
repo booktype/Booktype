@@ -102,8 +102,9 @@ class BookiGroup(models.Model):
 
     created = models.DateTimeField(_('created'), auto_now=False, null=True)
 
+    @models.permalink
     def get_absolute_url(self):
-        return '%s/groups/%s/' % (settings.BOOKI_URL, self.url_name)
+        return ('portal:group', [self.url_name])
 
     try:
         GROUP_IMAGE_UPLOAD_DIR = settings.GROUP_IMAGE_UPLOAD_DIR

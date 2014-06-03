@@ -1,0 +1,23 @@
+{% load i18n %}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="myModalLabel">{% trans "Create a new group" %}</h2>
+        </div>
+        <form method="post" action="{% url 'portal:group_create' %}"  enctype="multipart/form-data" style="margin-bottom: 0px">
+            <div class="modal-body">
+                <section id="basic">
+                    {% csrf_token %}
+                    <fieldset class="plain">
+                        {{ form.as_p }}
+                    </fieldset>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">{% trans "Close" %}</button>
+                <button class="btn btn-primary">{% trans "Create Group" %}</button>
+            </div>
+        </form>
+    </div>
+</div>

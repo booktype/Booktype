@@ -6,14 +6,14 @@
         <div class="row two-col">
             <div class="col-xs-8">
                 <div class="box gray">
-                    <h2 class="box-title-alter">{% trans "Group settings" %}</h2> 
-                    <form method="post" action="#"  enctype="multipart/form-data" name="formsettings">
+                    <h2 class="box-title-alter">{% trans "Create new group" %}</h2> 
+                    <form method="post" action="."  enctype="multipart/form-data" name="formsettings">
                         {% csrf_token %}
                         <fieldset class="plain">
                             <ul class="list">
                                 {{ form.as_ul }}
                             </ul>
-                            <button class="btn btn-default float-left">{% trans "Save changes" %}</button>
+                            <button class="btn btn-primary float-left">{% trans "Create Group" %}</button>
                         </fieldset>
                     </form>
                 </div>
