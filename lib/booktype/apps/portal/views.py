@@ -56,25 +56,39 @@ class GroupPageView(GroupManipulation):
     page_title = _('Group')
     title = _('Group used')
 
+    def render_to_response(self, context, **response_kwargs):
+        if context['selected_group_error']:
+            return pages.ErrorPage(self.request, "errors/group_does_not_exist.html", {"group_name": context['groupid']})
+
+        return super(self.__class__, self).render_to_response(context, **response_kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(GroupPageView, self).get_context_data(**kwargs)
-        selected_group = BookiGroup.objects.get(url_name=context['groupid'])
+        try:
+            context['selected_group'] = BookiGroup.objects.get(url_name=context['groupid'])
+        except BookiGroup.DoesNotExist:
+            context['selected_group_error'] = True
+            return context
+        except BookiGroup.MultipleObjectsReturned:
+            context['selected_group_error'] = True
+            return context
+        context['selected_group_error'] = False
 
         context['user_group'] = {
-            'url_name': selected_group.url_name, 'name': selected_group.name,
-            'description': selected_group.description, 'num_members': selected_group.members.count(),
-            'num_books': selected_group.book_set.count(), 'group_image': selected_group.get_big_group_image
+            'url_name': context['selected_group'].url_name, 'name': context['selected_group'].name,
+            'description': context['selected_group'].description, 'num_members': context['selected_group'].members.count(),
+            'num_books': context['selected_group'].book_set.count(), 'group_image': context['selected_group'].get_big_group_image
         }
 
-        context['group_members'] = selected_group.members.all()
-        context['user_books'] = Book.objects.filter(group=selected_group, hidden=False)
+        context['group_members'] = context['selected_group'].members.all()
+        context['user_books'] = Book.objects.filter(group=context['selected_group'], hidden=False)
         context['books_list'] = context['user_books'].order_by('-created')[:4]
         if self.request.user.is_authenticated():
             context['am_I_a_member'] = BookiGroup.objects.filter(members=self.request.user, url_name=context['groupid']).count()
         else:
             context['am_I_a_member'] = 0
 
-        user_group_security = security.get_user_security_for_group(self.request.user, selected_group)
+        user_group_security = security.get_user_security_for_group(self.request.user, context['selected_group'])
         context['is_group_admin'] = user_group_security.is_group_admin()
 
         return context
