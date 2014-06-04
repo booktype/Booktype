@@ -39,7 +39,7 @@ setup(
         # If any package contains *.txt or *.rst files, include them
         '': ['*.txt', '*.rst'],
     },
-    scripts=['scripts/createbooki'],
+    scripts=['scripts/createbooktype'],
 
     install_requires = ['setuptools', 'simplejson', 'django' ],
     classifiers=[
