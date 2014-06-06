@@ -30,9 +30,9 @@ class GroupManipulation(PageView):
         if request.user.is_authenticated():
             if "task" not in request.POST:
                 return pages.ErrorPage(request, "500.html")
-            if(request.POST["task"] == "join-group"):
+            if request.POST["task"] == "join-group":
                 group.members.add(request.user)
-            else:
+            if request.POST["task"] == "leave-group":
                 group.members.remove(request.user)
         return HttpResponse()
 
@@ -87,14 +87,26 @@ class GroupPageView(GroupManipulation):
 
         context['group_members'] = context['selected_group'].members.all()
         context['user_books'] = Book.objects.filter(group=context['selected_group'], hidden=False)
-        context['books_list'] = context['user_books'].order_by('-created')[:4]
-        if self.request.user.is_authenticated():
-            context['am_I_a_member'] = BookiGroup.objects.filter(members=self.request.user, url_name=context['groupid']).count()
-        else:
-            context['am_I_a_member'] = 0
+        context['books_list'] = context['user_books'].order_by('-created')
+
+        context['books_to_add'] = []
 
         user_group_security = security.get_user_security_for_group(self.request.user, context['selected_group'])
         context['is_group_admin'] = user_group_security.is_group_admin()
+
+        if context['is_group_admin']:
+            list_of_books = Book.objects.exclude(group=context['selected_group'])
+
+            for b in list_of_books:
+                if security.get_user_security_for_book(self.request.user, b).is_book_admin():
+                    context['books_to_add'].append({'cover': b.cover, 'url_title': b.url_title, 'title': b.title})
+
+            if self.request.user.is_superuser:
+                context['books_to_add'] = list_of_books
+
+            context['am_I_a_member'] = BookiGroup.objects.filter(members=self.request.user, url_name=context['groupid']).count()
+        else:
+            context['am_I_a_member'] = 0
 
         return context
 
@@ -170,6 +182,7 @@ class GroupCreateView(LoginRequiredMixin, BasePageView, CreateView):
 
         return super(GroupCreateView, self).form_valid(form)
 
+
 class GroupUpdateView(LoginRequiredMixin, BasePageView, UpdateView):
     template_name = "portal/group_settings.html"
     model = BookiGroup
@@ -185,7 +198,7 @@ class GroupUpdateView(LoginRequiredMixin, BasePageView, UpdateView):
 
         self.object = self.get_object()
         group_security = security.get_user_security_for_group(request.user, self.object)
-        
+
         if not group_security.is_group_admin():
             return pages.ErrorPage(request, "errors/nopermissions.html")
 
@@ -226,3 +239,22 @@ class BooksPageView(PageView):
 
         context['latest_activity'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
         return context
+
+
+class AddBooksView(PageView):
+    template_name = "portal/portal_add_book_modal.html"
+
+    def post(self, request, groupid):
+        if request.user.is_authenticated():
+            if "task" not in request.POST:
+                return pages.ErrorPage(request, "500.html")
+
+            if request.POST["task"] == "add-book":
+                group = BookiGroup.objects.get(url_name=groupid)
+                books_list = request.POST["books"].split(',')
+                for i in books_list:
+                    book = Book.objects.get(url_title=i)
+                    book.group = group
+                    book.save()
+
+        return HttpResponse()        

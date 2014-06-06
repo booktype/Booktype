@@ -14,11 +14,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import patterns, url
 
 from booktype.apps.portal import feeds
 from .views import FrontPageView, GroupPageView, AllGroupsPageView, PeoplePageView
-from .views import BooksPageView, GroupUpdateView, GroupCreateView
+from .views import BooksPageView, GroupUpdateView, GroupCreateView, AddBooksView
 
 
 urlpatterns = patterns(
@@ -28,7 +28,8 @@ urlpatterns = patterns(
     url(r'^groups/_create/$', GroupCreateView.as_view(), name='group_create'),
     url(r'^groups/_settings/(?P<groupid>[\w\s\_\.\-]+)/$', GroupUpdateView.as_view(), name='group_settings'),
     url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', GroupPageView.as_view(), name='group'),
-    
+    url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', AddBooksView.as_view(), name='add_book'),
+
     url(r'^list-groups/$', AllGroupsPageView.as_view(), name='list_groups'),
     url(r'^list-people/$', PeoplePageView.as_view(), name='list_people'),
     url(r'^list-books/$', BooksPageView.as_view(), name='list_books'),
