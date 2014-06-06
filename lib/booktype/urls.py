@@ -65,22 +65,16 @@ urlpatterns = patterns(
 )
 
 urlpatterns += patterns('',
-                        # export
-                        # TODO; Add namespace
-                        url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.loadsave.urls')),
+    # export
+    # TODO; Add namespace
+    url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.loadsave.urls')),
 
-                        # new editor
-                        # TODO: Add namespace
-                        url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.edit.urls', namespace='edit')),
+    # new editor
+    url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.edit.urls', namespace='edit')),
 
-                        # editor
-                        url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls')),
+    # old editor app
+    url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.editor.urls')),
 
-                        # new booktype reader app
-                        url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.reader.urls', namespace='reader')),
-
-                        # reader
-                        # TODO: replace with new app
-                        # - must be at the end
-                        url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booki.reader.urls')),
-              )
+    # new booktype reader app
+    url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.reader.urls', namespace='reader')),
+)

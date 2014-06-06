@@ -95,7 +95,7 @@
           <a href="{% url "accounts:view_profile" activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; {{ activity.modified|timesince}} {% trans "ago" %}
   	  <div class="chapter">  
                  {% if activity.kind == 1 %}
-                 {% trans "Created new chapter" %} <a href="{% url "book_chapter" activity.book.url_title activity.chapter.url_title %}">"{{activity.chapter.title}}"</a>.
+                 {% trans "Created new chapter" %} <a href="{% url "reader:draft_chapter_page" activity.book.url_title activity.book.get_version activity.chapter.url_title %}">"{{activity.chapter.title}}"</a>.
                  <div class="book-title">#{{activity.book.url_title}}
                  </div>     
 				{% endif %}

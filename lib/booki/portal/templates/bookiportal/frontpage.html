@@ -46,16 +46,15 @@
     	<div class="user">
         	<a href="{% url "view_profile" activity.user.username %}">{{ activity.user }}</a> &nbsp;&nbsp; {{ activity.modified|timesince}} {% trans "ago" %}
   		    <div class="chapter">  
-                 {% if activity.kind == 1 %}
-                 {% trans "Created new chapter" %} <a href="{% url "book_chapter" activity.book.url_title activity.chapter.url_title %}">"{{activity.chapter.title}}"</a>.
-                 <div class="book-title">#{{activity.book.url_title}}
-                 </div>     
-				{% endif %}
-                {% if activity.kind == 10 %}
+            {% if activity.kind == 1 %}
+                {% trans "Created new chapter" %} <a href="{% url "reader:draft_chapter_page" activity.book.url_title actitivy.book.get_version activity.chapter.url_title %}">"{{activity.chapter.title}}"</a>.
+                <div class="book-title">#{{activity.book.url_title}}</div>
+		    {% endif %}
+            
+            {% if activity.kind == 10 %}
                 {% trans "Created new book" %} <a href="{% url "book_view" activity.book.url_title  %}">"{{activity.book.title}}"</a>.
-                 <div class="book-title">#{{activity.book.url_title}}
-                 </div>     
-				{% endif %}
+                <div class="book-title">#{{activity.book.url_title}}</div>
+			{% endif %}
 			</div><!-- End of .chapter -->     
 		</div><!-- end .user-->
 	</div><!-- end .recent-activity-->
