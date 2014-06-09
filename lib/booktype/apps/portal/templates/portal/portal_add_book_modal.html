@@ -1,0 +1,47 @@
+{% load i18n staticfiles %}
+
+<div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog add_book">
+    {% if request.user.is_authenticated %}
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 class="modal-title" id="myModalLabel">{% trans "Select books to add" %}</h2>
+            </div>
+            <div class="modal-body">            
+                <section id="basic">
+                    <form method="post" action="{% url 'portal:add_book' user_group.url_name %}" target="hidden_frame" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="book-thumb showing-books">
+                            {% for book in books_to_add %}              
+                                <div class="grid-4">
+                                    <figure class="custom-cover">
+                                        {% if book.cover %}
+                                            <img src="{% url "book_info" book.url_title %}cover.jpg" />
+                                        {% else %}
+                                            <img src="{% static "core/img/thumb-default.png" %}"/>
+                                        {% endif %}
+                                    </figure>
+                                    <div class="book-info">
+                                        <h4><a href="{% url "book_info" book.url_title %}">{{ book.title }}</a></h4>
+                                    </div>
+                                </div>
+                                <input type="checkbox" class="selected-book" value="{{ book.url_title }}">                            
+                            {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" group-name-url="{% url "portal:add_book" user_group.url_name %}" class="btn btn-primary">Add books</button>
+                        </div>                    
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+    {% else %}
+            <h3>{% trans "Anonymous user" %}</h3>
+                <p>
+                  {% trans "You have to log in to add books." %}
+                </p>   
+    {% endif %}
+</div>
