@@ -175,6 +175,9 @@ class GroupCreateView(LoginRequiredMixin, BasePageView, CreateView):
         group.created = timezone.now()
         group.save()
 
+        # auto-join owner as team member
+        group.members.add(self.request.user)
+
         # set group image if exists in post data
         group_image = form.files.get('group_image', None)
         if group_image:
