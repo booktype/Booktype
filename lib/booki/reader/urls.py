@@ -16,7 +16,6 @@
 
 from django.conf.urls import patterns, url, include
 
-from booki.portal import feeds
 
 
 urlpatterns = patterns('',

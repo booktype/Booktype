@@ -24,7 +24,6 @@ from .views import BooksPageView, GroupUpdateView, GroupCreateView, AddBooksView
 urlpatterns = patterns(
     '',
     url(r'^$', FrontPageView.as_view(), name='frontpage'),
-    url(r'^bookigroups/(?P<groupid>[\w\s\_\.\-]+)/$', 'booki.portal.views.view_group', name="view_group"),
     url(r'^groups/_create/$', GroupCreateView.as_view(), name='group_create'),
     url(r'^groups/_settings/(?P<groupid>[\w\s\_\.\-]+)/$', GroupUpdateView.as_view(), name='group_settings'),
     url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', GroupPageView.as_view(), name='group'),

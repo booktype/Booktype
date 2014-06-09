@@ -161,7 +161,6 @@ INSTALLED_APPS = (
 
     # to be removed
     'booki.reader',
-    'booki.portal',
     'booki.messaging',
 
     'sputnik',

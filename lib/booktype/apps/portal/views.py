@@ -1,21 +1,15 @@
-import os
 import datetime
 
-from django import forms
 from django.db import models
 from django.utils import timezone
-from django.utils.html import escape
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView
 
 from braces.views import LoginRequiredMixin
 
 from booki.utils import pages
-from booktype.utils import misc
 from booktype.utils import security
 from booki.utils.misc import bookiSlugify
 from booktype.apps.core.views import PageView, BasePageView
@@ -63,7 +57,7 @@ class GroupPageView(GroupManipulation):
 
     def render_to_response(self, context, **response_kwargs):
         if context['selected_group_error']:
-            return pages.ErrorPage(self.request, "errors/group_does_not_exist.html", {"group_name": context['groupid']})
+            return pages.ErrorPage(self.request, "portal/errors/group_does_not_exist.html", {"group_name": context['groupid']})
 
         return super(self.__class__, self).render_to_response(context, **response_kwargs)
 

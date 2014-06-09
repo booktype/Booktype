@@ -87,7 +87,6 @@ INSTALLED_APPS = (
     # list of booki apps
     'booki.editor',
 #    'booki.reader',
-#    'booki.portal',
     'booki.messaging',
 
     'booktype.apps.loadsave',

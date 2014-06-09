@@ -103,7 +103,6 @@ INSTALLED_APPS = (
     'booktype.apps.account',
 
     'booki.reader',
-    'booki.portal',
     'booki.messaging',
 
     'sputnik',
