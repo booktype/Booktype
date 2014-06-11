@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-{% load i18n profile messaging_tags staticfiles %}
+{% load i18n profile messaging_tags staticfiles reader_tags %}
 {% block extra_header %}
     <script type="text/javascript" src="{% static "portal/js/frontpage.js" %}"></script>
     <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>    
@@ -115,26 +115,24 @@
                 <div class="box white">
                     <h2 class="box-title">{% trans "Recent Activity" %}</h2>
                     <ul class="list border-top user-avatar circle">
-                        {% for activity in latest_activity %}
+                        {% for base_activ in latest_activity %}
+                        {% verbose_activity base_activ as activity %}
                             <li>
                                 <figure><img src="{% url "view_profilethumbnail" activity.user %}?width=48" alt="{{ activity.user }}"></figure>
                                 <div class="list-info">
                                     <span class="time">{{ activity.modified|timesince}} {% trans "ago" %}</span>
                                     <h4><a href="{% url "accounts:view_profile" activity.user.username %}">{{ activity.user }}</a></h4>
                                     <p>
-                                        {% if activity.kind == 1 %}
-                                            {% trans "New chapter" %} <a href="{% url "book_chapter" activity.book.url_title activity.chapter.url_title %}">"{{ activity.chapter.title }}"</a>.
-                                            <span class="book-title">#{{ activity.book.url_title|slugify }}</span>     
+                                        {{ activity.verbose }}
+                                        {% if activity.link_url %}
+                                        <a href="{{ activity.link_url }}">{{ activity.link_text }}</a>.
                                         {% endif %}
-                                        {% if activity.kind == 10 %}
-                                            {% trans "New book" %} <a href="{% url "book_view" activity.book.url_title  %}">"{{ activity.book.title }}"</a>.
-                                            <span class="book-title">#{{ activity.book.url_title|slugify }}</span>     
-                                        {% endif %}                                        
+
+                                        <span>#{{ activity.book.url_title }}</span>
                                     </p>
                                 </div>
                             </li>
-                      {% endfor %}
-
+                        {% endfor %}
                     </ul>
                 </div>
             </div>

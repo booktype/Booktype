@@ -78,7 +78,14 @@ def verbose_activity(activity):
                 args=[book.url_title, book_version, filename]
             )
 
-        activity_dict = dict(verbose=verbose, image_url=default_image)
+        activity_dict = dict(
+            verbose=verbose, 
+            image_url=default_image, 
+            modified=activity.modified,
+            user=activity.user,
+            book=book,
+        )
+
         if link_url:
             activity_dict['link_url'] = link_url
             activity_dict['link_text'] = '"%s"' % link_text
