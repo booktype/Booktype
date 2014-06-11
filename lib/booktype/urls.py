@@ -16,6 +16,7 @@
 
 from django.conf.urls import patterns, url, include
 from django.conf import settings
+from django.views.generic.base import TemplateView
 
 # This is dispatcher for Sputnik connections.
 
@@ -73,6 +74,9 @@ urlpatterns += patterns('',
 
                         # new booktype reader app
                         url(r'^(?P<bookid>[\w\s\_\.\-\d]+)/', include('booktype.apps.reader.urls', namespace='reader')),
+
+                        #robots.txt
+                        (r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 
                         # reader
                         # TODO: replace with new app
