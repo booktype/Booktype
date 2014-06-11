@@ -1,0 +1,37 @@
+# robots.txt for Booktype
+# Version 1.1 [11.06.2014]
+
+User-agent: *
+
+# Don't go to Django admin interface
+Disallow: /admin/
+
+# Just some utility functions... Nothing interesting here.
+Disallow: /_utils/
+
+# There is no reason to look at our feeds.
+Disallow: /feeds/
+
+# Export is no-no place for bots
+Disallow: /_export/
+
+# Sputnik is used for client-server communication. Nothing to see here.
+Disallow: /_sputnik/
+
+# Booktype editor interface.
+Disallow: /*/_edit/
+Disallow: /*/_upload/
+
+Disallow: /*/_draft/
+
+# entering for forgotten password
+Disallow: /forgot_password/enter/
+
+# disallow in account view
+Disallow: /*/_create_book/
+Disallow: /*/_settings/
+
+# disallow in reader view
+Disallow: /_info/
+Disallow: /_full/
+Disallow: /_draft/*/
