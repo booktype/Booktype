@@ -3,7 +3,7 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <iframe name="hidden_frame" style="border: 0px; width: 0px; height: 0px"></iframe>
-        <form method="post" action="{% url "edit_info" book.url_title %}" target="hidden_frame" enctype="multipart/form-data" style="margin-bottom: 0px">
+        <form method="post" action="{% url "reader:edit_info_book" book.url_title %}" target="hidden_frame" enctype="multipart/form-data" style="margin-bottom: 0px">
             <div class="modal-header"><h4 class="modal-title">{% trans "Edit Book Info" %}</h4></div>
             <div class="modal-body">                                
                 {% csrf_token %}

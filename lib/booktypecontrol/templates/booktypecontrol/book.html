@@ -12,7 +12,7 @@
     });
 
     $("button[name=bookinfo]").click(function() {
-       window.location = '{% url "book_info" book.url_title %}';
+       window.location = '{% url "reader:infopage" book.url_title %}';
     });
 
     $("button[name=edit]").click(function() {
@@ -55,7 +55,7 @@
   </div>
  {% endif %}
 
- <div class="book-cover">{% if book.cover %}<img src="{% url "book_info" book.url_title %}cover.jpg"/>{% endif %}</div>
+ <div class="book-cover">{% if book.cover %}<img src="{% url "reader:book_cover" book.url_title %}"/>{% endif %}</div>
  <p class="book-description">{{ book_description|safe }}</p>
  <p style="clear:both; margin-top:0;">&nbsp;</p>
 

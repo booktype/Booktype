@@ -27,6 +27,6 @@ urlpatterns = patterns('',
 
                         # book editing
                         url(r'^_edit/$', 'booki.editor.views.edit_book', name='edit_book'),
-                        url(r'^_edit/static/(?P<attachment>.*)$', 'booki.reader.views.staticattachment'),
+                        url(r'^_edit/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment'),
                         url(r'^_edit/book-list.json$', 'booki.editor.views.view_books_autocomplete'),
                       )       

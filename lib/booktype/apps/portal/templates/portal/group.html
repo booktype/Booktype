@@ -53,13 +53,13 @@
                             <div class="grid-4">
                                 <figure class="custom-cover">
                                     {% if book.cover %}
-                                        <img src="{% url "book_info" book.url_title %}cover.jpg" />
+                                        <img src="{% url "reader:book_cover" book.url_title %}" />
                                     {% else %}
                                         <img src="{% static "core/img/thumb-default.png" %}"/>
                                     {% endif %}
                                 </figure>
                                 <div class="book-info">
-                                    <h4><a href="{% url "book_info" book.url_title %}">{{ book.title }}</a></h4>
+                                    <h4><a href="{% url "reader:infopage" book.url_title %}">{{ book.title }}</a></h4>
                                         {% if request.user.is_authenticated %}
                                             <div class="btn-group float-right">
                                                 <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit:editor" book.url_title %}"><i class="icon-pencil"></i></a>

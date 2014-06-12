@@ -2,7 +2,7 @@
 <div class="grid-4">
     <figure class="custom-cover">
         {% if book.cover %}
-            <img src="{% url "book_info" book.url_title %}cover.jpg" />
+            <img src="{% url "reader:book_cover" book.url_title %}" />
         {% else %}
             <img src="{% static "core/img/thumb-default.png" %}"/>
         {% endif %}

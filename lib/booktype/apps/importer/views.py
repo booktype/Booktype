@@ -76,7 +76,7 @@ def frontpage(request):
 
             from django.core.urlresolvers import reverse
 
-            res = HttpResponseRedirect(reverse('book_info', kwargs={'bookid': book.url_title})) # Redirect after POST
+            res = HttpResponseRedirect(reverse('reader:infopage', kwargs={'bookid': book.url_title})) # Redirect after POST
 
             return res
 

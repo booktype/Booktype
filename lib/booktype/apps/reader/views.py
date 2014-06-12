@@ -16,18 +16,20 @@
 
 import os
 
+from django.views import static
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import User
-from django.views.generic import DetailView, DeleteView, UpdateView
 from django.utils.translation import ugettext_lazy as _
+from django.views.generic import DetailView, DeleteView, UpdateView
 
 from braces.views import LoginRequiredMixin
 
 from booki.utils import misc, security
 from booki.utils.book import removeBook
-from booki.editor.models import Book, BookHistory, BookToc, Chapter
 from booktype.apps.core.views import BasePageView
+from booki.editor.models import Book, BookHistory, BookToc, Chapter
 
 class BaseReaderView(object):
     """
@@ -156,3 +158,17 @@ class FullView(BaseReaderView, BasePageView, DetailView):
         context['toc_items'] = toc_items
 
         return context
+
+class BookCoverView(BaseReaderView, DetailView):
+    """
+    Simple DetailView inherit clase to serve the book cover image
+    """
+
+    http_method_names = [u'get']
+    
+    def render_to_response(self, context, **response_kwargs):
+        """
+        Override render_to_response to serve the book cover static image
+        """
+
+        return static.serve(self.request, self.object.cover.name, settings.MEDIA_ROOT)

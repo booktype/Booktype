@@ -17,10 +17,11 @@
 from django.conf.urls import patterns, url, include
 
 from .views import InfoPageView, DeleteBookView, EditBookInfoView
-from .views import DraftChapterView, FullView
+from .views import DraftChapterView, FullView, BookCoverView
 
 urlpatterns = patterns('',
    url(r'^_info/$', InfoPageView.as_view(), name='infopage'),
+   url(r'^_info/cover.jpg$', BookCoverView.as_view(), name='book_cover'),
    url(r'^_info/edit/$', EditBookInfoView.as_view(), name='edit_info_book'),
    url(r'^_info/delete/$', DeleteBookView.as_view(), name='delete_book'),
    url(r'^_full/$', FullView.as_view(), name='full_view'),
