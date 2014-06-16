@@ -1,6 +1,6 @@
 {% extends "core/base.html" %}
 
-{% load i18n booki_tags staticfiles %}
+{% load i18n booktype_tags staticfiles %}
 {% block extra_header %}
     <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>   
 {% endblock %}
@@ -9,7 +9,7 @@
 
 <div class="container">
   <div class = "row three-col">
-        {% if 1|booki_anyone_register  %}    
+        {% if 1|booktype_anyone_register  %}    
           {% if limit_reached %}
             <h3>{% trans "Registration" %}</h3>
               <p>

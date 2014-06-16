@@ -281,7 +281,7 @@ def importBookFromUrl2(user, baseurl, args, **extraOptions):
 
 def expand_macro(chapter):
     try:
-        t = template.loader.get_template_from_string('{% load booki_tags %} {% booki_format content %}')
+        t = template.loader.get_template_from_string('{% load booktype_tags %} {% booktype_format content %}')
         return t.render(template.Context({"content": chapter}))
     except template.TemplateSyntaxError:
         return chapter.content

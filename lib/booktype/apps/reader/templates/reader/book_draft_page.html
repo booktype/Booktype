@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-{% load i18n staticfiles reader_tags booki_tags %}
+{% load i18n staticfiles reader_tags booktype_tags %}
 
 {% block content %}
 <!-- Bookbar -->
@@ -51,7 +51,7 @@
                 
                 <h1>{{ content.title }}</h1>
                 {% if content %}
-                {% booki_format content %}
+                {% booktype_format content %}
                 {% else %}
                 {% trans "No content yet." %}
                 {% endif %}
