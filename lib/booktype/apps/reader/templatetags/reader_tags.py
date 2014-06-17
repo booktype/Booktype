@@ -19,7 +19,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
-from booki.editor.templatetags.booki_tags import jsonlookup
+from booktype.apps.core.templatetags.booktype_tags import jsonlookup
 
 register = template.Library()
 
