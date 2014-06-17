@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 from django.views import static
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.conf import settings
 
 from booki.editor.models import Book
@@ -43,3 +43,19 @@ def staticattachment(request, bookid,  attachment, version=None, chapter = None)
     document_root = '%s/books/%s/' % (settings.DATA_ROOT, bookid)
 
     return static.serve(request, path, document_root)
+
+
+def error404(request):
+    return render(request, 'errors/404.html')
+
+
+def error500(request):
+    return render(request, 'errors/500.html')
+
+
+def error403(request):
+    return render(request, 'errors/403.html')
+
+
+def error400(request):
+    return render(request, 'errors/400.html')    

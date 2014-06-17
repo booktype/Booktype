@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container">
+        <div class="row two-col">
+            <div class="col-xs-8">
+                <div class="box gray">
+                    <h1 class="box-title-alter">{% trans "Error 500" %}</h1>
+                    <h2>{% trans "Server error." %}</h2>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End of container -->
+{% endblock %}
