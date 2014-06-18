@@ -39,7 +39,8 @@ from django.core.validators import RegexValidator, MinLengthValidator
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 from booki.editor import models
-from booki.utils import pages, misc
+from booktype.apps.core import views
+from booki.utils import misc
 from booki.editor.models import Book, BookiGroup, BookHistory
 
 from booktype.apps.core.views import BasePageView
@@ -242,7 +243,7 @@ def profile(request, username):
     try:
         person = User.objects.get(username=username)
     except User.DoesNotExist:
-        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        return views.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
 
     from django.utils.html import escape
     personDescription = escape(person.get_profile().description)
@@ -296,7 +297,7 @@ def edit_profile(request, username):
     try:
         person = User.objects.get(username=username)
     except User.DoesNotExist:
-        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        return views.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
 
     if request.method == 'POST': 
         frm = ProfileForm(request.POST, request.FILES) 
@@ -361,7 +362,7 @@ def edit_password(request, username):
     try:
         person = User.objects.get(username=username)
     except User.DoesNotExist:
-        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
+        return views.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
 
     if request.method == 'POST': 
         frm = PasswordForm(request.POST) 
@@ -517,7 +518,7 @@ def view_book(request, bookid):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = book.get_version(None)
 
@@ -577,7 +578,7 @@ def delete_book(request, bookid):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
 
     if request.method == 'POST': 
@@ -734,7 +735,7 @@ def edit_book(request, bookid):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = book.get_version(None)
 
@@ -813,7 +814,7 @@ def rename_book(request, bookid):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = book.get_version(None)
 
@@ -1063,7 +1064,7 @@ def settings_license_edit(request, licenseid):
             try:
                 license = models.License.objects.get(pk=licenseid)
             except models.License.DoesNotExist:
-                return pages.ErrorPage(request, "errors/license_does_not_exist.html", {"username": ''})
+                return views.ErrorPage(request, "errors/license_does_not_exist.html", {"username": ''})
 
             license.delete()
 
@@ -1075,7 +1076,7 @@ def settings_license_edit(request, licenseid):
             try:
                 license = models.License.objects.get(pk=licenseid)
             except models.License.DoesNotExist:
-                return pages.ErrorPage(request, "errors/license_does_not_exist.html", {"username": ''})
+                return views.ErrorPage(request, "errors/license_does_not_exist.html", {"username": ''})
 
             license.abbrevation = frm.cleaned_data['abbrevation']
             license.name = frm.cleaned_data['name']
@@ -1089,7 +1090,7 @@ def settings_license_edit(request, licenseid):
             license = models.License.objects.get(pk=licenseid)
         except models.License.DoesNotExist:
             # change this
-            return pages.ErrorPage(request, "errors/license_does_not_exist.html", {"username": ''})
+            return views.ErrorPage(request, "errors/license_does_not_exist.html", {"username": ''})
 
         books = models.Book.objects.filter(license=license).order_by("title")
             

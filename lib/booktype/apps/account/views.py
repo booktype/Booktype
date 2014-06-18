@@ -43,7 +43,7 @@ from booki.messaging.views import get_endpoint_or_none
 from booki.utils.book import checkBookAvailability, createBook
 from booki.editor.models import Book, License, BookHistory, BookiGroup
 from booktype.apps.account.models import UserPassword
-from booki.utils import pages
+from booktype.apps.core import views
 from booki.utils.misc import isUserLimitReached
 import booktype.apps.account.signals
 from booktype.apps.core.views import BasePageView, PageView
@@ -234,7 +234,7 @@ class ForgotPasswordView(PageView):
     def post(self, request, *args, **kwargs):
         context = super(ForgotPasswordView, self).get_context_data(**kwargs)
         if "name" not in request.POST:
-            return pages.ErrorPage(request, "500.html")
+            return views.ErrorPage(request, "errors/500.html")
 
         name = request.POST["name"].strip()
 
@@ -285,7 +285,7 @@ class ForgotPasswordEnterView(PageView):
         context = super(ForgotPasswordEnterView, self).get_context_data(**kwargs)
 
         if "secretcode" and "password1" and "password2" not in request.POST:
-            return pages.ErrorPage(request, "500.html")
+            return views.ErrorPage(request, "errors/500.html")
 
         secretcode = request.POST["secretcode"].strip()
         password1 = request.POST["password1"].strip()
@@ -482,7 +482,7 @@ def profilethumbnail(request, profileid):
     try:
         u = User.objects.get(username=profileid)
     except User.DoesNotExist:
-        return pages.ErrorPage(request, "errors/user_does_not_exist.html", {"username": profileid})
+        return views.ErrorPage(request, "errors/user_does_not_exist.html", {"username": profileid})
 
     name = ''
 
