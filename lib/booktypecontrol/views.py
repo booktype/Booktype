@@ -16,27 +16,33 @@
 
 import datetime
 import traceback
-from django.shortcuts import render_to_response, redirect
-from django.template.loader import render_to_string
-from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.core.urlresolvers import reverse
-from django.conf import settings
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.db import IntegrityError, transaction
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import user_passes_test
+import booki
+import sputnik
 
-from django.core.validators import RegexValidator, MinLengthValidator
+from collections import Counter
 
 from django import forms
-
-from django.template import RequestContext
-
-from django.utils.translation import ugettext as _
+from django.conf import settings
 from django.contrib import messages
+from django.template import RequestContext
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.views.generic import TemplateView
+from django.db import IntegrityError, connection
+from django.utils.translation import ugettext as _
+from django.shortcuts import render_to_response, redirect
+from django.contrib.auth.decorators import user_passes_test
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.core.validators import RegexValidator, MinLengthValidator
+
+from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 from booki.editor import models
-from booki.utils import pages
+from booki.utils import pages, misc
+from booki.editor.models import Book, BookiGroup, BookHistory
+
+from booktype.apps.core.views import BasePageView
 
 
 # What tabs do you want to have visible at the moment
@@ -83,8 +89,7 @@ def frontpage(request):
 
     # Number of all users on the system.
     # This should somehow check only the active users
-    from django.contrib.auth.models import User
-    number_of_users = len(User.objects.all())
+    number_of_users = User.objects.count()
 
     # check the database size
     from django.db import connection
@@ -117,6 +122,95 @@ def frontpage(request):
                                "database_size": databaseSize,
                                "activity_history": activityHistory
                                })
+
+
+class ControlCenterView(LoginRequiredMixin,
+                        SuperuserRequiredMixin,
+                        BasePageView, 
+                        TemplateView):
+    """
+    Renders the control center dashboard based in user rights
+
+    """
+
+    template_name = 'booktypecontrol/control_center_dashboard.html'
+    page_title = _('Admin Control Center')
+    title = page_title
+
+    def get_context_data(self, **kwargs):
+        context = super(ControlCenterView, self).get_context_data(**kwargs)
+        context['stats'] = self.get_stats()
+        context['online_users'] = self.get_online_users()
+
+        # most active base var
+        most_active_query = BookHistory.objects.filter(kind=2)
+        
+        # now get the most active users base on saving chapters history
+        users = most_active_query.values_list('user', flat=True)
+        most_active = Counter(users).most_common()[:5]
+        context['most_active_users'] = User.objects.filter(id__in=[id for id, freq in most_active])
+
+        # get latest books
+        context['latest_books'] = Book.objects.order_by('-created')[:4]
+
+        # most active books
+        books = most_active_query.values_list('book', flat=True)
+        most_active_books = Counter(books).most_common()[:4]
+        context['most_active_books'] = Book.objects.filter(id__in=[id for id, freq in most_active_books])
+
+        # recent activity
+        context['recent_activity'] = BookHistory.objects.filter(kind__in=[1, 10]).order_by('-modified')[:20]
+
+        return context
+
+    def get_stats(self):
+        # This should not be here in the future. It takes way too much time.
+        attachment_directory = '%s/books/' % (settings.DATA_ROOT, )
+        attachments_size = misc.getDirectorySize(attachment_directory)
+
+        # check the database size        
+        cursor = connection.cursor()
+
+        try:
+            # This will not work if user has new style of configuration for the database
+            # This will also only work for PostgreSQL. Should make another method for checking sqlite database size.
+            cursor.execute("SELECT pg_database_size(%s)", [settings.DATABASES['default']['NAME']]);
+            databaseSize = cursor.fetchone()[0]
+        except:
+            databaseSize = 0
+
+        return {
+            'version': '.'.join([str(num) for num in booki.version]),
+            'users': User.objects.count(),
+            'books': Book.objects.count(),
+            'groups': BookiGroup.objects.count(),
+            'attach_size': attachments_size,
+            'db_size': databaseSize
+        }
+
+    def get_online_users(self):
+        client_list = sputnik.rkeys("ses:*:username")
+        online_users = {}
+
+        for us in client_list:
+            clientID = us[4:-9]
+
+            channel_list = []
+            for chan in sputnik.smembers('ses:%s:channels' % clientID):
+                if chan.startswith('/booktype/book/'):
+                    _s = chan.split('/')
+                    if len(_s) > 3:
+                        bookID = _s[3]
+                        try:
+                            b = Book.objects.get(pk=bookID)
+                            channel_list.append(b)
+                        except Book.DoesNotExist:
+                            pass
+                
+            _u = sputnik.get(us)
+            online_users[_u] = channel_list
+
+        return online_users
 
 
 @user_passes_test(lambda u: u.is_superuser)

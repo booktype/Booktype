@@ -1,0 +1,148 @@
+{% extends "core/base.html" %}
+{% load i18n profile staticfiles reader_tags %}
+
+{% block content %}
+    <div class="container admin-panel">
+        <div class="row two-col">
+            <div class="col-xs-8">
+
+                <div class="box purple">
+                    <h2 class="box-title">{% trans "Info" %}</h2>
+                    <ul class="info-list">
+                        <li><span>{{ stats.version }}</span>{% trans "version" %}</li>
+                        <li><span>{{ stats.books }}</span>{% trans "books" %}</li>
+                        <li><span>{{ stats.groups }}</span>{% trans "groups" %}</li>
+                        <li><span>{{ stats.db_size|filesizeformat }}</span>{% trans "database size" %}</li>
+                        <li><span>{{ stats.attach_size|filesizeformat }}</span>{% trans "files size" %}</li>
+                    </ul>
+                </div>
+
+                <div class="box white">
+                    <h2 class="box-title">{% trans "Recent Activity" %}</h2>
+                    <ul class="list border-top user-avatar circle">
+                        {% for base_activ in recent_activity %}
+                        {% verbose_activity base_activ as activity %}
+                        <li>
+                            <figure>{% profile_image activity.user %}</figure>
+                            <div class="list-info">
+                              <span class="time">{{ activity.modified|timesince }} {% trans "ago" %}</span>
+                              <h4><a href="{% url 'accounts:view_profile' activity.user %}">{{ activity.user }}</a></h4>
+                              <p>
+                                {{ activity.verbose }}
+                                {% if activity.link_url %}
+                                    <a href="{{ activity.link_url }}">{{ activity.link_text }}</a>.
+                                {% endif %}
+
+                                <span>#{{ activity.book.url_title }}</span>
+                              </p>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="col-xs-4">
+
+                <div class="box white">
+                    <h2 class="box-title">
+                        {% trans "Online users" %} <a class="view_all" href="#">{% trans "view all" %}</a>
+                    </h2>
+                    <ul class="list border-top user-avatar circle">
+                        {% for username, books in online_users.items %}
+                        {% for book in books %}
+                        <li>
+                            <figure>
+                                <img src="{% url "view_profilethumbnail" username %}?width=48" alt="{{ username }}">
+                            </figure>
+                            <div class="list-info">
+                                <h4><a href="#">{{ username }}</a></h4>
+                                <p>
+                                    {% trans "Working on:" %}
+                                    <a href="{% url 'reader:draft_chapter_page' book.url_title %}">{{ book.title }}</a>
+                                    <span>#{{ book.url_title }}</span>
+                                </p>
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li>
+                            <figure>
+                                <img src="{% url "view_profilethumbnail" username %}?width=48" alt="{{ username }}">
+                            </figure>
+                        </li>
+                        {% endfor %}                        
+                        {% empty %}
+                        <li>{% trans "No online users" %}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="box white">
+                    <h2 class="box-title">
+                        {% trans "Most Active Users" %} <a class="view_all" href="#">{% trans "view all" %}</a>
+                    </h2>
+                    <ul class="list border-top user-avatar circle">
+                        {% for user in most_active_users %}
+                        <li>
+                            <figure>{% profile_image user %}</figure>                            
+                            <div class="list-info">
+                                <h4><a href="#">{{ user.username }}</a></h4>
+                                {% if user.username in online_users %}
+                                <p>
+                                    {% trans "Working on:" %} <a href="#">“Airtime API auth"</a>
+                                    <span>#airtime-25-for-broadcasters</span>
+                                </p>
+                                {% endif %}
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li>{% trans "No most active users" %}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="box white">
+                    <h2 class="box-title">
+                        {% trans "Latest Books" %} <a class="view_all" href="#">{% trans "view all" %}</a>
+                    </h2>
+                    <ul class="list border-top">
+                        {% for book in latest_books %}
+                            <li>
+                                <figure><img src="{% static 'core/img/list-default.png' %}"></figure>
+                                <div class="list-info">
+                                    <h4>
+                                        <a href="{% url 'reader:draft_chapter_page' book.url_title %}">{{ book.title }}</a>
+                                    </h4>
+                                </div>
+                            </li>    
+                        {% empty %}
+                            <li>{% trans "No books here" %}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="box white">
+                    <h2 class="box-title">
+                        {% trans "Most Active Books" %} <a class="view_all" href="#">{% trans "view all" %}</a>
+                    </h2>
+                    <ul class="list border-top">
+                        {% for book in most_active_books %}
+                        <li>
+                            <figure><img src="{% static 'core/img/list-default.png' %}"></figure>
+                            <div class="list-info">
+                                <h4>
+                                    <a href="{% url 'reader:draft_chapter_page' book.url_title %}">{{ book.title }}</a>
+                                </h4>
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li>{% trans "No active books here" %}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}

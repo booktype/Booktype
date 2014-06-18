@@ -14,14 +14,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url, include
-
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.conf.urls import patterns, url
+from .views import ControlCenterView
 
 urlpatterns = patterns('',
     url(r'^$', 'booktypecontrol.views.frontpage', name='control_frontpage'),
+    url(r'^new/dashboard/$', ControlCenterView.as_view(), name='control_dashboard'),
 
     url(r'^people/$', 'booktypecontrol.views.people', name='control_people'),
     url(r'^people/_add/$', 'booktypecontrol.views.add_person', name='control_add_person'),
