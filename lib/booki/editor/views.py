@@ -25,7 +25,7 @@ from django.db import transaction
 from django.core import serializers
 
 from booki.editor import models
-from booki.utils import pages
+from booktype.apps.core import views
 
 import json
 
@@ -64,7 +64,7 @@ def export(request, bookid):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = book.getVersion(None)
 
@@ -100,7 +100,7 @@ def edit_book(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = book.getVersion(version)
 
@@ -109,7 +109,7 @@ def edit_book(request, bookid, version=None):
     hasPermission = security.canEditBook(book, bookSecurity)
 
     if not hasPermission:
-        return pages.ErrorPage(request, "errors/editing_forbidden.html", {"book": book})    
+        return views.ErrorPage(request, "errors/editing_forbidden.html", {"book": book})    
 
     chapters = models.Chapter.objects.filter(version=book_version)
 
@@ -164,7 +164,7 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = book.getVersion(version)
 
@@ -211,7 +211,7 @@ def upload_attachment(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = book.getVersion(version)
 
@@ -274,7 +274,7 @@ def view_cover(request, bookid, cid, fname = None, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     try:
         cover = models.BookCover.objects.get(cid = cid)
@@ -357,7 +357,7 @@ def upload_cover(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = book.getVersion(version)
 

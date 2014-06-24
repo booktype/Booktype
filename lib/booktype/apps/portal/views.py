@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView
 
 from braces.views import LoginRequiredMixin
 
-from booki.utils import pages
+from booktype.apps.core import views
 from booktype.utils import security
 from booki.utils.misc import bookiSlugify
 from booktype.apps.core.views import PageView, BasePageView
@@ -23,7 +23,7 @@ class GroupManipulation(PageView):
         group = BookiGroup.objects.get(url_name=groupid)
         if request.user.is_authenticated():
             if "task" not in request.POST:
-                return pages.ErrorPage(request, "500.html")
+                return views.ErrorPage(request, "errors/500.html")
             if request.POST["task"] == "join-group":
                 group.members.add(request.user)
             if request.POST["task"] == "leave-group":
@@ -57,7 +57,7 @@ class GroupPageView(GroupManipulation):
 
     def render_to_response(self, context, **response_kwargs):
         if context['selected_group_error']:
-            return pages.ErrorPage(self.request, "portal/errors/group_does_not_exist.html", {"group_name": context['groupid']})
+            return views.ErrorPage(self.request, "portal/errors/group_does_not_exist.html", {"group_name": context['groupid']})
 
         return super(self.__class__, self).render_to_response(context, **response_kwargs)
 
@@ -197,7 +197,7 @@ class GroupUpdateView(LoginRequiredMixin, BasePageView, UpdateView):
         group_security = security.get_user_security_for_group(request.user, self.object)
 
         if not group_security.is_group_admin():
-            return pages.ErrorPage(request, "errors/nopermissions.html")
+            return views.ErrorPage(request, "errors/nopermissions.html")
 
         return super(GroupUpdateView, self).dispatch(request, *args, **kwargs)
 
@@ -244,7 +244,7 @@ class AddBooksView(PageView):
     def post(self, request, groupid):
         if request.user.is_authenticated():
             if "task" not in request.POST:
-                return pages.ErrorPage(request, "500.html")
+                return views.ErrorPage(request, "errors/500.html")
 
             if request.POST["task"] == "add-book":
                 group = BookiGroup.objects.get(url_name=groupid)

@@ -6,6 +6,11 @@ import booktype.urls
 # from django.contrib import admin
 # admin.autodiscover()
 
+handler404 = 'booktype.apps.core.views.error404'
+handler500 = 'booktype.apps.core.views.error500'
+handler403 = 'booktype.apps.core.views.error403'
+handler400 = 'booktype.apps.core.views.error400'
+
 # Register additional URls
 urlpatterns = patterns('',
                        # Django Admin interface is disabled by default. If you want it

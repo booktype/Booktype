@@ -16,7 +16,7 @@ from django.conf import settings
 
 from booki.utils import log
 from booki.editor import models
-from booki.utils import pages
+from booktype.apps.core import views
 from booktype.utils import security
 
 def get_toc_for_book(version):
@@ -48,7 +48,7 @@ def upload_attachment(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = book.get_version(version)
 
@@ -107,7 +107,7 @@ def upload_cover(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = book.get_version(version)
 
@@ -189,7 +189,7 @@ def cover(request, bookid, cid, fname = None, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return pages.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     try:
         cover = models.BookCover.objects.get(cid = cid)
@@ -270,10 +270,10 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     def render_to_response(self, context, **response_kwargs):
         # Check for errors
         if context['book'] == None:
-            return pages.ErrorPage(self.request, "errors/book_does_not_exist.html", {'book_name': context['book_id']})
+            return views.ErrorPage(self.request, "errors/book_does_not_exist.html", {'book_name': context['book_id']})
 
         if context.get('has_permission', True) == False:
-            return pages.ErrorPage(self.request, "errors/editing_forbidden.html", {'book': context['book']})    
+            return views.ErrorPage(self.request, "errors/editing_forbidden.html", {'book': context['book']})    
 
         return super(TemplateView, self).render_to_response(context, **response_kwargs)
 
