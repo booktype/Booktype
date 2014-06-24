@@ -18,6 +18,7 @@ import datetime
 import traceback
 import booki
 import sputnik
+import forms as forms_module
 
 from collections import Counter
 
@@ -27,9 +28,9 @@ from django.contrib import messages
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.views.generic import TemplateView
 from django.db import IntegrityError, connection
 from django.utils.translation import ugettext as _
+from django.views.generic import TemplateView, FormView
 from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
@@ -39,10 +40,13 @@ from django.core.validators import RegexValidator, MinLengthValidator
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 from booki.editor import models
-from booki.utils import pages, misc
+from booki.utils import pages, misc, config
 from booki.editor.models import Book, BookiGroup, BookHistory
 
 from booktype.apps.core.views import BasePageView
+
+# TODO: to be removed
+from .forms import *
 
 
 # What tabs do you want to have visible at the moment
@@ -123,11 +127,10 @@ def frontpage(request):
                                "activity_history": activityHistory
                                })
 
+class BaseCCView(LoginRequiredMixin, SuperuserRequiredMixin, BasePageView):
+    pass
 
-class ControlCenterView(LoginRequiredMixin,
-                        SuperuserRequiredMixin,
-                        BasePageView, 
-                        TemplateView):
+class ControlCenterView(BaseCCView, TemplateView):
     """
     Renders the control center dashboard based in user rights
 
@@ -211,6 +214,92 @@ class ControlCenterView(LoginRequiredMixin,
             online_users[_u] = channel_list
 
         return online_users
+
+
+OPTION_NAMES = {
+    'site-description' : _('Description'),
+    'appearance'       : _('Appearance'),
+    'frontpage'        : _('Frontpage') 
+}
+
+class ControlCenterSettings(BaseCCView, FormView):
+    """
+    Generic class for control center settings
+    """
+
+    VALID_OPTIONS = OPTION_NAMES.keys()
+    template_name = 'booktypecontrol/control_center_settings.html'
+    submodule = 'site-description'
+    success_url = '/_control/new/settings/'
+    page_title = _('Admin Control Center')
+    title = page_title
+
+    def camelize(self, text):
+        return ''.join([s for s in text.title() if s.isalpha()])
+
+    def form_valid(self, form):
+        try:
+            form.save_settings()
+            messages.success(self.request, _('Successfully saved settings.'))
+        except:
+            messages.warning(self.request, _('Unknown error while saving changes.'))
+
+        return super(ControlCenterSettings, self).form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        option = request.REQUEST.get('option', None)
+        if option and option in self.VALID_OPTIONS:
+            self.submodule = option
+
+        return super(ControlCenterSettings, self).dispatch(request, *args, **kwargs)
+
+    def get_form_class(self):
+        class_text = "%sForm" % self.camelize(self.submodule)
+        return getattr(forms_module, class_text)
+
+    def get_initial(self):
+        """
+        Returns initial data for each admin option
+        """
+        initial_dict = {}
+
+        if self.submodule == "site-description":
+            
+            initial_dict = {
+                'title': config.getConfiguration('BOOKTYPE_SITE_NAME'),
+                'tagline': config.getConfiguration('BOOKTYPE_SITE_TAGLINE')
+            }
+
+        elif self.submodule == 'appearance':
+            try:
+                f = open('%s/css/_user.css' % settings.STATIC_ROOT, 'r')
+                initial_dict['css'] = unicode(f.read(), 'utf8')
+                f.close()
+            except IOError:
+                initial_dict['css'] = ''
+
+        elif self.submodule == 'frontpage':
+            try:
+                f = open('%s/templates/portal/welcome_message.html' % settings.BOOKTYPE_ROOT, 'r')
+                initial_dict['description'] = unicode(f.read(), 'utf8')
+                f.close()
+            except IOError:
+                initial_dict['description'] = ''
+
+            initial_dict['show_changes'] = config.getConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', True)
+
+        return initial_dict
+
+    def get_template_names(self):
+        if self.request.is_ajax():
+            return ["booktypecontrol/_control_center_settings.html"]
+        return super(ControlCenterSettings, self).get_template_names()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ControlCenterSettings, self).get_context_data(*args, **kwargs)
+        context['option'] = self.submodule
+        context['option_name'] = OPTION_NAMES.get(self.submodule, '')
+        return context
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -873,23 +962,6 @@ def viewsettings(request):
                                },
                               context_instance=RequestContext(request))
 
-
-class SiteDescriptionForm(forms.Form):
-    title = forms.CharField(label=_("Site title"), 
-                            required=True, 
-                            error_messages={'required': _('Site title is required.')},                                 
-                            max_length=200)
-    tagline = forms.CharField(label=_("Tagline"), 
-                              required=False, 
-                              max_length=200)
-    favicon = forms.FileField(label=_("Favicon"), 
-                              required=False, 
-                              help_text=_("Upload .ico file"))
-        
-    def __unicode__(self):
-        return self.username
-
-
 @user_passes_test(lambda u: u.is_superuser)
 def settings_description(request):
     if request.method == 'POST': 
@@ -925,7 +997,6 @@ def settings_description(request):
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
-        from booki.utils import config
         frm = SiteDescriptionForm(initial={'title': config.getConfiguration('BOOKTYPE_SITE_NAME'),
                                            'tagline': config.getConfiguration('BOOKTYPE_SITE_TAGLINE')})
 
@@ -1216,15 +1287,6 @@ def settings_publishing(request):
                                })
 
 
-class AppearanceForm(forms.Form):
-    css = forms.CharField(label=_('CSS'), 
-                          required=False, 
-                          widget=forms.Textarea(attrs={'rows': 30}))
-
-    def __unicode__(self):
-        return u'Appearance'
-
-
 @user_passes_test(lambda u: u.is_superuser)
 def settings_appearance(request):
     staticRoot = settings.STATIC_ROOT
@@ -1327,16 +1389,6 @@ def settings_publishing_defaults(request):
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm
                                })
-
-class FrontpageForm(forms.Form):
-    description = forms.CharField(label=_('Welcome message'), 
-                                  required=False, 
-                                  widget=forms.Textarea(attrs={'rows': 30}))
-    show_changes = forms.BooleanField(label=_('Show activity'), 
-                                      required=False)
-
-    def __unicode__(self):
-        return u'Frontpage'
 
 
 @user_passes_test(lambda u: u.is_superuser)

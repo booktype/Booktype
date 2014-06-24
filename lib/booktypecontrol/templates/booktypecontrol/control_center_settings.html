@@ -1,0 +1,52 @@
+{% extends "core/base.html" %}
+{% load i18n staticfiles %}
+
+{% block extra_header %}
+    <script type="text/javascript" src="{% static 'booktypecontrol/js/booktypecontrol.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container admin-panel">
+        <div class="row two-col">
+        <div class="col-xs-12">
+            {% for message in messages %}
+            <div class="{% if message.tags %}alert alert-{{ message.tags }}{% endif %} alert-dismissable fade in bk-dismiss" data-dismiss-secs="10">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
+
+            <div class="box white clearfix">
+                <ul id="settings" class="nav nav-tabs col-xs-3" data-active-tab="{{ option }}">
+                    <h4>{% trans "Site" %}</h4>
+                    <li><a href="#site-description" data-toggle="tab">{% trans "Description" %}</a></li>
+                    <li><a href="#appearance" data-toggle="tab">{% trans "Appearance" %}</a></li>
+                    <li><a href="#frontpage" data-toggle="tab">{% trans "Frontpage" %}</a></li>
+
+                    <br>
+
+                    <!-- <h4>{% trans "General" %}</h4>
+                    <li><a href="#licenses" data-toggle="tab">{% trans "Licenses" %}</a></li>
+                    <li><a href="#default_book_settings" data-toggle="tab">{% trans "Default Book Settings" %}</a></li>
+                    <li><a href="#privacy" data-toggle="tab">{% trans "Privacy" %}</a></li>
+
+                    <br>
+
+                    <h4>{% trans "Publish options" %}</h4>
+                    <li><a href="#allowed_options" data-toggle="tab">{% trans "Allowed publishing options" %}</a></li>
+                    <li><a href="#default_settings" data-toggle="tab">{% trans "Default settings" %}</a></li> -->
+                </ul>
+
+                <div id="settings_container" class="tab-content col-xs-9">
+                <div class="tab-pane fade active in" id="description">
+                    {% include "booktypecontrol/_control_center_settings.html" %}
+                </div>
+
+            </div> <!-- End of box white clearfix -->
+
+        </div> <!-- End of row two-col -->
+        </div>
+
+    </div> <!-- End of container -->
+    
+{% endblock content %}
