@@ -219,7 +219,10 @@ class ControlCenterView(BaseCCView, TemplateView):
 OPTION_NAMES = {
     'site-description' : _('Description'),
     'appearance'       : _('Appearance'),
-    'frontpage'        : _('Frontpage') 
+    'frontpage'        : _('Frontpage'),
+    'license'          : _('Licenses'),
+    'book-settings'    : _('Default Book Settings for Creating Books'),
+    'privacy'          : _('Privacy')
 }
 
 class ControlCenterSettings(BaseCCView, FormView):
@@ -240,7 +243,7 @@ class ControlCenterSettings(BaseCCView, FormView):
     def form_valid(self, form):
         try:
             form.save_settings()
-            messages.success(self.request, _('Successfully saved settings.'))
+            messages.success(self.request, form.success_message or _('Successfully saved settings.'))
         except:
             messages.warning(self.request, _('Unknown error while saving changes.'))
 
@@ -255,50 +258,32 @@ class ControlCenterSettings(BaseCCView, FormView):
 
     def get_form_class(self):
         class_text = "%sForm" % self.camelize(self.submodule)
-        return getattr(forms_module, class_text)
+        self.form_class = getattr(forms_module, class_text)
+        return self.form_class
 
     def get_initial(self):
         """
-        Returns initial data for each admin option
+        Returns initial data for each admin option form
         """
-        initial_dict = {}
-
-        if self.submodule == "site-description":
-            
-            initial_dict = {
-                'title': config.getConfiguration('BOOKTYPE_SITE_NAME'),
-                'tagline': config.getConfiguration('BOOKTYPE_SITE_TAGLINE')
-            }
-
-        elif self.submodule == 'appearance':
-            try:
-                f = open('%s/css/_user.css' % settings.STATIC_ROOT, 'r')
-                initial_dict['css'] = unicode(f.read(), 'utf8')
-                f.close()
-            except IOError:
-                initial_dict['css'] = ''
-
-        elif self.submodule == 'frontpage':
-            try:
-                f = open('%s/templates/portal/welcome_message.html' % settings.BOOKTYPE_ROOT, 'r')
-                initial_dict['description'] = unicode(f.read(), 'utf8')
-                f.close()
-            except IOError:
-                initial_dict['description'] = ''
-
-            initial_dict['show_changes'] = config.getConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', True)
-
-        return initial_dict
+        return self.form_class.initial_data()
 
     def get_template_names(self):
         if self.request.is_ajax():
-            return ["booktypecontrol/_control_center_settings.html"]
+            return [
+                "booktypecontrol/_control_center_%s.html" % self.submodule, 
+                "booktypecontrol/_control_center_settings.html"
+            ]
         return super(ControlCenterSettings, self).get_template_names()
 
     def get_context_data(self, *args, **kwargs):
         context = super(ControlCenterSettings, self).get_context_data(*args, **kwargs)
         context['option'] = self.submodule
         context['option_name'] = OPTION_NAMES.get(self.submodule, '')
+
+        extra_context = self.form_class.extra_context()
+        if extra_context:
+            context.update(extra_context)
+
         return context
 
 
@@ -1008,20 +993,6 @@ def settings_description(request):
                                },
                               context_instance=RequestContext(request))
 
-from django.forms.fields import ChoiceField
-
-class BookCreateForm(forms.Form):
-    visible = forms.BooleanField(label=_('Default visibility'), 
-                                 required=False, 
-                                 help_text=_('If it is turned on then all books will be visible to everyone.'))
-    license = forms.ModelChoiceField(label=_('Default License'), 
-                                     queryset=models.License.objects.all().order_by("name"), 
-                                     required=False, 
-                                     help_text=_("Default license for newly created books."))
-        
-    def __unicode__(self):
-        return 'Book create'
-
 
 @user_passes_test(lambda u: u.is_superuser)
 def settings_book_create(request):
@@ -1069,21 +1040,6 @@ def settings_book_create(request):
                                "form": frm                               
                                },
                               context_instance=RequestContext(request))
-
-
-
-class LicenseForm(forms.Form):
-    abbrevation = forms.CharField(label=_("Abbrevation"), 
-                                  required=True, 
-                                  error_messages={'required': _('Abbrevation is required.')},                                 
-                                  max_length=30)
-    name = forms.CharField(label=_("Name"), 
-                           required=True, 
-                           error_messages={'required': _('License name is required.')},                                                            
-                           max_length=100)
-        
-    def __unicode__(self):
-        return self.abbrevation
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -1176,20 +1132,6 @@ def settings_license_edit(request, licenseid):
                                "books": books
                                },
                               context_instance=RequestContext(request))
-
-
-
-class PrivacyForm(forms.Form):
-    user_register = forms.BooleanField(label=_('Anyone can register'), 
-                                       required=False, 
-                                       help_text=_('Anyone can register on the site and create account'))
-    create_books = forms.BooleanField(label=_('Only admin can create books'), 
-                                      required=False)
-    import_books = forms.BooleanField(label=_('Only admin can import books'), 
-                                      required=False)
-
-    def __unicode__(self):
-        return u'Privacy'
 
 
 @user_passes_test(lambda u: u.is_superuser)
