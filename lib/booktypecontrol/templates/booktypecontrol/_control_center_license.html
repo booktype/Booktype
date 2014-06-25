@@ -1,0 +1,17 @@
+{% extends "booktypecontrol/_control_center_settings.html" %}
+{% load i18n %}
+
+{% block save_btn %}{% trans "Add new license" %}{% endblock %}
+
+{% block extra_content %}
+    <h4 class="border-bottom">{% trans "Licenses" %}</h4>
+    <ul class="list smaller-spacing">
+        {% for license in licenses %}
+            <li>
+                <a href="#">
+                    {{ license.abbrevation }} - {{ license.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

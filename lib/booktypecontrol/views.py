@@ -18,6 +18,7 @@ import datetime
 import traceback
 import booki
 import sputnik
+import forms as forms_module
 
 from collections import Counter
 
@@ -26,24 +27,26 @@ from django.conf import settings
 from django.contrib import messages
 from django.template import RequestContext
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.views.generic import TemplateView
+from django.shortcuts import render_to_response
 from django.db import IntegrityError, connection
 from django.utils.translation import ugettext as _
-from django.shortcuts import render_to_response, redirect
+from django.views.generic import TemplateView, FormView
 from django.contrib.auth.decorators import user_passes_test
-from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.core.validators import RegexValidator, MinLengthValidator
 
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 from booki.editor import models
 from booktype.apps.core import views
-from booki.utils import misc
+from booki.utils import misc, config
 from booki.editor.models import Book, BookiGroup, BookHistory
 
 from booktype.apps.core.views import BasePageView
+
+# TODO: to be removed
+from .forms import *
 
 
 # What tabs do you want to have visible at the moment
@@ -124,11 +127,10 @@ def frontpage(request):
                                "activity_history": activityHistory
                                })
 
+class BaseCCView(LoginRequiredMixin, SuperuserRequiredMixin, BasePageView):
+    pass
 
-class ControlCenterView(LoginRequiredMixin,
-                        SuperuserRequiredMixin,
-                        BasePageView, 
-                        TemplateView):
+class ControlCenterView(BaseCCView, TemplateView):
     """
     Renders the control center dashboard based in user rights
 
@@ -212,6 +214,77 @@ class ControlCenterView(LoginRequiredMixin,
             online_users[_u] = channel_list
 
         return online_users
+
+
+OPTION_NAMES = {
+    'site-description' : _('Description'),
+    'appearance'       : _('Appearance'),
+    'frontpage'        : _('Frontpage'),
+    'license'          : _('Licenses'),
+    'book-settings'    : _('Default Book Settings for Creating Books'),
+    'privacy'          : _('Privacy')
+}
+
+class ControlCenterSettings(BaseCCView, FormView):
+    """
+    Generic class for control center settings
+    """
+
+    VALID_OPTIONS = OPTION_NAMES.keys()
+    template_name = 'booktypecontrol/control_center_settings.html'
+    submodule = 'site-description'
+    success_url = '/_control/new/settings/'
+    page_title = _('Admin Control Center')
+    title = page_title
+
+    def camelize(self, text):
+        return ''.join([s for s in text.title() if s.isalpha()])
+
+    def form_valid(self, form):
+        try:
+            form.save_settings()
+            messages.success(self.request, form.success_message or _('Successfully saved settings.'))
+        except:
+            messages.warning(self.request, _('Unknown error while saving changes.'))
+
+        return super(ControlCenterSettings, self).form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        option = request.REQUEST.get('option', None)
+        if option and option in self.VALID_OPTIONS:
+            self.submodule = option
+
+        return super(ControlCenterSettings, self).dispatch(request, *args, **kwargs)
+
+    def get_form_class(self):
+        class_text = "%sForm" % self.camelize(self.submodule)
+        self.form_class = getattr(forms_module, class_text)
+        return self.form_class
+
+    def get_initial(self):
+        """
+        Returns initial data for each admin option form
+        """
+        return self.form_class.initial_data()
+
+    def get_template_names(self):
+        if self.request.is_ajax():
+            return [
+                "booktypecontrol/_control_center_%s.html" % self.submodule, 
+                "booktypecontrol/_control_center_settings.html"
+            ]
+        return super(ControlCenterSettings, self).get_template_names()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ControlCenterSettings, self).get_context_data(*args, **kwargs)
+        context['option'] = self.submodule
+        context['option_name'] = OPTION_NAMES.get(self.submodule, '')
+
+        extra_context = self.form_class.extra_context()
+        if extra_context:
+            context.update(extra_context)
+
+        return context
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -874,23 +947,6 @@ def viewsettings(request):
                                },
                               context_instance=RequestContext(request))
 
-
-class SiteDescriptionForm(forms.Form):
-    title = forms.CharField(label=_("Site title"), 
-                            required=True, 
-                            error_messages={'required': _('Site title is required.')},                                 
-                            max_length=200)
-    tagline = forms.CharField(label=_("Tagline"), 
-                              required=False, 
-                              max_length=200)
-    favicon = forms.FileField(label=_("Favicon"), 
-                              required=False, 
-                              help_text=_("Upload .ico file"))
-        
-    def __unicode__(self):
-        return self.username
-
-
 @user_passes_test(lambda u: u.is_superuser)
 def settings_description(request):
     if request.method == 'POST': 
@@ -926,7 +982,6 @@ def settings_description(request):
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
-        from booki.utils import config
         frm = SiteDescriptionForm(initial={'title': config.getConfiguration('BOOKTYPE_SITE_NAME'),
                                            'tagline': config.getConfiguration('BOOKTYPE_SITE_TAGLINE')})
 
@@ -937,20 +992,6 @@ def settings_description(request):
                                "form": frm                               
                                },
                               context_instance=RequestContext(request))
-
-from django.forms.fields import ChoiceField
-
-class BookCreateForm(forms.Form):
-    visible = forms.BooleanField(label=_('Default visibility'), 
-                                 required=False, 
-                                 help_text=_('If it is turned on then all books will be visible to everyone.'))
-    license = forms.ModelChoiceField(label=_('Default License'), 
-                                     queryset=models.License.objects.all().order_by("name"), 
-                                     required=False, 
-                                     help_text=_("Default license for newly created books."))
-        
-    def __unicode__(self):
-        return 'Book create'
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -999,21 +1040,6 @@ def settings_book_create(request):
                                "form": frm                               
                                },
                               context_instance=RequestContext(request))
-
-
-
-class LicenseForm(forms.Form):
-    abbrevation = forms.CharField(label=_("Abbrevation"), 
-                                  required=True, 
-                                  error_messages={'required': _('Abbrevation is required.')},                                 
-                                  max_length=30)
-    name = forms.CharField(label=_("Name"), 
-                           required=True, 
-                           error_messages={'required': _('License name is required.')},                                                            
-                           max_length=100)
-        
-    def __unicode__(self):
-        return self.abbrevation
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -1106,20 +1132,6 @@ def settings_license_edit(request, licenseid):
                                "books": books
                                },
                               context_instance=RequestContext(request))
-
-
-
-class PrivacyForm(forms.Form):
-    user_register = forms.BooleanField(label=_('Anyone can register'), 
-                                       required=False, 
-                                       help_text=_('Anyone can register on the site and create account'))
-    create_books = forms.BooleanField(label=_('Only admin can create books'), 
-                                      required=False)
-    import_books = forms.BooleanField(label=_('Only admin can import books'), 
-                                      required=False)
-
-    def __unicode__(self):
-        return u'Privacy'
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -1215,15 +1227,6 @@ def settings_publishing(request):
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm
                                })
-
-
-class AppearanceForm(forms.Form):
-    css = forms.CharField(label=_('CSS'), 
-                          required=False, 
-                          widget=forms.Textarea(attrs={'rows': 30}))
-
-    def __unicode__(self):
-        return u'Appearance'
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -1328,16 +1331,6 @@ def settings_publishing_defaults(request):
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm
                                })
-
-class FrontpageForm(forms.Form):
-    description = forms.CharField(label=_('Welcome message'), 
-                                  required=False, 
-                                  widget=forms.Textarea(attrs={'rows': 30}))
-    show_changes = forms.BooleanField(label=_('Show activity'), 
-                                      required=False)
-
-    def __unicode__(self):
-        return u'Frontpage'
 
 
 @user_passes_test(lambda u: u.is_superuser)
