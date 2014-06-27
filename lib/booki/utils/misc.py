@@ -161,10 +161,10 @@ def isUserLimitReached():
     @param: Returns True if maximum number of users is reached
     """
 
-    from booki.utils import config
+    from booktype.utils import config
     from django.contrib.auth.models import User
 
-    maxUsers = config.getConfiguration('BOOKTYPE_MAX_USERS')
+    maxUsers = config.get_configuration('BOOKTYPE_MAX_USERS')
 
     if not isinstance(maxUsers, int):
         # We should show some kind of warning here
@@ -190,10 +190,10 @@ def isBookLimitReached():
     @param: Returns True if maximum number of books is reached
     """
 
-    from booki.utils import config
+    from booktype.utils import config
     from booki.editor import models
 
-    maxBooks = config.getConfiguration('BOOKTYPE_MAX_BOOKS')
+    maxBooks = config.get_configuration('BOOKTYPE_MAX_BOOKS')
 
     if not isinstance(maxBooks, int):
         # We should show some kind of warning here

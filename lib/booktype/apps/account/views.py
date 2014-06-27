@@ -38,7 +38,8 @@ from django.conf import settings
 
 
 from braces.views import LoginRequiredMixin
-from booki.utils import config, misc
+from booktype.utils import config
+from booki.utils import misc
 from booki.messaging.views import get_endpoint_or_none
 from booki.utils.book import checkBookAvailability, createBook
 from booki.editor.models import Book, License, BookHistory, BookiGroup
@@ -75,8 +76,8 @@ class DashboardPageView(BasePageView, DetailView):
         # get user recent activity
         context['recent_activity'] = BookHistory.objects.filter(user=self.object).order_by('-modified')[:3]
 
-        context['book_license'] = config.getConfiguration('CREATE_BOOK_LICENSE')
-        context['book_visible'] = config.getConfiguration('CREATE_BOOK_VISIBLE')
+        context['book_license'] = config.get_configuration('CREATE_BOOK_LICENSE')
+        context['book_visible'] = config.get_configuration('CREATE_BOOK_VISIBLE')
 
         # change title in case of not authenticated user
         if not self.request.user.is_authenticated() or self.object != self.request.user:
@@ -247,7 +248,7 @@ class ForgotPasswordView(PageView):
             context['error'] = _('No such user')
             return render(request, self.template_name, context)
 
-        THIS_BOOKTYPE_SERVER = config.getConfiguration('THIS_BOOKTYPE_SERVER')
+        THIS_BOOKTYPE_SERVER = config.get_configuration('THIS_BOOKTYPE_SERVER')
         for usr in users_to_email:
             secretcode = self.generate_secret_code()
 
@@ -387,7 +388,7 @@ class SignInView(PageView):
         if request.POST.get("ajax", "") == "1":
             ret = {"result": 0}
 
-            if request.POST.get("method", "") == "register" and config.getConfiguration('FREE_REGISTRATION') and not limit_reached:
+            if request.POST.get("method", "") == "register" and config.get_configuration('FREE_REGISTRATION') and not limit_reached:
                 email = request.POST["email"].strip()
                 fullname = request.POST["fullname"].strip()
                 ret["result"] = self._do_checks_for_empty(request)

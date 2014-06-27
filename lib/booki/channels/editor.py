@@ -30,7 +30,7 @@ from booki import constants
 
 from django.conf import settings
 
-from booki.utils import config
+from booktype.utils import config
 
 try:
     OBJAVI_URL = settings.OBJAVI_URL
@@ -3263,7 +3263,7 @@ def remote_get_wizzard(request, message, bookid, version):
 
     for op in options:
         if op.get('name', '') == 'special_css':
-            op['value'] = config.getConfiguration('BOOKTYPE_CSS_%s' % output_type, '')
+            op['value'] = config.get_configuration('BOOKTYPE_CSS_%s' % output_type, '')
 
     covers = []
     
@@ -3619,11 +3619,11 @@ def remote_publish_book2(request, message, bookid, version):
 
         # in this case, just the css you entered
         if _getValue('custom_override') == 'on':
-            _css = config.getConfiguration('BOOKTYPE_CSS_BOOK', '')
+            _css = config.get_configuration('BOOKTYPE_CSS_BOOK', '')
 
             _css += _getValue('additional_css') or ''
         else:
-            _css = config.getConfiguration('BOOKTYPE_CSS_BOOK', '')
+            _css = config.get_configuration('BOOKTYPE_CSS_BOOK', '')
 
             _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
             _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
@@ -3656,11 +3656,11 @@ def remote_publish_book2(request, message, bookid, version):
 
         # in this case, just the css you entered
         if _getValue('custom_override') == 'on':
-            _css = config.getConfiguration('BOOKTYPE_CSS_BOOKJS', '')
+            _css = config.get_configuration('BOOKTYPE_CSS_BOOKJS', '')
 
             _css += _getValue('additional_css') or ''
         else:
-            _css = config.getConfiguration('BOOKTYPE_CSS_BOOKJS', '')
+            _css = config.get_configuration('BOOKTYPE_CSS_BOOKJS', '')
 
             if theme == 'style3':
                 _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
@@ -3704,11 +3704,11 @@ def remote_publish_book2(request, message, bookid, version):
             args['output_format'] = 'epub'
 
         if _getValue('custom_override') == 'on':
-            _css = config.getConfiguration('BOOKTYPE_CSS_EBOOK', '')
+            _css = config.get_configuration('BOOKTYPE_CSS_EBOOK', '')
 
             _css += _getValue('additional_css') or ''
         else:
-            _css = config.getConfiguration('BOOKTYPE_CSS_EBOOK', '')
+            _css = config.get_configuration('BOOKTYPE_CSS_EBOOK', '')
 
             _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
             _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
@@ -3724,11 +3724,11 @@ def remote_publish_book2(request, message, bookid, version):
         _isSet('custom_height')
 
         if _getValue('custom_override') == 'on':
-            _css = config.getConfiguration('BOOKTYPE_CSS_PDF', '')
+            _css = config.get_configuration('BOOKTYPE_CSS_PDF', '')
 
             _css += _getValue('additional_css') or ''
         else:
-            _css = config.getConfiguration('BOOKTYPE_CSS_PDF', '')
+            _css = config.get_configuration('BOOKTYPE_CSS_PDF', '')
 
             _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
             _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
