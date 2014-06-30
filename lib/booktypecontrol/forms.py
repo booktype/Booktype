@@ -9,7 +9,7 @@ from django.core.validators import RegexValidator, MinLengthValidator
 
 from booktype.apps.core.forms import BaseBooktypeForm
 from booktype.utils import config
-from booki.utils import misc
+from booktype.utils import misc
 from booki.editor.models import License
 
 class BaseControlForm(BaseBooktypeForm):
@@ -61,7 +61,7 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
         if self.files.has_key('favicon'):
             # just check for any kind of silly error
             try:
-                fh, fname = misc.saveUploadedAsFile(self.files['favicon'])
+                fh, fname = misc.save_uploaded_as_file(self.files['favicon'])
                 shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
 
                 config.set_configuration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)

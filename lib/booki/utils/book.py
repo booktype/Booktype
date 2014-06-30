@@ -16,7 +16,7 @@
 
 import datetime
 
-from booki.utils.misc import bookiSlugify
+from booktype.utils.misc import booktype_slugify
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Q
 
@@ -35,7 +35,7 @@ def checkBookAvailability(bookTitle):
     @return: Returns true or false
     """
 
-    url_title = bookiSlugify(bookTitle[:100])
+    url_title = booktype_slugify(bookTitle[:100])
 
     if url_title == '':
         return False
@@ -70,7 +70,7 @@ def createBook(user, bookTitle, status = "new", bookURL = None):
     if bookURL:
         url_title = bookURL[:100]
     else:
-        url_title = bookiSlugify(bookTitle[:100])
+        url_title = booktype_slugify(bookTitle[:100])
 
     book = models.Book(url_title = url_title,
                        title = bookTitle,
@@ -144,12 +144,12 @@ def createBookiGroup(groupName, groupDescription, owner):
     import datetime
 
     try:
-        bg = models.BookiGroup.objects.get(url_name = bookiSlugify(groupName))
+        bg = models.BookiGroup.objects.get(url_name = booktype_slugify(groupName))
     except models.BookiGroup.MultipleObjectsReturned:
         raise BookiGroupExist(groupName)
     except models.BookiGroup.DoesNotExist:
         group = models.BookiGroup(name = groupName,
-                                  url_name = bookiSlugify(groupName),
+                                  url_name = booktype_slugify(groupName),
                                   description = groupDescription,
                                   owner = owner,
                                   created = datetime.datetime.now())
@@ -170,7 +170,7 @@ def checkGroupAvailability(groupName):
     @return: Returns true or false
     """
 
-    url_name = bookiSlugify(groupName)
+    url_name = booktype_slugify(groupName)
 
     if url_name == '':
         return False

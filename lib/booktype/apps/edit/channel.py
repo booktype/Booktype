@@ -26,7 +26,7 @@ from booki.utils.log import logBookHistory, logChapterHistory, printStack
 
 from booki.editor import models
 from booki.utils import security
-from booki.utils.misc import bookiSlugify
+from booktype.utils.misc import booktype_slugify
 from booki import constants
 
 from django.conf import settings
@@ -969,7 +969,7 @@ def remote_create_chapter(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    url_title = bookiSlugify(message["chapter"])
+    url_title = booktype_slugify(message["chapter"])
 
     if len(url_title) == 0:
         return {"result": False, "created": False, "silly_url": True}
@@ -1120,7 +1120,7 @@ def remote_clone_chapter(request, message, bookid, version):
 
     title = message.get("renameTitle", "")
     if title.strip():
-        url_title = bookiSlugify(title)
+        url_title = booktype_slugify(title)
     else:
         title = source_chapter.title
         url_title = source_url_title
