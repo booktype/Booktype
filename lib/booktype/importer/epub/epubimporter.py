@@ -36,7 +36,7 @@ from django.core.files.base import ContentFile
 from django.utils.translation import ugettext as _
 
 from booki.editor import models
-from booki.utils.misc import bookiSlugify
+from booktype.utils.misc import booktype_slugify
 
 from ..utils import convert_file_name
 from ..notifier import Notifier
@@ -131,7 +131,7 @@ class EpubImporter(object):
             with ContentFile(image.get_content()) as content_file:
                 attName, attExt = os.path.splitext(os.path.basename(name))
 
-                att.attachment.save('{}{}'.format(bookiSlugify(attName), attExt), content_file, save=False)
+                att.attachment.save('{}{}'.format(booktype_slugify(attName), attExt), content_file, save=False)
                 att.save()
 
             self._attachments[name] = att
@@ -142,7 +142,7 @@ class EpubImporter(object):
         url_titles = []
 
         def _make_url_title(title, i=0):
-            url_title = bookiSlugify(title)
+            url_title = booktype_slugify(title)
             if i > 0:
                 url_title += "_" + str(i)
             if not url_title in url_titles:
@@ -357,7 +357,7 @@ class EpubImporter(object):
                 file_name = os.path.basename(self._attachments[name].attachment.name)
                 attName, attExt = os.path.splitext(file_name)
 
-                fixed_src = urllib.quote('static/{}{}'.format(bookiSlugify(attName), attExt))
+                fixed_src = urllib.quote('static/{}{}'.format(booktype_slugify(attName), attExt))
                 image.set('src', fixed_src)
                 to_save = True
 
@@ -391,7 +391,7 @@ class EpubImporter(object):
         file_name  = os.path.basename(cover_image.file_name)
 
         attName, attExt = os.path.splitext(file_name)
-        file_name = '{}{}'.format(bookiSlugify(attName), attExt)
+        file_name = '{}{}'.format(booktype_slugify(attName), attExt)
 
         created    = datetime.datetime.now()
         title      = ''

@@ -39,16 +39,14 @@ from django.conf import settings
 
 from braces.views import LoginRequiredMixin
 from booktype.utils import config
-from booki.utils import misc
+from booktype.utils import misc
 from booki.messaging.views import get_endpoint_or_none
 from booki.utils.book import checkBookAvailability, createBook
 from booki.editor.models import Book, License, BookHistory, BookiGroup
 from booktype.apps.account.models import UserPassword
 from booktype.apps.core import views
-from booki.utils.misc import isUserLimitReached
 import booktype.apps.account.signals
 from booktype.apps.core.views import BasePageView, PageView
-from booki.utils.misc import isValidEmail
 
 from .forms import UserSettingsForm, UserPasswordChangeForm
 
@@ -110,7 +108,7 @@ class CreateBookView(LoginRequiredMixin, BaseCreateView):
 
         if 'cover' in request.FILES:
             try:
-                fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
+                fh, fname = misc.save_uploaded_as_file(request.FILES['cover'])
                 book.setCover(fname)
                 os.unlink(fname)
             except:
@@ -162,7 +160,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
 
         if form.files.has_key('profile_pic'):
             try:
-                misc.setProfileImage(user, form.files['profile_pic'])
+                misc.set_profile_image(user, form.files['profile_pic'])
             except:
                 pass
 
@@ -359,7 +357,7 @@ class SignInView(PageView):
             return 6
 
         # check if it is valid email
-        if not bool(isValidEmail(request.POST["email"].strip())):
+        if not bool(misc.is_valid_email(request.POST["email"].strip())):
             return 7
 
         if request.POST.get("password", "") != request.POST.get("password2", "").strip():
@@ -380,7 +378,7 @@ class SignInView(PageView):
         return 0
 
     def post(self, request, *args, **kwargs):
-        limit_reached = isUserLimitReached()
+        limit_reached = misc.is_user_limit_reached()
 
         username = request.POST["username"].strip()
         password = request.POST["password"].strip()
