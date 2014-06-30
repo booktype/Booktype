@@ -3,7 +3,9 @@ import shutil
 
 from django import forms
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
+from django.core.validators import RegexValidator, MinLengthValidator
 
 from booktype.apps.core.forms import BaseBooktypeForm
 from booki.utils import config, misc
@@ -259,3 +261,204 @@ class PrivacyForm(BaseControlForm, forms.Form):
             config.saveConfiguration()            
         except config.ConfigurationError as err:
             raise err
+
+
+class AddPersonForm(BaseControlForm, forms.ModelForm):
+    username = forms.CharField(
+            label=_('Username'),
+            required=True, 
+            error_messages={
+                'required': _('Username is required.'),
+                'ivalid': _("Illegal characters in username.")
+            },
+            max_length=100, 
+            validators=[
+                RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), 
+                MinLengthValidator(3)
+            ]
+        )
+    first_name = forms.CharField(
+            label=_('First name'),
+            required=True, 
+            error_messages={'required': _('First name is required.')},                                 
+            max_length=32
+        )
+    email = forms.EmailField(
+            label=_('Email'),
+            required=True,
+            error_messages={'required': _('Email is required.')},                                 
+            max_length=100
+        )
+    description = forms.CharField(
+            label=_("User description"), 
+            required=False, 
+            widget=forms.Textarea
+        )
+    password1 = forms.CharField(
+            label=_('Password'), 
+            required=True, 
+            error_messages={'required': _('Password is required.')},
+            max_length=100, 
+            widget=forms.PasswordInput
+        )
+    password2 = forms.CharField(
+            label=_('Password confirmation'), 
+            required=True, 
+            error_messages={'required': _('Password is required.')},
+            max_length=100, 
+            widget=forms.PasswordInput, 
+            help_text = _("Enter the same password as above, for verification.")
+        )
+    send_email = forms.BooleanField(
+            label=_('Notify person by email'), 
+            required=False
+        )
+
+    success_message = _('Successfuly created new account.')
+
+    class Meta:
+        model = User
+        exclude = [
+            'password', 'is_superuser',
+            'last_login', 'groups',
+            'user_permissions', 'date_joined',
+            'is_staff', 'last_name', 'is_active'
+        ]
+
+    def clean_username(self):
+        try:
+            User.objects.get(username=self.cleaned_data['username'])
+        except User.DoesNotExist:
+            pass
+        else:
+            raise forms.ValidationError(_("This Person already exists."))
+
+        return self.cleaned_data['username']
+
+    def clean_password2(self):
+        if self.cleaned_data['password2'] != self.cleaned_data['password1']:
+            raise forms.ValidationError(_("Passwords do not match."))
+
+        return self.cleaned_data['password2']
+    
+    def save_settings(self):
+        user = User.objects.create_user(
+            username=self.cleaned_data['username'],
+            email=self.cleaned_data['email'],
+            password=self.cleaned_data['password2']
+        )
+        user.first_name = self.cleaned_data['first_name']
+        user.save()
+
+        user.get_profile().description = self.cleaned_data['description']
+        user.get_profile().save()
+
+        # TODO: create a signal for this and move to right place
+        if self.cleaned_data["send_email"]:
+            from django import template
+
+            t = template.loader.get_template('booktypecontrol/new_person_email.html')
+            content = t.render(template.Context({"username": self.cleaned_data['username'],
+                                                 "password": self.cleaned_data['password2'],
+                                                 "server":   settings.BOOKTYPE_URL}))
+
+            from django.core.mail import EmailMultiAlternatives
+            emails = [self.cleaned_data['email']]
+
+            msg = EmailMultiAlternatives('You have a new Booktype Account ', content, settings.REPORT_EMAIL_USER, emails)
+            msg.attach_alternative(content, "text/html")
+            msg.send(fail_silently=True)
+
+        return user
+
+
+class ListOfPeopleForm(BaseControlForm, forms.Form):
+    pass
+
+    @classmethod
+    def extra_context(cls):
+        return {
+            'people': User.objects.all().order_by("username")
+        }
+
+
+class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
+    username = forms.CharField(
+            label=_('Username'),
+            required=True, 
+            max_length=100, 
+            error_messages={'required': _('Username is required.'),
+                           'ivalid': _("Illegal characters in username.")},
+            validators=[
+                RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), 
+                MinLengthValidator(3)
+            ]
+        )
+    first_name = forms.CharField(
+            label=_('First name'),
+            required=True, 
+            error_messages={'required': _('First name is required.')},                                 
+            max_length=32
+        )
+    email = forms.EmailField(
+            label=_('Email'),
+            required=True,
+            error_messages={'required': _('Email is required.')},                                 
+            max_length=100
+        )
+    profile = forms.ImageField(
+            label=_('Profile picture'),
+            required=False
+        )
+    description = forms.CharField(
+            label=_("User description"), 
+            required=False, 
+            widget=forms.Textarea
+        )
+
+    class Meta(AddPersonForm.Meta):
+        pass        
+
+# TODO: remove after completing new control center
+ProfileForm = EditPersonInfoForm
+
+
+class PasswordForm(BaseControlForm, forms.Form):
+    error_messages = {
+        'password_mismatch': _("The two password fields didn't match."),
+    }
+
+    password1 = forms.CharField(
+            label=_('Password'), 
+            required=True, 
+            error_messages={'required': _('Password is required.')},
+            max_length=100, 
+            widget=forms.PasswordInput
+        )
+    password2 = forms.CharField(
+            label=_('Password confirmation'), 
+            required=True, 
+            max_length=100, 
+            error_messages={'required': _('Password is required.')},
+            widget=forms.PasswordInput, 
+            help_text = _("Enter the same password as above, for verification.")
+        )
+
+    def __init__(self, user, *args, **kwargs):
+            self.user = user
+            super(PasswordForm, self).__init__(*args, **kwargs)
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 and password2:
+            if password1 != password2:
+                raise forms.ValidationError(
+                    self.error_messages['password_mismatch'])
+        return password2
+
+    def save(self, commit=True):
+        self.user.set_password(self.cleaned_data['password1'])
+        if commit:
+            self.user.save()
+        return self.user

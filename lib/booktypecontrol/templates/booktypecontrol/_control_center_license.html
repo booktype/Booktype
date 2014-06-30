@@ -3,14 +3,13 @@
 
 {% block save_btn %}{% trans "Add new license" %}{% endblock %}
 
-{% block extra_content %}
+{% block control_content %}
+    {{ block.super }}
     <h4 class="border-bottom">{% trans "Licenses" %}</h4>
     <ul class="list smaller-spacing">
         {% for license in licenses %}
             <li>
-                <a href="#">
-                    {{ license.abbrevation }} - {{ license.name }}
-                </a>
+                <a href="#">{{ license.abbrevation }} - {{ license.name }}</a>
             </li>
         {% endfor %}
     </ul>

@@ -1,0 +1,29 @@
+{% extends "booktypecontrol/_control_center_settings.html" %}
+{% load i18n %}
+
+{% block control_content %}
+    <h4>{% trans "List of People" %}</h4>
+    <ul class="list border-top user-avatar circle list-of-pleople">
+        {% for person in people %}
+            <li>
+                <figure><img src="{% url "view_profilethumbnail" person %}?width=200" alt=""></figure>
+                <div class="list-info">
+                    <h4>
+                        <a data-remote="{% url 'control_person_info' person.username %}" data-toggle="modal" data-target="#personInfoModal" href="#">{{ person.username }}</a>
+                        <div class="action-btns pull-right hide">
+                            <button class="btn btn-default" data-href="{% url 'control_password_change' person.username %}">
+                                {% trans "Change password" %}
+                            </button>
+                            <button class="btn btn-default" data-href="{% url 'control_person_edit' person.username %}">
+                                {% trans "Edit Info" %}
+                            </button>
+                        </div>
+                    </h4>
+                    <p>{{ person.get_full_name }}</p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div id="personInfoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+{% endblock %}

@@ -1,6 +1,9 @@
 {% load i18n %}
 <div>
-  <h4 class="border-bottom">{{ option_name }}</h4>
+  {% block control_content %}
+  <h4 class="border-bottom">
+    {{ option_name }} {% block extra_title %}{% endblock %}
+  </h4>
   <form enctype="multipart/form-data" action="." method="POST">
     {% csrf_token %}
     <input type="hidden" name="option" value="{{ option }}">
@@ -12,6 +15,5 @@
       </li>
     </ul>
   </form>
-
-  {% block extra_content %}{% endblock %}
+  {% endblock %}
 </div>
