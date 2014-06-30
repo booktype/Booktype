@@ -42,7 +42,8 @@ from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 from booki.editor import models
 from booktype.apps.core import views
-from booki.utils import misc, config
+from booktype.utils import config
+from booki.utils import misc
 from booki.editor.models import Book, BookiGroup, BookHistory
 
 from booktype.apps.core.views import BasePageView
@@ -846,10 +847,10 @@ def settings_description(request):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
-            from booki.utils import config
+            from booktype.utils import config
 
-            config.setConfiguration('BOOKTYPE_SITE_NAME', frm.cleaned_data['title'])
-            config.setConfiguration('BOOKTYPE_SITE_TAGLINE', frm.cleaned_data['tagline'])
+            config.set_configuration('BOOKTYPE_SITE_NAME', frm.cleaned_data['title'])
+            config.set_configuration('BOOKTYPE_SITE_TAGLINE', frm.cleaned_data['tagline'])
 
             if request.FILES.has_key('favicon'):
                 from booki.utils import misc
@@ -860,20 +861,20 @@ def settings_description(request):
                     fh, fname = misc.saveUploadedAsFile(request.FILES['favicon'])
                     shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
 
-                    config.setConfiguration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
+                    config.set_configuration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
                 except:
                     pass
 
             try:
-                config.saveConfiguration()
+                config.save_configuration()
                 messages.success(request, _('Successfuly saved settings.'))
             except config.ConfigurationError:
                 messages.warning(request, _('Unknown error while saving changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
-        frm = SiteDescriptionForm(initial={'title': config.getConfiguration('BOOKTYPE_SITE_NAME'),
-                                           'tagline': config.getConfiguration('BOOKTYPE_SITE_TAGLINE')})
+        frm = SiteDescriptionForm(initial={'title': config.get_configuration('BOOKTYPE_SITE_NAME'),
+                                           'tagline': config.get_configuration('BOOKTYPE_SITE_TAGLINE')})
 
 
     return render_to_response('booktypecontrol/settings_description.html', 
@@ -893,26 +894,26 @@ def settings_book_create(request):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
-            from booki.utils import config
+            from booktype.utils import config
 
-            config.setConfiguration('CREATE_BOOK_VISIBLE', frm.cleaned_data['visible'])
+            config.set_configuration('CREATE_BOOK_VISIBLE', frm.cleaned_data['visible'])
 
             if frm.cleaned_data['license']:
-                config.setConfiguration('CREATE_BOOK_LICENSE', frm.cleaned_data['license'].abbrevation)
+                config.set_configuration('CREATE_BOOK_LICENSE', frm.cleaned_data['license'].abbrevation)
             else:
-                config.setConfiguration('CREATE_BOOK_LICENSE', '')
+                config.set_configuration('CREATE_BOOK_LICENSE', '')
 
             try:
-                config.saveConfiguration()
+                config.save_configuration()
                 messages.success(request, _('Successfuly saved settings.'))
             except config.ConfigurationError:
                 messages.warning(request, _('Unknown error while saving changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
-        from booki.utils import config
+        from booktype.utils import config
 
-        _l = config.getConfiguration('CREATE_BOOK_LICENSE')
+        _l = config.get_configuration('CREATE_BOOK_LICENSE')
         if _l and _l != '':
             try:
                 license = models.License.objects.get(abbrevation = _l)
@@ -921,7 +922,7 @@ def settings_book_create(request):
         else:
             license = None
             
-        frm = BookCreateForm(initial={'visible': config.getConfiguration('CREATE_BOOK_VISIBLE'),
+        frm = BookCreateForm(initial={'visible': config.get_configuration('CREATE_BOOK_VISIBLE'),
                                       'license': license})
 
     return render_to_response('booktypecontrol/settings_book_create.html', 
@@ -941,7 +942,7 @@ def settings_license(request):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
-            from booki.utils import config
+            from booktype.utils import config
 
             license = models.License(abbrevation = frm.cleaned_data['abbrevation'],
                                      name = frm.cleaned_data['name'])
@@ -1026,7 +1027,7 @@ def settings_license_edit(request, licenseid):
 
 @user_passes_test(lambda u: u.is_superuser)
 def settings_privacy(request):
-    from booki.utils import config
+    from booktype.utils import config
 
     if request.method == 'POST': 
         frm = PrivacyForm(request.POST, request.FILES) 
@@ -1036,21 +1037,21 @@ def settings_privacy(request):
 
         if frm.is_valid(): 
 
-            config.setConfiguration('FREE_REGISTRATION', frm.cleaned_data['user_register'])
-            config.setConfiguration('ADMIN_CREATE_BOOKS', frm.cleaned_data['create_books'])
-            config.setConfiguration('ADMIN_IMPORT_BOOKS', frm.cleaned_data['import_books'])
+            config.set_configuration('FREE_REGISTRATION', frm.cleaned_data['user_register'])
+            config.set_configuration('ADMIN_CREATE_BOOKS', frm.cleaned_data['create_books'])
+            config.set_configuration('ADMIN_IMPORT_BOOKS', frm.cleaned_data['import_books'])
 
             try:
-                config.saveConfiguration()
+                config.save_configuration()
                 messages.success(request, _('Successfuly saved changes.'))
             except config.ConfigurationError:
                 messages.warning(request, _('Unknown error while saving changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
-        frm = PrivacyForm(initial = {'user_register': config.getConfiguration('FREE_REGISTRATION'),
-                                     'create_books': config.getConfiguration('ADMIN_CREATE_BOOKS'),
-                                     'import_books': config.getConfiguration('ADMIN_IMPORT_BOOKS')
+        frm = PrivacyForm(initial = {'user_register': config.get_configuration('FREE_REGISTRATION'),
+                                     'create_books': config.get_configuration('ADMIN_CREATE_BOOKS'),
+                                     'import_books': config.get_configuration('ADMIN_IMPORT_BOOKS')
                                      })
 
     return render_to_response('booktypecontrol/settings_privacy.html', 
@@ -1077,9 +1078,9 @@ class PublishingForm(forms.Form):
 
 @user_passes_test(lambda u: u.is_superuser)
 def settings_publishing(request):
-    from booki.utils import config
+    from booktype.utils import config
     
-    publishOptions = config.getConfiguration('PUBLISH_OPTIONS')
+    publishOptions = config.get_configuration('PUBLISH_OPTIONS')
 
     if request.method == 'POST': 
         frm = PublishingForm(request.POST, request.FILES) 
@@ -1096,10 +1097,10 @@ def settings_publishing(request):
             if frm.cleaned_data['publish_pdf']: opts.append('pdf')
             if frm.cleaned_data['publish_odt']: opts.append('odt')
 
-            config.setConfiguration('PUBLISH_OPTIONS', opts)
+            config.set_configuration('PUBLISH_OPTIONS', opts)
 
             try:
-                config.saveConfiguration()
+                config.save_configuration()
                 messages.success(request, _('Successfuly saved changes.'))
             except config.ConfigurationError:
                 messages.warning(request, _('Unknown error while saving changes.'))
@@ -1179,12 +1180,12 @@ class PublishingDefaultsForm(forms.Form):
 
 @user_passes_test(lambda u: u.is_superuser)
 def settings_publishing_defaults(request):
-    from booki.utils import config
+    from booktype.utils import config
 
-    data = {'book_css':  config.getConfiguration('BOOKTYPE_CSS_BOOK', ''),
-            'ebook_css': config.getConfiguration('BOOKTYPE_CSS_EBOOK', ''),
-            'pdf_css':   config.getConfiguration('BOOKTYPE_CSS_PDF', ''),
-            'odt_css':   config.getConfiguration('BOOKTYPE_CSS_ODT', '')}
+    data = {'book_css':  config.get_configuration('BOOKTYPE_CSS_BOOK', ''),
+            'ebook_css': config.get_configuration('BOOKTYPE_CSS_EBOOK', ''),
+            'pdf_css':   config.get_configuration('BOOKTYPE_CSS_PDF', ''),
+            'odt_css':   config.get_configuration('BOOKTYPE_CSS_ODT', '')}
 
     if request.method == 'POST': 
         frm = PublishingDefaultsForm(request.POST, request.FILES) 
@@ -1194,19 +1195,19 @@ def settings_publishing_defaults(request):
 
         if frm.is_valid(): 
             if frm.cleaned_data['book_css'] != data['book_css']:
-                config.setConfiguration('BOOKTYPE_CSS_BOOK', frm.cleaned_data['book_css'])
+                config.set_configuration('BOOKTYPE_CSS_BOOK', frm.cleaned_data['book_css'])
 
             if frm.cleaned_data['ebook_css'] != data['ebook_css']:
-                config.setConfiguration('BOOKTYPE_CSS_EBOOK', frm.cleaned_data['ebook_css'])
+                config.set_configuration('BOOKTYPE_CSS_EBOOK', frm.cleaned_data['ebook_css'])
 
             if frm.cleaned_data['pdf_css'] != data['pdf_css']:
-                config.setConfiguration('BOOKTYPE_CSS_PDF', frm.cleaned_data['pdf_css'])
+                config.set_configuration('BOOKTYPE_CSS_PDF', frm.cleaned_data['pdf_css'])
 
             if frm.cleaned_data['odt_css'] != data['odt_css']:
-                config.setConfiguration('BOOKTYPE_CSS_ODT', frm.cleaned_data['odt_css'])
+                config.set_configuration('BOOKTYPE_CSS_ODT', frm.cleaned_data['odt_css'])
 
             try:
-                config.saveConfiguration()
+                config.save_configuration()
                 messages.success(request, _('Successfuly saved changes.'))
             except config.ConfigurationError:
                 messages.warning(request, _('Unknown error while saving changes.'))
@@ -1225,7 +1226,7 @@ def settings_publishing_defaults(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def settings_frontpage(request):
-    from booki.utils import config
+    from booktype.utils import config
 
 
     staticRoot = settings.BOOKTYPE_ROOT
@@ -1237,7 +1238,7 @@ def settings_frontpage(request):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
-            config.setConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', frm.cleaned_data['show_changes'])
+            config.set_configuration('BOOKTYPE_FRONTPAGE_HISTORY', frm.cleaned_data['show_changes'])
 
             import os.path, os
 
@@ -1255,7 +1256,7 @@ def settings_frontpage(request):
 
                 messages.success(request, _('Successfuly saved changes.'))
 
-                config.saveConfiguration()
+                config.save_configuration()
             except IOError:
                 messages.warning(request, _('Error while saving changes'))
             except config.ConfigurationError:
@@ -1270,7 +1271,7 @@ def settings_frontpage(request):
         except IOError:
             textContent = ''
 
-        frm = FrontpageForm(initial = {'show_changes': config.getConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', True),
+        frm = FrontpageForm(initial = {'show_changes': config.get_configuration('BOOKTYPE_FRONTPAGE_HISTORY', True),
                                        'description': textContent})
 
     return render_to_response('booktypecontrol/settings_frontpage.html', 

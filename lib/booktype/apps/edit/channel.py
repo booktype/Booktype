@@ -31,7 +31,7 @@ from booki import constants
 
 from django.conf import settings
 
-from booki.utils import config
+from booktype.utils import config
 
 # this couple of functions should go to models.BookVersion
 def get_toc_for_book(version):

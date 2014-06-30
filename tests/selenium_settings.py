@@ -268,9 +268,9 @@ LOGGING = {
 
 
 # READ CONFIGURAION
-from booki.utils import config
+from booktype.utils import config
 
 try:
-    BOOKTYPE_CONFIG = config.loadConfiguration()
+    BOOKTYPE_CONFIG = config.load_configuration()
 except config.ConfigurationError:
     BOOKTYPE_CONFIG = {}

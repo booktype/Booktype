@@ -16,27 +16,35 @@
 
 
 import json
-from django.conf import settings
 import threading
+import tempfile
+import os
+import os.path
+
+from django.conf import settings
+
+from booki import constants
+
 
 writeLock = threading.RLock()
 
+
 class ConfigurationError(Exception):
-    def __init__(self, description = ''):
+    def __init__(self, description=''):
         self.description = description
 
     def __str__(self):
         return self.description
 
 
-def readConfiguration():
+def read_configuration():
     """
     Reads configuration file and returns content as a dictionary.
 
     @rtype: C{dict}
     @return: Returns dictionary with all the values
     """
-    
+
     configPath = '%s/configuration.json' % settings.BOOKI_ROOT
 
     try:
@@ -56,12 +64,12 @@ def readConfiguration():
     return confData
 
 
-def loadConfiguration():
+def load_configuration():
     """
     Loads configuration. This function is supposed to be called from the settings.py file.
 
     try:
-        BOOKTYPE_CONFIG = config.loadConfiguration()
+        BOOKTYPE_CONFIG = config.load_configuration()
     except config.ConfigurationError:
         BOOKTYPE_CONFIG = None
 
@@ -69,19 +77,15 @@ def loadConfiguration():
     @return: Returns dictionary with all the values
     """
 
-    data = readConfiguration()
+    data = read_configuration()
 
     return data
 
-def saveConfiguration():
+
+def save_configuration():
     """
     Saves the configuration to file. Configuration data is taken from settings.BOOKTYPE_CONFIG variable.
     """
-    
-    import tempfile
-    import os
-    import os.path
-
     if not hasattr(settings, 'BOOKTYPE_CONFIG'):
         return False
 
@@ -111,9 +115,9 @@ def saveConfiguration():
         writeLock.release()
 
 
-def getConfiguration(name, value = None):
+def get_configuration(name, value=None):
     """
-    Returns content of a configuration variable. It will first search in user defined configuration. 
+    Returns content of a configuration variable. It will first search in user defined configuration.
     If it can't find it it will go into settings file and finaly constant variables provided with
     Booktype source.
 
@@ -127,31 +131,29 @@ def getConfiguration(name, value = None):
     @return: Returns the content of the variable
     """
 
-    from booki import constants
-
     # Check if we have it in the configuration file
     if hasattr(settings, 'BOOKTYPE_CONFIG'):
         try:
-            settings.BOOKTYPE_CONFIG = loadConfiguration()
+            settings.BOOKTYPE_CONFIG = load_configuration()
         except ConfigurationError:
             pass
 
-        if settings.BOOKTYPE_CONFIG != None and settings.BOOKTYPE_CONFIG.has_key(name):
+        if settings.BOOKTYPE_CONFIG is not None and name in settings.BOOKTYPE_CONFIG:
             return settings.BOOKTYPE_CONFIG[name]
-        
+
     # Check if we have it in the settings file
     if hasattr(settings, name):
         return getattr(settings, name)
-    
+
     if hasattr(constants, name):
         return getattr(constants, name)
 
     return value
 
 
-def setConfiguration(name, value):
+def set_configuration(name, value):
     """
-    Sets value for configuration variable. 
+    Sets value for configuration variable.
 
     @type name: C{string}
     @param: Name of the variable
@@ -174,7 +176,7 @@ def setConfiguration(name, value):
         writeLock.release()
 
 
-def delConfiguration(name):
+def del_configuration(name):
     """
     Deletes configuration variable.
 

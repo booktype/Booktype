@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 
 from booki.editor import models
-from booki.utils import config
+from booktype.utils import config
 
 
 register = template.Library()
@@ -186,11 +186,11 @@ def booktype_site_metadata():
     s = ''
 
     # probably should add namespace to html tag
-    name = config.getConfiguration('BOOKTYPE_SITE_NAME', None)
+    name = config.get_configuration('BOOKTYPE_SITE_NAME', None)
     if name:
         s += '<meta property="og:site_name" content="%s"/>' % cgi.escape(name, True)
 
-    tagline = config.getConfiguration('BOOKTYPE_SITE_TAGLINE', None)
+    tagline = config.get_configuration('BOOKTYPE_SITE_TAGLINE', None)
     if tagline:
         s += '<meta name="description" content="%s"/>' % cgi.escape(tagline, True)
 
@@ -201,7 +201,7 @@ def booktype_site_metadata():
 def booktype_site_name():
     frontpage_url = reverse('portal:frontpage')
 
-    name = config.getConfiguration('BOOKTYPE_SITE_NAME', None)
+    name = config.get_configuration('BOOKTYPE_SITE_NAME', None)
     if name:
         s = '<div class="logotext"><a href="%s%s">%s</a> </div>' % (settings.BOOKTYPE_URL, frontpage_url, name)
     else:
@@ -212,7 +212,7 @@ def booktype_site_name():
 
 @register.simple_tag
 def booktype_site_favicon():
-    favicon = config.getConfiguration('BOOKTYPE_SITE_FAVICON', None)
+    favicon = config.get_configuration('BOOKTYPE_SITE_FAVICON', None)
     if favicon:
         s = '<link rel="SHORTCUT ICON" href="%s" type="image/x-icon">' % cgi.escape(favicon, True)
     else:
@@ -223,4 +223,4 @@ def booktype_site_favicon():
 
 @register.filter
 def booktype_anyone_register(object):
-    return config.getConfiguration('FREE_REGISTRATION', True)    
+    return config.get_configuration('FREE_REGISTRATION', True)    

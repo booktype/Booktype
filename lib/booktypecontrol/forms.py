@@ -8,7 +8,8 @@ from django.utils.translation import ugettext as _
 from django.core.validators import RegexValidator, MinLengthValidator
 
 from booktype.apps.core.forms import BaseBooktypeForm
-from booki.utils import config, misc
+from booktype.utils import config
+from booki.utils import misc
 from booki.editor.models import License
 
 class BaseControlForm(BaseBooktypeForm):
@@ -49,13 +50,13 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
     @classmethod
     def initial_data(cls):
         return {
-            'title': config.getConfiguration('BOOKTYPE_SITE_NAME'),
-            'tagline': config.getConfiguration('BOOKTYPE_SITE_TAGLINE')
+            'title': config.get_configuration('BOOKTYPE_SITE_NAME'),
+            'tagline': config.get_configuration('BOOKTYPE_SITE_TAGLINE')
         }
 
     def save_settings(self):
-        config.setConfiguration('BOOKTYPE_SITE_NAME', self.cleaned_data['title'])
-        config.setConfiguration('BOOKTYPE_SITE_TAGLINE', self.cleaned_data['tagline'])
+        config.set_configuration('BOOKTYPE_SITE_NAME', self.cleaned_data['title'])
+        config.set_configuration('BOOKTYPE_SITE_TAGLINE', self.cleaned_data['tagline'])
 
         if self.files.has_key('favicon'):
             # just check for any kind of silly error
@@ -63,12 +64,12 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
                 fh, fname = misc.saveUploadedAsFile(self.files['favicon'])
                 shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
 
-                config.setConfiguration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
+                config.set_configuration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
             except:
                 pass
 
         try:
-            config.saveConfiguration()
+            config.save_configuration()
         except config.ConfigurationError as err:
             raise err
 
@@ -122,12 +123,12 @@ class FrontpageForm(BaseControlForm, forms.Form):
         except IOError:
             _dict['description'] = ''
 
-        _dict['show_changes'] = config.getConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', True)
+        _dict['show_changes'] = config.get_configuration('BOOKTYPE_FRONTPAGE_HISTORY', True)
         return _dict
 
     def save_settings(self):
         staticRoot = settings.BOOKTYPE_ROOT
-        config.setConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', self.cleaned_data['show_changes'])
+        config.set_configuration('BOOKTYPE_FRONTPAGE_HISTORY', self.cleaned_data['show_changes'])
 
         if not os.path.exists('%s/templates/portal/' % staticRoot):
             os.makedirs('%s/templates/portal/' % staticRoot)
@@ -140,7 +141,7 @@ class FrontpageForm(BaseControlForm, forms.Form):
 
             f.write(text_data.encode('utf8'))
             f.close()
-            config.saveConfiguration()
+            config.save_configuration()
 
         except IOError as err:
             raise err
@@ -193,7 +194,7 @@ class BookSettingsForm(BaseControlForm, forms.Form):
 
     @classmethod
     def initial_data(self):
-        _l = config.getConfiguration('CREATE_BOOK_LICENSE')
+        _l = config.get_configuration('CREATE_BOOK_LICENSE')
         if _l and _l != '':
             try:
                 license = License.objects.get(abbrevation = _l)
@@ -203,20 +204,20 @@ class BookSettingsForm(BaseControlForm, forms.Form):
             license = None
 
         return {
-            'visible': config.getConfiguration('CREATE_BOOK_VISIBLE'), 
+            'visible': config.get_configuration('CREATE_BOOK_VISIBLE'), 
             'license': license
         }
 
     def save_settings(self):
-        config.setConfiguration('CREATE_BOOK_VISIBLE', self.cleaned_data['visible'])
+        config.set_configuration('CREATE_BOOK_VISIBLE', self.cleaned_data['visible'])
 
         if 'license' in self.cleaned_data:
-            config.setConfiguration('CREATE_BOOK_LICENSE', self.cleaned_data['license'].abbrevation)
+            config.set_configuration('CREATE_BOOK_LICENSE', self.cleaned_data['license'].abbrevation)
         else:
-            config.setConfiguration('CREATE_BOOK_LICENSE', '')
+            config.set_configuration('CREATE_BOOK_LICENSE', '')
 
         try:
-            config.saveConfiguration()
+            config.save_configuration()
         except config.ConfigurationError as err:
             raise err
 
@@ -247,18 +248,18 @@ class PrivacyForm(BaseControlForm, forms.Form):
     @classmethod
     def initial_data(cls):
         return {
-            'user_register': config.getConfiguration('FREE_REGISTRATION'),
-            'create_books': config.getConfiguration('ADMIN_CREATE_BOOKS'),
-            'import_books': config.getConfiguration('ADMIN_IMPORT_BOOKS')
+            'user_register': config.get_configuration('FREE_REGISTRATION'),
+            'create_books': config.get_configuration('ADMIN_CREATE_BOOKS'),
+            'import_books': config.get_configuration('ADMIN_IMPORT_BOOKS')
         }
 
     def save_settings(self):
-        config.setConfiguration('FREE_REGISTRATION', self.cleaned_data['user_register'])
-        config.setConfiguration('ADMIN_CREATE_BOOKS', self.cleaned_data['create_books'])
-        config.setConfiguration('ADMIN_IMPORT_BOOKS', self.cleaned_data['import_books'])
+        config.set_configuration('FREE_REGISTRATION', self.cleaned_data['user_register'])
+        config.set_configuration('ADMIN_CREATE_BOOKS', self.cleaned_data['create_books'])
+        config.set_configuration('ADMIN_IMPORT_BOOKS', self.cleaned_data['import_books'])
 
         try:
-            config.saveConfiguration()            
+            config.save_configuration()            
         except config.ConfigurationError as err:
             raise err
 

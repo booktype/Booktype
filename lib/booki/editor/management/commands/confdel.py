@@ -19,7 +19,7 @@ from optparse import make_option
 
 from django.conf import settings
 
-from booki.utils import config
+from booktype.utils import config
 
 class Command(BaseCommand):
     args = "<key>"
@@ -38,4 +38,4 @@ class Command(BaseCommand):
 
         del settings.BOOKTYPE_CONFIG[args[0]]
 
-        config.saveConfiguration()
+        config.save_configuration()
