@@ -114,7 +114,7 @@ Community
 .. _Support forum: http://forum.sourcefabric.org/categories/booktype-support
 .. _Development forum: http://forum.sourcefabric.org/categories/booktype-development
 .. _Documentation forum: http://forum.sourcefabric.org/categories/booktype-documentation
-.. _Booktype for Authors and Publishers: http://en.flossmanuals.net/booktype/
+.. _Booktype for Authors and Publishers: http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/
 .. _Tracker: http://dev.sourcefabric.org/browse/BK
 .. _Wiki: https://wiki.sourcefabric.org/display/Booktype/Booktype
 
