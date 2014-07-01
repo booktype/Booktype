@@ -15,19 +15,7 @@
         <div class="col-xs-8">
             {% if current_user != request.user %}
             <div class="box profile-box purple">
-                <figure><img src="http://lorempixel.com/240/240/people/"></figure>
-                <div class="list-info">
-                    <h2 class="box-title">{{ current_user.get_full_name }}</h2>
-                    <a href="#">{{ current_user.username }}</a>
-
-                    <p>{{ current_user.get_profile.description|escape }}</p>
-                    <p>
-                        {% user_followingbox user.username "account/dashboard_following.html" %}<br>
-                        {% user_followersbox user.username "account/dashboard_followers.html" %}
-                    </p>
-                    <p><a href="#">{% trans "Follow my changes" %}</a> <img src="{% static 'core/img/rss.png' %}"></p>
-                </div>
-
+                {% include "account/other_user_box.html" %}
                 <div class="box-bottom-white">
                     <button href="#" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Follow me' %}">{% trans "FOLLOW ME" %}</button>
                 </div>

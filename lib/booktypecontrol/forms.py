@@ -3,10 +3,13 @@ import shutil
 
 from django import forms
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
+from django.core.validators import RegexValidator, MinLengthValidator
 
 from booktype.apps.core.forms import BaseBooktypeForm
-from booki.utils import config, misc
+from booktype.utils import config
+from booki.utils import misc
 from booki.editor.models import License
 
 class BaseControlForm(BaseBooktypeForm):
@@ -47,13 +50,13 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
     @classmethod
     def initial_data(cls):
         return {
-            'title': config.getConfiguration('BOOKTYPE_SITE_NAME'),
-            'tagline': config.getConfiguration('BOOKTYPE_SITE_TAGLINE')
+            'title': config.get_configuration('BOOKTYPE_SITE_NAME'),
+            'tagline': config.get_configuration('BOOKTYPE_SITE_TAGLINE')
         }
 
     def save_settings(self):
-        config.setConfiguration('BOOKTYPE_SITE_NAME', self.cleaned_data['title'])
-        config.setConfiguration('BOOKTYPE_SITE_TAGLINE', self.cleaned_data['tagline'])
+        config.set_configuration('BOOKTYPE_SITE_NAME', self.cleaned_data['title'])
+        config.set_configuration('BOOKTYPE_SITE_TAGLINE', self.cleaned_data['tagline'])
 
         if self.files.has_key('favicon'):
             # just check for any kind of silly error
@@ -61,12 +64,12 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
                 fh, fname = misc.saveUploadedAsFile(self.files['favicon'])
                 shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
 
-                config.setConfiguration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
+                config.set_configuration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
             except:
                 pass
 
         try:
-            config.saveConfiguration()
+            config.save_configuration()
         except config.ConfigurationError as err:
             raise err
 
@@ -120,12 +123,12 @@ class FrontpageForm(BaseControlForm, forms.Form):
         except IOError:
             _dict['description'] = ''
 
-        _dict['show_changes'] = config.getConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', True)
+        _dict['show_changes'] = config.get_configuration('BOOKTYPE_FRONTPAGE_HISTORY', True)
         return _dict
 
     def save_settings(self):
         staticRoot = settings.BOOKTYPE_ROOT
-        config.setConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', self.cleaned_data['show_changes'])
+        config.set_configuration('BOOKTYPE_FRONTPAGE_HISTORY', self.cleaned_data['show_changes'])
 
         if not os.path.exists('%s/templates/portal/' % staticRoot):
             os.makedirs('%s/templates/portal/' % staticRoot)
@@ -138,7 +141,7 @@ class FrontpageForm(BaseControlForm, forms.Form):
 
             f.write(text_data.encode('utf8'))
             f.close()
-            config.saveConfiguration()
+            config.save_configuration()
 
         except IOError as err:
             raise err
@@ -191,7 +194,7 @@ class BookSettingsForm(BaseControlForm, forms.Form):
 
     @classmethod
     def initial_data(self):
-        _l = config.getConfiguration('CREATE_BOOK_LICENSE')
+        _l = config.get_configuration('CREATE_BOOK_LICENSE')
         if _l and _l != '':
             try:
                 license = License.objects.get(abbrevation = _l)
@@ -201,20 +204,20 @@ class BookSettingsForm(BaseControlForm, forms.Form):
             license = None
 
         return {
-            'visible': config.getConfiguration('CREATE_BOOK_VISIBLE'), 
+            'visible': config.get_configuration('CREATE_BOOK_VISIBLE'), 
             'license': license
         }
 
     def save_settings(self):
-        config.setConfiguration('CREATE_BOOK_VISIBLE', self.cleaned_data['visible'])
+        config.set_configuration('CREATE_BOOK_VISIBLE', self.cleaned_data['visible'])
 
         if 'license' in self.cleaned_data:
-            config.setConfiguration('CREATE_BOOK_LICENSE', self.cleaned_data['license'].abbrevation)
+            config.set_configuration('CREATE_BOOK_LICENSE', self.cleaned_data['license'].abbrevation)
         else:
-            config.setConfiguration('CREATE_BOOK_LICENSE', '')
+            config.set_configuration('CREATE_BOOK_LICENSE', '')
 
         try:
-            config.saveConfiguration()
+            config.save_configuration()
         except config.ConfigurationError as err:
             raise err
 
@@ -245,17 +248,218 @@ class PrivacyForm(BaseControlForm, forms.Form):
     @classmethod
     def initial_data(cls):
         return {
-            'user_register': config.getConfiguration('FREE_REGISTRATION'),
-            'create_books': config.getConfiguration('ADMIN_CREATE_BOOKS'),
-            'import_books': config.getConfiguration('ADMIN_IMPORT_BOOKS')
+            'user_register': config.get_configuration('FREE_REGISTRATION'),
+            'create_books': config.get_configuration('ADMIN_CREATE_BOOKS'),
+            'import_books': config.get_configuration('ADMIN_IMPORT_BOOKS')
         }
 
     def save_settings(self):
-        config.setConfiguration('FREE_REGISTRATION', self.cleaned_data['user_register'])
-        config.setConfiguration('ADMIN_CREATE_BOOKS', self.cleaned_data['create_books'])
-        config.setConfiguration('ADMIN_IMPORT_BOOKS', self.cleaned_data['import_books'])
+        config.set_configuration('FREE_REGISTRATION', self.cleaned_data['user_register'])
+        config.set_configuration('ADMIN_CREATE_BOOKS', self.cleaned_data['create_books'])
+        config.set_configuration('ADMIN_IMPORT_BOOKS', self.cleaned_data['import_books'])
 
         try:
-            config.saveConfiguration()            
+            config.save_configuration()            
         except config.ConfigurationError as err:
             raise err
+
+
+class AddPersonForm(BaseControlForm, forms.ModelForm):
+    username = forms.CharField(
+            label=_('Username'),
+            required=True, 
+            error_messages={
+                'required': _('Username is required.'),
+                'ivalid': _("Illegal characters in username.")
+            },
+            max_length=100, 
+            validators=[
+                RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), 
+                MinLengthValidator(3)
+            ]
+        )
+    first_name = forms.CharField(
+            label=_('First name'),
+            required=True, 
+            error_messages={'required': _('First name is required.')},                                 
+            max_length=32
+        )
+    email = forms.EmailField(
+            label=_('Email'),
+            required=True,
+            error_messages={'required': _('Email is required.')},                                 
+            max_length=100
+        )
+    description = forms.CharField(
+            label=_("User description"), 
+            required=False, 
+            widget=forms.Textarea
+        )
+    password1 = forms.CharField(
+            label=_('Password'), 
+            required=True, 
+            error_messages={'required': _('Password is required.')},
+            max_length=100, 
+            widget=forms.PasswordInput
+        )
+    password2 = forms.CharField(
+            label=_('Password confirmation'), 
+            required=True, 
+            error_messages={'required': _('Password is required.')},
+            max_length=100, 
+            widget=forms.PasswordInput, 
+            help_text = _("Enter the same password as above, for verification.")
+        )
+    send_email = forms.BooleanField(
+            label=_('Notify person by email'), 
+            required=False
+        )
+
+    success_message = _('Successfuly created new account.')
+
+    class Meta:
+        model = User
+        exclude = [
+            'password', 'is_superuser',
+            'last_login', 'groups',
+            'user_permissions', 'date_joined',
+            'is_staff', 'last_name', 'is_active'
+        ]
+
+    def clean_username(self):
+        try:
+            User.objects.get(username=self.cleaned_data['username'])
+        except User.DoesNotExist:
+            pass
+        else:
+            raise forms.ValidationError(_("This Person already exists."))
+
+        return self.cleaned_data['username']
+
+    def clean_password2(self):
+        if self.cleaned_data['password2'] != self.cleaned_data['password1']:
+            raise forms.ValidationError(_("Passwords do not match."))
+
+        return self.cleaned_data['password2']
+    
+    def save_settings(self):
+        user = User.objects.create_user(
+            username=self.cleaned_data['username'],
+            email=self.cleaned_data['email'],
+            password=self.cleaned_data['password2']
+        )
+        user.first_name = self.cleaned_data['first_name']
+        user.save()
+
+        user.get_profile().description = self.cleaned_data['description']
+        user.get_profile().save()
+
+        # TODO: create a signal for this and move to right place
+        if self.cleaned_data["send_email"]:
+            from django import template
+
+            t = template.loader.get_template('booktypecontrol/new_person_email.html')
+            content = t.render(template.Context({"username": self.cleaned_data['username'],
+                                                 "password": self.cleaned_data['password2'],
+                                                 "server":   settings.BOOKTYPE_URL}))
+
+            from django.core.mail import EmailMultiAlternatives
+            emails = [self.cleaned_data['email']]
+
+            msg = EmailMultiAlternatives('You have a new Booktype Account ', content, settings.REPORT_EMAIL_USER, emails)
+            msg.attach_alternative(content, "text/html")
+            msg.send(fail_silently=True)
+
+        return user
+
+
+class ListOfPeopleForm(BaseControlForm, forms.Form):
+    pass
+
+    @classmethod
+    def extra_context(cls):
+        return {
+            'people': User.objects.all().order_by("username")
+        }
+
+
+class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
+    username = forms.CharField(
+            label=_('Username'),
+            required=True, 
+            max_length=100, 
+            error_messages={'required': _('Username is required.'),
+                           'ivalid': _("Illegal characters in username.")},
+            validators=[
+                RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), 
+                MinLengthValidator(3)
+            ]
+        )
+    first_name = forms.CharField(
+            label=_('First name'),
+            required=True, 
+            error_messages={'required': _('First name is required.')},                                 
+            max_length=32
+        )
+    email = forms.EmailField(
+            label=_('Email'),
+            required=True,
+            error_messages={'required': _('Email is required.')},                                 
+            max_length=100
+        )
+    profile = forms.ImageField(
+            label=_('Profile picture'),
+            required=False
+        )
+    description = forms.CharField(
+            label=_("User description"), 
+            required=False, 
+            widget=forms.Textarea
+        )
+
+    class Meta(AddPersonForm.Meta):
+        pass        
+
+# TODO: remove after completing new control center
+ProfileForm = EditPersonInfoForm
+
+
+class PasswordForm(BaseControlForm, forms.Form):
+    error_messages = {
+        'password_mismatch': _("The two password fields didn't match."),
+    }
+
+    password1 = forms.CharField(
+            label=_('Password'), 
+            required=True, 
+            error_messages={'required': _('Password is required.')},
+            max_length=100, 
+            widget=forms.PasswordInput
+        )
+    password2 = forms.CharField(
+            label=_('Password confirmation'), 
+            required=True, 
+            max_length=100, 
+            error_messages={'required': _('Password is required.')},
+            widget=forms.PasswordInput, 
+            help_text = _("Enter the same password as above, for verification.")
+        )
+
+    def __init__(self, user, *args, **kwargs):
+            self.user = user
+            super(PasswordForm, self).__init__(*args, **kwargs)
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 and password2:
+            if password1 != password2:
+                raise forms.ValidationError(
+                    self.error_messages['password_mismatch'])
+        return password2
+
+    def save(self, commit=True):
+        self.user.set_password(self.cleaned_data['password1'])
+        if commit:
+            self.user.save()
+        return self.user

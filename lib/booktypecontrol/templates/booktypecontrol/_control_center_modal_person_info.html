@@ -1,0 +1,20 @@
+{% load i18n staticfiles messaging_tags %}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form method="post" action="{% url 'portal:group_create' %}"  enctype="multipart/form-data" style="margin-bottom: 0px">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box profile-box purple">
+                            {% include "account/other_user_box.html" %}
+                            <div class="box-bottom-white">
+                                <button class="btn btn-default" type="button" data-dismiss="modal">{% trans "Close" %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

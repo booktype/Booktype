@@ -19,7 +19,7 @@ from optparse import make_option
 
 from django.conf import settings
 
-from booki.utils import config
+from booktype.utils import config
 import json
 
 class Command(BaseCommand):

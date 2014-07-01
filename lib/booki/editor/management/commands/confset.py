@@ -19,7 +19,7 @@ from optparse import make_option
 
 from django.conf import settings
 
-from booki.utils import config
+from booktype.utils import config
 import json
 
 class Command(BaseCommand):
@@ -91,15 +91,15 @@ class Command(BaseCommand):
 
         if options['append']:
             # ovo neshto ne radi sa as_jsonom
-            lst = config.getConfiguration(key, [])
+            lst = config.get_configuration(key, [])
 
             if type(lst) == type([]):
                 lst.append(value)
-                config.setConfiguration(key, lst)
+                config.set_configuration(key, lst)
             else:
                 raise CommandError("Can not append to something that is not a list")
         elif options['remove']:
-            lst = config.getConfiguration(key, [])
+            lst = config.get_configuration(key, [])
 
             if type(lst) == type([]):
                 try:
@@ -107,14 +107,14 @@ class Command(BaseCommand):
                 except ValueError:
                     raise CommandError("I can't see it!")
 
-                config.setConfiguration(key, lst)
+                config.set_configuration(key, lst)
             else:
                 raise CommandError("Can not append to something that is not a list")
         else:
-            config.setConfiguration(key, value)
+            config.set_configuration(key, value)
             
         try:
-            config.saveConfiguration()
+            config.save_configuration()
         except config.ConfigurationError:
             raise CommandError("Could not save the file.")
 

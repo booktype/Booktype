@@ -1,3 +1,4 @@
+from django.forms import widgets
 
 class BaseBooktypeForm(object):
     '''
@@ -10,4 +11,5 @@ class BaseBooktypeForm(object):
 
         for field in self.fields.values():
             css_class = field.widget.attrs.get('class', '')
-            field.widget.attrs['class'] = '%s form-control' % css_class
+            if not isinstance(field.widget, widgets.CheckboxInput):
+                field.widget.attrs['class'] = '%s form-control' % css_class

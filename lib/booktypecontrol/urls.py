@@ -15,14 +15,18 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls import patterns, url
-from .views import ControlCenterView, ControlCenterSettings
+from .views import EditPersonInfo, PasswordChangeView
+from .views import ControlCenterView, ControlCenterSettings, PersonInfoView
 
 urlpatterns = patterns('',
-    url(r'^$', 'booktypecontrol.views.frontpage', name='control_frontpage'),
-    url(r'^new/dashboard/$', ControlCenterView.as_view(), name='control_dashboard'),
+    url(r'^$', ControlCenterView.as_view(), name='control_frontpage'),
     url(r'^new/settings/$', ControlCenterSettings.as_view(), name='control_settings'),
 
-    url(r'^people/$', 'booktypecontrol.views.people', name='control_people'),
+    url(r'^new/people/(?P<username>[\w\d\@\.\+\-\_\s]+)/info/$', PersonInfoView.as_view(), name='control_person_info'),
+    url(r'^new/people/(?P<username>[\w\d\@\.\+\-\_\s]+)/edit/$', EditPersonInfo.as_view(), name='control_person_edit'),
+    url(r'^new/people/(?P<username>[\w\d\@\.\+\-\_\s]+)/password/$', PasswordChangeView.as_view(), name='control_password_change'),
+
+    # url(r'^people/$', 'booktypecontrol.views.people', name='control_people'),
     url(r'^people/_add/$', 'booktypecontrol.views.add_person', name='control_add_person'),
     url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/$', 'booktypecontrol.views.profile', name='control_profile'),
     url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/_edit/$', 'booktypecontrol.views.edit_profile', name='control_edit_profile'),

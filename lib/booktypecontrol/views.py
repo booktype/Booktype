@@ -32,15 +32,18 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from django.db import IntegrityError, connection
 from django.utils.translation import ugettext as _
-from django.views.generic import TemplateView, FormView
 from django.contrib.auth.decorators import user_passes_test
 from django.core.validators import RegexValidator, MinLengthValidator
+
+from django.views.generic.detail import SingleObjectMixin
+from django.views.generic import TemplateView, FormView, DetailView, UpdateView
 
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 from booki.editor import models
 from booktype.apps.core import views
-from booki.utils import misc, config
+from booktype.utils import config
+from booki.utils import misc
 from booki.editor.models import Book, BookiGroup, BookHistory
 
 from booktype.apps.core.views import BasePageView
@@ -52,80 +55,6 @@ from .forms import *
 # What tabs do you want to have visible at the moment
 #ADMIN_OPTIONS = ["dashboard", "people", "books", "filebrowse", "templates", "activity", "messages", "settings"]
 ADMIN_OPTIONS = ["dashboard", "people", "books", "settings"]
-
-@user_passes_test(lambda u: u.is_superuser)
-def frontpage(request):
-
-    # check all active online users and what are they doing
-    import sputnik
-
-    clientList = sputnik.rkeys("ses:*:username")
-    onlineUsers = []
-
-    for us in clientList:
-        clientID = us[4:-9]
-
-        channelList = []
-        for chan in sputnik.smembers('ses:%s:channels' % clientID):
-            if chan.startswith('/booki/book/'):
-                _s = chan.split('/')
-                if len(_s) > 3:
-                    bookID = _s[3]
-                    try:
-                        b = models.Book.objects.get(pk=bookID)
-                        channelList.append(b)
-                    except models.Book.DoesNotExist:
-                        pass
-            
-        _u = sputnik.get(us)
-        onlineUsers.append((_u, channelList))
-
-    # Check the attachment size.
-    # This should not be here in the future. It takes way too much time.
-    from booki.utils import misc
-
-    attachmentDirectory = '%s/books/' % (settings.DATA_ROOT, )
-    attachmentsSize = misc.getDirectorySize(attachmentDirectory)
-
-    # Number of books and number of groups
-    number_of_books = len(models.Book.objects.all())
-    number_of_groups = len(models.BookiGroup.objects.all())
-
-    # Number of all users on the system.
-    # This should somehow check only the active users
-    number_of_users = User.objects.count()
-
-    # check the database size
-    from django.db import connection
-    cursor = connection.cursor()
-
-    try:
-        # This will not work if user has new style of configuration for the database
-        # This will also only work for PostgreSQL. Should make another method for checking sqlite database size.
-        cursor.execute("SELECT pg_database_size(%s)", [settings.DATABASES['default']['NAME']]);
-        databaseSize = cursor.fetchone()[0]
-    except:
-        databaseSize = 0
-
-    # Book activity
-    activityHistory = models.BookHistory.objects.filter(kind__in=[1, 10]).order_by('-modified')[:20]
-
-    # Booktype version
-    import booki
-    booktypeVersion = '.'.join([str(num) for num in booki.version])
-
-    return render_to_response('booktypecontrol/frontpage.html', 
-                              {"request": request,
-                               "booktype_version": booktypeVersion,
-                               "admin_options": ADMIN_OPTIONS,
-                               "online_users": onlineUsers,
-                               "attachments_size": attachmentsSize,
-                               "number_of_books": number_of_books,
-                               "number_of_users": number_of_users,
-                               "number_of_groups": number_of_groups,
-                               "database_size": databaseSize,
-                               "activity_history": activityHistory
-                               })
 
 class BaseCCView(LoginRequiredMixin, SuperuserRequiredMixin, BasePageView):
     pass
@@ -222,18 +151,21 @@ OPTION_NAMES = {
     'frontpage'        : _('Frontpage'),
     'license'          : _('Licenses'),
     'book-settings'    : _('Default Book Settings for Creating Books'),
-    'privacy'          : _('Privacy')
+    'privacy'          : _('Privacy'),
+    'add-person'       : _('Add a new Person'),
+    'list-of-people'   : _('List of People')
 }
+
+VALID_OPTIONS = OPTION_NAMES.keys()
 
 class ControlCenterSettings(BaseCCView, FormView):
     """
     Generic class for control center settings
     """
 
-    VALID_OPTIONS = OPTION_NAMES.keys()
     template_name = 'booktypecontrol/control_center_settings.html'
     submodule = 'site-description'
-    success_url = '/_control/new/settings/'
+    success_url = '/_control/new/settings/' # TODO: change this url later
     page_title = _('Admin Control Center')
     title = page_title
 
@@ -251,7 +183,7 @@ class ControlCenterSettings(BaseCCView, FormView):
 
     def dispatch(self, request, *args, **kwargs):
         option = request.REQUEST.get('option', None)
-        if option and option in self.VALID_OPTIONS:
+        if option and option in VALID_OPTIONS:
             self.submodule = option
 
         return super(ControlCenterSettings, self).dispatch(request, *args, **kwargs)
@@ -270,7 +202,7 @@ class ControlCenterSettings(BaseCCView, FormView):
     def get_template_names(self):
         if self.request.is_ajax():
             return [
-                "booktypecontrol/_control_center_%s.html" % self.submodule, 
+                "booktypecontrol/_control_center_%s.html" % self.submodule.replace('-', '_'), 
                 "booktypecontrol/_control_center_settings.html"
             ]
         return super(ControlCenterSettings, self).get_template_names()
@@ -279,6 +211,7 @@ class ControlCenterSettings(BaseCCView, FormView):
         context = super(ControlCenterSettings, self).get_context_data(*args, **kwargs)
         context['option'] = self.submodule
         context['option_name'] = OPTION_NAMES.get(self.submodule, '')
+        context['valid_options'] = VALID_OPTIONS
 
         extra_context = self.form_class.extra_context()
         if extra_context:
@@ -286,23 +219,78 @@ class ControlCenterSettings(BaseCCView, FormView):
 
         return context
 
+class PersonInfoView(BaseCCView, DetailView):
+    model = User
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    context_object_name = 'current_user'
 
-@user_passes_test(lambda u: u.is_superuser)
-def people(request):
-    """
-    Front page for the people tab. Shows list of all the users.
-    """
+    template_name = "booktypecontrol/_control_center_modal_person_info.html"
 
-    from django.contrib.auth.models import User
+class EditPersonInfo(BaseCCView, UpdateView):
+    model = User
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    context_object_name = 'current_user'
+    form_class = EditPersonInfoForm
+    success_url = '/_control/new/settings/' # TODO: change this url later
+    page_title = _('Admin Control Center')
+    title = page_title
 
-    people = User.objects.all().order_by("username")
+    template_name = "booktypecontrol/control_center_settings.html"
 
-    return render_to_response('booktypecontrol/people.html', 
-                              {"request": request,
-                               "people": people,
-                               "admin_options": ADMIN_OPTIONS                               
-                               },
-                              context_instance=RequestContext(request))
+    def get_context_data(self, *args, **kwargs):
+        context = super(EditPersonInfo, self).get_context_data(*args, **kwargs)
+        context['option'] = None
+        context['option_name'] = _('Edit Person Info')
+        context['valid_options'] = VALID_OPTIONS
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.get_profile().description = form.cleaned_data['description']
+        self.object.get_profile().save()
+
+        if form.files.has_key('profile'):
+            misc.setProfileImage(self.object, form.files['profile'])
+
+        messages.success(self.request, _('Successfully saved changes.'))
+
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_initial(self):
+        initial_dict = super(EditPersonInfo, self).get_initial()
+        initial_dict['description'] = self.object.get_profile().description
+
+        return initial_dict
+
+class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
+    model = User
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    context_object_name = 'current_user'
+    success_url = '/_control/new/settings/' # TODO: change this url later
+    page_title = _('Admin Control Center')
+    title = page_title
+    form_class = PasswordForm
+
+    template_name = "booktypecontrol/control_center_settings.html"
+
+    def get_form(self, form_class):
+        self.object = self.get_object()
+        return form_class(user=self.object, **self.get_form_kwargs())
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, _('Successfully saved changes.'))
+        return super(FormView, self).form_valid(form)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PasswordChangeView, self).get_context_data(*args, **kwargs)
+        context['option'] = None
+        context['option_name'] = "%s: %s" % (_('Change Password'), self.object.username)
+        context['valid_options'] = VALID_OPTIONS
+        return context
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -336,31 +324,6 @@ def profile(request, username):
                                "activity_history": activityHistory
                                },
                               context_instance=RequestContext(request))
-
-
-class ProfileForm(forms.Form):
-    username = forms.CharField(label=_('Username'),
-                               required=True, 
-                               max_length=100, 
-                               error_messages={'required': _('Username is required.'),
-                                               'ivalid': _("Illegal characters in username.")},
-                               validators=[RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), MinLengthValidator(3)])
-    first_name = forms.CharField(label=_('First name'),
-                                 required=True, 
-                                 error_messages={'required': _('First name is required.')},                                 
-                                 max_length=32)
-    email = forms.EmailField(label=_('Email'),
-                             required=True,
-                             error_messages={'required': _('Email is required.')},                                 
-                             max_length=100)
-    profile = forms.ImageField(label=_('Profile picture'),
-                               required=False)
-    description = forms.CharField(label=_("User description"), 
-                                  required=False, 
-                                  widget=forms.Textarea)
-
-    def __unicode__(self):
-        return self.first_name
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -410,24 +373,6 @@ def edit_profile(request, username):
                               context_instance=RequestContext(request))
 
 
-class PasswordForm(forms.Form):
-    password1 = forms.CharField(label=_('Password'), 
-                                required=True, 
-                                error_messages={'required': _('Password is required.')},
-                                max_length=100, 
-                                widget=forms.PasswordInput)
-    password2 = forms.CharField(label=_('Password confirmation'), 
-                                required=True, 
-                                max_length=100, 
-                                error_messages={'required': _('Password is required.')},
-                                widget=forms.PasswordInput, 
-                                help_text = _("Enter the same password as above, for verification."))
-
-
-    def __unicode__(self):
-        return self.first_name
-
-
 @user_passes_test(lambda u: u.is_superuser)
 def edit_password(request, username):
     from django.contrib.auth.models import User
@@ -462,60 +407,6 @@ def edit_password(request, username):
                                "form": frm
                                },
                               context_instance=RequestContext(request))
-
-
-class NewPersonForm(forms.Form):
-    username = forms.CharField(label=_('Username'),
-                               required=True, 
-                               error_messages={'required': _('Username is required.'),
-                                               'ivalid': _("Illegal characters in username.")},
-                               max_length=100, 
-                               validators=[RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), MinLengthValidator(3)])
-    first_name = forms.CharField(label=_('First name'),
-                                 required=True, 
-                                 error_messages={'required': _('First name is required.')},                                 
-                                 max_length=32)
-    email = forms.EmailField(label=_('Email'),
-                             required=True,
-                             error_messages={'required': _('Email is required.')},                                 
-                             max_length=100)
-    description = forms.CharField(label=_("User description"), 
-                                  required=False, 
-                                  widget=forms.Textarea)
-    password1 = forms.CharField(label=_('Password'), 
-                                required=True, 
-                                error_messages={'required': _('Password is required.')},
-                                max_length=100, 
-                                widget=forms.PasswordInput)
-    password2 = forms.CharField(label=_('Password confirmation'), 
-                                required=True, 
-                                error_messages={'required': _('Password is required.')},
-                                max_length=100, 
-                                widget=forms.PasswordInput, 
-                                help_text = _("Enter the same password as above, for verification."))
-    send_email = forms.BooleanField(label=_('Notify person by email'), 
-                                    required=False)
-
-    def clean_username(self):
-        from django.contrib.auth.models import User
-
-        try:
-            usr = User.objects.get(username=self.cleaned_data['username'])
-        except User.DoesNotExist:
-            pass
-        else:
-            raise forms.ValidationError(_("This Person already exists."))
-
-        return self.cleaned_data['username']
-
-    def clean_password2(self):
-        if self.cleaned_data['password2'] != self.cleaned_data['password1']:
-            raise forms.ValidationError(_("Passwords do not match."))
-
-        return self.cleaned_data['password2']
-
-    def __unicode__(self):
-        return self.username
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -956,10 +847,10 @@ def settings_description(request):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
-            from booki.utils import config
+            from booktype.utils import config
 
-            config.setConfiguration('BOOKTYPE_SITE_NAME', frm.cleaned_data['title'])
-            config.setConfiguration('BOOKTYPE_SITE_TAGLINE', frm.cleaned_data['tagline'])
+            config.set_configuration('BOOKTYPE_SITE_NAME', frm.cleaned_data['title'])
+            config.set_configuration('BOOKTYPE_SITE_TAGLINE', frm.cleaned_data['tagline'])
 
             if request.FILES.has_key('favicon'):
                 from booki.utils import misc
@@ -970,20 +861,20 @@ def settings_description(request):
                     fh, fname = misc.saveUploadedAsFile(request.FILES['favicon'])
                     shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
 
-                    config.setConfiguration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
+                    config.set_configuration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
                 except:
                     pass
 
             try:
-                config.saveConfiguration()
+                config.save_configuration()
                 messages.success(request, _('Successfuly saved settings.'))
             except config.ConfigurationError:
                 messages.warning(request, _('Unknown error while saving changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
-        frm = SiteDescriptionForm(initial={'title': config.getConfiguration('BOOKTYPE_SITE_NAME'),
-                                           'tagline': config.getConfiguration('BOOKTYPE_SITE_TAGLINE')})
+        frm = SiteDescriptionForm(initial={'title': config.get_configuration('BOOKTYPE_SITE_NAME'),
+                                           'tagline': config.get_configuration('BOOKTYPE_SITE_TAGLINE')})
 
 
     return render_to_response('booktypecontrol/settings_description.html', 
@@ -1003,26 +894,26 @@ def settings_book_create(request):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
-            from booki.utils import config
+            from booktype.utils import config
 
-            config.setConfiguration('CREATE_BOOK_VISIBLE', frm.cleaned_data['visible'])
+            config.set_configuration('CREATE_BOOK_VISIBLE', frm.cleaned_data['visible'])
 
             if frm.cleaned_data['license']:
-                config.setConfiguration('CREATE_BOOK_LICENSE', frm.cleaned_data['license'].abbrevation)
+                config.set_configuration('CREATE_BOOK_LICENSE', frm.cleaned_data['license'].abbrevation)
             else:
-                config.setConfiguration('CREATE_BOOK_LICENSE', '')
+                config.set_configuration('CREATE_BOOK_LICENSE', '')
 
             try:
-                config.saveConfiguration()
+                config.save_configuration()
                 messages.success(request, _('Successfuly saved settings.'))
             except config.ConfigurationError:
                 messages.warning(request, _('Unknown error while saving changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
-        from booki.utils import config
+        from booktype.utils import config
 
-        _l = config.getConfiguration('CREATE_BOOK_LICENSE')
+        _l = config.get_configuration('CREATE_BOOK_LICENSE')
         if _l and _l != '':
             try:
                 license = models.License.objects.get(abbrevation = _l)
@@ -1031,7 +922,7 @@ def settings_book_create(request):
         else:
             license = None
             
-        frm = BookCreateForm(initial={'visible': config.getConfiguration('CREATE_BOOK_VISIBLE'),
+        frm = BookCreateForm(initial={'visible': config.get_configuration('CREATE_BOOK_VISIBLE'),
                                       'license': license})
 
     return render_to_response('booktypecontrol/settings_book_create.html', 
@@ -1051,7 +942,7 @@ def settings_license(request):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
-            from booki.utils import config
+            from booktype.utils import config
 
             license = models.License(abbrevation = frm.cleaned_data['abbrevation'],
                                      name = frm.cleaned_data['name'])
@@ -1136,7 +1027,7 @@ def settings_license_edit(request, licenseid):
 
 @user_passes_test(lambda u: u.is_superuser)
 def settings_privacy(request):
-    from booki.utils import config
+    from booktype.utils import config
 
     if request.method == 'POST': 
         frm = PrivacyForm(request.POST, request.FILES) 
@@ -1146,21 +1037,21 @@ def settings_privacy(request):
 
         if frm.is_valid(): 
 
-            config.setConfiguration('FREE_REGISTRATION', frm.cleaned_data['user_register'])
-            config.setConfiguration('ADMIN_CREATE_BOOKS', frm.cleaned_data['create_books'])
-            config.setConfiguration('ADMIN_IMPORT_BOOKS', frm.cleaned_data['import_books'])
+            config.set_configuration('FREE_REGISTRATION', frm.cleaned_data['user_register'])
+            config.set_configuration('ADMIN_CREATE_BOOKS', frm.cleaned_data['create_books'])
+            config.set_configuration('ADMIN_IMPORT_BOOKS', frm.cleaned_data['import_books'])
 
             try:
-                config.saveConfiguration()
+                config.save_configuration()
                 messages.success(request, _('Successfuly saved changes.'))
             except config.ConfigurationError:
                 messages.warning(request, _('Unknown error while saving changes.'))
 
             return HttpResponseRedirect(reverse('control_settings'))             
     else:
-        frm = PrivacyForm(initial = {'user_register': config.getConfiguration('FREE_REGISTRATION'),
-                                     'create_books': config.getConfiguration('ADMIN_CREATE_BOOKS'),
-                                     'import_books': config.getConfiguration('ADMIN_IMPORT_BOOKS')
+        frm = PrivacyForm(initial = {'user_register': config.get_configuration('FREE_REGISTRATION'),
+                                     'create_books': config.get_configuration('ADMIN_CREATE_BOOKS'),
+                                     'import_books': config.get_configuration('ADMIN_IMPORT_BOOKS')
                                      })
 
     return render_to_response('booktypecontrol/settings_privacy.html', 
@@ -1187,9 +1078,9 @@ class PublishingForm(forms.Form):
 
 @user_passes_test(lambda u: u.is_superuser)
 def settings_publishing(request):
-    from booki.utils import config
+    from booktype.utils import config
     
-    publishOptions = config.getConfiguration('PUBLISH_OPTIONS')
+    publishOptions = config.get_configuration('PUBLISH_OPTIONS')
 
     if request.method == 'POST': 
         frm = PublishingForm(request.POST, request.FILES) 
@@ -1206,10 +1097,10 @@ def settings_publishing(request):
             if frm.cleaned_data['publish_pdf']: opts.append('pdf')
             if frm.cleaned_data['publish_odt']: opts.append('odt')
 
-            config.setConfiguration('PUBLISH_OPTIONS', opts)
+            config.set_configuration('PUBLISH_OPTIONS', opts)
 
             try:
-                config.saveConfiguration()
+                config.save_configuration()
                 messages.success(request, _('Successfuly saved changes.'))
             except config.ConfigurationError:
                 messages.warning(request, _('Unknown error while saving changes.'))
@@ -1289,12 +1180,12 @@ class PublishingDefaultsForm(forms.Form):
 
 @user_passes_test(lambda u: u.is_superuser)
 def settings_publishing_defaults(request):
-    from booki.utils import config
+    from booktype.utils import config
 
-    data = {'book_css':  config.getConfiguration('BOOKTYPE_CSS_BOOK', ''),
-            'ebook_css': config.getConfiguration('BOOKTYPE_CSS_EBOOK', ''),
-            'pdf_css':   config.getConfiguration('BOOKTYPE_CSS_PDF', ''),
-            'odt_css':   config.getConfiguration('BOOKTYPE_CSS_ODT', '')}
+    data = {'book_css':  config.get_configuration('BOOKTYPE_CSS_BOOK', ''),
+            'ebook_css': config.get_configuration('BOOKTYPE_CSS_EBOOK', ''),
+            'pdf_css':   config.get_configuration('BOOKTYPE_CSS_PDF', ''),
+            'odt_css':   config.get_configuration('BOOKTYPE_CSS_ODT', '')}
 
     if request.method == 'POST': 
         frm = PublishingDefaultsForm(request.POST, request.FILES) 
@@ -1304,19 +1195,19 @@ def settings_publishing_defaults(request):
 
         if frm.is_valid(): 
             if frm.cleaned_data['book_css'] != data['book_css']:
-                config.setConfiguration('BOOKTYPE_CSS_BOOK', frm.cleaned_data['book_css'])
+                config.set_configuration('BOOKTYPE_CSS_BOOK', frm.cleaned_data['book_css'])
 
             if frm.cleaned_data['ebook_css'] != data['ebook_css']:
-                config.setConfiguration('BOOKTYPE_CSS_EBOOK', frm.cleaned_data['ebook_css'])
+                config.set_configuration('BOOKTYPE_CSS_EBOOK', frm.cleaned_data['ebook_css'])
 
             if frm.cleaned_data['pdf_css'] != data['pdf_css']:
-                config.setConfiguration('BOOKTYPE_CSS_PDF', frm.cleaned_data['pdf_css'])
+                config.set_configuration('BOOKTYPE_CSS_PDF', frm.cleaned_data['pdf_css'])
 
             if frm.cleaned_data['odt_css'] != data['odt_css']:
-                config.setConfiguration('BOOKTYPE_CSS_ODT', frm.cleaned_data['odt_css'])
+                config.set_configuration('BOOKTYPE_CSS_ODT', frm.cleaned_data['odt_css'])
 
             try:
-                config.saveConfiguration()
+                config.save_configuration()
                 messages.success(request, _('Successfuly saved changes.'))
             except config.ConfigurationError:
                 messages.warning(request, _('Unknown error while saving changes.'))
@@ -1335,7 +1226,7 @@ def settings_publishing_defaults(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def settings_frontpage(request):
-    from booki.utils import config
+    from booktype.utils import config
 
 
     staticRoot = settings.BOOKTYPE_ROOT
@@ -1347,7 +1238,7 @@ def settings_frontpage(request):
             return HttpResponseRedirect(reverse('control_settings')) 
 
         if frm.is_valid(): 
-            config.setConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', frm.cleaned_data['show_changes'])
+            config.set_configuration('BOOKTYPE_FRONTPAGE_HISTORY', frm.cleaned_data['show_changes'])
 
             import os.path, os
 
@@ -1365,7 +1256,7 @@ def settings_frontpage(request):
 
                 messages.success(request, _('Successfuly saved changes.'))
 
-                config.saveConfiguration()
+                config.save_configuration()
             except IOError:
                 messages.warning(request, _('Error while saving changes'))
             except config.ConfigurationError:
@@ -1380,7 +1271,7 @@ def settings_frontpage(request):
         except IOError:
             textContent = ''
 
-        frm = FrontpageForm(initial = {'show_changes': config.getConfiguration('BOOKTYPE_FRONTPAGE_HISTORY', True),
+        frm = FrontpageForm(initial = {'show_changes': config.get_configuration('BOOKTYPE_FRONTPAGE_HISTORY', True),
                                        'description': textContent})
 
     return render_to_response('booktypecontrol/settings_frontpage.html', 
