@@ -4,11 +4,15 @@
 
 .bookexists{
     font-size: 12px;
-    padding-bottom: 0px;
-    padding-top: 0px;
+    padding-bottom: 0;
+    padding-top: 0;
     padding-left: 5px;
     margin-top: 10px;
     width: 85%;
+}
+
+.modal-content form{
+    margin-bottom: 0;
 }
 
 #personInfoModal .modal-dialog{
@@ -16,7 +20,7 @@
 }
 
 #personInfoModal .modal-dialog .profile-box{
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 #personInfoModal .box-bottom-white{
@@ -28,10 +32,32 @@
     margin-bottom: 0;
 }
 
+.list-of-pleople li{
+    min-height: 68px;
+}
+
 .list-of-pleople li .action-btns{
     padding-top: 5px;
 }
 
 .list-of-pleople li:hover .action-btns{
     display: block !important;
+}
+
+input[type="checkbox"].form-control:focus,
+input[type="radio"].form-control:focus{
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.form-inline-select select.form-control{
+    display: inline-block;
+    width: auto;
+    max-width: 300px;
+}
+
+.book-thumb .control_center_btns,
+.book-list > div:hover .control_center_btns{
+    display: none;
 }

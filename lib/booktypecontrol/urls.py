@@ -15,41 +15,22 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls import patterns, url
-from .views import EditPersonInfo, PasswordChangeView
+
+from .views import EditPersonInfo, PasswordChangeView, BookRenameView
 from .views import ControlCenterView, ControlCenterSettings, PersonInfoView
 
 urlpatterns = patterns('',
-    url(r'^$', ControlCenterView.as_view(), name='control_frontpage'),
-    url(r'^new/settings/$', ControlCenterSettings.as_view(), name='control_settings'),
+    url(r'^$', ControlCenterView.as_view(), name='frontpage'),
+    url(r'^settings/$', ControlCenterSettings.as_view(), name='settings'),
 
-    url(r'^new/people/(?P<username>[\w\d\@\.\+\-\_\s]+)/info/$', PersonInfoView.as_view(), name='control_person_info'),
-    url(r'^new/people/(?P<username>[\w\d\@\.\+\-\_\s]+)/edit/$', EditPersonInfo.as_view(), name='control_person_edit'),
-    url(r'^new/people/(?P<username>[\w\d\@\.\+\-\_\s]+)/password/$', PasswordChangeView.as_view(), name='control_password_change'),
+    url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/info/$', PersonInfoView.as_view(), name='person_info'),
+    url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/edit/$', EditPersonInfo.as_view(), name='person_edit'),
+    url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/password/$', PasswordChangeView.as_view(), name='password_change'),
 
-    # url(r'^people/$', 'booktypecontrol.views.people', name='control_people'),
-    url(r'^people/_add/$', 'booktypecontrol.views.add_person', name='control_add_person'),
-    url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/$', 'booktypecontrol.views.profile', name='control_profile'),
-    url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/_edit/$', 'booktypecontrol.views.edit_profile', name='control_edit_profile'),
-    url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/_password/$', 'booktypecontrol.views.edit_password', name='control_password'),
-
-    url(r'^books/$', 'booktypecontrol.views.books', name='control_books'),
-    url(r'^books/_add/$', 'booktypecontrol.views.add_book', name='control_add_book'),
-    url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/_edit/$', 'booktypecontrol.views.edit_book', name='control_edit_book'),
-    url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/_rename/$', 'booktypecontrol.views.rename_book', name='control_rename_book'),
-    url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/_delete/$', 'booktypecontrol.views.delete_book', name='control_delete_book'),
-    url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/$', 'booktypecontrol.views.view_book', name='control_book'),
-
-    url(r'^settings/$', 'booktypecontrol.views.viewsettings', name='control_settings'),
-    url(r'^settings/description/$', 'booktypecontrol.views.settings_description', name='control_settings_description'),
-    url(r'^settings/book_create/$', 'booktypecontrol.views.settings_book_create', name='control_settings_book_create'),
-    url(r'^settings/license/$', 'booktypecontrol.views.settings_license', name='control_settings_license'),
-    url(r'^settings/license/(?P<licenseid>[\d]+)/$', 'booktypecontrol.views.settings_license_edit', name='control_settings_license_edit'),
-    url(r'^settings/privacy/$', 'booktypecontrol.views.settings_privacy', name='control_settings_privacy'),
+    url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/rename/$', BookRenameView.as_view(), name='rename_book'),
 
     url(r'^settings/publishing/$', 'booktypecontrol.views.settings_publishing', name='control_settings_publishing'),
     url(r'^settings/publishing_defaults/$', 'booktypecontrol.views.settings_publishing_defaults', name='control_settings_publishing_defaults'),
 
     url(r'^settings/appearance/$', 'booktypecontrol.views.settings_appearance', name='control_settings_appearance'),
-
-    url(r'^settings/frontpage/$', 'booktypecontrol.views.settings_frontpage', name='control_settings_frontpage'),
 )

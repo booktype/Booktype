@@ -14,8 +14,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-import datetime
-import traceback
 import booki
 import sputnik
 import forms as forms_module
@@ -24,28 +22,26 @@ from collections import Counter
 
 from django import forms
 from django.conf import settings
+from django.db import connection
 from django.contrib import messages
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
-from django.db import IntegrityError, connection
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import user_passes_test
-from django.core.validators import RegexValidator, MinLengthValidator
 
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import TemplateView, FormView, DetailView, UpdateView
 
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
-from booki.editor import models
-from booktype.apps.core import views
-from booktype.utils import config
 from booki.utils import misc
+from booki.editor import models
 from booki.editor.models import Book, BookiGroup, BookHistory
 
+from booktype.apps.core import views
 from booktype.apps.core.views import BasePageView
 
 # TODO: to be removed
@@ -153,7 +149,9 @@ OPTION_NAMES = {
     'book-settings'    : _('Default Book Settings for Creating Books'),
     'privacy'          : _('Privacy'),
     'add-person'       : _('Add a new Person'),
-    'list-of-people'   : _('List of People')
+    'list-of-people'   : _('List of People'),
+    'add-book'         : _('Add new Book'),
+    'list-of-books'    : _('List of Books')
 }
 
 VALID_OPTIONS = OPTION_NAMES.keys()
@@ -165,7 +163,7 @@ class ControlCenterSettings(BaseCCView, FormView):
 
     template_name = 'booktypecontrol/control_center_settings.html'
     submodule = 'site-description'
-    success_url = '/_control/new/settings/' # TODO: change this url later
+    success_url = '/_control/settings/' # TODO: change this url later
     page_title = _('Admin Control Center')
     title = page_title
 
@@ -182,6 +180,11 @@ class ControlCenterSettings(BaseCCView, FormView):
         return super(ControlCenterSettings, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
+        # if redirect param is present, go to right submodule
+        redirect = request.REQUEST.get('redirect', None)
+        if redirect and redirect in VALID_OPTIONS:
+            return HttpResponseRedirect('{0}#{1}'.format(reverse('control_center:settings'), redirect))
+
         option = request.REQUEST.get('option', None)
         if option and option in VALID_OPTIONS:
             self.submodule = option
@@ -233,7 +236,7 @@ class EditPersonInfo(BaseCCView, UpdateView):
     slug_url_kwarg = 'username'
     context_object_name = 'current_user'
     form_class = EditPersonInfoForm
-    success_url = '/_control/new/settings/' # TODO: change this url later
+    success_url = '/_control/settings/' # TODO: change this url later
     page_title = _('Admin Control Center')
     title = page_title
 
@@ -264,12 +267,26 @@ class EditPersonInfo(BaseCCView, UpdateView):
 
         return initial_dict
 
+class BookRenameView(EditPersonInfo):
+    model = Book
+    slug_field = 'url_title'
+    slug_url_kwarg = 'bookid'
+    form_class = BookRenameForm
+    template_name = "booktypecontrol/control_center_settings.html"
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_initial(self):
+        return {}
+
 class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
     model = User
     slug_field = 'username'
     slug_url_kwarg = 'username'
     context_object_name = 'current_user'
-    success_url = '/_control/new/settings/' # TODO: change this url later
+    success_url = '/_control/settings/' # TODO: change this url later
     page_title = _('Admin Control Center')
     title = page_title
     form_class = PasswordForm
@@ -291,598 +308,6 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
         context['option_name'] = "%s: %s" % (_('Change Password'), self.object.username)
         context['valid_options'] = VALID_OPTIONS
         return context
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def profile(request, username):
-    """
-    Shows info about one person.
-    """
-
-    from django.contrib.auth.models import User
-
-    try:
-        person = User.objects.get(username=username)
-    except User.DoesNotExist:
-        return views.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
-
-    from django.utils.html import escape
-    personDescription = escape(person.get_profile().description)
-
-    books = models.Book.objects.filter(owner=person)
-    groups = models.BookiGroup.objects.filter(owner=person)
-
-    activityHistory = models.BookHistory.objects.filter(user=person, kind__in=[1, 10]).order_by('-modified')[:20]
-
-    return render_to_response('booktypecontrol/profile.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "person": person,
-                               "description": personDescription,
-                               "books": books,
-                               "groups": groups,
-                               "activity_history": activityHistory
-                               },
-                              context_instance=RequestContext(request))
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def edit_profile(request, username):
-    from django.contrib.auth.models import User
-
-    try:
-        person = User.objects.get(username=username)
-    except User.DoesNotExist:
-        return views.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
-
-    if request.method == 'POST': 
-        frm = ProfileForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_profile', args=[person.username])) 
-
-        if frm.is_valid(): 
-            person.username = frm.cleaned_data['username']
-            person.email = frm.cleaned_data['email']
-            person.first_name = frm.cleaned_data['first_name']
-            person.save()
-
-            person.get_profile().description = frm.cleaned_data['description']
-            person.get_profile().save()
-
-            if request.FILES.has_key('profile'):
-                from booki.utils import misc
-
-                misc.setProfileImage(person, request.FILES['profile'])
-
-            messages.success(request, _('Successfuly saved changes.'))
-            return HttpResponseRedirect(reverse('control_profile', args=[person.username])) 
-    else:
-        frm = ProfileForm({'username': person.username,
-                           'first_name': person.first_name,
-                           'email': person.email,
-                           'description': person.get_profile().description})
-
-
-    return render_to_response('booktypecontrol/edit_profile.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "person": person,
-                               "form": frm
-                               },
-                              context_instance=RequestContext(request))
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def edit_password(request, username):
-    from django.contrib.auth.models import User
-
-    try:
-        person = User.objects.get(username=username)
-    except User.DoesNotExist:
-        return views.ErrorPage(request, "errors/user_does_not_exist.html", {"username": username})
-
-    if request.method == 'POST': 
-        frm = PasswordForm(request.POST) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect('../') 
-
-        if frm.is_valid(): 
-            if frm.cleaned_data['password1'] == frm.cleaned_data['password2']:
-                person.set_password(frm.cleaned_data['password1']) 
-                person.save() 
-
-                messages.success(request, _('Successfuly saved changes.'))
-                return HttpResponseRedirect(reverse('control_profile', args=[person.username])) 
-
-            messages.warning(request, _('Passwords do not match'))
-    else:
-        frm = PasswordForm()
-
-    return render_to_response('booktypecontrol/edit_password.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "person": person,
-                               "form": frm
-                               },
-                              context_instance=RequestContext(request))
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def add_person(request):
-    from django.contrib.auth.models import User
-
-    if request.method == 'POST': 
-        frm = NewPersonForm(request.POST) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_people')) 
-
-        if frm.is_valid(): 
-            from django.contrib import auth
-            try:
-                user = auth.models.User.objects.create_user(username=frm.cleaned_data['username'],
-                                                            email=frm.cleaned_data['email'],
-                                                            password=frm.cleaned_data['password2'])
-                user.first_name = frm.cleaned_data['first_name']
-                user.save()
-
-                user.get_profile().description = frm.cleaned_data['description']
-                user.get_profile().save()
-
-                if frm.cleaned_data["send_email"]:
-                    from django import template
-
-                    t = template.loader.get_template('booktypecontrol/new_person_email.html')
-                    content = t.render(template.Context({"username": frm.cleaned_data['username'],
-                                                         "password": frm.cleaned_data['password2'],
-                                                         "server":   settings.BOOKTYPE_URL}))
-
-                    from django.core.mail import EmailMultiAlternatives
-                    emails = [frm.cleaned_data['email']]
-
-                    msg = EmailMultiAlternatives('You have a new Booktype Account ', content, settings.REPORT_EMAIL_USER, emails)
-                    msg.attach_alternative(content, "text/html")
-                    msg.send(fail_silently=True)
-
-                messages.success(request, 'Successfuly created new account.')
-
-                return HttpResponseRedirect(reverse('control_people')) 
-            except IntegrityError:
-                messages.warning(request, _('Unknown error while creating new account.'))
-                
-    else:
-        frm = NewPersonForm()
-
-    return render_to_response('booktypecontrol/add_person.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm
-                               },
-                              context_instance=RequestContext(request))
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def books(request):
-    books = models.Book.objects.all().order_by("title")
-
-    return render_to_response('booktypecontrol/books.html', 
-                              {"request": request,
-                               "books": books,
-                               "admin_options": ADMIN_OPTIONS
-                               },
-                              context_instance=RequestContext(request))
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def view_book(request, bookid):
-    from booki.utils import misc
-
-    try:
-        book = models.Book.objects.get(url_title__iexact=bookid)
-    except models.Book.DoesNotExist:
-        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
-
-    book_version = book.get_version(None)
-
-    # this only shows info for latest version
-    book_history =  models.BookHistory.objects.filter(version = book_version).order_by("-modified")[:20]
-    book_collaborators =  [e.values()[0] for e in models.BookHistory.objects.filter(version = book_version, kind = 2).values("user__username").distinct()]
-
-    from booki.utils import security
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
-    isBookAdmin = bookSecurity.isAdmin()
-
-    import sputnik
-    channel_name = "/booki/book/%s/%s/" % (book.id, book_version.get_version())
-    online_users = sputnik.smembers("sputnik:channel:%s:users" % channel_name)
-
-    book_versions = models.BookVersion.objects.filter(book=book).order_by("created")
-
-    from django.utils.html import escape
-    bookDescription = escape(book.description)
-
-    attachmentDirectory = '%s/books/%s' % (settings.DATA_ROOT, book.url_title)
-    attachmentsSize = misc.getDirectorySize(attachmentDirectory)
-
-
-    return render_to_response('booktypecontrol/book.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "book": book,
-                               "book_version": book_version.get_version(),
-                               "book_versions": book_versions,
-                               "book_history": book_history, 
-                               "book_collaborators": book_collaborators,
-                               "is_book_admin": isBookAdmin,
-                               "online_users": online_users,
-                               "book_description": '<br/>'.join(bookDescription.replace('\r','').split('\n')),
-                               "attachments_size": attachmentsSize
-                               },
-                              context_instance=RequestContext(request)
-                              )
-
-
-from django.contrib.auth.models import User
-
-class DeleteBookForm(forms.Form):
-    title = forms.CharField(label=_("Title"), 
-                            error_messages={'required': _('Title is required.')},                                 
-                            required=True, 
-                            max_length=100)
-    def __unicode__(self):
-        return self.title
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def delete_book(request, bookid):
-    from booki.utils import misc
-
-    try:
-        book = models.Book.objects.get(url_title__iexact=bookid)
-    except models.Book.DoesNotExist:
-        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
-
-
-    if request.method == 'POST': 
-        frm = DeleteBookForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_book', args=[book.url_title]))
-
-        if frm.is_valid(): 
-            try:
-                if frm.cleaned_data['title'].upper() == book.title.upper():
-                    from booki.utils.book import removeBook
-
-                    removeBook(book)
-
-                    messages.success(request, _('Successfuly deleted the book'))
-
-                    return HttpResponseRedirect(reverse('control_books')) 
-                else:
-                    messages.warning(request, _('Wrong title.'))
-            except:
-                messages.warning(request, _('Unknown error while deleting the book'))
-
-    else:
-        frm = DeleteBookForm()
-
-    return render_to_response('booktypecontrol/delete_book.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm,
-                               "book": book
-                               },
-                              context_instance=RequestContext(request))
-
-
-from django.contrib.auth.models import User
-
-class NewBookForm(forms.Form):
-    title = forms.CharField(label=_("Title"), 
-                            error_messages={'required': _('Title is required.')},                                 
-                            required=True, 
-                            max_length=100)
-    description = forms.CharField(label=_('Description'),
-                                  required=False, 
-                                  widget=forms.Textarea)
-    owner = forms.ModelChoiceField(label=_('Owner'),
-                                   error_messages={'required': _('Book owner is required.')},                                 
-                                   queryset=User.objects.all().order_by("username"), 
-                                   required=True)
-    license = forms.ModelChoiceField(label=_('License'),
-                                     queryset=models.License.objects.all().order_by("name"), 
-                                     error_messages={'required': _('License is required.')},                                 
-                                     required=True)
-    is_hidden = forms.BooleanField(label=_('Initially hide from others'), 
-                                   required=False)
-    cover = forms.ImageField(label=_('Cover image'),
-                             required=False)
-
-    def clean_title(self):
-        from booki.utils.book import checkBookAvailability
-
-        if not checkBookAvailability(self.cleaned_data['title']):
-            raise forms.ValidationError(_("This Book already exists."))
-
-        return self.cleaned_data['title']
-
-
-    def __unicode__(self):
-        return self.username
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def add_book(request):
-    from booki.utils.book import createBook
-
-    if request.method == 'POST': 
-        frm = NewBookForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_books')) 
-
-        if frm.is_valid(): 
-            try:
-                book = createBook(frm.cleaned_data['owner'], frm.cleaned_data['title'])
-                book.license = frm.cleaned_data['license']
-                book.description = frm.cleaned_data['description']
-                book.is_hidden = frm.cleaned_data['is_hidden']
-                book.save()
-
-                if request.FILES.has_key('cover'):
-                    from booki.utils import misc
-                    import os
-
-                    try:
-                        fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
-
-                        book.set_cover(fname)
-                        os.unlink(fname)
-                    except:
-                        pass
-                    
-                book.save()
-
-                messages.success(request, _('Successfuly created new book.'))
-
-                return HttpResponseRedirect(reverse('control_books')) 
-            except:
-                messages.warning(request, _('Unknown error while creating new book.'))
-
-    else:
-        frm = NewBookForm()
-
-    return render_to_response('booktypecontrol/add_book.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm
-                               },
-                              context_instance=RequestContext(request))
-
-
-class BookForm(forms.Form):
-    description = forms.CharField(label=_('Description'),
-                                  required=False, 
-                                  widget=forms.Textarea)
-    owner = forms.ModelChoiceField(label=_('Owner'),
-                                   error_messages={'required': _('Owner is required.')},                                 
-                                   queryset=User.objects.all().order_by("username"), 
-                                   required=True)
-    license = forms.ModelChoiceField(label=_('License'),
-                                     error_messages={'required': _('License is required.')},                                 
-                                     queryset=models.License.objects.all().order_by("name"), 
-                                     required=True)
-    is_hidden = forms.BooleanField(label=_('Initially hide from others'), 
-                                   required=False)
-    cover = forms.ImageField(label=_('Cover image'),
-                             required=False)
-
-    def clean_title(self):
-        from booki.utils.book import checkBookAvailability
-
-        if not checkBookAvailability(self.cleaned_data['title']):
-            raise forms.ValidationError(_("This Book already exists."))
-
-        return self.cleaned_data['title']
-
-
-    def __unicode__(self):
-        return self.username
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def edit_book(request, bookid):
-
-    try:
-        book = models.Book.objects.get(url_title__iexact=bookid)
-    except models.Book.DoesNotExist:
-        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
-
-    book_version = book.get_version(None)
-
-    if request.method == 'POST': 
-        frm = BookForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_book', args=[book.url_title])) 
-
-        if frm.is_valid(): 
-            try:
-                book.license = frm.cleaned_data['license']
-                book.description = frm.cleaned_data['description']
-                book.hidden = frm.cleaned_data['is_hidden']
-                book.save()
-
-                if request.FILES.has_key('cover'):
-                    from booki.utils import misc
-                    import os
-
-                    try:
-                        fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
-                        book.set_cover(fname)
-                        os.unlink(fname)
-                    except:
-                        pass
-                    
-                book.save()
-
-                messages.success(request, _('Successfuly saved changes.'))
-
-                return HttpResponseRedirect(reverse('control_book', args=[book.url_title])) 
-            except:
-                messages.warning(request, _('Unknown error while saving changes.'))
-
-    else:
-        data = {'description': book.description,
-                'cover': book.cover}
-
-        if book.owner:
-            data['owner'] = book.owner.id
-        if book.license:
-            data['license'] = book.license.id
-        if book.hidden:
-            data['is_hidden'] = True
-        
-        frm = BookForm(initial=data)
-
-    return render_to_response('booktypecontrol/edit_book.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm,
-                               "book": book
-                               },
-                              context_instance=RequestContext(request))
-
-
-class BookRenameForm(forms.Form):
-    title = forms.CharField(label=_("Title"), 
-                            required=True, 
-                            error_messages={'required': _('Title is required.')},                                 
-                            max_length=200)
-    url_title = forms.CharField(label=_("URL title"), 
-                                required=False, 
-                                max_length=200, 
-                                validators=[RegexValidator(r"^[\w\s\_\.\-\d]+$", message=_("Illegal characters in URL title."))],
-                                help_text=_("If you leave this field empty URL title will be assigned automatically."))
-
-    def __unicode__(self):
-        return self.username
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def rename_book(request, bookid):
-
-    try:
-        book = models.Book.objects.get(url_title__iexact=bookid)
-    except models.Book.DoesNotExist:
-        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
-
-    book_version = book.get_version(None)
-
-    if request.method == 'POST': 
-        frm = BookRenameForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_book', args=[book.url_title]))
-
-        if frm.is_valid(): 
-            from booki.utils.book import renameBook
-            from booki.utils.misc import bookiSlugify
-
-            title =  frm.cleaned_data['title']
-            URLTitle = frm.cleaned_data['url_title']
-
-            if URLTitle.strip() == '':
-                URLTitle = bookiSlugify(title)
-
-            # this is not the nice way to solve this
-            if book.url_title != URLTitle:
-                try:
-                    b = models.Book.objects.get(url_title__iexact=URLTitle)
-                except models.Book.DoesNotExist:
-                    renameBook(book, title, URLTitle)
-                    book.save()
-
-                    messages.success(request, _('Successfuly renamed book.'))
-
-                    return HttpResponseRedirect(reverse('control_book', args=[book.url_title]))
-            else:
-                    renameBook(book, title, URLTitle)
-                    book.save()
-
-                    messages.success(request, _('Successfuly renamed book.'))
-
-                    return HttpResponseRedirect(reverse('control_book', args=[book.url_title]))
-
-
-    else:
-        frm = BookRenameForm(initial={'title': book.title, 'url_title': book.url_title})
-
-    return render_to_response('booktypecontrol/rename_book.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm,
-                               "book": book
-                               },
-                              context_instance=RequestContext(request))
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def viewsettings(request):
-    return render_to_response('booktypecontrol/settings.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS                               
-                               },
-                              context_instance=RequestContext(request))
-
-@user_passes_test(lambda u: u.is_superuser)
-def settings_description(request):
-    if request.method == 'POST': 
-        frm = SiteDescriptionForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_settings')) 
-
-        if frm.is_valid(): 
-            from booktype.utils import config
-
-            config.set_configuration('BOOKTYPE_SITE_NAME', frm.cleaned_data['title'])
-            config.set_configuration('BOOKTYPE_SITE_TAGLINE', frm.cleaned_data['tagline'])
-
-            if request.FILES.has_key('favicon'):
-                from booki.utils import misc
-                import shutil
-
-                # just check for any kind of silly error
-                try:
-                    fh, fname = misc.saveUploadedAsFile(request.FILES['favicon'])
-                    shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
-
-                    config.set_configuration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
-                except:
-                    pass
-
-            try:
-                config.save_configuration()
-                messages.success(request, _('Successfuly saved settings.'))
-            except config.ConfigurationError:
-                messages.warning(request, _('Unknown error while saving changes.'))
-
-            return HttpResponseRedirect(reverse('control_settings'))             
-    else:
-        frm = SiteDescriptionForm(initial={'title': config.get_configuration('BOOKTYPE_SITE_NAME'),
-                                           'tagline': config.get_configuration('BOOKTYPE_SITE_TAGLINE')})
-
-
-    return render_to_response('booktypecontrol/settings_description.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm                               
-                               },
-                              context_instance=RequestContext(request))
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -929,38 +354,6 @@ def settings_book_create(request):
                               {"request": request,
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm                               
-                               },
-                              context_instance=RequestContext(request))
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def settings_license(request):
-    if request.method == 'POST': 
-        frm = LicenseForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_settings')) 
-
-        if frm.is_valid(): 
-            from booktype.utils import config
-
-            license = models.License(abbrevation = frm.cleaned_data['abbrevation'],
-                                     name = frm.cleaned_data['name'])
-            license.save()
-
-            messages.success(request, _('Successfuly created new license.'))
-
-            return HttpResponseRedirect(reverse('control_settings_license'))             
-    else:
-        frm = LicenseForm()
-
-    licenses = models.License.objects.all().order_by("name")
-
-    return render_to_response('booktypecontrol/settings_license.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm,
-                               "licenses": licenses
                                },
                               context_instance=RequestContext(request))
 
@@ -1222,61 +615,3 @@ def settings_publishing_defaults(request):
                                "admin_options": ADMIN_OPTIONS,
                                "form": frm
                                })
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def settings_frontpage(request):
-    from booktype.utils import config
-
-
-    staticRoot = settings.BOOKTYPE_ROOT
-
-    if request.method == 'POST': 
-        frm = FrontpageForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_settings')) 
-
-        if frm.is_valid(): 
-            config.set_configuration('BOOKTYPE_FRONTPAGE_HISTORY', frm.cleaned_data['show_changes'])
-
-            import os.path, os
-
-            if not os.path.exists('%s/templates/portal/' % staticRoot):
-                os.makedirs('%s/templates/portal/' % staticRoot)
-
-            try:
-                f = open('%s/templates/portal/welcome_message.html' % staticRoot, 'w')
-                
-                textData = frm.cleaned_data['description'] 
-                textData = textData.replace('{%', '').replace('%}', '').replace('{{', '').replace('}}', '')
-
-                f.write(textData.encode('utf8'))
-                f.close()
-
-                messages.success(request, _('Successfuly saved changes.'))
-
-                config.save_configuration()
-            except IOError:
-                messages.warning(request, _('Error while saving changes'))
-            except config.ConfigurationError:
-                messages.warning(request, _('Unknown error while saving changes.'))
-
-            return HttpResponseRedirect(reverse('control_settings'))             
-    else:
-        try:
-            f = open('%s/templates/portal/welcome_message.html' % staticRoot, 'r')
-            textContent = unicode(f.read(), 'utf8')
-            f.close()
-        except IOError:
-            textContent = ''
-
-        frm = FrontpageForm(initial = {'show_changes': config.get_configuration('BOOKTYPE_FRONTPAGE_HISTORY', True),
-                                       'description': textContent})
-
-    return render_to_response('booktypecontrol/settings_frontpage.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm
-                               })
-

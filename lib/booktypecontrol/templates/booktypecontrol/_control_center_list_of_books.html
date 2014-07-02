@@ -1,0 +1,31 @@
+{% extends "booktypecontrol/_control_center_settings.html" %}
+{% load i18n staticfiles %}
+
+{% block control_content %}
+    {# this below one is needed for dashboard_book_template.html #}
+    <script type="text/javascript" src="{% static 'reader/js/infopage.js' %}"></script>
+    <div>
+        <h4 class="border-bottom">
+            {{ option_name }}
+            <div class="btn-toolbar float-right">
+                <button data-href="#add-book" role="button" class="btn btn-default float-right btn-group" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Add new book' as create_text %} {{ create_text }}">{{ create_text|upper }}</button>
+
+                <div class="btn-group float-right">
+                    <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show grid' %}"><i class="icon-th"></i></button>
+                    <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show List' %}"><i class="icon-list-ul"></i></button>
+                </div>
+            </div>
+        </h4>
+
+        <div class="book-thumb" id="books-prew">
+        {% url 'control_center:settings' as next %}
+        {% with next|add:"?redirect=list-of-books" as next %}
+            {% for book in books %}
+            {% include "account/dashboard_book_template.html" %}
+            {% endfor %}
+        {% endwith %}
+        </div>
+        <div id="bookThumbModal" class="modal fade bookInfoModal cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
+        </div>
+    </div>
+{% endblock %}

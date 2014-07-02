@@ -4,7 +4,7 @@
   <h4 class="border-bottom">
     {{ option_name }} {% block extra_title %}{% endblock %}
   </h4>
-  <form enctype="multipart/form-data" action="." method="POST">
+  <form enctype="multipart/form-data" action="." method="POST" class="form-inline-select">
     {% csrf_token %}
     <input type="hidden" name="option" value="{{ option }}">
     <ul class="list">

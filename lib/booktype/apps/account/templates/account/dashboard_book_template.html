@@ -1,4 +1,5 @@
 {% load staticfiles i18n %}
+
 <div class="grid-4">
     <figure class="custom-cover">
         {% if book.cover %}
@@ -11,18 +12,34 @@
         <h4>
             <a href="{% url 'reader:infopage' book.url_title %}">{{ book.title }}</a>
         </h4>
-        <div class="btn-group float-right">
-            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Edit Book' %}" data-toggle="modal" href="{% url 'edit:editor' book.url_title %}">
+        <div class="btn-group float-right book-btns">
+            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Edit Book' %}" href="{% url 'edit:editor' book.url_title %}">
                 <i class="icon-pencil"></i>
             </a>
             <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'View Book' %}" href="{% url 'reader:infopage' book.url_title %}" target="_blank">
                 <i class="icon-eye-open"></i>
             </a>
-            {% if request.user == book.owner %}
-            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Delete Book' %}">
+            {% if request.user == book.owner or request.user.is_superuser %}
+            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Delete Book' %}" data-remote="{% url 'reader:delete_book' book.url_title %}?next={{ next }}" data-toggle="modal" data-target="#bookThumbModal">
                 <i class="icon-trash"></i>
             </a>
             {% endif %}
         </div>
+        {% if user.is_superuser %}
+        <div class="btn-group control_center_btns pull-right">
+            <button data-href="{% url 'reader:infopage' book.url_title %}" type="button" class="btn btn-default btn-sm">
+                {% trans "View" %}
+            </button>
+            <button type="button" class="btn btn-default btn-sm" data-remote="{% url 'reader:edit_info_book' book.url_title %}?next={{ next }}" data-toggle="modal" data-target="#bookThumbModal">
+                {% trans "Edit" %}
+            </button>
+            <button data-href="{% url 'control_center:rename_book' book.url_title %}" type="button" class="btn btn-default btn-sm">
+                {% trans "Rename" %}
+            </button>
+            <button type="button" class="btn btn-default btn-sm" data-remote="{% url 'reader:delete_book' book.url_title %}?next={{ next }}" data-toggle="modal" data-target="#bookThumbModal">
+                {% trans "Delete" %}
+            </button>
+        </div>
+        {% endif %}
     </div>
 </div>

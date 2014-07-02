@@ -9,12 +9,12 @@
                 <figure><img src="{% url "view_profilethumbnail" person %}?width=200" alt=""></figure>
                 <div class="list-info">
                     <h4>
-                        <a data-remote="{% url 'control_person_info' person.username %}" data-toggle="modal" data-target="#personInfoModal" href="#">{{ person.username }}</a>
+                        <a data-remote="{% url 'control_center:person_info' person.username %}" data-toggle="modal" data-target="#personInfoModal" href="#">{{ person.username }}</a>
                         <div class="action-btns pull-right hide">
-                            <button class="btn btn-default" data-href="{% url 'control_password_change' person.username %}">
+                            <button class="btn btn-default" data-href="{% url 'control_center:password_change' person.username %}">
                                 {% trans "Change password" %}
                             </button>
-                            <button class="btn btn-default" data-href="{% url 'control_person_edit' person.username %}">
+                            <button class="btn btn-default" data-href="{% url 'control_center:person_edit' person.username %}">
                                 {% trans "Edit Info" %}
                             </button>
                         </div>
@@ -25,5 +25,5 @@
         {% endfor %}
     </ul>
 
-    <div id="personInfoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+    <div id="personInfoModal" class="modal fade cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 {% endblock %}

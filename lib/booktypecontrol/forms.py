@@ -9,8 +9,10 @@ from django.core.validators import RegexValidator, MinLengthValidator
 
 from booktype.apps.core.forms import BaseBooktypeForm
 from booktype.utils import config
+
 from booki.utils import misc
-from booki.editor.models import License
+from booki.editor.models import License, Book
+from booki.utils.book import createBook, renameBook, checkBookAvailability
 
 class BaseControlForm(BaseBooktypeForm):
     """
@@ -315,7 +317,7 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
             required=False
         )
 
-    success_message = _('Successfuly created new account.')
+    success_message = _('Successfully created new account.')
 
     class Meta:
         model = User
@@ -359,9 +361,11 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
             from django import template
 
             t = template.loader.get_template('booktypecontrol/new_person_email.html')
-            content = t.render(template.Context({"username": self.cleaned_data['username'],
-                                                 "password": self.cleaned_data['password2'],
-                                                 "server":   settings.BOOKTYPE_URL}))
+            content = t.render(template.Context({
+                "username": self.cleaned_data['username'],
+                "password": self.cleaned_data['password2'],
+                "server":   settings.BOOKTYPE_URL
+            }))
 
             from django.core.mail import EmailMultiAlternatives
             emails = [self.cleaned_data['email']]
@@ -446,8 +450,8 @@ class PasswordForm(BaseControlForm, forms.Form):
         )
 
     def __init__(self, user, *args, **kwargs):
-            self.user = user
-            super(PasswordForm, self).__init__(*args, **kwargs)
+        self.user = user
+        super(PasswordForm, self).__init__(*args, **kwargs)
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -463,3 +467,109 @@ class PasswordForm(BaseControlForm, forms.Form):
         if commit:
             self.user.save()
         return self.user
+
+
+class AddBookForm(BaseControlForm, forms.Form):
+    title = forms.CharField(
+            label=_("Title"), 
+            error_messages={'required': _('Title is required.')},                                 
+            required=True, 
+            max_length=100
+        )
+    description = forms.CharField(
+            label=_('Description'),
+            required=False, 
+            widget=forms.Textarea
+        )
+    owner = forms.ModelChoiceField(
+            label=_('Owner'),
+            error_messages={'required': _('Book owner is required.')},                                 
+            queryset=User.objects.all().order_by("username"), 
+            required=True
+        )
+    license = forms.ModelChoiceField(
+            label=_('License'),
+            queryset=License.objects.all().order_by("name"), 
+            error_messages={'required': _('License is required.')},                                 
+            required=True
+        )
+    is_hidden = forms.BooleanField(
+            label=_('Initially hide from others'), 
+            required=False
+        )
+    cover = forms.ImageField(
+            label=_('Book image'),
+            required=False
+        )
+
+    success_message = _('Successfully created new book.')
+
+    def clean_title(self):
+        if not checkBookAvailability(self.cleaned_data['title']):
+            raise forms.ValidationError(_("This Book already exists."))
+        return self.cleaned_data['title']
+
+    def save_settings(self):
+        book = createBook(self.cleaned_data['owner'], self.cleaned_data['title'])
+        book.license = self.cleaned_data['license']
+        book.description = self.cleaned_data['description']
+        book.hidden = self.cleaned_data['is_hidden']
+        book.save()
+
+        if self.files.has_key('cover'):
+            try:
+                fh, fname = misc.saveUploadedAsFile(self.files['cover'])
+                book.set_cover(fname)
+                os.unlink(fname)
+            except:
+                pass
+            
+        book.save()
+
+        return book
+
+class ListOfBooksForm(BaseControlForm, forms.Form):
+    pass
+
+    @classmethod
+    def extra_context(cls):
+        return {
+            'books': Book.objects.all().order_by("title")
+        }
+
+class BookRenameForm(BaseControlForm, forms.ModelForm):
+    title = forms.CharField(
+            label=_("Title"), 
+            required=True, 
+            error_messages={'required': _('Title is required.')},                                 
+            max_length=200
+        )
+    url_title = forms.SlugField(
+            label=_("URL title"), 
+            required=False, 
+            max_length=200, 
+            error_messages={'invalid': _("Illegal characters in URL title.")},
+            help_text=_("If you leave this field empty URL title will be assigned automatically.")
+        )
+
+    class Meta:
+        model = Book
+        exclude = [
+            'status', 'language',
+            'version', 'group',
+            'created', 'published',
+            'permission', 'cover',
+            'description', 'hidden',
+            'owner', 'license'
+        ]
+        fields = ['title', 'url_title']
+
+    def save(self, *args, **kwargs):
+        renameBook(self.instance, self.cleaned_data['title'], self.cleaned_data['url_title'])
+        return super(BookRenameForm, self).save(*args, **kwargs)
+
+    def clean_url_title(self):
+        url_title = self.cleaned_data['url_title']
+        if not url_title:
+            return misc.bookiSlugify(self.cleaned_data['title'])
+        return url_title

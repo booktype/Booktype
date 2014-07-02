@@ -7,6 +7,8 @@
     var createBookUrl = "{% url 'accounts:create_book' current_user.username %}";
 </script>
 <script type="text/javascript" src="{% static 'account/js/dashboard.js' %}"></script>
+{# this below one is needed for dashboard_book_template.html #}
+<script type="text/javascript" src="{% static 'reader/js/infopage.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -29,7 +31,7 @@
             </div>
             {% endfor %}
 
-            <div class="box gray">                
+            <div class="box gray">
                 <h2 class="box-title-alter">
                     {% if current_user == request.user %}
                         {% trans "My Books" %}
@@ -55,7 +57,7 @@
                             <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show List' %}"><i class="icon-list-ul"></i></button>
                         </div>
 
-                        {% include "account/dashboard_create_book_modal.html" %}                        
+                        {% include "account/dashboard_create_book_modal.html" %}
                     </div>
                 </h2>
 
@@ -66,7 +68,7 @@
                 </div> <!-- End of book list (book-thumb or book-list) -->
                 
                 {% if books_collaborating %}
-                <h4>{% trans "Participating Books" %}</h4>                
+                <h4>{% trans "Participating Books" %}</h4>
 
                 <div class="book-thumb" id="books-prew-2"> <!-- For list view add white-list class, and remove book-thumb -->
                     {% for book in books_collaborating %}
@@ -74,6 +76,9 @@
                     {% endfor %}
                 </div>
                 {% endif %}
+
+                <div id="bookThumbModal" class="modal fade bookInfoModal cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
+                </div>
 
             </div>
 
@@ -162,7 +167,7 @@
 
             {% if current_user != request.user %}
             <div class="box white">
-                <h2 class="box-title">{% trans "Groups" %}</h2>                
+                <h2 class="box-title">{% trans "Groups" %}</h2>
                 <ul class="list">
                     {% for group in groups %}
                     {% include "account/dashboard_group_template.html" %}

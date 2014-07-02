@@ -8,7 +8,7 @@
 	        <ul class="dropdown-menu pull-right">
 	          <li><a href="{% url "accounts:view_profile" request.user.username %}" target="_blank"><i class="icon-user"></i>{% trans "Profile" %}</a></li>          
 	          {% if request.user.is_superuser %}
-	             <li><a href="{% url "control_frontpage" %}" target="_blank"><i class="icon-gears"></i>{% trans "Control Center" %}</a></li>
+	             <li><a href="{% url "control_center:frontpage" %}" target="_blank"><i class="icon-gears"></i>{% trans "Control Center" %}</a></li>
 	          {% endif %}
 	          <li class="divider"></li>
 	          <li><a href="{% url "accounts:signout" %}"><i class="icon-signout"></i>{% trans "Logout" %}</a></li>

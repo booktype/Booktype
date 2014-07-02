@@ -11,5 +11,4 @@ class BaseBooktypeForm(object):
 
         for field in self.fields.values():
             css_class = field.widget.attrs.get('class', '')
-            if not isinstance(field.widget, widgets.CheckboxInput):
-                field.widget.attrs['class'] = '%s form-control' % css_class
+            field.widget.attrs['class'] = '%s form-control' % css_class

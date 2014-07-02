@@ -34,8 +34,7 @@ urlpatterns = patterns(
     url(r'^accounts/', include('booktype.apps.account.urls', namespace="accounts")),
 
     # booktype control center
-    # TODO: Add namespace
-    url(r'^_control/', include('booktypecontrol.urls')),
+    url(r'^_control/', include('booktypecontrol.urls', namespace="control_center")),
 
     # convert
     # TODO: Add namespace

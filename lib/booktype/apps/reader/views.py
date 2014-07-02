@@ -18,6 +18,7 @@ import os
 
 from django.views import static
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
@@ -31,6 +32,8 @@ from booki.utils.book import removeBook
 from booktype.apps.core.views import BasePageView
 from booki.editor.models import Book, BookHistory, BookToc, Chapter
 
+from .forms import EditBookInfoForm
+
 class BaseReaderView(object):
     """
     Base Reader View Class with the common attributes
@@ -40,6 +43,7 @@ class BaseReaderView(object):
     slug_field = 'url_title'
     slug_url_kwarg = 'bookid'
     context_object_name = 'book'
+
 
 class InfoPageView(BaseReaderView, BasePageView, DetailView):
     template_name = "reader/book_info_page.html"
@@ -61,33 +65,48 @@ class InfoPageView(BaseReaderView, BasePageView, DetailView):
 
         return context
 
-class EditBookInfoView(LoginRequiredMixin, BaseReaderView, UpdateView):
+
+class GenericRedirectView(object):
+    """
+    Just adds a next attribute to be used as redirect value
+    after post action
+    """
+
+    def dispatch(self, request, *args, **kwargs):
+        self.next = request.REQUEST.get('next', None)
+        return super(GenericRedirectView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(GenericRedirectView, self).get_context_data(**kwargs)
+        context['next'] = self.next
+        return context
+
+
+class EditBookInfoView(GenericRedirectView, LoginRequiredMixin, BaseReaderView, UpdateView):
     template_name = "reader/book_info_edit.html"
+    form_class = EditBookInfoForm
+    context_object_name = 'book'
 
-    def post(self, *args, **kwargs):
-        request = self.request
-        book = self.object = self.get_object()
-        book.description = request.POST.get('description', '')
+    def get_form(self, form_class):
+        return form_class(user=self.request.user, **self.get_form_kwargs())
 
-        if request.FILES.has_key('cover'):
+    def form_valid(self, form):
+        self.object = form.save()
+
+        if form.files.has_key('cover'):
             try:
-                fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
-                book.setCover(fname)
+                fh, fname = misc.saveUploadedAsFile(form.files['cover'])
+                self.object.setCover(fname)
                 os.unlink(fname)
             except:
                 pass
 
-        try:
-            book.save()
-            self.template_name = "reader/book_info_edit_redirect.html"
-        except Exception, e:
-            raise e
+        messages.success(self.request, _('Successfully changed book info.'))
+        self.template_name = "reader/book_info_edit_redirect.html"
+        return self.render_to_response(context=self.get_context_data())
 
-        return self.render_to_response({
-            'book': book
-        })
 
-class DeleteBookView(LoginRequiredMixin, BaseReaderView, DeleteView):
+class DeleteBookView(GenericRedirectView, LoginRequiredMixin, BaseReaderView, DeleteView):
     template_name = "reader/book_delete.html"
 
     def post(self, *args, **kwargs):
@@ -101,12 +120,11 @@ class DeleteBookView(LoginRequiredMixin, BaseReaderView, DeleteView):
             if book_security.isAdmin() and title.strip() == book.title.strip():
                 removeBook(book)
                 self.template_name = "reader/book_delete_redirect.html"
+                messages.success(request, _('Book successfully deleted.'))
         except Exception, e:
             raise e
 
-        return self.render_to_response({
-            'request': request
-        })
+        return self.render_to_response(context=self.get_context_data())
 
 class DraftChapterView(BaseReaderView, BasePageView, DetailView):
     template_name = "reader/book_draft_page.html"

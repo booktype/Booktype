@@ -4,7 +4,12 @@
 <script>
 {% if book %}
   setTimeout(function() {
-       parent.window.location = '{% url "reader:infopage" book.url_title %}';
+       {% if next %}
+           parent.window.location = '{{ next }}';
+           parent.window.reload();
+       {% else %}
+           parent.window.location = '{% url "reader:infopage" book.url_title %}';
+       {% endif %}
   }, 500);
 {% endif %}
 </script>
