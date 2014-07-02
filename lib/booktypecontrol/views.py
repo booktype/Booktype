@@ -43,7 +43,7 @@ from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 from booki.editor import models
 from booktype.apps.core import views
 from booktype.utils import config
-from booki.utils import misc
+from booktype.utils import misc
 from booki.editor.models import Book, BookiGroup, BookHistory
 
 from booktype.apps.core.views import BasePageView
@@ -98,7 +98,7 @@ class ControlCenterView(BaseCCView, TemplateView):
     def get_stats(self):
         # This should not be here in the future. It takes way too much time.
         attachment_directory = '%s/books/' % (settings.DATA_ROOT, )
-        attachments_size = misc.getDirectorySize(attachment_directory)
+        attachments_size = misc.get_directory_size(attachment_directory)
 
         # check the database size        
         cursor = connection.cursor()
@@ -252,7 +252,7 @@ class EditPersonInfo(BaseCCView, UpdateView):
         self.object.get_profile().save()
 
         if form.files.has_key('profile'):
-            misc.setProfileImage(self.object, form.files['profile'])
+            misc.set_profile_image(self.object, form.files['profile'])
 
         messages.success(self.request, _('Successfully saved changes.'))
 
@@ -351,9 +351,9 @@ def edit_profile(request, username):
             person.get_profile().save()
 
             if request.FILES.has_key('profile'):
-                from booki.utils import misc
+                from booktype.utils import misc
 
-                misc.setProfileImage(person, request.FILES['profile'])
+                misc.set_profile_image(person, request.FILES['profile'])
 
             messages.success(request, _('Successfuly saved changes.'))
             return HttpResponseRedirect(reverse('control_profile', args=[person.username])) 
@@ -477,7 +477,7 @@ def books(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def view_book(request, bookid):
-    from booki.utils import misc
+    from booktype.utils import misc
 
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
@@ -504,7 +504,7 @@ def view_book(request, bookid):
     bookDescription = escape(book.description)
 
     attachmentDirectory = '%s/books/%s' % (settings.DATA_ROOT, book.url_title)
-    attachmentsSize = misc.getDirectorySize(attachmentDirectory)
+    attachmentsSize = misc.get_directory_size(attachmentDirectory)
 
 
     return render_to_response('booktypecontrol/book.html', 
@@ -537,7 +537,7 @@ class DeleteBookForm(forms.Form):
 
 @user_passes_test(lambda u: u.is_superuser)
 def delete_book(request, bookid):
-    from booki.utils import misc
+    from booktype.utils import misc
 
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
@@ -633,11 +633,11 @@ def add_book(request):
                 book.save()
 
                 if request.FILES.has_key('cover'):
-                    from booki.utils import misc
+                    from booktype.utils import misc
                     import os
 
                     try:
-                        fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
+                        fh, fname = misc.save_uploaded_as_file(request.FILES['cover'])
 
                         book.set_cover(fname)
                         os.unlink(fname)
@@ -717,11 +717,11 @@ def edit_book(request, bookid):
                 book.save()
 
                 if request.FILES.has_key('cover'):
-                    from booki.utils import misc
+                    from booktype.utils import misc
                     import os
 
                     try:
-                        fh, fname = misc.saveUploadedAsFile(request.FILES['cover'])
+                        fh, fname = misc.save_uploaded_as_file(request.FILES['cover'])
                         book.set_cover(fname)
                         os.unlink(fname)
                     except:
@@ -790,13 +790,13 @@ def rename_book(request, bookid):
 
         if frm.is_valid(): 
             from booki.utils.book import renameBook
-            from booki.utils.misc import bookiSlugify
+            from booktype.utils.misc import booktype_slugify
 
             title =  frm.cleaned_data['title']
             URLTitle = frm.cleaned_data['url_title']
 
             if URLTitle.strip() == '':
-                URLTitle = bookiSlugify(title)
+                URLTitle = booktype_slugify(title)
 
             # this is not the nice way to solve this
             if book.url_title != URLTitle:
@@ -853,12 +853,12 @@ def settings_description(request):
             config.set_configuration('BOOKTYPE_SITE_TAGLINE', frm.cleaned_data['tagline'])
 
             if request.FILES.has_key('favicon'):
-                from booki.utils import misc
+                from booktype.utils import misc
                 import shutil
 
                 # just check for any kind of silly error
                 try:
-                    fh, fname = misc.saveUploadedAsFile(request.FILES['favicon'])
+                    fh, fname = misc.save_uploaded_as_file(request.FILES['favicon'])
                     shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
 
                     config.set_configuration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)

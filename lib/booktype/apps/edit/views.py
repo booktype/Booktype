@@ -43,7 +43,7 @@ def upload_attachment(request, bookid, version=None):
     import datetime
     import os.path
 
-    from booki.utils.misc import bookiSlugify
+    from booktype.utils.misc import booktype_slugify
 
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
@@ -67,7 +67,7 @@ def upload_attachment(request, bookid, version=None):
         att.save()
 
         attName, attExt = os.path.splitext(fileData.name)
-        att.attachment.save('{}{}'.format(bookiSlugify(attName), attExt), fileData, save = False)
+        att.attachment.save('{}{}'.format(booktype_slugify(attName), attExt), fileData, save = False)
         att.save()
 
         # TODO:
