@@ -10,7 +10,7 @@ from django.core.validators import RegexValidator, MinLengthValidator
 from booktype.apps.core.forms import BaseBooktypeForm
 from booktype.utils import config
 
-from booki.utils import misc
+from booktype.utils import misc
 from booki.editor.models import License, Book
 from booki.utils.book import createBook, renameBook, checkBookAvailability
 
@@ -63,7 +63,7 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
         if self.files.has_key('favicon'):
             # just check for any kind of silly error
             try:
-                fh, fname = misc.saveUploadedAsFile(self.files['favicon'])
+                fh, fname = misc.save_uploaded_as_file(self.files['favicon'])
                 shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
 
                 config.set_configuration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
@@ -518,7 +518,7 @@ class AddBookForm(BaseControlForm, forms.Form):
 
         if self.files.has_key('cover'):
             try:
-                fh, fname = misc.saveUploadedAsFile(self.files['cover'])
+                fh, fname = misc.save_uploaded_as_file(self.files['cover'])
                 book.set_cover(fname)
                 os.unlink(fname)
             except:
@@ -571,5 +571,5 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
     def clean_url_title(self):
         url_title = self.cleaned_data['url_title']
         if not url_title:
-            return misc.bookiSlugify(self.cleaned_data['title'])
+            return misc.booktype_slugify(self.cleaned_data['title'])
         return url_title

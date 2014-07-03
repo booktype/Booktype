@@ -27,7 +27,8 @@ from django.views.generic import DetailView, DeleteView, UpdateView
 
 from braces.views import LoginRequiredMixin
 
-from booki.utils import misc, security
+from booki.utils import security
+from booktype.utils import misc
 from booki.utils.book import removeBook
 from booktype.apps.core.views import BasePageView
 from booki.editor.models import Book, BookHistory, BookToc, Chapter
@@ -95,7 +96,7 @@ class EditBookInfoView(GenericRedirectView, LoginRequiredMixin, BaseReaderView, 
 
         if form.files.has_key('cover'):
             try:
-                fh, fname = misc.saveUploadedAsFile(form.files['cover'])
+                fh, fname = misc.save_uploaded_as_file(form.files['cover'])
                 self.object.setCover(fname)
                 os.unlink(fname)
             except:

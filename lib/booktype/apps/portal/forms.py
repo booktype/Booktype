@@ -4,7 +4,7 @@ from django.forms.util import ErrorList
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from booki.utils.misc import bookiSlugify
+from booktype.utils.misc import booktype_slugify
 from booki.editor.models import BookiGroup
 
 from booktype.utils import misc
@@ -44,7 +44,7 @@ class BaseGroupForm(BaseBooktypeForm, forms.ModelForm):
         super(BaseGroupForm, self).__init__(*args, **kwargs)
 
     def clean_name(self):
-        new_url_name = bookiSlugify(self.cleaned_data['name'])
+        new_url_name = booktype_slugify(self.cleaned_data['name'])
         group_data_url_name = BookiGroup.objects.filter(url_name=new_url_name).exclude(pk=self.instance.pk)
 
         if len(group_data_url_name) > 0:

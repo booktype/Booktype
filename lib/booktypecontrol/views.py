@@ -37,7 +37,7 @@ from django.views.generic import TemplateView, FormView, DetailView, UpdateView
 
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
-from booki.utils import misc
+from booktype.utils import misc
 from booki.editor import models
 from booki.editor.models import Book, BookiGroup, BookHistory
 
@@ -94,7 +94,7 @@ class ControlCenterView(BaseCCView, TemplateView):
     def get_stats(self):
         # This should not be here in the future. It takes way too much time.
         attachment_directory = '%s/books/' % (settings.DATA_ROOT, )
-        attachments_size = misc.getDirectorySize(attachment_directory)
+        attachments_size = misc.get_directory_size(attachment_directory)
 
         # check the database size        
         cursor = connection.cursor()
@@ -255,7 +255,7 @@ class EditPersonInfo(BaseCCView, UpdateView):
         self.object.get_profile().save()
 
         if form.files.has_key('profile'):
-            misc.setProfileImage(self.object, form.files['profile'])
+            misc.set_profile_image(self.object, form.files['profile'])
 
         messages.success(self.request, _('Successfully saved changes.'))
 
