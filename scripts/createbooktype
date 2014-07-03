@@ -22,6 +22,7 @@ import os
 import argparse
 import string
 import unipath
+import random
 
 verbose = 0
 
@@ -273,10 +274,15 @@ def create_settings(destination, database):
         raise MajorError("[ERROR] Can't read settings.py.original file.")
 
     booktype_name = "Booktype site"
+    try:
+        secret_key = ''.join([random.SystemRandom().choice("{}{}{}".format(string.ascii_letters, string.digits, '!@#$%^&*(-_+=)')) for i in range(50)])
+    except NotImplementedError:        
+        secret_key = ''.join([random.choice("{}{}{}".format(string.ascii_letters, string.digits, '!@#$%^&*(-_+=)')) for i in range(50)])
 
     vals = {'BOOKTYPE_NAME': booktype_name,
             'BOOKTYPE_SITE_NAME': '%s_site' % project,
-            'BOOKTYPE_ROOT': os.path.abspath(destination)}
+            'BOOKTYPE_ROOT': os.path.abspath(destination),
+            'SECRET_KEY': secret_key}
 
     if database in ['postgresql', 'postgres']:
         vals['DATABASE_ENGINE'] = 'django.db.backends.postgresql_psycopg2'
