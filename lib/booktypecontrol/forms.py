@@ -528,6 +528,7 @@ class AddBookForm(BaseControlForm, forms.Form):
 
         return book
 
+
 class ListOfBooksForm(BaseControlForm, forms.Form):
     pass
 
@@ -536,6 +537,7 @@ class ListOfBooksForm(BaseControlForm, forms.Form):
         return {
             'books': Book.objects.all().order_by("title")
         }
+
 
 class BookRenameForm(BaseControlForm, forms.ModelForm):
     title = forms.CharField(
@@ -573,3 +575,111 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
         if not url_title:
             return misc.bookiSlugify(self.cleaned_data['title'])
         return url_title
+
+
+class PublishingForm(BaseControlForm, forms.Form):
+    publish_book = forms.BooleanField(
+            label=_('book'), 
+            required=False
+        )
+    publish_ebook = forms.BooleanField(
+            label=_('ebook'), 
+            required=False
+        )
+    publish_pdf = forms.BooleanField(
+            label=_('PDF'), 
+            required=False
+        )
+    publish_odt = forms.BooleanField(
+            label=_('ODT'), 
+            required=False
+        )
+
+    @classmethod
+    def initial_data(cls):
+        publish_options = config.get_configuration('PUBLISH_OPTIONS')
+        
+        return {
+            'publish_book': 'book' in publish_options,
+            'publish_ebook': 'ebook' in publish_options,
+            'publish_pdf': 'pdf' in publish_options,
+            'publish_odt': 'odt' in publish_options
+        }
+
+    def save_settings(self):
+        opts = []        
+        if self.cleaned_data['publish_book']: opts.append('book')
+        if self.cleaned_data['publish_ebook']: opts.append('ebook')
+        if self.cleaned_data['publish_pdf']: opts.append('pdf')
+        if self.cleaned_data['publish_odt']: opts.append('odt')
+
+        config.set_configuration('PUBLISH_OPTIONS', opts)
+
+        try:
+            config.save_configuration()            
+        except config.ConfigurationError as err:
+            raise err
+
+
+class PublishingDefaultsForm(BaseControlForm,  forms.Form):
+    book_css = forms.CharField(
+            label=_('Book CSS'), 
+            required=False, 
+            widget=forms.Textarea(attrs={
+                'rows': 30,
+                'style': 'max-width: 500px'
+            })
+        )
+    ebook_css = forms.CharField(
+            label=_('E-Book CSS'), 
+            required=False, 
+            widget=forms.Textarea(attrs={
+                'rows': 30,
+                'style': 'max-width: 500px'
+            })
+        )
+    pdf_css = forms.CharField(
+            label=_('PDF CSS'), 
+            required=False, 
+            widget=forms.Textarea(attrs={
+                'rows': 30,
+                'style': 'max-width: 500px'
+            })
+        )
+    odt_css = forms.CharField(
+            label=_('ODT CSS'), 
+            required=False, 
+            widget=forms.Textarea(attrs={
+                'rows': 30,
+                'style': 'max-width: 500px'
+            })
+        )
+
+    @classmethod
+    def initial_data(cls):
+        return {
+            'book_css':  config.get_configuration('BOOKTYPE_CSS_BOOK', ''),
+            'ebook_css': config.get_configuration('BOOKTYPE_CSS_EBOOK', ''),
+            'pdf_css':   config.get_configuration('BOOKTYPE_CSS_PDF', ''),
+            'odt_css':   config.get_configuration('BOOKTYPE_CSS_ODT', '')
+        }
+
+    def save_settings(self):
+        data = self.__class__.initial_data()
+
+        if self.cleaned_data['book_css'] != data['book_css']:
+            config.set_configuration('BOOKTYPE_CSS_BOOK', self.cleaned_data['book_css'])
+
+        if self.cleaned_data['ebook_css'] != data['ebook_css']:
+            config.set_configuration('BOOKTYPE_CSS_EBOOK', self.cleaned_data['ebook_css'])
+
+        if self.cleaned_data['pdf_css'] != data['pdf_css']:
+            config.set_configuration('BOOKTYPE_CSS_PDF', self.cleaned_data['pdf_css'])
+
+        if self.cleaned_data['odt_css'] != data['odt_css']:
+            config.set_configuration('BOOKTYPE_CSS_ODT', self.cleaned_data['odt_css'])
+
+        try:
+            config.save_configuration()
+        except config.ConfigurationError as err:
+            raise err

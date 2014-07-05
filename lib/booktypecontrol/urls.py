@@ -28,9 +28,4 @@ urlpatterns = patterns('',
     url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/password/$', PasswordChangeView.as_view(), name='password_change'),
 
     url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/rename/$', BookRenameView.as_view(), name='rename_book'),
-
-    url(r'^settings/publishing/$', 'booktypecontrol.views.settings_publishing', name='control_settings_publishing'),
-    url(r'^settings/publishing_defaults/$', 'booktypecontrol.views.settings_publishing_defaults', name='control_settings_publishing_defaults'),
-
-    url(r'^settings/appearance/$', 'booktypecontrol.views.settings_appearance', name='control_settings_appearance'),
 )

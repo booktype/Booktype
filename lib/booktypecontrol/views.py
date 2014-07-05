@@ -16,21 +16,17 @@
 
 import booki
 import sputnik
-import forms as forms_module
+import forms as control_forms
 
 from collections import Counter
 
-from django import forms
 from django.conf import settings
 from django.db import connection
 from django.contrib import messages
-from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.shortcuts import render_to_response
 from django.utils.translation import ugettext as _
-from django.contrib.auth.decorators import user_passes_test
 
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import TemplateView, FormView, DetailView, UpdateView
@@ -38,19 +34,10 @@ from django.views.generic import TemplateView, FormView, DetailView, UpdateView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 from booki.utils import misc
-from booki.editor import models
 from booki.editor.models import Book, BookiGroup, BookHistory
 
-from booktype.apps.core import views
 from booktype.apps.core.views import BasePageView
 
-# TODO: to be removed
-from .forms import *
-
-
-# What tabs do you want to have visible at the moment
-#ADMIN_OPTIONS = ["dashboard", "people", "books", "filebrowse", "templates", "activity", "messages", "settings"]
-ADMIN_OPTIONS = ["dashboard", "people", "books", "settings"]
 
 class BaseCCView(LoginRequiredMixin, SuperuserRequiredMixin, BasePageView):
     pass
@@ -140,18 +127,19 @@ class ControlCenterView(BaseCCView, TemplateView):
 
         return online_users
 
-
 OPTION_NAMES = {
-    'site-description' : _('Description'),
-    'appearance'       : _('Appearance'),
-    'frontpage'        : _('Frontpage'),
-    'license'          : _('Licenses'),
-    'book-settings'    : _('Default Book Settings for Creating Books'),
-    'privacy'          : _('Privacy'),
-    'add-person'       : _('Add a new Person'),
-    'list-of-people'   : _('List of People'),
-    'add-book'         : _('Add new Book'),
-    'list-of-books'    : _('List of Books')
+    'site-description'    : _('Description'),
+    'appearance'          : _('Appearance'),
+    'frontpage'           : _('Frontpage'),
+    'license'             : _('Licenses'),
+    'book-settings'       : _('Default Book Settings for Creating Books'),
+    'privacy'             : _('Privacy'),
+    'add-person'          : _('Add a new Person'),
+    'list-of-people'      : _('List of People'),
+    'add-book'            : _('Add new Book'),
+    'list-of-books'       : _('List of Books'),
+    'publishing'          : _('Allowed publishing options'),
+    'publishing-defaults' : _('Publishing Defaults')
 }
 
 VALID_OPTIONS = OPTION_NAMES.keys()
@@ -193,7 +181,7 @@ class ControlCenterSettings(BaseCCView, FormView):
 
     def get_form_class(self):
         class_text = "%sForm" % self.camelize(self.submodule)
-        self.form_class = getattr(forms_module, class_text)
+        self.form_class = getattr(control_forms, class_text)
         return self.form_class
 
     def get_initial(self):
@@ -235,7 +223,7 @@ class EditPersonInfo(BaseCCView, UpdateView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
     context_object_name = 'current_user'
-    form_class = EditPersonInfoForm
+    form_class = control_forms.EditPersonInfoForm
     success_url = '/_control/settings/' # TODO: change this url later
     page_title = _('Admin Control Center')
     title = page_title
@@ -271,7 +259,7 @@ class BookRenameView(EditPersonInfo):
     model = Book
     slug_field = 'url_title'
     slug_url_kwarg = 'bookid'
-    form_class = BookRenameForm
+    form_class = control_forms.BookRenameForm
     template_name = "booktypecontrol/control_center_settings.html"
 
     def form_valid(self, form):
@@ -289,7 +277,7 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
     success_url = '/_control/settings/' # TODO: change this url later
     page_title = _('Admin Control Center')
     title = page_title
-    form_class = PasswordForm
+    form_class = control_forms.PasswordForm
 
     template_name = "booktypecontrol/control_center_settings.html"
 
@@ -308,310 +296,3 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
         context['option_name'] = "%s: %s" % (_('Change Password'), self.object.username)
         context['valid_options'] = VALID_OPTIONS
         return context
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def settings_book_create(request):
-    if request.method == 'POST': 
-        frm = BookCreateForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_settings')) 
-
-        if frm.is_valid(): 
-            from booktype.utils import config
-
-            config.set_configuration('CREATE_BOOK_VISIBLE', frm.cleaned_data['visible'])
-
-            if frm.cleaned_data['license']:
-                config.set_configuration('CREATE_BOOK_LICENSE', frm.cleaned_data['license'].abbrevation)
-            else:
-                config.set_configuration('CREATE_BOOK_LICENSE', '')
-
-            try:
-                config.save_configuration()
-                messages.success(request, _('Successfuly saved settings.'))
-            except config.ConfigurationError:
-                messages.warning(request, _('Unknown error while saving changes.'))
-
-            return HttpResponseRedirect(reverse('control_settings'))             
-    else:
-        from booktype.utils import config
-
-        _l = config.get_configuration('CREATE_BOOK_LICENSE')
-        if _l and _l != '':
-            try:
-                license = models.License.objects.get(abbrevation = _l)
-            except models.License.DoesNotExist:
-                license = None
-        else:
-            license = None
-            
-        frm = BookCreateForm(initial={'visible': config.get_configuration('CREATE_BOOK_VISIBLE'),
-                                      'license': license})
-
-    return render_to_response('booktypecontrol/settings_book_create.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm                               
-                               },
-                              context_instance=RequestContext(request))
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def settings_license_edit(request, licenseid):
-
-    books = []
-
-    if request.method == 'POST': 
-        frm = LicenseForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_settings_license')) 
-
-        if request.POST['submit'] == _('Remove it'):
-            # this could delete all books with this license
-            try:
-                license = models.License.objects.get(pk=licenseid)
-            except models.License.DoesNotExist:
-                return views.ErrorPage(request, "errors/license_does_not_exist.html", {"username": ''})
-
-            license.delete()
-
-            messages.success(request, _('Successfuly removed license.'))
-
-            return HttpResponseRedirect(reverse('control_settings_license')) 
-
-        if frm.is_valid(): 
-            try:
-                license = models.License.objects.get(pk=licenseid)
-            except models.License.DoesNotExist:
-                return views.ErrorPage(request, "errors/license_does_not_exist.html", {"username": ''})
-
-            license.abbrevation = frm.cleaned_data['abbrevation']
-            license.name = frm.cleaned_data['name']
-            license.save()
-
-            messages.success(request, _('Successfuly saved changes.'))
-
-            return HttpResponseRedirect(reverse('control_settings_license'))             
-    else:
-        try:
-            license = models.License.objects.get(pk=licenseid)
-        except models.License.DoesNotExist:
-            # change this
-            return views.ErrorPage(request, "errors/license_does_not_exist.html", {"username": ''})
-
-        books = models.Book.objects.filter(license=license).order_by("title")
-            
-        frm = LicenseForm(initial = {'abbrevation': license.abbrevation,
-                                     'name': license.name})
-
-    return render_to_response('booktypecontrol/settings_license_edit.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm,
-                               "licenseid": licenseid,
-                               "license": license,
-                               "books": books
-                               },
-                              context_instance=RequestContext(request))
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def settings_privacy(request):
-    from booktype.utils import config
-
-    if request.method == 'POST': 
-        frm = PrivacyForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_settings')) 
-
-        if frm.is_valid(): 
-
-            config.set_configuration('FREE_REGISTRATION', frm.cleaned_data['user_register'])
-            config.set_configuration('ADMIN_CREATE_BOOKS', frm.cleaned_data['create_books'])
-            config.set_configuration('ADMIN_IMPORT_BOOKS', frm.cleaned_data['import_books'])
-
-            try:
-                config.save_configuration()
-                messages.success(request, _('Successfuly saved changes.'))
-            except config.ConfigurationError:
-                messages.warning(request, _('Unknown error while saving changes.'))
-
-            return HttpResponseRedirect(reverse('control_settings'))             
-    else:
-        frm = PrivacyForm(initial = {'user_register': config.get_configuration('FREE_REGISTRATION'),
-                                     'create_books': config.get_configuration('ADMIN_CREATE_BOOKS'),
-                                     'import_books': config.get_configuration('ADMIN_IMPORT_BOOKS')
-                                     })
-
-    return render_to_response('booktypecontrol/settings_privacy.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm
-                               })
-
-
-
-class PublishingForm(forms.Form):
-    publish_book = forms.BooleanField(label=_('book'), 
-                                      required=False)
-    publish_ebook = forms.BooleanField(label=_('ebook'), 
-                                       required=False)
-    publish_pdf = forms.BooleanField(label=_('PDF'), 
-                                     required=False)
-    publish_odt = forms.BooleanField(label=_('ODT'), 
-                                     required=False)
-
-    def __unicode__(self):
-        return u'Publishing'
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def settings_publishing(request):
-    from booktype.utils import config
-    
-    publishOptions = config.get_configuration('PUBLISH_OPTIONS')
-
-    if request.method == 'POST': 
-        frm = PublishingForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_settings')) 
-
-        if frm.is_valid(): 
-            opts = []
-            # a bit silly way to create a list
-
-            if frm.cleaned_data['publish_book']: opts.append('book')
-            if frm.cleaned_data['publish_ebook']: opts.append('ebook')
-            if frm.cleaned_data['publish_pdf']: opts.append('pdf')
-            if frm.cleaned_data['publish_odt']: opts.append('odt')
-
-            config.set_configuration('PUBLISH_OPTIONS', opts)
-
-            try:
-                config.save_configuration()
-                messages.success(request, _('Successfuly saved changes.'))
-            except config.ConfigurationError:
-                messages.warning(request, _('Unknown error while saving changes.'))
-                
-            return HttpResponseRedirect(reverse('control_settings'))             
-    else:
-        frm = PublishingForm(initial = {'publish_book': 'book' in publishOptions,
-                                        'publish_ebook': 'ebook' in publishOptions,
-                                        'publish_pdf': 'pdf' in publishOptions,
-                                        'publish_odt': 'odt' in publishOptions})
-
-
-    return render_to_response('booktypecontrol/settings_publishing.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm
-                               })
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def settings_appearance(request):
-    staticRoot = settings.STATIC_ROOT
-
-    if request.method == 'POST': 
-        frm = AppearanceForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_settings')) 
-
-        if frm.is_valid(): 
-            try:
-                # should really save it in a safe way
-                f = open('%s/css/_user.css' % staticRoot, 'w')
-                f.write(frm.cleaned_data['css'].encode('utf8'))
-                f.close()
-
-                messages.success(request, _('Successfuly saved changes.'))
-            except IOError:
-                messages.warning(request, _('Unknown error while saving changes.'))
-
-            return HttpResponseRedirect(reverse('control_settings'))             
-    else:
-        try:
-            f = open('%s/css/_user.css' % staticRoot, 'r')
-            cssContent = unicode(f.read(), 'utf8')
-            f.close()
-        except IOError:
-            cssContent = ''
-
-        frm = AppearanceForm(initial = {'css': cssContent})
-
-
-    return render_to_response('booktypecontrol/settings_appearance.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm
-                               })
-
-
-class PublishingDefaultsForm(forms.Form):
-    book_css = forms.CharField(label=_('Book CSS'), 
-                          required=False, 
-                          widget=forms.Textarea(attrs={'rows': 30}))
-    ebook_css = forms.CharField(label=_('E-Book CSS'), 
-                          required=False, 
-                          widget=forms.Textarea(attrs={'rows': 30}))
-    pdf_css = forms.CharField(label=_('PDF CSS'), 
-                          required=False, 
-                          widget=forms.Textarea(attrs={'rows': 30}))
-    odt_css = forms.CharField(label=_('ODT CSS'), 
-                          required=False, 
-                          widget=forms.Textarea(attrs={'rows': 30}))
-
-    def __unicode__(self):
-        return u'Default settings'
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def settings_publishing_defaults(request):
-    from booktype.utils import config
-
-    data = {'book_css':  config.get_configuration('BOOKTYPE_CSS_BOOK', ''),
-            'ebook_css': config.get_configuration('BOOKTYPE_CSS_EBOOK', ''),
-            'pdf_css':   config.get_configuration('BOOKTYPE_CSS_PDF', ''),
-            'odt_css':   config.get_configuration('BOOKTYPE_CSS_ODT', '')}
-
-    if request.method == 'POST': 
-        frm = PublishingDefaultsForm(request.POST, request.FILES) 
-
-        if request.POST['submit'] == _('Cancel'):
-            return HttpResponseRedirect(reverse('control_settings')) 
-
-        if frm.is_valid(): 
-            if frm.cleaned_data['book_css'] != data['book_css']:
-                config.set_configuration('BOOKTYPE_CSS_BOOK', frm.cleaned_data['book_css'])
-
-            if frm.cleaned_data['ebook_css'] != data['ebook_css']:
-                config.set_configuration('BOOKTYPE_CSS_EBOOK', frm.cleaned_data['ebook_css'])
-
-            if frm.cleaned_data['pdf_css'] != data['pdf_css']:
-                config.set_configuration('BOOKTYPE_CSS_PDF', frm.cleaned_data['pdf_css'])
-
-            if frm.cleaned_data['odt_css'] != data['odt_css']:
-                config.set_configuration('BOOKTYPE_CSS_ODT', frm.cleaned_data['odt_css'])
-
-            try:
-                config.save_configuration()
-                messages.success(request, _('Successfuly saved changes.'))
-            except config.ConfigurationError:
-                messages.warning(request, _('Unknown error while saving changes.'))
-
-            return HttpResponseRedirect(reverse('control_settings'))             
-    else:
-        frm = PublishingDefaultsForm(initial = data)
-
-
-    return render_to_response('booktypecontrol/settings_publishing_defaults.html', 
-                              {"request": request,
-                               "admin_options": ADMIN_OPTIONS,
-                               "form": frm
-                               })
