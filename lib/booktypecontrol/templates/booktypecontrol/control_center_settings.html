@@ -1,4 +1,4 @@
-{% extends "core/base.html" %}
+{% extends "control_base.html" %}
 {% load i18n staticfiles %}
 
 {% block extra_header %}
@@ -37,7 +37,7 @@
 
                         <br>
 
-                        <h4>{% trans "People" %}</h4>
+                        <h4 data-menu="people">{% trans "People" %}</h4>
                         <li><a href="#add-person" data-toggle="tab">{% trans "Add Person" %}</a></li>
                         <li><a href="#list-of-people" data-toggle="tab">{% trans "List of People" %}</a></li>
 
@@ -49,7 +49,7 @@
 
                         <br>-->
 
-                        <h4>{% trans "Books" %}</h4>
+                        <h4 data-menu="books">{% trans "Books" %}</h4>
                         <li><a href="#add-book" data-toggle="tab">{% trans "Add New Book" %}</a></li>
                         <li><a href="#list-of-books" data-toggle="tab">{% trans "List of Books" %}</a></li>
                     </ul>

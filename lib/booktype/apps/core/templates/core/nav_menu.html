@@ -10,18 +10,38 @@
       </li>
       <li>
         {% if request.user.is_authenticated %}        
-          <a href="{% url "accounts:view_profile" request.user.username %}">{% trans "My Dashboard" %}</a>
+          <a href="{% url 'accounts:view_profile' request.user.username %}">{% trans "My Dashboard" %}</a>
         {% endif %}
       </li>
       <li>
-        <a href="{% url "portal:list_books" %}">{% trans "Books" %}</a>
+        <a href="{% url 'portal:list_books' %}">{% trans "Books" %}</a>
       </li>
       <li>
-        <a href="{% url "portal:list_groups" %}">{% trans "Groups" %}</a>
+        <a href="{% url 'portal:list_groups' %}">{% trans "Groups" %}</a>
       </li>
       <li>
-        <a href="{% url "portal:list_people" %}">{% trans "People" %}</a>
+        <a href="{% url 'portal:list_people' %}">{% trans "People" %}</a>
       </li>
     </ul>
+
+    {% if user.is_superuser %}
+    <ul id="collapsed-admin-menu">
+      <li class="active">
+        <a href="{% url 'control_center:frontpage' %}">{% trans "Control Center Home" %}</a>
+      </li>
+      <li data-menu="settings">
+        <a href="{% url 'control_center:settings' %}#site-description">{% trans "Admin Settings" %}</a>
+      </li>
+      <li data-menu="people">
+        <a href="{% url 'control_center:settings' %}#list-of-people">{% trans "Admin People" %}</a>
+      </li>
+      <li data-menu="books">
+        <a href="{% url 'control_center:settings' %}#list-of-books">{% trans "Admin Books" %}</a>
+      </li>
+      <li data-menu="groups">
+        <a href="{% url 'control_center:settings' %}#list-of-groups">{% trans "Admin Groups" %}</a>
+      </li>
+    </ul>
+    {% endif %}
   </div>
 </div>
