@@ -1,90 +1,27 @@
-{% load i18n messaging_tags staticfiles %}
-<!DOCTYPE HTML>
-<html>
- <head>
-   <link type="text/css" href="{% static "portal/css/booktype.css" %}" rel="Stylesheet" >
-   <link rel="SHORTCUT ICON" href="{% static "portal/images/favicon.ico" %}" type="image/x-icon">
+{% extends "core/base.html" %}
+{% load i18n %}
 
-   <script type="text/javascript" src="{% static "portal/js/jquery-1.9.1.js" %}"></script>
-   <script type="text/javascript" src="{% static "portal/js/ui/jquery-ui.min.js" %}"></script>  
-
-   <link type="text/css" href="{% static "portal/css/ui/jquery-ui.min.css" %}" rel="Stylesheet" >
-   <link type="text/css" href="{% static "portal/css/ui/smoothness/jquery.ui.all.css" %}" rel="Stylesheet" >
-
-   <script type="text/javascript" src="{% static "portal/js/jquery.json-1.3.js" %}"></script>  
-   <script type="text/javascript" src="{% static "portal/js/booki.js" %}"></script>
-   <script type="text/javascript" src="{% static "portal/js/messaging.js" %}"></script>   
-
-   <link type="text/css" href="{% static "portal/css/jquery.bubblepopup.v2.3.1.css" %}" rel="stylesheet" />
-   <link type="text/css" href="{% static "portal/css/jquery-ui_overrides.css" %}" rel="Stylesheet" />
-   <script type="text/javascript" src="{% static "portal/js/jquery.bubblepopup.v2.3.1.min.js" %}"></script>
-
-   {% block header %}
-   {% endblock %}
- </head>
-<body>
-
-<div class="topbar"> 
-    <div class="logo" style="font-size: 24px; font-weight: bold; width: 300px; text-align: left"> 
-	{% trans "Booktype Control Center" %}
-    </div> 
-	<div class="meta-bar">
-    {% if request.user.is_authenticated %}
-		<ul>
-        	<li>
-               <a href="{% url "accounts:view_profile" request.user.username %}"><strong>{{ request.user.username }}</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url "accounts:signout" %}">{% trans "Sign out" %}</a>
-            </li>
-        </ul>
-    {% else %}
-    	<ul>
-            <li>
-            	<a href="{% url "signin" %}?redirect={{ request.path }}">{% trans "Sign In / Create Account" %}</a>
-            </li>
-        </ul>
-     {% endif %}
-    </div><!-- End of .meta-bar -->
-</div><!-- End top bar -->
-
-	<div class="menubar shadow">
-        <div class="navbox">
-             <ul>
-      		   <li><a href="/">{% trans "Site" %}</a></li>
-             </ul>
+{% block bar %}
+    <div class="bookbar">
+        <h1>{{ title }}</h1>
+        <div class="btn-toolbar float-right">
+            <div class="btn-group" id="control-menu">
+                <button class="btn btn-default active" data-menu="dashboard" data-href="{% url 'control_center:frontpage' %}">
+                    {% trans "Home" %}
+                </button>
+                <button class="btn btn-default" data-menu="settings" data-href="{% url 'control_center:settings' %}#site-description">
+                    {% trans "Settings" %}
+                </button>
+                <button class="btn btn-default" data-menu="people" data-href="{% url 'control_center:settings' %}#list-of-people">
+                    {% trans "People" %}
+                </button>
+                <button class="btn btn-default" data-menu="books" data-href="{% url 'control_center:settings' %}#list-of-books">
+                    {% trans "Books" %}
+                </button>
+                <button class="btn btn-default" data-menu="groups" data-href="{% url 'control_center:settings' %}#list-of-groups">
+                    {% trans "Groups" %}
+                </button>
+            </div>
         </div>
-    
-        <div class="navbox">
-            <ul>
-	      {% if "dashboard" in admin_options %}
-                <li><a href="{% url "control_frontpage" %}">{% trans "Admin Control Center" %}</a></li>
-   	      {% endif %}
-
-              {% if "people" in admin_options %}
-                <li><a href="{% url "control_people" %}">{% trans "People" %}</a></li>
-              {% endif %}
-
-              {% if "books" in admin_options %}
-                <li><a href="{% url "control_books" %}">{% trans "Books" %}</a></li>
-              {% endif %}
-
-              {% if "settings" in admin_options %}
-                <li><a href="{% url "control_settings" %}">{% trans "Settings" %}</a></li>
-              {% endif %}
-
-            </ul>      
-        </div><!-- End of .navbox -->       
     </div>
-
-<div class="content-container">
-	 <div class="content shadow">
-        <!-- Content box and the drop shadow-->
-        
-        {% block content %}
-        {% endblock %}
-
-	</div>
-</div>
-<!-- End of content -->
-
-</body>
-</html>
-
+{% endblock %}

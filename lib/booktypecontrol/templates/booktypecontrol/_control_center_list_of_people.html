@@ -2,7 +2,11 @@
 {% load i18n %}
 
 {% block control_content %}
-    <h4>{% trans "List of People" %}</h4>
+    <h4>{% trans "List of People" %}
+        <div class="btn-toolbar float-right">
+            <button data-href="#add-person" role="button" class="btn btn-default float-right btn-group" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Add Person" %}">{% trans "ADD PERSON" %}</button>
+        </div>
+    </h4>
     <ul class="list border-top user-avatar circle list-of-pleople">
         {% for person in people %}
             <li>
