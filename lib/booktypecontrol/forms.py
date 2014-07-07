@@ -10,9 +10,9 @@ from django.core.validators import RegexValidator, MinLengthValidator
 from booktype.apps.core.forms import BaseBooktypeForm
 from booktype.utils import config
 
-from booki.utils import misc
+from booktype.utils import misc
 from booki.editor.models import License, Book
-from booki.utils.book import createBook, renameBook, checkBookAvailability
+from booktype.utils.book import create_book, rename_book, check_book_availability
 
 class BaseControlForm(BaseBooktypeForm):
     """
@@ -63,7 +63,7 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
         if self.files.has_key('favicon'):
             # just check for any kind of silly error
             try:
-                fh, fname = misc.saveUploadedAsFile(self.files['favicon'])
+                fh, fname = misc.save_uploaded_as_file(self.files['favicon'])
                 shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
 
                 config.set_configuration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
@@ -505,12 +505,12 @@ class AddBookForm(BaseControlForm, forms.Form):
     success_message = _('Successfully created new book.')
 
     def clean_title(self):
-        if not checkBookAvailability(self.cleaned_data['title']):
+        if not check_book_availability(self.cleaned_data['title']):
             raise forms.ValidationError(_("This Book already exists."))
         return self.cleaned_data['title']
 
     def save_settings(self):
-        book = createBook(self.cleaned_data['owner'], self.cleaned_data['title'])
+        book = create_book(self.cleaned_data['owner'], self.cleaned_data['title'])
         book.license = self.cleaned_data['license']
         book.description = self.cleaned_data['description']
         book.hidden = self.cleaned_data['is_hidden']
@@ -518,7 +518,7 @@ class AddBookForm(BaseControlForm, forms.Form):
 
         if self.files.has_key('cover'):
             try:
-                fh, fname = misc.saveUploadedAsFile(self.files['cover'])
+                fh, fname = misc.save_uploaded_as_file(self.files['cover'])
                 book.set_cover(fname)
                 os.unlink(fname)
             except:
@@ -567,13 +567,13 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
         fields = ['title', 'url_title']
 
     def save(self, *args, **kwargs):
-        renameBook(self.instance, self.cleaned_data['title'], self.cleaned_data['url_title'])
+        rename_book(self.instance, self.cleaned_data['title'], self.cleaned_data['url_title'])
         return super(BookRenameForm, self).save(*args, **kwargs)
 
     def clean_url_title(self):
         url_title = self.cleaned_data['url_title']
         if not url_title:
-            return misc.bookiSlugify(self.cleaned_data['title'])
+            return misc.booktype_slugify(self.cleaned_data['title'])
         return url_title
 
 

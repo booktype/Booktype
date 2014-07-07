@@ -11,7 +11,7 @@ from braces.views import LoginRequiredMixin
 
 from booktype.apps.core import views
 from booktype.utils import security
-from booki.utils.misc import bookiSlugify
+from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.views import PageView, BasePageView
 from booki.editor.models import Book, BookiGroup, BookHistory
 
@@ -165,7 +165,7 @@ class GroupCreateView(LoginRequiredMixin, BasePageView, CreateView):
     def form_valid(self, form):
         group = form.save(commit=False)
         group.owner = self.request.user
-        group.url_name = bookiSlugify(group.name)
+        group.url_name = booktype_slugify(group.name)
         group.created = timezone.now()
         group.save()
 

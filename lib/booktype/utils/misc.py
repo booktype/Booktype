@@ -20,13 +20,13 @@ import urlparse
 
 
 from django.conf import settings
+from django.template.defaultfilters import slugify
 
 from lxml import etree, html
 from ebooklib import epub
 import ebooklib
 
 from booki.editor import models
-from booki.utils import misc
 
 #################
 
@@ -70,13 +70,11 @@ class TidyPlugin(BasePlugin):
 def _convert_file_name(file_name):
     import os.path
 
-    from booki.utils.misc import bookiSlugify
-
     name = os.path.basename(file_name)
     if name.rfind('.') != -1:
         _np = name[:name.rfind('.')]
         _ext = name[name.rfind('.'):]
-        name = bookiSlugify(_np) + _ext
+        name = booktype_slugify(_np) + _ext
 
     name = urllib.unquote(name)
     name = name.replace(' ', '_')
@@ -197,8 +195,7 @@ def import_book_from_file(epub_file, user, book_title=None):
     from ebooklib.utils import parse_html_string
 
     from booki.editor import models
-    from booki.utils.book import createBook, checkBookAvailability
-    from booki.utils.misc import bookiSlugify
+    from booktype.utils.book import create_book, check_book_availability
 
     opts = {'plugins': [TidyPlugin(), ImportPlugin()]}
     epub_book = epub.read_epub(epub_file, opts)
@@ -230,7 +227,7 @@ def import_book_from_file(epub_file, user, book_title=None):
     title = book_title or epub_book.metadata[epub.NAMESPACES['DC']]['title'][0][0]
 
     # must check if title already exists
-    book = createBook(user, title)
+    book = create_book(user, title)
 
     now = datetime.datetime.utcnow().replace(tzinfo=utc)
 
@@ -274,7 +271,7 @@ def import_book_from_file(epub_file, user, book_title=None):
 
         chapter = models.Chapter(book=book,
                                  version=book.version,
-                                 url_title=bookiSlugify(name),
+                                 url_title=booktype_slugify(name),
                                  title=name,
                                  status=stat,
                                  content=content,
@@ -368,14 +365,13 @@ def load_book_from_file(epub_file, user):
 
     pp.pprint(epub_book.toc)
 
-    from booki.utils.book import createBook, checkBookAvailability
-    from booki.utils.misc import bookiSlugify
+    from booktype.utils.book import create_book, check_book_availability
 
     title = epub_book.metadata[epub.NAMESPACES['DC']]['title'][0][0]
     lang = epub_book.metadata[epub.NAMESPACES['DC']]['language'][0][0]
 
     # must check the title
-    book = createBook(user, title)
+    book = create_book(user, title)
 
     now = datetime.datetime.now()
 
@@ -384,7 +380,6 @@ def load_book_from_file(epub_file, user):
     n = 10
 
     from django.core.files import File
-    from booki.utils.misc import bookiSlugify
 
     for _item in epub_book.get_items():
         if _item.get_type() == ebooklib.ITEM_DOCUMENT and _item.is_chapter():  # CHECK IF IT IS NOT NAV
@@ -548,7 +543,7 @@ def set_group_image(groupid, file_object, x_size, y_size):
     except AttributeError:
         GROUP_IMAGE_UPLOAD_DIR = 'group_images/'
 
-    fh, fname = misc.saveUploadedAsFile(file_object)
+    fh, fname = save_uploaded_as_file(file_object)
     try:
         im = Image.open(fname)
         im.thumbnail((x_size, y_size), Image.ANTIALIAS)
@@ -564,4 +559,195 @@ def set_group_image(groupid, file_object, x_size, y_size):
 
     os.unlink(fname)
 
-    return file_name    
+    return file_name
+
+
+def booktype_slugify(text):
+    """
+    Wrapper for default Django function. Default function does not work with unicode strings.
+
+    @type text: C{string}
+    @param: Text you want to slugify
+
+    @rtype: C{string}
+    @return: Returns slugified text
+    """
+
+    try:
+        import unidecode
+
+        text = unidecode.unidecode(text)
+    except ImportError:
+        pass
+
+    return slugify(text)
+
+
+def create_thumbnail(fname, size=(100, 100)):
+    """
+
+    @type fname: C{string}
+    @param: Full path to image file
+    @type size: C{tuple}
+    @param: Width and height of the thumbnail
+
+    @rtype: C{Image}
+    @return: Returns PIL Image object
+    """
+
+    im = Image.open(fname)
+    width, height = im.size
+
+    if width > height:
+        delta = width - height
+        left = int(delta / 2)
+        upper = 0
+        right = height + left
+        lower = height
+    else:
+        delta = height - width
+        left = 0
+        upper = int(delta / 2)
+        right = width
+        lower = width + upper
+
+    im = im.crop((left, upper, right, lower))
+    im.thumbnail(size, Image.ANTIALIAS)
+
+    return im
+
+
+def save_uploaded_as_file(file_object):
+    """
+    Saves uploaded_file into file on disk.
+
+    @type file_object: C{uploaded_file}
+    @param: Image file
+
+    @rtype: C{Tuple}
+    @return: Retursns file handler and file name as tuple
+    """
+
+    fh, fname = tempfile.mkstemp(suffix='', prefix='profile')
+
+    f = open(fname, 'wb')
+
+    for chunk in file_object.chunks():
+        f.write(chunk)
+
+    f.close()
+
+    return (fh, fname)
+
+
+def set_profile_image(user, file_object):
+    """
+    Creates thumbnail image from uploaded file and saves it as profile image.
+
+    @type user; C{django.contrib.auth.models.User}
+    @param: Booktype user
+
+    @type file_object: C{uploaded_file}
+    @param: Image file
+    """
+
+    fh, fname = save_uploaded_as_file(fileObject)
+
+    try:
+        im = create_thumbnail(fname, size=(100, 100))
+        im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, user.username), 'JPEG')
+
+        # If we would use just profile.image.save method then out files would just end up with _1, _2, ... postfixes
+
+        profile = user.get_profile()
+        profile.image = '%s%s.jpg' % (settings.PROFILE_IMAGE_UPLOAD_DIR, user.username)
+        profile.save()
+    except:
+        pass
+
+    os.unlink(fname)
+
+
+def get_directory_size(dir_path):
+    """
+    Returns total file size of all files in this directory and subdirectories.
+
+    @type dir_path; C{string}
+    @param: Directory path
+
+    @rtype text: C{int}
+    @param: Returns total size of all files in subdirectories
+    """
+
+    total_size = 0
+
+    for dirpath, dirnames, filenames in os.walk(dir_path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            total_size += os.path.getsize(fp)
+
+    return total_size
+
+
+def is_user_limit_reached():
+    """
+    Checks if maximum number of user is reached.
+
+    @rtype text: C{book}
+    @param: Returns True if maximum number of users is reached
+    """
+
+    max_users = config.get_configuration('BOOKTYPE_MAX_USERS')
+
+    if not isinstance(max_users, int):
+        # We should show some kind of warning here
+        return False
+
+    # 0 means unlimited and that is the default value
+    if max_users == 0:
+        return False
+
+    # get list of all active accounts
+    num_users = User.objects.filter(is_active=True).count()
+
+    if num_users >= max_users:
+        return True
+
+    return False
+
+
+def is_book_limit_reached():
+    """
+    Checks if maximum number of books is reaced.
+
+    @rtype text: C{book}
+    @param: Returns True if maximum number of books is reached
+    """
+
+    max_books = config.get_configuration('BOOKTYPE_MAX_BOOKS')
+
+    if not isinstance(max_books, int):
+        # We should show some kind of warning here
+        return False
+
+    # 0 means unlimited and that is the default value
+    if max_books == 0:
+        return False
+
+    # get list of all active books
+    num_books = models.Book.objects.all().count()
+
+    if num_books >= max_books:
+        return True
+
+    return False
+
+
+def is_valid_email(email):
+    try:
+        validate_email(email)
+        return True
+    except ValidationError:
+        return False
+
+    return False    

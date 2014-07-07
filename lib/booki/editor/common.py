@@ -40,8 +40,8 @@ from booki.editor import models
 from booki.bookizip import get_metadata, add_metadata, DC, FM
 
 from booki.utils.log import logBookHistory, logWarning
-from booki.utils.book import createBook
-from booki.utils.misc import bookiSlugify
+from booktype.utils.book import create_book
+from booktype.utils.misc import booktype_slugify
 from booki.editor.views import getVersion
 
 from django.conf import settings
@@ -75,7 +75,7 @@ def makeTitleUnique(requestedTitle):
     name = requestedTitle
     while True:
         titles = models.Book.objects.filter(title=name).count()
-        urls = models.Book.objects.filter(url_title=bookiSlugify(name)).count()
+        urls = models.Book.objects.filter(url_title=booktype_slugify(name)).count()
         if not titles and not urls:
             return name
         n += 1
@@ -127,7 +127,7 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
     else:
         bookURL = None
 
-    book = createBook(user, bookTitle, status = "new", bookURL = bookURL)
+    book = create_book(user, bookTitle, status = "new", bookURL = bookURL)
 
     if extraOptions.get("hidden"):
         book.hidden = True
@@ -144,7 +144,7 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
     now = datetime.datetime.now()
 
     for chapterName, chapterFile, is_section in chapters:
-        urlName = bookiSlugify(chapterName)
+        urlName = booktype_slugify(chapterName)
 
         if is_section: # create section
             if createTOC:
@@ -443,7 +443,7 @@ def exportBook(book_version):
         else:
             #A new top level section.
             title = chapter.name.encode("utf-8")
-            ID = "s%03d_%s" % (i, bookiSlugify(title))
+            ID = "s%03d_%s" % (i, booktype_slugify(title))
 
             toc_current = []
             section = {"title": title,
@@ -473,7 +473,7 @@ def exportBook(book_version):
 
         fn = os.path.basename(attachment.attachment.name.encode("utf-8"))
 
-        ID = "att%03d_%s" % (i, bookiSlugify(fn))
+        ID = "att%03d_%s" % (i, booktype_slugify(fn))
         if '.' in fn:
             _, ext = fn.rsplit('.', 1)
             mediatype = bookizip.MEDIATYPES.get(ext.lower(), bookizip.MEDIATYPES[None])

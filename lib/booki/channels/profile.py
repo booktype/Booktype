@@ -67,15 +67,15 @@ def remote_group_create(request, message, profileid):
     @return: Returns success of the command
     """
 
-    from booki.utils.book import createBookiGroup, BookiGroupExist
+    from booktype.utils.book import create_booktype_group, BooktypeGroupExist
 
     groupName = message.get("groupName", "")
     groupDescription = message.get("groupDescription", "")
 
     try:
-        group = createBookiGroup(groupName, groupDescription, request.user)
+        group = create_booktype_group(groupName, groupDescription, request.user)
         group.members.add(request.user)
-    except BookiGroupExist:
+    except BooktypeGroupExist:
         transaction.rollback()
         return {"created": False}
     else:

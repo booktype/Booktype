@@ -2,7 +2,7 @@
 import os
 import urllib
 
-from booki.utils.misc import bookiSlugify
+from booktype.utils.misc import booktype_slugify
 
 
 def convert_file_name(file_name):
@@ -11,7 +11,7 @@ def convert_file_name(file_name):
     if name.rfind('.') != -1:
         _np = name[:name.rfind('.')]
         _ext = name[name.rfind('.'):]
-        name = bookiSlugify(_np)+_ext
+        name = booktype_slugify(_np)+_ext
 
     name = urllib.unquote(name)
     name = name.replace(' ', '_')
