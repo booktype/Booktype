@@ -62,8 +62,8 @@ class Command(BaseCommand):
             book.title = options['new_book_title']
 
         if options['new_book_url']:
-            from booki.utils.book import renameBook
-            renameBook(book,  book.title, options['new_book_url'])
+            from booktype.utils.book import rename_book
+            rename_book(book,  book.title, options['new_book_url'])
 
         if options['owner']:
             try:

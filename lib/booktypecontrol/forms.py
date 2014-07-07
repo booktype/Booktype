@@ -12,7 +12,7 @@ from booktype.utils import config
 
 from booktype.utils import misc
 from booki.editor.models import License, Book
-from booki.utils.book import createBook, renameBook, checkBookAvailability
+from booktype.utils.book import create_book, rename_book, check_book_availability
 
 class BaseControlForm(BaseBooktypeForm):
     """
@@ -505,12 +505,12 @@ class AddBookForm(BaseControlForm, forms.Form):
     success_message = _('Successfully created new book.')
 
     def clean_title(self):
-        if not checkBookAvailability(self.cleaned_data['title']):
+        if not check_book_availability(self.cleaned_data['title']):
             raise forms.ValidationError(_("This Book already exists."))
         return self.cleaned_data['title']
 
     def save_settings(self):
-        book = createBook(self.cleaned_data['owner'], self.cleaned_data['title'])
+        book = create_book(self.cleaned_data['owner'], self.cleaned_data['title'])
         book.license = self.cleaned_data['license']
         book.description = self.cleaned_data['description']
         book.hidden = self.cleaned_data['is_hidden']
@@ -565,7 +565,7 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
         fields = ['title', 'url_title']
 
     def save(self, *args, **kwargs):
-        renameBook(self.instance, self.cleaned_data['title'], self.cleaned_data['url_title'])
+        rename_book(self.instance, self.cleaned_data['title'], self.cleaned_data['url_title'])
         return super(BookRenameForm, self).save(*args, **kwargs)
 
     def clean_url_title(self):

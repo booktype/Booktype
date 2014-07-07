@@ -41,7 +41,7 @@ from braces.views import LoginRequiredMixin
 from booktype.utils import config
 from booktype.utils import misc
 from booki.messaging.views import get_endpoint_or_none
-from booki.utils.book import checkBookAvailability, createBook
+from booktype.utils.book import check_book_availability, create_book
 from booki.editor.models import Book, License, BookHistory, BookiGroup
 from booktype.apps.account.models import UserPassword
 from booktype.apps.core import views
@@ -94,12 +94,12 @@ class CreateBookView(LoginRequiredMixin, BaseCreateView):
     def get(self, request, *args, **kwargs):
         if request.GET.get('q', None) == "check":
             data = {
-                "available": checkBookAvailability(request.GET.get('bookname', '').strip())
+                "available": check_book_availability(request.GET.get('bookname', '').strip())
             }
             return HttpResponse(json.dumps(data), "application/json")
 
     def post(self, request, *args, **kwargs):
-        book = createBook(request.user, request.POST.get('title'))
+        book = create_book(request.user, request.POST.get('title'))
         lic = License.objects.get(abbrevation=request.POST.get('license'))
 
         book.license = lic

@@ -20,6 +20,7 @@ import urlparse
 
 
 from django.conf import settings
+from django.template.defaultfilters import slugify
 
 from lxml import etree, html
 from ebooklib import epub
@@ -194,7 +195,7 @@ def import_book_from_file(epub_file, user, book_title=None):
     from ebooklib.utils import parse_html_string
 
     from booki.editor import models
-    from booki.utils.book import createBook, checkBookAvailability
+    from booktype.utils.book import create_book, check_book_availability
 
     opts = {'plugins': [TidyPlugin(), ImportPlugin()]}
     epub_book = epub.read_epub(epub_file, opts)
@@ -226,7 +227,7 @@ def import_book_from_file(epub_file, user, book_title=None):
     title = book_title or epub_book.metadata[epub.NAMESPACES['DC']]['title'][0][0]
 
     # must check if title already exists
-    book = createBook(user, title)
+    book = create_book(user, title)
 
     now = datetime.datetime.utcnow().replace(tzinfo=utc)
 
@@ -364,13 +365,13 @@ def load_book_from_file(epub_file, user):
 
     pp.pprint(epub_book.toc)
 
-    from booki.utils.book import createBook, checkBookAvailability
+    from booktype.utils.book import create_book, check_book_availability
 
     title = epub_book.metadata[epub.NAMESPACES['DC']]['title'][0][0]
     lang = epub_book.metadata[epub.NAMESPACES['DC']]['language'][0][0]
 
     # must check the title
-    book = createBook(user, title)
+    book = create_book(user, title)
 
     now = datetime.datetime.now()
 

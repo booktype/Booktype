@@ -40,7 +40,7 @@ from booki.editor import models
 from booki.bookizip import get_metadata, add_metadata, DC, FM
 
 from booki.utils.log import logBookHistory, logWarning
-from booki.utils.book import createBook
+from booktype.utils.book import create_book
 from booktype.utils.misc import booktype_slugify
 from booki.editor.views import getVersion
 
@@ -127,7 +127,7 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
     else:
         bookURL = None
 
-    book = createBook(user, bookTitle, status = "new", bookURL = bookURL)
+    book = create_book(user, bookTitle, status = "new", bookURL = bookURL)
 
     if extraOptions.get("hidden"):
         book.hidden = True

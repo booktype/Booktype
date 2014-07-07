@@ -29,7 +29,7 @@ from braces.views import LoginRequiredMixin
 
 from booki.utils import security
 from booktype.utils import misc
-from booki.utils.book import removeBook
+from booktype.utils.book import remove_book
 from booktype.apps.core.views import BasePageView
 from booki.editor.models import Book, BookHistory, BookToc, Chapter
 
@@ -119,7 +119,7 @@ class DeleteBookView(GenericRedirectView, LoginRequiredMixin, BaseReaderView, De
 
         try:
             if book_security.isAdmin() and title.strip() == book.title.strip():
-                removeBook(book)
+                remove_book(book)
                 self.template_name = "reader/book_delete_redirect.html"
                 messages.success(request, _('Book successfully deleted.'))
         except Exception, e:

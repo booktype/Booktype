@@ -214,9 +214,9 @@ class Book(models.Model):
         return emodels.BookVersion.objects.filter(book=self)
 
     def set_cover(self, fileName):
-        from booki.utils.book import setBookCover
+        from booktype.utils.book import set_book_cover
 
-        setBookCover(self, fileName)
+        set_book_cover(self, fileName)
 
     def get_absolute_url(self):
         return '%s/%s/' % (settings.BOOKI_URL, self.url_title)
