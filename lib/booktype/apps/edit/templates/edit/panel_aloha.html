@@ -13,6 +13,31 @@
   </div>
 </div>
 
+<div id="find-replace" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>          
+           {% trans "Find & Replace" %}
+         </div>
+         <div class="modal-body">
+           <div class="form-group">
+             <input type="text" class="form-control" name="find" placeholder="{% trans "Find" %}">
+           </div>
+           <div class="form-group">
+             <input type="text" class="form-control" name="replace" placeholder="{% trans "Replace" %}">
+           </div> 
+           <span class="msg-report hide" style="color: green">{% trans "Finished" %}</span>
+         </div> 
+         <div class="modal-footer">
+           <button class="btn btn-default replace-button operation-findandreplace" aria-hidden="true">{% trans "Replace All" %}</button>          
+           <button class="btn btn-default next-button operation-findandreplace" aria-hidden="true">{% trans "Next" %}</button>
+           <button class="btn btn-default prev-button operation-findandreplace" aria-hidden="true">{% trans "Prev" %}</button>
+         </div>
+       </div>
+   </div>
+ </div>
+
 <div id="elCount" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
