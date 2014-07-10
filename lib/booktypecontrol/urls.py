@@ -16,8 +16,8 @@
 
 from django.conf.urls import patterns, url
 
-from .views import EditPersonInfo, PasswordChangeView, BookRenameView
 from .views import ControlCenterView, ControlCenterSettings, PersonInfoView
+from .views import EditPersonInfo, PasswordChangeView, BookRenameView, DeleteGroupView
 
 urlpatterns = patterns('',
     url(r'^$', ControlCenterView.as_view(), name='frontpage'),
@@ -28,4 +28,5 @@ urlpatterns = patterns('',
     url(r'^people/(?P<username>[\w\d\@\.\+\-\_\s]+)/password/$', PasswordChangeView.as_view(), name='password_change'),
 
     url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/rename/$', BookRenameView.as_view(), name='rename_book'),
+    url(r'^groups/(?P<groupid>[\w\s\_\.\-\d]+)/delete/$', DeleteGroupView.as_view(), name='delete_group'),
 )

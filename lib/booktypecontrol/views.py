@@ -25,11 +25,12 @@ from django.db import connection
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse, reverse_lazy
 
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic import TemplateView, FormView, DetailView, UpdateView
+from django.views.generic import TemplateView, FormView
+from django.views.generic import DetailView, UpdateView, DeleteView
 
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
@@ -139,7 +140,9 @@ OPTION_NAMES = {
     'add-book'            : _('Add new Book'),
     'list-of-books'       : _('List of Books'),
     'publishing'          : _('Allowed publishing options'),
-    'publishing-defaults' : _('Publishing Defaults')
+    'publishing-defaults' : _('Publishing Defaults'),
+    'add-group'           : _('Add new Group'),
+    'list-of-groups'      : _('List of Groups')
 }
 
 VALID_OPTIONS = OPTION_NAMES.keys()
@@ -151,7 +154,7 @@ class ControlCenterSettings(BaseCCView, FormView):
 
     template_name = 'booktypecontrol/control_center_settings.html'
     submodule = 'site-description'
-    success_url = '/_control/settings/' # TODO: change this url later
+    success_url = reverse_lazy('control_center:settings')
     page_title = _('Admin Control Center')
     title = page_title
 
@@ -160,11 +163,11 @@ class ControlCenterSettings(BaseCCView, FormView):
 
     def form_valid(self, form):
         try:
-            form.save_settings()
+            form.save_settings(self.request)
             messages.success(self.request, form.success_message or _('Successfully saved settings.'))
-        except:
+        except Exception as err:
+            print err
             messages.warning(self.request, _('Unknown error while saving changes.'))
-
         return super(ControlCenterSettings, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
@@ -176,7 +179,6 @@ class ControlCenterSettings(BaseCCView, FormView):
         option = request.REQUEST.get('option', None)
         if option and option in VALID_OPTIONS:
             self.submodule = option
-
         return super(ControlCenterSettings, self).dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
@@ -207,15 +209,22 @@ class ControlCenterSettings(BaseCCView, FormView):
         extra_context = self.form_class.extra_context()
         if extra_context:
             context.update(extra_context)
-
         return context
+
+    def get_success_url(self):
+        # if form class has custom success url
+        if self.form_class.success_url:
+            success_url = self.form_class.success_url
+            if "#" in success_url:
+                success_url = "{0}{1}".format(self.success_url, success_url)
+            return success_url
+        return super(ControlCenterSettings, self).get_success_url()
 
 class PersonInfoView(BaseCCView, DetailView):
     model = User
     slug_field = 'username'
     slug_url_kwarg = 'username'
     context_object_name = 'current_user'
-
     template_name = "booktypecontrol/_control_center_modal_person_info.html"
 
 class EditPersonInfo(BaseCCView, UpdateView):
@@ -224,10 +233,8 @@ class EditPersonInfo(BaseCCView, UpdateView):
     slug_url_kwarg = 'username'
     context_object_name = 'current_user'
     form_class = control_forms.EditPersonInfoForm
-    success_url = '/_control/settings/' # TODO: change this url later
     page_title = _('Admin Control Center')
     title = page_title
-
     template_name = "booktypecontrol/control_center_settings.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -252,8 +259,10 @@ class EditPersonInfo(BaseCCView, UpdateView):
     def get_initial(self):
         initial_dict = super(EditPersonInfo, self).get_initial()
         initial_dict['description'] = self.object.get_profile().description
-
         return initial_dict
+
+    def get_success_url(self):
+        return "%s#list-of-people" % reverse('control_center:settings')
 
 class BookRenameView(EditPersonInfo):
     model = Book
@@ -264,21 +273,23 @@ class BookRenameView(EditPersonInfo):
 
     def form_valid(self, form):
         self.object = form.save()
+        messages.success(self.request, _('Book name successfully changed.'))
         return HttpResponseRedirect(self.get_success_url())
 
     def get_initial(self):
         return {}
+
+    def get_success_url(self):
+        return "%s#list-of-books" % reverse('control_center:settings')
 
 class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
     model = User
     slug_field = 'username'
     slug_url_kwarg = 'username'
     context_object_name = 'current_user'
-    success_url = '/_control/settings/' # TODO: change this url later
     page_title = _('Admin Control Center')
     title = page_title
     form_class = control_forms.PasswordForm
-
     template_name = "booktypecontrol/control_center_settings.html"
 
     def get_form(self, form_class):
@@ -296,3 +307,17 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
         context['option_name'] = "%s: %s" % (_('Change Password'), self.object.username)
         context['valid_options'] = VALID_OPTIONS
         return context
+
+    def get_success_url(self):
+        return "%s#list-of-people" % reverse('control_center:settings')
+
+class DeleteGroupView(BaseCCView, DeleteView):
+    model = BookiGroup
+    slug_field = 'url_name'
+    slug_url_kwarg = 'groupid'
+    context_object_name = 'group'
+    template_name = 'booktypecontrol/_control_center_modal_delete_group.html'
+
+    def get_success_url(self):
+        messages.success(self.request, _('Group successfully deleted.'))
+        return "%s#list-of-groups" % reverse('control_center:settings')

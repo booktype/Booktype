@@ -41,12 +41,12 @@
                     <div class="box gray books-widget">
                     <h2 class="box-title-alter">
                         {% trans "Books" %}
-                                <div class="btn-toolbar float-right">
-                                    <div class="btn-group float-right">
-                                        <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show grid" %}"><i class="icon-th"></i></button>
-                                        <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show List" %}"><i class="icon-list-ul"></i></button>
-                                    </div>
-                                </div>
+                        <div class="btn-toolbar float-right">
+                            <div class="btn-group float-right">
+                                <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show grid" %}"><i class="icon-th"></i></button>
+                                <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show List" %}"><i class="icon-list-ul"></i></button>
+                            </div>
+                        </div>
                     </h2>
                     <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
                         {% for book in books_list %}              

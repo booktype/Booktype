@@ -17,7 +17,7 @@
 import os
 import urllib
 import urlparse
-
+import config
 
 from django.conf import settings
 from django.template.defaultfilters import slugify

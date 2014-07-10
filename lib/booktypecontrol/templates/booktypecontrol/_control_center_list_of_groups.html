@@ -1,0 +1,34 @@
+{% extends "booktypecontrol/_control_center_settings.html" %}
+{% load i18n staticfiles %}
+
+{% block control_content %}
+    <div>
+        <h4 class="border-bottom">
+            {{ option_name }}
+            <div class="btn-toolbar float-right">
+                <button data-href="#add-group" role="button" class="btn btn-default float-right btn-group" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Add new group' as create_text %} {{ create_text }}">{{ create_text|upper }}</button>
+            </div>
+        </h4>
+
+        <ul class="list list-of-pleople">
+            {% for group in groups %}
+            <li class="border-bottom">
+                <figure><img src="{{ group.get_group_image }}" /></figure>
+                <div class="list-info">
+                    <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
+                    <span>
+                        {% trans "Members" %}: {{ group.members.all.count }}  {% trans "Books" %}: {{ group.book_set.count }}
+                    </span>
+                </div>
+                <div class="action-btns float-right hide">
+                    <button data-href="{% url 'portal:group_settings' group.url_name %}" role="button" class="btn btn-default">{% trans "Edit" %}</button>
+                    <button data-remote="{% url 'control_center:delete_group' group.url_name %}" data-toggle="modal" data-target="#deleteBookModal" class="btn btn-default">{% trans "Delete" %}</button>
+                </div>
+                <div class="clearfix"></div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="deleteBookModal" class="modal fade cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-
+    hidden="true"></div>
+{% endblock %}

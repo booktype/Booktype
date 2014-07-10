@@ -3,22 +3,27 @@ import shutil
 
 from django import forms
 from django.conf import settings
+from django.utils import timezone
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from django.core.validators import RegexValidator, MinLengthValidator
 
-from booktype.apps.core.forms import BaseBooktypeForm
 from booktype.utils import config
+from booktype.apps.account.models import UserProfile
+from booktype.apps.core.forms import BaseBooktypeForm
+from booktype.apps.portal.forms import GroupCreateForm
 
 from booktype.utils import misc
-from booki.editor.models import License, Book
+from booki.editor.models import License, Book, BookiGroup
 from booktype.utils.book import create_book, rename_book, check_book_availability
+
 
 class BaseControlForm(BaseBooktypeForm):
     """
     Base class for Control Center forms
     """
     success_message = None
+    success_url = None
 
     @classmethod
     def initial_data(cls):
@@ -28,7 +33,7 @@ class BaseControlForm(BaseBooktypeForm):
     def extra_context(cls):
         return {}
 
-    def save_settings(self):
+    def save_settings(self, request):
         pass
 
 class SiteDescriptionForm(BaseControlForm, forms.Form):
@@ -56,7 +61,7 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
             'tagline': config.get_configuration('BOOKTYPE_SITE_TAGLINE')
         }
 
-    def save_settings(self):
+    def save_settings(self, request):
         config.set_configuration('BOOKTYPE_SITE_NAME', self.cleaned_data['title'])
         config.set_configuration('BOOKTYPE_SITE_TAGLINE', self.cleaned_data['tagline'])
 
@@ -94,7 +99,7 @@ class AppearanceForm(BaseControlForm, forms.Form):
 
         return dict(css=css_content)
 
-    def save_settings(self):
+    def save_settings(self, request):
         try:
             # should really save it in a safe way
             f = open('%s/css/_user.css' % settings.STATIC_ROOT, 'w')
@@ -128,7 +133,7 @@ class FrontpageForm(BaseControlForm, forms.Form):
         _dict['show_changes'] = config.get_configuration('BOOKTYPE_FRONTPAGE_HISTORY', True)
         return _dict
 
-    def save_settings(self):
+    def save_settings(self, request):
         staticRoot = settings.BOOKTYPE_ROOT
         config.set_configuration('BOOKTYPE_FRONTPAGE_HISTORY', self.cleaned_data['show_changes'])
 
@@ -166,6 +171,7 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
         )
 
     success_message = _('Succesfully created new license.')
+    success_url = "#license"
 
     class Meta:
         model = License
@@ -174,7 +180,7 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
     def extra_context(cls):
         return dict(licenses=License.objects.all().order_by("name"))
 
-    def save_settings(self):
+    def save_settings(self, request):
         return self.save()
 
 
@@ -210,7 +216,7 @@ class BookSettingsForm(BaseControlForm, forms.Form):
             'license': license
         }
 
-    def save_settings(self):
+    def save_settings(self, request):
         config.set_configuration('CREATE_BOOK_VISIBLE', self.cleaned_data['visible'])
 
         if 'license' in self.cleaned_data:
@@ -255,7 +261,7 @@ class PrivacyForm(BaseControlForm, forms.Form):
             'import_books': config.get_configuration('ADMIN_IMPORT_BOOKS')
         }
 
-    def save_settings(self):
+    def save_settings(self, request):
         config.set_configuration('FREE_REGISTRATION', self.cleaned_data['user_register'])
         config.set_configuration('ADMIN_CREATE_BOOKS', self.cleaned_data['create_books'])
         config.set_configuration('ADMIN_IMPORT_BOOKS', self.cleaned_data['import_books'])
@@ -318,6 +324,7 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         )
 
     success_message = _('Successfully created new account.')
+    success_url = "#list-of-people"
 
     class Meta:
         model = User
@@ -344,7 +351,7 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
 
         return self.cleaned_data['password2']
     
-    def save_settings(self):
+    def save_settings(self, request):
         user = User.objects.create_user(
             username=self.cleaned_data['username'],
             email=self.cleaned_data['email'],
@@ -353,8 +360,9 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         user.first_name = self.cleaned_data['first_name']
         user.save()
 
-        user.get_profile().description = self.cleaned_data['description']
-        user.get_profile().save()
+        profile = UserProfile.objects.get_or_create(user=user)[0]
+        profile.description = self.cleaned_data['description']
+        profile.save()
 
         # TODO: create a signal for this and move to right place
         if self.cleaned_data["send_email"]:
@@ -422,10 +430,7 @@ class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
         )
 
     class Meta(AddPersonForm.Meta):
-        pass        
-
-# TODO: remove after completing new control center
-ProfileForm = EditPersonInfoForm
+        pass
 
 
 class PasswordForm(BaseControlForm, forms.Form):
@@ -509,7 +514,7 @@ class AddBookForm(BaseControlForm, forms.Form):
             raise forms.ValidationError(_("This Book already exists."))
         return self.cleaned_data['title']
 
-    def save_settings(self):
+    def save_settings(self, request):
         book = create_book(self.cleaned_data['owner'], self.cleaned_data['title'])
         book.license = self.cleaned_data['license']
         book.description = self.cleaned_data['description']
@@ -606,7 +611,7 @@ class PublishingForm(BaseControlForm, forms.Form):
             'publish_odt': 'odt' in publish_options
         }
 
-    def save_settings(self):
+    def save_settings(self, request):
         opts = []        
         if self.cleaned_data['publish_book']: opts.append('book')
         if self.cleaned_data['publish_ebook']: opts.append('ebook')
@@ -664,7 +669,7 @@ class PublishingDefaultsForm(BaseControlForm,  forms.Form):
             'odt_css':   config.get_configuration('BOOKTYPE_CSS_ODT', '')
         }
 
-    def save_settings(self):
+    def save_settings(self, request):
         data = self.__class__.initial_data()
 
         if self.cleaned_data['book_css'] != data['book_css']:
@@ -683,3 +688,40 @@ class PublishingDefaultsForm(BaseControlForm,  forms.Form):
             config.save_configuration()
         except config.ConfigurationError as err:
             raise err
+
+
+class ListOfGroupsForm(BaseControlForm, forms.Form):
+    pass
+
+    @classmethod
+    def extra_context(cls):
+        return {
+            'groups': BookiGroup.objects.all().order_by("name")
+        }
+
+
+class AddGroupForm(BaseControlForm, GroupCreateForm, forms.ModelForm):
+
+    success_message = _('Successfully created new group.')
+
+    class Meta:
+        model = BookiGroup
+        fields = [
+            'name', 'description', 'owner'
+        ]
+
+    def save_settings(self, request):
+        group = self.save(commit=False)
+        group.url_name = misc.booktype_slugify(group.name)
+        group.created = timezone.now()
+        group.save()
+
+        # auto-join owner as team member
+        group.members.add(request.user)
+
+        # set group image if exists in post data
+        group_image = self.files.get('group_image', None)
+        if group_image:
+            self.set_group_image(group.pk, group_image)
+
+        return group
