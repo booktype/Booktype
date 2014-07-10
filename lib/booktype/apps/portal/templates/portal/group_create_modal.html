@@ -3,6 +3,7 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h2 class="modal-title" id="myModalLabel">{% trans "Create a new group" %}</h2>
         </div>
         <form method="post" action="{% url 'portal:group_create' %}"  enctype="multipart/form-data" style="margin-bottom: 0px">
