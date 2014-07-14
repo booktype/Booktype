@@ -9,7 +9,7 @@
     <ul class="list smaller-spacing">
         {% for license in licenses %}
             <li>
-                <a href="#">{{ license.abbrevation }} - {{ license.name }}</a>
+                <a href="{% url 'control_center:license_edit' license.pk %}">{{ license.abbrevation }} - {{ license.name }}</a>
             </li>
         {% endfor %}
     </ul>

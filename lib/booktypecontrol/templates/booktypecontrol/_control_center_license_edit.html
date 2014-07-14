@@ -1,0 +1,23 @@
+{% extends "booktypecontrol/control_center_settings.html" %}
+{% load i18n %}
+
+{% block extra_cc_content %}
+    <h4 class="border-bottom">{% trans "Books licensed with" %} "{{ license.name }}"</h4>
+    {% url 'control_center:settings' as next %}
+    {% with next|add:"?redirect=list-of-books" as next %}
+    <ul class="list smaller-spacing">
+        {% for book in licensed_books %}
+        <li>
+            <a data-remote="{% url 'reader:edit_info_book' book.url_title %}?next={{ next }}" href="#" data-toggle="modal" data-target="#bookEditModal">
+                {{ book.title }}
+            </a>
+        </li>
+        {% empty %}
+        <li>{% trans "No books for this license." %}</li>
+        {% endfor %}
+    </ul>
+    {% endwith %}
+    
+    <div id="bookEditModal" class="modal fade bookInfoModal cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
+    </div>
+{% endblock %}

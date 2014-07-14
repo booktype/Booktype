@@ -36,6 +36,7 @@ class BaseControlForm(BaseBooktypeForm):
     def save_settings(self, request):
         pass
 
+
 class SiteDescriptionForm(BaseControlForm, forms.Form):
     title = forms.CharField(
             label=_("Site title"),
