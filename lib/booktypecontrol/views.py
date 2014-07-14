@@ -35,13 +35,35 @@ from django.views.generic import DetailView, UpdateView, DeleteView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 from booktype.utils import misc
-from booki.editor.models import Book, BookiGroup, BookHistory
-
+from booki.editor.models import Book, BookiGroup, BookHistory, License
 from booktype.apps.core.views import BasePageView
 
 
+OPTION_NAMES = {
+    'site-description'    : _('Description'),
+    'appearance'          : _('Appearance'),
+    'frontpage'           : _('Frontpage'),
+    'license'             : _('Licenses'),
+    'book-settings'       : _('Default Book Settings for Creating Books'),
+    'privacy'             : _('Privacy'),
+    'add-person'          : _('Add a new Person'),
+    'list-of-people'      : _('List of People'),
+    'add-book'            : _('Add new Book'),
+    'list-of-books'       : _('List of Books'),
+    'publishing'          : _('Allowed publishing options'),
+    'publishing-defaults' : _('Publishing Defaults'),
+    'add-group'           : _('Add new Group'),
+    'list-of-groups'      : _('List of Groups')
+}
+
+VALID_OPTIONS = OPTION_NAMES.keys()
+
 class BaseCCView(LoginRequiredMixin, SuperuserRequiredMixin, BasePageView):
-    pass
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super(BaseCCView, self).get_context_data(*args, **kwargs)
+        context['valid_options'] = VALID_OPTIONS
+        return context
 
 class ControlCenterView(BaseCCView, TemplateView):
     """
@@ -128,25 +150,6 @@ class ControlCenterView(BaseCCView, TemplateView):
 
         return online_users
 
-OPTION_NAMES = {
-    'site-description'    : _('Description'),
-    'appearance'          : _('Appearance'),
-    'frontpage'           : _('Frontpage'),
-    'license'             : _('Licenses'),
-    'book-settings'       : _('Default Book Settings for Creating Books'),
-    'privacy'             : _('Privacy'),
-    'add-person'          : _('Add a new Person'),
-    'list-of-people'      : _('List of People'),
-    'add-book'            : _('Add new Book'),
-    'list-of-books'       : _('List of Books'),
-    'publishing'          : _('Allowed publishing options'),
-    'publishing-defaults' : _('Publishing Defaults'),
-    'add-group'           : _('Add new Group'),
-    'list-of-groups'      : _('List of Groups')
-}
-
-VALID_OPTIONS = OPTION_NAMES.keys()
-
 class ControlCenterSettings(BaseCCView, FormView):
     """
     Generic class for control center settings
@@ -204,7 +207,6 @@ class ControlCenterSettings(BaseCCView, FormView):
         context = super(ControlCenterSettings, self).get_context_data(*args, **kwargs)
         context['option'] = self.submodule
         context['option_name'] = OPTION_NAMES.get(self.submodule, '')
-        context['valid_options'] = VALID_OPTIONS
 
         extra_context = self.form_class.extra_context()
         if extra_context:
@@ -241,7 +243,6 @@ class EditPersonInfo(BaseCCView, UpdateView):
         context = super(EditPersonInfo, self).get_context_data(*args, **kwargs)
         context['option'] = None
         context['option_name'] = _('Edit Person Info')
-        context['valid_options'] = VALID_OPTIONS
         return context
 
     def form_valid(self, form):
@@ -305,7 +306,6 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
         context = super(PasswordChangeView, self).get_context_data(*args, **kwargs)
         context['option'] = None
         context['option_name'] = "%s: %s" % (_('Change Password'), self.object.username)
-        context['valid_options'] = VALID_OPTIONS
         return context
 
     def get_success_url(self):
@@ -321,3 +321,22 @@ class DeleteGroupView(BaseCCView, DeleteView):
     def get_success_url(self):
         messages.success(self.request, _('Group successfully deleted.'))
         return "%s#list-of-groups" % reverse('control_center:settings')
+
+class LicenseEditView(BaseCCView, UpdateView):
+    model = License
+    context_object_name = 'license'
+    form_class = control_forms.LicenseForm
+    page_title = _('Admin Control Center')
+    title = page_title
+    template_name = "booktypecontrol/_control_center_license_edit.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(LicenseEditView, self).get_context_data(*args, **kwargs)
+        context['option'] = 'license'
+        context['option_name'] = _('Edit licence')
+        context['licensed_books'] = Book.objects.filter(license=self.object).order_by('title')
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, _('License successfully updated.'))
+        return "%s#license" % reverse('control_center:settings')
