@@ -229,6 +229,14 @@ class PersonInfoView(BaseCCView, DetailView):
     context_object_name = 'current_user'
     template_name = "booktypecontrol/_control_center_modal_person_info.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(PersonInfoView, self).get_context_data(*args, **kwargs)
+        person = self.object
+        context['books'] = Book.objects.filter(owner=person)
+        context['groups'] = BookiGroup.objects.filter(owner=person)
+        context['activity'] = BookHistory.objects.filter(user=person, kind__in=[1, 10]).order_by('-modified')[:20]
+        return context
+
 class EditPersonInfo(BaseCCView, UpdateView):
     model = User
     slug_field = 'username'

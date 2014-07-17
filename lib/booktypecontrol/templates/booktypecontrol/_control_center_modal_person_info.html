@@ -1,4 +1,4 @@
-{% load i18n staticfiles messaging_tags %}
+{% load i18n staticfiles messaging_tags reader_tags %}
 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -8,6 +8,82 @@
                     <div class="box profile-box purple">
                         {% include "account/other_user_box.html" %}
                         <div class="box-bottom-white">
+                            <ul class="nav nav-tabs user-info-tabs" role="tablist" id="myTab">
+                                <li class="active">
+                                    <a href="#history" role="tab" data-toggle="tab">{% trans "Recent Activity" %}</a>
+                                </li>
+                                <li><a href="#books" role="tab" data-toggle="tab">{% trans "Books" %}</a></li>
+                                <li><a href="#groups" role="tab" data-toggle="tab">{% trans "Groups" %}</a></li>
+                            </ul>
+
+                            <div class="tab-content user-info-tabs-content">
+                                <div class="tab-pane fade in active" id="history">
+                                    <ul class="list">
+                                        {% for base_activ in activity %}
+                                        {% verbose_activity base_activ as activity %}
+                                        <li class="border-bottom">
+                                            <figure><img src="{{ activity.image_url }}"></figure>
+                                            <div class="list-info">
+                                                <span class="time">
+                                                    {{ base_activ.modified|timesince }} {% trans "ago" %}
+                                                </span>
+                                                {{ activity.verbose }}
+                                                {% if activity.link_url %}
+                                                <a target="_blank" href="{{ activity.link_url }}">
+                                                    {{ activity.link_text }}
+                                                </a>
+                                                {% endif %}
+                                                <span>#{{ activity.book.url_title }}</span>
+                                              </p>
+                                            </div>
+                                        </li>
+                                        {% empty %}
+                                        <li>{% trans "There is no activity yet" %}.</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="books">
+                                    <ul class="list">
+                                        {% for book in books %}
+                                        <li class="border-bottom">
+                                            <div class="list-info">
+                                                <h4>
+                                                    <a target="_blank" href="{% url "reader:infopage" book.url_title %}">
+                                                        {{ book.title }}
+                                                    </a>
+                                                </h4>
+                                                <span>
+                                                  {% trans "Current version" %}: {{ book.get_version }}
+                                                </span>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                        {% empty %}
+                                        <li>{% trans "This user has no books" %}.</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="groups">
+                                    <ul class="list">
+                                        {% for group in groups %}
+                                        <li class="border-bottom">
+                                            <figure><img src="{{ group.get_group_image }}" /></figure>
+                                            <div class="list-info">
+                                                <h4>
+                                                    <a target="_blank" href="{% url "portal:group" group.url_name %}">{{ group.name }}</a>
+                                                </h4>
+                                                <span>
+                                                  {% trans "Members" %}: {{ group.members.all.count }}  {% trans "Books" %}: {{ group.book_set.count }}
+                                                </span>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                        {% empty %}
+                                        <li>{% trans "This user has no groups" %}.</li>
+                                        {% endfor %}
+                                    </ul>
+                              </div>
+                            </div>
                             <button class="btn btn-default" type="button" data-dismiss="modal">{% trans "Close" %}</button>
                         </div>
                     </div>
