@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+
+{% load i18n profile staticfiles %}
+{% block content %}
+<div class="container group-error">
+    <div class="row two-col">
+        <div class="col-xs-8">
+            <h1>{{ page_title }}</h1>
+            <p>{% blocktrans %}Can't find {{ not_found_object }} "{{ object_name }}".{% endblocktrans %}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
