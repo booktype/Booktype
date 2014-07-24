@@ -167,8 +167,14 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
     name = forms.CharField(
             label=_("Name"),
             required=True,
-            error_messages={'required': _('License name is required.')},                                                            
+            error_messages={'required': _('License name is required.')},
             max_length=100
+        )
+    url = forms.URLField(
+            label=_("License URL"),
+            required=True,
+            error_messages={'required': _('License name is required.')},
+            max_length=200
         )
 
     success_message = _('Succesfully created new license.')

@@ -30,6 +30,7 @@ import os
 class License(models.Model):
     name = models.CharField(_('name'), max_length=100, blank=False)
     abbrevation = models.CharField(_('abbrevation'), max_length=30)
+    url = models.URLField(_('url'), blank=True)
 
     def __unicode__(self):
         return self.name
