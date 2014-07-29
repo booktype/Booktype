@@ -36,6 +36,10 @@
                     {% if forloop.last %}
                         </ul>
                     {% endif %}
+                    {% empty %}
+                    <ul class="list">
+                        <li>{% trans "No content yet" %}.</li>
+                    </ul>
                     {% endfor %}
                 </div>
             </div>
