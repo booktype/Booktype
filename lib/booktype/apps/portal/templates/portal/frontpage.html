@@ -25,25 +25,29 @@
 
                         <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
                             {% for book in books_list %}
-                                <div class="grid-2">
-                                    <figure class="custom-cover">
-                                        {% if book.cover %}
-                                            <img src="{% url "reader:book_cover" book.url_title %}" />
-                                        {% else %}
-                                            <img src="{% static "core/img/thumb-default.png" %}"/>
-                                        {% endif %}
-                                    </figure>
-                                    <div class="book-info">
-                                        <h4><a href="{% url "reader:infopage" book.url_title %}">{{ book.title }}</a></h4>
-                                        {% if request.user.is_authenticated %}
-                                            <div class="btn-group float-right">
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit:editor" book.url_title %}"><i class="icon-pencil"></i></a>
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url "accounts:view_profile" request.user.username %}" target="_blank"><i class="icon-eye-open"></i></a>
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "accounts:view_profile" request.user.username %}"><i class="icon-trash"></i></a>
-                                            </div>
-                                        {% endif %}
-                                    </div>
+                            <div class="grid-2">
+                                <figure class="custom-cover">
+                                    {% if book.cover %}
+                                        <img src="{% url "reader:book_cover" book.url_title %}" />
+                                    {% else %}
+                                        <img src="{% static "core/img/thumb-default.png" %}"/>
+                                    {% endif %}
+                                </figure>
+                                <div class="book-info">
+                                    <h4><a href="{% url "reader:infopage" book.url_title %}">{{ book.title }}</a></h4>
+                                    {% if request.user.is_authenticated %}
+                                        <div class="btn-group float-right">
+                                            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit:editor" book.url_title %}"><i class="icon-pencil"></i></a>
+                                            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url "accounts:view_profile" request.user.username %}" target="_blank"><i class="icon-eye-open"></i></a>
+                                            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "accounts:view_profile" request.user.username %}"><i class="icon-trash"></i></a>
+                                        </div>
+                                    {% endif %}
                                 </div>
+                            </div>
+                            {% empty %}
+                            <div class="grid-2">
+                                {% trans "There are no books yet" %}.
+                            </div>
                             {% endfor %}
                         </div> <!-- End of book list (book-thumb or book-list) -->
 
@@ -64,15 +68,17 @@
                     </h2>
                     <ul class="list-people list user-avatar">
                         {% for user in user_list %}
-                            <li>
-                               <figure>{% profile_image user %}</figure>
-                                <div class="people-info gray">
-                                    <h4>
-                                        <a href="{% url "accounts:view_profile" user.username %}">{{ user.username }}</a>
-                                    </h4>
-                                    <span>{{ user.first_name }}</span>
-                                </div> 
-                            </li>
+                        <li>
+                           <figure>{% profile_image user %}</figure>
+                            <div class="people-info gray">
+                                <h4>
+                                    <a href="{% url "accounts:view_profile" user.username %}">{{ user.username }}</a>
+                                </h4>
+                                <span>{{ user.first_name }}</span>
+                            </div> 
+                        </li>
+                        {% empty %}
+                        <li>{% trans "There are no users yet" %}.</li>
                         {% endfor %}
                     </ul>  
                     {% if request.user.is_authenticated %}
@@ -89,14 +95,16 @@
                     </h2>
 
                     <ul class="list">
-                          {% for group in group_list %}
-                            <li>
-                                <figure><img src="{{ group.small_group_image }}" /></figure>
-                                <div class="list-info">
-                                <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
-                                    <span>{% trans "Members:" %} {{ group.num_members }}  {% trans "Books:" %} {{ group.num_books }}</span> 
-                                </div>
-                            </li>
+                        {% for group in group_list %}
+                        <li>
+                            <figure><img src="{{ group.small_group_image }}" /></figure>
+                            <div class="list-info">
+                            <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
+                                <span>{% trans "Members:" %} {{ group.num_members }}  {% trans "Books:" %} {{ group.num_books }}</span> 
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li>{% trans "There are no groups yet" %}.</li>
                         {% endfor %}                            
                     </ul>
                     {% if request.user.is_authenticated %}
@@ -147,6 +155,8 @@
                                     </p>
                                 </div>
                             </li>
+                        {% empty %}
+                            <li>{% trans "There is no activity yet" %}.</li>
                         {% endfor %}
                     </ul>
                 </div>
