@@ -61,16 +61,24 @@
                     </div>
                 </h2>
 
-                <div class="book-thumb" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
+                <div class="book-thumb" id="books-prew">
                     {% for book in books %}
                     {% include "account/dashboard_book_template.html" %}
+                    {% empty %}
+                    <div class="pad20">
+                        {% if current_user == request.user %}
+                            {% trans "This is a perfect moment to start writing your book, just click on the button above!" %}
+                        {% else %}
+                            {% trans "This user has no books" %}.
+                        {% endif %}
+                    </div>
                     {% endfor %}
-                </div> <!-- End of book list (book-thumb or book-list) -->
+                </div>
                 
                 {% if books_collaborating %}
                 <h4>{% trans "Participating Books" %}</h4>
 
-                <div class="book-thumb" id="books-prew-2"> <!-- For list view add white-list class, and remove book-thumb -->
+                <div class="book-thumb" id="books-prew-2">
                     {% for book in books_collaborating %}
                     {% include "account/dashboard_book_template.html" %}
                     {% endfor %}
@@ -89,7 +97,7 @@
                     {% for group in groups %}
                     {% include "account/dashboard_group_template.html" %}
                     {% empty %}
-                    <li>{% trans "There is no groups here yet. Create one!" %}</li>
+                    <li>{% trans "Work with others in Groups. To create a Group click on the button below" %}.</li>
                     {% endfor %}
                 </ul>
                 <div class="box-bottom-gray">                    
@@ -172,7 +180,7 @@
                     {% for group in groups %}
                     {% include "account/dashboard_group_template.html" %}
                     {% empty %}
-                    <p>{% trans "This user has no groups" %}</p>
+                    <p>{% trans "This are no groups here yet" %}.</p>
                     {% endfor %}
                 </ul>
             </div>
