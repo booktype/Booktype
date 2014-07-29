@@ -17,19 +17,21 @@
 
     				<ul class="list border-top user-avatar circle">
                         {% for user in all_people %}
-    					   <li>
-                                <figure>{% profile_image user %}</figure>
-                                <div class="list-info">
-                                    <p class="float-right"><a href="{{ request.META.SCRIPT_NAME }}/feeds/rss/user/{{ user }}/">{% trans "Follow my changes" %} </a> <img src="{% static "core/img/rss.png" %}"></p>
-                                    <h4><a href="{% url "accounts:view_profile" user %}">{{ user.username }}</a></h4>
-                                    <p>{{ user.first_name }}</p>
-                                </div>
-                            </li>
+					   <li>
+                            <figure>{% profile_image user %}</figure>
+                            <div class="list-info">
+                                <p class="float-right"><a href="{{ request.META.SCRIPT_NAME }}/feeds/rss/user/{{ user }}/">{% trans "Follow my changes" %} </a> <img src="{% static "core/img/rss.png" %}"></p>
+                                <h4><a href="{% url "accounts:view_profile" user %}">{{ user.username }}</a></h4>
+                                <p>{{ user.first_name }}</p>
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li>{% trans "There are no people yet" %}.</li>
                         {% endfor %}
     				</ul>
     			</div>
 
-    		</div> <!-- End of col-xs-4 -->
+    		</div>
 
 
     		<div class="col-xs-4">
@@ -55,13 +57,15 @@
     				<h2 class="box-title">{% trans "Active people" %}</h2>
     				<ul class="list border-top user-avatar circle">
                         {% for user in active_people %}
-    					   <li>
-	    					  <figure>{% profile_image user %}</figure>
-	    					  <div class="list-info">
-	    					  	   <h4><a href="{% url "accounts:view_profile" user %}">{{ user }}</a></h4>
-                                    <p>{{ user.first_name }}</p>
-    						  </div>
-    					   </li>
+					    <li>
+    					    <figure>{% profile_image user %}</figure>
+    					    <div class="list-info">
+    					  	   <h4><a href="{% url "accounts:view_profile" user %}">{{ user }}</a></h4>
+                                <p>{{ user.first_name }}</p>
+						    </div>
+					    </li>
+                        {% empty %}
+                        <li>{% trans "There are no people yet" %}.</li>
                         {% endfor %}
     				</ul>
     			</div>
@@ -70,13 +74,15 @@
     				<h2 class="box-title">{% trans "New people" %}</h2>
     				<ul class="list border-top user-avatar circle">
                         {% for user in new_people %}
-                            <li>
-                                <figure>{% profile_image user %}</figure>
-                                <div class="list-info">
-                                    <h4><a href="{% url "accounts:view_profile" user %}">{{ user }}</a></h4>
-                                    <p>{{ user.first_name }}</p>
-                                </div>
-                            </li>
+                        <li>
+                            <figure>{% profile_image user %}</figure>
+                            <div class="list-info">
+                                <h4><a href="{% url "accounts:view_profile" user %}">{{ user }}</a></h4>
+                                <p>{{ user.first_name }}</p>
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li>{% trans "There are no people yet" %}.</li>
                         {% endfor %}
     				</ul>
     			</div>
