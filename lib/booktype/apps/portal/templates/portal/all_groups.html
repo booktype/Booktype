@@ -17,20 +17,22 @@
 
                 <ul class="list border-top">
                     {% for group in all_groups %}
-                        <li>
-                            <figure><img src="{{ group.small_group_image }}" /></figure>
-                                <div class="list-info">
-                                    {% if request.user.is_authenticated and request.user != group.owner %} 
-                                        {% if request.user in group.members.all %} 
-                                            <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-success float-right btn-xs leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
-                                        {% else %}
-                                            <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-default float-right btn-xs join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
-                                        {% endif %}                                        
-                                    {% endif %}
-                                    <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
-                                    <span>{% trans "Members" %}: {{ group.members.all.count }}  {% trans "Books" %}: {{ group.num_books }}</span>
-                                </div>
-                        </li>
+                    <li>
+                        <figure><img src="{{ group.small_group_image }}" /></figure>
+                            <div class="list-info">
+                                {% if request.user.is_authenticated and request.user != group.owner %} 
+                                    {% if request.user in group.members.all %} 
+                                        <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-success float-right btn-xs leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
+                                    {% else %}
+                                        <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-default float-right btn-xs join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
+                                    {% endif %}                                        
+                                {% endif %}
+                                <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
+                                <span>{% trans "Members" %}: {{ group.members.all.count }}  {% trans "Books" %}: {{ group.num_books }}</span>
+                            </div>
+                    </li>
+                    {% empty %}
+                    <li>{% trans "There are no groups yet" %}.</li>
                     {% endfor %}
                 </ul>
 
@@ -61,14 +63,16 @@
                 <h2 class="box-title">{% trans "Active groups" %}</h2>
                 <ul class="list border-top">
                     {% for active_group in active_groups %}
-                        <li>
-                            <figure><img src="{{ active_group.small_group_image }}" /></figure>
-                            <div class="list-info">
-                                <h4><a href="{% url "portal:group" active_group.url_name %}">{{ active_group.name }}</a> - {{ active_group.description }}</h4>
-                                <span>{% trans "Members" %}: {{ active_group.members.all.count }}  {% trans "Books" %}: {{ active_group.num_books }}</span>
-                            </div>
-                        </li>
-                        {% endfor %}
+                    <li>
+                        <figure><img src="{{ active_group.small_group_image }}" /></figure>
+                        <div class="list-info">
+                            <h4><a href="{% url "portal:group" active_group.url_name %}">{{ active_group.name }}</a> - {{ active_group.description }}</h4>
+                            <span>{% trans "Members" %}: {{ active_group.members.all.count }}  {% trans "Books" %}: {{ active_group.num_books }}</span>
+                        </div>
+                    </li>
+                    {% empty %}
+                    <li>{% trans "There are not groups yet" %}.</li>
+                    {% endfor %}
                     </ul>
                 </div>
 
@@ -76,20 +80,22 @@
                     <h2 class="box-title">{% trans "New groups" %}</h2>
                     <ul class="list border-top">
                         {% for group in new_groups %}
-                            <li>
-                                <figure><img src="{{ group.small_group_image }}" /></figure>
-                                <div class="list-info">
-                                    {% if request.user.is_authenticated and request.user != group.owner %} 
-                                        {% if request.user in group.members.all %} 
-                                            <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-success float-right btn-xs leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
-                                        {% else %}
-                                            <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-default float-right btn-xs join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
-                                        {% endif %}                                        
-                                    {% endif %}
-                                    <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
-                                    <span>{% trans "Members" %}: {{ group.num_members }}  {% trans "Books" %}: {{ group.num_books }}</span>
-                                </div>
-                            </li>
+                        <li>
+                            <figure><img src="{{ group.small_group_image }}" /></figure>
+                            <div class="list-info">
+                                {% if request.user.is_authenticated and request.user != group.owner %} 
+                                    {% if request.user in group.members.all %} 
+                                        <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-success float-right btn-xs leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
+                                    {% else %}
+                                        <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-default float-right btn-xs join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
+                                    {% endif %}                                        
+                                {% endif %}
+                                <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
+                                <span>{% trans "Members" %}: {{ group.num_members }}  {% trans "Books" %}: {{ group.num_books }}</span>
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li>{% trans "There are not groups yet" %}.</li>
                         {% endfor %}
                     </ul>
                 </div>
