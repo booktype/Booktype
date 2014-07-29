@@ -14,12 +14,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import patterns, url
 
 from .views import InfoPageView, DeleteBookView, EditBookInfoView
-from .views import DraftChapterView, FullView, BookCoverView
+from .views import DraftChapterView, FullView, BookCoverView, PublishedBookView
 
 urlpatterns = patterns('',
+   url(r'^$', PublishedBookView.as_view(), name='published_book'),
    url(r'^_info/$', InfoPageView.as_view(), name='infopage'),
    url(r'^_info/cover.jpg$', BookCoverView.as_view(), name='book_cover'),
    url(r'^_info/edit/$', EditBookInfoView.as_view(), name='edit_info_book'),
