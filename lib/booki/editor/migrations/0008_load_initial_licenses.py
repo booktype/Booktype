@@ -9,9 +9,10 @@ class Migration(DataMigration):
     def forwards(self, orm):
         "Write your forwards methods here."
 
-        if orm.License.objects.count() == 0:
-            from django.core.management import call_command
-            call_command('loaddata', 'documentation_licenses.json')
+        # if orm.License.objects.count() == 0:
+        #     from django.core.management import call_command
+        #     call_command('loaddata', 'documentation_licenses.json')
+        pass
     
     
     def backwards(self, orm):

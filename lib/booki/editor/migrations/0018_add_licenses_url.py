@@ -21,6 +21,13 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         "Write your forwards methods here."
+
+        # inject initial licenses after url field is created to prevent
+        # error with DBs that don't support DDL Transactions
+        if orm.License.objects.count() == 0:
+            from django.core.management import call_command
+            call_command('loaddata', 'documentation_licenses.json')
+
         for data in LICENSES_URL:
             try:
                 license = orm.License.objects.get(pk=data['pk'])
