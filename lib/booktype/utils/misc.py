@@ -21,6 +21,8 @@ import config
 
 from django.conf import settings
 from django.template.defaultfilters import slugify
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 from lxml import etree, html
 from ebooklib import epub
