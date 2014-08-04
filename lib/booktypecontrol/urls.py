@@ -18,7 +18,7 @@ from django.conf.urls import patterns, url
 
 from .views import (ControlCenterView, ControlCenterSettings, PersonInfoView,
                     EditPersonInfo, PasswordChangeView, BookRenameView, DeleteGroupView,
-                    LicenseEditView)
+                    LicenseEditView, DeleteLicenseView)
 
 urlpatterns = patterns('',
     url(r'^$', ControlCenterView.as_view(), name='frontpage'),
@@ -31,4 +31,5 @@ urlpatterns = patterns('',
     url(r'^books/(?P<bookid>[\w\s\_\.\-\d]+)/rename/$', BookRenameView.as_view(), name='rename_book'),
     url(r'^groups/(?P<groupid>[\w\s\_\.\-\d]+)/delete/$', DeleteGroupView.as_view(), name='delete_group'),
     url(r'^licenses/(?P<pk>\d+)/edit/$', LicenseEditView.as_view(), name="license_edit"),
+    url(r'^licenses/(?P<pk>\d+)/delete/$', DeleteLicenseView.as_view(), name="delete_license"),
 )
