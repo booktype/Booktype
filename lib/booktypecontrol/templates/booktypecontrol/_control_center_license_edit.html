@@ -2,6 +2,10 @@
 {% load i18n %}
 
 {% block extra_cc_content %}
+    <button class="btn btn-primary license-delete" data-remote="{% url 'control_center:delete_license' license.pk %}" data-toggle="modal" data-target="#bookEditModal">
+        {% trans "Remove" %}
+    </button>
+
     <h4 class="border-bottom">{% trans "Books licensed with" %} "{{ license.name }}"</h4>
     {% url 'control_center:settings' as next %}
     {% with next|add:"?redirect=list-of-books" as next %}

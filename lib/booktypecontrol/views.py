@@ -348,3 +348,20 @@ class LicenseEditView(BaseCCView, UpdateView):
     def get_success_url(self):
         messages.success(self.request, _('License successfully updated.'))
         return "%s#license" % reverse('control_center:settings')
+
+class DeleteLicenseView(BaseCCView, DeleteView):
+    model = License
+    context_object_name = 'license'
+    template_name = 'booktypecontrol/_control_center_modal_delete_license.html'
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.book_set.all():
+            messages.warning(self.request, _('There are licensed books with this license. Unable to remove'))
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            messages.success(self.request, _('License successfully deleted.'))
+        return super(DeleteLicenseView, self).delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return "%s#license" % reverse('control_center:settings')
