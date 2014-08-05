@@ -1,7 +1,7 @@
 {% load i18n %}
 {% blocktrans with user.first_name as first_name %}Hi {{ first_name }}!{% endblocktrans %}
 
-{% trans "This is a notification of a new message for you at your Booki profile:" %}
+{% trans "This is a notification of a new message for you at your Booktype profile:" %}
 {{ SERVER_ROOT }}{% url view_profile user.username %}
 
 {% trans "Sender:" %} {{ post.sender }} {{ SERVER_ROOT }}{% url view_profile post.sender.as_user.username %}

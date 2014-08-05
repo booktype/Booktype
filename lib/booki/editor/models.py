@@ -134,8 +134,8 @@ class BookiGroup(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = _('Booki group')
-        verbose_name_plural = _('Booki groups')
+        verbose_name = _('Booktype group')
+        verbose_name_plural = _('Booktype groups')
 
 # Book
 
