@@ -1,5 +1,6 @@
 from django.forms.widgets import ClearableFileInput, CheckboxInput
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 
 class RemovableImageWidget(CheckboxInput):
 
@@ -28,6 +29,6 @@ class RemovableImageWidget(CheckboxInput):
                 'label_class': label_class,
                 'label_text': _('Remove')
             }
-            return content
+            return mark_safe(content)
         else:
             return ClearableFileInput().render(name, value, attrs)

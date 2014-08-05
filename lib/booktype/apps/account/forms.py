@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import PasswordChangeForm
 
 from booktype.apps.core.forms import BaseBooktypeForm
+from booktype.apps.portal.widgets import RemovableImageWidget
 
 class UserSettingsForm(BaseBooktypeForm, forms.ModelForm):
     email = forms.EmailField(label=_('Email'))
@@ -16,7 +17,11 @@ class UserSettingsForm(BaseBooktypeForm, forms.ModelForm):
     )
     profile_pic = forms.FileField(
         label=_('Profile image'), 
-        required=False
+        required=False,
+        widget=RemovableImageWidget(attrs={
+            'label_class': 'checkbox-inline',
+            'input_class': 'group-image-removable'
+        })
     )
     notification = forms.CharField(
         label=_('Notification filter'), 
