@@ -14,15 +14,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 from django.conf import settings
-
-## UserProfile
-
-from django.core.files.storage import FileSystemStorage
 
 class UserProfile(models.Model):
     """
@@ -39,6 +36,16 @@ class UserProfile(models.Model):
     image = models.ImageField(_('image'), upload_to=settings.PROFILE_IMAGE_UPLOAD_DIR, null=True)
     description = models.CharField(_('description'), max_length=2500, blank=False,null=False,default='')
     user = models.ForeignKey(User, unique=True, verbose_name=_("user"))
+
+    def remove_image(self):
+        self.image = None
+        self.save()
+
+        # remove file manually because of django doesn't do that automatically
+        try:
+            os.remove('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, self.user.username))
+        except Exception as err:
+            print err
 
 class UserPassword(models.Model):
     """

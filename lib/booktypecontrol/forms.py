@@ -12,6 +12,7 @@ from booktype.utils import config
 from booktype.apps.account.models import UserProfile
 from booktype.apps.core.forms import BaseBooktypeForm
 from booktype.apps.portal.forms import GroupCreateForm
+from booktype.apps.portal.widgets import RemovableImageWidget
 
 from booktype.utils import misc
 from booki.editor.models import License, Book, BookiGroup
@@ -428,7 +429,11 @@ class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
         )
     profile = forms.ImageField(
             label=_('Profile picture'),
-            required=False
+            required=False,
+            widget=RemovableImageWidget(attrs={
+                'label_class': 'checkbox-inline',
+                'input_class': 'group-image-removable'
+            })
         )
     description = forms.CharField(
             label=_("User description"), 

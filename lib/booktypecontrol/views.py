@@ -255,11 +255,15 @@ class EditPersonInfo(BaseCCView, UpdateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        self.object.get_profile().description = form.cleaned_data['description']
-        self.object.get_profile().save()
+        profile = self.object.get_profile()
+        profile.description = form.cleaned_data['description']
+        profile.save()
 
         if form.files.has_key('profile'):
             misc.set_profile_image(self.object, form.files['profile'])
+        else:
+            if form.data.get('profile_remove', False):
+                profile.remove_image()
 
         messages.success(self.request, _('Successfully saved changes.'))
 
@@ -267,7 +271,10 @@ class EditPersonInfo(BaseCCView, UpdateView):
 
     def get_initial(self):
         initial_dict = super(EditPersonInfo, self).get_initial()
-        initial_dict['description'] = self.object.get_profile().description
+        profile = self.object.get_profile()
+        initial_dict['description'] = profile.description
+        if profile.image:
+            initial_dict['profile'] = profile.image.url
         return initial_dict
 
     def get_success_url(self):

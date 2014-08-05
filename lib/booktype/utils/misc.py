@@ -536,7 +536,7 @@ def set_group_image(groupid, file_object, x_size, y_size):
     @type groupid; C{booki.editor.models.BookiGroup}
     @param: Group object
 
-    @type fileObject: C{UploadedFile}
+    @type file_object: C{UploadedFile}
     @param: Image file
     """
 
@@ -653,7 +653,7 @@ def set_profile_image(user, file_object):
     @param: Image file
     """
 
-    fh, fname = save_uploaded_as_file(fileObject)
+    fh, fname = save_uploaded_as_file(file_object)
 
     try:
         im = create_thumbnail(fname, size=(100, 100))
