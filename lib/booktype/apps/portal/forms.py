@@ -10,6 +10,8 @@ from booki.editor.models import BookiGroup
 from booktype.utils import misc
 from booktype.apps.core.forms import BaseBooktypeForm
 
+from widgets import RemovableImageWidget
+
 
 class SpanErrorList(ErrorList):
     def __unicode__(self):
@@ -30,7 +32,12 @@ class BaseGroupForm(BaseBooktypeForm, forms.ModelForm):
     )
     group_image = forms.FileField(
         label=_('Group image'),
-        required=False
+        required=False,
+        widget=RemovableImageWidget(attrs={
+                'label_class': 'checkbox-inline',
+                'input_class': 'group-image-removable'
+            }
+        )
     )
 
     class Meta:
@@ -63,8 +70,9 @@ class BaseGroupForm(BaseBooktypeForm, forms.ModelForm):
                 raise ValidationError(_('Only JPEG file is allowed for group image.'))
             else:
                 misc.set_group_image(group_id + "_small", group_image, 18, 18)
-        except:
-            pass
+        except Exception as err:
+            # TODO: we should do something here
+            print err
 
 
 class GroupCreateForm(BaseGroupForm):
@@ -77,4 +85,5 @@ class GroupUpdateForm(BaseGroupForm):
         group_id = str(self.instance.pk)
 
         if group_image:
-            self.set_group_image(group_id, group_image)            
+            self.set_group_image(group_id, group_image)
+        return group_image
