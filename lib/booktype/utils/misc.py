@@ -18,6 +18,7 @@ import os
 import urllib
 import urlparse
 import config
+import tempfile
 
 from django.conf import settings
 from django.template.defaultfilters import slugify
@@ -110,7 +111,6 @@ class ImportPlugin(BasePlugin):
         import os.path
         import urlparse
 
-        from lxml import etree
         from ebooklib.utils import parse_html_string
 
         try:

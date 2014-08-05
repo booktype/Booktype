@@ -130,6 +130,20 @@ class BookiGroup(models.Model):
 
         return group_image
 
+    def remove_group_images(self):
+        group_image_path = '%s/%s' % (settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
+        
+        group_images = []
+        group_images.append('{0}/{1}_small.jpg'.format(group_image_path, self.pk))
+        group_images.append('{0}/{1}.jpg'.format(group_image_path, self.pk))
+
+        for image_path in group_images:
+            try:
+                os.remove(image_path)
+            except Exception as err:
+                # TODO: should log this error
+                print err
+
     def __unicode__(self):
         return self.name
 

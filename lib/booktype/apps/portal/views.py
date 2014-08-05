@@ -201,6 +201,21 @@ class GroupUpdateView(LoginRequiredMixin, BasePageView, UpdateView):
 
         return super(GroupUpdateView, self).dispatch(request, *args, **kwargs)
 
+    def get_initial(self):
+        initial_dict = super(GroupUpdateView, self).get_initial()
+        group = self.get_object()
+        group_image = group.get_big_group_image()
+
+        if group_image:
+            initial_dict['group_image'] = group_image
+        return initial_dict
+
+    def form_valid(self, form):
+        response = super(GroupUpdateView, self).form_valid(form)
+        if form.data.get('group_image_remove', False) and not form.files.get('group_image'):
+            form.instance.remove_group_images()
+        return response
+
 
 class PeoplePageView(PageView):
     template_name = "portal/people.html"
