@@ -66,6 +66,7 @@ class DashboardPageView(BasePageView, DetailView):
         context['books'] = Book.objects.filter(owner=self.object).order_by('title')
         context['licenses'] = License.objects.all().order_by('name')
         context['groups'] = BookiGroup.objects.filter(owner=self.object).order_by('name')
+        context['participating_groups'] = BookiGroup.objects.filter(members=self.object).exclude(owner=self.object).order_by('name')
 
         # get books with user has collaborated with
         book_ids = BookHistory.objects.filter(user=self.object).values_list('book', flat=True).distinct()
