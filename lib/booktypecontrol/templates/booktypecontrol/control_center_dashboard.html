@@ -47,7 +47,7 @@
 
                 <div class="box white">
                     <h2 class="box-title">
-                        {% trans "Online users" %} <a class="view_all" href="#">{% trans "view all" %}</a>
+                        {% trans "Online users" %}
                     </h2>
                     <ul class="list border-top user-avatar circle">
                         {% for username, books in online_users.items %}
@@ -80,7 +80,7 @@
 
                 <div class="box white">
                     <h2 class="box-title">
-                        {% trans "Most Active Users" %} <a class="view_all" href="#">{% trans "view all" %}</a>
+                        {% trans "Most Active Users" %} <a class="view_all" href="{% url 'control_center:settings' %}#list-of-people">{% trans "view all" %}</a>
                     </h2>
                     <ul class="list border-top user-avatar circle">
                         {% for user in most_active_users %}
@@ -104,7 +104,7 @@
 
                 <div class="box white">
                     <h2 class="box-title">
-                        {% trans "Latest Books" %} <a class="view_all" href="#">{% trans "view all" %}</a>
+                        {% trans "Latest Books" %} <a class="view_all" href="{% url 'control_center:settings' %}#list-of-books">{% trans "view all" %}</a>
                     </h2>
                     <ul class="list border-top">
                         {% for book in latest_books %}
@@ -124,7 +124,7 @@
 
                 <div class="box white">
                     <h2 class="box-title">
-                        {% trans "Most Active Books" %} <a class="view_all" href="#">{% trans "view all" %}</a>
+                        {% trans "Most Active Books" %}
                     </h2>
                     <ul class="list border-top">
                         {% for book in most_active_books %}
