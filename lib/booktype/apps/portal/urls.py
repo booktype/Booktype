@@ -18,7 +18,7 @@ from django.conf.urls import patterns, url
 
 from booktype.apps.portal import feeds
 from .views import FrontPageView, GroupPageView, AllGroupsPageView, PeoplePageView
-from .views import BooksPageView, GroupUpdateView, GroupCreateView, AddBooksView
+from .views import BooksPageView, GroupUpdateView, GroupCreateView, AddBooksView, GroupDeleteView
 
 
 urlpatterns = patterns(
@@ -28,6 +28,7 @@ urlpatterns = patterns(
     url(r'^groups/_settings/(?P<groupid>[\w\s\_\.\-]+)/$', GroupUpdateView.as_view(), name='group_settings'),
     url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/$', GroupPageView.as_view(), name='group'),
     url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/add_book/$', AddBooksView.as_view(), name='add_book'),
+    url(r'^groups/(?P<groupid>[\w\s\_\.\-]+)/delete/$', GroupDeleteView.as_view(), name='delete_group'),
 
     url(r'^list-groups/$', AllGroupsPageView.as_view(), name='list_groups'),
     url(r'^list-people/$', PeoplePageView.as_view(), name='list_people'),

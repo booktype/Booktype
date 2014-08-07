@@ -24,7 +24,13 @@
 
                      <div class="box-bottom-white">
                         {% if request.user.is_authenticated %}
-                            {% if am_I_a_member == 0 %} 
+                            {% if user.is_superuser or is_group_admin %}
+                            <button class="btn btn-default float-right btn-delete-group" data-remote="{% url 'portal:delete_group' user_group.url_name %}" data-toggle="modal" data-target="#groupDeleteModal">
+                                {% trans "DELETE GROUP" %}
+                            </button>
+                            {% endif %}
+
+                            {% if not am_I_a_member %}
                                 <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-default float-left join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
                             {% else %}
                                 {% if not is_group_admin %}
@@ -115,5 +121,7 @@
                 </div>
             </div>
         </div>
-    </div> <!-- End of container -->
+    </div>
+    <div id="groupDeleteModal" class="modal fade cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
+    </div>
 {% endblock %}

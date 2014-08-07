@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-{% load i18n staticfiles profile reader_tags messaging_tags %}
+{% load i18n staticfiles profile reader_tags messaging_tags portal_tags %}
 
 {% block extra_header %}
 <script type="text/javascript" src="{% static 'core/js/jquery.steps.min.js' %}"></script>
@@ -94,18 +94,21 @@
             {% if current_user == request.user %}
             <div class="box white">
                 <h2 class="box-title">{% trans "My Groups" %}</h2>
-                <ul class="list">
+                <ul class="list group-list">
+                    {% with True as can_delete %}
                     {% for group in groups %}
                     {% include "account/dashboard_group_template.html" %}
                     {% empty %}
                     <li>{% trans "Work with others in Groups. To create a Group click on the button below" %}.</li>
                     {% endfor %}
+                    {% endwith %}
                 </ul>
 
                 <div class="content-divider"></div>
                 <h2 class="box-title">{% trans "Participating Groups" %}</h2>
-                <ul class="list">
+                <ul class="list group-list">
                     {% for group in participating_groups %}
+                    {% can_delete_group group user as can_delete %}
                     {% include "account/dashboard_group_template.html" %}
                     {% empty %}
                     <li>{% trans "Join other groups based on your interest" %} <a href="{% url 'portal:list_groups' %}">{%trans "view all"%}.</li>
@@ -199,5 +202,8 @@
             {% endif %}
         </div>
     </div>
+</div>
+
+<div id="groupDeleteModal" class="modal fade cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
 </div>
 {% endblock %}

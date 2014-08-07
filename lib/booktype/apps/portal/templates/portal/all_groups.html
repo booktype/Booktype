@@ -19,7 +19,7 @@
                     {% for group in all_groups %}
                     <li>
                         <figure><img src="{{ group.small_group_image }}" /></figure>
-                            <div class="list-info">
+                            <div class="list-info group-list">
                                 {% if request.user.is_authenticated and request.user != group.owner %} 
                                     {% if request.user in group.members.all %} 
                                         <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-success float-right btn-xs leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
