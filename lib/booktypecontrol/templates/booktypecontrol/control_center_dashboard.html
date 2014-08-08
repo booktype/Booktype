@@ -57,7 +57,7 @@
                                 <img src="{% url "view_profilethumbnail" username %}?width=48" alt="{{ username }}">
                             </figure>
                             <div class="list-info">
-                                <h4><a href="#">{{ username }}</a></h4>
+                                <h4><a href="{% url 'accounts:view_profile' username %}">{{ username }}</a></h4>
                                 <p>
                                     {% trans "Working on:" %}
                                     <a href="{% url 'reader:draft_chapter_page' book.url_title %}">{{ book.title }}</a>
@@ -87,7 +87,7 @@
                         <li>
                             <figure>{% profile_image user %}</figure>                            
                             <div class="list-info">
-                                <h4><a href="#">{{ user.username }}</a></h4>
+                                <h4><a href="{% url 'accounts:view_profile' user %}">{{ user.username }}</a></h4>
                                 {% if user.username in online_users %}
                                 <p>
                                     {% trans "Working on:" %} <a href="#">“Airtime API auth"</a>
