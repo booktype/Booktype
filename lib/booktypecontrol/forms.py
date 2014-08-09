@@ -351,6 +351,9 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
             'is_staff', 'last_name', 'is_active'
         ]
 
+    def get_cancel_url(self):
+        return "{0}{1}".format(self.cancel_url, self.success_url)
+
     def clean_username(self):
         try:
             User.objects.get(username=self.cleaned_data['username'])
