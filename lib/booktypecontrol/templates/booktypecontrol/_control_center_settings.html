@@ -11,7 +11,7 @@
         {{ form.as_ul }}
         <li>
             <input type="submit" class="btn btn-default" name="submit" value="{% block save_btn %}{% trans 'Save changes' %}{% endblock %}">
-            <button type="button" class="btn btn-default" data-href="{% url 'control_center:settings' %}">
+            <button type="button" class="btn btn-default" data-href="{{ form.get_cancel_url }}">
               {% trans "Cancel" %}
             </button>
         </li>

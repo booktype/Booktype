@@ -5,6 +5,7 @@ from django import forms
 from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.core.validators import RegexValidator, MinLengthValidator
 
@@ -25,6 +26,7 @@ class BaseControlForm(BaseBooktypeForm):
     """
     success_message = None
     success_url = None
+    cancel_url = reverse_lazy('control_center:settings')
 
     @classmethod
     def initial_data(cls):
@@ -33,6 +35,9 @@ class BaseControlForm(BaseBooktypeForm):
     @classmethod
     def extra_context(cls):
         return {}
+
+    def get_cancel_url(self):
+        return self.cancel_url
 
     def save_settings(self, request):
         pass
@@ -582,6 +587,9 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
             'owner', 'license'
         ]
         fields = ['title', 'url_title']
+
+    def get_cancel_url(self):
+        return "{0}#list-of-books".format(self.cancel_url)
 
     def save(self, *args, **kwargs):
         rename_book(self.instance, self.cleaned_data['title'], self.cleaned_data['url_title'])

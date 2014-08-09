@@ -246,11 +246,12 @@ class EditPersonInfo(BaseCCView, UpdateView):
     page_title = _('Admin Control Center')
     title = page_title
     template_name = "booktypecontrol/control_center_settings.html"
+    option_name = _('Edit Person Info')
 
     def get_context_data(self, *args, **kwargs):
         context = super(EditPersonInfo, self).get_context_data(*args, **kwargs)
         context['option'] = None
-        context['option_name'] = _('Edit Person Info')
+        context['option_name'] = self.option_name
         return context
 
     def form_valid(self, form):
@@ -286,6 +287,7 @@ class BookRenameView(EditPersonInfo):
     slug_url_kwarg = 'bookid'
     form_class = control_forms.BookRenameForm
     template_name = "booktypecontrol/control_center_settings.html"
+    option_name = _('Rename Book')
 
     def form_valid(self, form):
         self.object = form.save()
