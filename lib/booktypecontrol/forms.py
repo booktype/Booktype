@@ -455,6 +455,9 @@ class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
     class Meta(AddPersonForm.Meta):
         pass
 
+    def get_cancel_url(self):
+        return "{0}#list-of-people".format(self.cancel_url)
+
 
 class PasswordForm(BaseControlForm, forms.Form):
     error_messages = {
