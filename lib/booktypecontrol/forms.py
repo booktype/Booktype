@@ -193,6 +193,9 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
     def extra_context(cls):
         return dict(licenses=License.objects.all().order_by("name"))
 
+    def get_cancel_url(self):
+        return "{0}{1}".format(self.cancel_url, self.success_url)
+
     def save_settings(self, request):
         return self.save()
 
