@@ -13,6 +13,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+import time
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -430,6 +431,9 @@ class ChapterHistory(models.Model):
 
 def uploadAttachmentTo(att, filename):
     return '%s/books/%s/%s/%s' % (settings.DATA_ROOT, att.book.url_title, att.version.get_version(), filename)
+
+def getAttachmentUrl(att, filename):
+    return '%sbooks/%s/%s/%s' % (settings.DATA_URL, att.book.url_title, att.version.get_version(), filename)
 #    return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, att.version.get_version(), filename)
 
 
@@ -464,6 +468,22 @@ class Attachment(models.Model):
 
     def __unicode__(self):
         return self.attachment.name
+
+
+    def thumbnail(self, size=(100, 100)):
+        '''returns URL for a thumbnail with the specified size'''
+        from booki.utils.misc import createThumbnail
+        filename, ext = os.path.splitext(os.path.basename(self.attachment.url))
+        w, h = size
+        filename = '%s_%s_%s_%sx%s%s' % (filename, self.pk,
+                                         time.mktime(self.created.timetuple()),
+                                         w, h, ext)
+        im_path = uploadAttachmentTo(self, filename)
+        im_url =  getAttachmentUrl(self, filename)
+        if not os.path.exists(im_path):
+            im = createThumbnail(self.attachment, size=size)
+            im.save(im_path, 'JPEG')
+        return im_url
 
     class Meta:
         verbose_name = _('Attachment')

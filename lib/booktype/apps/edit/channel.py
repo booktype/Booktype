@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
 from lxml import etree, html
 
 import sputnik
@@ -102,12 +103,13 @@ def get_attachments(book_version):
 
         return None
 
-    attachments = [{"id":        att.id, 
-                    "dimension": _getDimension(att), 
-                    "status":    att.status.id, 
-                    "name":      os.path.split(att.attachment.name)[1], 
+    attachments = [{"id":        att.id,
+                    "dimension": _getDimension(att),
+                    "status":    att.status.id,
+                    "name":      os.path.split(att.attachment.name)[1],
+                    "preview":   att.thumbnail(),
                     "created":   str(att.created.strftime("%d.%m.%Y %H:%M:%S")),
-                    "size":      att.attachment.size} 
+                    "size":      att.attachment.size}
                    for att in book_version.get_attachments().order_by("attachment") if att.attachment]
 
     return attachments
@@ -143,7 +145,7 @@ def remote_init_editor(request, message, bookid, version):
 
     Returns:
      - licenses - list of tuples (abbrevation, name)
-     - chapters - result of getTOCForBook function 
+     - chapters - result of getTOCForBook function
      - metadata - list of dictionaries {'name': ..., 'value': ...}
      - hold - result of getHoldChapters function
      - users - list of active users
