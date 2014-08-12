@@ -38,10 +38,16 @@
 
 .list-of-pleople li .action-btns{
     padding-top: 5px;
+    text-align: right;
 }
 
 .list-of-pleople li:hover .action-btns{
     display: block !important;
+}
+
+.list-of-pleople li .action-btns .btn{
+    position:static;
+    margin-bottom: 5px;
 }
 
 input[type="checkbox"].form-control:focus,
