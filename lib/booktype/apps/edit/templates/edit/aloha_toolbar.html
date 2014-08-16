@@ -163,6 +163,17 @@
 
 <div class="btn-toolbar float-right">
     <span class="info-message"></span>
-    <button href="#save" role="button" class="btn btn-success" data-toggle="modal" id="button-save" rel="tooltip"  title="{% trans "Save chapter" %}" data-placement="bottom">{% trans "SAVE" %}</button>
-    <button href="#cancel" role="button" class="btn btn-default" data-toggle="modal" id="button-cancel" rel="tooltip" title="{% trans "Cancel editing" %}" data-placement="bottom">{% trans "CLOSE" %}</button>
+    <div class="btn-group">
+      <button href="#save" role="button" class="btn btn-success" data-toggle="modal" id="button-save" rel="tooltip"  title="{% trans "Save chapter" %}" data-placement="bottom">{% trans "SAVE" %}</button>
+      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="javascript:void(0)" id="button-save-and-close" >{% trans "Save and close" %}</a></li>
+        <li><a href="javascript:void(0)" id="button-save-minor-change">{% trans "Save minor change" %}</a></li>
+        <li><a href="javascript:void(0)" id="button-save-with-comment">{% trans "Save with comment" %}</a></li>
+      </ul>
+      <button href="#cancel" role="button" class="btn btn-default" data-toggle="modal" id="button-cancel" rel="tooltip" title="{% trans "Cancel editing" %}" data-placement="bottom">{% trans "CLOSE" %}</button>
+    </div>
 </div>
