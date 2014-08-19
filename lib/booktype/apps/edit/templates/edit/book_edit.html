@@ -113,6 +113,18 @@
         </form>
     </section>
 
+    <section class="tab-content notes-tab" source_id="notes-tab">
+      <h3>{% trans "Notes" %}</h3>
+      <div class="notes-tab-content">
+          <p>{% trans "Shared notes for this book" %}</p>
+          <textarea class="form-control" cols="40" rows="20" name="notes"></textarea>
+          <div class="save-button">
+              <button id="save-note" type="button" class="btn btn-primary btn-sm">{% trans "SAVE NOTE" %}</button>
+              <div class="info">{% trans "Note Saved.." %}</div>
+          </div>
+      </div>
+    </section>
+
     <section class="tab-content" source_id="style-tab">
         {% include "edit/tab_style.html" %}
     </section>
@@ -129,9 +141,7 @@
     <section class="tab-content" source_id="attachments-tab">
         <h3>{% trans "Attachments" %}</h3>
     </section>
-    <section class="tab-content" source_id="notes-tab">
-        <h3>{% trans "Notes" %}</h3>
-    </section>
+
     <section class="tab-content" source_id="history-tab">
         <h3>{% trans "History" %}</h3>
     </section>    
