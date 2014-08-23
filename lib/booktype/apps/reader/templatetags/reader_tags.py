@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+import json
+
 from django import template
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
@@ -43,7 +45,7 @@ ACTIVITY_KIND_VERBOSE = {
 def verbose_activity(activity):
     # TODO: add docstrings here
 
-    verbose = ACTIVITY_KIND_VERBOSE.get(activity.kind, None)
+    verbose = unicode(ACTIVITY_KIND_VERBOSE.get(activity.kind, None))
     default_image = static('core/img/chapter-default.png')
     link_url = None
     book = activity.book
@@ -67,7 +69,7 @@ def verbose_activity(activity):
                 args=[book.url_title, book_version, activity.chapter.url_title]
             )
 
-        if activity.kind == 10:
+        if activity.kind in [4, 10]:
             link_text = book.title
             link_url = reverse(
                 'reader:infopage',
@@ -87,11 +89,18 @@ def verbose_activity(activity):
             modified=activity.modified,
             user=activity.user,
             book=book,
+            kind=activity.kind
         )
 
         if link_url:
             activity_dict['link_url'] = link_url
-            activity_dict['link_text'] = '"%s"' % link_text
+            activity_dict['link_text'] = '%s' % link_text
+
+        if not 'link_text' in activity_dict and activity.kind != 4:
+            try:
+                activity_dict['link_text'] = json.loads(activity.args).values()[0]
+            except:
+                activity_dict['link_text'] = ''
 
         return activity_dict
 

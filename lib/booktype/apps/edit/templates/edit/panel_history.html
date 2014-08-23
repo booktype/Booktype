@@ -1,0 +1,36 @@
+{% load i18n %}
+
+<div class="template templateHistoryHeader">
+    <h2>{% trans "Book History" %}</h2>
+</div>
+
+<div class="template templateHistoryContent">
+    <p>{% trans "Here you can follow the edit history of your book." %}</p>
+    <p class="small">*{% trans "click on the chapter link to compare revisions" %}</p>
+
+    <div class="history-filters">
+        <input type="hidden" class="filter" name="user" placeholder="{% trans 'Filter by user' %}" style="width: 200px">
+        <input type="hidden" class="filter" name="chapter" placeholder="{% trans 'Filter by chapter' %}" style="width: 200px">
+        <button id="filterHistory" class="btn btn-primary">{% trans "Filter" %}</button>
+        <button id="clearHistory" class="btn btn-default" disabled>
+            <i class="icon-remove"></i>
+            {% trans "Clear filters" %}
+        </button>
+    </div>
+
+    <table class="historyTable" cellspacing="0" cellpadding="0" borer="0">
+        <thead>
+            <tr>
+                <th>{% trans "Action" %}</th>
+                <th>{% trans "Modified" %}</th>
+                <th>{% trans "User" %}</th>
+                <th>{% trans "Time" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td colspan="4">{% trans "Loading content..." %}</td></tr>
+        </tbody>
+    </table>
+    
+    <ul class="pagination"></ul>
+</div>

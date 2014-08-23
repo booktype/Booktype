@@ -25,7 +25,7 @@ class PageView(BasePageView, TemplateView):
     pass
 
 
-def staticattachment(request, bookid,  attachment, version=None, chapter = None):
+def staticattachment(request, bookid,  attachment, version=None, chapter = None, revid = None):
     """
     Django View. Returns content of an attachment.
 
