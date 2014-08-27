@@ -1,0 +1,28 @@
+{% spaceless %}
+{% load i18n %}
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">{% trans "Chapter diff" %}</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-2"><span class="marker changed">{% trans "Changed" %}</span></div>
+                <div class="col-xs-2"><span class="marker added">{% trans "Added" %}</span></div>
+                <div class="col-xs-2"><span class="marker deleted">{% trans "Deleted" %}</span></div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 header">{% trans "Revision" %}: {{ rev1 }}</div>
+              <div class="col-xs-6 header">{% trans "Revision" %}: {{ rev2 }}</div>
+            </div>
+            <table border="0" width="100%" class="row compare_table">
+                {{ output|join:""|safe }}
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>            
+        </div>
+    </div>
+</div>
+{% endspaceless %}

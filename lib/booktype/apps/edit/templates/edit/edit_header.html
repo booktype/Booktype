@@ -5,12 +5,13 @@
 <link href='{% static "core/css/bootstrap.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "core/css/bootstrap-custom.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "core/css/bootstrap-theme.css" %}' rel='stylesheet' type='text/css' />
-<link href="{% static "core/css/font-awesome/css/font-awesome.min.css" %}" type="text/css"  rel="stylesheet" >
+<link href='{% static "core/css/font-awesome/css/font-awesome.min.css" %}' type="text/css"  rel="stylesheet" >
 <link href='{% static "core/css/booki-new.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "edit/css/jquery.fileupload-ui.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "edit/css/edit.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "edit/css/codemirror.css" %}' rel='stylesheet' type='text/css' />
-<link href="{% static "edit/css/slider.css" %}" rel='stylesheet' type='text/css'>
+<link href='{% static "edit/css/slider.css" %}' rel='stylesheet' type='text/css'>
+<link href='{% static "edit/css/select2.css" %}' rel='stylesheet' type='text/css'>
 {% endcompress %}
 
 {% compress js %}
@@ -43,6 +44,7 @@
 
 <script type="text/javascript" src="{% static "edit/js/jscolor/jscolor.js" %}"></script>
 <script type="text/javascript" src="{% static "edit/js/bootstrap-slider.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/select2.min.js" %}"></script>
 
 
 <script type="text/javascript" src="{% static "edit/js/booktype/editor.js" %}"></script>
@@ -51,4 +53,6 @@
 <script type="text/javascript" src="{% static "edit/js/booktype/media.js" %}"></script>
 <script type="text/javascript" src="{% static "edit/js/booktype/covers.js" %}"></script>
 <script type="text/javascript" src="{% static "edit/js/booktype/publish.js" %}"></script>
+<script type="text/javascript" src="{% static "core/js/backbone.paginator.min.js" %}"></script>
+<script type="text/javascript" src="{% static "edit/js/booktype/history.js" %}"></script>
 {% endcompress %}
