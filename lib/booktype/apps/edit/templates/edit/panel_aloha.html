@@ -17,14 +17,15 @@
   <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          Word count
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3>{% trans "Word count" %}</h3>
         </div>
         <div class="modal-body">
-            {% trans "Whole book" %}:<br/>
+            <b>{% trans "Whole book" %}</b><br/>
             {% trans "Book word count" %}: <span class="all_wcount">-</span><br/>
             {% trans "Book character count" %}: <span class="all_charcount"></span><br/>
             {% trans "Book character count (with spaces)" %}: <span class="all_charspacecount"></span><br/><br/>
-            {% trans "Chapter" %}:<br>
+            <b>{% trans "Chapter" %}</b><br>
             {% trans "Word count" %}: <span class="wcount"></span><br/>
             {% trans "Character count" %}: <span class="charcount"></span><br/>
             {% trans "Character count (with spaces)" %}: <span class="charspacecount"></span>
@@ -224,3 +225,26 @@
   </div>
 <!-- End Insert Image Modal -->
 
+<div class="modal fade" id="saveContentWithCommentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h2 class="modal-title" id="myModalLabel">{% trans "Save with comment" %}</h2>
+        </div>
+        <div class="modal-body">
+          {% csrf_token %}
+          <section>
+            <label for="description">{% trans "Comment" %}</label>
+            <textarea class="form-control" name="comment" cols="40" rows="7"></textarea>
+          </section>
+        </div>
+        <div class="modal-footer">
+          <section class='pull-right'>
+            <button type="button" data-action="save" class="btn btn-success">{% trans "Save" %}</>
+            <button type="button" data-action="close" class="btn btn-default">{% trans "Cancel" %}</>
+          </section>
+      </div>
+    </div>
+  </div>
+</div>
