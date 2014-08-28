@@ -1,0 +1,64 @@
+{% load i18n static %}
+<a href="javascript:void(0);" onclick="Backbone.history.navigate('history/{{ chapter.url_title }}', true);" class="btn btn-default btn-sm" title="">
+    <i class="icon-chevron-left"></i> {% trans "BACK TO CHAPTER HISTORY" %}
+</a> 
+<div class="history-compare"> 
+<h3>{{ chapter.title }}</h3>
+</div>
+<div class="revision-details">   
+<p>
+  <span class="detail-label">{% trans "User" %}:</span>{{ revision.user.username }}<br />
+  <span class="detail-label">{% trans "Modified" %}:</span>{{ revision.modified }}<br />
+  <span class="detail-label">{% trans "Version" %}:</span>{{ book.get_version }}
+</p>
+</div>
+<div class="revision-header">
+<div class="number">{% trans "Revision" %} <span class="label label-success">{{ revision.revision }}</span></div>
+    <div class="btn-group float-left">
+        <button role="button" class="btn btn-default btn-xs" {% if not revision.previous %}disabled{% endif %} onclick="Backbone.history.navigate('history/{{ chapter.url_title }}/rev/{{ revision.previous }}', true);">
+            <i class="icon-chevron-left"></i> {% trans "PREVIOUS" %}
+        </button> 
+        <button role="button" class="btn btn-default btn-xs" {% if not revision.next %}disabled{% endif %} onclick="Backbone.history.navigate('history/{{ chapter.url_title }}/rev/{{ revision.next }}', true);">
+            {% trans "NEXT" %} <i class="icon-chevron-right"></i>
+        </button>        
+        <button role="button" class="btn btn-primary btn-xs" href="#revert" data-toggle="modal">
+            {% trans "REVERT TO THIS REVISION" %}&nbsp;&nbsp;<i class="icon-refresh"></i>
+        </button>    
+    </div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li><a href="#source" role="tab" data-toggle="tab">{% trans "Source View" %}</a></li> 
+        <li class="active"><a href="#normal" role="tab" data-toggle="tab">{% trans "Normal View" %}</a></li>
+    </ul>
+</div>
+<div class="revision-content">
+    <div class="tab-content">
+        <div class="tab-pane active" id="normal">
+            {{ revision.content|safe }}
+        </div>
+        <div class="tab-pane" id="source">
+            <textarea>{{ revision.content }}</textarea>
+        </div>
+    </div>
+</div>
+
+<div id="revert" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <form action="{% url 'edit:chapter_revision' book.url_title chapter.url_title revision.revision %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" value="{{ revision.revision }}" name="revert">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">{% trans "Revert to this revision?" %}</h3>
+            </div>
+            <div class="modal-body">
+                <i class="icon-exclamation-sign"></i>&nbsp;&nbsp;{% trans "Current chapter content will be reverted to this revision. Are you sure?" %}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+                <button type="submit" class="btn btn-primary">{% trans "Yes, revert!" %}</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>

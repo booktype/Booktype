@@ -1,0 +1,43 @@
+{% load i18n static %}
+
+<a href="javascript:void(0)" onclick="Backbone.history.navigate('history', true);" class="btn btn-default btn-sm">
+    <i class="icon-chevron-left"></i> {% trans "BACK TO INDEX" %}
+</a>
+<div class="history-compare">
+    <button role="button" class="btn btn-success btn-sm" data-target="#compareDialog" id="compare-chapter"
+        data-compare-url="{% url 'edit:revisions_compare' book.url_title chapter.url_title %}">
+        {% trans "COMPARE" %}
+    </button> 
+    <h3>{{ chapter.title }}</h3>
+</div>
+<table class="historyTable chapter" cellspacing="0" cellpadding="0" borer="0">
+    <thead>
+        <tr>
+            <th>{% trans "Compare" %}</th>
+            <th>{% trans "Revision" %}</th>
+            <th>{% trans "User" %}</th>
+            <th>{% trans "Time" %}</th>
+            <th>{% trans "Comment" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in chapter_history %}
+        <tr>
+            <td>
+                <input type="radio" name="rev1" value="{{ record.revision }}" {% if forloop.counter == 2 or chapter_history|length == 1 %}checked{% endif %}>
+                <input type="radio" name="rev2" value="{{ record.revision }}" {% if forloop.first %}checked{% endif %}>
+            </td>
+            <td>
+                <a href="javascript:void(0);" onclick="Backbone.history.navigate('history/{{ chapter.url_title }}/rev/{{ record.revision }}', true);">
+                    {{ record.revision }}
+                </a>
+            </td>
+            <td>{{ record.user.username }}</td>
+            <td>{{ record.modified }}</td>
+            <td>{{ record.comment }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+ <div id="compareDialog" class="modal fade compare cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

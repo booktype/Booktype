@@ -21,8 +21,8 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden, Http404
-from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, DeleteView, UpdateView
 
 from braces.views import LoginRequiredMixin

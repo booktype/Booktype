@@ -426,6 +426,19 @@ class ChapterHistory(models.Model):
         verbose_name = _('Chapter history')
         verbose_name_plural = ('Chapters history')
 
+    def previous(self):
+        lower = ChapterHistory.objects.filter(
+                    chapter=self.chapter, revision__lt=self.revision
+                ).order_by('-revision')
+        if lower.count() > 0:
+            return lower[0].revision
+        return None
+
+    def next(self):
+        higher = ChapterHistory.objects.filter(chapter=self.chapter, revision__gt=self.revision)
+        if higher.count() > 0:
+            return higher[0].revision
+        return None
 
 # Attachment
 

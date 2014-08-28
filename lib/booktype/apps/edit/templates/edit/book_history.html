@@ -1,0 +1,43 @@
+{% load i18n reader_tags %}
+
+{% for activity in history %}
+{% verbose_activity activity as record %}
+<tr>
+    <td>{{ record.verbose }}</td>
+    <td>
+    {% if record.kind == 2 %}
+        <a href="{% url 'edit:chapter_history' activity.chapter.book.url_title activity.chapter.url_title %}">
+            {{ activity.chapter.title }}
+        </a>
+    {% else %}
+        {{ record.link_text }}
+    {% endif %}
+    </td>
+    <td>{{ record.user.username }}</td>
+    <td>{{ record.modified }}</td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="4">{% trans "No results found." %}</td>
+</tr>
+{% endfor %}
+
+{% if is_paginated %}
+<ul class="pagination">
+    {% with page_obj.has_previous as prev %}
+    <li {% if not prev %}class="disabled"{% endif %}>
+        <a href="{% if prev %}?page={{ page_obj.previous_page_number }}{{ url_params }}{% else %}#{% endif %}">&laquo;</a>
+    </li>
+    {% endwith %}
+    {% for page in paginator.page_range %}
+    <li {% if page == page_obj.number %}class="active"{% endif %}>
+        <a href="?page={{ page }}{{ url_params|safe }}">{{ page }}</a>
+    </li>
+    {% endfor %}
+    {% with page_obj.has_next as next %}
+    <li {% if not next %}class="disabled"{% endif %}>
+        <a href="{% if next %}?page={{ page_obj.next_page_number }}{{ url_params }}{% else %}#{% endif %}">&raquo;</a>
+    </li>
+    {% endwith %}
+</ul>
+{% endif %}
