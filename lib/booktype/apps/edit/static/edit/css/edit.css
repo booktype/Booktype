@@ -93,3 +93,53 @@
 .btn-group>.btn {
     margin-left: 5px!important;
 }
+
+/* Color Picker
+------------------------------------------------------*/
+.dropdown-menu.color-picker {
+        padding:20px;
+        width: 270px;
+        box-sizing:border-box;
+        -moz-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+}
+#pickerHolder {
+        position:relative;
+        height:120px;
+}
+.dropdown-menu.color-picker .colorinput {
+        border: 1px solid #ccc;
+        padding: 2px;
+        margin: 0 0 10px 0;
+        width: auto;
+        overflow:hidden;
+}
+.dropdown-menu.color-picker .colorinput input,
+.dropdown-menu.color-picker .colorinput input:focus {
+        outline:none;
+        border: none;
+        width:100%;
+        padding: 0 4px;
+        font-size: 13px;
+}
+.dropdown-menu.color-picker .colorswatches {
+        width:100%;
+        margin: 0;
+        padding:0;
+        overflow:hidden;
+        }
+        .dropdown-menu.color-picker .colorswatches.margin {
+                margin: 0 0 8px 0;
+        }
+.dropdown-menu.color-picker .colorswatches .bt-color {
+        float: left;
+        margin: 0 3px 3px 0;
+        width: 20px;
+        height: 20px;
+        outline:none;
+        border:none;
+        }
+        .dropdown-menu.color-picker .colorswatches .bt-color:last-child {
+        margin: 0 0 3px 0;
+        }
