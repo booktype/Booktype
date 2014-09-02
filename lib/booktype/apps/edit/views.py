@@ -11,10 +11,10 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.views.generic.list import ListView
-from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import TemplateView, DetailView
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView, DetailView, FormView
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 
 from braces.views import (LoginRequiredMixin, UserPassesTestMixin,
@@ -28,6 +28,12 @@ from booktype.apps.core import views
 from booktype.apps.reader.views import BaseReaderView
 
 from .utils import color_me
+from . import forms as book_forms
+
+
+VALID_SETTINGS = {
+    # 'visibility': _('Book Visibility')
+}
 
 def get_toc_for_book(version):
     results = []
@@ -566,3 +572,61 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
             self.chapter.url_title
         )
         return HttpResponseRedirect(url)
+
+
+class BookSettingsView(LoginRequiredMixin, BaseReaderView, FormView):
+
+    template_name = 'edit/_settings_form.html'
+
+    def camelize(self, text):
+        return ''.join([s for s in text.title() if s.isalpha()])
+
+    def dispatch(self, request, *args, **kwargs):
+        # check if book exist
+        bookid = request.REQUEST.get('bookid', None)
+        self.book = get_object_or_404(models.Book, id=bookid)
+
+        # a settings option is needed
+        option = request.REQUEST.get('setting', None)
+        if option and option in VALID_SETTINGS:
+            self.submodule = option
+        else:
+            raise Http404
+        return super(BookSettingsView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(BookSettingsView, self).get_context_data(**kwargs)
+        context['option_title'] = VALID_SETTINGS[self.submodule]
+        return context
+
+    def get_form_class(self):
+        class_text = "%sForm" % self.camelize(self.submodule)
+        self.form_class = getattr(book_forms, class_text)
+        return self.form_class
+
+    def form_valid(self, form):
+        try:
+            form.save_settings(self.request)
+            messages.success(self.request, form.success_message or _('Successfully saved settings.'))
+        except Exception as err:
+            print err
+            messages.warning(self.request, _('Unknown error while saving changes.'))
+        return super(BookSettingsView, self).form_valid(form)
+
+    def get_success_url(self):
+        """
+        Checks if forms class has custom success_url or 
+        return a default url to redirect to
+        """
+        if self.form_class.success_url:
+            success_url = self.form_class.success_url
+        else:
+            editor_url = reverse('edit:settings', args=[self.book.url_title])
+            success_url = "{0}#settings/{1}".format(editor_url, self.submodule)
+        return redirect(success_url)
+
+    def get_initial(self):
+        """
+        Returns initial data for each admin option form
+        """
+        return self.form_class.initial_data()

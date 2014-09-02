@@ -12,6 +12,7 @@
       window.booktype.activeProfile = "{{ ACTIVE_PROFILE }}";
       window.booktype.editor.historyURL = "{% url 'edit:history' book.url_title %}";
       window.booktype.editor.historyData = [];
+      window.booktype.bookSettingsURL = "{% url 'edit:settings' book.url_title %}";
 
        // window.booktype.subscribeToChannel("/booktype/", function(message) {
        //  });
@@ -23,7 +24,8 @@
           'media' : 'win.booktype.editor.media',
           'cover' : 'win.booktype.editor.covers',
           'publish': 'win.booktype.editor.publish',
-          'history': 'win.booktype.editor.history'
+          'history': 'win.booktype.editor.history',
+          'settings': 'win.booktype.editor.settings'
         },
         'styles': {
           'style1': '/static/edit/css/style1.css',

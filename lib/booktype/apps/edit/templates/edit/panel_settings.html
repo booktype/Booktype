@@ -1,0 +1,43 @@
+{% load i18n %}
+
+<div class="template templateSettingsHeader">
+    <h2>{% trans "Book Settings" %}</h2>
+</div>
+
+<div class="template templateSettingsContent container">
+    <div class="row two-col">
+        <div class="col-xs-12">
+            <div class="box white clearfix">
+                <ul id="settings" class="nav nav-tabs col-xs-3" data-active-tab="{{ option }}">
+                    <h4>{% trans "Book" %}</h4>
+                    <li><a href="#language" data-toggle="tab">{% trans "Language" %}</a></li>
+                    <li><a href="#license" data-toggle="tab">{% trans "License" %}</a></li>
+                    <br>
+                    
+                    <h4>{% trans "Workflow" %}</h4>
+                    <li><a href="#chapter-status" data-toggle="tab">{% trans "Chapter status" %}</a></li>
+                    <br>
+        
+                    <h4>{% trans "Metadata" %}</h4>
+                    <br>
+                    
+                    <h4>{% trans "Security" %}</h4>
+                    <li><a href="#roles" data-toggle="tab">{% trans "Roles" %}</a></li>
+                    <li><a href="#permissions" data-toggle="tab">{% trans "Permissions" %}</a></li>
+                    <li><a href="#visibility" data-toggle="tab">{% trans "Visibility" %}</a></li>
+
+                    <br>
+                </ul>
+        
+                <div id="book_settings_container" class="tab-content col-xs-9">
+                    <div class="tab-pane fade active in" id="setting_content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="template templateModuleNotAvailable">
+    <h4 class="border-bottom">{% trans "Book Settings" %}</h4>
+    <p>{% trans "Settings module not available." %}</p>
+</div>

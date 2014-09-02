@@ -17,7 +17,8 @@
 from django.conf.urls import patterns, url
 
 from .views import (EditBookPage, BookHistoryPage, RevisionPage,
-                    ChapterHistoryPage, CompareChapterRevisions)
+                    ChapterHistoryPage, CompareChapterRevisions,
+                    BookSettingsView)
 
 urlpatterns = patterns('',                      
     url(r'^_upload/$', 'booktype.apps.edit.views.upload_attachment', name='upload_attachment'),
@@ -30,4 +31,5 @@ urlpatterns = patterns('',
     url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/compare_revs/$', CompareChapterRevisions.as_view(), name='revisions_compare'),
     url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/rev/(?P<revid>\d+)/$', RevisionPage.as_view(), name='chapter_revision'),
     url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/rev/(?P<revid>\d+)/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment'),
+    url(r'^_settings/$', BookSettingsView.as_view(), name='settings'),
 )
