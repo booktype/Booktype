@@ -1,24 +1,16 @@
 {% load i18n %}
 <h1>{{ book.title }}</h1>
-<div class="btn-toolbar float-right">
-    <div class="btn-group" data-toggle="buttons" id="editor-toolbar">
-        <label class="btn btn-default" rel="tooltip" data-original-title="{% trans 'Table Of Contents' %}" data-placement="bottom">
-            <input type="radio" name="toc" id="button-toc"><i class="icon-list-alt"></i>
-        </label>
-        <label class="btn btn-default" rel="tooltip" data-original-title="{% trans 'Media' %}" data-placement="bottom">
-            <input type="radio" name="media" id="button-media"><i class="icon-picture"></i>
-        </label>
-        <label class="btn btn-default" rel="tooltip" data-original-title="{% trans 'Cover Manager' %}" data-placement="bottom">
-            <input type="radio" name="cover" id="button-cover"><i class="icon-tablet"></i>
-        </label>
-        <label class="btn btn-default" rel="tooltip" data-original-title="{% trans 'Book History' %}" data-placement="bottom">
-            <input type="radio" name="history" id="button-history"><i class="icon-time"></i>
-        </label>
-        <label class="btn btn-default" rel="tooltip" data-original-title="{% trans 'Publishing' %}" data-placement="bottom">
-            <input type="radio" name="publishing" id="button-publish"><i class="icon-print"></i>
-        </label>
-        <label class="btn btn-default" rel="tooltip" data-original-title="{% trans 'Settings' %}" data-placement="bottom">
-            <input type="radio" name="settings" id="button-settings"><i class="icon-cog"></i>
-        </label>
+<div class="btn-toolbar float-right">      
+    <div class="btn-group">
+      <button type="button" class="btn btn-default" title="" id="button-toc" data-original-title="{% trans 'Table Of Contents' %}" rel="tooltip" data-placement="bottom"><i class="bk-icon-toc"></i></button>
+      <button type="button" class="btn btn-default" title="" id="button-media" data-original-title="{% trans 'Media' %}" rel="tooltip" data-placement="bottom"><i class="bk-icon-media"></i></button>        
+      <button type="button" class="btn btn-default" title="" id="button-cover" data-original-title="{% trans 'Cover Manager' %}" rel="tooltip" data-placement="bottom"><i class="bk-icon-cover"></i></button>
+    </div>
+    <div class="btn-group float-right"> 
+      <button type="button" class="btn btn-default" title="" id="button-history" data-original-title="{% trans 'Book History' %}" rel="tooltip" data-placement="bottom"><i class="bk-icon-history"></i></button>
+      <button type="button" class="btn btn-default" title="" id="button-settings" data-original-title="{% trans 'Settings' %}" rel="tooltip" data-placement="bottom"><i class="bk-icon-settings"></i></button>          
+    </div>
+    <div class="btn-group">            
+      <button type="button" class="btn btn-primary" id="button-publish" title="">{% trans 'Publish' %}</button> 
     </div>
 </div>
