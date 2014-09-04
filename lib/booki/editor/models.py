@@ -519,6 +519,7 @@ class BookToc(models.Model):
     version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
     # book should be removed
     book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
+    parent = models.ForeignKey('self', null=True, blank=True, verbose_name=_("parent"))
     name = models.CharField(_('name'), max_length=2500, blank=True)
     chapter = models.ForeignKey(Chapter, null=True, blank=True, verbose_name=_("chapter"))
     weight = models.IntegerField(_('weight'))
