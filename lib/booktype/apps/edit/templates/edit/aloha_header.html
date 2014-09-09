@@ -49,7 +49,11 @@
             },
             indent: {
                 marginLeft: "48px"
-            }                    
+            },
+            fontsize : {
+                fontsize : [8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72, 96],
+                unit : 'px'
+            } 
         },
         contentHandler : {
                 insertHtml: [ 'word', 'generic', 'oembed', 'sanitize', 'block', 'formatless' ],
@@ -148,6 +152,7 @@
                         booktype/indent,  
                         booktype/styling,
                         booktype/bookalign,
+                        booktype/fontsize,
                         common/undo,
                         booktype/bookundo,      
                         common/list,
