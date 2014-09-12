@@ -14,7 +14,7 @@ from django.views.generic.list import ListView
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView, DetailView, FormView
+from django.views.generic import TemplateView, DetailView, FormView, UpdateView
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 
 from braces.views import (LoginRequiredMixin, UserPassesTestMixin,
@@ -32,7 +32,7 @@ from . import forms as book_forms
 
 
 VALID_SETTINGS = {
-    # 'visibility': _('Book Visibility')
+    'language': _('Book Language')
 }
 
 def get_toc_for_book(version):
@@ -597,6 +597,8 @@ class BookSettingsView(LoginRequiredMixin, BaseReaderView, FormView):
     def get_context_data(self, **kwargs):
         context = super(BookSettingsView, self).get_context_data(**kwargs)
         context['option_title'] = VALID_SETTINGS[self.submodule]
+        context['option'] = self.submodule
+        context['book'] = self.book
         return context
 
     def get_form_class(self):
@@ -606,7 +608,7 @@ class BookSettingsView(LoginRequiredMixin, BaseReaderView, FormView):
 
     def form_valid(self, form):
         try:
-            form.save_settings(self.request)
+            form.save_settings(self.book, self.request)
             messages.success(self.request, form.success_message or _('Successfully saved settings.'))
         except Exception as err:
             print err
@@ -621,12 +623,12 @@ class BookSettingsView(LoginRequiredMixin, BaseReaderView, FormView):
         if self.form_class.success_url:
             success_url = self.form_class.success_url
         else:
-            editor_url = reverse('edit:settings', args=[self.book.url_title])
+            editor_url = reverse('edit:editor', args=[self.book.url_title])
             success_url = "{0}#settings/{1}".format(editor_url, self.submodule)
-        return redirect(success_url)
+        return success_url
 
     def get_initial(self):
         """
         Returns initial data for each admin option form
         """
-        return self.form_class.initial_data()
+        return self.form_class.initial_data(self.book, self.request)

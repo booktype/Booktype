@@ -3,9 +3,10 @@
   {{ option_title }}
 </h4>
 
-<form enctype="multipart/form-data" action="." method="POST" class="form-inline-select">
+<form enctype="multipart/form-data" action="{% url 'edit:settings' book.url_title %}" method="POST" class="form-inline-select">
   {% csrf_token %}
-  <input type="hidden" name="option" value="{{ option }}">
+  <input type="hidden" name="setting" value="{{ option }}">
+  <input type="hidden" name="bookid" value="{{ book.id }}">
   <ul class="list">
       {{ form.as_ul }}
       <li>
