@@ -47,15 +47,29 @@ def get_toc_for_book(version):
 
     results = []
     for chap in version.get_toc():
+        parent_id = chap.parent.id if chap.parent else "root"
+        
         # is it a section or chapter?
         if chap.chapter:
-            results.append((chap.chapter.id,
-                            chap.chapter.title,
-                            chap.chapter.url_title,
-                            chap.typeof,
-                            chap.chapter.status.id))
+            results.append((
+                chap.chapter.id,
+                chap.chapter.title,
+                chap.chapter.url_title,
+                chap.typeof,
+                chap.chapter.status.id,
+                parent_id,
+                chap.id
+            ))
         else:
-            results.append(('s%s' % chap.id, chap.name, chap.name, chap.typeof))
+            results.append((
+                chap.id,
+                chap.name,
+                chap.name,
+                chap.typeof,
+                None, # fake status
+                parent_id,
+                chap.id
+            ))
     return results
 
 
@@ -555,29 +569,37 @@ def remote_chapter_delete(request, message, bookid, version):
     if not book_security.isAdmin():
         raise PermissionDenied
 
-    chap = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
-
+    # get toc item related with chapter to be deleted
+    chap = models.Chapter.objects.get(id__exact=int(message["chapterID"]), version=book_version)
     chap.delete()
 
     # MUST DELETE FROM TOC ALSO
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
-                                {"command": "message_info",
-                                 "from": request.user.username,
-                                 "message_id": "user_delete_chapter",
-                                 "message_args": [request.user.username, chap.title]},
-                                myself=True)
+    sputnik.addMessageToChannel(
+        request, "/chat/%s/" %  bookid, {
+            "command": "message_info",
+            "from": request.user.username,
+            "message_id": "user_delete_chapter",
+            "message_args": [request.user.username, chap.title]
+        },
+        myself=True
+    )
 
-    logBookHistory(book = book,
-                   version = book_version,
-                   args = {'chapter': chap.title},
-                   user = request.user,
-                   kind = 'chapter_delete')
+    logBookHistory(
+        book = book,
+        version = book_version,
+        args = {'chapter': chap.title},
+        user = request.user,
+        kind = 'chapter_delete'
+    )
 
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_delete",
-                                 "chapterID": message["chapterID"]},
-                                myself = True)
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_delete",
+            "chapterID": message["chapterID"]
+        },
+        myself = True
+    )
 
     return {"result": True}
 
@@ -609,29 +631,57 @@ def remote_section_delete(request, message, bookid, version):
     if not book_security.isAdmin():
         raise PermissionDenied
 
-    section_id = str(message["chapterID"])[1:]
+    section_id = message["chapterID"]
+    delete_children = message["deleteChildren"]
     sec = models.BookToc.objects.get(pk=section_id, version=book_version)
 
+    if delete_children == u'on':
+        if sec.has_children():
+            for toc_item in sec.booktoc_set.all():
+                if toc_item.is_chapter():
+                    # log chapter delete in book history
+                    logBookHistory(
+                        book = book,
+                        version = book_version,
+                        args = {'chapter': toc_item.chapter.title},
+                        user = request.user,
+                        kind = 'chapter_delete'
+                    )
+                    toc_item.chapter.delete()
+                else:
+                    # log section delete in book history
+                    logBookHistory(
+                        book = book,
+                        version = book_version,
+                        args = {'section': toc_item.name},
+                        user = request.user,
+                        kind = 'section_delete'
+                    )
+                    toc_item.delete()
+    else:
+        # in case user doesn't want to remove chapters, change the parent 
+        for toc_item in sec.booktoc_set.all():
+            toc_item.parent = None
+            toc_item.save()
+
+    # log main section delete in book history
+    logBookHistory(
+        book = book,
+        version = book_version,
+        args = {'section': sec.name},
+        user = request.user,
+        kind = 'section_delete'
+    )
     sec.delete()
 
-    # MUST DELETE FROM TOC ALSO
-
-    # sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
-    #                             {"command": "message_info",
-    #                              "from": request.user.username,
-    #                              "message_id": "user_delete_chapter",
-    #                              "message_args": [request.user.username, chap.title]},
-    #                             myself=True)
-    # logBookHistory(book = book,
-    #                version = book_version,
-    #                args = {'chapter': chap.title},
-    #                user = request.user,
-    #                kind = 'chapter_delete')
-
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "section_delete",
-                                 "chapterID": message["chapterID"]},
-                                myself = True)
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "section_delete",
+            "chapterID": message["chapterID"],
+            "deleteChildren": message["deleteChildren"]
+        },
+        myself = True
+    )
 
     return {"result": True}
 
@@ -660,39 +710,45 @@ def remote_chapter_rename(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    # check security
-    chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+    # get toc item related to chapter
+    toc_item = models.BookToc.objects.get(id__exact=int(message["tocID"]), version=book_version)
 
-    oldTitle = chapter.title
-    chapter.title = message["chapter"];
+    # check security
+    chapter = toc_item.chapter
+
+    old_title = chapter.title
+    chapter.title = message["chapter"]
     chapter.save()
 
-    logBookHistory(book = chapter.book,
-                   version = book_version,
-                   chapter = chapter,
-                   user = request.user,
-                   args = {"old": oldTitle, "new": message["chapter"]},
-                   kind = "chapter_rename")
+    logBookHistory(
+        book = chapter.book,
+        version = book_version,
+        chapter = chapter,
+        user = request.user,
+        args = {"old": old_title, "new": message["chapter"]},
+        kind = "chapter_rename"
+    )
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
-                                {"command": "message_info",
-                                 "from": request.user.username,
-                                 "message_id": "user_renamed_chapter",
-                                 "message_args": [request.user.username, oldTitle, message["chapter"]]},
-                                myself=True)
+    sputnik.addMessageToChannel(
+        request, "/chat/%s/" %  bookid, {
+            "command": "message_info",
+            "from": request.user.username,
+            "message_id": "user_renamed_chapter",
+            "message_args": [request.user.username, old_title, message["chapter"]]
+        },
+        myself=True
+    )
 
-    # sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-    #                             {"command": "chapter_status",
-    #                              "chapterID": message["chapterID"],
-    #                              "status": "normal",
-    #                              "username": request.user.username})
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_rename",
+            "tocID": message["tocID"],
+            "chapter": message["chapter"]
+        }, 
+        myself=True
+    )
 
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_rename",
-                                 "chapterID": message["chapterID"],
-                                 "chapter": message["chapter"]}, myself=True)
-
-    return {"result": True}
+    return dict(result=True)
 
 
 def remote_section_rename(request, message, bookid, version):
@@ -720,40 +776,42 @@ def remote_section_rename(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
     # check security
-    sectionID = message["chapterID"][1:]
+    sectionID = message["chapterID"]
 
-    m =  models.BookToc.objects.get(id__exact=int(sectionID), version=book_version)
-    oldTitle = m.name
-    m.name = message["chapter"]
-    m.save()
+    toc_item = models.BookToc.objects.get(id__exact=int(sectionID), version=book_version)
+    old_title = toc_item.name
+    toc_item.name = message["chapter"]
+    toc_item.save()
 
-    logBookHistory(book = book,
-                   version = book_version,
-                   chapter = None,
-                   user = request.user,
-                   args = {"old": oldTitle, "new": message["chapter"]},
-                   kind = "section_rename")
+    logBookHistory(
+        book = book,
+        version = book_version,
+        chapter = None,
+        user = request.user,
+        args = {"old": old_title, "new": message["chapter"]},
+        kind = "section_rename"
+    )
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" %  bookid,
-                                {"command": "message_info",
-                                 "from": request.user.username,
-                                 "message_id": "user_renamed_section",
-                                 "message_args": [request.user.username, oldTitle, message["chapter"]]},
-                                myself=True)
+    sputnik.addMessageToChannel(
+        request, "/chat/%s/" %  bookid, {
+            "command": "message_info",
+            "from": request.user.username,
+            "message_id": "user_renamed_section",
+            "message_args": [request.user.username, old_title, message["chapter"]]
+        },
+        myself=True
+    )
 
-    # sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-    #                             {"command": "chapter_status",
-    #                              "chapterID": message["chapterID"],
-    #                              "status": "normal",
-    #                              "username": request.user.username})
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "section_rename",
+            "chapterID": message["chapterID"],
+            "chapter": message["chapter"]
+        }, 
+        myself=True
+    )
 
-
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "section_rename",
-                                 "chapterID": message["chapterID"],
-                                 "chapter": message["chapter"]}, myself=True)
-
-    return {"result": True}
+    return dict(result=True)
 
 
 def remote_chapters_changed(request, message, bookid, version):
@@ -778,40 +836,40 @@ def remote_chapters_changed(request, message, bookid, version):
     @param version: Book version
     """
 
-    lst = [chap['item_id'] for chap in message["chapters"]]
+    lst = [(chap['item_id'], chap['parent_id']) for chap in message["chapters"]]
     lstHold = []
-
-#    lst = [chap[5:] for chap in message["chapters"]]
-#    lstHold = [chap[5:] for chap in message["hold"]]
 
     book, book_version, book_security = get_book(request, bookid, version)
 
     weight = len(lst)
 
-    logBookHistory(book = book,
-                   version = book_version,
-                   user = request.user,
-                   kind = "chapter_reorder")
+    logBookHistory(
+       book = book,
+       version = book_version,
+       user = request.user,
+       kind = "chapter_reorder"
+    )
 
     for chap in lst:
-        if chap[0] == 's':
-            m =  models.BookToc.objects.get(id__exact=int(chap[1:]), version=book_version)
-            m.weight = weight
-            m.save()
-        else:
-            try:
-                m =  models.BookToc.objects.get(chapter__id__exact=int(chap), version=book_version)
-                m.weight = weight
-                m.save()
-            except:
-                chptr = models.Chapter.objects.get(id__exact=int(chap))
-                m = models.BookToc(book = book,
-                                   version = book_version,
-                                   name = "SOMETHING",
-                                   chapter = chptr,
-                                   weight = weight,
-                                   typeof=1)
-                m.save()
+        try:
+            toc_item =  models.BookToc.objects.get(id__exact=int(chap[0]), version=book_version)
+            toc_item.weight = weight
+            
+            # check if toc item has parent
+            parent = None
+            if chap[1] != 'root':
+                try:
+                    parent = models.BookToc.objects.get(
+                        id__exact=int(chap[1]), 
+                        version=book_version
+                    )
+                except Exception, e:
+                    pass
+
+            toc_item.parent = parent
+            toc_item.save()
+        except Exception, e:
+            print e
 
         weight -= 1
 
@@ -825,12 +883,15 @@ def remote_chapters_changed(request, message, bookid, version):
 
 #        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has rearranged chapters.' % request.user.username})
 
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapters_changed",
-                                 "ids": lst,
-                                 "hold_ids": lstHold,
-                                 "kind": message["kind"],
-                                 "chapter_id": message["chapter_id"]})
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapters_changed",
+            "ids": lst,
+            "hold_ids": lstHold,
+            "kind": message["kind"],
+            "chapter_id": message["chapter_id"]
+        }
+    )
 
     # TODO
     # this should be changed, to check for errors
@@ -841,37 +902,48 @@ def remote_chapters_changed(request, message, bookid, version):
 def remote_chapter_hold(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
-
     chapterID = message["chapterID"]
 
-    m =  models.BookToc.objects.get(chapter__id__exact=chapterID, version=book_version)
-    m.delete()
+    toc_item = models.BookToc.objects.get(chapter__id__exact=chapterID, version=book_version)
+    toc_id = toc_item.id
+    toc_item.delete()
 
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_hold",
-                                 "chapterID": chapterID}, myself=True)
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_hold",
+            "chapterID": message["chapterID"],
+            "tocID": toc_id
+        }, 
+        myself=True
+    )
 
-    return {"result": True}
+    return dict(result=True)
 
 
 def remote_chapter_unhold(request, message, bookid, version):
+    
     book, book_version, book_security = get_book(request, bookid, version)
-
     chapterID = message["chapterID"]
 
     chptr = models.Chapter.objects.get(id__exact=chapterID, version=book_version)
+    toc_item = models.BookToc(
+        book = book,
+        version = book_version,
+        name = chptr.title,
+        chapter = chptr,
+        weight = -1,
+        typeof = 1
+    )
+    toc_item.save()
 
-    m = models.BookToc(book = book,
-                       version = book_version,
-                       name = chptr.title,
-                       chapter = chptr,
-                       weight = -1,
-                       typeof=1)
-    m.save()
-
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_unhold",
-                                 "chapterID": chapterID}, myself=True)
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_unhold",
+            "chapterID": message["chapterID"],
+            'tocID': toc_item.id
+        }, 
+        myself=True
+    )
 
     return {"result": True}
 
@@ -970,7 +1042,6 @@ def remote_create_chapter(request, message, bookid, version):
     import datetime
 
     book, book_version, book_security = get_book(request, bookid, version)
-
     url_title = booktype_slugify(message["chapter"])
 
     if len(url_title) == 0:
@@ -981,7 +1052,6 @@ def remote_create_chapter(request, message, bookid, version):
 
     # here i should probably set it to default project status
     s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
-
     ch = models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title)
 
     if len(list(ch)) > 0:
@@ -989,61 +1059,80 @@ def remote_create_chapter(request, message, bookid, version):
 
     content = u'<h1>%s</h1><p><br/></p>' % message["chapter"]
 
-    chapter = models.Chapter(book = book,
-                             version = book_version,
-                             url_title = url_title,
-                             title = message["chapter"],
-                             status = s,
-                             content = content,
-                             created = datetime.datetime.now(),
-                             modified = datetime.datetime.now())
-
+    chapter = models.Chapter(
+        book = book,
+        version = book_version,
+        url_title = url_title,
+        title = message["chapter"],
+        status = s,
+        content = content,
+        created = datetime.datetime.now(),
+        modified = datetime.datetime.now()
+    )
     chapter.save()
 
-    # TODO
-    # used to send created; False if it fails
-    toc_items = len(book_version.get_toc())+1
-
+    weight = len(book_version.get_toc()) + 1
     for itm in models.BookToc.objects.filter(version = book_version, book = book).order_by("-weight"):
-        itm.weight = toc_items
+        itm.weight = weight
         itm.save()
 
-        toc_items -= 1
+        weight -= 1
         
-    tc = models.BookToc(version = book_version,
-                        book = book,
-                        name = message["chapter"],
-                        chapter = chapter,
-                        weight = 1,
-                        typeof = 1)
+    toc_item = models.BookToc(
+        version = book_version,
+        book = book,
+        name = message["chapter"],
+        chapter = chapter,
+        weight = 1,
+        typeof = 1
+    )
+    toc_item.save()
 
-    tc.save()
-
-    history = logChapterHistory(chapter = chapter,
-                                content = content,
-                                user = request.user,
-                                comment = message.get("comment", ""),
-                                revision = chapter.revision)
+    history = logChapterHistory(
+        chapter = chapter,
+        content = content,
+        user = request.user,
+        comment = message.get("comment", ""),
+        revision = chapter.revision
+    )
 
     if history:
-        logBookHistory(book = book,
-                       version = book_version,
-                       chapter = chapter,
-                       chapter_history = history,
-                       user = request.user,
-                       kind = 'chapter_create')
+        logBookHistory(
+            book = book,
+            version = book_version,
+            chapter = chapter,
+            chapter_history = history,
+            user = request.user,
+            kind = 'chapter_create'
+        )
 
+    result = (
+        chapter.id, 
+        chapter.title, 
+        chapter.url_title, 
+        1, # typeof (chapter)
+        s.id, # status
+        'root', # parent id (first level)
+        toc_item.id # tocID
+    )
 
-    result = (chapter.id, chapter.title, chapter.url_title, 1, s.id)
+    sputnik.addMessageToChannel(
+        request, "/chat/%s/" % bookid, {
+            "command": "message_info",
+            "from": request.user.username,
+            "message_id": "user_new_chapter",
+            "message_args": [request.user.username, message["chapter"]]
+        },
+        myself=True
+    )
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
-                                                                "from": request.user.username,
-                                                                "message_id": "user_new_chapter",
-                                                                "message_args": [request.user.username, message["chapter"]]},
-                                myself=True)
-
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
-
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_create", 
+            "chapter": result
+        }, 
+        myself = True
+    )
 
     return {"result": True, "created": True, "chapter_id": chapter.id}
 
@@ -1240,48 +1329,65 @@ def remote_create_section(request, message, bookid, version):
     @return: Returns if command was successful
     """
 
-    import datetime
-
     book, book_version, book_security = get_book(request, bookid, version)
-
-    ch = models.BookToc.objects.filter(book=book,
-                                       version=book_version,
-                                       name=message['chapter'],
-                                       typeof=0)
+    ch = models.BookToc.objects.filter(
+       book=book,
+       version=book_version,
+       name=message['chapter'],
+       typeof=0
+    )
 
     if len(list(ch)) > 0:
         return {"created": False, "section_exists": True}
 
-    c = models.BookToc(book = book,
-                       version = book_version,
-                       name = message["chapter"],
-                       chapter = None,
-                       weight = 0,
-                       typeof=0)
+    c = models.BookToc(
+        book = book,
+        version = book_version,
+        name = message["chapter"],
+        chapter = None,
+        weight = 0,
+        typeof = 0
+    )
 
     result = True
-
     c.save()
 
-    logBookHistory(book = book,
-                   version = book_version,
-                   user = request.user,
-                   args = {"title": message["chapter"]},
-                   kind = 'section_create')
+    logBookHistory(
+       book = book,
+       version = book_version,
+       user = request.user,
+       args = {"title": message["chapter"]},
+       kind = 'section_create'
+    )
 
-    result = ("s%s" % c.id, c.name, None, c.typeof)
+    result = (
+        c.id,
+        c.name,
+        c.name,
+        c.typeof,
+        None, # fake status
+        "root",
+        c.id
+    )
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
-                                                                "from": request.user.username,
-                                                                "message_id": "user_new_section",
-                                                                "message_args": [request.user.username, message["chapter"]]},
-                                myself=True)
+    sputnik.addMessageToChannel(
+        request, "/chat/%s/" % bookid, {
+            "command": "message_info",
+            "from": request.user.username,
+            "message_id": "user_new_section",
+            "message_args": [request.user.username, message["chapter"]]
+        },
+        myself=True
+    )
 
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" %  (bookid, version),
-                                {"command": "chapter_create",
-                                 "chapter": result,
-                                 "typeof": c.typeof},
-                                myself = True)
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" %  (bookid, version), {
+            "command": "chapter_create",
+            "chapter": result,
+            "typeof": c.typeof
+        },
+        myself = True
+    )
 
     return {"result": True, "created": True, "chapter_id": 's{}'.format(c.id)}
 
@@ -2247,23 +2353,25 @@ def remote_get_history(request, message, bookid, version):
 
     book_history = models.BookHistory.objects.filter(book=book).order_by("-modified")[(page-1)*50:(page-1)*50+50]
 
-    temp = {0: 'unknown',
-            1: 'create',
-            2: 'save',
-            3: 'rename',
-            4: 'reorder',
-            5: 'split',
-            6: 'section create',
-            10: 'book create',
-            11: 'minor',
-            12: 'major',
-            13: 'attachment',
-            14: 'attachment_delete',
-            15: 'clone',
-            16: 'cover_upload',
-            17: 'cover_delete',
-            18: 'cover_update',
-            19: 'chapter_delete'}
+    temp = {
+        0: 'unknown',
+        1: 'create',
+        2: 'save',
+        3: 'rename',
+        4: 'reorder',
+        5: 'split',
+        6: 'section create',
+        10: 'book create',
+        11: 'minor',
+        12: 'major',
+        13: 'attachment',
+        14: 'attachment_delete',
+        15: 'clone',
+        16: 'cover_upload',
+        17: 'cover_delete',
+        18: 'cover_update',
+        19: 'chapter_delete'
+    }
 
 
     history = []

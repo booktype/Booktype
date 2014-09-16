@@ -38,7 +38,8 @@ ACTIVITY_KIND_VERBOSE = {
     13: _("Uploaded"),
     14: _("Attachment delete"),
     16: _("Upload cover"),
-    19: _("Delete chapter")
+    19: _("Delete chapter"),
+    20: _("Delete section")
 }
 
 @register.assignment_tag

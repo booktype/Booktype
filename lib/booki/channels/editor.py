@@ -56,15 +56,28 @@ def getTOCForBook(version):
 
     results = []
     for chap in version.getTOC():
+        parent_id = chap.parent.id if chap.parent else None
+        
         # is it a section or chapter?
         if chap.chapter:
-            results.append((chap.chapter.id,
-                            chap.chapter.title,
-                            chap.chapter.url_title,
-                            chap.typeof,
-                            chap.chapter.status.id))
+            results.append([
+                chap.chapter.id,
+                chap.chapter.title,
+                chap.chapter.url_title,
+                chap.typeof,
+                chap.chapter.status.id,
+                parent_id,
+                chap.has_children
+            ])
         else:
-            results.append(('s%s' % chap.id, chap.name, chap.name, chap.typeof))
+            results.append([
+                's%s' % chap.id,
+                chap.name,
+                chap.name,
+                chap.typeof,
+                parent_id,
+                chap.has_children
+            ])
     return results
 
 
@@ -217,7 +230,7 @@ def remote_init_editor(request, message, bookid, version):
             profile = None
 
         if profile:
-            moodMessage = profile.mood;
+            moodMessage = profile.mood
         else:
             moodMessage = ''
 
@@ -488,7 +501,7 @@ def remote_chapter_save(request, message, bookid, version):
 
         chapter.revision += 1
 
-    chapter.content = message["content"];
+    chapter.content = message["content"]
 
     try:
         chapter.save()
@@ -609,7 +622,7 @@ def remote_chapter_rename(request, message, bookid, version):
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]))
 
     oldTitle = chapter.title
-    chapter.title = message["chapter"];
+    chapter.title = message["chapter"]
 
     try:
         chapter.save()
@@ -1633,7 +1646,7 @@ def remote_revert_revision(request, message, bookid, version):
                        kind = 'chapter_save')
 
     chapter.revision += 1
-    chapter.content = revision.content;
+    chapter.content = revision.content
 
     try:
         chapter.save()

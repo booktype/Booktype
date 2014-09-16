@@ -143,12 +143,12 @@ def dispatcher(request, **sputnik_dict):
                     a =  mtch.groupdict()
 
                     try:
-                        _m = importlib.import_module(mpr[1])                        
+                        _m = importlib.import_module(mpr[1])
                     except ImportError:
                         _m = None
 
                     if _m:
-                        # should do hasattr first and then getattr                        
+                        # should do hasattr first and then getattr
                         fnc = getattr(_m, "remote_%s" % message.get('command', ''))
 
                         if fnc:
@@ -166,7 +166,7 @@ def dispatcher(request, **sputnik_dict):
                             except PermissionDenied:
                                 execute_status = False
                             except:
-                                  execute_status = False
+                                execute_status = False
                                 
                             # For different compatibility reasons return result and status now
                             if not ret:

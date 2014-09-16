@@ -253,29 +253,31 @@ class Book(models.Model):
 # BookHistory
 
 
-HISTORY_CHOICES = {'unknown': 0,
+HISTORY_CHOICES = {
+    'unknown': 0,
+    
+    'chapter_create': 1,
+    'chapter_save': 2,
+    'chapter_rename': 3,
+    'chapter_reorder': 4,
+    'chapter_split': 5,
+    'chapter_clone': 15,
+    'chapter_delete': 19,
 
-                   'chapter_create': 1,
-                   'chapter_save': 2,
-                   'chapter_rename': 3,
-                   'chapter_reorder': 4,
-                   'chapter_split': 5,
-                   'chapter_clone': 15,
-                   'chapter_delete': 19,
+    'section_create': 6,
+    'section_rename': 7,
+    'section_delete': 20,
 
-                   'section_create': 6,
-                   'section_rename': 7,
+    'book_create': 10,
+    'minor_version': 11,
+    'major_version': 12,
 
-                   'book_create': 10,
-                   'minor_version': 11,
-                   'major_version': 12,
+    'attachment_upload': 13,
+    'attachment_delete': 14,
 
-                   'attachment_upload': 13,
-                   'attachment_delete': 14,
-
-                   'cover_upload': 16,
-                   'cover_delete': 17,
-                   'cover_update': 18
+    'cover_upload': 16,
+    'cover_delete': 17,
+    'cover_update': 18
 }
 
 class BookHistory(models.Model):
@@ -530,6 +532,9 @@ class BookToc(models.Model):
 
     def is_chapter(self):
         return self.typeof == 1
+
+    def has_children(self):
+        return (self.booktoc_set.count() > 0)
 
     def url_title(self):
         if self.is_chapter():
