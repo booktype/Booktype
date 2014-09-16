@@ -160,7 +160,6 @@ INSTALLED_APPS = (
     'booktype.apps.account',
 
     # to be removed
-    'booki.reader',
     'booki.messaging',
 
     'sputnik',
