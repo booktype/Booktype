@@ -1,0 +1,19 @@
+div.aloha-toolbar {
+  display: none !important;
+}
+
+.aloha-editable-highlight {
+outline: 0 !important;
+}
+
+.aloha-editable-active, .aloha-editable-active[contenteditable=true]:focus {
+  outline: 0 !important;
+}    
+
+.aloha-editable-active .aloha-block, .aloha-block.aloha-block-highlighted {
+ box-shadow: none !important;
+}
+
+.aloha-block.aloha-block-active, .aloha-block.aloha-block-active:hover {
+ box-shadow: 0 0 0 3px #80b5f2 !important;
+}
