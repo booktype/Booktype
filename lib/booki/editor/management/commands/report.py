@@ -161,7 +161,7 @@ class Command(BaseCommand):
         chart = getChart()
 
         try:
-            BOOKTYPE_NAME = settings.BOOKI_NAME
+            BOOKTYPE_NAME = settings.BOOKTYPE_SITE_NAME
         except AttributeError:
             BOOKTYPE_NAME = 'Booktype'
 

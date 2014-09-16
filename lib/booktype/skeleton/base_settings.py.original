@@ -28,8 +28,8 @@ DEFAULT_NOTIFICATION_FILTER=u"#* !* ~* \u212c*"
 # BOOKTYPE
 PROFILE_ACTIVE = ''
 
-BOOKTYPE_NAME = '##BOOKTYPE_NAME##'
 BOOKTYPE_SITE_NAME = '##BOOKTYPE_SITE_NAME##'
+BOOKTYPE_SITE_DIR = '##BOOKTYPE_SITE_DIR##'
 THIS_BOOKTYPE_SERVER = '' # the name of the booki server (comment out to use os.environ['HTTP_HOST'])
 
 #BOOKTYPE_ROOT = '##BOOKTYPE_ROOT##' 
@@ -61,7 +61,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    BOOKTYPE_ROOT.child(BOOKTYPE_SITE_NAME).child('static'),
+    BOOKTYPE_ROOT.child(BOOKTYPE_SITE_DIR).child('static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -138,7 +138,7 @@ USE_L10N = True
 USE_TZ = False
 
 LOCALE_PATHS = (
-     BOOKTYPE_ROOT.child(BOOKTYPE_SITE_NAME).child('locale'),
+     BOOKTYPE_ROOT.child(BOOKTYPE_SITE_DIR).child('locale'),
       Path(booki.__file__).parent.child('locale'),
       Path(booki.__file__).parent.child('booktype').child('locale')
 )
@@ -180,10 +180,10 @@ MIDDLEWARE_CLASSES = (
 
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = '{}.wsgi.application'.format('##BOOKTYPE_SITE_NAME##')
+WSGI_APPLICATION = '{}.wsgi.application'.format('##BOOKTYPE_SITE_DIR##')
 
 TEMPLATE_DIRS = (
-    BOOKTYPE_ROOT.child(BOOKTYPE_SITE_NAME).child('templates'),
+    BOOKTYPE_ROOT.child(BOOKTYPE_SITE_DIR).child('templates'),
     Path(booki.__file__).parent.child('templates')
 )
 
@@ -230,6 +230,7 @@ CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
 
 # DEPRECATED CONFIG
 
+BOOKTYPE_NAME = BOOKTYPE_SITE_NAME
 BOOKI_NAME = BOOKTYPE_NAME
 BOOKI_ROOT = BOOKTYPE_ROOT
 BOOKI_URL = BOOKTYPE_URL

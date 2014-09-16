@@ -15,28 +15,28 @@ Booktype settings
 Booktype specific
 =================
 
-.. setting:: BOOKTYPE_NAME
+.. setting:: BOOKTYPE_SITE_NAME
 
-BOOKTYPE_NAME
--------------
+BOOKTYPE_SITE_NAME
+-------------------
 
 You can name your Booktype instance. This name will be used in default templates as the name of your site.
 
 Example::
     
-    BOOKTYPE_NAME = 'My Booktype instance'
+    BOOKTYPE_SITE_NAME = 'My Booktype instance'
 
 
-.. setting:: BOOKTYPE_SITE_NAME
+.. setting:: BOOKTYPE_SITE_DIR
 
-BOOKTYPE_SITE_NAME
-------------------
+BOOKTYPE_SITE_DIR
+-----------------
 
 This is the directory name of your Booktype project on disk. It always ends with "_site".
 
 Example::
 
-    BOOKTYPE_SITE_NAME = 'test_site'
+    BOOKTYPE_SITE_DIR = 'test_site'
 
 .. note::
 

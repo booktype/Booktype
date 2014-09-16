@@ -6,7 +6,8 @@ from unipath import Path
 
 BASE_DIR = Path(os.path.abspath(__file__))
 
-BOOKTYPE_NAME = ''
+BOOKTYPE_SITE_NAME = ''
+BOOKTYPE_SITE_DIR = 'tests'
 THIS_BOOKTYPE_SERVER=''
 BOOKTYPE_URL = ''
 
@@ -163,6 +164,7 @@ LOGGING = {
 #except config.ConfigurationError:
 #    BOOKTYPE_CONFIG = {}
 
+BOOKTYPE_NAME = BOOKTYPE_SITE_NAME
 BOOKI_NAME = BOOKTYPE_NAME
 BOOKI_ROOT = BOOKTYPE_ROOT
 BOOKI_URL = BOOKTYPE_URL

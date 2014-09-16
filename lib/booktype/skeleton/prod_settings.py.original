@@ -17,7 +17,7 @@ DEBUG = TEMPLATE_DEBUG = False
 PROFILE_ACTIVE = 'prod'
 
 # URL ROUTER
-ROOT_URLCONF = '{}.urls.prod'.format(BOOKTYPE_SITE_NAME)
+ROOT_URLCONF = '{}.urls.prod'.format(BOOKTYPE_SITE_DIR)
 
 # REDIS 
 REDIS_HOST = 'localhost'
