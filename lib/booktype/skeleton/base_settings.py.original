@@ -28,8 +28,11 @@ DEFAULT_NOTIFICATION_FILTER=u"#* !* ~* \u212c*"
 # BOOKTYPE
 PROFILE_ACTIVE = ''
 
-BOOKTYPE_SITE_NAME = '##BOOKTYPE_SITE_NAME##'
+BOOKTYPE_SITE_NAME = None
+# This is how you can define name of your site
+# BOOKTYPE_SITE_NAME = '##BOOKTYPE_SITE_NAME##'
 BOOKTYPE_SITE_DIR = '##BOOKTYPE_SITE_DIR##'
+
 THIS_BOOKTYPE_SERVER = '' # the name of the booki server (comment out to use os.environ['HTTP_HOST'])
 
 #BOOKTYPE_ROOT = '##BOOKTYPE_ROOT##' 

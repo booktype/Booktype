@@ -1,3 +1,4 @@
+{% load i18n booktype_tags %}
 <div class="navigation-bar">
     <!-- Navbar -->
     <div class="user">
@@ -5,18 +6,17 @@
         {% include "edit/toolbar_user.html" %}
       </div>
     <!-- TODO: Translate languages and manage list of available languages -->
-    <div class="btn-group">
+      <div class="btn-group">
         <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">en<span class="caret"></span></button>
         <ul class="dropdown-menu pull-right">
           <li><a href="#" target="_blank"><i class="icon-flag"></i>en</a></li>
           <li><a href="#" target="_blank"><i class="icon-flag"></i>de</a></li>
         </ul>
+      </div>
     </div>
 
-
-    </div>
     <div class="collapse-navigation"><a href="#"></a></div>
-    <div class="logo"><a href="{% url "portal:frontpage" %}"></a></div>
+    {% booktype_site_name %}
 </div>      
 <!-- end Navbar -->
 
