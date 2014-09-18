@@ -4,16 +4,16 @@
 </h4>
 
 <form enctype="multipart/form-data" action="{% url 'edit:settings' book.url_title %}" method="POST" class="form-inline-select">
-  {% csrf_token %}
-  <input type="hidden" name="setting" value="{{ option }}">
-  <input type="hidden" name="bookid" value="{{ book.id }}">
-  <ul class="list">
-      {{ form.as_ul }}
-      <li>
-          <input type="submit" class="btn btn-default" name="submit" value="{% block save_btn %}{% trans 'Save changes' %}{% endblock %}">
-          <button type="button" class="btn btn-default" data-href="{{ form.get_cancel_url }}">
+    {% csrf_token %}
+    <input type="hidden" name="setting" value="{{ option }}">
+    <input type="hidden" name="bookid" value="{{ book.id }}">
+    <ul class="list">
+        {{ form.as_ul }}
+        <li>
+        <input type="submit" id="saveBookSettings" class="btn btn-default" name="submit" value="{% block save_btn %}{% trans 'Save changes' %}{% endblock %}">
+        <button type="button" class="btn btn-default" data-href="{{ form.get_cancel_url }}">
             {% trans "Cancel" %}
-          </button>
+        </button>
       </li>
-  </ul>
+    </ul>
 </form>

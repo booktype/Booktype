@@ -10,11 +10,11 @@ from django.db import transaction
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
+from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView, DetailView, FormView, UpdateView
+from django.views.generic import TemplateView, DetailView, FormView
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 
 from braces.views import (LoginRequiredMixin, UserPassesTestMixin,
@@ -573,8 +573,7 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
         )
         return HttpResponseRedirect(url)
 
-
-class BookSettingsView(LoginRequiredMixin, BaseReaderView, FormView):
+class BookSettingsView(LoginRequiredMixin, JSONResponseMixin, BaseReaderView, FormView):
 
     template_name = 'edit/_settings_form.html'
 
@@ -609,23 +608,15 @@ class BookSettingsView(LoginRequiredMixin, BaseReaderView, FormView):
     def form_valid(self, form):
         try:
             form.save_settings(self.book, self.request)
-            messages.success(self.request, form.success_message or _('Successfully saved settings.'))
+            error, message = False, form.success_message or _('Successfully saved settings.')
         except Exception as err:
             print err
-            messages.warning(self.request, _('Unknown error while saving changes.'))
-        return super(BookSettingsView, self).form_valid(form)
+            error, message = True, _('Unknown error while saving changes.')
+        return self.render_json_response({'message': unicode(message), 'error': error})
 
-    def get_success_url(self):
-        """
-        Checks if forms class has custom success_url or 
-        return a default url to redirect to
-        """
-        if self.form_class.success_url:
-            success_url = self.form_class.success_url
-        else:
-            editor_url = reverse('edit:editor', args=[self.book.url_title])
-            success_url = "{0}#settings/{1}".format(editor_url, self.submodule)
-        return success_url
+    def form_invalid(self, form):
+        response = super(BookSettingsView, self).form_invalid(form).render()        
+        return self.render_json_response({'data': response.content, 'error': True})
 
     def get_initial(self):
         """

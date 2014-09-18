@@ -41,3 +41,10 @@
     <h4 class="border-bottom">{% trans "Book Settings" %}</h4>
     <p>{% trans "Settings module not available." %}</p>
 </div>
+
+<script type="text/template" class="templateFlashMessage">
+    <div class="alert alert-<%= alert_type %> alert-book-settings alert-dismissable fade in bk-dismiss" data-dismiss-secs="10">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <%= message %>
+    </div>
+</script>
