@@ -15,6 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import uuid
 import pprint
 import urllib
 import difflib
@@ -31,7 +32,6 @@ import ebooklib.epub
 import ebooklib.utils
 
 from django.utils.timezone import utc
-from django.core.files import File
 from django.core.files.base import ContentFile
 from django.utils.translation import ugettext as _
 
@@ -85,10 +85,13 @@ class EpubImporter(object):
         titles = {}
         toc = []
 
-        def _parse_toc(elements):
+        def _parse_toc(elements, parent=None):
             for _elem in elements:
+                # used later to get parent of an elem
+                unique_id = uuid.uuid4().hex 
+
                 if isinstance(_elem, tuple):
-                    toc.append((1, _elem[0].title))
+                    toc.append((1, _elem[0].title, unique_id, parent))
                     _parse_toc(_elem[1])
                 elif isinstance(_elem, ebooklib.epub.Section):
                     pass
@@ -96,9 +99,13 @@ class EpubImporter(object):
                     _urlp = urlparse.urlparse(_elem.href)
                     _name = os.path.normpath(urllib.unquote(_urlp.path))
 
+                    # check in case _name is an empty string
+                    if not _name:
+                        _name = _elem.title
+
                     if not _name in titles:
                         titles[_name] = _elem.title
-                        toc.append((0, _name))
+                        toc.append((0, _name, unique_id, parent))
 
         _parse_toc(epub_book.toc)
         self.notifier.debug("TOC structure: \n{}".format(pprint.pformat(toc, indent=4)))
@@ -108,13 +115,11 @@ class EpubImporter(object):
         stat = models.BookStatus.objects.filter(book=book, name="new")[0]
 
         # assign cover image if there is one
-        #
         cover_image = get_cover_image(epub_book)
         if cover_image:
             self._set_cover(book, cover_image)
 
         # import all images in the EPUB
-        #
         for image in epub_book.get_items_of_type(ebooklib.ITEM_IMAGE):
             if image == cover_image:
                 continue
@@ -152,7 +157,6 @@ class EpubImporter(object):
                 return _make_url_title(title, i+1)
 
         # import all document items from the EPUB
-        #
         for document in epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
             # Nav and Cover are not imported
             if not document.is_chapter():
@@ -177,17 +181,18 @@ class EpubImporter(object):
                 title = title.replace('.', '')
 
             url_title = _make_url_title(title)
-
             content = self._create_content(document, title)
 
-            chapter = models.Chapter(book = book,
-                                     version = book.version,
-                                     url_title = url_title,
-                                     title = title,
-                                     status = stat,
-                                     content = content,
-                                     created = now,
-                                     modified = now)
+            chapter = models.Chapter(
+                book = book,
+                version = book.version,
+                url_title = url_title,
+                title = title,
+                status = stat,
+                content = content,
+                created = now,
+                modified = now
+            )
             chapter.save()
 
             self._chapters[name] = chapter
@@ -195,7 +200,6 @@ class EpubImporter(object):
             self.notifier.debug("Imported chapter: {} -> {}".format(document, chapter))
 
         # fix links to chapters
-        #
         for file_name, chapter in self._chapters.iteritems():
             self._fix_links(chapter, base_path=os.path.dirname(file_name))
 
@@ -278,33 +282,45 @@ class EpubImporter(object):
 
 
     def _make_toc(self, book, toc):
-        """ Creates TOC objects.
-        """
+        """ Creates TOC objects. """
+        
         n = len(toc) + 1
+        parents = {}
 
-        for toc_type, name in toc:
+        for toc_type, name, elem_id, parent_id in toc:
             if toc_type == 1: # section
-                c = models.BookToc(book = book,
-                                   version = book.version,
-                                   name = name,
-                                   chapter = None,
-                                   weight = n,
-                                   typeof = 2)
+                toc_item = models.BookToc(
+                    book = book,
+                    version = book.version,
+                    name = name,
+                    chapter = None,
+                    weight = n,
+                    typeof = 2
+                )
             else:
                 chapter = self._chapters.get(name)
-
                 if chapter is None:
                     continue
 
-                c = models.BookToc(book = book,
-                                   version = book.version,
-                                   name = chapter.title,
-                                   chapter = chapter,
-                                   weight = n,
-                                   typeof = 1)
+                toc_item = models.BookToc(
+                    book = book,
+                    version = book.version,
+                    name = chapter.title,
+                    chapter = chapter,
+                    weight = n,
+                    typeof = 1
+                )
 
-            c.save()
+            # check if elem has parent 
+            if parent_id:
+                toc_item.parent = parents.get(parent_id, None)
+            toc_item.save()
+
+            # decrease weight
             n -= 1
+
+            # save temporarily the toc_item in parent
+            parents[elem_id] = toc_item
 
 
     def _fix_links(self, chapter, base_path):
