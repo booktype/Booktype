@@ -28,6 +28,7 @@ from booktype.apps.core import views
 from booktype.apps.reader.views import BaseReaderView
 
 from .utils import color_me
+from .channel import get_toc_for_book
 from . import forms as book_forms
 
 
@@ -35,22 +36,7 @@ VALID_SETTINGS = {
     'language': _('Book Language')
 }
 
-def get_toc_for_book(version):
-    results = []
-    for chap in version.get_toc():
-        # is it a section or chapter?
-        if chap.chapter:
-            results.append((chap.chapter.id,
-                            chap.chapter.title,
-                            chap.chapter.url_title,
-                            chap.typeof,
-                            chap.chapter.status.id))
-        else:
-            results.append(('s%s' % chap.id, chap.name, chap.name, chap.typeof))
-    return results
-
 getTOCForBook = get_toc_for_book
-
 
 @login_required
 @transaction.commit_manually

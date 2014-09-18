@@ -279,8 +279,8 @@ def create_settings(destination, database):
     except NotImplementedError:        
         secret_key = ''.join([random.choice("{}{}{}".format(string.ascii_letters, string.digits, '!@#$%^&*(-_+=)')) for i in range(50)])
 
-    vals = {'BOOKTYPE_NAME': booktype_name,
-            'BOOKTYPE_SITE_NAME': '%s_site' % project,
+    vals = {'BOOKTYPE_SITE_NAME': booktype_name,
+            'BOOKTYPE_SITE_DIR': '%s_site' % project,
             'BOOKTYPE_ROOT': os.path.abspath(destination),
             'SECRET_KEY': secret_key}
 

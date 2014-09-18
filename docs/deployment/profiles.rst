@@ -30,7 +30,7 @@ Then change this options in the settings:
 
 .. code-block:: python
 
-    ROOT_URLCONF = '{}.urls.maintanance'.format(BOOKTYPE_SITE_NAME)
+    ROOT_URLCONF = '{}.urls.maintanance'.format(BOOKTYPE_SITE_DIR)
 
 Then we need to change existing *manage.py* file in the project root to use new profile.
 

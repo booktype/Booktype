@@ -12,52 +12,16 @@
 
     {% include "edit/edit_config.html" %}
 
-    <style>
-    /*
-        #content.aloha-editable A {
-          text-decoration: underline;
-          color: red;
-        }
-        */
-        div.contentHeader span.info-message { font-size: 12px; margin-right: 10px;}
-        .template {
-            display: none;
-        }
-
-        div.aloha-toolbar {
-          display: none !important;
-        }
-       
-       .aloha-editable-highlight {
-        outline: 0 !important;
-        }
-
-       .aloha-editable-active, .aloha-editable-active[contenteditable=true]:focus {
-          outline: 0 !important;
-        }    
-
-       .aloha-editable-active .aloha-block, .aloha-block.aloha-block-highlighted {
-         box-shadow: none !important;
-       }
-
-       .aloha-block.aloha-block-active, .aloha-block.aloha-block-active:hover {
-         box-shadow: 0 0 0 3px #80b5f2 !important;
-       }
-    </style>
-
     <link id="aloha-embeded-style" type="text/css" href="{% static "edit/css/style1.css" %}" rel="stylesheet">
 
 {% endblock %}
 
 {% block navigation %} 
 
-  {% include "core/nav_menu.html" %}
+    {% include "core/nav_menu.html" %}
 
-  <div class="navigation-bar">
     {% include "edit/toolbar_nav.html" %}
-    <div class="collapse-navigation"><a href="#"></a></div>
-    <div class="logo"><a href="#"></a>aa</div>
-  </div>      
+    
     <!-- Bookbar -->
     <div class="bookbar">
        {% include "edit/toolbar_book.html" %}
@@ -100,6 +64,18 @@
 
     <section class="tab-content hold" source_id="online-users-tab">
       <h3>{% trans "Online users" %}</h3>
+      <script type="text/html" id="templateOnlineUser">
+        <li id="username-<%= username %>">
+          <figure><img src="<%= gravatar %>"></figure>
+          <div class="list-info">
+            <h4><a target="_blank" href="/accounts/<%= username %>/"><%= username %></a></h4>
+            <p><%= fullname %></p>
+            <span class="label label-default"><%= user_role %></span>
+          </div>
+        </li>
+      </script>
+      <ul class="list border-top user-avatar circle">
+      </ul>
     </section>
 
     <section class="tab-content" source_id="chat-tab">
