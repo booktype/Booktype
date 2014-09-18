@@ -3,51 +3,50 @@
 }
 
 .aloha-mouse-over .aloha-empty-paragraph {
-    background-color: #dadff3;
+  background-color: #dadff3;
 }
 
 #contenteditor .aloha-block.aloha-block-TitleBlock.aloha-block-active, .aloha-block.aloha-block-TitleBlock.aloha-block-active:hover {
-   box-shadow: none !important;
- }
+  box-shadow: none !important;
+}
 
 #contenteditor .aloha-block.aloha-block-SimpleTableBlock.aloha-block-active, .aloha-block.aloha-block-SimpleTableBlock.aloha-block-active:hover {
-   box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 #contenteditor .aloha-block-TitleBlock.aloha-block-highlighted H1 {
-        background-color: #dadff3;
+  background-color: #dadff3;
 }
 
-
 #contenteditor .aloha-block-TitleBlock.aloha-block-highlighted H1 {
-        background-color: #dadff3;
+  background-color: #dadff3;
 }
 
 #contenteditor .aloha-block-TitleBlock.aloha-block-highlighted H2 {
-        background-color: #dadff3;
+  background-color: #dadff3;
 }
 
 #contenteditor .aloha-block-TitleBlock.aloha-block-highlighted H3 {
-        background-color: #dadff3;
+  background-color: #dadff3;
 }
 
 .external-resource {
-    border: 1px solid red;
-    padding: 3px;
+  border: 1px solid red;
+  padding: 3px;
 }
 
 .compare_table td{
-    width: 50% !important;
+  width: 50% !important;
 }
 
 .history-filters .select2-container-multi 
 .select2-choices .select2-search-field input{
-    padding: 2px 5px;
-    font-size: 90%;
+  padding: 2px 5px;
+  font-size: 90%;
 }
 
 .history-filters .select2-container{
-    vertical-align: top;
+  vertical-align: top;
 }
 
 .notes-tab .save-button{
@@ -93,49 +92,95 @@
 /* Color Picker
 ------------------------------------------------------*/
 .dropdown-menu.color-picker {
-        padding:20px;
-        width: 270px;
-        box-sizing:border-box;
-        -moz-box-sizing: border-box;
-        -o-box-sizing: border-box;
-        -ms-box-sizing: border-box;
+  padding:20px;
+  width: 270px;
+  box-sizing:border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
 }
 #pickerHolder {
-        position:relative;
-        height:120px;
+  position:relative;
+  height:120px;
 }
 .dropdown-menu.color-picker .colorinput {
-        border: 1px solid #ccc;
-        padding: 2px;
-        margin: 0 0 10px 0;
-        width: auto;
-        overflow:hidden;
+  border: 1px solid #ccc;
+  padding: 2px;
+  margin: 0 0 10px 0;
+  width: auto;
+  overflow:hidden;
 }
 .dropdown-menu.color-picker .colorinput input,
 .dropdown-menu.color-picker .colorinput input:focus {
-        outline:none;
-        border: none;
-        width:100%;
-        padding: 0 4px;
-        font-size: 13px;
+  outline:none;
+  border: none;
+  width:100%;
+  padding: 0 4px;
+  font-size: 13px;
 }
 .dropdown-menu.color-picker .colorswatches {
-        width:100%;
-        margin: 0;
-        padding:0;
-        overflow:hidden;
-        }
-        .dropdown-menu.color-picker .colorswatches.margin {
-                margin: 0 0 8px 0;
-        }
+  width:100%;
+  margin: 0;
+  padding:0;
+  overflow:hidden;
+}
+.dropdown-menu.color-picker .colorswatches.margin {
+  margin: 0 0 8px 0;
+}
 .dropdown-menu.color-picker .colorswatches .bt-color {
-        float: left;
-        margin: 0 3px 3px 0;
-        width: 20px;
-        height: 20px;
-        outline:none;
-        border:none;
-        }
-        .dropdown-menu.color-picker .colorswatches .bt-color:last-child {
-        margin: 0 0 3px 0;
-        }
+  float: left;
+  margin: 0 3px 3px 0;
+  width: 20px;
+  height: 20px;
+  outline:none;
+  border:none;
+}
+.dropdown-menu.color-picker .colorswatches .bt-color:last-child {
+  margin: 0 0 3px 0;
+}
+
+#compareDialog .modal-body{
+  max-height: 450px;
+  overflow-y: auto;
+}
+
+div.contentHeader span.info-message { 
+  font-size: 12px; margin-right: 10px;
+}
+
+.template {
+    display: none;
+}
+
+.tabpane .tab-content .scrollable .list h4{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 50px;
+}
+
+.list h4{
+    margin: 0;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.list .label {
+    color: white;
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    font-size: 10px;
+    padding: 1px 4px 2px 4px;
+    line-height: normal;
+    font-weight: normal;
+}
+
+.logotext{
+    font-size: 17px;
+    line-height: 40px;
+    padding-left: 78px;
+}
+.logotext a{
+    color: #fff;
+}

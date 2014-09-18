@@ -21,7 +21,7 @@ COMPRESS_OFFLINE = False
 PROFILE_ACTIVE = 'dev'
 
 # URL ROUTER
-ROOT_URLCONF = '{}.urls.dev'.format(BOOKTYPE_SITE_NAME)
+ROOT_URLCONF = '{}.urls.dev'.format(BOOKTYPE_SITE_DIR)
 
 # DATABASE 
 DATABASES = {'default': 

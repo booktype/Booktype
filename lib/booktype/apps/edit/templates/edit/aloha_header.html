@@ -1,6 +1,8 @@
 {% load staticfiles %}
 
 <link rel="stylesheet" href="{% static "edit/js/aloha/css/aloha.css" %}" type="text/css">
+<link rel="stylesheet" href="{% static "edit/css/aloha-custom.css" %}" type="text/css">
+
 <script src="{% static "edit/js/aloha/lib/vendor/jquery-1.7.2.js" %}"></script>   
 
 <script>
@@ -19,7 +21,10 @@
             'underscorestring': _.string
         },
         plugins: {
-
+            fontsize: {
+                sizes: [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
+                unit: "px"
+            },
             booktitle: {
                 enabled: true
             },
@@ -148,6 +153,7 @@
                         booktype/indent,  
                         booktype/styling,
                         booktype/bookalign,
+                        booktype/fontsize,
                         common/undo,
                         booktype/bookundo,      
                         common/list,

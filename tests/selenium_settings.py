@@ -16,8 +16,8 @@ SOUTH_TESTS_MIGRATE = False
 SKIP_SOUTH_TESTS = True
 
 # BOOKTYPE
-BOOKTYPE_NAME = 'Booktype site'
-BOOKTYPE_SITE_NAME = 'tests'
+BOOKTYPE_SITE_NAME = 'Booktype site'
+BOOKTYPE_SITE_DIR = 'tests'
 THIS_BOOKTYPE_SERVER = ''
 
 BOOKTYPE_ROOT = Path(os.path.abspath(__file__)).ancestor(3)
@@ -160,7 +160,6 @@ INSTALLED_APPS = (
     'booktype.apps.account',
 
     # to be removed
-    'booki.reader',
     'booki.messaging',
 
     'sputnik',
@@ -176,6 +175,7 @@ CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
 
 # DEPRECATED CONFIG
 
+BOOKTYPE_NAME = BOOKTYPE_SITE_NAME
 BOOKI_NAME = BOOKTYPE_NAME
 BOOKI_ROOT = BOOKTYPE_ROOT
 BOOKI_URL = BOOKTYPE_URL
