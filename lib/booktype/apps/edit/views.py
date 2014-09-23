@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*- 
 
 import re
+import json
+import uuid
+import hashlib
 import difflib
 import datetime
+import mimetypes
+import unidecode
 
 from django.utils import formats
 from django.conf import settings
@@ -10,9 +15,9 @@ from django.db import transaction
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
+from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, DetailView, FormView
 from django.http import Http404, HttpResponse, HttpResponseRedirect
@@ -25,41 +30,23 @@ from booki.utils.log import logChapterHistory, logBookHistory
 
 from booktype.utils import security
 from booktype.apps.core import views
+from booktype.utils.misc import booktype_slugify
 from booktype.apps.reader.views import BaseReaderView
 
 from .utils import color_me
+from .channel import get_toc_for_book
 from . import forms as book_forms
 
 
 VALID_SETTINGS = {
-    # 'visibility': _('Book Visibility')
+    'language': _('Book Language')
 }
 
-def get_toc_for_book(version):
-    results = []
-    for chap in version.get_toc():
-        # is it a section or chapter?
-        if chap.chapter:
-            results.append((chap.chapter.id,
-                            chap.chapter.title,
-                            chap.chapter.url_title,
-                            chap.typeof,
-                            chap.chapter.status.id))
-        else:
-            results.append(('s%s' % chap.id, chap.name, chap.name, chap.typeof))
-    return results
-
 getTOCForBook = get_toc_for_book
-
 
 @login_required
 @transaction.commit_manually
 def upload_attachment(request, bookid, version=None):
-    import json
-    import os.path
-
-    from booktype.utils.misc import booktype_slugify
-
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
@@ -116,80 +103,68 @@ def upload_attachment(request, bookid, version=None):
 @login_required
 @transaction.commit_manually
 def upload_cover(request, bookid, version=None):
-    import json
-
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
         return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
-
-    book_version = book.get_version(version)
-
-    operationResult = True
-
+    
     # check this for transactions
     try:
         fileData = request.FILES['files[]']
-
         title = request.POST.get('title', '')
-
-        import hashlib
+        try:
+            filename = unidecode.unidecode(fileData.name)
+        except:
+            filename = uuid.uuid1().hex
 
         h = hashlib.sha1()
-        h.update(fileData.name)
+        h.update(filename)
         h.update(title)
         h.update(str(datetime.datetime.now()))
 
         license = models.License.objects.get(abbrevation=request.POST.get('license', ''))
 
-        try:
-            filename = unidecode.unidecode(fileData.name)
-        except:
-            filename = ''
-
-        cov = models.BookCover(book = book,
-                               user = request.user,
-                               cid = h.hexdigest(),
-                               title = title,
-                               filename = filename[:250],
-                               width = 0,
-                               height = 0,
-                               unit = request.POST.get('unit', 'mm'),
-                               booksize = request.POST.get('booksize', ''),
-                               cover_type = request.POST.get('type', ''),
-                               creator = request.POST.get('creator', '')[:40],
-                               license = license,
-                               notes = request.POST.get('notes', '')[:500],
-                               approved = False,
-                               is_book = False,
-                               is_ebook = True,
-                               is_pdf = False,
-                               created = datetime.datetime.now())
-        cov.save()
+        cover = models.BookCover(
+            book = book,
+            user = request.user,
+            cid = h.hexdigest(),
+            title = title,
+            filename = filename[:250],
+            width = 0,
+            height = 0,
+            unit = request.POST.get('unit', 'mm'),
+            booksize = request.POST.get('booksize', ''),
+            cover_type = request.POST.get('type', ''),
+            creator = request.POST.get('creator', '')[:40],
+            license = license,
+            notes = request.POST.get('notes', '')[:500],
+            approved = False,
+            is_book = False,
+            is_ebook = True,
+            is_pdf = False,
+            created = datetime.datetime.now()
+        )
+        cover.save()
         
-        cov.attachment.save(fileData.name, fileData, save = False)
-        cov.save()
-
-        # TODO:
-        # must write info about this to log!
-    # except IOError:
-    #     operationResult = False
-    #     transaction.rollback()
+        # now save the attachment
+        cover.attachment.save(filename, fileData, save=False)
+        cover.save()
     except:
-        oprerationResult = False
         transaction.rollback()
     else:
-       # maybe check file name now and save with new name
        transaction.commit()
 
-
-    response_data = {"files":[{"url":"http://127.0.0.1/",
-                                "thumbnail_url":"http://127.0.0.1/",
-                                "name":"boot.png",
-                                "type":"image/png",
-                                "size":172728,
-                                "delete_url":"",
-                                "delete_type":"DELETE"}]}
+    response_data = {
+        "files": [{ 
+            "url":"http://127.0.0.1/",
+            "thumbnail_url":"http://127.0.0.1/",
+            "name":"boot.png",
+            "type":"image/png",
+            "size":172728,
+            "delete_url":"",
+            "delete_type":"DELETE"
+            }]
+        }
 
     if "application/json" in request.META['HTTP_ACCEPT']:
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
@@ -198,7 +173,6 @@ def upload_cover(request, bookid, version=None):
 
 
 def cover(request, bookid, cid, fname = None, version=None):
-    from django.views import static
 
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
@@ -213,11 +187,8 @@ def cover(request, bookid, cid, fname = None, version=None):
     document_path = cover.attachment.path
 
     # extenstion
-
-    import mimetypes
     mimetypes.init()
-
-    extension = cover.filename.split('.')[-1].lower()
+    extension = cover.attachment.name.split('.')[-1].lower()
 
     if extension == 'tif':
         extension = 'tiff'
@@ -266,8 +237,7 @@ def cover(request, bookid, cid, fname = None, version=None):
     except IOError:
         return HttpResponse(status=500)
 
-    response = HttpResponse(data, content_type=content_type)
-    return response
+    return HttpResponse(data, content_type=content_type)
 
 
 class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
@@ -573,8 +543,7 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
         )
         return HttpResponseRedirect(url)
 
-
-class BookSettingsView(LoginRequiredMixin, BaseReaderView, FormView):
+class BookSettingsView(LoginRequiredMixin, JSONResponseMixin, BaseReaderView, FormView):
 
     template_name = 'edit/_settings_form.html'
 
@@ -597,6 +566,8 @@ class BookSettingsView(LoginRequiredMixin, BaseReaderView, FormView):
     def get_context_data(self, **kwargs):
         context = super(BookSettingsView, self).get_context_data(**kwargs)
         context['option_title'] = VALID_SETTINGS[self.submodule]
+        context['option'] = self.submodule
+        context['book'] = self.book
         return context
 
     def get_form_class(self):
@@ -606,27 +577,19 @@ class BookSettingsView(LoginRequiredMixin, BaseReaderView, FormView):
 
     def form_valid(self, form):
         try:
-            form.save_settings(self.request)
-            messages.success(self.request, form.success_message or _('Successfully saved settings.'))
+            form.save_settings(self.book, self.request)
+            error, message = False, form.success_message or _('Successfully saved settings.')
         except Exception as err:
             print err
-            messages.warning(self.request, _('Unknown error while saving changes.'))
-        return super(BookSettingsView, self).form_valid(form)
+            error, message = True, _('Unknown error while saving changes.')
+        return self.render_json_response({'message': unicode(message), 'error': error})
 
-    def get_success_url(self):
-        """
-        Checks if forms class has custom success_url or 
-        return a default url to redirect to
-        """
-        if self.form_class.success_url:
-            success_url = self.form_class.success_url
-        else:
-            editor_url = reverse('edit:settings', args=[self.book.url_title])
-            success_url = "{0}#settings/{1}".format(editor_url, self.submodule)
-        return redirect(success_url)
+    def form_invalid(self, form):
+        response = super(BookSettingsView, self).form_invalid(form).render()        
+        return self.render_json_response({'data': response.content, 'error': True})
 
     def get_initial(self):
         """
         Returns initial data for each admin option form
         """
-        return self.form_class.initial_data()
+        return self.form_class.initial_data(self.book, self.request)

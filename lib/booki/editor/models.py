@@ -13,18 +13,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+import os
 import time
+import datetime
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 from django.contrib.auth import models as auth_models
+from django.utils.translation import ugettext_lazy as _
 
 import booki.editor.signals
 
-from django.conf import settings
-
-import datetime
-import os
 
 # License
 
@@ -253,29 +252,31 @@ class Book(models.Model):
 # BookHistory
 
 
-HISTORY_CHOICES = {'unknown': 0,
+HISTORY_CHOICES = {
+    'unknown': 0,
+    
+    'chapter_create': 1,
+    'chapter_save': 2,
+    'chapter_rename': 3,
+    'chapter_reorder': 4,
+    'chapter_split': 5,
+    'chapter_clone': 15,
+    'chapter_delete': 19,
 
-                   'chapter_create': 1,
-                   'chapter_save': 2,
-                   'chapter_rename': 3,
-                   'chapter_reorder': 4,
-                   'chapter_split': 5,
-                   'chapter_clone': 15,
-                   'chapter_delete': 19,
+    'section_create': 6,
+    'section_rename': 7,
+    'section_delete': 20,
 
-                   'section_create': 6,
-                   'section_rename': 7,
+    'book_create': 10,
+    'minor_version': 11,
+    'major_version': 12,
 
-                   'book_create': 10,
-                   'minor_version': 11,
-                   'major_version': 12,
+    'attachment_upload': 13,
+    'attachment_delete': 14,
 
-                   'attachment_upload': 13,
-                   'attachment_delete': 14,
-
-                   'cover_upload': 16,
-                   'cover_delete': 17,
-                   'cover_update': 18
+    'cover_upload': 16,
+    'cover_delete': 17,
+    'cover_update': 18
 }
 
 class BookHistory(models.Model):
@@ -531,6 +532,9 @@ class BookToc(models.Model):
     def is_chapter(self):
         return self.typeof == 1
 
+    def has_children(self):
+        return (self.booktoc_set.count() > 0)
+
     def url_title(self):
         if self.is_chapter():
             return self.chapter.url_title
@@ -592,7 +596,8 @@ class PublishWizzard(models.Model):
 
 
 def uploadCoverTo(att, filename):
-    return '%s/book_covers/%s' % (settings.DATA_ROOT, att.id)
+    extension = os.path.splitext(filename)[-1].lower()
+    return '%s/book_covers/%s%s' % (settings.DATA_ROOT, att.id, extension)
 
 
 class BookCover(models.Model):
