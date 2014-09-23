@@ -105,3 +105,12 @@ input[type="radio"].form-control:focus{
     max-width: 100%;
     height: auto;
 }
+
+.box-bottom-white{
+    overflow: inherit;
+}
+.box-bottom-white:after{
+    display: block;
+    clear: both;
+    content: "";
+}

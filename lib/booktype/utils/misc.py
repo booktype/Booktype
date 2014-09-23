@@ -16,9 +16,12 @@
 
 import os
 import urllib
-import urlparse
 import config
+import urlparse
 import tempfile
+import ebooklib
+
+from collections import OrderedDict
 
 from django.conf import settings
 from django.template.defaultfilters import slugify
@@ -27,14 +30,12 @@ from django.core.exceptions import ValidationError
 
 from lxml import etree, html
 from ebooklib import epub
-import ebooklib
+from ebooklib.plugins import standard
+from ebooklib.plugins.base import BasePlugin
+from ebooklib.utils import parse_html_string
 
 from booki.editor import models
 
-#################
-
-from ebooklib.plugins.base import BasePlugin
-from ebooklib.utils import parse_html_string
 try:
     from PIL import Image
 except ImportError:
@@ -71,7 +72,6 @@ class TidyPlugin(BasePlugin):
 
 
 def _convert_file_name(file_name):
-    import os.path
 
     name = os.path.basename(file_name)
     if name.rfind('.') != -1:
@@ -110,8 +110,6 @@ class ImportPlugin(BasePlugin):
     def html_after_read(self, book, chapter):
         import os.path
         import urlparse
-
-        from ebooklib.utils import parse_html_string
 
         try:
             tree = parse_html_string(chapter.content)
@@ -184,9 +182,8 @@ class LoadPlugin(BasePlugin):
 
 # THIS IS TEMPORARY PLACE AND TEMPORARY CODE
 
-def import_book_from_file(epub_file, user, book_title=None):
-    import urlparse
-    import os.path
+def import_book_from_file(epub_file, user, **kwargs):
+    import uuid
     import pprint
     import datetime
     import StringIO
@@ -196,49 +193,52 @@ def import_book_from_file(epub_file, user, book_title=None):
     from lxml import etree
     from ebooklib.utils import parse_html_string
 
-    from booki.editor import models
-    from booktype.utils.book import create_book, check_book_availability
+    from booktype.utils.book import create_book
 
     opts = {'plugins': [TidyPlugin(), ImportPlugin()]}
     epub_book = epub.read_epub(epub_file, opts)
 
     pp = pprint.PrettyPrinter(indent=4)
-
     chapters = {}
     toc = []
 
-    def _parse_toc(elements):
+    def _parse_toc(elements, parent=None):
         for _elem in elements:
+            # used later to get parent of an elem
+            unique_id = uuid.uuid4().hex 
+
             if isinstance(_elem, tuple):
-                toc.append((1, _elem[0].title))
-                _parse_toc(_elem[1])
+                toc.append((1, _elem[0].title, unique_id, parent))
+                _parse_toc(_elem[1], unique_id)
             elif isinstance(_elem, epub.Section):
                 pass
             elif isinstance(_elem, epub.Link):
                 _u = urlparse.urlparse(_elem.href)
                 _name = urllib.unquote(os.path.basename(_u.path))
+                if not _name:
+                    _name = _elem.title
 
                 if _name not in chapters:
                     chapters[_name] = _elem.title
-                    toc.append((0, _name))
+                    toc.append((0, _name, unique_id, parent))
 
     _parse_toc(epub_book.toc)
-
     pp.pprint(toc)
 
-    title = book_title or epub_book.metadata[epub.NAMESPACES['DC']]['title'][0][0]
+    epub_book_name = epub_book.metadata[epub.NAMESPACES['DC']]['title'][0][0]
+    title = kwargs.get('book_title', epub_book_name)
 
     # must check if title already exists
     book = create_book(user, title)
-
     now = datetime.datetime.utcnow().replace(tzinfo=utc)
-
     stat = models.BookStatus.objects.filter(book=book, name="new")[0]
 
     for attach in epub_book.get_items_of_type(ebooklib.ITEM_IMAGE):
-        att = models.Attachment(book=book,
-                                version=book.version,
-                                status=stat)
+        att = models.Attachment(
+            book=book,
+            version=book.version,
+            status=stat
+        )
 
         s = attach.get_content()
         f = StringIO.StringIO(s)
@@ -249,6 +249,7 @@ def import_book_from_file(epub_file, user, book_title=None):
         f.close()
 
     _imported = {}
+    # TODO: ask about importing empty sections
 
     for chap in epub_book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
         # Nav and Cover are not imported
@@ -265,21 +266,20 @@ def import_book_from_file(epub_file, user, book_title=None):
             name = chapters[name]
         else:
             name = _convert_file_name(name)
-
             if name.rfind('.') != -1:
                 name = name[:name.rfind('.')]
-
             name = name.replace('.', '')
 
-        chapter = models.Chapter(book=book,
-                                 version=book.version,
-                                 url_title=booktype_slugify(name),
-                                 title=name,
-                                 status=stat,
-                                 content=content,
-                                 created=now,
-                                 modified=now)
-
+        chapter = models.Chapter(
+            book=book,
+            version=book.version,
+            url_title=booktype_slugify(name),
+            title=name,
+            status=stat,
+            content=content,
+            created=now,
+            modified=now
+        )
         chapter.save()
         _imported[urllib.unquote(os.path.basename(chap.file_name))] = chapter
 
@@ -289,7 +289,6 @@ def import_book_from_file(epub_file, user, book_title=None):
             continue
 
         content = chap.get_content()
-
         try:
             tree = parse_html_string(content)
         except:
@@ -323,28 +322,42 @@ def import_book_from_file(epub_file, user, book_title=None):
                 _imported[urllib.unquote(os.path.basename(chap.file_name))].save()
 
     n = len(toc) + 1
+    parents = {}
 
     for _elem in toc:
         if _elem[0] == 1:  # section
-            c = models.BookToc(book=book,
-                               version=book.version,
-                               name=_elem[1],
-                               chapter=None,
-                               weight=n,
-                               typeof=2)
-            c.save()
+            toc_item = models.BookToc(
+                book=book,
+                version=book.version,
+                name=_elem[1],
+                chapter=None,
+                weight=n,
+                typeof=2
+            )
         else:
             if not _elem[1] in _imported:
                 continue
 
             chap = _imported[_elem[1]]
-            c = models.BookToc(book=book,
-                               version=book.version,
-                               name=chap.title,
-                               chapter=chap,
-                               weight=n,
-                               typeof=1)
-            c.save()
+            toc_item = models.BookToc(
+                book=book,
+                version=book.version,
+                name=chap.title,
+                chapter=chap,
+                weight=n,
+                typeof=1
+            )
+        
+        # check if elem has parent 
+        if _elem[3]:
+            toc_item.parent = parents.get(_elem[3], None)
+        toc_item.save()
+
+        # decrease weight
+        n -= 1
+
+        # save temporarily the toc_item in parent
+        parents[_elem[2]] = toc_item
 
     return book
 
@@ -414,11 +427,7 @@ def load_book_from_file(epub_file, user):
 
 
 def export_book(fileName, book_version):
-    import urlparse
-    import os.path
-
     book = book_version.book
-
     epub_book = epub.EpubBook()
 
     # set basic info
@@ -427,7 +436,7 @@ def export_book(fileName, book_version):
     # set the language according to the language set
     epub_book.set_language('en')
 
-#    epub_book.add_metadata(None, 'meta', '', {'name': 'booktype:owner_id', 'content': book_version.book.owner.username})
+    # epub_book.add_metadata(None, 'meta', '', {'name': 'booktype:owner_id', 'content': book_version.book.owner.username})
 
     # set description
     if book.description != '':
@@ -441,7 +450,7 @@ def export_book(fileName, book_version):
     # set the author according to the owner
     epub_book.add_author(book.owner.first_name, role='aut', uid='author')
 
-    toc = []
+    toc = OrderedDict()
     section = []
     spine = ['nav']
 
@@ -450,10 +459,11 @@ def export_book(fileName, book_version):
 
     for chapter in book_version.get_toc():
         if chapter.chapter:
-            c1 = epub.EpubHtml(title=chapter.chapter.title, file_name='%s.xhtml' % (chapter.chapter.url_title, ))
+            c1 = epub.EpubHtml(
+                title=chapter.chapter.title, 
+                file_name='%s.xhtml' % (chapter.chapter.url_title, )
+            )
             cont = chapter.chapter.content
-
-            from ebooklib.utils import parse_html_string
 
             try:
                 tree = parse_html_string(cont.encode('utf-8'))
@@ -484,21 +494,19 @@ def export_book(fileName, book_version):
             epub_book.add_item(c1)
             spine.append(c1)
 
-            if len(section) > 1:
-                section[1].append(c1)
+            if chapter.parent:
+                toc[chapter.parent.id][1].append(c1)
             else:
-                toc.append(c1)
+                if chapter.has_children():
+                    toc[chapter.id] = [c1, []]
+                else:
+                    toc[chapter.id] = c1
         else:
-            if len(section) > 0:
-                toc.append(section[:])
-                section = []
-
-            section = [epub.Section(chapter.name), []]
-            # this is section
-
-    # and what if == 0? then we have a problem
-    if len(section) > 0:
-        toc.append(section[:])
+            epub_sec = epub.Section(chapter.name)
+            if chapter.parent:
+                toc[chapter.parent.id][1].append(epub_sec)
+            else:
+                toc[chapter.id] = [epub_sec, []]
 
     for i, attachment in enumerate(models.Attachment.objects.filter(version=book_version)):
         if ('static/' + os.path.basename(attachment.attachment.name)) not in embededImages:
@@ -517,15 +525,12 @@ def export_book(fileName, book_version):
             itm.content = blob
             epub_book.add_item(itm)
 
-    epub_book.toc = toc
+    epub_book.toc = toc.values()
     epub_book.spine = spine
     epub_book.add_item(epub.EpubNcx())
     epub_book.add_item(epub.EpubNav())
 
-    from ebooklib.plugins import booktype, standard
-
     opts = {'plugins': [TidyPlugin(), standard.SyntaxPlugin()]}
-
     epub.write_epub(fileName, epub_book, opts)
 
 
