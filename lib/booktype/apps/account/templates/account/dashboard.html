@@ -111,7 +111,7 @@
                     {% can_delete_group group user as can_delete %}
                     {% include "account/dashboard_group_template.html" %}
                     {% empty %}
-                    <li>{% trans "Join other groups based on your interest" %} <a href="{% url 'portal:list_groups' %}">{%trans "view all"%}.</li>
+                    <li>{% trans "Join other groups based on your interest" %} <a href="{% url 'portal:list_groups' %}">{% trans "view all" %}.</a></li>
                     {% endfor %}
                 </ul>
                 
