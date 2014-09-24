@@ -473,38 +473,38 @@ def create_apache(destination):
 
     # TODO add path to booki
 
-    s = '''# Apache configuration for Booktype server V1.0.5
+    s = '''# Apache configuration for Booktype server V1.0.6
 
 <VirtualHost *:80>
 
-     # CHANGE THIS
+     # Change the following three lines for your server
+
      ServerName __INSERT_SERVER_NAME__
      SetEnv HTTP_HOST "__INSERT_SERVER_NAME__"
+     ServerAdmin __INSERT_ADMIN_EMAIL__
 
      SetEnv LC_TIME "en_GB.UTF-8"
      SetEnv LANG "en_GB.UTF-8"
 
      WSGIScriptAlias / %(destination)s/%(project_name)s_site/wsgi.py
 
+     # uncomment 'Require all granted' for Apache 2.4 without mod_access_compat
+
      <Location "/">
-       Allow from all
+       #Require all granted
        Options FollowSymLinks
      </Location>
 
      Alias /static/ "%(destination)s/static/"
      <Directory "%(destination)s/static/">
-       Order allow,deny
-       Options Indexes
-       Allow from all
-       IndexOptions FancyIndexing
+       #Require all granted
+       Options -Indexes
      </Directory>
 
      Alias /data/ "%(destination)s/data/"
      <Directory "%(destination)s/data/">
-       Order allow,deny
-       Options Indexes
-       Allow from all
-       IndexOptions FancyIndexing
+       #Require all granted
+       Options -Indexes
      </Directory>
 
      ErrorLog ${APACHE_LOG_DIR}/booktype-%(project_name)s-error.log
