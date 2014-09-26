@@ -13,18 +13,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+import os
 import time
+import datetime
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 from django.contrib.auth import models as auth_models
+from django.utils.translation import ugettext_lazy as _
 
 import booki.editor.signals
 
-from django.conf import settings
-
-import datetime
-import os
 
 # License
 
@@ -597,7 +596,8 @@ class PublishWizzard(models.Model):
 
 
 def uploadCoverTo(att, filename):
-    return '%s/book_covers/%s' % (settings.DATA_ROOT, att.id)
+    extension = os.path.splitext(filename)[-1].lower()
+    return '%s/book_covers/%s%s' % (settings.DATA_ROOT, att.id, extension)
 
 
 class BookCover(models.Model):

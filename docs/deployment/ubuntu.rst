@@ -40,7 +40,7 @@ Install needed Python modules:
 
 .. code-block:: bash
 
-    $ pip install -r Booktype/requirements/sqlite.txt
+    $ pip install -r Booktype/requirements/dev.txt
 
 Create Booktype project:
 
@@ -73,7 +73,3 @@ Run workers:
 .. code-block:: bash
   
     $ ./manage.py celeryd -E --autoreload
-
-
-
-
