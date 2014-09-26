@@ -20,11 +20,12 @@ from django.views.generic.base import TemplateView
 
 # This is dispatcher for Sputnik connections.
 
-SPUTNIK_DISPATCHER = ((r'^/booki/$', 'booki.channels.main'),
-                      (r'^/booki/profile/(?P<profileid>.+)/$', 'booki.channels.profile'),
-                      (r'^/chat/(?P<bookid>\d+)/$', 'booki.channels.chat'),
-                      (r'^/booktype/book/(?P<bookid>\d+)/(?P<version>[\w\d\.\-.]+)/$', 'booktype.apps.edit.channel')
-                      )
+SPUTNIK_DISPATCHER = (
+    (r'^/booki/$', 'booki.channels.main'),
+    (r'^/booki/profile/(?P<profileid>.+)/$', 'booki.channels.profile'),
+    (r'^/chat/(?P<bookid>\d+)/$', 'booki.channels.chat'),
+    (r'^/booktype/book/(?P<bookid>\d+)/(?P<version>[\w\d\.\-.]+)/$', 'booktype.apps.edit.channel')
+)
 
 urlpatterns = patterns(
     '',
