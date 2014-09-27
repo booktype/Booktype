@@ -7,8 +7,10 @@
     {% csrf_token %}
     <input type="hidden" name="setting" value="{{ option }}">
     <input type="hidden" name="bookid" value="{{ book.id }}">
-    <ul class="list">
+    <ul class="list setting-list">
+        {% block setting_form %}
         {{ form.as_ul }}
+        {% endblock %}
         <li>
         <input type="submit" id="saveBookSettings" class="btn btn-default" name="submit" value="{% block save_btn %}{% trans 'Save changes' %}{% endblock %}">
         <button type="button" class="btn btn-default" data-href="{{ form.get_cancel_url }}">

@@ -39,7 +39,8 @@ from . import forms as book_forms
 
 
 VALID_SETTINGS = {
-    'language': _('Book Language')
+    'language': _('Book Language'),
+    'license': _('Book License')
 }
 
 getTOCForBook = get_toc_for_book
@@ -290,6 +291,11 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context['is_admin'] = book_security.is_group_admin() or book_security.is_book_admin() or book_security.is_superuser()
         context['is_owner'] = book.owner == self.request.user
 
+        license_dict = {} 
+        for val in models.License.objects.all().values('id','url'):
+            license_dict[val['id']] = val['url']
+        context['license_list'] = json.dumps(license_dict)
+        
         return context
 
     def test_func(self, user):
@@ -575,6 +581,11 @@ class BookSettingsView(LoginRequiredMixin, JSONResponseMixin, BaseReaderView, Fo
         self.form_class = getattr(book_forms, class_text)
         return self.form_class
 
+    def get_form_kwargs(self):
+        kwargs = super(BookSettingsView, self).get_form_kwargs()
+        kwargs.update({'book': self.book})
+        return kwargs
+
     def form_valid(self, form):
         try:
             form.save_settings(self.book, self.request)
@@ -585,11 +596,19 @@ class BookSettingsView(LoginRequiredMixin, JSONResponseMixin, BaseReaderView, Fo
         return self.render_json_response({'message': unicode(message), 'error': error})
 
     def form_invalid(self, form):
-        response = super(BookSettingsView, self).form_invalid(form).render()        
-        return self.render_json_response({'data': response.content, 'error': True})
+        response = super(BookSettingsView, self).form_invalid(form).render()
+        return self.render_json_response({'data': response.content.decode('utf-8'), 'error': True})
 
     def get_initial(self):
         """
         Returns initial data for each admin option form
         """
         return self.form_class.initial_data(self.book, self.request)
+
+    def get_template_names(self):
+        if self.request.is_ajax():
+            return [
+                "edit/_settings_form_%s.html" % self.submodule.replace('-', '_'), 
+                self.template_name
+            ]
+        return super(BookSettingsView, self).get_template_names()
