@@ -30,7 +30,7 @@ import booki.editor.signals
 class License(models.Model):
     name = models.CharField(_('name'), max_length=100, blank=False)
     abbrevation = models.CharField(_('abbrevation'), max_length=30)
-    url = models.URLField(_('url'), blank=True)
+    url = models.URLField(_('url'), blank=True, null=True)
 
     def __unicode__(self):
         return self.name
@@ -168,7 +168,7 @@ class Book(models.Model):
 
     # or is this suppose to be per project
     # and null=False should be
-    license = models.ForeignKey(License,null=True, verbose_name=_("license"))
+    license = models.ForeignKey(License, null=True, blank=True, verbose_name=_("license"))
 
     created = models.DateTimeField(_('created'), auto_now=False, default=datetime.datetime.now)
     published = models.DateTimeField(_('published'), null=True)
