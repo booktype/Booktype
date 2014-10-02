@@ -28,7 +28,7 @@ from booki.utils.log import logBookHistory, logChapterHistory, printStack
 from booki.editor import models
 from booki.utils import security
 from booktype.utils.misc import booktype_slugify
-from booki import constants
+from booktype import constants
 
 from django.conf import settings
 

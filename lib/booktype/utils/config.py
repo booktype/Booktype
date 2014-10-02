@@ -23,7 +23,7 @@ import os.path
 
 from django.conf import settings
 
-from booki import constants
+from booktype import constants
 
 
 writeLock = threading.RLock()
