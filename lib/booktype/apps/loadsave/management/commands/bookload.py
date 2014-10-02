@@ -18,7 +18,7 @@ from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 from django.contrib.auth.models import User
 
-from booktype.utils.misc import load_book_from_file
+from booktype.utils.misc import import_book_from_file
 
 class Command(BaseCommand):
     args = "<epub file> [, <epub file>, ...]"
@@ -66,11 +66,9 @@ class Command(BaseCommand):
                 if options['new_book_url']:
                     extraOptions['book_url'] = options['new_book_url']
 
-                load_book_from_file(fileName, user)
+                import_book_from_file(fileName, user, **extraOptions)
             except IOError:
                 raise CommandError('File "%s" does not exist. Can not finish import.' % fileName)
             else:
                 if options['verbosity'] in ['1', '2']:
                     print 'Booki-zip "%s" file successfully imported.' % fileName
-                
-        
