@@ -15,24 +15,21 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import sputnik
 from lxml import etree, html
 
-import sputnik
-
-from django.db import transaction
 from django.db.models import Q
-from django.core.exceptions import ObjectDoesNotExist, SuspiciousOperation, PermissionDenied
+from django.db import transaction
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 
-from booki.utils.log import logBookHistory, logChapterHistory, printStack
+from booki.utils.log import logBookHistory, logChapterHistory
 
 from booki.editor import models
 from booki.utils import security
 from booktype.utils.misc import booktype_slugify
 from booktype import constants
 
-from django.conf import settings
-
-from booktype.utils import config
 
 # this couple of functions should go to models.BookVersion
 def get_toc_for_book(version):
@@ -141,7 +138,7 @@ def get_book(request, bookid, versionid):
     hasPermission = security.canEditBook(book, book_security)
 
     if not hasPermission:
-        raise PermissionDeined
+        raise PermissionDenied
 
     book_version = book.get_version(versionid)
 
@@ -1418,11 +1415,25 @@ def remote_covers_data(request, message, bookid, version):
     @return: Returns needed data for Cover Manager tab
     """
 
+    try:
+        from PIL import Image
+    except ImportError:
+        import Image
+
+    def _getDimension(cover):
+        try:
+            im = Image.open(cover.attachment.name)
+            return im.size
+        except:
+            pass
+
+        return None
+
     book, book_version, book_security = get_book(request, bookid, version)
 
     covers = []
 
-    for cover in models.BookCover.objects.filter(book = book).order_by("title"):
+    for cover in models.BookCover.objects.filter(book=book).order_by("title"):
         frm = []
 
         if cover.is_book:
@@ -1439,15 +1450,21 @@ def remote_covers_data(request, message, bookid, version):
         if len(title) > 50:
             title = title[:50] + '...'
 
-        covers.append({'cid': cover.cid,
-                       'placement': cover.cover_type,
-                       'format': frm,
-                       'title': title,
-                       'approved': cover.approved})
+        covers.append({
+            'cid': cover.cid,
+            'placement': cover.cover_type,
+            'format': frm,
+            'title': title,
+            'notes': cover.notes,
+            'filename': os.path.split(cover.attachment.name)[1],
+            'preview': '../_cover/{0}/cover{1}'.format(cover.cid, os.path.split(cover.attachment.name)[1]),
+            'size': cover.attachment.size,
+            'dimension': _getDimension(cover),
+            'approved': cover.approved})
 
     covers.reverse()
 
-    return {"covers": covers, "can_update": bookSecurity.isAdmin()}
+    return {"covers": covers, "can_update": book_security.isAdmin()}
 
 
 def remote_cover_approve(request, message, bookid, version):
@@ -1472,7 +1489,7 @@ def remote_cover_approve(request, message, bookid, version):
     if not book_security.isAdmin():
         raise PermissionDenied
 
-    cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
+    cover = models.BookCover.objects.get(book=book, cid=message.get('cid', ''))
     cover.approved = message.get('cover_status', False)
     cover.save()
 
@@ -1506,28 +1523,15 @@ def remote_cover_delete(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
-
-    cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
-
-    filename = cover.attachment.name[:]
-
+    cover = models.BookCover.objects.get(book=book, cid=message.get('cid', ''))
+    logBookHistory(
+        book=book,
+        version=book_version,
+        args={'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
+        user=request.user,
+        kind='cover_delete'
+    )
     cover.delete()
-
-    from booki.utils import log
-
-    log.logBookHistory(book = book,
-                       version = book_version,
-                       args = {'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
-                       user = request.user,
-                       kind = 'cover_delete'
-                       )
-
-    try:
-        import os
-
-        os.remove(cover.attachment.name)
-    except OSError:
-        pass
 
     return {"result": True}
 
@@ -1551,8 +1555,8 @@ def remote_cover_save(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    cover =  models.BookCover.objects.get(book = book, cid = message.get('cid', ''))
-    cover.title =  message.get('title', '').strip()[:250]
+    cover = models.BookCover.objects.get(book=book, cid=message.get('cid', ''))
+    cover.title = message.get('title', '').strip()[:250]
 
     try:
         width = int(message.get('width', 0))
@@ -1587,14 +1591,13 @@ def remote_cover_save(request, message, bookid, version):
 
     cover.save()
 
-    from booki.utils import log
-
-    log.logBookHistory(book = book,
-                       version = book_version,
-                       args = {'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
-                       user = request.user,
-                       kind = 'cover_update'
-                       )
+    logBookHistory(
+        book=book,
+        version=book_version,
+        args={'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
+        user=request.user,
+        kind='cover_update'
+    )
 
     return {"result": True}
 
@@ -1616,7 +1619,7 @@ def remote_cover_upload(request, message, bookid, version):
     @return: Returns needed data for Cover panel.
     """
 
-    licenses =  [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
+    licenses = [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
 
     return {"result": True, "licenses": licenses}
 
@@ -1691,7 +1694,7 @@ def remote_cover_load(request, message, bookid, version):
              "license": cover.license.abbrevation,
              "approved": cover.approved}
 
-    licenses =  [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
+    licenses = [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
 
     transaction.commit()
 

@@ -66,7 +66,7 @@ class Command(BaseCommand):
                 if options['new_book_url']:
                     extraOptions['book_url'] = options['new_book_url']
 
-                import_book_from_file(fileName, user)
+                import_book_from_file(fileName, user, **extraOptions)
             except IOError:
                 raise CommandError('File "%s" does not exist. Can not finish import.' % fileName)
             else:

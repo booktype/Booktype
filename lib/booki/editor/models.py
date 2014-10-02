@@ -13,25 +13,24 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+import os
 import time
+import datetime
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 from django.contrib.auth import models as auth_models
+from django.utils.translation import ugettext_lazy as _
 
 import booki.editor.signals
 
-from django.conf import settings
-
-import datetime
-import os
 
 # License
 
 class License(models.Model):
     name = models.CharField(_('name'), max_length=100, blank=False)
     abbrevation = models.CharField(_('abbrevation'), max_length=30)
-    url = models.URLField(_('url'), blank=True)
+    url = models.URLField(_('url'), blank=True, null=True)
 
     def __unicode__(self):
         return self.name
@@ -169,7 +168,7 @@ class Book(models.Model):
 
     # or is this suppose to be per project
     # and null=False should be
-    license = models.ForeignKey(License,null=True, verbose_name=_("license"))
+    license = models.ForeignKey(License, null=True, blank=True, verbose_name=_("license"))
 
     created = models.DateTimeField(_('created'), auto_now=False, default=datetime.datetime.now)
     published = models.DateTimeField(_('published'), null=True)
@@ -597,7 +596,8 @@ class PublishWizzard(models.Model):
 
 
 def uploadCoverTo(att, filename):
-    return '%s/book_covers/%s' % (settings.DATA_ROOT, att.id)
+    extension = os.path.splitext(filename)[-1].lower()
+    return '%s/book_covers/%s%s' % (settings.DATA_ROOT, att.id, extension)
 
 
 class BookCover(models.Model):

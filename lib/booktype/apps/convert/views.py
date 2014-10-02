@@ -69,7 +69,7 @@ class ConvertView(View):
         request_data = RequestData.parse(request_spec)
 
         # name:path for all uploaded files
-        request_data.files = {field_name : file.file_path() for (field_name, file) in request.FILES.iteritems()}
+        request_data.files = {field_name : _file.file_path() for (field_name, _file) in request.FILES.iteritems()}
 
         # start the task in the background
         async_result = tasks.convert.apply_async((request_data, base_path))

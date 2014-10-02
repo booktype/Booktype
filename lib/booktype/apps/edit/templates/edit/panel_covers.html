@@ -1,4 +1,5 @@
 {% load i18n %}
+
 <div class="template templateCoversToolbar">
     <h2>{% trans "Cover Manager" %}</h2>
     <div class="btn-toolbar float-right">
@@ -25,78 +26,21 @@
 </div>
 
 <div class="template templateCoversContent">
- <p>{% trans "The cover manager allows you to upload, manage and publish your book covers. Please upload your ebook cover image files (JPEG, GIF or PNG format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, spine and back cover of your print books can be uploaded and managed, but will be kept separate from the text of the book when publishing it." %}</p>
-<style>
-    #uploadCover, #editCover {
-      width: 800px;
-    }
-</style>
- <div>
-  <span class="thumbnails">
-  </span>
-</div>
-
-</div>
-
-<div id="uploadCover" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
- <div class="modal-dialog">
-  <div class="modal-content"> 
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="myModalLabel">{% trans "Enter Meta-data" %}</h3>
+    <div id="cover_error">
+        <div class="alert-box error wrong-extension">
+            {% trans "Error: The selected filetype is not supported. Please select one of the following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD." %}
+        </div>
     </div>
-    <div class="modal-body">
-      <div class="row-fluid">
-
-          <div class="span5">
-            <form class="form-horizontal">
-                <div class="control-group">
-                  <label class="control-label" for="inputTitle">Title</label>
-                  <div class="controls">
-                    <input type="text" id="inputTitle" name="title" placeholder="Title" class="form-control">
-                  </div>
-                </div>
-
-                <div class="control-group">
-                  <label class="control-label" for="inputCreator">Creator</label>
-                  <div class="controls">
-                    <input type="text" id="inputCreator" name="creator" placeholder="Creator" class="form-control">
-                  </div>
-                </div>
-
-                <div class="control-group">
-                  <label class="control-label" for="inputLicense">License</label>
-                  <div class="controls">
-                    <select id="inputLicense" name="license"  class="form-control">
-                    </select>                
-                  </div>
-                </div>
-
-              </form>
-            </div>
-
-            <div class="span5">
-              <form class="form-horizontal">
-                <div class="control-group">
-                  <label class="control-label" for="inputNotes">Notes</label>
-                  <div class="controls">
-                    <textarea id="inputNotes" name="notes" rows="10"  class="form-control"></textarea>
-                  </div>
-                </div>
-              </form>
-            </div>
-
-          </div> <!-- row -->
-     </div>
-    <div class="modal-footer">
-      <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
-      <button class="btn btn-default btn-primary">{% trans "Upload cover" %}</button>
+    <div class="coverMessageButton"><i class="icon-info-sign"></i>
+        {% trans "Important Info" %}
     </div>
-  </div>
- </div>
+    <div class="coverMessage">{% trans "The cover manager allows you to upload, manage and publish your book covers. Please upload your ebook cover image files (JPEG, GIF or PNG format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, spine and back cover of your print books can be uploaded and managed, but will be kept separate from the text of the book when publishing it." %}</div>
+    <div class="coversContainer">
+    </div>
 </div>
 
-<div id="editCover" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- cover modal -->
+<div id="uploadCover" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
  <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
@@ -109,34 +53,33 @@
           <div class="col-xs-6">
             <form class="form-horizontal">
                 <div class="control-group">
-                  <label class="control-label" for="inputTitle">Title</label>
+                  <label class="control-label" for="inputTitle">{% trans "Title" %}</label>
                   <div class="controls">
-                    <input type="text" id="inputTitle" name="title" placeholder="Title" class="form-control">
+                    <input type="text" id="inputTitle" name="title" placeholder="{% trans 'Title' %}" class="form-control">
                   </div>
                 </div>
 
                 <div class="control-group">
-                  <label class="control-label" for="inputCreator">Creator</label>
+                  <label class="control-label" for="inputCreator">{% trans "Creator" %}</label>
                   <div class="controls">
-                    <input type="text" id="inputCreator" name="creator" placeholder="Creator" class="form-control">
+                    <input type="text" id="inputCreator" name="creator" placeholder="{% trans 'Creator' %}" class="form-control">
                   </div>
                 </div>
 
                 <div class="control-group">
-                  <label class="control-label" for="inputLicense">License</label>
+                  <label class="control-label" for="inputLicense">{% trans "License" %}</label>
                   <div class="controls">
                     <select id="inputLicense" name="license" class="form-control">
-                    </select>                
+                    </select>
                   </div>
                 </div>
-
               </form>
             </div>
 
             <div class="col-xs-6">
               <form class="form-horizontal">
                 <div class="control-group">
-                  <label class="control-label" for="inputNotes">Notes</label>
+                  <label class="control-label" for="inputNotes">{% trans "Notes" %}</label>
                   <div class="controls">
                     <textarea id="inputNotes" name="notes" rows="10" class="form-control"></textarea>
                   </div>
@@ -154,18 +97,59 @@
  </div>
 </div>
 
-
-<script id="templateCovers" type="text/x-tmpl">
-  <% _.each(covers, function(item) { %>
-    <div class="col-sm-4 coverblock" data-cid="<%= item.cid %>" style="margin-top: 20px;">
-      <div class="thumbnail" style="padding: 10px;">
-        <div style="height: 200px; padding: 0; margin: 0; text-align: center;" align="center">
-          <img data-src="holder.js/200x200" src="../_cover/<%= item.cid %>/cover.jpg?preview=1" style="max-width: 200px; max-height: 200px;" alt=""/>
-        </div>
-        <h4><%= item.title %></h4>
-        <input type="checkbox" <%= item.approved ? "checked" : "" %> /> Approved
-        <button class="btn btn-default btn-xs float-right">Edit</button>
-      </div>    
+<div id="editCover" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">{% trans "Enter Meta-data" %}</h3>
     </div>
-  <% });%>
-</script>
+    <div class="modal-body">
+      <div class="row">
+          <input type="hidden" name="cid" value="">
+          <div class="col-xs-6">
+            <form class="form-horizontal">
+                <div class="control-group">
+                  <label class="control-label" for="inputTitle">{% trans "Title" %}</label>
+                  <div class="controls">
+                    <input type="text" id="inputTitle" name="title" placeholder="{% trans 'Title' %}" class="form-control">
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label class="control-label" for="inputCreator">{% trans "Creator" %}</label>
+                  <div class="controls">
+                    <input type="text" id="inputCreator" name="creator" placeholder="{% trans 'Creator' %}" class="form-control">
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <label class="control-label" for="inputLicense">{% trans "License" %}</label>
+                  <div class="controls">
+                    <select id="inputLicense" name="license" class="form-control">
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="col-xs-6">
+              <form class="form-horizontal">
+                <div class="control-group">
+                  <label class="control-label" for="inputNotes">{% trans "Notes" %}</label>
+                  <div class="controls">
+                    <textarea id="inputNotes" name="notes" rows="10" class="form-control"></textarea>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div> <!-- row -->
+     </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+      <button class="btn btn-default btn-primary">{% trans "Upload cover" %}</button>
+    </div>
+  </div>
+ </div>
+</div>
