@@ -132,7 +132,7 @@ def edit_book(request, bookid, version=None):
     try:
         publish_options = settings.PUBLISH_OPTIONS
     except AttributeError:
-        from booki import constants
+        from booktype import constants
         publish_options = constants.PUBLISH_OPTIONS
         
     return render(request, 'editor/edit_book.html', {"book": book, 

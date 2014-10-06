@@ -18,8 +18,9 @@ import os
 import sputnik
 from lxml import etree, html
 
-from django.db import transaction
 from django.db.models import Q
+from django.db import transaction
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 
 from booki.utils.log import logBookHistory, logChapterHistory
@@ -27,6 +28,7 @@ from booki.utils.log import logBookHistory, logChapterHistory
 from booki.editor import models
 from booki.utils import security
 from booktype.utils.misc import booktype_slugify
+from booktype import constants
 
 
 # this couple of functions should go to models.BookVersion
