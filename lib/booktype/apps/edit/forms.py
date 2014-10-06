@@ -2,7 +2,8 @@
 from django import forms
 from django.utils.translation import ugettext as _
 from booktype.apps.portal.forms import SpanErrorList
-from booki.editor.models import Language, Info
+from booki.editor.models import Language, Info, License, AttributionExclude, ChapterHistory
+from django.contrib.auth.models import User
 
 class BaseSettingsForm(object):
     success_url = None
@@ -10,6 +11,7 @@ class BaseSettingsForm(object):
 
     def __init__(self, *args, **kwargs):
         kwargs.update({'error_class': SpanErrorList})
+        self.book = kwargs.pop('book')
         super(BaseSettingsForm, self).__init__(*args, **kwargs)
 
     @classmethod
@@ -25,13 +27,13 @@ class BaseSettingsForm(object):
 
 class LanguageForm(BaseSettingsForm, forms.Form):
     language = forms.ModelChoiceField(
-            label = _('Language'),
-            queryset = Language.objects.all()
+            label=_('Language'),
+            queryset=Language.objects.all()
         )
     right_to_left = forms.BooleanField(
-            label = _('Right to left text'),
-            required = False,
-            help_text = _("Book with right to left writting.")
+            label=_('Right to left text'),
+            required=False,
+            help_text=_("Book with right to left writting.")
         )
 
     @classmethod
@@ -62,7 +64,20 @@ class LanguageForm(BaseSettingsForm, forms.Form):
             rtl.save()
 
 class LicenseForm(BaseSettingsForm, forms.Form):
-    pass
+    license = forms.ModelChoiceField(
+            label=_('License'),
+            queryset=License.objects.all().order_by("name")
+        )
+
+    @classmethod
+    def initial_data(cls, book=None, request=None):
+        return {
+            'license': book.license
+        }
+
+    def save_settings(self, book, request):
+        book.license = self.cleaned_data['license']
+        book.save()
 
 class ChapterStatus(BaseSettingsForm, forms.Form):
     pass
