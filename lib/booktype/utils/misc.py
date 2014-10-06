@@ -16,19 +16,23 @@
 
 import os
 import urllib
+import pprint
 import config
 import urlparse
 import tempfile
 import ebooklib
+import datetime
+import StringIO
 
 from collections import OrderedDict
 
 from django.conf import settings
-from django.template.defaultfilters import slugify
+from django.core.files import File
 from django.core.validators import validate_email
+from django.template.defaultfilters import slugify
 from django.core.exceptions import ValidationError
 
-from lxml import etree, html
+from lxml import etree
 from ebooklib import epub
 from ebooklib.plugins import standard
 from ebooklib.plugins.base import BasePlugin
@@ -184,16 +188,11 @@ class LoadPlugin(BasePlugin):
 
 def import_book_from_file(epub_file, user, **kwargs):
     import uuid
-    import pprint
-    import datetime
-    import StringIO
 
     from django.utils.timezone import utc
-    from django.core.files import File
     from lxml import etree
     from ebooklib.utils import parse_html_string
-
-    from booktype.utils.book import create_book
+    from .book import create_book
 
     opts = {'plugins': [TidyPlugin(), ImportPlugin()]}
     epub_book = epub.read_epub(epub_file, opts)
@@ -227,9 +226,10 @@ def import_book_from_file(epub_file, user, **kwargs):
 
     epub_book_name = epub_book.metadata[epub.NAMESPACES['DC']]['title'][0][0]
     title = kwargs.get('book_title', epub_book_name)
+    book_url = kwargs.get('book_url', None)
 
     # must check if title already exists
-    book = create_book(user, title)
+    book = create_book(user, title, book_url=book_url)
     now = datetime.datetime.utcnow().replace(tzinfo=utc)
     stat = models.BookStatus.objects.filter(book=book, name="new")[0]
 
@@ -361,71 +361,6 @@ def import_book_from_file(epub_file, user, **kwargs):
 
     return book
 
-############################################################################################################
-
-
-def load_book_from_file(epub_file, user):
-    from booki.editor import models
-
-    opts = {'plugins': [LoadPlugin()]}
-
-    epub_book = epub.read_epub(epub_file, opts)
-
-    import pprint
-    import datetime
-    import StringIO
-    import os.path
-
-    pp = pprint.PrettyPrinter(indent=4)
-
-    pp.pprint(epub_book.toc)
-
-    from booktype.utils.book import create_book, check_book_availability
-
-    title = epub_book.metadata[epub.NAMESPACES['DC']]['title'][0][0]
-    lang = epub_book.metadata[epub.NAMESPACES['DC']]['language'][0][0]
-
-    # must check the title
-    book = create_book(user, title)
-
-    now = datetime.datetime.now()
-
-    stat = models.BookStatus.objects.filter(book=book, name="new")[0]
-
-    n = 10
-
-    from django.core.files import File
-
-    for _item in epub_book.get_items():
-        if _item.get_type() == ebooklib.ITEM_DOCUMENT and _item.is_chapter():  # CHECK IF IT IS NOT NAV
-            title = _item.title
-            title_url = os.path.splitext(_item.file_name)[0]
-
-            chapter = models.Chapter(book=book,
-                                     version=book.version,
-                                     url_title=title_url,
-                                     title=title,
-                                     status=stat,
-                                     content=_item.get_content(),
-                                     created=now,
-                                     modified=now)
-            chapter.save()
-        elif _item.get_type() != ebooklib.ITEM_DOCUMENT:
-            att = models.Attachment(book=book,
-                                    version=book.version,
-                                    status=stat)
-
-            s = _item.get_content()
-            f = StringIO.StringIO(s)
-            f2 = File(f)
-            f2.size = len(s)
-            att.attachment.save(_item.file_name, f2, save=False)
-            att.save()
-            f.close()
-
-    return
-
-
 def export_book(fileName, book_version):
     book = book_version.book
     epub_book = epub.EpubBook()
@@ -451,7 +386,6 @@ def export_book(fileName, book_version):
     epub_book.add_author(book.owner.first_name, role='aut', uid='author')
 
     toc = OrderedDict()
-    section = []
     spine = ['nav']
 
     # parse and fetch only images which are inside

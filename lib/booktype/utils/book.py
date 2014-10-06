@@ -21,10 +21,10 @@ import shutil
 from django.db.models import Q
 from django.conf import settings
 
-from booktype.utils.misc import booktype_slugify
+import booki.editor.signals
 from booki.editor import models
 from booki.utils.log import logBookHistory
-import booki.editor.signals
+from .misc import booktype_slugify
 
 try:
     from PIL import Image
@@ -56,7 +56,7 @@ def check_book_availability(book_title):
     return False
 
 
-def create_book(user, book_title, status="new", book_URL=None):
+def create_book(user, book_title, status="new", book_url=None):
     """
     Creates book.
 
@@ -65,30 +65,31 @@ def create_book(user, book_title, status="new", book_URL=None):
     @type user: C{django.contrib.auth.models.User}
     @param user: Booktype user who will be book owner
     @type book_title: C{string}
-    @param book_title: Title for the book. If book_URL is omitted it will slugify title for the url version
+    @param book_title: Title for the book. If book_url is omitted it will slugify title for the url version
     @type status: C{string}
     @param status: String name for the status (optional)
-    @type book_URL: C{string}
-    @param book_URL: URL title for the book (optional)
+    @type book_url: C{string}
+    @param book_url: URL title for the book (optional)
 
     @rtype: C{booki.editor.models.Book}
     @return: Returns book object
     """
 
-    if book_URL:
-        url_title = book_URL[:100]
+    if book_url:
+        url_title = book_url[:100]
     else:
         url_title = booktype_slugify(book_title[:100])
 
-    book = models.Book(url_title=url_title,
-                       title=book_title,
-                       owner=user,
-                       created=datetime.datetime.now(),
-                       published=datetime.datetime.now(),
-                       hidden=False,
-                       description='',
-                       cover=None)
-
+    book = models.Book(
+        url_title=url_title,
+        title=book_title,
+        owner=user,
+        created=datetime.datetime.now(),
+        published=datetime.datetime.now(),
+        hidden=False,
+        description='',
+        cover=None
+    )
     book.save()
 
     # put this in settings file
@@ -104,26 +105,27 @@ def create_book(user, book_title, status="new", book_URL=None):
     book.status = models.BookStatus.objects.get(book=book, name="new")
     book.save()
 
-    version = models.BookVersion(book=book,
-                                 major=1,
-                                 minor=0,
-                                 name='initial',
-                                 description='',
-                                 created=datetime.datetime.now())
+    version = models.BookVersion(
+        book=book,
+        major=1,
+        minor=0,
+        name='initial',
+        description='',
+        created=datetime.datetime.now()
+    )
     version.save()
 
     book.version = version
     book.save()
 
-    logBookHistory(book=book,
-                   version=version,
-                   user=user,
-                   kind='book_create')
-
+    logBookHistory(
+        book=book,
+        version=version,
+        user=user,
+        kind='book_create'
+    )
     booki.editor.signals.book_created.send(sender=user, book=book)
-
     return book
-
 
 class BooktypeGroupExist(Exception):
     def __init__(self, group_name):
