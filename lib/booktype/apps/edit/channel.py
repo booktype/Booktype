@@ -19,6 +19,7 @@ import sputnik
 from lxml import etree, html
 
 from django.db import transaction
+from django.conf import settings
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 
@@ -2951,7 +2952,7 @@ def remote_chapter_diff(request, message, bookid, version):
     @param message: Message object
     @type bookid: C{string}
     @param bookid: Unique Book id
-    @type version: C{string}
+    @Type version: C{string}
     @param version: Book version
     @rtype: C{dict}
     @return: Returns text with diff between two chapters
