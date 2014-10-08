@@ -4,8 +4,6 @@
 Booktype documentation!
 =======================
 
-.. node::
-
 .. toctree::
    :maxdepth: 2
 
