@@ -53,7 +53,7 @@ Learn about the various components and tools to help you in the development and 
 
 * **Contributing:** 
   :doc:`How to contribute <development/contribute>` |
-  Before you send pull request
+  :doc:`Before you send pull request <development/pull>`
 
 * **Setup:** 
   :doc:`Development profile <development/profile>`
