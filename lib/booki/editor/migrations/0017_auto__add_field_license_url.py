@@ -10,8 +10,9 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'License.url'
         db.add_column(u'editor_license', 'url',
-                      self.gf('django.db.models.fields.URLField')(default='', max_length=200, blank=True),
-                      keep_default=False)
+            self.gf('django.db.models.fields.URLField')(default='', max_length=200, blank=True, null=True),
+            keep_default=False
+        )
 
 
     def backwards(self, orm):

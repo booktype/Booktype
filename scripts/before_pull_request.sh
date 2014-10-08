@@ -101,7 +101,7 @@ function git_changes {
 
      if [[ $line == *.py ]]; then
 
-       CHANGES=$( pep8 -qq --count --ignore=E501 --exclude=migrations "${BOOKTYPE_INSTALL}${FILE_NAME}" 2>&1 )
+       CHANGES=$( pep8 -qq --count --ignore=E501 --exclude='*migrations*' "${BOOKTYPE_INSTALL}${FILE_NAME}" 2>&1 )
 
        if [[ $CHANGES -gt 0 ]]; then
          echo "    [PEP8]   ${BOOKTYPE_INSTALL}${FILE_NAME}"
