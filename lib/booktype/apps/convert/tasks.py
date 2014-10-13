@@ -70,6 +70,26 @@ def convert_one(*args, **kwargs):
 
 @task
 def convert(request_data, base_path):
+    """
+    Converts the given assets into outputs desired formats. It receives 
+    a dictionary request_data with something like this:
+        {
+            "input": "testbook.epub", 
+            "assets": {
+                "testbook.epub": "http://127.0.0.1:8000/bla-foo/_export/"
+            },
+            "outputs": {
+                "two": {
+                    "profile": "epub", 
+                    "output": "testbook.epub", 
+                    "config": {
+                        "project_id": "bla-foo"
+                    }
+                }
+            }
+        }
+    """
+
     assets = AssetCollection(base_path)
 
     assets.add_urls(request_data.assets)

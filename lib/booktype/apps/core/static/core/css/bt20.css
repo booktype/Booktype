@@ -106,6 +106,17 @@ input[type="radio"].form-control:focus{
     height: auto;
 }
 
+
 .addBookGroup .modal-dialog .modal-content .modal-body{
     bottom: 0;
+}
+
+.box-bottom-white{
+    overflow: inherit;
+}
+
+.box-bottom-white:after{
+    display: block;
+    clear: both;
+    content: "";
 }

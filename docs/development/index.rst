@@ -5,6 +5,7 @@ Development
    :maxdepth: 1
 
    contribute
+   pull
    style
    js_style
    profile

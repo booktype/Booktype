@@ -8,17 +8,14 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'License.url'
-        db.add_column(u'editor_license', 'url',
-            self.gf('django.db.models.fields.URLField')(default='', max_length=200, blank=True, null=True),
-            keep_default=False
-        )
 
+        # Changing field 'License.url'
+        db.alter_column(u'editor_license', 'url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True))
 
     def backwards(self, orm):
-        # Deleting field 'License.url'
-        db.delete_column(u'editor_license', 'url')
 
+        # Changing field 'License.url'
+        db.alter_column(u'editor_license', 'url', self.gf('django.db.models.fields.URLField')(default='', max_length=200))
 
     models = {
         u'auth.group': {
@@ -81,7 +78,7 @@ class Migration(SchemaMigration):
             'hidden': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'language': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['editor.Language']", 'null': 'True'}),
-            'license': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['editor.License']", 'null': 'True'}),
+            'license': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['editor.License']", 'null': 'True', 'blank': 'True'}),
             'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
             'permission': ('django.db.models.fields.SmallIntegerField', [], {'default': '0'}),
             'published': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
@@ -162,6 +159,7 @@ class Migration(SchemaMigration):
             'chapter': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['editor.Chapter']", 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '2500', 'blank': 'True'}),
+            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['editor.BookToc']", 'null': 'True', 'blank': 'True'}),
             'typeof': ('django.db.models.fields.SmallIntegerField', [], {}),
             'version': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['editor.BookVersion']"}),
             'weight': ('django.db.models.fields.IntegerField', [], {})
@@ -221,7 +219,7 @@ class Migration(SchemaMigration):
             'abbrevation': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'})
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
         },
         u'editor.publishwizzard': {
             'Meta': {'unique_together': "(('book', 'user', 'wizz_type'),)", 'object_name': 'PublishWizzard'},
