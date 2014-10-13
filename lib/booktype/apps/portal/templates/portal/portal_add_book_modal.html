@@ -1,6 +1,7 @@
 {% load i18n staticfiles %}
 
-<div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade addBookGroup" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+
   <div class="modal-dialog add_book">
     {% if request.user.is_authenticated %}
         <div class="modal-content">
@@ -13,23 +14,29 @@
                     <form method="post" action="{% url 'portal:add_book' user_group.url_name %}" target="hidden_frame" enctype="multipart/form-data">
                         {% csrf_token %}
 
-                        <div class="book-thumb showing-books">
-                            {% for book in books_to_add %}              
-                                <div class="grid-4">
-                                    <figure class="custom-cover">
-                                        {% if book.cover %}
-                                            <img src="{% url "reader:book_cover" book.url_title %}" />
-                                        {% else %}
-                                            <img src="{% static "core/img/thumb-default.png" %}"/>
-                                        {% endif %}
-                                    </figure>
-                                    <div class="book-info">
-                                        <h4><a href="{% url "reader:infopage" book.url_title %}">{{ book.title }}</a></h4>
-                                    </div>
-                                </div>
-                                <input type="checkbox" class="selected-book" value="{{ book.url_title }}">                            
-                            {% endfor %}
-                        </div>
+                         <div class="book-list">
+                             {% for book in books_to_add %}
+                             <div class="item">
+                                 <figure class="custom-cover">
+                                     {% if book.cover %}
+                                        <img src="{% url "reader:book_cover" book.url_title %}" />
+                                     {% else %}
+                                        <img src="{% static "core/img/thumb-default.png" %}"/>
+                                     {% endif %}
+                                 </figure>
+                                 <div class="book-info">
+                                     <h4>
+                                         <a href="{% url "reader:infopage" book.url_title %}">{{ book.title }}</a>
+                                     </h4>
+                                 </div>
+                                 <div class="add-box">
+                                     <input type="checkbox" id="add{{ book.id }}" class="selected-book" value="{{ book.url_title }}">
+                                     <label for="add{{ book.id }}"><span></span></label>
+                                 </div>
+                             </div>
+                             {% endfor %}
+                         </div>
+
                         <div class="modal-footer">
                             <button type="button" group-name-url="{% url "portal:add_book" user_group.url_name %}" class="btn btn-primary">Add books</button>
                         </div>                    
