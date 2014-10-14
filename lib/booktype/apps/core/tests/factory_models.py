@@ -25,21 +25,26 @@ from booki.editor.models import BookStatus, BookToc, BookHistory
 from booki.editor.models import BookiGroup
 
 from booktype.apps.account.models import UserProfile
+from booktype.apps.core.models import Permission, Role
 
 PLAIN_USER_PASSWORD = 'top_secret'
+
 
 class UserFactory(factory.DjangoModelFactory):
     FACTORY_FOR = User
 
     username = factory.Sequence(lambda n: 'user%d' % n)
-    email = factory.LazyAttribute(lambda obj: '%s@test.sourcefabric.org' % obj.username)
+    email = factory.LazyAttribute(lambda obj: '%s@test.sourcefabric.org'
+                                  % obj.username)
     password = make_password(PLAIN_USER_PASSWORD)
+
 
 class UserProfileFactory(factory.DjangoModelFactory):
     FACTORY_FOR = UserProfile
 
     description = 'description'
     user = factory.SubFactory(UserFactory, profile=None)
+
 
 class BookGroupFactory(factory.DjangoModelFactory):
     FACTORY_FOR = BookiGroup
@@ -58,6 +63,7 @@ class BookGroupFactory(factory.DjangoModelFactory):
             for member in extracted:
                 self.members.add(member)
 
+
 class BookFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Book
 
@@ -66,6 +72,7 @@ class BookFactory(factory.DjangoModelFactory):
     group = factory.SubFactory(BookGroupFactory)
     owner = factory.SelfAttribute('group.owner')
 
+
 class BookStatusFactory(factory.DjangoModelFactory):
     FACTORY_FOR = BookStatus
 
@@ -73,12 +80,14 @@ class BookStatusFactory(factory.DjangoModelFactory):
     name = factory.Sequence(lambda n: 'name %d' % n)
     weight = factory.Sequence(lambda n: n)
 
+
 class BookVersionFactory(factory.DjangoModelFactory):
     FACTORY_FOR = BookVersion
 
     book = factory.SubFactory(BookFactory)
     major = 1
     minor = 0
+
 
 class ChapterFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Chapter
@@ -91,34 +100,48 @@ class ChapterFactory(factory.DjangoModelFactory):
     status = factory.SubFactory(BookStatusFactory)
     content = paragraphs(4)
 
+
 class BookTocFactory(factory.DjangoModelFactory):
     FACTORY_FOR = BookToc
 
     @classmethod
     def create_toc(cls, book, book_version, chapter):
-        
+
         # create section item
         cls(
-            book = book,
-            version = book_version,
-            name = 'Section One',
-            chapter = None,
-            weight = 0,
-            typeof = 0
+            book=book,
+            version=book_version,
+            name='Section One',
+            chapter=None,
+            weight=0,
+            typeof=0
         )
 
         # create chapter item
         cls(
-            book = book,
-            version = book_version,
-            name = 'Chapter 1',
-            chapter = chapter,
-            weight = 1,
-            typeof = 1
+            book=book,
+            version=book_version,
+            name='Chapter 1',
+            chapter=chapter,
+            weight=1,
+            typeof=1
         )
+
 
 class BookHistoryFactory(factory.DjangoModelFactory):
     FACTORY_FOR = BookHistory
 
     book = factory.SubFactory(BookFactory)
     user = factory.SubFactory(UserFactory)
+
+
+class PermissionFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Permission
+
+    description = factory.Sequence(lambda n: 'Permission %d' % n)
+
+
+class RoleFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Role
+
+    name = factory.Sequence(lambda n: 'Role %d' % n)

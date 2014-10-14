@@ -4,18 +4,18 @@ from unipath import Path
 
 BASE_DIR = Path(os.path.abspath(__file__))
 
-BOOKTYPE_SITE_NAME=''
+BOOKTYPE_SITE_NAME = ''
 BOOKTYPE_SITE_DIR = 'tests'
-THIS_BOOKTYPE_SERVER=''
+THIS_BOOKTYPE_SERVER = ''
 BOOKTYPE_URL = ''
 
 BOOKTYPE_ROOT = BASE_DIR.parent
 
 STATIC_ROOT = BASE_DIR.parent.child("static")
-STATIC_URL  = '{}/static/'.format(BOOKTYPE_URL)
+STATIC_URL = '{}/static/'.format(BOOKTYPE_URL)
 
 DATA_ROOT = BASE_DIR.parent.child("data")
-DATA_URL  = '{}/data/'.format(BOOKTYPE_URL)
+DATA_URL = '{}/data/'.format(BOOKTYPE_URL)
 
 MEDIA_ROOT = DATA_ROOT
 MEDIA_URL = DATA_URL
@@ -27,9 +27,9 @@ DEBUG = TEMPLATE_DEBUG = True
 PROFILE_ACTIVE = 'test'
 
 if django.VERSION[:2] < (1, 6):
-  TEST_RUNNER = 'discover_runner.DiscoverRunner'
-  TEST_DISCOVER_TOP_LEVEL = BASE_DIR.parent.parent.child('lib')
-  TEST_DISCOVER_PATTERN = 'test*.py'
+    TEST_RUNNER = 'discover_runner.DiscoverRunner'
+    TEST_DISCOVER_TOP_LEVEL = BASE_DIR.parent.parent.child('lib')
+    TEST_DISCOVER_PATTERN = 'test*.py'
 
 ROOT_URLCONF = 'urls'
 
@@ -58,16 +58,16 @@ PASSWORD_HASHERS = (
 # DATABASE
 DATABASES = {
     'default': {
-      'ENGINE': 'django.db.backends.sqlite3',
-      'NAME': ':memory:',
-      'USER': '',
-      'PASSWORD': '',
-      'HOST': '',
-      'PORT': ''
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': ''
     }
 }
 
-# REDIS 
+# REDIS
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 0
@@ -87,14 +87,17 @@ INSTALLED_APPS = (
 
     # list of booki apps
     'booki.editor',
-#    'booki.reader',
-    'booki.messaging',
 
+    'booktype.apps.core',
+    'booktype.apps.portal',
     'booktype.apps.loadsave',
     'booktype.apps.importer',
     'booktype.apps.convert',
     'booktype.apps.edit',
+    'booktype.apps.reader',
     'booktype.apps.account',
+
+    'booki.messaging',
 
     'sputnik',
     'booktypecontrol',
@@ -103,15 +106,17 @@ INSTALLED_APPS = (
 if django.VERSION[:2] < (1, 6):
     INSTALLED_APPS += ('discover_runner', )
 
+# this is for pep8
+standard_format = {
+    'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+    'datefmt': "%d/%b/%Y %H:%M:%S"
+}
 # LOGGING
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'standard': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt' : "%d/%b/%Y %H:%M:%S"
-        },
+        'standard': standard_format,
     },
     'filters': {
         'require_debug_false': {
@@ -119,22 +124,22 @@ LOGGING = {
         }
     },
     'handlers': {
-	    'null': {
-            'level':'DEBUG',
-            'class':'django.utils.log.NullHandler',
+        'null': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler',
         }
     },
     'loggers': {
-	    'django': {
-    	    'handlers':['null'],
-        	'propagate': True,
-        	'level':'WARN',
-    	},	
-    	'django.db.backends': {
-	        'handlers': ['null'],
-	        'level': 'DEBUG',
-	        'propagate': False,
-	    },
+        'django': {
+            'handlers': ['null'],
+            'propagate': True,
+            'level': 'WARN',
+        },
+        'django.db.backends': {
+            'handlers': ['null'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
         'django.request': {
             'handlers': ['null'],
             'level': 'ERROR',
