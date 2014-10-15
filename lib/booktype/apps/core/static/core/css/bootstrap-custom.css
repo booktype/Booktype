@@ -73,6 +73,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	.contentHeader .btn.btn-success:first-child {
 		min-width: 66px;
 	}
+	.contentHeader .btn-toolbar:last-child>.btn-group+.btn-group {
+		margin-left: 5px!important;
+	}
+	.contentHeader .btn-toolbar:last-child .btn {
+		padding-top: 4px;
+		padding-bottom: 4px;
+	}
 .dropdown-menu {
 	margin:0;
 	-moz-border-radius:2px;
@@ -92,7 +99,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	display: inline-block;	
 	}
 .edit-menu {
-	margin-right: 40px;
+	margin-right: 30px;
 }
 .edit-menu .btn {
 	background: none !important;
@@ -104,6 +111,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	-webkit-border-radius: 1px;
 	-moz-border-radius: 1px;
 	border-radius: 1px;
+	padding: 5px 8px;
 }
 .edit-menu .btn:hover {
 	background: #ddd !important;
@@ -130,6 +138,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	border-top-left-radius: 0px !important;
 	border-top-right-radius: 0px !important;
 } 
+.edit-menu .btn-toolbar>.btn-group+.btn-group {
+	margin-left: 5px !important;
+}
 .hold-chapters li .btn-toolbar>.btn-group+.btn-group {
 	margin-left: 6px !important;
 }
