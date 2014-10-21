@@ -35,23 +35,21 @@
 
 
     		<div class="col-xs-4">
+                {% if not request.user.is_authenticated %}
                 <div class="login-widget box gray">
                     <script>
                         $(function() {
                             $("#formsignin").booktypeSignin({'url': '{% url "accounts:signin" %}'});
                         });
                     </script>
-                    {% if request.user.is_authenticated %}
-                        {% include "account/form_signedin.html" %}
-                    {% else %}
                         <div class="signin-block">
                             {% include "account/form_signin.html" %}
                         </div>
                         <div class="box-bottom-white">
                             <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}">{% trans "Registration form" %}</a></p> 
                         </div> 
-                    {% endif %}
                 </div> 
+                {% endif %}
 
     			<div class="box white active-people-widget">
     				<h2 class="box-title">{% trans "Active people" %}</h2>
