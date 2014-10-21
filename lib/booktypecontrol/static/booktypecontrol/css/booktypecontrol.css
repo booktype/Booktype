@@ -29,3 +29,52 @@
     margin-top: 0;
     margin-left: 0;
 }
+
+.role-entry{
+    overflow: hidden;
+    max-height: 68px;
+    position: relative;
+}
+
+.role-entry h4{
+    margin-right: 130px;
+}
+.role-entry .action-btns{
+    top: 12px;
+    position: absolute;
+    right: 0;
+}
+
+.grouped_perms + span.helptext{
+    display: none;
+}
+
+.grouped_perms legend{
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.grouped_perms ul{
+    padding-left: 10px;
+}
+
+.grouped_perms ul > li{
+    display: inline-block;
+    padding: 5px 0;
+}
+
+.grouped_perms ul > li > label{
+    width: auto;
+    min-width: 175px;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.grouped_perms ul > li > label > input[type="checkbox"]{
+    margin-top: -4px;
+}

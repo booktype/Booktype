@@ -3,8 +3,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-from booki.editor.models import Book
-
 
 class Permission(models.Model):
     """
@@ -21,7 +19,7 @@ class Permission(models.Model):
     )
 
     def __unicode__(self):
-        return self.name
+        return self.label
 
     class Meta:
         unique_together = ('app_name', 'name')
@@ -55,10 +53,6 @@ class Role(models.Model):
     )
     permissions = models.ManyToManyField(
         Permission, verbose_name=_('permissions'),
-        blank=True, null=True
-    )
-    book = models.ForeignKey(
-        Book, verbose_name=_('book'),
         blank=True, null=True
     )
     members = models.ManyToManyField(

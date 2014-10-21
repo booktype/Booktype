@@ -1,0 +1,20 @@
+{% load i18n %}
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form action="{% url 'control_center:delete_role' role.pk %}" method='POST'>
+            {% csrf_token %}
+            <div class="modal-header">
+                <h4 class="modal-title">{% trans "Delete Role" %}</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "Are you sure you would like to delete this role? You will not be able to undo this operation!" %}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+                <button type="submit" class="btn btn-primary delete-book">{% trans "Delete Role" %}</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -9,7 +9,7 @@
         <a href='{% url "portal:frontpage" %}'>{% trans "Home" %}</a>
       </li>
       <li>
-        {% if request.user.is_authenticated %}        
+        {% if request.user.is_authenticated %}
           <a href="{% url 'accounts:view_profile' request.user.username %}">{% trans "My Dashboard" %}</a>
         {% endif %}
       </li>
@@ -40,6 +40,9 @@
       </li>
       <li data-menu="groups">
         <a href="{% url 'control_center:settings' %}#list-of-groups">{% trans "Admin Groups" %}</a>
+      </li>
+      <li data-menu="roles">
+        <a href="{% url 'control_center:settings' %}#list-of-roles">{% trans "Admin Roles" %}</a>
       </li>
     </ul>
     {% endif %}
