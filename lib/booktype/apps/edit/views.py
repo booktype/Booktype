@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 import re
 import os
@@ -109,7 +109,7 @@ def upload_cover(request, bookid, version=None):
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
         return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
-    
+
     # check this for transactions
     try:
         fileData = request.FILES['files[]']
@@ -147,7 +147,7 @@ def upload_cover(request, bookid, version=None):
             created = datetime.datetime.now()
         )
         cover.save()
-        
+
         # now save the attachment
         cover.attachment.save(filename, fileData, save=False)
         cover.save()
@@ -157,7 +157,7 @@ def upload_cover(request, bookid, version=None):
        transaction.commit()
 
     response_data = {
-        "files": [{ 
+        "files": [{
             "url":"http://127.0.0.1/",
             "thumbnail_url":"http://127.0.0.1/",
             "name":"boot.png",
@@ -243,7 +243,7 @@ def cover(request, bookid, cid, fname = None, version=None):
 
 
 class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
-    """Basic Edito Book View which opens up the editor. 
+    """Basic Edito Book View which opens up the editor.
 
     Most of the initial data is loaded from the browser over the Sputnik. In the view we just check Basic
     security permissions and availability of the book.
@@ -259,7 +259,7 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             return views.ErrorPage(self.request, "errors/book_does_not_exist.html", {'book_name': context['book_id']})
 
         if context.get('has_permission', True) == False:
-            return views.ErrorPage(self.request, "errors/editing_forbidden.html", {'book': context['book']})    
+            return views.ErrorPage(self.request, "errors/editing_forbidden.html", {'book': context['book']})
 
         return super(TemplateView, self).render_to_response(context, **response_kwargs)
 
@@ -285,24 +285,24 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context['book'] = book
         context['book_version'] = book_version.get_version()
 
-        context['chapters'] = toc        
+        context['chapters'] = toc
 
         context['base_url'] = settings.BOOKTYPE_URL
         context['static_url'] = settings.STATIC_URL
         context['is_admin'] = book_security.is_group_admin() or book_security.is_book_admin() or book_security.is_superuser()
         context['is_owner'] = book.owner == self.request.user
 
-        license_dict = {} 
+        license_dict = {}
         for val in models.License.objects.all().values('id','url'):
             license_dict[val['id']] = val['url']
         context['license_list'] = json.dumps(license_dict)
-        
+
         return context
 
     def test_func(self, user):
         """Filters list of user who can and who can not edit the book.
 
-        This does not do much at the moment but is left for the future use. 
+        This does not do much at the moment but is left for the future use.
         """
 
         return True
@@ -405,7 +405,7 @@ class CompareChapterRevisions(LoginRequiredMixin, ChapterMixin, DetailView):
 
         output_left = '<td valign="top">'
         output_right = '<td valign="top">'
-        
+
         content1 = re.sub('<[^<]+?>', '', revision1.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
         content2 = re.sub('<[^<]+?>', '', revision2.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
 
@@ -425,11 +425,11 @@ class CompareChapterRevisions(LoginRequiredMixin, ChapterMixin, DetailView):
 
             return -1
 
-        
+
         while True:
-            if n >= len(lns): 
+            if n >= len(lns):
                 break
-        
+
             line = lns[n]
 
             if line[:2] == '+ ':
@@ -481,15 +481,15 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
     template_name = 'edit/chapter_revision.html'
 
     http_method_names = [u'post', u'get']
-    
+
     def get_context_data(self, **kwargs):
         context = super(RevisionPage, self).get_context_data(**kwargs)
 
         if 'revid' in self.kwargs:
             try:
                 revision = get_object_or_404(
-                    models.ChapterHistory, 
-                    chapter=self.chapter, 
+                    models.ChapterHistory,
+                    chapter=self.chapter,
                     revision=self.kwargs['revid']
                 )
             except Http404:
@@ -507,13 +507,13 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
         book = self.get_object()
-        self.object = book 
+        self.object = book
         self.get_context_data(**kwargs)
 
         revision = get_object_or_404(
             models.ChapterHistory,
-            revision=request.POST["revert"], 
-            chapter=self.chapter, 
+            revision=request.POST["revert"],
+            chapter=self.chapter,
             chapter__version=book.version.id
         )
 
@@ -609,7 +609,7 @@ class BookSettingsView(LoginRequiredMixin, JSONResponseMixin, BaseReaderView, Fo
     def get_template_names(self):
         if self.request.is_ajax():
             return [
-                "edit/_settings_form_%s.html" % self.submodule.replace('-', '_'), 
+                "edit/_settings_form_%s.html" % self.submodule.replace('-', '_'),
                 self.template_name
             ]
         return super(BookSettingsView, self).get_template_names()
