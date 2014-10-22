@@ -44,7 +44,7 @@ def get_toc_for_book(version):
     results = []
     for chap in version.get_toc():
         parent_id = chap.parent.id if chap.parent else "root"
-        
+
         # is it a section or chapter?
         if chap.chapter:
             results.append((
@@ -664,7 +664,7 @@ def remote_section_delete(request, message, bookid, version):
                     )
                     toc_item.delete()
     else:
-        # in case user doesn't want to remove chapters, change the parent 
+        # in case user doesn't want to remove chapters, change the parent
         for toc_item in sec.booktoc_set.all():
             toc_item.parent = None
             toc_item.save()
@@ -749,7 +749,7 @@ def remote_chapter_rename(request, message, bookid, version):
             "command": "chapter_rename",
             "tocID": message["tocID"],
             "chapter": message["chapter"]
-        }, 
+        },
         myself=True
     )
 
@@ -812,7 +812,7 @@ def remote_section_rename(request, message, bookid, version):
             "command": "section_rename",
             "chapterID": message["chapterID"],
             "chapter": message["chapter"]
-        }, 
+        },
         myself=True
     )
 
@@ -859,13 +859,13 @@ def remote_chapters_changed(request, message, bookid, version):
         try:
             toc_item =  models.BookToc.objects.get(id__exact=int(chap[0]), version=book_version)
             toc_item.weight = weight
-            
+
             # check if toc item has parent
             parent = None
             if chap[1] != 'root':
                 try:
                     parent = models.BookToc.objects.get(
-                        id__exact=int(chap[1]), 
+                        id__exact=int(chap[1]),
                         version=book_version
                     )
                 except Exception, e:
@@ -918,7 +918,7 @@ def remote_chapter_hold(request, message, bookid, version):
             "command": "chapter_hold",
             "chapterID": message["chapterID"],
             "tocID": toc_id
-        }, 
+        },
         myself=True
     )
 
@@ -926,7 +926,7 @@ def remote_chapter_hold(request, message, bookid, version):
 
 
 def remote_chapter_unhold(request, message, bookid, version):
-    
+
     book, book_version, book_security = get_book(request, bookid, version)
     chapterID = message["chapterID"]
 
@@ -946,7 +946,7 @@ def remote_chapter_unhold(request, message, bookid, version):
             "command": "chapter_unhold",
             "chapterID": message["chapterID"],
             'tocID': toc_item.id
-        }, 
+        },
         myself=True
     )
 
@@ -1082,7 +1082,7 @@ def remote_create_chapter(request, message, bookid, version):
         itm.save()
 
         weight -= 1
-        
+
     toc_item = models.BookToc(
         version = book_version,
         book = book,
@@ -1112,9 +1112,9 @@ def remote_create_chapter(request, message, bookid, version):
         )
 
     result = (
-        chapter.id, 
-        chapter.title, 
-        chapter.url_title, 
+        chapter.id,
+        chapter.title,
+        chapter.url_title,
         1, # typeof (chapter)
         s.id, # status
         'root', # parent id (first level)
@@ -1133,9 +1133,9 @@ def remote_create_chapter(request, message, bookid, version):
 
     sputnik.addMessageToChannel(
         request, "/booktype/book/%s/%s/" % (bookid, version), {
-            "command": "chapter_create", 
+            "command": "chapter_create",
             "chapter": result
-        }, 
+        },
         myself = True
     )
 
