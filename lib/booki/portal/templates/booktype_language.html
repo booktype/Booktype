@@ -55,8 +55,15 @@
   {% endif %}
 	
   {% if request.LANGUAGE_CODE == "sq" %}
-    &nbsp;Shqip
+    &nbsp;Shqip&nbsp;|
   {% else %}
-    &nbsp;<a class="langsq" href="#">Shqip</a>
-  {% endif %}	
+    &nbsp;<a class="langsq" href="#">Shqip</a>&nbsp;|
+  {% endif %}
+
+  {% if request.LANGUAGE_CODE == "tr" %}
+    &nbsp;Türkçe
+  {% else %}
+    &nbsp;<a class="langtr" href="#">Türkçe</a>
+  {% endif %}
+	
 </form>

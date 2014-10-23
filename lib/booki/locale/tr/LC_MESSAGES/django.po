@@ -1,0 +1,3652 @@
+# TURKISH (tr_TR) translation for Booktype.
+# Copyright (C) 2013 Booktype contributors
+# This file is distributed under the same license as the Booktype package.
+# Aleksandar Erkalović <aleksandar.erkalovic@sourcefabric.org>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Booktype 1.6.1\n"
+"Report-Msgid-Bugs-To: <contact@sourcefabric.org>\n"
+"POT-Creation-Date: 2013-05-05 19:22+0200\n"
+"PO-Revision-Date: 2014-10-23 15:19+0100\n"
+"Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
+"Language-Team: Turkish Localization <contact@sourcefabric.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: account/models.py:38
+msgid "mood"
+msgstr "mod"
+
+#: account/models.py:39
+msgid "image"
+msgstr "görsel"
+
+#: account/models.py:40
+#: editor/models.py:94
+#: editor/models.py:138
+#: editor/models.py:298
+msgid "description"
+msgstr "açıklama"
+
+#: account/models.py:41
+#: account/models.py:56
+#: editor/models.py:240
+#: editor/models.py:361
+#: editor/models.py:454
+#: editor/models.py:466
+#: editor/models.py:478
+#: editor/models.py:497
+#: editor/templates/editor/edit_book.html:568
+#: editor/templates/editor/edit_book.html:702
+msgid "user"
+msgstr "kullanıcı"
+
+#: account/models.py:57
+msgid "secretcode"
+msgstr "gizli kod"
+
+#: account/models.py:58
+#: editor/models.py:101
+#: editor/models.py:132
+#: editor/models.py:300
+#: editor/models.py:334
+#: editor/models.py:398
+#: editor/models.py:523
+#: editor/templates/editor/edit_book.html:714
+msgid "created"
+msgstr "oluşturuldu"
+
+#. Translators: Visible only in Django Admin interface. No need to translate this.
+#: account/models.py:61
+msgid "remote useragent"
+msgstr "remote useragent"
+
+#. Translators: Visible only in Django Admin interface. No need to translate this.
+#: account/models.py:63
+msgid "remote addr"
+msgstr "remote addr"
+
+#. Translators: Visible only in Django Admin interface. No need to translate this.
+#: account/models.py:65
+msgid "remote host"
+msgstr "remote host"
+
+#: account/views.py:314
+msgid "Reset password"
+msgstr "Parolayı değiştir"
+
+#: account/templates/account/create_book.html:4
+#: account/templates/account/create_book.html:13
+msgid "Create a Book"
+msgstr "Yeni bir kitap oluştur"
+
+#: account/templates/account/create_book.html:7
+msgid "You don't have permissions to create new books. At the moment only administrators can do that."
+msgstr "Şu anda yeni bir kitap oluşturma yetkiniz bulunmamaktadır. Sadece site yöneticisi yeni bir kitap oluşturabilir."
+
+#: account/templates/account/create_book.html:18
+msgid "Step 1"
+msgstr "Birinci Adım"
+
+#: account/templates/account/create_book.html:18
+#: editor/templates/editor/cover_manager.html:53
+#: editor/templates/editor/cover_manager.html:180
+msgid "Title"
+msgstr "Başlık"
+
+#: account/templates/account/create_book.html:19
+msgid "What is the title of your book?"
+msgstr "Kitabınızın başlığı/adı nedir?"
+
+#: account/templates/account/create_book.html:21
+msgid "Title of Book"
+msgstr "Kitabın Başlığı / Adı"
+
+#: account/templates/account/create_book.html:25
+msgid "There is already a book with this name."
+msgstr "Bu adı taşıyan bir kitap zaten var."
+
+#: account/templates/account/create_book.html:30
+msgid "Step 2"
+msgstr "İkinci Adım"
+
+#: account/templates/account/create_book.html:30
+#: account/templates/account/create_book.html:34
+#: account/templates/account/view_profile.html:70
+msgid "Description"
+msgstr "Açıklama"
+
+#: account/templates/account/create_book.html:31
+msgid "Give some information so others can find it to help you (this can be added or changed later)."
+msgstr "Diğer kullanıcıların sizi bulup yardım edebilmesi için, hakkınızda biraz bilgi verin. (Bu bilgiyi daha sonra girebilir, düzenleyebilirsiniz.)"
+
+#: account/templates/account/create_book.html:40
+msgid "Step 3"
+msgstr "Üçüncü Adım"
+
+#: account/templates/account/create_book.html:40
+msgid "Choose your license"
+msgstr "Lisanınızı / Telifinizi seçin"
+
+#: account/templates/account/create_book.html:41
+msgid "Choose from the following licenses"
+msgstr "Aşağıdaki lisanslardan/teliflerden birini seçin."
+
+#: account/templates/account/create_book.html:43
+#: editor/models.py:36
+#: editor/templates/editor/cover_manager.html:133
+#: editor/templates/editor/cover_manager.html:257
+#: editor/templates/editor/edit_book.html:446
+msgid "License"
+msgstr "Lisans / Telif"
+
+#: account/templates/account/create_book.html:54
+msgid "Step 4"
+msgstr "Dördüncü Adım"
+
+#: account/templates/account/create_book.html:54
+#: editor/templates/editor/edit_book.html:225
+msgid "Image"
+msgstr "Görsel"
+
+#: account/templates/account/create_book.html:55
+msgid "If you have an image for the book then add it now (this can be added or changed later)"
+msgstr "Eğer kitabınızla ilgili bir görseliniz varsa şimdi ekleyebilirsiniz. (Görselinizi daha sonra da ekleyebilir, değiştirebilirsiniz.)"
+
+#: account/templates/account/create_book.html:57
+msgid "Book Image"
+msgstr "Kitap Görseli"
+
+#: account/templates/account/create_book.html:63
+msgid "Step 5"
+msgstr "Beşinci Adım"
+
+#: account/templates/account/create_book.html:63
+msgid "Make Public?"
+msgstr "Kitabımı herkese görünür yap."
+
+#: account/templates/account/create_book.html:64
+msgid "Would you like to keep your book private or make it public? If the book is public others can find the book to help you."
+msgstr "Kitabınızın size özel mi kalmasını istiyorsunuz? Eğer kitabınızı diğer kullanıcılara da görünür yaparsanız sizi bulmaarı ve çalışmanızda size yardım etmeleri kolaylaşır."
+
+#: account/templates/account/create_book.html:65
+msgid "<strong>Note:</strong> this setting can be changed later from your dashboard.</p>"
+msgstr "<strong>Not:</strong> bu ayarı daha sonra kontrol panelinizden değiştirebilirsiniz.</p>"
+
+#: account/templates/account/create_book.html:67
+msgid "Initially hide from others"
+msgstr "Şu an için diğer kullanıcılardan gizle."
+
+#: account/templates/account/create_group.html:3
+msgid "Create a Group"
+msgstr "Bir grup oluştur"
+
+#: account/templates/account/create_group.html:6
+msgid "Group name:"
+msgstr "Grup adı:"
+
+#: account/templates/account/create_group.html:9
+msgid "There is already a group with this name."
+msgstr "Daha önce bu isimde bir grup oluşturulmuş."
+
+#: account/templates/account/create_group.html:12
+msgid "Description:"
+msgstr "Açıklama:"
+
+#: account/templates/account/error_import.html:6
+#: account/templates/account/error_import.html:11
+msgid "Error while doing import"
+msgstr "Dosya içeri aktarılırken hata oluştu."
+
+#: account/templates/account/error_import.html:12
+msgid "This is a first version of error message. Not much to see here."
+msgstr "Bu ilk hata mesajıdır."
+
+#: account/templates/account/forgot_password.html:6
+#: account/templates/account/forgot_password_enter.html:6
+msgid "Forgot Password"
+msgstr "Şifremi unuttum."
+
+#: account/templates/account/forgot_password.html:51
+msgid "Forgot your password"
+msgstr "Şifrenizi mi unuttunuz?"
+
+#: account/templates/account/forgot_password.html:55
+msgid "USERNAME OR E-MAIL ADDRESS"
+msgstr "KULLANICI ADI / E-POSTA ADRESİ"
+
+#: account/templates/account/forgot_password.html:57
+msgid "Give us your username or e-mail you used to create Booktype account and we will send you new password."
+msgstr "byWriters hesabınız oluştururken seçtiğiniz kullanıcı adınızı veya e-posta adresinizi giriniz. Yeni şifreniz e-postanıza gönderilecektir."
+
+#: account/templates/account/forgot_password.html:59
+msgid "Enter username."
+msgstr "Kullanıcı adınızı giriniz."
+
+#: account/templates/account/forgot_password.html:60
+msgid "No such user."
+msgstr "Böyle bir kullanıcı bulunmamaktadır."
+
+#: account/templates/account/forgot_password.html:61
+msgid "Unknown error."
+msgstr "Bilinmeyen hata."
+
+#: account/templates/account/forgot_password.html:63
+#: account/templates/account/forgot_password_enter.html:55
+msgid "Send request"
+msgstr "Talebinizi gönderin."
+
+#: account/templates/account/forgot_password.html:70
+msgid "Check your email!"
+msgstr "E-postanızı kontrol edin!"
+
+#: account/templates/account/forgot_password.html:71
+msgid "Password reset instructions were sent to your email."
+msgstr "Şifre sıfırlama ile ilgili bilgilendirme e-posta adresinize gönderildi."
+
+#: account/templates/account/forgot_password_enter.html:40
+msgid "Reset your password"
+msgstr "Şifreni sıfırla."
+
+#: account/templates/account/forgot_password_enter.html:46
+msgid "SECRETCODE"
+msgstr "GİZLİ PAROLA"
+
+#: account/templates/account/forgot_password_enter.html:49
+msgid "NEW PASSWORD"
+msgstr "YENİ ŞİFRE"
+
+#: account/templates/account/forgot_password_enter.html:52
+msgid "NEW PASSWORD AGAIN"
+msgstr "YENİ ŞİFREYİ TEKRAR GİRİN"
+
+#: account/templates/account/form_register.html:6
+#: account/templates/account/form_register.html:42
+msgid "Registration"
+msgstr "Kayıt"
+
+#: account/templates/account/form_register.html:8
+msgid "User limit has been reached."
+msgstr "Kullanıcı limitine ulaşıldı."
+
+#: account/templates/account/form_register.html:11
+#: account/templates/account/form_register.html:38
+msgid "Create account"
+msgstr "Hesap oluştur"
+
+#: account/templates/account/form_register.html:13
+#: account/templates/account/form_signin.html:6
+msgid "User name"
+msgstr "Kullanıcı adı"
+
+#: account/templates/account/form_register.html:15
+msgid "Password (6 characters at least)"
+msgstr "Şifre (En az 6 karakterden oluşmalıdır)"
+
+#: account/templates/account/form_register.html:17
+#: account/templates/account/view_profile.html:196
+msgid "Full name"
+msgstr "Ad Soyad"
+
+#: account/templates/account/form_register.html:19
+#: account/templates/account/view_profile.html:192
+msgid "Email"
+msgstr "E-posta"
+
+#: account/templates/account/form_register.html:24
+msgid "Missing username!"
+msgstr "Eksik kullanıcı adı!"
+
+#: account/templates/account/form_register.html:25
+msgid "Missing e-mail!"
+msgstr "Eksik e-posta!"
+
+#: account/templates/account/form_register.html:26
+msgid "Missing password!"
+msgstr "Eksik şifre!"
+
+#: account/templates/account/form_register.html:27
+msgid "Please provide your real name."
+msgstr "Lütfen gerçek adınızı giriniz."
+
+#: account/templates/account/form_register.html:28
+msgid "Username is invalid. Please try a different one. You may use alhpanumeric characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+msgstr "Kullanıcı adınız geçersiz. Lütfen başka bir tane deneyin. Alfabetik karakterler kullanabilirsiniz \".\", \"_\", \"-\" (nokta, çizgi ve eksi). <br/><br/>Örneğin:<ul><li>vnazor</li><li>Ali.Veli</li><li>ali_veli</li></ul>"
+
+#: account/templates/account/form_register.html:29
+msgid "This is not a valid e-mail"
+msgstr "Bu geçersiz bir e-posta adresi"
+
+#: account/templates/account/form_register.html:30
+msgid "Your passwords dont match. Please try a different one."
+msgstr "E-posta adresiniz örtüşmüyor. Lütfen başka bir tane deneyiniz."
+
+#: account/templates/account/form_register.html:31
+#: account/templates/account/view_profile.html:252
+msgid "Password must be 6 characters or more!"
+msgstr "Şifre en az 6 karakterden oluşmalıdır!"
+
+#: account/templates/account/form_register.html:32
+msgid "Username already taken. Please try a different one."
+msgstr "Bu kullanıcı adı başka bir kullanıcı tarafından alınmıştır. Lütfen farklı bir tane seçiniz."
+
+#: account/templates/account/form_register.html:33
+#: account/templates/account/form_signin.html:17
+msgid "Unknown error!"
+msgstr "Bilinmeyen hata!"
+
+#: account/templates/account/form_register.html:34
+msgid "Fullname is too long!"
+msgstr "Adınız ve Soyadınız çok uzun!"
+
+#: account/templates/account/form_register.html:44
+msgid "Only administrator is allowed to create new accounts at the moment."
+msgstr "Şu anda sadece yönetici yeni bir hesap oluşturmaya yetkilidir."
+
+#: account/templates/account/form_signin.html:3
+#: account/templates/account/form_signin.html:20
+msgid "Sign in"
+msgstr "Oturumu aç"
+
+#: account/templates/account/form_signin.html:8
+msgid "Password"
+msgstr "Şifre"
+
+#: account/templates/account/form_signin.html:15
+msgid "User does not exist."
+msgstr "Böyle bir kullanıcı bulunmamaktadır."
+
+#: account/templates/account/form_signin.html:16
+msgid "Password is wrong! Please try again."
+msgstr "Girdiğiniz şifre yanlış! Lütfen yeniden deneyin."
+
+#: account/templates/account/import_book.html:4
+#: account/templates/account/import_book.html:14
+msgid "Import book"
+msgstr "Kitabı içe aktar"
+
+#: account/templates/account/import_book.html:7
+msgid "You don't have permissions to import content. At the moment only administrators can do that."
+msgstr "İçe aktarma yetkisine sahip değilsiniz. Şu anda sadece yönetici bu işlemi yapmaya yetkilidir."
+
+#: account/templates/account/import_book.html:19
+msgid "Import type:"
+msgstr "İçe aktarılacak dosya türü:"
+
+#: account/templates/account/import_book.html:22
+msgid "Select Import Type"
+msgstr "İçe aktarılacak dosya türünü seçiniz"
+
+#: account/templates/account/import_book.html:23
+msgid "Import EPUB"
+msgstr "EPUB dosyasını içe aktar"
+
+#: account/templates/account/import_book.html:24
+msgid "Import archive.org book"
+msgstr "Archive.org sitesinden dosya al"
+
+#: account/templates/account/import_book.html:25
+msgid "Copy or import Booktype book"
+msgstr "byWriters kitabını kopyala veya içe aktar"
+
+#: account/templates/account/import_book.html:28
+msgid "Source:"
+msgstr "Kaynak:"
+
+#: account/templates/account/import_book.html:31
+msgid "New title (optional):"
+msgstr "Yeni başlık (isteğe bağlı)"
+
+#: account/templates/account/import_book.html:34
+msgid "Initially hidden from others"
+msgstr "Şu an için diğer kullanıcılardan gizle."
+
+#: account/templates/account/import_book.html:38
+msgid "Please wait. It will take couple of moments. Your book is being imported!"
+msgstr "Lütfen bekleyin. Kitabınızın içe aktarımı biraz zaman alabilir!"
+
+#: account/templates/account/password_reset_email.html:5
+msgid "To reset your Booktype password, simply click the link below. That will take you to a web page where you can create a new password."
+msgstr "byWriters şifrenizi sıfırlamak için lütfen aşağıdaki linke tıklayınız. Bu link sizi yeni bir şifre oluşturacağınız sayfaya yönlendirecektir."
+
+#: account/templates/account/password_reset_email.html:6
+msgid "Go to:"
+msgstr "Buraya git:"
+
+#: account/templates/account/password_reset_email.html:7
+msgid "If you weren't trying to reset your password, don't worry – your account is still secure and no one has been given access to it. Most likely, someone just mistyped their email address while trying to reset their own password."
+msgstr "Eğer şifrenizi değiştirmeyi deneyen siz değilseniz endişe etmenize gerek yok. Hesabınız hala güvende ve kimenin giriş yetkisi yok. Büyük ihtimalle başka bir kullanıcı, kendi hesap şifresini sıfırlamak isterken e-posta adresini yanlış girmiş olmalı."
+
+#: account/templates/account/signin.html:6
+msgid "Booktype Sign In"
+msgstr "byWriters Oturumunu Aç"
+
+#: account/templates/account/signin.html:30
+msgid "You are already signed in!"
+msgstr "Zaten oturumunuzu daha önce açmıştınız."
+
+#: account/templates/account/signin.html:49
+msgid "Your account has been created!"
+msgstr "Hesabınız oluşturuldu!"
+
+#: account/templates/account/signin.html:50
+#, python-format
+msgid ""
+"\n"
+"    <p>Thank you. We have created your account and signed you in. Do you want to learn more how to use Booktype? Read the <a href=\"http://en.flossmanuals.net/booktype\">user guide</a>!</p>\n"
+"    \n"
+"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! Let's use Booktype now!</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</span> seconds.</span></form></p>\n"
+"    "
+msgstr ""
+"\n"
+"    <p>Teşekkür ederiz. Hesabınızı oluşturuldu. byWriters'ın kullanımı hakkında detaylı bilgiye yandaki adresi ziyaret ederek ulaşabilirsiniz. <a href=\"http://benyazarim.com\">kullanım klavuzu</a>!</p>\n"
+"    \n"
+"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! Let's use Booktype now!</button><span class=\"redirectmessage\" style=\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</span> seconds.</span></form></p>\n"
+"    "
+
+#: account/templates/account/signin.html:60
+msgid "Why do I need account ?"
+msgstr "Neden bir hesaba ihtiyacım var?"
+
+#: account/templates/account/signin.html:61
+msgid "Your real name is compulsory for reasons of copyright attribution on books you create and contribute to."
+msgstr "Kitabı yazan ve katkı sağlayan kişilerin gerçek isimlerinin yazılması telif hakları kanunu maddelerince zorunludur."
+
+#: account/templates/account/signin.html:64
+msgid "I forgot my password. What now ?!"
+msgstr "Şifremi unuttum. Şimdi ne yapmalıyım?"
+
+#: account/templates/account/signin.html:65
+#, python-format
+msgid "<p>Please <a href=\"%(forgotpassword_url)s\">request new one</a>.</p>"
+msgstr "<p>Lütfen <a href=\"%(forgotpassword_url)s\">yeni bir şifre belirleyin</a>.</p>"
+
+#: account/templates/account/signin.html:68
+msgid "I forgot my username ?"
+msgstr "Kullanıcı adımı unuttum."
+
+#: account/templates/account/view_profile.html:5
+#, python-format
+msgid "/user: %(username)s"
+msgstr "/kullanıcı: %(username)s"
+
+#: account/templates/account/view_profile.html:43
+#: editor/templates/base_edit.html:82
+#: portal/templates/base.html:148
+msgid "My Dashboard"
+msgstr "Kontrol Panelim"
+
+#: account/templates/account/view_profile.html:46
+msgid "Dashboard"
+msgstr "Kontrol paneli"
+
+#: account/templates/account/view_profile.html:47
+#: account/templates/account/view_profile.html:106
+#: account/templates/account/view_profile.html:143
+msgid "My Books"
+msgstr "Kitaplarım"
+
+#: account/templates/account/view_profile.html:47
+#: account/templates/account/view_profile.html:143
+#: editor/models.py:203
+#: editor/templates/base_edit.html:89
+#: portal/templates/base.html:155
+#: portal/templates/portal/books.html:13
+#: portal/templates/portal/books.html:54
+#: portal/templates/portal/group.html:65
+#: portal/templates/portal/group.html:115
+msgid "Books"
+msgstr "Kitaplar"
+
+#: account/templates/account/view_profile.html:49
+#: editor/templates/editor/edit_book.html:122
+#: editor/templates/editor/edit_book.html:421
+#: portal/templates/portal/group.html:68
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: account/templates/account/view_profile.html:67
+msgid "Follow my changes"
+msgstr "Değişikliklerimi takip et"
+
+#: account/templates/account/view_profile.html:74
+msgid "There is no description for this user."
+msgstr "Bu kullanıcı hakkında hiç açıklama bulunmamaktadır."
+
+#: account/templates/account/view_profile.html:78
+msgid "Following tags:"
+msgstr "Takip edilen etiketler:"
+
+#: account/templates/account/view_profile.html:79
+msgid "Following:"
+msgstr "Takip edilenler:"
+
+#: account/templates/account/view_profile.html:80
+msgid "Followers:"
+msgstr "Takipçiler"
+
+#: account/templates/account/view_profile.html:96
+msgid "Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype\"><i>user guide</i></a>!"
+msgstr "byWriters programının kullanımı hakkında daha detaylı bilgiyi, yandaki linki ziyaret ederek edinebilirsiniz.  <a target=\"_new\" title=\"byWriters kullanıcı rehberi\" href=\"http://benyazarim.com\"><i>kullanım klavuzu</i></a>!"
+
+#: account/templates/account/view_profile.html:102
+msgid "CREATE NEW BOOK"
+msgstr "YENİ BİR KİTAP OLUŞTUR"
+
+#: account/templates/account/view_profile.html:109
+#: account/templates/account/view_profile.html:162
+msgid "edit"
+msgstr "düzenle"
+
+#: account/templates/account/view_profile.html:111
+msgid ""
+"\n"
+"          <p>This is a perfect moment to start writing your book, just click on the button above!</p>\n"
+"          "
+msgstr ""
+"\n"
+"          <p>Kitabınızı yukarıdaki butona basarak yazmaya hemen başlayabilirsiniz!</p>\n"
+"          "
+
+#: account/templates/account/view_profile.html:115
+msgid ""
+"\n"
+"          <p>This user has no books.</p>\n"
+"          "
+msgstr ""
+"\n"
+"          <p>Bu kullanıcının hiç kitabı yok.</p>\n"
+"          "
+
+#: account/templates/account/view_profile.html:123
+msgid "CREATE NEW GROUP"
+msgstr "YENİ GRUP OLUŞTUR"
+
+#: account/templates/account/view_profile.html:124
+msgid "My Groups"
+msgstr "Gruplarım"
+
+#: account/templates/account/view_profile.html:127
+msgid "go"
+msgstr "git"
+
+#: account/templates/account/view_profile.html:130
+msgid "Work with others in Groups. To create a Group click on the button above."
+msgstr "Gruplarda diğer kullanıcılarla beraber çalışmak için yukarıdaki Grup düğmesine basarak kendi grubunuzu oluşturabilirsiniz."
+
+#: account/templates/account/view_profile.html:132
+msgid "This user has no groups."
+msgstr "Bu kullanıcının oluşturduğu hiç grup yok"
+
+#: account/templates/account/view_profile.html:148
+msgid "Create new book"
+msgstr "Yeni kitap oluştur"
+
+#: account/templates/account/view_profile.html:151
+msgid "Import Book"
+msgstr "Kitabı içe aktar"
+
+#: account/templates/account/view_profile.html:162
+msgid "info"
+msgstr "bilgi"
+
+#: account/templates/account/view_profile.html:162
+msgid "draft"
+msgstr "taslak"
+
+#: account/templates/account/view_profile.html:166
+#: account/templates/account/view_profile.html:181
+msgid "Show to others"
+msgstr "Diğer kullanıcılara göster"
+
+#: account/templates/account/view_profile.html:172
+#: account/templates/account/view_profile.html:181
+msgid "Hide from others"
+msgstr "Diğer kullanıcılardan gizle"
+
+#: account/templates/account/view_profile.html:186
+msgid "User settings"
+msgstr "Kullanıcı ayarları"
+
+#: account/templates/account/view_profile.html:200
+msgid "About yourself"
+msgstr "Hakkınızda"
+
+#: account/templates/account/view_profile.html:204
+msgid "Profile image"
+msgstr "Profil resmi"
+
+#: account/templates/account/view_profile.html:208
+msgid "Notification filter"
+msgstr "Bildirim filtresi"
+
+#: account/templates/account/view_profile.html:214
+#: account/templates/account/view_profile.html:265
+#: editor/templates/editor/edit_strings.html:23
+#: portal/templates/base.html:198
+msgid "Save changes"
+msgstr "Değişiklikleri kaydet"
+
+#: account/templates/account/view_profile.html:222
+msgid "Old Password"
+msgstr "Eski şifre"
+
+#: account/templates/account/view_profile.html:228
+msgid "New Password"
+msgstr "Yeni şifre"
+
+#: account/templates/account/view_profile.html:233
+msgid "Password (again)"
+msgstr "Şifre (tekrar)"
+
+#: account/templates/account/view_profile.html:240
+msgid "Change password"
+msgstr "Şifreyi değiştir"
+
+#: account/templates/account/view_profile.html:249
+msgid "Unable to change password. Old password is missing."
+msgstr "Şifre değiştirilemiyor. Eski şifreniz eksik."
+
+#: account/templates/account/view_profile.html:250
+msgid "Unable to change password. Old password is incorrect."
+msgstr "Şifre değiştirilemiyor. Girdiğiniz eski şifre hatalı."
+
+#: account/templates/account/view_profile.html:251
+msgid "Unable to change password. The new and confirmation passwords are not equal."
+msgstr "Şifre değiştirilemiyor. Girdiğiniz şifreler aynı değil."
+
+#: account/templates/account/view_profile.html:253
+msgid "Password changed."
+msgstr "Şifre değiştirildi."
+
+#: account/templates/account/view_profile.html:254
+#: portal/templates/base.html:192
+msgid "OK"
+msgstr "OK"
+
+#: account/templates/account/view_profile.html:255
+#: editor/templates/editor/edit_strings.html:8
+#: editor/templates/editor/wizzard_book.html:340
+#: editor/templates/editor/wizzard_bookjs.html:289
+#: editor/templates/editor/wizzard_ebook.html:176
+#: editor/templates/editor/wizzard_odt.html:174
+#: editor/templates/editor/wizzard_pdf.html:288
+#: portal/templates/base.html:193
+msgid "Back"
+msgstr "Geri"
+
+#: account/templates/account/view_profile.html:256
+#: editor/templates/editor/edit_book.html:653
+#: portal/templates/base.html:194
+msgid "Create"
+msgstr "Oluştur"
+
+#: account/templates/account/view_profile.html:257
+#: editor/templates/editor/cover_manager.html:163
+#: editor/templates/editor/edit_book.html:295
+#: editor/templates/editor/edit_strings.html:4
+#: portal/templates/base.html:195
+msgid "Cancel"
+msgstr "İptal"
+
+#: account/templates/account/view_profile.html:258
+#: editor/templates/editor/edit_strings.html:6
+#: editor/templates/editor/wizzard_book.html:341
+#: editor/templates/editor/wizzard_bookjs.html:290
+#: editor/templates/editor/wizzard_ebook.html:177
+#: editor/templates/editor/wizzard_odt.html:175
+#: editor/templates/editor/wizzard_pdf.html:289
+#: portal/templates/base.html:196
+#: portal/templates/booki_paginator.html:29
+msgid "Next"
+msgstr "İleri"
+
+#: account/templates/account/view_profile.html:259
+msgid "Couldn't create a group"
+msgstr "Grup oluşturulamadı"
+
+#: account/templates/account/view_profile.html:260
+#: portal/templates/base.html:200
+msgid "enter epub URL"
+msgstr "epub URL adresini girin"
+
+#: account/templates/account/view_profile.html:261
+#: portal/templates/base.html:201
+msgid "enter Archive.org ID"
+msgstr "Archive.org ID nizi girin"
+
+#: account/templates/account/view_profile.html:262
+#: portal/templates/base.html:202
+msgid "enter Wikibooks URL"
+msgstr "Wikibooks URL nizi girin"
+
+#: account/templates/account/view_profile.html:263
+#: portal/templates/base.html:203
+msgid "enter Booktype URL"
+msgstr "byWriters URL nizi girin"
+
+#: account/templates/account/view_profile.html:264
+#: portal/templates/base.html:197
+msgid "Import"
+msgstr "İçe aktar"
+
+#: account/templates/errors/user_does_not_exist.html:4
+msgid "User does not exist!"
+msgstr "Bu isimde bir kullanıcı bulunmamaktadır!"
+
+#: account/templates/errors/user_does_not_exist.html:5
+#, python-format
+msgid "Can't find user \"%(username)s\"."
+msgstr "Bu isimli kullanıcı bulunmuyor: \"%(username)s\"."
+
+#: editor/models.py:29
+#: editor/models.py:42
+#: editor/models.py:65
+#: editor/models.py:92
+#: editor/models.py:261
+#: editor/models.py:297
+#: editor/models.py:425
+#: editor/templates/editor/edit_book.html:711
+#: editor/templates/editor/edit_strings.html:56
+msgid "name"
+msgstr "isim"
+
+#: editor/models.py:30
+#: editor/models.py:43
+msgid "abbrevation"
+msgstr "kısaltma"
+
+#: editor/models.py:37
+msgid "Licenses"
+msgstr "Lisanslar/Telifler"
+
+#: editor/models.py:49
+#: editor/templates/editor/edit_book.html:427
+msgid "Language"
+msgstr "Dil"
+
+#: editor/models.py:50
+msgid "Languages"
+msgstr "Diller"
+
+#: editor/models.py:55
+#: editor/models.py:133
+msgid "published"
+msgstr "yayınlandı"
+
+#: editor/models.py:56
+msgid "not published"
+msgstr "yayınlanmadı"
+
+#: editor/models.py:57
+msgid "not translated"
+msgstr "çevrilmedi"
+
+#: editor/models.py:64
+#: editor/models.py:79
+#: editor/models.py:233
+#: editor/models.py:259
+#: editor/models.py:294
+#: editor/models.py:329
+#: editor/models.py:393
+#: editor/models.py:424
+#: editor/models.py:455
+#: editor/models.py:465
+#: editor/models.py:477
+#: editor/models.py:496
+msgid "book"
+msgstr "kitap"
+
+#: editor/models.py:66
+#: editor/models.py:427
+msgid "weight"
+msgstr "ağırlık"
+
+#: editor/models.py:72
+#: editor/models.py:73
+msgid "Book status"
+msgstr "Kitabın durumu"
+
+#: editor/models.py:80
+#: editor/models.py:519
+msgid "notes"
+msgstr "notlar"
+
+#: editor/models.py:86
+msgid "Book note"
+msgstr "Kitap notu"
+
+#: editor/models.py:87
+msgid "Book notes"
+msgstr "Kitap notları"
+
+#: editor/models.py:93
+msgid "url name"
+msgstr "url adı"
+
+#: editor/models.py:96
+#: editor/models.py:126
+msgid "owner"
+msgstr "sahip"
+
+#: editor/models.py:99
+msgid "members"
+msgstr "üyeler"
+
+#: editor/models.py:110
+msgid "Booki group"
+msgstr "Booki grubu"
+
+#: editor/models.py:111
+msgid "Booki groups"
+msgstr "byWriters grupları"
+
+#: editor/models.py:116
+#: editor/models.py:331
+msgid "url title"
+msgstr "url başlığı"
+
+#: editor/models.py:117
+#: editor/models.py:332
+msgid "title"
+msgstr "başlık"
+
+#: editor/models.py:118
+#: editor/models.py:333
+#: editor/models.py:397
+msgid "status"
+msgstr "durum"
+
+#: editor/models.py:119
+msgid "language"
+msgstr "dil"
+
+#: editor/models.py:122
+#: editor/models.py:235
+#: editor/models.py:327
+#: editor/models.py:391
+#: editor/models.py:422
+msgid "version"
+msgstr "versiyon"
+
+#: editor/models.py:124
+#: editor/models.py:456
+msgid "group"
+msgstr "grup"
+
+#: editor/models.py:130
+#: editor/models.py:517
+msgid "license"
+msgstr "lisans/telif"
+
+#: editor/models.py:135
+msgid "hidden"
+msgstr "gizlenmiş"
+
+#: editor/models.py:136
+#: editor/models.py:457
+msgid "permission"
+msgstr "yetki"
+
+#: editor/models.py:139
+msgid "cover"
+msgstr "kapak"
+
+#: editor/models.py:202
+#: editor/templates/editor/cover_manager.html:112
+#: editor/templates/editor/cover_manager.html:249
+#: editor/templates/editor/cover_manager.html:296
+#: editor/templates/editor/edit_publish.html:9
+msgid "Book"
+msgstr "Kitap"
+
+#: editor/models.py:236
+#: editor/models.py:358
+#: editor/models.py:426
+msgid "chapter"
+msgstr "alt başlık"
+
+#: editor/models.py:237
+msgid "chapter history"
+msgstr "alt başlık geçmişi"
+
+#: editor/models.py:238
+#: editor/models.py:335
+#: editor/models.py:360
+msgid "modified"
+msgstr "düzenlenmiş"
+
+#: editor/models.py:239
+msgid "args"
+msgstr "args"
+
+#: editor/models.py:241
+#: editor/models.py:262
+msgid "kind"
+msgstr "çeşit"
+
+#: editor/models.py:264
+msgid "value string"
+msgstr "değer dizisi"
+
+#: editor/models.py:265
+msgid "value integer"
+msgstr "tam sayı değeri"
+
+#: editor/models.py:266
+msgid "value text"
+msgstr "değer metni"
+
+#: editor/models.py:267
+msgid "value date"
+msgstr "değer tarihi"
+
+#: editor/models.py:287
+#: editor/models.py:288
+msgid "Metadata"
+msgstr "Metadata"
+
+#: editor/models.py:295
+msgid "major"
+msgstr "büyük"
+
+#: editor/models.py:296
+msgid "minor"
+msgstr "küçük"
+
+#: editor/models.py:337
+#: editor/models.py:362
+#: editor/templates/editor/edit_book.html:701
+msgid "revision"
+msgstr "revizyon/gözden geçirme"
+
+#: editor/models.py:342
+#: messaging/models.py:34
+msgid "content"
+msgstr "içerik"
+
+#: editor/models.py:352
+msgid "Chapter"
+msgstr "Alt başlık"
+
+#: editor/models.py:353
+#: editor/templates/editor/edit_book.html:97
+msgid "Chapters"
+msgstr "Alt başlıklar"
+
+#: editor/models.py:363
+#: editor/templates/editor/edit_book.html:704
+msgid "comment"
+msgstr "yorum"
+
+#: editor/models.py:369
+msgid "Chapter history"
+msgstr "Alt başlık geçmişi"
+
+#: editor/models.py:395
+#: editor/models.py:501
+#: editor/templates/editor/edit_strings.html:57
+msgid "filename"
+msgstr "dosya adı"
+
+#: editor/models.py:408
+#: editor/templates/editor/edit_book.html:662
+msgid "Attachment"
+msgstr "Ekli dosya"
+
+#: editor/models.py:409
+msgid "Attachments"
+msgstr "Ekli dosyalar"
+
+#: editor/models.py:415
+msgid "section name"
+msgstr "bölüm adı"
+
+#: editor/models.py:416
+msgid "chapter name"
+msgstr "alt başlık adı"
+
+#: editor/models.py:417
+msgid "line"
+msgstr "line"
+
+#: editor/models.py:428
+msgid "typeof"
+msgstr "typeof"
+
+#: editor/models.py:442
+msgid "Book TOC"
+msgstr "Book TOC"
+
+#: editor/models.py:443
+msgid "Book TOCs"
+msgstr "Book TOCs"
+
+#: editor/models.py:472
+#: editor/models.py:473
+msgid "Attribution Exclude"
+msgstr "Atıf hariç"
+
+#: editor/models.py:479
+msgid "wizzard type"
+msgstr "sihirbaz tipi"
+
+#: editor/models.py:480
+msgid "wizzard options"
+msgstr "sihirbaz seçenekleri"
+
+#: editor/models.py:486
+#: editor/models.py:487
+msgid "Publish Wizzard"
+msgstr "Yayınlama sihirbazı"
+
+#: editor/models.py:503
+#: editor/templates/editor/cover_manager.html:181
+msgid "Cover title"
+msgstr "Kapak başlığı"
+
+#: editor/models.py:505
+#: editor/templates/editor/cover_manager.html:150
+#: editor/templates/editor/cover_manager.html:275
+msgid "Width"
+msgstr "Genişlik"
+
+#: editor/models.py:506
+#: editor/templates/editor/cover_manager.html:148
+#: editor/templates/editor/cover_manager.html:273
+msgid "Height"
+msgstr "Yükseklik"
+
+#: editor/models.py:507
+msgid "Unit"
+msgstr "Adet"
+
+#: editor/models.py:508
+msgid "Booksize"
+msgstr "Kitap ebadı"
+
+#: editor/models.py:510
+msgid "Book cover"
+msgstr "Kitap kapağı"
+
+#: editor/models.py:511
+msgid "E-book cover"
+msgstr "E-kitap kapağı"
+
+#: editor/models.py:512
+msgid "PDF cover"
+msgstr "Ekran PDF kapağı (72dpi)"
+
+#: editor/models.py:514
+msgid "Cover type"
+msgstr "Kapak tipi"
+
+#: editor/models.py:516
+#: editor/templates/editor/wizzard_book.html:157
+#: editor/templates/editor/wizzard_bookjs.html:158
+#: editor/templates/editor/wizzard_ebook.html:116
+#: editor/templates/editor/wizzard_odt.html:98
+#: editor/templates/editor/wizzard_pdf.html:124
+msgid "Cover"
+msgstr "Kapak"
+
+#: editor/models.py:521
+#: editor/templates/editor/cover_manager.html:10
+#: editor/templates/editor/cover_manager.html:303
+msgid "Approved"
+msgstr "Onaylandı"
+
+#: editor/templates/authors.html:13
+msgid "Modifications:"
+msgstr "Değişiklikler:"
+
+#: editor/templates/base_edit.html:65
+#: portal/templates/base.html:72
+msgid "Sign out"
+msgstr "Çıkış yap"
+
+#: editor/templates/base_edit.html:71
+#: portal/templates/base.html:78
+msgid "Sign In / Create Account"
+msgstr "Giriş yap / Hesap oluştur"
+
+#: editor/templates/base_edit.html:90
+#: portal/templates/base.html:156
+#: portal/templates/portal/groups.html:12
+msgid "Groups"
+msgstr "Gruplar"
+
+#: editor/templates/base_edit.html:91
+#: portal/templates/base.html:157
+#: portal/templates/portal/people.html:13
+msgid "People"
+msgstr "Kişiler"
+
+#: editor/templates/base_edit.html:126
+#: portal/templates/base.html:183
+msgid "There has been error in communication with Booktype server."
+msgstr "byWriters servis sağlayıcısı ile bir iletişim sorunu oluştu."
+
+#: editor/templates/base_edit.html:127
+#: portal/templates/base.html:184
+msgid "Not sure right now where is the problem."
+msgstr "Problemin neden kaynaklandığından emin değilim."
+
+#: editor/templates/base_edit.html:130
+#: portal/templates/base.html:187
+msgid "You should refresh this page."
+msgstr "Bu sayfayı yenilemelisiniz."
+
+#: editor/templates/booktype_daily_report.html:5
+#, python-format
+msgid "Report for %(booki_name)s (%(date)s)"
+msgstr "Bunun için rapor et %(booki_name)s (%(date)s)"
+
+#: editor/templates/booktype_daily_report.html:7
+#: editor/templates/booktype_weekly_report.html:8
+msgid "Activity"
+msgstr "Etkinlik"
+
+#: editor/templates/booktype_daily_report.html:10
+#: editor/templates/booktype_weekly_report.html:11
+msgid "Info"
+msgstr "Bilgi"
+
+#: editor/templates/booktype_daily_report.html:14
+#: editor/templates/booktype_weekly_report.html:15
+msgid "Total number of books:"
+msgstr "Toplam kitap sayısı:"
+
+#: editor/templates/booktype_daily_report.html:19
+#: editor/templates/booktype_weekly_report.html:20
+msgid "Total number of users:"
+msgstr "Toplam kullanıcı sayısı:"
+
+#: editor/templates/booktype_daily_report.html:24
+#: editor/templates/booktype_weekly_report.html:25
+msgid "Total number of groups:"
+msgstr "Toplam grup sayısı:"
+
+#: editor/templates/booktype_daily_report.html:29
+#: editor/templates/booktype_weekly_report.html:30
+msgid "Attachments size:"
+msgstr "Ekli dosya ebadı:"
+
+#: editor/templates/booktype_daily_report.html:34
+#: editor/templates/booktype_weekly_report.html:35
+msgid "Database size:"
+msgstr "Kullanılan veri tabanı:"
+
+#: editor/templates/booktype_daily_report.html:40
+msgid "New Users"
+msgstr "Yeni Kullanıcılar"
+
+#: editor/templates/booktype_daily_report.html:46
+msgid "No new users"
+msgstr "Yeni kullanıcı yok"
+
+#: editor/templates/booktype_daily_report.html:51
+msgid "New Books"
+msgstr "Yeni Kitaplar"
+
+#: editor/templates/booktype_daily_report.html:57
+msgid "No new books"
+msgstr "Yeni kitap yok"
+
+#: editor/templates/booktype_daily_report.html:62
+msgid "New Groups"
+msgstr "Yeni Gruplar"
+
+#: editor/templates/booktype_daily_report.html:68
+msgid "No new groups"
+msgstr "Yeni grup yok"
+
+#: editor/templates/booktype_daily_report.html:73
+msgid "Modified chapters"
+msgstr "Düzenlenmiş alt başlıklar"
+
+#: editor/templates/booktype_daily_report.html:85
+msgid "No Activity"
+msgstr "Yeni bir eylem yok"
+
+#: editor/templates/booktype_weekly_report.html:41
+msgid "Updates"
+msgstr "Güncellemeler"
+
+#: editor/templates/booktype_weekly_report.html:43
+msgid "New users"
+msgstr "Yeni kullanıcılar"
+
+#: editor/templates/booktype_weekly_report.html:44
+msgid "New books"
+msgstr "Yeni kitaplar"
+
+#: editor/templates/booktype_weekly_report.html:45
+msgid "New groups"
+msgstr "Yeni gruplar"
+
+#: editor/templates/booktype_weekly_report.html:48
+msgid "Most active books"
+msgstr "En aktif kitaplar"
+
+#: editor/templates/booktype_weekly_report.html:54
+msgid "No active books"
+msgstr "Aktif kitap yok"
+
+#: editor/templates/booktype_weekly_report.html:59
+msgid "Most active users"
+msgstr "En aktif kullanıcılar"
+
+#: editor/templates/booktype_weekly_report.html:65
+msgid "No active users"
+msgstr "Aktif kullanıcı yok"
+
+#: editor/templates/editor/cover_manager.html:4
+#: editor/templates/editor/edit_book.html:105
+msgid "Cover Manager"
+msgstr "Kapak Yöneticisi"
+
+#: editor/templates/editor/cover_manager.html:7
+msgid "View files of status:"
+msgstr "Dosyaların durumları:"
+
+#: editor/templates/editor/cover_manager.html:9
+#: portal/templates/portal/people.html:55
+msgid "All"
+msgstr "Tümü"
+
+#: editor/templates/editor/cover_manager.html:11
+#: editor/templates/editor/edit_strings.html:91
+msgid "Pending"
+msgstr "Beklemede"
+
+#: editor/templates/editor/cover_manager.html:16
+msgid "The cover manager allows you to upload, manage and publish your book covers. Please upload your ebook cover image files (JPEG, GIF or PNG format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, spine and back cover of your print books can be uploaded and managed, but will be kept separate from the text of the book when publishing it."
+msgstr "Kapak yöneticisi ile kitap kapağınızı yükleyip yayınlayabilirsiniz. Lütfen EPUB, MOBI, PDF ve ODT formatlarında kullanılmak üzere uygun ebattaki (JPEG, GIF veya PNG) görselinizi yükleyin. Ön kapak, sırt ve arka kapak için kullanacağınız TIFF, XCF, PSD, PS, SVG, EPS, AI ya da INDD formatlarındaki görsellerinizi yine kapak yöneticisi sekmesine yükleyebilirsiniz. Ancak yayınlarken bu dosyalar ayrı yerde tutulacaktır."
+
+#: editor/templates/editor/cover_manager.html:22
+msgid "Upload cover image"
+msgstr "Kapak görselini yükle"
+
+#: editor/templates/editor/cover_manager.html:40
+msgid "Error: The selected filetype is not supported. Please select one of the following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+msgstr "Hata: Yüklemek istediğiniz dosya türü kabul edilmemektedir. Lütfen şu dosya türlerinde yükleme yapmayı deneyiniz: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+
+#: editor/templates/editor/cover_manager.html:43
+msgid "Error: The selected file is bigger than 15MB. Please select a smaller file and try again."
+msgstr "Hata: Yüklemek istediğiniz dosya 15 MB tan daha büyük. Lütfen daha küçük bir dosya boyutu ile deneyiniz."
+
+#: editor/templates/editor/cover_manager.html:48
+msgid "Enter Meta-data"
+msgstr "Meta verisi ekleyin"
+
+#: editor/templates/editor/cover_manager.html:57
+#: editor/templates/editor/cover_manager.html:184
+msgid "Filename"
+msgstr "Dosya adı"
+
+#: editor/templates/editor/cover_manager.html:61
+#: editor/templates/editor/cover_manager.html:188
+#: editor/templates/editor/wizzard_book.html:12
+#: editor/templates/editor/wizzard_bookjs.html:11
+#: editor/templates/editor/wizzard_pdf.html:11
+msgid "Book Size"
+msgstr "Kitap Ebadı"
+
+#: editor/templates/editor/cover_manager.html:64
+#: editor/templates/editor/cover_manager.html:191
+#: editor/templates/editor/wizzard_book.html:14
+#: editor/templates/editor/wizzard_bookjs.html:13
+#: editor/templates/editor/wizzard_pdf.html:13
+msgid "custom"
+msgstr "Özel Ebat"
+
+#: editor/templates/editor/cover_manager.html:65
+#: editor/templates/editor/cover_manager.html:192
+#: editor/templates/editor/wizzard_book.html:15
+#: editor/templates/editor/wizzard_bookjs.html:14
+msgid "POCKET (107mm x 174mm)"
+msgstr "CEP (107mm x 174 mm)"
+
+#: editor/templates/editor/cover_manager.html:66
+#: editor/templates/editor/cover_manager.html:193
+#: editor/templates/editor/wizzard_book.html:16
+#: editor/templates/editor/wizzard_bookjs.html:15
+msgid "US5x8 (126mm x 203mm)"
+msgstr "US 5x8 (126mm x 203mm)"
+
+#: editor/templates/editor/cover_manager.html:67
+#: editor/templates/editor/cover_manager.html:194
+#: editor/templates/editor/wizzard_book.html:17
+#: editor/templates/editor/wizzard_bookjs.html:16
+msgid "DIGEST (139mm x 215mm)"
+msgstr "DIGEST (139mm x 215mm)"
+
+#: editor/templates/editor/cover_manager.html:68
+#: editor/templates/editor/cover_manager.html:195
+#: editor/templates/editor/wizzard_book.html:18
+#: editor/templates/editor/wizzard_bookjs.html:17
+msgid "US5.5x8.5 (139mm x 215mm)"
+msgstr "US 5.5x8.5 (139mm x 215mm)"
+
+#: editor/templates/editor/cover_manager.html:69
+#: editor/templates/editor/cover_manager.html:196
+#: editor/templates/editor/wizzard_book.html:19
+#: editor/templates/editor/wizzard_bookjs.html:18
+#: editor/templates/editor/wizzard_pdf.html:14
+msgid "A5 (148mm x 210mm)"
+msgstr "A5 (148mm x 210mm)"
+
+#: editor/templates/editor/cover_manager.html:70
+#: editor/templates/editor/cover_manager.html:197
+#: editor/templates/editor/wizzard_book.html:20
+#: editor/templates/editor/wizzard_bookjs.html:19
+msgid "USTRADE6x9 (152mm x 228mm)"
+msgstr "USTRADE 6x9 (152mm x 228mm)"
+
+#: editor/templates/editor/cover_manager.html:71
+#: editor/templates/editor/cover_manager.html:198
+#: editor/templates/editor/wizzard_book.html:21
+#: editor/templates/editor/wizzard_bookjs.html:20
+msgid "SQUARE7.5 (190mm x 190mm)"
+msgstr "KARE 7.5 (190mm x 190mm)"
+
+#: editor/templates/editor/cover_manager.html:72
+#: editor/templates/editor/cover_manager.html:199
+#: editor/templates/editor/wizzard_book.html:22
+#: editor/templates/editor/wizzard_bookjs.html:21
+msgid "ROYAL (155mm x 233mm)"
+msgstr "ROYAL (155mm x 233mm)"
+
+#: editor/templates/editor/cover_manager.html:73
+#: editor/templates/editor/cover_manager.html:200
+#: editor/templates/editor/wizzard_book.html:23
+#: editor/templates/editor/wizzard_bookjs.html:22
+msgid "LANDSCAPE9x7 (228mm x 177mm)"
+msgstr "YATAY 9x7 (228mm x 177mm)"
+
+#: editor/templates/editor/cover_manager.html:74
+#: editor/templates/editor/cover_manager.html:201
+#: editor/templates/editor/wizzard_book.html:24
+#: editor/templates/editor/wizzard_bookjs.html:23
+msgid "COMICBOOK (168mm x 260mm)"
+msgstr "ÇİZGİ ROMAN (168mm x 260mm)"
+
+#: editor/templates/editor/cover_manager.html:75
+#: editor/templates/editor/cover_manager.html:202
+#: editor/templates/editor/wizzard_book.html:25
+#: editor/templates/editor/wizzard_bookjs.html:24
+msgid "B5 (176mm x 250mm)"
+msgstr "B5 (176mm x 250mm)"
+
+#: editor/templates/editor/cover_manager.html:76
+#: editor/templates/editor/cover_manager.html:203
+#: editor/templates/editor/wizzard_book.html:26
+#: editor/templates/editor/wizzard_bookjs.html:25
+msgid "US7x10 (177mm x 253mm)"
+msgstr "US 7x10 (177mm x 253mm)"
+
+#: editor/templates/editor/cover_manager.html:77
+#: editor/templates/editor/cover_manager.html:204
+#: editor/templates/editor/wizzard_book.html:27
+#: editor/templates/editor/wizzard_bookjs.html:26
+msgid "CROWNQUARTO (189mm x 245mm)"
+msgstr "CROWNQUARTO (189mm x 245mm)"
+
+#: editor/templates/editor/cover_manager.html:78
+#: editor/templates/editor/cover_manager.html:205
+#: editor/templates/editor/wizzard_book.html:28
+#: editor/templates/editor/wizzard_bookjs.html:27
+msgid "SQUARE8.5 (215mm x 215mm)"
+msgstr "KARE 8.5 (215mm x 215mm)"
+
+#: editor/templates/editor/cover_manager.html:79
+#: editor/templates/editor/cover_manager.html:206
+#: editor/templates/editor/wizzard_book.html:29
+#: editor/templates/editor/wizzard_bookjs.html:28
+msgid "USLETTER (215mm x 279mm)"
+msgstr "USLETTER (215mm x 279mm)"
+
+#: editor/templates/editor/cover_manager.html:80
+#: editor/templates/editor/cover_manager.html:207
+#: editor/templates/editor/wizzard_book.html:30
+#: editor/templates/editor/wizzard_bookjs.html:29
+#: editor/templates/editor/wizzard_pdf.html:15
+msgid "A4 (210mm x 297mm)"
+msgstr "A4 (210mm x 297mm)"
+
+#: editor/templates/editor/cover_manager.html:81
+#: editor/templates/editor/cover_manager.html:208
+#: editor/templates/editor/wizzard_book.html:31
+#: editor/templates/editor/wizzard_bookjs.html:30
+msgid "Foolscap (F4) (210mm x 330mm)"
+msgstr "Büyük Ebat (F4) (210mm x 330mm)"
+
+#: editor/templates/editor/cover_manager.html:82
+#: editor/templates/editor/cover_manager.html:209
+#: editor/templates/editor/wizzard_book.html:32
+#: editor/templates/editor/wizzard_bookjs.html:31
+msgid "B4 (250mm x 353mm)"
+msgstr "B4 (250mm x 353mm)"
+
+#: editor/templates/editor/cover_manager.html:83
+#: editor/templates/editor/cover_manager.html:210
+#: editor/templates/editor/wizzard_book.html:33
+#: editor/templates/editor/wizzard_bookjs.html:32
+msgid "Oamaru Tabloid (265mm x 380mm)"
+msgstr "Oamaru Tabloid (265mm x 380mm)"
+
+#: editor/templates/editor/cover_manager.html:84
+#: editor/templates/editor/cover_manager.html:211
+#: editor/templates/editor/wizzard_book.html:34
+#: editor/templates/editor/wizzard_bookjs.html:33
+msgid "UK Tabloid (279mm x 431mm)"
+msgstr "UK Tabloid (279mm x 431mm)"
+
+#: editor/templates/editor/cover_manager.html:85
+#: editor/templates/editor/cover_manager.html:212
+#: editor/templates/editor/wizzard_book.html:35
+#: editor/templates/editor/wizzard_bookjs.html:34
+msgid "A3 (NZ Tabloid) (297mm x 420mm)"
+msgstr "A3 (NZ Tabloid) (297mm x 420mm)"
+
+#: editor/templates/editor/cover_manager.html:86
+#: editor/templates/editor/cover_manager.html:213
+#: editor/templates/editor/wizzard_book.html:36
+#: editor/templates/editor/wizzard_bookjs.html:35
+msgid "Berliner (315mm x 470mm)"
+msgstr "Berliner (315mm x 470mm)"
+
+#: editor/templates/editor/cover_manager.html:87
+#: editor/templates/editor/cover_manager.html:214
+#: editor/templates/editor/wizzard_book.html:37
+#: editor/templates/editor/wizzard_bookjs.html:36
+msgid "B3 (353mm x 500mm)"
+msgstr "B3 (353mm x 500mm)"
+
+#: editor/templates/editor/cover_manager.html:88
+#: editor/templates/editor/cover_manager.html:215
+#: editor/templates/editor/wizzard_book.html:38
+#: editor/templates/editor/wizzard_bookjs.html:37
+msgid "Oamaru Broadsheet (382mm x 540mm)"
+msgstr "Oamaru Broadsheet (382mm x 540mm)"
+
+#: editor/templates/editor/cover_manager.html:89
+#: editor/templates/editor/cover_manager.html:216
+#: editor/templates/editor/wizzard_book.html:39
+#: editor/templates/editor/wizzard_bookjs.html:38
+msgid "US Broadsheet (380mm x 577mm)"
+msgstr "US Broadsheet (380mm x 577mm)"
+
+#: editor/templates/editor/cover_manager.html:90
+#: editor/templates/editor/cover_manager.html:217
+#: editor/templates/editor/wizzard_book.html:40
+#: editor/templates/editor/wizzard_bookjs.html:39
+msgid "A2 (NZ Broadsheet) (420mm x 594mm)"
+msgstr "A2 (NZ Broadsheet) (420mm x 594mm)"
+
+#: editor/templates/editor/cover_manager.html:91
+#: editor/templates/editor/cover_manager.html:218
+#: editor/templates/editor/wizzard_book.html:41
+#: editor/templates/editor/wizzard_bookjs.html:40
+msgid "UK Broadsheet (457mm x 609mm)"
+msgstr "UK Broadsheet (457mm x 609mm)"
+
+#: editor/templates/editor/cover_manager.html:92
+#: editor/templates/editor/cover_manager.html:219
+#: editor/templates/editor/wizzard_book.html:42
+#: editor/templates/editor/wizzard_bookjs.html:41
+msgid "B2 (500mm x 707mm)"
+msgstr "B2 (500mm x 707mm)"
+
+#: editor/templates/editor/cover_manager.html:93
+#: editor/templates/editor/cover_manager.html:220
+#: editor/templates/editor/wizzard_book.html:43
+#: editor/templates/editor/wizzard_bookjs.html:42
+msgid "A1 (594mm x 841mm)"
+msgstr "A1 (594mm x 841mm)"
+
+#: editor/templates/editor/cover_manager.html:94
+#: editor/templates/editor/cover_manager.html:221
+#: editor/templates/editor/wizzard_book.html:44
+#: editor/templates/editor/wizzard_bookjs.html:43
+msgid "B1 (707mm x 1000mm)"
+msgstr "B1 (707mm x 1000mm)"
+
+#: editor/templates/editor/cover_manager.html:98
+#: editor/templates/editor/cover_manager.html:225
+#: editor/templates/editor/wizzard_book.html:46
+#: editor/templates/editor/wizzard_bookjs.html:45
+#: editor/templates/editor/wizzard_pdf.html:17
+msgid "Custom Size"
+msgstr "Özel Ebat"
+
+#: editor/templates/editor/cover_manager.html:103
+#: editor/templates/editor/cover_manager.html:230
+#: editor/templates/editor/wizzard_book.html:49
+#: editor/templates/editor/wizzard_book.html:51
+#: editor/templates/editor/wizzard_book.html:298
+#: editor/templates/editor/wizzard_book.html:300
+#: editor/templates/editor/wizzard_book.html:302
+#: editor/templates/editor/wizzard_book.html:304
+#: editor/templates/editor/wizzard_book.html:308
+#: editor/templates/editor/wizzard_bookjs.html:48
+#: editor/templates/editor/wizzard_bookjs.html:50
+#: editor/templates/editor/wizzard_bookjs.html:247
+#: editor/templates/editor/wizzard_bookjs.html:249
+#: editor/templates/editor/wizzard_bookjs.html:251
+#: editor/templates/editor/wizzard_bookjs.html:253
+#: editor/templates/editor/wizzard_bookjs.html:257
+#: editor/templates/editor/wizzard_pdf.html:246
+#: editor/templates/editor/wizzard_pdf.html:248
+#: editor/templates/editor/wizzard_pdf.html:250
+#: editor/templates/editor/wizzard_pdf.html:252
+#: editor/templates/editor/wizzard_pdf.html:256
+msgid "mm"
+msgstr "mm"
+
+#: editor/templates/editor/cover_manager.html:104
+#: editor/templates/editor/cover_manager.html:231
+msgid "inches"
+msgstr "inç"
+
+#: editor/templates/editor/cover_manager.html:108
+#: editor/templates/editor/cover_manager.html:245
+msgid "Format"
+msgstr "Format"
+
+#: editor/templates/editor/cover_manager.html:110
+#: editor/templates/editor/cover_manager.html:125
+#: editor/templates/editor/cover_manager.html:241
+#: editor/templates/editor/cover_manager.html:247
+#: editor/templates/editor/cover_manager.html:298
+msgid "E-book"
+msgstr "E-Kitap"
+
+#: editor/templates/editor/cover_manager.html:111
+#: editor/templates/editor/cover_manager.html:248
+#: editor/templates/editor/cover_manager.html:297
+#: editor/templates/editor/edit_strings.html:90
+#: editor/templates/editor/wizzard_book.html:187
+#: editor/templates/editor/wizzard_bookjs.html:188
+msgid "PDF"
+msgstr "PDF"
+
+#: editor/templates/editor/cover_manager.html:119
+#: editor/templates/editor/cover_manager.html:235
+msgid "Type"
+msgstr "Türü"
+
+#: editor/templates/editor/cover_manager.html:121
+#: editor/templates/editor/cover_manager.html:237
+#: editor/templates/editor/wizzard_book.html:166
+#: editor/templates/editor/wizzard_bookjs.html:167
+msgid "Front Cover"
+msgstr "Ön Kapak"
+
+#: editor/templates/editor/cover_manager.html:122
+#: editor/templates/editor/cover_manager.html:238
+#: editor/templates/editor/wizzard_book.html:172
+#: editor/templates/editor/wizzard_bookjs.html:173
+msgid "Back Cover"
+msgstr "Arka Kapak"
+
+#: editor/templates/editor/cover_manager.html:123
+#: editor/templates/editor/cover_manager.html:239
+#: editor/templates/editor/edit_strings.html:85
+#: editor/templates/editor/wizzard_book.html:169
+#: editor/templates/editor/wizzard_bookjs.html:170
+msgid "Spine"
+msgstr "Sırt"
+
+#: editor/templates/editor/cover_manager.html:124
+#: editor/templates/editor/cover_manager.html:240
+#: editor/templates/editor/wizzard_book.html:175
+#: editor/templates/editor/wizzard_bookjs.html:176
+msgid "Full Cover"
+msgstr "Tüm Kapak (Tek görsel)"
+
+#: editor/templates/editor/cover_manager.html:129
+#: editor/templates/editor/cover_manager.html:253
+msgid "Creator"
+msgstr "Hazırlayan"
+
+#: editor/templates/editor/cover_manager.html:138
+#: editor/templates/editor/cover_manager.html:262
+#: editor/templates/editor/edit_book.html:118
+#: editor/templates/editor/edit_book.html:552
+msgid "Notes"
+msgstr "Notlar"
+
+#: editor/templates/editor/cover_manager.html:146
+#: editor/templates/editor/cover_manager.html:271
+msgid "Filetype"
+msgstr "Dosya türü"
+
+#: editor/templates/editor/cover_manager.html:156
+msgid "Tip: The selected image file is very small. Please think of using a bigger file for better results."
+msgstr "İpucu: Seçilen görsel çok küçük. Daha büyük bir görsel ile daha iyi sonuçlar alacaksınız."
+
+#: editor/templates/editor/cover_manager.html:159
+msgid "Tip: The selected image file is in landscape orientation. Most book covers need portrait images."
+msgstr "İpucu: Seçilen görsel yatay olarak hazırlanmış. Pek çok kitap kapağı dikey olarak hazırlanmaktadır."
+
+#: editor/templates/editor/cover_manager.html:162
+#: editor/templates/editor/edit_book.html:295
+#: editor/templates/editor/edit_book.html:654
+msgid "Save"
+msgstr "Kaydet"
+
+#: editor/templates/editor/cover_manager.html:176
+msgid "Enter information"
+msgstr "Bilgileri girin"
+
+#: editor/templates/editor/cover_manager.html:279
+msgid "download file"
+msgstr "dosyayı indir"
+
+#: editor/templates/editor/cover_manager.html:291
+msgid "This image is currently assigned as the following cover type:"
+msgstr "Bu görselin kullanıldığı kapak tipi:"
+
+#: editor/templates/editor/cover_manager.html:292
+#: editor/templates/editor/edit_strings.html:83
+msgid "Back cover"
+msgstr "Arka kapak"
+
+#: editor/templates/editor/cover_manager.html:293
+msgid "This image is used in the following BookTypes:"
+msgstr "Bu görselin kullanıldığı byWriters kitapları:"
+
+#: editor/templates/editor/cover_manager.html:302
+msgid "Approval status"
+msgstr "Onay durumu"
+
+#: editor/templates/editor/cover_manager.html:307
+msgid "Edit"
+msgstr "Düzenle"
+
+#: editor/templates/editor/edit_book.html:69
+msgid "Chat"
+msgstr "Chat"
+
+#: editor/templates/editor/edit_book.html:73
+msgid "Currently editing"
+msgstr "Şu anda düzenleniyor"
+
+#: editor/templates/editor/edit_book.html:88
+msgid "Search"
+msgstr "Ara"
+
+#: editor/templates/editor/edit_book.html:101
+#: editor/templates/editor/edit_book.html:343
+msgid "Images and Files"
+msgstr "Görseller ve dosyalar"
+
+#: editor/templates/editor/edit_book.html:110
+#: editor/templates/editor/edit_book.html:364
+msgid "History"
+msgstr "Geçmiş"
+
+#: editor/templates/editor/edit_book.html:114
+#: editor/templates/editor/edit_book.html:373
+#: reader/templates/reader/book_info.html:119
+msgid "Versions"
+msgstr "Versiyonlar"
+
+#: editor/templates/editor/edit_book.html:127
+#: editor/templates/editor/edit_book.html:413
+msgid "Publish"
+msgstr "Yayınla"
+
+#: editor/templates/editor/edit_book.html:137
+msgid "We are very sorry, but we are not fully compatible with your browser. We are working hard to fix this problem. Until we fix this, you can try to use this site with Firefox, Chrome, Safari, Opera or some other compatible browser. Thank you for your understanding."
+msgstr "Programımız kullanmakta olduğunuz web tarayıcısı ile uyumlu değildir. Bu problemi çözmek için çalışmalarımız devam etmektedir. Bu sorun çözülene kadar Firefox, Chrome, Safari, Opera veya diğer web tarayıcılarını kullanabilir/deneyebilirsiniz. Anlayışınızdan dolayı teşekkür ederiz."
+
+#: editor/templates/editor/edit_book.html:139
+msgid "Table of contents"
+msgstr "İçindekiler tablosu"
+
+#: editor/templates/editor/edit_book.html:140
+#: editor/templates/editor/edit_book.html:146
+msgid "NEW CHAPTER"
+msgstr "YENİ ALT BAŞLIK"
+
+#: editor/templates/editor/edit_book.html:140
+#: editor/templates/editor/edit_book.html:146
+msgid "NEW SECTION"
+msgstr "YENİ BÖLÜM"
+
+#: editor/templates/editor/edit_book.html:140
+#: editor/templates/editor/edit_book.html:146
+msgid "IMPORT CHAPTER"
+msgstr "ALT BAŞLIĞI İÇE AKTAR"
+
+#: editor/templates/editor/edit_book.html:141
+msgid "All books should contain at least one section and can have as many chapters as you like."
+msgstr "Tüm kitaplar en az bir bölüm ve istediğiniz kadar alt başlıktan oluşmalıdır."
+
+#: editor/templates/editor/edit_book.html:150
+msgid "New chapter"
+msgstr "Yeni alt başlık"
+
+#: editor/templates/editor/edit_book.html:158
+#: editor/templates/editor/edit_strings.html:47
+msgid "Clone chapter"
+msgstr "Alt başlığı kopyala/çoğalt"
+
+#: editor/templates/editor/edit_book.html:166
+msgid "New title (optional)"
+msgstr "Yeni başlık (isteğe bağlı)"
+
+#: editor/templates/editor/edit_book.html:171
+msgid "New section"
+msgstr "Yeni bölüm"
+
+#: editor/templates/editor/edit_book.html:181
+#: editor/templates/editor/edit_strings.html:64
+msgid "Insert image"
+msgstr "Görsel ekle"
+
+#: editor/templates/editor/edit_book.html:184
+msgid "Images"
+msgstr "Görseller"
+
+#: editor/templates/editor/edit_book.html:185
+msgid "Upload image"
+msgstr "Görsel yükle"
+
+#: editor/templates/editor/edit_book.html:196
+#: editor/templates/editor/edit_book.html:221
+msgid "Preview"
+msgstr "Ön izleme"
+
+#: editor/templates/editor/edit_book.html:218
+msgid "Edit Image"
+msgstr "Görseli düzenle"
+
+#: editor/templates/editor/edit_book.html:228
+msgid "Image:"
+msgstr "Görsel:"
+
+#: editor/templates/editor/edit_book.html:232
+msgid "Alt:"
+msgstr "Alt:"
+
+#: editor/templates/editor/edit_book.html:238
+msgid "Positioning"
+msgstr "Konumlandırma"
+
+#: editor/templates/editor/edit_book.html:241
+msgid "Border:"
+msgstr "Çerçeve:"
+
+#: editor/templates/editor/edit_book.html:245
+msgid "Align:"
+msgstr "Ortalama"
+
+#: editor/templates/editor/edit_book.html:249
+msgid "Width:"
+msgstr "Genişlik:"
+
+#: editor/templates/editor/edit_book.html:253
+msgid "Height:"
+msgstr "Yükseklik:"
+
+#: editor/templates/editor/edit_book.html:259
+msgid "Style"
+msgstr "Stil"
+
+#: editor/templates/editor/edit_book.html:262
+msgid "CSS Class:"
+msgstr "CSS Sınıfı:"
+
+#: editor/templates/editor/edit_book.html:267
+msgid "Padding:"
+msgstr "Dolgu:"
+
+#: editor/templates/editor/edit_book.html:269
+msgid "Margin:"
+msgstr "Kenar payı:"
+
+#: editor/templates/editor/edit_book.html:273
+msgid "Background color:"
+msgstr "Arka plan rengi:"
+
+#: editor/templates/editor/edit_book.html:275
+msgid "Border color:"
+msgstr "Çerçeve rengi:"
+
+#: editor/templates/editor/edit_book.html:285
+msgid "Hold chapters"
+msgstr "Alt başlıkları tut"
+
+#: editor/templates/editor/edit_book.html:295
+msgid "Save and continue editing"
+msgstr "Kaydet ve düzenlemeye devam et"
+
+#: editor/templates/editor/edit_book.html:295
+msgid "View chapter"
+msgstr "Alt başlığı görüntüle"
+
+#: editor/templates/editor/edit_book.html:303
+msgid "Minor change, don't notify."
+msgstr "Önemsiz değişiklikler."
+
+#: editor/templates/editor/edit_book.html:309
+msgid "Author:"
+msgstr "Yazar:"
+
+#: editor/templates/editor/edit_book.html:315
+msgid "Author comment:"
+msgstr "Yazar yorumları:"
+
+#: editor/templates/editor/edit_book.html:325
+msgid "Seems like You have changed the structure of the chapters. What do you want to do?"
+msgstr "Alt başlığınızın yapısını değiştirdiniz. Şimdi ne yapmak istiyorsunuz?"
+
+#: editor/templates/editor/edit_book.html:328
+msgid "New chapters:"
+msgstr "Yeni alt başlıklar"
+
+#: editor/templates/editor/edit_book.html:344
+msgid "All images added to your book are listed here as well as any additional files you have uploaded."
+msgstr "Yükleyip kullandığınız tüm görseller listelenmektedir."
+
+#: editor/templates/editor/edit_book.html:346
+msgid "Deleted selected items"
+msgstr "Seçili olanları sil."
+
+#: editor/templates/editor/edit_book.html:347
+msgid "Upload a new image or file"
+msgstr "Yeni bir görsel veya dosya yükle."
+
+#: editor/templates/editor/edit_book.html:351
+#: editor/templates/editor/edit_book.html:595
+#: editor/templates/editor/edit_strings.html:62
+msgid "Upload"
+msgstr "Yükle"
+
+#: editor/templates/editor/edit_book.html:365
+msgid "Here you can follow the edit history of your book."
+msgstr "Buradan kitabınızda yapmış olduğunuz değişikliklerin geçmişini görebilirsiniz."
+
+#: editor/templates/editor/edit_book.html:375
+msgid ""
+"With different versions you can easily organise your book. But be careful! Other users will not be able to edit\n"
+"      and work on previous versions once you create new one. Create new <i>major</i> version if you plan to make a lot of changes, and <i>minor</i> version if you plan to make just a few of them."
+msgstr ""
+"Başka bir versiyon ile kitabınızı rahatça organize edebilirsiniz. Dikkatli olun! Diğer kullanıcılar eski versiyonu düzenleyemeyeceklerdir.\n"
+"      Değişiklikleri yeni versiyonda yapabileceklerdir. Yeni versiyon oluştur. <i>Büyük</i> Eğer kitabınızda çok fazla değişiklik yapmayı düşünüyorsanız bu seçeneği kullanın. <i>Küçük</i> Eğer kitabınızda birkaç değişiklik yapmayı planlıyorsanız bu seçeneği kullanın."
+
+#: editor/templates/editor/edit_book.html:377
+#: editor/templates/editor/edit_strings.html:37
+msgid "Create major version"
+msgstr "Büyük versiyon oluştur"
+
+#: editor/templates/editor/edit_book.html:377
+#: editor/templates/editor/edit_strings.html:38
+msgid "Create minor version"
+msgstr "Küçük versiyon oluştur"
+
+#: editor/templates/editor/edit_book.html:378
+#: editor/templates/editor/edit_book.html:391
+#: editor/templates/editor/edit_book.html:588
+msgid "New version"
+msgstr "Yeni versiyon"
+
+#: editor/templates/editor/edit_book.html:381
+#: editor/templates/editor/edit_book.html:394
+msgid "You can name this version (optional):"
+msgstr "Bu versiyona isim verebilirsiniz (isteğe bağlı):"
+
+#: editor/templates/editor/edit_book.html:384
+#: editor/templates/editor/edit_book.html:397
+msgid "e.g. initial, dragon, test"
+msgstr "örneğin; ilk, ejderha, test"
+
+#: editor/templates/editor/edit_book.html:386
+#: editor/templates/editor/edit_book.html:399
+msgid "Description (optional)"
+msgstr "Açıklama (isteğe bağlı)"
+
+#: editor/templates/editor/edit_book.html:405
+msgid "All versions"
+msgstr "Tüm versiyonlar"
+
+#: editor/templates/editor/edit_book.html:422
+msgid "Manage the settings of your book."
+msgstr "Kitap ayarlarınızı organize edin."
+
+#: editor/templates/editor/edit_book.html:430
+msgid "This book is written in: "
+msgstr "Bu kitabın yazıldığı yer:"
+
+#: editor/templates/editor/edit_book.html:435
+msgid "Set new language"
+msgstr "Yayım dilini seçiniz"
+
+#: editor/templates/editor/edit_book.html:439
+msgid "Right to left text"
+msgstr "Sağdan sola"
+
+#: editor/templates/editor/edit_book.html:449
+msgid "This book is licensed with:"
+msgstr "Bu kitabın lisansı/telifi:"
+
+#: editor/templates/editor/edit_book.html:454
+msgid "Set new license"
+msgstr "Yeni lisans/telif oluştur"
+
+#: editor/templates/editor/edit_book.html:456
+msgid "Read full text of the license"
+msgstr "Lisans/Telif metnini oku"
+
+#: editor/templates/editor/edit_book.html:457
+msgid "Manage copyright attribution"
+msgstr "Telif haklarını yönetin"
+
+#: editor/templates/editor/edit_book.html:461
+msgid "Manage Copyright Attribution"
+msgstr "Telif Haklarını yönetin"
+
+#: editor/templates/editor/edit_book.html:462
+msgid "If you want to exclude some people from the copyright attribution..."
+msgstr "Eğer bazı kişileri telif haklarına dahil etmek istemiyorsanız..."
+
+#: editor/templates/editor/edit_book.html:466
+msgid "Contributors"
+msgstr "Katkıda bulunanlar"
+
+#: editor/templates/editor/edit_book.html:468
+msgid "Excluded contributors"
+msgstr "Dahil edilmeyen katkıda bulunanlar"
+
+#: editor/templates/editor/edit_book.html:483
+msgid "Roles"
+msgstr "Roller"
+
+#: editor/templates/editor/edit_book.html:486
+msgid "Manage roles"
+msgstr "Rolleri yönet"
+
+#: editor/templates/editor/edit_book.html:489
+msgid "Manage Roles"
+msgstr "Rolleri yönet"
+
+#: editor/templates/editor/edit_book.html:493
+msgid "Role"
+msgstr "Rol"
+
+#: editor/templates/editor/edit_book.html:497
+msgid "Select role"
+msgstr "Rol seç"
+
+#: editor/templates/editor/edit_book.html:498
+msgid "Administrator"
+msgstr "Yönetici"
+
+#: editor/templates/editor/edit_book.html:499
+msgid "Editor"
+msgstr "Editör"
+
+#: editor/templates/editor/edit_book.html:503
+msgid "New user:"
+msgstr "Yeni kullanıcı:"
+
+#: editor/templates/editor/edit_book.html:507
+msgid "Add"
+msgstr "Ekle"
+
+#: editor/templates/editor/edit_book.html:509
+msgid "Role:"
+msgstr "Rol:"
+
+#: editor/templates/editor/edit_book.html:514
+msgid "Remove"
+msgstr "Kaldır"
+
+#: editor/templates/editor/edit_book.html:519
+#: editor/templates/editor/edit_book.html:742
+msgid "Chapter status"
+msgstr "Alt başlık konumu"
+
+#: editor/templates/editor/edit_book.html:522
+msgid "Available statuses:"
+msgstr "Kullanılabilir konumlar"
+
+#: editor/templates/editor/edit_book.html:524
+msgid "Manage chapter status"
+msgstr "Alt başlık konumlarını yönet"
+
+#: editor/templates/editor/edit_book.html:529
+msgid "Permissions and visibility"
+msgstr "Yetki ve izinler"
+
+#: editor/templates/editor/edit_book.html:532
+msgid "This book can be edited by:"
+msgstr "Bu kitap şu kullanıcılar tarafından düzenlenebilir:"
+
+#: editor/templates/editor/edit_book.html:536
+msgid "anyone"
+msgstr "herhangi biri"
+
+#: editor/templates/editor/edit_book.html:537
+msgid "book owner"
+msgstr "kitabın sahibi"
+
+#: editor/templates/editor/edit_book.html:538
+msgid "admins"
+msgstr "yöneticiler"
+
+#: editor/templates/editor/edit_book.html:539
+msgid "admins and editors"
+msgstr "yöneticiler ve editörler"
+
+#: editor/templates/editor/edit_book.html:541
+msgid "Set permissions"
+msgstr "Yetkileri düzenle"
+
+#: editor/templates/editor/edit_book.html:554
+msgid "Shared notes for this book"
+msgstr "Bu kitap ile ilgili paylaşılan notlar"
+
+#: editor/templates/editor/edit_book.html:557
+msgid "Save the notes"
+msgstr "Notları kaydet"
+
+#: editor/templates/editor/edit_book.html:562
+msgid "<span class=\"icon\">JOINED</span> <span class=\"notice\">notice</span>"
+msgstr "<span class=\"icon\">JOINED</span> <span class=\"notice\">notice</span>"
+
+#: editor/templates/editor/edit_book.html:563
+msgid "<span class=\"info\">INFO</span> <span class=\"notice\">notice</span>"
+msgstr "<span class=\"info\">INFO</span> <span class=\"notice\">notice</span>"
+
+#: editor/templates/editor/edit_book.html:566
+msgid "action"
+msgstr "eylem"
+
+#: editor/templates/editor/edit_book.html:569
+#: editor/templates/editor/edit_book.html:703
+msgid "time"
+msgstr "zaman"
+
+#: editor/templates/editor/edit_book.html:589
+msgid "Switched to <span class=\"entryVersion\">entry.version.version</span>"
+msgstr "Versiyon değiştirildi to <span class=\"entryVersion\">entry.version.version</span>"
+
+#: editor/templates/editor/edit_book.html:596
+#: editor/templates/editor/edit_book.html:603
+msgid "Uploaded <span class=\"entryFilename\">entry.args.filename</span>."
+msgstr "Yüklendi <span class=\"entryFilename\">entry.args.filename</span>."
+
+#: editor/templates/editor/edit_book.html:602
+msgid "Upload cover"
+msgstr "Kapağı yükle"
+
+#: editor/templates/editor/edit_book.html:609
+msgid "Delete cover"
+msgstr "Kapağı sil"
+
+#: editor/templates/editor/edit_book.html:610
+#: editor/templates/editor/edit_book.html:631
+msgid "Deleted <span class=\"entryFilename\">entry.args.filename</span>."
+msgstr "Silindi <span class=\"entryFilename\">entry.args.filename</span>."
+
+#: editor/templates/editor/edit_book.html:616
+msgid "Modify cover"
+msgstr "Kapağı düzenle"
+
+#: editor/templates/editor/edit_book.html:617
+msgid "Modified <span class=\"entryFilename\">entry.args.filename</span>."
+msgstr "Düzenlendi <span class=\"entryFilename\">entry.args.filename</span>."
+
+#: editor/templates/editor/edit_book.html:623
+msgid "Imported chapter"
+msgstr "İçe aktarılan alt başlık"
+
+#: editor/templates/editor/edit_book.html:630
+msgid "Delete"
+msgstr "Sil"
+
+#: editor/templates/editor/edit_book.html:637
+#: editor/templates/editor/edit_book.html:772
+#: editor/templates/editor/edit_strings.html:93
+msgid "Delete chapter"
+msgstr "Alt başlığı sil"
+
+#: editor/templates/editor/edit_book.html:638
+msgid "Deleted <span class=\"entryFilename\"></span>."
+msgstr "Silindi <span class=\"entryFilename\"></span>."
+
+#: editor/templates/editor/edit_book.html:652
+#: editor/templates/editor/edit_strings.html:87
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+#: editor/templates/editor/edit_book.html:655
+msgid "Rename"
+msgstr "Yeniden adlandır"
+
+#: editor/templates/editor/edit_book.html:656
+msgid "Reorder"
+msgstr "Yeniden sırala"
+
+#: editor/templates/editor/edit_book.html:657
+msgid "Split"
+msgstr "Böl"
+
+#: editor/templates/editor/edit_book.html:658
+#: reader/templates/reader/book_info.html:162
+msgid "Section create"
+msgstr "Bölüm oluştur"
+
+#: editor/templates/editor/edit_book.html:659
+#: reader/templates/reader/book_info.html:169
+msgid "Book create"
+msgstr "Kitap oluştur"
+
+#: editor/templates/editor/edit_book.html:660
+msgid "Minor"
+msgstr "Küçük / Önemsiz"
+
+#: editor/templates/editor/edit_book.html:661
+msgid "Major"
+msgstr "Büyük / Önemli"
+
+#: editor/templates/editor/edit_book.html:687
+#: reader/templates/reader/book_chapter.html:51
+#: reader/templates/reader/book_chapter.html:57
+#: reader/templates/reader/book_view.html:40
+#: reader/templates/reader/draft_book.html:40
+#: reader/templates/reader/draft_chapter.html:39
+#: reader/templates/reader/draft_chapter.html:46
+msgid "EDIT"
+msgstr "DÜZENLE"
+
+#: editor/templates/editor/edit_book.html:687
+msgid "VIEW"
+msgstr "GÖRÜNTÜLE"
+
+#: editor/templates/editor/edit_book.html:696
+msgid "back to history index"
+msgstr "geçmiş listesine geri dön"
+
+#: editor/templates/editor/edit_book.html:696
+msgid "Compare revisions"
+msgstr "Değişiklikleri karşılaştır"
+
+#: editor/templates/editor/edit_book.html:700
+msgid "compare"
+msgstr "karşılaştır"
+
+#: editor/templates/editor/edit_book.html:712
+#: editor/templates/editor/edit_strings.html:58
+msgid "dimension"
+msgstr "boyutlar"
+
+#: editor/templates/editor/edit_book.html:713
+#: editor/templates/editor/edit_strings.html:59
+msgid "size"
+msgstr "ebatlar"
+
+#: editor/templates/editor/edit_book.html:717
+#: editor/templates/editor/edit_book.html:737
+msgid "back to chapter history"
+msgstr "alt başlık geçmişine geri dön"
+
+#: editor/templates/editor/edit_book.html:719
+msgid "Normal view"
+msgstr "Normal görünüm"
+
+#: editor/templates/editor/edit_book.html:721
+msgid "Source view"
+msgstr "Kaynak görünümü"
+
+#: editor/templates/editor/edit_book.html:722
+msgid "Revert to this revision"
+msgstr "Bu revizyona geri dön"
+
+#: editor/templates/editor/edit_book.html:723
+msgid "No such revision."
+msgstr "Hiç bir revizyon yok"
+
+#: editor/templates/editor/edit_book.html:726
+msgid "User:"
+msgstr "Kullanıcı:"
+
+#: editor/templates/editor/edit_book.html:727
+msgid "Modified:"
+msgstr "Düzenlenen:"
+
+#: editor/templates/editor/edit_book.html:728
+msgid "Version:"
+msgstr "Versiyon:"
+
+#: editor/templates/editor/edit_book.html:729
+msgid "Revision:"
+msgstr "Revizyon / Gözden geçirme"
+
+#: editor/templates/editor/edit_book.html:730
+msgid "Comment"
+msgstr "Yorumlar"
+
+#: editor/templates/editor/edit_book.html:732
+msgid "previous"
+msgstr "önceki"
+
+#: editor/templates/editor/edit_book.html:732
+msgid "next"
+msgstr "sonraki"
+
+#: editor/templates/editor/edit_book.html:737
+msgid "Show side by side"
+msgstr "Yan yana göster"
+
+#: editor/templates/editor/edit_book.html:738
+msgid "Compare revision <span class=\"revision1Name\">revision1</span> with revision <span class=\"revision2Name\">revision2</span>"
+msgstr "Değişiklikleri karşılaştır <span class=\"revision1Name\">revision1</span> with revision <span class=\"revision2Name\">revision2</span>"
+
+#: editor/templates/editor/edit_book.html:743
+msgid "Select new chapter status:"
+msgstr "Yeni alt başlık durumunu seç:"
+
+#: editor/templates/editor/edit_book.html:756
+msgid "Chapter statuses"
+msgstr "Alt başlık durum seçenekleri"
+
+#: editor/templates/editor/edit_book.html:761
+msgid "New status:"
+msgstr "Yeni durum:"
+
+#: editor/templates/editor/edit_book.html:766
+msgid "Chapter statuses:"
+msgstr "Alt başlık durumu:"
+
+#: editor/templates/editor/edit_book.html:773
+msgid "Are you sure you would like to delete this chapter? You will lose all data associated to this chapter and you will not be able to undo this operation!"
+msgstr "Bu alt başlığı silmek istediğinizden emin misiniz? İlgili tüm veriler silinecektir."
+
+#: editor/templates/editor/edit_book.html:775
+msgid "I understand and agree"
+msgstr "Anlıyorum ve onaylıyorum"
+
+#: editor/templates/editor/edit_publish.html:10
+#: editor/templates/editor/edit_publish.html:17
+#: editor/templates/editor/edit_publish.html:24
+#: editor/templates/editor/edit_publish.html:31
+#: editor/templates/editor/edit_publish.html:42
+msgid "settings"
+msgstr "ayarlar"
+
+#: editor/templates/editor/edit_publish.html:16
+msgid "Ebook"
+msgstr "E-Kitap"
+
+#: editor/templates/editor/edit_publish.html:23
+msgid "Screen PDF"
+msgstr "Ekran PDF dökümanı (72dpi)"
+
+#: editor/templates/editor/edit_publish.html:30
+msgid "Open Document Text"
+msgstr "Open Document Belgesi"
+
+#: editor/templates/editor/edit_publish.html:41
+msgid "Try out our new beta renderer for Books"
+msgstr "Yeni kitap oluşturma aracımızı deneyin"
+
+#: editor/templates/editor/edit_publish.html:60
+msgid "Publish this book"
+msgstr "Bu kitabı yayımla"
+
+#: editor/templates/editor/edit_publish.html:63
+msgid "Please wait. It will take couple of moments. Your book is being generated."
+msgstr "Lütfen kitabınız oluşturulurken bekleyiniz."
+
+#: editor/templates/editor/edit_publish.html:66
+msgid "Your book has been generated at this url:"
+msgstr "Oluşturulan kitabınıza yandaki linkten ulaşabilirsiniz:"
+
+#: editor/templates/editor/edit_publish.html:70
+msgid "Unknown error while trying to publish this book."
+msgstr "Kitabınız yayımlanırken bir hata oluştu."
+
+#: editor/templates/editor/edit_strings.html:3
+msgid "Error while uploading file!"
+msgstr "Dosya yüklenirken bir hata oluştu!"
+
+#: editor/templates/editor/edit_strings.html:5
+msgid "Submit"
+msgstr "Gönder"
+
+#: editor/templates/editor/edit_strings.html:7
+#: portal/templates/booki_paginator.html:5
+msgid "Previous"
+msgstr "Önceki"
+
+#: editor/templates/editor/edit_strings.html:9
+msgid "Yes, revert !"
+msgstr "Evet, geri dön!"
+
+#: editor/templates/editor/edit_strings.html:10
+msgid "Loading..."
+msgstr "Yükleniyor..."
+
+#: editor/templates/editor/edit_strings.html:11
+msgid "LOADING DATA...."
+msgstr "VERİLERİNİZ YÜKLENİYOR..."
+
+#: editor/templates/editor/edit_strings.html:12
+msgid "Loading data. Please wait..."
+msgstr "Verileriniz yükleniyor. Lütfen bekleyiniz..."
+
+#: editor/templates/editor/edit_strings.html:13
+msgid "Loading chapter data..."
+msgstr "Alt başlık verileriniz yükleniyor..."
+
+#: editor/templates/editor/edit_strings.html:14
+msgid "Reading history data..."
+msgstr "Geçmiş verileriniz okunuyor..."
+
+#: editor/templates/editor/edit_strings.html:15
+msgid "Reading settings data..."
+msgstr "Ayar verileriniz okunuyor..."
+
+#: editor/templates/editor/edit_strings.html:16
+msgid "Reading attachments data..."
+msgstr "Dosya eki verileriniz okunuyor..."
+
+#: editor/templates/editor/edit_strings.html:17
+msgid "Reading notes data..."
+msgstr "Not verileriniz okunuyor..."
+
+#: editor/templates/editor/edit_strings.html:18
+msgid "Reading version data..."
+msgstr "Versiyon verileriniz okunuyor..."
+
+#: editor/templates/editor/edit_strings.html:19
+msgid "Revert to this revision?"
+msgstr "Bu revizyona dönmek istiyormusunuz?"
+
+#: editor/templates/editor/edit_strings.html:20
+msgid "Current chapter content will be reverted to this revision. Are you sure?"
+msgstr "Var olan alt başlığının içeriği bu versiyona dönüştürülecektir. Emin misiniz?"
+
+#: editor/templates/editor/edit_strings.html:21
+msgid "Sending data..."
+msgstr "Verileriniz gönderiliyor..."
+
+#: editor/templates/editor/edit_strings.html:22
+msgid "SAVE"
+msgstr "KAYDET"
+
+#: editor/templates/editor/edit_strings.html:24
+msgid "Save new order"
+msgstr "Yeni işlemi kaydet"
+
+#: editor/templates/editor/edit_strings.html:25
+msgid "Saving data. Please wait..."
+msgstr "Verileriniz kaydediliyor. Lütfen bekleyiniz..."
+
+#: editor/templates/editor/edit_strings.html:26
+msgid "CANCEL"
+msgstr "İPTAL"
+
+#: editor/templates/editor/edit_strings.html:27
+msgid "Set status"
+msgstr "Durumu ayarla"
+
+#: editor/templates/editor/edit_strings.html:28
+msgid "Revision"
+msgstr "Revizyon/Gözden geçirme"
+
+#: editor/templates/editor/edit_strings.html:29
+msgid "Booktype Reader"
+msgstr "byWriters Okuyucu"
+
+#: editor/templates/editor/edit_strings.html:30
+msgid "Hide advanced options"
+msgstr "Gelişmiş seçenekleri gizle"
+
+#: editor/templates/editor/edit_strings.html:31
+msgid "Show advanced options"
+msgstr "Gelişmiş seçenekleri göster"
+
+#: editor/templates/editor/edit_strings.html:32
+msgid "New status name"
+msgstr "Yeni durum adı"
+
+#: editor/templates/editor/edit_strings.html:33
+msgid "Delete this status?"
+msgstr "Bu durumu silmek istiyor musunuz?"
+
+#: editor/templates/editor/edit_strings.html:34
+msgid "Can't delete because some chapters have this status. Change chapter status first."
+msgstr "Bazı alt başlıklar bu konumu kullandığından silinemiyor. Önce alt başlık konumunu değiştirin."
+
+#: editor/templates/editor/edit_strings.html:35
+msgid "Removing chapter from Table of Contents."
+msgstr "Bu alt başlık içindekiler tablosundan çıkarılıyor."
+
+#: editor/templates/editor/edit_strings.html:36
+msgid "Reordering the chapters..."
+msgstr "Alt başlıklar yeniden sıralanıyor..."
+
+#: editor/templates/editor/edit_strings.html:39
+msgid "Delete attachments"
+msgstr "Ekli dosyaları sil"
+
+#: editor/templates/editor/edit_strings.html:40
+msgid "Delete these attachments"
+msgstr "Ekteki bu dosyayı sil"
+
+#: editor/templates/editor/edit_strings.html:41
+msgid "Delete selected attachments"
+msgstr "Seçili dosyayı sil"
+
+#: editor/templates/editor/edit_strings.html:42
+msgid "Update"
+msgstr "Güncelle"
+
+#: editor/templates/editor/edit_strings.html:43
+msgid "Create chapter"
+msgstr "Alt başlık oluştur"
+
+#: editor/templates/editor/edit_strings.html:44
+msgid "Creating chapter"
+msgstr "Alt başlık oluşturuluyor"
+
+#: editor/templates/editor/edit_strings.html:45
+#: editor/templates/editor/edit_strings.html:49
+msgid "Can not create duplicate chapter name."
+msgstr "Aynı isimli iki farklı alt başlık oluşturulamaz."
+
+#: editor/templates/editor/edit_strings.html:46
+msgid "Enter new Chapter title."
+msgstr "Yeni bir alt başlık adı girin."
+
+#: editor/templates/editor/edit_strings.html:48
+msgid "Cloning chapter"
+msgstr "Alt başlık kopyalanıyor."
+
+#: editor/templates/editor/edit_strings.html:50
+msgid "Enter book id"
+msgstr "Kitap numarası girin"
+
+#: editor/templates/editor/edit_strings.html:51
+msgid "Enter Chapter id."
+msgstr "Alt başlık numarası girin."
+
+#: editor/templates/editor/edit_strings.html:52
+msgid "Create section"
+msgstr "Bölüm oluştur"
+
+#: editor/templates/editor/edit_strings.html:53
+msgid "Creating section"
+msgstr "Bölüm oluşturuluyor"
+
+#: editor/templates/editor/edit_strings.html:54
+msgid "Can not create duplicate section name."
+msgstr "Aynı isimli iki farklı bölüm oluşturulamaz."
+
+#: editor/templates/editor/edit_strings.html:55
+msgid "Enter new section title"
+msgstr "Yeni bölüm başlığı giriniz."
+
+#: editor/templates/editor/edit_strings.html:60
+msgid "Adding chapter to Table of Contents."
+msgstr "İçindekiler tablosuna bölüm başlıklarını eklemek."
+
+#: editor/templates/editor/edit_strings.html:61
+msgid "Reordering the chapter..."
+msgstr "Alt başlıklar yeniden sıralanıyor..."
+
+#: editor/templates/editor/edit_strings.html:63
+msgid "Rights holder"
+msgstr "Hak sahibi"
+
+#: editor/templates/editor/edit_strings.html:65
+msgid "You will loose unsaved changes. You are currently editing chapter"
+msgstr "Kaydedilmemiş değişiklikleri kaybedeceksiniz. Bu alt başlıkta değişiklik yapıyorsunuz."
+
+#: editor/templates/editor/edit_strings.html:66
+msgid "You are leaving Booktype Editor."
+msgstr "byWriters Online kitap editöründen ayrılıyorsunuz."
+
+#: editor/templates/editor/edit_strings.html:67
+msgid "You don't have permission to delete attachments."
+msgstr "Ekli dosyayı silmek için yetkiniz yok."
+
+#: editor/templates/editor/edit_strings.html:68
+msgid "I can not find description for this license."
+msgstr "Bu lisans/telif türü için bir açıklama bulamıyorum."
+
+#: editor/templates/editor/edit_strings.html:69
+msgid "Saving the book notes"
+msgstr "Kitap notları kaydediliyor."
+
+#: editor/templates/editor/edit_strings.html:70
+msgid "Book notes saved."
+msgstr "Kitap notları kaydedildi."
+
+#: editor/templates/editor/edit_strings.html:71
+msgid "User {0} has changed status of  chapter \"{1}\" to \"{2}\"."
+msgstr "Kullanıcı {0} alt başlık durumunu değiştirdi \"{1}\" den \"{2}\" ye."
+
+#: editor/templates/editor/edit_strings.html:72
+msgid "User {0} has saved chapter \"{1}\"."
+msgstr "Kullanıcı {0} alt başlığı kaydetti \"{1}\"."
+
+#: editor/templates/editor/edit_strings.html:73
+msgid "User {0} has renamed chapter \"{1}\" to \"{2}\"."
+msgstr "Kullanıcı {0} alt başlığa yeni isim verdi \"{1}\" to \"{2}\"."
+
+#: editor/templates/editor/edit_strings.html:74
+msgid "User {0} has deleted chapter \"{1}\"."
+msgstr "Kullanıcı {0} alt başlığı sildi \"{1}\"."
+
+#: editor/templates/editor/edit_strings.html:75
+msgid "User {0} has created new chapter \"{1}\"."
+msgstr "Kullanıcı {0} yeni bir alt başlık ekledi \"{1}\"."
+
+#: editor/templates/editor/edit_strings.html:76
+msgid "User {0} has cloned chapter \"{1}\" from book \"{2}\"."
+msgstr "Kullanıcı {0} alt başlığı çoğalttı, kopyaladı \"{1}\" from book \"{2}\"."
+
+#: editor/templates/editor/edit_strings.html:77
+msgid "\"{0}\" is being published."
+msgstr "\"{0}\"  yayınlandı."
+
+#: editor/templates/editor/edit_strings.html:78
+msgid "User {0} has created new section \"{1}\"."
+msgstr "Kullanıcı {0} yeni bölüm oluşturdu \"{1}\"."
+
+#: editor/templates/editor/edit_strings.html:79
+msgid "User {0} has reverted chapter \"{1}\" to revision {2}."
+msgstr "Kullanıcı {0} alt başlığa geri döndü \"{1}\" bundan {2}."
+
+#: editor/templates/editor/edit_strings.html:80
+msgid "User {0} has saved notes for book \"{1}\"."
+msgstr "Kullanıcı {0} kitap hakkında not ekledi \"{1}\"."
+
+#: editor/templates/editor/edit_strings.html:81
+msgid "Close"
+msgstr "Kapat"
+
+#: editor/templates/editor/edit_strings.html:82
+msgid "Do you really want to delete this cover?"
+msgstr "Bu kapağı gerçekten silmek istiyor musunuz?"
+
+#: editor/templates/editor/edit_strings.html:84
+msgid "Front cover"
+msgstr "Ön kapak"
+
+#: editor/templates/editor/edit_strings.html:86
+msgid "Full cover"
+msgstr "Tüm kapak (Tek görsel)"
+
+#: editor/templates/editor/edit_strings.html:88
+#: editor/templates/editor/wizzard_book.html:186
+#: editor/templates/editor/wizzard_bookjs.html:187
+msgid "BOOK"
+msgstr "KİTAP"
+
+#: editor/templates/editor/edit_strings.html:89
+#: editor/templates/editor/wizzard_book.html:188
+#: editor/templates/editor/wizzard_bookjs.html:189
+msgid "E-BOOK"
+msgstr "E-KİTAP"
+
+#: editor/templates/editor/edit_strings.html:92
+msgid "APPROVED"
+msgstr "ONAYLANDI"
+
+#: editor/templates/editor/wizzard_book.html:4
+#: editor/templates/editor/wizzard_bookjs.html:4
+msgid "Book Formatted PDF Settings"
+msgstr "Baskıya uygun kitap PDF ayarı"
+
+#: editor/templates/editor/wizzard_book.html:49
+#: editor/templates/editor/wizzard_book.html:51
+#: editor/templates/editor/wizzard_book.html:69
+#: editor/templates/editor/wizzard_book.html:79
+#: editor/templates/editor/wizzard_book.html:98
+#: editor/templates/editor/wizzard_book.html:117
+#: editor/templates/editor/wizzard_book.html:136
+#: editor/templates/editor/wizzard_bookjs.html:48
+#: editor/templates/editor/wizzard_bookjs.html:50
+#: editor/templates/editor/wizzard_bookjs.html:71
+#: editor/templates/editor/wizzard_bookjs.html:84
+#: editor/templates/editor/wizzard_bookjs.html:106
+#: editor/templates/editor/wizzard_bookjs.html:128
+#: editor/templates/editor/wizzard_bookjs.html:147
+#: editor/templates/editor/wizzard_ebook.html:38
+#: editor/templates/editor/wizzard_ebook.html:48
+#: editor/templates/editor/wizzard_ebook.html:67
+#: editor/templates/editor/wizzard_ebook.html:86
+#: editor/templates/editor/wizzard_ebook.html:105
+#: editor/templates/editor/wizzard_odt.html:20
+#: editor/templates/editor/wizzard_odt.html:30
+#: editor/templates/editor/wizzard_odt.html:49
+#: editor/templates/editor/wizzard_odt.html:68
+#: editor/templates/editor/wizzard_odt.html:87
+#: editor/templates/editor/wizzard_pdf.html:21
+#: editor/templates/editor/wizzard_pdf.html:26
+#: editor/templates/editor/wizzard_pdf.html:46
+#: editor/templates/editor/wizzard_pdf.html:56
+#: editor/templates/editor/wizzard_pdf.html:75
+#: editor/templates/editor/wizzard_pdf.html:94
+#: editor/templates/editor/wizzard_pdf.html:113
+msgid "Size"
+msgstr "Yazı ebadı"
+
+#: editor/templates/editor/wizzard_book.html:60
+#: editor/templates/editor/wizzard_bookjs.html:59
+#: editor/templates/editor/wizzard_ebook.html:29
+#: editor/templates/editor/wizzard_odt.html:11
+#: editor/templates/editor/wizzard_pdf.html:37
+msgid "Font"
+msgstr "Yazı karakteri"
+
+#: editor/templates/editor/wizzard_book.html:63
+#: editor/templates/editor/wizzard_bookjs.html:62
+#: editor/templates/editor/wizzard_ebook.html:32
+#: editor/templates/editor/wizzard_odt.html:14
+#: editor/templates/editor/wizzard_pdf.html:40
+msgid "Body Text"
+msgstr "Gövde Metni"
+
+#: editor/templates/editor/wizzard_book.html:65
+#: editor/templates/editor/wizzard_book.html:75
+#: editor/templates/editor/wizzard_book.html:94
+#: editor/templates/editor/wizzard_book.html:113
+#: editor/templates/editor/wizzard_ebook.html:34
+#: editor/templates/editor/wizzard_ebook.html:44
+#: editor/templates/editor/wizzard_ebook.html:63
+#: editor/templates/editor/wizzard_ebook.html:82
+#: editor/templates/editor/wizzard_odt.html:16
+#: editor/templates/editor/wizzard_odt.html:26
+#: editor/templates/editor/wizzard_odt.html:45
+#: editor/templates/editor/wizzard_odt.html:64
+#: editor/templates/editor/wizzard_pdf.html:42
+#: editor/templates/editor/wizzard_pdf.html:52
+#: editor/templates/editor/wizzard_pdf.html:71
+#: editor/templates/editor/wizzard_pdf.html:90
+msgid "Fontin Sans"
+msgstr "Fontin Sans"
+
+#: editor/templates/editor/wizzard_book.html:66
+#: editor/templates/editor/wizzard_book.html:76
+#: editor/templates/editor/wizzard_book.html:95
+#: editor/templates/editor/wizzard_book.html:114
+#: editor/templates/editor/wizzard_bookjs.html:65
+#: editor/templates/editor/wizzard_bookjs.html:78
+#: editor/templates/editor/wizzard_bookjs.html:100
+#: editor/templates/editor/wizzard_bookjs.html:122
+#: editor/templates/editor/wizzard_ebook.html:35
+#: editor/templates/editor/wizzard_ebook.html:45
+#: editor/templates/editor/wizzard_ebook.html:64
+#: editor/templates/editor/wizzard_ebook.html:83
+#: editor/templates/editor/wizzard_odt.html:17
+#: editor/templates/editor/wizzard_odt.html:27
+#: editor/templates/editor/wizzard_odt.html:46
+#: editor/templates/editor/wizzard_odt.html:65
+#: editor/templates/editor/wizzard_pdf.html:43
+#: editor/templates/editor/wizzard_pdf.html:53
+#: editor/templates/editor/wizzard_pdf.html:72
+#: editor/templates/editor/wizzard_pdf.html:91
+msgid "Arial"
+msgstr "Arial"
+
+#: editor/templates/editor/wizzard_book.html:67
+#: editor/templates/editor/wizzard_book.html:77
+#: editor/templates/editor/wizzard_book.html:96
+#: editor/templates/editor/wizzard_book.html:115
+#: editor/templates/editor/wizzard_bookjs.html:66
+#: editor/templates/editor/wizzard_bookjs.html:79
+#: editor/templates/editor/wizzard_bookjs.html:101
+#: editor/templates/editor/wizzard_bookjs.html:123
+#: editor/templates/editor/wizzard_ebook.html:36
+#: editor/templates/editor/wizzard_ebook.html:46
+#: editor/templates/editor/wizzard_ebook.html:65
+#: editor/templates/editor/wizzard_ebook.html:84
+#: editor/templates/editor/wizzard_odt.html:18
+#: editor/templates/editor/wizzard_odt.html:28
+#: editor/templates/editor/wizzard_odt.html:47
+#: editor/templates/editor/wizzard_odt.html:66
+#: editor/templates/editor/wizzard_pdf.html:44
+#: editor/templates/editor/wizzard_pdf.html:54
+#: editor/templates/editor/wizzard_pdf.html:73
+#: editor/templates/editor/wizzard_pdf.html:92
+msgid "Helvetica"
+msgstr "Helvetica"
+
+#: editor/templates/editor/wizzard_book.html:73
+#: editor/templates/editor/wizzard_bookjs.html:75
+#: editor/templates/editor/wizzard_ebook.html:42
+#: editor/templates/editor/wizzard_odt.html:24
+#: editor/templates/editor/wizzard_pdf.html:50
+msgid "Heading 1"
+msgstr "Heading 1"
+
+#: editor/templates/editor/wizzard_book.html:82
+#: editor/templates/editor/wizzard_book.html:101
+#: editor/templates/editor/wizzard_book.html:120
+#: editor/templates/editor/wizzard_bookjs.html:87
+#: editor/templates/editor/wizzard_bookjs.html:109
+#: editor/templates/editor/wizzard_bookjs.html:131
+#: editor/templates/editor/wizzard_ebook.html:51
+#: editor/templates/editor/wizzard_ebook.html:70
+#: editor/templates/editor/wizzard_ebook.html:89
+#: editor/templates/editor/wizzard_odt.html:33
+#: editor/templates/editor/wizzard_odt.html:52
+#: editor/templates/editor/wizzard_odt.html:71
+#: editor/templates/editor/wizzard_pdf.html:59
+#: editor/templates/editor/wizzard_pdf.html:78
+#: editor/templates/editor/wizzard_pdf.html:97
+msgid "UPPERCASE"
+msgstr "BÜYÜK HARFLE"
+
+#: editor/templates/editor/wizzard_book.html:83
+#: editor/templates/editor/wizzard_book.html:102
+#: editor/templates/editor/wizzard_book.html:121
+#: editor/templates/editor/wizzard_bookjs.html:88
+#: editor/templates/editor/wizzard_bookjs.html:110
+#: editor/templates/editor/wizzard_bookjs.html:132
+#: editor/templates/editor/wizzard_ebook.html:52
+#: editor/templates/editor/wizzard_ebook.html:71
+#: editor/templates/editor/wizzard_ebook.html:90
+#: editor/templates/editor/wizzard_odt.html:34
+#: editor/templates/editor/wizzard_odt.html:53
+#: editor/templates/editor/wizzard_odt.html:72
+#: editor/templates/editor/wizzard_pdf.html:60
+#: editor/templates/editor/wizzard_pdf.html:79
+#: editor/templates/editor/wizzard_pdf.html:98
+msgid "lowercase"
+msgstr "küçük harfle"
+
+#: editor/templates/editor/wizzard_book.html:84
+#: editor/templates/editor/wizzard_book.html:103
+#: editor/templates/editor/wizzard_book.html:122
+#: editor/templates/editor/wizzard_bookjs.html:89
+#: editor/templates/editor/wizzard_bookjs.html:111
+#: editor/templates/editor/wizzard_bookjs.html:133
+#: editor/templates/editor/wizzard_ebook.html:53
+#: editor/templates/editor/wizzard_ebook.html:72
+#: editor/templates/editor/wizzard_ebook.html:91
+#: editor/templates/editor/wizzard_odt.html:35
+#: editor/templates/editor/wizzard_odt.html:54
+#: editor/templates/editor/wizzard_odt.html:73
+#: editor/templates/editor/wizzard_pdf.html:61
+#: editor/templates/editor/wizzard_pdf.html:80
+#: editor/templates/editor/wizzard_pdf.html:99
+msgid "Capitalise"
+msgstr "İlk harf büyük"
+
+#: editor/templates/editor/wizzard_book.html:87
+#: editor/templates/editor/wizzard_book.html:106
+#: editor/templates/editor/wizzard_book.html:125
+#: editor/templates/editor/wizzard_bookjs.html:92
+#: editor/templates/editor/wizzard_bookjs.html:114
+#: editor/templates/editor/wizzard_bookjs.html:136
+#: editor/templates/editor/wizzard_ebook.html:56
+#: editor/templates/editor/wizzard_ebook.html:75
+#: editor/templates/editor/wizzard_ebook.html:94
+#: editor/templates/editor/wizzard_odt.html:38
+#: editor/templates/editor/wizzard_odt.html:57
+#: editor/templates/editor/wizzard_odt.html:76
+#: editor/templates/editor/wizzard_pdf.html:64
+#: editor/templates/editor/wizzard_pdf.html:83
+#: editor/templates/editor/wizzard_pdf.html:102
+msgid "Heavy"
+msgstr "Baskın"
+
+#: editor/templates/editor/wizzard_book.html:88
+#: editor/templates/editor/wizzard_book.html:107
+#: editor/templates/editor/wizzard_book.html:126
+#: editor/templates/editor/wizzard_bookjs.html:93
+#: editor/templates/editor/wizzard_bookjs.html:115
+#: editor/templates/editor/wizzard_bookjs.html:137
+#: editor/templates/editor/wizzard_ebook.html:57
+#: editor/templates/editor/wizzard_ebook.html:76
+#: editor/templates/editor/wizzard_ebook.html:95
+#: editor/templates/editor/wizzard_odt.html:39
+#: editor/templates/editor/wizzard_odt.html:58
+#: editor/templates/editor/wizzard_odt.html:77
+#: editor/templates/editor/wizzard_pdf.html:65
+#: editor/templates/editor/wizzard_pdf.html:84
+#: editor/templates/editor/wizzard_pdf.html:103
+msgid "normal"
+msgstr "normal"
+
+#: editor/templates/editor/wizzard_book.html:92
+#: editor/templates/editor/wizzard_bookjs.html:97
+#: editor/templates/editor/wizzard_ebook.html:61
+#: editor/templates/editor/wizzard_odt.html:43
+#: editor/templates/editor/wizzard_pdf.html:69
+msgid "Heading 2"
+msgstr "Heading 2"
+
+#: editor/templates/editor/wizzard_book.html:111
+#: editor/templates/editor/wizzard_bookjs.html:119
+#: editor/templates/editor/wizzard_ebook.html:80
+#: editor/templates/editor/wizzard_odt.html:62
+#: editor/templates/editor/wizzard_pdf.html:88
+msgid "Heading 3"
+msgstr "Heading 3"
+
+#: editor/templates/editor/wizzard_book.html:130
+#: editor/templates/editor/wizzard_bookjs.html:141
+#: editor/templates/editor/wizzard_ebook.html:99
+#: editor/templates/editor/wizzard_odt.html:81
+#: editor/templates/editor/wizzard_pdf.html:107
+msgid "Formatted"
+msgstr "Biçimlendirilmiş"
+
+#: editor/templates/editor/wizzard_book.html:132
+#: editor/templates/editor/wizzard_bookjs.html:143
+#: editor/templates/editor/wizzard_ebook.html:101
+#: editor/templates/editor/wizzard_odt.html:83
+#: editor/templates/editor/wizzard_pdf.html:109
+msgid "Courier"
+msgstr "Courier"
+
+#: editor/templates/editor/wizzard_book.html:133
+#: editor/templates/editor/wizzard_bookjs.html:144
+#: editor/templates/editor/wizzard_ebook.html:102
+#: editor/templates/editor/wizzard_odt.html:84
+#: editor/templates/editor/wizzard_pdf.html:110
+msgid "Courier New"
+msgstr "Courier New"
+
+#: editor/templates/editor/wizzard_book.html:134
+#: editor/templates/editor/wizzard_bookjs.html:145
+#: editor/templates/editor/wizzard_ebook.html:103
+#: editor/templates/editor/wizzard_odt.html:85
+#: editor/templates/editor/wizzard_pdf.html:111
+msgid "Monospace"
+msgstr "Monospace"
+
+#: editor/templates/editor/wizzard_book.html:159
+#: editor/templates/editor/wizzard_bookjs.html:160
+#: editor/templates/editor/wizzard_ebook.html:118
+#: editor/templates/editor/wizzard_odt.html:100
+#: editor/templates/editor/wizzard_pdf.html:126
+msgid "Select cover image"
+msgstr "Kapak görseli seçin"
+
+#: editor/templates/editor/wizzard_book.html:161
+#: editor/templates/editor/wizzard_bookjs.html:162
+#: editor/templates/editor/wizzard_ebook.html:120
+#: editor/templates/editor/wizzard_odt.html:102
+#: editor/templates/editor/wizzard_pdf.html:128
+msgid "No Cover"
+msgstr "Kapak yok"
+
+#: editor/templates/editor/wizzard_book.html:178
+#: editor/templates/editor/wizzard_bookjs.html:179
+msgid "Others"
+msgstr "Diğerleri"
+
+#: editor/templates/editor/wizzard_book.html:199
+#: editor/templates/editor/wizzard_bookjs.html:200
+msgid "Tip: To select multiple cover files for your book (front, spine, back) please press the Control key (Ctrl)."
+msgstr "İpucu: Kontrol tuşuna (Ctrl) basılı tutarak birden fazla kapak dosyası seçebilirsiniz. (ön, sırt, arka)"
+
+#: editor/templates/editor/wizzard_book.html:207
+#: editor/templates/editor/wizzard_odt.html:146
+#: editor/templates/editor/wizzard_pdf.html:172
+msgid "Page breaks"
+msgstr "Sayfa sonları"
+
+#: editor/templates/editor/wizzard_book.html:210
+#: editor/templates/editor/wizzard_odt.html:149
+#: editor/templates/editor/wizzard_pdf.html:175
+msgid "Avoid page break in paragraphs?"
+msgstr "Paragrafları bölen sayfa sonlarını yok saymak mı istiyorsun?"
+
+#: editor/templates/editor/wizzard_book.html:212
+#: editor/templates/editor/wizzard_odt.html:151
+#: editor/templates/editor/wizzard_pdf.html:177
+msgid "Pagebreak before footnotes?"
+msgstr "Dipnotlardan önce sayfa sonlansın mı?"
+
+#: editor/templates/editor/wizzard_book.html:220
+#: editor/templates/editor/wizzard_bookjs.html:208
+#: editor/templates/editor/wizzard_pdf.html:186
+msgid "Advanced"
+msgstr "Gelişmiş"
+
+#: editor/templates/editor/wizzard_book.html:230
+#: editor/templates/editor/wizzard_bookjs.html:218
+#: editor/templates/editor/wizzard_pdf.html:196
+msgid "General"
+msgstr "Genel"
+
+#: editor/templates/editor/wizzard_book.html:234
+#: editor/templates/editor/wizzard_bookjs.html:222
+#: editor/templates/editor/wizzard_pdf.html:200
+msgid "Override Server Default CSS"
+msgstr "Sunucudaki varolan CSS in üzerine yaz"
+
+#: editor/templates/editor/wizzard_book.html:237
+#: editor/templates/editor/wizzard_pdf.html:202
+msgid "Grey Scale Output"
+msgstr "Siyah beyaz çıkış"
+
+#: editor/templates/editor/wizzard_book.html:240
+#: editor/templates/editor/wizzard_pdf.html:204
+#: editor/templates/editor/wizzard_pdf.html:206
+msgid "Rotate"
+msgstr "Döndür"
+
+#: editor/templates/editor/wizzard_book.html:240
+msgid "For RTL books on LTR printing presses, and vice versa."
+msgstr "Dökümandaki yazı yönünü baskıda değiştir"
+
+#: editor/templates/editor/wizzard_book.html:242
+msgid "Page Numbers"
+msgstr "Sayfa numaraları"
+
+#: editor/templates/editor/wizzard_book.html:244
+#: editor/templates/editor/wizzard_pdf.html:210
+msgid "LTR"
+msgstr "LTR (Soldan sağa)"
+
+#. Translators: Option for Page Numbers
+#: editor/templates/editor/wizzard_book.html:246
+#: editor/templates/editor/wizzard_pdf.html:209
+msgid "none"
+msgstr "hiçbiri"
+
+#. Translators: Option for Page Numbers. Burmese.
+#: editor/templates/editor/wizzard_book.html:248
+#: editor/templates/editor/wizzard_pdf.html:212
+msgid "my"
+msgstr "burma"
+
+#. Translators: Option for Page Numbers. Farsi.
+#: editor/templates/editor/wizzard_book.html:250
+#: editor/templates/editor/wizzard_pdf.html:214
+msgid "fa"
+msgstr "Farsi"
+
+#. Translators: Option for Page Numbers. Hindi.
+#: editor/templates/editor/wizzard_book.html:252
+#: editor/templates/editor/wizzard_pdf.html:216
+msgid "hi"
+msgstr "Hindu"
+
+#. Translators: Option for Page Numbers. Right to left.
+#: editor/templates/editor/wizzard_book.html:254
+#: editor/templates/editor/wizzard_pdf.html:218
+msgid "RTL"
+msgstr "Sağdan sola"
+
+#. Translators: Option for Page Numbers. Arabic.
+#: editor/templates/editor/wizzard_book.html:256
+#: editor/templates/editor/wizzard_pdf.html:220
+msgid "ar"
+msgstr "Arapça"
+
+#: editor/templates/editor/wizzard_book.html:257
+#: editor/templates/editor/wizzard_pdf.html:221
+msgid "auto"
+msgstr "otomatik"
+
+#: editor/templates/editor/wizzard_book.html:259
+msgid "If in doubt, choose 'auto'"
+msgstr "Eğer kararsızsan \"otomatik\" seçeneğini kullan."
+
+#: editor/templates/editor/wizzard_book.html:262
+#: editor/templates/editor/wizzard_pdf.html:226
+msgid "Force Embed Fonts"
+msgstr "Yazı karakterlerini gömmeye zorla"
+
+#: editor/templates/editor/wizzard_book.html:262
+#: editor/templates/editor/wizzard_pdf.html:226
+msgid "PDFs: force embedding of PDF default fonts"
+msgstr "PDF dökümanındaki varsayılan yazı karakterini gömmeye zorla"
+
+#: editor/templates/editor/wizzard_book.html:264
+#: editor/templates/editor/wizzard_pdf.html:228
+msgid "Cancel Page Break Control"
+msgstr "Sayfa sonu kontrolünü devre dışı bırak"
+
+#: editor/templates/editor/wizzard_book.html:264
+#: editor/templates/editor/wizzard_pdf.html:228
+msgid "Let page breaks occur immediately after headings"
+msgstr "Sayfa sonlarına başlıktan hemen sonra izin ver"
+
+#: editor/templates/editor/wizzard_book.html:277
+msgid "Table of Contents"
+msgstr "İçindekiler Tablosu"
+
+#: editor/templates/editor/wizzard_book.html:280
+msgid "Table of Contents Header"
+msgstr "İçindekiler tablo başlığı"
+
+#: editor/templates/editor/wizzard_book.html:294
+#: editor/templates/editor/wizzard_bookjs.html:243
+#: editor/templates/editor/wizzard_pdf.html:242
+msgid "Page Margins and Gutter"
+msgstr "Sayfa ve kenar boşlukları"
+
+#: editor/templates/editor/wizzard_book.html:297
+#: editor/templates/editor/wizzard_bookjs.html:246
+#: editor/templates/editor/wizzard_pdf.html:245
+msgid "Top Margin"
+msgstr "Üst kenar boşluğu"
+
+#: editor/templates/editor/wizzard_book.html:299
+#: editor/templates/editor/wizzard_bookjs.html:248
+#: editor/templates/editor/wizzard_pdf.html:247
+msgid "Side Margin"
+msgstr "Yan kenar boşluğu"
+
+#: editor/templates/editor/wizzard_book.html:301
+#: editor/templates/editor/wizzard_bookjs.html:250
+#: editor/templates/editor/wizzard_pdf.html:249
+msgid "Bottom Margin"
+msgstr "Alt kenar payı"
+
+#: editor/templates/editor/wizzard_book.html:303
+#: editor/templates/editor/wizzard_bookjs.html:252
+#: editor/templates/editor/wizzard_pdf.html:251
+msgid "Gutter"
+msgstr "Sayfa boşluğu"
+
+#: editor/templates/editor/wizzard_book.html:305
+#: editor/templates/editor/wizzard_bookjs.html:254
+msgid "Number of columns"
+msgstr "Sütun sayısı"
+
+#: editor/templates/editor/wizzard_book.html:307
+#: editor/templates/editor/wizzard_bookjs.html:256
+msgid "Column margin"
+msgstr "Sütun payı"
+
+#: editor/templates/editor/wizzard_book.html:321
+#: editor/templates/editor/wizzard_bookjs.html:270
+#: editor/templates/editor/wizzard_pdf.html:269
+msgid "Advanced (style sheets)"
+msgstr "Gelişmiş (CSS)"
+
+#: editor/templates/editor/wizzard_book.html:324
+#: editor/templates/editor/wizzard_bookjs.html:273
+#: editor/templates/editor/wizzard_pdf.html:272
+msgid "Your Custom CSS"
+msgstr "Özel CSS ayarlarınız"
+
+#: editor/templates/editor/wizzard_book.html:327
+#: editor/templates/editor/wizzard_bookjs.html:276
+#: editor/templates/editor/wizzard_odt.html:164
+#: editor/templates/editor/wizzard_pdf.html:275
+msgid "Booktype CSS (be careful if changing)"
+msgstr "byWriters CSS (değiştirirken dikkat ediniz)"
+
+#: editor/templates/editor/wizzard_book.html:331
+#: editor/templates/editor/wizzard_bookjs.html:280
+#: editor/templates/editor/wizzard_ebook.html:168
+#: editor/templates/editor/wizzard_odt.html:167
+#: editor/templates/editor/wizzard_pdf.html:279
+msgid "Override ALL previous settings with custom CSS"
+msgstr "Tüm varsayılan CSS lerin üzerine yaz"
+
+#: editor/templates/editor/wizzard_bookjs.html:64
+#: editor/templates/editor/wizzard_bookjs.html:77
+#: editor/templates/editor/wizzard_bookjs.html:99
+#: editor/templates/editor/wizzard_bookjs.html:121
+msgid "Century Schoolbook"
+msgstr "Century Schoolbook"
+
+#: editor/templates/editor/wizzard_bookjs.html:67
+#: editor/templates/editor/wizzard_bookjs.html:80
+#: editor/templates/editor/wizzard_bookjs.html:102
+#: editor/templates/editor/wizzard_bookjs.html:124
+msgid "Gentium"
+msgstr "Gentium"
+
+#: editor/templates/editor/wizzard_bookjs.html:68
+#: editor/templates/editor/wizzard_bookjs.html:81
+#: editor/templates/editor/wizzard_bookjs.html:103
+#: editor/templates/editor/wizzard_bookjs.html:125
+msgid "Liberation Serif"
+msgstr "Liberation Serif"
+
+#: editor/templates/editor/wizzard_bookjs.html:69
+#: editor/templates/editor/wizzard_bookjs.html:82
+#: editor/templates/editor/wizzard_bookjs.html:104
+#: editor/templates/editor/wizzard_bookjs.html:126
+msgid "Times New Roman"
+msgstr "Times New Roman"
+
+#: editor/templates/editor/wizzard_ebook.html:4
+msgid "Ebook Settings"
+msgstr "E-kitap ayarları"
+
+#: editor/templates/editor/wizzard_ebook.html:13
+msgid "Type of Ebook"
+msgstr "E-Kitap türü"
+
+#: editor/templates/editor/wizzard_ebook.html:16
+msgid "ipad"
+msgstr "ipad"
+
+#: editor/templates/editor/wizzard_ebook.html:18
+msgid "kindle"
+msgstr "kindle"
+
+#: editor/templates/editor/wizzard_ebook.html:20
+msgid "general"
+msgstr "genel"
+
+#: editor/templates/editor/wizzard_ebook.html:127
+#: editor/templates/editor/wizzard_odt.html:109
+#: editor/templates/editor/wizzard_pdf.html:135
+msgid "Tip: Only images of the following filetypes can be used to publish an ebook: PNG, JPEG, GIF."
+msgstr "İpucu: E-kitap yayınlarken sadece PNG, JPEG ve GIF dosya uzantılı görsel dosyalarını kullanabilirsiniz."
+
+#: editor/templates/editor/wizzard_ebook.html:163
+#: editor/templates/editor/wizzard_odt.html:160
+msgid "CSS (Advanced)"
+msgstr "CSS (Gelişmiş)"
+
+#: editor/templates/editor/wizzard_ebook.html:165
+#: editor/templates/editor/wizzard_odt.html:162
+msgid "Your custom CSS"
+msgstr "Özel CSS ayarlarınız"
+
+#: editor/templates/editor/wizzard_odt.html:3
+msgid "Open Document Text (.odt) Settings"
+msgstr "Open Document Text (.odt) Ayarları"
+
+#: editor/templates/editor/wizzard_pdf.html:3
+msgid "Screen Formatted PDF Settings"
+msgstr "Webe uyumlu PDF ayarları (72dpi)"
+
+#: editor/templates/editor/wizzard_pdf.html:223
+msgid "If in doubt, choose 'none'"
+msgstr "Kararsız kaldığınız durumda \"hiçbiri\" ni seçin"
+
+#: editor/templates/editor/wizzard_pdf.html:253
+#: editor/templates/editor/wizzard_pdf.html:255
+msgid "Columns"
+msgstr "Sütunlar"
+
+#: editor/templates/errors/editing_forbidden.html:8
+msgid "Access error"
+msgstr "Erişim hatası"
+
+#: editor/templates/errors/editing_forbidden.html:9
+msgid "You have no permission to edit this book."
+msgstr "Bu kitabı düzenlemeye yetkili değilsiniz."
+
+#: messaging/models.py:32
+msgid "sender"
+msgstr "gönderen"
+
+#: messaging/models.py:33
+#: messaging/models.py:67
+msgid "timestamp"
+msgstr "zaman damgası"
+
+#: messaging/models.py:35
+msgid "attachment"
+msgstr "eklenti"
+
+#: messaging/models.py:36
+msgid "snippet"
+msgstr "snippet"
+
+#: messaging/models.py:37
+msgid "context"
+msgstr "şartlar"
+
+#: messaging/models.py:61
+msgid "Post"
+msgstr "Gönderi"
+
+#: messaging/models.py:62
+msgid "Posts"
+msgstr "Gönderiler"
+
+#: messaging/models.py:66
+msgid "post"
+msgstr "gönderi"
+
+#: messaging/models.py:68
+msgid "endpoint"
+msgstr "son nokta"
+
+#: messaging/models.py:74
+msgid "Post appearance"
+msgstr "Gönderi görünümü"
+
+#: messaging/models.py:75
+msgid "Post appearances"
+msgstr "Gönderi görünümleri"
+
+#: messaging/models.py:85
+msgid "syntax"
+msgstr "sözdizimi"
+
+#: messaging/models.py:146
+msgid "Endpoint"
+msgstr "Son nokta"
+
+#: messaging/models.py:147
+msgid "Endpoints"
+msgstr "Son noktalar"
+
+#: messaging/models.py:150
+msgid "notification filter"
+msgstr "bildirim filtresi"
+
+#: messaging/models.py:156
+msgid "Endpoint config"
+msgstr "Son nokta yapılandırması"
+
+#: messaging/models.py:157
+msgid "Endpoint configs"
+msgstr "Son nokta yapılandırmaları"
+
+#: messaging/models.py:160
+msgid "follower"
+msgstr "takipçiler"
+
+#: messaging/models.py:161
+msgid "target"
+msgstr "hedef"
+
+#: messaging/models.py:167
+msgid "Following"
+msgstr "Takip edilen"
+
+#: messaging/models.py:168
+msgid "Followings"
+msgstr "Takip edilenler"
+
+#: messaging/views.py:112
+#, python-format
+msgid "Message from %s"
+msgstr "Bu üyeden gelen mesaj: %s"
+
+#: messaging/views.py:171
+#: reader/templates/reader/book_delete_error.html:7
+msgid "Error"
+msgstr "Hata"
+
+#: messaging/views.py:217
+msgid "Sent."
+msgstr "Gönderildi."
+
+#: messaging/templates/messaging/book_followbutton.html:5
+msgid "Follow this book"
+msgstr "Bu kitabı takip et"
+
+#: messaging/templates/messaging/book_followbutton.html:10
+msgid "Stop following this book"
+msgstr "Bu kitabı takip etmeyi bırak"
+
+#: messaging/templates/messaging/messagefield.html:8
+msgid "Attach file"
+msgstr "Ekli dosya"
+
+#: messaging/templates/messaging/messagefield.html:11
+msgid "Add Snippet"
+msgstr "Pasaj ekle"
+
+#: messaging/templates/messaging/messagefield.html:12
+msgid "Optional snippet context URL:"
+msgstr "Tercihe bağlı pasaj içerik adresi:"
+
+#: messaging/templates/messaging/messagefield.html:15
+msgid "Share"
+msgstr "Paylaş"
+
+#: messaging/templates/messaging/messagefield_button.html:3
+msgid "Post a message"
+msgstr "Mesaj gönder"
+
+#: messaging/templates/messaging/post.html:8
+msgid "send a reply"
+msgstr "cevap gönder"
+
+#: messaging/templates/messaging/post.html:11
+#: portal/templates/portal/books.html:45
+#: portal/templates/portal/frontpage.html:47
+msgid "ago"
+msgstr "önce"
+
+#: messaging/templates/messaging/post.html:22
+msgid "Snippet:"
+msgstr "Pasaj:"
+
+#: messaging/templates/messaging/post.html:24
+msgid "Context"
+msgstr "Şartlar"
+
+#: messaging/templates/messaging/tag_followbutton.html:5
+msgid "Follow this tag"
+msgstr "Bu etiketi takip et"
+
+#: messaging/templates/messaging/tag_followbutton.html:10
+msgid "Stop following this tag"
+msgstr "Bu etiketi takip etmeyi bırak"
+
+#: messaging/templates/messaging/timeline.html:4
+#, python-format
+msgid "Timeline of %(syntax)s:"
+msgstr "Geçmiş %(syntax)s:"
+
+#: messaging/templates/messaging/timeline.html:10
+msgid "No messages."
+msgstr "Mesajınız yok."
+
+#: messaging/templates/messaging/user_followbutton.html:5
+msgid "Follow me"
+msgstr "Beni takip et"
+
+#: messaging/templates/messaging/user_followbutton.html:10
+msgid "Stop following me"
+msgstr "Beni takip etmeyi bırak"
+
+#: messaging/templates/messaging/view_tag.html:5
+msgid "Tag timeline"
+msgstr "Etiket geçmişi"
+
+#: portal/templates/base.html:70
+msgid "Control Center"
+msgstr "Kontrol Merkezi"
+
+#: portal/templates/base.html:199
+msgid "Couldn't create a group!"
+msgstr "Bu grup kurulamadı"
+
+#: portal/templates/base.html:204
+#: reader/templates/reader/book_info.html:74
+msgid "Delete book"
+msgstr "Kitabı sil"
+
+#: portal/templates/errors/group_does_not_exist.html:8
+msgid "Group not found!"
+msgstr "Grup bulunamadı!"
+
+#: portal/templates/errors/group_does_not_exist.html:9
+#, python-format
+msgid "Can't find group \"%(group_name)s\"."
+msgstr "Bu grup bulunamadı: \"%(group_name)s\"."
+
+#: portal/templates/portal/books.html:5
+msgid "Booktype Books"
+msgstr "byWriters Kitapları"
+
+#: portal/templates/portal/books.html:15
+msgid "Active books"
+msgstr "Aktif kitaplar"
+
+#: portal/templates/portal/books.html:33
+msgid "Latest Books"
+msgstr "Son Kitaplar"
+
+#: portal/templates/portal/frontpage.html:5
+msgid "Booktype"
+msgstr "byWriters"
+
+#: portal/templates/portal/frontpage.html:18
+msgid "Welcome to Booktype"
+msgstr "byWriters'a Hoş Geldiniz!"
+
+#: portal/templates/portal/frontpage.html:38
+#: reader/templates/reader/book_info.html:126
+msgid "Recent activity"
+msgstr "Son aktiviteler"
+
+#: portal/templates/portal/frontpage.html:50
+msgid "Created new chapter"
+msgstr "Oluşturulan yeni alt başlık"
+
+#: portal/templates/portal/frontpage.html:55
+msgid "Created new book"
+msgstr "Oluşturulan yeni kitap"
+
+#: portal/templates/portal/group.html:5
+#, python-format
+msgid "/group: %(groupname)s"
+msgstr "/grup: %(groupname)s"
+
+#: portal/templates/portal/group.html:64
+msgid "Group"
+msgstr "Grup"
+
+#: portal/templates/portal/group.html:66
+#: portal/templates/portal/group.html:146
+msgid "Members"
+msgstr "Üyeler"
+
+#: portal/templates/portal/group.html:82
+msgid "Leave this group"
+msgstr "Bu gruptan ayrıl"
+
+#: portal/templates/portal/group.html:84
+msgid "Join this group"
+msgstr "Bu grurba katıl"
+
+#: portal/templates/portal/group.html:92
+#, python-format
+msgid "MEMBERS: %(n_members)s"
+msgstr "ÜYELER: %(n_members)s"
+
+#: portal/templates/portal/group.html:93
+#, python-format
+msgid "BOOKS: %(n_books)s"
+msgstr "KİTAPLAR: %(n_books)s"
+
+#: portal/templates/portal/group.html:101
+msgid "STATUS"
+msgstr "DURUM"
+
+#: portal/templates/portal/group.html:136
+msgid "ADD THIS BOOK TO GROUP"
+msgstr "BU KİTABI GRUBA EKLE"
+
+#: portal/templates/portal/group.html:138
+msgid "You have no books."
+msgstr "Hiç kitabınız yok."
+
+#: portal/templates/portal/groups.html:5
+msgid "Booktype Groups"
+msgstr "byWriters grupları"
+
+#: portal/templates/portal/maintenance.html:4
+msgid "Booktype is in maintenance mode right now"
+msgstr "byWriters şu anda bakımda"
+
+#: portal/templates/portal/people.html:5
+msgid "Booktype People"
+msgstr "byWriters üyeleri"
+
+#: portal/templates/portal/people.html:14
+msgid "Active people"
+msgstr "Aktif kişiler"
+
+#: portal/templates/portal/people.html:33
+msgid "New people"
+msgstr "Yeni kişiler"
+
+#: reader/templates/errors/book_does_not_exist.html:8
+msgid "Book does not exist!"
+msgstr "Böyle bir kitap bulunmamaktadır!"
+
+#: reader/templates/errors/book_does_not_exist.html:9
+#, python-format
+msgid "Can't find book \"%(book_name)s\"."
+msgstr "Böyle bir kitap bulunmamaktadır. \"%(book_name)s\"."
+
+#: reader/templates/errors/chapter_does_not_exist.html:8
+msgid "Chapter does not exist!"
+msgstr "Böyle bir alt başlık bulunmamaktadır!"
+
+#: reader/templates/errors/chapter_does_not_exist.html:9
+#, python-format
+msgid "Can't find chapter \"%(chapter_name)s\"."
+msgstr "Bu alt konu başlığı bulunamadı: \"%(chapter_name)s\"."
+
+#: reader/templates/errors/chapter_duplicate.html:8
+msgid "I don't know what to do!"
+msgstr "Ne yapacağımı bilmiyorum!"
+
+#: reader/templates/errors/chapter_duplicate.html:9
+#, python-format
+msgid "There is more then one chapter named - \"%(chapter_name)s\". I am not sure which one to show."
+msgstr "Bu alt konu için birden fazla başlık var. - \"%(chapter_name)s\". Hangisini kullanacağımdan emin değilim."
+
+#: reader/templates/reader/book_chapter.html:6
+#: reader/templates/reader/draft_chapter.html:6
+#, python-format
+msgid "/chapter: %(chaptertitle)s / %(booktitle)s"
+msgstr "/alt konu başlığı: %(chaptertitle)s / %(booktitle)s"
+
+#: reader/templates/reader/book_delete.html:3
+msgid "Delete Book"
+msgstr "Kitabı Sil"
+
+#: reader/templates/reader/book_delete.html:6
+msgid "Are you sure you would like to delete this book? You will lose all data associated to this book and you will not be able to undo this operation!"
+msgstr "Bu kitabı silmek istediğinizden emin misiniz? Bu kitap ile ilgili tüm verileri bir daha ulaşmamak üzere kaybedeceksiniz!"
+
+#: reader/templates/reader/book_delete.html:7
+msgid "Type full title of the book to delete it"
+msgstr "Silmek için kitabın adını eksiksiz yazınız"
+
+#: reader/templates/reader/book_info.html:5
+#: reader/templates/reader/book_view.html:5
+#: reader/templates/reader/draft_book.html:5
+#, python-format
+msgid "/book: %(booktitle)s"
+msgstr "/kitap: %(booktitle)s"
+
+#: reader/templates/reader/book_info.html:70
+msgid "Edit this Book"
+msgstr "Bu kitabı düzenle"
+
+#: reader/templates/reader/book_info.html:71
+msgid "View draft"
+msgstr "Önizleme"
+
+#: reader/templates/reader/book_info.html:73
+msgid "Edit book info"
+msgstr "Kitap bilgilerini düzenle"
+
+#: reader/templates/reader/book_info.html:78
+msgid "Book details"
+msgstr "Kitabın detayları"
+
+#: reader/templates/reader/book_info.html:83
+msgid "Owner:"
+msgstr "Kitabın sahibi:"
+
+#: reader/templates/reader/book_info.html:84
+msgid "Status:"
+msgstr "Durumu:"
+
+#: reader/templates/reader/book_info.html:87
+msgid "(this book is hidden from others)"
+msgstr "(bu kitap diğer kullanıcılardan gizlidir)"
+
+#: reader/templates/reader/book_info.html:89
+msgid "(this book is visible to everyone)"
+msgstr "(bu kitap tüm kullanıcılara açıktır)"
+
+#: reader/templates/reader/book_info.html:93
+msgid "Member of group:"
+msgstr "Grup üyesi:"
+
+#: reader/templates/reader/book_info.html:95
+msgid "Current version:"
+msgstr "Güncel versiyon:"
+
+#: reader/templates/reader/book_info.html:98
+msgid "Created:"
+msgstr "Oluşturulma tarihi"
+
+#: reader/templates/reader/book_info.html:99
+msgid "Published:"
+msgstr "Yayınlanma tarihi"
+
+#: reader/templates/reader/book_info.html:102
+msgid "Collaborators:"
+msgstr "Katkıda bulunanlar:"
+
+#: reader/templates/reader/book_info.html:110
+msgid "Online editing:"
+msgstr "Çevrimiçi düzenleme:"
+
+#: reader/templates/reader/book_info.html:132
+msgid "Chapter create"
+msgstr "Alt başlık oluştur"
+
+#: reader/templates/reader/book_info.html:138
+msgid "Chapter save"
+msgstr "Alt başlığı kaydet"
+
+#: reader/templates/reader/book_info.html:144
+msgid "Chapter rename"
+msgstr "Alt başlığı yeniden adlandır"
+
+#: reader/templates/reader/book_info.html:150
+msgid "Chapter reorder"
+msgstr "Alt başlığı yeniden sırala"
+
+#: reader/templates/reader/book_info.html:156
+msgid "Split chapter"
+msgstr "Alt başlığı böl"
+
+#: reader/templates/reader/book_info.html:175
+msgid "Minor version"
+msgstr "Küçük versiyon"
+
+#: reader/templates/reader/book_info.html:181
+msgid "Major version"
+msgstr "Büyük versiyon"
+
+#: reader/templates/reader/book_info.html:188
+msgid "Uploaded"
+msgstr "Yüklendi"
+
+#: reader/templates/reader/book_info.html:205
+msgid "Follow changes"
+msgstr "Değişiklikleri takip et"
+
+#: reader/templates/reader/book_view.html:36
+#: reader/templates/reader/draft_book.html:37
+msgid "click on the chapter name"
+msgstr "alt başlık adını tıklayın"
+
+#: reader/templates/reader/edit_info.html:3
+msgid "Edit Book Info"
+msgstr "Kitap bilgilerini düzenle"
+
+#: reader/templates/reader/edit_info.html:7
+msgid "Book description:"
+msgstr "Kitap hakkında açıklama:"
+
+#: reader/templates/reader/edit_info.html:9
+msgid "Book image:"
+msgstr "Kitap görseli:"
+
+#: reader/templates/reader/full.html:6
+#, python-format
+msgid "/_full: %(booktitle)s"
+msgstr "/_tümü: %(booktitle)s"
+
+#: templates/errors/no_permissions.html:8
+msgid "You have no permissions to do this!"
+msgstr "Bunu işlemi yapmaya yetkili değilsiniz!"
+
