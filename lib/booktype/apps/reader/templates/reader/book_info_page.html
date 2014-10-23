@@ -103,11 +103,6 @@
         </div>
 
         <div class="col-xs-4">
-            {% if user.is_authenticated %}
-            <div class="box gray">
-                {% include "account/form_signedin.html" %}
-            </div>
-            {% endif %}
 
             <div class="box white">
                 <h2 class="box-title">{% trans "Owner" %}</h2>

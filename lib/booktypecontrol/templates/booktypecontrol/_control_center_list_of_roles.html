@@ -1,0 +1,30 @@
+{% extends "booktypecontrol/_control_center_settings.html" %}
+{% load i18n staticfiles %}
+
+{% block control_content %}
+    <div>
+        <h4 class="border-bottom">
+            {{ option_name }}
+            <div class="btn-toolbar float-right">
+                <button data-href="#add-role" role="button" class="btn btn-default float-right btn-group" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Add new role' as create_text %} {{ create_text }}">{{ create_text|upper }}</button>
+            </div>
+        </h4>
+
+        <ul class="list list-of-pleople">
+            {% for role in roles %}
+            <li class="border-bottom role-entry">
+                <div class="list-info">
+                    <h4><a href="javascript:void(0);">{{ role.name }}</a> - {{ role.description }}</h4>
+                    <span>{% trans "Members" %}: {{ role.members.all.count }}</span>
+                </div>
+                <div class="action-btns float-right hide">
+                    <button data-href="{% url 'control_center:role_edit' role.pk %}" role="button" class="btn btn-default">{% trans "Edit" %}</button>
+                    <button data-remote="{% url 'control_center:delete_role' role.pk %}" data-toggle="modal" data-target="#deleteRoleModal" class="btn btn-default">{% trans "Delete" %}</button>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="deleteRoleModal" class="modal fade cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-
+    hidden="true"></div>
+{% endblock %}

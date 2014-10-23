@@ -1,4 +1,5 @@
-from django.forms import widgets
+# -*- coding: utf-8 -*-
+
 
 class BaseBooktypeForm(object):
     '''

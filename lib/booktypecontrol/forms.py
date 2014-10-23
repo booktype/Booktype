@@ -12,12 +12,16 @@ from django.core.validators import RegexValidator, MinLengthValidator
 from booktype.utils import config
 from booktype.apps.account.models import UserProfile
 from booktype.apps.core.forms import BaseBooktypeForm
+from booktype.apps.core.models import Role, Permission
+from booktype.apps.core.widgets import GroupedCheckboxSelectMultiple
 from booktype.apps.portal.forms import GroupCreateForm
 from booktype.apps.portal.widgets import RemovableImageWidget
 
 from booktype.utils import misc
 from booki.editor.models import License, Book, BookiGroup
-from booktype.utils.book import create_book, rename_book, check_book_availability
+from booktype.utils.book import (
+    create_book, rename_book, check_book_availability
+)
 
 
 class BaseControlForm(BaseBooktypeForm):
@@ -45,21 +49,21 @@ class BaseControlForm(BaseBooktypeForm):
 
 class SiteDescriptionForm(BaseControlForm, forms.Form):
     title = forms.CharField(
-            label=_("Site title"),
-            required=True, 
-            error_messages={'required': _('Site title is required.')},
-            max_length=200
-        )
+        label=_("Site title"),
+        required=True,
+        error_messages={'required': _('Site title is required.')},
+        max_length=200
+    )
     tagline = forms.CharField(
-            label=_("Tagline"), 
-            required=False,
-            max_length=200
-        )
+        label=_("Tagline"),
+        required=False,
+        max_length=200
+    )
     favicon = forms.FileField(
-            label=_("Favicon"), 
-            required=False, 
-            help_text=_("Upload .ico file")
-        )
+        label=_("Favicon"),
+        required=False,
+        help_text=_("Upload .ico file")
+    )
 
     @classmethod
     def initial_data(cls):
@@ -69,16 +73,21 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
         }
 
     def save_settings(self, request):
-        config.set_configuration('BOOKTYPE_SITE_NAME', self.cleaned_data['title'])
-        config.set_configuration('BOOKTYPE_SITE_TAGLINE', self.cleaned_data['tagline'])
+        config.set_configuration(
+            'BOOKTYPE_SITE_NAME', self.cleaned_data['title'])
+        config.set_configuration(
+            'BOOKTYPE_SITE_TAGLINE', self.cleaned_data['tagline'])
 
-        if self.files.has_key('favicon'):
+        if 'favicon' in self.files:
             # just check for any kind of silly error
             try:
                 fh, fname = misc.save_uploaded_as_file(self.files['favicon'])
                 shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
 
-                config.set_configuration('BOOKTYPE_SITE_FAVICON', '%s/static/favicon.ico' % settings.BOOKTYPE_URL)
+                config.set_configuration(
+                    'BOOKTYPE_SITE_FAVICON',
+                    '%s/static/favicon.ico' % settings.BOOKTYPE_URL
+                )
             except:
                 pass
 
@@ -90,10 +99,10 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
 
 class AppearanceForm(BaseControlForm, forms.Form):
     css = forms.CharField(
-            label=_('CSS'),
-            required=False,
-            widget=forms.Textarea(attrs={'rows': 20, 'cols': 40})
-        )
+        label=_('CSS'),
+        required=False,
+        widget=forms.Textarea(attrs={'rows': 20, 'cols': 40})
+    )
 
     @classmethod
     def initial_data(cls):
@@ -118,40 +127,48 @@ class AppearanceForm(BaseControlForm, forms.Form):
 
 class FrontpageForm(BaseControlForm, forms.Form):
     description = forms.CharField(
-            label=_('Welcome message'),
-            required=False, 
-            widget=forms.Textarea(attrs={'rows': 20, 'cols': 40})
-        )
+        label=_('Welcome message'),
+        required=False,
+        widget=forms.Textarea(attrs={'rows': 20, 'cols': 40})
+    )
     show_changes = forms.BooleanField(
-            label=_('Show activity'), 
-            required=False
-        )
+        label=_('Show activity'),
+        required=False
+    )
 
     @classmethod
     def initial_data(cls):
         _dict = {}
         try:
-            f = open('%s/templates/portal/welcome_message.html' % settings.BOOKTYPE_ROOT, 'r')
+            f = open(
+                '%s/templates/portal/welcome_message.html'
+                % settings.BOOKTYPE_ROOT,
+                'r'
+            )
             _dict['description'] = unicode(f.read(), 'utf8')
             f.close()
         except IOError:
             _dict['description'] = ''
 
-        _dict['show_changes'] = config.get_configuration('BOOKTYPE_FRONTPAGE_HISTORY', True)
+        _dict['show_changes'] = config.get_configuration(
+            'BOOKTYPE_FRONTPAGE_HISTORY', True)
         return _dict
 
     def save_settings(self, request):
         staticRoot = settings.BOOKTYPE_ROOT
-        config.set_configuration('BOOKTYPE_FRONTPAGE_HISTORY', self.cleaned_data['show_changes'])
+        config.set_configuration(
+            'BOOKTYPE_FRONTPAGE_HISTORY', self.cleaned_data['show_changes'])
 
         if not os.path.exists('%s/templates/portal/' % staticRoot):
             os.makedirs('%s/templates/portal/' % staticRoot)
 
         try:
-            f = open('%s/templates/portal/welcome_message.html' % staticRoot, 'w')
-            
+            f = open(
+                '%s/templates/portal/welcome_message.html' % staticRoot, 'w')
+
             text_data = self.cleaned_data.get('description', '')
-            text_data = text_data.replace('{%', '').replace('%}', '').replace('{{', '').replace('}}', '')
+            for ch in ['{%', '%}', '{{', '}}']:
+                text_data = text_data.replace(ch, '')
 
             f.write(text_data.encode('utf8'))
             f.close()
@@ -165,23 +182,23 @@ class FrontpageForm(BaseControlForm, forms.Form):
 
 class LicenseForm(BaseControlForm, forms.ModelForm):
     abbrevation = forms.CharField(
-            label=_("Abbrevation"),
-            required=True, 
-            error_messages={'required': _('Abbrevation is required.')},
-            max_length=30
-        )
+        label=_("Abbrevation"),
+        required=True,
+        error_messages={'required': _('Abbrevation is required.')},
+        max_length=30
+    )
     name = forms.CharField(
-            label=_("Name"),
-            required=True,
-            error_messages={'required': _('License name is required.')},
-            max_length=100
-        )
+        label=_("Name"),
+        required=True,
+        error_messages={'required': _('License name is required.')},
+        max_length=100
+    )
     url = forms.URLField(
-            label=_("License URL"),
-            required=True,
-            error_messages={'required': _('License name is required.')},
-            max_length=200
-        )
+        label=_("License URL"),
+        required=True,
+        error_messages={'required': _('License name is required.')},
+        max_length=200
+    )
 
     success_message = _('Succesfully created new license.')
     success_url = "#license"
@@ -201,17 +218,19 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
 
 
 class BookSettingsForm(BaseControlForm, forms.Form):
+    hlp_visible = 'If it is turned on then all\
+        books will be visible to everyone.'
     visible = forms.BooleanField(
-            label=_('Default visibility'), 
-            required=False, 
-            help_text=_('If it is turned on then all books will be visible to everyone.')
-        )
+        label=_('Default visibility'),
+        required=False,
+        help_text=_(hlp_visible)
+    )
     license = forms.ModelChoiceField(
-            label=_('Default License'), 
-            queryset=License.objects.all().order_by("name"), 
-            required=False,
-            help_text=_("Default license for newly created books.")
-        )
+        label=_('Default License'),
+        queryset=License.objects.all().order_by("name"),
+        required=False,
+        help_text=_("Default license for newly created books.")
+    )
 
     def __init__(self, *args, **kwargs):
         super(forms.Form, self).__init__(*args, **kwargs)
@@ -221,22 +240,26 @@ class BookSettingsForm(BaseControlForm, forms.Form):
         _l = config.get_configuration('CREATE_BOOK_LICENSE')
         if _l and _l != '':
             try:
-                license = License.objects.get(abbrevation = _l)
+                license = License.objects.get(abbrevation=_l)
             except License.DoesNotExist:
                 license = None
         else:
             license = None
 
         return {
-            'visible': config.get_configuration('CREATE_BOOK_VISIBLE'), 
+            'visible': config.get_configuration('CREATE_BOOK_VISIBLE'),
             'license': license
         }
 
     def save_settings(self, request):
-        config.set_configuration('CREATE_BOOK_VISIBLE', self.cleaned_data['visible'])
+        config.set_configuration(
+            'CREATE_BOOK_VISIBLE', self.cleaned_data['visible'])
 
         if 'license' in self.cleaned_data:
-            config.set_configuration('CREATE_BOOK_LICENSE', self.cleaned_data['license'].abbrevation)
+            config.set_configuration(
+                'CREATE_BOOK_LICENSE',
+                self.cleaned_data['license'].abbrevation
+            )
         else:
             config.set_configuration('CREATE_BOOK_LICENSE', '')
 
@@ -252,18 +275,18 @@ BookCreateForm = BookSettingsForm
 
 class PrivacyForm(BaseControlForm, forms.Form):
     user_register = forms.BooleanField(
-            label=_('Anyone can register'), 
-            required=False, 
-            help_text=_('Anyone can register on the site and create account')
-        )
+        label=_('Anyone can register'),
+        required=False,
+        help_text=_('Anyone can register on the site and create account')
+    )
     create_books = forms.BooleanField(
-            label=_('Only admin can create books'), 
-            required=False
-        )
+        label=_('Only admin can create books'),
+        required=False
+    )
     import_books = forms.BooleanField(
-            label=_('Only admin can import books'), 
-            required=False
-        )
+        label=_('Only admin can import books'),
+        required=False
+    )
 
     # overriding init to remove field css classes from BaseControlForm
     def __init__(self, *args, **kwargs):
@@ -278,66 +301,72 @@ class PrivacyForm(BaseControlForm, forms.Form):
         }
 
     def save_settings(self, request):
-        config.set_configuration('FREE_REGISTRATION', self.cleaned_data['user_register'])
-        config.set_configuration('ADMIN_CREATE_BOOKS', self.cleaned_data['create_books'])
-        config.set_configuration('ADMIN_IMPORT_BOOKS', self.cleaned_data['import_books'])
+        config.set_configuration(
+            'FREE_REGISTRATION', self.cleaned_data['user_register'])
+        config.set_configuration(
+            'ADMIN_CREATE_BOOKS', self.cleaned_data['create_books'])
+        config.set_configuration(
+            'ADMIN_IMPORT_BOOKS', self.cleaned_data['import_books'])
 
         try:
-            config.save_configuration()            
+            config.save_configuration()
         except config.ConfigurationError as err:
             raise err
 
 
 class AddPersonForm(BaseControlForm, forms.ModelForm):
     username = forms.CharField(
-            label=_('Username'),
-            required=True, 
-            error_messages={
-                'required': _('Username is required.'),
-                'ivalid': _("Illegal characters in username.")
-            },
-            max_length=100, 
-            validators=[
-                RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), 
-                MinLengthValidator(3)
-            ]
-        )
+        label=_('Username'),
+        required=True,
+        error_messages={
+            'required': _('Username is required.'),
+            'ivalid': _("Illegal characters in username.")
+        },
+        max_length=100,
+        validators=[
+            RegexValidator(
+                r"^[\w\d\@\.\+\-\_]+$",
+                message=_("Illegal characters in username.")
+            ),
+            MinLengthValidator(3)
+        ]
+    )
     first_name = forms.CharField(
-            label=_('First name'),
-            required=True, 
-            error_messages={'required': _('First name is required.')},                                 
-            max_length=32
-        )
+        label=_('First name'),
+        required=True,
+        error_messages={'required': _('First name is required.')},
+        max_length=32
+    )
     email = forms.EmailField(
-            label=_('Email'),
-            required=True,
-            error_messages={'required': _('Email is required.')},                                 
-            max_length=100
-        )
+        label=_('Email'),
+        required=True,
+        error_messages={'required': _('Email is required.')},
+        max_length=100
+    )
     description = forms.CharField(
-            label=_("User description"), 
-            required=False, 
-            widget=forms.Textarea
-        )
+        label=_("User description"),
+        required=False,
+        widget=forms.Textarea
+    )
     password1 = forms.CharField(
-            label=_('Password'), 
-            required=True, 
-            error_messages={'required': _('Password is required.')},
-            max_length=100, 
-            widget=forms.PasswordInput
-        )
+        label=_('Password'),
+        required=True,
+        error_messages={'required': _('Password is required.')},
+        max_length=100,
+        widget=forms.PasswordInput
+    )
     password2 = forms.CharField(
-            label=_('Password confirmation'), 
-            required=True, 
-            error_messages={'required': _('Password is required.')},
-            max_length=100, 
-            widget=forms.PasswordInput, 
-            help_text = _("Enter the same password as above, for verification.")
-        )
+        label=_('Password confirmation'),
+        required=True,
+        error_messages={'required': _('Password is required.')},
+        max_length=100,
+        widget=forms.PasswordInput,
+        help_text=_("Enter the same password as above, for verification.")
+    )
     send_email = forms.BooleanField(
-            label=_('Notify person by email'), 
-            required=False
-        )
+        label=_('Notify person by email'),
+        required=False
+    )
 
     success_message = _('Successfully created new account.')
     success_url = "#list-of-people"
@@ -369,7 +398,7 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
             raise forms.ValidationError(_("Passwords do not match."))
 
         return self.cleaned_data['password2']
-    
+
     def save_settings(self, request):
         user = User.objects.create_user(
             username=self.cleaned_data['username'],
@@ -387,17 +416,21 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         if self.cleaned_data["send_email"]:
             from django import template
 
-            t = template.loader.get_template('booktypecontrol/new_person_email.html')
+            t = template.loader.get_template(
+                'booktypecontrol/new_person_email.html')
             content = t.render(template.Context({
                 "username": self.cleaned_data['username'],
                 "password": self.cleaned_data['password2'],
-                "server":   settings.BOOKTYPE_URL
+                "server": settings.BOOKTYPE_URL
             }))
 
             from django.core.mail import EmailMultiAlternatives
             emails = [self.cleaned_data['email']]
 
-            msg = EmailMultiAlternatives('You have a new Booktype Account ', content, settings.REPORT_EMAIL_USER, emails)
+            msg = EmailMultiAlternatives(
+                'You have a new Booktype Account',
+                content, settings.REPORT_EMAIL_USER, emails
+            )
             msg.attach_alternative(content, "text/html")
             msg.send(fail_silently=True)
 
@@ -416,41 +449,46 @@ class ListOfPeopleForm(BaseControlForm, forms.Form):
 
 class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
     username = forms.CharField(
-            label=_('Username'),
-            required=True, 
-            max_length=100, 
-            error_messages={'required': _('Username is required.'),
-                           'ivalid': _("Illegal characters in username.")},
-            validators=[
-                RegexValidator(r"^[\w\d\@\.\+\-\_]+$", message=_("Illegal characters in username.")), 
-                MinLengthValidator(3)
-            ]
-        )
+        label=_('Username'),
+        required=True,
+        max_length=100,
+        error_messages={
+            'required': _('Username is required.'),
+            'ivalid': _("Illegal characters in username.")
+        },
+        validators=[
+            RegexValidator(
+                r"^[\w\d\@\.\+\-\_]+$",
+                message=_("Illegal characters in username.")
+            ),
+            MinLengthValidator(3)
+        ]
+    )
     first_name = forms.CharField(
-            label=_('First name'),
-            required=True, 
-            error_messages={'required': _('First name is required.')},                                 
-            max_length=32
-        )
+        label=_('First name'),
+        required=True,
+        error_messages={'required': _('First name is required.')},
+        max_length=32
+    )
     email = forms.EmailField(
-            label=_('Email'),
-            required=True,
-            error_messages={'required': _('Email is required.')},                                 
-            max_length=100
-        )
+        label=_('Email'),
+        required=True,
+        error_messages={'required': _('Email is required.')},
+        max_length=100
+    )
     profile = forms.ImageField(
-            label=_('Profile picture'),
-            required=False,
-            widget=RemovableImageWidget(attrs={
-                'label_class': 'checkbox-inline',
-                'input_class': 'group-image-removable'
-            })
-        )
+        label=_('Profile picture'),
+        required=False,
+        widget=RemovableImageWidget(attrs={
+            'label_class': 'checkbox-inline',
+            'input_class': 'group-image-removable'
+        })
+    )
     description = forms.CharField(
-            label=_("User description"), 
-            required=False, 
-            widget=forms.Textarea
-        )
+        label=_("User description"),
+        required=False,
+        widget=forms.Textarea
+    )
 
     class Meta(AddPersonForm.Meta):
         pass
@@ -465,20 +503,20 @@ class PasswordForm(BaseControlForm, forms.Form):
     }
 
     password1 = forms.CharField(
-            label=_('Password'), 
-            required=True, 
-            error_messages={'required': _('Password is required.')},
-            max_length=100, 
-            widget=forms.PasswordInput
-        )
+        label=_('Password'),
+        required=True,
+        error_messages={'required': _('Password is required.')},
+        max_length=100,
+        widget=forms.PasswordInput
+    )
     password2 = forms.CharField(
-            label=_('Password confirmation'), 
-            required=True, 
-            max_length=100, 
-            error_messages={'required': _('Password is required.')},
-            widget=forms.PasswordInput, 
-            help_text = _("Enter the same password as above, for verification.")
-        )
+        label=_('Password confirmation'),
+        required=True,
+        max_length=100,
+        error_messages={'required': _('Password is required.')},
+        widget=forms.PasswordInput,
+        help_text=_("Enter the same password as above, for verification.")
+    )
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -502,36 +540,36 @@ class PasswordForm(BaseControlForm, forms.Form):
 
 class AddBookForm(BaseControlForm, forms.Form):
     title = forms.CharField(
-            label=_("Title"), 
-            error_messages={'required': _('Title is required.')},                                 
-            required=True, 
-            max_length=100
-        )
+        label=_("Title"),
+        error_messages={'required': _('Title is required.')},
+        required=True,
+        max_length=100
+    )
     description = forms.CharField(
-            label=_('Description'),
-            required=False, 
-            widget=forms.Textarea
-        )
+        label=_('Description'),
+        required=False,
+        widget=forms.Textarea
+    )
     owner = forms.ModelChoiceField(
-            label=_('Owner'),
-            error_messages={'required': _('Book owner is required.')},                                 
-            queryset=User.objects.all().order_by("username"), 
-            required=True
-        )
+        label=_('Owner'),
+        error_messages={'required': _('Book owner is required.')},
+        queryset=User.objects.all().order_by("username"),
+        required=True
+    )
     license = forms.ModelChoiceField(
-            label=_('License'),
-            queryset=License.objects.all().order_by("name"), 
-            error_messages={'required': _('License is required.')},                                 
-            required=True
-        )
+        label=_('License'),
+        queryset=License.objects.all().order_by("name"),
+        error_messages={'required': _('License is required.')},
+        required=True
+    )
     is_hidden = forms.BooleanField(
-            label=_('Initially hide from others'), 
-            required=False
-        )
+        label=_('Initially hide from others'),
+        required=False
+    )
     cover = forms.ImageField(
-            label=_('Book image'),
-            required=False
-        )
+        label=_('Book image'),
+        required=False
+    )
 
     success_message = _('Successfully created new book.')
 
@@ -541,20 +579,23 @@ class AddBookForm(BaseControlForm, forms.Form):
         return self.cleaned_data['title']
 
     def save_settings(self, request):
-        book = create_book(self.cleaned_data['owner'], self.cleaned_data['title'])
+        book = create_book(
+            self.cleaned_data['owner'],
+            self.cleaned_data['title']
+        )
         book.license = self.cleaned_data['license']
         book.description = self.cleaned_data['description']
         book.hidden = self.cleaned_data['is_hidden']
         book.save()
 
-        if self.files.has_key('cover'):
+        if 'cover' in self.files:
             try:
                 fh, fname = misc.save_uploaded_as_file(self.files['cover'])
                 book.set_cover(fname)
                 os.unlink(fname)
             except:
                 pass
-            
+
         book.save()
 
         return book
@@ -572,18 +613,19 @@ class ListOfBooksForm(BaseControlForm, forms.Form):
 
 class BookRenameForm(BaseControlForm, forms.ModelForm):
     title = forms.CharField(
-            label=_("Title"), 
-            required=True, 
-            error_messages={'required': _('Title is required.')},                                 
-            max_length=200
-        )
+        label=_("Title"),
+        required=True,
+        error_messages={'required': _('Title is required.')},
+        max_length=200
+    )
     url_title = forms.SlugField(
-            label=_("URL title"), 
-            required=False, 
-            max_length=200, 
-            error_messages={'invalid': _("Illegal characters in URL title.")},
-            help_text=_("If you leave this field empty URL title will be assigned automatically.")
-        )
+        label=_("URL title"),
+        required=False,
+        max_length=200,
+        error_messages={'invalid': _("Illegal characters in URL title.")},
+        help_text=_("If you leave this field empty URL\
+        title will be assigned automatically.")
+    )
 
     class Meta:
         model = Book
@@ -601,7 +643,11 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
         return "{0}#list-of-books".format(self.cancel_url)
 
     def save(self, *args, **kwargs):
-        rename_book(self.instance, self.cleaned_data['title'], self.cleaned_data['url_title'])
+        rename_book(
+            self.instance,
+            self.cleaned_data['title'],
+            self.cleaned_data['url_title']
+        )
         return super(BookRenameForm, self).save(*args, **kwargs)
 
     def clean_url_title(self):
@@ -613,26 +659,26 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
 
 class PublishingForm(BaseControlForm, forms.Form):
     publish_book = forms.BooleanField(
-            label=_('book'), 
-            required=False
-        )
+        label=_('book'),
+        required=False
+    )
     publish_ebook = forms.BooleanField(
-            label=_('ebook'), 
-            required=False
-        )
+        label=_('ebook'),
+        required=False
+    )
     publish_pdf = forms.BooleanField(
-            label=_('PDF'), 
-            required=False
-        )
+        label=_('PDF'),
+        required=False
+    )
     publish_odt = forms.BooleanField(
-            label=_('ODT'), 
-            required=False
-        )
+        label=_('ODT'),
+        required=False
+    )
 
     @classmethod
     def initial_data(cls):
         publish_options = config.get_configuration('PUBLISH_OPTIONS')
-        
+
         return {
             'publish_book': 'book' in publish_options,
             'publish_ebook': 'ebook' in publish_options,
@@ -641,77 +687,80 @@ class PublishingForm(BaseControlForm, forms.Form):
         }
 
     def save_settings(self, request):
-        opts = []        
-        if self.cleaned_data['publish_book']: opts.append('book')
-        if self.cleaned_data['publish_ebook']: opts.append('ebook')
-        if self.cleaned_data['publish_pdf']: opts.append('pdf')
-        if self.cleaned_data['publish_odt']: opts.append('odt')
+        opts = []
+        for _opt in ['book', 'ebook', 'pdf', 'odt']:
+            if 'publish_%s' % _opt in self.cleaned_data:
+                opts.append(_opt)
 
         config.set_configuration('PUBLISH_OPTIONS', opts)
 
         try:
-            config.save_configuration()            
+            config.save_configuration()
         except config.ConfigurationError as err:
             raise err
 
 
-class PublishingDefaultsForm(BaseControlForm,  forms.Form):
+class PublishingDefaultsForm(BaseControlForm, forms.Form):
     book_css = forms.CharField(
-            label=_('Book CSS'), 
-            required=False, 
-            widget=forms.Textarea(attrs={
-                'rows': 30,
-                'style': 'max-width: 500px'
-            })
-        )
+        label=_('Book CSS'),
+        required=False,
+        widget=forms.Textarea(attrs={
+            'rows': 30,
+            'style': 'max-width: 500px'
+        })
+    )
     ebook_css = forms.CharField(
-            label=_('E-Book CSS'), 
-            required=False, 
-            widget=forms.Textarea(attrs={
-                'rows': 30,
-                'style': 'max-width: 500px'
-            })
-        )
+        label=_('E-Book CSS'),
+        required=False,
+        widget=forms.Textarea(attrs={
+            'rows': 30,
+            'style': 'max-width: 500px'
+        })
+    )
     pdf_css = forms.CharField(
-            label=_('PDF CSS'), 
-            required=False, 
-            widget=forms.Textarea(attrs={
-                'rows': 30,
-                'style': 'max-width: 500px'
-            })
-        )
+        label=_('PDF CSS'),
+        required=False,
+        widget=forms.Textarea(attrs={
+            'rows': 30,
+            'style': 'max-width: 500px'
+        })
+    )
     odt_css = forms.CharField(
-            label=_('ODT CSS'), 
-            required=False, 
-            widget=forms.Textarea(attrs={
-                'rows': 30,
-                'style': 'max-width: 500px'
-            })
-        )
+        label=_('ODT CSS'),
+        required=False,
+        widget=forms.Textarea(attrs={
+            'rows': 30,
+            'style': 'max-width: 500px'
+        })
+    )
 
     @classmethod
     def initial_data(cls):
         return {
-            'book_css':  config.get_configuration('BOOKTYPE_CSS_BOOK', ''),
+            'book_css': config.get_configuration('BOOKTYPE_CSS_BOOK', ''),
             'ebook_css': config.get_configuration('BOOKTYPE_CSS_EBOOK', ''),
-            'pdf_css':   config.get_configuration('BOOKTYPE_CSS_PDF', ''),
-            'odt_css':   config.get_configuration('BOOKTYPE_CSS_ODT', '')
+            'pdf_css': config.get_configuration('BOOKTYPE_CSS_PDF', ''),
+            'odt_css': config.get_configuration('BOOKTYPE_CSS_ODT', '')
         }
 
     def save_settings(self, request):
         data = self.__class__.initial_data()
 
         if self.cleaned_data['book_css'] != data['book_css']:
-            config.set_configuration('BOOKTYPE_CSS_BOOK', self.cleaned_data['book_css'])
+            config.set_configuration(
+                'BOOKTYPE_CSS_BOOK', self.cleaned_data['book_css'])
 
         if self.cleaned_data['ebook_css'] != data['ebook_css']:
-            config.set_configuration('BOOKTYPE_CSS_EBOOK', self.cleaned_data['ebook_css'])
+            config.set_configuration(
+                'BOOKTYPE_CSS_EBOOK', self.cleaned_data['ebook_css'])
 
         if self.cleaned_data['pdf_css'] != data['pdf_css']:
-            config.set_configuration('BOOKTYPE_CSS_PDF', self.cleaned_data['pdf_css'])
+            config.set_configuration(
+                'BOOKTYPE_CSS_PDF', self.cleaned_data['pdf_css'])
 
         if self.cleaned_data['odt_css'] != data['odt_css']:
-            config.set_configuration('BOOKTYPE_CSS_ODT', self.cleaned_data['odt_css'])
+            config.set_configuration(
+                'BOOKTYPE_CSS_ODT', self.cleaned_data['odt_css'])
 
         try:
             config.save_configuration()
@@ -754,3 +803,62 @@ class AddGroupForm(BaseControlForm, GroupCreateForm, forms.ModelForm):
             self.set_group_image(group.pk, group_image)
 
         return group
+
+
+class ListOfRolesForm(BaseControlForm, forms.Form):
+    pass
+
+    @classmethod
+    def extra_context(cls):
+        return {
+            'roles': Role.objects.all().order_by("name")
+        }
+
+
+class AddRoleForm(BaseControlForm, forms.ModelForm):
+
+    success_message = _('Successfully created new role.')
+    success_url = '#list-of-roles'
+
+    def __init__(self, *args, **kwargs):
+        super(AddRoleForm, self).__init__(*args, **kwargs)
+
+        def _get_full_name(self):
+            """
+            To monkey patching Django User model to get full name in
+            members field
+            """
+            _fn = self.get_full_name()
+            if _fn:
+                return "%s (%s)" % (_fn, self.username)
+            return self.username
+
+        # ugly monkey patching. Probably there's a way to
+        # avoid this, but I can't figure it out now
+        User.__unicode__ = _get_full_name
+
+    class Meta:
+        model = Role
+        exclude = ['members']
+        widgets = {
+            'description': forms.Textarea,
+            'permissions': GroupedCheckboxSelectMultiple(
+                choices=Permission.objects.all(),
+                attrs={
+                    'group_by': 'app_name',
+                    'css_class': 'grouped_perms'
+                }
+            ),
+        }
+
+    def get_cancel_url(self):
+        return "{0}{1}".format(self.cancel_url, self.success_url)
+
+    def save_settings(self, request):
+        # save role first
+        role = self.save()
+
+        # auto-join owner as role member
+        role.members.add(request.user)
+
+        return role

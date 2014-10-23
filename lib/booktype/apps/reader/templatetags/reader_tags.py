@@ -32,6 +32,7 @@ ACTIVITY_KIND_VERBOSE = {
     4:  _("Chapter reorder"),
     5:  _("Split chapter"),
     6:  _("Created new section"),
+    7:  _("Renamed section"),
     10: _("Created new book"),
     11: _("Minor version"),
     12: _("Major version"),
@@ -51,7 +52,7 @@ def verbose_activity(activity):
     link_url = None
     book = activity.book
     book_version = book.version.get_version()
-    
+
     if verbose:
         title = verbose
 
@@ -85,8 +86,8 @@ def verbose_activity(activity):
             )
 
         activity_dict = dict(
-            verbose=verbose, 
-            image_url=default_image, 
+            verbose=verbose,
+            image_url=default_image,
             modified=activity.modified,
             user=activity.user,
             book=book,
