@@ -8,8 +8,8 @@ from booktype.utils.permissions import (
     create_permissions, permissions_for_app
 )
 
-# this is to print yellow color messages in terminal
-WARNING = '\033[93m'
+BOLD_ON = '\033[1m'
+BOLD_OFF = '\033[0m'
 
 
 class Command(BaseCommand):
@@ -37,7 +37,8 @@ class Command(BaseCommand):
 
         if options['delete_orphans']:
             orphan_perms.delete()
-            print WARNING + "All undeclared permissions has been deleted."
+            msg = "All undeclared permissions has been deleted."
+            print BOLD_ON + msg + BOLD_OFF
         else:
             if orphan_perms.count() > 0:
                 suggestion = (
@@ -45,4 +46,4 @@ class Command(BaseCommand):
                     "To delete them use: \n"
                     "./manage.py update_permissions --delete-orphans"
                 )
-                print WARNING + suggestion % orphan_perms.count()
+                print BOLD_ON + suggestion % orphan_perms.count() + BOLD_OFF
