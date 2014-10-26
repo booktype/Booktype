@@ -78,15 +78,22 @@
       </ul>
     </section>
 
-    <section class="tab-content" source_id="chat-tab">
-        <h3>{% trans "Chat" %}</h3>
-
-        <div style="border: 1px solid gray; width: 100%; height: 300px; padding: 0px; overflow: auto; " class="content">
+    <section class="tab-content chat" source_id="chat-tab">
+       <h3>{% trans "Chat" %}</h3>
+       <div class="notification-list-box">
+         <ul class="notification-list">
+         </ul>
+       </div>
+       <div class="notification-write-box">
+         <textarea class="notification-writer" placeholder="Post a notification"></textarea>
+         <div class="notification-important">
+           <i class="icon-info-sign"></i>
         </div>
-
-        <form action="return false;" onsubmit="javascript: return false;">
-           <input type="text" name="message" style="width: 95%;" value=""/>
-        </form>
+        <div class="button-area clearfix">
+           <a class="btn btn-primary pull-right send-notif">{% trans "Send" %}</a>
+           <a class="btn btn-default pull-right cancel-notif">{% trans "Cancel" %}</a>
+        </div>
+       </div>
     </section>
 
     <section class="tab-content notes-tab" source_id="notes-tab">
@@ -146,8 +153,16 @@
   </div>
 </div>
 
-<p class="joinMsg template">{% blocktrans %}<span class="icon">JOINED</span> <span class="notice">notice</span>{% endblocktrans %}</p>
-<p class="infoMsg template">{% blocktrans %}<span class="info">INFO</span> <span class="notice">notice</span>{% endblocktrans %}</p>
+<script type="text/html" id="templateUserJoined">
+  <li class="personal">
+    <figure class="notification-avatar">
+      <img src="<%= avatar %>"/>
+    </figure>
+    <div class="notification-content">
+      {% blocktrans %}<p class="notification-text"><%= username %> joined </p><span class="notification-info"><%= info %></span>{% endblocktrans %}
+    </li>
+</script>
+
 
 {% include "edit/edit_strings.html" %}
 
