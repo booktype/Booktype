@@ -11,6 +11,7 @@ from booktype.utils.permissions import (
 BOLD_ON = '\033[1m'
 BOLD_OFF = '\033[0m'
 
+
 class Command(BaseCommand):
     help = 'Reloads permissions for specified apps, or all apps if \
         no args are specified'
@@ -36,7 +37,8 @@ class Command(BaseCommand):
 
         if options['delete_orphans']:
             orphan_perms.delete()
-            print BOLD_ON + "All undeclared permissions has been deleted." + BOLD_OFF
+            msg = "All undeclared permissions has been deleted."
+            print BOLD_ON + msg + BOLD_OFF
         else:
             if orphan_perms.count() > 0:
                 suggestion = (
