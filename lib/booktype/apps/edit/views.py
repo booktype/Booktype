@@ -41,7 +41,8 @@ from . import forms as book_forms
 
 VALID_SETTINGS = {
     'language': _('Book Language'),
-    'license': _('Book License')
+    'license': _('Book License'),
+    'metadata': _('Book Metadata'),
 }
 
 getTOCForBook = get_toc_for_book
@@ -56,22 +57,26 @@ def upload_attachment(request, bookid, version=None):
 
     book_version = book.get_version(version)
 
-    stat = models.BookStatus.objects.filter(book = book)[0]
-
-    operationResult = True
+    stat = models.BookStatus.objects.filter(book=book)[0]
 
     # check this for transactions
     try:
         fileData = request.FILES['files[]']
-        att = models.Attachment(version = book_version,
-                                # must remove this reference
-                                created = datetime.datetime.now(),
-                                book = book,
-                                status = stat)
+        att = models.Attachment(
+            version=book_version,
+            # must remove this reference
+            created=datetime.datetime.now(),
+            book=book,
+            status=stat
+        )
         att.save()
 
         attName, attExt = os.path.splitext(fileData.name)
-        att.attachment.save('{}{}'.format(booktype_slugify(attName), attExt), fileData, save = False)
+        att.attachment.save(
+            '{}{}'.format(booktype_slugify(attName), attExt),
+            fileData,
+            save=False
+        )
         att.save()
 
         # TODO:
@@ -80,21 +85,22 @@ def upload_attachment(request, bookid, version=None):
     #     operationResult = False
     #     transaction.rollback()
     except:
-        oprerationResult = False
         transaction.rollback()
     else:
-       # maybe check file name now and save with new name
-       transaction.commit()
+        # maybe check file name now and save with new name
+        transaction.commit()
 
-
-    response_data = {"files":[{"url":"http://127.0.0.1/",
-                                "thumbnail_url":"http://127.0.0.1/",
-                                "name":"boot.png",
-                                "type":"image/png",
-                                "size":172728,
-                                "delete_url":"",
-                                "delete_type":"DELETE"}]}
-
+    response_data = {
+        "files": [{
+            "url": "http://127.0.0.1/",
+            "thumbnail_url": "http://127.0.0.1/",
+            "name": "boot.png",
+            "type": "image/png",
+            "size": 172728,
+            "delete_url": "",
+            "delete_type": "DELETE"
+        }]
+    }
 
     if "application/json" in request.META['HTTP_ACCEPT']:
         return HttpResponse(json.dumps(response_data), mimetype="application/json")
@@ -108,7 +114,8 @@ def upload_cover(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(request, "errors/book_does_not_exist.html",
+                               {"book_name": bookid})
 
     # check this for transactions
     try:
@@ -127,24 +134,24 @@ def upload_cover(request, bookid, version=None):
         license = models.License.objects.get(abbrevation=request.POST.get('license', ''))
 
         cover = models.BookCover(
-            book = book,
-            user = request.user,
-            cid = h.hexdigest(),
-            title = title,
-            filename = filename[:250],
-            width = 0,
-            height = 0,
-            unit = request.POST.get('unit', 'mm'),
-            booksize = request.POST.get('booksize', ''),
-            cover_type = request.POST.get('type', ''),
-            creator = request.POST.get('creator', '')[:40],
-            license = license,
-            notes = request.POST.get('notes', '')[:500],
-            approved = False,
-            is_book = False,
-            is_ebook = True,
-            is_pdf = False,
-            created = datetime.datetime.now()
+            book=book,
+            user=request.user,
+            cid=h.hexdigest(),
+            title=title,
+            filename=filename[:250],
+            width=0,
+            height=0,
+            unit=request.POST.get('unit', 'mm'),
+            booksize=request.POST.get('booksize', ''),
+            cover_type=request.POST.get('type', ''),
+            creator=request.POST.get('creator', '')[:40],
+            license=license,
+            notes=request.POST.get('notes', '')[:500],
+            approved=False,
+            is_book=False,
+            is_ebook=True,
+            is_pdf=False,
+            created=datetime.datetime.now()
         )
         cover.save()
 
@@ -359,7 +366,11 @@ class ChapterMixin(BaseReaderView):
     def get_context_data(self, **kwargs):
         if 'chapter' in self.kwargs:
             try:
-                self.chapter = get_object_or_404(models.Chapter, book=self.object, url_title=self.kwargs['chapter'])
+                self.chapter = get_object_or_404(
+                    models.Chapter,
+                    book=self.object,
+                    url_title=self.kwargs['chapter']
+                )
             except Http404:
                 self.not_found = True
                 context = dict(
@@ -549,6 +560,7 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
             self.chapter.url_title
         )
         return HttpResponseRedirect(url)
+
 
 class BookSettingsView(LoginRequiredMixin, JSONResponseMixin, BaseReaderView, FormView):
 
