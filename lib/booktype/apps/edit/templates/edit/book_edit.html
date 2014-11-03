@@ -129,6 +129,24 @@
 
     <section class="tab-content" source_id="history-tab">
         <h3>{% trans "History" %}</h3>
+        {% verbatim %}
+        <script type="text/html" id="templateChapterRevision">
+          <li <% if (active) { %> class="active" <% } %> >
+            <div class="list-info">
+              <span class="revision-number"><%= revision %></span>
+              <span class="revision-time"><%= modified %></span>
+              <h4><a href="#"><%= user %></a></h4>
+              <div class="restore-btn" style="display: none;">
+                <button type="button" data-revision="<%= revision %>" class="btn btn-default btn-xs"><%= label %></button>
+              </div>
+            </div>
+          </li>
+        </script>
+      {% endverbatim %}
+        <div class="scrollable">
+          <ul class="list border-top history" id="history-tab-list">
+          </ul>
+        </div>
     </section>    
 </div>
 {% endblock %}

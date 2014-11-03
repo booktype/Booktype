@@ -1319,7 +1319,10 @@ def remote_clone_chapter(request, message, bookid, version):
                                                                 "message_args": [request.user.username, chapter.title, source_book.title]},
                                 myself=True)
 
-    sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
+    sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),
+                                {"command": "chapter_create",
+                                 "chapter": result},
+                                 myself = True)
 
     return {"result": True, "created": True}
 
@@ -2472,7 +2475,8 @@ def remote_get_chapter_history(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    chapter_history = models.ChapterHistory.objects.filter(chapter__book=book, chapter__url_title=message["chapter"]).order_by("-modified")
+    chapter_history = models.ChapterHistory.objects.filter(chapter__book=book,
+                                                           chapter__id=message["chapter"]).order_by("-modified")
 
     history = []
 
@@ -2510,9 +2514,12 @@ def remote_revert_revision(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    chapter = models.Chapter.objects.get(version=book_version, url_title=message["chapter"])
+    chapter = models.Chapter.objects.get(version=book_version,
+                                         id=message["chapter"])
 
-    revision = models.ChapterHistory.objects.get(revision=message["revision"], chapter__url_title=message["chapter"], chapter__version=book_version.id)
+    revision = models.ChapterHistory.objects.get(revision=message["revision"],
+                                                 chapter__id=message["chapter"],
+                                                 chapter__version=book_version.id)
 
     # TODO
     # does chapter history really needs to keep content or it can only keep reference to chapter
@@ -2977,8 +2984,13 @@ def remote_chapter_diff(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    revision1 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision1"])
-    revision2 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision2"])
+    revision1 = models.ChapterHistory.objects.get(chapter__book=book,
+                                                  chapter__id=message["chapter"],
+                                                  revision=message["revision1"])
+    revision2 = models.ChapterHistory.objects.get(chapter__book=book,
+                                                  chapter__id=message["chapter"],
+                                                  revision=message["revision2"])
+    content = message.get("content")
 
 
     import difflib
@@ -2989,8 +3001,13 @@ def remote_chapter_diff(request, message, bookid, version):
 #    content1 = unicode(etree.tostring(etree.fromstring(u'<html>'+revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n')+u'</html>'), method="text", encoding='UTF-8'), 'utf8').splitlines(1)
 #    content2 = unicode(etree.tostring(etree.fromstring(u'<html>'+revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n')+u'</html>'), method="text", encoding='UTF-8'), 'utf8').splitlines(1)
 
-    content1 = revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
-    content2 = revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
+    if revision1 != revision2 and not content:
+        content1 = revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
+        content2 = revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
+    else:
+        #check with unsaved content
+        content1 = revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
+        content2 = content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
 
     lns = [line for line in difflib.ndiff(content1, content2)]
 
