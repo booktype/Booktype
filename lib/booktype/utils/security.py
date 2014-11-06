@@ -195,12 +195,12 @@ def has_perm(user, to_do, book=None):
         return False
     else:
         permissions = []
-        roles = user.roles.all()
+        bookroles = user.roles.all()
 
         if book:
-            roles = roles.filter(book=book)
-        for role in roles:
-            permissions += [p for p in role.permissions.all()]
+            bookroles = bookroles.filter(book=book)
+        for bookrole in bookroles:
+            permissions += [p for p in bookrole.role.permissions.all()]
         return (permission in permissions)
 
     return False

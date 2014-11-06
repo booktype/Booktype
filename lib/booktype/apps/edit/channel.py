@@ -19,16 +19,18 @@ import os
 import sputnik
 from lxml import etree, html
 
-from django.db import transaction
-from django.conf import settings
 from django.db.models import Q
+from django.conf import settings
+from django.db import transaction
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
-
-from booki.utils.log import logBookHistory, logChapterHistory
 
 from booki.editor import models
 from booki.utils import security
+from booki.utils.log import logBookHistory, logChapterHistory
+
 from booktype.utils.misc import booktype_slugify
+from booktype.apps.core.models import Role, BookRole
 
 
 # this couple of functions should go to models.BookVersion
@@ -3156,3 +3158,56 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
 
     return {"result": True,
             "output": info + '<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: ' + message["revision2"] + '</div></td></tr>\n'.join(output) + '</table>\n'}
+
+
+def remote_assign_to_role(request, message, bookid, version):
+    """
+    Remote to assign user to an specific role. It checks if the role
+    already exists for the current book, otherwise, it creates the role
+    and assign the user as a member
+
+    Arguments:
+        - role
+        - user
+    """
+
+    try:
+        user = User.objects.get(id=message['userid'])
+    except User.DoesNotExist:
+        return {'result': False}
+
+    book, _version, _security = get_book(request, bookid, version)
+
+    for roleid in message['roles']:
+        # check if roles exist, otherwise continue with next loop
+        try:
+            role = Role.objects.get(id=roleid)
+        except:
+            continue
+
+        book_role, _ = BookRole.objects.get_or_create(
+            role=role,
+            book=book
+        )
+        book_role.members.add(user)
+
+    return {'result': True}
+
+
+def remote_remove_user_from_role(request, message, bookid, version):
+    """
+    Removes a given user from an specific role.
+
+    Arguments:
+        - role
+        - user
+    """
+
+    try:
+        user = User.objects.get(id=message['userid'])
+        role = BookRole.objects.get(id=message['roleid'])
+    except Exception:
+        return {'result': False}
+
+    role.members.remove(user)
+    return {'result': True}

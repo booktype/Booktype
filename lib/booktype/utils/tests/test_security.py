@@ -28,7 +28,8 @@ class SecurityUtilsTestCase(TestCase):
         )
 
         # create role with permission
-        self.role = factory_models.RoleFactory()
+        self.bookrole = factory_models.BookRoleFactory()
+        self.role = self.bookrole.role
         self.role.permissions.add(self.can_test_permission)
 
     def test_has_perm(self):
@@ -48,11 +49,11 @@ class SecurityUtilsTestCase(TestCase):
         # let's create a book and set it to the role
         # so we can scope permissions just for that book
         book = factory_models.BookFactory()
-        self.role.book = book
+        self.bookrole.book = book
 
         # also put user as member of that role
-        self.role.members.add(self.user)
-        self.role.save()
+        self.bookrole.members.add(self.user)
+        self.bookrole.save()
 
         permission = '%s.%s' % (APP_NAME, CODE_NAME)
         self.assertTrue(
