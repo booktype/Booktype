@@ -3057,6 +3057,64 @@ def remote_book_status_create(request, message, bookid, version):
             "statuses": allStatuses
             }
 
+def remote_book_status_rename(request, message, bookid, version):
+    """
+    Rename book status.
+
+    Sends notification to chat.
+   
+    Input:
+     - status_id
+     
+    Output:
+     - status
+     - result
+     - statuses
+   
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of all statuses
+    """
+
+    book = models.Book.objects.get(id=bookid)
+
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+
+    if not bookSecurity.isAdmin():
+        return {"status": False}        
+
+    from django.utils.html import strip_tags
+
+    result = True
+    
+    try:
+        up = models.BookStatus.objects.get(book = book, id = message["status_id"])
+        up.name = strip_tags(message["status_name"].strip())
+        up.save()
+    except models.BookStatus.DoesNotExist:
+        transaction.rollback()
+    else:
+        transaction.commit()
+
+    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+
+    sputnik.addMessageToChannel(request,
+                                "/booki/book/%s/%s/" % (bookid, version),
+                                {"command": "chapter_status_changed",
+                                 "statuses": allStatuses},
+                                myself = False
+                                )
+
+    return {"status": True,
+            "result": result,
+            "statuses": allStatuses}
 
 def remote_book_status_remove(request, message, bookid, version):
     """
