@@ -25,7 +25,7 @@ from booki.editor.models import BookStatus, BookToc, BookHistory
 from booki.editor.models import BookiGroup
 
 from booktype.apps.account.models import UserProfile
-from booktype.apps.core.models import Permission, Role
+from booktype.apps.core.models import Permission, Role, BookRole
 
 PLAIN_USER_PASSWORD = 'top_secret'
 
@@ -145,3 +145,10 @@ class RoleFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Role
 
     name = factory.Sequence(lambda n: 'Role %d' % n)
+
+
+class BookRoleFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = BookRole
+
+    book = factory.SubFactory(BookFactory)
+    role = factory.SubFactory(RoleFactory)

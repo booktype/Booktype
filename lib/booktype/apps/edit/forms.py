@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.utils.translation import ugettext as _
+from django.contrib.auth.models import User
+
 from booktype.apps.portal.forms import SpanErrorList
+from booktype.apps.core.models import BookRole, Role
 from booktype.apps.core.forms import BaseBooktypeForm
 from booki.editor.models import (
     Language, Info, License)
@@ -161,3 +164,14 @@ class MetadataForm(BaseSettingsForm, forms.Form):
 
                 meta.value_string = value
                 meta.save()
+
+
+class RolesForm(BaseSettingsForm, forms.Form):
+
+    @classmethod
+    def extra_context(cls, book=None, request=None):
+        return {
+            'roles': BookRole.objects.filter(book=book).order_by('role__name'),
+            'global_roles': Role.objects.order_by('name'),
+            'all_users': User.objects.order_by('username')
+        }

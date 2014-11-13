@@ -43,9 +43,11 @@ VALID_SETTINGS = {
     'language': _('Book Language'),
     'license': _('Book License'),
     'metadata': _('Book Metadata'),
+    'roles': _('Roles'),
 }
 
 getTOCForBook = get_toc_for_book
+
 
 @login_required
 @transaction.commit_manually
@@ -53,7 +55,8 @@ def upload_attachment(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(
+            request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     book_version = book.get_version(version)
 
@@ -103,7 +106,8 @@ def upload_attachment(request, bookid, version=None):
     }
 
     if "application/json" in request.META['HTTP_ACCEPT']:
-        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+        return HttpResponse(json.dumps(response_data),
+                            mimetype="application/json")
     else:
         return HttpResponse(json.dumps(response_data), mimetype="text/html")
 
@@ -131,7 +135,8 @@ def upload_cover(request, bookid, version=None):
         h.update(title)
         h.update(str(datetime.datetime.now()))
 
-        license = models.License.objects.get(abbrevation=request.POST.get('license', ''))
+        license = models.License.objects.get(
+            abbrevation=request.POST.get('license', ''))
 
         cover = models.BookCover(
             book=book,
@@ -161,35 +166,37 @@ def upload_cover(request, bookid, version=None):
     except:
         transaction.rollback()
     else:
-       transaction.commit()
+        transaction.commit()
 
     response_data = {
         "files": [{
-            "url":"http://127.0.0.1/",
-            "thumbnail_url":"http://127.0.0.1/",
-            "name":"boot.png",
-            "type":"image/png",
-            "size":172728,
-            "delete_url":"",
-            "delete_type":"DELETE"
-            }]
-        }
+            "url": "http://127.0.0.1/",
+            "thumbnail_url": "http://127.0.0.1/",
+            "name": "boot.png",
+            "type": "image/png",
+            "size": 172728,
+            "delete_url": "",
+            "delete_type": "DELETE"
+        }]
+    }
 
     if "application/json" in request.META['HTTP_ACCEPT']:
-        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+        return HttpResponse(json.dumps(response_data),
+                            mimetype="application/json")
     else:
         return HttpResponse(json.dumps(response_data), mimetype="text/html")
 
 
-def cover(request, bookid, cid, fname = None, version=None):
+def cover(request, bookid, cid, fname=None, version=None):
 
     try:
-        book = models.Book.objects.get(url_title__iexact=bookid)
+        models.Book.objects.get(url_title__iexact=bookid)
     except models.Book.DoesNotExist:
-        return views.ErrorPage(request, "errors/book_does_not_exist.html", {"book_name": bookid})
+        return views.ErrorPage(
+            request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
     try:
-        cover = models.BookCover.objects.get(cid = cid)
+        cover = models.BookCover.objects.get(cid=cid)
     except models.BookCover.DoesNotExist:
         return HttpResponse(status=500)
 
@@ -205,7 +212,8 @@ def cover(request, bookid, cid, fname = None, version=None):
     if extension == 'jpg':
         extension = 'jpeg'
 
-    content_type = mimetypes.types_map.get('.'+extension, 'binary/octet-stream')
+    content_type = mimetypes.types_map.get(
+        '.' + extension, 'binary/octet-stream')
 
     if request.GET.get('preview', '') == '1':
         try:
@@ -221,19 +229,23 @@ def cover(request, bookid, cid, fname = None, version=None):
             im.thumbnail((300, 200), Image.ANTIALIAS)
         except:
             try:
-                im = Image.open('%s/edit/img/booktype-cover-%s.png' % (settings.STATIC_ROOT, extension.lower()))
+                im = Image.open('%s/edit/img/booktype-cover-%s.png' %
+                                (settings.STATIC_ROOT, extension.lower()))
                 extension = 'png'
                 content_type = 'image/png'
             except:
                 # Not just IOError but anything else
-                im = Image.open('%s/edit/img/booktype-cover-error.png' % settings.STATIC_ROOT)
+                im = Image.open('%s/edit/img/booktype-cover-error.png' %
+                                settings.STATIC_ROOT)
                 extension = 'png'
                 content_type = 'image/png'
 
         response = HttpResponse(content_type=content_type)
 
-        if extension.lower() in ['jpg', 'jpeg', 'png', 'gif', 'tiff', 'bmp', 'tif']:
-            if extension.upper() == 'JPG': extension = 'JPEG'
+        extension_list = ['jpg', 'jpeg', 'png', 'gif', 'tiff', 'bmp', 'tif']
+        if extension.lower() in extension_list:
+            if extension.upper() == 'JPG':
+                extension = 'JPEG'
         else:
             extension = 'jpeg'
 
@@ -252,8 +264,9 @@ def cover(request, bookid, cid, fname = None, version=None):
 class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     """Basic Edito Book View which opens up the editor.
 
-    Most of the initial data is loaded from the browser over the Sputnik. In the view we just check Basic
-    security permissions and availability of the book.
+    Most of the initial data is loaded from the browser over the Sputnik.
+    In the view we just check Basic security permissions and availability
+    of the book.
     """
 
     template_name = 'edit/book_edit.html'
@@ -262,13 +275,22 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
     def render_to_response(self, context, **response_kwargs):
         # Check for errors
-        if context['book'] == None:
-            return views.ErrorPage(self.request, "errors/book_does_not_exist.html", {'book_name': context['book_id']})
+        if context['book'] is None:
+            return views.ErrorPage(
+                self.request,
+                "errors/book_does_not_exist.html",
+                {'book_name': context['book_id']}
+            )
 
-        if context.get('has_permission', True) == False:
-            return views.ErrorPage(self.request, "errors/editing_forbidden.html", {'book': context['book']})
+        if context.get('has_permission', True) is False:
+            return views.ErrorPage(
+                self.request,
+                "errors/editing_forbidden.html",
+                {'book': context['book']}
+            )
 
-        return super(TemplateView, self).render_to_response(context, **response_kwargs)
+        return super(TemplateView, self).render_to_response(
+            context, **response_kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(TemplateView, self).get_context_data(**kwargs)
@@ -280,7 +302,8 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         book_version = book.get_version(None)
 
-        book_security = security.get_user_security_for_book(self.request.user, book)
+        book_security = security.get_user_security_for_book(
+            self.request.user, book)
         has_permission = security.can_edit_book(book, book_security)
 
         if not has_permission:
@@ -296,11 +319,12 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         context['base_url'] = settings.BOOKTYPE_URL
         context['static_url'] = settings.STATIC_URL
-        context['is_admin'] = book_security.is_group_admin() or book_security.is_book_admin() or book_security.is_superuser()
+        context['is_admin'] = book_security.is_group_admin() or\
+            book_security.is_book_admin() or book_security.is_superuser()
         context['is_owner'] = book.owner == self.request.user
 
         license_dict = {}
-        for val in models.License.objects.all().values('id','url'):
+        for val in models.License.objects.all().values('id', 'url'):
             license_dict[val['id']] = val['url']
         context['license_list'] = json.dumps(license_dict)
 
@@ -318,15 +342,18 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         return reverse('accounts:signin')
 
 
-class BookHistoryPage(LoginRequiredMixin, JSONResponseMixin, BaseReaderView, ListView):
+class BookHistoryPage(LoginRequiredMixin, JSONResponseMixin,
+                      BaseReaderView, ListView):
     model = models.BookHistory
     context_object_name = 'history'
     template_name = 'edit/book_history.html'
     paginate_by = 15
 
     def get_queryset(self):
-        self.book = get_object_or_404(models.Book, url_title=self.kwargs['bookid'])
-        qs = super(BookHistoryPage, self).get_queryset().filter(book=self.book).order_by('-modified')
+        self.book = get_object_or_404(models.Book,
+                                      url_title=self.kwargs['bookid'])
+        qs = super(BookHistoryPage, self).get_queryset().filter(
+            book=self.book).order_by('-modified')
 
         # filter by user
         author = self.request.GET.get('user', None)
@@ -587,6 +614,10 @@ class BookSettingsView(LoginRequiredMixin, JSONResponseMixin, BaseReaderView, Fo
         context['option_title'] = VALID_SETTINGS[self.submodule]
         context['option'] = self.submodule
         context['book'] = self.book
+
+        extra_context = self.form_class.extra_context(self.book, self.request)
+        if extra_context:
+            context.update(extra_context)
         return context
 
     def get_form_class(self):
