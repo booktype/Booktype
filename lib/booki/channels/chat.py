@@ -1,5 +1,7 @@
+''' Chat message sending functions '''
 # This file is part of Booktype.
-# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+# Copyright (c) 2012
+# Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
 #
 # Booktype is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -14,7 +16,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-def remote_message_send(request, message, bookid):        
+
+def remote_message_send(request, message, bookid):
     """
     Called when user is sending message to chat channel L{bookid}.
 
@@ -25,8 +28,13 @@ def remote_message_send(request, message, bookid):
     @type bookid: C{string}
     @param bookid: Unique Book id
     """
-    
+
     import sputnik
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_received", "from": request.user.username, "message": message["message"]})
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
+                                {"command": "message_received",
+                                 "email": request.user.email,
+                                 "from": request.user.username,
+                                 "important": message["important"],
+                                 "message": message["message"]})
     return {}

@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+from booki.editor.models import Book
+
 
 class Permission(models.Model):
     """
@@ -55,11 +57,6 @@ class Role(models.Model):
         Permission, verbose_name=_('permissions'),
         blank=True, null=True
     )
-    members = models.ManyToManyField(
-        User, verbose_name=_('users'),
-        blank=True, null=True,
-        related_name='roles'
-    )
 
     def __unicode__(self):
         return u'%s' % self.name
@@ -67,3 +64,30 @@ class Role(models.Model):
     class Meta:
         verbose_name = _('Role')
         verbose_name_plural = _('Roles')
+
+    @property
+    def members_count(self):
+        return sum([r.members.count() for r in self.bookrole_set.all()])
+
+
+class BookRole(models.Model):
+    """
+    Roles for specific books. A user can be 'Editor' in certain book,
+    but not in other book. This way we are able to create multiple
+    Roles scoped by the desired Book
+    """
+
+    role = models.ForeignKey(Role, verbose_name=_('role'))
+    book = models.ForeignKey(Book, verbose_name=_('book'))
+    members = models.ManyToManyField(
+        User, verbose_name=_('users'),
+        blank=True, null=True,
+        related_name='roles'
+    )
+
+    def __unicode__(self):
+        return u'%s %s' % (self.book.title, self.role.name)
+
+    class Meta:
+        verbose_name = _('Book Role')
+        verbose_name_plural = _('Book Roles')

@@ -39,7 +39,7 @@
   width: 50% !important;
 }
 
-.history-filters .select2-container-multi 
+.history-filters .select2-container-multi
 .select2-choices .select2-search-field input{
   padding: 2px 5px;
   font-size: 90%;
@@ -86,7 +86,7 @@
 }
 
 #button-cancel {
-  margin-left: 5px!important;  
+  margin-left: 5px!important;
 }
 
 /* Color Picker
@@ -154,7 +154,7 @@
   right: 0px;
 }
 
-div.contentHeader span.info-message { 
+div.contentHeader span.info-message {
   font-size: 12px; margin-right: 10px;
 }
 
@@ -189,7 +189,7 @@ div.contentHeader span.info-message {
 .logotext{
     font-size: 17px;
     line-height: 40px;
-    padding-left: 78px;
+    PAdding-left: 78px;
 }
 .logotext a{
     color: #fff;
@@ -202,4 +202,25 @@ div.contentHeader span.info-message {
 .license-link{
   float: right;
   margin-right: 15px;
+}
+
+/* Cover Manager */
+
+.coverOptions .tooltip{
+  position: fixed;
+}
+
+.tooltip{
+  z-index: 1151 !important;
+}
+/* Search and Replace */
+
+#find-replace.modal{
+  background: none;
+}
+.aloha-search-marker{
+  background-color: yellow;
+}
+.aloha-search-plugin-loaded .modal-backdrop.fade.in{
+    background: none;
 }

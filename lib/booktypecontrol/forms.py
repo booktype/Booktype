@@ -820,23 +820,6 @@ class AddRoleForm(BaseControlForm, forms.ModelForm):
     success_message = _('Successfully created new role.')
     success_url = '#list-of-roles'
 
-    def __init__(self, *args, **kwargs):
-        super(AddRoleForm, self).__init__(*args, **kwargs)
-
-        def _get_full_name(self):
-            """
-            To monkey patching Django User model to get full name in
-            members field
-            """
-            _fn = self.get_full_name()
-            if _fn:
-                return "%s (%s)" % (_fn, self.username)
-            return self.username
-
-        # ugly monkey patching. Probably there's a way to
-        # avoid this, but I can't figure it out now
-        User.__unicode__ = _get_full_name
-
     class Meta:
         model = Role
         exclude = ['members']
@@ -855,10 +838,5 @@ class AddRoleForm(BaseControlForm, forms.ModelForm):
         return "{0}{1}".format(self.cancel_url, self.success_url)
 
     def save_settings(self, request):
-        # save role first
         role = self.save()
-
-        # auto-join owner as role member
-        role.members.add(request.user)
-
         return role

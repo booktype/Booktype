@@ -1,5 +1,6 @@
 # This file is part of Booktype.
-# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+# Copyright (c) 2012
+# Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
 #
 # Booktype is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,16 +19,18 @@ import os
 import sputnik
 from lxml import etree, html
 
-from django.db import transaction
-from django.conf import settings
 from django.db.models import Q
+from django.conf import settings
+from django.db import transaction
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
-
-from booki.utils.log import logBookHistory, logChapterHistory
 
 from booki.editor import models
 from booki.utils import security
+from booki.utils.log import logBookHistory, logChapterHistory
+
 from booktype.utils.misc import booktype_slugify
+from booktype.apps.core.models import Role, BookRole
 
 
 # this couple of functions should go to models.BookVersion
@@ -79,7 +82,8 @@ def get_hold_chapters(book_version):
     @return: Returns list with hold chapters
     """
 
-    return [(ch.id, ch.title, ch.url_title, 1, ch.status.id) for ch in book_version.get_hold_chapters()]
+    return [(ch.id, ch.title, ch.url_title, 1, ch.status.id) \
+            for ch in book_version.get_hold_chapters()]
 
 
 def get_attachments(book_version):
@@ -208,6 +212,7 @@ def remote_init_editor(request, message, bookid, version):
     ## notify others
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
                                 {"command": "user_joined",
+                                 "email": request.user.email,
                                  "user_joined": request.user.username},
                                 myself = False)
 
@@ -442,6 +447,7 @@ def remote_change_status(request, message, bookid, version):
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
                                 {"command": "message_info",
                                  "from": request.user.username,
+                                 "email": request.user.email,
                                  "message_id": "user_changed_chapter_status",
                                  "message_args": [request.user.username, chapter.title, status.name]},
                                 myself=True)
@@ -527,6 +533,7 @@ def remote_chapter_save(request, message, bookid, version):
 
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
                                                                 "from": request.user.username,
+                                                                "email": request.user.email,
                                                                 "message_id": "user_saved_chapter",
                                                                 "message_args": [request.user.username, chapter.title]},
                                 myself=True)
@@ -584,6 +591,7 @@ def remote_chapter_delete(request, message, bookid, version):
         request, "/chat/%s/" %  bookid, {
             "command": "message_info",
             "from": request.user.username,
+            "email": request.user.email,
             "message_id": "user_delete_chapter",
             "message_args": [request.user.username, chap.title]
         },
@@ -738,6 +746,7 @@ def remote_chapter_rename(request, message, bookid, version):
         request, "/chat/%s/" %  bookid, {
             "command": "message_info",
             "from": request.user.username,
+            "email": request.user.email,
             "message_id": "user_renamed_chapter",
             "message_args": [request.user.username, old_title, message["chapter"]]
         },
@@ -801,6 +810,7 @@ def remote_section_rename(request, message, bookid, version):
         request, "/chat/%s/" %  bookid, {
             "command": "message_info",
             "from": request.user.username,
+            "email": request.user.email,
             "message_id": "user_renamed_section",
             "message_args": [request.user.username, old_title, message["chapter"]]
         },
@@ -1125,6 +1135,7 @@ def remote_create_chapter(request, message, bookid, version):
         request, "/chat/%s/" % bookid, {
             "command": "message_info",
             "from": request.user.username,
+            "email": request.user.email,
             "message_id": "user_new_chapter",
             "message_args": [request.user.username, message["chapter"]]
         },
@@ -1303,6 +1314,7 @@ def remote_clone_chapter(request, message, bookid, version):
 
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
                                                                 "from": request.user.username,
+                                                                "email": request.user.email,
                                                                 "message_id": "user_cloned_chapter",
                                                                 "message_args": [request.user.username, chapter.title, source_book.title]},
                                 myself=True)
@@ -1379,6 +1391,7 @@ def remote_create_section(request, message, bookid, version):
         request, "/chat/%s/" % bookid, {
             "command": "message_info",
             "from": request.user.username,
+            "email": request.user.email,
             "message_id": "user_new_section",
             "message_args": [request.user.username, message["chapter"]]
         },
@@ -2527,6 +2540,7 @@ def remote_revert_revision(request, message, bookid, version):
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
                                 {"command": "message_info",
                                  "from": request.user.username,
+                                 "email": request.user.email,
                                  "message_id": "user_reverted_chapter",
                                  "message_args": [request.user.username, chapter.title, message["revision"]]},
                                 myself=True)
@@ -2649,6 +2663,7 @@ def remote_notes_save(request, message, bookid, version):
 
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
                                                                 "from": request.user.username,
+                                                                "email": request.user.email,
                                                                 "message_id": "user_saved_notes",
                                                                 "message_args": [request.user.username, book.title]},
                                 myself=True)
@@ -3109,8 +3124,10 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
             else:
                 plus_pos = None
 
-            output_right +=  '<div class="diff changed">'+color_me(line[2:], 'diff added', plus_pos)+'</div>'
-            output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
+            output_right +=  '<div class="diff changed">' + \
+                              color_me(line[2:], 'diff added', plus_pos)+'</div>'
+            output.append('<tr>' + output_left + '</td>' + \
+                          output_right+'</td></tr>')
             output_left = output_right = '<td valign="top">'
         elif line[:2] == '- ':
             if n+1 < len(lns) and lns[n+1][0] == '?':
@@ -3123,20 +3140,74 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
             else:
                 minus_pos = None
 
-            output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
+            output.append('<tr>' + output_left + '</td>' + output_right + '</td></tr>')
 
             output_left = output_right = '<td valign="top">'
-            output_left +=  '<div class="diff changed">'+color_me(line[2:], 'diff deleted', minus_pos)+'</div>'
+            output_left += '<div class="diff changed">' + \
+                           color_me(line[2:], 'diff deleted', minus_pos) + '</div>'
         elif line[:2] == '  ':
             if line[2:].strip() != '':
-                output_left  += line[2:]+'<br/><br/>'
-                output_right += line[2:]+'<br/><br/>'
+                output_left += line[2:] + '<br/><br/>'
+                output_right += line[2:] + '<br/><br/>'
 
         n += 1
 
-    output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
+    output.append('<tr>' + output_left + '</td>' + output_right + '</td></tr>')
 
     info = '''<div style="padding-bottom: 5px"><span class="diff changed" style="width: 10px; height: 10px; display: inline-block;"></span> Changed <span class="diff added" style="width: 10px; height: 10px; display: inline-block;"></span> Added <span class="diff deleted" style="width: 10px; height: 10px; display: inline-block;"></span> Deleted </div>'''
 
-    return {"result": True, "output": info+'<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: '+message["revision2"]+'</div></td></tr>\n'.join(output)+'</table>\n'}
+    return {"result": True,
+            "output": info + '<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: ' + message["revision2"] + '</div></td></tr>\n'.join(output) + '</table>\n'}
 
+
+def remote_assign_to_role(request, message, bookid, version):
+    """
+    Remote to assign user to an specific role. It checks if the role
+    already exists for the current book, otherwise, it creates the role
+    and assign the user as a member
+
+    Arguments:
+        - role
+        - user
+    """
+
+    try:
+        user = User.objects.get(id=message['userid'])
+    except User.DoesNotExist:
+        return {'result': False}
+
+    book, _version, _security = get_book(request, bookid, version)
+
+    for roleid in message['roles']:
+        # check if roles exist, otherwise continue with next loop
+        try:
+            role = Role.objects.get(id=roleid)
+        except:
+            continue
+
+        book_role, _ = BookRole.objects.get_or_create(
+            role=role,
+            book=book
+        )
+        book_role.members.add(user)
+
+    return {'result': True}
+
+
+def remote_remove_user_from_role(request, message, bookid, version):
+    """
+    Removes a given user from an specific role.
+
+    Arguments:
+        - role
+        - user
+    """
+
+    try:
+        user = User.objects.get(id=message['userid'])
+        role = BookRole.objects.get(id=message['roleid'])
+    except Exception:
+        return {'result': False}
+
+    role.members.remove(user)
+    return {'result': True}
