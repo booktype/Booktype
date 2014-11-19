@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 
 from booki.editor import models
-from booktype.utils import config
+from booktype.utils import config, security
 
 
 register = template.Library()
@@ -279,3 +279,13 @@ def order_by(queryset, order_field):
     """
 
     return queryset.order_by(order_field)
+
+
+@register.assignment_tag
+def has_perm(user, to_do, book):
+    """
+    Checks if a given user has a specific permission. Returns a Boolean
+    depending on the security check
+    """
+
+    return security.has_perm(user, to_do, book)

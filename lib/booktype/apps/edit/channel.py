@@ -74,7 +74,8 @@ def get_toc_for_book(version):
 
 def get_hold_chapters(book_version):
     """
-    Function returns list of hold chapters. Elements of list are tuples with structure - (chapter_id, chapter_title, chapter_url_title, 1, chapter_status_id).
+    Function returns list of hold chapters. Elements of list are tuples with
+    structure - (chapter_id, chapter_title, chapter_url_title, 1, chapter_status_id).
 
     @type book_version: C{booki.editor.models.BookVersion}
     @param book_version: Book version object
@@ -88,7 +89,8 @@ def get_hold_chapters(book_version):
 
 def get_attachments(book_version):
     """
-    Function returns list of attachments for L{book_version}. Elements of list are dictionaries and are sorted by attachment name. Each dictionary has keys:
+    Function returns list of attachments for L{book_version}. Elements of
+    list are dictionaries and are sorted by attachment name. Each dictionary has keys:
       - id (attachment id)
       - dimension (tuple with width and height for image)
       - status (status id for this attachment)
@@ -315,7 +317,8 @@ def remote_init_editor(request, message, bookid, version):
 
 def remote_attachments_list(request, message, bookid, version):
     """
-    Calls function L{getAttachments} and returns info about attachments for the specific version of the book.
+    Calls function L{getAttachments} and returns info about attachments
+    for the specific version of the book.
 
     @type request: C{django.http.HttpRequest}
     @param request: Client Request object
@@ -359,6 +362,11 @@ def remote_attachments_delete(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
+    can_remove_attachment = security.has_perm(
+        request.user, 'edit.remove_attachment', book)
+
+    if not book_security.is_admin() or not can_remove_attachment:
+        raise PermissionDenied
 
     if book_security.isAdmin():
         for att_id in message['attachments']:
@@ -367,12 +375,13 @@ def remote_attachments_delete(request, message, bookid, version):
             from booki.utils import log
             import os.path
 
-            log.logBookHistory(book = book,
-                               version = book_version,
-                               args = {'filename': os.path.split(att.attachment.name)[1]},
-                               user = request.user,
-                               kind = 'attachment_delete')
-
+            log.logBookHistory(
+                book=book,
+                version=book_version,
+                args={'filename': os.path.split(att.attachment.name)[1]},
+                user=request.user,
+                kind='attachment_delete'
+            )
             att.delete()
 
     return {"result": True}
@@ -558,7 +567,8 @@ def remote_chapter_delete(request, message, bookid, version):
     """
     Delete chapter.
 
-    Creates Book history record. Sends notification to chat. Sends "chapter_status" message to the channel. Sends "chapter_rename" message to the channel.
+    Creates Book history record. Sends notification to chat. Sends "chapter_status"
+    message to the channel. Sends "chapter_rename" message to the channel.
 
     @todo: check security
 
@@ -577,18 +587,21 @@ def remote_chapter_delete(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
+    can_delete_chapter = security.has_perm(
+        request.user, 'edit.delete_chapter', book)
 
-    if not book_security.isAdmin():
+    if not book_security.is_admin() or not can_delete_chapter:
         raise PermissionDenied
 
     # get toc item related with chapter to be deleted
-    chap = models.Chapter.objects.get(id__exact=int(message["chapterID"]), version=book_version)
+    chap = models.Chapter.objects.get(
+        id__exact=int(message["chapterID"]), version=book_version)
     chap.delete()
 
     # MUST DELETE FROM TOC ALSO
 
     sputnik.addMessageToChannel(
-        request, "/chat/%s/" %  bookid, {
+        request, "/chat/%s/" % bookid, {
             "command": "message_info",
             "from": request.user.username,
             "email": request.user.email,
@@ -599,11 +612,11 @@ def remote_chapter_delete(request, message, bookid, version):
     )
 
     logBookHistory(
-        book = book,
-        version = book_version,
-        args = {'chapter': chap.title},
-        user = request.user,
-        kind = 'chapter_delete'
+        book=book,
+        version=book_version,
+        args={'chapter': chap.title},
+        user=request.user,
+        kind='chapter_delete'
     )
 
     sputnik.addMessageToChannel(
@@ -611,7 +624,7 @@ def remote_chapter_delete(request, message, bookid, version):
             "command": "chapter_delete",
             "chapterID": message["chapterID"]
         },
-        myself = True
+        myself=True
     )
 
     return {"result": True}
@@ -621,7 +634,8 @@ def remote_section_delete(request, message, bookid, version):
     """
     Delete chapter.
 
-    Creates Book history record. Sends notification to chat. Sends "chapter_status" message to the channel. Sends "chapter_rename" message to the channel.
+    Creates Book history record. Sends notification to chat. Sends "chapter_status"
+    message to the channel. Sends "chapter_rename" message to the channel.
 
     @todo: check security
 
@@ -640,8 +654,10 @@ def remote_section_delete(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
+    can_delete_section = security.has_perm(
+        request.user, 'edit.delete_section', book)
 
-    if not book_security.isAdmin():
+    if not book_security.isAdmin() or not can_delete_section:
         raise PermissionDenied
 
     section_id = message["chapterID"]
@@ -654,21 +670,21 @@ def remote_section_delete(request, message, bookid, version):
                 if toc_item.is_chapter():
                     # log chapter delete in book history
                     logBookHistory(
-                        book = book,
-                        version = book_version,
-                        args = {'chapter': toc_item.chapter.title},
-                        user = request.user,
-                        kind = 'chapter_delete'
+                        book=book,
+                        version=book_version,
+                        args={'chapter': toc_item.chapter.title},
+                        user=request.user,
+                        kind='chapter_delete'
                     )
                     toc_item.chapter.delete()
                 else:
                     # log section delete in book history
                     logBookHistory(
-                        book = book,
-                        version = book_version,
-                        args = {'section': toc_item.name},
-                        user = request.user,
-                        kind = 'section_delete'
+                        book=book,
+                        version=book_version,
+                        args={'section': toc_item.name},
+                        user=request.user,
+                        kind='section_delete'
                     )
                     toc_item.delete()
     else:
@@ -679,11 +695,11 @@ def remote_section_delete(request, message, bookid, version):
 
     # log main section delete in book history
     logBookHistory(
-        book = book,
-        version = book_version,
-        args = {'section': sec.name},
-        user = request.user,
-        kind = 'section_delete'
+        book=book,
+        version=book_version,
+        args={'section': sec.name},
+        user=request.user,
+        kind='section_delete'
     )
     sec.delete()
 
@@ -693,7 +709,7 @@ def remote_section_delete(request, message, bookid, version):
             "chapterID": message["chapterID"],
             "deleteChildren": message["deleteChildren"]
         },
-        myself = True
+        myself=True
     )
 
     return {"result": True}
@@ -722,9 +738,15 @@ def remote_chapter_rename(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
+    can_rename_chapter = security.has_perm(
+        request.user, 'edit.rename_chapter', book)
+
+    if not book_security.isAdmin() or not can_rename_chapter:
+        raise PermissionDenied
 
     # get toc item related to chapter
-    toc_item = models.BookToc.objects.get(id__exact=int(message["tocID"]), version=book_version)
+    toc_item = models.BookToc.objects.get(
+        id__exact=int(message["tocID"]), version=book_version)
 
     # check security
     chapter = toc_item.chapter
@@ -734,16 +756,16 @@ def remote_chapter_rename(request, message, bookid, version):
     chapter.save()
 
     logBookHistory(
-        book = chapter.book,
-        version = book_version,
-        chapter = chapter,
-        user = request.user,
-        args = {"old": old_title, "new": message["chapter"]},
-        kind = "chapter_rename"
+        book=chapter.book,
+        version=book_version,
+        chapter=chapter,
+        user=request.user,
+        args={"old": old_title, "new": message["chapter"]},
+        kind="chapter_rename"
     )
 
     sputnik.addMessageToChannel(
-        request, "/chat/%s/" %  bookid, {
+        request, "/chat/%s/" % bookid, {
             "command": "message_info",
             "from": request.user.username,
             "email": request.user.email,
@@ -769,7 +791,8 @@ def remote_section_rename(request, message, bookid, version):
     """
     Rename section name.
 
-    Creates Book history record. Sends notification to chat. Sends "chapter_status" message to the channel. Sends "chapter_rename" message to the channel.
+    Creates Book history record. Sends notification to chat. Sends "chapter_status"
+    message to the channel. Sends "chapter_rename" message to the channel.
 
     @todo: check security
 
@@ -788,6 +811,11 @@ def remote_section_rename(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
+    can_rename_section = security.has_perm(
+        request.user, 'edit.rename_section', book)
+
+    if not book_security.isAdmin() or not can_rename_section:
+        raise PermissionDenied
 
     # check security
     sectionID = message["chapterID"]
@@ -798,12 +826,12 @@ def remote_section_rename(request, message, bookid, version):
     toc_item.save()
 
     logBookHistory(
-        book = book,
-        version = book_version,
-        chapter = None,
-        user = request.user,
-        args = {"old": old_title, "new": message["chapter"]},
-        kind = "section_rename"
+        book=book,
+        version=book_version,
+        chapter=None,
+        user=request.user,
+        args={"old": old_title, "new": message["chapter"]},
+        kind="section_rename"
     )
 
     sputnik.addMessageToChannel(
@@ -1032,9 +1060,11 @@ def remote_get_chapter(request, message, bookid, version):
 
 def remote_create_chapter(request, message, bookid, version):
     """
-    Creates new chapters. New chapter is always added at the end of the TOC. Creates empty chapter content only with chapter title as heading.
+    Creates new chapters. New chapter is always added at the end of the TOC.
+    Creates empty chapter content only with chapter title as heading.
 
-    Record for Chapter and Book history is created. Message "chapter_create" is send to the channel. Notification is send to the chat.
+    Record for Chapter and Book history is created. Message "chapter_create"
+    is send to the channel. Notification is send to the chat.
 
     Input:
      - chapter - chapter name
@@ -1057,17 +1087,23 @@ def remote_create_chapter(request, message, bookid, version):
     import datetime
 
     book, book_version, book_security = get_book(request, bookid, version)
-    url_title = booktype_slugify(message["chapter"])
+    can_create_chapter = security.has_perm(
+        request.user, 'edit.create_chapter', book)
 
+    if not can_create_chapter:
+        raise PermissionDenied
+
+    url_title = booktype_slugify(message["chapter"])
     if len(url_title) == 0:
         return {"result": False, "created": False, "silly_url": True}
 
-    # for now, just limit it to max 100 characters
+    # for now, just limit it to 100 characters max
     url_title = url_title[:100]
 
     # here i should probably set it to default project status
     s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
-    ch = models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title)
+    ch = models.Chapter.objects.filter(
+        book=book, version=book_version, url_title=url_title)
 
     if len(list(ch)) > 0:
         return {"created": False, "chapter_exists": True}
@@ -1075,60 +1111,63 @@ def remote_create_chapter(request, message, bookid, version):
     content = u'<h1>%s</h1><p><br/></p>' % message["chapter"]
 
     chapter = models.Chapter(
-        book = book,
-        version = book_version,
-        url_title = url_title,
-        title = message["chapter"],
-        status = s,
-        content = content,
-        created = datetime.datetime.now(),
-        modified = datetime.datetime.now()
+        book=book,
+        version=book_version,
+        url_title=url_title,
+        title=message["chapter"],
+        status=s,
+        content=content,
+        created=datetime.datetime.now(),
+        modified=datetime.datetime.now()
     )
     chapter.save()
 
     weight = len(book_version.get_toc()) + 1
-    for itm in models.BookToc.objects.filter(version = book_version, book = book).order_by("-weight"):
+    for itm in models.BookToc.objects.filter(
+        version=book_version, book=book
+    ).order_by("-weight"):
+
         itm.weight = weight
         itm.save()
 
         weight -= 1
 
     toc_item = models.BookToc(
-        version = book_version,
-        book = book,
-        name = message["chapter"],
-        chapter = chapter,
-        weight = 1,
-        typeof = 1
+        version=book_version,
+        book=book,
+        name=message["chapter"],
+        chapter=chapter,
+        weight=1,
+        typeof=1
     )
     toc_item.save()
 
     history = logChapterHistory(
-        chapter = chapter,
-        content = content,
-        user = request.user,
-        comment = message.get("comment", ""),
-        revision = chapter.revision
+        chapter=chapter,
+        content=content,
+        user=request.user,
+        comment=message.get("comment", ""),
+        revision=chapter.revision
     )
 
     if history:
         logBookHistory(
-            book = book,
-            version = book_version,
-            chapter = chapter,
-            chapter_history = history,
-            user = request.user,
-            kind = 'chapter_create'
+            book=book,
+            version=book_version,
+            chapter=chapter,
+            chapter_history=history,
+            user=request.user,
+            kind='chapter_create'
         )
 
     result = (
         chapter.id,
         chapter.title,
         chapter.url_title,
-        1, # typeof (chapter)
-        s.id, # status
-        'root', # parent id (first level)
-        toc_item.id # tocID
+        1,  # typeof (chapter)
+        s.id,  # status
+        'root',  # parent id (first level)
+        toc_item.id  # tocID
     )
 
     sputnik.addMessageToChannel(
@@ -1147,7 +1186,7 @@ def remote_create_chapter(request, message, bookid, version):
             "command": "chapter_create",
             "chapter": result
         },
-        myself = True
+        myself=True
     )
 
     return {"result": True, "created": True, "chapter_id": chapter.id}
@@ -1167,12 +1206,18 @@ def copy_attachment(attachment, target_book):
     import os.path
     import datetime
 
-    att = models.Attachment(book = target_book,
-                            version = target_book.version,
-                            status = target_book.status,
-                            created = datetime.datetime.now())
+    att = models.Attachment(
+        book=target_book,
+        version=target_book.version,
+        status=target_book.status,
+        created=datetime.datetime.now()
+    )
 
-    att.attachment.save(os.path.basename(attachment.attachment.name), attachment.attachment, save=False)
+    att.attachment.save(
+        os.path.basename(attachment.attachment.name),
+        attachment.attachment,
+        save=False
+    )
     att.save()
     return att
 
@@ -1240,14 +1285,16 @@ def remote_clone_chapter(request, message, bookid, version):
     if len(list(ch)) > 0:
         return {"created": False, "errormsg": "chapter already exists"}
 
-    chapter = models.Chapter(book = book,
-                             version = book_version,
-                             url_title = url_title,
-                             title = title,
-                             status = s,
-                             content = source_chapter.content,
-                             created = datetime.datetime.now(),
-                             modified = datetime.datetime.now())
+    chapter = models.Chapter(
+        book=book,
+        version=book_version,
+        url_title=url_title,
+        title=title,
+        status=s,
+        content=source_chapter.content,
+        created=datetime.datetime.now(),
+        modified=datetime.datetime.now()
+    )
 
     chapter.save()
     # this should be solved in better way
@@ -1319,7 +1366,12 @@ def remote_clone_chapter(request, message, bookid, version):
                                                                 "message_args": [request.user.username, chapter.title, source_book.title]},
                                 myself=True)
 
-    sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),  {"command": "chapter_create", "chapter": result}, myself = True)
+    sputnik.addMessageToChannel(
+        request, "/booki/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_create",
+            "chapter": result},
+        myself=True
+    )
 
     return {"result": True, "created": True}
 
@@ -1328,7 +1380,8 @@ def remote_create_section(request, message, bookid, version):
     """
     Creates new section. Sections is added at the end of the TOC.
 
-    Creates Book history entry. Sends "chapter_create" message to the channel. Sends notification to chat.
+    Creates Book history entry. Sends "chapter_create" message to the channel.
+    Sends notification to chat.
 
     Input:
      - chapter - name for the section. i know :)
@@ -1347,34 +1400,40 @@ def remote_create_section(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
+    can_create_section = security.has_perm(
+        request.user, 'edit.create_section', book)
+
+    if not can_create_section:
+        raise PermissionDenied
+
     ch = models.BookToc.objects.filter(
-       book=book,
-       version=book_version,
-       name=message['chapter'],
-       typeof=0
+        book=book,
+        version=book_version,
+        name=message['chapter'],
+        typeof=0
     )
 
     if len(list(ch)) > 0:
         return {"created": False, "section_exists": True}
 
     c = models.BookToc(
-        book = book,
-        version = book_version,
-        name = message["chapter"],
-        chapter = None,
-        weight = 0,
-        typeof = 0
+        book=book,
+        version=book_version,
+        name=message["chapter"],
+        chapter=None,
+        weight=0,
+        typeof=0
     )
 
     result = True
     c.save()
 
     logBookHistory(
-       book = book,
-       version = book_version,
-       user = request.user,
-       args = {"title": message["chapter"]},
-       kind = 'section_create'
+        book=book,
+        version=book_version,
+        user=request.user,
+        args={"title": message["chapter"]},
+        kind='section_create'
     )
 
     result = (
@@ -1382,7 +1441,7 @@ def remote_create_section(request, message, bookid, version):
         c.name,
         c.name,
         c.typeof,
-        None, # fake status
+        None,  # fake status
         "root",
         c.id
     )
@@ -1399,12 +1458,12 @@ def remote_create_section(request, message, bookid, version):
     )
 
     sputnik.addMessageToChannel(
-        request, "/booktype/book/%s/%s/" %  (bookid, version), {
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
             "command": "chapter_create",
             "chapter": result,
             "typeof": c.typeof
         },
-        myself = True
+        myself=True
     )
 
     return {"result": True, "created": True, "chapter_id": 's{}'.format(c.id)}
@@ -1497,22 +1556,25 @@ def remote_cover_approve(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
+    can_edit_cover = security.has_perm(
+        request.user, 'edit.edit_cover', book)
 
-    if not book_security.isAdmin():
+    if not book_security.isAdmin() or not can_edit_cover:
         raise PermissionDenied
 
     cover = models.BookCover.objects.get(book=book, cid=message.get('cid', ''))
     cover.approved = message.get('cover_status', False)
     cover.save()
 
-    from booki.utils import log
-
-    log.logBookHistory(book = book,
-                       version = book_version,
-                       args = {'filename': cover.filename, 'title': cover.title, 'cid': cover.pk},
-                       user = request.user,
-                       kind = 'cover_update'
-                       )
+    logBookHistory(
+        book=book,
+        version=book_version,
+        args={
+            'filename': cover.filename, 'title': cover.title, 'cid': cover.pk
+        },
+        user=request.user,
+        kind='cover_update'
+    )
 
     return {"result": True}
 
@@ -1535,6 +1597,12 @@ def remote_cover_delete(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
+    can_delete_cover = security.has_perm(
+        request.user, 'edit.delete_cover', book)
+
+    if not book_security.isAdmin() or not can_delete_cover:
+        raise PermissionDenied
+
     cover = models.BookCover.objects.get(book=book, cid=message.get('cid', ''))
     logBookHistory(
         book=book,
@@ -1566,6 +1634,11 @@ def remote_cover_save(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
+    can_edit_cover = security.has_perm(
+        request.user, 'edit.edit_cover', book)
+
+    if not book_security.isAdmin() or not can_edit_cover:
+        raise PermissionDenied
 
     cover = models.BookCover.objects.get(book=book, cid=message.get('cid', ''))
     cover.title = message.get('title', '').strip()[:250]
@@ -1862,8 +1935,14 @@ def remote_license_attributions_save(request, message, bookid, version):
 
 
 def remote_publish_book(request, message, bookid, version):
-    from . import tasks
+    book = get_book(request, bookid, version)[0]
+    can_publish_book = security.has_perm(
+        request.user, 'edit.publish_book', book)
 
+    if not can_publish_book:
+        raise PermissionDenied
+
+    from . import tasks
     tasks.publish_book(bookid=bookid, version=version, clientid=request.clientID, sputnikid=request.sputnikID)
 
     return {'result': True}
@@ -1871,7 +1950,7 @@ def remote_publish_book(request, message, bookid, version):
 
 def remote_word_count(request, message, bookid, version):
     from django.utils.html import strip_tags
-    from booktype.utils.wordcount import wordcount,charcount,charspacecount
+    from booktype.utils.wordcount import wordcount, charcount, charspacecount
 
     book = models.Book.objects.get(id=bookid)
     book_version = book.get_version(version)
@@ -1893,7 +1972,13 @@ def remote_word_count(request, message, bookid, version):
             all_charcount += charcount(stripped_data)
             all_charspacecount += charspacecount(stripped_data)
 
-    res = {"result": True, "status": True, "wcount": all_wcount, "charcount": all_charcount, "charspacecount" : all_charspacecount }
+    res = {
+        "result": True,
+        "status": True,
+        "wcount": all_wcount,
+        "charcount": all_charcount,
+        "charspacecount": all_charspacecount
+    }
 
     return res
 
