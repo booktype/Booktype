@@ -124,7 +124,6 @@
              <label for="delete_children"><span></span>{% trans "Delete chapters under this section" %}</label>
            </div>
          </div>
-         
       </form>
     </div>
     <div class="modal-footer">
@@ -136,10 +135,28 @@
  </div>
 
 <div class="template templateTOCContent">
- <div id="edit-info" class="alert template" style="margin-bottom:10px;">{% trans "All books should contain at least one section and can have as many chapters as you like." %}</div>
+    <div id="edit-info" class="alert template" style="margin-bottom:10px;">
+    {% trans "All books should contain at least one section and can have as many chapters as you like." %}
+    </div>
+    <div class="toc"></div>
+</div>
 
- <div class="toc">
- </div>
+<div class="template templateHoldButtonGroup btn-toolbar float-right">
+    <div class="btn-group">
+        {% if is_owner or is_admin or 'edit.manage_chapters_hold' in roles_permissions %}
+        <button id="expand" class="btn btn-default btn-xs option-hold" rel="tooltip" data-placement="left" data-original-title="{% trans 'Unhold' %}">
+            <i class="icon-arrow-left"></i>
+        </button>
+        {% endif %}
+        {% if is_owner or is_admin or 'edit.delete_chapter' in roles_permissions %}
+        <button id="collapse" class="btn btn-default btn-xs option-delete">
+            <i class="icon-trash"></i>
+        </button>
+        {% endif %}
+    </div>
+    <div class="btn-group">
+        <button id="edit" class="btn btn-default btn-xs option-edit">{% trans "EDIT" %}</button>
+    </div>
 </div>
 
 <div class="template templateTOCToolbar">
@@ -153,8 +170,17 @@
           <button id="collapse" class="btn btn-default" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Collapse All" %}"><i class="icon-arrow-up"></i></button>
         </div>
         <div class="btn-group">
-          <button href="#newChapter" role="button" class="btn btn-default" data-toggle="modal">{% trans "New Chapter" %}</button>
-          <button href="#newSection" role="button" class="btn btn-default" data-toggle="modal">{% trans "New Section" %}</button>
+            {% if is_owner or is_admin or 'edit.create_chapter' in roles_permissions %}
+            <button href="#newChapter" role="button" class="btn btn-default" data-toggle="modal">
+                {% trans "New Chapter" %}
+            </button>
+            {% endif %}
+
+            {% if is_owner or is_admin or 'edit.create_section' in roles_permissions %}
+            <button href="#newSection" role="button" class="btn btn-default" data-toggle="modal">
+                {% trans "New Section" %}
+            </button>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -162,12 +188,12 @@
 <li class="item chapter template templateTOCChapter" data-id="" data-chapter-id="">
     <div><a href="" style="color: rgb(51, 51, 51);" class="operation-edit"><i class="toc-icon-chapter"></i></a>
         <a style="color: rgb(51, 51, 51);" href="" class="operation-edit"><span class="title"></span></a>
-        <div class="toc-chapter-detail">                               
+        <div class="toc-chapter-detail">
             <div class="username"></div>
             <div class="status"></div>
         </div>
     </div>
-    <div class="btn-toolbar">                                          
+    <div class="btn-toolbar">
         <div class="btn-group">
             <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
             <ul class="dropdown-menu status-options">
@@ -177,9 +203,15 @@
             <button class="btn btn-default btn-xs edit">{% trans "EDIT CHAPTER" %}</button>
             <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span></button>
             <ul class="dropdown-menu">
+                {% if is_owner or is_admin or 'edit.rename_chapter' in roles_permissions %}
                 <li><a href="#" class="option-rename">{% trans "Rename" %}</a></li>
+                {% endif %}
+                {% if is_owner or is_admin or 'edit.manage_chapters_hold' in roles_permissions %}
                 <li><a href="#" class="option-hold">{% trans "Hold" %}</a></li>
+                {% endif %}
+                {% if is_owner or is_admin or 'edit.delete_chapter' in roles_permissions %}
                 <li><a href="#" class="option-delete">{% trans "Delete" %}</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -190,13 +222,18 @@
 <li class="item section template templateTOCSection" data-id="">
   <div><span class="disclose"></span><span class="title"></span></div>
   <div class="btn-toolbar">
-      <div class="btn-group">
-        <button class="btn btn-default btn-xs option-rename">{% trans "RENAME" %}</button>
-      </div>
-      <div class="btn-group">
-          <button class="btn btn-default btn-xs option-delete"><i class="icon-trash"></i></button>
-      </div>
+        {% if is_owner or is_admin or 'edit.rename_section' in roles_permissions %}
+        <div class="btn-group">
+            <button class="btn btn-default btn-xs option-rename">{% trans "RENAME" %}</button>
+        </div>
+        {% endif %}
+
+        {% if is_owner or is_admin or 'edit.delete_section' in roles_permissions %}
+        <div class="btn-group">
+            <button class="btn btn-default btn-xs option-delete"><i class="icon-trash"></i></button>
+        </div>
+        {% endif %}
   </div>
   <ol>
   </ol>
-</li> 
+</li>

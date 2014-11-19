@@ -22,3 +22,4 @@ getUserSecurityForGroup = security.get_user_security_for_group
 getUserSecurityForBook = security.get_user_security_for_book
 getUserSecurity = security.get_user_security
 canEditBook = security.can_edit_book
+has_perm = security.has_perm
