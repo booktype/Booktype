@@ -5,7 +5,7 @@
     <style>
         #main { padding-top: 200px; margin-left: 50px; margin-right: 50px;}
     </style>
-    
+
     {% include "edit/edit_header.html" %}
     {% include "edit/aloha_header.html" %}
     {% include "edit/edit_custom_header.html" %}
@@ -16,12 +16,12 @@
 
 {% endblock %}
 
-{% block navigation %} 
+{% block navigation %}
 
     {% include "core/nav_menu.html" %}
 
     {% include "edit/toolbar_nav.html" %}
-    
+
     <!-- Bookbar -->
     <div class="bookbar flat">
        {% include "edit/toolbar_book.html" %}
@@ -47,17 +47,17 @@
 <div class="tablist left-tablist">
     <ul class="navigation-tabs">
     </ul>
-</div>    
+</div>
 
 <div class="tablist right-tablist">
-    <ul class="navigation-tabs">        
+    <ul class="navigation-tabs">
     </ul>
 </div>
 
 <div id="left-tabpane" class="tabpane left-tabpane">
     <section class="tab-content" source_id="chapters-tab">
         <h3>{% trans "Chapters" %}</h3>
-        <button href="#" role="button" class="btn btn-default btn-xs" id="" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "EXPAND TOC" %}">{% trans "EXPAND TOC" %}</button>        
+        <button href="#" role="button" class="btn btn-default btn-xs" id="" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "EXPAND TOC" %}">{% trans "EXPAND TOC" %}</button>
         <ul class="edit-toc">
         </ul>
     </section>
@@ -122,14 +122,14 @@
         <ul class="hold-chapters">
         </ul>
     </section>
-    
+
     <section class="tab-content" source_id="attachments-tab">
         <h3>{% trans "Attachments" %}</h3>
     </section>
 
     <section class="tab-content" source_id="history-tab">
         <h3>{% trans "History" %}</h3>
-    </section>    
+    </section>
 </div>
 {% endblock %}
 
