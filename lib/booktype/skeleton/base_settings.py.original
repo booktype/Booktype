@@ -119,13 +119,17 @@ TIME_ZONE = 'Europe/Berlin'
 
 LANGUAGE_CODE = 'en-us'
 
-# Uncomment this if you want to limit language translations only to specific list of languages
-#
-# gettext = lambda s: s
-#
-# LANGUAGES = (
-#  ('en-us', gettext('English'))
-# )
+gettext = lambda s: s
+
+LANGUAGES = (
+ ('en', gettext('English')),
+ ('es', gettext('Español')),
+ ('fr', gettext('Italiano')),
+ ('pt', gettext('Português')),
+ ('pt', gettext('Português')),
+ ('ru', gettext('Русский')),
+ ('sq', gettext('Shqip')),
+)
 
 SITE_ID = 1
 

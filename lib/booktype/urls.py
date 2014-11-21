@@ -29,6 +29,8 @@ SPUTNIK_DISPATCHER = (
 
 urlpatterns = patterns(
     '',
+    # internationalization
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     # front page
     url(r'', include('booktype.apps.portal.urls', namespace="portal")),
     # accounts

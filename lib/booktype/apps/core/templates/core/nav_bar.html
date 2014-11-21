@@ -20,10 +20,19 @@
 
     <!-- TODO: Translate languages and manage list of available languages -->
     <div class="btn-group">
-        <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">en<span class="caret"></span></button>
+        <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{{ LANGUAGE_CODE }}<span class="caret"></span></button>
         <ul class="dropdown-menu pull-right">
-          <li><a href="#" target="_blank"><i class="icon-flag"></i>en</a></li>
-          <li><a href="#" target="_blank"><i class="icon-flag"></i>de</a></li>
+          {% for code, lang in LANGUAGES %}
+          <li>
+          <form class='hidden' name="setLang{{ code }}" action="/i18n/setlang/" method="POST">{% csrf_token %}
+                <input name="next" type="hidden" value="/" />
+                <input type="hidden" name="language" value="{{ code }}" />
+            </form>
+          <a href="#" target="_blank" onclick="document.setLang{{ code }}.submit();return false;">
+              <img src="{{ STATIC_URL }}/core/img/flags/{{ code }}.gif" alt="">
+              {{ code }}</a>
+          </li>
+          {% endfor %}
         </ul>
     </div>
 
