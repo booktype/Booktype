@@ -18,6 +18,7 @@ from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
+from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, DetailView, FormView
@@ -58,8 +59,16 @@ def upload_attachment(request, bookid, version=None):
         return views.ErrorPage(
             request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    book_version = book.get_version(version)
+    can_upload_attachment = security.has_perm(
+        request.user, 'edit.upload_attachment', book)
 
+    if (not request.user.is_superuser
+            and not can_upload_attachment
+            and book.owner != request.user):
+        transaction.rollback()
+        raise PermissionDenied
+
+    book_version = book.get_version(version)
     stat = models.BookStatus.objects.filter(book=book)[0]
 
     # check this for transactions
@@ -120,6 +129,15 @@ def upload_cover(request, bookid, version=None):
     except models.Book.DoesNotExist:
         return views.ErrorPage(request, "errors/book_does_not_exist.html",
                                {"book_name": bookid})
+
+    can_upload_cover = security.has_perm(
+        request.user, 'edit.upload_cover', book)
+
+    if (not request.user.is_superuser
+            and not can_upload_cover
+            and book.owner != request.user):
+        transaction.rollback()
+        raise PermissionDenied
 
     # check this for transactions
     try:
@@ -322,6 +340,8 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context['is_admin'] = book_security.is_group_admin() or\
             book_security.is_book_admin() or book_security.is_superuser()
         context['is_owner'] = book.owner == self.request.user
+        context['roles_permissions'] = security.get_user_permissions(
+            self.request.user, book)
 
         license_dict = {}
         for val in models.License.objects.all().values('id', 'url'):
