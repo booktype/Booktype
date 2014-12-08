@@ -887,10 +887,10 @@ def remote_chapters_changed(request, message, bookid, version):
     weight = len(lst)
 
     logBookHistory(
-       book = book,
-       version = book_version,
-       user = request.user,
-       kind = "chapter_reorder"
+        book=book,
+        version=book_version,
+        user=request.user,
+        kind="chapter_reorder"
     )
 
     for chap in lst:
