@@ -5,7 +5,7 @@
     <style>
         #main { padding-top: 200px; margin-left: 50px; margin-right: 50px;}
     </style>
-    
+
     {% include "edit/edit_header.html" %}
     {% include "edit/aloha_header.html" %}
     {% include "edit/edit_custom_header.html" %}
@@ -16,12 +16,12 @@
 
 {% endblock %}
 
-{% block navigation %} 
+{% block navigation %}
 
     {% include "core/nav_menu.html" %}
 
     {% include "edit/toolbar_nav.html" %}
-    
+
     <!-- Bookbar -->
     <div class="bookbar flat">
        {% include "edit/toolbar_book.html" %}
@@ -29,7 +29,7 @@
     <!-- end Bookbar -->
 
     <!-- ToC / Chapter header -->
-    <div class="contentHeader">
+    <div class="contentHeader zen">
     </div>
     <!-- end ToC/Chapter header -->
 {% endblock %}
@@ -47,19 +47,21 @@
 <div class="tablist left-tablist">
     <ul class="navigation-tabs">
     </ul>
-</div>    
+</div>
 
 <div class="tablist right-tablist">
-    <ul class="navigation-tabs">        
+    <ul class="navigation-tabs">
     </ul>
 </div>
 
 <div id="left-tabpane" class="tabpane left-tabpane">
     <section class="tab-content" source_id="chapters-tab">
         <h3>{% trans "Chapters" %}</h3>
-        <button href="#" role="button" class="btn btn-default btn-xs" id="" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "EXPAND TOC" %}">{% trans "EXPAND TOC" %}</button>        
-        <ul class="edit-toc">
-        </ul>
+        <button href="#" role="button" class="btn btn-default btn-xs" id="" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "EXPAND TOC" %}">{% trans "EXPAND TOC" %}</button>
+        <div class="scrollable">
+          <ul class="edit-toc">
+          </ul>
+        </div>
     </section>
 
     <section class="tab-content hold" source_id="online-users-tab">
@@ -74,8 +76,10 @@
           </div>
         </li>
       </script>
-      <ul class="list border-top user-avatar circle">
-      </ul>
+      <div class="scrollable">
+        <ul class="list border-top user-avatar circle">
+        </ul>
+      </div>
     </section>
 
     <section class="tab-content chat" source_id="chat-tab">
@@ -119,10 +123,12 @@
 <div id="right-tabpane" class="tabpane right-tabpane">
     <section class="tab-content hold" source_id="hold-tab">
         <h3>{% trans "Chapters on Hold" %}</h3>
-        <ul class="hold-chapters">
-        </ul>
+        <div class="scrollable">
+          <ul class="hold-chapters">
+          </ul>
+        </div>
     </section>
-    
+
     <section class="tab-content" source_id="attachments-tab">
         <h3>{% trans "Attachments" %}</h3>
     </section>
@@ -147,7 +153,7 @@
           <ul class="list border-top history" id="history-tab-list">
           </ul>
         </div>
-    </section>    
+    </section>
 </div>
 {% endblock %}
 

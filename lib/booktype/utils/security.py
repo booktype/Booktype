@@ -204,3 +204,17 @@ def has_perm(user, to_do, book=None):
         return (permission in permissions)
 
     return False
+
+
+def get_user_permissions(user, book):
+    """
+    Returns a list of user permissions for a given book.
+    """
+
+    permissions = []
+    bookroles = user.roles.filter(book=book)
+
+    for bookrole in bookroles:
+        permissions += [p.key_name for p in bookrole.role.permissions.all()]
+
+    return permissions

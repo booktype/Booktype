@@ -42,6 +42,10 @@ class Permission(models.Model):
                     return desc
         return u'%s' % self.description
 
+    @property
+    def key_name(self):
+        return '%s.%s' % (self.app_name, self.name)
+
 
 class Role(models.Model):
     """
