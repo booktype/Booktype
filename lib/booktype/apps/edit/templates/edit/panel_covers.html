@@ -29,7 +29,8 @@
 
 <div class="template templateCoversContent">
     <div id="cover_error">
-        <div class="alert-box error wrong-extension">
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">{% trans "Close" %}</span></button>
             {% trans "Error: The selected filetype is not supported. Please select one of the following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD." %}
         </div>
     </div>
