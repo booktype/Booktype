@@ -7,6 +7,8 @@ PERMISSIONS = {
         ('create_chapter', _('Create chapter')),
         ('rename_chapter', _('Rename chapter')),
         ('delete_chapter', _('Delete chapter')),
+        ('lock_chapter', _('Lock chapter')),
+        ('edit_locked_chapter', _('Edit locked chapter')),
 
         ('create_section', _('Create section')),
         ('rename_section', _('Rename section')),
