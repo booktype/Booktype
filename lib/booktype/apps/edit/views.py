@@ -576,22 +576,22 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
         )
 
         history = logChapterHistory(
-            chapter = self.chapter,
-            content = revision.content,
-            user = request.user,
-            comment = _("Reverted to revision %s.") % revision.revision,
-            revision = self.chapter.revision+1
+            chapter=self.chapter,
+            content=revision.content,
+            user=request.user,
+            comment=_("Reverted to revision %s.") % revision.revision,
+            revision=self.chapter.revision + 1
         )
 
         if history:
             logBookHistory(
-                book = book,
-                version = book.version.id,
-                chapter = self.chapter,
-                chapter_history = history,
-                user = request.user,
-                args = {},
-                kind = 'chapter_save'
+                book=book,
+                version=book.version.id,
+                chapter=self.chapter,
+                chapter_history=history,
+                user=request.user,
+                args={},
+                kind='chapter_save'
             )
 
         self.chapter.revision += 1
