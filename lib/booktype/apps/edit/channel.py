@@ -57,7 +57,8 @@ def get_toc_for_book(version):
                 chap.typeof,
                 chap.chapter.status.id,
                 parent_id,
-                chap.id
+                chap.id,
+                chap.chapter.lock
             ))
         else:
             results.append((
@@ -65,9 +66,10 @@ def get_toc_for_book(version):
                 chap.name,
                 chap.name,
                 chap.typeof,
-                None, # fake status
+                None,   # fake status
                 parent_id,
-                chap.id
+                chap.id,
+                0    # fake lock
             ))
     return results
 
@@ -989,6 +991,51 @@ def remote_chapter_unhold(request, message, bookid, version):
     )
 
     return {"result": True}
+
+
+def remote_chapter_lock(request, message, bookid, version):
+    book, book_version, book_security = get_book(request, bookid, version)
+    chapter_id = message["chapterID"]
+
+    # check if you can access book this chapter belongs to
+    chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
+
+    # set lock
+    chapter.lock = chapter.LOCKED
+    chapter.save()
+
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_lock",
+            "chapterID": message["chapterID"]
+            # TODO think about tocID needed
+        },
+        myself=True
+    )
+
+    return dict(result=True)
+
+
+def remote_chapter_unlock(request, message, bookid, version):
+    book, book_version, book_security = get_book(request, bookid, version)
+    chapter_id = message["chapterID"]
+
+    # check if you can access book this chapter belongs to
+    chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
+
+    # set lock
+    chapter.lock = chapter.UNLOCKED
+    chapter.save()
+
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_unlock",
+            "chapterID": message["chapterID"]
+        },
+        myself=True
+    )
+
+    return dict(result=True)
 
 
 def remote_get_chapter(request, message, bookid, version):

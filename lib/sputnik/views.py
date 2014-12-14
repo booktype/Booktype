@@ -115,7 +115,7 @@ def dispatcher(request, **sputnik_dict):
 
     status_code = True
     results = []
-    clientID = None
+    messages = []
 
     if request.method != 'POST':
         status_code = False
@@ -127,20 +127,19 @@ def dispatcher(request, **sputnik_dict):
     except:
         status_code = False
 
-
     if status_code:
         clientID = request.POST.get("clientID", None)
 
         if not hasattr(request, "sputnikID"):
             request.sputnikID = "%s:%s" % (request.session.session_key, clientID)
-            request.clientID  = clientID
+            request.clientID = clientID
 
         for message in messages:            
             for mpr in sputnik_dict['map']:
                 mtch = re.match(mpr[0], message.get("channel", ""))
 
                 if mtch:
-                    a =  mtch.groupdict()
+                    a = mtch.groupdict()
 
                     try:
                         _m = importlib.import_module(mpr[1])
