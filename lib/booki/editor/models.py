@@ -279,6 +279,7 @@ HISTORY_CHOICES = {
     'cover_update': 18
 }
 
+
 class BookHistory(models.Model):
     book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
     # this should probably be null=False
@@ -296,16 +297,23 @@ class BookHistory(models.Model):
 
 # Info
 
-INFO_CHOICES = (
-    (0, 'string'),
-    (1, 'integer'),
-    (2, 'text'),
-    (3, 'date')
-)
+# INFO_CHOICES = (
+#     (0, 'string'),
+#     (1, 'integer'),
+#     (2, 'text'),
+#     (3, 'date')
+# )
 
 
 # msu add version here
 class Info(models.Model):
+    INFO_CHOICES = (
+        (0, 'string'),
+        (1, 'integer'),
+        (2, 'text'),
+        (3, 'date')
+    )
+
     book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
 
     name = models.CharField(_('name'), max_length=2500, db_index=True)
@@ -316,7 +324,13 @@ class Info(models.Model):
     value_text = models.TextField(_('value text'), null=True)
     value_date = models.DateTimeField(_('value date'), auto_now=False, null=True)
 
-    
+    class Meta:
+        verbose_name = _('Metadata')
+        verbose_name_plural = _('Metadata')
+
+    def __unicode__(self):
+        return self.name
+
     def get_value(self):
         if self.kind == 0:
             return self.value_string
@@ -328,14 +342,6 @@ class Info(models.Model):
             return self.value_date
 
         return None
-        
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _('Metadata')
-        verbose_name_plural = _('Metadata')
 
     # DEPRECATED API NAMES
     getValue = get_value        
@@ -382,33 +388,35 @@ class BookVersion(models.Model):
 # Chapter
 
 class Chapter(models.Model):
-    version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
-    # don't need book
-    book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
+    UNLOCKED = 0
+    PRIVATE_LOCK = 1
+    LOCKED = 2
+    LOCK_CHOICES = ((UNLOCKED, 'Unlocked'),
+                    (PRIVATE_LOCK, 'Lock for everyone'),
+                    (LOCKED, 'Lock edit to people without permissions'))
 
+    version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
+    book = models.ForeignKey(Book, null=False, verbose_name=_("book"))  # don't need book
     url_title = models.CharField(_('url title'), max_length=2500)
     title = models.CharField(_('title'), max_length=2500)
-    status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status")) # this will probably change
+    status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status"))    # this will probably change
     created = models.DateTimeField(_('created'), null=False, auto_now=False, default=datetime.datetime.now)
     modified = models.DateTimeField(_('modified'), null=True, auto_now=True)
-    #
     revision = models.IntegerField(_('revision'), default=1)
-#    comment = models.CharField(_('comment'), max_length=2500, blank=True)
-
-
     # missing licence here
     content = models.TextField(_('content'))
-
-    def get_absolute_url(self):
-        return '%s/%s/%s/' % (settings.BOOKI_URL, self.book.url_title, self.url_title)
-
-
-    def __unicode__(self):
-        return self.title
+    lock = models.IntegerField(choices=LOCK_CHOICES, default=UNLOCKED)
 
     class Meta:
         verbose_name = _('Chapter')
         verbose_name_plural = _('Chapters')
+
+    def __unicode__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return '%s/%s/%s/' % (settings.BOOKI_URL, self.book.url_title, self.url_title)
+
 
 # ChapterHistory
 
