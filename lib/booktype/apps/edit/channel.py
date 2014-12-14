@@ -56,6 +56,7 @@ def get_toc_for_book(version):
                 chap.chapter.url_title,
                 chap.typeof,
                 chap.chapter.status.id,
+                chap.chapter.lock,
                 parent_id,
                 chap.id
             ))
@@ -65,7 +66,8 @@ def get_toc_for_book(version):
                 chap.name,
                 chap.name,
                 chap.typeof,
-                None, # fake status
+                None,   # fake status
+                0,    # fake lock
                 parent_id,
                 chap.id
             ))
@@ -82,9 +84,20 @@ def get_hold_chapters(book_version):
     @rtype: C{list}
     @return: Returns list with hold chapters
     """
+    hold_chapters = book_version.get_hold_chapters()
 
-    return [(ch.id, ch.title, ch.url_title, 1, ch.status.id) \
-            for ch in book_version.get_hold_chapters()]
+    def _to_tuple(chapter):
+        """
+        Simple create tuble from chapter instance.
+
+        @type chapter: C{booki.editor.models.Chapter}
+        @param chapter: booki.editor.models.Chapter instance
+        """
+
+        return (chapter.id, chapter.title, chapter.url_title, 1,
+                chapter.status.id, chapter.lock)
+
+    return [_to_tuple(ch) for ch in hold_chapters]
 
 
 def get_attachments(book_version):
@@ -887,10 +900,10 @@ def remote_chapters_changed(request, message, bookid, version):
     weight = len(lst)
 
     logBookHistory(
-       book = book,
-       version = book_version,
-       user = request.user,
-       kind = "chapter_reorder"
+        book=book,
+        version=book_version,
+        user=request.user,
+        kind="chapter_reorder"
     )
 
     for chap in lst:
@@ -989,6 +1002,51 @@ def remote_chapter_unhold(request, message, bookid, version):
     )
 
     return {"result": True}
+
+
+def remote_chapter_lock(request, message, bookid, version):
+    book, book_version, book_security = get_book(request, bookid, version)
+    chapter_id = message["chapterID"]
+
+    # check if you can access book this chapter belongs to
+    chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
+
+    # set lock
+    chapter.lock = chapter.LOCKED
+    chapter.save()
+
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_lock",
+            "chapterID": message["chapterID"]
+            # TODO think about tocID needed
+        },
+        myself=True
+    )
+
+    return dict(result=True)
+
+
+def remote_chapter_unlock(request, message, bookid, version):
+    book, book_version, book_security = get_book(request, bookid, version)
+    chapter_id = message["chapterID"]
+
+    # check if you can access book this chapter belongs to
+    chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
+
+    # set lock
+    chapter.lock = chapter.UNLOCKED
+    chapter.save()
+
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_unlock",
+            "chapterID": message["chapterID"]
+        },
+        myself=True
+    )
+
+    return dict(result=True)
 
 
 def remote_get_chapter(request, message, bookid, version):

@@ -21,13 +21,16 @@ from booktype.apps.account.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 
+
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
     fk_name = 'user'
     max_num = 1
 
+
 class UserAdmin(AuthUserAdmin):
-    inlines = [UserProfileInline,]
+    inlines = [UserProfileInline, ]
+
 
 # customize some lists with additional column and filters
 class BookAdmin(admin.ModelAdmin):
@@ -36,34 +39,42 @@ class BookAdmin(admin.ModelAdmin):
     ordering = ['title']
     search_fields = ['title']
 
+
 class InfoAdmin(admin.ModelAdmin):
     list_filter = ['book']
 
+
 class ChapterAdmin(admin.ModelAdmin):
-    list_display = ('title', 'version', 'revision', 'modified')
+    list_display = ('title', 'version', 'revision', 'modified', 'lock')
     ordering = ['title']
     list_filter = ['book']
     search_fields = ['title']
 
+
 class AttachmentAdmin(admin.ModelAdmin):
     list_filter = ['book']
+
 
 class BookStatusAdmin(admin.ModelAdmin):
     list_display = ('name', 'weight')
     ordering = ['-weight']
     list_filter = ['book']
 
+
 class BookTocAdmin(admin.ModelAdmin):
     list_display = ('name', 'weight')
     ordering = ['-weight']
     list_filter = ['book']
     search_fields = ['name']
-    
+
+
 class BookiGroupAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'created')
 
+
 class BookNotesAdmin(admin.ModelAdmin):
     list_filter = ['book']
+
 
 class BookVersionAdmin(admin.ModelAdmin):
     list_filter = ['book']
