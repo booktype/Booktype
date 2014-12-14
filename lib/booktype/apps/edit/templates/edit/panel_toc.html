@@ -155,7 +155,12 @@
         {% endif %}
     </div>
     <div class="btn-group">
-        <button id="edit" class="btn btn-default btn-xs option-edit">{% trans "EDIT" %}</button>
+        {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
+            <button id="edit" class="btn btn-default btn-xs option-edit locked">{% trans "EDIT" %}</button>
+        {% else %}
+            <span class="label locked">Locked</span>
+            <button id="edit" class="btn btn-default btn-xs option-edit unlocked">{% trans "EDIT" %}</button>
+        {% endif %}
     </div>
 </div>
 

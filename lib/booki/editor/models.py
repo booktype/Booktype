@@ -363,7 +363,12 @@ class BookVersion(models.Model):
         return BookToc.objects.filter(version=self).order_by("-weight")
 
     def get_hold_chapters(self):
-        return Chapter.objects.raw('SELECT editor_chapter.* FROM editor_chapter LEFT OUTER JOIN editor_booktoc ON (editor_chapter.id=editor_booktoc.chapter_id)  WHERE editor_chapter.book_id=%s AND editor_chapter.version_id=%s AND editor_booktoc.chapter_id IS NULL', (self.book.id, self.id))
+        return Chapter.objects.raw('SELECT editor_chapter.* FROM editor_chapter '
+                                   'LEFT OUTER JOIN editor_booktoc '
+                                   'ON (editor_chapter.id=editor_booktoc.chapter_id) '
+                                   'WHERE editor_chapter.book_id=%s '
+                                   'AND editor_chapter.version_id=%s '
+                                   'AND editor_booktoc.chapter_id IS NULL', (self.book.id, self.id))
 
     def get_attachments(self):
         "Return all attachments for this version."
