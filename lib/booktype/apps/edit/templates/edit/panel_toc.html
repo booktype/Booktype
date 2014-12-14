@@ -204,7 +204,7 @@
             <ul class="dropdown-menu status-options">
             </ul>
         </div>
-        <div class="btn-group">
+        <div class="btn-group unlocked">
             <button class="btn btn-default btn-xs edit">{% trans "EDIT CHAPTER" %}</button>
             <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span></button>
             <ul class="dropdown-menu">
@@ -226,7 +226,7 @@
 
         {% comment %} i think it's not good solution..need more time to research permissions in js{% endcomment %}
         {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
-        <div class="btn-group" style="display: none">
+        <div class="btn-group locked" style="display: none">
             <button class="btn btn-default btn-xs edit">{% trans "EDIT CHAPTER" %}</button>
             <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span></button>
             <ul class="dropdown-menu">
