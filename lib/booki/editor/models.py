@@ -22,7 +22,7 @@ from django.conf import settings
 from django.contrib.auth import models as auth_models
 from django.utils.translation import ugettext_lazy as _
 
-import booki.editor.signals
+# import booki.editor.signals
 
 
 # License
@@ -39,11 +39,12 @@ class License(models.Model):
         verbose_name = _('License')
         verbose_name_plural = _('Licenses')
 
-# Language
 
+# Language
 class Language(models.Model):
     name = models.CharField(_('name'), max_length=50, blank=False)
-    abbrevation = models.CharField(_('abbrevation'), max_length=10, blank=False)
+    abbrevation = models.CharField(_('abbrevation'),
+                                   max_length=10, blank=False)
 
     def __unicode__(self):
         return self.name
@@ -75,9 +76,9 @@ class BookStatus(models.Model):
         verbose_name = _('Book status')
         verbose_name_plural = _('Book status')
 
+
 # Book Notes
 # free form shared notes for writers of the book
-#
 class BookNotes(models.Model):
     book = models.ForeignKey('Book', verbose_name=_("book"))
     notes = models.TextField(_('notes'))
@@ -89,17 +90,18 @@ class BookNotes(models.Model):
         verbose_name = _('Book note')
         verbose_name_plural = _('Book notes')
 
-# BookiGroup
 
+# BookiGroup
 class BookiGroup(models.Model):
     name = models.CharField(_('name'), max_length=300, blank=False)
-    url_name = models.CharField(_('url name'), max_length=300, blank=False) #, primary_key=True)
+    url_name = models.CharField(_('url name'), max_length=300, blank=False)
     description = models.TextField(_('description'))
 
     owner = models.ForeignKey(auth_models.User, verbose_name=_('owner'))
 
 #    books = models.ManyToManyField(Book, blank=True)
-    members = models.ManyToManyField(auth_models.User, related_name="members", blank=True, verbose_name=_("members"))
+    members = models.ManyToManyField(auth_models.User, related_name="members",
+                                     blank=True, verbose_name=_("members"))
 
     created = models.DateTimeField(_('created'), auto_now=False, null=True)
 
@@ -132,7 +134,7 @@ class BookiGroup(models.Model):
 
     def remove_group_images(self):
         group_image_path = '%s/%s' % (settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
-        
+
         group_images = []
         group_images.append('{0}/{1}_small.jpg'.format(group_image_path, self.pk))
         group_images.append('{0}/{1}.jpg'.format(group_image_path, self.pk))
@@ -151,8 +153,8 @@ class BookiGroup(models.Model):
         verbose_name = _('Booktype group')
         verbose_name_plural = _('Booktype groups')
 
-# Book
 
+# Book
 class Book(models.Model):
     url_title = models.CharField(_('url title'), max_length=2500, blank=False, unique=True) # can it be blank?
     title = models.CharField(_('title'), max_length=2500, blank=False)
@@ -174,7 +176,7 @@ class Book(models.Model):
     published = models.DateTimeField(_('published'), null=True)
 
     hidden = models.BooleanField(_('hidden'))
-    permission = models.SmallIntegerField(_('permission'), null=False, default = 0) 
+    permission = models.SmallIntegerField(_('permission'), null=False, default = 0)
 
     description = models.TextField(_('description'), null=False, default='')
     cover = models.ImageField(_('cover'), upload_to=settings.COVER_IMAGE_UPLOAD_DIR, null=True)
@@ -215,7 +217,7 @@ class Book(models.Model):
                     return None
                 except emodels.BookVersion.MultipleObjectsReturned:
                     # would it be better to return first item in this situation?
-                    return None                
+                    return None
 
         return book_ver
 
@@ -254,7 +256,7 @@ class Book(models.Model):
 
 HISTORY_CHOICES = {
     'unknown': 0,
-    
+
     'chapter_create': 1,
     'chapter_save': 2,
     'chapter_rename': 3,
@@ -279,6 +281,7 @@ HISTORY_CHOICES = {
     'cover_update': 18
 }
 
+
 class BookHistory(models.Model):
     book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
     # this should probably be null=False
@@ -295,7 +298,6 @@ class BookHistory(models.Model):
 
 
 # Info
-
 INFO_CHOICES = (
     (0, 'string'),
     (1, 'integer'),
@@ -305,9 +307,7 @@ INFO_CHOICES = (
 
 
 # msu add version here
-class Info(models.Model):
-    book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
-
+class BaseInfo(models.Model):
     name = models.CharField(_('name'), max_length=2500, db_index=True)
     kind = models.SmallIntegerField(_('kind'), choices=INFO_CHOICES)
 
@@ -316,7 +316,12 @@ class Info(models.Model):
     value_text = models.TextField(_('value text'), null=True)
     value_date = models.DateTimeField(_('value date'), auto_now=False, null=True)
 
-    
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+
     def get_value(self):
         if self.kind == 0:
             return self.value_string
@@ -328,29 +333,48 @@ class Info(models.Model):
             return self.value_date
 
         return None
-        
 
-    def __unicode__(self):
-        return self.name
+    # DEPRECATED API NAMES
+    getValue = get_value
+
+
+class Info(BaseInfo):
+    """Basic model for saving book Metadata"""
+    book = models.ForeignKey(
+        Book, null=False,
+        verbose_name=_("book")
+    )
 
     class Meta:
         verbose_name = _('Metadata')
         verbose_name_plural = _('Metadata')
 
-    # DEPRECATED API NAMES
-    getValue = get_value        
+
+class BookSetting(BaseInfo):
+    """Basic model for saving book settings"""
+    book = models.ForeignKey(
+        Book, null=False,
+        verbose_name=_("book"),
+        related_name='settings'
+    )
+
+    class Meta:
+        verbose_name = _('Book setting')
+        verbose_name_plural = _('Book settings')
 
 
 # Book Version
-
 class BookVersion(models.Model):
     book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
     major = models.IntegerField(_('major'))
     minor = models.IntegerField(_('minor'))
     name = models.CharField(_('name'), max_length=50, blank=True)
-    description = models.CharField(_('description'), max_length=250, blank=True)
+    description = models.CharField(
+        _('description'), max_length=250, blank=True)
 
-    created = models.DateTimeField(_('created'), auto_now=False, null=False, default=datetime.datetime.now)
+    created = models.DateTimeField(
+        _('created'), auto_now=False, null=False,
+        default=datetime.datetime.now)
     # add published
 
     def get_toc(self):
@@ -368,12 +392,12 @@ class BookVersion(models.Model):
 
     def get_absolute_url(self):
         return '%s/%s/_v/%s/' % (settings.BOOKI_URL, self.book.url_title, self.get_version())
-        
+
     def __unicode__(self):
         return '%d.%d (%s)' % (self.major, self.minor, self.name)
 
     # DEPRECATED API NAMES
-    getTOC = get_toc        
+    getTOC = get_toc
     getHoldChapters = get_hold_chapters
     getAttachments = get_attachments
     getVersion = get_version
@@ -410,8 +434,8 @@ class Chapter(models.Model):
         verbose_name = _('Chapter')
         verbose_name_plural = _('Chapters')
 
-# ChapterHistory
 
+# ChapterHistory
 class ChapterHistory(models.Model):
     chapter = models.ForeignKey(Chapter, null=False, verbose_name=_("chapter"))
     content = models.TextField()
@@ -429,27 +453,36 @@ class ChapterHistory(models.Model):
 
     def previous(self):
         lower = ChapterHistory.objects.filter(
-                    chapter=self.chapter, revision__lt=self.revision
-                ).order_by('-revision')
+            chapter=self.chapter,
+            revision__lt=self.revision
+        ).order_by('-revision')
+
         if lower.count() > 0:
             return lower[0].revision
         return None
 
     def next(self):
-        higher = ChapterHistory.objects.filter(chapter=self.chapter, revision__gt=self.revision)
+        higher = ChapterHistory.objects.filter(
+            chapter=self.chapter, revision__gt=self.revision)
+
         if higher.count() > 0:
             return higher[0].revision
         return None
 
-# Attachment
 
+# Attachment
 def uploadAttachmentTo(att, filename):
-    return '%s/books/%s/%s/%s' % (settings.DATA_ROOT, att.book.url_title, att.version.get_version(), filename)
+    return '%s/books/%s/%s/%s' % (
+        settings.DATA_ROOT, att.book.url_title,
+        att.version.get_version(), filename
+    )
+
 
 def getAttachmentUrl(att, filename):
-    return '%sbooks/%s/%s/%s' % (settings.DATA_URL, att.book.url_title, att.version.get_version(), filename)
-#    return '%s%s/%s/%s' % (settings.MEDIA_ROOT, att.book.url_title, att.version.get_version(), filename)
-
+    return '%sbooks/%s/%s/%s' % (
+        settings.DATA_URL, att.book.url_title,
+        att.version.get_version(), filename
+    )
 
 
 class AttachmentFile(models.FileField):
@@ -458,9 +491,8 @@ class AttachmentFile(models.FileField):
         name = super(models.FileField, self).get_directory_name()
         return name
 
-# TODO
-# should add version
 
+# TODO: should add version
 class Attachment(models.Model):
     version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
     # don't really need book anymore
@@ -504,11 +536,10 @@ class Attachment(models.Model):
         verbose_name_plural = _('Attachments')
 
     # DEPRECATED API NAMES
-    getName = get_name        
+    getName = get_name
 
-    
+
 # Book Toc
-
 TYPEOF_CHOICES = (
     (0, _('section name')),
     (1, _('chapter name')),
@@ -554,7 +585,7 @@ class BookToc(models.Model):
 
 class BookiPermission(models.Model):
     """
-    - permission 
+    - permission
         0 - unknown
         1 - admin
     """

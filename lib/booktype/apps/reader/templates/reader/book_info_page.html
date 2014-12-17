@@ -41,9 +41,11 @@
                     <button data-href="{% url 'edit:editor' book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Edit this Book' %}">
                         {% trans "Edit this Book" %}
                     </button>
+                    {% if 'reader.can_view_draft' in roles_permissions or is_book_admin %}
                     <button data-href="{% url 'reader:draft_chapter_page' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'View draft' %}">
                         {% trans "View draft" %}
                     </button>
+                    {% endif %}
                     {% if is_book_admin %}
                     <button data-remote="{% url 'reader:edit_info_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Edit book info' %}">
                         {% trans "Edit book info" %}
@@ -52,9 +54,11 @@
                         {% trans "Delete Book" %}
                     </button>
                     {% endif %}
+                    {% if 'reader.can_view_full_page' in roles_permissions or is_book_admin %}
                     <button data-href="{% url 'reader:full_view' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'View full book' %}">
                         {% trans "View full book" %}
                     </button>
+                    {% endif %}
                 </div>
             </div>
 
@@ -120,7 +124,7 @@
                 </ul>
 
                 <br>
-                
+
                 {% if book_admins %}
                 <h2 class="box-title">{% trans "Admins" %}</h2>
                 <ul class="list border-top user-avatar circle">

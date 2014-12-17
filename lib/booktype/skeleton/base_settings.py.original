@@ -35,7 +35,7 @@ BOOKTYPE_SITE_DIR = '##BOOKTYPE_SITE_DIR##'
 
 THIS_BOOKTYPE_SERVER = '' # the name of the booki server (comment out to use os.environ['HTTP_HOST'])
 
-#BOOKTYPE_ROOT = '##BOOKTYPE_ROOT##' 
+#BOOKTYPE_ROOT = '##BOOKTYPE_ROOT##'
 BOOKTYPE_ROOT = Path(os.path.abspath(__file__)).ancestor(3)
 
 BOOKTYPE_URL = ''
@@ -81,16 +81,16 @@ DATA_ROOT = BOOKTYPE_ROOT.child('data')
 DATA_URL  = '{}/data/'.format(BOOKTYPE_URL)
 
 # profile images
-PROFILE_IMAGE_UPLOAD_DIR = 'profile_images/' 
+PROFILE_IMAGE_UPLOAD_DIR = 'profile_images/'
 
 # If you don't want to use default profile image you can set your own.
 # Place the image inside of /static/images/ directory in your Booktype project directory.
 #DEFAULT_PROFILE_IMAGE='anonymous.png'
 
-# book cover images			 
+# book cover images
 COVER_IMAGE_UPLOAD_DIR = 'cover_images/'
 
-# group images          
+# group images
 GROUP_IMAGE_UPLOAD_DIR = 'group_images/'
 
 
@@ -154,7 +154,7 @@ LOCALE_PATHS = (
 SECRET_KEY = '##SECRET_KEY##'
 
 # Storage for messages framework
-MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage' 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 # List of callables that know how to import templates from various sources.
 
@@ -201,7 +201,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'django.contrib.messages', 
+    'django.contrib.messages',
     'django.contrib.staticfiles',
 
     'south',
@@ -215,7 +215,7 @@ INSTALLED_APPS = (
     'booktype.apps.core',
     'booktype.apps.portal',
     'booktype.apps.loadsave',
-    'booktype.apps.importer',    
+    'booktype.apps.importer',
     'booktype.apps.convert',
     'booktype.apps.edit',
     'booktype.apps.reader',
@@ -234,6 +234,18 @@ BOOKTYPE_CONVERTER_MODULES = (
 
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+# set of default roles and corresponding permissions
+BOOKTYPE_DEFAULT_ROLES = {
+    'anonymous_users': [
+        'reader.can_view_full_page',
+        'reader.can_view_draft'
+    ],
+    'registered_users': [
+        'reader.can_view_full_page',
+        'reader.can_view_draft'
+    ]
+}
 
 # DEPRECATED CONFIG
 

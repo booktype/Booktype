@@ -232,9 +232,6 @@ class BookSettingsForm(BaseControlForm, forms.Form):
         help_text=_("Default license for newly created books.")
     )
 
-    def __init__(self, *args, **kwargs):
-        super(forms.Form, self).__init__(*args, **kwargs)
-
     @classmethod
     def initial_data(self):
         _l = config.get_configuration('CREATE_BOOK_LICENSE')
@@ -287,10 +284,6 @@ class PrivacyForm(BaseControlForm, forms.Form):
         label=_('Only admin can import books'),
         required=False
     )
-
-    # overriding init to remove field css classes from BaseControlForm
-    def __init__(self, *args, **kwargs):
-        super(forms.Form, self).__init__(*args, **kwargs)
 
     @classmethod
     def initial_data(cls):
@@ -840,3 +833,48 @@ class AddRoleForm(BaseControlForm, forms.ModelForm):
     def save_settings(self, request):
         role = self.save()
         return role
+
+
+class DefaultRolesForm(BaseControlForm, forms.Form):
+    ROLES_CHOICES = \
+        [('__no_role__', _('None'))] + \
+        [(r.name, r.name) for r in Role.objects.all()]
+    anonymous = 'anonymous_users'
+    registered = 'registered_users'
+
+    anonymous_users = forms.ChoiceField(
+        choices=ROLES_CHOICES, required=False,
+        label=_('Role for anonymous users')
+    )
+    registered_users = forms.ChoiceField(
+        choices=ROLES_CHOICES, required=False,
+        label=_('Role for registered users')
+    )
+
+    @classmethod
+    def initial_data(cls):
+        return {
+            cls.anonymous: config.get_configuration(
+                'DEFAULT_ROLE_%s' % cls.anonymous,
+                cls.anonymous
+            ),
+            cls.registered: config.get_configuration(
+                'DEFAULT_ROLE_%s' % cls.registered,
+                cls.registered
+            )
+        }
+
+    def save_settings(self, request):
+        config.set_configuration(
+            'DEFAULT_ROLE_%s' % self.anonymous,
+            self.cleaned_data[self.anonymous]
+        )
+        config.set_configuration(
+            'DEFAULT_ROLE_%s' % self.registered,
+            self.cleaned_data[self.registered]
+        )
+
+        try:
+            config.save_configuration()
+        except config.ConfigurationError as err:
+            raise err
