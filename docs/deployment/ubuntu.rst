@@ -55,6 +55,8 @@ Initialise Booktype:
     $ ./manage.py syncdb --noinput
     $ ./manage.py migrate
     $ ./manage.py createsuperuser
+    $ ./manage.py update_permissions
+    $ ./manage.py update_default_roles
 
 Collects static files:
 
