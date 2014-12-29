@@ -26,6 +26,7 @@ urlpatterns = patterns('',
    url(r'^_info/edit/$', EditBookInfoView.as_view(), name='edit_info_book'),
    url(r'^_info/delete/$', DeleteBookView.as_view(), name='delete_book'),
    url(r'^_full/$', FullView.as_view(), name='full_view'),
+   url(r'^_full/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment'),
 
    # draft book page
    url(r'^_draft/_v/(?P<version>[\w\s\_\d\.\-]+)/(?P<chapter>[\w\s\_\.\-]+)/$', DraftChapterView.as_view(), name='draft_chapter_page'),

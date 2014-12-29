@@ -34,6 +34,8 @@ Check the :doc:`deployment documentation </deployment/index>` which external ser
     $ ./manage.py syncdb --noinput
     $ ./manage.py migrate
     $ ./manage.py createsuperuser
+    $ ./manage.py update_permissions
+    $ ./manage.py update_default_roles
 
     # Edit bkdev_site/settings/dev.py file if needed
 

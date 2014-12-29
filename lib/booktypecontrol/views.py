@@ -29,16 +29,16 @@ from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse, reverse_lazy
 
-from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import TemplateView, FormView
+from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import DetailView, UpdateView, DeleteView
 
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 from booktype.utils import misc
-from booki.editor.models import Book, BookiGroup, BookHistory, License
 from booktype.apps.core.models import Role
 from booktype.apps.core.views import BasePageView
+from booki.editor.models import Book, BookiGroup, BookHistory, License
 
 
 OPTION_NAMES = {
@@ -57,7 +57,8 @@ OPTION_NAMES = {
     'add-group': _('Add new Group'),
     'list-of-groups': _('List of Groups'),
     'add-role': _('Add new Role'),
-    'list-of-roles': _('List of Roles')
+    'list-of-roles': _('List of Roles'),
+    'default-roles': _('Default Roles')
 }
 
 VALID_OPTIONS = OPTION_NAMES.keys()
