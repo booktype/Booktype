@@ -26,7 +26,7 @@ More info
 Installation
 ------------
 
-Read INSTALL file and check [`docs/deployment/`](doc/deployment/) directory for more details.
+Read INSTALL file and check [`docs/deployment/`](docs/deployment/) directory for more details.
 
 Read up to date [online instructions](https://wiki.sourcefabric.org/display/Booktype/Installing) on the [Booktype wiki](https://wiki.sourcefabric.org/display/Booktype/Booktype).
 
