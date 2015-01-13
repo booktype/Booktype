@@ -28,7 +28,7 @@ Installation
 
 Read the INSTALL file and check the [`docs/deployment/`](docs/deployment/) directory for more details.
 
-Read up to date [online instructions](http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/before-you-install/) in the [Booktype manual](http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/).
+There are up to date [installation instructions](http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/before-you-install/) in the [Booktype manual](http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/).
 
 
 How to contribute
