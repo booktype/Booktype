@@ -5,8 +5,11 @@
       window.booktype.currentBookID  = {{ book.id }};
       window.booktype.currentBook    = "{{ book.title|escapejs }}";
       window.booktype.currentBookURL = "{{ book.url_title|escapejs }}";
+      window.booktype.currentActiveTab = null;
       window.booktype.staticURL = "{{ static_url|escapejs }}";
       window.booktype.baseURL = "{{ base_url|escapejs }}";
+      window.booktype.bookDir = "{{ book_dir|escapejs }}";
+      window.booktype.bookLang = "{{ book_language|escapejs }}";
 
       window.booktype.currentVersion = "{{ book_version|escapejs }}";
       window.booktype.sputnikDispatcherURL = "{% url 'sputnik.views.dispatcher' %}";

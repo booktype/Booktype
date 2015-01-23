@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext as _
 
+from booktypecontrol.forms import DefaultRolesForm
 from booktype.apps.portal.forms import SpanErrorList
 from booktype.apps.core.models import BookRole, Role
 from booktype.apps.core.forms import BaseBooktypeForm
 from booki.editor.models import (
-    Language, Info, License)
+    Language, Info, License, BookSetting)
 
 
 class BaseSettingsForm(BaseBooktypeForm):
@@ -46,7 +47,7 @@ class LanguageForm(BaseSettingsForm, forms.Form):
     @classmethod
     def initial_data(cls, book=None, request=None):
         try:
-            rtl = Info.objects.get(book=book, kind=0).getValue()
+            rtl = Info.objects.get(book=book, kind=0, name='{http://booki.cc/}dir').getValue()
         except (Info.DoesNotExist, Info.MultipleObjectsReturned):
             rtl = 'LTR'
 
@@ -63,11 +64,11 @@ class LanguageForm(BaseSettingsForm, forms.Form):
         rtl_value = "RTL" if rtl_value else "LTR"
 
         try:
-            rtl = Info.objects.get(book=book, kind=0)
+            rtl = Info.objects.get(book=book, kind=0, name='{http://booki.cc/}dir')
             rtl.value_string = rtl_value
             rtl.save()
         except Info.DoesNotExist:
-            rtl = Info(book=book, kind=0, value_string=rtl_value)
+            rtl = Info(book=book, kind=0, name='{http://booki.cc/}dir', value_string=rtl_value)
             rtl.save()
 
 
@@ -175,3 +176,34 @@ class RolesForm(BaseSettingsForm, forms.Form):
             'global_roles': Role.objects.order_by('name'),
             'all_users': User.objects.order_by('username')
         }
+
+
+class PermissionsForm(BaseSettingsForm, DefaultRolesForm):
+    skip_select_and_checkbox = True
+
+    @classmethod
+    def initial_data(cls, book=None, request=None):
+        initial = DefaultRolesForm.initial_data()
+
+        for role_name in [cls.anonymous, cls.registered]:
+            try:
+                initial[role_name] = BookSetting.objects.get(
+                    book=book, name='DEFAULT_ROLE_%s' % role_name
+                ).get_value()
+            except:
+                pass
+
+        return initial
+
+    def save_settings(self, book, request):
+        STRING = 0
+
+        for key in [self.anonymous, self.registered]:
+            value = self.cleaned_data.get(key, None)
+            role_key = 'DEFAULT_ROLE_%s' % key
+            if value:
+                setting, _ = BookSetting.objects.get_or_create(
+                    book=book, name=role_key, kind=STRING
+                )
+                setting.value_string = value
+                setting.save()
