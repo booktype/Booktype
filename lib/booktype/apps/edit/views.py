@@ -333,6 +333,13 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context['request'] = self.request
         context['book'] = book
         context['book_version'] = book_version.get_version()
+        context['book_language'] = book.language.abbrevation if book.language else 'en'
+
+        try:
+            rtl = models.Info.objects.get(book=book, kind=0, name='{http://booki.cc/}dir')
+            context['book_dir'] = rtl.get_value().lower()
+        except models.Info.DoesNotExist:
+            context['book_dir'] = 'ltr'
 
         context['chapters'] = toc
 

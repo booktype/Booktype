@@ -47,7 +47,7 @@ class LanguageForm(BaseSettingsForm, forms.Form):
     @classmethod
     def initial_data(cls, book=None, request=None):
         try:
-            rtl = Info.objects.get(book=book, kind=0).getValue()
+            rtl = Info.objects.get(book=book, kind=0, name='{http://booki.cc/}dir').getValue()
         except (Info.DoesNotExist, Info.MultipleObjectsReturned):
             rtl = 'LTR'
 
@@ -64,11 +64,11 @@ class LanguageForm(BaseSettingsForm, forms.Form):
         rtl_value = "RTL" if rtl_value else "LTR"
 
         try:
-            rtl = Info.objects.get(book=book, kind=0)
+            rtl = Info.objects.get(book=book, kind=0, name='{http://booki.cc/}dir')
             rtl.value_string = rtl_value
             rtl.save()
         except Info.DoesNotExist:
-            rtl = Info(book=book, kind=0, value_string=rtl_value)
+            rtl = Info(book=book, kind=0, name='{http://booki.cc/}dir', value_string=rtl_value)
             rtl.save()
 
 
