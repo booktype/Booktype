@@ -4,11 +4,17 @@
     <i class="icon-chevron-left"></i> {% trans "BACK TO INDEX" %}
 </a>
 <div class="history-compare">
-    <button role="button" class="btn btn-success btn-sm" data-target="#compareDialog" id="compare-chapter"
-        data-compare-url="{% url 'edit:revisions_compare' book.url_title chapter.url_title %}">
-        {% trans "COMPARE" %}
-    </button> 
     <h3>{{ chapter.title }}</h3>
+
+    <div class="pull-right">
+    <button role="button" class="btn btn-success btn-sm" data-target="#compareDialog" id="compare-chapter"
+        data-compare-url="{% url 'edit:chapter_history' book.url_title chapter.url_title %}compare-revs">
+        {% trans "COMPARE" %}
+    </button>
+    <button role="button" class="btn btn-primary btn-sm compare-chapter-new-tab" data-compare-url="{% url 'edit:chapter_history' book.url_title chapter.url_title %}compare-revs">
+        {% trans "COMPARE FULL VIEW" %}
+    </button>
+    </div>
 </div>
 <table class="historyTable chapter" cellspacing="0" cellpadding="0" borer="0">
     <thead>

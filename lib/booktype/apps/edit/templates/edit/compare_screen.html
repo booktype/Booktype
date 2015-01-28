@@ -1,12 +1,15 @@
-{% spaceless %}
-{% load i18n %}
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">{% trans "Chapter diff" %}</h3>
-        </div>
-        <div class="modal-body">
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="contentHeader">
+    <h2>{{ chapter.title }}</h2>
+</div>
+
+<div class="contentContainer">
+    <div class="content">
+        <div class="compare_screen">
+            <h2 class="box-title">{% trans "Chapter diff" %}</h2>
             <div class="row">
                 <div class="col-xs-2"><span class="marker changed">{% trans "Changed" %}</span></div>
                 <div class="col-xs-2"><span class="marker added">{% trans "Added" %}</span></div>
@@ -22,12 +25,9 @@
                 </table>
             </div>
         </div>
-        <div class="modal-footer">
-            <button role="button" class="btn btn-success" data-href="{% url 'edit:revisions_compare' book.url_title chapter.url_title rev1 rev2 %}" data-target="_blank">
-                {% trans "Full view" %}
-            </button>
-            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
-        </div>
     </div>
 </div>
-{% endspaceless %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
