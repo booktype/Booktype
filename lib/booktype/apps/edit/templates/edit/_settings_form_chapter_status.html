@@ -1,0 +1,66 @@
+{% load i18n %}
+{% if 'edit.manage_status' in roles_permissions or book.owner == user or user.is_superuser %}
+<div class="tab-pane fade active in" id="chapter-status">
+    <h4 class="border-bottom">{% trans "Chapter Status" %}</h4>
+    <div class="statuses ">
+        <label>{% trans "New status:" %}</label>
+        <div class="input-group">
+            <input type="text" class="form-control chapter-status">
+            <span class="input-group-btn">
+                <button class="btn btn-default add-status">{% trans "Add" %}</button>
+            </span>
+        </div>
+    </div>
+    <label>{% trans "Chapter statuses:" %}</label>
+    <ol class="sortable-status ui-sortable" >
+        {% for status in status_list  %}
+        <li class="item" style="display: list-item;" id='list_{{ status.pk }}' data-id='{{ status.pk }}'>
+            <div>
+                <div class="status-name">{{ status.name }}</div>
+                <div class="edit-status-block">
+                    <div class="input-group">
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-xs edit-status-ok" type="button"><i class="icon-ok"></i></button>
+                        <button class="btn btn-default btn-xs edit-status-cancel" type="button"><i class="icon-remove"></i></button>
+                    </span>
+                    </div>
+                </div>
+                </div>
+                <div class="btn-toolbar">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-xs edit-status"><i class="icon-pencil"></i></button>
+                    <button class="btn btn-default btn-xs remove-status"{% if status.num_chapters > 0 %} disabled{% endif %}>
+                        <i class="icon-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ol>
+</div>
+<script type="text/template" id='status-item'>
+<li class="item" style="display: list-item;" id='list_<%= status_id %>' data-id='<%= status_id %>'>
+    <div>
+        <div class="status-name"><%=  name %></div>
+        <div class="edit-status-block">
+            <div class="input-group">
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+                        <button class="btn btn-default btn-xs edit-status-ok" type="button"><i class="icon-ok"></i></button>
+                        <button class="btn btn-default btn-xs edit-status-cancel" type="button"><i class="icon-remove"></i></button>
+            </span>
+            </div>
+        </div>
+        </div>
+        <div class="btn-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-default btn-xs edit-status"><i class="icon-pencil"></i></button>
+            <button class="btn btn-default btn-xs remove-status"><i class="icon-trash"></i></button>
+        </div>
+    </div>
+</li>
+</script>
+{% else %}
+<p>{% trans 'You have no permissions to manage statuses' %}</p>
+{% endif %}

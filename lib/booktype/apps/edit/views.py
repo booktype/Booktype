@@ -45,7 +45,8 @@ VALID_SETTINGS = {
     'license': _('Book License'),
     'metadata': _('Book Metadata'),
     'roles': _('Roles'),
-    'permissions': _('Permissions')
+    'permissions': _('Permissions'),
+    'chapter-status': _('Chapter Status'),
 }
 
 getTOCForBook = get_toc_for_book

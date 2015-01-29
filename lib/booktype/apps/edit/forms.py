@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.db.models import Count
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
@@ -7,8 +8,9 @@ from booktypecontrol.forms import DefaultRolesForm
 from booktype.apps.portal.forms import SpanErrorList
 from booktype.apps.core.models import BookRole, Role
 from booktype.apps.core.forms import BaseBooktypeForm
+from booktype.utils import security
 from booki.editor.models import (
-    Language, Info, License, BookSetting)
+    Language, Info, License, BookSetting, BookStatus)
 
 
 class BaseSettingsForm(BaseBooktypeForm):
@@ -70,6 +72,22 @@ class LanguageForm(BaseSettingsForm, forms.Form):
         except Info.DoesNotExist:
             rtl = Info(book=book, kind=0, name='{http://booki.cc/}dir', value_string=rtl_value)
             rtl.save()
+
+
+class ChapterStatusForm(BaseSettingsForm, forms.Form):
+    name = forms.CharField(label=_('New Status'))
+
+    @classmethod
+    def extra_context(self, book, request):
+        all_statuses = (BookStatus.objects
+                        .filter(book=book)
+                        .annotate(num_chapters=Count('chapter'))
+                        .order_by('-weight'))
+
+        return {
+            'roles_permissions': security.get_user_permissions(request.user, book),
+            'status_list': all_statuses,
+        }
 
 
 class LicenseForm(BaseSettingsForm, forms.Form):
