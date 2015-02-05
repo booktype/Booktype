@@ -189,7 +189,7 @@ div.contentHeader span.info-message {
 .logotext{
     font-size: 17px;
     line-height: 40px;
-    padding-left: 78px;
+    PAdding-left: 78px;
 }
 .logotext a{
     color: #fff;
@@ -212,4 +212,96 @@ div.contentHeader span.info-message {
 
 .tooltip{
   z-index: 1151 !important;
+}
+/* Search and Replace */
+
+#find-replace.modal{
+  background: none;
+}
+.aloha-search-marker{
+  background-color: yellow;
+}
+.aloha-search-plugin-loaded .modal-backdrop.fade.in{
+    background: none;
+}
+
+/* Table Plugin
+------------------------------------------------------*/
+.dropdown-menu.table-dropdown {
+        width: 240px;
+        box-sizing:border-box;
+        -moz-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        }
+        .dropdown-menu.table-dropdown .insert-table-block {
+                margin:4px 14px 20px 14px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #d6d6d6;
+                }
+                .dropdown-menu.table-dropdown .insert-table-block .slider {
+                        float:left;
+                        width:180px;
+                        margin-bottom: 6px;
+                        margin-left: 2px;
+                }
+                .dropdown-menu.table-dropdown .insert-table-block .value {
+                        float:left;
+                        margin-left: 10px;
+                        margin-top: 2px;
+                }
+        .dropdown-menu.table-dropdown .insert-table-block h4 {
+                font-size: 13px;
+                margin:2px 0 0;
+                line-height: 1.2;
+        }
+        .dropdown-menu.table-dropdown .inserttable {
+        }
+        .dropdown-menu.table-dropdown .insert-table-block .btn-sm {
+                padding:4px 6px !important;
+        }
+
+
+#contenteditor .aloha-block-SimpleTableBlock TABLE {
+  border: 1px solid gray;
+}
+
+#contenteditor .aloha-block-SimpleTableBlock.aloha-block-highlighted TABLE {
+  border: 1px solid gray;
+}
+
+#contenteditor .aloha-block-SimpleTableBlock div.aloha-editable-active {
+  background-color: #dadff3;
+}
+
+#contenteditor .aloha-block-SimpleTableBlock .to-delete {
+  background-color: #f06510;
+}
+
+#contenteditor .aloha-block-SimpleTableBlock .to-insert {
+  background-color: #8ccac9;
+}
+
+
+#contenteditor sup,
+#contenteditor pre,
+#contenteditor table,
+#contenteditor tbody,
+#contenteditor tr,
+#contenteditor td {
+        border: inherit;
+        text-align: inherit;
+        font-size: inherit;
+        padding: inherit;
+        margin: inherit;
+        background-color: inherit;
+        color: inherit;
+}
+
+#contenteditor td {
+  min-width: 20px;
+}
+
+#contenteditor a {
+        text-decoration: underline;
 }

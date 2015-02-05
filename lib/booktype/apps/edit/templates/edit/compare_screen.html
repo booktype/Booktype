@@ -1,0 +1,33 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="contentHeader">
+    <h2>{{ chapter.title }}</h2>
+</div>
+
+<div class="contentContainer">
+    <div class="content">
+        <div class="compare_screen">
+            <h2 class="box-title">{% trans "Chapter diff" %}</h2>
+            <div class="row">
+                <div class="col-xs-2"><span class="marker changed">{% trans "Changed" %}</span></div>
+                <div class="col-xs-2"><span class="marker added">{% trans "Added" %}</span></div>
+                <div class="col-xs-2"><span class="marker deleted">{% trans "Deleted" %}</span></div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 header">{% trans "Revision" %}: {{ rev1 }}</div>
+              <div class="col-xs-6 header">{% trans "Revision" %}: {{ rev2 }}</div>
+            </div>
+            <div class="scrollable">
+                <table border="0" width="100%" class="row compare_table">
+                    {{ output|join:""|safe }}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

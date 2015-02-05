@@ -1,12 +1,15 @@
-<script type="text/javascript">  
+<script type="text/javascript">
       window.booktype.username = "{{ request.user.username|escapejs }}";
       window.booktype.email = "{{ request.user.email|escapejs }}";
       window.booktype.fullname = "{{ request.user.first_name|escapejs }}";
       window.booktype.currentBookID  = {{ book.id }};
       window.booktype.currentBook    = "{{ book.title|escapejs }}";
       window.booktype.currentBookURL = "{{ book.url_title|escapejs }}";
+      window.booktype.currentActiveTab = null;
       window.booktype.staticURL = "{{ static_url|escapejs }}";
       window.booktype.baseURL = "{{ base_url|escapejs }}";
+      window.booktype.bookDir = "{{ book_dir|escapejs }}";
+      window.booktype.bookLang = "{{ book_language|escapejs }}";
 
       window.booktype.currentVersion = "{{ book_version|escapejs }}";
       window.booktype.sputnikDispatcherURL = "{% url 'sputnik.views.dispatcher' %}";
@@ -14,7 +17,7 @@
       window.booktype.editor.historyURL = "{% url 'edit:history' book.url_title %}";
       window.booktype.editor.historyData = [];
       window.booktype.bookSettingsURL = "{% url 'edit:settings' book.url_title %}";
-      window.booktype.license_list = {{license_list|safe}};
+      window.booktype.license_list = {{ license_list|safe }};
 
        // window.booktype.subscribeToChannel("/booktype/", function(message) {
        //  });
@@ -22,7 +25,7 @@
       var settings = {
         'panels': {
           'edit': 'win.booktype.editor.edit',
-          'toc' : 'win.booktype.editor.toc',            
+          'toc' : 'win.booktype.editor.toc',
           'media' : 'win.booktype.editor.media',
           'cover' : 'win.booktype.editor.covers',
           'publish': 'win.booktype.editor.publish',
@@ -46,14 +49,14 @@
           warn: noOp,
           error: noOp
         }
-      }                      
+      }
 
       Aloha.ready( function() {
           Aloha.require(['jquery', 'aloha', 'booktype', 'underscore', 'underscorestring'], function(j, aloha, booktypei, underscore, understring) {
             underscore.mixin(understring.exports());
 
-            booktype.editor.initEditor(settings);    
-            booktype.connect();  
+            booktype.editor.initEditor(settings);
+            booktype.connect();
           });
       });
 </script>

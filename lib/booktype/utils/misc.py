@@ -59,7 +59,6 @@ class TidyPlugin(BasePlugin):
             return None
 
         from .tidy import tidy_cleanup
-        print chapter.file_name
         (_, chapter.content) = tidy_cleanup(chapter.get_content(), **self.options)
 
         return chapter.content
@@ -197,7 +196,6 @@ def import_book_from_file(epub_file, user, **kwargs):
     opts = {'plugins': [TidyPlugin(), ImportPlugin()]}
     epub_book = epub.read_epub(epub_file, opts)
 
-    pp = pprint.PrettyPrinter(indent=4)
     chapters = {}
     toc = []
 
@@ -222,7 +220,6 @@ def import_book_from_file(epub_file, user, **kwargs):
                     toc.append((0, _name, unique_id, parent))
 
     _parse_toc(epub_book.toc)
-    pp.pprint(toc)
 
     epub_book_name = epub_book.metadata[epub.NAMESPACES['DC']]['title'][0][0]
     title = kwargs.get('book_title', epub_book_name)
@@ -273,7 +270,7 @@ def import_book_from_file(epub_file, user, **kwargs):
         chapter = models.Chapter(
             book=book,
             version=book.version,
-            url_title=booktype_slugify(name),
+            url_title=booktype_slugify(unicode(name)),
             title=name,
             status=stat,
             content=content,

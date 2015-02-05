@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{% static "edit/css/aloha-custom.css" %}" type="text/css">
 
 <script src="{% static "edit/js/aloha/lib/vendor/jquery-1.7.2.js" %}"></script>   
+<script src="{% static "edit/js/findAndReplaceDOMText/findAndReplaceDOMText.js" %}"></script>   
 
 <script>
     Aloha = window.Aloha || {};
@@ -33,7 +34,8 @@
             },
             format: {
                 config: ['removeFormat'],
-                removeFormats: ['strong', 'em', 'b', 'i', 's', 'cite', 'q', 'code', 'abbr', 'del', 'sub', 'sup']
+                removeFormats: ['strong', 'em', 'b', 'i', 'u', 's', 'cite', 'q', 'code', 'abbr', 'del', 'sub', 'sup', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                  'ol', 'li', 'ul', 'table', 'tr', 'td', 'th', 'a']
             },            
             image: {
                 config: ['img'],
@@ -155,7 +157,9 @@
                         booktype/bookalign,
                         booktype/fontsize,
                         common/undo,
-                        booktype/bookundo,      
+                        booktype/bookundo,
+                        extra/linkbrowser,
+                        booktype/findandreplace,      
                         common/list,
                         common/highlighteditables,
                         common/block,

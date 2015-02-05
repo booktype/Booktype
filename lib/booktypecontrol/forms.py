@@ -232,9 +232,6 @@ class BookSettingsForm(BaseControlForm, forms.Form):
         help_text=_("Default license for newly created books.")
     )
 
-    def __init__(self, *args, **kwargs):
-        super(forms.Form, self).__init__(*args, **kwargs)
-
     @classmethod
     def initial_data(self):
         _l = config.get_configuration('CREATE_BOOK_LICENSE')
@@ -287,10 +284,6 @@ class PrivacyForm(BaseControlForm, forms.Form):
         label=_('Only admin can import books'),
         required=False
     )
-
-    # overriding init to remove field css classes from BaseControlForm
-    def __init__(self, *args, **kwargs):
-        super(forms.Form, self).__init__(*args, **kwargs)
 
     @classmethod
     def initial_data(cls):
@@ -368,14 +361,24 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         required=False
     )
 
+    is_superuser = forms.BooleanField(
+        label=_("This person is superuser"),
+        required=False
+    )
+
     success_message = _('Successfully created new account.')
     success_url = "#list-of-people"
+
+    def __init__(self, *args, **kwargs):
+        super(AddPersonForm, self).__init__(*args, **kwargs)
+        self.fields.keyOrder = ['username', 'first_name', 'email',
+                                'description', 'password1', 'password2',
+                                'send_email', 'is_superuser']
 
     class Meta:
         model = User
         exclude = [
-            'password', 'is_superuser',
-            'last_login', 'groups',
+            'password', 'last_login', 'groups',
             'user_permissions', 'date_joined',
             'is_staff', 'last_name', 'is_active'
         ]
@@ -400,11 +403,16 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         return self.cleaned_data['password2']
 
     def save_settings(self, request):
-        user = User.objects.create_user(
-            username=self.cleaned_data['username'],
-            email=self.cleaned_data['email'],
-            password=self.cleaned_data['password2']
+        user_data = dict(
+                username=self.cleaned_data['username'],
+                email=self.cleaned_data['email'],
+                password=self.cleaned_data['password2'],
         )
+        if self.cleaned_data.get('is_superuser', False):
+            user = User.objects.create_superuser(**user_data)
+        else:
+            user = User.objects.create_user(**user_data)
+
         user.first_name = self.cleaned_data['first_name']
         user.save()
 
@@ -489,6 +497,17 @@ class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
         required=False,
         widget=forms.Textarea
     )
+
+    is_superuser = forms.BooleanField(
+        label=_("This person is superuser"),
+        required=False
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(EditPersonInfoForm, self).__init__(*args, **kwargs)
+        self.fields.keyOrder = ['username', 'first_name', 'email',
+                                'description', 'is_superuser']
+
 
     class Meta(AddPersonForm.Meta):
         pass
@@ -840,3 +859,48 @@ class AddRoleForm(BaseControlForm, forms.ModelForm):
     def save_settings(self, request):
         role = self.save()
         return role
+
+
+class DefaultRolesForm(BaseControlForm, forms.Form):
+    ROLES_CHOICES = \
+        [('__no_role__', _('None'))] + \
+        [(r.name, r.name) for r in Role.objects.all()]
+    anonymous = 'anonymous_users'
+    registered = 'registered_users'
+
+    anonymous_users = forms.ChoiceField(
+        choices=ROLES_CHOICES, required=False,
+        label=_('Role for anonymous users')
+    )
+    registered_users = forms.ChoiceField(
+        choices=ROLES_CHOICES, required=False,
+        label=_('Role for registered users')
+    )
+
+    @classmethod
+    def initial_data(cls):
+        return {
+            cls.anonymous: config.get_configuration(
+                'DEFAULT_ROLE_%s' % cls.anonymous,
+                cls.anonymous
+            ),
+            cls.registered: config.get_configuration(
+                'DEFAULT_ROLE_%s' % cls.registered,
+                cls.registered
+            )
+        }
+
+    def save_settings(self, request):
+        config.set_configuration(
+            'DEFAULT_ROLE_%s' % self.anonymous,
+            self.cleaned_data[self.anonymous]
+        )
+        config.set_configuration(
+            'DEFAULT_ROLE_%s' % self.registered,
+            self.cleaned_data[self.registered]
+        )
+
+        try:
+            config.save_configuration()
+        except config.ConfigurationError as err:
+            raise err

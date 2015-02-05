@@ -42,12 +42,16 @@ class Permission(models.Model):
                     return desc
         return u'%s' % self.description
 
+    @property
+    def key_name(self):
+        return '%s.%s' % (self.app_name, self.name)
+
 
 class Role(models.Model):
     """
     Roles are a way to group users and apply some permissions in Booktpe.
     A user as member of the Role automatically has all permissions granted to
-    that role.
+    that role
     """
     name = models.CharField(_('name'), max_length=60, unique=True)
     description = models.CharField(

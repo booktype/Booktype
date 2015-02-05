@@ -3,10 +3,10 @@
 <div class="navigation-bar">
   <div class="user">
     <div class="btn-group">
-        {% if request.user.is_authenticated %}        
+        {% if request.user.is_authenticated %}
           <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{%  username request.user %}<span class="caret"></span></button>
 	        <ul class="dropdown-menu pull-right">
-	          <li><a href="{% url "accounts:view_profile" request.user.username %}" target="_blank"><i class="icon-user"></i>{% trans "Profile" %}</a></li>          
+	          <li><a href="{% url "accounts:view_profile" request.user.username %}" target="_blank"><i class="icon-user"></i>{% trans "Profile" %}</a></li>
 	          {% if request.user.is_superuser %}
 	             <li><a href="{% url "control_center:frontpage" %}" target="_blank"><i class="icon-gears"></i>{% trans "Control Center" %}</a></li>
 	          {% endif %}
@@ -14,16 +14,27 @@
 	          <li><a href="{% url "accounts:signout" %}"><i class="icon-signout"></i>{% trans "Logout" %}</a></li>
 	        </ul>
 	    {% else %}
-          <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" data-href="{% url "accounts:signin" %}?redirect={{ request.path }}">{%  trans "Sign In" %}<span class="caret"></span></button>	    
+          <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" data-href="{% url "accounts:signin" %}?redirect={{ request.path }}">{%  trans "Sign In" %}<span class="caret"></span></button>
         {% endif %}
     </div>
 
     <!-- TODO: Translate languages and manage list of available languages -->
     <div class="btn-group">
-        <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">en<span class="caret"></span></button>
+        <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{{ LANGUAGE_CODE }}<span class="caret"></span></button>
         <ul class="dropdown-menu pull-right">
-          <li><a href="#" target="_blank"><i class="icon-flag"></i>en</a></li>
-          <li><a href="#" target="_blank"><i class="icon-flag"></i>de</a></li>
+          {% for code, lang in LANGUAGES %}
+          <li>
+          <form class='hidden' name="setLang{{ code }}" action="{% url "set_language" %}" method="POST">{% csrf_token %}
+                <input name="next" type="hidden" value="/" />
+                <input type="hidden" name="language" value="{{ code }}" />
+            </form>
+          <a href="#" target="_blank" onclick="document.forms['setLang{{ code }}'].submit();return false;">
+              <img src="{{ STATIC_URL }}core/img/flags/{{ code|slice:":2" }}.gif" alt="{{ lang_code }}">
+              {{ code }}
+              </a>
+
+          </li>
+          {% endfor %}
         </ul>
     </div>
 

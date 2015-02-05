@@ -1,5 +1,5 @@
 # This file is part of Booktype.
-# Copyright (c) 2013 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+# Copyright (c) 2013 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org> # noqa
 #
 # Booktype is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,20 +16,37 @@
 
 from django.conf.urls import patterns, url
 
-from .views import (EditBookPage, BookHistoryPage, RevisionPage,
-                    ChapterHistoryPage, CompareChapterRevisions,
-                    BookSettingsView)
+from .views import (
+    EditBookPage, BookHistoryPage, RevisionPage,
+    ChapterHistoryPage, CompareChapterRevisions,
+    BookSettingsView
+)
 
-urlpatterns = patterns('',                      
-    url(r'^_upload/$', 'booktype.apps.edit.views.upload_attachment', name='upload_attachment'),
-    url(r'^_upload_cover/$', 'booktype.apps.edit.views.upload_cover', name='upload_cover'),
-    url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/(?P<fname>.*)$',  'booktype.apps.edit.views.cover', name='view_cover'),
-    url(r'^_edit/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment'),
+urlpatterns = patterns('', # noqa
+    url(r'^_upload/$',
+        'booktype.apps.edit.views.upload_attachment',
+        name='upload_attachment'),
+    url(r'^_upload_cover/$',
+        'booktype.apps.edit.views.upload_cover', name='upload_cover'),
+    url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/(?P<fname>.*)$',
+        'booktype.apps.edit.views.cover', name='view_cover'),
+    url(r'^_edit/static/(?P<attachment>.*)$',
+        'booktype.apps.core.views.staticattachment'),
+
     url(r'^_edit/$', EditBookPage.as_view(), name='editor'),
     url(r'^_history/$', BookHistoryPage.as_view(), name='history'),
-    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/$', ChapterHistoryPage.as_view(), name='chapter_history'),
-    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/compare_revs/$', CompareChapterRevisions.as_view(), name='revisions_compare'),
-    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/rev/(?P<revid>\d+)/$', RevisionPage.as_view(), name='chapter_revision'),
-    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/rev/(?P<revid>\d+)/static/(?P<attachment>.*)$', 'booktype.apps.core.views.staticattachment'),
+
+    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/$',
+        ChapterHistoryPage.as_view(), name='chapter_history'),
+
+    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/compare-revs/(?P<rev_one>\d+)/(?P<rev_two>\d+)/$', # noqa
+        CompareChapterRevisions.as_view(), name='revisions_compare'),
+
+    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/rev/(?P<revid>\d+)/$',
+        RevisionPage.as_view(), name='chapter_revision'),
+
+    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/rev/(?P<revid>\d+)/static/(?P<attachment>.*)$', # noqa
+        'booktype.apps.core.views.staticattachment'),
+
     url(r'^_settings/$', BookSettingsView.as_view(), name='settings'),
 )
