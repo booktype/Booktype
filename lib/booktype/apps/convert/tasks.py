@@ -120,6 +120,7 @@ def convert(request_data, base_path):
 
     job = group(subtasks)
     result = job.apply_async()
+    result.join(propagate=False)
 
     subtasks_info = {async.task_id: async for async in result.children}
     celery.current_task.update_state(state="PROGRESS", meta=subtasks_info)

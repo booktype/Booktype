@@ -32,8 +32,8 @@ def find_all(module_names=None):
     for module_name in module_names:
         try:
             module = importlib.import_module(module_name)
-        except:
-            print("could not load module " + module_name)
+        except Exception, e:
+            print("could not load module %s: %s" % (module_name, e))
             continue
         for attr_name in dir(module):
             attr = getattr(module, attr_name)
