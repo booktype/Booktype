@@ -15,11 +15,12 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-
 import celery
 import celery.result
-
 import logging
+
+from uuid import uuid4
+from celery import group
 
 from booktype.convert import loader
 from booktype.convert.runner import run_conversion
@@ -35,13 +36,15 @@ class Task(celery.Task):
     def __init__(self):
         celery.Task.__init__(self)
         os.putenv("LC_ALL", "en_US.UTF-8")
-        self.converters = loader.find_all(module_names = utils.get_converter_module_names())
+        self.converters = loader.find_all(
+            module_names=utils.get_converter_module_names())
 
 
 def task(func):
-    """Default decorator for all task functions.
     """
-    @celery.task(base = Task, name = func.__name__)
+    Default decorator for all task functions.
+    """
+    @celery.task(base=Task, name=func.__name__)
     def decorated_func(request, *args, **kwargs):
         return func(request, *args, **kwargs)
     return decorated_func
@@ -55,14 +58,14 @@ def convert_one(*args, **kwargs):
         celery.current_task.update_state(state="PROGRESS", meta=meta)
 
     kwargs.update({
-        "converters" : celery.current_task.converters,
-        "callback"   : callback,
+        "converters": celery.current_task.converters,
+        "callback": callback,
     })
 
     result = run_conversion(*args, **kwargs)
 
     result.update({
-        "output" : utils.path2url(result["output"]),
+        "output": utils.path2url(result["output"]),
     })
 
     return result
@@ -71,17 +74,17 @@ def convert_one(*args, **kwargs):
 @task
 def convert(request_data, base_path):
     """
-    Converts the given assets into outputs desired formats. It receives 
+    Converts the given assets into outputs desired formats. It receives
     a dictionary request_data with something like this:
         {
-            "input": "testbook.epub", 
+            "input": "testbook.epub",
             "assets": {
                 "testbook.epub": "http://127.0.0.1:8000/bla-foo/_export/"
             },
             "outputs": {
                 "two": {
-                    "profile": "epub", 
-                    "output": "testbook.epub", 
+                    "profile": "epub",
+                    "output": "testbook.epub",
                     "config": {
                         "project_id": "bla-foo"
                     }
@@ -95,26 +98,31 @@ def convert(request_data, base_path):
     assets.add_urls(request_data.assets)
     assets.add_files(request_data.files)
 
-    subtasks = {}
+    subtasks = []
     for (name, output) in request_data.outputs.iteritems():
         sandbox_path = os.path.join(base_path, name)
-        output_path  = os.path.join(sandbox_path, output.output)
+        output_path = os.path.join(sandbox_path, output.output)
 
         subtask_args = (output.profile, request_data.input, output_path)
         subtask_kwargs = {
-            "assets"       : assets,
-            "config"       : output.config,
-            "sandbox_path" : sandbox_path,
+            "assets": assets,
+            "config": output.config,
+            "sandbox_path": sandbox_path
         }
 
-        subtask = convert_one.subtask(args=subtask_args, kwargs=subtask_kwargs)
-        subtasks[name] = subtask.apply_async()
+        custom_task_id = '%s:%s' % (name, str(uuid4()))
+        subtask = convert_one.subtask(
+            args=subtask_args,
+            kwargs=subtask_kwargs,
+            task_id=custom_task_id
+        )
+        subtasks.append(subtask)
 
-    subtasks_info = {name : async_result.task_id for (name, async_result) in subtasks.iteritems()}
+    job = group(subtasks)
+    result = job.apply_async()
+
+    subtasks_info = {async.task_id: async for async in result.children}
     celery.current_task.update_state(state="PROGRESS", meta=subtasks_info)
-
-    result_set = celery.result.ResultSet(subtasks.values())
-    result_set.join(propagate=False)
 
     return subtasks_info
 
