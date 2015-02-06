@@ -26,5 +26,7 @@ PERMISSIONS = {
         ('publish_book', _('Publish book')),
 
         ('manage_status', _('Manage Status')),
+
+        ('delete_book', _('Delete book')),
     ]
 }

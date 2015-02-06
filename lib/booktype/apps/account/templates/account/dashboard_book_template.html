@@ -1,6 +1,6 @@
 {% load staticfiles i18n %}
 
-<div class="grid-4">
+<div class="grid-{{ size | default:4}}">
     <figure class="custom-cover">
         {% if book.cover %}
             <img src="{% url "reader:book_cover" book.url_title %}" />
@@ -19,8 +19,13 @@
             <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'View Book' %}" href="{% url 'reader:infopage' book.url_title %}" target="_blank">
                 <i class="icon-eye-open"></i>
             </a>
-            {% if request.user == book.owner or request.user.is_superuser %}
-            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Delete Book' %}" data-remote="{% url 'reader:delete_book' book.url_title %}?next={{ next }}" data-toggle="modal" data-target="#bookThumbModal">
+            {% if user.is_authenticated %}
+            <a class="btn btn-xs delete-book" rel="tooltip" title="" data-placement="bottom"
+                data-original-title="{% trans 'Delete Book' %}"
+                data-remote="{% url 'reader:delete_book' book.url_title %}?next={{ next }}"
+                data-perms="{% url 'reader:permissions' book.url_title %}"
+                data-target="#bookThumbModal" data-bookid='{{ book.id }}'
+                data-version='{{ book.get_version.get_version|escapejs }}'>
                 <i class="icon-trash"></i>
             </a>
             {% endif %}
