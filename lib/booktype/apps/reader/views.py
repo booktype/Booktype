@@ -25,7 +25,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, DeleteView, UpdateView
 
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, JSONResponseMixin
 
 from booktype.apps.core import views
 from booktype.utils import misc, security
@@ -118,6 +118,21 @@ class InfoPageView(BaseReaderView, BasePageView, DetailView):
         return context
 
 
+class PermissionsView(BaseReaderView, BasePageView, JSONResponseMixin, DetailView):
+    """
+    Returns the list of permissions a user has on one book
+    """
+    def render_to_response(self, context, **response_kwargs):
+        book = self.object
+        book_security = security.get_user_security_for_book(self.request.user, book)
+        book_permisssions = security.get_user_permissions(self.request.user, book)
+
+        return self.render_json_response({
+            'admin': book_security.isAdmin(),
+            'permissions': book_permisssions,
+        })
+
+
 class SingleNextMixin(object):
     """
     Just adds a next attribute to be used as redirect value
@@ -168,15 +183,14 @@ class DeleteBookView(SingleNextMixin, LoginRequiredMixin,
         book = self.object = self.get_object()
         title = request.POST.get("title", "")
         book_security = security.get_user_security_for_book(request.user, book)
+        book_permisssions = security.get_user_permissions(request.user, book)
         self.template_name = "reader/book_delete_error.html"
 
-        try:
-            if book_security.isAdmin() and title.strip() == book.title.strip():
-                remove_book(book)
-                self.template_name = "reader/book_delete_redirect.html"
-                messages.success(request, _('Book successfully deleted.'))
-        except Exception, e:
-            raise e
+        if ((book_security.isAdmin() or 'edit.delete_book' in book_permisssions)
+            and title.strip() == book.title.strip()):
+            remove_book(book)
+            self.template_name = "reader/book_delete_redirect.html"
+            messages.success(request, _('Book successfully deleted.'))
 
         return self.render_to_response(context=self.get_context_data())
 
