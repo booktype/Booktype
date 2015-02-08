@@ -15,17 +15,14 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import json
 import uuid
-
 import celery
+import sputnik
 
 from django.views.generic.base import View
 from django.http import HttpResponse, Http404
 from django.conf import settings
-
-import json
-
-import sputnik
 
 from . import tasks
 from .utils.uploadhandler import FileUploadHandler
@@ -36,8 +33,8 @@ class OutputData(object):
 
     def __init__(self, data):
         self.profile = data["profile"]
-        self.output  = data["output"]
-        self.config  = data.get("config", {})
+        self.output = data["output"]
+        self.config = data.get("config", {})
 
 
 class RequestData(object):
@@ -48,9 +45,11 @@ class RequestData(object):
         return klass(json.loads(text))
 
     def __init__(self, data):
-        self.assets  = data.get("assets", {}) # TODO: check type is dict
-        self.input   = data["input"]
-        self.outputs = {k: OutputData(v) for (k,v) in data["outputs"].iteritems()}
+        self.assets = data.get("assets", {})  # TODO: check type is dict
+        self.input = data["input"]
+        self.outputs = {
+            k: OutputData(v) for (k, v) in data["outputs"].iteritems()
+        }
 
 
 class ConvertView(View):
@@ -69,18 +68,21 @@ class ConvertView(View):
         request_data = RequestData.parse(request_spec)
 
         # name:path for all uploaded files
-        request_data.files = {field_name : _file.file_path() for (field_name, _file) in request.FILES.iteritems()}
+        request_data.files = {
+            field_name: _file.file_path()
+            for (field_name, _file) in request.FILES.iteritems()
+        }
 
         # start the task in the background
         async_result = tasks.convert.apply_async((request_data, base_path))
         task_id = map_task_id(async_result.task_id, token)
 
         response_data = {
-            "state"   : async_result.state,
-            "task_id" : task_id,
+            "state": async_result.state,
+            "task_id": task_id,
         }
-        return HttpResponse(json.dumps(response_data), mimetype="application/json")
-
+        return HttpResponse(json.dumps(response_data),
+                            mimetype="application/json")
 
     def get(self, request, task_id):
         task_id = sputnik.rcon.get("convert:task_id:" + task_id)
@@ -88,26 +90,26 @@ class ConvertView(View):
         if task_id is None:
             raise Http404
 
+        def get_task_name(async_result):
+            return async_result.task_id.split(':')[0]
+
         async_result = celery.current_app.AsyncResult(task_id)
-
-        task_info     = get_task_info(async_result)
-        subtasks_info = {subtask.task_id : get_task_info(subtask) for subtask in async_result.children or []}
-
-        # fix-up result field of the task info
+        task_info = get_task_info(async_result)
         task_result = task_info.get("result")
         if task_result:
-            task_info["result"] = {name : subtasks_info[subtask_id] for (name, subtask_id) in task_result.iteritems()}
+            task_info["result"] = {
+                get_task_name(subtask): get_task_info(subtask)
+                for (_n, subtask) in task_result.iteritems()
+            }
 
         response_data = task_info
 
-        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+        return HttpResponse(json.dumps(response_data),
+                            mimetype="application/json")
 
 
 def get_task_info(async_result):
-    status = {
-        "state" : async_result.state,
-        #"meta" : repr(celery.current_app.backend.get_task_meta(async_result.task_id)),
-    }
+    status = {"state": async_result.state}
     if async_result.failed():
         status["error"] = str(async_result.result)
     elif async_result.result is not None:
@@ -125,6 +127,7 @@ def get_request_spec(request):
 def map_task_id(task_id, token):
     sputnik.rcon.set("convert:task_id:" + token, task_id)
     return token
+
 
 def get_task_id(token):
     return sputnik.rcon.get("convert:task_id:" + token)
