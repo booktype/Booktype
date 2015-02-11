@@ -325,9 +325,9 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         ]
     )
     first_name = forms.CharField(
-        label=_('First name'),
+        label=_('Full name'),
         required=True,
-        error_messages={'required': _('First name is required.')},
+        error_messages={'required': _('Full name is required.')},
         max_length=32
     )
     email = forms.EmailField(
@@ -473,9 +473,9 @@ class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
         ]
     )
     first_name = forms.CharField(
-        label=_('First name'),
+        label=_('Full name'),
         required=True,
-        error_messages={'required': _('First name is required.')},
+        error_messages={'required': _('Full name is required.')},
         max_length=32
     )
     email = forms.EmailField(
