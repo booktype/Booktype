@@ -256,3 +256,16 @@ BOOKI_URL = BOOKTYPE_URL
 THIS_BOOKI_SERVER = THIS_BOOKTYPE_SERVER
 BOOKI_MAINTENANCE_MODE = False
 
+
+FILE_UPLOAD_HANDLERS = (
+    'booktype.apps.importer.uploadhandler.ProgressUploadHandler',
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler'
+)
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-booktype-id'
+    }
+}
