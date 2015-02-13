@@ -465,10 +465,13 @@ class CompareChapterRevisions(LoginRequiredMixin, ChapterMixin, DetailView):
 
         context = super(
             CompareChapterRevisions, self).get_context_data(**kwargs)
-        revision1 = models.ChapterHistory.objects.get(
-            chapter__book=book, chapter=self.chapter, revision=rev1)
-        revision2 = models.ChapterHistory.objects.get(
-            chapter__book=book, chapter=self.chapter, revision=rev2)
+        try:
+            revision1 = models.ChapterHistory.objects.get(
+                chapter__book=book, chapter=self.chapter, revision=rev1)
+            revision2 = models.ChapterHistory.objects.get(
+                chapter__book=book, chapter=self.chapter, revision=rev2)
+        except:
+            return context
 
         output = []
 

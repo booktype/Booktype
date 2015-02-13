@@ -9,6 +9,7 @@
 <div class="contentContainer">
     <div class="content">
         <div class="compare_screen">
+            {% if output %}
             <h2 class="box-title">{% trans "Chapter diff" %}</h2>
             <div class="row">
                 <div class="col-xs-2"><span class="marker changed">{% trans "Changed" %}</span></div>
@@ -24,6 +25,11 @@
                     {{ output|join:""|safe }}
                 </table>
             </div>
+            {% else %}
+            <div class="row">
+              <h2 class="box-title">{% trans "Revisions not found!" %}</h2>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
