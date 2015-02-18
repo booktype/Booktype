@@ -1,5 +1,5 @@
 # This file is part of Booktype.
-# Copyright (c) 2013 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+# Copyright (c) 2013 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org> # noqa
 #
 # Booktype is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,13 +15,21 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.contrib.auth.decorators import login_required
-from django.conf.urls import patterns, url, include
+from django.conf.urls import patterns, url
 
-#from .views import ImporterView
+from .views import ImporterView
 
-urlpatterns = patterns('',                      
-#                      url(r'^$', login_required(ImporterView.as_view()), name='importer'),                       
-					   url(r'^$', 'booktype.apps.importer.views.frontpage', name='importer')
- #                     url(r'^$', ImporterView.as_view(), name='importer'),                       
-
-                      )
+urlpatterns = patterns('', # noqa
+    url(
+        r'^$', 'booktype.apps.importer.views.frontpage', name='importer'),
+    url(
+        r'^_upload-book-file/$',
+        login_required(ImporterView.as_view()),
+        name='upload_book_file'
+    ),
+    url(
+        r'^_upload-progress/$',
+        'booktype.apps.importer.views.upload_progress',
+        name='upload_progress'
+    )
+)

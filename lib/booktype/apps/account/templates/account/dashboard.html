@@ -2,6 +2,7 @@
 {% load i18n staticfiles profile reader_tags messaging_tags portal_tags %}
 
 {% block extra_header %}
+<link href='{% static "edit/css/jquery.fileupload-ui.css" %}' rel='stylesheet' type='text/css' />
 <script type="text/javascript" src="{% static 'core/js/jquery.steps.min.js' %}"></script>
 <script type="text/javascript">
     var createBookUrl = "{% url 'accounts:create_book' current_user.username %}";
@@ -23,7 +24,7 @@
                 </div>
             </div>
             {% endif %}
-            
+
             {% for message in messages %}
             <div class="{% if message.tags %}alert alert-{{ message.tags }}{% endif %} alert-dismissable fade in bk-dismiss" data-dismiss-secs="10">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -46,18 +47,16 @@
                                     <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Create new book' as create_text %} {{ create_text }}">{{ create_text|upper }}</button>
                                 {% endif %}
 
-                                {% if not admin_import  %}
+                                {% if not admin_import or can_upload_epub %}
                                     <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#importBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Import Book' as import_text %} {{ import_text }}">{{ import_text|upper }}</button>
                                 {% endif %}
                             {% endif %}
                         {% endif %}
-                        
+
                         <div class="btn-group float-right">
                             <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show grid' %}"><i class="icon-th"></i></button>
                             <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show List' %}"><i class="icon-list-ul"></i></button>
                         </div>
-
-                        {% include "account/dashboard_create_book_modal.html" %}
                     </div>
                 </h2>
 
@@ -74,7 +73,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                
+
                 {% if books_collaborating %}
                 <div class="content-divider"></div>
                 <h4>{% trans "Participating Books" %}</h4>
@@ -114,8 +113,8 @@
                     <li>{% trans "Join other groups based on your interest" %} <a href="{% url 'portal:list_groups' %}">{% trans "view all" %}.</a></li>
                     {% endfor %}
                 </ul>
-                
-                <div class="box-bottom-gray">                    
+
+                <div class="box-bottom-gray">
                     <button id="create-group-btn" data-remote="{% url 'portal:group_create' %}" data-toggle="modal" data-target="#createGroupModal" class="btn btn-default" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Create New Group' as create_group %} {{ create_group }}">
                         {{ create_group|upper }}
                     </button>
@@ -202,6 +201,11 @@
             {% endif %}
         </div>
     </div>
+
+    {% include "account/dashboard_create_book_modal.html" %}
+    {% if can_upload_epub %}
+        {% include "account/dashboard_import_book_modal.html" %}
+    {% endif %}
 </div>
 
 <div id="groupDeleteModal" class="modal fade cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
