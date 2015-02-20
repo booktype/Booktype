@@ -8,7 +8,7 @@
             <h3 id="myModalLabel">{% trans "Import Book / Upload Epub" %}</h3>
           </div>
           <div class="modal-body">
-            <p>{% trans "Available file formats: epub" %}</p>
+            <p>{% trans "Available file formats: epub, docx" %}</p>
             <form action="{% url 'upload_book_file' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="drag-area" id="drag-area">
