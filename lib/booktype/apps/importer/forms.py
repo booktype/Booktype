@@ -18,7 +18,8 @@ class UploadForm(forms.Form):
 
 
 ALLOWED_TYPES = [
-    'application/epub+zip'  # just epub for now
+    'application/epub+zip',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 ]
 
 

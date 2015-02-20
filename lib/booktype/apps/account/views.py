@@ -68,7 +68,7 @@ class DashboardPageView(BasePageView, DetailView):
         context = super(self.__class__, self).get_context_data(**kwargs)
         context['licenses'] = License.objects.all().order_by('name')
 
-        context['books'] = Book.objects.filter(
+        context['books'] = Book.objects.select_related('version').filter(
             owner=self.object).order_by('title')
 
         context['groups'] = BookiGroup.objects.filter(
@@ -100,8 +100,8 @@ class DashboardPageView(BasePageView, DetailView):
             context['page_title'] = _('User profile')
 
         context['upload_uuid'] = uuid.uuid4()
-        context['can_upload_epub'] = security.has_perm(
-            self.request.user, 'account.can_upload_epub') or \
+        context['can_upload_book'] = security.has_perm(
+            self.request.user, 'account.can_upload_book') or \
             self.request.is_superuser
 
         return context

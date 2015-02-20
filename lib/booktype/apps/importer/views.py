@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+import os
 import tempfile
 import datetime
+import importlib
 
 from ebooklib import epub
 
@@ -17,7 +19,9 @@ try:
 except ImportError:
     from django.utils import simplejson as json
 
+from braces.views import JSONResponseMixin
 from booki.editor.models import Book
+
 from booktype.importer.delegate import Delegate
 from booktype.importer.notifier import CollectNotifier
 from booktype.utils.book import check_book_availability, create_book
@@ -27,23 +31,49 @@ from booktype.utils.misc import (
 from .forms import UploadForm, UploadBookForm
 
 
-class ImporterView(FormView):
+IMPORTER_MAP = {
+    '.epub': ('booktype.importer.epub', 'import_epub'),
+    '.docx': ('booktype.importer.docx', 'import_docx')
+}
+
+
+class ImporterView(JSONResponseMixin, FormView):
     form_class = UploadBookForm
 
     def get_form(self, form_class):
         request = self.request
         return form_class(data=request.POST, files=request.FILES)
 
-    def form_valid(self, form):
-        import booktype.importer.epub
+    def file_extension(self, filename):
+        _, ext = os.path.splitext(os.path.basename(filename))
+        return ext
 
+    def get_default_title(self, temp_file, ext):
+        book_title = _('Imported Book %(date)s') % {
+            'date': datetime.date.today()
+        }
+
+        if ext == '.epub':
+            epub_book = epub.read_epub(temp_file)
+            try:
+                dc_key = epub.NAMESPACES['DC']
+                book_title = epub_book.metadata[dc_key]['title'][0][0]
+            except Exception:
+                pass
+
+        return book_title
+
+    def get_importer(self, ext):
+        module_path, import_func = IMPORTER_MAP[ext]
+        module = importlib.import_module(module_path)
+        return getattr(module, import_func)
+
+    def form_valid(self, form):
         book_file = self.request.FILES['book_file']
-        book_title = form.cleaned_data.get('book_title', None)
-        if not book_title:
-            pass
+        ext = self.file_extension(book_file.name)
 
         temp_file = tempfile.NamedTemporaryFile(
-            prefix="importing-", suffix=".epub", delete=False)
+            prefix='importing-', suffix='%s' % ext, delete=False)
         temp_file = open(temp_file.name, 'wb+')
 
         for chunk in book_file.chunks():
@@ -51,18 +81,12 @@ class ImporterView(FormView):
         temp_file.close()
         temp_file = temp_file.name
 
-        epub_book = epub.read_epub(temp_file)
-        try:
-            dc_key = epub.NAMESPACES['DC']
-            epub_book_name = epub_book.metadata[dc_key]['title'][0][0]
-        except Exception:
-            epub_book_name = _('Imported Book %(date)s') % {
-                'date': datetime.date.today()
-            }
+        default_book_title = self.get_default_title(temp_file, ext)
+        book_title = form.cleaned_data.get('book_title', default_book_title)
 
-        book_title = form.cleaned_data.get('book_title', epub_book_name)
+        # in case book title in form is empty string
         if len(book_title) == 0:
-            book_title = epub_book_name
+            book_title = default_book_title
 
         if not check_book_availability(book_title):
             registered = Book.objects.filter(
@@ -81,32 +105,37 @@ class ImporterView(FormView):
 
         notifier = CollectNotifier()
         delegate = Delegate()
-        reponse = {}
+        response = {}
 
         try:
-            booktype.importer.epub.import_epub(
+            book_importer = self.get_importer(ext)
+        except KeyError:
+            response_data = {
+                'errors': [_('Extension not supported!')],
+            }
+            return self.render_json_response(response_data)
+
+        try:
+            book_importer(
                 temp_file, book,
                 notifier=notifier,
                 delegate=delegate
             )
-            reponse['url'] = reverse('reader:infopage', args=[book.url_title])
+            response['url'] = reverse('reader:infopage', args=[book.url_title])
         except Exception as e:
             notifier.errors.append(str(e))
 
-        reponse['infos'] = notifier.infos
-        reponse['warnings'] = notifier.warnings
-        reponse['errors'] = notifier.errors
+        response['infos'] = notifier.infos
+        response['warnings'] = notifier.warnings
+        response['errors'] = notifier.errors
 
-        return HttpResponse(
-            json.dumps(reponse), mimetype='application/json')
+        return self.render_json_response(response)
 
     def form_invalid(self, form):
         response_data = {
-            "errors": [_('Something went wrong!')],
+            'errors': [_('Something went wrong!')],
         }
-
-        return HttpResponse(
-            json.dumps(response_data), mimetype='application/json')
+        return self.render_json_response(response_data)
 
 
 def frontpage(request):
