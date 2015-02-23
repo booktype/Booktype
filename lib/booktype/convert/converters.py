@@ -17,3 +17,4 @@
 from .pdf.converter import PdfConverter
 from .epub.converter import EpubConverter
 from .mobi.converter import MobiConverter
+from .mpdf.converter import MPDFConverter

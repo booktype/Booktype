@@ -1943,7 +1943,12 @@ def remote_publish_book(request, message, bookid, version):
         raise PermissionDenied
 
     from . import tasks
-    tasks.publish_book(bookid=bookid, version=version, clientid=request.clientID, sputnikid=request.sputnikID)
+    tasks.publish_book.apply_async((1, ), dict(bookid=bookid, 
+        version=version, 
+        username=request.user.username,
+        clientid=request.clientID, 
+        sputnikid=request.sputnikID, 
+        formats=message["formats"]))
 
     return {'result': True}
 
