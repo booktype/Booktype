@@ -7,6 +7,7 @@ from django.core.files.base import ContentFile
 from django.utils.translation import ugettext as _
 
 from booki.editor import models
+from booki.utils.log import logChapterHistory, logBookHistory
 from booktype.utils.misc import booktype_slugify
 from booktype.importer.notifier import Notifier
 from booktype.importer.delegate import Delegate
@@ -254,6 +255,25 @@ class WordImporter(object):
             )
             toc_item.save()
             n -= 1
+
+            # time to save revisions correctly
+            history = logChapterHistory(
+                chapter=chapter,
+                content=chapter.content,
+                user=book.owner,
+                comment='',
+                revision=chapter.revision
+            )
+
+            if history:
+                logBookHistory(
+                    book=book,
+                    version=book.version,
+                    chapter=chapter,
+                    chapter_history=history,
+                    user=book.owner,
+                    kind='chapter_create'
+                )
 
     def _parse_chapter(self, content):
         def _find(tag):
