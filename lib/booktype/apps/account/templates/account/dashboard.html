@@ -47,7 +47,7 @@
                                     <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Create new book' as create_text %} {{ create_text }}">{{ create_text|upper }}</button>
                                 {% endif %}
 
-                                {% if not admin_import or can_upload_epub %}
+                                {% if not admin_import or can_upload_book %}
                                     <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#importBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Import Book' as import_text %} {{ import_text }}">{{ import_text|upper }}</button>
                                 {% endif %}
                             {% endif %}
@@ -203,7 +203,7 @@
     </div>
 
     {% include "account/dashboard_create_book_modal.html" %}
-    {% if can_upload_epub %}
+    {% if can_upload_book %}
         {% include "account/dashboard_import_book_modal.html" %}
     {% endif %}
 </div>
