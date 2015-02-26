@@ -102,7 +102,7 @@ class DashboardPageView(BasePageView, DetailView):
         context['upload_uuid'] = uuid.uuid4()
         context['can_upload_book'] = security.has_perm(
             self.request.user, 'account.can_upload_book') or \
-            self.request.is_superuser
+            self.request.user.is_superuser
 
         return context
 
