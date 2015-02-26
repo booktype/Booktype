@@ -3,7 +3,7 @@
 {% if request.user.is_authenticated %}
   <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{% username request.user %}<span class="caret"></span></button>
         <ul class="dropdown-menu pull-right">
-          <li><a href="{% url "accounts:view_profile" request.user.username %}" target="_blank"><i class="icon-user"></i>{% trans "Profile" %}</a></li>
+          <li><a href="{% url "accounts:view_profile" request.user.username %}" target="_blank"><i class="icon-user"></i>{% trans "My Dashboard" %}</a></li>
           {% if request.user.is_superuser %}
              <li><a href="{% url "control_center:frontpage" %}" target="_blank"><i class="icon-gears"></i>{% trans "Control Center" %}</a></li>
           {% endif %}
