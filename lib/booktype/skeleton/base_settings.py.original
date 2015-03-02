@@ -33,7 +33,8 @@ BOOKTYPE_SITE_NAME = None
 # BOOKTYPE_SITE_NAME = '##BOOKTYPE_SITE_NAME##'
 BOOKTYPE_SITE_DIR = '##BOOKTYPE_SITE_DIR##'
 
-THIS_BOOKTYPE_SERVER = '' # the name of the booki server (comment out to use os.environ['HTTP_HOST'])
+# The hostname of the Booktype server (e.g. www.myserver.org, 192.168.1.10, booktype.myserver.org)
+THIS_BOOKTYPE_SERVER = ''
 
 #BOOKTYPE_ROOT = '##BOOKTYPE_ROOT##'
 BOOKTYPE_ROOT = Path(os.path.abspath(__file__)).ancestor(3)
