@@ -14,7 +14,7 @@
             {% for role in roles %}
             <li class="border-bottom role-entry">
                 <div class="list-info">
-                    <h4><a href="javascript:void(0);">{{ role.name }}</a> - {{ role.description }}</h4>
+                    <h4><span class="title">{{ role.name }}</span> - {{ role.description }}</h4>
                     <span>{% trans "Members" %}: {{ role.members_count }}</span>
                 </div>
                 <div class="action-btns float-right hide">
