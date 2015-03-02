@@ -16,18 +16,18 @@
                         {% trans "Drag Your File Here" %}
                     </div>
                     <div class="drag-area-button">
-                        <button class="btn btn-default fileinput-button">
+                        <span class="btn btn-default fileinput-button">
                             <i class="icon-upload"></i> {% trans "or Select from folder" %}
                             <input id="book-file" type="file" accept="application/epub+zip,application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="book_file" data-upload-uuid="{{ upload_uuid }}" data-status-url="{% url 'upload_progress' %}">
-                        </button>
+                        </span>
                     </div>
                 </div>
                 <p class="book_filename hidden">{% trans "Filename:" %} <b></b></p>
 
                 <!-- progress bar -->
                 <div class="progress hidden" id="progress-bar-container">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;" data-label="{% trans 'Complete' %}">
-                        <span class="sr-only">60% {% trans "Complete" %}</span>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" data-label="{% trans 'Complete' %}">
+                        <span class="sr-only">0% {% trans "Complete" %}</span>
                     </div>
                 </div>
 
@@ -48,17 +48,11 @@
                 <div class="alert alert-danger hidden" id="something-wrong" role="alert">{% trans "Something went wrong!" %}</div>
 
                 <!-- info messages -->
-                <div class="alert alert-warning hidden" role="alert" id="info-warnings">
-                    <ul></ul>
-                </div>
+                <div class="alert alert-warning hidden" role="alert" id="info-warnings"><ul></ul></div>
 
-                <div class="alert alert-info hidden" role="alert" id="info-infos">
-                    <ul></ul>
-                </div>
+                <div class="alert alert-info hidden" role="alert" id="info-infos"><ul></ul></div>
 
-                <div class="alert alert-danger hidden" role="alert" id="info-errors">
-                    <ul></ul>
-                </div>
+                <div class="alert alert-danger hidden" role="alert" id="info-errors"><ul></ul></div>
 
                 <!-- success message -->
                 <div class="alert alert-success hidden congrats" role="alert">
