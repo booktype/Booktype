@@ -1,15 +1,15 @@
-# French (fr) translation for Booktype Control Centre.
+# English (en) translation strings for Booktype Control Centre.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
 #
 # Translators:
-# AlbertFR <albert.bruc.ab@gmail.com>, 2014
+# AlbertFR <albert.bruc.ab@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-04 12:31+0200\n"
-"PO-Revision-Date: 2014-10-23 17:07+0100\n"
+"POT-Creation-Date: 2014-12-29 15:49+0000\n"
+"PO-Revision-Date: 2015-03-09 17:15+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/booktype/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -17,747 +17,712 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Country: UNITED KINGDOM\n"
+"X-Poedit-Language: English\n"
 
-#: views.py:177
-#: views.py:303
-msgid "Username"
-msgstr "Nom d'utilisateur"
-
-#: views.py:180
-#: views.py:305
-msgid "Username is required."
-msgstr "Nom d'utilisateur requis."
-
-#: views.py:181
-#: views.py:182
-#: views.py:306
-#: views.py:308
-msgid "Illegal characters in username."
-msgstr "Caractères illégaux dans le nom d'utilisateur."
-
-#: views.py:183
-#: views.py:309
-msgid "First name"
-msgstr "Prénom"
-
-#: views.py:185
-#: views.py:311
-msgid "First name is required."
-msgstr "Le prénom est requis."
-
-#: views.py:187
-#: views.py:313
-msgid "Email"
-msgstr "Courriel"
-
-#: views.py:189
-#: views.py:315
-msgid "Email is required."
-msgstr "Le courriel est requis."
-
-#: views.py:191
-msgid "Profile picture"
-msgstr "Photo de profil"
-
-#: views.py:193
-#: views.py:317
-msgid "User description"
-msgstr "Description de l'utilisateur"
-
-#: views.py:213
-#: views.py:278
-#: views.py:363
-#: views.py:495
-#: views.py:568
-#: views.py:653
-#: views.py:730
-#: views.py:805
-#: views.py:867
-#: views.py:930
-#: views.py:965
-#: views.py:1038
-#: views.py:1091
-#: views.py:1142
-#: views.py:1205
-#: views.py:1259
-#: templates/booktypecontrol/add_book.html:24
-#: templates/booktypecontrol/add_person.html:25
-#: templates/booktypecontrol/delete_book.html:26
-#: templates/booktypecontrol/edit_book.html:13
-#: templates/booktypecontrol/edit_password.html:25
-#: templates/booktypecontrol/edit_profile.html:13
-#: templates/booktypecontrol/rename_book.html:13
-#: templates/booktypecontrol/settings_appearance.html:13
-#: templates/booktypecontrol/settings_book_create.html:13
-#: templates/booktypecontrol/settings_description.html:13
-#: templates/booktypecontrol/settings_frontpage.html:13
-#: templates/booktypecontrol/settings_license.html:12
-#: templates/booktypecontrol/settings_license_edit.html:28
-#: templates/booktypecontrol/settings_privacy.html:13
-#: templates/booktypecontrol/settings_publishing.html:13
-#: templates/booktypecontrol/settings_publishing_defaults.html:13
-msgid "Cancel"
-msgstr "Annuler"
-
-#: views.py:230
-#: views.py:286
-#: views.py:676
-#: views.py:991
-#: views.py:1049
-#: views.py:1107
-#: views.py:1152
-#: views.py:1223
-#: views.py:1279
-msgid "Successfuly saved changes."
-msgstr "Modifications sauvegardées avec succès."
-
-#: views.py:249
-#: views.py:320
-msgid "Password"
-msgstr "Mot de passe"
-
-#: views.py:251
-#: views.py:257
-#: views.py:322
-#: views.py:327
-msgid "Password is required."
-msgstr "Le Mot de passe est requis."
-
-#: views.py:254
-#: views.py:325
-msgid "Password confirmation"
-msgstr "Confirmation du Mot de passe"
-
-#: views.py:259
-#: views.py:330
-msgid "Enter the same password as above, for verification."
-msgstr "Entrez le même mot de passe comme ci-dessus, pour vérification."
-
-#: views.py:289
-msgid "Passwords do not match"
-msgstr "Les Mots de passe ne correspondent pas"
-
-#: views.py:331
-msgid "Notify person by email"
-msgstr "Notifier la personne par courriel"
-
-#: views.py:342
-msgid "This Person already exists."
-msgstr "Cette Personne existe déjà."
-
-#: views.py:348
-msgid "Passwords do not match."
-msgstr "Les Mots de passe ne correspondent pas."
-
-#: views.py:397
-msgid "Unknown error while creating new account."
-msgstr "Erreur inconnue lors de la création du nouveau compte."
-
-#: views.py:474
-#: views.py:528
-#: views.py:703
-msgid "Title"
-msgstr "Titre"
-
-#: views.py:475
-#: views.py:529
-#: views.py:705
-msgid "Title is required."
-msgstr "Le Titre est requis."
-
-#: views.py:505
-msgid "Successfuly deleted the book"
-msgstr "Livre supprimé avec succès"
-
-#: views.py:509
-msgid "Wrong title."
-msgstr "Mauvais titre."
-
-#: views.py:511
-msgid "Unknown error while deleting the book"
-msgstr "Erreur inconnue lors de la suppression du livre"
-
-#: views.py:532
-#: views.py:611
-#: templates/booktypecontrol/settings.html:27
-msgid "Description"
-msgstr "Description"
-
-#: views.py:535
-#: views.py:614
-msgid "Owner"
-msgstr "Propriétaire"
-
-#: views.py:536
-msgid "Book owner is required."
-msgstr "Un Propriétaire du livre est nécessaire."
-
-#: views.py:539
-#: views.py:618
-#: templates/booktypecontrol/settings_license_edit.html:6
-msgid "License"
-msgstr "Licence"
-
-#: views.py:541
-#: views.py:619
-msgid "License is required."
-msgstr "La Licence est requise."
-
-#: views.py:543
-#: views.py:622
-msgid "Initially hide from others"
-msgstr "Initialement caché des autres"
-
-#: views.py:545
-#: views.py:624
-msgid "Cover image"
-msgstr "Image de couverture"
-
-#: views.py:552
-#: views.py:631
-msgid "This Book already exists."
-msgstr "Ce livre existe déjà."
-
-#: views.py:593
-msgid "Successfuly created new book."
-msgstr "Nouveau livre créé avec succès."
-
-#: views.py:597
-msgid "Unknown error while creating new book."
-msgstr "Erreur inconnue lors de la création du nouveau livre."
-
-#: views.py:615
-msgid "Owner is required."
-msgstr "Le propriétaire est requis."
-
-#: views.py:680
-#: views.py:831
-#: views.py:884
-#: views.py:1051
-#: views.py:1109
-#: views.py:1154
-#: views.py:1225
-#: views.py:1285
-msgid "Unknown error while saving changes."
-msgstr "Erreur inconnue lors de l'enregistrement des modifications."
-
-#: views.py:707
-msgid "URL title"
-msgstr "Titre de l'URL"
-
-#: views.py:710
-msgid "Illegal characters in URL title."
-msgstr "Caractères illégaux dans le titre de l'URL."
-
-#: views.py:711
-msgid "If you leave this field empty URL title will be assigned automatically."
-msgstr "Si vous laissez ce champ vide le titre de l'URL sera automatiquement attribué."
-
-#: views.py:751
-#: views.py:758
-msgid "Successfuly renamed book."
-msgstr "Livre renommé avec succès."
-
-#: views.py:785
+#: forms.py:52
 msgid "Site title"
 msgstr "Titre du site"
 
-#: views.py:787
+#: forms.py:54
 msgid "Site title is required."
 msgstr "Le titre du Site est requis."
 
-#: views.py:789
+#: forms.py:58
 msgid "Tagline"
 msgstr "Slogan"
 
-#: views.py:792
+#: forms.py:63
 msgid "Favicon"
 msgstr "Favicon"
 
-#: views.py:794
+#: forms.py:65
 msgid "Upload .ico file"
 msgstr "Téléverser un fichier .ico"
 
-#: views.py:829
-#: views.py:882
-msgid "Successfuly saved settings."
-msgstr "Réglages sauvegardés avec succès."
-
-#: views.py:850
-msgid "Default visibility"
-msgstr "Visibilité par défaut"
-
-#: views.py:852
-msgid "If it is turned on then all books will be visible to everyone."
-msgstr "Si validé sur actif, tous les livres seront visibles pour tout le monde."
-
-#: views.py:853
-msgid "Default License"
-msgstr "Licence par défaut"
-
-#: views.py:856
-msgid "Default license for newly created books."
-msgstr "Licence par défaut pour les nouveaux livres créés."
-
-#: views.py:912
-msgid "Abbrevation"
-msgstr "Abréviation"
-
-#: views.py:914
-msgid "Abbrevation is required."
-msgstr "Une abréviation est requise."
-
-#: views.py:916
-msgid "Name"
-msgstr "Nom"
-
-#: views.py:918
-msgid "License name is required."
-msgstr "Un nom de licence est requis."
-
-#: views.py:940
-msgid "Successfuly created new license."
-msgstr "Nouvelle licence créée avec succès."
-
-#: views.py:968
-#: templates/booktypecontrol/settings_license_edit.html:26
-msgid "Remove it"
-msgstr "La retirée"
-
-#: views.py:977
-msgid "Successfuly removed license."
-msgstr "Licence retirée avec succès."
-
-#: views.py:1019
-msgid "Anyone can register"
-msgstr "N'importe qui peut s'inscrire"
-
-#: views.py:1021
-msgid "Anyone can register on the site and create account"
-msgstr "N'importe qui peut s'inscrire sur le site et créer un compte"
-
-#: views.py:1022
-msgid "Only admin can create books"
-msgstr "Seul l'administrateur peut créer des livres"
-
-#: views.py:1024
-msgid "Only admin can import books"
-msgstr "Seul administrateur peut importer des livres"
-
-#: views.py:1069
-msgid "book"
-msgstr "livre"
-
-#: views.py:1071
-msgid "ebook"
-msgstr "ebook"
-
-#: views.py:1073
-msgid "PDF"
-msgstr "PDF"
-
-#: views.py:1075
-msgid "ODT"
-msgstr "ODT"
-
-#: views.py:1127
+#: forms.py:102
 msgid "CSS"
 msgstr "CSS"
 
-#: views.py:1176
-msgid "Book CSS"
-msgstr "CSS du Livre"
-
-#: views.py:1179
-msgid "E-Book CSS"
-msgstr "CSS de l'E-book"
-
-#: views.py:1182
-msgid "PDF CSS"
-msgstr "CSS du PDF"
-
-#: views.py:1185
-msgid "ODT CSS"
-msgstr "CSS de l'ODT"
-
-#: views.py:1239
+#: forms.py:130
 msgid "Welcome message"
 msgstr "Message de bienvenue"
 
-#: views.py:1242
+#: forms.py:135
 msgid "Show activity"
 msgstr "Montrer l'activité"
 
-#: views.py:1283
-msgid "Error while saving changes"
-msgstr "Erreur lors de la sauvegarde des modifications"
+#: forms.py:185
+msgid "Abbrevation"
+msgstr "Abréviation"
 
-#: templates/control_base.html:25
-msgid "Booktype Control Center"
-msgstr "Centre de contrôle Booktype "
+#: forms.py:187
+msgid "Abbrevation is required."
+msgstr "Une abréviation est requise."
 
-#: templates/control_base.html:31
-msgid "Sign out"
-msgstr "Déconnexion"
+#: forms.py:191
+msgid "Name"
+msgstr "Nom"
 
-#: templates/control_base.html:37
-msgid "Sign In / Create Account"
-msgstr "Connexion / Créer un compte"
+#: forms.py:193
+#: forms.py:199
+msgid "License name is required."
+msgstr "Un nom de licence est requis."
 
-#: templates/control_base.html:47
-#: templates/booktypecontrol/settings.html:25
-msgid "Site"
-msgstr "Site"
+#: forms.py:197
+msgid "License URL"
+msgstr "URL de la licence"
 
-#: templates/control_base.html:54
-#: templates/booktypecontrol/frontpage.html:6
-msgid "Admin Control Center"
-msgstr "Centre de contrôle administrateur"
+#: forms.py:203
+msgid "Succesfully created new license."
+msgstr "Nouvelle licence créée avec succès."
 
-#: templates/control_base.html:58
-#: templates/booktypecontrol/people.html:6
-msgid "People"
-msgstr "Communauté"
+#: forms.py:224
+msgid "Default visibility"
+msgstr "Visibilité par défaut"
 
-#: templates/control_base.html:62
-#: templates/booktypecontrol/books.html:6
-#: templates/booktypecontrol/profile.html:63
-msgid "Books"
-msgstr "Livres"
+#: forms.py:229
+msgid "Default License"
+msgstr "Licence par défaut"
 
-#: templates/control_base.html:66
-#: templates/booktypecontrol/settings.html:6
-msgid "Settings"
-msgstr "Réglagles"
+#: forms.py:232
+msgid "Default license for newly created books."
+msgstr "Licence par défaut pour les nouveaux livres créés."
 
-#: templates/booktypecontrol/add_book.html:6
-#: templates/booktypecontrol/add_book.html:24
-msgid "Add Book"
-msgstr "Ajouter un livre"
+#: forms.py:275
+msgid "Anyone can register"
+msgstr "N'importe qui peut s'inscrire"
 
-#: templates/booktypecontrol/add_person.html:6
-#: templates/booktypecontrol/add_person.html:25
-msgid "Add Person"
-msgstr "Ajouter une personne"
+#: forms.py:277
+msgid "Anyone can register on the site and create account"
+msgstr "N'importe qui peut s'inscrire sur le site et créer un compte"
 
-#: templates/booktypecontrol/book.html:36
-msgid "EDIT BOOK"
-msgstr "ÉDITION DU LIVRE"
+#: forms.py:280
+msgid "Only admin can create books"
+msgstr "Seul l'administrateur peut créer des livres"
 
-#: templates/booktypecontrol/book.html:37
-msgid "BOOK INFO"
-msgstr "INFORMATION DU LIVRE"
+#: forms.py:284
+msgid "Only admin can import books"
+msgstr "Seul administrateur peut importer des livres"
 
-#: templates/booktypecontrol/book.html:38
-msgid "EDIT DESCRIPTION"
-msgstr "ÉDITER LA DESCRIPTION"
+#: forms.py:312
+#: forms.py:445
+msgid "Username"
+msgstr "Nom d'utilisateur"
 
-#: templates/booktypecontrol/book.html:39
-msgid "RENAME"
-msgstr "RENOMMER"
+#: forms.py:315
+#: forms.py:449
+msgid "Username is required."
+msgstr "Nom d'utilisateur requis."
 
-#: templates/booktypecontrol/book.html:40
-msgid "DELETE"
-msgstr "EFFACER"
+#: forms.py:316
+#: forms.py:322
+#: forms.py:450
+#: forms.py:455
+msgid "Illegal characters in username."
+msgstr "Caractères illégaux dans le nom d'utilisateur."
 
-#: templates/booktypecontrol/book.html:63
-msgid "Owner:"
-msgstr "Propriétaire :"
+#: forms.py:328
+#: forms.py:461
+msgid "First name"
+msgstr "Prénom"
 
-#: templates/booktypecontrol/book.html:64
-msgid "Status:"
-msgstr "État :"
+#: forms.py:330
+#: forms.py:463
+msgid "First name is required."
+msgstr "Le prénom est requis."
 
-#: templates/booktypecontrol/book.html:66
-msgid "(this book is hidden from others)"
-msgstr "(ce livre est caché aux autres contributeurs)"
-
-#: templates/booktypecontrol/book.html:68
-msgid "(this book is visible to everyone)"
-msgstr "(ce livre est visible par tout le monde)"
-
-#: templates/booktypecontrol/book.html:72
-msgid "Member of group:"
-msgstr "Membre du groupe :"
-
-#: templates/booktypecontrol/book.html:74
-msgid "Current version:"
-msgstr "Version actuelle :"
-
-#: templates/booktypecontrol/book.html:75
-msgid "Attachments size:"
-msgstr "Taille des pièces jointes :"
-
-#: templates/booktypecontrol/book.html:77
-msgid "Created:"
-msgstr "Créé le :"
-
-#: templates/booktypecontrol/book.html:78
-msgid "Published:"
-msgstr "Publié le :"
-
-#: templates/booktypecontrol/book.html:80
-msgid "Collaborators:"
-msgstr "Contributeurs :"
-
-#: templates/booktypecontrol/book.html:88
-msgid "Online editing:"
-msgstr "Actuellement en édition :"
-
-#: templates/booktypecontrol/book.html:97
-msgid "Versions"
-msgstr "Versions"
-
-#: templates/booktypecontrol/books.html:30
-msgid "ADD NEW BOOK"
-msgstr "AJOUTER UN NOUVEAU LIVRE"
-
-#: templates/booktypecontrol/books.html:50
-msgid "short title"
-msgstr "titre court"
-
-#: templates/booktypecontrol/books.html:51
-msgid "full title"
-msgstr "titre complet"
-
-#: templates/booktypecontrol/delete_book.html:6
-#: templates/booktypecontrol/delete_book.html:26
-msgid "Delete Book"
-msgstr "Supprimer le Livre"
-
-#: templates/booktypecontrol/delete_book.html:20
-msgid "Are you sure you would like to delete this book? You will lose all data associated to this book and you will not be able to undo this operation!"
-msgstr "Etes-vous sûr de vouloir supprimer ce livre? Vous allez perdre toutes les données associées à ce livre et vous ne serez pas en mesure d'annuler cette opération!"
-
-#: templates/booktypecontrol/delete_book.html:21
-msgid "Type full title of the book to delete it"
-msgstr "Tapez le titre complet de l'ouvrage à supprimer"
-
-#: templates/booktypecontrol/edit_book.html:13
-#: templates/booktypecontrol/settings_appearance.html:13
-#: templates/booktypecontrol/settings_book_create.html:13
-#: templates/booktypecontrol/settings_description.html:13
-#: templates/booktypecontrol/settings_frontpage.html:13
-#: templates/booktypecontrol/settings_license_edit.html:24
-#: templates/booktypecontrol/settings_privacy.html:13
-#: templates/booktypecontrol/settings_publishing.html:13
-#: templates/booktypecontrol/settings_publishing_defaults.html:13
-msgid "Save changes"
-msgstr "Enregistrer les modifications"
-
-#: templates/booktypecontrol/edit_password.html:25
-msgid "Change Password"
-msgstr "Modifier le mot de passe"
-
-#: templates/booktypecontrol/edit_profile.html:13
-msgid "Save Changes"
-msgstr "Sauvegarder les modifications"
-
-#: templates/booktypecontrol/frontpage.html:28
-msgid "Info"
-msgstr "Infos"
-
-#: templates/booktypecontrol/frontpage.html:30
-msgid "Version:"
-msgstr "Version :"
-
-#: templates/booktypecontrol/frontpage.html:31
-msgid "Books:"
-msgstr "Livres :"
-
-#: templates/booktypecontrol/frontpage.html:32
-msgid "Groups:"
-msgstr "Groupes :"
-
-#: templates/booktypecontrol/frontpage.html:33
-msgid "Users:"
-msgstr "Utilisateurs :"
-
-#: templates/booktypecontrol/frontpage.html:34
-msgid "Database size:"
-msgstr "Taille de la base de donnée :"
-
-#: templates/booktypecontrol/frontpage.html:35
-msgid "Files size:"
-msgstr "Taille des fichiers :"
-
-#: templates/booktypecontrol/frontpage.html:40
-msgid "Online users"
-msgstr "Utilisateurs en ligne"
-
-#: templates/booktypecontrol/frontpage.html:50
-msgid "Working on:"
-msgstr "Travaillant sur :"
-
-#: templates/booktypecontrol/frontpage.html:59
-msgid "No online users"
-msgstr "Pas d'utilisateurs en ligne"
-
-#: templates/booktypecontrol/frontpage.html:63
-msgid "Recent activity"
-msgstr "Activité récente"
-
-#: templates/booktypecontrol/frontpage.html:72
-#: templates/booktypecontrol/profile.html:95
-msgid "ago"
-msgstr "déjà"
-
-#: templates/booktypecontrol/frontpage.html:75
-#: templates/booktypecontrol/profile.html:98
-msgid "Created new chapter"
-msgstr "Nouveau chapitre créé"
-
-#: templates/booktypecontrol/frontpage.html:80
-#: templates/booktypecontrol/profile.html:103
-msgid "Created new book"
-msgstr "Nouveau livre créé"
-
-#: templates/booktypecontrol/people.html:29
-msgid "ADD NEW PERSON"
-msgstr "AJOUTER UNE NOUVELLE PERSONNE"
-
-#: templates/booktypecontrol/people.html:49
-msgid "username"
-msgstr "nom utilisateur"
-
-#: templates/booktypecontrol/people.html:50
-msgid "full name"
-msgstr "nom complet"
-
-#: templates/booktypecontrol/people.html:51
-msgid "email"
-msgstr "courriel"
-
-#: templates/booktypecontrol/profile.html:28
-msgid "EDIT INFO"
-msgstr "ÉDITION DES INFORMATIONS"
-
-#: templates/booktypecontrol/profile.html:29
-msgid "CHANGE PASSWORD"
-msgstr "MODIFICATION DU MOT DE PASSE"
-
-#: templates/booktypecontrol/profile.html:50
-msgid "Username:"
-msgstr "Nom d'utilisateur :"
-
-#: templates/booktypecontrol/profile.html:51
-msgid "Full name:"
-msgstr "Nom complet :"
-
-#: templates/booktypecontrol/profile.html:52
-msgid "Email:"
+#: forms.py:334
+#: forms.py:467
+msgid "Email"
 msgstr "Courriel"
 
-#: templates/booktypecontrol/profile.html:53
-msgid "Joined:"
-msgstr "Inscrit le :"
+#: forms.py:336
+#: forms.py:469
+msgid "Email is required."
+msgstr "Le courriel est requis."
 
-#: templates/booktypecontrol/profile.html:54
-msgid "Last login:"
-msgstr "Dernière connexion :"
+#: forms.py:340
+#: forms.py:481
+msgid "User description"
+msgstr "Description de l'utilisateur"
 
-#: templates/booktypecontrol/profile.html:55
-msgid "About yourself:"
-msgstr "À propos de vous-même :"
+#: forms.py:345
+#: forms.py:499
+msgid "Password"
+msgstr "Mot de passe"
 
-#: templates/booktypecontrol/profile.html:64
-msgid "Groups"
-msgstr "Groupes"
+#: forms.py:347
+#: forms.py:354
+#: forms.py:501
+#: forms.py:509
+msgid "Password is required."
+msgstr "Le Mot de passe est requis."
 
-#: templates/booktypecontrol/profile.html:65
-msgid "Activity"
-msgstr "Activité"
+#: forms.py:352
+#: forms.py:506
+msgid "Password confirmation"
+msgstr "Confirmation du Mot de passe"
 
-#: templates/booktypecontrol/profile.html:72
-msgid "This person has no Books."
-msgstr "Cette personne n'a pas de livres."
+#: forms.py:357
+#: forms.py:511
+msgid "Enter the same password as above, for verification."
+msgstr "Entrez le même mot de passe comme ci-dessus, pour vérification."
 
-#: templates/booktypecontrol/profile.html:82
-msgid "This person has no Groups."
-msgstr "Cette personne n'a pas de groupes."
+#: forms.py:360
+msgid "Notify person by email"
+msgstr "Notifier la personne par courriel"
 
-#: templates/booktypecontrol/rename_book.html:13
-msgid "Rename Book"
-msgstr "Renommer le Livre"
+#: forms.py:364
+msgid "Successfully created new account."
+msgstr "Nouveau compte créé avec succès."
 
-#: templates/booktypecontrol/settings.html:28
-#: templates/booktypecontrol/settings_appearance.html:6
+#: forms.py:385
+msgid "This Person already exists."
+msgstr "Cette Personne existe déjà."
+
+#: forms.py:391
+msgid "Passwords do not match."
+msgstr "Les Mots de passe ne correspondent pas."
+
+#: forms.py:473
+msgid "Profile picture"
+msgstr "Photo de profil"
+
+#: forms.py:495
+msgid "The two password fields didn't match."
+msgstr "Les deux champs de mot de passe ne correspondent pas."
+
+#: forms.py:536
+#: forms.py:609
+msgid "Title"
+msgstr "Titre"
+
+#: forms.py:537
+#: forms.py:611
+msgid "Title is required."
+msgstr "Le Titre est requis."
+
+#: forms.py:542
+#: views.py:45
+#: templates/booktypecontrol/control_center_settings.html:27
+msgid "Description"
+msgstr "Description"
+
+#: forms.py:547
+msgid "Owner"
+msgstr "Propriétaire"
+
+#: forms.py:548
+msgid "Book owner is required."
+msgstr "Un Propriétaire du livre est nécessaire."
+
+#: forms.py:553
+msgid "License"
+msgstr "Licence"
+
+#: forms.py:555
+msgid "License is required."
+msgstr "La Licence est requise."
+
+#: forms.py:559
+msgid "Initially hide from others"
+msgstr "Initialement caché des autres"
+
+#: forms.py:563
+msgid "Book image"
+msgstr "Image du livre"
+
+#: forms.py:567
+msgid "Successfully created new book."
+msgstr "Nouveau livre créé avec succès."
+
+#: forms.py:571
+msgid "This Book already exists."
+msgstr "Ce livre existe déjà."
+
+#: forms.py:615
+msgid "URL title"
+msgstr "Titre de l'URL"
+
+#: forms.py:618
+msgid "Illegal characters in URL title."
+msgstr "Caractères illégaux dans le titre de l'URL."
+
+#: forms.py:619
+msgid "If you leave this field empty URL        title will be assigned automatically."
+msgstr "Si vous laissez ce champ vide, le titre de l'URL sera attribué automatiquement."
+
+#: forms.py:655
+msgid "book"
+msgstr "livre"
+
+#: forms.py:659
+msgid "ebook"
+msgstr "ebook"
+
+#: forms.py:663
+msgid "PDF"
+msgstr "PDF"
+
+#: forms.py:667
+msgid "ODT"
+msgstr "ODT"
+
+#: forms.py:698
+msgid "Book CSS"
+msgstr "CSS du Livre"
+
+#: forms.py:706
+msgid "E-Book CSS"
+msgstr "CSS de l'E-book"
+
+#: forms.py:714
+msgid "PDF CSS"
+msgstr "CSS du PDF"
+
+#: forms.py:722
+msgid "ODT CSS"
+msgstr "CSS de l'ODT"
+
+#: forms.py:776
+msgid "Successfully created new group."
+msgstr "Nouveau groupe créé avec succès."
+
+#: forms.py:813
+msgid "Successfully created new role."
+msgstr "Nouveau rôle créé avec succès."
+
+#: forms.py:840
+msgid "None"
+msgstr "Aucun"
+
+#: forms.py:847
+msgid "Role for anonymous users"
+msgstr "Rôle pour les utilisateurs anonymes"
+
+#: forms.py:851
+msgid "Role for registered users"
+msgstr "Rôle pour les utilisateurs enregistrés"
+
+#: views.py:46
+#: templates/booktypecontrol/control_center_settings.html:28
 msgid "Appearance"
 msgstr "Apparence"
 
-#: templates/booktypecontrol/settings.html:29
-#: templates/booktypecontrol/settings_frontpage.html:6
+#: views.py:47
+#: templates/booktypecontrol/control_center_settings.html:29
 msgid "Frontpage"
 msgstr "Première page"
 
-#: templates/booktypecontrol/settings.html:34
-msgid "General"
-msgstr "Général"
-
-#: templates/booktypecontrol/settings.html:36
-#: templates/booktypecontrol/settings_license.html:30
+#: views.py:48
+#: templates/booktypecontrol/_control_center_license.html:8
+#: templates/booktypecontrol/control_center_settings.html:34
 msgid "Licenses"
 msgstr "Licences"
 
-#: templates/booktypecontrol/settings.html:37
-msgid "Default Book Settings"
-msgstr "Paramètres par défaut du livre"
+#: views.py:49
+msgid "Default Book Settings for Creating Books"
+msgstr "Paramètres par défaut des livres pour la création de livre "
 
-#: templates/booktypecontrol/settings.html:38
-#: templates/booktypecontrol/settings_privacy.html:6
+#: views.py:50
+#: templates/booktypecontrol/control_center_settings.html:37
 msgid "Privacy"
 msgstr "Secret"
 
-#: templates/booktypecontrol/settings.html:49
-msgid "Publish options"
-msgstr "Options de publication"
+#: views.py:51
+msgid "Add a new Person"
+msgstr "Ajouter une nouvelle personne"
 
-#: templates/booktypecontrol/settings.html:51
+#: views.py:52
+#: templates/booktypecontrol/_control_center_list_of_people.html:5
+#: templates/booktypecontrol/control_center_settings.html:43
+msgid "List of People"
+msgstr "Liste des personnes"
+
+#: views.py:53
+msgid "Add new Book"
+msgstr "Ajouter un nouveau livre"
+
+#: views.py:54
+#: templates/booktypecontrol/control_center_settings.html:55
+msgid "List of Books"
+msgstr "Liste des livres"
+
+#: views.py:55
+#: templates/booktypecontrol/control_center_settings.html:48
 msgid "Allowed publishing options"
 msgstr "Options de publication autorisés"
 
-#: templates/booktypecontrol/settings.html:52
-msgid "Default settings"
-msgstr "Réglages par défaut"
+#: views.py:56
+msgid "Publishing Defaults"
+msgstr "Valeurs par défaut de publication"
 
-#: templates/booktypecontrol/settings_book_create.html:6
-msgid "Book create"
-msgstr "Créer un livre"
+#: views.py:57
+msgid "Add new Group"
+msgstr "Ajouter un nouveau groupe"
 
-#: templates/booktypecontrol/settings_description.html:6
-msgid "Site description"
-msgstr "Description du site"
+#: views.py:58
+#: templates/booktypecontrol/control_center_settings.html:59
+msgid "List of Groups"
+msgstr "Liste des groupes"
 
-#: templates/booktypecontrol/settings_license.html:6
-msgid "New license"
-msgstr "Nouvelle licence"
+#: views.py:59
+msgid "Add new Role"
+msgstr "Ajouter un nouveau rôle"
 
-#: templates/booktypecontrol/settings_license.html:12
+#: views.py:60
+#: templates/booktypecontrol/control_center_settings.html:63
+msgid "List of Roles"
+msgstr "Liste des rôles"
+
+#: views.py:61
+#: templates/booktypecontrol/control_center_settings.html:36
+msgid "Default Roles"
+msgstr "Rôles par défaut"
+
+#: views.py:82
+#: views.py:178
+#: views.py:275
+#: views.py:339
+#: views.py:381
+#: views.py:423
+msgid "Admin Control Center"
+msgstr "Centre de contrôle administrateur"
+
+#: views.py:189
+msgid "Successfully saved settings."
+msgstr "Réglages sauvegardés avec succès."
+
+#: views.py:194
+msgid "Unknown error while saving changes."
+msgstr "Erreur inconnue lors de l'enregistrement des modifications."
+
+#: views.py:278
+msgid "Edit Person Info"
+msgstr "Éditer les informations de la personne"
+
+#: views.py:298
+#: views.py:350
+msgid "Successfully saved changes."
+msgstr "Modifications enregistrées avec succès."
+
+#: views.py:320
+msgid "Rename Book"
+msgstr "Renommer le Livre"
+
+#: views.py:324
+msgid "Book name successfully changed."
+msgstr "Nom du livre modifié avec succès."
+
+#: views.py:358
+msgid "Change Password"
+msgstr "Modifier le mot de passe"
+
+#: views.py:373
+msgid "Group successfully deleted."
+msgstr "Groupe effacé avec succès."
+
+#: views.py:389
+msgid "Edit licence"
+msgstr "Éditer la licence"
+
+#: views.py:395
+msgid "License successfully updated."
+msgstr "Licence mise à jour avec succès."
+
+#: views.py:407
+msgid "There are licensed books with this license.                     Unable to remove"
+msgstr "Il y a des livres sous licence avec cette licence. Impossible de la supprimer"
+
+#: views.py:412
+msgid "License successfully deleted."
+msgstr "Licence effacé avec succès."
+
+#: views.py:431
+msgid "Edit role"
+msgstr "Édition du rôle"
+
+#: views.py:435
+msgid "Role successfully updated."
+msgstr "Rôle mis à jour avec succès."
+
+#: views.py:445
+msgid "Role successfully deleted."
+msgstr "Rôle effacé avec succès."
+
+#: templates/control_base.html:10
+msgid "Home"
+msgstr "Accueil"
+
+#: templates/control_base.html:13
+msgid "Settings"
+msgstr "Réglagles"
+
+#: templates/control_base.html:16
+#: templates/booktypecontrol/control_center_settings.html:41
+msgid "People"
+msgstr "Communauté"
+
+#: templates/control_base.html:19
+#: templates/booktypecontrol/_control_center_list_of_groups.html:20
+#: templates/booktypecontrol/_control_center_modal_person_info.html:15
+#: templates/booktypecontrol/_control_center_modal_person_info.html:76
+#: templates/booktypecontrol/control_center_settings.html:53
+msgid "Books"
+msgstr "Livres"
+
+#: templates/control_base.html:22
+#: templates/booktypecontrol/_control_center_modal_person_info.html:16
+#: templates/booktypecontrol/control_center_settings.html:57
+msgid "Groups"
+msgstr "Groupes"
+
+#: templates/control_base.html:25
+#: templates/booktypecontrol/control_center_settings.html:61
+msgid "Roles"
+msgstr "Rôles"
+
+#: templates/booktypecontrol/_control_center_add_person.html:4
+msgid "Add new person"
+msgstr "Ajouter une nouvelle personne"
+
+#: templates/booktypecontrol/_control_center_license.html:4
 msgid "Add new license"
 msgstr "Ajouter une nouvelle licence"
 
-#: templates/booktypecontrol/settings_license_edit.html:35
+#: templates/booktypecontrol/_control_center_license_edit.html:6
+msgid "Remove"
+msgstr "Retirer"
+
+#: templates/booktypecontrol/_control_center_license_edit.html:9
 msgid "Books licensed with"
 msgstr "Livres sous licence "
 
-#: templates/booktypecontrol/settings_license_edit.html:40
-msgid "No such books."
-msgstr "Plus de livres."
+#: templates/booktypecontrol/_control_center_license_edit.html:20
+msgid "No books for this license."
+msgstr "Aucun livres sous cette licence."
 
-#: templates/booktypecontrol/settings_publishing.html:6
-msgid "Publishing"
-msgstr "Publication"
+#: templates/booktypecontrol/_control_center_list_of_books.html:11
+msgid "Add new book"
+msgstr "Ajouter un nouveau livre"
 
-#: templates/booktypecontrol/settings_publishing_defaults.html:6
-msgid "Publishing defaults"
-msgstr "Valeurs par défaut de publication"
+#: templates/booktypecontrol/_control_center_list_of_books.html:14
+msgid "Show grid"
+msgstr "Montrer la grille"
 
-#: templates/errors/license_does_not_exist.html:4
-msgid "License not found!"
-msgstr "Licence non trouvée !"
+#: templates/booktypecontrol/_control_center_list_of_books.html:15
+msgid "Show List"
+msgstr "Montrer la liste"
 
-#: templates/errors/license_does_not_exist.html:5
-#, python-format
-msgid "Can't find license \"%(name)s\"."
-msgstr "Ne peut pas trouver la licence \"%(name)s\"."
+#: templates/booktypecontrol/_control_center_list_of_groups.html:9
+msgid "Add new group"
+msgstr "Ajouter un nouveau groupe"
+
+#: templates/booktypecontrol/_control_center_list_of_groups.html:20
+#: templates/booktypecontrol/_control_center_list_of_roles.html:18
+#: templates/booktypecontrol/_control_center_modal_person_info.html:76
+msgid "Members"
+msgstr "Membres"
+
+#: templates/booktypecontrol/_control_center_list_of_groups.html:24
+#: templates/booktypecontrol/_control_center_list_of_roles.html:21
+msgid "Edit"
+msgstr "Éditeur"
+
+#: templates/booktypecontrol/_control_center_list_of_groups.html:25
+#: templates/booktypecontrol/_control_center_list_of_roles.html:22
+msgid "Delete"
+msgstr "Supprimer"
+
+#: templates/booktypecontrol/_control_center_list_of_people.html:7
+#: templates/booktypecontrol/control_center_settings.html:42
+msgid "Add Person"
+msgstr "Ajouter une personne"
+
+#: templates/booktypecontrol/_control_center_list_of_people.html:7
+msgid "ADD PERSON"
+msgstr "AJOUTER UNE PERSONNE"
+
+#: templates/booktypecontrol/_control_center_list_of_people.html:19
+msgid "Change password"
+msgstr "Changer le mot de passe"
+
+#: templates/booktypecontrol/_control_center_list_of_people.html:22
+msgid "Edit Info"
+msgstr "Éditer les informations"
+
+#: templates/booktypecontrol/_control_center_list_of_roles.html:9
+msgid "Add new role"
+msgstr "Ajouter un nouveau rôle"
+
+#: templates/booktypecontrol/_control_center_modal_delete_group.html:7
+#: templates/booktypecontrol/_control_center_modal_delete_group.html:16
+msgid "Delete Group"
+msgstr "Effacer le groupe"
+
+#: templates/booktypecontrol/_control_center_modal_delete_group.html:11
+msgid "Are you sure you would like to delete this group? You will not be able to undo this operation!"
+msgstr "Êtes-vous sûr de vouloir supprimer ce groupe ? Vous ne serez pas en mesure d'annuler cette opération !"
+
+#: templates/booktypecontrol/_control_center_modal_delete_group.html:15
+#: templates/booktypecontrol/_control_center_modal_delete_license.html:19
+#: templates/booktypecontrol/_control_center_modal_delete_role.html:15
+#: templates/booktypecontrol/_control_center_settings.html:15
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/booktypecontrol/_control_center_modal_delete_license.html:7
+#: templates/booktypecontrol/_control_center_modal_delete_license.html:20
+msgid "Delete License"
+msgstr "Effacer la licence"
+
+#: templates/booktypecontrol/_control_center_modal_delete_license.html:12
+msgid "There are licensed books with this license. You should change the license for these books before deleting it."
+msgstr "Il y a des livres sous licence avec cette licence. Vous devez changer la licence de ces livres avant de les supprimer."
+
+#: templates/booktypecontrol/_control_center_modal_delete_license.html:14
+msgid "Are you sure you would like to delete this license? You will not be able to undo this operation!"
+msgstr "Êtes-vous sûr de vouloir supprimer cette licence ? Vous ne serez pas en mesure d'annuler cette opération !"
+
+#: templates/booktypecontrol/_control_center_modal_delete_role.html:7
+#: templates/booktypecontrol/_control_center_modal_delete_role.html:16
+msgid "Delete Role"
+msgstr "Effacer le rôle"
+
+#: templates/booktypecontrol/_control_center_modal_delete_role.html:11
+msgid "Are you sure you would like to delete this role? You will not be able to undo this operation!"
+msgstr "Êtes-vous sûr de vouloir supprimer ce rôle ? Vous ne serez pas en mesure d'annuler cette opération !"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:13
+#: templates/booktypecontrol/control_center_dashboard.html:21
+msgid "Recent Activity"
+msgstr "Activité récente"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:28
+#: templates/booktypecontrol/control_center_dashboard.html:28
+msgid "ago"
+msgstr "déjà"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:41
+msgid "There is no activity yet"
+msgstr "Il n'y a pas encore d'activité"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:56
+msgid "Current version"
+msgstr "Version courante "
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:62
+msgid "This user has no books"
+msgstr "Cet utilisateur n'a pas de livres"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:82
+msgid "This user has no groups"
+msgstr "Cet utilisateur n'a pas de groupes"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:87
+msgid "Close"
+msgstr "Fermeture"
+
+#: templates/booktypecontrol/_control_center_settings.html:13
+msgid "Save changes"
+msgstr "Enregistrer les modifications"
+
+#: templates/booktypecontrol/control_center_dashboard.html:10
+msgid "Info"
+msgstr "Infos"
+
+#: templates/booktypecontrol/control_center_dashboard.html:12
+msgid "version"
+msgstr "version"
+
+#: templates/booktypecontrol/control_center_dashboard.html:13
+msgid "books"
+msgstr "livres"
+
+#: templates/booktypecontrol/control_center_dashboard.html:14
+msgid "groups"
+msgstr "groupes"
+
+#: templates/booktypecontrol/control_center_dashboard.html:15
+msgid "database size"
+msgstr "taille de la base de donnée"
+
+#: templates/booktypecontrol/control_center_dashboard.html:16
+msgid "files size"
+msgstr "taille des fichiers"
+
+#: templates/booktypecontrol/control_center_dashboard.html:50
+msgid "Online users"
+msgstr "Utilisateurs en ligne"
+
+#: templates/booktypecontrol/control_center_dashboard.html:62
+#: templates/booktypecontrol/control_center_dashboard.html:93
+msgid "Working on:"
+msgstr "Travaillant sur :"
+
+#: templates/booktypecontrol/control_center_dashboard.html:76
+msgid "No online users"
+msgstr "Pas d'utilisateurs en ligne"
+
+#: templates/booktypecontrol/control_center_dashboard.html:83
+msgid "Most Active Users"
+msgstr "Utilisateurs les plus actifs"
+
+#: templates/booktypecontrol/control_center_dashboard.html:83
+#: templates/booktypecontrol/control_center_dashboard.html:107
+msgid "view all"
+msgstr "tout voir"
+
+#: templates/booktypecontrol/control_center_dashboard.html:100
+msgid "No most active users"
+msgstr "Pas d'utilisateurs les plus actifs"
+
+#: templates/booktypecontrol/control_center_dashboard.html:107
+msgid "Latest Books"
+msgstr "Derniers livres"
+
+#: templates/booktypecontrol/control_center_dashboard.html:120
+msgid "No books here"
+msgstr "Aucun livre ici"
+
+#: templates/booktypecontrol/control_center_dashboard.html:127
+msgid "Most Active Books"
+msgstr "Livres les plus actifs"
+
+#: templates/booktypecontrol/control_center_dashboard.html:140
+msgid "No active books here"
+msgstr "Aucun livres actif ici"
+
+#: templates/booktypecontrol/control_center_settings.html:26
+msgid "Site"
+msgstr "Site"
+
+#: templates/booktypecontrol/control_center_settings.html:33
+msgid "General"
+msgstr "Général"
+
+#: templates/booktypecontrol/control_center_settings.html:35
+msgid "Default Book Settings"
+msgstr "Paramètres par défaut du livre"
+
+#: templates/booktypecontrol/control_center_settings.html:47
+msgid "Publish options"
+msgstr "Options de publication"
+
+#: templates/booktypecontrol/control_center_settings.html:49
+msgid "Default settings"
+msgstr "Réglages par défaut"
+
+#: templates/booktypecontrol/control_center_settings.html:54
+msgid "Add New Book"
+msgstr "Ajouter un nouveau livre"
+
+#: templates/booktypecontrol/control_center_settings.html:58
+msgid "Add New Group"
+msgstr "Ajouter un nouveau groupe"
+
+#: templates/booktypecontrol/control_center_settings.html:62
+msgid "Add New Role"
+msgstr "Ajouter un nouveau rôle"
 
