@@ -192,6 +192,19 @@ def check_unidecode_available():
     else:
         logln("[OK]")
 
+def copy_default_themes(destination):    
+    from shutil import copytree
+
+    try:
+        logln("+ Copying themes")
+
+        import booktype
+        booktype_source = os.path.dirname(booktype.__file__)
+
+        copytree('{}/skeleton/themes/'.format(booktype_source), '{}/data/themes/'.format(destination))
+    except OSError:
+        raise InstallError()
+
 def make_directory_structure(destination):    
     try:
         project = get_project_name(destination)
@@ -769,6 +782,9 @@ if __name__ == '__main__':
 
         # create nginx fastcgi
         create_nginx_fastcgi(project_destination)
+
+        # copy default themes
+        copy_default_themes(project_destination)
 
         # show after message
         show_after(project_destination, project_name)
