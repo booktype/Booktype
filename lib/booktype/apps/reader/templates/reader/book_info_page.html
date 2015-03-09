@@ -9,6 +9,12 @@
 <div class="container">
     <div class="row two-col">
         <div class="col-xs-8">
+            {% for message in messages %}
+            <div class="{% if message.tags %}alert alert-{{ message.tags }}{% endif %} alert-dismissable fade in bk-dismiss" data-dismiss-secs="10">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
             <div class="box profile-box black">
                 <figure>
                     {% if book.cover %}
