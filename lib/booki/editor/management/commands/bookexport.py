@@ -21,7 +21,7 @@ from booki.editor import common, models
 import shutil
 
 class Command(BaseCommand):
-    help = "Export book content as ZIP file. For now, only content of one book version will be exported and you will not get your history data."
+    help = "Export book content as a ZIP file. For now, only the content of one book version will be exported and you will not get the history data."
     args = "<book name>"
 
     option_list = BaseCommand.option_list + (
@@ -29,13 +29,13 @@ class Command(BaseCommand):
             action='store',
             dest='book_version',
             default=None,
-            help='Book version, e.g.'),
+            help='Book version, e.g. "1.0".'),
 
         make_option('--output',
             action='store',
             dest='output_name',
             default=None,
-            help='Output filename or -- for STDOUT, e.g. my_book.zip.'),
+            help='Output filename or -- for STDOUT, e.g. "my_book.zip".'),
         )
 
     requires_model_validation = False
