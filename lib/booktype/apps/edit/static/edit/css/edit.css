@@ -305,3 +305,142 @@ div.contentHeader span.info-message {
 #contenteditor a {
         text-decoration: underline;
 }
+
+/* Style Tab 
+------------------------------------------------------*/
+
+.userstyle {
+  position:relative;
+  margin-top: 20px;
+  border-top:1px solid #6f7671;
+  padding: 20px 0px 3px 10px;
+  overflow:hidden;
+  font-size: 13px;
+}
+.userstyle h3 {
+  background-color: #FFF;
+  display:inline-block;
+  margin:0;
+  text-align: center;
+  padding:0 !important;
+}
+.userstyle h4 {
+  margin: 16px 0 0;
+  font-size: 14px;
+  }
+.userstyle .styleblock {
+  padding: 5px 0px 0px 0px;
+  width:100%;
+}
+.userstyle .styleblock .btn-xs {
+  background-color: #d0d0d0 !important;
+  color:#000 !important;
+  font-size: 11px !important;
+  padding: 4px 7px 4px 7px !important;
+  font-weight: normal !important;
+  border-right:1px solid #000 !important;
+}
+.userstyle .styleblock .btn-xs.active {
+  background-color: #6f7671 !important;
+  color:#FFF !important;
+}
+.userstyle .styleblock .colorinput {
+  border:1px solid #ccc;
+  padding:2px;
+  float:right;
+  margin-right: 12px;
+  width:120px;
+}
+.userstyle .styleblock .colorinput input {
+  border:none;
+  padding:0 4px;
+  width:100%;
+  }
+.userstyle .styleblock select {
+  padding:2px;
+}
+.heading-align.btn-group {
+  margin-top: 5px;
+}
+
+  /* checkbox styling */
+  .userstyle .styleblock .row input[type="checkbox"] {
+      display:none;
+  }
+  .userstyle .styleblock .row input[type="checkbox"] + label {
+      color:#000;
+      font-size:13px;
+      font-weight: normal;
+      margin: 6px 0;
+  }
+  .userstyle .styleblock .row input[type="checkbox"] + label span {
+      display:inline-block;
+      width:19px;
+      height:19px;
+      margin:-1px 4px 0 0;
+      vertical-align:middle;
+      background:url(../img/check_box.png) left top no-repeat;
+      cursor:pointer;
+  }
+  .userstyle .styleblock .row input[type="checkbox"]:checked + label span {
+      background:url(../img/check_box.png) -19px top no-repeat;
+  }
+  /* end checkbox*/
+
+.userstyle .presetThumbnail {
+  margin: 0;
+  position:relative;
+  float:left;
+}
+.userstyle .presetThumbnail img {
+  max-width: 130px;
+  border:1px solid #959595;
+  -webkit-box-shadow: 3px 3px 0px rgba(0, 0, 0, 1);
+  -moz-box-shadow:    3px 3px 0px rgba(0, 0, 0, 1);
+  box-shadow:         3px 3px 0px rgba(0, 0, 0, 1);
+}
+.userstyle .presetThumbnail .magnifier {
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#FFF url(../img/magnifier.png) no-repeat center center;
+  display:block;
+  opacity:0;
+  -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+    -ms-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+.userstyle .presetThumbnail:hover .magnifier {
+  opacity:0.9;
+}
+.userstyle .presetThumbnailDetail {
+  float:left;
+  margin-left: 10px;
+  width:126px;
+  }
+  .userstyle .presetThumbnailDetail h4 {
+    margin:0;
+    font-size: 14px;
+  }
+  .userstyle .presetThumbnailDetail .vergrossern {
+    position:absolute;
+    bottom:0;
+    left:150px;
+    text-transform: uppercase;
+    font-size: 11px;
+    color:#000;
+    text-decoration: underline; 
+    background:url(../img/magnifier.png) no-repeat right center;
+    padding-right: 20px;
+    }
+    .userstyle .presetThumbnailDetail .vergrossern:hover {
+      text-decoration: none;
+    }
+.userstyle h5, .tabpane .tab-content h5 {
+  margin:0;
+  font-size: 13px;
+}

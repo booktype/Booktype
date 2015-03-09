@@ -99,7 +99,7 @@ input[type="radio"].form-control:focus{
 .group-list h4{
     margin-right: 135px;
 }
- 
+
 #bookcontent img,
 #bookcontent table{
     max-width: 100%;
@@ -117,4 +117,50 @@ input[type="radio"].form-control:focus{
 
 .addBookGroup .modal-dialog .modal-content .modal-body{
     bottom: 0;
+}
+
+/* compare screen */
+.compare_screen .row {
+    margin-bottom: 20px;
+    margin-left: 0;
+    margin-right: 0
+}
+.compare_screen .row .header {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 10px;
+    background: #f2f2f2
+}
+.compare_screen .row .header+.header {
+    border-left: 1px solid #ccc
+}
+.compare_screen .row .marker {
+    padding: 1px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: -10px
+}
+.compare_screen .row .changed {
+    background-color: #ffeda8
+}
+.compare_screen .row .added {
+    background-color: #b9f0a2
+}
+.compare_screen .row .deleted {
+    background-color: #fa897a
+}
+.compare_table td {
+    width: 50% !important;
+}
+
+.alert.congrats .btn{
+    position: relative;
+    top: -4px;
+}
+
+.list h4 .title {
+    color: black;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;    
 }

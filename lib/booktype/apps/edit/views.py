@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import re
 import os
 import json
@@ -45,7 +44,8 @@ VALID_SETTINGS = {
     'license': _('Book License'),
     'metadata': _('Book Metadata'),
     'roles': _('Roles'),
-    'permissions': _('Permissions')
+    'permissions': _('Permissions'),
+    'chapter-status': _('Chapter Status'),
 }
 
 getTOCForBook = get_toc_for_book
@@ -74,7 +74,7 @@ def upload_attachment(request, bookid, version=None):
 
     # check this for transactions
     try:
-        fileData = request.FILES['files[]']
+        file_data = request.FILES['files[]']
         att = models.Attachment(
             version=book_version,
             # must remove this reference
@@ -84,10 +84,10 @@ def upload_attachment(request, bookid, version=None):
         )
         att.save()
 
-        attName, attExt = os.path.splitext(fileData.name)
+        attName, attExt = os.path.splitext(file_data.name)
         att.attachment.save(
             '{}{}'.format(booktype_slugify(attName), attExt),
-            fileData,
+            file_data,
             save=False
         )
         att.save()
@@ -142,10 +142,10 @@ def upload_cover(request, bookid, version=None):
 
     # check this for transactions
     try:
-        fileData = request.FILES['files[]']
+        file_data = request.FILES['files[]']
         title = request.POST.get('title', '')
         try:
-            filename = unidecode.unidecode(fileData.name)
+            filename = unidecode.unidecode(file_data.name)
         except:
             filename = uuid.uuid1().hex
 
@@ -180,7 +180,7 @@ def upload_cover(request, bookid, version=None):
         cover.save()
 
         # now save the attachment
-        cover.attachment.save(filename, fileData, save=False)
+        cover.attachment.save(filename, file_data, save=False)
         cover.save()
     except:
         transaction.rollback()
@@ -445,7 +445,8 @@ class ChapterHistoryPage(LoginRequiredMixin, ChapterMixin, DetailView):
         if self.not_found:
             return context
         context['chapter'] = self.chapter
-        context['chapter_history'] = models.ChapterHistory.objects.filter(chapter=self.chapter).order_by('-revision')
+        context['chapter_history'] = models.ChapterHistory.objects.filter(
+            chapter=self.chapter).order_by('-revision')
         context['page_title'] = _('Book History')
         return context
 
@@ -459,21 +460,37 @@ class CompareChapterRevisions(LoginRequiredMixin, ChapterMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         book = self.get_object()
-        params = self.request.GET
-        rev1 = params.get('rev1', None)
-        rev2 = params.get('rev2', None)
+        rev1 = self.kwargs.get('rev_one', None)
+        rev2 = self.kwargs.get('rev_two', None)
 
-        context = super(CompareChapterRevisions, self).get_context_data(**kwargs)
-        revision1 = models.ChapterHistory.objects.get(chapter__book=book, chapter=self.chapter, revision=rev1)
-        revision2 = models.ChapterHistory.objects.get(chapter__book=book, chapter=self.chapter, revision=rev2)
+        context = super(
+            CompareChapterRevisions, self).get_context_data(**kwargs)
+        try:
+            revision1 = models.ChapterHistory.objects.get(
+                chapter__book=book, chapter=self.chapter, revision=rev1)
+            revision2 = models.ChapterHistory.objects.get(
+                chapter__book=book, chapter=self.chapter, revision=rev2)
+        except:
+            return context
 
         output = []
 
         output_left = '<td valign="top">'
         output_right = '<td valign="top">'
 
-        content1 = re.sub('<[^<]+?>', '', revision1.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
-        content2 = re.sub('<[^<]+?>', '', revision2.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
+        content1 = re.sub(
+            '<[^<]+?>', '',
+            revision1.content.replace(
+                '<p>', '\n<p>'
+            ).replace('. ', '. \n')
+        ).splitlines(1)
+
+        content2 = re.sub(
+            '<[^<]+?>', '',
+            revision2.content.replace(
+                '<p>', '\n<p>'
+            ).replace('. ', '. \n')
+        ).splitlines(1)
 
         lns = [line for line in difflib.ndiff(content1, content2)]
 
@@ -481,16 +498,13 @@ class CompareChapterRevisions(LoginRequiredMixin, ChapterMixin, DetailView):
         minus_pos = None
         plus_pos = None
 
-        def my_find(s, wh, x = 0):
+        def my_find(s, wh, x=0):
             n = x
-
             for ch in s[n:]:
                 if ch in wh:
                     return n
                 n += 1
-
             return -1
-
 
         while True:
             if n >= len(lns):
@@ -499,48 +513,58 @@ class CompareChapterRevisions(LoginRequiredMixin, ChapterMixin, DetailView):
             line = lns[n]
 
             if line[:2] == '+ ':
-                if n+1 < len(lns) and lns[n+1][0] == '?':
-                    lns[n+1] += lns[n+1] + ' '
-
-                    x = my_find(lns[n+1][2:], '+?^-')
-                    y = lns[n+1][2:].find(' ', x)-2
-
+                if n + 1 < len(lns) and lns[n + 1][0] == '?':
+                    lns[n + 1] += lns[n + 1] + ' '
+                    x = my_find(lns[n + 1][2:], '+?^-')
+                    y = lns[n + 1][2:].find(' ', x) - 2
                     plus_pos = (x, y)
                 else:
                     plus_pos = None
 
-                output_right += '<div class="diff changed">'+color_me(line[2:], 'diff added', plus_pos)+'</div>'
-                output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
+                output_right += '<div class="diff changed">%s</div>' % \
+                    color_me(line[2:], 'diff added', plus_pos)
+                output.append(
+                    '<tr>%s</td>%s</td></tr>' % (output_left, output_right))
                 output_left = output_right = '<td valign="top">'
+
             elif line[:2] == '- ':
-                if n+1 < len(lns) and lns[n+1][0] == '?':
-                    lns[n+1] += lns[n+1] + ' '
-
-                    x = my_find(lns[n+1][2:], '+?^-')
-                    y = lns[n+1][2:].find(' ', x)-2
-
+                if n + 1 < len(lns) and lns[n + 1][0] == '?':
+                    lns[n + 1] += lns[n + 1] + ' '
+                    x = my_find(lns[n + 1][2:], '+?^-')
+                    y = lns[n + 1][2:].find(' ', x) - 2
                     minus_pos = (x, y)
                 else:
                     minus_pos = None
 
-                output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
+                output.append(
+                    '<tr>%s</td>%s</td></tr>' % (output_left, output_right))
 
                 output_left = output_right = '<td valign="top">'
-                output_left +=  '<div class="diff changed">'+color_me(line[2:], 'diff deleted', minus_pos)+'</div>'
+                output_left += '<div class="diff changed">%s</div>' % color_me(
+                    line[2:], 'diff deleted', minus_pos)
+
             elif line[:2] == '  ':
                 if line[2:].strip() != '':
-                    output_left  += line[2:]+'<br/><br/>'
-                    output_right += line[2:]+'<br/><br/>'
+                    output_left += line[2:] + '<br/><br/>'
+                    output_right += line[2:] + '<br/><br/>'
 
             n += 1
 
-        output.append('<tr>'+output_left+'</td>'+output_right+'</td></tr>')
+        output.append('<tr>%s</td>%s</td></tr>' % (output_left, output_right))
         output = [mark_safe(o) for o in output]
 
         context['output'] = output
+        context['chapter'] = self.chapter
+        context['page_title'] = _('Chapter diff')
+        context['book'] = book
         context['rev1'] = rev1
         context['rev2'] = rev2
         return context
+
+    def get_template_names(self):
+        if not self.request.is_ajax():
+            return ["edit/compare_screen.html"]
+        return super(CompareChapterRevisions, self).get_template_names()
 
 
 class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
@@ -584,22 +608,22 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
         )
 
         history = logChapterHistory(
-            chapter = self.chapter,
-            content = revision.content,
-            user = request.user,
-            comment = _("Reverted to revision %s.") % revision.revision,
-            revision = self.chapter.revision+1
+            chapter=self.chapter,
+            content=revision.content,
+            user=request.user,
+            comment=_("Reverted to revision %s.") % revision.revision,
+            revision=self.chapter.revision + 1
         )
 
         if history:
             logBookHistory(
-                book = book,
-                version = book.version.id,
-                chapter = self.chapter,
-                chapter_history = history,
-                user = request.user,
-                args = {},
-                kind = 'chapter_save'
+                book=book,
+                version=book.version.id,
+                chapter=self.chapter,
+                chapter_history=history,
+                user=request.user,
+                args={},
+                kind='chapter_save'
             )
 
         self.chapter.revision += 1

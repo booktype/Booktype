@@ -12,9 +12,9 @@
             <div class="box profile-box black">
                 <figure>
                     {% if book.cover %}
-                        <img src="{% url "reader:book_cover" book.url_title %}" />
+                        <img src="{% url 'reader:book_cover' book.url_title %}" />
                     {% else %}
-                        <img src="{% static "core/img/thumb-default.png" %}"/>
+                        <img src="{% static 'core/img/thumb-default.png' %}"/>
                     {% endif %}
                 </figure>
                 <div class="list-info">

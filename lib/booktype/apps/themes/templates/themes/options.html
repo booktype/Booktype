@@ -1,0 +1,7 @@
+{% load themes %}
+
+{% for opt in options %}
+ <div id="style-option-{{ opt.name }}" class="style-option">
+   {{ opt.content }}
+ </div>
+{% endfor %}

@@ -16,6 +16,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import json
 import sputnik
 from lxml import etree, html
 
@@ -303,6 +304,15 @@ def remote_init_editor(request, message, bookid, version):
     except:
         pass
 
+    # Get User Theme
+    from booktype.apps.themes.models import UserTheme
+
+    try:
+        theme = UserTheme.objects.get(book=book, owner=request.user)
+    except UserTheme.DoesNotExist:
+        theme = UserTheme(book=book, owner=request.user)
+        theme.save()
+
     return {"licenses": licenses,
             "chapters": chapters,
             "metadata": metadata,
@@ -312,6 +322,9 @@ def remote_init_editor(request, message, bookid, version):
             "locks": locks,
             "statuses": statuses,
             "attachments": attachments,
+            "theme": theme.active,
+            # Check for errors in the future
+            "theme_custom": json.loads(theme.custom),
             "onlineUsers": list(onlineUsers)}
 
 
@@ -438,10 +451,10 @@ def remote_change_status(request, message, bookid, version):
     @return: Returns success of this command
     """
 
-    book, book_version = get_book(request, bookid, version)
+    book, book_version, _ = get_book(request, bookid, version)
 
     chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
-    status  = models.BookStatus.objects.get(id=int(message["statusID"]))
+    status = models.BookStatus.objects.get(id=int(message["statusID"]))
 
     chapter.status = status
 
@@ -1943,7 +1956,12 @@ def remote_publish_book(request, message, bookid, version):
         raise PermissionDenied
 
     from . import tasks
-    tasks.publish_book(bookid=bookid, version=version, clientid=request.clientID, sputnikid=request.sputnikID)
+    tasks.publish_book.apply_async((1, ), dict(bookid=bookid, 
+        version=version, 
+        username=request.user.username,
+        clientid=request.clientID, 
+        sputnikid=request.sputnikID, 
+        formats=message["formats"]))
 
     return {'result': True}
 
@@ -2012,6 +2030,69 @@ def remote_book_permission_save(request, message, bookid, version):
     book.save()
 
     return {"result": True}
+
+
+def remote_book_status_rename(request, message, bookid, version):
+    """
+    Renames a book status
+
+    Sends notification to chat.
+
+
+    Input:
+      - status_name
+      - status_id
+
+    Output:
+      - status
+      - status_id
+      - statuses
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    @rtype: C{dict}
+    @return: Returns list of all statuses and id of the renamed one
+    """
+    book = models.Book.objects.get(id=bookid)
+    status_id = None
+
+    bookSecurity = security.getUserSecurityForBook(request.user, book)
+    permissions = security.security.get_user_permissions(request.user, book)
+
+    if not bookSecurity.isAdmin() and 'edit.manage_status' not in permissions:
+        return {"status": False}
+
+    from django.utils.html import strip_tags
+
+    try:
+        bs = models.BookStatus.objects.get(book=book, id = message["status_id"])
+        bs.name = strip_tags(message["status_name"].strip())
+        bs.save()
+    except models.BookStatus.DoesNotExist:
+        transaction.rollback()
+    else:
+        transaction.commit()
+
+    qs = models.BookStatus.objects.filter(book=book).order_by("-weight")
+    all_statuses = [(status.id, status.name) for status in qs ]
+
+    sputnik.addMessageToChannel(request,
+                                "/booktype/book/%s/%s/" % (bookid, version),
+                                {"command": "book_status_renamed",
+                                 "statuses": all_statuses},
+                                myself = False
+                                )
+
+    return {"status": True,
+            "status_id": status_id,
+            "statuses": all_statuses
+            }
 
 
 def remote_book_status_order(request, message, bookid, version):
@@ -3309,4 +3390,34 @@ def remote_remove_user_from_role(request, message, bookid, version):
         return {'result': False}
 
     role.members.remove(user)
+    return {'result': True}
+
+
+def remote_set_theme(request, message, bookid, version):
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    from booktype.apps.themes.models import UserTheme
+
+    try:
+        theme = UserTheme.objects.get(book=book, owner=request.user)
+        theme.active = message['theme']
+        theme.save()
+    except Exception:
+        return {'result': False}
+
+    return {'result': True}
+
+
+def remote_save_custom_theme(request, message, bookid, version):
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    from booktype.apps.themes.models import UserTheme
+
+    try:
+        theme = UserTheme.objects.get(book=book, owner=request.user)
+        theme.custom = json.dumps(message['custom'])
+        theme.save()
+    except Exception:
+        return {'result': False}
+
     return {'result': True}
