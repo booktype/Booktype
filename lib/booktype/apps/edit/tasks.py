@@ -1,5 +1,6 @@
 import json
 import celery
+import urllib
 import urllib2
 import httplib
 import time
@@ -10,6 +11,7 @@ from django.conf import settings
 import sputnik
 
 from booki.editor import models
+
 
 def fetch_url(url, data, method='GET'):
     if method.lower() == 'get':
@@ -22,7 +24,7 @@ def fetch_url(url, data, method='GET'):
         except TypeError:
             return None
 
-    req = urllib2.Request(url, data_json)
+        req = urllib2.Request(url, data_json)
 
     req.add_header('Content-Type', 'application/json')
     req.add_header('Content-Length', len(data_json))
