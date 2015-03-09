@@ -23,8 +23,8 @@ PROFILE_ACTIVE = 'dev'
 # URL ROUTER
 ROOT_URLCONF = '{}.urls.dev'.format(BOOKTYPE_SITE_DIR)
 
-# DATABASE 
-DATABASES = {'default': 
+# DATABASE
+DATABASES = {'default':
                      {'ENGINE': '##DATABASE_ENGINE##',
                       'NAME': '##DATABASE_NAME##',
                       'USER': '',
@@ -43,13 +43,6 @@ REDIS_PASSWORD = None
 
 # E-MAIL
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# CACHE
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-    }
-}
 
 # DEVELOPMENT TOOLS
 try:

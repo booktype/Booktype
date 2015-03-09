@@ -1,0 +1,5 @@
+{% load themes %}
+
+{% for name in themes %}
+  <option value="{{ name.0 }}">{{ name.1 }}</option>
+{% endfor %}

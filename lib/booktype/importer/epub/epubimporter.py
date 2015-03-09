@@ -36,6 +36,7 @@ from django.core.files.base import ContentFile
 from django.utils.translation import ugettext as _
 
 from booki.editor import models
+from booki.utils.log import logChapterHistory, logBookHistory
 from booktype.utils.misc import booktype_slugify
 
 from ..utils import convert_file_name
@@ -88,7 +89,7 @@ class EpubImporter(object):
         def _parse_toc(elements, parent=None):
             for _elem in elements:
                 # used later to get parent of an elem
-                unique_id = uuid.uuid4().hex 
+                unique_id = uuid.uuid4().hex
 
                 if isinstance(_elem, tuple):
                     toc.append((1, _elem[0].title, unique_id, parent))
@@ -195,6 +196,25 @@ class EpubImporter(object):
             )
             chapter.save()
 
+            # time to save revisions correctly
+            history = logChapterHistory(
+                chapter=chapter,
+                content=chapter.content,
+                user=book.owner,
+                comment='',
+                revision=chapter.revision
+            )
+
+            if history:
+                logBookHistory(
+                    book=book,
+                    version=book.version,
+                    chapter=chapter,
+                    chapter_history=history,
+                    user=book.owner,
+                    kind='chapter_create'
+                )
+
             self._chapters[name] = chapter
 
             self.notifier.debug("Imported chapter: {} -> {}".format(document, chapter))
@@ -283,7 +303,7 @@ class EpubImporter(object):
 
     def _make_toc(self, book, toc):
         """ Creates TOC objects. """
-        
+
         n = len(toc) + 1
         parents = {}
 
@@ -311,7 +331,7 @@ class EpubImporter(object):
                     typeof = 1
                 )
 
-            # check if elem has parent 
+            # check if elem has parent
             if parent_id:
                 toc_item.parent = parents.get(parent_id, None)
             toc_item.save()

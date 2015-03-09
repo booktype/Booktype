@@ -33,7 +33,8 @@ BOOKTYPE_SITE_NAME = None
 # BOOKTYPE_SITE_NAME = '##BOOKTYPE_SITE_NAME##'
 BOOKTYPE_SITE_DIR = '##BOOKTYPE_SITE_DIR##'
 
-THIS_BOOKTYPE_SERVER = '' # the name of the booki server (comment out to use os.environ['HTTP_HOST'])
+# The hostname of the Booktype server (e.g. www.myserver.org, 192.168.1.10, booktype.myserver.org)
+THIS_BOOKTYPE_SERVER = ''
 
 #BOOKTYPE_ROOT = '##BOOKTYPE_ROOT##'
 BOOKTYPE_ROOT = Path(os.path.abspath(__file__)).ancestor(3)
@@ -49,6 +50,12 @@ EMAIL_PORT = 25
 #EMAIL_HOST_USER = 'booktype@' + THIS_BOOKTYPE_SERVER
 #EMAIL_HOST_PASSWORD = ''
 #EMAIL_USE_TLS = False
+
+# MPDF RENDERER SETTINGS
+
+MPDF_DIR = ''
+PHP_PATH = 'php'
+MPDF_SCRIPT = '{}/mpdf.php'.format(BOOKTYPE_ROOT)
 
 # BOOKTYPE DIRECTORIES
 
@@ -220,7 +227,8 @@ INSTALLED_APPS = (
     'booktype.apps.edit',
     'booktype.apps.reader',
     'booktype.apps.account',
-
+    'booktype.apps.themes',
+    
     # to be removed
     'booki.messaging',
 
@@ -256,3 +264,16 @@ BOOKI_URL = BOOKTYPE_URL
 THIS_BOOKI_SERVER = THIS_BOOKTYPE_SERVER
 BOOKI_MAINTENANCE_MODE = False
 
+
+FILE_UPLOAD_HANDLERS = (
+    'booktype.apps.importer.uploadhandler.ProgressUploadHandler',
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler'
+)
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-booktype-id'
+    }
+}

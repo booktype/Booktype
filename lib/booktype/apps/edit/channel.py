@@ -16,6 +16,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import json
 import sputnik
 from lxml import etree, html
 
@@ -303,6 +304,15 @@ def remote_init_editor(request, message, bookid, version):
     except:
         pass
 
+    # Get User Theme
+    from booktype.apps.themes.models import UserTheme
+
+    try:
+        theme = UserTheme.objects.get(book=book, owner=request.user)
+    except UserTheme.DoesNotExist:
+        theme = UserTheme(book=book, owner=request.user)
+        theme.save()
+
     return {"licenses": licenses,
             "chapters": chapters,
             "metadata": metadata,
@@ -312,6 +322,9 @@ def remote_init_editor(request, message, bookid, version):
             "locks": locks,
             "statuses": statuses,
             "attachments": attachments,
+            "theme": theme.active,
+            # Check for errors in the future
+            "theme_custom": json.loads(theme.custom),
             "onlineUsers": list(onlineUsers)}
 
 
@@ -1943,7 +1956,12 @@ def remote_publish_book(request, message, bookid, version):
         raise PermissionDenied
 
     from . import tasks
-    tasks.publish_book(bookid=bookid, version=version, clientid=request.clientID, sputnikid=request.sputnikID)
+    tasks.publish_book.apply_async((1, ), dict(bookid=bookid, 
+        version=version, 
+        username=request.user.username,
+        clientid=request.clientID, 
+        sputnikid=request.sputnikID, 
+        formats=message["formats"]))
 
     return {'result': True}
 
@@ -3372,4 +3390,34 @@ def remote_remove_user_from_role(request, message, bookid, version):
         return {'result': False}
 
     role.members.remove(user)
+    return {'result': True}
+
+
+def remote_set_theme(request, message, bookid, version):
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    from booktype.apps.themes.models import UserTheme
+
+    try:
+        theme = UserTheme.objects.get(book=book, owner=request.user)
+        theme.active = message['theme']
+        theme.save()
+    except Exception:
+        return {'result': False}
+
+    return {'result': True}
+
+
+def remote_save_custom_theme(request, message, bookid, version):
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    from booktype.apps.themes.models import UserTheme
+
+    try:
+        theme = UserTheme.objects.get(book=book, owner=request.user)
+        theme.custom = json.dumps(message['custom'])
+        theme.save()
+    except Exception:
+        return {'result': False}
+
     return {'result': True}

@@ -20,7 +20,7 @@
 					   <li>
                             <figure>{% profile_image user %}</figure>
                             <div class="list-info">
-                                <p class="float-right"><a href="{{ request.META.SCRIPT_NAME }}/feeds/rss/user/{{ user }}/">{% trans "Follow my changes" %} </a> <img src="{% static "core/img/rss.png" %}"></p>
+                                <p class="float-right"><a href="{{ request.META.SCRIPT_NAME }}/feeds/rss/user/{{ user }}/">{% trans "Track updates by RSS" %} </a> <img src="{% static "core/img/rss.png" %}"></p>
                                 <h4><a href="{% url "accounts:view_profile" user %}">{{ user.username }}</a></h4>
                                 <p>{{ user.first_name }}</p>
                             </div>
