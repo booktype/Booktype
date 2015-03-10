@@ -1,38 +1,40 @@
-# Portuguese (pt_PT) translation for Booktypecontrol component.
-# Copyright (C) 2013 Booktype contributors
+# LANGUAGE (LOCALE) translation for Booktype.
+# Copyright (C) 2012 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# Aleksandar Erkalović <aleksandar.erkalovic@sourcefabric.org>, 2013.
 #
+# Translators:
+# Aleksandar Erkalović <aleksandar.erkalovic@sourcefabric.org>, 2013
+# adrianomiyashiro <login@adrianomiyashiro.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Booktype 1.6.0\n"
+"Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-04 12:31+0200\n"
-"PO-Revision-Date: 2013-04-16 10:52+0100\n"
+"PO-Revision-Date: 2014-12-29 16:50+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
-"Language-Team: Portuguese Localization <contact@sourcefabric.org>\n"
+"Language-Team: Portuguese (http://www.transifex.com/projects/p/booktype/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.5\n"
 
 #: views.py:177
 #: views.py:303
 msgid "Username"
-msgstr "Nome de Utilizador"
+msgstr "Nome de Usuário"
 
 #: views.py:180
 #: views.py:305
 msgid "Username is required."
-msgstr "Nome de Utilizador Necessário."
+msgstr "Nome de Usuário é necessário."
 
 #: views.py:181
 #: views.py:182
 #: views.py:306
 #: views.py:308
 msgid "Illegal characters in username."
-msgstr "Caracteres ilegais no nome de Utilizador."
+msgstr "Caracteres ilegais no nome de usuário."
 
 #: views.py:183
 #: views.py:309
@@ -52,7 +54,7 @@ msgstr "E-mail"
 #: views.py:189
 #: views.py:315
 msgid "Email is required."
-msgstr "E-mail é necessário"
+msgstr "E-mail é necessário."
 
 #: views.py:191
 msgid "Profile picture"
@@ -61,7 +63,7 @@ msgstr "Foto de Perfil"
 #: views.py:193
 #: views.py:317
 msgid "User description"
-msgstr "Descrição do Utilizador"
+msgstr "Descrição do usuário"
 
 #: views.py:213
 #: views.py:278
@@ -108,7 +110,7 @@ msgstr "Cancelar"
 #: views.py:1223
 #: views.py:1279
 msgid "Successfuly saved changes."
-msgstr "As alterações foram guardadas com sucesso."
+msgstr "As alterações foram salvas com sucesso."
 
 #: views.py:249
 #: views.py:320
@@ -120,7 +122,7 @@ msgstr "Senha"
 #: views.py:322
 #: views.py:327
 msgid "Password is required."
-msgstr "Senha necessária."
+msgstr "Senha é necessária."
 
 #: views.py:254
 #: views.py:325
@@ -130,7 +132,7 @@ msgstr "Confirmação de senha"
 #: views.py:259
 #: views.py:330
 msgid "Enter the same password as above, for verification."
-msgstr "Digite a senha igual à de acima, para verificação."
+msgstr "Digite a senha igual à acima, para verificação."
 
 #: views.py:289
 msgid "Passwords do not match"
@@ -138,7 +140,7 @@ msgstr "As senhas não coincidem"
 
 #: views.py:331
 msgid "Notify person by email"
-msgstr "Notifique pessoa por e-mail"
+msgstr "Notificar a pessoa por e-mail"
 
 #: views.py:342
 msgid "This Person already exists."
@@ -166,7 +168,7 @@ msgstr "Título é necessário"
 
 #: views.py:505
 msgid "Successfuly deleted the book"
-msgstr "Livro eliminado com sucesso"
+msgstr "Livro apagado com sucesso"
 
 #: views.py:509
 msgid "Wrong title."
@@ -238,7 +240,7 @@ msgstr "Proprietário é necessário."
 #: views.py:1225
 #: views.py:1285
 msgid "Unknown error while saving changes."
-msgstr "Erro desconhecido ao guardar alterações."
+msgstr "Erro desconhecido ao salvar alterações."
 
 #: views.py:707
 msgid "URL title"
@@ -275,12 +277,12 @@ msgstr "Favicon"
 
 #: views.py:794
 msgid "Upload .ico file"
-msgstr "Carregar .ico"
+msgstr "Carregar arquivo .ico"
 
 #: views.py:829
 #: views.py:882
 msgid "Successfuly saved settings."
-msgstr "Configurações guardadas com sucesso."
+msgstr "Configurações salvas com sucesso."
 
 #: views.py:850
 msgid "Default visibility"
@@ -316,7 +318,7 @@ msgstr "Nome da licença é necessária."
 
 #: views.py:940
 msgid "Successfuly created new license."
-msgstr "Nova licença criado com sucesso."
+msgstr "Nova licença criada com sucesso."
 
 #: views.py:968
 #: templates/booktypecontrol/settings_license_edit.html:26
@@ -389,15 +391,15 @@ msgstr "Mostrar atividade"
 
 #: views.py:1283
 msgid "Error while saving changes"
-msgstr "Erro ao guardar alterações"
+msgstr "Erro ao salvar alterações"
 
 #: templates/control_base.html:25
 msgid "Booktype Control Center"
-msgstr "Painel de Controlo Booktype"
+msgstr "Painel de Controle Booktype"
 
 #: templates/control_base.html:31
 msgid "Sign out"
-msgstr "Sessão Terminada"
+msgstr "Sessão terminada"
 
 #: templates/control_base.html:37
 msgid "Sign In / Create Account"
@@ -411,7 +413,7 @@ msgstr "Site"
 #: templates/control_base.html:54
 #: templates/booktypecontrol/frontpage.html:6
 msgid "Admin Control Center"
-msgstr "Administrador do Painel de Controlo"
+msgstr "Administrador do Painel de Controle"
 
 #: templates/control_base.html:58
 #: templates/booktypecontrol/people.html:6
@@ -441,11 +443,11 @@ msgstr "Adicionar Pessoa"
 
 #: templates/booktypecontrol/book.html:36
 msgid "EDIT BOOK"
-msgstr "EDITAR LIVROS"
+msgstr "EDITAR LIVRO"
 
 #: templates/booktypecontrol/book.html:37
 msgid "BOOK INFO"
-msgstr "INFO LIVRO"
+msgstr "INFORMAÇÃO DO LIVRO"
 
 #: templates/booktypecontrol/book.html:38
 msgid "EDIT DESCRIPTION"
@@ -461,11 +463,11 @@ msgstr "APAGAR"
 
 #: templates/booktypecontrol/book.html:63
 msgid "Owner:"
-msgstr "Proprietário"
+msgstr "Proprietário:"
 
 #: templates/booktypecontrol/book.html:64
 msgid "Status:"
-msgstr "Estado:"
+msgstr "Status:"
 
 #: templates/booktypecontrol/book.html:66
 msgid "(this book is hidden from others)"
@@ -489,15 +491,15 @@ msgstr "Tamanho dos anexos:"
 
 #: templates/booktypecontrol/book.html:77
 msgid "Created:"
-msgstr "Criado"
+msgstr "Criado:"
 
 #: templates/booktypecontrol/book.html:78
 msgid "Published:"
-msgstr "Publicado"
+msgstr "Publicado:"
 
 #: templates/booktypecontrol/book.html:80
 msgid "Collaborators:"
-msgstr "Colaboradores"
+msgstr "Colaboradores:"
 
 #: templates/booktypecontrol/book.html:88
 msgid "Online editing:"
@@ -530,7 +532,7 @@ msgstr "Tem a certeza que deseja apagar este livro? Perderá toda a infomação 
 
 #: templates/booktypecontrol/delete_book.html:21
 msgid "Type full title of the book to delete it"
-msgstr "Escreva o título completo do livro para o apagar"
+msgstr "Escreva o título completo do livro para apagá-lo"
 
 #: templates/booktypecontrol/edit_book.html:13
 #: templates/booktypecontrol/settings_appearance.html:13
@@ -542,7 +544,7 @@ msgstr "Escreva o título completo do livro para o apagar"
 #: templates/booktypecontrol/settings_publishing.html:13
 #: templates/booktypecontrol/settings_publishing_defaults.html:13
 msgid "Save changes"
-msgstr "Gravar alterações"
+msgstr "Salvar alterações"
 
 #: templates/booktypecontrol/edit_password.html:25
 msgid "Change Password"
@@ -550,7 +552,7 @@ msgstr "Alterar Senha "
 
 #: templates/booktypecontrol/edit_profile.html:13
 msgid "Save Changes"
-msgstr "Guardar Alterações"
+msgstr "Salvar Alterações"
 
 #: templates/booktypecontrol/frontpage.html:28
 msgid "Info"
@@ -570,7 +572,7 @@ msgstr "Grupos:"
 
 #: templates/booktypecontrol/frontpage.html:33
 msgid "Users:"
-msgstr "Utilizadores"
+msgstr "Usuários:"
 
 #: templates/booktypecontrol/frontpage.html:34
 msgid "Database size:"
@@ -578,19 +580,19 @@ msgstr "Tamanho da base de dados:"
 
 #: templates/booktypecontrol/frontpage.html:35
 msgid "Files size:"
-msgstr "Tamanho dos ficheiros:"
+msgstr "Tamanho dos arquivos:"
 
 #: templates/booktypecontrol/frontpage.html:40
 msgid "Online users"
-msgstr "Utilizadores online"
+msgstr "Usuários online"
 
 #: templates/booktypecontrol/frontpage.html:50
 msgid "Working on:"
-msgstr "A trabalhar em:"
+msgstr "Trabalhando em:"
 
 #: templates/booktypecontrol/frontpage.html:59
 msgid "No online users"
-msgstr "Não há Utilizadors online"
+msgstr "Não há usuários online"
 
 #: templates/booktypecontrol/frontpage.html:63
 msgid "Recent activity"
@@ -617,7 +619,7 @@ msgstr "ADICIONAR NOVA PESSOA"
 
 #: templates/booktypecontrol/people.html:49
 msgid "username"
-msgstr "Utilizador"
+msgstr "Usuário"
 
 #: templates/booktypecontrol/people.html:50
 msgid "full name"
@@ -629,19 +631,19 @@ msgstr "E-mail"
 
 #: templates/booktypecontrol/profile.html:28
 msgid "EDIT INFO"
-msgstr "EDITAR INFO"
+msgstr "EDITAR INFORMAÇÃO"
 
 #: templates/booktypecontrol/profile.html:29
 msgid "CHANGE PASSWORD"
-msgstr "ALTERAR SENHA..."
+msgstr "ALTERAR SENHA"
 
 #: templates/booktypecontrol/profile.html:50
 msgid "Username:"
-msgstr "Utilizador:"
+msgstr "Usuário:"
 
 #: templates/booktypecontrol/profile.html:51
 msgid "Full name:"
-msgstr "Nome completo"
+msgstr "Nome completo:"
 
 #: templates/booktypecontrol/profile.html:52
 msgid "Email:"
@@ -649,7 +651,7 @@ msgstr "Email:"
 
 #: templates/booktypecontrol/profile.html:53
 msgid "Joined:"
-msgstr "Registado:"
+msgstr "Registrado:"
 
 #: templates/booktypecontrol/profile.html:54
 msgid "Last login:"
@@ -657,7 +659,7 @@ msgstr "Último acesso:"
 
 #: templates/booktypecontrol/profile.html:55
 msgid "About yourself:"
-msgstr "Sobre si:"
+msgstr "Sobre você:"
 
 #: templates/booktypecontrol/profile.html:64
 msgid "Groups"
@@ -669,11 +671,11 @@ msgstr "Atividade"
 
 #: templates/booktypecontrol/profile.html:72
 msgid "This person has no Books."
-msgstr "Esta pessoa não tem livros."
+msgstr "Esta pessoa não tem Livros."
 
 #: templates/booktypecontrol/profile.html:82
 msgid "This person has no Groups."
-msgstr "Esta pessoa não tem grupos."
+msgstr "Esta pessoa não tem Grupos."
 
 #: templates/booktypecontrol/rename_book.html:13
 msgid "Rename Book"
@@ -700,7 +702,7 @@ msgstr "Licenças"
 
 #: templates/booktypecontrol/settings.html:37
 msgid "Default Book Settings"
-msgstr "Predefinições do Livro"
+msgstr "Configurações Padrões do Livro"
 
 #: templates/booktypecontrol/settings.html:38
 #: templates/booktypecontrol/settings_privacy.html:6
@@ -709,7 +711,7 @@ msgstr "Privacidade"
 
 #: templates/booktypecontrol/settings.html:49
 msgid "Publish options"
-msgstr "Publicar opções"
+msgstr "Opções de Publicação"
 
 #: templates/booktypecontrol/settings.html:51
 msgid "Allowed publishing options"
@@ -741,7 +743,7 @@ msgstr "Livros licenciados com"
 
 #: templates/booktypecontrol/settings_license_edit.html:40
 msgid "No such books."
-msgstr "Livros não existem,"
+msgstr "Livros não existem."
 
 #: templates/booktypecontrol/settings_publishing.html:6
 msgid "Publishing"
