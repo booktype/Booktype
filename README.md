@@ -26,9 +26,9 @@ More info
 Installation
 ------------
 
-Read INSTALL file and check [`docs/deployment/`](docs/deployment/) directory for more details.
+Read the INSTALL file and check the [`docs/deployment/`](docs/deployment/) directory for more details.
 
-Read up to date [online instructions](https://wiki.sourcefabric.org/display/Booktype/Installing) on the [Booktype wiki](https://wiki.sourcefabric.org/display/Booktype/Booktype).
+Read up to date [online instructions](http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/before-you-install/) in the [Booktype manual](http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/).
 
 
 How to contribute
@@ -39,7 +39,7 @@ Only 4 steps:
 1. Fork the [sourcefabric/Booktype](https://github.com/sourcefabric/Booktype/) repository.
    [Help](https://help.github.com/articles/fork-a-repo) or [direct link](https://github.com/sourcefabric/Booktype/fork).
 2. Clone your fork
-3. Create new [local feature branch](http://learn.github.com/p/branching.html).
+3. Create new [local feature branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/).
 4. Create [pull request](https://help.github.com/articles/creating-a-pull-request) with your feature/bugfix.
 
 
