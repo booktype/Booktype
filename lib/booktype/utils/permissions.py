@@ -11,12 +11,16 @@ def create_permissions(app_name, app_perms):
     Args:
         app_name: Booktype application module
         app_perms: List of tuples with the permissions to be registered
+
+    Returns:
+        A list with all saved permissions
     """
 
     perms_app_name = app_perms.get('app_name', app_name)
     permissions = app_perms.get('permissions', None)
+    created_perms = []
     if not permissions:
-        return None
+        return created_perms
 
     if len(permissions) > 0:
         print "Updating permissions for %s" % app_name
@@ -28,8 +32,11 @@ def create_permissions(app_name, app_perms):
         )
         perm.description = unicode(description)
         perm.save()
+        created_perms.append(perm)
         print "\t- saving %s.%s permission".expandtabs(4) \
             % (perms_app_name, codename)
+
+    return created_perms
 
 
 def permissions_for_app(app_name):

@@ -22,8 +22,13 @@
                                 {% trans "Edit Info" %}
                             </button>
                         </div>
+                        {% if person.is_superuser %}
+                        <b class="label lable-default">{% trans "superuser" %}</b>
+                        {% endif %}
                     </h4>
-                    <p>{{ person.get_full_name }}</p>
+                    <p>
+                        {{ person.get_full_name }}
+                    </p>
                 </div>
             </li>
         {% endfor %}

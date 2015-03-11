@@ -1,0 +1,20 @@
+{% load i18n static themes %}
+
+<h5>{% trans "Style Layout" %}</h5>
+<div class="row">
+  <div class="col-md-7">
+
+    <select id="styleoptions">
+      {% list_themes %}
+    </select>
+  </div>
+
+  <div class="col-md-3 col-md-offset-1 reset-button">
+     <button class="btn btn-info">{% trans "reset" %}</button>
+  </div>
+</div>
+
+<style id="embeduserstyle">
+</style>
+
+{% list_theme_options %}

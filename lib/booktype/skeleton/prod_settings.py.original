@@ -19,14 +19,14 @@ PROFILE_ACTIVE = 'prod'
 # URL ROUTER
 ROOT_URLCONF = '{}.urls.prod'.format(BOOKTYPE_SITE_DIR)
 
-# REDIS 
+# REDIS
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 0
 REDIS_PASSWORD = None
 
 # DATABASE
-DATABASES = {'default': 
+DATABASES = {'default':
                    {'ENGINE': '##DATABASE_ENGINE##',
                     'NAME': '##DATABASE_NAME##',
                     'USER': '',
@@ -42,13 +42,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # COMPRESSION
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
-
-# CACHE
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-    }
-}
 
 # LOGGING
 LOGGING = {
@@ -94,7 +87,7 @@ LOGGING = {
     	    'handlers':['null'],
         	'propagate': True,
         	'level':'WARN',
-    	},	
+    	},
     	'django.db.backends': {
 	        'handlers': ['null'],
 	        'level': 'DEBUG',

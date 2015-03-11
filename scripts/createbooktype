@@ -192,6 +192,19 @@ def check_unidecode_available():
     else:
         logln("[OK]")
 
+def copy_default_themes(destination):    
+    from shutil import copytree
+
+    try:
+        logln("+ Copying themes")
+
+        import booktype
+        booktype_source = os.path.dirname(booktype.__file__)
+
+        copytree('{}/skeleton/themes/'.format(booktype_source), '{}/data/themes/'.format(destination))
+    except OSError:
+        raise InstallError()
+
 def make_directory_structure(destination):    
     try:
         project = get_project_name(destination)
@@ -473,38 +486,38 @@ def create_apache(destination):
 
     # TODO add path to booki
 
-    s = '''# Apache configuration for Booktype server V1.0.5
+    s = '''# Apache configuration for Booktype server V1.0.6
 
 <VirtualHost *:80>
 
-     # CHANGE THIS
+     # Change the following three lines for your server
+
      ServerName __INSERT_SERVER_NAME__
      SetEnv HTTP_HOST "__INSERT_SERVER_NAME__"
+     ServerAdmin __INSERT_ADMIN_EMAIL__
 
      SetEnv LC_TIME "en_GB.UTF-8"
      SetEnv LANG "en_GB.UTF-8"
 
      WSGIScriptAlias / %(destination)s/%(project_name)s_site/wsgi.py
 
+     # uncomment 'Require all granted' for Apache 2.4 without mod_access_compat
+
      <Location "/">
-       Allow from all
+       #Require all granted
        Options FollowSymLinks
      </Location>
 
      Alias /static/ "%(destination)s/static/"
      <Directory "%(destination)s/static/">
-       Order allow,deny
-       Options Indexes
-       Allow from all
-       IndexOptions FancyIndexing
+       #Require all granted
+       Options -Indexes
      </Directory>
 
      Alias /data/ "%(destination)s/data/"
      <Directory "%(destination)s/data/">
-       Order allow,deny
-       Options Indexes
-       Allow from all
-       IndexOptions FancyIndexing
+       #Require all granted
+       Options -Indexes
      </Directory>
 
      ErrorLog ${APACHE_LOG_DIR}/booktype-%(project_name)s-error.log
@@ -769,6 +782,9 @@ if __name__ == '__main__':
 
         # create nginx fastcgi
         create_nginx_fastcgi(project_destination)
+
+        # copy default themes
+        copy_default_themes(project_destination)
 
         # show after message
         show_after(project_destination, project_name)

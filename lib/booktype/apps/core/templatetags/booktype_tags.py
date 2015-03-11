@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 
 from booki.editor import models
-from booktype.utils import config
+from booktype.utils import config, security
 
 
 register = template.Library()
@@ -22,8 +22,10 @@ def username(user):
         user: User object
 
     Returns:
-        Returns Full name of the user if possible. If user is not authenticated it will return "Anonymous"
-        value. If user is authenticated and does not have defined Full name it will return username.
+        Returns Full name of the user if possible. If user is not authenticated
+             it will return "Anonymous"
+        value. If user is authenticated and does not have defined Full name
+            it will return username.
     """
 
     name = user.username
@@ -35,26 +37,27 @@ def username(user):
 
     return name
 
-###############################################################################################################
 
-
+###############################################################################
 class FormatGroupsNode(template.Node):
+
     def render(self, context):
         t = template.loader.get_template('core/booktype_groups.html')
 
         return t.render(template.Context({
             'groups': models.BookiGroup.objects.all().order_by("name"),
-            'books': models.Book.objects.filter(hidden=False)}, autoescape=context.autoescape))
+            'books': models.Book.objects.filter(
+                hidden=False)}, autoescape=context.autoescape))
 
 
 @register.tag(name="booktype_groups")
 def booktype_groups(parser, token):
     return FormatGroupsNode()
 
-###############################################################################################################
 
-
+###############################################################################
 class FormatBooktypeNode(template.Node):
+
     def __init__(self, booktype_data):
         self.booktype_data = template.Variable(booktype_data)
 
@@ -74,12 +77,22 @@ class FormatBooktypeNode(template.Node):
 
                 if mtch:
                     try:
-                        t = template.loader.get_template_from_string('{%% load booktype_tags %%} {%% booktype_%s book args %%}' % (mtch.group(1).lower(),))
-                        con = t.render(template.Context({"content": chapter,
-                                                         "book": chapter.version.book,
-                                                         "args": mtch.group(2)}))
+                        tag_text = '{%% load booktype_tags %%} \
+                            {%% booktype_%s book args %%}'
+                        t = template.loader.get_template_from_string(
+                            tag_text % (mtch.group(1).lower(),))
+                        con = t.render(
+                            template.Context({
+                                "content": chapter,
+                                "book": chapter.version.book,
+                                "args": mtch.group(2)
+                            })
+                        )
                     except template.TemplateSyntaxError:
-                        con = '<span style="background-color: red; color: white; font-weight: bold">ERROR WITH MACRO %s</span>' % (mtch.group(1).lower(), )
+                        con = '<span style="background-color: red; \
+                            color: white; font-weight: bold">\
+                            ERROR WITH MACRO %s</span>' %\
+                            (mtch.group(1).lower(), )
 
                     ln = ln[:mtch.start()] + con + ln[mtch.end():]
                 else:
@@ -95,14 +108,17 @@ def booktype_format(parser, token):
     try:
         tag_name, booktype_data = token.split_contents()
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires exactly one argument" % token.contents.split()[0]
+        raise template.TemplateSyntaxError(
+            "%r tag requires exactly one argument" %
+            token.contents.split()[0])
 
     return FormatBooktypeNode(booktype_data)
 
 
-###############################################################################################################
+##########################################################################
 
 class FormatAuthorsNode(template.Node):
+
     def __init__(self, book, args):
         self.book = template.Variable(book)
         self.args = template.Variable(args)
@@ -114,11 +130,14 @@ class FormatAuthorsNode(template.Node):
 
         chapters = []
 
-        excluded_users = [ae.user for ae in models.AttributionExclude.objects.filter(book=book)]
+        excluded_users = [
+            ae.user for ae in models.AttributionExclude.objects.filter(
+                book=book)]
 
         # this should be book version, not book
 
-        for chapter in models.BookToc.objects.filter(book=book).order_by("-weight"):
+        for chapter in models.BookToc.objects.filter(
+                book=book).order_by("-weight"):
             if not chapter:
                 continue
             if not chapter.chapter:
@@ -126,7 +145,8 @@ class FormatAuthorsNode(template.Node):
 
             authors = {}
 
-            for us_id in models.ChapterHistory.objects.filter(chapter=chapter.chapter).distinct():
+            for us_id in models.ChapterHistory.objects.filter(
+                    chapter=chapter.chapter).distinct():
                 if not us_id:
                     continue
 
@@ -151,16 +171,19 @@ class FormatAuthorsNode(template.Node):
 
         copyright_description = self.args.resolve(context) or ''
 
-        return t.render(template.Context({'chapters': chapters,
-                                          "copyright": copyright_description[1:-1]},
-                                         autoescape=context.autoescape))
+        return t.render(
+            template.Context({
+                'chapters': chapters,
+                "copyright": copyright_description[1:-1]
+            }, autoescape=context.autoescape)
+        )
 
 
 @register.tag(name="booktype_authors")
 def booktype_authors(parser, token):
     """
-    Django Tag. Shows list of authors for this book. Accepts one argument, book. Reads template authors.html.
-    Needs a lot of work.
+    Django Tag. Shows list of authors for this book. Accepts one argument, book
+    Reads template authors.html. Needs a lot of work.
 
         {% load booktype_tags %}
         {% booktype_authors book %}
@@ -169,7 +192,9 @@ def booktype_authors(parser, token):
     try:
         tag_name, book, args = token.split_contents()
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires exactly two argument" % token.contents.split()[0]
+        raise template.TemplateSyntaxError(
+            "%r tag requires exactly two argument" %
+            token.contents.split()[0])
 
     return FormatAuthorsNode(book, args)
 
@@ -188,11 +213,15 @@ def booktype_site_metadata():
     # probably should add namespace to html tag
     name = config.get_configuration('BOOKTYPE_SITE_NAME', None)
     if name:
-        s += '<meta property="og:site_name" content="%s"/>' % cgi.escape(name, True)
+        s += '<meta property="og:site_name" content="%s"/>' % cgi.escape(
+            name,
+            True)
 
     tagline = config.get_configuration('BOOKTYPE_SITE_TAGLINE', None)
     if tagline:
-        s += '<meta name="description" content="%s"/>' % cgi.escape(tagline, True)
+        s += '<meta name="description" content="%s"/>' % cgi.escape(
+            tagline,
+            True)
 
     return s
 
@@ -203,9 +232,11 @@ def booktype_site_name():
 
     name = config.get_configuration('BOOKTYPE_SITE_NAME', None)
     if name:
-        s = '<div class="logotext"><a href="%s%s">%s</a> </div>' % (settings.BOOKTYPE_URL, frontpage_url, name)
+        s = '<div class="logotext"><a href="%s%s">%s</a> </div>' % (
+            settings.BOOKTYPE_URL, frontpage_url, name)
     else:
-        s = '<div class="logo"><a href="%s%s"></a></div>' % (settings.BOOKTYPE_URL, frontpage_url)
+        s = '<div class="logo"><a href="%s%s"></a></div>' % (
+            settings.BOOKTYPE_URL, frontpage_url)
 
     return s
 
@@ -214,13 +245,47 @@ def booktype_site_name():
 def booktype_site_favicon():
     favicon = config.get_configuration('BOOKTYPE_SITE_FAVICON', None)
     if favicon:
-        s = '<link rel="SHORTCUT ICON" href="%s" type="image/x-icon">' % cgi.escape(favicon, True)
+        s = '<link rel="SHORTCUT ICON" href="%s" type="image/x-icon">' %\
+            cgi.escape(favicon, True)
     else:
-        s = '<link rel="SHORTCUT ICON" href="%score/img/favicon.ico" type="image/x-icon">' % settings.STATIC_URL
+        s = '<link rel="SHORTCUT ICON" href="%score/img/favicon.ico" \
+            type="image/x-icon">' % settings.STATIC_URL
 
     return s
 
 
 @register.filter
 def booktype_anyone_register(object):
-    return config.get_configuration('FREE_REGISTRATION', True)    
+    return config.get_configuration('FREE_REGISTRATION', True)
+
+
+@register.simple_tag
+def role_ids_for(user, book):
+    """
+    Returns a list of ids of the roles for a given user and a book
+
+    Arguments:
+        - user: Django user instance
+        - book: instance of the book to scope the roles of the user
+    """
+
+    return [r.role.id for r in user.roles.filter(book=book)]
+
+
+@register.filter
+def order_by(queryset, order_field):
+    """
+    Orders a given queryset with the desired order_field as param
+    """
+
+    return queryset.order_by(order_field)
+
+
+@register.assignment_tag
+def has_perm(user, to_do, book):
+    """
+    Checks if a given user has a specific permission. Returns a Boolean
+    depending on the security check
+    """
+
+    return security.has_perm(user, to_do, book)

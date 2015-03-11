@@ -39,7 +39,7 @@
   width: 50% !important;
 }
 
-.history-filters .select2-container-multi 
+.history-filters .select2-container-multi
 .select2-choices .select2-search-field input{
   padding: 2px 5px;
   font-size: 90%;
@@ -86,7 +86,7 @@
 }
 
 #button-cancel {
-  margin-left: 5px!important;  
+  margin-left: 5px!important;
 }
 
 /* Color Picker
@@ -154,7 +154,7 @@
   right: 0px;
 }
 
-div.contentHeader span.info-message { 
+div.contentHeader span.info-message {
   font-size: 12px; margin-right: 10px;
 }
 
@@ -189,7 +189,7 @@ div.contentHeader span.info-message {
 .logotext{
     font-size: 17px;
     line-height: 40px;
-    padding-left: 78px;
+    PAdding-left: 78px;
 }
 .logotext a{
     color: #fff;
@@ -202,4 +202,245 @@ div.contentHeader span.info-message {
 .license-link{
   float: right;
   margin-right: 15px;
+}
+
+/* Cover Manager */
+
+.coverOptions .tooltip{
+  position: fixed;
+}
+
+.tooltip{
+  z-index: 1151 !important;
+}
+/* Search and Replace */
+
+#find-replace.modal{
+  background: none;
+}
+.aloha-search-marker{
+  background-color: yellow;
+}
+.aloha-search-plugin-loaded .modal-backdrop.fade.in{
+    background: none;
+}
+
+/* Table Plugin
+------------------------------------------------------*/
+.dropdown-menu.table-dropdown {
+        width: 240px;
+        box-sizing:border-box;
+        -moz-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        }
+        .dropdown-menu.table-dropdown .insert-table-block {
+                margin:4px 14px 20px 14px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #d6d6d6;
+                }
+                .dropdown-menu.table-dropdown .insert-table-block .slider {
+                        float:left;
+                        width:180px;
+                        margin-bottom: 6px;
+                        margin-left: 2px;
+                }
+                .dropdown-menu.table-dropdown .insert-table-block .value {
+                        float:left;
+                        margin-left: 10px;
+                        margin-top: 2px;
+                }
+        .dropdown-menu.table-dropdown .insert-table-block h4 {
+                font-size: 13px;
+                margin:2px 0 0;
+                line-height: 1.2;
+        }
+        .dropdown-menu.table-dropdown .inserttable {
+        }
+        .dropdown-menu.table-dropdown .insert-table-block .btn-sm {
+                padding:4px 6px !important;
+        }
+
+
+#contenteditor .aloha-block-SimpleTableBlock TABLE {
+  border: 1px solid gray;
+}
+
+#contenteditor .aloha-block-SimpleTableBlock.aloha-block-highlighted TABLE {
+  border: 1px solid gray;
+}
+
+#contenteditor .aloha-block-SimpleTableBlock div.aloha-editable-active {
+  background-color: #dadff3;
+}
+
+#contenteditor .aloha-block-SimpleTableBlock .to-delete {
+  background-color: #f06510;
+}
+
+#contenteditor .aloha-block-SimpleTableBlock .to-insert {
+  background-color: #8ccac9;
+}
+
+
+#contenteditor sup,
+#contenteditor pre,
+#contenteditor table,
+#contenteditor tbody,
+#contenteditor tr,
+#contenteditor td {
+        border: inherit;
+        text-align: inherit;
+        font-size: inherit;
+        padding: inherit;
+        margin: inherit;
+        background-color: inherit;
+        color: inherit;
+}
+
+#contenteditor td {
+  min-width: 20px;
+}
+
+#contenteditor a {
+        text-decoration: underline;
+}
+
+/* Style Tab 
+------------------------------------------------------*/
+
+.userstyle {
+  position:relative;
+  margin-top: 20px;
+  border-top:1px solid #6f7671;
+  padding: 20px 0px 3px 10px;
+  overflow:hidden;
+  font-size: 13px;
+}
+.userstyle h3 {
+  background-color: #FFF;
+  display:inline-block;
+  margin:0;
+  text-align: center;
+  padding:0 !important;
+}
+.userstyle h4 {
+  margin: 16px 0 0;
+  font-size: 14px;
+  }
+.userstyle .styleblock {
+  padding: 5px 0px 0px 0px;
+  width:100%;
+}
+.userstyle .styleblock .btn-xs {
+  background-color: #d0d0d0 !important;
+  color:#000 !important;
+  font-size: 11px !important;
+  padding: 4px 7px 4px 7px !important;
+  font-weight: normal !important;
+  border-right:1px solid #000 !important;
+}
+.userstyle .styleblock .btn-xs.active {
+  background-color: #6f7671 !important;
+  color:#FFF !important;
+}
+.userstyle .styleblock .colorinput {
+  border:1px solid #ccc;
+  padding:2px;
+  float:right;
+  margin-right: 12px;
+  width:120px;
+}
+.userstyle .styleblock .colorinput input {
+  border:none;
+  padding:0 4px;
+  width:100%;
+  }
+.userstyle .styleblock select {
+  padding:2px;
+}
+.heading-align.btn-group {
+  margin-top: 5px;
+}
+
+  /* checkbox styling */
+  .userstyle .styleblock .row input[type="checkbox"] {
+      display:none;
+  }
+  .userstyle .styleblock .row input[type="checkbox"] + label {
+      color:#000;
+      font-size:13px;
+      font-weight: normal;
+      margin: 6px 0;
+  }
+  .userstyle .styleblock .row input[type="checkbox"] + label span {
+      display:inline-block;
+      width:19px;
+      height:19px;
+      margin:-1px 4px 0 0;
+      vertical-align:middle;
+      background:url(../img/check_box.png) left top no-repeat;
+      cursor:pointer;
+  }
+  .userstyle .styleblock .row input[type="checkbox"]:checked + label span {
+      background:url(../img/check_box.png) -19px top no-repeat;
+  }
+  /* end checkbox*/
+
+.userstyle .presetThumbnail {
+  margin: 0;
+  position:relative;
+  float:left;
+}
+.userstyle .presetThumbnail img {
+  max-width: 130px;
+  border:1px solid #959595;
+  -webkit-box-shadow: 3px 3px 0px rgba(0, 0, 0, 1);
+  -moz-box-shadow:    3px 3px 0px rgba(0, 0, 0, 1);
+  box-shadow:         3px 3px 0px rgba(0, 0, 0, 1);
+}
+.userstyle .presetThumbnail .magnifier {
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#FFF url(../img/magnifier.png) no-repeat center center;
+  display:block;
+  opacity:0;
+  -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+    -ms-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+.userstyle .presetThumbnail:hover .magnifier {
+  opacity:0.9;
+}
+.userstyle .presetThumbnailDetail {
+  float:left;
+  margin-left: 10px;
+  width:126px;
+  }
+  .userstyle .presetThumbnailDetail h4 {
+    margin:0;
+    font-size: 14px;
+  }
+  .userstyle .presetThumbnailDetail .vergrossern {
+    position:absolute;
+    bottom:0;
+    left:150px;
+    text-transform: uppercase;
+    font-size: 11px;
+    color:#000;
+    text-decoration: underline; 
+    background:url(../img/magnifier.png) no-repeat right center;
+    padding-right: 20px;
+    }
+    .userstyle .presetThumbnailDetail .vergrossern:hover {
+      text-decoration: none;
+    }
+.userstyle h5, .tabpane .tab-content h5 {
+  margin:0;
+  font-size: 13px;
 }

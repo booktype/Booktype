@@ -1,5 +1,5 @@
 # This file is part of Booktype.
-# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+# Copyright (c) 2012 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org> # noqa
 #
 # Booktype is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,38 +17,41 @@
 
 import re
 import os
-import string
+import uuid
 import json
+import string
 from random import choice
 
+from django.db.models import Q
+from django.contrib import auth
+from django.conf import settings
 from django.contrib import messages
-from django.views.generic import DetailView, View
+from django.db import IntegrityError
+from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
+from django.views.generic import DetailView, View
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import BaseCreateView, UpdateView
-from django.contrib import auth
-from django.db import IntegrityError
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
-from django.db.models import Q
-from django.conf import settings
 
 
 from braces.views import LoginRequiredMixin
+
 from booktype.utils import config
-from booktype.utils import misc
+from booktype.apps.core import views
+from booktype.utils import misc, security
+from booktype.apps.account.models import UserPassword
 from booki.messaging.views import get_endpoint_or_none
+from booktype.apps.core.views import BasePageView, PageView
 from booktype.utils.book import check_book_availability, create_book
 from booki.editor.models import Book, License, BookHistory, BookiGroup
-from booktype.apps.account.models import UserPassword
-from booktype.apps.core import views
-import booktype.apps.account.signals
-from booktype.apps.core.views import BasePageView, PageView
 
 from .forms import UserSettingsForm, UserPasswordChangeForm
+
+import booktype.apps.account.signals
 
 
 class DashboardPageView(BasePageView, DetailView):
@@ -63,25 +66,43 @@ class DashboardPageView(BasePageView, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(self.__class__, self).get_context_data(**kwargs)
-        context['books'] = Book.objects.filter(owner=self.object).order_by('title')
         context['licenses'] = License.objects.all().order_by('name')
-        context['groups'] = BookiGroup.objects.filter(owner=self.object).order_by('name')
-        context['participating_groups'] = BookiGroup.objects.filter(members=self.object).exclude(owner=self.object).order_by('name')
 
-        # get books with user has collaborated with
-        book_ids = BookHistory.objects.filter(user=self.object).values_list('book', flat=True).distinct()
-        context['books_collaborating'] = Book.objects.filter(id__in=book_ids).exclude(owner=self.object).order_by('title')
+        context['books'] = Book.objects.select_related('version').filter(
+            owner=self.object).order_by('title')
+
+        context['groups'] = BookiGroup.objects.filter(
+            owner=self.object).order_by('name')
+
+        context['participating_groups'] = BookiGroup.objects.filter(
+            members=self.object).exclude(owner=self.object).order_by('name')
+
+        # get books which user has collaborated on
+        book_ids = BookHistory.objects.filter(
+            user=self.object).values_list('book', flat=True).distinct()
+
+        context['books_collaborating'] = Book.objects.filter(
+            id__in=book_ids).exclude(owner=self.object).order_by('title')
 
         # get user recent activity
-        context['recent_activity'] = BookHistory.objects.filter(user=self.object).order_by('-modified')[:3]
+        context['recent_activity'] = BookHistory.objects.filter(
+            user=self.object).order_by('-modified')[:3]
 
-        context['book_license'] = config.get_configuration('CREATE_BOOK_LICENSE')
-        context['book_visible'] = config.get_configuration('CREATE_BOOK_VISIBLE')
+        context['book_license'] = config.get_configuration(
+            'CREATE_BOOK_LICENSE')
+        context['book_visible'] = config.get_configuration(
+            'CREATE_BOOK_VISIBLE')
 
         # change title in case of not authenticated user
-        if not self.request.user.is_authenticated() or self.object != self.request.user:
+        if not self.request.user.is_authenticated() or \
+           self.object != self.request.user:
             context['title'] = _('User profile')
             context['page_title'] = _('User profile')
+
+        context['upload_uuid'] = uuid.uuid4()
+        context['can_upload_book'] = security.has_perm(
+            self.request.user, 'account.can_upload_book') or \
+            self.request.user.is_superuser
 
         return context
 
@@ -95,7 +116,8 @@ class CreateBookView(LoginRequiredMixin, BaseCreateView):
     def get(self, request, *args, **kwargs):
         if request.GET.get('q', None) == "check":
             data = {
-                "available": check_book_availability(request.GET.get('bookname', '').strip())
+                "available": check_book_availability(
+                    request.GET.get('bookname', '').strip())
             }
             return HttpResponse(json.dumps(data), "application/json")
 
@@ -137,15 +159,18 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
     password_form_class = UserPasswordChangeForm
 
     def dispatch(self, request, *args, **kwargs):
-        dispatch_super = super(self.__class__, self).dispatch(request, *args, **kwargs)
+        dispatch_super = super(
+            self.__class__, self).dispatch(request, *args, **kwargs)
 
         if not request.user.is_authenticated():
             return dispatch_super
 
-        if request.user.username == kwargs['username'] or request.user.is_superuser:
+        if request.user.username == kwargs['username'] or \
+           request.user.is_superuser:
             return dispatch_super
         else:
-            return redirect('accounts:user_settings', username=request.user.username)
+            return redirect(
+                'accounts:user_settings', username=request.user.username)
 
     def get_context_data(self, **kwargs):
         context = super(self.__class__, self).get_context_data(**kwargs)
@@ -158,21 +183,23 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
         profile.description = form.data.get('aboutyourself', '')
         profile.save()
 
-        if form.files.has_key('profile_pic'):
+        if 'profile_pic' in form.files:
             misc.set_profile_image(user, form.files['profile_pic'])
         else:
             if form.data.get('profile_pic_remove', False):
                 profile.remove_image()
 
         try:
-            endpoint_config = get_endpoint_or_none("@"+user.username).get_config()
-            endpoint_config.notification_filter = form.data.get('notification', '')
-            endpoint_config.save()
+            ep_config = get_endpoint_or_none(
+                "@%s" % user.username).get_config()
+            ep_config.notification_filter = form.data.get('notification', '')
+            ep_config.save()
         except:
             pass
 
         # send a success message to user
-        messages.success(self.request, _('User settings has been successfully saved!'))
+        messages.success(
+            self.request, _('User settings has been successfully saved!'))
 
         return redirect(self.get_success_url())
 
@@ -180,7 +207,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
         profile = self.object.get_profile()
         initial = super(self.__class__, self).get_initial()
         initial['aboutyourself'] = profile.description
-        endpoint = get_endpoint_or_none("@"+self.object.username)
+        endpoint = get_endpoint_or_none("@%s" % self.object.username)
         try:
             endpoint_config = endpoint.get_config()
             initial['notification'] = endpoint_config.notification_filter
@@ -192,7 +219,8 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
         return initial
 
     def get_success_url(self):
-        return reverse('accounts:view_profile', args=[self.get_object().username])
+        return reverse(
+            'accounts:view_profile', args=[self.get_object().username])
 
     def post(self, request, *args, **kwargs):
         '''
@@ -207,7 +235,8 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
                 form.save()
 
                 # send a success message to user
-                messages.success(self.request, _('Password changed successfully!'))
+                messages.success(
+                    self.request, _('Password changed successfully!'))
 
                 return redirect(self.get_success_url())
             else:
@@ -216,7 +245,10 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
 
                 context = self.get_context_data()
                 context.update({
-                    'form': form_class(instance=self.object, initial=self.get_initial()),
+                    'form': form_class(
+                        instance=self.object,
+                        initial=self.get_initial()
+                    ),
                     'password_form': form,
                 })
 
@@ -249,27 +281,33 @@ class ForgotPasswordView(PageView):
             context['error'] = _('No such user')
             return render(request, self.template_name, context)
 
-        THIS_BOOKTYPE_SERVER = config.get_configuration('THIS_BOOKTYPE_SERVER')
+        THIS_BOOKTYPE_SERVER = config.get_configuration('THIS_BOOKTYPE_SERVER') # noqa
         for usr in users_to_email:
             secretcode = self.generate_secret_code()
 
-            account_models = UserPassword()
-            account_models.user = usr
-            account_models.remote_useragent = request.META.get('HTTP_USER_AGENT', '')
-            account_models.remote_addr = request.META.get('REMOTE_ADDR', '')
-            account_models.remote_host = request.META.get('REMOTE_HOST', '')
-            account_models.secretcode = secretcode
+            usr_obj = UserPassword()
+            usr_obj.user = usr
+            usr_obj.remote_useragent = request.META.get('HTTP_USER_AGENT', '')
+            usr_obj.remote_addr = request.META.get('REMOTE_ADDR', '')
+            usr_obj.remote_host = request.META.get('REMOTE_HOST', '')
+            usr_obj.secretcode = secretcode
 
-            body = render_to_string('account/password_reset_email.html',
-                                    dict(secretcode=secretcode, hostname=THIS_BOOKTYPE_SERVER))
+            body = render_to_string(
+                'account/password_reset_email.html',
+                dict(secretcode=secretcode, hostname=THIS_BOOKTYPE_SERVER)
+            )
 
-            msg = EmailMessage(_('Reset password'), body, settings.REPORT_EMAIL_USER, [usr.email])
+            msg = EmailMessage(
+                _('Reset password'), body,
+                settings.REPORT_EMAIL_USER, [usr.email]
+            )
             msg.content_subtype = 'html'
 
-            # In case of an error we really should not send email to user and do rest of the procedure
+            # In case of an error we really should not send email
+            # to user and do rest of the procedure
 
             try:
-                account_models.save()
+                usr_obj.save()
                 msg.send()
                 context['mail_sent'] = True
             except:
@@ -284,7 +322,8 @@ class ForgotPasswordEnterView(PageView):
     title = _('Reset your password')
 
     def post(self, request, *args, **kwargs):
-        context = super(ForgotPasswordEnterView, self).get_context_data(**kwargs)
+        context = super(
+            ForgotPasswordEnterView, self).get_context_data(**kwargs)
 
         if "secretcode" and "password1" and "password2" not in request.POST:
             return views.ErrorPage(request, "errors/500.html")
@@ -320,7 +359,8 @@ class ForgotPasswordEnterView(PageView):
             return render(request, self.template_name, context)
 
     def get_context_data(self, **kwargs):
-        context = super(ForgotPasswordEnterView, self).get_context_data(**kwargs)
+        context = super(
+            ForgotPasswordEnterView, self).get_context_data(**kwargs)
         context['secretcode'] = self.request.GET['secretcode']
 
         return context
@@ -344,7 +384,8 @@ class SignInView(PageView):
             return 2
         if self._check_if_empty(request, "email"):
             return 3
-        if self._check_if_empty(request, "password") or self._check_if_empty(request, "password2"):
+        if self._check_if_empty(request, "password") or \
+           self._check_if_empty(request, "password2"):
             return 4
         if self._check_if_empty(request, "fullname"):
             return 5
@@ -355,7 +396,8 @@ class SignInView(PageView):
         # check if it is valid username
         # - from 2 to 20 characters long
         # - word, number, ., _, -
-        mtch = re.match('^[\w\d\_\.\-]{2,20}$', request.POST.get("username", "").strip())
+        mtch = re.match(
+            '^[\w\d\_\.\-]{2,20}$', request.POST.get("username", "").strip())
         if not mtch:
             return 6
 
@@ -363,7 +405,8 @@ class SignInView(PageView):
         if not bool(misc.is_valid_email(request.POST["email"].strip())):
             return 7
 
-        if request.POST.get("password", "") != request.POST.get("password2", "").strip():
+        if request.POST.get("password", "") != \
+           request.POST.get("password2", "").strip():
             return 8
         if len(request.POST.get("password", "").strip()) < 6:
             return 9
@@ -373,7 +416,8 @@ class SignInView(PageView):
 
         # check if this user exists
         try:
-            u = auth.models.User.objects.get(username=request.POST.get("username", "").strip())
+            auth.models.User.objects.get(
+                username=request.POST.get("username", "").strip())
             return 10
         except auth.models.User.DoesNotExist:
             pass
@@ -389,7 +433,9 @@ class SignInView(PageView):
         if request.POST.get("ajax", "") == "1":
             ret = {"result": 0}
 
-            if request.POST.get("method", "") == "register" and config.get_configuration('FREE_REGISTRATION') and not limit_reached:
+            if request.POST.get("method", "") == "register" and \
+               config.get_configuration('FREE_REGISTRATION') and \
+               not limit_reached:
                 email = request.POST["email"].strip()
                 fullname = request.POST["fullname"].strip()
                 ret["result"] = self._do_checks_for_empty(request)

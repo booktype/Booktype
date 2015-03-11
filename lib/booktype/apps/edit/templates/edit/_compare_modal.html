@@ -23,7 +23,10 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>            
+            <button role="button" class="btn btn-success" data-href="{% url 'edit:revisions_compare' book.url_title chapter.url_title rev1 rev2 %}" data-target="_blank">
+                {% trans "Full view" %}
+            </button>
+            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
         </div>
     </div>
 </div>

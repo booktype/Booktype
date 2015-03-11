@@ -4,24 +4,26 @@
 {%  block header %}
     <style>
         #main { padding-top: 200px; margin-left: 50px; margin-right: 50px;}
+        .templateTOCChapter .status-options .selected{ background-color: #919191;}
+        .templateTOCChapter .status-options .selected a{ color: #fff;}
     </style>
-    
+
     {% include "edit/edit_header.html" %}
     {% include "edit/aloha_header.html" %}
     {% include "edit/edit_custom_header.html" %}
 
     {% include "edit/edit_config.html" %}
 
-    <link id="aloha-embeded-style" type="text/css" href="{% static "edit/css/style1.css" %}" rel="stylesheet">
+    <link id="aloha-embeded-style" type="text/css" href="" rel="stylesheet">
 
 {% endblock %}
 
-{% block navigation %} 
+{% block navigation %}
 
     {% include "core/nav_menu.html" %}
 
     {% include "edit/toolbar_nav.html" %}
-    
+
     <!-- Bookbar -->
     <div class="bookbar flat">
        {% include "edit/toolbar_book.html" %}
@@ -29,7 +31,7 @@
     <!-- end Bookbar -->
 
     <!-- ToC / Chapter header -->
-    <div class="contentHeader">
+    <div class="contentHeader zen">
     </div>
     <!-- end ToC/Chapter header -->
 {% endblock %}
@@ -47,19 +49,21 @@
 <div class="tablist left-tablist">
     <ul class="navigation-tabs">
     </ul>
-</div>    
+</div>
 
 <div class="tablist right-tablist">
-    <ul class="navigation-tabs">        
+    <ul class="navigation-tabs">
     </ul>
 </div>
 
 <div id="left-tabpane" class="tabpane left-tabpane">
     <section class="tab-content" source_id="chapters-tab">
         <h3>{% trans "Chapters" %}</h3>
-        <button href="#" role="button" class="btn btn-default btn-xs" id="" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "EXPAND TOC" %}">{% trans "EXPAND TOC" %}</button>        
-        <ul class="edit-toc">
-        </ul>
+        <button href="#" role="button" class="btn btn-default btn-xs" id="" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "EXPAND TOC" %}">{% trans "EXPAND TOC" %}</button>
+        <div class="scrollable">
+          <ul class="edit-toc">
+          </ul>
+        </div>
     </section>
 
     <section class="tab-content hold" source_id="online-users-tab">
@@ -74,19 +78,28 @@
           </div>
         </li>
       </script>
-      <ul class="list border-top user-avatar circle">
-      </ul>
+      <div class="scrollable">
+        <ul class="list border-top user-avatar circle">
+        </ul>
+      </div>
     </section>
 
-    <section class="tab-content" source_id="chat-tab">
-        <h3>{% trans "Chat" %}</h3>
-
-        <div style="border: 1px solid gray; width: 100%; height: 300px; padding: 0px; overflow: auto; " class="content">
+    <section class="tab-content chat" source_id="chat-tab">
+       <h3>{% trans "Chat" %}</h3>
+       <div class="notification-list-box">
+         <ul class="notification-list">
+         </ul>
+       </div>
+       <div class="notification-write-box">
+         <textarea class="notification-writer" placeholder="{% trans "Post a notification" %}"></textarea>
+         <div class="notification-important">
+           <i class="icon-info-sign"></i>
         </div>
-
-        <form action="return false;" onsubmit="javascript: return false;">
-           <input type="text" name="message" style="width: 95%;" value=""/>
-        </form>
+        <div class="button-area clearfix">
+           <a class="btn btn-primary pull-right send-notif">{% trans "Send" %}</a>
+           <a class="btn btn-default pull-right cancel-notif">{% trans "Cancel" %}</a>
+        </div>
+       </div>
     </section>
 
     <section class="tab-content notes-tab" source_id="notes-tab">
@@ -112,17 +125,37 @@
 <div id="right-tabpane" class="tabpane right-tabpane">
     <section class="tab-content hold" source_id="hold-tab">
         <h3>{% trans "Chapters on Hold" %}</h3>
-        <ul class="hold-chapters">
-        </ul>
+        <div class="scrollable">
+          <ul class="hold-chapters">
+          </ul>
+        </div>
     </section>
-    
+
     <section class="tab-content" source_id="attachments-tab">
         <h3>{% trans "Attachments" %}</h3>
     </section>
 
     <section class="tab-content" source_id="history-tab">
         <h3>{% trans "History" %}</h3>
-    </section>    
+        {% verbatim %}
+        <script type="text/html" id="templateChapterRevision">
+          <li <% if (active) { %> class="active" <% } %> >
+            <div class="list-info">
+              <span class="revision-number"><%= revision %></span>
+              <span class="revision-time"><%= modified %></span>
+              <h4><a href="#"><%= user %></a></h4>
+              <div class="restore-btn" style="display: none;">
+                <button type="button" data-revision="<%= revision %>" class="btn btn-default btn-xs"><%= label %></button>
+              </div>
+            </div>
+          </li>
+        </script>
+      {% endverbatim %}
+        <div class="scrollable">
+          <ul class="list border-top history" id="history-tab-list">
+          </ul>
+        </div>
+    </section>
 </div>
 {% endblock %}
 
@@ -146,8 +179,16 @@
   </div>
 </div>
 
-<p class="joinMsg template">{% blocktrans %}<span class="icon">JOINED</span> <span class="notice">notice</span>{% endblocktrans %}</p>
-<p class="infoMsg template">{% blocktrans %}<span class="info">INFO</span> <span class="notice">notice</span>{% endblocktrans %}</p>
+<script type="text/html" id="templateUserJoined">
+  <li class="personal">
+    <figure class="notification-avatar">
+      <img src="<%= avatar %>"/>
+    </figure>
+    <div class="notification-content">
+      {% blocktrans %}<p class="notification-text"><%= username %> joined </p><span class="notification-info"><%= info %></span>{% endblocktrans %}
+    </li>
+</script>
+
 
 {% include "edit/edit_strings.html" %}
 

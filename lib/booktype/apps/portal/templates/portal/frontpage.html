@@ -1,11 +1,14 @@
 {% extends "core/base.html" %}
-{% load i18n staticfiles profile messaging_tags reader_tags %}
+{% load i18n staticfiles booktype_tags profile messaging_tags reader_tags %}
 {% block extra_header %}
     <script type="text/javascript" src="{% static 'portal/js/frontpage.js' %}"></script>
     <script type="text/javascript" src="{% static 'account/js/register.js' %}"></script>
+    <script type="text/javascript" src="{% static 'reader/js/infopage.js' %}"></script>
 {% endblock %}
 
 {% block content %}
+    <div id="bookThumbModal" class="modal fade bookInfoModal cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
+    </div>
     <div class="container front-page">
         <div class="row three-col">
             <div class="books-widget col-xs-4">
@@ -20,30 +23,12 @@
                             </div>
 
                         </div>
-
+                        <a class="view_all" href="{% url "portal:list_books" %}">{% trans "view all" %}</a>
                     </h2>
 
                         <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
                             {% for book in books_list %}
-                            <div class="grid-2">
-                                <figure class="custom-cover">
-                                    {% if book.cover %}
-                                        <img src="{% url "reader:book_cover" book.url_title %}" />
-                                    {% else %}
-                                        <img src="{% static "core/img/thumb-default.png" %}"/>
-                                    {% endif %}
-                                </figure>
-                                <div class="book-info">
-                                    <h4><a href="{% url "reader:infopage" book.url_title %}">{{ book.title }}</a></h4>
-                                    {% if request.user.is_authenticated %}
-                                        <div class="btn-group float-right">
-                                            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit:editor" book.url_title %}"><i class="icon-pencil"></i></a>
-                                            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url 'reader:infopage' book.url_title %}" target="_blank"><i class="icon-eye-open"></i></a>
-                                            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "accounts:view_profile" request.user.username %}"><i class="icon-trash"></i></a>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
+                                {% include "account/dashboard_book_template.html" with size=2 %}
                             {% empty %}
                             <div class="grid-2">
                                 {% trans "There are no books yet" %}.
@@ -129,9 +114,15 @@
                         <div class="signin-block">
                             {% include "account/form_signin.html" %}
                         </div>
-                        <div class="box-bottom-white">
-                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}?redirect={{ request.path }}">{% trans "Registration form" %}</a></p> 
-                        </div> 
+                        {% if 1|booktype_anyone_register  %}
+                            <div class="box-bottom-white">                        
+                                <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}?redirect={{ request.path }}">{% trans "Registration form" %}</a></p> 
+                            </div>
+                        {% else %}
+                            <div class="box-bottom-white">                        
+                              <p>{% trans "Only administrator is allowed to create new accounts at the moment." %}</p>
+                            </div>
+                        {% endif %}
                     {% endif %}
                 </div>
 

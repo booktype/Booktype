@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+from booktype.utils import config
 from booki.editor.models import BookiPermission
-from booktype.apps.core.models import Permission
+from booktype.apps.core.models import Permission, Role
 
 
 class BookiSecurity(object):
@@ -195,12 +196,91 @@ def has_perm(user, to_do, book=None):
         return False
     else:
         permissions = []
-        roles = user.roles.all()
 
-        if book:
-            roles = roles.filter(book=book)
-        for role in roles:
-            permissions += [p for p in role.permissions.all()]
+        # get default role key for extra permissions
+        role_key = get_default_role_key(user)
+        default_role = get_default_role(role_key, book)
+
+        # append permissions from default role, no matter if book or not
+        if default_role:
+            permissions += [p for p in default_role.permissions.all()]
+
+        if user.is_authenticated():
+            bookroles = user.roles.all()
+            if book:
+                bookroles = bookroles.filter(book=book)
+            for bookrole in bookroles:
+                permissions += [p for p in bookrole.role.permissions.all()]
+
         return (permission in permissions)
 
     return False
+
+
+def get_user_permissions(user, book):
+    """
+    Returns a list with keynames of permissions for a given user
+    in a specific book
+    """
+
+    permissions = []
+
+    # get default role key for extra permissions on this book
+    role_key = get_default_role_key(user)
+    default_role = get_default_role(role_key, book)
+    if default_role:
+        permissions += [p.key_name for p in default_role.permissions.all()]
+
+    if user.is_authenticated():
+        bookroles = user.roles.filter(book=book)
+        for bookrole in bookroles:
+            permissions += [
+                p.key_name for p in bookrole.role.permissions.all()
+            ]
+
+    return permissions
+
+
+def get_default_role_key(user):
+    """
+    Returns the defaults booktype app role key for given user
+    even if is not registered
+    """
+    if user.is_authenticated():
+        role_key = 'registered_users'
+    else:
+        role_key = 'anonymous_users'
+
+    return role_key
+
+
+def get_default_role(key, book=None):
+    """
+    Returns default role if exists one already registered
+    in system database, otherwise returns None
+    """
+
+    default_role = None
+    default_key = 'DEFAULT_ROLE_%s' % key
+    role_name = None
+
+    if book:
+        try:
+            role_name = book.settings.get(name=default_key).get_value()
+        except:
+            pass
+
+    if not role_name:
+        role_name = config.get_configuration(
+            default_key, key)
+
+    # no_role means restricted
+    if role_name == '__no_role__':
+        return None
+
+    try:
+        default_role = Role.objects.get(name=role_name)
+    except:
+        pass
+
+    return default_role

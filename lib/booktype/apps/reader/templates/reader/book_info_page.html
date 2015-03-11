@@ -9,12 +9,18 @@
 <div class="container">
     <div class="row two-col">
         <div class="col-xs-8">
+            {% for message in messages %}
+            <div class="{% if message.tags %}alert alert-{{ message.tags }}{% endif %} alert-dismissable fade in bk-dismiss" data-dismiss-secs="10">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
             <div class="box profile-box black">
                 <figure>
                     {% if book.cover %}
-                        <img src="{% url "reader:book_cover" book.url_title %}" />
+                        <img src="{% url 'reader:book_cover' book.url_title %}" />
                     {% else %}
-                        <img src="{% static "core/img/thumb-default.png" %}"/>
+                        <img src="{% static 'core/img/thumb-default.png' %}"/>
                     {% endif %}
                 </figure>
                 <div class="list-info">
@@ -41,9 +47,11 @@
                     <button data-href="{% url 'edit:editor' book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Edit this Book' %}">
                         {% trans "Edit this Book" %}
                     </button>
+                    {% if 'reader.can_view_draft' in roles_permissions or is_book_admin %}
                     <button data-href="{% url 'reader:draft_chapter_page' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'View draft' %}">
                         {% trans "View draft" %}
                     </button>
+                    {% endif %}
                     {% if is_book_admin %}
                     <button data-remote="{% url 'reader:edit_info_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Edit book info' %}">
                         {% trans "Edit book info" %}
@@ -52,9 +60,11 @@
                         {% trans "Delete Book" %}
                     </button>
                     {% endif %}
+                    {% if 'reader.can_view_full_page' in roles_permissions or is_book_admin %}
                     <button data-href="{% url 'reader:full_view' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'View full book' %}">
                         {% trans "View full book" %}
                     </button>
+                    {% endif %}
                 </div>
             </div>
 
@@ -120,7 +130,7 @@
                 </ul>
 
                 <br>
-                
+
                 {% if book_admins %}
                 <h2 class="box-title">{% trans "Admins" %}</h2>
                 <ul class="list border-top user-avatar circle">

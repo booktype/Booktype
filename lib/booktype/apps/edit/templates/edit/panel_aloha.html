@@ -1,17 +1,50 @@
 {% load i18n %}
 
 <div class="template templateAlohaToolbar">
-   {% include "edit/aloha_menu.html" %} 
-   {% include "edit/aloha_toolbar.html" %} 
+   {% include "edit/aloha_menu.html" %}
+   {% include "edit/aloha_toolbar.html" %}
 </div>
 
 <div class="template templateAlohaContent">
-  <div id="contenteditor" class=""></div>
+  <div id="contenteditor" class="" dir="{{ book_dir}}" lang="{{ book_language }}"></div>
   <div id="footnotes">
     <ol>
     </ol>
   </div>
 </div>
+
+<script type="text/html" id="templateAlohaFull">
+   <a href="#" class="zenBtn" id="zen" data-original-title="{% trans "Zen mode" %}" rel="tooltip" data-placement="left"><i class="icon-double-angle-up"></i></a>
+</script>
+
+<div id="find-replace" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+           {% trans "Find &amp; Replace" %}
+         </div>
+         <div class="modal-body">
+           <div class="form-group">
+             <input type="text" class="form-control" name="find" placeholder="{% trans "Find" %}">
+           </div>
+           <div class="form-group">
+             <input type="text" class="form-control" name="replace" placeholder="{% trans "Replace" %}">
+           </div>
+           <div class="checkbox"><label><input type="checkbox" name="match-case">{% trans "Match Case" %}</label></div>
+           <span class="msg-report hide" style="color: green">{% trans "Finished" %}</span>
+         </div>
+         <div class="modal-footer">
+           <button class="btn btn-default pull-left cancel-button operation-findandreplace" aria-hidden="true">{% trans "Cancel" %}</button>
+
+           <button class="btn btn-default replace-button operation-findandreplace" aria-hidden="true">{% trans "Replace" %}</button>
+           <button class="btn btn-default replace-all-button operation-findandreplace" aria-hidden="true">{% trans "Replace All" %}</button>
+           <button class="btn btn-default prev-button operation-findandreplace" aria-hidden="true">{% trans "&lt; Prev" %}</button>
+           <button class="btn btn-default next-button operation-findandreplace" aria-hidden="true">{% trans "Next $gt;" %}</button>
+         </div>
+       </div>
+   </div>
+ </div>
 
 <div id="elCount" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -29,7 +62,7 @@
             {% trans "Word count" %}: <span class="wcount"></span><br/>
             {% trans "Character count" %}: <span class="charcount"></span><br/>
             {% trans "Character count (with spaces)" %}: <span class="charspacecount"></span>
-        </div> 
+        </div>
         <div class="modal-footer">
           <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "OK" %}</button>
         </div>
@@ -50,7 +83,7 @@
         </div>
       <div class="form-group">
             <input type="text" class="form-control" name="title" placeholder="Title">
-      </div>    
+      </div>
       <div class="linktochapter">
         <div class="linktochapter-header">
           <i class="icon-chevron-down toggle-close"></i>
@@ -59,14 +92,14 @@
         </div>
         <div class="linktochapter-content">
           <ul>
-          </ul>                    
+          </ul>
         </div>
       </div>
 
     </div>
     <div class="modal-footer">
       <button class="btn btn-default operation-cancel" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
-      <button class="btn btn-default operation-unlink" aria-hidden="true">{% trans "Break link" %}</button>    
+      <button class="btn btn-default operation-unlink" aria-hidden="true">{% trans "Break link" %}</button>
       <button class="btn btn-default btn-primary operation-insert">{% trans "Insert link" %}</button>
     </div>
   </div>
@@ -150,11 +183,23 @@
                     {% trans "Drag Your Images Here" %}
                   </div>
                   <div class="drag-area-button">
-                   <span class="btn btn-default btn-success fileinput-button">
+                   <span class="btn btn-success fileinput-button">
                       <i class="icon-upload"></i> {% trans "or Select them from folder" %}
                         <input class="upload-file" type="file" name="files[]" multiple data-url="../_upload/">
                    </span>
                   </div>
+              </div>
+              <div class="alert-wrapper hidden">
+                <div class="alert alert-warning animated" role="alert">
+                  {% trans "Please wait, we are processing your image..." %}
+                  <div class="spinner">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="tab-pane active" id="medialibrary">
@@ -174,13 +219,13 @@
                     <textarea rows="8" class="form-control image-description" placeholder="{% trans "Description" %}"></textarea>
                   </div>
                 </div>
-                
+
                 <a class="btn btn-default btn-xs cancel-metadata-btn" href="#">{% trans "Cancel" %}</a>
                 <!--
                 <a class="btn btn-primary btn-xs save-metadata-btn" href="#">{% trans "Save Metadata" %}</a>
                 -->
-                <a class="btn btn-default btn-xs metadata-btn" href="#"><i class="icon-pencil"></i> {% trans "Edit caption" %}</a> 
-                <a class="btn btn-default btn-xs closeinfo" href="#"><i class="icon-chevron-right"></i></a> 
+                <a class="btn btn-default btn-xs metadata-btn" href="#"><i class="icon-pencil"></i> {% trans "Edit caption" %}</a>
+                <a class="btn btn-default btn-xs closeinfo" href="#"><i class="icon-chevron-right"></i></a>
               </div>
 
               <ul class="uploads-grid">
@@ -207,7 +252,7 @@
         <li><span>{% trans "Dimensions" %}:</span> <%= dimension %></li>
       </ul>
       <h5></h5>
-      <p></p> 
+      <p></p>
   </script>
   <script type="text/html" id='templateImageThumbnail'>
      <li data-media-id="<%= media_id %>"><img src="static/<%= name %>" style="max-width: 150px">
@@ -218,7 +263,7 @@
            <li><a href="#" class="delete-attachment"><i class="icon-trash"></i> {% trans "Delete" %}</a></li>
          </ul>
      </li>
-  </script>  
+  </script>
 
   <div id="imagePopup" style="position: absolute; background-color: white; margin: 1px; border: 1px solid black; display: none; padding: 4px;">
     <a href="#" class="remove"><i class="icon-remove-sign"></i>  {% trans "REMOVE" %}</a>&nbsp;&nbsp;

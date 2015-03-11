@@ -1,0 +1,100 @@
+{% load i18n %}    
+<div class="userstyle">
+  <h5>{% trans "Heading" %}</h5>
+  <div class="styleblock">
+    <div class="row">
+      <div class="col-md-5">
+        <select class="heading-font">
+          {# Translators: User defined style Heading font #}
+          <option value="serif">{% trans "Serif" %}</option>
+          {# Translators: User defined style Heading font #}
+          <option value="sans-serif">{% trans "Non Serif" %}</option>
+        </select>
+      </div>
+      <div class="colorinput">
+        <input class="color" value="000000" autocomplete="off" style="background-image: none; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-9">
+        {# Translators: User defined style settings #}
+        <h4>{% trans "Font size" %}</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-9">
+        <input type="text" class="heading-size" value="" data-slider-min="100" data-slider-max="300" data-slider-step="10" data-slider-value="160" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="show"  style="width: 200px;">
+      </div>
+      <div class="col-md-1 heading-view-size"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-9">
+        {# Translators: User defined style settings #}
+        <h4>{% trans "Alignment" %}</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-11">
+        <div class="heading-align btn-group" data-toggle="buttons">
+          <label class="btn btn-default btn-xs active">
+            {# Translators: User defined style alignment settings #}                    
+            <input type="radio" checked="checked" name="align" data-align="left" rel="tooltip" data-original-title="{% trans "Left" %}">{% trans "Left" %}
+          </label>
+          <label class="btn btn-default btn-xs">
+            {# Translators: User defined style alignment settings #}                    
+            <input type="radio" name="align" data-align="center" rel="tooltip" data-original-title="{% trans "Center" %}">{% trans "Center" %}
+          </label>
+          <label class="btn btn-default btn-xs">
+            {# Translators: User defined style alignment settings #}                    
+            <input type="radio" name="align" data-align="right" rel="tooltip" data-original-title="{% trans "Right" %}">{% trans "Right" %}
+          </label>
+          <label class="btn btn-default btn-xs">
+            {# Translators: User defined style alignment settings #}                    
+            <input type="radio" name="align" data-align="justify" rel="tooltip" data-original-title="{% trans "Justify" %}">{% trans "Justify" %}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="userstyle">
+    {# Translators: User defined style settings #}
+    <h3>{% trans "Paragraph" %}</h3>
+    <div class="styleblock">
+      <div class="row">
+        <div class="col-md-9">
+          <select class="paragraph-font">
+            {# Translators: User defined style Paragraph font #}                  
+            <option value="serif">{% trans "Serif" %}</option>
+            {# Translators: User defined style Paragraph font #}                  
+            <option value="sans-serif">{% trans "Non Serif" %}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          {# Translators: User defined style settings #}                          
+          <h4>{% trans "Text Indent" %}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          <input type="text" class="paragraph-indent" value="" data-slider-min="0" data-slider-max="5" data-slider-step="0.10" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="show" style="width: 200px;">
+        </div>
+        <div class="col-md-1 paragraph-view-indent"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          {# Translators: User defined style settings #}                          
+          <h4>{% trans "Line Height" %}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          <input type="text" class="paragraph-line-height"  value="" data-slider-min="100" data-slider-max="200" data-slider-step="5" data-slider-value="100" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="show" style="width: 200px;">
+        </div>
+        <div class="col-md-1 paragraph-view-line-height"></div>
+      </div>
+    </div>
+  </div>
+</div>

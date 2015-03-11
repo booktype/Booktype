@@ -3,10 +3,12 @@
 {% block extra_header %}
     <script type="text/javascript" src="{% static "portal/js/frontpage.js" %}"></script>
     <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>    
+    <script type="text/javascript" src="{% static "reader/js/infopage.js" %}"></script>
 {% endblock %}
 
 {% block content %}
-
+    <div id="bookThumbModal" class="modal fade bookInfoModal cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
+    </div>
     <div class="container">
         <div class="row two-col">
             <div class="books-widget col-xs-8">
@@ -27,25 +29,7 @@
 
                         <div class="book-thumb showing-books" id="books-prew">
                             {% for book in books_list %}
-                            <div class="grid-4">
-                                <figure class="custom-cover">
-                                    {% if book.cover %}
-                                        <img src="{% url "reader:book_cover" book.url_title %}" />
-                                    {% else %}
-                                        <img src="{% static "core/img/thumb-default.png" %}"/>
-                                    {% endif %}
-                                </figure>
-                                <div class="book-info">
-                                    <h4><a href="{% url "reader:infopage" book.url_title %}">{{ book.title }}</a></h4>
-                                    {% if request.user.is_authenticated %}
-                                        <div class="btn-group float-right">
-                                            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit:editor" book.url_title %}"><i class="icon-pencil"></i></a>
-                                            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book" %}" href="{% url 'reader:infopage' book.url_title %}"  target="_blank"><i class="icon-eye-open"></i></a>
-                                            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "accounts:view_profile"    request.user.username %}"><i class="icon-trash"></i></a>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
+                                {% include "account/dashboard_book_template.html" %}
                             {% empty %}
                             <div class="grid-4">
                                 {% trans "There are no books yet" %}.

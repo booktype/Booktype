@@ -80,7 +80,7 @@ def makeTitleUnique(requestedTitle):
             return name
         n += 1
         name = u'%s - %d' % (requestedTitle, n)
-        
+
 
 def getChaptersFromTOC(toc):
     """Convert a nested bookizip TOC structure into a list of tuples
@@ -118,7 +118,7 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
         bookTitle = extraOptions['book_title']
     else:
         bookTitle = get_metadata(metadata, 'title', ns=DC)[0]
-    
+
     bookTitle = makeTitleUnique(bookTitle)
     logWarning("Chose unique book title %r" % bookTitle)
 
@@ -177,7 +177,7 @@ def importBookFromFile(user, zname, createTOC=False, **extraOptions):
                                         user = user,
                                         comment = "",
                                         revision = chapter.revision)
-            
+
             if createTOC:
                 c = models.BookToc(book = book,
                                    version = book.version,
@@ -443,7 +443,7 @@ def exportBook(book_version):
         else:
             #A new top level section.
             title = chapter.name.encode("utf-8")
-            ID = "s%03d_%s" % (i, booktype_slugify(title))
+            ID = "s%03d_%s" % (i, booktype_slugify(unicode(title)))
 
             toc_current = []
             section = {"title": title,
@@ -473,7 +473,7 @@ def exportBook(book_version):
 
         fn = os.path.basename(attachment.attachment.name.encode("utf-8"))
 
-        ID = "att%03d_%s" % (i, booktype_slugify(fn))
+        ID = "att%03d_%s" % (i, booktype_slugify(unicode(fn)))
         if '.' in fn:
             _, ext = fn.rsplit('.', 1)
             mediatype = bookizip.MEDIATYPES.get(ext.lower(), bookizip.MEDIATYPES[None])

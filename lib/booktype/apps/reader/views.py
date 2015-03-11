@@ -17,23 +17,24 @@
 import os
 
 from django.views import static
+from django.http import Http404
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.http import HttpResponseForbidden, Http404
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, DeleteView, UpdateView
 
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, JSONResponseMixin
 
-from booki.utils import security
-from booktype.utils import misc
+from booktype.apps.core import views
+from booktype.utils import misc, security
 from booktype.utils.book import remove_book
 from booktype.apps.core.views import BasePageView
 from booki.editor.models import Book, BookHistory, BookToc, Chapter
 
 from .forms import EditBookInfoForm
+
 
 class BaseReaderView(object):
     """
@@ -67,23 +68,27 @@ class BaseReaderView(object):
             response_kwargs.setdefault('status', 404)
             context.update({
                 'request': self.request,
-                'page_title': _("%(object)s not found!") % {'object': context['not_found_object']},
+                'page_title': _("%(object)s not found!") % {
+                    'object': context['not_found_object']
+                },
                 'title': _("Error 404")
             })
-        return super(BaseReaderView, self).render_to_response(context, **response_kwargs)
+        return super(BaseReaderView, self).render_to_response(
+            context, **response_kwargs)
 
 
 class PublishedBookView(BaseReaderView, BasePageView, DetailView):
     # TODO: implement functionality when book is marked as published
     template_name = "reader/book_published.html"
-    
+
     def render_to_response(self, context, **response_kwargs):
         try:
             book = self.get_object()
             if book:
                 return redirect('reader:infopage', bookid=book.url_title)
         except:
-            return super(PublishedBookView, self).render_to_response(context, **response_kwargs)
+            return super(PublishedBookView, self).render_to_response(
+                context, **response_kwargs)
 
 
 class InfoPageView(BaseReaderView, BasePageView, DetailView):
@@ -94,17 +99,38 @@ class InfoPageView(BaseReaderView, BasePageView, DetailView):
     def get_context_data(self, **kwargs):
         book = self.object
         book_version = book.get_version()
-        book_security = security.getUserSecurityForBook(self.request.user, book)
-        book_collaborators_ids = BookHistory.objects.filter(version = book_version, kind = 2).values_list('user', flat=True)
-        
+        book_security = security.get_user_security_for_book(
+            self.request.user, book)
+        book_collaborators_ids = BookHistory.objects.filter(
+            version=book_version, kind=2).values_list('user', flat=True)
+
         context = super(InfoPageView, self).get_context_data(**kwargs)
         context['book_admins'] = book.bookipermission_set.filter(permission=1)
-        context['book_collaborators'] = User.objects.filter(id__in=book_collaborators_ids)
-        context['book_history'] = BookHistory.objects.filter(version = book_version).order_by('-modified')[:20]
+        context['book_collaborators'] = User.objects.filter(
+            id__in=book_collaborators_ids)
+        context['book_history'] = BookHistory.objects.filter(
+            version=book_version).order_by('-modified')[:20]
         context['book_group'] = book.group
-        context['is_book_admin'] = book_security.isAdmin()
+        context['is_book_admin'] = book_security.is_admin()
+        context['roles_permissions'] = security.get_user_permissions(
+            self.request.user, book)
 
         return context
+
+
+class PermissionsView(BaseReaderView, BasePageView, JSONResponseMixin, DetailView):
+    """
+    Returns the list of permissions a user has on one book
+    """
+    def render_to_response(self, context, **response_kwargs):
+        book = self.object
+        book_security = security.get_user_security_for_book(self.request.user, book)
+        book_permissions = security.get_user_permissions(self.request.user, book)
+
+        return self.render_json_response({
+            'admin': book_security.isAdmin(),
+            'permissions': book_permissions,
+        })
 
 
 class SingleNextMixin(object):
@@ -123,7 +149,8 @@ class SingleNextMixin(object):
         return context
 
 
-class EditBookInfoView(SingleNextMixin, LoginRequiredMixin, BaseReaderView, UpdateView):
+class EditBookInfoView(SingleNextMixin, LoginRequiredMixin,
+                       BaseReaderView, UpdateView):
     template_name = "reader/book_info_edit.html"
     form_class = EditBookInfoForm
     context_object_name = 'book'
@@ -134,7 +161,7 @@ class EditBookInfoView(SingleNextMixin, LoginRequiredMixin, BaseReaderView, Upda
     def form_valid(self, form):
         self.object = form.save()
 
-        if form.files.has_key('cover'):
+        if 'core' in form.files.keys():
             try:
                 fh, fname = misc.save_uploaded_as_file(form.files['cover'])
                 self.object.setCover(fname)
@@ -147,23 +174,23 @@ class EditBookInfoView(SingleNextMixin, LoginRequiredMixin, BaseReaderView, Upda
         return self.render_to_response(context=self.get_context_data())
 
 
-class DeleteBookView(SingleNextMixin, LoginRequiredMixin, BaseReaderView, DeleteView):
+class DeleteBookView(SingleNextMixin, LoginRequiredMixin,
+                     BaseReaderView, DeleteView):
     template_name = "reader/book_delete.html"
 
     def post(self, *args, **kwargs):
         request = self.request
         book = self.object = self.get_object()
         title = request.POST.get("title", "")
-        book_security = security.getUserSecurityForBook(request.user, book)
+        book_security = security.get_user_security_for_book(request.user, book)
+        book_permissions = security.get_user_permissions(request.user, book)
         self.template_name = "reader/book_delete_error.html"
 
-        try:
-            if book_security.isAdmin() and title.strip() == book.title.strip():
-                remove_book(book)
-                self.template_name = "reader/book_delete_redirect.html"
-                messages.success(request, _('Book successfully deleted.'))
-        except Exception, e:
-            raise e
+        if ((book_security.isAdmin() or 'edit.delete_book' in book_permissions)
+            and title.strip() == book.title.strip()):
+            remove_book(book)
+            self.template_name = "reader/book_delete_redirect.html"
+            messages.success(request, _('Book successfully deleted.'))
 
         return self.render_to_response(context=self.get_context_data())
 
@@ -173,21 +200,40 @@ class DraftChapterView(BaseReaderView, BasePageView, DetailView):
     page_title = _("Chapter Draft")
     title = ""
 
+    def render_to_response(self, context, **response_kwargs):
+        if context.get('has_permission', True) is False:
+            return views.ErrorPage(
+                self.request,
+                "errors/nopermissions.html"
+            )
+
+        return super(DraftChapterView, self).render_to_response(
+            context, **response_kwargs)
+
     def get_context_data(self, **kwargs):
         book = self.object
-        book_version = book.get_version(self.kwargs.get('version', None))
         content = None
+        book_version = book.get_version(self.kwargs.get('version', None))
+        context = super(DraftChapterView, self).get_context_data(**kwargs)
 
         # check permissions
-        book_security = security.getUserSecurityForBook(self.request.user, book)
-        has_permission = security.canEditBook(book, book_security)
+        book_security = security.get_user_security_for_book(
+            self.request.user, book)
+        has_permission = security.can_edit_book(book, book_security)
+        can_view_draft = security.has_perm(
+            self.request.user,
+            'reader.can_view_draft',
+            book
+        )
 
-        if book.hidden and not has_permission:
-            return HttpResponseForbidden()
+        if (book.hidden and not has_permission) or not can_view_draft:
+            context['has_permission'] = False
+            return context
 
         if 'chapter' in self.kwargs:
             try:
-                content = get_object_or_404(Chapter, version=book_version, url_title=self.kwargs['chapter'])
+                content = get_object_or_404(Chapter, version=book_version,
+                                            url_title=self.kwargs['chapter'])
             except Http404:
                 self.not_found = True
                 context = dict(
@@ -196,18 +242,21 @@ class DraftChapterView(BaseReaderView, BasePageView, DetailView):
                 )
                 return context
 
-        toc_items = BookToc.objects.filter(version=book_version).order_by("-weight")
-        
+        toc_items = BookToc.objects.filter(
+            version=book_version).order_by("-weight")
+
         for chapter in toc_items:
             if not content and chapter.is_chapter():
                 content = chapter.chapter
                 break
 
-        context = super(DraftChapterView, self).get_context_data(**kwargs)
         context['content'] = content
         context['toc_items'] = toc_items
         context['book_version'] = book_version.get_version()
-        context['can_edit'] = (self.request.user.is_authenticated() and book.version == book_version)
+        context['can_edit'] = (
+            self.request.user.is_authenticated() and
+            book.version == book_version
+        )
 
         return context
 
@@ -217,12 +266,33 @@ class FullView(BaseReaderView, BasePageView, DetailView):
     page_title = _("Book full view")
     title = ""
 
+    def render_to_response(self, context, **response_kwargs):
+        if context.get('has_permission', True) is False:
+            return views.ErrorPage(
+                self.request,
+                "errors/nopermissions.html"
+            )
+
+        return super(FullView, self).render_to_response(
+            context, **response_kwargs)
+
     def get_context_data(self, **kwargs):
         book = self.object
-        book_version = book.get_version(self.kwargs.get('version', None))
-        toc_items = BookToc.objects.filter(version=book_version).order_by("-weight")
-
         context = super(FullView, self).get_context_data(**kwargs)
+
+        has_permission = security.has_perm(
+            self.request.user,
+            'reader.can_view_full_page',
+            book
+        )
+        if not has_permission:
+            context['has_permission'] = has_permission
+            return context
+
+        book_version = book.get_version(self.kwargs.get('version', None))
+        toc_items = BookToc.objects.filter(
+            version=book_version).order_by("-weight")
+
         context['book_version'] = book_version.get_version()
         context['toc_items'] = toc_items
 
@@ -235,10 +305,11 @@ class BookCoverView(BaseReaderView, DetailView):
     """
 
     http_method_names = [u'get']
-    
+
     def render_to_response(self, context, **response_kwargs):
         """
         Override render_to_response to serve the book cover static image
         """
 
-        return static.serve(self.request, self.object.cover.name, settings.MEDIA_ROOT)
+        return static.serve(
+            self.request, self.object.cover.name, settings.MEDIA_ROOT)

@@ -15,6 +15,7 @@
          </label>
       </div>
 
+      {% if is_owner or is_admin or 'edit.upload_cover' in roles_permissions %}
       <div class="btn-group">
         <span class="btn btn-success fileinput-button">
             <i class="icon-plus icon-white"></i>
@@ -22,12 +23,14 @@
             <input id="fileupload" type="file" name="files[]"  data-url="../_upload_cover/">
         </span>
       </div>
+      {% endif %}
     </div>
 </div>
 
 <div class="template templateCoversContent">
     <div id="cover_error">
-        <div class="alert-box error wrong-extension">
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">{% trans "Close" %}</span></button>
             {% trans "Error: The selected filetype is not supported. Please select one of the following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD." %}
         </div>
     </div>
@@ -153,3 +156,42 @@
   </div>
  </div>
 </div>
+
+
+<script id="templateCoverBox" type="text/template">
+    <div class="coverThumbnail" data-cid="<%= cid %>">
+     <div class="coverThumbnailImg">
+       <img src="<%= imageSrc %>" />
+       <div class="coverInfo">
+         <h3><%= title %></h3>
+         <p><%= notes %></p>
+         <div class="coverFileInfo">
+           <span class="coverFileName"><strong>{% trans "File name" %}:</strong> <%= filename %></span>
+           <span class="coverFileSize"><strong>{% trans "File size" %}:</strong> <%= size %></span>
+           <span class="coverFileDimensions"><strong>{% trans "Image dimensions" %}</strong> <%= dimension %></span>
+         </div>
+       </div>
+     </div>
+     <div class="coverOptions">
+       <input type="checkbox" id="<%= cid %>" name="cc" <%= approved ? "checked" : "" %>>
+       {% if is_owner or is_admin or 'edit.edit_cover' in roles_permissions %}
+       <label for="<%= cid %>"><span></span>{% trans "Approved" %}</label>
+       {% endif %}
+       <div class="btn-group">
+         {% if is_owner or is_admin or 'edit.edit_cover' in roles_permissions %}
+         <button id="btnEditCover" class="btn btn-default btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Edit Image Data' %}" data-toggle="modal" href="#editCover">
+            <i class="icon-pencil"></i>
+         </button>
+         {% endif %}
+         <a class="btn btn-default btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'View Original Image' %}" href="<%= preview %>" target="_blank">
+            <i class="icon-eye-open"></i>
+         </a>
+         {% if is_owner or is_admin or 'edit.delete_cover' in roles_permissions %}
+         <button id="btnDeleteCover" class="btn btn-default btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Delete Cover Image' %}">
+            <i class="icon-trash"></i>
+         </button>
+         {% endif %}
+       </div>
+     </div>
+    </div>
+</script>
