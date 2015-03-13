@@ -21,13 +21,16 @@ from booktype.apps.account.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 
+
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
     fk_name = 'user'
     max_num = 1
 
+
 class UserAdmin(AuthUserAdmin):
     inlines = [UserProfileInline,]
+
 
 # customize some lists with additional column and filters
 class BookAdmin(admin.ModelAdmin):
@@ -36,8 +39,10 @@ class BookAdmin(admin.ModelAdmin):
     ordering = ['title']
     search_fields = ['title']
 
+
 class InfoAdmin(admin.ModelAdmin):
     list_filter = ['book']
+
 
 class ChapterAdmin(admin.ModelAdmin):
     list_display = ('title', 'version', 'revision', 'modified')
@@ -45,25 +50,37 @@ class ChapterAdmin(admin.ModelAdmin):
     list_filter = ['book']
     search_fields = ['title']
 
+
+class ChapterLockAdmin(admin.ModelAdmin):
+    list_display = ('chapter', 'user', 'type', 'created')
+    ordering = ['created']
+    list_filter = ['chapter', 'user', 'type']
+
+
 class AttachmentAdmin(admin.ModelAdmin):
     list_filter = ['book']
+
 
 class BookStatusAdmin(admin.ModelAdmin):
     list_display = ('name', 'weight')
     ordering = ['-weight']
     list_filter = ['book']
 
+
 class BookTocAdmin(admin.ModelAdmin):
     list_display = ('name', 'weight')
     ordering = ['-weight']
     list_filter = ['book']
     search_fields = ['name']
-    
+
+
 class BookiGroupAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'created')
 
+
 class BookNotesAdmin(admin.ModelAdmin):
     list_filter = ['book']
+
 
 class BookVersionAdmin(admin.ModelAdmin):
     list_filter = ['book']
@@ -77,6 +94,7 @@ admin.site.register(models.License)
 admin.site.register(models.Book, BookAdmin)
 admin.site.register(models.Info, InfoAdmin)
 admin.site.register(models.Chapter, ChapterAdmin)
+admin.site.register(models.ChapterLock, ChapterLockAdmin)
 admin.site.register(models.Attachment, AttachmentAdmin)
 admin.site.register(models.Language)
 admin.site.register(models.BookStatus, BookStatusAdmin)

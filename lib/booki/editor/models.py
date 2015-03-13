@@ -412,27 +412,38 @@ class Chapter(models.Model):
 
     url_title = models.CharField(_('url title'), max_length=2500)
     title = models.CharField(_('title'), max_length=2500)
-    status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status")) # this will probably change
+    status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status"))    # this will probably change
     created = models.DateTimeField(_('created'), null=False, auto_now=False, default=datetime.datetime.now)
     modified = models.DateTimeField(_('modified'), null=True, auto_now=True)
     #
     revision = models.IntegerField(_('revision'), default=1)
-#    comment = models.CharField(_('comment'), max_length=2500, blank=True)
-
+    # comment = models.CharField(_('comment'), max_length=2500, blank=True)
 
     # missing licence here
     content = models.TextField(_('content'))
 
+    class Meta:
+        verbose_name = _('Chapter')
+        verbose_name_plural = _('Chapters')
+
     def get_absolute_url(self):
         return '%s/%s/%s/' % (settings.BOOKI_URL, self.book.url_title, self.url_title)
-
 
     def __unicode__(self):
         return self.title
 
-    class Meta:
-        verbose_name = _('Chapter')
-        verbose_name_plural = _('Chapters')
+    @property
+    def lock_type(self):
+        """
+        Return lock.type if exist, else return 0
+
+        @rtype: C{int}
+        @return: Return lock.type value
+        """
+        try:
+            return self.lock.type
+        except ChapterLock.DoesNotExist:
+            return 0
 
 
 # ChapterHistory
@@ -468,6 +479,27 @@ class ChapterHistory(models.Model):
         if higher.count() > 0:
             return higher[0].revision
         return None
+
+
+# Chapter Lock
+class ChapterLock(models.Model):
+    LOCK_EVERYONE = 1
+    LOCK_SIMPLE = 2
+    LOCK_CHOICES = ((LOCK_EVERYONE, 'Lock everyone'),
+                    (LOCK_SIMPLE, 'Lock to people without permissions'))
+
+    chapter = models.OneToOneField(Chapter, related_name='lock')
+    user = models.ForeignKey(auth_models.User, verbose_name=_('user'))
+    type = models.IntegerField(choices=LOCK_CHOICES, default=LOCK_SIMPLE)
+    created = models.DateTimeField(_('created'), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('Chapter Lock')
+        verbose_name_plural = _('Chapters Locks')
+        ordering = ('created',)
+
+    def __unicode__(self):
+        return "{0} - {1}".format(self.chapter.title, self.get_type_display())
 
 
 # Attachment
