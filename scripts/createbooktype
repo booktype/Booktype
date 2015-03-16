@@ -220,7 +220,7 @@ def make_directory_structure(destination):
             os.mkdir('%s/%s_site/%s' % (destination, project, d))
             logln("[OK]")
 
-        for d in ['books', 'profile_images', 'cover_images']:
+        for d in ['books', 'profile_images', 'cover_images', 'tmp']:
             log("+ Creating data/%s directory.  " % d)
             os.mkdir('%s/data/%s' % (destination, d))
             logln("[OK]")
