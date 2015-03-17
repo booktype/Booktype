@@ -24,7 +24,7 @@ from django.db.models import Q
 from django.conf import settings
 from django.db import transaction
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, SuspiciousOperation
 
 from booki.editor import models
 from booki.utils import security
@@ -58,7 +58,8 @@ def get_toc_for_book(version):
                 chap.typeof,
                 chap.chapter.status.id,
                 parent_id,
-                chap.id
+                chap.id,
+                chap.chapter.lock_type
             ))
         else:
             results.append((
@@ -68,7 +69,8 @@ def get_toc_for_book(version):
                 chap.typeof,
                 None, # fake status
                 parent_id,
-                chap.id
+                chap.id,
+                0   # fake unlocked
             ))
     return results
 
@@ -1002,6 +1004,55 @@ def remote_chapter_unhold(request, message, bookid, version):
     )
 
     return {"result": True}
+
+
+def remote_chapter_lock(request, message, bookid, version):
+    """
+    Lock chapter.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    """
+    book, book_version, book_security = get_book(request, bookid, version)
+    chapter_id = message["chapterID"]
+    lock_type = message["lockType"]
+
+    # vlidate lock type value
+    if lock_type not in (models.ChapterLock.LOCK_SIMPLE, models.ChapterLock.LOCK_EVERYONE):
+        raise SuspiciousOperation
+
+    # check access
+    is_admin = book_security.is_group_admin() or book_security.is_book_admin() or book_security.is_superuser()
+    is_owner = book.owner == request.user
+    can_lock_chapter = security.has_perm(request.user, 'edit.lock_chapter', book)
+
+    if not (can_lock_chapter or is_admin or is_owner):
+        raise PermissionDenied
+
+    # get chapter
+    chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
+
+    # create lock for provided chapter
+    models.ChapterLock.objects.create(chapter=chapter,
+                                      user=request.user,
+                                      type=lock_type)
+
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_lock",
+            "chapterID": chapter_id,
+            "lockType": lock_type
+        },
+        myself=True
+    )
+
+    return dict(result=True)
 
 
 def remote_get_chapter(request, message, bookid, version):
