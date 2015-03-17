@@ -21,10 +21,8 @@ include($options["mpdf"]."/mpdf.php");
 
 
 if(file_exists($options["dir"]."/config.json")) {
-    $data = file_get_contents(file_exists($options["dir"]."/config.json"));
+    $data = file_get_contents($options["dir"]."/config.json");
     $config = json_decode($data, true);
-
-    print_r($config);
 }
 
 /* Read content */
