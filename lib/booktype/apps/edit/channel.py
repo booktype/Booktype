@@ -1045,9 +1045,56 @@ def remote_chapter_lock(request, message, bookid, version):
 
     sputnik.addMessageToChannel(
         request, "/booktype/book/%s/%s/" % (bookid, version), {
-            "command": "chapter_lock",
+            "command": "chapter_lock_changed",
             "chapterID": chapter_id,
-            "lockType": lock_type
+            "lockType": chapter.lock_type
+        },
+        myself=True
+    )
+
+    return dict(result=True)
+
+
+def remote_chapter_unlock(request, message, bookid, version):
+    """
+    Lock chapter.
+
+    @type request: C{django.http.HttpRequest}
+    @param request: Client Request object
+    @type message: C{dict}
+    @param message: Message object
+    @type bookid: C{string}
+    @param bookid: Unique Book id
+    @type version: C{string}
+    @param version: Book version
+    """
+    book, book_version, book_security = get_book(request, bookid, version)
+    chapter_id = message["chapterID"]
+
+    # get chapter
+    chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
+
+    # check access
+    is_admin = book_security.is_group_admin() or book_security.is_book_admin() or book_security.is_superuser()
+    is_owner = book.owner == request.user
+    can_lock_chapter = security.has_perm(request.user, 'edit.lock_chapter', book)
+
+    if not (is_admin or is_owner):
+        if not can_lock_chapter:
+            raise PermissionDenied
+        # check user who locked chapter from everyone with user in request
+        elif chapter.lock.type == models.ChapterLock.LOCK_EVERYONE and chapter.lock.user != request.user:
+            raise PermissionDenied
+
+    # remove lock
+    chapter.lock.delete()
+    chapter.save()
+
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_lock_changed",
+            "chapterID": message["chapterID"],
+            "lockType": chapter.lock_type
         },
         myself=True
     )

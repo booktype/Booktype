@@ -441,7 +441,9 @@ class Chapter(models.Model):
         @return: Return lock.type value
         """
         try:
-            return self.lock.type
+            if self.lock.id:    # if ChapterLock was deleted in db but still have value in python object
+                return self.lock.type
+            return 0
         except ChapterLock.DoesNotExist:
             return 0
 
