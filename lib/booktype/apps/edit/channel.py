@@ -1926,7 +1926,7 @@ def remote_license_attributions_save(request, message, bookid, version):
 
 
 def remote_publish_book(request, message, bookid, version):
-    book = get_book(request, bookid, version)[0]
+    book, book_version, book_security = get_book(request, bookid, version)
 
     if not book_security.has_perm('edit.publish_book'):
         raise PermissionDenied
