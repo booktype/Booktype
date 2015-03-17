@@ -10,6 +10,12 @@ STATIC_URL  = '{}/static/'.format(BOOKTYPE_URL)
 DATA_URL  = '{}/data/'.format(BOOKTYPE_URL)
 MEDIA_URL = DATA_URL
 
+# MPDF RENDERER SETTINGS
+
+MPDF_DIR = ''
+PHP_PATH = '/usr/bin/php'
+MPDF_SCRIPT = '' 
+
 # DEBUGGING
 DEBUG = TEMPLATE_DEBUG = True
 
