@@ -242,9 +242,9 @@
 
     <div class="btn-toolbar">
         <% if (is_locked === true){ %>
-        <div class="btn-group display-locked"><span class="label">{% trans "Locked" %}</span></div>
+        <span class="label display-locked pull-left">{% trans "Locked" %}</span>
         <% } else { %>
-        <div class="btn-group display-locked hide"><span class="label">{% trans "Locked" %}</span></div>
+        <span class="label display-locked pull-left hide">{% trans "Locked" %}</span>
         <% } %>
         <div class="btn-group">
             <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>

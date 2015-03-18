@@ -1289,6 +1289,7 @@ def remote_create_chapter(request, message, bookid, version):
         chapter.url_title,
         1,  # typeof (chapter)
         s.id,  # status
+        chapter.lock_type,
         'root',  # parent id (first level)
         toc_item.id  # tocID
     )
