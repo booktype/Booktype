@@ -57,9 +57,9 @@ def get_toc_for_book(version):
                 chap.chapter.url_title,
                 chap.typeof,
                 chap.chapter.status.id,
+                chap.chapter.lock_type,
                 parent_id,
-                chap.id,
-                chap.chapter.lock_type
+                chap.id
             ))
         else:
             results.append((
@@ -67,10 +67,10 @@ def get_toc_for_book(version):
                 chap.name,
                 chap.name,
                 chap.typeof,
-                None, # fake status
+                None,   # fake status
+                0,   # fake unlocked
                 parent_id,
-                chap.id,
-                0   # fake unlocked
+                chap.id
             ))
     return results
 
@@ -78,16 +78,28 @@ def get_toc_for_book(version):
 def get_hold_chapters(book_version):
     """
     Function returns list of hold chapters. Elements of list are tuples with
-    structure - (chapter_id, chapter_title, chapter_url_title, 1, chapter_status_id).
+    structure - (chapter_id, chapter_title, chapter_url_title, 1,
+                 chapter_status_id, chapter_lock_type).
 
     @type book_version: C{booki.editor.models.BookVersion}
     @param book_version: Book version object
     @rtype: C{list}
     @return: Returns list with hold chapters
     """
+    hold_chapters = book_version.get_hold_chapters()
 
-    return [(ch.id, ch.title, ch.url_title, 1, ch.status.id) \
-            for ch in book_version.get_hold_chapters()]
+    def _to_tuple(chapter):
+        """
+        @type chapter: C{booki.editor.models.Chapter}
+        @param chapter: booki.editor.models.Chapter instance
+        @rtype: C{tuple}
+        @return: Return tuple of chapter attributes
+        """
+
+        return (chapter.id, chapter.title, chapter.url_title, 1,
+                chapter.status.id, chapter.lock_type)
+
+    return [_to_tuple(ch) for ch in hold_chapters]
 
 
 def get_attachments(book_version):
