@@ -45,7 +45,7 @@ class InfoAdmin(admin.ModelAdmin):
 
 
 class ChapterAdmin(admin.ModelAdmin):
-    list_display = ('title', 'version', 'revision', 'modified')
+    list_display = ('title', 'version', 'revision', 'modified', 'book', 'lock_type')
     ordering = ['title']
     list_filter = ['book']
     search_fields = ['title']
