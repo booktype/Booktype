@@ -68,6 +68,8 @@ function init_instance {
   execute_command "./manage.py syncdb --noinput"
   execute_command "./manage.py migrate"
   execute_command "./manage.py createsuperuser"
+  execute_command "./manage.py update_permissions"
+  execute_command "./manage.py update_default_roles"
   execute_command "./manage.py collectstatic"
 }
 
