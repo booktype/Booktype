@@ -62,3 +62,49 @@ class SecurityUtilsTestCase(TestCase):
             ),
             "Member of a book's role should have permissions"
         )
+
+    def test_user_security_not_admin(self):
+        # let's create a book and set it to the role
+        # so we can scope permissions just for that book
+        book = factory_models.BookFactory()
+        self.bookrole.book = book
+
+        # also put user as member of that role
+        self.bookrole.members.add(self.user)
+        self.bookrole.save()
+
+        sec = security.get_security_for_book(self.user, book)
+
+        self.assertFalse(sec.is_admin())
+
+    def test_user_security_is_admin(self):
+        # let's create a book and set it to the role
+        # so we can scope permissions just for that book
+        book = factory_models.BookFactory()
+        self.bookrole.book = book
+
+        # also put user as member of that role
+        self.bookrole.members.add(self.superuser)
+        self.bookrole.save()
+
+        sec = security.get_security_for_book(self.superuser, book)
+
+        self.assertTrue(sec.is_admin())
+
+    def test_user_security_is_bookowner(self):
+        # let's create a book and set it to the role
+        # so we can scope permissions just for that book
+        book = factory_models.BookFactory(owner=self.user)
+
+        sec = security.get_security_for_book(self.user, book)
+
+        self.assertTrue(sec.is_book_owner())
+
+    def test_user_security_is_not_bookowner(self):
+        # let's create a book and set it to the role
+        # so we can scope permissions just for that book
+        book = factory_models.BookFactory(owner=self.superuser)
+
+        sec = security.get_security_for_book(self.user, book)
+
+        self.assertFalse(sec.is_book_owner())

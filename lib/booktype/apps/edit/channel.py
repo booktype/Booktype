@@ -27,9 +27,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, SuspiciousOperation
 
 from booki.editor import models
-from booki.utils import security
 from booki.utils.log import logBookHistory, logChapterHistory
 
+from booktype.utils import security
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.models import Role, BookRole
 
@@ -134,13 +134,13 @@ def get_attachments(book_version):
 
         return None
 
-    attachments = [{"id":        att.id,
+    attachments = [{"id": att.id,
                     "dimension": _getDimension(att),
-                    "status":    att.status.id,
-                    "name":      os.path.split(att.attachment.name)[1],
-                    "preview":   att.thumbnail(),
-                    "created":   str(att.created.strftime("%d.%m.%Y %H:%M:%S")),
-                    "size":      att.attachment.size}
+                    "status": att.status.id,
+                    "name": os.path.split(att.attachment.name)[1],
+                    "preview": att.thumbnail(),
+                    "created": str(att.created.strftime("%d.%m.%Y %H:%M:%S")),
+                    "size": att.attachment.size}
                    for att in book_version.get_attachments().order_by("attachment") if att.attachment]
 
     return attachments
@@ -154,10 +154,10 @@ def get_book(request, bookid, versionid):
     except models.Book.MultipleObjectsReturned:
         raise ObjectDoesNotExist
 
-    book_security = security.getUserSecurityForBook(request.user, book)
-    hasPermission = security.canEditBook(book, book_security)
+    book_security = security.get_security_for_book(request.user, book)
+    has_permission = book_security.can_edit()
 
-    if not hasPermission:
+    if not has_permission:
         raise PermissionDenied
 
     book_version = book.get_version(versionid)
@@ -199,11 +199,11 @@ def remote_init_editor(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    ## get chapters
+    # get chapters
     chapters = get_toc_for_book(book_version)
     holdChapters = get_hold_chapters(book_version)
 
-    ## get users
+    # get users
     def _get_username(a):
         if a == request.sputnikID:
             return "<b>%s</b>" % a
@@ -214,29 +214,29 @@ def remote_init_editor(request, message, bookid, version):
     except:
         users = []
 
-    ## get workflow statuses
+    # get workflow statuses
     statuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
-    ## get attachments
+    # get attachments
     try:
         attachments = get_attachments(book_version)
     except:
         attachments = []
 
-    ## get metadata
+    # get metadata
     metadata = [{'name': v.name, 'value': v.get_value()} for v in models.Info.objects.filter(book=book)]
 
-    ## notify others
+    # notify others
     sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
                                 {"command": "user_joined",
                                  "email": request.user.email,
                                  "user_joined": request.user.username},
-                                myself = False)
+                                myself=False)
 
-    ## get licenses
-    licenses =  [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
+    # get licenses
+    licenses = [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
 
-    ## get online users
+    # get online users
 
     try:
         _onlineUsers = sputnik.smembers("sputnik:channel:%s:users" % message["channel"])
@@ -250,17 +250,17 @@ def remote_init_editor(request, message, bookid, version):
         except:
             pass
 
-        ## get mood message for current user
-        ## send mood as seperate message
+        # get mood message for current user
+        # send mood as seperate message
 
-        ## set notifications to other clients
+        # set notifications to other clients
         try:
             profile = request.user.get_profile()
         except AttributeError:
             profile = None
 
         if profile:
-            moodMessage = profile.mood;
+            moodMessage = profile.mood
         else:
             moodMessage = ''
 
@@ -274,7 +274,7 @@ def remote_init_editor(request, message, bookid, version):
                                      "mood": moodMessage}
                                     )
 
-    ## get online users and their mood messages
+    # get online users and their mood messages
 
     from django.contrib.auth.models import User
 
@@ -282,12 +282,12 @@ def remote_init_editor(request, message, bookid, version):
         try:
             _u = User.objects.get(username=_user)
             return {
-                    'username':_user,
-                    'email': _u.email,
-                    'first_name': _u.first_name,
-                    'last_name': _u.last_name,
-                    'mood':_u.get_profile().mood
-                   }
+                'username': _user,
+                'email': _u.email,
+                'first_name': _u.first_name,
+                'last_name': _u.last_name,
+                'mood': _u.get_profile().mood
+            }
         except:
             return None
 
@@ -295,7 +295,9 @@ def remote_init_editor(request, message, bookid, version):
 
     # for now, this is one big temp here
 
-    import time, decimal, re
+    import time
+    import decimal
+    import re
 
     _now = time.time()
     locks = {}
@@ -332,7 +334,7 @@ def remote_init_editor(request, message, bookid, version):
             "metadata": metadata,
             "hold": holdChapters,
             "users": users,
-            "is_admin":  book_security.isAdmin(),
+            "is_admin": book_security.is_admin(),
             "locks": locks,
             "statuses": statuses,
             "attachments": attachments,
@@ -389,29 +391,27 @@ def remote_attachments_delete(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
-    can_remove_attachment = security.has_perm(
-        request.user, 'edit.remove_attachment', book)
 
-    if not book_security.is_admin() or not can_remove_attachment:
+    if not book_security.has_perm('edit.remove_attachment'):
         raise PermissionDenied
 
-    if book_security.isAdmin():
-        for att_id in message['attachments']:
-            att = models.Attachment.objects.get(pk=att_id, version=book_version)
+    for att_id in message['attachments']:
+        att = models.Attachment.objects.get(pk=att_id, version=book_version)
 
-            from booki.utils import log
-            import os.path
+        from booki.utils import log
+        import os.path
 
-            log.logBookHistory(
-                book=book,
-                version=book_version,
-                args={'filename': os.path.split(att.attachment.name)[1]},
-                user=request.user,
-                kind='attachment_delete'
-            )
-            att.delete()
+        log.logBookHistory(
+            book=book,
+            version=book_version,
+            args={'filename': os.path.split(att.attachment.name)[1]},
+            user=request.user,
+            kind='attachment_delete'
+        )
+        att.delete()
 
     return {"result": True}
+
 
 def remote_chapter_status(request, message, bookid, version):
     """
@@ -435,7 +435,7 @@ def remote_chapter_status(request, message, bookid, version):
         sputnik.rdelete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
 
     sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                        {"command": "chapter_status",
+                                {"command": "chapter_status",
                                          "chapterID": message["chapterID"],
                                          "status": message["status"],
                                          "username": request.user.username})
@@ -535,7 +535,7 @@ def remote_chapter_save(request, message, bookid, version):
 
         for _footnote in root.find('body').xpath('//sup[@class="footnote"]'):
             footID = _footnote.get('id')
-            footnote_content = message['footnotes']['content_'+footID]
+            footnote_content = message['footnotes']['content_' + footID]
 
             _footnote.text = ''
             ftn = etree.SubElement(_footnote, 'span')
@@ -543,23 +543,23 @@ def remote_chapter_save(request, message, bookid, version):
 
         content = etree.tostring(tree, pretty_print=True, encoding='utf-8')
 
-    if message.get("minor", False) != True:
-        history = logChapterHistory(chapter = chapter,
-                                    content = content,
-                                    user = request.user,
-                                    comment = message.get("comment", ""),
-                                    revision = chapter.revision+1)
+    if not message.get("minor", False):
+        history = logChapterHistory(chapter=chapter,
+                                    content=content,
+                                    user=request.user,
+                                    comment=message.get("comment", ""),
+                                    revision=chapter.revision + 1)
 
         if history:
-            logBookHistory(book = chapter.book,
-                           version = book_version,
-                           chapter = chapter,
-                           chapter_history = history,
-                           user = request.user,
-                           args = {"comment": message.get("comment", ""),
-                                   "author": message.get("author", ""),
-                                   "authorcomment": message.get("authorcomment", "")},
-                           kind = 'chapter_save')
+            logBookHistory(book=chapter.book,
+                           version=book_version,
+                           chapter=chapter,
+                           chapter_history=history,
+                           user=request.user,
+                           args={"comment": message.get("comment", ""),
+                                 "author": message.get("author", ""),
+                                 "authorcomment": message.get("authorcomment", "")},
+                           kind='chapter_save')
 
         chapter.revision += 1
 
@@ -585,7 +585,7 @@ def remote_chapter_save(request, message, bookid, version):
 
     # fire the signal
     import booki.editor.signals
-    booki.editor.signals.chapter_modified.send(sender = book_version, chapter = chapter, user = request.user)
+    booki.editor.signals.chapter_modified.send(sender=book_version, chapter=chapter, user=request.user)
 
     return {}
 
@@ -614,10 +614,8 @@ def remote_chapter_delete(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
-    can_delete_chapter = security.has_perm(
-        request.user, 'edit.delete_chapter', book)
 
-    if not book_security.is_admin() or not can_delete_chapter:
+    if not book_security.has_perm('edit.delete_chapter'):
         raise PermissionDenied
 
     # get toc item related with chapter to be deleted
@@ -681,10 +679,8 @@ def remote_section_delete(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
-    can_delete_section = security.has_perm(
-        request.user, 'edit.delete_section', book)
 
-    if not book_security.isAdmin() or not can_delete_section:
+    if not book_security.has_perm('edit.delete_section'):
         raise PermissionDenied
 
     section_id = message["chapterID"]
@@ -765,10 +761,8 @@ def remote_chapter_rename(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
-    can_rename_chapter = security.has_perm(
-        request.user, 'edit.rename_chapter', book)
 
-    if not book_security.isAdmin() or not can_rename_chapter:
+    if not book_security.has_perm('edit.rename_chapter'):
         raise PermissionDenied
 
     # get toc item related to chapter
@@ -838,10 +832,8 @@ def remote_section_rename(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
-    can_rename_section = security.has_perm(
-        request.user, 'edit.rename_section', book)
 
-    if not book_security.isAdmin() or not can_rename_section:
+    if not book_security.has_perm('edit.rename_section'):
         raise PermissionDenied
 
     # check security
@@ -862,7 +854,7 @@ def remote_section_rename(request, message, bookid, version):
     )
 
     sputnik.addMessageToChannel(
-        request, "/chat/%s/" %  bookid, {
+        request, "/chat/%s/" % bookid, {
             "command": "message_info",
             "from": request.user.username,
             "email": request.user.email,
@@ -914,15 +906,15 @@ def remote_chapters_changed(request, message, bookid, version):
     weight = len(lst)
 
     logBookHistory(
-       book = book,
-       version = book_version,
-       user = request.user,
-       kind = "chapter_reorder"
+        book=book,
+        version=book_version,
+        user=request.user,
+        kind="chapter_reorder"
     )
 
     for chap in lst:
         try:
-            toc_item =  models.BookToc.objects.get(id__exact=int(chap[0]), version=book_version)
+            toc_item = models.BookToc.objects.get(id__exact=int(chap[0]), version=book_version)
             toc_item.weight = weight
 
             # check if toc item has parent
@@ -945,10 +937,10 @@ def remote_chapters_changed(request, message, bookid, version):
 
     if message["kind"] == "remove":
         if type(message["chapter_id"]) == type(u' ') and message["chapter_id"][0] == 's':
-            m =  models.BookToc.objects.get(id__exact=message["chapter_id"][1:], version=book_version)
+            m = models.BookToc.objects.get(id__exact=message["chapter_id"][1:], version=book_version)
             m.delete()
         else:
-            m =  models.BookToc.objects.get(chapter__id__exact=int(message["chapter_id"]), version=book_version)
+            m = models.BookToc.objects.get(chapter__id__exact=int(message["chapter_id"]), version=book_version)
             m.delete()
 
 #        addMessageToChannel(request, "/chat/%s/%s/" % (projectid, bookid), {"command": "message_info", "from": request.user.username, "message": 'User %s has rearranged chapters.' % request.user.username})
@@ -997,12 +989,12 @@ def remote_chapter_unhold(request, message, bookid, version):
 
     chptr = models.Chapter.objects.get(id__exact=chapterID, version=book_version)
     toc_item = models.BookToc(
-        book = book,
-        version = book_version,
-        name = chptr.title,
-        chapter = chptr,
-        weight = -1,
-        typeof = 1
+        book=book,
+        version=book_version,
+        name=chptr.title,
+        chapter=chptr,
+        weight=-1,
+        typeof=1
     )
     toc_item.save()
 
@@ -1158,11 +1150,9 @@ def remote_get_chapter(request, message, bookid, version):
     if message.get("revisions", False):
         res["revisions"] = [x.revision for x in models.ChapterHistory.objects.filter(chapter=chapter).order_by("revision")]
 
-
     if message.get("revision", chapter.revision) != chapter.revision:
         ch = models.ChapterHistory.objects.get(chapter=chapter, revision=message.get("revision"))
         res["content"] = ch.content
-
 
     if not message.get("lock", True):
         return res
@@ -1210,10 +1200,8 @@ def remote_create_chapter(request, message, bookid, version):
     import datetime
 
     book, book_version, book_security = get_book(request, bookid, version)
-    can_create_chapter = security.has_perm(
-        request.user, 'edit.create_chapter', book)
 
-    if not can_create_chapter:
+    if not book_security.has_perm('edit.create_chapter'):
         raise PermissionDenied
 
     url_title = booktype_slugify(message["chapter"])
@@ -1424,34 +1412,34 @@ def remote_clone_chapter(request, message, bookid, version):
     # this should be solved in better way
     # should have createChapter in booki.utils.book module
 
-    toc_items = len(book_version.get_toc())+1
+    toc_items = len(book_version.get_toc()) + 1
 
-    for itm in models.BookToc.objects.filter(version = book_version, book = book):
+    for itm in models.BookToc.objects.filter(version=book_version, book=book):
         itm.weight = toc_items
         itm.save()
 
         toc_items -= 1
 
-    tc = models.BookToc(version = book_version,
-                        book = book,
-                        name = title,
-                        chapter = chapter,
-                        weight = 1,
-                        typeof = 1)
+    tc = models.BookToc(version=book_version,
+                        book=book,
+                        name=title,
+                        chapter=chapter,
+                        weight=1,
+                        typeof=1)
 
     tc.save()
 
-    history = logChapterHistory(chapter = chapter,
-                                content = chapter.content,
-                                user = request.user,
-                                comment = message.get("comment", ""),
-                                revision = chapter.revision)
-    logBookHistory(book = book,
-                   version = book_version,
-                   chapter = chapter,
-                   chapter_history = history,
-                   user = request.user,
-                   kind = 'chapter_clone')
+    history = logChapterHistory(chapter=chapter,
+                                content=chapter.content,
+                                user=request.user,
+                                comment=message.get("comment", ""),
+                                revision=chapter.revision)
+    logBookHistory(book=book,
+                   version=book_version,
+                   chapter=chapter,
+                   chapter_history=history,
+                   user=request.user,
+                   kind='chapter_clone')
 
     attachments = source_book_version.get_attachments()
     attachmentnames = dict([(att.get_name(), att) for att in attachments])
@@ -1469,14 +1457,14 @@ def remote_clone_chapter(request, message, bookid, version):
         src = e.get('src')
         if src is not None:
             dirname, rest = src.split('/', 1)
-            if dirname ==  "static":
-                name = src.split('/',1)[1]
+            if dirname == "static":
+                name = src.split('/', 1)[1]
                 att = attachmentnames.get(name)
-                if att and not name in name2copy:
+                if att and name not in name2copy:
                     new_att = copy_attachment(att, book)
                     name2copy[name] = new_att.get_name()
                 if att and name in name2copy:
-                    e.set('src', "static/"+name2copy[name])
+                    e.set('src', "static/" + name2copy[name])
 
     chapter.content = etree.tostring(tree, encoding='UTF-8', method='html')
     chapter.save()
@@ -1524,10 +1512,8 @@ def remote_create_section(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
-    can_create_section = security.has_perm(
-        request.user, 'edit.create_section', book)
 
-    if not can_create_section:
+    if not book_security.has_perm('edit.create_section'):
         raise PermissionDenied
 
     ch = models.BookToc.objects.filter(
@@ -1659,7 +1645,7 @@ def remote_covers_data(request, message, bookid, version):
 
     covers.reverse()
 
-    return {"covers": covers, "can_update": book_security.isAdmin()}
+    return {"covers": covers, "can_update": book_security.is_admin()}
 
 
 def remote_cover_approve(request, message, bookid, version):
@@ -1680,10 +1666,8 @@ def remote_cover_approve(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
-    can_edit_cover = security.has_perm(
-        request.user, 'edit.edit_cover', book)
 
-    if not book_security.isAdmin() or not can_edit_cover:
+    if not book_security.has_perm('edit.edit_cover'):
         raise PermissionDenied
 
     cover = models.BookCover.objects.get(book=book, cid=message.get('cid', ''))
@@ -1721,10 +1705,8 @@ def remote_cover_delete(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
-    can_delete_cover = security.has_perm(
-        request.user, 'edit.delete_cover', book)
 
-    if not book_security.isAdmin() or not can_delete_cover:
+    if not book_security.has_perm('edit.delete_cover'):
         raise PermissionDenied
 
     cover = models.BookCover.objects.get(book=book, cid=message.get('cid', ''))
@@ -1758,10 +1740,8 @@ def remote_cover_save(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
-    can_edit_cover = security.has_perm(
-        request.user, 'edit.edit_cover', book)
 
-    if not book_security.isAdmin() or not can_edit_cover:
+    if not book_security.has_perm('edit.edit_cover'):
         raise PermissionDenied
 
     cover = models.BookCover.objects.get(book=book, cid=message.get('cid', ''))
@@ -1936,10 +1916,10 @@ def remote_settings_options(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    licenses = [(lic.abbrevation, lic.name)  for lic in models.License.objects.all().order_by("name") if lic]
+    licenses = [(lic.abbrevation, lic.name) for lic in models.License.objects.all().order_by("name") if lic]
     languages = [(lic.abbrevation, lic.name) for lic in models.Language.objects.all().order_by("name") if lic] + [('unknown', 'Unknown')]
 
-    current_license = getattr(book.license, "abbrevation","")
+    current_license = getattr(book.license, "abbrevation", "")
     current_language = getattr(book.language, "abbrevation", "unknown")
 
     # get rtl
@@ -1983,7 +1963,6 @@ def remote_license_save(request, message, bookid, version):
     book.license = lic
     book.save()
 
-
     return {"status": 1}
 
 
@@ -2012,14 +1991,13 @@ def remote_license_attributions(request, message, bookid, version):
     from django.contrib.auth.models import User
 
     # not so cool idea
-    excl = [a.user.username for a in models.AttributionExclude.objects.filter(book = book)]
-    users = [(u['user__username'], u['user__first_name']) for u in models.ChapterHistory.objects.filter(chapter__version__book=book).values("user", "user__username", "user__first_name").distinct()  if u['user__username'] not in excl]
-    users_exclude = [(u.user.username, u.user.first_name) for u in models.AttributionExclude.objects.filter(book = book).order_by("user__username")]
-
+    excl = [a.user.username for a in models.AttributionExclude.objects.filter(book=book)]
+    users = [(u['user__username'], u['user__first_name']) for u in models.ChapterHistory.objects.filter(chapter__version__book=book).values("user", "user__username", "user__first_name").distinct() if u['user__username'] not in excl]
+    users_exclude = [(u.user.username, u.user.first_name) for u in models.AttributionExclude.objects.filter(book=book).order_by("user__username")]
 
     return {"result": True,
             "users": users,
-            "users_exclude": users_exclude }
+            "users_exclude": users_exclude}
 
 
 def remote_license_attributions_save(request, message, bookid, version):
@@ -2049,8 +2027,8 @@ def remote_license_attributions_save(request, message, bookid, version):
     models.AttributionExclude.objects.filter(book=book).delete()
 
     for userName in message["excluded_users"]:
-        u = User.objects.get(username = userName)
-        a = models.AttributionExclude(book = book, user = u)
+        u = User.objects.get(username=userName)
+        a = models.AttributionExclude(book=book, user=u)
         a.save()
 
     transaction.commit()
@@ -2059,20 +2037,18 @@ def remote_license_attributions_save(request, message, bookid, version):
 
 
 def remote_publish_book(request, message, bookid, version):
-    book = get_book(request, bookid, version)[0]
-    can_publish_book = security.has_perm(
-        request.user, 'edit.publish_book', book)
+    book, book_version, book_security = get_book(request, bookid, version)
 
-    if not can_publish_book:
+    if not book_security.has_perm('edit.publish_book'):
         raise PermissionDenied
 
     from . import tasks
-    tasks.publish_book.apply_async((1, ), dict(bookid=bookid, 
-        version=version, 
-        username=request.user.username,
-        clientid=request.clientID, 
-        sputnikid=request.sputnikID, 
-        formats=message["formats"]))
+    tasks.publish_book.apply_async((1, ), dict(bookid=bookid,
+                                               version=version,
+                                               username=request.user.username,
+                                               clientid=request.clientID,
+                                               sputnikid=request.sputnikID,
+                                               formats=message["formats"]))
 
     return {'result': True}
 
@@ -2084,18 +2060,18 @@ def remote_word_count(request, message, bookid, version):
     book = models.Book.objects.get(id=bookid)
     book_version = book.get_version(version)
 
-    ## get chapters
+    # get chapters
     chapters = models.BookToc.objects.filter(book=book, version=book_version)
     current_chapter = message["current_chapter_id"]
 
-    #get chapter data
+    # get chapter data
     res = {}
     all_wcount = 0
     all_charcount = 0
     all_charspacecount = 0
 
     for chap in chapters:
-        if chap.is_chapter() and chap.chapter.id!=current_chapter:
+        if chap.is_chapter() and chap.chapter.id != current_chapter:
             stripped_data = strip_tags(chap.chapter.content)
             all_wcount += wordcount(stripped_data)
             all_charcount += charcount(stripped_data)
@@ -2111,7 +2087,8 @@ def remote_word_count(request, message, bookid, version):
 
     return res
 
-######################################################################################################
+#
+
 
 def remote_book_permission_save(request, message, bookid, version):
     """
@@ -2134,7 +2111,7 @@ def remote_book_permission_save(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    if not book_security.isAdmin():
+    if not book_security.is_admin():
         raise PermissionDenied
 
     book.permission = message["permission"]
@@ -2182,7 +2159,7 @@ def remote_book_status_rename(request, message, bookid, version):
     from django.utils.html import strip_tags
 
     try:
-        bs = models.BookStatus.objects.get(book=book, id = message["status_id"])
+        bs = models.BookStatus.objects.get(book=book, id=message["status_id"])
         bs.name = strip_tags(message["status_name"].strip())
         bs.save()
     except models.BookStatus.DoesNotExist:
@@ -2191,13 +2168,13 @@ def remote_book_status_rename(request, message, bookid, version):
         transaction.commit()
 
     qs = models.BookStatus.objects.filter(book=book).order_by("-weight")
-    all_statuses = [(status.id, status.name) for status in qs ]
+    all_statuses = [(status.id, status.name) for status in qs]
 
     sputnik.addMessageToChannel(request,
                                 "/booktype/book/%s/%s/" % (bookid, version),
                                 {"command": "book_status_renamed",
                                  "statuses": all_statuses},
-                                myself = False
+                                myself=False
                                 )
 
     return {"status": True,
@@ -2233,18 +2210,17 @@ def remote_book_status_order(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    if not book_security.isAdmin():
+    if not book_security.is_admin():
         raise PermissionDenied
 
     weight = 100
 
     for status_id in [x[11:] for x in message["order"]]:
-        up = models.BookStatus.objects.get(book = book, id = status_id)
+        up = models.BookStatus.objects.get(book=book, id=status_id)
         up.weight = weight
         up.save()
 
         weight -= 1
-
 
     allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
@@ -2252,11 +2228,11 @@ def remote_book_status_order(request, message, bookid, version):
                                 "/booki/book/%s/%s/" % (bookid, version),
                                 {"command": "chapter_status_changed",
                                  "statuses": allStatuses},
-                                myself = False
+                                myself=False
                                 )
 
     return {"result": True,
-            "statuses": allStatuses }
+            "statuses": allStatuses}
 
 
 def remote_book_status_remove(request, message, bookid, version):
@@ -2287,16 +2263,16 @@ def remote_book_status_remove(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    if not book_security.isAdmin():
+    if not book_security.is_admin():
         raise PermissionDenied
 
     result = True
 
-    up = models.BookStatus.objects.get(book = book, id = message["status_id"])
+    up = models.BookStatus.objects.get(book=book, id=message["status_id"])
     # this is a quick fix
     # check - no chapter has this status + no attachment has this status and no book has this status
-    if len(list(models.Chapter.objects.filter(status = up, book = book))) == 0 and \
-            len(list(models.Attachment.objects.filter(status = up, version__book = book))) == 0 and \
+    if len(list(models.Chapter.objects.filter(status=up, book=book))) == 0 and \
+            len(list(models.Attachment.objects.filter(status=up, version__book=book))) == 0 and \
             book.status != up:
         up.delete()
     else:
@@ -2308,7 +2284,7 @@ def remote_book_status_remove(request, message, bookid, version):
                                 "/booki/book/%s/%s/" % (bookid, version),
                                 {"command": "chapter_status_changed",
                                  "statuses": allStatuses},
-                                myself = False
+                                myself=False
                                 )
 
     return {"status": True,
@@ -2346,14 +2322,14 @@ def remote_book_status_create(request, message, bookid, version):
 
     status_id = None
 
-    if not book_security.isAdmin():
+    if not book_security.is_admin():
         raise PermissionDenied
 
     from django.utils.html import strip_tags
 
-    bs = models.BookStatus(book = book,
-                           name = strip_tags(message["status_name"].strip()),
-                           weight = 0)
+    bs = models.BookStatus(book=book,
+                           name=strip_tags(message["status_name"].strip()),
+                           weight=0)
     bs.save()
 
     status_id = bs.id
@@ -2364,7 +2340,7 @@ def remote_book_status_create(request, message, bookid, version):
                                 "/booki/book/%s/%s/" % (bookid, version),
                                 {"command": "chapter_status_changed",
                                  "statuses": allStatuses},
-                                myself = False
+                                myself=False
                                 )
 
     return {"result": True,
@@ -2400,9 +2376,9 @@ def remote_roles_delete(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
     try:
-        for up in models.BookiPermission.objects.filter(book = book,
-                                                     user__username = message["username"],
-                                                     permission = message["role"]):
+        for up in models.BookiPermission.objects.filter(book=book,
+                                                        user__username=message["username"],
+                                                        permission=message["role"]):
             up.delete()
     except models.BookiPermission.DoesNotExist:
         pass
@@ -2437,15 +2413,15 @@ def remote_roles_add(request, message, bookid, version):
     result = False
 
     try:
-        u = User.objects.get(username = message["username"])
+        u = User.objects.get(username=message["username"])
 
         # we do some black magic if user is book owner and we try to make him administrator
         if not (book.owner == u and message["role"] == 1):
             # Do not add if user is already in the list
-            if not models.BookiPermission.objects.filter(book = book, user = u, permission = message["role"]).exists():
-                up = models.BookiPermission(book = book,
-                                            user = u,
-                                            permission = message["role"])
+            if not models.BookiPermission.objects.filter(book=book, user=u, permission=message["role"]).exists():
+                up = models.BookiPermission(book=book,
+                                            user=u,
+                                            permission=message["role"])
                 up.save()
 
                 result = True
@@ -2476,7 +2452,7 @@ def remote_roles_list(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    users = [(u.user.username, '%s (%s)' % (u.user.username, u.user.first_name)) for u in models.BookiPermission.objects.filter(book = book, permission = message["role"]).order_by("user__username")]
+    users = [(u.user.username, '%s (%s)' % (u.user.username, u.user.first_name)) for u in models.BookiPermission.objects.filter(book=book, permission=message["role"]).order_by("user__username")]
 
     if int(message["role"]) == 1:
         users.append((book.owner.username, '%s (%s) [owner]' % (book.owner.username, book.owner.first_name)))
@@ -2509,7 +2485,6 @@ def remote_users_suggest(request, message, bookid, version):
 
 #    users = ['%s' % (u.username, ) for u in User.objects.filter(Q(username__contains=message["possible_user"]) | Q(first_name__contains=message["possible_user"]))[:20]]
     users = ['%s (%s)' % (u.username, u.first_name) for u in User.objects.filter(Q(username__contains=message["possible_user"]) | Q(first_name__contains=message["possible_user"]))[:20]]
-
 
     return {"result": True, "possible_users": users}
 
@@ -2548,15 +2523,15 @@ def remote_settings_language_save(request, message, bookid, version):
         rtl_value = "LTR"
 
     try:
-        rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind = 0)
+        rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind=0)
         rtl.value_string = rtl_value
         rtl.save()
     except models.Info.DoesNotExist:
 
-        rtl = models.Info(book = book,
-                          name = '{http://booki.cc/}dir',
-                          kind = 0,
-                          value_string = rtl_value)
+        rtl = models.Info(book=book,
+                          name='{http://booki.cc/}dir',
+                          kind=0,
+                          value_string=rtl_value)
         rtl.save()
 
     return {"result": True}
@@ -2580,6 +2555,7 @@ def remote_get_users(request, message, bookid, version):
 
     from django.contrib.auth.models import User
     res = {"result": True}
+
     def vidi(a):
         return sputnik.rdecode(a)
 
@@ -2652,7 +2628,7 @@ def remote_get_history(request, message, bookid, version):
 
     page = int(message.get("page", 1))
 
-    book_history = models.BookHistory.objects.filter(book=book).order_by("-modified")[(page-1)*50:(page-1)*50+50]
+    book_history = models.BookHistory.objects.filter(book=book).order_by("-modified")[(page - 1) * 50:(page - 1) * 50 + 50]
 
     temp = {
         0: 'unknown',
@@ -2674,7 +2650,6 @@ def remote_get_history(request, message, bookid, version):
         19: 'chapter_delete'
     }
 
-
     history = []
     for entry in book_history:
         if entry.kind in [1, 2, 3] and entry.chapter:
@@ -2683,7 +2658,7 @@ def remote_get_history(request, message, bookid, version):
                             "modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
                             "description": entry.args,
                             "user": entry.user.username,
-                            "kind": temp.get(entry.kind,'')})
+                            "kind": temp.get(entry.kind, '')})
         elif entry.kind == 2 and entry.chapter:
             history.append({"chapter": entry.chapter.title,
                             "chapter_url": entry.chapter.url_title,
@@ -2691,34 +2666,34 @@ def remote_get_history(request, message, bookid, version):
                             "modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
                             "description": entry.args,
                             "user": entry.user.username,
-                            "kind": temp.get(entry.kind,'')})
+                            "kind": temp.get(entry.kind, '')})
         elif entry.kind in [11, 12]:
             history.append({"modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
                             "version": parseJSON(entry.args),
                             "user": entry.user.username,
-                            "kind": temp.get(entry.kind,'')})
+                            "kind": temp.get(entry.kind, '')})
         elif entry.kind in [13, 14, 16, 17, 18]:
             history.append({"modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
                             "args": parseJSON(entry.args),
                             "user": entry.user.username,
-                            "kind": temp.get(entry.kind,'')})
+                            "kind": temp.get(entry.kind, '')})
         elif entry.kind in [15]:
             history.append({"chapter": entry.chapter.title,
                             "chapter_url": entry.chapter.url_title,
                             "description": entry.args,
                             "modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
                             "user": entry.user.username,
-                            "kind": temp.get(entry.kind,'')})
+                            "kind": temp.get(entry.kind, '')})
         elif entry.kind in [19]:
             history.append({"args": parseJSON(entry.args),
                             "modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
                             "user": entry.user.username,
-                            "kind": temp.get(entry.kind,'')})
+                            "kind": temp.get(entry.kind, '')})
         else:
             history.append({"modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
                             "description": entry.args,
                             "user": entry.user.username,
-                            "kind": temp.get(entry.kind,'')})
+                            "kind": temp.get(entry.kind, '')})
 
     return {"history": history}
 
@@ -2785,7 +2760,6 @@ def remote_revert_revision(request, message, bookid, version):
     @param version: Book version
     """
 
-
     book, book_version, book_security = get_book(request, bookid, version)
 
     chapter = models.Chapter.objects.get(version=book_version,
@@ -2798,23 +2772,23 @@ def remote_revert_revision(request, message, bookid, version):
     # TODO
     # does chapter history really needs to keep content or it can only keep reference to chapter
 
-    history = logChapterHistory(chapter = chapter,
-                      content = revision.content,
-                      user = request.user,
-                      comment = "Reverted to revision %s." % message["revision"],
-                      revision = chapter.revision+1)
+    history = logChapterHistory(chapter=chapter,
+                                content=revision.content,
+                                user=request.user,
+                                comment="Reverted to revision %s." % message["revision"],
+                                revision=chapter.revision + 1)
 
     if history:
-        logBookHistory(book = book,
-                       version = book_version,
-                       chapter = chapter,
-                       chapter_history = history,
-                       user = request.user,
-                       args = {},
-                       kind = 'chapter_save')
+        logBookHistory(book=book,
+                       version=book_version,
+                       chapter=chapter,
+                       chapter_history=history,
+                       user=request.user,
+                       args={},
+                       kind='chapter_save')
 
     chapter.revision += 1
-    chapter.content = revision.content;
+    chapter.content = revision.content
 
     chapter.save()
 
@@ -2934,11 +2908,10 @@ def remote_notes_save(request, message, bookid, version):
     book_notes_obj = None
 
     if len(book_notes) == 0:
-        book_notes_obj = models.BookNotes( book = book , notes = notes)
+        book_notes_obj = models.BookNotes(book=book, notes=notes)
     else:
         book_notes_obj = book_notes[0]
     book_notes_obj.notes = notes
-
 
     book_notes_obj.save()
 
@@ -2975,7 +2948,7 @@ def remote_unlock_chapter(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    if book_security.isAdmin():
+    if book_security.is_admin():
         for key in sputnik.rkeys("booki:%s:locks:%s:*" % (bookid, message["chapterID"])):
             m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
             if m:
@@ -3060,7 +3033,7 @@ def create_new_version(book, book_ver, message, major, minor):
             chap = toc.chapter
 
             nchap = models.Chapter(version=new_version,
-                                   book=book, # this should be removed
+                                   book=book,  # this should be removed
                                    url_title=chap.url_title,
                                    title=chap.title,
                                    status=chap.status,
@@ -3070,7 +3043,7 @@ def create_new_version(book, book_ver, message, major, minor):
             nchap.save()
 
         ntoc = models.BookToc(version=new_version,
-                              book=book, # this should be removed
+                              book=book,  # this should be removed
                               name=toc.name,
                               chapter=nchap,
                               weight=toc.weight,
@@ -3081,7 +3054,7 @@ def create_new_version(book, book_ver, message, major, minor):
 
     for chap in book_ver.get_hold_chapters():
         c = models.Chapter(version=new_version,
-                           book=book, # this should be removed
+                           book=book,  # this should be removed
                            url_title=chap.url_title,
                            title=chap.title,
                            status=chap.status,
@@ -3091,11 +3064,11 @@ def create_new_version(book, book_ver, message, major, minor):
         c.save()
 
     for att in book_ver.get_attachments():
-        a = models.Attachment(version = new_version,
+        a = models.Attachment(version=new_version,
                               book=book,
                               status=att.status,
                               created=datetime.datetime.now())
-        a.attachment.save(att.get_name(), att.attachment, save = False)
+        a.attachment.save(att.get_name(), att.attachment, save=False)
         a.save()
 
     book.version = new_version
@@ -3126,15 +3099,15 @@ def remote_create_major_version(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    new_version = create_new_version(book, book_version, message, book_version.major+1, 0)
+    new_version = create_new_version(book, book_version, message, book_version.major + 1, 0)
 
-    logBookHistory(book = book,
-                   version = new_version,
-                   chapter = None,
-                   chapter_history = None,
-                   user = request.user,
-                   args = {"version": new_version.get_version()},
-                   kind = 'major_version')
+    logBookHistory(book=book,
+                   version=new_version,
+                   chapter=None,
+                   chapter_history=None,
+                   user=request.user,
+                   args={"version": new_version.get_version()},
+                   kind='major_version')
 
     return {"result": True, "version": new_version.get_version()}
 
@@ -3159,15 +3132,15 @@ def remote_create_minor_version(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    new_version = create_new_version(book, book_version, message, book_version.major, book_version.minor+1)
+    new_version = create_new_version(book, book_version, message, book_version.major, book_version.minor + 1)
 
-    logBookHistory(book = book,
-                   version = new_version,
-                   chapter = None,
-                  chapter_history = None,
-                   user = request.user,
-                   args = {"version": new_version.get_version()},
-                   kind = 'minor_version')
+    logBookHistory(book=book,
+                   version=new_version,
+                   chapter=None,
+                   chapter_history=None,
+                   user=request.user,
+                   args={"version": new_version.get_version()},
+                   kind='minor_version')
 
     return {"result": True, "version": new_version.get_version()}
 
@@ -3178,9 +3151,9 @@ def color_me(l, rgb, pos):
         t2 = l.find('<', pos[0])
 
         if (t1 == t2) or (t1 > t2 and t2 != -1):
-            out  = l[:pos[0]]
+            out = l[:pos[0]]
 
-            out += '<span class="diff changed">'+color_me(l[pos[0]:pos[1]], rgb, None)+'</span>'
+            out += '<span class="diff changed">' + color_me(l[pos[0]:pos[1]], rgb, None) + '</span>'
             out += l[pos[1]:]
         else:
             out = l
@@ -3193,22 +3166,22 @@ def color_me(l, rgb, pos):
     while True:
         n = l.find('<', n)
 
-        if n == -1: # no more tags
+        if n == -1:  # no more tags
             out += l[m:n]
             break
         else:
-            if l[n+1] == '/': # tag ending
+            if l[n + 1] == '/':  # tag ending
                 # closed tag
                 out += l[m:n]
 
-                j = l.find('>', n)+1
+                j = l.find('>', n) + 1
                 tag = l[n:j]
-                out += '</span>'+tag
+                out += '</span>' + tag
                 n = j
-            else: # tag start
+            else:  # tag start
                 out += l[m:n]
 
-                j = l.find('>', n)+1
+                j = l.find('>', n) + 1
 
                 if j == 0:
                     out = l[n:]
@@ -3216,19 +3189,18 @@ def color_me(l, rgb, pos):
                 else:
                     tag = l[n:j]
 
-                    if not tag.replace(' ','').replace('/','').lower() in ['<br>', '<hr>']:
+                    if not tag.replace(' ', '').replace('/', '').lower() in ['<br>', '<hr>']:
                         if n != 0:
                             out += '</span>'
 
-                        out += tag+'<span class="%s">' % rgb
+                        out += tag + '<span class="%s">' % rgb
                     else:
                         out += tag
 
                     n = j
         m = n
 
-
-    out += l[n:]+'</span>'
+    out += l[n:] + '</span>'
 
     return out
 
@@ -3266,7 +3238,6 @@ def remote_chapter_diff(request, message, bookid, version):
                                                   revision=message["revision2"])
     content = message.get("content")
 
-
     import difflib
 
     output = []
@@ -3279,7 +3250,7 @@ def remote_chapter_diff(request, message, bookid, version):
         content1 = revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
         content2 = revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
     else:
-        #check with unsaved content
+        # check with unsaved content
         content1 = revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
         content2 = content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
 
@@ -3289,7 +3260,7 @@ def remote_chapter_diff(request, message, bookid, version):
     minus_pos = None
     plus_pos = None
 
-    def my_find(s, wh, x = 0):
+    def my_find(s, wh, x=0):
         n = x
 
         for ch in s[n:]:
@@ -3299,8 +3270,6 @@ def remote_chapter_diff(request, message, bookid, version):
 
         return -1
 
-
-
     while True:
         if n >= len(lns):
             break
@@ -3308,31 +3277,31 @@ def remote_chapter_diff(request, message, bookid, version):
         line = lns[n]
 
         if line[:2] == '+ ':
-            if n+1 < len(lns) and lns[n+1][0] == '?':
-                lns[n+1] += lns[n+1] + ' '
+            if n + 1 < len(lns) and lns[n + 1][0] == '?':
+                lns[n + 1] += lns[n + 1] + ' '
 
-                x = my_find(lns[n+1][2:], '+?^-')
+                x = my_find(lns[n + 1][2:], '+?^-')
 #                x = my_find(lns[n+1][2:], '+?-')
-                y = lns[n+1][2:].find(' ', x)-2
+                y = lns[n + 1][2:].find(' ', x) - 2
 
                 plus_pos = (x, y)
             else:
                 plus_pos = None
 
-            output.append('<div style="background-color: yellow">'+color_me(line[2:], 'background-color: green;', plus_pos)+'</div>')
+            output.append('<div style="background-color: yellow">' + color_me(line[2:], 'background-color: green;', plus_pos) + '</div>')
         elif line[:2] == '- ':
-            if n+1 < len(lns) and lns[n+1][0] == '?':
-                lns[n+1] += lns[n+1] + ' '
+            if n + 1 < len(lns) and lns[n + 1][0] == '?':
+                lns[n + 1] += lns[n + 1] + ' '
 
-                x = my_find(lns[n+1][2:], '+?^-')
+                x = my_find(lns[n + 1][2:], '+?^-')
 #                x = my_find(lns[n+1][2:], '+?-')
-                y = lns[n+1][2:].find(' ', x)-2
+                y = lns[n + 1][2:].find(' ', x) - 2
 
                 minus_pos = (x, y)
             else:
                 minus_pos = None
 
-            output.append('<div style="background-color: orange">'+color_me(line[2:], 'background-color: red;', minus_pos)+'</div>')
+            output.append('<div style="background-color: orange">' + color_me(line[2:], 'background-color: red;', minus_pos) + '</div>')
         elif line[:2] == '  ':
             output.append(line[2:])
 
@@ -3369,7 +3338,6 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
     revision1 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision1"])
     revision2 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision2"])
 
-
     import difflib
 
     output = []
@@ -3387,7 +3355,7 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
     minus_pos = None
     plus_pos = None
 
-    def my_find(s, wh, x = 0):
+    def my_find(s, wh, x=0):
         n = x
 
         for ch in s[n:]:
@@ -3397,7 +3365,6 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
 
         return -1
 
-
     while True:
         if n >= len(lns):
             break
@@ -3405,27 +3372,27 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
         line = lns[n]
 
         if line[:2] == '+ ':
-            if n+1 < len(lns) and lns[n+1][0] == '?':
-                lns[n+1] += lns[n+1] + ' '
+            if n + 1 < len(lns) and lns[n + 1][0] == '?':
+                lns[n + 1] += lns[n + 1] + ' '
 
-                x = my_find(lns[n+1][2:], '+?^-')
-                y = lns[n+1][2:].find(' ', x)-2
+                x = my_find(lns[n + 1][2:], '+?^-')
+                y = lns[n + 1][2:].find(' ', x) - 2
 
                 plus_pos = (x, y)
             else:
                 plus_pos = None
 
-            output_right +=  '<div class="diff changed">' + \
-                              color_me(line[2:], 'diff added', plus_pos)+'</div>'
-            output.append('<tr>' + output_left + '</td>' + \
-                          output_right+'</td></tr>')
+            output_right += '<div class="diff changed">' + \
+                color_me(line[2:], 'diff added', plus_pos) + '</div>'
+            output.append('<tr>' + output_left + '</td>' +
+                          output_right + '</td></tr>')
             output_left = output_right = '<td valign="top">'
         elif line[:2] == '- ':
-            if n+1 < len(lns) and lns[n+1][0] == '?':
-                lns[n+1] += lns[n+1] + ' '
+            if n + 1 < len(lns) and lns[n + 1][0] == '?':
+                lns[n + 1] += lns[n + 1] + ' '
 
-                x = my_find(lns[n+1][2:], '+?^-')
-                y = lns[n+1][2:].find(' ', x)-2
+                x = my_find(lns[n + 1][2:], '+?^-')
+                y = lns[n + 1][2:].find(' ', x) - 2
 
                 minus_pos = (x, y)
             else:
@@ -3448,7 +3415,7 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
     info = '''<div style="padding-bottom: 5px"><span class="diff changed" style="width: 10px; height: 10px; display: inline-block;"></span> Changed <span class="diff added" style="width: 10px; height: 10px; display: inline-block;"></span> Added <span class="diff deleted" style="width: 10px; height: 10px; display: inline-block;"></span> Deleted </div>'''
 
     return {"result": True,
-            "output": info + '<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: '+message["revision1"]+'</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: ' + message["revision2"] + '</div></td></tr>\n'.join(output) + '</table>\n'}
+            "output": info + '<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: ' + message["revision1"] + '</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: ' + message["revision2"] + '</div></td></tr>\n'.join(output) + '</table>\n'}
 
 
 def remote_assign_to_role(request, message, bookid, version):
