@@ -469,13 +469,24 @@ def remote_change_status(request, message, bookid, version):
     @return: Returns success of this command
     """
 
-    book, book_version, _ = get_book(request, bookid, version)
+    book, book_version, book_security = get_book(request, bookid, version)
 
-    chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
-    status = models.BookStatus.objects.get(id=int(message["statusID"]))
+    try:
+        chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+        status = models.BookStatus.objects.get(id=int(message["statusID"]))
+    except (models.Chapter.DoesNotExist, models.BookStatus.DoesNotExist):
+        return dict(result=False)
+
+    # if chapter is locked -> check access
+    if chapter.is_locked():
+        # check access
+        if not book_security.has_perm('edit.lock_chapter'):
+            raise PermissionDenied
+        elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                               and chapter.lock.user != request.user):
+            raise PermissionDenied
 
     chapter.status = status
-
     chapter.save()
 
     sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
@@ -525,7 +536,20 @@ def remote_chapter_save(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+    try:
+        # check if you can access book this chapter belongs to
+        chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+    except models.Chapter.DoesNotExist:
+        return dict(result=False)
+
+    # if chapter is locked -> check access
+    if chapter.is_locked():
+        # check access
+        if not book_security.has_perm('edit.lock_chapter'):
+            raise PermissionDenied
+        elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                               and chapter.lock.user != request.user):
+            raise PermissionDenied
 
     content = message['content']
 
@@ -622,9 +646,21 @@ def remote_chapter_delete(request, message, bookid, version):
     if not book_security.has_perm('edit.delete_chapter'):
         raise PermissionDenied
 
-    # get toc item related with chapter to be deleted
-    chap = models.Chapter.objects.get(
-        id__exact=int(message["chapterID"]), version=book_version)
+    try:
+        # get toc item related with chapter to be deleted
+        chap = models.Chapter.objects.get(id__exact=int(message["chapterID"]), version=book_version)
+    except models.Chapter.DoesNotExist:
+        return dict(result=False)
+
+    # if chapter is locked -> check access
+    if chap.is_locked():
+        # check access
+        if not book_security.has_perm('edit.lock_chapter'):
+            raise PermissionDenied
+        elif not book_security.is_admin() and (chap.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                               and chap.lock.user != request.user):
+            raise PermissionDenied
+
     chap.delete()
 
     # MUST DELETE FROM TOC ALSO
@@ -769,12 +805,23 @@ def remote_chapter_rename(request, message, bookid, version):
     if not book_security.has_perm('edit.rename_chapter'):
         raise PermissionDenied
 
-    # get toc item related to chapter
-    toc_item = models.BookToc.objects.get(
-        id__exact=int(message["tocID"]), version=book_version)
+    try:
+        # get toc item related to chapter
+        toc_item = models.BookToc.objects.get(id__exact=int(message["tocID"]), version=book_version)
+    except models.BookToc.DoesNotExist:
+        return dict(result=False)
 
     # check security
     chapter = toc_item.chapter
+
+    # if chapter is locked -> check access
+    if chapter.is_locked():
+        # check access
+        if not book_security.has_perm('edit.lock_chapter'):
+            raise PermissionDenied
+        elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                               and chapter.lock.user != request.user):
+            raise PermissionDenied
 
     old_title = chapter.title
     chapter.title = message["chapter"]
@@ -1089,9 +1136,8 @@ def remote_chapter_unlock(request, message, bookid, version):
     # check access
     if not book_security.has_perm('edit.lock_chapter'):
         raise PermissionDenied
-
-    if not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
-                                         and chapter.lock.user != request.user):
+    elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                           and chapter.lock.user != request.user):
         raise PermissionDenied
 
     # remove lock
@@ -1144,8 +1190,20 @@ def remote_get_chapter(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    # check if you can access book this chapter belongs to
-    chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+    try:
+        # check if you can access book this chapter belongs to
+        chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+    except models.Chapter.DoesNotExist:
+        return dict(result=False)
+
+    # if chapter is locked -> check access
+    if chapter.is_locked():
+        # check access
+        if not book_security.has_perm('edit.lock_chapter'):
+            raise PermissionDenied
+        elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                               and chapter.lock.user != request.user):
+            raise PermissionDenied
 
     res["title"] = chapter.title
     res["content"] = chapter.content

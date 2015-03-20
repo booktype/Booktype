@@ -437,8 +437,11 @@ class Chapter(models.Model):
         """
         Return lock.type if exist, else return 0
 
-        @rtype: C{int}
-        @return: Return lock.type value
+        Args:
+          self: Chapter instance
+
+        Returns:
+          Int. Return lock.type value
         """
         try:
             if self.lock.id:    # if ChapterLock was deleted in db but still have value in python object
@@ -446,6 +449,19 @@ class Chapter(models.Model):
             return 0
         except ChapterLock.DoesNotExist:
             return 0
+
+    def is_locked(self):
+        """
+        Return is chapter is locked or not
+
+        Args:
+          self: Chapter instance
+
+        Returns:
+          Return True or False
+        """
+        return bool(self.lock_type)
+
 
 
 # ChapterHistory
