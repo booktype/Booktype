@@ -91,10 +91,13 @@ def get_hold_chapters(book_version):
 
     def _to_tuple(chapter):
         """
-        @type chapter: C{booki.editor.models.Chapter}
-        @param chapter: booki.editor.models.Chapter instance
-        @rtype: C{tuple}
-        @return: Return tuple of chapter attributes
+        Simply convert chapter instance to tuple.
+
+        Args:
+          chapter: booki.editor.models.Chapter instance
+
+        Returns:
+          Tuple with chapter's attributes
         """
 
         return (chapter.id, chapter.title, chapter.url_title, 1,
@@ -1013,17 +1016,18 @@ def remote_chapter_unhold(request, message, bookid, version):
 
 def remote_chapter_lock(request, message, bookid, version):
     """
-    Lock chapter.
+    Sputnik request handler for locking chapter.
 
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
+    Args:
+      reuest: Client Request object
+      message: Message object
+      bookid: Unique Book id
+      version: Book version
+
+    Returns:
+      Dict. Example {result=True}
     """
+
     book, book_version, book_security = get_book(request, bookid, version)
     chapter_id = message["chapterID"]
     lock_type = message["lockType"]
@@ -1065,17 +1069,18 @@ def remote_chapter_lock(request, message, bookid, version):
 
 def remote_chapter_unlock(request, message, bookid, version):
     """
-    Lock chapter.
+    Sputnik request handler for unlocking chapter.
 
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
+    Args:
+      reuest: Client Request object
+      message: Message object
+      bookid: Unique Book id
+      version: Book version
+
+    Returns:
+      Dict. Example {result=True}
     """
+
     book, book_version, book_security = get_book(request, bookid, version)
     chapter_id = message["chapterID"]
 
