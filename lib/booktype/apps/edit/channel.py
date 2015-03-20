@@ -23,6 +23,7 @@ from lxml import etree, html
 from django.db.models import Q
 from django.conf import settings
 from django.db import transaction
+from django.db.utils import IntegrityError
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, SuspiciousOperation
 
@@ -1039,13 +1040,16 @@ def remote_chapter_lock(request, message, bookid, version):
     # if not (can_lock_chapter or is_admin or is_owner):
     #     raise PermissionDenied
 
-    # get chapter
-    chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
+    try:
+        # get chapter
+        chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
 
-    # create lock for provided chapter
-    models.ChapterLock.objects.create(chapter=chapter,
-                                      user=request.user,
-                                      type=lock_type)
+        # create lock for provided chapter
+        models.ChapterLock.objects.create(chapter=chapter,
+                                          user=request.user,
+                                          type=lock_type)
+    except (models.Chapter.DoesNotExist, IntegrityError):
+        return dict(result=False)
 
     sputnik.addMessageToChannel(
         request, "/booktype/book/%s/%s/" % (bookid, version), {
@@ -1076,7 +1080,10 @@ def remote_chapter_unlock(request, message, bookid, version):
     chapter_id = message["chapterID"]
 
     # get chapter
-    chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
+    try:
+        chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
+    except models.Chapter.DoesNotExist:
+        return dict(result=False)
 
     # # check access
     # is_admin = book_security.is_group_admin() or book_security.is_book_admin() or book_security.is_superuser()

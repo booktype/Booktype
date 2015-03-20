@@ -68,7 +68,7 @@ class BookStatusAdmin(admin.ModelAdmin):
 
 
 class BookTocAdmin(admin.ModelAdmin):
-    list_display = ('name', 'weight')
+    list_display = ('name', 'weight', 'book')
     ordering = ['-weight']
     list_filter = ['book']
     search_fields = ['name']
