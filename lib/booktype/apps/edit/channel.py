@@ -1036,13 +1036,9 @@ def remote_chapter_lock(request, message, bookid, version):
     if lock_type not in (models.ChapterLock.LOCK_SIMPLE, models.ChapterLock.LOCK_EVERYONE):
         raise SuspiciousOperation
 
-    # # check access
-    # is_admin = book_security.is_group_admin() or book_security.is_book_admin() or book_security.is_superuser()
-    # is_owner = book.owner == request.user
-    # can_lock_chapter = security.has_perm(request.user, 'edit.lock_chapter', book)
-    #
-    # if not (can_lock_chapter or is_admin or is_owner):
-    #     raise PermissionDenied
+    # check access
+    if not book_security.has_perm('edit.lock_chapter'):
+        raise PermissionDenied
 
     try:
         # get chapter
@@ -1090,17 +1086,13 @@ def remote_chapter_unlock(request, message, bookid, version):
     except models.Chapter.DoesNotExist:
         return dict(result=False)
 
-    # # check access
-    # is_admin = book_security.is_group_admin() or book_security.is_book_admin() or book_security.is_superuser()
-    # is_owner = book.owner == request.user
-    # can_lock_chapter = security.has_perm(request.user, 'edit.lock_chapter', book)
+    # check access
+    if not book_security.has_perm('edit.lock_chapter'):
+        raise PermissionDenied
 
-    # if not (is_admin or is_owner):
-    #     if not can_lock_chapter:
-    #         raise PermissionDenied
-    #     # check user who locked chapter from everyone with user in request
-    #     elif chapter.lock.type == models.ChapterLock.LOCK_EVERYONE and chapter.lock.user != request.user:
-    #         raise PermissionDenied
+    if not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                         and chapter.lock.user != request.user):
+        raise PermissionDenied
 
     # remove lock
     chapter.lock.delete()
