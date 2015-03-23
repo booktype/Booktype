@@ -1,5 +1,6 @@
 import os
 import shutil
+import logging
 
 from django import forms
 from django.conf import settings
@@ -22,6 +23,8 @@ from booki.editor.models import License, Book, BookiGroup
 from booktype.utils.book import (
     create_book, rename_book, check_book_availability
 )
+
+logger = logging.getLogger('booktype')
 
 
 class BaseControlForm(BaseBooktypeForm):
@@ -155,16 +158,16 @@ class FrontpageForm(BaseControlForm, forms.Form):
         return _dict
 
     def save_settings(self, request):
-        staticRoot = settings.BOOKTYPE_ROOT
+        static_root = settings.BOOKTYPE_ROOT
         config.set_configuration(
             'BOOKTYPE_FRONTPAGE_HISTORY', self.cleaned_data['show_changes'])
 
-        if not os.path.exists('%s/templates/portal/' % staticRoot):
-            os.makedirs('%s/templates/portal/' % staticRoot)
+        if not os.path.exists('%s/templates/portal/' % static_root):
+            os.makedirs('%s/templates/portal/' % static_root)
 
         try:
             f = open(
-                '%s/templates/portal/welcome_message.html' % staticRoot, 'w')
+                '%s/templates/portal/welcome_message.html' % static_root, 'w')
 
             text_data = self.cleaned_data.get('description', '')
             for ch in ['{%', '%}', '{{', '}}']:
@@ -233,7 +236,7 @@ class BookSettingsForm(BaseControlForm, forms.Form):
     )
 
     @classmethod
-    def initial_data(self):
+    def initial_data(cls):
         _l = config.get_configuration('CREATE_BOOK_LICENSE')
         if _l and _l != '':
             try:
@@ -404,9 +407,9 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
 
     def save_settings(self, request):
         user_data = dict(
-                username=self.cleaned_data['username'],
-                email=self.cleaned_data['email'],
-                password=self.cleaned_data['password2'],
+            username=self.cleaned_data['username'],
+            email=self.cleaned_data['email'],
+            password=self.cleaned_data['password2'],
         )
         if self.cleaned_data.get('is_superuser', False):
             user = User.objects.create_superuser(**user_data)
@@ -420,8 +423,7 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         profile.description = self.cleaned_data['description']
         profile.save()
 
-        # TODO: create a signal for this and move to right place
-        if self.cleaned_data["send_email"]:
+        if self.cleaned_data.get('send_email', False):
             from django import template
 
             t = template.loader.get_template(
@@ -440,7 +442,13 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
                 content, settings.REPORT_EMAIL_USER, emails
             )
             msg.attach_alternative(content, "text/html")
-            msg.send(fail_silently=True)
+            try:
+                msg.send(fail_silently=False)
+            except Exception as e:
+                logger.error(
+                    '[CCENTER] Unable to send invite email to %s msg: %s' %
+                    (self.cleaned_data['email'], e)
+                )
 
         return user
 
@@ -507,7 +515,6 @@ class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
         super(EditPersonInfoForm, self).__init__(*args, **kwargs)
         self.fields.keyOrder = ['username', 'first_name', 'email',
                                 'description', 'is_superuser']
-
 
     class Meta(AddPersonForm.Meta):
         pass
