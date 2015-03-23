@@ -1039,15 +1039,17 @@ def remote_chapter_unhold(request, message, bookid, version):
     chapterID = message["chapterID"]
 
     chptr = models.Chapter.objects.get(id__exact=chapterID, version=book_version)
-    toc_item = models.BookToc(
-        book=book,
-        version=book_version,
-        name=chptr.title,
-        chapter=chptr,
-        weight=-1,
-        typeof=1
-    )
-    toc_item.save()
+
+    # chapter can be only in one toc in single moment
+    try:
+        toc_item = models.BookToc.objects.get(chapter=chptr)
+    except models.BookToc.DoesNotExist:
+        toc_item = models.BookToc(book=book, version=book_version, name=chptr.title,
+                                  chapter=chptr, weight=-1, typeof=1)
+        toc_item.save()
+    except models.BookToc.MultipleObjectsReturned:
+        # get the oldest toc
+        toc_item = models.BookToc.objects.filter(chapter=chptr).order_by('id')[:1][0]
 
     sputnik.addMessageToChannel(
         request, "/booktype/book/%s/%s/" % (bookid, version), {
