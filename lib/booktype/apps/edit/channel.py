@@ -1614,6 +1614,7 @@ def remote_create_section(request, message, bookid, version):
         c.name,
         c.typeof,
         None,  # fake status
+        0,   # fake unlocked
         "root",
         c.id
     )
