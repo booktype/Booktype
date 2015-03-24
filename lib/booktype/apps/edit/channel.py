@@ -1017,18 +1017,22 @@ def remote_chapter_hold(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
     chapterID = message["chapterID"]
 
-    toc_item = models.BookToc.objects.get(chapter__id__exact=chapterID, version=book_version)
-    toc_id = toc_item.id
-    toc_item.delete()
+    try:
+        toc_item = models.BookToc.objects.get(chapter__id__exact=chapterID, version=book_version)
+    except models.BookToc.DoesNotExist:
+        pass
+    else:
+        toc_id = toc_item.id
+        toc_item.delete()
 
-    sputnik.addMessageToChannel(
-        request, "/booktype/book/%s/%s/" % (bookid, version), {
-            "command": "chapter_hold",
-            "chapterID": message["chapterID"],
-            "tocID": toc_id
-        },
-        myself=True
-    )
+        sputnik.addMessageToChannel(
+            request, "/booktype/book/%s/%s/" % (bookid, version), {
+                "command": "chapter_hold",
+                "chapterID": message["chapterID"],
+                "tocID": toc_id
+            },
+            myself=True
+        )
 
     return dict(result=True)
 
@@ -1039,24 +1043,21 @@ def remote_chapter_unhold(request, message, bookid, version):
     chapterID = message["chapterID"]
 
     chptr = models.Chapter.objects.get(id__exact=chapterID, version=book_version)
-    toc_item = models.BookToc(
-        book=book,
-        version=book_version,
-        name=chptr.title,
-        chapter=chptr,
-        weight=-1,
-        typeof=1
-    )
-    toc_item.save()
 
-    sputnik.addMessageToChannel(
-        request, "/booktype/book/%s/%s/" % (bookid, version), {
-            "command": "chapter_unhold",
-            "chapterID": message["chapterID"],
-            'tocID': toc_item.id
-        },
-        myself=True
-    )
+    # chapter can be only in one toc in single moment
+    if not models.BookToc.objects.filter(chapter=chptr).exists():
+        toc_item = models.BookToc(book=book, version=book_version, name=chptr.title, chapter=chptr,
+                                  weight=-1, typeof=1)
+        toc_item.save()
+
+        sputnik.addMessageToChannel(
+            request, "/booktype/book/%s/%s/" % (bookid, version), {
+                "command": "chapter_unhold",
+                "chapterID": message["chapterID"],
+                'tocID': toc_item.id
+            },
+            myself=True
+        )
 
     return {"result": True}
 
