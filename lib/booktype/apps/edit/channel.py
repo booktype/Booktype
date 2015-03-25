@@ -52,6 +52,12 @@ def get_toc_for_book(version):
 
         # is it a section or chapter?
         if chap.chapter:
+
+            state = "normal"
+            current_editor = chap.chapter.get_current_editor_username()
+            if current_editor:
+                state = "edit"
+
             results.append((
                 chap.chapter.id,
                 chap.chapter.title,
@@ -59,8 +65,11 @@ def get_toc_for_book(version):
                 chap.typeof,
                 chap.chapter.status.id,
                 chap.chapter.lock_type,
+                chap.chapter.lock_username,
                 parent_id,
-                chap.id
+                chap.id,
+                state,
+                current_editor
             ))
         else:
             results.append((
@@ -68,10 +77,13 @@ def get_toc_for_book(version):
                 chap.name,
                 chap.name,
                 chap.typeof,
-                None,   # fake status
-                0,   # fake unlocked
+                None,       # fake status
+                0,          # fake unlocked
+                None,       # fake lock username
                 parent_id,
-                chap.id
+                chap.id,
+                "normal",   # fake state
+                None        # fake current editor
             ))
     return results
 
@@ -100,8 +112,22 @@ def get_hold_chapters(book_version):
           Tuple with chapter's attributes
         """
 
-        return (chapter.id, chapter.title, chapter.url_title, 1,
-                chapter.status.id, chapter.lock_type)
+        state = "normal"
+        current_editor = chapter.get_current_editor_username()
+        if current_editor:
+            state = "edit"
+
+        return (chapter.id,
+                chapter.title,
+                chapter.url_title,
+                1,
+                chapter.status.id,
+                chapter.lock_type,
+                chapter.lock_username,
+                "root",     # no parents in hold
+                None,       # hold chapter not in toc
+                state,
+                current_editor)
 
     return [_to_tuple(ch) for ch in hold_chapters]
 
@@ -184,7 +210,6 @@ def remote_init_editor(request, message, bookid, version):
      - metadata - list of dictionaries {'name': ..., 'value': ...}
      - hold - result of getHoldChapters function
      - users - list of active users
-     - locks - list of currently locked chapters
      - statuses - list of tuples (status_id, status_name)
      - attachments - result of getAttachments function
      - onlineUsers - list of online users
@@ -299,31 +324,6 @@ def remote_init_editor(request, message, bookid, version):
 
     # for now, this is one big temp here
 
-    import time
-    import decimal
-    import re
-
-    _now = time.time()
-    locks = {}
-
-    try:
-        for key in sputnik.rkeys("booki:*:locks:*"):
-            lastAccess = sputnik.get(key)
-
-            if type(lastAccess) in [type(' '), type(u' ')]:
-                try:
-                    lastAccess = decimal.Decimal(lastAccess)
-                except:
-                    continue
-
-                if lastAccess and decimal.Decimal("%f" % _now) - lastAccess <= 30:
-                    m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
-                    if m:
-                        if m.group(1) == bookid:
-                            locks[m.group(2)] = m.group(3)
-    except:
-        pass
-
     # Get User Theme
     from booktype.apps.themes.models import UserTheme
 
@@ -339,7 +339,6 @@ def remote_init_editor(request, message, bookid, version):
             "hold": holdChapters,
             "users": users,
             "is_admin": book_security.is_admin(),
-            "locks": locks,
             "statuses": statuses,
             "attachments": attachments,
             "theme": theme.active,
@@ -417,13 +416,13 @@ def remote_attachments_delete(request, message, bookid, version):
     return {"result": True}
 
 
-def remote_chapter_status(request, message, bookid, version):
+def remote_chapter_state(request, message, bookid, version):
     """
-    Sets new status for the specific chapter. Sends "chapter_status" with new status to all users on the channel.
+    Sets new state for the specific chapter. Sends "chapter_state" with new state to all users on the channel.
 
     Input:
       - chapterID
-      - status
+      - state
 
     @type request: C{django.http.HttpRequest}
     @param request: Client Request object
@@ -435,16 +434,31 @@ def remote_chapter_status(request, message, bookid, version):
     @param version: Book version
     """
 
-    if message["status"] == "normal":
-        sputnik.rdelete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
+    _, book_version, _ = get_book(request, bookid, version)
+
+    try:
+        chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+    except models.Chapter.DoesNotExist:
+        return dict(result=False)
+
+    # request for edit unlock
+    if message["state"] == "normal":
+        # if chapter under edit by another user
+        editor_username = chapter.get_current_editor_username()
+        if editor_username and editor_username != request.user.username:
+            raise PermissionDenied
+
+        sputnik.rdelete("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"],
+                                                            request.user.username))
 
     sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_status",
-                                         "chapterID": message["chapterID"],
-                                         "status": message["status"],
-                                         "username": request.user.username})
+                                {"command": "chapter_state",
+                                 "chapterID": message["chapterID"],
+                                 "state": message["state"],
+                                 "username": request.user.username},
+                                myself=True)
 
-    return {}
+    return {"result": True}
 
 
 def remote_change_status(request, message, bookid, version):
@@ -542,10 +556,15 @@ def remote_chapter_save(request, message, bookid, version):
     except models.Chapter.DoesNotExist:
         return dict(result=False)
 
+    # if chapter under edit by another user -> decline
+    editor_username = chapter.get_current_editor_username()
+    if editor_username and editor_username != request.user.username:
+        raise PermissionDenied
+
     # if chapter is locked -> check access
     if chapter.is_locked():
         # check access
-        if not book_security.has_perm('edit.lock_chapter'):
+        if not book_security.has_perm('edit.edit_locked_chapter'):
             raise PermissionDenied
         elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                and chapter.lock.user != request.user):
@@ -609,7 +628,7 @@ def remote_chapter_save(request, message, bookid, version):
                                      "status": "normal",
                                      "username": request.user.username})
 
-        sputnik.rdelete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
+        sputnik.rdelete("type:%s:edit:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
 
     # fire the signal
     import booki.editor.signals
@@ -651,6 +670,10 @@ def remote_chapter_delete(request, message, bookid, version):
         chap = models.Chapter.objects.get(id__exact=int(message["chapterID"]), version=book_version)
     except models.Chapter.DoesNotExist:
         return dict(result=False)
+
+    # if chapter under edit -> decline delete operation
+    if chap.get_current_editor_username():
+        raise PermissionDenied
 
     # if chapter is locked -> check access
     if chap.is_locked():
@@ -813,6 +836,11 @@ def remote_chapter_rename(request, message, bookid, version):
 
     # check security
     chapter = toc_item.chapter
+
+    # if chapter under edit by another user
+    editor_username = chapter.get_current_editor_username()
+    if editor_username and editor_username != request.user.username:
+        raise PermissionDenied
 
     # if chapter is locked -> check access
     if chapter.is_locked():
@@ -1015,20 +1043,24 @@ def remote_chapters_changed(request, message, bookid, version):
 def remote_chapter_hold(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
-    chapterID = message["chapterID"]
+    chapter_id = message["chapterID"]
 
     try:
-        toc_item = models.BookToc.objects.get(chapter__id__exact=chapterID, version=book_version)
+        toc_item = models.BookToc.objects.get(chapter__id__exact=chapter_id, version=book_version, typeof=1)
     except models.BookToc.DoesNotExist:
-        pass
+        return dict(result=False)
     else:
+        # if chapter under edit -> decline
+        if toc_item.chapter.get_current_editor_username():
+            raise PermissionDenied
+
         toc_id = toc_item.id
         toc_item.delete()
 
         sputnik.addMessageToChannel(
             request, "/booktype/book/%s/%s/" % (bookid, version), {
                 "command": "chapter_hold",
-                "chapterID": message["chapterID"],
+                "chapterID": chapter_id,
                 "tocID": toc_id
             },
             myself=True
@@ -1040,9 +1072,16 @@ def remote_chapter_hold(request, message, bookid, version):
 def remote_chapter_unhold(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
-    chapterID = message["chapterID"]
+    chapter_id = message["chapterID"]
 
-    chptr = models.Chapter.objects.get(id__exact=chapterID, version=book_version)
+    try:
+        chptr = models.Chapter.objects.get(id__exact=chapter_id, version=book_version)
+    except models.Chapter.DoesNotExist:
+        return dict(result=False)
+
+    # if chapter under edit -> decline
+    if chptr.get_current_editor_username():
+        raise PermissionDenied
 
     # chapter can be only in one toc in single moment
     if not models.BookToc.objects.filter(chapter=chptr).exists():
@@ -1053,7 +1092,7 @@ def remote_chapter_unhold(request, message, bookid, version):
         sputnik.addMessageToChannel(
             request, "/booktype/book/%s/%s/" % (bookid, version), {
                 "command": "chapter_unhold",
-                "chapterID": message["chapterID"],
+                "chapterID": chapter_id,
                 'tocID': toc_item.id
             },
             myself=True
@@ -1080,7 +1119,7 @@ def remote_chapter_lock(request, message, bookid, version):
     chapter_id = message["chapterID"]
     lock_type = message["lockType"]
 
-    # vlidate lock type value
+    # validate lock type value
     if lock_type not in (models.ChapterLock.LOCK_SIMPLE, models.ChapterLock.LOCK_EVERYONE):
         raise SuspiciousOperation
 
@@ -1092,10 +1131,13 @@ def remote_chapter_lock(request, message, bookid, version):
         # get chapter
         chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
 
+        # if chapter under edit -> decline
+        if chapter.get_current_editor_username():
+            raise PermissionDenied
+
         # create lock for provided chapter
-        models.ChapterLock.objects.create(chapter=chapter,
-                                          user=request.user,
-                                          type=lock_type)
+        models.ChapterLock.objects.create(chapter=chapter, user=request.user, type=lock_type)
+
     except (models.Chapter.DoesNotExist, IntegrityError):
         return dict(result=False)
 
@@ -1134,6 +1176,10 @@ def remote_chapter_unlock(request, message, bookid, version):
     except models.Chapter.DoesNotExist:
         return dict(result=False)
 
+    # if chapter under edit -> decline
+    if chapter.get_current_editor_username():
+        raise PermissionDenied
+
     # check access
     if not book_security.has_perm('edit.lock_chapter'):
         raise PermissionDenied
@@ -1161,11 +1207,11 @@ def remote_get_chapter(request, message, bookid, version):
     """
     This is called when you fire up WYSWYG editor or Chapter viewer. It sends back basic chapter information.
 
-    If lock flag is send then it will Sends message "chapter_status" to the channel and create lock for this chapter.
+    If edit_lock flag is send then it will Sends message "chapter_state" to the channel and create edit_lock for this chapter.
 
     Input:
      - chapterID
-     - lock (True or False)
+     - edit_lock (True or False)
      - revisions (True or False)
      - revision
 
@@ -1197,14 +1243,22 @@ def remote_get_chapter(request, message, bookid, version):
     except models.Chapter.DoesNotExist:
         return dict(result=False)
 
-    # if chapter is locked -> check access
-    if chapter.is_locked():
-        # check access
-        if not book_security.has_perm('edit.lock_chapter'):
+    # TODO clarify about read only mode
+    # do some request validation and check permissions, if request for edit
+    if message.get("edit_lock", False):
+
+        # if chapter under edit by another user
+        editor_username = chapter.get_current_editor_username()
+        if editor_username and editor_username != request.user.username:
             raise PermissionDenied
-        elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
-                                               and chapter.lock.user != request.user):
-            raise PermissionDenied
+
+        # if chapter is locked
+        if chapter.is_locked():
+            if not book_security.has_perm('edit.lock_chapter'):
+                raise PermissionDenied
+            elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                                   and chapter.lock.user != request.user):
+                raise PermissionDenied
 
     res["title"] = chapter.title
     res["content"] = chapter.content
@@ -1217,19 +1271,20 @@ def remote_get_chapter(request, message, bookid, version):
         ch = models.ChapterHistory.objects.get(chapter=chapter, revision=message.get("revision"))
         res["content"] = ch.content
 
-    if not message.get("lock", True):
-        return res
-
     import time
 
-    # set the initial timer for editor
-    sputnik.set("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username), time.time())
+    # if this chapter for edit or read
+    if message.get("edit_lock", False):
+        # set the initial timer edit locking
+        sputnik.set("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username),
+                    time.time())
 
-    sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_status",
-                                 "chapterID": message["chapterID"],
-                                 "status": "edit",
-                                 "username": request.user.username})
+        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+                                    {"command": "chapter_state",
+                                     "chapterID": message["chapterID"],
+                                     "state": "edit",
+                                     "username": request.user.username},
+                                    myself=False)
 
     return res
 
@@ -1338,11 +1393,14 @@ def remote_create_chapter(request, message, bookid, version):
         chapter.id,
         chapter.title,
         chapter.url_title,
-        1,  # typeof (chapter)
-        s.id,  # status
+        1,                      # typeof (chapter)
+        s.id,                   # status
         chapter.lock_type,
-        'root',  # parent id (first level)
-        toc_item.id  # tocID
+        chapter.lock_username,
+        "root",                 # parent id (first level)
+        toc_item.id,            # tocID
+        "normal",               # fake state
+        None                    # fake current editor
     )
 
     sputnik.addMessageToChannel(
@@ -1614,10 +1672,13 @@ def remote_create_section(request, message, bookid, version):
         c.name,
         c.name,
         c.typeof,
-        None,  # fake status
-        0,   # fake unlocked
+        None,       # fake status
+        0,          # fake unlocked
+        None,       # fake lock username
         "root",
-        c.id
+        c.id,
+        "normal",   # fake state
+        None        # fake current editor
     )
 
     sputnik.addMessageToChannel(
@@ -2646,19 +2707,33 @@ def remote_book_notification(request, message, bookid, version):
     @return: Should it kill the seasson
     """
 
-    res = {"result": True}
-
     import time
 
-    # rcon.delete(key)
-    # set the initial timer for editor
+    res = {"result": True, "terminate": False}
 
-    if request.user.username and request.user.username != '':
-        sputnik.set("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username), time.time())
+    if request.user.username:
+        _, book_version, _ = get_book(request, bookid, version)
 
-        if '%s' % sputnik.get("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username)) == '1':
-            sputnik.rdelete("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username))
-            res = {"kill": "please"}
+        try:
+            chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+        except models.Chapter.DoesNotExist:
+            return dict(result=False)
+
+        # if chapter under edit by another user -> decline
+        if chapter.get_current_editor_username() != request.user.username:
+            raise SuspiciousOperation
+
+        # update timer for edit locking
+        edit_lock_key = "booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username)
+        sputnik.set(edit_lock_key, time.time())
+
+        # terminate editing if needed
+        kill_edit_lock_key = "booktype:%s:%s:killeditlocks:%s:%s" % (bookid, version, message["chapterID"],
+                                                                     request.user.username)
+
+        if '%s' % sputnik.get(kill_edit_lock_key) == '1':
+            sputnik.rdelete(kill_edit_lock_key)
+            res["terminate"] = True
 
     return res
 
@@ -2989,7 +3064,7 @@ def remote_notes_save(request, message, bookid, version):
     return {"result": True}
 
 
-def remote_unlock_chapter(request, message, bookid, version):
+def remote_chapter_kill_editlock(request, message, bookid, version):
     """
     Removes lock for chapter. Only booki user can do this. Lock is removed from Redis database.
 
@@ -3013,10 +3088,11 @@ def remote_unlock_chapter(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
     if book_security.is_admin():
-        for key in sputnik.rkeys("booki:%s:locks:%s:*" % (bookid, message["chapterID"])):
-            m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
+        for key in sputnik.rkeys("booktype:%s:%s:editlocks:%s:*" % (bookid, version, message["chapterID"])):
+            m = re.match("booktype:(\d+):(\d+).(\d+):editlocks:(\d+):(\w+)", key)
             if m:
-                sputnik.set("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], m.group(3)), 1)
+                username = m.group(5)
+                sputnik.set("booktype:%s:%s:killeditlocks:%s:%s" % (bookid, version, message["chapterID"], username), 1)
 
     return {"result": True}
 
