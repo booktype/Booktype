@@ -438,6 +438,37 @@ def remote_chapter_status(request, message, bookid, version):
     if message["status"] == "normal":
         sputnik.rdelete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
 
+        _, book_version, book_security = get_book(request, bookid, version)
+        chapter_id = message["chapterID"]
+
+        # get chapter
+        try:
+            chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
+        except models.Chapter.DoesNotExist:
+            return dict(result=False)
+
+        # check access and remove lock
+        if not book_security.is_admin() and chapter.lock.user != request.user:
+            raise PermissionDenied
+
+        try:
+            chapter.lock.delete()
+            chapter.save()
+        except models.ChapterLock.DoesNotExist as e:
+            pass
+
+        sputnik.addMessageToChannel(
+            request, "/booktype/book/%s/%s/" % (bookid, version), {
+                "command": "chapter_lock_changed",
+                "chapterID": message["chapterID"],
+                "lockType": chapter.lock_type
+            },
+            myself=False
+        )
+
+        return dict(result=True)
+
+
     sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
                                 {"command": "chapter_status",
                                          "chapterID": message["chapterID"],
@@ -1080,7 +1111,7 @@ def remote_chapter_lock(request, message, bookid, version):
     chapter_id = message["chapterID"]
     lock_type = message["lockType"]
 
-    # vlidate lock type value
+    # validate lock type value
     if lock_type not in (models.ChapterLock.LOCK_SIMPLE, models.ChapterLock.LOCK_EVERYONE):
         raise SuspiciousOperation
 
@@ -1197,14 +1228,30 @@ def remote_get_chapter(request, message, bookid, version):
     except models.Chapter.DoesNotExist:
         return dict(result=False)
 
-    # if chapter is locked -> check access
-    if chapter.is_locked():
-        # check access
+    # if chapter is locked and request for edit -> check access
+    if chapter.is_locked() and message.get("lock", False):
         if not book_security.has_perm('edit.lock_chapter'):
             raise PermissionDenied
         elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                and chapter.lock.user != request.user):
             raise PermissionDenied
+
+    # lock chapter while it editing by user
+    try:
+        models.ChapterLock.objects.create(chapter=chapter,
+                                          user=request.user,
+                                          type=models.ChapterLock.LOCK_EVERYONE)
+    except IntegrityError:
+        return dict(result=False)
+
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_lock_changed",
+            "chapterID": message["chapterID"],
+            "lockType": chapter.lock_type
+        },
+        myself=False
+    )
 
     res["title"] = chapter.title
     res["content"] = chapter.content
