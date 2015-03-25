@@ -198,7 +198,6 @@ WSGI_APPLICATION = '{}.wsgi.application'.format('##BOOKTYPE_SITE_DIR##')
 
 TEMPLATE_DIRS = (
     BOOKTYPE_ROOT.child(BOOKTYPE_SITE_DIR).child('templates'),
-    Path(booki.__file__).parent.child('templates')
 )
 
 
