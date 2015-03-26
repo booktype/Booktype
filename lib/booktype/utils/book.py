@@ -227,11 +227,24 @@ def rename_book(book, new_title, new_URL_title):
     @type new_URL_title: C{string}
     @param: New URL title
     """
+    import logging
+    logger = logging.getLogger('booktype')
 
     try:
-        os.rename('%s/books/%s' % (settings.DATA_ROOT, book.url_title), '%s/books/%s' % (settings.DATA_ROOT, new_URL_title))
-    except OSError:
-        pass
+        os.rename(
+            '{0}/books/{1}'.format(settings.DATA_ROOT, book.url_title),
+            '{0}/books/{1}'.format(settings.DATA_ROOT, new_URL_title)
+        )
+    except OSError as ex:
+        logger.error("ERROR [{0}]: {1} {2}".format(ex.errno, ex.strerror, ex.filename))
+
+    try:
+        os.rename(
+            '{0}/styles/{1}'.format(settings.DATA_ROOT, book.url_title),
+            '{0}/styles/{1}'.format(settings.DATA_ROOT, new_URL_title)
+        )
+    except OSError as ex:
+        logger.error("ERROR [{0}]: {1} {2}".format(ex.errno, ex.strerror, ex.filename))
 
     book.title = new_title
     book.url_title = new_URL_title

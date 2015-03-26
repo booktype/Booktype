@@ -662,11 +662,13 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
         return "{0}#list-of-books".format(self.cancel_url)
 
     def save(self, *args, **kwargs):
-        rename_book(
-            self.instance,
-            self.cleaned_data['title'],
-            self.cleaned_data['url_title']
-        )
+        if self.instance.pk and self.has_changed():
+            book = Book.objects.get(url_title__iexact=self.initial['url_title'])
+            rename_book(
+                book,
+                self.cleaned_data['title'],
+                self.cleaned_data['url_title']
+            )
         return super(BookRenameForm, self).save(*args, **kwargs)
 
     def clean_url_title(self):
