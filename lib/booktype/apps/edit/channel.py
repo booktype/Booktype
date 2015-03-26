@@ -59,6 +59,7 @@ def get_toc_for_book(version):
                 chap.typeof,
                 chap.chapter.status.id,
                 chap.chapter.lock_type,
+                chap.chapter.lock_username,
                 parent_id,
                 chap.id
             ))
@@ -69,7 +70,8 @@ def get_toc_for_book(version):
                 chap.name,
                 chap.typeof,
                 None,   # fake status
-                0,   # fake unlocked
+                0,      # fake unlocked
+                None,   # fake lock username
                 parent_id,
                 chap.id
             ))
@@ -101,7 +103,8 @@ def get_hold_chapters(book_version):
         """
 
         return (chapter.id, chapter.title, chapter.url_title, 1,
-                chapter.status.id, chapter.lock_type)
+                chapter.status.id, chapter.lock_type, chapter.lock_username
+                )
 
     return [_to_tuple(ch) for ch in hold_chapters]
 
@@ -1388,6 +1391,7 @@ def remote_create_chapter(request, message, bookid, version):
         1,  # typeof (chapter)
         s.id,  # status
         chapter.lock_type,
+        chapter.lock_username,
         'root',  # parent id (first level)
         toc_item.id  # tocID
     )
@@ -1662,7 +1666,8 @@ def remote_create_section(request, message, bookid, version):
         c.name,
         c.typeof,
         None,  # fake status
-        0,   # fake unlocked
+        0,     # fake unlocked
+        None,  # fake lock username
         "root",
         c.id
     )

@@ -437,10 +437,10 @@ class Chapter(models.Model):
         """
         Return lock.type if exist, else return 0
 
-        Args:
-          self: Chapter instance
+        :Args:
+          - self (:class:`booki.editor.models.Chapter`): Chapter instance
 
-        Returns:
+        :Returns:
           Int. Return lock.type value
         """
         try:
@@ -450,14 +450,32 @@ class Chapter(models.Model):
         except ChapterLock.DoesNotExist:
             return 0
 
+    @property
+    def lock_username(self):
+        """
+        Return lock.user.username if exist, else return None
+
+        :Args:
+          - self (:class:`booki.editor.models.Chapter`): Chapter instance
+
+        :Returns:
+          username (:class:`str`) or None
+        """
+        try:
+            if self.lock.id:    # if ChapterLock was deleted in db but still have value in python object
+                return self.lock.user.username
+            return None
+        except ChapterLock.DoesNotExist:
+            return None
+
     def is_locked(self):
         """
         Return is chapter is locked or not
 
-        Args:
-          self: Chapter instance
+        :Args:
+          - self (:class:`booki.editor.models.Chapter`): Chapter instance
 
-        Returns:
+        :Returns:
           Return True or False
         """
         return bool(self.lock_type)
