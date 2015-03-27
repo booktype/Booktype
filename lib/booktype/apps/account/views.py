@@ -22,6 +22,7 @@ import json
 import string
 from random import choice
 
+from django.core import signing
 from django.db.models import Q
 from django.contrib import auth
 from django.conf import settings
@@ -35,13 +36,14 @@ from django.views.generic import DetailView, View
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic.edit import BaseCreateView, UpdateView
+from django.views.generic.edit import BaseCreateView, UpdateView, FormView
 
 
 from braces.views import LoginRequiredMixin
 
 from booktype.utils import config
 from booktype.apps.core import views
+from booktype.apps.core.models import Role, BookRole
 from booktype.utils import misc, security
 from booktype.apps.account.models import UserPassword
 from booki.messaging.views import get_endpoint_or_none
@@ -49,7 +51,8 @@ from booktype.apps.core.views import BasePageView, PageView
 from booktype.utils.book import check_book_availability, create_book
 from booki.editor.models import Book, License, BookHistory, BookiGroup
 
-from .forms import UserSettingsForm, UserPasswordChangeForm
+from .forms import UserSettingsForm, UserPasswordChangeForm, UserInviteForm
+from . import tasks
 
 import booktype.apps.account.signals
 
@@ -373,6 +376,10 @@ class SignInView(PageView):
 
     def get_context_data(self, **kwargs):
         context = super(self.__class__, self).get_context_data(**kwargs)
+        try:
+            context['invite_email'] = self.request.session['invite_data']['email']
+        except KeyError:
+            pass
 
         return context
 
@@ -391,6 +398,14 @@ class SignInView(PageView):
             return 5
 
         return 0
+
+    def get(self, request):
+        signed_data = request.GET.get('data', None)
+        if signed_data:
+            request.session['invite_data'] = signing.loads(signed_data)
+
+
+        return super(SignInView, self).get(request)
 
     def _do_check_valid(self, request):
         # check if it is valid username
@@ -491,17 +506,19 @@ class SignInView(PageView):
                     ret["result"] = 1
                 else:
                     try:
-                        usr = auth.models.User.objects.get(username=username)
+                        auth.models.User.objects.get(username=username)
                         # User does exist. Must be wrong password then
                         ret["result"] = 3
                     except auth.models.User.DoesNotExist:
                         # User does not exist
                         ret["result"] = 2
 
-            try:
-                resp = HttpResponse(json.dumps(ret), mimetype="text/json")
-            except:
-                raise
+            if ret['result'] == 1:
+                invite_data = request.session.pop('invite_data', False)
+                if invite_data:
+                    assign_invitation(user, invite_data)
+
+            resp = HttpResponse(json.dumps(ret), mimetype="text/json")
         return resp
 
 
@@ -569,3 +586,44 @@ def profilethumbnail(request, profileid):
     image.save(response, "JPEG")
 
     return response
+
+
+class SendInviteView(PageView, FormView):
+    form_class = UserInviteForm
+    initial = {
+        'message': getattr(settings, 'BOOKTYPE_DEFAULT_INVITE_MESSAGE', '')
+    }
+
+    def get_form_kwargs(self):
+        kwargs = super(SendInviteView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+
+        return kwargs
+
+    def form_valid(self, form):
+        tasks.send_invite_emails.delay(
+            email_list=form.cleaned_data['email_list'],
+            message=form.cleaned_data['message'],
+            book_ids=[b.id for b in form.cleaned_data['books']],
+            role_ids=[r.id for r in form.cleaned_data['roles']]
+        )
+        return HttpResponse('{"success": true}', 'text/json')
+
+    def form_invalid(self, form):
+        return HttpResponse(json.dumps(form.errors), 'text/json')
+
+
+def assign_invitation(user, invite_data):
+    """
+    Assigns roles to the user based on the information found in the invitation link
+    """
+    if user.email != invite_data['email']:
+        return
+
+    books = Book.objects.filter(pk__in=invite_data['book_ids'])
+    roles = Role.objects.filter(pk__in=invite_data['role_ids'])
+
+    for book in books:
+        for role in roles:
+            book_role, _ = BookRole.objects.get_or_create(role=role, book=book)
+            book_role.members.add(user)

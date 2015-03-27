@@ -255,6 +255,10 @@ BOOKTYPE_DEFAULT_ROLES = {
     ]
 }
 
+# Configuration for the invite functionality
+BOOKTYPE_INVITE_SUBJECT = gettext('You\'ve been invited to collaborate')
+BOOKTYPE_DEFAULT_INVITE_MESSAGE = gettext('You\'ve been invited to collaborate')
+
 # DEPRECATED CONFIG
 
 BOOKTYPE_NAME = BOOKTYPE_SITE_NAME
@@ -277,3 +281,4 @@ CACHES = {
         'LOCATION': 'unique-booktype-id'
     }
 }
+

@@ -1,6 +1,8 @@
 import datetime
 
+from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -13,9 +15,11 @@ from django.views.generic.edit import CreateView, UpdateView
 from braces.views import LoginRequiredMixin
 
 from booktype.apps.core import views
+from booktype.apps.core.models import Role
 from booktype.utils import security
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.views import PageView, BasePageView
+from booktype.apps.account.forms import UserInviteForm
 from booki.editor.models import Book, BookiGroup, BookHistory
 
 from .forms import GroupCreateForm, GroupUpdateForm
@@ -49,6 +53,12 @@ class FrontPageView(PageView):
         context['group_list'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'num_members': g.members.count(), 'num_books': g.book_set.count(), 'small_group_image': g.get_group_image} for g in booki_group5]
 
         context['recent_activities'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
+
+        if self.request.user.is_authenticated():
+            initial = {
+                'message': getattr(settings, 'BOOKTYPE_DEFAULT_INVITE_MESSAGE', '')
+            }
+            context['invite_form'] = UserInviteForm(user=self.request.user, initial=initial)
 
         return context
 
@@ -306,4 +316,4 @@ class AddBooksView(PageView):
                     book.group = group
                     book.save()
 
-        return HttpResponse()        
+        return HttpResponse()
