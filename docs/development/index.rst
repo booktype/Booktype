@@ -10,4 +10,5 @@ Development
    js_style
    profile
    testing
+   documenting
 

@@ -85,6 +85,14 @@ LOGGING = {
             'backupCount': 2,
             'formatter': 'standard',
         },
+        'sputniklogfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': BOOKTYPE_ROOT + "/logs/sputnik.log",
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'standard',
+        },        
         'console':{
             'level':'INFO',
             'class':'logging.StreamHandler',
@@ -109,8 +117,12 @@ LOGGING = {
         },
         'booktype': {
             'handlers': ['logfile'],
-            'level': 'INFO'
-        }
+            'level': 'DEBUG'
+        },
+        'sputnik': {
+            'handlers': ['sputniklogfile'],
+            'level': 'DEBUG'
+        }        
     }
 }
 

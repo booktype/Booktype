@@ -98,14 +98,14 @@ class GroupPageView(GroupManipulation):
 
         context['books_to_add'] = []
 
-        user_group_security = security.get_user_security_for_group(self.request.user, context['selected_group'])
+        user_group_security = security.get_security_for_group(self.request.user, context['selected_group'])
         context['is_group_admin'] = user_group_security.is_group_admin()
 
         if context['is_group_admin']:
             list_of_books = Book.objects.exclude(group=context['selected_group'])
 
             for b in list_of_books:
-                if security.get_user_security_for_book(self.request.user, b).is_book_admin():
+                if security.get_security_for_book(self.request.user, b).is_book_admin():
                     context['books_to_add'].append({'cover': b.cover, 'url_title': b.url_title, 'title': b.title})
 
             if self.request.user.is_superuser:
@@ -207,7 +207,7 @@ class GroupUpdateView(LoginRequiredMixin, BasePageView, UpdateView):
         """
 
         self.object = self.get_object()
-        group_security = security.get_user_security_for_group(request.user, self.object)
+        group_security = security.get_security_for_group(request.user, self.object)
 
         if not group_security.is_group_admin():
             return views.ErrorPage(request, "errors/nopermissions.html")
@@ -240,7 +240,7 @@ class GroupDeleteView(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         user = self.request.user
         group = self.get_object()
-        group_security = security.get_user_security_for_group(user, group)
+        group_security = security.get_security_for_group(user, group)
 
         if group.owner != user and not user.is_superuser or not group_security.is_group_admin():
             messages.warning(self.request, _("You are not allowed to delete this group"))
