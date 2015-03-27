@@ -459,22 +459,11 @@ def remote_chapter_state(request, message, bookid, version):
         #     chapter.save()
         # except models.ChapterLock.DoesNotExist as e:
         #     pass
-        #
-        # sputnik.addMessageToChannel(
-        #     request, "/booktype/book/%s/%s/" % (bookid, version), {
-        #         "command": "chapter_lock_changed",
-        #         "chapterID": message["chapterID"],
-        #         "lockType": chapter.lock_type
-        #     },
-        #     myself=False
-        # )
-
-        return dict(result=True)
 
     sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
                                 {"command": "chapter_state",
                                  "chapterID": message["chapterID"],
-                                 "status": message["status"],
+                                 "state": message["state"],
                                  "username": request.user.username})
 
     return {}
@@ -1264,7 +1253,7 @@ def remote_get_chapter(request, message, bookid, version):
         sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
                                     {"command": "chapter_state",
                                      "chapterID": message["chapterID"],
-                                     "status": "edit",
+                                     "state": "edit",
                                      "username": request.user.username},
                                     myself=False)
 
