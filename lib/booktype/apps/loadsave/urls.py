@@ -18,6 +18,6 @@ from django.conf.urls import patterns, url, include
 
 from .views import SaveView
 
-urlpatterns = patterns('',                      
-                      url(r'^_export/$', SaveView.as_view(), name='save_book'),                       
+urlpatterns = patterns('',
+                      url(r'^_export/$', SaveView.as_view(), name='save_book'),
                       )
