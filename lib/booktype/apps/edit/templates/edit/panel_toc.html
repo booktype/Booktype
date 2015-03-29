@@ -234,7 +234,6 @@
         <span class="toc-chapter-short-labels">
             <span class="label display-locked pull-left <% if (is_locked !== true){ %> hide <% } %>">{% trans "Locked" %}</span>
         </span>
-
         {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
         <div class="btn-group">
         {% else %}
