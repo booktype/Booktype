@@ -14,8 +14,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 import os
+import traceback
 import time
 import datetime
+import sputnik
+import decimal
+import re
+import logging
 
 from django.db import models
 from django.conf import settings
@@ -406,6 +411,8 @@ class BookVersion(models.Model):
 # Chapter
 
 class Chapter(models.Model):
+    EDIT_PING_SECONDS_MAX_DELTA = 30
+
     version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
     # don't need book
     book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
@@ -470,7 +477,7 @@ class Chapter(models.Model):
 
     def is_locked(self):
         """
-        Return is chapter is locked or not
+        Return is chapter locked or not
 
         :Args:
           - self (:class:`booki.editor.models.Chapter`): Chapter instance
@@ -480,6 +487,37 @@ class Chapter(models.Model):
         """
         return bool(self.lock_type)
 
+    def get_current_editor(self):
+        """
+        Return editor who is editing chapter at the moment
+
+        :Args:
+          - self (:class:`booki.editor.models.Chapter`): Chapter instance
+
+        :Returns:
+          None (if chapter not under edit)
+          or editor username (if chapter under edit)
+        """
+        edit_lock_key = "booktype:{book_id}:editlocks:{chapter_id}:*".format(book_id=self.book.id,
+                                                                             chapter_id=self.id)
+        keys = sputnik.rkeys(edit_lock_key)
+        for key in keys:
+            last_ping = sputnik.get(key)
+
+            # TODO monitor exceptions and update condition
+            #if type(lastAccess) in (str, unicode):
+            try:
+                last_ping = decimal.Decimal(last_ping)
+                if last_ping and decimal.Decimal("%f" % time.time()) - last_ping <= self.EDIT_PING_SECONDS_MAX_DELTA:
+                    # get editor username from key
+                    username = key.rsplit(':', 1)[-1]
+                    return username
+
+            except:
+                logger = logging.getLogger('booktype')
+                logger.error(traceback.format_exc())
+
+        return None
 
 
 # ChapterHistory
