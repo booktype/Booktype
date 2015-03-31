@@ -2,12 +2,14 @@ import os
 import tempfile
 
 from django.http import HttpResponse
+
 from django.views.generic.base import View
 
 from booki.editor import models
+from . import utils
 
 
-class SaveView(View):
+class SaveView(utils.RestrictExport, View):
     def get(self, request, bookid):
 
         try:
