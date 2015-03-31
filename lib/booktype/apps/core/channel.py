@@ -17,6 +17,11 @@
 import time
 import re
 import decimal
+import logging
+
+from booki.editor.models import Chapter
+
+logger = logging.getLogger('booktype')
 
 
 def remote_ping(request, message):
@@ -33,36 +38,34 @@ def remote_ping(request, message):
 
     sputnik.addMessageToChannel(request, "/booktype/", {})
 
-    _now = time.time()
+    # kill old chapters which are no longer under edit
+    keys = sputnik.rkeys("booktype:*:*:editlocks:*")
 
-    try:
-        locks = sputnik.rkeys("booki:*:locks:*")
-    except:
-        return
+    for key in keys:
+        last_ping = sputnik.get(key)
 
-    for key in locks:
+        try:
+            last_ping = decimal.Decimal(last_ping)
+        except Exception as e:
+            logger.exception(e)
 
-        last_access = sputnik.get(key)
-
-        if type(last_access) in [type(' '), type(u' ')]:
-            try:
-                last_access = decimal.Decimal(last_access)
-            except:
-                continue
-
-        if last_access and decimal.Decimal("%f" % _now) - last_access > 30:
+        if last_ping and decimal.Decimal("%f" % time.time()) - last_ping > Chapter.EDIT_PING_SECONDS_MAX_DELTA:
             sputnik.rdelete(key)
-
-            m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
+            m = re.match("booktype:(\d+):(\d+).(\d+):editlocks:(\d+):(\w+)", key)
 
             if m:
-                sputnik.addMessageToChannel(request, "/booktype/book/%s/" % m.group(1), {"command": "chapter_status",
-                                                                                      "chapterID": m.group(2),
-                                                                                      "status": "normal",
-                                                                                      "username": m.group(3)},
-                                            myself=True)
-# FIXME not implemented
+                bookid, version, chapter_id, username = (m.group(1), "{0}.{1}".format(m.group(2), m.group(3)),
+                                                         m.group(4), m.group(5))
 
+                sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+                                            {"command": "chapter_state",
+                                             "chapterID": chapter_id,
+                                             "state": "normal",
+                                             "username": username},
+                                            myself=True)
+
+
+# FIXME not implemented
 def remote_disconnect(request, message):
     pass
 

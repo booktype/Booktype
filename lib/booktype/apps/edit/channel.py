@@ -422,7 +422,7 @@ def remote_chapter_state(request, message, bookid, version):
     """
 
     if message["state"] == "normal":
-        sputnik.rdelete("booktype:%s:editlocks:%s:%s" % (bookid, message["chapterID"], request.user.username))
+        sputnik.rdelete("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username))
 
         # _, book_version, book_security = get_book(request, bookid, version)
         # chapter_id = message["chapterID"]
@@ -614,7 +614,7 @@ def remote_chapter_save(request, message, bookid, version):
                                      "status": "normal",
                                      "username": request.user.username})
 
-        sputnik.rdelete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
+        sputnik.rdelete("type:%s:edit:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
 
     # fire the signal
     import booki.editor.signals
@@ -1227,10 +1227,11 @@ def remote_get_chapter(request, message, bookid, version):
     # if this chapter for edit or read
     if message.get("edit_lock", False):
         # set the initial timer edit locking
-        sputnik.set("booktype:%s:editlocks:%s:%s" % (bookid, message["chapterID"], request.user.username), time.time())
+        sputnik.set("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username),
+                    time.time())
 
         print 'GET CHAPTER LOCKED !!!', message["chapterID"]
-        print "booktype:%s:editlocks:%s:%s" % (bookid, message["chapterID"], request.user.username)
+        print "booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username)
 
         sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
                                     {"command": "chapter_state",
@@ -2667,9 +2668,11 @@ def remote_book_notification(request, message, bookid, version):
     # rcon.delete(key)
     # update timer for edit locking
     if request.user.username and request.user.username != '':
-        sputnik.set("booktype:%s:editlocks:%s:%s" % (bookid, message["chapterID"], request.user.username), time.time())
+        sputnik.set("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username),
+                    time.time())
 
-        kill_edit_lock_key = "booktype:%s:killeditlocks:%s:%s" % (bookid, message["chapterID"], request.user.username)
+        kill_edit_lock_key = "booktype:%s:%s:killeditlocks:%s:%s" % (bookid, version, message["chapterID"],
+                                                                     request.user.username)
 
         if '%s' % sputnik.get(kill_edit_lock_key) == '1':
             sputnik.rdelete(kill_edit_lock_key)
@@ -3030,10 +3033,11 @@ def remote_chapter_kill_editlock(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
     if book_security.is_admin():
-        for key in sputnik.rkeys("booki:%s:locks:%s:*" % (bookid, message["chapterID"])):
-            m = re.match("booktype:(\d+):editlocks:(\d+):(\w+)", key)
+        for key in sputnik.rkeys("booktype:%s:%s:editlocks:%s:*" % (bookid, version, message["chapterID"])):
+            m = re.match("booktype:(\d+):(\d+).(\d+):editlocks:(\d+):(\w+)", key)
             if m:
-                sputnik.set("booktype:%s:killeditlocks:%s:%s" % (bookid, message["chapterID"], m.group(3)), 1)
+                sputnik.set("booktype:%s:%s:killeditlocks:%s:%s" % (bookid, version, message["chapterID"], m.group(5)),
+                            1)
 
     return {"result": True}
 

@@ -14,18 +14,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 import os
-import traceback
 import time
 import datetime
 import sputnik
 import decimal
-import re
 import logging
 
 from django.db import models
 from django.conf import settings
 from django.contrib.auth import models as auth_models
 from django.utils.translation import ugettext_lazy as _
+
+logger = logging.getLogger('booktype')
 
 # import booki.editor.signals
 
@@ -498,13 +498,13 @@ class Chapter(models.Model):
           None (if chapter not under edit)
           or editor username (if chapter under edit)
         """
-        edit_lock_key = "booktype:{book_id}:editlocks:{chapter_id}:*".format(book_id=self.book.id,
-                                                                             chapter_id=self.id)
+        edit_lock_key = "booktype:{book_id}:{version}:editlocks:{chapter_id}:*".format(book_id=self.book.id,
+                                                                                       version=self.version.get_version(),
+                                                                                       chapter_id=self.id)
         keys = sputnik.rkeys(edit_lock_key)
         for key in keys:
             last_ping = sputnik.get(key)
 
-            # TODO monitor exceptions and update condition
             #if type(lastAccess) in (str, unicode):
             try:
                 last_ping = decimal.Decimal(last_ping)
@@ -513,9 +513,8 @@ class Chapter(models.Model):
                     username = key.rsplit(':', 1)[-1]
                     return username
 
-            except:
-                logger = logging.getLogger('booktype')
-                logger.error(traceback.format_exc())
+            except Exception as e:
+                logger.exception(e)
 
         return None
 
