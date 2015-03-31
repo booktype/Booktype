@@ -15,6 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import logging
 
 from django.views import static
 from django.http import Http404
@@ -34,6 +35,9 @@ from booktype.apps.core.views import BasePageView
 from booki.editor.models import Book, BookHistory, BookToc, Chapter
 
 from .forms import EditBookInfoForm
+
+
+logger = logging.getLogger('booktype')
 
 
 class BaseReaderView(object):
@@ -99,8 +103,7 @@ class InfoPageView(BaseReaderView, BasePageView, DetailView):
     def get_context_data(self, **kwargs):
         book = self.object
         book_version = book.get_version()
-        book_security = security.get_user_security_for_book(
-            self.request.user, book)
+        book_security = security.get_security_for_book(self.request.user, book)
         book_collaborators_ids = BookHistory.objects.filter(
             version=book_version, kind=2).values_list('user', flat=True)
 
@@ -124,11 +127,11 @@ class PermissionsView(BaseReaderView, BasePageView, JSONResponseMixin, DetailVie
     """
     def render_to_response(self, context, **response_kwargs):
         book = self.object
-        book_security = security.get_user_security_for_book(self.request.user, book)
+        book_security = security.get_security_for_book(self.request.user, book)
         book_permissions = security.get_user_permissions(self.request.user, book)
 
         return self.render_json_response({
-            'admin': book_security.isAdmin(),
+            'admin': book_security.is_admin(),
             'permissions': book_permissions,
         })
 
@@ -161,15 +164,23 @@ class EditBookInfoView(SingleNextMixin, LoginRequiredMixin,
     def form_valid(self, form):
         self.object = form.save()
 
-        if 'core' in form.files.keys():
-            try:
-                fh, fname = misc.save_uploaded_as_file(form.files['cover'])
-                self.object.setCover(fname)
-                os.unlink(fname)
-            except:
-                pass
+        all_ok = True
 
-        messages.success(self.request, _('Successfully changed book info.'))
+        if 'book_cover' in form.files.keys():
+            try:
+                fh, fname = misc.save_uploaded_as_file(form.files['book_cover'])
+                self.object.set_cover(fname)
+                os.unlink(fname)
+                self.object.save()
+            except Exception, e:
+                logger.exception(e)
+                all_ok = False
+
+        if all_ok:
+            messages.success(self.request, _('Successfully changed book info.'))
+        else:
+            messages.warning(self.request, _('Could not upload cover image.'))
+
         self.template_name = "reader/book_info_edit_redirect.html"
         return self.render_to_response(context=self.get_context_data())
 
@@ -182,12 +193,11 @@ class DeleteBookView(SingleNextMixin, LoginRequiredMixin,
         request = self.request
         book = self.object = self.get_object()
         title = request.POST.get("title", "")
-        book_security = security.get_user_security_for_book(request.user, book)
+        book_security = security.get_security_for_book(request.user, book)
         book_permissions = security.get_user_permissions(request.user, book)
         self.template_name = "reader/book_delete_error.html"
 
-        if ((book_security.isAdmin() or 'edit.delete_book' in book_permissions)
-            and title.strip() == book.title.strip()):
+        if (book_security.has_perm('edit.delete_book') and title.strip() == book.title.strip()):
             remove_book(book)
             self.template_name = "reader/book_delete_redirect.html"
             messages.success(request, _('Book successfully deleted.'))
@@ -217,14 +227,9 @@ class DraftChapterView(BaseReaderView, BasePageView, DetailView):
         context = super(DraftChapterView, self).get_context_data(**kwargs)
 
         # check permissions
-        book_security = security.get_user_security_for_book(
-            self.request.user, book)
-        has_permission = security.can_edit_book(book, book_security)
-        can_view_draft = security.has_perm(
-            self.request.user,
-            'reader.can_view_draft',
-            book
-        )
+        book_security = security.get_security_for_book(self.request.user, book)
+        has_permission = book_security.can_edit()
+        can_view_draft = book_security.has_perm('reader.can_view_draft')
 
         if (book.hidden and not has_permission) or not can_view_draft:
             context['has_permission'] = False

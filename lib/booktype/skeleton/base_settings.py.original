@@ -201,7 +201,6 @@ WSGI_APPLICATION = '{}.wsgi.application'.format('##BOOKTYPE_SITE_DIR##')
 
 TEMPLATE_DIRS = (
     BOOKTYPE_ROOT.child(BOOKTYPE_SITE_DIR).child('templates'),
-    Path(booki.__file__).parent.child('templates')
 )
 
 
@@ -257,6 +256,10 @@ BOOKTYPE_DEFAULT_ROLES = {
         'reader.can_view_draft'
     ]
 }
+
+# Configuration for the invite functionality
+BOOKTYPE_INVITE_SUBJECT = gettext('You\'ve been invited to collaborate')
+BOOKTYPE_DEFAULT_INVITE_MESSAGE = gettext('You\'ve been invited to collaborate')
 
 # DEPRECATED CONFIG
 

@@ -18,52 +18,54 @@ import time
 import re
 import decimal
 
+
 def remote_ping(request, message):
     """
     Sends ping to the server. Just so we know client is still alive. It also removes old locks. This is not the place to do it at all, 
     but once we have normal scheduled calls, will put it there.
 
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
+    :Args:
+      - request (:class:`django.http.HttpRequest`): Client Request object
+      - message (dict): Message object
     """
 
     import sputnik
 
-    sputnik.addMessageToChannel(request, "/booki/", {})
+    sputnik.addMessageToChannel(request, "/booktype/", {})
 
     _now = time.time()
 
     try:
-        locks = sputnik.rkeys("booki:*:locks:*") 
+        locks = sputnik.rkeys("booki:*:locks:*")
     except:
         return
 
     for key in locks:
-        
-        lastAccess = sputnik.get(key)
 
-        if type(lastAccess) in [type(' '), type(u' ')]:
+        last_access = sputnik.get(key)
+
+        if type(last_access) in [type(' '), type(u' ')]:
             try:
-                lastAccess = decimal.Decimal(lastAccess)
+                last_access = decimal.Decimal(last_access)
             except:
                 continue
 
-        if lastAccess and decimal.Decimal("%f" % _now) - lastAccess > 30:
+        if last_access and decimal.Decimal("%f" % _now) - last_access > 30:
             sputnik.rdelete(key)
 
             m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
-            
+
             if m:
-                sputnik.addMessageToChannel(request, "/booki/book/%s/" % m.group(1), {"command": "chapter_status", 
-                                                                                      "chapterID": m.group(2), 
-                                                                                      "status": "normal", 
+                sputnik.addMessageToChannel(request, "/booktype/book/%s/" % m.group(1), {"command": "chapter_status",
+                                                                                      "chapterID": m.group(2),
+                                                                                      "status": "normal",
                                                                                       "username": m.group(3)},
-                                            myself = True)
+                                            myself=True)
 # FIXME not implemented
+
 def remote_disconnect(request, message):
     pass
+
 
 def remote_subscribe(request, message):
     """
@@ -72,10 +74,9 @@ def remote_subscribe(request, message):
     Input:
      - chanels
 
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
+    :Args:
+      - request (:class:`django.http.HttpRequest`): Client Request object
+      - message (dict): Message object
     """
 
     import sputnik
@@ -86,6 +87,7 @@ def remote_subscribe(request, message):
 
         sputnik.addClientToChannel(chnl, request.sputnikID)
 
+
 def remote_connect(request, message):
     """
     Initializes sputnik connection for this client. Creates clientID for this connection. 
@@ -93,12 +95,12 @@ def remote_connect(request, message):
     Input:
      - chanels
 
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @rtype: C{string}
-    @return: Returns unique Client ID for this connection
+    :Args:
+      - request (:class:`django.http.HttpRequest`): Client Request object
+      - message (dict): Message object
+
+    :Returns:
+      Returns unique Client ID for this connection
     """
 
     import sputnik
@@ -111,7 +113,7 @@ def remote_connect(request, message):
     except:
         sputnik.rcon.connect()
         clientID = sputnik.incr("sputnik:client_id")
-        
+
     ret["clientID"] = clientID
     request.sputnikID = "%s:%s" % (request.session.session_key, clientID)
 
@@ -134,4 +136,3 @@ def remote_connect(request, message):
         sputnik.set("ses:%s:last_access" % request.sputnikID, time.time())
 
     return ret
-    

@@ -95,16 +95,18 @@ Here is example for test function::
         This test function does nothing at all. It is here just for the test purposes.
         There are many test functions but this function is special.
 
-        Args:
-          first: First argument
-          second: Second argument which also does nothing in test function
+        .. code-block:: python
 
-        Returns:
-          Returns list of elements. For example:
+           test_function(booktype.someClass(), 21)
 
-          [1, 2, 3, 4, 5]
+        :Args:
+          - first (:class:`booktype.some.Class`): First argument
+          - second: Second argument which also does nothing in test function
 
-        Raises:
+        :Returns:
+          Returns list of elements. For example: [1, 2, 3, 4, 5]
+
+        :Raises:
           KeyError: An error occurred while working with out arguments.
         """
 

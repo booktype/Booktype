@@ -63,10 +63,10 @@ def publish_book(*args, **kwargs):
     book_url = "%s/%s/_export/" % (settings.BOOKTYPE_URL, book.url_title)
 
     data = {
-        "assets" : {
-            "input.epub" : book_url
+        "assets": {
+            "input.epub": book_url
         },
-        "input" : "input.epub",
+        "input": "input.epub",
         "outputs": {}
     }
 
@@ -75,19 +75,21 @@ def publish_book(*args, **kwargs):
         if _format == "epub":
             _ext = "epub"
 
-        data["outputs"][_format] = {"profile": _format,
+        data["outputs"][_format] = {
+            "profile": _format,
             "config": {
                 "project_id": book.url_title
-                },
+            },
             "output": "{}.{}".format(book.url_title, _ext)
-            }
+        }
 
     logger.debug(data)
 
     output_results = {}
-    #_format: False for _format in data["outputs"].iterkeys()}
+    # _format: False for _format in data["outputs"].iterkeys()}
 
-    result = fetch_url('{}/_convert/'.format(settings.BOOKTYPE_URL), data, method='POST')
+    result = fetch_url(
+        '{}/_convert/'.format(settings.BOOKTYPE_URL), data, method='POST')
 
     if not result:
         sputnik.addMessageToChannel2(
@@ -102,7 +104,7 @@ def publish_book(*args, **kwargs):
         )
         return
 
-    task_id = result['task_id']    
+    task_id = result['task_id']
     start_time = time.time()
 
     while True:
@@ -120,7 +122,8 @@ def publish_book(*args, **kwargs):
             break
 
         try:
-            response = urllib2.urlopen('{}/_convert/{}'.format(settings.BOOKTYPE_URL, task_id)).read()
+            response = urllib2.urlopen(
+                '{}/_convert/{}'.format(settings.BOOKTYPE_URL, task_id)).read()
         except (urllib2.HTTPError, urllib2.URLError, httplib.HTTPException):
             logger.error(
                 'Could not communicate with a server to fetch polling data.')
@@ -134,14 +137,13 @@ def publish_book(*args, **kwargs):
             dta = {'state': ''}
             logger.error('Could not parse JSON string.')
 
-        if dta['state'] == 'SUCCESS':   
+        if dta['state'] == 'SUCCESS':
             for _key in data["outputs"].iterkeys():
                 if 'state' in dta['result'][_key]:
                     if dta['result'][_key]['state'] == 'SUCCESS':
                         output_results[_key] = True
                     elif dta['result'][_key]['state'] == 'FAILURE':
                         output_results[_key] = False
-
 
             if len(output_results) == len(data["outputs"].keys()):
                 def _x(_key):
@@ -154,7 +156,7 @@ def publish_book(*args, **kwargs):
                 urls = {_key: _x(_key) for _key in output_results.iterkeys()}
 
                 _now = datetime.datetime.now()
-                
+
                 sputnik.addMessageToChannel2(
                     kwargs['clientid'],
                     kwargs['sputnikid'],
@@ -183,5 +185,3 @@ def publish_book(*args, **kwargs):
             break
 
         time.sleep(0.5)
-
-

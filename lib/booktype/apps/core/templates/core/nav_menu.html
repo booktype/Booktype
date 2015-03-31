@@ -5,28 +5,34 @@
   <div class="sf-menu-header-bar"></div>
   <div class="sf-menu-content">
     <ul>
-      <li class="active">
-        <a href='{% url "portal:frontpage" %}'>{% trans "Home" %}</a>
+      {% url "portal:frontpage" as frontpage_url %}
+      <li {% if request.path == frontpage_url %}class="active"{% endif %}>
+        <a href='{{ frontpage_url }}'>{% trans "Home" %}</a>
       </li>
-      <li>
+      {% url 'accounts:view_profile' request.user.username as dashboard_url %}
+      <li {% if request.path == dashboard_url %}class="active"{% endif %}>
         {% if request.user.is_authenticated %}
-          <a href="{% url 'accounts:view_profile' request.user.username %}">{% trans "My Dashboard" %}</a>
+          <a href="{{ dashboard_url }}">{% trans "My Dashboard" %}</a>
         {% endif %}
       </li>
-      <li>
-        <a href="{% url 'portal:list_books' %}">{% trans "Books" %}</a>
+      {% url 'portal:list_books' as books_url %}
+      <li {% if request.path == books_url %}class="active"{% endif %}>
+          <a href="{{ books_url }}">{% trans "Books" %}</a>
       </li>
-      <li>
-        <a href="{% url 'portal:list_groups' %}">{% trans "Groups" %}</a>
+      {% url 'portal:list_groups' as groups_url %}
+      <li {% if request.path == groups_url %}class="active"{% endif %}>
+          <a href="{{ groups_url }}">{% trans "Groups" %}</a>
       </li>
-      <li>
-        <a href="{% url 'portal:list_people' %}">{% trans "People" %}</a>
+      {% url 'portal:list_people' as people_url %}
+      <li {% if request.path == people_url %}class="active"{% endif %}>
+          <a href="{{ people_url }}">{% trans "People" %}</a>
       </li>
     </ul>
 
     {% if user.is_superuser %}
     <ul id="collapsed-admin-menu">
-      <li class="active">
+      {% url 'control_center:frontpage' as cc_frontpage_url %}    
+      <li {% if request.path == cc_frontpage_url %}class="active"{% endif %}>
         <a href="{% url 'control_center:frontpage' %}">{% trans "Control Center Home" %}</a>
       </li>
       <li data-menu="settings">
