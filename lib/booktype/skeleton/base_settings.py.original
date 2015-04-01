@@ -129,13 +129,14 @@ LANGUAGE_CODE = 'en-us'
 gettext = lambda s: s
 
 LANGUAGES = (
- ('en', gettext('English')),
- ('es', gettext('Español')),
- ('fr', gettext('Italiano')),
- ('pt', gettext('Português')),
- ('pt', gettext('Português')),
- ('ru', gettext('Русский')),
- ('sq', gettext('Shqip')),
+   ('en', gettext('English')),
+   ('es', gettext('Español')),
+   ('de', gettext('German')),
+   ('fr', gettext('Italiano')),
+   ('pt', gettext('Português')),
+   ('pt', gettext('Português')),
+   ('ru', gettext('Русский')),
+   ('sq', gettext('Shqip')),
 )
 
 SITE_ID = 1
@@ -227,7 +228,7 @@ INSTALLED_APPS = (
     'booktype.apps.reader',
     'booktype.apps.account',
     'booktype.apps.themes',
-    
+
     # to be removed
     'booki.messaging',
 
