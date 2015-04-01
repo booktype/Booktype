@@ -447,7 +447,8 @@ def remote_chapter_state(request, message, bookid, version):
                                 {"command": "chapter_state",
                                  "chapterID": message["chapterID"],
                                  "state": message["state"],
-                                 "username": request.user.username})
+                                 "username": request.user.username},
+                                myself=True)
 
     return {}
 
@@ -2661,24 +2662,21 @@ def remote_book_notification(request, message, bookid, version):
     @return: Should it kill the seasson
     """
 
-    res = {"result": True}
+    res = {"result": True, "terminate": False}
 
     import time
 
-    # rcon.delete(key)
-    # update timer for edit locking
     if request.user.username and request.user.username != '':
-        sputnik.set("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username),
-                    time.time())
+        edit_lock_key = "booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username)
+        kill_edit_lock_key = "booktype:%s:%s:killeditlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username)
 
-        kill_edit_lock_key = "booktype:%s:%s:killeditlocks:%s:%s" % (bookid, version, message["chapterID"],
-                                                                     request.user.username)
+        # update timer for edit locking
+        sputnik.set(edit_lock_key, time.time())
 
+        # terminate editing if needed
         if '%s' % sputnik.get(kill_edit_lock_key) == '1':
             sputnik.rdelete(kill_edit_lock_key)
-            res = {"kill": "please"}
-
-            print 'UNLOCKED !!!', message["chapterID"]
+            res["terminate"] = True
 
     return res
 
@@ -3036,8 +3034,8 @@ def remote_chapter_kill_editlock(request, message, bookid, version):
         for key in sputnik.rkeys("booktype:%s:%s:editlocks:%s:*" % (bookid, version, message["chapterID"])):
             m = re.match("booktype:(\d+):(\d+).(\d+):editlocks:(\d+):(\w+)", key)
             if m:
-                sputnik.set("booktype:%s:%s:killeditlocks:%s:%s" % (bookid, version, message["chapterID"], m.group(5)),
-                            1)
+                username = m.group(5)
+                sputnik.set("booktype:%s:%s:killeditlocks:%s:%s" % (bookid, version, message["chapterID"], username), 1)
 
     return {"result": True}
 

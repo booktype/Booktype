@@ -227,13 +227,20 @@
         <div class="toc-chapter-detail">
             <div class="status"></div>
             <div class="display-locked <% if (is_locked !== true){ %> hide <% } %>">{% trans "Locked" %}</div>
+            {% if is_owner or is_admin %}
+            <a href="" class="terminate-edit-chapter"><span class="label label-danger pull-left "><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</span></a>
+            {% endif %}
         </div>
     </div>
 
     <div class="btn-toolbar">
         <span class="toc-chapter-short-labels">
             <span class="label display-locked pull-left <% if (is_locked !== true){ %> hide <% } %>">{% trans "Locked" %}</span>
+            {% if is_owner or is_admin %}
+            <a href="" class="terminate-edit-chapter"><span class="label label-danger pull-left "><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</span></a>
+            {% endif %}
         </span>
+
         {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
         <div class="btn-group">
         {% else %}
