@@ -435,6 +435,7 @@ def remote_chapter_state(request, message, bookid, version):
     """
 
     if message["state"] == "normal":
+        # TODO think about: does it make sense delete all keys under template booktype:%s:%s:editlocks:%s:*
         sputnik.rdelete("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username))
 
         # _, book_version, book_security = get_book(request, bookid, version)

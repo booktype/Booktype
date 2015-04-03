@@ -502,19 +502,22 @@ class Chapter(models.Model):
                                                                                        version=self.version.get_version(),
                                                                                        chapter_id=self.id)
         keys = sputnik.rkeys(edit_lock_key)
-        for key in keys:
-            last_ping = sputnik.get(key)
 
-            #if type(lastAccess) in (str, unicode):
+        if keys:
+            # there is no sense to check last editor-ping and calculate time delta...
+            # if chapter contains key in redis, this mean chapter still under edit
+            # remote_ping or cellery deamon will check editor-ping time delta and remove key if needed
+
+            # there is should be only one editor per book/version
             try:
-                last_ping = decimal.Decimal(last_ping)
-                if last_ping and decimal.Decimal("%f" % time.time()) - last_ping <= self.EDIT_PING_SECONDS_MAX_DELTA:
-                    # get editor username from key
-                    username = key.rsplit(':', 1)[-1]
-                    return username
-
+                if len(keys) != 1:
+                    raise Exception("Multiply keys were returned with KEYS: {0}".format(edit_lock_key))
             except Exception as e:
                 logger.exception(e)
+            finally:
+                # get editor username from key
+                username = keys[0].rsplit(':', 1)[-1]
+                return username
 
         return None
 
