@@ -411,7 +411,7 @@ class BookVersion(models.Model):
 # Chapter
 
 class Chapter(models.Model):
-    EDIT_PING_SECONDS_MAX_DELTA = 30
+    EDIT_PING_SECONDS_MAX_DELTA = 15
 
     version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
     # don't need book

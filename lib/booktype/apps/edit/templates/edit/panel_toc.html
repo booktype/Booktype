@@ -144,7 +144,13 @@
 <script type="text/html" id="templateHoldButtonGroup">
 <div class="btn-toolbar float-right">
     <% if (is_locked === true){ %>
-    <span class="label locked pull-left" style="margin-right: 5px;">{% trans "Locked" %}</span>
+
+     <span class="chapter-labels">
+        {% if is_owner or is_admin %}
+        <a href="" class="label label-danger pull-left terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
+        {% endif %}
+        <span class="label locked pull-left">{% trans "Locked" %}</span>
+    </span>
     {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
     <div class="btn-group">
         {% if is_owner or is_admin or 'edit.manage_chapters_hold' in roles_permissions %}
@@ -162,7 +168,14 @@
         <button id="edit" class="btn btn-default btn-xs option-edit">{% trans "EDIT" %}</button>
     </div>
     {% endif %}
+
     <% } else { %>
+
+    <span class="chapter-labels">
+        {% if is_owner or is_admin %}
+        <a href="" class="label label-danger pull-left terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
+        {% endif %}
+    </span>
     <div class="btn-group">
         {% if is_owner or is_admin or 'edit.manage_chapters_hold' in roles_permissions %}
         <button id="expand" class="btn btn-default btn-xs option-hold" rel="tooltip" data-placement="left" data-original-title="{% trans 'Unhold' %}">
@@ -178,6 +191,7 @@
     <div class="btn-group">
         <button id="edit" class="btn btn-default btn-xs option-edit">{% trans "EDIT" %}</button>
     </div>
+
     <% } %>
 </div>
 </script>
@@ -228,17 +242,19 @@
             <div class="status"></div>
             <div class="display-locked <% if (is_locked !== true){ %> hide <% } %>">{% trans "Locked" %}</div>
             {% if is_owner or is_admin %}
-            <a href="" class="terminate-edit-chapter"><span class="label label-danger pull-left "><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</span></a>
+            <div style="background-color: #d9534f" class="terminate-edit-chapter">
+                <a href="" class="terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
+            </div>
             {% endif %}
         </div>
     </div>
 
     <div class="btn-toolbar">
-        <span class="toc-chapter-short-labels">
-            <span class="label display-locked pull-left <% if (is_locked !== true){ %> hide <% } %>">{% trans "Locked" %}</span>
+        <span class="chapter-labels">
             {% if is_owner or is_admin %}
-            <a href="" class="terminate-edit-chapter"><span class="label label-danger pull-left "><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</span></a>
+            <a href="" class="label label-danger pull-left terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
             {% endif %}
+            <span class="label display-locked pull-left <% if (is_locked !== true){ %> hide <% } %>">{% trans "Locked" %}</span>
         </span>
 
         {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}

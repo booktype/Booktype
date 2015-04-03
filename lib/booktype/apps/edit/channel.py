@@ -112,9 +112,22 @@ def get_hold_chapters(book_version):
           Tuple with chapter's attributes
         """
 
-        return (chapter.id, chapter.title, chapter.url_title, 1,
-                chapter.status.id, chapter.lock_type, chapter.lock_username
-                )
+        state = "normal"
+        current_editor = chapter.get_current_editor()
+        if current_editor:
+            state = "edit"
+
+        return (chapter.id,
+                chapter.title,
+                chapter.url_title,
+                1,
+                chapter.status.id,
+                chapter.lock_type,
+                chapter.lock_username,
+                "root",     # no parents in hold
+                None,       # hold chapter not in toc
+                state,
+                current_editor)
 
     return [_to_tuple(ch) for ch in hold_chapters]
 
