@@ -54,7 +54,7 @@ def get_toc_for_book(version):
         if chap.chapter:
 
             state = "normal"
-            current_editor = chap.chapter.get_current_editor()
+            current_editor = chap.chapter.get_current_editor_username()
             if current_editor:
                 state = "edit"
 
@@ -113,7 +113,7 @@ def get_hold_chapters(book_version):
         """
 
         state = "normal"
-        current_editor = chapter.get_current_editor()
+        current_editor = chapter.get_current_editor_username()
         if current_editor:
             state = "edit"
 
@@ -1218,13 +1218,21 @@ def remote_get_chapter(request, message, bookid, version):
         return dict(result=False)
 
     # TODO clarify about read only mode
-    # if chapter is locked and request for edit -> check access
-    if chapter.is_locked() and message.get("edit_lock", False):
-        if not book_security.has_perm('edit.lock_chapter'):
+    # do some request validation and check permissions, if request for edit
+    if message.get("edit_lock", False):
+
+        # if chapter under edit by another user
+        editor_username = chapter.get_current_editor_username()
+        if editor_username and editor_username != request.user.username:
             raise PermissionDenied
-        elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
-                                               and chapter.lock.user != request.user):
-            raise PermissionDenied
+
+        # if chapter is locked
+        if chapter.is_locked():
+            if not book_security.has_perm('edit.lock_chapter'):
+                raise PermissionDenied
+            elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                                   and chapter.lock.user != request.user):
+                raise PermissionDenied
 
     res["title"] = chapter.title
     res["content"] = chapter.content
@@ -1244,9 +1252,6 @@ def remote_get_chapter(request, message, bookid, version):
         # set the initial timer edit locking
         sputnik.set("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username),
                     time.time())
-
-        print 'GET CHAPTER LOCKED !!!', message["chapterID"]
-        print "booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username)
 
         sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
                                     {"command": "chapter_state",
@@ -2676,18 +2681,29 @@ def remote_book_notification(request, message, bookid, version):
     @return: Should it kill the seasson
     """
 
-    res = {"result": True, "terminate": False}
-
     import time
 
-    if request.user.username and request.user.username != '':
-        edit_lock_key = "booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username)
-        kill_edit_lock_key = "booktype:%s:%s:killeditlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username)
+    res = {"result": True, "terminate": False}
+
+    if request.user.username:
+        _, book_version, _ = get_book(request, bookid, version)
+
+        try:
+            chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+        except models.Chapter.DoesNotExist:
+            return dict(result=False)
+
+        # if chapter under edit by another user -> decline
+        if chapter.get_current_editor_username() != request.user.username:
+            raise SuspiciousOperation
 
         # update timer for edit locking
+        edit_lock_key = "booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username)
         sputnik.set(edit_lock_key, time.time())
 
         # terminate editing if needed
+        kill_edit_lock_key = "booktype:%s:%s:killeditlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username)
+
         if '%s' % sputnik.get(kill_edit_lock_key) == '1':
             sputnik.rdelete(kill_edit_lock_key)
             res["terminate"] = True

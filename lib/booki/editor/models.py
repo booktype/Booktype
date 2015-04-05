@@ -487,9 +487,9 @@ class Chapter(models.Model):
         """
         return bool(self.lock_type)
 
-    def get_current_editor(self):
+    def get_current_editor_username(self):
         """
-        Return editor who is editing chapter at the moment
+        Return editor username who is editing chapter at the moment
 
         :Args:
           - self (:class:`booki.editor.models.Chapter`): Chapter instance
