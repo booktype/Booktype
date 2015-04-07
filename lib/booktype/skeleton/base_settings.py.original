@@ -153,9 +153,10 @@ USE_L10N = True
 USE_TZ = False
 
 LOCALE_PATHS = (
-     BOOKTYPE_ROOT.child(BOOKTYPE_SITE_DIR).child('locale'),
-      Path(booki.__file__).parent.child('locale'),
-      Path(booki.__file__).parent.child('booktype').child('locale')
+    BOOKTYPE_ROOT.child(BOOKTYPE_SITE_DIR).child('locale'),
+    Path(booki.__file__).parent.child('locale'),
+    Path(booki.__file__).parent.child('booktype').child('locale'),
+    Path(booki.__file__).parent.child('booktypecontrol').child('locale'),
 )
 
 # Make this unique, and don't share it with anybody.
@@ -167,30 +168,32 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 # List of callables that know how to import templates from various sources.
 
 TEMPLATE_LOADERS = (
-                    'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                    'django.template.loaders.eggs.Loader',
-                   )
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.eggs.Loader',
+)
 
 
-TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
-                                "django.core.context_processors.debug",
-                                "django.core.context_processors.i18n",
-                                "django.core.context_processors.media",
-                                "django.core.context_processors.static",
-                                "django.core.context_processors.tz",
-                                "django.core.context_processors.request",
-                                "django.contrib.messages.context_processors.messages",
-                                "django.core.context_processors.csrf")
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.csrf',
+)
 
 MIDDLEWARE_CLASSES = (
-                    'django.middleware.common.CommonMiddleware',
-                    'django.contrib.sessions.middleware.SessionMiddleware',
-                    'django.middleware.csrf.CsrfViewMiddleware',
-                    'django.middleware.locale.LocaleMiddleware',
-                    'django.contrib.auth.middleware.AuthenticationMiddleware',
-                    'django.middleware.transaction.TransactionMiddleware',
-                    'django.contrib.messages.middleware.MessageMiddleware'
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.transaction.TransactionMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 )
 
 
@@ -217,6 +220,9 @@ INSTALLED_APPS = (
 
     # list of booki apps
     'booki.editor',
+
+    # needed for translation engine
+    'booktype',
 
     # list of booktype apps
     'booktype.apps.core',
