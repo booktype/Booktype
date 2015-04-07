@@ -145,12 +145,12 @@
 <div class="btn-toolbar float-right">
     <% if (is_locked === true){ %>
 
-     <span class="chapter-labels">
+     <div class="chapter-labels pull-left">
         {% if is_owner or is_admin %}
-        <a href="" class="label label-danger pull-left terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
+        <a href="" class="label label-danger terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
         {% endif %}
-        <span class="label locked pull-left">{% trans "Locked" %}</span>
-    </span>
+        <span class="label locked">{% trans "Locked" %}</span>
+    </div>
     {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
     <div class="btn-group">
         {% if is_owner or is_admin or 'edit.manage_chapters_hold' in roles_permissions %}
@@ -171,11 +171,11 @@
 
     <% } else { %>
 
-    <span class="chapter-labels">
+    <div class="chapter-labels pull-left">
         {% if is_owner or is_admin %}
-        <a href="" class="label label-danger pull-left terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
+        <a href="" class="label label-danger terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
         {% endif %}
-    </span>
+    </div>
     <div class="btn-group">
         {% if is_owner or is_admin or 'edit.manage_chapters_hold' in roles_permissions %}
         <button id="expand" class="btn btn-default btn-xs option-hold" rel="tooltip" data-placement="left" data-original-title="{% trans 'Unhold' %}">
@@ -250,12 +250,13 @@
     </div>
 
     <div class="btn-toolbar">
-        <span class="chapter-labels">
+
+        <div class="chapter-labels pull-left">
             {% if is_owner or is_admin %}
-            <a href="" class="label label-danger pull-left terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
+            <a href="" class="label label-danger terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
             {% endif %}
-            <span class="label display-locked pull-left <% if (is_locked !== true){ %> hide <% } %>">{% trans "Locked" %}</span>
-        </span>
+            <span class="label display-locked <% if (is_locked !== true){ %> hide <% } %>">{% trans "Locked" %}</span>
+        </div>
 
         {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
         <div class="btn-group">
