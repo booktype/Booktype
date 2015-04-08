@@ -124,6 +124,7 @@ METADATA_FIELDS = [
     ('subtitle', _('Subtitle'), BKM),
     ('short_description', _('Short description'), BKM),
     ('long_description', _('Long description'), BKM),
+    ('creator', _('Author(s)'), DC),
     ('publisher', _('Publisher'), DC),
     ('publisher_city', _('Publisher city'), BKM),
     ('publication_date', _('Publication date'), BKM),  # there is a date in DC
