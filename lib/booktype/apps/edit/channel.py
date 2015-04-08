@@ -949,10 +949,13 @@ def remote_chapters_changed(request, message, bookid, version):
     @param version: Book version
     """
 
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.reorder_toc'):
+        raise PermissionDenied
+
     lst = [(chap['item_id'], chap['parent_id']) for chap in message["chapters"]]
     lstHold = []
-
-    book, book_version, book_security = get_book(request, bookid, version)
 
     weight = len(lst)
 
