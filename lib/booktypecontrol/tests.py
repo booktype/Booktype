@@ -1,23 +1,48 @@
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
-
-Replace these with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
+from django.contrib.auth.models import User
+from django.utils.translation import ugettext as _
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.failUnlessEqual(1 + 1, 2)
+from booki.editor.models import Book
+from booktypecontrol.forms import BookRenameForm
 
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
 
->>> 1 + 1 == 2
-True
-"""}
+class BookRenameFormTest(TestCase):
+    def setUp(self):
+        user = User.objects.create_user('zohan')
+        self.book = Book.objects.create(
+            title='Test Book',
+            url_title='test_book',
+            owner=user,
+        )
 
+    def test_valid_form(self):
+        valid_form_data = {
+            'title': 'Foo Book',
+            'url_title': 'foo_book'
+        }
+
+        valid_form = BookRenameForm(data=valid_form_data,
+                                    instance=self.book)
+        self.assertTrue(valid_form.is_valid())
+
+        valid_form.save()
+
+        self.assertEqual(
+            Book.objects.get(pk=valid_form.instance.pk).title,
+            valid_form_data['title']
+        )
+
+    def test_invalid_form(self):
+        invalid_form_data = {
+            'title': '',
+            'url_title': 'foo_book'
+        }
+
+        invalid_form = BookRenameForm(data=invalid_form_data)
+        self.assertFalse(invalid_form.is_valid())
+        self.assertEqual(
+            invalid_form.errors,
+            {
+                'title': [_('Title is required.')],
+            }
+        )
