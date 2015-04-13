@@ -19,6 +19,9 @@ MANAGERS = ADMINS
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['*']
 
+# Hosts/domain names that can export books from the /<bookid>/_export/ path
+EXPORT_ALLOWED_HOSTS = ['localhost']
+
 DEFAULT_NOTIFICATION_FILTER=u"#* !* ~* \u212c*"
 
 # You can customize which publish options this installation can use.
@@ -287,4 +290,3 @@ CACHES = {
         'LOCATION': 'unique-booktype-id'
     }
 }
-
