@@ -281,6 +281,7 @@ def cover(request, bookid, cid, fname=None, version=None):
 
 
 class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+
     """Basic Edito Book View which opens up the editor.
 
     Most of the initial data is loaded from the browser over the Sputnik.
@@ -321,11 +322,9 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         book_version = book.get_version(None)
 
-        book_security = security.get_user_security_for_book(
-            self.request.user, book)
-        has_permission = security.can_edit_book(book, book_security)
+        book_security = security.get_security_for_book(self.request.user, book)
 
-        if not has_permission:
+        if not book_security.can_edit():
             return {'book': book, 'has_permission': False}
 
         toc = get_toc_for_book(book_version)
@@ -345,8 +344,7 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         context['base_url'] = settings.BOOKTYPE_URL
         context['static_url'] = settings.STATIC_URL
-        context['is_admin'] = book_security.is_group_admin() or\
-            book_security.is_book_admin() or book_security.is_superuser()
+        context['is_admin'] = book_security.is_admin()
         context['is_owner'] = book.owner == self.request.user
         context['roles_permissions'] = security.get_user_permissions(
             self.request.user, book)
@@ -627,7 +625,7 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
             )
 
         self.chapter.revision += 1
-        self.chapter.content = revision.content;
+        self.chapter.content = revision.content
         try:
             self.chapter.save()
             messages.success(request, _('Chapter revision successfully reverted.'))

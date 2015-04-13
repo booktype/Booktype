@@ -66,7 +66,8 @@ Learn about the various components and tools to help you in the development and 
 * **Translating:**
   Introduction
 
-* **Documenting:** Introduction
+* **Documenting:** 
+  :doc:`Introduction <development/documenting>`
 
 
 Booktype

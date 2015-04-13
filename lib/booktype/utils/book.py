@@ -17,6 +17,7 @@
 import datetime
 import os
 import shutil
+import logging
 
 from django.db.models import Q
 from django.conf import settings
@@ -30,6 +31,9 @@ try:
     from PIL import Image
 except ImportError:
     import Image
+
+
+logger = logging.getLogger('booktype')
 
 
 def check_book_availability(book_title):
@@ -203,15 +207,14 @@ def set_book_cover(book, file_name):
     """
 
     try:
-
         im = Image.open(file_name)
         im.thumbnail((240, 240), Image.ANTIALIAS)
         im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.COVER_IMAGE_UPLOAD_DIR, book.id), "JPEG")
 
         # If we have used book.cover.save we would end up with obsolete files  on disk
         book.cover = '%s%s.jpg' % (settings.COVER_IMAGE_UPLOAD_DIR, book.id)
-    except:
-        pass
+    except Exception, e:
+        logger.exception(e)
 
 
 def rename_book(book, new_title, new_URL_title):
@@ -227,11 +230,24 @@ def rename_book(book, new_title, new_URL_title):
     @type new_URL_title: C{string}
     @param: New URL title
     """
+    import logging
+    logger = logging.getLogger('booktype')
 
     try:
-        os.rename('%s/books/%s' % (settings.DATA_ROOT, book.url_title), '%s/books/%s' % (settings.DATA_ROOT, new_URL_title))
-    except OSError:
-        pass
+        os.rename(
+            '{0}/books/{1}'.format(settings.DATA_ROOT, book.url_title),
+            '{0}/books/{1}'.format(settings.DATA_ROOT, new_URL_title)
+        )
+    except OSError as ex:
+        logger.error("ERROR [{0}]: {1} {2}".format(ex.errno, ex.strerror, ex.filename))
+
+    try:
+        os.rename(
+            '{0}/styles/{1}'.format(settings.DATA_ROOT, book.url_title),
+            '{0}/styles/{1}'.format(settings.DATA_ROOT, new_URL_title)
+        )
+    except OSError as ex:
+        logger.error("ERROR [{0}]: {1} {2}".format(ex.errno, ex.strerror, ex.filename))
 
     book.title = new_title
     book.url_title = new_URL_title

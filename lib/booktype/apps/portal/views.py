@@ -1,6 +1,8 @@
 import datetime
 
+from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -13,9 +15,11 @@ from django.views.generic.edit import CreateView, UpdateView
 from braces.views import LoginRequiredMixin
 
 from booktype.apps.core import views
+from booktype.apps.core.models import Role
 from booktype.utils import security
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.views import PageView, BasePageView
+from booktype.apps.account.forms import UserInviteForm
 from booki.editor.models import Book, BookiGroup, BookHistory
 
 from .forms import GroupCreateForm, GroupUpdateForm
@@ -49,6 +53,12 @@ class FrontPageView(PageView):
         context['group_list'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'num_members': g.members.count(), 'num_books': g.book_set.count(), 'small_group_image': g.get_group_image} for g in booki_group5]
 
         context['recent_activities'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
+
+        if self.request.user.is_authenticated():
+            initial = {
+                'message': getattr(settings, 'BOOKTYPE_DEFAULT_INVITE_MESSAGE', '')
+            }
+            context['invite_form'] = UserInviteForm(user=self.request.user, initial=initial)
 
         return context
 
@@ -88,14 +98,14 @@ class GroupPageView(GroupManipulation):
 
         context['books_to_add'] = []
 
-        user_group_security = security.get_user_security_for_group(self.request.user, context['selected_group'])
+        user_group_security = security.get_security_for_group(self.request.user, context['selected_group'])
         context['is_group_admin'] = user_group_security.is_group_admin()
 
         if context['is_group_admin']:
             list_of_books = Book.objects.exclude(group=context['selected_group'])
 
             for b in list_of_books:
-                if security.get_user_security_for_book(self.request.user, b).is_book_admin():
+                if security.get_security_for_book(self.request.user, b).is_book_admin():
                     context['books_to_add'].append({'cover': b.cover, 'url_title': b.url_title, 'title': b.title})
 
             if self.request.user.is_superuser:
@@ -197,7 +207,7 @@ class GroupUpdateView(LoginRequiredMixin, BasePageView, UpdateView):
         """
 
         self.object = self.get_object()
-        group_security = security.get_user_security_for_group(request.user, self.object)
+        group_security = security.get_security_for_group(request.user, self.object)
 
         if not group_security.is_group_admin():
             return views.ErrorPage(request, "errors/nopermissions.html")
@@ -230,7 +240,7 @@ class GroupDeleteView(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         user = self.request.user
         group = self.get_object()
-        group_security = security.get_user_security_for_group(user, group)
+        group_security = security.get_security_for_group(user, group)
 
         if group.owner != user and not user.is_superuser or not group_security.is_group_admin():
             messages.warning(self.request, _("You are not allowed to delete this group"))
@@ -306,4 +316,4 @@ class AddBooksView(PageView):
                     book.group = group
                     book.save()
 
-        return HttpResponse()        
+        return HttpResponse()

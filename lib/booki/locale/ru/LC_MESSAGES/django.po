@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-05 19:22+0200\n"
+"POT-Creation-Date: 2015-03-25 21:41+0100\n"
 "PO-Revision-Date: 2013-04-12 16:03+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Russian Localization <contact@sourcefabric.org>\n"
@@ -19,1127 +19,360 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: account/models.py:38
-msgid "mood"
-msgstr "модель"
-
-#: account/models.py:39
-msgid "image"
-msgstr "изображение"
-
-#: account/models.py:40 editor/models.py:94 editor/models.py:138
-#: editor/models.py:298
-msgid "description"
-msgstr "описание"
-
-#: account/models.py:41 account/models.py:56 editor/models.py:240
-#: editor/models.py:361 editor/models.py:454 editor/models.py:466
-#: editor/models.py:478 editor/models.py:497
-#: editor/templates/editor/edit_book.html:568
-#: editor/templates/editor/edit_book.html:702
-msgid "user"
-msgstr "пользователь"
-
-#: account/models.py:57
-msgid "secretcode"
-msgstr "секретный код"
-
-#: account/models.py:58 editor/models.py:101 editor/models.py:132
-#: editor/models.py:300 editor/models.py:334 editor/models.py:398
-#: editor/models.py:523 editor/templates/editor/edit_book.html:714
-msgid "created"
-msgstr "создано"
-
-#. Translators: Visible only in Django Admin interface. No need to translate this.
-#: account/models.py:61
-msgid "remote useragent"
-msgstr "удаленный агент пользователя"
-
-#. Translators: Visible only in Django Admin interface. No need to translate this.
-#: account/models.py:63
-msgid "remote addr"
-msgstr "удаленный адрес"
-
-#. Translators: Visible only in Django Admin interface. No need to translate this.
-#: account/models.py:65
-msgid "remote host"
-msgstr "удаленный хост"
-
-#: account/views.py:314
-msgid "Reset password"
-msgstr "Сбросить пароль"
-
-#: account/templates/account/create_book.html:4
-#: account/templates/account/create_book.html:13
-msgid "Create a Book"
-msgstr "Создать книгу"
-
-#: account/templates/account/create_book.html:7
-msgid ""
-"You don't have permissions to create new books. At the moment only "
-"administrators can do that."
-msgstr ""
-"У вас нет прав создания новых книг. В настоящее время это может делать "
-"только администратор."
-
-#: account/templates/account/create_book.html:18
-msgid "Step 1"
-msgstr "Шаг 1"
-
-#: account/templates/account/create_book.html:18
-#: editor/templates/editor/cover_manager.html:53
-#: editor/templates/editor/cover_manager.html:180
-msgid "Title"
-msgstr "Заголовок"
-
-#: account/templates/account/create_book.html:19
-msgid "What is the title of your book?"
-msgstr "Заголовок вашей книги?"
-
-#: account/templates/account/create_book.html:21
-msgid "Title of Book"
-msgstr "Заголовок книги"
-
-#: account/templates/account/create_book.html:25
-msgid "There is already a book with this name."
-msgstr "Книга с таким названием уже существует"
-
-#: account/templates/account/create_book.html:30
-msgid "Step 2"
-msgstr "Шаг 2"
-
-#: account/templates/account/create_book.html:30
-#: account/templates/account/create_book.html:34
-#: account/templates/account/view_profile.html:70
-msgid "Description"
-msgstr "Описание"
-
-#: account/templates/account/create_book.html:31
-msgid ""
-"Give some information so others can find it to help you (this can be added "
-"or changed later)."
-msgstr ""
-"Оставьте какую-то информацию, чтобы остальные могли ознакомиться с ней и "
-"помочь вам (можно внести или изменить позже)"
-
-#: account/templates/account/create_book.html:40
-msgid "Step 3"
-msgstr "Шаг 3"
-
-#: account/templates/account/create_book.html:40
-msgid "Choose your license"
-msgstr "Выберите лицензию"
-
-#: account/templates/account/create_book.html:41
-msgid "Choose from the following licenses"
-msgstr "Выберите из нижеперечисленных лицензий"
-
-#: account/templates/account/create_book.html:43 editor/models.py:36
-#: editor/templates/editor/cover_manager.html:133
-#: editor/templates/editor/cover_manager.html:257
-#: editor/templates/editor/edit_book.html:446
-msgid "License"
-msgstr "Лицензия"
-
-#: account/templates/account/create_book.html:54
-msgid "Step 4"
-msgstr "Шаг 4"
-
-#: account/templates/account/create_book.html:54
-#: editor/templates/editor/edit_book.html:225
-msgid "Image"
-msgstr "Изображение"
-
-#: account/templates/account/create_book.html:55
-msgid ""
-"If you have an image for the book then add it now (this can be added or "
-"changed later)"
-msgstr ""
-"Если у вас есть изображение для книги, добавьте его сейчас (можно внести или "
-"изменить позже)"
-
-#: account/templates/account/create_book.html:57
-msgid "Book Image"
-msgstr "Изображение для книги"
-
-#: account/templates/account/create_book.html:63
-msgid "Step 5"
-msgstr "Шаг 5"
-
-#: account/templates/account/create_book.html:63
-msgid "Make Public?"
-msgstr "Сделать книгу общедоступной?"
-
-#: account/templates/account/create_book.html:64
-msgid ""
-"Would you like to keep your book private or make it public? If the book is "
-"public others can find the book to help you."
-msgstr ""
-"Хотите сохранить книгу закрытой для окружающих или сделать общедоступной? "
-"если книга общедоступна, другие пользователи могут найти ее и помочь вам."
-
-#: account/templates/account/create_book.html:65
-msgid ""
-"<strong>Note:</strong> this setting can be changed later from your dashboard."
-"</p>"
-msgstr ""
-"<strong>Внимание:</strong> эту настройку можно изменить позже из вашей "
-"панели пользователя.</p>"
-
-#: account/templates/account/create_book.html:67
-msgid "Initially hide from others"
-msgstr "Изначально скрыто от других пользователей"
-
-#: account/templates/account/create_group.html:3
-msgid "Create a Group"
-msgstr "Создать группу"
-
-#: account/templates/account/create_group.html:6
-msgid "Group name:"
-msgstr "Название группы:"
-
-#: account/templates/account/create_group.html:9
-msgid "There is already a group with this name."
-msgstr "Группа с таким названием уже существует."
-
-#: account/templates/account/create_group.html:12
-msgid "Description:"
-msgstr "Описание:"
-
-#: account/templates/account/error_import.html:6
-#: account/templates/account/error_import.html:11
-msgid "Error while doing import"
-msgstr "Ошибка при импортировании"
-
-#: account/templates/account/error_import.html:12
-msgid "This is a first version of error message. Not much to see here."
-msgstr "Это первая версия сообщения об ошибке. Ничего особенного. "
-
-#: account/templates/account/forgot_password.html:6
-#: account/templates/account/forgot_password_enter.html:6
-msgid "Forgot Password"
-msgstr "Забыл пароль"
-
-#: account/templates/account/forgot_password.html:51
-msgid "Forgot your password"
-msgstr "Забыли свой пароль"
-
-#: account/templates/account/forgot_password.html:55
-msgid "USERNAME OR E-MAIL ADDRESS"
-msgstr "ИМЯ ПОЛЬЗОВАТЕЛЯ ИЛИ EMAIL"
-
-#: account/templates/account/forgot_password.html:57
-msgid ""
-"Give us your username or e-mail you used to create Booktype account and we "
-"will send you new password."
-msgstr ""
-"Сообщите имя пользователя или email, который использовался при создании "
-"учетной записи Booktype, и мы вышлем вам новый пароль."
-
-#: account/templates/account/forgot_password.html:59
-msgid "Enter username."
-msgstr "Введите имя пользователя."
-
-#: account/templates/account/forgot_password.html:60
-msgid "No such user."
-msgstr "Такого пользователя не существует."
-
-#: account/templates/account/forgot_password.html:61
-msgid "Unknown error."
-msgstr "Неизвестная ошибка."
-
-#: account/templates/account/forgot_password.html:63
-#: account/templates/account/forgot_password_enter.html:55
-msgid "Send request"
-msgstr "Пошлите запрос"
-
-#: account/templates/account/forgot_password.html:70
-msgid "Check your email!"
-msgstr "Проверьте свою электронную почту!"
-
-#: account/templates/account/forgot_password.html:71
-msgid "Password reset instructions were sent to your email."
-msgstr "Инструкции по смене пароля были высланы на ваш email."
-
-#: account/templates/account/forgot_password_enter.html:40
-msgid "Reset your password"
-msgstr "Смените свой пароль"
-
-#: account/templates/account/forgot_password_enter.html:46
-msgid "SECRETCODE"
-msgstr "СЕКРЕТНЫЙ КОД"
-
-#: account/templates/account/forgot_password_enter.html:49
-msgid "NEW PASSWORD"
-msgstr "НОВЫЙ ПАРОЛЬ"
-
-#: account/templates/account/forgot_password_enter.html:52
-msgid "NEW PASSWORD AGAIN"
-msgstr "ВВЕДИТЕ НОВЫЙ ПАРОЛЬ ЕЩЕ РАЗ"
-
-#: account/templates/account/form_register.html:6
-#: account/templates/account/form_register.html:42
-msgid "Registration"
-msgstr "Регистрация"
-
-#: account/templates/account/form_register.html:8
-msgid "User limit has been reached."
-msgstr "Превышение лимита пользователей."
-
-#: account/templates/account/form_register.html:11
-#: account/templates/account/form_register.html:38
-msgid "Create account"
-msgstr "Создать учетную запись"
-
-#: account/templates/account/form_register.html:13
-#: account/templates/account/form_signin.html:6
-msgid "User name"
-msgstr "Имя пользователя"
-
-#: account/templates/account/form_register.html:15
-msgid "Password (6 characters at least)"
-msgstr "Пароль (минимум 6 символов)"
-
-#: account/templates/account/form_register.html:17
-#: account/templates/account/view_profile.html:196
-msgid "Full name"
-msgstr "Полное имя"
-
-#: account/templates/account/form_register.html:19
-#: account/templates/account/view_profile.html:192
-msgid "Email"
-msgstr "Email"
-
-#: account/templates/account/form_register.html:24
-msgid "Missing username!"
-msgstr "Пропущено имя пользователя!"
-
-#: account/templates/account/form_register.html:25
-msgid "Missing e-mail!"
-msgstr "Пропущен email!"
-
-#: account/templates/account/form_register.html:26
-msgid "Missing password!"
-msgstr "Пропущен пароль!"
-
-#: account/templates/account/form_register.html:27
-msgid "Please provide your real name."
-msgstr "Пожалуйста, сообщите ваше настоящее имя."
-
-#: account/templates/account/form_register.html:28
-msgid ""
-"Username is invalid. Please try a different one. You may use alhpanumeric "
-"characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
-"li></ul>"
-msgstr ""
-"Имя пользователя неверно. Пожалуйста, попробуйте еще раз. Можно пользоваться "
-"буквенно-цифровыми знаками и символами \".\", \"_\", \"-\" (точкой, нижним "
-"подчеркиванием и минусом). <br/><br/>Например:<ul><li>vnazor</li><li>Marin."
-"Drzic</li><li>kamilo_kamili</li></ul>"
-
-#: account/templates/account/form_register.html:29
-msgid "This is not a valid e-mail"
-msgstr "Этот e-mail неверный."
-
-#: account/templates/account/form_register.html:30
-msgid "Your passwords dont match. Please try a different one."
-msgstr "Ваши пароли не совпадают. Повторите попытку снова."
-
-#: account/templates/account/form_register.html:31
-#: account/templates/account/view_profile.html:252
-msgid "Password must be 6 characters or more!"
-msgstr "Пароль должен иметь минимум шесть символов!"
-
-#: account/templates/account/form_register.html:32
-msgid "Username already taken. Please try a different one."
-msgstr "Имя пользователя занято. Пожалуйста, выберите другое."
-
-#: account/templates/account/form_register.html:33
-#: account/templates/account/form_signin.html:17
-msgid "Unknown error!"
-msgstr "Неизвестная ошибка!"
-
-#: account/templates/account/form_register.html:34
-msgid "Fullname is too long!"
-msgstr "Полное имя слишком длинное!"
-
-#: account/templates/account/form_register.html:44
-msgid "Only administrator is allowed to create new accounts at the moment."
-msgstr ""
-"В настоящее время создавать новые учетные записи может только администратор."
-
-#: account/templates/account/form_signin.html:3
-#: account/templates/account/form_signin.html:20
-msgid "Sign in"
-msgstr "Вход"
-
-#: account/templates/account/form_signin.html:8
-msgid "Password"
-msgstr "Пароль"
-
-#: account/templates/account/form_signin.html:15
-msgid "User does not exist."
-msgstr "Пользователь с таким именем не существует."
-
-#: account/templates/account/form_signin.html:16
-msgid "Password is wrong! Please try again."
-msgstr "Пароль неверный! Попытайтесь снова."
-
-#: account/templates/account/import_book.html:4
-#: account/templates/account/import_book.html:14
-msgid "Import book"
-msgstr "Импортировать книгу"
-
-#: account/templates/account/import_book.html:7
-msgid ""
-"You don't have permissions to import content. At the moment only "
-"administrators can do that."
-msgstr ""
-"У вас нет права импортирования контента. В настоящее время это может делать "
-"только администратор."
-
-#: account/templates/account/import_book.html:19
-msgid "Import type:"
-msgstr "Тип импорта"
-
-#: account/templates/account/import_book.html:22
-msgid "Select Import Type"
-msgstr "Выбрать тип импорта"
-
-#: account/templates/account/import_book.html:23
-msgid "Import EPUB"
-msgstr "Импортировать в EPUB"
-
-#: account/templates/account/import_book.html:24
-msgid "Import archive.org book"
-msgstr "Импортировать книгу archive.org"
-
-#: account/templates/account/import_book.html:25
-msgid "Copy or import Booktype book"
-msgstr "Копировать или импортировать книгу Booktype"
-
-#: account/templates/account/import_book.html:28
-msgid "Source:"
-msgstr "Источник:"
-
-#: account/templates/account/import_book.html:31
-msgid "New title (optional):"
-msgstr "Новый заголовок (необязательно)"
-
-#: account/templates/account/import_book.html:34
-msgid "Initially hidden from others"
-msgstr "Изначально скрыто от других пользователей"
-
-#: account/templates/account/import_book.html:38
-msgid ""
-"Please wait. It will take couple of moments. Your book is being imported!"
-msgstr ""
-"Подождите, пожалуйста. Это займет несколько минут. Ваша книга импортируется!"
-
-#: account/templates/account/password_reset_email.html:5
-msgid ""
-"To reset your Booktype password, simply click the link below. That will take "
-"you to a web page where you can create a new password."
-msgstr ""
-"Для сброса пароля в Booktype используйте ссылку. Вы перейдете на страницу, "
-"где сможете создать новый пароль. "
-
-#: account/templates/account/password_reset_email.html:6
-msgid "Go to:"
-msgstr "Перейти на:"
-
-#: account/templates/account/password_reset_email.html:7
-msgid ""
-"If you weren't trying to reset your password, don't worry – your account is "
-"still secure and no one has been given access to it. Most likely, someone "
-"just mistyped their email address while trying to reset their own password."
-msgstr ""
-"Если вы не пытались сбросить пароль, не волнуйтесь - ваша учетная запись в "
-"безопасности, никто не получал доступа к ней. Скорее всего, кто-то неверно "
-"ввел свой email адрес при сбросе своего собственного пароля. "
-
-#: account/templates/account/signin.html:6
-msgid "Booktype Sign In"
-msgstr "Вход в Booktype"
-
-#: account/templates/account/signin.html:30
-msgid "You are already signed in!"
-msgstr "Вы уже вошли!"
-
-#: account/templates/account/signin.html:49
-msgid "Your account has been created!"
-msgstr "Ваша учетная запись создана!"
-
-#: account/templates/account/signin.html:50
-#, python-format
-msgid ""
-"\n"
-"    <p>Thank you. We have created your account and signed you in. Do you "
-"want to learn more how to use Booktype? Read the <a href=\"http://en."
-"flossmanuals.net/booktype\">user guide</a>!</p>\n"
-"    \n"
-"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! "
-"Let's use Booktype now!</button><span class=\"redirectmessage\" style="
-"\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</"
-"span> seconds.</span></form></p>\n"
-"    "
-msgstr ""
-"\n"
-"    <p>Спасибо. Мы создали вашу учетную запись и зарегистрировали ваш вход. "
-"Хотите узнать больше о Booktype? Читайте <a href=\"http://en.flossmanuals."
-"net/booktype-ru\">руководство пользователя</a>!</p>\n"
-"    \n"
-"    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Прекрасно! "
-"Начнем работу в Booktype!</button><span class=\"redirectmessage\" style="
-"\"padding-left: 20px\">Автоматическая переадресация произойдет через <span "
-"class=\"sec\">sec</span> секунд.</span></form></p>\n"
-"    "
-
-#: account/templates/account/signin.html:60
-msgid "Why do I need account ?"
-msgstr "Почему мне нужна учетная запись ?"
-
-#: account/templates/account/signin.html:61
-msgid ""
-"Your real name is compulsory for reasons of copyright attribution on books "
-"you create and contribute to."
-msgstr ""
-"Ваше настоящее имя обязательно для установления авторских прав на книгу, "
-"которую вы создате или в создании которой участвуете."
-
-#: account/templates/account/signin.html:64
-msgid "I forgot my password. What now ?!"
-msgstr "Я забыл свой пароль. Что делать ?"
-
-#: account/templates/account/signin.html:65
-#, python-format
-msgid "<p>Please <a href=\"%(forgotpassword_url)s\">request new one</a>.</p>"
-msgstr ""
-"<p>Пожалуйста, <a href=\"%(forgotpassword_url)s\">запросите новый</a>.</p>"
-
-#: account/templates/account/signin.html:68
-msgid "I forgot my username ?"
-msgstr "Я забыл свое имя пользователя ?"
-
-#: account/templates/account/view_profile.html:5
-#, python-format
-msgid "/user: %(username)s"
-msgstr "/пользователь: %(username)s"
-
-#: account/templates/account/view_profile.html:43
-#: editor/templates/base_edit.html:82 portal/templates/base.html:148
-msgid "My Dashboard"
-msgstr "Моя панель пользователя"
-
-#: account/templates/account/view_profile.html:46
-msgid "Dashboard"
-msgstr "Панель пользователя"
-
-#: account/templates/account/view_profile.html:47
-#: account/templates/account/view_profile.html:106
-#: account/templates/account/view_profile.html:143
-msgid "My Books"
-msgstr "Мои книги"
-
-#: account/templates/account/view_profile.html:47
-#: account/templates/account/view_profile.html:143 editor/models.py:203
-#: editor/templates/base_edit.html:89 portal/templates/base.html:155
-#: portal/templates/portal/books.html:13 portal/templates/portal/books.html:54
-#: portal/templates/portal/group.html:65
-#: portal/templates/portal/group.html:115
-msgid "Books"
-msgstr "Книги"
-
-#: account/templates/account/view_profile.html:49
-#: editor/templates/editor/edit_book.html:122
-#: editor/templates/editor/edit_book.html:421
-#: portal/templates/portal/group.html:68
-msgid "Settings"
-msgstr "Настройки"
-
-#: account/templates/account/view_profile.html:67
-msgid "Follow my changes"
-msgstr "Следить за моими изменениями"
-
-#: account/templates/account/view_profile.html:74
-msgid "There is no description for this user."
-msgstr "Для данного пользователя описания нет."
-
-#: account/templates/account/view_profile.html:78
-msgid "Following tags:"
-msgstr "Интересуется:"
-
-#: account/templates/account/view_profile.html:79
-msgid "Following:"
-msgstr "Наблюдает за:"
-
-#: account/templates/account/view_profile.html:80
-msgid "Followers:"
-msgstr "Подписчики:"
-
-#: account/templates/account/view_profile.html:96
-msgid ""
-"Do you want to learn more how to use Booktype? Read the  <a target=\"_new\" "
-"title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/booktype"
-"\"><i>user guide</i></a>!"
-msgstr ""
-"Хотите узнать больше о работе с Booktype? Читайте <a target=\"_new\" title="
-"\"Руководство пользователя Booktype\" href=\"http://en.flossmanuals.net/"
-"booktype-ru\"><i>руководство пользователя</i></a>!"
-
-#: account/templates/account/view_profile.html:102
-msgid "CREATE NEW BOOK"
-msgstr "СОЗДАТЬ НОВУЮ КНИГУ"
-
-#: account/templates/account/view_profile.html:109
-#: account/templates/account/view_profile.html:162
-msgid "edit"
-msgstr "редактировать"
-
-#: account/templates/account/view_profile.html:111
-msgid ""
-"\n"
-"          <p>This is a perfect moment to start writing your book, just click "
-"on the button above!</p>\n"
-"          "
-msgstr ""
-"\n"
-"          <p>Идеальное время для написания собственной книги, просто нажмите "
-"на кнопку сверху!</p>\n"
-"          "
-
-#: account/templates/account/view_profile.html:115
-msgid ""
-"\n"
-"          <p>This user has no books.</p>\n"
-"          "
-msgstr ""
-"\n"
-"          <p>У этого пользователя нет книг.</p>\n"
-"          "
-
-#: account/templates/account/view_profile.html:123
-msgid "CREATE NEW GROUP"
-msgstr "СОЗДАТЬ НОВУЮ ГРУППУ"
-
-#: account/templates/account/view_profile.html:124
-msgid "My Groups"
-msgstr "Мои группы"
-
-#: account/templates/account/view_profile.html:127
-msgid "go"
-msgstr "вперед"
-
-#: account/templates/account/view_profile.html:130
-msgid ""
-"Work with others in Groups. To create a Group click on the button above."
-msgstr ""
-"Работать с другими в группах. Для создания группы нажмите на кнопку сверху."
-
-#: account/templates/account/view_profile.html:132
-msgid "This user has no groups."
-msgstr "У данного пользователя нет групп."
-
-#: account/templates/account/view_profile.html:148
-msgid "Create new book"
-msgstr "Создать новую книгу"
-
-#: account/templates/account/view_profile.html:151
-msgid "Import Book"
-msgstr "Импортировать книгу"
-
-#: account/templates/account/view_profile.html:162
-msgid "info"
-msgstr "Информация"
-
-#: account/templates/account/view_profile.html:162
-msgid "draft"
-msgstr "черновик"
-
-#: account/templates/account/view_profile.html:166
-#: account/templates/account/view_profile.html:181
-msgid "Show to others"
-msgstr "Показывать остальным пользователям"
-
-#: account/templates/account/view_profile.html:172
-#: account/templates/account/view_profile.html:181
-msgid "Hide from others"
-msgstr "Скрывать от остальных пользователей"
-
-#: account/templates/account/view_profile.html:186
-msgid "User settings"
-msgstr "Настройки пользователя"
-
-#: account/templates/account/view_profile.html:200
-msgid "About yourself"
-msgstr "О себе"
-
-#: account/templates/account/view_profile.html:204
-msgid "Profile image"
-msgstr "Изображение профиля"
-
-#: account/templates/account/view_profile.html:208
-msgid "Notification filter"
-msgstr "Фильтр уведомлений"
-
-#: account/templates/account/view_profile.html:214
-#: account/templates/account/view_profile.html:265
-#: editor/templates/editor/edit_strings.html:23 portal/templates/base.html:198
-msgid "Save changes"
-msgstr "Сохранить изменения"
-
-#: account/templates/account/view_profile.html:222
-msgid "Old Password"
-msgstr "Старый пароль"
-
-#: account/templates/account/view_profile.html:228
-msgid "New Password"
-msgstr "Новый пароль"
-
-#: account/templates/account/view_profile.html:233
-msgid "Password (again)"
-msgstr "Пароль (повторить)"
-
-#: account/templates/account/view_profile.html:240
-msgid "Change password"
-msgstr "Изменить пароль"
-
-#: account/templates/account/view_profile.html:249
-msgid "Unable to change password. Old password is missing."
-msgstr "Невозможно изменить пароль. Старый пароль пропущен."
-
-#: account/templates/account/view_profile.html:250
-msgid "Unable to change password. Old password is incorrect."
-msgstr "Невозможно изменить пароль. Старый пароль введен неверно."
-
-#: account/templates/account/view_profile.html:251
-msgid ""
-"Unable to change password. The new and confirmation passwords are not equal."
-msgstr ""
-"Невозможно изменить пароль. Новый пароль и его дубль для подтверждения не "
-"совпадают."
-
-#: account/templates/account/view_profile.html:253
-msgid "Password changed."
-msgstr "Пароль изменен."
-
-#: account/templates/account/view_profile.html:254
-#: portal/templates/base.html:192
-msgid "OK"
-msgstr "OK"
-
-#: account/templates/account/view_profile.html:255
-#: editor/templates/editor/edit_strings.html:8
-#: editor/templates/editor/wizzard_book.html:340
-#: editor/templates/editor/wizzard_bookjs.html:289
-#: editor/templates/editor/wizzard_ebook.html:176
-#: editor/templates/editor/wizzard_odt.html:174
-#: editor/templates/editor/wizzard_pdf.html:288 portal/templates/base.html:193
-msgid "Back"
-msgstr "Назад"
-
-#: account/templates/account/view_profile.html:256
-#: editor/templates/editor/edit_book.html:653 portal/templates/base.html:194
-msgid "Create"
-msgstr "Создать"
-
-#: account/templates/account/view_profile.html:257
-#: editor/templates/editor/cover_manager.html:163
-#: editor/templates/editor/edit_book.html:295
-#: editor/templates/editor/edit_strings.html:4 portal/templates/base.html:195
-msgid "Cancel"
-msgstr "Отменить"
-
-#: account/templates/account/view_profile.html:258
-#: editor/templates/editor/edit_strings.html:6
-#: editor/templates/editor/wizzard_book.html:341
-#: editor/templates/editor/wizzard_bookjs.html:290
-#: editor/templates/editor/wizzard_ebook.html:177
-#: editor/templates/editor/wizzard_odt.html:175
-#: editor/templates/editor/wizzard_pdf.html:289 portal/templates/base.html:196
-#: portal/templates/booki_paginator.html:29
-msgid "Next"
-msgstr "Следующий"
-
-#: account/templates/account/view_profile.html:259
-msgid "Couldn't create a group"
-msgstr "Не получилось создать группу!"
-
-#: account/templates/account/view_profile.html:260
-#: portal/templates/base.html:200
-msgid "enter epub URL"
-msgstr "введите URL epub "
-
-#: account/templates/account/view_profile.html:261
-#: portal/templates/base.html:201
-msgid "enter Archive.org ID"
-msgstr "введите ID Archive.org"
-
-#: account/templates/account/view_profile.html:262
-#: portal/templates/base.html:202
-msgid "enter Wikibooks URL"
-msgstr "Введите URL Wikibooks "
-
-#: account/templates/account/view_profile.html:263
-#: portal/templates/base.html:203
-msgid "enter Booktype URL"
-msgstr "Введите URL Booktype"
-
-#: account/templates/account/view_profile.html:264
-#: portal/templates/base.html:197
-msgid "Import"
-msgstr "Импортировать книгу"
-
-#: account/templates/errors/user_does_not_exist.html:4
-msgid "User does not exist!"
-msgstr "Пользователь не существует!"
-
-#: account/templates/errors/user_does_not_exist.html:5
-#, python-format
-msgid "Can't find user \"%(username)s\"."
-msgstr "Пользователь \"%(username)s\" не найден."
-
-#: editor/models.py:29 editor/models.py:42 editor/models.py:65
-#: editor/models.py:92 editor/models.py:261 editor/models.py:297
-#: editor/models.py:425 editor/templates/editor/edit_book.html:711
-#: editor/templates/editor/edit_strings.html:56
+#: editor/models.py:31 editor/models.py:45 editor/models.py:69
+#: editor/models.py:96 editor/models.py:311 editor/models.py:371
+#: editor/models.py:605
 msgid "name"
 msgstr "имя"
 
-#: editor/models.py:30 editor/models.py:43
+#: editor/models.py:32 editor/models.py:46
 msgid "abbrevation"
 msgstr "аббревиатура"
 
-#: editor/models.py:37
+#: editor/models.py:33
+#, fuzzy
+msgid "url"
+msgstr "июль"
+
+#: editor/models.py:39
+msgid "License"
+msgstr "Лицензия"
+
+#: editor/models.py:40
 msgid "Licenses"
 msgstr "Лицензии"
 
-#: editor/models.py:49 editor/templates/editor/edit_book.html:427
+#: editor/models.py:53
 msgid "Language"
 msgstr "Язык"
 
-#: editor/models.py:50
+#: editor/models.py:54
 msgid "Languages"
 msgstr "Языки"
 
-#: editor/models.py:55 editor/models.py:133
+#: editor/models.py:59 editor/models.py:176
 msgid "published"
 msgstr "опубликовано"
 
-#: editor/models.py:56
+#: editor/models.py:60
 msgid "not published"
 msgstr "не опубликовано"
 
-#: editor/models.py:57
+#: editor/models.py:61
 msgid "not translated"
 msgstr "не переведено"
 
-#: editor/models.py:64 editor/models.py:79 editor/models.py:233
-#: editor/models.py:259 editor/models.py:294 editor/models.py:329
-#: editor/models.py:393 editor/models.py:424 editor/models.py:455
-#: editor/models.py:465 editor/models.py:477 editor/models.py:496
+#: editor/models.py:68 editor/models.py:83 editor/models.py:286
+#: editor/models.py:345 editor/models.py:357 editor/models.py:368
+#: editor/models.py:411 editor/models.py:549 editor/models.py:603
+#: editor/models.py:644 editor/models.py:653 editor/models.py:665
+#: editor/models.py:685
 msgid "book"
 msgstr "книга"
 
-#: editor/models.py:66 editor/models.py:427
+#: editor/models.py:70 editor/models.py:607
 msgid "weight"
 msgstr "вес"
 
-#: editor/models.py:72 editor/models.py:73
+#: editor/models.py:76 editor/models.py:77
 msgid "Book status"
 msgstr "Статус книги"
 
-#: editor/models.py:80 editor/models.py:519
+#: editor/models.py:84 editor/models.py:708
 msgid "notes"
 msgstr "заметки"
 
-#: editor/models.py:86
+#: editor/models.py:90
 msgid "Book note"
 msgstr "Аннотация на книгу"
 
-#: editor/models.py:87
+#: editor/models.py:91
 msgid "Book notes"
 msgstr "Аннотации на книгу"
 
-#: editor/models.py:93
+#: editor/models.py:97
 msgid "url name"
 msgstr "название url"
 
-#: editor/models.py:96 editor/models.py:126
+#: editor/models.py:98 editor/models.py:181 editor/models.py:373
+msgid "description"
+msgstr "описание"
+
+#: editor/models.py:100 editor/models.py:169
 msgid "owner"
 msgstr "владелец"
 
-#: editor/models.py:99
+#: editor/models.py:104
 msgid "members"
 msgstr "члены"
 
-#: editor/models.py:110
-msgid "Booki group"
-msgstr "Группа Booki"
+#: editor/models.py:106 editor/models.py:175 editor/models.py:376
+#: editor/models.py:416 editor/models.py:512 editor/models.py:554
+#: editor/models.py:712
+msgid "created"
+msgstr "создано"
 
-#: editor/models.py:111
-msgid "Booki groups"
-msgstr "Группы Booki"
+#: editor/models.py:153
+#, fuzzy
+msgid "Booktype group"
+msgstr "Группы Booktype"
 
-#: editor/models.py:116 editor/models.py:331
+#: editor/models.py:154
+#, fuzzy
+msgid "Booktype groups"
+msgstr "Группы Booktype"
+
+#: editor/models.py:159 editor/models.py:413
 msgid "url title"
 msgstr "заголовок url"
 
-#: editor/models.py:117 editor/models.py:332
+#: editor/models.py:160 editor/models.py:414
 msgid "title"
 msgstr "заголовок"
 
-#: editor/models.py:118 editor/models.py:333 editor/models.py:397
+#: editor/models.py:161 editor/models.py:415 editor/models.py:553
 msgid "status"
 msgstr "статус"
 
-#: editor/models.py:119
+#: editor/models.py:162
 msgid "language"
 msgstr "язык"
 
-#: editor/models.py:122 editor/models.py:235 editor/models.py:327
-#: editor/models.py:391 editor/models.py:422
+#: editor/models.py:165 editor/models.py:288 editor/models.py:409
+#: editor/models.py:547 editor/models.py:601
 msgid "version"
 msgstr "версия"
 
-#: editor/models.py:124 editor/models.py:456
+#: editor/models.py:167 editor/models.py:645
 msgid "group"
 msgstr "группа"
 
-#: editor/models.py:130 editor/models.py:517
+#: editor/models.py:173 editor/models.py:706
 msgid "license"
 msgstr "лицензия"
 
-#: editor/models.py:135
+#: editor/models.py:178
 msgid "hidden"
 msgstr "скрыто"
 
-#: editor/models.py:136 editor/models.py:457
+#: editor/models.py:179 editor/models.py:646
 msgid "permission"
 msgstr "разрешение"
 
-#: editor/models.py:139
+#: editor/models.py:182
 msgid "cover"
 msgstr "обложка"
 
-#: editor/models.py:202 editor/templates/editor/cover_manager.html:112
-#: editor/templates/editor/cover_manager.html:249
-#: editor/templates/editor/cover_manager.html:296
-#: editor/templates/editor/edit_publish.html:9
+#: editor/models.py:245
 msgid "Book"
 msgstr "Книга"
 
-#: editor/models.py:236 editor/models.py:358 editor/models.py:426
+#: editor/models.py:246
+msgid "Books"
+msgstr "Книги"
+
+#: editor/models.py:289 editor/models.py:469 editor/models.py:606
 msgid "chapter"
 msgstr "глава"
 
-#: editor/models.py:237
+#: editor/models.py:290
 msgid "chapter history"
 msgstr "история главы"
 
-#: editor/models.py:238 editor/models.py:335 editor/models.py:360
+#: editor/models.py:291 editor/models.py:417 editor/models.py:471
 msgid "modified"
 msgstr "изменено"
 
-#: editor/models.py:239
+#: editor/models.py:292
 msgid "args"
 msgstr "аргументы"
 
-#: editor/models.py:241 editor/models.py:262
+#: editor/models.py:293 editor/models.py:472 editor/models.py:510
+#: editor/models.py:643 editor/models.py:654 editor/models.py:666
+#: editor/models.py:686
+msgid "user"
+msgstr "пользователь"
+
+#: editor/models.py:294 editor/models.py:312
 msgid "kind"
 msgstr "вид"
 
-#: editor/models.py:264
+#: editor/models.py:314
 msgid "value string"
 msgstr "значение строки"
 
-#: editor/models.py:265
+#: editor/models.py:315
 msgid "value integer"
 msgstr "целое число"
 
-#: editor/models.py:266
+#: editor/models.py:316
 msgid "value text"
 msgstr "значение текста"
 
-#: editor/models.py:267
+#: editor/models.py:317
 msgid "value date"
 msgstr "значение даты"
 
-#: editor/models.py:287 editor/models.py:288
+#: editor/models.py:349 editor/models.py:350
 msgid "Metadata"
 msgstr "Метаданные"
 
-#: editor/models.py:295
+#: editor/models.py:362
+#, fuzzy
+msgid "Book setting"
+msgstr "Настройки Ebook"
+
+#: editor/models.py:363
+#, fuzzy
+msgid "Book settings"
+msgstr "Настройки Ebook"
+
+#: editor/models.py:369
 msgid "major"
 msgstr "главная"
 
-#: editor/models.py:296
+#: editor/models.py:370
 msgid "minor"
 msgstr "второстепенная"
 
-#: editor/models.py:337 editor/models.py:362
-#: editor/templates/editor/edit_book.html:701
+#: editor/models.py:419 editor/models.py:473
 msgid "revision"
 msgstr "проверка"
 
-#: editor/models.py:342 messaging/models.py:34
+#: editor/models.py:423 messaging/models.py:34
 msgid "content"
 msgstr "контент"
 
-#: editor/models.py:352
+#: editor/models.py:426
 msgid "Chapter"
 msgstr "Глава"
 
-#: editor/models.py:353 editor/templates/editor/edit_book.html:97
+#: editor/models.py:427
 msgid "Chapters"
 msgstr "Главы"
 
-#: editor/models.py:363 editor/templates/editor/edit_book.html:704
+#: editor/models.py:474
 msgid "comment"
 msgstr "комментировать"
 
-#: editor/models.py:369
+#: editor/models.py:480
 msgid "Chapter history"
 msgstr "История главы"
 
-#: editor/models.py:395 editor/models.py:501
-#: editor/templates/editor/edit_strings.html:57
+#: editor/models.py:515
+#, fuzzy
+msgid "Chapter Lock"
+msgstr "Глава"
+
+#: editor/models.py:516
+#, fuzzy
+msgid "Chapters Locks"
+msgstr "Главы"
+
+#: editor/models.py:551 editor/models.py:690
 msgid "filename"
 msgstr "имя файла"
 
-#: editor/models.py:408 editor/templates/editor/edit_book.html:662
+#: editor/models.py:585
 msgid "Attachment"
 msgstr "Вложение"
 
-#: editor/models.py:409
+#: editor/models.py:586
 msgid "Attachments"
 msgstr "Вложения"
 
-#: editor/models.py:415
+#: editor/models.py:594
 msgid "section name"
 msgstr "название раздела"
 
-#: editor/models.py:416
+#: editor/models.py:595
 msgid "chapter name"
 msgstr "название главы"
 
-#: editor/models.py:417
+#: editor/models.py:596
 msgid "line"
 msgstr "строка"
 
-#: editor/models.py:428
+#: editor/models.py:604
+#, fuzzy
+msgid "parent"
+msgstr "сравнить"
+
+#: editor/models.py:608
 msgid "typeof"
 msgstr "typeof"
 
-#: editor/models.py:442
+#: editor/models.py:628
 msgid "Book TOC"
 msgstr "Оглавление книги"
 
-#: editor/models.py:443
+#: editor/models.py:629
 msgid "Book TOCs"
 msgstr "Оглавления книги"
 
-#: editor/models.py:472 editor/models.py:473
+#: editor/models.py:660 editor/models.py:661
 msgid "Attribution Exclude"
 msgstr "Установление авторства исключено"
 
-#: editor/models.py:479
+#: editor/models.py:667
 msgid "wizzard type"
 msgstr "тип мастера"
 
-#: editor/models.py:480
+#: editor/models.py:668
 msgid "wizzard options"
 msgstr "настройки мастера"
 
-#: editor/models.py:486 editor/models.py:487
+#: editor/models.py:674 editor/models.py:675
 msgid "Publish Wizzard"
 msgstr "Мастер опубликования"
 
-#: editor/models.py:503 editor/templates/editor/cover_manager.html:181
+#: editor/models.py:692
 msgid "Cover title"
 msgstr "Заголовок обложки"
 
-#: editor/models.py:505 editor/templates/editor/cover_manager.html:150
-#: editor/templates/editor/cover_manager.html:275
+#: editor/models.py:694
 msgid "Width"
 msgstr "Ширина"
 
-#: editor/models.py:506 editor/templates/editor/cover_manager.html:148
-#: editor/templates/editor/cover_manager.html:273
+#: editor/models.py:695
 msgid "Height"
 msgstr "Высота"
 
-#: editor/models.py:507
+#: editor/models.py:696
 msgid "Unit"
 msgstr "Единица"
 
-#: editor/models.py:508
+#: editor/models.py:697
 msgid "Booksize"
 msgstr "Книжный формат"
 
-#: editor/models.py:510
+#: editor/models.py:699
 msgid "Book cover"
 msgstr "Обложка книги"
 
-#: editor/models.py:511
+#: editor/models.py:700
 msgid "E-book cover"
 msgstr "Обложка е-книги"
 
-#: editor/models.py:512
+#: editor/models.py:701
 msgid "PDF cover"
 msgstr "PDF-обложка"
 
-#: editor/models.py:514
+#: editor/models.py:703
 msgid "Cover type"
 msgstr "Тип обложки"
 
-#: editor/models.py:516 editor/templates/editor/wizzard_book.html:157
-#: editor/templates/editor/wizzard_bookjs.html:158
-#: editor/templates/editor/wizzard_ebook.html:116
-#: editor/templates/editor/wizzard_odt.html:98
-#: editor/templates/editor/wizzard_pdf.html:124
+#: editor/models.py:705
 msgid "Cover"
 msgstr "Обложка"
 
-#: editor/models.py:521 editor/templates/editor/cover_manager.html:10
-#: editor/templates/editor/cover_manager.html:303
+#: editor/models.py:710
 msgid "Approved"
 msgstr "Утверждено"
 
 #: editor/templates/authors.html:13
 msgid "Modifications:"
 msgstr "Изменения:"
-
-#: editor/templates/base_edit.html:65 portal/templates/base.html:72
-msgid "Sign out"
-msgstr "Выход"
-
-#: editor/templates/base_edit.html:71 portal/templates/base.html:78
-msgid "Sign In / Create Account"
-msgstr "Войти / Создать учетную запись"
-
-#: editor/templates/base_edit.html:90 portal/templates/base.html:156
-#: portal/templates/portal/groups.html:12
-msgid "Groups"
-msgstr "Группы"
-
-#: editor/templates/base_edit.html:91 portal/templates/base.html:157
-#: portal/templates/portal/people.html:13
-msgid "People"
-msgstr "Люди"
-
-#: editor/templates/base_edit.html:126 portal/templates/base.html:183
-msgid "There has been error in communication with Booktype server."
-msgstr "Ошибка во время связи с сервером Bootkype."
-
-#: editor/templates/base_edit.html:127 portal/templates/base.html:184
-msgid "Not sure right now where is the problem."
-msgstr "Невозможно определить проблему немедленно."
-
-#: editor/templates/base_edit.html:130 portal/templates/base.html:187
-msgid "You should refresh this page."
-msgstr "Вы должны обновить эту страницу."
 
 #: editor/templates/booktype_daily_report.html:5
 #, python-format
@@ -1245,2030 +478,6 @@ msgstr "Самые активные пользователи"
 msgid "No active users"
 msgstr "Нет активных пользователей"
 
-#: editor/templates/editor/cover_manager.html:4
-#: editor/templates/editor/edit_book.html:105
-msgid "Cover Manager"
-msgstr "Менеджер обложек"
-
-#: editor/templates/editor/cover_manager.html:7
-msgid "View files of status:"
-msgstr "Смотреть файлы статуса:"
-
-#: editor/templates/editor/cover_manager.html:9
-#: portal/templates/portal/people.html:55
-msgid "All"
-msgstr "Все"
-
-#: editor/templates/editor/cover_manager.html:11
-#: editor/templates/editor/edit_strings.html:91
-msgid "Pending"
-msgstr "Незаконченные"
-
-#: editor/templates/editor/cover_manager.html:16
-msgid ""
-"The cover manager allows you to upload, manage and publish your book covers. "
-"Please upload your ebook cover image files (JPEG, GIF or PNG format) in the "
-"appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
-"(in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front "
-"cover, spine and back cover of your print books can be uploaded and managed, "
-"but will be kept separate from the text of the book when publishing it."
-msgstr ""
-"Менеджер обложек позволяет загружать, управлять и публиковать ваши книжные "
-"обложки. Загрузите вашу обложку соотвествующего размера в виде файла формата "
-"JPEG, GIF или PNG для вывода в виде EPUB, MOBI, экранного PDF или ODT. Вы "
-"также можете создать и загрузить (в TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI "
-"или INDD формат) файлы титульной обложки, переплета и задней обложки, но они "
-"будут расположены отдельно от текста книги при ее публикации."
-
-#: editor/templates/editor/cover_manager.html:22
-msgid "Upload cover image"
-msgstr "Загрузить обложку"
-
-#: editor/templates/editor/cover_manager.html:40
-msgid ""
-"Error: The selected filetype is not supported. Please select one of the "
-"following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
-"SVG, EPS, AI, INDD."
-msgstr ""
-"Ошибка: Выбранный тип файла не поддерживается. Выберите один из доступных "
-"типов и повторите попытку: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, "
-"EPS, AI, INDD."
-
-#: editor/templates/editor/cover_manager.html:43
-msgid ""
-"Error: The selected file is bigger than 15MB. Please select a smaller file "
-"and try again."
-msgstr ""
-"Ошибка: Выбранный файл больше, чем 15MB. Выберите меньший файл и повторите "
-"попытку."
-
-#: editor/templates/editor/cover_manager.html:48
-msgid "Enter Meta-data"
-msgstr "Укажите мета-данные"
-
-#: editor/templates/editor/cover_manager.html:57
-#: editor/templates/editor/cover_manager.html:184
-msgid "Filename"
-msgstr "Имя файла"
-
-#: editor/templates/editor/cover_manager.html:61
-#: editor/templates/editor/cover_manager.html:188
-#: editor/templates/editor/wizzard_book.html:12
-#: editor/templates/editor/wizzard_bookjs.html:11
-#: editor/templates/editor/wizzard_pdf.html:11
-msgid "Book Size"
-msgstr "Формат печати книги"
-
-#: editor/templates/editor/cover_manager.html:64
-#: editor/templates/editor/cover_manager.html:191
-#: editor/templates/editor/wizzard_book.html:14
-#: editor/templates/editor/wizzard_bookjs.html:13
-#: editor/templates/editor/wizzard_pdf.html:13
-msgid "custom"
-msgstr "пользовательский"
-
-#: editor/templates/editor/cover_manager.html:65
-#: editor/templates/editor/cover_manager.html:192
-#: editor/templates/editor/wizzard_book.html:15
-#: editor/templates/editor/wizzard_bookjs.html:14
-msgid "POCKET (107mm x 174mm)"
-msgstr "POCKET (107mm x 174mm)"
-
-#: editor/templates/editor/cover_manager.html:66
-#: editor/templates/editor/cover_manager.html:193
-#: editor/templates/editor/wizzard_book.html:16
-#: editor/templates/editor/wizzard_bookjs.html:15
-msgid "US5x8 (126mm x 203mm)"
-msgstr "US5x8 (126mm x 203mm)"
-
-#: editor/templates/editor/cover_manager.html:67
-#: editor/templates/editor/cover_manager.html:194
-#: editor/templates/editor/wizzard_book.html:17
-#: editor/templates/editor/wizzard_bookjs.html:16
-msgid "DIGEST (139mm x 215mm)"
-msgstr "DIGEST (139mm x 215mm)"
-
-#: editor/templates/editor/cover_manager.html:68
-#: editor/templates/editor/cover_manager.html:195
-#: editor/templates/editor/wizzard_book.html:18
-#: editor/templates/editor/wizzard_bookjs.html:17
-msgid "US5.5x8.5 (139mm x 215mm)"
-msgstr "US5.5x8.5 (139mm x 215mm)"
-
-#: editor/templates/editor/cover_manager.html:69
-#: editor/templates/editor/cover_manager.html:196
-#: editor/templates/editor/wizzard_book.html:19
-#: editor/templates/editor/wizzard_bookjs.html:18
-#: editor/templates/editor/wizzard_pdf.html:14
-msgid "A5 (148mm x 210mm)"
-msgstr "A5 (148mm x 210mm)"
-
-#: editor/templates/editor/cover_manager.html:70
-#: editor/templates/editor/cover_manager.html:197
-#: editor/templates/editor/wizzard_book.html:20
-#: editor/templates/editor/wizzard_bookjs.html:19
-msgid "USTRADE6x9 (152mm x 228mm)"
-msgstr "USTRADE6x9 (152mm x 228mm)"
-
-#: editor/templates/editor/cover_manager.html:71
-#: editor/templates/editor/cover_manager.html:198
-#: editor/templates/editor/wizzard_book.html:21
-#: editor/templates/editor/wizzard_bookjs.html:20
-msgid "SQUARE7.5 (190mm x 190mm)"
-msgstr "SQUARE7.5 (190mm x 190mm)"
-
-#: editor/templates/editor/cover_manager.html:72
-#: editor/templates/editor/cover_manager.html:199
-#: editor/templates/editor/wizzard_book.html:22
-#: editor/templates/editor/wizzard_bookjs.html:21
-msgid "ROYAL (155mm x 233mm)"
-msgstr "ROYAL (155mm x 233mm)"
-
-#: editor/templates/editor/cover_manager.html:73
-#: editor/templates/editor/cover_manager.html:200
-#: editor/templates/editor/wizzard_book.html:23
-#: editor/templates/editor/wizzard_bookjs.html:22
-msgid "LANDSCAPE9x7 (228mm x 177mm)"
-msgstr "LANDSCAPE9x7 (228mm x 177mm)"
-
-#: editor/templates/editor/cover_manager.html:74
-#: editor/templates/editor/cover_manager.html:201
-#: editor/templates/editor/wizzard_book.html:24
-#: editor/templates/editor/wizzard_bookjs.html:23
-msgid "COMICBOOK (168mm x 260mm)"
-msgstr "COMICBOOK (168mm x 260mm)"
-
-#: editor/templates/editor/cover_manager.html:75
-#: editor/templates/editor/cover_manager.html:202
-#: editor/templates/editor/wizzard_book.html:25
-#: editor/templates/editor/wizzard_bookjs.html:24
-msgid "B5 (176mm x 250mm)"
-msgstr "B5 (176mm x 250mm)"
-
-#: editor/templates/editor/cover_manager.html:76
-#: editor/templates/editor/cover_manager.html:203
-#: editor/templates/editor/wizzard_book.html:26
-#: editor/templates/editor/wizzard_bookjs.html:25
-msgid "US7x10 (177mm x 253mm)"
-msgstr "US7x10 (177mm x 253mm)"
-
-#: editor/templates/editor/cover_manager.html:77
-#: editor/templates/editor/cover_manager.html:204
-#: editor/templates/editor/wizzard_book.html:27
-#: editor/templates/editor/wizzard_bookjs.html:26
-msgid "CROWNQUARTO (189mm x 245mm)"
-msgstr "CROWNQUARTO (189mm x 245mm)"
-
-#: editor/templates/editor/cover_manager.html:78
-#: editor/templates/editor/cover_manager.html:205
-#: editor/templates/editor/wizzard_book.html:28
-#: editor/templates/editor/wizzard_bookjs.html:27
-msgid "SQUARE8.5 (215mm x 215mm)"
-msgstr "SQUARE8.5 (215mm x 215mm)"
-
-#: editor/templates/editor/cover_manager.html:79
-#: editor/templates/editor/cover_manager.html:206
-#: editor/templates/editor/wizzard_book.html:29
-#: editor/templates/editor/wizzard_bookjs.html:28
-msgid "USLETTER (215mm x 279mm)"
-msgstr "USLETTER (215mm x 279mm)"
-
-#: editor/templates/editor/cover_manager.html:80
-#: editor/templates/editor/cover_manager.html:207
-#: editor/templates/editor/wizzard_book.html:30
-#: editor/templates/editor/wizzard_bookjs.html:29
-#: editor/templates/editor/wizzard_pdf.html:15
-msgid "A4 (210mm x 297mm)"
-msgstr "A4 (210mm x 297mm)"
-
-#: editor/templates/editor/cover_manager.html:81
-#: editor/templates/editor/cover_manager.html:208
-#: editor/templates/editor/wizzard_book.html:31
-#: editor/templates/editor/wizzard_bookjs.html:30
-msgid "Foolscap (F4) (210mm x 330mm)"
-msgstr "Foolscap (F4) (210mm x 330mm)"
-
-#: editor/templates/editor/cover_manager.html:82
-#: editor/templates/editor/cover_manager.html:209
-#: editor/templates/editor/wizzard_book.html:32
-#: editor/templates/editor/wizzard_bookjs.html:31
-msgid "B4 (250mm x 353mm)"
-msgstr "B4 (250mm x 353mm)"
-
-#: editor/templates/editor/cover_manager.html:83
-#: editor/templates/editor/cover_manager.html:210
-#: editor/templates/editor/wizzard_book.html:33
-#: editor/templates/editor/wizzard_bookjs.html:32
-msgid "Oamaru Tabloid (265mm x 380mm)"
-msgstr "Oamaru Tabloid (265mm x 380mm)"
-
-#: editor/templates/editor/cover_manager.html:84
-#: editor/templates/editor/cover_manager.html:211
-#: editor/templates/editor/wizzard_book.html:34
-#: editor/templates/editor/wizzard_bookjs.html:33
-msgid "UK Tabloid (279mm x 431mm)"
-msgstr "UK Tabloid (279mm x 431mm)"
-
-#: editor/templates/editor/cover_manager.html:85
-#: editor/templates/editor/cover_manager.html:212
-#: editor/templates/editor/wizzard_book.html:35
-#: editor/templates/editor/wizzard_bookjs.html:34
-msgid "A3 (NZ Tabloid) (297mm x 420mm)"
-msgstr "A3 (NZ Tabloid) (297mm x 420mm)"
-
-#: editor/templates/editor/cover_manager.html:86
-#: editor/templates/editor/cover_manager.html:213
-#: editor/templates/editor/wizzard_book.html:36
-#: editor/templates/editor/wizzard_bookjs.html:35
-msgid "Berliner (315mm x 470mm)"
-msgstr "Berliner (315mm x 470mm)"
-
-#: editor/templates/editor/cover_manager.html:87
-#: editor/templates/editor/cover_manager.html:214
-#: editor/templates/editor/wizzard_book.html:37
-#: editor/templates/editor/wizzard_bookjs.html:36
-msgid "B3 (353mm x 500mm)"
-msgstr "B3 (353mm x 500mm)"
-
-#: editor/templates/editor/cover_manager.html:88
-#: editor/templates/editor/cover_manager.html:215
-#: editor/templates/editor/wizzard_book.html:38
-#: editor/templates/editor/wizzard_bookjs.html:37
-msgid "Oamaru Broadsheet (382mm x 540mm)"
-msgstr "Oamaru Broadsheet (382mm x 540mm)"
-
-#: editor/templates/editor/cover_manager.html:89
-#: editor/templates/editor/cover_manager.html:216
-#: editor/templates/editor/wizzard_book.html:39
-#: editor/templates/editor/wizzard_bookjs.html:38
-msgid "US Broadsheet (380mm x 577mm)"
-msgstr "US Broadsheet (380mm x 577mm)"
-
-#: editor/templates/editor/cover_manager.html:90
-#: editor/templates/editor/cover_manager.html:217
-#: editor/templates/editor/wizzard_book.html:40
-#: editor/templates/editor/wizzard_bookjs.html:39
-msgid "A2 (NZ Broadsheet) (420mm x 594mm)"
-msgstr "A2 (NZ Broadsheet) (420mm x 594mm)"
-
-#: editor/templates/editor/cover_manager.html:91
-#: editor/templates/editor/cover_manager.html:218
-#: editor/templates/editor/wizzard_book.html:41
-#: editor/templates/editor/wizzard_bookjs.html:40
-msgid "UK Broadsheet (457mm x 609mm)"
-msgstr "UK Broadsheet (457mm x 609mm)"
-
-#: editor/templates/editor/cover_manager.html:92
-#: editor/templates/editor/cover_manager.html:219
-#: editor/templates/editor/wizzard_book.html:42
-#: editor/templates/editor/wizzard_bookjs.html:41
-msgid "B2 (500mm x 707mm)"
-msgstr "B2 (500mm x 707mm)"
-
-#: editor/templates/editor/cover_manager.html:93
-#: editor/templates/editor/cover_manager.html:220
-#: editor/templates/editor/wizzard_book.html:43
-#: editor/templates/editor/wizzard_bookjs.html:42
-msgid "A1 (594mm x 841mm)"
-msgstr "A1 (594mm x 841mm)"
-
-#: editor/templates/editor/cover_manager.html:94
-#: editor/templates/editor/cover_manager.html:221
-#: editor/templates/editor/wizzard_book.html:44
-#: editor/templates/editor/wizzard_bookjs.html:43
-msgid "B1 (707mm x 1000mm)"
-msgstr "B1 (707mm x 1000mm)"
-
-#: editor/templates/editor/cover_manager.html:98
-#: editor/templates/editor/cover_manager.html:225
-#: editor/templates/editor/wizzard_book.html:46
-#: editor/templates/editor/wizzard_bookjs.html:45
-#: editor/templates/editor/wizzard_pdf.html:17
-msgid "Custom Size"
-msgstr "Пользовательский размер"
-
-#: editor/templates/editor/cover_manager.html:103
-#: editor/templates/editor/cover_manager.html:230
-#: editor/templates/editor/wizzard_book.html:49
-#: editor/templates/editor/wizzard_book.html:51
-#: editor/templates/editor/wizzard_book.html:298
-#: editor/templates/editor/wizzard_book.html:300
-#: editor/templates/editor/wizzard_book.html:302
-#: editor/templates/editor/wizzard_book.html:304
-#: editor/templates/editor/wizzard_book.html:308
-#: editor/templates/editor/wizzard_bookjs.html:48
-#: editor/templates/editor/wizzard_bookjs.html:50
-#: editor/templates/editor/wizzard_bookjs.html:247
-#: editor/templates/editor/wizzard_bookjs.html:249
-#: editor/templates/editor/wizzard_bookjs.html:251
-#: editor/templates/editor/wizzard_bookjs.html:253
-#: editor/templates/editor/wizzard_bookjs.html:257
-#: editor/templates/editor/wizzard_pdf.html:246
-#: editor/templates/editor/wizzard_pdf.html:248
-#: editor/templates/editor/wizzard_pdf.html:250
-#: editor/templates/editor/wizzard_pdf.html:252
-#: editor/templates/editor/wizzard_pdf.html:256
-msgid "mm"
-msgstr "мм"
-
-#: editor/templates/editor/cover_manager.html:104
-#: editor/templates/editor/cover_manager.html:231
-msgid "inches"
-msgstr "дюймы"
-
-#: editor/templates/editor/cover_manager.html:108
-#: editor/templates/editor/cover_manager.html:245
-msgid "Format"
-msgstr "Формат"
-
-#: editor/templates/editor/cover_manager.html:110
-#: editor/templates/editor/cover_manager.html:125
-#: editor/templates/editor/cover_manager.html:241
-#: editor/templates/editor/cover_manager.html:247
-#: editor/templates/editor/cover_manager.html:298
-msgid "E-book"
-msgstr "E-книга"
-
-#: editor/templates/editor/cover_manager.html:111
-#: editor/templates/editor/cover_manager.html:248
-#: editor/templates/editor/cover_manager.html:297
-#: editor/templates/editor/edit_strings.html:90
-#: editor/templates/editor/wizzard_book.html:187
-#: editor/templates/editor/wizzard_bookjs.html:188
-msgid "PDF"
-msgstr "PDF"
-
-#: editor/templates/editor/cover_manager.html:119
-#: editor/templates/editor/cover_manager.html:235
-msgid "Type"
-msgstr "Тип"
-
-#: editor/templates/editor/cover_manager.html:121
-#: editor/templates/editor/cover_manager.html:237
-#: editor/templates/editor/wizzard_book.html:166
-#: editor/templates/editor/wizzard_bookjs.html:167
-msgid "Front Cover"
-msgstr "Титульная обложка"
-
-#: editor/templates/editor/cover_manager.html:122
-#: editor/templates/editor/cover_manager.html:238
-#: editor/templates/editor/wizzard_book.html:172
-#: editor/templates/editor/wizzard_bookjs.html:173
-msgid "Back Cover"
-msgstr "Задняя обложка"
-
-#: editor/templates/editor/cover_manager.html:123
-#: editor/templates/editor/cover_manager.html:239
-#: editor/templates/editor/edit_strings.html:85
-#: editor/templates/editor/wizzard_book.html:169
-#: editor/templates/editor/wizzard_bookjs.html:170
-msgid "Spine"
-msgstr "Переплёт"
-
-#: editor/templates/editor/cover_manager.html:124
-#: editor/templates/editor/cover_manager.html:240
-#: editor/templates/editor/wizzard_book.html:175
-#: editor/templates/editor/wizzard_bookjs.html:176
-msgid "Full Cover"
-msgstr "Вся обложка"
-
-#: editor/templates/editor/cover_manager.html:129
-#: editor/templates/editor/cover_manager.html:253
-msgid "Creator"
-msgstr "Создатель"
-
-#: editor/templates/editor/cover_manager.html:138
-#: editor/templates/editor/cover_manager.html:262
-#: editor/templates/editor/edit_book.html:118
-#: editor/templates/editor/edit_book.html:552
-msgid "Notes"
-msgstr "Заметки"
-
-#: editor/templates/editor/cover_manager.html:146
-#: editor/templates/editor/cover_manager.html:271
-msgid "Filetype"
-msgstr "Тип файла"
-
-#: editor/templates/editor/cover_manager.html:156
-msgid ""
-"Tip: The selected image file is very small. Please think of using a bigger "
-"file for better results."
-msgstr ""
-"Совет: Выбранный вами файл малого объема. Используйте более качественный "
-"файл для работы."
-
-#: editor/templates/editor/cover_manager.html:159
-msgid ""
-"Tip: The selected image file is in landscape orientation. Most book covers "
-"need portrait images."
-msgstr ""
-"Совет: Выбранный вами файл имеет альбомную ориентация. Большинство обложек "
-"использует книжную."
-
-#: editor/templates/editor/cover_manager.html:162
-#: editor/templates/editor/edit_book.html:295
-#: editor/templates/editor/edit_book.html:654
-msgid "Save"
-msgstr "Сохранить"
-
-#: editor/templates/editor/cover_manager.html:176
-msgid "Enter information"
-msgstr "ВВедите данные"
-
-#: editor/templates/editor/cover_manager.html:279
-msgid "download file"
-msgstr "скачать файл"
-
-#: editor/templates/editor/cover_manager.html:291
-msgid "This image is currently assigned as the following cover type:"
-msgstr "Данное изображение назначено как тип обложки:"
-
-#: editor/templates/editor/cover_manager.html:292
-#: editor/templates/editor/edit_strings.html:83
-msgid "Back cover"
-msgstr "Задняя обложка"
-
-#: editor/templates/editor/cover_manager.html:293
-msgid "This image is used in the following BookTypes:"
-msgstr "Данное изображение используется в следующем Типе книги:"
-
-#: editor/templates/editor/cover_manager.html:302
-msgid "Approval status"
-msgstr "Утвержденный статус"
-
-#: editor/templates/editor/cover_manager.html:307
-msgid "Edit"
-msgstr "Редактировать"
-
-#: editor/templates/editor/edit_book.html:69
-msgid "Chat"
-msgstr "Чат"
-
-#: editor/templates/editor/edit_book.html:73
-msgid "Currently editing"
-msgstr "Сейчас редактирует"
-
-#: editor/templates/editor/edit_book.html:88
-msgid "Search"
-msgstr "Поиск"
-
-#: editor/templates/editor/edit_book.html:101
-#: editor/templates/editor/edit_book.html:343
-msgid "Images and Files"
-msgstr "Изображения и файлы"
-
-#: editor/templates/editor/edit_book.html:110
-#: editor/templates/editor/edit_book.html:364
-msgid "History"
-msgstr "История"
-
-#: editor/templates/editor/edit_book.html:114
-#: editor/templates/editor/edit_book.html:373
-#: reader/templates/reader/book_info.html:119
-msgid "Versions"
-msgstr "Версии"
-
-#: editor/templates/editor/edit_book.html:127
-#: editor/templates/editor/edit_book.html:413
-msgid "Publish"
-msgstr "Опубликовать"
-
-#: editor/templates/editor/edit_book.html:137
-msgid ""
-"We are very sorry, but we are not fully compatible with your browser. We are "
-"working hard to fix this problem. Until we fix this, you can try to use this "
-"site with Firefox, Chrome, Safari, Opera or some other compatible browser. "
-"Thank you for your understanding."
-msgstr ""
-"К сожалению, мы не полностью совместимы с вашим браузером. Мы прилагаем все "
-"усилия для решения этой проблемы. До тех пор, пока она не решена, вы можете "
-"попробовать открыть этот сайт в Firefox, Chrome, Safari, Opera или любом "
-"другом совместимом браузере. Спасибо за понимание."
-
-#: editor/templates/editor/edit_book.html:139
-msgid "Table of contents"
-msgstr "Оглавление"
-
-#: editor/templates/editor/edit_book.html:140
-#: editor/templates/editor/edit_book.html:146
-msgid "NEW CHAPTER"
-msgstr "НОВАЯ ГЛАВА"
-
-#: editor/templates/editor/edit_book.html:140
-#: editor/templates/editor/edit_book.html:146
-msgid "NEW SECTION"
-msgstr "НОВЫЙ РАЗДЕЛ"
-
-#: editor/templates/editor/edit_book.html:140
-#: editor/templates/editor/edit_book.html:146
-msgid "IMPORT CHAPTER"
-msgstr "ИМПОРТИРОВАТЬ ГЛАВУ"
-
-#: editor/templates/editor/edit_book.html:141
-msgid ""
-"All books should contain at least one section and can have as many chapters "
-"as you like."
-msgstr ""
-"Все книги должны содержать минимум один раздел и любое желаемое число глав."
-
-#: editor/templates/editor/edit_book.html:150
-msgid "New chapter"
-msgstr "Новая глава"
-
-#: editor/templates/editor/edit_book.html:158
-#: editor/templates/editor/edit_strings.html:47
-msgid "Clone chapter"
-msgstr "Создать копию главы"
-
-#: editor/templates/editor/edit_book.html:166
-msgid "New title (optional)"
-msgstr "Новый заголовок (необязательно)"
-
-#: editor/templates/editor/edit_book.html:171
-msgid "New section"
-msgstr "Новый раздел"
-
-#: editor/templates/editor/edit_book.html:181
-#: editor/templates/editor/edit_strings.html:64
-msgid "Insert image"
-msgstr "Вставить изображение"
-
-#: editor/templates/editor/edit_book.html:184
-msgid "Images"
-msgstr "Изображения"
-
-#: editor/templates/editor/edit_book.html:185
-msgid "Upload image"
-msgstr "Загрузить изображение"
-
-#: editor/templates/editor/edit_book.html:196
-#: editor/templates/editor/edit_book.html:221
-msgid "Preview"
-msgstr "Предварительный просмотр"
-
-#: editor/templates/editor/edit_book.html:218
-msgid "Edit Image"
-msgstr "Редактировать изображение"
-
-#: editor/templates/editor/edit_book.html:228
-msgid "Image:"
-msgstr "Изображение:"
-
-#: editor/templates/editor/edit_book.html:232
-msgid "Alt:"
-msgstr "Alt:"
-
-#: editor/templates/editor/edit_book.html:238
-msgid "Positioning"
-msgstr "Расстановка"
-
-#: editor/templates/editor/edit_book.html:241
-msgid "Border:"
-msgstr "Граница:"
-
-#: editor/templates/editor/edit_book.html:245
-msgid "Align:"
-msgstr "Выровнять:"
-
-#: editor/templates/editor/edit_book.html:249
-msgid "Width:"
-msgstr "Ширина:"
-
-#: editor/templates/editor/edit_book.html:253
-msgid "Height:"
-msgstr "Высота:"
-
-#: editor/templates/editor/edit_book.html:259
-msgid "Style"
-msgstr "Стиль"
-
-#: editor/templates/editor/edit_book.html:262
-msgid "CSS Class:"
-msgstr "Класс CSS:"
-
-#: editor/templates/editor/edit_book.html:267
-msgid "Padding:"
-msgstr "Заполнение:"
-
-#: editor/templates/editor/edit_book.html:269
-msgid "Margin:"
-msgstr "Поле:"
-
-#: editor/templates/editor/edit_book.html:273
-msgid "Background color:"
-msgstr "Цвет фона:"
-
-#: editor/templates/editor/edit_book.html:275
-msgid "Border color:"
-msgstr "Цвет границы:"
-
-#: editor/templates/editor/edit_book.html:285
-msgid "Hold chapters"
-msgstr "Удержанные главы"
-
-#: editor/templates/editor/edit_book.html:295
-msgid "Save and continue editing"
-msgstr "Сохранить и продолжить редактирование"
-
-#: editor/templates/editor/edit_book.html:295
-msgid "View chapter"
-msgstr "Просмотреть главу"
-
-#: editor/templates/editor/edit_book.html:303
-msgid "Minor change, don't notify."
-msgstr "Незначительное изменение, не уведомлять."
-
-#: editor/templates/editor/edit_book.html:309
-msgid "Author:"
-msgstr "Автор:"
-
-#: editor/templates/editor/edit_book.html:315
-msgid "Author comment:"
-msgstr "Комментарий автора:"
-
-#: editor/templates/editor/edit_book.html:325
-msgid ""
-"Seems like You have changed the structure of the chapters. What do you want "
-"to do?"
-msgstr "Вы изменили структуру глав. Что вы хотите сделать?"
-
-#: editor/templates/editor/edit_book.html:328
-msgid "New chapters:"
-msgstr "Новые главы:"
-
-#: editor/templates/editor/edit_book.html:344
-msgid ""
-"All images added to your book are listed here as well as any additional "
-"files you have uploaded."
-msgstr ""
-"Все изображения, добавленные в вашу книгу, перечислены здесь, как и любые "
-"загруженные вами дополнительные файлы."
-
-#: editor/templates/editor/edit_book.html:346
-msgid "Deleted selected items"
-msgstr "Выделенное удалено"
-
-#: editor/templates/editor/edit_book.html:347
-msgid "Upload a new image or file"
-msgstr "Загрузить новое изображение или файл"
-
-#: editor/templates/editor/edit_book.html:351
-#: editor/templates/editor/edit_book.html:595
-#: editor/templates/editor/edit_strings.html:62
-msgid "Upload"
-msgstr "Загрузить"
-
-#: editor/templates/editor/edit_book.html:365
-msgid "Here you can follow the edit history of your book."
-msgstr "Здесь можно отслеживать историю редактирования вашей книги."
-
-#: editor/templates/editor/edit_book.html:375
-msgid ""
-"With different versions you can easily organise your book. But be careful! "
-"Other users will not be able to edit\n"
-"      and work on previous versions once you create new one. Create new "
-"<i>major</i> version if you plan to make a lot of changes, and <i>minor</i> "
-"version if you plan to make just a few of them."
-msgstr ""
-"Имея различные версии, вы легко организуете свою книгу. Но будьте "
-"внимательны! Остальные пользователи не смогут редактировать\n"
-"      и работать с предыдущими версиями, как только вы создадите новую. "
-"Создайте новую <i>главную</i> версию, если планируете внести много "
-"изменений, и <i>второстепенную</i> версию, если планируете внести только "
-"небольшое количество изменений."
-
-#: editor/templates/editor/edit_book.html:377
-#: editor/templates/editor/edit_strings.html:37
-msgid "Create major version"
-msgstr "Создать главную версию"
-
-#: editor/templates/editor/edit_book.html:377
-#: editor/templates/editor/edit_strings.html:38
-msgid "Create minor version"
-msgstr "Создать второстепенную версию"
-
-#: editor/templates/editor/edit_book.html:378
-#: editor/templates/editor/edit_book.html:391
-#: editor/templates/editor/edit_book.html:588
-msgid "New version"
-msgstr "Новая версия"
-
-#: editor/templates/editor/edit_book.html:381
-#: editor/templates/editor/edit_book.html:394
-msgid "You can name this version (optional):"
-msgstr "Можете озаглавить эту версию (необязательно):"
-
-#: editor/templates/editor/edit_book.html:384
-#: editor/templates/editor/edit_book.html:397
-msgid "e.g. initial, dragon, test"
-msgstr "например,исходная, демон, тест"
-
-#: editor/templates/editor/edit_book.html:386
-#: editor/templates/editor/edit_book.html:399
-msgid "Description (optional)"
-msgstr "Описание (необязательно)"
-
-#: editor/templates/editor/edit_book.html:405
-msgid "All versions"
-msgstr "Все версии"
-
-#: editor/templates/editor/edit_book.html:422
-msgid "Manage the settings of your book."
-msgstr "Управлять настройками вашей книги"
-
-#: editor/templates/editor/edit_book.html:430
-msgid "This book is written in: "
-msgstr "Эта книга написана в:"
-
-#: editor/templates/editor/edit_book.html:435
-msgid "Set new language"
-msgstr "Установить новый язык"
-
-#: editor/templates/editor/edit_book.html:439
-msgid "Right to left text"
-msgstr "Текст справа на лево"
-
-#: editor/templates/editor/edit_book.html:449
-msgid "This book is licensed with:"
-msgstr "Эта книга под лицензией:"
-
-#: editor/templates/editor/edit_book.html:454
-msgid "Set new license"
-msgstr "Назначить новую лицензию"
-
-#: editor/templates/editor/edit_book.html:456
-msgid "Read full text of the license"
-msgstr "Читать полный текст лицензии"
-
-#: editor/templates/editor/edit_book.html:457
-msgid "Manage copyright attribution"
-msgstr "Управлять назначением авторского права"
-
-#: editor/templates/editor/edit_book.html:461
-msgid "Manage Copyright Attribution"
-msgstr "Управлять назначением  Авторского права"
-
-#: editor/templates/editor/edit_book.html:462
-msgid "If you want to exclude some people from the copyright attribution..."
-msgstr "Если вы хотите исключить несколько человек из авторства..."
-
-#: editor/templates/editor/edit_book.html:466
-msgid "Contributors"
-msgstr "Со-авторы"
-
-#: editor/templates/editor/edit_book.html:468
-msgid "Excluded contributors"
-msgstr "Исключенные со-авторы"
-
-#: editor/templates/editor/edit_book.html:483
-msgid "Roles"
-msgstr "Роли"
-
-#: editor/templates/editor/edit_book.html:486
-msgid "Manage roles"
-msgstr "Управлять ролями"
-
-#: editor/templates/editor/edit_book.html:489
-msgid "Manage Roles"
-msgstr "Управлять ролями"
-
-#: editor/templates/editor/edit_book.html:493
-msgid "Role"
-msgstr "Роль"
-
-#: editor/templates/editor/edit_book.html:497
-msgid "Select role"
-msgstr "Выбрать роль"
-
-#: editor/templates/editor/edit_book.html:498
-msgid "Administrator"
-msgstr "Администратор"
-
-#: editor/templates/editor/edit_book.html:499
-msgid "Editor"
-msgstr "Редактор"
-
-#: editor/templates/editor/edit_book.html:503
-msgid "New user:"
-msgstr "Новый пользователь:"
-
-#: editor/templates/editor/edit_book.html:507
-msgid "Add"
-msgstr "Добавить"
-
-#: editor/templates/editor/edit_book.html:509
-msgid "Role:"
-msgstr "Роль:"
-
-#: editor/templates/editor/edit_book.html:514
-msgid "Remove"
-msgstr "Переместить"
-
-#: editor/templates/editor/edit_book.html:519
-#: editor/templates/editor/edit_book.html:742
-msgid "Chapter status"
-msgstr "Статус главы"
-
-#: editor/templates/editor/edit_book.html:522
-msgid "Available statuses:"
-msgstr "Доступные статусы:"
-
-#: editor/templates/editor/edit_book.html:524
-msgid "Manage chapter status"
-msgstr "Управлять статусами главы"
-
-#: editor/templates/editor/edit_book.html:529
-msgid "Permissions and visibility"
-msgstr "Права и видимость"
-
-#: editor/templates/editor/edit_book.html:532
-msgid "This book can be edited by:"
-msgstr "Эту книгу может редактировать:"
-
-#: editor/templates/editor/edit_book.html:536
-msgid "anyone"
-msgstr ""
-
-#: editor/templates/editor/edit_book.html:537
-#, fuzzy
-msgid "book owner"
-msgstr "Обложка е-книги"
-
-#: editor/templates/editor/edit_book.html:538
-msgid "admins"
-msgstr ""
-
-#: editor/templates/editor/edit_book.html:539
-msgid "admins and editors"
-msgstr ""
-
-#: editor/templates/editor/edit_book.html:541
-msgid "Set permissions"
-msgstr "Назначить права"
-
-#: editor/templates/editor/edit_book.html:554
-msgid "Shared notes for this book"
-msgstr "Совместные заметки для этой книги"
-
-#: editor/templates/editor/edit_book.html:557
-msgid "Save the notes"
-msgstr "Сохранить заметки"
-
-#: editor/templates/editor/edit_book.html:562
-msgid "<span class=\"icon\">JOINED</span> <span class=\"notice\">notice</span>"
-msgstr ""
-"<span class=\"icon\">ПРИСОЕДИНИЛСЯ</span> <span class=\"notice"
-"\">уведомление</span>"
-
-#: editor/templates/editor/edit_book.html:563
-msgid "<span class=\"info\">INFO</span> <span class=\"notice\">notice</span>"
-msgstr ""
-"<span class=\"info\">ИНФОРМАЦИЯ</span> <span class=\"notice\">уведомление</"
-"span>"
-
-#: editor/templates/editor/edit_book.html:566
-msgid "action"
-msgstr "действие"
-
-#: editor/templates/editor/edit_book.html:569
-#: editor/templates/editor/edit_book.html:703
-msgid "time"
-msgstr "время"
-
-#: editor/templates/editor/edit_book.html:589
-msgid "Switched to <span class=\"entryVersion\">entry.version.version</span>"
-msgstr ""
-"Переключение на <span class=\"entryVersion\">entry.version.version</span>"
-
-#: editor/templates/editor/edit_book.html:596
-#: editor/templates/editor/edit_book.html:603
-msgid "Uploaded <span class=\"entryFilename\">entry.args.filename</span>."
-msgstr "Загружено <span class=\"entryFilename\">entry.args.filename</span>."
-
-#: editor/templates/editor/edit_book.html:602
-#, fuzzy
-msgid "Upload cover"
-msgstr "Загрузить обложку"
-
-#: editor/templates/editor/edit_book.html:609
-#, fuzzy
-msgid "Delete cover"
-msgstr "PDF-обложка"
-
-#: editor/templates/editor/edit_book.html:610
-#: editor/templates/editor/edit_book.html:631
-msgid "Deleted <span class=\"entryFilename\">entry.args.filename</span>."
-msgstr "Удалено <span class=\"entryFilename\">entry.args.filename</span>."
-
-#: editor/templates/editor/edit_book.html:616
-#, fuzzy
-msgid "Modify cover"
-msgstr "Обложка книги"
-
-#: editor/templates/editor/edit_book.html:617
-#, fuzzy
-msgid "Modified <span class=\"entryFilename\">entry.args.filename</span>."
-msgstr "Загружено <span class=\"entryFilename\">entry.args.filename</span>."
-
-#: editor/templates/editor/edit_book.html:623
-msgid "Imported chapter"
-msgstr "Импортированная глава"
-
-#: editor/templates/editor/edit_book.html:630
-msgid "Delete"
-msgstr "Удалить"
-
-#: editor/templates/editor/edit_book.html:637
-#: editor/templates/editor/edit_book.html:772
-#: editor/templates/editor/edit_strings.html:93
-#, fuzzy
-msgid "Delete chapter"
-msgstr "Создать главу"
-
-#: editor/templates/editor/edit_book.html:638
-#, fuzzy
-msgid "Deleted <span class=\"entryFilename\"></span>."
-msgstr "Удалено <span class=\"entryFilename\">entry.args.filename</span>."
-
-#: editor/templates/editor/edit_book.html:652
-#: editor/templates/editor/edit_strings.html:87
-msgid "Unknown"
-msgstr "Неизвестно"
-
-#: editor/templates/editor/edit_book.html:655
-msgid "Rename"
-msgstr "Переименовать"
-
-#: editor/templates/editor/edit_book.html:656
-msgid "Reorder"
-msgstr "Реорганизовать"
-
-#: editor/templates/editor/edit_book.html:657
-msgid "Split"
-msgstr "Разделить"
-
-#: editor/templates/editor/edit_book.html:658
-#: reader/templates/reader/book_info.html:162
-msgid "Section create"
-msgstr "Создание раздела"
-
-#: editor/templates/editor/edit_book.html:659
-#: reader/templates/reader/book_info.html:169
-msgid "Book create"
-msgstr "Создание книги"
-
-#: editor/templates/editor/edit_book.html:660
-msgid "Minor"
-msgstr "Второстепенная"
-
-#: editor/templates/editor/edit_book.html:661
-msgid "Major"
-msgstr "Главная"
-
-#: editor/templates/editor/edit_book.html:687
-#: reader/templates/reader/book_chapter.html:51
-#: reader/templates/reader/book_chapter.html:57
-#: reader/templates/reader/book_view.html:40
-#: reader/templates/reader/draft_book.html:40
-#: reader/templates/reader/draft_chapter.html:39
-#: reader/templates/reader/draft_chapter.html:46
-msgid "EDIT"
-msgstr "РЕДАКТИРОВАТЬ"
-
-#: editor/templates/editor/edit_book.html:687
-msgid "VIEW"
-msgstr "ПРОСМОТР"
-
-#: editor/templates/editor/edit_book.html:696
-msgid "back to history index"
-msgstr "вернуться к перечню истории"
-
-#: editor/templates/editor/edit_book.html:696
-msgid "Compare revisions"
-msgstr "Сравнить правки"
-
-#: editor/templates/editor/edit_book.html:700
-msgid "compare"
-msgstr "сравнить"
-
-#: editor/templates/editor/edit_book.html:712
-#: editor/templates/editor/edit_strings.html:58
-msgid "dimension"
-msgstr "величина"
-
-#: editor/templates/editor/edit_book.html:713
-#: editor/templates/editor/edit_strings.html:59
-msgid "size"
-msgstr "размер"
-
-#: editor/templates/editor/edit_book.html:717
-#: editor/templates/editor/edit_book.html:737
-msgid "back to chapter history"
-msgstr "вернуться к истории главы"
-
-#: editor/templates/editor/edit_book.html:719
-msgid "Normal view"
-msgstr "Обычный вид"
-
-#: editor/templates/editor/edit_book.html:721
-msgid "Source view"
-msgstr "Представление источника"
-
-#: editor/templates/editor/edit_book.html:722
-msgid "Revert to this revision"
-msgstr "Вернуться к этому исправлению"
-
-#: editor/templates/editor/edit_book.html:723
-msgid "No such revision."
-msgstr "Нет такого исправления."
-
-#: editor/templates/editor/edit_book.html:726
-msgid "User:"
-msgstr "Пользователь:"
-
-#: editor/templates/editor/edit_book.html:727
-msgid "Modified:"
-msgstr "Изменено:"
-
-#: editor/templates/editor/edit_book.html:728
-msgid "Version:"
-msgstr "Версия:"
-
-#: editor/templates/editor/edit_book.html:729
-msgid "Revision:"
-msgstr "Исправление:"
-
-#: editor/templates/editor/edit_book.html:730
-msgid "Comment"
-msgstr "Комментировать"
-
-#: editor/templates/editor/edit_book.html:732
-msgid "previous"
-msgstr "предыдущий"
-
-#: editor/templates/editor/edit_book.html:732
-msgid "next"
-msgstr "следующий"
-
-#: editor/templates/editor/edit_book.html:737
-msgid "Show side by side"
-msgstr "Показать рядом"
-
-#: editor/templates/editor/edit_book.html:738
-msgid ""
-"Compare revision <span class=\"revision1Name\">revision1</span> with "
-"revision <span class=\"revision2Name\">revision2</span>"
-msgstr ""
-"Сравнить исправление <span class=\"revision1Name\">revision1</span> с "
-"исправлением <span class=\"revision2Name\">revision2</span>"
-
-#: editor/templates/editor/edit_book.html:743
-msgid "Select new chapter status:"
-msgstr "Выбрать новый статус главы:"
-
-#: editor/templates/editor/edit_book.html:756
-msgid "Chapter statuses"
-msgstr "Статусы главы"
-
-#: editor/templates/editor/edit_book.html:761
-msgid "New status:"
-msgstr "Новый статус:"
-
-#: editor/templates/editor/edit_book.html:766
-msgid "Chapter statuses:"
-msgstr "Статусы главы:"
-
-#: editor/templates/editor/edit_book.html:773
-msgid ""
-"Are you sure you would like to delete this chapter? You will lose all data "
-"associated to this chapter and you will not be able to undo this operation!"
-msgstr ""
-
-#: editor/templates/editor/edit_book.html:775
-msgid "I understand and agree"
-msgstr ""
-
-#: editor/templates/editor/edit_publish.html:10
-#: editor/templates/editor/edit_publish.html:17
-#: editor/templates/editor/edit_publish.html:24
-#: editor/templates/editor/edit_publish.html:31
-#: editor/templates/editor/edit_publish.html:42
-msgid "settings"
-msgstr "настройки"
-
-#: editor/templates/editor/edit_publish.html:16
-msgid "Ebook"
-msgstr "Ebook"
-
-#: editor/templates/editor/edit_publish.html:23
-msgid "Screen PDF"
-msgstr "Экранный PDF"
-
-#: editor/templates/editor/edit_publish.html:30
-msgid "Open Document Text"
-msgstr "Open Document Text"
-
-#: editor/templates/editor/edit_publish.html:41
-msgid "Try out our new beta renderer for Books"
-msgstr "Попробуйте новую бета-версию визуализации книг"
-
-#: editor/templates/editor/edit_publish.html:60
-msgid "Publish this book"
-msgstr "Опубликовать эту книгу"
-
-#: editor/templates/editor/edit_publish.html:63
-msgid ""
-"Please wait. It will take couple of moments. Your book is being generated."
-msgstr "Подождите, пожалуйста. Создание вашей книги займет несколько минут."
-
-#: editor/templates/editor/edit_publish.html:66
-msgid "Your book has been generated at this url:"
-msgstr "Ваша книга создана и доступна по этому url:"
-
-#: editor/templates/editor/edit_publish.html:70
-msgid "Unknown error while trying to publish this book."
-msgstr "Неизвестная ошибка при опубликовании этой книги."
-
-#: editor/templates/editor/edit_strings.html:3
-msgid "Error while uploading file!"
-msgstr "Ошибка при загрузке файла!"
-
-#: editor/templates/editor/edit_strings.html:5
-msgid "Submit"
-msgstr "Применить"
-
-#: editor/templates/editor/edit_strings.html:7
-#: portal/templates/booki_paginator.html:5
-msgid "Previous"
-msgstr "Предыдущий"
-
-#: editor/templates/editor/edit_strings.html:9
-msgid "Yes, revert !"
-msgstr "Да, вернуться!"
-
-#: editor/templates/editor/edit_strings.html:10
-msgid "Loading..."
-msgstr "Загружается..."
-
-#: editor/templates/editor/edit_strings.html:11
-msgid "LOADING DATA...."
-msgstr "ЗАГРУЗКА ДАННЫХ..."
-
-#: editor/templates/editor/edit_strings.html:12
-msgid "Loading data. Please wait..."
-msgstr "Загрузка данных. Подождите, пожалуйста..."
-
-#: editor/templates/editor/edit_strings.html:13
-msgid "Loading chapter data..."
-msgstr "Загрузка данных главы..."
-
-#: editor/templates/editor/edit_strings.html:14
-msgid "Reading history data..."
-msgstr "Считывание истории..."
-
-#: editor/templates/editor/edit_strings.html:15
-msgid "Reading settings data..."
-msgstr "Считывание информации о настройках..."
-
-#: editor/templates/editor/edit_strings.html:16
-msgid "Reading attachments data..."
-msgstr "Считывание информации о вложениях..."
-
-#: editor/templates/editor/edit_strings.html:17
-msgid "Reading notes data..."
-msgstr "Считывание информации о заметках..."
-
-#: editor/templates/editor/edit_strings.html:18
-msgid "Reading version data..."
-msgstr "Считывание информации о версиях..."
-
-#: editor/templates/editor/edit_strings.html:19
-msgid "Revert to this revision?"
-msgstr "Вернуться к этому исправлению?"
-
-#: editor/templates/editor/edit_strings.html:20
-msgid ""
-"Current chapter content will be reverted to this revision. Are you sure?"
-msgstr ""
-"Содержание настоящей главы будет возвращено к состоянию на момент последнего "
-"исправления. Вы уверены, что хотите этого?"
-
-#: editor/templates/editor/edit_strings.html:21
-msgid "Sending data..."
-msgstr "Отсылка данных..."
-
-#: editor/templates/editor/edit_strings.html:22
-msgid "SAVE"
-msgstr "СОХРАНИТЬ"
-
-#: editor/templates/editor/edit_strings.html:24
-msgid "Save new order"
-msgstr "Сохранить новую последовательность"
-
-#: editor/templates/editor/edit_strings.html:25
-msgid "Saving data. Please wait..."
-msgstr "Сохранение данных. Подождите, пожалуйста..."
-
-#: editor/templates/editor/edit_strings.html:26
-msgid "CANCEL"
-msgstr "ОТМЕНИТЬ"
-
-#: editor/templates/editor/edit_strings.html:27
-msgid "Set status"
-msgstr "Назначить статус"
-
-#: editor/templates/editor/edit_strings.html:28
-msgid "Revision"
-msgstr "Исправление"
-
-#: editor/templates/editor/edit_strings.html:29
-msgid "Booktype Reader"
-msgstr "Устройство для чтения Booktype"
-
-#: editor/templates/editor/edit_strings.html:30
-msgid "Hide advanced options"
-msgstr "Скрыть дополнительные опции"
-
-#: editor/templates/editor/edit_strings.html:31
-msgid "Show advanced options"
-msgstr "Показать дополнительные опции"
-
-#: editor/templates/editor/edit_strings.html:32
-msgid "New status name"
-msgstr "Название нового статуса"
-
-#: editor/templates/editor/edit_strings.html:33
-msgid "Delete this status?"
-msgstr "Удалить этот статус?"
-
-#: editor/templates/editor/edit_strings.html:34
-msgid ""
-"Can't delete because some chapters have this status. Change chapter status "
-"first."
-msgstr ""
-"Невозможно удалить, т.к. некоторым главам присвоен этот статус. Вначале "
-"измените статус глав."
-
-#: editor/templates/editor/edit_strings.html:35
-msgid "Removing chapter from Table of Contents."
-msgstr "Удаление главы из оглавления."
-
-#: editor/templates/editor/edit_strings.html:36
-msgid "Reordering the chapters..."
-msgstr "Изменение порядка глав..."
-
-#: editor/templates/editor/edit_strings.html:39
-msgid "Delete attachments"
-msgstr "Удалить вложения"
-
-#: editor/templates/editor/edit_strings.html:40
-msgid "Delete these attachments"
-msgstr "Удалить эти вложения"
-
-#: editor/templates/editor/edit_strings.html:41
-msgid "Delete selected attachments"
-msgstr "Удалить выделенные вложения"
-
-#: editor/templates/editor/edit_strings.html:42
-msgid "Update"
-msgstr "Обновить"
-
-#: editor/templates/editor/edit_strings.html:43
-msgid "Create chapter"
-msgstr "Создать главу"
-
-#: editor/templates/editor/edit_strings.html:44
-msgid "Creating chapter"
-msgstr "Создание главы"
-
-#: editor/templates/editor/edit_strings.html:45
-#: editor/templates/editor/edit_strings.html:49
-msgid "Can not create duplicate chapter name."
-msgstr "Невозможно создать аналогичное название главы."
-
-#: editor/templates/editor/edit_strings.html:46
-msgid "Enter new Chapter title."
-msgstr "Введите новый заголовок главы."
-
-#: editor/templates/editor/edit_strings.html:48
-msgid "Cloning chapter"
-msgstr "Сделать копию главы"
-
-#: editor/templates/editor/edit_strings.html:50
-msgid "Enter book id"
-msgstr "Введите id книги"
-
-#: editor/templates/editor/edit_strings.html:51
-msgid "Enter Chapter id."
-msgstr "Введите id главы."
-
-#: editor/templates/editor/edit_strings.html:52
-msgid "Create section"
-msgstr "Создать раздел"
-
-#: editor/templates/editor/edit_strings.html:53
-msgid "Creating section"
-msgstr "Создание раздела"
-
-#: editor/templates/editor/edit_strings.html:54
-msgid "Can not create duplicate section name."
-msgstr "Невозможно создать аналогичное название раздела"
-
-#: editor/templates/editor/edit_strings.html:55
-msgid "Enter new section title"
-msgstr "Введите заголовок нового раздела"
-
-#: editor/templates/editor/edit_strings.html:60
-msgid "Adding chapter to Table of Contents."
-msgstr "Добавление главы к оглавлению."
-
-#: editor/templates/editor/edit_strings.html:61
-msgid "Reordering the chapter..."
-msgstr "Изменение порядка глав..."
-
-#: editor/templates/editor/edit_strings.html:63
-msgid "Rights holder"
-msgstr "Правообладатель"
-
-#: editor/templates/editor/edit_strings.html:65
-msgid "You will loose unsaved changes. You are currently editing chapter"
-msgstr ""
-"Вы потеряете несохраненные изменения. В данный момент вы редактируете главу"
-
-#: editor/templates/editor/edit_strings.html:66
-msgid "You are leaving Booktype Editor."
-msgstr "Вы покидаете редактор Booktype."
-
-#: editor/templates/editor/edit_strings.html:67
-msgid "You don't have permission to delete attachments."
-msgstr "У вас нет прав доступа для удаления вложений."
-
-#: editor/templates/editor/edit_strings.html:68
-msgid "I can not find description for this license."
-msgstr "Я не могу найти описание этой лицензии."
-
-#: editor/templates/editor/edit_strings.html:69
-msgid "Saving the book notes"
-msgstr "Сохранение записей книги"
-
-#: editor/templates/editor/edit_strings.html:70
-msgid "Book notes saved."
-msgstr "Записи книги сохранены."
-
-#: editor/templates/editor/edit_strings.html:71
-msgid "User {0} has changed status of  chapter \"{1}\" to \"{2}\"."
-msgstr "Пользователь {0} изменил статус главы \"{1}\" на \"{2}\"."
-
-#: editor/templates/editor/edit_strings.html:72
-msgid "User {0} has saved chapter \"{1}\"."
-msgstr "Пользователь {0} сохранил главу \"{1}\"."
-
-#: editor/templates/editor/edit_strings.html:73
-msgid "User {0} has renamed chapter \"{1}\" to \"{2}\"."
-msgstr "Пользователь {0} переименовал главу \"{1}\" на \"{2}\"."
-
-#: editor/templates/editor/edit_strings.html:74
-#, fuzzy
-msgid "User {0} has deleted chapter \"{1}\"."
-msgstr "Пользователь {0} сохранил главу \"{1}\"."
-
-#: editor/templates/editor/edit_strings.html:75
-msgid "User {0} has created new chapter \"{1}\"."
-msgstr "Пользователь {0} создал новую главу \"{1}\"."
-
-#: editor/templates/editor/edit_strings.html:76
-msgid "User {0} has cloned chapter \"{1}\" from book \"{2}\"."
-msgstr "Пользователь {0} создал копию главы \"{1}\" из книги \"{2}\""
-
-#: editor/templates/editor/edit_strings.html:77
-msgid "\"{0}\" is being published."
-msgstr "\"{0}\" сейчас публикуется."
-
-#: editor/templates/editor/edit_strings.html:78
-msgid "User {0} has created new section \"{1}\"."
-msgstr "Пользователь {0} создал новый раздел \"{1}\"."
-
-#: editor/templates/editor/edit_strings.html:79
-msgid "User {0} has reverted chapter \"{1}\" to revision {2}."
-msgstr "Пользователь {0} возвратил главу \"{1}\" для переработки {2}."
-
-#: editor/templates/editor/edit_strings.html:80
-msgid "User {0} has saved notes for book \"{1}\"."
-msgstr "Пользователь {0} сохранил заметки для книги \"{1}\"."
-
-#: editor/templates/editor/edit_strings.html:81
-msgid "Close"
-msgstr "Закрыть"
-
-#: editor/templates/editor/edit_strings.html:82
-msgid "Do you really want to delete this cover?"
-msgstr "Вы действительно хотите удалить эту обложку?"
-
-#: editor/templates/editor/edit_strings.html:84
-msgid "Front cover"
-msgstr "Титульная обложка"
-
-#: editor/templates/editor/edit_strings.html:86
-msgid "Full cover"
-msgstr "Вся обложка"
-
-#: editor/templates/editor/edit_strings.html:88
-#: editor/templates/editor/wizzard_book.html:186
-#: editor/templates/editor/wizzard_bookjs.html:187
-msgid "BOOK"
-msgstr "КНИГА"
-
-#: editor/templates/editor/edit_strings.html:89
-#: editor/templates/editor/wizzard_book.html:188
-#: editor/templates/editor/wizzard_bookjs.html:189
-msgid "E-BOOK"
-msgstr "E-КНИГА"
-
-#: editor/templates/editor/edit_strings.html:92
-msgid "APPROVED"
-msgstr " УТВЕРЖДЕНО"
-
-#: editor/templates/editor/wizzard_book.html:4
-#: editor/templates/editor/wizzard_bookjs.html:4
-msgid "Book Formatted PDF Settings"
-msgstr "PDF настройки для книжного формата"
-
-#: editor/templates/editor/wizzard_book.html:49
-#: editor/templates/editor/wizzard_book.html:51
-#: editor/templates/editor/wizzard_book.html:69
-#: editor/templates/editor/wizzard_book.html:79
-#: editor/templates/editor/wizzard_book.html:98
-#: editor/templates/editor/wizzard_book.html:117
-#: editor/templates/editor/wizzard_book.html:136
-#: editor/templates/editor/wizzard_bookjs.html:48
-#: editor/templates/editor/wizzard_bookjs.html:50
-#: editor/templates/editor/wizzard_bookjs.html:71
-#: editor/templates/editor/wizzard_bookjs.html:84
-#: editor/templates/editor/wizzard_bookjs.html:106
-#: editor/templates/editor/wizzard_bookjs.html:128
-#: editor/templates/editor/wizzard_bookjs.html:147
-#: editor/templates/editor/wizzard_ebook.html:38
-#: editor/templates/editor/wizzard_ebook.html:48
-#: editor/templates/editor/wizzard_ebook.html:67
-#: editor/templates/editor/wizzard_ebook.html:86
-#: editor/templates/editor/wizzard_ebook.html:105
-#: editor/templates/editor/wizzard_odt.html:20
-#: editor/templates/editor/wizzard_odt.html:30
-#: editor/templates/editor/wizzard_odt.html:49
-#: editor/templates/editor/wizzard_odt.html:68
-#: editor/templates/editor/wizzard_odt.html:87
-#: editor/templates/editor/wizzard_pdf.html:21
-#: editor/templates/editor/wizzard_pdf.html:26
-#: editor/templates/editor/wizzard_pdf.html:46
-#: editor/templates/editor/wizzard_pdf.html:56
-#: editor/templates/editor/wizzard_pdf.html:75
-#: editor/templates/editor/wizzard_pdf.html:94
-#: editor/templates/editor/wizzard_pdf.html:113
-msgid "Size"
-msgstr "Размер"
-
-#: editor/templates/editor/wizzard_book.html:60
-#: editor/templates/editor/wizzard_bookjs.html:59
-#: editor/templates/editor/wizzard_ebook.html:29
-#: editor/templates/editor/wizzard_odt.html:11
-#: editor/templates/editor/wizzard_pdf.html:37
-msgid "Font"
-msgstr "Шрифт "
-
-#: editor/templates/editor/wizzard_book.html:63
-#: editor/templates/editor/wizzard_bookjs.html:62
-#: editor/templates/editor/wizzard_ebook.html:32
-#: editor/templates/editor/wizzard_odt.html:14
-#: editor/templates/editor/wizzard_pdf.html:40
-msgid "Body Text"
-msgstr "Основной текст"
-
-#: editor/templates/editor/wizzard_book.html:65
-#: editor/templates/editor/wizzard_book.html:75
-#: editor/templates/editor/wizzard_book.html:94
-#: editor/templates/editor/wizzard_book.html:113
-#: editor/templates/editor/wizzard_ebook.html:34
-#: editor/templates/editor/wizzard_ebook.html:44
-#: editor/templates/editor/wizzard_ebook.html:63
-#: editor/templates/editor/wizzard_ebook.html:82
-#: editor/templates/editor/wizzard_odt.html:16
-#: editor/templates/editor/wizzard_odt.html:26
-#: editor/templates/editor/wizzard_odt.html:45
-#: editor/templates/editor/wizzard_odt.html:64
-#: editor/templates/editor/wizzard_pdf.html:42
-#: editor/templates/editor/wizzard_pdf.html:52
-#: editor/templates/editor/wizzard_pdf.html:71
-#: editor/templates/editor/wizzard_pdf.html:90
-msgid "Fontin Sans"
-msgstr "Fontin Sans"
-
-#: editor/templates/editor/wizzard_book.html:66
-#: editor/templates/editor/wizzard_book.html:76
-#: editor/templates/editor/wizzard_book.html:95
-#: editor/templates/editor/wizzard_book.html:114
-#: editor/templates/editor/wizzard_bookjs.html:65
-#: editor/templates/editor/wizzard_bookjs.html:78
-#: editor/templates/editor/wizzard_bookjs.html:100
-#: editor/templates/editor/wizzard_bookjs.html:122
-#: editor/templates/editor/wizzard_ebook.html:35
-#: editor/templates/editor/wizzard_ebook.html:45
-#: editor/templates/editor/wizzard_ebook.html:64
-#: editor/templates/editor/wizzard_ebook.html:83
-#: editor/templates/editor/wizzard_odt.html:17
-#: editor/templates/editor/wizzard_odt.html:27
-#: editor/templates/editor/wizzard_odt.html:46
-#: editor/templates/editor/wizzard_odt.html:65
-#: editor/templates/editor/wizzard_pdf.html:43
-#: editor/templates/editor/wizzard_pdf.html:53
-#: editor/templates/editor/wizzard_pdf.html:72
-#: editor/templates/editor/wizzard_pdf.html:91
-msgid "Arial"
-msgstr "Arial"
-
-#: editor/templates/editor/wizzard_book.html:67
-#: editor/templates/editor/wizzard_book.html:77
-#: editor/templates/editor/wizzard_book.html:96
-#: editor/templates/editor/wizzard_book.html:115
-#: editor/templates/editor/wizzard_bookjs.html:66
-#: editor/templates/editor/wizzard_bookjs.html:79
-#: editor/templates/editor/wizzard_bookjs.html:101
-#: editor/templates/editor/wizzard_bookjs.html:123
-#: editor/templates/editor/wizzard_ebook.html:36
-#: editor/templates/editor/wizzard_ebook.html:46
-#: editor/templates/editor/wizzard_ebook.html:65
-#: editor/templates/editor/wizzard_ebook.html:84
-#: editor/templates/editor/wizzard_odt.html:18
-#: editor/templates/editor/wizzard_odt.html:28
-#: editor/templates/editor/wizzard_odt.html:47
-#: editor/templates/editor/wizzard_odt.html:66
-#: editor/templates/editor/wizzard_pdf.html:44
-#: editor/templates/editor/wizzard_pdf.html:54
-#: editor/templates/editor/wizzard_pdf.html:73
-#: editor/templates/editor/wizzard_pdf.html:92
-msgid "Helvetica"
-msgstr "Helvetica"
-
-#: editor/templates/editor/wizzard_book.html:73
-#: editor/templates/editor/wizzard_bookjs.html:75
-#: editor/templates/editor/wizzard_ebook.html:42
-#: editor/templates/editor/wizzard_odt.html:24
-#: editor/templates/editor/wizzard_pdf.html:50
-msgid "Heading 1"
-msgstr "Заголовок 1"
-
-#: editor/templates/editor/wizzard_book.html:82
-#: editor/templates/editor/wizzard_book.html:101
-#: editor/templates/editor/wizzard_book.html:120
-#: editor/templates/editor/wizzard_bookjs.html:87
-#: editor/templates/editor/wizzard_bookjs.html:109
-#: editor/templates/editor/wizzard_bookjs.html:131
-#: editor/templates/editor/wizzard_ebook.html:51
-#: editor/templates/editor/wizzard_ebook.html:70
-#: editor/templates/editor/wizzard_ebook.html:89
-#: editor/templates/editor/wizzard_odt.html:33
-#: editor/templates/editor/wizzard_odt.html:52
-#: editor/templates/editor/wizzard_odt.html:71
-#: editor/templates/editor/wizzard_pdf.html:59
-#: editor/templates/editor/wizzard_pdf.html:78
-#: editor/templates/editor/wizzard_pdf.html:97
-msgid "UPPERCASE"
-msgstr "ПИСАТЬ ЗАГЛАВНЫМИ"
-
-#: editor/templates/editor/wizzard_book.html:83
-#: editor/templates/editor/wizzard_book.html:102
-#: editor/templates/editor/wizzard_book.html:121
-#: editor/templates/editor/wizzard_bookjs.html:88
-#: editor/templates/editor/wizzard_bookjs.html:110
-#: editor/templates/editor/wizzard_bookjs.html:132
-#: editor/templates/editor/wizzard_ebook.html:52
-#: editor/templates/editor/wizzard_ebook.html:71
-#: editor/templates/editor/wizzard_ebook.html:90
-#: editor/templates/editor/wizzard_odt.html:34
-#: editor/templates/editor/wizzard_odt.html:53
-#: editor/templates/editor/wizzard_odt.html:72
-#: editor/templates/editor/wizzard_pdf.html:60
-#: editor/templates/editor/wizzard_pdf.html:79
-#: editor/templates/editor/wizzard_pdf.html:98
-msgid "lowercase"
-msgstr "писать строчными"
-
-#: editor/templates/editor/wizzard_book.html:84
-#: editor/templates/editor/wizzard_book.html:103
-#: editor/templates/editor/wizzard_book.html:122
-#: editor/templates/editor/wizzard_bookjs.html:89
-#: editor/templates/editor/wizzard_bookjs.html:111
-#: editor/templates/editor/wizzard_bookjs.html:133
-#: editor/templates/editor/wizzard_ebook.html:53
-#: editor/templates/editor/wizzard_ebook.html:72
-#: editor/templates/editor/wizzard_ebook.html:91
-#: editor/templates/editor/wizzard_odt.html:35
-#: editor/templates/editor/wizzard_odt.html:54
-#: editor/templates/editor/wizzard_odt.html:73
-#: editor/templates/editor/wizzard_pdf.html:61
-#: editor/templates/editor/wizzard_pdf.html:80
-#: editor/templates/editor/wizzard_pdf.html:99
-msgid "Capitalise"
-msgstr "Писать с заглавной"
-
-#: editor/templates/editor/wizzard_book.html:87
-#: editor/templates/editor/wizzard_book.html:106
-#: editor/templates/editor/wizzard_book.html:125
-#: editor/templates/editor/wizzard_bookjs.html:92
-#: editor/templates/editor/wizzard_bookjs.html:114
-#: editor/templates/editor/wizzard_bookjs.html:136
-#: editor/templates/editor/wizzard_ebook.html:56
-#: editor/templates/editor/wizzard_ebook.html:75
-#: editor/templates/editor/wizzard_ebook.html:94
-#: editor/templates/editor/wizzard_odt.html:38
-#: editor/templates/editor/wizzard_odt.html:57
-#: editor/templates/editor/wizzard_odt.html:76
-#: editor/templates/editor/wizzard_pdf.html:64
-#: editor/templates/editor/wizzard_pdf.html:83
-#: editor/templates/editor/wizzard_pdf.html:102
-msgid "Heavy"
-msgstr "Плотный"
-
-#: editor/templates/editor/wizzard_book.html:88
-#: editor/templates/editor/wizzard_book.html:107
-#: editor/templates/editor/wizzard_book.html:126
-#: editor/templates/editor/wizzard_bookjs.html:93
-#: editor/templates/editor/wizzard_bookjs.html:115
-#: editor/templates/editor/wizzard_bookjs.html:137
-#: editor/templates/editor/wizzard_ebook.html:57
-#: editor/templates/editor/wizzard_ebook.html:76
-#: editor/templates/editor/wizzard_ebook.html:95
-#: editor/templates/editor/wizzard_odt.html:39
-#: editor/templates/editor/wizzard_odt.html:58
-#: editor/templates/editor/wizzard_odt.html:77
-#: editor/templates/editor/wizzard_pdf.html:65
-#: editor/templates/editor/wizzard_pdf.html:84
-#: editor/templates/editor/wizzard_pdf.html:103
-msgid "normal"
-msgstr "нормальный"
-
-#: editor/templates/editor/wizzard_book.html:92
-#: editor/templates/editor/wizzard_bookjs.html:97
-#: editor/templates/editor/wizzard_ebook.html:61
-#: editor/templates/editor/wizzard_odt.html:43
-#: editor/templates/editor/wizzard_pdf.html:69
-msgid "Heading 2"
-msgstr "Заголовок 2"
-
-#: editor/templates/editor/wizzard_book.html:111
-#: editor/templates/editor/wizzard_bookjs.html:119
-#: editor/templates/editor/wizzard_ebook.html:80
-#: editor/templates/editor/wizzard_odt.html:62
-#: editor/templates/editor/wizzard_pdf.html:88
-msgid "Heading 3"
-msgstr "Заголовок 3"
-
-#: editor/templates/editor/wizzard_book.html:130
-#: editor/templates/editor/wizzard_bookjs.html:141
-#: editor/templates/editor/wizzard_ebook.html:99
-#: editor/templates/editor/wizzard_odt.html:81
-#: editor/templates/editor/wizzard_pdf.html:107
-msgid "Formatted"
-msgstr "Форматированный"
-
-#: editor/templates/editor/wizzard_book.html:132
-#: editor/templates/editor/wizzard_bookjs.html:143
-#: editor/templates/editor/wizzard_ebook.html:101
-#: editor/templates/editor/wizzard_odt.html:83
-#: editor/templates/editor/wizzard_pdf.html:109
-msgid "Courier"
-msgstr "Courier"
-
-#: editor/templates/editor/wizzard_book.html:133
-#: editor/templates/editor/wizzard_bookjs.html:144
-#: editor/templates/editor/wizzard_ebook.html:102
-#: editor/templates/editor/wizzard_odt.html:84
-#: editor/templates/editor/wizzard_pdf.html:110
-msgid "Courier New"
-msgstr "Courier New"
-
-#: editor/templates/editor/wizzard_book.html:134
-#: editor/templates/editor/wizzard_bookjs.html:145
-#: editor/templates/editor/wizzard_ebook.html:103
-#: editor/templates/editor/wizzard_odt.html:85
-#: editor/templates/editor/wizzard_pdf.html:111
-msgid "Monospace"
-msgstr "Monospace"
-
-#: editor/templates/editor/wizzard_book.html:159
-#: editor/templates/editor/wizzard_bookjs.html:160
-#: editor/templates/editor/wizzard_ebook.html:118
-#: editor/templates/editor/wizzard_odt.html:100
-#: editor/templates/editor/wizzard_pdf.html:126
-msgid "Select cover image"
-msgstr "Выбрать изображение обложки"
-
-#: editor/templates/editor/wizzard_book.html:161
-#: editor/templates/editor/wizzard_bookjs.html:162
-#: editor/templates/editor/wizzard_ebook.html:120
-#: editor/templates/editor/wizzard_odt.html:102
-#: editor/templates/editor/wizzard_pdf.html:128
-msgid "No Cover"
-msgstr "Нет обложки"
-
-#: editor/templates/editor/wizzard_book.html:178
-#: editor/templates/editor/wizzard_bookjs.html:179
-msgid "Others"
-msgstr ""
-
-#: editor/templates/editor/wizzard_book.html:199
-#: editor/templates/editor/wizzard_bookjs.html:200
-msgid ""
-"Tip: To select multiple cover files for your book (front, spine, back) "
-"please press the Control key (Ctrl)."
-msgstr ""
-"Совет: Для пакетной загрузки файлов обложек и переплета для книги нажмите "
-"Control key (Ctrl)."
-
-#: editor/templates/editor/wizzard_book.html:207
-#: editor/templates/editor/wizzard_odt.html:146
-#: editor/templates/editor/wizzard_pdf.html:172
-msgid "Page breaks"
-msgstr "Разбиение страниц"
-
-#: editor/templates/editor/wizzard_book.html:210
-#: editor/templates/editor/wizzard_odt.html:149
-#: editor/templates/editor/wizzard_pdf.html:175
-msgid "Avoid page break in paragraphs?"
-msgstr "Избегать разбиения страниц внутри абзаца?"
-
-#: editor/templates/editor/wizzard_book.html:212
-#: editor/templates/editor/wizzard_odt.html:151
-#: editor/templates/editor/wizzard_pdf.html:177
-msgid "Pagebreak before footnotes?"
-msgstr "Разрыв страницы перед сноской?"
-
-#: editor/templates/editor/wizzard_book.html:220
-#: editor/templates/editor/wizzard_bookjs.html:208
-#: editor/templates/editor/wizzard_pdf.html:186
-msgid "Advanced"
-msgstr "Расширенные"
-
-#: editor/templates/editor/wizzard_book.html:230
-#: editor/templates/editor/wizzard_bookjs.html:218
-#: editor/templates/editor/wizzard_pdf.html:196
-msgid "General"
-msgstr "Общий"
-
-#: editor/templates/editor/wizzard_book.html:234
-#: editor/templates/editor/wizzard_bookjs.html:222
-#: editor/templates/editor/wizzard_pdf.html:200
-msgid "Override Server Default CSS"
-msgstr "Заменить CSS по умолчанию"
-
-#: editor/templates/editor/wizzard_book.html:237
-#: editor/templates/editor/wizzard_pdf.html:202
-msgid "Grey Scale Output"
-msgstr "Выпуск серой шкалы"
-
-#: editor/templates/editor/wizzard_book.html:240
-#: editor/templates/editor/wizzard_pdf.html:204
-#: editor/templates/editor/wizzard_pdf.html:206
-msgid "Rotate"
-msgstr "Повернуть"
-
-#: editor/templates/editor/wizzard_book.html:240
-msgid "For RTL books on LTR printing presses, and vice versa."
-msgstr "Для книг в формате RTL на печатающих устройствах LTR и наоборот"
-
-#: editor/templates/editor/wizzard_book.html:242
-msgid "Page Numbers"
-msgstr "Номера страниц"
-
-#: editor/templates/editor/wizzard_book.html:244
-#: editor/templates/editor/wizzard_pdf.html:210
-msgid "LTR"
-msgstr "LTR"
-
-#. Translators: Option for Page Numbers
-#: editor/templates/editor/wizzard_book.html:246
-#: editor/templates/editor/wizzard_pdf.html:209
-msgid "none"
-msgstr "none"
-
-#. Translators: Option for Page Numbers. Burmese.
-#: editor/templates/editor/wizzard_book.html:248
-#: editor/templates/editor/wizzard_pdf.html:212
-msgid "my"
-msgstr "my"
-
-#. Translators: Option for Page Numbers. Farsi.
-#: editor/templates/editor/wizzard_book.html:250
-#: editor/templates/editor/wizzard_pdf.html:214
-msgid "fa"
-msgstr "fa"
-
-#. Translators: Option for Page Numbers. Hindi.
-#: editor/templates/editor/wizzard_book.html:252
-#: editor/templates/editor/wizzard_pdf.html:216
-msgid "hi"
-msgstr "hi"
-
-#. Translators: Option for Page Numbers. Right to left.
-#: editor/templates/editor/wizzard_book.html:254
-#: editor/templates/editor/wizzard_pdf.html:218
-msgid "RTL"
-msgstr "RTL"
-
-#. Translators: Option for Page Numbers. Arabic.
-#: editor/templates/editor/wizzard_book.html:256
-#: editor/templates/editor/wizzard_pdf.html:220
-msgid "ar"
-msgstr "ar"
-
-#: editor/templates/editor/wizzard_book.html:257
-#: editor/templates/editor/wizzard_pdf.html:221
-msgid "auto"
-msgstr "auto"
-
-#: editor/templates/editor/wizzard_book.html:259
-msgid "If in doubt, choose 'auto'"
-msgstr "Если есть сомнения, выбирайте 'авто'"
-
-#: editor/templates/editor/wizzard_book.html:262
-#: editor/templates/editor/wizzard_pdf.html:226
-msgid "Force Embed Fonts"
-msgstr "Принудительное внедрение шрифтов"
-
-#: editor/templates/editor/wizzard_book.html:262
-#: editor/templates/editor/wizzard_pdf.html:226
-msgid "PDFs: force embedding of PDF default fonts"
-msgstr "PDF: принудительное вложение PDF шрифта по умолчанию"
-
-#: editor/templates/editor/wizzard_book.html:264
-#: editor/templates/editor/wizzard_pdf.html:228
-msgid "Cancel Page Break Control"
-msgstr "Отменить контроль разбиения страниц"
-
-#: editor/templates/editor/wizzard_book.html:264
-#: editor/templates/editor/wizzard_pdf.html:228
-msgid "Let page breaks occur immediately after headings"
-msgstr "Позволить  разбиение страниц сразу после заголовков"
-
-#: editor/templates/editor/wizzard_book.html:277
-msgid "Table of Contents"
-msgstr "Оглавление"
-
-#: editor/templates/editor/wizzard_book.html:280
-msgid "Table of Contents Header"
-msgstr "Заголовок оглавления"
-
-#: editor/templates/editor/wizzard_book.html:294
-#: editor/templates/editor/wizzard_bookjs.html:243
-#: editor/templates/editor/wizzard_pdf.html:242
-msgid "Page Margins and Gutter"
-msgstr "Поля и внутренние поля страницы"
-
-#: editor/templates/editor/wizzard_book.html:297
-#: editor/templates/editor/wizzard_bookjs.html:246
-#: editor/templates/editor/wizzard_pdf.html:245
-msgid "Top Margin"
-msgstr "Верхнее поле"
-
-#: editor/templates/editor/wizzard_book.html:299
-#: editor/templates/editor/wizzard_bookjs.html:248
-#: editor/templates/editor/wizzard_pdf.html:247
-msgid "Side Margin"
-msgstr "Боковое поле"
-
-#: editor/templates/editor/wizzard_book.html:301
-#: editor/templates/editor/wizzard_bookjs.html:250
-#: editor/templates/editor/wizzard_pdf.html:249
-msgid "Bottom Margin"
-msgstr "Нижнее поле"
-
-#: editor/templates/editor/wizzard_book.html:303
-#: editor/templates/editor/wizzard_bookjs.html:252
-#: editor/templates/editor/wizzard_pdf.html:251
-msgid "Gutter"
-msgstr "Внутреннее поле"
-
-#: editor/templates/editor/wizzard_book.html:305
-#: editor/templates/editor/wizzard_bookjs.html:254
-msgid "Number of columns"
-msgstr "Число столбцов"
-
-#: editor/templates/editor/wizzard_book.html:307
-#: editor/templates/editor/wizzard_bookjs.html:256
-msgid "Column margin"
-msgstr "Поле столбца"
-
-#: editor/templates/editor/wizzard_book.html:321
-#: editor/templates/editor/wizzard_bookjs.html:270
-#: editor/templates/editor/wizzard_pdf.html:269
-msgid "Advanced (style sheets)"
-msgstr "Расширенная (таблица стилей)"
-
-#: editor/templates/editor/wizzard_book.html:324
-#: editor/templates/editor/wizzard_bookjs.html:273
-#: editor/templates/editor/wizzard_pdf.html:272
-msgid "Your Custom CSS"
-msgstr "Ваш пользовательский CSS"
-
-#: editor/templates/editor/wizzard_book.html:327
-#: editor/templates/editor/wizzard_bookjs.html:276
-#: editor/templates/editor/wizzard_odt.html:164
-#: editor/templates/editor/wizzard_pdf.html:275
-msgid "Booktype CSS (be careful if changing)"
-msgstr "Booktype CSS (если вносите изменения, будьте внимательны)"
-
-#: editor/templates/editor/wizzard_book.html:331
-#: editor/templates/editor/wizzard_bookjs.html:280
-#: editor/templates/editor/wizzard_ebook.html:168
-#: editor/templates/editor/wizzard_odt.html:167
-#: editor/templates/editor/wizzard_pdf.html:279
-msgid "Override ALL previous settings with custom CSS"
-msgstr "Заменить ВСЕ предыдущие настройки пользовательским CSS "
-
-#: editor/templates/editor/wizzard_bookjs.html:64
-#: editor/templates/editor/wizzard_bookjs.html:77
-#: editor/templates/editor/wizzard_bookjs.html:99
-#: editor/templates/editor/wizzard_bookjs.html:121
-msgid "Century Schoolbook"
-msgstr "Century Schoolbook"
-
-#: editor/templates/editor/wizzard_bookjs.html:67
-#: editor/templates/editor/wizzard_bookjs.html:80
-#: editor/templates/editor/wizzard_bookjs.html:102
-#: editor/templates/editor/wizzard_bookjs.html:124
-msgid "Gentium"
-msgstr "Gentium"
-
-#: editor/templates/editor/wizzard_bookjs.html:68
-#: editor/templates/editor/wizzard_bookjs.html:81
-#: editor/templates/editor/wizzard_bookjs.html:103
-#: editor/templates/editor/wizzard_bookjs.html:125
-msgid "Liberation Serif"
-msgstr "Liberation Serif"
-
-#: editor/templates/editor/wizzard_bookjs.html:69
-#: editor/templates/editor/wizzard_bookjs.html:82
-#: editor/templates/editor/wizzard_bookjs.html:104
-#: editor/templates/editor/wizzard_bookjs.html:126
-msgid "Times New Roman"
-msgstr "Times New Roman"
-
-#: editor/templates/editor/wizzard_ebook.html:4
-msgid "Ebook Settings"
-msgstr "Настройки Ebook"
-
-#: editor/templates/editor/wizzard_ebook.html:13
-msgid "Type of Ebook"
-msgstr "Тип электронной книги"
-
-#: editor/templates/editor/wizzard_ebook.html:16
-msgid "ipad"
-msgstr "ipad"
-
-#: editor/templates/editor/wizzard_ebook.html:18
-msgid "kindle"
-msgstr "kindle"
-
-#: editor/templates/editor/wizzard_ebook.html:20
-msgid "general"
-msgstr "general"
-
-#: editor/templates/editor/wizzard_ebook.html:127
-#: editor/templates/editor/wizzard_odt.html:109
-#: editor/templates/editor/wizzard_pdf.html:135
-msgid ""
-"Tip: Only images of the following filetypes can be used to publish an ebook: "
-"PNG, JPEG, GIF."
-msgstr ""
-"Совет: Только изображения данного типа могут быть использованы для e-книги: "
-"PNG, JPEG, GIF."
-
-#: editor/templates/editor/wizzard_ebook.html:163
-#: editor/templates/editor/wizzard_odt.html:160
-msgid "CSS (Advanced)"
-msgstr "CSS (Расширенный)"
-
-#: editor/templates/editor/wizzard_ebook.html:165
-#: editor/templates/editor/wizzard_odt.html:162
-msgid "Your custom CSS"
-msgstr "Ваш пользовательский CSS"
-
-#: editor/templates/editor/wizzard_odt.html:3
-msgid "Open Document Text (.odt) Settings"
-msgstr "Настройки формата Open Document Text (.odt)"
-
-#: editor/templates/editor/wizzard_pdf.html:3
-msgid "Screen Formatted PDF Settings"
-msgstr "PDF настройки для экранного формата"
-
-#: editor/templates/editor/wizzard_pdf.html:223
-msgid "If in doubt, choose 'none'"
-msgstr "Если есть сомнения, выберите 'none'"
-
-#: editor/templates/editor/wizzard_pdf.html:253
-#: editor/templates/editor/wizzard_pdf.html:255
-msgid "Columns"
-msgstr "Колонки"
-
 #: editor/templates/errors/editing_forbidden.html:8
 msgid "Access error"
 msgstr "Ошибка доступа"
@@ -3366,7 +575,7 @@ msgstr "Следующие"
 msgid "Message from %s"
 msgstr "Сообщение от %s"
 
-#: messaging/views.py:171 reader/templates/reader/book_delete_error.html:7
+#: messaging/views.py:171
 msgid "Error"
 msgstr "Ошибка"
 
@@ -3382,19 +591,19 @@ msgstr "Следить за этой книгой"
 msgid "Stop following this book"
 msgstr "Перестать следить за этой книгой"
 
-#: messaging/templates/messaging/messagefield.html:8
+#: messaging/templates/messaging/messagefield.html:6
 msgid "Attach file"
 msgstr "Вложить файл"
 
-#: messaging/templates/messaging/messagefield.html:11
+#: messaging/templates/messaging/messagefield.html:9
 msgid "Add Snippet"
 msgstr "Добавить фрагмент"
 
-#: messaging/templates/messaging/messagefield.html:12
+#: messaging/templates/messaging/messagefield.html:10
 msgid "Optional snippet context URL:"
 msgstr "Дополнительный URL контекста фрагмента:"
 
-#: messaging/templates/messaging/messagefield.html:15
+#: messaging/templates/messaging/messagefield.html:13
 msgid "Share"
 msgstr "Поделиться"
 
@@ -3402,19 +611,67 @@ msgstr "Поделиться"
 msgid "Post a message"
 msgstr "Опубликовать сообщение"
 
+#: messaging/templates/messaging/new_message_email.txt:2
+#, fuzzy, python-format
+msgid "Hi %(first_name)s!"
+msgstr "имя"
+
+#: messaging/templates/messaging/new_message_email.txt:4
+#, fuzzy
+msgid ""
+"This is a notification of a new message for you at your Booktype profile:"
+msgstr "Это первая версия сообщения об ошибке. Ничего особенного. "
+
+#: messaging/templates/messaging/new_message_email.txt:7
+#, fuzzy
+msgid "Sender:"
+msgstr "отправитель"
+
+#: messaging/templates/messaging/new_message_email.txt:8
+msgid "Date:"
+msgstr ""
+
+#: messaging/templates/messaging/new_message_email.txt:9
+#, fuzzy
+msgid "Content:"
+msgstr "контент"
+
+#: messaging/templates/messaging/new_message_email.txt:12
+#, fuzzy
+msgid "Attachment:"
+msgstr "Вложение"
+
+#: messaging/templates/messaging/new_message_email.txt:14
+#: messaging/templates/messaging/post.html:22
+msgid "Snippet:"
+msgstr "Фрагмент:"
+
+#: messaging/templates/messaging/new_message_email.txt:14
+msgid "not shown"
+msgstr ""
+
+#: messaging/templates/messaging/new_message_email.txt:16
+#, fuzzy
+msgid "Snippet context:"
+msgstr "Дополнительный URL контекста фрагмента:"
+
+#: messaging/templates/messaging/new_message_email.txt:19
+msgid ""
+"This email address receives these notifications because of your settings:"
+msgstr ""
+
+#: messaging/templates/messaging/new_message_email.txt:22
+#, fuzzy
+msgid "Need a new password?"
+msgstr "Введите новый пароль"
+
 #: messaging/templates/messaging/post.html:8
 msgid "send a reply"
 msgstr "послать ответ"
 
 #: messaging/templates/messaging/post.html:11
-#: portal/templates/portal/books.html:45
-#: portal/templates/portal/frontpage.html:47
 msgid "ago"
 msgstr "назад"
-
-#: messaging/templates/messaging/post.html:22
-msgid "Snippet:"
-msgstr "Фрагмент:"
 
 #: messaging/templates/messaging/post.html:24
 msgid "Context"
@@ -3449,301 +706,1938 @@ msgstr "Перестать отслеживать мои действия"
 msgid "Tag timeline"
 msgstr "Тег ленты сообщений"
 
-#: portal/templates/base.html:70
-msgid "Control Center"
-msgstr "Центр управления"
+#~ msgid "mood"
+#~ msgstr "модель"
 
-#: portal/templates/base.html:199
-msgid "Couldn't create a group!"
-msgstr "Не получилось создать группу!"
+#~ msgid "image"
+#~ msgstr "изображение"
 
-#: portal/templates/base.html:204 reader/templates/reader/book_info.html:74
+#~ msgid "secretcode"
+#~ msgstr "секретный код"
+
+#~ msgid "remote useragent"
+#~ msgstr "удаленный агент пользователя"
+
+#~ msgid "remote addr"
+#~ msgstr "удаленный адрес"
+
+#~ msgid "remote host"
+#~ msgstr "удаленный хост"
+
+#~ msgid "Reset password"
+#~ msgstr "Сбросить пароль"
+
+#~ msgid "Create a Book"
+#~ msgstr "Создать книгу"
+
+#~ msgid ""
+#~ "You don't have permissions to create new books. At the moment only "
+#~ "administrators can do that."
+#~ msgstr ""
+#~ "У вас нет прав создания новых книг. В настоящее время это может делать "
+#~ "только администратор."
+
+#~ msgid "Step 1"
+#~ msgstr "Шаг 1"
+
+#~ msgid "Title"
+#~ msgstr "Заголовок"
+
+#~ msgid "What is the title of your book?"
+#~ msgstr "Заголовок вашей книги?"
+
+#~ msgid "Title of Book"
+#~ msgstr "Заголовок книги"
+
+#~ msgid "There is already a book with this name."
+#~ msgstr "Книга с таким названием уже существует"
+
+#~ msgid "Step 2"
+#~ msgstr "Шаг 2"
+
+#~ msgid "Description"
+#~ msgstr "Описание"
+
+#~ msgid ""
+#~ "Give some information so others can find it to help you (this can be "
+#~ "added or changed later)."
+#~ msgstr ""
+#~ "Оставьте какую-то информацию, чтобы остальные могли ознакомиться с ней и "
+#~ "помочь вам (можно внести или изменить позже)"
+
+#~ msgid "Step 3"
+#~ msgstr "Шаг 3"
+
+#~ msgid "Choose your license"
+#~ msgstr "Выберите лицензию"
+
+#~ msgid "Choose from the following licenses"
+#~ msgstr "Выберите из нижеперечисленных лицензий"
+
+#~ msgid "Step 4"
+#~ msgstr "Шаг 4"
+
+#~ msgid "Image"
+#~ msgstr "Изображение"
+
+#~ msgid ""
+#~ "If you have an image for the book then add it now (this can be added or "
+#~ "changed later)"
+#~ msgstr ""
+#~ "Если у вас есть изображение для книги, добавьте его сейчас (можно внести "
+#~ "или изменить позже)"
+
+#~ msgid "Book Image"
+#~ msgstr "Изображение для книги"
+
+#~ msgid "Step 5"
+#~ msgstr "Шаг 5"
+
+#~ msgid "Make Public?"
+#~ msgstr "Сделать книгу общедоступной?"
+
+#~ msgid ""
+#~ "Would you like to keep your book private or make it public? If the book "
+#~ "is public others can find the book to help you."
+#~ msgstr ""
+#~ "Хотите сохранить книгу закрытой для окружающих или сделать общедоступной? "
+#~ "если книга общедоступна, другие пользователи могут найти ее и помочь вам."
+
+#~ msgid ""
+#~ "<strong>Note:</strong> this setting can be changed later from your "
+#~ "dashboard.</p>"
+#~ msgstr ""
+#~ "<strong>Внимание:</strong> эту настройку можно изменить позже из вашей "
+#~ "панели пользователя.</p>"
+
+#~ msgid "Initially hide from others"
+#~ msgstr "Изначально скрыто от других пользователей"
+
+#~ msgid "Create a Group"
+#~ msgstr "Создать группу"
+
+#~ msgid "Group name:"
+#~ msgstr "Название группы:"
+
+#~ msgid "There is already a group with this name."
+#~ msgstr "Группа с таким названием уже существует."
+
+#~ msgid "Description:"
+#~ msgstr "Описание:"
+
+#~ msgid "Error while doing import"
+#~ msgstr "Ошибка при импортировании"
+
+#~ msgid "Forgot Password"
+#~ msgstr "Забыл пароль"
+
+#~ msgid "Forgot your password"
+#~ msgstr "Забыли свой пароль"
+
+#~ msgid "USERNAME OR E-MAIL ADDRESS"
+#~ msgstr "ИМЯ ПОЛЬЗОВАТЕЛЯ ИЛИ EMAIL"
+
+#~ msgid ""
+#~ "Give us your username or e-mail you used to create Booktype account and "
+#~ "we will send you new password."
+#~ msgstr ""
+#~ "Сообщите имя пользователя или email, который использовался при создании "
+#~ "учетной записи Booktype, и мы вышлем вам новый пароль."
+
+#~ msgid "Enter username."
+#~ msgstr "Введите имя пользователя."
+
+#~ msgid "No such user."
+#~ msgstr "Такого пользователя не существует."
+
+#~ msgid "Unknown error."
+#~ msgstr "Неизвестная ошибка."
+
+#~ msgid "Send request"
+#~ msgstr "Пошлите запрос"
+
+#~ msgid "Check your email!"
+#~ msgstr "Проверьте свою электронную почту!"
+
+#~ msgid "Password reset instructions were sent to your email."
+#~ msgstr "Инструкции по смене пароля были высланы на ваш email."
+
+#~ msgid "Reset your password"
+#~ msgstr "Смените свой пароль"
+
+#~ msgid "SECRETCODE"
+#~ msgstr "СЕКРЕТНЫЙ КОД"
+
+#~ msgid "NEW PASSWORD"
+#~ msgstr "НОВЫЙ ПАРОЛЬ"
+
+#~ msgid "NEW PASSWORD AGAIN"
+#~ msgstr "ВВЕДИТЕ НОВЫЙ ПАРОЛЬ ЕЩЕ РАЗ"
+
+#~ msgid "Registration"
+#~ msgstr "Регистрация"
+
+#~ msgid "User limit has been reached."
+#~ msgstr "Превышение лимита пользователей."
+
+#~ msgid "Create account"
+#~ msgstr "Создать учетную запись"
+
+#~ msgid "User name"
+#~ msgstr "Имя пользователя"
+
+#~ msgid "Password (6 characters at least)"
+#~ msgstr "Пароль (минимум 6 символов)"
+
+#~ msgid "Full name"
+#~ msgstr "Полное имя"
+
+#~ msgid "Email"
+#~ msgstr "Email"
+
+#~ msgid "Missing username!"
+#~ msgstr "Пропущено имя пользователя!"
+
+#~ msgid "Missing e-mail!"
+#~ msgstr "Пропущен email!"
+
+#~ msgid "Missing password!"
+#~ msgstr "Пропущен пароль!"
+
+#~ msgid "Please provide your real name."
+#~ msgstr "Пожалуйста, сообщите ваше настоящее имя."
+
+#~ msgid ""
+#~ "Username is invalid. Please try a different one. You may use alhpanumeric "
+#~ "characters and characters \".\", \"_\", \"-\" (dot, underscore and "
+#~ "minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</"
+#~ "li><li>kamilo_kamili</li></ul>"
+#~ msgstr ""
+#~ "Имя пользователя неверно. Пожалуйста, попробуйте еще раз. Можно "
+#~ "пользоваться буквенно-цифровыми знаками и символами \".\", \"_\", \"-"
+#~ "\" (точкой, нижним подчеркиванием и минусом). <br/><br/>Например:"
+#~ "<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+
+#~ msgid "This is not a valid e-mail"
+#~ msgstr "Этот e-mail неверный."
+
+#~ msgid "Your passwords dont match. Please try a different one."
+#~ msgstr "Ваши пароли не совпадают. Повторите попытку снова."
+
+#~ msgid "Password must be 6 characters or more!"
+#~ msgstr "Пароль должен иметь минимум шесть символов!"
+
+#~ msgid "Username already taken. Please try a different one."
+#~ msgstr "Имя пользователя занято. Пожалуйста, выберите другое."
+
+#~ msgid "Unknown error!"
+#~ msgstr "Неизвестная ошибка!"
+
+#~ msgid "Fullname is too long!"
+#~ msgstr "Полное имя слишком длинное!"
+
+#~ msgid "Only administrator is allowed to create new accounts at the moment."
+#~ msgstr ""
+#~ "В настоящее время создавать новые учетные записи может только "
+#~ "администратор."
+
+#~ msgid "Sign in"
+#~ msgstr "Вход"
+
+#~ msgid "Password"
+#~ msgstr "Пароль"
+
+#~ msgid "User does not exist."
+#~ msgstr "Пользователь с таким именем не существует."
+
+#~ msgid "Password is wrong! Please try again."
+#~ msgstr "Пароль неверный! Попытайтесь снова."
+
+#~ msgid "Import book"
+#~ msgstr "Импортировать книгу"
+
+#~ msgid ""
+#~ "You don't have permissions to import content. At the moment only "
+#~ "administrators can do that."
+#~ msgstr ""
+#~ "У вас нет права импортирования контента. В настоящее время это может "
+#~ "делать только администратор."
+
+#~ msgid "Import type:"
+#~ msgstr "Тип импорта"
+
+#~ msgid "Select Import Type"
+#~ msgstr "Выбрать тип импорта"
+
+#~ msgid "Import EPUB"
+#~ msgstr "Импортировать в EPUB"
+
+#~ msgid "Import archive.org book"
+#~ msgstr "Импортировать книгу archive.org"
+
+#~ msgid "Copy or import Booktype book"
+#~ msgstr "Копировать или импортировать книгу Booktype"
+
+#~ msgid "Source:"
+#~ msgstr "Источник:"
+
+#~ msgid "New title (optional):"
+#~ msgstr "Новый заголовок (необязательно)"
+
+#~ msgid "Initially hidden from others"
+#~ msgstr "Изначально скрыто от других пользователей"
+
+#~ msgid ""
+#~ "Please wait. It will take couple of moments. Your book is being imported!"
+#~ msgstr ""
+#~ "Подождите, пожалуйста. Это займет несколько минут. Ваша книга "
+#~ "импортируется!"
+
+#~ msgid ""
+#~ "To reset your Booktype password, simply click the link below. That will "
+#~ "take you to a web page where you can create a new password."
+#~ msgstr ""
+#~ "Для сброса пароля в Booktype используйте ссылку. Вы перейдете на "
+#~ "страницу, где сможете создать новый пароль. "
+
+#~ msgid "Go to:"
+#~ msgstr "Перейти на:"
+
+#~ msgid ""
+#~ "If you weren't trying to reset your password, don't worry – your account "
+#~ "is still secure and no one has been given access to it. Most likely, "
+#~ "someone just mistyped their email address while trying to reset their own "
+#~ "password."
+#~ msgstr ""
+#~ "Если вы не пытались сбросить пароль, не волнуйтесь - ваша учетная запись "
+#~ "в безопасности, никто не получал доступа к ней. Скорее всего, кто-то "
+#~ "неверно ввел свой email адрес при сбросе своего собственного пароля. "
+
+#~ msgid "Booktype Sign In"
+#~ msgstr "Вход в Booktype"
+
+#~ msgid "You are already signed in!"
+#~ msgstr "Вы уже вошли!"
+
+#~ msgid "Your account has been created!"
+#~ msgstr "Ваша учетная запись создана!"
+
+#~ msgid ""
+#~ "\n"
+#~ "    <p>Thank you. We have created your account and signed you in. Do you "
+#~ "want to learn more how to use Booktype? Read the <a href=\"http://en."
+#~ "flossmanuals.net/booktype\">user guide</a>!</p>\n"
+#~ "    \n"
+#~ "    <p><form method=\"GET\" action=\"%(frontpage_url)s\"><button>Great! "
+#~ "Let's use Booktype now!</button><span class=\"redirectmessage\" style="
+#~ "\"padding-left: 20px\">Automatic redirection in <span class=\"sec\">sec</"
+#~ "span> seconds.</span></form></p>\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    <p>Спасибо. Мы создали вашу учетную запись и зарегистрировали ваш "
+#~ "вход. Хотите узнать больше о Booktype? Читайте <a href=\"http://en."
+#~ "flossmanuals.net/booktype-ru\">руководство пользователя</a>!</p>\n"
+#~ "    \n"
+#~ "    <p><form method=\"GET\" action=\"%(frontpage_url)s"
+#~ "\"><button>Прекрасно! Начнем работу в Booktype!</button><span class="
+#~ "\"redirectmessage\" style=\"padding-left: 20px\">Автоматическая "
+#~ "переадресация произойдет через <span class=\"sec\">sec</span> секунд.</"
+#~ "span></form></p>\n"
+#~ "    "
+
+#~ msgid "Why do I need account ?"
+#~ msgstr "Почему мне нужна учетная запись ?"
+
+#~ msgid ""
+#~ "Your real name is compulsory for reasons of copyright attribution on "
+#~ "books you create and contribute to."
+#~ msgstr ""
+#~ "Ваше настоящее имя обязательно для установления авторских прав на книгу, "
+#~ "которую вы создате или в создании которой участвуете."
+
+#~ msgid "I forgot my password. What now ?!"
+#~ msgstr "Я забыл свой пароль. Что делать ?"
+
+#~ msgid ""
+#~ "<p>Please <a href=\"%(forgotpassword_url)s\">request new one</a>.</p>"
+#~ msgstr ""
+#~ "<p>Пожалуйста, <a href=\"%(forgotpassword_url)s\">запросите новый</a>.</p>"
+
+#~ msgid "I forgot my username ?"
+#~ msgstr "Я забыл свое имя пользователя ?"
+
+#~ msgid "/user: %(username)s"
+#~ msgstr "/пользователь: %(username)s"
+
+#~ msgid "My Dashboard"
+#~ msgstr "Моя панель пользователя"
+
+#~ msgid "Dashboard"
+#~ msgstr "Панель пользователя"
+
+#~ msgid "My Books"
+#~ msgstr "Мои книги"
+
+#~ msgid "Settings"
+#~ msgstr "Настройки"
+
+#~ msgid "Follow my changes"
+#~ msgstr "Следить за моими изменениями"
+
+#~ msgid "There is no description for this user."
+#~ msgstr "Для данного пользователя описания нет."
+
+#~ msgid "Following tags:"
+#~ msgstr "Интересуется:"
+
+#~ msgid "Following:"
+#~ msgstr "Наблюдает за:"
+
+#~ msgid "Followers:"
+#~ msgstr "Подписчики:"
+
+#~ msgid ""
+#~ "Do you want to learn more how to use Booktype? Read the  <a target=\"_new"
+#~ "\" title=\"Booktype user guide\" href=\"http://en.flossmanuals.net/"
+#~ "booktype\"><i>user guide</i></a>!"
+#~ msgstr ""
+#~ "Хотите узнать больше о работе с Booktype? Читайте <a target=\"_new\" "
+#~ "title=\"Руководство пользователя Booktype\" href=\"http://en.flossmanuals."
+#~ "net/booktype-ru\"><i>руководство пользователя</i></a>!"
+
+#~ msgid "CREATE NEW BOOK"
+#~ msgstr "СОЗДАТЬ НОВУЮ КНИГУ"
+
+#~ msgid "edit"
+#~ msgstr "редактировать"
+
+#~ msgid ""
+#~ "\n"
+#~ "          <p>This is a perfect moment to start writing your book, just "
+#~ "click on the button above!</p>\n"
+#~ "          "
+#~ msgstr ""
+#~ "\n"
+#~ "          <p>Идеальное время для написания собственной книги, просто "
+#~ "нажмите на кнопку сверху!</p>\n"
+#~ "          "
+
+#~ msgid ""
+#~ "\n"
+#~ "          <p>This user has no books.</p>\n"
+#~ "          "
+#~ msgstr ""
+#~ "\n"
+#~ "          <p>У этого пользователя нет книг.</p>\n"
+#~ "          "
+
+#~ msgid "CREATE NEW GROUP"
+#~ msgstr "СОЗДАТЬ НОВУЮ ГРУППУ"
+
+#~ msgid "My Groups"
+#~ msgstr "Мои группы"
+
+#~ msgid "go"
+#~ msgstr "вперед"
+
+#~ msgid ""
+#~ "Work with others in Groups. To create a Group click on the button above."
+#~ msgstr ""
+#~ "Работать с другими в группах. Для создания группы нажмите на кнопку "
+#~ "сверху."
+
+#~ msgid "This user has no groups."
+#~ msgstr "У данного пользователя нет групп."
+
+#~ msgid "Create new book"
+#~ msgstr "Создать новую книгу"
+
+#~ msgid "Import Book"
+#~ msgstr "Импортировать книгу"
+
+#~ msgid "info"
+#~ msgstr "Информация"
+
+#~ msgid "draft"
+#~ msgstr "черновик"
+
+#~ msgid "Show to others"
+#~ msgstr "Показывать остальным пользователям"
+
+#~ msgid "Hide from others"
+#~ msgstr "Скрывать от остальных пользователей"
+
+#~ msgid "User settings"
+#~ msgstr "Настройки пользователя"
+
+#~ msgid "About yourself"
+#~ msgstr "О себе"
+
+#~ msgid "Profile image"
+#~ msgstr "Изображение профиля"
+
+#~ msgid "Notification filter"
+#~ msgstr "Фильтр уведомлений"
+
+#~ msgid "Save changes"
+#~ msgstr "Сохранить изменения"
+
+#~ msgid "Old Password"
+#~ msgstr "Старый пароль"
+
+#~ msgid "New Password"
+#~ msgstr "Новый пароль"
+
+#~ msgid "Password (again)"
+#~ msgstr "Пароль (повторить)"
+
+#~ msgid "Change password"
+#~ msgstr "Изменить пароль"
+
+#~ msgid "Unable to change password. Old password is missing."
+#~ msgstr "Невозможно изменить пароль. Старый пароль пропущен."
+
+#~ msgid "Unable to change password. Old password is incorrect."
+#~ msgstr "Невозможно изменить пароль. Старый пароль введен неверно."
+
+#~ msgid ""
+#~ "Unable to change password. The new and confirmation passwords are not "
+#~ "equal."
+#~ msgstr ""
+#~ "Невозможно изменить пароль. Новый пароль и его дубль для подтверждения не "
+#~ "совпадают."
+
+#~ msgid "Password changed."
+#~ msgstr "Пароль изменен."
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Back"
+#~ msgstr "Назад"
+
+#~ msgid "Create"
+#~ msgstr "Создать"
+
+#~ msgid "Cancel"
+#~ msgstr "Отменить"
+
+#~ msgid "Next"
+#~ msgstr "Следующий"
+
+#~ msgid "Couldn't create a group"
+#~ msgstr "Не получилось создать группу!"
+
+#~ msgid "enter epub URL"
+#~ msgstr "введите URL epub "
+
+#~ msgid "enter Archive.org ID"
+#~ msgstr "введите ID Archive.org"
+
+#~ msgid "enter Wikibooks URL"
+#~ msgstr "Введите URL Wikibooks "
+
+#~ msgid "enter Booktype URL"
+#~ msgstr "Введите URL Booktype"
+
+#~ msgid "Import"
+#~ msgstr "Импортировать книгу"
+
+#~ msgid "User does not exist!"
+#~ msgstr "Пользователь не существует!"
+
+#~ msgid "Can't find user \"%(username)s\"."
+#~ msgstr "Пользователь \"%(username)s\" не найден."
+
+#~ msgid "Booki group"
+#~ msgstr "Группа Booki"
+
+#~ msgid "Booki groups"
+#~ msgstr "Группы Booki"
+
+#~ msgid "Sign out"
+#~ msgstr "Выход"
+
+#~ msgid "Sign In / Create Account"
+#~ msgstr "Войти / Создать учетную запись"
+
+#~ msgid "Groups"
+#~ msgstr "Группы"
+
+#~ msgid "People"
+#~ msgstr "Люди"
+
+#~ msgid "There has been error in communication with Booktype server."
+#~ msgstr "Ошибка во время связи с сервером Bootkype."
+
+#~ msgid "Not sure right now where is the problem."
+#~ msgstr "Невозможно определить проблему немедленно."
+
+#~ msgid "You should refresh this page."
+#~ msgstr "Вы должны обновить эту страницу."
+
+#~ msgid "Cover Manager"
+#~ msgstr "Менеджер обложек"
+
+#~ msgid "View files of status:"
+#~ msgstr "Смотреть файлы статуса:"
+
+#~ msgid "All"
+#~ msgstr "Все"
+
+#~ msgid "Pending"
+#~ msgstr "Незаконченные"
+
+#~ msgid ""
+#~ "The cover manager allows you to upload, manage and publish your book "
+#~ "covers. Please upload your ebook cover image files (JPEG, GIF or PNG "
+#~ "format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT "
+#~ "output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) "
+#~ "for the front cover, spine and back cover of your print books can be "
+#~ "uploaded and managed, but will be kept separate from the text of the book "
+#~ "when publishing it."
+#~ msgstr ""
+#~ "Менеджер обложек позволяет загружать, управлять и публиковать ваши "
+#~ "книжные обложки. Загрузите вашу обложку соотвествующего размера в виде "
+#~ "файла формата JPEG, GIF или PNG для вывода в виде EPUB, MOBI, экранного "
+#~ "PDF или ODT. Вы также можете создать и загрузить (в TIFF, XCF, PSD, PDF, "
+#~ "PS, SVG, EPS, AI или INDD формат) файлы титульной обложки, переплета и "
+#~ "задней обложки, но они будут расположены отдельно от текста книги при ее "
+#~ "публикации."
+
+#~ msgid "Upload cover image"
+#~ msgstr "Загрузить обложку"
+
+#~ msgid ""
+#~ "Error: The selected filetype is not supported. Please select one of the "
+#~ "following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, "
+#~ "PS, SVG, EPS, AI, INDD."
+#~ msgstr ""
+#~ "Ошибка: Выбранный тип файла не поддерживается. Выберите один из доступных "
+#~ "типов и повторите попытку: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, "
+#~ "EPS, AI, INDD."
+
+#~ msgid ""
+#~ "Error: The selected file is bigger than 15MB. Please select a smaller "
+#~ "file and try again."
+#~ msgstr ""
+#~ "Ошибка: Выбранный файл больше, чем 15MB. Выберите меньший файл и "
+#~ "повторите попытку."
+
+#~ msgid "Enter Meta-data"
+#~ msgstr "Укажите мета-данные"
+
+#~ msgid "Filename"
+#~ msgstr "Имя файла"
+
+#~ msgid "Book Size"
+#~ msgstr "Формат печати книги"
+
+#~ msgid "custom"
+#~ msgstr "пользовательский"
+
+#~ msgid "POCKET (107mm x 174mm)"
+#~ msgstr "POCKET (107mm x 174mm)"
+
+#~ msgid "US5x8 (126mm x 203mm)"
+#~ msgstr "US5x8 (126mm x 203mm)"
+
+#~ msgid "DIGEST (139mm x 215mm)"
+#~ msgstr "DIGEST (139mm x 215mm)"
+
+#~ msgid "US5.5x8.5 (139mm x 215mm)"
+#~ msgstr "US5.5x8.5 (139mm x 215mm)"
+
+#~ msgid "A5 (148mm x 210mm)"
+#~ msgstr "A5 (148mm x 210mm)"
+
+#~ msgid "USTRADE6x9 (152mm x 228mm)"
+#~ msgstr "USTRADE6x9 (152mm x 228mm)"
+
+#~ msgid "SQUARE7.5 (190mm x 190mm)"
+#~ msgstr "SQUARE7.5 (190mm x 190mm)"
+
+#~ msgid "ROYAL (155mm x 233mm)"
+#~ msgstr "ROYAL (155mm x 233mm)"
+
+#~ msgid "LANDSCAPE9x7 (228mm x 177mm)"
+#~ msgstr "LANDSCAPE9x7 (228mm x 177mm)"
+
+#~ msgid "COMICBOOK (168mm x 260mm)"
+#~ msgstr "COMICBOOK (168mm x 260mm)"
+
+#~ msgid "B5 (176mm x 250mm)"
+#~ msgstr "B5 (176mm x 250mm)"
+
+#~ msgid "US7x10 (177mm x 253mm)"
+#~ msgstr "US7x10 (177mm x 253mm)"
+
+#~ msgid "CROWNQUARTO (189mm x 245mm)"
+#~ msgstr "CROWNQUARTO (189mm x 245mm)"
+
+#~ msgid "SQUARE8.5 (215mm x 215mm)"
+#~ msgstr "SQUARE8.5 (215mm x 215mm)"
+
+#~ msgid "USLETTER (215mm x 279mm)"
+#~ msgstr "USLETTER (215mm x 279mm)"
+
+#~ msgid "A4 (210mm x 297mm)"
+#~ msgstr "A4 (210mm x 297mm)"
+
+#~ msgid "Foolscap (F4) (210mm x 330mm)"
+#~ msgstr "Foolscap (F4) (210mm x 330mm)"
+
+#~ msgid "B4 (250mm x 353mm)"
+#~ msgstr "B4 (250mm x 353mm)"
+
+#~ msgid "Oamaru Tabloid (265mm x 380mm)"
+#~ msgstr "Oamaru Tabloid (265mm x 380mm)"
+
+#~ msgid "UK Tabloid (279mm x 431mm)"
+#~ msgstr "UK Tabloid (279mm x 431mm)"
+
+#~ msgid "A3 (NZ Tabloid) (297mm x 420mm)"
+#~ msgstr "A3 (NZ Tabloid) (297mm x 420mm)"
+
+#~ msgid "Berliner (315mm x 470mm)"
+#~ msgstr "Berliner (315mm x 470mm)"
+
+#~ msgid "B3 (353mm x 500mm)"
+#~ msgstr "B3 (353mm x 500mm)"
+
+#~ msgid "Oamaru Broadsheet (382mm x 540mm)"
+#~ msgstr "Oamaru Broadsheet (382mm x 540mm)"
+
+#~ msgid "US Broadsheet (380mm x 577mm)"
+#~ msgstr "US Broadsheet (380mm x 577mm)"
+
+#~ msgid "A2 (NZ Broadsheet) (420mm x 594mm)"
+#~ msgstr "A2 (NZ Broadsheet) (420mm x 594mm)"
+
+#~ msgid "UK Broadsheet (457mm x 609mm)"
+#~ msgstr "UK Broadsheet (457mm x 609mm)"
+
+#~ msgid "B2 (500mm x 707mm)"
+#~ msgstr "B2 (500mm x 707mm)"
+
+#~ msgid "A1 (594mm x 841mm)"
+#~ msgstr "A1 (594mm x 841mm)"
+
+#~ msgid "B1 (707mm x 1000mm)"
+#~ msgstr "B1 (707mm x 1000mm)"
+
+#~ msgid "Custom Size"
+#~ msgstr "Пользовательский размер"
+
+#~ msgid "mm"
+#~ msgstr "мм"
+
+#~ msgid "inches"
+#~ msgstr "дюймы"
+
+#~ msgid "Format"
+#~ msgstr "Формат"
+
+#~ msgid "E-book"
+#~ msgstr "E-книга"
+
+#~ msgid "PDF"
+#~ msgstr "PDF"
+
+#~ msgid "Type"
+#~ msgstr "Тип"
+
+#~ msgid "Front Cover"
+#~ msgstr "Титульная обложка"
+
+#~ msgid "Back Cover"
+#~ msgstr "Задняя обложка"
+
+#~ msgid "Spine"
+#~ msgstr "Переплёт"
+
+#~ msgid "Full Cover"
+#~ msgstr "Вся обложка"
+
+#~ msgid "Creator"
+#~ msgstr "Создатель"
+
+#~ msgid "Notes"
+#~ msgstr "Заметки"
+
+#~ msgid "Filetype"
+#~ msgstr "Тип файла"
+
+#~ msgid ""
+#~ "Tip: The selected image file is very small. Please think of using a "
+#~ "bigger file for better results."
+#~ msgstr ""
+#~ "Совет: Выбранный вами файл малого объема. Используйте более качественный "
+#~ "файл для работы."
+
+#~ msgid ""
+#~ "Tip: The selected image file is in landscape orientation. Most book "
+#~ "covers need portrait images."
+#~ msgstr ""
+#~ "Совет: Выбранный вами файл имеет альбомную ориентация. Большинство "
+#~ "обложек использует книжную."
+
+#~ msgid "Save"
+#~ msgstr "Сохранить"
+
+#~ msgid "Enter information"
+#~ msgstr "ВВедите данные"
+
+#~ msgid "download file"
+#~ msgstr "скачать файл"
+
+#~ msgid "This image is currently assigned as the following cover type:"
+#~ msgstr "Данное изображение назначено как тип обложки:"
+
+#~ msgid "Back cover"
+#~ msgstr "Задняя обложка"
+
+#~ msgid "This image is used in the following BookTypes:"
+#~ msgstr "Данное изображение используется в следующем Типе книги:"
+
+#~ msgid "Approval status"
+#~ msgstr "Утвержденный статус"
+
+#~ msgid "Edit"
+#~ msgstr "Редактировать"
+
+#~ msgid "Chat"
+#~ msgstr "Чат"
+
+#~ msgid "Currently editing"
+#~ msgstr "Сейчас редактирует"
+
+#~ msgid "Search"
+#~ msgstr "Поиск"
+
+#~ msgid "Images and Files"
+#~ msgstr "Изображения и файлы"
+
+#~ msgid "History"
+#~ msgstr "История"
+
+#~ msgid "Versions"
+#~ msgstr "Версии"
+
+#~ msgid "Publish"
+#~ msgstr "Опубликовать"
+
+#~ msgid ""
+#~ "We are very sorry, but we are not fully compatible with your browser. We "
+#~ "are working hard to fix this problem. Until we fix this, you can try to "
+#~ "use this site with Firefox, Chrome, Safari, Opera or some other "
+#~ "compatible browser. Thank you for your understanding."
+#~ msgstr ""
+#~ "К сожалению, мы не полностью совместимы с вашим браузером. Мы прилагаем "
+#~ "все усилия для решения этой проблемы. До тех пор, пока она не решена, вы "
+#~ "можете попробовать открыть этот сайт в Firefox, Chrome, Safari, Opera или "
+#~ "любом другом совместимом браузере. Спасибо за понимание."
+
+#~ msgid "Table of contents"
+#~ msgstr "Оглавление"
+
+#~ msgid "NEW CHAPTER"
+#~ msgstr "НОВАЯ ГЛАВА"
+
+#~ msgid "NEW SECTION"
+#~ msgstr "НОВЫЙ РАЗДЕЛ"
+
+#~ msgid "IMPORT CHAPTER"
+#~ msgstr "ИМПОРТИРОВАТЬ ГЛАВУ"
+
+#~ msgid ""
+#~ "All books should contain at least one section and can have as many "
+#~ "chapters as you like."
+#~ msgstr ""
+#~ "Все книги должны содержать минимум один раздел и любое желаемое число "
+#~ "глав."
+
+#~ msgid "New chapter"
+#~ msgstr "Новая глава"
+
+#~ msgid "Clone chapter"
+#~ msgstr "Создать копию главы"
+
+#~ msgid "New title (optional)"
+#~ msgstr "Новый заголовок (необязательно)"
+
+#~ msgid "New section"
+#~ msgstr "Новый раздел"
+
+#~ msgid "Insert image"
+#~ msgstr "Вставить изображение"
+
+#~ msgid "Images"
+#~ msgstr "Изображения"
+
+#~ msgid "Upload image"
+#~ msgstr "Загрузить изображение"
+
+#~ msgid "Preview"
+#~ msgstr "Предварительный просмотр"
+
+#~ msgid "Edit Image"
+#~ msgstr "Редактировать изображение"
+
+#~ msgid "Image:"
+#~ msgstr "Изображение:"
+
+#~ msgid "Alt:"
+#~ msgstr "Alt:"
+
+#~ msgid "Positioning"
+#~ msgstr "Расстановка"
+
+#~ msgid "Border:"
+#~ msgstr "Граница:"
+
+#~ msgid "Align:"
+#~ msgstr "Выровнять:"
+
+#~ msgid "Width:"
+#~ msgstr "Ширина:"
+
+#~ msgid "Height:"
+#~ msgstr "Высота:"
+
+#~ msgid "Style"
+#~ msgstr "Стиль"
+
+#~ msgid "CSS Class:"
+#~ msgstr "Класс CSS:"
+
+#~ msgid "Padding:"
+#~ msgstr "Заполнение:"
+
+#~ msgid "Margin:"
+#~ msgstr "Поле:"
+
+#~ msgid "Background color:"
+#~ msgstr "Цвет фона:"
+
+#~ msgid "Border color:"
+#~ msgstr "Цвет границы:"
+
+#~ msgid "Hold chapters"
+#~ msgstr "Удержанные главы"
+
+#~ msgid "Save and continue editing"
+#~ msgstr "Сохранить и продолжить редактирование"
+
+#~ msgid "View chapter"
+#~ msgstr "Просмотреть главу"
+
+#~ msgid "Minor change, don't notify."
+#~ msgstr "Незначительное изменение, не уведомлять."
+
+#~ msgid "Author:"
+#~ msgstr "Автор:"
+
+#~ msgid "Author comment:"
+#~ msgstr "Комментарий автора:"
+
+#~ msgid ""
+#~ "Seems like You have changed the structure of the chapters. What do you "
+#~ "want to do?"
+#~ msgstr "Вы изменили структуру глав. Что вы хотите сделать?"
+
+#~ msgid "New chapters:"
+#~ msgstr "Новые главы:"
+
+#~ msgid ""
+#~ "All images added to your book are listed here as well as any additional "
+#~ "files you have uploaded."
+#~ msgstr ""
+#~ "Все изображения, добавленные в вашу книгу, перечислены здесь, как и любые "
+#~ "загруженные вами дополнительные файлы."
+
+#~ msgid "Deleted selected items"
+#~ msgstr "Выделенное удалено"
+
+#~ msgid "Upload a new image or file"
+#~ msgstr "Загрузить новое изображение или файл"
+
+#~ msgid "Upload"
+#~ msgstr "Загрузить"
+
+#~ msgid "Here you can follow the edit history of your book."
+#~ msgstr "Здесь можно отслеживать историю редактирования вашей книги."
+
+#~ msgid ""
+#~ "With different versions you can easily organise your book. But be "
+#~ "careful! Other users will not be able to edit\n"
+#~ "      and work on previous versions once you create new one. Create new "
+#~ "<i>major</i> version if you plan to make a lot of changes, and <i>minor</"
+#~ "i> version if you plan to make just a few of them."
+#~ msgstr ""
+#~ "Имея различные версии, вы легко организуете свою книгу. Но будьте "
+#~ "внимательны! Остальные пользователи не смогут редактировать\n"
+#~ "      и работать с предыдущими версиями, как только вы создадите новую. "
+#~ "Создайте новую <i>главную</i> версию, если планируете внести много "
+#~ "изменений, и <i>второстепенную</i> версию, если планируете внести только "
+#~ "небольшое количество изменений."
+
+#~ msgid "Create major version"
+#~ msgstr "Создать главную версию"
+
+#~ msgid "Create minor version"
+#~ msgstr "Создать второстепенную версию"
+
+#~ msgid "New version"
+#~ msgstr "Новая версия"
+
+#~ msgid "You can name this version (optional):"
+#~ msgstr "Можете озаглавить эту версию (необязательно):"
+
+#~ msgid "e.g. initial, dragon, test"
+#~ msgstr "например,исходная, демон, тест"
+
+#~ msgid "Description (optional)"
+#~ msgstr "Описание (необязательно)"
+
+#~ msgid "All versions"
+#~ msgstr "Все версии"
+
+#~ msgid "Manage the settings of your book."
+#~ msgstr "Управлять настройками вашей книги"
+
+#~ msgid "This book is written in: "
+#~ msgstr "Эта книга написана в:"
+
+#~ msgid "Set new language"
+#~ msgstr "Установить новый язык"
+
+#~ msgid "Right to left text"
+#~ msgstr "Текст справа на лево"
+
+#~ msgid "This book is licensed with:"
+#~ msgstr "Эта книга под лицензией:"
+
+#~ msgid "Set new license"
+#~ msgstr "Назначить новую лицензию"
+
+#~ msgid "Read full text of the license"
+#~ msgstr "Читать полный текст лицензии"
+
+#~ msgid "Manage copyright attribution"
+#~ msgstr "Управлять назначением авторского права"
+
+#~ msgid "Manage Copyright Attribution"
+#~ msgstr "Управлять назначением  Авторского права"
+
+#~ msgid "If you want to exclude some people from the copyright attribution..."
+#~ msgstr "Если вы хотите исключить несколько человек из авторства..."
+
+#~ msgid "Contributors"
+#~ msgstr "Со-авторы"
+
+#~ msgid "Excluded contributors"
+#~ msgstr "Исключенные со-авторы"
+
+#~ msgid "Roles"
+#~ msgstr "Роли"
+
+#~ msgid "Manage roles"
+#~ msgstr "Управлять ролями"
+
+#~ msgid "Manage Roles"
+#~ msgstr "Управлять ролями"
+
+#~ msgid "Role"
+#~ msgstr "Роль"
+
+#~ msgid "Select role"
+#~ msgstr "Выбрать роль"
+
+#~ msgid "Administrator"
+#~ msgstr "Администратор"
+
+#~ msgid "Editor"
+#~ msgstr "Редактор"
+
+#~ msgid "New user:"
+#~ msgstr "Новый пользователь:"
+
+#~ msgid "Add"
+#~ msgstr "Добавить"
+
+#~ msgid "Role:"
+#~ msgstr "Роль:"
+
+#~ msgid "Remove"
+#~ msgstr "Переместить"
+
+#~ msgid "Chapter status"
+#~ msgstr "Статус главы"
+
+#~ msgid "Available statuses:"
+#~ msgstr "Доступные статусы:"
+
+#~ msgid "Manage chapter status"
+#~ msgstr "Управлять статусами главы"
+
+#~ msgid "Permissions and visibility"
+#~ msgstr "Права и видимость"
+
+#~ msgid "This book can be edited by:"
+#~ msgstr "Эту книгу может редактировать:"
+
 #, fuzzy
-msgid "Delete book"
-msgstr "Удалить"
+#~ msgid "book owner"
+#~ msgstr "Обложка е-книги"
 
-#: portal/templates/errors/group_does_not_exist.html:8
-msgid "Group not found!"
-msgstr "Группа не найдена!"
+#~ msgid "Set permissions"
+#~ msgstr "Назначить права"
 
-#: portal/templates/errors/group_does_not_exist.html:9
-#, python-format
-msgid "Can't find group \"%(group_name)s\"."
-msgstr "Невозможно найти группу \"%(group_name)s\"."
+#~ msgid "Shared notes for this book"
+#~ msgstr "Совместные заметки для этой книги"
 
-#: portal/templates/portal/books.html:5
-msgid "Booktype Books"
-msgstr "Книги Booktype"
+#~ msgid "Save the notes"
+#~ msgstr "Сохранить заметки"
 
-#: portal/templates/portal/books.html:15
-msgid "Active books"
-msgstr "Активные книги"
+#~ msgid ""
+#~ "<span class=\"icon\">JOINED</span> <span class=\"notice\">notice</span>"
+#~ msgstr ""
+#~ "<span class=\"icon\">ПРИСОЕДИНИЛСЯ</span> <span class=\"notice"
+#~ "\">уведомление</span>"
 
-#: portal/templates/portal/books.html:33
-msgid "Latest Books"
-msgstr "Последние книги"
+#~ msgid ""
+#~ "<span class=\"info\">INFO</span> <span class=\"notice\">notice</span>"
+#~ msgstr ""
+#~ "<span class=\"info\">ИНФОРМАЦИЯ</span> <span class=\"notice"
+#~ "\">уведомление</span>"
 
-#: portal/templates/portal/frontpage.html:5
-msgid "Booktype"
-msgstr "Booktype"
+#~ msgid "action"
+#~ msgstr "действие"
 
-#: portal/templates/portal/frontpage.html:18
-msgid "Welcome to Booktype"
-msgstr "Добро пожаловать в Booktype"
+#~ msgid "time"
+#~ msgstr "время"
 
-#: portal/templates/portal/frontpage.html:38
-#: reader/templates/reader/book_info.html:126
-msgid "Recent activity"
-msgstr "Последние действия"
+#~ msgid ""
+#~ "Switched to <span class=\"entryVersion\">entry.version.version</span>"
+#~ msgstr ""
+#~ "Переключение на <span class=\"entryVersion\">entry.version.version</span>"
 
-#: portal/templates/portal/frontpage.html:50
-msgid "Created new chapter"
-msgstr "Создана новая глава"
+#~ msgid "Uploaded <span class=\"entryFilename\">entry.args.filename</span>."
+#~ msgstr "Загружено <span class=\"entryFilename\">entry.args.filename</span>."
 
-#: portal/templates/portal/frontpage.html:55
-msgid "Created new book"
-msgstr "Создана новая книга"
-
-#: portal/templates/portal/group.html:5
-#, python-format
-msgid "/group: %(groupname)s"
-msgstr "/group: %(groupname)s"
-
-#: portal/templates/portal/group.html:64
-msgid "Group"
-msgstr "Группа"
-
-#: portal/templates/portal/group.html:66
-#: portal/templates/portal/group.html:146
-msgid "Members"
-msgstr "Члены"
-
-#: portal/templates/portal/group.html:82
-msgid "Leave this group"
-msgstr "Покинуть эту группу"
-
-#: portal/templates/portal/group.html:84
-msgid "Join this group"
-msgstr "Присоединиться к этой группе"
-
-#: portal/templates/portal/group.html:92
-#, python-format
-msgid "MEMBERS: %(n_members)s"
-msgstr "ЧЛЕНЫ: %(n_members)s"
-
-#: portal/templates/portal/group.html:93
-#, python-format
-msgid "BOOKS: %(n_books)s"
-msgstr "КНИГИ: %(n_books)s"
-
-#: portal/templates/portal/group.html:101
-msgid "STATUS"
-msgstr "СТАТУС"
-
-#: portal/templates/portal/group.html:136
-msgid "ADD THIS BOOK TO GROUP"
-msgstr "ДОБАВИТЬ ЭТУ КНИГУ К ГРУППЕ"
-
-#: portal/templates/portal/group.html:138
-msgid "You have no books."
-msgstr "Созданных книг: 0."
-
-#: portal/templates/portal/groups.html:5
-msgid "Booktype Groups"
-msgstr "Группы Booktype"
-
-#: portal/templates/portal/maintenance.html:4
-msgid "Booktype is in maintenance mode right now"
-msgstr "Booktype сейчас находится в режиме поддержки"
-
-#: portal/templates/portal/people.html:5
-msgid "Booktype People"
-msgstr "Люди Booktype"
-
-#: portal/templates/portal/people.html:14
-msgid "Active people"
-msgstr "Активные люди"
-
-#: portal/templates/portal/people.html:33
-msgid "New people"
-msgstr "Новые люди"
-
-#: reader/templates/errors/book_does_not_exist.html:8
-msgid "Book does not exist!"
-msgstr "Книга не существует!"
-
-#: reader/templates/errors/book_does_not_exist.html:9
-#, python-format
-msgid "Can't find book \"%(book_name)s\"."
-msgstr "Невозможно найти книгу \"%(book_name)s\"."
-
-#: reader/templates/errors/chapter_does_not_exist.html:8
-msgid "Chapter does not exist!"
-msgstr "Глава не существует!"
-
-#: reader/templates/errors/chapter_does_not_exist.html:9
-#, python-format
-msgid "Can't find chapter \"%(chapter_name)s\"."
-msgstr "Невозможно найти главу \"%(chapter_name)s\"."
-
-#: reader/templates/errors/chapter_duplicate.html:8
-msgid "I don't know what to do!"
-msgstr "Я не знаю, что делать!"
-
-#: reader/templates/errors/chapter_duplicate.html:9
-#, python-format
-msgid ""
-"There is more then one chapter named - \"%(chapter_name)s\". I am not sure "
-"which one to show."
-msgstr ""
-"Найдено несколько глав с названием \"%(chapter_name)s\". Не уверен, какую из "
-"них показать."
-
-#: reader/templates/reader/book_chapter.html:6
-#: reader/templates/reader/draft_chapter.html:6
-#, python-format
-msgid "/chapter: %(chaptertitle)s / %(booktitle)s"
-msgstr "/глава: %(chaptertitle)s / %(booktitle)s"
-
-#: reader/templates/reader/book_delete.html:3
 #, fuzzy
-msgid "Delete Book"
-msgstr "Удалить"
+#~ msgid "Upload cover"
+#~ msgstr "Загрузить обложку"
 
-#: reader/templates/reader/book_delete.html:6
-msgid ""
-"Are you sure you would like to delete this book? You will lose all data "
-"associated to this book and you will not be able to undo this operation!"
-msgstr ""
+#, fuzzy
+#~ msgid "Delete cover"
+#~ msgstr "PDF-обложка"
 
-#: reader/templates/reader/book_delete.html:7
-msgid "Type full title of the book to delete it"
-msgstr ""
+#~ msgid "Deleted <span class=\"entryFilename\">entry.args.filename</span>."
+#~ msgstr "Удалено <span class=\"entryFilename\">entry.args.filename</span>."
 
-#: reader/templates/reader/book_info.html:5
-#: reader/templates/reader/book_view.html:5
-#: reader/templates/reader/draft_book.html:5
-#, python-format
-msgid "/book: %(booktitle)s"
-msgstr "/книга: %(booktitle)s"
+#, fuzzy
+#~ msgid "Modify cover"
+#~ msgstr "Обложка книги"
 
-#: reader/templates/reader/book_info.html:70
-msgid "Edit this Book"
-msgstr "Редактировать эту книгу"
+#, fuzzy
+#~ msgid "Modified <span class=\"entryFilename\">entry.args.filename</span>."
+#~ msgstr "Загружено <span class=\"entryFilename\">entry.args.filename</span>."
 
-#: reader/templates/reader/book_info.html:71
-msgid "View draft"
-msgstr "Просмотреть черновик"
+#~ msgid "Imported chapter"
+#~ msgstr "Импортированная глава"
 
-#: reader/templates/reader/book_info.html:73
-msgid "Edit book info"
-msgstr "Редактировать информацию о книге"
+#~ msgid "Delete"
+#~ msgstr "Удалить"
 
-#: reader/templates/reader/book_info.html:78
-msgid "Book details"
-msgstr "Подробности о книге"
+#, fuzzy
+#~ msgid "Delete chapter"
+#~ msgstr "Создать главу"
 
-#: reader/templates/reader/book_info.html:83
-msgid "Owner:"
-msgstr "Владелец:"
+#, fuzzy
+#~ msgid "Deleted <span class=\"entryFilename\"></span>."
+#~ msgstr "Удалено <span class=\"entryFilename\">entry.args.filename</span>."
 
-#: reader/templates/reader/book_info.html:84
-msgid "Status:"
-msgstr "Статус:"
+#~ msgid "Unknown"
+#~ msgstr "Неизвестно"
 
-#: reader/templates/reader/book_info.html:87
-msgid "(this book is hidden from others)"
-msgstr "(эта книга скрыта от остальных пользователей)"
+#~ msgid "Rename"
+#~ msgstr "Переименовать"
 
-#: reader/templates/reader/book_info.html:89
-msgid "(this book is visible to everyone)"
-msgstr "(эта книга видна всем)"
+#~ msgid "Reorder"
+#~ msgstr "Реорганизовать"
 
-#: reader/templates/reader/book_info.html:93
-msgid "Member of group:"
-msgstr "Член группы:"
+#~ msgid "Split"
+#~ msgstr "Разделить"
 
-#: reader/templates/reader/book_info.html:95
-msgid "Current version:"
-msgstr "Текущая версия:"
+#~ msgid "Section create"
+#~ msgstr "Создание раздела"
 
-#: reader/templates/reader/book_info.html:98
-msgid "Created:"
-msgstr "Создана:"
+#~ msgid "Book create"
+#~ msgstr "Создание книги"
 
-#: reader/templates/reader/book_info.html:99
-msgid "Published:"
-msgstr "Опубликована:"
+#~ msgid "Minor"
+#~ msgstr "Второстепенная"
 
-#: reader/templates/reader/book_info.html:102
-msgid "Collaborators:"
-msgstr "Авторы:"
+#~ msgid "Major"
+#~ msgstr "Главная"
 
-#: reader/templates/reader/book_info.html:110
-msgid "Online editing:"
-msgstr "Онлайн-редактирование:"
+#~ msgid "EDIT"
+#~ msgstr "РЕДАКТИРОВАТЬ"
 
-#: reader/templates/reader/book_info.html:132
-msgid "Chapter create"
-msgstr "Создание главы"
+#~ msgid "VIEW"
+#~ msgstr "ПРОСМОТР"
 
-#: reader/templates/reader/book_info.html:138
-msgid "Chapter save"
-msgstr "Сохранение главы"
+#~ msgid "back to history index"
+#~ msgstr "вернуться к перечню истории"
 
-#: reader/templates/reader/book_info.html:144
-msgid "Chapter rename"
-msgstr "Переименование главы"
+#~ msgid "Compare revisions"
+#~ msgstr "Сравнить правки"
 
-#: reader/templates/reader/book_info.html:150
-msgid "Chapter reorder"
-msgstr "Изменение порядка глав"
+#~ msgid "dimension"
+#~ msgstr "величина"
 
-#: reader/templates/reader/book_info.html:156
-msgid "Split chapter"
-msgstr "Деление главы"
+#~ msgid "size"
+#~ msgstr "размер"
 
-#: reader/templates/reader/book_info.html:175
-msgid "Minor version"
-msgstr "Второстепенная версия"
+#~ msgid "back to chapter history"
+#~ msgstr "вернуться к истории главы"
 
-#: reader/templates/reader/book_info.html:181
-msgid "Major version"
-msgstr "Главная версия"
+#~ msgid "Normal view"
+#~ msgstr "Обычный вид"
 
-#: reader/templates/reader/book_info.html:188
-msgid "Uploaded"
-msgstr "Загружено"
+#~ msgid "Source view"
+#~ msgstr "Представление источника"
 
-#: reader/templates/reader/book_info.html:205
-msgid "Follow changes"
-msgstr "Отслеживать изменения"
+#~ msgid "Revert to this revision"
+#~ msgstr "Вернуться к этому исправлению"
 
-#: reader/templates/reader/book_view.html:36
-#: reader/templates/reader/draft_book.html:37
-msgid "click on the chapter name"
-msgstr "кликнуть по названию главы"
+#~ msgid "No such revision."
+#~ msgstr "Нет такого исправления."
 
-#: reader/templates/reader/edit_info.html:3
-msgid "Edit Book Info"
-msgstr "Редактировать информацию о книге"
+#~ msgid "User:"
+#~ msgstr "Пользователь:"
 
-#: reader/templates/reader/edit_info.html:7
-msgid "Book description:"
-msgstr "Описание книги:"
+#~ msgid "Modified:"
+#~ msgstr "Изменено:"
 
-#: reader/templates/reader/edit_info.html:9
-msgid "Book image:"
-msgstr "Изображение для книги:"
+#~ msgid "Version:"
+#~ msgstr "Версия:"
 
-#: reader/templates/reader/full.html:6
-#, python-format
-msgid "/_full: %(booktitle)s"
-msgstr "/_full: %(booktitle)s"
+#~ msgid "Revision:"
+#~ msgstr "Исправление:"
 
-#: templates/errors/no_permissions.html:8
-msgid "You have no permissions to do this!"
-msgstr "У вас нет прав доступа для этих действий!"
+#~ msgid "Comment"
+#~ msgstr "Комментировать"
+
+#~ msgid "previous"
+#~ msgstr "предыдущий"
+
+#~ msgid "next"
+#~ msgstr "следующий"
+
+#~ msgid "Show side by side"
+#~ msgstr "Показать рядом"
+
+#~ msgid ""
+#~ "Compare revision <span class=\"revision1Name\">revision1</span> with "
+#~ "revision <span class=\"revision2Name\">revision2</span>"
+#~ msgstr ""
+#~ "Сравнить исправление <span class=\"revision1Name\">revision1</span> с "
+#~ "исправлением <span class=\"revision2Name\">revision2</span>"
+
+#~ msgid "Select new chapter status:"
+#~ msgstr "Выбрать новый статус главы:"
+
+#~ msgid "Chapter statuses"
+#~ msgstr "Статусы главы"
+
+#~ msgid "New status:"
+#~ msgstr "Новый статус:"
+
+#~ msgid "Chapter statuses:"
+#~ msgstr "Статусы главы:"
+
+#~ msgid "settings"
+#~ msgstr "настройки"
+
+#~ msgid "Ebook"
+#~ msgstr "Ebook"
+
+#~ msgid "Screen PDF"
+#~ msgstr "Экранный PDF"
+
+#~ msgid "Open Document Text"
+#~ msgstr "Open Document Text"
+
+#~ msgid "Try out our new beta renderer for Books"
+#~ msgstr "Попробуйте новую бета-версию визуализации книг"
+
+#~ msgid "Publish this book"
+#~ msgstr "Опубликовать эту книгу"
+
+#~ msgid ""
+#~ "Please wait. It will take couple of moments. Your book is being generated."
+#~ msgstr "Подождите, пожалуйста. Создание вашей книги займет несколько минут."
+
+#~ msgid "Your book has been generated at this url:"
+#~ msgstr "Ваша книга создана и доступна по этому url:"
+
+#~ msgid "Unknown error while trying to publish this book."
+#~ msgstr "Неизвестная ошибка при опубликовании этой книги."
+
+#~ msgid "Error while uploading file!"
+#~ msgstr "Ошибка при загрузке файла!"
+
+#~ msgid "Submit"
+#~ msgstr "Применить"
+
+#~ msgid "Previous"
+#~ msgstr "Предыдущий"
+
+#~ msgid "Yes, revert !"
+#~ msgstr "Да, вернуться!"
+
+#~ msgid "Loading..."
+#~ msgstr "Загружается..."
+
+#~ msgid "LOADING DATA...."
+#~ msgstr "ЗАГРУЗКА ДАННЫХ..."
+
+#~ msgid "Loading data. Please wait..."
+#~ msgstr "Загрузка данных. Подождите, пожалуйста..."
+
+#~ msgid "Loading chapter data..."
+#~ msgstr "Загрузка данных главы..."
+
+#~ msgid "Reading history data..."
+#~ msgstr "Считывание истории..."
+
+#~ msgid "Reading settings data..."
+#~ msgstr "Считывание информации о настройках..."
+
+#~ msgid "Reading attachments data..."
+#~ msgstr "Считывание информации о вложениях..."
+
+#~ msgid "Reading notes data..."
+#~ msgstr "Считывание информации о заметках..."
+
+#~ msgid "Reading version data..."
+#~ msgstr "Считывание информации о версиях..."
+
+#~ msgid "Revert to this revision?"
+#~ msgstr "Вернуться к этому исправлению?"
+
+#~ msgid ""
+#~ "Current chapter content will be reverted to this revision. Are you sure?"
+#~ msgstr ""
+#~ "Содержание настоящей главы будет возвращено к состоянию на момент "
+#~ "последнего исправления. Вы уверены, что хотите этого?"
+
+#~ msgid "Sending data..."
+#~ msgstr "Отсылка данных..."
+
+#~ msgid "SAVE"
+#~ msgstr "СОХРАНИТЬ"
+
+#~ msgid "Save new order"
+#~ msgstr "Сохранить новую последовательность"
+
+#~ msgid "Saving data. Please wait..."
+#~ msgstr "Сохранение данных. Подождите, пожалуйста..."
+
+#~ msgid "CANCEL"
+#~ msgstr "ОТМЕНИТЬ"
+
+#~ msgid "Set status"
+#~ msgstr "Назначить статус"
+
+#~ msgid "Revision"
+#~ msgstr "Исправление"
+
+#~ msgid "Booktype Reader"
+#~ msgstr "Устройство для чтения Booktype"
+
+#~ msgid "Hide advanced options"
+#~ msgstr "Скрыть дополнительные опции"
+
+#~ msgid "Show advanced options"
+#~ msgstr "Показать дополнительные опции"
+
+#~ msgid "New status name"
+#~ msgstr "Название нового статуса"
+
+#~ msgid "Delete this status?"
+#~ msgstr "Удалить этот статус?"
+
+#~ msgid ""
+#~ "Can't delete because some chapters have this status. Change chapter "
+#~ "status first."
+#~ msgstr ""
+#~ "Невозможно удалить, т.к. некоторым главам присвоен этот статус. Вначале "
+#~ "измените статус глав."
+
+#~ msgid "Removing chapter from Table of Contents."
+#~ msgstr "Удаление главы из оглавления."
+
+#~ msgid "Reordering the chapters..."
+#~ msgstr "Изменение порядка глав..."
+
+#~ msgid "Delete attachments"
+#~ msgstr "Удалить вложения"
+
+#~ msgid "Delete these attachments"
+#~ msgstr "Удалить эти вложения"
+
+#~ msgid "Delete selected attachments"
+#~ msgstr "Удалить выделенные вложения"
+
+#~ msgid "Update"
+#~ msgstr "Обновить"
+
+#~ msgid "Create chapter"
+#~ msgstr "Создать главу"
+
+#~ msgid "Creating chapter"
+#~ msgstr "Создание главы"
+
+#~ msgid "Can not create duplicate chapter name."
+#~ msgstr "Невозможно создать аналогичное название главы."
+
+#~ msgid "Enter new Chapter title."
+#~ msgstr "Введите новый заголовок главы."
+
+#~ msgid "Cloning chapter"
+#~ msgstr "Сделать копию главы"
+
+#~ msgid "Enter book id"
+#~ msgstr "Введите id книги"
+
+#~ msgid "Enter Chapter id."
+#~ msgstr "Введите id главы."
+
+#~ msgid "Create section"
+#~ msgstr "Создать раздел"
+
+#~ msgid "Creating section"
+#~ msgstr "Создание раздела"
+
+#~ msgid "Can not create duplicate section name."
+#~ msgstr "Невозможно создать аналогичное название раздела"
+
+#~ msgid "Enter new section title"
+#~ msgstr "Введите заголовок нового раздела"
+
+#~ msgid "Adding chapter to Table of Contents."
+#~ msgstr "Добавление главы к оглавлению."
+
+#~ msgid "Reordering the chapter..."
+#~ msgstr "Изменение порядка глав..."
+
+#~ msgid "Rights holder"
+#~ msgstr "Правообладатель"
+
+#~ msgid "You will loose unsaved changes. You are currently editing chapter"
+#~ msgstr ""
+#~ "Вы потеряете несохраненные изменения. В данный момент вы редактируете "
+#~ "главу"
+
+#~ msgid "You are leaving Booktype Editor."
+#~ msgstr "Вы покидаете редактор Booktype."
+
+#~ msgid "You don't have permission to delete attachments."
+#~ msgstr "У вас нет прав доступа для удаления вложений."
+
+#~ msgid "I can not find description for this license."
+#~ msgstr "Я не могу найти описание этой лицензии."
+
+#~ msgid "Saving the book notes"
+#~ msgstr "Сохранение записей книги"
+
+#~ msgid "Book notes saved."
+#~ msgstr "Записи книги сохранены."
+
+#~ msgid "User {0} has changed status of  chapter \"{1}\" to \"{2}\"."
+#~ msgstr "Пользователь {0} изменил статус главы \"{1}\" на \"{2}\"."
+
+#~ msgid "User {0} has saved chapter \"{1}\"."
+#~ msgstr "Пользователь {0} сохранил главу \"{1}\"."
+
+#~ msgid "User {0} has renamed chapter \"{1}\" to \"{2}\"."
+#~ msgstr "Пользователь {0} переименовал главу \"{1}\" на \"{2}\"."
+
+#, fuzzy
+#~ msgid "User {0} has deleted chapter \"{1}\"."
+#~ msgstr "Пользователь {0} сохранил главу \"{1}\"."
+
+#~ msgid "User {0} has created new chapter \"{1}\"."
+#~ msgstr "Пользователь {0} создал новую главу \"{1}\"."
+
+#~ msgid "User {0} has cloned chapter \"{1}\" from book \"{2}\"."
+#~ msgstr "Пользователь {0} создал копию главы \"{1}\" из книги \"{2}\""
+
+#~ msgid "\"{0}\" is being published."
+#~ msgstr "\"{0}\" сейчас публикуется."
+
+#~ msgid "User {0} has created new section \"{1}\"."
+#~ msgstr "Пользователь {0} создал новый раздел \"{1}\"."
+
+#~ msgid "User {0} has reverted chapter \"{1}\" to revision {2}."
+#~ msgstr "Пользователь {0} возвратил главу \"{1}\" для переработки {2}."
+
+#~ msgid "User {0} has saved notes for book \"{1}\"."
+#~ msgstr "Пользователь {0} сохранил заметки для книги \"{1}\"."
+
+#~ msgid "Close"
+#~ msgstr "Закрыть"
+
+#~ msgid "Do you really want to delete this cover?"
+#~ msgstr "Вы действительно хотите удалить эту обложку?"
+
+#~ msgid "Front cover"
+#~ msgstr "Титульная обложка"
+
+#~ msgid "Full cover"
+#~ msgstr "Вся обложка"
+
+#~ msgid "BOOK"
+#~ msgstr "КНИГА"
+
+#~ msgid "E-BOOK"
+#~ msgstr "E-КНИГА"
+
+#~ msgid "APPROVED"
+#~ msgstr " УТВЕРЖДЕНО"
+
+#~ msgid "Book Formatted PDF Settings"
+#~ msgstr "PDF настройки для книжного формата"
+
+#~ msgid "Size"
+#~ msgstr "Размер"
+
+#~ msgid "Font"
+#~ msgstr "Шрифт "
+
+#~ msgid "Body Text"
+#~ msgstr "Основной текст"
+
+#~ msgid "Fontin Sans"
+#~ msgstr "Fontin Sans"
+
+#~ msgid "Arial"
+#~ msgstr "Arial"
+
+#~ msgid "Helvetica"
+#~ msgstr "Helvetica"
+
+#~ msgid "Heading 1"
+#~ msgstr "Заголовок 1"
+
+#~ msgid "UPPERCASE"
+#~ msgstr "ПИСАТЬ ЗАГЛАВНЫМИ"
+
+#~ msgid "lowercase"
+#~ msgstr "писать строчными"
+
+#~ msgid "Capitalise"
+#~ msgstr "Писать с заглавной"
+
+#~ msgid "Heavy"
+#~ msgstr "Плотный"
+
+#~ msgid "normal"
+#~ msgstr "нормальный"
+
+#~ msgid "Heading 2"
+#~ msgstr "Заголовок 2"
+
+#~ msgid "Heading 3"
+#~ msgstr "Заголовок 3"
+
+#~ msgid "Formatted"
+#~ msgstr "Форматированный"
+
+#~ msgid "Courier"
+#~ msgstr "Courier"
+
+#~ msgid "Courier New"
+#~ msgstr "Courier New"
+
+#~ msgid "Monospace"
+#~ msgstr "Monospace"
+
+#~ msgid "Select cover image"
+#~ msgstr "Выбрать изображение обложки"
+
+#~ msgid "No Cover"
+#~ msgstr "Нет обложки"
+
+#~ msgid ""
+#~ "Tip: To select multiple cover files for your book (front, spine, back) "
+#~ "please press the Control key (Ctrl)."
+#~ msgstr ""
+#~ "Совет: Для пакетной загрузки файлов обложек и переплета для книги нажмите "
+#~ "Control key (Ctrl)."
+
+#~ msgid "Page breaks"
+#~ msgstr "Разбиение страниц"
+
+#~ msgid "Avoid page break in paragraphs?"
+#~ msgstr "Избегать разбиения страниц внутри абзаца?"
+
+#~ msgid "Pagebreak before footnotes?"
+#~ msgstr "Разрыв страницы перед сноской?"
+
+#~ msgid "Advanced"
+#~ msgstr "Расширенные"
+
+#~ msgid "General"
+#~ msgstr "Общий"
+
+#~ msgid "Override Server Default CSS"
+#~ msgstr "Заменить CSS по умолчанию"
+
+#~ msgid "Grey Scale Output"
+#~ msgstr "Выпуск серой шкалы"
+
+#~ msgid "Rotate"
+#~ msgstr "Повернуть"
+
+#~ msgid "For RTL books on LTR printing presses, and vice versa."
+#~ msgstr "Для книг в формате RTL на печатающих устройствах LTR и наоборот"
+
+#~ msgid "Page Numbers"
+#~ msgstr "Номера страниц"
+
+#~ msgid "LTR"
+#~ msgstr "LTR"
+
+#~ msgid "none"
+#~ msgstr "none"
+
+#~ msgid "my"
+#~ msgstr "my"
+
+#~ msgid "fa"
+#~ msgstr "fa"
+
+#~ msgid "hi"
+#~ msgstr "hi"
+
+#~ msgid "RTL"
+#~ msgstr "RTL"
+
+#~ msgid "ar"
+#~ msgstr "ar"
+
+#~ msgid "auto"
+#~ msgstr "auto"
+
+#~ msgid "If in doubt, choose 'auto'"
+#~ msgstr "Если есть сомнения, выбирайте 'авто'"
+
+#~ msgid "Force Embed Fonts"
+#~ msgstr "Принудительное внедрение шрифтов"
+
+#~ msgid "PDFs: force embedding of PDF default fonts"
+#~ msgstr "PDF: принудительное вложение PDF шрифта по умолчанию"
+
+#~ msgid "Cancel Page Break Control"
+#~ msgstr "Отменить контроль разбиения страниц"
+
+#~ msgid "Let page breaks occur immediately after headings"
+#~ msgstr "Позволить  разбиение страниц сразу после заголовков"
+
+#~ msgid "Table of Contents"
+#~ msgstr "Оглавление"
+
+#~ msgid "Table of Contents Header"
+#~ msgstr "Заголовок оглавления"
+
+#~ msgid "Page Margins and Gutter"
+#~ msgstr "Поля и внутренние поля страницы"
+
+#~ msgid "Top Margin"
+#~ msgstr "Верхнее поле"
+
+#~ msgid "Side Margin"
+#~ msgstr "Боковое поле"
+
+#~ msgid "Bottom Margin"
+#~ msgstr "Нижнее поле"
+
+#~ msgid "Gutter"
+#~ msgstr "Внутреннее поле"
+
+#~ msgid "Number of columns"
+#~ msgstr "Число столбцов"
+
+#~ msgid "Column margin"
+#~ msgstr "Поле столбца"
+
+#~ msgid "Advanced (style sheets)"
+#~ msgstr "Расширенная (таблица стилей)"
+
+#~ msgid "Your Custom CSS"
+#~ msgstr "Ваш пользовательский CSS"
+
+#~ msgid "Booktype CSS (be careful if changing)"
+#~ msgstr "Booktype CSS (если вносите изменения, будьте внимательны)"
+
+#~ msgid "Override ALL previous settings with custom CSS"
+#~ msgstr "Заменить ВСЕ предыдущие настройки пользовательским CSS "
+
+#~ msgid "Century Schoolbook"
+#~ msgstr "Century Schoolbook"
+
+#~ msgid "Gentium"
+#~ msgstr "Gentium"
+
+#~ msgid "Liberation Serif"
+#~ msgstr "Liberation Serif"
+
+#~ msgid "Times New Roman"
+#~ msgstr "Times New Roman"
+
+#~ msgid "Type of Ebook"
+#~ msgstr "Тип электронной книги"
+
+#~ msgid "ipad"
+#~ msgstr "ipad"
+
+#~ msgid "kindle"
+#~ msgstr "kindle"
+
+#~ msgid "general"
+#~ msgstr "general"
+
+#~ msgid ""
+#~ "Tip: Only images of the following filetypes can be used to publish an "
+#~ "ebook: PNG, JPEG, GIF."
+#~ msgstr ""
+#~ "Совет: Только изображения данного типа могут быть использованы для e-"
+#~ "книги: PNG, JPEG, GIF."
+
+#~ msgid "CSS (Advanced)"
+#~ msgstr "CSS (Расширенный)"
+
+#~ msgid "Your custom CSS"
+#~ msgstr "Ваш пользовательский CSS"
+
+#~ msgid "Open Document Text (.odt) Settings"
+#~ msgstr "Настройки формата Open Document Text (.odt)"
+
+#~ msgid "Screen Formatted PDF Settings"
+#~ msgstr "PDF настройки для экранного формата"
+
+#~ msgid "If in doubt, choose 'none'"
+#~ msgstr "Если есть сомнения, выберите 'none'"
+
+#~ msgid "Columns"
+#~ msgstr "Колонки"
+
+#~ msgid "Control Center"
+#~ msgstr "Центр управления"
+
+#~ msgid "Couldn't create a group!"
+#~ msgstr "Не получилось создать группу!"
+
+#, fuzzy
+#~ msgid "Delete book"
+#~ msgstr "Удалить"
+
+#~ msgid "Group not found!"
+#~ msgstr "Группа не найдена!"
+
+#~ msgid "Can't find group \"%(group_name)s\"."
+#~ msgstr "Невозможно найти группу \"%(group_name)s\"."
+
+#~ msgid "Booktype Books"
+#~ msgstr "Книги Booktype"
+
+#~ msgid "Active books"
+#~ msgstr "Активные книги"
+
+#~ msgid "Latest Books"
+#~ msgstr "Последние книги"
+
+#~ msgid "Booktype"
+#~ msgstr "Booktype"
+
+#~ msgid "Welcome to Booktype"
+#~ msgstr "Добро пожаловать в Booktype"
+
+#~ msgid "Recent activity"
+#~ msgstr "Последние действия"
+
+#~ msgid "Created new chapter"
+#~ msgstr "Создана новая глава"
+
+#~ msgid "Created new book"
+#~ msgstr "Создана новая книга"
+
+#~ msgid "/group: %(groupname)s"
+#~ msgstr "/group: %(groupname)s"
+
+#~ msgid "Group"
+#~ msgstr "Группа"
+
+#~ msgid "Members"
+#~ msgstr "Члены"
+
+#~ msgid "Leave this group"
+#~ msgstr "Покинуть эту группу"
+
+#~ msgid "Join this group"
+#~ msgstr "Присоединиться к этой группе"
+
+#~ msgid "MEMBERS: %(n_members)s"
+#~ msgstr "ЧЛЕНЫ: %(n_members)s"
+
+#~ msgid "BOOKS: %(n_books)s"
+#~ msgstr "КНИГИ: %(n_books)s"
+
+#~ msgid "STATUS"
+#~ msgstr "СТАТУС"
+
+#~ msgid "ADD THIS BOOK TO GROUP"
+#~ msgstr "ДОБАВИТЬ ЭТУ КНИГУ К ГРУППЕ"
+
+#~ msgid "You have no books."
+#~ msgstr "Созданных книг: 0."
+
+#~ msgid "Booktype is in maintenance mode right now"
+#~ msgstr "Booktype сейчас находится в режиме поддержки"
+
+#~ msgid "Booktype People"
+#~ msgstr "Люди Booktype"
+
+#~ msgid "Active people"
+#~ msgstr "Активные люди"
+
+#~ msgid "New people"
+#~ msgstr "Новые люди"
+
+#~ msgid "Book does not exist!"
+#~ msgstr "Книга не существует!"
+
+#~ msgid "Can't find book \"%(book_name)s\"."
+#~ msgstr "Невозможно найти книгу \"%(book_name)s\"."
+
+#~ msgid "Chapter does not exist!"
+#~ msgstr "Глава не существует!"
+
+#~ msgid "Can't find chapter \"%(chapter_name)s\"."
+#~ msgstr "Невозможно найти главу \"%(chapter_name)s\"."
+
+#~ msgid "I don't know what to do!"
+#~ msgstr "Я не знаю, что делать!"
+
+#~ msgid ""
+#~ "There is more then one chapter named - \"%(chapter_name)s\". I am not "
+#~ "sure which one to show."
+#~ msgstr ""
+#~ "Найдено несколько глав с названием \"%(chapter_name)s\". Не уверен, какую "
+#~ "из них показать."
+
+#~ msgid "/chapter: %(chaptertitle)s / %(booktitle)s"
+#~ msgstr "/глава: %(chaptertitle)s / %(booktitle)s"
+
+#, fuzzy
+#~ msgid "Delete Book"
+#~ msgstr "Удалить"
+
+#~ msgid "/book: %(booktitle)s"
+#~ msgstr "/книга: %(booktitle)s"
+
+#~ msgid "Edit this Book"
+#~ msgstr "Редактировать эту книгу"
+
+#~ msgid "View draft"
+#~ msgstr "Просмотреть черновик"
+
+#~ msgid "Edit book info"
+#~ msgstr "Редактировать информацию о книге"
+
+#~ msgid "Book details"
+#~ msgstr "Подробности о книге"
+
+#~ msgid "Owner:"
+#~ msgstr "Владелец:"
+
+#~ msgid "Status:"
+#~ msgstr "Статус:"
+
+#~ msgid "(this book is hidden from others)"
+#~ msgstr "(эта книга скрыта от остальных пользователей)"
+
+#~ msgid "(this book is visible to everyone)"
+#~ msgstr "(эта книга видна всем)"
+
+#~ msgid "Member of group:"
+#~ msgstr "Член группы:"
+
+#~ msgid "Current version:"
+#~ msgstr "Текущая версия:"
+
+#~ msgid "Created:"
+#~ msgstr "Создана:"
+
+#~ msgid "Published:"
+#~ msgstr "Опубликована:"
+
+#~ msgid "Collaborators:"
+#~ msgstr "Авторы:"
+
+#~ msgid "Online editing:"
+#~ msgstr "Онлайн-редактирование:"
+
+#~ msgid "Chapter create"
+#~ msgstr "Создание главы"
+
+#~ msgid "Chapter save"
+#~ msgstr "Сохранение главы"
+
+#~ msgid "Chapter rename"
+#~ msgstr "Переименование главы"
+
+#~ msgid "Chapter reorder"
+#~ msgstr "Изменение порядка глав"
+
+#~ msgid "Split chapter"
+#~ msgstr "Деление главы"
+
+#~ msgid "Minor version"
+#~ msgstr "Второстепенная версия"
+
+#~ msgid "Major version"
+#~ msgstr "Главная версия"
+
+#~ msgid "Uploaded"
+#~ msgstr "Загружено"
+
+#~ msgid "Follow changes"
+#~ msgstr "Отслеживать изменения"
+
+#~ msgid "click on the chapter name"
+#~ msgstr "кликнуть по названию главы"
+
+#~ msgid "Edit Book Info"
+#~ msgstr "Редактировать информацию о книге"
+
+#~ msgid "Book description:"
+#~ msgstr "Описание книги:"
+
+#~ msgid "Book image:"
+#~ msgstr "Изображение для книги:"
+
+#~ msgid "/_full: %(booktitle)s"
+#~ msgstr "/_full: %(booktitle)s"
+
+#~ msgid "You have no permissions to do this!"
+#~ msgstr "У вас нет прав доступа для этих действий!"
 
 #~ msgid "NOT APPROVED"
 #~ msgstr "НЕ УТВЕРЖДЕНО"
@@ -4334,9 +3228,6 @@ msgstr "У вас нет прав доступа для этих действи�
 #~ msgid "Password reset confirmation"
 #~ msgstr "Подтверждение очистки пароля"
 
-#~ msgid "Enter new password"
-#~ msgstr "Введите новый пароль"
-
 #~ msgid ""
 #~ "Please enter your new password twice so we can verify you typed it in "
 #~ "correctly."
@@ -4542,9 +3433,6 @@ msgstr "У вас нет прав доступа для этих действи�
 #~ msgstr ""
 #~ "Обязательные требования. 30 символов или меньше. Только буквы, цифры и "
 #~ "символы @/./+/-/_."
-
-#~ msgid "first name"
-#~ msgstr "имя"
 
 #~ msgid "e-mail address"
 #~ msgstr "e-mail"
@@ -5539,9 +4427,6 @@ msgstr "У вас нет прав доступа для этих действи�
 
 #~ msgid "jun"
 #~ msgstr "июнь"
-
-#~ msgid "jul"
-#~ msgstr "июль"
 
 #~ msgid "aug"
 #~ msgstr "авг"

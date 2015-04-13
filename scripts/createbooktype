@@ -46,15 +46,15 @@ def show_after(destination, name):
     logln("")
     logln("Check [%s] directory for created files:" % destination)
     logln("   booktype.env        -  Environment variables")
-    logln("   manage.py           -  Manage file")    
-    logln("")    
+    logln("   manage.py           -  Manage file")
+    logln("")
     logln("   conf/                 -  Configuration files")
     logln("     wsgi.apache         -  Apache config file")
     logln("     gunicorn.nginx      -  Nginx config file")
     logln("     fastcgi.nginx       -  Nginx config file")
-    logln("")    
+    logln("")
     logln("   lib/                  -  Local python libraries")
-    logln("   static/               -  Deployed static files")    
+    logln("   static/               -  Deployed static files")
     logln("   data/                 -  Attachments, Covers, ...")
     logln("")
     logln("   {:<10}            -  Booktype project".format(name+"_site"))
@@ -97,6 +97,7 @@ def check_python_version():
         raise MajorError("I don't think i can work with Python 3.")
     else:
         logln("You should upgrade your python installation....")
+
 
 def check_django_version():
     """Check what version of Django user has."""
@@ -192,7 +193,7 @@ def check_unidecode_available():
     else:
         logln("[OK]")
 
-def copy_default_themes(destination):    
+def copy_default_themes(destination):
     from shutil import copytree
 
     try:
@@ -205,7 +206,7 @@ def copy_default_themes(destination):
     except OSError:
         raise InstallError()
 
-def make_directory_structure(destination):    
+def make_directory_structure(destination):
     try:
         project = get_project_name(destination)
 
@@ -273,7 +274,7 @@ def create_settings(destination, database):
         open('%s/%s_site/settings/__init__.py' % (destination, project), 'wb').close()
         logln("[OK]")
 
-        log("+ Creating %s_site/urls/__init__.py file.  " % project)        
+        log("+ Creating %s_site/urls/__init__.py file.  " % project)
         open('%s/%s_site/urls/__init__.py' % (destination, project), 'wb').close()
         logln("[OK]")
     except OSError:
@@ -289,7 +290,7 @@ def create_settings(destination, database):
     booktype_name = "Booktype site"
     try:
         secret_key = ''.join([random.SystemRandom().choice("{}{}{}".format(string.ascii_letters, string.digits, '!@#$%^&*(-_+=)')) for i in range(50)])
-    except NotImplementedError:        
+    except NotImplementedError:
         secret_key = ''.join([random.choice("{}{}{}".format(string.ascii_letters, string.digits, '!@#$%^&*(-_+=)')) for i in range(50)])
 
     vals = {'BOOKTYPE_SITE_NAME': booktype_name,
@@ -361,7 +362,7 @@ def create_manage(destination, profile):
         s = stat.S_IRWXU|stat.S_IWUSR|stat.S_IXUSR
         s = s|stat.S_IRGRP
         s = s|stat.S_IROTH
-        os.fchmod(f.fileno(), s)        
+        os.fchmod(f.fileno(), s)
 
         f.close()
         logln("[OK]")
@@ -391,9 +392,9 @@ export PYTHONPATH=$PYTHONPATH:%(destination)s/:%(destination)s/lib/:%(booktype_p
 #    PATH=$PATH:/Users/mirko/bin/
 
 export PYTHONPATH PATH
-''' % {'project_name': get_project_name(destination), 
-       'location': get_project_directory(destination), 
-       'destination': destination, 
+''' % {'project_name': get_project_name(destination),
+       'location': get_project_directory(destination),
+       'destination': destination,
        'profile': profile,
        'booktype_path': booki_path})
         f.close()
@@ -402,7 +403,7 @@ export PYTHONPATH PATH
     else:
         logln("[OK]")
 
-def create_wsgi(destination, profile):
+def create_wsgi(destination, profile, virtual_env):
     log("+ Creating booktype.wsgi file.  ")
 
     import booki
@@ -427,7 +428,7 @@ import os
 import sys
 
 # EDIT THIS VALUE
-VIRTUAL_PATH=''
+VIRTUAL_PATH='%(virtual_env)s'
 
 if VIRTUAL_PATH != '':
     activate_this = '{}/bin/activate_this.py'.format(VIRTUAL_PATH)
@@ -461,8 +462,9 @@ application = django.core.handlers.wsgi.WSGIHandler()
 
 ''' % {'directory': get_project_directory(destination),
         'destination': destination,
-        'booki_path': booki_path, 
+        'booki_path': booki_path,
         'profile': profile,
+        'virtual_env': virtual_env,
         'project_name': get_project_name(destination)})
         f.close()
     except OSError:
@@ -688,7 +690,7 @@ if __name__ == '__main__':
     parser.add_argument("-v", "--verbose", help="Increase output verbosity",
                         action="store_true", default=True)
 
-    parser.add_argument("-d", "--database", choices=["postgresql", "postgres", "sqlite"], 
+    parser.add_argument("-d", "--database", choices=["postgresql", "postgres", "sqlite"],
                         help="Database backend", default="postgresql")
     parser.add_argument("-p", "--profile", choices=["dev", "prod"],
                         help="Settings Falseile", default="dev")
@@ -696,11 +698,14 @@ if __name__ == '__main__':
     parser.add_argument("-c", "--check-versions", help="Check versions of packages",
                         action="store_true", default=True, dest="check_versions")
 
+    parser.add_argument("--virtual-env", help="specifies the default VIRTUAL_ENV",
+                        default=os.environ.get('VIRTUAL_ENV', ''))
+
     parser.add_argument("project", help="Path to Booktype project")
 
-    args = parser.parse_args()    
+    args = parser.parse_args()
 
-    verbose = args.verbose     
+    verbose = args.verbose
     if args.quiet:
         verbose = False
 
@@ -720,6 +725,10 @@ if __name__ == '__main__':
         if '-' in project_name:
             raise MajorError("Minus not allowed in project name. Try to use '_' instead.")
 
+        if args.virtual_env:
+            activate_this = '{}/bin/activate_this.py'.format(args.virtual_env)
+            execfile(activate_this, dict(__file__=activate_this))
+
         # check versions of software
         if args.check_versions:
             check_python_version()
@@ -732,10 +741,10 @@ if __name__ == '__main__':
             check_redis_available()
             check_south_available()
             check_unidecode_available()
-        
+
         # show info about user id, group id and etc...
         #show_info()
-        
+
         # check if project directory exists
         if os.path.exists(project_destination):
             if os.access(project_destination, os.W_OK):
@@ -755,8 +764,8 @@ if __name__ == '__main__':
                 os.mkdir(project_destination)
             except OSError:
                 raise MajorError("Can't create directory [%s]. Check your permissions before we continue." % project_destination)
-                        
-        # create directory structure    
+
+        # create directory structure
         make_directory_structure(project_destination)
 
         # create environment variables
@@ -772,7 +781,7 @@ if __name__ == '__main__':
         create_urls(project_destination)
 
         # create wsgi file
-        create_wsgi(project_destination, args.profile)
+        create_wsgi(project_destination, args.profile, args.virtual_env)
 
         # create apache file for wsgi
         create_apache(project_destination)
@@ -794,11 +803,3 @@ if __name__ == '__main__':
     except MajorError, e:
         logln(e.description)
         sys.exit(-1)
-        
-    
-
-
-
-
-
-
