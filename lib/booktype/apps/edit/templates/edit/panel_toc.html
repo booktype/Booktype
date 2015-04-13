@@ -236,20 +236,22 @@
 
     <div class="btn-toolbar">
         <span class="label display-locked pull-left <% if (is_locked !== true){ %> hide <% } %>">{% trans "Locked" %}</span>
-        {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
-        <div class="btn-group">
-        {% else %}
-        <div class="btn-group display-unlocked <% if (is_locked === true){ %> hide <% } %>">
+        {% if is_owner or is_admin or 'edit.change_chapter_status' in roles_permissions %}
+            {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
+            <div class="btn-group">
+            {% else %}
+            <div class="btn-group display-unlocked <% if (is_locked === true){ %> hide <% } %>">
+            {% endif %}
+                <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
+                <ul class="dropdown-menu status-options">
+                    <% for (var i in statuses) { %>
+                        <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
+                            <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
         {% endif %}
-            <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
-            <ul class="dropdown-menu status-options">
-                <% for (var i in statuses) { %>
-                    <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
-                        <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
-                    </li>
-                <% } %>
-            </ul>
-        </div>
         <div class="btn-group">
             {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
                 <button class="btn btn-default btn-xs edit">{% trans "EDIT CHAPTER" %}</button>

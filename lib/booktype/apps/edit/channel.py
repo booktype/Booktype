@@ -477,6 +477,10 @@ def remote_change_status(request, message, bookid, version):
     except (models.Chapter.DoesNotExist, models.BookStatus.DoesNotExist):
         return dict(result=False)
 
+    # check permissions
+    if not book_security.has_perm('edit.change_chapter_status'):
+        raise PermissionDenied
+
     # if chapter is locked -> check access
     if chapter.is_locked():
         # check access
