@@ -154,18 +154,18 @@
     {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
     <div class="btn-group">
         {% if is_owner or is_admin or 'edit.manage_chapters_hold' in roles_permissions %}
-        <button id="expand" class="btn btn-default btn-xs option-hold" rel="tooltip" data-placement="left" data-original-title="{% trans 'Unhold' %}">
+        <button class="btn btn-default btn-xs option-hold" rel="tooltip" data-placement="left" data-original-title="{% trans 'Unhold' %}">
             <i class="icon-arrow-left"></i>
         </button>
         {% endif %}
         {% if is_owner or is_admin or 'edit.delete_chapter' in roles_permissions %}
-        <button id="collapse" class="btn btn-default btn-xs option-delete">
+        <button class="btn btn-default btn-xs option-delete">
             <i class="icon-trash"></i>
         </button>
         {% endif %}
     </div>
     <div class="btn-group">
-        <button id="edit" class="btn btn-default btn-xs option-edit">{% trans "EDIT" %}</button>
+        <button class="btn btn-default btn-xs option-edit">{% trans "EDIT" %}</button>
     </div>
     {% endif %}
 
@@ -178,18 +178,18 @@
     </div>
     <div class="btn-group">
         {% if is_owner or is_admin or 'edit.manage_chapters_hold' in roles_permissions %}
-        <button id="expand" class="btn btn-default btn-xs option-hold" rel="tooltip" data-placement="left" data-original-title="{% trans 'Unhold' %}">
+        <button class="btn btn-default btn-xs option-hold" rel="tooltip" data-placement="left" data-original-title="{% trans 'Unhold' %}">
             <i class="icon-arrow-left"></i>
         </button>
         {% endif %}
         {% if is_owner or is_admin or 'edit.delete_chapter' in roles_permissions %}
-        <button id="collapse" class="btn btn-default btn-xs option-delete">
+        <button class="btn btn-default btn-xs option-delete">
             <i class="icon-trash"></i>
         </button>
         {% endif %}
     </div>
     <div class="btn-group">
-        <button id="edit" class="btn btn-default btn-xs option-edit">{% trans "EDIT" %}</button>
+        <button class="btn btn-default btn-xs option-edit">{% trans "EDIT" %}</button>
     </div>
 
     <% } %>
