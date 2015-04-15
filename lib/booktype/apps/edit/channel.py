@@ -491,6 +491,10 @@ def remote_change_status(request, message, bookid, version):
     except (models.Chapter.DoesNotExist, models.BookStatus.DoesNotExist):
         return dict(result=False)
 
+    # check permissions
+    if not book_security.has_perm('edit.change_chapter_status'):
+        raise PermissionDenied
+
     # if chapter is locked -> check access
     if chapter.is_locked():
         # check access
@@ -977,10 +981,13 @@ def remote_chapters_changed(request, message, bookid, version):
     @param version: Book version
     """
 
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.reorder_toc'):
+        raise PermissionDenied
+
     lst = [(chap['item_id'], chap['parent_id']) for chap in message["chapters"]]
     lstHold = []
-
-    book, book_version, book_security = get_book(request, bookid, version)
 
     weight = len(lst)
 

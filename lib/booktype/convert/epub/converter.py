@@ -163,8 +163,9 @@ class EpubConverter(BaseConverter):
 
         # filters-out existing cover
         def _skip_cover(item):
-            if os.path.basename(item[1]) == COVER_FILE_NAME:
-                return False
+            if type(item[1]) in (str, unicode):
+                if os.path.basename(item[1]) == COVER_FILE_NAME:
+                    return False
             return True
 
         toc = filter(_skip_cover, parse_toc_nav(original_book))

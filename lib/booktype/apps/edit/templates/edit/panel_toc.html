@@ -222,9 +222,13 @@
     </div>
 </div>
 
+<script type="text/template" id="templateTOCChapterContainer">
+    <ol class="sortable{% if is_owner or is_admin or 'edit.reorder_toc' in roles_permissions %} allow-reorder{% endif %}"></ol>
+</script>
+
 <script type="text/html" id="templateTOCChapter">
 <li class="item chapter" data-id="<%= data_id %>" data-chapter-id="<%= data_chapter_id %>" id="<%= id %>" >
-    <div>
+    <div {% if not is_owner and not is_admin and 'edit.reorder_toc' not in roles_permissions %} style="cursor: auto;"{% endif %}>
         <div class="display-unlocked <% if (is_locked === true){ %> hide <% } %>">
             <a href="" style="color: rgb(51, 51, 51);" class="operation-edit"><i class="toc-icon-chapter"></i></a>
             <a style="color: rgb(51, 51, 51);" href="" class="operation-edit"><span class="title"><%= title %></span></a>
@@ -250,7 +254,6 @@
     </div>
 
     <div class="btn-toolbar">
-
         <div class="chapter-labels pull-left">
             {% if is_owner or is_admin %}
             <a href="" class="label label-danger terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
@@ -258,20 +261,23 @@
             <span class="label display-locked <% if (is_locked !== true){ %> hide <% } %>">{% trans "Locked" %}</span>
         </div>
 
-        {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
-        <div class="btn-group">
-        {% else %}
-        <div class="btn-group display-unlocked <% if (is_locked === true){ %> hide <% } %>">
+        {% if is_owner or is_admin or 'edit.change_chapter_status' in roles_permissions %}
+            {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
+            <div class="btn-group">
+            {% else %}
+            <div class="btn-group display-unlocked <% if (is_locked === true){ %> hide <% } %>">
+            {% endif %}
+                <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
+                <ul class="dropdown-menu status-options">
+                    <% for (var i in statuses) { %>
+                        <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
+                            <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
         {% endif %}
-            <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
-            <ul class="dropdown-menu status-options">
-                <% for (var i in statuses) { %>
-                    <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
-                        <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
-                    </li>
-                <% } %>
-            </ul>
-        </div>
+
         <div class="btn-group">
             {% if is_owner or is_admin or 'edit.edit_locked_chapter' in roles_permissions %}
                 <button class="btn btn-default btn-xs edit">{% trans "EDIT CHAPTER" %}</button>
@@ -311,7 +317,10 @@
 </script>
 
 <li class="item section template templateTOCSection" data-id="">
-  <div><span class="disclose"></span><span class="title"></span></div>
+  <div {% if not is_owner and not is_admin and 'edit.reorder_toc' not in roles_permissions %} style="cursor: auto;"{% endif %}>
+      <span class="disclose"></span>
+      <span class="title"></span>
+  </div>
   <div class="btn-toolbar">
         {% if is_owner or is_admin or 'edit.rename_section' in roles_permissions %}
         <div class="btn-group">

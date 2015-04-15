@@ -28,7 +28,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .btn [class^="icon-"] {
 	margin-right: 4px;
-}
+	}
+	.contentHeader .btn [class^="icon-"] {
+		margin-right: 0;
+	}
 .user .btn-inverse {
 	border: none;
 	-moz-box-shadow: none;
@@ -96,7 +99,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .dropdown-menu [class^="icon-"] {
 	min-width: 24px;
-	display: inline-block;
+	display: inline-block;	
 	}
 .edit-menu {
 	margin-right: 30px;
@@ -137,7 +140,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	-moz-border-radius-topright: 0px !important;
 	border-top-left-radius: 0px !important;
 	border-top-right-radius: 0px !important;
-}
+} 
 .edit-menu .btn-toolbar>.btn-group+.btn-group {
 	margin-left: 5px !important;
 }
@@ -148,7 +151,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	line-height: 0.5;
 	vertical-align: middle;
 }
-.dropdown-menu.pull-right {
+.dropdown-menu.pull-right { 
 	left:auto !important;
 }
 .form-control {
@@ -156,6 +159,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	height: 32px;
+}
+.form-control.chapter-status {
+	height: auto;
+	width: 98%;
 }
 .form-control:focus {
 	border-color: rgba(137,83,237,0.8);
@@ -172,7 +179,7 @@ input[type="checkbox"].form-control {
 .tooltip-inner {
 	-moz-border-radius:2px;
 	-webkit-border-radius:2px;
-	border-radius: 2px;
+	border-radius: 2px;	
 }
 .btn-group > .tooltip + .btn,
 .btn-group > .popover + .btn{
@@ -197,7 +204,7 @@ input[type="checkbox"].form-control {
 	background-color: #7656b2;
 	color:#FFF;
 }
-.btn-success + .dropdown-menu li a:hover,
+.btn-success + .dropdown-menu li a:hover, 
 .btn-success + .dropdown-menu li a:focus {
 	background-color: #62aa46;
 	background-image:none;
@@ -224,14 +231,29 @@ input[type="checkbox"].form-control {
 	padding-left: 10px;
 	padding-right: 10px;
 }
-
+.row {
+	margin-left: -10px;
+	margin-right: -10px;
+}
+.alert.smaller {
+	font-size: 13px;
+}
 
 @media (min-width: 1200px) {
 	.container {
-	max-width: 1140px;
+		max-width: 1140px;
 	}
 
 	.toc_sidebar {
 		max-width: 380px !important;
 	}
 }
+@media (max-width: 1200px) {
+	.contentHeader .btn-sm {
+ 		padding: 3px 6px !important;
+	}
+}
+@media (max-width: 1300px) {
+	.contentHeader .btn.btn-success:first-child {
+		min-width: inherit;
+	}
