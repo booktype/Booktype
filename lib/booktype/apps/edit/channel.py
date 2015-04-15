@@ -568,7 +568,7 @@ def remote_chapter_save(request, message, bookid, version):
     # if chapter is locked -> check access
     if chapter.is_locked():
         # check access
-        if not book_security.has_perm('edit.lock_chapter'):
+        if not book_security.has_perm('edit.edit_locked_chapter'):
             raise PermissionDenied
         elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                and chapter.lock.user != request.user):
