@@ -937,8 +937,6 @@ def remote_chapters_changed(request, message, bookid, version):
 
     Creates Book history record. Sends "chapters_changed" message to the channel.
 
-    @todo: check security
-
     Input:
      - chapters
      - hold
