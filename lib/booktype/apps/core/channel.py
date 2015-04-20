@@ -23,20 +23,19 @@ from booki.editor.models import Chapter
 
 logger = logging.getLogger('booktype')
 
+
 def remote_ping(request, message):
     """
     Sends ping to the server. Just so we know client is still alive. It also removes old locks. This is not the place to do it at all,
     but once we have normal scheduled calls, will put it there.
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
+    :Args:
+      - request (:class:`django.http.HttpRequest`): Client Request object
+      - message (dict): Message object
     """
 
     import sputnik
 
-    sputnik.addMessageToChannel(request, "/booki/", {})
+    sputnik.addMessageToChannel(request, "/booktype/", {})
 
     # kill old chapters which are no longer under edit
     keys = sputnik.rkeys("booktype:*:*:editlocks:*")
@@ -64,9 +63,11 @@ def remote_ping(request, message):
                                              "username": username},
                                             myself=True)
 
+
 # FIXME not implemented
 def remote_disconnect(request, message):
     pass
+
 
 def remote_subscribe(request, message):
     """
@@ -75,10 +76,9 @@ def remote_subscribe(request, message):
     Input:
      - chanels
 
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
+    :Args:
+      - request (:class:`django.http.HttpRequest`): Client Request object
+      - message (dict): Message object
     """
 
     import sputnik
@@ -89,6 +89,7 @@ def remote_subscribe(request, message):
 
         sputnik.addClientToChannel(chnl, request.sputnikID)
 
+
 def remote_connect(request, message):
     """
     Initializes sputnik connection for this client. Creates clientID for this connection.
@@ -96,12 +97,12 @@ def remote_connect(request, message):
     Input:
      - chanels
 
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @rtype: C{string}
-    @return: Returns unique Client ID for this connection
+    :Args:
+      - request (:class:`django.http.HttpRequest`): Client Request object
+      - message (dict): Message object
+
+    :Returns:
+      Returns unique Client ID for this connection
     """
 
     import sputnik
@@ -137,4 +138,3 @@ def remote_connect(request, message):
         sputnik.set("ses:%s:last_access" % request.sputnikID, time.time())
 
     return ret
-
