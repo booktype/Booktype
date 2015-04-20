@@ -7,7 +7,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator, MinLengthValidator
 
 from booktype.utils import config
@@ -669,11 +669,13 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
         return "{0}#list-of-books".format(self.cancel_url)
 
     def save(self, *args, **kwargs):
-        rename_book(
-            self.instance,
-            self.cleaned_data['title'],
-            self.cleaned_data['url_title']
-        )
+        if self.instance.pk and self.has_changed():
+            book = Book.objects.get(url_title__iexact=self.initial['url_title'])
+            rename_book(
+                book,
+                self.cleaned_data['title'],
+                self.cleaned_data['url_title']
+            )
         return super(BookRenameForm, self).save(*args, **kwargs)
 
     def clean_url_title(self):

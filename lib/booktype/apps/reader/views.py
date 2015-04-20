@@ -15,6 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import logging
 
 from django.views import static
 from django.http import Http404
@@ -34,6 +35,9 @@ from booktype.apps.core.views import BasePageView
 from booki.editor.models import Book, BookHistory, BookToc, Chapter
 
 from .forms import EditBookInfoForm
+
+
+logger = logging.getLogger('booktype')
 
 
 class BaseReaderView(object):
@@ -160,15 +164,23 @@ class EditBookInfoView(SingleNextMixin, LoginRequiredMixin,
     def form_valid(self, form):
         self.object = form.save()
 
-        if 'core' in form.files.keys():
-            try:
-                fh, fname = misc.save_uploaded_as_file(form.files['cover'])
-                self.object.setCover(fname)
-                os.unlink(fname)
-            except:
-                pass
+        all_ok = True
 
-        messages.success(self.request, _('Successfully changed book info.'))
+        if 'book_cover' in form.files.keys():
+            try:
+                fh, fname = misc.save_uploaded_as_file(form.files['book_cover'])
+                self.object.set_cover(fname)
+                os.unlink(fname)
+                self.object.save()
+            except Exception, e:
+                logger.exception(e)
+                all_ok = False
+
+        if all_ok:
+            messages.success(self.request, _('Successfully changed book info.'))
+        else:
+            messages.warning(self.request, _('Could not upload cover image.'))
+
         self.template_name = "reader/book_info_edit_redirect.html"
         return self.render_to_response(context=self.get_context_data())
 

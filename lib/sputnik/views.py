@@ -29,7 +29,7 @@ import redis
 import sputnik
 
 
-logger = logging.getLogger("booktype.sputnik")
+logger = logging.getLogger("sputnik")
 
 
 def set_last_access(request):
@@ -37,11 +37,11 @@ def set_last_access(request):
         if request.sputnikID and request.sputnikID.find(' ') == -1:
             sputnik.set("ses:%s:last_access" % request.sputnikID, time.time())
     except:
-        logger.error("Sputnik - CAN NOT SET TIMESTAMP.")
+        logger.error("Can not set timestamp.")
 
 
 def remove_timeout_clients(request):
-    _now = time.time() 
+    _now = time.time()
 
     try:
         for k in sputnik.rkeys("ses:*:last_access"):
@@ -54,10 +54,10 @@ def remove_timeout_clients(request):
                     continue
 
         # timeout after 2 minute
-            if  tm and decimal.Decimal("%f" % _now) - tm > 60*2:
+            if tm and decimal.Decimal("%f" % _now) - tm > 60 * 2:
                 sputnik.removeClient(request, k[4:-12])
     except:
-        logger.debug("Sputnik - can not get all the last accesses")
+        logger.debug("Can not get all the last accesses")
 
 
 def collect_messages(request, clientID):
@@ -73,44 +73,45 @@ def collect_messages(request, clientID):
         except:
             # Limit only to 20 messages
             if n > 20:
-                break            
+                break
 
-            logger.error("Sputnik - Coult not get the latest message from the queue session: %s clientID:%s" %(request.session.session_key, clientID))
+            logger.error("Could not get the latest message from the queue session: %s clientID:%s" % (request.session.session_key, clientID))
 
         n += 1
 
-        if not v: break
+        if not v:
+            break
 
         try:
             results.append(json.loads(v))
         except:
-            pass
-    
-    return results
+            logger.error("Error while adding values to the result.")
 
+    return results
 
 
 @transaction.commit_manually
 def dispatcher(request, **sputnik_dict):
     """
-    Main Sputnik dispatcher. Every Sputnik request goes through this dispatcher. 
+    Main Sputnik dispatcher. Every Sputnik request goes through this dispatcher.
 
-    Input arguments are passed through C{request.POST}:
-      - C{request.POST['messages']} 
-          List of messages client is sending to server.
-      - C{request.POST['clientID']} 
-          Unique client ID for this connection.
+    Input arguments are passed through *request.POST*:
+      - *request.POST['messages']*: List of messages client is sending to server.
+      - *request.POST['clientID']*: Unique client ID for this connection.
 
     This is just another Django view.
 
-    @todo: Change logging and error handling.
+    .. todo::
 
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type sputnik_dict: C{dict}
-    @param sputnik_dict: Mapping of channels with specific python modules.
-    @rtype: C{HttpResponse}
-    @return: Return C{django.http.HttpResponse} object.
+      Change logging and error handling.
+
+
+    :Args:
+      - request (:class:`django.http.HttpRequest`): Client Request object
+      - sputnik_dict (dict): Mapping of channels with specific python modules.
+
+    :Returns:
+      Return :class:`django.http.HttpResponse` instance.
     """
 
     status_code = True
@@ -124,27 +125,31 @@ def dispatcher(request, **sputnik_dict):
         messages = json.loads(request.POST.get("messages", "[]"))
     except ValueError:
         status_code = False
+        logger.error("Error while trying to read input data. This does not seems to be JSON data.")
     except:
         status_code = False
-
+        logger.error("Error while trying to read input data.")
 
     if status_code:
         clientID = request.POST.get("clientID", None)
 
         if not hasattr(request, "sputnikID"):
             request.sputnikID = "%s:%s" % (request.session.session_key, clientID)
-            request.clientID  = clientID
+            request.clientID = clientID
 
-        for message in messages:            
+        for message in messages:
+            found_match = False
+
             for mpr in sputnik_dict['map']:
                 mtch = re.match(mpr[0], message.get("channel", ""))
 
                 if mtch:
-                    a =  mtch.groupdict()
-
+                    a = mtch.groupdict()
+                    found_match = True
                     try:
                         _m = importlib.import_module(mpr[1])
                     except ImportError:
+                        logger.error("Couldn't load module '{}'.".format(mpr[1]))
                         _m = None
 
                     if _m:
@@ -159,15 +164,23 @@ def dispatcher(request, **sputnik_dict):
                             # For now they all do the same thing but this might change in the future
                             try:
                                 ret = fnc(request, message, **a)
-                            except ObjectDoesNotExist:
+                            except ObjectDoesNotExist, e:
                                 execute_status = False
-                            except SuspiciousOperation:
+                                logger.error("[{}] Object you are trying to find does not exists.".format("remote_{}".format(message.get('command', ''))))
+                                logger.exception(e)
+                            except SuspiciousOperation, e:
                                 execute_status = False
-                            except PermissionDenied:
+                                logger.error("[{}] Suspicious operation.".format("remote_{}".format(message.get('command', ''))))
+                                logger.exception(e)
+                            except PermissionDenied, e:
                                 execute_status = False
-                            except:
+                                logger.error("[{}] Permission denied.".format("remote_{}".format(message.get('command', ''))))
+                                logger.exception(e)
+                            except Exception, e:
                                 execute_status = False
-                                
+                                logger.error("[{}] Unknown excpetion.".format("remote_{}".format(message.get('command', ''))))
+                                logger.exception(e)
+
                             # For different compatibility reasons return result and status now
                             if not ret:
                                 ret = {"result": execute_status}
@@ -183,7 +196,10 @@ def dispatcher(request, **sputnik_dict):
                             else:
                                 transaction.commit()
                         else:
-                            logger.error("Could not find function '%s' for Sputnik channel '%d'!" % (message.get('command', ''), message.get('channel', '')))
+                            logger.error("Could not find function '{}' for Sputnik channel '{}'!".format(message.get('command', ''), message.get('channel', '')))
+
+            if not found_match:
+                logger.error("I can not find match for your channel [{}].".format(message.get("channel", "")))
 
         # Collect other messages waiting for this user
         results.extend(collect_messages(request, clientID))
@@ -208,4 +224,3 @@ def dispatcher(request, **sputnik_dict):
         transaction.commit()
 
     return resp
-

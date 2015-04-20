@@ -21,7 +21,7 @@
                             <div class="bookexists alert alert-danger" style="display: none;">
                                 {% trans "There is already a book with this name." %}
                             </div>
-                        </section>                        
+                        </section>
 
                         <h3>{% trans "Description" %}</h3>
                         <section>
@@ -40,7 +40,7 @@
                                 <option value="{{license.abbrevation}}" {% if book_license == license.abbrevation %}selected="selected"{% endif %}>{{license.name}}</option>
                                 {% endfor %}
                             </select>
-                            
+
                         </section>
 
                         <h3>{% trans "Image" %}</h3>

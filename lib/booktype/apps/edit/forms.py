@@ -2,7 +2,7 @@
 from django import forms
 from django.db.models import Count
 from django.contrib.auth.models import User
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from booktypecontrol.forms import DefaultRolesForm
 from booktype.apps.portal.forms import SpanErrorList
@@ -42,7 +42,7 @@ class LanguageForm(BaseSettingsForm, forms.Form):
     right_to_left = forms.BooleanField(
         label=_('Right to left text'),
         required=False,
-        help_text=_("Book with right to left writting.")
+        help_text=_("Book with right to left writing.")
     )
     skip_select_and_checkbox = True
 

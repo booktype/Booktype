@@ -491,6 +491,10 @@ def remote_change_status(request, message, bookid, version):
     except (models.Chapter.DoesNotExist, models.BookStatus.DoesNotExist):
         return dict(result=False)
 
+    # check permissions
+    if not book_security.has_perm('edit.change_chapter_status'):
+        raise PermissionDenied
+
     # if chapter is locked -> check access
     if chapter.is_locked():
         # check access
@@ -622,7 +626,7 @@ def remote_chapter_save(request, message, bookid, version):
                                 myself=True)
 
     if not message['continue']:
-        sputnik.addMessageToChannel(request, "/booki/book/%s/%s/" % (bookid, version),
+        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
                                     {"command": "chapter_status",
                                      "chapterID": message["chapterID"],
                                      "status": "normal",
@@ -977,10 +981,13 @@ def remote_chapters_changed(request, message, bookid, version):
     @param version: Book version
     """
 
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.reorder_toc'):
+        raise PermissionDenied
+
     lst = [(chap['item_id'], chap['parent_id']) for chap in message["chapters"]]
     lstHold = []
-
-    book, book_version, book_security = get_book(request, bookid, version)
 
     weight = len(lst)
 
@@ -1600,7 +1607,7 @@ def remote_clone_chapter(request, message, bookid, version):
                                 myself=True)
 
     sputnik.addMessageToChannel(
-        request, "/booki/book/%s/%s/" % (bookid, version), {
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
             "command": "chapter_create",
             "chapter": result},
         myself=True
@@ -2350,7 +2357,7 @@ def remote_book_status_order(request, message, bookid, version):
     allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
     sputnik.addMessageToChannel(request,
-                                "/booki/book/%s/%s/" % (bookid, version),
+                                "/booktype/book/%s/%s/" % (bookid, version),
                                 {"command": "chapter_status_changed",
                                  "statuses": allStatuses},
                                 myself=False
@@ -2406,7 +2413,7 @@ def remote_book_status_remove(request, message, bookid, version):
     allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
     sputnik.addMessageToChannel(request,
-                                "/booki/book/%s/%s/" % (bookid, version),
+                                "/booktype/book/%s/%s/" % (bookid, version),
                                 {"command": "chapter_status_changed",
                                  "statuses": allStatuses},
                                 myself=False
@@ -2462,7 +2469,7 @@ def remote_book_status_create(request, message, bookid, version):
     allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
     sputnik.addMessageToChannel(request,
-                                "/booki/book/%s/%s/" % (bookid, version),
+                                "/booktype/book/%s/%s/" % (bookid, version),
                                 {"command": "chapter_status_changed",
                                  "statuses": allStatuses},
                                 myself=False

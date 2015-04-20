@@ -17,7 +17,8 @@
 from django.conf.urls import patterns, url
 
 from .views import CreateBookView, UserSettingsPage, DashboardPageView
-from .views import ForgotPasswordView, ForgotPasswordEnterView, SignInView, SignOutView
+from .views import (ForgotPasswordView, ForgotPasswordEnterView, SignInView, SignOutView,
+                    SendInviteView)
 
 urlpatterns = patterns(
     '',
@@ -25,6 +26,7 @@ urlpatterns = patterns(
     url(r'^signout/$', SignOutView.as_view(), name='signout'),
     url(r'^forgot_password/$', ForgotPasswordView.as_view(), name='forgotpassword'),
     url(r'^forgot_password/enter/$', ForgotPasswordEnterView.as_view(), name='forgotpasswordenter'),
+    url(r'^invite/$', SendInviteView.as_view(), name='invite'),
 
     url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/$', DashboardPageView.as_view(), name='view_profile'),
     url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/_create_book/$', CreateBookView.as_view(), name='create_book'),
