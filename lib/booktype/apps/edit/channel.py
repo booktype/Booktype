@@ -16,24 +16,32 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import re
 import json
-import sputnik
+import time
+import datetime
+import difflib
+
 from lxml import etree, html
 
 from django.db.models import Q
-from django.conf import settings
 from django.db import transaction
 from django.db.utils import IntegrityError
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, SuspiciousOperation
 
+import sputnik
 from booki.editor import models
 from booki.utils.log import logBookHistory, logChapterHistory
-
 from booktype.utils import security
 from django.utils.translation import ugettext_lazy
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.models import Role, BookRole
+
+try:
+    from PIL import Image
+except ImportError:
+    import Image
 
 
 # this couple of functions should go to models.BookVersion
@@ -149,12 +157,6 @@ def get_attachments(book_version):
     @rtype: C{list}
     @return: Returns list of dictionaries with info about attachment
     """
-
-    import os.path
-    try:
-        from PIL import Image
-    except ImportError:
-        import Image
 
     def _getDimension(att):
         try:
@@ -305,9 +307,6 @@ def remote_init_editor(request, message, bookid, version):
                                     )
 
     # get online users and their mood messages
-
-    from django.contrib.auth.models import User
-
     def _getUser(_user):
         try:
             _u = User.objects.get(username=_user)
@@ -403,7 +402,6 @@ def remote_attachments_delete(request, message, bookid, version):
         att = models.Attachment.objects.get(pk=att_id, version=book_version)
 
         from booki.utils import log
-        import os.path
 
         log.logBookHistory(
             book=book,
@@ -578,8 +576,6 @@ def remote_chapter_save(request, message, bookid, version):
     content = message['content']
 
     if len(message['footnotes']) > 0:
-        from lxml import html
-
         utf8_parser = html.HTMLParser(encoding='utf-8')
         tree = html.document_fromstring(content, parser=utf8_parser)
 
@@ -1300,8 +1296,6 @@ def remote_get_chapter(request, message, bookid, version):
         ch = models.ChapterHistory.objects.get(chapter=chapter, revision=message.get("revision"))
         res["content"] = ch.content
 
-    import time
-
     # if this chapter for edit or read
     if message.get("edit_lock", False):
         # set the initial timer edit locking
@@ -1343,8 +1337,6 @@ def remote_create_chapter(request, message, bookid, version):
     @rtype: C{dict}
     @return: Return if it was successful
     """
-
-    import datetime
 
     book, book_version, book_security = get_book(request, bookid, version)
 
@@ -1465,8 +1457,6 @@ def copy_attachment(attachment, target_book):
     @rtype: C{booki.editor.models.Attachment}
     @return: Returns new Attachment object
     """
-    import os.path
-    import datetime
 
     att = models.Attachment(
         book=target_book,
@@ -1508,8 +1498,6 @@ def remote_clone_chapter(request, message, bookid, version):
     @rtype: C{dict}
     @return: Return if it was successful
     """
-
-    import datetime
 
     # BookVersion treba uzeti
 
@@ -1750,11 +1738,7 @@ def remote_covers_data(request, message, bookid, version):
     @return: Returns needed data for Cover Manager tab
     """
 
-    try:
-        from PIL import Image
-    except ImportError:
-        import Image
-
+    # TODO this function should be reusable
     def _getDimension(cover):
         try:
             im = Image.open(cover.attachment.name)
@@ -2002,11 +1986,6 @@ def remote_cover_load(request, message, bookid, version):
 
     if cover.is_pdf:
         frm.append("pdf")
-
-    try:
-        from PIL import Image
-    except ImportError:
-        import Image
 
     size = (0, 0)
     filetype = ""
@@ -2736,8 +2715,6 @@ def remote_book_notification(request, message, bookid, version):
     @return: Should it kill the seasson
     """
 
-    import time
-
     res = {"result": True, "terminate": False}
 
     if request.user.username:
@@ -2789,7 +2766,6 @@ def remote_get_history(request, message, bookid, version):
     @return: Returns history entries
     """
 
-    import datetime
     from booki.editor.common import parseJSON
 
     book, book_version, book_security = get_book(request, bookid, version)
@@ -2887,8 +2863,6 @@ def remote_get_chapter_history(request, message, bookid, version):
     @rtype: C{dict}
     @return: Returns history entries
     """
-
-    import datetime
 
     book, book_version, book_security = get_book(request, bookid, version)
 
@@ -3001,8 +2975,6 @@ def remote_get_chapter_revision(request, message, bookid, version):
     @return: Chapter data
     """
 
-    import datetime
-
     book, book_version, book_security = get_book(request, bookid, version)
 
     revision = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision"])
@@ -3036,8 +3008,6 @@ def remote_get_notes(request, message, bookid, version):
     @rtype: C{dict}
     @return: Notes data
     """
-
-    import datetime
 
     book, book_version, book_security = get_book(request, bookid, version)
 
@@ -3112,8 +3082,6 @@ def remote_chapter_kill_editlock(request, message, bookid, version):
     @param version: Book version
     """
 
-    import re
-
     book, book_version, book_security = get_book(request, bookid, version)
 
     if book_security.is_admin():
@@ -3184,8 +3152,6 @@ def create_new_version(book, book_ver, message, major, minor):
     @rtype: C{booki.editor.models.BookVersion}
     @return: Returns Book version object
     """
-
-    import datetime
 
     new_version = models.BookVersion(book=book,
                                      major=major,
@@ -3395,8 +3361,6 @@ def remote_chapter_diff(request, message, bookid, version):
     @return: Returns text with diff between two chapters
     """
 
-    import datetime
-
     book, book_version, book_security = get_book(request, bookid, version)
 
     revision1 = models.ChapterHistory.objects.get(chapter__book=book,
@@ -3406,8 +3370,6 @@ def remote_chapter_diff(request, message, bookid, version):
                                                   chapter__id=message["chapter"],
                                                   revision=message["revision2"])
     content = message.get("content")
-
-    import difflib
 
     output = []
 
@@ -3500,21 +3462,16 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
     @return: Returns text with diff between two chapters
     """
 
-    import datetime
-
     book, book_version, book_security = get_book(request, bookid, version)
 
     revision1 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision1"])
     revision2 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision2"])
-
-    import difflib
 
     output = []
 
     output_left = '<td valign="top">'
     output_right = '<td valign="top">'
 
-    import re
     content1 = re.sub('<[^<]+?>', '', revision1.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
     content2 = re.sub('<[^<]+?>', '', revision2.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
 
