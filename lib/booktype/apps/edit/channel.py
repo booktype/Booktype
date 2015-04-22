@@ -1152,7 +1152,8 @@ def remote_chapter_lock(request, message, bookid, version):
         request, "/booktype/book/%s/%s/" % (bookid, version), {
             "command": "chapter_lock_changed",
             "chapterID": chapter_id,
-            "lockType": chapter.lock_type
+            "lockType": chapter.lock_type,
+            "lockUsername": request.user.username
         },
         myself=True
     )
