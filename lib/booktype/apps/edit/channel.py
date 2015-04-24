@@ -31,6 +31,7 @@ from booki.editor import models
 from booki.utils.log import logBookHistory, logChapterHistory
 
 from booktype.utils import security
+from django.utils.translation import ugettext_lazy
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.models import Role, BookRole
 
@@ -498,7 +499,7 @@ def remote_change_status(request, message, bookid, version):
     # if chapter is locked -> check access
     if chapter.is_locked():
         # check access
-        if not book_security.has_perm('edit.lock_chapter'):
+        if not book_security.has_perm('edit.edit_locked_chapter'):
             raise PermissionDenied
         elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                and chapter.lock.user != request.user):
@@ -682,7 +683,7 @@ def remote_chapter_delete(request, message, bookid, version):
     # if chapter is locked -> check access
     if chap.is_locked():
         # check access
-        if not book_security.has_perm('edit.lock_chapter'):
+        if not book_security.has_perm('edit.edit_locked_chapter'):
             raise PermissionDenied
         elif not book_security.is_admin() and (chap.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                and chap.lock.user != request.user):
@@ -849,7 +850,7 @@ def remote_chapter_rename(request, message, bookid, version):
     # if chapter is locked -> check access
     if chapter.is_locked():
         # check access
-        if not book_security.has_perm('edit.lock_chapter'):
+        if not book_security.has_perm('edit.edit_locked_chapter'):
             raise PermissionDenied
         elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                and chapter.lock.user != request.user):
@@ -1056,22 +1057,31 @@ def remote_chapter_hold(request, message, bookid, version):
         toc_item = models.BookToc.objects.get(chapter__id__exact=chapter_id, version=book_version, typeof=1)
     except models.BookToc.DoesNotExist:
         return dict(result=False)
-    else:
-        # if chapter under edit -> decline
-        if toc_item.chapter.get_current_editor_username():
+
+    # if chapter under edit -> decline
+    if toc_item.chapter.get_current_editor_username():
+        raise PermissionDenied
+
+    # if chapter is locked -> check access
+    if toc_item.chapter.is_locked():
+        # check access
+        if not book_security.has_perm('edit.edit_locked_chapter'):
+            raise PermissionDenied
+        elif not book_security.is_admin() and (toc_item.chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                               and toc_item.chapter.lock.user != request.user):
             raise PermissionDenied
 
-        toc_id = toc_item.id
-        toc_item.delete()
+    toc_id = toc_item.id
+    toc_item.delete()
 
-        sputnik.addMessageToChannel(
-            request, "/booktype/book/%s/%s/" % (bookid, version), {
-                "command": "chapter_hold",
-                "chapterID": chapter_id,
-                "tocID": toc_id
-            },
-            myself=True
-        )
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_hold",
+            "chapterID": chapter_id,
+            "tocID": toc_id
+        },
+        myself=True
+    )
 
     return dict(result=True)
 
@@ -1089,6 +1099,15 @@ def remote_chapter_unhold(request, message, bookid, version):
     # if chapter under edit -> decline
     if chptr.get_current_editor_username():
         raise PermissionDenied
+
+    # if chapter is locked -> check access
+    if chptr.is_locked():
+        # check access
+        if not book_security.has_perm('edit.edit_locked_chapter'):
+            raise PermissionDenied
+        elif not book_security.is_admin() and (chptr.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                               and chptr.lock.user != request.user):
+            raise PermissionDenied
 
     # chapter can be only in one toc in single moment
     if not models.BookToc.objects.filter(chapter=chptr).exists():
@@ -1240,33 +1259,37 @@ def remote_get_chapter(request, message, bookid, version):
     @return: Chapter info
     """
 
-    res = {"result": True}
+    res = {"result": True, "access": False}
 
-    book, book_version, book_security = get_book(request, bookid, version)
-
+    # check if user has permissions for editing this chapter.
+    # if user has no permissions or chapter locked at the moment
+    # function return access=False and reason message.
     try:
-        # check if you can access book this chapter belongs to
+        book, book_version, book_security = get_book(request, bookid, version)
         chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
-    except models.Chapter.DoesNotExist:
-        return dict(result=False)
+    except (models.Chapter.DoesNotExist, PermissionDenied):
+        # book_security.can_edit() is not implemented yet
+        res["reason"] = unicode(ugettext_lazy("You have no permissions for editing this chapter"))
+        return res
 
     # TODO clarify about read only mode
-    # do some request validation and check permissions, if request for edit
+    # check if chapter is locked or under edit
     if message.get("edit_lock", False):
-
-        # if chapter under edit by another user
         editor_username = chapter.get_current_editor_username()
         if editor_username and editor_username != request.user.username:
-            raise PermissionDenied
+            res["reason"] = unicode(ugettext_lazy("Chapter currently being edited"))
+            return res
 
-        # if chapter is locked
         if chapter.is_locked():
-            if not book_security.has_perm('edit.lock_chapter'):
-                raise PermissionDenied
+            if not book_security.has_perm('edit.edit_locked_chapter'):
+                res["reason"] = unicode(ugettext_lazy("You have no permissions for editing chapters under lock"))
+                return res
             elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                    and chapter.lock.user != request.user):
-                raise PermissionDenied
+                res["reason"] = unicode(ugettext_lazy("Chapter currently is locked from everyone"))
+                return res
 
+    res["access"] = True
     res["title"] = chapter.title
     res["content"] = chapter.content
     res["current_revision"] = chapter.revision
