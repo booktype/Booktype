@@ -16,7 +16,7 @@ from braces.views import LoginRequiredMixin
 
 from booktype.apps.core import views
 from booktype.apps.core.models import Role
-from booktype.utils import security
+from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.views import PageView, BasePageView
 from booktype.apps.account.forms import UserInviteForm
@@ -45,6 +45,13 @@ class FrontPageView(PageView):
 
     def get_context_data(self, **kwargs):
         context = super(FrontPageView, self).get_context_data(**kwargs)
+
+        if config.get_configuration('BOOKTYPE_FRONTPAGE_USE_ANONYMOUS_PAGE') and self.request.user.is_anonymous():
+            self.template_name = "portal/anonymous_frontpage.html"
+            context['anonymous_message'] = config.get_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_MESSAGE')
+            context['anonymous_email'] = config.get_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_EMAIL')
+            context['anonymous_image'] = config.get_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_IMAGE')
+            return context
 
         context['books_list'] = Book.objects.filter(hidden=False).order_by('-created')[:4]
         context['user_list'] = User.objects.all().order_by('-date_joined')[:2]

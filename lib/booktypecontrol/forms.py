@@ -138,6 +138,38 @@ class FrontpageForm(BaseControlForm, forms.Form):
         label=_('Show activity'),
         required=False
     )
+    use_anonymous_page = forms.BooleanField(
+        label=_('Use anonymous page'),
+        required=False,
+        help_text=_('Use separate page for anonymous users without books, '
+                    'people, groups and recent activity blocks.')
+    )
+    anonymous_message = forms.CharField(
+        label=_('Anonymous page message'),
+        required=False,
+        widget=forms.Textarea(attrs={'rows': 8, 'cols': 40}),
+        help_text=_('Message for displaying on anonymous page.')
+    )
+    anonymous_email = forms.EmailField(
+        label=_('Anonymous page email'),
+        required=False,
+        help_text=_('Email for displaying on anonymous page.')
+    )
+    anonymous_image = forms.ImageField(
+        label=_("Anonymous page image"),
+        required=False,
+        help_text=_("Use image/png files."),
+        widget=RemovableImageWidget(attrs={
+            'label_class': 'checkbox-inline',
+            'input_class': 'group-image-removable'
+        })
+    )
+
+    def clean_anonymous_image(self):
+        data = self.cleaned_data['anonymous_image']
+        if data and data.content_type not in ['image/png']:
+            raise forms.ValidationError("Wrong file content type.")
+        return data
 
     @classmethod
     def initial_data(cls):
@@ -153,15 +185,44 @@ class FrontpageForm(BaseControlForm, forms.Form):
         except IOError:
             _dict['description'] = ''
 
-        _dict['show_changes'] = config.get_configuration(
-            'BOOKTYPE_FRONTPAGE_HISTORY', True)
+        _dict['show_changes'] = config.get_configuration('BOOKTYPE_FRONTPAGE_HISTORY', True)
+        _dict['use_anonymous_page'] = config.get_configuration('BOOKTYPE_FRONTPAGE_USE_ANONYMOUS_PAGE')
+        _dict['anonymous_message'] = config.get_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_MESSAGE')
+        _dict['anonymous_email'] = config.get_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_EMAIL')
+        _dict['anonymous_image'] = config.get_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_IMAGE')
+
         return _dict
 
     def save_settings(self, request):
         static_root = settings.BOOKTYPE_ROOT
-        config.set_configuration(
-            'BOOKTYPE_FRONTPAGE_HISTORY', self.cleaned_data['show_changes'])
 
+        config.set_configuration('BOOKTYPE_FRONTPAGE_HISTORY', self.cleaned_data['show_changes'])
+        config.set_configuration('BOOKTYPE_FRONTPAGE_USE_ANONYMOUS_PAGE', self.cleaned_data['use_anonymous_page'])
+        config.set_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_MESSAGE', self.cleaned_data['anonymous_message'])
+        config.set_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_EMAIL', self.cleaned_data['anonymous_email'])
+
+        # anonymous page image
+        destination_filename = 'anonymous_image.png'
+        destination_dir = '{0}/portal/frontpage/'.format(settings.MEDIA_ROOT)
+        destination_file_path = '{dir}{filename}'.format(dir=destination_dir, filename=destination_filename)
+
+        if 'anonymous_image_remove' in request.POST:
+            os.remove(destination_file_path)
+            config.del_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_IMAGE')
+        elif 'anonymous_image' in self.files:
+            try:
+                fh, fname = misc.save_uploaded_as_file(self.files['anonymous_image'])
+
+                if not os.path.exists(destination_dir):
+                    os.makedirs(destination_dir)
+
+                shutil.move(fname, destination_file_path)
+                config.set_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_IMAGE',
+                                         '{0}portal/frontpage/anonymous_image.png'.format(settings.MEDIA_URL))
+            except:
+                pass
+
+        # welcome message
         if not os.path.exists('%s/templates/portal/' % static_root):
             os.makedirs('%s/templates/portal/' % static_root)
 
@@ -176,7 +237,6 @@ class FrontpageForm(BaseControlForm, forms.Form):
             f.write(text_data.encode('utf8'))
             f.close()
             config.save_configuration()
-
         except IOError as err:
             raise err
         except config.ConfigurationError as err:
