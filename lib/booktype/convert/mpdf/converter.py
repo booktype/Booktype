@@ -167,7 +167,7 @@ class MPDFConverter(BaseConverter):
 
     def _create_frontmatter(self, dc_metadata):
         f = open('{}/frontmatter.html'.format(self.sandbox_path), 'wt')
-        f.write('<h1>{}</h1><hr/>'.format(dc_metadata['title']))
+        f.write('<h1>{}</h1><hr/>'.format(dc_metadata['title'].encode('utf-8')))
         f.close()
 
     def _run_renderer(self, html_path, pdf_path):
