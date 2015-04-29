@@ -1,0 +1,138 @@
+{% extends "core/base.html" %}
+
+{% load i18n staticfiles booktype_tags profile messaging_tags reader_tags %}
+{% block extra_header %}
+    <script type="text/javascript" src="{% static 'core/js/jquery.steps.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'edit/js/booktype/utils.js' %}"></script>
+    <script type="text/javascript" src="{% static 'portal/js/frontpage.js' %}"></script>
+    <script type="text/javascript" src="{% static 'reader/js/infopage.js' %}"></script>
+    <script type="text/javascript" src="{% static 'account/js/register.js' %}"></script>
+    <!-- TODO remove this hardcoded style -->
+    <style type="text/css">
+        .collapse-navigation {display: none;}
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="bookThumbModal" class="modal fade bookInfoModal cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="editBookInfoModal" aria-hidden="true">
+    </div>
+    <div class="container front-page">
+        <div class="row three-col">
+
+            {% if anonymous_message %}
+                <div class="col-xs-8">
+                    <div class="box white">
+                        <h2>{{ anonymous_message }}</h2>
+                        {% if anonymous_image %}
+                            <img src="{{ anonymous_image }}" class="img-responsive">
+                        {% endif %}
+                        {% if anonymous_email %}
+                        <hr>
+                        <p>
+                            <span class="icon-envelope"></span>&nbsp;
+                            Mail us if you have any questions or proposals: <a href="mailto:{{ anonymous_email }}">{{ anonymous_email }}</a></p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% endif %}
+            <!-- End of col-xs-4 -->
+
+            <div class="col-xs-4">
+                <div class="login-widget box gray">
+                    <script>
+                        $(function() {
+                            $("#formsignin").booktypeSignin({'url': '{% url "accounts:signin" %}'});
+                        });
+                    </script>
+
+                    <div class="signin-block">
+                        {% include "account/form_signin.html" %}
+                    </div>
+                    {% if 1|booktype_anyone_register  %}
+                        <div class="box-bottom-white">
+                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}?redirect={{ request.path }}">{% trans "Registration form" %}</a></p>
+                        </div>
+                    {% else %}
+                        <div class="box-bottom-white">
+                          <p>{% trans "Only administrator is allowed to create new accounts at the moment." %}</p>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div> <!-- End of col-xs-4 -->
+
+        </div>
+    </div> <!-- End of container -->
+
+<!-- Invite people wizard modal -->
+<div class="modal fade invitePeopleWizard" id="inviteWizard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h2 class="modal-title" id="myModalLabel">Invite people</h2>
+    </div>
+    <div class="modal-body">
+
+    <section id="basic">
+    <form method="post" action="{% url 'accounts:invite' %}" target="hidden_frame" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div id="wizard-invite">
+          <h3>{% trans 'Enter email adresses' %}</h3>
+        <section>
+            <p class="wizard_desc">{% trans 'Who would you like to invite?' %}</p>
+            <label for="{{ invite_form.email_list.id_for_label }}"> {{ invite_form.email_list.label }} </label>
+            {{ invite_form.email_list }}
+        </section>
+
+        <h3>{% trans 'Enter message' %}</h3>
+        <section>
+            <p class="wizard_desc">{% trans 'What is the message of your invitation?' %}</p>
+            <label for="{{ invite_form.message.id_for_label }}"> {{ invite_form.message.label }} </label>
+            {{ invite_form.message }}
+        </section>
+        <h3>{% trans 'Choose Book' %}</h3>
+        <section>
+            <p class="wizard_desc">{% trans 'Choose Books for invitation' %}</p>
+          <div class="books-header">
+              {% trans 'Choose Book:' %} <span>{% trans 'All' %}</span>
+            <div class="switcher">
+                <label for="check_all">{% trans 'Check all / clear' %}</label>
+              <input id="check_all" type="checkbox" class="checkall">
+            </div>
+          </div>
+          <div class="books-list">
+            <ul>
+                {% for pk, choice in invite_form.books.field.widget.choices  %}
+                <li>
+                <a href="#" target='_blank'> {{ choice }}
+                        <input  type="checkbox" id="id_options_{{ forloop.counter0 }}" 
+                        value="{{ pk }}" name="books" />
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+          </div>
+        </section>
+
+        <h3>{% trans 'Set Roles' %}</h3>
+        <section>
+            <p class="wizard_desc">{% trans 'Set Roles for this invitation' %}</p>
+            <label for="hidden">{% trans 'Roles' %}</label>
+            <div class="roles-options btn-group" data-toggle="buttons">
+              {% for pk, choice in invite_form.roles.field.widget.choices  %}
+                <label class="btn btn-default" rel='tooltip'>
+                    <input type="checkbox" name='roles' value='{{ pk }}'> {{ choice }}
+                </label>
+              {% endfor %}
+            </div>
+        </section>
+      </div>
+    </section>
+  </div>
+    </form>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endblock %}
