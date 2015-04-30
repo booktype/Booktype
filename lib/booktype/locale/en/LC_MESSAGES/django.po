@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-30 15:02+0100\n"
+"POT-Creation-Date: 2015-04-30 15:12+0100\n"
 "PO-Revision-Date: 2014-12-29 15:52+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -2495,8 +2495,6 @@ msgid "JOIN THIS GROUP"
 msgstr ""
 
 #: apps/portal/templates/portal/all_groups.html:35
-#: apps/portal/templates/portal/all_groups.html:72
-#: apps/portal/templates/portal/all_groups.html:96
 #: apps/portal/templates/portal/frontpage.html:94
 msgid "There are no groups yet"
 msgstr ""
@@ -2505,13 +2503,20 @@ msgstr ""
 msgid "Active groups"
 msgstr ""
 
+#: apps/portal/templates/portal/all_groups.html:72
+msgid "There are no active groups at the moment"
+msgstr ""
+
 #: apps/portal/templates/portal/all_groups.html:78
 msgid "New groups"
 msgstr ""
 
+#: apps/portal/templates/portal/all_groups.html:96
+msgid "There are no new groups at the moment"
+msgstr ""
+
 #: apps/portal/templates/portal/books.html:35
 #: apps/portal/templates/portal/books.html:79
-#: apps/portal/templates/portal/books.html:99
 #: apps/portal/templates/portal/frontpage.html:36
 msgid "There are no books yet"
 msgstr ""
@@ -2522,6 +2527,10 @@ msgstr ""
 
 #: apps/portal/templates/portal/books.html:83
 msgid "Published Books"
+msgstr ""
+
+#: apps/portal/templates/portal/books.html:99
+msgid "There are no published books at the moment"
 msgstr ""
 
 #: apps/portal/templates/portal/frontpage.html:43
@@ -2633,8 +2642,6 @@ msgid "All people"
 msgstr ""
 
 #: apps/portal/templates/portal/people.html:29
-#: apps/portal/templates/portal/people.html:66
-#: apps/portal/templates/portal/people.html:83
 msgid "There are no people yet"
 msgstr ""
 
@@ -2642,8 +2649,16 @@ msgstr ""
 msgid "Active people"
 msgstr ""
 
+#: apps/portal/templates/portal/people.html:66
+msgid "There are no active people at the moment"
+msgstr ""
+
 #: apps/portal/templates/portal/people.html:72
 msgid "New people"
+msgstr ""
+
+#: apps/portal/templates/portal/people.html:83
+msgid "There are no new people at the moment"
 msgstr ""
 
 #: apps/portal/templates/portal/portal_add_book_modal.html:10
