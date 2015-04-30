@@ -132,11 +132,11 @@ LANGUAGE_CODE = 'en-us'
 gettext = lambda s: s
 
 LANGUAGES = (
+   ('de', gettext('Deutsch')),
    ('en', gettext('English')),
    ('es', gettext('Español')),
-   ('de', gettext('German')),
-   ('fr', gettext('Italiano')),
-   ('pt', gettext('Português')),
+   ('fr', gettext('Français')),
+   ('it', gettext('Italiano')),
    ('pt', gettext('Português')),
    ('ru', gettext('Русский')),
    ('sq', gettext('Shqip')),
