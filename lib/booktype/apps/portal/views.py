@@ -120,8 +120,8 @@ class GroupPageView(GroupManipulation):
 
 class AllGroupsPageView(GroupManipulation):
     template_name = "portal/all_groups.html"
-    page_title = _('All groups')
-    title = _('All groups')
+    page_title = _('Groups')
+    title = _('Groups')
 
     def get_context_data(self, **kwargs):
         context = super(AllGroupsPageView, self).get_context_data(**kwargs)
