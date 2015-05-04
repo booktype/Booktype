@@ -7,7 +7,11 @@
       </div>
       <!-- TODO: Translate languages and manage list of available languages -->
       <div class="btn-group">
-          <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{{ LANGUAGE_CODE }}<span class="caret"></span></button>
+          <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
+            {% get_language_info for LANGUAGE_CODE as lang %}
+            {% trans lang.name %}
+            <span class="caret"></span>
+        </button>
           <ul class="dropdown-menu pull-right">
           {% for code, lang in LANGUAGES %}
           <li>
@@ -16,8 +20,7 @@
             <input type="hidden" name="language" value="{{ code }}" />
           </form>
           <a href="#" target="_blank" onclick="document.forms['setLang{{ code }}'].submit();return false;">
-              <img src="{{ STATIC_URL }}core/img/flags/{{ code|slice:":2" }}.gif" alt="{{ lang_code }}">
-              {{ code }}
+              {{ lang }}
               </a>
 
           </li>
