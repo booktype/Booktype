@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views.generic import DeleteView
 from django.core.urlresolvers import reverse
+from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import CreateView, UpdateView
@@ -53,6 +54,15 @@ class FrontPageView(PageView):
             context['anonymous_image'] = config.get_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_IMAGE')
             return context
 
+        context['is_admin'] = self.request.user.is_superuser
+        # get all user permissions
+        role_key = security.get_default_role_key(self.request.user)
+        default_role = security.get_default_role(role_key)
+        if default_role:
+            context['roles_permissions'] = [p.key_name for p in default_role.permissions.all()]
+        else:
+            context['roles_permissions'] = []
+
         context['books_list'] = Book.objects.filter(hidden=False).order_by('-created')[:4]
         context['user_list'] = User.objects.all().order_by('-date_joined')[:2]
         booki_group5 = BookiGroup.objects.all().order_by('-created')[:5]
@@ -74,6 +84,11 @@ class GroupPageView(GroupManipulation):
     template_name = "portal/group.html"
     page_title = _('Group')
     title = _('Group used')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not security.has_perm(request.user, "portal.can_view_group_info"):
+            raise PermissionDenied
+        return super(GroupPageView, self).dispatch(request, *args, **kwargs)
 
     def render_to_response(self, context, **response_kwargs):
         if context['selected_group_error']:
@@ -129,6 +144,11 @@ class AllGroupsPageView(GroupManipulation):
     template_name = "portal/all_groups.html"
     page_title = _('Groups')
     title = _('Groups')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not security.has_perm(request.user, "portal.can_view_groups_list"):
+            raise PermissionDenied
+        return super(AllGroupsPageView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(AllGroupsPageView, self).get_context_data(**kwargs)
@@ -276,6 +296,11 @@ class PeoplePageView(PageView):
     page_title = _('People')
     title = _('People')
 
+    def dispatch(self, request, *args, **kwargs):
+        if not security.has_perm(request.user, "portal.can_view_user_list"):
+            raise PermissionDenied
+        return super(PeoplePageView, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(PeoplePageView, self).get_context_data(**kwargs)
 
@@ -293,6 +318,11 @@ class BooksPageView(PageView):
     template_name = "portal/books.html"
     page_title = _("Books")
     title = _("Books")
+
+    def dispatch(self, request, *args, **kwargs):
+        if not security.has_perm(request.user, "portal.can_view_books_list"):
+            raise PermissionDenied
+        return super(BooksPageView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(BooksPageView, self).get_context_data(**kwargs)

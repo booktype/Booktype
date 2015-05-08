@@ -17,6 +17,7 @@
 import os
 import logging
 
+from django.core.exceptions import PermissionDenied
 from django.views import static
 from django.http import Http404
 from django.conf import settings
@@ -100,6 +101,11 @@ class InfoPageView(BaseReaderView, BasePageView, DetailView):
     page_title = _("Book Details Page")
     title = _("Book Details")
 
+    def dispatch(self, request, *args, **kwargs):
+        if not security.has_perm(request.user, "reader.can_view_book_info"):
+            raise PermissionDenied
+        return super(InfoPageView, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         book = self.object
         book_version = book.get_version()
@@ -108,6 +114,9 @@ class InfoPageView(BaseReaderView, BasePageView, DetailView):
             version=book_version, kind=2).values_list('user', flat=True)
 
         context = super(InfoPageView, self).get_context_data(**kwargs)
+
+        context['is_admin'] = self.request.user.is_superuser
+
         context['book_admins'] = book.bookipermission_set.filter(permission=1)
         context['book_collaborators'] = User.objects.filter(
             id__in=book_collaborators_ids)
