@@ -31,6 +31,7 @@ from django.db import IntegrityError
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, View
 from django.template.loader import render_to_string
@@ -66,6 +67,11 @@ class DashboardPageView(BasePageView, DetailView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
     context_object_name = 'current_user'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not security.has_perm(request.user, "account.can_view_user_info"):
+            raise PermissionDenied
+        return super(DashboardPageView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(self.__class__, self).get_context_data(**kwargs)
@@ -265,6 +271,14 @@ class ForgotPasswordView(PageView):
     page_title = _('Forgot your password')
     title = _('Forgot your password')
 
+    def get_context_data(self, **kwargs):
+        context = super(self.__class__, self).get_context_data(**kwargs)
+        # get all user permissions
+        role_key = security.get_default_role_key(self.request.user)
+        default_role = security.get_default_role(role_key)
+        context['roles_permissions'] = [p.key_name for p in default_role.permissions.all()]
+        return context
+
     def generate_secret_code(self):
         return ''.join([choice(string.letters + string.digits) for i in range(30)])
 
@@ -380,7 +394,10 @@ class SignInView(PageView):
             context['invite_email'] = self.request.session['invite_data']['email']
         except KeyError:
             pass
-
+        # get all user permissions
+        role_key = security.get_default_role_key(self.request.user)
+        default_role = security.get_default_role(role_key)
+        context['roles_permissions'] = [p.key_name for p in default_role.permissions.all()]
         return context
 
     def _check_if_empty(self, request, key):

@@ -17,6 +17,7 @@
 import os
 import logging
 
+from django.core.exceptions import PermissionDenied
 from django.views import static
 from django.http import Http404
 from django.conf import settings
@@ -99,6 +100,11 @@ class InfoPageView(BaseReaderView, BasePageView, DetailView):
     template_name = "reader/book_info_page.html"
     page_title = _("Book Details Page")
     title = _("Book Details")
+
+    def dispatch(self, request, *args, **kwargs):
+        if not security.has_perm(request.user, "reader.can_view_book_info"):
+            raise PermissionDenied
+        return super(InfoPageView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         book = self.object
