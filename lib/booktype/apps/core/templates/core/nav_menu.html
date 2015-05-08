@@ -15,21 +15,21 @@
           <a href="{{ dashboard_url }}">{% trans "My Dashboard" %}</a>
         {% endif %}
       </li>
-      {% if is_owner or is_admin or 'portal.can_view_books_list' in roles_permissions or roles_permissions == None %}
+      {% if is_admin or 'portal.can_view_books_list' in roles_permissions or roles_permissions == None %}
       {% url 'portal:list_books' as books_url %}
       <li {% if request.path == books_url %}class="active"{% endif %}>
           <a href="{{ books_url }}">{% trans "Books" %}</a>
       </li>
       {% endif %}
 
-      {% if is_owner or is_admin or 'portal.can_view_groups_list' in roles_permissions or roles_permissions == None %}
+      {% if is_admin or 'portal.can_view_groups_list' in roles_permissions or roles_permissions == None %}
       {% url 'portal:list_groups' as groups_url %}
       <li {% if request.path == groups_url %}class="active"{% endif %}>
           <a href="{{ groups_url }}">{% trans "Groups" %}</a>
       </li>
       {% endif %}
 
-      {% if is_owner or is_admin or 'portal.can_view_user_list' in roles_permissions or roles_permissions == None %}
+      {% if is_admin or 'portal.can_view_user_list' in roles_permissions or roles_permissions == None %}
       {% url 'portal:list_people' as people_url %}
       <li {% if request.path == people_url %}class="active"{% endif %}>
           <a href="{{ people_url }}">{% trans "People" %}</a>

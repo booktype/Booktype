@@ -54,10 +54,14 @@ class FrontPageView(PageView):
             context['anonymous_image'] = config.get_configuration('BOOKTYPE_FRONTPAGE_ANONYMOUS_IMAGE')
             return context
 
+        context['is_admin'] = self.request.user.is_superuser
         # get all user permissions
         role_key = security.get_default_role_key(self.request.user)
         default_role = security.get_default_role(role_key)
-        context['roles_permissions'] = [p.key_name for p in default_role.permissions.all()]
+        if default_role:
+            context['roles_permissions'] = [p.key_name for p in default_role.permissions.all()]
+        else:
+            context['roles_permissions'] = []
 
         context['books_list'] = Book.objects.filter(hidden=False).order_by('-created')[:4]
         context['user_list'] = User.objects.all().order_by('-date_joined')[:2]

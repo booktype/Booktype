@@ -114,6 +114,9 @@ class InfoPageView(BaseReaderView, BasePageView, DetailView):
             version=book_version, kind=2).values_list('user', flat=True)
 
         context = super(InfoPageView, self).get_context_data(**kwargs)
+
+        context['is_admin'] = self.request.user.is_superuser
+
         context['book_admins'] = book.bookipermission_set.filter(permission=1)
         context['book_collaborators'] = User.objects.filter(
             id__in=book_collaborators_ids)
