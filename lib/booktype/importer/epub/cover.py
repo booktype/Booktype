@@ -15,22 +15,27 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import logging
 
 import ebooklib
 import ebooklib.epub
 import ebooklib.utils
 
-
 __all__ = ("get_cover_image", )
 
+logger = logging.getLogger("booktype.importer.epub")
 
-################################################################################
+MIN_DPI = 300               # minimal DPI of the image (if specified)
+MIN_SIZE = 500               # minimal size on the shorter axis (pixels)
+MAX_SIZE = 2800              # maximal size on the longer axis (pixels)
+MAX_PIXELS = 3200000           # maximum number of pixels (width * height)
+MAX_CONTENT_SIZE = MAX_PIXELS * 4    # maximum size of image content
 
 
 def get_cover_image(book):
-    """ Returns the book's cover image item, or None if none can be found.
     """
-    cover_image = None
+    Returns the book's cover image item, or None if none can be found.
+    """
 
     cover_image_id = get_id_from_manifest(book) or get_id_from_metadata(book)
 
@@ -63,17 +68,25 @@ def get_id_from_metadata(book):
 
 
 def get_item_with_name(book, name):
-    """ Returns the item from the book that has the specified file name.
+    """
+    Returns the item from the book that has the specified file name.
     """
     return next((item for item in book.get_items() if item.file_name == name), None)
 
 
 def get_image_name_from_html(item):
-    """ Returns the name of the first image used inside the specified document item.
     """
-    tree = ebooklib.utils.parse_string(item.get_content())
-    tree_root = tree.getroot()
+    Returns the name of the first image used inside the specified document item.
+    """
+    try:
+        tree = ebooklib.utils.parse_string(item.get_content())
+    except Exception as e:
+        logger.error('epub:cover.py Error while trying to read item content')
+        logger.exception(e)
+        return None
 
+    # continue parsing if not fail
+    tree_root = tree.getroot()
     images = tree_root.xpath('//xhtml:img', namespaces={'xhtml': ebooklib.epub.NAMESPACES['XHTML']})
 
     if len(images) == 0:
@@ -90,35 +103,22 @@ def get_cover_html(book):
     """
 
     # item of type CoverHtml
-    #
     item = next((item.id for item in book.get_items() if type(item) == ebooklib.epub.EpubCoverHtml), None)
     if item:
         return item
 
     # item with type set to "cover" in OPF guide
-    #
     item_name = next((elem["href"] for elem in book.guide if elem["type"] == "cover"), None)
     if item_name:
         return get_item_with_name(book, item_name)
 
     # item with type set to "start" in OPF guide
-    #
     item_name = next((elem["href"] for elem in book.guide if elem["type"] == "start"), None)
     if item_name:
         return get_item_with_name(book, item_name)
 
     # last ditch
     return book.get_item_with_id("cover")
-
-
-################################################################################
-
-
-MIN_DPI           = 300               # minimal DPI of the image (if specified)
-MIN_SIZE          = 500               # minimal size on the shorter axis (pixels)
-MAX_SIZE          = 2800              # maximal size on the longer axis (pixels)
-MAX_PIXELS        = 3200000           # maximum number of pixels (width * height)
-MAX_CONTENT_SIZE  = MAX_PIXELS * 4    # maximum size of image content
 
 
 def is_valid_cover(item):
