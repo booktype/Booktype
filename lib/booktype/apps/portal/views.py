@@ -150,6 +150,11 @@ class AllGroupsPageView(GroupManipulation):
             raise PermissionDenied
         return super(AllGroupsPageView, self).dispatch(request, *args, **kwargs)
 
+    def dispatch(self, request, *args, **kwargs):
+        if not security.has_perm(request.user, "portal.can_view_groups_list"):
+            raise PermissionDenied
+        return super(AllGroupsPageView, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(AllGroupsPageView, self).get_context_data(**kwargs)
 
