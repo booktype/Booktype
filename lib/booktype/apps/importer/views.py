@@ -90,7 +90,7 @@ class ImporterView(JSONResponseMixin, FormView):
         temp_file.close()
         temp_file = temp_file.name
 
-        default_book_title = self.get_default_title(temp_file, ext)        
+        default_book_title = self.get_default_title(temp_file, ext)
         book_title = form.cleaned_data.get('book_title', default_book_title)
         logger.debug('ImporterView::book_title="{}"" default_book_title="{}".'.format(book_title.encode('utf8'), default_book_title.encode('utf8')))
 
