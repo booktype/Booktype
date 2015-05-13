@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 10:37+0100\n"
-"PO-Revision-Date: 2015-05-06 14:02+0000\n"
-"Last-Translator: Katerina Michailidi <katerina.michailidi@sourcefabric.org>\n"
+"POT-Creation-Date: 2015-04-30 15:19+0100\n"
+"PO-Revision-Date: 2015-05-13 08:47+0000\n"
+"Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/booktype/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -313,8 +313,8 @@ msgid "There is no activity yet"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:192
-#: apps/core/templates/core/nav_menu.html:24
-#: apps/portal/templates/portal/frontpage.html:80
+#: apps/core/templates/core/nav_menu.html:24 apps/portal/views.py:123
+#: apps/portal/views.py:124 apps/portal/templates/portal/frontpage.html:80
 msgid "Groups"
 msgstr ""
 
@@ -353,13 +353,13 @@ msgid "Edit"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:42
-#: apps/edit/templates/edit/panel_toc.html:273
+#: apps/edit/templates/edit/panel_toc.html:300
 msgid "Rename"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:45
 #: apps/edit/templates/edit/panel_aloha.html:263
-#: apps/edit/templates/edit/panel_toc.html:279
+#: apps/edit/templates/edit/panel_toc.html:306
 msgid "Delete"
 msgstr ""
 
@@ -844,11 +844,11 @@ msgid ""
 "href=\"http://booktype.pro/\">http://booktype.pro/</a>."
 msgstr ""
 
-#: apps/core/templates/core/footer.html:26
+#: apps/core/templates/core/footer.html:27
 msgid "Need Help?"
 msgstr ""
 
-#: apps/core/templates/core/footer.html:29
+#: apps/core/templates/core/footer.html:30
 msgid ""
 "With social tools, easy workflows and freedom to choose your own licences, "
 "Booktype Pro is perfect for internal, or public-facing, use. Publishers, "
@@ -857,7 +857,7 @@ msgid ""
 "hosting, upgrades, and security. "
 msgstr ""
 
-#: apps/core/templates/core/footer.html:40
+#: apps/core/templates/core/footer.html:41
 msgid ""
 "Powered by Booktype, the open content management system for professional  "
 "writers."
@@ -1730,8 +1730,8 @@ msgid "Set status."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:20
-#: apps/edit/templates/edit/panel_toc.html:151
-#: apps/edit/templates/edit/panel_toc.html:168
+#: apps/edit/templates/edit/panel_toc.html:157
+#: apps/edit/templates/edit/panel_toc.html:181
 msgid "Unhold"
 msgstr ""
 
@@ -1837,7 +1837,19 @@ msgid "You have no permission to delete this book"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:46
-msgid "You invitation has been sent"
+#: apps/edit/templates/edit/panel_toc.html:150
+#: apps/edit/templates/edit/panel_toc.html:176
+#: apps/edit/templates/edit/panel_toc.html:250
+#: apps/edit/templates/edit/panel_toc.html:260
+msgid "Terminate editing"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:47
+msgid "Editing was terminated by book administrator."
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:48
+msgid "Your invitation has been sent"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:17
@@ -2330,74 +2342,75 @@ msgid ""
 "as you like."
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:147
-#: apps/edit/templates/edit/panel_toc.html:238
+#: apps/edit/templates/edit/panel_toc.html:152
+#: apps/edit/templates/edit/panel_toc.html:247
+#: apps/edit/templates/edit/panel_toc.html:262
 msgid "Locked"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:162
-#: apps/edit/templates/edit/panel_toc.html:179
+#: apps/edit/templates/edit/panel_toc.html:168
+#: apps/edit/templates/edit/panel_toc.html:192
 #: apps/reader/templates/reader/book_draft_page.html:52
 #: apps/reader/templates/reader/book_full_view.html:52
 msgid "EDIT"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:186
+#: apps/edit/templates/edit/panel_toc.html:200
 #: apps/reader/templates/reader/book_draft_page.html:15
 #: apps/reader/templates/reader/book_full_view.html:19
 msgid "Table of Contents"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:189
+#: apps/edit/templates/edit/panel_toc.html:203
 msgid "Detail View"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:192
+#: apps/edit/templates/edit/panel_toc.html:206
 msgid "Expand All"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:193
+#: apps/edit/templates/edit/panel_toc.html:207
 msgid "Collapse All"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:198
+#: apps/edit/templates/edit/panel_toc.html:212
 msgid "New Chapter"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:204
+#: apps/edit/templates/edit/panel_toc.html:218
 msgid "New Section"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:245
+#: apps/edit/templates/edit/panel_toc.html:271
 msgid "STATUS"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:257
-#: apps/edit/templates/edit/panel_toc.html:259
+#: apps/edit/templates/edit/panel_toc.html:284
+#: apps/edit/templates/edit/panel_toc.html:286
 msgid "EDIT CHAPTER"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:261
+#: apps/edit/templates/edit/panel_toc.html:288
 msgid "UNLOCK"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:276
+#: apps/edit/templates/edit/panel_toc.html:303
 msgid "Hold"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:282
+#: apps/edit/templates/edit/panel_toc.html:309
 msgid "Unlock"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:283
+#: apps/edit/templates/edit/panel_toc.html:310
 msgid "Lock simple"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:284
+#: apps/edit/templates/edit/panel_toc.html:311
 msgid "Lock for everyone"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:301
+#: apps/edit/templates/edit/panel_toc.html:328
 msgid "RENAME"
 msgstr ""
 
@@ -2442,11 +2455,6 @@ msgstr ""
 msgid "Group used"
 msgstr ""
 
-#: apps/portal/views.py:123 apps/portal/views.py:124
-#: apps/portal/templates/portal/all_groups.html:15
-msgid "All groups"
-msgstr ""
-
 #: apps/portal/views.py:165 apps/portal/templates/portal/frontpage.html:99
 #: apps/portal/templates/portal/group_create.html:9
 msgid "Create new group"
@@ -2463,6 +2471,10 @@ msgstr ""
 
 #: apps/portal/views.py:260
 msgid "Group successfully deleted."
+msgstr ""
+
+#: apps/portal/templates/portal/all_groups.html:15
+msgid "All groups"
 msgstr ""
 
 #: apps/portal/templates/portal/all_groups.html:25
@@ -2499,17 +2511,19 @@ msgid "Active groups"
 msgstr ""
 
 #: apps/portal/templates/portal/all_groups.html:72
-#: apps/portal/templates/portal/all_groups.html:96
-msgid "There are not groups yet"
+msgid "There are no active groups at the moment"
 msgstr ""
 
 #: apps/portal/templates/portal/all_groups.html:78
 msgid "New groups"
 msgstr ""
 
+#: apps/portal/templates/portal/all_groups.html:96
+msgid "There are no new groups at the moment"
+msgstr ""
+
 #: apps/portal/templates/portal/books.html:35
 #: apps/portal/templates/portal/books.html:79
-#: apps/portal/templates/portal/books.html:99
 #: apps/portal/templates/portal/frontpage.html:36
 msgid "There are no books yet"
 msgstr ""
@@ -2520,6 +2534,10 @@ msgstr ""
 
 #: apps/portal/templates/portal/books.html:83
 msgid "Published Books"
+msgstr ""
+
+#: apps/portal/templates/portal/books.html:99
+msgid "There are no published books at the moment"
 msgstr ""
 
 #: apps/portal/templates/portal/frontpage.html:43
@@ -2631,8 +2649,6 @@ msgid "All people"
 msgstr ""
 
 #: apps/portal/templates/portal/people.html:29
-#: apps/portal/templates/portal/people.html:66
-#: apps/portal/templates/portal/people.html:83
 msgid "There are no people yet"
 msgstr ""
 
@@ -2640,8 +2656,16 @@ msgstr ""
 msgid "Active people"
 msgstr ""
 
+#: apps/portal/templates/portal/people.html:66
+msgid "There are no active people at the moment"
+msgstr ""
+
 #: apps/portal/templates/portal/people.html:72
 msgid "New people"
+msgstr ""
+
+#: apps/portal/templates/portal/people.html:83
+msgid "There are no new people at the moment"
 msgstr ""
 
 #: apps/portal/templates/portal/portal_add_book_modal.html:10
