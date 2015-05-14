@@ -161,8 +161,8 @@ class Security(object):
         """
         return self.is_superuser()
 
-    def has_perm(perm):
-        return False
+    def has_perm(self, perm):
+        raise NotImplementedError
 
 
 class BookSecurity(Security):
@@ -279,9 +279,6 @@ class GroupSecurity(Security):
         :Returns:
          - True if user is group owner.
         """
-        print '========='
-        print self.group.owner
-        print self.user
         return self.group.owner == self.user
 
 
