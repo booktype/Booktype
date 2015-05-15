@@ -1264,7 +1264,7 @@ def remote_get_chapter(request, message, bookid, version):
         chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
     except (models.Chapter.DoesNotExist, PermissionDenied):
         # book_security.can_edit() is not implemented yet
-        res["reason"] = unicode(ugettext_lazy("You have no permissions for editing this chapter"))
+        res["reason"] = unicode(ugettext_lazy("You have no permissions for editing this chapter."))
         return res
 
     # TODO clarify about read only mode
@@ -1272,16 +1272,16 @@ def remote_get_chapter(request, message, bookid, version):
     if message.get("edit_lock", False):
         editor_username = chapter.get_current_editor_username()
         if editor_username and editor_username != request.user.username:
-            res["reason"] = unicode(ugettext_lazy("Chapter currently being edited"))
+            res["reason"] = unicode(ugettext_lazy("Chapter currently being edited."))
             return res
 
         if chapter.is_locked():
             if not book_security.has_perm('edit.edit_locked_chapter'):
-                res["reason"] = unicode(ugettext_lazy("You have no permissions for editing chapters under lock"))
+                res["reason"] = unicode(ugettext_lazy("You have no permissions for editing chapters under lock."))
                 return res
             elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                    and chapter.lock.user != request.user):
-                res["reason"] = unicode(ugettext_lazy("Chapter currently is locked from everyone"))
+                res["reason"] = unicode(ugettext_lazy("Chapter currently is locked from everyone."))
                 return res
 
     res["access"] = True
