@@ -14,6 +14,8 @@
  * http://docs.jquery.com/UI/Dialog#theming
  */
 
+.aloha-ui { direction: ltr; }
+
 .aloha.ui-dialog { position: absolute; padding: .2em; width: 300px; overflow: hidden; }
 .aloha.ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
 .aloha.ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; } 
@@ -317,6 +319,9 @@
 .aloha .aloha-ui-menubutton-container .ui-buttonset {
 	margin: 0px;
 }
+.ui-buttonset > button {
+	float: left;
+}
 .aloha .aloha-ui-menubutton-container .ui-button {
 	height: 24px;
 	background: transparent;
@@ -422,6 +427,7 @@
 .aloha .ui-state-default .aloha-icon-columnheader   { background-position: -368px 0; }
 .aloha .ui-state-default .aloha-icon-mergecells     { background-position: -384px 0; }
 .aloha .ui-state-default .aloha-icon-splitcells     { background-position: -400px 0; }
+.aloha .ui-state-default .aloha-icon-deletetable    { background-position: -448px 0; }
 .aloha .ui-state-default .aloha-icon-orderedlist    { background-position: -272px 0; }
 .aloha .ui-state-default .aloha-icon-unorderedlist  { background-position: -256px 0; }
 .aloha .ui-state-default .aloha-icon-link           { background-position: -288px 0; }
@@ -429,6 +435,7 @@
 .aloha .ui-state-default .aloha-icon-abbr           { background-position: -336px 0; }
 .aloha .ui-state-default .aloha-icon-emphasis       { background-image: url(../img/em.png); }
 .aloha .ui-state-default .aloha-icon-strong         { background-image: url(../img/strong.png); }
+.aloha .ui-state-default .aloha-icon-code           { background-image: url(../img/code.png); }
 
 .aloha .ui-state-default .aloha-icon-indent {
 	background: url(../../../../img/text_indent.png) no-repeat center center;
