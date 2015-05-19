@@ -288,4 +288,6 @@ def has_perm(user, to_do, book):
     depending on the security check
     """
 
-    return security.has_perm(user, to_do, book)
+    if book:
+        return security.get_security_for_book(user, book).has_perm(to_do)
+    return security.get_security(user).has_perm(to_do)

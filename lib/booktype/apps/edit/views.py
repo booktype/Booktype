@@ -60,8 +60,7 @@ def upload_attachment(request, bookid, version=None):
         return views.ErrorPage(
             request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    can_upload_attachment = security.has_perm(
-        request.user, 'edit.upload_attachment', book)
+    can_upload_attachment = security.get_security_for_book(request.user, book).has_perm('edit.upload_attachment')
 
     if (not request.user.is_superuser
             and not can_upload_attachment
@@ -131,8 +130,7 @@ def upload_cover(request, bookid, version=None):
         return views.ErrorPage(request, "errors/book_does_not_exist.html",
                                {"book_name": bookid})
 
-    can_upload_cover = security.has_perm(
-        request.user, 'edit.upload_cover', book)
+    can_upload_cover = security.get_security_for_book(request.user, book).has_perm('edit.upload_cover')
 
     if (not request.user.is_superuser
             and not can_upload_cover

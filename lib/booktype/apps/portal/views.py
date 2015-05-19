@@ -86,7 +86,7 @@ class GroupPageView(GroupManipulation):
     title = _('Group used')
 
     def dispatch(self, request, *args, **kwargs):
-        if not security.has_perm(request.user, "portal.can_view_group_info"):
+        if not security.get_security(request.user).has_perm("portal.can_view_group_info"):
             raise PermissionDenied
         return super(GroupPageView, self).dispatch(request, *args, **kwargs)
 
@@ -146,7 +146,7 @@ class AllGroupsPageView(GroupManipulation):
     title = _('Groups')
 
     def dispatch(self, request, *args, **kwargs):
-        if not security.has_perm(request.user, "portal.can_view_groups_list"):
+        if not security.get_security(request.user).has_perm("portal.can_view_groups_list"):
             raise PermissionDenied
         return super(AllGroupsPageView, self).dispatch(request, *args, **kwargs)
 
@@ -297,7 +297,7 @@ class PeoplePageView(PageView):
     title = _('People')
 
     def dispatch(self, request, *args, **kwargs):
-        if not security.has_perm(request.user, "portal.can_view_user_list"):
+        if not security.get_security(request.user).has_perm("portal.can_view_user_list"):
             raise PermissionDenied
         return super(PeoplePageView, self).dispatch(request, *args, **kwargs)
 
@@ -320,7 +320,7 @@ class BooksPageView(PageView):
     title = _("Books")
 
     def dispatch(self, request, *args, **kwargs):
-        if not security.has_perm(request.user, "portal.can_view_books_list"):
+        if not security.get_security(request.user).has_perm("portal.can_view_books_list"):
             raise PermissionDenied
         return super(BooksPageView, self).dispatch(request, *args, **kwargs)
 

@@ -70,7 +70,7 @@ class DashboardPageView(BasePageView, DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         is_current_user_dashboard = kwargs.get(self.slug_url_kwarg, None) == self.request.user.username
-        if not security.has_perm(request.user, "account.can_view_user_info") and not is_current_user_dashboard:
+        if not security.get_security(request.user).has_perm("account.can_view_user_info") and not is_current_user_dashboard:
             raise PermissionDenied
         return super(DashboardPageView, self).dispatch(request, *args, **kwargs)
 
@@ -120,9 +120,7 @@ class DashboardPageView(BasePageView, DetailView):
             context['page_title'] = _('User profile')
 
         context['upload_uuid'] = uuid.uuid4()
-        context['can_upload_book'] = security.has_perm(
-            self.request.user, 'account.can_upload_book') or \
-            self.request.user.is_superuser
+        context['can_upload_book'] = security.get_security(self.request.user).has_perm('account.can_upload_book')
 
         return context
 
