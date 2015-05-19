@@ -102,7 +102,7 @@ class InfoPageView(BaseReaderView, BasePageView, DetailView):
     title = _("Book Details")
 
     def dispatch(self, request, *args, **kwargs):
-        if not security.has_perm(request.user, "reader.can_view_book_info"):
+        if not security.get_security(request.user).has_perm("reader.can_view_book_info"):
             raise PermissionDenied
         return super(InfoPageView, self).dispatch(request, *args, **kwargs)
 
@@ -294,11 +294,9 @@ class FullView(BaseReaderView, BasePageView, DetailView):
         book = self.object
         context = super(FullView, self).get_context_data(**kwargs)
 
-        has_permission = security.has_perm(
-            self.request.user,
-            'reader.can_view_full_page',
-            book
-        )
+        has_permission = security.get_security_for_book(self.request.user, book).has_perm(
+            'reader.can_view_full_page')
+
         if not has_permission:
             context['has_permission'] = has_permission
             return context

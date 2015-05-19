@@ -44,11 +44,11 @@ def has_perm(user, to_do, book=None):
             permissions += [p for p in default_role.permissions.all()]
 
         if user.is_authenticated():
-            bookroles = user.roles.all()
             if book:
-                bookroles = bookroles.filter(book=book)
-            for bookrole in bookroles:
-                permissions += [p for p in bookrole.role.permissions.all()]
+                bookroles = user.roles.filter(book=book)
+                for bookrole in bookroles:
+                    permissions += [p for p in bookrole.role.permissions.all()]
+
         return (permission in permissions)
 
     return False
@@ -136,12 +136,13 @@ class Security(object):
          - user (:class:`django.contrib.auth.models.User`) - User object
         """
         self.user = user
+        self.permissions = []
 
     def is_superuser(self):
         """Checks if user is Django superuser or not.
 
         :Returns:
-         - Returns True is user is superuser.
+         - Returns True if user is superuser.
         """
         return self.user.is_superuser
 
@@ -157,12 +158,83 @@ class Security(object):
         """Checks is user is any kind of admin.
 
         :Returns:
-         - Returns True is user is superuser.
+         - Returns True if user is superuser.
         """
         return self.is_superuser()
 
+    @staticmethod
+    def get_permission_from_string(permission_string):
+        """Retrieving permission instance based on permission string
+
+        :Args:
+          - permission_string (:class:`str`): Concatenated string of app name and permission codename
+                                              e.g. "editor.create_chapter"
+
+        :Returns:
+          Returns (:class:`booktype.apps.core.models.Permission`) instance or None
+
+        :Raises:
+          Exception: If wrong permission string was provided
+        """
+        try:
+            app_name, codename = permission_string.split('.')
+            return Permission.objects.get(app_name=app_name, name=codename)
+        except ValueError:
+            raise Exception("to_do parameter should be 'app_name.permission' way")
+        except Permission.DoesNotExist:
+            return False
+
+    def _get_permissions(self, book=None):
+        """Retrieving permissions set
+
+        :Args:
+          - book (:class:`booki.editor.models.Book`): Book instance. Optional.
+
+        :Returns:
+          Returns (:class:`set`) Set of permissions
+        """
+        permissions = set()
+        # get default role key for extra permissions
+        role_key = get_default_role_key(self.user)
+        default_role = get_default_role(role_key)
+
+        # append permissions from default role, no matter if book or not
+        if default_role:
+            permissions.update([p for p in default_role.permissions.all()])
+
+        if self.user.is_authenticated():
+            if book:
+                bookroles = self.user.roles.filter(book=book)
+                for bookrole in bookroles:
+                    permissions.update([p for p in bookrole.role.permissions.all()])
+        return permissions
+
     def has_perm(self, perm):
-        raise NotImplementedError
+        """
+        Checks if a given user has rights to execute an specific
+        task or action.
+
+        Args:
+            perm: Concatenated string of app name and permission codename
+                e.g. "editor.create_chapter"
+
+        Returns:
+            Boolean
+        """
+
+        if self.is_admin():
+            return True
+
+        # convert concatenated app name and permission codename string to permission instance
+        permission = self.get_permission_from_string(perm)
+        if not permission:
+            return False
+
+        # query permissions only once
+        if not self.permissions:
+            self.permissions = self._get_permissions()
+
+        return permission in self.permissions
 
 
 class BookSecurity(Security):
@@ -223,9 +295,20 @@ class BookSecurity(Security):
         :Returns:
          Returns True or False.
         """
+
         if self.is_admin():
             return True
-        return has_perm(self.user, perm, self.book)
+
+        # convert concatenated app name and permission codename string to permission instance
+        permission = self.get_permission_from_string(perm)
+        if not permission:
+            return False
+
+        # query permissions only once
+        if not self.permissions:
+            self.permissions = self._get_permissions(book=self.book)
+
+        return permission in self.permissions
 
     def can_edit(self):
         # This always returns True
@@ -282,12 +365,23 @@ class GroupSecurity(Security):
         return self.group.owner == self.user
 
 
-def get_security_for_book(user, book):
-    """Returns Book security object for specified user.
+def get_security(user):
+    """Returns base security object for specified user.
 
     :Args:
      - user (:class:`django.contrib.auth.models.User`): User object
-     - book (:class:`booki.editor.models.Book`): Book object object
+
+    :Returns:
+     Returns Base security object (:class:`Security`).
+    """
+    return Security(user)
+
+def get_security_for_book(user, book):
+    """Returns book security object for specified user and book.
+
+    :Args:
+     - user (:class:`django.contrib.auth.models.User`): User object
+     - book (:class:`booki.editor.models.Book`): Book object
 
     :Returns:
      Returns Book security object (:class:`BookSecurity`).
@@ -296,11 +390,11 @@ def get_security_for_book(user, book):
 
 
 def get_security_for_group(user, group):
-    """Returns Book security object for specified user.
+    """Returns group security object for specified user and group.
 
     :Args:
      - user (:class:`django.contrib.auth.models.User`): User object
-     - group (:class:`booki.editor.models.BookiGroup`): Group object object
+     - group (:class:`booki.editor.models.BookiGroup`): Group object
 
     :Returns:
      Returns Group security object (:class:`GroupSecurity`).
