@@ -31,7 +31,8 @@ PLAIN_USER_PASSWORD = 'top_secret'
 
 
 class UserFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = User
+    class Meta:
+        model = User
 
     username = factory.Sequence(lambda n: 'user%d' % n)
     email = factory.LazyAttribute(lambda obj: '%s@test.sourcefabric.org'
@@ -40,14 +41,16 @@ class UserFactory(factory.DjangoModelFactory):
 
 
 class UserProfileFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = UserProfile
+    class Meta:
+        model = UserProfile
 
     description = 'description'
     user = factory.SubFactory(UserFactory, profile=None)
 
 
 class BookGroupFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = BookiGroup
+    class Meta:
+        model = BookiGroup
 
     name = factory.Sequence(lambda n: 'group name %d' % n)
     url_name = factory.Sequence(lambda n: 'url-group-name-%d' % n)
@@ -65,7 +68,8 @@ class BookGroupFactory(factory.DjangoModelFactory):
 
 
 class BookFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Book
+    class Meta:
+        model = Book
 
     url_title = factory.Sequence(lambda n: 'first-book-test-bla-foo-%d' % n)
     title = factory.Sequence(lambda n: 'First Book Test Bla Foo %d' % n)
@@ -74,7 +78,8 @@ class BookFactory(factory.DjangoModelFactory):
 
 
 class BookStatusFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = BookStatus
+    class Meta:
+        model = BookStatus
 
     book = factory.SubFactory(BookFactory)
     name = factory.Sequence(lambda n: 'name %d' % n)
@@ -82,7 +87,8 @@ class BookStatusFactory(factory.DjangoModelFactory):
 
 
 class BookVersionFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = BookVersion
+    class Meta:
+        model = BookVersion
 
     book = factory.SubFactory(BookFactory)
     major = 1
@@ -90,7 +96,8 @@ class BookVersionFactory(factory.DjangoModelFactory):
 
 
 class ChapterFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Chapter
+    class Meta:
+        model = Chapter
 
     version = factory.SubFactory(BookVersionFactory)
     book = factory.SubFactory(BookFactory)
@@ -102,7 +109,8 @@ class ChapterFactory(factory.DjangoModelFactory):
 
 
 class BookTocFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = BookToc
+    class Meta:
+        model = BookToc
 
     @classmethod
     def create_toc(cls, book, book_version, chapter):
@@ -129,26 +137,30 @@ class BookTocFactory(factory.DjangoModelFactory):
 
 
 class BookHistoryFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = BookHistory
+    class Meta:
+        model = BookHistory
 
     book = factory.SubFactory(BookFactory)
     user = factory.SubFactory(UserFactory)
 
 
 class PermissionFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Permission
+    class Meta:
+        model = Permission
 
     description = factory.Sequence(lambda n: 'Permission %d' % n)
 
 
 class RoleFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Role
+    class Meta:
+        model = Role
 
     name = factory.Sequence(lambda n: 'Role %d' % n)
 
 
 class BookRoleFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = BookRole
+    class Meta:
+        model = BookRole
 
     book = factory.SubFactory(BookFactory)
     role = factory.SubFactory(RoleFactory)

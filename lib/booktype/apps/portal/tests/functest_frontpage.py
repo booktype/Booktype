@@ -54,13 +54,15 @@ class FrontpageTest(TestCase):
 
 
 class UserFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = User
+    class Meta:
+        model = User
 
     username = factory.Sequence(lambda n: "user_%d" % n)
 
 
 class UserProfileFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = UserProfile
+    class Meta:
+        model = UserProfile
 
     description = 'description'
 
@@ -68,7 +70,8 @@ class UserProfileFactory(factory.django.DjangoModelFactory):
 
 
 class BookiGroupFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = BookiGroup
+    class Meta:
+        model = BookiGroup
 
     name = 'group name'
     url_name = 'url_group_name'
@@ -86,7 +89,8 @@ class BookiGroupFactory(factory.django.DjangoModelFactory):
 
 
 class BookFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = Book
+    class Meta:
+        model = Book
 
     owner = factory.SubFactory(UserFactory)
     url_title = factory.Sequence(lambda n: 'title_{}'.format(n))
@@ -98,7 +102,9 @@ class BookFactory(factory.django.DjangoModelFactory):
 
 
 class BookStatusFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = BookStatus
+    class Meta:
+        model = BookStatus
+        
     book = factory.SubFactory(BookFactory)
     name = 'status name'
     weight = 0
