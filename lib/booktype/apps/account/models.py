@@ -21,6 +21,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.conf import settings
 
+
 class UserProfile(models.Model):
     """
     Booki user profile. Has additional information about user.
@@ -31,10 +32,9 @@ class UserProfile(models.Model):
     @ivar user: Reference to C{User}.
     """
 
-#    image = models.ImageField(upload_to=settings.PROFILE_IMAGE_UPLOAD_DIR, null=True, storage=fs)
     mood = models.CharField(_('mood'), max_length=1000, blank=True, null=False, default='')
-    image = models.ImageField(_('image'), upload_to=settings.PROFILE_IMAGE_UPLOAD_DIR, null=True)
-    description = models.CharField(_('description'), max_length=2500, blank=False,null=False,default='')
+    image = models.ImageField(_('image'), upload_to=settings.PROFILE_IMAGE_UPLOAD_DIR, null=True, blank=True)
+    description = models.CharField(_('description'), max_length=2500, blank=False, null=False, default='')
     user = models.ForeignKey(User, unique=True, verbose_name=_("user"))
 
     def remove_image(self):
@@ -46,6 +46,7 @@ class UserProfile(models.Model):
             os.remove('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, self.user.username))
         except Exception as err:
             print err
+
 
 class UserPassword(models.Model):
     """
@@ -73,14 +74,13 @@ class UserPassword(models.Model):
 
 
 # post user save hook
-
-def add_user_profile ( sender, instance, created, **kwargs ):
+def add_user_profile(sender, instance, created, **kwargs):
     """
     Django signal that fires when User model is being saved.
     """
 
     if created:
-        user_profile = UserProfile(user = instance)
+        user_profile = UserProfile(user=instance)
         user_profile.save()
 
-models.signals.post_save.connect (add_user_profile, sender = User)
+models.signals.post_save.connect(add_user_profile, sender=User)

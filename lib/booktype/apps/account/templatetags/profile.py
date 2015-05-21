@@ -14,15 +14,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import urllib
-import hashlib
 
-from django.db.models import get_model
 from django.template import Library, Node, TemplateSyntaxError, resolve_variable
-from django.conf import settings
-
-from booktype.apps.account.models import UserProfile
+from django.utils.safestring import mark_safe
+from booktype.apps.account import utils
 
 register = Library()
 
@@ -33,21 +28,8 @@ class ProfileImageNode(Node):
 
     def render(self, context):
         user = resolve_variable(self.user, context)
-        # should check if it exists and etc
-
-        profile = UserProfile.objects.get(user=user)
-
-        if not profile.image:
-            try:
-                name = '%saccount/images/%s' % (settings.STATIC_URL, settings.DEFAULT_PROFILE_IMAGE)
-            except AttributeError:
-                name = '%s%s' % (settings.STATIC_URL, 'account/images/anonymous.png')
-
-            return '<img src="http://www.gravatar.com/avatar/' + hashlib.md5(profile.user.email.lower()).hexdigest() + "?" + urllib.urlencode({"d": name, "s": str(100)}) + '">'
-
-        filename = profile.image.name
-
-        return """<img src="%sprofile_images/%s"/>""" % (settings.DATA_URL, filename.split('/')[-1])
+        image_url = utils.get_profile_image(user)
+        return mark_safe('<img src="%s"/>' % image_url)
 
 
 @register.tag
