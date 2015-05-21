@@ -5,13 +5,27 @@
       <div class="btn-group">
         {% include "edit/toolbar_user.html" %}
       </div>
-    <!-- TODO: Translate languages and manage list of available languages -->
+      <!-- TODO: Translate languages and manage list of available languages -->
       <div class="btn-group">
-        <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">en<span class="caret"></span></button>
-        <ul class="dropdown-menu pull-right">
-          <li><a href="#" target="_blank"><i class="icon-flag"></i>en</a></li>
-          <li><a href="#" target="_blank"><i class="icon-flag"></i>de</a></li>
-        </ul>
+          <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
+            {% get_language_info for LANGUAGE_CODE as lang %}
+            {% trans lang.name %}
+            <span class="caret"></span>
+        </button>
+          <ul class="dropdown-menu pull-right">
+          {% for code, lang in LANGUAGES %}
+          <li>
+          <form class='hidden' name="setLang{{ code }}" action="{% url "set_language" %}" method="POST">{% csrf_token %}
+            <input name="next" type="hidden" value="{{ request.path }}" />
+            <input type="hidden" name="language" value="{{ code }}" />
+          </form>
+          <a href="#" target="_blank" onclick="document.forms['setLang{{ code }}'].submit();return false;">
+              {{ lang }}
+              </a>
+
+          </li>
+          {% endfor %}
+          </ul>
       </div>
     </div>
 

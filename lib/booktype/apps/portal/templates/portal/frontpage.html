@@ -14,11 +14,12 @@
     <div class="container front-page">
         <div class="row three-col">
             <div class="books-widget col-xs-4">
+            {% if is_admin or 'portal.can_view_books_list' in roles_permissions %}
                 <div class="box white">
                     <h2 class="box-title">
                         {% trans "Books" %}
                         <div class="btn-toolbar float-right">
-                            
+
                             <div class="btn-group float-right">
                                 <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show grid" %}"><i class="icon-th"></i></button>
                                 <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show List" %}"><i class="icon-list-ul"></i></button>
@@ -28,26 +29,27 @@
                         <a class="view_all" href="{% url "portal:list_books" %}">{% trans "view all" %}</a>
                     </h2>
 
-                        <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
-                            {% for book in books_list %}
-                                {% include "account/dashboard_book_template.html" with size=2 %}
-                            {% empty %}
-                            <div class="grid-2">
-                                {% trans "There are no books yet" %}.
-                            </div>
-                            {% endfor %}
-                        </div> <!-- End of book list (book-thumb or book-list) -->
+                    <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
+                        {% for book in books_list %}
+                            {% include "account/dashboard_book_template.html" with size=2 %}
+                        {% empty %}
+                        <div class="grid-2">
+                            {% trans "There are no books yet" %}.
+                        </div>
+                        {% endfor %}
+                    </div> <!-- End of book list (book-thumb or book-list) -->
 
                     {% if request.user.is_authenticated %}
                         <div class="box-bottom-gray">
                             <button data-href="{% url "accounts:view_profile" request.user.username %}#create-book" role="button" class="btn btn-default float-left create-book" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create book" %}">{% trans "CREATE BOOK" %}</button>
                         </div>
                     {% endif %}
-
                 </div>
+            {% endif %}
             </div> <!-- End of col-xs-4 -->
 
             <div class="col-xs-4">
+            {% if is_admin or 'portal.can_view_user_list' in roles_permissions %}
                 <div class="people-widget box white">
                     <h2 class="box-title">
                         {% trans "People" %}
@@ -62,19 +64,20 @@
                                     <a href="{% url "accounts:view_profile" user.username %}">{{ user.username }}</a>
                                 </h4>
                                 <span>{{ user.first_name }}</span>
-                            </div> 
+                            </div>
                         </li>
                         {% empty %}
                         <li>{% trans "There are no users yet" %}.</li>
                         {% endfor %}
-                    </ul>  
+                    </ul>
                     {% if request.user.is_authenticated %}
                         <div class="box-bottom-gray">
                             <button href="#inviteWizard" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Invite people" %}" data-toggle='modal'>{% trans "INVITE PEOPLE" %}</button>
                         </div>
                     {% endif %}
                 </div>
-
+            {% endif %}
+            {% if is_admin or 'portal.can_view_groups_list' in roles_permissions %}
                 <div class="groups-widget box white">
                     <h2 class="box-title">
                         {% trans "Groups" %}
@@ -87,12 +90,12 @@
                             <figure><img src="{{ group.small_group_image }}" /></figure>
                             <div class="list-info">
                             <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
-                                <span>{% trans "Members:" %} {{ group.num_members }}  {% trans "Books:" %} {{ group.num_books }}</span> 
+                                <span>{% trans "Members:" %} {{ group.num_members }}  {% trans "Books:" %} {{ group.num_books }}</span>
                             </div>
                         </li>
                         {% empty %}
                         <li>{% trans "There are no groups yet" %}.</li>
-                        {% endfor %}                            
+                        {% endfor %}
                     </ul>
                     {% if request.user.is_authenticated %}
                         <div class="box-bottom-gray">
@@ -101,6 +104,7 @@
                     {% endif %}
 
                 </div>
+            {% endif %}
             </div> <!-- End of col-xs-4 -->
 
             <div class="col-xs-4">
@@ -127,7 +131,7 @@
                         {% endif %}
                     {% endif %}
                 </div>
-
+            {% if is_admin or 'portal.can_view_recent_activity' in roles_permissions %}
                 <div class="activities-widget box white">
                     <h2 class="box-title">{% trans "Recent Activity" %}</h2>
                     <ul class="list border-top user-avatar circle">
@@ -153,6 +157,7 @@
                         {% endfor %}
                     </ul>
                 </div>
+            {% endif %}
             </div> <!-- End of col-xs-4 -->
         </div>
     </div> <!-- End of container -->

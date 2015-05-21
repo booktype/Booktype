@@ -2,7 +2,7 @@
 from django import forms
 from django.db.models import Count
 from django.contrib.auth.models import User
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from booktypecontrol.forms import DefaultRolesForm
 from booktype.apps.portal.forms import SpanErrorList

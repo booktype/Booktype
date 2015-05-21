@@ -1,0 +1,64 @@
+{% extends "core/base.html" %}
+
+{% load i18n staticfiles booktype_tags profile messaging_tags reader_tags %}
+{% block extra_header %}
+    <script type="text/javascript" src="{% static 'core/js/jquery.steps.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'edit/js/booktype/utils.js' %}"></script>
+    <script type="text/javascript" src="{% static 'portal/js/frontpage.js' %}"></script>
+    <script type="text/javascript" src="{% static 'reader/js/infopage.js' %}"></script>
+    <script type="text/javascript" src="{% static 'account/js/register.js' %}"></script>
+    <!-- TODO remove this hardcoded style -->
+    <style type="text/css">
+        .collapse-navigation {display: none;}
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container front-page">
+        <div class="row three-col">
+
+            {% if anonymous_message %}
+                <div class="col-xs-8">
+                    <div class="box white">
+                        <h2>{{ anonymous_message }}</h2>
+                        {% if anonymous_image %}
+                            <img src="{{ anonymous_image }}" class="img-responsive">
+                        {% endif %}
+                        {% if anonymous_email %}
+                        <hr>
+                        <p>
+                            <span class="icon-envelope"></span>&nbsp;
+                            {% trans "Mail us if you have any questions or proposals" %}: <a href="mailto:{{ anonymous_email }}">{{ anonymous_email }}</a></p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="col-xs-4">
+                <div class="login-widget box gray">
+                    <script>
+                        $(function() {
+                            $("#formsignin").booktypeSignin({'url': '{% url "accounts:signin" %}'});
+                        });
+                    </script>
+
+                    <div class="signin-block">
+                        {% include "account/form_signin.html" %}
+                    </div>
+                    {% if 1|booktype_anyone_register  %}
+                        <div class="box-bottom-white">
+                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}?redirect={{ request.path }}">{% trans "Registration form" %}</a></p>
+                        </div>
+                    {% else %}
+                        <div class="box-bottom-white">
+                          <p>{% trans "Only administrator is allowed to create new accounts at the moment." %}</p>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

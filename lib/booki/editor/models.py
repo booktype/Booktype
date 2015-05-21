@@ -16,11 +16,16 @@
 import os
 import time
 import datetime
+import sputnik
+import decimal
+import logging
 
 from django.db import models
 from django.conf import settings
 from django.contrib.auth import models as auth_models
 from django.utils.translation import ugettext_lazy as _
+
+logger = logging.getLogger('booktype')
 
 # import booki.editor.signals
 
@@ -406,6 +411,8 @@ class BookVersion(models.Model):
 # Chapter
 
 class Chapter(models.Model):
+    EDIT_PING_SECONDS_MAX_DELTA = 15
+
     version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
     # don't need book
     book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
@@ -437,10 +444,10 @@ class Chapter(models.Model):
         """
         Return lock.type if exist, else return 0
 
-        Args:
-          self: Chapter instance
+        :Args:
+          - self (:class:`booki.editor.models.Chapter`): Chapter instance
 
-        Returns:
+        :Returns:
           Int. Return lock.type value
         """
         try:
@@ -450,18 +457,69 @@ class Chapter(models.Model):
         except ChapterLock.DoesNotExist:
             return 0
 
+    @property
+    def lock_username(self):
+        """
+        Return lock.user.username if exist, else return None
+
+        :Args:
+          - self (:class:`booki.editor.models.Chapter`): Chapter instance
+
+        :Returns:
+          username (:class:`str`) or None
+        """
+        try:
+            if self.lock.id:    # if ChapterLock was deleted in db but still have value in python object
+                return self.lock.user.username
+            return None
+        except ChapterLock.DoesNotExist:
+            return None
+
     def is_locked(self):
         """
-        Return is chapter is locked or not
+        Return is chapter locked or not
 
-        Args:
-          self: Chapter instance
+        :Args:
+          - self (:class:`booki.editor.models.Chapter`): Chapter instance
 
-        Returns:
+        :Returns:
           Return True or False
         """
         return bool(self.lock_type)
 
+    def get_current_editor_username(self):
+        """
+        Return editor username who is editing chapter at the moment
+
+        :Args:
+          - self (:class:`booki.editor.models.Chapter`): Chapter instance
+
+        :Returns:
+          None (if chapter not under edit)
+          or editor username (if chapter under edit)
+        """
+        edit_lock_key = "booktype:{book_id}:{version}:editlocks:{chapter_id}:*".format(book_id=self.book.id,
+                                                                                       version=self.version.get_version(),
+                                                                                       chapter_id=self.id)
+        keys = sputnik.rkeys(edit_lock_key)
+
+        if keys:
+            # there is no sense to check last editor-ping and calculate time delta...
+            # if chapter contains key in redis, this mean chapter still under edit
+            # remote_ping or cellery deamon will check editor-ping time delta and remove key if needed
+
+            # there is should be only one editor per book/version
+            try:
+                if len(keys) != 1:
+                    raise Exception("Multiply keys were returned with KEYS: {0}".format(edit_lock_key))
+            except Exception as e:
+                logger.exception(e)
+            finally:
+                # get editor username from key
+                username = keys[0].rsplit(':', 1)[-1]
+                return username
+
+        return None
 
 
 # ChapterHistory

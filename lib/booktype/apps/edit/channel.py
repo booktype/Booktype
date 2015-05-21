@@ -16,23 +16,32 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import re
 import json
-import sputnik
+import time
+import datetime
+import difflib
+
 from lxml import etree, html
 
 from django.db.models import Q
-from django.conf import settings
 from django.db import transaction
 from django.db.utils import IntegrityError
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, SuspiciousOperation
 
+import sputnik
 from booki.editor import models
 from booki.utils.log import logBookHistory, logChapterHistory
-
 from booktype.utils import security
+from django.utils.translation import ugettext_lazy
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.models import Role, BookRole
+
+try:
+    from PIL import Image
+except ImportError:
+    import Image
 
 
 # this couple of functions should go to models.BookVersion
@@ -52,6 +61,12 @@ def get_toc_for_book(version):
 
         # is it a section or chapter?
         if chap.chapter:
+
+            state = "normal"
+            current_editor = chap.chapter.get_current_editor_username()
+            if current_editor:
+                state = "edit"
+
             results.append((
                 chap.chapter.id,
                 chap.chapter.title,
@@ -59,8 +74,11 @@ def get_toc_for_book(version):
                 chap.typeof,
                 chap.chapter.status.id,
                 chap.chapter.lock_type,
+                chap.chapter.lock_username,
                 parent_id,
-                chap.id
+                chap.id,
+                state,
+                current_editor
             ))
         else:
             results.append((
@@ -68,10 +86,13 @@ def get_toc_for_book(version):
                 chap.name,
                 chap.name,
                 chap.typeof,
-                None,   # fake status
-                0,   # fake unlocked
+                None,       # fake status
+                0,          # fake unlocked
+                None,       # fake lock username
                 parent_id,
-                chap.id
+                chap.id,
+                "normal",   # fake state
+                None        # fake current editor
             ))
     return results
 
@@ -100,8 +121,22 @@ def get_hold_chapters(book_version):
           Tuple with chapter's attributes
         """
 
-        return (chapter.id, chapter.title, chapter.url_title, 1,
-                chapter.status.id, chapter.lock_type)
+        state = "normal"
+        current_editor = chapter.get_current_editor_username()
+        if current_editor:
+            state = "edit"
+
+        return (chapter.id,
+                chapter.title,
+                chapter.url_title,
+                1,
+                chapter.status.id,
+                chapter.lock_type,
+                chapter.lock_username,
+                "root",     # no parents in hold
+                None,       # hold chapter not in toc
+                state,
+                current_editor)
 
     return [_to_tuple(ch) for ch in hold_chapters]
 
@@ -122,12 +157,6 @@ def get_attachments(book_version):
     @rtype: C{list}
     @return: Returns list of dictionaries with info about attachment
     """
-
-    import os.path
-    try:
-        from PIL import Image
-    except ImportError:
-        import Image
 
     def _getDimension(att):
         try:
@@ -184,7 +213,6 @@ def remote_init_editor(request, message, bookid, version):
      - metadata - list of dictionaries {'name': ..., 'value': ...}
      - hold - result of getHoldChapters function
      - users - list of active users
-     - locks - list of currently locked chapters
      - statuses - list of tuples (status_id, status_name)
      - attachments - result of getAttachments function
      - onlineUsers - list of online users
@@ -279,9 +307,6 @@ def remote_init_editor(request, message, bookid, version):
                                     )
 
     # get online users and their mood messages
-
-    from django.contrib.auth.models import User
-
     def _getUser(_user):
         try:
             _u = User.objects.get(username=_user)
@@ -299,31 +324,6 @@ def remote_init_editor(request, message, bookid, version):
 
     # for now, this is one big temp here
 
-    import time
-    import decimal
-    import re
-
-    _now = time.time()
-    locks = {}
-
-    try:
-        for key in sputnik.rkeys("booki:*:locks:*"):
-            lastAccess = sputnik.get(key)
-
-            if type(lastAccess) in [type(' '), type(u' ')]:
-                try:
-                    lastAccess = decimal.Decimal(lastAccess)
-                except:
-                    continue
-
-                if lastAccess and decimal.Decimal("%f" % _now) - lastAccess <= 30:
-                    m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
-                    if m:
-                        if m.group(1) == bookid:
-                            locks[m.group(2)] = m.group(3)
-    except:
-        pass
-
     # Get User Theme
     from booktype.apps.themes.models import UserTheme
 
@@ -339,7 +339,6 @@ def remote_init_editor(request, message, bookid, version):
             "hold": holdChapters,
             "users": users,
             "is_admin": book_security.is_admin(),
-            "locks": locks,
             "statuses": statuses,
             "attachments": attachments,
             "theme": theme.active,
@@ -403,7 +402,6 @@ def remote_attachments_delete(request, message, bookid, version):
         att = models.Attachment.objects.get(pk=att_id, version=book_version)
 
         from booki.utils import log
-        import os.path
 
         log.logBookHistory(
             book=book,
@@ -417,13 +415,13 @@ def remote_attachments_delete(request, message, bookid, version):
     return {"result": True}
 
 
-def remote_chapter_status(request, message, bookid, version):
+def remote_chapter_state(request, message, bookid, version):
     """
-    Sets new status for the specific chapter. Sends "chapter_status" with new status to all users on the channel.
+    Sets new state for the specific chapter. Sends "chapter_state" with new state to all users on the channel.
 
     Input:
       - chapterID
-      - status
+      - state
 
     @type request: C{django.http.HttpRequest}
     @param request: Client Request object
@@ -435,16 +433,31 @@ def remote_chapter_status(request, message, bookid, version):
     @param version: Book version
     """
 
-    if message["status"] == "normal":
-        sputnik.rdelete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
+    _, book_version, _ = get_book(request, bookid, version)
+
+    try:
+        chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+    except models.Chapter.DoesNotExist:
+        return dict(result=False)
+
+    # request for edit unlock
+    if message["state"] == "normal":
+        # if chapter under edit by another user
+        editor_username = chapter.get_current_editor_username()
+        if editor_username and editor_username != request.user.username:
+            raise PermissionDenied
+
+        sputnik.rdelete("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"],
+                                                            request.user.username))
 
     sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_status",
-                                         "chapterID": message["chapterID"],
-                                         "status": message["status"],
-                                         "username": request.user.username})
+                                {"command": "chapter_state",
+                                 "chapterID": message["chapterID"],
+                                 "state": message["state"],
+                                 "username": request.user.username},
+                                myself=True)
 
-    return {}
+    return {"result": True}
 
 
 def remote_change_status(request, message, bookid, version):
@@ -477,10 +490,14 @@ def remote_change_status(request, message, bookid, version):
     except (models.Chapter.DoesNotExist, models.BookStatus.DoesNotExist):
         return dict(result=False)
 
+    # check permissions
+    if not book_security.has_perm('edit.change_chapter_status'):
+        raise PermissionDenied
+
     # if chapter is locked -> check access
     if chapter.is_locked():
         # check access
-        if not book_security.has_perm('edit.lock_chapter'):
+        if not book_security.has_perm('edit.edit_locked_chapter'):
             raise PermissionDenied
         elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                and chapter.lock.user != request.user):
@@ -542,10 +559,15 @@ def remote_chapter_save(request, message, bookid, version):
     except models.Chapter.DoesNotExist:
         return dict(result=False)
 
+    # if chapter under edit by another user -> decline
+    editor_username = chapter.get_current_editor_username()
+    if editor_username and editor_username != request.user.username:
+        raise PermissionDenied
+
     # if chapter is locked -> check access
     if chapter.is_locked():
         # check access
-        if not book_security.has_perm('edit.lock_chapter'):
+        if not book_security.has_perm('edit.edit_locked_chapter'):
             raise PermissionDenied
         elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                and chapter.lock.user != request.user):
@@ -554,8 +576,6 @@ def remote_chapter_save(request, message, bookid, version):
     content = message['content']
 
     if len(message['footnotes']) > 0:
-        from lxml import html
-
         utf8_parser = html.HTMLParser(encoding='utf-8')
         tree = html.document_fromstring(content, parser=utf8_parser)
 
@@ -609,7 +629,7 @@ def remote_chapter_save(request, message, bookid, version):
                                      "status": "normal",
                                      "username": request.user.username})
 
-        sputnik.rdelete("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
+        sputnik.rdelete("type:%s:edit:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username))
 
     # fire the signal
     import booki.editor.signals
@@ -652,10 +672,14 @@ def remote_chapter_delete(request, message, bookid, version):
     except models.Chapter.DoesNotExist:
         return dict(result=False)
 
+    # if chapter under edit -> decline delete operation
+    if chap.get_current_editor_username():
+        raise PermissionDenied
+
     # if chapter is locked -> check access
     if chap.is_locked():
         # check access
-        if not book_security.has_perm('edit.lock_chapter'):
+        if not book_security.has_perm('edit.edit_locked_chapter'):
             raise PermissionDenied
         elif not book_security.is_admin() and (chap.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                and chap.lock.user != request.user):
@@ -814,10 +838,15 @@ def remote_chapter_rename(request, message, bookid, version):
     # check security
     chapter = toc_item.chapter
 
+    # if chapter under edit by another user
+    editor_username = chapter.get_current_editor_username()
+    if editor_username and editor_username != request.user.username:
+        raise PermissionDenied
+
     # if chapter is locked -> check access
     if chapter.is_locked():
         # check access
-        if not book_security.has_perm('edit.lock_chapter'):
+        if not book_security.has_perm('edit.edit_locked_chapter'):
             raise PermissionDenied
         elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                and chapter.lock.user != request.user):
@@ -933,8 +962,6 @@ def remote_chapters_changed(request, message, bookid, version):
 
     Creates Book history record. Sends "chapters_changed" message to the channel.
 
-    @todo: check security
-
     Input:
      - chapters
      - hold
@@ -949,10 +976,13 @@ def remote_chapters_changed(request, message, bookid, version):
     @param version: Book version
     """
 
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.reorder_toc'):
+        raise PermissionDenied
+
     lst = [(chap['item_id'], chap['parent_id']) for chap in message["chapters"]]
     lstHold = []
-
-    book, book_version, book_security = get_book(request, bookid, version)
 
     weight = len(lst)
 
@@ -1015,24 +1045,37 @@ def remote_chapters_changed(request, message, bookid, version):
 def remote_chapter_hold(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
-    chapterID = message["chapterID"]
+    chapter_id = message["chapterID"]
 
     try:
-        toc_item = models.BookToc.objects.get(chapter__id__exact=chapterID, version=book_version)
+        toc_item = models.BookToc.objects.get(chapter__id__exact=chapter_id, version=book_version, typeof=1)
     except models.BookToc.DoesNotExist:
-        pass
-    else:
-        toc_id = toc_item.id
-        toc_item.delete()
+        return dict(result=False)
 
-        sputnik.addMessageToChannel(
-            request, "/booktype/book/%s/%s/" % (bookid, version), {
-                "command": "chapter_hold",
-                "chapterID": message["chapterID"],
-                "tocID": toc_id
-            },
-            myself=True
-        )
+    # if chapter under edit -> decline
+    if toc_item.chapter.get_current_editor_username():
+        raise PermissionDenied
+
+    # if chapter is locked -> check access
+    if toc_item.chapter.is_locked():
+        # check access
+        if not book_security.has_perm('edit.edit_locked_chapter'):
+            raise PermissionDenied
+        elif not book_security.is_admin() and (toc_item.chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                               and toc_item.chapter.lock.user != request.user):
+            raise PermissionDenied
+
+    toc_id = toc_item.id
+    toc_item.delete()
+
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_hold",
+            "chapterID": chapter_id,
+            "tocID": toc_id
+        },
+        myself=True
+    )
 
     return dict(result=True)
 
@@ -1040,9 +1083,25 @@ def remote_chapter_hold(request, message, bookid, version):
 def remote_chapter_unhold(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
-    chapterID = message["chapterID"]
+    chapter_id = message["chapterID"]
 
-    chptr = models.Chapter.objects.get(id__exact=chapterID, version=book_version)
+    try:
+        chptr = models.Chapter.objects.get(id__exact=chapter_id, version=book_version)
+    except models.Chapter.DoesNotExist:
+        return dict(result=False)
+
+    # if chapter under edit -> decline
+    if chptr.get_current_editor_username():
+        raise PermissionDenied
+
+    # if chapter is locked -> check access
+    if chptr.is_locked():
+        # check access
+        if not book_security.has_perm('edit.edit_locked_chapter'):
+            raise PermissionDenied
+        elif not book_security.is_admin() and (chptr.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                               and chptr.lock.user != request.user):
+            raise PermissionDenied
 
     # chapter can be only in one toc in single moment
     if not models.BookToc.objects.filter(chapter=chptr).exists():
@@ -1053,7 +1112,7 @@ def remote_chapter_unhold(request, message, bookid, version):
         sputnik.addMessageToChannel(
             request, "/booktype/book/%s/%s/" % (bookid, version), {
                 "command": "chapter_unhold",
-                "chapterID": message["chapterID"],
+                "chapterID": chapter_id,
                 'tocID': toc_item.id
             },
             myself=True
@@ -1080,7 +1139,7 @@ def remote_chapter_lock(request, message, bookid, version):
     chapter_id = message["chapterID"]
     lock_type = message["lockType"]
 
-    # vlidate lock type value
+    # validate lock type value
     if lock_type not in (models.ChapterLock.LOCK_SIMPLE, models.ChapterLock.LOCK_EVERYONE):
         raise SuspiciousOperation
 
@@ -1092,10 +1151,13 @@ def remote_chapter_lock(request, message, bookid, version):
         # get chapter
         chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
 
+        # if chapter under edit -> decline
+        if chapter.get_current_editor_username():
+            raise PermissionDenied
+
         # create lock for provided chapter
-        models.ChapterLock.objects.create(chapter=chapter,
-                                          user=request.user,
-                                          type=lock_type)
+        models.ChapterLock.objects.create(chapter=chapter, user=request.user, type=lock_type)
+
     except (models.Chapter.DoesNotExist, IntegrityError):
         return dict(result=False)
 
@@ -1103,7 +1165,8 @@ def remote_chapter_lock(request, message, bookid, version):
         request, "/booktype/book/%s/%s/" % (bookid, version), {
             "command": "chapter_lock_changed",
             "chapterID": chapter_id,
-            "lockType": chapter.lock_type
+            "lockType": chapter.lock_type,
+            "lockUsername": request.user.username
         },
         myself=True
     )
@@ -1134,6 +1197,10 @@ def remote_chapter_unlock(request, message, bookid, version):
     except models.Chapter.DoesNotExist:
         return dict(result=False)
 
+    # if chapter under edit -> decline
+    if chapter.get_current_editor_username():
+        raise PermissionDenied
+
     # check access
     if not book_security.has_perm('edit.lock_chapter'):
         raise PermissionDenied
@@ -1161,11 +1228,11 @@ def remote_get_chapter(request, message, bookid, version):
     """
     This is called when you fire up WYSWYG editor or Chapter viewer. It sends back basic chapter information.
 
-    If lock flag is send then it will Sends message "chapter_status" to the channel and create lock for this chapter.
+    If edit_lock flag is send then it will Sends message "chapter_state" to the channel and create edit_lock for this chapter.
 
     Input:
      - chapterID
-     - lock (True or False)
+     - edit_lock (True or False)
      - revisions (True or False)
      - revision
 
@@ -1187,25 +1254,37 @@ def remote_get_chapter(request, message, bookid, version):
     @return: Chapter info
     """
 
-    res = {"result": True}
+    res = {"result": True, "access": False}
 
-    book, book_version, book_security = get_book(request, bookid, version)
-
+    # check if user has permissions for editing this chapter.
+    # if user has no permissions or chapter locked at the moment
+    # function return access=False and reason message.
     try:
-        # check if you can access book this chapter belongs to
+        book, book_version, book_security = get_book(request, bookid, version)
         chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
-    except models.Chapter.DoesNotExist:
-        return dict(result=False)
+    except (models.Chapter.DoesNotExist, PermissionDenied):
+        # book_security.can_edit() is not implemented yet
+        res["reason"] = unicode(ugettext_lazy("You have no permissions for editing this chapter."))
+        return res
 
-    # if chapter is locked -> check access
-    if chapter.is_locked():
-        # check access
-        if not book_security.has_perm('edit.lock_chapter'):
-            raise PermissionDenied
-        elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
-                                               and chapter.lock.user != request.user):
-            raise PermissionDenied
+    # TODO clarify about read only mode
+    # check if chapter is locked or under edit
+    if message.get("edit_lock", False):
+        editor_username = chapter.get_current_editor_username()
+        if editor_username and editor_username != request.user.username:
+            res["reason"] = unicode(ugettext_lazy("Chapter currently being edited."))
+            return res
 
+        if chapter.is_locked():
+            if not book_security.has_perm('edit.edit_locked_chapter'):
+                res["reason"] = unicode(ugettext_lazy("You have no permissions for editing chapters under lock."))
+                return res
+            elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                                   and chapter.lock.user != request.user):
+                res["reason"] = unicode(ugettext_lazy("Chapter currently is locked from everyone."))
+                return res
+
+    res["access"] = True
     res["title"] = chapter.title
     res["content"] = chapter.content
     res["current_revision"] = chapter.revision
@@ -1217,19 +1296,18 @@ def remote_get_chapter(request, message, bookid, version):
         ch = models.ChapterHistory.objects.get(chapter=chapter, revision=message.get("revision"))
         res["content"] = ch.content
 
-    if not message.get("lock", True):
-        return res
+    # if this chapter for edit or read
+    if message.get("edit_lock", False):
+        # set the initial timer edit locking
+        sputnik.set("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username),
+                    time.time())
 
-    import time
-
-    # set the initial timer for editor
-    sputnik.set("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username), time.time())
-
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_status",
-                                 "chapterID": message["chapterID"],
-                                 "status": "edit",
-                                 "username": request.user.username})
+        sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
+                                    {"command": "chapter_state",
+                                     "chapterID": message["chapterID"],
+                                     "state": "edit",
+                                     "username": request.user.username},
+                                    myself=False)
 
     return res
 
@@ -1259,8 +1337,6 @@ def remote_create_chapter(request, message, bookid, version):
     @rtype: C{dict}
     @return: Return if it was successful
     """
-
-    import datetime
 
     book, book_version, book_security = get_book(request, bookid, version)
 
@@ -1338,11 +1414,14 @@ def remote_create_chapter(request, message, bookid, version):
         chapter.id,
         chapter.title,
         chapter.url_title,
-        1,  # typeof (chapter)
-        s.id,  # status
+        1,                      # typeof (chapter)
+        s.id,                   # status
         chapter.lock_type,
-        'root',  # parent id (first level)
-        toc_item.id  # tocID
+        chapter.lock_username,
+        "root",                 # parent id (first level)
+        toc_item.id,            # tocID
+        "normal",               # fake state
+        None                    # fake current editor
     )
 
     sputnik.addMessageToChannel(
@@ -1378,8 +1457,6 @@ def copy_attachment(attachment, target_book):
     @rtype: C{booki.editor.models.Attachment}
     @return: Returns new Attachment object
     """
-    import os.path
-    import datetime
 
     att = models.Attachment(
         book=target_book,
@@ -1395,160 +1472,6 @@ def copy_attachment(attachment, target_book):
     )
     att.save()
     return att
-
-
-def remote_clone_chapter(request, message, bookid, version):
-    """
-    Clones chapter in another book. It also recreates TOC and copies attachments. It parsesr HTML content to check for used attachments.
-
-    Creates entry in Chapter and Book history. Sends "chapter_create" message to the channel. Sends notification to chat.
-
-    Input:
-     - book - url name for the book
-     - chaptter - chapter title
-     - renameTitle - New chapter name (optional)
-
-    @todo: Should check security.
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Return if it was successful
-    """
-
-    import datetime
-
-    # BookVersion treba uzeti
-
-    book, book_version, book_security = get_book(request, bookid, version)
-
-    try:
-        source_book = models.Book.objects.get(url_title=message["book"])
-    except models.Book.DoesNotExist:
-        return {"result": False, "created": False}
-    except models.Book.MultipleObjectsReturned:
-        return {"result": False, "created": False}
-
-    source_book_version = source_book.version
-    source_url_title = message["chapter"]
-
-    try:
-        source_chapter = models.Chapter.objects.get(book=source_book, version=source_book_version, url_title=source_url_title)
-    except models.Chapter.DoesNotExist:
-        return {"result": False, "created": False}
-    except models.Chapter.MultipleObjectsReturned:
-        return {"result": False, "created": False}
-
-    title = message.get("renameTitle", "")
-    if title.strip():
-        url_title = booktype_slugify(title)
-    else:
-        title = source_chapter.title
-        url_title = source_url_title
-
-    # here i should probably set it to default project status
-    s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
-
-    ch = models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title)
-
-    if len(list(ch)) > 0:
-        return {"created": False, "errormsg": "chapter already exists"}
-
-    chapter = models.Chapter(
-        book=book,
-        version=book_version,
-        url_title=url_title,
-        title=title,
-        status=s,
-        content=source_chapter.content,
-        created=datetime.datetime.now(),
-        modified=datetime.datetime.now()
-    )
-
-    chapter.save()
-    # this should be solved in better way
-    # should have createChapter in booki.utils.book module
-
-    toc_items = len(book_version.get_toc()) + 1
-
-    for itm in models.BookToc.objects.filter(version=book_version, book=book):
-        itm.weight = toc_items
-        itm.save()
-
-        toc_items -= 1
-
-    tc = models.BookToc(version=book_version,
-                        book=book,
-                        name=title,
-                        chapter=chapter,
-                        weight=1,
-                        typeof=1)
-
-    tc.save()
-
-    history = logChapterHistory(chapter=chapter,
-                                content=chapter.content,
-                                user=request.user,
-                                comment=message.get("comment", ""),
-                                revision=chapter.revision)
-    logBookHistory(book=book,
-                   version=book_version,
-                   chapter=chapter,
-                   chapter_history=history,
-                   user=request.user,
-                   kind='chapter_clone')
-
-    attachments = source_book_version.get_attachments()
-    attachmentnames = dict([(att.get_name(), att) for att in attachments])
-
-    target_attachments = book_version.get_attachments()
-    target_attachmentnames = dict([(att.get_name(), att)
-                                   for att in target_attachments])
-
-    # keep track of already copied source and destination names
-    name2copy = {}
-
-    tree = html.document_fromstring(chapter.content)
-
-    for e in tree.iter():
-        src = e.get('src')
-        if src is not None:
-            dirname, rest = src.split('/', 1)
-            if dirname == "static":
-                name = src.split('/', 1)[1]
-                att = attachmentnames.get(name)
-                if att and name not in name2copy:
-                    new_att = copy_attachment(att, book)
-                    name2copy[name] = new_att.get_name()
-                if att and name in name2copy:
-                    e.set('src', "static/" + name2copy[name])
-
-    chapter.content = etree.tostring(tree, encoding='UTF-8', method='html')
-    chapter.save()
-
-    result = (chapter.id, chapter.title, chapter.url_title, 1, s.id)
-
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
-                                                                "from": request.user.username,
-                                                                "email": request.user.email,
-                                                                "message_id": "user_cloned_chapter",
-                                                                "message_args": [request.user.username, chapter.title, source_book.title]},
-                                myself=True)
-
-    sputnik.addMessageToChannel(
-        request, "/booktype/book/%s/%s/" % (bookid, version), {
-            "command": "chapter_create",
-            "chapter": result},
-        myself=True
-    )
-
-    return {"result": True, "created": True}
 
 
 def remote_create_section(request, message, bookid, version):
@@ -1614,10 +1537,13 @@ def remote_create_section(request, message, bookid, version):
         c.name,
         c.name,
         c.typeof,
-        None,  # fake status
-        0,   # fake unlocked
+        None,       # fake status
+        0,          # fake unlocked
+        None,       # fake lock username
         "root",
-        c.id
+        c.id,
+        "normal",   # fake state
+        None        # fake current editor
     )
 
     sputnik.addMessageToChannel(
@@ -1660,11 +1586,7 @@ def remote_covers_data(request, message, bookid, version):
     @return: Returns needed data for Cover Manager tab
     """
 
-    try:
-        from PIL import Image
-    except ImportError:
-        import Image
-
+    # TODO this function should be reusable
     def _getDimension(cover):
         try:
             im = Image.open(cover.attachment.name)
@@ -1913,11 +1835,6 @@ def remote_cover_load(request, message, bookid, version):
     if cover.is_pdf:
         frm.append("pdf")
 
-    try:
-        from PIL import Image
-    except ImportError:
-        import Image
-
     size = (0, 0)
     filetype = ""
 
@@ -1952,152 +1869,6 @@ def remote_cover_load(request, message, bookid, version):
     transaction.commit()
 
     return {"result": True, "cover": cover, "licenses": licenses}
-
-
-def remote_settings_options(request, message, bookid, version):
-    """
-    Returns minimal amount of data needed to show on the Settings tab in the Editor. This call is used when user clicks on the Settings tab.
-
-    Output:
-     - licenses
-     - permission
-     - current_licence
-     - languages
-     - current_language
-     - rtl
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns needed data for Settings tab
-    """
-
-    book, book_version, book_security = get_book(request, bookid, version)
-
-    licenses = [(lic.abbrevation, lic.name) for lic in models.License.objects.all().order_by("name") if lic]
-    languages = [(lic.abbrevation, lic.name) for lic in models.Language.objects.all().order_by("name") if lic] + [('unknown', 'Unknown')]
-
-    current_license = getattr(book.license, "abbrevation", "")
-    current_language = getattr(book.language, "abbrevation", "unknown")
-
-    # get rtl
-    try:
-        rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind=0).get_value()
-    except (models.Info.DoesNotExist, models.Info.MultipleObjectsReturned):
-        rtl = "LTR"
-
-    return {"result": True,
-            "licenses": licenses,
-            "permission": book.permission,
-            "current_licence": current_license,
-            "languages": languages,
-            "current_language": current_language,
-            "rtl": rtl
-            }
-
-
-def remote_license_save(request, message, bookid, version):
-    """
-    This call is used from the Settings tab. It is used to save new license data for the book.
-
-    Input:
-     - license
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns if operation was successful
-    """
-
-    book, book_version, book_security = get_book(request, bookid, version)
-
-    lic = models.License.objects.filter(abbrevation=message["license"])[0]
-    book.license = lic
-    book.save()
-
-    return {"status": 1}
-
-
-def remote_license_attributions(request, message, bookid, version):
-    """
-    This call is used from the Settings tab. You get list of users who have attribution rights and list of people who have been excluded from the list.
-
-    Output:
-     - users
-     - users_exclude
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns if operation was successful
-    """
-
-    book, book_version, book_security = get_book(request, bookid, version)
-
-    from django.contrib.auth.models import User
-
-    # not so cool idea
-    excl = [a.user.username for a in models.AttributionExclude.objects.filter(book=book)]
-    users = [(u['user__username'], u['user__first_name']) for u in models.ChapterHistory.objects.filter(chapter__version__book=book).values("user", "user__username", "user__first_name").distinct() if u['user__username'] not in excl]
-    users_exclude = [(u.user.username, u.user.first_name) for u in models.AttributionExclude.objects.filter(book=book).order_by("user__username")]
-
-    return {"result": True,
-            "users": users,
-            "users_exclude": users_exclude}
-
-
-def remote_license_attributions_save(request, message, bookid, version):
-    """
-    This call is used from the Settings tab. Saves new list of excluded users from the attribution rights.
-
-    Input:
-     - excluded_users
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns if operation was successful
-    """
-
-    book, book_version, book_security = get_book(request, bookid, version)
-
-    from django.contrib.auth.models import User
-
-    # delete all elements
-    models.AttributionExclude.objects.filter(book=book).delete()
-
-    for userName in message["excluded_users"]:
-        u = User.objects.get(username=userName)
-        a = models.AttributionExclude(book=book, user=u)
-        a.save()
-
-    transaction.commit()
-
-    return {"result": True}
 
 
 def remote_publish_book(request, message, bookid, version):
@@ -2150,38 +1921,6 @@ def remote_word_count(request, message, bookid, version):
     }
 
     return res
-
-#
-
-
-def remote_book_permission_save(request, message, bookid, version):
-    """
-    Sets book permissions.
-
-    Input:
-     - permission
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns True if operation was successful
-    """
-
-    book, book_version, book_security = get_book(request, bookid, version)
-
-    if not book_security.is_admin():
-        raise PermissionDenied
-
-    book.permission = message["permission"]
-    book.save()
-
-    return {"result": True}
 
 
 def remote_book_status_rename(request, message, bookid, version):
@@ -2413,88 +2152,6 @@ def remote_book_status_create(request, message, bookid, version):
             }
 
 
-def remote_roles_delete(request, message, bookid, version):
-    """
-    Removes role from this specific user.
-
-    Input:
-     - username
-     - role
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns True if operation was successful
-    """
-
-    from django.contrib.auth.models import User
-
-    # check permissions
-
-    book, book_version, book_security = get_book(request, bookid, version)
-
-    try:
-        for up in models.BookiPermission.objects.filter(book=book,
-                                                        user__username=message["username"],
-                                                        permission=message["role"]):
-            up.delete()
-    except models.BookiPermission.DoesNotExist:
-        pass
-
-    return {"status": True}
-
-
-def remote_roles_add(request, message, bookid, version):
-    """
-    Adds user to specific role.
-
-    Input:
-     - username
-     - role
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns True if operation was successful
-    """
-
-    from django.contrib.auth.models import User
-
-    book, book_version, book_security = get_book(request, bookid, version)
-
-    result = False
-
-    try:
-        u = User.objects.get(username=message["username"])
-
-        # we do some black magic if user is book owner and we try to make him administrator
-        if not (book.owner == u and message["role"] == 1):
-            # Do not add if user is already in the list
-            if not models.BookiPermission.objects.filter(book=book, user=u, permission=message["role"]).exists():
-                up = models.BookiPermission(book=book,
-                                            user=u,
-                                            permission=message["role"])
-                up.save()
-
-                result = True
-    except User.DoesNotExist:
-        pass
-
-    return {"result": result}
-
-
 def remote_roles_list(request, message, bookid, version):
     """
     Returns list of users who have specific role on this book.
@@ -2553,54 +2210,6 @@ def remote_users_suggest(request, message, bookid, version):
     return {"result": True, "possible_users": users}
 
 
-def remote_settings_language_save(request, message, bookid, version):
-    """
-    This call is used from the Settings tab. Saves new book language and rtl setting for the book.
-
-    Input:
-     - language
-     - rtl
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns if operation was successful
-    """
-
-    book, book_version, book_security = get_book(request, bookid, version)
-
-    if message['language'] != 'unknown':
-        l = models.Language.objects.get(abbrevation=message['language'])
-
-        book.language = l
-        book.save()
-
-    if message['rtl']:
-        rtl_value = "RTL"
-    else:
-        rtl_value = "LTR"
-
-    try:
-        rtl = models.Info.objects.get(book=book, name='{http://booki.cc/}dir', kind=0)
-        rtl.value_string = rtl_value
-        rtl.save()
-    except models.Info.DoesNotExist:
-
-        rtl = models.Info(book=book,
-                          name='{http://booki.cc/}dir',
-                          kind=0,
-                          value_string=rtl_value)
-        rtl.save()
-
-    return {"result": True}
-
-
 def remote_get_users(request, message, bookid, version):
     """
     Returns list of users currently editing L{bookid}.
@@ -2646,19 +2255,31 @@ def remote_book_notification(request, message, bookid, version):
     @return: Should it kill the seasson
     """
 
-    res = {"result": True}
+    res = {"result": True, "terminate": False}
 
-    import time
+    if request.user.username:
+        _, book_version, _ = get_book(request, bookid, version)
 
-    # rcon.delete(key)
-    # set the initial timer for editor
+        try:
+            chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+        except models.Chapter.DoesNotExist:
+            return dict(result=False)
 
-    if request.user.username and request.user.username != '':
-        sputnik.set("booki:%s:locks:%s:%s" % (bookid, message["chapterID"], request.user.username), time.time())
+        # if chapter under edit by another user -> decline
+        if chapter.get_current_editor_username() != request.user.username:
+            raise SuspiciousOperation
 
-        if '%s' % sputnik.get("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username)) == '1':
-            sputnik.rdelete("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], request.user.username))
-            res = {"kill": "please"}
+        # update timer for edit locking
+        edit_lock_key = "booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"], request.user.username)
+        sputnik.set(edit_lock_key, time.time())
+
+        # terminate editing if needed
+        kill_edit_lock_key = "booktype:%s:%s:killeditlocks:%s:%s" % (bookid, version, message["chapterID"],
+                                                                     request.user.username)
+
+        if '%s' % sputnik.get(kill_edit_lock_key) == '1':
+            sputnik.rdelete(kill_edit_lock_key)
+            res["terminate"] = True
 
     return res
 
@@ -2685,7 +2306,6 @@ def remote_get_history(request, message, bookid, version):
     @return: Returns history entries
     """
 
-    import datetime
     from booki.editor.common import parseJSON
 
     book, book_version, book_security = get_book(request, bookid, version)
@@ -2783,8 +2403,6 @@ def remote_get_chapter_history(request, message, bookid, version):
     @rtype: C{dict}
     @return: Returns history entries
     """
-
-    import datetime
 
     book, book_version, book_security = get_book(request, bookid, version)
 
@@ -2897,8 +2515,6 @@ def remote_get_chapter_revision(request, message, bookid, version):
     @return: Chapter data
     """
 
-    import datetime
-
     book, book_version, book_security = get_book(request, bookid, version)
 
     revision = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision"])
@@ -2932,8 +2548,6 @@ def remote_get_notes(request, message, bookid, version):
     @rtype: C{dict}
     @return: Notes data
     """
-
-    import datetime
 
     book, book_version, book_security = get_book(request, bookid, version)
 
@@ -2989,7 +2603,7 @@ def remote_notes_save(request, message, bookid, version):
     return {"result": True}
 
 
-def remote_unlock_chapter(request, message, bookid, version):
+def remote_chapter_kill_editlock(request, message, bookid, version):
     """
     Removes lock for chapter. Only booki user can do this. Lock is removed from Redis database.
 
@@ -3008,15 +2622,14 @@ def remote_unlock_chapter(request, message, bookid, version):
     @param version: Book version
     """
 
-    import re
-
     book, book_version, book_security = get_book(request, bookid, version)
 
     if book_security.is_admin():
-        for key in sputnik.rkeys("booki:%s:locks:%s:*" % (bookid, message["chapterID"])):
-            m = re.match("booki:(\d+):locks:(\d+):(\w+)", key)
+        for key in sputnik.rkeys("booktype:%s:%s:editlocks:%s:*" % (bookid, version, message["chapterID"])):
+            m = re.match("booktype:(\d+):(\d+).(\d+):editlocks:(\d+):(\w+)", key)
             if m:
-                sputnik.set("booki:%s:killlocks:%s:%s" % (bookid, message["chapterID"], m.group(3)), 1)
+                username = m.group(5)
+                sputnik.set("booktype:%s:%s:killeditlocks:%s:%s" % (bookid, version, message["chapterID"], username), 1)
 
     return {"result": True}
 
@@ -3079,8 +2692,6 @@ def create_new_version(book, book_ver, message, major, minor):
     @rtype: C{booki.editor.models.BookVersion}
     @return: Returns Book version object
     """
-
-    import datetime
 
     new_version = models.BookVersion(book=book,
                                      major=major,
@@ -3290,8 +2901,6 @@ def remote_chapter_diff(request, message, bookid, version):
     @return: Returns text with diff between two chapters
     """
 
-    import datetime
-
     book, book_version, book_security = get_book(request, bookid, version)
 
     revision1 = models.ChapterHistory.objects.get(chapter__book=book,
@@ -3301,8 +2910,6 @@ def remote_chapter_diff(request, message, bookid, version):
                                                   chapter__id=message["chapter"],
                                                   revision=message["revision2"])
     content = message.get("content")
-
-    import difflib
 
     output = []
 
@@ -3395,21 +3002,16 @@ def remote_chapter_diff_parallel(request, message, bookid, version):
     @return: Returns text with diff between two chapters
     """
 
-    import datetime
-
     book, book_version, book_security = get_book(request, bookid, version)
 
     revision1 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision1"])
     revision2 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision2"])
-
-    import difflib
 
     output = []
 
     output_left = '<td valign="top">'
     output_right = '<td valign="top">'
 
-    import re
     content1 = re.sub('<[^<]+?>', '', revision1.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
     content2 = re.sub('<[^<]+?>', '', revision2.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
 

@@ -24,6 +24,8 @@ from django.views.generic.base import View
 from django.http import HttpResponse, Http404
 from django.conf import settings
 
+from booktype.apps.loadsave.utils import RestrictExport
+
 from . import tasks
 from .utils.uploadhandler import FileUploadHandler
 
@@ -52,7 +54,7 @@ class RequestData(object):
         }
 
 
-class ConvertView(View):
+class ConvertView(RestrictExport, View):
 
     def post(self, request):
         token = str(uuid.uuid1())

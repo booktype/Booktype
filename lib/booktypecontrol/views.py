@@ -26,7 +26,7 @@ from django.db import connection
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse, reverse_lazy
 
 from django.views.generic import TemplateView, FormView
@@ -42,21 +42,21 @@ from booki.editor.models import Book, BookiGroup, BookHistory, License
 
 
 OPTION_NAMES = {
-    'site-description': _('Description'),
-    'appearance': _('Appearance'),
-    'frontpage': _('Frontpage'),
-    'license': _('Licenses'),
-    'book-settings': _('Default Book Settings for Creating Books'),
+    'site-description': _('Site Description'),
+    'appearance': _('Site Appearance'),
+    'frontpage': _('Site Front Page'),
+    'license': _('Book Licenses'),
+    'book-settings': _('Book Creation Defaults'),
     'privacy': _('Privacy'),
-    'add-person': _('Add a new Person'),
+    'add-person': _('Add a New Person'),
     'list-of-people': _('List of People'),
-    'add-book': _('Add new Book'),
+    'add-book': _('Add a New Book'),
     'list-of-books': _('List of Books'),
-    'publishing': _('Allowed publishing options'),
+    'publishing': _('Publishing Options'),
     'publishing-defaults': _('Publishing Defaults'),
-    'add-group': _('Add new Group'),
+    'add-group': _('Add a New Group'),
     'list-of-groups': _('List of Groups'),
-    'add-role': _('Add new Role'),
+    'add-role': _('Add a New Role'),
     'list-of-roles': _('List of Roles'),
     'default-roles': _('Default Roles')
 }
