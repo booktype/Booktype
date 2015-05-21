@@ -48,7 +48,7 @@ from booktype.apps.core.models import Role, BookRole
 from booktype.utils import misc, security
 from booktype.apps.account.models import UserPassword
 from booki.messaging.views import get_endpoint_or_none
-from booktype.apps.core.views import BasePageView, PageView
+from booktype.apps.core.views import BasePageView, PageView, SecurityMixin
 from booktype.utils.book import check_book_availability, create_book
 from booki.editor.models import Book, License, BookHistory, BookiGroup
 
@@ -58,7 +58,7 @@ from . import tasks
 import booktype.apps.account.signals
 
 
-class DashboardPageView(BasePageView, DetailView):
+class DashboardPageView(SecurityMixin, BasePageView, DetailView):
     template_name = "account/dashboard.html"
     page_title = _('Dashboard')
     title = _('My Dashboard')
@@ -68,11 +68,10 @@ class DashboardPageView(BasePageView, DetailView):
     slug_url_kwarg = 'username'
     context_object_name = 'current_user'
 
-    def dispatch(self, request, *args, **kwargs):
+    def check_permissions(self, request, *args, **kwargs):
         is_current_user_dashboard = kwargs.get(self.slug_url_kwarg, None) == self.request.user.username
-        if not security.get_security(request.user).has_perm("account.can_view_user_info") and not is_current_user_dashboard:
+        if not self.security.has_perm("account.can_view_user_info") and not is_current_user_dashboard:
             raise PermissionDenied
-        return super(DashboardPageView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(self.__class__, self).get_context_data(**kwargs)

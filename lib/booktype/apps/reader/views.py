@@ -96,15 +96,15 @@ class PublishedBookView(BaseReaderView, BasePageView, DetailView):
                 context, **response_kwargs)
 
 
-class InfoPageView(BaseReaderView, BasePageView, DetailView):
+class InfoPageView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView):
+    SECURITY_BRIDGE = security.BookSecurity
     template_name = "reader/book_info_page.html"
     page_title = _("Book Details Page")
     title = _("Book Details")
 
-    def dispatch(self, request, *args, **kwargs):
-        if not security.get_security(request.user).has_perm("reader.can_view_book_info"):
+    def check_permissions(self, request, *args, **kwargs):
+        if not self.security.has_perm("reader.can_view_book_info"):
             raise PermissionDenied
-        return super(InfoPageView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         book = self.object

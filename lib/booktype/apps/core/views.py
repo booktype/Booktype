@@ -7,7 +7,9 @@ from django.conf import settings
 from django.template import loader
 from django.http import HttpResponse
 
-from booki.editor.models import Book
+from booki.editor.models import Book, BookiGroup
+from booktype.utils.security import Security, BookSecurity, GroupSecurity
+from booktype.utils.security import get_security, get_security_for_book, get_security_for_group
 
 class BasePageView(object):
     page_title = ''
@@ -23,6 +25,63 @@ class BasePageView(object):
 
 class PageView(BasePageView, TemplateView):
     pass
+
+
+class SecurityMixin(object):
+    AVAILABLE_BRIDGES = (Security, BookSecurity, GroupSecurity)
+
+    def __init__(self, **kwargs):
+        super(SecurityMixin, self).__init__(**kwargs)
+        self.security = None
+
+        if hasattr(self, 'SECURITY_BRIDGE'):
+            # validate bridge
+            if self.SECURITY_BRIDGE not in self.AVAILABLE_BRIDGES:
+                raise Exception('Wrong security bridge! Available bridges: '
+                                '{0}'.format(",".join([str(i) for i in self.AVAILABLE_BRIDGES])))
+            self.security_bridge = self.SECURITY_BRIDGE
+        else:
+            self.security_bridge = Security
+
+    def dispatch(self, request, *args, **kwargs):
+        # try to create security instance
+        try:
+            if self.security_bridge is Security:
+                self.security = get_security(request.user)
+            elif self.security_bridge is BookSecurity:
+                book = Book.objects.get(url_title__iexact=kwargs['bookid'])
+                self.security = get_security_for_book(request.user, book)
+            elif self.security_bridge is GroupSecurity:
+                group = BookiGroup.objects.get(url_name=kwargs['groupid'])
+                self.security = get_security_for_group(request.user, group)
+        except KeyError as e:
+            raise Exception('{bridge} bridge requires "{key}" in request'.format(bridge=self.security_bridge,
+                                                                                 key=e.message))
+
+        # hook for checking permissions
+        self.check_permissions(request, *args, **kwargs)
+
+        return super(SecurityMixin, self).dispatch(request, *args, **kwargs)
+
+    def check_permissions(self, request, *args, **kwargs):
+        """Checking permissions
+
+        :Args:
+          - request (:class:`django.http.HttpRequest`): Django http request instance
+
+        :Raises:
+          PermissionDenied: If no access
+        """
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(SecurityMixin, self).get_context_data(**kwargs)
+        # add security instance in context
+        if 'security' in context.keys():
+            raise Exception('SecurityMixin requires context key "security" not to be used.')
+
+        context['security'] = self.security
+        return context
 
 
 def staticattachment(request, bookid,  attachment, version=None, chapter = None, revid = None):
