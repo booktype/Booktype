@@ -39,7 +39,7 @@ class GroupManipulation(PageView):
         return HttpResponse()
 
 
-class FrontPageView(PageView):
+class FrontPageView(views.SecurityMixin, PageView):
     template_name = "portal/frontpage.html"
     page_title = _('Booktype')
     title = _('Home')
@@ -80,15 +80,15 @@ class FrontPageView(PageView):
         return context
 
 
-class GroupPageView(GroupManipulation):
+class GroupPageView(views.SecurityMixin, GroupManipulation):
+    SECURITY_BRIDGE = security.GroupSecurity
     template_name = "portal/group.html"
     page_title = _('Group')
     title = _('Group used')
 
-    def dispatch(self, request, *args, **kwargs):
-        if not security.get_security(request.user).has_perm("portal.can_view_group_info"):
+    def check_permissions(self, request, *args, **kwargs):
+        if not self.security.has_perm("portal.can_view_group_info"):
             raise PermissionDenied
-        return super(GroupPageView, self).dispatch(request, *args, **kwargs)
 
     def render_to_response(self, context, **response_kwargs):
         if context['selected_group_error']:
@@ -140,15 +140,14 @@ class GroupPageView(GroupManipulation):
         return context
 
 
-class AllGroupsPageView(GroupManipulation):
+class AllGroupsPageView(views.SecurityMixin, GroupManipulation):
     template_name = "portal/all_groups.html"
     page_title = _('Groups')
     title = _('Groups')
 
-    def dispatch(self, request, *args, **kwargs):
-        if not security.get_security(request.user).has_perm("portal.can_view_groups_list"):
+    def check_permissions(self, request, *args, **kwargs):
+        if not self.security.has_perm("portal.can_view_groups_list"):
             raise PermissionDenied
-        return super(AllGroupsPageView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(AllGroupsPageView, self).get_context_data(**kwargs)
@@ -291,15 +290,14 @@ class GroupDeleteView(LoginRequiredMixin, DeleteView):
         return reverse('accounts:view_profile', args=[self.request.user.username])
 
 
-class PeoplePageView(PageView):
+class PeoplePageView(views.SecurityMixin, PageView):
     template_name = "portal/people.html"
     page_title = _('People')
     title = _('People')
 
-    def dispatch(self, request, *args, **kwargs):
-        if not security.get_security(request.user).has_perm("portal.can_view_user_list"):
+    def check_permissions(self, request, *args, **kwargs):
+        if not self.security.has_perm("portal.can_view_user_list"):
             raise PermissionDenied
-        return super(PeoplePageView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(PeoplePageView, self).get_context_data(**kwargs)
@@ -314,15 +312,14 @@ class PeoplePageView(PageView):
         return context
 
 
-class BooksPageView(PageView):
+class BooksPageView(views.SecurityMixin, PageView):
     template_name = "portal/books.html"
     page_title = _("Books")
     title = _("Books")
 
-    def dispatch(self, request, *args, **kwargs):
-        if not security.get_security(request.user).has_perm("portal.can_view_books_list"):
+    def check_permissions(self, request, *args, **kwargs):
+        if not self.security.has_perm("portal.can_view_books_list"):
             raise PermissionDenied
-        return super(BooksPageView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(BooksPageView, self).get_context_data(**kwargs)

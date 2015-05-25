@@ -180,7 +180,7 @@ class Security(object):
             app_name, codename = permission_string.split('.')
             return Permission.objects.get(app_name=app_name, name=codename)
         except ValueError:
-            raise Exception("to_do parameter should be 'app_name.permission' way")
+            raise Exception("permission_strin parameter should be 'app_name.permission' way")
         except Permission.DoesNotExist:
             return False
 

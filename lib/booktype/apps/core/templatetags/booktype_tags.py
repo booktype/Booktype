@@ -281,13 +281,18 @@ def order_by(queryset, order_field):
     return queryset.order_by(order_field)
 
 
-@register.assignment_tag
-def has_perm(user, to_do, book):
-    """
-    Checks if a given user has a specific permission. Returns a Boolean
-    depending on the security check
+@register.assignment_tag(takes_context=True)
+def has_perm(context, permission_string):
+    """Checks if a given user has a specific permission.
+
+    :Args:
+      - context (:class:`dict`): Django template context
+      - permission_string (:class:`str`): Concatenated string of app name and permission codename
+                                          e.g. "editor.create_chapter"
+
+    :Returns:
+      Returns (:class:`bool`) True or False
     """
 
-    if book:
-        return security.get_security_for_book(user, book).has_perm(to_do)
-    return security.get_security(user).has_perm(to_do)
+    return context['security'].has_perm(permission_string)
+
