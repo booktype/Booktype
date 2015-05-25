@@ -88,6 +88,12 @@ INSTALLED_APPS = (
     # list of booki apps
     'booki.editor',
 
+    'booktypecontrol',
+
+    # needed for translation engine
+    'booktype',
+
+    # list of booktype apps
     'booktype.apps.core',
     'booktype.apps.portal',
     'booktype.apps.loadsave',
@@ -96,11 +102,11 @@ INSTALLED_APPS = (
     'booktype.apps.edit',
     'booktype.apps.reader',
     'booktype.apps.account',
+    'booktype.apps.themes',
 
     'booki.messaging',
 
     'sputnik',
-    'booktypecontrol',
 )
 
 if django.VERSION[:2] < (1, 6):
@@ -111,6 +117,7 @@ standard_format = {
     'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
     'datefmt': "%d/%b/%Y %H:%M:%S"
 }
+
 # LOGGING
 LOGGING = {
     'version': 1,
@@ -153,11 +160,11 @@ LOGGING = {
 }
 
 # READ CONFIGURAION
-#from booki.utils import config
+# from booki.utils import config
 #
-#try:
+# try:
 #    BOOKTYPE_CONFIG = config.loadConfiguration()
-#except config.ConfigurationError:
+# except config.ConfigurationError:
 #    BOOKTYPE_CONFIG = {}
 
 BOOKTYPE_NAME = BOOKTYPE_SITE_NAME
