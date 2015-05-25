@@ -11,6 +11,7 @@ class GroupedCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
     """
     Widget for grouping checkboxes with a given group_by field
     """
+
     def __init__(self, attrs={}, choices=()):
         """
         Widget constructor.

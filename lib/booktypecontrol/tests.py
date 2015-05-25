@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
 from booki.editor.models import Book
-from booktypecontrol.forms import BookRenameForm
 
 
 class BookRenameFormTest(TestCase):
+
     def setUp(self):
         user = User.objects.create_user('zohan')
         self.book = Book.objects.create(
@@ -16,6 +16,8 @@ class BookRenameFormTest(TestCase):
         )
 
     def test_valid_form(self):
+        from .forms import BookRenameForm
+
         valid_form_data = {
             'title': 'Foo Book',
             'url_title': 'foo_book'
@@ -33,6 +35,7 @@ class BookRenameFormTest(TestCase):
         )
 
     def test_invalid_form(self):
+        from .forms import BookRenameForm
         invalid_form_data = {
             'title': '',
             'url_title': 'foo_book'
