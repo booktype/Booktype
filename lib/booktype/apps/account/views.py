@@ -54,6 +54,7 @@ from booki.editor.models import Book, License, BookHistory, BookiGroup
 
 from .forms import UserSettingsForm, UserPasswordChangeForm, UserInviteForm
 from . import tasks
+from . import utils
 
 import booktype.apps.account.signals
 
@@ -582,47 +583,12 @@ def profilethumbnail(request, profileid):
     """
 
     try:
-        u = User.objects.get(username=profileid)
+        user = User.objects.get(username=profileid)
     except User.DoesNotExist:
         return views.ErrorPage(request, "errors/user_does_not_exist.html", {"username": profileid})
 
-    name = ''
-
-    def _get_default_profile():
-        "Return path to default profile image."
-
-        try:
-            name = '%s/account/images/%s' % (settings.STATIC_ROOT, settings.DEFAULT_PROFILE_IMAGE)
-        except AttributeError:
-            name = '%s%s' % (settings.STATIC_ROOT, '/account/images/anonymous.png')
-
-        return name
-
-    # this should be a seperate function
-
-    if not u.get_profile().image:
-        name = _get_default_profile()
-    else:
-        name = u.get_profile().image.path
-
-    try:
-        from PIL import Image
-    except ImportError:
-        import Image
-
-    # Don't do much in case of Image handling errors
-
-    try:
-        image = Image.open(name)
-    except IOError:
-        image = Image.open(_get_default_profile())
-
-    image.thumbnail((int(request.GET.get('width', 24)), int(request.GET.get('width', 24))), Image.ANTIALIAS)
-
-    response = HttpResponse(mimetype="image/jpg")
-    image.save(response, "JPEG")
-
-    return response
+    profile_image = utils.get_profile_image(user, int(request.GET.get('width', 24)))
+    return redirect(profile_image)
 
 
 class SendInviteView(PageView, FormView):
