@@ -34,23 +34,23 @@ class FrontpageTest(TestCase):
     def test_books(self):
         response = self.client.get(self.dispatcher)
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'book title')
+        self.assertNotContains(response, 'book title')
 
     def test_people(self):
         response = self.client.get(self.dispatcher)
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, 'user_')
-        self.assertContains(response, 'description')
+        self.assertNotContains(response, 'user_')
+        self.assertNotContains(response, 'description')
 
     def test_groups(self):
         response = self.client.get(self.dispatcher)
         self.assertEquals(response.status_code, 200)
 
-        self.assertContains(response, 'group name')
-        self.assertContains(response, 'url_group_name')
-        self.assertContains(response, 'booki group description')
-        self.assertContains(response, 'Members: 1')
-        self.assertContains(response, 'Books: ')
+        self.assertNotContains(response, 'group name')
+        self.assertNotContains(response, 'url_group_name')
+        self.assertNotContains(response, 'booki group description')
+        self.assertNotContains(response, 'Members: 1')
+        self.assertNotContains(response, 'Books: ')
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -104,7 +104,7 @@ class BookFactory(factory.django.DjangoModelFactory):
 class BookStatusFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = BookStatus
-        
+
     book = factory.SubFactory(BookFactory)
     name = 'status name'
     weight = 0

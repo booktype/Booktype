@@ -17,15 +17,19 @@ class GrouppageTest(TestCase):
 
     def test_accounts(self):
         response = self.client.get(self.dispatcher)
-        self.assertEquals(response.status_code, 200)
-        self.assertEquals(response.context['title'], 'All groups')
+
+        self.assertEquals(response.status_code, 403)
+
+        # This is temporary. We should test this logic in new tests
+        # self.assertEquals(response.context['title'], 'All groups')
 
     def test_anonymous_group(self):
         response = self.client.get(self.dispatcher)
-        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.status_code, 403)
 
-        self.assertContains(response, self.bookGroup.name)
-        self.assertContains(response, self.bookGroup.url_name)
-        self.assertContains(response, 'booki group description')
-        self.assertContains(response, 'Members: 1')
-        self.assertContains(response, 'Books: 0')
+        # This is temporary. We should test this logic in new tests
+        # self.assertNotContains(response, self.bookGroup.name)
+        # self.assertNotContains(response, self.bookGroup.url_name)
+        # self.assertNotContains(response, 'booki group description')
+        # self.assertNotContains(response, 'Members: 1')
+        # self.assertNotContains(response, 'Books: 0')
