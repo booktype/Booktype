@@ -66,6 +66,9 @@ class EpubConverter(BaseConverter):
         logger.debug('[EPUB] Add cover')
         self._add_cover(epub_book)
 
+        logger.debug('[EPUB] Add author')
+        self._add_author(epub_book, original_book)
+
         logger.debug('[EPUB] Writer plugin')
 
         writer_plugin = WriterPlugin()
@@ -295,3 +298,15 @@ class EpubConverter(BaseConverter):
 
         return (
             type(item) in cover_types or file_name == 'cover.xhtml')
+
+    def _add_author(self, epub_book, original_book):
+        """
+        Set the author or list of authors to the EPUB book
+        """
+
+        if epub_book.metadata['creator']:
+            authors = epub_book.metadata['creator'].split(',')
+            for author in authors:
+                epub_book.add_author(author)
+        else:
+            epub_book.add_author(original_book.owner)
