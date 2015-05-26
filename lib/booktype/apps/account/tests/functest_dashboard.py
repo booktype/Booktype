@@ -67,17 +67,16 @@ class DashboardTest(TestCase):
     def test_as_anonymous(self):
         response = self.client.get(self.dispatcher)
 
-        # response status code should be 200
-        self.assertEquals(response.status_code, 200)
+        # response status code should be 403
+        self.assertEquals(response.status_code, 403)
 
+        # This is temporary. We should test this logic in new tests
         # page title should be "User profile"
-        self.assertContains(response, 'User profile')
-
+        #self.assertContains(response, 'User profile')
         # create button shouldn't be available
-        self.assertNotContains(response, 'Create new book')
-
+        #self.assertNotContains(response, 'Create new book')
         # as anonymous, check basic details
-        self._test_base_details(response)
+        #self._test_base_details(response)
 
     def test_as_account_owner(self):
         self.client.login(
@@ -107,7 +106,6 @@ class DashboardTest(TestCase):
         # this user has no groups belonging
         self.assertTrue(len(context['groups']) == 0)
 
-
     def test_other_user_dashboard(self):
         self.client.login(
             username=self.user_2.username,
@@ -115,20 +113,21 @@ class DashboardTest(TestCase):
         )
 
         response = self.client.get(self.dispatcher)
-        context = response.context
-        
-        # as authenticated user, test basic details
-        self._test_base_details(response)
 
-        # response should contain next things
-        self.assertContains(response, 'FOLLOW ME')
-        
-        # response shouldn't contain
-        self.assertNotContains(response, 'Go to settings')
-        self.assertNotContains(response, 'Create new book')
-        self.assertNotContains(response, 'Log out')
+        # response status code should be 403
+        self.assertEquals(response.status_code, 403)
 
-        # this user has created one book and one group at least
-        self.assertTrue(len(context['books']) >= 1)
-        self.assertTrue(self.book in context['books'])
-        self.assertTrue(len(context['groups']) >= 1)
+        # This is temporary. We should test this logic in new tests
+        # context = response.context
+        # # as authenticated user, test basic details
+        # self._test_base_details(response)
+        # # response should contain next things
+        # self.assertContains(response, 'FOLLOW ME')
+        # # response shouldn't contain
+        # self.assertNotContains(response, 'Go to settings')
+        # self.assertNotContains(response, 'Create new book')
+        # self.assertNotContains(response, 'Log out')
+        # # this user has created one book and one group at least
+        # self.assertTrue(len(context['books']) >= 1)
+        # self.assertTrue(self.book in context['books'])
+        # self.assertTrue(len(context['groups']) >= 1)

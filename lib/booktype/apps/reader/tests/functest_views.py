@@ -53,18 +53,19 @@ class InfoPageTest(ReaderBaseTestCase):
     def test_details_as_anonymous(self):
         response = self.client.get(self.dispatcher)
 
-        # response status code should be 200
-        self.assertEquals(response.status_code, 200)
+        # response status code should be 403
+        self.assertEquals(response.status_code, 403)
 
-        # check if context has been filled correctly
-        self.assertTrueMultiple(response, self.vars_to_check)
-        
-        # check if anonymous user is book admin
-        self.assertEquals(response.context['is_book_admin'], False)
-
-        # check absence of some elements in template
-        self.assertNotContains(response, 'Edit book info')
-        self.assertNotContains(response, 'Delete Book')
+        # This is temporary. We should test this logic in new tests
+        # # check if context has been filled correctly
+        # self.assertTrueMultiple(response, self.vars_to_check)
+        #
+        # # check if anonymous user is book admin
+        # self.assertEquals(response.context['is_book_admin'], False)
+        #
+        # # check absence of some elements in template
+        # self.assertNotContains(response, 'Edit book info')
+        # self.assertNotContains(response, 'Delete Book')
 
     def test_details_as_owner_logged_in(self):
         # first login with book owner user
@@ -224,11 +225,8 @@ class DraftChapterTest(ReaderBaseTestCase):
         # response status code should be 200
         self.assertEquals(response.status_code, 200)
 
-        # as anonymous user you can't edit the book
-        self.assertEquals(response.context['can_edit'], False)
-
-        # test if context is well formed
-        self.assertTrueMultiple(response, self.vars_to_check)
+        # as anonymous user you have no permissions
+        self.assertContains(response, 'You have no permissions to do this!')
 
     def test_can_edit_logged_in(self):
         # first login as book owner user
