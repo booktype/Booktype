@@ -1874,7 +1874,7 @@ def remote_cover_load(request, message, bookid, version):
 def remote_publish_book(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
-    if not book_security.has_perm('edit.publish_book'):
+    if not book_security.has_perm('export.export_book'):
         raise PermissionDenied
 
     from . import tasks
@@ -3163,5 +3163,126 @@ def remote_save_custom_theme(request, message, bookid, version):
         theme.save()
     except Exception:
         return {'result': False}
+
+    return {'result': True}
+
+
+def remote_get_export_list(request, message, bookid, version):
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('export.export_view'):
+        raise PermissionDenied
+
+    from booktype.apps.export.models import BookExport, ExportFile, ExportComment
+
+    exports = []
+
+    for export in BookExport.objects.filter(version=book_version).order_by('-created'):
+        comments = []
+
+        for comment in ExportComment.objects.filter(export=export).order_by('created'):
+            comments.append({'username': comment.user.username,
+                'email': comment.user.email,
+                'created': str(comment.created.strftime("%d.%m.%Y %H:%M:%S")),
+                'content': comment.content
+                })
+
+        files = {}
+
+        for fexport in ExportFile.objects.filter(export=export):
+
+            files[fexport.typeof] = {'filename': fexport.filename,
+                'status': fexport.status,
+                'description': fexport.description,
+                'filesize': fexport.filesize,
+                'pages': fexport.pages
+            }
+
+        if export.published is None:
+            _published = ''
+        else:
+            _published = str(export.published.strftime("%d.%m.%Y %H:%M:%S"))
+
+        exports.append({'name': export.name,
+            'username': export.user.username,
+            'task_id': export.task_id,
+            'created': str(export.created.strftime("%d.%m.%Y %H:%M:%S")),
+            'published': _published,
+            'status': export.status,
+            'files': files,
+            'comments': comments
+            })
+
+    return {'result': True, 'exports': exports}
+
+
+def remote_post_export_comment(request, message, bookid, version):
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('export.export_comment'):
+        raise PermissionDenied
+
+    from booktype.apps.export.models import BookExport, ExportComment
+
+    book_export = BookExport.objects.get(task_id=message['task_id'])
+
+    comment = ExportComment(export=book_export,
+        user=request.user,
+        created=datetime.datetime.now(),
+        content=message['content'])    
+    comment.save()
+
+    sputnik.addMessageToChannel(request,
+        "/booktype/book/%s/%s/" % (bookid, version),
+        {"command": "new_export_comment",
+        "task_id": message["task_id"],
+        "username": request.user.username,
+        "email": request.user.email,
+        "created": str(comment.created.strftime("%d.%m.%Y %H:%M:%S")),
+        "content": message['content']}, myself=False)
+
+    return {'result': True, 'comment': {'username': request.user.username,
+        'email': request.user.email,
+        'created': str(comment.created.strftime("%d.%m.%Y %H:%M:%S")),
+        'content': comment.content
+        }}
+
+
+def remote_remove_export(request, message, bookid, version):
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('export.export_delete'):
+        raise PermissionDenied
+
+    from booktype.apps.export.models import BookExport
+
+    book_export = BookExport.objects.get(task_id=message['task_id'])
+
+    book_export.delete()
+    sputnik.addMessageToChannel(request,
+        "/booktype/book/%s/%s/" % (bookid, version),
+        {"command": "remove_export",
+        "task_id": message["task_id"]}, myself=False)
+
+    return {'result': True}
+
+
+def remote_rename_export_name(request, message, bookid, version):
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('export.export_book'):
+        raise PermissionDenied
+
+    from booktype.apps.export.models import BookExport
+
+    book_export = BookExport.objects.get(task_id=message['task_id'])
+    book_export.name = message['name']
+    book_export.save()
+
+    sputnik.addMessageToChannel(request,
+        "/booktype/book/%s/%s/" % (bookid, version),
+        {"command": "rename_export_name",
+        "task_id": message["task_id"],
+        "name": message['name']}, myself=False)
 
     return {'result': True}

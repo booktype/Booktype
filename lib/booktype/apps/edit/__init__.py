@@ -24,9 +24,6 @@ PERMISSIONS = {
         ('edit_cover', _('Edit cover')),
         ('delete_cover', _('Delete cover')),
 
-        ('export_book', _('Export book')),
-        ('publish_book', _('Publish book')),
-
         ('manage_status', _('Manage Status')),
         ('change_chapter_status', _('Change chapter status')),
 

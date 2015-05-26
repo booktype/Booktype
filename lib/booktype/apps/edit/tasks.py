@@ -5,12 +5,15 @@ import urllib2
 import httplib
 import time
 import datetime
+import logging
 
 from django.conf import settings
+from django.contrib.auth.models import User
 
 import sputnik
 
 from booki.editor import models
+from booktype.apps.export.models import BookExport, ExportFile
 
 
 def fetch_url(url, data, method='GET'):
@@ -45,12 +48,12 @@ def fetch_url(url, data, method='GET'):
 
     return dta
 
+x = 0
+
 
 @celery.task
 def publish_book(*args, **kwargs):
-    import urllib2
-    import json
-    import logging
+    global x
 
     # Entire publisher is at the moment hard coded for pdf output
 
@@ -157,18 +160,69 @@ def publish_book(*args, **kwargs):
 
                 _now = datetime.datetime.now()
 
+                exporter = User.objects.get(username=kwargs["username"])
+
+                exprt = BookExport(version=book.get_version(),
+                                   name='Book export - {}'.format(_now),
+                                   user=exporter,
+                                   task_id=task_id,
+                                   created=_now,
+                                   published=None,
+                                   status=0)
+                exprt.save()
+
+                _files = {}
+
+                for output_type, result in dta['result'].iteritems():
+                    if 'state' in result:
+                        if result['state'] == 'SUCCESS':
+                            status = 0
+                            description = ''
+                            filename = result['result']['output']
+                            filesize = result['result'].get('size', 0)
+                            pages = result['result'].get('pages', 0)
+                        else:
+                            status = 1
+                            description = result.get('error', '')
+                            filename = None
+                            filesize = 0
+                            pages = 0
+
+                        ef = ExportFile(export=exprt,
+                                        typeof=output_type,
+                                        filesize=filesize,
+                                        pages=pages,
+                                        status=status,
+                                        description=description,
+                                        filename=filename
+                                        )
+                        ef.save()
+
+                        _files[output_type] = {'filename': filename,
+                                               'status': status,
+                                               'description': description,
+                                               'filesize': filesize,
+                                               'pages': pages
+                                               }
+
                 sputnik.addMessageToChannel2(
                     kwargs['clientid'],
                     kwargs['sputnikid'],
                     "/booktype/book/%s/%s/" % (book.pk, kwargs['version']), {
                         "command": "book_published",
                         "state": 'SUCCESS',
+                        "name": "Book export - {}".format(_now),
                         "username": kwargs["username"],
-                        "exported": _now.isoformat(),
-                        "urls": urls
+                        "task_id": task_id,
+                        "created": _now.strftime("%d.%m.%Y %H:%M:%S"),
+                        "published": "",
+                        "status": 0,
+                        "files": _files,
+                        "comments": []
                     },
                     myself=True
                 )
+
                 break
 
         if dta['state'] == 'FAILURE':

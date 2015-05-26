@@ -62,9 +62,7 @@ def upload_attachment(request, bookid, version=None):
 
     can_upload_attachment = security.get_security_for_book(request.user, book).has_perm('edit.upload_attachment')
 
-    if (not request.user.is_superuser
-            and not can_upload_attachment
-            and book.owner != request.user):
+    if (not request.user.is_superuser and not can_upload_attachment and book.owner != request.user):
         transaction.rollback()
         raise PermissionDenied
 
@@ -132,9 +130,7 @@ def upload_cover(request, bookid, version=None):
 
     can_upload_cover = security.get_security_for_book(request.user, book).has_perm('edit.upload_cover')
 
-    if (not request.user.is_superuser
-            and not can_upload_cover
-            and book.owner != request.user):
+    if (not request.user.is_superuser and not can_upload_cover and book.owner != request.user):
         transaction.rollback()
         raise PermissionDenied
 
@@ -331,6 +327,7 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context['book'] = book
         context['book_version'] = book_version.get_version()
         context['book_language'] = book.language.abbrevation if book.language else 'en'
+        context['security'] = security.get_security_for_book(self.request.user, book)
 
         try:
             rtl = models.Info.objects.get(book=book, kind=0, name='{http://booki.cc/}dir')
@@ -344,6 +341,7 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context['static_url'] = settings.STATIC_URL
         context['is_admin'] = book_security.is_admin()
         context['is_owner'] = book.owner == self.request.user
+        context['publish_options'] = ['book', 'epub', 'mobi', 'screen', 'xhtml']
         context['roles_permissions'] = security.get_user_permissions(
             self.request.user, book)
 

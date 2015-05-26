@@ -100,6 +100,7 @@ class EpubConverter(BaseConverter):
         epub_writer.write()
 
         logger.debug('[END] EPUBConverter.convert')
+        return {"size": os.path.getsize(output_path)}
 
     def _edit_metadata(self, epub_book):
         """
@@ -108,7 +109,7 @@ class EpubConverter(BaseConverter):
 
         # delete existing 'modified' tag
         m = epub_book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
-        m[None] = filter(lambda (_,x): not (isinstance(x, dict) and x.get("property") == "dcterms:modified"), m[None]) # noqa
+        m[None] = filter(lambda (_, x): not (isinstance(x, dict) and x.get("property") == "dcterms:modified"), m[None])  # noqa
 
         # NOTE: probably going to extend this function in future
 
@@ -293,5 +294,4 @@ class EpubConverter(BaseConverter):
             ebooklib.epub.EpubCoverHtml
         ]
 
-        return (
-            type(item) in cover_types or file_name == 'cover.xhtml')
+        return (type(item) in cover_types or file_name == 'cover.xhtml')

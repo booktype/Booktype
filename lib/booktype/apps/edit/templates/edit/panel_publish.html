@@ -1,128 +1,335 @@
-{% load i18n %}
+{% load i18n booktype_tags %}
+
+{% has_perm 'export.export_comment' as access_export_comment %}
+{% has_perm 'export.export_delete' as access_export_delete %}
+{% has_perm 'export.publish_book' as access_publish_book %}
+{% has_perm 'export.export_book' as access_export_book %}
+{% has_perm 'export.export_view' as access_export_view %}
+{% has_perm 'export.export_settings' as access_export_settings %}
 
 <script type="text/html" id="templatePublishHeader">
  <h2>{% trans "Publish" %}</h2>
 </script>
 
 <script type="text/html" id="templatePublishContent">
- <div class="container">
   <div class="row">
-    <div class="col-xs-6" id="publish-filter">
-    </div>
+    <div class="col-sm-8" id="publish-filter">
+      <div class="box gray">
+        {% if access_export_book %}
+          <h4 class="border-bottom no-margin">{% trans "Book export" %}</h4>
+          <span class="publish-filter-container"></span>
+        {% endif %}
 
-    <div class="col-xs-1">
-    </div>    
+        <div class="row">
+          <div class="col-sm-12">
+            {% if access_export_view %}
+              <h4 class="border-bottom">{% trans "Export history" %}</h4>
+              <div class="publish_history">                    
+              </div>
+            {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>  
 
-    <div class="col-xs-5">
-     <h4 class="border-bottom">{% trans "Info" %}</h4>
+      <div class="col-sm-4">
+        <h4 class="border-bottom">{% trans "Book Info" %}</h4>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+      </div>
+    </div>              
+  </div>
 
-    </div>
-   </div>
+  <div class="modal fade" id="settings-book" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog new_book">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="modal-title" id="myModalLabel">{% trans "Book Settings" %}</h2>
+        </div>
+        <div class="modal-body">
+          <section id="basic">
+            <form method="post" action="/accounts/Fritz/_create_book/" target="hidden_frame" enctype="multipart/form-data"><input type="hidden" name="csrfmiddlewaretoken" value="cbFF3Y1lqxPMojRh0EOxNEWwv4oOpwdu">
+              <div id="wizard-settings">
+                <h3>{% trans "Paper size" %}</h3>
+                <section>
+                  <p class="wizard_desc">Paper Size</p>
+                  <label for="size">Size</label> 
+                  <select name="size">
+                    <option value="custom">{% trans "custom" %}</option>
+                    <option value="POCKET">POCKET (107mm x 174mm)</option>
+                    <option value="US5x8">US5x8 (126mm x 203mm)</option>
+                    <option value="DIGEST">DIGEST (139mm x 215mm)</option>
+                    <option value="US5.5x8.5">US5.5x8.5 (139mm x 215mm)</option>
+                    <option value="A5">A5 (148mm x 210mm)</option>
+                    <option value="USTRADE6x9">USTRADE6x9 (152mm x 228mm)</option>
+                    <option value="SQUARE7.5">SQUARE7.5 (190mm x 190mm)</option>
+                    <option value="ROYAL">ROYAL (155mm x 233mm)</option>
+                    <option value="LANDSCAPE9x7">LANDSCAPE9x7 (228mm x 177mm)</option>
+                    <option value="COMICBOOK">COMICBOOK (168mm x 260mm)</option>
+                    <option value="B5">B5 (176mm x 250mm)</option>
+                    <option value="US7x10">US7x10 (177mm x 253mm)</option>
+                    <option value="CROWNQUARTO">CROWNQUARTO (189mm x 245mm)</option>
+                    <option value="SQUARE8.5">SQUARE8.5 (215mm x 215mm)</option>
+                    <option value="USLETTER">USLETTER (215mm x 279mm)</option>
+                    <option selected="selected" value="A4">A4 (210mm x 297mm)</option>
+                    <option value="Foolscap (F4)">Foolscap (F4) (210mm x 330mm)</option>
+                    <option value="B4">B4 (250mm x 353mm)</option>
+                    <option value="Oamaru Tabloid">Oamaru Tabloid (265mm x 380mm)</option>
+                    <option value="UK Tabloid">UK Tabloid (279mm x 431mm)</option>
+                    <option value="A3 (NZ Tabloid)">A3 (NZ Tabloid) (297mm x 420mm)</option>
+                    <option value="Berliner">Berliner (315mm x 470mm)</option>
+                    <option value="B3">B3 (353mm x 500mm)</option>
+                    <option value="Oamaru Broadsheet">Oamaru Broadsheet (382mm x 540mm)</option>
+                    <option value="US Broadsheet">US Broadsheet (380mm x 577mm)</option>
+                    <option value="A2 (NZ Broadsheet)">A2 (NZ Broadsheet) (420mm x 594mm)</option>
+                    <option value="UK Broadsheet">UK Broadsheet (457mm x 609mm)</option>
+                    <option value="B2">B2 (500mm x 707mm)</option>
+                    <option value="A1">A1 (594mm x 841mm)</option>
+                    <option value="B1">B1 (707mm x 1000mm)</option>
+                  </select>
+                  <br/>
+                  <label for="custom_width">Width:</label>
+                  <input type="text"/ name="custom_width" size="4"> <span>{% trans "mm" %}</span>
+                  <br/>
+                  <label for="custom_height">Height:</label>
+                  <input type="text"/ name="custom_height" size="4"> <span>{% trans "mm" %}</span>
 
-    <div class="row-xs-12">
-     <h4 class="border-bottom">{% trans "Export history" %}</h4>
-       <div class="publish_history">
-       </div>
-    </div>
- </div>
+                </section>
+                <h3>{% trans "Margins and gutter" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Margin and gutter" %}</p>
+                  <label for="top_margin">{% trans "Top Margin" %}</label>
+                  <input type="text" name="top_margin" size="4"/> <span>{% trans "mm" %}</span>
+                  <br/>
+                  <label for="side_margin">{% trans "Side Margin" %}</label>
+                  <input type="text" name="side_margin" size="4"/> <span>{% trans "mm" %}</span>
+                  <br/>
+                  <label for="bottom_margin">{% trans "Bottom Margin" %}</label>
+                  <input type="text" name="bottom_margin" size="4"/> <span>{% trans "mm" %}</span>
+                  <br/>
+                  <label for="gutter">{% trans "Gutter" %}</label>
+                  <input type="text" name="gutter" size="4"/> <span>{% trans "mm" %}</span>
+                </section>
+
+                <h3>Cover</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Cover" %}</p>
+                  <select id="id_cover" name="cover" multiple="multiple">
+                    <option value=" ">{% trans "No Cover" %}</option>                  
+                    <option disabled="disabled" role="separator">-------------------</option>                    
+                  </select>                                        
+                </section>
+
+                <h3>{% trans "Advanced styling" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Manually edit styling" %}</p>
+                  <label for="styling">{% trans "Styling" %}</label>
+                  <textarea name="styling" cols="50" rows="5"></textarea>
+                </section>
+              </div>
+            </form>
+          </section>
+        </div>                
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+  <div id="removeExportDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h3 id="myModalLabel">{% trans "Remove export" %}</h3>
+            </div>
+            <div class="modal-body">
+              <p>{% trans "Do you want to remove this export?" %}</p>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "No" %}</button>
+              <button class="btn btn-primary">{% trans "Yes" %}</button>
+            </div>
+          </div>
+      </div>
+  </div>  
+
 </script>
 
 <script type="text/html" id="templatePublishFilter">
-    <h4 class="border-bottom">{% trans "Formats" %}</h4>
-      <form>
-       <div class="row">
-        <div class="col-xs-6">
-
-        <div class="checkbox">
-          <label>
-            <input name="mpdf" type="checkbox"> {% trans "Book PDF" %}
-          </label><br/>
-          <a href="#">{% trans "settings" %}</a>
-        </div>
-
-        <div class="checkbox">
-          <label>
-            <input name="screenpdf" type="checkbox"> {% trans "Screen PDF" %}
-          </label><br/>
-          <a href="#">{% trans "settings" %}</a>
-        </div>
-
-        <div class="checkbox">
-          <label>
-            <input name="epub" type="checkbox"> {% trans "EPUB" %}
-          </label><br/>
-          <a href="#">{% trans "settings" %}</a>
-        </div>
-
-        <div class="checkbox">
-          <label>
-            <input name="mobi" type="checkbox"> {% trans "MOBI" %}
-          </label><br/>
-          <a href="#">{% trans "settings" %}</a>
-        </div>        
-
-        </div>
-        <div class="col-xs-6">
+  <form>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5>{% trans "Choose format for export" %}</h5>
+      </div>
+    </div>
+    <div class="row export-formats">
+      <div class="col-sm-4">
+        {% if "book" in publish_options %}
           <div class="checkbox">
             <label>
-              <input name="xhtml" type="checkbox"> {% trans "Book PDF (BookJS)" %} 
-            </label><br/>
-            <a href="#">{% trans "settings" %}</a>
-          </div>                
+              <input name="mpdf" type="checkbox"> {% trans "Book PDF" %}
+            </label>
+            {% if access_export_settings %}
+              <a href="" data-settings="book" class="modal-open">{% trans "settings" %}</a>
+            {% endif %}
+          </div>
+        {% endif %}
 
+        {% if "screen" in publish_options %}
+          <div class="checkbox">
+            <label>
+              <input name="screenpdf" type="checkbox"> {% trans "Screen PDF" %}
+            </label>
+            {% if access_export_settings %}            
+              <a href="" data-settings="screen" class="modal-open">{% trans "settings" %}</a>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if "epub" in publish_options %}
+          <div class="checkbox">
+            <label>
+              <input name="epub" type="checkbox"> {% trans "EPUB" %}
+            </label>
+            {% if access_export_settings %}            
+              <a href="" class="modal-open">{% trans "settings" %}</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="col-sm-4">
+        {% if "mobi" in publish_options %}
+          <div class="checkbox">
+            <label>
+              <input name="mobi" type="checkbox"> {% trans "MOBI" %}
+            </label>
+            {% if access_export_settings %}            
+              <a href="" class="modal-open">{% trans "settings" %}</a>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if "xhtml" in publish_options %}
           <div class="checkbox">
             <label>
               <input name="xhtml" type="checkbox"> {% trans "XHTML" %}
-            </label><br/>
-            <a href="#">{% trans "settings" %}</a>
-          </div>                
-        </div>
-        </div>
+            </label>
+            {% if access_export_settings %}                      
+              <a href="" class="modal-open">{% trans "settings" %}</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
 
-        <button type="button" class="btn btn-default btn-publish">{% trans "PUBLISH" %}</button>
-      </form>
-
+    <button type="button" class="btn btn-primary btn-publish" aria-disabled="true">{% trans "EXPORT YOUR BOOK" %}</button>
+  </form>
 </script>
 
 <script type="text/html" id="templatePublishHistory">
 </script>
 
 <script type="text/html" id="templatePublishLine">
-   <div class="row">
-     <div class="col-xs-10">
-       <span style="font-size: 14px; margin-right: 10px;"><i class="icon-chevron-right"></i></span>
-       <%= name %> {% trans "by" %} <%= username %> <%= exported %>
-     </div>
-     <div class="col-xs-2">
-       <div class="btn-group">
-         <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-          {% trans "Action" %} <span class="caret"></span>
-         </button>
-         <ul class="dropdown-menu" role="menu">
-            <li><a href="#">{% trans "Remove export" %}</a></li>
-            <li><a href="#">{% trans "Comment" %}</a></li>
-            <li class="divider"></li>
-            <li><a href="#">{% trans "Publish" %}</a></li>          
-         </ul>
-       </div>
-     </div>
-   </div>
-   <div class="row">
-     <div class="col-xs-12">
-       <span style="margin-left: 20px;"> {% trans "Download:" %} </span>
-       <% _.each(formats, function (url, key) { %>
-         <% if (url['status']) { %>
-            <span class="label label-success"><a target="_blank" style="color: white;" href="<%= url['output'] %>"><%= key %></a></span>&nbsp;&nbsp;
-         <% } else { %>
-            <span class="label label-danger"><%= key %></span>&nbsp;&nbsp;          
-         <% } %>
-       <% }); %>
+    <div class="published-label"></div>
+    <div class="export-expand">
+      <i class="icon-chevron-right"></i>
+      <i class="icon-chevron-down"></i>
+    </div>
 
-     </div>
-   </div>
+    <div class="export-name" contenteditable="true"><%= name %></div>
 
+    <div class="export-stamp">
+      <span><%= username %></span><span><%= created %></span>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{% trans "Action" %} <span class="caret"></span></button>
+      <ul class="dropdown-menu" role="menu">
+        {% if access_export_delete %}
+          <li><a href="javascript:void(0)" class="remove-export">{% trans "Remove export" %}</a></li>
+        {% endif %}
+        {% if access_export_comment %}
+          <li><a href="javascript:void(0)" class="comment-on-export">{% trans "Comment" %}</a></li>
+        {% endif %}        
+        {% if access_publish_book %}
+          <!--
+          <li class="divider"></li>
+          <li><a href="javascript:void(0)" class="publish-export">{% trans "Publish" %}</a></li>
+          -->
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="export-results">
+      <div class="group">
+        <% _.each(files, function (dta, key) { %>  
+          <% if (dta.status === 0) { %>
+            <a target="_blank" class="label label-primary" href="<%= dta['filename'] %>" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Download" %}"><%= key %></a>
+          <% } %>
+        <% }); %>
+      </div>
+      <div class="group">
+        <% _.each(files, function (dta, key) { %>  
+          <% if (dta.status !== 0) { %>
+          <span class="label label-default disabled" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Failed" %}"><%= key %></span>
+          <% } %>
+        <% }); %>
+
+      </div>
+    </div>
+
+    <div class="export-results-detail">
+      <ul>
+        <% _.each(files, function (dta, key) { %>  
+          <% if (dta.status === 0) { %>
+            <li>
+              <a target="_blank" class="label label-primary" href="<%= dta['filename'] %>"><%= key %></a>
+              <span><%= booktype.utils.formatSize(dta['filesize']) %></span><% if (dta['pages'] !== 0) { %><span>dta['pages']</span><% } %>
+            </li>
+          <% } %>
+        <% }); %>
+        <% _.each(files, function (dta, key) { %>  
+          <% if (dta.status !== 0) { %>
+            <li>
+              <span class="label label-default disabled"><%= key %></span>
+              <span><%= dta.description %></span>
+            </li>            
+          <% } %>
+        <% }); %>
+
+      </ul>
+    </div>
+
+    <div class="export-comments">
+      <div class="expand">
+        {% trans "comments" %}
+        <span class="badge"><%= comments.length %></span>
+      </div>
+      <div class="wrapper">
+        <ul class="notification-list">
+        </ul>
+
+        {% if access_export_comment %}
+          <div class="post-comment">
+            <textarea name="comment" class="form-control" cols="4" rows="4" placeholder="{% trans "Your comment here" %}"></textarea>
+            <button type="button" class="btn btn-primary btn-sm send-comment">{% trans "SEND COMMENT" %}</button>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+</script>
+
+<script type="text/html" id="templatePublishComments">
+  <% _.each(comments, function (dta, idx) { %>
+    <li>
+      <figure class="notification-avatar"><img src="<%= getAvatar(dta['username']) %>"></figure>
+      <div class="notification-content">
+        <p class="notification-text"><span class="notification-author"><%= dta['username'] %></span> <%= dta['content'] %></p>
+        <span class="notification-info"><%= dta['created'] %></span>
+      </div>
+    </li>
+  <% }); %>
 </script>
 
 <script type="text/html" id="templatePublishProgress">
-  <div class="publishing-message box gray"><i class="icon-gears"></i>  {% trans "Exporting. Please wait." %} </div>
+  <div class="alert alert-warning" role="alert">{% trans "Exporting, please wait" %}</div>
 </script>
