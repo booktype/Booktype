@@ -28,7 +28,6 @@
                             <p class="wizard_desc">{% trans "Give some information so others can find it to help you (this can be added or changed later)." %}</p>
                             <label for="description">{% trans "Description" %}</label>
                             <textarea class="form-control" name="description" cols="40" rows="7"></textarea>
-
                         </section>
 
                         <h3>{% trans "Choose license" %}</h3>
@@ -37,10 +36,9 @@
                             <label for="hidden">{% trans "License" %}</label>
                             <select id="id_license" name="license">
                                 {% for license in licenses %}
-                                <option value="{{license.abbrevation}}" {% if book_license == license.abbrevation %}selected="selected"{% endif %}>{{license.name}}</option>
+                                <option value="{{ license.abbrevation }}" {% if book_license == license.abbrevation %}selected="selected"{% endif %}>{{license.name}}</option>
                                 {% endfor %}
                             </select>
-
                         </section>
 
                         <h3>{% trans "Image" %}</h3>
