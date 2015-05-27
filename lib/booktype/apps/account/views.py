@@ -36,7 +36,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import DetailView, View
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.views.generic.edit import BaseCreateView, UpdateView, FormView
 
 
@@ -555,8 +555,8 @@ class SignInView(PageView):
                 if invite_data:
                     assign_invitation(user, invite_data)
 
-            resp = HttpResponse(json.dumps(ret), mimetype="text/json")
-        return resp
+            return HttpResponse(json.dumps(ret), mimetype="text/json")
+        return HttpResponseBadRequest()
 
 
 class SignOutView(View):
