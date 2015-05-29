@@ -283,12 +283,12 @@ div.contentHeader span.info-message {
 }
 
 
-#contenteditor sup,
-#contenteditor pre,
-#contenteditor table,
-#contenteditor tbody,
-#contenteditor tr,
-#contenteditor td {
+#contenteditor sup, #contentrevision sup,
+#contenteditor pre, #contentrevision pre,
+#contenteditor table, #contentrevision table,
+#contenteditor tbody, #contentrevision tbody,
+#contenteditor tr, #contentrevision tr,
+#contenteditor td, #contentrevision td {
         border: inherit;
         text-align: inherit;
         font-size: inherit;
@@ -298,13 +298,14 @@ div.contentHeader span.info-message {
         color: inherit;
 }
 
-#contenteditor td {
+#contenteditor td, #contentrevision td {
   min-width: 20px;
 }
 
-#contenteditor a {
+#contenteditor a, #contentrevision a {
         text-decoration: underline;
 }
+
 
 /* Style Tab 
 ------------------------------------------------------*/
