@@ -206,7 +206,7 @@
             <ul>
                 {% for pk, choice in invite_form.books.field.widget.choices  %}
                 <li>
-                <a href="#" target='_blank'> {{ choice }}
+                <a href="#"> {{ choice }}
                         <input  type="checkbox" id="id_options_{{ forloop.counter0 }}" 
                         value="{{ pk }}" name="books" />
                     </a>
