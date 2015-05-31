@@ -158,48 +158,6 @@ class ImporterView(JSONResponseMixin, FormView):
         return self.render_json_response(response_data)
 
 
-def frontpage(request):
-    if request.method == 'POST':  # If the form has been submitted...
-        # A form bound to the POST data
-        form = UploadForm(request.POST, request.FILES)
-        if form.is_valid():  # All validation rules pass
-
-            fil = request.FILES['file']
-
-            f = open('/tmp/acika.epub', 'wb+')
-            for chunk in fil.chunks():
-                f.write(chunk)
-            f.close()
-
-            try:
-                title = None
-                if form.cleaned_data['title'].strip() != '':
-                    title = form.cleaned_data['title']
-
-                book = import_book_from_file(
-                    '/tmp/acika.epub', request.user, book_title=title)
-            except:
-                transaction.rollback()
-                raise
-            else:
-                transaction.commit()
-
-            from django.core.urlresolvers import reverse
-
-            url = reverse('reader:infopage', kwargs={'bookid': book.url_title})
-            res = HttpResponseRedirect(url)  # Redirect after POST
-
-            return res
-    else:
-        form = UploadForm()  # An unbound form
-
-    resp = render(request, 'importer/frontpage.html', {
-        'request': request,
-        'form': form
-    })
-    return resp
-
-
 def upload_progress(request):
     """
     Used by Ajax calls

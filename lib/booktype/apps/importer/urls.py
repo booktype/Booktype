@@ -21,8 +21,6 @@ from .views import ImporterView
 
 urlpatterns = patterns('', # noqa
     url(
-        r'^$', 'booktype.apps.importer.views.frontpage', name='importer'),
-    url(
         r'^_upload-book-file/$',
         login_required(ImporterView.as_view()),
         name='upload_book_file'

@@ -59,7 +59,7 @@ urlpatterns = patterns(
 
     # importer application
     # TODO: Add namespace
-    url(r'^importer/', include('booktype.apps.importer.urls'))
+    url(r'^_importer/', include('booktype.apps.importer.urls'))
 )
 
 urlpatterns += patterns('',
