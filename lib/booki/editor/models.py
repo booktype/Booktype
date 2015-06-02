@@ -532,7 +532,8 @@ class ChapterHistory(models.Model):
     comment = models.CharField(_('comment'), max_length=2500, blank=True)
 
     def __unicode__(self):
-        return self.comment
+        return '{0} | {1} - {2}. Comment: {3}'.format(self.chapter.book, self.chapter, self.modified,
+                                                      self.comment)
 
     class Meta:
         verbose_name = _('Chapter history')
