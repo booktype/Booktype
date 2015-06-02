@@ -150,7 +150,7 @@ class EndpointConfig(models.Model):
     notification_filter = models.CharField(_('notification filter'), max_length=2500, blank=True)
 
     def __unicode__(self):
-        return "config-"+"-".join(str(x) for x in self.endpoint_set.all())
+        return u"config-"+"-".join(str(x) for x in self.endpoint_set.all())
 
     class Meta:
         verbose_name = _('Endpoint config')

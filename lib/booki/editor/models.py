@@ -89,7 +89,7 @@ class BookNotes(models.Model):
     notes = models.TextField(_('notes'))
 
     def __unicode__(self):
-        return "Notes for " + self.book.title
+        return u"Notes for " + self.book.title
 
     class Meta:
         verbose_name = _('Book note')
@@ -399,7 +399,7 @@ class BookVersion(models.Model):
         return '%s/%s/_v/%s/' % (settings.BOOKI_URL, self.book.url_title, self.get_version())
 
     def __unicode__(self):
-        return '%d.%d (%s)' % (self.major, self.minor, self.name)
+        return u'%d.%d (%s)' % (self.major, self.minor, self.name)
 
     # DEPRECATED API NAMES
     getTOC = get_toc
@@ -532,8 +532,8 @@ class ChapterHistory(models.Model):
     comment = models.CharField(_('comment'), max_length=2500, blank=True)
 
     def __unicode__(self):
-        return '{0} | {1} - {2}. Comment: {3}'.format(self.chapter.book, self.chapter, self.modified,
-                                                      self.comment)
+        return u'{0} | {1} - {2}. Comment: {3}'.format(self.chapter.book, self.chapter, self.modified,
+                                                       self.comment)
 
     class Meta:
         verbose_name = _('Chapter history')
@@ -576,7 +576,7 @@ class ChapterLock(models.Model):
         ordering = ('created',)
 
     def __unicode__(self):
-        return "{0} - {1}".format(self.chapter.title, self.get_type_display())
+        return u"{0} - {1}".format(self.chapter.title, self.get_type_display())
 
 
 # Attachment
@@ -705,7 +705,7 @@ class BookiPermission(models.Model):
     permission = models.SmallIntegerField(_('permission'))
 
     def __unicode__(self):
-        return '%s %s ' % (self.user.username, self.permission)
+        return u'%s %s ' % (self.user.username, self.permission)
 
 
 class AttributionExclude(models.Model):
@@ -713,7 +713,7 @@ class AttributionExclude(models.Model):
     user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
 
     def __unicode__(self):
-        return '%s' % (self.user.username, )
+        return u'%s' % (self.user.username, )
 
     class Meta:
         verbose_name = _('Attribution Exclude')
@@ -727,7 +727,7 @@ class PublishWizzard(models.Model):
     wizz_options =  models.TextField(_('wizzard options'), default='', null=False)
 
     def __unicode__(self):
-        return '%s' % (self.book.url_title, )
+        return u'%s' % (self.book.url_title, )
 
     class Meta:
         verbose_name = _('Publish Wizzard')
@@ -776,5 +776,5 @@ class BookCover(models.Model):
         super(BookCover, self).delete()
 
     def __unicode__(self):
-        return '%s' % (self.id, )
+        return u'%s' % (self.id, )
 
