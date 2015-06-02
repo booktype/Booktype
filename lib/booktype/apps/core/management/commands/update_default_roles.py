@@ -27,7 +27,7 @@ class Command(BaseCommand):
                     perm = Permission.objects.get(app_name=app, name=code_name)
                     role.permissions.add(perm)
                 except Permission.DoesNotExist:
-                    err_msg = 'Create permissions before updating default roles' # noqa
+                    err_msg = 'Create permissions before updating default roles'
                     raise CommandError(err_msg)
 
             statuses = ['updated', 'created']

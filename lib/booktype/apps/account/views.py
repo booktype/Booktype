@@ -71,7 +71,7 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
 
     def check_permissions(self, request, *args, **kwargs):
         is_current_user_dashboard = kwargs.get(self.slug_url_kwarg, None) == self.request.user.username
-        if not self.security.has_perm("account.can_view_user_info") and not is_current_user_dashboard:
+        if not self.security.has_perm('account.can_view_user_info') and not is_current_user_dashboard:
             raise PermissionDenied
 
     def get_context_data(self, **kwargs):
@@ -108,10 +108,14 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
         context['recent_activity'] = BookHistory.objects.filter(
             user=self.object).order_by('-modified')[:3]
 
-        context['book_license'] = config.get_configuration(
-            'CREATE_BOOK_LICENSE')
-        context['book_visible'] = config.get_configuration(
-            'CREATE_BOOK_VISIBLE')
+        context['can_upload_book'] = security.get_security(self.request.user).has_perm('account.can_upload_book')
+        context['book_license'] = config.get_configuration('CREATE_BOOK_LICENSE')
+        context['book_visible'] = config.get_configuration('CREATE_BOOK_VISIBLE')
+        context['only_admin_import'] = config.get_configuration('ADMIN_IMPORT_BOOKS')
+
+        # if only admin import then deny user permission to upload books
+        if context['only_admin_import']:
+            context['can_upload_book'] = False
 
         # change title in case of not authenticated user
         if not self.request.user.is_authenticated() or \
@@ -120,7 +124,6 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
             context['page_title'] = _('User profile')
 
         context['upload_uuid'] = uuid.uuid4()
-        context['can_upload_book'] = security.get_security(self.request.user).has_perm('account.can_upload_book')
 
         return context
 
@@ -137,7 +140,7 @@ class CreateBookView(LoginRequiredMixin, BaseCreateView):
                 "available": check_book_availability(
                     request.GET.get('bookname', '').strip())
             }
-            return HttpResponse(json.dumps(data), "application/json")
+            return HttpResponse(json.dumps(data), 'application/json')
 
     def post(self, request, *args, **kwargs):
         book = create_book(request.user, request.POST.get('title'))
@@ -209,7 +212,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
 
         try:
             ep_config = get_endpoint_or_none(
-                "@%s" % user.username).get_config()
+                '@%s' % user.username).get_config()
             ep_config.notification_filter = form.data.get('notification', '')
             ep_config.save()
         except:
@@ -225,7 +228,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
         profile = self.object.get_profile()
         initial = super(self.__class__, self).get_initial()
         initial['aboutyourself'] = profile.description
-        endpoint = get_endpoint_or_none("@%s" % self.object.username)
+        endpoint = get_endpoint_or_none('@%s' % self.object.username)
         try:
             endpoint_config = endpoint.get_config()
             initial['notification'] = endpoint_config.notification_filter
@@ -241,10 +244,10 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
             'accounts:view_profile', args=[self.get_object().username])
 
     def post(self, request, *args, **kwargs):
-        '''
+        """
         Overrides the post method in order to handle settings form and
         also password form
-        '''
+        """
 
         if 'password_change' in request.POST:
             form = self.password_form_class(user=request.user, data=request.POST)
@@ -440,8 +443,6 @@ class SignInView(PageView):
         signed_data = request.GET.get('data', None)
         if signed_data:
             request.session['invite_data'] = signing.loads(signed_data)
-
-
         return super(SignInView, self).get(request)
 
     def _do_check_valid(self, request):
@@ -515,14 +516,15 @@ class SignInView(PageView):
                         if user:
                             user.first_name = fullname
 
-                            booktype.apps.account.signals.account_created.send(sender=user, password=request.POST["password"])
+                            booktype.apps.account.signals.account_created.send(
+                                sender=user, password=request.POST['password'])
 
                             try:
                                 user.save()
 
                                 # groups
 
-                                for group_name in json.loads(request.POST.get("groups")):
+                                for group_name in json.loads(request.POST.get('groups')):
                                     if group_name.strip() != '':
                                         try:
                                             group = BookiGroup.objects.get(url_name=group_name)
@@ -533,22 +535,22 @@ class SignInView(PageView):
                                 user2 = auth.authenticate(username=username, password=password)
                                 auth.login(request, user2)
                             except:
-                                ret["result"] = 666
+                                ret['result'] = 666
 
-            if request.POST.get("method", "") == "signin":
+            if request.POST.get('method', '') == 'signin':
                 user = auth.authenticate(username=username, password=password)
 
                 if user:
                     auth.login(request, user)
-                    ret["result"] = 1
+                    ret['result'] = 1
                 else:
                     try:
                         auth.models.User.objects.get(username=username)
                         # User does exist. Must be wrong password then
-                        ret["result"] = 3
+                        ret['result'] = 3
                     except auth.models.User.DoesNotExist:
                         # User does not exist
-                        ret["result"] = 2
+                        ret['result'] = 2
 
             if ret['result'] == 1:
                 invite_data = request.session.pop('invite_data', False)
@@ -562,9 +564,8 @@ class SignInView(PageView):
 class SignOutView(View):
 
     def get(self, request):
-
         auth.logout(request)
-        return HttpResponseRedirect(reverse("portal:frontpage"))
+        return HttpResponseRedirect(reverse('portal:frontpage'))
 
 
 def profilethumbnail(request, profileid):
@@ -584,7 +585,7 @@ def profilethumbnail(request, profileid):
     try:
         user = User.objects.get(username=profileid)
     except User.DoesNotExist:
-        return views.ErrorPage(request, "errors/user_does_not_exist.html", {"username": profileid})
+        return views.ErrorPage(request, 'errors/user_does_not_exist.html', {'username': profileid})
 
     profile_image = utils.get_profile_image(user, int(request.GET.get('width', 24)))
     return redirect(profile_image)

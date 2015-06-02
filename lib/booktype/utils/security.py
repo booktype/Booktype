@@ -180,9 +180,9 @@ class Security(object):
             app_name, codename = permission_string.split('.')
             return Permission.objects.get(app_name=app_name, name=codename)
         except ValueError:
-            raise Exception("permission_strin parameter should be 'app_name.permission' way")
+            raise Exception("permission_string parameter should be 'app_name.permission' way")
         except Permission.DoesNotExist:
-            return False
+            return None
 
     def _get_permissions(self, book=None):
         """Retrieving permissions set
@@ -375,6 +375,7 @@ def get_security(user):
      Returns Base security object (:class:`Security`).
     """
     return Security(user)
+
 
 def get_security_for_book(user, book):
     """Returns book security object for specified user and book.
