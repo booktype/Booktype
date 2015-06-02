@@ -15,7 +15,7 @@ from widgets import RemovableImageWidget
 
 class SpanErrorList(ErrorList):
     def __unicode__(self):
-        return self.as_spans()
+        return unicode(self.as_spans())
 
     def as_spans(self):
         return "<span style='color: red'>%s</span>" % (
