@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 10:38+0100\n"
-"PO-Revision-Date: 2015-05-27 09:52+0000\n"
-"Last-Translator: jmontane <joan@montane.cat>\n"
+"POT-Creation-Date: 2015-06-03 05:39-0600\n"
+"PO-Revision-Date: 2015-06-04 08:21+0000\n"
+"Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/booktype/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,308 +52,344 @@ msgstr ""
 msgid "Show activity"
 msgstr ""
 
-#: forms.py:188
+#: forms.py:142
+msgid "Use anonymous page"
+msgstr ""
+
+#: forms.py:144
+msgid ""
+"Use separate page for anonymous users without books, people, groups and "
+"recent activity blocks."
+msgstr ""
+
+#: forms.py:148
+msgid "Anonymous page message"
+msgstr ""
+
+#: forms.py:151
+msgid "Message for displaying on anonymous page."
+msgstr ""
+
+#: forms.py:154
+msgid "Anonymous page email"
+msgstr ""
+
+#: forms.py:156
+msgid "Email for displaying on anonymous page."
+msgstr ""
+
+#: forms.py:159
+msgid "Anonymous page image"
+msgstr ""
+
+#: forms.py:161
+msgid "Use image/png files."
+msgstr ""
+
+#: forms.py:248
 msgid "Abbrevation"
 msgstr ""
 
-#: forms.py:190
+#: forms.py:250
 msgid "Abbrevation is required."
 msgstr ""
 
-#: forms.py:194
+#: forms.py:254
 msgid "Name"
 msgstr ""
 
-#: forms.py:196 forms.py:202
+#: forms.py:256 forms.py:262
 msgid "License name is required."
 msgstr ""
 
-#: forms.py:200
+#: forms.py:260
 msgid "License URL"
 msgstr ""
 
-#: forms.py:206
+#: forms.py:266
 msgid "Succesfully created new license."
 msgstr ""
 
-#: forms.py:227
+#: forms.py:287
 msgid "Default visibility"
 msgstr ""
 
-#: forms.py:232
+#: forms.py:292
 msgid "Default License"
 msgstr ""
 
-#: forms.py:235
+#: forms.py:295
 msgid "Default license for newly created books."
 msgstr ""
 
-#: forms.py:278
+#: forms.py:338
 msgid "Anyone can register"
 msgstr ""
 
-#: forms.py:280
+#: forms.py:340
 msgid "Anyone can register on the site and create account"
 msgstr ""
 
-#: forms.py:283
+#: forms.py:343
 msgid "Only admin can create books"
 msgstr ""
 
-#: forms.py:287
+#: forms.py:347
 msgid "Only admin can import books"
 msgstr ""
 
-#: forms.py:315 forms.py:468
+#: forms.py:375 forms.py:528
 msgid "Username"
 msgstr ""
 
-#: forms.py:318 forms.py:472
+#: forms.py:378 forms.py:532
 msgid "Username is required."
 msgstr ""
 
-#: forms.py:319 forms.py:325 forms.py:473 forms.py:478
+#: forms.py:379 forms.py:385 forms.py:533 forms.py:538
 msgid "Illegal characters in username."
 msgstr ""
 
-#: forms.py:331 forms.py:484
+#: forms.py:391 forms.py:544
 msgid "Full name"
 msgstr ""
 
-#: forms.py:333 forms.py:486
+#: forms.py:393 forms.py:546
 msgid "Full name is required."
 msgstr ""
 
-#: forms.py:337 forms.py:490
+#: forms.py:397 forms.py:550
 msgid "Email"
 msgstr ""
 
-#: forms.py:339 forms.py:492
+#: forms.py:399 forms.py:552
 msgid "Email is required."
 msgstr ""
 
-#: forms.py:343 forms.py:504
+#: forms.py:403 forms.py:564
 msgid "User description"
 msgstr ""
 
-#: forms.py:348 forms.py:532
+#: forms.py:408 forms.py:592
 msgid "Password"
 msgstr ""
 
-#: forms.py:350 forms.py:357 forms.py:534 forms.py:542
+#: forms.py:410 forms.py:417 forms.py:594 forms.py:602
 msgid "Password is required."
 msgstr ""
 
-#: forms.py:355 forms.py:539
+#: forms.py:415 forms.py:599
 msgid "Password confirmation"
 msgstr ""
 
-#: forms.py:360 forms.py:544
+#: forms.py:420 forms.py:604
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:363
+#: forms.py:423
 msgid "Notify person by email"
 msgstr ""
 
-#: forms.py:368 forms.py:510
+#: forms.py:428 forms.py:570
 msgid "This person is superuser"
 msgstr ""
 
-#: forms.py:372
+#: forms.py:432
 msgid "Successfully created new account."
 msgstr ""
 
-#: forms.py:398
+#: forms.py:458
 msgid "This Person already exists."
 msgstr ""
 
-#: forms.py:404
+#: forms.py:464
 msgid "Passwords do not match."
 msgstr ""
 
-#: forms.py:496
+#: forms.py:556
 msgid "Profile picture"
 msgstr ""
 
-#: forms.py:528
+#: forms.py:588
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:569 forms.py:642
+#: forms.py:629 forms.py:702
 msgid "Title"
 msgstr ""
 
-#: forms.py:570 forms.py:644 tests.py:46
+#: forms.py:630 forms.py:704 tests.py:49
 msgid "Title is required."
 msgstr ""
 
-#: forms.py:575 views.py:45
-#: templates/booktypecontrol/control_center_settings.html:27
+#: forms.py:635
 msgid "Description"
 msgstr ""
 
-#: forms.py:580
+#: forms.py:640
 msgid "Owner"
 msgstr ""
 
-#: forms.py:581
+#: forms.py:641
 msgid "Book owner is required."
 msgstr ""
 
-#: forms.py:586
+#: forms.py:646
 msgid "License"
 msgstr ""
 
-#: forms.py:588
+#: forms.py:648
 msgid "License is required."
 msgstr ""
 
-#: forms.py:592
+#: forms.py:652
 msgid "Initially hide from others"
 msgstr ""
 
-#: forms.py:596
+#: forms.py:656
 msgid "Book image"
 msgstr ""
 
-#: forms.py:600
+#: forms.py:660
 msgid "Successfully created new book."
 msgstr ""
 
-#: forms.py:604
+#: forms.py:664
 msgid "This Book already exists."
 msgstr ""
 
-#: forms.py:648
+#: forms.py:708
 msgid "URL title"
 msgstr ""
 
-#: forms.py:651
+#: forms.py:711
 msgid "Illegal characters in URL title."
 msgstr ""
 
-#: forms.py:652
+#: forms.py:712
 msgid ""
 "If you leave this field empty URL        title will be assigned "
 "automatically."
 msgstr ""
 
-#: forms.py:690
+#: forms.py:750
 msgid "book"
 msgstr ""
 
-#: forms.py:694
+#: forms.py:754
 msgid "ebook"
 msgstr ""
 
-#: forms.py:698
+#: forms.py:758
 msgid "PDF"
 msgstr ""
 
-#: forms.py:702
+#: forms.py:762
 msgid "ODT"
 msgstr ""
 
-#: forms.py:733
+#: forms.py:793
 msgid "Book CSS"
 msgstr ""
 
-#: forms.py:741
+#: forms.py:801
 msgid "E-Book CSS"
 msgstr ""
 
-#: forms.py:749
+#: forms.py:809
 msgid "PDF CSS"
 msgstr ""
 
-#: forms.py:757
+#: forms.py:817
 msgid "ODT CSS"
 msgstr ""
 
-#: forms.py:811
+#: forms.py:871
 msgid "Successfully created new group."
 msgstr ""
 
-#: forms.py:848
+#: forms.py:908
 msgid "Successfully created new role."
 msgstr ""
 
-#: forms.py:875
+#: forms.py:935
 msgid "None"
 msgstr ""
 
-#: forms.py:882
+#: forms.py:942
 msgid "Role for anonymous users"
 msgstr ""
 
-#: forms.py:886
+#: forms.py:946
 msgid "Role for registered users"
 msgstr ""
 
+#: views.py:45 templates/booktypecontrol/control_center_settings.html:27
+msgid "Site Description"
+msgstr ""
+
 #: views.py:46 templates/booktypecontrol/control_center_settings.html:28
-msgid "Appearance"
+msgid "Site Appearance"
 msgstr ""
 
 #: views.py:47 templates/booktypecontrol/control_center_settings.html:29
-msgid "Frontpage"
+msgid "Site Front Page"
 msgstr ""
 
-#: views.py:48 templates/booktypecontrol/_control_center_license.html:8
-#: templates/booktypecontrol/control_center_settings.html:34
-msgid "Licenses"
+#: views.py:48 templates/booktypecontrol/control_center_settings.html:30
+msgid "Book Licenses"
 msgstr ""
 
-#: views.py:49
-msgid "Default Book Settings for Creating Books"
+#: views.py:49 templates/booktypecontrol/control_center_settings.html:31
+msgid "Book Creation Defaults"
 msgstr ""
 
-#: views.py:50 templates/booktypecontrol/control_center_settings.html:37
+#: views.py:50 templates/booktypecontrol/control_center_settings.html:33
 msgid "Privacy"
 msgstr ""
 
-#: views.py:51
-msgid "Add a new Person"
+#: views.py:51 templates/booktypecontrol/control_center_settings.html:38
+msgid "Add a New Person"
 msgstr ""
 
 #: views.py:52 templates/booktypecontrol/_control_center_list_of_people.html:5
-#: templates/booktypecontrol/control_center_settings.html:43
+#: templates/booktypecontrol/control_center_settings.html:39
 msgid "List of People"
 msgstr ""
 
-#: views.py:53
-msgid "Add new Book"
+#: views.py:53 templates/booktypecontrol/control_center_settings.html:42
+msgid "Add a New Book"
 msgstr ""
 
-#: views.py:54 templates/booktypecontrol/control_center_settings.html:55
+#: views.py:54 templates/booktypecontrol/control_center_settings.html:43
 msgid "List of Books"
 msgstr ""
 
-#: views.py:55 templates/booktypecontrol/control_center_settings.html:48
-msgid "Allowed publishing options"
+#: views.py:55 templates/booktypecontrol/control_center_settings.html:34
+msgid "Publishing Options"
 msgstr ""
 
-#: views.py:56
+#: views.py:56 templates/booktypecontrol/control_center_settings.html:35
 msgid "Publishing Defaults"
 msgstr ""
 
-#: views.py:57
-msgid "Add new Group"
+#: views.py:57 templates/booktypecontrol/control_center_settings.html:46
+msgid "Add a New Group"
 msgstr ""
 
-#: views.py:58 templates/booktypecontrol/control_center_settings.html:59
+#: views.py:58 templates/booktypecontrol/control_center_settings.html:47
 msgid "List of Groups"
 msgstr ""
 
-#: views.py:59
-msgid "Add new Role"
+#: views.py:59 templates/booktypecontrol/control_center_settings.html:50
+msgid "Add a New Role"
 msgstr ""
 
-#: views.py:60 templates/booktypecontrol/control_center_settings.html:63
+#: views.py:60 templates/booktypecontrol/control_center_settings.html:51
 msgid "List of Roles"
 msgstr ""
 
-#: views.py:61 templates/booktypecontrol/control_center_settings.html:36
+#: views.py:61 templates/booktypecontrol/control_center_settings.html:32
 msgid "Default Roles"
 msgstr ""
 
@@ -429,11 +465,12 @@ msgid "Home"
 msgstr ""
 
 #: templates/control_base.html:13
+#: templates/booktypecontrol/control_center_settings.html:26
 msgid "Settings"
 msgstr ""
 
 #: templates/control_base.html:16
-#: templates/booktypecontrol/control_center_settings.html:41
+#: templates/booktypecontrol/control_center_settings.html:37
 msgid "People"
 msgstr ""
 
@@ -441,18 +478,18 @@ msgstr ""
 #: templates/booktypecontrol/_control_center_list_of_groups.html:20
 #: templates/booktypecontrol/_control_center_modal_person_info.html:15
 #: templates/booktypecontrol/_control_center_modal_person_info.html:76
-#: templates/booktypecontrol/control_center_settings.html:53
+#: templates/booktypecontrol/control_center_settings.html:41
 msgid "Books"
 msgstr ""
 
 #: templates/control_base.html:22
 #: templates/booktypecontrol/_control_center_modal_person_info.html:16
-#: templates/booktypecontrol/control_center_settings.html:57
+#: templates/booktypecontrol/control_center_settings.html:45
 msgid "Groups"
 msgstr ""
 
 #: templates/control_base.html:25
-#: templates/booktypecontrol/control_center_settings.html:61
+#: templates/booktypecontrol/control_center_settings.html:49
 msgid "Roles"
 msgstr ""
 
@@ -462,6 +499,10 @@ msgstr ""
 
 #: templates/booktypecontrol/_control_center_license.html:4
 msgid "Add new license"
+msgstr ""
+
+#: templates/booktypecontrol/_control_center_license.html:8
+msgid "Licenses"
 msgstr ""
 
 #: templates/booktypecontrol/_control_center_license_edit.html:6
@@ -509,7 +550,6 @@ msgid "Delete"
 msgstr ""
 
 #: templates/booktypecontrol/_control_center_list_of_people.html:7
-#: templates/booktypecontrol/control_center_settings.html:42
 msgid "Add Person"
 msgstr ""
 
@@ -677,36 +717,4 @@ msgstr ""
 
 #: templates/booktypecontrol/control_center_dashboard.html:140
 msgid "No active books here"
-msgstr ""
-
-#: templates/booktypecontrol/control_center_settings.html:26
-msgid "Site"
-msgstr ""
-
-#: templates/booktypecontrol/control_center_settings.html:33
-msgid "General"
-msgstr ""
-
-#: templates/booktypecontrol/control_center_settings.html:35
-msgid "Default Book Settings"
-msgstr ""
-
-#: templates/booktypecontrol/control_center_settings.html:47
-msgid "Publish options"
-msgstr ""
-
-#: templates/booktypecontrol/control_center_settings.html:49
-msgid "Default settings"
-msgstr ""
-
-#: templates/booktypecontrol/control_center_settings.html:54
-msgid "Add New Book"
-msgstr ""
-
-#: templates/booktypecontrol/control_center_settings.html:58
-msgid "Add New Group"
-msgstr ""
-
-#: templates/booktypecontrol/control_center_settings.html:62
-msgid "Add New Role"
 msgstr ""
