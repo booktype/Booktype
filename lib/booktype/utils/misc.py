@@ -388,6 +388,8 @@ def export_book(fileName, book_version):
     # parse and fetch only images which are inside
     embededImages = {}
 
+    hold_chapters_urls = [i.url_title for i in book_version.getHoldChapters()]
+
     for chapter in book_version.get_toc():
         if chapter.chapter:
             c1 = epub.EpubHtml(
@@ -407,12 +409,16 @@ def export_book(fileName, book_version):
                     if href and href.startswith('../'):
                         urlp = urlparse.urlparse(href)
 
-                        fixed_href = urlp.path[3:-1] + '.xhtml'
+                        url_title = urlp.path[3:-1]
 
-                        if urlp.fragment:
-                            fixed_href = "{}#{}".format(fixed_href, urlp.fragment)
-
-                        elem.set('href', fixed_href)
+                        # if link on chapter on hold -> remove tag
+                        if url_title not in hold_chapters_urls:
+                            fixed_href = url_title + '.xhtml'
+                            if urlp.fragment:
+                                fixed_href = "{}#{}".format(fixed_href, urlp.fragment)
+                            elem.set('href', fixed_href)
+                        else:
+                            elem.drop_tag()
 
                 if elem.tag == 'img':
                     src = elem.get('src')
