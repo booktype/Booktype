@@ -6,9 +6,6 @@
     <a href="{% url "accounts:view_profile" current_user.username %}">{{ current_user.username }}</a>
 
     <p>{{ current_user.get_profile.description|escape }}</p>
-    <p>
-        {% user_followingbox user.username "account/dashboard_following.html" %}<br>
-        {% user_followersbox user.username "account/dashboard_followers.html" %}
-    </p>
+    
     <p><a href="#">{% trans "Track updates by RSS" %}</a> <img src="{% static 'core/img/rss.png' %}"></p>
 </div>

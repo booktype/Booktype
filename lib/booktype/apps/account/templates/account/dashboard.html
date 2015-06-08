@@ -19,9 +19,6 @@
             {% if current_user != request.user %}
             <div class="box profile-box purple">
                 {% include "account/other_user_box.html" %}
-                <div class="box-bottom-white">
-                    <button href="#" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Follow me' %}">{% trans "FOLLOW ME" %}</button>
-                </div>
             </div>
             {% endif %}
 
@@ -141,13 +138,6 @@
 
                 <p>{{ current_user.get_profile.description|escape }}</p>
                 <p><a href="#">{% trans "Track updates by RSS" %}</a> <img src="{% static 'core/img/rss.png' %}"></p>
-
-                <div class="content-divider"></div>
-
-                <p>
-                    {% user_followingbox user.username "account/dashboard_following.html" %}<br>
-                    {% user_followersbox user.username "account/dashboard_followers.html" %}
-                </p>
 
                 <div class="box-bottom-white">
                     <button id="user-settings" data-href="{% url 'accounts:user_settings' user.username %}" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Go to settings' %}">{% trans "Settings" as set_text %} {{ set_text|upper }}</button>
