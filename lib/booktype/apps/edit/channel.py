@@ -33,7 +33,7 @@ from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, Suspici
 import sputnik
 from booki.editor import models
 from booki.utils.log import logBookHistory, logChapterHistory
-from booktype.utils import security
+from booktype.utils import security, config
 from django.utils.translation import ugettext_lazy
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.models import Role, BookRole
@@ -1872,10 +1872,20 @@ def remote_cover_load(request, message, bookid, version):
 
 
 def remote_publish_book(request, message, bookid, version):
+    # TODO remove this mapping. Should be one standard for format names
+    format_map = {'mpdf': 'book',
+                  'screenpdf': 'screen',
+                  'epub': 'epub',
+                  'mobi': 'mobi',
+                  'xhtml': 'xhtml'}
+
     book, book_version, book_security = get_book(request, bookid, version)
 
     if not book_security.has_perm('export.export_book'):
         raise PermissionDenied
+
+    if not (set(config.get_configuration('PUBLISH_OPTIONS')) >= {format_map[i] for i in message['formats']}):
+        return {'result': False, 'reason': 'One of the selected formats was disabled. Try to reload page.'}
 
     from . import tasks
     tasks.publish_book.apply_async((1, ), dict(bookid=bookid,

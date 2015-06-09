@@ -156,13 +156,20 @@
 
 <script type="text/html" id="templatePublishFilter">
   <form>
+
     <div class="row">
       <div class="col-sm-12">
-        <h5>{% trans "Choose format for export" %}</h5>
+        {% if publish_options %}
+          <h5>{% trans "Choose format for export" %}</h5>
+        {% else %}
+          <h5>{% trans "No available publish formats." %}</h5>
+        {% endif %}
       </div>
     </div>
+
     <div class="row export-formats">
       <div class="col-sm-4">
+
         {% if "book" in publish_options %}
           <div class="checkbox">
             <label>

@@ -29,7 +29,7 @@ from braces.views import (LoginRequiredMixin, UserPassesTestMixin,
 from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
 
-from booktype.utils import security
+from booktype.utils import security, config
 from booktype.apps.core import views
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.reader.views import BaseReaderView
@@ -341,7 +341,7 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context['static_url'] = settings.STATIC_URL
         context['is_admin'] = book_security.is_admin()
         context['is_owner'] = book.owner == self.request.user
-        context['publish_options'] = ['book', 'epub', 'mobi', 'screen', 'xhtml']
+        context['publish_options'] = config.get_configuration('PUBLISH_OPTIONS')
         context['roles_permissions'] = security.get_user_permissions(
             self.request.user, book)
 
