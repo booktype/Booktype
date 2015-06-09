@@ -33,8 +33,8 @@ from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, Suspici
 import sputnik
 from booki.editor import models
 from booki.utils.log import logBookHistory, logChapterHistory
-from booktype.utils import security
-from django.utils.translation import ugettext_lazy
+from booktype.utils import security, config
+from django.utils.translation import ugettext
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.models import Role, BookRole
 
@@ -1264,7 +1264,7 @@ def remote_get_chapter(request, message, bookid, version):
         chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
     except (models.Chapter.DoesNotExist, PermissionDenied):
         # book_security.can_edit() is not implemented yet
-        res["reason"] = unicode(ugettext_lazy("You have no permissions for editing this chapter."))
+        res["reason"] = ugettext("You have no permissions for editing this chapter.")
         return res
 
     # TODO clarify about read only mode
@@ -1272,16 +1272,16 @@ def remote_get_chapter(request, message, bookid, version):
     if message.get("edit_lock", False):
         editor_username = chapter.get_current_editor_username()
         if editor_username and editor_username != request.user.username:
-            res["reason"] = unicode(ugettext_lazy("Chapter currently being edited."))
+            res["reason"] = ugettext("Chapter currently being edited.")
             return res
 
         if chapter.is_locked():
             if not book_security.has_perm('edit.edit_locked_chapter'):
-                res["reason"] = unicode(ugettext_lazy("You have no permissions for editing chapters under lock."))
+                res["reason"] = ugettext("You have no permissions for editing chapters under lock.")
                 return res
             elif not book_security.is_admin() and (chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
                                                    and chapter.lock.user != request.user):
-                res["reason"] = unicode(ugettext_lazy("Chapter currently is locked from everyone."))
+                res["reason"] = ugettext("Chapter currently is locked from everyone.")
                 return res
 
     res["access"] = True
@@ -1876,6 +1876,10 @@ def remote_publish_book(request, message, bookid, version):
 
     if not book_security.has_perm('export.export_book'):
         raise PermissionDenied
+
+    if not (set(config.get_configuration('PUBLISH_OPTIONS')) >= set(message['formats'])):
+        return {'result': False,
+                'reason': ugettext('One of the selected formats was disabled. Try to reload page.')}
 
     from . import tasks
     tasks.publish_book.apply_async((1, ), dict(bookid=bookid,
