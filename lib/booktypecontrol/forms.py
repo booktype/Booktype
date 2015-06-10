@@ -603,6 +603,19 @@ class PasswordForm(BaseControlForm, forms.Form):
         widget=forms.PasswordInput,
         help_text=_("Enter the same password as above, for verification.")
     )
+    send_login_data = forms.BooleanField(
+        label=_('Send login data'),
+        required=False,
+        help_text=_('Send new login data to the user via email.'),
+        initial=True
+    )
+    short_message = forms.CharField(
+        label=_('Short message'),
+        required=False,
+        help_text=_('Will be added in the bottom of email message text, after new user credentials.'),
+        widget=forms.Textarea(attrs={'rows': 4}),
+        initial=_('You can change password in your profile settings page.')
+    )
 
     def __init__(self, user, *args, **kwargs):
         self.user = user

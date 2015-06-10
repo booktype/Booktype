@@ -15,19 +15,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+import logging
 import booki
 import sputnik
 import forms as control_forms
 
 from collections import Counter
 
+from django import template
 from django.conf import settings
 from django.db import connection
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.mail import EmailMultiAlternatives
 
 from django.views.generic import TemplateView, FormView
 from django.views.generic.detail import SingleObjectMixin
@@ -39,6 +43,8 @@ from booktype.utils import misc
 from booktype.apps.core.models import Role
 from booktype.apps.core.views import BasePageView
 from booki.editor.models import Book, BookiGroup, BookHistory, License
+
+logger = logging.getLogger('booktype')
 
 
 OPTION_NAMES = {
@@ -348,14 +354,36 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
     def form_valid(self, form):
         form.save()
         messages.success(self.request, _('Successfully saved changes.'))
+
+        if form.cleaned_data['send_login_data']:
+            t = template.loader.get_template('booktypecontrol/password_changed_email.html')
+            content = t.render(template.Context({
+                "username": self.object.username,
+                "password": form.cleaned_data['password2'],
+                "short_message": form.cleaned_data['short_message']
+            }))
+
+            msg = EmailMultiAlternatives(
+                'Your password was changed',
+                content, settings.REPORT_EMAIL_USER,
+                [self.object.email]
+            )
+            msg.attach_alternative(content, "text/html")
+            try:
+                msg.send(fail_silently=False)
+            except Exception as e:
+                logger.error(
+                    '[CCENTER] Unable to send email to %s after password was changed, msg: %s' %
+                    (self.object.email, e)
+                )
+
         return super(FormView, self).form_valid(form)
 
     def get_context_data(self, *args, **kwargs):
         context = super(PasswordChangeView, self).get_context_data(
             *args, **kwargs)
         context['option'] = None
-        context['option_name'] = "%s: %s" % (
-            _('Change Password'), self.object.username)
+        context['option_name'] = u"%s: %s" % (ugettext('Change Password'), self.object.username)
         return context
 
     def get_success_url(self):
