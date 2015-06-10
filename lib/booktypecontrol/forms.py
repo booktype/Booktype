@@ -746,20 +746,26 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
 
 
 class PublishingForm(BaseControlForm, forms.Form):
-    publish_book = forms.BooleanField(
-        label=_('book'),
+    OPTIONS = ('mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml')
+
+    publish_mpdf = forms.BooleanField(
+        label=_('Book PDF'),
         required=False
     )
-    publish_ebook = forms.BooleanField(
-        label=_('ebook'),
+    publish_screenpdf = forms.BooleanField(
+        label=_('Screen PDF'),
         required=False
     )
-    publish_pdf = forms.BooleanField(
-        label=_('PDF'),
+    publish_epub = forms.BooleanField(
+        label=_('EPUB'),
         required=False
     )
-    publish_odt = forms.BooleanField(
-        label=_('ODT'),
+    publish_mobi = forms.BooleanField(
+        label=_('MOBI'),
+        required=False
+    )
+    publish_xhtml = forms.BooleanField(
+        label=_('XHTML'),
         required=False
     )
 
@@ -768,16 +774,17 @@ class PublishingForm(BaseControlForm, forms.Form):
         publish_options = config.get_configuration('PUBLISH_OPTIONS')
 
         return {
-            'publish_book': 'book' in publish_options,
-            'publish_ebook': 'ebook' in publish_options,
-            'publish_pdf': 'pdf' in publish_options,
-            'publish_odt': 'odt' in publish_options
+            'publish_mpdf': 'mpdf' in publish_options,
+            'publish_screenpdf': 'screenpdf' in publish_options,
+            'publish_epub': 'epub' in publish_options,
+            'publish_mobi': 'mobi' in publish_options,
+            'publish_xhtml': 'xhtml' in publish_options
         }
 
     def save_settings(self, request):
         opts = []
-        for _opt in ['book', 'ebook', 'pdf', 'odt']:
-            if 'publish_%s' % _opt in self.cleaned_data:
+        for _opt in self.OPTIONS:
+            if self.cleaned_data.get('publish_{0}'.format(_opt)):
                 opts.append(_opt)
 
         config.set_configuration('PUBLISH_OPTIONS', opts)
