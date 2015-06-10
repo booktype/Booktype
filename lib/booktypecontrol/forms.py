@@ -746,13 +746,13 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
 
 
 class PublishingForm(BaseControlForm, forms.Form):
-    OPTIONS = ('book', 'epub', 'mobi', 'screen', 'xhtml')
+    OPTIONS = ('mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml')
 
-    publish_book = forms.BooleanField(
+    publish_mpdf = forms.BooleanField(
         label=_('Book PDF'),
         required=False
     )
-    publish_screen = forms.BooleanField(
+    publish_screenpdf = forms.BooleanField(
         label=_('Screen PDF'),
         required=False
     )
@@ -774,8 +774,8 @@ class PublishingForm(BaseControlForm, forms.Form):
         publish_options = config.get_configuration('PUBLISH_OPTIONS')
 
         return {
-            'publish_book': 'book' in publish_options,
-            'publish_screen': 'screen' in publish_options,
+            'publish_mpdf': 'mpdf' in publish_options,
+            'publish_screenpdf': 'screenpdf' in publish_options,
             'publish_epub': 'epub' in publish_options,
             'publish_mobi': 'mobi' in publish_options,
             'publish_xhtml': 'xhtml' in publish_options

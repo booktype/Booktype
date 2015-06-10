@@ -170,7 +170,7 @@
     <div class="row export-formats">
       <div class="col-sm-4">
 
-        {% if "book" in publish_options %}
+        {% if "mpdf" in publish_options %}
           <div class="checkbox">
             <label>
               <input name="mpdf" type="checkbox"> {% trans "Book PDF" %}
@@ -181,7 +181,7 @@
           </div>
         {% endif %}
 
-        {% if "screen" in publish_options %}
+        {% if "screenpdf" in publish_options %}
           <div class="checkbox">
             <label>
               <input name="screenpdf" type="checkbox"> {% trans "Screen PDF" %}
