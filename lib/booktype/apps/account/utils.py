@@ -20,7 +20,7 @@ def get_profile_image(user, size=100):
       Profile image path
     """
 
-    profile = user.get_profile()
+    profile = user.profile
 
     if not profile.image:
         name = 'blank'

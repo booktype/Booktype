@@ -1,173 +1,67 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+from django.conf import settings
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Permission'
-        db.create_table(u'core_permission', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('app_name', self.gf('django.db.models.fields.CharField')(max_length=40)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=60)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=255)),
-        ))
-        db.send_create_signal(u'core', ['Permission'])
+    dependencies = [
+        ('editor', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
 
-        # Adding model 'Role'
-        db.create_table(u'core_role', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=60)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('book', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['editor.Book'], null=True, blank=True)),
-        ))
-        db.send_create_signal(u'core', ['Role'])
-
-        # Adding M2M table for field permissions on 'Role'
-        db.create_table(u'core_role_permissions', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('role', models.ForeignKey(orm[u'core.role'], null=False)),
-            ('permission', models.ForeignKey(orm[u'core.permission'], null=False))
-        ))
-        db.create_unique(u'core_role_permissions', ['role_id', 'permission_id'])
-
-        # Adding M2M table for field members on 'Role'
-        db.create_table(u'core_role_members', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('role', models.ForeignKey(orm[u'core.role'], null=False)),
-            ('user', models.ForeignKey(orm[u'auth.user'], null=False))
-        ))
-        db.create_unique(u'core_role_members', ['role_id', 'user_id'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'Permission'
-        db.delete_table(u'core_permission')
-
-        # Deleting model 'Role'
-        db.delete_table(u'core_role')
-
-        # Removing M2M table for field permissions on 'Role'
-        db.delete_table('core_role_permissions')
-
-        # Removing M2M table for field members on 'Role'
-        db.delete_table('core_role_members')
-
-
-    models = {
-        u'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        u'auth.permission': {
-            'Meta': {'ordering': "(u'content_type__app_label', u'content_type__model', u'codename')", 'unique_together': "((u'content_type', u'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        u'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'core.permission': {
-            'Meta': {'object_name': 'Permission'},
-            'app_name': ('django.db.models.fields.CharField', [], {'max_length': '40'}),
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '60'})
-        },
-        u'core.role': {
-            'Meta': {'object_name': 'Role'},
-            'book': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['editor.Book']", 'null': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'members': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '60'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['core.Permission']", 'null': 'True', 'blank': 'True'})
-        },
-        u'editor.book': {
-            'Meta': {'object_name': 'Book'},
-            'cover': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'description': ('django.db.models.fields.TextField', [], {'default': "''"}),
-            'group': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['editor.BookiGroup']", 'null': 'True'}),
-            'hidden': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'language': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['editor.Language']", 'null': 'True'}),
-            'license': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['editor.License']", 'null': 'True', 'blank': 'True'}),
-            'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
-            'permission': ('django.db.models.fields.SmallIntegerField', [], {'default': '0'}),
-            'published': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'status': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'status'", 'null': 'True', 'to': u"orm['editor.BookStatus']"}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '2500'}),
-            'url_title': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '2500'}),
-            'version': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'version'", 'null': 'True', 'to': u"orm['editor.BookVersion']"})
-        },
-        u'editor.bookigroup': {
-            'Meta': {'object_name': 'BookiGroup'},
-            'created': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'members': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "'members'", 'blank': 'True', 'to': u"orm['auth.User']"}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '300'}),
-            'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
-            'url_name': ('django.db.models.fields.CharField', [], {'max_length': '300'})
-        },
-        u'editor.bookstatus': {
-            'Meta': {'object_name': 'BookStatus'},
-            'book': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['editor.Book']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'weight': ('django.db.models.fields.SmallIntegerField', [], {})
-        },
-        u'editor.bookversion': {
-            'Meta': {'object_name': 'BookVersion'},
-            'book': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['editor.Book']"}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '250', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'major': ('django.db.models.fields.IntegerField', [], {}),
-            'minor': ('django.db.models.fields.IntegerField', [], {}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'})
-        },
-        u'editor.language': {
-            'Meta': {'object_name': 'Language'},
-            'abbrevation': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        u'editor.license': {
-            'Meta': {'object_name': 'License'},
-            'abbrevation': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
-        }
-    }
-
-    complete_apps = ['core']
+    operations = [
+        migrations.CreateModel(
+            name='BookRole',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('book', models.ForeignKey(verbose_name='book', to='editor.Book')),
+                ('members', models.ManyToManyField(related_name='roles', null=True, verbose_name='users', to=settings.AUTH_USER_MODEL, blank=True)),
+            ],
+            options={
+                'verbose_name': 'Book Role',
+                'verbose_name_plural': 'Book Roles',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Permission',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('app_name', models.CharField(max_length=40, verbose_name='app name')),
+                ('name', models.CharField(max_length=60, verbose_name='name')),
+                ('description', models.CharField(max_length=255, verbose_name='description')),
+            ],
+            options={
+                'verbose_name': 'Permission',
+                'verbose_name_plural': 'Permissions',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Role',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(unique=True, max_length=60, verbose_name='name')),
+                ('description', models.CharField(max_length=255, verbose_name='description', blank=True)),
+                ('permissions', models.ManyToManyField(to='core.Permission', null=True, verbose_name='permissions', blank=True)),
+            ],
+            options={
+                'verbose_name': 'Role',
+                'verbose_name_plural': 'Roles',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AlterUniqueTogether(
+            name='permission',
+            unique_together=set([('app_name', 'name')]),
+        ),
+        migrations.AddField(
+            model_name='bookrole',
+            name='role',
+            field=models.ForeignKey(verbose_name='role', to='core.Role'),
+            preserve_default=True,
+        ),
+    ]

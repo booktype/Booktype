@@ -3,15 +3,15 @@
 <link rel="stylesheet" href="{% static "edit/js/aloha/css/aloha.css" %}" type="text/css">
 <link rel="stylesheet" href="{% static "edit/css/aloha-custom.css" %}" type="text/css">
 
-<script src="{% static "edit/js/aloha/lib/vendor/jquery-1.7.2.js" %}"></script>   
-<script src="{% static "edit/js/findAndReplaceDOMText/findAndReplaceDOMText.js" %}"></script>   
+<script src="{% static "edit/js/aloha/lib/vendor/jquery-1.7.2.js" %}"></script>
+<script src="{% static "edit/js/findAndReplaceDOMText/findAndReplaceDOMText.js" %}"></script>
 
 <script>
     Aloha = window.Aloha || {};
 
     Aloha.settings = {
         jQuery: window.jQuery.noConflict(true),
-        baseUrl: '{% static "edit/js/aloha/lib/" %}',
+        baseUrl: '{% static "edit/js/aloha/lib" %}',
 
         sidebar: { disabled: true },
         predefinedModules: {
@@ -36,7 +36,7 @@
                 config: ['removeFormat'],
                 removeFormats: ['strong', 'em', 'b', 'i', 'u', 's', 'cite', 'q', 'code', 'abbr', 'del', 'sub', 'sup', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
                   'ol', 'li', 'ul', 'table', 'tr', 'td', 'th', 'a']
-            },            
+            },
             image: {
                 config: ['img'],
                 autoResize: false,
@@ -45,18 +45,18 @@
                 }
             },
             highlighteditables: {
-                config: ['highlight'],        
+                config: ['highlight'],
                 editables: {
                     '#mirko': [ 'highlight' ],
-                    '#contenteditor': [ ] 
-                }   
-            },            
+                    '#contenteditor': [ ]
+                }
+            },
             font: {
                 fontlist : [["Serif", "serif"], ["Sans Serif", "sans-serif"]]
             },
             indent: {
                 marginLeft: "48px"
-            }                    
+            }
         },
         contentHandler : {
                 insertHtml: [ 'word', 'generic', 'oembed', 'sanitize', 'block', 'formatless' ],
@@ -70,11 +70,11 @@
                         'b', 'i', 'strong', 'em', 'blockquote', 'del', 'ins', 'dfn', 'q', 's', 'small', 'span', 'u',
                         'bdi', 'rt', 'ruby',
                         'abbr', 'address', 'article', 'aside', 'audio', 'caption', 'cite', 'code', 'section',
-                        'col', 'colgroup', 'dd', 
+                        'col', 'colgroup', 'dd',
                         'div', 'dl', 'dt', 'figure', 'figcaption', 'footer', 'header',
-                        'img', 'li', 'mark', 'ol', 'ul', 'p', 'pre', 'style', 'sub', 'sup', 
+                        'img', 'li', 'mark', 'ol', 'ul', 'p', 'pre', 'style', 'sub', 'sup',
                         'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'wbr'],
-             
+
                 attributes: {
                         'h1'        : ['id', 'class', 'style'],
                         'h2'        : ['id', 'class', 'style'],
@@ -90,18 +90,18 @@
                         'ins'       : ['id', 'class', 'cite', 'datetime'],
 
                         'i'         : ['class'],
-                        
+
                         'img'       : ['id', 'class', 'style', 'src', 'alt', 'width', 'height', 'align'],
                         'blockquote': ['id', 'class', 'style', 'cite'],
                         'q'         : ['cite'],
                         'li'        : ['id', 'class', 'style', 'value'],
-                        'ol'        : ['id', 'class', 'style', 'reversed', 'start', 'type'],                                                
+                        'ol'        : ['id', 'class', 'style', 'reversed', 'start', 'type'],
                         'ul'        : ['id', 'class', 'style'],
-                        'mark'      : ['id', 'class', 'style'],                        
+                        'mark'      : ['id', 'class', 'style'],
                         'figure'    : ['id', 'class', 'style'],
                         'figcaption': ['id', 'class', 'style'],
                         'footer'    : ['id', 'class', 'style'],
-                        'header'    : ['id', 'class', 'style'],                        
+                        'header'    : ['id', 'class', 'style'],
                         'col'       : ['id', 'class', 'style', 'span'],
                         'colgroup'  : ['id', 'class', 'style', 'span'],
                         'table'     : ['id', 'class', 'style', 'border'],
@@ -110,13 +110,13 @@
                         'div'       : ['id', 'class', 'style', 'dir', 'lang'],
                         'span'      : ['id', 'class', 'style', 'dir', 'lang'],
                         'code'      : ['id', 'class', 'style'],
-                        'pre'       : ['id', 'class', 'style', 'dir', 'lang'],                        
+                        'pre'       : ['id', 'class', 'style', 'dir', 'lang'],
                         'sup'       : ['id', 'class', 'style'],
                         'sub'       : ['id', 'class', 'style'],
 
                         'audio'     : ['id', 'class', 'style', 'autoplay', 'controls', 'loop', 'muted', 'preload', 'src']
                      },
-             
+
                     protocols: {
                         'a'         : {'href': ['ftp', 'http', 'https', 'mailto', '__relative__']}, // Sanitize.RELATIVE
                         'blockquote': {'cite': ['http', 'https', '__relative__']},
@@ -148,18 +148,18 @@
                         booktype/horizontalline,
                         booktype/extraformat,
                         booktype/htmledit,
-                        booktype/booktitle,                        
-                        booktype/pbreak,  
-                        booktype/wcount,              
+                        booktype/booktitle,
+                        booktype/pbreak,
+                        booktype/wcount,
                         booktype/font,
-                        booktype/indent,  
+                        booktype/indent,
                         booktype/styling,
                         booktype/bookalign,
                         booktype/fontsize,
                         common/undo,
                         booktype/bookundo,
                         extra/linkbrowser,
-                        booktype/findandreplace,      
+                        booktype/findandreplace,
                         common/list,
                         common/highlighteditables,
                         common/block,

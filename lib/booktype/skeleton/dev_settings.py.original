@@ -38,7 +38,7 @@ DATABASES = {
         'USER': '',
         'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': ''
+        'PORT': '',##ATOMIC_SETTING##
     }
 }
 
@@ -48,15 +48,16 @@ REDIS_PORT = 6379
 REDIS_DB = 0
 REDIS_PASSWORD = None
 
-
 # E-MAIL
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # DEVELOPMENT TOOLS
 try:
     import debug_toolbar
-    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+    DEBUG_TOOLBAR_PATCH_SETTINGS = False
     INSTALLED_APPS += ('debug_toolbar',)
+    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+
     DEBUG_TOOLBAR_CONFIG = {
         'INTERCEPT_REDIRECTS': False,
         'SHOW_TOOLBAR_CALLBACK': lambda *args, **kwargs: True
@@ -134,6 +135,8 @@ LOGGING = {
     }
 }
 
+# Setting to avoid warning message of new Django Test Runner
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # READ CONFIGURAION
 from booktype.utils import config

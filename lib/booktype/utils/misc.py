@@ -202,7 +202,7 @@ def import_book_from_file(epub_file, user, **kwargs):
     def _parse_toc(elements, parent=None):
         for _elem in elements:
             # used later to get parent of an elem
-            unique_id = uuid.uuid4().hex 
+            unique_id = uuid.uuid4().hex
 
             if isinstance(_elem, tuple):
                 toc.append((1, _elem[0].title, unique_id, parent))
@@ -344,8 +344,8 @@ def import_book_from_file(epub_file, user, **kwargs):
                 weight=n,
                 typeof=1
             )
-        
-        # check if elem has parent 
+
+        # check if elem has parent
         if _elem[3]:
             toc_item.parent = parents.get(_elem[3], None)
         toc_item.save()
@@ -393,7 +393,7 @@ def export_book(fileName, book_version):
     for chapter in book_version.get_toc():
         if chapter.chapter:
             c1 = epub.EpubHtml(
-                title=chapter.chapter.title, 
+                title=chapter.chapter.title,
                 file_name='%s.xhtml' % (chapter.chapter.url_title, )
             )
             cont = chapter.chapter.content
@@ -603,7 +603,7 @@ def set_profile_image(user, file_object):
 
         # If we would use just profile.image.save method then out files would just end up with _1, _2, ... postfixes
 
-        profile = user.get_profile()
+        profile = user.profile
         profile.image = '%s%s.jpg' % (settings.PROFILE_IMAGE_UPLOAD_DIR, user.username)
         profile.save()
     except:
@@ -694,4 +694,4 @@ def is_valid_email(email):
     except ValidationError:
         return False
 
-    return False    
+    return False

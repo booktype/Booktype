@@ -3,20 +3,20 @@
 <h2 class="box-title">{% trans "My Profile" %}</h2>
   <ul class="list-people list user-avatar">
     <li>
-     <figure>{% profile_image user  %}</figure> 
+     <figure>{% profile_image user  %}</figure>
       <div class="people-info">
          <h4><a href="{% url "accounts:view_profile" request.user.username %}">{{ request.user.username }}</a></h4>
-         <span>{{ request.user.get_profile.user.get_full_name }}</span> 
-      </div>  
-    </li> 
+         <span>{{ request.user.get_full_name }}</span>
+      </div>
+    </li>
   </ul>
 
-<div class="box-bottom-white"> 
+<div class="box-bottom-white">
   <button data-href="{% url "accounts:view_profile" request.user.username %}" role="button" class="btn btn-default float-left dashboard" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "My Dashboard" %}">
     {% trans "My Dashboard" as dashboard_text %} {{ dashboard_text|upper }}
   </button>
   <button data-href="{% url "accounts:user_settings" request.user.username %}" role="button" class="btn btn-default float-right settings" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Go to settings" %}">
     {% trans "Settings" as settings_text %} {{ settings_text|upper }}
   </button>
-</div> 
+</div>
 

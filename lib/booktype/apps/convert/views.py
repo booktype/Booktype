@@ -84,7 +84,7 @@ class ConvertView(RestrictExport, View):
             "task_id": task_id,
         }
         return HttpResponse(json.dumps(response_data),
-                            mimetype="application/json")
+                            content_type="application/json")
 
     def get(self, request, task_id):
         task_id = sputnik.rcon.get("convert:task_id:" + task_id)
@@ -107,7 +107,7 @@ class ConvertView(RestrictExport, View):
         response_data = task_info
 
         return HttpResponse(json.dumps(response_data),
-                            mimetype="application/json")
+                            content_type="application/json")
 
 
 def get_task_info(async_result):

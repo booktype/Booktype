@@ -12,9 +12,19 @@ handler403 = 'booktype.apps.core.views.error403'
 handler400 = 'booktype.apps.core.views.error400'
 
 # Register additional URls
-urlpatterns = patterns('',
-                       # Django Admin interface is disabled by default. If you want it
-                       # enabled you will have to uncomment couple of lines here.
-                       url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-                       url(r'^admin/', include(admin.site.urls)),
-                      )+ booktype.urls.urlpatterns
+urlpatterns = patterns('',  # noqa
+    # Django Admin interface is disabled by default. If you want it
+    # enabled you will have to uncomment couple of lines here.
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^admin/', include(admin.site.urls)),
+) + booktype.urls.urlpatterns
+
+
+if settings.DEBUG:
+    try:
+        import debug_toolbar
+        urlpatterns += patterns('',  # noqa
+            url(r'^__debug__/', include(debug_toolbar.urls)),
+        )
+    except ImportError:
+        pass

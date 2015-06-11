@@ -161,10 +161,10 @@ class BookiGroup(models.Model):
 
 # Book
 class Book(models.Model):
-    url_title = models.CharField(_('url title'), max_length=2500, blank=False, unique=True) # can it be blank?
+    url_title = models.CharField(_('url title'), max_length=2500, blank=False, unique=True)  # can it be blank?
     title = models.CharField(_('title'), max_length=2500, blank=False)
     status = models.ForeignKey('BookStatus', null=True, related_name="status", verbose_name=_("status"))
-    language = models.ForeignKey(Language, null=True, verbose_name=_("language")) # can it be blank?
+    language = models.ForeignKey(Language, null=True, verbose_name=_("language"))  # can it be blank?
 
     # this i need
     version = models.ForeignKey('BookVersion', null=True, related_name="version", verbose_name=_("version"))
@@ -180,8 +180,8 @@ class Book(models.Model):
     created = models.DateTimeField(_('created'), auto_now=False, default=datetime.datetime.now)
     published = models.DateTimeField(_('published'), null=True)
 
-    hidden = models.BooleanField(_('hidden'))
-    permission = models.SmallIntegerField(_('permission'), null=False, default = 0)
+    hidden = models.BooleanField(_('hidden'), default=False)
+    permission = models.SmallIntegerField(_('permission'), null=False, default=0)
 
     description = models.TextField(_('description'), null=False, default='')
     cover = models.ImageField(_('cover'), upload_to=settings.COVER_IMAGE_UPLOAD_DIR, null=True)

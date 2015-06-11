@@ -8,16 +8,16 @@ BASE_DIR = Path(os.path.abspath(__file__))
 
 BOOKTYPE_SITE_NAME = ''
 BOOKTYPE_SITE_DIR = 'tests'
-THIS_BOOKTYPE_SERVER=''
+THIS_BOOKTYPE_SERVER = ''
 BOOKTYPE_URL = ''
 
 BOOKTYPE_ROOT = BASE_DIR.parent
 
 STATIC_ROOT = BASE_DIR.parent.child("static")
-STATIC_URL  = '{}/static/'.format(BOOKTYPE_URL)
+STATIC_URL = '{}/static/'.format(BOOKTYPE_URL)
 
 DATA_ROOT = BASE_DIR.parent.child("data")
-DATA_URL  = '{}/data/'.format(BOOKTYPE_URL)
+DATA_URL = '{}/data/'.format(BOOKTYPE_URL)
 
 MEDIA_ROOT = DATA_ROOT
 MEDIA_URL = DATA_URL
@@ -29,9 +29,9 @@ DEBUG = TEMPLATE_DEBUG = True
 PROFILE_ACTIVE = 'test'
 
 if django.VERSION[:2] < (1, 6):
-  TEST_RUNNER = 'discover_runner.DiscoverRunner'
-  TEST_DISCOVER_TOP_LEVEL = BASE_DIR.parent.parent.child('lib')
-  TEST_DISCOVER_PATTERN = 'functest_*.py'
+    TEST_RUNNER = 'discover_runner.DiscoverRunner'
+    TEST_DISCOVER_TOP_LEVEL = BASE_DIR.parent.parent.child('lib')
+    TEST_DISCOVER_PATTERN = 'functest_*.py'
 
 ROOT_URLCONF = 'urls'
 
@@ -63,22 +63,33 @@ PASSWORD_HASHERS = (
 # DATABASE
 DATABASES = {
     'default': {
-      'ENGINE': 'django.db.backends.sqlite3',
-      'NAME': ':memory:',
-      'USER': '',
-      'PASSWORD': '',
-      'HOST': '',
-      'PORT': ''
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': ''
     }
 }
 
-# REDIS 
+# REDIS
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 0
 REDIS_PASSWORD = None
 
 LANGUAGE_CODE = 'en'
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.transaction.TransactionMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'booktype.apps.core.middleware.SecurityMiddleware',
+)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -89,13 +100,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'south',
     'djcelery',
     'compressor',
 
     # list of booki apps
     'booki.editor',
 
+    'booktype',
     'booktype.apps.core',
     'booktype.apps.portal',
     'booktype.apps.loadsave',
@@ -114,14 +125,17 @@ INSTALLED_APPS = (
 if django.VERSION[:2] < (1, 6):
     INSTALLED_APPS += ('discover_runner', )
 
+if django.VERSION[:2] < (1, 7):
+    INSTALLED_APPS += ('south', )
+
 # LOGGING
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
         'standard': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt' : "%d/%b/%Y %H:%M:%S"
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
         },
     },
     'filters': {
@@ -130,22 +144,22 @@ LOGGING = {
         }
     },
     'handlers': {
-	    'null': {
-            'level':'DEBUG',
-            'class':'django.utils.log.NullHandler',
+        'null': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler',
         }
     },
     'loggers': {
-	    'django': {
-    	    'handlers':['null'],
-        	'propagate': True,
-        	'level':'WARN',
-    	},	
-    	'django.db.backends': {
-	        'handlers': ['null'],
-	        'level': 'DEBUG',
-	        'propagate': False,
-	    },
+        'django': {
+            'handlers': ['null'],
+            'propagate': True,
+            'level': 'WARN',
+        },
+        'django.db.backends': {
+            'handlers': ['null'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
         'django.request': {
             'handlers': ['null'],
             'level': 'ERROR',
@@ -159,11 +173,11 @@ LOGGING = {
 }
 
 # READ CONFIGURAION
-#from booki.utils import config
+# from booki.utils import config
 #
-#try:
+# try:
 #    BOOKTYPE_CONFIG = config.loadConfiguration()
-#except config.ConfigurationError:
+# except config.ConfigurationError:
 #    BOOKTYPE_CONFIG = {}
 
 BOOKTYPE_NAME = BOOKTYPE_SITE_NAME
@@ -173,4 +187,4 @@ BOOKI_URL = BOOKTYPE_URL
 THIS_BOOKI_SERVER = THIS_BOOKTYPE_SERVER
 BOOKI_MAINTENANCE_MODE = False
 
-AUTH_PROFILE_MODULE='account.UserProfile'
+AUTH_PROFILE_MODULE = 'account.UserProfile'

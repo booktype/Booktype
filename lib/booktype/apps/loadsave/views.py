@@ -19,7 +19,7 @@ class SaveView(utils.RestrictExport, View):
 
         book_version = book.get_version(None)
 
-        response = HttpResponse(mimetype='application/epub+zip')
+        response = HttpResponse(content_type='application/epub+zip')
         response['Content-Disposition'] = 'attachment; filename=%s.epub' % book.url_title
 
         tempDir = tempfile.mkdtemp()

@@ -5,18 +5,18 @@ from south.v2 import DataMigration
 from django.db import models
 
 class Migration(DataMigration):
-    
+
     def forwards(self, orm):
         "Write your forwards methods here."
 
         if orm.Language.objects.count() == 0:
             from django.core.management import call_command
             call_command('loaddata', 'languages.json')
-    
-    
+
+
     def backwards(self, orm):
         "Write your backwards methods here."
-    
+
     models = {
         'auth.group': {
             'Meta': {'object_name': 'Group'},
@@ -205,5 +205,5 @@ class Migration(DataMigration):
             'wizz_type': ('django.db.models.fields.CharField', [], {'max_length': '20'})
         }
     }
-    
+
     complete_apps = ['editor']

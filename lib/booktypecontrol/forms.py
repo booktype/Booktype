@@ -268,6 +268,7 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
 
     class Meta:
         model = License
+        fields = '__all__'
 
     @classmethod
     def extra_context(cls):

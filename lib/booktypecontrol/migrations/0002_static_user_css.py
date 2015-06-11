@@ -1,34 +1,35 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import DataMigration
-from django.db import models
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(DataMigration):
+from django.db import models, migrations
 
-    def forwards(self, orm):
-        "Write your forwards methods here."
-        from django.conf import settings
-        import os, os.path
 
-        try:
-            if not os.path.exists('%s/css/' % settings.STATIC_ROOT):
-                try:
-                    os.mkdir('%s/css/' % settings.STATIC_ROOT)
-                except OSError:
-                    raise RuntimeError("Can not create css directory.")
+def create_user_css(apps, schema_editor):
+    from django.conf import settings
+    import os
 
-            f = open('%s/css/_user.css' % settings.STATIC_ROOT, 'w')
-            f.write(' ')
-            f.close()
-        except IOError:
-            raise RuntimeError("Can not create the file.")
+    try:
+        if not os.path.exists('%s/css/' % settings.STATIC_ROOT):
+            try:
+                os.mkdir('%s/css/' % settings.STATIC_ROOT)
+            except OSError as err:
+                print err
+                raise RuntimeError('Can not create css directory.')
 
-    def backwards(self, orm):
-        "Write your backwards methods here."
+        f = open('%s/css/_user.css' % settings.STATIC_ROOT, 'w')
+        f.write(' ')
+        f.close()
+    except IOError as err:
+        print err
+        raise RuntimeError('Can not create the file.')
 
-    models = {
 
-    }
+class Migration(migrations.Migration):
 
-    complete_apps = ['booktypecontrol']
+    dependencies = [
+        ('booktypecontrol', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.RunPython(create_user_css)
+    ]
