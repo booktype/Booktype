@@ -52,7 +52,7 @@ getTOCForBook = get_toc_for_book
 
 
 @login_required
-@transaction.commit_manually
+@transaction.atomic
 def upload_attachment(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
@@ -63,14 +63,12 @@ def upload_attachment(request, bookid, version=None):
     can_upload_attachment = security.get_security_for_book(request.user, book).has_perm('edit.upload_attachment')
 
     if (not request.user.is_superuser and not can_upload_attachment and book.owner != request.user):
-        transaction.rollback()
         raise PermissionDenied
 
     book_version = book.get_version(version)
     stat = models.BookStatus.objects.filter(book=book)[0]
 
-    # check this for transactions
-    try:
+    with transaction.atomic():
         file_data = request.FILES['files[]']
         att = models.Attachment(
             version=book_version,
@@ -89,17 +87,6 @@ def upload_attachment(request, bookid, version=None):
         )
         att.save()
 
-        # TODO:
-        # must write info about this to log!
-    # except IOError:
-    #     operationResult = False
-    #     transaction.rollback()
-    except:
-        transaction.rollback()
-    else:
-        # maybe check file name now and save with new name
-        transaction.commit()
-
     response_data = {
         "files": [{
             "url": "http://127.0.0.1/",
@@ -114,13 +101,13 @@ def upload_attachment(request, bookid, version=None):
 
     if "application/json" in request.META['HTTP_ACCEPT']:
         return HttpResponse(json.dumps(response_data),
-                            mimetype="application/json")
+                            content_type="application/json")
     else:
-        return HttpResponse(json.dumps(response_data), mimetype="text/html")
+        return HttpResponse(json.dumps(response_data), content_type="text/html")
 
 
 @login_required
-@transaction.commit_manually
+@transaction.atomic
 def upload_cover(request, bookid, version=None):
     try:
         book = models.Book.objects.get(url_title__iexact=bookid)
@@ -131,11 +118,9 @@ def upload_cover(request, bookid, version=None):
     can_upload_cover = security.get_security_for_book(request.user, book).has_perm('edit.upload_cover')
 
     if (not request.user.is_superuser and not can_upload_cover and book.owner != request.user):
-        transaction.rollback()
         raise PermissionDenied
 
-    # check this for transactions
-    try:
+    with transaction.atomic():
         file_data = request.FILES['files[]']
         title = request.POST.get('title', '')
         try:
@@ -176,10 +161,6 @@ def upload_cover(request, bookid, version=None):
         # now save the attachment
         cover.attachment.save(filename, file_data, save=False)
         cover.save()
-    except:
-        transaction.rollback()
-    else:
-        transaction.commit()
 
     response_data = {
         "files": [{
@@ -195,9 +176,9 @@ def upload_cover(request, bookid, version=None):
 
     if "application/json" in request.META['HTTP_ACCEPT']:
         return HttpResponse(json.dumps(response_data),
-                            mimetype="application/json")
+                            content_type="application/json")
     else:
-        return HttpResponse(json.dumps(response_data), mimetype="text/html")
+        return HttpResponse(json.dumps(response_data), content_type="text/html")
 
 
 def cover(request, bookid, cid, fname=None, version=None):

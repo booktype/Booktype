@@ -59,7 +59,7 @@ def get_endpoint_or_none(syntax):
                 try:
                     timeline.save()
                 except IntegrityError:
-                    return None                
+                    return None
         if syntax.startswith(u'\u212c'):
             book = get_or_none(Book.objects, url_title=syntax[1:])
             if book:
@@ -90,7 +90,7 @@ def add_appearance_for_user(message, word, sent, direct=False, orig_word=None):
     timeline = get_endpoint_or_none(word)
     if timeline and timeline not in sent:
         appearance = PostAppearance(
-            post=message, timestamp=message.timestamp, 
+            post=message, timestamp=message.timestamp,
             endpoint=timeline)
         appearance.save()
         sent[timeline] = True
@@ -101,7 +101,7 @@ def add_appearance_for_user(message, word, sent, direct=False, orig_word=None):
 
             user = timeline.as_user()
             SERVER_ROOT = "/".join(settings.BOOKI_URL.split("/")[:3])
-            body = render_to_string('messaging/new_message_email.txt', 
+            body = render_to_string('messaging/new_message_email.txt',
                                     dict(user=user, post=message,
                                          SERVER_ROOT=SERVER_ROOT,
                                          DATA_URL=settings.DATA_URL))
@@ -109,7 +109,7 @@ def add_appearance_for_user(message, word, sent, direct=False, orig_word=None):
                 reason = message.sender
             else:
                 reason = orig_word
-            send_mail(_('Message from %s') % reason, 
+            send_mail(_('Message from %s') % reason,
                       body,
                       settings.EMAIL_HOST_USER,
                       [user.email], fail_silently=True)
@@ -125,7 +125,7 @@ def add_appearance_for_group(message, word, sent, direct=False, orig_word=None):
     timeline = get_endpoint_or_none(word)
     if timeline and timeline not in sent:
         appearance = PostAppearance(
-            post=message, timestamp=message.timestamp, 
+            post=message, timestamp=message.timestamp,
             endpoint=timeline)
         appearance.save()
         sent[timeline] = True
@@ -139,7 +139,7 @@ def add_appearance_for_book(message, word, sent, direct=False, orig_word=None):
     timeline = get_endpoint_or_none(word)
     if timeline and timeline not in sent:
         appearance = PostAppearance(
-            post=message, timestamp=message.timestamp, 
+            post=message, timestamp=message.timestamp,
             endpoint=timeline)
         appearance.save()
         sent[timeline] = True
@@ -156,7 +156,7 @@ def add_appearance_for_tag(message, word, sent, direct=False, orig_word=None):
     timeline = get_endpoint_or_none(syntax=word)
     if timeline and timeline not in sent:
         appearance = PostAppearance(
-            post=message, timestamp=message.timestamp, 
+            post=message, timestamp=message.timestamp,
             endpoint=timeline)
         appearance.save()
         sent[timeline] = True
@@ -167,8 +167,8 @@ def add_appearance_for_tag(message, word, sent, direct=False, orig_word=None):
 
 @login_required
 def view_post(request):
-    if request.method != 'POST': 
-        return HttpResponse(unicode(_("Error")), mimetype="text/plain")
+    if request.method != 'POST':
+        return HttpResponse(unicode(_("Error")), content_type="text/plain")
 
     # XXX validate:
     content = request.POST.get('content', '')
@@ -177,7 +177,7 @@ def view_post(request):
     snippet = request.POST.get('snippet', '')
     ajax = request.POST.get('ajax', '')
 
-    message = Post(sender=user2endpoint(request.user), content=content, 
+    message = Post(sender=user2endpoint(request.user), content=content,
                    attachment=attachment, context_url=context_url,
                    snippet=snippet)
     message.save()
@@ -214,7 +214,7 @@ def view_post(request):
     if not ajax:
         return redirect('view_profile', request.user.username)
     else:
-        return HttpResponse(unicode(_("Sent.")), mimetype="text/plain")
+        return HttpResponse(unicode(_("Sent.")), content_type="text/plain")
 
 @login_required
 def view_follow(request):

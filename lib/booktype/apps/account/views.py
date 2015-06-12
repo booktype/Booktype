@@ -200,7 +200,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
 
     def form_valid(self, form):
         user = form.save()
-        profile = user.get_profile()
+        profile = user.profile
         profile.description = form.data.get('aboutyourself', '')
         profile.save()
 
@@ -225,7 +225,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
         return redirect(self.get_success_url())
 
     def get_initial(self):
-        profile = self.object.get_profile()
+        profile = self.object.profile
         initial = super(self.__class__, self).get_initial()
         initial['aboutyourself'] = profile.description
         endpoint = get_endpoint_or_none('@%s' % self.object.username)
@@ -557,7 +557,7 @@ class SignInView(PageView):
                 if invite_data:
                     assign_invitation(user, invite_data)
 
-            return HttpResponse(json.dumps(ret), mimetype="text/json")
+            return HttpResponse(json.dumps(ret), content_type="text/json")
         return HttpResponseBadRequest()
 
 

@@ -35,7 +35,7 @@ class UserProfile(models.Model):
     mood = models.CharField(_('mood'), max_length=1000, blank=True, null=False, default='')
     image = models.ImageField(_('image'), upload_to=settings.PROFILE_IMAGE_UPLOAD_DIR, null=True, blank=True)
     description = models.CharField(_('description'), max_length=2500, blank=False, null=False, default='')
-    user = models.ForeignKey(User, unique=True, verbose_name=_("user"))
+    user = models.OneToOneField(User, verbose_name=_('user'), related_name='profile')
 
     def remove_image(self):
         self.image = None

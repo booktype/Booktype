@@ -81,7 +81,7 @@ def verbose_activity(activity):
         if activity.kind == 13:
             link_text = filename = jsonlookup(activity.args, 'filename')
             link_url = reverse(
-                'draft_attachment',
+                'reader:draft_attachment',
                 args=[book.url_title, book_version, filename]
             )
 

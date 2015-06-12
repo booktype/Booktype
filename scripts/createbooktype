@@ -301,9 +301,12 @@ def create_settings(destination, database):
     if database in ['postgresql', 'postgres']:
         vals['DATABASE_ENGINE'] = 'django.db.backends.postgresql_psycopg2'
         vals['DATABASE_NAME'] = ''
+        vals['ATOMIC_SETTING'] = ''
     elif database == 'sqlite':
         vals['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'
         vals['DATABASE_NAME'] = '%s/database.sqlite' % destination
+        atomic = "\n\t'ATOMIC_REQUESTS': True,"
+        vals['ATOMIC_SETTING'] = atomic.expandtabs(8)
 
     for k in vals.keys():
         content = set_var(content, k, vals[k])
@@ -312,27 +315,30 @@ def create_settings(destination, database):
 
     try:
         log("+ Creating %s_site/settings/base.py file.  " % project)
-        f = open('%s/%s_site/settings/base.py' % (destination, project), 'wt').write(content)
+        open('%s/%s_site/settings/base.py' % (destination, project), 'wt').write(content)
         logln("[OK]")
 
         log("+ Creating %s_site/settings/dev.py file.  " % project)
-        f = open('%s/%s_site/settings/dev.py' % (destination, project), 'wt').write(dev_content)
+        open('%s/%s_site/settings/dev.py' % (destination, project), 'wt').write(dev_content)
         logln("[OK]")
 
         log("+ Creating %s_site/settings/prod.py file.  " % project)
-        f = open('%s/%s_site/settings/prod.py' % (destination, project), 'wt').write(prod_content)
+        open('%s/%s_site/settings/prod.py' % (destination, project), 'wt').write(prod_content)
         logln("[OK]")
     except IOError:
         raise InstallError()
+
 
 def get_project_name(destination):
     dirs = [n for n in os.path.abspath(destination).split(os.sep) if n.strip() != '']
     return dirs[-1]
 
+
 def get_project_directory(destination):
     dirs = [n for n in os.path.abspath(destination).split(os.sep) if n.strip() != '']
 
     return os.sep.join(dirs[:-1])
+
 
 def create_manage(destination, profile):
     log("+ Creating manage.py file.")
@@ -739,7 +745,7 @@ if __name__ == '__main__':
             #check_feedparser_available()
             check_pil_available()
             check_redis_available()
-            check_south_available()
+            # check_south_available()
             check_unidecode_available()
 
         # show info about user id, group id and etc...

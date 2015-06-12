@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-./func_manage.py test sputnik
-./func_manage.py test booktype
-./func_manage.py test booktypecontrol
+./func_manage.py test sputnik --pattern="functest_*.py"
+./func_manage.py test booktype --pattern="functest_*.py"
+./func_manage.py test booktypecontrol --pattern="functest_*.py"

@@ -285,7 +285,7 @@ class EditPersonInfo(BaseCCView, UpdateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        profile = self.object.get_profile()
+        profile = self.object.profile
         profile.description = form.cleaned_data['description']
         profile.save()
 
@@ -301,7 +301,7 @@ class EditPersonInfo(BaseCCView, UpdateView):
 
     def get_initial(self):
         initial_dict = super(EditPersonInfo, self).get_initial()
-        profile = self.object.get_profile()
+        profile = self.object.profile
         initial_dict['description'] = profile.description
         if profile.image:
             initial_dict['profile'] = profile.image.url

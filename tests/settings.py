@@ -73,6 +73,17 @@ REDIS_PORT = 6379
 REDIS_DB = 0
 REDIS_PASSWORD = None
 
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.transaction.TransactionMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'booktype.apps.core.middleware.SecurityMiddleware',
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,7 +93,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'south',
     'djcelery',
 
     # list of booki apps
@@ -111,6 +121,9 @@ INSTALLED_APPS = (
 
 if django.VERSION[:2] < (1, 6):
     INSTALLED_APPS += ('discover_runner', )
+
+if django.VERSION[:2] < (1, 7):
+    INSTALLED_APPS += ('south', )
 
 # this is for pep8
 standard_format = {

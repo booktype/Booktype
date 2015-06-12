@@ -38,13 +38,13 @@ def getVersion(book, version):
 
     @type book: C{booki.editor.models.Book}
     @param version: Book.
-    
+
     @type version: C{string}
     @param version: Book version.
-    
+
     @rtype version: C{booki.editor.models.BookVersion}
     @return: BookVersion object.
-    
+
     @todo: This does not belong here. It has been moved to the right place, but we left reference here just in case.
     """
 
@@ -58,7 +58,7 @@ def export(request, bookid):
     Django View. Returns BookiZip file.
 
     @param request: Django Request
-    @param bookid: Book ID. 
+    @param bookid: Book ID.
     """
 
     try:
@@ -68,14 +68,14 @@ def export(request, bookid):
 
     book_version = book.getVersion(None)
 
-    response = HttpResponse(mimetype='application/zip')
+    response = HttpResponse(content_type='application/zip')
     response['Content-Disposition'] = 'attachment; filename=%s.zip' % book.url_title
 
     # this is not good
     # should not do so much read/write in the memory
 
     from booki.editor import common
-    
+
     fileName = common.exportBook(book_version)
 
     response.write(open(fileName, 'rb').read())
@@ -109,7 +109,7 @@ def edit_book(request, bookid, version=None):
     hasPermission = security.canEditBook(book, bookSecurity)
 
     if not hasPermission:
-        return views.ErrorPage(request, "errors/editing_forbidden.html", {"book": book})    
+        return views.ErrorPage(request, "errors/editing_forbidden.html", {"book": book})
 
     chapters = models.Chapter.objects.filter(version=book_version)
 
@@ -134,21 +134,27 @@ def edit_book(request, bookid, version=None):
     except AttributeError:
         from booktype import constants
         publish_options = constants.PUBLISH_OPTIONS
-        
-    return render(request, 'editor/edit_book.html', {"book": book, 
-                                                    "book_version": book_version.getVersion(),
-                                                    "version": book_version,
 
-                                                    ## this change will break older versions of template
-                                                    "statuses": [(s.name.replace(' ', '_'), s.name) for s in models.BookStatus.objects.filter(book = book)],
-                                                    "chapters": chapters, 
-                                                    "security": bookSecurity,
-                                                    "is_admin": bookSecurity.isGroupAdmin() or bookSecurity.isBookAdmin() or bookSecurity.isSuperuser(),
-                                                    "is_owner": book.owner == request.user,
-                                                    "tabs": tabs,
-                                                    "is_browser_supported": isBrowserSupported,
-                                                    "publish_options": publish_options,
-                                                    "request": request})
+    return render(
+        request,
+        'editor/edit_book.html', {
+            "book": book,
+            "book_version": book_version.getVersion(),
+            "version": book_version,
+
+            # this change will break older versions of template
+            "statuses": [(s.name.replace(' ', '_'), s.name) for s in models.BookStatus.objects.filter(book = book)],
+            "chapters": chapters,
+            "security": bookSecurity,
+            "is_admin": bookSecurity.isGroupAdmin() or bookSecurity.isBookAdmin() or bookSecurity.isSuperuser(),
+            "is_owner": book.owner == request.user,
+            "tabs": tabs,
+            "is_browser_supported": isBrowserSupported,
+            "publish_options": publish_options,
+            "request": request
+        }
+    )
+
 
 def thumbnail_attachment(request, bookid, attachment, version=None):
     """
@@ -158,7 +164,7 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
     @param bookid: Book ID
     @param attachment: Attachment name
     """
-    
+
     from django.views import static
 
     try:
@@ -184,8 +190,8 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
         im.thumbnail((150, 150), Image.ANTIALIAS)
     except IOError:
         im = Image.new('RGB', (150,150), "white")
-        
-    response = HttpResponse(mimetype='image/jpeg')
+
+    response = HttpResponse(content_type='image/jpeg')
 
     if im.mode != 'RGB':
         im = im.convert('RGB')
@@ -196,7 +202,7 @@ def thumbnail_attachment(request, bookid, attachment, version=None):
 
 # UPLOAD ATTACHMENT
 
-@transaction.commit_manually
+@transaction.atomic
 def upload_attachment(request, bookid, version=None):
     """
     Uploades attachments. Used from Upload dialog.
@@ -246,20 +252,14 @@ def upload_attachment(request, bookid, version=None):
         # must write info about this to log!
     except IOError:
         operationResult = False
-        transaction.rollback()
     except:
         oprerationResult = False
-        transaction.rollback()
-    else:
-        # maybe check file name now and save with new name
-        transaction.commit()
 
     if request.POST.get("attachmenttab", "") == "":
         return HttpResponse('<html><body><script> parent.closeAttachmentUpload();  </script></body></html>')
 
     if request.POST.get("attachmenttab", "") == "2":
         return HttpResponse('<html><body><script>  parent.FileBrowserDialogue.loadAttachments(); parent.FileBrowserDialogue.displayBrowseTab();  parent.FileBrowserDialogue.showUpload(); </script></body></html>')
-#        return HttpResponse('<html><body><script>  console.debug("load attachments"); parent.FileBrowserDialogue.loadAttachments(); console.debug("show upload"); parent.FileBrowserDialogue.showUpload();  parent.FileBrowserDialogue.displayBrowseTab();  console.debug("after show browse panel");</script></body></html>')
 
     # should not call showAttachmentsTab, but it works for now
     if operationResult:
@@ -303,7 +303,7 @@ def view_cover(request, bookid, cid, fname = None, version=None):
             from PIL import Image
         except ImportError:
             import Image
-            
+
         try:
             if extension.lower() in ['pdf', 'psd', 'svg']:
                 raise
@@ -329,14 +329,14 @@ def view_cover(request, bookid, cid, fname = None, version=None):
             extension = 'jpeg'
 
         im.save(response, extension.upper())
-        
+
         return response
 
     try:
         data = open(document_path, 'rb').read()
     except IOError:
         return HttpResponse(status=500)
-                
+
     response = HttpResponse(data, content_type=content_type)
     return response
 
@@ -362,7 +362,7 @@ def upload_cover(request, bookid, version=None):
     book_version = book.getVersion(version)
 
     stat = models.BookStatus.objects.filter(book = book)[0]
-    
+
     operationResult = True
 
     # check this for transactions
@@ -400,7 +400,7 @@ def upload_cover(request, bookid, version=None):
                     filename = ''
 
                 title = request.POST.get('title', '').strip()[:250]
-                
+
                 cov = models.BookCover(book = book,
                                        user = request.user,
                                        cid = h.hexdigest(),
@@ -420,7 +420,7 @@ def upload_cover(request, bookid, version=None):
                                        is_pdf = 'pdf' in frm,
                                        created = datetime.datetime.now())
                 cov.save()
-                
+
                 cov.attachment.save(request.FILES[name].name, fileData, save = False)
                 cov.save()
 
@@ -454,14 +454,14 @@ def upload_cover(request, bookid, version=None):
 def view_books_json(request):
     """
     Returns data for Objavi.
-    
+
     @param request: Django Request.
-    
-    @todo: Should be moved to booki.portal 
+
+    @todo: Should be moved to booki.portal
     """
-    
+
     books = models.Book.objects.filter(hidden=False).order_by("title")
-    response = HttpResponse(mimetype="application/json")
+    response = HttpResponse(content_type="application/json")
     json_serializer = serializers.get_serializer("json")()
     json_serializer.serialize(books, ensure_ascii=False, stream=response, fields=('title', 'url_title'))
     return response
@@ -469,9 +469,9 @@ def view_books_json(request):
 def view_books_autocomplete(request, *args, **kwargs):
     """
     Returns data for jQuery UI autocomplete.
-    
+
     @param request: Django Request.
-    
+
     """
 
     term = request.GET.get("term", "").lower()
@@ -479,7 +479,7 @@ def view_books_autocomplete(request, *args, **kwargs):
 
     if not book:
         books = models.Book.objects.filter(hidden=False).order_by("title")
-        data = [dict(label_no_use=book.title, value=book.url_title) 
+        data = [dict(label_no_use=book.title, value=book.url_title)
                 for book in books
                 if not term or (term in book.title.lower() or
                                 term in book.url_title)]
@@ -487,7 +487,7 @@ def view_books_autocomplete(request, *args, **kwargs):
         chapters = models.Chapter.objects.filter(book__url_title=book)
         data = [dict(label_no_use=chapter.title, value=chapter.url_title)
                 for chapter in chapters
-                if not term or (term in chapter.title.lower() or 
+                if not term or (term in chapter.title.lower() or
                                 term in chapter.url_title)]
 
     return HttpResponse(json.dumps(data), "text/plain")

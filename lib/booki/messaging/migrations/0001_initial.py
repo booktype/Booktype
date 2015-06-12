@@ -1,90 +1,88 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-
-    def forwards(self, orm):
-        
-        # Adding model 'Post'
-        db.create_table('messaging_post', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('sender', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['messaging.Endpoint'])),
-            ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('content', self.gf('django.db.models.fields.TextField')()),
-            ('attachment', self.gf('django.db.models.fields.files.FileField')(max_length=2500)),
-        ))
-        db.send_create_signal('messaging', ['Post'])
-
-        # Adding model 'PostAppearance'
-        db.create_table('messaging_postappearance', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('post', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['messaging.Post'])),
-            ('timestamp', self.gf('django.db.models.fields.DateTimeField')()),
-            ('endpoint', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['messaging.Endpoint'])),
-        ))
-        db.send_create_signal('messaging', ['PostAppearance'])
-
-        # Adding model 'Endpoint'
-        db.create_table('messaging_endpoint', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('syntax', self.gf('django.db.models.fields.CharField')(unique=True, max_length=2500)),
-        ))
-        db.send_create_signal('messaging', ['Endpoint'])
-
-        # Adding model 'Following'
-        db.create_table('messaging_following', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('follower', self.gf('django.db.models.fields.related.ForeignKey')(related_name='follower', to=orm['messaging.Endpoint'])),
-            ('target', self.gf('django.db.models.fields.related.ForeignKey')(related_name='target', to=orm['messaging.Endpoint'])),
-        ))
-        db.send_create_signal('messaging', ['Following'])
+from django.db import models, migrations
+import booki.messaging.models
 
 
-    def backwards(self, orm):
-        
-        # Deleting model 'Post'
-        db.delete_table('messaging_post')
+class Migration(migrations.Migration):
 
-        # Deleting model 'PostAppearance'
-        db.delete_table('messaging_postappearance')
+    dependencies = [
+    ]
 
-        # Deleting model 'Endpoint'
-        db.delete_table('messaging_endpoint')
-
-        # Deleting model 'Following'
-        db.delete_table('messaging_following')
-
-
-    models = {
-        'messaging.endpoint': {
-            'Meta': {'object_name': 'Endpoint'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'syntax': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '2500'})
-        },
-        'messaging.following': {
-            'Meta': {'object_name': 'Following'},
-            'follower': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'follower'", 'to': "orm['messaging.Endpoint']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'target': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'target'", 'to': "orm['messaging.Endpoint']"})
-        },
-        'messaging.post': {
-            'Meta': {'object_name': 'Post'},
-            'attachment': ('django.db.models.fields.files.FileField', [], {'max_length': '2500'}),
-            'content': ('django.db.models.fields.TextField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'sender': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['messaging.Endpoint']"}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
-        },
-        'messaging.postappearance': {
-            'Meta': {'object_name': 'PostAppearance'},
-            'endpoint': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['messaging.Endpoint']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'post': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['messaging.Post']"}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {})
-        }
-    }
-
-    complete_apps = ['messaging']
+    operations = [
+        migrations.CreateModel(
+            name='Endpoint',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('syntax', models.CharField(unique=True, max_length=2500, verbose_name='syntax')),
+            ],
+            options={
+                'verbose_name': 'Endpoint',
+                'verbose_name_plural': 'Endpoints',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='EndpointConfig',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('notification_filter', models.CharField(max_length=2500, verbose_name='notification filter', blank=True)),
+            ],
+            options={
+                'verbose_name': 'Endpoint config',
+                'verbose_name_plural': 'Endpoint configs',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Following',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('follower', models.ForeignKey(related_name=b'follower', verbose_name='follower', to='messaging.Endpoint')),
+                ('target', models.ForeignKey(related_name=b'target', verbose_name='target', to='messaging.Endpoint')),
+            ],
+            options={
+                'verbose_name': 'Following',
+                'verbose_name_plural': 'Followings',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Post',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('timestamp', models.DateTimeField(auto_now=True, verbose_name='timestamp')),
+                ('content', models.TextField(verbose_name='content')),
+                ('attachment', models.FileField(upload_to=booki.messaging.models.uploadAttachmentTo, max_length=2500, verbose_name='attachment')),
+                ('snippet', models.TextField(verbose_name='snippet')),
+                ('context_url', models.TextField(verbose_name='context')),
+                ('sender', models.ForeignKey(verbose_name='sender', to='messaging.Endpoint')),
+            ],
+            options={
+                'verbose_name': 'Post',
+                'verbose_name_plural': 'Posts',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='PostAppearance',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('timestamp', models.DateTimeField(verbose_name='timestamp')),
+                ('endpoint', models.ForeignKey(verbose_name='endpoint', to='messaging.Endpoint')),
+                ('post', models.ForeignKey(verbose_name='post', to='messaging.Post')),
+            ],
+            options={
+                'verbose_name': 'Post appearance',
+                'verbose_name_plural': 'Post appearances',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='endpoint',
+            name='config',
+            field=models.ForeignKey(null=True, blank=True, to='messaging.EndpointConfig', unique=True),
+            preserve_default=True,
+        ),
+    ]

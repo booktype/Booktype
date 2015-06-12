@@ -5,7 +5,7 @@
     <h2 class="box-title">{{ current_user.get_full_name }}</h2>
     <a href="{% url "accounts:view_profile" current_user.username %}">{{ current_user.username }}</a>
 
-    <p>{{ current_user.get_profile.description|escape }}</p>
+    <p>{{ current_user.profile.description|escape }}</p>
     <p>
         {% user_followingbox user.username "account/dashboard_following.html" %}<br>
         {% user_followersbox user.username "account/dashboard_followers.html" %}

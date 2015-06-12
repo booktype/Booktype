@@ -287,7 +287,7 @@ def remote_init_editor(request, message, bookid, version):
 
         # set notifications to other clients
         try:
-            profile = request.user.get_profile()
+            profile = request.user.profile
         except AttributeError:
             profile = None
 
@@ -315,7 +315,7 @@ def remote_init_editor(request, message, bookid, version):
                 'email': _u.email,
                 'first_name': _u.first_name,
                 'last_name': _u.last_name,
-                'mood': _u.get_profile().mood
+                'mood': _u.profile.mood
             }
         except:
             return None
@@ -1799,6 +1799,7 @@ def remote_cover_upload(request, message, bookid, version):
     return {"result": True, "licenses": licenses}
 
 
+@transaction.atomic
 def remote_cover_load(request, message, bookid, version):
     """
     Get info about specific cover.
@@ -1865,8 +1866,6 @@ def remote_cover_load(request, message, bookid, version):
              "approved": cover.approved}
 
     licenses = [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
-
-    transaction.commit()
 
     return {"result": True, "cover": cover, "licenses": licenses}
 
@@ -1965,29 +1964,30 @@ def remote_book_status_rename(request, message, bookid, version):
 
     from django.utils.html import strip_tags
 
+    # NOTE: we should check this functionallity in case
     try:
         bs = models.BookStatus.objects.get(book=book, id=message["status_id"])
         bs.name = strip_tags(message["status_name"].strip())
         bs.save()
     except models.BookStatus.DoesNotExist:
-        transaction.rollback()
-    else:
-        transaction.commit()
+        pass
 
     qs = models.BookStatus.objects.filter(book=book).order_by("-weight")
     all_statuses = [(status.id, status.name) for status in qs]
 
-    sputnik.addMessageToChannel(request,
-                                "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "book_status_renamed",
-                                 "statuses": all_statuses},
-                                myself=False
-                                )
-
-    return {"status": True,
-            "status_id": status_id,
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "book_status_renamed",
             "statuses": all_statuses
-            }
+        },
+        myself=False
+    )
+
+    return {
+        "status": True,
+        "status_id": status_id,
+        "statuses": all_statuses
+    }
 
 
 def remote_book_status_order(request, message, bookid, version):
@@ -3233,7 +3233,7 @@ def remote_post_export_comment(request, message, bookid, version):
     comment = ExportComment(export=book_export,
         user=request.user,
         created=datetime.datetime.now(),
-        content=message['content'])    
+        content=message['content'])
     comment.save()
 
     sputnik.addMessageToChannel(request,

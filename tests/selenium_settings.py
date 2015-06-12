@@ -7,11 +7,6 @@ BASE_DIR = Path(os.path.abspath(__file__))
 # PROFILE
 PROFILE_ACTIVE = 'test'
 
-if django.VERSION[:2] < (1, 6):
-    TEST_RUNNER = 'discover_runner.DiscoverRunner'
-    TEST_DISCOVER_TOP_LEVEL = BASE_DIR.parent.parent.child('lib')
-    TEST_DISCOVER_PATTERN = 'seltest*.py'
-
 SOUTH_TESTS_MIGRATE = False
 SKIP_SOUTH_TESTS = True
 
@@ -115,13 +110,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware'
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'booktype.apps.core.middleware.SecurityMiddleware',
 )
 
 
@@ -143,7 +139,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'south',
     'compressor',
     'djcelery',
 
@@ -151,6 +146,7 @@ INSTALLED_APPS = (
     'booki.editor',
 
     # list of booktype apps
+    'booktype',
     'booktype.apps.core',
     'booktype.apps.portal',
     'booktype.apps.loadsave',
@@ -165,6 +161,14 @@ INSTALLED_APPS = (
     'sputnik',
     'booktypecontrol'
 )
+
+if django.VERSION[:2] < (1, 6):
+    TEST_RUNNER = 'discover_runner.DiscoverRunner'
+    TEST_DISCOVER_TOP_LEVEL = BASE_DIR.parent.parent.child('lib')
+    TEST_DISCOVER_PATTERN = 'seltest*.py'
+
+if django.VERSION[:2] < (1, 7):
+    INSTALLED_APPS += ('south', )
 
 BOOKTYPE_CONVERTER_MODULES = (
     'booktype.convert.converters',

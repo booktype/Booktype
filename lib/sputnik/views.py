@@ -22,10 +22,9 @@ import decimal
 import importlib
 
 from django.db import transaction
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist, SuspiciousOperation, PermissionDenied
 
-import redis
 import sputnik
 
 
@@ -53,7 +52,7 @@ def remove_timeout_clients(request):
                 except:
                     continue
 
-        # timeout after 2 minute
+            # timeout after 2 minute
             if tm and decimal.Decimal("%f" % _now) - tm > 60 * 2:
                 sputnik.removeClient(request, k[4:-12])
     except:
@@ -90,7 +89,7 @@ def collect_messages(request, clientID):
     return results
 
 
-@transaction.commit_manually
+@transaction.atomic
 def dispatcher(request, **sputnik_dict):
     """
     Main Sputnik dispatcher. Every Sputnik request goes through this dispatcher.
@@ -191,10 +190,6 @@ def dispatcher(request, **sputnik_dict):
 
                             results.append(ret)
 
-                            if not execute_status:
-                                transaction.rollback()
-                            else:
-                                transaction.commit()
                         else:
                             logger.error("Could not find function '{}' for Sputnik channel '{}'!".format(message.get('command', ''), message.get('channel', '')))
 
@@ -216,11 +211,5 @@ def dispatcher(request, **sputnik_dict):
     # Always return HTTP status 200
     # In the future we should change this and return different kind of statuses in case of error
 
-    try:
-        resp = HttpResponse(json.dumps(return_objects), mimetype="text/json")
-    except:
-        transaction.rollback()
-    else:
-        transaction.commit()
+    return HttpResponse(json.dumps(return_objects), content_type="text/json")
 
-    return resp
