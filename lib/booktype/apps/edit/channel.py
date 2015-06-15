@@ -37,6 +37,7 @@ from booktype.utils import security, config
 from django.utils.translation import ugettext
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.models import Role, BookRole
+from .utils import send_notification
 
 try:
     from PIL import Image
@@ -276,6 +277,7 @@ def remote_init_editor(request, message, bookid, version):
         _onlineUsers = []
 
     if request.user.username not in _onlineUsers:
+        send_notification(request, bookid, version, "notification_user_joined_the_editor", request.user.username)
         try:
             sputnik.sadd("sputnik:channel:%s:users" % message["channel"], request.user.username)
             _onlineUsers.append(request.user.username)
@@ -410,7 +412,9 @@ def remote_attachments_delete(request, message, bookid, version):
             user=request.user,
             kind='attachment_delete'
         )
+        att_name = att.get_name()
         att.delete()
+        send_notification(request, bookid, version, "notification_attachment_was_deleted", att_name)
 
     return {"result": True}
 
@@ -519,6 +523,8 @@ def remote_change_status(request, message, bookid, version):
                                  "message_id": "user_changed_chapter_status",
                                  "message_args": [request.user.username, chapter.title, status.name]},
                                 myself=True)
+
+    send_notification(request, bookid, version, "notification_chapter_status_was_changed", chapter.title, status.name)
 
     return {'result': True}
 
@@ -716,6 +722,8 @@ def remote_chapter_delete(request, message, bookid, version):
         myself=True
     )
 
+    send_notification(request, bookid, version, "notification_chapter_was_deleted", chap.title)
+
     return {"result": True}
 
 
@@ -798,6 +806,10 @@ def remote_section_delete(request, message, bookid, version):
         },
         myself=True
     )
+    if delete_children == u'on':
+        send_notification(request, bookid, version, "notification_section_with_chapters_inside_was_deleted", sec.name)
+    else:
+        send_notification(request, bookid, version, "notification_section_was_deleted", sec.name)
 
     return {"result": True}
 
@@ -885,6 +897,8 @@ def remote_chapter_rename(request, message, bookid, version):
         myself=True
     )
 
+    send_notification(request, bookid, version, "notification_chapter_was_renamed", old_title, chapter.title)
+
     return dict(result=True)
 
 
@@ -952,6 +966,8 @@ def remote_section_rename(request, message, bookid, version):
         },
         myself=True
     )
+
+    send_notification(request, bookid, version, "notification_section_was_renamed", old_title, toc_item.name)
 
     return dict(result=True)
 
@@ -1036,6 +1052,8 @@ def remote_chapters_changed(request, message, bookid, version):
         }
     )
 
+    send_notification(request, bookid, version, "notification_toc_order_was_changed")
+
     # TODO
     # this should be changed, to check for errors
 
@@ -1077,6 +1095,8 @@ def remote_chapter_hold(request, message, bookid, version):
         myself=True
     )
 
+    send_notification(request, bookid, version, "notification_chapter_put_on_hold", toc_item.chapter.title)
+
     return dict(result=True)
 
 
@@ -1117,6 +1137,8 @@ def remote_chapter_unhold(request, message, bookid, version):
             },
             myself=True
         )
+
+    send_notification(request, bookid, version, "notification_chapter_unheld", chptr.title)
 
     return {"result": True}
 
@@ -1171,6 +1193,8 @@ def remote_chapter_lock(request, message, bookid, version):
         myself=True
     )
 
+    send_notification(request, bookid, version, "notification_chapter_was_locked", chapter.title)
+
     return dict(result=True)
 
 
@@ -1220,6 +1244,8 @@ def remote_chapter_unlock(request, message, bookid, version):
         },
         myself=True
     )
+
+    send_notification(request, bookid, version, "notification_chapter_was_unlocked", chapter.title)
 
     return dict(result=True)
 
@@ -1443,6 +1469,8 @@ def remote_create_chapter(request, message, bookid, version):
         myself=True
     )
 
+    send_notification(request, bookid, version, "notification_chapter_was_created", chapter.title)
+
     return {"result": True, "created": True, "chapter_id": chapter.id}
 
 
@@ -1566,6 +1594,8 @@ def remote_create_section(request, message, bookid, version):
         myself=True
     )
 
+    send_notification(request, bookid, version, "notification_section_was_created", c.name)
+
     return {"result": True, "created": True, "chapter_id": 's{}'.format(c.id)}
 
 
@@ -1675,7 +1705,7 @@ def remote_cover_approve(request, message, bookid, version):
 
 def remote_cover_delete(request, message, bookid, version):
     """
-    Set cover approve status.
+    Delete cover image.
 
 
     @type request: C{django.http.HttpRequest}
@@ -1704,6 +1734,8 @@ def remote_cover_delete(request, message, bookid, version):
         kind='cover_delete'
     )
     cover.delete()
+
+    send_notification(request, bookid, version, "notification_cover_was_deleted", cover.title)
 
     return {"result": True}
 
@@ -1773,6 +1805,8 @@ def remote_cover_save(request, message, bookid, version):
         user=request.user,
         kind='cover_update'
     )
+
+    send_notification(request, bookid, version, "notification_cover_was_updated", cover.title)
 
     return {"result": True}
 
@@ -2603,6 +2637,8 @@ def remote_notes_save(request, message, bookid, version):
                                                                 "message_id": "user_saved_notes",
                                                                 "message_args": [request.user.username, book.title]},
                                 myself=True)
+
+    send_notification(request, bookid, version, "notification_notes_were_changed")
 
     return {"result": True}
 

@@ -34,7 +34,7 @@ from booktype.apps.core import views
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.reader.views import BaseReaderView
 
-from .utils import color_me
+from .utils import color_me, send_notification
 from .channel import get_toc_for_book
 from . import forms as book_forms
 
@@ -98,6 +98,13 @@ def upload_attachment(request, bookid, version=None):
             "delete_type": "DELETE"
         }]
     }
+
+    # add cliendID and sputnikID to request object
+    # this will allow us to use sputnik and addMessageToChannel
+    request.clientID = request.POST['clientID']
+    request.sputnikID = "%s:%s" % (request.session.session_key, request.clientID)
+    send_notification(request, book.id, book_version.get_version(),
+                      "notification_new_attachment_uploaded", att.get_name())
 
     if "application/json" in request.META['HTTP_ACCEPT']:
         return HttpResponse(json.dumps(response_data),
@@ -173,6 +180,13 @@ def upload_cover(request, bookid, version=None):
             "delete_type": "DELETE"
         }]
     }
+
+    # add cliendID and sputnikID to request object
+    # this will allow us to use sputnik and addMessageToChannel
+    request.clientID = request.POST['clientID']
+    request.sputnikID = "%s:%s" % (request.session.session_key, request.clientID)
+    send_notification(request, book.id, book.get_version(version).get_version(),
+                      "notification_new_cover_uploaded", cover.title)
 
     if "application/json" in request.META['HTTP_ACCEPT']:
         return HttpResponse(json.dumps(response_data),

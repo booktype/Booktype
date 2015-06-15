@@ -6,6 +6,7 @@ import httplib
 import time
 import datetime
 import logging
+from collections import namedtuple
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -14,6 +15,7 @@ import sputnik
 
 from booki.editor import models
 from booktype.apps.export.models import BookExport, ExportFile
+from .utils import send_notification
 
 
 def fetch_url(url, data, method='GET'):
@@ -205,13 +207,15 @@ def publish_book(*args, **kwargs):
                                                'pages': pages
                                                }
 
+                export_name = "Book export - {}".format(_now)
+
                 sputnik.addMessageToChannel2(
                     kwargs['clientid'],
                     kwargs['sputnikid'],
                     "/booktype/book/%s/%s/" % (book.pk, kwargs['version']), {
                         "command": "book_published",
                         "state": 'SUCCESS',
-                        "name": "Book export - {}".format(_now),
+                        "name": export_name,
                         "username": kwargs["username"],
                         "task_id": task_id,
                         "created": _now.strftime("%d.%m.%Y %H:%M:%S"),
@@ -222,6 +226,15 @@ def publish_book(*args, **kwargs):
                     },
                     myself=True
                 )
+
+                # emulate user object and request object needed for send_notification function
+                user = namedtuple('user', 'username')(username=kwargs['username'])
+                request = namedtuple('request', 'user clientID sputnikID')(user=user,
+                                                                           clientID=kwargs['clientid'],
+                                                                           sputnikID=kwargs['sputnikid'])
+
+                send_notification(request, kwargs['bookid'], kwargs['version'],
+                                  "notification_book_export_was_successful", export_name)
 
                 break
 
