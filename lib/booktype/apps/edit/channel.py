@@ -3290,3 +3290,40 @@ def remote_rename_export_name(request, message, bookid, version):
         "name": message['name']}, myself=False)
 
     return {'result': True}
+
+
+def remote_export_settings_get(request, message, bookid, version):
+    from booktype.apps.export.utils import get_settings
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('export.export_settings'):
+        raise PermissionDenied
+
+    export_format = message.get('format', '')
+
+    covers = {}    
+
+    for cover in models.BookCover.objects.filter(book=book).order_by("title"):
+        covers[cover.cid] = cover.title
+
+    settings_options = get_settings(book, export_format)
+
+    return {'result': True,
+        'settings': settings_options,
+        'covers': covers}
+
+
+def remote_export_settings_set(request, message, bookid, version):
+    from booktype.apps.export.utils import set_settings
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('export.export_settings'):
+        raise PermissionDenied
+
+    data = message.get('data', '[]')
+
+    set_settings(book, message.get('format', ''), data)
+
+    return {'result': True}

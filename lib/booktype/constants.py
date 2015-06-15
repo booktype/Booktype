@@ -33,6 +33,27 @@ ADMIN_IMPORT_BOOKS = False
 BOOKTYPE_MAX_USERS = 0
 BOOKTYPE_MAX_BOOKS = 0
 
+EXPORT_SETTINGS = {
+    'mpdf': [{u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
+        {u'name': u'custom_height', u'value': u''}, {u'name': u'top_margin', u'value': u''},
+        {u'name': u'side_margin', u'value': u''}, {u'name': u'bottom_margin', u'value': u''},
+        {u'name': u'gutter', u'value': u''}, {u'name': u'show_header', u'value': u'on'},
+        {u'name': u'header_margin', u'value': u''}, {u'name': u'show_footer', u'value': u'on'},
+        {u'name': u'footer_margin', u'value': u''}, {u'name': u'bleed_size', u'value': u''},
+        {u'name': u'styling', u'value': u''}, {u'name': u'crop_marks', u'value': u'off'}],
+    'screenpdf': [{u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
+        {u'name': u'custom_height', u'value': u''}, {u'name': u'top_margin', u'value': u''},
+        {u'name': u'side_margin', u'value': u''}, {u'name': u'bottom_margin', u'value': u''},
+        {u'name': u'gutter', u'value': u''}, {u'name': u'show_header', u'value': u'on'},
+        {u'name': u'header_margin', u'value': u''}, {u'name': u'show_footer', u'value': u'on'},
+        {u'name': u'footer_margin', u'value': u''}, {u'name': u'cover_image', u'value': u' '},
+        {u'name': u'styling', u'value': u''}],
+    'epub': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
+    'mobi': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
+    'xhtml': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}]
+}
+
+
 # These are default options for CSS settings
 
 BOOKTYPE_CSS_BOOK = ('.objavi-chapter{ color: #000; }'
@@ -258,5 +279,3 @@ BOOKTYPE_CSS_ODT = ('body {} #book-title { font-size: 64pt; '
                     'div.copyright{ padding: 1em;} pre { max-width:700px; '
                     'overflow: hidden;} '
                     'img { max-width: 700px; height: auto;}')
-
-
