@@ -9,6 +9,9 @@ STATIC_URL = '{}/static/'.format(BOOKTYPE_URL)
 DATA_URL = '{}/data/'.format(BOOKTYPE_URL)
 MEDIA_URL = DATA_URL
 
+# URL where is publishing engine located. By default it is on local machine.
+CONVERT_URL = BOOKTYPE_URL
+
 # MPDF RENDERER SETTINGS
 # Change lines below in case you want to use other version
 # of php or mpdf in dev profile

@@ -91,10 +91,11 @@ def publish_book(*args, **kwargs):
     output_results = {}
     # _format: False for _format in data["outputs"].iterkeys()}
 
-    result = fetch_url(
-        '{}/_convert/'.format(settings.BOOKTYPE_URL), data, method='POST')
+    convert_url = '{}/_convert/'.format(settings.CONVERT_URL)
+    result = fetch_url(convert_url, data, method='POST')
 
     if not result:
+        logger.error('Could not fetch the book from [{}]'.format(convert_url))
         sputnik.addMessageToChannel2(
             kwargs['clientid'],
             kwargs['sputnikid'],
