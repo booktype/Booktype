@@ -24,15 +24,19 @@ import string
 import unipath
 import random
 
+
 verbose = 0
+
 
 def log(msg):
     if verbose:
         print msg,
 
+
 def logln(msg):
     if verbose:
         print msg
+
 
 def show_info():
     logln("Hi!\nI will use these information to create new project:")
@@ -41,6 +45,7 @@ def show_info():
     logln("     group id: %s" % os.getegid())
 
     logln("\n\n\n")
+
 
 def show_after(destination, name):
     logln("")
@@ -52,12 +57,13 @@ def show_after(destination, name):
     logln("     wsgi.apache         -  Apache config file")
     logln("     gunicorn.nginx      -  Nginx config file")
     logln("     fastcgi.nginx       -  Nginx config file")
+    logln("     supervisor.conf     -  Supervisor config file")   
     logln("")
     logln("   lib/                  -  Local python libraries")
     logln("   static/               -  Deployed static files")
     logln("   data/                 -  Attachments, Covers, ...")
     logln("")
-    logln("   {:<10}            -  Booktype project".format(name+"_site"))
+    logln("   {:<10}            -  Booktype project".format(name + "_site"))
     logln("     locale/             -  Local translations")
     logln("     templates/          -  Local templates")
     logln("     static/             -  Local static files")
@@ -74,12 +80,14 @@ def show_after(destination, name):
     logln("")
     logln("For further instructions read INSTALL file.\n")
 
+
 class MajorError(Exception):
-    def __init__(self, description = ''):
+    def __init__(self, description=''):
         self.description = description
 
     def __str__(self):
         return repr(self.description)
+
 
 class InstallError(MajorError):
     pass
@@ -128,6 +136,7 @@ def check_booki_available():
     else:
         logln("[OK]")
 
+
 def check_lxml_available():
     log("+ Trying to import lxml.  ")
 
@@ -138,15 +147,6 @@ def check_lxml_available():
     else:
         logln("[OK]")
 
-def check_feedparser_available():
-    log("+ Trying to import feedparser.  ")
-
-    try:
-        import feedparser
-    except ImportError:
-        raise InstallError()
-    else:
-        logln("[OK]")
 
 def check_pil_available():
     log("+ Trying to import Python Imaging Library (PIL/Pillow).  ")
@@ -163,6 +163,7 @@ def check_pil_available():
     else:
         logln("[OK]")
 
+
 def check_redis_available():
     log("+ Trying to import Redis module.  ")
 
@@ -172,6 +173,7 @@ def check_redis_available():
         raise InstallError()
     else:
         logln("[OK]")
+
 
 def check_south_available():
     log("+ Trying to import South module.  ")
@@ -183,6 +185,7 @@ def check_south_available():
     else:
         logln("[OK]")
 
+
 def check_unidecode_available():
     log("+ Trying to import Unidecode module.  ")
 
@@ -192,6 +195,7 @@ def check_unidecode_available():
         raise InstallError()
     else:
         logln("[OK]")
+
 
 def copy_default_themes(destination):
     from shutil import copytree
@@ -205,6 +209,7 @@ def copy_default_themes(destination):
         copytree('{}/skeleton/themes/'.format(booktype_source), '{}/data/themes/'.format(destination))
     except OSError:
         raise InstallError()
+
 
 def make_directory_structure(destination):
     try:
@@ -227,13 +232,16 @@ def make_directory_structure(destination):
     except OSError:
         raise InstallError()
 
+
 def read_file(file_name):
     content = open(file_name, 'rt').read()
 
     return content
 
+
 def set_var(content, name, value):
     return content.replace('##%s##' % name, value)
+
 
 def create_urls(destination):
     import booktype
@@ -347,7 +355,7 @@ def create_manage(destination, profile):
     import stat
 
     booktype_source = os.path.dirname(booktype.__file__)
-    booktype_path = os.path.abspath(os.path.dirname(booktype.__file__)+'/..')
+    booktype_path = os.path.abspath(os.path.dirname(booktype.__file__) + '/..')
     project = get_project_name(destination)
 
     try:
@@ -365,9 +373,9 @@ def create_manage(destination, profile):
         f.write(content)
 
         # Set execute flag
-        s = stat.S_IRWXU|stat.S_IWUSR|stat.S_IXUSR
-        s = s|stat.S_IRGRP
-        s = s|stat.S_IROTH
+        s = stat.S_IRWXU | stat.S_IWUSR | stat.S_IXUSR
+        s = s | stat.S_IRGRP
+        s = s | stat.S_IROTH
         os.fchmod(f.fileno(), s)
 
         f.close()
@@ -375,11 +383,12 @@ def create_manage(destination, profile):
     except IOError:
         raise InstallError()
 
+
 def create_env(destination, profile):
     log("+ Creating booktype.env file.  ")
 
     import booki
-    booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
+    booki_path = os.path.abspath(os.path.dirname(booki.__file__) + '/..')
 
     try:
         f = open('%s/booktype.env' % destination, 'wt')
@@ -399,21 +408,22 @@ export PYTHONPATH=$PYTHONPATH:%(destination)s/:%(destination)s/lib/:%(booktype_p
 
 export PYTHONPATH PATH
 ''' % {'project_name': get_project_name(destination),
-       'location': get_project_directory(destination),
-       'destination': destination,
-       'profile': profile,
-       'booktype_path': booki_path})
+                'location': get_project_directory(destination),
+                'destination': destination,
+                'profile': profile,
+                'booktype_path': booki_path})
         f.close()
     except OSError:
         raise InstallError()
     else:
         logln("[OK]")
 
+
 def create_wsgi(destination, profile, virtual_env):
     log("+ Creating booktype.wsgi file.  ")
 
     import booki
-    booki_path = os.path.abspath(os.path.dirname(booki.__file__)+'/..')
+    booki_path = os.path.abspath(os.path.dirname(booki.__file__) + '/..')
 
     try:
         f = open('%s/%s_site/wsgi.py' % (destination, get_project_name(destination)), 'wt')
@@ -465,11 +475,33 @@ djcelery.setup_loader()
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 ''' % {'directory': get_project_directory(destination),
-        'destination': destination,
-        'booki_path': booki_path,
-        'profile': profile,
-        'virtual_env': virtual_env,
-        'project_name': get_project_name(destination)})
+                'destination': destination,
+                'booki_path': booki_path,
+                'profile': profile,
+                'virtual_env': virtual_env,
+                'project_name': get_project_name(destination)})
+        f.close()
+    except OSError:
+        raise InstallError()
+    else:
+        logln("[OK]")
+
+
+def create_supervisor(destination, virtual_env):
+    log("+ Creating supervisor.conf file.")
+
+    s = '''[program:%(project_name)s-celery-worker]
+directory       = %(project_directory)s
+command         = %(virtualenv)s/bin/python %(project_directory)s/manage.py celery worker --concurrency=20
+user            = www-data
+stopwaitsecs    = 60
+''' % {'project_name': get_project_name(destination),
+       'virtualenv': virtual_env,
+       'project_directory': destination}
+
+    try:
+        f = open('%s/conf/supervisor.conf' % destination, 'wt')
+        f.write(s)
         f.close()
     except OSError:
         raise InstallError()
@@ -488,7 +520,7 @@ def create_apache(destination):
         import django
         django_path = os.path.dirname(django.__file__)
     except ImportError:
-        django_path=''
+        django_path = ''
 
     # TODO add path to booki
 
@@ -534,7 +566,6 @@ def create_apache(destination):
                      'project_name': get_project_name(destination),
                      'django_path': django_path}
 
-
     try:
         f = open('%s/conf/wsgi.apache' % destination, 'wt')
         f.write(s)
@@ -543,6 +574,7 @@ def create_apache(destination):
         raise InstallError()
     else:
         logln("[OK]")
+
 
 def create_nginx_gunicorn(destination):
     log("+ Creating gunicorn.nginx file.  ")
@@ -555,7 +587,7 @@ def create_nginx_gunicorn(destination):
         import django
         django_path = os.path.dirname(django.__file__)
     except ImportError:
-        django_path=''
+        django_path = ''
 
     s = '''# Nginx configuration file for gunicorn v1.0
 
@@ -625,7 +657,7 @@ def create_nginx_fastcgi(destination):
         import django
         django_path = os.path.dirname(django.__file__)
     except ImportError:
-        django_path=''
+        django_path = ''
 
     s = '''# Nginx configuration file for fastcgi v1.0
 
@@ -684,8 +716,6 @@ False        expires max;
         logln("[OK]")
 
 
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Create Booktype project')
 
@@ -739,20 +769,18 @@ if __name__ == '__main__':
             check_django_version()
             check_booki_available()
             check_lxml_available()
-            # don't need it for now
-            #check_feedparser_available()
             check_pil_available()
             check_redis_available()
-            # check_south_available()
+#             check_south_available()
             check_unidecode_available()
 
         # show info about user id, group id and etc...
-        #show_info()
+#        show_info()
 
         # check if project directory exists
         if os.path.exists(project_destination):
             if os.access(project_destination, os.W_OK):
-                if os.path.exists('%s/%s_site/settings/base.py' % (project_destination,  get_project_name(project_destination))):
+                if os.path.exists('%s/%s_site/settings/base.py' % (project_destination, get_project_name(project_destination))):
                     raise MajorError("\nBooktype project does exist [%s]. I don't know what to do now. Choose another directory or manualy fix issues. Sorry about that.\n" % project_destination)
                 else:
                     while True:
@@ -779,13 +807,16 @@ if __name__ == '__main__':
         create_manage(project_destination, args.profile)
 
         # create settings.py file
-        create_settings(project_destination, database = args.database)
+        create_settings(project_destination, database=args.database)
 
         # create urls
         create_urls(project_destination)
 
         # create wsgi file
         create_wsgi(project_destination, args.profile, args.virtual_env)
+
+        # create supervisor file for wsgi
+        create_supervisor(project_destination, args.virtual_env)
 
         # create apache file for wsgi
         create_apache(project_destination)
