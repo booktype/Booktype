@@ -459,13 +459,11 @@ os.environ["DJANGO_SETTINGS_MODULE"] = "%(project_name)s_site.settings.%(profile
 import djcelery
 djcelery.setup_loader()
 
-
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
-import django.core.handlers.wsgi
-application = django.core.handlers.wsgi.WSGIHandler()
-
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
 ''' % {'directory': get_project_directory(destination),
         'destination': destination,
         'booki_path': booki_path,
