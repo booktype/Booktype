@@ -27,22 +27,13 @@ if(file_exists($options["dir"]."/config.json")) {
 
 /* Read content */
 $html_data = file_get_contents($file_input);
-
-$html = '<tocpagebreak paging="on" links="on" toc-preHTML="&lt;h2&gt;Contents&lt;/h2&gt;" toc-bookmarkText="Content list" resetpagenum="1"  outdent="2em" pagenumstyle="1" toc-pagenumstyle="i" toc-suppress="0" suppress="0" toc-resetpagenum="1" />';
-
-$html .= substr($html_data, 12, strlen($html_data)-27);
+$html = substr($html_data, 12, strlen($html_data)-27);
 
 /* Create PDF */
-$mpdf = new mPDF('utf-8');
-$mpdf->mirrorMargins = 1;
-$mpdf->AddPage('', '', '', '', 'on');
-
+//$mpdf = new mPDF('', array($config["config"]["page_width"], $config["config"]["page_height"]));
+$mpdf = new mPDF('');
+//$mpdf->mirrorMargins = 1;
 $mpdf->h2toc = array('H1'=>0, 'H2'=>0, 'H3'=>0, 'H4'=>0, 'H5'=>0, 'H6'=>0);
-//$mpdf->SetDisplayMode('fullpage');
-
-
-$mpdf->SetHTMLFooter('<div style="text-align: left;">{PAGENO}</div>', 'O');
-$mpdf->SetHTMLFooter('<div style="text-align: right;">{PAGENO}</div>', 'E');
 
 /* Add Styling */
 if(file_exists($options["dir"]."/style.css")) {
@@ -50,13 +41,34 @@ if(file_exists($options["dir"]."/style.css")) {
     $mpdf->WriteHTML($data, 1);
 }
 
-/* Add Frontmatter */
-if(file_exists($options["dir"]."/frontmatter.html")) {
-    $data = file_get_contents($options["dir"]."/frontmatter.html");
-    $mpdf->WriteHTML($data);
+if(array_key_exists('show_footer', $config['config']['settings'])) {
+    if(isset($config['config']['settings']['show_footer'])) {
+       $mpdf->SetHTMLFooter('<div style="text-align: left;">{PAGENO}</div>', 'O');
+       $mpdf->SetHTMLFooter('<div style="text-align: right;">{PAGENO}</div>', 'E');
+    }
 }
 
-$mpdf->WriteHTML($html);
+/* Add Frontmatter */
+if(file_exists($options["dir"]."/frontmatter.html")) {
+   $data = file_get_contents($options["dir"]."/frontmatter.html");
+   $mpdf->WriteHTML($data, 2);
+}
+
+$mpdf->WriteHTML($html, 2);
+
+if(array_key_exists('title', $config['metadata'])) {
+    if(isset($config['metadata']['title'])) {
+        $mpdf->SetTitle($config['metadata']['title']);
+    }
+}
+
+if(array_key_exists('creator', $config['metadata'])) {
+    if(isset($config['metadata']['creator'])) {
+        $mpdf->SetAuthor($config['metadata']['creator']);
+    }
+}
+
+$mpdf->SetCreator('Booktype');
 
 $mpdf->Output($file_output);
 

@@ -30,8 +30,10 @@ from copy import deepcopy
 from ..base import BaseConverter
 from ..utils.epub import parse_toc_nav
 from .. import utils
+from .styles import create_default_style, get_page_size
 
 from django.conf import settings
+from django.template.loader import render_to_string
 
 
 logger = logging.getLogger("booktype.convert.pdf")
@@ -57,6 +59,9 @@ class MPDFConverter(BaseConverter):
 
     def convert(self, book, output_path):
         self._save_images(book)
+
+        # Not that much needed at the moment
+        self.config['page_width'], self.config['page_height'] = get_page_size(self.config['settings'])
 
         dc_metadata = {
             key: value[0][0] for key, value in
@@ -89,12 +94,23 @@ class MPDFConverter(BaseConverter):
 
         self._write_configuration(dc_metadata)
         self._create_frontmatter(dc_metadata)
+        self._write_style()
 
         self._run_renderer(html_path, pdf_path)
 
         os.rename(pdf_path, output_path)
 
         return {"pages": 21, "size": os.path.getsize(output_path)}
+
+    def _write_style(self):
+        if 'settings' not in self.config:
+            return
+
+        css_style = create_default_style(self.config)
+
+        f = open('{}/style.css'.format(self.sandbox_path), 'wt')
+        f.write(css_style.encode('utf8'))
+        f.close()
 
     def _write_configuration(self, dc_metadata):
         f = open('{}/config.json'.format(self.sandbox_path), 'wt')
@@ -120,8 +136,8 @@ class MPDFConverter(BaseConverter):
             pb = etree.Element("pagebreak")  # , {'pagenumstyle': '1'})
             self._document_body.append(pb)
 
-        # tc = etree.Element("tocentry")
-        # self._document_body.append(tc)
+        #tc = etree.Element("tocentry")
+        #self._document_body.append(tc)
 
         for chapter_child in chapter.find("body"):
             content = deepcopy(chapter_child)
@@ -166,8 +182,15 @@ class MPDFConverter(BaseConverter):
                 continue
 
     def _create_frontmatter(self, dc_metadata):
+        data = {"title": dc_metadata.get("title", ""),
+            "license": dc_metadata.get("rights", ""),
+            "copyright": dc_metadata.get("creator", ""),
+        }
+
+        html = render_to_string('convert/frontmatter_mpdf.html', data)
+
         f = open('{}/frontmatter.html'.format(self.sandbox_path), 'wt')
-        f.write('<h1>{}</h1><hr/>'.format(dc_metadata['title'].encode('utf-8')))
+        f.write(html.encode('utf-8'))
         f.close()
 
     def _run_renderer(self, html_path, pdf_path):

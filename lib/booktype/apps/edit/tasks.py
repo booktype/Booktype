@@ -14,6 +14,10 @@ import sputnik
 
 from booki.editor import models
 from booktype.apps.export.models import BookExport, ExportFile
+from booktype.apps.export.utils import get_settings_as_dictionary
+
+
+logger = logging.getLogger('booktype')
 
 
 def fetch_url(url, data, method='GET'):
@@ -25,6 +29,7 @@ def fetch_url(url, data, method='GET'):
         try:
             data_json = json.dumps(data)
         except TypeError:
+            logger.exception('Could not serialize to JSON.')
             return None
 
         req = urllib2.Request(url, data_json)
@@ -35,20 +40,21 @@ def fetch_url(url, data, method='GET'):
     try:
         r = urllib2.urlopen(req)
     except (urllib2.HTTPError, urllib2.URLError, httplib.HTTPException):
-        pass
+        logger.exception('Could not load URL {}.'.format(url))
+        return None
     except Exception:
-        pass
+        logger.exception('Could not load URL {}.'.format(url))
+        return None
 
     # should really be a loop of some kind
     try:
         s = r.read()
         dta = json.loads(s.strip())
     except:
+        logger.exception('Could not load JSON data.')
         return None
 
     return dta
-
-x = 0
 
 
 @celery.task
@@ -58,7 +64,6 @@ def publish_book(*args, **kwargs):
     # Entire publisher is at the moment hard coded for pdf output
 
     # set logger
-    logger = logging.getLogger('booktype')
     logger.debug(kwargs)
 
     book = models.Book.objects.get(id=kwargs['bookid'])
@@ -81,7 +86,8 @@ def publish_book(*args, **kwargs):
         data["outputs"][_format] = {
             "profile": _format,
             "config": {
-                "project_id": book.url_title
+                "project_id": book.url_title,
+                "settings": get_settings_as_dictionary(book, _format)
             },
             "output": "{}.{}".format(book.url_title, _ext)
         }

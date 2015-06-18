@@ -1,0 +1,19 @@
+
+@page {
+        size: {{ page_width }}mm {{ page_height }}mm;        
+        margin-left: {{ gutter }}mm;
+        margin-right: {{ side_margin }}mm;
+        margin-top: {{ top_margin }}mm;
+        margin-bottom: {{ bottom_margin }}mm;
+
+        margin-header: {{ header_margin }}mm;
+        margin-footer: {{ footer_margin }}mm;
+
+        {% if crop_marks %}
+        marks: crop;    
+        {% endif %}
+}
+
+h1.book-title {
+        text-align: center;
+}

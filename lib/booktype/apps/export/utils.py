@@ -45,6 +45,10 @@ def get_settings(book, export_format):
     return settings_options
 
 
+def get_settings_as_dictionary(book, export_format):
+    return {elem['name']:elem['value'] for elem in get_settings(book, export_format)}
+
+
 def set_settings(book, export_format, data):
     """Set export settings for certain book and export format.
 
