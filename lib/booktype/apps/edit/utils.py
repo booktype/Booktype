@@ -3,6 +3,8 @@
 """
 Utility functions related with editor app
 """
+import sputnik
+
 
 def color_me(l, rgb, pos):
     # TODO: add docstrings and improve if possible
@@ -65,3 +67,27 @@ def color_me(l, rgb, pos):
     out += l[n:]+'</span>'
 
     return out
+
+
+def send_notification(request, bookid, version, message, *message_args):
+    """Send notification.
+
+    Add notification message to channel
+
+    Args:
+      reuest: Client Request object
+      bookid: Unique Book id
+      version: Book version
+      message: Notification message key
+      message_args: positional arguments for message format
+    """
+
+    channel_name = '/booktype/book/%s/%s/' % (bookid, version)
+    user = request.user
+
+    sputnik.addMessageToChannel(request, channel_name, {
+        'command': 'notification',
+        'message': message,
+        'username': user.username,
+        'message_args': message_args
+    }, myself=False)
