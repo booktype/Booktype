@@ -39,7 +39,7 @@
     </div>              
   </div>
 
-  <div class="modal fade" id="settings-book" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade settings-dialog" id="settings-mpdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog new_book">
       <div class="modal-content">
         <div class="modal-header">
@@ -48,12 +48,12 @@
         </div>
         <div class="modal-body">
           <section id="basic">
-            <form method="post" action="/accounts/Fritz/_create_book/" target="hidden_frame" enctype="multipart/form-data"><input type="hidden" name="csrfmiddlewaretoken" value="cbFF3Y1lqxPMojRh0EOxNEWwv4oOpwdu">
-              <div id="wizard-settings">
-                <h3>{% trans "Paper size" %}</h3>
+            <form method="post" action="" target="hidden_frame" enctype="multipart/form-data">
+              <div class="wizard-settings">
+                <h3>{% trans "Size" %}</h3>
                 <section>
-                  <p class="wizard_desc">Paper Size</p>
-                  <label for="size">Size</label> 
+                  <p class="wizard_desc">{% trans "Paper Size" %}</p>
+                  <label for="size">{% trans "Size" %}</label> 
                   <select name="size">
                     <option value="custom">{% trans "custom" %}</option>
                     <option value="POCKET">POCKET (107mm x 174mm)</option>
@@ -95,9 +95,9 @@
                   <input type="text"/ name="custom_height" size="4"> <span>{% trans "mm" %}</span>
 
                 </section>
-                <h3>{% trans "Margins and gutter" %}</h3>
+                <h3>{% trans "Margins" %}</h3>
                 <section>
-                  <p class="wizard_desc">{% trans "Margin and gutter" %}</p>
+                  <p class="wizard_desc">{% trans "Margins and gutter" %}</p>
                   <label for="top_margin">{% trans "Top Margin" %}</label>
                   <input type="text" name="top_margin" size="4"/> <span>{% trans "mm" %}</span>
                   <br/>
@@ -111,18 +111,262 @@
                   <input type="text" name="gutter" size="4"/> <span>{% trans "mm" %}</span>
                 </section>
 
-                <h3>Cover</h3>
+                <h3>{% trans "Footer" %}</h3>
                 <section>
-                  <p class="wizard_desc">{% trans "Cover" %}</p>
-                  <select id="id_cover" name="cover" multiple="multiple">
-                    <option value=" ">{% trans "No Cover" %}</option>                  
-                    <option disabled="disabled" role="separator">-------------------</option>                    
-                  </select>                                        
+                  <p class="wizard_desc">{% trans "Footer and Header" %}</p>
+
+                  <label for="show_header">{% trans "Show Header" %}</label>
+                  <input type="checkbox" name="show_header"> 
+                  <br/>
+
+                  <label for="header_margin">{% trans "Header Margin" %}</label>
+                  <input type="text" name="header_margin" size="4"/> <span>{% trans "mm" %}</span>
+                  <br/>
+
+                  <label for="show_footer">{% trans "Show Footer" %}</label>
+                  <input type="checkbox" name="show_footer"> 
+                  <br/>
+
+                  <label for="footer_margin">{% trans "Footer Margin" %}</label>
+                  <input type="text" name="footer_margin" size="4"/> <span>{% trans "mm" %}</span>
+                  <br/>
                 </section>
 
-                <h3>{% trans "Advanced styling" %}</h3>
+                <h3>{% trans "Extra" %}</h3>
                 <section>
-                  <p class="wizard_desc">{% trans "Manually edit styling" %}</p>
+                  <p class="wizard_desc">{% trans "Extra options" %}</p>
+
+                  <label for="crop_marks">{% trans "Crop Marks" %}</label>
+                  <input type="checkbox" name="crop_marks"> 
+                  <br/>
+
+                  <label for="bleed_size">{% trans "Bleed size" %}</label>
+                  <input type="text" name="bleed_size" size="4"/> <span>{% trans "mm" %}</span>
+                  <br/>
+                </section>
+
+
+                <h3>{% trans "Styling" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Manually edit CSS style" %}</p>
+                  <label for="styling">{% trans "Styling" %}</label>
+                  <textarea name="styling" cols="50" rows="5"></textarea>
+                </section>
+              </div>
+            </form>
+          </section>
+        </div>                
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+  <div class="modal fade settings-dialog" id="settings-screenpdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog new_book">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="modal-title" id="myModalLabel">{% trans "Screen PDF Settings" %}</h2>
+        </div>
+        <div class="modal-body">
+          <section id="basic">
+            <form method="post" action="" target="hidden_frame" enctype="multipart/form-data">
+              <div class="wizard-settings">
+                <h3>{% trans "Size" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Paper Size" %}</p>
+                  <label for="size">{% trans "Size" %}</label> 
+                  <select name="size">
+                    <option value="custom">{% trans "custom" %}</option>
+                    <option value="POCKET">POCKET (107mm x 174mm)</option>
+                    <option value="US5x8">US5x8 (126mm x 203mm)</option>
+                    <option value="DIGEST">DIGEST (139mm x 215mm)</option>
+                    <option value="US5.5x8.5">US5.5x8.5 (139mm x 215mm)</option>
+                    <option value="A5">A5 (148mm x 210mm)</option>
+                    <option value="USTRADE6x9">USTRADE6x9 (152mm x 228mm)</option>
+                    <option value="SQUARE7.5">SQUARE7.5 (190mm x 190mm)</option>
+                    <option value="ROYAL">ROYAL (155mm x 233mm)</option>
+                    <option value="LANDSCAPE9x7">LANDSCAPE9x7 (228mm x 177mm)</option>
+                    <option value="COMICBOOK">COMICBOOK (168mm x 260mm)</option>
+                    <option value="B5">B5 (176mm x 250mm)</option>
+                    <option value="US7x10">US7x10 (177mm x 253mm)</option>
+                    <option value="CROWNQUARTO">CROWNQUARTO (189mm x 245mm)</option>
+                    <option value="SQUARE8.5">SQUARE8.5 (215mm x 215mm)</option>
+                    <option value="USLETTER">USLETTER (215mm x 279mm)</option>
+                    <option selected="selected" value="A4">A4 (210mm x 297mm)</option>
+                    <option value="Foolscap (F4)">Foolscap (F4) (210mm x 330mm)</option>
+                    <option value="B4">B4 (250mm x 353mm)</option>
+                    <option value="Oamaru Tabloid">Oamaru Tabloid (265mm x 380mm)</option>
+                    <option value="UK Tabloid">UK Tabloid (279mm x 431mm)</option>
+                    <option value="A3 (NZ Tabloid)">A3 (NZ Tabloid) (297mm x 420mm)</option>
+                    <option value="Berliner">Berliner (315mm x 470mm)</option>
+                    <option value="B3">B3 (353mm x 500mm)</option>
+                    <option value="Oamaru Broadsheet">Oamaru Broadsheet (382mm x 540mm)</option>
+                    <option value="US Broadsheet">US Broadsheet (380mm x 577mm)</option>
+                    <option value="A2 (NZ Broadsheet)">A2 (NZ Broadsheet) (420mm x 594mm)</option>
+                    <option value="UK Broadsheet">UK Broadsheet (457mm x 609mm)</option>
+                    <option value="B2">B2 (500mm x 707mm)</option>
+                    <option value="A1">A1 (594mm x 841mm)</option>
+                    <option value="B1">B1 (707mm x 1000mm)</option>
+                  </select>
+                  <br/>
+                  <label for="custom_width">Width:</label>
+                  <input type="text"/ name="custom_width" size="4"> <span>{% trans "mm" %}</span>
+                  <br/>
+                  <label for="custom_height">Height:</label>
+                  <input type="text"/ name="custom_height" size="4"> <span>{% trans "mm" %}</span>
+
+                </section>
+                <h3>{% trans "Margins" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Margins and gutter" %}</p>
+                  <label for="top_margin">{% trans "Top Margin" %}</label>
+                  <input type="text" name="top_margin" size="4"/> <span>{% trans "mm" %}</span>
+                  <br/>
+                  <label for="side_margin">{% trans "Side Margin" %}</label>
+                  <input type="text" name="side_margin" size="4"/> <span>{% trans "mm" %}</span>
+                  <br/>
+                  <label for="bottom_margin">{% trans "Bottom Margin" %}</label>
+                  <input type="text" name="bottom_margin" size="4"/> <span>{% trans "mm" %}</span>
+                  <br/>
+                  <label for="gutter">{% trans "Gutter" %}</label>
+                  <input type="text" name="gutter" size="4"/> <span>{% trans "mm" %}</span>
+                </section>
+
+                <h3>{% trans "Footer" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Footer and Header" %}</p>
+
+                  <label for="show_header">{% trans "Show Header" %}</label>
+                  <input type="checkbox" name="show_header"> 
+                  <br/>
+
+                  <label for="header_margin">{% trans "Header Margin" %}</label>
+                  <input type="text" name="header_margin" size="4"/> <span>{% trans "mm" %}</span>
+                  <br/>
+
+                  <label for="show_footer">{% trans "Show Footer" %}</label>
+                  <input type="checkbox" name="show_footer"> 
+                  <br/>
+
+                  <label for="footer_margin">{% trans "Footer Margin" %}</label>
+                  <input type="text" name="footer_margin" size="4"/> <span>{% trans "mm" %}</span>
+                  <br/>
+                </section>
+
+                <h3>{% trans "Cover" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Cover image" %}</p>
+                  <select name="cover_image" id="cover_image" multiple="multiple" size="5" class="ui-wizard-content">
+                    <option value=" ">{% trans "No Cover" %}</option>
+                    <option disabled="disabled" role="separator">-------------------</option>
+                  </select>
+                </section>
+
+                <h3>{% trans "Styling" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Manually edit CSS style" %}</p>
+                  <label for="styling">{% trans "Styling" %}</label>
+                  <textarea name="styling" cols="50" rows="5"></textarea>
+                </section>
+              </div>
+            </form>
+          </section>
+        </div>                
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+  <div class="modal fade settings-dialog" id="settings-epub" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog new_book">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="modal-title" id="myModalLabel">{% trans "EPUB Settings" %}</h2>
+        </div>
+        <div class="modal-body">
+          <section id="basic">
+            <form method="post" action="" target="hidden_frame" enctype="multipart/form-data">
+              <div class="wizard-settings">
+                <h3>{% trans "Cover" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Cover image" %}</p>
+                  <select name="cover_image" id="cover_image" multiple="multiple" size="5" class="ui-wizard-content">
+                    <option value=" ">{% trans "No Cover" %}</option>
+                    <option disabled="disabled" role="separator">-------------------</option>
+                  </select>
+                </section>
+
+                <h3>{% trans "Styling" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Manually edit CSS style" %}</p>
+                  <label for="styling">{% trans "Styling" %}</label>
+                  <textarea name="styling" cols="50" rows="5"></textarea>
+                </section>
+              </div>
+            </form>
+          </section>
+        </div>                
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+  <div class="modal fade settings-dialog" id="settings-mobi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog new_book">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="modal-title" id="myModalLabel">{% trans "Mobi Settings" %}</h2>
+        </div>
+        <div class="modal-body">
+          <section id="basic">
+            <form method="post" action="" target="hidden_frame" enctype="multipart/form-data">
+              <div class="wizard-settings">
+                <h3>{% trans "Cover" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Cover image" %}</p>
+                  <select name="cover_image" id="cover_image" multiple="multiple" size="5" class="ui-wizard-content">
+                    <option value=" ">{% trans "No Cover" %}</option>
+                    <option disabled="disabled" role="separator">-------------------</option>
+                  </select>
+                </section>
+
+                <h3>{% trans "Styling" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Manually edit CSS style" %}</p>
+                  <label for="styling">{% trans "Styling" %}</label>
+                  <textarea name="styling" cols="50" rows="5"></textarea>
+                </section>
+              </div>
+            </form>
+          </section>
+        </div>                
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+  <div class="modal fade settings-dialog" id="settings-xhtml" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog new_book">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="modal-title" id="myModalLabel">{% trans "XHTML Settings" %}</h2>
+        </div>
+        <div class="modal-body">
+          <section id="basic">
+            <form method="post" action="" target="hidden_frame" enctype="multipart/form-data">
+              <div class="wizard-settings">
+                <h3>{% trans "Cover" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Cover image" %}</p>
+                  <select name="cover_image" id="cover_image" multiple="multiple" size="5" class="ui-wizard-content">
+                    <option value=" ">{% trans "No Cover" %}</option>
+                    <option disabled="disabled" role="separator">-------------------</option>
+                  </select>
+                </section>
+
+                <h3>{% trans "Styling" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Manually edit CSS style" %}</p>
                   <label for="styling">{% trans "Styling" %}</label>
                   <textarea name="styling" cols="50" rows="5"></textarea>
                 </section>

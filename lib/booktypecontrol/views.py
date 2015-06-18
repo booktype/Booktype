@@ -29,7 +29,6 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.mail import EmailMultiAlternatives
 
@@ -383,7 +382,7 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
         context = super(PasswordChangeView, self).get_context_data(
             *args, **kwargs)
         context['option'] = None
-        context['option_name'] = u"%s: %s" % (ugettext('Change Password'), self.object.username)
+        context['option_name'] = _('Change Password: %s') % self.object.username
         return context
 
     def get_success_url(self):

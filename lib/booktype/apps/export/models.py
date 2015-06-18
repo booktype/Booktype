@@ -1,15 +1,32 @@
+# This file is part of Booktype.
+# Copyright (c) 2012
+# Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
+#
+# Booktype is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Booktype is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
+
 import datetime
 
 from django.db import models
 from django.contrib.auth import models as auth_models
 from django.utils.translation import ugettext_lazy as _
 
-from booki.editor.models import BookVersion
+from booki.editor.models import BookVersion, Book
 
 
 class BookExport(models.Model):
     version = models.ForeignKey(BookVersion, null=False, verbose_name=_("export"))
-    user = models.ForeignKey(auth_models.User, verbose_name=_("user"), null=True)    
+    user = models.ForeignKey(auth_models.User, verbose_name=_("user"), null=True)
     name = models.CharField(_('Name'), max_length=100, blank=False)
     task_id = models.CharField(_('Task ID'), max_length=64, null=False, unique=True, db_index=True)
     created = models.DateTimeField(_('Created'), auto_now=False, default=datetime.datetime.now)
@@ -36,7 +53,7 @@ class ExportFile(models.Model):
 
 
 class ExportComment(models.Model):
-    export = models.ForeignKey(BookExport, null=False, verbose_name=_("version"))    
+    export = models.ForeignKey(BookExport, null=False, verbose_name=_("version"))
     user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
     created = models.DateTimeField(_('Created'), auto_now=False, default=datetime.datetime.now)
     content = models.TextField(_('Content'), default='')
@@ -44,3 +61,14 @@ class ExportComment(models.Model):
     class Meta:
         verbose_name = _('Export Comment')
         verbose_name_plural = _('Export Comments')
+
+
+class ExportSettings(models.Model):
+    book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
+    typeof = models.CharField(_('Export type'), max_length=20, blank=False, null=False)
+    data = models.TextField(_('Data'), default='{}', null=False)
+    created = models.DateTimeField(_('Created'), auto_now=False, default=datetime.datetime.now)
+
+    class Meta:
+        verbose_name = _('Export Settings')
+        verbose_name_plural = _('Export Settings')
