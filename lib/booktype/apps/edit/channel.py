@@ -1071,7 +1071,7 @@ def remote_chapter_hold(request, message, bookid, version):
         return dict(result=False)
 
     # if chapter under edit -> decline
-    if toc_item.chapter.get_current_editor_username():
+    if toc_item.chapter.get_current_editor_username() or not book_security.has_perm('edit.manage_chapter_hold'):
         raise PermissionDenied
 
     # if chapter is locked -> check access
@@ -1111,7 +1111,7 @@ def remote_chapter_unhold(request, message, bookid, version):
         return dict(result=False)
 
     # if chapter under edit -> decline
-    if chptr.get_current_editor_username():
+    if chptr.get_current_editor_username() or not book_security.has_perm('edit.manage_chapter_hold'):
         raise PermissionDenied
 
     # if chapter is locked -> check access
@@ -3338,7 +3338,7 @@ def remote_export_settings_get(request, message, bookid, version):
 
     export_format = message.get('format', '')
 
-    covers = {}    
+    covers = {}
 
     for cover in models.BookCover.objects.filter(book=book).order_by("title"):
         covers[cover.cid] = cover.title
