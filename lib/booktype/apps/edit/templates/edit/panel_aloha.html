@@ -172,7 +172,9 @@
             <h4>{% trans "Sources" %}</h4>
               <ul class="nav nav-tabs">
                 <li class="active"><a class="medialibrary" href="#medialibrary" data-toggle="tab">{% trans "Media library" %}</a></li>
+                {% if 'edit.upload_attachment' in roles_permissions %}
                 <li><a href="#uploadimage" data-toggle="tab">{% trans "Upload Image" %}</a></li>
+                {% endif %}
                 <!-- <li><a href="#from_web" data-toggle="tab">From Web</a></li> -->
               </ul>
           </div><!-- end modal-left-pane -->

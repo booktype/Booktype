@@ -60,9 +60,11 @@ def upload_attachment(request, bookid, version=None):
         return views.ErrorPage(
             request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    can_upload_attachment = security.get_security_for_book(request.user, book).has_perm('edit.upload_attachment')
+    user = request.user
+    book_security = security.get_security_for_book(user, book)
+    can_upload_attachment = book_security.has_perm('edit.upload_attachment')
 
-    if (not request.user.is_superuser and not can_upload_attachment and book.owner != request.user):
+    if (not user.is_superuser and not can_upload_attachment and book.owner != user):
         raise PermissionDenied
 
     book_version = book.get_version(version)
