@@ -28,5 +28,7 @@ PERMISSIONS = {
         ('change_chapter_status', _('Change chapter status')),
 
         ('delete_book', _('Delete book')),
+
+        ('history_revert', _('Restore history')),
     ]
 }

@@ -565,6 +565,8 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(RevisionPage, self).get_context_data(**kwargs)
+        book = self.get_object()
+        book_security = security.get_security_for_book(self.request.user, book)
 
         if 'revid' in self.kwargs:
             try:
@@ -584,12 +586,19 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
         context['chapter'] = self.chapter
         context['revision'] = revision
         context['page_title'] = _('Book History | Chapter Revision')
+        context['is_admin'] = book_security.is_admin()
+        context['is_owner'] = book.owner == self.request.user
+        context['roles_permissions'] = security.get_user_permissions(self.request.user, book)
         return context
 
     def post(self, request, *args, **kwargs):
         book = self.get_object()
         self.object = book
         self.get_context_data(**kwargs)
+        book_security = security.get_security_for_book(request.user, book)
+
+        if not book_security.has_perm('edit.history_revert'):
+            raise PermissionDenied
 
         revision = get_object_or_404(
             models.ChapterHistory,
