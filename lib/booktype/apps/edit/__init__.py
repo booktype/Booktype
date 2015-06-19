@@ -30,5 +30,6 @@ PERMISSIONS = {
         ('delete_book', _('Delete book')),
 
         ('history_revert', _('Restore history')),
+        ('note_edit', _('Edit Notes')),
     ]
 }

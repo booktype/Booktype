@@ -107,12 +107,14 @@
       <div class="notes-tab-content">
           <p>{% trans "Shared notes for this book" %}</p>
           <div class="note-textarea">
+          {% if is_owner or is_admin or 'edit.note_edit' in roles_permissions %}
           <textarea class="form-control" cols="40" name="notes"></textarea>
           </div>
           <div class="save-button">
               <button id="save-note" type="button" class="btn btn-primary btn-sm">{% trans "SAVE NOTE" %}</button>
               <div class="info">{% trans "Note Saved.." %}</div>
           </div>
+          {% endif %}
       </div>
     </section>
 

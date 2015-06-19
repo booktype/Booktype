@@ -2620,23 +2620,30 @@ def remote_notes_save(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
     book_notes = models.BookNotes.objects.filter(book=book)
-    notes = message.get("notes")
+    notes = message.get('notes')
     book_notes_obj = None
+
+    if not book_security.has_perm('edit.note_edit'):
+        raise PermissionDenied
 
     if len(book_notes) == 0:
         book_notes_obj = models.BookNotes(book=book, notes=notes)
     else:
         book_notes_obj = book_notes[0]
-    book_notes_obj.notes = notes
 
+    book_notes_obj.notes = notes
     book_notes_obj.save()
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
-                                                                "from": request.user.username,
-                                                                "email": request.user.email,
-                                                                "message_id": "user_saved_notes",
-                                                                "message_args": [request.user.username, book.title]},
-                                myself=True)
+    sputnik.addMessageToChannel(
+        request, "/chat/%s/" % bookid, {
+            "command": "message_info",
+            "from": request.user.username,
+            "email": request.user.email,
+            "message_id": "user_saved_notes",
+            "message_args": [request.user.username, book.title]
+        },
+        myself=True
+    )
 
     send_notification(request, bookid, version, "notification_notes_were_changed")
 
