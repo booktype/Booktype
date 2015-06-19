@@ -1987,18 +1987,15 @@ def remote_book_status_rename(request, message, bookid, version):
     @rtype: C{dict}
     @return: Returns list of all statuses and id of the renamed one
     """
-    book = models.Book.objects.get(id=bookid)
+
+    book, book_version, book_security = get_book(request, bookid, version)
     status_id = None
 
-    bookSecurity = security.getUserSecurityForBook(request.user, book)
-    permissions = security.security.get_user_permissions(request.user, book)
-
-    if not bookSecurity.isAdmin() and 'edit.manage_status' not in permissions:
-        return {"status": False}
+    if not book_security.is_admin() or not book_security.has_perm('edit.manage_status'):
+        raise PermissionDenied
 
     from django.utils.html import strip_tags
 
-    # NOTE: we should check this functionallity in case
     try:
         bs = models.BookStatus.objects.get(book=book, id=message["status_id"])
         bs.name = strip_tags(message["status_name"].strip())
@@ -2051,7 +2048,7 @@ def remote_book_status_order(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    if not book_security.is_admin():
+    if not book_security.is_admin() or not book_security.has_perm('edit.manage_status'):
         raise PermissionDenied
 
     weight = 100
@@ -2063,17 +2060,17 @@ def remote_book_status_order(request, message, bookid, version):
 
         weight -= 1
 
-    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+    all_statuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
     sputnik.addMessageToChannel(request,
                                 "/booktype/book/%s/%s/" % (bookid, version),
                                 {"command": "chapter_status_changed",
-                                 "statuses": allStatuses},
+                                 "statuses": all_statuses},
                                 myself=False
                                 )
 
     return {"result": True,
-            "statuses": allStatuses}
+            "statuses": all_statuses}
 
 
 def remote_book_status_remove(request, message, bookid, version):
@@ -2104,7 +2101,7 @@ def remote_book_status_remove(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    if not book_security.is_admin():
+    if not book_security.is_admin() or not book_security.has_perm('edit.manage_status'):
         raise PermissionDenied
 
     result = True
@@ -2119,18 +2116,19 @@ def remote_book_status_remove(request, message, bookid, version):
     else:
         result = False
 
-    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+    all_statuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
-    sputnik.addMessageToChannel(request,
-                                "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_status_changed",
-                                 "statuses": allStatuses},
-                                myself=False
-                                )
+    sputnik.addMessageToChannel(
+        request,
+        "/booktype/book/%s/%s/" % (bookid, version),
+        {"command": "chapter_status_changed",
+         "statuses": all_statuses},
+        myself=False
+    )
 
     return {"status": True,
             "result": result,
-            "statuses": allStatuses}
+            "statuses": all_statuses}
 
 
 def remote_book_status_create(request, message, bookid, version):
@@ -2163,30 +2161,32 @@ def remote_book_status_create(request, message, bookid, version):
 
     status_id = None
 
-    if not book_security.is_admin():
+    if not book_security.is_admin() or not book_security.has_perm('edit.manage_status'):
         raise PermissionDenied
 
     from django.utils.html import strip_tags
 
-    bs = models.BookStatus(book=book,
-                           name=strip_tags(message["status_name"].strip()),
-                           weight=0)
+    bs = models.BookStatus(
+        book=book,
+        name=strip_tags(message["status_name"].strip()),
+        weight=0
+    )
     bs.save()
 
     status_id = bs.id
 
-    allStatuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+    all_statuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
     sputnik.addMessageToChannel(request,
                                 "/booktype/book/%s/%s/" % (bookid, version),
                                 {"command": "chapter_status_changed",
-                                 "statuses": allStatuses},
+                                 "statuses": all_statuses},
                                 myself=False
                                 )
 
     return {"result": True,
             "status_id": status_id,
-            "statuses": allStatuses
+            "statuses": all_statuses
             }
 
 
