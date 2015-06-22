@@ -540,9 +540,11 @@ class SignInView(PageView):
             if request.POST.get('method', '') == 'signin':
                 user = auth.authenticate(username=username, password=password)
 
-                if user:
+                if user and user.is_active:
                     auth.login(request, user)
                     ret['result'] = 1
+                elif user and not user.is_active:
+                    ret['result'] = 4
                 else:
                     try:
                         auth.models.User.objects.get(username=username)

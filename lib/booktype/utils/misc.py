@@ -31,6 +31,7 @@ from django.core.files import File
 from django.core.validators import validate_email
 from django.template.defaultfilters import slugify
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
 from lxml import etree
 from ebooklib import epub

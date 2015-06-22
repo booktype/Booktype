@@ -1,3 +1,5 @@
+from django.contrib.auth import logout
+
 from booktype.utils.security import Security, get_security
 
 
@@ -17,3 +19,10 @@ class SecurityMiddleware(object):
         response.context_data['can_view_user_list'] = sec.has_perm('portal.can_view_user_list')
 
         return response
+
+
+class StrictAuthentication(object):
+
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        if request.user.is_authenticated() and not request.user.is_active:
+            logout(request)
