@@ -55,6 +55,7 @@ OPTION_NAMES = {
     'privacy': _('Privacy'),
     'add-person': _('Add a New Person'),
     'list-of-people': _('List of People'),
+    'archived-users': _('Archived Users'),
     'add-book': _('Add a New Book'),
     'list-of-books': _('List of Books'),
     'publishing': _('Publishing Options'),
