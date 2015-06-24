@@ -88,6 +88,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'booktype.apps.core.middleware.StrictAuthentication',
     'booktype.apps.core.middleware.SecurityMiddleware',
 )
 
