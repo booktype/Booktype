@@ -64,7 +64,7 @@ class FrontPageView(views.SecurityMixin, PageView):
             context['roles_permissions'] = []
 
         context['books_list'] = Book.objects.filter(hidden=False).order_by('-created')[:4]
-        context['user_list'] = User.objects.all().order_by('-date_joined')[:2]
+        context['user_list'] = User.objects.filter(is_active=True).order_by('-date_joined')[:2]
         booki_group5 = BookiGroup.objects.all().order_by('-created')[:5]
 
         context['group_list'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'num_members': g.members.count(), 'num_books': g.book_set.count(), 'small_group_image': g.get_group_image} for g in booki_group5]
@@ -302,12 +302,12 @@ class PeoplePageView(views.SecurityMixin, PageView):
     def get_context_data(self, **kwargs):
         context = super(PeoplePageView, self).get_context_data(**kwargs)
 
-        context['all_people'] = User.objects.all().extra(select={'lower_username': 'lower(username)'}).order_by('lower_username')
+        context['all_people'] = User.objects.filter(is_active=True).extra(select={'lower_username': 'lower(username)'}).order_by('lower_username')
 
         now = datetime.datetime.now() - datetime.timedelta(30)
-        context['active_people'] = [User.objects.get(id=b['user']) for b in BookHistory.objects.filter(modified__gte=now).values('user').annotate(models.Count('user')).order_by("-user__count")[:4]]
+        context['active_people'] = [User.objects.get(id=b['user']) for b in BookHistory.objects.filter(modified__gte=now, user__is_active=True).values('user').annotate(models.Count('user')).order_by("-user__count")[:4]]
 
-        context['new_people'] = User.objects.all().order_by('-date_joined')[:4]
+        context['new_people'] = User.objects.filter(is_active=True).order_by('-date_joined')[:4]
 
         return context
 

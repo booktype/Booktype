@@ -524,6 +524,15 @@ class ListOfPeopleForm(BaseControlForm, forms.Form):
         }
 
 
+class ArchivedUsersForm(BaseControlForm, forms.Form):
+    pass
+
+    @classmethod
+    def extra_context(cls):
+        return {
+            'archived_people': User.objects.filter(is_active=False).order_by("username")
+        }
+
 class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
     username = forms.CharField(
         label=_('Username'),
@@ -571,14 +580,24 @@ class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
         label=_("This person is superuser"),
         required=False
     )
+    is_active = forms.BooleanField(
+        label=_("Active account"),
+        required=False,
+        help_text=_("Indicate whether user's account is archived or active.")
+    )
 
     def __init__(self, *args, **kwargs):
         super(EditPersonInfoForm, self).__init__(*args, **kwargs)
         self.fields.keyOrder = ['username', 'first_name', 'email',
                                 'description', 'is_superuser']
 
-    class Meta(AddPersonForm.Meta):
-        pass
+    class Meta:
+        model = User
+        exclude = [
+            'password', 'last_login', 'groups',
+            'user_permissions', 'date_joined',
+            'is_staff', 'last_name'
+        ]
 
     def get_cancel_url(self):
         return "{0}#list-of-people".format(self.cancel_url)
