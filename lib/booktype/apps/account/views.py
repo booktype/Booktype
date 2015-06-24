@@ -334,7 +334,7 @@ class ForgotPasswordView(PageView):
 
             msg = EmailMessage(
                 _('Reset password'), body,
-                settings.REPORT_EMAIL_USER, [usr.email]
+                settings.DEFAULT_FROM_EMAIL, [usr.email]
             )
             msg.content_subtype = 'html'
 

@@ -39,7 +39,7 @@ Installation
 of your Django project (values are examples):
 
 DEFAULT_NOTIFICATION_FILTER='#* ~*'
-EMAIL_HOST_USER = 'booki-messaging@example.com'
+DEFAULT_FROM_EMAIL = 'booki-messaging@example.com'
 BOOKI_URL='http://example.com/my_booki'
 DATA_URL='%s/data' % BOOKI_URL
 
