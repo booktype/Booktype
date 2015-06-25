@@ -15,9 +15,9 @@ BOOKTYPE_SITE_NAME = 'Booktype site'
 BOOKTYPE_SITE_DIR = 'tests'
 THIS_BOOKTYPE_SERVER = ''
 
-BOOKTYPE_ROOT = Path(os.path.abspath(__file__)).ancestor(3)
-
+BOOKTYPE_ROOT = Path(os.path.abspath(__file__)).ancestor(1)
 BOOKTYPE_URL = ''
+# BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
 
 # E-MAIL OPTIONS
 REPORT_EMAIL_USER = 'booktype@booktype.pro'
@@ -189,11 +189,8 @@ BOOKI_MAINTENANCE_MODE = False
 # WEB SITE URL
 
 THIS_BOOKTYPE_SERVER = ''
-BOOKTYPE_URL = ''
-# BOOKTYPE_URL = 'http://{}'.format(THIS_BOOKTYPE_SERVER)
 
-STATIC_URL = '{}/static/'.format(BOOKTYPE_URL)
-DATA_URL = '{}/data/'.format(BOOKTYPE_URL)
+
 MEDIA_URL = DATA_URL
 
 # DEBUGGING
