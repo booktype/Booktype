@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import RequestContext
 from django.conf import settings
 from django.template import loader
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 from booki.editor.models import Book, BookiGroup
 from booktype.utils.security import Security, BookSecurity, GroupSecurity
@@ -54,6 +54,8 @@ class SecurityMixin(object):
             elif self.security_bridge is GroupSecurity:
                 group = BookiGroup.objects.get(url_name=kwargs['groupid'])
                 self.security = get_security_for_group(request.user, group)
+        except (BookiGroup.DoesNotExist, Book.DoesNotExist):
+            raise Http404
         except KeyError as e:
             raise Exception('{bridge} bridge requires "{key}" in request'.format(bridge=self.security_bridge,
                                                                                  key=e.message))
