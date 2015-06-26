@@ -84,7 +84,6 @@ class GroupPageView(views.SecurityMixin, GroupManipulation):
     SECURITY_BRIDGE = security.GroupSecurity
     template_name = "portal/group.html"
     page_title = _('Group')
-    title = _('Group used')
 
     def check_permissions(self, request, *args, **kwargs):
         if not self.security.has_perm("portal.can_view_group_info"):
@@ -106,7 +105,9 @@ class GroupPageView(views.SecurityMixin, GroupManipulation):
         except BookiGroup.MultipleObjectsReturned:
             context['selected_group_error'] = True
             return context
+
         context['selected_group_error'] = False
+        context['title'] = context['selected_group'].name
 
         context['user_group'] = {
             'url_name': context['selected_group'].url_name, 'name': context['selected_group'].name,
