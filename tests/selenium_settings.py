@@ -20,7 +20,8 @@ BOOKTYPE_ROOT = Path(os.path.abspath(__file__)).ancestor(3)
 BOOKTYPE_URL = ''
 
 # E-MAIL OPTIONS
-REPORT_EMAIL_USER = 'booktype@booktype.pro'
+DEFAULT_FROM_EMAIL = 'booktype@booktype.pro'
+REPORT_EMAIL_USER = 'report@booktype.pro'
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25

@@ -15,6 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 
+from django.db import IntegrityError
 from django.utils.translation import ugettext_lazy as _
 
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect
@@ -111,7 +112,7 @@ def add_appearance_for_user(message, word, sent, direct=False, orig_word=None):
                 reason = orig_word
             send_mail(_('Message from %s') % reason,
                       body,
-                      settings.EMAIL_HOST_USER,
+                      settings.DEFAULT_FROM_EMAIL,
                       [user.email], fail_silently=True)
 
 def add_appearance_for_followers(message, word, sent, direct=False, orig_word=None):

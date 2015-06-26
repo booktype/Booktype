@@ -500,7 +500,7 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
 
             msg = EmailMultiAlternatives(
                 'You have a new Booktype Account',
-                content, settings.REPORT_EMAIL_USER, emails
+                content, settings.DEFAULT_FROM_EMAIL, emails
             )
             msg.attach_alternative(content, "text/html")
             try:
