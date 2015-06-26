@@ -30,7 +30,7 @@
                             </button>
                             {% endif %}
 
-                            {% if not am_I_a_member %}
+                            {% if not is_group_member %}
                                 <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-default float-left join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
                             {% else %}
                                 {% if not is_group_admin %}

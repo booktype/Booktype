@@ -134,9 +134,7 @@ class GroupPageView(views.SecurityMixin, GroupManipulation):
             if self.request.user.is_superuser:
                 context['books_to_add'] = list_of_books
 
-            context['am_I_a_member'] = BookiGroup.objects.filter(members=self.request.user, url_name=context['groupid']).count()
-        else:
-            context['am_I_a_member'] = 0
+        context['is_group_member'] = self.request.user in context['group_members']
 
         return context
 
