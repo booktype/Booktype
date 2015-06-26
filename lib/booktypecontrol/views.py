@@ -365,7 +365,7 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
 
             msg = EmailMultiAlternatives(
                 _('Your password was changed'),
-                content, settings.REPORT_EMAIL_USER,
+                content, settings.DEFAULT_FROM_EMAIL,
                 [self.object.email]
             )
             msg.attach_alternative(content, "text/html")
