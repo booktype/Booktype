@@ -1991,7 +1991,7 @@ def remote_book_status_rename(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
     status_id = None
 
-    if not book_security.is_admin() or not book_security.has_perm('edit.manage_status'):
+    if not book_security.has_perm('edit.manage_status'):
         raise PermissionDenied
 
     from django.utils.html import strip_tags
@@ -2048,7 +2048,7 @@ def remote_book_status_order(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    if not book_security.is_admin() or not book_security.has_perm('edit.manage_status'):
+    if not book_security.has_perm('edit.manage_status'):
         raise PermissionDenied
 
     weight = 100
@@ -2101,7 +2101,7 @@ def remote_book_status_remove(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    if not book_security.is_admin() or not book_security.has_perm('edit.manage_status'):
+    if not book_security.has_perm('edit.manage_status'):
         raise PermissionDenied
 
     result = True
@@ -2161,7 +2161,7 @@ def remote_book_status_create(request, message, bookid, version):
 
     status_id = None
 
-    if not book_security.is_admin() or not book_security.has_perm('edit.manage_status'):
+    if not book_security.has_perm('edit.manage_status'):
         raise PermissionDenied
 
     from django.utils.html import strip_tags

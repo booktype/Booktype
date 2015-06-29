@@ -1,4 +1,6 @@
-{% load i18n %}
+{% load i18n booktype_tags %}
+{% has_perm 'edit.edit_locked_chapter' as can_edit_locked_chapter %}
+{% has_perm 'edit.lock_chapter' as can_lock_chapter %}
 
 <div id="renameChapter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
  <div class="modal-dialog">
@@ -166,19 +168,19 @@
             <div class="btn-group">
                 <button class="btn btn-default btn-xs option-edit">{% trans "EDIT" %}</button>
             </div>
-        {% elif 'edit.edit_locked_chapter' in roles_permissions %}
+        {% elif can_edit_locked_chapter %}
             <% if (lock_type === 2 || lock_type === 1 && lock_username === username) { %>
                 <div class="btn-group">
-                    {% if 'edit.manage_chapters_hold' in roles_permissions %}
+                    {% check_perm 'edit.manage_chapters_hold' %}
                     <button class="btn btn-default btn-xs option-hold" rel="tooltip" data-placement="top" data-original-title="{% trans 'Unhold' %}">
                         <i class="icon-arrow-left"></i>
                     </button>
-                    {% endif %}
-                    {% if 'edit.delete_chapter' in roles_permissions %}
+                    {% endcheck_perm %}
+                    {% check_perm 'edit.delete_chapter' %}
                     <button class="btn btn-default btn-xs option-delete">
                         <i class="icon-trash"></i>
                     </button>
-                    {% endif %}
+                    {% endcheck_perm %}
                 </div>
                 <div class="btn-group">
                     <button class="btn btn-default btn-xs option-edit">{% trans "EDIT" %}</button>
@@ -192,16 +194,17 @@
             {% endif %}
         </div>
         <div class="btn-group">
-            {% if is_owner or is_admin or 'edit.manage_chapters_hold' in roles_permissions %}
+            {% check_perm 'edit.manage_chapters_hold' %}
             <button class="btn btn-default btn-xs option-hold" rel="tooltip" data-placement="top" data-original-title="{% trans 'Unhold' %}">
                 <i class="icon-arrow-left"></i>
             </button>
-            {% endif %}
-            {% if is_owner or is_admin or 'edit.delete_chapter' in roles_permissions %}
+            {% endcheck_perm %}
+
+            {% check_perm 'edit.delete_chapter' %}
             <button class="btn btn-default btn-xs option-delete">
                 <i class="icon-trash"></i>
             </button>
-            {% endif %}
+            {% endcheck_perm %}
         </div>
         <div class="btn-group">
             <button class="btn btn-default btn-xs option-edit">{% trans "EDIT" %}</button>
@@ -221,34 +224,34 @@
           <button id="collapse" class="btn btn-default" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Collapse All" %}"><i class="icon-arrow-up"></i></button>
         </div>
         <div class="btn-group">
-            {% if is_owner or is_admin or 'edit.create_chapter' in roles_permissions %}
+            {% check_perm 'edit.create_chapter' %}
             <button href="#newChapter" role="button" class="btn btn-default" data-toggle="modal">
                 {% trans "New Chapter" %}
             </button>
-            {% endif %}
+            {% endcheck_perm %}
 
-            {% if is_owner or is_admin or 'edit.create_section' in roles_permissions %}
+            {% check_perm 'edit.create_section' %}
             <button href="#newSection" role="button" class="btn btn-default" data-toggle="modal">
                 {% trans "New Section" %}
             </button>
-            {% endif %}
+            {% endcheck_perm %}
         </div>
     </div>
 </div>
 
 <script type="text/template" id="templateTOCChapterContainer">
-    <ol class="sortable{% if is_owner or is_admin or 'edit.reorder_toc' in roles_permissions %} allow-reorder{% endif %}"></ol>
+    <ol class="sortable{% check_perm 'edit.reorder_toc' %} allow-reorder{% endcheck_perm %}"></ol>
 </script>
 
 <script type="text/html" id="templateTOCChapter">
 <li class="item chapter" data-id="<%= data_id %>" data-chapter-id="<%= data_chapter_id %>" id="<%= id %>" >
-    <div {% if not is_owner and not is_admin and 'edit.reorder_toc' not in roles_permissions %} style="cursor: auto;"{% endif %}>
+    <div {% check_perm not 'edit.reorder_toc' %} style="cursor: auto;"{% endcheck_perm %}>
         <div>
             <% if (is_locked) { %>
                 {% if is_owner or is_admin %}
                     <a href="" style="color: rgb(51, 51, 51);" class="operation-edit"><i class="toc-icon-chapter-locked"></i></a>
                     <a style="color: rgb(51, 51, 51);" href="" class="operation-edit"><span class="title"><%= title %></span></a>
-                {% elif 'edit.edit_locked_chapter' in roles_permissions %}
+                {% elif can_edit_locked_chapter %}
                     <% if (lock_type === 2 || lock_type === 1 && lock_username === username) { %>
                         <a href="" style="color: rgb(51, 51, 51);" class="operation-edit"><i class="toc-icon-chapter-locked"></i></a>
                         <a style="color: rgb(51, 51, 51);" href="" class="operation-edit"><span class="title"><%= title %></span></a>
@@ -292,7 +295,7 @@
             {% endif %}
         </div>
 
-        {% if is_owner or is_admin or 'edit.change_chapter_status' in roles_permissions %}
+        {% check_perm 'edit.change_chapter_status' %}
             <% if (is_locked) { %>
                 {% if is_owner or is_admin %}
                     <div class="btn-group">
@@ -305,7 +308,7 @@
                         <% } %>
                         </ul>
                     </div>
-                {% elif 'edit.edit_locked_chapter' in roles_permissions %}
+                {% elif can_edit_locked_chapter %}
                     <% if (lock_type === 2 || lock_type === 1 && lock_username === username) { %>
                         <div class="btn-group">
                             <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
@@ -331,7 +334,7 @@
                     </ul>
                 </div>
             <% } %>
-        {% endif %}
+        {% endcheck_perm %}
 
         <div class="btn-group">
             <% if (is_locked) { %>
@@ -344,26 +347,29 @@
                         <li><a href="#" class="option-delete">{% trans "Delete" %}</a></li>
                         <li><a href="#" class="option-unlock">{% trans "Unlock" %}</a></li>
                     </ul>
-                {% elif 'edit.edit_locked_chapter' in roles_permissions %}
+                {% elif can_edit_locked_chapter %}
                     <% if (lock_type === 2 || lock_type === 1 && lock_username === username) { %>
                         <button class="btn btn-default btn-xs edit">{% trans "EDIT CHAPTER" %}</button>
                         <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                        {% if 'edit.rename_chapter' in roles_permissions %}
+                        {% check_perm 'edit.rename_chapter' %}
                             <li><a href="#" class="option-rename">{% trans "Rename" %}</a></li>
-                        {% endif %}
-                        {% if 'edit.manage_chapters_hold' in roles_permissions %}
+                        {% endcheck_perm %}
+
+                        {% check_perm 'edit.manage_chapters_hold' %}
                             <li><a href="#" class="option-hold">{% trans "Hold" %}</a></li>
-                        {% endif %}
-                        {% if 'edit.delete_chapter' in roles_permissions %}
+                        {% endcheck_perm %}
+
+                        {% check_perm 'edit.delete_chapter' %}
                             <li><a href="#" class="option-delete">{% trans "Delete" %}</a></li>
-                        {% endif %}
-                        {% if 'edit.lock_chapter' in roles_permissions %}
+                        {% endcheck_perm %}
+
+                        {% check_perm 'edit.lock_chapter' %}
                             <li><a href="#" class="option-unlock">{% trans "Unlock" %}</a></li>
-                        {% endif %}
+                        {% endcheck_perm %}
                         </ul>
                     <% } %>
-                {% elif 'edit.lock_chapter' in roles_permissions %}
+                {% elif can_lock_chapter %}
                     <% if (lock_type === 2 || lock_type === 1 && lock_username === username) { %>
                         <button class="btn btn-default btn-xs unlock">{% trans "UNLOCK" %}</button>
                     <% } %>
@@ -372,19 +378,22 @@
                 <button class="btn btn-default btn-xs edit">{% trans "EDIT CHAPTER" %}</button>
                 <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                {% if is_owner or is_admin or 'edit.rename_chapter' in roles_permissions %}
+                {% check_perm 'edit.rename_chapter' %}
                     <li><a href="#" class="option-rename">{% trans "Rename" %}</a></li>
-                {% endif %}
-                {% if is_owner or is_admin or 'edit.manage_chapters_hold' in roles_permissions %}
+                {% endcheck_perm %}
+
+                {% check_perm 'edit.manage_chapters_hold' %}
                     <li><a href="#" class="option-hold">{% trans "Hold" %}</a></li>
-                {% endif %}
-                {% if is_owner or is_admin or 'edit.delete_chapter' in roles_permissions %}
+                {% endcheck_perm %}
+
+                {% check_perm 'edit.delete_chapter' %}
                     <li><a href="#" class="option-delete">{% trans "Delete" %}</a></li>
-                {% endif %}
-                {% if is_owner or is_admin or 'edit.lock_chapter' in roles_permissions %}
+                {% endcheck_perm %}
+
+                {% check_perm 'edit.lock_chapter' %}
                     <li><a href="#" class="option-lock-simple">{% trans "Lock simple" %}</a></li>
                     <li><a href="#" class="option-lock-everyone">{% trans "Lock for everyone" %}</a></li>
-                {% endif %}
+                {% endcheck_perm %}
                 </ul>
             <% } %>
         </div>
@@ -395,22 +404,22 @@
 </script>
 
 <li class="item section template templateTOCSection" data-id="">
-  <div {% if not is_owner and not is_admin and 'edit.reorder_toc' not in roles_permissions %} style="cursor: auto;"{% endif %}>
+  <div {% check_perm not 'edit.reorder_toc' %} style="cursor: auto;"{% endcheck_perm %}>
       <span class="disclose"></span>
       <span class="title"></span>
   </div>
   <div class="btn-toolbar">
-        {% if is_owner or is_admin or 'edit.rename_section' in roles_permissions %}
+        {% check_perm 'edit.rename_section' %}
         <div class="btn-group">
             <button class="btn btn-default btn-xs option-rename">{% trans "RENAME" %}</button>
         </div>
-        {% endif %}
+        {% endcheck_perm %}
 
-        {% if is_owner or is_admin or 'edit.delete_section' in roles_permissions %}
+        {% check_perm 'edit.delete_section' %}
         <div class="btn-group">
             <button class="btn btn-default btn-xs option-delete"><i class="icon-trash"></i></button>
         </div>
-        {% endif %}
+        {% endcheck_perm %}
   </div>
   <ol>
   </ol>

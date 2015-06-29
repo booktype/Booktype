@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n booktype_tags %}
 
 <div class="template templateCoversToolbar">
     <h2>{% trans "Cover Manager" %}</h2>
@@ -15,7 +15,7 @@
          </label>
       </div>
 
-      {% if is_owner or is_admin or 'edit.upload_cover' in roles_permissions %}
+      {% check_perm 'edit.upload_cover' %}
       <div class="btn-group">
         <span class="btn btn-success fileinput-button">
             <i class="icon-plus icon-white"></i>
@@ -23,7 +23,7 @@
             <input id="fileupload" type="file" name="files[]"  data-url="../_upload_cover/">
         </span>
       </div>
-      {% endif %}
+      {% endcheck_perm %}
     </div>
 </div>
 
@@ -174,23 +174,23 @@
      </div>
      <div class="coverOptions">
        <input type="checkbox" id="<%= cid %>" name="cc" <%= approved ? "checked" : "" %>>
-       {% if is_owner or is_admin or 'edit.edit_cover' in roles_permissions %}
+       {% check_perm 'edit.edit_cover' %}
        <label for="<%= cid %>"><span></span>{% trans "Approved" %}</label>
-       {% endif %}
+       {% endcheck_perm %}
        <div class="btn-group">
-         {% if is_owner or is_admin or 'edit.edit_cover' in roles_permissions %}
+         {% check_perm 'edit.edit_cover' %}
          <button id="btnEditCover" class="btn btn-default btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Edit Image Data' %}" data-toggle="modal" href="#editCover">
             <i class="icon-pencil"></i>
          </button>
-         {% endif %}
+         {% endcheck_perm %}
          <a class="btn btn-default btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'View Original Image' %}" href="<%= preview %>" target="_blank">
             <i class="icon-eye-open"></i>
          </a>
-         {% if is_owner or is_admin or 'edit.delete_cover' in roles_permissions %}
+         {% check_perm 'edit.delete_cover' %}
          <button id="btnDeleteCover" class="btn btn-default btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Delete Cover Image' %}">
             <i class="icon-trash"></i>
          </button>
-         {% endif %}
+         {% endcheck_perm %}
        </div>
      </div>
     </div>

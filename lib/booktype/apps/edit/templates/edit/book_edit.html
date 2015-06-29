@@ -1,5 +1,5 @@
 {% extends "edit/base.html" %}
-{% load i18n staticfiles compress %}
+{% load i18n staticfiles compress booktype_tags %}
 
 {%  block header %}
     <style>
@@ -107,14 +107,14 @@
       <div class="notes-tab-content">
           <p>{% trans "Shared notes for this book" %}</p>
           <div class="note-textarea">
-          {% if is_owner or is_admin or 'edit.note_edit' in roles_permissions %}
+          {% check_perm 'edit.note_edit' %}
           <textarea class="form-control" cols="40" name="notes"></textarea>
           </div>
           <div class="save-button">
               <button id="save-note" type="button" class="btn btn-primary btn-sm">{% trans "SAVE NOTE" %}</button>
               <div class="info">{% trans "Note Saved.." %}</div>
           </div>
-          {% endif %}
+          {% endcheck_perm %}
       </div>
     </section>
 
@@ -139,20 +139,22 @@
 
     <section class="tab-content" source_id="history-tab">
         <h3>{% trans "History" %}</h3>
-        {% verbatim %}
+
         <script type="text/html" id="templateChapterRevision">
           <li <% if (active) { %> class="active" <% } %> >
             <div class="list-info">
-              <span class="revision-number"><%= revision %></span>
+              <span class="revision-number" data-revision="<%= revision %>"><%= revision %></span>
               <span class="revision-time"><%= modified %></span>
               <h4><a href="#"><%= user %></a></h4>
+              {% check_perm 'edit.history_revert' %}
               <div class="restore-btn" style="display: none;">
                 <button type="button" data-revision="<%= revision %>" class="btn btn-default btn-xs"><%= label %></button>
               </div>
+              {% endcheck_perm %}
             </div>
           </li>
         </script>
-      {% endverbatim %}
+
         <div class="scrollable">
           <ul class="list border-top history" id="history-tab-list">
           </ul>

@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n static booktype_tags %}
 <a href="javascript:void(0);" onclick="Backbone.history.navigate('history/{{ chapter.url_title }}', true);" class="btn btn-default btn-sm" title="">
     <i class="icon-chevron-left"></i> {% trans "BACK TO CHAPTER HISTORY" %}
 </a>
@@ -21,11 +21,11 @@
         <button role="button" class="btn btn-default btn-xs" {% if not revision.next %}disabled{% endif %} onclick="Backbone.history.navigate('history/{{ chapter.url_title }}/rev/{{ revision.next }}', true);">
             {% trans "NEXT" %} <i class="icon-chevron-right"></i>
         </button>
-        {% if is_admin or is_owner or 'edit.history_revert' in roles_permissions %}
+        {% check_perm 'edit.history_revert' %}
         <button role="button" class="btn btn-primary btn-xs" href="#revert" data-toggle="modal">
             {% trans "REVERT TO THIS REVISION" %}&nbsp;&nbsp;<i class="icon-refresh"></i>
         </button>
-        {% endif %}
+        {% endcheck_perm %}
     </div>
     <ul class="nav nav-tabs" role="tablist">
         <li><a href="#source" role="tab" data-toggle="tab">{% trans "Source View" %}</a></li>

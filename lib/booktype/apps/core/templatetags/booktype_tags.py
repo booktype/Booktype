@@ -3,13 +3,15 @@ import cgi
 import json
 
 from django import template
+from django.template.smartif import Literal
+from django.template.defaulttags import TemplateIfParser, IfNode
+
 from django.contrib.auth import models as auth_models
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
 from booki.editor import models
-from booktype.utils import config, security
-
+from booktype.utils import config
 
 register = template.Library()
 
@@ -296,3 +298,53 @@ def has_perm(context, permission_string):
 
     return context['security'].has_perm(permission_string)
 
+
+class PermissionLiteral(Literal):
+    """
+    This class just extends the basic Literal. We just override the eval method
+    which checks if the user has the given permission
+    """
+
+    @property
+    def perm_string(self):
+        return template.Variable(self.value).resolve({})
+
+    def eval(self, context):
+        return context['security'].has_perm(self.perm_string)
+
+
+class TemplateCheckPermParser(TemplateIfParser):
+
+    def create_var(self, value):
+        """
+        This override checks if the value param has the permission nomenclature e.g:
+        something like "app.perm_string"
+        """
+        try:
+            if len(value.split('.')) == 2:
+                return PermissionLiteral(value)
+        except:
+            return super(TemplateCheckPermParser, self).create_var(value)
+
+
+def do_has_perm(parser, token):
+
+    # {% check_perm ... %}
+    bits = token.split_contents()[1:]
+    condition = TemplateCheckPermParser(parser, bits).parse()
+    nodelist = parser.parse(('else', 'endcheck_perm'))
+    conditions_nodelists = [(condition, nodelist)]
+    token = parser.next_token()
+
+    # {% else %} (optional)
+    if token.contents == 'else':
+        nodelist = parser.parse(('endcheck_perm',))
+        conditions_nodelists.append((None, nodelist))
+        token = parser.next_token()
+
+    # this tag should end in {% endcheck_perm %}
+    assert token.contents == 'endcheck_perm'
+
+    return IfNode(conditions_nodelists)
+
+register.tag('check_perm', do_has_perm)
