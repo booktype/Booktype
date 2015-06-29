@@ -1,12 +1,10 @@
-import factory
-
 from django.core.urlresolvers import reverse
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.common.exceptions import NoSuchElementException
 
 
-class MySeleniumTests(LiveServerTestCase):
+class MySeleniumTests(StaticLiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):

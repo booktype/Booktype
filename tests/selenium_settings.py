@@ -123,9 +123,6 @@ MIDDLEWARE_CLASSES = (
 )
 
 
-# Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = '{}.wsgi.application'.format('mybook_site')
-
 TEMPLATE_DIRS = (
     BOOKTYPE_ROOT.child(BOOKTYPE_SITE_NAME).child('templates'),
     Path(booki.__file__).parent.child('templates')
