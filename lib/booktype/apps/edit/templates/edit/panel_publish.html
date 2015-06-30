@@ -1,12 +1,5 @@
 {% load i18n booktype_tags %}
 
-{% has_perm 'export.export_comment' as access_export_comment %}
-{% has_perm 'export.export_delete' as access_export_delete %}
-{% has_perm 'export.publish_book' as access_publish_book %}
-{% has_perm 'export.export_book' as access_export_book %}
-{% has_perm 'export.export_view' as access_export_view %}
-{% has_perm 'export.export_settings' as access_export_settings %}
-
 <script type="text/html" id="templatePublishHeader">
  <h2>{% trans "Publish" %}</h2>
 </script>
@@ -15,28 +8,28 @@
   <div class="row">
     <div class="col-sm-8" id="publish-filter">
       <div class="box gray">
-        {% if access_export_book %}
+        {% check_perm 'export.export_book' %}
           <h4 class="border-bottom no-margin">{% trans "Book export" %}</h4>
           <span class="publish-filter-container"></span>
-        {% endif %}
+        {% endcheck_perm %}
 
         <div class="row">
           <div class="col-sm-12">
-            {% if access_export_view %}
+            {% check_perm 'export.export_view' %}
               <h4 class="border-bottom">{% trans "Export history" %}</h4>
-              <div class="publish_history">                    
+              <div class="publish_history">
               </div>
-            {% endif %}
+            {% endcheck_perm %}
             </div>
           </div>
         </div>
-      </div>  
+      </div>
 
       <div class="col-sm-4">
         <h4 class="border-bottom">{% trans "Book Info" %}</h4>
         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
       </div>
-    </div>              
+    </div>
   </div>
 
   <div class="modal fade settings-dialog" id="settings-mpdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -53,7 +46,7 @@
                 <h3>{% trans "Size" %}</h3>
                 <section>
                   <p class="wizard_desc">{% trans "Paper Size" %}</p>
-                  <label for="size">{% trans "Size" %}</label> 
+                  <label for="size">{% trans "Size" %}</label>
                   <select name="size">
                     <option value="custom">{% trans "custom" %}</option>
                     <option value="POCKET">POCKET (107mm x 174mm)</option>
@@ -116,7 +109,7 @@
                   <p class="wizard_desc">{% trans "Footer and Header" %}</p>
 
                   <label for="show_header">{% trans "Show Header" %}</label>
-                  <input type="checkbox" name="show_header"> 
+                  <input type="checkbox" name="show_header">
                   <br/>
 
                   <label for="header_margin">{% trans "Header Margin" %}</label>
@@ -124,7 +117,7 @@
                   <br/>
 
                   <label for="show_footer">{% trans "Show Footer" %}</label>
-                  <input type="checkbox" name="show_footer"> 
+                  <input type="checkbox" name="show_footer">
                   <br/>
 
                   <label for="footer_margin">{% trans "Footer Margin" %}</label>
@@ -137,7 +130,7 @@
                   <p class="wizard_desc">{% trans "Extra options" %}</p>
 
                   <label for="crop_marks">{% trans "Crop Marks" %}</label>
-                  <input type="checkbox" name="crop_marks"> 
+                  <input type="checkbox" name="crop_marks">
                   <br/>
 
                   <label for="bleed_size">{% trans "Bleed size" %}</label>
@@ -155,7 +148,7 @@
               </div>
             </form>
           </section>
-        </div>                
+        </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div>
@@ -174,7 +167,7 @@
                 <h3>{% trans "Size" %}</h3>
                 <section>
                   <p class="wizard_desc">{% trans "Paper Size" %}</p>
-                  <label for="size">{% trans "Size" %}</label> 
+                  <label for="size">{% trans "Size" %}</label>
                   <select name="size">
                     <option value="custom">{% trans "custom" %}</option>
                     <option value="POCKET">POCKET (107mm x 174mm)</option>
@@ -237,7 +230,7 @@
                   <p class="wizard_desc">{% trans "Footer and Header" %}</p>
 
                   <label for="show_header">{% trans "Show Header" %}</label>
-                  <input type="checkbox" name="show_header"> 
+                  <input type="checkbox" name="show_header">
                   <br/>
 
                   <label for="header_margin">{% trans "Header Margin" %}</label>
@@ -245,7 +238,7 @@
                   <br/>
 
                   <label for="show_footer">{% trans "Show Footer" %}</label>
-                  <input type="checkbox" name="show_footer"> 
+                  <input type="checkbox" name="show_footer">
                   <br/>
 
                   <label for="footer_margin">{% trans "Footer Margin" %}</label>
@@ -271,7 +264,7 @@
               </div>
             </form>
           </section>
-        </div>                
+        </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div>
@@ -305,7 +298,7 @@
               </div>
             </form>
           </section>
-        </div>                
+        </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div>
@@ -339,7 +332,7 @@
               </div>
             </form>
           </section>
-        </div>                
+        </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div>
@@ -373,7 +366,7 @@
               </div>
             </form>
           </section>
-        </div>                
+        </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div>
@@ -394,7 +387,7 @@
             </div>
           </div>
       </div>
-  </div>  
+  </div>
 
 </script>
 
@@ -419,9 +412,9 @@
             <label>
               <input name="mpdf" type="checkbox"> {% trans "Book PDF" %}
             </label>
-            {% if access_export_settings %}
+            {% check_perm 'export.export_settings' %}
               <a href="" data-settings="book" class="modal-open">{% trans "settings" %}</a>
-            {% endif %}
+            {% endcheck_perm %}
           </div>
         {% endif %}
 
@@ -430,9 +423,9 @@
             <label>
               <input name="screenpdf" type="checkbox"> {% trans "Screen PDF" %}
             </label>
-            {% if access_export_settings %}            
+            {% check_perm 'export.export_settings' %}
               <a href="" data-settings="screen" class="modal-open">{% trans "settings" %}</a>
-            {% endif %}
+            {% endcheck_perm %}
           </div>
         {% endif %}
 
@@ -441,9 +434,9 @@
             <label>
               <input name="epub" type="checkbox"> {% trans "EPUB" %}
             </label>
-            {% if access_export_settings %}            
+            {% check_perm 'export.export_settings' %}
               <a href="" class="modal-open">{% trans "settings" %}</a>
-            {% endif %}
+            {% endcheck_perm %}
           </div>
         {% endif %}
       </div>
@@ -454,9 +447,9 @@
             <label>
               <input name="mobi" type="checkbox"> {% trans "MOBI" %}
             </label>
-            {% if access_export_settings %}            
+            {% check_perm 'export.export_settings' %}
               <a href="" class="modal-open">{% trans "settings" %}</a>
-            {% endif %}
+            {% endcheck_perm %}
           </div>
         {% endif %}
 
@@ -465,9 +458,9 @@
             <label>
               <input name="xhtml" type="checkbox"> {% trans "XHTML" %}
             </label>
-            {% if access_export_settings %}                      
+            {% check_perm 'export.export_settings' %}
               <a href="" class="modal-open">{% trans "settings" %}</a>
-            {% endif %}
+            {% endcheck_perm %}
           </div>
         {% endif %}
       </div>
@@ -495,33 +488,35 @@
     <div class="btn-group">
       <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{% trans "Action" %} <span class="caret"></span></button>
       <ul class="dropdown-menu" role="menu">
-        {% if access_export_delete %}
+        {% check_perm 'export.export_delete' %}
           <li><a href="javascript:void(0)" class="remove-export">{% trans "Remove export" %}</a></li>
-        {% endif %}
-        {% if access_export_comment %}
+        {% endcheck_perm %}
+
+        {% check_perm 'export.export_comment' %}
           <li><a href="javascript:void(0)" class="comment-on-export">{% trans "Comment" %}</a></li>
-        {% endif %}        
-        {% if access_publish_book %}
+        {% endcheck_perm %}
+
+        {% check_perm 'export.publish_book' %}
           <!--
           <li class="divider"></li>
           <li><a href="javascript:void(0)" class="publish-export">{% trans "Publish" %}</a></li>
           -->
-        {% endif %}
+        {% endcheck_perm %}
       </ul>
     </div>
 
     <div class="export-results">
       <div class="group">
-        <% _.each(files, function (dta, key) { %>  
+        <% _.each(files, function (dta, key) { %>
           <% if (dta.status === 0) { %>
-            <a target="_blank" class="label label-primary" href="<%= dta['filename'] %>" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Download" %}"><%= key %></a>
+            <a target="_blank" class="label label-primary" href="<%= dta['filename'] %>" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Download' %}"><%= key %></a>
           <% } %>
         <% }); %>
       </div>
       <div class="group">
-        <% _.each(files, function (dta, key) { %>  
+        <% _.each(files, function (dta, key) { %>
           <% if (dta.status !== 0) { %>
-          <span class="label label-default disabled" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Failed" %}"><%= key %></span>
+          <span class="label label-default disabled" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Failed' %}"><%= key %></span>
           <% } %>
         <% }); %>
 
@@ -530,7 +525,7 @@
 
     <div class="export-results-detail">
       <ul>
-        <% _.each(files, function (dta, key) { %>  
+        <% _.each(files, function (dta, key) { %>
           <% if (dta.status === 0) { %>
             <li>
               <a target="_blank" class="label label-primary" href="<%= dta['filename'] %>"><%= key %></a>
@@ -538,12 +533,12 @@
             </li>
           <% } %>
         <% }); %>
-        <% _.each(files, function (dta, key) { %>  
+        <% _.each(files, function (dta, key) { %>
           <% if (dta.status !== 0) { %>
             <li>
               <span class="label label-default disabled"><%= key %></span>
               <span><%= dta.description %></span>
-            </li>            
+            </li>
           <% } %>
         <% }); %>
 
@@ -559,12 +554,12 @@
         <ul class="notification-list">
         </ul>
 
-        {% if access_export_comment %}
+        {% check_perm 'export.export_comment' %}
           <div class="post-comment">
-            <textarea name="comment" class="form-control" cols="4" rows="4" placeholder="{% trans "Your comment here" %}"></textarea>
+            <textarea name="comment" class="form-control" cols="4" rows="4" placeholder="{% trans 'Your comment here' %}"></textarea>
             <button type="button" class="btn btn-primary btn-sm send-comment">{% trans "SEND COMMENT" %}</button>
           </div>
-        {% endif %}
+        {% endcheck_perm %}
       </div>
     </div>
 </script>

@@ -1,5 +1,5 @@
-{% load i18n %}
-{% if 'edit.manage_status' in roles_permissions or book.owner == user or user.is_superuser %}
+{% load i18n booktype_tags %}
+{% check_perm 'edit.manage_status' %}
 <div class="tab-pane fade active in" id="chapter-status">
     <h4 class="border-bottom">{% trans "Chapter Status" %}</h4>
     <div class="statuses ">
@@ -42,7 +42,7 @@
 <script type="text/template" id='status-item'>
 <li class="item" style="display: list-item;" id='list_<%= status_id %>' data-id='<%= status_id %>'>
     <div>
-        <div class="status-name"><%=  name %></div>
+        <div class="status-name"><%= name %></div>
         <div class="edit-status-block">
             <div class="input-group">
             <input type="text" class="form-control">
@@ -63,4 +63,4 @@
 </script>
 {% else %}
 <p>{% trans 'You have no permissions to manage statuses' %}</p>
-{% endif %}
+{% endcheck_perm %}

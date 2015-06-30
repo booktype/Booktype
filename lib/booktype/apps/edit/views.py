@@ -29,8 +29,8 @@ from braces.views import (LoginRequiredMixin, UserPassesTestMixin,
 from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
 
-from booktype.utils import security, config
 from booktype.apps.core import views
+from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.reader.views import BaseReaderView
 
@@ -60,9 +60,11 @@ def upload_attachment(request, bookid, version=None):
         return views.ErrorPage(
             request, "errors/book_does_not_exist.html", {"book_name": bookid})
 
-    can_upload_attachment = security.get_security_for_book(request.user, book).has_perm('edit.upload_attachment')
+    user = request.user
+    book_security = security.get_security_for_book(user, book)
+    can_upload_attachment = book_security.has_perm('edit.upload_attachment')
 
-    if (not request.user.is_superuser and not can_upload_attachment and book.owner != request.user):
+    if (not user.is_superuser and not can_upload_attachment and book.owner != user):
         raise PermissionDenied
 
     book_version = book.get_version(version)
@@ -405,7 +407,10 @@ class BookHistoryPage(LoginRequiredMixin, JSONResponseMixin,
 
 
 class ChapterMixin(BaseReaderView):
-    # TODO: add docstrings
+    """
+    Mixin class that checks if there is a chapter key in kwargs
+    and pulls that chapter from database
+    """
 
     def get_context_data(self, **kwargs):
         if 'chapter' in self.kwargs:
@@ -556,10 +561,11 @@ class CompareChapterRevisions(LoginRequiredMixin, ChapterMixin, DetailView):
         return super(CompareChapterRevisions, self).get_template_names()
 
 
-class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
-    template_name = 'edit/chapter_revision.html'
+class RevisionPage(LoginRequiredMixin, views.SecurityMixin, ChapterMixin, DetailView):
 
+    template_name = 'edit/chapter_revision.html'
     http_method_names = [u'post', u'get']
+    SECURITY_BRIDGE = security.BookSecurity
 
     def get_context_data(self, **kwargs):
         context = super(RevisionPage, self).get_context_data(**kwargs)
@@ -588,6 +594,10 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
         book = self.get_object()
         self.object = book
         self.get_context_data(**kwargs)
+        book_security = security.get_security_for_book(request.user, book)
+
+        if not book_security.has_perm('edit.history_revert'):
+            raise PermissionDenied
 
         revision = get_object_or_404(
             models.ChapterHistory,
@@ -630,9 +640,11 @@ class RevisionPage(LoginRequiredMixin, ChapterMixin, DetailView):
         return HttpResponseRedirect(url)
 
 
-class BookSettingsView(LoginRequiredMixin, JSONResponseMixin, BaseReaderView, FormView):
+class BookSettingsView(LoginRequiredMixin, views.SecurityMixin,
+                       JSONResponseMixin, BaseReaderView, FormView):
 
     template_name = 'edit/_settings_form.html'
+    SECURITY_BRIDGE = security.BookSecurity
 
     def camelize(self, text):
         return ''.join([s for s in text.title() if s.isalpha()])

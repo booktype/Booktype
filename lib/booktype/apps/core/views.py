@@ -11,10 +11,11 @@ from booki.editor.models import Book, BookiGroup
 from booktype.utils.security import Security, BookSecurity, GroupSecurity
 from booktype.utils.security import get_security, get_security_for_book, get_security_for_group
 
+
 class BasePageView(object):
     page_title = ''
     title = ''
-    
+
     def get_context_data(self, **kwargs):
         context = super(BasePageView, self).get_context_data(**kwargs)
         context["page_title"] = self.page_title
@@ -22,6 +23,7 @@ class BasePageView(object):
         context["request"] = self.request
 
         return context
+
 
 class PageView(BasePageView, TemplateView):
     pass
@@ -86,7 +88,7 @@ class SecurityMixin(object):
         return context
 
 
-def staticattachment(request, bookid,  attachment, version=None, chapter = None, revid = None):
+def staticattachment(request, bookid, attachment, version=None, chapter=None, revid=None):
     """
     Django View. Returns content of an attachment.
 
@@ -101,7 +103,7 @@ def staticattachment(request, bookid,  attachment, version=None, chapter = None,
     @type version: C{string}
     @param version: Version of the book
     """
-    
+
     book = get_object_or_404(Book, url_title__iexact=bookid)
     book_version = book.getVersion(version)
     path = '%s/%s' % (book_version.getVersion(), attachment)
@@ -145,4 +147,4 @@ def error403(request):
 
 
 def error400(request):
-    return render(request, 'errors/400.html')    
+    return render(request, 'errors/400.html')

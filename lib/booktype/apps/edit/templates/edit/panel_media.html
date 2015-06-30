@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n static booktype_tags %}
 
 <div class="template templateMediaToolbar">
     <h2>{% trans "Media" %}</h2>
@@ -9,13 +9,13 @@
           <span>{% trans "Cancel upload" %}</span>
       </span>
 
-      {% if is_owner or is_admin or 'edit.upload_attachment' in roles_permissions %}
+      {% check_perm 'edit.upload_attachment' %}
       <span class="btn btn-success fileinput-button">
           <i class="icon-plus icon-white"></i>
           <span>{% trans "Add files..." %}</span>
           <input id="fileupload" type="file" name="files[]" multiple data-url="../_upload/">
       </span>
-      {% endif %}
+      {% endcheck_perm %}
     </div>
 
     <div id="progress" style="float: right; width: 230px; margin-top: 20px;">
@@ -41,9 +41,9 @@
 	    <tbody>
 	    </tbody>
 	</table>
-  {% if is_owner or is_admin or 'edit.remove_attachment' in roles_permissions %}
+  {% check_perm 'edit.remove_attachment' %}
 	<button type="button" class="btn btn-default" id="delete-selected-items">{% trans "Delete selected items" %}</button>
-  {% endif %}
+  {% endcheck_perm %}
 </div>
 
 <div id="removeMedia" class="modal fade">
@@ -62,7 +62,7 @@
     </div>
     <div class="modal-footer">
       <button href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Close" %}</button>
-      <button class="btn btn-default btn-primary remove-media">{% trans "Remove" %}</button>
+      <button class="btn btn-primary remove-media">{% trans "Remove" %}</button>
     </div>
   </div>
  </div>
