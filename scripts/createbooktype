@@ -243,6 +243,22 @@ def set_var(content, name, value):
     return content.replace('##%s##' % name, value)
 
 
+def create_mpdf(destination):
+    booktype_source = os.path.dirname(sys.argv[0])
+
+    try:
+        mpdf_content = read_file('%s/booktype2mpdf.php' % booktype_source)
+    except IOError:
+        raise MajorError("[ERROR] Can't read booktype2mpdf.php file.")
+
+    try:
+        log("+ Creating booktype2mpdf.php file.  ")
+        f = open('%s/booktype2mpdf.php' % (destination, ), 'wt').write(mpdf_content)
+        logln("[OK]")
+    except IOError:
+        raise InstallError()
+
+
 def create_urls(destination):
     import booktype
 
@@ -808,6 +824,9 @@ if __name__ == '__main__':
 
         # create settings.py file
         create_settings(project_destination, database=args.database)
+
+        # create booktype2mpdf.php file
+        create_mpdf(project_destination)
 
         # create urls
         create_urls(project_destination)
