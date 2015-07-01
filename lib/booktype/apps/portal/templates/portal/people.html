@@ -1,6 +1,6 @@
 {% extends "core/base.html" %}
 
-{% load i18n profile staticfiles %}
+{% load i18n profile staticfiles booktype_tags %}
 {% block extra_header %}
     <script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
     <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>    
@@ -15,77 +15,101 @@
     					{% trans "All people" %}
     				</h2>
 
-    				<ul class="list border-top user-avatar circle">
-                        {% for user in all_people %}
-					   <li>
-                            <figure>{% profile_image user %}</figure>
-                            <div class="list-info">
-                                <p class="float-right"><a href="{{ request.META.SCRIPT_NAME }}/feeds/rss/user/{{ user }}/">{% trans "Track updates by RSS" %} </a> <img src="{% static "core/img/rss.png" %}"></p>
-                                <h4><a href="{% url "accounts:view_profile" user %}">{{ user.username }}</a></h4>
-                                <p>{{ user.first_name }}</p>
-                            </div>
-                        </li>
-                        {% empty %}
-                        <li>{% trans "There are no people yet" %}.</li>
-                        {% endfor %}
-    				</ul>
-    			</div>
+            <ul class="list border-top user-avatar circle">
+              {% for user in all_people %}
+                <li>
+                  <figure>{% profile_image user %}</figure>
+                  <div class="list-info">
+                    <p class="float-right"><a href="{{ request.META.SCRIPT_NAME }}/feeds/rss/user/{{ user }}/">{% trans "Track updates by RSS" %} </a>
+                      <img src="{% static "core/img/rss.png" %}"></p>
+                    <h4>
+                      {% has_perm 'account.can_view_user_info' as access %}
+                      {% if access or request.user == user %}
+                        <a href="{% url "accounts:view_profile" user %}">{{ user.username }}</a>
+                      {% else %}
+                        {{ user.username }}
+                      {% endif %}
+                    </h4>
 
+                    <p>{{ user.first_name }}</p>
+                  </div>
+                </li>
+              {% empty %}
+                <li>{% trans "There are no people yet" %}.</li>
+              {% endfor %}
+            </ul>
+    			</div>
     		</div>
 
+        <div class="col-xs-4">
+          {% if not request.user.is_authenticated %}
+            <div class="login-widget box gray">
+              <script>
+                $(function () {
+                  $("#formsignin").booktypeSignin({'url': '{% url "accounts:signin" %}'});
+                });
+              </script>
+              <div class="signin-block">
+                {% include "account/form_signin.html" %}
+              </div>
+              <div class="box-bottom-white">
+                <p>{% trans "Not a member? Please fill the " %}<a
+                        href="{% url "accounts:signin" %}">{% trans "Registration form" %}</a></p>
+              </div>
+            </div>
+          {% endif %}
 
-    		<div class="col-xs-4">
-                {% if not request.user.is_authenticated %}
-                <div class="login-widget box gray">
-                    <script>
-                        $(function() {
-                            $("#formsignin").booktypeSignin({'url': '{% url "accounts:signin" %}'});
-                        });
-                    </script>
-                        <div class="signin-block">
-                            {% include "account/form_signin.html" %}
-                        </div>
-                        <div class="box-bottom-white">
-                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}">{% trans "Registration form" %}</a></p> 
-                        </div> 
-                </div> 
-                {% endif %}
+          <div class="box white active-people-widget">
+            <h2 class="box-title">{% trans "Active people" %}</h2>
+            <ul class="list border-top user-avatar circle">
+              {% for user in active_people %}
+                <li>
+                  <figure>{% profile_image user %}</figure>
+                  <div class="list-info">
+                    <h4>
+                      {% has_perm 'account.can_view_user_info' as access %}
+                      {% if access or request.user == user %}
+                        <a href="{% url "accounts:view_profile" user %}">{{ user }}</a>
+                      {% else %}
+                        {{ user }}
+                      {% endif %}
+                    </h4>
 
-    			<div class="box white active-people-widget">
-    				<h2 class="box-title">{% trans "Active people" %}</h2>
-    				<ul class="list border-top user-avatar circle">
-                        {% for user in active_people %}
-					    <li>
-    					    <figure>{% profile_image user %}</figure>
-    					    <div class="list-info">
-    					  	   <h4><a href="{% url "accounts:view_profile" user %}">{{ user }}</a></h4>
-                                <p>{{ user.first_name }}</p>
-						    </div>
-					    </li>
-                        {% empty %}
-                        <li>{% trans "There are no active people at the moment" %}.</li>
-                        {% endfor %}
-    				</ul>
-    			</div>
+                    <p>{{ user.first_name }}</p>
+                  </div>
+                </li>
+              {% empty %}
+                <li>{% trans "There are no active people at the moment" %}.</li>
+              {% endfor %}
+            </ul>
+          </div>
 
-    			<div class="box white new-people-widget">
-    				<h2 class="box-title">{% trans "New people" %}</h2>
-    				<ul class="list border-top user-avatar circle">
-                        {% for user in new_people %}
-                        <li>
-                            <figure>{% profile_image user %}</figure>
-                            <div class="list-info">
-                                <h4><a href="{% url "accounts:view_profile" user %}">{{ user }}</a></h4>
-                                <p>{{ user.first_name }}</p>
-                            </div>
-                        </li>
-                        {% empty %}
-                        <li>{% trans "There are no new people at the moment" %}.</li>
-                        {% endfor %}
-    				</ul>
-    			</div>
+          <div class="box white new-people-widget">
+            <h2 class="box-title">{% trans "New people" %}</h2>
+            <ul class="list border-top user-avatar circle">
+              {% for user in new_people %}
+                <li>
+                  <figure>{% profile_image user %}</figure>
+                  <div class="list-info">
+                    <h4>
+                      {% has_perm 'account.can_view_user_info' as access %}
+                      {% if access or request.user == user %}
+                        <a href="{% url "accounts:view_profile" user %}">{{ user }}</a>
+                      {% else %}
+                        {{ user }}
+                      {% endif %}
+                    </h4>
 
-    		</div> <!-- End of col-xs-4 -->
+                    <p>{{ user.first_name }}</p>
+                  </div>
+                </li>
+              {% empty %}
+                <li>{% trans "There are no new people at the moment" %}.</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+        </div> <!-- End of col-xs-4 -->
 
 
     	</div>
