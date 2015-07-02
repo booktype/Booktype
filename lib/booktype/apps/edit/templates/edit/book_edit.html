@@ -72,7 +72,17 @@
         <li id="username-<%= username %>">
           <figure><img src="<%= avatar %>"></figure>
           <div class="list-info">
-            <h4><a target="_blank" href="/accounts/<%= username %>/"><%= username %></a></h4>
+            <h4>
+              {% if can_view_user_info %}
+                <a target="_blank" href="/accounts/<%= username %>/"><%= username %></a>
+              {% else %}
+                <% if (current_username == username) { %>
+                  <a target="_blank" href="/accounts/<%= username %>/"><%= username %></a>
+                <% } else {
+                   print(username);
+                } %>
+              {% endif %}
+            </h4>
             <p><%= fullname %></p>
             <span class="label label-default"><%= user_role %></span>
           </div>
@@ -145,7 +155,17 @@
             <div class="list-info">
               <span class="revision-number" data-revision="<%= revision %>"><%= revision %></span>
               <span class="revision-time"><%= modified %></span>
-              <h4><a href="#"><%= user %></a></h4>
+              <h4>
+                {% if can_view_user_info %}
+                  <a target="_blank" href="/accounts/<%= user %>/"><%= user %></a>
+                {% else %}
+                  <% if (current_username == user) { %>
+                  <a target="_blank" href="/accounts/<%= user %>/"><%= user %></a>
+                  <% } else {
+                  print(user);
+                  } %>
+                {% endif %}
+              </h4>
               {% check_perm 'edit.history_revert' %}
               <div class="restore-btn" style="display: none;">
                 <button type="button" data-revision="<%= revision %>" class="btn btn-default btn-xs"><%= label %></button>
