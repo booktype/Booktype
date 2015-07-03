@@ -273,7 +273,7 @@ def cover(request, bookid, cid, fname=None, version=None):
 
 class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
-    """Basic Edito Book View which opens up the editor.
+    """Basic Edit Book View which opens up the editor.
 
     Most of the initial data is loaded from the browser over the Sputnik.
     In the view we just check Basic security permissions and availability

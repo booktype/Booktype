@@ -16,7 +16,6 @@
 
 import os
 import urllib
-import pprint
 import config
 import urlparse
 import tempfile
@@ -359,17 +358,24 @@ def import_book_from_file(epub_file, user, **kwargs):
 
     return book
 
-def export_book(fileName, book_version):
+
+def export_book(filename, book_version):
     book = book_version.book
     epub_book = epub.EpubBook()
 
     # set basic info
     epub_book.set_identifier('booktype:%s' % book.url_title)
-    epub_book.set_title(book.title)
-    # set the language according to the language set
-    epub_book.set_language('en')
+    try:
+        book_title = book.metadata.get(name='DC.title').value
+    except:
+        book_title = book.title
+    epub_book.set_title(book_title)
 
-    # epub_book.add_metadata(None, 'meta', '', {'name': 'booktype:owner_id', 'content': book_version.book.owner.username})
+    # set the language according to the language set
+    lang = 'en'
+    if book.language:
+        lang = book.language.abbrevation
+    epub_book.set_language(lang)
 
     # set description
     if book.description != '':
@@ -381,13 +387,18 @@ def export_book(fileName, book_version):
         epub_book.add_metadata('DC', 'rights', lic.name)
 
     # set the author according to the owner
-    epub_book.add_author(book.owner.first_name, role='aut', uid='author')
+    epub_book.add_author(book.author, role='aut', uid='author')
+
+    # set the rest of metadata information stored in book info model
+    for info in book.metadata:
+        _standard, name = info.name.split('.')
+        epub_book.add_metadata(_standard, name, info.value)
 
     toc = OrderedDict()
     spine = ['nav']
 
     # parse and fetch only images which are inside
-    embededImages = {}
+    embeded_images = {}
 
     hold_chapters_urls = [i.url_title for i in book_version.getHoldChapters()]
 
@@ -425,7 +436,7 @@ def export_book(fileName, book_version):
                     src = elem.get('src')
                     if src:
                         elem.set('src', 'static/' + src[7:])
-                        embededImages[src] = True
+                        embeded_images[src] = True
 
             c1.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
 
@@ -447,14 +458,14 @@ def export_book(fileName, book_version):
                 toc[chapter.id] = [epub_sec, []]
 
     for i, attachment in enumerate(models.Attachment.objects.filter(version=book_version)):
-        if ('static/' + os.path.basename(attachment.attachment.name)) not in embededImages:
+        if ('static/' + os.path.basename(attachment.attachment.name)) not in embeded_images:
             continue
 
         try:
             f = open(attachment.attachment.name, "rb")
             blob = f.read()
             f.close()
-        except (IOError, OSError), e:
+        except (IOError, OSError) as e:
             continue
         else:
             fn = os.path.basename(attachment.attachment.name.encode("utf-8"))
@@ -469,7 +480,7 @@ def export_book(fileName, book_version):
     epub_book.add_item(epub.EpubNav())
 
     opts = {'plugins': [TidyPlugin(), standard.SyntaxPlugin()]}
-    epub.write_epub(fileName, epub_book, opts)
+    epub.write_epub(filename, epub_book, opts)
 
 
 def set_group_image(groupid, file_object, x_size, y_size):
