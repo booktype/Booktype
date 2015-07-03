@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-{% load i18n profile messaging_tags staticfiles reader_tags %}
+{% load i18n profile messaging_tags staticfiles reader_tags booktype_tags %}
 {% block extra_header %}
     <script type="text/javascript" src="{% static "portal/js/frontpage.js" %}"></script>
     <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>    
@@ -110,7 +110,14 @@
                             <figure><img src="{% url "view_profilethumbnail" activity.user %}?width=48" alt="{{ activity.user }}"></figure>
                             <div class="list-info">
                                 <span class="time">{{ activity.modified|timesince}} {% trans "ago" %}</span>
-                                <h4><a href="{% url "accounts:view_profile" activity.user.username %}">{{ activity.user }}</a></h4>
+                                <h4>
+                                  {% has_perm 'account.can_view_user_info' as access %}
+                                  {% if access or request.user == activity.user %}
+                                    <a href="{% url "accounts:view_profile" activity.user.username %}">{{ activity.user }}</a>
+                                  {% else %}
+                                    {{ activity.user }}
+                                  {% endif %}
+                                </h4>
                                 <p>
                                     {{ activity.verbose }}
                                     {% if activity.link_url %}

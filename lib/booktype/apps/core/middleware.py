@@ -17,6 +17,7 @@ class SecurityMiddleware(object):
         response.context_data['can_view_books_list'] = sec.has_perm('portal.can_view_books_list')
         response.context_data['can_view_groups_list'] = sec.has_perm('portal.can_view_groups_list')
         response.context_data['can_view_user_list'] = sec.has_perm('portal.can_view_user_list')
+        response.context_data['can_view_user_info'] = sec.has_perm('account.can_view_user_info')
 
         return response
 
