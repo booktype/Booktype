@@ -533,6 +533,7 @@ class ArchivedUsersForm(BaseControlForm, forms.Form):
             'archived_people': User.objects.filter(is_active=False).order_by("username")
         }
 
+
 class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
     username = forms.CharField(
         label=_('Username'),
@@ -971,20 +972,26 @@ class AddRoleForm(BaseControlForm, forms.ModelForm):
 
 
 class DefaultRolesForm(BaseControlForm, forms.Form):
-    ROLES_CHOICES = \
-        [('__no_role__', _('None'))] + \
-        [(r.name, r.name) for r in Role.objects.all()]
+
+    success_url = '#default-roles'
     anonymous = 'anonymous_users'
     registered = 'registered_users'
 
     anonymous_users = forms.ChoiceField(
-        choices=ROLES_CHOICES, required=False,
+        choices=(), required=False,
         label=_('Role for anonymous users')
     )
     registered_users = forms.ChoiceField(
-        choices=ROLES_CHOICES, required=False,
+        choices=(), required=False,
         label=_('Role for registered users')
     )
+
+    def __init__(self, *args, **kwargs):
+        super(DefaultRolesForm, self).__init__(*args, **kwargs)
+        new_choices = [('__no_role__', _('None'))] + [(r.name, r.name) for r in Role.objects.all()]
+
+        for name, field in self.fields.items():
+            field.choices = new_choices
 
     @classmethod
     def initial_data(cls):
