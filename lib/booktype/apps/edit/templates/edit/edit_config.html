@@ -17,7 +17,7 @@
       window.booktype.editor.historyURL = "{% url 'edit:history' book.url_title %}";
       window.booktype.editor.historyData = [];
       window.booktype.bookSettingsURL = "{% url 'edit:settings' book.url_title %}";
-      window.booktype.license_list = {{ license_list|safe }};
+      window.booktype.licenseList = {{ license_list|safe }};
 
        // window.booktype.subscribeToChannel("/booktype/", function(message) {
        //  });
