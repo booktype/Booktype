@@ -59,6 +59,25 @@ def fetch_url(url, data, method='GET'):
     return dta
 
 
+def get_theme(book, username):
+    from booktype.apps.themes.models import UserTheme
+
+    data = {}
+    owner = User.objects.get(username=username)
+
+    try:
+        theme = UserTheme.objects.get(book=book, owner=owner)
+    except Exception:
+        return data
+
+    data = {'id': theme.active}
+
+    if theme.active == 'custom':
+        data['custom'] = theme.custom
+
+    return data
+
+
 @celery.task
 def publish_book(*args, **kwargs):
     global x
@@ -89,7 +108,8 @@ def publish_book(*args, **kwargs):
             "profile": _format,
             "config": {
                 "project_id": book.url_title,
-                "settings": get_settings_as_dictionary(book, _format)
+                "settings": get_settings_as_dictionary(book, _format),
+                "theme": get_theme(book, kwargs["username"])
             },
             "output": "{}.{}".format(book.url_title, _ext)
         }

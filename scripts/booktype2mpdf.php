@@ -33,7 +33,7 @@ $html = substr($html_data, 12, strlen($html_data)-27);
 //$mpdf = new mPDF('', array($config["config"]["page_width"], $config["config"]["page_height"]));
 $mpdf = new mPDF('');
 //$mpdf->mirrorMargins = 1;
-$mpdf->h2toc = array('H1'=>0, 'H2'=>0, 'H3'=>0, 'H4'=>0, 'H5'=>0, 'H6'=>0);
+$mpdf->h2toc = array(); 
 
 /* Add Styling */
 if(file_exists($options["dir"]."/style.css")) {
@@ -56,6 +56,13 @@ if(file_exists($options["dir"]."/frontmatter.html")) {
 
 $mpdf->WriteHTML($html, 2);
 
+/* Add Endmatter */
+if(file_exists($options["dir"]."/endmatter.html")) {
+   $data = file_get_contents($options["dir"]."/endmatter.html");
+   $mpdf->WriteHTML($data, 2);
+}
+
+
 if(array_key_exists('title', $config['metadata'])) {
     if(isset($config['metadata']['title'])) {
         $mpdf->SetTitle($config['metadata']['title']);
@@ -71,7 +78,7 @@ if(array_key_exists('creator', $config['metadata'])) {
 $mpdf->SetCreator('Booktype');
 
 $mpdf->Output($file_output);
-
+echo '{"status": 1, "pages": '.$mpdf->page.'}';
 exit;
 ?>
 

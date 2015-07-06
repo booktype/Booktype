@@ -529,7 +529,7 @@
           <% if (dta.status === 0) { %>
             <li>
               <a target="_blank" class="label label-primary" href="<%= dta['filename'] %>"><%= key %></a>
-              <span><%= booktype.utils.formatSize(dta['filesize']) %></span><% if (dta['pages'] !== 0) { %><span>dta['pages']</span><% } %>
+              <span><%= booktype.utils.formatSize(dta['filesize']) %></span><% if (dta['pages'] !== 0) { %><span><%= dta['pages'] %> {% trans "pages" %}</span><% } %>
             </li>
           <% } %>
         <% }); %>

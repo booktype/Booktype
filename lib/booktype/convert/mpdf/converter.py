@@ -16,10 +16,11 @@
 
 import os
 import json
-from lxml import etree
-
+import codecs
 import urllib2
 import logging
+from lxml import etree
+
 
 import ebooklib
 import ebooklib.epub
@@ -31,6 +32,7 @@ from ..base import BaseConverter
 from ..utils.epub import parse_toc_nav
 from .. import utils
 from .styles import create_default_style, get_page_size
+from booktype.apps.themes.utils import read_theme_style, get_single_frontmatter
 
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -57,25 +59,24 @@ class MPDFConverter(BaseConverter):
         self.images = {}
         self.n = 0
 
-    def convert(self, book, output_path):
-        self._save_images(book)
-
+    def pre_convert(self, book):
         # Not that much needed at the moment
         self.config['page_width'], self.config['page_height'] = get_page_size(self.config['settings'])
+
+    def convert(self, book, output_path):
+        if 'theme' in self.config:
+            self.theme_name = self.config['theme'].get('id', '')
+
+        self.pre_convert(book)
+
+        self._save_images(book)
 
         dc_metadata = {
             key: value[0][0] for key, value in
             book.metadata.get("http://purl.org/dc/elements/1.1/").iteritems()
         }
 
-        head_params = {
-            "title": dc_metadata.get("title", ""),
-            "license": dc_metadata.get("rights", ""),
-            "copyright": dc_metadata.get("creator", ""),
-        }
-
-        document = ebooklib.utils.parse_html_string(
-            self._html_template % head_params)
+        document = ebooklib.utils.parse_html_string(self._html_template)
 
         self._document_body = document.find("body")
         self._items_by_path = {
@@ -94,28 +95,34 @@ class MPDFConverter(BaseConverter):
 
         self._write_configuration(dc_metadata)
         self._create_frontmatter(dc_metadata)
-        self._write_style()
+        self._write_style(book)
 
-        self._run_renderer(html_path, pdf_path)
+        data_out = self._run_renderer(html_path, pdf_path)
 
         os.rename(pdf_path, output_path)
 
-        return {"pages": 21, "size": os.path.getsize(output_path)}
+        return {"pages": data_out.get('pages', 0), "size": os.path.getsize(output_path)}
 
-    def _write_style(self):
+    def _write_style(self, book):
         if 'settings' not in self.config:
             return
 
         css_style = create_default_style(self.config)
+        theme_style = u''
 
-        f = open('{}/style.css'.format(self.sandbox_path), 'wt')
-        f.write(css_style.encode('utf8'))
+        if self.theme_name != '':
+            theme_style = read_theme_style(self.theme_name, self.name)
+
+        f = codecs.open('{}/style.css'.format(self.sandbox_path), 'wt', 'utf8')
+        f.write(css_style)
+        f.write(theme_style)
         f.close()
 
     def _write_configuration(self, dc_metadata):
-        f = open('{}/config.json'.format(self.sandbox_path), 'wt')
         data = {'metadata': dc_metadata, 'config': self.config}
-        f.write(unicode(json.dumps(data), 'utf8').encode('utf8'))
+
+        f = codecs.open('{}/config.json'.format(self.sandbox_path), 'wt', 'utf8')
+        f.write(unicode(json.dumps(data), 'utf8'))
         f.close()
 
     def _write_toc_item(self, toc_item):
@@ -136,12 +143,14 @@ class MPDFConverter(BaseConverter):
             pb = etree.Element("pagebreak")  # , {'pagenumstyle': '1'})
             self._document_body.append(pb)
 
-        #tc = etree.Element("tocentry")
-        #self._document_body.append(tc)
+        tc = etree.Element("tocentry", {"content": chapter_title})
+        self._document_body.append(tc)
 
         for chapter_child in chapter.find("body"):
             content = deepcopy(chapter_child)
             self._fix_images(content, base_path)
+            content = self._fix_content(content)
+
             self._document_body.append(content)
 
         self.n += 1
@@ -166,6 +175,20 @@ class MPDFConverter(BaseConverter):
 
         self.images[item.file_name] = file_name
 
+    def _fix_content(self, content):
+        if content is None:
+            return content
+
+        # For print edition we need URL outside of a tags
+        for link in content.iter('a'):
+            if link.attrib.get('href', '') != '':
+                text = link.tail or ''
+                link.tail = ' [' + link.attrib.get('href', '') + '] ' + text
+                link.tag = 'span'
+
+        # Fix links to other URL places
+        return content
+
     def _fix_images(self, root, base_path):
         for element in root.iter('img'):
             src_url = urllib2.unquote(element.get('src'))
@@ -182,15 +205,39 @@ class MPDFConverter(BaseConverter):
                 continue
 
     def _create_frontmatter(self, dc_metadata):
-        data = {"title": dc_metadata.get("title", ""),
+        data = {
+            "title": dc_metadata.get("title", ""),
             "license": dc_metadata.get("rights", ""),
             "copyright": dc_metadata.get("creator", ""),
         }
 
-        html = render_to_string('convert/frontmatter_mpdf.html', data)
+        if self.theme_name != '':
+            frontmatter_name = get_single_frontmatter(self.theme_name, self.name)
+        else:
+            frontmatter_name = 'frontmatter_{}.html'.format(self.name)
 
-        f = open('{}/frontmatter.html'.format(self.sandbox_path), 'wt')
-        f.write(html.encode('utf-8'))
+        html = render_to_string('convert/{}'.format(frontmatter_name), data)
+
+        f = codecs.open('{}/frontmatter.html'.format(self.sandbox_path), 'wt', 'utf8')
+        f.write(html)
+        f.close()
+
+    def _create_endmatter(self, dc_metadata):
+        data = {
+            "title": dc_metadata.get("title", ""),
+            "license": dc_metadata.get("rights", ""),
+            "copyright": dc_metadata.get("creator", ""),
+        }
+
+        if self.theme_name != '':
+            endmatter_name = get_single_endmatter(self.theme_name, self.name)
+        else:
+            endmatter_name = 'endmatter_{}.html'.format(self.name)
+
+        html = render_to_string('convert/{}'.format(endmatter_name), data)
+
+        f = codecs.open('{}/endmatter.html'.format(self.sandbox_path), 'wt', 'utf8')
+        f.write(html)
         f.close()
 
     def _run_renderer(self, html_path, pdf_path):
@@ -205,7 +252,12 @@ class MPDFConverter(BaseConverter):
         cmd = [PHP_PATH, MPDF_SCRIPT] + params
 
         try:
-            utils.run_command(cmd)
+            (_, out, err) = utils.run_command(cmd)
+            data = json.loads(out)
+
+            return data
         except Exception as e:
             logger.error(
                 'MPDF Converter::Fail running the command "{}".'.format(e))
+
+        return {}
