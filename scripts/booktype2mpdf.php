@@ -43,7 +43,8 @@ $mpdf = new mPDF('', array($config["config"]["page_width"], $config["config"]["p
 $mpdf->mirrorMargins = 1;
 
 // Add first page and suppress page counter
-$mpdf->AddPage('', '', 0, '1' , 1);
+// When turned on, pages in ToC are not visible
+// $mpdf->AddPage('', '', '0', '1' , '1');
 
 $mpdf->h2toc = array(); 
 
@@ -53,12 +54,6 @@ if(file_exists($options["dir"]."/style.css")) {
     $mpdf->WriteHTML($data, 1);
 }
 
-if(array_key_exists('show_footer', $config['config']['settings'])) {
-    if(isset($config['config']['settings']['show_footer'])) {
-       $mpdf->SetHTMLFooter('<div style="text-align: left;">{PAGENO}</div>', 'E');
-       $mpdf->SetHTMLFooter('<div style="text-align: right;">{PAGENO}</div>', 'O');
-    }
-}
 
 /* Add Frontmatter */
 if(file_exists($options["dir"]."/frontmatter.html")) {
@@ -66,6 +61,16 @@ if(file_exists($options["dir"]."/frontmatter.html")) {
    $mpdf->WriteHTML($data, 2);
 }
 
+
+if(array_key_exists('show_footer', $config['config']['settings'])) {
+    if(isset($config['config']['settings']['show_footer'])) {
+//       $mpdf->SetHTMLFooter('<div style="text-align: left;">{PAGENO}</div>', 'E');
+//       $mpdf->SetHTMLFooter('<div style="text-align: right;">{PAGENO}</div>', 'O');
+
+      $mpdf->WriteHTML("<sethtmlpagefooter name=\"footer-left\" page=\"E\" value=\"on\" />
+                        <sethtmlpagefooter name=\"footer-right\" page=\"O\" value=\"on\" />");
+    }
+}
 $mpdf->WriteHTML($html, 2);
 
 /* Add Endmatter */
