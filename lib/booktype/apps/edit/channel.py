@@ -581,22 +581,6 @@ def remote_chapter_save(request, message, bookid, version):
 
     content = message['content']
 
-    if len(message['footnotes']) > 0:
-        utf8_parser = html.HTMLParser(encoding='utf-8')
-        tree = html.document_fromstring(content, parser=utf8_parser)
-
-        root = tree.getroottree()
-
-        for _footnote in root.find('body').xpath('//sup[@class="footnote"]'):
-            footID = _footnote.get('id')
-            footnote_content = message['footnotes']['content_' + footID]
-
-            _footnote.text = ''
-            ftn = etree.SubElement(_footnote, 'span')
-            ftn.text = footnote_content
-
-        content = etree.tostring(tree, pretty_print=True, encoding='utf-8')
-
     if not message.get("minor", False):
         history = logChapterHistory(chapter=chapter,
                                     content=content,

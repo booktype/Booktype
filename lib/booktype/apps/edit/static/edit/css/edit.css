@@ -1,7 +1,3 @@
-#footnotes {
-	padding-top: 40px;
-}
-
 .aloha-mouse-over .aloha-empty-paragraph {
   background-color: #dadff3;
 }
@@ -444,4 +440,69 @@ div.contentHeader span.info-message {
 .userstyle h5, .tabpane .tab-content h5 {
   margin:0;
   font-size: 13px;
+}
+
+/* Endnotes Plugin
+------------------------------------------------------*/
+#contenteditor sup.endnote  {
+  font-size: 8pt;
+}
+
+#contenteditor .aloha-block-EndnoteBlock {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  border-top: 1px solid black;
+}
+
+#contenteditor .aloha-block-EndnoteBlock .info-bar {
+  width: 100%;
+  height: 12px;
+  font-size: 8pt;
+  font-weight: bold;
+  line-height: 8pt;
+  margin-top: 0;
+  padding: 1px;
+}
+#contenteditor .aloha-block-EndnoteBlock .info-bar {
+  background-color: transparent;
+  color: black;
+}
+
+#contenteditor .aloha-block-EndnoteBlock.aloha-block-active .info-bar {
+  color: white;
+  background-color: #80b5f2;
+}
+
+#contenteditor .aloha-block-EndnoteBlock .endnotes-container,
+#contenteditor .aloha-block-EndnoteBlock .orphans-container
+{
+  padding: 5px;
+}
+
+#contenteditor .aloha-block-EndnoteBlock .elem {
+  padding-bottom: 2px;
+}
+
+#contenteditor .aloha-block-EndnoteBlock.aloha-block-active .elem {
+  margin: 1px;
+  border-bottom: 1px dotted #80b5f2;
+  padding-bottom: 5px;
+}
+
+#contenteditor .aloha-block-EndnoteBlock .endnotes-container .command,
+#contenteditor .aloha-block-EndnoteBlock .orphans-container .command {
+  display: none;
+}
+
+#contenteditor .aloha-block-EndnoteBlock.aloha-block-active .endnotes-container .command ,
+#contenteditor .aloha-block-EndnoteBlock.aloha-block-active .orphans-container .command {
+  display: inherit;
+}
+
+#contenteditor .aloha-block-EndnoteBlock.aloha-block-active  {
+  border-top: 0;
+}
+
+#contenteditor .aloha-block-EndnoteBlock.aloha-block-active .info-bar {
+  display: block;
 }
