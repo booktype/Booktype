@@ -32,7 +32,7 @@ from ..base import BaseConverter
 from ..utils.epub import parse_toc_nav
 from .. import utils
 from .styles import create_default_style, get_page_size
-from booktype.apps.themes.utils import read_theme_style, get_single_frontmatter
+from booktype.apps.themes.utils import read_theme_style, get_single_frontmatter, get_single_endmatter
 
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -63,6 +63,14 @@ class MPDFConverter(BaseConverter):
         # Not that much needed at the moment
         self.config['page_width'], self.config['page_height'] = get_page_size(self.config['settings'])
 
+    def get_metadata(self, book):
+        dc_metadata = {
+            key: value[0][0] for key, value in
+            book.metadata.get("http://purl.org/dc/elements/1.1/").iteritems()
+        }
+
+        return dc_metadata
+
     def convert(self, book, output_path):
         if 'theme' in self.config:
             self.theme_name = self.config['theme'].get('id', '')
@@ -71,10 +79,7 @@ class MPDFConverter(BaseConverter):
 
         self._save_images(book)
 
-        dc_metadata = {
-            key: value[0][0] for key, value in
-            book.metadata.get("http://purl.org/dc/elements/1.1/").iteritems()
-        }
+        dc_metadata = self.get_metadata(book)
 
         document = ebooklib.utils.parse_html_string(self._html_template)
 
@@ -95,6 +100,8 @@ class MPDFConverter(BaseConverter):
 
         self._write_configuration(dc_metadata)
         self._create_frontmatter(dc_metadata)
+        self._create_endmatter(dc_metadata)
+
         self._write_style(book)
 
         data_out = self._run_renderer(html_path, pdf_path)

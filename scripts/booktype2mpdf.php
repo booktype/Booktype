@@ -29,10 +29,22 @@ if(file_exists($options["dir"]."/config.json")) {
 $html_data = file_get_contents($file_input);
 $html = substr($html_data, 12, strlen($html_data)-27);
 
+
 /* Create PDF */
-//$mpdf = new mPDF('', array($config["config"]["page_width"], $config["config"]["page_height"]));
-$mpdf = new mPDF('');
-//$mpdf->mirrorMargins = 1;
+
+$mpdf = new mPDF('', array($config["config"]["page_width"], $config["config"]["page_height"]), '', '',
+  $config["config"]["settings"]["gutter"], $config["config"]["settings"]["side_margin"],
+  $config["config"]["settings"]["top_margin"], $config["config"]["settings"]["bottom_margin"],
+  $config["config"]["settings"]["header_margin"], $config["config"]["settings"]["footer_margin"]);
+
+//$mpdf = new mPDF();
+
+// Make it DOUBLE SIDED document
+$mpdf->mirrorMargins = 1;
+
+// Add first page and suppress page counter
+$mpdf->AddPage('', '', 0, '1' , 1);
+
 $mpdf->h2toc = array(); 
 
 /* Add Styling */
@@ -43,8 +55,8 @@ if(file_exists($options["dir"]."/style.css")) {
 
 if(array_key_exists('show_footer', $config['config']['settings'])) {
     if(isset($config['config']['settings']['show_footer'])) {
-       $mpdf->SetHTMLFooter('<div style="text-align: left;">{PAGENO}</div>', 'O');
-       $mpdf->SetHTMLFooter('<div style="text-align: right;">{PAGENO}</div>', 'E');
+       $mpdf->SetHTMLFooter('<div style="text-align: left;">{PAGENO}</div>', 'E');
+       $mpdf->SetHTMLFooter('<div style="text-align: right;">{PAGENO}</div>', 'O');
     }
 }
 
@@ -61,7 +73,6 @@ if(file_exists($options["dir"]."/endmatter.html")) {
    $data = file_get_contents($options["dir"]."/endmatter.html");
    $mpdf->WriteHTML($data, 2);
 }
-
 
 if(array_key_exists('title', $config['metadata'])) {
     if(isset($config['metadata']['title'])) {

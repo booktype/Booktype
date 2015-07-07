@@ -14,8 +14,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from .pdf.converter import PdfConverter
-from .epub.converter import EpubConverter
-from .mobi.converter import MobiConverter
-from .mpdf.converter import MPDFConverter
-from .screenpdf.converter import ScreenPDFConverter
+import logging
+
+from ..mpdf.converter import MPDFConverter
+
+
+logger = logging.getLogger("booktype.convert.screenpdf")
+
+
+class ScreenPDFConverter(MPDFConverter):
+    name = "screenpdf"
+
+    def __init__(self, *args, **kwargs):
+        super(ScreenPDFConverter, self).__init__(*args, **kwargs)
+
+    def _fix_content(self, content):
+        if content is None:
+            return content
+
+        return content
