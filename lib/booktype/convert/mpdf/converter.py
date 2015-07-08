@@ -31,7 +31,7 @@ from copy import deepcopy
 from ..base import BaseConverter
 from ..utils.epub import parse_toc_nav
 from .. import utils
-from .styles import create_default_style, get_page_size
+from .styles import create_default_style, get_page_size, CROP_MARGIN
 from booktype.apps.themes.utils import read_theme_style, get_single_frontmatter, get_single_endmatter
 
 from django.conf import settings
@@ -62,6 +62,18 @@ class MPDFConverter(BaseConverter):
     def pre_convert(self, book):
         # Not that much needed at the moment
         self.config['page_width'], self.config['page_height'] = get_page_size(self.config['settings'])
+
+        try:
+            if 'crop_marks' in self.config['settings'] and self.config['settings']['crop_marks'] == 'on':
+                crop_margin = CROP_MARGIN
+            else:
+                crop_margin = 0
+
+            self.config['page_width_bleed'] = int(round(self.config['page_width'] + crop_margin))
+            self.config['page_height_bleed'] = int(round(self.config['page_height'] + crop_margin))
+        except:
+            self.config['page_width_bleed'] = self.config['page_width']
+            self.config['page_height_bleed'] = self.config['page_height']
 
     def get_metadata(self, book):
         dc_metadata = {

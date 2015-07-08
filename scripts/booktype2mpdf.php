@@ -31,20 +31,22 @@ $html = substr($html_data, 12, strlen($html_data)-27);
 
 
 /* Create PDF */
-
-$mpdf = new mPDF('', array($config["config"]["page_width"], $config["config"]["page_height"]), '', '',
+/*
+$mpdf = new mPDF('', array($config["config"]["page_width_bleed"], $config["config"]["page_height_bleed"]), '', '',
   $config["config"]["settings"]["gutter"], $config["config"]["settings"]["side_margin"],
   $config["config"]["settings"]["top_margin"], $config["config"]["settings"]["bottom_margin"],
-  $config["config"]["settings"]["header_margin"], $config["config"]["settings"]["footer_margin"]);
+  $config["config"]["settings"]["header_margin"], $config["config"]["settings"]["footer_margin"]); */
 
-//$mpdf = new mPDF();
+$mpdf = new mPDF();
 
 // Make it DOUBLE SIDED document
 $mpdf->mirrorMargins = 1;
 
+$mpdf->bleedMargin = $config["config"]["settings"]["bleed_size"];
+
 // Add first page and suppress page counter
 // When turned on, pages in ToC are not visible
-// $mpdf->AddPage('', '', '0', '1' , '1');
+//$mpdf->AddPage('', '', '', '' , '1');
 
 $mpdf->h2toc = array(); 
 

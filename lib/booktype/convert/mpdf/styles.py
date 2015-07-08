@@ -18,6 +18,8 @@ from django.template.loader import render_to_string
 
 INCH_TO_MM = 25.4
 
+CROP_MARGIN = 18
+
 PAGE_SIZE_DATA = {
     'comicbook':      (6.625 * INCH_TO_MM, 10.25 * INCH_TO_MM),
     "pocket":         (4.25 * INCH_TO_MM, 6.875 * INCH_TO_MM),
@@ -76,8 +78,12 @@ def create_default_style(config):
     else:
         crop_marks = False
 
+    get_value(config['settings'], 'top_margin')        
+
     data = {'page_width': width,
         'page_height': height,
+        'page_width_bleed': config['page_width_bleed'],
+        'page_height_bleed': config['page_height_bleed'],
         'crop_marks': crop_marks,
         'top_margin': get_value(config['settings'], 'top_margin'),
         'bottom_margin': get_value(config['settings'], 'bottom_margin'),
