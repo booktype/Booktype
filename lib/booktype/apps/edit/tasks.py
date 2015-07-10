@@ -104,15 +104,24 @@ def publish_book(*args, **kwargs):
         if _format == "epub":
             _ext = "epub"
 
+        format_settings = get_settings_as_dictionary(book, _format)
+
         data["outputs"][_format] = {
             "profile": _format,
             "config": {
                 "project_id": book.url_title,
-                "settings": get_settings_as_dictionary(book, _format),
+                "settings": format_settings,
                 "theme": get_theme(book, kwargs["username"])
             },
             "output": "{}.{}".format(book.url_title, _ext)
         }
+
+        if 'cover_image' in format_settings:
+            if format_settings['cover_image'].strip() != '':
+                cover_url = "{}/{}/_cover/{}/cover.jpg".format(settings.BOOKTYPE_URL, 
+                    book.url_title, format_settings['cover_image'])
+                data['assets']['screenpdf_cover_image'] = cover_url
+                data["outputs"][_format]["config"]["cover_image"] = "screenpdf_cover_image"
 
     logger.debug(data)
 

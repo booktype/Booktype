@@ -110,9 +110,9 @@ class MPDFConverter(BaseConverter):
                 document, method='html', pretty_print=True)
             file.write(html_text.encode("utf-8"))
 
-        self._write_configuration(dc_metadata)
-        self._create_frontmatter(dc_metadata)
-        self._create_endmatter(dc_metadata)
+        self._write_configuration(book, dc_metadata)
+        self._create_frontmatter(book, dc_metadata)
+        self._create_endmatter(book, dc_metadata)
 
         self._write_style(book)
 
@@ -122,11 +122,14 @@ class MPDFConverter(BaseConverter):
 
         return {"pages": data_out.get('pages', 0), "size": os.path.getsize(output_path)}
 
+    def get_extra_style(self, book):
+        return {}
+
     def _write_style(self, book):
         if 'settings' not in self.config:
             return
 
-        css_style = create_default_style(self.config)
+        css_style = create_default_style(self.config, self.name, self.get_extra_style(book))
         theme_style = u''
 
         if self.theme_name != '':
@@ -137,8 +140,12 @@ class MPDFConverter(BaseConverter):
         f.write(theme_style)
         f.close()
 
-    def _write_configuration(self, dc_metadata):
+    def get_extra_configuration(self):        
+        return {'mirror_margins': True}
+
+    def _write_configuration(self, book, dc_metadata):
         data = {'metadata': dc_metadata, 'config': self.config}
+        data.update(self.get_extra_configuration())
 
         f = codecs.open('{}/config.json'.format(self.sandbox_path), 'wt', 'utf8')
         f.write(unicode(json.dumps(data), 'utf8'))
@@ -152,18 +159,21 @@ class MPDFConverter(BaseConverter):
             chapter_title, chapter_href = toc_item
             self._write_chapter_content(chapter_title, chapter_href)
 
-    def _write_chapter_content(self, chapter_title, chapter_href):
-        chapter_item = self._items_by_path[chapter_href]
-        base_path = os.path.dirname(chapter_item.file_name)
-
-        chapter = ebooklib.utils.parse_html_string(chapter_item.content)
-
+    def chapter_separator(self, chapter_title, chapter_href):
         if self.n > 0:
             pb = etree.Element("pagebreak")  # , {'pagenumstyle': '1'})
             self._document_body.append(pb)
 
         tc = etree.Element("tocentry", {"content": chapter_title})
         self._document_body.append(tc)
+
+    def _write_chapter_content(self, chapter_title, chapter_href):
+        chapter_item = self._items_by_path[chapter_href]
+        base_path = os.path.dirname(chapter_item.file_name)
+
+        chapter = ebooklib.utils.parse_html_string(chapter_item.content)
+
+        self.chapter_separator(chapter_title, chapter_href)
 
         for chapter_child in chapter.find("body"):
             content = deepcopy(chapter_child)
@@ -223,12 +233,16 @@ class MPDFConverter(BaseConverter):
                 )
                 continue
 
-    def _create_frontmatter(self, dc_metadata):
+    def get_extra_data(self, book):
+        return {}
+
+    def _create_frontmatter(self, book, dc_metadata):
         data = {
             "title": dc_metadata.get("title", ""),
             "license": dc_metadata.get("rights", ""),
-            "copyright": dc_metadata.get("creator", ""),
+            "copyright": dc_metadata.get("creator", "")
         }
+        data.update(self.get_extra_data(book))
 
         if self.theme_name != '':
             frontmatter_name = get_single_frontmatter(self.theme_name, self.name)
@@ -241,12 +255,13 @@ class MPDFConverter(BaseConverter):
         f.write(html)
         f.close()
 
-    def _create_endmatter(self, dc_metadata):
+    def _create_endmatter(self, book, dc_metadata):
         data = {
             "title": dc_metadata.get("title", ""),
             "license": dc_metadata.get("rights", ""),
             "copyright": dc_metadata.get("creator", ""),
         }
+        data.update(self.get_extra_data(book))
 
         if self.theme_name != '':
             endmatter_name = get_single_endmatter(self.theme_name, self.name)

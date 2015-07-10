@@ -70,7 +70,7 @@ def get_page_size(config):
 def get_value(sett, name):
     return sett.get(name, 0)
 
-def create_default_style(config):
+def create_default_style(config, name, extra = {}):
     width, height = get_page_size(config['settings'])
 
     if 'crop_marks' in config['settings']:
@@ -92,5 +92,6 @@ def create_default_style(config):
         'header_margin': get_value(config['settings'], 'header_margin'),
         'footer_margin': get_value(config['settings'], 'footer_margin')
         }
+    data.update(extra)
 
-    return render_to_string('convert/style_mpdf.css', data)
+    return render_to_string('convert/style_{}.css'.format(name), data)

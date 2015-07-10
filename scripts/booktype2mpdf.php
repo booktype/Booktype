@@ -37,17 +37,18 @@ $mpdf = new mPDF('', array($config["config"]["page_width_bleed"], $config["confi
   $config["config"]["settings"]["top_margin"], $config["config"]["settings"]["bottom_margin"],
   $config["config"]["settings"]["header_margin"], $config["config"]["settings"]["footer_margin"]); 
 */
+
 $mpdf = new mPDF();
 
-// Make it DOUBLE SIDED document
-$mpdf->mirrorMargins = 1;
+
+if(array_key_exists('mirror_margins', $config)) {
+  if($config['mirror_margins']) {
+    // Make it DOUBLE SIDED document
+    $mpdf->mirrorMargins = 1;
+  }
+}
 
 $mpdf->bleedMargin = $config["config"]["settings"]["bleed_size"];
-
-// Add first page and suppress page counter
-// When turned on, pages in ToC are not visible
-//$mpdf->AddPage('', '', '', '' , '1');
-$mpdf->AddPageByArray(array('suppress' => 'off'));
 
 $mpdf->h2toc = array(); 
 
@@ -56,6 +57,8 @@ if(file_exists($options["dir"]."/style.css")) {
     $css_data = file_get_contents($options["dir"]."/style.css");
     $mpdf->WriteHTML($css_data, 1);
 }
+
+//$mpdf->AddPageByArray(array('suppress' => 'off'));
 
 if(array_key_exists('show_footer', $config['config']['settings'])) {
     if(isset($config['config']['settings']['show_footer'])) {

@@ -28,6 +28,29 @@ class ScreenPDFConverter(MPDFConverter):
     def __init__(self, *args, **kwargs):
         super(ScreenPDFConverter, self).__init__(*args, **kwargs)
 
+    def get_extra_configuration(self):        
+        return {'mirror_margins': False}
+
+    def get_extra_style(self, book):
+        cover_image = ''
+
+        if 'cover_image' in self.config:
+            cover_asset = self.get_asset(self.config['cover_image'])            
+            cover_image = cover_asset.file_path
+
+        return {'cover_image': cover_image}
+
+    def get_extra_data(self, book):
+        data = super(ScreenPDFConverter, self).get_extra_data(book)
+
+        if 'cover_image' in self.config:
+            cover_asset = self.get_asset(self.config['cover_image'])
+            data['cover_image'] = cover_asset.file_path
+        else:
+            data['cover_image'] = ''
+
+        return data
+
     def _fix_content(self, content):
         if content is None:
             return content
