@@ -14,13 +14,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-import shutil
-import os
 from optparse import make_option
-
 from django.core.management.base import BaseCommand, CommandError
 
-from booki.editor import common, models
+from booki.editor import models
 
 
 class Command(BaseCommand):
@@ -28,18 +25,22 @@ class Command(BaseCommand):
     args = "<book name>"
 
     option_list = BaseCommand.option_list + (
-        make_option('--book-version',
+        make_option(
+            '--book-version',
             action='store',
             dest='book_version',
             default=None,
-            help='Book version, e.g.'),
+            help='Book version, e.g.'
+        ),
 
-        make_option('--output',
+        make_option(
+            '--output',
             action='store',
             dest='output_name',
             default=None,
-            help='Output filename or -- for STDOUT, e.g. my_book.zip.'),
-        )
+            help='Output filename or -- for STDOUT, e.g. my_book.zip.'
+        ),
+    )
 
     requires_model_validation = False
 
@@ -58,15 +59,13 @@ class Command(BaseCommand):
         if not book_version:
             raise CommandError('Book version %s does not exist.' % options['book_version'])
 
-        from booktype.utils.misc import export_book
+        from booktype.apps.export.utils import export_book
 
-        fileName = '%s.epub' % book.url_title
+        filename = '%s.epub' % book.url_title
         if options['output_name']:
-            fileName = options['output_name']
+            filename = options['output_name']
 
-        export_book(fileName, book_version)
+        export_book(filename, book_version)
 
         if options['verbosity'] in ['1', '2']:
-            print 'Book successfully exported into "%s" file.' % fileName
-
-        
+            print 'Book successfully exported into "%s" file.' % filename

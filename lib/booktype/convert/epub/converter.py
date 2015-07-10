@@ -51,6 +51,10 @@ class EpubConverter(BaseConverter):
 
         epub_book.uid = original_book.uid
         epub_book.title = original_book.title
+
+        # we should define better uri for this
+        epub_book.add_prefix('bkterms', 'http://booktype.org/')
+
         epub_book.metadata = deepcopy(original_book.metadata)
         epub_book.toc = []
 

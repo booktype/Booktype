@@ -12,6 +12,8 @@ from booktype.utils import security
 from booki.editor.models import (
     Language, Info, License, BookSetting, BookStatus)
 
+from booki.editor.models import METADATA_FIELDS
+
 
 class BaseSettingsForm(BaseBooktypeForm):
     success_url = None
@@ -78,7 +80,7 @@ class ChapterStatusForm(BaseSettingsForm, forms.Form):
     name = forms.CharField(label=_('New Status'))
 
     @classmethod
-    def extra_context(self, book, request):
+    def extra_context(cls, book, request):
         all_statuses = (BookStatus.objects
                         .filter(book=book)
                         .annotate(num_chapters=Count('chapter'))
@@ -110,28 +112,6 @@ class LicenseForm(BaseSettingsForm, forms.Form):
 
 class ChapterStatus(BaseSettingsForm, forms.Form):
     pass
-
-
-# METADATA Standards
-DC = 'DC'  # Dublic Core
-BKM = 'BKM'  # Booktype Metadata
-
-# I'm using a list instead of a dict because I want
-# to mantain certain order on form fields
-METADATA_FIELDS = [
-    ('title', _('Title'), DC),
-    ('short_title', _('Short title'), BKM),
-    ('subtitle', _('Subtitle'), BKM),
-    ('short_description', _('Short description'), BKM),
-    ('long_description', _('Long description'), BKM),
-    ('publisher', _('Publisher'), DC),
-    ('publisher_city', _('Publisher city'), BKM),
-    ('publication_date', _('Publication date'), BKM),  # there is a date in DC
-    ('copyright_year', _('Copyright year'), BKM),
-    ('copyright_holder', _('Copyright holder'), BKM),
-    ('ebook_isbn', _('Ebook ISBN'), BKM),
-    ('print_isbn', _('Print ISBN'), BKM)
-]
 
 
 class MetadataForm(BaseSettingsForm, forms.Form):

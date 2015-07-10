@@ -228,6 +228,7 @@ class MPDFConverter(BaseConverter):
             "title": dc_metadata.get("title", ""),
             "license": dc_metadata.get("rights", ""),
             "copyright": dc_metadata.get("creator", ""),
+            "isbn": dc_metadata.get("identifier", ""),
         }
 
         if self.theme_name != '':

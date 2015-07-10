@@ -16,15 +16,12 @@
 
 import os
 import urllib
-import pprint
 import config
 import urlparse
 import tempfile
 import ebooklib
 import datetime
 import StringIO
-
-from collections import OrderedDict
 
 from django.conf import settings
 from django.core.files import File
@@ -35,7 +32,6 @@ from django.contrib.auth.models import User
 
 from lxml import etree
 from ebooklib import epub
-from ebooklib.plugins import standard
 from ebooklib.plugins.base import BasePlugin
 from ebooklib.utils import parse_html_string
 
@@ -112,9 +108,6 @@ class ImportPlugin(BasePlugin):
             att.file_name = _convert_file_name(att.file_name)
 
     def html_after_read(self, book, chapter):
-        import os.path
-        import urlparse
-
         try:
             tree = parse_html_string(chapter.content)
         except:
@@ -154,7 +147,6 @@ class LoadPlugin(BasePlugin):
     NAME = 'Load Plugin'
 
     def after_read(self, book):
-        import os.path
 
         # change all the file names for images
         for att in book.get_items_of_type(ebooklib.ITEM_IMAGE):
@@ -358,118 +350,6 @@ def import_book_from_file(epub_file, user, **kwargs):
         parents[_elem[2]] = toc_item
 
     return book
-
-def export_book(fileName, book_version):
-    book = book_version.book
-    epub_book = epub.EpubBook()
-
-    # set basic info
-    epub_book.set_identifier('booktype:%s' % book.url_title)
-    epub_book.set_title(book.title)
-    # set the language according to the language set
-    epub_book.set_language('en')
-
-    # epub_book.add_metadata(None, 'meta', '', {'name': 'booktype:owner_id', 'content': book_version.book.owner.username})
-
-    # set description
-    if book.description != '':
-        epub_book.add_metadata('DC', 'description', book.description)
-
-    # set license
-    lic = book.license
-    if lic:
-        epub_book.add_metadata('DC', 'rights', lic.name)
-
-    # set the author according to the owner
-    epub_book.add_author(book.owner.first_name, role='aut', uid='author')
-
-    toc = OrderedDict()
-    spine = ['nav']
-
-    # parse and fetch only images which are inside
-    embededImages = {}
-
-    hold_chapters_urls = [i.url_title for i in book_version.getHoldChapters()]
-
-    for chapter in book_version.get_toc():
-        if chapter.chapter:
-            c1 = epub.EpubHtml(
-                title=chapter.chapter.title,
-                file_name='%s.xhtml' % (chapter.chapter.url_title, )
-            )
-            cont = chapter.chapter.content
-
-            try:
-                tree = parse_html_string(cont.encode('utf-8'))
-            except:
-                pass
-
-            for elem in tree.iter():
-                if elem.tag == 'a':
-                    href = elem.get('href')
-                    if href and href.startswith('../'):
-                        urlp = urlparse.urlparse(href)
-
-                        url_title = urlp.path[3:-1]
-
-                        # if link on chapter on hold -> remove tag
-                        if url_title not in hold_chapters_urls:
-                            fixed_href = url_title + '.xhtml'
-                            if urlp.fragment:
-                                fixed_href = "{}#{}".format(fixed_href, urlp.fragment)
-                            elem.set('href', fixed_href)
-                        else:
-                            elem.drop_tag()
-
-                if elem.tag == 'img':
-                    src = elem.get('src')
-                    if src:
-                        elem.set('src', 'static/' + src[7:])
-                        embededImages[src] = True
-
-            c1.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
-
-            epub_book.add_item(c1)
-            spine.append(c1)
-
-            if chapter.parent:
-                toc[chapter.parent.id][1].append(c1)
-            else:
-                if chapter.has_children():
-                    toc[chapter.id] = [c1, []]
-                else:
-                    toc[chapter.id] = c1
-        else:
-            epub_sec = epub.Section(chapter.name)
-            if chapter.parent:
-                toc[chapter.parent.id][1].append(epub_sec)
-            else:
-                toc[chapter.id] = [epub_sec, []]
-
-    for i, attachment in enumerate(models.Attachment.objects.filter(version=book_version)):
-        if ('static/' + os.path.basename(attachment.attachment.name)) not in embededImages:
-            continue
-
-        try:
-            f = open(attachment.attachment.name, "rb")
-            blob = f.read()
-            f.close()
-        except (IOError, OSError), e:
-            continue
-        else:
-            fn = os.path.basename(attachment.attachment.name.encode("utf-8"))
-            itm = epub.EpubImage()
-            itm.file_name = 'static/%s' % fn
-            itm.content = blob
-            epub_book.add_item(itm)
-
-    epub_book.toc = toc.values()
-    epub_book.spine = spine
-    epub_book.add_item(epub.EpubNcx())
-    epub_book.add_item(epub.EpubNav())
-
-    opts = {'plugins': [TidyPlugin(), standard.SyntaxPlugin()]}
-    epub.write_epub(fileName, epub_book, opts)
 
 
 def set_group_image(groupid, file_object, x_size, y_size):

@@ -22,19 +22,19 @@ class SaveView(utils.RestrictExport, View):
         response = HttpResponse(content_type='application/epub+zip')
         response['Content-Disposition'] = 'attachment; filename=%s.epub' % book.url_title
 
-        tempDir = tempfile.mkdtemp()
-        fileName = '%s/export.epub' % tempDir
+        temp_dir = tempfile.mkdtemp()
+        filename = '%s/export.epub' % temp_dir
 
-        from booktype.utils.misc import export_book
+        from booktype.apps.export.utils import export_book
 
         # it should return object epub book
         # we should be able to write it as a separate thing
-        export_book(fileName, book_version)
+        export_book(filename, book_version)
 
         # write file
-        response.write(open(fileName, 'rb').read())
+        response.write(open(filename, 'rb').read())
 
-        os.unlink(fileName)
-        os.rmdir(tempDir)
+        os.unlink(filename)
+        os.rmdir(temp_dir)
 
         return response
