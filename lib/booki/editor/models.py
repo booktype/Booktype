@@ -17,21 +17,18 @@ import os
 import time
 import datetime
 import sputnik
-import decimal
 import logging
 
 from django.db import models
+from django.db.models import Q
 from django.conf import settings
 from django.contrib.auth import models as auth_models
 from django.utils.translation import ugettext_lazy as _
 
 logger = logging.getLogger('booktype')
 
-# import booki.editor.signals
-
 
 # License
-
 class License(models.Model):
     name = models.CharField(_('name'), max_length=100, blank=False)
     abbrevation = models.CharField(_('abbrevation'), max_length=30)
@@ -68,7 +65,6 @@ STATUS_CHOICES = (
 
 
 # Book Status
-
 class BookStatus(models.Model):
     book = models.ForeignKey('Book', verbose_name=_("book"))
     name = models.CharField(_('name'), max_length=30, blank=False)
@@ -121,7 +117,7 @@ class BookiGroup(models.Model):
 
     def get_big_group_image(self):
         group_image_path = '%s/%s' % (settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
-        if(os.path.isfile(('%s/%s.jpg') % (group_image_path, self.pk)) is False):
+        if (os.path.isfile(('%s/%s.jpg') % (group_image_path, self.pk)) is False):
             group_image = '%score/img/groups-big.png' % settings.STATIC_URL
         else:
             group_image = '%s%s%s.jpg' % (settings.MEDIA_URL, self.GROUP_IMAGE_UPLOAD_DIR, self.pk)
@@ -130,7 +126,7 @@ class BookiGroup(models.Model):
 
     def get_group_image(self):
         group_image_path = '%s/%s' % (settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
-        if(os.path.isfile(('%s/%s_small.jpg') % (group_image_path, self.pk)) is False):
+        if (os.path.isfile(('%s/%s_small.jpg') % (group_image_path, self.pk)) is False):
             group_image = '%score/img/groups.png' % settings.STATIC_URL
         else:
             group_image = '%s%s%s_small.jpg' % (settings.MEDIA_URL, self.GROUP_IMAGE_UPLOAD_DIR, self.pk)
@@ -157,6 +153,28 @@ class BookiGroup(models.Model):
     class Meta:
         verbose_name = _('Booktype group')
         verbose_name_plural = _('Booktype groups')
+
+# METADATA Standards
+DC = 'DC'  # Dublic Core
+BKM = 'BKM'  # Booktype Metadata
+
+# I'm using a list instead of a dict because I want
+# to mantain certain order on forms.MetadataForm fields
+METADATA_FIELDS = [
+    ('title', _('Title'), DC),
+    ('creator', _('Author(s)'), DC),
+    ('short_title', _('Short title'), BKM),
+    ('subtitle', _('Subtitle'), BKM),
+    ('short_description', _('Short description'), BKM),
+    ('long_description', _('Long description'), BKM),
+    ('publisher', _('Publisher'), DC),
+    ('publisher_city', _('Publisher city'), BKM),
+    ('publication_date', _('Publication date'), BKM),  # there is a date in DC
+    ('copyright_year', _('Copyright year'), BKM),
+    ('copyright_holder', _('Copyright holder'), BKM),
+    ('ebook_isbn', _('Ebook ISBN'), BKM),
+    ('print_isbn', _('Print ISBN'), BKM)
+]
 
 
 # Book
@@ -185,6 +203,16 @@ class Book(models.Model):
 
     description = models.TextField(_('description'), null=False, default='')
     cover = models.ImageField(_('cover'), upload_to=settings.COVER_IMAGE_UPLOAD_DIR, null=True)
+
+    class Meta:
+        verbose_name = _('Book')
+        verbose_name_plural = _('Books')
+
+    def __unicode__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return '%s/%s/' % (settings.BOOKI_URL, self.url_title)
 
     def get_version(self, version=None):
         """
@@ -215,7 +243,7 @@ class Book(models.Model):
                 if len(v) != 2: return None
 
                 try:
-                    book_ver = emodels.BookVersion.objects.get(book=self, major = int(v[0]), minor = int(v[1]))
+                    book_ver = emodels.BookVersion.objects.get(book=self, major=int(v[0]), minor=int(v[1]))
                 except ValueError:
                     return None
                 except emodels.BookVersion.DoesNotExist:
@@ -235,20 +263,23 @@ class Book(models.Model):
         from booki.editor import models as emodels
         return emodels.BookVersion.objects.filter(book=self)
 
-    def set_cover(self, fileName):
+    def set_cover(self, filename):
         from booktype.utils.book import set_book_cover
 
-        set_book_cover(self, fileName)
+        set_book_cover(self, filename)
 
-    def get_absolute_url(self):
-        return '%s/%s/' % (settings.BOOKI_URL, self.url_title)
+    @property
+    def metadata(self):
+        return self.info_set.filter(
+            Q(name__startswith=DC) | Q(name__startswith=BKM)
+        )
 
-    def __unicode__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = _('Book')
-        verbose_name_plural = _('Books')
+    @property
+    def author(self):
+        try:
+            return self.info_set.get(name='DC.creator').value
+        except Info.DoesNotExist:
+            return self.owner.get_full_name()
 
     # DEPRECATED API NAMES
     getVersion = get_version
@@ -354,6 +385,10 @@ class Info(BaseInfo):
         verbose_name = _('Metadata')
         verbose_name_plural = _('Metadata')
 
+    @property
+    def value(self):
+        return self.get_value()
+
 
 class BookSetting(BaseInfo):
     """Basic model for saving book settings"""
@@ -409,7 +444,6 @@ class BookVersion(models.Model):
 
 
 # Chapter
-
 class Chapter(models.Model):
     EDIT_PING_SECONDS_MAX_DELTA = 15
 
@@ -498,9 +532,11 @@ class Chapter(models.Model):
           None (if chapter not under edit)
           or editor username (if chapter under edit)
         """
-        edit_lock_key = "booktype:{book_id}:{version}:editlocks:{chapter_id}:*".format(book_id=self.book.id,
-                                                                                       version=self.version.get_version(),
-                                                                                       chapter_id=self.id)
+        edit_lock_key = "booktype:{book_id}:{version}:editlocks:{chapter_id}:*".format(
+            book_id=self.book.id,
+            version=self.version.get_version(),
+            chapter_id=self.id
+        )
         keys = sputnik.rkeys(edit_lock_key)
 
         if keys:
@@ -511,7 +547,7 @@ class Chapter(models.Model):
             # there is should be only one editor per book/version
             try:
                 if len(keys) != 1:
-                    raise Exception("Multiply keys were returned with KEYS: {0}".format(edit_lock_key))
+                    raise Exception("Multiple keys were returned with KEYS: {0}".format(edit_lock_key))
             except Exception as e:
                 logger.exception(e)
             finally:
@@ -601,7 +637,6 @@ class AttachmentFile(models.FileField):
         return name
 
 
-# TODO: should add version
 class Attachment(models.Model):
     version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
     # don't really need book anymore
@@ -614,7 +649,7 @@ class Attachment(models.Model):
 
     def get_name(self):
         name = self.attachment.name
-        return name[name.rindex('/')+1:]
+        return name[name.rindex('/') + 1:]
 
     def delete(self):
         self.attachment.delete(save=False)
@@ -623,7 +658,6 @@ class Attachment(models.Model):
 
     def __unicode__(self):
         return self.attachment.name
-
 
     def thumbnail(self, size=(100, 100)):
         '''returns URL for a thumbnail with the specified size'''
@@ -634,7 +668,7 @@ class Attachment(models.Model):
                                          time.mktime(self.created.timetuple()),
                                          w, h, ext)
         im_path = uploadAttachmentTo(self, filename)
-        im_url =  getAttachmentUrl(self, filename)
+        im_url = getAttachmentUrl(self, filename)
         if not os.path.exists(im_path):
             im = createThumbnail(self.attachment, size=size)
             im.save(im_path, 'JPEG')
