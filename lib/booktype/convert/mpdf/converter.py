@@ -135,9 +135,12 @@ class MPDFConverter(BaseConverter):
         if self.theme_name != '':
             theme_style = read_theme_style(self.theme_name, self.name)
 
+        custom_style = self.config.get('settings', {}).get('styling', u'')
+
         f = codecs.open('{}/style.css'.format(self.sandbox_path), 'wt', 'utf8')
         f.write(css_style)
         f.write(theme_style)
+        f.write(custom_style)        
         f.close()
 
     def get_extra_configuration(self):
