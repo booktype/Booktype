@@ -159,8 +159,8 @@ USE_TZ = False
 LOCALE_PATHS = (
     BOOKTYPE_ROOT.child(BOOKTYPE_SITE_DIR).child('locale'),
     Path(booki.__file__).parent.child('locale'),
-    Path(booki.__file__).parent.child('booktype').child('locale'),
-    Path(booki.__file__).parent.child('booktypecontrol').child('locale'),
+    Path(booki.__file__).ancestor(2).child('booktype').child('locale'),
+    Path(booki.__file__).ancestor(2).child('booktypecontrol').child('locale'),
 )
 
 # Make this unique, and don't share it with anybody.
