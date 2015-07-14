@@ -65,6 +65,8 @@ MPDF_SCRIPT = '{}/booktype2mpdf.php'.format(BOOKTYPE_ROOT)
 
 # site_static
 import booki
+import booktype
+import booktypecontrol
 
 # static
 STATIC_ROOT = BOOKTYPE_ROOT.child('static')
@@ -159,8 +161,8 @@ USE_TZ = False
 LOCALE_PATHS = (
     BOOKTYPE_ROOT.child(BOOKTYPE_SITE_DIR).child('locale'),
     Path(booki.__file__).parent.child('locale'),
-    Path(booki.__file__).parent.child('booktype').child('locale'),
-    Path(booki.__file__).parent.child('booktypecontrol').child('locale'),
+    Path(booktype.__file__).parent.child('locale'),
+    Path(booktypecontrol.__file__).parent.child('locale')
 )
 
 # Make this unique, and don't share it with anybody.
