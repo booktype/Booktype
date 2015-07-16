@@ -342,11 +342,6 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context['roles_permissions'] = security.get_user_permissions(
             self.request.user, book)
 
-        license_dict = {}
-        for val in models.License.objects.all().values('id', 'url'):
-            license_dict[val['id']] = val['url']
-        context['license_list'] = json.dumps(license_dict)
-
         return context
 
     def test_func(self, user):

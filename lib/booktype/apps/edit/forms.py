@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import json
+
 from django import forms
 from django.db.models import Count
 from django.contrib.auth.models import User
@@ -121,6 +123,12 @@ class LicenseForm(BaseSettingsForm, forms.Form):
     def save_settings(self, book, request):
         book.license = self.cleaned_data['license']
         book.save()
+
+    def license_list(self):
+        license_dict = {}
+        for val in License.objects.all().values('id', 'url'):
+            license_dict[val['id']] = val['url']
+        return json.dumps(license_dict)
 
 
 class ChapterStatus(BaseSettingsForm, forms.Form):
