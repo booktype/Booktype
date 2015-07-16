@@ -21,7 +21,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, DetailView, FormView
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 
 from braces.views import (LoginRequiredMixin, UserPassesTestMixin,
                           JSONResponseMixin)
@@ -683,13 +683,28 @@ class BookSettingsView(LoginRequiredMixin, views.SecurityMixin,
         kwargs.update({'book': self.book})
         return kwargs
 
+    def get(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+
+        # we need this to check if user can see the requested module
+        if not form_class.has_perm(self.book, self.request):
+            return HttpResponseForbidden()
+
+        form = self.get_form(form_class)
+        return self.render_to_response(self.get_context_data(form=form))
+
     def form_valid(self, form):
+        error = False
         try:
-            form.save_settings(self.book, self.request)
-            error, message = False, form.success_message or _('Successfully saved settings.')
+            if form.has_perm(self.book, self.request):
+                form.save_settings(self.book, self.request)
+                message = form.success_message or _('Successfully saved settings.')
+            else:
+                error, message = True, _('You have no permissions to execute this action.')
         except Exception as err:
             print err
             error, message = True, _('Unknown error while saving changes.')
+
         return self.render_json_response({'message': unicode(message), 'error': error})
 
     def form_invalid(self, form):

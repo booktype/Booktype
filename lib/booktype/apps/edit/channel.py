@@ -159,7 +159,7 @@ def get_attachments(book_version):
     @return: Returns list of dictionaries with info about attachment
     """
 
-    def _getDimension(att):
+    def _get_dimension(att):
         try:
             im = Image.open(att.attachment.name)
             return im.size
@@ -169,7 +169,7 @@ def get_attachments(book_version):
         return None
 
     attachments = [{"id": att.id,
-                    "dimension": _getDimension(att),
+                    "dimension": _get_dimension(att),
                     "status": att.status.id,
                     "name": os.path.split(att.attachment.name)[1],
                     "preview": att.thumbnail(),
@@ -1617,7 +1617,7 @@ def remote_covers_data(request, message, bookid, version):
     """
 
     # TODO this function should be reusable
-    def _getDimension(cover):
+    def _get_dimension(cover):
         try:
             im = Image.open(cover.attachment.name)
             return im.size
@@ -1656,7 +1656,7 @@ def remote_covers_data(request, message, bookid, version):
             'filename': os.path.split(cover.attachment.name)[1],
             'preview': '../_cover/{0}/cover{1}'.format(cover.cid, os.path.split(cover.attachment.name)[1]),
             'size': cover.attachment.size,
-            'dimension': _getDimension(cover),
+            'dimension': _get_dimension(cover),
             'approved': cover.approved})
 
     covers.reverse()
@@ -3147,7 +3147,9 @@ def remote_assign_to_role(request, message, bookid, version):
     except User.DoesNotExist:
         return {'result': False}
 
-    book, _version, _security = get_book(request, bookid, version)
+    book, _version, book_security = get_book(request, bookid, version)
+    if not book_security.has_perm('core.manage_roles'):
+        raise PermissionDenied
 
     for roleid in message['roles']:
         # check if roles exist, otherwise continue with next loop
@@ -3173,6 +3175,10 @@ def remote_remove_user_from_role(request, message, bookid, version):
         - role
         - user
     """
+
+    _book, _version, book_security = get_book(request, bookid, version)
+    if not book_security.has_perm('core.manage_roles'):
+        raise PermissionDenied
 
     try:
         user = User.objects.get(id=message['userid'])

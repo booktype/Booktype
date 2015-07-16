@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n booktype_tags %}
 
 <div class="template templateSettingsHeader">
     <h2>{% trans "Book Settings" %}</h2>
@@ -9,22 +9,40 @@
         <div class="col-xs-12">
             <div class="box white clearfix">
                 <ul id="settings" class="nav nav-tabs col-xs-3" data-active-tab="{{ option }}">
+                    {% check_perm 'edit.manage_language' or 'edit.manage_license' %}
                     <h4>{% trans "Book" %}</h4>
-                    <li><a href="#language" data-toggle="tab">{% trans "Language" %}</a></li>
-                    <li><a href="#license" data-toggle="tab">{% trans "License" %}</a></li>
-                    <br>
+                    {% endcheck_perm %}
 
+                    {% check_perm 'edit.manage_language' %}
+                    <li><a href="#language" data-toggle="tab">{% trans "Language" %}</a></li>
+                    {% endcheck_perm %}
+
+                    {% check_perm 'edit.manage_license' %}
+                    <li><a href="#license" data-toggle="tab">{% trans "License" %}</a></li>
+                    {% endcheck_perm %}
+
+                    {% check_perm 'edit.manage_status' %}
+                    <br>
                     <h4>{% trans "Workflow" %}</h4>
                     <li><a href="#chapter-status" data-toggle="tab">{% trans "Chapter status" %}</a></li>
                     <br>
+                    {% endcheck_perm %}
 
+                    {% check_perm 'edit.manage_metadata' %}
                     <h4>{% trans "Metadata" %}</h4>
                     <li><a href="#metadata" data-toggle="tab">{% trans "Book Metadata" %}</a></li>
                     <br>
+                    {% endcheck_perm %}
 
                     <h4>{% trans "Security" %}</h4>
+                    {% check_perm 'core.manage_roles' %}
                     <li><a href="#roles" data-toggle="tab">{% trans "Roles" %}</a></li>
+                    {% endcheck_perm %}
+
+                    {% check_perm 'core.manage_permissions' %}
                     <li><a href="#permissions" data-toggle="tab">{% trans "Permissions" %}</a></li>
+                    {% endcheck_perm %}
+
                     <li><a href="#visibility" data-toggle="tab">{% trans "Visibility" %}</a></li>
 
                     <br>
@@ -42,6 +60,12 @@
     <h4 class="border-bottom">{% trans "Book Settings" %}</h4>
     <p>{% trans "Settings module not available." %}</p>
 </div>
+
+<div class="template templatePermissionDenied">
+    <h4 class="border-bottom">{% trans "Book Settings" %}</h4>
+    <p>{% trans "Permissions required to access this module." %}</p>
+</div>
+
 
 <script type="text/template" class="templateFlashMessage">
     <div class="alert alert-<%= alert_type %> alert-book-settings alert-dismissable fade in bk-dismiss" data-dismiss-secs="10">

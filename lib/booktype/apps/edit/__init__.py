@@ -31,5 +31,10 @@ PERMISSIONS = {
 
         ('history_revert', _('Restore history')),
         ('note_edit', _('Edit Notes')),
+
+        # permissions for settings interface
+        ('manage_language', _('Manage Language')),
+        ('manage_license', _('Manage License')),
+        ('manage_metadata', _('Manage Metadata'))
     ]
 }

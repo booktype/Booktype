@@ -18,6 +18,7 @@ from booki.editor.models import METADATA_FIELDS
 class BaseSettingsForm(BaseBooktypeForm):
     success_url = None
     success_message = None
+    required_permission = None
 
     def __init__(self, *args, **kwargs):
         kwargs.update({'error_class': SpanErrorList})
@@ -31,6 +32,15 @@ class BaseSettingsForm(BaseBooktypeForm):
     @classmethod
     def extra_context(cls, book=None, request=None):
         return {}
+
+    @classmethod
+    def has_perm(cls, book=None, request=None):
+        if cls.required_permission:
+            book_security = security.get_security_for_book(request.user, book)
+            return book_security.has_perm(cls.required_permission)
+
+        # if there no required permission, then True
+        return True
 
     def save_settings(self, request):
         pass
@@ -47,6 +57,7 @@ class LanguageForm(BaseSettingsForm, forms.Form):
         help_text=_("Book with right to left writing.")
     )
     skip_select_and_checkbox = True
+    required_permission = 'edit.manage_language'
 
     @classmethod
     def initial_data(cls, book=None, request=None):
@@ -78,6 +89,7 @@ class LanguageForm(BaseSettingsForm, forms.Form):
 
 class ChapterStatusForm(BaseSettingsForm, forms.Form):
     name = forms.CharField(label=_('New Status'))
+    required_permission = 'edit.manage_status'
 
     @classmethod
     def extra_context(cls, book, request):
@@ -98,6 +110,7 @@ class LicenseForm(BaseSettingsForm, forms.Form):
         queryset=License.objects.all().order_by("name")
     )
     skip_select_and_checkbox = True
+    required_permission = 'edit.manage_license'
 
     @classmethod
     def initial_data(cls, book=None, request=None):
@@ -115,6 +128,8 @@ class ChapterStatus(BaseSettingsForm, forms.Form):
 
 
 class MetadataForm(BaseSettingsForm, forms.Form):
+
+    required_permission = 'edit.manage_metadata'
 
     def __init__(self, *args, **kwargs):
         super(MetadataForm, self).__init__(*args, **kwargs)
@@ -166,6 +181,7 @@ class MetadataForm(BaseSettingsForm, forms.Form):
 
 
 class RolesForm(BaseSettingsForm, forms.Form):
+    required_permission = 'core.manage_roles'
 
     @classmethod
     def extra_context(cls, book=None, request=None):
@@ -178,6 +194,7 @@ class RolesForm(BaseSettingsForm, forms.Form):
 
 class PermissionsForm(BaseSettingsForm, DefaultRolesForm):
     skip_select_and_checkbox = True
+    required_permission = 'core.manage_permissions'
 
     @classmethod
     def initial_data(cls, book=None, request=None):
