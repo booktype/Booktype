@@ -55,4 +55,6 @@ class ScreenPDFConverter(MPDFConverter):
         if content is None:
             return content
 
+        self._fix_broken_endnotes(content)
+
         return content
