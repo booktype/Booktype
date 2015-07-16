@@ -5,6 +5,30 @@ import codecs
 from django.conf import settings
 
 
+def get_body(theme_name, profile):
+    """Returns file name for the template.
+
+    User defined themes could have specific front matter. We will check theme configuration
+    if body is defined. If it is not defined, we will return default template file name.
+
+    :Args:
+      - theme_name: Name of the theme
+      - profile: Output profile (e.g. mpdf, screenpdf)
+
+    :Returns:
+      Returns file name for the template.
+    """
+    
+    data = read_theme_info('{}/themes/{}/info.json'.format(settings.DATA_ROOT, theme_name))
+
+    if 'output' in data:
+        if profile in data['output']:
+            if 'body' in data['output'][profile]:
+                return data['output'][profile]['body']
+
+    return u'body_{}.html'.format(profile)
+
+
 def get_single_frontmatter(theme_name, profile):
     """Returns file name for the template.
 
