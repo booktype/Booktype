@@ -262,7 +262,7 @@ class MPDFConverter(BaseConverter):
             self._fix_images(cnt, base_path)
             cnt = self._fix_content(cnt)
 
-            return etree.tostring(chapter_child, method='html', pretty_print=True)[6:-9]
+            return etree.tostring(cnt, method='html', pretty_print=True)[6:-9]
 
         return u''
 
@@ -376,6 +376,7 @@ class MPDFConverter(BaseConverter):
         :Args:
           - book: EPUB Book object
         """
+        
         if not os.path.exists(self.images_path):
             os.makedirs(self.images_path)
 
@@ -388,6 +389,7 @@ class MPDFConverter(BaseConverter):
         :Args:
           - item: ebooklib item object
         """
+
         file_name = os.path.basename(item.file_name)
         file_path = os.path.join(self.images_path, file_name)
 
@@ -399,6 +401,31 @@ class MPDFConverter(BaseConverter):
             file.write(item.content)
 
         self.images[item.file_name] = file_name
+
+    def _fix_broken_endnotes(self, content):
+        """Removed broken endnotes from the content.
+
+        :Args:
+          - content: lxml node tree with the chapter content
+
+        """
+        for endnote in content.xpath("//ol[@class='endnotes']"):
+            for link in endnote.xpath("//li[@class='orphan-endnote']"):                
+                endnote.remove(link)
+
+    def _fix_broken_links(self, content):
+        """Removes links from the output and replaces them with textual url.
+
+        :Args:
+          - content: lxml node tree with the chapter content
+
+        """
+
+        for link in content.iter('a'):
+            if link.attrib.get('href', '') != '':
+                text = link.tail or ''
+                link.tail = ' [' + link.attrib.get('href', '') + '] ' + text
+                link.tag = 'span'
 
     def _fix_content(self, content):
         """Removes unwanted formatting from the content.
@@ -416,12 +443,8 @@ class MPDFConverter(BaseConverter):
         if content is None:
             return content
 
-        # For print edition we need URL outside of a tags
-        for link in content.iter('a'):
-            if link.attrib.get('href', '') != '':
-                text = link.tail or ''
-                link.tail = ' [' + link.attrib.get('href', '') + '] ' + text
-                link.tag = 'span'
+        self._fix_broken_links(content)
+        self._fix_broken_endnotes(content)
 
         # Fix links to other URL places
         return content
@@ -433,6 +456,7 @@ class MPDFConverter(BaseConverter):
           - root: lxml node tree with the content
           - base_path: directory where our images are placed
         """
+
         for element in root.iter('img'):
             src_url = urllib2.unquote(element.get('src'))
             item_name = os.path.normpath(os.path.join(base_path, src_url))
@@ -455,6 +479,7 @@ class MPDFConverter(BaseConverter):
         :Returns:
           - Dictionary with default data for the templates
         """
+
         return {
             "title": get_refines(book.metadata, 'title-type', 'main'),
             "subtitle": get_refines(book.metadata, 'title-type', 'subtitle'),
