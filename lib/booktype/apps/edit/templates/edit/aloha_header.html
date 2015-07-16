@@ -7,167 +7,171 @@
 <script src="{% static "edit/js/findAndReplaceDOMText/findAndReplaceDOMText.js" %}"></script>
 
 <script>
-    Aloha = window.Aloha || {};
+  Aloha = window.Aloha || {};
 
-    Aloha.settings = {
-        jQuery: window.jQuery.noConflict(true),
-        baseUrl: '{% static "edit/js/aloha/lib" %}',
+  Aloha.settings = {
+    jQuery: window.jQuery.noConflict(true),
+    baseUrl: '{% static "edit/js/aloha/lib" %}',
 
-        sidebar: { disabled: true },
-        predefinedModules: {
-            'booktype': window.booktype,
-            'jquery19': window.jQuery,
-            'jqueryui': window.jQuery.ui,
-            'underscore': _,
-            'underscorestring': _.string
+    sidebar: {disabled: true},
+    predefinedModules: {
+      'booktype': window.booktype,
+      'jquery19': window.jQuery,
+      'jqueryui': window.jQuery.ui,
+      'underscore': _,
+      'underscorestring': _.string
+    },
+    plugins: {
+      fontsize: {
+        sizes: [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
+        unit: "px"
+      },
+      booktitle: {
+        enabled: true
+      },
+      bookstyle: {
+        dynamicFormatting: false
+      },
+      format: {
+        config: ['removeFormat'],
+        removeFormats: ['strong', 'em', 'b', 'i', 'u', 's', 'cite', 'q', 'code', 'abbr', 'del', 'sub', 'sup', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+          'ol', 'li', 'ul', 'table', 'tr', 'td', 'th', 'a']
+      },
+      image: {
+        config: ['img'],
+        autoResize: false,
+        ui: {
+          resizable: false
+        }
+      },
+      highlighteditables: {
+        config: ['highlight'],
+        editables: {
+          '#mirko': ['highlight'],
+          '#contenteditor': []
+        }
+      },
+      font: {
+        fontlist: [["Serif", "serif"], ["Sans Serif", "sans-serif"]]
+      },
+      indent: {
+        marginLeft: "48px"
+      },
+      endnotes: {
+        enabled: true,
+        supForbiddenContainer: ['sup']
+      }
+    },
+    contentHandler: {
+      insertHtml: ['word', 'generic', 'oembed', 'sanitize', 'block', 'formatless'],
+      initEditable: ['sanitize'],
+      getContents: ['blockelement', 'sanitize', 'basic'],
+      allows: {
+        elements: [
+          'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+          'a', 'br', 'hr',
+          'b', 'i', 'strong', 'em', 'blockquote', 'del', 'ins', 'dfn', 'q', 's', 'small', 'span', 'u',
+          'bdi', 'rt', 'ruby',
+          'abbr', 'address', 'article', 'aside', 'audio', 'caption', 'cite', 'code', 'section',
+          'col', 'colgroup', 'dd',
+          'div', 'dl', 'dt', 'figure', 'figcaption', 'footer', 'header',
+          'img', 'li', 'mark', 'ol', 'ul', 'p', 'pre', 'style', 'sub', 'sup',
+          'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'wbr'],
+
+        attributes: {
+          'h1'        : ['id', 'class', 'style'],
+          'h2'        : ['id', 'class', 'style'],
+          'h3'        : ['id', 'class', 'style'],
+          'h4'        : ['id', 'class', 'style'],
+          'h5'        : ['id', 'class', 'style'],
+          'h6'        : ['id', 'class', 'style'],
+
+          'a'         : ['href', 'id', 'class', 'target', 'hreflang', 'media', 'rel', 'type'],
+          'br'        : ['id', 'class'],
+          'hr'        : ['id', 'style'],
+          'del'       : ['id', 'class', 'cite', 'datetime'],
+          'ins'       : ['id', 'class', 'cite', 'datetime'],
+
+          'i'         : ['class'],
+
+          'img'       : ['id', 'class', 'style', 'src', 'alt', 'width', 'height', 'align'],
+          'blockquote': ['id', 'class', 'style', 'cite'],
+          'q'         : ['cite'],
+          'li'        : ['id', 'class', 'style', 'value'],
+          'ol'        : ['id', 'class', 'style', 'reversed', 'start', 'type'],
+          'ul'        : ['id', 'class', 'style'],
+          'mark'      : ['id', 'class', 'style'],
+          'figure'    : ['id', 'class', 'style'],
+          'figcaption': ['id', 'class', 'style'],
+          'footer'    : ['id', 'class', 'style'],
+          'header'    : ['id', 'class', 'style'],
+          'col'       : ['id', 'class', 'style', 'span'],
+          'colgroup'  : ['id', 'class', 'style', 'span'],
+          'table'     : ['id', 'class', 'style', 'border'],
+          'td'        : ['id', 'class', 'style', 'colspan', 'headers', 'rowspan'],
+          'p'         : ['id', 'class', 'style', 'dir', 'lang'],
+          'div'       : ['id', 'class', 'style', 'dir', 'lang'],
+          'span'      : ['id', 'class', 'style', 'dir', 'lang'],
+          'code'      : ['id', 'class', 'style'],
+          'pre'       : ['id', 'class', 'style', 'dir', 'lang'],
+          'sup'       : ['id', 'class', 'style', 'data-id'],
+          'sub'       : ['id', 'class', 'style'],
+
+          'audio'     : ['id', 'class', 'style', 'autoplay', 'controls', 'loop', 'muted', 'preload', 'src']
         },
-        plugins: {
-            fontsize: {
-                sizes: [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
-                unit: "px"
-            },
-            booktitle: {
-                enabled: true
-            },
-            bookstyle: {
-                dynamicFormatting: false
-            },
-            format: {
-                config: ['removeFormat'],
-                removeFormats: ['strong', 'em', 'b', 'i', 'u', 's', 'cite', 'q', 'code', 'abbr', 'del', 'sub', 'sup', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-                  'ol', 'li', 'ul', 'table', 'tr', 'td', 'th', 'a']
-            },
-            image: {
-                config: ['img'],
-                autoResize: false,
-                ui: {
-                    resizable: false
-                }
-            },
-            highlighteditables: {
-                config: ['highlight'],
-                editables: {
-                    '#mirko': [ 'highlight' ],
-                    '#contenteditor': [ ]
-                }
-            },
-            font: {
-                fontlist : [["Serif", "serif"], ["Sans Serif", "sans-serif"]]
-            },
-            indent: {
-                marginLeft: "48px"
-            }
+
+        protocols: {
+          'a'         : {'href': ['ftp', 'http', 'https', 'mailto', '__relative__']}, // Sanitize.RELATIVE
+          'blockquote': {'cite': ['http', 'https', '__relative__']},
+          'q'         : {'cite': ['http', 'https', '__relative__']}
+        }
+      },
+      handler: {
+        generic: {
+          transformFormattings: false // this will disable the transformFormattings method in the generic content handler
         },
-        contentHandler : {
-                insertHtml: [ 'word', 'generic', 'oembed', 'sanitize', 'block', 'formatless' ],
-                initEditable: [ 'sanitize' ],
-                getContents: [ 'blockelement', 'sanitize', 'basic' ],
-                sanitize: 'relaxed', // relaxed, restricted, basic,
-                allows: {
-                    elements: [
-                        'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-                        'a', 'br', 'hr',
-                        'b', 'i', 'strong', 'em', 'blockquote', 'del', 'ins', 'dfn', 'q', 's', 'small', 'span', 'u',
-                        'bdi', 'rt', 'ruby',
-                        'abbr', 'address', 'article', 'aside', 'audio', 'caption', 'cite', 'code', 'section',
-                        'col', 'colgroup', 'dd',
-                        'div', 'dl', 'dt', 'figure', 'figcaption', 'footer', 'header',
-                        'img', 'li', 'mark', 'ol', 'ul', 'p', 'pre', 'style', 'sub', 'sup',
-                        'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'wbr'],
+        sanitize: {
+          '.aloha-captioned-image-caption': {elements: ['em', 'strong']}
+        }
+      }
+    }
+  };
 
-                attributes: {
-                        'h1'        : ['id', 'class', 'style'],
-                        'h2'        : ['id', 'class', 'style'],
-                        'h3'        : ['id', 'class', 'style'],
-                        'h4'        : ['id', 'class', 'style'],
-                        'h5'        : ['id', 'class', 'style'],
-                        'h6'        : ['id', 'class', 'style'],
-
-                        'a'         : ['href', 'id', 'class', 'target', 'hreflang', 'media', 'rel', 'type'],
-                        'br'        : ['id', 'class'],
-                        'hr'        : ['id', 'style'],
-                        'del'       : ['id', 'class', 'cite', 'datetime'],
-                        'ins'       : ['id', 'class', 'cite', 'datetime'],
-
-                        'i'         : ['class'],
-
-                        'img'       : ['id', 'class', 'style', 'src', 'alt', 'width', 'height', 'align'],
-                        'blockquote': ['id', 'class', 'style', 'cite'],
-                        'q'         : ['cite'],
-                        'li'        : ['id', 'class', 'style', 'value'],
-                        'ol'        : ['id', 'class', 'style', 'reversed', 'start', 'type'],
-                        'ul'        : ['id', 'class', 'style'],
-                        'mark'      : ['id', 'class', 'style'],
-                        'figure'    : ['id', 'class', 'style'],
-                        'figcaption': ['id', 'class', 'style'],
-                        'footer'    : ['id', 'class', 'style'],
-                        'header'    : ['id', 'class', 'style'],
-                        'col'       : ['id', 'class', 'style', 'span'],
-                        'colgroup'  : ['id', 'class', 'style', 'span'],
-                        'table'     : ['id', 'class', 'style', 'border'],
-                        'td'        : ['id', 'class', 'style', 'colspan', 'headers', 'rowspan'],
-                        'p'         : ['id', 'class', 'style', 'dir', 'lang'],
-                        'div'       : ['id', 'class', 'style', 'dir', 'lang'],
-                        'span'      : ['id', 'class', 'style', 'dir', 'lang'],
-                        'code'      : ['id', 'class', 'style'],
-                        'pre'       : ['id', 'class', 'style', 'dir', 'lang'],
-                        'sup'       : ['id', 'class', 'style'],
-                        'sub'       : ['id', 'class', 'style'],
-
-                        'audio'     : ['id', 'class', 'style', 'autoplay', 'controls', 'loop', 'muted', 'preload', 'src']
-                     },
-
-                    protocols: {
-                        'a'         : {'href': ['ftp', 'http', 'https', 'mailto', '__relative__']}, // Sanitize.RELATIVE
-                        'blockquote': {'cite': ['http', 'https', '__relative__']},
-                        'q'         : {'cite': ['http', 'https', '__relative__']}
-                    }
-                },
-                handler: {
-                    generic: {
-                        transformFormattings: false // this will disable the transformFormattings method in the generic content handler
-                    },
-                    sanitize: {
-                        '.aloha-captioned-image-caption': { elements: [ 'em', 'strong' ] }
-                    }
-                }
-            }
-    };
-
+  // define sanitize settings
+  Aloha.settings.contentHandler.sanitize = Aloha.settings.contentHandler.allows;
 </script>
 <script src="{% static "edit/js/aloha/lib/require.js" %}"></script>
 
-
 <script src="{% static "edit/js/aloha/lib/aloha.js" %}"
-    data-aloha-plugins="common/ui,
-                        oer/toolbar,
-                        common/format,
-                        booktype/linkbooktype,
-                        booktype/colorbooktype,
-                        booktype/footnotes,
-                        booktype/horizontalline,
-                        booktype/extraformat,
-                        booktype/htmledit,
-                        booktype/booktitle,
-                        booktype/pbreak,
-                        booktype/wcount,
-                        booktype/font,
-                        booktype/indent,
-                        booktype/styling,
-                        booktype/bookalign,
-                        booktype/fontsize,
-                        common/undo,
-                        booktype/bookundo,
-                        extra/linkbrowser,
-                        booktype/findandreplace,
-                        common/list,
-                        common/highlighteditables,
-                        common/block,
-                        common/image,
-                        common/contenthandler,
-                        common/paste,
-                        common/commands,
-                        common/align,
-                        booktype/imagesimple,
-                        booktype/simpletable,
-                        booktype/bookpaste"></script>
+        data-aloha-plugins="common/ui,
+                            common/format,
+                            common/undo,
+                            common/list,
+                            common/highlighteditables,
+                            common/block,
+                            common/image,
+                            common/contenthandler,
+                            common/paste,
+                            common/commands,
+                            common/align,
+                            oer/toolbar,
+                            extra/linkbrowser,
+                            booktype/linkbooktype,
+                            booktype/colorbooktype,
+                            booktype/endnotes,
+                            booktype/horizontalline,
+                            booktype/extraformat,
+                            booktype/htmledit,
+                            booktype/booktitle,
+                            booktype/pbreak,
+                            booktype/wcount,
+                            booktype/font,
+                            booktype/indent,
+                            booktype/styling,
+                            booktype/bookalign,
+                            booktype/fontsize,
+                            booktype/bookundo,
+                            booktype/findandreplace,
+                            booktype/imagesimple,
+                            booktype/simpletable,
+                            booktype/bookpaste"></script>
