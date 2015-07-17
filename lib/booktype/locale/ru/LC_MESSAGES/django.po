@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-03 05:39-0600\n"
-"PO-Revision-Date: 2015-07-13 12:53+0000\n"
-"Last-Translator: Andrey Podshivalov\n"
+"POT-Creation-Date: 2015-07-15 21:42-0600\n"
+"PO-Revision-Date: 2015-07-17 09:20+0000\n"
+"Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Russian (http://www.transifex.com/p/booktype/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,7 +79,7 @@ msgid "description"
 msgstr "описание"
 
 #: apps/account/models.py:38 apps/account/models.py:64
-#: apps/export/models.py:12 apps/export/models.py:40
+#: apps/export/models.py:29 apps/export/models.py:57
 msgid "user"
 msgstr "пользователь"
 
@@ -109,237 +109,161 @@ msgstr "удаленный адрес"
 msgid "remote host"
 msgstr "удаленный хост"
 
-#: apps/account/views.py:64
-msgid "Dashboard"
-msgstr "Панель пользователя"
-
-#: apps/account/views.py:65
-#: apps/account/templates/account/form_signedin.html:15
-#: apps/account/templates/account/form_signedin.html:16
-#: apps/core/templates/core/nav_bar.html:9
-#: apps/core/templates/core/nav_menu.html:15
-#: apps/edit/templates/edit/toolbar_user.html:6
-msgid "My Dashboard"
-msgstr "Моя панель пользователя"
-
-#: apps/account/views.py:118 apps/account/views.py:119
-msgid "User profile"
-msgstr "Пользовательский профайл"
-
-#: apps/account/views.py:168 apps/account/views.py:169
-#: apps/account/templates/account/dashboard.html:153
-#: apps/account/templates/account/form_signedin.html:19
-#: apps/edit/templates/edit/toolbar_book.html:15
-msgid "Settings"
-msgstr "Настройки"
-
-#: apps/account/views.py:219
-msgid "User settings has been successfully saved!"
-msgstr "Настройки пользователя были успешно сохранены!"
-
-#: apps/account/views.py:256
-msgid "Password changed successfully!"
-msgstr "Пароль успешно изменен!"
-
-#: apps/account/views.py:279 apps/account/views.py:280
-#: apps/account/templates/account/forgot_password.html:10
-msgid "Forgot your password"
-msgstr "Забыли свой пароль"
-
-#: apps/account/views.py:308
-msgid "Missing username"
-msgstr "Пропущено имя пользователя"
-
-#: apps/account/views.py:312
-msgid "No such user"
-msgstr "Нет такого пользователя"
-
-#: apps/account/views.py:332
-msgid "Reset password"
-msgstr "Сбросить пароль"
-
-#: apps/account/views.py:345
-msgid "Unknown error"
-msgstr "Неизвестная ошибка"
-
-#: apps/account/views.py:352 apps/account/views.py:353
-#: apps/account/templates/account/forgot_password_enter.html:12
-msgid "Reset your password"
-msgstr "Смените свой пароль"
-
-#: apps/account/views.py:367
-msgid "Password can't be empty"
-msgstr "Пароль не может быть пустым"
-
-#: apps/account/views.py:372
-msgid "Passwords don't match"
-msgstr "Пароли не совпадают"
-
-#: apps/account/views.py:388
-msgid "Wrong secret code"
-msgstr "Неверный секретный код"
-
-#: apps/account/views.py:402 apps/account/views.py:403
-#: apps/account/templates/account/form_signin.html:3
-msgid "Sign in"
-msgstr "Вход"
-
-#: apps/account/templates/account/dashboard.html:23
-msgid "Follow me"
-msgstr "Отслеживать мои действия"
-
-#: apps/account/templates/account/dashboard.html:23
-msgid "FOLLOW ME"
-msgstr "Следить за мной"
-
-#: apps/account/templates/account/dashboard.html:38
+#: apps/account/templates/account/dashboard.html:35
 msgid "My Books"
 msgstr "Мои книги"
 
-#: apps/account/templates/account/dashboard.html:40
+#: apps/account/templates/account/dashboard.html:37
 #: apps/account/templates/account/dashboard_group_template.html:12
-#: apps/core/templates/core/nav_menu.html:21 apps/portal/views.py:317
-#: apps/portal/views.py:318 apps/portal/templates/portal/all_groups.html:31
+#: apps/core/templates/core/nav_menu.html:21
+#: apps/portal/templates/portal/all_groups.html:31
 #: apps/portal/templates/portal/all_groups.html:68
 #: apps/portal/templates/portal/all_groups.html:92
 #: apps/portal/templates/portal/books.html:17
-#: apps/portal/templates/portal/frontpage.html:21
+#: apps/portal/templates/portal/frontpage.html:20
 #: apps/portal/templates/portal/group.html:21
-#: apps/portal/templates/portal/group.html:49
+#: apps/portal/templates/portal/group.html:48 apps/portal/views.py:316
+#: apps/portal/views.py:317
 #: apps/reader/templates/reader/book_info_page.html:83
 msgid "Books"
 msgstr "Книги"
 
-#: apps/account/templates/account/dashboard.html:47
+#: apps/account/templates/account/dashboard.html:44
 msgid "Create new book"
 msgstr "Создать новую книгу"
 
-#: apps/account/templates/account/dashboard.html:51
+#: apps/account/templates/account/dashboard.html:48
 msgid "Import Book"
 msgstr "Импортировать книгу"
 
-#: apps/account/templates/account/dashboard.html:57
+#: apps/account/templates/account/dashboard.html:54
 #: apps/portal/templates/portal/books.html:22
-#: apps/portal/templates/portal/frontpage.html:25
-#: apps/portal/templates/portal/group.html:52
+#: apps/portal/templates/portal/frontpage.html:24
+#: apps/portal/templates/portal/group.html:51
 msgid "Show grid"
 msgstr "Показать сеткой"
 
-#: apps/account/templates/account/dashboard.html:58
+#: apps/account/templates/account/dashboard.html:55
 #: apps/portal/templates/portal/books.html:23
-#: apps/portal/templates/portal/frontpage.html:26
-#: apps/portal/templates/portal/group.html:53
+#: apps/portal/templates/portal/frontpage.html:25
+#: apps/portal/templates/portal/group.html:52
 msgid "Show List"
 msgstr "Показать списком"
 
-#: apps/account/templates/account/dashboard.html:69
+#: apps/account/templates/account/dashboard.html:66
 msgid ""
 "This is a perfect moment to start writing your book, just click on the "
 "button above!"
 msgstr "Это отличный момент, чтобы начать писать свою книгу, просто нажмите на кнопку выше!"
 
-#: apps/account/templates/account/dashboard.html:71
+#: apps/account/templates/account/dashboard.html:68
 msgid "This user has no books"
 msgstr "Этот пользователь не имеет книг"
 
-#: apps/account/templates/account/dashboard.html:79
+#: apps/account/templates/account/dashboard.html:76
 msgid "Participating Books"
 msgstr "Участвующий в книгах"
 
-#: apps/account/templates/account/dashboard.html:95
+#: apps/account/templates/account/dashboard.html:92
 msgid "My Groups"
 msgstr "Мои группы"
 
-#: apps/account/templates/account/dashboard.html:101
+#: apps/account/templates/account/dashboard.html:98
 msgid ""
 "Work with others in Groups. To create a Group click on the button below"
 msgstr "Работайте с другими пользователями в группах. Чтобы создать группу, нажмите на кнопку ниже."
 
-#: apps/account/templates/account/dashboard.html:107
+#: apps/account/templates/account/dashboard.html:104
 msgid "Participating Groups"
 msgstr "Участвующий в группах"
 
-#: apps/account/templates/account/dashboard.html:113
+#: apps/account/templates/account/dashboard.html:110
 msgid "Join other groups based on your interest"
 msgstr "Присоединяйтесь к другим группам на основе ваших интересов"
 
-#: apps/account/templates/account/dashboard.html:113
-#: apps/portal/templates/portal/frontpage.html:30
-#: apps/portal/templates/portal/frontpage.html:57
-#: apps/portal/templates/portal/frontpage.html:86
+#: apps/account/templates/account/dashboard.html:110
+#: apps/portal/templates/portal/frontpage.html:29
+#: apps/portal/templates/portal/frontpage.html:55
+#: apps/portal/templates/portal/frontpage.html:88
 msgid "view all"
 msgstr "полный список"
 
-#: apps/account/templates/account/dashboard.html:118
+#: apps/account/templates/account/dashboard.html:115
 msgid "Create New Group"
 msgstr "Создать новую группу"
 
-#: apps/account/templates/account/dashboard.html:131
+#: apps/account/templates/account/dashboard.html:128
 #: apps/account/templates/account/form_signedin.html:3
 msgid "My Profile"
 msgstr "Мой профайл"
 
-#: apps/account/templates/account/dashboard.html:143
-#: apps/account/templates/account/other_user_box.html:13
+#: apps/account/templates/account/dashboard.html:140
+#: apps/account/templates/account/other_user_box.html:10
 #: apps/portal/templates/portal/people.html:23
 msgid "Track updates by RSS"
 msgstr "Следить за обновлениями по RSS"
 
-#: apps/account/templates/account/dashboard.html:153
+#: apps/account/templates/account/dashboard.html:143
 #: apps/account/templates/account/form_signedin.html:18
 msgid "Go to settings"
 msgstr "Перейти к настройкам"
 
-#: apps/account/templates/account/dashboard.html:154
+#: apps/account/templates/account/dashboard.html:143
+#: apps/account/templates/account/form_signedin.html:19
+#: apps/account/views.py:172 apps/account/views.py:173
+#: apps/edit/templates/edit/toolbar_book.html:12
+msgid "Settings"
+msgstr "Настройки"
+
+#: apps/account/templates/account/dashboard.html:144
 msgid "Log out"
 msgstr "Выйти"
 
-#: apps/account/templates/account/dashboard.html:162
+#: apps/account/templates/account/dashboard.html:152
 msgid "My Recent Activity"
 msgstr "Моя недавняя активность"
 
-#: apps/account/templates/account/dashboard.html:164
+#: apps/account/templates/account/dashboard.html:154
 #: apps/portal/templates/portal/books.html:105
-#: apps/portal/templates/portal/frontpage.html:139
+#: apps/portal/templates/portal/frontpage.html:140
 msgid "Recent Activity"
 msgstr "Последняя активность"
 
-#: apps/account/templates/account/dashboard.html:172
+#: apps/account/templates/account/dashboard.html:162
 #: apps/portal/templates/portal/books.html:112
-#: apps/portal/templates/portal/frontpage.html:146
+#: apps/portal/templates/portal/frontpage.html:147
 #: apps/reader/templates/reader/book_info_page.html:98
 msgid "ago"
 msgstr "назад"
 
-#: apps/account/templates/account/dashboard.html:185
-#: apps/portal/templates/portal/books.html:125
-#: apps/portal/templates/portal/frontpage.html:159
-msgid "There is no activity yet"
-msgstr "Нет активности"
+#: apps/account/templates/account/dashboard.html:175
+msgid "This user has no recent activity."
+msgstr ""
 
-#: apps/account/templates/account/dashboard.html:192
-#: apps/core/templates/core/nav_menu.html:28 apps/portal/views.py:145
-#: apps/portal/views.py:146 apps/portal/templates/portal/frontpage.html:85
+#: apps/account/templates/account/dashboard.html:182
+#: apps/core/templates/core/nav_menu.html:28
+#: apps/portal/templates/portal/frontpage.html:87 apps/portal/views.py:144
+#: apps/portal/views.py:145
 msgid "Groups"
 msgstr "Группы"
 
-#: apps/account/templates/account/dashboard.html:197
-msgid "This are no groups here yet"
-msgstr "Здесь еще нет групп"
+#: apps/account/templates/account/dashboard.html:187
+msgid "This user is not a member of any groups."
+msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:16
-#: apps/portal/templates/portal/group.html:71
+#: apps/portal/templates/portal/group.html:70
 msgid "Edit Book"
 msgstr "Редактировать книгу"
 
 #: apps/account/templates/account/dashboard_book_template.html:19
 #: apps/account/templates/account/dashboard_import_book_modal.html:60
-#: apps/portal/templates/portal/group.html:72
+#: apps/portal/templates/portal/group.html:71
 msgid "View Book"
 msgstr "Посмотреть книгу"
 
 #: apps/account/templates/account/dashboard_book_template.html:24
-#: apps/portal/templates/portal/group.html:73
+#: apps/portal/templates/portal/group.html:72
 #: apps/reader/templates/reader/book_delete.html:9
 #: apps/reader/templates/reader/book_delete.html:19
 #: apps/reader/templates/reader/book_info_page.html:59
@@ -358,17 +282,17 @@ msgid "Edit"
 msgstr "Редактировать"
 
 #: apps/account/templates/account/dashboard_book_template.html:42
-#: apps/edit/templates/edit/panel_toc.html:342
-#: apps/edit/templates/edit/panel_toc.html:353
-#: apps/edit/templates/edit/panel_toc.html:376
+#: apps/edit/templates/edit/panel_toc.html:345
+#: apps/edit/templates/edit/panel_toc.html:356
+#: apps/edit/templates/edit/panel_toc.html:382
 msgid "Rename"
 msgstr "Переименовать"
 
 #: apps/account/templates/account/dashboard_book_template.html:45
-#: apps/edit/templates/edit/panel_aloha.html:263
-#: apps/edit/templates/edit/panel_toc.html:344
-#: apps/edit/templates/edit/panel_toc.html:359
-#: apps/edit/templates/edit/panel_toc.html:382
+#: apps/edit/templates/edit/panel_aloha.html:265
+#: apps/edit/templates/edit/panel_toc.html:347
+#: apps/edit/templates/edit/panel_toc.html:364
+#: apps/edit/templates/edit/panel_toc.html:390
 msgid "Delete"
 msgstr "Удалить"
 
@@ -379,7 +303,7 @@ msgstr "Создать новую книгу"
 #. Translators: Default chapter title when importing DOCX
 #. files. In case title does not exists.
 #: apps/account/templates/account/dashboard_create_book_modal.html:17
-#: apps/edit/forms.py:122 apps/edit/templates/edit/panel_covers.html:59
+#: apps/edit/templates/edit/panel_covers.html:59
 #: apps/edit/templates/edit/panel_covers.html:61
 #: apps/edit/templates/edit/panel_covers.html:116
 #: apps/edit/templates/edit/panel_covers.html:118
@@ -401,7 +325,7 @@ msgstr "Книга с таким названием уже существует"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:26
 #: apps/account/templates/account/dashboard_create_book_modal.html:29
-#: apps/edit/templates/edit/panel_aloha.html:219 apps/export/models.py:30
+#: apps/edit/templates/edit/panel_aloha.html:221 apps/export/models.py:47
 msgid "Description"
 msgstr "Описание"
 
@@ -420,9 +344,9 @@ msgid "Choose from the following license"
 msgstr "Выберите лицензию из предложенного списка"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:36
-#: apps/edit/forms.py:95 apps/edit/templates/edit/panel_covers.html:73
+#: apps/edit/forms.py:109 apps/edit/templates/edit/panel_covers.html:73
 #: apps/edit/templates/edit/panel_covers.html:130
-#: apps/edit/templates/edit/panel_settings.html:14
+#: apps/edit/templates/edit/panel_settings.html:21
 msgid "License"
 msgstr "Лицензия"
 
@@ -484,7 +408,7 @@ msgstr "Нет отслеживаемых пользователей еще"
 #: apps/portal/templates/portal/all_groups.html:68
 #: apps/portal/templates/portal/all_groups.html:92
 #: apps/portal/templates/portal/group.html:20
-#: apps/portal/templates/portal/group.html:107
+#: apps/portal/templates/portal/group.html:106
 #: apps/reader/templates/reader/book_info_page.html:83
 msgid "Members"
 msgstr "Члены"
@@ -548,9 +472,9 @@ msgstr "Изначально скрыто от других пользовате
 #: apps/edit/templates/edit/_settings_form_roles.html:84
 #: apps/edit/templates/edit/panel_covers.html:33
 #: apps/edit/templates/edit/panel_media.html:64
-#: apps/edit/templates/edit/panel_toc.html:100
-#: apps/edit/templates/edit/panel_toc.html:130
-#: apps/edit/templates/edit/panel_toc.html:431
+#: apps/edit/templates/edit/panel_toc.html:102
+#: apps/edit/templates/edit/panel_toc.html:132
+#: apps/edit/templates/edit/panel_toc.html:440
 #: apps/portal/templates/portal/group_create_modal.html:19
 #: apps/reader/templates/reader/book_info_edit.html:14
 msgid "Close"
@@ -576,6 +500,20 @@ msgstr "Сохранить изменения"
 msgid "Change password"
 msgstr "Изменить пароль"
 
+#: apps/account/templates/account/errors/user_does_not_exist.html:4
+msgid "User does not exist!"
+msgstr "Пользователь не существует!"
+
+#: apps/account/templates/account/errors/user_does_not_exist.html:5
+#, python-format
+msgid "Can't find user \"%(username)s\"."
+msgstr "Пользователь \"%(username)s\" не найден."
+
+#: apps/account/templates/account/forgot_password.html:10
+#: apps/account/views.py:283 apps/account/views.py:284
+msgid "Forgot your password"
+msgstr "Забыли свой пароль"
+
 #: apps/account/templates/account/forgot_password.html:12
 msgid "Check your email!"
 msgstr "Проверьте свою электронную почту!"
@@ -599,6 +537,11 @@ msgstr "Сообщите имя пользователя или email, кото�
 msgid "Send request"
 msgstr "Пошлите запрос"
 
+#: apps/account/templates/account/forgot_password_enter.html:12
+#: apps/account/views.py:356 apps/account/views.py:357
+msgid "Reset your password"
+msgstr "Смените свой пароль"
+
 #: apps/account/templates/account/forgot_password_enter.html:18
 msgid "Secret code"
 msgstr "Секретный код"
@@ -610,6 +553,19 @@ msgstr "Новый пароль"
 #: apps/account/templates/account/forgot_password_enter.html:34
 msgid "New password again"
 msgstr "Новый пароль еще раз"
+
+#: apps/account/templates/account/form_signedin.html:15
+#: apps/account/templates/account/form_signedin.html:16
+#: apps/account/views.py:65 apps/core/templates/core/nav_bar.html:9
+#: apps/core/templates/core/nav_menu.html:15
+#: apps/edit/templates/edit/toolbar_user.html:6
+msgid "My Dashboard"
+msgstr "Моя панель пользователя"
+
+#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:406
+#: apps/account/views.py:407
+msgid "Sign in"
+msgstr "Вход"
 
 #: apps/account/templates/account/form_signin.html:7
 msgid "Enter username"
@@ -628,15 +584,19 @@ msgid "Password is wrong! Please try again."
 msgstr "Пароль неверный! Попытайтесь снова."
 
 #: apps/account/templates/account/form_signin.html:16
+msgid "Your account is inactive! Please, contact site support."
+msgstr ""
+
+#: apps/account/templates/account/form_signin.html:17
 #: apps/account/templates/account/register.html:66
 msgid "Unknown error!"
 msgstr "Неизвестная ошибка!"
 
-#: apps/account/templates/account/form_signin.html:19
+#: apps/account/templates/account/form_signin.html:20
 msgid "SIGN IN"
 msgstr "ВОЙТИ"
 
-#: apps/account/templates/account/form_signin.html:20
+#: apps/account/templates/account/form_signin.html:21
 msgid "Forgotten your password?"
 msgstr "Забыли пароль?"
 
@@ -665,9 +625,9 @@ msgstr "Вы уже вошли!"
 #: apps/portal/templates/portal/all_groups.html:55
 #: apps/portal/templates/portal/anonymous_frontpage.html:51
 #: apps/portal/templates/portal/books.html:57
-#: apps/portal/templates/portal/frontpage.html:127
-#: apps/portal/templates/portal/group.html:101
-#: apps/portal/templates/portal/people.html:49
+#: apps/portal/templates/portal/frontpage.html:129
+#: apps/portal/templates/portal/group.html:100
+#: apps/portal/templates/portal/people.html:56
 msgid "Not a member? Please fill the "
 msgstr "Не зарегистрированы? Пожалуйста, заполните"
 
@@ -675,9 +635,9 @@ msgstr "Не зарегистрированы? Пожалуйста, запол�
 #: apps/portal/templates/portal/all_groups.html:55
 #: apps/portal/templates/portal/anonymous_frontpage.html:51
 #: apps/portal/templates/portal/books.html:57
-#: apps/portal/templates/portal/frontpage.html:127
-#: apps/portal/templates/portal/group.html:101
-#: apps/portal/templates/portal/people.html:49
+#: apps/portal/templates/portal/frontpage.html:129
+#: apps/portal/templates/portal/group.html:100
+#: apps/portal/templates/portal/people.html:57
 msgid "Registration form"
 msgstr "Форму регистрации"
 
@@ -746,30 +706,69 @@ msgstr "СОЗДАТЬ АККАУНТ"
 
 #: apps/account/templates/account/register.html:76
 #: apps/portal/templates/portal/anonymous_frontpage.html:55
-#: apps/portal/templates/portal/frontpage.html:131
+#: apps/portal/templates/portal/frontpage.html:133
 msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr "В настоящее время создавать новые учетные записи может только администратор."
 
-#: apps/account/templates/account/errors/user_does_not_exist.html:4
-msgid "User does not exist!"
-msgstr "Пользователь не существует!"
+#: apps/account/views.py:64
+msgid "Dashboard"
+msgstr "Панель пользователя"
 
-#: apps/account/templates/account/errors/user_does_not_exist.html:5
-#, python-format
-msgid "Can't find user \"%(username)s\"."
-msgstr "Пользователь \"%(username)s\" не найден."
+#: apps/account/views.py:123 apps/account/views.py:124
+msgid "User profile"
+msgstr "Пользовательский профайл"
+
+#: apps/account/views.py:223
+msgid "User settings has been successfully saved!"
+msgstr "Настройки пользователя были успешно сохранены!"
+
+#: apps/account/views.py:260
+msgid "Password changed successfully!"
+msgstr "Пароль успешно изменен!"
+
+#: apps/account/views.py:312
+msgid "Missing username"
+msgstr "Пропущено имя пользователя"
+
+#: apps/account/views.py:316
+msgid "No such user"
+msgstr "Нет такого пользователя"
+
+#: apps/account/views.py:336
+msgid "Reset password"
+msgstr "Сбросить пароль"
+
+#: apps/account/views.py:349
+msgid "Unknown error"
+msgstr "Неизвестная ошибка"
+
+#: apps/account/views.py:371
+msgid "Password can't be empty"
+msgstr "Пароль не может быть пустым"
+
+#: apps/account/views.py:376
+msgid "Passwords don't match"
+msgstr "Пароли не совпадают"
+
+#: apps/account/views.py:392
+msgid "Wrong secret code"
+msgstr "Неверный секретный код"
 
 #: apps/core/__init__.py:4
 msgid "Booktype core application"
 msgstr "ядро приложения Booktype "
 
 #: apps/core/__init__.py:7
-msgid "Just for test"
-msgstr "Только для теста"
+msgid "Manage Roles"
+msgstr ""
 
 #: apps/core/__init__.py:8
-msgid "Just for test 2"
-msgstr "Только для теста 2"
+msgid "Manage Permissions"
+msgstr ""
+
+#: apps/core/management/commands/update_default_roles.py:21
+msgid "system default role"
+msgstr "системная роль по умолчанию"
 
 #: apps/core/models.py:16
 msgid "app name"
@@ -784,8 +783,8 @@ msgstr "имя"
 msgid "Permission"
 msgstr "Разрешение"
 
-#: apps/core/models.py:29 apps/edit/views.py:47
-#: apps/edit/templates/edit/panel_settings.html:27
+#: apps/core/models.py:29 apps/edit/templates/edit/panel_settings.html:43
+#: apps/edit/views.py:47
 msgid "Permissions"
 msgstr "Разрешения"
 
@@ -797,9 +796,8 @@ msgstr "разрешения"
 msgid "Role"
 msgstr "Роль"
 
-#: apps/core/models.py:70 apps/edit/views.py:46
-#: apps/edit/templates/edit/panel_settings.html:26
-#: apps/portal/templates/portal/frontpage.html:222
+#: apps/core/models.py:70 apps/edit/templates/edit/panel_settings.html:39
+#: apps/edit/views.py:46 apps/portal/templates/portal/frontpage.html:230
 msgid "Roles"
 msgstr "Роли"
 
@@ -807,7 +805,7 @@ msgstr "Роли"
 msgid "role"
 msgstr "роль"
 
-#: apps/core/models.py:85
+#: apps/core/models.py:85 apps/export/models.py:67
 msgid "book"
 msgstr "книга"
 
@@ -822,10 +820,6 @@ msgstr "Роль книги"
 #: apps/core/models.py:97
 msgid "Book Roles"
 msgstr "Роли Книги"
-
-#: apps/core/management/commands/update_default_roles.py:21
-msgid "system default role"
-msgstr "системная роль по умолчанию"
 
 #: apps/core/templates/core/authors.html:13
 msgid "Modifications:"
@@ -891,12 +885,18 @@ msgstr "Выход"
 msgid "Sign In"
 msgstr "Войти"
 
+#: apps/core/templates/core/nav_bar.html:42
+#: apps/edit/templates/edit/toolbar_nav.html:29
+msgid "Help us to translate Booktype"
+msgstr ""
+
 #: apps/core/templates/core/nav_menu.html:10 apps/portal/views.py:45
 msgid "Home"
 msgstr "Главная"
 
-#: apps/core/templates/core/nav_menu.html:35 apps/portal/views.py:295
-#: apps/portal/views.py:296 apps/portal/templates/portal/frontpage.html:56
+#: apps/core/templates/core/nav_menu.html:35
+#: apps/portal/templates/portal/frontpage.html:54 apps/portal/views.py:294
+#: apps/portal/views.py:295
 msgid "People"
 msgstr "Пользователи"
 
@@ -1049,147 +1049,66 @@ msgstr "Изменение статуса главы"
 msgid "Delete book"
 msgstr "Удалить книгу"
 
-#: apps/edit/channel.py:1267
+#: apps/edit/__init__.py:32
+msgid "Restore history"
+msgstr ""
+
+#: apps/edit/__init__.py:33
+msgid "Edit Notes"
+msgstr ""
+
+#: apps/edit/__init__.py:36
+msgid "Manage Language"
+msgstr ""
+
+#: apps/edit/__init__.py:37
+msgid "Manage License"
+msgstr ""
+
+#: apps/edit/__init__.py:38
+msgid "Manage Metadata"
+msgstr ""
+
+#: apps/edit/channel.py:1293
 msgid "You have no permissions for editing this chapter."
 msgstr "У вас нет прав доступа для редактирования этой главы."
 
-#: apps/edit/channel.py:1275
+#: apps/edit/channel.py:1301
 msgid "Chapter currently being edited."
 msgstr "В данный момент глава редактируется."
 
-#: apps/edit/channel.py:1280
+#: apps/edit/channel.py:1306
 msgid "You have no permissions for editing chapters under lock."
 msgstr "У вас нет прав доступа для редактирования заблокированных глав."
 
-#: apps/edit/channel.py:1284
+#: apps/edit/channel.py:1310
 msgid "Chapter currently is locked from everyone."
 msgstr "В данный момент глава заблокирована для всех."
 
-#: apps/edit/forms.py:39 apps/edit/templates/edit/panel_settings.html:13
+#: apps/edit/channel.py:1915
+msgid "One of the selected formats was disabled. Try to reload page."
+msgstr ""
+
+#: apps/edit/forms.py:51 apps/edit/templates/edit/panel_settings.html:17
 msgid "Language"
 msgstr "Язык"
 
-#: apps/edit/forms.py:43
+#: apps/edit/forms.py:55
 msgid "Right to left text"
 msgstr "Текст справа на лево"
 
-#: apps/edit/forms.py:45
+#: apps/edit/forms.py:57
 msgid "Book with right to left writing."
 msgstr "Книга с правописанием справа налево."
 
-#: apps/edit/forms.py:78
+#: apps/edit/forms.py:91
 msgid "New Status"
 msgstr "Новый статус"
 
-#: apps/edit/forms.py:123
-msgid "Short title"
-msgstr "Короткий заголовок"
-
-#: apps/edit/forms.py:124
-msgid "Subtitle"
-msgstr "Подзаголовок"
-
-#: apps/edit/forms.py:125
-msgid "Short description"
-msgstr "Краткое описание"
-
-#: apps/edit/forms.py:126
-msgid "Long description"
-msgstr "Полное описание"
-
-#: apps/edit/forms.py:127
-msgid "Publisher"
-msgstr "Издатель"
-
-#: apps/edit/forms.py:128
-msgid "Publisher city"
-msgstr "Город издателя"
-
-#: apps/edit/forms.py:129
-msgid "Publication date"
-msgstr "Дата публикации"
-
-#: apps/edit/forms.py:130
-msgid "Copyright year"
-msgstr "Авторское право год"
-
-#: apps/edit/forms.py:131
-msgid "Copyright holder"
-msgstr "Обладатель авторских прав"
-
-#: apps/edit/forms.py:132
-msgid "Ebook ISBN"
-msgstr "Электронная книга ISBN"
-
-#: apps/edit/forms.py:133
-msgid "Print ISBN"
-msgstr "Печать ISBN"
-
-#: apps/edit/views.py:43
-msgid "Book Language"
-msgstr "Язык Книги"
-
-#: apps/edit/views.py:44
-msgid "Book License"
-msgstr "Лицензия Книги"
-
-#: apps/edit/views.py:45 apps/edit/templates/edit/panel_settings.html:22
-msgid "Book Metadata"
-msgstr "Метаданные Книги"
-
-#: apps/edit/views.py:48
-#: apps/edit/templates/edit/_settings_form_chapter_status.html:4
-msgid "Chapter Status"
-msgstr "Статус Главы"
-
-#: apps/edit/views.py:426 apps/edit/templates/edit/panel_aloha.html:61
-#: apps/reader/views.py:254
-msgid "Chapter"
-msgstr "Глава"
-
-#: apps/edit/views.py:444 apps/edit/templates/edit/panel_history.html:4
-#: apps/edit/templates/edit/toolbar_book.html:14
-msgid "Book History"
-msgstr "История Книги"
-
-#: apps/edit/views.py:552 apps/edit/templates/edit/_compare_modal.html:7
-#: apps/edit/templates/edit/compare_screen.html:13
+#: apps/edit/templates/edit/_compare_modal.html:7
+#: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:552
 msgid "Chapter diff"
 msgstr "Сравнение главы"
-
-#: apps/edit/views.py:582 apps/edit/templates/edit/_compare_modal.html:16
-#: apps/edit/templates/edit/_compare_modal.html:17
-#: apps/edit/templates/edit/chapter_history.html:23
-#: apps/edit/templates/edit/chapter_revision.html:16
-#: apps/edit/templates/edit/compare_screen.html:20
-#: apps/edit/templates/edit/compare_screen.html:21
-msgid "Revision"
-msgstr "Исправление"
-
-#: apps/edit/views.py:589
-msgid "Book History | Chapter Revision"
-msgstr "История Книги | Ревизия Главы"
-
-#: apps/edit/views.py:608
-#, python-format
-msgid "Reverted to revision %s."
-msgstr "Возвращено к ревизии %s."
-
-#: apps/edit/views.py:627
-msgid "Chapter revision successfully reverted."
-msgstr "Ревизия главы успешно возвращена."
-
-#: apps/edit/views.py:629
-msgid "Chapter revision could not be reverted."
-msgstr "Ревизия главы не может быть отменена."
-
-#: apps/edit/views.py:682
-msgid "Successfully saved settings."
-msgstr "Настройки успешно сохранены."
-
-#: apps/edit/views.py:685
-msgid "Unknown error while saving changes."
-msgstr "Неизвестная ошибка при сохранении изменений"
 
 #: apps/edit/templates/edit/_compare_modal.html:11
 #: apps/edit/templates/edit/compare_screen.html:15
@@ -1206,32 +1125,46 @@ msgstr "Добавлена"
 msgid "Deleted"
 msgstr "Удалено "
 
+#: apps/edit/templates/edit/_compare_modal.html:16
+#: apps/edit/templates/edit/_compare_modal.html:17
+#: apps/edit/templates/edit/chapter_history.html:23
+#: apps/edit/templates/edit/chapter_revision.html:16
+#: apps/edit/templates/edit/compare_screen.html:20
+#: apps/edit/templates/edit/compare_screen.html:21 apps/edit/views.py:583
+msgid "Revision"
+msgstr "Исправление"
+
 #: apps/edit/templates/edit/_compare_modal.html:27
 msgid "Full view"
 msgstr "Полный вид"
 
 #: apps/edit/templates/edit/_compare_modal.html:29
 #: apps/edit/templates/edit/_settings_form.html:17
-#: apps/edit/templates/edit/book_edit.html:100
-#: apps/edit/templates/edit/chapter_revision.html:58
+#: apps/edit/templates/edit/book_edit.html:108
+#: apps/edit/templates/edit/chapter_revision.html:60
 #: apps/edit/templates/edit/panel_aloha.html:38
 #: apps/edit/templates/edit/panel_aloha.html:101
 #: apps/edit/templates/edit/panel_aloha.html:119
 #: apps/edit/templates/edit/panel_aloha.html:137
 #: apps/edit/templates/edit/panel_aloha.html:155
-#: apps/edit/templates/edit/panel_aloha.html:223
-#: apps/edit/templates/edit/panel_aloha.html:240
-#: apps/edit/templates/edit/panel_aloha.html:290
+#: apps/edit/templates/edit/panel_aloha.html:225
+#: apps/edit/templates/edit/panel_aloha.html:242
+#: apps/edit/templates/edit/panel_aloha.html:292
 #: apps/edit/templates/edit/panel_covers.html:96
 #: apps/edit/templates/edit/panel_covers.html:153
-#: apps/edit/templates/edit/panel_toc.html:15
-#: apps/edit/templates/edit/panel_toc.html:34
-#: apps/edit/templates/edit/panel_toc.html:53
-#: apps/edit/templates/edit/panel_toc.html:71
+#: apps/edit/templates/edit/panel_toc.html:17
+#: apps/edit/templates/edit/panel_toc.html:36
+#: apps/edit/templates/edit/panel_toc.html:55
+#: apps/edit/templates/edit/panel_toc.html:73
 #: apps/portal/templates/portal/group_delete_modal.html:15
 #: apps/reader/templates/reader/book_delete.html:18
 msgid "Cancel"
 msgstr "Отмена"
+
+#: apps/edit/templates/edit/_settings_form_chapter_status.html:4
+#: apps/edit/views.py:48
+msgid "Chapter Status"
+msgstr "Статус Главы"
 
 #: apps/edit/templates/edit/_settings_form_chapter_status.html:6
 msgid "New status:"
@@ -1258,7 +1191,7 @@ msgid "Assign"
 msgstr "Назначить"
 
 #: apps/edit/templates/edit/_settings_form_roles.html:26
-#: apps/edit/templates/edit/panel_aloha.html:269
+#: apps/edit/templates/edit/panel_aloha.html:271
 msgid "REMOVE"
 msgstr "УДАЛИТЬ"
 
@@ -1290,14 +1223,15 @@ msgid "To apply changes, click on Save"
 msgstr "Чтобы применить изменения, нажмите Сохранить"
 
 #: apps/edit/templates/edit/_settings_form_roles.html:86
-#: apps/edit/templates/edit/panel_aloha.html:289
-#: apps/edit/templates/edit/panel_toc.html:16
-#: apps/edit/templates/edit/panel_toc.html:35
+#: apps/edit/templates/edit/edit_strings.html:53
+#: apps/edit/templates/edit/panel_aloha.html:291
+#: apps/edit/templates/edit/panel_toc.html:18
+#: apps/edit/templates/edit/panel_toc.html:37
 msgid "Save"
 msgstr "Сохранить"
 
 #: apps/edit/templates/edit/aloha_menu.html:5
-#: apps/edit/templates/edit/panel_aloha.html:241
+#: apps/edit/templates/edit/panel_aloha.html:243
 msgid "Insert"
 msgstr "Вставить"
 
@@ -1530,7 +1464,7 @@ msgid "Save minor change"
 msgstr "Сохранить мелкие изменения"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:216
-#: apps/edit/templates/edit/panel_aloha.html:278
+#: apps/edit/templates/edit/panel_aloha.html:280
 msgid "Save with comment"
 msgstr "Сохранить с комментарием"
 
@@ -1558,50 +1492,50 @@ msgstr "РАСКРЫТЬ TOC"
 msgid "Online users"
 msgstr "Пользователи онлайн"
 
-#: apps/edit/templates/edit/book_edit.html:88
+#: apps/edit/templates/edit/book_edit.html:96
 msgid "Chat"
 msgstr "Чат"
 
-#: apps/edit/templates/edit/book_edit.html:94
+#: apps/edit/templates/edit/book_edit.html:102
 msgid "Post a notification"
 msgstr "Отправить уведомление"
 
-#: apps/edit/templates/edit/book_edit.html:99
+#: apps/edit/templates/edit/book_edit.html:107
 msgid "Send"
 msgstr "Отправить"
 
-#: apps/edit/templates/edit/book_edit.html:106
+#: apps/edit/templates/edit/book_edit.html:114
 #: apps/edit/templates/edit/panel_covers.html:85
 #: apps/edit/templates/edit/panel_covers.html:142
 msgid "Notes"
 msgstr "Заметки"
 
-#: apps/edit/templates/edit/book_edit.html:108
+#: apps/edit/templates/edit/book_edit.html:116
 msgid "Shared notes for this book"
 msgstr "Совместные заметки для этой книги"
 
-#: apps/edit/templates/edit/book_edit.html:113
+#: apps/edit/templates/edit/book_edit.html:122
 msgid "SAVE NOTE"
 msgstr "СОХРАНИТЬ ЗАМЕТКУ"
 
-#: apps/edit/templates/edit/book_edit.html:114
+#: apps/edit/templates/edit/book_edit.html:123
 msgid "Note Saved.."
 msgstr "Заметка Сохранена.."
 
-#: apps/edit/templates/edit/book_edit.html:127
+#: apps/edit/templates/edit/book_edit.html:137
 #: apps/edit/templates/edit/edit_strings.html:19
 msgid "Chapters on Hold"
 msgstr "Главы на удержании"
 
-#: apps/edit/templates/edit/book_edit.html:135
+#: apps/edit/templates/edit/book_edit.html:145
 msgid "Attachments"
 msgstr "Вложения"
 
-#: apps/edit/templates/edit/book_edit.html:139
+#: apps/edit/templates/edit/book_edit.html:149
 msgid "History"
 msgstr "История"
 
-#: apps/edit/templates/edit/book_edit.html:188
+#: apps/edit/templates/edit/book_edit.html:208
 #, python-format
 msgid ""
 "<p class=\"notification-text\"><%%= username %%> joined </p><span class"
@@ -1634,8 +1568,8 @@ msgid "Time"
 msgstr "Время"
 
 #: apps/edit/templates/edit/chapter_history.html:26
-#: apps/edit/templates/edit/panel_aloha.html:283
-#: apps/edit/templates/edit/panel_publish.html:251
+#: apps/edit/templates/edit/panel_aloha.html:285
+#: apps/edit/templates/edit/panel_publish.html:496
 msgid "Comment"
 msgstr "Комментарий"
 
@@ -1644,7 +1578,7 @@ msgid "BACK TO CHAPTER HISTORY"
 msgstr "НАЗАД К ИСТОРИИ ГЛАВЫ"
 
 #: apps/edit/templates/edit/chapter_revision.html:11
-#: apps/edit/templates/edit/panel_aloha.html:250
+#: apps/edit/templates/edit/panel_aloha.html:252
 #: apps/edit/templates/edit/panel_history.html:25
 msgid "Modified"
 msgstr "Изменено"
@@ -1661,28 +1595,28 @@ msgstr "ПРЕДЫДУЩАЯ"
 msgid "NEXT"
 msgstr "СЛУДУЮЩАЯ"
 
-#: apps/edit/templates/edit/chapter_revision.html:25
+#: apps/edit/templates/edit/chapter_revision.html:26
 msgid "REVERT TO THIS REVISION"
 msgstr "ВЕРНУТЬ К ЭТОЙ РЕВИЗИИ"
 
-#: apps/edit/templates/edit/chapter_revision.html:29
+#: apps/edit/templates/edit/chapter_revision.html:31
 msgid "Source View"
 msgstr "Исходный текст"
 
-#: apps/edit/templates/edit/chapter_revision.html:30
+#: apps/edit/templates/edit/chapter_revision.html:32
 msgid "Normal View"
 msgstr "Обычный вид"
 
-#: apps/edit/templates/edit/chapter_revision.html:52
+#: apps/edit/templates/edit/chapter_revision.html:54
 msgid "Revert to this revision?"
 msgstr "Вернуться к этому исправлению?"
 
-#: apps/edit/templates/edit/chapter_revision.html:55
+#: apps/edit/templates/edit/chapter_revision.html:57
 msgid ""
 "Current chapter content will be reverted to this revision. Are you sure?"
 msgstr "Содержание настоящей главы будет возвращено к состоянию на момент последнего исправления. Вы уверены, что хотите этого?"
 
-#: apps/edit/templates/edit/chapter_revision.html:59
+#: apps/edit/templates/edit/chapter_revision.html:61
 msgid "Yes, revert!"
 msgstr "Да, вернуть!"
 
@@ -1761,9 +1695,9 @@ msgid "Set status."
 msgstr "Состояние"
 
 #: apps/edit/templates/edit/edit_strings.html:20
-#: apps/edit/templates/edit/panel_toc.html:159
-#: apps/edit/templates/edit/panel_toc.html:173
-#: apps/edit/templates/edit/panel_toc.html:196
+#: apps/edit/templates/edit/panel_toc.html:161
+#: apps/edit/templates/edit/panel_toc.html:175
+#: apps/edit/templates/edit/panel_toc.html:198
 msgid "Unhold"
 msgstr "Возврат"
 
@@ -1780,7 +1714,7 @@ msgid "Chapter has been modified. Do you want to save it before closing?"
 msgstr "Глава была изменена. Хотите ли вы, сохранить ее перед закрытием?"
 
 #: apps/edit/templates/edit/edit_strings.html:25
-#: apps/edit/templates/edit/toolbar_book.html:9
+#: apps/edit/templates/edit/toolbar_book.html:6
 msgid "Table Of Contents"
 msgstr "Оглавление"
 
@@ -1869,10 +1803,10 @@ msgid "You have no permission to delete this book"
 msgstr "У вас нет прав доступа для удаления этой книги."
 
 #: apps/edit/templates/edit/edit_strings.html:46
-#: apps/edit/templates/edit/panel_toc.html:154
-#: apps/edit/templates/edit/panel_toc.html:191
-#: apps/edit/templates/edit/panel_toc.html:277
-#: apps/edit/templates/edit/panel_toc.html:291
+#: apps/edit/templates/edit/panel_toc.html:156
+#: apps/edit/templates/edit/panel_toc.html:193
+#: apps/edit/templates/edit/panel_toc.html:280
+#: apps/edit/templates/edit/panel_toc.html:294
 msgid "Terminate editing"
 msgstr "Прервать редактирование"
 
@@ -1899,6 +1833,119 @@ msgstr "Ничего не было экспортировано."
 #: apps/edit/templates/edit/edit_strings.html:52
 msgid "Exporting book."
 msgstr "Экспорт книги."
+
+#: apps/edit/templates/edit/edit_strings.html:54
+#, python-format
+msgid "By: %%s"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:55
+#, python-format
+msgid "Сhapter \"%%s\" status was changed to \"%%s\""
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:56
+#, python-format
+msgid "Chapter \"%%s\" was created"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:57
+#, python-format
+msgid "Chapter \"%%s\" was deleted"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:58
+#, python-format
+msgid "Section \"%%s\" was created"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:59
+#, python-format
+msgid "Section \"%%s\" was deleted"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:60
+#, python-format
+msgid "Section \"%%s\" with chapters inside was deleted"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:61
+#, python-format
+msgid "Chapter was renamed from \"%%s\" to \"%%s\""
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:62
+#, python-format
+msgid "Section was renamed from \"%%s\" to \"%%s\""
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:63
+#, python-format
+msgid "Chapter \"%%s\" put on hold"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:64
+#, python-format
+msgid "Chapter \"%%s\" unheld"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:65
+#, python-format
+msgid "Chapter \"%%s\" was locked"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:66
+#, python-format
+msgid "Chapter \"%%s\" was unlocked"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:67
+msgid "Table of contents order was changed"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:68
+#, python-format
+msgid "User \"%%s\" joined the editor"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:69
+#, python-format
+msgid "User \"%%s\" left the editor"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:70
+msgid "Notes were changed"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:71
+#, python-format
+msgid "New attachment \"%%s\" uploaded"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:72
+#, python-format
+msgid "Attachment \"%%s\" was deleted"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:73
+#, python-format
+msgid "New cover \"%%s\" uploaded"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:74
+#, python-format
+msgid "Cover \"%%s\" was updated"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:75
+#, python-format
+msgid "Cover \"%%s\" was deleted"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:76
+#, python-format
+msgid "Book export \"%%s\" was successful"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:17
 msgid "Zen mode"
@@ -1949,6 +1996,11 @@ msgstr "Количество символов книги"
 msgid "Book character count (with spaces)"
 msgstr "Количество символов книги (с пробелами)"
 
+#: apps/edit/templates/edit/panel_aloha.html:61 apps/edit/views.py:426
+#: apps/reader/views.py:254
+msgid "Chapter"
+msgstr "Глава"
+
 #: apps/edit/templates/edit/panel_aloha.html:63
 msgid "Character count"
 msgstr "Количество символов"
@@ -1994,74 +2046,74 @@ msgstr "Исходники"
 msgid "Media library"
 msgstr "Медиа библиотека"
 
-#: apps/edit/templates/edit/panel_aloha.html:175
+#: apps/edit/templates/edit/panel_aloha.html:176
 msgid "Upload Image"
 msgstr "Загрузить изображение"
 
-#: apps/edit/templates/edit/panel_aloha.html:183
+#: apps/edit/templates/edit/panel_aloha.html:185
 msgid "Drag Your Images Here"
 msgstr "Перетащите ваше изображение сюда "
 
-#: apps/edit/templates/edit/panel_aloha.html:187
+#: apps/edit/templates/edit/panel_aloha.html:189
 msgid "or Select them from folder"
 msgstr "или Выберите из папки"
 
-#: apps/edit/templates/edit/panel_aloha.html:194
+#: apps/edit/templates/edit/panel_aloha.html:196
 msgid "Please wait, we are processing your image..."
 msgstr "Пожалуйста подождите, мы обрабатываем ваше изображение..."
 
-#: apps/edit/templates/edit/panel_aloha.html:214
+#: apps/edit/templates/edit/panel_aloha.html:216
 msgid "Image Title"
 msgstr "Заголовок Изображения"
 
-#: apps/edit/templates/edit/panel_aloha.html:215
+#: apps/edit/templates/edit/panel_aloha.html:217
 msgid "Enter Title"
 msgstr "Введите Заголовок"
 
-#: apps/edit/templates/edit/panel_aloha.html:218
+#: apps/edit/templates/edit/panel_aloha.html:220
 msgid "Image Description"
 msgstr "Описание Изображения"
 
-#: apps/edit/templates/edit/panel_aloha.html:225
+#: apps/edit/templates/edit/panel_aloha.html:227
 msgid "Save Metadata"
 msgstr "Сохранить Метаданные"
 
-#: apps/edit/templates/edit/panel_aloha.html:227
+#: apps/edit/templates/edit/panel_aloha.html:229
 msgid "Edit caption"
 msgstr "Редактировать описание"
 
-#: apps/edit/templates/edit/panel_aloha.html:235
+#: apps/edit/templates/edit/panel_aloha.html:237
 msgid "Enter image link"
 msgstr "Введите ссылку изображения"
 
-#: apps/edit/templates/edit/panel_aloha.html:249
+#: apps/edit/templates/edit/panel_aloha.html:251
 msgid "File Name"
 msgstr "Имя файла"
 
-#: apps/edit/templates/edit/panel_aloha.html:251
+#: apps/edit/templates/edit/panel_aloha.html:253
 msgid "File Size"
 msgstr "Размер файла"
 
-#: apps/edit/templates/edit/panel_aloha.html:252
+#: apps/edit/templates/edit/panel_aloha.html:254
 msgid "Dimensions"
 msgstr "Размеры"
 
-#: apps/edit/templates/edit/panel_aloha.html:261
+#: apps/edit/templates/edit/panel_aloha.html:263
 msgid "Edit metadata"
 msgstr "изменить метаданные"
 
-#: apps/edit/templates/edit/panel_aloha.html:262
-#: apps/edit/templates/edit/panel_publish.html:266
+#: apps/edit/templates/edit/panel_aloha.html:264
+#: apps/edit/templates/edit/panel_publish.html:512
 msgid "Download"
 msgstr "Загрузить"
 
 #: apps/edit/templates/edit/panel_covers.html:4
-#: apps/edit/templates/edit/toolbar_book.html:11
+#: apps/edit/templates/edit/toolbar_book.html:8
 msgid "Cover Manager"
 msgstr "Менеджер обложек"
 
 #: apps/edit/templates/edit/panel_covers.html:8
-#: apps/portal/templates/portal/frontpage.html:199
+#: apps/portal/templates/portal/frontpage.html:207
 msgid "All"
 msgstr "Все"
 
@@ -2107,17 +2159,22 @@ msgstr "Укажите мета-данные"
 msgid "Creator"
 msgstr "Создатель"
 
-#: apps/edit/templates/edit/panel_covers.html:169 apps/export/models.py:31
+#: apps/edit/templates/edit/panel_covers.html:169 apps/export/models.py:48
 msgid "File name"
 msgstr "Название файла"
 
-#: apps/edit/templates/edit/panel_covers.html:170 apps/export/models.py:27
+#: apps/edit/templates/edit/panel_covers.html:170 apps/export/models.py:44
 msgid "File size"
 msgstr "Размер файла"
 
 #: apps/edit/templates/edit/panel_covers.html:171
 msgid "Image dimensions"
 msgstr "Размеры изображения"
+
+#: apps/edit/templates/edit/panel_history.html:4
+#: apps/edit/templates/edit/toolbar_book.html:11 apps/edit/views.py:444
+msgid "Book History"
+msgstr "История Книги"
 
 #: apps/edit/templates/edit/panel_history.html:8
 msgid "Here you can follow the edit history of your book."
@@ -2144,7 +2201,7 @@ msgid "Clear filters"
 msgstr "Отчистить фильтры"
 
 #: apps/edit/templates/edit/panel_history.html:24
-#: apps/edit/templates/edit/panel_publish.html:245
+#: apps/edit/templates/edit/panel_publish.html:489
 msgid "Action"
 msgstr "Операция"
 
@@ -2153,7 +2210,7 @@ msgid "Loading content..."
 msgstr "Загрузка контента..."
 
 #: apps/edit/templates/edit/panel_media.html:4
-#: apps/edit/templates/edit/toolbar_book.html:10
+#: apps/edit/templates/edit/toolbar_book.html:7
 msgid "Media"
 msgstr "Медиа"
 
@@ -2198,14 +2255,14 @@ msgid ""
 msgstr "Вы действительно хотите удалить меди файлы? Вы не сможете отменить эту операцию."
 
 #: apps/edit/templates/edit/panel_media.html:60
-#: apps/edit/templates/edit/panel_toc.html:93
-#: apps/edit/templates/edit/panel_toc.html:122
+#: apps/edit/templates/edit/panel_toc.html:95
+#: apps/edit/templates/edit/panel_toc.html:124
 msgid "I understand and agree"
 msgstr "Я понимаю и согласен"
 
 #: apps/edit/templates/edit/panel_media.html:65
-#: apps/edit/templates/edit/panel_toc.html:101
-#: apps/edit/templates/edit/panel_toc.html:131 apps/portal/widgets.py:30
+#: apps/edit/templates/edit/panel_toc.html:103
+#: apps/edit/templates/edit/panel_toc.html:133 apps/portal/widgets.py:30
 msgid "Remove"
 msgstr "Переместить"
 
@@ -2217,346 +2274,510 @@ msgstr "Предупреждение"
 msgid "You can only upload JPEG file as cover image."
 msgstr "Вы можете загружать только JPEG файлы для обложки."
 
-#: apps/edit/templates/edit/panel_publish.html:11
-#: apps/edit/templates/edit/panel_publish.html:256
-#: apps/edit/templates/edit/toolbar_book.html:19
+#: apps/edit/templates/edit/panel_publish.html:4
+#: apps/edit/templates/edit/panel_publish.html:502
+#: apps/edit/templates/edit/toolbar_book.html:16
 msgid "Publish"
 msgstr "Публиковать"
 
-#: apps/edit/templates/edit/panel_publish.html:19
+#: apps/edit/templates/edit/panel_publish.html:12
 msgid "Book export"
 msgstr "Экспорт книги"
 
-#: apps/edit/templates/edit/panel_publish.html:26
+#: apps/edit/templates/edit/panel_publish.html:19
 msgid "Export history"
 msgstr "Экспорт истории"
 
-#: apps/edit/templates/edit/panel_publish.html:36
+#: apps/edit/templates/edit/panel_publish.html:29
 msgid "Book Info"
 msgstr "Информация книги"
 
-#: apps/edit/templates/edit/panel_publish.html:47
+#: apps/edit/templates/edit/panel_publish.html:40
 #: apps/edit/templates/edit/panel_settings.html:4
-#: apps/edit/templates/edit/panel_settings.html:42
+#: apps/edit/templates/edit/panel_settings.html:60
+#: apps/edit/templates/edit/panel_settings.html:65
 msgid "Book Settings"
 msgstr "Настройки книги"
 
-#: apps/edit/templates/edit/panel_publish.html:53
-msgid "Paper size"
-msgstr "Размер бумаги"
+#: apps/edit/templates/edit/panel_publish.html:46
+#: apps/edit/templates/edit/panel_publish.html:49
+#: apps/edit/templates/edit/panel_publish.html:167
+#: apps/edit/templates/edit/panel_publish.html:170
+msgid "Size"
+msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:58
+#: apps/edit/templates/edit/panel_publish.html:48
+#: apps/edit/templates/edit/panel_publish.html:169
+msgid "Paper Size"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:51
+#: apps/edit/templates/edit/panel_publish.html:172
 msgid "custom"
 msgstr "пользовательский"
 
-#: apps/edit/templates/edit/panel_publish.html:92
+#: apps/edit/templates/edit/panel_publish.html:85
+#: apps/edit/templates/edit/panel_publish.html:88
 #: apps/edit/templates/edit/panel_publish.html:95
-#: apps/edit/templates/edit/panel_publish.html:102
-#: apps/edit/templates/edit/panel_publish.html:105
-#: apps/edit/templates/edit/panel_publish.html:108
-#: apps/edit/templates/edit/panel_publish.html:111
+#: apps/edit/templates/edit/panel_publish.html:98
+#: apps/edit/templates/edit/panel_publish.html:101
+#: apps/edit/templates/edit/panel_publish.html:104
+#: apps/edit/templates/edit/panel_publish.html:116
+#: apps/edit/templates/edit/panel_publish.html:124
+#: apps/edit/templates/edit/panel_publish.html:137
+#: apps/edit/templates/edit/panel_publish.html:206
+#: apps/edit/templates/edit/panel_publish.html:209
+#: apps/edit/templates/edit/panel_publish.html:216
+#: apps/edit/templates/edit/panel_publish.html:219
+#: apps/edit/templates/edit/panel_publish.html:222
+#: apps/edit/templates/edit/panel_publish.html:225
+#: apps/edit/templates/edit/panel_publish.html:237
+#: apps/edit/templates/edit/panel_publish.html:245
 msgid "mm"
 msgstr "мм"
 
-#: apps/edit/templates/edit/panel_publish.html:98
+#: apps/edit/templates/edit/panel_publish.html:91
+#: apps/edit/templates/edit/panel_publish.html:212
+msgid "Margins"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:93
+#: apps/edit/templates/edit/panel_publish.html:214
 msgid "Margins and gutter"
 msgstr "Поля и отступы"
 
-#: apps/edit/templates/edit/panel_publish.html:100
-msgid "Margin and gutter"
-msgstr "Поле и отступ"
-
-#: apps/edit/templates/edit/panel_publish.html:101
+#: apps/edit/templates/edit/panel_publish.html:94
+#: apps/edit/templates/edit/panel_publish.html:215
 msgid "Top Margin"
 msgstr "Верхнее поле"
 
-#: apps/edit/templates/edit/panel_publish.html:104
+#: apps/edit/templates/edit/panel_publish.html:97
+#: apps/edit/templates/edit/panel_publish.html:218
 msgid "Side Margin"
 msgstr "Боковое поле"
 
-#: apps/edit/templates/edit/panel_publish.html:107
+#: apps/edit/templates/edit/panel_publish.html:100
+#: apps/edit/templates/edit/panel_publish.html:221
 msgid "Bottom Margin"
 msgstr "Нижнее поле"
 
-#: apps/edit/templates/edit/panel_publish.html:110
+#: apps/edit/templates/edit/panel_publish.html:103
+#: apps/edit/templates/edit/panel_publish.html:224
 msgid "Gutter"
 msgstr "Внутреннее поле"
 
-#: apps/edit/templates/edit/panel_publish.html:116
-msgid "Cover"
-msgstr "Обложка"
+#: apps/edit/templates/edit/panel_publish.html:107
+#: apps/edit/templates/edit/panel_publish.html:228
+msgid "Footer"
+msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:118
-msgid "No Cover"
-msgstr "Нет обложки"
+#: apps/edit/templates/edit/panel_publish.html:109
+#: apps/edit/templates/edit/panel_publish.html:230
+msgid "Footer and Header"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:111
+#: apps/edit/templates/edit/panel_publish.html:232
+msgid "Show Header"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:115
+#: apps/edit/templates/edit/panel_publish.html:236
+msgid "Header Margin"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:119
+#: apps/edit/templates/edit/panel_publish.html:240
+msgid "Show Footer"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:123
-msgid "Advanced styling"
-msgstr "Дополнительные стили"
+#: apps/edit/templates/edit/panel_publish.html:244
+msgid "Footer Margin"
+msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:125
-msgid "Manually edit styling"
-msgstr "Редактировать стиль вручную"
+#: apps/edit/templates/edit/panel_publish.html:128
+msgid "Extra"
+msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:126
+#: apps/edit/templates/edit/panel_publish.html:130
+msgid "Extra options"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:132
+msgid "Crop Marks"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:136
+msgid "Bleed size"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:142
+#: apps/edit/templates/edit/panel_publish.html:145
+#: apps/edit/templates/edit/panel_publish.html:258
+#: apps/edit/templates/edit/panel_publish.html:261
+#: apps/edit/templates/edit/panel_publish.html:292
+#: apps/edit/templates/edit/panel_publish.html:295
+#: apps/edit/templates/edit/panel_publish.html:326
+#: apps/edit/templates/edit/panel_publish.html:329
+#: apps/edit/templates/edit/panel_publish.html:360
+#: apps/edit/templates/edit/panel_publish.html:363
 msgid "Styling"
 msgstr "Стиль"
 
-#: apps/edit/templates/edit/panel_publish.html:142
-#: apps/edit/templates/edit/panel_publish.html:248
+#: apps/edit/templates/edit/panel_publish.html:144
+#: apps/edit/templates/edit/panel_publish.html:260
+#: apps/edit/templates/edit/panel_publish.html:294
+#: apps/edit/templates/edit/panel_publish.html:328
+#: apps/edit/templates/edit/panel_publish.html:362
+msgid "Manually edit CSS style"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:161
+msgid "Screen PDF Settings"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:249
+#: apps/edit/templates/edit/panel_publish.html:283
+#: apps/edit/templates/edit/panel_publish.html:317
+#: apps/edit/templates/edit/panel_publish.html:351
+msgid "Cover"
+msgstr "Обложка"
+
+#: apps/edit/templates/edit/panel_publish.html:251
+#: apps/edit/templates/edit/panel_publish.html:285
+#: apps/edit/templates/edit/panel_publish.html:319
+#: apps/edit/templates/edit/panel_publish.html:353
+msgid "Cover image"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:253
+#: apps/edit/templates/edit/panel_publish.html:287
+#: apps/edit/templates/edit/panel_publish.html:321
+#: apps/edit/templates/edit/panel_publish.html:355
+msgid "No Cover"
+msgstr "Нет обложки"
+
+#: apps/edit/templates/edit/panel_publish.html:277
+msgid "EPUB Settings"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:311
+msgid "Mobi Settings"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:345
+msgid "XHTML Settings"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:379
+#: apps/edit/templates/edit/panel_publish.html:492
 msgid "Remove export"
 msgstr "Удалить экспорт"
 
-#: apps/edit/templates/edit/panel_publish.html:145
+#: apps/edit/templates/edit/panel_publish.html:382
 msgid "Do you want to remove this export?"
 msgstr "Вы хотите удалить этот экспорт?"
 
-#: apps/edit/templates/edit/panel_publish.html:148
+#: apps/edit/templates/edit/panel_publish.html:385
 msgid "No"
 msgstr "Нет"
 
-#: apps/edit/templates/edit/panel_publish.html:149
+#: apps/edit/templates/edit/panel_publish.html:386
 msgid "Yes"
 msgstr "Да"
 
-#: apps/edit/templates/edit/panel_publish.html:161
+#: apps/edit/templates/edit/panel_publish.html:400
 msgid "Choose format for export"
 msgstr "Выберите формат для экспорта"
 
-#: apps/edit/templates/edit/panel_publish.html:169
+#: apps/edit/templates/edit/panel_publish.html:402
+msgid "No available publish formats."
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:413
 msgid "Book PDF"
 msgstr " PDF книга"
 
-#: apps/edit/templates/edit/panel_publish.html:172
-#: apps/edit/templates/edit/panel_publish.html:183
-#: apps/edit/templates/edit/panel_publish.html:194
-#: apps/edit/templates/edit/panel_publish.html:207
-#: apps/edit/templates/edit/panel_publish.html:218
+#: apps/edit/templates/edit/panel_publish.html:416
+#: apps/edit/templates/edit/panel_publish.html:427
+#: apps/edit/templates/edit/panel_publish.html:438
+#: apps/edit/templates/edit/panel_publish.html:451
+#: apps/edit/templates/edit/panel_publish.html:462
 msgid "settings"
 msgstr "настройки"
 
-#: apps/edit/templates/edit/panel_publish.html:180
+#: apps/edit/templates/edit/panel_publish.html:424
 msgid "Screen PDF"
 msgstr "Экранный PDF"
 
-#: apps/edit/templates/edit/panel_publish.html:191
+#: apps/edit/templates/edit/panel_publish.html:435
 msgid "EPUB"
 msgstr "EPUB"
 
-#: apps/edit/templates/edit/panel_publish.html:204
+#: apps/edit/templates/edit/panel_publish.html:448
 msgid "MOBI"
 msgstr "MOBI"
 
-#: apps/edit/templates/edit/panel_publish.html:215
+#: apps/edit/templates/edit/panel_publish.html:459
 msgid "XHTML"
 msgstr "XHTML"
 
-#: apps/edit/templates/edit/panel_publish.html:225
+#: apps/edit/templates/edit/panel_publish.html:469
 msgid "EXPORT YOUR BOOK"
 msgstr "ЭКСПОРТ КНИГИ"
 
-#: apps/edit/templates/edit/panel_publish.html:273
+#: apps/edit/templates/edit/panel_publish.html:519
 msgid "Failed"
 msgstr "Неуспешно"
 
-#: apps/edit/templates/edit/panel_publish.html:304
+#: apps/edit/templates/edit/panel_publish.html:532
+msgid "pages"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:550
 msgid "comments"
 msgstr "комментарии"
 
-#: apps/edit/templates/edit/panel_publish.html:313
+#: apps/edit/templates/edit/panel_publish.html:559
 msgid "Your comment here"
 msgstr "Ваши комментарии здесь"
 
-#: apps/edit/templates/edit/panel_publish.html:314
+#: apps/edit/templates/edit/panel_publish.html:560
 msgid "SEND COMMENT"
 msgstr "ОТПРАВИТЬ КОММЕНТАРИЙ"
 
-#: apps/edit/templates/edit/panel_publish.html:334
+#: apps/edit/templates/edit/panel_publish.html:580
 msgid "Exporting, please wait"
 msgstr "Экспорт, пожалуйста подождите"
 
-#: apps/edit/templates/edit/panel_settings.html:12 apps/reader/views.py:61
+#: apps/edit/templates/edit/panel_settings.html:13 apps/reader/views.py:61
 msgid "Book"
 msgstr "Книга"
 
-#: apps/edit/templates/edit/panel_settings.html:17
+#: apps/edit/templates/edit/panel_settings.html:26
 msgid "Workflow"
 msgstr "Рабочий процесс"
 
-#: apps/edit/templates/edit/panel_settings.html:18
+#: apps/edit/templates/edit/panel_settings.html:27
 msgid "Chapter status"
 msgstr "Статус главы"
 
-#: apps/edit/templates/edit/panel_settings.html:21
+#: apps/edit/templates/edit/panel_settings.html:32
 msgid "Metadata"
 msgstr "Метаданные"
 
-#: apps/edit/templates/edit/panel_settings.html:25
+#: apps/edit/templates/edit/panel_settings.html:33 apps/edit/views.py:45
+msgid "Book Metadata"
+msgstr "Метаданные Книги"
+
+#: apps/edit/templates/edit/panel_settings.html:37
 msgid "Security"
 msgstr "Безопасность"
 
-#: apps/edit/templates/edit/panel_settings.html:28
+#: apps/edit/templates/edit/panel_settings.html:46
 msgid "Visibility"
 msgstr "Видимость"
 
-#: apps/edit/templates/edit/panel_settings.html:43
+#: apps/edit/templates/edit/panel_settings.html:61
 msgid "Settings module not available."
 msgstr "Модуль настроек не доступен."
 
-#: apps/edit/templates/edit/panel_toc.html:8
+#: apps/edit/templates/edit/panel_settings.html:66
+msgid "Permissions required to access this module."
+msgstr ""
+
+#: apps/edit/templates/edit/panel_toc.html:10
 msgid "Rename Chapter"
 msgstr "Переименовать Главу"
 
-#: apps/edit/templates/edit/panel_toc.html:12
+#: apps/edit/templates/edit/panel_toc.html:14
 msgid "New chapter title"
 msgstr "Новый заголовок главы"
 
-#: apps/edit/templates/edit/panel_toc.html:27
+#: apps/edit/templates/edit/panel_toc.html:29
 msgid "Rename Section"
 msgstr "Переименовать Раздел"
 
-#: apps/edit/templates/edit/panel_toc.html:31
+#: apps/edit/templates/edit/panel_toc.html:33
 msgid "New section title"
 msgstr "Название нового раздела"
 
-#: apps/edit/templates/edit/panel_toc.html:47
+#: apps/edit/templates/edit/panel_toc.html:49
 msgid "Create New Chapter"
 msgstr "Создать Новую Главу"
 
-#: apps/edit/templates/edit/panel_toc.html:50
+#: apps/edit/templates/edit/panel_toc.html:52
 msgid "Enter new Chapter title"
 msgstr "Введите новый заголовок главы"
 
-#: apps/edit/templates/edit/panel_toc.html:54
+#: apps/edit/templates/edit/panel_toc.html:56
 msgid "Create Chapter"
 msgstr "Создать Главу"
 
-#: apps/edit/templates/edit/panel_toc.html:65
+#: apps/edit/templates/edit/panel_toc.html:67
 msgid "Create New Section"
 msgstr "Создать Новый Раздел"
 
-#: apps/edit/templates/edit/panel_toc.html:68
+#: apps/edit/templates/edit/panel_toc.html:70
 msgid "Enter new Section title"
 msgstr "Введите название нового раздела"
 
-#: apps/edit/templates/edit/panel_toc.html:72
+#: apps/edit/templates/edit/panel_toc.html:74
 msgid "Create Section"
 msgstr "Создать Раздел"
 
-#: apps/edit/templates/edit/panel_toc.html:83
+#: apps/edit/templates/edit/panel_toc.html:85
 msgid "Remove chapter"
 msgstr "Удалить Главу"
 
-#: apps/edit/templates/edit/panel_toc.html:88
+#: apps/edit/templates/edit/panel_toc.html:90
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
 msgstr "Вы уверены, что хотите удалить эту главу? Вы потеряете все данные ассоциированные с этой главой и вы не сможете отменить эту операцию."
 
-#: apps/edit/templates/edit/panel_toc.html:112
+#: apps/edit/templates/edit/panel_toc.html:114
 msgid "Remove section"
 msgstr "Удалить раздел"
 
-#: apps/edit/templates/edit/panel_toc.html:117
+#: apps/edit/templates/edit/panel_toc.html:119
 msgid ""
 "Are you sure you would like to delete this section? You will lose all data "
 "associated to this section and you will not be able to undo this operation!"
 msgstr "Вы уверены, что хотите удалить этот раздел? Вы потеряете все данные ассоциированные с этим разделом и вы не сможете отменить эту операцию."
 
-#: apps/edit/templates/edit/panel_toc.html:124
+#: apps/edit/templates/edit/panel_toc.html:126
 msgid "Delete chapters under this section"
 msgstr "Удалить главы в этом разделе"
 
-#: apps/edit/templates/edit/panel_toc.html:139
+#: apps/edit/templates/edit/panel_toc.html:141
 msgid ""
 "All books should contain at least one section and can have as many chapters "
 "as you like."
 msgstr "Все книги должны содержать минимум один раздел и любое желаемое число глав."
 
-#: apps/edit/templates/edit/panel_toc.html:149
-#: apps/edit/templates/edit/panel_toc.html:271
-#: apps/edit/templates/edit/panel_toc.html:286
+#: apps/edit/templates/edit/panel_toc.html:151
+#: apps/edit/templates/edit/panel_toc.html:274
+#: apps/edit/templates/edit/panel_toc.html:289
 msgid "Locked"
 msgstr "Заблокировано"
 
-#: apps/edit/templates/edit/panel_toc.html:151
-#: apps/edit/templates/edit/panel_toc.html:273
-#: apps/edit/templates/edit/panel_toc.html:288
+#: apps/edit/templates/edit/panel_toc.html:153
+#: apps/edit/templates/edit/panel_toc.html:276
+#: apps/edit/templates/edit/panel_toc.html:291
 msgid "Full locked"
 msgstr "Полностью заблокировано"
 
-#: apps/edit/templates/edit/panel_toc.html:167
-#: apps/edit/templates/edit/panel_toc.html:184
-#: apps/edit/templates/edit/panel_toc.html:207
+#: apps/edit/templates/edit/panel_toc.html:169
+#: apps/edit/templates/edit/panel_toc.html:186
+#: apps/edit/templates/edit/panel_toc.html:210
 #: apps/reader/templates/reader/book_draft_page.html:52
 #: apps/reader/templates/reader/book_full_view.html:52
 msgid "EDIT"
 msgstr "РЕДАКТИРОВАТЬ"
 
-#: apps/edit/templates/edit/panel_toc.html:214
+#: apps/edit/templates/edit/panel_toc.html:217
 #: apps/reader/templates/reader/book_draft_page.html:15
 #: apps/reader/templates/reader/book_full_view.html:19
 msgid "Table of Contents"
 msgstr "Оглавление"
 
-#: apps/edit/templates/edit/panel_toc.html:217
+#: apps/edit/templates/edit/panel_toc.html:220
 msgid "Detail View"
 msgstr "Детальный вид"
 
-#: apps/edit/templates/edit/panel_toc.html:220
+#: apps/edit/templates/edit/panel_toc.html:223
 msgid "Expand All"
 msgstr "Раскрыть все"
 
-#: apps/edit/templates/edit/panel_toc.html:221
+#: apps/edit/templates/edit/panel_toc.html:224
 msgid "Collapse All"
 msgstr "Свернуть все"
 
-#: apps/edit/templates/edit/panel_toc.html:226
+#: apps/edit/templates/edit/panel_toc.html:229
 msgid "New Chapter"
 msgstr "Новая Глава"
 
-#: apps/edit/templates/edit/panel_toc.html:232
+#: apps/edit/templates/edit/panel_toc.html:235
 msgid "New Section"
 msgstr "Новая рубрика"
 
-#: apps/edit/templates/edit/panel_toc.html:299
-#: apps/edit/templates/edit/panel_toc.html:311
-#: apps/edit/templates/edit/panel_toc.html:324
+#: apps/edit/templates/edit/panel_toc.html:302
+#: apps/edit/templates/edit/panel_toc.html:314
+#: apps/edit/templates/edit/panel_toc.html:327
 msgid "STATUS"
 msgstr "СТАТУС"
 
-#: apps/edit/templates/edit/panel_toc.html:339
-#: apps/edit/templates/edit/panel_toc.html:349
-#: apps/edit/templates/edit/panel_toc.html:372
+#: apps/edit/templates/edit/panel_toc.html:342
+#: apps/edit/templates/edit/panel_toc.html:352
+#: apps/edit/templates/edit/panel_toc.html:378
 msgid "EDIT CHAPTER"
 msgstr "РЕДАКТИРОВАТЬ ГЛАВУ"
 
-#: apps/edit/templates/edit/panel_toc.html:343
-#: apps/edit/templates/edit/panel_toc.html:356
-#: apps/edit/templates/edit/panel_toc.html:379
+#: apps/edit/templates/edit/panel_toc.html:346
+#: apps/edit/templates/edit/panel_toc.html:360
+#: apps/edit/templates/edit/panel_toc.html:386
 msgid "Hold"
 msgstr "Удерживать"
 
-#: apps/edit/templates/edit/panel_toc.html:345
-#: apps/edit/templates/edit/panel_toc.html:362
+#: apps/edit/templates/edit/panel_toc.html:348
+#: apps/edit/templates/edit/panel_toc.html:368
 msgid "Unlock"
 msgstr "Разблокировать"
 
-#: apps/edit/templates/edit/panel_toc.html:368
+#: apps/edit/templates/edit/panel_toc.html:374
 msgid "UNLOCK"
 msgstr "РАЗБЛОКИРОВАТЬ"
 
-#: apps/edit/templates/edit/panel_toc.html:385
+#: apps/edit/templates/edit/panel_toc.html:394
 msgid "Lock simple"
 msgstr "Заблокировать"
 
-#: apps/edit/templates/edit/panel_toc.html:386
+#: apps/edit/templates/edit/panel_toc.html:395
 msgid "Lock for everyone"
 msgstr "Заблокировать для всех"
 
-#: apps/edit/templates/edit/panel_toc.html:405
+#: apps/edit/templates/edit/panel_toc.html:414
 msgid "RENAME"
 msgstr "ПЕРЕИМЕНОВАТЬ"
+
+#: apps/edit/views.py:43
+msgid "Book Language"
+msgstr "Язык Книги"
+
+#: apps/edit/views.py:44
+msgid "Book License"
+msgstr "Лицензия Книги"
+
+#: apps/edit/views.py:590
+msgid "Book History | Chapter Revision"
+msgstr "История Книги | Ревизия Главы"
+
+#: apps/edit/views.py:613
+#, python-format
+msgid "Reverted to revision %s."
+msgstr "Возвращено к ревизии %s."
+
+#: apps/edit/views.py:632
+msgid "Chapter revision successfully reverted."
+msgstr "Ревизия главы успешно возвращена."
+
+#: apps/edit/views.py:634
+msgid "Chapter revision could not be reverted."
+msgstr "Ревизия главы не может быть отменена."
+
+#: apps/edit/views.py:701
+msgid "Successfully saved settings."
+msgstr "Настройки успешно сохранены."
+
+#: apps/edit/views.py:703
+msgid "You have no permissions to execute this action."
+msgstr ""
+
+#: apps/edit/views.py:706
+msgid "Unknown error while saving changes."
+msgstr "Неизвестная ошибка при сохранении изменений"
 
 #: apps/export/__init__.py:5
 msgid "Booktype export application"
@@ -2586,69 +2807,77 @@ msgstr "Комментировать экспортированный файл"
 msgid "Publish exported book"
 msgstr "Опубликовать экспортированную книгу"
 
-#: apps/export/models.py:11 apps/export/models.py:25
+#: apps/export/models.py:28 apps/export/models.py:42
 msgid "export"
 msgstr "экспорт"
 
-#: apps/export/models.py:13
+#: apps/export/models.py:30
 msgid "Name"
 msgstr "Название"
 
-#: apps/export/models.py:14
+#: apps/export/models.py:31
 msgid "Task ID"
 msgstr "ID задачи"
 
-#: apps/export/models.py:15 apps/export/models.py:41
+#: apps/export/models.py:32 apps/export/models.py:58 apps/export/models.py:70
 msgid "Created"
 msgstr "Создана"
 
-#: apps/export/models.py:16
+#: apps/export/models.py:33
 msgid "Published"
 msgstr "Опубликовано"
 
-#: apps/export/models.py:17 apps/export/models.py:29
+#: apps/export/models.py:34 apps/export/models.py:46
 msgid "Status"
 msgstr "Состояние"
 
-#: apps/export/models.py:20
+#: apps/export/models.py:37
 msgid "Book Export"
 msgstr "Экспорт Книги"
 
-#: apps/export/models.py:21
+#: apps/export/models.py:38
 msgid "Book Exports"
 msgstr "Экспорты Книги"
 
-#: apps/export/models.py:26
+#: apps/export/models.py:43 apps/export/models.py:68
 msgid "Export type"
 msgstr "Тип экспорта"
 
-#: apps/export/models.py:28
+#: apps/export/models.py:45
 msgid "Number of pages"
 msgstr "Число страниц"
 
-#: apps/export/models.py:34
+#: apps/export/models.py:51
 msgid "Export File"
 msgstr "Файл Экспорт"
 
-#: apps/export/models.py:35
+#: apps/export/models.py:52
 msgid "Export Files"
 msgstr "Экспорт Файлов"
 
-#: apps/export/models.py:39
+#: apps/export/models.py:56
 msgid "version"
 msgstr "версия"
 
-#: apps/export/models.py:42
+#: apps/export/models.py:59
 msgid "Content"
 msgstr "Контент"
 
-#: apps/export/models.py:45
+#: apps/export/models.py:62
 msgid "Export Comment"
 msgstr "Экспорт Комментария"
 
-#: apps/export/models.py:46
+#: apps/export/models.py:63
 msgid "Export Comments"
 msgstr "Экспорт Комментариев"
+
+#: apps/export/models.py:69
+msgid "Data"
+msgstr ""
+
+#: apps/export/models.py:73 apps/export/models.py:74
+msgid "Export Settings"
+msgstr ""
 
 #: apps/importer/forms.py:38
 msgid "Filetype not supported."
@@ -2703,36 +2932,6 @@ msgstr "Название группы уже используется"
 msgid "Only JPEG file is allowed for group image."
 msgstr "Только JPEG файл разрешается для изображения группы."
 
-#: apps/portal/views.py:44
-msgid "Booktype"
-msgstr "Booktype"
-
-#: apps/portal/views.py:86
-msgid "Group"
-msgstr "Группа"
-
-#: apps/portal/views.py:87
-msgid "Group used"
-msgstr "Используемая группа"
-
-#: apps/portal/views.py:191 apps/portal/templates/portal/frontpage.html:104
-#: apps/portal/templates/portal/group_create.html:9
-msgid "Create new group"
-msgstr "Создать новую группу"
-
-#: apps/portal/views.py:228 apps/portal/templates/portal/group.html:39
-#: apps/portal/templates/portal/group_settings.html:9
-msgid "Group settings"
-msgstr "Настройки группы"
-
-#: apps/portal/views.py:272
-msgid "You are not allowed to delete this group"
-msgstr "Вам не разрешено удалять эту группу"
-
-#: apps/portal/views.py:286
-msgid "Group successfully deleted."
-msgstr "Группа успешно удалена."
-
 #: apps/portal/templates/portal/all_groups.html:15
 msgid "All groups"
 msgstr "Все группы"
@@ -2762,7 +2961,7 @@ msgid "JOIN THIS GROUP"
 msgstr "ВСТУПИТЬ В ЭТУ ГРУППУ"
 
 #: apps/portal/templates/portal/all_groups.html:35
-#: apps/portal/templates/portal/frontpage.html:99
+#: apps/portal/templates/portal/frontpage.html:101
 msgid "There are no groups yet"
 msgstr "Групп еще нет"
 
@@ -2788,7 +2987,7 @@ msgstr "Напишите нам, если у вас есть какие-либо
 
 #: apps/portal/templates/portal/books.html:35
 #: apps/portal/templates/portal/books.html:79
-#: apps/portal/templates/portal/frontpage.html:38
+#: apps/portal/templates/portal/frontpage.html:37
 msgid "There are no books yet"
 msgstr "Книг еще нет"
 
@@ -2804,87 +3003,111 @@ msgstr "Опубликованные Книги"
 msgid "There are no published books at the moment"
 msgstr "Нет опубликованных книг на данный момент"
 
-#: apps/portal/templates/portal/frontpage.html:45
+#: apps/portal/templates/portal/books.html:132
+#: apps/portal/templates/portal/frontpage.html:167
+msgid "There is no activity yet"
+msgstr "Нет активности"
+
+#: apps/portal/templates/portal/errors/group_does_not_exist.html:8
+msgid "Group not found!"
+msgstr "Группа не найдена!"
+
+#: apps/portal/templates/portal/errors/group_does_not_exist.html:9
+#, python-format
+msgid "Can't find group \"%(group_name)s\"."
+msgstr "Невозможно найти группу \"%(group_name)s\"."
+
+#: apps/portal/templates/portal/frontpage.html:44
 msgid "Create book"
 msgstr "Создать книгу"
 
-#: apps/portal/templates/portal/frontpage.html:45
+#: apps/portal/templates/portal/frontpage.html:44
 msgid "CREATE BOOK"
 msgstr "СОЗДАТЬ КНИГУ"
 
-#: apps/portal/templates/portal/frontpage.html:71
+#: apps/portal/templates/portal/frontpage.html:74
 msgid "There are no users yet"
 msgstr "Пользователей еще нет"
 
-#: apps/portal/templates/portal/frontpage.html:76
+#: apps/portal/templates/portal/frontpage.html:79
 msgid "Invite people"
 msgstr "Пригласить людей"
 
-#: apps/portal/templates/portal/frontpage.html:76
+#: apps/portal/templates/portal/frontpage.html:79
 msgid "INVITE PEOPLE"
 msgstr "ПРИГЛАСИТЬ ЛЮДЕЙ"
 
-#: apps/portal/templates/portal/frontpage.html:95
+#: apps/portal/templates/portal/frontpage.html:97
 msgid "Members:"
 msgstr "Члены:"
 
-#: apps/portal/templates/portal/frontpage.html:95
+#: apps/portal/templates/portal/frontpage.html:97
 msgid "Books:"
 msgstr "Книги"
 
-#: apps/portal/templates/portal/frontpage.html:104
+#: apps/portal/templates/portal/frontpage.html:106
+#: apps/portal/templates/portal/group_create.html:9 apps/portal/views.py:190
+msgid "Create new group"
+msgstr "Создать новую группу"
+
+#: apps/portal/templates/portal/frontpage.html:106
 msgid "CREATE NEW GROUP"
 msgstr "СОЗДАТЬ НОВУЮ ГРУППУ"
 
-#: apps/portal/templates/portal/frontpage.html:182
+#: apps/portal/templates/portal/frontpage.html:190
 msgid "Enter email adresses"
 msgstr "Введите email адрес"
 
-#: apps/portal/templates/portal/frontpage.html:184
+#: apps/portal/templates/portal/frontpage.html:192
 msgid "Who would you like to invite?"
 msgstr "Кого бы вы хотели пригласить?"
 
-#: apps/portal/templates/portal/frontpage.html:189
+#: apps/portal/templates/portal/frontpage.html:197
 msgid "Enter message"
 msgstr "Введите сообщение"
 
-#: apps/portal/templates/portal/frontpage.html:191
+#: apps/portal/templates/portal/frontpage.html:199
 msgid "What is the message of your invitation?"
 msgstr "Какое сообщение вашего приглашения?"
 
-#: apps/portal/templates/portal/frontpage.html:195
+#: apps/portal/templates/portal/frontpage.html:203
 msgid "Choose Book"
 msgstr "Выберите Книгу"
 
-#: apps/portal/templates/portal/frontpage.html:197
+#: apps/portal/templates/portal/frontpage.html:205
 msgid "Choose Books for invitation"
 msgstr "Выберите Книгу для приглашения"
 
-#: apps/portal/templates/portal/frontpage.html:199
+#: apps/portal/templates/portal/frontpage.html:207
 msgid "Choose Book:"
 msgstr "Выберите Книгу:"
 
-#: apps/portal/templates/portal/frontpage.html:201
+#: apps/portal/templates/portal/frontpage.html:209
 msgid "Check all / clear"
 msgstr "Выбрать все / отчистить"
 
-#: apps/portal/templates/portal/frontpage.html:219
+#: apps/portal/templates/portal/frontpage.html:227
 msgid "Set Roles"
 msgstr "Выберите Роли"
 
-#: apps/portal/templates/portal/frontpage.html:221
+#: apps/portal/templates/portal/frontpage.html:229
 msgid "Set Roles for this invitation"
 msgstr "Выберите Роли для приглашения"
+
+#: apps/portal/templates/portal/group.html:39
+#: apps/portal/templates/portal/group_settings.html:9 apps/portal/views.py:227
+msgid "Group settings"
+msgstr "Настройки группы"
 
 #: apps/portal/templates/portal/group.html:39
 msgid "GROUP SETTINGS"
 msgstr "НАСТРОЙКИ ГРУППЫ"
 
-#: apps/portal/templates/portal/group.html:83
+#: apps/portal/templates/portal/group.html:82
 msgid "Add book to the group"
 msgstr "Добавить книгу в группу"
 
-#: apps/portal/templates/portal/group.html:83
+#: apps/portal/templates/portal/group.html:82
 msgid "ADD BOOK TO THE GROUP"
 msgstr "ДОБАВИТЬ КНИГУ В ГРУППУ"
 
@@ -2912,23 +3135,23 @@ msgstr "Вы уверены, что хотите удалить эту груп�
 msgid "All people"
 msgstr "Все пользователи"
 
-#: apps/portal/templates/portal/people.html:29
+#: apps/portal/templates/portal/people.html:38
 msgid "There are no people yet"
 msgstr "Пользователей еще нет"
 
-#: apps/portal/templates/portal/people.html:55
+#: apps/portal/templates/portal/people.html:63
 msgid "Active people"
 msgstr "Активные люди"
 
-#: apps/portal/templates/portal/people.html:66
+#: apps/portal/templates/portal/people.html:82
 msgid "There are no active people at the moment"
 msgstr "Нет активных пользователей на данный момент"
 
-#: apps/portal/templates/portal/people.html:72
+#: apps/portal/templates/portal/people.html:88
 msgid "New people"
 msgstr "Новые люди"
 
-#: apps/portal/templates/portal/people.html:83
+#: apps/portal/templates/portal/people.html:107
 msgid "There are no new people at the moment"
 msgstr "Нет новых пользователей на данный момент"
 
@@ -2944,14 +3167,21 @@ msgstr "Анонимный пользователь"
 msgid "You have to log in to add books."
 msgstr "Вы должны войти чтобы добавлять книги."
 
-#: apps/portal/templates/portal/errors/group_does_not_exist.html:8
-msgid "Group not found!"
-msgstr "Группа не найдена!"
+#: apps/portal/views.py:44
+msgid "Booktype"
+msgstr "Booktype"
 
-#: apps/portal/templates/portal/errors/group_does_not_exist.html:9
-#, python-format
-msgid "Can't find group \"%(group_name)s\"."
-msgstr "Невозможно найти группу \"%(group_name)s\"."
+#: apps/portal/views.py:86
+msgid "Group"
+msgstr "Группа"
+
+#: apps/portal/views.py:271
+msgid "You are not allowed to delete this group"
+msgstr "Вам не разрешено удалять эту группу"
+
+#: apps/portal/views.py:285
+msgid "Group successfully deleted."
+msgstr "Группа успешно удалена."
 
 #: apps/reader/__init__.py:4
 msgid "Booktype reader application"
@@ -2976,39 +3206,6 @@ msgstr "Описание книги"
 #: apps/reader/forms.py:15
 msgid "Book image"
 msgstr "Изображение книги"
-
-#: apps/reader/views.py:76
-#, python-format
-msgid "%(object)s not found!"
-msgstr "%(object)s не найден!"
-
-#: apps/reader/views.py:102
-msgid "Book Details Page"
-msgstr "Подробная Страница Книги"
-
-#: apps/reader/views.py:103
-msgid "Book Details"
-msgstr "Подробности о Книге"
-
-#: apps/reader/views.py:189
-msgid "Successfully changed book info."
-msgstr "Информация о книге успешно изменена."
-
-#: apps/reader/views.py:191
-msgid "Could not upload cover image."
-msgstr "Невозможно загрузить обложку книги."
-
-#: apps/reader/views.py:212
-msgid "Book successfully deleted."
-msgstr "Книга успешно удалена."
-
-#: apps/reader/views.py:219
-msgid "Chapter Draft"
-msgstr "Черновик Главы"
-
-#: apps/reader/views.py:280
-msgid "Book full view"
-msgstr "Полный вид книги"
 
 #: apps/reader/templates/reader/book_delete.html:12
 msgid ""
@@ -3101,19 +3298,19 @@ msgstr "Группа книга которой принадлежит"
 msgid "Recent activity"
 msgstr "Последние действия"
 
-#: apps/reader/templates/reader/book_info_page.html:118
+#: apps/reader/templates/reader/book_info_page.html:124
 msgid "Owner"
 msgstr "Владелец"
 
-#: apps/reader/templates/reader/book_info_page.html:135
+#: apps/reader/templates/reader/book_info_page.html:147
 msgid "Admins"
 msgstr "Администраторы"
 
-#: apps/reader/templates/reader/book_info_page.html:153
+#: apps/reader/templates/reader/book_info_page.html:171
 msgid "Contributors"
 msgstr "Со-авторы"
 
-#: apps/reader/templates/reader/book_info_page.html:172
+#: apps/reader/templates/reader/book_info_page.html:196
 msgid "Book versions"
 msgstr "Версии книги"
 
@@ -3169,6 +3366,39 @@ msgstr "Загружена"
 #: apps/reader/templatetags/reader_tags.py:40
 msgid "Attachment delete"
 msgstr "Удалить вложение"
+
+#: apps/reader/views.py:76
+#, python-format
+msgid "%(object)s not found!"
+msgstr "%(object)s не найден!"
+
+#: apps/reader/views.py:102
+msgid "Book Details Page"
+msgstr "Подробная Страница Книги"
+
+#: apps/reader/views.py:103
+msgid "Book Details"
+msgstr "Подробности о Книге"
+
+#: apps/reader/views.py:189
+msgid "Successfully changed book info."
+msgstr "Информация о книге успешно изменена."
+
+#: apps/reader/views.py:191
+msgid "Could not upload cover image."
+msgstr "Невозможно загрузить обложку книги."
+
+#: apps/reader/views.py:212
+msgid "Book successfully deleted."
+msgstr "Книга успешно удалена."
+
+#: apps/reader/views.py:219
+msgid "Chapter Draft"
+msgstr "Черновик Главы"
+
+#: apps/reader/views.py:280
+msgid "Book full view"
+msgstr "Полный вид книги"
 
 #: apps/themes/templates/themes/panel.html:3
 msgid "Style Layout"
