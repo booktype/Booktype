@@ -53,6 +53,45 @@ EXPORT_SETTINGS = {
     'xhtml': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}]
 }
 
+INCH_TO_MM = 25.4
+
+PAGE_SIZE_DATA = {
+    'comicbook':      (6.625 * INCH_TO_MM, 10.25 * INCH_TO_MM),
+    "pocket":         (4.25 * INCH_TO_MM, 6.875 * INCH_TO_MM),
+    "usletter":       (8.5 * INCH_TO_MM, 11 * INCH_TO_MM),
+    "ustrade6x9":     (6 * INCH_TO_MM, 9 * INCH_TO_MM),
+    "ustrade":        (6 * INCH_TO_MM, 9 * INCH_TO_MM),
+    "landscape9x7":   (9 * INCH_TO_MM, 7 * INCH_TO_MM),
+    "square7.5":      (7.5 * INCH_TO_MM, 7.5 * INCH_TO_MM),
+    "royal":          (6.139 * INCH_TO_MM, 9.21 * INCH_TO_MM),
+    "crownquarto":    (7.444 * INCH_TO_MM, 9.681 * INCH_TO_MM),
+    "square8.5":      (8.5 * INCH_TO_MM, 8.5 * INCH_TO_MM),
+    "us5.5x8.5":      (5.5 * INCH_TO_MM, 8.5 * INCH_TO_MM),
+    "digest":         (5.5 * INCH_TO_MM, 8.5 * INCH_TO_MM),
+    "us5x8":          (5 * INCH_TO_MM, 8 * INCH_TO_MM),
+    "us7x10":         (7 * INCH_TO_MM, 10 * INCH_TO_MM),
+    "a5":             (148, 210),
+    "a4":             (210, 297),
+    "a3 (nz tabloid)": (297, 420),
+    "a2 (nz broadsheet)": (420, 594),
+    "a1":             (594, 841),
+    "b5":             (176, 250),
+    "b4":             (250, 353),
+    "b3":             (353, 500),
+    "b2":             (500, 707),
+    "b1":             (707, 1000),
+
+    # Not so sure about next 3
+    "uk tabloid":     (11 * INCH_TO_MM, 17 * INCH_TO_MM),
+    "uk broadsheet":  (18 * INCH_TO_MM, 24 * INCH_TO_MM),
+    "us broadsheet":  (15 * INCH_TO_MM, 22.75 * INCH_TO_MM),
+
+    "berliner"     :  (315, 470),
+    "foolscap (f4)":  (210, 330),
+    "oamaru broadsheet" :(382, 540),
+    "oamaru tabloid": (265, 380),
+}                      
+
 
 # These are default options for CSS settings
 

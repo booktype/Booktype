@@ -16,61 +16,64 @@
 
 from django.template.loader import render_to_string
 
-INCH_TO_MM = 25.4
+from booktype.utils import config
+
 
 CROP_MARGIN = 18
 
-PAGE_SIZE_DATA = {
-    'comicbook':      (6.625 * INCH_TO_MM, 10.25 * INCH_TO_MM),
-    "pocket":         (4.25 * INCH_TO_MM, 6.875 * INCH_TO_MM),
-    "usletter":       (8.5 * INCH_TO_MM, 11 * INCH_TO_MM),
-    "ustrade6x9":     (6 * INCH_TO_MM, 9 * INCH_TO_MM),
-    "ustrade":        (6 * INCH_TO_MM, 9 * INCH_TO_MM),
-    "landscape9x7":   (9 * INCH_TO_MM, 7 * INCH_TO_MM),
-    "square7.5":      (7.5 * INCH_TO_MM, 7.5 * INCH_TO_MM),
-    "royal":          (6.139 * INCH_TO_MM, 9.21 * INCH_TO_MM),
-    "crownquarto":    (7.444 * INCH_TO_MM, 9.681 * INCH_TO_MM),
-    "square8.5":      (8.5 * INCH_TO_MM, 8.5 * INCH_TO_MM),
-    "us5.5x8.5":      (5.5 * INCH_TO_MM, 8.5 * INCH_TO_MM),
-    "digest":         (5.5 * INCH_TO_MM, 8.5 * INCH_TO_MM),
-    "us5x8":          (5 * INCH_TO_MM, 8 * INCH_TO_MM),
-    "us7x10":         (7 * INCH_TO_MM, 10 * INCH_TO_MM),
-    "a5":             (148, 210),
-    "a4":             (210, 297),
-    "a3 (nz tabloid)": (297, 420),
-    "a2 (nz broadsheet)": (420, 594),
-    "a1":             (594, 841),
-    "b5":             (176, 250),
-    "b4":             (250, 353),
-    "b3":             (353, 500),
-    "b2":             (500, 707),
-    "b1":             (707, 1000),
 
-    # Not so sure about next 3
-    "uk tabloid":     (11 * INCH_TO_MM, 17 * INCH_TO_MM),
-    "uk broadsheet":  (18 * INCH_TO_MM, 24 * INCH_TO_MM),
-    "us broadsheet":  (15 * INCH_TO_MM, 22.75 * INCH_TO_MM),
+def get_page_size(conf):
+    """Returns page number in millimeters.
 
-    "berliner"     :  (315, 470),
-    "foolscap (f4)":  (210, 330),
-    "oamaru broadsheet" :(382, 540),
-    "oamaru tabloid": (265, 380),
-}                      
+    Page size is defined in the constant file but user is able to define custom
+    page sizes in the settings file. We will try to find custom page size, if 
+    it is not found we will check for the default page sizes.
 
+    :Args:
+      - conf: Dictionary with all the output settings
 
-def get_page_size(config):
-    page_size = config.get('size', 'default')
+    :Returns:
+      Returns tuple with width and height values for the page size.
+    """
+
+    page_size = conf.get('size', 'default')
 
     if page_size == 'custom':
-        return config['custom_width'], config['custom_height']
+        return conf['custom_width'], conf['custom_height']
 
-    return PAGE_SIZE_DATA.get(page_size.lower(), (100, 100))
+    PAGE_SIZE_DATA = config.get_configuration('PAGE_SIZE_DATA')
+
+    # We need size in millimieters and some of the values in
+    # configuration are floats. Just round them and return them
+    # as integers.
+    sze = PAGE_SIZE_DATA.get(page_size.lower(), (100, 100))
+
+    return int(round(sze[0])), int(round(sze[1]))
 
 
 def get_value(sett, name):
+    """Get value from the settings dictionary.
+
+    At the moment this could be achieved with simple get method but
+    we are thinking there might be some more logic in the future some
+    better have our own function for this.
+    """
+
     return sett.get(name, 0)
 
-def create_default_style(config, name, extra = {}):
+
+def create_default_style(config, name, extra = {}):    
+    """We create CSS file with the default options.
+
+    :Args:
+      - config: Settings options send by the user
+      - name: Name of the output profile
+      - extra: Extra options
+
+    :Returns:
+      Returns content of the CSS file as a string.
+    """
+
     width, height = get_page_size(config['settings'])
 
     if 'crop_marks' in config['settings']:
