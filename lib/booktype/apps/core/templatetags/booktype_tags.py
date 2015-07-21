@@ -66,6 +66,9 @@ class FormatBooktypeNode(template.Node):
     def render(self, context):
         chapter = self.booktype_data.resolve(context)
 
+        if chapter is None:
+            return ""
+
         if chapter.content.find('##') == -1:
             return chapter.content
 
