@@ -322,7 +322,7 @@ class EpubImporter(object):
                     name=name,
                     chapter=None,
                     weight=n,
-                    typeof=2
+                    typeof=0  # THIS IS SECTION NOT LINE
                 )
             else:
                 chapter = self._chapters.get(name)

@@ -23,7 +23,7 @@
                     {% if item.is_section %}
                         {% if not forloop.first %}
                         </ul>
-                        {% endif %}                        
+                        {% endif %}
                         <h4>{{ item.name }}</h4>
                         <ul class="list border-top smaller-spacing">
                     {% else %}
@@ -56,7 +56,7 @@
                 {% for item in toc_items %}
                 {% if item.is_section %}
                 <h1>{{ item.name }}</h1>
-                {% else %}
+                {% elif item.is_chapter %}
                 <div class="chapter_anchor" id="{{ item.chapter.url_title }}"></div>
                 {% booktype_format item.chapter %}
                 {% endif %}

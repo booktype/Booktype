@@ -2,5 +2,9 @@
 {% load i18n %}
 {% block setting_form %}
     <li>{%if form.license.errors %} {{ form.license.errors|safe }} {% endif %}<label>{{ form.license.label }}</label>{{ form.license }}</li>
-    <li class="license-link-element"><a id="license-link" class="license-link" href="{{book.license.url}}" target="_blank">{% trans "Read full text of the license" %}</a></li>
+    <li class="license-link-element">
+        <a id="license-link" data-licenses='{{ form.license_list|safe }}' class="license-link" href="{{ book.license.url }}" target="_blank">
+            {% trans "Read full text of the license" %}
+        </a>
+    </li>
 {% endblock %}

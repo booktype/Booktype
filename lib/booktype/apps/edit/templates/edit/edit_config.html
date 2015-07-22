@@ -15,12 +15,7 @@
       window.booktype.sputnikDispatcherURL = "{% url 'sputnik.views.dispatcher' %}";
       window.booktype.activeProfile = "{{ ACTIVE_PROFILE }}";
       window.booktype.editor.historyURL = "{% url 'edit:history' book.url_title %}";
-      window.booktype.editor.historyData = [];
       window.booktype.bookSettingsURL = "{% url 'edit:settings' book.url_title %}";
-      window.booktype.licenseList = {{ license_list|safe }};
-
-       // window.booktype.subscribeToChannel("/booktype/", function(message) {
-       //  });
 
       var settings = {
         'panels': {
