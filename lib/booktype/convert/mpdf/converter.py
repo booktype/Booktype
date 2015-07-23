@@ -254,15 +254,18 @@ class MPDFConverter(BaseConverter):
 
         base_path = os.path.dirname(chapter_item.file_name)
 
-        chapter = ebooklib.utils.parse_html_string(chapter_item.content)
-        chapter_child = chapter.find("body")
+        try:
+            chapter = ebooklib.utils.parse_html_string(chapter_item.content)
+            chapter_child = chapter.find("body")
 
-        if chapter_child is not None:
-            cnt = deepcopy(chapter_child)
-            self._fix_images(cnt, base_path)
-            cnt = self._fix_content(cnt)
+            if chapter_child is not None:
+                cnt = deepcopy(chapter_child)
+                self._fix_images(cnt, base_path)
+                cnt = self._fix_content(cnt)
 
-            return etree.tostring(cnt, method='html', pretty_print=True)[6:-9]
+                return etree.tostring(cnt, method='html', pretty_print=True)[6:-9]
+        except etree.XMLSyntaxError:
+            pass
 
         return u''
 
@@ -458,7 +461,11 @@ class MPDFConverter(BaseConverter):
         """
 
         for element in root.iter('img'):
-            src_url = urllib2.unquote(element.get('src'))
+            _src = element.get('src', None)
+
+            if _src is None:
+                continue
+            src_url = urllib2.unquote(_src)
             item_name = os.path.normpath(os.path.join(base_path, src_url))
             try:
                 file_name = self.images[item_name]
