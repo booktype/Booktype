@@ -368,7 +368,12 @@ class EpubImporter(object):
         endnotes_number = set()
         endnotes_list = []
         broken_chapters = []
-        chapter_title = chapter_tree.xpath('//h1')[0].text
+        _h1 = chapter_tree.xpath('//h1')
+        
+        if len(_h1) > 0:
+            chapter_title = _h1[0].text
+        else:
+            chapter_title = _('Unknown chapter')
 
         # find all endnotes, fill dict with data, delete ol container's body
         for ol_li_span in chapter_tree.xpath('//ol[@id="InsertNote_NoteList"]//li//span'):
