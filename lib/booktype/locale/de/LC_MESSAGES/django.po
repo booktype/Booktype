@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-15 21:42-0600\n"
-"PO-Revision-Date: 2015-07-24 13:30+0000\n"
+"PO-Revision-Date: 2015-07-27 07:31+0000\n"
 "Last-Translator: Julian <julian.sorge@sourcefabric.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/booktype/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -237,7 +237,7 @@ msgstr "vor"
 
 #: apps/account/templates/account/dashboard.html:175
 msgid "This user has no recent activity."
-msgstr ""
+msgstr "Dieser Nutzer hat keine Aktivität."
 
 #: apps/account/templates/account/dashboard.html:182
 #: apps/core/templates/core/nav_menu.html:28
@@ -248,7 +248,7 @@ msgstr "Gruppen "
 
 #: apps/account/templates/account/dashboard.html:187
 msgid "This user is not a member of any groups."
-msgstr ""
+msgstr "Dieser Nutzer ist kein Mitglied einer Gruppe."
 
 #: apps/account/templates/account/dashboard_book_template.html:16
 #: apps/portal/templates/portal/group.html:70
@@ -584,7 +584,7 @@ msgstr "Passwort ist falsch! Bitte neu eingeben."
 
 #: apps/account/templates/account/form_signin.html:16
 msgid "Your account is inactive! Please, contact site support."
-msgstr ""
+msgstr "Dein Account ist inaktiv! Bitte Support kontaktieren."
 
 #: apps/account/templates/account/form_signin.html:17
 #: apps/account/templates/account/register.html:66
@@ -759,11 +759,11 @@ msgstr "Booktype Core Anwendung"
 
 #: apps/core/__init__.py:7
 msgid "Manage Roles"
-msgstr ""
+msgstr "Rollen verwalten"
 
 #: apps/core/__init__.py:8
 msgid "Manage Permissions"
-msgstr ""
+msgstr "Berechtigungen verwalten"
 
 #: apps/core/management/commands/update_default_roles.py:21
 msgid "system default role"
@@ -887,7 +887,7 @@ msgstr "Anmelden"
 #: apps/core/templates/core/nav_bar.html:42
 #: apps/edit/templates/edit/toolbar_nav.html:29
 msgid "Help us to translate Booktype"
-msgstr ""
+msgstr "Hilf uns Booktype zu übersetzen."
 
 #: apps/core/templates/core/nav_menu.html:10 apps/portal/views.py:45
 msgid "Home"
@@ -1050,23 +1050,23 @@ msgstr "Buch löschen"
 
 #: apps/edit/__init__.py:32
 msgid "Restore history"
-msgstr ""
+msgstr "Verlauf wieder herstellen."
 
 #: apps/edit/__init__.py:33
 msgid "Edit Notes"
-msgstr ""
+msgstr "Notizen bearbeiten"
 
 #: apps/edit/__init__.py:36
 msgid "Manage Language"
-msgstr ""
+msgstr "Sprachen verwalten"
 
 #: apps/edit/__init__.py:37
 msgid "Manage License"
-msgstr ""
+msgstr "Lizenzen verwalten"
 
 #: apps/edit/__init__.py:38
 msgid "Manage Metadata"
-msgstr ""
+msgstr "Metadaten verwalten"
 
 #: apps/edit/channel.py:1293
 msgid "You have no permissions for editing this chapter."
@@ -1086,7 +1086,7 @@ msgstr "Kapitel zur Zeit für Bearbeitung gesperrt."
 
 #: apps/edit/channel.py:1915
 msgid "One of the selected formats was disabled. Try to reload page."
-msgstr ""
+msgstr "Eines der ausgewählten Formate wird nicht unterstützt. Bitte Seite neu laden. "
 
 #: apps/edit/forms.py:51 apps/edit/templates/edit/panel_settings.html:17
 msgid "Language"
@@ -1710,7 +1710,7 @@ msgstr "Gespeichert..."
 
 #: apps/edit/templates/edit/edit_strings.html:24
 msgid "Chapter has been modified. Do you want to save it before closing?"
-msgstr "Das Kapitel wurde bearbeitet. Änderungen vor dem Schließen speichern?"
+msgstr "Das Kapitel wurde bearbeitet. Mit \"OK\" Änderungen speichern. Mit \"Abbrechen\" Änderungen verwerfen."
 
 #: apps/edit/templates/edit/edit_strings.html:25
 #: apps/edit/templates/edit/toolbar_book.html:6
@@ -1836,27 +1836,27 @@ msgstr "Buch wird exportiert."
 #: apps/edit/templates/edit/edit_strings.html:54
 #, python-format
 msgid "By: %%s"
-msgstr ""
+msgstr "Von:%%s"
 
 #: apps/edit/templates/edit/edit_strings.html:55
 #, python-format
 msgid "Сhapter \"%%s\" status was changed to \"%%s\""
-msgstr ""
+msgstr "Kapitel \"%%s\" Status wurde zu \"%%s\" geändert."
 
 #: apps/edit/templates/edit/edit_strings.html:56
 #, python-format
 msgid "Chapter \"%%s\" was created"
-msgstr ""
+msgstr "Kapitel \"%%s\" wurde erstellt"
 
 #: apps/edit/templates/edit/edit_strings.html:57
 #, python-format
 msgid "Chapter \"%%s\" was deleted"
-msgstr ""
+msgstr "Kapitel \"%%s\" wurde gelöscht"
 
 #: apps/edit/templates/edit/edit_strings.html:58
 #, python-format
 msgid "Section \"%%s\" was created"
-msgstr ""
+msgstr "Abschnitt \"%%s\" wurde erstellt"
 
 #: apps/edit/templates/edit/edit_strings.html:59
 #, python-format
@@ -1866,85 +1866,85 @@ msgstr "Abschnitt \"%%s\" wurde gelöscht"
 #: apps/edit/templates/edit/edit_strings.html:60
 #, python-format
 msgid "Section \"%%s\" with chapters inside was deleted"
-msgstr ""
+msgstr "Abschnitt \"%%s\" und enthaltene Kapitel wurde gelöscht"
 
 #: apps/edit/templates/edit/edit_strings.html:61
 #, python-format
 msgid "Chapter was renamed from \"%%s\" to \"%%s\""
-msgstr ""
+msgstr "Kapitel \"%%s\" wurde in \"%%s\" umbenannt"
 
 #: apps/edit/templates/edit/edit_strings.html:62
 #, python-format
 msgid "Section was renamed from \"%%s\" to \"%%s\""
-msgstr ""
+msgstr "Abschnitt \"%%s\" wurde in \"%%s\" umbenannt"
 
 #: apps/edit/templates/edit/edit_strings.html:63
 #, python-format
 msgid "Chapter \"%%s\" put on hold"
-msgstr ""
+msgstr "Kapitel \"%%s\" wurde in die Ablage verschoben"
 
 #: apps/edit/templates/edit/edit_strings.html:64
 #, python-format
 msgid "Chapter \"%%s\" unheld"
-msgstr ""
+msgstr "Kapitel \"%%s\" aus der Ablage zurück verschoben"
 
 #: apps/edit/templates/edit/edit_strings.html:65
 #, python-format
 msgid "Chapter \"%%s\" was locked"
-msgstr ""
+msgstr "Kapitel \"%%s\" wurde gesperrt"
 
 #: apps/edit/templates/edit/edit_strings.html:66
 #, python-format
 msgid "Chapter \"%%s\" was unlocked"
-msgstr ""
+msgstr "Kapitel \"%%s\" wurde entsperrt"
 
 #: apps/edit/templates/edit/edit_strings.html:67
 msgid "Table of contents order was changed"
-msgstr ""
+msgstr "Reihenfolge im Inhaltsverzeichnis wurde geändert"
 
 #: apps/edit/templates/edit/edit_strings.html:68
 #, python-format
 msgid "User \"%%s\" joined the editor"
-msgstr ""
+msgstr "Nutzer \"%%s\" hat Bearbeitung im Editor begonnen"
 
 #: apps/edit/templates/edit/edit_strings.html:69
 #, python-format
 msgid "User \"%%s\" left the editor"
-msgstr ""
+msgstr "Nutzer \"%%s\" hat Editor verlassen"
 
 #: apps/edit/templates/edit/edit_strings.html:70
 msgid "Notes were changed"
-msgstr ""
+msgstr "Notizen wurden bearbeitet"
 
 #: apps/edit/templates/edit/edit_strings.html:71
 #, python-format
 msgid "New attachment \"%%s\" uploaded"
-msgstr ""
+msgstr "Anhang \"%%s\" wurde hochgealden"
 
 #: apps/edit/templates/edit/edit_strings.html:72
 #, python-format
 msgid "Attachment \"%%s\" was deleted"
-msgstr ""
+msgstr "Anhang \"%%s\" wurde gelöscht"
 
 #: apps/edit/templates/edit/edit_strings.html:73
 #, python-format
 msgid "New cover \"%%s\" uploaded"
-msgstr ""
+msgstr "Neues Cover \"%%s\" wurde hochgeladen"
 
 #: apps/edit/templates/edit/edit_strings.html:74
 #, python-format
 msgid "Cover \"%%s\" was updated"
-msgstr ""
+msgstr "Cover \"%%s\" wurde aktualisiert"
 
 #: apps/edit/templates/edit/edit_strings.html:75
 #, python-format
 msgid "Cover \"%%s\" was deleted"
-msgstr ""
+msgstr "Cover \"%%s\" wurde gelöscht"
 
 #: apps/edit/templates/edit/edit_strings.html:76
 #, python-format
 msgid "Book export \"%%s\" was successful"
-msgstr ""
+msgstr "Buchausgabe \"%%s\" war erfolgreich"
 
 #: apps/edit/templates/edit/panel_aloha.html:17
 msgid "Zen mode"
@@ -2303,12 +2303,12 @@ msgstr "Bucheinstellungen"
 #: apps/edit/templates/edit/panel_publish.html:167
 #: apps/edit/templates/edit/panel_publish.html:170
 msgid "Size"
-msgstr ""
+msgstr "Größe"
 
 #: apps/edit/templates/edit/panel_publish.html:48
 #: apps/edit/templates/edit/panel_publish.html:169
 msgid "Paper Size"
-msgstr ""
+msgstr "Papiermaße"
 
 #: apps/edit/templates/edit/panel_publish.html:51
 #: apps/edit/templates/edit/panel_publish.html:172
@@ -2338,7 +2338,7 @@ msgstr "mm"
 #: apps/edit/templates/edit/panel_publish.html:91
 #: apps/edit/templates/edit/panel_publish.html:212
 msgid "Margins"
-msgstr ""
+msgstr "Seitenränder"
 
 #: apps/edit/templates/edit/panel_publish.html:93
 #: apps/edit/templates/edit/panel_publish.html:214
@@ -2368,48 +2368,48 @@ msgstr "Bundsteg"
 #: apps/edit/templates/edit/panel_publish.html:107
 #: apps/edit/templates/edit/panel_publish.html:228
 msgid "Footer"
-msgstr ""
+msgstr "Fußzeile"
 
 #: apps/edit/templates/edit/panel_publish.html:109
 #: apps/edit/templates/edit/panel_publish.html:230
 msgid "Footer and Header"
-msgstr ""
+msgstr "Kopf- und Fußzeile"
 
 #: apps/edit/templates/edit/panel_publish.html:111
 #: apps/edit/templates/edit/panel_publish.html:232
 msgid "Show Header"
-msgstr ""
+msgstr "Zeige Kopfzeile"
 
 #: apps/edit/templates/edit/panel_publish.html:115
 #: apps/edit/templates/edit/panel_publish.html:236
 msgid "Header Margin"
-msgstr ""
+msgstr "Seitenrand Kopfzeile "
 
 #: apps/edit/templates/edit/panel_publish.html:119
 #: apps/edit/templates/edit/panel_publish.html:240
 msgid "Show Footer"
-msgstr ""
+msgstr "Zeige Fußzeile"
 
 #: apps/edit/templates/edit/panel_publish.html:123
 #: apps/edit/templates/edit/panel_publish.html:244
 msgid "Footer Margin"
-msgstr ""
+msgstr "Seitenrand Fußzeile"
 
 #: apps/edit/templates/edit/panel_publish.html:128
 msgid "Extra"
-msgstr ""
+msgstr "Extra"
 
 #: apps/edit/templates/edit/panel_publish.html:130
 msgid "Extra options"
-msgstr ""
+msgstr "Zusätzliche Optionen"
 
 #: apps/edit/templates/edit/panel_publish.html:132
 msgid "Crop Marks"
-msgstr ""
+msgstr "Beschnittmarken"
 
 #: apps/edit/templates/edit/panel_publish.html:136
 msgid "Bleed size"
-msgstr ""
+msgstr "Beschnittzugabe"
 
 #: apps/edit/templates/edit/panel_publish.html:142
 #: apps/edit/templates/edit/panel_publish.html:145
@@ -2430,11 +2430,11 @@ msgstr "Layout"
 #: apps/edit/templates/edit/panel_publish.html:328
 #: apps/edit/templates/edit/panel_publish.html:362
 msgid "Manually edit CSS style"
-msgstr ""
+msgstr "CSS manuell bearbeiten"
 
 #: apps/edit/templates/edit/panel_publish.html:161
 msgid "Screen PDF Settings"
-msgstr ""
+msgstr "Screen Pdf Einstelllungen"
 
 #: apps/edit/templates/edit/panel_publish.html:249
 #: apps/edit/templates/edit/panel_publish.html:283
@@ -2448,7 +2448,7 @@ msgstr "Cover "
 #: apps/edit/templates/edit/panel_publish.html:319
 #: apps/edit/templates/edit/panel_publish.html:353
 msgid "Cover image"
-msgstr ""
+msgstr "Cover Bild"
 
 #: apps/edit/templates/edit/panel_publish.html:253
 #: apps/edit/templates/edit/panel_publish.html:287
@@ -2459,15 +2459,15 @@ msgstr "Kein Cover"
 
 #: apps/edit/templates/edit/panel_publish.html:277
 msgid "EPUB Settings"
-msgstr ""
+msgstr "Epub Einstellungen"
 
 #: apps/edit/templates/edit/panel_publish.html:311
 msgid "Mobi Settings"
-msgstr ""
+msgstr "Mobi Einstellungen"
 
 #: apps/edit/templates/edit/panel_publish.html:345
 msgid "XHTML Settings"
-msgstr ""
+msgstr "xHTML Einstellungen"
 
 #: apps/edit/templates/edit/panel_publish.html:379
 #: apps/edit/templates/edit/panel_publish.html:492
@@ -2492,7 +2492,7 @@ msgstr "Ausgabeformat wählen"
 
 #: apps/edit/templates/edit/panel_publish.html:402
 msgid "No available publish formats."
-msgstr ""
+msgstr "Keine Ausgabeformate verfügbar"
 
 #: apps/edit/templates/edit/panel_publish.html:413
 msgid "Book PDF"
@@ -2532,7 +2532,7 @@ msgstr "Fehlgeschlagen"
 
 #: apps/edit/templates/edit/panel_publish.html:532
 msgid "pages"
-msgstr ""
+msgstr "Seiten"
 
 #: apps/edit/templates/edit/panel_publish.html:550
 msgid "comments"
@@ -2584,7 +2584,7 @@ msgstr "Einstellungsmodul nicht verfübar"
 
 #: apps/edit/templates/edit/panel_settings.html:66
 msgid "Permissions required to access this module."
-msgstr ""
+msgstr "Berechtigung benötigt, um auf Modul zuzugreifen"
 
 #: apps/edit/templates/edit/panel_toc.html:10
 msgid "Rename Chapter"
@@ -2772,7 +2772,7 @@ msgstr "Einstellungen erfolgreich gespeichert."
 
 #: apps/edit/views.py:703
 msgid "You have no permissions to execute this action."
-msgstr ""
+msgstr "Du hast keine Berechtigung die Aktion auszuführen"
 
 #: apps/edit/views.py:706
 msgid "Unknown error while saving changes."
@@ -2872,11 +2872,11 @@ msgstr "Export Kommentare"
 
 #: apps/export/models.py:69
 msgid "Data"
-msgstr ""
+msgstr "Daten"
 
 #: apps/export/models.py:73 apps/export/models.py:74
 msgid "Export Settings"
-msgstr ""
+msgstr "Ausgabe Einstellungen"
 
 #: apps/importer/forms.py:38
 msgid "Filetype not supported."
