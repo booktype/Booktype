@@ -311,11 +311,7 @@ class BookSecurity(Security):
         return permission in self.permissions
 
     def can_edit(self):
-        # This always returns True
-        # We should check in mode the book is, and then according to it
-        # return if this user is allowed to edit this book.
-        # Thirt part has not been implemented yet.
-        return True
+        return self.has_perm("edit.edit_book")
 
 
 class GroupSecurity(Security):

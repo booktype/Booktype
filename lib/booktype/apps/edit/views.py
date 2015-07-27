@@ -32,6 +32,7 @@ from booki.utils.log import logChapterHistory, logBookHistory
 from booktype.apps.core import views
 from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
+from booktype.utils.security import BookSecurity
 from booktype.apps.reader.views import BaseReaderView
 
 from .utils import color_me, send_notification
@@ -271,7 +272,7 @@ def cover(request, bookid, cid, fname=None, version=None):
     return HttpResponse(data, content_type=content_type)
 
 
-class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
 
     """Basic Edit Book View which opens up the editor.
 
@@ -280,6 +281,7 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     of the book.
     """
 
+    SECURITY_BRIDGE = BookSecurity
     template_name = 'edit/book_edit.html'
     redirect_unauthorized_user = True
     redirect_field_name = 'redirect'
@@ -303,6 +305,10 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         return super(TemplateView, self).render_to_response(
             context, **response_kwargs)
 
+    def check_permissions(self, request, *args, **kwargs):
+        if not self.security.can_edit():
+            raise PermissionDenied
+
     def get_context_data(self, **kwargs):
         context = super(TemplateView, self).get_context_data(**kwargs)
 
@@ -313,18 +319,13 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         book_version = book.get_version(None)
 
-        book_security = security.get_security_for_book(self.request.user, book)
-
-        if not book_security.can_edit():
-            return {'book': book, 'has_permission': False}
-
         toc = get_toc_for_book(book_version)
 
         context['request'] = self.request
         context['book'] = book
         context['book_version'] = book_version.get_version()
         context['book_language'] = book.language.abbrevation if book.language else 'en'
-        context['security'] = security.get_security_for_book(self.request.user, book)
+        context['security'] = self.security
 
         try:
             rtl = models.Info.objects.get(book=book, kind=0, name='{http://booki.cc/}dir')
@@ -336,21 +337,11 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         context['base_url'] = settings.BOOKTYPE_URL
         context['static_url'] = settings.STATIC_URL
-        context['is_admin'] = book_security.is_admin()
+        context['is_admin'] = self.security.is_admin()
         context['is_owner'] = book.owner == self.request.user
         context['publish_options'] = config.get_configuration('PUBLISH_OPTIONS')
-        context['roles_permissions'] = security.get_user_permissions(
-            self.request.user, book)
 
         return context
-
-    def test_func(self, user):
-        """Filters list of user who can and who can not edit the book.
-
-        This does not do much at the moment but is left for the future use.
-        """
-
-        return True
 
     def get_login_url(self):
         return reverse('accounts:signin')
