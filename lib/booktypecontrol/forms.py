@@ -520,7 +520,7 @@ class ListOfPeopleForm(BaseControlForm, forms.Form):
     @classmethod
     def extra_context(cls):
         return {
-            'people': User.objects.all().order_by("username")
+            'people': User.objects.filter(is_active=True).order_by("username")
         }
 
 
