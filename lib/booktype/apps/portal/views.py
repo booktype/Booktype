@@ -63,7 +63,11 @@ class FrontPageView(views.SecurityMixin, PageView):
         else:
             context['roles_permissions'] = []
 
-        context['books_list'] = Book.objects.filter(hidden=False).order_by('-created')[:4]
+        b_query = Book.objects.all()
+        if not self.request.user.is_superuser:
+            b_query = b_query.filter(Q(hidden=False) | Q(owner=self.request.user))
+
+        context['books_list'] = b_query.order_by('-created')[:4]
         context['user_list'] = User.objects.filter(is_active=True).order_by('-date_joined')[:2]
         booki_group5 = BookiGroup.objects.all().order_by('-created')[:5]
 
@@ -323,11 +327,15 @@ class BooksPageView(views.SecurityMixin, PageView):
     def get_context_data(self, **kwargs):
         context = super(BooksPageView, self).get_context_data(**kwargs)
 
-        context['books_list'] = Book.objects.filter(hidden=False).order_by('title')
+        b_query = Book.objects.all()
+        if not self.request.user.is_superuser:
+            b_query = b_query.filter(Q(hidden=False) | Q(owner=self.request.user))
 
-        context['latest_books'] = Book.objects.filter(hidden=False).order_by('-created')[:2]
+        context['books_list'] = b_query.order_by('title')
 
-        context['published_books'] = Book.objects.filter(hidden=False, bookstatus=0).order_by('-created')[:2]
+        context['latest_books'] = b_query.order_by('-created')[:2]
+
+        context['published_books'] = b_query.filter(bookstatus=0).order_by('-created')[:2]
 
         context['latest_activity'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
         return context
