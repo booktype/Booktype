@@ -51,7 +51,7 @@ class BaseSettingsForm(BaseBooktypeForm):
 class LanguageForm(BaseSettingsForm, forms.Form):
     language = forms.ModelChoiceField(
         label=_('Language'),
-        queryset=Language.objects.all()
+        queryset=Language.objects.all().order_by('name')
     )
     right_to_left = forms.BooleanField(
         label=_('Right to left text'),
