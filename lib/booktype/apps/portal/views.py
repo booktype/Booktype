@@ -64,8 +64,12 @@ class FrontPageView(views.SecurityMixin, PageView):
             context['roles_permissions'] = []
 
         b_query = Book.objects.all()
+
         if not self.request.user.is_superuser:
-            b_query = b_query.filter(Q(hidden=False) | Q(owner=self.request.user))
+            if self.request.user.is_authenticated():
+                b_query = b_query.filter(Q(hidden=False) | Q(owner=self.request.user))
+            else:
+                b_query = b_query.filter(hidden=False)
 
         context['books_list'] = b_query.order_by('-created')[:4]
         context['user_list'] = User.objects.filter(is_active=True).order_by('-date_joined')[:2]
@@ -329,7 +333,10 @@ class BooksPageView(views.SecurityMixin, PageView):
 
         b_query = Book.objects.all()
         if not self.request.user.is_superuser:
-            b_query = b_query.filter(Q(hidden=False) | Q(owner=self.request.user))
+            if self.request.user.is_authenticated():
+                b_query = b_query.filter(Q(hidden=False) | Q(owner=self.request.user))
+            else:
+                b_query = b_query.filter(hidden=False)
 
         context['books_list'] = b_query.order_by('title')
 
