@@ -10,6 +10,7 @@
       window.booktype.baseURL = "{{ base_url|escapejs }}";
       window.booktype.bookDir = "{{ book_dir|escapejs }}";
       window.booktype.bookLang = "{{ book_language|escapejs }}";
+      window.booktype.trackChanges = {{ track_changes }};
 
       window.booktype.currentVersion = "{{ book_version|escapejs }}";
       window.booktype.sputnikDispatcherURL = "{% url 'sputnik.views.dispatcher' %}";

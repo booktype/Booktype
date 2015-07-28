@@ -1,10 +1,13 @@
 {% load staticfiles %}
 
-<link rel="stylesheet" href="{% static "edit/js/aloha/css/aloha.css" %}" type="text/css">
-<link rel="stylesheet" href="{% static "edit/css/aloha-custom.css" %}" type="text/css">
+<link rel="stylesheet" href="{% static 'edit/js/aloha/css/aloha.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'edit/css/aloha-custom.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'edit/js/ice.css' %}" type="text/css">
 
-<script src="{% static "edit/js/aloha/lib/vendor/jquery-1.7.2.js" %}"></script>
-<script src="{% static "edit/js/findAndReplaceDOMText/findAndReplaceDOMText.js" %}"></script>
+<script src="{% static 'edit/js/aloha/lib/vendor/jquery-1.7.2.js' %}"></script>
+<script src="{% static 'edit/js/findAndReplaceDOMText/findAndReplaceDOMText.js' %}"></script>
+<script src="{% static 'edit/js/icejs/ice.js' %}"></script>
+
 
 <script>
   Aloha = window.Aloha || {};
@@ -111,7 +114,7 @@
           'td'        : ['id', 'class', 'style', 'colspan', 'headers', 'rowspan'],
           'p'         : ['id', 'class', 'style', 'dir', 'lang'],
           'div'       : ['id', 'class', 'style', 'dir', 'lang'],
-          'span'      : ['id', 'class', 'style', 'dir', 'lang'],
+          'span'      : ['id', 'class', 'style', 'dir', 'lang', 'data-username', 'data-cid', 'data-userid', 'data-time', 'title'],
           'code'      : ['id', 'class', 'style'],
           'pre'       : ['id', 'class', 'style', 'dir', 'lang'],
           'sup'       : ['id', 'class', 'style', 'data-id'],
@@ -174,4 +177,7 @@
                             booktype/findandreplace,
                             booktype/imagesimple,
                             booktype/simpletable,
+                            booktype/icejs,
                             booktype/bookpaste"></script>
+
+<script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>

@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 PERMISSIONS = {
     'verbose_name': _('Booktype edit application'),
     'app_name': 'edit',
-    'permissions': [    
+    'permissions': [
         ('create_chapter', _('Create chapter')),
         ('rename_chapter', _('Rename chapter')),
         ('delete_chapter', _('Delete chapter')),
@@ -32,10 +32,12 @@ PERMISSIONS = {
 
         ('history_revert', _('Restore history')),
         ('note_edit', _('Edit Notes')),
+        ('track_changes', _('Track Changes')),
 
         # permissions for settings interface
         ('manage_language', _('Manage Language')),
         ('manage_license', _('Manage License')),
-        ('manage_metadata', _('Manage Metadata'))
+        ('manage_metadata', _('Manage Metadata')),
+        ('manage_book_settings', _('Manage Book Settings'))
     ]
 }

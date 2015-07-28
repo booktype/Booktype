@@ -89,6 +89,30 @@ class LanguageForm(BaseSettingsForm, forms.Form):
             rtl.save()
 
 
+class GeneralForm(BaseSettingsForm, forms.Form):
+    track_changes = forms.BooleanField(
+        label=_('Track changes'),
+        required=False,
+        help_text=_("Chapter changes will tracked.")
+    )
+    required_permission = 'edit.manage_book_settings'
+
+    @classmethod
+    def initial_data(cls, book=None, request=None):
+        data = {}
+        book_version = book.get_version()
+
+        if book_version:
+            data['track_changes'] = book_version.track_changes
+
+        return data
+
+    def save_settings(self, book, request):
+        book_version = book.get_version()
+        book_version.track_changes = self.cleaned_data['track_changes']
+        book_version.save()
+
+
 class ChapterStatusForm(BaseSettingsForm, forms.Form):
     name = forms.CharField(label=_('New Status'))
     required_permission = 'edit.manage_status'

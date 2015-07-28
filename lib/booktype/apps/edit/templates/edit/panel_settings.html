@@ -9,8 +9,12 @@
         <div class="col-xs-12">
             <div class="box white clearfix">
                 <ul id="settings" class="nav nav-tabs col-xs-3" data-active-tab="{{ option }}">
-                    {% check_perm 'edit.manage_language' or 'edit.manage_license' %}
+                    {% check_perm 'edit.manage_language' or 'edit.manage_license' or 'edit.manage_book_settings' %}
                     <h4>{% trans "Book" %}</h4>
+                    {% endcheck_perm %}
+
+                    {% check_perm 'edit.manage_book_settings' %}
+                    <li><a href="#general" data-toggle="tab">{% trans "General" %}</a></li>
                     {% endcheck_perm %}
 
                     {% check_perm 'edit.manage_language' %}

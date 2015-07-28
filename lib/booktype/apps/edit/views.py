@@ -23,8 +23,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, DetailView, FormView
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 
-from braces.views import (LoginRequiredMixin, UserPassesTestMixin,
-                          JSONResponseMixin)
+from braces.views import (LoginRequiredMixin, JSONResponseMixin)
 
 from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
@@ -32,8 +31,8 @@ from booki.utils.log import logChapterHistory, logBookHistory
 from booktype.apps.core import views
 from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
-from booktype.utils.security import BookSecurity
 from booktype.apps.reader.views import BaseReaderView
+from booktype.utils.security import BookSecurity, get_user_permissions
 
 from .utils import color_me, send_notification
 from .channel import get_toc_for_book
@@ -41,6 +40,7 @@ from . import forms as book_forms
 
 
 VALID_SETTINGS = {
+    'general': _('General Settings'),
     'language': _('Book Language'),
     'license': _('Book License'),
     'metadata': _('Book Metadata'),
@@ -335,6 +335,12 @@ class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
 
         context['chapters'] = toc
 
+        # check if we should track changes for current user
+        user_permissions = get_user_permissions(self.request.user, book)
+        should_track_changes = 'edit.track_changes' in user_permissions
+
+        context['track_changes'] = json.dumps(
+            book_version.track_changes or should_track_changes)
         context['base_url'] = settings.BOOKTYPE_URL
         context['static_url'] = settings.STATIC_URL
         context['is_admin'] = self.security.is_admin()

@@ -22,8 +22,6 @@ import time
 import datetime
 import difflib
 
-from lxml import etree, html
-
 from django.db.models import Q
 from django.db import transaction
 from django.db.utils import IntegrityError
@@ -3342,9 +3340,11 @@ def remote_export_settings_get(request, message, bookid, version):
 
     settings_options = get_settings(book, export_format)
 
-    return {'result': True,
+    return {
+        'result': True,
         'settings': settings_options,
-        'covers': covers}
+        'covers': covers
+    }
 
 
 def remote_export_settings_set(request, message, bookid, version):
@@ -3360,3 +3360,11 @@ def remote_export_settings_set(request, message, bookid, version):
     set_settings(book, message.get('format', ''), data)
 
     return {'result': True}
+
+
+def remote_load_book_settings(request, message, bookid, version):
+    """Just returns some basic settings of the book_version"""
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    return {'track_changes': book_version.track_changes}
