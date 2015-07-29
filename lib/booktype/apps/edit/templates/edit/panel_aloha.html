@@ -291,3 +291,20 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="contentModifiedModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{% trans "Chapter has been modified" %}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{% trans "This chapter has been modified. Do you want to save it before closing?" %}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel btn-default">{% trans "Discard changes" %}</button>
+        <button type="button" class="btn btn-save btn-primary">{% trans "Save changes" %}</button>
+      </div>
+    </div>
+  </div>
+</div>

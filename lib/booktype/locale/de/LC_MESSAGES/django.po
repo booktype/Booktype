@@ -1,21 +1,22 @@
 # English (en) translation strings for Booktype.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# 
+#
 # Translators:
 # Julian <julian.sorge@sourcefabric.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-15 21:42-0600\n"
+"POT-Creation-Date: 2015-07-29 16:13+0200\n"
 "PO-Revision-Date: 2015-07-27 13:01+0000\n"
 "Last-Translator: Julian <julian.sorge@sourcefabric.org>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/booktype/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/projects/p/booktype/language/"
+"de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
@@ -90,20 +91,17 @@ msgstr "Geheimer Code"
 msgid "created"
 msgstr "erstellt "
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: apps/account/models.py:69
 msgid "remote useragent"
 msgstr "Nutzerschnittstelle"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: apps/account/models.py:71
 msgid "remote addr"
 msgstr "Remote Addr"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: apps/account/models.py:73
 msgid "remote host"
 msgstr "Remote Host"
@@ -121,9 +119,9 @@ msgstr "Meine Bücher"
 #: apps/portal/templates/portal/books.html:17
 #: apps/portal/templates/portal/frontpage.html:20
 #: apps/portal/templates/portal/group.html:21
-#: apps/portal/templates/portal/group.html:48 apps/portal/views.py:316
-#: apps/portal/views.py:317
-#: apps/reader/templates/reader/book_info_page.html:83
+#: apps/portal/templates/portal/group.html:48 apps/portal/views.py:324
+#: apps/portal/views.py:325
+#: apps/reader/templates/reader/book_info_page.html:85
 msgid "Books"
 msgstr "Bücher "
 
@@ -153,7 +151,9 @@ msgstr "Zeige Liste"
 msgid ""
 "This is a perfect moment to start writing your book, just click on the "
 "button above!"
-msgstr "Dies ist der perfekte Augenblick, um ein Buch zu schreiben - einfach oben auf den Button klicken und loslegen!"
+msgstr ""
+"Dies ist der perfekte Augenblick, um ein Buch zu schreiben - einfach oben "
+"auf den Button klicken und loslegen!"
 
 #: apps/account/templates/account/dashboard.html:68
 msgid "This user has no books"
@@ -168,9 +168,9 @@ msgid "My Groups"
 msgstr "Meine Gruppen"
 
 #: apps/account/templates/account/dashboard.html:98
-msgid ""
-"Work with others in Groups. To create a Group click on the button below"
-msgstr "In Gruppen arbeiten. Um eine Gruppe zu eröffnen, Klicke auf den Button. "
+msgid "Work with others in Groups. To create a Group click on the button below"
+msgstr ""
+"In Gruppen arbeiten. Um eine Gruppe zu eröffnen, Klicke auf den Button. "
 
 #: apps/account/templates/account/dashboard.html:104
 msgid "Participating Groups"
@@ -209,7 +209,7 @@ msgstr "Einstellungen"
 
 #: apps/account/templates/account/dashboard.html:143
 #: apps/account/templates/account/form_signedin.html:19
-#: apps/account/views.py:172 apps/account/views.py:173
+#: apps/account/views.py:176 apps/account/views.py:177
 #: apps/edit/templates/edit/toolbar_book.html:12
 msgid "Settings"
 msgstr "Einstellungen"
@@ -231,7 +231,7 @@ msgstr "Letzte Aktivität"
 #: apps/account/templates/account/dashboard.html:162
 #: apps/portal/templates/portal/books.html:112
 #: apps/portal/templates/portal/frontpage.html:147
-#: apps/reader/templates/reader/book_info_page.html:98
+#: apps/reader/templates/reader/book_info_page.html:100
 msgid "ago"
 msgstr "vor"
 
@@ -241,8 +241,8 @@ msgstr "Dieser Nutzer hat keine Aktivität."
 
 #: apps/account/templates/account/dashboard.html:182
 #: apps/core/templates/core/nav_menu.html:28
-#: apps/portal/templates/portal/frontpage.html:87 apps/portal/views.py:144
-#: apps/portal/views.py:145
+#: apps/portal/templates/portal/frontpage.html:87 apps/portal/views.py:152
+#: apps/portal/views.py:153
 msgid "Groups"
 msgstr "Gruppen "
 
@@ -265,8 +265,8 @@ msgstr "Buch ansehen"
 #: apps/portal/templates/portal/group.html:72
 #: apps/reader/templates/reader/book_delete.html:9
 #: apps/reader/templates/reader/book_delete.html:19
-#: apps/reader/templates/reader/book_info_page.html:59
-#: apps/reader/templates/reader/book_info_page.html:60
+#: apps/reader/templates/reader/book_info_page.html:61
+#: apps/reader/templates/reader/book_info_page.html:62
 msgid "Delete Book"
 msgstr "Buch löschen"
 
@@ -288,7 +288,7 @@ msgid "Rename"
 msgstr "Umbenennen"
 
 #: apps/account/templates/account/dashboard_book_template.html:45
-#: apps/edit/templates/edit/panel_aloha.html:265
+#: apps/edit/templates/edit/panel_aloha.html:261
 #: apps/edit/templates/edit/panel_toc.html:347
 #: apps/edit/templates/edit/panel_toc.html:364
 #: apps/edit/templates/edit/panel_toc.html:390
@@ -324,7 +324,7 @@ msgstr "Es gibt bereits ein Buch mit diesem Titel"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:26
 #: apps/account/templates/account/dashboard_create_book_modal.html:29
-#: apps/edit/templates/edit/panel_aloha.html:221 apps/export/models.py:47
+#: apps/edit/templates/edit/panel_aloha.html:217 apps/export/models.py:47
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -332,7 +332,9 @@ msgstr "Beschreibung"
 msgid ""
 "Give some information so others can find it to help you (this can be added "
 "or changed later)."
-msgstr "Beschreibung des Buches, Informationen und Stichpunkte. (Kann später noch ergänzt und bearbeitet werden,) "
+msgstr ""
+"Beschreibung des Buches, Informationen und Stichpunkte. (Kann später noch "
+"ergänzt und bearbeitet werden,) "
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:33
 msgid "Choose license"
@@ -343,7 +345,7 @@ msgid "Choose from the following license"
 msgstr "Wähle von den folgenden Lizenzen"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:36
-#: apps/edit/forms.py:109 apps/edit/templates/edit/panel_covers.html:73
+#: apps/edit/forms.py:111 apps/edit/templates/edit/panel_covers.html:73
 #: apps/edit/templates/edit/panel_covers.html:130
 #: apps/edit/templates/edit/panel_settings.html:21
 msgid "License"
@@ -357,7 +359,9 @@ msgstr "Bild"
 msgid ""
 "If you have an image for the book then add it now (this can be added or "
 "changed later)"
-msgstr "Falls ein Bild für das Buch vorhanden, bitte hinzufügen. (Dies kann zu einem späteren Zeitpunkt geändert werden.)"
+msgstr ""
+"Falls ein Bild für das Buch vorhanden, bitte hinzufügen. (Dies kann zu einem "
+"späteren Zeitpunkt geändert werden.)"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:47
 msgid "Book Image"
@@ -371,7 +375,9 @@ msgstr "Anderen Nutzern sichtbar machen?"
 msgid ""
 "Would you like to keep your book private or make it public? If the book is "
 "public others can find the book to help you."
-msgstr "Buch anderen Nutzern sichtbar machen? Wenn das Buch öffentlich ist, können andere Nutzer das Buch lesen und ggf. auch helfen."
+msgstr ""
+"Buch anderen Nutzern sichtbar machen? Wenn das Buch öffentlich ist, können "
+"andere Nutzer das Buch lesen und ggf. auch helfen."
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:54
 msgid "Note"
@@ -408,7 +414,7 @@ msgstr "Folgen noch nicht:"
 #: apps/portal/templates/portal/all_groups.html:92
 #: apps/portal/templates/portal/group.html:20
 #: apps/portal/templates/portal/group.html:106
-#: apps/reader/templates/reader/book_info_page.html:83
+#: apps/reader/templates/reader/book_info_page.html:85
 msgid "Members"
 msgstr "Mitglieder"
 
@@ -489,6 +495,7 @@ msgstr "Nutzer Einstellungen"
 
 #: apps/account/templates/account/dashboard_settings.html:43
 #: apps/edit/templates/edit/_settings_form.html:15
+#: apps/edit/templates/edit/panel_aloha.html:306
 #: apps/portal/templates/portal/group_settings.html:16
 #: apps/reader/templates/reader/book_info_edit.html:15
 msgid "Save changes"
@@ -509,7 +516,7 @@ msgid "Can't find user \"%(username)s\"."
 msgstr "Kann den Nutzer \"%(username)s\" nicht finden."
 
 #: apps/account/templates/account/forgot_password.html:10
-#: apps/account/views.py:283 apps/account/views.py:284
+#: apps/account/views.py:287 apps/account/views.py:288
 msgid "Forgot your password"
 msgstr "Passwort vergessen?"
 
@@ -519,7 +526,9 @@ msgstr "E-Mail abrufen!"
 
 #: apps/account/templates/account/forgot_password.html:13
 msgid "Password reset instructions were sent to your email."
-msgstr "Anweisungen zum Zurücksetzen des Passwortes wurden per an Ihre E-Mail verschickt."
+msgstr ""
+"Anweisungen zum Zurücksetzen des Passwortes wurden per an Ihre E-Mail "
+"verschickt."
 
 #: apps/account/templates/account/forgot_password.html:20
 msgid "Username or e-mail address"
@@ -529,7 +538,9 @@ msgstr "Nutzername oder E-Mail Adresse"
 msgid ""
 "Give us your username or e-mail you used to create Booktype account and we "
 "will send you new password."
-msgstr "Bitte Nutzernamen oder E-Mail-Adresse des Booktype Accounts eingeben, damit wir ein neues Passwort zusenden können."
+msgstr ""
+"Bitte Nutzernamen oder E-Mail-Adresse des Booktype Accounts eingeben, damit "
+"wir ein neues Passwort zusenden können."
 
 #: apps/account/templates/account/forgot_password.html:30
 #: apps/account/templates/account/forgot_password_enter.html:42
@@ -537,7 +548,7 @@ msgid "Send request"
 msgstr "Anfrage senden"
 
 #: apps/account/templates/account/forgot_password_enter.html:12
-#: apps/account/views.py:356 apps/account/views.py:357
+#: apps/account/views.py:360 apps/account/views.py:361
 msgid "Reset your password"
 msgstr "Passwort zurücksetzen"
 
@@ -561,8 +572,8 @@ msgstr "Neues Passwort wiederholen"
 msgid "My Dashboard"
 msgstr "Mein Dashboard"
 
-#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:406
-#: apps/account/views.py:407
+#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:410
+#: apps/account/views.py:411
 msgid "Sign in"
 msgstr "Anmelden"
 
@@ -601,9 +612,11 @@ msgstr "Passwort vergessen?"
 
 #: apps/account/templates/account/password_reset_email.html:5
 msgid ""
-"To reset your Booktype password, simply click the link below. That will take"
-" you to a web page where you can create a new password."
-msgstr "Um das Booktype Passwort zurückzusetzen, einfach unten auf den Link klicken. Auf der folgenden Seite kann dann ein neues Passwort eingegeben werden. "
+"To reset your Booktype password, simply click the link below. That will take "
+"you to a web page where you can create a new password."
+msgstr ""
+"Um das Booktype Passwort zurückzusetzen, einfach unten auf den Link klicken. "
+"Auf der folgenden Seite kann dann ein neues Passwort eingegeben werden. "
 
 #: apps/account/templates/account/password_reset_email.html:6
 msgid "Go to:"
@@ -614,7 +627,10 @@ msgid ""
 "If you weren't trying to reset your password, don't worry – your account is "
 "still secure and no one has been given access to it. Most likely, someone "
 "just mistyped their email address while trying to reset their own password."
-msgstr "Falls Du gerade nicht versucht hast Dein Passwort zurückzusetzen - keine Sorge, Deine Account ist nach wie vor sicher. Wahrscheinlich hat jemand versehentlich eine E-Mail Adresse falsch eingegeben."
+msgstr ""
+"Falls Du gerade nicht versucht hast Dein Passwort zurückzusetzen - keine "
+"Sorge, Deine Account ist nach wie vor sicher. Wahrscheinlich hat jemand "
+"versehentlich eine E-Mail Adresse falsch eingegeben."
 
 #: apps/account/templates/account/register.html:13
 msgid "You are already signed in!"
@@ -676,8 +692,13 @@ msgstr "Bitte vollen Namen eingeben."
 msgid ""
 "Username is invalid. Please try a different one. You may use alhpanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "Nutzername is nicht gültig. Bitte einen anderen eingeben. Erlaubt sind folgende Zeichen: Alphabet, \".\", \"_\", \"-\" (Punkt, Unterstrich, Minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
+"li></ul>"
+msgstr ""
+"Nutzername is nicht gültig. Bitte einen anderen eingeben. Erlaubt sind "
+"folgende Zeichen: Alphabet, \".\", \"_\", \"-\" (Punkt, Unterstrich, Minus). "
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
+"li></ul>"
 
 #: apps/account/templates/account/register.html:62
 msgid "This is not a valid e-mail"
@@ -707,49 +728,50 @@ msgstr "ACCOUNT ERSTELLEN"
 #: apps/portal/templates/portal/anonymous_frontpage.html:55
 #: apps/portal/templates/portal/frontpage.html:133
 msgid "Only administrator is allowed to create new accounts at the moment."
-msgstr "Nur Administratoren sind aktuell berechtigt neue Accounts zu erstellen."
+msgstr ""
+"Nur Administratoren sind aktuell berechtigt neue Accounts zu erstellen."
 
 #: apps/account/views.py:64
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: apps/account/views.py:123 apps/account/views.py:124
+#: apps/account/views.py:127 apps/account/views.py:128
 msgid "User profile"
 msgstr "Nutzer Profil"
 
-#: apps/account/views.py:223
+#: apps/account/views.py:227
 msgid "User settings has been successfully saved!"
 msgstr "Nutzer Einstellungen erfolgreich gespeichert!"
 
-#: apps/account/views.py:260
+#: apps/account/views.py:264
 msgid "Password changed successfully!"
 msgstr "Passwort erfolgreich geändert!"
 
-#: apps/account/views.py:312
+#: apps/account/views.py:316
 msgid "Missing username"
 msgstr "Fehlender Nutzername"
 
-#: apps/account/views.py:316
+#: apps/account/views.py:320
 msgid "No such user"
 msgstr "Nutzer existiert nicht"
 
-#: apps/account/views.py:336
+#: apps/account/views.py:340
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: apps/account/views.py:349
+#: apps/account/views.py:353
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: apps/account/views.py:371
+#: apps/account/views.py:375
 msgid "Password can't be empty"
 msgstr "Passwort muss gesetzt werden"
 
-#: apps/account/views.py:376
+#: apps/account/views.py:380
 msgid "Passwords don't match"
 msgstr "Passwörter stimmen nicht überein"
 
-#: apps/account/views.py:392
+#: apps/account/views.py:396
 msgid "Wrong secret code"
 msgstr "Falscher Geheimcode"
 
@@ -783,7 +805,7 @@ msgid "Permission"
 msgstr "Berechtigung"
 
 #: apps/core/models.py:29 apps/edit/templates/edit/panel_settings.html:43
-#: apps/edit/views.py:47
+#: apps/edit/views.py:48
 msgid "Permissions"
 msgstr "Berechtigungen"
 
@@ -796,7 +818,7 @@ msgid "Role"
 msgstr "Rolle"
 
 #: apps/core/models.py:70 apps/edit/templates/edit/panel_settings.html:39
-#: apps/edit/views.py:46 apps/portal/templates/portal/frontpage.html:230
+#: apps/edit/views.py:47 apps/portal/templates/portal/frontpage.html:230
 msgid "Roles"
 msgstr "Rollen"
 
@@ -832,11 +854,15 @@ msgstr "Über"
 msgid ""
 "This is a demonstration server for Booktype. This server is reset on a "
 "regular basis, and any books created here will be deleted at that time. You "
-"can read the Booktype user manual at <a "
-"href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-"
-"publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-"
-"publishers/</a>."
-msgstr "Bitte beachten: Dies ist ein Test Server. Er wird regelmäßig zurückgesetzt und damit werden auch alle Bücher gelöscht! \nDas Booktype Manual (englisch) kann hier gelesen werden  <a href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/"
+"can read the Booktype user manual at <a href=\"http://sourcefabric.booktype."
+"pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype."
+"pro/booktype-20-for-authors-and-publishers/</a>."
+msgstr ""
+"Bitte beachten: Dies ist ein Test Server. Er wird regelmäßig zurückgesetzt "
+"und damit werden auch alle Bücher gelöscht! \n"
+"Das Booktype Manual (englisch) kann hier gelesen werden  <a href=\"http://"
+"sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/\">http://"
+"sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/"
 
 #: apps/core/templates/core/footer.html:17
 msgid "How to use"
@@ -845,10 +871,15 @@ msgstr "Bedienung"
 #: apps/core/templates/core/footer.html:20
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
-"href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a>"
-" or check out Booktype Pro, our cloud-hosted publishing service - <a "
-"href=\"http://booktype.pro/\">http://booktype.pro/</a>."
-msgstr "Um eine eigene Installation von Booktype vorzunehmen, kann Booktype hier herunter geladen werden: <a href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a> alternativ bieten wir Booktype Pro als cloud-gehosteten Dienst an: <a href=\"http://booktype.pro/\">http://booktype.pro/</a>."
+"href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric."
+"org/en/booktype/</a> or check out Booktype Pro, our cloud-hosted publishing "
+"service - <a href=\"http://booktype.pro/\">http://booktype.pro/</a>."
+msgstr ""
+"Um eine eigene Installation von Booktype vorzunehmen, kann Booktype hier "
+"herunter geladen werden: <a href=\"http://www.sourcefabric.org/en/booktype/"
+"\">http://www.sourcefabric.org/en/booktype/</a> alternativ bieten wir "
+"Booktype Pro als cloud-gehosteten Dienst an: <a href=\"http://booktype.pro/"
+"\">http://booktype.pro/</a>."
 
 #: apps/core/templates/core/footer.html:27
 msgid "Need Help?"
@@ -861,13 +892,23 @@ msgid ""
 "print-on-demand services and education institutions produce better books, "
 "faster, while Sourcefabric takes care of your own platform's installation, "
 "hosting, upgrades, and security. "
-msgstr "Mit der Möglichkeit Bücher kooperativ zu verfassen und zu bearbeiten, mit einfachen Arbeitsabläufen und verschiedenen Ausgabeformate für Druck und digitales Publizieren, wendet sich Booktype an professionellen Autoren und Texter gleichermaßen.\nAber auch Unternehmen, Organisationen und Agenturen finden in Booktype die geeignete Anwendung um ihre Veröffentlichungen einfach zu erstellen und zu veröffentlichen. Mit Booktype stellt Sourcefabric eine komplette Publikationsplattform zur Verfügung, inkl. Installation, Backups, Upgrades und Sicherheit."
+msgstr ""
+"Mit der Möglichkeit Bücher kooperativ zu verfassen und zu bearbeiten, mit "
+"einfachen Arbeitsabläufen und verschiedenen Ausgabeformate für Druck und "
+"digitales Publizieren, wendet sich Booktype an professionellen Autoren und "
+"Texter gleichermaßen.\n"
+"Aber auch Unternehmen, Organisationen und Agenturen finden in Booktype die "
+"geeignete Anwendung um ihre Veröffentlichungen einfach zu erstellen und zu "
+"veröffentlichen. Mit Booktype stellt Sourcefabric eine komplette "
+"Publikationsplattform zur Verfügung, inkl. Installation, Backups, Upgrades "
+"und Sicherheit."
 
 #: apps/core/templates/core/footer.html:41
 msgid ""
 "Powered by Booktype, the open content management system for professional  "
 "writers."
-msgstr "Booktype - professionelle Open Source Technologie für Texter und Autoren."
+msgstr ""
+"Booktype - professionelle Open Source Technologie für Texter und Autoren."
 
 #: apps/core/templates/core/nav_bar.html:12
 #: apps/edit/templates/edit/toolbar_user.html:8
@@ -894,8 +935,8 @@ msgid "Home"
 msgstr "Home"
 
 #: apps/core/templates/core/nav_menu.html:35
-#: apps/portal/templates/portal/frontpage.html:54 apps/portal/views.py:294
-#: apps/portal/views.py:295
+#: apps/portal/templates/portal/frontpage.html:54 apps/portal/views.py:302
+#: apps/portal/views.py:303
 msgid "People"
 msgstr "Personen"
 
@@ -1045,67 +1086,75 @@ msgid "Change chapter status"
 msgstr "Kapitel-Status ändern"
 
 #: apps/edit/__init__.py:30
+#, fuzzy
+#| msgid "Edit Book"
+msgid "Edit book"
+msgstr "Buch bearbeiten"
+
+#: apps/edit/__init__.py:31
 msgid "Delete book"
 msgstr "Buch löschen"
 
-#: apps/edit/__init__.py:32
+#: apps/edit/__init__.py:33
 msgid "Restore history"
 msgstr "Verlauf wieder herstellen."
 
-#: apps/edit/__init__.py:33
+#: apps/edit/__init__.py:34
 msgid "Edit Notes"
 msgstr "Notizen bearbeiten"
 
-#: apps/edit/__init__.py:36
+#: apps/edit/__init__.py:37
 msgid "Manage Language"
 msgstr "Sprachen verwalten"
 
-#: apps/edit/__init__.py:37
+#: apps/edit/__init__.py:38
 msgid "Manage License"
 msgstr "Lizenzen verwalten"
 
-#: apps/edit/__init__.py:38
+#: apps/edit/__init__.py:39
 msgid "Manage Metadata"
 msgstr "Metadaten verwalten"
 
-#: apps/edit/channel.py:1293
+#: apps/edit/channel.py:1277
 msgid "You have no permissions for editing this chapter."
 msgstr "Keine Berechtigung das Kapitel zu bearbeiten."
 
-#: apps/edit/channel.py:1301
+#: apps/edit/channel.py:1285
 msgid "Chapter currently being edited."
 msgstr "Kapitel zur Zeit in Bearbeitung"
 
-#: apps/edit/channel.py:1306
+#: apps/edit/channel.py:1290
 msgid "You have no permissions for editing chapters under lock."
 msgstr "Keine Berechtigung gesperrte Kapitel zu bearbeiten."
 
-#: apps/edit/channel.py:1310
+#: apps/edit/channel.py:1294
 msgid "Chapter currently is locked from everyone."
 msgstr "Kapitel zur Zeit für Bearbeitung gesperrt."
 
-#: apps/edit/channel.py:1915
+#: apps/edit/channel.py:1899
 msgid "One of the selected formats was disabled. Try to reload page."
-msgstr "Eines der ausgewählten Formate wird nicht unterstützt. Bitte Seite neu laden. "
+msgstr ""
+"Eines der ausgewählten Formate wird nicht unterstützt. Bitte Seite neu "
+"laden. "
 
-#: apps/edit/forms.py:51 apps/edit/templates/edit/panel_settings.html:17
+#: apps/edit/forms.py:53 apps/edit/templates/edit/panel_settings.html:17
 msgid "Language"
 msgstr "Sprache"
 
-#: apps/edit/forms.py:55
+#: apps/edit/forms.py:57
 msgid "Right to left text"
 msgstr "Rechts nach links Text"
 
-#: apps/edit/forms.py:57
+#: apps/edit/forms.py:59
 msgid "Book with right to left writing."
 msgstr "Buch in Rechts-Links-Schrift"
 
-#: apps/edit/forms.py:91
+#: apps/edit/forms.py:93
 msgid "New Status"
 msgstr "Neuer Status"
 
 #: apps/edit/templates/edit/_compare_modal.html:7
-#: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:552
+#: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:538
 msgid "Chapter diff"
 msgstr "Kapitel DIff"
 
@@ -1129,7 +1178,7 @@ msgstr "Gelöscht"
 #: apps/edit/templates/edit/chapter_history.html:23
 #: apps/edit/templates/edit/chapter_revision.html:16
 #: apps/edit/templates/edit/compare_screen.html:20
-#: apps/edit/templates/edit/compare_screen.html:21 apps/edit/views.py:583
+#: apps/edit/templates/edit/compare_screen.html:21 apps/edit/views.py:569
 msgid "Revision"
 msgstr "Revision / Überarbeitung"
 
@@ -1141,14 +1190,14 @@ msgstr "Ganze Ansicht"
 #: apps/edit/templates/edit/_settings_form.html:17
 #: apps/edit/templates/edit/book_edit.html:108
 #: apps/edit/templates/edit/chapter_revision.html:60
-#: apps/edit/templates/edit/panel_aloha.html:38
-#: apps/edit/templates/edit/panel_aloha.html:101
-#: apps/edit/templates/edit/panel_aloha.html:119
-#: apps/edit/templates/edit/panel_aloha.html:137
-#: apps/edit/templates/edit/panel_aloha.html:155
-#: apps/edit/templates/edit/panel_aloha.html:225
-#: apps/edit/templates/edit/panel_aloha.html:242
-#: apps/edit/templates/edit/panel_aloha.html:292
+#: apps/edit/templates/edit/panel_aloha.html:34
+#: apps/edit/templates/edit/panel_aloha.html:97
+#: apps/edit/templates/edit/panel_aloha.html:115
+#: apps/edit/templates/edit/panel_aloha.html:133
+#: apps/edit/templates/edit/panel_aloha.html:151
+#: apps/edit/templates/edit/panel_aloha.html:221
+#: apps/edit/templates/edit/panel_aloha.html:238
+#: apps/edit/templates/edit/panel_aloha.html:288
 #: apps/edit/templates/edit/panel_covers.html:96
 #: apps/edit/templates/edit/panel_covers.html:153
 #: apps/edit/templates/edit/panel_toc.html:17
@@ -1161,7 +1210,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: apps/edit/templates/edit/_settings_form_chapter_status.html:4
-#: apps/edit/views.py:48
+#: apps/edit/views.py:49
 msgid "Chapter Status"
 msgstr "Kapitel-Status"
 
@@ -1181,7 +1230,7 @@ msgstr "Kapitel-Status:"
 msgid "You have no permissions to manage statuses"
 msgstr "Du hast keine Berechtigung die Status zu bearbeiten"
 
-#: apps/edit/templates/edit/_settings_form_license.html:5
+#: apps/edit/templates/edit/_settings_form_license.html:7
 msgid "Read full text of the license"
 msgstr "Vollständige Lizenz lesen."
 
@@ -1190,7 +1239,7 @@ msgid "Assign"
 msgstr "Zuweisen"
 
 #: apps/edit/templates/edit/_settings_form_roles.html:26
-#: apps/edit/templates/edit/panel_aloha.html:271
+#: apps/edit/templates/edit/panel_aloha.html:267
 msgid "REMOVE"
 msgstr "ENTFERNEN"
 
@@ -1223,29 +1272,30 @@ msgstr "Um Änderungen zuzustimmen, auf \"speichern\" klicken."
 
 #: apps/edit/templates/edit/_settings_form_roles.html:86
 #: apps/edit/templates/edit/edit_strings.html:53
-#: apps/edit/templates/edit/panel_aloha.html:291
+#: apps/edit/templates/edit/panel_aloha.html:287
 #: apps/edit/templates/edit/panel_toc.html:18
 #: apps/edit/templates/edit/panel_toc.html:37
 msgid "Save"
 msgstr "Speichern"
 
 #: apps/edit/templates/edit/aloha_menu.html:5
-#: apps/edit/templates/edit/panel_aloha.html:243
+#: apps/edit/templates/edit/panel_aloha.html:239
 msgid "Insert"
 msgstr "Einfügen"
 
 #: apps/edit/templates/edit/aloha_menu.html:7
-#: apps/edit/templates/edit/panel_aloha.html:138
-msgid "Insert footnote"
-msgstr "Fußnote einfügen"
-
-#: apps/edit/templates/edit/aloha_menu.html:8
 msgid "Insert horizontal line"
 msgstr "Horizontale Linie einfügen"
 
-#: apps/edit/templates/edit/aloha_menu.html:9
+#: apps/edit/templates/edit/aloha_menu.html:8
 msgid "Insert page break"
 msgstr "Seitenwechsel einfügen"
+
+#: apps/edit/templates/edit/aloha_menu.html:9
+#, fuzzy
+#| msgid "Insert footnote"
+msgid "Insert endnote"
+msgstr "Fußnote einfügen"
 
 #: apps/edit/templates/edit/aloha_menu.html:15
 #: apps/edit/templates/edit/aloha_toolbar.html:6
@@ -1285,8 +1335,8 @@ msgid "Tools"
 msgstr "Werkzeuge"
 
 #: apps/edit/templates/edit/aloha_menu.html:31
-#: apps/edit/templates/edit/panel_aloha.html:54
-#: apps/edit/templates/edit/panel_aloha.html:62
+#: apps/edit/templates/edit/panel_aloha.html:50
+#: apps/edit/templates/edit/panel_aloha.html:58
 msgid "Word count"
 msgstr "Wörter zählen"
 
@@ -1366,7 +1416,7 @@ msgid "Columns"
 msgstr "Spalten"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:167
-#: apps/edit/templates/edit/panel_aloha.html:67
+#: apps/edit/templates/edit/panel_aloha.html:63
 #: apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
 msgstr "OK"
@@ -1408,7 +1458,7 @@ msgid "Insert Link"
 msgstr "Verknüpfung einfügen"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:184
-#: apps/edit/templates/edit/panel_aloha.html:168
+#: apps/edit/templates/edit/panel_aloha.html:164
 msgid "Insert Image"
 msgstr "Bild einfügen"
 
@@ -1463,7 +1513,7 @@ msgid "Save minor change"
 msgstr "Kleine Änderung speichern"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:216
-#: apps/edit/templates/edit/panel_aloha.html:280
+#: apps/edit/templates/edit/panel_aloha.html:276
 msgid "Save with comment"
 msgstr "Mit Kommentar speichern"
 
@@ -1537,9 +1587,11 @@ msgstr "Verlauf"
 #: apps/edit/templates/edit/book_edit.html:208
 #, python-format
 msgid ""
-"<p class=\"notification-text\"><%%= username %%> joined </p><span class"
-"=\"notification-info\"><%%= info %%></span>"
-msgstr "<p class=\"notification-text\"><%%= username %%> ist </p><span class=\"notification-info\"><%%= info %%></span> beigetreten"
+"<p class=\"notification-text\"><%%= username %%> joined </p><span class="
+"\"notification-info\"><%%= info %%></span>"
+msgstr ""
+"<p class=\"notification-text\"><%%= username %%> ist </p><span class="
+"\"notification-info\"><%%= info %%></span> beigetreten"
 
 #: apps/edit/templates/edit/book_history.html:21
 msgid "No results found."
@@ -1567,7 +1619,7 @@ msgid "Time"
 msgstr "Zeit"
 
 #: apps/edit/templates/edit/chapter_history.html:26
-#: apps/edit/templates/edit/panel_aloha.html:285
+#: apps/edit/templates/edit/panel_aloha.html:281
 #: apps/edit/templates/edit/panel_publish.html:496
 msgid "Comment"
 msgstr "Kommentar"
@@ -1577,7 +1629,7 @@ msgid "BACK TO CHAPTER HISTORY"
 msgstr "ZURÜCK ZUM KAPITEL VERLAUF"
 
 #: apps/edit/templates/edit/chapter_revision.html:11
-#: apps/edit/templates/edit/panel_aloha.html:252
+#: apps/edit/templates/edit/panel_aloha.html:248
 #: apps/edit/templates/edit/panel_history.html:25
 msgid "Modified"
 msgstr "Geändert"
@@ -1651,7 +1703,9 @@ msgstr "Nutzer {0} hat neues Kapitel \"{1}\" erstellt."
 #: apps/edit/templates/edit/edit_strings.html:8
 #, python-brace-format
 msgid "User {0} has cloned chapter \"{1}\" from book \"{2}\"."
-msgstr " \t\nNutzer {0} hat Kapitel \"{1}\" des Buches \"{2}\" kopiert. "
+msgstr ""
+" \t\n"
+"Nutzer {0} hat Kapitel \"{1}\" des Buches \"{2}\" kopiert. "
 
 #: apps/edit/templates/edit/edit_strings.html:9
 #, python-brace-format
@@ -1710,7 +1764,9 @@ msgstr "Gespeichert..."
 
 #: apps/edit/templates/edit/edit_strings.html:24
 msgid "Chapter has been modified. Do you want to save it before closing?"
-msgstr "Das Kapitel wurde bearbeitet. Mit \"OK\" Änderungen speichern. Mit \"Abbrechen\" Änderungen verwerfen."
+msgstr ""
+"Das Kapitel wurde bearbeitet. Mit \"OK\" Änderungen speichern. Mit "
+"\"Abbrechen\" Änderungen verwerfen."
 
 #: apps/edit/templates/edit/edit_strings.html:25
 #: apps/edit/templates/edit/toolbar_book.html:6
@@ -1773,7 +1829,7 @@ msgid "Unable to remove user from role"
 msgstr "Nutzer kann nicht aus dieser Rolle gelöscht werden."
 
 #: apps/edit/templates/edit/edit_strings.html:39
-#: apps/edit/templates/edit/panel_aloha.html:29
+#: apps/edit/templates/edit/panel_aloha.html:25
 msgid "Find"
 msgstr "Suchen"
 
@@ -1946,165 +2002,205 @@ msgstr "Cover \"%%s\" wurde gelöscht"
 msgid "Book export \"%%s\" was successful"
 msgstr "Buchausgabe \"%%s\" war erfolgreich"
 
-#: apps/edit/templates/edit/panel_aloha.html:17
+#: apps/edit/templates/edit/edit_strings.html:77
+#, fuzzy
+#| msgid "Do you want to remove this export?"
+msgid "Do you want to delete this endnote?"
+msgstr "Exportierte Datei löschen?"
+
+#: apps/edit/templates/edit/edit_strings.html:78
+#, fuzzy
+#| msgid "Notes"
+msgid "endnotes"
+msgstr "Notizen"
+
+#: apps/edit/templates/edit/edit_strings.html:79
+msgid "endnotes without reference"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:13
 msgid "Zen mode"
 msgstr "Zen Mode"
 
-#: apps/edit/templates/edit/panel_aloha.html:25
+#: apps/edit/templates/edit/panel_aloha.html:21
 msgid "Find &amp; Replace"
 msgstr "Suchen &amp; Ersetzen"
 
-#: apps/edit/templates/edit/panel_aloha.html:32
-#: apps/edit/templates/edit/panel_aloha.html:40
+#: apps/edit/templates/edit/panel_aloha.html:28
+#: apps/edit/templates/edit/panel_aloha.html:36
 msgid "Replace"
 msgstr "Ersetzen"
 
-#: apps/edit/templates/edit/panel_aloha.html:34
+#: apps/edit/templates/edit/panel_aloha.html:30
 msgid "Match Case"
 msgstr "Groß-/Kleinschreibung"
 
-#: apps/edit/templates/edit/panel_aloha.html:35
+#: apps/edit/templates/edit/panel_aloha.html:31
 msgid "Finished"
 msgstr "Beendet"
 
-#: apps/edit/templates/edit/panel_aloha.html:41
+#: apps/edit/templates/edit/panel_aloha.html:37
 msgid "Replace All"
 msgstr "Alle ersetzen"
 
-#: apps/edit/templates/edit/panel_aloha.html:42
+#: apps/edit/templates/edit/panel_aloha.html:38
 msgid "&lt; Prev"
 msgstr "&lt; Vorheriges"
 
-#: apps/edit/templates/edit/panel_aloha.html:43
+#: apps/edit/templates/edit/panel_aloha.html:39
 msgid "Next $gt;"
 msgstr "Nächstes $gt;"
 
-#: apps/edit/templates/edit/panel_aloha.html:57
+#: apps/edit/templates/edit/panel_aloha.html:53
 msgid "Whole book"
 msgstr "Ganzes Buch"
 
-#: apps/edit/templates/edit/panel_aloha.html:58
+#: apps/edit/templates/edit/panel_aloha.html:54
 msgid "Book word count"
 msgstr "Anzahl Worte Buch"
 
-#: apps/edit/templates/edit/panel_aloha.html:59
+#: apps/edit/templates/edit/panel_aloha.html:55
 msgid "Book character count"
 msgstr "Anzahl Zeichen Buch"
 
-#: apps/edit/templates/edit/panel_aloha.html:60
+#: apps/edit/templates/edit/panel_aloha.html:56
 msgid "Book character count (with spaces)"
 msgstr "Anzahl Zeichen Buch (mit Leerschlägen)"
 
-#: apps/edit/templates/edit/panel_aloha.html:61 apps/edit/views.py:426
-#: apps/reader/views.py:254
+#: apps/edit/templates/edit/panel_aloha.html:57 apps/edit/views.py:412
+#: apps/reader/views.py:252
 msgid "Chapter"
 msgstr "Kapitel"
 
-#: apps/edit/templates/edit/panel_aloha.html:63
+#: apps/edit/templates/edit/panel_aloha.html:59
 msgid "Character count"
 msgstr "Anzahl Zeichen"
 
-#: apps/edit/templates/edit/panel_aloha.html:64
+#: apps/edit/templates/edit/panel_aloha.html:60
 msgid "Character count (with spaces)"
 msgstr "Anzahl Zeichen (mit Leerschlägen)"
 
-#: apps/edit/templates/edit/panel_aloha.html:78
+#: apps/edit/templates/edit/panel_aloha.html:74
 msgid "Link"
 msgstr "Link"
 
-#: apps/edit/templates/edit/panel_aloha.html:102
+#: apps/edit/templates/edit/panel_aloha.html:98
 msgid "Break link"
 msgstr "Verknüpfung entfernen"
 
-#: apps/edit/templates/edit/panel_aloha.html:103
+#: apps/edit/templates/edit/panel_aloha.html:99
 msgid "Insert link"
 msgstr "Verknüpfung einfügen"
 
-#: apps/edit/templates/edit/panel_aloha.html:114
+#: apps/edit/templates/edit/panel_aloha.html:110
 msgid "Color"
 msgstr "Farbe"
 
-#: apps/edit/templates/edit/panel_aloha.html:120
-#: apps/edit/templates/edit/panel_aloha.html:156
+#: apps/edit/templates/edit/panel_aloha.html:116
+#: apps/edit/templates/edit/panel_aloha.html:152
 msgid "Set"
 msgstr "Übernehmen"
 
-#: apps/edit/templates/edit/panel_aloha.html:131
+#: apps/edit/templates/edit/panel_aloha.html:127
 msgid "Footnote"
 msgstr "Fußnote"
 
-#: apps/edit/templates/edit/panel_aloha.html:149
+#: apps/edit/templates/edit/panel_aloha.html:134
+msgid "Insert footnote"
+msgstr "Fußnote einfügen"
+
+#: apps/edit/templates/edit/panel_aloha.html:145
 msgid "HTML Edit"
 msgstr "HTML bearbeiten"
 
-#: apps/edit/templates/edit/panel_aloha.html:172
+#: apps/edit/templates/edit/panel_aloha.html:168
 msgid "Sources"
 msgstr "Quellen"
 
-#: apps/edit/templates/edit/panel_aloha.html:174
+#: apps/edit/templates/edit/panel_aloha.html:170
 msgid "Media library"
 msgstr "Medien Bibliothek"
 
-#: apps/edit/templates/edit/panel_aloha.html:176
+#: apps/edit/templates/edit/panel_aloha.html:172
 msgid "Upload Image"
 msgstr "Bild hochladen"
 
-#: apps/edit/templates/edit/panel_aloha.html:185
+#: apps/edit/templates/edit/panel_aloha.html:181
 msgid "Drag Your Images Here"
 msgstr "Ziehen Sie Ihre Bilder hier hin"
 
-#: apps/edit/templates/edit/panel_aloha.html:189
+#: apps/edit/templates/edit/panel_aloha.html:185
 msgid "or Select them from folder"
 msgstr "oder wählen Sie aus Ordner"
 
-#: apps/edit/templates/edit/panel_aloha.html:196
+#: apps/edit/templates/edit/panel_aloha.html:192
 msgid "Please wait, we are processing your image..."
 msgstr "Bitte warten während Bild wird verarbeitet wird..."
 
-#: apps/edit/templates/edit/panel_aloha.html:216
+#: apps/edit/templates/edit/panel_aloha.html:212
 msgid "Image Title"
 msgstr "Bild Titel"
 
-#: apps/edit/templates/edit/panel_aloha.html:217
+#: apps/edit/templates/edit/panel_aloha.html:213
 msgid "Enter Title"
 msgstr "Titel eingeben"
 
-#: apps/edit/templates/edit/panel_aloha.html:220
+#: apps/edit/templates/edit/panel_aloha.html:216
 msgid "Image Description"
 msgstr "Bildbeschreibung"
 
-#: apps/edit/templates/edit/panel_aloha.html:227
+#: apps/edit/templates/edit/panel_aloha.html:223
 msgid "Save Metadata"
 msgstr "Meta-Daten speichern"
 
-#: apps/edit/templates/edit/panel_aloha.html:229
+#: apps/edit/templates/edit/panel_aloha.html:225
 msgid "Edit caption"
 msgstr "Bildunterschrift bearbeiten"
 
-#: apps/edit/templates/edit/panel_aloha.html:237
+#: apps/edit/templates/edit/panel_aloha.html:233
 msgid "Enter image link"
 msgstr "Bildverknüpfung eingeben"
 
-#: apps/edit/templates/edit/panel_aloha.html:251
+#: apps/edit/templates/edit/panel_aloha.html:247
 msgid "File Name"
 msgstr "Dateiname"
 
-#: apps/edit/templates/edit/panel_aloha.html:253
+#: apps/edit/templates/edit/panel_aloha.html:249
 msgid "File Size"
 msgstr "Dateigröße"
 
-#: apps/edit/templates/edit/panel_aloha.html:254
+#: apps/edit/templates/edit/panel_aloha.html:250
 msgid "Dimensions"
 msgstr "Maße"
 
-#: apps/edit/templates/edit/panel_aloha.html:263
+#: apps/edit/templates/edit/panel_aloha.html:259
 msgid "Edit metadata"
 msgstr "bearbeiten von Metadaten"
 
-#: apps/edit/templates/edit/panel_aloha.html:264
+#: apps/edit/templates/edit/panel_aloha.html:260
 #: apps/edit/templates/edit/panel_publish.html:512
 msgid "Download"
 msgstr "Herunterladen"
+
+#: apps/edit/templates/edit/panel_aloha.html:299
+#, fuzzy
+#| msgid "Chapters on Hold"
+msgid "Chapter has been modified"
+msgstr "Kapitel in Ablage"
+
+#: apps/edit/templates/edit/panel_aloha.html:302
+#, fuzzy
+#| msgid "Chapter has been modified. Do you want to save it before closing?"
+msgid "This chapter has been modified. Do you want to save it before closing?"
+msgstr ""
+"Das Kapitel wurde bearbeitet. Mit \"OK\" Änderungen speichern. Mit "
+"\"Abbrechen\" Änderungen verwerfen."
+
+#: apps/edit/templates/edit/panel_aloha.html:305
+#, fuzzy
+#| msgid "Save changes"
+msgid "Discard changes"
+msgstr "Änderungen speichern"
 
 #: apps/edit/templates/edit/panel_covers.html:4
 #: apps/edit/templates/edit/toolbar_book.html:8
@@ -2130,7 +2226,10 @@ msgid ""
 "Error: The selected filetype is not supported. Please select one of the "
 "following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
 "SVG, EPS, AI, INDD."
-msgstr "Fehler: das ausgewählte Datei-Format wird nicht unterstützt. Bitte wähle eines der folgenden Formate und versuche es erneut: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+msgstr ""
+"Fehler: das ausgewählte Datei-Format wird nicht unterstützt. Bitte wähle "
+"eines der folgenden Formate und versuche es erneut: PNG, JPEG, GIF, TIFF, "
+"XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
 
 #: apps/edit/templates/edit/panel_covers.html:38
 msgid "Important Info"
@@ -2138,13 +2237,19 @@ msgstr "Wichtige Information"
 
 #: apps/edit/templates/edit/panel_covers.html:40
 msgid ""
-"The cover manager allows you to upload, manage and publish your book covers."
-" Please upload your ebook cover image files (JPEG, GIF or PNG format) in the"
-" appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
+"The cover manager allows you to upload, manage and publish your book covers. "
+"Please upload your ebook cover image files (JPEG, GIF or PNG format) in the "
+"appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
 "(in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front "
-"cover, spine and back cover of your print books can be uploaded and managed,"
-" but will be kept separate from the text of the book when publishing it."
-msgstr "Im Cover Manager kann das E-Book-Cover im Format .jpg für den E-Book sowie das Screen Pdf hochgeladen werden. Die Bildgröße für eine optimale Darstellung im Verkauf und in der Datei beträgt: 1536x2048 Pixel. \nDas Cover für den Buchdruck kann hier ebenfalls hochgeladen werden  (im TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI oderr INDD format) , jedoch nicht erstellt oder bearbeitet werden."
+"cover, spine and back cover of your print books can be uploaded and managed, "
+"but will be kept separate from the text of the book when publishing it."
+msgstr ""
+"Im Cover Manager kann das E-Book-Cover im Format .jpg für den E-Book sowie "
+"das Screen Pdf hochgeladen werden. Die Bildgröße für eine optimale "
+"Darstellung im Verkauf und in der Datei beträgt: 1536x2048 Pixel. \n"
+"Das Cover für den Buchdruck kann hier ebenfalls hochgeladen werden  (im "
+"TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI oderr INDD format) , jedoch nicht "
+"erstellt oder bearbeitet werden."
 
 #: apps/edit/templates/edit/panel_covers.html:51
 #: apps/edit/templates/edit/panel_covers.html:108
@@ -2171,7 +2276,7 @@ msgid "Image dimensions"
 msgstr "Bildmaße"
 
 #: apps/edit/templates/edit/panel_history.html:4
-#: apps/edit/templates/edit/toolbar_book.html:11 apps/edit/views.py:444
+#: apps/edit/templates/edit/toolbar_book.html:11 apps/edit/views.py:430
 msgid "Book History"
 msgstr "Buch-Versionen"
 
@@ -2225,7 +2330,8 @@ msgstr "Dateien hinzufügen..."
 msgid ""
 "All images added to your book are listed here as well as any additional "
 "files you have uploaded."
-msgstr "Alle Bilder, die Sie in Ihr Buch hoch geladen haben, werden hier angezeigt."
+msgstr ""
+"Alle Bilder, die Sie in Ihr Buch hoch geladen haben, werden hier angezeigt."
 
 #: apps/edit/templates/edit/panel_media.html:34
 msgid "preview"
@@ -2251,7 +2357,9 @@ msgstr "Bild-Dateien entfernen"
 msgid ""
 "Are you sure you would like to delete media files? You will not be able to "
 "undo this operation!"
-msgstr "Sind Sie sicher, dass Sie die Bild-Dateien löschen möchten? Sie können diese Aktion nicht rückgängig machen."
+msgstr ""
+"Sind Sie sicher, dass Sie die Bild-Dateien löschen möchten? Sie können diese "
+"Aktion nicht rückgängig machen."
 
 #: apps/edit/templates/edit/panel_media.html:60
 #: apps/edit/templates/edit/panel_toc.html:95
@@ -2566,7 +2674,7 @@ msgstr "Kapitelstatus"
 msgid "Metadata"
 msgstr "Metadaten"
 
-#: apps/edit/templates/edit/panel_settings.html:33 apps/edit/views.py:45
+#: apps/edit/templates/edit/panel_settings.html:33 apps/edit/views.py:46
 msgid "Book Metadata"
 msgstr "Metadaten des Buches "
 
@@ -2634,7 +2742,9 @@ msgstr "Kapitel löschen"
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
-msgstr "Sind Sie sicher, dass Sie dieses Kapitel löschen möchten? Sie werden alle verbundenen Daten verlieren und diese Aktion nicht rückgängig machen können!"
+msgstr ""
+"Sind Sie sicher, dass Sie dieses Kapitel löschen möchten? Sie werden alle "
+"verbundenen Daten verlieren und diese Aktion nicht rückgängig machen können!"
 
 #: apps/edit/templates/edit/panel_toc.html:114
 msgid "Remove section"
@@ -2644,7 +2754,9 @@ msgstr "Abschnitt entfernen"
 msgid ""
 "Are you sure you would like to delete this section? You will lose all data "
 "associated to this section and you will not be able to undo this operation!"
-msgstr "Abschnitt wirklich löschen? Alle damit verbundenen Daten werden gelöscht. Dieser Schritt kann  nicht rückgängig gemacht werden!"
+msgstr ""
+"Abschnitt wirklich löschen? Alle damit verbundenen Daten werden gelöscht. "
+"Dieser Schritt kann  nicht rückgängig gemacht werden!"
 
 #: apps/edit/templates/edit/panel_toc.html:126
 msgid "Delete chapters under this section"
@@ -2654,7 +2766,9 @@ msgstr "Kapitel dieses Abschnitts löschen."
 msgid ""
 "All books should contain at least one section and can have as many chapters "
 "as you like."
-msgstr "Bücher müssen mindestens einen Abschnitt enthalten sowie beliebig viele Kapitel."
+msgstr ""
+"Bücher müssen mindestens einen Abschnitt enthalten sowie beliebig viele "
+"Kapitel."
 
 #: apps/edit/templates/edit/panel_toc.html:151
 #: apps/edit/templates/edit/panel_toc.html:274
@@ -2741,40 +2855,40 @@ msgstr "Voll-Sperre."
 msgid "RENAME"
 msgstr "UMBENENNEN"
 
-#: apps/edit/views.py:43
+#: apps/edit/views.py:44
 msgid "Book Language"
 msgstr "Sprache des Buches"
 
-#: apps/edit/views.py:44
+#: apps/edit/views.py:45
 msgid "Book License"
 msgstr "Urheberrecht"
 
-#: apps/edit/views.py:590
+#: apps/edit/views.py:576
 msgid "Book History | Chapter Revision"
 msgstr "Buch Versionen / Kapitel Revisionen"
 
-#: apps/edit/views.py:613
+#: apps/edit/views.py:599
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "Revision %s wiederhergestellt"
 
-#: apps/edit/views.py:632
+#: apps/edit/views.py:618
 msgid "Chapter revision successfully reverted."
 msgstr "Kapitel Revision erfolgreich wiederhergestellt."
 
-#: apps/edit/views.py:634
+#: apps/edit/views.py:620
 msgid "Chapter revision could not be reverted."
 msgstr "Kapitel Revision konnte nicht wiederhergestellt werden"
 
-#: apps/edit/views.py:701
+#: apps/edit/views.py:687
 msgid "Successfully saved settings."
 msgstr "Einstellungen erfolgreich gespeichert."
 
-#: apps/edit/views.py:703
+#: apps/edit/views.py:689
 msgid "You have no permissions to execute this action."
 msgstr "Du hast keine Berechtigung die Aktion auszuführen"
 
-#: apps/edit/views.py:706
+#: apps/edit/views.py:692
 msgid "Unknown error while saving changes."
 msgstr "Unbekannter Fehler beim Speichern der Änderungen."
 
@@ -3045,7 +3159,7 @@ msgid "Books:"
 msgstr "Bücher:"
 
 #: apps/portal/templates/portal/frontpage.html:106
-#: apps/portal/templates/portal/group_create.html:9 apps/portal/views.py:190
+#: apps/portal/templates/portal/group_create.html:9 apps/portal/views.py:198
 msgid "Create new group"
 msgstr "Neue Gruppe erstellen"
 
@@ -3094,7 +3208,7 @@ msgid "Set Roles for this invitation"
 msgstr "Rollen für Einladung setzen"
 
 #: apps/portal/templates/portal/group.html:39
-#: apps/portal/templates/portal/group_settings.html:9 apps/portal/views.py:227
+#: apps/portal/templates/portal/group_settings.html:9 apps/portal/views.py:235
 msgid "Group settings"
 msgstr "Einstellungen Gruppe"
 
@@ -3170,15 +3284,15 @@ msgstr "Anmelden um Bücher hinzufügen zu können"
 msgid "Booktype"
 msgstr "Booktype"
 
-#: apps/portal/views.py:86
+#: apps/portal/views.py:94
 msgid "Group"
 msgstr "Gruppe"
 
-#: apps/portal/views.py:271
+#: apps/portal/views.py:279
 msgid "You are not allowed to delete this group"
 msgstr "Nicht berechtigt Gruppe zu löschen"
 
-#: apps/portal/views.py:285
+#: apps/portal/views.py:293
 msgid "Group successfully deleted."
 msgstr "Gruppe erfolgreich gelöscht"
 
@@ -3210,7 +3324,9 @@ msgstr "Bild des Buches"
 msgid ""
 "Are you sure you would like to delete this book? You will lose all data "
 "associated to this book and you will not be able to undo this operation!"
-msgstr "Sind Sie sicher, dass Sie dieses Buch löschen möchten? Sie verlieren alle verbundenen Daten und können diese Aktion nicht rückgängig machen!"
+msgstr ""
+"Sind Sie sicher, dass Sie dieses Buch löschen möchten? Sie verlieren alle "
+"verbundenen Daten und können diese Aktion nicht rückgängig machen!"
 
 #: apps/reader/templates/reader/book_delete.html:13
 msgid "Type full title of the book to delete it"
@@ -3269,47 +3385,47 @@ msgstr "Veröffentlicht:"
 msgid "Follow changes"
 msgstr "Änderungen nachverfolgen"
 
-#: apps/reader/templates/reader/book_info_page.html:47
 #: apps/reader/templates/reader/book_info_page.html:48
+#: apps/reader/templates/reader/book_info_page.html:49
 msgid "Edit this Book"
 msgstr "Buch bearbeiten"
 
-#: apps/reader/templates/reader/book_info_page.html:51
-#: apps/reader/templates/reader/book_info_page.html:52
+#: apps/reader/templates/reader/book_info_page.html:53
+#: apps/reader/templates/reader/book_info_page.html:54
 msgid "View draft"
 msgstr "Entwurfsansicht"
 
-#: apps/reader/templates/reader/book_info_page.html:56
-#: apps/reader/templates/reader/book_info_page.html:57
+#: apps/reader/templates/reader/book_info_page.html:58
+#: apps/reader/templates/reader/book_info_page.html:59
 msgid "Edit book info"
 msgstr "Buchinformation bearbeiten"
 
-#: apps/reader/templates/reader/book_info_page.html:64
-#: apps/reader/templates/reader/book_info_page.html:65
+#: apps/reader/templates/reader/book_info_page.html:66
+#: apps/reader/templates/reader/book_info_page.html:67
 msgid "View full book"
 msgstr "Buch ansehen"
 
-#: apps/reader/templates/reader/book_info_page.html:77
+#: apps/reader/templates/reader/book_info_page.html:79
 msgid "Group that book belongs to"
 msgstr "Gruppe, der das Buch zugewiesen ist"
 
-#: apps/reader/templates/reader/book_info_page.html:91
+#: apps/reader/templates/reader/book_info_page.html:93
 msgid "Recent activity"
 msgstr "Letzte Aktivität"
 
-#: apps/reader/templates/reader/book_info_page.html:124
+#: apps/reader/templates/reader/book_info_page.html:126
 msgid "Owner"
 msgstr "Inhaber"
 
-#: apps/reader/templates/reader/book_info_page.html:147
+#: apps/reader/templates/reader/book_info_page.html:149
 msgid "Admins"
 msgstr "Administratoren"
 
-#: apps/reader/templates/reader/book_info_page.html:171
+#: apps/reader/templates/reader/book_info_page.html:173
 msgid "Contributors"
 msgstr "Mitwirkende"
 
-#: apps/reader/templates/reader/book_info_page.html:196
+#: apps/reader/templates/reader/book_info_page.html:198
 msgid "Book versions"
 msgstr "Buch Versionen"
 
@@ -3379,23 +3495,23 @@ msgstr "Detailseite Buch"
 msgid "Book Details"
 msgstr "Buchinformationen"
 
-#: apps/reader/views.py:189
+#: apps/reader/views.py:187
 msgid "Successfully changed book info."
 msgstr "Buchinformation erfolgreich geändert."
 
-#: apps/reader/views.py:191
+#: apps/reader/views.py:189
 msgid "Could not upload cover image."
 msgstr "Cover Bild konnte nicht hochgeladen werden"
 
-#: apps/reader/views.py:212
+#: apps/reader/views.py:210
 msgid "Book successfully deleted."
 msgstr "Buch wurde erfolgreich gelöscht"
 
-#: apps/reader/views.py:219
+#: apps/reader/views.py:217
 msgid "Chapter Draft"
 msgstr "Kapitelentwurf"
 
-#: apps/reader/views.py:280
+#: apps/reader/views.py:278
 msgid "Book full view"
 msgstr "Ansicht ganzes Buch"
 
@@ -3412,26 +3528,34 @@ msgstr "zurücksetzen"
 msgid ""
 "Note: When importing formulas have been found and highlighted in the text, "
 "which are not supported by many e-readers and easy editor."
-msgstr "Hinweis: Beim importieren der Formeln haben wir Elemente gefunden, die von vielen E-Readern nicht unterstützt werden."
+msgstr ""
+"Hinweis: Beim importieren der Formeln haben wir Elemente gefunden, die von "
+"vielen E-Readern nicht unterstützt werden."
 
 #. Translators: Warning during the DOCX import
 #: importer/docx/docximporter.py:54
 msgid ""
 "Note: When importing foot or endnotes were found, which are not yet "
 "supported by easy editor."
-msgstr "Hinweis: Beim importieren der Formeln haben wir Fuß- bzw. Endnoten  gefunden, die nicht unterstützt werden."
+msgstr ""
+"Hinweis: Beim importieren der Formeln haben wir Fuß- bzw. Endnoten  "
+"gefunden, die nicht unterstützt werden."
 
 #: importer/docx/docximporter.py:97
 msgid ""
-"The file could not be imported because it was not saved in the .docx format."
-" Try to open the file in Word and save it as a .docx."
-msgstr "Datei konnte nicht importiert werden, da sie nicht im docx-Format abgespeichert wurde. Bitte in Word öffnen und als docx erneut abspeichern."
+"The file could not be imported because it was not saved in the .docx format. "
+"Try to open the file in Word and save it as a .docx."
+msgstr ""
+"Datei konnte nicht importiert werden, da sie nicht im docx-Format "
+"abgespeichert wurde. Bitte in Word öffnen und als docx erneut abspeichern."
 
 #: importer/docx/docximporter.py:100
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
-msgstr "Die hochgeladene docx-Datei enthält Fehler und kann nicht konvertiert werden. Bitte unseren Support kontaktieren."
+msgstr ""
+"Die hochgeladene docx-Datei enthält Fehler und kann nicht konvertiert "
+"werden. Bitte unseren Support kontaktieren."
 
 #: importer/docx/docximporter.py:147
 msgid "Note: Some images couldn't be imported."
@@ -3441,15 +3565,27 @@ msgstr "Hinweis: Einige Bilder konnten nicht importiert werden."
 msgid "Title Page"
 msgstr "Titel Seite"
 
-#: importer/epub/epubimporter.py:434
-msgid "Not using {} as a cover image -- {}"
-msgstr "{} kann nicht als Cover für den vorliegenden Titel genutzt werden.  -- {} "
+#: importer/epub/epubimporter.py:262
+#, python-brace-format
+msgid "Broken endnotes markers in \"{0}\"."
+msgstr ""
 
-#: importer/epub/epubimporter.py:438
+#: importer/epub/epubimporter.py:376
+#, fuzzy
+#| msgid "Unknown error"
+msgid "Unknown chapter"
+msgstr "Unbekannter Fehler"
+
+#: importer/epub/epubimporter.py:524
+msgid "Not using {} as a cover image -- {}"
+msgstr ""
+"{} kann nicht als Cover für den vorliegenden Titel genutzt werden.  -- {} "
+
+#: importer/epub/epubimporter.py:528
 msgid "Not using {} as a cover image"
 msgstr "{} wird nicht als Cover für das aktuelle Buch genutzt"
 
-#: importer/epub/epubimporter.py:475
+#: importer/epub/epubimporter.py:565
 msgid "Using {} as cover image"
 msgstr " Dieses Bild {} als Cover nutzen"
 
