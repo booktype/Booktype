@@ -1,7 +1,7 @@
 # English (en) translation strings for Booktype.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-#
+# 
 # Translators:
 # Andrey Podshivalov, 2015
 # Oleg Pshenichniy <olegpshenichniy@gmail.com>, 2015
@@ -9,18 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-29 16:15+0200\n"
-"PO-Revision-Date: 2015-07-22 14:20+0000\n"
-"Last-Translator: Oleg Pshenichniy <olegpshenichniy@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/booktype/"
-"language/ru/)\n"
-"Language: ru\n"
+"POT-Creation-Date: 2015-07-29 16:12+0200\n"
+"PO-Revision-Date: 2015-07-30 09:22+0000\n"
+"Last-Translator: Daniel James <daniel@64studio.com>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/booktype/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
 
@@ -94,17 +91,20 @@ msgstr "секретный код"
 msgid "created"
 msgstr "создано"
 
-#. Translators: Visible only in Django Admin interface. No need to translate this.
+#. Translators: Visible only in Django Admin interface. No need to translate
+#. this.
 #: apps/account/models.py:69
 msgid "remote useragent"
 msgstr "удаленный агент пользователя"
 
-#. Translators: Visible only in Django Admin interface. No need to translate this.
+#. Translators: Visible only in Django Admin interface. No need to translate
+#. this.
 #: apps/account/models.py:71
 msgid "remote addr"
 msgstr "удаленный адрес"
 
-#. Translators: Visible only in Django Admin interface. No need to translate this.
+#. Translators: Visible only in Django Admin interface. No need to translate
+#. this.
 #: apps/account/models.py:73
 msgid "remote host"
 msgstr "удаленный хост"
@@ -154,9 +154,7 @@ msgstr "Показать списком"
 msgid ""
 "This is a perfect moment to start writing your book, just click on the "
 "button above!"
-msgstr ""
-"Это отличный момент, чтобы начать писать свою книгу, просто нажмите на "
-"кнопку выше!"
+msgstr "Это отличный момент, чтобы начать писать свою книгу, просто нажмите на кнопку выше!"
 
 #: apps/account/templates/account/dashboard.html:68
 msgid "This user has no books"
@@ -171,10 +169,9 @@ msgid "My Groups"
 msgstr "Мои группы"
 
 #: apps/account/templates/account/dashboard.html:98
-msgid "Work with others in Groups. To create a Group click on the button below"
-msgstr ""
-"Работайте с другими пользователями в группах. Чтобы создать группу, нажмите "
-"на кнопку ниже."
+msgid ""
+"Work with others in Groups. To create a Group click on the button below"
+msgstr "Работайте с другими пользователями в группах. Чтобы создать группу, нажмите на кнопку ниже."
 
 #: apps/account/templates/account/dashboard.html:104
 msgid "Participating Groups"
@@ -336,9 +333,7 @@ msgstr "Описание"
 msgid ""
 "Give some information so others can find it to help you (this can be added "
 "or changed later)."
-msgstr ""
-"Оставьте какую-то информацию, чтобы остальные могли ознакомиться с ней и "
-"помочь вам (можно внести или изменить позже)"
+msgstr "Оставьте какую-то информацию, чтобы остальные могли ознакомиться с ней и помочь вам (можно внести или изменить позже)"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:33
 msgid "Choose license"
@@ -363,9 +358,7 @@ msgstr "Изображение"
 msgid ""
 "If you have an image for the book then add it now (this can be added or "
 "changed later)"
-msgstr ""
-"Если у вас есть изображение для книги, добавьте его сейчас (можно внести или "
-"изменить позже)"
+msgstr "Если у вас есть изображение для книги, добавьте его сейчас (можно внести или изменить позже)"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:47
 msgid "Book Image"
@@ -379,9 +372,7 @@ msgstr "Сделать книгу общедоступной?"
 msgid ""
 "Would you like to keep your book private or make it public? If the book is "
 "public others can find the book to help you."
-msgstr ""
-"Хотите сохранить книгу закрытой для окружающих или сделать общедоступной? "
-"если книга общедоступна, другие пользователи могут найти ее и помочь вам."
+msgstr "Хотите сохранить книгу закрытой для окружающих или сделать общедоступной? если книга общедоступна, другие пользователи могут найти ее и помочь вам."
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:54
 msgid "Note"
@@ -540,9 +531,7 @@ msgstr "Имя пользователя или email адрес"
 msgid ""
 "Give us your username or e-mail you used to create Booktype account and we "
 "will send you new password."
-msgstr ""
-"Сообщите имя пользователя или email, который использовался при создании "
-"учетной записи Booktype, и мы вышлем вам новый пароль."
+msgstr "Сообщите имя пользователя или email, который использовался при создании учетной записи Booktype, и мы вышлем вам новый пароль."
 
 #: apps/account/templates/account/forgot_password.html:30
 #: apps/account/templates/account/forgot_password_enter.html:42
@@ -614,11 +603,9 @@ msgstr "Забыли пароль?"
 
 #: apps/account/templates/account/password_reset_email.html:5
 msgid ""
-"To reset your Booktype password, simply click the link below. That will take "
-"you to a web page where you can create a new password."
-msgstr ""
-"Для сброса пароля в Booktype используйте ссылку. Вы перейдете на страницу, "
-"где сможете создать новый пароль. "
+"To reset your Booktype password, simply click the link below. That will take"
+" you to a web page where you can create a new password."
+msgstr "Для сброса пароля в Booktype используйте ссылку. Вы перейдете на страницу, где сможете создать новый пароль. "
 
 #: apps/account/templates/account/password_reset_email.html:6
 msgid "Go to:"
@@ -629,10 +616,7 @@ msgid ""
 "If you weren't trying to reset your password, don't worry – your account is "
 "still secure and no one has been given access to it. Most likely, someone "
 "just mistyped their email address while trying to reset their own password."
-msgstr ""
-"Если вы не пытались сбросить пароль, не волнуйтесь - ваша учетная запись в "
-"безопасности, никто не получал доступа к ней. Скорее всего, кто-то неверно "
-"ввел свой email адрес при сбросе своего собственного пароля. "
+msgstr "Если вы не пытались сбросить пароль, не волнуйтесь - ваша учетная запись в безопасности, никто не получал доступа к ней. Скорее всего, кто-то неверно ввел свой email адрес при сбросе своего собственного пароля. "
 
 #: apps/account/templates/account/register.html:13
 msgid "You are already signed in!"
@@ -694,13 +678,8 @@ msgstr "Пожалуйста, сообщите ваше настоящее им�
 msgid ""
 "Username is invalid. Please try a different one. You may use alhpanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
-"li></ul>"
-msgstr ""
-"Имя пользователя неверно. Пожалуйста, попробуйте еще раз. Можно пользоваться "
-"буквенно-цифровыми знаками и символами \".\", \"_\", \"-\" (точкой, нижним "
-"подчеркиванием и минусом). <br/><br/>Например:<ul><li>vnazor</li><li>Marin."
-"Drzic</li><li>kamilo_kamili</li></ul>"
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+msgstr "Имя пользователя неверно. Пожалуйста, попробуйте еще раз. Можно пользоваться буквенно-цифровыми знаками и символами \".\", \"_\", \"-\" (точкой, нижним подчеркиванием и минусом). <br/><br/>Например:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
 
 #: apps/account/templates/account/register.html:62
 msgid "This is not a valid e-mail"
@@ -730,8 +709,7 @@ msgstr "СОЗДАТЬ АККАУНТ"
 #: apps/portal/templates/portal/anonymous_frontpage.html:55
 #: apps/portal/templates/portal/frontpage.html:133
 msgid "Only administrator is allowed to create new accounts at the moment."
-msgstr ""
-"В настоящее время создавать новые учетные записи может только администратор."
+msgstr "В настоящее время создавать новые учетные записи может только администратор."
 
 #: apps/account/views.py:64
 msgid "Dashboard"
@@ -856,15 +834,11 @@ msgstr "Об"
 msgid ""
 "This is a demonstration server for Booktype. This server is reset on a "
 "regular basis, and any books created here will be deleted at that time. You "
-"can read the Booktype user manual at <a href=\"http://sourcefabric.booktype."
-"pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype."
-"pro/booktype-20-for-authors-and-publishers/</a>."
-msgstr ""
-"Это демо сервер для Booktype. Этот сервер сбросит все по умолчанию, и любые "
-"книги, созданные здесь, будут удалены. Вы можете прочитать инструкцию "
-"Booktype на <аhref=\"http://sourcefabric.booktype.pro/booktype-20-for-"
-"authors-and-publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-"
-"authors-and-publishers/</a>."
+"can read the Booktype user manual at <a "
+"href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-"
+"publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-"
+"publishers/</a>."
+msgstr "Это демо сервер для Booktype. Этот сервер сбросит все по умолчанию, и любые книги, созданные здесь, будут удалены. Вы можете прочитать инструкцию Booktype на <аhref=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/</a>."
 
 #: apps/core/templates/core/footer.html:17
 msgid "How to use"
@@ -873,14 +847,10 @@ msgstr "Как использовать"
 #: apps/core/templates/core/footer.html:20
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
-"href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric."
-"org/en/booktype/</a> or check out Booktype Pro, our cloud-hosted publishing "
-"service - <a href=\"http://booktype.pro/\">http://booktype.pro/</a>."
-msgstr ""
-"Если вы хотите иметь свою собственную установку - скачайте Booktype на <a "
-"href=\"http://www.sourcefabric.org/en/booktype/\"> http://www.sourcefabric."
-"org/en/booktype/</a > или попробуйте Booktype Pro, наш облачный сервис "
-"публикаций - <a href=\"http://booktype.pro/\"> http://booktype.pro/ </a>."
+"href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a>"
+" or check out Booktype Pro, our cloud-hosted publishing service - <a "
+"href=\"http://booktype.pro/\">http://booktype.pro/</a>."
+msgstr "Если вы хотите иметь свою собственную установку - скачайте Booktype на <a href=\"http://www.sourcefabric.org/en/booktype/\"> http://www.sourcefabric.org/en/booktype/</a > или попробуйте Booktype Pro, наш облачный сервис публикаций - <a href=\"http://booktype.pro/\"> http://booktype.pro/ </a>."
 
 #: apps/core/templates/core/footer.html:27
 msgid "Need Help?"
@@ -893,21 +863,13 @@ msgid ""
 "print-on-demand services and education institutions produce better books, "
 "faster, while Sourcefabric takes care of your own platform's installation, "
 "hosting, upgrades, and security. "
-msgstr ""
-"С социальными инструментами, простым рабочим процессом и свободой выбора "
-"своих собственных лицензий, Booktype Pro идеально подходит для внутреннего "
-"или публичного использования. Издатели, сервисы печати и образовательные "
-"учреждения производят книги лучше, быстрее, в то время как Sourcefabric "
-"заботится об установки вашей собственной платформы, хостинга, модернизации и "
-"безопасности."
+msgstr "С социальными инструментами, простым рабочим процессом и свободой выбора своих собственных лицензий, Booktype Pro идеально подходит для внутреннего или публичного использования. Издатели, сервисы печати и образовательные учреждения производят книги лучше, быстрее, в то время как Sourcefabric заботится об установки вашей собственной платформы, хостинга, модернизации и безопасности."
 
 #: apps/core/templates/core/footer.html:41
 msgid ""
 "Powered by Booktype, the open content management system for professional  "
 "writers."
-msgstr ""
-"При поддержке Booktype, открытой системы управления контентом для "
-"профессиональных писателей."
+msgstr "При поддержке Booktype, открытой системы управления контентом для профессиональных писателей."
 
 #: apps/core/templates/core/nav_bar.html:12
 #: apps/edit/templates/edit/toolbar_user.html:8
@@ -1085,10 +1047,8 @@ msgid "Change chapter status"
 msgstr "Изменение статуса главы"
 
 #: apps/edit/__init__.py:30
-#, fuzzy
-#| msgid "Edit Book"
 msgid "Edit book"
-msgstr "Редактировать книгу"
+msgstr ""
 
 #: apps/edit/__init__.py:31
 msgid "Delete book"
@@ -1289,10 +1249,8 @@ msgid "Insert page break"
 msgstr "Вставить разрыв страницы"
 
 #: apps/edit/templates/edit/aloha_menu.html:9
-#, fuzzy
-#| msgid "Insert footnote"
 msgid "Insert endnote"
-msgstr "Вставить сноску"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:15
 #: apps/edit/templates/edit/aloha_toolbar.html:6
@@ -1584,11 +1542,9 @@ msgstr "История"
 #: apps/edit/templates/edit/book_edit.html:208
 #, python-format
 msgid ""
-"<p class=\"notification-text\"><%%= username %%> joined </p><span class="
-"\"notification-info\"><%%= info %%></span>"
-msgstr ""
-"<p class=\"notification-text\"><%%= username %%> присоединился </p><span "
-"class=\"notification-info\"><%%= info %%></span>"
+"<p class=\"notification-text\"><%%= username %%> joined </p><span class"
+"=\"notification-info\"><%%= info %%></span>"
+msgstr "<p class=\"notification-text\"><%%= username %%> присоединился </p><span class=\"notification-info\"><%%= info %%></span>"
 
 #: apps/edit/templates/edit/book_history.html:21
 msgid "No results found."
@@ -1662,9 +1618,7 @@ msgstr "Вернуться к этому исправлению?"
 #: apps/edit/templates/edit/chapter_revision.html:57
 msgid ""
 "Current chapter content will be reverted to this revision. Are you sure?"
-msgstr ""
-"Содержание настоящей главы будет возвращено к состоянию на момент последнего "
-"исправления. Вы уверены, что хотите этого?"
+msgstr "Содержание настоящей главы будет возвращено к состоянию на момент последнего исправления. Вы уверены, что хотите этого?"
 
 #: apps/edit/templates/edit/chapter_revision.html:61
 msgid "Yes, revert!"
@@ -1998,16 +1952,12 @@ msgid "Book export \"%%s\" was successful"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:77
-#, fuzzy
-#| msgid "Do you want to remove this export?"
 msgid "Do you want to delete this endnote?"
-msgstr "Вы хотите удалить этот экспорт?"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:78
-#, fuzzy
-#| msgid "Notes"
 msgid "endnotes"
-msgstr "Заметки"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:79
 msgid "endnotes without reference"
@@ -2178,22 +2128,16 @@ msgid "Download"
 msgstr "Загрузить"
 
 #: apps/edit/templates/edit/panel_aloha.html:299
-#, fuzzy
-#| msgid "Chapters on Hold"
 msgid "Chapter has been modified"
-msgstr "Главы на удержании"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:302
-#, fuzzy
-#| msgid "Chapter has been modified. Do you want to save it before closing?"
 msgid "This chapter has been modified. Do you want to save it before closing?"
-msgstr "Глава была изменена. Хотите ли вы, сохранить ее перед закрытием?"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:305
-#, fuzzy
-#| msgid "Save changes"
 msgid "Discard changes"
-msgstr "Сохранить изменения"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:4
 #: apps/edit/templates/edit/toolbar_book.html:8
@@ -2219,10 +2163,7 @@ msgid ""
 "Error: The selected filetype is not supported. Please select one of the "
 "following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
 "SVG, EPS, AI, INDD."
-msgstr ""
-"Ошибка: Выбранный тип файла не поддерживается. Выберите один из доступных "
-"типов и повторите попытку: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, "
-"EPS, AI, INDD."
+msgstr "Ошибка: Выбранный тип файла не поддерживается. Выберите один из доступных типов и повторите попытку: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
 
 #: apps/edit/templates/edit/panel_covers.html:38
 msgid "Important Info"
@@ -2230,19 +2171,13 @@ msgstr "Важная информация"
 
 #: apps/edit/templates/edit/panel_covers.html:40
 msgid ""
-"The cover manager allows you to upload, manage and publish your book covers. "
-"Please upload your ebook cover image files (JPEG, GIF or PNG format) in the "
-"appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
+"The cover manager allows you to upload, manage and publish your book covers."
+" Please upload your ebook cover image files (JPEG, GIF or PNG format) in the"
+" appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
 "(in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front "
-"cover, spine and back cover of your print books can be uploaded and managed, "
-"but will be kept separate from the text of the book when publishing it."
-msgstr ""
-"Менеджер обложек позволяет загружать, управлять и публиковать ваши книжные "
-"обложки. Загрузите вашу обложку соотвествующего размера в виде файла формата "
-"JPEG, GIF или PNG для вывода в виде EPUB, MOBI, экранного PDF или ODT. Вы "
-"также можете создать и загрузить (в TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI "
-"или INDD формат) файлы титульной обложки, переплета и задней обложки, но они "
-"будут расположены отдельно от текста книги при ее публикации."
+"cover, spine and back cover of your print books can be uploaded and managed,"
+" but will be kept separate from the text of the book when publishing it."
+msgstr "Менеджер обложек позволяет загружать, управлять и публиковать ваши книжные обложки. Загрузите вашу обложку соотвествующего размера в виде файла формата JPEG, GIF или PNG для вывода в виде EPUB, MOBI, экранного PDF или ODT. Вы также можете создать и загрузить (в TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI или INDD формат) файлы титульной обложки, переплета и задней обложки, но они будут расположены отдельно от текста книги при ее публикации."
 
 #: apps/edit/templates/edit/panel_covers.html:51
 #: apps/edit/templates/edit/panel_covers.html:108
@@ -2323,9 +2258,7 @@ msgstr "Добавить файлы..."
 msgid ""
 "All images added to your book are listed here as well as any additional "
 "files you have uploaded."
-msgstr ""
-"Все изображения, добавленные в вашу книгу, перечислены здесь, как и любые "
-"загруженные вами дополнительные файлы."
+msgstr "Все изображения, добавленные в вашу книгу, перечислены здесь, как и любые загруженные вами дополнительные файлы."
 
 #: apps/edit/templates/edit/panel_media.html:34
 msgid "preview"
@@ -2351,9 +2284,7 @@ msgstr "Удалить медиафайлы"
 msgid ""
 "Are you sure you would like to delete media files? You will not be able to "
 "undo this operation!"
-msgstr ""
-"Вы действительно хотите удалить меди файлы? Вы не сможете отменить эту "
-"операцию."
+msgstr "Вы действительно хотите удалить меди файлы? Вы не сможете отменить эту операцию."
 
 #: apps/edit/templates/edit/panel_media.html:60
 #: apps/edit/templates/edit/panel_toc.html:95
@@ -2736,9 +2667,7 @@ msgstr "Удалить Главу"
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
-msgstr ""
-"Вы уверены, что хотите удалить эту главу? Вы потеряете все данные "
-"ассоциированные с этой главой и вы не сможете отменить эту операцию."
+msgstr "Вы уверены, что хотите удалить эту главу? Вы потеряете все данные ассоциированные с этой главой и вы не сможете отменить эту операцию."
 
 #: apps/edit/templates/edit/panel_toc.html:114
 msgid "Remove section"
@@ -2748,9 +2677,7 @@ msgstr "Удалить раздел"
 msgid ""
 "Are you sure you would like to delete this section? You will lose all data "
 "associated to this section and you will not be able to undo this operation!"
-msgstr ""
-"Вы уверены, что хотите удалить этот раздел? Вы потеряете все данные "
-"ассоциированные с этим разделом и вы не сможете отменить эту операцию."
+msgstr "Вы уверены, что хотите удалить этот раздел? Вы потеряете все данные ассоциированные с этим разделом и вы не сможете отменить эту операцию."
 
 #: apps/edit/templates/edit/panel_toc.html:126
 msgid "Delete chapters under this section"
@@ -2760,8 +2687,7 @@ msgstr "Удалить главы в этом разделе"
 msgid ""
 "All books should contain at least one section and can have as many chapters "
 "as you like."
-msgstr ""
-"Все книги должны содержать минимум один раздел и любое желаемое число глав."
+msgstr "Все книги должны содержать минимум один раздел и любое желаемое число глав."
 
 #: apps/edit/templates/edit/panel_toc.html:151
 #: apps/edit/templates/edit/panel_toc.html:274
@@ -3235,9 +3161,7 @@ msgstr "Удалить группу"
 msgid ""
 "Are you sure you would like to delete this group? You will not be able to "
 "undo this operation!"
-msgstr ""
-"Вы уверены, что хотите удалить эту группу? Вы не сможете отменить это "
-"действие!"
+msgstr "Вы уверены, что хотите удалить эту группу? Вы не сможете отменить это действие!"
 
 #: apps/portal/templates/portal/people.html:15
 msgid "All people"
@@ -3319,9 +3243,7 @@ msgstr "Изображение книги"
 msgid ""
 "Are you sure you would like to delete this book? You will lose all data "
 "associated to this book and you will not be able to undo this operation!"
-msgstr ""
-"Вы уверены, что хотели бы удалить эту книгу? Вы можете потерять все данные, "
-"связанные с этой книгой безвозвратно после этой операции!"
+msgstr "Вы уверены, что хотели бы удалить эту книгу? Вы можете потерять все данные, связанные с этой книгой безвозвратно после этой операции!"
 
 #: apps/reader/templates/reader/book_delete.html:13
 msgid "Type full title of the book to delete it"
@@ -3523,34 +3445,26 @@ msgstr "сбросить"
 msgid ""
 "Note: When importing formulas have been found and highlighted in the text, "
 "which are not supported by many e-readers and easy editor."
-msgstr ""
-"Примечание: При импорте формул были найдены и выделены в тексте, те которые "
-"не поддерживаются многими электронными книгами и easy editor."
+msgstr "Примечание: При импорте формул были найдены и выделены в тексте, те которые не поддерживаются многими электронными книгами и easy editor."
 
 #. Translators: Warning during the DOCX import
 #: importer/docx/docximporter.py:54
 msgid ""
 "Note: When importing foot or endnotes were found, which are not yet "
 "supported by easy editor."
-msgstr ""
-"Примечание: При импорте футера или сносок были найдены те, которых easy "
-"editor еще не поддерживает."
+msgstr "Примечание: При импорте футера или сносок были найдены те, которых easy editor еще не поддерживает."
 
 #: importer/docx/docximporter.py:97
 msgid ""
-"The file could not be imported because it was not saved in the .docx format. "
-"Try to open the file in Word and save it as a .docx."
-msgstr ""
-"Файл не может быть импортирован, поскольку он не был сохранен в формате ."
-"docx. Попробуйте открыть файл в Word-е и сохранить его как .docx."
+"The file could not be imported because it was not saved in the .docx format."
+" Try to open the file in Word and save it as a .docx."
+msgstr "Файл не может быть импортирован, поскольку он не был сохранен в формате .docx. Попробуйте открыть файл в Word-е и сохранить его как .docx."
 
 #: importer/docx/docximporter.py:100
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
-msgstr ""
-"Загруженный файл docx содержит ошибки и не может быть конвертирован. "
-"Пожалуйста, обратитесь в службу поддержки клиентов."
+msgstr "Загруженный файл docx содержит ошибки и не может быть конвертирован. Пожалуйста, обратитесь в службу поддержки клиентов."
 
 #: importer/docx/docximporter.py:147
 msgid "Note: Some images couldn't be imported."
@@ -3566,10 +3480,8 @@ msgid "Broken endnotes markers in \"{0}\"."
 msgstr ""
 
 #: importer/epub/epubimporter.py:376
-#, fuzzy
-#| msgid "Unknown error"
 msgid "Unknown chapter"
-msgstr "Неизвестная ошибка"
+msgstr ""
 
 #: importer/epub/epubimporter.py:524
 msgid "Not using {} as a cover image -- {}"
