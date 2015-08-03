@@ -16,7 +16,16 @@
 
 import os
 
+# PUBLISHING RELATED
 PUBLISH_OPTIONS = ['mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml']
+
+# MOBI CONVERSION RELATED
+
+# Options are "kindlegen" or "calibre"
+MOBI_CONVERT = "calibre" 
+KINDLEGEN_PATH = "kindlegen"
+CALIBRE_PATH = "ebook-convert"
+CALIBRE_ARGS = ""
 
 OBJAVI_URL = "http://objavi.booktype.pro/objavi.cgi"
 ESPRI_URL = "http://objavi.booktype.pro/espri.cgi"
