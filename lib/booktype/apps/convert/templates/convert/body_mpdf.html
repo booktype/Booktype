@@ -1,3 +1,28 @@
+{% if show_header %}
+<htmlpageheader name="header-left" style="display:none">
+  <div style="text-align: left;">{{ title }}</div>
+</htmlpageheader>
+
+<htmlpageheader name="header-right" style="display:none">
+  <div style="text-align: right;">{{ title }}</div>
+</htmlpageheader>
+
+<sethtmlpageheader page="odd" name="header-right" value="on"  />
+<sethtmlpageheader page="even" name="header-left" value="on"  />
+{% endif %}
+
+{% if show_footer %}
+<htmlpagefooter name="footer-left" style="display:none">
+  <div style="text-align: left;">{PAGENO}</div>
+</htmlpagefooter>
+
+<htmlpagefooter name="footer-right" style="display:none">
+  <div style="text-align: right;">{PAGENO}</div>
+</htmlpagefooter>
+
+<sethtmlpagefooter page="odd" name="footer-right" value="on"  />
+<sethtmlpagefooter page="even" name="footer-left" value="on"  />
+{% endif %}
 
 {% for item in book_items %}
 
@@ -16,3 +41,4 @@
   {% endif %}
 
 {% endfor %}
+

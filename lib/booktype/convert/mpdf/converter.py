@@ -308,8 +308,11 @@ class MPDFConverter(BaseConverter):
 
         book_toc = _toc(0, parse_toc_nav(book))
 
-        data = {'book_items': book_toc}
-        data.update(self.get_extra_body_data(book))
+        data = self._get_data(book)
+        data.update(self.get_extra_data(book))
+        data.update({
+            'book_items': book_toc
+            })
 
         if self.theme_name != '':
             body_name = get_body(self.theme_name, self.name)
@@ -487,6 +490,11 @@ class MPDFConverter(BaseConverter):
           - Dictionary with default data for the templates
         """
 
+        show_header, show_footer = True, True
+        if 'settings' in self.config:
+            show_header = self.config['settings'].get('show_header', '') == 'on'
+            show_footer = self.config['settings'].get('show_footer', '') == 'on'
+
         return {
             "title": get_refines(book.metadata, 'title-type', 'main'),
             "subtitle": get_refines(book.metadata, 'title-type', 'subtitle'),
@@ -497,7 +505,10 @@ class MPDFConverter(BaseConverter):
             "isbn": get_metadata(book.metadata, 'identifier'),
             "language": get_metadata(book.metadata, 'language'),
 
-            "metadata": book.metadata
+            "metadata": book.metadata,
+
+            "show_header": show_header,
+            "show_footer": show_footer
         }
 
     def _create_frontmatter(self, book):
