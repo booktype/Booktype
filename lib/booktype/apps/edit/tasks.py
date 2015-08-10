@@ -105,6 +105,8 @@ def publish_book(*args, **kwargs):
             _ext = "epub"
         elif _format == "mobi":
             _ext = "mobi"
+        elif _format == "xhtml":
+            _ext = "zip"
 
         format_settings = get_settings_as_dictionary(book, _format)
 

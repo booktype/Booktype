@@ -59,7 +59,7 @@ EXPORT_SETTINGS = {
         {u'name': u'styling', u'value': u''}],
     'epub': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
     'mobi': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
-    'xhtml': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}]
+    'xhtml': [{u'name': u'styling', u'value': u''}]
 }
 
 INCH_TO_MM = 25.4
