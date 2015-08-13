@@ -269,6 +269,12 @@ class MPDFConverter(BaseConverter):
 
         return u''
 
+    def _fix_horrible_mpdf(self, content):        
+        content = content.replace('></columnbreak>', " />\n")
+        content = content.replace('></columns>', " />\n")
+
+        return content
+
     def _create_body(self, book):
         """Create body html file with main content of the book.
 
@@ -296,6 +302,7 @@ class MPDFConverter(BaseConverter):
                     chapter_title, chapter_href = toc_item
                     chapter_item = book.get_item_with_href(chapter_href)
                     content = self._get_chapter_content(chapter_item)
+                    content = self._fix_horrible_mpdf(content)
 
                     items.append({
                         'type': 'chapter',
@@ -408,6 +415,37 @@ class MPDFConverter(BaseConverter):
 
         self.images[item.file_name] = file_name
 
+    def _fix_columns(self, content):
+        """Add mPDF tags for multi column support.
+
+        :Args:
+          - content: lxml node tree with the chapter content
+
+        """
+        for column in content.xpath("//div[contains(@class, 'bk-columns')]"):
+            column_count = column.get('data-column', '3')
+            column_valign = column.get('data-valign', '')
+            column_gap = column.get('data-gap', '5')
+
+            columns_start = etree.Element('columns', {
+                'column-count': column_count,
+                'vAlign': column_valign,
+                'column-gap': column_gap
+                })
+
+            parent = column.getparent()
+            parent.insert(parent.index(column), columns_start)
+
+            if 'bk-marker' not in column.get('class'):
+                columns_end = etree.Element('columns', {'column-count': '1'})            
+                parent.insert(parent.index(column)+1, columns_end)
+
+            column.drop_tag()
+
+        for column_break in content.xpath("//div[@class='bk-column-break']"):
+            column_break.tag = 'columnbreak'
+            del column_break.attrib['class']
+
     def _fix_broken_endnotes(self, content):
         """Removed broken endnotes from the content.
 
@@ -451,6 +489,7 @@ class MPDFConverter(BaseConverter):
 
         self._fix_broken_links(content)
         self._fix_broken_endnotes(content)
+        self._fix_columns(content)
 
         # Fix links to other URL places
         return content

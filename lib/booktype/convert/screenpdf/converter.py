@@ -56,5 +56,6 @@ class ScreenPDFConverter(MPDFConverter):
             return content
 
         self._fix_broken_endnotes(content)
+        self._fix_columns(content)
 
         return content
