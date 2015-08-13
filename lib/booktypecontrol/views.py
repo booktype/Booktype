@@ -432,7 +432,7 @@ class DeleteLicenseView(BaseCCView, DeleteView):
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         if self.object.book_set.all():
-            _suc_msg = _('There are licensed books with this license. \
+            _suc_msg = _('There are books remaining with this license. \
                     Unable to remove')
             messages.warning(self.request, _suc_msg)
             return HttpResponseRedirect(self.get_success_url())
