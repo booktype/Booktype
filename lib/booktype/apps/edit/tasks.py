@@ -103,6 +103,10 @@ def publish_book(*args, **kwargs):
         _ext = "pdf"
         if _format == "epub":
             _ext = "epub"
+        elif _format == "mobi":
+            _ext = "mobi"
+        elif _format == "xhtml":
+            _ext = "zip"
 
         format_settings = get_settings_as_dictionary(book, _format)
 
@@ -120,8 +124,8 @@ def publish_book(*args, **kwargs):
             if format_settings['cover_image'].strip() != '':
                 cover_url = "{}/{}/_cover/{}/cover.jpg".format(settings.BOOKTYPE_URL, 
                     book.url_title, format_settings['cover_image'])
-                data['assets']['screenpdf_cover_image'] = cover_url
-                data["outputs"][_format]["config"]["cover_image"] = "screenpdf_cover_image"
+                data['assets']['{}_cover_image'.format(_format)] = cover_url
+                data["outputs"][_format]["config"]["cover_image"] = '{}_cover_image'.format(_format)
 
     logger.debug(data)
 

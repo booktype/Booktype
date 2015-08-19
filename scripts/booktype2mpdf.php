@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 
 /* Parse the arguments */
 
@@ -19,15 +20,13 @@ $file_output = $options["output"];
 /* Include mPDF library */
 include($options["mpdf"]."/mpdf.php");
 
-
 if(file_exists($options["dir"]."/config.json")) {
     $data = file_get_contents($options["dir"]."/config.json");
     $config = json_decode($data, true);
 }
 
 /* Read content */
-$html_data = file_get_contents($file_input);
-$html = substr($html_data, 12, strlen($html_data)-27);
+$html = file_get_contents($file_input);
 
 /* Create PDF */
 
@@ -40,6 +39,11 @@ $mpdf = new mPDF('', array($config["config"]["page_width_bleed"], $config["confi
 
 $mpdf = new mPDF();
 
+// Specify whether to substitute missing characters in UTF-8 (multibyte) documents
+$mpdf->useSubstitutions=false;
+
+//Disables complex table borders etc. to improve performance
+$mpdf->simpleTables = true; 
 
 if(array_key_exists('mirror_margins', $config)) {
   if($config['mirror_margins']) {
@@ -57,27 +61,6 @@ if(file_exists($options["dir"]."/style.css")) {
     $css_data = file_get_contents($options["dir"]."/style.css");
     $mpdf->WriteHTML($css_data, 1);
 }
-
-//$mpdf->AddPageByArray(array('suppress' => 'off'));
-
-if(array_key_exists('show_footer', $config['config']['settings'])) {
-    if(isset($config['config']['settings']['show_footer'])) {
-      $html = "<sethtmlpagefooter name=\"footer-left\" page=\"E\" value=\"".
-               $config['config']['settings']['show_footer']."\" />
-               <sethtmlpagefooter name=\"footer-right\" page=\"O\" value=\"".
-               $config['config']['settings']['show_footer']."\" />  ".$html;
-    }
-}
-
-if(array_key_exists('show_header', $config['config']['settings'])) {
-    if(isset($config['config']['settings']['show_header'])) {
-      $html = "<sethtmlpageheader name=\"header-left\" page=\"E\" value=\"".
-               $config['config']['settings']['show_header']."\" show-this-page=\"0\" />
-               <sethtmlpageheader name=\"header-right\" page=\"O\" value=\"".
-               $config['config']['settings']['show_header']."\"  show-this-page=\"0\" />  ".$html;
-    }
-}
-
 
 /* Add Frontmatter */
 if(file_exists($options["dir"]."/frontmatter.html")) {

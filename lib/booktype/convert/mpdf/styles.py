@@ -93,7 +93,9 @@ def create_default_style(config, name, extra = {}):
         'side_margin': get_value(config['settings'], 'side_margin'),
         'gutter': get_value(config['settings'], 'gutter'),
         'header_margin': get_value(config['settings'], 'header_margin'),
-        'footer_margin': get_value(config['settings'], 'footer_margin')
+        'footer_margin': get_value(config['settings'], 'footer_margin'),
+        'show_header': get_value(config['settings'], 'show_header') == 'on',
+        'show_footer': get_value(config['settings'], 'show_footer') == 'on',
         }
     data.update(extra)
 

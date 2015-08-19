@@ -16,7 +16,16 @@
 
 import os
 
+# PUBLISHING RELATED
 PUBLISH_OPTIONS = ['mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml']
+
+# MOBI CONVERSION RELATED
+
+# Options are "kindlegen" or "calibre"
+MOBI_CONVERT = "calibre" 
+KINDLEGEN_PATH = "kindlegen"
+CALIBRE_PATH = "ebook-convert"
+CALIBRE_ARGS = ""
 
 OBJAVI_URL = "http://objavi.booktype.pro/objavi.cgi"
 ESPRI_URL = "http://objavi.booktype.pro/espri.cgi"
@@ -35,22 +44,22 @@ BOOKTYPE_MAX_BOOKS = 0
 
 EXPORT_SETTINGS = {
     'mpdf': [{u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
-        {u'name': u'custom_height', u'value': u''}, {u'name': u'top_margin', u'value': u''},
-        {u'name': u'side_margin', u'value': u''}, {u'name': u'bottom_margin', u'value': u''},
-        {u'name': u'gutter', u'value': u''}, {u'name': u'show_header', u'value': u'on'},
-        {u'name': u'header_margin', u'value': u''}, {u'name': u'show_footer', u'value': u'on'},
-        {u'name': u'footer_margin', u'value': u''}, {u'name': u'bleed_size', u'value': u''},
+        {u'name': u'custom_height', u'value': u''}, {u'name': u'top_margin', u'value': u'20'},
+        {u'name': u'side_margin', u'value': u'20'}, {u'name': u'bottom_margin', u'value': u'20'},
+        {u'name': u'gutter', u'value': u'20'}, {u'name': u'show_header', u'value': u'on'},
+        {u'name': u'header_margin', u'value': u'10'}, {u'name': u'show_footer', u'value': u'on'},
+        {u'name': u'footer_margin', u'value': u'10'}, {u'name': u'bleed_size', u'value': u''},
         {u'name': u'styling', u'value': u''}, {u'name': u'crop_marks', u'value': u'off'}],
     'screenpdf': [{u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
-        {u'name': u'custom_height', u'value': u''}, {u'name': u'top_margin', u'value': u''},
-        {u'name': u'side_margin', u'value': u''}, {u'name': u'bottom_margin', u'value': u''},
-        {u'name': u'gutter', u'value': u''}, {u'name': u'show_header', u'value': u'on'},
-        {u'name': u'header_margin', u'value': u''}, {u'name': u'show_footer', u'value': u'on'},
-        {u'name': u'footer_margin', u'value': u''}, {u'name': u'cover_image', u'value': u' '},
+        {u'name': u'custom_height', u'value': u''}, {u'name': u'top_margin', u'value': u'20'},
+        {u'name': u'side_margin', u'value': u'20'}, {u'name': u'bottom_margin', u'value': u'20'},
+        {u'name': u'gutter', u'value': u'20'}, {u'name': u'show_header', u'value': u'on'},
+        {u'name': u'header_margin', u'value': u'10'}, {u'name': u'show_footer', u'value': u'on'},
+        {u'name': u'footer_margin', u'value': u'10'}, {u'name': u'cover_image', u'value': u' '},
         {u'name': u'styling', u'value': u''}],
     'epub': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
     'mobi': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
-    'xhtml': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}]
+    'xhtml': [{u'name': u'styling', u'value': u''}]
 }
 
 INCH_TO_MM = 25.4

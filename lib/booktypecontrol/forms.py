@@ -338,7 +338,7 @@ class PrivacyForm(BaseControlForm, forms.Form):
     user_register = forms.BooleanField(
         label=_('Anyone can register'),
         required=False,
-        help_text=_('Anyone can register on the site and create account')
+        help_text=_('Anyone can register on the site and create an account')
     )
     create_books = forms.BooleanField(
         label=_('Only admin can create books'),
@@ -426,7 +426,7 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
     )
 
     is_superuser = forms.BooleanField(
-        label=_("This person is superuser"),
+        label=_("This person is a superuser"),
         required=False
     )
 
@@ -456,7 +456,7 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         except User.DoesNotExist:
             pass
         else:
-            raise forms.ValidationError(_("This Person already exists."))
+            raise forms.ValidationError(_("That username is already taken."))
 
         return self.cleaned_data['username']
 
@@ -578,7 +578,7 @@ class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
     )
 
     is_superuser = forms.BooleanField(
-        label=_("This person is superuser"),
+        label=_("This person is a superuser"),
         required=False
     )
     is_active = forms.BooleanField(
@@ -695,7 +695,7 @@ class AddBookForm(BaseControlForm, forms.Form):
 
     def clean_title(self):
         if not check_book_availability(self.cleaned_data['title']):
-            raise forms.ValidationError(_("This Book already exists."))
+            raise forms.ValidationError(_("That book already exists."))
         return self.cleaned_data['title']
 
     def save_settings(self, request):
@@ -743,7 +743,7 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
         required=False,
         max_length=200,
         error_messages={'invalid': _("Illegal characters in URL title.")},
-        help_text=_("If you leave this field empty URL\
+        help_text=_("If you leave this field empty, a URL\
         title will be assigned automatically.")
     )
 

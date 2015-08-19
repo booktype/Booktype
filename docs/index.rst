@@ -35,6 +35,9 @@ Deployment
   Supervisor |
   RabbitMQ 
 
+* **Publishing**
+  :doc:`MOBI <deployment/mobi>`
+
 * **Scripts:**
   :doc:`Createbooktype <deployment/createbooktype>` |
   Backup  

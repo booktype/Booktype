@@ -19,27 +19,35 @@ import tempfile
 
 from ebooklib import epub
 
+from booktype.utils import config
 from ..base import BaseConverter
 from ..utils import run_command
 from .. import ConversionError
+from ..epub.converter import EpubConverter
 
 
-class MobiConverter(BaseConverter):
+class MobiConverter(EpubConverter):
     name = "mobi"
 
     def convert(self, book, output_path):
-        epub_path = os.path.join(self.sandbox_path, "book.epub")
+        ret = super(MobiConverter, self).convert(book, output_path + '.epub')
 
-        if os.path.exists(epub_path):
-            epub_file = tempfile.NamedTemporaryFile(prefix="book-", suffix=".epub", dir=self.sandbox_path, delete=False)
-            epub_path = epub_file.name
+        mobi_convert = config.get_configuration('MOBI_CONVERT')
 
-        epub_writer = epub.EpubWriter(epub_path, book)
-        epub_writer.process()
-        epub_writer.write()
+        if mobi_convert == 'kindlegen':
+            kindlegen_path = config.get_configuration('KINDLEGEN_PATH')
+            command = [kindlegen_path, "-o", output_path.name, output_path + '.epub']
+        elif mobi_convert == 'calibre':
+            calibre_path = config.get_configuration('CALIBRE_PATH')
+            calibre_args = config.get_configuration('CALIBRE_ARGS')
 
-        command = ["kindlegen", "-o", output_path, epub_path]
+            command = [calibre_path, output_path + '.epub', output_path]
+            if calibre_args != '':
+                command += [calibre_args]
+
         rc, out, err = run_command(command)
 
-        if rc != 0:
+        if rc not in [0, 1]:
             raise ConversionError("error running external command '{}'".format( command[0]))
+
+        return {"size": os.path.getsize(output_path)}

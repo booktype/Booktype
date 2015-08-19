@@ -248,5 +248,6 @@ def export_book(filename, book_version):
     epub_book.add_item(epub.EpubNcx())
     epub_book.add_item(epub.EpubNav())
 
+    standard.ATTRIBUTES_GLOBAL = standard.ATTRIBUTES_GLOBAL + ['data-column', 'data-gap', 'data-valign']
     opts = {'plugins': [TidyPlugin(), standard.SyntaxPlugin()]}
     epub.write_epub(filename, epub_book, opts)

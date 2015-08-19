@@ -507,7 +507,6 @@ div.contentHeader span.info-message {
   display: block;
 }
 
-
 /* Endnotes Plugin
 ------------------------------------------------------*/
 .icejs-tab-content h4{
@@ -519,4 +518,88 @@ div.contentHeader span.info-message {
   font-size: 11px !important;
   padding: 4px 7px 4px 7px !important;
   font-weight: normal !important;
+}
+
+#contenteditor .aloha-block-ColumnsBlock .aloha-editable {
+  min-height: 200px;
+  padding: 10px;
+}
+
+#contenteditor .aloha-block-ColumnsBlock.bk-marker .aloha-editable {
+  display: none;
+}
+
+#contenteditor .aloha-block-ColumnsBlock .bk-columns-marker {
+  display: none;
+}
+
+#contenteditor .aloha-block-ColumnsBlock.bk-marker .bk-columns-marker {
+  display: block;
+  padding: 2px;
+  color: black;
+  font-size: 10px;
+  border-radius: 2px;
+  background-color: #dadff3;
+  text-transform: uppercase;
+}
+
+
+#contenteditor .aloha-block-ColumnsBlock .bk-columns-info {
+  background-color: #dadff3;
+  color: black;
+  padding: 3px;
+  display: none;
+}
+
+#contenteditor .aloha-block-ColumnsBlock .bk-columns-info a.bk-action {
+  float: right;
+  color: black;
+  text-decoration: none;
+  padding-right: 5px;
+}
+
+#contenteditor .aloha-block-ColumnsBlock .bk-columns-info a.bk-help {
+  color: black;
+  text-decoration: none;
+  padding-right: 5px;
+}
+
+#contenteditor .aloha-block-ColumnsBlock .bk-columns-info .bk-title {
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#contenteditor .aloha-block-ColumnsBlock.aloha-block-active .bk-columns-info {
+  display: block;
+}
+
+#contenteditor .aloha-block-ColumnsBlock .aloha-editable {
+  column-rule: 4px solid #dadff3;
+  column-gap: 20px
+
+  -webkit-column-rule: 4px solid #dadff3; /* Chrome, Safari, Opera */
+  -moz-column-rule: 4px solid #dadff3; /* Firefox */
+
+  -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+  -moz-column-gap: 40px; /* Firefox */
+}
+
+#contenteditor .aloha-block-ColumnsBlock.aloha-block-active {
+  border: 2px solid #dadff3;
+}
+
+#contenteditor .bk-column-break::before {
+  content: "COLUMN BREAK";
+  padding: 2px;
+  color: black;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 2px;
+  background-color: #dadff3;
+}
+
+#contenteditor .bk-column-break {
+  -webkit-column-break-after: always;
+  break-after: column;
 }
