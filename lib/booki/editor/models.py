@@ -422,7 +422,7 @@ class BookVersion(models.Model):
     # add published
 
     # this is for icejs tracking changes plugin
-    track_changes = models.BooleanField(default=True)
+    track_changes = models.BooleanField(default=False)
 
     def get_toc(self):
         return BookToc.objects.filter(version=self).order_by("-weight")

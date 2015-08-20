@@ -16,6 +16,9 @@
 
 import os
 
+# Should track changes be turned on for the book
+BOOK_TRACK_CHANGES = False
+
 # PUBLISHING RELATED
 PUBLISH_OPTIONS = ['mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml']
 

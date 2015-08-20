@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='bookversion',
             name='track_changes',
-            field=models.BooleanField(default=True),
+            field=models.BooleanField(default=False),
             preserve_default=True,
         ),
     ]

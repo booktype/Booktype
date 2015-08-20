@@ -284,11 +284,18 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
 class BookSettingsForm(BaseControlForm, forms.Form):
     hlp_visible = 'If it is turned on then all\
         books will be visible to everyone.'
+    hlp_track = 'If it is turned on then track changes will be\
+        enabled for all the users.'
     visible = forms.BooleanField(
         label=_('Default visibility'),
         required=False,
         help_text=_(hlp_visible)
     )
+    track_changes = forms.BooleanField(
+        label=_('Track changes'),
+        required=False,
+        help_text=_(hlp_track)
+    )    
     license = forms.ModelChoiceField(
         label=_('Default License'),
         queryset=License.objects.all().order_by("name"),
@@ -309,12 +316,16 @@ class BookSettingsForm(BaseControlForm, forms.Form):
 
         return {
             'visible': config.get_configuration('CREATE_BOOK_VISIBLE'),
-            'license': license
+            'license': license,
+            'track_changes': config.get_configuration('BOOK_TRACK_CHANGES')
         }
 
     def save_settings(self, request):
         config.set_configuration(
             'CREATE_BOOK_VISIBLE', self.cleaned_data['visible'])
+
+        config.set_configuration(
+            'BOOK_TRACK_CHANGES', self.cleaned_data['track_changes'])
 
         if 'license' in self.cleaned_data:
             config.set_configuration(
