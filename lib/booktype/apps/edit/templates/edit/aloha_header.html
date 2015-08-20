@@ -71,7 +71,7 @@
           'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
           'a', 'br', 'hr',
           'b', 'i', 'strong', 'em', 'blockquote', 'del', 'ins', 'dfn', 'q', 's', 'small', 'span', 'u',
-          'bdi', 'rt', 'ruby',
+          'bdi', 'bdo', 'rt', 'ruby',
           'abbr', 'address', 'article', 'aside', 'audio', 'caption', 'cite', 'code', 'section',
           'col', 'colgroup', 'dd',
           'div', 'dl', 'dt', 'figure', 'figcaption', 'footer', 'header',
@@ -88,6 +88,7 @@
 
           'a'         : ['href', 'id', 'class', 'target', 'hreflang', 'media', 'rel', 'type'],
           'br'        : ['id', 'class'],
+          'bdo'       : ['dir', 'style', 'class'],
           'hr'        : ['id', 'style'],
           'del'       : ['id', 'class', 'cite', 'datetime'],
           'ins'       : ['id', 'class', 'cite', 'datetime'],
@@ -98,8 +99,8 @@
           'blockquote': ['id', 'class', 'style', 'cite'],
           'q'         : ['cite'],
           'li'        : ['id', 'class', 'style', 'value'],
-          'ol'        : ['id', 'class', 'style', 'reversed', 'start', 'type'],
-          'ul'        : ['id', 'class', 'style'],
+          'ol'        : ['id', 'class', 'style', 'reversed', 'start', 'type', 'dir'],
+          'ul'        : ['id', 'class', 'style', 'dir'],
           'mark'      : ['id', 'class', 'style'],
           'figure'    : ['id', 'class', 'style'],
           'figcaption': ['id', 'class', 'style'],
@@ -108,7 +109,7 @@
           'col'       : ['id', 'class', 'style', 'span'],
           'colgroup'  : ['id', 'class', 'style', 'span'],
           'table'     : ['id', 'class', 'style', 'border'],
-          'td'        : ['id', 'class', 'style', 'colspan', 'headers', 'rowspan'],
+          'td'        : ['id', 'class', 'style', 'colspan', 'headers', 'rowspan', 'dir'],
           'p'         : ['id', 'class', 'style', 'dir', 'lang'],
           'div'       : ['id', 'class', 'style', 'dir', 'lang'],
           'span'      : ['id', 'class', 'style', 'dir', 'lang'],
@@ -174,4 +175,5 @@
                             booktype/findandreplace,
                             booktype/imagesimple,
                             booktype/simpletable,
-                            booktype/bookpaste"></script>
+                            booktype/bookpaste,
+                            booktype/direction"></script>
