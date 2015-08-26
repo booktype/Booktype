@@ -19,6 +19,7 @@ import json
 import codecs
 import urllib2
 import logging
+import datetime
 from lxml import etree
 
 
@@ -39,6 +40,7 @@ from booktype.apps.themes.utils import (
     read_theme_style, get_single_frontmatter, get_single_endmatter, get_body)
 from booktype.apps.convert.templatetags.convert_tags import (
     get_refines, get_metadata)
+from booktype.utils.misc import booktype_slugify
 
 
 logger = logging.getLogger("booktype.convert.pdf")
@@ -215,6 +217,8 @@ class MPDFConverter(BaseConverter):
           Returns dictionary with number of pages and file size of output file
         """
 
+        convert_start = datetime.datetime.now()
+
         if 'theme' in self.config:
             self.theme_name = self.config['theme'].get('id', '')
 
@@ -236,6 +240,10 @@ class MPDFConverter(BaseConverter):
         os.rename(pdf_path, output_path)
 
         self.post_convert(book, output_path)
+
+        convert_end = datetime.datetime.now()
+
+        logger.info('Conversion lasted %s.', convert_end - convert_start)
 
         return {
             "pages": data_out.get('pages', 0),
@@ -295,7 +303,8 @@ class MPDFConverter(BaseConverter):
                     items += [{
                         'type': 'section',
                         'level': depth,
-                        'title': section_title
+                        'title': section_title,
+                        'url_title': booktype_slugify(section_title),
                     }]
                     items += _toc(depth + 1, chapters)
                 else:
@@ -304,11 +313,14 @@ class MPDFConverter(BaseConverter):
                     content = self._get_chapter_content(chapter_item)
                     content = self._fix_horrible_mpdf(content)
 
+                    href_filename, file_extension = os.path.splitext(chapter_href)
                     items.append({
                         'type': 'chapter',
                         'level': depth,
                         'title': chapter_title,
+                        'url_title': booktype_slugify(chapter_title),
                         'href': chapter_href,
+                        'href_filename': href_filename,
                         'content': content})
 
             return items
