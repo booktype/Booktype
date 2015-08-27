@@ -80,5 +80,9 @@ class UserInviteForm(BaseBooktypeForm, forms.Form):
         # books that the user can invite to collaborate in
         book_ids = BookHistory.objects.filter(user=user).values_list(
             'book', flat=True).distinct()
-        self.fields['books'].queryset = Book.objects.filter(
-            Q(id__in=book_ids) | Q(owner=user)) .order_by('title')
+
+        b_query = Book.objects.all()
+        if not user.is_superuser:
+            b_query = b_query.filter(Q(id__in=book_ids) | Q(owner=user))
+
+        self.fields['books'].queryset = b_query.order_by('title')

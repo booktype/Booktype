@@ -17,6 +17,7 @@
 
 import os
 import json
+import logging
 import urlparse
 
 from lxml import etree
@@ -30,8 +31,11 @@ from booki.editor import models
 from booktype.utils import config
 from booktype.apps.export.models import ExportSettings
 from booktype.utils.misc import TidyPlugin
+from booktype.utils.plugins.icejs import IceCleanPlugin
 
 from .epub import ExportEpubBook
+
+logger = logging.getLogger('booktype.apps.export.utils')
 
 
 def get_settings(book, export_format):
@@ -181,7 +185,8 @@ def export_book(filename, book_version):
 
             try:
                 tree = parse_html_string(cont.encode('utf-8'))
-            except:
+            except Exception as err:
+                logger.error('Error parsing chapter content %s' % err)
                 pass
 
             for elem in tree.iter():
@@ -248,5 +253,6 @@ def export_book(filename, book_version):
     epub_book.add_item(epub.EpubNcx())
     epub_book.add_item(epub.EpubNav())
 
-    opts = {'plugins': [TidyPlugin(), standard.SyntaxPlugin()]}
+    standard.ATTRIBUTES_GLOBAL = standard.ATTRIBUTES_GLOBAL + ['data-column', 'data-gap', 'data-valign']
+    opts = {'plugins': [TidyPlugin(), IceCleanPlugin(), standard.SyntaxPlugin()]}
     epub.write_epub(filename, epub_book, opts)

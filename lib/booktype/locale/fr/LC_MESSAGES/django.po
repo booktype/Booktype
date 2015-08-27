@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-15 21:42-0600\n"
-"PO-Revision-Date: 2015-07-19 10:54+0000\n"
-"Last-Translator: AlbertFR <albert.bruc.ab@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/p/booktype/language/fr/)\n"
+"POT-Creation-Date: 2015-07-29 16:12+0200\n"
+"PO-Revision-Date: 2015-07-30 09:22+0000\n"
+"Last-Translator: Daniel James <daniel@64studio.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/booktype/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -123,9 +123,9 @@ msgstr "Mes livres"
 #: apps/portal/templates/portal/books.html:17
 #: apps/portal/templates/portal/frontpage.html:20
 #: apps/portal/templates/portal/group.html:21
-#: apps/portal/templates/portal/group.html:48 apps/portal/views.py:316
-#: apps/portal/views.py:317
-#: apps/reader/templates/reader/book_info_page.html:83
+#: apps/portal/templates/portal/group.html:48 apps/portal/views.py:324
+#: apps/portal/views.py:325
+#: apps/reader/templates/reader/book_info_page.html:85
 msgid "Books"
 msgstr "Livres"
 
@@ -211,7 +211,7 @@ msgstr "Aller aux réglages"
 
 #: apps/account/templates/account/dashboard.html:143
 #: apps/account/templates/account/form_signedin.html:19
-#: apps/account/views.py:172 apps/account/views.py:173
+#: apps/account/views.py:176 apps/account/views.py:177
 #: apps/edit/templates/edit/toolbar_book.html:12
 msgid "Settings"
 msgstr "Réglagles"
@@ -233,7 +233,7 @@ msgstr "Activité récente"
 #: apps/account/templates/account/dashboard.html:162
 #: apps/portal/templates/portal/books.html:112
 #: apps/portal/templates/portal/frontpage.html:147
-#: apps/reader/templates/reader/book_info_page.html:98
+#: apps/reader/templates/reader/book_info_page.html:100
 msgid "ago"
 msgstr "déjà"
 
@@ -243,8 +243,8 @@ msgstr "Cet utilisateur n'a pas d'activité récente."
 
 #: apps/account/templates/account/dashboard.html:182
 #: apps/core/templates/core/nav_menu.html:28
-#: apps/portal/templates/portal/frontpage.html:87 apps/portal/views.py:144
-#: apps/portal/views.py:145
+#: apps/portal/templates/portal/frontpage.html:87 apps/portal/views.py:152
+#: apps/portal/views.py:153
 msgid "Groups"
 msgstr "Groupes"
 
@@ -267,8 +267,8 @@ msgstr "Voir le livre"
 #: apps/portal/templates/portal/group.html:72
 #: apps/reader/templates/reader/book_delete.html:9
 #: apps/reader/templates/reader/book_delete.html:19
-#: apps/reader/templates/reader/book_info_page.html:59
-#: apps/reader/templates/reader/book_info_page.html:60
+#: apps/reader/templates/reader/book_info_page.html:61
+#: apps/reader/templates/reader/book_info_page.html:62
 msgid "Delete Book"
 msgstr "Supprimer le Livre"
 
@@ -290,7 +290,7 @@ msgid "Rename"
 msgstr "Renommer"
 
 #: apps/account/templates/account/dashboard_book_template.html:45
-#: apps/edit/templates/edit/panel_aloha.html:265
+#: apps/edit/templates/edit/panel_aloha.html:261
 #: apps/edit/templates/edit/panel_toc.html:347
 #: apps/edit/templates/edit/panel_toc.html:364
 #: apps/edit/templates/edit/panel_toc.html:390
@@ -326,7 +326,7 @@ msgstr "Il ya déjà un livre avec ce nom."
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:26
 #: apps/account/templates/account/dashboard_create_book_modal.html:29
-#: apps/edit/templates/edit/panel_aloha.html:221 apps/export/models.py:47
+#: apps/edit/templates/edit/panel_aloha.html:217 apps/export/models.py:47
 msgid "Description"
 msgstr "Description"
 
@@ -345,7 +345,7 @@ msgid "Choose from the following license"
 msgstr "Choisissez parmi les licences suivantes"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:36
-#: apps/edit/forms.py:109 apps/edit/templates/edit/panel_covers.html:73
+#: apps/edit/forms.py:111 apps/edit/templates/edit/panel_covers.html:73
 #: apps/edit/templates/edit/panel_covers.html:130
 #: apps/edit/templates/edit/panel_settings.html:21
 msgid "License"
@@ -410,7 +410,7 @@ msgstr "Pas encore suivi."
 #: apps/portal/templates/portal/all_groups.html:92
 #: apps/portal/templates/portal/group.html:20
 #: apps/portal/templates/portal/group.html:106
-#: apps/reader/templates/reader/book_info_page.html:83
+#: apps/reader/templates/reader/book_info_page.html:85
 msgid "Members"
 msgstr "Membres"
 
@@ -491,6 +491,7 @@ msgstr "Mes paramètres"
 
 #: apps/account/templates/account/dashboard_settings.html:43
 #: apps/edit/templates/edit/_settings_form.html:15
+#: apps/edit/templates/edit/panel_aloha.html:306
 #: apps/portal/templates/portal/group_settings.html:16
 #: apps/reader/templates/reader/book_info_edit.html:15
 msgid "Save changes"
@@ -511,7 +512,7 @@ msgid "Can't find user \"%(username)s\"."
 msgstr "Ne trouves pas l'utilisateur \"%(username)s\"."
 
 #: apps/account/templates/account/forgot_password.html:10
-#: apps/account/views.py:283 apps/account/views.py:284
+#: apps/account/views.py:287 apps/account/views.py:288
 msgid "Forgot your password"
 msgstr "Vous avez oublié votre mot de passe"
 
@@ -539,7 +540,7 @@ msgid "Send request"
 msgstr "Envoyer une demande"
 
 #: apps/account/templates/account/forgot_password_enter.html:12
-#: apps/account/views.py:356 apps/account/views.py:357
+#: apps/account/views.py:360 apps/account/views.py:361
 msgid "Reset your password"
 msgstr "Réinitialiser votre mot de passe"
 
@@ -563,8 +564,8 @@ msgstr "Confirmez le mot de passe"
 msgid "My Dashboard"
 msgstr "Mon tableau de bord"
 
-#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:406
-#: apps/account/views.py:407
+#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:410
+#: apps/account/views.py:411
 msgid "Sign in"
 msgstr "Se connecter"
 
@@ -715,43 +716,43 @@ msgstr "Seul l'administrateur est autorisé à créer de nouveaux comptes pour l
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: apps/account/views.py:123 apps/account/views.py:124
+#: apps/account/views.py:127 apps/account/views.py:128
 msgid "User profile"
 msgstr "Profil utilisateur"
 
-#: apps/account/views.py:223
+#: apps/account/views.py:227
 msgid "User settings has been successfully saved!"
 msgstr "Les paramètres de l'utilisateur ont bien été enregistrés!"
 
-#: apps/account/views.py:260
+#: apps/account/views.py:264
 msgid "Password changed successfully!"
 msgstr "Mot de passe modifié avec succès !"
 
-#: apps/account/views.py:312
+#: apps/account/views.py:316
 msgid "Missing username"
 msgstr "Nom utilisateur manquant"
 
-#: apps/account/views.py:316
+#: apps/account/views.py:320
 msgid "No such user"
 msgstr "Aucun utilisateur "
 
-#: apps/account/views.py:336
+#: apps/account/views.py:340
 msgid "Reset password"
 msgstr "Réinitialiser le mot de passe"
 
-#: apps/account/views.py:349
+#: apps/account/views.py:353
 msgid "Unknown error"
 msgstr "Erreur inconnue"
 
-#: apps/account/views.py:371
+#: apps/account/views.py:375
 msgid "Password can't be empty"
 msgstr "Le mot de passe ne peut être vide"
 
-#: apps/account/views.py:376
+#: apps/account/views.py:380
 msgid "Passwords don't match"
 msgstr "Les mots de passe ne correspondent pas"
 
-#: apps/account/views.py:392
+#: apps/account/views.py:396
 msgid "Wrong secret code"
 msgstr "Code secret incorrect "
 
@@ -785,7 +786,7 @@ msgid "Permission"
 msgstr "Permission"
 
 #: apps/core/models.py:29 apps/edit/templates/edit/panel_settings.html:43
-#: apps/edit/views.py:47
+#: apps/edit/views.py:48
 msgid "Permissions"
 msgstr "Permissions"
 
@@ -798,7 +799,7 @@ msgid "Role"
 msgstr "Rôles"
 
 #: apps/core/models.py:70 apps/edit/templates/edit/panel_settings.html:39
-#: apps/edit/views.py:46 apps/portal/templates/portal/frontpage.html:230
+#: apps/edit/views.py:47 apps/portal/templates/portal/frontpage.html:230
 msgid "Roles"
 msgstr "Rôles"
 
@@ -896,8 +897,8 @@ msgid "Home"
 msgstr "Accueil"
 
 #: apps/core/templates/core/nav_menu.html:35
-#: apps/portal/templates/portal/frontpage.html:54 apps/portal/views.py:294
-#: apps/portal/views.py:295
+#: apps/portal/templates/portal/frontpage.html:54 apps/portal/views.py:302
+#: apps/portal/views.py:303
 msgid "People"
 msgstr "Communauté"
 
@@ -1047,67 +1048,71 @@ msgid "Change chapter status"
 msgstr "Changer l'état du chapitre"
 
 #: apps/edit/__init__.py:30
+msgid "Edit book"
+msgstr ""
+
+#: apps/edit/__init__.py:31
 msgid "Delete book"
 msgstr "Supprimer le livre"
 
-#: apps/edit/__init__.py:32
+#: apps/edit/__init__.py:33
 msgid "Restore history"
 msgstr "Rétablir l'historique"
 
-#: apps/edit/__init__.py:33
+#: apps/edit/__init__.py:34
 msgid "Edit Notes"
 msgstr "Édition des notes"
 
-#: apps/edit/__init__.py:36
+#: apps/edit/__init__.py:37
 msgid "Manage Language"
 msgstr "Gérer la langue"
 
-#: apps/edit/__init__.py:37
+#: apps/edit/__init__.py:38
 msgid "Manage License"
 msgstr "Gérer la licence"
 
-#: apps/edit/__init__.py:38
+#: apps/edit/__init__.py:39
 msgid "Manage Metadata"
 msgstr "Gérer les métadonnées"
 
-#: apps/edit/channel.py:1293
+#: apps/edit/channel.py:1277
 msgid "You have no permissions for editing this chapter."
 msgstr "Vous n'avez pas les permissions pour éditer ce chapitre."
 
-#: apps/edit/channel.py:1301
+#: apps/edit/channel.py:1285
 msgid "Chapter currently being edited."
 msgstr "Le chapitre est en cours d'édition."
 
-#: apps/edit/channel.py:1306
+#: apps/edit/channel.py:1290
 msgid "You have no permissions for editing chapters under lock."
 msgstr "Vous n'avez pas les permissions pour éditer des chapitres verrouillés."
 
-#: apps/edit/channel.py:1310
+#: apps/edit/channel.py:1294
 msgid "Chapter currently is locked from everyone."
 msgstr "Le chapitre courant est verrouillé pour tout le monde."
 
-#: apps/edit/channel.py:1915
+#: apps/edit/channel.py:1899
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr "Un des formats sélectionné est désactivé. Essayez de recharger la page. "
 
-#: apps/edit/forms.py:51 apps/edit/templates/edit/panel_settings.html:17
+#: apps/edit/forms.py:53 apps/edit/templates/edit/panel_settings.html:17
 msgid "Language"
 msgstr "Langue"
 
-#: apps/edit/forms.py:55
+#: apps/edit/forms.py:57
 msgid "Right to left text"
 msgstr "Écriture de la droite vers la gauche"
 
-#: apps/edit/forms.py:57
+#: apps/edit/forms.py:59
 msgid "Book with right to left writing."
 msgstr "Livre avec écriture de droite à gauche."
 
-#: apps/edit/forms.py:91
+#: apps/edit/forms.py:93
 msgid "New Status"
 msgstr "Nouveau status :"
 
 #: apps/edit/templates/edit/_compare_modal.html:7
-#: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:552
+#: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:538
 msgid "Chapter diff"
 msgstr "Comparaison du chapitre \"diff\""
 
@@ -1131,7 +1136,7 @@ msgstr "Effacé"
 #: apps/edit/templates/edit/chapter_history.html:23
 #: apps/edit/templates/edit/chapter_revision.html:16
 #: apps/edit/templates/edit/compare_screen.html:20
-#: apps/edit/templates/edit/compare_screen.html:21 apps/edit/views.py:583
+#: apps/edit/templates/edit/compare_screen.html:21 apps/edit/views.py:569
 msgid "Revision"
 msgstr "Révision :"
 
@@ -1143,14 +1148,14 @@ msgstr "Vue plein écran"
 #: apps/edit/templates/edit/_settings_form.html:17
 #: apps/edit/templates/edit/book_edit.html:108
 #: apps/edit/templates/edit/chapter_revision.html:60
-#: apps/edit/templates/edit/panel_aloha.html:38
-#: apps/edit/templates/edit/panel_aloha.html:101
-#: apps/edit/templates/edit/panel_aloha.html:119
-#: apps/edit/templates/edit/panel_aloha.html:137
-#: apps/edit/templates/edit/panel_aloha.html:155
-#: apps/edit/templates/edit/panel_aloha.html:225
-#: apps/edit/templates/edit/panel_aloha.html:242
-#: apps/edit/templates/edit/panel_aloha.html:292
+#: apps/edit/templates/edit/panel_aloha.html:34
+#: apps/edit/templates/edit/panel_aloha.html:97
+#: apps/edit/templates/edit/panel_aloha.html:115
+#: apps/edit/templates/edit/panel_aloha.html:133
+#: apps/edit/templates/edit/panel_aloha.html:151
+#: apps/edit/templates/edit/panel_aloha.html:221
+#: apps/edit/templates/edit/panel_aloha.html:238
+#: apps/edit/templates/edit/panel_aloha.html:288
 #: apps/edit/templates/edit/panel_covers.html:96
 #: apps/edit/templates/edit/panel_covers.html:153
 #: apps/edit/templates/edit/panel_toc.html:17
@@ -1163,7 +1168,7 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #: apps/edit/templates/edit/_settings_form_chapter_status.html:4
-#: apps/edit/views.py:48
+#: apps/edit/views.py:49
 msgid "Chapter Status"
 msgstr "État du chapitre"
 
@@ -1183,7 +1188,7 @@ msgstr "Status des chapitres :"
 msgid "You have no permissions to manage statuses"
 msgstr "Vous n'avez pas l'autorisation modifier les status"
 
-#: apps/edit/templates/edit/_settings_form_license.html:5
+#: apps/edit/templates/edit/_settings_form_license.html:7
 msgid "Read full text of the license"
 msgstr "Lire le texte complet de la licence"
 
@@ -1192,7 +1197,7 @@ msgid "Assign"
 msgstr "Assigner"
 
 #: apps/edit/templates/edit/_settings_form_roles.html:26
-#: apps/edit/templates/edit/panel_aloha.html:271
+#: apps/edit/templates/edit/panel_aloha.html:267
 msgid "REMOVE"
 msgstr "SUPPRIMER"
 
@@ -1225,29 +1230,28 @@ msgstr "Pour appliquer les modifications, cliquez sur Sauvegarder"
 
 #: apps/edit/templates/edit/_settings_form_roles.html:86
 #: apps/edit/templates/edit/edit_strings.html:53
-#: apps/edit/templates/edit/panel_aloha.html:291
+#: apps/edit/templates/edit/panel_aloha.html:287
 #: apps/edit/templates/edit/panel_toc.html:18
 #: apps/edit/templates/edit/panel_toc.html:37
 msgid "Save"
 msgstr "Enregistrer"
 
 #: apps/edit/templates/edit/aloha_menu.html:5
-#: apps/edit/templates/edit/panel_aloha.html:243
+#: apps/edit/templates/edit/panel_aloha.html:239
 msgid "Insert"
 msgstr "Insérer "
 
 #: apps/edit/templates/edit/aloha_menu.html:7
-#: apps/edit/templates/edit/panel_aloha.html:138
-msgid "Insert footnote"
-msgstr "Insérer une note de bas de page"
-
-#: apps/edit/templates/edit/aloha_menu.html:8
 msgid "Insert horizontal line"
 msgstr "Insérer une ligne horizontale"
 
-#: apps/edit/templates/edit/aloha_menu.html:9
+#: apps/edit/templates/edit/aloha_menu.html:8
 msgid "Insert page break"
 msgstr "Insérer un saut de page"
+
+#: apps/edit/templates/edit/aloha_menu.html:9
+msgid "Insert endnote"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:15
 #: apps/edit/templates/edit/aloha_toolbar.html:6
@@ -1287,8 +1291,8 @@ msgid "Tools"
 msgstr "Outils"
 
 #: apps/edit/templates/edit/aloha_menu.html:31
-#: apps/edit/templates/edit/panel_aloha.html:54
-#: apps/edit/templates/edit/panel_aloha.html:62
+#: apps/edit/templates/edit/panel_aloha.html:50
+#: apps/edit/templates/edit/panel_aloha.html:58
 msgid "Word count"
 msgstr "Nombre de mots"
 
@@ -1368,7 +1372,7 @@ msgid "Columns"
 msgstr "Colonnes"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:167
-#: apps/edit/templates/edit/panel_aloha.html:67
+#: apps/edit/templates/edit/panel_aloha.html:63
 #: apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
 msgstr "OK"
@@ -1410,7 +1414,7 @@ msgid "Insert Link"
 msgstr "Insérer un lien"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:184
-#: apps/edit/templates/edit/panel_aloha.html:168
+#: apps/edit/templates/edit/panel_aloha.html:164
 msgid "Insert Image"
 msgstr "Insérer une Image"
 
@@ -1465,7 +1469,7 @@ msgid "Save minor change"
 msgstr "Enregistrer le/les changement-s- mineur-s-"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:216
-#: apps/edit/templates/edit/panel_aloha.html:280
+#: apps/edit/templates/edit/panel_aloha.html:276
 msgid "Save with comment"
 msgstr "Sauvegarde avec commentaires"
 
@@ -1569,7 +1573,7 @@ msgid "Time"
 msgstr "Heure"
 
 #: apps/edit/templates/edit/chapter_history.html:26
-#: apps/edit/templates/edit/panel_aloha.html:285
+#: apps/edit/templates/edit/panel_aloha.html:281
 #: apps/edit/templates/edit/panel_publish.html:496
 msgid "Comment"
 msgstr "Commentaire"
@@ -1579,7 +1583,7 @@ msgid "BACK TO CHAPTER HISTORY"
 msgstr "RETOUR A L'HISTORIQUE DU CHAPITRE"
 
 #: apps/edit/templates/edit/chapter_revision.html:11
-#: apps/edit/templates/edit/panel_aloha.html:252
+#: apps/edit/templates/edit/panel_aloha.html:248
 #: apps/edit/templates/edit/panel_history.html:25
 msgid "Modified"
 msgstr "Modifié"
@@ -1775,7 +1779,7 @@ msgid "Unable to remove user from role"
 msgstr "Impossible de supprimer l'utilisateur de ce rôle"
 
 #: apps/edit/templates/edit/edit_strings.html:39
-#: apps/edit/templates/edit/panel_aloha.html:29
+#: apps/edit/templates/edit/panel_aloha.html:25
 msgid "Find"
 msgstr "Trouver"
 
@@ -1948,165 +1952,193 @@ msgstr "La couverture  \"%%s\"  a été effacée"
 msgid "Book export \"%%s\" was successful"
 msgstr "L'export du livre  \"%%s\" a réussi"
 
-#: apps/edit/templates/edit/panel_aloha.html:17
+#: apps/edit/templates/edit/edit_strings.html:77
+msgid "Do you want to delete this endnote?"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:78
+msgid "endnotes"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:79
+msgid "endnotes without reference"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:13
 msgid "Zen mode"
 msgstr "Mode Zen"
 
-#: apps/edit/templates/edit/panel_aloha.html:25
+#: apps/edit/templates/edit/panel_aloha.html:21
 msgid "Find &amp; Replace"
 msgstr "Trouver  &amp; remplacer"
 
-#: apps/edit/templates/edit/panel_aloha.html:32
-#: apps/edit/templates/edit/panel_aloha.html:40
+#: apps/edit/templates/edit/panel_aloha.html:28
+#: apps/edit/templates/edit/panel_aloha.html:36
 msgid "Replace"
 msgstr "Remplacer"
 
-#: apps/edit/templates/edit/panel_aloha.html:34
+#: apps/edit/templates/edit/panel_aloha.html:30
 msgid "Match Case"
 msgstr "Respecter la casse"
 
-#: apps/edit/templates/edit/panel_aloha.html:35
+#: apps/edit/templates/edit/panel_aloha.html:31
 msgid "Finished"
 msgstr "Fini"
 
-#: apps/edit/templates/edit/panel_aloha.html:41
+#: apps/edit/templates/edit/panel_aloha.html:37
 msgid "Replace All"
 msgstr "Tout remplacer"
 
-#: apps/edit/templates/edit/panel_aloha.html:42
+#: apps/edit/templates/edit/panel_aloha.html:38
 msgid "&lt; Prev"
 msgstr "&lt; Précédent"
 
-#: apps/edit/templates/edit/panel_aloha.html:43
+#: apps/edit/templates/edit/panel_aloha.html:39
 msgid "Next $gt;"
 msgstr "Suivant $gt;"
 
-#: apps/edit/templates/edit/panel_aloha.html:57
+#: apps/edit/templates/edit/panel_aloha.html:53
 msgid "Whole book"
 msgstr "Tout le livre"
 
-#: apps/edit/templates/edit/panel_aloha.html:58
+#: apps/edit/templates/edit/panel_aloha.html:54
 msgid "Book word count"
 msgstr "Nombres de mots du livre"
 
-#: apps/edit/templates/edit/panel_aloha.html:59
+#: apps/edit/templates/edit/panel_aloha.html:55
 msgid "Book character count"
 msgstr "Nombre total des caractères du livre"
 
-#: apps/edit/templates/edit/panel_aloha.html:60
+#: apps/edit/templates/edit/panel_aloha.html:56
 msgid "Book character count (with spaces)"
 msgstr "Nombre total des caractères du livre (avec les espaces)"
 
-#: apps/edit/templates/edit/panel_aloha.html:61 apps/edit/views.py:426
-#: apps/reader/views.py:254
+#: apps/edit/templates/edit/panel_aloha.html:57 apps/edit/views.py:412
+#: apps/reader/views.py:252
 msgid "Chapter"
 msgstr "Chapitre"
 
-#: apps/edit/templates/edit/panel_aloha.html:63
+#: apps/edit/templates/edit/panel_aloha.html:59
 msgid "Character count"
 msgstr "Compteur de caractères"
 
-#: apps/edit/templates/edit/panel_aloha.html:64
+#: apps/edit/templates/edit/panel_aloha.html:60
 msgid "Character count (with spaces)"
 msgstr "Compteur de caractères (avec espaces)"
 
-#: apps/edit/templates/edit/panel_aloha.html:78
+#: apps/edit/templates/edit/panel_aloha.html:74
 msgid "Link"
 msgstr "Lien"
 
-#: apps/edit/templates/edit/panel_aloha.html:102
+#: apps/edit/templates/edit/panel_aloha.html:98
 msgid "Break link"
 msgstr "Casser le Lien"
 
-#: apps/edit/templates/edit/panel_aloha.html:103
+#: apps/edit/templates/edit/panel_aloha.html:99
 msgid "Insert link"
 msgstr "Insérer un lien"
 
-#: apps/edit/templates/edit/panel_aloha.html:114
+#: apps/edit/templates/edit/panel_aloha.html:110
 msgid "Color"
 msgstr "Couleur"
 
-#: apps/edit/templates/edit/panel_aloha.html:120
-#: apps/edit/templates/edit/panel_aloha.html:156
+#: apps/edit/templates/edit/panel_aloha.html:116
+#: apps/edit/templates/edit/panel_aloha.html:152
 msgid "Set"
 msgstr "Fixer"
 
-#: apps/edit/templates/edit/panel_aloha.html:131
+#: apps/edit/templates/edit/panel_aloha.html:127
 msgid "Footnote"
 msgstr "Note de bas de page"
 
-#: apps/edit/templates/edit/panel_aloha.html:149
+#: apps/edit/templates/edit/panel_aloha.html:134
+msgid "Insert footnote"
+msgstr "Insérer une note de bas de page"
+
+#: apps/edit/templates/edit/panel_aloha.html:145
 msgid "HTML Edit"
 msgstr "Édition HTML"
 
-#: apps/edit/templates/edit/panel_aloha.html:172
+#: apps/edit/templates/edit/panel_aloha.html:168
 msgid "Sources"
 msgstr "Sources"
 
-#: apps/edit/templates/edit/panel_aloha.html:174
+#: apps/edit/templates/edit/panel_aloha.html:170
 msgid "Media library"
 msgstr "Librairie des Médias"
 
-#: apps/edit/templates/edit/panel_aloha.html:176
+#: apps/edit/templates/edit/panel_aloha.html:172
 msgid "Upload Image"
 msgstr "Téléverser une Image"
 
-#: apps/edit/templates/edit/panel_aloha.html:185
+#: apps/edit/templates/edit/panel_aloha.html:181
 msgid "Drag Your Images Here"
 msgstr "Faites glisser vos images ici"
 
-#: apps/edit/templates/edit/panel_aloha.html:189
+#: apps/edit/templates/edit/panel_aloha.html:185
 msgid "or Select them from folder"
 msgstr "ou sélectionnez les à partir d'un dossier"
 
-#: apps/edit/templates/edit/panel_aloha.html:196
+#: apps/edit/templates/edit/panel_aloha.html:192
 msgid "Please wait, we are processing your image..."
 msgstr "Patientez, nous traitons votre image ..."
 
-#: apps/edit/templates/edit/panel_aloha.html:216
+#: apps/edit/templates/edit/panel_aloha.html:212
 msgid "Image Title"
 msgstr "Titre de l'Image"
 
-#: apps/edit/templates/edit/panel_aloha.html:217
+#: apps/edit/templates/edit/panel_aloha.html:213
 msgid "Enter Title"
 msgstr "Saisir le Titre"
 
-#: apps/edit/templates/edit/panel_aloha.html:220
+#: apps/edit/templates/edit/panel_aloha.html:216
 msgid "Image Description"
 msgstr "Description de l'Image"
 
-#: apps/edit/templates/edit/panel_aloha.html:227
+#: apps/edit/templates/edit/panel_aloha.html:223
 msgid "Save Metadata"
 msgstr "Sauvegarder les métas données"
 
-#: apps/edit/templates/edit/panel_aloha.html:229
+#: apps/edit/templates/edit/panel_aloha.html:225
 msgid "Edit caption"
 msgstr "Ajouter une légende"
 
-#: apps/edit/templates/edit/panel_aloha.html:237
+#: apps/edit/templates/edit/panel_aloha.html:233
 msgid "Enter image link"
 msgstr "Entrez le lien de l'image"
 
-#: apps/edit/templates/edit/panel_aloha.html:251
+#: apps/edit/templates/edit/panel_aloha.html:247
 msgid "File Name"
 msgstr "Nom de fichier"
 
-#: apps/edit/templates/edit/panel_aloha.html:253
+#: apps/edit/templates/edit/panel_aloha.html:249
 msgid "File Size"
 msgstr "Taile du fichier"
 
-#: apps/edit/templates/edit/panel_aloha.html:254
+#: apps/edit/templates/edit/panel_aloha.html:250
 msgid "Dimensions"
 msgstr "Dimensions"
 
-#: apps/edit/templates/edit/panel_aloha.html:263
+#: apps/edit/templates/edit/panel_aloha.html:259
 msgid "Edit metadata"
 msgstr "Édition des métadonnées"
 
-#: apps/edit/templates/edit/panel_aloha.html:264
+#: apps/edit/templates/edit/panel_aloha.html:260
 #: apps/edit/templates/edit/panel_publish.html:512
 msgid "Download"
 msgstr "Télécharger"
+
+#: apps/edit/templates/edit/panel_aloha.html:299
+msgid "Chapter has been modified"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:302
+msgid "This chapter has been modified. Do you want to save it before closing?"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:305
+msgid "Discard changes"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:4
 #: apps/edit/templates/edit/toolbar_book.html:8
@@ -2173,7 +2205,7 @@ msgid "Image dimensions"
 msgstr "Dimensions de l'image"
 
 #: apps/edit/templates/edit/panel_history.html:4
-#: apps/edit/templates/edit/toolbar_book.html:11 apps/edit/views.py:444
+#: apps/edit/templates/edit/toolbar_book.html:11 apps/edit/views.py:430
 msgid "Book History"
 msgstr "Historique du livre"
 
@@ -2568,7 +2600,7 @@ msgstr "État du chapitre"
 msgid "Metadata"
 msgstr "Métadonnées"
 
-#: apps/edit/templates/edit/panel_settings.html:33 apps/edit/views.py:45
+#: apps/edit/templates/edit/panel_settings.html:33 apps/edit/views.py:46
 msgid "Book Metadata"
 msgstr "Métas données du livre"
 
@@ -2743,40 +2775,40 @@ msgstr "Verrouillage pour tous"
 msgid "RENAME"
 msgstr "RENOMMER"
 
-#: apps/edit/views.py:43
+#: apps/edit/views.py:44
 msgid "Book Language"
 msgstr "Langue du livre"
 
-#: apps/edit/views.py:44
+#: apps/edit/views.py:45
 msgid "Book License"
 msgstr "Licence du livre"
 
-#: apps/edit/views.py:590
+#: apps/edit/views.py:576
 msgid "Book History | Chapter Revision"
 msgstr "Historique du livre | Révision des chapitres"
 
-#: apps/edit/views.py:613
+#: apps/edit/views.py:599
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "Revenir à la révision %s."
 
-#: apps/edit/views.py:632
+#: apps/edit/views.py:618
 msgid "Chapter revision successfully reverted."
 msgstr "La révision du chapitre à été annulée avec succès."
 
-#: apps/edit/views.py:634
+#: apps/edit/views.py:620
 msgid "Chapter revision could not be reverted."
 msgstr "La révision du chapitre ne peut être annulée."
 
-#: apps/edit/views.py:701
+#: apps/edit/views.py:687
 msgid "Successfully saved settings."
 msgstr "Réglages sauvegardés avec succès."
 
-#: apps/edit/views.py:703
+#: apps/edit/views.py:689
 msgid "You have no permissions to execute this action."
 msgstr "Vous n'avez pas les permissions pour réaliser cette action."
 
-#: apps/edit/views.py:706
+#: apps/edit/views.py:692
 msgid "Unknown error while saving changes."
 msgstr "Erreur inconnue lors de l'enregistrement des modifications."
 
@@ -3047,7 +3079,7 @@ msgid "Books:"
 msgstr "Livres :"
 
 #: apps/portal/templates/portal/frontpage.html:106
-#: apps/portal/templates/portal/group_create.html:9 apps/portal/views.py:190
+#: apps/portal/templates/portal/group_create.html:9 apps/portal/views.py:198
 msgid "Create new group"
 msgstr "Créer un nouveau groupe"
 
@@ -3096,7 +3128,7 @@ msgid "Set Roles for this invitation"
 msgstr "Définir les rôles pour cette invitation"
 
 #: apps/portal/templates/portal/group.html:39
-#: apps/portal/templates/portal/group_settings.html:9 apps/portal/views.py:227
+#: apps/portal/templates/portal/group_settings.html:9 apps/portal/views.py:235
 msgid "Group settings"
 msgstr "Réglages du groupe"
 
@@ -3172,15 +3204,15 @@ msgstr "Vous devez être connecté pour ajouter des livres."
 msgid "Booktype"
 msgstr "Booktype"
 
-#: apps/portal/views.py:86
+#: apps/portal/views.py:94
 msgid "Group"
 msgstr "Groupe"
 
-#: apps/portal/views.py:271
+#: apps/portal/views.py:279
 msgid "You are not allowed to delete this group"
 msgstr "Vous n'êtes pas autorisé à supprimer ce groupe"
 
-#: apps/portal/views.py:285
+#: apps/portal/views.py:293
 msgid "Group successfully deleted."
 msgstr "Groupe effacé avec succès."
 
@@ -3271,47 +3303,47 @@ msgstr "Publié le :"
 msgid "Follow changes"
 msgstr "Suivre les changements"
 
-#: apps/reader/templates/reader/book_info_page.html:47
 #: apps/reader/templates/reader/book_info_page.html:48
+#: apps/reader/templates/reader/book_info_page.html:49
 msgid "Edit this Book"
 msgstr "Editer ce livre"
 
-#: apps/reader/templates/reader/book_info_page.html:51
-#: apps/reader/templates/reader/book_info_page.html:52
+#: apps/reader/templates/reader/book_info_page.html:53
+#: apps/reader/templates/reader/book_info_page.html:54
 msgid "View draft"
 msgstr "Voir le brouillon"
 
-#: apps/reader/templates/reader/book_info_page.html:56
-#: apps/reader/templates/reader/book_info_page.html:57
+#: apps/reader/templates/reader/book_info_page.html:58
+#: apps/reader/templates/reader/book_info_page.html:59
 msgid "Edit book info"
 msgstr "Saisissez l'identifiant du livre"
 
-#: apps/reader/templates/reader/book_info_page.html:64
-#: apps/reader/templates/reader/book_info_page.html:65
+#: apps/reader/templates/reader/book_info_page.html:66
+#: apps/reader/templates/reader/book_info_page.html:67
 msgid "View full book"
 msgstr "Voir le livre en entier"
 
-#: apps/reader/templates/reader/book_info_page.html:77
+#: apps/reader/templates/reader/book_info_page.html:79
 msgid "Group that book belongs to"
 msgstr "Groupe à qui ce livre appartient "
 
-#: apps/reader/templates/reader/book_info_page.html:91
+#: apps/reader/templates/reader/book_info_page.html:93
 msgid "Recent activity"
 msgstr "Activité récente"
 
-#: apps/reader/templates/reader/book_info_page.html:124
+#: apps/reader/templates/reader/book_info_page.html:126
 msgid "Owner"
 msgstr "Propriétaire"
 
-#: apps/reader/templates/reader/book_info_page.html:147
+#: apps/reader/templates/reader/book_info_page.html:149
 msgid "Admins"
 msgstr "Administrateurs"
 
-#: apps/reader/templates/reader/book_info_page.html:171
+#: apps/reader/templates/reader/book_info_page.html:173
 msgid "Contributors"
 msgstr "Contributeurs"
 
-#: apps/reader/templates/reader/book_info_page.html:196
+#: apps/reader/templates/reader/book_info_page.html:198
 msgid "Book versions"
 msgstr "Versions du livre"
 
@@ -3381,23 +3413,23 @@ msgstr "Détails des pages du livre "
 msgid "Book Details"
 msgstr "Détails du livre"
 
-#: apps/reader/views.py:189
+#: apps/reader/views.py:187
 msgid "Successfully changed book info."
 msgstr "Modifications des informations du livre réalisées avec succès."
 
-#: apps/reader/views.py:191
+#: apps/reader/views.py:189
 msgid "Could not upload cover image."
 msgstr "Impossible de téléverser l'image de couverture ."
 
-#: apps/reader/views.py:212
+#: apps/reader/views.py:210
 msgid "Book successfully deleted."
 msgstr "Livre effacé avec succès. "
 
-#: apps/reader/views.py:219
+#: apps/reader/views.py:217
 msgid "Chapter Draft"
 msgstr "Brouillon du chapitre"
 
-#: apps/reader/views.py:280
+#: apps/reader/views.py:278
 msgid "Book full view"
 msgstr "Vue plein écran du livre"
 
@@ -3443,15 +3475,24 @@ msgstr "Note : Quelques images n'ont pas pues être importées."
 msgid "Title Page"
 msgstr "Titre de la page"
 
-#: importer/epub/epubimporter.py:434
+#: importer/epub/epubimporter.py:262
+#, python-brace-format
+msgid "Broken endnotes markers in \"{0}\"."
+msgstr ""
+
+#: importer/epub/epubimporter.py:376
+msgid "Unknown chapter"
+msgstr ""
+
+#: importer/epub/epubimporter.py:524
 msgid "Not using {} as a cover image -- {}"
 msgstr "Ne pas utiliser {} comme une image de couverture -- {}"
 
-#: importer/epub/epubimporter.py:438
+#: importer/epub/epubimporter.py:528
 msgid "Not using {} as a cover image"
 msgstr "Ne pas utiliser {} comme une image de couverture"
 
-#: importer/epub/epubimporter.py:475
+#: importer/epub/epubimporter.py:565
 msgid "Using {} as cover image"
 msgstr " utiliser {} comme une image de couverture"
 

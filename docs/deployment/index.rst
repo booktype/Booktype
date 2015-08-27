@@ -15,3 +15,4 @@ Deployment
    postgresql
    createbooktype
    upgrade_instruction
+   mobi

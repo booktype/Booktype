@@ -284,11 +284,18 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
 class BookSettingsForm(BaseControlForm, forms.Form):
     hlp_visible = 'If it is turned on then all\
         books will be visible to everyone.'
+    hlp_track = 'If it is turned on then track changes will be\
+        enabled for all the users.'
     visible = forms.BooleanField(
         label=_('Default visibility'),
         required=False,
         help_text=_(hlp_visible)
     )
+    track_changes = forms.BooleanField(
+        label=_('Track changes'),
+        required=False,
+        help_text=_(hlp_track)
+    )    
     license = forms.ModelChoiceField(
         label=_('Default License'),
         queryset=License.objects.all().order_by("name"),
@@ -309,12 +316,16 @@ class BookSettingsForm(BaseControlForm, forms.Form):
 
         return {
             'visible': config.get_configuration('CREATE_BOOK_VISIBLE'),
-            'license': license
+            'license': license,
+            'track_changes': config.get_configuration('BOOK_TRACK_CHANGES')
         }
 
     def save_settings(self, request):
         config.set_configuration(
             'CREATE_BOOK_VISIBLE', self.cleaned_data['visible'])
+
+        config.set_configuration(
+            'BOOK_TRACK_CHANGES', self.cleaned_data['track_changes'])
 
         if 'license' in self.cleaned_data:
             config.set_configuration(
@@ -338,7 +349,7 @@ class PrivacyForm(BaseControlForm, forms.Form):
     user_register = forms.BooleanField(
         label=_('Anyone can register'),
         required=False,
-        help_text=_('Anyone can register on the site and create account')
+        help_text=_('Anyone can register on the site and create an account')
     )
     create_books = forms.BooleanField(
         label=_('Only admin can create books'),
@@ -426,7 +437,7 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
     )
 
     is_superuser = forms.BooleanField(
-        label=_("This person is superuser"),
+        label=_("This person is a superuser"),
         required=False
     )
 
@@ -456,7 +467,7 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         except User.DoesNotExist:
             pass
         else:
-            raise forms.ValidationError(_("This Person already exists."))
+            raise forms.ValidationError(_("That username is already taken."))
 
         return self.cleaned_data['username']
 
@@ -520,7 +531,7 @@ class ListOfPeopleForm(BaseControlForm, forms.Form):
     @classmethod
     def extra_context(cls):
         return {
-            'people': User.objects.all().order_by("username")
+            'people': User.objects.filter(is_active=True).order_by("username")
         }
 
 
@@ -578,7 +589,7 @@ class EditPersonInfoForm(BaseControlForm, forms.ModelForm):
     )
 
     is_superuser = forms.BooleanField(
-        label=_("This person is superuser"),
+        label=_("This person is a superuser"),
         required=False
     )
     is_active = forms.BooleanField(
@@ -695,7 +706,7 @@ class AddBookForm(BaseControlForm, forms.Form):
 
     def clean_title(self):
         if not check_book_availability(self.cleaned_data['title']):
-            raise forms.ValidationError(_("This Book already exists."))
+            raise forms.ValidationError(_("That book already exists."))
         return self.cleaned_data['title']
 
     def save_settings(self, request):
@@ -743,7 +754,7 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
         required=False,
         max_length=200,
         error_messages={'invalid': _("Illegal characters in URL title.")},
-        help_text=_("If you leave this field empty URL\
+        help_text=_("If you leave this field empty, a URL\
         title will be assigned automatically.")
     )
 

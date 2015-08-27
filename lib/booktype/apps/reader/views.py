@@ -109,7 +109,7 @@ class InfoPageView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView
     def get_context_data(self, **kwargs):
         book = self.object
         book_version = book.get_version()
-        book_security = security.get_security_for_book(self.request.user, book)
+
         book_collaborators_ids = BookHistory.objects.filter(
             version=book_version, kind=2).values_list('user', flat=True)
 
@@ -123,10 +123,8 @@ class InfoPageView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView
         context['book_history'] = BookHistory.objects.filter(
             version=book_version).order_by('-modified')[:20]
         context['book_group'] = book.group
-        context['is_book_admin'] = book_security.is_admin()
-        context['roles_permissions'] = security.get_user_permissions(
-            self.request.user, book)
-
+        context['is_book_admin'] = self.security.is_admin()
+        
         return context
 
 

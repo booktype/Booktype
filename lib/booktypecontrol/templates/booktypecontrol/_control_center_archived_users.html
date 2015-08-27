@@ -17,6 +17,12 @@
                                 {% trans "Edit Info" %}
                             </button>
                         </div>
+                        {% if person.is_superuser %}
+                        <b class="label label-default">{% trans "superuser" %}</b>
+                        {% endif %}                        
+                        {% if not person.is_active %}
+                        <b class="label label-warning">{% trans "archived" %}</b>
+                        {% endif %}                        
                     </h4>
                     <p>
                         {{ person.get_full_name }}
@@ -26,7 +32,7 @@
         {% endfor %}
     </ul>
     {% else %}
-      {% trans "There is no archived users yet" %}
+      {% trans "There are no archived users at the moment." %}
     {% endif %}
 
     <div id="personInfoModal" class="modal fade cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

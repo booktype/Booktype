@@ -99,8 +99,6 @@ class BookiGroup(models.Model):
     description = models.TextField(_('description'))
 
     owner = models.ForeignKey(auth_models.User, verbose_name=_('owner'))
-
-#    books = models.ManyToManyField(Book, blank=True)
     members = models.ManyToManyField(auth_models.User, related_name="members",
                                      blank=True, verbose_name=_("members"))
 
@@ -422,6 +420,9 @@ class BookVersion(models.Model):
         _('created'), auto_now=False, null=False,
         default=datetime.datetime.now)
     # add published
+
+    # this is for icejs tracking changes plugin
+    track_changes = models.BooleanField(default=False)
 
     def get_toc(self):
         return BookToc.objects.filter(version=self).order_by("-weight")
@@ -802,7 +803,7 @@ class BookCover(models.Model):
     cover_type = models.CharField(_('Cover type'), max_length=20, blank=True)
 
     creator = models.CharField(_('Cover'), max_length=40, blank=True)
-    license = models.ForeignKey(License,null=True, verbose_name=_("license"))
+    license = models.ForeignKey(License, null=True, verbose_name=_("license"))
 
     notes = models.TextField(_('notes'))
 
@@ -817,4 +818,3 @@ class BookCover(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.id, )
-

@@ -256,7 +256,10 @@ class EpubImporter(object):
         heading.tail = tree.text
         tree.text = ''
 
-        tree = self._convert_endnotes(tree)
+        tree, broken_chapters = self.convert_endnotes(tree)
+
+        for chapter in broken_chapters:
+            self.notifier.warning(_('Broken endnotes markers in "{0}".'.format(chapter)))
 
         tree_str = etree.tostring(
             tree, pretty_print=True, encoding='utf-8', xml_declaration=False)
@@ -349,19 +352,28 @@ class EpubImporter(object):
             # save temporarily the toc_item in parent
             parents[elem_id] = toc_item
 
-    def _convert_endnotes(self, chapter_tree):
+    @staticmethod
+    def convert_endnotes(chapter_tree):
         """Convert endnotes from booktype 1.6 to booktype 2.0 endnotes
 
         :Args:
           - chapter_tree (:class:`lxml.html.HtmlElement`): lxml HtmlElement of the chapter content
 
         :Returns:
-          lxml HtmlElement (:class:`lxml.html.HtmlElement`) of the chapter content with new endnotes
+          tuple:
+            - lxml HtmlElement (:class:`lxml.html.HtmlElement`) of the chapter content with new endnotes
+            - broken chapters (:class:`list`) list of chapters titles in which broken markers were found
         """
         endnotes_temp_dict = {}
         endnotes_number = set()
         endnotes_list = []
-        chapter_title = chapter_tree.xpath('//h1')[0].text
+        broken_chapters = []
+        _h1 = chapter_tree.xpath('//h1')
+        
+        if len(_h1) > 0:
+            chapter_title = _h1[0].text
+        else:
+            chapter_title = _('Unknown chapter')
 
         # find all endnotes, fill dict with data, delete ol container's body
         for ol_li_span in chapter_tree.xpath('//ol[@id="InsertNote_NoteList"]//li//span'):
@@ -384,7 +396,6 @@ class EpubImporter(object):
             span.drop_tag()
 
         # find all needed sup tags and convert them to the new format
-        broken_markers = False
         for sup_a in chapter_tree.xpath('//sup//a[contains(@href, "InsertNoteID")]'):
             endnote_number = sup_a.text_content()
             sup = sup_a.getparent()
@@ -398,8 +409,10 @@ class EpubImporter(object):
                     endnotes_list.append(endnotes_temp_dict[sup_a.attrib['href'].split('#')[1]])
                 except KeyError:
                     # empty endnote for broken marker
-                    broken_markers = True
                     endnotes_list.append({'unique_id': unique_id, 'endnote': ''})
+
+                    if chapter_title not in broken_chapters:
+                        broken_chapters.append(chapter_title)
                 else:
                     endnotes_list[-1]['unique_id'] = unique_id
 
@@ -411,21 +424,18 @@ class EpubImporter(object):
                 # remove second endnote marker
                 sup.getparent().remove(sup)
 
-        if broken_markers:
-            self.notifier.warning(_('Broken endnotes markers in "{0}".'.format(chapter_title)))
-
         # create endnotes and fill ol container with
         try:
             ol = chapter_tree.xpath('//ol[@class="endnotes"]')[0]
         except IndexError:
-            return chapter_tree
+            return chapter_tree, broken_chapters
 
         for endnote in endnotes_list:
             li = etree.Element('li', id='endnote-{0}'.format(endnote['unique_id']))
             li.text = endnote['endnote']
             ol.append(li)
 
-        return chapter_tree
+        return chapter_tree, broken_chapters
 
     def _fix_links(self, chapter, base_path):
         """

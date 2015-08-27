@@ -51,7 +51,7 @@ class BaseSettingsForm(BaseBooktypeForm):
 class LanguageForm(BaseSettingsForm, forms.Form):
     language = forms.ModelChoiceField(
         label=_('Language'),
-        queryset=Language.objects.all()
+        queryset=Language.objects.all().order_by('name')
     )
     right_to_left = forms.BooleanField(
         label=_('Right to left text'),
@@ -87,6 +87,30 @@ class LanguageForm(BaseSettingsForm, forms.Form):
         except Info.DoesNotExist:
             rtl = Info(book=book, kind=0, name='{http://booki.cc/}dir', value_string=rtl_value)
             rtl.save()
+
+
+class GeneralForm(BaseSettingsForm, forms.Form):
+    track_changes = forms.BooleanField(
+        label=_('Track changes'),
+        required=False,
+        help_text=_("Chapter changes will tracked.")
+    )
+    required_permission = 'edit.manage_book_settings'
+
+    @classmethod
+    def initial_data(cls, book=None, request=None):
+        data = {}
+        book_version = book.get_version()
+
+        if book_version:
+            data['track_changes'] = book_version.track_changes
+
+        return data
+
+    def save_settings(self, book, request):
+        book_version = book.get_version()
+        book_version.track_changes = self.cleaned_data['track_changes']
+        book_version.save()
 
 
 class ChapterStatusForm(BaseSettingsForm, forms.Form):

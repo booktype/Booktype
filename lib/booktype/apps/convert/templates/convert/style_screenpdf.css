@@ -9,9 +9,19 @@
 
         margin-header: {{ header_margin }}mm;
         margin-footer: {{ footer_margin }}mm;
-                
-        {% if crop_marks %}
-        marks: crop cross;    
+
+        {% if show_footer %}
+        margin-footer: {{ footer_margin }}mm;
+
+        odd-footer-name: html_footer-right;
+        even-footer-name: html_footer-left;
+        {% endif %}
+
+        {% if show_header %}
+        margin-header: {{ header_margin }}mm;
+        
+        odd-header-name: html_header-right;
+        even-header-name: html_header-left;
         {% endif %}
 }
 

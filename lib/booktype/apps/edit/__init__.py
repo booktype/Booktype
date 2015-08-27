@@ -27,14 +27,17 @@ PERMISSIONS = {
         ('manage_status', _('Manage Status')),
         ('change_chapter_status', _('Change chapter status')),
 
+        ('edit_book', _('Edit book')),
         ('delete_book', _('Delete book')),
 
         ('history_revert', _('Restore history')),
         ('note_edit', _('Edit Notes')),
+        ('track_changes', _('Track Changes')),
 
         # permissions for settings interface
         ('manage_language', _('Manage Language')),
         ('manage_license', _('Manage License')),
-        ('manage_metadata', _('Manage Metadata'))
+        ('manage_metadata', _('Manage Metadata')),
+        ('manage_book_settings', _('Manage Book Settings'))
     ]
 }

@@ -154,6 +154,8 @@ class ImporterView(JSONResponseMixin, FormView):
     def form_invalid(self, form):
         response_data = {
             'errors': [_('Something went wrong!')],
+            'infos': [],
+            'warnings': []
         }
         return self.render_json_response(response_data)
 

@@ -25,6 +25,7 @@ from django.conf import settings
 import booki.editor.signals
 from booki.editor import models
 from booki.utils.log import logBookHistory
+from booktype.utils import config
 from .misc import booktype_slugify
 
 try:
@@ -109,13 +110,15 @@ def create_book(user, book_title, status="new", book_url=None):
     book.status = models.BookStatus.objects.get(book=book, name="new")
     book.save()
 
+    track_changes = config.get_configuration('BOOK_TRACK_CHANGES', False)
     version = models.BookVersion(
         book=book,
         major=1,
         minor=0,
         name='initial',
         description='',
-        created=datetime.datetime.now()
+        created=datetime.datetime.now(),
+        track_changes=track_changes
     )
     version.save()
 

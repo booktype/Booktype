@@ -23,8 +23,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, DetailView, FormView
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 
-from braces.views import (LoginRequiredMixin, UserPassesTestMixin,
-                          JSONResponseMixin)
+from braces.views import (LoginRequiredMixin, JSONResponseMixin)
 
 from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
@@ -33,6 +32,7 @@ from booktype.apps.core import views
 from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.reader.views import BaseReaderView
+from booktype.utils.security import BookSecurity, get_user_permissions
 
 from .utils import color_me, send_notification
 from .channel import get_toc_for_book
@@ -40,6 +40,7 @@ from . import forms as book_forms
 
 
 VALID_SETTINGS = {
+    'general': _('General Settings'),
     'language': _('Book Language'),
     'license': _('Book License'),
     'metadata': _('Book Metadata'),
@@ -271,7 +272,7 @@ def cover(request, bookid, cid, fname=None, version=None):
     return HttpResponse(data, content_type=content_type)
 
 
-class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
 
     """Basic Edit Book View which opens up the editor.
 
@@ -280,6 +281,7 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     of the book.
     """
 
+    SECURITY_BRIDGE = BookSecurity
     template_name = 'edit/book_edit.html'
     redirect_unauthorized_user = True
     redirect_field_name = 'redirect'
@@ -303,6 +305,10 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         return super(TemplateView, self).render_to_response(
             context, **response_kwargs)
 
+    def check_permissions(self, request, *args, **kwargs):
+        if not self.security.can_edit():
+            raise PermissionDenied
+
     def get_context_data(self, **kwargs):
         context = super(TemplateView, self).get_context_data(**kwargs)
 
@@ -313,18 +319,13 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         book_version = book.get_version(None)
 
-        book_security = security.get_security_for_book(self.request.user, book)
-
-        if not book_security.can_edit():
-            return {'book': book, 'has_permission': False}
-
         toc = get_toc_for_book(book_version)
 
         context['request'] = self.request
         context['book'] = book
         context['book_version'] = book_version.get_version()
         context['book_language'] = book.language.abbrevation if book.language else 'en'
-        context['security'] = security.get_security_for_book(self.request.user, book)
+        context['security'] = self.security
 
         try:
             rtl = models.Info.objects.get(book=book, kind=0, name='{http://booki.cc/}dir')
@@ -334,23 +335,19 @@ class EditBookPage(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         context['chapters'] = toc
 
+        # check if we should track changes for current user
+        user_permissions = get_user_permissions(self.request.user, book)
+        should_track_changes = 'edit.track_changes' in user_permissions
+
+        context['track_changes'] = json.dumps(
+            book_version.track_changes or should_track_changes)
         context['base_url'] = settings.BOOKTYPE_URL
         context['static_url'] = settings.STATIC_URL
-        context['is_admin'] = book_security.is_admin()
+        context['is_admin'] = self.security.is_admin()
         context['is_owner'] = book.owner == self.request.user
         context['publish_options'] = config.get_configuration('PUBLISH_OPTIONS')
-        context['roles_permissions'] = security.get_user_permissions(
-            self.request.user, book)
 
         return context
-
-    def test_func(self, user):
-        """Filters list of user who can and who can not edit the book.
-
-        This does not do much at the moment but is left for the future use.
-        """
-
-        return True
 
     def get_login_url(self):
         return reverse('accounts:signin')

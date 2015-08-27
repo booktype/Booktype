@@ -19,6 +19,7 @@ import json
 import codecs
 import urllib2
 import logging
+import datetime
 from lxml import etree
 
 
@@ -39,6 +40,7 @@ from booktype.apps.themes.utils import (
     read_theme_style, get_single_frontmatter, get_single_endmatter, get_body)
 from booktype.apps.convert.templatetags.convert_tags import (
     get_refines, get_metadata)
+from booktype.utils.misc import booktype_slugify
 
 
 logger = logging.getLogger("booktype.convert.pdf")
@@ -215,6 +217,8 @@ class MPDFConverter(BaseConverter):
           Returns dictionary with number of pages and file size of output file
         """
 
+        convert_start = datetime.datetime.now()
+
         if 'theme' in self.config:
             self.theme_name = self.config['theme'].get('id', '')
 
@@ -237,6 +241,10 @@ class MPDFConverter(BaseConverter):
 
         self.post_convert(book, output_path)
 
+        convert_end = datetime.datetime.now()
+
+        logger.info('Conversion lasted %s.', convert_end - convert_start)
+
         return {
             "pages": data_out.get('pages', 0),
             "size": os.path.getsize(output_path)
@@ -254,17 +262,26 @@ class MPDFConverter(BaseConverter):
 
         base_path = os.path.dirname(chapter_item.file_name)
 
-        chapter = ebooklib.utils.parse_html_string(chapter_item.content)
-        chapter_child = chapter.find("body")
+        try:
+            chapter = ebooklib.utils.parse_html_string(chapter_item.content)
+            chapter_child = chapter.find("body")
 
-        if chapter_child is not None:
-            cnt = deepcopy(chapter_child)
-            self._fix_images(cnt, base_path)
-            cnt = self._fix_content(cnt)
+            if chapter_child is not None:
+                cnt = deepcopy(chapter_child)
+                self._fix_images(cnt, base_path)
+                cnt = self._fix_content(cnt)
 
-            return etree.tostring(cnt, method='html', pretty_print=True)[6:-9]
+                return etree.tostring(cnt, method='html', pretty_print=True)[6:-9]
+        except etree.XMLSyntaxError:
+            pass
 
         return u''
+
+    def _fix_horrible_mpdf(self, content):        
+        content = content.replace('></columnbreak>', " />\n")
+        content = content.replace('></columns>', " />\n")
+
+        return content
 
     def _create_body(self, book):
         """Create body html file with main content of the book.
@@ -286,27 +303,35 @@ class MPDFConverter(BaseConverter):
                     items += [{
                         'type': 'section',
                         'level': depth,
-                        'title': section_title
+                        'title': section_title,
+                        'url_title': booktype_slugify(section_title),
                     }]
                     items += _toc(depth + 1, chapters)
                 else:
                     chapter_title, chapter_href = toc_item
                     chapter_item = book.get_item_with_href(chapter_href)
                     content = self._get_chapter_content(chapter_item)
+                    content = self._fix_horrible_mpdf(content)
 
+                    href_filename, file_extension = os.path.splitext(chapter_href)
                     items.append({
                         'type': 'chapter',
                         'level': depth,
                         'title': chapter_title,
+                        'url_title': booktype_slugify(chapter_title),
                         'href': chapter_href,
+                        'href_filename': href_filename,
                         'content': content})
 
             return items
 
         book_toc = _toc(0, parse_toc_nav(book))
 
-        data = {'book_items': book_toc}
-        data.update(self.get_extra_body_data(book))
+        data = self._get_data(book)
+        data.update(self.get_extra_data(book))
+        data.update({
+            'book_items': book_toc
+            })
 
         if self.theme_name != '':
             body_name = get_body(self.theme_name, self.name)
@@ -402,6 +427,37 @@ class MPDFConverter(BaseConverter):
 
         self.images[item.file_name] = file_name
 
+    def _fix_columns(self, content):
+        """Add mPDF tags for multi column support.
+
+        :Args:
+          - content: lxml node tree with the chapter content
+
+        """
+        for column in content.xpath("//div[contains(@class, 'bk-columns')]"):
+            column_count = column.get('data-column', '3')
+            column_valign = column.get('data-valign', '')
+            column_gap = column.get('data-gap', '5')
+
+            columns_start = etree.Element('columns', {
+                'column-count': column_count,
+                'vAlign': column_valign,
+                'column-gap': column_gap
+                })
+
+            parent = column.getparent()
+            parent.insert(parent.index(column), columns_start)
+
+            if 'bk-marker' not in column.get('class'):
+                columns_end = etree.Element('columns', {'column-count': '1'})            
+                parent.insert(parent.index(column)+1, columns_end)
+
+            column.drop_tag()
+
+        for column_break in content.xpath("//div[@class='bk-column-break']"):
+            column_break.tag = 'columnbreak'
+            del column_break.attrib['class']
+
     def _fix_broken_endnotes(self, content):
         """Removed broken endnotes from the content.
 
@@ -445,6 +501,7 @@ class MPDFConverter(BaseConverter):
 
         self._fix_broken_links(content)
         self._fix_broken_endnotes(content)
+        self._fix_columns(content)
 
         # Fix links to other URL places
         return content
@@ -458,7 +515,11 @@ class MPDFConverter(BaseConverter):
         """
 
         for element in root.iter('img'):
-            src_url = urllib2.unquote(element.get('src'))
+            _src = element.get('src', None)
+
+            if _src is None:
+                continue
+            src_url = urllib2.unquote(_src)
             item_name = os.path.normpath(os.path.join(base_path, src_url))
             try:
                 file_name = self.images[item_name]
@@ -480,6 +541,11 @@ class MPDFConverter(BaseConverter):
           - Dictionary with default data for the templates
         """
 
+        show_header, show_footer = True, True
+        if 'settings' in self.config:
+            show_header = self.config['settings'].get('show_header', '') == 'on'
+            show_footer = self.config['settings'].get('show_footer', '') == 'on'
+
         return {
             "title": get_refines(book.metadata, 'title-type', 'main'),
             "subtitle": get_refines(book.metadata, 'title-type', 'subtitle'),
@@ -490,7 +556,10 @@ class MPDFConverter(BaseConverter):
             "isbn": get_metadata(book.metadata, 'identifier'),
             "language": get_metadata(book.metadata, 'language'),
 
-            "metadata": book.metadata
+            "metadata": book.metadata,
+
+            "show_header": show_header,
+            "show_footer": show_footer
         }
 
     def _create_frontmatter(self, book):

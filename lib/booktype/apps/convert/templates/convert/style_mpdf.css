@@ -8,12 +8,25 @@
         margin-top: {{ top_margin }}mm;
         margin-bottom: {{ bottom_margin }}mm;
 
-        margin-header: {{ header_margin }}mm;
+        {% if show_footer %}
         margin-footer: {{ footer_margin }}mm;
+
+        odd-footer-name: html_footer-right;
+        even-footer-name: html_footer-left;
+        {% endif %}
+
+        {% if show_header %}
+        margin-header: {{ header_margin }}mm;
+        
+        odd-header-name: html_header-right;
+        even-header-name: html_header-left;
+        {% endif %}
+
                 
         {% if crop_marks %}
         marks: crop cross;    
         {% endif %}
+        }
 }
 
 h1.book-title {

@@ -70,8 +70,8 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
     context_object_name = 'current_user'
 
     def check_permissions(self, request, *args, **kwargs):
-        is_current_user_dashboard = kwargs.get(self.slug_url_kwarg, None) == self.request.user.username
-        if not self.security.has_perm('account.can_view_user_info') and not is_current_user_dashboard:
+        self.is_current_user_dashboard = kwargs.get(self.slug_url_kwarg, None) == self.request.user.username
+        if not self.security.has_perm('account.can_view_user_info') and not self.is_current_user_dashboard:
             raise PermissionDenied
 
     def get_context_data(self, **kwargs):
@@ -88,8 +88,12 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
 
         context['licenses'] = License.objects.all().order_by('name')
 
-        context['books'] = Book.objects.select_related('version').filter(
-            owner=self.object).order_by('title')
+        if self.is_current_user_dashboard:
+            context['books'] = Book.objects.select_related('version').filter(
+                owner=self.object).order_by('title')
+        else:
+            context['books'] = Book.objects.select_related('version').filter(
+                owner=self.object, hidden=False).order_by('title')
 
         context['groups'] = BookiGroup.objects.filter(
             owner=self.object).order_by('name')
@@ -316,7 +320,7 @@ class ForgotPasswordView(PageView):
             context['error'] = _('No such user')
             return render(request, self.template_name, context)
 
-        THIS_BOOKTYPE_SERVER = config.get_configuration('THIS_BOOKTYPE_SERVER') # noqa
+        THIS_BOOKTYPE_SERVER = config.get_configuration('THIS_BOOKTYPE_SERVER')  # noqa
         for usr in users_to_email:
             secretcode = self.generate_secret_code()
 
