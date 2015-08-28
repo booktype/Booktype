@@ -212,6 +212,11 @@ def export_book(filename, book_version):
                         elem.set('src', 'static/' + src[7:])
                         embeded_images[src] = True
 
+                # remove endnotes without reference
+                if elem.tag == 'ol' and elem.get('class') == 'endnotes':
+                    for li in elem.xpath("//li[@class='orphan-endnote']"):
+                        li.drop_tree()
+
             c1.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
 
             epub_book.add_item(c1)
