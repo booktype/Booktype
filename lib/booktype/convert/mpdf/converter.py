@@ -271,7 +271,7 @@ class MPDFConverter(BaseConverter):
                 self._fix_images(cnt, base_path)
                 cnt = self._fix_content(cnt)
 
-                return etree.tostring(cnt, method='html', pretty_print=True)[6:-9]
+                return etree.tostring(cnt, method='html', encoding='utf-8', pretty_print=True)[6:-9]
         except etree.XMLSyntaxError:
             pass
 
