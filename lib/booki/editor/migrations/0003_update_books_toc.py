@@ -10,7 +10,7 @@ def update_tocs(apps, schema_editor):
 
     from booki.editor.models import BookVersion
 
-    for book_version in BookVersion.objects.all():
+    for book_version in BookVersion.objects.defer('track_changes'):
         prev_section = None
 
         for toc_item in book_version.get_toc():
