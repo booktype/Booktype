@@ -122,7 +122,7 @@ def publish_book(*args, **kwargs):
 
         if 'cover_image' in format_settings:
             if format_settings['cover_image'].strip() != '':
-                cover_url = "{}/{}/_cover/{}/cover.jpg".format(settings.BOOKTYPE_URL, 
+                cover_url = "{}/{}/_cover/{}/cover.jpg".format(settings.BOOKTYPE_URL,
                     book.url_title, format_settings['cover_image'])
                 data['assets']['{}_cover_image'.format(_format)] = cover_url
                 data["outputs"][_format]["config"]["cover_image"] = '{}_cover_image'.format(_format)

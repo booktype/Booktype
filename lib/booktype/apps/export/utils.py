@@ -159,9 +159,15 @@ def set_booktype_metada(epub_book, book):
     return epub_book
 
 
-def export_book(filename, book_version):
+def export_book(filename, book_version, **kwargs):
     book = book_version.book
     epub_book = ExportEpubBook()
+    default_plugins = [TidyPlugin(), standard.SyntaxPlugin()]
+
+    # ICEjs changes are removed by default, so to keep them in the epub
+    # we need to pass remove_icejs as False in kwargs
+    if kwargs.get('remove_icejs', True):
+        default_plugins.append(IceCleanPlugin())
 
     # set metadata to the epub book
     epub_book = set_booktype_metada(epub_book, book)
@@ -259,5 +265,5 @@ def export_book(filename, book_version):
     epub_book.add_item(epub.EpubNav())
 
     standard.ATTRIBUTES_GLOBAL = standard.ATTRIBUTES_GLOBAL + ['data-column', 'data-gap', 'data-valign']
-    opts = {'plugins': [TidyPlugin(), IceCleanPlugin(), standard.SyntaxPlugin()]}
+    opts = {'plugins': default_plugins + kwargs.get('extra_plugins', [])}
     epub.write_epub(filename, epub_book, opts)
