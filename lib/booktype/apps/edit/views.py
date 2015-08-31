@@ -687,9 +687,11 @@ class BookSettingsView(LoginRequiredMixin, views.SecurityMixin,
 
     def form_valid(self, form):
         error = False
+        updated_settings = {'submodule': self.submodule, 'settings': None}
+
         try:
             if form.has_perm(self.book, self.request):
-                form.save_settings(self.book, self.request)
+                updated_settings['settings'] = form.save_settings(self.book, self.request)
                 message = form.success_message or _('Successfully saved settings.')
             else:
                 error, message = True, _('You have no permissions to execute this action.')
@@ -697,7 +699,8 @@ class BookSettingsView(LoginRequiredMixin, views.SecurityMixin,
             print err
             error, message = True, _('Unknown error while saving changes.')
 
-        return self.render_json_response({'message': unicode(message), 'error': error})
+        return self.render_json_response({'message': unicode(message), 'error': error,
+                                          'updated_settings': updated_settings})
 
     def form_invalid(self, form):
         response = super(BookSettingsView, self).form_invalid(form).render()
