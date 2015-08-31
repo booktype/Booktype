@@ -45,6 +45,8 @@ ADMIN_IMPORT_BOOKS = False
 BOOKTYPE_MAX_USERS = 0
 BOOKTYPE_MAX_BOOKS = 0
 
+EXPORT_WAIT_FOR = 90
+
 EXPORT_SETTINGS = {
     'mpdf': [{u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
         {u'name': u'custom_height', u'value': u''}, {u'name': u'top_margin', u'value': u'20'},

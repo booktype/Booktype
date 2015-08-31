@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 import sputnik
 
 from booki.editor import models
+from booktype.utils import config
 from booktype.apps.export.models import BookExport, ExportFile
 from booktype.apps.export.utils import get_settings_as_dictionary
 from .utils import send_notification
@@ -152,8 +153,10 @@ def publish_book(*args, **kwargs):
     task_id = result['task_id']
     start_time = time.time()
 
+    EXPORT_WAIT_FOR = config.get_configuration('EXPORT_WAIT_FOR', 90)
+
     while True:
-        if time.time() - start_time > 45:
+        if time.time() - start_time > EXPORT_WAIT_FOR:
             sputnik.addMessageToChannel2(
                 kwargs['clientid'],
                 kwargs['sputnikid'],
