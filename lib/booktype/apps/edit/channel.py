@@ -329,9 +329,11 @@ def remote_init_editor(request, message, bookid, version):
 
     try:
         theme = UserTheme.objects.get(book=book, owner=request.user)
+        theme_active = theme.active
     except UserTheme.DoesNotExist:
         theme = UserTheme(book=book, owner=request.user)
         theme.save()
+        theme_active = ''
 
     return {"licenses": licenses,
             "chapters": chapters,
@@ -341,7 +343,7 @@ def remote_init_editor(request, message, bookid, version):
             "is_admin": book_security.is_admin(),
             "statuses": statuses,
             "attachments": attachments,
-            "theme": theme.active,
+            "theme": theme_active,
             # Check for errors in the future
             "theme_custom": json.loads(theme.custom),
             "onlineUsers": list(onlineUsers)}
