@@ -88,6 +88,9 @@ class LanguageForm(BaseSettingsForm, forms.Form):
             rtl = Info(book=book, kind=0, name='{http://booki.cc/}dir', value_string=rtl_value)
             rtl.save()
 
+        return {'dir': rtl_value.lower(),
+                'lang': book.language.abbrevation if book.language else 'en'}
+
 
 class GeneralForm(BaseSettingsForm, forms.Form):
     track_changes = forms.BooleanField(
