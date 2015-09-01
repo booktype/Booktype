@@ -120,6 +120,7 @@ def set_booktype_metada(epub_book, book):
         'BKTERMS.short_title': 'short',
         'BKTERMS.subtitle': 'subtitle'
     }
+
     for _t in book.metadata.filter(name__in=titles_map.keys()):
         epub_book.set_title(_t.value, titles_map.get(_t.name))
 
@@ -155,6 +156,15 @@ def set_booktype_metada(epub_book, book):
                 None, 'meta', info.value, {'property': '%s:%s' % (_standard.lower(), name)})
         else:
             epub_book.add_metadata(_standard, name, info.value)
+
+    # Direction information is in old namespace. Just fetch it and include it
+    # until we migrate everything to new namespace
+    try:
+        rtl = book.info_set.get(name='{http://booki.cc/}dir').get_value()
+
+        epub_book.add_metadata(None, 'meta', rtl, {'property': 'bkterms:dir'})
+    except:
+        pass
 
     return epub_book
 

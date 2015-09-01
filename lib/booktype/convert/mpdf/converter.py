@@ -37,7 +37,8 @@ from ..utils.epub import parse_toc_nav
 from .. import utils
 from .styles import create_default_style, get_page_size, CROP_MARGIN
 from booktype.apps.themes.utils import (
-    read_theme_style, get_single_frontmatter, get_single_endmatter, get_body)
+    read_theme_style, get_single_frontmatter, get_single_endmatter, get_body,
+    read_theme_assets, read_theme_asset_content)
 from booktype.apps.convert.templatetags.convert_tags import (
     get_refines, get_metadata)
 from booktype.utils.misc import booktype_slugify
@@ -137,6 +138,17 @@ class MPDFConverter(BaseConverter):
 
         return
 
+    def _get_dir(self, epub_book):
+        m = epub_book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
+        def _check(x):
+            return x[1] and x[1].get('property', '') == 'bkterms:dir'
+
+        values = filter(_check, m[None])
+        if len(values) > 0 and len(values[0]) > 0:
+            return values[0][0].lower()
+
+        return 'ltr'
+
     def get_extra_data(self, book):
         """Returns extra data which will be passed to the front matter and end matter templates.
 
@@ -204,6 +216,8 @@ class MPDFConverter(BaseConverter):
             book.metadata.get("http://purl.org/dc/elements/1.1/").iteritems()
         }
 
+        dc_metadata['bkterms:dir'] = self.direction
+
         return dc_metadata
 
     def convert(self, book, output_path):
@@ -222,6 +236,8 @@ class MPDFConverter(BaseConverter):
         if 'theme' in self.config:
             self.theme_name = self.config['theme'].get('id', '')
 
+        self.direction = self._get_dir(book)
+
         self.pre_convert(book)
 
         self._save_images(book)
@@ -230,6 +246,7 @@ class MPDFConverter(BaseConverter):
         self._write_configuration(book)
         self._create_frontmatter(book)
         self._create_endmatter(book)
+        self._add_theme_assets(book)
 
         self._write_style(book)
 
@@ -555,6 +572,7 @@ class MPDFConverter(BaseConverter):
             "publisher": get_metadata(book.metadata, 'publisher'),
             "isbn": get_metadata(book.metadata, 'identifier'),
             "language": get_metadata(book.metadata, 'language'),
+            "dir": self.direction,
 
             "metadata": book.metadata,
 
@@ -609,6 +627,45 @@ class MPDFConverter(BaseConverter):
         f = codecs.open('{}/endmatter.html'.format(self.sandbox_path), 'wt', 'utf8')
         f.write(html)
         f.close()
+
+    def _add_theme_assets(self, book):
+        """Copy all the assets from the theme to the sandbox directory.
+
+        :Args:
+          - book: EPUB book object
+        """
+
+        assets = read_theme_assets(self.theme_name, self.name)
+
+        def _write(name, content):
+            base_dir = '{}/themes/{}/'.format(settings.DATA_ROOT, self.theme_name)
+            try:
+                os.makedirs('{}/assets/'.format(self.sandbox_path))
+            except:
+                pass
+
+            if os.path.normpath('{}/assets/{}'.format(self.sandbox_path, name)).startswith(self.sandbox_path):
+                try:
+                    f = open('{}/assets/{}'.format(self.sandbox_path, name), 'wb')
+                    f.write(content)
+                    f.close()
+                except IOError:
+                    pass
+
+        for asset_type, asset_list in assets.iteritems():
+            if asset_type == 'images':
+                for image_name in asset_list:                    
+                    name = os.path.basename(image_name)
+                    content = read_theme_asset_content(self.theme_name, image_name)
+                    print name
+
+                    _write(name, content)
+            elif asset_type == 'fonts':
+                for font_name in asset_list:
+                    name = os.path.basename(font_name)
+                    content = read_theme_asset_content(self.theme_name, font_name)
+
+                    _write(name, content)
 
     def _run_renderer(self, html_path, pdf_path):
         """Calls booktype2mpdf.php script to create PDF file.

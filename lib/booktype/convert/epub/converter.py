@@ -18,9 +18,16 @@ import os
 import logging
 import urlparse
 import ebooklib
+import datetime
 
 from copy import deepcopy
 
+from django.template.loader import render_to_string
+
+from booktype.apps.themes.utils import (
+    read_theme_style, read_theme_assets, read_theme_asset_content)
+from booktype.apps.convert.templatetags.convert_tags import (
+    get_refines, get_metadata)
 from ..base import BaseConverter
 from ..utils.epub import parse_toc_nav
 
@@ -29,7 +36,7 @@ from .writerplugin import WriterPlugin
 from .cover import add_cover, COVER_FILE_NAME
 
 from .constants import (
-    IMAGES_DIR, STYLES_DIR,
+    IMAGES_DIR, STYLES_DIR, FONTS_DIR,
     DOCUMENTS_DIR, DEFAULT_LANG
 )
 
@@ -41,13 +48,28 @@ class EpubConverter(BaseConverter):
     name = 'epub'
 
     DEFAULT_STYLE = 'style1'
-    css_dir = os.path.join(os.path.dirname(__file__), 'styles/')
+    css_dir = os.path.join(os.path.dirname(__file__), 'styles/')    
+
+    def pre_convert(self, original_book, book):
+        pass
+
+    def post_convert(self, original_book, book):
+        pass
 
     def convert(self, original_book, output_path):
+        convert_start = datetime.datetime.now()
+
         logger.debug('[EPUB] EpubConverter.convert')
+
+        if 'theme' in self.config:
+            self.theme_name = self.config['theme'].get('id', '')
+        else:
+            self.theme_name = None
 
         epub_book = ebooklib.epub.EpubBook()
         epub_book.FOLDER_NAME = 'OEBPS'
+
+        self.pre_convert(original_book, epub_book)
 
         epub_book.uid = original_book.uid
         epub_book.title = original_book.title
@@ -57,6 +79,8 @@ class EpubConverter(BaseConverter):
 
         epub_book.metadata = deepcopy(original_book.metadata)
         epub_book.toc = []
+
+        self.direction = self._get_dir(epub_book)
 
         logger.debug('[EPUB] Edit metadata')
         self._edit_metadata(epub_book)
@@ -83,11 +107,8 @@ class EpubConverter(BaseConverter):
         book_css = self._add_css_styles(epub_book)
         writer_plugin.options['css'] = book_css
 
-        if self.config.get('lang', DEFAULT_LANG) == 'ar':
-            rtl_css = self._rtl_style(epub_book)
-
-            if rtl_css:
-                writer_plugin.options['css'].append(rtl_css)
+        self._add_theme_assets(epub_book)
+        self.post_convert(original_book, epub_book)
 
         writer_options = {
             'plugins': [writer_plugin, ]
@@ -103,8 +124,24 @@ class EpubConverter(BaseConverter):
         logger.debug('[EPUB] Write')
         epub_writer.write()
 
+
         logger.debug('[END] EPUBConverter.convert')
+
+        convert_end = datetime.datetime.now()
+        logger.info('Conversion lasted %s.', convert_end - convert_start)
+
         return {"size": os.path.getsize(output_path)}
+
+    def _get_dir(self, epub_book):
+        m = epub_book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
+        def _check(x):
+            return x[1] and x[1].get('property', '') == 'bkterms:dir'
+
+        values = filter(_check, m[None])
+        if len(values) > 0 and len(values[0]) > 0:
+            return values[0][0].lower()
+
+        return 'ltr'
 
     def _edit_metadata(self, epub_book):
         """
@@ -236,8 +273,8 @@ class EpubConverter(BaseConverter):
         book_css = []
 
         try:
-            content = open(
-                '{}/default.css'.format(self.css_dir), 'rt').read()
+            content = render_to_string('convert/style_{}.css'.format(self.name), 
+                {'dir': self.direction})
 
             item = ebooklib.epub.EpubItem(
                 uid='default.css',
@@ -250,6 +287,19 @@ class EpubConverter(BaseConverter):
             book_css.append('default.css')
         except:
             pass
+
+        if self.theme_name:
+            content = read_theme_style(self.theme_name, self.name)
+
+            item = ebooklib.epub.EpubItem(
+                uid='theme.css',
+                content=content,
+                file_name='{}/{}'.format(STYLES_DIR, 'theme.css'),
+                media_type='text/css'
+            )
+
+            epub_book.add_item(item)
+            book_css.append('theme.css')
 
         # time to add custom css :)
         if 'css_text' in self.config.keys():
@@ -265,26 +315,55 @@ class EpubConverter(BaseConverter):
 
         return book_css
 
-    def _rtl_style(self, epub_book):
+    def _add_theme_assets(self, epub_book):
+        assets = read_theme_assets(self.theme_name, self.name)
+
+        for asset_type, asset_list in assets.iteritems():
+            if asset_type == 'images':
+                for image_name in asset_list:
+                    name = os.path.basename(image_name)
+                    content = read_theme_asset_content(self.theme_name, image_name)
+
+                    if content:
+                        image = ebooklib.epub.EpubImage()
+                        image.file_name = "{}/{}".format(IMAGES_DIR, name)
+                        image.set_content(content)
+
+                        epub_book.add_item(image)         
+            elif asset_type == 'fonts':
+                for font_name in asset_list:
+                    name = os.path.basename(font_name)
+                    content = read_theme_asset_content(self.theme_name, font_name)
+
+                    if content:
+                        image = ebooklib.epub.EpubItem()
+                        image.file_name = "{}/{}".format(FONTS_DIR, name)
+                        image.set_content(content)
+
+                        epub_book.add_item(image)  
+
+    def _get_data(self, book):
+        """Returns default data for the front and end matter templates.
+
+        It mainly has default metadata from the book.
+
+        :Returns:
+          - Dictionary with default data for the templates
         """
-        Set rtl css style to the EPUB book
-        """
 
-        try:
-            content = open(
-                '{}/style-rtl.css'.format(self.css_dir), 'rt').read()
+        return {
+            "title": get_refines(book.metadata, 'title-type', 'main'),
+            "subtitle": get_refines(book.metadata, 'title-type', 'subtitle'),
+            "shorttitle": get_refines(book.metadata, 'title-type', 'short'),
+            "author": get_refines(book.metadata, 'role', 'aut'),
 
-            item = ebooklib.epub.EpubItem(
-                uid='style-rtl.css',
-                content=content,
-                file_name='{}/{}'.format(STYLES_DIR, 'style-rtl.css'),
-                media_type='text/css'
-            )
+            "publisher": get_metadata(book.metadata, 'publisher'),
+            "isbn": get_metadata(book.metadata, 'identifier'),
+            "language": get_metadata(book.metadata, 'language'),
 
-            epub_book.add_item(item)
-            return 'style-rtl.css'
-        except:
-            return None
+            "metadata": book.metadata,
+        }
+
 
     def _is_cover_item(self, item):
         """

@@ -2,6 +2,7 @@
 
 IMAGES_DIR = 'Images'
 STYLES_DIR = 'Styles'
+FONTS_DIR = 'Fonts'
 DOCUMENTS_DIR = 'Text'
 DEFAULT_LANG = 'en'
 

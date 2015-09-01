@@ -91,7 +91,6 @@ def read_theme_style(theme_name, profile):
 
     # todo
     # if custom, also generate custom stuff
-
     if os.path.isdir('{}/themes/{}/'.format(settings.DATA_ROOT, theme_name)):
         style_file = '{}/themes/{}/{}.css'.format(settings.DATA_ROOT, theme_name, profile)
         if os.path.exists(style_file):
@@ -100,6 +99,51 @@ def read_theme_style(theme_name, profile):
             f.close()
 
     return theme_style
+
+
+def read_theme_assets(theme_name, profile):
+    """Returns dictionary with a list of assets.
+
+    :Args:
+      - theme_name: Name of the theme
+      - profile: Output profile (e.g. mpdf, screenpdf, epub, mobi)
+
+    :Returns:
+      Dictionary with a list of assets.
+    """
+
+    data = read_theme_info('{}/themes/{}/info.json'.format(settings.DATA_ROOT, theme_name))
+
+    if 'output' in data:
+        if profile in data['output']:
+            if 'assets' in data['output'][profile]:
+                return data['output'][profile]['assets']
+
+    return {}
+
+
+def read_theme_asset_content(theme_name, file_name):
+    """Read content of an asset.
+
+    :Args:
+      - theme_name: Name of the theme
+      - file_name: Asset file name
+
+    :Returns:
+      Raw content.
+    """
+    file_name = '{}/themes/{}/{}'.format(settings.DATA_ROOT, theme_name, file_name)
+    base_dir = '{}/themes/{}/'.format(settings.DATA_ROOT, theme_name)
+
+    if os.path.exists(file_name):
+        if os.path.normpath(file_name).startswith(base_dir):
+            try:
+                f = file(file_name, 'rb')
+                return f.read()
+            except IOError:
+                return None
+
+    return None
 
 
 def read_theme_info(file_path):
