@@ -106,6 +106,7 @@ class MPDFConverter(BaseConverter):
         self.images_path = os.path.join(self.sandbox_path, self._images_dir)
         # image item name -> file name mappings
         self.images = {}
+        self.theme_name = ''
 
     def pre_convert(self, book):
         """Called before entire process of conversion is called.
@@ -246,7 +247,9 @@ class MPDFConverter(BaseConverter):
         self._write_configuration(book)
         self._create_frontmatter(book)
         self._create_endmatter(book)
-        self._add_theme_assets(book)
+
+        if self.theme_name != '':
+            self._add_theme_assets(book)
 
         self._write_style(book)
 
