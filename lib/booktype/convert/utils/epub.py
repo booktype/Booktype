@@ -19,6 +19,7 @@ import os
 import ebooklib
 import ebooklib.epub
 import ebooklib.utils
+from lxml import etree
 
 
 def parse_toc_nav(book):
@@ -64,3 +65,21 @@ def _parse_nav_content(content, base_name):
 
 def parse_toc_ncx(book):
     raise NotImplementedError("NCX parsing not implemented")
+
+
+def reformat_endnotes(chapter_content):
+    """Insert internal link to endnote's body into the sup tag.
+       Can be used in epub2/xhtml/screenPdf formats
+
+    :Args:
+      - chapter_content: lxml node tree with the chapter content
+
+    """
+
+    for sup in chapter_content.iter('sup'):
+        if sup.get('data-id'):
+            a = etree.Element("a")
+            a.set('href', '#endnote-{0}'.format(sup.get('data-id')))
+            a.text = sup.text
+            sup.text = ''
+            sup.insert(0, a)
