@@ -223,7 +223,7 @@ class RolesForm(BaseSettingsForm, forms.Form):
         return {
             'roles': BookRole.objects.filter(book=book).order_by('role__name'),
             'global_roles': Role.objects.order_by('name'),
-            'all_users': User.objects.order_by('username')
+            'all_users': User.objects.filter(is_active=True).order_by('username')
         }
 
 
