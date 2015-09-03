@@ -102,8 +102,10 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
             members=self.object).exclude(owner=self.object).order_by('name')
 
         # get books which user has collaborated on
-        book_ids = BookHistory.objects.filter(
-            user=self.object).values_list('book', flat=True).distinct()
+        book_ids = set(BookHistory.objects.filter(user=self.object).values_list('book', flat=True).distinct())
+
+        # get books with user assigned by roles
+        book_ids.update(BookRole.objects.filter(members=self.object).values_list('book', flat=True).distinct())
 
         context['books_collaborating'] = Book.objects.filter(
             id__in=book_ids).exclude(owner=self.object).order_by('title')
