@@ -282,10 +282,10 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
 
 
 class BookSettingsForm(BaseControlForm, forms.Form):
-    hlp_visible = 'If it is turned on then all\
-        books will be visible to everyone.'
-    hlp_track = 'If it is turned on then track changes will be\
-        enabled for all the users.'
+    hlp_visible = _('Default visibility: If this box is checked, all\
+ newly created books will be visible to the public initially.')
+    hlp_track = _('If it is turned on then track changes will be\
+        enabled for all the users.')
     visible = forms.BooleanField(
         label=_('Default visibility'),
         required=False,
