@@ -15,9 +15,10 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+from lxml import etree
 
 from ..mpdf.converter import MPDFConverter
-
+from ..utils.epub import reformat_endnotes
 
 logger = logging.getLogger("booktype.convert.screenpdf")
 
@@ -51,11 +52,30 @@ class ScreenPDFConverter(MPDFConverter):
 
         return data
 
+    def _reformat_endnotes(self, chapter_content):
+        """Insert internal link to endnote's body into the sup tag.
+
+        :Args:
+          - chapter_content: lxml node tree with the chapter content
+
+        """
+
+        reformat_endnotes(chapter_content)
+
+        # add tag 'a' with 'name' attribute equal to 'li.id' attribute
+        for li in chapter_content.xpath('//li[starts-with(@id, "endnote-")]'):
+            a = etree.Element("a")
+            a.set('name', li.get('id'))
+            a.tail = li.text
+            a.text = ''
+            li.text = ''
+            li.insert(0, a)
+
     def _fix_content(self, content):
         if content is None:
             return content
 
-        self._fix_broken_endnotes(content)
+        self._reformat_endnotes(content)
         self._fix_columns(content)
 
         return content

@@ -274,6 +274,6 @@ def export_book(filename, book_version, **kwargs):
     epub_book.add_item(epub.EpubNcx())
     epub_book.add_item(epub.EpubNav())
 
-    standard.ATTRIBUTES_GLOBAL = standard.ATTRIBUTES_GLOBAL + ['data-column', 'data-gap', 'data-valign']
+    standard.ATTRIBUTES_GLOBAL = standard.ATTRIBUTES_GLOBAL + ['data-column', 'data-gap', 'data-valign', 'data-id']
     opts = {'plugins': default_plugins + kwargs.get('extra_plugins', [])}
     epub.write_epub(filename, epub_book, opts)

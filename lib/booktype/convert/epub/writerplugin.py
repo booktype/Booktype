@@ -7,6 +7,7 @@ import ebooklib
 from lxml import etree
 from ebooklib.plugins.base import BasePlugin
 
+from ..utils.epub import reformat_endnotes
 from .constants import (
     STYLES_DIR, IMAGES_DIR,
     DEFAULT_LANG, EPUB_VALID_IMG_ATTRS
@@ -38,6 +39,7 @@ class WriterPlugin(BasePlugin):
 
         root = ebooklib.utils.parse_html_string(item.content)
         self._fix_images(root)
+        self._reformat_endnotes(root)
 
         item.content = etree.tostring(
             root, pretty_print=True, encoding="utf-8", xml_declaration=True)
@@ -75,3 +77,11 @@ class WriterPlugin(BasePlugin):
 
             if (alt is None) or alt in not_valid:
                 element.set('alt', '')
+
+    def _reformat_endnotes(self, root):
+        """Insert internal link to endnote's body into the sup tag.
+
+        :Args:
+          - root: lxml node tree with the chapter content
+        """
+        reformat_endnotes(root)

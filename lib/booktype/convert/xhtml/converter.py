@@ -24,6 +24,7 @@ import ebooklib
 from lxml import etree
 
 from ..base import BaseConverter
+from ..utils.epub import reformat_endnotes
 
 logger = logging.getLogger("booktype.convert.xhtml")
 
@@ -84,11 +85,12 @@ class XHTMLConverter(BaseConverter):
 
     def _fix_chapter(self, content):
         """
-        Fix content of the chapter by adding styling and fix image links.
+        Fix content of the chapter by adding styling, fix image links and reformat endnotes.
         """
 
         root = ebooklib.utils.parse_html_string(content)
         self._fix_images(root)
+        self._reformat_endnotes(root)
 
         head = root.find('head')
 
@@ -117,6 +119,14 @@ class XHTMLConverter(BaseConverter):
 
             file_name = os.path.basename(path)
             element.set('src', "../{}/{}".format(IMAGES_DIR, file_name))
+
+    def _reformat_endnotes(self, root):
+        """Insert internal link to endnote's body into the sup tag.
+
+        :Args:
+          - root: lxml node tree with the chapter content
+        """
+        reformat_endnotes(root)
 
     def _add_styles(self):
         """

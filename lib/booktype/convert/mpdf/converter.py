@@ -478,17 +478,6 @@ class MPDFConverter(BaseConverter):
             column_break.tag = 'columnbreak'
             del column_break.attrib['class']
 
-    def _fix_broken_endnotes(self, content):
-        """Removed broken endnotes from the content.
-
-        :Args:
-          - content: lxml node tree with the chapter content
-
-        """
-        for endnote in content.xpath("//ol[@class='endnotes']"):
-            for link in endnote.xpath("//li[@class='orphan-endnote']"):                
-                endnote.remove(link)
-
     def _fix_broken_links(self, content):
         """Removes links from the output and replaces them with textual url.
 
@@ -520,7 +509,6 @@ class MPDFConverter(BaseConverter):
             return content
 
         self._fix_broken_links(content)
-        self._fix_broken_endnotes(content)
         self._fix_columns(content)
 
         # Fix links to other URL places
