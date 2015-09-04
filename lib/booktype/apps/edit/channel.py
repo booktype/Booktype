@@ -601,16 +601,21 @@ def remote_chapter_save(request, message, bookid, version):
 
         chapter.revision += 1
 
-    chapter.content = content
+        message = {"message_id": "user_saved_chapter_to_revision",
+                   "message_args": [request.user.username, chapter.title, chapter.revision]}
 
+    else:
+        message = {"message_id": "user_saved_chapter",
+                   "message_args": [request.user.username, chapter.title]}
+
+    chapter.content = content
     chapter.save()
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, {"command": "message_info",
-                                                                "from": request.user.username,
-                                                                "email": request.user.email,
-                                                                "message_id": "user_saved_chapter",
-                                                                "message_args": [request.user.username, chapter.title]},
-                                myself=True)
+    # send chat message to channel
+    message.update({"command": "message_info",
+                    "from": request.user.username,
+                    "email": request.user.email})
+    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid, message, myself=True)
 
     if not message['continue']:
         sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),

@@ -19,6 +19,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, DetailView, FormView
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
@@ -363,8 +364,9 @@ class BookHistoryPage(LoginRequiredMixin, JSONResponseMixin,
     def get_queryset(self):
         self.book = get_object_or_404(models.Book,
                                       url_title=self.kwargs['bookid'])
-        qs = super(BookHistoryPage, self).get_queryset().filter(
-            book=self.book).order_by('-modified')
+
+        qs = super(BookHistoryPage, self).get_queryset()
+        qs = qs.select_related('chapter', 'user', 'book').filter(book=self.book).order_by('-modified')
 
         # filter by user
         author = self.request.GET.get('user', None)
@@ -386,9 +388,13 @@ class BookHistoryPage(LoginRequiredMixin, JSONResponseMixin,
             link_text = item.chapter.title if item.kind == 2 else activ.get('link_text')
             link_url = item.chapter.url_title if item.chapter else ''
 
+            verbose = activ.get('verbose')
+            if item.kind == 2:
+                verbose = ugettext("Revision {0} saved").format(item.chapter_history.revision)
+
             history.append({
                 'has_link': (item.kind == 2),
-                'verbose': activ.get('verbose'),
+                'verbose': verbose,
                 'username': activ.get('user').username,
                 'modified': activ.get('modified'),
                 'formatted': formats.localize(activ.get('modified')),
