@@ -37,6 +37,10 @@ class BookExport(models.Model):
         verbose_name = _('Book Export')
         verbose_name_plural = _('Book Exports')
 
+    @property
+    def book_title(self):
+        return self.version.book.title
+
 
 class ExportFile(models.Model):
     export = models.ForeignKey(BookExport, null=False, verbose_name=_("export"))

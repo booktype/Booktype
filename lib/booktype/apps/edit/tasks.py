@@ -204,11 +204,13 @@ def publish_book(*args, **kwargs):
                 urls = {_key: _x(_key) for _key in output_results.iterkeys()}
 
                 _now = datetime.datetime.now()
+                export_name = "Book export - {0}".format(datetime.datetime(_now.year, _now.month, _now.day,
+                                                                           _now.hour, _now.minute, _now.second))
 
                 exporter = User.objects.get(username=kwargs["username"])
 
                 exprt = BookExport(version=book.get_version(),
-                                   name='Book export - {}'.format(_now),
+                                   name=export_name,
                                    user=exporter,
                                    task_id=task_id,
                                    created=_now,
@@ -249,8 +251,6 @@ def publish_book(*args, **kwargs):
                                                'filesize': filesize,
                                                'pages': pages
                                                }
-
-                export_name = "Book export - {}".format(_now)
 
                 sputnik.addMessageToChannel2(
                     kwargs['clientid'],
