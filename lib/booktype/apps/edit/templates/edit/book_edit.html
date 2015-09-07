@@ -142,77 +142,82 @@
     </section>
 
     {# we need something to check permissions in JS #}
-    <input type="hidden" id="create-ice-tab" data-has-perm={% if is_owner or is_admin %}true{% else %}false{% endif %}>
 
-    {% if is_owner or is_admin %}
-    <section class="tab-content icejs-tab" source_id="icejs-tab">
-      <h3>{% trans "Tracking Options" %}</h3>
-      <div class="icejs-tab-content">
-        <div class="row">
-            <div class="col-md-9">
-                <h4>{% trans "Track changes" %}</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-11">
-                <div class="heading-align btn-group track_changes" role="group" data-toggle="buttons">
-                    <label class="btn btn-default btn-xs track-on" data-track="on">
-                        <input type="radio" checked="checked" data-value="on" rel="tooltip" data-original-title="On">{% trans "On" %}
-                    </label>
-                    <label class="btn btn-default btn-xs track-off" data-track="off">
-                        <input type="radio" checked="" data-value="off" rel="tooltip" data-original-title="Off">{% trans "Off" %}
-                    </label>
+    {% if track_changes_approve or track_changes_enable %}
+      <input type="hidden" id="create-ice-tab" data-has-perm="true">
+
+      <section class="tab-content icejs-tab" source_id="icejs-tab">
+        <h3>{% trans "Tracking Options" %}</h3>
+        <div class="icejs-tab-content">
+          {% if track_changes_enable %}        
+            <div class="row">
+                <div class="col-md-9">
+                    <h4>{% trans "Track changes" %}</h4>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-9">
-                <h4>{% trans "Show changes" %}</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-11">
-                <div class="heading-align btn-group show_changes" role="group" data-toggle="buttons">
-                    <label class="btn btn-default btn-xs show-on active" data-show="yes">
-                        <input type="radio" checked="checked" data-value="yes" rel="tooltip" data-original-title="Yes">{% trans "Yes" %}
-                    </label>
-                    <label class="btn btn-default btn-xs show-off" data-show="no">
-                        <input type="radio" checked="" data-value="no" rel="tooltip" data-original-title="No">{% trans "No" %}
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-9">
-                <h4>{% trans "Actions" %}</h4>
-            </div>
-        </div>
-
-        <div class="tracking-action-buttons">
             <div class="row">
                 <div class="col-md-11">
-                    <button data-trigger-aloha="tracking-accept-all" type="button" class="btn btn-xs btn-default">
-                      {% trans "Accept all changes" %}
-                    </button>
-                    <button data-trigger-aloha="tracking-decline-all" type="button" class="btn btn-xs btn-default">
-                      {% trans "Decline all changes" %}
-                    </button>
-                </div>
-                <hr>
-                <div class="col-md-11">
-                    <button data-trigger-aloha="tracking-accept-one" type="button" class="btn btn-xs btn-default single-change" disabled>
-                      {% trans "Accept one" %}
-                    </button>
-                    <button data-trigger-aloha="tracking-decline-one"type="button" class="btn btn-xs btn-default single-change" disabled>
-                      {% trans "Decline one" %}
-                    </button>
+                    <div class="heading-align btn-group track_changes" role="group" data-toggle="buttons">
+                        <label class="btn btn-default btn-xs track-on" data-track="on">
+                            <input type="radio" checked="checked" data-value="on" rel="tooltip" data-original-title="On">{% trans "On" %}
+                        </label>
+                        <label class="btn btn-default btn-xs track-off" data-track="off">
+                            <input type="radio" checked="" data-value="off" rel="tooltip" data-original-title="Off">{% trans "Off" %}
+                        </label>
+                    </div>
                 </div>
             </div>
+          {% endif %}
+          <div class="row">
+              <div class="col-md-9">
+                  <h4>{% trans "Show changes" %}</h4>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-11">
+                  <div class="heading-align btn-group show_changes" role="group" data-toggle="buttons">
+                      <label class="btn btn-default btn-xs show-on active" data-show="yes">
+                          <input type="radio" checked="checked" data-value="yes" rel="tooltip" data-original-title="Yes">{% trans "Yes" %}
+                      </label>
+                      <label class="btn btn-default btn-xs show-off" data-show="no">
+                          <input type="radio" checked="" data-value="no" rel="tooltip" data-original-title="No">{% trans "No" %}
+                      </label>
+                  </div>
+              </div>
+          </div>
+          {% if track_changes_approve %}
+            <div class="row">
+                <div class="col-md-9">
+                    <h4>{% trans "Actions" %}</h4>
+                </div>
+            </div>
+
+            <div class="tracking-action-buttons">
+                <div class="row">
+                    <div class="col-md-11">
+                        <button data-trigger-aloha="tracking-accept-all" type="button" class="btn btn-xs btn-default">
+                          {% trans "Accept all changes" %}
+                        </button>
+                        <button data-trigger-aloha="tracking-decline-all" type="button" class="btn btn-xs btn-default">
+                          {% trans "Decline all changes" %}
+                        </button>
+                    </div>
+                    <hr>
+                    <div class="col-md-11">
+                        <button data-trigger-aloha="tracking-accept-one" type="button" class="btn btn-xs btn-default single-change" disabled>
+                          {% trans "Accept one" %}
+                        </button>
+                        <button data-trigger-aloha="tracking-decline-one"type="button" class="btn btn-xs btn-default single-change" disabled>
+                          {% trans "Decline one" %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+          {% endif %}
         </div>
-      </div>
-    </section>
+      </section>
+    {% else %}
+      <input type="hidden" id="create-ice-tab" data-has-perm="false">    
     {% endif %}
 
     <!-- Temporarily disable

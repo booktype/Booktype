@@ -337,6 +337,9 @@ class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
 
         # check if we should track changes for current user
         user_permissions = get_user_permissions(self.request.user, book)
+        context['track_changes_approve'] = self.security.has_perm('edit.track_changes_approve')
+        context['track_changes_enable'] = self.security.has_perm('edit.track_changes_enable')
+
         should_track_changes = 'edit.track_changes' in user_permissions
 
         context['track_changes'] = json.dumps(
