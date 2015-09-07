@@ -1,6 +1,9 @@
 import re
 import cgi
 import json
+import logging
+from lxml import etree
+from ebooklib.utils import parse_html_string
 
 from django import template
 from django.template.smartif import Literal
@@ -14,6 +17,8 @@ from booki.editor import models
 from booktype.utils import config
 
 register = template.Library()
+
+logger = logging.getLogger('booktype')
 
 
 @register.simple_tag
@@ -63,11 +68,41 @@ class FormatBooktypeNode(template.Node):
     def __init__(self, booktype_data):
         self.booktype_data = template.Variable(booktype_data)
 
+    @staticmethod
+    def _reformat_endnotes(content):
+
+        try:
+            tree = parse_html_string(content.encode('utf-8'))
+        except Exception as err:
+            logger.error('Error parsing chapter content {err}'.format(err=err))
+            return content
+
+        for elem in tree.iter():
+            # remove endnotes without reference
+            if elem.tag == 'ol' and elem.get('class') == 'endnotes':
+                for li in elem.xpath("//li[@class='orphan-endnote']"):
+                    li.drop_tree()
+
+            # insert internal link to endnote's body into the sup
+            elif elem.tag == 'sup' and elem.get('data-id'):
+                a = etree.Element("a")
+                a.set('href', '#endnote-{0}'.format(elem.get('data-id')))
+                a.text = elem.text
+                elem.text = ''
+                elem.insert(0, a)
+
+        content = etree.tostring(tree, method='html', encoding='utf-8', xml_declaration=False)
+        content = content.replace('<html><body>', '').replace('</body></html>', '')
+
+        return content
+
     def render(self, context):
         chapter = self.booktype_data.resolve(context)
 
         if chapter is None:
             return ""
+
+        chapter.content = self._reformat_endnotes(chapter.content)
 
         if chapter.content.find('##') == -1:
             return chapter.content
