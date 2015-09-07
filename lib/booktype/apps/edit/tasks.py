@@ -118,7 +118,7 @@ def publish_book(*args, **kwargs):
                 "settings": format_settings,
                 "theme": get_theme(book, kwargs["username"])
             },
-            "output": "{}.{}".format(book.url_title, _ext)
+            "output": "{0}_{1}.{2}".format(book.url_title, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'), _ext)
         }
 
         if 'cover_image' in format_settings:
