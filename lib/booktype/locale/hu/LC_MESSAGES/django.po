@@ -1,7 +1,7 @@
 # English (en) translation strings for Booktype.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# 
+#
 # Translators:
 # madaraszcsaba <madarasz.csaba@gmail.com>, 2015
 # Zsolt Magyar <picizse@gmail.com>, 2014
@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-29 16:12+0200\n"
+"POT-Creation-Date: 2015-09-07 16:15+0300\n"
 "PO-Revision-Date: 2015-07-30 09:22+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/booktype/language/hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/projects/p/booktype/"
+"language/hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
@@ -92,20 +93,17 @@ msgstr "Titkos kód"
 msgid "created"
 msgstr "létrehozva"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: apps/account/models.py:69
 msgid "remote useragent"
 msgstr "távoli felhasználói ügynök"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: apps/account/models.py:71
 msgid "remote addr"
 msgstr "távoli cím"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: apps/account/models.py:73
 msgid "remote host"
 msgstr "távoli gép"
@@ -155,7 +153,9 @@ msgstr "Lista megtekitése"
 msgid ""
 "This is a perfect moment to start writing your book, just click on the "
 "button above!"
-msgstr "Ez egy tökéletes pillanat arra, hogy elkezdje írni a saját könyvét, csak kattintson a fenti gombra!"
+msgstr ""
+"Ez egy tökéletes pillanat arra, hogy elkezdje írni a saját könyvét, csak "
+"kattintson a fenti gombra!"
 
 #: apps/account/templates/account/dashboard.html:68
 msgid "This user has no books"
@@ -170,9 +170,10 @@ msgid "My Groups"
 msgstr "Csoportjaim"
 
 #: apps/account/templates/account/dashboard.html:98
-msgid ""
-"Work with others in Groups. To create a Group click on the button below"
-msgstr "Dolgozzon másokkal együtt egy csoportban. Csoport létrehozásához kattintson az alábbi gombra"
+msgid "Work with others in Groups. To create a Group click on the button below"
+msgstr ""
+"Dolgozzon másokkal együtt egy csoportban. Csoport létrehozásához kattintson "
+"az alábbi gombra"
 
 #: apps/account/templates/account/dashboard.html:104
 msgid "Participating Groups"
@@ -211,7 +212,7 @@ msgstr "Ugrás a beállításokhoz"
 
 #: apps/account/templates/account/dashboard.html:143
 #: apps/account/templates/account/form_signedin.html:19
-#: apps/account/views.py:176 apps/account/views.py:177
+#: apps/account/views.py:178 apps/account/views.py:179
 #: apps/edit/templates/edit/toolbar_book.html:12
 msgid "Settings"
 msgstr "Beállítások"
@@ -277,8 +278,8 @@ msgid "View"
 msgstr "Megtekintés"
 
 #: apps/account/templates/account/dashboard_book_template.html:39
-#: apps/edit/templates/edit/aloha_menu.html:13
-#: apps/edit/templates/edit/edit_strings.html:21
+#: apps/edit/templates/edit/aloha_menu.html:18
+#: apps/edit/templates/edit/edit_strings.html:22
 msgid "Edit"
 msgstr "Szerkesztés"
 
@@ -334,7 +335,9 @@ msgstr "Leírás"
 msgid ""
 "Give some information so others can find it to help you (this can be added "
 "or changed later)."
-msgstr "Adjon meg néhány információt, hogy mások könnyebben megtudják Önt találni (ez később is hozzáaddható illetve módoítható)."
+msgstr ""
+"Adjon meg néhány információt, hogy mások könnyebben megtudják Önt találni "
+"(ez később is hozzáaddható illetve módoítható)."
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:33
 msgid "Choose license"
@@ -345,9 +348,9 @@ msgid "Choose from the following license"
 msgstr "Válasszon az alábbi licenctípusok közül"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:36
-#: apps/edit/forms.py:111 apps/edit/templates/edit/panel_covers.html:73
+#: apps/edit/forms.py:138 apps/edit/templates/edit/panel_covers.html:73
 #: apps/edit/templates/edit/panel_covers.html:130
-#: apps/edit/templates/edit/panel_settings.html:21
+#: apps/edit/templates/edit/panel_settings.html:25
 msgid "License"
 msgstr "Licenc"
 
@@ -359,7 +362,9 @@ msgstr "Kép"
 msgid ""
 "If you have an image for the book then add it now (this can be added or "
 "changed later)"
-msgstr "Ha rendelkezik már képpel a könyvborítójához, adja hozzá most (ez később is hozzárendelhető illetve módosítható)"
+msgstr ""
+"Ha rendelkezik már képpel a könyvborítójához, adja hozzá most (ez később is "
+"hozzárendelhető illetve módosítható)"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:47
 msgid "Book Image"
@@ -373,7 +378,9 @@ msgstr "Legyen nyilvános?"
 msgid ""
 "Would you like to keep your book private or make it public? If the book is "
 "public others can find the book to help you."
-msgstr "Szeretné megtartani a könyvet magának vagy nyilvánosságra is hozza? Ha a könyv nyilvános mások is megtalálhatják a könyvét és segíthetnek Önnek."
+msgstr ""
+"Szeretné megtartani a könyvet magának vagy nyilvánosságra is hozza? Ha a "
+"könyv nyilvános mások is megtalálhatják a könyvét és segíthetnek Önnek."
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:54
 msgid "Note"
@@ -471,6 +478,7 @@ msgstr "Kezdetben rejtve másoktól"
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:74
 #: apps/edit/templates/edit/_settings_form_roles.html:84
+#: apps/edit/templates/edit/panel_aloha.html:353
 #: apps/edit/templates/edit/panel_covers.html:33
 #: apps/edit/templates/edit/panel_media.html:64
 #: apps/edit/templates/edit/panel_toc.html:102
@@ -512,7 +520,7 @@ msgid "Can't find user \"%(username)s\"."
 msgstr "Nem található az alábbi felhasználó: \"%(username)s\"."
 
 #: apps/account/templates/account/forgot_password.html:10
-#: apps/account/views.py:287 apps/account/views.py:288
+#: apps/account/views.py:289 apps/account/views.py:290
 msgid "Forgot your password"
 msgstr "Elfelejtetted a jelszavadat?"
 
@@ -532,7 +540,9 @@ msgstr "Felhasználónév vagy e-mail cím"
 msgid ""
 "Give us your username or e-mail you used to create Booktype account and we "
 "will send you new password."
-msgstr "Adja meg nelünk felhasználónevét vagy e-mail címét Booktype fiókja létrehozásához és mi elküldjük Önnek új jelszavát."
+msgstr ""
+"Adja meg nelünk felhasználónevét vagy e-mail címét Booktype fiókja "
+"létrehozásához és mi elküldjük Önnek új jelszavát."
 
 #: apps/account/templates/account/forgot_password.html:30
 #: apps/account/templates/account/forgot_password_enter.html:42
@@ -540,7 +550,7 @@ msgid "Send request"
 msgstr "Kérés küldése"
 
 #: apps/account/templates/account/forgot_password_enter.html:12
-#: apps/account/views.py:360 apps/account/views.py:361
+#: apps/account/views.py:362 apps/account/views.py:363
 msgid "Reset your password"
 msgstr "Állítsa vissza jelszavát"
 
@@ -564,8 +574,8 @@ msgstr "Új jelszó ismét"
 msgid "My Dashboard"
 msgstr "A Te irányítópultod"
 
-#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:410
-#: apps/account/views.py:411
+#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:412
+#: apps/account/views.py:413
 msgid "Sign in"
 msgstr "Bejelentkezés"
 
@@ -604,9 +614,12 @@ msgstr "Elfelejtett jelszó?"
 
 #: apps/account/templates/account/password_reset_email.html:5
 msgid ""
-"To reset your Booktype password, simply click the link below. That will take"
-" you to a web page where you can create a new password."
-msgstr "Booktype jelszavának visszaállításához egyszerűen csak kattintson az alábbi linkre. Ez majd átírányítja Önt egy új weboldalra, ahol új jelszót hozhat létre."
+"To reset your Booktype password, simply click the link below. That will take "
+"you to a web page where you can create a new password."
+msgstr ""
+"Booktype jelszavának visszaállításához egyszerűen csak kattintson az alábbi "
+"linkre. Ez majd átírányítja Önt egy új weboldalra, ahol új jelszót hozhat "
+"létre."
 
 #: apps/account/templates/account/password_reset_email.html:6
 msgid "Go to:"
@@ -617,7 +630,11 @@ msgid ""
 "If you weren't trying to reset your password, don't worry – your account is "
 "still secure and no one has been given access to it. Most likely, someone "
 "just mistyped their email address while trying to reset their own password."
-msgstr "Ha nem próbálták visszaállítani a jelszavát, ne aggódjon - a fiókja továbbra is biztonságos, és senki kapott ahhoz hozzáférést. A legvalószínűbb, hogy valaki csak rosszul írta be az e-mail címét, amikor megpróbálta visszaállítani a saját jelszavát."
+msgstr ""
+"Ha nem próbálták visszaállítani a jelszavát, ne aggódjon - a fiókja továbbra "
+"is biztonságos, és senki kapott ahhoz hozzáférést. A legvalószínűbb, hogy "
+"valaki csak rosszul írta be az e-mail címét, amikor megpróbálta "
+"visszaállítani a saját jelszavát."
 
 #: apps/account/templates/account/register.html:13
 msgid "You are already signed in!"
@@ -679,8 +696,13 @@ msgstr "Kérjük, adja meg a valódi nevét."
 msgid ""
 "Username is invalid. Please try a different one. You may use alhpanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "Felhasználónév érvénytelen. Kérjük, próbáljon  ki egy másikat. Lehet használni alfanumerikus karaktereket és hasonló karaktereket, mint \".\", \"_\", \"-\" (pont, aláhúzás és mínusz). <br/><br/>Például:<ul><li>mzsolt</li><li>Magyar.Zsolt</li><li>Magyar_Zsolt</li></ul>"
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
+"li></ul>"
+msgstr ""
+"Felhasználónév érvénytelen. Kérjük, próbáljon  ki egy másikat. Lehet "
+"használni alfanumerikus karaktereket és hasonló karaktereket, mint \".\", \"_"
+"\", \"-\" (pont, aláhúzás és mínusz). <br/><br/>Például:<ul><li>mzsolt</"
+"li><li>Magyar.Zsolt</li><li>Magyar_Zsolt</li></ul>"
 
 #: apps/account/templates/account/register.html:62
 msgid "This is not a valid e-mail"
@@ -716,43 +738,43 @@ msgstr "Pillanatnyilag csak rendszergazda hozhat létre új fiókokat."
 msgid "Dashboard"
 msgstr "Irányítópult"
 
-#: apps/account/views.py:127 apps/account/views.py:128
+#: apps/account/views.py:129 apps/account/views.py:130
 msgid "User profile"
 msgstr "Felhasználói profil"
 
-#: apps/account/views.py:227
+#: apps/account/views.py:229
 msgid "User settings has been successfully saved!"
 msgstr "A beállítások mentése sikerült."
 
-#: apps/account/views.py:264
+#: apps/account/views.py:266
 msgid "Password changed successfully!"
 msgstr "A jelszó sikeresen megváltozott"
 
-#: apps/account/views.py:316
+#: apps/account/views.py:318
 msgid "Missing username"
 msgstr "Hiányzó felhasználónév"
 
-#: apps/account/views.py:320
+#: apps/account/views.py:322
 msgid "No such user"
 msgstr "Nincs ilyen felhasználó"
 
-#: apps/account/views.py:340
+#: apps/account/views.py:342
 msgid "Reset password"
 msgstr "Jelszó helyreállítása"
 
-#: apps/account/views.py:353
+#: apps/account/views.py:355
 msgid "Unknown error"
 msgstr "Ismeretlen hiba"
 
-#: apps/account/views.py:375
+#: apps/account/views.py:377
 msgid "Password can't be empty"
 msgstr "A jelszó nem lehet üres"
 
-#: apps/account/views.py:380
+#: apps/account/views.py:382
 msgid "Passwords don't match"
 msgstr "A jelszavak nem egyeznek"
 
-#: apps/account/views.py:396
+#: apps/account/views.py:398
 msgid "Wrong secret code"
 msgstr "Helytelen titkos kód"
 
@@ -785,8 +807,8 @@ msgstr "név"
 msgid "Permission"
 msgstr "Jogosultság"
 
-#: apps/core/models.py:29 apps/edit/templates/edit/panel_settings.html:43
-#: apps/edit/views.py:48
+#: apps/core/models.py:29 apps/edit/templates/edit/panel_settings.html:47
+#: apps/edit/views.py:49
 msgid "Permissions"
 msgstr "Jogosultságok"
 
@@ -798,8 +820,8 @@ msgstr "jogosultságok"
 msgid "Role"
 msgstr "Szerep"
 
-#: apps/core/models.py:70 apps/edit/templates/edit/panel_settings.html:39
-#: apps/edit/views.py:47 apps/portal/templates/portal/frontpage.html:230
+#: apps/core/models.py:70 apps/edit/templates/edit/panel_settings.html:43
+#: apps/edit/views.py:48 apps/portal/templates/portal/frontpage.html:230
 msgid "Roles"
 msgstr "Feladatkörök"
 
@@ -835,11 +857,16 @@ msgstr "Leírás"
 msgid ""
 "This is a demonstration server for Booktype. This server is reset on a "
 "regular basis, and any books created here will be deleted at that time. You "
-"can read the Booktype user manual at <a "
-"href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-"
-"publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-"
-"publishers/</a>."
-msgstr "Ez a Booktype bemutató szervere. Ez a szerver rendszeresen frissül és vele együtt a teljes adatbázis is. Minden közben létrehozott könyv törlésre kerül ebben az időben. Elolvashatja a Booktype használati útmutatóját az alábbi linken <a href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/</a>."
+"can read the Booktype user manual at <a href=\"http://sourcefabric.booktype."
+"pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype."
+"pro/booktype-20-for-authors-and-publishers/</a>."
+msgstr ""
+"Ez a Booktype bemutató szervere. Ez a szerver rendszeresen frissül és vele "
+"együtt a teljes adatbázis is. Minden közben létrehozott könyv törlésre kerül "
+"ebben az időben. Elolvashatja a Booktype használati útmutatóját az alábbi "
+"linken <a href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-"
+"and-publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-"
+"and-publishers/</a>."
 
 #: apps/core/templates/core/footer.html:17
 msgid "How to use"
@@ -848,10 +875,14 @@ msgstr "Hogyan kell használni"
 #: apps/core/templates/core/footer.html:20
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
-"href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a>"
-" or check out Booktype Pro, our cloud-hosted publishing service - <a "
-"href=\"http://booktype.pro/\">http://booktype.pro/</a>."
-msgstr "Ha telepíteni szeretné, kéjük töltse le innen a Booktype-ot <a href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a>  vagy nézze meg a Booktype Pro szolgáltatásunkat - <a href=\"http://booktype.pro/\">http://booktype.pro/</a>."
+"href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric."
+"org/en/booktype/</a> or check out Booktype Pro, our cloud-hosted publishing "
+"service - <a href=\"http://booktype.pro/\">http://booktype.pro/</a>."
+msgstr ""
+"Ha telepíteni szeretné, kéjük töltse le innen a Booktype-ot <a href=\"http://"
+"www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/"
+"</a>  vagy nézze meg a Booktype Pro szolgáltatásunkat - <a href=\"http://"
+"booktype.pro/\">http://booktype.pro/</a>."
 
 #: apps/core/templates/core/footer.html:27
 msgid "Need Help?"
@@ -864,7 +895,10 @@ msgid ""
 "print-on-demand services and education institutions produce better books, "
 "faster, while Sourcefabric takes care of your own platform's installation, "
 "hosting, upgrades, and security. "
-msgstr "A Booktype Pro tökéletes megoldás elsősorban kiadók számára. A Sourcefabric segítséget nyújt Önnek a szoftver telepítésében, frissítésében. Ügyel a biztonságra és tárhelyet is kínál Önnek."
+msgstr ""
+"A Booktype Pro tökéletes megoldás elsősorban kiadók számára. A Sourcefabric "
+"segítséget nyújt Önnek a szoftver telepítésében, frissítésében. Ügyel a "
+"biztonságra és tárhelyet is kínál Önnek."
 
 #: apps/core/templates/core/footer.html:41
 msgid ""
@@ -1063,39 +1097,51 @@ msgstr ""
 msgid "Edit Notes"
 msgstr ""
 
-#: apps/edit/__init__.py:37
+#: apps/edit/__init__.py:35
+#, fuzzy
+#| msgid "Save changes"
+msgid "Track Changes"
+msgstr "Változtatások mentése"
+
+#: apps/edit/__init__.py:38
 msgid "Manage Language"
 msgstr ""
 
-#: apps/edit/__init__.py:38
+#: apps/edit/__init__.py:39
 msgid "Manage License"
 msgstr ""
 
-#: apps/edit/__init__.py:39
+#: apps/edit/__init__.py:40
 msgid "Manage Metadata"
 msgstr ""
 
-#: apps/edit/channel.py:1277
+#: apps/edit/__init__.py:41
+#, fuzzy
+#| msgid "Book Settings"
+msgid "Manage Book Settings"
+msgstr "Könyv beállítások"
+
+#: apps/edit/channel.py:1282
 msgid "You have no permissions for editing this chapter."
 msgstr "Ön nem rendelkezik jogosultsággal a fejezet szerkesztéséhez."
 
-#: apps/edit/channel.py:1285
+#: apps/edit/channel.py:1290
 msgid "Chapter currently being edited."
 msgstr "A fejezet jelenleg szerkesztés alatt áll."
 
-#: apps/edit/channel.py:1290
+#: apps/edit/channel.py:1295
 msgid "You have no permissions for editing chapters under lock."
 msgstr "Önnek nincs jogosultsága az elzárt fejezetek szerkesztéséhez."
 
-#: apps/edit/channel.py:1294
+#: apps/edit/channel.py:1299
 msgid "Chapter currently is locked from everyone."
 msgstr "A fejezet jelenleg el van zárva mindenkitől."
 
-#: apps/edit/channel.py:1899
+#: apps/edit/channel.py:1904
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
-#: apps/edit/forms.py:53 apps/edit/templates/edit/panel_settings.html:17
+#: apps/edit/forms.py:53 apps/edit/templates/edit/panel_settings.html:21
 msgid "Language"
 msgstr "Nyelv"
 
@@ -1107,12 +1153,22 @@ msgstr "Jobbról balra szöveg"
 msgid "Book with right to left writing."
 msgstr "A könyv jobbról balra írása."
 
-#: apps/edit/forms.py:93
+#: apps/edit/forms.py:97 apps/edit/templates/edit/book_edit.html:153
+#, fuzzy
+#| msgid "Save changes"
+msgid "Track changes"
+msgstr "Változtatások mentése"
+
+#: apps/edit/forms.py:99
+msgid "Chapter changes will tracked."
+msgstr ""
+
+#: apps/edit/forms.py:120
 msgid "New Status"
 msgstr "Új állapot"
 
 #: apps/edit/templates/edit/_compare_modal.html:7
-#: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:538
+#: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:550
 msgid "Chapter diff"
 msgstr "Fejezet eltérés"
 
@@ -1136,7 +1192,7 @@ msgstr "Törölve"
 #: apps/edit/templates/edit/chapter_history.html:23
 #: apps/edit/templates/edit/chapter_revision.html:16
 #: apps/edit/templates/edit/compare_screen.html:20
-#: apps/edit/templates/edit/compare_screen.html:21 apps/edit/views.py:569
+#: apps/edit/templates/edit/compare_screen.html:21 apps/edit/views.py:581
 msgid "Revision"
 msgstr "Változat"
 
@@ -1168,7 +1224,7 @@ msgid "Cancel"
 msgstr "Mégse"
 
 #: apps/edit/templates/edit/_settings_form_chapter_status.html:4
-#: apps/edit/views.py:49
+#: apps/edit/views.py:50
 msgid "Chapter Status"
 msgstr "A fejezet állapota"
 
@@ -1229,7 +1285,7 @@ msgid "To apply changes, click on Save"
 msgstr "A módosítások alkalmazásához, kattintson a Mentés-re"
 
 #: apps/edit/templates/edit/_settings_form_roles.html:86
-#: apps/edit/templates/edit/edit_strings.html:53
+#: apps/edit/templates/edit/edit_strings.html:54
 #: apps/edit/templates/edit/panel_aloha.html:287
 #: apps/edit/templates/edit/panel_toc.html:18
 #: apps/edit/templates/edit/panel_toc.html:37
@@ -1253,44 +1309,76 @@ msgstr "Oldaltörés beszúrása"
 msgid "Insert endnote"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:15
+#: apps/edit/templates/edit/aloha_menu.html:10
+#, fuzzy
+#| msgid "Insert Table"
+msgid "Insert LTR text"
+msgstr "Táblázat beszúrása"
+
+#: apps/edit/templates/edit/aloha_menu.html:11
+#, fuzzy
+#| msgid "Insert Table"
+msgid "Insert RTL text"
+msgstr "Táblázat beszúrása"
+
+#: apps/edit/templates/edit/aloha_menu.html:13
+#, fuzzy
+#| msgid "Insert link"
+msgid "Insert columns"
+msgstr "Hivatkozás beszúrása"
+
+#: apps/edit/templates/edit/aloha_menu.html:14
+#, fuzzy
+#| msgid "Insert page break"
+msgid "Insert column break"
+msgstr "Oldaltörés beszúrása"
+
+#: apps/edit/templates/edit/aloha_menu.html:20
 #: apps/edit/templates/edit/aloha_toolbar.html:6
 msgid "Undo"
 msgstr "Visszavonás"
 
-#: apps/edit/templates/edit/aloha_menu.html:16
+#: apps/edit/templates/edit/aloha_menu.html:21
 msgid "Redo"
 msgstr "Mégis"
 
-#: apps/edit/templates/edit/aloha_menu.html:18
+#: apps/edit/templates/edit/aloha_menu.html:23
 msgid "Find & Replace"
 msgstr "Keresés és csere"
 
-#: apps/edit/templates/edit/aloha_menu.html:20
+#: apps/edit/templates/edit/aloha_menu.html:25
 msgid "Remove styling"
 msgstr "A formázás eltávolítása"
 
-#: apps/edit/templates/edit/aloha_menu.html:21
+#: apps/edit/templates/edit/aloha_menu.html:26
 msgid "Remove formatting"
 msgstr "Formázás eltávolítása"
 
-#: apps/edit/templates/edit/aloha_menu.html:22
+#: apps/edit/templates/edit/aloha_menu.html:27
 msgid "Decrease indent"
 msgstr "A bekezdés csökkentése"
 
-#: apps/edit/templates/edit/aloha_menu.html:23
+#: apps/edit/templates/edit/aloha_menu.html:28
 msgid "Increase indent"
 msgstr "A bekezdés nagyobbítása"
 
-#: apps/edit/templates/edit/aloha_menu.html:25
+#: apps/edit/templates/edit/aloha_menu.html:29
+msgid "Direction to LTR"
+msgstr ""
+
+#: apps/edit/templates/edit/aloha_menu.html:30
+msgid "Direction to RTL"
+msgstr ""
+
+#: apps/edit/templates/edit/aloha_menu.html:32
 msgid "Edit raw HTML"
 msgstr "Nyers HTML szerkesztés"
 
-#: apps/edit/templates/edit/aloha_menu.html:29
+#: apps/edit/templates/edit/aloha_menu.html:36
 msgid "Tools"
 msgstr "Eszközök"
 
-#: apps/edit/templates/edit/aloha_menu.html:31
+#: apps/edit/templates/edit/aloha_menu.html:38
 #: apps/edit/templates/edit/panel_aloha.html:50
 #: apps/edit/templates/edit/panel_aloha.html:58
 msgid "Word count"
@@ -1368,11 +1456,14 @@ msgid "Rows"
 msgstr "Sorok"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:162
+#: apps/edit/templates/edit/edit_strings.html:84
+#: apps/edit/templates/edit/panel_aloha.html:317
 msgid "Columns"
 msgstr "Oszlopok"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:167
 #: apps/edit/templates/edit/panel_aloha.html:63
+#: apps/edit/templates/edit/panel_aloha.html:354
 #: apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
 msgstr "OK"
@@ -1432,6 +1523,7 @@ msgstr "Jobbra igazítás"
 
 #. Translators: User defined style alignment settings
 #: apps/edit/templates/edit/aloha_toolbar.html:192
+#: apps/edit/templates/edit/panel_aloha.html:334
 #: skeleton/themes/custom/panel.html:53
 msgid "Justify"
 msgstr "Sorkizárt"
@@ -1452,32 +1544,44 @@ msgstr "Bekezdés balra"
 msgid "Indent right"
 msgstr "Bekezdés jobbra"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:208
+#: apps/edit/templates/edit/aloha_toolbar.html:205
+#, fuzzy
+#| msgid "Indent right"
+msgid "Left to right"
+msgstr "Bekezdés jobbra"
+
+#: apps/edit/templates/edit/aloha_toolbar.html:206
+#, fuzzy
+#| msgid "Right to left text"
+msgid "Right to left"
+msgstr "Jobbról balra szöveg"
+
+#: apps/edit/templates/edit/aloha_toolbar.html:212
 msgid "Save chapter"
 msgstr "Fejezet Mentése"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:208
+#: apps/edit/templates/edit/aloha_toolbar.html:212
 msgid "SAVE"
 msgstr "MENTÉS"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:214
+#: apps/edit/templates/edit/aloha_toolbar.html:218
 msgid "Save and close"
 msgstr "Mentés és bezárás"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:215
+#: apps/edit/templates/edit/aloha_toolbar.html:219
 msgid "Save minor change"
 msgstr "Az apróbb változtatások mentése"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:216
+#: apps/edit/templates/edit/aloha_toolbar.html:220
 #: apps/edit/templates/edit/panel_aloha.html:276
 msgid "Save with comment"
 msgstr "Mentés megjegyzéssel"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:218
+#: apps/edit/templates/edit/aloha_toolbar.html:222
 msgid "Cancel editing"
 msgstr "Szerkesztés félbeszakítása"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:218
+#: apps/edit/templates/edit/aloha_toolbar.html:222
 msgid "CLOSE"
 msgstr "BEZÁRÁS"
 
@@ -1528,24 +1632,82 @@ msgid "Note Saved.."
 msgstr "A jegyzet elmentve."
 
 #: apps/edit/templates/edit/book_edit.html:137
-#: apps/edit/templates/edit/edit_strings.html:19
+#: apps/edit/templates/edit/edit_strings.html:20
 msgid "Chapters on Hold"
 msgstr "A Fejezetek változatlanok maradnak"
 
-#: apps/edit/templates/edit/book_edit.html:145
+#: apps/edit/templates/edit/book_edit.html:149
+#, fuzzy
+#| msgid "Table Options"
+msgid "Tracking Options"
+msgstr "Táblázat beállítások"
+
+#: apps/edit/templates/edit/book_edit.html:160
+msgid "On"
+msgstr ""
+
+#: apps/edit/templates/edit/book_edit.html:163
+msgid "Off"
+msgstr ""
+
+#: apps/edit/templates/edit/book_edit.html:171
+#, fuzzy
+#| msgid "Follow changes"
+msgid "Show changes"
+msgstr "A változtatások nyomon követése"
+
+#: apps/edit/templates/edit/book_edit.html:178
+#: apps/edit/templates/edit/panel_publish.html:377
+msgid "Yes"
+msgstr "Igen"
+
+#: apps/edit/templates/edit/book_edit.html:181
+#: apps/edit/templates/edit/panel_publish.html:376
+msgid "No"
+msgstr "Nem"
+
+#: apps/edit/templates/edit/book_edit.html:189
+#, fuzzy
+#| msgid "Action"
+msgid "Actions"
+msgstr "Művelet"
+
+#: apps/edit/templates/edit/book_edit.html:197
+#, fuzzy
+#| msgid "Follow changes"
+msgid "Accept all changes"
+msgstr "A változtatások nyomon követése"
+
+#: apps/edit/templates/edit/book_edit.html:200
+#, fuzzy
+#| msgid "Follow changes"
+msgid "Decline all changes"
+msgstr "A változtatások nyomon követése"
+
+#: apps/edit/templates/edit/book_edit.html:206
+msgid "Accept one"
+msgstr ""
+
+#: apps/edit/templates/edit/book_edit.html:209
+msgid "Decline one"
+msgstr ""
+
+#: apps/edit/templates/edit/book_edit.html:220
 msgid "Attachments"
 msgstr "Mellékletek"
 
-#: apps/edit/templates/edit/book_edit.html:149
+#: apps/edit/templates/edit/book_edit.html:224
 msgid "History"
 msgstr "Előzmények"
 
-#: apps/edit/templates/edit/book_edit.html:208
+#: apps/edit/templates/edit/book_edit.html:283
 #, python-format
 msgid ""
-"<p class=\"notification-text\"><%%= username %%> joined </p><span class"
-"=\"notification-info\"><%%= info %%></span>"
-msgstr "<p class=\"notification-text\"><%%= username %%> csatlakozott </p><span class=\"notification-info\"><%%= info %%></span>"
+"<p class=\"notification-text\"><%%= username %%> joined </p><span class="
+"\"notification-info\"><%%= info %%></span>"
+msgstr ""
+"<p class=\"notification-text\"><%%= username %%> csatlakozott </p><span "
+"class=\"notification-info\"><%%= info %%></span>"
 
 #: apps/edit/templates/edit/book_history.html:21
 msgid "No results found."
@@ -1574,7 +1736,7 @@ msgstr "Idő"
 
 #: apps/edit/templates/edit/chapter_history.html:26
 #: apps/edit/templates/edit/panel_aloha.html:281
-#: apps/edit/templates/edit/panel_publish.html:496
+#: apps/edit/templates/edit/panel_publish.html:487
 msgid "Comment"
 msgstr "Hozzászólás"
 
@@ -1619,7 +1781,9 @@ msgstr "Visszatér ehhez a változathoz?"
 #: apps/edit/templates/edit/chapter_revision.html:57
 msgid ""
 "Current chapter content will be reverted to this revision. Are you sure?"
-msgstr "Az aktuális fejezet tartalmát a rendszer visszaállítja az előző változatra. Biztos benne?"
+msgstr ""
+"Az aktuális fejezet tartalmát a rendszer visszaállítja az előző változatra. "
+"Biztos benne?"
 
 #: apps/edit/templates/edit/chapter_revision.html:61
 msgid "Yes, revert!"
@@ -1630,184 +1794,203 @@ msgid "Revisions not found!"
 msgstr "Változatok nem találhatóak!"
 
 #: apps/edit/templates/edit/edit_strings.html:3
-#, python-brace-format
-msgid "User {0} has changed status of  chapter \"{1}\" to \"{2}\"."
-msgstr "Az {0} felhasználó megváltoztatta a fejezetet állapotát erről \"{1}\" erre \"{2}\"."
+#, fuzzy, python-brace-format
+#| msgid "User {0} has changed status of  chapter \"{1}\" to \"{2}\"."
+msgid "{0} has changed status of  chapter \"{1}\" to \"{2}\"."
+msgstr ""
+"Az {0} felhasználó megváltoztatta a fejezetet állapotát erről \"{1}\" erre "
+"\"{2}\"."
 
 #: apps/edit/templates/edit/edit_strings.html:4
-#, python-brace-format
-msgid "User {0} has saved chapter \"{1}\"."
+#, fuzzy, python-brace-format
+#| msgid "User {0} has saved chapter \"{1}\"."
+msgid "{0} has saved chapter \"{1}\"."
 msgstr "Az {0} felhasználó mentette az \"{1}\" fejezetet."
 
 #: apps/edit/templates/edit/edit_strings.html:5
-#, python-brace-format
-msgid "User {0} has renamed chapter \"{1}\" to \"{2}\"."
-msgstr "Az {0} felhasználó az \"{1}\" fejezetet átnevezte erre \"{2}\"."
+#, fuzzy, python-brace-format
+#| msgid "User {0} has reverted chapter \"{1}\" to revision {2}."
+msgid "{0} has saved \"{1}\" revision {2}."
+msgstr ""
+"Az {0} felhasználó visszatért \"{1}\" fejezethez az {2} felülvizsgálni."
 
 #: apps/edit/templates/edit/edit_strings.html:6
-#, python-brace-format
-msgid "User {0} has deleted chapter \"{1}\"."
-msgstr "Az {0} felhasználó törölte az \"{1}\" fejezetet."
+#, fuzzy, python-brace-format
+#| msgid "User {0} has renamed chapter \"{1}\" to \"{2}\"."
+msgid "{0} has renamed chapter \"{1}\" to \"{2}\"."
+msgstr "Az {0} felhasználó az \"{1}\" fejezetet átnevezte erre \"{2}\"."
 
 #: apps/edit/templates/edit/edit_strings.html:7
-#, python-brace-format
-msgid "User {0} has created new chapter \"{1}\"."
-msgstr "Az {0} felhasználó létrehozta az új \"{1}\" fejezetet."
+#, fuzzy, python-brace-format
+#| msgid "User {0} has deleted chapter \"{1}\"."
+msgid "{0} has deleted chapter \"{1}\"."
+msgstr "Az {0} felhasználó törölte az \"{1}\" fejezetet."
 
 #: apps/edit/templates/edit/edit_strings.html:8
-#, python-brace-format
-msgid "User {0} has cloned chapter \"{1}\" from book \"{2}\"."
-msgstr "Az {0} felhasználó klónozta az \"{1}\" fejezetet az \"{2}\" könyvből."
+#, fuzzy, python-brace-format
+#| msgid "User {0} has created new chapter \"{1}\"."
+msgid "{0} has created new chapter \"{1}\"."
+msgstr "Az {0} felhasználó létrehozta az új \"{1}\" fejezetet."
 
 #: apps/edit/templates/edit/edit_strings.html:9
+#, fuzzy, python-brace-format
+#| msgid "User {0} has cloned chapter \"{1}\" from book \"{2}\"."
+msgid "{0} has cloned chapter \"{1}\" from book \"{2}\"."
+msgstr "Az {0} felhasználó klónozta az \"{1}\" fejezetet az \"{2}\" könyvből."
+
+#: apps/edit/templates/edit/edit_strings.html:10
 #, python-brace-format
 msgid "\"{0}\" is being published."
 msgstr "Az \"{0}\" megjelenik."
 
-#: apps/edit/templates/edit/edit_strings.html:10
-#, python-brace-format
-msgid "User {0} has created new section \"{1}\"."
+#: apps/edit/templates/edit/edit_strings.html:11
+#, fuzzy, python-brace-format
+#| msgid "User {0} has created new section \"{1}\"."
+msgid "{0} has created new section \"{1}\"."
 msgstr "Az {0} felhasználó létrehozta az új \"{1}\" szakaszt."
 
-#: apps/edit/templates/edit/edit_strings.html:11
-#, python-brace-format
-msgid "User {0} has reverted chapter \"{1}\" to revision {2}."
-msgstr "Az {0} felhasználó visszatért \"{1}\" fejezethez az {2} felülvizsgálni."
-
 #: apps/edit/templates/edit/edit_strings.html:12
-#, python-brace-format
-msgid "User {0} has saved notes for book \"{1}\"."
+#, fuzzy, python-brace-format
+#| msgid "User {0} has reverted chapter \"{1}\" to revision {2}."
+msgid "{0} has reverted chapter \"{1}\" to revision {2}."
+msgstr ""
+"Az {0} felhasználó visszatért \"{1}\" fejezethez az {2} felülvizsgálni."
+
+#: apps/edit/templates/edit/edit_strings.html:13
+#, fuzzy, python-brace-format
+#| msgid "User {0} has saved notes for book \"{1}\"."
+msgid "{0} has saved notes for book \"{1}\"."
 msgstr "Az {0} felhasználó elmentette az \"{1}\" könyv jegyzeteit."
 
-#: apps/edit/templates/edit/edit_strings.html:14
+#: apps/edit/templates/edit/edit_strings.html:15
 msgid "Loading chapter."
 msgstr "Fejezet betöltése."
 
-#: apps/edit/templates/edit/edit_strings.html:15
+#: apps/edit/templates/edit/edit_strings.html:16
 msgid "Saving chapter."
 msgstr "Fejezet mentése."
 
-#: apps/edit/templates/edit/edit_strings.html:16
+#: apps/edit/templates/edit/edit_strings.html:17
 msgid "Loading data."
 msgstr "Adat betöltése."
 
-#: apps/edit/templates/edit/edit_strings.html:17
+#: apps/edit/templates/edit/edit_strings.html:18
 msgid "Sending data."
 msgstr "Adat küldése."
 
-#: apps/edit/templates/edit/edit_strings.html:18
+#: apps/edit/templates/edit/edit_strings.html:19
 msgid "Set status."
 msgstr "Állapot beállítása."
 
-#: apps/edit/templates/edit/edit_strings.html:20
+#: apps/edit/templates/edit/edit_strings.html:21
 #: apps/edit/templates/edit/panel_toc.html:161
 #: apps/edit/templates/edit/panel_toc.html:175
 #: apps/edit/templates/edit/panel_toc.html:198
 msgid "Unhold"
 msgstr "Feloldás"
 
-#: apps/edit/templates/edit/edit_strings.html:22
+#: apps/edit/templates/edit/edit_strings.html:23
 msgid "Removing chapter"
 msgstr "Fejezet eltávolítása"
 
-#: apps/edit/templates/edit/edit_strings.html:23
+#: apps/edit/templates/edit/edit_strings.html:24
 msgid "Saved..."
 msgstr "Elmentve..."
 
-#: apps/edit/templates/edit/edit_strings.html:24
+#: apps/edit/templates/edit/edit_strings.html:25
 msgid "Chapter has been modified. Do you want to save it before closing?"
 msgstr "A fejezet módosításra került. Szeretné menteni bezárás előtt?"
 
-#: apps/edit/templates/edit/edit_strings.html:25
+#: apps/edit/templates/edit/edit_strings.html:26
 #: apps/edit/templates/edit/toolbar_book.html:6
 msgid "Table Of Contents"
 msgstr "Tartalomjegyzék"
 
-#: apps/edit/templates/edit/edit_strings.html:26
+#: apps/edit/templates/edit/edit_strings.html:27
 msgid "Choose your Design"
 msgstr "Válassza ki a Dizájnt"
 
-#: apps/edit/templates/edit/edit_strings.html:27
+#: apps/edit/templates/edit/edit_strings.html:28
 msgid "Loading media files"
 msgstr "Médiafájlok betöltése"
 
-#: apps/edit/templates/edit/edit_strings.html:28
+#: apps/edit/templates/edit/edit_strings.html:29
 msgid "Removing media files"
 msgstr "Médiafájlok eltávolítása"
 
-#: apps/edit/templates/edit/edit_strings.html:29
+#: apps/edit/templates/edit/edit_strings.html:30
 msgid "Chapter with this title already exists."
 msgstr "Fejezet ezzel a címmel már létezik."
 
-#: apps/edit/templates/edit/edit_strings.html:30
+#: apps/edit/templates/edit/edit_strings.html:31
 msgid "Couldn't create chapter."
 msgstr "Nem sikerült fejezetet létrehozni."
 
-#: apps/edit/templates/edit/edit_strings.html:31
+#: apps/edit/templates/edit/edit_strings.html:32
 msgid "Section with this title already exists."
 msgstr "Rovat ezzel a címmel már létezik."
 
-#: apps/edit/templates/edit/edit_strings.html:32
+#: apps/edit/templates/edit/edit_strings.html:33
 msgid "Couldn't create section."
 msgstr "Nem sikerült rovatot létrehozni."
 
-#: apps/edit/templates/edit/edit_strings.html:33
+#: apps/edit/templates/edit/edit_strings.html:34
 msgid "Set default size"
 msgstr "Alapértelmezett méret"
 
-#: apps/edit/templates/edit/edit_strings.html:34
+#: apps/edit/templates/edit/edit_strings.html:35
 #: apps/edit/templates/edit/panel_covers.html:182
 msgid "Edit Image Data"
 msgstr "Képadatok szerkesztése"
 
-#: apps/edit/templates/edit/edit_strings.html:35
+#: apps/edit/templates/edit/edit_strings.html:36
 #: apps/edit/templates/edit/panel_covers.html:186
 msgid "View Original Image"
 msgstr "Az eredeti kép megtekintése"
 
-#: apps/edit/templates/edit/edit_strings.html:36
+#: apps/edit/templates/edit/edit_strings.html:37
 #: apps/edit/templates/edit/panel_covers.html:190
 msgid "Delete Cover Image"
 msgstr "A borítókép törlése"
 
-#: apps/edit/templates/edit/edit_strings.html:37
+#: apps/edit/templates/edit/edit_strings.html:38
 msgid "Selected user already belongs to this role"
 msgstr "A kiválasztott felhasználó már szerepel ebben a feladadatkörben"
 
-#: apps/edit/templates/edit/edit_strings.html:38
+#: apps/edit/templates/edit/edit_strings.html:39
 msgid "Unable to remove user from role"
 msgstr "Nem távolítható el a felhasználó az alábbi feladatkörből"
 
-#: apps/edit/templates/edit/edit_strings.html:39
+#: apps/edit/templates/edit/edit_strings.html:40
 #: apps/edit/templates/edit/panel_aloha.html:25
 msgid "Find"
 msgstr "Keres"
 
-#: apps/edit/templates/edit/edit_strings.html:40
+#: apps/edit/templates/edit/edit_strings.html:41
 msgid "Next >"
 msgstr "Következő >"
 
-#: apps/edit/templates/edit/edit_strings.html:41
+#: apps/edit/templates/edit/edit_strings.html:42
 msgid "Revision reverted"
 msgstr "Visszatérve a korábbi változatra"
 
-#: apps/edit/templates/edit/edit_strings.html:42
+#: apps/edit/templates/edit/edit_strings.html:43
 msgid "Revision revert failed"
 msgstr "Nem sikerült visszatérni a korábbi változatra"
 
-#: apps/edit/templates/edit/edit_strings.html:43
+#: apps/edit/templates/edit/edit_strings.html:44
 msgid "RESTORE"
 msgstr "VISSZAÁLLÍTÁS"
 
-#: apps/edit/templates/edit/edit_strings.html:44
+#: apps/edit/templates/edit/edit_strings.html:45
 msgid "Do you really want to delete this Chapter Status?"
 msgstr "Biztosan törölni akarja ezt a fejezet állapotot?"
 
-#: apps/edit/templates/edit/edit_strings.html:45
+#: apps/edit/templates/edit/edit_strings.html:46
 msgid "You have no permission to delete this book"
 msgstr "Ön nem rendelkezik jogousultsággal az alábbi könyv törléséhez."
 
-#: apps/edit/templates/edit/edit_strings.html:46
+#: apps/edit/templates/edit/edit_strings.html:47
 #: apps/edit/templates/edit/panel_toc.html:156
 #: apps/edit/templates/edit/panel_toc.html:193
 #: apps/edit/templates/edit/panel_toc.html:280
@@ -1815,153 +1998,179 @@ msgstr "Ön nem rendelkezik jogousultsággal az alábbi könyv törléséhez."
 msgid "Terminate editing"
 msgstr "A szerkesztés megszüntetése"
 
-#: apps/edit/templates/edit/edit_strings.html:47
+#: apps/edit/templates/edit/edit_strings.html:48
 msgid "Editing was terminated by book administrator."
 msgstr "A szerkesztés be lett szüntetve a könyv adminisztrátora által."
 
-#: apps/edit/templates/edit/edit_strings.html:48
+#: apps/edit/templates/edit/edit_strings.html:49
 msgid "Your invitation has been sent"
 msgstr "A meghívót elküldtük"
 
-#: apps/edit/templates/edit/edit_strings.html:49
+#: apps/edit/templates/edit/edit_strings.html:50
 msgid "Editing terminated."
 msgstr "A szerkesztés megszüntetve."
 
-#: apps/edit/templates/edit/edit_strings.html:50
+#: apps/edit/templates/edit/edit_strings.html:51
 msgid "Access denied."
 msgstr "Hozzáférés megtagadva."
 
-#: apps/edit/templates/edit/edit_strings.html:51
+#: apps/edit/templates/edit/edit_strings.html:52
 msgid "Nothing has been exported."
 msgstr "Semmi sem került exportálásra."
 
-#: apps/edit/templates/edit/edit_strings.html:52
+#: apps/edit/templates/edit/edit_strings.html:53
 msgid "Exporting book."
 msgstr "Könyvek exportálása."
 
-#: apps/edit/templates/edit/edit_strings.html:54
+#: apps/edit/templates/edit/edit_strings.html:55
 #, python-format
 msgid "By: %%s"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:55
+#: apps/edit/templates/edit/edit_strings.html:56
 #, python-format
 msgid "Сhapter \"%%s\" status was changed to \"%%s\""
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:56
+#: apps/edit/templates/edit/edit_strings.html:57
 #, python-format
 msgid "Chapter \"%%s\" was created"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:57
+#: apps/edit/templates/edit/edit_strings.html:58
 #, python-format
 msgid "Chapter \"%%s\" was deleted"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:58
+#: apps/edit/templates/edit/edit_strings.html:59
 #, python-format
 msgid "Section \"%%s\" was created"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:59
+#: apps/edit/templates/edit/edit_strings.html:60
 #, python-format
 msgid "Section \"%%s\" was deleted"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:60
+#: apps/edit/templates/edit/edit_strings.html:61
 #, python-format
 msgid "Section \"%%s\" with chapters inside was deleted"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:61
+#: apps/edit/templates/edit/edit_strings.html:62
 #, python-format
 msgid "Chapter was renamed from \"%%s\" to \"%%s\""
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:62
+#: apps/edit/templates/edit/edit_strings.html:63
 #, python-format
 msgid "Section was renamed from \"%%s\" to \"%%s\""
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:63
+#: apps/edit/templates/edit/edit_strings.html:64
 #, python-format
 msgid "Chapter \"%%s\" put on hold"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:64
+#: apps/edit/templates/edit/edit_strings.html:65
 #, python-format
 msgid "Chapter \"%%s\" unheld"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:65
+#: apps/edit/templates/edit/edit_strings.html:66
 #, python-format
 msgid "Chapter \"%%s\" was locked"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:66
+#: apps/edit/templates/edit/edit_strings.html:67
 #, python-format
 msgid "Chapter \"%%s\" was unlocked"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:67
-msgid "Table of contents order was changed"
-msgstr ""
-
 #: apps/edit/templates/edit/edit_strings.html:68
-#, python-format
-msgid "User \"%%s\" joined the editor"
+msgid "Table of contents order was changed"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:69
 #, python-format
-msgid "User \"%%s\" left the editor"
+msgid "\"%%s\" joined the editor"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:70
-msgid "Notes were changed"
+#, python-format
+msgid "\"%%s\" left the editor"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:71
-#, python-format
-msgid "New attachment \"%%s\" uploaded"
+msgid "Notes were changed"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:72
 #, python-format
-msgid "Attachment \"%%s\" was deleted"
+msgid "New attachment \"%%s\" uploaded"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:73
 #, python-format
-msgid "New cover \"%%s\" uploaded"
+msgid "Attachment \"%%s\" was deleted"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:74
 #, python-format
-msgid "Cover \"%%s\" was updated"
+msgid "New cover \"%%s\" uploaded"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:75
 #, python-format
-msgid "Cover \"%%s\" was deleted"
+msgid "Cover \"%%s\" was updated"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:76
 #, python-format
-msgid "Book export \"%%s\" was successful"
+msgid "Cover \"%%s\" was deleted"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:77
-msgid "Do you want to delete this endnote?"
+#, python-format
+msgid "Book export \"%%s\" was successful"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:78
-msgid "endnotes"
+msgid "Do you want to delete this endnote?"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:79
+msgid "endnotes"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:80
 msgid "endnotes without reference"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:81
+#, fuzzy
+#| msgid "Insert"
+msgid "Inserted by"
+msgstr "Beillesztés"
+
+#: apps/edit/templates/edit/edit_strings.html:82
+#, fuzzy
+#| msgid "Deleted"
+msgid "Deleted by"
+msgstr "Törölve"
+
+#: apps/edit/templates/edit/edit_strings.html:83
+msgid "Start columns: "
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:85
+#, fuzzy
+#| msgid "Do you want to remove this export?"
+msgid "Do you want to remove the columns?"
+msgstr "Valóban törölni akarja az exportálást?"
+
+#: apps/edit/templates/edit/edit_strings.html:86
+msgid "Some output formats do not have support for columns."
 msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:13
@@ -2013,7 +2222,7 @@ msgstr "A könyv fejezeteinek száma"
 msgid "Book character count (with spaces)"
 msgstr "A könyv fejezeteinek száma (szóközökkel)"
 
-#: apps/edit/templates/edit/panel_aloha.html:57 apps/edit/views.py:412
+#: apps/edit/templates/edit/panel_aloha.html:57 apps/edit/views.py:424
 #: apps/reader/views.py:252
 msgid "Chapter"
 msgstr "Fejezet"
@@ -2124,7 +2333,7 @@ msgid "Edit metadata"
 msgstr "Metaadatok Szerkesztése"
 
 #: apps/edit/templates/edit/panel_aloha.html:260
-#: apps/edit/templates/edit/panel_publish.html:512
+#: apps/edit/templates/edit/panel_publish.html:503
 msgid "Download"
 msgstr "Letöltés"
 
@@ -2138,6 +2347,28 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:305
 msgid "Discard changes"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:323
+#, fuzzy
+#| msgid "Number of pages"
+msgid "Number of columns"
+msgstr "Az oldalak száma"
+
+#: apps/edit/templates/edit/panel_aloha.html:330
+msgid "Vertical alignment"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:333
+msgid "Turn off"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:340
+msgid "Column gap (in mm)"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:347
+msgid "Column continues after the marker"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:4
@@ -2164,7 +2395,10 @@ msgid ""
 "Error: The selected filetype is not supported. Please select one of the "
 "following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
 "SVG, EPS, AI, INDD."
-msgstr "Hiba: A kiválasztott fájltípus nem támogatott. Kérjük, válasszon az alábbi fájltípusokból, és próbálkozzon újra: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+msgstr ""
+"Hiba: A kiválasztott fájltípus nem támogatott. Kérjük, válasszon az alábbi "
+"fájltípusokból, és próbálkozzon újra: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, "
+"PS, SVG, EPS, AI, INDD."
 
 #: apps/edit/templates/edit/panel_covers.html:38
 msgid "Important Info"
@@ -2172,13 +2406,19 @@ msgstr "Fontos megjegyzés"
 
 #: apps/edit/templates/edit/panel_covers.html:40
 msgid ""
-"The cover manager allows you to upload, manage and publish your book covers."
-" Please upload your ebook cover image files (JPEG, GIF or PNG format) in the"
-" appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
+"The cover manager allows you to upload, manage and publish your book covers. "
+"Please upload your ebook cover image files (JPEG, GIF or PNG format) in the "
+"appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
 "(in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front "
-"cover, spine and back cover of your print books can be uploaded and managed,"
-" but will be kept separate from the text of the book when publishing it."
-msgstr "A borító kezelő lehetővé teszi, hogy feltöltse, kezelje és közzétegye a könyvei borítóit. Kérjük töltse fel ebook borítókép fájljait (JPEG, GIF vagy PNG formátumban) a megfelelő méretekben EPUB, MOBI, PDF képernyőhöz és ODT kimenethez. Illusztrációt tölthet fel az előlaphoz, a gerinchez és a hátlaphoz a nyomtatott könyvek számára, (TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI vagy INDD formátumban) amelyeket bármikor kezelhet."
+"cover, spine and back cover of your print books can be uploaded and managed, "
+"but will be kept separate from the text of the book when publishing it."
+msgstr ""
+"A borító kezelő lehetővé teszi, hogy feltöltse, kezelje és közzétegye a "
+"könyvei borítóit. Kérjük töltse fel ebook borítókép fájljait (JPEG, GIF vagy "
+"PNG formátumban) a megfelelő méretekben EPUB, MOBI, PDF képernyőhöz és ODT "
+"kimenethez. Illusztrációt tölthet fel az előlaphoz, a gerinchez és a "
+"hátlaphoz a nyomtatott könyvek számára, (TIFF, XCF, PSD, PDF, PS, SVG, EPS, "
+"AI vagy INDD formátumban) amelyeket bármikor kezelhet."
 
 #: apps/edit/templates/edit/panel_covers.html:51
 #: apps/edit/templates/edit/panel_covers.html:108
@@ -2205,7 +2445,7 @@ msgid "Image dimensions"
 msgstr "A kép mérete"
 
 #: apps/edit/templates/edit/panel_history.html:4
-#: apps/edit/templates/edit/toolbar_book.html:11 apps/edit/views.py:430
+#: apps/edit/templates/edit/toolbar_book.html:11 apps/edit/views.py:442
 msgid "Book History"
 msgstr "A könyv története"
 
@@ -2234,7 +2474,7 @@ msgid "Clear filters"
 msgstr "Szűrők eltávolítása"
 
 #: apps/edit/templates/edit/panel_history.html:24
-#: apps/edit/templates/edit/panel_publish.html:489
+#: apps/edit/templates/edit/panel_publish.html:480
 msgid "Action"
 msgstr "Művelet"
 
@@ -2259,7 +2499,9 @@ msgstr "Fájlok hozzáadása..."
 msgid ""
 "All images added to your book are listed here as well as any additional "
 "files you have uploaded."
-msgstr "Minden hozzáadott kép és más feltöltött fájlok is itt egy listában megtekinthetőek."
+msgstr ""
+"Minden hozzáadott kép és más feltöltött fájlok is itt egy listában "
+"megtekinthetőek."
 
 #: apps/edit/templates/edit/panel_media.html:34
 msgid "preview"
@@ -2285,7 +2527,9 @@ msgstr "Médiafájlok eltávolítása"
 msgid ""
 "Are you sure you would like to delete media files? You will not be able to "
 "undo this operation!"
-msgstr "Biztos benne, hogy törölni szeretné a médiafájlokat? Ez nem visszavonható művelet!"
+msgstr ""
+"Biztos benne, hogy törölni szeretné a médiafájlokat? Ez nem visszavonható "
+"művelet!"
 
 #: apps/edit/templates/edit/panel_media.html:60
 #: apps/edit/templates/edit/panel_toc.html:95
@@ -2308,7 +2552,7 @@ msgid "You can only upload JPEG file as cover image."
 msgstr "Csak JPEG fájlt tölthet fel borítóképnek."
 
 #: apps/edit/templates/edit/panel_publish.html:4
-#: apps/edit/templates/edit/panel_publish.html:502
+#: apps/edit/templates/edit/panel_publish.html:493
 #: apps/edit/templates/edit/toolbar_book.html:16
 msgid "Publish"
 msgstr "Közzététel"
@@ -2327,8 +2571,8 @@ msgstr "Könyv Infó"
 
 #: apps/edit/templates/edit/panel_publish.html:40
 #: apps/edit/templates/edit/panel_settings.html:4
-#: apps/edit/templates/edit/panel_settings.html:60
-#: apps/edit/templates/edit/panel_settings.html:65
+#: apps/edit/templates/edit/panel_settings.html:64
+#: apps/edit/templates/edit/panel_settings.html:69
 msgid "Book Settings"
 msgstr "Könyv beállítások"
 
@@ -2453,8 +2697,8 @@ msgstr ""
 #: apps/edit/templates/edit/panel_publish.html:295
 #: apps/edit/templates/edit/panel_publish.html:326
 #: apps/edit/templates/edit/panel_publish.html:329
-#: apps/edit/templates/edit/panel_publish.html:360
-#: apps/edit/templates/edit/panel_publish.html:363
+#: apps/edit/templates/edit/panel_publish.html:351
+#: apps/edit/templates/edit/panel_publish.html:354
 msgid "Styling"
 msgstr "Formázás"
 
@@ -2462,7 +2706,7 @@ msgstr "Formázás"
 #: apps/edit/templates/edit/panel_publish.html:260
 #: apps/edit/templates/edit/panel_publish.html:294
 #: apps/edit/templates/edit/panel_publish.html:328
-#: apps/edit/templates/edit/panel_publish.html:362
+#: apps/edit/templates/edit/panel_publish.html:353
 msgid "Manually edit CSS style"
 msgstr ""
 
@@ -2473,21 +2717,18 @@ msgstr ""
 #: apps/edit/templates/edit/panel_publish.html:249
 #: apps/edit/templates/edit/panel_publish.html:283
 #: apps/edit/templates/edit/panel_publish.html:317
-#: apps/edit/templates/edit/panel_publish.html:351
 msgid "Cover"
 msgstr "Borító"
 
 #: apps/edit/templates/edit/panel_publish.html:251
 #: apps/edit/templates/edit/panel_publish.html:285
 #: apps/edit/templates/edit/panel_publish.html:319
-#: apps/edit/templates/edit/panel_publish.html:353
 msgid "Cover image"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:253
 #: apps/edit/templates/edit/panel_publish.html:287
 #: apps/edit/templates/edit/panel_publish.html:321
-#: apps/edit/templates/edit/panel_publish.html:355
 msgid "No Cover"
 msgstr "Nincs borító"
 
@@ -2503,84 +2744,76 @@ msgstr ""
 msgid "XHTML Settings"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:379
-#: apps/edit/templates/edit/panel_publish.html:492
+#: apps/edit/templates/edit/panel_publish.html:370
+#: apps/edit/templates/edit/panel_publish.html:483
 msgid "Remove export"
 msgstr "Exportálás eltávolítása"
 
-#: apps/edit/templates/edit/panel_publish.html:382
+#: apps/edit/templates/edit/panel_publish.html:373
 msgid "Do you want to remove this export?"
 msgstr "Valóban törölni akarja az exportálást?"
 
-#: apps/edit/templates/edit/panel_publish.html:385
-msgid "No"
-msgstr "Nem"
-
-#: apps/edit/templates/edit/panel_publish.html:386
-msgid "Yes"
-msgstr "Igen"
-
-#: apps/edit/templates/edit/panel_publish.html:400
+#: apps/edit/templates/edit/panel_publish.html:391
 msgid "Choose format for export"
 msgstr "Válasszon formátumot az exportáláshoz"
 
-#: apps/edit/templates/edit/panel_publish.html:402
+#: apps/edit/templates/edit/panel_publish.html:393
 msgid "No available publish formats."
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:413
+#: apps/edit/templates/edit/panel_publish.html:404
 msgid "Book PDF"
 msgstr "PDF könyv"
 
-#: apps/edit/templates/edit/panel_publish.html:416
-#: apps/edit/templates/edit/panel_publish.html:427
-#: apps/edit/templates/edit/panel_publish.html:438
-#: apps/edit/templates/edit/panel_publish.html:451
-#: apps/edit/templates/edit/panel_publish.html:462
+#: apps/edit/templates/edit/panel_publish.html:407
+#: apps/edit/templates/edit/panel_publish.html:418
+#: apps/edit/templates/edit/panel_publish.html:429
+#: apps/edit/templates/edit/panel_publish.html:442
+#: apps/edit/templates/edit/panel_publish.html:453
 msgid "settings"
 msgstr "beállítások"
 
-#: apps/edit/templates/edit/panel_publish.html:424
+#: apps/edit/templates/edit/panel_publish.html:415
 msgid "Screen PDF"
 msgstr "PDF képernyő"
 
-#: apps/edit/templates/edit/panel_publish.html:435
+#: apps/edit/templates/edit/panel_publish.html:426
 msgid "EPUB"
 msgstr "EPUB"
 
-#: apps/edit/templates/edit/panel_publish.html:448
+#: apps/edit/templates/edit/panel_publish.html:439
 msgid "MOBI"
 msgstr "MOBI"
 
-#: apps/edit/templates/edit/panel_publish.html:459
+#: apps/edit/templates/edit/panel_publish.html:450
 msgid "XHTML"
 msgstr "XHTML"
 
-#: apps/edit/templates/edit/panel_publish.html:469
+#: apps/edit/templates/edit/panel_publish.html:460
 msgid "EXPORT YOUR BOOK"
 msgstr "EXPORTÁLJA KÖNYVÉT"
 
-#: apps/edit/templates/edit/panel_publish.html:519
+#: apps/edit/templates/edit/panel_publish.html:510
 msgid "Failed"
 msgstr "Sikertelen"
 
-#: apps/edit/templates/edit/panel_publish.html:532
+#: apps/edit/templates/edit/panel_publish.html:523
 msgid "pages"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:550
+#: apps/edit/templates/edit/panel_publish.html:541
 msgid "comments"
 msgstr "hozzászólások"
 
-#: apps/edit/templates/edit/panel_publish.html:559
+#: apps/edit/templates/edit/panel_publish.html:550
 msgid "Your comment here"
 msgstr "Itt tud hozzászólni"
 
-#: apps/edit/templates/edit/panel_publish.html:560
+#: apps/edit/templates/edit/panel_publish.html:551
 msgid "SEND COMMENT"
 msgstr "HOSSZÁSZÓLÁS KÜLDÉSE"
 
-#: apps/edit/templates/edit/panel_publish.html:580
+#: apps/edit/templates/edit/panel_publish.html:571
 msgid "Exporting, please wait"
 msgstr "Exportálás, kérem várjon"
 
@@ -2588,35 +2821,39 @@ msgstr "Exportálás, kérem várjon"
 msgid "Book"
 msgstr "Könyv"
 
-#: apps/edit/templates/edit/panel_settings.html:26
+#: apps/edit/templates/edit/panel_settings.html:17
+msgid "General"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_settings.html:30
 msgid "Workflow"
 msgstr "Munkafolyamat"
 
-#: apps/edit/templates/edit/panel_settings.html:27
+#: apps/edit/templates/edit/panel_settings.html:31
 msgid "Chapter status"
 msgstr "Fejezet állapota"
 
-#: apps/edit/templates/edit/panel_settings.html:32
+#: apps/edit/templates/edit/panel_settings.html:36
 msgid "Metadata"
 msgstr "Metaadatok"
 
-#: apps/edit/templates/edit/panel_settings.html:33 apps/edit/views.py:46
+#: apps/edit/templates/edit/panel_settings.html:37 apps/edit/views.py:47
 msgid "Book Metadata"
 msgstr "A könyv metaadatai"
 
-#: apps/edit/templates/edit/panel_settings.html:37
+#: apps/edit/templates/edit/panel_settings.html:41
 msgid "Security"
 msgstr "Biztonság"
 
-#: apps/edit/templates/edit/panel_settings.html:46
+#: apps/edit/templates/edit/panel_settings.html:50
 msgid "Visibility"
 msgstr "Láthatóság"
 
-#: apps/edit/templates/edit/panel_settings.html:61
+#: apps/edit/templates/edit/panel_settings.html:65
 msgid "Settings module not available."
 msgstr "A beállítások modul nem elérhető."
 
-#: apps/edit/templates/edit/panel_settings.html:66
+#: apps/edit/templates/edit/panel_settings.html:70
 msgid "Permissions required to access this module."
 msgstr ""
 
@@ -2668,7 +2905,9 @@ msgstr "Fejezet eltávolítása"
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
-msgstr "Biztos benne, hogy törölni szeretné ezt a fejezetet? Minden hozzá tartozó adat elfog veszni és később nem fogja tudni visszaállítani!"
+msgstr ""
+"Biztos benne, hogy törölni szeretné ezt a fejezetet? Minden hozzá tartozó "
+"adat elfog veszni és később nem fogja tudni visszaállítani!"
 
 #: apps/edit/templates/edit/panel_toc.html:114
 msgid "Remove section"
@@ -2678,7 +2917,9 @@ msgstr "Szakasz eltávolítása"
 msgid ""
 "Are you sure you would like to delete this section? You will lose all data "
 "associated to this section and you will not be able to undo this operation!"
-msgstr "Biztos benne, hogy törölni szeretné ezt a rovatot? Az ehhez kapcsolódó összes adat elfog veszni, amiket később nem lehet visszaállítani!"
+msgstr ""
+"Biztos benne, hogy törölni szeretné ezt a rovatot? Az ehhez kapcsolódó "
+"összes adat elfog veszni, amiket később nem lehet visszaállítani!"
 
 #: apps/edit/templates/edit/panel_toc.html:126
 msgid "Delete chapters under this section"
@@ -2688,7 +2929,9 @@ msgstr "A fejezetek törlése az alábbi rovat alatt"
 msgid ""
 "All books should contain at least one section and can have as many chapters "
 "as you like."
-msgstr "Minden könyvnek  tartalmaznia kell legalább egy rovatot, annyi fejezettel, amennyit csak szeretne."
+msgstr ""
+"Minden könyvnek  tartalmaznia kell legalább egy rovatot, annyi fejezettel, "
+"amennyit csak szeretne."
 
 #: apps/edit/templates/edit/panel_toc.html:151
 #: apps/edit/templates/edit/panel_toc.html:274
@@ -2776,39 +3019,51 @@ msgid "RENAME"
 msgstr "ÁTNEVEZÉS"
 
 #: apps/edit/views.py:44
+#, fuzzy
+#| msgid "User settings"
+msgid "General Settings"
+msgstr "Felhasználói beállítások"
+
+#: apps/edit/views.py:45
 msgid "Book Language"
 msgstr "A könyv nyelve"
 
-#: apps/edit/views.py:45
+#: apps/edit/views.py:46
 msgid "Book License"
 msgstr "Könyv liszensz"
 
-#: apps/edit/views.py:576
+#: apps/edit/views.py:393
+#, fuzzy, python-brace-format
+#| msgid "Revision reverted"
+msgid "Revision {0} saved"
+msgstr "Visszatérve a korábbi változatra"
+
+#: apps/edit/views.py:588
 msgid "Book History | Chapter Revision"
 msgstr "Könyv Előzmények | Fejezet Változatok"
 
-#: apps/edit/views.py:599
+#: apps/edit/views.py:611
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "Visszaállítva a következő változatra: %s."
 
-#: apps/edit/views.py:618
+#: apps/edit/views.py:630
 msgid "Chapter revision successfully reverted."
 msgstr "A fejezet korábbi változatának visszaállítása sikeresen megtörtént."
 
-#: apps/edit/views.py:620
+#: apps/edit/views.py:632
 msgid "Chapter revision could not be reverted."
 msgstr "A fejezet a korábbi változatra nem állítható vissza."
 
-#: apps/edit/views.py:687
+#: apps/edit/views.py:701
 msgid "Successfully saved settings."
 msgstr "A beállítások sikeres mentése megtörtént."
 
-#: apps/edit/views.py:689
+#: apps/edit/views.py:703
 msgid "You have no permissions to execute this action."
 msgstr ""
 
-#: apps/edit/views.py:692
+#: apps/edit/views.py:706
 msgid "Unknown error while saving changes."
 msgstr "Ismeretlen hiba a változtatások mentése közben."
 
@@ -2912,7 +3167,7 @@ msgstr ""
 msgid "Export Settings"
 msgstr ""
 
-#: apps/importer/forms.py:38
+#: apps/importer/forms.py:47 apps/importer/forms.py:49
 msgid "Filetype not supported."
 msgstr "A fájltípusa nem támogatott."
 
@@ -3162,7 +3417,9 @@ msgstr "A csoport törlése"
 msgid ""
 "Are you sure you would like to delete this group? You will not be able to "
 "undo this operation!"
-msgstr "Biztos, hogy törölni szeretné az alábbi csoportot? A művelet nem visszavonható!"
+msgstr ""
+"Biztos, hogy törölni szeretné az alábbi csoportot? A művelet nem "
+"visszavonható!"
 
 #: apps/portal/templates/portal/people.html:15
 msgid "All people"
@@ -3244,7 +3501,9 @@ msgstr "Könyvborító-kép"
 msgid ""
 "Are you sure you would like to delete this book? You will lose all data "
 "associated to this book and you will not be able to undo this operation!"
-msgstr "Biztos benne, hogy törölni szeretné ezt a könyvet? Az ehhez kapcsolódó összes adat elfog veszni, amiket később nem lehet visszaállítani."
+msgstr ""
+"Biztos benne, hogy törölni szeretné ezt a könyvet? Az ehhez kapcsolódó "
+"összes adat elfog veszni, amiket később nem lehet visszaállítani."
 
 #: apps/reader/templates/reader/book_delete.html:13
 msgid "Type full title of the book to delete it"
@@ -3446,26 +3705,34 @@ msgstr "visszaállítás"
 msgid ""
 "Note: When importing formulas have been found and highlighted in the text, "
 "which are not supported by many e-readers and easy editor."
-msgstr "Megjegyzés: Importálás alkalmával fordulhatnak elő hibák. Lehet egyes szövegeket nem tud kezelni néhány e-olvasó vagy egyszerűbb szövegszerkesztő."
+msgstr ""
+"Megjegyzés: Importálás alkalmával fordulhatnak elő hibák. Lehet egyes "
+"szövegeket nem tud kezelni néhány e-olvasó vagy egyszerűbb szövegszerkesztő."
 
 #. Translators: Warning during the DOCX import
 #: importer/docx/docximporter.py:54
 msgid ""
 "Note: When importing foot or endnotes were found, which are not yet "
 "supported by easy editor."
-msgstr "Megjegyzés: Importláskor a lábjegyzeteket vagy végjegyteket, még nem tudja jól kezelni az egyszerű szerkesztő."
+msgstr ""
+"Megjegyzés: Importláskor a lábjegyzeteket vagy végjegyteket, még nem tudja "
+"jól kezelni az egyszerű szerkesztő."
 
 #: importer/docx/docximporter.py:97
 msgid ""
-"The file could not be imported because it was not saved in the .docx format."
-" Try to open the file in Word and save it as a .docx."
-msgstr "A fájl nem importálható, mert nem volt mentve a .docx formátumban. Próbálja megnyitni a fájlt a Word-ban és mentse el azt egy .docx formátumban."
+"The file could not be imported because it was not saved in the .docx format. "
+"Try to open the file in Word and save it as a .docx."
+msgstr ""
+"A fájl nem importálható, mert nem volt mentve a .docx formátumban. Próbálja "
+"megnyitni a fájlt a Word-ban és mentse el azt egy .docx formátumban."
 
 #: importer/docx/docximporter.py:100
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
-msgstr "A docx feltöltött fájl hibákat tartalmaz, és nem konvertálható. Kérjük, lépjen kapcsolatba az ügyfélszolgálattal."
+msgstr ""
+"A docx feltöltött fájl hibákat tartalmaz, és nem konvertálható. Kérjük, "
+"lépjen kapcsolatba az ügyfélszolgálattal."
 
 #: importer/docx/docximporter.py:147
 msgid "Note: Some images couldn't be imported."
