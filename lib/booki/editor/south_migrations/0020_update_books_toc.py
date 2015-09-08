@@ -11,16 +11,17 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         "Write your forwards methods here."
-        for book_version in BookVersion.objects.all():
+        for book_version in orm.BookVersion.objects.all():
+            toc_items = orm.BookToc.objects.filter(version=book_version).order_by("-weight")            
             prev_section = None
 
-            for toc_item in book_version.get_toc():
+            for toc_item in toc_items:
                 # if item is section, the parent remains in None 
                 # but assign it as prev_section
-                if toc_item.is_section():
+                if toc_item.typeof == 0:
                     prev_section = toc_item
                 # if item is chapter, we assign prev_section as parent
-                elif toc_item.is_chapter():
+                elif toc_item.typeof == 1:
                     if prev_section:
                         toc_item.parent = prev_section
                         toc_item.save()
