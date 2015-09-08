@@ -381,6 +381,10 @@ class EpubImporter(object):
             ol = li.getparent()
 
             li.remove(ol_li_span)
+
+            if 'id' not in li.attrib or ol is None:
+                continue
+
             endnotes_temp_dict[li.attrib['id']] = {'endnote': li.text_content().strip()}
             ol.remove(li)
 
