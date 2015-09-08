@@ -677,8 +677,13 @@ class Attachment(models.Model):
         im_path = uploadAttachmentTo(self, filename)
         im_url = getAttachmentUrl(self, filename)
         if not os.path.exists(im_path):
-            im = createThumbnail(self.attachment, size=size)
-            im.save(im_path, 'JPEG')
+            try:
+                im = createThumbnail(self.attachment, size=size)
+                if im.mode == 'P':
+                    im = im.convert('RGB')
+                im.save(im_path, 'JPEG')
+            except:
+                logger.exception('Can not create thumbnail.')
         return im_url
 
     class Meta:
