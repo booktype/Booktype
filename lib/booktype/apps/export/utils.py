@@ -150,7 +150,7 @@ def set_booktype_metada(epub_book, book):
 
     for info in book.metadata.exclude(name__in=excluded):
         _standard, name = info.name.split('.')
-        if _standard in ['DCTERMS', 'BKTERMS']:
+        if _standard in ['DCTERMS', 'BKTERMS', 'ADD_META_TERMS']:
             # do other stuff
             epub_book.add_metadata(
                 None, 'meta', info.value, {'property': '%s:%s' % (_standard.lower(), name)})
@@ -182,6 +182,7 @@ def export_book(filename, book_version, **kwargs):
     # set metadata to the epub book
     epub_book = set_booktype_metada(epub_book, book)
     epub_book.add_prefix('bkterms', 'http://booktype.org/')
+    epub_book.add_prefix('add_meta_terms', 'http://booktype.org/additional-metadata/')
 
     toc = OrderedDict()
     spine = ['nav']

@@ -3375,3 +3375,20 @@ def remote_load_book_settings(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
     return {'track_changes': book_version.track_changes}
+
+
+def remote_remove_metafield(request, message, bookid, version):
+    """Removes an additional metadata field"""
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.manage_metadata'):
+        raise PermissionDenied
+
+    try:
+        meta_name = message.get('toDelete')
+        models.Info.objects.filter(book=book, name=meta_name).delete()
+    except Exception as e:
+        return {'result': False, 'message': e}
+
+    return {'result': True}

@@ -35,6 +35,7 @@
                     {% check_perm 'edit.manage_metadata' %}
                     <h4>{% trans "Metadata" %}</h4>
                     <li><a href="#metadata" data-toggle="tab">{% trans "Book Metadata" %}</a></li>
+                    <li><a href="#additional-metadata" data-toggle="tab">{% trans "Additional Metadata" %}</a></li>
                     <br>
                     {% endcheck_perm %}
 
@@ -70,6 +71,18 @@
     <p>{% trans "Permissions required to access this module." %}</p>
 </div>
 
+<div class="template templateDeleteMetaField">
+    <button type="button" class="close meta_in_db" aria-hidden="true">×</button>
+</div>
+
+
+<script type="text/template" class="templateNewMetadataField">
+    <li>
+        <button type="button" class="close not_in_db" aria-hidden="true">×</button>
+        <label for="<%= field_name %>"><%= field_label %>:</label>
+        <textarea class="form-control meta-dynamic" cols="40" id="id_<%= field_name %>" name="<%= field_name %>" rows="10"></textarea>
+    </li>
+</script>
 
 <script type="text/template" class="templateFlashMessage">
     <div class="alert alert-<%= alert_type %> alert-book-settings alert-dismissable fade in bk-dismiss" data-dismiss-secs="10">
