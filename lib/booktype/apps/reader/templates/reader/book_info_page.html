@@ -151,17 +151,17 @@
                     {% for admin in book_admins %}
                     <li>
                         <figure>
-                            {% profile_image admin %}
+                            {% profile_image admin.user %}
                         </figure>
                         <div class="list-info">
                             <h4>
-                              {% if can_view_user_info or request.user == admin %}
-                                <a href="{% url 'accounts:view_profile' admin %}">{{ admin.username }}</a>
+                              {% if can_view_user_info or request.user == admin.user %}
+                                <a href="{% url 'accounts:view_profile' admin.user %}">{{ admin.user.username }}</a>
                               {% else %}
-                                {{ admin.username }}
+                                {{ admin.user.username }}
                               {% endif %}
                             </h4>
-                            <p>{{ admin.get_full_name }}</p>
+                            <p>{{ admin.user.get_full_name }}</p>
                         </div>
                     </li>
                     {% endfor %}
