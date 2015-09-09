@@ -1,6 +1,6 @@
 {% load i18n %}
 <h4 class="border-bottom">
-  {{ option_title }}
+  {{ option_title }} {% block extra_title %}{% endblock %}
 </h4>
 
 <form enctype="multipart/form-data" action="{% url 'edit:settings' book.url_title %}" method="POST" class="form-inline-select">
@@ -11,11 +11,13 @@
         {% block setting_form %}
         {{ form.as_ul }}
         {% endblock %}
-        <li>
-        <input type="submit" id="saveBookSettings" class="btn btn-default" name="submit" value="{% block save_btn %}{% trans 'Save changes' %}{% endblock %}">
-        <button type="button" class="btn btn-default" data-href="{{ form.get_cancel_url }}">
-            {% trans "Cancel" %}
-        </button>
-      </li>
+        <li class="setting-controls">
+            <input type="submit" id="saveBookSettings" class="btn btn-default" name="submit" value="{% block save_btn %}{% trans 'Save changes' %}{% endblock %}">
+            <button type="button" class="btn btn-default" data-href="{{ form.get_cancel_url }}">
+                {% trans "Cancel" %}
+            </button>
+        </li>
     </ul>
 </form>
+
+{% block extra_content %}{% endblock %}

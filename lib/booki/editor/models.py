@@ -156,6 +156,7 @@ class BookiGroup(models.Model):
 DC = 'DC'  # Dublin Core
 DCTERMS = 'DCTERMS'  # http://dublincore.org/documents/dcmi-terms/#H2
 BKTERMS = 'BKTERMS'  # custom booktype metadata terms
+ADD_META_TERMS = 'ADD_META_TERMS'  # custom booktype prefix for additional metadata
 
 # I'm using a list instead of a dict because I want
 # to mantain certain order on forms.MetadataForm fields
@@ -275,7 +276,8 @@ class Book(models.Model):
     @property
     def metadata(self):
         return self.info_set.filter(
-            Q(name__startswith=DC) | Q(name__startswith=DCTERMS) | Q(name__startswith=BKTERMS)
+            Q(name__startswith=DC) | Q(name__startswith=DCTERMS) |
+            Q(name__startswith=BKTERMS) | Q(name__startswith=ADD_META_TERMS)
         )
 
     @property
