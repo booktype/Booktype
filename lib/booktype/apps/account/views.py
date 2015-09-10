@@ -121,7 +121,8 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
 
         # if only admin import then deny user permission to upload books
         if context['only_admin_import']:
-            context['can_upload_book'] = False
+            if not self.request.user.is_superuser:
+                context['can_upload_book'] = False
 
         # change title in case of not authenticated user
         if not self.request.user.is_authenticated() or \
