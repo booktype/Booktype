@@ -1,0 +1,72 @@
+{% extends "edit/_settings_form.html" %}
+{% load i18n %}
+{% block extra_title %}
+<div class="btn-toolbar float-right">
+    {% if not form.limit_reached %}
+    <button href="#appendField" role="button" class="btn btn-primary" data-toggle="modal" data-max-limit="{{ form.max_limit }}">
+        <i class="icon-plus"></i> {% trans "Add Field" %}
+    </button>
+    {% endif %}
+</div>
+<script>
+    // append delete `X` button to dynamic metadata already stored on db
+    $('textarea.in_db').each(function () {
+        var deleteBtn = window.booktype.ui.getTemplate('templateDeleteMetaField');
+        var parent = $(this).closest('li');
+        parent.prepend(deleteBtn);
+    });
+</script>
+{% endblock %}
+
+{% block extra_content %}
+<div id="appendField" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>{% trans "Add another metadata field" %}</h3>
+            </div>
+            <div class="modal-body">
+                <ul class="list">
+                    <li>
+                        {% trans "Please, set a name to your metadata field" %}:
+                        <input class="form-control" name="new_field_name" type="text">
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+                    {% trans "Close" %}
+                </button>
+                <button id="insert_field" class="btn btn-primary" data-meta-prefix='{{ form.META_PREFIX }}' disabled>
+                    {% trans "Append" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="deleteMetaFieldModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>{% trans "Delete metadata field" %}</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                {% trans "Are you sure you would like to remove this field? You will not be able to undo this operation!" %}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+                    {% trans "Cancel" %}
+                </button>
+                <button id="confirm_delete" class="btn btn-primary">
+                    {% trans "Confirm" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

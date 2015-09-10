@@ -45,6 +45,7 @@ VALID_SETTINGS = {
     'language': _('Book Language'),
     'license': _('Book License'),
     'metadata': _('Book Metadata'),
+    'additional-metadata': _('Additional Metadata'),
     'roles': _('Roles'),
     'permissions': _('Permissions'),
     'chapter-status': _('Chapter Status'),

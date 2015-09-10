@@ -1,20 +1,25 @@
 # -*- coding: utf-8 -*-
+import sys
 import json
+import logging
 
 from django import forms
+from django.conf import settings
 from django.db.models import Count
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+from booktype.utils import security, config
 from booktypecontrol.forms import DefaultRolesForm
 from booktype.apps.portal.forms import SpanErrorList
 from booktype.apps.core.models import BookRole, Role
 from booktype.apps.core.forms import BaseBooktypeForm
-from booktype.utils import security
 from booki.editor.models import (
     Language, Info, License, BookSetting, BookStatus)
 
 from booki.editor.models import METADATA_FIELDS
+
+logger = logging.getLogger('booktype.apps.edit.forms')
 
 
 class BaseSettingsForm(BaseBooktypeForm):
@@ -200,7 +205,7 @@ class MetadataForm(BaseSettingsForm, forms.Form):
         return initial
 
     def save_settings(self, book, request):
-        STRING = 0
+        STRING = 0 # noqa
 
         for key, value in self.cleaned_data.items():
             valid_value = self.cleaned_data.get(key, None)
@@ -213,6 +218,102 @@ class MetadataForm(BaseSettingsForm, forms.Form):
 
                 meta.value_string = value
                 meta.save()
+
+
+class AdditionalMetadataForm(BaseSettingsForm, forms.Form):
+    required_permission = 'edit.manage_metadata'
+    META_PREFIX = 'ADD_META_TERMS' # noqa
+
+    def __init__(self, *args, **kwargs):
+        super(AdditionalMetadataForm, self).__init__(*args, **kwargs)
+        book = kwargs.get('book')
+        additional_fields = getattr(settings, 'ADDITIONAL_METADATA', {})
+
+        for field, attrs in additional_fields.items():
+            field_name = '%s.%s' % (self.META_PREFIX, field)
+            try:
+                if 'TYPE' not in attrs.keys():
+                    logger.error(
+                        _('%(field)s must have TYPE attribute') % {'field': field})
+                    continue
+
+                field_class = getattr(forms, attrs.get('TYPE'))
+                field_attrs = attrs.get('ATTRS', {})
+                default_widget = field_class.widget.__name__
+
+                widget_class = getattr(forms.widgets, attrs.get('WIDGET', default_widget))
+                widget_atts = attrs.get('WIDGET_ATTRS', {})
+
+                # build the widget
+                field_attrs['widget'] = widget_class(attrs=widget_atts)
+                field_attrs['label'] = field_attrs.get('label', field.title())
+
+                # now create the field
+                self.fields[field_name] = field_class(**field_attrs)
+
+                # add bootstrap class if is not choice field
+                if attrs.get('TYPE') != 'ChoiceField':
+                    c_field = self.fields[field_name]
+                    BaseBooktypeForm.apply_class(c_field, 'form-control')
+
+            except Exception as err:
+                exc_type, exc_obj, exc_tb = sys.exc_info()
+                logger.error(
+                    _('Unable to create field %(field)s. Reason: %(error)s | type: %(exc_type)s | Line: %(line_no)s ') %
+                    {
+                        'field': field, 'error': err,
+                        'exc_type': exc_type, 'line_no': exc_tb.tb_lineno
+                    }
+                )
+
+        # maybe we should move this later if needed
+        def unslugify(value):
+            return value.replace('-', ' ').replace('_', ' ')
+
+        # now add the stored field
+        for meta in Info.objects.filter(book=book, name__startswith=self.META_PREFIX).order_by('id'):
+            keyname = meta.name.split('.')[1]
+            if keyname not in additional_fields.keys():
+                self.fields[meta.name] = forms.CharField(
+                    widget=forms.widgets.Textarea(attrs={'class': 'form-control meta-dynamic in_db'}),
+                    label=unslugify(keyname.capitalize())
+                )
+
+    @property
+    def max_limit(self):
+        return config.get_configuration('MAX_ADDITIONAL_METADATA', 3)
+
+    @property
+    def limit_reached(self):
+        dynamics = [1 for x in self.fields.values() if 'meta-dynamic' in x.widget.attrs.get('class', '')]
+        return (len(dynamics) >= self.max_limit)
+
+    @classmethod
+    def initial_data(cls, book=None, request=None):
+        initial = {}
+
+        for meta in Info.objects.filter(book=book, name__startswith=cls.META_PREFIX):
+            initial[meta.name] = meta.value_string
+        return initial
+
+    def save_settings(self, book, request):
+        form_fields = getattr(settings, 'ADDITIONAL_METADATA', {})
+        limit = self.max_limit
+        _string = 0
+        counter = 0
+
+        for key, value in request.POST.items():
+            if (self.META_PREFIX in key) and (counter < limit):
+                meta, _ = Info.objects.get_or_create(
+                    book=book, name=key,
+                    kind=_string
+                )
+                meta.value_string = value
+                meta.save()
+
+                # check the limit for dinamically added fields
+                if key.split('.')[1] not in form_fields:
+                    counter += 1
 
 
 class RolesForm(BaseSettingsForm, forms.Form):
@@ -246,7 +347,7 @@ class PermissionsForm(BaseSettingsForm, DefaultRolesForm):
         return initial
 
     def save_settings(self, book, request):
-        STRING = 0
+        STRING = 0  # noqa
 
         for key in [self.anonymous, self.registered]:
             value = self.cleaned_data.get(key, None)

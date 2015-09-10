@@ -217,6 +217,15 @@ class MPDFConverter(BaseConverter):
             book.metadata.get("http://purl.org/dc/elements/1.1/").iteritems()
         }
 
+        m = book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
+        def _check(x):
+            if x[1].get('property', '').startswith('add_meta_terms:'):
+                return True
+            return False
+
+        for key, value in filter(_check, m[None]):
+            dc_metadata[value.get('property')] = key
+
         dc_metadata['bkterms:dir'] = self.direction
 
         return dc_metadata
