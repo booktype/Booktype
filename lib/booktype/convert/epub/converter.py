@@ -48,7 +48,7 @@ class EpubConverter(BaseConverter):
     name = 'epub'
 
     DEFAULT_STYLE = 'style1'
-    css_dir = os.path.join(os.path.dirname(__file__), 'styles/')    
+    css_dir = os.path.join(os.path.dirname(__file__), 'styles/')
 
     def pre_convert(self, original_book, book):
         pass
@@ -124,7 +124,6 @@ class EpubConverter(BaseConverter):
         logger.debug('[EPUB] Write')
         epub_writer.write()
 
-
         logger.debug('[END] EPUBConverter.convert')
 
         convert_end = datetime.datetime.now()
@@ -150,7 +149,14 @@ class EpubConverter(BaseConverter):
 
         # delete existing 'modified' tag
         m = epub_book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
+        print m[None]
         m[None] = filter(lambda (_, x): not (isinstance(x, dict) and x.get("property") == "dcterms:modified"), m[None])  # noqa
+
+        print m[None]
+
+        # we also need to remove the `additional metadata` which here is just garbage
+        m[None] = filter(lambda (_, x): not (isinstance(x, dict) and x.get("property").startswith("add_meta_terms:")), m[None]) # noqa
+        print m[None]
 
         # NOTE: probably going to extend this function in future
 
@@ -273,7 +279,7 @@ class EpubConverter(BaseConverter):
         book_css = []
 
         try:
-            content = render_to_string('convert/style_{}.css'.format(self.name), 
+            content = render_to_string('convert/style_{}.css'.format(self.name),
                 {'dir': self.direction})
 
             item = ebooklib.epub.EpubItem(
@@ -329,7 +335,7 @@ class EpubConverter(BaseConverter):
                         image.file_name = "{}/{}".format(IMAGES_DIR, name)
                         image.set_content(content)
 
-                        epub_book.add_item(image)         
+                        epub_book.add_item(image)
             elif asset_type == 'fonts':
                 for font_name in asset_list:
                     name = os.path.basename(font_name)
@@ -340,7 +346,7 @@ class EpubConverter(BaseConverter):
                         image.file_name = "{}/{}".format(FONTS_DIR, name)
                         image.set_content(content)
 
-                        epub_book.add_item(image)  
+                        epub_book.add_item(image)
 
     def _get_data(self, book):
         """Returns default data for the front and end matter templates.

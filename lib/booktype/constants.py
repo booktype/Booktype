@@ -25,7 +25,7 @@ PUBLISH_OPTIONS = ['mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml']
 # MOBI CONVERSION RELATED
 
 # Options are "kindlegen" or "calibre"
-MOBI_CONVERT = "calibre" 
+MOBI_CONVERT = "calibre"
 KINDLEGEN_PATH = "kindlegen"
 CALIBRE_PATH = "ebook-convert"
 CALIBRE_ARGS = ""
@@ -44,6 +44,8 @@ ADMIN_IMPORT_BOOKS = False
 
 BOOKTYPE_MAX_USERS = 0
 BOOKTYPE_MAX_BOOKS = 0
+
+MAX_ADDITIONAL_METADATA = 3
 
 EXPORT_WAIT_FOR = 90
 
@@ -104,7 +106,7 @@ PAGE_SIZE_DATA = {
     "foolscap (f4)":  (210, 330),
     "oamaru broadsheet" :(382, 540),
     "oamaru tabloid": (265, 380),
-}                      
+}
 
 
 # These are default options for CSS settings

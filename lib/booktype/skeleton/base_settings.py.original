@@ -56,7 +56,7 @@ EMAIL_PORT = 25
 #EMAIL_USE_TLS = False
 
 # MOBI EXPORT
-MOBI_CONVERT = "calibre" 
+MOBI_CONVERT = "calibre"
 
 # MPDF RENDERER SETTINGS
 
@@ -296,5 +296,38 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'unique-booktype-id'
+    }
+}
+
+# this is to create additional metadata fields for books
+# we can use any of the fields of Django Forms module.
+# I can be something like this:
+
+# ADDITIONAL_METADATA = {
+#     'field_name_one': {
+#         'TYPE': 'ChoiceField',
+#         'ATTRS': {
+#             'choices': [
+#                 ('option1', gettext('Trans String 1')),
+#                 ('option2', gettext('Trans String 2'))
+#             ]
+#         }
+#     },
+#     'field_name_two': {
+#         'TYPE': 'CharField',
+#         'WIDGET': 'Textarea',
+#         'WIDGET_ATTRS': {'class': 'css-class'}
+#     }
+# }
+
+# Now just a couple of default fields
+ADDITIONAL_METADATA = {
+    'joker': {
+        'TYPE': 'CharField',
+        'WIDGET': 'Textarea'
+    },
+    'dedication': {
+        'TYPE': 'CharField',
+        'WIDGET': 'Textarea'
     }
 }
