@@ -227,7 +227,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
 
         # send a success message to user
         messages.success(
-            self.request, _('User settings has been successfully saved!'))
+            self.request, _('User settings have been saved successfully!'))
 
         return redirect(self.get_success_url())
 

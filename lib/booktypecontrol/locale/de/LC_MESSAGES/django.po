@@ -1,7 +1,7 @@
 # English (en) translation strings for Booktype Control Centre.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# 
+#
 # Translators:
 # Eva Dangendorf <eva.dangendorf@sourcefabric.org>, 2015
 # Julian <julian.sorge@sourcefabric.org>, 2015
@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-03 21:56+0200\n"
+"POT-Creation-Date: 2015-09-13 15:18+0200\n"
 "PO-Revision-Date: 2015-09-04 08:45+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
-"Language-Team: German (http://www.transifex.com/sourcefabric/booktype/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/sourcefabric/booktype/"
+"language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
@@ -62,7 +63,9 @@ msgstr "Verwende anonyme Seite"
 msgid ""
 "Use separate page for anonymous users without books, people, groups and "
 "recent activity blocks."
-msgstr "Verwende separate Seite für anonyme (nicht eingeloggte) Nutzer ohne Anzeige von Büchern, Leuten, Gruppen und Aktivitäten. "
+msgstr ""
+"Verwende separate Seite für anonyme (nicht eingeloggte) Nutzer ohne Anzeige "
+"von Büchern, Leuten, Gruppen und Aktivitäten. "
 
 #: forms.py:148
 msgid "Anonymous page message"
@@ -70,7 +73,8 @@ msgstr "Nachricht auf Seite für nicht eingeloggte Nutzer."
 
 #: forms.py:151
 msgid "Message for displaying on anonymous page."
-msgstr "Nachricht, die auf der Seite für nicht eingeloggte Nutzer gezeigt wird."
+msgstr ""
+"Nachricht, die auf der Seite für nicht eingeloggte Nutzer gezeigt wird."
 
 #: forms.py:154
 msgid "Anonymous page email"
@@ -89,11 +93,15 @@ msgid "Use image/png files."
 msgstr "Bild/png Datei verwenden"
 
 #: forms.py:248
-msgid "Abbrevation"
+#, fuzzy
+#| msgid "Abbrevation"
+msgid "Abbreviation"
 msgstr "Abkürzung"
 
 #: forms.py:250
-msgid "Abbrevation is required."
+#, fuzzy
+#| msgid "Abbrevation is required."
+msgid "Abbreviation is required."
 msgstr "Abkürzung erforderlich"
 
 #: forms.py:254
@@ -109,7 +117,9 @@ msgid "License URL"
 msgstr "Lizenz URL"
 
 #: forms.py:266
-msgid "Succesfully created new license."
+#, fuzzy
+#| msgid "Succesfully created new license."
+msgid "Successfully created new license."
 msgstr "Neue Lizenz erfolgreich erstellt. "
 
 #: forms.py:285
@@ -149,11 +159,15 @@ msgid "Anyone can register on the site and create an account"
 msgstr ""
 
 #: forms.py:355
-msgid "Only admin can create books"
+#, fuzzy
+#| msgid "Only admin can create books"
+msgid "Only the superuser can create books"
 msgstr "Nur Admin können Bücher erstellen"
 
 #: forms.py:359
-msgid "Only admin can import books"
+#, fuzzy
+#| msgid "Only admin can import books"
+msgid "Only the superuser can import books"
 msgstr "Nur Admin können Bücher importieren"
 
 #: forms.py:387 forms.py:550
@@ -512,7 +526,9 @@ msgstr "Lizenz löschen"
 msgid ""
 "There are licensed books with this license. You should change the license "
 "for these books before deleting it."
-msgstr "Es sind Bücher mit dieser Lizenz vorhanden. Bitte Lizenz für diese vorher ändern, erst dann Lizenz löschen."
+msgstr ""
+"Es sind Bücher mit dieser Lizenz vorhanden. Bitte Lizenz für diese vorher "
+"ändern, erst dann Lizenz löschen."
 
 #: templates/booktypecontrol/_control_center_modal_delete_license.html:14
 msgid ""
@@ -741,8 +757,7 @@ msgstr ""
 msgid "Home"
 msgstr "Dashboard"
 
-#: views.py:88 views.py:184 views.py:281 views.py:345 views.py:409
-#: views.py:451
+#: views.py:88 views.py:184 views.py:281 views.py:345 views.py:409 views.py:451
 msgid "Admin Control Center"
 msgstr "Admin Control Center"
 

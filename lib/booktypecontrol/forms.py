@@ -245,9 +245,9 @@ class FrontpageForm(BaseControlForm, forms.Form):
 
 class LicenseForm(BaseControlForm, forms.ModelForm):
     abbrevation = forms.CharField(
-        label=_("Abbrevation"),
+        label=_("Abbreviation"),
         required=True,
-        error_messages={'required': _('Abbrevation is required.')},
+        error_messages={'required': _('Abbreviation is required.')},
         max_length=30
     )
     name = forms.CharField(
@@ -263,7 +263,7 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
         max_length=200
     )
 
-    success_message = _('Succesfully created new license.')
+    success_message = _('Successfully created new license.')
     success_url = "#license"
 
     class Meta:
@@ -352,11 +352,11 @@ class PrivacyForm(BaseControlForm, forms.Form):
         help_text=_('Anyone can register on the site and create an account')
     )
     create_books = forms.BooleanField(
-        label=_('Only admin can create books'),
+        label=_('Only the superuser can create books'),
         required=False
     )
     import_books = forms.BooleanField(
-        label=_('Only admin can import books'),
+        label=_('Only the superuser can import books'),
         required=False
     )
 

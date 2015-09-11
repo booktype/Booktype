@@ -1,7 +1,7 @@
 # English (en) translation strings for Booktype.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# 
+#
 # Translators:
 # madaraszcsaba <madarasz.csaba@gmail.com>, 2015
 # Zsolt Magyar <picizse@gmail.com>, 2014
@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-07 16:15+0300\n"
+"POT-Creation-Date: 2015-09-13 15:14+0200\n"
 "PO-Revision-Date: 2015-09-08 08:55+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
-"Language-Team: Hungarian (http://www.transifex.com/sourcefabric/booktype/language/hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/sourcefabric/booktype/"
+"language/hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
@@ -79,8 +80,8 @@ msgstr "kép"
 msgid "description"
 msgstr "Leírás"
 
-#: apps/account/models.py:38 apps/account/models.py:64
-#: apps/export/models.py:29 apps/export/models.py:57
+#: apps/account/models.py:38 apps/account/models.py:64 apps/export/models.py:29
+#: apps/export/models.py:61
 msgid "user"
 msgstr "Felhasználó"
 
@@ -92,20 +93,17 @@ msgstr "Titkos kód"
 msgid "created"
 msgstr "létrehozva"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: apps/account/models.py:69
 msgid "remote useragent"
 msgstr "távoli felhasználói ügynök"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: apps/account/models.py:71
 msgid "remote addr"
 msgstr "távoli cím"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: apps/account/models.py:73
 msgid "remote host"
 msgstr "távoli gép"
@@ -124,8 +122,7 @@ msgstr "Könyveim"
 #: apps/portal/templates/portal/frontpage.html:20
 #: apps/portal/templates/portal/group.html:21
 #: apps/portal/templates/portal/group.html:48 apps/portal/views.py:324
-#: apps/portal/views.py:325
-#: apps/reader/templates/reader/book_info_page.html:85
+#: apps/portal/views.py:325 apps/reader/templates/reader/book_info_page.html:85
 msgid "Books"
 msgstr "Könyvek"
 
@@ -155,7 +152,9 @@ msgstr "Lista megtekitése"
 msgid ""
 "This is a perfect moment to start writing your book, just click on the "
 "button above!"
-msgstr "Ez egy tökéletes pillanat arra, hogy elkezdje írni a saját könyvét, csak kattintson a fenti gombra!"
+msgstr ""
+"Ez egy tökéletes pillanat arra, hogy elkezdje írni a saját könyvét, csak "
+"kattintson a fenti gombra!"
 
 #: apps/account/templates/account/dashboard.html:68
 msgid "This user has no books"
@@ -170,9 +169,10 @@ msgid "My Groups"
 msgstr "Csoportjaim"
 
 #: apps/account/templates/account/dashboard.html:98
-msgid ""
-"Work with others in Groups. To create a Group click on the button below"
-msgstr "Dolgozzon másokkal együtt egy csoportban. Csoport létrehozásához kattintson az alábbi gombra"
+msgid "Work with others in Groups. To create a Group click on the button below"
+msgstr ""
+"Dolgozzon másokkal együtt egy csoportban. Csoport létrehozásához kattintson "
+"az alábbi gombra"
 
 #: apps/account/templates/account/dashboard.html:104
 msgid "Participating Groups"
@@ -211,7 +211,7 @@ msgstr "Ugrás a beállításokhoz"
 
 #: apps/account/templates/account/dashboard.html:143
 #: apps/account/templates/account/form_signedin.html:19
-#: apps/account/views.py:178 apps/account/views.py:179
+#: apps/account/views.py:179 apps/account/views.py:180
 #: apps/edit/templates/edit/toolbar_book.html:12
 msgid "Settings"
 msgstr "Beállítások"
@@ -326,7 +326,7 @@ msgstr "Van már egy könyv ezzel a névvel."
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:26
 #: apps/account/templates/account/dashboard_create_book_modal.html:29
-#: apps/edit/templates/edit/panel_aloha.html:217 apps/export/models.py:47
+#: apps/edit/templates/edit/panel_aloha.html:217 apps/export/models.py:51
 msgid "Description"
 msgstr "Leírás"
 
@@ -334,18 +334,22 @@ msgstr "Leírás"
 msgid ""
 "Give some information so others can find it to help you (this can be added "
 "or changed later)."
-msgstr "Adjon meg néhány információt, hogy mások könnyebben megtudják Önt találni (ez később is hozzáaddható illetve módoítható)."
+msgstr ""
+"Adjon meg néhány információt, hogy mások könnyebben megtudják Önt találni "
+"(ez később is hozzáaddható illetve módoítható)."
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:33
 msgid "Choose license"
 msgstr "Liszensz kiválasztása"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:35
-msgid "Choose from the following license"
+#, fuzzy
+#| msgid "Choose from the following license"
+msgid "Choose from the following licenses"
 msgstr "Válasszon az alábbi licenctípusok közül"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:36
-#: apps/edit/forms.py:138 apps/edit/templates/edit/panel_covers.html:73
+#: apps/edit/forms.py:143 apps/edit/templates/edit/panel_covers.html:73
 #: apps/edit/templates/edit/panel_covers.html:130
 #: apps/edit/templates/edit/panel_settings.html:25
 msgid "License"
@@ -359,7 +363,9 @@ msgstr "Kép"
 msgid ""
 "If you have an image for the book then add it now (this can be added or "
 "changed later)"
-msgstr "Ha rendelkezik már képpel a könyvborítójához, adja hozzá most (ez később is hozzárendelhető illetve módosítható)"
+msgstr ""
+"Ha rendelkezik már képpel a könyvborítójához, adja hozzá most (ez később is "
+"hozzárendelhető illetve módosítható)"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:47
 msgid "Book Image"
@@ -373,7 +379,9 @@ msgstr "Legyen nyilvános?"
 msgid ""
 "Would you like to keep your book private or make it public? If the book is "
 "public others can find the book to help you."
-msgstr "Szeretné megtartani a könyvet magának vagy nyilvánosságra is hozza? Ha a könyv nyilvános mások is megtalálhatják a könyvét és segíthetnek Önnek."
+msgstr ""
+"Szeretné megtartani a könyvet magának vagy nyilvánosságra is hozza? Ha a "
+"könyv nyilvános mások is megtalálhatják a könyvét és segíthetnek Önnek."
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:54
 msgid "Note"
@@ -470,6 +478,7 @@ msgid "Initially hidden from others"
 msgstr "Kezdetben rejtve másoktól"
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:74
+#: apps/edit/templates/edit/_settings_form_additional_metadata.html:39
 #: apps/edit/templates/edit/_settings_form_roles.html:84
 #: apps/edit/templates/edit/panel_aloha.html:353
 #: apps/edit/templates/edit/panel_covers.html:33
@@ -513,7 +522,7 @@ msgid "Can't find user \"%(username)s\"."
 msgstr "Nem található az alábbi felhasználó: \"%(username)s\"."
 
 #: apps/account/templates/account/forgot_password.html:10
-#: apps/account/views.py:289 apps/account/views.py:290
+#: apps/account/views.py:290 apps/account/views.py:291
 msgid "Forgot your password"
 msgstr "Elfelejtetted a jelszavadat?"
 
@@ -530,10 +539,16 @@ msgid "Username or e-mail address"
 msgstr "Felhasználónév vagy e-mail cím"
 
 #: apps/account/templates/account/forgot_password.html:26
+#, fuzzy
+#| msgid ""
+#| "Give us your username or e-mail you used to create Booktype account and "
+#| "we will send you new password."
 msgid ""
-"Give us your username or e-mail you used to create Booktype account and we "
-"will send you new password."
-msgstr "Adja meg nelünk felhasználónevét vagy e-mail címét Booktype fiókja létrehozásához és mi elküldjük Önnek új jelszavát."
+"Give us your username or the e-mail address you used to create your Booktype "
+"account, and we will send you a new password."
+msgstr ""
+"Adja meg nelünk felhasználónevét vagy e-mail címét Booktype fiókja "
+"létrehozásához és mi elküldjük Önnek új jelszavát."
 
 #: apps/account/templates/account/forgot_password.html:30
 #: apps/account/templates/account/forgot_password_enter.html:42
@@ -541,7 +556,7 @@ msgid "Send request"
 msgstr "Kérés küldése"
 
 #: apps/account/templates/account/forgot_password_enter.html:12
-#: apps/account/views.py:362 apps/account/views.py:363
+#: apps/account/views.py:363 apps/account/views.py:364
 msgid "Reset your password"
 msgstr "Állítsa vissza jelszavát"
 
@@ -565,8 +580,8 @@ msgstr "Új jelszó ismét"
 msgid "My Dashboard"
 msgstr "A Te irányítópultod"
 
-#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:412
-#: apps/account/views.py:413
+#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:413
+#: apps/account/views.py:414
 msgid "Sign in"
 msgstr "Bejelentkezés"
 
@@ -605,9 +620,12 @@ msgstr "Elfelejtett jelszó?"
 
 #: apps/account/templates/account/password_reset_email.html:5
 msgid ""
-"To reset your Booktype password, simply click the link below. That will take"
-" you to a web page where you can create a new password."
-msgstr "Booktype jelszavának visszaállításához egyszerűen csak kattintson az alábbi linkre. Ez majd átírányítja Önt egy új weboldalra, ahol új jelszót hozhat létre."
+"To reset your Booktype password, simply click the link below. That will take "
+"you to a web page where you can create a new password."
+msgstr ""
+"Booktype jelszavának visszaállításához egyszerűen csak kattintson az alábbi "
+"linkre. Ez majd átírányítja Önt egy új weboldalra, ahol új jelszót hozhat "
+"létre."
 
 #: apps/account/templates/account/password_reset_email.html:6
 msgid "Go to:"
@@ -618,7 +636,11 @@ msgid ""
 "If you weren't trying to reset your password, don't worry – your account is "
 "still secure and no one has been given access to it. Most likely, someone "
 "just mistyped their email address while trying to reset their own password."
-msgstr "Ha nem próbálták visszaállítani a jelszavát, ne aggódjon - a fiókja továbbra is biztonságos, és senki kapott ahhoz hozzáférést. A legvalószínűbb, hogy valaki csak rosszul írta be az e-mail címét, amikor megpróbálta visszaállítani a saját jelszavát."
+msgstr ""
+"Ha nem próbálták visszaállítani a jelszavát, ne aggódjon - a fiókja továbbra "
+"is biztonságos, és senki kapott ahhoz hozzáférést. A legvalószínűbb, hogy "
+"valaki csak rosszul írta be az e-mail címét, amikor megpróbálta "
+"visszaállítani a saját jelszavát."
 
 #: apps/account/templates/account/register.html:13
 msgid "You are already signed in!"
@@ -677,11 +699,22 @@ msgid "Please provide your real name."
 msgstr "Kérjük, adja meg a valódi nevét."
 
 #: apps/account/templates/account/register.html:61
+#, fuzzy
+#| msgid ""
+#| "Username is invalid. Please try a different one. You may use alhpanumeric "
+#| "characters and characters \".\", \"_\", \"-\" (dot, underscore and "
+#| "minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</"
+#| "li><li>kamilo_kamili</li></ul>"
 msgid ""
-"Username is invalid. Please try a different one. You may use alhpanumeric "
+"Username is invalid. Please try a different one. You may use alphanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "Felhasználónév érvénytelen. Kérjük, próbáljon  ki egy másikat. Lehet használni alfanumerikus karaktereket és hasonló karaktereket, mint \".\", \"_\", \"-\" (pont, aláhúzás és mínusz). <br/><br/>Például:<ul><li>mzsolt</li><li>Magyar.Zsolt</li><li>Magyar_Zsolt</li></ul>"
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
+"li></ul>"
+msgstr ""
+"Felhasználónév érvénytelen. Kérjük, próbáljon  ki egy másikat. Lehet "
+"használni alfanumerikus karaktereket és hasonló karaktereket, mint \".\", \"_"
+"\", \"-\" (pont, aláhúzás és mínusz). <br/><br/>Például:<ul><li>mzsolt</"
+"li><li>Magyar.Zsolt</li><li>Magyar_Zsolt</li></ul>"
 
 #: apps/account/templates/account/register.html:62
 msgid "This is not a valid e-mail"
@@ -717,43 +750,45 @@ msgstr "Pillanatnyilag csak rendszergazda hozhat létre új fiókokat."
 msgid "Dashboard"
 msgstr "Irányítópult"
 
-#: apps/account/views.py:129 apps/account/views.py:130
+#: apps/account/views.py:130 apps/account/views.py:131
 msgid "User profile"
 msgstr "Felhasználói profil"
 
-#: apps/account/views.py:229
-msgid "User settings has been successfully saved!"
+#: apps/account/views.py:230
+#, fuzzy
+#| msgid "User settings has been successfully saved!"
+msgid "User settings have been saved successfully!"
 msgstr "A beállítások mentése sikerült."
 
-#: apps/account/views.py:266
+#: apps/account/views.py:267
 msgid "Password changed successfully!"
 msgstr "A jelszó sikeresen megváltozott"
 
-#: apps/account/views.py:318
+#: apps/account/views.py:319
 msgid "Missing username"
 msgstr "Hiányzó felhasználónév"
 
-#: apps/account/views.py:322
+#: apps/account/views.py:323
 msgid "No such user"
 msgstr "Nincs ilyen felhasználó"
 
-#: apps/account/views.py:342
+#: apps/account/views.py:343
 msgid "Reset password"
 msgstr "Jelszó helyreállítása"
 
-#: apps/account/views.py:355
+#: apps/account/views.py:356
 msgid "Unknown error"
 msgstr "Ismeretlen hiba"
 
-#: apps/account/views.py:377
+#: apps/account/views.py:378
 msgid "Password can't be empty"
 msgstr "A jelszó nem lehet üres"
 
-#: apps/account/views.py:382
+#: apps/account/views.py:383
 msgid "Passwords don't match"
 msgstr "A jelszavak nem egyeznek"
 
-#: apps/account/views.py:398
+#: apps/account/views.py:399
 msgid "Wrong secret code"
 msgstr "Helytelen titkos kód"
 
@@ -786,8 +821,8 @@ msgstr "név"
 msgid "Permission"
 msgstr "Jogosultság"
 
-#: apps/core/models.py:29 apps/edit/templates/edit/panel_settings.html:47
-#: apps/edit/views.py:49
+#: apps/core/models.py:29 apps/edit/templates/edit/panel_settings.html:48
+#: apps/edit/views.py:50
 msgid "Permissions"
 msgstr "Jogosultságok"
 
@@ -799,8 +834,8 @@ msgstr "jogosultságok"
 msgid "Role"
 msgstr "Szerep"
 
-#: apps/core/models.py:70 apps/edit/templates/edit/panel_settings.html:43
-#: apps/edit/views.py:48 apps/portal/templates/portal/frontpage.html:230
+#: apps/core/models.py:70 apps/edit/templates/edit/panel_settings.html:44
+#: apps/edit/views.py:49 apps/portal/templates/portal/frontpage.html:230
 msgid "Roles"
 msgstr "Feladatkörök"
 
@@ -808,7 +843,7 @@ msgstr "Feladatkörök"
 msgid "role"
 msgstr "szerep"
 
-#: apps/core/models.py:85 apps/export/models.py:67
+#: apps/core/models.py:85 apps/export/models.py:71
 msgid "book"
 msgstr "könyv"
 
@@ -836,11 +871,16 @@ msgstr "Leírás"
 msgid ""
 "This is a demonstration server for Booktype. This server is reset on a "
 "regular basis, and any books created here will be deleted at that time. You "
-"can read the Booktype user manual at <a "
-"href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-"
-"publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-"
-"publishers/</a>."
-msgstr "Ez a Booktype bemutató szervere. Ez a szerver rendszeresen frissül és vele együtt a teljes adatbázis is. Minden közben létrehozott könyv törlésre kerül ebben az időben. Elolvashatja a Booktype használati útmutatóját az alábbi linken <a href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/</a>."
+"can read the Booktype user manual at <a href=\"http://sourcefabric.booktype."
+"pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype."
+"pro/booktype-20-for-authors-and-publishers/</a>."
+msgstr ""
+"Ez a Booktype bemutató szervere. Ez a szerver rendszeresen frissül és vele "
+"együtt a teljes adatbázis is. Minden közben létrehozott könyv törlésre kerül "
+"ebben az időben. Elolvashatja a Booktype használati útmutatóját az alábbi "
+"linken <a href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-"
+"and-publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-"
+"and-publishers/</a>."
 
 #: apps/core/templates/core/footer.html:17
 msgid "How to use"
@@ -849,10 +889,14 @@ msgstr "Hogyan kell használni"
 #: apps/core/templates/core/footer.html:20
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
-"href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a>"
-" or check out Booktype Pro, our cloud-hosted publishing service - <a "
-"href=\"http://booktype.pro/\">http://booktype.pro/</a>."
-msgstr "Ha telepíteni szeretné, kéjük töltse le innen a Booktype-ot <a href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a>  vagy nézze meg a Booktype Pro szolgáltatásunkat - <a href=\"http://booktype.pro/\">http://booktype.pro/</a>."
+"href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric."
+"org/en/booktype/</a> or check out Booktype Pro, our cloud-hosted publishing "
+"service - <a href=\"http://booktype.pro/\">http://booktype.pro/</a>."
+msgstr ""
+"Ha telepíteni szeretné, kéjük töltse le innen a Booktype-ot <a href=\"http://"
+"www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/"
+"</a>  vagy nézze meg a Booktype Pro szolgáltatásunkat - <a href=\"http://"
+"booktype.pro/\">http://booktype.pro/</a>."
 
 #: apps/core/templates/core/footer.html:27
 msgid "Need Help?"
@@ -865,7 +909,10 @@ msgid ""
 "print-on-demand services and education institutions produce better books, "
 "faster, while Sourcefabric takes care of your own platform's installation, "
 "hosting, upgrades, and security. "
-msgstr "A Booktype Pro tökéletes megoldás elsősorban kiadók számára. A Sourcefabric segítséget nyújt Önnek a szoftver telepítésében, frissítésében. Ügyel a biztonságra és tárhelyet is kínál Önnek."
+msgstr ""
+"A Booktype Pro tökéletes megoldás elsősorban kiadók számára. A Sourcefabric "
+"segítséget nyújt Önnek a szoftver telepítésében, frissítésében. Ügyel a "
+"biztonságra és tárhelyet is kínál Önnek."
 
 #: apps/core/templates/core/footer.html:41
 msgid ""
@@ -1064,23 +1111,31 @@ msgstr ""
 msgid "Edit Notes"
 msgstr ""
 
-#: apps/edit/__init__.py:35
+#: apps/edit/__init__.py:36
 msgid "Track Changes"
 msgstr ""
 
+#: apps/edit/__init__.py:37
+msgid "Track Changes approve/decline"
+msgstr ""
+
 #: apps/edit/__init__.py:38
-msgid "Manage Language"
-msgstr ""
-
-#: apps/edit/__init__.py:39
-msgid "Manage License"
-msgstr ""
-
-#: apps/edit/__init__.py:40
-msgid "Manage Metadata"
+msgid "Track Changes on/off"
 msgstr ""
 
 #: apps/edit/__init__.py:41
+msgid "Manage Language"
+msgstr ""
+
+#: apps/edit/__init__.py:42
+msgid "Manage License"
+msgstr ""
+
+#: apps/edit/__init__.py:43
+msgid "Manage Metadata"
+msgstr ""
+
+#: apps/edit/__init__.py:44
 msgid "Manage Book Settings"
 msgstr ""
 
@@ -1104,32 +1159,44 @@ msgstr "A fejezet jelenleg el van zárva mindenkitől."
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
-#: apps/edit/forms.py:53 apps/edit/templates/edit/panel_settings.html:21
+#: apps/edit/forms.py:58 apps/edit/templates/edit/panel_settings.html:21
 msgid "Language"
 msgstr "Nyelv"
 
-#: apps/edit/forms.py:57
+#: apps/edit/forms.py:62
 msgid "Right to left text"
 msgstr "Jobbról balra szöveg"
 
-#: apps/edit/forms.py:59
+#: apps/edit/forms.py:64
 msgid "Book with right to left writing."
 msgstr "A könyv jobbról balra írása."
 
-#: apps/edit/forms.py:97 apps/edit/templates/edit/book_edit.html:153
+#: apps/edit/forms.py:102 apps/edit/templates/edit/book_edit.html:155
 msgid "Track changes"
 msgstr ""
 
-#: apps/edit/forms.py:99
+#: apps/edit/forms.py:104
 msgid "Chapter changes will tracked."
 msgstr ""
 
-#: apps/edit/forms.py:120
+#: apps/edit/forms.py:125
 msgid "New Status"
 msgstr "Új állapot"
 
+#: apps/edit/forms.py:237
+#, python-format
+msgid "%(field)s must have TYPE attribute"
+msgstr ""
+
+#: apps/edit/forms.py:262
+#, python-format
+msgid ""
+"Unable to create field %(field)s. Reason: %(error)s | type: %(exc_type)s | "
+"Line: %(line_no)s "
+msgstr ""
+
 #: apps/edit/templates/edit/_compare_modal.html:7
-#: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:550
+#: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:554
 msgid "Chapter diff"
 msgstr "Fejezet eltérés"
 
@@ -1153,7 +1220,7 @@ msgstr "Törölve"
 #: apps/edit/templates/edit/chapter_history.html:23
 #: apps/edit/templates/edit/chapter_revision.html:16
 #: apps/edit/templates/edit/compare_screen.html:20
-#: apps/edit/templates/edit/compare_screen.html:21 apps/edit/views.py:581
+#: apps/edit/templates/edit/compare_screen.html:21 apps/edit/views.py:585
 msgid "Revision"
 msgstr "Változat"
 
@@ -1163,6 +1230,7 @@ msgstr "Teljes nézet"
 
 #: apps/edit/templates/edit/_compare_modal.html:29
 #: apps/edit/templates/edit/_settings_form.html:17
+#: apps/edit/templates/edit/_settings_form_additional_metadata.html:63
 #: apps/edit/templates/edit/book_edit.html:108
 #: apps/edit/templates/edit/chapter_revision.html:60
 #: apps/edit/templates/edit/panel_aloha.html:34
@@ -1184,8 +1252,46 @@ msgstr "Teljes nézet"
 msgid "Cancel"
 msgstr "Mégse"
 
+#: apps/edit/templates/edit/_settings_form_additional_metadata.html:7
+msgid "Add Field"
+msgstr ""
+
+#: apps/edit/templates/edit/_settings_form_additional_metadata.html:27
+msgid "Add another metadata field"
+msgstr ""
+
+#: apps/edit/templates/edit/_settings_form_additional_metadata.html:32
+msgid "Please, set a name to your metadata field"
+msgstr ""
+
+#: apps/edit/templates/edit/_settings_form_additional_metadata.html:42
+msgid "Append"
+msgstr ""
+
+#: apps/edit/templates/edit/_settings_form_additional_metadata.html:54
+#, fuzzy
+#| msgid "Delete selected items"
+msgid "Delete metadata field"
+msgstr "Kijelölt elemek törlése"
+
+#: apps/edit/templates/edit/_settings_form_additional_metadata.html:58
+#, fuzzy
+#| msgid ""
+#| "Are you sure you would like to delete this group? You will not be able to "
+#| "undo this operation!"
+msgid ""
+"Are you sure you would like to remove this field? You will not be able to "
+"undo this operation!"
+msgstr ""
+"Biztos, hogy törölni szeretné az alábbi csoportot? A művelet nem "
+"visszavonható!"
+
+#: apps/edit/templates/edit/_settings_form_additional_metadata.html:66
+msgid "Confirm"
+msgstr ""
+
 #: apps/edit/templates/edit/_settings_form_chapter_status.html:4
-#: apps/edit/views.py:50
+#: apps/edit/views.py:51
 msgid "Chapter Status"
 msgstr "A fejezet állapota"
 
@@ -1238,7 +1344,9 @@ msgid "User"
 msgstr "Felhasználó"
 
 #: apps/edit/templates/edit/_settings_form_roles.html:76
-msgid "There is no existing roles yet"
+#, fuzzy
+#| msgid "There is no existing roles yet"
+msgid "There are no existing roles yet"
 msgstr "Nincs még meglévő szerepek"
 
 #: apps/edit/templates/edit/_settings_form_roles.html:79
@@ -1367,7 +1475,9 @@ msgid "SubSubHeading"
 msgstr "Al-Alcím"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:17
-msgid "Preformated"
+#, fuzzy
+#| msgid "Preformated"
+msgid "Pre-formatted"
 msgstr "Előformázott"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:22
@@ -1585,66 +1695,68 @@ msgstr "A jegyzet elmentve."
 msgid "Chapters on Hold"
 msgstr "A Fejezetek változatlanok maradnak"
 
-#: apps/edit/templates/edit/book_edit.html:149
+#: apps/edit/templates/edit/book_edit.html:150
 msgid "Tracking Options"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:160
+#: apps/edit/templates/edit/book_edit.html:162
 msgid "On"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:163
+#: apps/edit/templates/edit/book_edit.html:165
 msgid "Off"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:171
+#: apps/edit/templates/edit/book_edit.html:173
 msgid "Show changes"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:178
+#: apps/edit/templates/edit/book_edit.html:180
 #: apps/edit/templates/edit/panel_publish.html:377
 msgid "Yes"
 msgstr "Igen"
 
-#: apps/edit/templates/edit/book_edit.html:181
+#: apps/edit/templates/edit/book_edit.html:183
 #: apps/edit/templates/edit/panel_publish.html:376
 msgid "No"
 msgstr "Nem"
 
-#: apps/edit/templates/edit/book_edit.html:189
+#: apps/edit/templates/edit/book_edit.html:191
 msgid "Actions"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:197
+#: apps/edit/templates/edit/book_edit.html:199
 msgid "Accept all changes"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:200
+#: apps/edit/templates/edit/book_edit.html:202
 msgid "Decline all changes"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:206
+#: apps/edit/templates/edit/book_edit.html:208
 msgid "Accept one"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:209
+#: apps/edit/templates/edit/book_edit.html:211
 msgid "Decline one"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:220
+#: apps/edit/templates/edit/book_edit.html:225
 msgid "Attachments"
 msgstr "Mellékletek"
 
-#: apps/edit/templates/edit/book_edit.html:224
+#: apps/edit/templates/edit/book_edit.html:229
 msgid "History"
 msgstr "Előzmények"
 
-#: apps/edit/templates/edit/book_edit.html:283
+#: apps/edit/templates/edit/book_edit.html:288
 #, python-format
 msgid ""
-"<p class=\"notification-text\"><%%= username %%> joined </p><span class"
-"=\"notification-info\"><%%= info %%></span>"
-msgstr "<p class=\"notification-text\"><%%= username %%> csatlakozott </p><span class=\"notification-info\"><%%= info %%></span>"
+"<p class=\"notification-text\"><%%= username %%> joined </p><span class="
+"\"notification-info\"><%%= info %%></span>"
+msgstr ""
+"<p class=\"notification-text\"><%%= username %%> csatlakozott </p><span "
+"class=\"notification-info\"><%%= info %%></span>"
 
 #: apps/edit/templates/edit/book_history.html:21
 msgid "No results found."
@@ -1718,7 +1830,9 @@ msgstr "Visszatér ehhez a változathoz?"
 #: apps/edit/templates/edit/chapter_revision.html:57
 msgid ""
 "Current chapter content will be reverted to this revision. Are you sure?"
-msgstr "Az aktuális fejezet tartalmát a rendszer visszaállítja az előző változatra. Biztos benne?"
+msgstr ""
+"Az aktuális fejezet tartalmát a rendszer visszaállítja az előző változatra. "
+"Biztos benne?"
 
 #: apps/edit/templates/edit/chapter_revision.html:61
 msgid "Yes, revert!"
@@ -1888,8 +2002,10 @@ msgid "Find"
 msgstr "Keres"
 
 #: apps/edit/templates/edit/edit_strings.html:41
-msgid "Next >"
-msgstr "Következő >"
+#, fuzzy
+#| msgid "Next $gt;"
+msgid "Next &gt;"
+msgstr "Következő $gt;"
 
 #: apps/edit/templates/edit/edit_strings.html:42
 msgid "Revision reverted"
@@ -2088,6 +2204,16 @@ msgstr ""
 msgid "Some output formats do not have support for columns."
 msgstr ""
 
+#: apps/edit/templates/edit/edit_strings.html:87
+#, fuzzy
+#| msgid "Password changed successfully!"
+msgid "Metadata deleted successfully"
+msgstr "A jelszó sikeresen megváltozott"
+
+#: apps/edit/templates/edit/edit_strings.html:88
+msgid "Unable to delete metadata"
+msgstr ""
+
 #: apps/edit/templates/edit/panel_aloha.html:13
 msgid "Zen mode"
 msgstr "Zen mód"
@@ -2137,7 +2263,7 @@ msgstr "A könyv fejezeteinek száma"
 msgid "Book character count (with spaces)"
 msgstr "A könyv fejezeteinek száma (szóközökkel)"
 
-#: apps/edit/templates/edit/panel_aloha.html:57 apps/edit/views.py:424
+#: apps/edit/templates/edit/panel_aloha.html:57 apps/edit/views.py:428
 #: apps/reader/views.py:252
 msgid "Chapter"
 msgstr "Fejezet"
@@ -2308,7 +2434,10 @@ msgid ""
 "Error: The selected filetype is not supported. Please select one of the "
 "following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
 "SVG, EPS, AI, INDD."
-msgstr "Hiba: A kiválasztott fájltípus nem támogatott. Kérjük, válasszon az alábbi fájltípusokból, és próbálkozzon újra: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+msgstr ""
+"Hiba: A kiválasztott fájltípus nem támogatott. Kérjük, válasszon az alábbi "
+"fájltípusokból, és próbálkozzon újra: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, "
+"PS, SVG, EPS, AI, INDD."
 
 #: apps/edit/templates/edit/panel_covers.html:38
 msgid "Important Info"
@@ -2316,13 +2445,19 @@ msgstr "Fontos megjegyzés"
 
 #: apps/edit/templates/edit/panel_covers.html:40
 msgid ""
-"The cover manager allows you to upload, manage and publish your book covers."
-" Please upload your ebook cover image files (JPEG, GIF or PNG format) in the"
-" appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
+"The cover manager allows you to upload, manage and publish your book covers. "
+"Please upload your ebook cover image files (JPEG, GIF or PNG format) in the "
+"appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
 "(in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front "
-"cover, spine and back cover of your print books can be uploaded and managed,"
-" but will be kept separate from the text of the book when publishing it."
-msgstr "A borító kezelő lehetővé teszi, hogy feltöltse, kezelje és közzétegye a könyvei borítóit. Kérjük töltse fel ebook borítókép fájljait (JPEG, GIF vagy PNG formátumban) a megfelelő méretekben EPUB, MOBI, PDF képernyőhöz és ODT kimenethez. Illusztrációt tölthet fel az előlaphoz, a gerinchez és a hátlaphoz a nyomtatott könyvek számára, (TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI vagy INDD formátumban) amelyeket bármikor kezelhet."
+"cover, spine and back cover of your print books can be uploaded and managed, "
+"but will be kept separate from the text of the book when publishing it."
+msgstr ""
+"A borító kezelő lehetővé teszi, hogy feltöltse, kezelje és közzétegye a "
+"könyvei borítóit. Kérjük töltse fel ebook borítókép fájljait (JPEG, GIF vagy "
+"PNG formátumban) a megfelelő méretekben EPUB, MOBI, PDF képernyőhöz és ODT "
+"kimenethez. Illusztrációt tölthet fel az előlaphoz, a gerinchez és a "
+"hátlaphoz a nyomtatott könyvek számára, (TIFF, XCF, PSD, PDF, PS, SVG, EPS, "
+"AI vagy INDD formátumban) amelyeket bármikor kezelhet."
 
 #: apps/edit/templates/edit/panel_covers.html:51
 #: apps/edit/templates/edit/panel_covers.html:108
@@ -2336,11 +2471,11 @@ msgstr "Meta-adatok Megadása"
 msgid "Creator"
 msgstr "Létrehozó"
 
-#: apps/edit/templates/edit/panel_covers.html:169 apps/export/models.py:48
+#: apps/edit/templates/edit/panel_covers.html:169 apps/export/models.py:52
 msgid "File name"
 msgstr "Fájlnév"
 
-#: apps/edit/templates/edit/panel_covers.html:170 apps/export/models.py:44
+#: apps/edit/templates/edit/panel_covers.html:170 apps/export/models.py:48
 msgid "File size"
 msgstr "Fájlméret"
 
@@ -2349,7 +2484,7 @@ msgid "Image dimensions"
 msgstr "A kép mérete"
 
 #: apps/edit/templates/edit/panel_history.html:4
-#: apps/edit/templates/edit/toolbar_book.html:11 apps/edit/views.py:442
+#: apps/edit/templates/edit/toolbar_book.html:11 apps/edit/views.py:446
 msgid "Book History"
 msgstr "A könyv története"
 
@@ -2403,7 +2538,9 @@ msgstr "Fájlok hozzáadása..."
 msgid ""
 "All images added to your book are listed here as well as any additional "
 "files you have uploaded."
-msgstr "Minden hozzáadott kép és más feltöltött fájlok is itt egy listában megtekinthetőek."
+msgstr ""
+"Minden hozzáadott kép és más feltöltött fájlok is itt egy listában "
+"megtekinthetőek."
 
 #: apps/edit/templates/edit/panel_media.html:34
 msgid "preview"
@@ -2429,7 +2566,9 @@ msgstr "Médiafájlok eltávolítása"
 msgid ""
 "Are you sure you would like to delete media files? You will not be able to "
 "undo this operation!"
-msgstr "Biztos benne, hogy törölni szeretné a médiafájlokat? Ez nem visszavonható művelet!"
+msgstr ""
+"Biztos benne, hogy törölni szeretné a médiafájlokat? Ez nem visszavonható "
+"művelet!"
 
 #: apps/edit/templates/edit/panel_media.html:60
 #: apps/edit/templates/edit/panel_toc.html:95
@@ -2471,8 +2610,8 @@ msgstr "Könyv Infó"
 
 #: apps/edit/templates/edit/panel_publish.html:40
 #: apps/edit/templates/edit/panel_settings.html:4
-#: apps/edit/templates/edit/panel_settings.html:64
-#: apps/edit/templates/edit/panel_settings.html:69
+#: apps/edit/templates/edit/panel_settings.html:65
+#: apps/edit/templates/edit/panel_settings.html:70
 msgid "Book Settings"
 msgstr "Könyv beállítások"
 
@@ -2741,19 +2880,25 @@ msgstr "Metaadatok"
 msgid "Book Metadata"
 msgstr "A könyv metaadatai"
 
-#: apps/edit/templates/edit/panel_settings.html:41
+#: apps/edit/templates/edit/panel_settings.html:38 apps/edit/views.py:48
+#, fuzzy
+#| msgid "Edit metadata"
+msgid "Additional Metadata"
+msgstr "Metaadatok Szerkesztése"
+
+#: apps/edit/templates/edit/panel_settings.html:42
 msgid "Security"
 msgstr "Biztonság"
 
-#: apps/edit/templates/edit/panel_settings.html:50
+#: apps/edit/templates/edit/panel_settings.html:51
 msgid "Visibility"
 msgstr "Láthatóság"
 
-#: apps/edit/templates/edit/panel_settings.html:65
+#: apps/edit/templates/edit/panel_settings.html:66
 msgid "Settings module not available."
 msgstr "A beállítások modul nem elérhető."
 
-#: apps/edit/templates/edit/panel_settings.html:70
+#: apps/edit/templates/edit/panel_settings.html:71
 msgid "Permissions required to access this module."
 msgstr ""
 
@@ -2805,7 +2950,9 @@ msgstr "Fejezet eltávolítása"
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
-msgstr "Biztos benne, hogy törölni szeretné ezt a fejezetet? Minden hozzá tartozó adat elfog veszni és később nem fogja tudni visszaállítani!"
+msgstr ""
+"Biztos benne, hogy törölni szeretné ezt a fejezetet? Minden hozzá tartozó "
+"adat elfog veszni és később nem fogja tudni visszaállítani!"
 
 #: apps/edit/templates/edit/panel_toc.html:114
 msgid "Remove section"
@@ -2815,7 +2962,9 @@ msgstr "Szakasz eltávolítása"
 msgid ""
 "Are you sure you would like to delete this section? You will lose all data "
 "associated to this section and you will not be able to undo this operation!"
-msgstr "Biztos benne, hogy törölni szeretné ezt a rovatot? Az ehhez kapcsolódó összes adat elfog veszni, amiket később nem lehet visszaállítani!"
+msgstr ""
+"Biztos benne, hogy törölni szeretné ezt a rovatot? Az ehhez kapcsolódó "
+"összes adat elfog veszni, amiket később nem lehet visszaállítani!"
 
 #: apps/edit/templates/edit/panel_toc.html:126
 msgid "Delete chapters under this section"
@@ -2825,7 +2974,9 @@ msgstr "A fejezetek törlése az alábbi rovat alatt"
 msgid ""
 "All books should contain at least one section and can have as many chapters "
 "as you like."
-msgstr "Minden könyvnek  tartalmaznia kell legalább egy rovatot, annyi fejezettel, amennyit csak szeretne."
+msgstr ""
+"Minden könyvnek  tartalmaznia kell legalább egy rovatot, annyi fejezettel, "
+"amennyit csak szeretne."
 
 #: apps/edit/templates/edit/panel_toc.html:151
 #: apps/edit/templates/edit/panel_toc.html:274
@@ -2924,37 +3075,37 @@ msgstr "A könyv nyelve"
 msgid "Book License"
 msgstr "Könyv liszensz"
 
-#: apps/edit/views.py:393
+#: apps/edit/views.py:397
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr ""
 
-#: apps/edit/views.py:588
+#: apps/edit/views.py:592
 msgid "Book History | Chapter Revision"
 msgstr "Könyv Előzmények | Fejezet Változatok"
 
-#: apps/edit/views.py:611
+#: apps/edit/views.py:615
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "Visszaállítva a következő változatra: %s."
 
-#: apps/edit/views.py:630
+#: apps/edit/views.py:634
 msgid "Chapter revision successfully reverted."
 msgstr "A fejezet korábbi változatának visszaállítása sikeresen megtörtént."
 
-#: apps/edit/views.py:632
+#: apps/edit/views.py:636
 msgid "Chapter revision could not be reverted."
 msgstr "A fejezet a korábbi változatra nem állítható vissza."
 
-#: apps/edit/views.py:701
+#: apps/edit/views.py:705
 msgid "Successfully saved settings."
 msgstr "A beállítások sikeres mentése megtörtént."
 
-#: apps/edit/views.py:703
+#: apps/edit/views.py:707
 msgid "You have no permissions to execute this action."
 msgstr ""
 
-#: apps/edit/views.py:706
+#: apps/edit/views.py:710
 msgid "Unknown error while saving changes."
 msgstr "Ismeretlen hiba a változtatások mentése közben."
 
@@ -2986,7 +3137,7 @@ msgstr "Hosszászólás az exportált fájlokhoz"
 msgid "Publish exported book"
 msgstr "Az exportált könyvek nyílvánossá tevése"
 
-#: apps/export/models.py:28 apps/export/models.py:42
+#: apps/export/models.py:28 apps/export/models.py:46
 msgid "export"
 msgstr "exportálás"
 
@@ -2998,7 +3149,7 @@ msgstr "Név"
 msgid "Task ID"
 msgstr "Feladat azonosító"
 
-#: apps/export/models.py:32 apps/export/models.py:58 apps/export/models.py:70
+#: apps/export/models.py:32 apps/export/models.py:62 apps/export/models.py:74
 msgid "Created"
 msgstr "Létrehozva"
 
@@ -3006,7 +3157,7 @@ msgstr "Létrehozva"
 msgid "Published"
 msgstr "Közzétéve"
 
-#: apps/export/models.py:34 apps/export/models.py:46
+#: apps/export/models.py:34 apps/export/models.py:50
 msgid "Status"
 msgstr "Állapot"
 
@@ -3018,43 +3169,43 @@ msgstr "Könyv exportálás"
 msgid "Book Exports"
 msgstr "Könyv exportálások"
 
-#: apps/export/models.py:43 apps/export/models.py:68
+#: apps/export/models.py:47 apps/export/models.py:72
 msgid "Export type"
 msgstr "Exportálási típus"
 
-#: apps/export/models.py:45
+#: apps/export/models.py:49
 msgid "Number of pages"
 msgstr "Az oldalak száma"
 
-#: apps/export/models.py:51
+#: apps/export/models.py:55
 msgid "Export File"
 msgstr "Fájl exportálás"
 
-#: apps/export/models.py:52
+#: apps/export/models.py:56
 msgid "Export Files"
 msgstr "Exportált fájlok"
 
-#: apps/export/models.py:56
+#: apps/export/models.py:60
 msgid "version"
 msgstr "verzió"
 
-#: apps/export/models.py:59
+#: apps/export/models.py:63
 msgid "Content"
 msgstr "Tartalom"
 
-#: apps/export/models.py:62
+#: apps/export/models.py:66
 msgid "Export Comment"
 msgstr "Exportálási hozzászólás"
 
-#: apps/export/models.py:63
+#: apps/export/models.py:67
 msgid "Export Comments"
 msgstr "Exportálási hozzászólások"
 
-#: apps/export/models.py:69
+#: apps/export/models.py:73
 msgid "Data"
 msgstr ""
 
-#: apps/export/models.py:73 apps/export/models.py:74
+#: apps/export/models.py:77 apps/export/models.py:78
 msgid "Export Settings"
 msgstr ""
 
@@ -3234,7 +3385,9 @@ msgid "CREATE NEW GROUP"
 msgstr "ÚJ CSOPORT LÉTREHOZÁSA"
 
 #: apps/portal/templates/portal/frontpage.html:190
-msgid "Enter email adresses"
+#, fuzzy
+#| msgid "Enter email adresses"
+msgid "Enter email addresses"
 msgstr "Adjon meg e-mail címeket"
 
 #: apps/portal/templates/portal/frontpage.html:192
@@ -3308,7 +3461,9 @@ msgstr "A csoport törlése"
 msgid ""
 "Are you sure you would like to delete this group? You will not be able to "
 "undo this operation!"
-msgstr "Biztos, hogy törölni szeretné az alábbi csoportot? A művelet nem visszavonható!"
+msgstr ""
+"Biztos, hogy törölni szeretné az alábbi csoportot? A művelet nem "
+"visszavonható!"
 
 #: apps/portal/templates/portal/people.html:15
 msgid "All people"
@@ -3390,7 +3545,9 @@ msgstr "Könyvborító-kép"
 msgid ""
 "Are you sure you would like to delete this book? You will lose all data "
 "associated to this book and you will not be able to undo this operation!"
-msgstr "Biztos benne, hogy törölni szeretné ezt a könyvet? Az ehhez kapcsolódó összes adat elfog veszni, amiket később nem lehet visszaállítani."
+msgstr ""
+"Biztos benne, hogy törölni szeretné ezt a könyvet? Az ehhez kapcsolódó "
+"összes adat elfog veszni, amiket később nem lehet visszaállítani."
 
 #: apps/reader/templates/reader/book_delete.html:13
 msgid "Type full title of the book to delete it"
@@ -3592,26 +3749,34 @@ msgstr "visszaállítás"
 msgid ""
 "Note: When importing formulas have been found and highlighted in the text, "
 "which are not supported by many e-readers and easy editor."
-msgstr "Megjegyzés: Importálás alkalmával fordulhatnak elő hibák. Lehet egyes szövegeket nem tud kezelni néhány e-olvasó vagy egyszerűbb szövegszerkesztő."
+msgstr ""
+"Megjegyzés: Importálás alkalmával fordulhatnak elő hibák. Lehet egyes "
+"szövegeket nem tud kezelni néhány e-olvasó vagy egyszerűbb szövegszerkesztő."
 
 #. Translators: Warning during the DOCX import
 #: importer/docx/docximporter.py:54
 msgid ""
 "Note: When importing foot or endnotes were found, which are not yet "
 "supported by easy editor."
-msgstr "Megjegyzés: Importláskor a lábjegyzeteket vagy végjegyteket, még nem tudja jól kezelni az egyszerű szerkesztő."
+msgstr ""
+"Megjegyzés: Importláskor a lábjegyzeteket vagy végjegyteket, még nem tudja "
+"jól kezelni az egyszerű szerkesztő."
 
 #: importer/docx/docximporter.py:97
 msgid ""
-"The file could not be imported because it was not saved in the .docx format."
-" Try to open the file in Word and save it as a .docx."
-msgstr "A fájl nem importálható, mert nem volt mentve a .docx formátumban. Próbálja megnyitni a fájlt a Word-ban és mentse el azt egy .docx formátumban."
+"The file could not be imported because it was not saved in the .docx format. "
+"Try to open the file in Word and save it as a .docx."
+msgstr ""
+"A fájl nem importálható, mert nem volt mentve a .docx formátumban. Próbálja "
+"megnyitni a fájlt a Word-ban és mentse el azt egy .docx formátumban."
 
 #: importer/docx/docximporter.py:100
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
-msgstr "A docx feltöltött fájl hibákat tartalmaz, és nem konvertálható. Kérjük, lépjen kapcsolatba az ügyfélszolgálattal."
+msgstr ""
+"A docx feltöltött fájl hibákat tartalmaz, és nem konvertálható. Kérjük, "
+"lépjen kapcsolatba az ügyfélszolgálattal."
 
 #: importer/docx/docximporter.py:147
 msgid "Note: Some images couldn't be imported."
@@ -3630,15 +3795,15 @@ msgstr ""
 msgid "Unknown chapter"
 msgstr ""
 
-#: importer/epub/epubimporter.py:524
+#: importer/epub/epubimporter.py:528
 msgid "Not using {} as a cover image -- {}"
 msgstr "Nem használja {} úgy, mint borítókép -- {}"
 
-#: importer/epub/epubimporter.py:528
+#: importer/epub/epubimporter.py:532
 msgid "Not using {} as a cover image"
 msgstr "Nem használja {} úgy, mint borítókép"
 
-#: importer/epub/epubimporter.py:565
+#: importer/epub/epubimporter.py:569
 msgid "Using {} as cover image"
 msgstr "Használatban {} úgy, mint borítókép"
 
@@ -3688,3 +3853,6 @@ msgstr "Szöveg Behúzás"
 #: skeleton/themes/custom/panel.html:89
 msgid "Line Height"
 msgstr "Sormagasság"
+
+#~ msgid "Next >"
+#~ msgstr "Következő >"

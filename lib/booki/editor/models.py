@@ -31,7 +31,7 @@ logger = logging.getLogger('booktype')
 # License
 class License(models.Model):
     name = models.CharField(_('name'), max_length=100, blank=False)
-    abbrevation = models.CharField(_('abbrevation'), max_length=30)
+    abbrevation = models.CharField(_('abbreviation'), max_length=30)
     url = models.URLField(_('url'), blank=True, null=True)
 
     def __unicode__(self):
@@ -45,7 +45,7 @@ class License(models.Model):
 # Language
 class Language(models.Model):
     name = models.CharField(_('name'), max_length=50, blank=False)
-    abbrevation = models.CharField(_('abbrevation'),
+    abbrevation = models.CharField(_('abbreviation'),
                                    max_length=10, blank=False)
 
     def __unicode__(self):
@@ -771,15 +771,15 @@ class AttributionExclude(models.Model):
 class PublishWizzard(models.Model):
     book = models.ForeignKey(Book, null=True, verbose_name=_("book"))
     user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
-    wizz_type = models.CharField(_('wizzard type'), max_length=20, blank=False)
-    wizz_options =  models.TextField(_('wizzard options'), default='', null=False)
+    wizz_type = models.CharField(_('wizard type'), max_length=20, blank=False)
+    wizz_options =  models.TextField(_('wizard options'), default='', null=False)
 
     def __unicode__(self):
         return u'%s' % (self.book.url_title, )
 
     class Meta:
-        verbose_name = _('Publish Wizzard')
-        verbose_name_plural = _('Publish Wizzard')
+        verbose_name = _('Publish Wizard')
+        verbose_name_plural = _('Publish Wizard')
         unique_together = ('book', 'user', 'wizz_type')
 
 
