@@ -331,7 +331,7 @@ def remote_init_editor(request, message, bookid, version):
         theme = UserTheme.objects.get(book=book, owner=request.user)
         theme_active = theme.active
     except UserTheme.DoesNotExist:
-        theme = UserTheme(book=book, owner=request.user)
+        theme = UserTheme(book=book, owner=request.user, active='')
         theme.save()
         theme_active = ''
 
