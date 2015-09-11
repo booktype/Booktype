@@ -187,7 +187,7 @@
     <form method="post" action="{% url 'accounts:invite' %}" target="hidden_frame" enctype="multipart/form-data">
       {% csrf_token %}
       <div id="wizard-invite">
-          <h3>{% trans 'Enter email adresses' %}</h3>
+          <h3>{% trans 'Enter email addresses' %}</h3>
         <section>
             <p class="wizard_desc">{% trans 'Who would you like to invite?' %}</p>
             <label for="{{ invite_form.email_list.id_for_label }}"> {{ invite_form.email_list.label }} </label>
