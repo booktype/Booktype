@@ -1,0 +1,83 @@
+
+body {
+  font-size: 8pt;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  font-family: "roboto";
+  color: #000000;
+}
+
+h1.frontmatter-title {
+  font-family: "roboto";
+  font-weight: bold;
+  font-size: 60pt;
+  text-transform: uppercase;
+}
+
+h2.frontmatter-author {
+  font-family: "roboto";
+  font-weight: normal;
+  margin-top: 3cm;
+  font-size: 22pt;
+}
+
+div.frontmatter-line {
+  width: 2cm;
+  background-color: black;
+  height: 0.1cm;
+  margin-top: 1cm;
+  margin-bottom: 1cm;
+}
+
+#frontmatter-bottom {
+  position:absolute;
+  left:0; top:26cm; width:20cm; height:2.5cm;
+  background-color: yellow;
+  font-size: 6pt;
+}
+
+div.mpdf_toc  {
+  font-size: 1rem;
+  font-family: "roboto";
+}
+
+span.mpdf_toc_t_level_0 {
+  font-weight: normal;
+  text-transform: capitalize;
+}
+
+h1.body-h1 {
+    font-family: "roboto";
+    font-weight: bold;
+    font-size: 36pt;
+}
+
+h2.body-h2 {
+    font-family: "roboto-medium";
+    font-weight: normal;
+    font-size: 28pt;
+}
+
+h3.body-h3 {
+    font-family: "roboto-medium";
+    font-weight: normal;
+    font-size: 22pt;
+}
+
+p.body-first {
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: 8pt;
+    text-indent: 0;
+    line-height: 1.4rem;
+    margin-bottom: 0;
+}
+p.body {
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: 8pt;
+    text-indent: 1cm;
+    line-height: 1.4rem;
+    margin-bottom: 0;
+}

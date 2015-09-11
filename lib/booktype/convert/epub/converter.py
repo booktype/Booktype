@@ -21,6 +21,7 @@ import ebooklib
 import datetime
 
 from copy import deepcopy
+from lxml import etree
 
 from django.template.loader import render_to_string
 
@@ -34,6 +35,7 @@ from ..utils.epub import parse_toc_nav
 from .writer import Writer
 from .writerplugin import WriterPlugin
 from .cover import add_cover, COVER_FILE_NAME
+from booktype.apps.convert import plugin
 
 from .constants import (
     IMAGES_DIR, STYLES_DIR, FONTS_DIR,
@@ -50,21 +52,41 @@ class EpubConverter(BaseConverter):
     DEFAULT_STYLE = 'style1'
     css_dir = os.path.join(os.path.dirname(__file__), 'styles/')
 
-    def pre_convert(self, original_book, book):
-        pass
+    def __init__(self, *args, **kwargs):
+        super(EpubConverter, self).__init__(*args, **kwargs)
 
-    def post_convert(self, original_book, book):
-        pass
+        self.theme_name = ''
+        self.theme_plugin = None
+
+    def _init_theme_plugin(self):
+        if 'theme' in self.config:
+            self.theme_name = self.config['theme'].get('id', '')
+            tp = plugin.load_theme_plugin(self.name, self.theme_name)
+            if tp:
+                self.theme_plugin = tp(self)
+        else:
+            self.theme_name = None
+
+    def pre_convert(self, original_book, book):
+        if self.theme_plugin:
+            try:
+                self.theme_plugin.pre_convert(original_book, book)
+            except NotImplementedError:
+                pass
+
+    def post_convert(self, original_book, book, output_path):
+        if self.theme_plugin:
+            try:
+                self.theme_plugin.post_convert(original_book, book, output_path)
+            except NotImplementedError:
+                pass
 
     def convert(self, original_book, output_path):
         convert_start = datetime.datetime.now()
 
         logger.debug('[EPUB] EpubConverter.convert')
 
-        if 'theme' in self.config:
-            self.theme_name = self.config['theme'].get('id', '')
-        else:
-            self.theme_name = None
+        self._init_theme_plugin()
 
         epub_book = ebooklib.epub.EpubBook()
         epub_book.FOLDER_NAME = 'OEBPS'
@@ -107,8 +129,10 @@ class EpubConverter(BaseConverter):
         book_css = self._add_css_styles(epub_book)
         writer_plugin.options['css'] = book_css
 
-        self._add_theme_assets(epub_book)
-        self.post_convert(original_book, epub_book)
+        if self.theme_name:
+            self._add_theme_assets(epub_book)
+
+        self.post_convert(original_book, epub_book, output_path)
 
         writer_options = {
             'plugins': [writer_plugin, ]
@@ -250,6 +274,14 @@ class EpubConverter(BaseConverter):
                     })
                 else:
                     epub_book.spine.append(item)
+
+                    if self.theme_plugin:
+                        try:
+                            content = ebooklib.utils.parse_html_string(item.content)
+                            cnt = self.theme_plugin.fix_content(content)
+                            item.content = etree.tostring(cnt, method='html', encoding='utf-8', pretty_print=True)
+                        except NotImplementedError:
+                            pass
 
             if isinstance(item, ebooklib.epub.EpubNcx):
                 item = ebooklib.epub.EpubNcx()

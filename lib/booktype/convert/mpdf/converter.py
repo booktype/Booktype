@@ -36,6 +36,7 @@ from ..base import BaseConverter
 from ..utils.epub import parse_toc_nav
 from .. import utils
 from .styles import create_default_style, get_page_size, CROP_MARGIN
+from booktype.apps.convert import plugin
 from booktype.apps.themes.utils import (
     read_theme_style, get_single_frontmatter, get_single_endmatter, get_body,
     read_theme_assets, read_theme_asset_content)
@@ -107,6 +108,7 @@ class MPDFConverter(BaseConverter):
         # image item name -> file name mappings
         self.images = {}
         self.theme_name = ''
+        self.theme_plugin = None
 
     def pre_convert(self, book):
         """Called before entire process of conversion is called.
@@ -129,6 +131,12 @@ class MPDFConverter(BaseConverter):
             self.config['page_width_bleed'] = self.config['page_width']
             self.config['page_height_bleed'] = self.config['page_height']
 
+        if self.theme_plugin:
+            try:
+                self.theme_plugin.pre_convert(book)
+            except NotImplementedError:
+                pass
+
     def post_convert(self, book, output_path):
         """Called after entire process of conversion is done.
 
@@ -137,7 +145,11 @@ class MPDFConverter(BaseConverter):
           - output_path: file path to output file
         """
 
-        return
+        if self.theme_plugin:
+            try:
+                self.theme_plugin.post_convert(book, output_path)
+            except NotImplementedError:
+                pass
 
     def _get_dir(self, epub_book):
         m = epub_book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
@@ -196,7 +208,12 @@ class MPDFConverter(BaseConverter):
           Returns dictionary.
         """
 
-        return {'mirror_margins': True}
+        data = {'mirror_margins': True}
+
+        if self.theme_plugin:
+            data['mpdf'] = self.theme_plugin.get_mpdf_config()
+
+        return data
 
     def get_metadata(self, book):
         """Returns metadata which will be passed to the PHP script.
@@ -230,6 +247,13 @@ class MPDFConverter(BaseConverter):
 
         return dc_metadata
 
+    def _init_theme_plugin(self):
+        if 'theme' in self.config:
+            self.theme_name = self.config['theme'].get('id', '')
+            tp =  plugin.load_theme_plugin(self.name, self.theme_name)
+            if tp:
+                self.theme_plugin = tp(self)
+
     def convert(self, book, output_path):
         """Starts conversion process.
 
@@ -243,8 +267,7 @@ class MPDFConverter(BaseConverter):
 
         convert_start = datetime.datetime.now()
 
-        if 'theme' in self.config:
-            self.theme_name = self.config['theme'].get('id', '')
+        self._init_theme_plugin()
 
         self.direction = self._get_dir(book)
 
@@ -299,6 +322,12 @@ class MPDFConverter(BaseConverter):
                 cnt = deepcopy(chapter_child)
                 self._fix_images(cnt, base_path)
                 cnt = self._fix_content(cnt)
+
+                if self.theme_plugin:
+                    try:
+                        cnt = self.theme_plugin.fix_content(cnt)
+                    except NotImplementedError:
+                        pass
 
                 return etree.tostring(cnt, method='html', encoding='utf-8', pretty_print=True)[6:-9]
         except etree.XMLSyntaxError:
@@ -636,6 +665,8 @@ class MPDFConverter(BaseConverter):
         """
 
         assets = read_theme_assets(self.theme_name, self.name)
+
+        print assets
 
         def _write(name, content):
             base_dir = '{}/themes/{}/'.format(settings.DATA_ROOT, self.theme_name)

@@ -1,0 +1,158 @@
+@font-face {
+    font-family: 'roboto';
+    src: url('../Fonts/Roboto-Regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('../Fonts/Roboto-Black.ttf') format('ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'roboto-medium';
+    src: url('../Fonts/Roboto-Medium.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'roboto-medium';
+    src: url('../Fonts/Roboto-Medium.ttf') format('ttf');
+    font-style: italic, oblique;
+}
+
+body {
+    font-size: 1em;
+    font-family: roboto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+{
+    hyphens:none;
+    line-height:100%;
+    page-break-after:avoid;
+    color: black;
+}
+
+h1
+{
+    text-align:left;
+    font-size:2em;
+    font-weight: bold;
+    font-family: roboto;
+}
+
+h2
+{
+    text-align:left;
+    font-family: roboto-medium;
+    font-size:1.7em;
+    font-weight:normal;
+}
+
+h3, 
+h4, 
+h5,
+h6
+{
+    text-align:left;
+    font-size:1.4em;
+    font-family: roboto-medium;
+    font-weight:normal;      
+}
+
+/* Paragraph Styles *****************************************************/
+
+body,  p
+{
+    widows:2;
+    orphans:2;
+}
+
+h1 + p
+{
+    font-size:1em;
+    text-align: left;
+    text-indent:0em;
+    margin-top:1em;
+    margin-bottom:0em;
+    line-height:1.44em;
+    font-family: roboto;
+}
+
+p
+{
+    font-family: roboto;
+    font-size:1em;
+    text-align:left;
+    text-indent:0em;
+    margin-top:1em;
+    margin-bottom:0em;
+    line-height:1.44em;   
+}
+
+p+p
+{
+    text-indent:1em;
+}
+
+
+img
+{
+max-width:100%;
+max-height:100%;
+margin: 0px auto;
+}
+
+table {
+    border: 1px solid black;
+    padding: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+ul, ol {
+    text-align: left;
+}
+
+ol, ul {
+    text-align: left;
+}
+
+.group_img {
+  page-break-inside: avoid;
+}
+
+.center {
+  text-align: center;
+}
+
+.caption_small {
+  margin-top: 0.5em;
+}
+
+div.frontmatter-line {
+ width: 50px;
+ height: 3px;
+ background-color: black;
+ margin-top: 20px;
+ margin-bottom: 20px;
+}
+
+.frontmatter-title {
+ text-transform: uppercase;
+ font-size: 3em;
+}
+
+.frontmatter-author {
+ font-size: 1.5em;
+}

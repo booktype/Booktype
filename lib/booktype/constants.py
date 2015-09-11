@@ -47,6 +47,10 @@ BOOKTYPE_MAX_BOOKS = 0
 
 MAX_ADDITIONAL_METADATA = 3
 
+BOOKTYPE_THEME_PLUGINS = {
+  'academic': 'booktype.apps.themes.convert.academic'
+}
+
 EXPORT_WAIT_FOR = 90
 
 EXPORT_SETTINGS = {

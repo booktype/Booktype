@@ -52,6 +52,12 @@ if(array_key_exists('mirror_margins', $config)) {
   }
 }
 
+if(array_key_exists('mpdf', $config)) {
+  foreach($config['mpdf'] as $name => $value) {
+    $mpdf->$name = $value;
+  }
+}
+
 $mpdf->bleedMargin = $config["config"]["settings"]["bleed_size"];
 
 $mpdf->h2toc = array(); 
