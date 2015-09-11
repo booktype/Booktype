@@ -263,7 +263,7 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
         max_length=200
     )
 
-    success_message = _('Succesfully created new license.')
+    success_message = _('Successfully created new license.')
     success_url = "#license"
 
     class Meta:
