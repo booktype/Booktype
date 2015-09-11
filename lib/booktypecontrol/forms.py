@@ -245,9 +245,9 @@ class FrontpageForm(BaseControlForm, forms.Form):
 
 class LicenseForm(BaseControlForm, forms.ModelForm):
     abbrevation = forms.CharField(
-        label=_("Abbrevation"),
+        label=_("Abbreviation"),
         required=True,
-        error_messages={'required': _('Abbrevation is required.')},
+        error_messages={'required': _('Abbreviation is required.')},
         max_length=30
     )
     name = forms.CharField(

@@ -31,7 +31,7 @@ logger = logging.getLogger('booktype')
 # License
 class License(models.Model):
     name = models.CharField(_('name'), max_length=100, blank=False)
-    abbrevation = models.CharField(_('abbrevation'), max_length=30)
+    abbrevation = models.CharField(_('abbreviation'), max_length=30)
     url = models.URLField(_('url'), blank=True, null=True)
 
     def __unicode__(self):
@@ -45,7 +45,7 @@ class License(models.Model):
 # Language
 class Language(models.Model):
     name = models.CharField(_('name'), max_length=50, blank=False)
-    abbrevation = models.CharField(_('abbrevation'),
+    abbrevation = models.CharField(_('abbreviation'),
                                    max_length=10, blank=False)
 
     def __unicode__(self):
