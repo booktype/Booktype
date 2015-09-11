@@ -352,11 +352,11 @@ class PrivacyForm(BaseControlForm, forms.Form):
         help_text=_('Anyone can register on the site and create an account')
     )
     create_books = forms.BooleanField(
-        label=_('Only admin can create books'),
+        label=_('Only the superuser can create books'),
         required=False
     )
     import_books = forms.BooleanField(
-        label=_('Only admin can import books'),
+        label=_('Only the superuser can import books'),
         required=False
     )
 
