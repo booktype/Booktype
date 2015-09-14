@@ -12,10 +12,10 @@
   </ul>
 
 <div class="box-bottom-white">
-  <button data-href="{% url "accounts:view_profile" request.user.username %}" role="button" class="btn btn-default float-left dashboard" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "My Dashboard" %}">
+  <button data-href="{% url "accounts:view_profile" request.user.username %}" role="button" class="btn btn-default float-left dashboard" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button for an overview of your books, groups, user profile and recent activity" %}">
     {% trans "My Dashboard" as dashboard_text %} {{ dashboard_text|upper }}
   </button>
-  <button data-href="{% url "accounts:user_settings" request.user.username %}" role="button" class="btn btn-default float-right settings" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Go to settings" %}">
+  <button data-href="{% url "accounts:user_settings" request.user.username %}" role="button" class="btn btn-default float-right settings" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to update your personal settings and Booktype account password" %}">
     {% trans "Settings" as settings_text %} {{ settings_text|upper }}
   </button>
 </div>

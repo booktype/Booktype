@@ -41,7 +41,7 @@
 
                     {% if request.user.is_authenticated %}
                         <div class="box-bottom-gray">
-                            <button data-href="{% url "accounts:view_profile" request.user.username %}#create-book" role="button" class="btn btn-default float-left create-book" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create book" %}">{% trans "CREATE BOOK" %}</button>
+                            <button data-href="{% url "accounts:view_profile" request.user.username %}#create-book" role="button" class="btn btn-default float-left create-book" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to go to My Dashboard and open the Create New Book wizard" %}">{% trans "Create new book" as create_text %} {{ create_text|upper }}</button>
                         </div>
                     {% endif %}
                 </div>
@@ -76,7 +76,7 @@
                     </ul>
                     {% if request.user.is_authenticated %}
                         <div class="box-bottom-gray">
-                            <button href="#inviteWizard" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Invite people" %}" data-toggle='modal'>{% trans "INVITE PEOPLE" %}</button>
+                            <button href="#inviteWizard" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to invite people by email to write and edit books with you" %}" data-toggle='modal'>{% trans "Invite people" as invite_text %}  {{ invite_text|upper }}</button>
                         </div>
                     {% endif %}
                 </div>
@@ -103,7 +103,7 @@
                     </ul>
                     {% if request.user.is_authenticated %}
                         <div class="box-bottom-gray">
-                            <button data-href="{% url "accounts:view_profile" request.user.username %}#create-group" role="button" class="btn btn-default create-group" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create new group" %}">{% trans "CREATE NEW GROUP" %}</button>
+                            <button data-href="{% url "accounts:view_profile" request.user.username %}#create-group" role="button" class="btn btn-default create-group" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to create a new group of writers and editors" %}">{% trans "Create new group" as creategroup_text %} {{ creategroup_text|upper }}</button>
                         </div>
                     {% endif %}
 
