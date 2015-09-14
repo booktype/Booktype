@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-13 15:13+0200\n"
-"PO-Revision-Date: 2015-09-14 09:11+0000\n"
+"PO-Revision-Date: 2015-09-14 09:17+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/sourcefabric/booktype/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -681,7 +681,7 @@ msgid ""
 "Username is invalid. Please try a different one. You may use alphanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
 "<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr ""
+msgstr "Sorry, that user name is invalid. Please try a different one. You may use alphanumeric characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). <br/><br/>Examples:<ul><li>dave.jones</li><li>David_Jones</li><li>davey-jones</li></ul>"
 
 #: apps/account/templates/account/register.html:62
 msgid "This is not a valid e-mail"
@@ -723,7 +723,7 @@ msgstr "User profile"
 
 #: apps/account/views.py:230
 msgid "User settings have been saved successfully!"
-msgstr ""
+msgstr "User settings have been saved successfully!"
 
 #: apps/account/views.py:267
 msgid "Password changed successfully!"
@@ -1070,11 +1070,11 @@ msgstr "Track Changes"
 
 #: apps/edit/__init__.py:37
 msgid "Track Changes approve/decline"
-msgstr ""
+msgstr "Track Changes approve/decline"
 
 #: apps/edit/__init__.py:38
 msgid "Track Changes on/off"
-msgstr ""
+msgstr "Track Changes on/off"
 
 #: apps/edit/__init__.py:41
 msgid "Manage Language"
@@ -1139,14 +1139,14 @@ msgstr "New Status"
 #: apps/edit/forms.py:237
 #, python-format
 msgid "%(field)s must have TYPE attribute"
-msgstr ""
+msgstr "%(field)s must have the Type attribute"
 
 #: apps/edit/forms.py:262
 #, python-format
 msgid ""
 "Unable to create field %(field)s. Reason: %(error)s | type: %(exc_type)s | "
 "Line: %(line_no)s "
-msgstr ""
+msgstr "Unable to create field %(field)s. Reason: %(error)s | type: %(exc_type)s | Line: %(line_no)s "
 
 #: apps/edit/templates/edit/_compare_modal.html:7
 #: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:554
@@ -1207,33 +1207,33 @@ msgstr "Cancel"
 
 #: apps/edit/templates/edit/_settings_form_additional_metadata.html:7
 msgid "Add Field"
-msgstr ""
+msgstr "Add Field"
 
 #: apps/edit/templates/edit/_settings_form_additional_metadata.html:27
 msgid "Add another metadata field"
-msgstr ""
+msgstr "Add another metadata field"
 
 #: apps/edit/templates/edit/_settings_form_additional_metadata.html:32
 msgid "Please, set a name to your metadata field"
-msgstr ""
+msgstr "Please set a name for your metadata field"
 
 #: apps/edit/templates/edit/_settings_form_additional_metadata.html:42
 msgid "Append"
-msgstr ""
+msgstr "Append"
 
 #: apps/edit/templates/edit/_settings_form_additional_metadata.html:54
 msgid "Delete metadata field"
-msgstr ""
+msgstr "Delete metadata field"
 
 #: apps/edit/templates/edit/_settings_form_additional_metadata.html:58
 msgid ""
 "Are you sure you would like to remove this field? You will not be able to "
 "undo this operation!"
-msgstr ""
+msgstr "Are you sure you would like to remove this field? You will not be able to undo this operation!"
 
 #: apps/edit/templates/edit/_settings_form_additional_metadata.html:66
 msgid "Confirm"
-msgstr ""
+msgstr "Confirm"
 
 #: apps/edit/templates/edit/_settings_form_chapter_status.html:4
 #: apps/edit/views.py:51
@@ -1290,7 +1290,7 @@ msgstr "User"
 
 #: apps/edit/templates/edit/_settings_form_roles.html:76
 msgid "There are no existing roles yet"
-msgstr ""
+msgstr "There are no existing roles yet"
 
 #: apps/edit/templates/edit/_settings_form_roles.html:79
 msgid "To apply changes, click on Save"
@@ -1419,7 +1419,7 @@ msgstr "SubSubHeading"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:17
 msgid "Pre-formatted"
-msgstr ""
+msgstr "Pre-formatted"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:22
 msgid "Font"
@@ -1940,7 +1940,7 @@ msgstr "Find"
 
 #: apps/edit/templates/edit/edit_strings.html:41
 msgid "Next &gt;"
-msgstr ""
+msgstr "Next &gt;"
 
 #: apps/edit/templates/edit/edit_strings.html:42
 msgid "Revision reverted"
@@ -2141,11 +2141,11 @@ msgstr "Some output formats do not have support for columns."
 
 #: apps/edit/templates/edit/edit_strings.html:87
 msgid "Metadata deleted successfully"
-msgstr ""
+msgstr "Metadata deleted successfully"
 
 #: apps/edit/templates/edit/edit_strings.html:88
 msgid "Unable to delete metadata"
-msgstr ""
+msgstr "Unable to delete metadata"
 
 #: apps/edit/templates/edit/panel_aloha.html:13
 msgid "Zen mode"
@@ -2802,7 +2802,7 @@ msgstr "Book Metadata"
 
 #: apps/edit/templates/edit/panel_settings.html:38 apps/edit/views.py:48
 msgid "Additional Metadata"
-msgstr ""
+msgstr "Additional Metadata"
 
 #: apps/edit/templates/edit/panel_settings.html:42
 msgid "Security"
@@ -3298,7 +3298,7 @@ msgstr "Create new group"
 
 #: apps/portal/templates/portal/frontpage.html:190
 msgid "Enter email addresses"
-msgstr ""
+msgstr "Enter email addresses"
 
 #: apps/portal/templates/portal/frontpage.html:192
 msgid "Who would you like to invite?"
