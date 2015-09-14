@@ -41,18 +41,18 @@
                         {% if current_user == request.user %}
                             {% if not limit_reached %}
                                 {% if not admin_create %}
-                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Create new book' as create_text %} {{ create_text }}">{{ create_text|upper }}</button>
+                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to open the Create New Book wizard" %}">{% trans "Create new book" as create_text %} {{ create_text|upper }}</button>
                                 {% endif %}
 
                                 {% if can_upload_book %}
-                                  <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#importBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Import Book' as import_text %} {{ import_text }}">{{ import_text|upper }}</button>
+                                  <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#importBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to open the Import Book / Upload EPUB window" %}">{% trans "Import Book" as import_text %} {{ import_text|upper }}</button>
                                 {% endif %}
                             {% endif %}
                         {% endif %}
 
                         <div class="btn-group float-right">
-                            <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show grid' %}"><i class="icon-th"></i></button>
-                            <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show List' %}"><i class="icon-list-ul"></i></button>
+                            <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show in a grid' %}"><i class="icon-th"></i></button>
+                            <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show in a list' %}"><i class="icon-list-ul"></i></button>
                         </div>
                     </div>
                 </h2>
@@ -140,8 +140,8 @@
                 <p><a href="#">{% trans "Track updates by RSS" %}</a> <img src="{% static 'core/img/rss.png' %}"></p>
 
                 <div class="box-bottom-white">
-                    <button id="user-settings" data-href="{% url 'accounts:user_settings' user.username %}" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Go to settings' %}">{% trans "Settings" as set_text %} {{ set_text|upper }}</button>
-                    <button data-href="{% url 'accounts:signout' %}" role="button" class="btn btn-success float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Log out" as log_text %} {{ log_text }}">{{ log_text|upper }}</button>
+                    <button id="user-settings" data-href="{% url 'accounts:user_settings' user.username %}" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to update your personal settings and Booktype account password" %}">{% trans "Settings" as set_text %} {{ set_text|upper }}</button>
+                    <button data-href="{% url 'accounts:signout' %}" role="button" class="btn btn-success float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to log out of your Booktype account" %}">{% trans "Log out" as log_text %} {{ log_text|upper }}</button>
 
                 </div>
             </div>
