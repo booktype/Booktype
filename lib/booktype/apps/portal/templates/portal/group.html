@@ -31,10 +31,10 @@
                             {% endif %}
 
                             {% if not is_group_member %}
-                                <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-default float-left join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
+                                <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-default float-left join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to join this group of writers and editors. You can leave the group at any time" %}">{% trans "JOIN THIS GROUP" %}</button>
                             {% else %}
                                 {% if not is_group_admin %}
-                                    <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-success float-left leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
+                                    <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-success float-left leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to leave this group. You can rejoin the group at any time" %}">{% trans "LEAVE THIS GROUP" %}</button>
                                 {% else %}
                                     <button data-href="{% url "portal:group_settings" user_group.url_name %}" role="button" class="btn btn-default float-right group-settings-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Group settings" %}">{% trans "GROUP SETTINGS" %}</button>
                                 {% endif %}

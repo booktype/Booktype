@@ -112,8 +112,8 @@
                 </ul>
 
                 <div class="box-bottom-gray">
-                    <button id="create-group-btn" data-remote="{% url 'portal:group_create' %}" data-toggle="modal" data-target="#createGroupModal" class="btn btn-default" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Create New Group' as create_group %} {{ create_group }}">
-                        {{ create_group|upper }}
+                    <button id="create-group-btn" data-remote="{% url 'portal:group_create' %}" data-toggle="modal" data-target="#createGroupModal" class="btn btn-default" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Click this button to create a new group of writers and editors" %}">
+                        {% trans "Create new group" as creategroup_text %} {{ creategroup_text|upper }}
                     </button>
                 </div>
 

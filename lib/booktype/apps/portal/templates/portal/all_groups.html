@@ -22,9 +22,9 @@
                             <div class="list-info group-list">
                                 {% if request.user.is_authenticated and request.user != group.owner %} 
                                     {% if request.user in group.members.all %} 
-                                        <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-success float-right btn-xs leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
+                                        <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-success float-right btn-xs leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to leave this group. You can rejoin the group at any time" %}">{% trans "LEAVE THIS GROUP" %}</button>
                                     {% else %}
-                                        <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-default float-right btn-xs join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
+                                        <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-default float-right btn-xs join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to join this group of writers and editors. You can leave the group at any time" %}">{% trans "JOIN THIS GROUP" %}</button>
                                     {% endif %}                                        
                                 {% endif %}
                                 <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
@@ -83,9 +83,9 @@
                             <div class="list-info">
                                 {% if request.user.is_authenticated and request.user != group.owner %} 
                                     {% if request.user in group.members.all %} 
-                                        <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-success float-right btn-xs leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Leave this group" %}">{% trans "LEAVE THIS GROUP" %}</button>
+                                        <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-success float-right btn-xs leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to leave this group. You can rejoin the group at any time" %}">{% trans "LEAVE THIS GROUP" %}</button>
                                     {% else %}
-                                        <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-default float-right btn-xs join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Join this group" %}">{% trans "JOIN THIS GROUP" %}</button>
+                                        <button group-name-url="{% url "portal:group" group.url_name %}" role="button" class="btn btn-default float-right btn-xs join-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to join this group of writers and editors. You can leave the group at any time" %}">{% trans "JOIN THIS GROUP" %}</button>
                                     {% endif %}                                        
                                 {% endif %}
                                 <h4><a href="{% url "portal:group" group.url_name %}">{{ group.name }}</a> - {{ group.description }}</h4>
