@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-13 15:13+0200\n"
-"PO-Revision-Date: 2015-09-14 09:17+0000\n"
+"POT-Creation-Date: 2015-09-14 23:57+0200\n"
+"PO-Revision-Date: 2015-09-15 08:35+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/sourcefabric/booktype/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -129,8 +129,17 @@ msgid "Books"
 msgstr "Books"
 
 #: apps/account/templates/account/dashboard.html:44
+msgid "Click this button to open the Create New Book wizard"
+msgstr ""
+
+#: apps/account/templates/account/dashboard.html:44
+#: apps/portal/templates/portal/frontpage.html:44
 msgid "Create new book"
 msgstr "Create new book"
+
+#: apps/account/templates/account/dashboard.html:48
+msgid "Click this button to open the Import Book / Upload EPUB window"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:48
 msgid "Import Book"
@@ -140,15 +149,15 @@ msgstr "Import Book"
 #: apps/portal/templates/portal/books.html:22
 #: apps/portal/templates/portal/frontpage.html:24
 #: apps/portal/templates/portal/group.html:51
-msgid "Show grid"
-msgstr "Show grid"
+msgid "Show in a grid"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:55
 #: apps/portal/templates/portal/books.html:23
 #: apps/portal/templates/portal/frontpage.html:25
 #: apps/portal/templates/portal/group.html:52
-msgid "Show List"
-msgstr "Show List"
+msgid "Show in a list"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:66
 msgid ""
@@ -205,8 +214,10 @@ msgstr "Track updates by RSS"
 
 #: apps/account/templates/account/dashboard.html:143
 #: apps/account/templates/account/form_signedin.html:18
-msgid "Go to settings"
-msgstr "Go to settings"
+msgid ""
+"Click this button to update your personal settings and Booktype account "
+"password"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:143
 #: apps/account/templates/account/form_signedin.html:19
@@ -214,6 +225,10 @@ msgstr "Go to settings"
 #: apps/edit/templates/edit/toolbar_book.html:12
 msgid "Settings"
 msgstr "Settings"
+
+#: apps/account/templates/account/dashboard.html:144
+msgid "Click this button to log out of your Booktype account"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:144
 msgid "Log out"
@@ -419,8 +434,8 @@ msgid "DELETE GROUP"
 msgstr "Delete Group"
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:8
-msgid "Import Book / Upload Epub"
-msgstr "Import Book / Upload EPUB"
+msgid "Import Book / Upload EPUB"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:11
 msgid "Available file formats: epub, docx"
@@ -558,6 +573,11 @@ msgid "New password again"
 msgstr "New password again"
 
 #: apps/account/templates/account/form_signedin.html:15
+msgid ""
+"Click this button for an overview of your books, groups, user profile and "
+"recent activity"
+msgstr ""
+
 #: apps/account/templates/account/form_signedin.html:16
 #: apps/account/views.py:65 apps/core/templates/core/nav_bar.html:9
 #: apps/core/templates/core/nav_menu.html:15
@@ -3260,23 +3280,21 @@ msgid "Can't find group \"%(group_name)s\"."
 msgstr "Can't find group \"%(group_name)s\"."
 
 #: apps/portal/templates/portal/frontpage.html:44
-msgid "Create book"
-msgstr "Create book"
-
-#: apps/portal/templates/portal/frontpage.html:44
-msgid "CREATE BOOK"
-msgstr "Create book"
+msgid ""
+"Click this button to go to My Dashboard and open the Create New Book wizard"
+msgstr ""
 
 #: apps/portal/templates/portal/frontpage.html:74
 msgid "There are no users yet"
 msgstr "There are no users yet"
 
 #: apps/portal/templates/portal/frontpage.html:79
-msgid "Invite people"
-msgstr "Invite people"
+msgid ""
+"Click this button to invite people by email to write and edit books with you"
+msgstr ""
 
 #: apps/portal/templates/portal/frontpage.html:79
-msgid "INVITE PEOPLE"
+msgid "Invite people"
 msgstr "Invite people"
 
 #: apps/portal/templates/portal/frontpage.html:97
@@ -3288,12 +3306,12 @@ msgid "Books:"
 msgstr "Books:"
 
 #: apps/portal/templates/portal/frontpage.html:106
-#: apps/portal/templates/portal/group_create.html:9 apps/portal/views.py:198
-msgid "Create new group"
-msgstr "Create new group"
+msgid "Click this button to create a new group of writers and editors"
+msgstr ""
 
 #: apps/portal/templates/portal/frontpage.html:106
-msgid "CREATE NEW GROUP"
+#: apps/portal/templates/portal/group_create.html:9 apps/portal/views.py:198
+msgid "Create new group"
 msgstr "Create new group"
 
 #: apps/portal/templates/portal/frontpage.html:190

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-13 15:13+0200\n"
-"PO-Revision-Date: 2015-09-14 08:22+0000\n"
+"POT-Creation-Date: 2015-09-14 23:57+0200\n"
+"PO-Revision-Date: 2015-09-15 08:35+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/sourcefabric/booktype/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -130,8 +130,17 @@ msgid "Books"
 msgstr "Könyvek"
 
 #: apps/account/templates/account/dashboard.html:44
+msgid "Click this button to open the Create New Book wizard"
+msgstr ""
+
+#: apps/account/templates/account/dashboard.html:44
+#: apps/portal/templates/portal/frontpage.html:44
 msgid "Create new book"
 msgstr "Új könyv lértehozása"
+
+#: apps/account/templates/account/dashboard.html:48
+msgid "Click this button to open the Import Book / Upload EPUB window"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:48
 msgid "Import Book"
@@ -141,15 +150,15 @@ msgstr "Könyv importálása"
 #: apps/portal/templates/portal/books.html:22
 #: apps/portal/templates/portal/frontpage.html:24
 #: apps/portal/templates/portal/group.html:51
-msgid "Show grid"
-msgstr "Rács megjelenítése"
+msgid "Show in a grid"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:55
 #: apps/portal/templates/portal/books.html:23
 #: apps/portal/templates/portal/frontpage.html:25
 #: apps/portal/templates/portal/group.html:52
-msgid "Show List"
-msgstr "Lista megtekitése"
+msgid "Show in a list"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:66
 msgid ""
@@ -206,8 +215,10 @@ msgstr "Kövesse nyomon a frissítéseket RSS csatornán keresztül"
 
 #: apps/account/templates/account/dashboard.html:143
 #: apps/account/templates/account/form_signedin.html:18
-msgid "Go to settings"
-msgstr "Ugrás a beállításokhoz"
+msgid ""
+"Click this button to update your personal settings and Booktype account "
+"password"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:143
 #: apps/account/templates/account/form_signedin.html:19
@@ -215,6 +226,10 @@ msgstr "Ugrás a beállításokhoz"
 #: apps/edit/templates/edit/toolbar_book.html:12
 msgid "Settings"
 msgstr "Beállítások"
+
+#: apps/account/templates/account/dashboard.html:144
+msgid "Click this button to log out of your Booktype account"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:144
 msgid "Log out"
@@ -420,8 +435,8 @@ msgid "DELETE GROUP"
 msgstr "CSOPORT TÖRLÉSE"
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:8
-msgid "Import Book / Upload Epub"
-msgstr "Könyv importálása / Epub feltöltése"
+msgid "Import Book / Upload EPUB"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:11
 msgid "Available file formats: epub, docx"
@@ -559,6 +574,11 @@ msgid "New password again"
 msgstr "Új jelszó ismét"
 
 #: apps/account/templates/account/form_signedin.html:15
+msgid ""
+"Click this button for an overview of your books, groups, user profile and "
+"recent activity"
+msgstr ""
+
 #: apps/account/templates/account/form_signedin.html:16
 #: apps/account/views.py:65 apps/core/templates/core/nav_bar.html:9
 #: apps/core/templates/core/nav_menu.html:15
@@ -3261,24 +3281,22 @@ msgid "Can't find group \"%(group_name)s\"."
 msgstr "Nem található a/az \"%(group_name)s\" csoport."
 
 #: apps/portal/templates/portal/frontpage.html:44
-msgid "Create book"
-msgstr "Könyv létrehozása"
-
-#: apps/portal/templates/portal/frontpage.html:44
-msgid "CREATE BOOK"
-msgstr "KÖNYV LÉTREHOZÁSA"
+msgid ""
+"Click this button to go to My Dashboard and open the Create New Book wizard"
+msgstr ""
 
 #: apps/portal/templates/portal/frontpage.html:74
 msgid "There are no users yet"
 msgstr "Még nincsenek felhasználók"
 
 #: apps/portal/templates/portal/frontpage.html:79
-msgid "Invite people"
-msgstr "Emberek meghívása"
+msgid ""
+"Click this button to invite people by email to write and edit books with you"
+msgstr ""
 
 #: apps/portal/templates/portal/frontpage.html:79
-msgid "INVITE PEOPLE"
-msgstr "EMBEREK MEGHÍVÁSA"
+msgid "Invite people"
+msgstr "Emberek meghívása"
 
 #: apps/portal/templates/portal/frontpage.html:97
 msgid "Members:"
@@ -3289,13 +3307,13 @@ msgid "Books:"
 msgstr "Könyvek:"
 
 #: apps/portal/templates/portal/frontpage.html:106
+msgid "Click this button to create a new group of writers and editors"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:106
 #: apps/portal/templates/portal/group_create.html:9 apps/portal/views.py:198
 msgid "Create new group"
 msgstr "Új csoport létrehozása"
-
-#: apps/portal/templates/portal/frontpage.html:106
-msgid "CREATE NEW GROUP"
-msgstr "ÚJ CSOPORT LÉTREHOZÁSA"
 
 #: apps/portal/templates/portal/frontpage.html:190
 msgid "Enter email addresses"
