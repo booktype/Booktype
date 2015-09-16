@@ -22,3 +22,7 @@
 <script type="text/javascript" src="{% static "core/js/booktype.js" %}"></script>
 <script type="text/javascript" src="{% static "core/js/booki.js" %}"></script>
 {% endcompress %}
+
+{% if debug %}
+  {% include "core/header_debug_js.html" %}
+{% endif %}

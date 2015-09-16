@@ -64,3 +64,7 @@
 <script type="text/javascript" src="{% static "edit/js/booktype/settings.js" %}"></script>
 <script type="text/javascript" src="{% static "themes/js/themes.js" %}"></script>
 {% endcompress %}
+
+{% if debug %}
+  {% include "core/header_debug_js.html" %}
+{% endif %}
