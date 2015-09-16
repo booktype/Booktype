@@ -1,7 +1,7 @@
 # English (en) translation strings for Booktype.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# 
+#
 # Translators:
 # Andrey Podshivalov, 2015
 # Oleg Pshenichniy <olegpshenichniy@gmail.com>, 2015
@@ -9,15 +9,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-15 14:50+0100\n"
+"POT-Creation-Date: 2015-09-16 13:07+0200\n"
 "PO-Revision-Date: 2015-09-16 09:21+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
-"Language-Team: Russian (http://www.transifex.com/sourcefabric/booktype/language/ru/)\n"
+"Language-Team: Russian (http://www.transifex.com/sourcefabric/booktype/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
 
@@ -78,8 +81,8 @@ msgstr "изображение"
 msgid "description"
 msgstr "описание"
 
-#: apps/account/models.py:38 apps/account/models.py:64
-#: apps/export/models.py:29 apps/export/models.py:61
+#: apps/account/models.py:38 apps/account/models.py:64 apps/export/models.py:29
+#: apps/export/models.py:61
 msgid "user"
 msgstr "пользователь"
 
@@ -91,97 +94,20 @@ msgstr "секретный код"
 msgid "created"
 msgstr "создано"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: apps/account/models.py:69
 msgid "remote useragent"
 msgstr "удаленный агент пользователя"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: apps/account/models.py:71
 msgid "remote addr"
 msgstr "удаленный адрес"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: apps/account/models.py:73
 msgid "remote host"
 msgstr "удаленный хост"
-
-#: apps/account/views.py:64
-msgid "Dashboard"
-msgstr "Панель пользователя"
-
-#: apps/account/views.py:65
-#: apps/account/templates/account/form_signedin.html:16
-#: apps/core/templates/core/nav_bar.html:9
-#: apps/core/templates/core/nav_menu.html:15
-#: apps/edit/templates/edit/toolbar_user.html:6
-msgid "My Dashboard"
-msgstr "Панель пользователя"
-
-#: apps/account/views.py:130 apps/account/views.py:131
-msgid "User profile"
-msgstr "Пользовательский профайл"
-
-#: apps/account/views.py:179 apps/account/views.py:180
-#: apps/account/templates/account/dashboard.html:143
-#: apps/account/templates/account/form_signedin.html:19
-#: apps/edit/templates/edit/toolbar_book.html:12
-msgid "Settings"
-msgstr "Настройки"
-
-#: apps/account/views.py:230
-msgid "User settings have been saved successfully!"
-msgstr ""
-
-#: apps/account/views.py:267
-msgid "Password changed successfully!"
-msgstr "Пароль успешно изменен!"
-
-#: apps/account/views.py:290 apps/account/views.py:291
-#: apps/account/templates/account/forgot_password.html:10
-msgid "Forgot your password"
-msgstr "Забыли свой пароль"
-
-#: apps/account/views.py:319
-msgid "Missing username"
-msgstr "Пропущено имя пользователя"
-
-#: apps/account/views.py:323
-msgid "No such user"
-msgstr "Нет такого пользователя"
-
-#: apps/account/views.py:343
-msgid "Reset password"
-msgstr "Сбросить пароль"
-
-#: apps/account/views.py:356
-msgid "Unknown error"
-msgstr "Неизвестная ошибка"
-
-#: apps/account/views.py:363 apps/account/views.py:364
-#: apps/account/templates/account/forgot_password_enter.html:12
-msgid "Reset your password"
-msgstr "Смените свой пароль"
-
-#: apps/account/views.py:378
-msgid "Password can't be empty"
-msgstr "Пароль не может быть пустым"
-
-#: apps/account/views.py:383
-msgid "Passwords don't match"
-msgstr "Пароли не совпадают"
-
-#: apps/account/views.py:399
-msgid "Wrong secret code"
-msgstr "Неверный секретный код"
-
-#: apps/account/views.py:413 apps/account/views.py:414
-#: apps/account/templates/account/form_signin.html:3
-msgid "Sign in"
-msgstr "Вход"
 
 #: apps/account/templates/account/dashboard.html:35
 msgid "My Books"
@@ -189,15 +115,15 @@ msgstr "Мои книги"
 
 #: apps/account/templates/account/dashboard.html:37
 #: apps/account/templates/account/dashboard_group_template.html:12
-#: apps/core/templates/core/nav_menu.html:21 apps/portal/views.py:324
-#: apps/portal/views.py:325 apps/portal/templates/portal/all_groups.html:31
+#: apps/core/templates/core/nav_menu.html:21
+#: apps/portal/templates/portal/all_groups.html:31
 #: apps/portal/templates/portal/all_groups.html:68
 #: apps/portal/templates/portal/all_groups.html:92
 #: apps/portal/templates/portal/books.html:17
 #: apps/portal/templates/portal/frontpage.html:20
 #: apps/portal/templates/portal/group.html:21
-#: apps/portal/templates/portal/group.html:48
-#: apps/reader/templates/reader/book_info_page.html:85
+#: apps/portal/templates/portal/group.html:48 apps/portal/views.py:324
+#: apps/portal/views.py:325 apps/reader/templates/reader/book_info_page.html:85
 msgid "Books"
 msgstr "Книги"
 
@@ -206,8 +132,9 @@ msgid "Click this button to open the Create New Book wizard"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:44
+#: apps/account/templates/account/dashboard_create_book_modal.html:8
 #: apps/portal/templates/portal/frontpage.html:44
-msgid "Create new book"
+msgid "Create New Book"
 msgstr "Создать новую книгу"
 
 #: apps/account/templates/account/dashboard.html:48
@@ -236,7 +163,9 @@ msgstr ""
 msgid ""
 "This is a perfect moment to start writing your book, just click on the "
 "button above!"
-msgstr "Это отличный момент, чтобы начать писать свою книгу, просто нажмите на кнопку выше!"
+msgstr ""
+"Это отличный момент, чтобы начать писать свою книгу, просто нажмите на "
+"кнопку выше!"
 
 #: apps/account/templates/account/dashboard.html:68
 msgid "This user has no books"
@@ -251,9 +180,10 @@ msgid "My Groups"
 msgstr "Мои группы"
 
 #: apps/account/templates/account/dashboard.html:98
-msgid ""
-"Work with others in Groups. To create a Group click on the button below"
-msgstr "Работайте с другими пользователями в группах. Чтобы создать группу, нажмите на кнопку ниже."
+msgid "Work with others in Groups. To create a Group click on the button below"
+msgstr ""
+"Работайте с другими пользователями в группах. Чтобы создать группу, нажмите "
+"на кнопку ниже."
 
 #: apps/account/templates/account/dashboard.html:104
 msgid "Participating Groups"
@@ -275,10 +205,14 @@ msgstr "полный список"
 msgid "Click this button to create a new group of writers and editors"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:116 apps/portal/views.py:198
+#: apps/account/templates/account/dashboard.html:116
 #: apps/portal/templates/portal/frontpage.html:106
 #: apps/portal/templates/portal/group_create.html:9
-msgid "Create new group"
+#: apps/portal/templates/portal/group_create_modal.html:7
+#: apps/portal/views.py:198
+#, fuzzy
+#| msgid "Create new group"
+msgid "Create New Group"
 msgstr "Создать новую группу"
 
 #: apps/account/templates/account/dashboard.html:128
@@ -298,6 +232,13 @@ msgid ""
 "Click this button to update your personal settings and Booktype account "
 "password"
 msgstr ""
+
+#: apps/account/templates/account/dashboard.html:143
+#: apps/account/templates/account/form_signedin.html:19
+#: apps/account/views.py:179 apps/account/views.py:180
+#: apps/edit/templates/edit/toolbar_book.html:12
+msgid "Settings"
+msgstr "Настройки"
 
 #: apps/account/templates/account/dashboard.html:144
 msgid "Click this button to log out of your Booktype account"
@@ -329,8 +270,9 @@ msgid "This user has no recent activity."
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:182
-#: apps/core/templates/core/nav_menu.html:28 apps/portal/views.py:152
-#: apps/portal/views.py:153 apps/portal/templates/portal/frontpage.html:87
+#: apps/core/templates/core/nav_menu.html:28
+#: apps/portal/templates/portal/frontpage.html:87 apps/portal/views.py:152
+#: apps/portal/views.py:153
 msgid "Groups"
 msgstr "Группы"
 
@@ -383,10 +325,6 @@ msgstr "Переименовать"
 msgid "Delete"
 msgstr "Удалить"
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:8
-msgid "Create New Book"
-msgstr "Создать новую книгу"
-
 #. Translators: Default chapter title when importing DOCX
 #. files. In case title does not exists.
 #: apps/account/templates/account/dashboard_create_book_modal.html:17
@@ -420,7 +358,9 @@ msgstr "Описание"
 msgid ""
 "Give some information so others can find it to help you (this can be added "
 "or changed later)."
-msgstr "Оставьте какую-то информацию, чтобы остальные могли ознакомиться с ней и помочь вам (можно внести или изменить позже)"
+msgstr ""
+"Оставьте какую-то информацию, чтобы остальные могли ознакомиться с ней и "
+"помочь вам (можно внести или изменить позже)"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:33
 msgid "Choose license"
@@ -445,7 +385,9 @@ msgstr "Изображение"
 msgid ""
 "If you have an image for the book then add it now (this can be added or "
 "changed later)"
-msgstr "Если у вас есть изображение для книги, добавьте его сейчас (можно внести или изменить позже)"
+msgstr ""
+"Если у вас есть изображение для книги, добавьте его сейчас (можно внести или "
+"изменить позже)"
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:47
 msgid "Book Image"
@@ -459,7 +401,9 @@ msgstr "Сделать книгу общедоступной?"
 msgid ""
 "Would you like to keep your book private or make it public? If the book is "
 "public others can find the book to help you."
-msgstr "Хотите сохранить книгу закрытой для окружающих или сделать общедоступной? если книга общедоступна, другие пользователи могут найти ее и помочь вам."
+msgstr ""
+"Хотите сохранить книгу закрытой для окружающих или сделать общедоступной? "
+"если книга общедоступна, другие пользователи могут найти ее и помочь вам."
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:54
 msgid "Note"
@@ -502,8 +446,10 @@ msgstr "Члены"
 
 #: apps/account/templates/account/dashboard_group_template.html:16
 #: apps/portal/templates/portal/group.html:29
-msgid "DELETE GROUP"
-msgstr "УДАЛИТЬ ГРУППУ"
+#: apps/portal/templates/portal/group_delete_modal.html:7
+#: apps/portal/templates/portal/group_delete_modal.html:16
+msgid "Delete Group"
+msgstr "Удалить группу"
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:8
 msgid "Import Book / Upload EPUB"
@@ -590,6 +536,20 @@ msgstr "Сохранить изменения"
 msgid "Change password"
 msgstr "Изменить пароль"
 
+#: apps/account/templates/account/errors/user_does_not_exist.html:4
+msgid "User does not exist!"
+msgstr "Пользователь не существует!"
+
+#: apps/account/templates/account/errors/user_does_not_exist.html:5
+#, python-format
+msgid "Can't find user \"%(username)s\"."
+msgstr "Пользователь \"%(username)s\" не найден."
+
+#: apps/account/templates/account/forgot_password.html:10
+#: apps/account/views.py:290 apps/account/views.py:291
+msgid "Forgot your password"
+msgstr "Забыли свой пароль"
+
 #: apps/account/templates/account/forgot_password.html:12
 msgid "Check your email!"
 msgstr "Проверьте свою электронную почту!"
@@ -604,14 +564,19 @@ msgstr "Имя пользователя или email адрес"
 
 #: apps/account/templates/account/forgot_password.html:26
 msgid ""
-"Give us your username or the e-mail address you used to create your Booktype"
-" account, and we will send you a new password."
+"Give us your username or the e-mail address you used to create your Booktype "
+"account, and we will send you a new password."
 msgstr ""
 
 #: apps/account/templates/account/forgot_password.html:30
 #: apps/account/templates/account/forgot_password_enter.html:42
 msgid "Send request"
 msgstr "Пошлите запрос"
+
+#: apps/account/templates/account/forgot_password_enter.html:12
+#: apps/account/views.py:363 apps/account/views.py:364
+msgid "Reset your password"
+msgstr "Смените свой пароль"
 
 #: apps/account/templates/account/forgot_password_enter.html:18
 msgid "Secret code"
@@ -630,6 +595,18 @@ msgid ""
 "Click this button for an overview of your books, groups, user profile and "
 "recent activity"
 msgstr ""
+
+#: apps/account/templates/account/form_signedin.html:16
+#: apps/account/views.py:65 apps/core/templates/core/nav_bar.html:9
+#: apps/core/templates/core/nav_menu.html:15
+#: apps/edit/templates/edit/toolbar_user.html:6
+msgid "My Dashboard"
+msgstr "Панель пользователя"
+
+#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:413
+#: apps/account/views.py:414
+msgid "Sign in"
+msgstr "Вход"
 
 #: apps/account/templates/account/form_signin.html:7
 msgid "Enter username"
@@ -666,9 +643,11 @@ msgstr "Забыли пароль?"
 
 #: apps/account/templates/account/password_reset_email.html:5
 msgid ""
-"To reset your Booktype password, simply click the link below. That will take"
-" you to a web page where you can create a new password."
-msgstr "Для сброса пароля в Booktype используйте ссылку. Вы перейдете на страницу, где сможете создать новый пароль. "
+"To reset your Booktype password, simply click the link below. That will take "
+"you to a web page where you can create a new password."
+msgstr ""
+"Для сброса пароля в Booktype используйте ссылку. Вы перейдете на страницу, "
+"где сможете создать новый пароль. "
 
 #: apps/account/templates/account/password_reset_email.html:6
 msgid "Go to:"
@@ -679,7 +658,10 @@ msgid ""
 "If you weren't trying to reset your password, don't worry – your account is "
 "still secure and no one has been given access to it. Most likely, someone "
 "just mistyped their email address while trying to reset their own password."
-msgstr "Если вы не пытались сбросить пароль, не волнуйтесь - ваша учетная запись в безопасности, никто не получал доступа к ней. Скорее всего, кто-то неверно ввел свой email адрес при сбросе своего собственного пароля. "
+msgstr ""
+"Если вы не пытались сбросить пароль, не волнуйтесь - ваша учетная запись в "
+"безопасности, никто не получал доступа к ней. Скорее всего, кто-то неверно "
+"ввел свой email адрес при сбросе своего собственного пароля. "
 
 #: apps/account/templates/account/register.html:13
 msgid "You are already signed in!"
@@ -741,7 +723,8 @@ msgstr "Пожалуйста, сообщите ваше настоящее им�
 msgid ""
 "Username is invalid. Please try a different one. You may use alphanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
+"li></ul>"
 msgstr ""
 
 #: apps/account/templates/account/register.html:62
@@ -772,16 +755,52 @@ msgstr "СОЗДАТЬ АККАУНТ"
 #: apps/portal/templates/portal/anonymous_frontpage.html:55
 #: apps/portal/templates/portal/frontpage.html:133
 msgid "Only administrator is allowed to create new accounts at the moment."
-msgstr "В настоящее время создавать новые учетные записи может только администратор."
+msgstr ""
+"В настоящее время создавать новые учетные записи может только администратор."
 
-#: apps/account/templates/account/errors/user_does_not_exist.html:4
-msgid "User does not exist!"
-msgstr "Пользователь не существует!"
+#: apps/account/views.py:64
+msgid "Dashboard"
+msgstr "Панель пользователя"
 
-#: apps/account/templates/account/errors/user_does_not_exist.html:5
-#, python-format
-msgid "Can't find user \"%(username)s\"."
-msgstr "Пользователь \"%(username)s\" не найден."
+#: apps/account/views.py:130 apps/account/views.py:131
+msgid "User profile"
+msgstr "Пользовательский профайл"
+
+#: apps/account/views.py:230
+msgid "User settings have been saved successfully!"
+msgstr ""
+
+#: apps/account/views.py:267
+msgid "Password changed successfully!"
+msgstr "Пароль успешно изменен!"
+
+#: apps/account/views.py:319
+msgid "Missing username"
+msgstr "Пропущено имя пользователя"
+
+#: apps/account/views.py:323
+msgid "No such user"
+msgstr "Нет такого пользователя"
+
+#: apps/account/views.py:343
+msgid "Reset password"
+msgstr "Сбросить пароль"
+
+#: apps/account/views.py:356
+msgid "Unknown error"
+msgstr "Неизвестная ошибка"
+
+#: apps/account/views.py:378
+msgid "Password can't be empty"
+msgstr "Пароль не может быть пустым"
+
+#: apps/account/views.py:383
+msgid "Passwords don't match"
+msgstr "Пароли не совпадают"
+
+#: apps/account/views.py:399
+msgid "Wrong secret code"
+msgstr "Неверный секретный код"
 
 #: apps/core/__init__.py:4
 msgid "Booktype core application"
@@ -794,6 +813,10 @@ msgstr ""
 #: apps/core/__init__.py:8
 msgid "Manage Permissions"
 msgstr ""
+
+#: apps/core/management/commands/update_default_roles.py:21
+msgid "system default role"
+msgstr "системная роль по умолчанию"
 
 #: apps/core/models.py:16
 msgid "app name"
@@ -808,8 +831,8 @@ msgstr "имя"
 msgid "Permission"
 msgstr "Разрешение"
 
-#: apps/core/models.py:29 apps/edit/views.py:50
-#: apps/edit/templates/edit/panel_settings.html:48
+#: apps/core/models.py:29 apps/edit/templates/edit/panel_settings.html:48
+#: apps/edit/views.py:50
 msgid "Permissions"
 msgstr "Разрешения"
 
@@ -821,9 +844,8 @@ msgstr "разрешения"
 msgid "Role"
 msgstr "Роль"
 
-#: apps/core/models.py:70 apps/edit/views.py:49
-#: apps/edit/templates/edit/panel_settings.html:44
-#: apps/portal/templates/portal/frontpage.html:230
+#: apps/core/models.py:70 apps/edit/templates/edit/panel_settings.html:44
+#: apps/edit/views.py:49 apps/portal/templates/portal/frontpage.html:230
 msgid "Roles"
 msgstr "Роли"
 
@@ -847,10 +869,6 @@ msgstr "Роль книги"
 msgid "Book Roles"
 msgstr "Роли Книги"
 
-#: apps/core/management/commands/update_default_roles.py:21
-msgid "system default role"
-msgstr "системная роль по умолчанию"
-
 #: apps/core/templates/core/authors.html:13
 msgid "Modifications:"
 msgstr "Изменения:"
@@ -863,11 +881,15 @@ msgstr "Об"
 msgid ""
 "This is a demonstration server for Booktype. This server is reset on a "
 "regular basis, and any books created here will be deleted at that time. You "
-"can read the Booktype user manual at <a "
-"href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-"
-"publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-"
-"publishers/</a>."
-msgstr "Это демо сервер для Booktype. Этот сервер сбросит все по умолчанию, и любые книги, созданные здесь, будут удалены. Вы можете прочитать инструкцию Booktype на <аhref=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/</a>."
+"can read the Booktype user manual at <a href=\"http://sourcefabric.booktype."
+"pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype."
+"pro/booktype-20-for-authors-and-publishers/</a>."
+msgstr ""
+"Это демо сервер для Booktype. Этот сервер сбросит все по умолчанию, и любые "
+"книги, созданные здесь, будут удалены. Вы можете прочитать инструкцию "
+"Booktype на <аhref=\"http://sourcefabric.booktype.pro/booktype-20-for-"
+"authors-and-publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-"
+"authors-and-publishers/</a>."
 
 #: apps/core/templates/core/footer.html:17
 msgid "How to use"
@@ -876,10 +898,14 @@ msgstr "Как использовать"
 #: apps/core/templates/core/footer.html:20
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
-"href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a>"
-" or check out Booktype Pro, our cloud-hosted publishing service - <a "
-"href=\"http://booktype.pro/\">http://booktype.pro/</a>."
-msgstr "Если вы хотите иметь свою собственную установку - скачайте Booktype на <a href=\"http://www.sourcefabric.org/en/booktype/\"> http://www.sourcefabric.org/en/booktype/</a > или попробуйте Booktype Pro, наш облачный сервис публикаций - <a href=\"http://booktype.pro/\"> http://booktype.pro/ </a>."
+"href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric."
+"org/en/booktype/</a> or check out Booktype Pro, our cloud-hosted publishing "
+"service - <a href=\"http://booktype.pro/\">http://booktype.pro/</a>."
+msgstr ""
+"Если вы хотите иметь свою собственную установку - скачайте Booktype на <a "
+"href=\"http://www.sourcefabric.org/en/booktype/\"> http://www.sourcefabric."
+"org/en/booktype/</a > или попробуйте Booktype Pro, наш облачный сервис "
+"публикаций - <a href=\"http://booktype.pro/\"> http://booktype.pro/ </a>."
 
 #: apps/core/templates/core/footer.html:27
 msgid "Need Help?"
@@ -892,13 +918,21 @@ msgid ""
 "print-on-demand services and education institutions produce better books, "
 "faster, while Sourcefabric takes care of your own platform's installation, "
 "hosting, upgrades, and security. "
-msgstr "С социальными инструментами, простым рабочим процессом и свободой выбора своих собственных лицензий, Booktype Pro идеально подходит для внутреннего или публичного использования. Издатели, сервисы печати и образовательные учреждения производят книги лучше, быстрее, в то время как Sourcefabric заботится об установки вашей собственной платформы, хостинга, модернизации и безопасности."
+msgstr ""
+"С социальными инструментами, простым рабочим процессом и свободой выбора "
+"своих собственных лицензий, Booktype Pro идеально подходит для внутреннего "
+"или публичного использования. Издатели, сервисы печати и образовательные "
+"учреждения производят книги лучше, быстрее, в то время как Sourcefabric "
+"заботится об установки вашей собственной платформы, хостинга, модернизации и "
+"безопасности."
 
 #: apps/core/templates/core/footer.html:41
 msgid ""
 "Powered by Booktype, the open content management system for professional  "
 "writers."
-msgstr "При поддержке Booktype, открытой системы управления контентом для профессиональных писателей."
+msgstr ""
+"При поддержке Booktype, открытой системы управления контентом для "
+"профессиональных писателей."
 
 #: apps/core/templates/core/nav_bar.html:12
 #: apps/edit/templates/edit/toolbar_user.html:8
@@ -924,8 +958,9 @@ msgstr ""
 msgid "Home"
 msgstr "Главная"
 
-#: apps/core/templates/core/nav_menu.html:35 apps/portal/views.py:302
-#: apps/portal/views.py:303 apps/portal/templates/portal/frontpage.html:54
+#: apps/core/templates/core/nav_menu.html:35
+#: apps/portal/templates/portal/frontpage.html:54 apps/portal/views.py:302
+#: apps/portal/views.py:303
 msgid "People"
 msgstr "Пользователи"
 
@@ -1174,87 +1209,10 @@ msgid ""
 "Line: %(line_no)s "
 msgstr ""
 
-#: apps/edit/views.py:44
-msgid "General Settings"
-msgstr ""
-
-#: apps/edit/views.py:45
-msgid "Book Language"
-msgstr "Язык Книги"
-
-#: apps/edit/views.py:46
-msgid "Book License"
-msgstr "Лицензия Книги"
-
-#: apps/edit/views.py:47 apps/edit/templates/edit/panel_settings.html:37
-msgid "Book Metadata"
-msgstr "Метаданные Книги"
-
-#: apps/edit/views.py:48 apps/edit/templates/edit/panel_settings.html:38
-msgid "Additional Metadata"
-msgstr ""
-
-#: apps/edit/views.py:51
-#: apps/edit/templates/edit/_settings_form_chapter_status.html:4
-msgid "Chapter Status"
-msgstr "Статус Главы"
-
-#: apps/edit/views.py:397
-msgid "Revision {0} saved"
-msgstr ""
-
-#: apps/edit/views.py:428 apps/edit/templates/edit/panel_aloha.html:57
-#: apps/reader/views.py:252
-msgid "Chapter"
-msgstr "Глава"
-
-#: apps/edit/views.py:446 apps/edit/templates/edit/panel_history.html:4
-#: apps/edit/templates/edit/toolbar_book.html:11
-msgid "Book History"
-msgstr "История Книги"
-
-#: apps/edit/views.py:554 apps/edit/templates/edit/_compare_modal.html:7
-#: apps/edit/templates/edit/compare_screen.html:13
+#: apps/edit/templates/edit/_compare_modal.html:7
+#: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:554
 msgid "Chapter diff"
 msgstr "Сравнение главы"
-
-#: apps/edit/views.py:585 apps/edit/templates/edit/_compare_modal.html:16
-#: apps/edit/templates/edit/_compare_modal.html:17
-#: apps/edit/templates/edit/chapter_history.html:23
-#: apps/edit/templates/edit/chapter_revision.html:16
-#: apps/edit/templates/edit/compare_screen.html:20
-#: apps/edit/templates/edit/compare_screen.html:21
-msgid "Revision"
-msgstr "Исправление"
-
-#: apps/edit/views.py:592
-msgid "Book History | Chapter Revision"
-msgstr "История Книги | Ревизия Главы"
-
-#: apps/edit/views.py:615
-#, python-format
-msgid "Reverted to revision %s."
-msgstr "Возвращено к ревизии %s."
-
-#: apps/edit/views.py:634
-msgid "Chapter revision successfully reverted."
-msgstr "Ревизия главы успешно возвращена."
-
-#: apps/edit/views.py:636
-msgid "Chapter revision could not be reverted."
-msgstr "Ревизия главы не может быть отменена."
-
-#: apps/edit/views.py:705
-msgid "Successfully saved settings."
-msgstr "Настройки успешно сохранены."
-
-#: apps/edit/views.py:707
-msgid "You have no permissions to execute this action."
-msgstr ""
-
-#: apps/edit/views.py:710
-msgid "Unknown error while saving changes."
-msgstr "Неизвестная ошибка при сохранении изменений"
 
 #: apps/edit/templates/edit/_compare_modal.html:11
 #: apps/edit/templates/edit/compare_screen.html:15
@@ -1270,6 +1228,15 @@ msgstr "Добавлена"
 #: apps/edit/templates/edit/compare_screen.html:17
 msgid "Deleted"
 msgstr "Удалено "
+
+#: apps/edit/templates/edit/_compare_modal.html:16
+#: apps/edit/templates/edit/_compare_modal.html:17
+#: apps/edit/templates/edit/chapter_history.html:23
+#: apps/edit/templates/edit/chapter_revision.html:16
+#: apps/edit/templates/edit/compare_screen.html:20
+#: apps/edit/templates/edit/compare_screen.html:21 apps/edit/views.py:585
+msgid "Revision"
+msgstr "Исправление"
 
 #: apps/edit/templates/edit/_compare_modal.html:27
 msgid "Full view"
@@ -1328,6 +1295,11 @@ msgstr ""
 #: apps/edit/templates/edit/_settings_form_additional_metadata.html:66
 msgid "Confirm"
 msgstr ""
+
+#: apps/edit/templates/edit/_settings_form_chapter_status.html:4
+#: apps/edit/views.py:51
+msgid "Chapter Status"
+msgstr "Статус Главы"
 
 #: apps/edit/templates/edit/_settings_form_chapter_status.html:6
 msgid "New status:"
@@ -1782,9 +1754,11 @@ msgstr "История"
 #: apps/edit/templates/edit/book_edit.html:288
 #, python-format
 msgid ""
-"<p class=\"notification-text\"><%%= username %%> joined </p><span class"
-"=\"notification-info\"><%%= info %%></span>"
-msgstr "<p class=\"notification-text\"><%%= username %%> присоединился </p><span class=\"notification-info\"><%%= info %%></span>"
+"<p class=\"notification-text\"><%%= username %%> joined </p><span class="
+"\"notification-info\"><%%= info %%></span>"
+msgstr ""
+"<p class=\"notification-text\"><%%= username %%> присоединился </p><span "
+"class=\"notification-info\"><%%= info %%></span>"
 
 #: apps/edit/templates/edit/book_history.html:21
 msgid "No results found."
@@ -1858,7 +1832,9 @@ msgstr "Вернуться к этому исправлению?"
 #: apps/edit/templates/edit/chapter_revision.html:57
 msgid ""
 "Current chapter content will be reverted to this revision. Are you sure?"
-msgstr "Содержание настоящей главы будет возвращено к состоянию на момент последнего исправления. Вы уверены, что хотите этого?"
+msgstr ""
+"Содержание настоящей главы будет возвращено к состоянию на момент последнего "
+"исправления. Вы уверены, что хотите этого?"
 
 #: apps/edit/templates/edit/chapter_revision.html:61
 msgid "Yes, revert!"
@@ -1869,46 +1845,57 @@ msgid "Revisions not found!"
 msgstr "Изменения не найдены!"
 
 #: apps/edit/templates/edit/edit_strings.html:3
+#, python-brace-format
 msgid "{0} has changed status of  chapter \"{1}\" to \"{2}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:4
+#, python-brace-format
 msgid "{0} has saved chapter \"{1}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:5
+#, python-brace-format
 msgid "{0} has saved \"{1}\" revision {2}."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:6
+#, python-brace-format
 msgid "{0} has renamed chapter \"{1}\" to \"{2}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:7
+#, python-brace-format
 msgid "{0} has deleted chapter \"{1}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:8
+#, python-brace-format
 msgid "{0} has created new chapter \"{1}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:9
+#, python-brace-format
 msgid "{0} has cloned chapter \"{1}\" from book \"{2}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:10
+#, python-brace-format
 msgid "\"{0}\" is being published."
 msgstr "\"{0}\" сейчас публикуется."
 
 #: apps/edit/templates/edit/edit_strings.html:11
+#, python-brace-format
 msgid "{0} has created new section \"{1}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:12
+#, python-brace-format
 msgid "{0} has reverted chapter \"{1}\" to revision {2}."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:13
+#, python-brace-format
 msgid "{0} has saved notes for book \"{1}\"."
 msgstr ""
 
@@ -2274,6 +2261,11 @@ msgstr "Количество символов книги"
 msgid "Book character count (with spaces)"
 msgstr "Количество символов книги (с пробелами)"
 
+#: apps/edit/templates/edit/panel_aloha.html:57 apps/edit/views.py:428
+#: apps/reader/views.py:252
+msgid "Chapter"
+msgstr "Глава"
+
 #: apps/edit/templates/edit/panel_aloha.html:59
 msgid "Character count"
 msgstr "Количество символов"
@@ -2440,7 +2432,10 @@ msgid ""
 "Error: The selected filetype is not supported. Please select one of the "
 "following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
 "SVG, EPS, AI, INDD."
-msgstr "Ошибка: Выбранный тип файла не поддерживается. Выберите один из доступных типов и повторите попытку: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+msgstr ""
+"Ошибка: Выбранный тип файла не поддерживается. Выберите один из доступных "
+"типов и повторите попытку: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, "
+"EPS, AI, INDD."
 
 #: apps/edit/templates/edit/panel_covers.html:38
 msgid "Important Info"
@@ -2448,13 +2443,19 @@ msgstr "Важная информация"
 
 #: apps/edit/templates/edit/panel_covers.html:40
 msgid ""
-"The cover manager allows you to upload, manage and publish your book covers."
-" Please upload your ebook cover image files (JPEG, GIF or PNG format) in the"
-" appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
+"The cover manager allows you to upload, manage and publish your book covers. "
+"Please upload your ebook cover image files (JPEG, GIF or PNG format) in the "
+"appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
 "(in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front "
-"cover, spine and back cover of your print books can be uploaded and managed,"
-" but will be kept separate from the text of the book when publishing it."
-msgstr "Менеджер обложек позволяет загружать, управлять и публиковать ваши книжные обложки. Загрузите вашу обложку соотвествующего размера в виде файла формата JPEG, GIF или PNG для вывода в виде EPUB, MOBI, экранного PDF или ODT. Вы также можете создать и загрузить (в TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI или INDD формат) файлы титульной обложки, переплета и задней обложки, но они будут расположены отдельно от текста книги при ее публикации."
+"cover, spine and back cover of your print books can be uploaded and managed, "
+"but will be kept separate from the text of the book when publishing it."
+msgstr ""
+"Менеджер обложек позволяет загружать, управлять и публиковать ваши книжные "
+"обложки. Загрузите вашу обложку соотвествующего размера в виде файла формата "
+"JPEG, GIF или PNG для вывода в виде EPUB, MOBI, экранного PDF или ODT. Вы "
+"также можете создать и загрузить (в TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI "
+"или INDD формат) файлы титульной обложки, переплета и задней обложки, но они "
+"будут расположены отдельно от текста книги при ее публикации."
 
 #: apps/edit/templates/edit/panel_covers.html:51
 #: apps/edit/templates/edit/panel_covers.html:108
@@ -2479,6 +2480,11 @@ msgstr "Размер файла"
 #: apps/edit/templates/edit/panel_covers.html:171
 msgid "Image dimensions"
 msgstr "Размеры изображения"
+
+#: apps/edit/templates/edit/panel_history.html:4
+#: apps/edit/templates/edit/toolbar_book.html:11 apps/edit/views.py:446
+msgid "Book History"
+msgstr "История Книги"
 
 #: apps/edit/templates/edit/panel_history.html:8
 msgid "Here you can follow the edit history of your book."
@@ -2530,7 +2536,9 @@ msgstr "Добавить файлы..."
 msgid ""
 "All images added to your book are listed here as well as any additional "
 "files you have uploaded."
-msgstr "Все изображения, добавленные в вашу книгу, перечислены здесь, как и любые загруженные вами дополнительные файлы."
+msgstr ""
+"Все изображения, добавленные в вашу книгу, перечислены здесь, как и любые "
+"загруженные вами дополнительные файлы."
 
 #: apps/edit/templates/edit/panel_media.html:34
 msgid "preview"
@@ -2556,7 +2564,9 @@ msgstr "Удалить медиафайлы"
 msgid ""
 "Are you sure you would like to delete media files? You will not be able to "
 "undo this operation!"
-msgstr "Вы действительно хотите удалить меди файлы? Вы не сможете отменить эту операцию."
+msgstr ""
+"Вы действительно хотите удалить меди файлы? Вы не сможете отменить эту "
+"операцию."
 
 #: apps/edit/templates/edit/panel_media.html:60
 #: apps/edit/templates/edit/panel_toc.html:95
@@ -2598,8 +2608,8 @@ msgstr "Информация книги"
 
 #: apps/edit/templates/edit/panel_publish.html:40
 #: apps/edit/templates/edit/panel_settings.html:4
-#: apps/edit/templates/edit/panel_settings.html:65
-#: apps/edit/templates/edit/panel_settings.html:70
+#: apps/edit/templates/edit/panel_settings.html:62
+#: apps/edit/templates/edit/panel_settings.html:67
 msgid "Book Settings"
 msgstr "Настройки книги"
 
@@ -2864,19 +2874,23 @@ msgstr "Статус главы"
 msgid "Metadata"
 msgstr "Метаданные"
 
+#: apps/edit/templates/edit/panel_settings.html:37 apps/edit/views.py:47
+msgid "Book Metadata"
+msgstr "Метаданные Книги"
+
+#: apps/edit/templates/edit/panel_settings.html:38 apps/edit/views.py:48
+msgid "Additional Metadata"
+msgstr ""
+
 #: apps/edit/templates/edit/panel_settings.html:42
 msgid "Security"
 msgstr "Безопасность"
 
-#: apps/edit/templates/edit/panel_settings.html:51
-msgid "Visibility"
-msgstr "Видимость"
-
-#: apps/edit/templates/edit/panel_settings.html:66
+#: apps/edit/templates/edit/panel_settings.html:63
 msgid "Settings module not available."
 msgstr "Модуль настроек не доступен."
 
-#: apps/edit/templates/edit/panel_settings.html:71
+#: apps/edit/templates/edit/panel_settings.html:68
 msgid "Permissions required to access this module."
 msgstr ""
 
@@ -2928,7 +2942,9 @@ msgstr "Удалить Главу"
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
-msgstr "Вы уверены, что хотите удалить эту главу? Вы потеряете все данные ассоциированные с этой главой и вы не сможете отменить эту операцию."
+msgstr ""
+"Вы уверены, что хотите удалить эту главу? Вы потеряете все данные "
+"ассоциированные с этой главой и вы не сможете отменить эту операцию."
 
 #: apps/edit/templates/edit/panel_toc.html:114
 msgid "Remove section"
@@ -2938,7 +2954,9 @@ msgstr "Удалить раздел"
 msgid ""
 "Are you sure you would like to delete this section? You will lose all data "
 "associated to this section and you will not be able to undo this operation!"
-msgstr "Вы уверены, что хотите удалить этот раздел? Вы потеряете все данные ассоциированные с этим разделом и вы не сможете отменить эту операцию."
+msgstr ""
+"Вы уверены, что хотите удалить этот раздел? Вы потеряете все данные "
+"ассоциированные с этим разделом и вы не сможете отменить эту операцию."
 
 #: apps/edit/templates/edit/panel_toc.html:126
 msgid "Delete chapters under this section"
@@ -2948,7 +2966,8 @@ msgstr "Удалить главы в этом разделе"
 msgid ""
 "All books should contain at least one section and can have as many chapters "
 "as you like."
-msgstr "Все книги должны содержать минимум один раздел и любое желаемое число глав."
+msgstr ""
+"Все книги должны содержать минимум один раздел и любое желаемое число глав."
 
 #: apps/edit/templates/edit/panel_toc.html:151
 #: apps/edit/templates/edit/panel_toc.html:274
@@ -3034,6 +3053,52 @@ msgstr "Заблокировать для всех"
 #: apps/edit/templates/edit/panel_toc.html:414
 msgid "RENAME"
 msgstr "ПЕРЕИМЕНОВАТЬ"
+
+#: apps/edit/views.py:44
+msgid "General Settings"
+msgstr ""
+
+#: apps/edit/views.py:45
+msgid "Book Language"
+msgstr "Язык Книги"
+
+#: apps/edit/views.py:46
+msgid "Book License"
+msgstr "Лицензия Книги"
+
+#: apps/edit/views.py:397
+#, python-brace-format
+msgid "Revision {0} saved"
+msgstr ""
+
+#: apps/edit/views.py:592
+msgid "Book History | Chapter Revision"
+msgstr "История Книги | Ревизия Главы"
+
+#: apps/edit/views.py:615
+#, python-format
+msgid "Reverted to revision %s."
+msgstr "Возвращено к ревизии %s."
+
+#: apps/edit/views.py:634
+msgid "Chapter revision successfully reverted."
+msgstr "Ревизия главы успешно возвращена."
+
+#: apps/edit/views.py:636
+msgid "Chapter revision could not be reverted."
+msgstr "Ревизия главы не может быть отменена."
+
+#: apps/edit/views.py:705
+msgid "Successfully saved settings."
+msgstr "Настройки успешно сохранены."
+
+#: apps/edit/views.py:707
+msgid "You have no permissions to execute this action."
+msgstr ""
+
+#: apps/edit/views.py:710
+msgid "Unknown error while saving changes."
+msgstr "Неизвестная ошибка при сохранении изменений"
 
 #: apps/export/__init__.py:5
 msgid "Booktype export application"
@@ -3188,27 +3253,6 @@ msgstr "Название группы уже используется"
 msgid "Only JPEG file is allowed for group image."
 msgstr "Только JPEG файл разрешается для изображения группы."
 
-#: apps/portal/views.py:44
-msgid "Booktype"
-msgstr "Booktype"
-
-#: apps/portal/views.py:94
-msgid "Group"
-msgstr "Группа"
-
-#: apps/portal/views.py:235 apps/portal/templates/portal/group.html:39
-#: apps/portal/templates/portal/group_settings.html:9
-msgid "Group settings"
-msgstr "Настройки группы"
-
-#: apps/portal/views.py:279
-msgid "You are not allowed to delete this group"
-msgstr "Вам не разрешено удалять эту группу"
-
-#: apps/portal/views.py:293
-msgid "Group successfully deleted."
-msgstr "Группа успешно удалена."
-
 #: apps/portal/templates/portal/all_groups.html:15
 msgid "All groups"
 msgstr "Все группы"
@@ -3288,6 +3332,15 @@ msgstr "Нет опубликованных книг на данный моме�
 msgid "There is no activity yet"
 msgstr "Нет активности"
 
+#: apps/portal/templates/portal/errors/group_does_not_exist.html:8
+msgid "Group not found!"
+msgstr "Группа не найдена!"
+
+#: apps/portal/templates/portal/errors/group_does_not_exist.html:9
+#, python-format
+msgid "Can't find group \"%(group_name)s\"."
+msgstr "Невозможно найти группу \"%(group_name)s\"."
+
 #: apps/portal/templates/portal/frontpage.html:44
 msgid ""
 "Click this button to go to My Dashboard and open the Create New Book wizard"
@@ -3355,36 +3408,41 @@ msgid "Set Roles for this invitation"
 msgstr "Выберите Роли для приглашения"
 
 #: apps/portal/templates/portal/group.html:39
-msgid "GROUP SETTINGS"
-msgstr "НАСТРОЙКИ ГРУППЫ"
+msgid ""
+"Click this button to update the name, description or image for your group"
+msgstr ""
+
+#: apps/portal/templates/portal/group.html:39
+#: apps/portal/templates/portal/group_settings.html:9
+#, fuzzy
+#| msgid "Group settings"
+msgid "Group Settings"
+msgstr "Настройки группы"
 
 #: apps/portal/templates/portal/group.html:82
-msgid "Add book to the group"
+msgid "Click this button to select other books and add them to this group"
+msgstr ""
+
+#: apps/portal/templates/portal/group.html:82
+#, fuzzy
+#| msgid "Add book to the group"
+msgid "Add books to this group"
 msgstr "Добавить книгу в группу"
-
-#: apps/portal/templates/portal/group.html:82
-msgid "ADD BOOK TO THE GROUP"
-msgstr "ДОБАВИТЬ КНИГУ В ГРУППУ"
 
 #: apps/portal/templates/portal/group_create.html:16
 #: apps/portal/templates/portal/group_create_modal.html:20
-msgid "Create Group"
-msgstr "Создать Группу"
-
-#: apps/portal/templates/portal/group_create_modal.html:7
-msgid "Create a new group"
-msgstr "Создать новую группу"
-
-#: apps/portal/templates/portal/group_delete_modal.html:7
-#: apps/portal/templates/portal/group_delete_modal.html:16
-msgid "Delete Group"
-msgstr "Удалить группу"
+#, fuzzy
+#| msgid "Created"
+msgid "Create"
+msgstr "Создана"
 
 #: apps/portal/templates/portal/group_delete_modal.html:11
 msgid ""
 "Are you sure you would like to delete this group? You will not be able to "
 "undo this operation!"
-msgstr "Вы уверены, что хотите удалить эту группу? Вы не сможете отменить это действие!"
+msgstr ""
+"Вы уверены, что хотите удалить эту группу? Вы не сможете отменить это "
+"действие!"
 
 #: apps/portal/templates/portal/people.html:15
 msgid "All people"
@@ -3422,14 +3480,25 @@ msgstr "Анонимный пользователь"
 msgid "You have to log in to add books."
 msgstr "Вы должны войти чтобы добавлять книги."
 
-#: apps/portal/templates/portal/errors/group_does_not_exist.html:8
-msgid "Group not found!"
-msgstr "Группа не найдена!"
+#: apps/portal/views.py:44
+msgid "Booktype"
+msgstr "Booktype"
 
-#: apps/portal/templates/portal/errors/group_does_not_exist.html:9
-#, python-format
-msgid "Can't find group \"%(group_name)s\"."
-msgstr "Невозможно найти группу \"%(group_name)s\"."
+#: apps/portal/views.py:94
+msgid "Group"
+msgstr "Группа"
+
+#: apps/portal/views.py:235
+msgid "Group settings"
+msgstr "Настройки группы"
+
+#: apps/portal/views.py:279
+msgid "You are not allowed to delete this group"
+msgstr "Вам не разрешено удалять эту группу"
+
+#: apps/portal/views.py:293
+msgid "Group successfully deleted."
+msgstr "Группа успешно удалена."
 
 #: apps/reader/__init__.py:4
 msgid "Booktype reader application"
@@ -3455,44 +3524,13 @@ msgstr "Описание книги"
 msgid "Book image"
 msgstr "Изображение книги"
 
-#: apps/reader/views.py:76
-#, python-format
-msgid "%(object)s not found!"
-msgstr "%(object)s не найден!"
-
-#: apps/reader/views.py:102
-msgid "Book Details Page"
-msgstr "Подробная Страница Книги"
-
-#: apps/reader/views.py:103
-msgid "Book Details"
-msgstr "Подробности о Книге"
-
-#: apps/reader/views.py:187
-msgid "Successfully changed book info."
-msgstr "Информация о книге успешно изменена."
-
-#: apps/reader/views.py:189
-msgid "Could not upload cover image."
-msgstr "Невозможно загрузить обложку книги."
-
-#: apps/reader/views.py:210
-msgid "Book successfully deleted."
-msgstr "Книга успешно удалена."
-
-#: apps/reader/views.py:217
-msgid "Chapter Draft"
-msgstr "Черновик Главы"
-
-#: apps/reader/views.py:278
-msgid "Book full view"
-msgstr "Полный вид книги"
-
 #: apps/reader/templates/reader/book_delete.html:12
 msgid ""
 "Are you sure you would like to delete this book? You will lose all data "
 "associated to this book and you will not be able to undo this operation!"
-msgstr "Вы уверены, что хотели бы удалить эту книгу? Вы можете потерять все данные, связанные с этой книгой безвозвратно после этой операции!"
+msgstr ""
+"Вы уверены, что хотели бы удалить эту книгу? Вы можете потерять все данные, "
+"связанные с этой книгой безвозвратно после этой операции!"
 
 #: apps/reader/templates/reader/book_delete.html:13
 msgid "Type full title of the book to delete it"
@@ -3648,6 +3686,39 @@ msgstr "Загружена"
 msgid "Attachment delete"
 msgstr "Удалить вложение"
 
+#: apps/reader/views.py:76
+#, python-format
+msgid "%(object)s not found!"
+msgstr "%(object)s не найден!"
+
+#: apps/reader/views.py:102
+msgid "Book Details Page"
+msgstr "Подробная Страница Книги"
+
+#: apps/reader/views.py:103
+msgid "Book Details"
+msgstr "Подробности о Книге"
+
+#: apps/reader/views.py:187
+msgid "Successfully changed book info."
+msgstr "Информация о книге успешно изменена."
+
+#: apps/reader/views.py:189
+msgid "Could not upload cover image."
+msgstr "Невозможно загрузить обложку книги."
+
+#: apps/reader/views.py:210
+msgid "Book successfully deleted."
+msgstr "Книга успешно удалена."
+
+#: apps/reader/views.py:217
+msgid "Chapter Draft"
+msgstr "Черновик Главы"
+
+#: apps/reader/views.py:278
+msgid "Book full view"
+msgstr "Полный вид книги"
+
 #: apps/themes/templates/themes/panel.html:3
 msgid "Style Layout"
 msgstr "Стиль Макета"
@@ -3661,26 +3732,34 @@ msgstr "сбросить"
 msgid ""
 "Note: When importing formulas have been found and highlighted in the text, "
 "which are not supported by many e-readers and easy editor."
-msgstr "Примечание: При импорте формул были найдены и выделены в тексте, те которые не поддерживаются многими электронными книгами и easy editor."
+msgstr ""
+"Примечание: При импорте формул были найдены и выделены в тексте, те которые "
+"не поддерживаются многими электронными книгами и easy editor."
 
 #. Translators: Warning during the DOCX import
 #: importer/docx/docximporter.py:54
 msgid ""
 "Note: When importing foot or endnotes were found, which are not yet "
 "supported by easy editor."
-msgstr "Примечание: При импорте футера или сносок были найдены те, которых easy editor еще не поддерживает."
+msgstr ""
+"Примечание: При импорте футера или сносок были найдены те, которых easy "
+"editor еще не поддерживает."
 
 #: importer/docx/docximporter.py:97
 msgid ""
-"The file could not be imported because it was not saved in the .docx format."
-" Try to open the file in Word and save it as a .docx."
-msgstr "Файл не может быть импортирован, поскольку он не был сохранен в формате .docx. Попробуйте открыть файл в Word-е и сохранить его как .docx."
+"The file could not be imported because it was not saved in the .docx format. "
+"Try to open the file in Word and save it as a .docx."
+msgstr ""
+"Файл не может быть импортирован, поскольку он не был сохранен в формате ."
+"docx. Попробуйте открыть файл в Word-е и сохранить его как .docx."
 
 #: importer/docx/docximporter.py:100
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
-msgstr "Загруженный файл docx содержит ошибки и не может быть конвертирован. Пожалуйста, обратитесь в службу поддержки клиентов."
+msgstr ""
+"Загруженный файл docx содержит ошибки и не может быть конвертирован. "
+"Пожалуйста, обратитесь в службу поддержки клиентов."
 
 #: importer/docx/docximporter.py:147
 msgid "Note: Some images couldn't be imported."
@@ -3691,6 +3770,7 @@ msgid "Title Page"
 msgstr "Заголовок Страницы"
 
 #: importer/epub/epubimporter.py:262
+#, python-brace-format
 msgid "Broken endnotes markers in \"{0}\"."
 msgstr ""
 
@@ -3756,3 +3836,24 @@ msgstr "Отступ Текста"
 #: skeleton/themes/custom/panel.html:89
 msgid "Line Height"
 msgstr "Высота Линии"
+
+#~ msgid "Create new book"
+#~ msgstr "Создать новую книгу"
+
+#~ msgid "DELETE GROUP"
+#~ msgstr "УДАЛИТЬ ГРУППУ"
+
+#~ msgid "Visibility"
+#~ msgstr "Видимость"
+
+#~ msgid "GROUP SETTINGS"
+#~ msgstr "НАСТРОЙКИ ГРУППЫ"
+
+#~ msgid "ADD BOOK TO THE GROUP"
+#~ msgstr "ДОБАВИТЬ КНИГУ В ГРУППУ"
+
+#~ msgid "Create Group"
+#~ msgstr "Создать Группу"
+
+#~ msgid "Create a new group"
+#~ msgstr "Создать новую группу"
