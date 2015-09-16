@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-15 14:50+0100\n"
+"POT-Creation-Date: 2015-09-16 11:34+0100\n"
 "PO-Revision-Date: 2015-05-15 11:52+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -200,8 +200,9 @@ msgid "Click this button to open the Create New Book wizard"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:44
+#: apps/account/templates/account/dashboard_create_book_modal.html:8
 #: apps/portal/templates/portal/frontpage.html:44
-msgid "Create new book"
+msgid "Create New Book"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:48
@@ -271,7 +272,8 @@ msgstr ""
 #: apps/account/templates/account/dashboard.html:116 apps/portal/views.py:198
 #: apps/portal/templates/portal/frontpage.html:106
 #: apps/portal/templates/portal/group_create.html:9
-msgid "Create new group"
+#: apps/portal/templates/portal/group_create_modal.html:7
+msgid "Create New Group"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:128
@@ -374,10 +376,6 @@ msgstr ""
 #: apps/edit/templates/edit/panel_toc.html:364
 #: apps/edit/templates/edit/panel_toc.html:390
 msgid "Delete"
-msgstr ""
-
-#: apps/account/templates/account/dashboard_create_book_modal.html:8
-msgid "Create New Book"
 msgstr ""
 
 #. Translators: Default chapter title when importing DOCX
@@ -495,7 +493,9 @@ msgstr ""
 
 #: apps/account/templates/account/dashboard_group_template.html:16
 #: apps/portal/templates/portal/group.html:29
-msgid "DELETE GROUP"
+#: apps/portal/templates/portal/group_delete_modal.html:7
+#: apps/portal/templates/portal/group_delete_modal.html:16
+msgid "Delete Group"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:8
@@ -2591,8 +2591,8 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:40
 #: apps/edit/templates/edit/panel_settings.html:4
-#: apps/edit/templates/edit/panel_settings.html:65
-#: apps/edit/templates/edit/panel_settings.html:70
+#: apps/edit/templates/edit/panel_settings.html:62
+#: apps/edit/templates/edit/panel_settings.html:67
 msgid "Book Settings"
 msgstr ""
 
@@ -2861,15 +2861,11 @@ msgstr ""
 msgid "Security"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_settings.html:51
-msgid "Visibility"
-msgstr ""
-
-#: apps/edit/templates/edit/panel_settings.html:66
+#: apps/edit/templates/edit/panel_settings.html:63
 msgid "Settings module not available."
 msgstr ""
 
-#: apps/edit/templates/edit/panel_settings.html:71
+#: apps/edit/templates/edit/panel_settings.html:68
 msgid "Permissions required to access this module."
 msgstr ""
 
@@ -3189,8 +3185,7 @@ msgstr ""
 msgid "Group"
 msgstr ""
 
-#: apps/portal/views.py:235 apps/portal/templates/portal/group.html:39
-#: apps/portal/templates/portal/group_settings.html:9
+#: apps/portal/views.py:235
 msgid "Group settings"
 msgstr ""
 
@@ -3348,29 +3343,26 @@ msgid "Set Roles for this invitation"
 msgstr ""
 
 #: apps/portal/templates/portal/group.html:39
-msgid "GROUP SETTINGS"
+msgid ""
+"Click this button to update the name, description or image for your group"
+msgstr ""
+
+#: apps/portal/templates/portal/group.html:39
+#: apps/portal/templates/portal/group_settings.html:9
+msgid "Group Settings"
 msgstr ""
 
 #: apps/portal/templates/portal/group.html:82
-msgid "Add book to the group"
+msgid "Click this button to select other books and add them to this group"
 msgstr ""
 
 #: apps/portal/templates/portal/group.html:82
-msgid "ADD BOOK TO THE GROUP"
+msgid "Add books to this group"
 msgstr ""
 
 #: apps/portal/templates/portal/group_create.html:16
 #: apps/portal/templates/portal/group_create_modal.html:20
-msgid "Create Group"
-msgstr ""
-
-#: apps/portal/templates/portal/group_create_modal.html:7
-msgid "Create a new group"
-msgstr ""
-
-#: apps/portal/templates/portal/group_delete_modal.html:7
-#: apps/portal/templates/portal/group_delete_modal.html:16
-msgid "Delete Group"
+msgid "Create"
 msgstr ""
 
 #: apps/portal/templates/portal/group_delete_modal.html:11
