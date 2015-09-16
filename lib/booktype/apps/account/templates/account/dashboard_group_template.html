@@ -13,7 +13,7 @@
         </span>
         {% if can_delete %}
         <button type="button" class="btn btn-default btn-xs float-right" data-remote="{% url 'portal:delete_group' group.url_name %}" data-toggle="modal" data-target="#groupDeleteModal">
-            {% trans "DELETE GROUP" %}
+            {% trans "Delete Group" as deletegroup_text %} {{ deletegroup_text|upper }}
         </button>
         {% endif %}
     </div>

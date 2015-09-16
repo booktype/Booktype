@@ -41,7 +41,7 @@
                         {% if current_user == request.user %}
                             {% if not limit_reached %}
                                 {% if not admin_create %}
-                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to open the Create New Book wizard" %}">{% trans "Create new book" as create_text %} {{ create_text|upper }}</button>
+                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to open the Create New Book wizard" %}">{% trans "Create New Book" as create_text %} {{ create_text|upper }}</button>
                                 {% endif %}
 
                                 {% if can_upload_book %}
@@ -113,7 +113,7 @@
 
                 <div class="box-bottom-gray">
                     <button id="create-group-btn" data-remote="{% url 'portal:group_create' %}" data-toggle="modal" data-target="#createGroupModal" class="btn btn-default" rel="tooltip" data-placement="bottom" data-original-title="{% trans "Click this button to create a new group of writers and editors" %}">
-                        {% trans "Create new group" as creategroup_text %} {{ creategroup_text|upper }}
+                        {% trans "Create New Group" as creategroup_text %} {{ creategroup_text|upper }}
                     </button>
                 </div>
 

@@ -195,7 +195,7 @@ class GroupCreateView(LoginRequiredMixin, BasePageView, CreateView):
     slug_field = 'url_name'
     form_class = GroupCreateForm
     slug_url_kwarg = 'groupid'
-    page_title = _('Create new group')
+    page_title = _('Create New Group')
 
     def dispatch(self, request, *args, **kwargs):
         """

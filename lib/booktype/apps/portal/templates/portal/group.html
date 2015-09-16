@@ -26,7 +26,7 @@
                         {% if request.user.is_authenticated %}
                             {% if user.is_superuser or is_group_admin %}
                             <button class="btn btn-default float-right btn-delete-group" data-remote="{% url 'portal:delete_group' user_group.url_name %}" data-toggle="modal" data-target="#groupDeleteModal">
-                                {% trans "DELETE GROUP" %}
+                                {% trans "Delete Group" as deletegroup_text %} {{ deletegroup_text|upper }}
                             </button>
                             {% endif %}
 
@@ -36,7 +36,7 @@
                                 {% if not is_group_admin %}
                                     <button group-name-url="{% url "portal:group" user_group.url_name %}" role="button" class="btn btn-success float-left leave-group-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to leave this group. You can rejoin the group at any time" %}">{% trans "LEAVE THIS GROUP" %}</button>
                                 {% else %}
-                                    <button data-href="{% url "portal:group_settings" user_group.url_name %}" role="button" class="btn btn-default float-right group-settings-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Group settings" %}">{% trans "GROUP SETTINGS" %}</button>
+                                    <button data-href="{% url "portal:group_settings" user_group.url_name %}" role="button" class="btn btn-default float-right group-settings-button" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to update the name, description or image for your group" %}">{% trans "Group Settings" as groupsettings_text %} {{ groupsettings_text|upper }}</button>
                                 {% endif %}
                             {% endif %}
                         {% endif %}
@@ -79,7 +79,7 @@
                     {% if is_group_admin %} 
                         <div class="box-bottom-white">
                             {% include "portal/portal_add_book_modal.html" %}                        
-                            <button href="#" role="button" class="btn btn-default float-left" data-toggle="modal" data-target="#addBookModal" rel="tooltip" title="" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Add book to the group" %}">{% trans "ADD BOOK TO THE GROUP" %}</button>
+                            <button href="#" role="button" class="btn btn-default float-left" data-toggle="modal" data-target="#addBookModal" rel="tooltip" title="" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to select other books and add them to this group" %}">{% trans "Add books to this group" as addbook_text %} {{ addbook_text|upper }}</button>
                         </div>
                     {% endif %}                    
                 </div>
