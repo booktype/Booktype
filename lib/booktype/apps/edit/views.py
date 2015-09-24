@@ -474,18 +474,26 @@ class CompareChapterRevisions(LoginRequiredMixin, ChapterMixin, DetailView):
         output_left = '<td valign="top">'
         output_right = '<td valign="top">'
 
+        def _fix_content(cnt):
+            list_of_tags = [
+                'p', 'div', 'li', 'h1', 'h2', 'h3', 'h4',
+                'h5', 'h6']
+
+            for _t in list_of_tags:
+                cnt = cnt.replace('<{}>'.format(_t), '\n<{}>'.format(_t))
+                if _t != 'p':
+                    cnt = cnt.replace('</{}>'.format(_t), '</{}>\n'.format(_t))
+
+            cnt = cnt.replace('\n\n', '\n')
+
+            return cnt.replace('. ', '. \n')
+
         content1 = re.sub(
-            '<[^<]+?>', '',
-            revision1.content.replace(
-                '<p>', '\n<p>'
-            ).replace('. ', '. \n')
+            '<[^<]+?>', '', _fix_content(revision1.content)
         ).splitlines(1)
 
         content2 = re.sub(
-            '<[^<]+?>', '',
-            revision2.content.replace(
-                '<p>', '\n<p>'
-            ).replace('. ', '. \n')
+            '<[^<]+?>', '', _fix_content(revision2.content)
         ).splitlines(1)
 
         lns = [line for line in difflib.ndiff(content1, content2)]
