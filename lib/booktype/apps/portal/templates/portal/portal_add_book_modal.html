@@ -36,12 +36,11 @@
                              </div>
                              {% endfor %}
                          </div>
-
-                        <div class="modal-footer">
-                            <button type="button" group-name-url="{% url "portal:add_book" user_group.url_name %}" class="btn btn-primary">Add books</button>
-                        </div>                    
                     </form>
                 </section>
+            </div>
+            <div class="modal-footer">
+               <button type="button" group-name-url="{% url "portal:add_book" user_group.url_name %}" class="btn btn-primary">Add books</button>
             </div>
         </div>
     </div>
