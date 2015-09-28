@@ -1,20 +1,24 @@
 {% load i18n static themes %}
 
-<h5>{% trans "Style Layout" %}</h5>
-<div class="row">
-  <div class="col-md-7">
+<h3>{% trans "Choose Your Design" %}</h3>
+<div class="design-tab-content">
+   <p>{% trans "Select from the styles available" %}</p>
 
-    <select id="styleoptions">
-      {% list_themes %}
-    </select>
-  </div>
+   <div class="row">
+     <div class="col-md-7">
 
-  <div class="col-md-3 col-md-offset-1 reset-button">
-     <button class="btn btn-info">{% trans "reset" %}</button>
-  </div>
+       <select id="styleoptions">
+         {% list_themes %}
+       </select>
+     </div>
+
+     <div class="col-md-3 col-md-offset-1 reset-button">
+        <button class="btn btn-info">{% trans "reset" %}</button>
+     </div>
+   </div>
+
+   <style id="embeduserstyle">
+   </style>
+
+   {% list_theme_options %}
 </div>
-
-<style id="embeduserstyle">
-</style>
-
-{% list_theme_options %}
