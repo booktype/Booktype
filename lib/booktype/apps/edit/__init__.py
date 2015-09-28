@@ -34,7 +34,7 @@ PERMISSIONS = {
         ('note_edit', _('Edit Notes')),
 
         ('track_changes', _('Track Changes')),
-        ('track_changes_approve', _('Track Changes approve/decline')),
+        ('track_changes_approve', _('Track Changes accept/decline')),
         ('track_changes_enable', _('Track Changes on/off')),
 
         # permissions for settings interface
