@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-16 11:34+0100\n"
-"PO-Revision-Date: 2015-09-17 09:07+0000\n"
+"POT-Creation-Date: 2015-09-28 15:21+0100\n"
+"PO-Revision-Date: 2015-09-29 09:23+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: French (http://www.transifex.com/sourcefabric/booktype/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1097,7 +1097,7 @@ msgid "Track Changes"
 msgstr ""
 
 #: apps/edit/__init__.py:37
-msgid "Track Changes approve/decline"
+msgid "Track Changes accept/decline"
 msgstr ""
 
 #: apps/edit/__init__.py:38
@@ -1215,12 +1215,12 @@ msgstr "Chapitre"
 msgid "Book History"
 msgstr "Historique du livre"
 
-#: apps/edit/views.py:554 apps/edit/templates/edit/_compare_modal.html:7
+#: apps/edit/views.py:562 apps/edit/templates/edit/_compare_modal.html:7
 #: apps/edit/templates/edit/compare_screen.html:13
 msgid "Chapter diff"
 msgstr "Comparaison du chapitre \"diff\""
 
-#: apps/edit/views.py:585 apps/edit/templates/edit/_compare_modal.html:16
+#: apps/edit/views.py:593 apps/edit/templates/edit/_compare_modal.html:16
 #: apps/edit/templates/edit/_compare_modal.html:17
 #: apps/edit/templates/edit/chapter_history.html:23
 #: apps/edit/templates/edit/chapter_revision.html:16
@@ -1229,32 +1229,32 @@ msgstr "Comparaison du chapitre \"diff\""
 msgid "Revision"
 msgstr "Révision :"
 
-#: apps/edit/views.py:592
+#: apps/edit/views.py:600
 msgid "Book History | Chapter Revision"
 msgstr "Historique du livre | Révision des chapitres"
 
-#: apps/edit/views.py:615
+#: apps/edit/views.py:623
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "Revenir à la révision %s."
 
-#: apps/edit/views.py:634
+#: apps/edit/views.py:642
 msgid "Chapter revision successfully reverted."
 msgstr "La révision du chapitre à été annulée avec succès."
 
-#: apps/edit/views.py:636
+#: apps/edit/views.py:644
 msgid "Chapter revision could not be reverted."
 msgstr "La révision du chapitre ne peut être annulée."
 
-#: apps/edit/views.py:705
+#: apps/edit/views.py:713
 msgid "Successfully saved settings."
 msgstr "Réglages sauvegardés avec succès."
 
-#: apps/edit/views.py:707
+#: apps/edit/views.py:715
 msgid "You have no permissions to execute this action."
 msgstr "Vous n'avez pas les permissions pour réaliser cette action."
 
-#: apps/edit/views.py:710
+#: apps/edit/views.py:718
 msgid "Unknown error while saving changes."
 msgstr "Erreur inconnue lors de l'enregistrement des modifications."
 
@@ -1388,7 +1388,7 @@ msgid "To apply changes, click on Save"
 msgstr "Pour appliquer les modifications, cliquez sur Sauvegarder"
 
 #: apps/edit/templates/edit/_settings_form_roles.html:86
-#: apps/edit/templates/edit/edit_strings.html:54
+#: apps/edit/templates/edit/edit_strings.html:60
 #: apps/edit/templates/edit/panel_aloha.html:287
 #: apps/edit/templates/edit/panel_toc.html:18
 #: apps/edit/templates/edit/panel_toc.html:37
@@ -1551,7 +1551,7 @@ msgid "Rows"
 msgstr "Lignes"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:162
-#: apps/edit/templates/edit/edit_strings.html:84
+#: apps/edit/templates/edit/edit_strings.html:90
 #: apps/edit/templates/edit/panel_aloha.html:317
 msgid "Columns"
 msgstr "Colonnes"
@@ -1681,6 +1681,7 @@ msgid "Booktype Edit"
 msgstr "Édition Booktype"
 
 #: apps/edit/templates/edit/book_edit.html:61
+#: apps/edit/templates/edit/edit_strings.html:26
 msgid "Chapters"
 msgstr "Chapitres"
 
@@ -1689,10 +1690,12 @@ msgid "EXPAND TOC"
 msgstr "Étendre la TDM"
 
 #: apps/edit/templates/edit/book_edit.html:70
-msgid "Online users"
-msgstr "Utilisateurs en ligne"
+#: apps/edit/templates/edit/edit_strings.html:31
+msgid "Online Users"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:96
+#: apps/edit/templates/edit/edit_strings.html:32
 msgid "Chat"
 msgstr "Chat"
 
@@ -1705,6 +1708,7 @@ msgid "Send"
 msgstr "Envoyer"
 
 #: apps/edit/templates/edit/book_edit.html:114
+#: apps/edit/templates/edit/edit_strings.html:33
 #: apps/edit/templates/edit/panel_covers.html:85
 #: apps/edit/templates/edit/panel_covers.html:142
 msgid "Notes"
@@ -1728,6 +1732,7 @@ msgid "Chapters on Hold"
 msgstr "Chapitres mis de côté"
 
 #: apps/edit/templates/edit/book_edit.html:150
+#: apps/edit/templates/edit/edit_strings.html:30
 msgid "Tracking Options"
 msgstr ""
 
@@ -1774,12 +1779,14 @@ msgid "Decline one"
 msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:225
+#: apps/edit/templates/edit/edit_strings.html:27
 msgid "Attachments"
 msgstr "Pièces jointes"
 
 #: apps/edit/templates/edit/book_edit.html:229
-msgid "History"
-msgstr "Historique"
+#: apps/edit/templates/edit/edit_strings.html:28
+msgid "Chapter History"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:288
 #, python-format
@@ -1953,96 +1960,91 @@ msgstr "Enregistré..."
 msgid "Chapter has been modified. Do you want to save it before closing?"
 msgstr "Le chapitre a été modifié. Voulez vous enregistrer avant de fermer ?"
 
-#: apps/edit/templates/edit/edit_strings.html:26
-#: apps/edit/templates/edit/toolbar_book.html:6
-msgid "Table Of Contents"
-msgstr "Table des matières"
+#: apps/edit/templates/edit/edit_strings.html:29
+msgid "Choose Your Design"
+msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:27
-msgid "Choose your Design"
-msgstr "Choisissez votre design"
-
-#: apps/edit/templates/edit/edit_strings.html:28
+#: apps/edit/templates/edit/edit_strings.html:34
 msgid "Loading media files"
 msgstr "Téléchargement des fichiers média"
 
-#: apps/edit/templates/edit/edit_strings.html:29
+#: apps/edit/templates/edit/edit_strings.html:35
 msgid "Removing media files"
 msgstr "Suppression des fichiers média"
 
-#: apps/edit/templates/edit/edit_strings.html:30
+#: apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr "Un chapitre avec ce titre existe déjà."
 
-#: apps/edit/templates/edit/edit_strings.html:31
+#: apps/edit/templates/edit/edit_strings.html:37
 msgid "Couldn't create chapter."
 msgstr "Ne peut pas créer le chapitre."
 
-#: apps/edit/templates/edit/edit_strings.html:32
+#: apps/edit/templates/edit/edit_strings.html:38
 msgid "Section with this title already exists."
 msgstr "Une section avec ce titre existe déjà."
 
-#: apps/edit/templates/edit/edit_strings.html:33
+#: apps/edit/templates/edit/edit_strings.html:39
 msgid "Couldn't create section."
 msgstr "Impossible de créer la section."
 
-#: apps/edit/templates/edit/edit_strings.html:34
+#: apps/edit/templates/edit/edit_strings.html:40
 msgid "Set default size"
 msgstr "Mettre la taille par défaut"
 
-#: apps/edit/templates/edit/edit_strings.html:35
+#: apps/edit/templates/edit/edit_strings.html:41
 #: apps/edit/templates/edit/panel_covers.html:182
 msgid "Edit Image Data"
 msgstr "Édition des données de l'image"
 
-#: apps/edit/templates/edit/edit_strings.html:36
+#: apps/edit/templates/edit/edit_strings.html:42
 #: apps/edit/templates/edit/panel_covers.html:186
 msgid "View Original Image"
 msgstr "Voir l'image originale"
 
-#: apps/edit/templates/edit/edit_strings.html:37
+#: apps/edit/templates/edit/edit_strings.html:43
 #: apps/edit/templates/edit/panel_covers.html:190
 msgid "Delete Cover Image"
 msgstr "Effacer l'image de couverture"
 
-#: apps/edit/templates/edit/edit_strings.html:38
+#: apps/edit/templates/edit/edit_strings.html:44
 msgid "Selected user already belongs to this role"
 msgstr "L'utilisateur sélectionné appartient déjà à ce rôle"
 
-#: apps/edit/templates/edit/edit_strings.html:39
+#: apps/edit/templates/edit/edit_strings.html:45
 msgid "Unable to remove user from role"
 msgstr "Impossible de supprimer l'utilisateur de ce rôle"
 
-#: apps/edit/templates/edit/edit_strings.html:40
+#: apps/edit/templates/edit/edit_strings.html:46
 #: apps/edit/templates/edit/panel_aloha.html:25
 msgid "Find"
 msgstr "Trouver"
 
-#: apps/edit/templates/edit/edit_strings.html:41
+#: apps/edit/templates/edit/edit_strings.html:47
 msgid "Next &gt;"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:42
+#: apps/edit/templates/edit/edit_strings.html:48
 msgid "Revision reverted"
 msgstr "Révision annulée"
 
-#: apps/edit/templates/edit/edit_strings.html:43
+#: apps/edit/templates/edit/edit_strings.html:49
 msgid "Revision revert failed"
 msgstr "Annulation de la révision impossible"
 
-#: apps/edit/templates/edit/edit_strings.html:44
+#: apps/edit/templates/edit/edit_strings.html:50
 msgid "RESTORE"
 msgstr "RÉCUPÉRER "
 
-#: apps/edit/templates/edit/edit_strings.html:45
+#: apps/edit/templates/edit/edit_strings.html:51
 msgid "Do you really want to delete this Chapter Status?"
 msgstr "Voulez-vous vraiment supprimer le statut  de ce chapitre ?"
 
-#: apps/edit/templates/edit/edit_strings.html:46
+#: apps/edit/templates/edit/edit_strings.html:52
 msgid "You have no permission to delete this book"
 msgstr "Vous n'avez pas l'autorisation de supprimer ce livre."
 
-#: apps/edit/templates/edit/edit_strings.html:47
+#: apps/edit/templates/edit/edit_strings.html:53
 #: apps/edit/templates/edit/panel_toc.html:156
 #: apps/edit/templates/edit/panel_toc.html:193
 #: apps/edit/templates/edit/panel_toc.html:280
@@ -2050,180 +2052,180 @@ msgstr "Vous n'avez pas l'autorisation de supprimer ce livre."
 msgid "Terminate editing"
 msgstr "Cloturer l’édition"
 
-#: apps/edit/templates/edit/edit_strings.html:48
+#: apps/edit/templates/edit/edit_strings.html:54
 msgid "Editing was terminated by book administrator."
 msgstr "L'édition a été clôturée par l'administrateur du livre"
 
-#: apps/edit/templates/edit/edit_strings.html:49
+#: apps/edit/templates/edit/edit_strings.html:55
 msgid "Your invitation has been sent"
 msgstr "Votre invitation a été envoyée"
 
-#: apps/edit/templates/edit/edit_strings.html:50
+#: apps/edit/templates/edit/edit_strings.html:56
 msgid "Editing terminated."
 msgstr "Édition terminée."
 
-#: apps/edit/templates/edit/edit_strings.html:51
+#: apps/edit/templates/edit/edit_strings.html:57
 msgid "Access denied."
 msgstr "Accès refusé."
 
-#: apps/edit/templates/edit/edit_strings.html:52
+#: apps/edit/templates/edit/edit_strings.html:58
 msgid "Nothing has been exported."
 msgstr "Rien n'a pu être exporté."
 
-#: apps/edit/templates/edit/edit_strings.html:53
+#: apps/edit/templates/edit/edit_strings.html:59
 msgid "Exporting book."
 msgstr "Exportation du livre."
 
-#: apps/edit/templates/edit/edit_strings.html:55
+#: apps/edit/templates/edit/edit_strings.html:61
 #, python-format
 msgid "By: %%s"
 msgstr "Par : %%s"
 
-#: apps/edit/templates/edit/edit_strings.html:56
+#: apps/edit/templates/edit/edit_strings.html:62
 #, python-format
 msgid "Сhapter \"%%s\" status was changed to \"%%s\""
 msgstr "Le statut du chapitre  \"%%s\"  a été changé à  \"%%s\" "
 
-#: apps/edit/templates/edit/edit_strings.html:57
+#: apps/edit/templates/edit/edit_strings.html:63
 #, python-format
 msgid "Chapter \"%%s\" was created"
 msgstr "Le chapitre  \"%%s\"  a été créé"
 
-#: apps/edit/templates/edit/edit_strings.html:58
+#: apps/edit/templates/edit/edit_strings.html:64
 #, python-format
 msgid "Chapter \"%%s\" was deleted"
 msgstr "Le chapitre  \"%%s\"  a été éffacé"
 
-#: apps/edit/templates/edit/edit_strings.html:59
+#: apps/edit/templates/edit/edit_strings.html:65
 #, python-format
 msgid "Section \"%%s\" was created"
 msgstr "La section  \"%%s\"  a été créée"
 
-#: apps/edit/templates/edit/edit_strings.html:60
+#: apps/edit/templates/edit/edit_strings.html:66
 #, python-format
 msgid "Section \"%%s\" was deleted"
 msgstr "La section  \"%%s\"  a été effacée"
 
-#: apps/edit/templates/edit/edit_strings.html:61
+#: apps/edit/templates/edit/edit_strings.html:67
 #, python-format
 msgid "Section \"%%s\" with chapters inside was deleted"
 msgstr "La section  \"%%s\" ainsi que ses chapitres ont étés effacés"
 
-#: apps/edit/templates/edit/edit_strings.html:62
+#: apps/edit/templates/edit/edit_strings.html:68
 #, python-format
 msgid "Chapter was renamed from \"%%s\" to \"%%s\""
 msgstr "Le chapitre  \"%%s\"  a été renommé en  \"%%s\" "
 
-#: apps/edit/templates/edit/edit_strings.html:63
+#: apps/edit/templates/edit/edit_strings.html:69
 #, python-format
 msgid "Section was renamed from \"%%s\" to \"%%s\""
 msgstr "La section  \"%%s\" a été renommée en  \"%%s\" "
 
-#: apps/edit/templates/edit/edit_strings.html:64
+#: apps/edit/templates/edit/edit_strings.html:70
 #, python-format
 msgid "Chapter \"%%s\" put on hold"
 msgstr "Le chapitre \"%%s\" a été mis en attente"
 
-#: apps/edit/templates/edit/edit_strings.html:65
+#: apps/edit/templates/edit/edit_strings.html:71
 #, python-format
 msgid "Chapter \"%%s\" unheld"
 msgstr "Le chapitre \"%%s\" est réactivé"
 
-#: apps/edit/templates/edit/edit_strings.html:66
+#: apps/edit/templates/edit/edit_strings.html:72
 #, python-format
 msgid "Chapter \"%%s\" was locked"
 msgstr "Le chapitre  \"%%s\"  a été fermé"
 
-#: apps/edit/templates/edit/edit_strings.html:67
+#: apps/edit/templates/edit/edit_strings.html:73
 #, python-format
 msgid "Chapter \"%%s\" was unlocked"
 msgstr "Le chapitre  \"%%s\"  a été dévérouillé"
 
-#: apps/edit/templates/edit/edit_strings.html:68
+#: apps/edit/templates/edit/edit_strings.html:74
 msgid "Table of contents order was changed"
 msgstr "L'ordre de la table des matières a changé"
 
-#: apps/edit/templates/edit/edit_strings.html:69
+#: apps/edit/templates/edit/edit_strings.html:75
 #, python-format
 msgid "\"%%s\" joined the editor"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:70
+#: apps/edit/templates/edit/edit_strings.html:76
 #, python-format
 msgid "\"%%s\" left the editor"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:71
+#: apps/edit/templates/edit/edit_strings.html:77
 msgid "Notes were changed"
 msgstr "Les notes ont étés changés"
 
-#: apps/edit/templates/edit/edit_strings.html:72
+#: apps/edit/templates/edit/edit_strings.html:78
 #, python-format
 msgid "New attachment \"%%s\" uploaded"
 msgstr "La nouvelle pièce jointe  \"%%s\" a été téléversée"
 
-#: apps/edit/templates/edit/edit_strings.html:73
+#: apps/edit/templates/edit/edit_strings.html:79
 #, python-format
 msgid "Attachment \"%%s\" was deleted"
 msgstr "La pièce jointe  \"%%s\"  a été effacée"
 
-#: apps/edit/templates/edit/edit_strings.html:74
+#: apps/edit/templates/edit/edit_strings.html:80
 #, python-format
 msgid "New cover \"%%s\" uploaded"
 msgstr "La nouvelle couverture  \"%%s\"  a été téléversée"
 
-#: apps/edit/templates/edit/edit_strings.html:75
+#: apps/edit/templates/edit/edit_strings.html:81
 #, python-format
 msgid "Cover \"%%s\" was updated"
 msgstr "La couverture  \"%%s\"  a été mise à jour"
 
-#: apps/edit/templates/edit/edit_strings.html:76
+#: apps/edit/templates/edit/edit_strings.html:82
 #, python-format
 msgid "Cover \"%%s\" was deleted"
 msgstr "La couverture  \"%%s\"  a été effacée"
 
-#: apps/edit/templates/edit/edit_strings.html:77
+#: apps/edit/templates/edit/edit_strings.html:83
 #, python-format
 msgid "Book export \"%%s\" was successful"
 msgstr "L'export du livre  \"%%s\" a réussi"
 
-#: apps/edit/templates/edit/edit_strings.html:78
+#: apps/edit/templates/edit/edit_strings.html:84
 msgid "Do you want to delete this endnote?"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:79
+#: apps/edit/templates/edit/edit_strings.html:85
 msgid "endnotes"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:80
+#: apps/edit/templates/edit/edit_strings.html:86
 msgid "endnotes without reference"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:81
+#: apps/edit/templates/edit/edit_strings.html:87
 msgid "Inserted by"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:82
+#: apps/edit/templates/edit/edit_strings.html:88
 msgid "Deleted by"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:83
+#: apps/edit/templates/edit/edit_strings.html:89
 msgid "Start columns: "
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:85
+#: apps/edit/templates/edit/edit_strings.html:91
 msgid "Do you want to remove the columns?"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:86
+#: apps/edit/templates/edit/edit_strings.html:92
 msgid "Some output formats do not have support for columns."
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:87
+#: apps/edit/templates/edit/edit_strings.html:93
 msgid "Metadata deleted successfully"
 msgstr ""
 
-#: apps/edit/templates/edit/edit_strings.html:88
+#: apps/edit/templates/edit/edit_strings.html:94
 msgid "Unable to delete metadata"
 msgstr ""
 
@@ -3032,6 +3034,10 @@ msgstr "Verrouillage pour tous"
 #: apps/edit/templates/edit/panel_toc.html:414
 msgid "RENAME"
 msgstr "RENOMMER"
+
+#: apps/edit/templates/edit/toolbar_book.html:6
+msgid "Table Of Contents"
+msgstr "Table des matières"
 
 #: apps/export/__init__.py:5
 msgid "Booktype export application"
