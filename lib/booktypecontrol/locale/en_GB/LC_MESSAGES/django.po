@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-15 00:03+0200\n"
-"PO-Revision-Date: 2015-09-15 09:35+0000\n"
+"POT-Creation-Date: 2015-09-28 15:21+0100\n"
+"PO-Revision-Date: 2015-09-29 08:58+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/sourcefabric/booktype/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -375,370 +375,79 @@ msgstr "Role for registered users"
 msgid "None"
 msgstr "None"
 
-#: templates/booktypecontrol/_control_center_add_person.html:4
-msgid "Add new person"
-msgstr "Add new person"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:5
-#: templates/booktypecontrol/control_center_settings.html:40 views.py:58
-msgid "Archived Users"
-msgstr "Archived Users"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:17
-#: templates/booktypecontrol/_control_center_list_of_people.html:22
-msgid "Edit Info"
-msgstr "Edit Info"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:21
-#: templates/booktypecontrol/_control_center_list_of_people.html:26
-msgid "superuser"
-msgstr "superuser"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:24
-#: templates/booktypecontrol/_control_center_list_of_people.html:29
-msgid "archived"
-msgstr "archived"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:35
-msgid "There are no archived users at the moment."
-msgstr "There are no archived users at the moment."
-
-#: templates/booktypecontrol/_control_center_license.html:4
-msgid "Add new license"
-msgstr "Add new licence"
-
-#: templates/booktypecontrol/_control_center_license.html:8
-msgid "Licenses"
-msgstr "Licences"
-
-#: templates/booktypecontrol/_control_center_license_edit.html:6
-msgid "Remove"
-msgstr "Remove"
-
-#: templates/booktypecontrol/_control_center_license_edit.html:9
-msgid "Books licensed with"
-msgstr "Books licensed with"
-
-#: templates/booktypecontrol/_control_center_license_edit.html:20
-msgid "No books for this license."
-msgstr "No books for this licence."
-
-#: templates/booktypecontrol/_control_center_list_of_books.html:11
-msgid "Add new book"
-msgstr "Add new book"
-
-#: templates/booktypecontrol/_control_center_list_of_books.html:14
-msgid "Show in a grid"
-msgstr "Show in a grid"
-
-#: templates/booktypecontrol/_control_center_list_of_books.html:15
-msgid "Show in a list"
-msgstr "Show in a list"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:9
-msgid "Add new group"
-msgstr "Add new group"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:20
-#: templates/booktypecontrol/_control_center_list_of_roles.html:18
-#: templates/booktypecontrol/_control_center_modal_person_info.html:76
-msgid "Members"
-msgstr "Members"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:20
-#: templates/booktypecontrol/_control_center_modal_person_info.html:15
-#: templates/booktypecontrol/_control_center_modal_person_info.html:76
-#: templates/booktypecontrol/control_center_settings.html:42
-#: templates/control_base.html:19
-msgid "Books"
-msgstr "Books"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:24
-#: templates/booktypecontrol/_control_center_list_of_roles.html:21
-msgid "Edit"
-msgstr "Edit"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:25
-#: templates/booktypecontrol/_control_center_list_of_roles.html:22
-msgid "Delete"
-msgstr "Delete"
-
-#: templates/booktypecontrol/_control_center_list_of_people.html:5
-#: templates/booktypecontrol/control_center_settings.html:39 views.py:57
-msgid "List of People"
-msgstr "List of People"
-
-#: templates/booktypecontrol/_control_center_list_of_people.html:7
-msgid "Add Person"
-msgstr "Add Person"
-
-#: templates/booktypecontrol/_control_center_list_of_people.html:7
-msgid "ADD PERSON"
-msgstr "Add Person"
-
-#: templates/booktypecontrol/_control_center_list_of_people.html:19
-msgid "Change password"
-msgstr "Change password"
-
-#: templates/booktypecontrol/_control_center_list_of_roles.html:9
-msgid "Add new role"
-msgstr "Add new role"
-
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:16
-msgid "Delete Group"
-msgstr "Delete Group"
-
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:11
-msgid ""
-"Are you sure you would like to delete this group? You will not be able to "
-"undo this operation!"
-msgstr "Are you sure you would like to delete this group? You will not be able to undo this operation!"
-
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:15
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:19
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:15
-#: templates/booktypecontrol/_control_center_settings.html:15
-msgid "Cancel"
-msgstr "Cancel"
-
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:20
-msgid "Delete License"
-msgstr "Delete Licence"
-
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:12
-msgid ""
-"There are licensed books with this license. You should change the license "
-"for these books before deleting it."
-msgstr "There are books remaining with this licence. You should change the licence for these books before deleting it."
-
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:14
-msgid ""
-"Are you sure you would like to delete this license? You will not be able to "
-"undo this operation!"
-msgstr "Are you sure you would like to delete this licence? You will not be able to undo this operation!"
-
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:16
-msgid "Delete Role"
-msgstr "Delete Role"
-
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:11
-msgid ""
-"Are you sure you would like to delete this role? You will not be able to "
-"undo this operation!"
-msgstr "Are you sure you would like to delete this role? You will not be able to undo this operation!"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:13
-#: templates/booktypecontrol/control_center_dashboard.html:21
-msgid "Recent Activity"
-msgstr "Recent Activity"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:16
-#: templates/booktypecontrol/control_center_settings.html:46
-#: templates/control_base.html:22
-msgid "Groups"
-msgstr "Groups"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:28
-#: templates/booktypecontrol/control_center_dashboard.html:28
-msgid "ago"
-msgstr "ago"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:41
-msgid "There is no activity yet"
-msgstr "There is no activity yet"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:56
-msgid "Current version"
-msgstr "Current version"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:62
-msgid "This user has no books"
-msgstr "This user has no books"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:82
-msgid "This user has no groups"
-msgstr "This user has no groups"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:87
-msgid "Close"
-msgstr "Close"
-
-#: templates/booktypecontrol/_control_center_settings.html:13
-msgid "Save changes"
-msgstr "Save changes"
-
-#: templates/booktypecontrol/control_center_dashboard.html:10
-msgid "Info"
-msgstr "Info"
-
-#: templates/booktypecontrol/control_center_dashboard.html:12
-msgid "version"
-msgstr "version"
-
-#: templates/booktypecontrol/control_center_dashboard.html:13
-msgid "books"
-msgstr "books"
-
-#: templates/booktypecontrol/control_center_dashboard.html:14
-msgid "groups"
-msgstr "groups"
-
-#: templates/booktypecontrol/control_center_dashboard.html:15
-msgid "database size"
-msgstr "database size"
-
-#: templates/booktypecontrol/control_center_dashboard.html:16
-msgid "files size"
-msgstr "files size"
-
-#: templates/booktypecontrol/control_center_dashboard.html:50
-msgid "Online users"
-msgstr "Online users"
-
-#: templates/booktypecontrol/control_center_dashboard.html:62
-#: templates/booktypecontrol/control_center_dashboard.html:93
-msgid "Working on:"
-msgstr "Working on:"
-
-#: templates/booktypecontrol/control_center_dashboard.html:76
-msgid "No online users"
-msgstr "No online users"
-
-#: templates/booktypecontrol/control_center_dashboard.html:83
-msgid "Most Active Users"
-msgstr "Most Active Users"
-
-#: templates/booktypecontrol/control_center_dashboard.html:83
-#: templates/booktypecontrol/control_center_dashboard.html:107
-msgid "view all"
-msgstr "view all"
-
-#: templates/booktypecontrol/control_center_dashboard.html:100
-msgid "No most active users"
-msgstr "No most active users"
-
-#: templates/booktypecontrol/control_center_dashboard.html:107
-msgid "Latest Books"
-msgstr "Latest Books"
-
-#: templates/booktypecontrol/control_center_dashboard.html:120
-msgid "No books here"
-msgstr "No books here"
-
-#: templates/booktypecontrol/control_center_dashboard.html:127
-msgid "Most Active Books"
-msgstr "Most Active Books"
-
-#: templates/booktypecontrol/control_center_dashboard.html:140
-msgid "No active books here"
-msgstr "No active books here"
-
-#: templates/booktypecontrol/control_center_settings.html:26
-#: templates/control_base.html:13
-msgid "Settings"
-msgstr "Settings"
-
-#: templates/booktypecontrol/control_center_settings.html:27 views.py:50
+#: views.py:50 templates/booktypecontrol/control_center_settings.html:27
 msgid "Site Description"
 msgstr "Site Description"
 
-#: templates/booktypecontrol/control_center_settings.html:28 views.py:51
+#: views.py:51 templates/booktypecontrol/control_center_settings.html:28
 msgid "Site Appearance"
 msgstr "Site Appearance"
 
-#: templates/booktypecontrol/control_center_settings.html:29 views.py:52
+#: views.py:52 templates/booktypecontrol/control_center_settings.html:29
 msgid "Site Front Page"
 msgstr "Site Front Page"
 
-#: templates/booktypecontrol/control_center_settings.html:30 views.py:53
+#: views.py:53 templates/booktypecontrol/control_center_settings.html:30
 msgid "Book Licenses"
 msgstr "Book Licences"
 
-#: templates/booktypecontrol/control_center_settings.html:31 views.py:54
+#: views.py:54 templates/booktypecontrol/control_center_settings.html:31
 msgid "Book Creation Defaults"
 msgstr "Book Creation Defaults"
 
-#: templates/booktypecontrol/control_center_settings.html:32 views.py:67
-msgid "Default Roles"
-msgstr "Default Roles"
-
-#: templates/booktypecontrol/control_center_settings.html:33 views.py:55
+#: views.py:55 templates/booktypecontrol/control_center_settings.html:33
 msgid "Privacy"
 msgstr "Privacy"
 
-#: templates/booktypecontrol/control_center_settings.html:34 views.py:61
-msgid "Publishing Options"
-msgstr "Publishing Options"
-
-#: templates/booktypecontrol/control_center_settings.html:35 views.py:62
-msgid "Publishing Defaults"
-msgstr "Publishing Defaults"
-
-#: templates/booktypecontrol/control_center_settings.html:37
-#: templates/control_base.html:16
-msgid "People"
-msgstr "People"
-
-#: templates/booktypecontrol/control_center_settings.html:38 views.py:56
+#: views.py:56 templates/booktypecontrol/control_center_settings.html:38
 msgid "Add a New Person"
 msgstr "Add a New Person"
 
-#: templates/booktypecontrol/control_center_settings.html:43 views.py:59
+#: views.py:57 templates/booktypecontrol/_control_center_list_of_people.html:5
+#: templates/booktypecontrol/control_center_settings.html:39
+msgid "List of People"
+msgstr "List of People"
+
+#: views.py:58 templates/booktypecontrol/_control_center_archived_users.html:5
+#: templates/booktypecontrol/control_center_settings.html:40
+msgid "Archived Users"
+msgstr "Archived Users"
+
+#: views.py:59 templates/booktypecontrol/control_center_settings.html:43
 msgid "Add a New Book"
 msgstr "Add a New Book"
 
-#: templates/booktypecontrol/control_center_settings.html:44 views.py:60
+#: views.py:60 templates/booktypecontrol/control_center_settings.html:44
 msgid "List of Books"
 msgstr "List of Books"
 
-#: templates/booktypecontrol/control_center_settings.html:47 views.py:63
+#: views.py:61 templates/booktypecontrol/control_center_settings.html:34
+msgid "Publishing Options"
+msgstr "Publishing Options"
+
+#: views.py:62 templates/booktypecontrol/control_center_settings.html:35
+msgid "Publishing Defaults"
+msgstr "Publishing Defaults"
+
+#: views.py:63 templates/booktypecontrol/control_center_settings.html:47
 msgid "Add a New Group"
 msgstr "Add a New Group"
 
-#: templates/booktypecontrol/control_center_settings.html:48 views.py:64
+#: views.py:64 templates/booktypecontrol/control_center_settings.html:48
 msgid "List of Groups"
 msgstr "List of Groups"
 
-#: templates/booktypecontrol/control_center_settings.html:50
-#: templates/control_base.html:25
-msgid "Roles"
-msgstr "Roles"
-
-#: templates/booktypecontrol/control_center_settings.html:51 views.py:65
+#: views.py:65 templates/booktypecontrol/control_center_settings.html:51
 msgid "Add a New Role"
 msgstr "Add a New Role"
 
-#: templates/booktypecontrol/control_center_settings.html:52 views.py:66
+#: views.py:66 templates/booktypecontrol/control_center_settings.html:52
 msgid "List of Roles"
 msgstr "List of Roles"
 
-#: templates/booktypecontrol/new_person_email.html:3
-#, python-format
-msgid ""
-"You've just had a Booktype account created for you! Please head over to "
-"%(server)s to log in. Here are your login credentials:"
-msgstr "You've just had a Booktype account created for you! Please head over to %(server)s to log in. Here are your login credentials:"
-
-#: templates/booktypecontrol/new_person_email.html:7
-#: templates/booktypecontrol/password_changed_email.html:5
-msgid "Username:"
-msgstr "Username:"
-
-#: templates/booktypecontrol/new_person_email.html:8
-#: templates/booktypecontrol/password_changed_email.html:6
-msgid "Password:"
-msgstr "Password:"
-
-#: templates/booktypecontrol/password_changed_email.html:2
-msgid "Your password was changed. Here are your new login credentials:"
-msgstr "Your password was changed. Here are your new login credentials:"
-
-#: templates/control_base.html:10
-msgid "Home"
-msgstr "Home"
+#: views.py:67 templates/booktypecontrol/control_center_settings.html:32
+msgid "Default Roles"
+msgstr "Default Roles"
 
 #: views.py:88 views.py:184 views.py:281 views.py:345 views.py:409
 #: views.py:451
@@ -811,3 +520,294 @@ msgstr "Role successfully updated."
 #: views.py:473
 msgid "Role successfully deleted."
 msgstr "Role successfully deleted."
+
+#: templates/control_base.html:10
+msgid "Home"
+msgstr "Home"
+
+#: templates/control_base.html:13
+#: templates/booktypecontrol/control_center_settings.html:26
+msgid "Settings"
+msgstr "Settings"
+
+#: templates/control_base.html:16
+#: templates/booktypecontrol/control_center_settings.html:37
+msgid "People"
+msgstr "People"
+
+#: templates/control_base.html:19
+#: templates/booktypecontrol/_control_center_list_of_groups.html:20
+#: templates/booktypecontrol/_control_center_modal_person_info.html:15
+#: templates/booktypecontrol/_control_center_modal_person_info.html:76
+#: templates/booktypecontrol/control_center_settings.html:42
+msgid "Books"
+msgstr "Books"
+
+#: templates/control_base.html:22
+#: templates/booktypecontrol/_control_center_modal_person_info.html:16
+#: templates/booktypecontrol/control_center_settings.html:46
+msgid "Groups"
+msgstr "Groups"
+
+#: templates/control_base.html:25
+#: templates/booktypecontrol/control_center_settings.html:50
+msgid "Roles"
+msgstr "Roles"
+
+#: templates/booktypecontrol/_control_center_add_person.html:4
+msgid "Add new person"
+msgstr "Add new person"
+
+#: templates/booktypecontrol/_control_center_archived_users.html:17
+#: templates/booktypecontrol/_control_center_list_of_people.html:22
+msgid "Edit Info"
+msgstr "Edit Info"
+
+#: templates/booktypecontrol/_control_center_archived_users.html:21
+#: templates/booktypecontrol/_control_center_list_of_people.html:26
+msgid "superuser"
+msgstr "superuser"
+
+#: templates/booktypecontrol/_control_center_archived_users.html:24
+#: templates/booktypecontrol/_control_center_list_of_people.html:29
+msgid "archived"
+msgstr "archived"
+
+#: templates/booktypecontrol/_control_center_archived_users.html:35
+msgid "There are no archived users at the moment."
+msgstr "There are no archived users at the moment."
+
+#: templates/booktypecontrol/_control_center_license.html:4
+msgid "Add new license"
+msgstr "Add new licence"
+
+#: templates/booktypecontrol/_control_center_license.html:8
+msgid "Licenses"
+msgstr "Licences"
+
+#: templates/booktypecontrol/_control_center_license_edit.html:6
+msgid "Remove"
+msgstr "Remove"
+
+#: templates/booktypecontrol/_control_center_license_edit.html:9
+msgid "Books licensed with"
+msgstr "Books licensed with"
+
+#: templates/booktypecontrol/_control_center_license_edit.html:20
+msgid "No books for this license."
+msgstr "No books for this licence."
+
+#: templates/booktypecontrol/_control_center_list_of_books.html:11
+msgid "Add new book"
+msgstr "Add new book"
+
+#: templates/booktypecontrol/_control_center_list_of_books.html:14
+msgid "Show in a grid"
+msgstr "Show in a grid"
+
+#: templates/booktypecontrol/_control_center_list_of_books.html:15
+msgid "Show in a list"
+msgstr "Show in a list"
+
+#: templates/booktypecontrol/_control_center_list_of_groups.html:9
+msgid "Add new group"
+msgstr "Add new group"
+
+#: templates/booktypecontrol/_control_center_list_of_groups.html:20
+#: templates/booktypecontrol/_control_center_list_of_roles.html:18
+#: templates/booktypecontrol/_control_center_modal_person_info.html:76
+msgid "Members"
+msgstr "Members"
+
+#: templates/booktypecontrol/_control_center_list_of_groups.html:24
+#: templates/booktypecontrol/_control_center_list_of_roles.html:21
+msgid "Edit"
+msgstr "Edit"
+
+#: templates/booktypecontrol/_control_center_list_of_groups.html:25
+#: templates/booktypecontrol/_control_center_list_of_roles.html:22
+msgid "Delete"
+msgstr "Delete"
+
+#: templates/booktypecontrol/_control_center_list_of_people.html:7
+msgid "Add Person"
+msgstr "Add Person"
+
+#: templates/booktypecontrol/_control_center_list_of_people.html:7
+msgid "ADD PERSON"
+msgstr "Add Person"
+
+#: templates/booktypecontrol/_control_center_list_of_people.html:19
+msgid "Change password"
+msgstr "Change password"
+
+#: templates/booktypecontrol/_control_center_list_of_roles.html:9
+msgid "Add new role"
+msgstr "Add new role"
+
+#: templates/booktypecontrol/_control_center_modal_delete_group.html:7
+#: templates/booktypecontrol/_control_center_modal_delete_group.html:16
+msgid "Delete Group"
+msgstr "Delete Group"
+
+#: templates/booktypecontrol/_control_center_modal_delete_group.html:11
+msgid ""
+"Are you sure you would like to delete this group? You will not be able to "
+"undo this operation!"
+msgstr "Are you sure you would like to delete this group? You will not be able to undo this operation!"
+
+#: templates/booktypecontrol/_control_center_modal_delete_group.html:15
+#: templates/booktypecontrol/_control_center_modal_delete_license.html:19
+#: templates/booktypecontrol/_control_center_modal_delete_role.html:15
+#: templates/booktypecontrol/_control_center_settings.html:15
+msgid "Cancel"
+msgstr "Cancel"
+
+#: templates/booktypecontrol/_control_center_modal_delete_license.html:7
+#: templates/booktypecontrol/_control_center_modal_delete_license.html:20
+msgid "Delete License"
+msgstr "Delete Licence"
+
+#: templates/booktypecontrol/_control_center_modal_delete_license.html:12
+msgid ""
+"There are licensed books with this license. You should change the license "
+"for these books before deleting it."
+msgstr "There are books remaining with this licence. You should change the licence for these books before deleting it."
+
+#: templates/booktypecontrol/_control_center_modal_delete_license.html:14
+msgid ""
+"Are you sure you would like to delete this license? You will not be able to "
+"undo this operation!"
+msgstr "Are you sure you would like to delete this licence? You will not be able to undo this operation!"
+
+#: templates/booktypecontrol/_control_center_modal_delete_role.html:7
+#: templates/booktypecontrol/_control_center_modal_delete_role.html:16
+msgid "Delete Role"
+msgstr "Delete Role"
+
+#: templates/booktypecontrol/_control_center_modal_delete_role.html:11
+msgid ""
+"Are you sure you would like to delete this role? You will not be able to "
+"undo this operation!"
+msgstr "Are you sure you would like to delete this role? You will not be able to undo this operation!"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:13
+#: templates/booktypecontrol/control_center_dashboard.html:21
+msgid "Recent Activity"
+msgstr "Recent Activity"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:28
+#: templates/booktypecontrol/control_center_dashboard.html:28
+msgid "ago"
+msgstr "ago"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:41
+msgid "There is no activity yet"
+msgstr "There is no activity yet"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:56
+msgid "Current version"
+msgstr "Current version"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:62
+msgid "This user has no books"
+msgstr "This user has no books"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:82
+msgid "This user has no groups"
+msgstr "This user has no groups"
+
+#: templates/booktypecontrol/_control_center_modal_person_info.html:87
+msgid "Close"
+msgstr "Close"
+
+#: templates/booktypecontrol/_control_center_settings.html:13
+msgid "Save changes"
+msgstr "Save changes"
+
+#: templates/booktypecontrol/control_center_dashboard.html:10
+msgid "Info"
+msgstr "Info"
+
+#: templates/booktypecontrol/control_center_dashboard.html:12
+msgid "version"
+msgstr "version"
+
+#: templates/booktypecontrol/control_center_dashboard.html:13
+msgid "books"
+msgstr "books"
+
+#: templates/booktypecontrol/control_center_dashboard.html:14
+msgid "groups"
+msgstr "groups"
+
+#: templates/booktypecontrol/control_center_dashboard.html:15
+msgid "database size"
+msgstr "database size"
+
+#: templates/booktypecontrol/control_center_dashboard.html:16
+msgid "files size"
+msgstr "files size"
+
+#: templates/booktypecontrol/control_center_dashboard.html:50
+msgid "Online Users"
+msgstr ""
+
+#: templates/booktypecontrol/control_center_dashboard.html:62
+#: templates/booktypecontrol/control_center_dashboard.html:93
+msgid "Working on:"
+msgstr "Working on:"
+
+#: templates/booktypecontrol/control_center_dashboard.html:76
+msgid "No online users"
+msgstr "No online users"
+
+#: templates/booktypecontrol/control_center_dashboard.html:83
+msgid "Most Active Users"
+msgstr "Most Active Users"
+
+#: templates/booktypecontrol/control_center_dashboard.html:83
+#: templates/booktypecontrol/control_center_dashboard.html:107
+msgid "view all"
+msgstr "view all"
+
+#: templates/booktypecontrol/control_center_dashboard.html:100
+msgid "No most active users"
+msgstr "No most active users"
+
+#: templates/booktypecontrol/control_center_dashboard.html:107
+msgid "Latest Books"
+msgstr "Latest Books"
+
+#: templates/booktypecontrol/control_center_dashboard.html:120
+msgid "No books here"
+msgstr "No books here"
+
+#: templates/booktypecontrol/control_center_dashboard.html:127
+msgid "Most Active Books"
+msgstr "Most Active Books"
+
+#: templates/booktypecontrol/control_center_dashboard.html:140
+msgid "No active books here"
+msgstr "No active books here"
+
+#: templates/booktypecontrol/new_person_email.html:3
+#, python-format
+msgid ""
+"You've just had a Booktype account created for you! Please head over to "
+"%(server)s to log in. Here are your login credentials:"
+msgstr "You've just had a Booktype account created for you! Please head over to %(server)s to log in. Here are your login credentials:"
+
+#: templates/booktypecontrol/new_person_email.html:7
+#: templates/booktypecontrol/password_changed_email.html:5
+msgid "Username:"
+msgstr "Username:"
+
+#: templates/booktypecontrol/new_person_email.html:8
+#: templates/booktypecontrol/password_changed_email.html:6
+msgid "Password:"
+msgstr "Password:"
+
+#: templates/booktypecontrol/password_changed_email.html:2
+msgid "Your password was changed. Here are your new login credentials:"
+msgstr "Your password was changed. Here are your new login credentials:"
