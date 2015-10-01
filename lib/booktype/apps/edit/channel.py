@@ -21,10 +21,12 @@ import json
 import time
 import datetime
 import difflib
+import logging
 
 from django.db.models import Q
 from django.db import transaction
 from django.db.utils import IntegrityError
+from django.utils.timezone import datetime as django_datetime
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, SuspiciousOperation
 
@@ -41,6 +43,9 @@ try:
     from PIL import Image
 except ImportError:
     import Image
+
+
+logger = logging.getLogger('booktype.apps.edit.channel')
 
 
 # this couple of functions should go to models.BookVersion
@@ -1237,6 +1242,147 @@ def remote_chapter_unlock(request, message, bookid, version):
     send_notification(request, bookid, version, "notification_chapter_was_unlocked", chapter.title)
 
     return dict(result=True)
+
+
+def remote_split_chapter(request, message, bookid, version):
+    res = {"result": False, "access": False}
+
+    # check if user has permissions for splitting this chapter.
+    try:
+        book, book_version, book_security = get_book(request, bookid, version)
+        current_chapter = models.Chapter.objects.get(id=int(message["chapterID"]), version=book_version)
+    except (models.Chapter.DoesNotExist, PermissionDenied):
+        res["reason"] = ugettext("You have no permissions for splitting the chapter.")
+        return res
+
+    # check if user has permission for creating chapter
+    if not book_security.has_perm('edit.create_chapter'):
+        res["reason"] = ugettext("You have no permissions for splitting the chapter.")
+        return res
+
+    # if chapter under edit by another user -> decline
+    editor_username = current_chapter.get_current_editor_username()
+    if editor_username and editor_username != request.user.username:
+        res["reason"] = ugettext("Chapter is under edit.")
+        return res
+
+    # if chapter is locked -> check access
+    if current_chapter.is_locked():
+        # check access
+        if not book_security.has_perm('edit.edit_locked_chapter'):
+            res["reason"] = ugettext("You have no permissions for splitting locked chapter.")
+            return res
+        elif not book_security.is_admin() and (current_chapter.lock.type == models.ChapterLock.LOCK_EVERYONE
+                                               and current_chapter.lock.user != request.user):
+            res["reason"] = ugettext("You have no permissions for splitting locked chapter.")
+            return res
+
+    # set access after all permissions were checked
+    res['access'] = True
+
+    url_title = booktype_slugify(message["title"])
+
+    if len(url_title) == 0:
+        res["reason"] = ugettext("Title you've selected is not valid.")
+        return res
+
+    if models.Chapter.objects.filter(book=book, version=book_version, url_title=url_title).exists():
+        res["reason"] = ugettext("Chapter with this title already exists.")
+        return res
+
+    try:
+        # create new chapter
+        status = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
+        content = u'<h1>%s</h1>%s' % (message["title"], message["content"])
+        new_chapter = models.Chapter(book=book,
+                                     version=book_version,
+                                     url_title=url_title,
+                                     title=message["title"],
+                                     status=status,
+                                     content=content,
+                                     created=django_datetime.now(),
+                                     modified=django_datetime.now())
+        new_chapter.save()
+
+        do_increase = False
+
+        # update chapters weight and create new toc item
+        for item in book_version.getTOC():
+            if do_increase:
+                item.weight -= 1
+                item.save()
+
+            if item.chapter.pk == current_chapter.id:
+                do_increase = True
+                toc_item = models.BookToc(version=book_version,
+                                          book=book,
+                                          name=message["title"],
+                                          chapter=new_chapter,
+                                          weight=item.weight - 1,
+                                          typeof=1)
+                toc_item.save()
+
+        # create history for newly created chapter
+        history = logChapterHistory(
+            chapter=new_chapter,
+            content=content,
+            user=request.user,
+            comment=message.get("comment", ""),
+            revision=new_chapter.revision
+        )
+
+        if history:
+            logBookHistory(
+                book=book,
+                version=book_version,
+                chapter=new_chapter,
+                chapter_history=history,
+                user=request.user,
+                kind='chapter_create'
+            )
+
+    except Exception as e:
+        logger.error('Error during chapter splitting: {0}'.format(e))
+        transaction.rollback()
+        return res
+
+    # send notifications for editor
+    sputnik.addMessageToChannel(
+        request, "/chat/%s/" % bookid, {
+            "command": "message_info",
+            "from": request.user.username,
+            "email": request.user.email,
+            "message_id": "user_new_chapter",
+            "message_args": [request.user.username, new_chapter.title]
+        },
+        myself=True
+    )
+
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_create",
+            "chapter": (new_chapter.id,
+                        new_chapter.title,
+                        new_chapter.url_title,
+                        1,
+                        status.id,
+                        new_chapter.lock_type,
+                        new_chapter.lock_username,
+                        "root",
+                        toc_item.id,
+                        "normal",
+                        None)
+        },
+        myself=False
+    )
+
+    send_notification(request, bookid, version, "notification_chapter_was_created", new_chapter.title)
+
+    res['status'] = True
+    res['result'] = True
+    res['chapters'] = get_toc_for_book(book_version)
+
+    return res
 
 
 def remote_get_chapter(request, message, bookid, version):
