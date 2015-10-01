@@ -14,7 +14,9 @@ LICENSES_URL = [
     {'pk': 7, 'url': 'http://creativecommons.org/licenses/by-nc/4.0/legalcode'},
     {'pk': 8, 'url': 'http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode'},
     {'pk': 9, 'url': 'http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode'},
-    {'pk': 10, 'url': 'http://choosealicense.com/licenses/gpl-2.0/'}
+    {'pk': 10, 'url': 'http://choosealicense.com/licenses/gpl-3.0/'},
+    {'pk': 11, 'url': 'http://choosealicense.com/licenses/agpl-3.0/'},
+    {'pk': 12, 'url': 'http://choosealicense.com/licenses/no-license/'}
 ]
 
 class Migration(DataMigration):
