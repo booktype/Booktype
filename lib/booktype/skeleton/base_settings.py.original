@@ -136,16 +136,24 @@ LANGUAGE_CODE = 'en-us'
 gettext = lambda s: s
 
 LANGUAGES = (
+   ('en', gettext('American English')),
+   ('en-gb', gettext('British English')),
+   ('ca', gettext('Català')),
    ('de', gettext('Deutsch')),
-   ('en_GB', gettext('English (United Kingdom)')),
-   ('en', gettext('English (United States)')),
+   ('de-at', gettext('Österreichisches Deutsch')),
+   ('el', gettext('Ελληνικά')),
    ('es', gettext('Español')),
    ('fr', gettext('Français')),
    ('it', gettext('Italiano')),
    ('hu', gettext('Magyar')),
+   ('nl', gettext('Nederlands')),
+   ('no', gettext('Norwegian')),
+   ('pl', gettext('Polski')),
    ('pt', gettext('Português')),
    ('ru', gettext('Русский')),
-   ('sq', gettext('Shqip')),
+   ('sq', gettext('Shqipe')),
+   ('fi', gettext('Suomi')),
+   ('tr', gettext('Türkçe')),
 )
 
 SITE_ID = 1
