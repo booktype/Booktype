@@ -16,7 +16,7 @@
             <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Edit Book' %}" href="{% url 'edit:editor' book.url_title %}">
                 <i class="icon-pencil"></i>
             </a>
-            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'View Book' %}" href="{% url 'reader:infopage' book.url_title %}" target="_blank">
+            <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'View Book Info' %}" href="{% url 'reader:infopage' book.url_title %}" target="_blank">
                 <i class="icon-eye-open"></i>
             </a>
             {% if user.is_authenticated %}

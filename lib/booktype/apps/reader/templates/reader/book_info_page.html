@@ -45,25 +45,25 @@
 
                 <div class="box-bottom-white btn-space btn-box-uppercase">
                    {% check_perm 'edit.edit_book' %}
-                    <button data-href="{% url 'edit:editor' book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Edit this Book' %}">
+                    <button data-href="{% url 'edit:editor' book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to open the editor at the Table of Contents' %}">
                         {% trans "Edit this Book" %}
                     </button>
                     {% endcheck_perm %}
                     {% check_perm 'reader.can_view_draft' %}
-                    <button data-href="{% url 'reader:draft_chapter_page' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'View draft' %}">
+                    <button data-href="{% url 'reader:draft_chapter_page' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to view the draft of the book by chapter' %}">
                         {% trans "View draft" %}
                     </button>
                     {% endcheck_perm %}
                     {% if is_book_admin %}
-                    <button data-remote="{% url 'reader:edit_info_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Edit book info' %}">
+                    <button data-remote="{% url 'reader:edit_info_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to edit the metadata for this book' %}">
                         {% trans "Edit book info" %}
                     </button>
-                    <button data-remote="{% url 'reader:delete_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Delete Book' %}">
+                    <button data-remote="{% url 'reader:delete_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to delete the entire book permanently' %}">
                         {% trans "Delete Book" %}
                     </button>
                     {% endif %}
                     {% check_perm 'reader.can_view_full_page' %}
-                    <button data-href="{% url 'reader:full_view' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'View full book' %}">
+                    <button data-href="{% url 'reader:full_view' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to view the draft of the book as a single page' %}">
                         {% trans "View full book" %}
                     </button>
                     {% endcheck_perm %}
