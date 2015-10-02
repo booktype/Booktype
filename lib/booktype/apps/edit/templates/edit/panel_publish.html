@@ -401,7 +401,7 @@
         {% if "mpdf" in publish_options %}
           <div class="checkbox">
             <label>
-              <input name="mpdf" type="checkbox"> {% trans "Book PDF" %}
+              <input name="mpdf" type="checkbox"> {% trans "Printers' PDF" %}
             </label>
             {% check_perm 'export.export_settings' %}
               <a href="" data-settings="book" class="modal-open">{% trans "settings" %}</a>
