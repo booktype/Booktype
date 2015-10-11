@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n booktype_tags %}
 <div class="edit-menu float-left">
   <div class="btn-toolbar">
         <div class="btn-group">
@@ -11,7 +11,10 @@
             <li><a class="action rtl-text-insert" href="#"><i class="icon-angle-left"></i> &nbsp;&nbsp;{% trans "Insert RTL text" %}</a></li>
             <li class="divider"></li>            
             <li><a class="action columns-insert" href="#"><i class="icon-th-large"></i> &nbsp;&nbsp;{% trans "Insert columns" %}</a></li>            
-            <li><a class="action column-break-insert" href="#"><i class="icon-ellipsis-horizontal"></i> &nbsp;&nbsp;{% trans "Insert column break" %}</a></li>                        
+            <li><a class="action column-break-insert" href="#"><i class="icon-ellipsis-horizontal"></i> &nbsp;&nbsp;{% trans "Insert column break" %}</a></li>
+            {% check_perm 'edit.create_chapter' %}
+            <li><a class="action split-chapter" href="#"><i class="icon-exchange"></i> &nbsp;&nbsp;{% trans "Split chapter" %}</a></li>
+            {% endcheck_perm %}
           </ul>
         </div>
         <div class="btn-group">
