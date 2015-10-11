@@ -1312,10 +1312,11 @@ def remote_split_chapter(request, message, bookid, version):
                 item.weight -= 1
                 item.save()
 
-            if item.chapter.pk == current_chapter.id:
+            if item.is_chapter() and item.chapter.pk == current_chapter.pk:
                 do_increase = True
                 toc_item = models.BookToc(version=book_version,
                                           book=book,
+                                          parent=item.parent,
                                           name=message["title"],
                                           chapter=new_chapter,
                                           weight=item.weight - 1,
