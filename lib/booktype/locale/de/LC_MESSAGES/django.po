@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-11 17:35+0200\n"
-"PO-Revision-Date: 2015-10-12 10:05+0000\n"
+"POT-Creation-Date: 2015-10-02 16:38+0100\n"
+"PO-Revision-Date: 2015-10-13 09:31+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: German (http://www.transifex.com/sourcefabric/booktype/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -854,11 +854,11 @@ msgstr "Rollen im Buch"
 msgid "Modifications:"
 msgstr "Änderungen:"
 
-#: apps/core/templates/core/footer.html:8
+#: apps/core/templates/core/footer-demo.html:8
 msgid "About"
 msgstr "Über"
 
-#: apps/core/templates/core/footer.html:11
+#: apps/core/templates/core/footer-demo.html:11
 msgid ""
 "This is a demonstration server for Booktype. This server is reset on a "
 "regular basis, and any books created here will be deleted at that time. You "
@@ -868,11 +868,11 @@ msgid ""
 "publishers/</a>."
 msgstr "Bitte beachten: Dies ist ein Test Server. Er wird regelmäßig zurückgesetzt und damit werden auch alle Bücher gelöscht! \nDas Booktype Manual (englisch) kann hier gelesen werden  <a href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/"
 
-#: apps/core/templates/core/footer.html:17
+#: apps/core/templates/core/footer-demo.html:17
 msgid "How to use"
 msgstr "Bedienung"
 
-#: apps/core/templates/core/footer.html:20
+#: apps/core/templates/core/footer-demo.html:20
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
 "href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a>"
@@ -880,11 +880,11 @@ msgid ""
 "href=\"http://booktype.pro/\">http://booktype.pro/</a>."
 msgstr "Um eine eigene Installation von Booktype vorzunehmen, kann Booktype hier herunter geladen werden: <a href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a> alternativ bieten wir Booktype Pro als cloud-gehosteten Dienst an: <a href=\"http://booktype.pro/\">http://booktype.pro/</a>."
 
-#: apps/core/templates/core/footer.html:27
+#: apps/core/templates/core/footer-demo.html:27
 msgid "Need Help?"
 msgstr "Hilfe benötigt?"
 
-#: apps/core/templates/core/footer.html:30
+#: apps/core/templates/core/footer-demo.html:30
 msgid ""
 "With social tools, easy workflows and freedom to choose your own licences, "
 "Booktype Pro is perfect for internal, or public-facing, use. Publishers, "
@@ -893,7 +893,8 @@ msgid ""
 "hosting, upgrades, and security. "
 msgstr "Mit der Möglichkeit Bücher kooperativ zu verfassen und zu bearbeiten, mit einfachen Arbeitsabläufen und verschiedenen Ausgabeformate für Druck und digitales Publizieren, wendet sich Booktype an professionellen Autoren und Texter gleichermaßen.\nAber auch Unternehmen, Organisationen und Agenturen finden in Booktype die geeignete Anwendung um ihre Veröffentlichungen einfach zu erstellen und zu veröffentlichen. Mit Booktype stellt Sourcefabric eine komplette Publikationsplattform zur Verfügung, inkl. Installation, Backups, Upgrades und Sicherheit."
 
-#: apps/core/templates/core/footer.html:41
+#: apps/core/templates/core/footer-demo.html:41
+#: apps/core/templates/core/footer.html:12
 msgid ""
 "Powered by Booktype, the open content management system for professional  "
 "writers."
@@ -2943,9 +2944,9 @@ msgstr "Kapitel dieses Abschnitts löschen."
 
 #: apps/edit/templates/edit/panel_toc.html:141
 msgid ""
-"All books should contain at least one section and can have as many chapters "
-"as you like."
-msgstr "Bücher müssen mindestens einen Abschnitt enthalten sowie beliebig viele Kapitel."
+"All books should contain at least one chapter and can have as many sections "
+"as you like, or none."
+msgstr ""
 
 #: apps/edit/templates/edit/panel_toc.html:151
 #: apps/edit/templates/edit/panel_toc.html:274

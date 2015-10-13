@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-11 17:35+0200\n"
-"PO-Revision-Date: 2015-10-12 10:05+0000\n"
+"POT-Creation-Date: 2015-10-02 16:38+0100\n"
+"PO-Revision-Date: 2015-10-13 09:31+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/sourcefabric/booktype/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -856,11 +856,11 @@ msgstr "Könyv Szerepek"
 msgid "Modifications:"
 msgstr "Módosítások:"
 
-#: apps/core/templates/core/footer.html:8
+#: apps/core/templates/core/footer-demo.html:8
 msgid "About"
 msgstr "Leírás"
 
-#: apps/core/templates/core/footer.html:11
+#: apps/core/templates/core/footer-demo.html:11
 msgid ""
 "This is a demonstration server for Booktype. This server is reset on a "
 "regular basis, and any books created here will be deleted at that time. You "
@@ -870,11 +870,11 @@ msgid ""
 "publishers/</a>."
 msgstr "Ez a Booktype bemutató szervere. Ez a szerver rendszeresen frissül és vele együtt a teljes adatbázis is. Minden közben létrehozott könyv törlésre kerül ebben az időben. Elolvashatja a Booktype használati útmutatóját az alábbi linken <a href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/</a>."
 
-#: apps/core/templates/core/footer.html:17
+#: apps/core/templates/core/footer-demo.html:17
 msgid "How to use"
 msgstr "Hogyan kell használni"
 
-#: apps/core/templates/core/footer.html:20
+#: apps/core/templates/core/footer-demo.html:20
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
 "href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a>"
@@ -882,11 +882,11 @@ msgid ""
 "href=\"http://booktype.pro/\">http://booktype.pro/</a>."
 msgstr "Ha telepíteni szeretné, kéjük töltse le innen a Booktype-ot <a href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a>  vagy nézze meg a Booktype Pro szolgáltatásunkat - <a href=\"http://booktype.pro/\">http://booktype.pro/</a>."
 
-#: apps/core/templates/core/footer.html:27
+#: apps/core/templates/core/footer-demo.html:27
 msgid "Need Help?"
 msgstr "Kell segítség?"
 
-#: apps/core/templates/core/footer.html:30
+#: apps/core/templates/core/footer-demo.html:30
 msgid ""
 "With social tools, easy workflows and freedom to choose your own licences, "
 "Booktype Pro is perfect for internal, or public-facing, use. Publishers, "
@@ -895,7 +895,8 @@ msgid ""
 "hosting, upgrades, and security. "
 msgstr "A Booktype Pro tökéletes megoldás elsősorban kiadók számára. A Sourcefabric segítséget nyújt Önnek a szoftver telepítésében, frissítésében. Ügyel a biztonságra és tárhelyet is kínál Önnek."
 
-#: apps/core/templates/core/footer.html:41
+#: apps/core/templates/core/footer-demo.html:41
+#: apps/core/templates/core/footer.html:12
 msgid ""
 "Powered by Booktype, the open content management system for professional  "
 "writers."
@@ -2945,9 +2946,9 @@ msgstr "A fejezetek törlése az alábbi rovat alatt"
 
 #: apps/edit/templates/edit/panel_toc.html:141
 msgid ""
-"All books should contain at least one section and can have as many chapters "
-"as you like."
-msgstr "Minden könyvnek  tartalmaznia kell legalább egy rovatot, annyi fejezettel, amennyit csak szeretne."
+"All books should contain at least one chapter and can have as many sections "
+"as you like, or none."
+msgstr ""
 
 #: apps/edit/templates/edit/panel_toc.html:151
 #: apps/edit/templates/edit/panel_toc.html:274
