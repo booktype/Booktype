@@ -115,14 +115,19 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
             user=self.object).order_by('-modified')[:3]
 
         context['can_upload_book'] = security.get_security(self.request.user).has_perm('account.can_upload_book')
+        context['can_create_book'] = True
         context['book_license'] = config.get_configuration('CREATE_BOOK_LICENSE')
         context['book_visible'] = config.get_configuration('CREATE_BOOK_VISIBLE')
-        context['only_admin_import'] = config.get_configuration('ADMIN_IMPORT_BOOKS')
 
         # if only admin import then deny user permission to upload books
-        if context['only_admin_import']:
+        if config.get_configuration('ADMIN_IMPORT_BOOKS'):
             if not self.request.user.is_superuser:
                 context['can_upload_book'] = False
+
+        # if only admin create then deny user permission to create new books
+        if config.get_configuration('ADMIN_CREATE_BOOKS'):
+            if not self.request.user.is_superuser:
+                context['can_create_book'] = False
 
         # change title in case of not authenticated user
         if not self.request.user.is_authenticated() or \
@@ -135,11 +140,15 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
         return context
 
 
-class CreateBookView(LoginRequiredMixin, BaseCreateView):
+class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
     model = User
     slug_field = 'username'
     slug_url_kwarg = 'username'
     context_object_name = 'user'
+
+    def check_permissions(self, request, *args, **kwargs):
+        if config.get_configuration('ADMIN_CREATE_BOOKS') and not self.request.user.is_superuser:
+            raise PermissionDenied
 
     def get(self, request, *args, **kwargs):
         if request.GET.get('q', None) == "check":

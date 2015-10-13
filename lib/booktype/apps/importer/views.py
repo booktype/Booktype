@@ -11,6 +11,7 @@ from django.db import transaction
 from django.shortcuts import render
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
+from django.core.exceptions import PermissionDenied
 from django.views.generic.edit import FormView
 from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse, HttpResponseRedirect
@@ -23,8 +24,10 @@ except ImportError:
 from braces.views import JSONResponseMixin
 from booki.editor.models import Book
 
+from booktype.apps.core.views import SecurityMixin
 from booktype.importer.delegate import Delegate
 from booktype.importer.notifier import CollectNotifier
+from booktype.utils import config
 from booktype.utils.book import check_book_availability, create_book
 from booktype.utils.misc import (
     import_book_from_file, booktype_slugify)
@@ -40,8 +43,19 @@ IMPORTER_MAP = {
 }
 
 
-class ImporterView(JSONResponseMixin, FormView):
+class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
     form_class = UploadBookForm
+
+    def check_permissions(self, request, *args, **kwargs):
+        can_upload_book = self.security.has_perm('account.can_upload_book')
+
+        # if only admin import then deny user permission to upload books
+        if config.get_configuration('ADMIN_IMPORT_BOOKS'):
+            if not self.request.user.is_superuser:
+                can_upload_book = False
+
+        if not can_upload_book:
+            raise PermissionDenied
 
     def get_form(self, form_class):
         request = self.request
