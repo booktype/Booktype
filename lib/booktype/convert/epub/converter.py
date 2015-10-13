@@ -15,6 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import json
 import logging
 import urlparse
 import ebooklib
@@ -23,7 +24,7 @@ import datetime
 from copy import deepcopy
 from lxml import etree
 
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, Template,Context
 
 from booktype.apps.themes.utils import (
     read_theme_style, read_theme_assets, read_theme_asset_content)
@@ -324,6 +325,17 @@ class EpubConverter(BaseConverter):
 
         if self.theme_name:
             content = read_theme_style(self.theme_name, self.name)
+
+            if self.theme_name == 'custom':
+                try:
+                    data = json.loads(self.config['theme']['custom'].encode('utf8'))
+
+                    tmpl = Template(content)
+                    ctx = Context(data)
+                    content = tmpl.render(ctx)
+                except:
+                    logger.exception("Fails with custom theme.")
+
 
             item = ebooklib.epub.EpubItem(
                 uid='theme.css',

@@ -48,6 +48,7 @@ BOOKTYPE_MAX_BOOKS = 0
 MAX_ADDITIONAL_METADATA = 3
 
 BOOKTYPE_THEME_PLUGINS = {
+  'custom': 'booktype.apps.themes.convert.custom',
   'academic': 'booktype.apps.themes.convert.academic'
 }
 

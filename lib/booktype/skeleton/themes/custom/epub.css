@@ -1,0 +1,73 @@
+body {
+  line-height: {{ lineHeightP}}%;     
+  font-family: "{{fontP }}";
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+{
+    -webkit-hyphens:none;
+    hyphens:none;
+    adobe-hyphenate:none;
+    page-break-after:avoid;
+    font-family: "{{ fontH1 }}";
+    text-align: {{ alignH1 }};
+}
+
+p
+{
+    widows:2;
+    orphans:2;
+}
+
+img
+{
+max-width:100%;
+max-height:100%;
+display:inline-block;
+}
+
+p {
+    font-family: "{{ fontP }}";
+}
+
+
+h1 {
+    font-size: {{ fontSizeH1 }}%;
+    color: {{ colorH1 }};
+}
+
+h2 {
+    font-size: {{ fontSizeH2 }}%;
+}
+
+h3 {
+    font-size: {{ fontSizeH3 }}%;
+
+}
+
+h4 {
+    font-size: {{ fontSizeH4 }}%;
+
+}
+
+h5 {
+    font-size: {{ fontSizeH5 }}%;
+
+}
+
+p+p {
+  text-indent: {{ indentP}}em;   
+}
+
+td, p, li { 
+  line-height: {{ lineHeightP}}%;     
+  font-family: "{{ fontP }}";   
+}  
+
+
+

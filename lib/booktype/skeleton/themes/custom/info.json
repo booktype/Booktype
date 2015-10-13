@@ -1,3 +1,20 @@
 {"version": "0.1",
- "name": "Custom style"
+ "name": "Custom style",
+ "output": {
+   "mpdf": {
+     "frontmatter": "custom_frontmatter_mpdf.html",
+     "body": "custom_body_mpdf.html"
+   },
+
+    "screenpdf": {
+     "frontmatter": "custom_frontmatter_screenpdf.html",
+     "body": "custom_body_screenpdf.html"
+   },
+
+   "epub": {
+     "frontmatter": "custom_frontmatter_epub.html",
+     "body": "custom_body_epub.html"
+   }
+
+ }
 }

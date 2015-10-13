@@ -30,7 +30,7 @@ import ebooklib.utils
 from copy import deepcopy
 
 from django.conf import settings
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, Context, Template
 
 from ..base import BaseConverter
 from ..utils.epub import parse_toc_nav
@@ -424,6 +424,16 @@ class MPDFConverter(BaseConverter):
 
         if self.theme_name != '':
             theme_style = read_theme_style(self.theme_name, self.name)
+
+            if self.theme_name == 'custom':
+                try:
+                    data = json.loads(self.config['theme']['custom'].encode('utf8'))
+
+                    tmpl = Template(theme_style)
+                    ctx = Context(data)
+                    theme_style = tmpl.render(ctx)
+                except:
+                    logger.exception("Fails with custom theme.")
 
         custom_style = self.config.get('settings', {}).get('styling', u'')
 
