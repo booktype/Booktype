@@ -24,6 +24,21 @@
       'underscorestring': _.string
     },
     plugins: {
+      toolbar: {
+        enabled: true,
+        styles: {
+          'QUOTE': {
+            'type': 'custom',
+            'check': function ($elems) {
+              return $elems.filter('.quote').length > 0;
+            },
+            'create': function (range) {
+              Aloha.execCommand('FormatBlock', false, 'p');
+              $(range.startContainer).parent().addClass('quote');
+            }
+          }
+        }
+      },
       fontsize: {
         sizes: [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
         unit: "px"

@@ -92,5 +92,29 @@ img {
     display:inline-block;
 }
 
-
-
+.quote {
+    font-family: "{{ fontP }}";
+    font-weight: normal;
+    border-left: 2mm solid #000;
+    margin: 10mm 0;
+    padding: 0;
+    padding-left: 1rem;
+    font-size: 1.4rem;
+    font-style: italic;
+    display: inline;
+}
+.quote-before {
+        font-family: "roboto";
+        font-size: 10rem;
+        line-height: 80%;
+        margin: 0;
+        padding: 0;
+        display: block;
+        width: 15%;
+        float: left;
+}
+.quote-content {
+        display: block;
+        float: left;
+        margin: 0;
+}
