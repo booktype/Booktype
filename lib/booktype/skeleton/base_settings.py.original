@@ -331,12 +331,17 @@ CACHES = {
 
 # Now just a couple of default fields
 ADDITIONAL_METADATA = {
-    'joker': {
+    'publisher': {
         'TYPE': 'CharField',
-        'WIDGET': 'Textarea'
+        'WIDGET': 'TextInput'
     },
-    'dedication': {
+
+    'edited_by': {
         'TYPE': 'CharField',
-        'WIDGET': 'Textarea'
+        'WIDGET': 'TextInput'
+    },
+    'text_by': {
+        'TYPE': 'CharField',
+        'WIDGET': 'TextInput'
     }
 }

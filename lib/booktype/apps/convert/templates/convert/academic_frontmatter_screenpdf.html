@@ -1,23 +1,55 @@
 {% load convert_tags %}
 
-<div style="padding-top: 40mm">
+{% get_property "add_meta_terms:publisher" as publisher %}
+{% get_property "add_meta_terms:text_by" as text_by %}
+{% get_property "add_meta_terms:edited_by" as edited_by %}
+
+<!-- START HALF TITLE -->
+<div style="padding-top: 30mm">
   <h1 class="frontmatter-title">{{ title }}</h1>
 </div>
-<h2 class="frontmatter-author">{{ author }}</h1>
+{% if author != None %}
+<h2 class="frontmatter-author">{{ author }}</h2>
+{% endif %}
+<!-- END HALF TITLE  -->
 
 <pagebreak  />
+<!-- EMPTY PAGE -->
 <pagebreak />
 
-<div style="padding-top: 4cm">
+<!-- START TITLE PAGE -->
+<div style="padding-top: 20mm">
   <h1 class="frontmatter-title">{{ title }}</h1>
 </div>
 <div class="frontmatter-line"></div>
-<h2 class="frontmatter-author">{{ subtitle }}</h2>
+<h3 class="frontmatter-subtitle">{{ subtitle }}</h3>
+{% if author != None %}
+<h2 class="frontmatter-author-title">{{ author }}</h2>
+{% endif %}
+{% if publisher != "" %}
+<div class="frontmatter-bottom">{{ publisher }}</div>
+{% endif %}
+<!-- END TITLE PAGE -->
 
 <pagebreak />
 
-<p class="body">Copyright issues goes here.</p>
+{% if isbn != "" %}
+<p class="imp1">ISBN: {{ isbn }}</p>
+{% endif %}
 
-<pagebreak />
+{% if publisher != "" %}
+<p class="impl">Published by: {{ publisher }} </p>
+{% endif %}
 
-<tocpagebreak paging="on" links="on" toc-bookmarkText="Content list" resetpagenum="0" pagenumstyle="1" toc-pagenumstyle="i" toc-suppress="1" suppress="0" toc-resetpagenum="1" toc-prehtml="Contents"/> 
+{% if edited_by != "" %}
+<p class="impl">Edited by: {{ edited_by }} </p>
+{% endif %}
+
+{% if text_by != "" %}
+<p class="impl">Text by: {{ text_by }} </p>
+{% endif %}
+
+<!-- END IMPRESSUM -->
+
+<tocpagebreak paging="on" links="on" toc-bookmarkText="Content list" resetpagenum="0" pagenumstyle="1" toc-pagenumstyle="i" toc-suppress="1" suppress="0" toc-resetpagenum="1"/>
+

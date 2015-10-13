@@ -35,7 +35,8 @@ class CustomPDF(plugin.MPDFPlugin):
             if p.get('class', '') != '':
                 continue
 
-            if p.getprevious().tag in headers:
+        prev = p.getprevious()
+        if prev is not None and prev.tag in headers:
                 p.set('class', 'body-first')
             else:
                 p.set('class', 'body')

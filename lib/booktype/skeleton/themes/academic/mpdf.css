@@ -1,6 +1,6 @@
-
+html { font-size: 62.5%; }
 body {
-  font-size: 8pt;
+  font-size: 1rem;
   line-height: normal;
   margin: 0;
   padding: 0;
@@ -8,67 +8,115 @@ body {
   color: #000000;
 }
 
+.impl {
+  margin: 0;
+  text-indent: 0rem;
+}
+
 h1.frontmatter-title {
   font-family: "roboto";
   font-weight: bold;
-  font-size: 60pt;
+  font-size: 5rem;
   text-transform: uppercase;
+  line-height: 110%;
+  margin-top: 20mm;
+  margin-bottom: 0;
 }
-
+h1.section {
+    font-family: "roboto";
+    font-weight: bold;
+    font-size: 3.6rem;
+    text-align: left;
+    margin-top: 0;
+}
 h2.frontmatter-author {
   font-family: "roboto";
   font-weight: normal;
-  margin-top: 3cm;
-  font-size: 22pt;
+  margin-top: 30mm;
+  font-size: 2.2rem;
+}
+h2.frontmatter-author-title {
+  font-family: "roboto";
+  font-weight: normal;
+  margin-top: 50mm;
+  margin-bottom: 30mm;
+  font-size: 2.2rem;
+}
+
+h3.frontmatter-subtitle {
+  font-family: "roboto";
+  font-weight: normal;
+  margin-top: 10mm;
+  font-size: 2.2rem;
+  line-height: 120%;
 }
 
 div.frontmatter-line {
-  width: 2cm;
+  width: 60mm;
   background-color: black;
-  height: 0.1cm;
-  margin-top: 1cm;
-  margin-bottom: 1cm;
+  height: 1mm;
+  margin-top: 10mm;
+  margin-bottom: 10mm;
 }
 
-#frontmatter-bottom {
+.frontmatter-bottom {
   position:absolute;
-  left:0; top:26cm; width:20cm; height:2.5cm;
-  background-color: yellow;
-  font-size: 6pt;
+  left:20mm;
+  right: 20mm;
+  bottom: 30mm;
+  font-size: 1.2rem;
 }
 
 div.mpdf_toc  {
   font-size: 1rem;
   font-family: "roboto";
 }
-
 span.mpdf_toc_t_level_0 {
   font-weight: normal;
+  text-transform: capitalize;
+}
+span.mpdf_toc_t_level_1 {
+  font-weight: normal;
+  font-style: normal;
   text-transform: capitalize;
 }
 
 h1.body-h1 {
     font-family: "roboto";
     font-weight: bold;
-    font-size: 36pt;
+    font-size: 3.6rem;
+    margin-bottom: 1rem;
 }
-
 h2.body-h2 {
     font-family: "roboto-medium";
     font-weight: normal;
-    font-size: 28pt;
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
 }
 
 h3.body-h3 {
     font-family: "roboto-medium";
     font-weight: normal;
-    font-size: 22pt;
+    font-size: 2.2rem;
+        margin-bottom: 1rem;
+}
+h4.body-h4 {
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: 1.8rem;
+        margin-bottom: 1rem;
+}
+h5.body-h5 {
+    font-family: "roboto-medium";
+    font-weight: normal;
+    font-size: 1.4rem;
+        margin-bottom: 1rem;
 }
 
 p.body-first {
     font-family: "roboto";
     font-weight: normal;
-    font-size: 8pt;
+    font-size: 1rem;
     text-indent: 0;
     line-height: 1.4rem;
     margin-bottom: 0;
@@ -76,8 +124,53 @@ p.body-first {
 p.body {
     font-family: "roboto";
     font-weight: normal;
-    font-size: 8pt;
-    text-indent: 1cm;
+    font-size: 1rem;
+    text-indent: 10mm;
     line-height: 1.4rem;
-    margin-bottom: 0;
+    margin: 0;
+}
+.quote {
+    font-family: "roboto";
+    font-weight: normal;
+    border-left: 2mm solid #000;
+    margin: 10mm 0;
+    padding: 0;
+    padding-left: 1rem;
+    font-size: 1.4rem;
+    font-style: italic;
+    display: inline;
+}
+.quote-before {
+        font-size: 10rem;
+        line-height: 80%;
+        margin: 0;
+        padding: 0;
+        display: block;
+        width: 15%;
+        float: left;
+}
+.quote-content {
+        display: block;
+        float: left;
+        margin: 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, th, td {
+    border: 0.5mm solid black;
+}
+th, td {
+        padding: .6rem .8rem;
+}
+ol.endnotes {
+        margin-top: 2rem;
+}
+ol.endnotes li {
+        font-family: "roboto";
+        font-weight: normal;
+        font-size: 12px;
 }

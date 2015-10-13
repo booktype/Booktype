@@ -1,4 +1,5 @@
 import ebooklib
+from lxml import etree
 
 from django.template.loader import render_to_string
 
@@ -18,8 +19,24 @@ class AcademicPDF(plugin.MPDFPlugin):
             for idx, h in enumerate(content.xpath('.//{}'.format(header))):
                 h.set('class', 'body-{}'.format(header))
 
-        for idx, p in enumerate(content.xpath(".//p")):            
-            if p.getprevious().tag in headers:
+        for quote in content.xpath(".//p[@class='quote']"):
+            div = etree.Element('div', {'class': 'quote'})
+            div1 = etree.Element('div', {'class': 'quote-before'})
+            div1.text = '"'
+
+            quote.tag = 'div'
+            quote.set('class', 'quote-content')
+
+            quote.addprevious(div)
+            div.insert(0, div1)
+            div.insert(1, quote)
+
+        for idx, p in enumerate(content.xpath(".//p")):
+            if p.get('class', '') != '':
+                continue
+
+            prev = p.getprevious()
+            if prev is not None and prev.tag in headers:
                 p.set('class', 'body-first')
             else:
                 p.set('class', 'body')

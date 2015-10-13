@@ -1,32 +1,39 @@
-@font-face {
-    font-family: 'roboto';
-    src: url('../Fonts/Roboto-Regular.ttf') format('ttf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'roboto';
-    src: url('../Fonts/Roboto-Black.ttf') format('ttf');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'roboto-medium';
-    src: url('../Fonts/Roboto-Medium.ttf') format('ttf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'roboto-medium';
-    src: url('../Fonts/Roboto-Medium.ttf') format('ttf');
-    font-style: italic, oblique;
-}
+html { font-size: 62.5%; }
 
 body {
-    font-size: 1em;
+  font-size: 12pt;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  font-family: "roboto";
+  color: #000000;
+}
+
+
+p.quote {
+  border-left: 2px solid #333;
+  margin: 30px 0;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 140%;
+  padding: 4px 20px 4px 60px;
+  quotes: "\201C" "\201D" "\2018" "\2019";
+  position: relative;
+}
+
+p.quote:before {
+  color: #333;
+  content: open-quote;
+  font-size: 72px;
+  margin-right: 20px;
+  position: absolute;
+  top: 14px;
+  left: 6px;
+  bottom: 0;
+}
+
+body
+{
     font-family: roboto;
 }
 
@@ -37,76 +44,87 @@ h4,
 h5,
 h6
 {
+    -webkit-hyphens:none;
     hyphens:none;
-    line-height:100%;
+    adobe-hyphenate:none;
     page-break-after:avoid;
     color: black;
 }
 
-h1
+.aloha-block-TitleBlock h1
 {
-    text-align:left;
-    font-size:2em;
+    font-family: "roboto";
     font-weight: bold;
-    font-family: roboto;
+    font-size: 3.6rem;
+    margin-bottom: 1rem; 
 }
 
 h2
 {
-    text-align:left;
-    font-family: roboto-medium;
-    font-size:1.7em;
-    font-weight:normal;
+    font-family: "roboto-medium";
+    font-weight: normal;
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
 }
 
-h3, 
-h4, 
-h5,
-h6
-{
-    text-align:left;
-    font-size:1.4em;
-    font-family: roboto-medium;
-    font-weight:normal;      
+h3 {
+    font-family: "roboto-medium";
+    font-weight: normal;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+h4 {
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+h5 {
+    font-family: "roboto-medium";
+    font-weight: normal;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
 }
 
 /* Paragraph Styles *****************************************************/
 
-body,  p
+#contenteditor, p
 {
     widows:2;
     orphans:2;
 }
 
-h1 + p
+.aloha-block-TitleBlock + p,
+h2 + p,
+h3 + p,
+h4 + p
 {
-    font-size:1em;
-    text-align: left;
-    text-indent:0em;
-    margin-top:1em;
-    margin-bottom:0em;
-    line-height:1.44em;
-    font-family: roboto;
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: 1rem; 
+    line-height: 1.4rem;
+    text-indent: 0;
+    margin-bottom: 0;
 }
 
 p
 {
-    font-family: roboto;
-    font-size:1em;
-    text-align:left;
-    text-indent:0em;
-    margin-top:1em;
-    margin-bottom:0em;
-    line-height:1.44em;   
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: 1rem; 
+    line-height: 1.4rem;
+    margin: 0;
 }
 
 p+p
 {
-    text-indent:1em;
+ text-indent: 10mm;
 }
 
 
-img
+#conenteditor img
 {
 max-width:100%;
 max-height:100%;
@@ -114,19 +132,31 @@ margin: 0px auto;
 }
 
 table {
-    border: 1px solid black;
-    padding: 0.5em;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    border-collapse: collapse;
+    width: 100%;
 }
 
-ul, ol {
-    text-align: left;
+table, 
+th, 
+td {
+    border: 0.5mm solid black;
 }
 
-ol, ul {
-    text-align: left;
+th, 
+td {
+        padding: .6rem .8rem;
 }
+
+.aloha-block-EndnoteBlock {
+        margin-top: 2rem;
+}
+
+.aloha-block-EndnoteBlock .endnoteText {
+        font-family: "roboto";
+        font-weight: normal;
+        font-size: 12px;
+}
+
 
 .group_img {
   page-break-inside: avoid;
@@ -140,19 +170,3 @@ ol, ul {
   margin-top: 0.5em;
 }
 
-div.frontmatter-line {
- width: 50px;
- height: 3px;
- background-color: black;
- margin-top: 20px;
- margin-bottom: 20px;
-}
-
-.frontmatter-title {
- text-transform: uppercase;
- font-size: 3em;
-}
-
-.frontmatter-author {
- font-size: 1.5em;
-}
