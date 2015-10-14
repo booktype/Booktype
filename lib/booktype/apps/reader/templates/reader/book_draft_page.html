@@ -7,7 +7,6 @@
   <h1><span class="draft-stat">{% trans "Draft" %}</span>{{ book.title }}</h1>
 </div>
 <!-- end Bookbar -->
-
 <div class="container">
     <div class="row two-col">
         <div class="col-xs-4 toc_sidebar">
@@ -15,31 +14,44 @@
                 <h2 class="box-title">{% trans "Table of Contents" %}</h2>
 
                 <div class="toc_wrap">
+                    {% assign created_ul False %}                   
+
                     {% for item in toc_items %}
-                    {% if item.is_section %}
-                        {% if not forloop.first %}
-                        </ul>
-                        {% endif %}                        
-                        <h4>{{ item.name }}</h4>
-                        <ul class="list border-top smaller-spacing">
-                    {% else %}
-                        <li {% if item.url_title == content.url_title %}class="selected-chapter"{% endif %}>
-                            <div class="list-info">
-                                <h4>
-                                <a href="{% url 'reader:draft_chapter_page' book.url_title book_version item.url_title %}">
-                                    {{ item.name }}
-                                </a>
-                                </h4>
-                            </div>
-                        </li>
-                    {% endif %}
-                    {% if forloop.last %}
-                        </ul>
-                    {% endif %}
+                        {% if item.is_section %}
+                            {% if not forloop.first %}
+                              </ul>
+                            {% endif %}
+
+                            {% if created_ul %}
+                                {% assign created_ul False %}
+                            {% endif %}
+
+                            <h4>{{ item.name }}</h4>
+                            <ul class="list border-top smaller-spacing">
+                        {% else %}
+                            {% if not item.parent and not created_ul %}
+                                </ul>
+                                {% if not forloop.first %}
+                                {% endif %}
+                                <ul class="list border-top smaller-spacing">
+                                {% assign created_ul True %}
+                            {% endif %}
+
+                            <li {% if item.url_title == content.url_title %}class="selected-chapter"{% endif %} {% if item.parent %}  style="margin-left: 20px;"  {% endif %}>
+                                <div class="list-info">
+                                    <h4>
+                                    <a href="{% url 'reader:draft_chapter_page' book.url_title book_version item.url_title %}">
+                                        {{ item.name }}
+                                    </a>
+                                    </h4>
+                                </div>
+                            </li>
+
+                        {% endif %}
                     {% empty %}
-                    <ul class="list">
-                        <li>{% trans "No content yet" %}.</li>
-                    </ul>
+                        <ul class="list">
+                            <li>{% trans "No content yet" %}.</li>
+                        </ul>
                     {% endfor %}
                 </div>
             </div>
