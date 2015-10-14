@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-02 16:38+0100\n"
-"PO-Revision-Date: 2015-10-13 09:31+0000\n"
+"POT-Creation-Date: 2015-10-13 19:45+0200\n"
+"PO-Revision-Date: 2015-10-14 08:35+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Russian (http://www.transifex.com/sourcefabric/booktype/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -231,7 +231,7 @@ msgstr "Нажмите эту кнопку, чтобы обновить свои
 
 #: apps/account/templates/account/dashboard.html:143
 #: apps/account/templates/account/form_signedin.html:19
-#: apps/account/views.py:179 apps/account/views.py:180
+#: apps/account/views.py:188 apps/account/views.py:189
 #: apps/edit/templates/edit/toolbar_book.html:12
 msgid "Settings"
 msgstr "Настройки"
@@ -474,7 +474,7 @@ msgid "Wrong file format! Please try another one."
 msgstr "Неправильный формат файла! Пожалуйста, попробуйте другой."
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:48
-#: apps/importer/views.py:156
+#: apps/importer/views.py:170
 msgid "Something went wrong!"
 msgstr "Что-то пошло не так!"
 
@@ -535,7 +535,7 @@ msgid "Can't find user \"%(username)s\"."
 msgstr "Пользователь \"%(username)s\" не найден."
 
 #: apps/account/templates/account/forgot_password.html:10
-#: apps/account/views.py:290 apps/account/views.py:291
+#: apps/account/views.py:299 apps/account/views.py:300
 msgid "Forgot your password"
 msgstr "Забыли свой пароль"
 
@@ -563,7 +563,7 @@ msgid "Send request"
 msgstr "Пошлите запрос"
 
 #: apps/account/templates/account/forgot_password_enter.html:12
-#: apps/account/views.py:363 apps/account/views.py:364
+#: apps/account/views.py:372 apps/account/views.py:373
 msgid "Reset your password"
 msgstr "Смените свой пароль"
 
@@ -592,8 +592,8 @@ msgstr "Нажмите эту кнопку, для обзора ваших кн�
 msgid "My Dashboard"
 msgstr "Панель пользователя"
 
-#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:413
-#: apps/account/views.py:414
+#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:422
+#: apps/account/views.py:423
 msgid "Sign in"
 msgstr "Вход"
 
@@ -744,43 +744,43 @@ msgstr "В настоящее время создавать новые учет�
 msgid "Dashboard"
 msgstr "Панель пользователя"
 
-#: apps/account/views.py:130 apps/account/views.py:131
+#: apps/account/views.py:135 apps/account/views.py:136
 msgid "User profile"
 msgstr "Пользовательский профайл"
 
-#: apps/account/views.py:230
+#: apps/account/views.py:239
 msgid "User settings have been saved successfully!"
 msgstr "Настройки пользователя были успешно сохранены!"
 
-#: apps/account/views.py:267
+#: apps/account/views.py:276
 msgid "Password changed successfully!"
 msgstr "Пароль успешно изменен!"
 
-#: apps/account/views.py:319
+#: apps/account/views.py:328
 msgid "Missing username"
 msgstr "Пропущено имя пользователя"
 
-#: apps/account/views.py:323
+#: apps/account/views.py:332
 msgid "No such user"
 msgstr "Нет такого пользователя"
 
-#: apps/account/views.py:343
+#: apps/account/views.py:352
 msgid "Reset password"
 msgstr "Сбросить пароль"
 
-#: apps/account/views.py:356
+#: apps/account/views.py:365
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 
-#: apps/account/views.py:378
+#: apps/account/views.py:387
 msgid "Password can't be empty"
 msgstr "Пароль не может быть пустым"
 
-#: apps/account/views.py:383
+#: apps/account/views.py:392
 msgid "Passwords don't match"
 msgstr "Пароли не совпадают"
 
-#: apps/account/views.py:399
+#: apps/account/views.py:408
 msgid "Wrong secret code"
 msgstr "Неверный секретный код"
 
@@ -1140,23 +1140,23 @@ msgstr ""
 msgid "Chapter with this title already exists."
 msgstr "Глава с таким названием уже существует."
 
-#: apps/edit/channel.py:1428
+#: apps/edit/channel.py:1429
 msgid "You have no permissions for editing this chapter."
 msgstr "У вас нет прав доступа для редактирования этой главы."
 
-#: apps/edit/channel.py:1436
+#: apps/edit/channel.py:1437
 msgid "Chapter currently being edited."
 msgstr "В данный момент глава редактируется."
 
-#: apps/edit/channel.py:1441
+#: apps/edit/channel.py:1442
 msgid "You have no permissions for editing chapters under lock."
 msgstr "У вас нет прав доступа для редактирования заблокированных глав."
 
-#: apps/edit/channel.py:1445
+#: apps/edit/channel.py:1446
 msgid "Chapter currently is locked from everyone."
 msgstr "В данный момент глава заблокирована для всех."
 
-#: apps/edit/channel.py:2050
+#: apps/edit/channel.py:2051
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr "Один из выбранных форматов в был отключен. Попробуйте обновить страницу."
 
@@ -1475,167 +1475,171 @@ msgstr "ПодПодзаголовок"
 msgid "Pre-formatted"
 msgstr "Предварительно отформатирован"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:22
+#: apps/edit/templates/edit/aloha_toolbar.html:18
+msgid "Quote"
+msgstr ""
+
+#: apps/edit/templates/edit/aloha_toolbar.html:23
 msgid "Font"
 msgstr "Шрифт "
 
 #. Translators: User defined style settings
-#: apps/edit/templates/edit/aloha_toolbar.html:28
+#: apps/edit/templates/edit/aloha_toolbar.html:29
 #: skeleton/themes/custom/panel.html:21
 msgid "Font size"
 msgstr "Размер шрифта"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:29
+#: apps/edit/templates/edit/aloha_toolbar.html:30
 msgid "Change Font size"
 msgstr "Изменить размер шрифта"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:141
+#: apps/edit/templates/edit/aloha_toolbar.html:142
 msgid "Bold"
 msgstr "Жирный"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:142
+#: apps/edit/templates/edit/aloha_toolbar.html:143
 msgid "Italic"
 msgstr "Курсив"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:143
+#: apps/edit/templates/edit/aloha_toolbar.html:144
 msgid "Underline"
 msgstr "Подчеркнуть"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:147
+#: apps/edit/templates/edit/aloha_toolbar.html:148
 msgid "Table"
 msgstr "Таблица"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:149
+#: apps/edit/templates/edit/aloha_toolbar.html:150
 msgid "Insert Table"
 msgstr "Вставить таблицу"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:152
+#: apps/edit/templates/edit/aloha_toolbar.html:153
 msgid "Rows"
 msgstr "Строки"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:157
+#: apps/edit/templates/edit/aloha_toolbar.html:158
 #: apps/edit/templates/edit/edit_strings.html:90
 #: apps/edit/templates/edit/panel_aloha.html:317
 msgid "Columns"
 msgstr "Колонки"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:162
+#: apps/edit/templates/edit/aloha_toolbar.html:163
 #: apps/edit/templates/edit/panel_aloha.html:63
 #: apps/edit/templates/edit/panel_aloha.html:354
 #: apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
 msgstr "OK"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:165
+#: apps/edit/templates/edit/aloha_toolbar.html:166
 msgid "Delete Table"
 msgstr "Удалить Таблицу"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:167
+#: apps/edit/templates/edit/aloha_toolbar.html:168
 msgid "Table Options"
 msgstr "Опции Таблицы"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:168
+#: apps/edit/templates/edit/aloha_toolbar.html:169
 msgid "Add Row Before"
 msgstr "Добавить Строку Перед"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:169
+#: apps/edit/templates/edit/aloha_toolbar.html:170
 msgid "Add Row After"
 msgstr "Добавить Строку После"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:170
+#: apps/edit/templates/edit/aloha_toolbar.html:171
 msgid "Add Column Before"
 msgstr "Добавить Колонку Перед"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:171
+#: apps/edit/templates/edit/aloha_toolbar.html:172
 msgid "Add Column After"
 msgstr "Добавить Колонку После"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:172
+#: apps/edit/templates/edit/aloha_toolbar.html:173
 msgid "Delete Row"
 msgstr "Удалить Строку"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:173
+#: apps/edit/templates/edit/aloha_toolbar.html:174
 msgid "Delete Column"
 msgstr "Удалить Колонку"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:178
+#: apps/edit/templates/edit/aloha_toolbar.html:179
 msgid "Insert Link"
 msgstr "Вставить Гиперссылку"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:179
+#: apps/edit/templates/edit/aloha_toolbar.html:180
 #: apps/edit/templates/edit/panel_aloha.html:164
 msgid "Insert Image"
 msgstr "Вставить Изображение"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:184
+#: apps/edit/templates/edit/aloha_toolbar.html:185
 msgid "Left align"
 msgstr "Выровнять слева"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:185
+#: apps/edit/templates/edit/aloha_toolbar.html:186
 msgid "Centre align"
 msgstr "Выравнивание по центру"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:186
+#: apps/edit/templates/edit/aloha_toolbar.html:187
 msgid "Right align"
 msgstr "Выровнять справа"
 
 #. Translators: User defined style alignment settings
-#: apps/edit/templates/edit/aloha_toolbar.html:187
+#: apps/edit/templates/edit/aloha_toolbar.html:188
 #: apps/edit/templates/edit/panel_aloha.html:334
 #: skeleton/themes/custom/panel.html:53
 msgid "Justify"
 msgstr "Выровнять"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:192
+#: apps/edit/templates/edit/aloha_toolbar.html:193
 msgid "Unordered List"
 msgstr "Неупорядоченный Список"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:193
+#: apps/edit/templates/edit/aloha_toolbar.html:194
 msgid "Ordered List"
 msgstr "Упорядоченный Cписок"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:196
+#: apps/edit/templates/edit/aloha_toolbar.html:197
 msgid "Indent left"
 msgstr "Отступ слева"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:197
+#: apps/edit/templates/edit/aloha_toolbar.html:198
 msgid "Indent right"
 msgstr "Отступ справа"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:200
+#: apps/edit/templates/edit/aloha_toolbar.html:201
 msgid "Left to right"
 msgstr "Слева направо"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:201
+#: apps/edit/templates/edit/aloha_toolbar.html:202
 msgid "Right to left"
 msgstr "Справа налево"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:207
+#: apps/edit/templates/edit/aloha_toolbar.html:208
 msgid "Save chapter"
 msgstr "Сохранить главу"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:207
+#: apps/edit/templates/edit/aloha_toolbar.html:208
 msgid "SAVE"
 msgstr "СОХРАНИТЬ"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:213
+#: apps/edit/templates/edit/aloha_toolbar.html:214
 msgid "Save and close"
 msgstr "Сохранить и закрыть"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:214
+#: apps/edit/templates/edit/aloha_toolbar.html:215
 msgid "Save minor change"
 msgstr "Сохранить мелкие изменения"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:215
+#: apps/edit/templates/edit/aloha_toolbar.html:216
 #: apps/edit/templates/edit/panel_aloha.html:276
 msgid "Save with comment"
 msgstr "Сохранить с комментарием"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:217
+#: apps/edit/templates/edit/aloha_toolbar.html:218
 msgid "Cancel editing"
 msgstr "Отменить редактирование"
 
-#: apps/edit/templates/edit/aloha_toolbar.html:217
+#: apps/edit/templates/edit/aloha_toolbar.html:218
 msgid "CLOSE"
 msgstr "ЗАКРЫТЬ"
 
@@ -3188,12 +3192,12 @@ msgstr "Настройки экспорта"
 msgid "Filetype not supported."
 msgstr "Тип файла не поддерживается."
 
-#: apps/importer/views.py:55
+#: apps/importer/views.py:69
 #, python-format
 msgid "Imported Book %(date)s"
 msgstr "Импортированная Книга %(date)s"
 
-#: apps/importer/views.py:131
+#: apps/importer/views.py:145
 msgid "Extension not supported!"
 msgstr "Расширение не поддерживается!"
 
