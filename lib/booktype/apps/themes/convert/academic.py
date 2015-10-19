@@ -46,7 +46,7 @@ class AcademicPDF(plugin.MPDFPlugin):
 
 class AcademicEPUB(plugin.ConversionPlugin):
     def post_convert(self, original_book, book, output_path):
-        content = render_to_string('convert/academic_frontmatter_epub.xhtml',
+        content = render_to_string('themes/academic/frontmatter_epub.xhtml',
             self.convert._get_data(original_book))
 
         item = ebooklib.epub.EpubHtml(

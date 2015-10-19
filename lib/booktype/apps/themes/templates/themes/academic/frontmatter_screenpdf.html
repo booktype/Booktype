@@ -4,6 +4,10 @@
 {% get_property "add_meta_terms:text_by" as text_by %}
 {% get_property "add_meta_terms:edited_by" as edited_by %}
 
+{% if cover_image != '' %}
+ <pagebreak />
+{% endif %}
+
 <!-- START HALF TITLE -->
 <div style="padding-top: 30mm">
   <h1 class="frontmatter-title">{{ title }}</h1>

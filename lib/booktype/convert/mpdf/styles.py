@@ -99,4 +99,4 @@ def create_default_style(config, name, extra = {}):
         }
     data.update(extra)
 
-    return render_to_string('convert/style_{}.css'.format(name), data)
+    return render_to_string('themes/style_{}.css'.format(name), data)

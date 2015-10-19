@@ -1,5 +1,9 @@
 {% load convert_tags %}
 
+{% if cover_image != '' %}
+ <pagebreak />
+{% endif %}
+
 <div style="padding-top: 4cm">
   <h1 class="frontmatter-title">{{ title }}</h1>
 </div>

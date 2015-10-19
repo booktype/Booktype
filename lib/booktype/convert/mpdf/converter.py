@@ -74,10 +74,10 @@ class MPDFConverter(BaseConverter):
     **Templates**
 
     List of template files:
-    - convert/frontmatter_mpdf.html
-    - convert/endmatter_mpdf.html
-    - convert/body_mpdf.html
-    - convert/style_mpdf.css
+    - themes/frontmatter_mpdf.html
+    - themes/endmatter_mpdf.html
+    - themes/body_mpdf.html
+    - themes/style_mpdf.css
 
     **Extending code**
 
@@ -391,12 +391,12 @@ class MPDFConverter(BaseConverter):
             'book_items': book_toc
             })
 
-        if self.theme_name != '':
-            body_name = get_body(self.theme_name, self.name)
-        else:
-            body_name = 'body_{}.html'.format(self.name)
-
-        html = render_to_string('convert/{}'.format(body_name), data)
+#        if self.theme_name != '':
+        body_name = get_body(self.theme_name, self.name)
+        html = render_to_string(body_name, data)
+        # else:
+        #     body_name = 'body_{}.html'.format(self.name)
+        #     html = render_to_string('themes/{}'.format(body_name), data)
 
         html_path = os.path.join(self.sandbox_path, self._body_html_name)
         f = codecs.open(html_path, 'wt', 'utf8')
@@ -632,12 +632,12 @@ class MPDFConverter(BaseConverter):
         data = self._get_data(book)
         data.update(self.get_extra_data(book))
 
-        if self.theme_name != '':
-            frontmatter_name = get_single_frontmatter(self.theme_name, self.name)
-        else:
-            frontmatter_name = 'frontmatter_{}.html'.format(self.name)
-
-        html = render_to_string('convert/{}'.format(frontmatter_name), data)
+#        if self.theme_name != '':
+        frontmatter_name = get_single_frontmatter(self.theme_name, self.name)
+        html = render_to_string(frontmatter_name, data)
+        # else:
+        #     frontmatter_name = 'frontmatter_{}.html'.format(self.name)
+        #     html = render_to_string('themes/{}'.format(frontmatter_name), data)
 
         f = codecs.open('{}/frontmatter.html'.format(self.sandbox_path), 'wt', 'utf8')
         f.write(html)
@@ -656,12 +656,12 @@ class MPDFConverter(BaseConverter):
         data = self._get_data(book)
         data.update(self.get_extra_data(book))
 
-        if self.theme_name != '':
-            endmatter_name = get_single_endmatter(self.theme_name, self.name)
-        else:
-            endmatter_name = 'endmatter_{}.html'.format(self.name)
-
-        html = render_to_string('convert/{}'.format(endmatter_name), data)
+#        if self.theme_name != '':
+        endmatter_name = get_single_endmatter(self.theme_name, self.name)
+        html = render_to_string(endmatter_name, data)
+        # else:
+        #     endmatter_name = 'endmatter_{}.html'.format(self.name)
+        #     html = render_to_string('themes/{}'.format(endmatter_name), data)        
 
         f = codecs.open('{}/endmatter.html'.format(self.sandbox_path), 'wt', 'utf8')
         f.write(html)
@@ -675,8 +675,6 @@ class MPDFConverter(BaseConverter):
         """
 
         assets = read_theme_assets(self.theme_name, self.name)
-
-        print assets
 
         def _write(name, content):
             base_dir = '{}/themes/{}/'.format(settings.DATA_ROOT, self.theme_name)
@@ -698,7 +696,6 @@ class MPDFConverter(BaseConverter):
                 for image_name in asset_list:                    
                     name = os.path.basename(image_name)
                     content = read_theme_asset_content(self.theme_name, image_name)
-                    print name
 
                     _write(name, content)
             elif asset_type == 'fonts':

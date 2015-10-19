@@ -1,8 +1,11 @@
 import os
 import json
 import codecs
+import logging
 
 from django.conf import settings
+
+logger = logging.getLogger("booktype.convert")
 
 
 def get_body(theme_name, profile):
@@ -18,15 +21,15 @@ def get_body(theme_name, profile):
     :Returns:
       Returns file name for the template.
     """
-    
-    data = read_theme_info('{}/themes/{}/info.json'.format(settings.DATA_ROOT, theme_name))
+
+    data = read_theme_info('{}/themes/{}/info.json'.format(settings.BOOKTYPE_ROOT, theme_name))
 
     if 'output' in data:
         if profile in data['output']:
             if 'body' in data['output'][profile]:
-                return data['output'][profile]['body']
+                return 'themes/{}/{}'.format(theme_name, data['output'][profile]['body'])
 
-    return u'body_{}.html'.format(profile)
+    return u'themes/body_{}.html'.format(profile)
 
 
 def get_single_frontmatter(theme_name, profile):
@@ -43,14 +46,14 @@ def get_single_frontmatter(theme_name, profile):
       Returns file name for the template.
     """
 
-    data = read_theme_info('{}/themes/{}/info.json'.format(settings.DATA_ROOT, theme_name))
+    data = read_theme_info('{}/themes/{}/info.json'.format(settings.BOOKTYPE_ROOT, theme_name))
 
     if 'output' in data:
         if profile in data['output']:
             if 'frontmatter' in data['output'][profile]:
-                return data['output'][profile]['frontmatter']
+                return 'themes/{}/{}'.format(theme_name, data['output'][profile]['frontmatter'])
 
-    return u'frontmatter_{}.html'.format(profile)
+    return u'themes/frontmatter_{}.html'.format(profile)
 
 
 def get_single_endmatter(theme_name, profile):
@@ -67,14 +70,14 @@ def get_single_endmatter(theme_name, profile):
       Returns file name for the template.
     """
 
-    data = read_theme_info('{}/themes/{}/info.json'.format(settings.DATA_ROOT, theme_name))
+    data = read_theme_info('{}/themes/{}/info.json'.format(settings.BOOKTYPE_ROOT, theme_name))
 
     if 'output' in data:
         if profile in data['output']:
             if 'endmatter' in data['output'][profile]:
-                return data['output'][profile]['endmatter']
+                return 'themes/{}/{}'.format(theme_name, data['output'][profile]['endmatter'])
 
-    return u'endmatter_{}.html'.format(profile)
+    return u'themes/endmatter_{}.html'.format(profile)
 
 
 def read_theme_style(theme_name, profile):
@@ -91,8 +94,8 @@ def read_theme_style(theme_name, profile):
 
     # todo
     # if custom, also generate custom stuff
-    if os.path.isdir('{}/themes/{}/'.format(settings.DATA_ROOT, theme_name)):
-        style_file = '{}/themes/{}/{}.css'.format(settings.DATA_ROOT, theme_name, profile)
+    if os.path.isdir('{}/themes/{}/'.format(settings.BOOKTYPE_ROOT, theme_name)):
+        style_file = '{}/themes/{}/{}.css'.format(settings.BOOKTYPE_ROOT, theme_name, profile)
         if os.path.exists(style_file):
             f = codecs.open(style_file, 'rt', 'utf8')
             theme_style = f.read()
@@ -112,7 +115,7 @@ def read_theme_assets(theme_name, profile):
       Dictionary with a list of assets.
     """
 
-    data = read_theme_info('{}/themes/{}/info.json'.format(settings.DATA_ROOT, theme_name))
+    data = read_theme_info('{}/themes/{}/info.json'.format(settings.BOOKTYPE_ROOT, theme_name))
 
     if 'output' in data:
         if profile in data['output']:
@@ -132,8 +135,8 @@ def read_theme_asset_content(theme_name, file_name):
     :Returns:
       Raw content.
     """
-    file_name = '{}/themes/{}/{}'.format(settings.DATA_ROOT, theme_name, file_name)
-    base_dir = '{}/themes/{}/'.format(settings.DATA_ROOT, theme_name)
+    file_name = '{}/themes/{}/{}'.format(settings.BOOKTYPE_ROOT, theme_name, file_name)
+    base_dir = '{}/themes/{}/'.format(settings.BOOKTYPE_ROOT, theme_name)
 
     if os.path.exists(file_name):
         if os.path.normpath(file_name).startswith(base_dir):
@@ -147,9 +150,12 @@ def read_theme_asset_content(theme_name, file_name):
 
 
 def read_theme_info(file_path):
-    # TODO
-    # Check for any kind of error
-    f = codecs.open(file_path, 'r', 'utf8')
-    data = json.loads(f.read())
+    data = {}
+
+    try:
+        f = codecs.open(file_path, 'r', 'utf8')
+        data = json.loads(f.read())
+    except:
+        logger.exception('Could not read theme info file.')
 
     return data

@@ -206,7 +206,7 @@ def copy_default_themes(destination):
         import booktype
         booktype_source = os.path.dirname(booktype.__file__)
 
-        copytree('{}/skeleton/themes/'.format(booktype_source), '{}/data/themes/'.format(destination))
+        copytree('{}/skeleton/themes/'.format(booktype_source), '{}/themes/'.format(destination))
     except OSError:
         raise InstallError()
 

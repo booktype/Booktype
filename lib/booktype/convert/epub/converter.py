@@ -308,7 +308,7 @@ class EpubConverter(BaseConverter):
         book_css = []
 
         try:
-            content = render_to_string('convert/style_{}.css'.format(self.name),
+            content = render_to_string('themes/style_{}.css'.format(self.name),
                 {'dir': self.direction})
 
             item = ebooklib.epub.EpubItem(
