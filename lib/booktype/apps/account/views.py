@@ -75,7 +75,7 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
             raise PermissionDenied
 
     def get_context_data(self, **kwargs):
-        context = super(self.__class__, self).get_context_data(**kwargs)
+        context = super(DashboardPageView, self).get_context_data(**kwargs)
 
         context['is_admin'] = self.request.user.is_superuser
         # get all user permissions
