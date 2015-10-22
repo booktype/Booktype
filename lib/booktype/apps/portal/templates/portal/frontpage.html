@@ -39,7 +39,7 @@
                         {% endfor %}
                     </div> <!-- End of book list (book-thumb or book-list) -->
 
-                    {% if request.user.is_authenticated %}
+                    {% if request.user.is_authenticated and can_create_book %}
                         <div class="box-bottom-gray">
                             <button data-href="{% url "accounts:view_profile" request.user.username %}#create-book" role="button" class="btn btn-default float-left create-book" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to go to My Dashboard and open the Create New Book wizard" %}">{% trans "Create New Book" as create_text %} {{ create_text|upper }}</button>
                         </div>

@@ -85,6 +85,12 @@ class FrontPageView(views.SecurityMixin, PageView):
             }
             context['invite_form'] = UserInviteForm(user=self.request.user, initial=initial)
 
+        # if only admin create then deny user permission to create new books
+        if config.get_configuration('ADMIN_CREATE_BOOKS') and not self.request.user.is_superuser:
+            context['can_create_book'] = False
+        else:
+            context['can_create_book'] = True
+
         return context
 
 
