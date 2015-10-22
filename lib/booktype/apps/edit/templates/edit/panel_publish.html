@@ -471,11 +471,8 @@
       <i class="icon-chevron-down"></i>
     </div>
 
-    <div class="export-name" contenteditable="true"><%= name %></div>
+    <div class="export-name" contenteditable="true">{% trans "Exported by" %} <%= username %> <%= created %></div>
 
-    <div class="export-stamp">
-      <span><%= username %></span><span><%= created %></span>
-    </div>
     <div class="btn-group">
       <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{% trans "Action" %} <span class="caret"></span></button>
       <ul class="dropdown-menu" role="menu">
