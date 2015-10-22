@@ -27,6 +27,7 @@ from .forms import GroupCreateForm, GroupUpdateForm
 
 
 class GroupManipulation(PageView):
+
     def post(self, request, groupid):
         group = BookiGroup.objects.get(url_name=groupid)
         if request.user.is_authenticated():
@@ -75,7 +76,14 @@ class FrontPageView(views.SecurityMixin, PageView):
         context['user_list'] = User.objects.filter(is_active=True).order_by('-date_joined')[:2]
         booki_group5 = BookiGroup.objects.all().order_by('-created')[:5]
 
-        context['group_list'] = [{'url_name': g.url_name, 'name': g.name, 'description': g.description, 'num_members': g.members.count(), 'num_books': g.book_set.count(), 'small_group_image': g.get_group_image} for g in booki_group5]
+        context['group_list'] = [{
+            'url_name': g.url_name,
+            'name': g.name,
+            'description': g.description,
+            'num_members': g.members.count(),
+            'num_books': g.book_set.count(),
+            'small_group_image': g.get_group_image
+            } for g in booki_group5]
 
         context['recent_activities'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
 
@@ -85,13 +93,18 @@ class FrontPageView(views.SecurityMixin, PageView):
             }
             context['invite_form'] = UserInviteForm(user=self.request.user, initial=initial)
 
+        if self.request.user.is_authenticated():
+            book_limit = Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1
+        else:
+            book_limit = True
+
         if self.request.user.is_superuser:
             context['can_create_book'] = True
         # if only admin create then deny user permission to create new books
         elif config.get_configuration('ADMIN_CREATE_BOOKS'):
             context['can_create_book'] = False
         # check if user can create more books
-        elif Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1:
+        elif book_limit:
             context['can_create_book'] = False
         else:
             context['can_create_book'] = True
