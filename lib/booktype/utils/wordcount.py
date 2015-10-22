@@ -19,17 +19,16 @@ import string
 
 def _is_delimiter(c):
     try:
-        c = c.encode("ascii")
-        if c in string.whitespace or c in string.punctuation:
+        if c in string.whitespace:
             return True
         else:
             return False
     except UnicodeEncodeError:
         return False
 
+
 def _is_punctuation(c):
     try:
-        c = c.encode("ascii")
         if c in string.punctuation:
             return True
         else:
@@ -63,20 +62,22 @@ def charcount(text):
     try:
         i = iter(text)
         while True:
-            if not _is_delimiter(next(i)):
+            foo = next(i)
+            if not _is_delimiter(foo):
                 count += 1
     except StopIteration:
         return count
 
+
 def charspacecount(text):
-    if isinstance(text,str):
+    if isinstance(text, str):
         text = unicode(text, "utf-8")
     count = 0
     try:
         i = iter(text)
         while True:
-            if not _is_punctuation(next(i)):
-                count += 1
+            next(i)
+            count += 1
     except StopIteration:
         return count
 

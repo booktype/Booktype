@@ -2062,38 +2062,60 @@ def remote_publish_book(request, message, bookid, version):
 
 
 def remote_word_count(request, message, bookid, version):
-    from django.utils.html import strip_tags
+    from lxml import html, etree
+    from unidecode import unidecode
     from booktype.utils.wordcount import wordcount, charcount, charspacecount
+
+    def clean_html(text):
+        from booktype.utils.plugins.icejs import ice_cleanup
+        params = {
+            'tag': 'span',
+            'insert_class': 'ins',
+            'delete_class': 'del'
+        }
+
+        # we should clean insert tags of icejs just in case
+        tree = ice_cleanup(text, **params)
+        cleaned = ' '.join(tree.itertext())
+        return cleaned
 
     book = models.Book.objects.get(id=bookid)
     book_version = book.get_version(version)
 
     # get chapters
     chapters = models.BookToc.objects.filter(book=book, version=book_version)
-    current_chapter = message["current_chapter_id"]
+    current_chapter = message['current_chapter_id']
+    current_chapter_content = unidecode(message['current_chapter_content'])
 
-    # get chapter data
-    res = {}
+    # count chapters data
     all_wcount = 0
     all_charcount = 0
     all_charspacecount = 0
 
     for chap in chapters:
-        if chap.is_chapter() and chap.chapter.id != current_chapter:
-            stripped_data = strip_tags(chap.chapter.content)
-            all_wcount += wordcount(stripped_data)
-            all_charcount += charcount(stripped_data)
-            all_charspacecount += charspacecount(stripped_data)
+        if chap.is_chapter() and chap.chapter.id != int(current_chapter):
+            content = unidecode(chap.chapter.content)
+            cleaned = clean_html(content)
+            all_wcount += wordcount(cleaned)
+            all_charcount += charcount(cleaned)
+            all_charspacecount += charspacecount(cleaned)
 
-    res = {
-        "result": True,
-        "status": True,
-        "wcount": all_wcount,
-        "charcount": all_charcount,
-        "charspacecount": all_charspacecount
+    # time to count content of the current chapter
+    chapter_content = clean_html(current_chapter_content)
+    current_chapter = {
+        'wcount': wordcount(chapter_content),
+        'charcount': charcount(chapter_content),
+        'charspacecount': charspacecount(chapter_content)
     }
 
-    return res
+    return {
+        'result': True,
+        'status': True,
+        'wcount': all_wcount + current_chapter['wcount'],
+        'charcount': all_charcount + current_chapter['charcount'],
+        'charspacecount': all_charspacecount + current_chapter['charspacecount'],
+        'current_chapter': current_chapter
+    }
 
 
 def remote_book_status_rename(request, message, bookid, version):
