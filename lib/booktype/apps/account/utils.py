@@ -31,7 +31,7 @@ def get_profile_image(user, size=100):
             name = '{}{}'.format(settings.STATIC_URL, 'account/images/anonymous.png')
 
         default = urlparse.urljoin(settings.BOOKTYPE_URL, name)
-        return 'http://www.gravatar.com/avatar/%s?%s' % (
+        return '//www.gravatar.com/avatar/%s?%s' % (
             hashlib.md5(profile.user.email.lower()).hexdigest(),
             urllib.urlencode({'d': default, 's': str(size)})
         )
