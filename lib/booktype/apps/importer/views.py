@@ -47,14 +47,18 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
     form_class = UploadBookForm
 
     def check_permissions(self, request, *args, **kwargs):
-        can_upload_book = self.security.has_perm('account.can_upload_book')
+        if self.request.user.is_superuser:
+            return
+
+        if not self.security.has_perm('account.can_upload_book'):
+            raise PermissionDenied
 
         # if only admin import then deny user permission to upload books
         if config.get_configuration('ADMIN_IMPORT_BOOKS'):
-            if not self.request.user.is_superuser:
-                can_upload_book = False
+            raise PermissionDenied
 
-        if not can_upload_book:
+        # check if user can import more books
+        if Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1:
             raise PermissionDenied
 
     def get_form(self, form_class):

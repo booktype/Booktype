@@ -85,8 +85,13 @@ class FrontPageView(views.SecurityMixin, PageView):
             }
             context['invite_form'] = UserInviteForm(user=self.request.user, initial=initial)
 
+        if self.request.user.is_superuser:
+            context['can_create_book'] = True
         # if only admin create then deny user permission to create new books
-        if config.get_configuration('ADMIN_CREATE_BOOKS') and not self.request.user.is_superuser:
+        elif config.get_configuration('ADMIN_CREATE_BOOKS'):
+            context['can_create_book'] = False
+        # check if user can create more books
+        elif Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1:
             context['can_create_book'] = False
         else:
             context['can_create_book'] = True

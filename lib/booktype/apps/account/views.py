@@ -129,6 +129,12 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
             if not self.request.user.is_superuser:
                 context['can_create_book'] = False
 
+        # check if user can create/import more books
+        if Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1:
+            if not self.request.user.is_superuser:
+                context['can_create_book'] = False
+                context['can_upload_book'] = False
+
         # change title in case of not authenticated user
         if not self.request.user.is_authenticated() or \
            self.object != self.request.user:
@@ -147,7 +153,15 @@ class CreateBookView(LoginRequiredMixin, SecurityMixin, BaseCreateView):
     context_object_name = 'user'
 
     def check_permissions(self, request, *args, **kwargs):
-        if config.get_configuration('ADMIN_CREATE_BOOKS') and not self.request.user.is_superuser:
+        if self.request.user.is_superuser:
+            return
+
+        # if only admin create then deny user permission to create new books
+        if config.get_configuration('ADMIN_CREATE_BOOKS'):
+            raise PermissionDenied
+
+        # check if user can create more books
+        if Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1:
             raise PermissionDenied
 
     def get(self, request, *args, **kwargs):
