@@ -1,7 +1,5 @@
 import json
 import celery
-import urllib
-import urllib2
 import httplib
 import time
 import datetime
@@ -14,50 +12,13 @@ from django.contrib.auth.models import User
 import sputnik
 
 from booki.editor import models
-from booktype.utils import config
+from booktype.utils import config, download
 from booktype.apps.export.models import BookExport, ExportFile
 from booktype.apps.export.utils import get_settings_as_dictionary
 from .utils import send_notification
 
 
 logger = logging.getLogger('booktype')
-
-
-def fetch_url(url, data, method='GET'):
-    if method.lower() == 'get':
-        url = url + '?' + urllib.urlencode(data)
-
-        req = urllib2.Request(url)
-    else:
-        try:
-            data_json = json.dumps(data)
-        except TypeError:
-            logger.exception('Could not serialize to JSON.')
-            return None
-
-        req = urllib2.Request(url, data_json)
-
-    req.add_header('Content-Type', 'application/json')
-    req.add_header('Content-Length', len(data_json))
-
-    try:
-        r = urllib2.urlopen(req)
-    except (urllib2.HTTPError, urllib2.URLError, httplib.HTTPException):
-        logger.exception('Could not load URL {}.'.format(url))
-        return None
-    except Exception:
-        logger.exception('Could not load URL {}.'.format(url))
-        return None
-
-    # should really be a loop of some kind
-    try:
-        s = r.read()
-        dta = json.loads(s.strip())
-    except:
-        logger.exception('Could not load JSON data.')
-        return None
-
-    return dta
 
 
 def get_theme(book, username):
@@ -123,7 +84,8 @@ def publish_book(*args, **kwargs):
 
         if 'cover_image' in format_settings:
             if format_settings['cover_image'].strip() != '':
-                cover_url = "{}/{}/_cover/{}/cover.jpg".format(settings.BOOKTYPE_URL,
+                cover_url = "{}/{}/_cover/{}/cover.jpg".format(
+                    settings.BOOKTYPE_URL,
                     book.url_title, format_settings['cover_image'])
                 data['assets']['{}_cover_image'.format(_format)] = cover_url
                 data["outputs"][_format]["config"]["cover_image"] = '{}_cover_image'.format(_format)
@@ -134,7 +96,7 @@ def publish_book(*args, **kwargs):
     # _format: False for _format in data["outputs"].iterkeys()}
 
     convert_url = '{}/_convert/'.format(settings.CONVERT_URL)
-    result = fetch_url(convert_url, data, method='POST')
+    result = download.fetch_url(convert_url, data, method='POST')
 
     if not result:
         logger.error('Could not fetch the book from [{}]'.format(convert_url))
@@ -169,21 +131,11 @@ def publish_book(*args, **kwargs):
             )
             break
 
-        try:
-            response = urllib2.urlopen(
-                '{}/_convert/{}'.format(settings.BOOKTYPE_URL, task_id)).read()
-        except (urllib2.HTTPError, urllib2.URLError, httplib.HTTPException):
-            logger.error(
-                'Could not communicate with a server to fetch polling data.')
-        except Exception:
-            logger.error(
-                'Could not communicate with a server to fetch polling data.')
+        dta = download.fetch_url('{}/_convert/{}'.format(settings.CONVERT_URL, task_id), {}, method='GET')
 
-        try:
-            dta = json.loads(response)
-        except TypeError:
-            dta = {'state': ''}
-            logger.error('Could not parse JSON string.')
+        if not dta:
+            logger.error(
+                'Could not communicate with a server to fetch polling data.')
 
         if dta['state'] == 'SUCCESS':
             for _key in data["outputs"].iterkeys():
@@ -204,18 +156,23 @@ def publish_book(*args, **kwargs):
                 urls = {_key: _x(_key) for _key in output_results.iterkeys()}
 
                 _now = datetime.datetime.now()
-                export_name = "Book export - {0}".format(datetime.datetime(_now.year, _now.month, _now.day,
-                                                                           _now.hour, _now.minute, _now.second))
+                export_name = "Book export - {0}".format(
+                    datetime.datetime(
+                        _now.year, _now.month, _now.day,
+                        _now.hour, _now.minute, _now.second
+                    )
+                )
 
                 exporter = User.objects.get(username=kwargs["username"])
 
-                exprt = BookExport(version=book.get_version(),
-                                   name=export_name,
-                                   user=exporter,
-                                   task_id=task_id,
-                                   created=_now,
-                                   published=None,
-                                   status=0)
+                exprt = BookExport(
+                    version=book.get_version(),
+                    name=export_name,
+                    user=exporter,
+                    task_id=task_id,
+                    created=_now,
+                    published=None,
+                    status=0)
                 exprt.save()
 
                 _files = {}
@@ -235,22 +192,22 @@ def publish_book(*args, **kwargs):
                             filesize = 0
                             pages = 0
 
-                        ef = ExportFile(export=exprt,
-                                        typeof=output_type,
-                                        filesize=filesize,
-                                        pages=pages,
-                                        status=status,
-                                        description=description,
-                                        filename=filename
-                                        )
+                        ef = ExportFile(
+                            export=exprt,
+                            typeof=output_type,
+                            filesize=filesize,
+                            pages=pages,
+                            status=status,
+                            description=description,
+                            filename=filename)
                         ef.save()
 
-                        _files[output_type] = {'filename': filename,
-                                               'status': status,
-                                               'description': description,
-                                               'filesize': filesize,
-                                               'pages': pages
-                                               }
+                        _files[output_type] = {
+                            'filename': filename,
+                            'status': status,
+                            'description': description,
+                            'filesize': filesize,
+                            'pages': pages}
 
                 sputnik.addMessageToChannel2(
                     kwargs['clientid'],

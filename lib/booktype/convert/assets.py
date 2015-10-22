@@ -15,11 +15,13 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import requests
 
 from django.template.defaultfilters import slugify
 
 
 class AssetCollection(object):
+
     def __init__(self, base_path):
         self.base_path = base_path
         self.files = {}
@@ -42,10 +44,11 @@ class AssetCollection(object):
 
 
 class AssetFile(object):
+
     def __init__(self, asset_id, file_path, original_url=None):
-        self.asset_id     = asset_id
-        self.file_path    = file_path
-        self.file_url     = "file://" + file_path
+        self.asset_id = asset_id
+        self.file_path = file_path
+        self.file_url = "file://" + file_path
         self.original_url = original_url
 
     def __repr__(self):
@@ -53,11 +56,9 @@ class AssetFile(object):
 
 
 def download(src_url, dst_file):
-    import urllib2
-    src = urllib2.urlopen(src_url)
-    try:
-        with open(dst_file, "w") as dst:
-            for chunk in src:
+    req = requests.get(src_url, stream=True)
+
+    if req.status_code == 200:
+        with open(dst_file, 'wb') as dst:
+            for chunk in req:
                 dst.write(chunk)
-    finally:
-        src.close()

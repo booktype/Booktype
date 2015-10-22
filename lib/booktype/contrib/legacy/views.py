@@ -23,8 +23,6 @@ import celery
 import sputnik
 import time
 import requests
-import urllib
-import urllib2
 import logging
 import urlparse
 
@@ -44,6 +42,7 @@ from lxml import etree
 from booktype.apps.export.epub import ExportEpubBook
 
 from booktype.apps.loadsave.utils import RestrictExport
+from booktype.utils import download
 from booktype.utils.misc import TidyPlugin
 from .bookizip import BookiZip
 
@@ -158,42 +157,6 @@ def export_book(input_file, filename):
     epub.write_epub(filename, epub_book, opts)
 
 
-def fetch_url(url, data, method='GET'):
-    if method.lower() == 'get':
-        url = url + '?' + urllib.urlencode(data)
-
-        req = urllib2.Request(url)
-    else:
-        try:
-            data_json = json.dumps(data)
-        except TypeError:
-            logger.exception('Could not serialize to JSON.')
-            return None
-
-        req = urllib2.Request(url, data_json)
-
-    req.add_header('Content-Type', 'application/json')
-    req.add_header('Content-Length', len(data_json))
-
-    try:
-        r = urllib2.urlopen(req)
-    except (urllib2.HTTPError, urllib2.URLError, httplib.HTTPException):
-        logger.exception('Could not load URL {}.'.format(url))
-        return None
-    except Exception:
-        logger.exception('Could not load URL {}.'.format(url))
-        return None
-
-    # should really be a loop of some kind
-    try:
-        s = r.read()
-        dta = json.loads(s.strip())
-    except:
-        logger.exception('Could not load JSON data.')
-        return None
-
-    return dta
-
 
 def download_bookizip(base_path, url_path):
     r = requests.get(url_path)
@@ -291,7 +254,7 @@ def send_request(book_url, conf, request):
     output_results = {}
 
     convert_url = '{}/_convert/'.format(settings.CONVERT_URL)
-    result = fetch_url(convert_url, data, method='POST')
+    result = download.fetch_url(convert_url, data, method='POST')
 
     if not result:
         return None
@@ -303,17 +266,9 @@ def send_request(book_url, conf, request):
         if time.time() - start_time > 60 * 8:
             break
 
-        try:
-            response = urllib2.urlopen(
-                '{}/_convert/{}'.format(settings.CONVERT_URL, task_id)).read()
-        except (urllib2.HTTPError, urllib2.URLError, httplib.HTTPException):
-            pass
-        except Exception:
-            pass
+        dta = download.fetch_url(settings.CONVERT_URL, task_id, {}, 'GET')
 
-        try:
-            dta = json.loads(response)
-        except TypeError:
+        if not dta:
             dta = {'state': ''}
             logger.exception('Could not read response data.')
 
