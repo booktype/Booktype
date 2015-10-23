@@ -9,12 +9,12 @@ def ice_cleanup(content, **kwargs):
     tree = parse_html_string(content)
 
     # remove tags of deletes-tracked changes
-    spans_with_deletes = tree.xpath("//%(tag)s[contains(@class, '%(delete_class)s')]" % kwargs)
+    spans_with_deletes = tree.xpath("//%(tag)s[contains(@class, '%(insert_class)s')]" % kwargs)
     for span in spans_with_deletes:
         span.drop_tree()
 
     # remove tag, but keep content of inserted changes
-    spans_with_inserts = tree.xpath("//%(tag)s[contains(@class, '%(insert_class)s')]" % kwargs)
+    spans_with_inserts = tree.xpath("//%(tag)s[contains(@class, '%(delete_class)s')]" % kwargs)
     for span in spans_with_inserts:
         span.drop_tag()
 
@@ -34,7 +34,7 @@ class IceCleanPlugin(BasePlugin):
     }
 
     def __init__(self, kwargs={}):
-        self.options = dict(self.OPTIONS)
+        self.options = self.OPTIONS
         self.options.update(kwargs)
 
     def html_before_write(self, book, chapter):
