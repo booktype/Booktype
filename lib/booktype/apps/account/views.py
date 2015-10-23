@@ -552,7 +552,10 @@ class SignInView(PageView):
                             user.first_name = fullname
 
                             booktype.apps.account.signals.account_created.send(
-                                sender=user, password=request.POST['password'])
+                                sender=user,
+                                password=request.POST['password'],
+                                post_params=request.POST
+                            )
 
                             try:
                                 user.save()
