@@ -295,7 +295,7 @@ class BookSettingsForm(BaseControlForm, forms.Form):
         label=_('Track changes'),
         required=False,
         help_text=_(hlp_track)
-    )    
+    )
     license = forms.ModelChoiceField(
         label=_('Default License'),
         queryset=License.objects.all().order_by("name"),
@@ -508,9 +508,10 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
 
             from django.core.mail import EmailMultiAlternatives
             emails = [self.cleaned_data['email']]
+            site_name = config.get_configuration('BOOKTYPE_SITE_NAME', 'Booktype')
 
             msg = EmailMultiAlternatives(
-                'You have a new Booktype Account',
+                _('You have a new %s account') % site_name,
                 content, settings.DEFAULT_FROM_EMAIL, emails
             )
             msg.attach_alternative(content, "text/html")
