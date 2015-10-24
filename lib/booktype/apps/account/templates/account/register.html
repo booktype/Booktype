@@ -2,7 +2,7 @@
 
 {% load i18n booktype_tags staticfiles %}
 {% block extra_header %}
-    <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>   
+    <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -15,17 +15,17 @@
       <div class="col-xs-4">
           <div class="login-widget box gray">
           <script>
-              $(function () {                      
+              $(function () {
                 $("#formsignin").booktypeSignin({'url': '{% url "accounts:signin" %}'});
                 $("#formregister").booktypeRegister({'url': '{% url "accounts:signin" %}', 'redirect': '{% url "accounts:view_profile" 'XXX' %}'});
               });
-          </script>                 
+          </script>
           <div class="signin-block">
             {% include "account/form_signin.html" %}
           </div>
           <div class="box-bottom-white">
-            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}">{%   trans "Registration form" %}</a></p> 
-          </div> 
+            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}">{%   trans "Registration form" %}</a></p>
+          </div>
         </div>
       </div>
 
@@ -33,53 +33,23 @@
     <div class="col-xs-4">
       <div class="box gray">
           <h2 class="box-title">{% trans "Create Account" %}</h2>
-          {% if 1|booktype_anyone_register  %}    
+          {% if 1|booktype_anyone_register  %}
             {% if limit_reached %}
               <p>
                 {% trans "User limit has been reached." %}
               </p>
             {% else %}
-              <form id="formregister" register-href="{% url "accounts:signin" %}" register-redirect="{% url "portal:frontpage" %}" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
-                <div class="form-group">
-                  <input name="username" type="text" class="form-control" placeholder="{% trans "User name" %}"/>
-                </div>
-                <div class="form-group">
-                  <input name="password" type="password" class="form-control" placeholder="{% trans "Password (6 characters at least)" %}" />
-                </div>
-                <div class="form-group">
-                  <input name="fullname" type="text" class="form-control" placeholder="{% trans "Full name" %}" />
-                </div>
-                <div class="form-group">
-                    <input name="email" type="text" class="form-control" placeholder="{% trans "Email" %}" value='{{ invite_email }}'/>
-                </div>
-
-                  <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">
-                  <div class="missing-username template">{% trans "Missing username!" %}</div>
-                  <div class="missing-email template">{% trans "Missing e-mail!" %}</div>
-                  <div class="missing-password template">{% trans "Missing password!" %}</div>
-                  <div class="missing-fullname template">{% trans "Please provide your real name." %}</div>
-                  <div class="invalid-username template">{% blocktrans %}Username is invalid. Please try a different one. You may use alphanumeric characters and characters ".", "_", "-" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>{%   endblocktrans %}</div>
-                  <div class="invalid-email template">{% trans "This is not a valid e-mail" %}</div>
-                  <div class="password-mismatch template">{% trans "Your passwords dont match. Please try a different one." %}</div>
-                  <div class="invalid-password template">{% trans "Password must be 6 characters or more!" %}</div>
-                  <div class="username-taken template">{% trans "Username already taken. Please try a different one." %}</div>
-                  <div class="unknown-error template">{% trans "Unknown error!" %}</div>
-                  <div class="fullname-toolong template">{% trans "Fullname is too long!" %}</div>
-                  <div class="clear template"></div>
-                </div> 
-
-                <input value="{% trans "CREATE ACCOUNT" %}" class="btn btn-success" type="submit" />
-              </form>
-            {%endif %}
+              {% include "account/register_form.html" %}
+            {% endif %}
           {% else %}
             <p>
               {% trans "Only administrator is allowed to create new accounts at the moment." %}
-            </p>          
+            </p>
           {% endif %}
 
         </div>
       </div>
-    {% endif %}              
+    {% endif %}
   </div>
 </div> <!-- End of container -->
 {% endblock %}

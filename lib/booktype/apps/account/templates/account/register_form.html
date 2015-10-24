@@ -1,0 +1,32 @@
+{% load i18n %}
+<form id="formregister" register-href="{% url "accounts:signin" %}" register-redirect="{% url "portal:frontpage" %}" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
+  <div class="form-group">
+    <input name="username" type="text" class="form-control" placeholder="{% trans "User name" %}"/>
+  </div>
+  <div class="form-group">
+    <input name="password" type="password" class="form-control" placeholder="{% trans "Password (6 characters at least)" %}" />
+  </div>
+  <div class="form-group">
+    <input name="fullname" type="text" class="form-control" placeholder="{% trans "Full name" %}" />
+  </div>
+  <div class="form-group">
+    <input name="email" type="text" class="form-control" placeholder="{% trans "Email" %}" value='{{ invite_email }}'/>
+  </div>
+
+  <div class="notify" style="padding-top: 5px; padding-bottom: 5px; color: red; font-weight: bold">
+    <div class="missing-username template">{% trans "Missing username!" %}</div>
+    <div class="missing-email template">{% trans "Missing e-mail!" %}</div>
+    <div class="missing-password template">{% trans "Missing password!" %}</div>
+    <div class="missing-fullname template">{% trans "Please provide your real name." %}</div>
+    <div class="invalid-username template">{% blocktrans %}Username is invalid. Please try a different one. You may use alphanumeric characters and characters ".", "_", "-" (dot, underscore and minus). <br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>{%   endblocktrans %}</div>
+    <div class="invalid-email template">{% trans "This is not a valid e-mail" %}</div>
+    <div class="password-mismatch template">{% trans "Your passwords dont match. Please try a different one." %}</div>
+    <div class="invalid-password template">{% trans "Password must be 6 characters or more!" %}</div>
+    <div class="username-taken template">{% trans "Username already taken. Please try a different one." %}</div>
+    <div class="unknown-error template">{% trans "Unknown error!" %}</div>
+    <div class="fullname-toolong template">{% trans "Fullname is too long!" %}</div>
+    <div class="clear template"></div>
+  </div>
+
+  <input value="{% trans "CREATE ACCOUNT" %}" class="btn btn-success" type="submit" />
+</form>
