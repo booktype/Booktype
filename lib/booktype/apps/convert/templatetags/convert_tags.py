@@ -24,6 +24,7 @@ def find_with_key(data, key, value):
 
     return
 
+
 def _get_refines(data, prop, name):
     for value in find_with_key(data, 'property', prop):
         if value[0] == name:
@@ -85,6 +86,23 @@ def get_metadata(data, name):
                     return b[0][0]
 
     return ''
+
+
+@register.assignment_tag(takes_context=True)
+def get_meta(context, name):
+    """Django template assignment tag which returns metadata value.
+
+    :Args:
+      - name: name of the metadata key
+
+    :Example:
+
+    >>> {% get_meta "publisher" as publisher %}
+
+    :Returns:
+      Returns metadata value.
+    """
+    return get_metadata(context['metadata'], name)
 
 
 @register.assignment_tag(takes_context=True)
