@@ -11,7 +11,6 @@
     {% include "edit/edit_header.html" %}
     {% include "edit/aloha_header.html" %}
     {% include "edit/edit_custom_header.html" %}
-
     {% include "edit/edit_config.html" %}
 
     <link id="aloha-embeded-style" type="text/css" href="" rel="stylesheet">
@@ -149,7 +148,7 @@
       <section class="tab-content icejs-tab" source_id="icejs-tab">
         <h3>{% trans "Tracking Options" %}</h3>
         <div class="icejs-tab-content">
-          {% if track_changes_enable %}        
+          {% if track_changes_enable %}
             <div class="row">
                 <div class="col-md-9">
                     <h4>{% trans "Track changes" %}</h4>
@@ -217,7 +216,7 @@
         </div>
       </section>
     {% else %}
-      <input type="hidden" id="create-ice-tab" data-has-perm="false">    
+      <input type="hidden" id="create-ice-tab" data-has-perm="false">
     {% endif %}
 
     <!-- Temporarily disable
