@@ -13,12 +13,16 @@ from booktype.apps.portal.widgets import RemovableImageWidget
 
 class UserSettingsForm(BaseBooktypeForm, forms.ModelForm):
     email = forms.EmailField(label=_('Email'))
-    first_name = forms.CharField(label=_('Full name'))
+    first_name = forms.CharField(
+        label=_('Full name'),
+        required=False
+    )
 
     # profile fields
     aboutyourself = forms.CharField(
         label=_('About yourself'),
-        widget=forms.Textarea(attrs={'rows': '20', 'cols': '40'})
+        widget=forms.Textarea(attrs={'rows': '20', 'cols': '40'}),
+        required=False
     )
     profile_pic = forms.FileField(
         label=_('Profile image'),
