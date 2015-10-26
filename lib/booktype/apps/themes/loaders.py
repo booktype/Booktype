@@ -23,8 +23,10 @@ class Loader(BaseLoader):
 
     is_usable = True
 
-    def get_template_sources(self, template_name, template_dirs=None):
+    def get_template_sources(self, template_name, template_dirs=None):        
         if not template_dirs:
+            template_dirs = []
+
             if template_name.startswith('themes/'):
                 splts = template_name.split('/')
 
@@ -32,10 +34,6 @@ class Loader(BaseLoader):
                     theme_dir = '{}/themes/{}/templates/'.format(settings.BOOKTYPE_ROOT, splts[1])
                     if os.path.isdir(theme_dir):
                         template_dirs = [theme_dir]
-                    else:
-                        template_dirs = []
-            else:
-                template_dirs = []
 
         for template_dir in template_dirs:
             try:
