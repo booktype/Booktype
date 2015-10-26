@@ -26,8 +26,12 @@
       </div>
 
       <div class="col-sm-4">
-        <h4 class="border-bottom">{% trans "Book Info" %}</h4>
-        <p>{{ book.description|safe }}</p>
+        <h4 class="border-bottom">{% trans "Important! Before you export..." %}</h4>
+        <ol>
+        <li>{% trans "Please check the settings for your chosen formats before exporting." %}</li>
+        <li>{% blocktrans %}Front matter is generated automatically. Please ensure all <a href="#settings/metadata">metadata</a> has been entered.{% endblocktrans %}</li>
+        <li>{% blocktrans %}If exporting screen PDF, EPUB or MOBI, please check the <a href="#covers">cover manager</a> first.{% endblocktrans %}</li>
+        </ol>
       </div>
     </div>
   </div>
