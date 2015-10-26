@@ -15,6 +15,8 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 
+import uuid
+
 from django.template import Library, Node, TemplateSyntaxError, resolve_variable
 from django.utils.safestring import mark_safe
 from booktype.apps.account import utils
@@ -29,7 +31,7 @@ class ProfileImageNode(Node):
     def render(self, context):
         user = resolve_variable(self.user, context)
         image_url = utils.get_profile_image(user)
-        return mark_safe('<img src="%s"/>' % image_url)
+        return mark_safe('<img src="{url}?{anti_cache}"/>'.format(url=image_url, anti_cache=str(uuid.uuid4())))
 
 
 @register.tag
