@@ -1,10 +1,12 @@
 {% extends "core/base.html" %}
 
-{% load i18n profile staticfiles booktype_tags %}
+{% load i18n profile staticfiles booktype_tags compress %}
 {% block extra_header %}
+    {% compress js %}
     <script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
     <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>
-    <script type="text/javascript" src="{% static "portal/js/addbook.js" %}"></script>    
+    <script type="text/javascript" src="{% static "portal/js/addbook.js" %}"></script>
+    {% endcompress %}
 {% endblock %}
 {% block content %}
 
@@ -54,7 +56,7 @@
                         </div>
                     </h2>
                     <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
-                        {% for book in books_list %}              
+                        {% for book in books_list %}
                             <div class="grid-4">
                                 <figure class="custom-cover">
                                     {% if book.cover %}
@@ -76,12 +78,12 @@
                             </div>
                         {% endfor %}
                     </div> <!-- End of book list (book-thumb or book-list) -->
-                    {% if is_group_admin %} 
+                    {% if is_group_admin %}
                         <div class="box-bottom-white">
-                            {% include "portal/portal_add_book_modal.html" %}                        
+                            {% include "portal/portal_add_book_modal.html" %}
                             <button href="#" role="button" class="btn btn-default float-left" data-toggle="modal" data-target="#addBookModal" rel="tooltip" title="" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to select other books and add them to this group" %}">{% trans "Add books to this group" as addbook_text %} {{ addbook_text|upper }}</button>
                         </div>
-                    {% endif %}                    
+                    {% endif %}
                 </div>
             </div>
 
@@ -92,14 +94,14 @@
                         $(function() {
                             $("#formsignin").booktypeSignin({'url': '{% url "accounts:signin" %}'});
                         });
-                    </script>                       
+                    </script>
                         <div class="signin-block">
                             {% include "account/form_signin.html" %}
                         </div>
                         <div class="box-bottom-white">
-                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}">{% trans "Registration form" %}</a></p> 
-                        </div> 
-                </div> 
+                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}">{% trans "Registration form" %}</a></p>
+                        </div>
+                </div>
                 {% endif %}
 
                 <div class="box white">

@@ -1,9 +1,11 @@
 {% extends "core/base.html" %}
 
-{% load i18n profile staticfiles booktype_tags %}
+{% load i18n profile staticfiles booktype_tags compress %}
 {% block extra_header %}
+    {% compress js %}
     <script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
-    <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>    
+    <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>
+    {% endcompress %}
 {% endblock %}
 {% block content %}
 

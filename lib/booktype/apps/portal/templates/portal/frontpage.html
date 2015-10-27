@@ -1,11 +1,13 @@
 {% extends "core/base.html" %}
-{% load i18n staticfiles booktype_tags profile messaging_tags reader_tags %}
+{% load i18n staticfiles booktype_tags profile messaging_tags reader_tags compress %}
 {% block extra_header %}
+    {% compress js %}
     <script type="text/javascript" src="{% static 'core/js/jquery.steps.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'edit/js/booktype/utils.js' %}"></script>
     <script type="text/javascript" src="{% static 'portal/js/frontpage.js' %}"></script>
     <script type="text/javascript" src="{% static 'reader/js/infopage.js' %}"></script>
     <script type="text/javascript" src="{% static 'account/js/register.js' %}"></script>
+    {% endcompress %}
 {% endblock %}
 
 {% block content %}
@@ -117,7 +119,7 @@
                         $(function() {
                             $("#formsignin").booktypeSignin({'url': '{% url "accounts:signin" %}'});
                         });
-                    </script>                 
+                    </script>
                     {% if request.user.is_authenticated %}
                         {% include "account/form_signedin.html" %}
                     {% else %}
@@ -125,11 +127,11 @@
                             {% include "account/form_signin.html" %}
                         </div>
                         {% if 1|booktype_anyone_register  %}
-                            <div class="box-bottom-white">                        
-                                <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}?redirect={{ request.path }}">{% trans "Registration form" %}</a></p> 
+                            <div class="box-bottom-white">
+                                <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}?redirect={{ request.path }}">{% trans "Registration form" %}</a></p>
                             </div>
                         {% else %}
-                            <div class="box-bottom-white">                        
+                            <div class="box-bottom-white">
                               <p>{% trans "Only administrator is allowed to create new accounts at the moment." %}</p>
                             </div>
                         {% endif %}
@@ -215,7 +217,7 @@
                 {% for pk, choice in invite_form.books.field.widget.choices  %}
                 <li>
                 <a href="#"> {{ choice }}
-                        <input  type="checkbox" id="id_options_{{ forloop.counter0 }}" 
+                        <input  type="checkbox" id="id_options_{{ forloop.counter0 }}"
                         value="{{ pk }}" name="books" />
                     </a>
                 </li>

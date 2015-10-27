@@ -1,8 +1,10 @@
 {% extends "core/base.html" %}
-{% load i18n staticfiles profile reader_tags booktype_tags %}
+{% load i18n staticfiles profile reader_tags booktype_tags compress %}
 
 {% block extra_header %}
+{% compress js %}
 <script type="text/javascript" src="{% static 'reader/js/infopage.js' %}"></script>
+{% endcompress %}
 {% endblock %}
 
 {% block content %}

@@ -1,9 +1,11 @@
 {% extends "core/base.html" %}
-{% load i18n profile messaging_tags staticfiles reader_tags booktype_tags %}
+{% load i18n profile messaging_tags staticfiles reader_tags booktype_tags compress %}
 {% block extra_header %}
+    {% compress js %}
     <script type="text/javascript" src="{% static "portal/js/frontpage.js" %}"></script>
-    <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>    
+    <script type="text/javascript" src="{% static "account/js/register.js" %}"></script>
     <script type="text/javascript" src="{% static "reader/js/infopage.js" %}"></script>
+    {% endcompress %}
 {% endblock %}
 
 {% block content %}
@@ -17,7 +19,7 @@
                         {% trans "Books" %}
 
                         <div class="btn-toolbar float-right">
-                            
+
                             <div class="btn-group float-right">
                                 <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show in a grid" %}"><i class="icon-th"></i></button>
                                 <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Show in a list" %}"><i class="icon-list-ul"></i></button>
@@ -49,14 +51,14 @@
                         $(function() {
                             $("#formsignin").booktypeSignin({'url': '{% url "accounts:signin" %}'});
                         });
-                    </script>                    
+                    </script>
                         <div class="signin-block">
                             {% include "account/form_signin.html" %}
                         </div>
                         <div class="box-bottom-white">
-                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}">{% trans "Registration form" %}</a></p> 
-                        </div> 
-                </div> 
+                            <p>{% trans "Not a member? Please fill the " %}<a href="{% url "accounts:signin" %}">{% trans "Registration form" %}</a></p>
+                        </div>
+                </div>
                 {% endif %}
 
                 <div class="box white">
@@ -82,7 +84,7 @@
 
                     <h2 class="box-title">{% trans "Published Books" %}</h2>
                     <ul class="list border-top">
-                        {% for book in published_books %}                        
+                        {% for book in published_books %}
                         <li>
                             <figure>
                                     {% if book.cover %}
