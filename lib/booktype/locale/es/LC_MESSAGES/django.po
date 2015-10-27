@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-22 12:19+0100\n"
-"PO-Revision-Date: 2015-10-24 08:14+0000\n"
+"POT-Creation-Date: 2015-10-26 17:48+0000\n"
+"PO-Revision-Date: 2015-10-27 09:28+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/sourcefabric/booktype/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -34,11 +34,13 @@ msgstr "Importar Libros EPUB/DOCX"
 msgid "View user info"
 msgstr "Ver información de usuario"
 
-#: apps/account/forms.py:15 apps/account/templates/account/register.html:53
+#: apps/account/forms.py:15
+#: apps/account/templates/account/register_form.html:13
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: apps/account/forms.py:16 apps/account/templates/account/register.html:50
+#: apps/account/forms.py:16
+#: apps/account/templates/account/register_form.html:10
 msgid "Full name"
 msgstr "Nombre completo"
 
@@ -122,64 +124,64 @@ msgstr "Panel"
 msgid "My Dashboard"
 msgstr "Mi Panel"
 
-#: apps/account/views.py:135 apps/account/views.py:136
+#: apps/account/views.py:146 apps/account/views.py:147
 msgid "User profile"
 msgstr "Perfil del usuario"
 
-#: apps/account/views.py:188 apps/account/views.py:189
+#: apps/account/views.py:207 apps/account/views.py:208
 #: apps/account/templates/account/dashboard.html:143
 #: apps/account/templates/account/form_signedin.html:19
 #: apps/edit/templates/edit/toolbar_book.html:12
 msgid "Settings"
 msgstr "Ajustes"
 
-#: apps/account/views.py:239
+#: apps/account/views.py:258
 msgid "User settings have been saved successfully!"
 msgstr "Ajustes de usuario guardados con éxito!"
 
-#: apps/account/views.py:276
+#: apps/account/views.py:295
 msgid "Password changed successfully!"
 msgstr "Se cambió la contraseña satisfactoriamente!"
 
-#: apps/account/views.py:299 apps/account/views.py:300
+#: apps/account/views.py:318 apps/account/views.py:319
 #: apps/account/templates/account/forgot_password.html:10
 msgid "Forgot your password"
 msgstr "¿Olvidaste tu contraseña?"
 
-#: apps/account/views.py:328
+#: apps/account/views.py:347
 msgid "Missing username"
 msgstr "Falta el nombre de usuario"
 
-#: apps/account/views.py:332
+#: apps/account/views.py:351
 msgid "No such user"
 msgstr "Este usuario no existe."
 
-#: apps/account/views.py:352
+#: apps/account/views.py:371
 msgid "Reset password"
 msgstr "Restablecer contraseña"
 
-#: apps/account/views.py:365
+#: apps/account/views.py:384
 msgid "Unknown error"
 msgstr "¡Error desconocido!"
 
-#: apps/account/views.py:372 apps/account/views.py:373
+#: apps/account/views.py:391 apps/account/views.py:392
 #: apps/account/templates/account/forgot_password_enter.html:12
 msgid "Reset your password"
 msgstr "Restablece tu contraseña"
 
-#: apps/account/views.py:387
+#: apps/account/views.py:406
 msgid "Password can't be empty"
 msgstr "Contraseña no puede estar vacío"
 
-#: apps/account/views.py:392
+#: apps/account/views.py:411
 msgid "Passwords don't match"
 msgstr "Las contraseñas no coinciden"
 
-#: apps/account/views.py:408
+#: apps/account/views.py:427
 msgid "Wrong secret code"
 msgstr "Código secreto incorrecto"
 
-#: apps/account/views.py:422 apps/account/views.py:423
+#: apps/account/views.py:441 apps/account/views.py:442
 #: apps/account/templates/account/form_signin.html:3
 msgid "Sign in"
 msgstr "Ingresar"
@@ -190,8 +192,8 @@ msgstr "Mis Libros"
 
 #: apps/account/templates/account/dashboard.html:37
 #: apps/account/templates/account/dashboard_group_template.html:12
-#: apps/core/templates/core/nav_menu.html:21 apps/portal/views.py:324
-#: apps/portal/views.py:325 apps/portal/templates/portal/all_groups.html:31
+#: apps/core/templates/core/nav_menu.html:21 apps/portal/views.py:348
+#: apps/portal/views.py:349 apps/portal/templates/portal/all_groups.html:31
 #: apps/portal/templates/portal/all_groups.html:68
 #: apps/portal/templates/portal/all_groups.html:92
 #: apps/portal/templates/portal/books.html:17
@@ -277,7 +279,7 @@ msgstr "ver todos"
 msgid "Click this button to create a new group of writers and editors"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:116 apps/portal/views.py:198
+#: apps/account/templates/account/dashboard.html:116 apps/portal/views.py:222
 #: apps/portal/templates/portal/frontpage.html:106
 #: apps/portal/templates/portal/group_create.html:9
 #: apps/portal/templates/portal/group_create_modal.html:7
@@ -332,8 +334,8 @@ msgid "This user has no recent activity."
 msgstr "Este usuario no tiene actividad reciente."
 
 #: apps/account/templates/account/dashboard.html:182
-#: apps/core/templates/core/nav_menu.html:28 apps/portal/views.py:152
-#: apps/portal/views.py:153 apps/portal/templates/portal/frontpage.html:87
+#: apps/core/templates/core/nav_menu.html:28 apps/portal/views.py:176
+#: apps/portal/views.py:177 apps/portal/templates/portal/frontpage.html:87
 msgid "Groups"
 msgstr "Grupos"
 
@@ -539,7 +541,7 @@ msgid "Wrong file format! Please try another one."
 msgstr "Formato de archivo incorrecto! Por favor, intente otro."
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:48
-#: apps/importer/views.py:170
+#: apps/importer/views.py:174
 msgid "Something went wrong!"
 msgstr "Algo salió mal!"
 
@@ -604,8 +606,8 @@ msgstr "Usuario o correo electrónico"
 
 #: apps/account/templates/account/forgot_password.html:26
 msgid ""
-"Give us your username or the e-mail address you used to create your Booktype"
-" account, and we will send you a new password."
+"Enter your username or the email address you used to create your account, "
+"and we will send you a link to reset your password."
 msgstr ""
 
 #: apps/account/templates/account/forgot_password.html:30
@@ -652,7 +654,7 @@ msgid "Your account is inactive! Please, contact site support."
 msgstr "Su cuenta está inactiva! Por favor, póngase en contacto el soporte del sitio."
 
 #: apps/account/templates/account/form_signin.html:17
-#: apps/account/templates/account/register.html:66
+#: apps/account/templates/account/register_form.html:26
 msgid "Unknown error!"
 msgstr "¡Error desconocido!"
 
@@ -713,66 +715,66 @@ msgstr "Crear Cuenta"
 msgid "User limit has been reached."
 msgstr "Has llegado al límite de tu cuenta."
 
-#: apps/account/templates/account/register.html:44
+#: apps/account/templates/account/register.html:46
+#: apps/portal/templates/portal/anonymous_frontpage.html:55
+#: apps/portal/templates/portal/frontpage.html:133
+msgid "Only administrator is allowed to create new accounts at the moment."
+msgstr "Solo el administrador puede crear nuevas cuentas en este momento."
+
+#: apps/account/templates/account/register_form.html:4
 msgid "User name"
 msgstr "Numbre de usuario"
 
-#: apps/account/templates/account/register.html:47
+#: apps/account/templates/account/register_form.html:7
 msgid "Password (6 characters at least)"
 msgstr "Contraseña (mínimo 6 caracteres)"
 
-#: apps/account/templates/account/register.html:57
+#: apps/account/templates/account/register_form.html:17
 msgid "Missing username!"
 msgstr "¡Falta el nombre de usuario!"
 
-#: apps/account/templates/account/register.html:58
+#: apps/account/templates/account/register_form.html:18
 msgid "Missing e-mail!"
 msgstr "¡Falta el correo electrónico!"
 
-#: apps/account/templates/account/register.html:59
+#: apps/account/templates/account/register_form.html:19
 msgid "Missing password!"
 msgstr "¡Falta la contraseña!"
 
-#: apps/account/templates/account/register.html:60
+#: apps/account/templates/account/register_form.html:20
 msgid "Please provide your real name."
 msgstr "Por favor, proporciona tu nombre real."
 
-#: apps/account/templates/account/register.html:61
+#: apps/account/templates/account/register_form.html:21
 msgid ""
 "Username is invalid. Please try a different one. You may use alphanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
 "<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
 msgstr ""
 
-#: apps/account/templates/account/register.html:62
+#: apps/account/templates/account/register_form.html:22
 msgid "This is not a valid e-mail"
 msgstr "Esta no es una dirección de correo electrónico válida"
 
-#: apps/account/templates/account/register.html:63
+#: apps/account/templates/account/register_form.html:23
 msgid "Your passwords dont match. Please try a different one."
 msgstr "Tus contraseñas no concuerdan. Por favor intenta de nuevo con una diferente."
 
-#: apps/account/templates/account/register.html:64
+#: apps/account/templates/account/register_form.html:24
 msgid "Password must be 6 characters or more!"
 msgstr "¡La contraseña debe tener 6 caracteres o más!"
 
-#: apps/account/templates/account/register.html:65
+#: apps/account/templates/account/register_form.html:25
 msgid "Username already taken. Please try a different one."
 msgstr "Este nombre de usuario ya no está disponible.  Por favor intenta con uno diferente."
 
-#: apps/account/templates/account/register.html:67
+#: apps/account/templates/account/register_form.html:27
 msgid "Fullname is too long!"
 msgstr "¡El nombre completo es demasiado largo!"
 
-#: apps/account/templates/account/register.html:71
+#: apps/account/templates/account/register_form.html:31
 msgid "CREATE ACCOUNT"
 msgstr "CREAR CUENTA"
-
-#: apps/account/templates/account/register.html:76
-#: apps/portal/templates/portal/anonymous_frontpage.html:55
-#: apps/portal/templates/portal/frontpage.html:133
-msgid "Only administrator is allowed to create new accounts at the moment."
-msgstr "Solo el administrador puede crear nuevas cuentas en este momento."
 
 #: apps/account/templates/account/errors/user_does_not_exist.html:4
 msgid "User does not exist!"
@@ -921,12 +923,12 @@ msgstr "Ingresar"
 msgid "Help us to translate Booktype"
 msgstr "Ayúdanos a traducir Booktype"
 
-#: apps/core/templates/core/nav_menu.html:10 apps/portal/views.py:45
+#: apps/core/templates/core/nav_menu.html:10 apps/portal/views.py:46
 msgid "Home"
 msgstr "Inicio"
 
-#: apps/core/templates/core/nav_menu.html:35 apps/portal/views.py:302
-#: apps/portal/views.py:303 apps/portal/templates/portal/frontpage.html:54
+#: apps/core/templates/core/nav_menu.html:35 apps/portal/views.py:326
+#: apps/portal/views.py:327 apps/portal/templates/portal/frontpage.html:54
 msgid "People"
 msgstr "Personas"
 
@@ -1171,7 +1173,7 @@ msgstr "Texto de derecha a izquierda"
 msgid "Book with right to left writing."
 msgstr "Libro con escritura de derecha a izquierda."
 
-#: apps/edit/forms.py:102 apps/edit/templates/edit/book_edit.html:155
+#: apps/edit/forms.py:102 apps/edit/templates/edit/book_edit.html:154
 msgid "Track changes"
 msgstr ""
 
@@ -1299,7 +1301,7 @@ msgstr "Visión completa"
 #: apps/edit/templates/edit/_compare_modal.html:29
 #: apps/edit/templates/edit/_settings_form.html:17
 #: apps/edit/templates/edit/_settings_form_additional_metadata.html:63
-#: apps/edit/templates/edit/book_edit.html:108
+#: apps/edit/templates/edit/book_edit.html:107
 #: apps/edit/templates/edit/chapter_revision.html:60
 #: apps/edit/templates/edit/panel_aloha.html:34
 #: apps/edit/templates/edit/panel_aloha.html:97
@@ -1709,115 +1711,115 @@ msgstr "CERRAR"
 msgid "Booktype Edit"
 msgstr "Editar Booktype"
 
-#: apps/edit/templates/edit/book_edit.html:61
+#: apps/edit/templates/edit/book_edit.html:60
 #: apps/edit/templates/edit/edit_strings.html:26
 msgid "Chapters"
 msgstr "Capítulos"
 
-#: apps/edit/templates/edit/book_edit.html:62
+#: apps/edit/templates/edit/book_edit.html:61
 msgid "EXPAND TOC"
 msgstr "Expandir Tabla de Contenidos"
 
-#: apps/edit/templates/edit/book_edit.html:70
+#: apps/edit/templates/edit/book_edit.html:69
 #: apps/edit/templates/edit/edit_strings.html:31
 msgid "Online Users"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:96
+#: apps/edit/templates/edit/book_edit.html:95
 #: apps/edit/templates/edit/edit_strings.html:32
 msgid "Chat"
 msgstr "Chat"
 
-#: apps/edit/templates/edit/book_edit.html:102
+#: apps/edit/templates/edit/book_edit.html:101
 msgid "Post a notification"
 msgstr "Publicar una notificación"
 
-#: apps/edit/templates/edit/book_edit.html:107
+#: apps/edit/templates/edit/book_edit.html:106
 msgid "Send"
 msgstr "Enviar"
 
-#: apps/edit/templates/edit/book_edit.html:114
+#: apps/edit/templates/edit/book_edit.html:113
 #: apps/edit/templates/edit/edit_strings.html:33
 #: apps/edit/templates/edit/panel_covers.html:85
 #: apps/edit/templates/edit/panel_covers.html:142
 msgid "Notes"
 msgstr "Notas"
 
-#: apps/edit/templates/edit/book_edit.html:116
+#: apps/edit/templates/edit/book_edit.html:115
 msgid "Shared notes for this book"
 msgstr "Notas compartidas para este libro"
 
-#: apps/edit/templates/edit/book_edit.html:122
+#: apps/edit/templates/edit/book_edit.html:121
 msgid "SAVE NOTE"
 msgstr "GUARDAR NOTA"
 
-#: apps/edit/templates/edit/book_edit.html:123
+#: apps/edit/templates/edit/book_edit.html:122
 msgid "Note Saved.."
 msgstr "Nota Guardada.."
 
-#: apps/edit/templates/edit/book_edit.html:137
+#: apps/edit/templates/edit/book_edit.html:136
 #: apps/edit/templates/edit/edit_strings.html:20
 msgid "Chapters on Hold"
 msgstr "Capítulos en Espera"
 
-#: apps/edit/templates/edit/book_edit.html:150
+#: apps/edit/templates/edit/book_edit.html:149
 #: apps/edit/templates/edit/edit_strings.html:30
 msgid "Tracking Options"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:162
+#: apps/edit/templates/edit/book_edit.html:161
 msgid "On"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:165
+#: apps/edit/templates/edit/book_edit.html:164
 msgid "Off"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:173
+#: apps/edit/templates/edit/book_edit.html:172
 msgid "Show changes"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:180
-#: apps/edit/templates/edit/panel_publish.html:377
+#: apps/edit/templates/edit/book_edit.html:179
+#: apps/edit/templates/edit/panel_publish.html:381
 msgid "Yes"
 msgstr "Si"
 
-#: apps/edit/templates/edit/book_edit.html:183
-#: apps/edit/templates/edit/panel_publish.html:376
+#: apps/edit/templates/edit/book_edit.html:182
+#: apps/edit/templates/edit/panel_publish.html:380
 msgid "No"
 msgstr "No"
 
-#: apps/edit/templates/edit/book_edit.html:191
+#: apps/edit/templates/edit/book_edit.html:190
 msgid "Actions"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:199
+#: apps/edit/templates/edit/book_edit.html:198
 msgid "Accept all changes"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:202
+#: apps/edit/templates/edit/book_edit.html:201
 msgid "Decline all changes"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:208
+#: apps/edit/templates/edit/book_edit.html:207
 msgid "Accept one"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:211
+#: apps/edit/templates/edit/book_edit.html:210
 msgid "Decline one"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:225
+#: apps/edit/templates/edit/book_edit.html:224
 #: apps/edit/templates/edit/edit_strings.html:27
 msgid "Attachments"
 msgstr "Adjuntos"
 
-#: apps/edit/templates/edit/book_edit.html:229
+#: apps/edit/templates/edit/book_edit.html:228
 #: apps/edit/templates/edit/edit_strings.html:28
 msgid "Chapter History"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:288
+#: apps/edit/templates/edit/book_edit.html:287
 #, python-format
 msgid ""
 "<p class=\"notification-text\"><%%= username %%> joined </p><span class"
@@ -1851,7 +1853,7 @@ msgstr "Hora"
 
 #: apps/edit/templates/edit/chapter_history.html:26
 #: apps/edit/templates/edit/panel_aloha.html:281
-#: apps/edit/templates/edit/panel_publish.html:487
+#: apps/edit/templates/edit/panel_publish.html:491
 msgid "Comment"
 msgstr "Comentario"
 
@@ -2414,7 +2416,7 @@ msgid "Edit metadata"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:260
-#: apps/edit/templates/edit/panel_publish.html:503
+#: apps/edit/templates/edit/panel_publish.html:507
 msgid "Download"
 msgstr ""
 
@@ -2549,7 +2551,7 @@ msgid "Clear filters"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_history.html:24
-#: apps/edit/templates/edit/panel_publish.html:480
+#: apps/edit/templates/edit/panel_publish.html:484
 msgid "Action"
 msgstr ""
 
@@ -2623,7 +2625,7 @@ msgid "You can only upload JPEG file as cover image."
 msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:4
-#: apps/edit/templates/edit/panel_publish.html:493
+#: apps/edit/templates/edit/panel_publish.html:497
 #: apps/edit/templates/edit/toolbar_book.html:16
 msgid "Publish"
 msgstr ""
@@ -2637,254 +2639,270 @@ msgid "Export history"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:29
-msgid "Book Info"
+msgid "Important! Before you export..."
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:40
+#: apps/edit/templates/edit/panel_publish.html:31
+msgid "Please check the settings for your chosen formats before exporting."
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:32
+msgid ""
+"Front matter is generated automatically. Please ensure all <a "
+"href=\"#settings/metadata\">metadata</a> has been entered."
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:33
+msgid ""
+"If exporting screen PDF, EPUB or MOBI, please check the <a "
+"href=\"#covers\">cover manager</a> first."
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:44
 #: apps/edit/templates/edit/panel_settings.html:4
 #: apps/edit/templates/edit/panel_settings.html:62
 #: apps/edit/templates/edit/panel_settings.html:67
 msgid "Book Settings"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:46
-#: apps/edit/templates/edit/panel_publish.html:49
-#: apps/edit/templates/edit/panel_publish.html:167
-#: apps/edit/templates/edit/panel_publish.html:170
+#: apps/edit/templates/edit/panel_publish.html:50
+#: apps/edit/templates/edit/panel_publish.html:53
+#: apps/edit/templates/edit/panel_publish.html:171
+#: apps/edit/templates/edit/panel_publish.html:174
 msgid "Size"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:48
-#: apps/edit/templates/edit/panel_publish.html:169
+#: apps/edit/templates/edit/panel_publish.html:52
+#: apps/edit/templates/edit/panel_publish.html:173
 msgid "Choose a standard paper size or custom dimensions"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:51
-#: apps/edit/templates/edit/panel_publish.html:172
+#: apps/edit/templates/edit/panel_publish.html:55
+#: apps/edit/templates/edit/panel_publish.html:176
 msgid "custom"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:85
-#: apps/edit/templates/edit/panel_publish.html:88
-#: apps/edit/templates/edit/panel_publish.html:95
-#: apps/edit/templates/edit/panel_publish.html:98
-#: apps/edit/templates/edit/panel_publish.html:101
-#: apps/edit/templates/edit/panel_publish.html:104
-#: apps/edit/templates/edit/panel_publish.html:116
-#: apps/edit/templates/edit/panel_publish.html:124
-#: apps/edit/templates/edit/panel_publish.html:137
-#: apps/edit/templates/edit/panel_publish.html:206
-#: apps/edit/templates/edit/panel_publish.html:209
-#: apps/edit/templates/edit/panel_publish.html:216
-#: apps/edit/templates/edit/panel_publish.html:219
-#: apps/edit/templates/edit/panel_publish.html:222
-#: apps/edit/templates/edit/panel_publish.html:225
-#: apps/edit/templates/edit/panel_publish.html:237
-#: apps/edit/templates/edit/panel_publish.html:245
+#: apps/edit/templates/edit/panel_publish.html:89
+#: apps/edit/templates/edit/panel_publish.html:92
+#: apps/edit/templates/edit/panel_publish.html:99
+#: apps/edit/templates/edit/panel_publish.html:102
+#: apps/edit/templates/edit/panel_publish.html:105
+#: apps/edit/templates/edit/panel_publish.html:108
+#: apps/edit/templates/edit/panel_publish.html:120
+#: apps/edit/templates/edit/panel_publish.html:128
+#: apps/edit/templates/edit/panel_publish.html:141
+#: apps/edit/templates/edit/panel_publish.html:210
+#: apps/edit/templates/edit/panel_publish.html:213
+#: apps/edit/templates/edit/panel_publish.html:220
+#: apps/edit/templates/edit/panel_publish.html:223
+#: apps/edit/templates/edit/panel_publish.html:226
+#: apps/edit/templates/edit/panel_publish.html:229
+#: apps/edit/templates/edit/panel_publish.html:241
+#: apps/edit/templates/edit/panel_publish.html:249
 msgid "mm"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:91
-#: apps/edit/templates/edit/panel_publish.html:212
+#: apps/edit/templates/edit/panel_publish.html:95
+#: apps/edit/templates/edit/panel_publish.html:216
 msgid "Margins"
-msgstr ""
-
-#: apps/edit/templates/edit/panel_publish.html:93
-#: apps/edit/templates/edit/panel_publish.html:214
-msgid "Set the margin and gutter dimensions"
-msgstr ""
-
-#: apps/edit/templates/edit/panel_publish.html:94
-#: apps/edit/templates/edit/panel_publish.html:215
-msgid "Top Margin"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:97
 #: apps/edit/templates/edit/panel_publish.html:218
+msgid "Set the margin and gutter dimensions"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:98
+#: apps/edit/templates/edit/panel_publish.html:219
+msgid "Top Margin"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:101
+#: apps/edit/templates/edit/panel_publish.html:222
 msgid "Side Margin"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:100
-#: apps/edit/templates/edit/panel_publish.html:221
+#: apps/edit/templates/edit/panel_publish.html:104
+#: apps/edit/templates/edit/panel_publish.html:225
 msgid "Bottom Margin"
-msgstr ""
-
-#: apps/edit/templates/edit/panel_publish.html:103
-#: apps/edit/templates/edit/panel_publish.html:224
-msgid "Gutter"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:107
 #: apps/edit/templates/edit/panel_publish.html:228
-msgid "Header and Footer"
-msgstr ""
-
-#: apps/edit/templates/edit/panel_publish.html:109
-#: apps/edit/templates/edit/panel_publish.html:230
-msgid "Set header and footer visibility, and their margins"
+msgid "Gutter"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:111
 #: apps/edit/templates/edit/panel_publish.html:232
-msgid "Show Header"
+msgid "Header and Footer"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:113
+#: apps/edit/templates/edit/panel_publish.html:234
+msgid "Set header and footer visibility, and their margins"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:115
 #: apps/edit/templates/edit/panel_publish.html:236
-msgid "Header Margin"
+msgid "Show Header"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:119
 #: apps/edit/templates/edit/panel_publish.html:240
-msgid "Show Footer"
+msgid "Header Margin"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:123
 #: apps/edit/templates/edit/panel_publish.html:244
+msgid "Show Footer"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:127
+#: apps/edit/templates/edit/panel_publish.html:248
 msgid "Footer Margin"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:128
+#: apps/edit/templates/edit/panel_publish.html:132
 msgid "Extra"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:130
+#: apps/edit/templates/edit/panel_publish.html:134
 msgid "Set extra options for paper trimming"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:132
+#: apps/edit/templates/edit/panel_publish.html:136
 msgid "Crop Marks"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:136
+#: apps/edit/templates/edit/panel_publish.html:140
 msgid "Bleed size"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:142
-#: apps/edit/templates/edit/panel_publish.html:145
-#: apps/edit/templates/edit/panel_publish.html:258
-#: apps/edit/templates/edit/panel_publish.html:261
-#: apps/edit/templates/edit/panel_publish.html:292
-#: apps/edit/templates/edit/panel_publish.html:295
-#: apps/edit/templates/edit/panel_publish.html:326
-#: apps/edit/templates/edit/panel_publish.html:329
-#: apps/edit/templates/edit/panel_publish.html:351
-#: apps/edit/templates/edit/panel_publish.html:354
+#: apps/edit/templates/edit/panel_publish.html:146
+#: apps/edit/templates/edit/panel_publish.html:149
+#: apps/edit/templates/edit/panel_publish.html:262
+#: apps/edit/templates/edit/panel_publish.html:265
+#: apps/edit/templates/edit/panel_publish.html:296
+#: apps/edit/templates/edit/panel_publish.html:299
+#: apps/edit/templates/edit/panel_publish.html:330
+#: apps/edit/templates/edit/panel_publish.html:333
+#: apps/edit/templates/edit/panel_publish.html:355
+#: apps/edit/templates/edit/panel_publish.html:358
 msgid "Styling"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:144
-#: apps/edit/templates/edit/panel_publish.html:260
-#: apps/edit/templates/edit/panel_publish.html:294
-#: apps/edit/templates/edit/panel_publish.html:328
-#: apps/edit/templates/edit/panel_publish.html:353
+#: apps/edit/templates/edit/panel_publish.html:148
+#: apps/edit/templates/edit/panel_publish.html:264
+#: apps/edit/templates/edit/panel_publish.html:298
+#: apps/edit/templates/edit/panel_publish.html:332
+#: apps/edit/templates/edit/panel_publish.html:357
 msgid "Manually edit CSS style"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:161
+#: apps/edit/templates/edit/panel_publish.html:165
 msgid "Screen PDF Settings"
-msgstr ""
-
-#: apps/edit/templates/edit/panel_publish.html:249
-#: apps/edit/templates/edit/panel_publish.html:283
-#: apps/edit/templates/edit/panel_publish.html:317
-msgid "Cover"
-msgstr ""
-
-#: apps/edit/templates/edit/panel_publish.html:251
-#: apps/edit/templates/edit/panel_publish.html:285
-#: apps/edit/templates/edit/panel_publish.html:319
-msgid "Select a cover from the Cover Manager"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:253
 #: apps/edit/templates/edit/panel_publish.html:287
 #: apps/edit/templates/edit/panel_publish.html:321
+msgid "Cover"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:255
+#: apps/edit/templates/edit/panel_publish.html:289
+#: apps/edit/templates/edit/panel_publish.html:323
+msgid "Select a cover from the Cover Manager"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_publish.html:257
+#: apps/edit/templates/edit/panel_publish.html:291
+#: apps/edit/templates/edit/panel_publish.html:325
 msgid "No Cover"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:277
+#: apps/edit/templates/edit/panel_publish.html:281
 msgid "EPUB Settings"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:311
+#: apps/edit/templates/edit/panel_publish.html:315
 msgid "Mobi Settings"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:345
+#: apps/edit/templates/edit/panel_publish.html:349
 msgid "XHTML Settings"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:370
-#: apps/edit/templates/edit/panel_publish.html:483
+#: apps/edit/templates/edit/panel_publish.html:374
+#: apps/edit/templates/edit/panel_publish.html:487
 msgid "Remove export"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:373
+#: apps/edit/templates/edit/panel_publish.html:377
 msgid "Do you want to remove this export?"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:391
+#: apps/edit/templates/edit/panel_publish.html:395
 msgid "Choose format for export"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:393
+#: apps/edit/templates/edit/panel_publish.html:397
 msgid "No available publish formats."
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:404
+#: apps/edit/templates/edit/panel_publish.html:408
 msgid "Printers' PDF"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:407
-#: apps/edit/templates/edit/panel_publish.html:418
-#: apps/edit/templates/edit/panel_publish.html:429
-#: apps/edit/templates/edit/panel_publish.html:442
-#: apps/edit/templates/edit/panel_publish.html:453
+#: apps/edit/templates/edit/panel_publish.html:411
+#: apps/edit/templates/edit/panel_publish.html:422
+#: apps/edit/templates/edit/panel_publish.html:433
+#: apps/edit/templates/edit/panel_publish.html:446
+#: apps/edit/templates/edit/panel_publish.html:457
 msgid "settings"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:415
+#: apps/edit/templates/edit/panel_publish.html:419
 msgid "Screen PDF"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:426
+#: apps/edit/templates/edit/panel_publish.html:430
 msgid "EPUB"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:439
+#: apps/edit/templates/edit/panel_publish.html:443
 msgid "MOBI"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:450
+#: apps/edit/templates/edit/panel_publish.html:454
 msgid "XHTML"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:460
+#: apps/edit/templates/edit/panel_publish.html:464
 msgid "EXPORT YOUR BOOK"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:510
+#: apps/edit/templates/edit/panel_publish.html:514
 msgid "Failed"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:523
+#: apps/edit/templates/edit/panel_publish.html:527
 msgid "pages"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:541
+#: apps/edit/templates/edit/panel_publish.html:545
 msgid "comments"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:550
+#: apps/edit/templates/edit/panel_publish.html:554
 msgid "Your comment here"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:551
+#: apps/edit/templates/edit/panel_publish.html:555
 msgid "SEND COMMENT"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:571
+#: apps/edit/templates/edit/panel_publish.html:575
 msgid "Exporting, please wait"
 msgstr ""
 
@@ -3179,12 +3197,12 @@ msgstr ""
 msgid "Filetype not supported."
 msgstr ""
 
-#: apps/importer/views.py:69
+#: apps/importer/views.py:73
 #, python-format
 msgid "Imported Book %(date)s"
 msgstr ""
 
-#: apps/importer/views.py:145
+#: apps/importer/views.py:149
 msgid "Extension not supported!"
 msgstr ""
 
@@ -3228,23 +3246,23 @@ msgstr ""
 msgid "Only JPEG file is allowed for group image."
 msgstr ""
 
-#: apps/portal/views.py:44
+#: apps/portal/views.py:45
 msgid "Booktype"
 msgstr ""
 
-#: apps/portal/views.py:94
+#: apps/portal/views.py:118
 msgid "Group"
 msgstr ""
 
-#: apps/portal/views.py:235
+#: apps/portal/views.py:259
 msgid "Group settings"
 msgstr ""
 
-#: apps/portal/views.py:279
+#: apps/portal/views.py:303
 msgid "You are not allowed to delete this group"
 msgstr ""
 
-#: apps/portal/views.py:293
+#: apps/portal/views.py:317
 msgid "Group successfully deleted."
 msgstr ""
 
