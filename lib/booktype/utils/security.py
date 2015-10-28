@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+import logging
 from booktype.utils import config
 from booki.editor.models import BookiPermission
 from booktype.apps.core.models import Permission, Role
+
+logger = logging.getLogger('booktype.utils.security')
 
 
 def has_perm(user, to_do, book=None):
@@ -105,7 +108,7 @@ def get_default_role(key, book=None):
         try:
             role_name = book.settings.get(name=default_key).get_value()
         except:
-            pass
+            logger.info("There is no Role name for role_key %s" % default_key)
 
     if not role_name:
         role_name = config.get_configuration(
@@ -118,7 +121,7 @@ def get_default_role(key, book=None):
     try:
         default_role = Role.objects.get(name=role_name)
     except:
-        pass
+        logger.info("Role with %s name does not exists" % role_name)
 
     return default_role
 
@@ -196,7 +199,7 @@ class Security(object):
         permissions = set()
         # get default role key for extra permissions
         role_key = get_default_role_key(self.user)
-        default_role = get_default_role(role_key)
+        default_role = get_default_role(role_key, book)
 
         # append permissions from default role, no matter if book or not
         if default_role:

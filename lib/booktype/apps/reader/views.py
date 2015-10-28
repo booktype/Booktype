@@ -124,7 +124,7 @@ class InfoPageView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView
             version=book_version).order_by('-modified')[:20]
         context['book_group'] = book.group
         context['is_book_admin'] = self.security.is_admin()
-        
+
         return context
 
 
@@ -235,10 +235,10 @@ class DraftChapterView(BaseReaderView, BasePageView, DetailView):
 
         # check permissions
         book_security = security.get_security_for_book(self.request.user, book)
-        has_permission = book_security.can_edit()
+        can_edit = book_security.can_edit()
         can_view_draft = book_security.has_perm('reader.can_view_draft')
 
-        if (book.hidden and not has_permission) or not can_view_draft:
+        if (book.hidden and not can_edit) or not can_view_draft:
             context['has_permission'] = False
             return context
 
