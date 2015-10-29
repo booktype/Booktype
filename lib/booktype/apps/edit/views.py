@@ -653,7 +653,7 @@ class RevisionPage(LoginRequiredMixin, views.SecurityMixin, ChapterMixin, Detail
 class BookSettingsView(LoginRequiredMixin, views.SecurityMixin,
                        JSONResponseMixin, BaseReaderView, FormView):
 
-    template_name = 'edit/_settings_form.html'
+    template_name = 'edit/settings/generic.html'
     SECURITY_BRIDGE = security.BookSecurity
 
     def camelize(self, text):
@@ -733,7 +733,7 @@ class BookSettingsView(LoginRequiredMixin, views.SecurityMixin,
     def get_template_names(self):
         if self.request.is_ajax():
             return [
-                "edit/_settings_form_%s.html" % self.submodule.replace('-', '_'),
+                "edit/settings/_%s.html" % self.submodule.replace('-', '_'),
                 self.template_name
             ]
         return super(BookSettingsView, self).get_template_names()

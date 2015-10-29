@@ -1,4 +1,4 @@
-{% extends "edit/_settings_form.html" %}
+{% extends "edit/settings/generic.html" %}
 {% load i18n %}
 {% block extra_title %}
 <div class="btn-toolbar float-right">
@@ -46,7 +46,7 @@
     </div>
 </div>
 
-<div id="deleteMetaFieldModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="deleteMetaFieldModal" data-remote-cmd="remove_metafield" data-reload-module="additional-metadata" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
