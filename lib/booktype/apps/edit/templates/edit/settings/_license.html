@@ -1,4 +1,4 @@
-{% extends "edit/_settings_form.html" %}
+{% extends "edit/settings/generic.html" %}
 {% load i18n %}
 {% block setting_form %}
     <li>{%if form.license.errors %} {{ form.license.errors|safe }} {% endif %}<label>{{ form.license.label }}</label>{{ form.license }}</li>

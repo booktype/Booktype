@@ -205,7 +205,7 @@ class MetadataForm(BaseSettingsForm, forms.Form):
         return initial
 
     def save_settings(self, book, request):
-        STRING = 0 # noqa
+        _string = 0
 
         for key, value in self.cleaned_data.items():
             valid_value = self.cleaned_data.get(key, None)
@@ -213,7 +213,7 @@ class MetadataForm(BaseSettingsForm, forms.Form):
             if key in self.fields.keys() and valid_value:
                 meta, _ = Info.objects.get_or_create(
                     book=book, name=key,
-                    kind=STRING
+                    kind=_string
                 )
 
                 meta.value_string = value
@@ -222,7 +222,7 @@ class MetadataForm(BaseSettingsForm, forms.Form):
 
 class AdditionalMetadataForm(BaseSettingsForm, forms.Form):
     required_permission = 'edit.manage_metadata'
-    META_PREFIX = 'ADD_META_TERMS' # noqa
+    META_PREFIX = 'ADD_META_TERMS'  # noqa
 
     def __init__(self, *args, **kwargs):
         super(AdditionalMetadataForm, self).__init__(*args, **kwargs)
