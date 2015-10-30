@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-27 09:51+0000\n"
-"PO-Revision-Date: 2015-10-28 10:04+0000\n"
+"POT-Creation-Date: 2015-10-29 22:02+0100\n"
+"PO-Revision-Date: 2015-10-30 09:47+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Italian (http://www.transifex.com/sourcefabric/booktype/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgid "image"
 msgstr ""
 
 #: apps/account/models.py:37 apps/core/models.py:19 apps/core/models.py:58
-#: apps/edit/templates/edit/_settings_form_roles.html:13
+#: apps/edit/templates/edit/settings/_roles.html:13
 msgid "description"
 msgstr ""
 
@@ -111,95 +111,22 @@ msgstr ""
 msgid "remote host"
 msgstr ""
 
-#: apps/account/views.py:64
-msgid "Dashboard"
-msgstr ""
-
-#: apps/account/views.py:65
-#: apps/account/templates/account/form_signedin.html:16
-#: apps/core/templates/core/nav_bar.html:9
-#: apps/core/templates/core/nav_menu.html:15
-#: apps/edit/templates/edit/toolbar_user.html:6
-msgid "My Dashboard"
-msgstr ""
-
-#: apps/account/views.py:146 apps/account/views.py:147
-msgid "User profile"
-msgstr ""
-
-#: apps/account/views.py:207 apps/account/views.py:208
-#: apps/account/templates/account/dashboard.html:143
-#: apps/account/templates/account/form_signedin.html:19
-#: apps/edit/templates/edit/toolbar_book.html:12
-msgid "Settings"
-msgstr ""
-
-#: apps/account/views.py:258
-msgid "User settings have been saved successfully!"
-msgstr ""
-
-#: apps/account/views.py:295
-msgid "Password changed successfully!"
-msgstr ""
-
-#: apps/account/views.py:318 apps/account/views.py:319
-#: apps/account/templates/account/forgot_password.html:10
-msgid "Forgot your password"
-msgstr ""
-
-#: apps/account/views.py:347
-msgid "Missing username"
-msgstr ""
-
-#: apps/account/views.py:351
-msgid "No such user"
-msgstr ""
-
-#: apps/account/views.py:371
-msgid "Reset password"
-msgstr ""
-
-#: apps/account/views.py:384
-msgid "Unknown error"
-msgstr ""
-
-#: apps/account/views.py:391 apps/account/views.py:392
-#: apps/account/templates/account/forgot_password_enter.html:12
-msgid "Reset your password"
-msgstr ""
-
-#: apps/account/views.py:406
-msgid "Password can't be empty"
-msgstr ""
-
-#: apps/account/views.py:411
-msgid "Passwords don't match"
-msgstr ""
-
-#: apps/account/views.py:427
-msgid "Wrong secret code"
-msgstr ""
-
-#: apps/account/views.py:441 apps/account/views.py:442
-#: apps/account/templates/account/form_signin.html:3
-msgid "Sign in"
-msgstr ""
-
 #: apps/account/templates/account/dashboard.html:35
 msgid "My Books"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:37
 #: apps/account/templates/account/dashboard_group_template.html:12
-#: apps/core/templates/core/nav_menu.html:21 apps/portal/views.py:348
-#: apps/portal/views.py:349 apps/portal/templates/portal/all_groups.html:31
-#: apps/portal/templates/portal/all_groups.html:68
-#: apps/portal/templates/portal/all_groups.html:92
-#: apps/portal/templates/portal/books.html:17
-#: apps/portal/templates/portal/frontpage.html:20
-#: apps/portal/templates/portal/group.html:21
-#: apps/portal/templates/portal/group.html:48
-#: apps/reader/templates/reader/book_info_page.html:85
+#: apps/core/templates/core/nav_menu.html:21
+#: apps/portal/templates/portal/all_groups.html:33
+#: apps/portal/templates/portal/all_groups.html:70
+#: apps/portal/templates/portal/all_groups.html:94
+#: apps/portal/templates/portal/books.html:19
+#: apps/portal/templates/portal/frontpage.html:22
+#: apps/portal/templates/portal/group.html:23
+#: apps/portal/templates/portal/group.html:50 apps/portal/views.py:348
+#: apps/portal/views.py:349
+#: apps/reader/templates/reader/book_info_page.html:87
 msgid "Books"
 msgstr ""
 
@@ -209,7 +136,7 @@ msgstr ""
 
 #: apps/account/templates/account/dashboard.html:44
 #: apps/account/templates/account/dashboard_create_book_modal.html:8
-#: apps/portal/templates/portal/frontpage.html:44
+#: apps/portal/templates/portal/frontpage.html:46
 msgid "Create New Book"
 msgstr ""
 
@@ -222,16 +149,16 @@ msgid "Import Book"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:54
-#: apps/portal/templates/portal/books.html:22
-#: apps/portal/templates/portal/frontpage.html:24
-#: apps/portal/templates/portal/group.html:51
+#: apps/portal/templates/portal/books.html:24
+#: apps/portal/templates/portal/frontpage.html:26
+#: apps/portal/templates/portal/group.html:53
 msgid "Show in a grid"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:55
-#: apps/portal/templates/portal/books.html:23
-#: apps/portal/templates/portal/frontpage.html:25
-#: apps/portal/templates/portal/group.html:52
+#: apps/portal/templates/portal/books.html:25
+#: apps/portal/templates/portal/frontpage.html:27
+#: apps/portal/templates/portal/group.html:54
 msgid "Show in a list"
 msgstr ""
 
@@ -267,21 +194,22 @@ msgid "Join other groups based on your interest"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:110
-#: apps/portal/templates/portal/frontpage.html:29
-#: apps/portal/templates/portal/frontpage.html:55
-#: apps/portal/templates/portal/frontpage.html:88
+#: apps/portal/templates/portal/frontpage.html:31
+#: apps/portal/templates/portal/frontpage.html:57
+#: apps/portal/templates/portal/frontpage.html:90
 msgid "view all"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:115
-#: apps/portal/templates/portal/frontpage.html:106
+#: apps/portal/templates/portal/frontpage.html:108
 msgid "Click this button to create a new group of writers and editors"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:116 apps/portal/views.py:222
-#: apps/portal/templates/portal/frontpage.html:106
+#: apps/account/templates/account/dashboard.html:116
+#: apps/portal/templates/portal/frontpage.html:108
 #: apps/portal/templates/portal/group_create.html:9
 #: apps/portal/templates/portal/group_create_modal.html:7
+#: apps/portal/views.py:222
 msgid "Create New Group"
 msgstr ""
 
@@ -292,7 +220,7 @@ msgstr ""
 
 #: apps/account/templates/account/dashboard.html:140
 #: apps/account/templates/account/other_user_box.html:10
-#: apps/portal/templates/portal/people.html:23
+#: apps/portal/templates/portal/people.html:25
 msgid "Track updates by RSS"
 msgstr ""
 
@@ -301,6 +229,13 @@ msgstr ""
 msgid ""
 "Click this button to update your personal settings and Booktype account "
 "password"
+msgstr ""
+
+#: apps/account/templates/account/dashboard.html:143
+#: apps/account/templates/account/form_signedin.html:19
+#: apps/account/views.py:207 apps/account/views.py:208
+#: apps/edit/templates/edit/toolbar_book.html:12
+msgid "Settings"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:144
@@ -316,15 +251,15 @@ msgid "My Recent Activity"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:154
-#: apps/portal/templates/portal/books.html:105
-#: apps/portal/templates/portal/frontpage.html:140
+#: apps/portal/templates/portal/books.html:107
+#: apps/portal/templates/portal/frontpage.html:142
 msgid "Recent Activity"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:162
-#: apps/portal/templates/portal/books.html:112
-#: apps/portal/templates/portal/frontpage.html:147
-#: apps/reader/templates/reader/book_info_page.html:100
+#: apps/portal/templates/portal/books.html:114
+#: apps/portal/templates/portal/frontpage.html:149
+#: apps/reader/templates/reader/book_info_page.html:102
 msgid "ago"
 msgstr ""
 
@@ -333,8 +268,9 @@ msgid "This user has no recent activity."
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:182
-#: apps/core/templates/core/nav_menu.html:28 apps/portal/views.py:176
-#: apps/portal/views.py:177 apps/portal/templates/portal/frontpage.html:87
+#: apps/core/templates/core/nav_menu.html:28
+#: apps/portal/templates/portal/frontpage.html:89 apps/portal/views.py:176
+#: apps/portal/views.py:177
 msgid "Groups"
 msgstr ""
 
@@ -343,21 +279,21 @@ msgid "This user is not a member of any groups."
 msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:16
-#: apps/portal/templates/portal/group.html:70
+#: apps/portal/templates/portal/group.html:72
 msgid "Edit Book"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:19
 #: apps/account/templates/account/dashboard_import_book_modal.html:60
-#: apps/portal/templates/portal/group.html:71
+#: apps/portal/templates/portal/group.html:73
 msgid "View Book Info"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:24
-#: apps/portal/templates/portal/group.html:72
+#: apps/portal/templates/portal/group.html:74
 #: apps/reader/templates/reader/book_delete.html:9
 #: apps/reader/templates/reader/book_delete.html:19
-#: apps/reader/templates/reader/book_info_page.html:62
+#: apps/reader/templates/reader/book_info_page.html:64
 msgid "Delete Book"
 msgstr ""
 
@@ -490,17 +426,17 @@ msgid "Not following yet."
 msgstr ""
 
 #: apps/account/templates/account/dashboard_group_template.html:11
-#: apps/portal/templates/portal/all_groups.html:31
-#: apps/portal/templates/portal/all_groups.html:68
-#: apps/portal/templates/portal/all_groups.html:92
-#: apps/portal/templates/portal/group.html:20
-#: apps/portal/templates/portal/group.html:106
-#: apps/reader/templates/reader/book_info_page.html:85
+#: apps/portal/templates/portal/all_groups.html:33
+#: apps/portal/templates/portal/all_groups.html:70
+#: apps/portal/templates/portal/all_groups.html:94
+#: apps/portal/templates/portal/group.html:22
+#: apps/portal/templates/portal/group.html:108
+#: apps/reader/templates/reader/book_info_page.html:87
 msgid "Members"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_group_template.html:16
-#: apps/portal/templates/portal/group.html:29
+#: apps/portal/templates/portal/group.html:31
 #: apps/portal/templates/portal/group_delete_modal.html:7
 #: apps/portal/templates/portal/group_delete_modal.html:16
 msgid "Delete Group"
@@ -557,14 +493,14 @@ msgid "Initially hidden from others"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:74
-#: apps/edit/templates/edit/_settings_form_additional_metadata.html:39
-#: apps/edit/templates/edit/_settings_form_roles.html:84
 #: apps/edit/templates/edit/panel_aloha.html:353
 #: apps/edit/templates/edit/panel_covers.html:33
 #: apps/edit/templates/edit/panel_media.html:64
 #: apps/edit/templates/edit/panel_toc.html:102
 #: apps/edit/templates/edit/panel_toc.html:132
 #: apps/edit/templates/edit/panel_toc.html:440
+#: apps/edit/templates/edit/settings/_additional_metadata.html:39
+#: apps/edit/templates/edit/settings/_roles.html:84
 #: apps/portal/templates/portal/group_create_modal.html:19
 #: apps/reader/templates/reader/book_info_edit.html:14
 msgid "Close"
@@ -579,8 +515,8 @@ msgid "User settings"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_settings.html:43
-#: apps/edit/templates/edit/_settings_form.html:15
 #: apps/edit/templates/edit/panel_aloha.html:306
+#: apps/edit/templates/edit/settings/generic.html:15
 #: apps/portal/templates/portal/group_settings.html:16
 #: apps/reader/templates/reader/book_info_edit.html:15
 msgid "Save changes"
@@ -589,6 +525,20 @@ msgstr ""
 #: apps/account/templates/account/dashboard_settings.html:52
 #: apps/account/templates/account/dashboard_settings.html:79
 msgid "Change password"
+msgstr ""
+
+#: apps/account/templates/account/errors/user_does_not_exist.html:4
+msgid "User does not exist!"
+msgstr ""
+
+#: apps/account/templates/account/errors/user_does_not_exist.html:5
+#, python-format
+msgid "Can't find user \"%(username)s\"."
+msgstr ""
+
+#: apps/account/templates/account/forgot_password.html:10
+#: apps/account/views.py:318 apps/account/views.py:319
+msgid "Forgot your password"
 msgstr ""
 
 #: apps/account/templates/account/forgot_password.html:12
@@ -614,6 +564,11 @@ msgstr ""
 msgid "Send request"
 msgstr ""
 
+#: apps/account/templates/account/forgot_password_enter.html:12
+#: apps/account/views.py:391 apps/account/views.py:392
+msgid "Reset your password"
+msgstr ""
+
 #: apps/account/templates/account/forgot_password_enter.html:18
 msgid "Secret code"
 msgstr ""
@@ -630,6 +585,18 @@ msgstr ""
 msgid ""
 "Click this button for an overview of your books, groups, user profile and "
 "recent activity"
+msgstr ""
+
+#: apps/account/templates/account/form_signedin.html:16
+#: apps/account/views.py:65 apps/core/templates/core/nav_bar.html:9
+#: apps/core/templates/core/nav_menu.html:15
+#: apps/edit/templates/edit/toolbar_user.html:6
+msgid "My Dashboard"
+msgstr ""
+
+#: apps/account/templates/account/form_signin.html:3 apps/account/views.py:441
+#: apps/account/views.py:442
+msgid "Sign in"
 msgstr ""
 
 #: apps/account/templates/account/form_signin.html:7
@@ -682,41 +649,41 @@ msgid ""
 "just mistyped their email address while trying to reset their own password."
 msgstr ""
 
-#: apps/account/templates/account/register.html:13
+#: apps/account/templates/account/register.html:15
 msgid "You are already signed in!"
 msgstr ""
 
-#: apps/account/templates/account/register.html:27
-#: apps/portal/templates/portal/all_groups.html:55
-#: apps/portal/templates/portal/anonymous_frontpage.html:51
-#: apps/portal/templates/portal/books.html:57
-#: apps/portal/templates/portal/frontpage.html:129
-#: apps/portal/templates/portal/group.html:100
-#: apps/portal/templates/portal/people.html:56
+#: apps/account/templates/account/register.html:29
+#: apps/portal/templates/portal/all_groups.html:57
+#: apps/portal/templates/portal/anonymous_frontpage.html:53
+#: apps/portal/templates/portal/books.html:59
+#: apps/portal/templates/portal/frontpage.html:131
+#: apps/portal/templates/portal/group.html:102
+#: apps/portal/templates/portal/people.html:58
 msgid "Not a member? Please fill the "
 msgstr ""
 
-#: apps/account/templates/account/register.html:27
-#: apps/portal/templates/portal/all_groups.html:55
-#: apps/portal/templates/portal/anonymous_frontpage.html:51
-#: apps/portal/templates/portal/books.html:57
-#: apps/portal/templates/portal/frontpage.html:129
-#: apps/portal/templates/portal/group.html:100
-#: apps/portal/templates/portal/people.html:57
+#: apps/account/templates/account/register.html:29
+#: apps/portal/templates/portal/all_groups.html:57
+#: apps/portal/templates/portal/anonymous_frontpage.html:53
+#: apps/portal/templates/portal/books.html:59
+#: apps/portal/templates/portal/frontpage.html:131
+#: apps/portal/templates/portal/group.html:102
+#: apps/portal/templates/portal/people.html:59
 msgid "Registration form"
 msgstr ""
 
-#: apps/account/templates/account/register.html:35
+#: apps/account/templates/account/register.html:37
 msgid "Create Account"
 msgstr ""
 
-#: apps/account/templates/account/register.html:39
+#: apps/account/templates/account/register.html:41
 msgid "User limit has been reached."
 msgstr ""
 
-#: apps/account/templates/account/register.html:46
-#: apps/portal/templates/portal/anonymous_frontpage.html:55
-#: apps/portal/templates/portal/frontpage.html:133
+#: apps/account/templates/account/register.html:48
+#: apps/portal/templates/portal/anonymous_frontpage.html:57
+#: apps/portal/templates/portal/frontpage.html:135
 msgid "Only administrator is allowed to create new accounts at the moment."
 msgstr ""
 
@@ -775,13 +742,48 @@ msgstr ""
 msgid "CREATE ACCOUNT"
 msgstr ""
 
-#: apps/account/templates/account/errors/user_does_not_exist.html:4
-msgid "User does not exist!"
+#: apps/account/views.py:64
+msgid "Dashboard"
 msgstr ""
 
-#: apps/account/templates/account/errors/user_does_not_exist.html:5
-#, python-format
-msgid "Can't find user \"%(username)s\"."
+#: apps/account/views.py:146 apps/account/views.py:147
+msgid "User profile"
+msgstr ""
+
+#: apps/account/views.py:258
+msgid "User settings have been saved successfully!"
+msgstr ""
+
+#: apps/account/views.py:295
+msgid "Password changed successfully!"
+msgstr ""
+
+#: apps/account/views.py:347
+msgid "Missing username"
+msgstr ""
+
+#: apps/account/views.py:351
+msgid "No such user"
+msgstr ""
+
+#: apps/account/views.py:371
+msgid "Reset password"
+msgstr ""
+
+#: apps/account/views.py:384
+msgid "Unknown error"
+msgstr ""
+
+#: apps/account/views.py:406
+msgid "Password can't be empty"
+msgstr ""
+
+#: apps/account/views.py:411
+msgid "Passwords don't match"
+msgstr ""
+
+#: apps/account/views.py:427
+msgid "Wrong secret code"
 msgstr ""
 
 #: apps/core/__init__.py:4
@@ -794,6 +796,10 @@ msgstr ""
 
 #: apps/core/__init__.py:8
 msgid "Manage Permissions"
+msgstr ""
+
+#: apps/core/management/commands/update_default_roles.py:21
+msgid "system default role"
 msgstr ""
 
 #: apps/core/models.py:16
@@ -809,8 +815,8 @@ msgstr ""
 msgid "Permission"
 msgstr ""
 
-#: apps/core/models.py:29 apps/edit/views.py:50
-#: apps/edit/templates/edit/panel_settings.html:48
+#: apps/core/models.py:29 apps/edit/templates/edit/panel_settings.html:48
+#: apps/edit/views.py:50
 msgid "Permissions"
 msgstr ""
 
@@ -822,9 +828,8 @@ msgstr ""
 msgid "Role"
 msgstr ""
 
-#: apps/core/models.py:70 apps/edit/views.py:49
-#: apps/edit/templates/edit/panel_settings.html:44
-#: apps/portal/templates/portal/frontpage.html:230
+#: apps/core/models.py:70 apps/edit/templates/edit/panel_settings.html:44
+#: apps/edit/views.py:49 apps/portal/templates/portal/frontpage.html:232
 msgid "Roles"
 msgstr ""
 
@@ -846,10 +851,6 @@ msgstr ""
 
 #: apps/core/models.py:97
 msgid "Book Roles"
-msgstr ""
-
-#: apps/core/management/commands/update_default_roles.py:21
-msgid "system default role"
 msgstr ""
 
 #: apps/core/templates/core/authors.html:13
@@ -926,8 +927,9 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: apps/core/templates/core/nav_menu.html:35 apps/portal/views.py:326
-#: apps/portal/views.py:327 apps/portal/templates/portal/frontpage.html:54
+#: apps/core/templates/core/nav_menu.html:35
+#: apps/portal/templates/portal/frontpage.html:56 apps/portal/views.py:326
+#: apps/portal/views.py:327
 msgid "People"
 msgstr ""
 
@@ -1196,86 +1198,9 @@ msgid ""
 "Line: %(line_no)s "
 msgstr ""
 
-#: apps/edit/views.py:44
-msgid "General Settings"
-msgstr ""
-
-#: apps/edit/views.py:45
-msgid "Book Language"
-msgstr ""
-
-#: apps/edit/views.py:46
-msgid "Book License"
-msgstr ""
-
-#: apps/edit/views.py:47 apps/edit/templates/edit/panel_settings.html:37
-msgid "Book Metadata"
-msgstr ""
-
-#: apps/edit/views.py:48 apps/edit/templates/edit/panel_settings.html:38
-msgid "Additional Metadata"
-msgstr ""
-
-#: apps/edit/views.py:51
-#: apps/edit/templates/edit/_settings_form_chapter_status.html:4
-msgid "Chapter Status"
-msgstr ""
-
-#: apps/edit/views.py:397
-msgid "Revision {0} saved"
-msgstr ""
-
-#: apps/edit/views.py:428 apps/edit/templates/edit/panel_aloha.html:57
-#: apps/reader/views.py:252
-msgid "Chapter"
-msgstr ""
-
-#: apps/edit/views.py:446 apps/edit/templates/edit/panel_history.html:4
-#: apps/edit/templates/edit/toolbar_book.html:11
-msgid "Book History"
-msgstr ""
-
-#: apps/edit/views.py:562 apps/edit/templates/edit/_compare_modal.html:7
-#: apps/edit/templates/edit/compare_screen.html:13
+#: apps/edit/templates/edit/_compare_modal.html:7
+#: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:562
 msgid "Chapter diff"
-msgstr ""
-
-#: apps/edit/views.py:593 apps/edit/templates/edit/_compare_modal.html:16
-#: apps/edit/templates/edit/_compare_modal.html:17
-#: apps/edit/templates/edit/chapter_history.html:23
-#: apps/edit/templates/edit/chapter_revision.html:16
-#: apps/edit/templates/edit/compare_screen.html:20
-#: apps/edit/templates/edit/compare_screen.html:21
-msgid "Revision"
-msgstr ""
-
-#: apps/edit/views.py:600
-msgid "Book History | Chapter Revision"
-msgstr ""
-
-#: apps/edit/views.py:623
-#, python-format
-msgid "Reverted to revision %s."
-msgstr ""
-
-#: apps/edit/views.py:642
-msgid "Chapter revision successfully reverted."
-msgstr ""
-
-#: apps/edit/views.py:644
-msgid "Chapter revision could not be reverted."
-msgstr ""
-
-#: apps/edit/views.py:713
-msgid "Successfully saved settings."
-msgstr ""
-
-#: apps/edit/views.py:715
-msgid "You have no permissions to execute this action."
-msgstr ""
-
-#: apps/edit/views.py:718
-msgid "Unknown error while saving changes."
 msgstr ""
 
 #: apps/edit/templates/edit/_compare_modal.html:11
@@ -1293,13 +1218,20 @@ msgstr ""
 msgid "Deleted"
 msgstr ""
 
+#: apps/edit/templates/edit/_compare_modal.html:16
+#: apps/edit/templates/edit/_compare_modal.html:17
+#: apps/edit/templates/edit/chapter_history.html:23
+#: apps/edit/templates/edit/chapter_revision.html:16
+#: apps/edit/templates/edit/compare_screen.html:20
+#: apps/edit/templates/edit/compare_screen.html:21 apps/edit/views.py:593
+msgid "Revision"
+msgstr ""
+
 #: apps/edit/templates/edit/_compare_modal.html:27
 msgid "Full view"
 msgstr ""
 
 #: apps/edit/templates/edit/_compare_modal.html:29
-#: apps/edit/templates/edit/_settings_form.html:17
-#: apps/edit/templates/edit/_settings_form_additional_metadata.html:63
 #: apps/edit/templates/edit/book_edit.html:107
 #: apps/edit/templates/edit/chapter_revision.html:60
 #: apps/edit/templates/edit/panel_aloha.html:34
@@ -1317,103 +1249,12 @@ msgstr ""
 #: apps/edit/templates/edit/panel_toc.html:36
 #: apps/edit/templates/edit/panel_toc.html:55
 #: apps/edit/templates/edit/panel_toc.html:73
+#: apps/edit/templates/edit/settings/_additional_metadata.html:63
+#: apps/edit/templates/edit/settings/_metadata.html:29
+#: apps/edit/templates/edit/settings/generic.html:17
 #: apps/portal/templates/portal/group_delete_modal.html:15
 #: apps/reader/templates/reader/book_delete.html:18
 msgid "Cancel"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_additional_metadata.html:7
-msgid "Add Field"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_additional_metadata.html:27
-msgid "Add another metadata field"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_additional_metadata.html:32
-msgid "Please, set a name to your metadata field"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_additional_metadata.html:42
-msgid "Append"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_additional_metadata.html:54
-msgid "Delete metadata field"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_additional_metadata.html:58
-msgid ""
-"Are you sure you would like to remove this field? You will not be able to "
-"undo this operation!"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_additional_metadata.html:66
-msgid "Confirm"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_chapter_status.html:6
-msgid "New status:"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_chapter_status.html:10
-msgid "Add"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_chapter_status.html:14
-msgid "Chapter statuses:"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_chapter_status.html:65
-msgid "You have no permissions to manage statuses"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_license.html:7
-msgid "Read full text of the license"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_roles.html:8
-msgid "Assign"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_roles.html:26
-#: apps/edit/templates/edit/panel_aloha.html:267
-msgid "REMOVE"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_roles.html:34
-msgid "There are no roles for this book yet"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_roles.html:44
-msgid "Assign Roles"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_roles.html:51
-msgid "Search"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_roles.html:69
-#: apps/edit/templates/edit/chapter_history.html:24
-#: apps/edit/templates/edit/chapter_revision.html:10
-#: apps/edit/templates/edit/panel_history.html:26
-msgid "User"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_roles.html:76
-msgid "There are no existing roles yet"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_roles.html:79
-msgid "To apply changes, click on Save"
-msgstr ""
-
-#: apps/edit/templates/edit/_settings_form_roles.html:86
-#: apps/edit/templates/edit/edit_strings.html:60
-#: apps/edit/templates/edit/panel_aloha.html:287
-#: apps/edit/templates/edit/panel_toc.html:18
-#: apps/edit/templates/edit/panel_toc.html:37
-msgid "Save"
 msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:5
@@ -1845,6 +1686,13 @@ msgstr ""
 msgid "Compare"
 msgstr ""
 
+#: apps/edit/templates/edit/chapter_history.html:24
+#: apps/edit/templates/edit/chapter_revision.html:10
+#: apps/edit/templates/edit/panel_history.html:26
+#: apps/edit/templates/edit/settings/_roles.html:69
+msgid "User"
+msgstr ""
+
 #: apps/edit/templates/edit/chapter_history.html:25
 #: apps/edit/templates/edit/panel_history.html:27
 msgid "Time"
@@ -1908,46 +1756,57 @@ msgid "Revisions not found!"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:3
+#, python-brace-format
 msgid "{0} has changed status of  chapter \"{1}\" to \"{2}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:4
+#, python-brace-format
 msgid "{0} has saved chapter \"{1}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:5
+#, python-brace-format
 msgid "{0} has saved \"{1}\" revision {2}."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:6
+#, python-brace-format
 msgid "{0} has renamed chapter \"{1}\" to \"{2}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:7
+#, python-brace-format
 msgid "{0} has deleted chapter \"{1}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:8
+#, python-brace-format
 msgid "{0} has created new chapter \"{1}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:9
+#, python-brace-format
 msgid "{0} has cloned chapter \"{1}\" from book \"{2}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:10
+#, python-brace-format
 msgid "\"{0}\" is being published."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:11
+#, python-brace-format
 msgid "{0} has created new section \"{1}\"."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:12
+#, python-brace-format
 msgid "{0} has reverted chapter \"{1}\" to revision {2}."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:13
+#, python-brace-format
 msgid "{0} has saved notes for book \"{1}\"."
 msgstr ""
 
@@ -2101,6 +1960,14 @@ msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:59
 msgid "Exporting book."
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:60
+#: apps/edit/templates/edit/panel_aloha.html:287
+#: apps/edit/templates/edit/panel_toc.html:18
+#: apps/edit/templates/edit/panel_toc.html:37
+#: apps/edit/templates/edit/settings/_roles.html:86
+msgid "Save"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:61
@@ -2309,6 +2176,11 @@ msgstr ""
 msgid "Book character count (with spaces)"
 msgstr ""
 
+#: apps/edit/templates/edit/panel_aloha.html:57 apps/edit/views.py:428
+#: apps/reader/views.py:252
+msgid "Chapter"
+msgstr ""
+
 #: apps/edit/templates/edit/panel_aloha.html:59
 msgid "Character count"
 msgstr ""
@@ -2419,6 +2291,11 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
+#: apps/edit/templates/edit/panel_aloha.html:267
+#: apps/edit/templates/edit/settings/_roles.html:26
+msgid "REMOVE"
+msgstr ""
+
 #: apps/edit/templates/edit/panel_aloha.html:299
 msgid "Chapter has been modified"
 msgstr ""
@@ -2467,7 +2344,7 @@ msgid "Cover Manager"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:8
-#: apps/portal/templates/portal/frontpage.html:207
+#: apps/portal/templates/portal/frontpage.html:209
 msgid "All"
 msgstr ""
 
@@ -2523,6 +2400,11 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:171
 msgid "Image dimensions"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_history.html:4
+#: apps/edit/templates/edit/toolbar_book.html:11 apps/edit/views.py:446
+msgid "Book History"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_history.html:8
@@ -2926,6 +2808,14 @@ msgstr ""
 msgid "Metadata"
 msgstr ""
 
+#: apps/edit/templates/edit/panel_settings.html:37 apps/edit/views.py:47
+msgid "Book Metadata"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_settings.html:38 apps/edit/views.py:48
+msgid "Additional Metadata"
+msgstr ""
+
 #: apps/edit/templates/edit/panel_settings.html:42
 msgid "Security"
 msgstr ""
@@ -3089,8 +2979,144 @@ msgstr ""
 msgid "RENAME"
 msgstr ""
 
+#: apps/edit/templates/edit/settings/_additional_metadata.html:7
+msgid "Add Field"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_additional_metadata.html:27
+msgid "Add another metadata field"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_additional_metadata.html:32
+msgid "Please, set a name to your metadata field"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_additional_metadata.html:42
+msgid "Append"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_additional_metadata.html:54
+msgid "Delete metadata field"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_additional_metadata.html:58
+msgid ""
+"Are you sure you would like to remove this field? You will not be able to "
+"undo this operation!"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_additional_metadata.html:66
+#: apps/edit/templates/edit/settings/_metadata.html:32
+msgid "Confirm"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_chapter_status.html:4
+#: apps/edit/views.py:51
+msgid "Chapter Status"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_chapter_status.html:6
+msgid "New status:"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_chapter_status.html:10
+msgid "Add"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_chapter_status.html:14
+msgid "Chapter statuses:"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_chapter_status.html:65
+msgid "You have no permissions to manage statuses"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_license.html:7
+msgid "Read full text of the license"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_metadata.html:20
+msgid "Delete metadata content"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_metadata.html:24
+msgid ""
+"Are you sure you would like to delete this metadata content? You will not be"
+" able to undo this operation!"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_roles.html:8
+msgid "Assign"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_roles.html:34
+msgid "There are no roles for this book yet"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_roles.html:44
+msgid "Assign Roles"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_roles.html:51
+msgid "Search"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_roles.html:76
+msgid "There are no existing roles yet"
+msgstr ""
+
+#: apps/edit/templates/edit/settings/_roles.html:79
+msgid "To apply changes, click on Save"
+msgstr ""
+
 #: apps/edit/templates/edit/toolbar_book.html:6
 msgid "Table Of Contents"
+msgstr ""
+
+#: apps/edit/views.py:44
+msgid "General Settings"
+msgstr ""
+
+#: apps/edit/views.py:45
+msgid "Book Language"
+msgstr ""
+
+#: apps/edit/views.py:46
+msgid "Book License"
+msgstr ""
+
+#: apps/edit/views.py:397
+#, python-brace-format
+msgid "Revision {0} saved"
+msgstr ""
+
+#: apps/edit/views.py:600
+msgid "Book History | Chapter Revision"
+msgstr ""
+
+#: apps/edit/views.py:623
+#, python-format
+msgid "Reverted to revision %s."
+msgstr ""
+
+#: apps/edit/views.py:642
+msgid "Chapter revision successfully reverted."
+msgstr ""
+
+#: apps/edit/views.py:644
+msgid "Chapter revision could not be reverted."
+msgstr ""
+
+#: apps/edit/views.py:713
+msgid "Successfully saved settings."
+msgstr ""
+
+#: apps/edit/views.py:715
+msgid "You have no permissions to execute this action."
+msgstr ""
+
+#: apps/edit/views.py:718
+msgid "Unknown error while saving changes."
 msgstr ""
 
 #: apps/export/__init__.py:5
@@ -3246,6 +3272,225 @@ msgstr ""
 msgid "Only JPEG file is allowed for group image."
 msgstr ""
 
+#: apps/portal/templates/portal/all_groups.html:17
+msgid "All groups"
+msgstr ""
+
+#: apps/portal/templates/portal/all_groups.html:27
+#: apps/portal/templates/portal/all_groups.html:88
+#: apps/portal/templates/portal/group.html:39
+msgid ""
+"Click this button to leave this group. You can rejoin the group at any time"
+msgstr ""
+
+#: apps/portal/templates/portal/all_groups.html:27
+#: apps/portal/templates/portal/all_groups.html:88
+#: apps/portal/templates/portal/group.html:39
+msgid "LEAVE THIS GROUP"
+msgstr ""
+
+#: apps/portal/templates/portal/all_groups.html:29
+#: apps/portal/templates/portal/all_groups.html:90
+#: apps/portal/templates/portal/group.html:36
+msgid ""
+"Click this button to join this group of writers and editors. You can leave "
+"the group at any time"
+msgstr ""
+
+#: apps/portal/templates/portal/all_groups.html:29
+#: apps/portal/templates/portal/all_groups.html:90
+#: apps/portal/templates/portal/group.html:36
+msgid "JOIN THIS GROUP"
+msgstr ""
+
+#: apps/portal/templates/portal/all_groups.html:37
+#: apps/portal/templates/portal/frontpage.html:103
+msgid "There are no groups yet"
+msgstr ""
+
+#: apps/portal/templates/portal/all_groups.html:63
+msgid "Active groups"
+msgstr ""
+
+#: apps/portal/templates/portal/all_groups.html:74
+msgid "There are no active groups at the moment"
+msgstr ""
+
+#: apps/portal/templates/portal/all_groups.html:80
+msgid "New groups"
+msgstr ""
+
+#: apps/portal/templates/portal/all_groups.html:98
+msgid "There are no new groups at the moment"
+msgstr ""
+
+#: apps/portal/templates/portal/anonymous_frontpage.html:33
+msgid "Mail us if you have any questions or proposals"
+msgstr ""
+
+#: apps/portal/templates/portal/books.html:37
+#: apps/portal/templates/portal/books.html:81
+#: apps/portal/templates/portal/frontpage.html:39
+msgid "There are no books yet"
+msgstr ""
+
+#: apps/portal/templates/portal/books.html:65
+msgid "Latest Books"
+msgstr ""
+
+#: apps/portal/templates/portal/books.html:85
+msgid "Published Books"
+msgstr ""
+
+#: apps/portal/templates/portal/books.html:101
+msgid "There are no published books at the moment"
+msgstr ""
+
+#: apps/portal/templates/portal/books.html:134
+#: apps/portal/templates/portal/frontpage.html:169
+msgid "There is no activity yet"
+msgstr ""
+
+#: apps/portal/templates/portal/errors/group_does_not_exist.html:8
+msgid "Group not found!"
+msgstr ""
+
+#: apps/portal/templates/portal/errors/group_does_not_exist.html:9
+#, python-format
+msgid "Can't find group \"%(group_name)s\"."
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:46
+msgid ""
+"Click this button to go to My Dashboard and open the Create New Book wizard"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:76
+msgid "There are no users yet"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:81
+msgid ""
+"Click this button to invite people by email to write and edit books with you"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:81
+msgid "Invite people"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:99
+msgid "Members:"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:99
+msgid "Books:"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:192
+msgid "Enter email addresses"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:194
+msgid "Who would you like to invite?"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:199
+msgid "Enter message"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:201
+msgid "What is the message of your invitation?"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:205
+msgid "Choose Book"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:207
+msgid "Choose Books for invitation"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:209
+msgid "Choose Book:"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:211
+msgid "Check all / clear"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:229
+msgid "Set Roles"
+msgstr ""
+
+#: apps/portal/templates/portal/frontpage.html:231
+msgid "Set Roles for this invitation"
+msgstr ""
+
+#: apps/portal/templates/portal/group.html:41
+msgid ""
+"Click this button to update the name, description or image for your group"
+msgstr ""
+
+#: apps/portal/templates/portal/group.html:41
+#: apps/portal/templates/portal/group_settings.html:9
+msgid "Group Settings"
+msgstr ""
+
+#: apps/portal/templates/portal/group.html:84
+msgid "Click this button to select other books and add them to this group"
+msgstr ""
+
+#: apps/portal/templates/portal/group.html:84
+msgid "Add books to this group"
+msgstr ""
+
+#: apps/portal/templates/portal/group_create.html:16
+#: apps/portal/templates/portal/group_create_modal.html:20
+msgid "Create"
+msgstr ""
+
+#: apps/portal/templates/portal/group_delete_modal.html:11
+msgid ""
+"Are you sure you would like to delete this group? You will not be able to "
+"undo this operation!"
+msgstr ""
+
+#: apps/portal/templates/portal/people.html:17
+msgid "All people"
+msgstr ""
+
+#: apps/portal/templates/portal/people.html:40
+msgid "There are no people yet"
+msgstr ""
+
+#: apps/portal/templates/portal/people.html:65
+msgid "Active people"
+msgstr ""
+
+#: apps/portal/templates/portal/people.html:84
+msgid "There are no active people at the moment"
+msgstr ""
+
+#: apps/portal/templates/portal/people.html:90
+msgid "New people"
+msgstr ""
+
+#: apps/portal/templates/portal/people.html:109
+msgid "There are no new people at the moment"
+msgstr ""
+
+#: apps/portal/templates/portal/portal_add_book_modal.html:10
+msgid "Select books to add"
+msgstr ""
+
+#: apps/portal/templates/portal/portal_add_book_modal.html:48
+msgid "Anonymous user"
+msgstr ""
+
+#: apps/portal/templates/portal/portal_add_book_modal.html:50
+msgid "You have to log in to add books."
+msgstr ""
+
 #: apps/portal/views.py:45
 msgid "Booktype"
 msgstr ""
@@ -3264,225 +3509,6 @@ msgstr ""
 
 #: apps/portal/views.py:317
 msgid "Group successfully deleted."
-msgstr ""
-
-#: apps/portal/templates/portal/all_groups.html:15
-msgid "All groups"
-msgstr ""
-
-#: apps/portal/templates/portal/all_groups.html:25
-#: apps/portal/templates/portal/all_groups.html:86
-#: apps/portal/templates/portal/group.html:37
-msgid ""
-"Click this button to leave this group. You can rejoin the group at any time"
-msgstr ""
-
-#: apps/portal/templates/portal/all_groups.html:25
-#: apps/portal/templates/portal/all_groups.html:86
-#: apps/portal/templates/portal/group.html:37
-msgid "LEAVE THIS GROUP"
-msgstr ""
-
-#: apps/portal/templates/portal/all_groups.html:27
-#: apps/portal/templates/portal/all_groups.html:88
-#: apps/portal/templates/portal/group.html:34
-msgid ""
-"Click this button to join this group of writers and editors. You can leave "
-"the group at any time"
-msgstr ""
-
-#: apps/portal/templates/portal/all_groups.html:27
-#: apps/portal/templates/portal/all_groups.html:88
-#: apps/portal/templates/portal/group.html:34
-msgid "JOIN THIS GROUP"
-msgstr ""
-
-#: apps/portal/templates/portal/all_groups.html:35
-#: apps/portal/templates/portal/frontpage.html:101
-msgid "There are no groups yet"
-msgstr ""
-
-#: apps/portal/templates/portal/all_groups.html:61
-msgid "Active groups"
-msgstr ""
-
-#: apps/portal/templates/portal/all_groups.html:72
-msgid "There are no active groups at the moment"
-msgstr ""
-
-#: apps/portal/templates/portal/all_groups.html:78
-msgid "New groups"
-msgstr ""
-
-#: apps/portal/templates/portal/all_groups.html:96
-msgid "There are no new groups at the moment"
-msgstr ""
-
-#: apps/portal/templates/portal/anonymous_frontpage.html:31
-msgid "Mail us if you have any questions or proposals"
-msgstr ""
-
-#: apps/portal/templates/portal/books.html:35
-#: apps/portal/templates/portal/books.html:79
-#: apps/portal/templates/portal/frontpage.html:37
-msgid "There are no books yet"
-msgstr ""
-
-#: apps/portal/templates/portal/books.html:63
-msgid "Latest Books"
-msgstr ""
-
-#: apps/portal/templates/portal/books.html:83
-msgid "Published Books"
-msgstr ""
-
-#: apps/portal/templates/portal/books.html:99
-msgid "There are no published books at the moment"
-msgstr ""
-
-#: apps/portal/templates/portal/books.html:132
-#: apps/portal/templates/portal/frontpage.html:167
-msgid "There is no activity yet"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:44
-msgid ""
-"Click this button to go to My Dashboard and open the Create New Book wizard"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:74
-msgid "There are no users yet"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:79
-msgid ""
-"Click this button to invite people by email to write and edit books with you"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:79
-msgid "Invite people"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:97
-msgid "Members:"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:97
-msgid "Books:"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:190
-msgid "Enter email addresses"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:192
-msgid "Who would you like to invite?"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:197
-msgid "Enter message"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:199
-msgid "What is the message of your invitation?"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:203
-msgid "Choose Book"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:205
-msgid "Choose Books for invitation"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:207
-msgid "Choose Book:"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:209
-msgid "Check all / clear"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:227
-msgid "Set Roles"
-msgstr ""
-
-#: apps/portal/templates/portal/frontpage.html:229
-msgid "Set Roles for this invitation"
-msgstr ""
-
-#: apps/portal/templates/portal/group.html:39
-msgid ""
-"Click this button to update the name, description or image for your group"
-msgstr ""
-
-#: apps/portal/templates/portal/group.html:39
-#: apps/portal/templates/portal/group_settings.html:9
-msgid "Group Settings"
-msgstr ""
-
-#: apps/portal/templates/portal/group.html:82
-msgid "Click this button to select other books and add them to this group"
-msgstr ""
-
-#: apps/portal/templates/portal/group.html:82
-msgid "Add books to this group"
-msgstr ""
-
-#: apps/portal/templates/portal/group_create.html:16
-#: apps/portal/templates/portal/group_create_modal.html:20
-msgid "Create"
-msgstr ""
-
-#: apps/portal/templates/portal/group_delete_modal.html:11
-msgid ""
-"Are you sure you would like to delete this group? You will not be able to "
-"undo this operation!"
-msgstr ""
-
-#: apps/portal/templates/portal/people.html:15
-msgid "All people"
-msgstr ""
-
-#: apps/portal/templates/portal/people.html:38
-msgid "There are no people yet"
-msgstr ""
-
-#: apps/portal/templates/portal/people.html:63
-msgid "Active people"
-msgstr ""
-
-#: apps/portal/templates/portal/people.html:82
-msgid "There are no active people at the moment"
-msgstr ""
-
-#: apps/portal/templates/portal/people.html:88
-msgid "New people"
-msgstr ""
-
-#: apps/portal/templates/portal/people.html:107
-msgid "There are no new people at the moment"
-msgstr ""
-
-#: apps/portal/templates/portal/portal_add_book_modal.html:10
-msgid "Select books to add"
-msgstr ""
-
-#: apps/portal/templates/portal/portal_add_book_modal.html:48
-msgid "Anonymous user"
-msgstr ""
-
-#: apps/portal/templates/portal/portal_add_book_modal.html:50
-msgid "You have to log in to add books."
-msgstr ""
-
-#: apps/portal/templates/portal/errors/group_does_not_exist.html:8
-msgid "Group not found!"
-msgstr ""
-
-#: apps/portal/templates/portal/errors/group_does_not_exist.html:9
-#, python-format
-msgid "Can't find group \"%(group_name)s\"."
 msgstr ""
 
 #: apps/reader/__init__.py:4
@@ -3507,39 +3533,6 @@ msgstr ""
 
 #: apps/reader/forms.py:15
 msgid "Book image"
-msgstr ""
-
-#: apps/reader/views.py:76
-#, python-format
-msgid "%(object)s not found!"
-msgstr ""
-
-#: apps/reader/views.py:102
-msgid "Book Details Page"
-msgstr ""
-
-#: apps/reader/views.py:103
-msgid "Book Details"
-msgstr ""
-
-#: apps/reader/views.py:187
-msgid "Successfully changed book info."
-msgstr ""
-
-#: apps/reader/views.py:189
-msgid "Could not upload cover image."
-msgstr ""
-
-#: apps/reader/views.py:210
-msgid "Book successfully deleted."
-msgstr ""
-
-#: apps/reader/views.py:217
-msgid "Chapter Draft"
-msgstr ""
-
-#: apps/reader/views.py:278
-msgid "Book full view"
 msgstr ""
 
 #: apps/reader/templates/reader/book_delete.html:12
@@ -3577,91 +3570,91 @@ msgstr ""
 msgid "Edit Book Info"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:31
+#: apps/reader/templates/reader/book_info_page.html:33
 msgid "Status:"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:33
+#: apps/reader/templates/reader/book_info_page.html:35
 msgid "(this book is hidden from others)"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:35
+#: apps/reader/templates/reader/book_info_page.html:37
 msgid "(this book is visible to everyone)"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:38
+#: apps/reader/templates/reader/book_info_page.html:40
 msgid "Current version:"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:39
+#: apps/reader/templates/reader/book_info_page.html:41
 msgid "Created:"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:40
+#: apps/reader/templates/reader/book_info_page.html:42
 msgid "Published:"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:42
+#: apps/reader/templates/reader/book_info_page.html:44
 msgid "Follow changes"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:48
+#: apps/reader/templates/reader/book_info_page.html:50
 msgid "Click this button to open the editor at the Table of Contents"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:49
+#: apps/reader/templates/reader/book_info_page.html:51
 msgid "Edit this Book"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:53
+#: apps/reader/templates/reader/book_info_page.html:55
 msgid "Click this button to view the draft of the book by chapter"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:54
+#: apps/reader/templates/reader/book_info_page.html:56
 msgid "View draft"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:58
+#: apps/reader/templates/reader/book_info_page.html:60
 msgid "Click this button to edit the metadata for this book"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:59
+#: apps/reader/templates/reader/book_info_page.html:61
 msgid "Edit book info"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:61
+#: apps/reader/templates/reader/book_info_page.html:63
 msgid "Click this button to delete the entire book permanently"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:66
+#: apps/reader/templates/reader/book_info_page.html:68
 msgid "Click this button to view the draft of the book as a single page"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:67
+#: apps/reader/templates/reader/book_info_page.html:69
 msgid "View full book"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:79
+#: apps/reader/templates/reader/book_info_page.html:81
 msgid "Group that book belongs to"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:93
+#: apps/reader/templates/reader/book_info_page.html:95
 msgid "Recent activity"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:126
+#: apps/reader/templates/reader/book_info_page.html:128
 msgid "Owner"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:149
+#: apps/reader/templates/reader/book_info_page.html:151
 msgid "Admins"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:173
+#: apps/reader/templates/reader/book_info_page.html:175
 msgid "Contributors"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:198
+#: apps/reader/templates/reader/book_info_page.html:200
 msgid "Book versions"
 msgstr ""
 
@@ -3714,6 +3707,39 @@ msgstr ""
 msgid "Attachment delete"
 msgstr ""
 
+#: apps/reader/views.py:76
+#, python-format
+msgid "%(object)s not found!"
+msgstr ""
+
+#: apps/reader/views.py:102
+msgid "Book Details Page"
+msgstr ""
+
+#: apps/reader/views.py:103
+msgid "Book Details"
+msgstr ""
+
+#: apps/reader/views.py:187
+msgid "Successfully changed book info."
+msgstr ""
+
+#: apps/reader/views.py:189
+msgid "Could not upload cover image."
+msgstr ""
+
+#: apps/reader/views.py:210
+msgid "Book successfully deleted."
+msgstr ""
+
+#: apps/reader/views.py:217
+msgid "Chapter Draft"
+msgstr ""
+
+#: apps/reader/views.py:278
+msgid "Book full view"
+msgstr ""
+
 #: apps/themes/templates/themes/panel.html:5
 msgid "Select from the styles available"
 msgstr ""
@@ -3757,6 +3783,7 @@ msgid "Title Page"
 msgstr ""
 
 #: importer/epub/epubimporter.py:262
+#, python-brace-format
 msgid "Broken endnotes markers in \"{0}\"."
 msgstr ""
 
