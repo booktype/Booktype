@@ -11,7 +11,7 @@
 
 <div class="container all-groups">
     <div class="row two-col">
-        <div class="col-xs-8">
+        <div class="col-md-8">
             <div class="box white">
                 <h2 class="box-title">
                     {% trans "All groups" %}
@@ -39,10 +39,10 @@
                 </ul>
 
             </div>
-        </div> <!-- End of col-xs-4 -->
+        </div> <!-- End of col-md-4 -->
 
 
-        <div class="col-xs-4">
+        <div class="col-md-4">
             {% if not request.user.is_authenticated %}
             <div class="login-widget box gray">
                 <script>
@@ -99,7 +99,7 @@
                         {% endfor %}
                     </ul>
                 </div>
-            </div> <!-- End of col-xs-4 -->
+            </div> <!-- End of col-md-4 -->
         </div>
     </div> <!-- End of container -->
 {% endblock %}
