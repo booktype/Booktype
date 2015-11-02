@@ -293,7 +293,19 @@ class AdditionalMetadataForm(BaseSettingsForm, forms.Form):
         initial = {}
 
         for meta in Info.objects.filter(book=book, name__startswith=cls.META_PREFIX):
-            initial[meta.name] = meta.value_string
+            json_dec = json.decoder.JSONDecoder()
+            field_value = meta.value_string
+
+            try:
+                field_value = json_dec.decode(meta.value_string)
+                # for now we just care about list types
+                # otherwise, exclude the value
+                if not isinstance(field_value, list):
+                    field_value = meta.value_string
+            except Exception:
+                pass
+
+            initial[meta.name] = field_value
         return initial
 
     def save_settings(self, book, request):
@@ -308,12 +320,25 @@ class AdditionalMetadataForm(BaseSettingsForm, forms.Form):
                     book=book, name=key,
                     kind=_string
                 )
-                meta.value_string = value
-                meta.save()
 
                 # check the limit for dinamically added fields
                 if key.split('.')[1] not in form_fields:
                     counter += 1
+
+                # we need to check certain type of field and treat them other way
+                # MultipleChoiceField for instance
+                _key = key.split('.')[1]
+                if form_fields.get(_key, {}).get('TYPE') == 'MultipleChoiceField':
+                    try:
+                        raw_list = request.POST.getlist(key)
+                        value = json.dumps(raw_list)
+                    except Exception as err:
+                        logger.error('Unable to save the value `%s` for field %s, err: %s' % (value, key, err))
+                        meta.delete()
+                        continue
+
+                meta.value_string = value
+                meta.save()
 
 
 class RolesForm(BaseSettingsForm, forms.Form):
