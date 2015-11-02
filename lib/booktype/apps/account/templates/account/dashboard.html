@@ -15,7 +15,7 @@
 {% block content %}
 <div class="container">
     <div class="row two-col">
-        <div class="col-xs-8">
+        <div class="col-md-8">
             {% if current_user != request.user %}
             <div class="box profile-box purple">
                 {% include "account/other_user_box.html" %}
@@ -122,7 +122,7 @@
             {% endif %}
         </div>
 
-        <div class="col-xs-4">
+        <div class="col-md-4">
             {% if current_user == request.user %}
             <div class="box gray">
                 <h2 class="box-title">{% trans "My Profile" %}</h2>
