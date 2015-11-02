@@ -4,7 +4,7 @@
 {% block content %}
     <div class="container">
         <div class="row two-col">
-            <div class="col-xs-8">
+            <div class="col-md-8">
                 <div class="box gray">
                     <h2 class="box-title-alter">{% trans "User settings" %}</h2>
                     <form method="post" action="{% url 'accounts:user_settings' current_user.username %}" enctype="multipart/form-data" name="formsettings">
@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-            <div class="col-xs-4">
+            <div class="col-md-4">
                 <div class="box white">
 
                     <h2 class="box-title">{% trans "Change password" %}</h2>
