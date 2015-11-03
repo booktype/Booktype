@@ -118,6 +118,16 @@ def rpop(key):
 
     return None
 
+def lpop(key):
+    import sputnik
+
+    if key and key.strip() != '':
+        with sputnik.rcon.lock('com'):
+            result = rdecode(sputnik.rcon.lpop(key))
+        return result
+
+    return None
+
 def srem(key, value):
     import sputnik
 

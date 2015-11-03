@@ -68,7 +68,7 @@ def collect_messages(request, clientID):
 
         try:
             if clientID and clientID.find(' ') == -1:
-                v = sputnik.rpop("ses:%s:%s:messages" % (request.session.session_key, clientID))
+                v = sputnik.lpop("ses:%s:%s:messages" % (request.session.session_key, clientID))
         except:
             # Limit only to 20 messages
             if n > 20:
