@@ -1,10 +1,13 @@
 {% load i18n %}
+
 <p>
-  {% blocktrans %}You've just had a Booktype account created for you! Please head over to {{server}} to log in. Here are your login credentials:{% endblocktrans %}
+  {% trans "Hello" %},
+</p> 
+
+<p>
+  {% blocktrans %}Your Booktype account has been created! Please go to {{server}} to log in.{% endblocktrans %}
 </p>
 
 <p>
-{% trans "Username:" %} {{ username }}<br/>
-{% trans "Password:" %} {{ password }}<br/>
+  {% blocktrans %}If you don't know your password, please click the password reset link on the {{server}} home page.{% endblocktrans %}
 </p>
-
