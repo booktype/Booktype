@@ -1,0 +1,24 @@
+{% load booktype_tags i18n %}
+{% if page_object.has_previous or page_object.has_next %}
+  <nav>
+    <ul class="pager">
+
+      <li {% if not page_object.has_previous %}class="disabled"{% endif %}>
+        {% if page_object.has_previous %}
+          <a href="?{% add_url_query_param request 'page' page_object.previous_page_number %}">{% trans "Previous" %}</a>
+        {% else %}
+          <a>{% trans "Previous" %}</a>
+        {% endif %}
+      </li>
+
+      <li {% if not page_object.has_next %}class="disabled"{% endif %}>
+        {% if page_object.has_next %}
+          <a href="?{% add_url_query_param request 'page' page_object.next_page_number %}">{% trans "Next" %}</a>
+        {% else %}
+          <a>{% trans "Next" %}</a>
+        {% endif %}
+      </li>
+
+    </ul>
+  </nav>
+{% endif %}

@@ -1,0 +1,28 @@
+{% load booktype_tags %}
+{% if page_object.has_previous or page_object.has_next %}
+  <ul class="pagination {% if pagination_class %}{{ pagination_class }}{% endif %}">
+
+    <li {% if not page_object.has_previous %}class="disabled"{% endif %}>
+      {% if page_object.has_previous %}
+        <a href="?{% add_url_query_param request 'page' page_object.previous_page_number %}">«</a>
+      {% else %}
+        <a>«</a>
+      {% endif %}
+    </li>
+
+    {% for page in page_object.paginator.page_range_cutted %}
+      <li {% if page == page_object.number %}class="active"{% endif %}>
+        <a href="?{% add_url_query_param request 'page' page %}">{{ page }}</a>
+      </li>
+    {% endfor %}
+
+    <li {% if not page_object.has_next %}class="disabled"{% endif %}>
+      {% if page_object.has_next %}
+        <a href="?{% add_url_query_param request 'page' page_object.next_page_number %}">»</a>
+      {% else %}
+        <a>»</a>
+      {% endif %}
+    </li>
+
+  </ul>
+{% endif %}

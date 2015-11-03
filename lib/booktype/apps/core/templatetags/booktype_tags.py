@@ -397,6 +397,7 @@ class AssignNode(template.Node):
         context[self.name] = self.value.resolve(context, True)
         return ''
 
+
 @register.tag(name="assign")
 def do_assign(parser, token):
     """
@@ -413,3 +414,77 @@ def do_assign(parser, token):
         raise template.TemplateSyntaxError("'%s' tag takes two arguments" % bits[0])
     value = parser.compile_filter(bits[2])
     return AssignNode(bits[1], value)
+
+
+@register.simple_tag
+def add_url_query_param(request, key, value):
+    key_value = request.GET.copy()
+    key_value[key] = value
+
+    return key_value.urlencode()
+
+
+@register.inclusion_tag(file_name='templatetags/pagination.html', takes_context=True)
+def booktype_pagination(context, page_object, pagination_class=None):
+    """
+    Render bootstrap based paginator.
+    Usage: {% booktype_pagination page_obj 'right' %}
+
+    :Args:
+      - page_object (:class:`django.core.paginator.Page`): page object
+      - size (:class:`str`): Use 'lg', 'sm' or leave empty
+
+    :Returns:
+      Returns rendered pagination html
+    """
+    page_range = page_object.paginator.page_range
+    page_count = len(page_object.paginator.page_range)
+    page_object.paginator.page_range_cutted = page_range
+
+    if page_count > 16:
+
+        page_object.paginator.page_range_cutted = []
+
+        if page_object.number <= 5:
+            page_object.paginator.page_range_cutted += page_range[:page_object.number + 2]
+        else:
+            page_object.paginator.page_range_cutted.append(1)
+
+        page_object.paginator.page_range_cutted.append('..')
+
+        if page_object.number <= 5:
+            page_object.paginator.page_range_cutted += page_range[page_count - 2:]
+        else:
+            if page_object.number + 4 < page_count:
+                page_object.paginator.page_range_cutted += page_range[page_object.number - 3:page_object.number + 2]
+                page_object.paginator.page_range_cutted.append('..')
+                page_object.paginator.page_range_cutted.append(page_count)
+            else:
+                page_object.paginator.page_range_cutted += page_range[page_object.number - 3:]
+
+    pagination_data = {'page_object': page_object, 'request': context['request']}
+
+    if pagination_class:
+        pagination_data['pagination_class'] = 'pagination-{0}'.format(pagination_class)
+
+    return pagination_data
+
+
+@register.inclusion_tag(file_name='templatetags/pager.html', takes_context=True)
+def booktype_pager(context, page_object):
+    """
+    Render bootstrap based pager.
+    Usage: {% booktype_pagination page_obj 'right' %}
+
+    :Args:
+      - page_object (:class:`django.core.paginator.Page`): page object
+      - size (:class:`str`): Use 'lg', 'sm' or leave empty
+
+    :Returns:
+      Returns rendered pager html
+    """
+
+    pagination_data = {'page_object': page_object, 'request': context['request']}
+    return pagination_data
+
+

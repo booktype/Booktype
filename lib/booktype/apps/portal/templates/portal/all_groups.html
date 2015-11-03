@@ -1,6 +1,6 @@
 {% extends "core/base.html" %}
 
-{% load i18n staticfiles compress %}
+{% load i18n staticfiles compress booktype_tags %}
 {% block extra_header %}
     {% compress js %}
     <script type="text/javascript" src="{% static "portal/js/group.js" %}"></script>
@@ -37,6 +37,8 @@
                     <li>{% trans "There are no groups yet" %}.</li>
                     {% endfor %}
                 </ul>
+
+            {% booktype_pagination all_groups_page %}
 
             </div>
         </div> <!-- End of col-xs-4 -->
