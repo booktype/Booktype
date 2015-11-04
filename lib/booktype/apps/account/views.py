@@ -131,14 +131,16 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
 
         # check if user can create/import more books
         if self.request.user.is_authenticated():
-            book_limit = Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1
+            context['is_book_limit'] = Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1
         else:
-            book_limit = True
+            context['is_book_limit'] = True
 
-        if book_limit:
+        if context['is_book_limit']:
             if not self.request.user.is_superuser:
                 context['can_create_book'] = False
                 context['can_upload_book'] = False
+            else:
+                context['is_book_limit'] = False
 
         # change title in case of not authenticated user
         if not self.request.user.is_authenticated() or \
