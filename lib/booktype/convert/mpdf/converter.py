@@ -431,9 +431,18 @@ class MPDFConverter(BaseConverter):
 
                     tmpl = Template(theme_style)
                     ctx = Context(data)
-                    theme_style = tmpl.render(ctx)
+                    _style = tmpl.render(ctx)
+                    theme_style = _style
                 except:
                     logger.exception("Fails with custom theme.")
+            else:
+                try:
+                    tmpl = Template(theme_style)
+                    ctx = Context(self.config)
+                    _style = tmpl.render(ctx)
+                    theme_style = _style
+                except:
+                    logger.exception("Fails while rendering style.")
 
         custom_style = self.config.get('settings', {}).get('styling', u'')
 
