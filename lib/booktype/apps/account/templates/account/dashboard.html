@@ -47,6 +47,10 @@
                                 {% if can_upload_book %}
                                   <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#importBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to open the Import Book / Upload EPUB window" %}">{% trans "Import Book" as import_text %} {{ import_text|upper }}</button>
                                 {% endif %}
+
+                                {% if is_book_limit %}
+                                  <button class="btn btn-primary float-right btn-group" rel="tooltip" title="" data-placement="top" data-original-title="{% trans "You have reached your books limit. Delete book to start new one." %}">{% trans "No additional book can be created." %}</button>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
 
