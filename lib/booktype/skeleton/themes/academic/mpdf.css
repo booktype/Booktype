@@ -1,6 +1,11 @@
 html { font-size: 62.5%; }
 body {
-  font-size: 1rem;
+
+  {% if page_width < 200 %}
+      font-size: 0.75rem;
+  {% else %}
+      font-size: 1rem;
+  {% endif %}
   line-height: normal;
   margin: 0;
   padding: 0;
@@ -11,44 +16,116 @@ body {
 .impl {
   margin: 0;
   text-indent: 0rem;
+  {% if page_width < 140 %}
+  font-size: 0.6rem;
+  {% endif %}
 }
 
-h1.frontmatter-title {
+.page-break {
+  page-break-after: always;
+}
+
+.header-text {
+  {% if page_width < 140 %}
+  font-size: 0.7rem;
+  {% endif %}
+}
+
+.footer-text {
+  {% if page_width < 140 %}
+  font-size: 0.7rem;
+  {% endif %}
+}
+
+h1.frontmatter-half-title {
   font-family: "roboto";
   font-weight: bold;
+  {% if page_width < 140 %}
+  font-size: 3rem;
+  {% else %}
   font-size: 5rem;
+  {% endif %}
   text-transform: uppercase;
   line-height: 110%;
   margin-top: 20mm;
   margin-bottom: 0;
+  {% if page_width < 140 %}
+  padding-top: 30mm;
+  {% else %}
+  padding-top: 50mm;
+  {% endif %}
 }
+h1.frontmatter-title {
+  font-family: "roboto";
+  font-weight: bold;
+  {% if page_width < 140 %}
+  font-size: 3rem;
+  {% else %}
+  font-size: 5rem;
+  {% endif %}
+  text-transform: uppercase;
+  line-height: 110%;
+  margin-top: 20mm;
+  {% if page_width < 140 %}
+  padding-top: 20mm;
+  {% elif page_width < 200 %}
+  padding-top: 20mm;
+  {% else %}
+  padding-top: 20mm;
+  {% endif %}
+ margin-bottom: 0;
+}
+
 h1.section {
     font-family: "roboto";
     font-weight: bold;
     font-size: 3.6rem;
     text-align: left;
     margin-top: 0;
+    line-height: 110%;
 }
+
 h2.frontmatter-author {
   font-family: "roboto";
   font-weight: normal;
-  margin-top: 30mm;
+  {% if page_width < 140 %}
+  font-size: 1.9rem;
+  margin-top: 10mm;
+  {% else %}
   font-size: 2.2rem;
+  margin-top: 30mm;
+  {% endif %}
 }
+
 h2.frontmatter-author-title {
   font-family: "roboto";
   font-weight: normal;
+  {% if page_width < 200 %}
+  margin-top: 20mm;
+  margin-bottom: 10mm;
+  {% else %}
   margin-top: 50mm;
   margin-bottom: 30mm;
+  {% endif %}
+  {% if page_width < 140 %}
+  font-size: 1.9rem;
+  {% else %}
   font-size: 2.2rem;
+  {% endif %}
+  line-height: 110%;
 }
 
 h3.frontmatter-subtitle {
   font-family: "roboto";
   font-weight: normal;
   margin-top: 10mm;
+  {% if page_width < 140 %}
+  font-size: 2rem;
+  {% else %}
   font-size: 2.2rem;
+  {% endif %}
   line-height: 120%;
+  line-height: 110%;
 }
 
 div.frontmatter-line {
@@ -63,7 +140,12 @@ div.frontmatter-line {
   position:absolute;
   left:20mm;
   right: 20mm;
+
+  {% if page_width < 140 %}
+  bottom: 20mm;
+  {% else %}
   bottom: 30mm;
+  {% endif %}
   font-size: 1.2rem;
 }
 
@@ -84,33 +166,60 @@ span.mpdf_toc_t_level_1 {
 h1.body-h1 {
     font-family: "roboto";
     font-weight: bold;
+    {% if page_width < 140 %}
+    font-size: 2.2rem;
+    {% else %}
     font-size: 3.6rem;
-    margin-bottom: 1rem;
+    {% endif %}
+    /* margin-bottom: 1rem; */
+    margin-bottom: 2rem;
+    line-height: 110%;
 }
 h2.body-h2 {
     font-family: "roboto-medium";
     font-weight: normal;
+    {% if page_width < 140 %}
+    font-size: 1.8rem;
+    {% else %}
     font-size: 2.8rem;
-    margin-bottom: 1rem;
+    {% endif %}
+    /* margin-bottom: 1rem; */
+    margin-bottom: 1.4rem;
+    line-height: 110%;
 }
 
 h3.body-h3 {
     font-family: "roboto-medium";
     font-weight: normal;
+    {% if page_width < 140 %}
+    font-size: 1.6rem;
+    {% else %}
     font-size: 2.2rem;
-        margin-bottom: 1rem;
+    {% endif %}
+    margin-bottom: 1rem;
+    line-height: 110%;
 }
 h4.body-h4 {
     font-family: "roboto";
     font-weight: normal;
+   {% if page_width < 140 %}
+    font-size: 1.6rem;
+    {% else %}
     font-size: 1.8rem;
-        margin-bottom: 1rem;
+    {% endif %}
+    margin-bottom: 1rem;
+    line-height: 110%;
 }
 h5.body-h5 {
     font-family: "roboto-medium";
     font-weight: normal;
+    {% if page_width < 140 %}
+    font-size: 1.6rem;
+    {% else %} 
     font-size: 1.4rem;
-        margin-bottom: 1rem;
+    {% endif %}
+    margin-bottom: 1rem;
+    line-height: 110%;
 }
 
 p.body-first {
@@ -118,7 +227,7 @@ p.body-first {
     font-weight: normal;
     font-size: 1rem;
     text-indent: 0;
-    line-height: 1.4rem;
+    line-height: 140%;
     margin-bottom: 0;
 }
 p.body {
@@ -126,7 +235,7 @@ p.body {
     font-weight: normal;
     font-size: 1rem;
     text-indent: 10mm;
-    line-height: 1.4rem;
+    line-height: 140%;
     margin: 0;
 }
 .quote {
@@ -173,4 +282,19 @@ ol.endnotes li {
         font-family: "roboto";
         font-weight: normal;
         font-size: 12px;
+}
+
+p.dedication {
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: 1.4rem;
+    font-style: italic;
+    display: inline; 
+    {% if page_width < 140 %}
+    margin-left: 0.5cm;
+    margin-right: 0.5cm;
+    {% else %}
+    margin-left: 2cm;
+    margin-right: 2cm;
+    {% endif %}
 }

@@ -331,19 +331,178 @@ CACHES = {
 #     }
 # }
 
-# Now just a couple of default fields
-ADDITIONAL_METADATA = {
-    'publisher': {
+_ADDITIONAL_METADATA = [
+    ('edited_by', {
         'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Edited by'
+            },
         'WIDGET': 'TextInput'
-    },
+    }),
+    ('text_by', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Text by'},
+        'WIDGET': 'TextInput'
+    }),
+    ('translation_by', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Translation by'},
+        'WIDGET': 'TextInput'
+    }),
+    ('introduction_by', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Introduction by'},
+        'WIDGET': 'TextInput'
+    }),
+    ('cover_design', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Cover design'},
+        'WIDGET': 'TextInput'
+    }),
+    ('cover_photography', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Cover image'},
+        'WIDGET': 'TextInput'
+    }),
+    ('photography', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Photography by'},
+        'WIDGET': 'TextInput'
+    }),
+    ('illustration_by', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Illustration by'},
+        'WIDGET': 'TextInput'
+    }),
+    ('research', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Research'},
+        'WIDGET': 'TextInput'
+    }),
+    ('lectorate', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Lectorate'},
+        'WIDGET': 'TextInput'
+    }),
+    ('proofreading', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Proofreading'},
+        'WIDGET': 'TextInput'
+    }),
+    ('rights_clearing', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Rights clearing'},
+        'WIDGET': 'TextInput'
+    }),
+    ('typeface', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Typeface'},
+        'WIDGET': 'TextInput'
+    }),
+    ('printed_on', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Printed on'},
+        'WIDGET': 'TextInput'
+    }),
+    ('paper_certification', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Paper certification'},
+        'WIDGET': 'TextInput'
+    }),
+    ('bookbinder', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Bookbinder'},
+        'WIDGET': 'TextInput'
+    }),
+    ('printer', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Printer company'},
+        'WIDGET': 'TextInput'
+    }),
+    ('printer_country', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Printer country'},
+        'WIDGET': 'TextInput'
+    }),
+    ('acknowledgement', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Acknowledgement'},
+        'WIDGET': 'Textarea'}
+    ),
+    ('edition', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Edition'},
+        'WIDGET': 'TextInput'
+    }),
+    ('url_publisher', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'URL Publisher'},
+        'WIDGET': 'TextInput'
+    }),
+    ('url_author', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'URL Author'},
+        'WIDGET': 'TextInput'
+    }),
+    ('bibliographic_information', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Bibliographic information'},
+        'WIDGET': 'TextInput'
+    }),
+    ('dedication', {
+        'TYPE': 'CharField',
+        'ATTRS': {
+            'required': False,
+            'label': 'Dedication'},
+        'WIDGET': 'Textarea'
+    })
+]
 
-    'edited_by': {
-        'TYPE': 'CharField',
-        'WIDGET': 'TextInput'
-    },
-    'text_by': {
-        'TYPE': 'CharField',
-        'WIDGET': 'TextInput'
-    }
-}
+import collections
+
+ADDITIONAL_METADATA = collections.OrderedDict(_ADDITIONAL_METADATA)

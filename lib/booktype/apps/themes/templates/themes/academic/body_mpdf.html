@@ -1,10 +1,10 @@
 {% if show_header %}
 <htmlpageheader name="header-left" style="display:none">
-  <div style="text-align: left;">{{ title }}</div>
+  <div class="header-text" style="text-align: left;">{{ title }}</div>
 </htmlpageheader>
 
 <htmlpageheader name="header-right" style="display:none">
-  <div style="text-align: right;">{{ title }}</div>
+  <div class="header-text" style="text-align: right;">{{ title }}</div>
 </htmlpageheader>
 
 <sethtmlpageheader page="odd" name="header-right" value="on"  />
@@ -13,11 +13,11 @@
 
 {% if show_footer %}
 <htmlpagefooter name="footer-left" style="display:none">
-  <div style="text-align: center;">{PAGENO}</div>
+  <div  class="footer-text" style="text-align: center;">{PAGENO}</div>
 </htmlpagefooter>
 
 <htmlpagefooter name="footer-right" style="display:none">
-  <div style="text-align: center;">{PAGENO}</div>
+  <div class="footer-text" style="text-align: center;">{PAGENO}</div>
 </htmlpagefooter>
 
 <sethtmlpagefooter page="odd" name="footer-right" value="on"  />

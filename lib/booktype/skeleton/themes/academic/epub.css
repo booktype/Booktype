@@ -9,6 +9,60 @@ body {
   color: #000000;
 }
 
+div.dedication {
+  text-align: left;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 50px;
+  font-family: "roboto";
+  font-size: 2rem;
+  font-style: italic;
+}
+
+h1.frontmatter-title {
+  font-family: "roboto";
+  font-weight: bold;
+  font-size: 5rem;
+  text-transform: uppercase;
+  line-height: 110%;
+  margin-top: 20mm;
+  margin-bottom: 0;
+}
+h1.section {
+    font-family: "roboto";
+    font-weight: bold;
+    font-size: 3.6rem;
+    text-align: left;
+    margin-top: 0;
+}
+h2.frontmatter-author {
+  font-family: "roboto";
+  font-weight: normal;
+  margin-top: 30mm;
+  font-size: 2.2rem;
+}
+h2.frontmatter-author-title {
+  font-family: "roboto";
+  font-weight: normal;
+  margin-top: 10mm;
+  font-size: 2.2rem;
+}
+
+h3.frontmatter-subtitle {
+  font-family: "roboto";
+  font-weight: normal;
+  margin-top: 10mm;
+  font-size: 2.2rem;
+  line-height: 120%;
+}
+
+div.frontmatter-line {
+  width: 60mm;
+  background-color: black;
+  height: 1mm;
+  margin-top: 10mm;
+  margin-bottom: 10mm;
+}
 
 p.quote {
   border-left: 2px solid #333;
@@ -90,13 +144,13 @@ h5 {
 
 /* Paragraph Styles *****************************************************/
 
-#contenteditor, p
+body
 {
     widows:2;
     orphans:2;
 }
 
-.aloha-block-TitleBlock + p,
+h1 + p,
 h2 + p,
 h3 + p,
 h4 + p
@@ -124,7 +178,7 @@ p+p
 }
 
 
-#conenteditor img
+img
 {
 max-width:100%;
 max-height:100%;
@@ -147,16 +201,6 @@ td {
         padding: .6rem .8rem;
 }
 
-.aloha-block-EndnoteBlock {
-        margin-top: 2rem;
-}
-
-.aloha-block-EndnoteBlock .endnoteText {
-        font-family: "roboto";
-        font-weight: normal;
-        font-size: 12px;
-}
-
 
 .group_img {
   page-break-inside: avoid;
@@ -170,3 +214,30 @@ td {
   margin-top: 0.5em;
 }
 
+.frontmatter-bottom {
+  margin-bottom: 50px;
+  font-size: 1.2rem;
+}
+
+p.impl {
+  margin: 0;
+  text-indent: 0rem;
+}
+
+div.page-break {
+  page-break-after: always;
+}
+
+
+sup.endnote {
+  font-size: 0.8rem;
+}
+
+ol.endnotes li
+{
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 1.4rem;
+    margin: 0;
+}
