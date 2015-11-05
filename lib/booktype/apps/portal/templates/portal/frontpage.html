@@ -43,9 +43,14 @@
 
                     {% if request.user.is_authenticated and can_create_book %}
                         <div class="box-bottom-gray">
-                            <button data-href="{% url "accounts:view_profile" request.user.username %}#create-book" role="button" class="btn btn-default float-left create-book" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to go to My Dashboard and open the Create New Book wizard" %}">{% trans "Create New Book" as create_text %} {{ create_text|upper }}</button>
+                          <button data-href="{% url "accounts:view_profile" request.user.username %}#create-book" role="button" class="btn btn-default float-left create-book" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to go to My Dashboard and open the Create New Book wizard" %}">{% trans "Create New Book" as create_text %} {{ create_text|upper }}</button>
                         </div>
+                    {% elif request.user.is_authenticated and is_book_limit%}
+                      <div class="box-bottom-gray">
+                        <button class="btn btn-primary float-left btn-group" rel="tooltip" title="" data-placement="right" data-original-title="{% trans "You have reached your books limit. Delete book to start new one." %}">{% trans "No additional books can be created" %}</button>
+                      </div>
                     {% endif %}
+
                 </div>
             {% endcheck_perm %}
             </div> <!-- End of col-xs-4 -->
