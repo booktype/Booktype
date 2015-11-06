@@ -217,8 +217,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
     password_form_class = UserPasswordChangeForm
 
     def dispatch(self, request, *args, **kwargs):
-        dispatch_super = super(
-            self.__class__, self).dispatch(request, *args, **kwargs)
+        dispatch_super = super(UserSettingsPage, self).dispatch(request, *args, **kwargs)
 
         if not request.user.is_authenticated():
             return dispatch_super
@@ -231,7 +230,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
                 'accounts:user_settings', username=request.user.username)
 
     def get_context_data(self, **kwargs):
-        context = super(self.__class__, self).get_context_data(**kwargs)
+        context = super(UserSettingsPage, self).get_context_data(**kwargs)
         context['password_form'] = self.password_form_class(user=self.object)
         return context
 
@@ -263,7 +262,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
 
     def get_initial(self):
         profile = self.object.profile
-        initial = super(self.__class__, self).get_initial()
+        initial = super(UserSettingsPage, self).get_initial()
         initial['aboutyourself'] = profile.description
         endpoint = get_endpoint_or_none('@%s' % self.object.username)
         try:
@@ -312,7 +311,7 @@ class UserSettingsPage(LoginRequiredMixin, BasePageView, UpdateView):
 
                 return self.render_to_response(context)
 
-        return super(self.__class__, self).post(request, *args, **kwargs)
+        return super(UserSettingsPage, self).post(request, *args, **kwargs)
 
 
 class ForgotPasswordView(PageView):
