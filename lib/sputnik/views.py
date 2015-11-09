@@ -165,7 +165,7 @@ def dispatcher(request, **sputnik_dict):
                                 ret = fnc(request, message, **a)
                             except ObjectDoesNotExist, e:
                                 execute_status = False
-                                logger.error("[{}] Object you are trying to find does not exists.".format("remote_{}".format(message.get('command', ''))))
+                                logger.error("[{}] Object you are trying to find does not exist.".format("remote_{}".format(message.get('command', ''))))
                                 logger.exception(e)
                             except SuspiciousOperation, e:
                                 execute_status = False
@@ -177,7 +177,7 @@ def dispatcher(request, **sputnik_dict):
                                 logger.exception(e)
                             except Exception, e:
                                 execute_status = False
-                                logger.error("[{}] Unknown excpetion.".format("remote_{}".format(message.get('command', ''))))
+                                logger.error("[{}] Unknown exception.".format("remote_{}".format(message.get('command', ''))))
                                 logger.exception(e)
 
                             # For different compatibility reasons return result and status now
