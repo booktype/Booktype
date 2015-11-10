@@ -150,7 +150,7 @@
             <% if (is_locked && lock_type === 2) { %>
                 <span class="label locked">{% trans "Locked" %}</span>
             <% } else if (is_locked && lock_type === 1) { %>
-                <span class="label locked">{% trans "Full locked" %}</span>
+                <span class="label locked">{% trans "Locked exclusively" %}</span>
             <% } %>
             {% if is_owner or is_admin %}
             <a href="" class="label label-danger terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
@@ -273,7 +273,7 @@
             <% if (is_locked && lock_type === 2) { %>
                 <div>{% trans "Locked" %}</div>
             <% } else if (is_locked && lock_type === 1) { %>
-                <div>{% trans "Full locked" %}</div>
+                <div>{% trans "Locked exclusively" %}</div>
             <% } %>
             {% if is_owner or is_admin %}
                 <div style="background-color: #d9534f" class="terminate-edit-chapter">
@@ -288,7 +288,7 @@
             <% if (is_locked && lock_type === 2) { %>
                 <span class="label">{% trans "Locked" %}</span>
             <% } else if (is_locked && lock_type === 1) { %>
-                <span class="label">{% trans "Full locked" %}</span>
+                <span class="label">{% trans "Locked exclusively" %}</span>
             <% } %>
             {% if is_owner or is_admin %}
                 <a href="" class="label label-danger terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
@@ -383,7 +383,7 @@
                 {% endcheck_perm %}
 
                 {% check_perm 'edit.manage_chapters_hold' %}
-                    <li><a href="#" class="option-hold">{% trans "Hold" %}</a></li>
+                    <li><a href="#" class="option-hold">{% trans "Put on hold" %}</a></li>
                 {% endcheck_perm %}
 
                 {% check_perm 'edit.delete_chapter' %}
@@ -391,8 +391,8 @@
                 {% endcheck_perm %}
 
                 {% check_perm 'edit.lock_chapter' %}
-                    <li><a href="#" class="option-lock-simple">{% trans "Lock simple" %}</a></li>
-                    <li><a href="#" class="option-lock-everyone">{% trans "Lock for everyone" %}</a></li>
+                    <li><a href="#" class="option-lock-simple">{% trans "Lock editing" %}</a></li>
+                    <li><a href="#" class="option-lock-everyone">{% trans "Lock exclusively" %}</a></li>
                 {% endcheck_perm %}
                 </ul>
             <% } %>
