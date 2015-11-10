@@ -546,7 +546,7 @@ class MPDFConverter(BaseConverter):
         for link in content.iter('a'):
             if link.attrib.get('href', '') != '':
                 text = link.tail or ''
-                link.tail = ' [' + link.attrib.get('href', '') + '] ' + text
+                link.tail = ' [' + link.attrib.get('href', '') + ']' + text
                 link.tag = 'span'
 
     def _fix_content(self, content):
