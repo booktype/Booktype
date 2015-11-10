@@ -365,50 +365,6 @@ div.contentHeader span.info-message {
       font-weight: normal;
       margin: 6px 0;
   }
-  .userstyle .styleblock .row input[type="checkbox"] + label span {
-      display:inline-block;
-      width:19px;
-      height:19px;
-      margin:-1px 4px 0 0;
-      vertical-align:middle;
-      background:url(../img/check_box.png) left top no-repeat;
-      cursor:pointer;
-  }
-  .userstyle .styleblock .row input[type="checkbox"]:checked + label span {
-      background:url(../img/check_box.png) -19px top no-repeat;
-  }
-  /* end checkbox*/
-
-.userstyle .presetThumbnail {
-  margin: 0;
-  position:relative;
-  float:left;
-}
-.userstyle .presetThumbnail img {
-  max-width: 130px;
-  border:1px solid #959595;
-  -webkit-box-shadow: 3px 3px 0px rgba(0, 0, 0, 1);
-  -moz-box-shadow:    3px 3px 0px rgba(0, 0, 0, 1);
-  box-shadow:         3px 3px 0px rgba(0, 0, 0, 1);
-}
-.userstyle .presetThumbnail .magnifier {
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#FFF url(../img/magnifier.png) no-repeat center center;
-  display:block;
-  opacity:0;
-  -webkit-transition: all 0.1s linear;
-    -moz-transition: all 0.1s linear;
-    -o-transition: all 0.1s linear;
-    -ms-transition: all 0.1s linear;
-    transition: all 0.1s linear;
-}
-.userstyle .presetThumbnail:hover .magnifier {
-  opacity:0.9;
-}
 .userstyle .presetThumbnailDetail {
   float:left;
   margin-left: 10px;
@@ -418,20 +374,6 @@ div.contentHeader span.info-message {
     margin:0;
     font-size: 14px;
   }
-  .userstyle .presetThumbnailDetail .vergrossern {
-    position:absolute;
-    bottom:0;
-    left:150px;
-    text-transform: uppercase;
-    font-size: 11px;
-    color:#000;
-    text-decoration: underline;
-    background:url(../img/magnifier.png) no-repeat right center;
-    padding-right: 20px;
-    }
-    .userstyle .presetThumbnailDetail .vergrossern:hover {
-      text-decoration: none;
-    }
 .userstyle h5, .tabpane .tab-content h5 {
   margin:0;
   font-size: 13px;
