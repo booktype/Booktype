@@ -47,7 +47,7 @@
                         </div>
                     {% elif request.user.is_authenticated and is_book_limit%}
                       <div class="box-bottom-gray">
-                        <button class="btn btn-primary float-left btn-group" rel="tooltip" title="" data-placement="right" data-original-title="{% trans "You have reached your books limit. Delete book to start new one." %}">{% trans "No additional books can be created" %}</button>
+                        <button class="btn btn-primary float-left btn-group" rel="tooltip" title="" data-placement="right" data-original-title="{% trans "You have reached your book limit. Please delete any unwanted books before you create a new one." %}">{% trans "No additional books can be created" %}</button>
                       </div>
                     {% endif %}
 
