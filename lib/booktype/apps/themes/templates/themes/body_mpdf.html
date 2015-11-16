@@ -25,20 +25,17 @@
 {% endif %}
 
 {% for item in book_items %}
-
-  {% if forloop.counter > 1 %}
-     <pagebreak></pagebreak>
-  {% endif %}
-
   {% if item.type == 'chapter' %}
-     <tocentry level="{{ item.level }}" content="{{ item.title }}"></tocentry>
-     {{ item.content|safe }}
+    <div class="chapter">
+      <tocentry level="{{ item.level }}" content="{{ item.title }}"></tocentry>
+      {{ item.content|safe }}
+    </div>
   {% endif %}
 
   {% if item.type == 'section' %}
-     <tocentry level="{{ item.level }}" content="{{ item.title }}"></tocentry>  
-     <h1>{{ item.title }}</h1>
+    <div class="section">
+      <tocentry level="{{ item.level }}" content="{{ item.title }}"></tocentry>  
+      <h1>{{ item.title }}</h1>
+    </div>
   {% endif %}
-
 {% endfor %}
-
