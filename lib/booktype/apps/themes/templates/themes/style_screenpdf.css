@@ -1,36 +1,57 @@
 @page {
-        sheet-size: {{ page_width_bleed }}mm {{ page_height_bleed }}mm;   
-        size: {{ page_width }}mm {{ page_height }}mm;
+  sheet-size: {{ page_width_bleed }}mm {{ page_height_bleed }}mm;   
+  size: {{ page_width }}mm {{ page_height }}mm;
 
-        margin-left: {{ gutter }}mm;
-        margin-right: {{ side_margin }}mm;
-        margin-top: {{ top_margin }}mm;
-        margin-bottom: {{ bottom_margin }}mm;
+  margin-left: {{ gutter }}mm;
+  margin-right: {{ side_margin }}mm;
+  margin-top: {{ top_margin }}mm;
+  margin-bottom: {{ bottom_margin }}mm;
 
-        margin-header: {{ header_margin }}mm;
-        margin-footer: {{ footer_margin }}mm;
+  margin-header: {{ header_margin }}mm;
+  margin-footer: {{ footer_margin }}mm;
 
-        {% if show_footer %}
-        margin-footer: {{ footer_margin }}mm;
+  {% if show_footer %}
+  margin-footer: {{ footer_margin }}mm;
 
-        odd-footer-name: html_footer-right;
-        even-footer-name: html_footer-left;
-        {% endif %}
+  odd-footer-name: html_footer-right;
+  even-footer-name: html_footer-left;
+  {% endif %}
 
-        {% if show_header %}
-        margin-header: {{ header_margin }}mm;
-        
-        odd-header-name: html_header-right;
-        even-header-name: html_header-left;
-        {% endif %}
+  {% if show_header %}
+  margin-header: {{ header_margin }}mm;
+      
+  odd-header-name: html_header-right;
+  even-header-name: html_header-left;
+  {% endif %}
 }
 
 {% if cover_image %}
 @page :first {
-        background-image: url('{{ cover_image }}'); 
-        background-image-resize: 6;
-        footer: none;
-        header: none;
+  background-image: url('{{ cover_image }}'); 
+  background-image-resize: 6;
+  footer: none;
+  header: none;
 }
 {% endif %}
 
+@page section {
+  odd-header-name: _blank;
+  even-header-name: _blank;        
+}
+
+@page chapter {
+  {% if show_header %}
+  margin-header: {{ header_margin }}mm;
+
+  odd-header-name: html_header-right;
+  even-header-name: html_header-left;
+  {% endif %}
+}
+
+div.section {
+  page: section;
+}
+
+div.chapter {
+  page: chapter;
+}
