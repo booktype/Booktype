@@ -439,8 +439,8 @@ class ForgotPasswordEnterView(PageView):
 
 class SignInView(PageView):
     template_name = "account/register.html"
-    page_title = _('Sign in')
-    title = _('Sign in')
+    page_title = _('Log in')
+    title = _('Log in')
 
     def get_context_data(self, **kwargs):
         context = super(self.__class__, self).get_context_data(**kwargs)

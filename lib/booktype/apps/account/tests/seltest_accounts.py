@@ -24,7 +24,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         password_input = signin_input.find_element_by_name("password")
         password_input.send_keys('secret')
 
-        signin_input.find_element_by_xpath('//input[@value="SIGN IN"]').click()
+        signin_input.find_element_by_xpath('//input[@value="Sign In"]').click()
 
         noSuchUser = signin_input.find_element_by_class_name("no-such-user")
         self.assertRaises(NoSuchElementException, noSuchUser.find_element_by_class_name, "template")

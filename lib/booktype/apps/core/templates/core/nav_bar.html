@@ -12,10 +12,10 @@
 	             <li><a href="{% url "control_center:frontpage" %}" {% if cc_frontpage_url not in request.path %} target="_blank" {% endif %}><i class="icon-gears"></i>{% trans "Control Center" %}</a></li>
 	          {% endif %}
 	          <li class="divider"></li>
-	          <li><a href="{% url "accounts:signout" %}"><i class="icon-signout"></i>{% trans "Logout" %}</a></li>
+	          <li><a href="{% url "accounts:signout" %}"><i class="icon-signout"></i>{% trans "Log out" %}</a></li>
 	        </ul>
 	    {% else %}
-          <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" data-href="{% url "accounts:signin" %}?redirect={{ request.path }}">{%  trans "Sign In" %}<span class="caret"></span></button>
+          <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" data-href="{% url "accounts:signin" %}?redirect={{ request.path }}">{%  trans "Log in" %}<span class="caret"></span></button>
         {% endif %}
     </div>
 

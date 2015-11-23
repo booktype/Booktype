@@ -1,6 +1,6 @@
 {% load i18n  %}
 
-<h2 class="box-title">{% trans "Sign in" %}</h2>  
+<h2 class="box-title">{% trans "Log in" %}</h2>  
 
 <form id="formsignin" signin-href="{% url "accounts:signin" %}" redirect-href="{{ redirect|escapejs }}" class="form-group" onsubmit="return false;" action="#" method="GET">{% csrf_token %}
   <div class="form-group">
@@ -17,6 +17,6 @@
     <div class="unknown-error template">{% trans "Unknown error!" %}</div>
   </div>
 
- <input class="navigation_button btn btn-success" id="next" value="{% trans "SIGN IN" %}" type="submit" /> 
+ <input class="navigation_button btn btn-success" id="next" value="{% trans "Log In" %}" type="submit" /> 
 <a class="float-right" href="{% url 'accounts:forgotpassword' %}">{% trans "Forgotten your password?" %}</a> 
 </form>  

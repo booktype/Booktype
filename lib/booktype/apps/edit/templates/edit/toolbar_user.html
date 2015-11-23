@@ -8,8 +8,8 @@
              <li><a href="{% url "control_center:frontpage" %}" target="_blank"><i class="icon-gears"></i>{% trans "Control Center" %}</a></li>
           {% endif %}
           <li class="divider"></li>
-          <li><a href="{% url "accounts:signout" %}"><i class="icon-signout"></i>{% trans "Logout" %}</a></li>
+          <li><a href="{% url "accounts:signout" %}"><i class="icon-signout"></i>{% trans "Log out" %}</a></li>
         </ul>
     {% else %}
-  <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{%  trans "Sign In" %}<span class="caret"></span></button>
+  <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">{%  trans "Log in" %}<span class="caret"></span></button>
 {% endif %}
