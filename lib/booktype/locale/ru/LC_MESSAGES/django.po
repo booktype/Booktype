@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-12 13:00+0000\n"
-"PO-Revision-Date: 2015-11-14 09:07+0000\n"
+"POT-Creation-Date: 2015-11-23 16:54+0000\n"
+"PO-Revision-Date: 2015-11-24 09:06+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Russian (http://www.transifex.com/sourcefabric/booktype/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -182,8 +182,10 @@ msgstr "Неверный секретный код"
 
 #: apps/account/views.py:442 apps/account/views.py:443
 #: apps/account/templates/account/form_signin.html:3
-msgid "Sign in"
-msgstr "Вход"
+#: apps/core/templates/core/nav_bar.html:18
+#: apps/edit/templates/edit/toolbar_user.html:14
+msgid "Log in"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:35
 msgid "My Books"
@@ -320,6 +322,8 @@ msgid "Click this button to log out of your Booktype account"
 msgstr "Нажмите эту кнопку, чтобы выйти из своего аккаунта Booktype"
 
 #: apps/account/templates/account/dashboard.html:148
+#: apps/core/templates/core/nav_bar.html:15
+#: apps/edit/templates/edit/toolbar_user.html:11
 msgid "Log out"
 msgstr "Выйти"
 
@@ -918,16 +922,6 @@ msgstr "При поддержке Booktype, открытой системы уп
 #: apps/edit/templates/edit/toolbar_user.html:8
 msgid "Control Center"
 msgstr "Центр управления"
-
-#: apps/core/templates/core/nav_bar.html:15
-#: apps/edit/templates/edit/toolbar_user.html:11
-msgid "Logout"
-msgstr "Выход"
-
-#: apps/core/templates/core/nav_bar.html:18
-#: apps/edit/templates/edit/toolbar_user.html:14
-msgid "Sign In"
-msgstr "Войти"
 
 #: apps/core/templates/core/nav_bar.html:42
 #: apps/edit/templates/edit/toolbar_nav.html:29
