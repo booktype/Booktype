@@ -24,7 +24,7 @@ import datetime
 from copy import deepcopy
 from lxml import etree
 
-from django.template.loader import render_to_string, Template,Context
+from django.template.loader import render_to_string, Template, Context
 
 from booktype.apps.themes.utils import (
     read_theme_style, read_theme_assets, read_theme_asset_content)
@@ -362,6 +362,7 @@ class EpubConverter(BaseConverter):
         return book_css
 
     def _add_theme_assets(self, epub_book):
+        import uuid
         assets = read_theme_assets(self.theme_name, self.name)
 
         for asset_type, asset_list in assets.iteritems():
@@ -373,6 +374,7 @@ class EpubConverter(BaseConverter):
                     if content:
                         image = ebooklib.epub.EpubImage()
                         image.file_name = "{}/{}".format(IMAGES_DIR, name)
+                        image.id = 'theme_image_%s' % uuid.uuid4().hex[:5]
                         image.set_content(content)
 
                         epub_book.add_item(image)
