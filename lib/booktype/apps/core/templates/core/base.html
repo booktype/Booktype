@@ -1,4 +1,4 @@
-{% load i18n staticfiles compress %}
+{% load i18n staticfiles compress booktype_tags %}
 <!doctype html>
 <html lang="en" class="custom-scroll">
  <head>
@@ -16,6 +16,8 @@
 
   {% block extra_header %}
   {% endblock %}
+
+  {% google_analytics %}
  </head>  
 <body>
  {% block navigation %}

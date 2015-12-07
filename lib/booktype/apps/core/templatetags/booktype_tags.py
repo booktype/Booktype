@@ -488,3 +488,21 @@ def booktype_pager(context, page_object):
     return pagination_data
 
 
+@register.inclusion_tag(file_name='templatetags/google_analytics.html', takes_context=True)
+def google_analytics(context):
+    """
+    Add google analytics async tracking code.
+    Usage: {% google_analytics %}
+
+    :Returns:
+      Returns rendered java script code's block
+    """
+    data = {'USE_GOOGLE_ANALYTICS': config.get_configuration('USE_GOOGLE_ANALYTICS'),
+            'GOOGLE_ANALYTICS_ID': config.get_configuration('GOOGLE_ANALYTICS_ID')}
+
+    if context['request'].user.is_superuser:
+        data['USE_GOOGLE_ANALYTICS'] = False
+
+    return data
+
+
