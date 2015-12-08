@@ -53,7 +53,12 @@ class WriterPlugin(BasePlugin):
 
         for element in root.iter('img'):
 
-            path = urllib.unquote(element.get('src'))
+            src = element.get("src")
+
+            if not src:
+                continue
+
+            path = urllib.unquote(src)
 
             # if hostname, then it is an image with absolute url
             if urlparse.urlparse(path).hostname:
