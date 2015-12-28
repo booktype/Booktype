@@ -26,9 +26,9 @@ More info
 Installation
 ------------
 
-Read the INSTALL file and check the [`docs/deployment/`](docs/deployment/) directory for more details.
+Straightforward instructions to get you started on your first dev install of Booktype can be found [on the Digital Ocean community tutorials site](https://www.digitalocean.com/community/tutorials/how-to-publish-real-books-with-booktype-on-debian-8) and provide a clear path to getting an install running on a Debian 8 machine.
 
-Read up to date [online instructions](http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/before-you-install/) in the [Booktype manual](http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/).
+Extra information can be found on the [online instructions](http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/before-you-install/) and in the [Booktype manual](http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/).
 
 
 How to contribute
