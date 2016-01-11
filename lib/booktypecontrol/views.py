@@ -141,7 +141,7 @@ class ControlCenterView(BaseCCView, TemplateView):
 
         return {
             'version': '.'.join([str(num) for num in booki.version]),
-            'users': User.objects.count(),
+            'users': User.objects.filter(is_active=True).count(),
             'books': Book.objects.count(),
             'groups': BookiGroup.objects.count(),
             'attach_size': attachments_size,
