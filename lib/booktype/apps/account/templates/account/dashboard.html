@@ -43,17 +43,17 @@
                         {% if current_user == request.user %}
                             {% if not limit_reached %}
                                 {% if can_create_book %}
-                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to open the Create New Book wizard" %}">{% trans "Create New Book" as create_text %} {{ create_text|upper }}</button>
+                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#createBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Create a new Book" %}">{% trans "Create Book" as create_text %} {{ create_text|upper }}</button>
                                 {% endif %}
 
                                 {% if can_upload_book %}
-                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#importBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to open the Import Book / Upload EPUB window" %}">{% trans "Import Book" as import_text %} {{ import_text|upper }}</button>
+                                    <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#importBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Import Book from docx or EPUB" %}">{% trans "Import Book" as import_text %} {{ import_text|upper }}</button>
                                 {% endif %}
                                 {% if current_user.is_authenticated %}
-                                    <button href="#" role="button" class="btn btn-default float-right btn-group" rel="tooltip" title="" data-placement="bottom" data-target="#inviteWizard" data-original-title="{% trans "Click this button to invite people by email to write and edit books with you" %}" data-toggle='modal'>{% trans "Invite people" as invite_text %}  {{ invite_text|upper }}</button>
+                                    <button href="#" role="button" class="btn btn-default float-right btn-group" rel="tooltip" title="" data-placement="bottom" data-target="#inviteWizard" data-original-title="{% trans "Invite people to edit your books" %}" data-toggle='modal'>{% trans "Invite" as invite_text %}  {{ invite_text|upper }}</button>
                                 {% endif %}
                                 {% if is_book_limit %}
-                                    <button href="#inviteWizard" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to invite people by email to write and edit books with you" %}" data-toggle='modal'>{% trans "Invite people" as invite_text %}  {{ invite_text|upper }}</button>
+                                    <button class="btn btn-primary float-right btn-group" rel="tooltip" title="" data-placement="top" data-original-title="{% trans "You have reached your book limit. Please delete any unwanted books before you create a new one." %}">{% trans "No additional books can be created" %}</button>
                                 {% endif %}
                             {% endif %}
                         {% endif %}
