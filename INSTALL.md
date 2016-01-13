@@ -11,6 +11,12 @@ The Booktype server can be installed on various GNU/Linux distributions and
 Mac OS X. Packages for [Debian](http://www.debian.org) and 
 [Ubuntu](http://www.ubuntu.com) GNU/Linux are in preparation.
 
+
+Simple Dev Install
+------------------
+
+Instructions for a simple dev install on Debian 8 can be found on [Digital Ocean's community site](https://www.digitalocean.com/community/tutorials/how-to-publish-real-books-with-booktype-on-debian-8)
+
 Database setup
 --------------
 
@@ -20,16 +26,6 @@ management system for production servers.
 
  [Setting up the database](http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/setting-up-the-database/)
 
-If you are setting up a development machine, you can skip this step and use the 
-built-in sqlite database for testing purposes.
-
-Package installation
---------------------
-
-After the Booktype 2.0 official release, packages for Debian and Ubuntu 
-GNU/Linux will be available from http://apt.sourcefabric.org/
-
- [Automated install on Debian or Ubuntu GNU/Linux](http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/automated-install-on-debian-or-ubuntu-gnulinux/)
 
 Manual installation
 -------------------
