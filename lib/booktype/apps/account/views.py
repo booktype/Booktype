@@ -150,6 +150,13 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
 
         context['upload_uuid'] = uuid.uuid4()
 
+        # Getting context variables for the form to invite users
+        if self.request.user.is_authenticated():
+            initial = {
+                'message': getattr(settings, 'BOOKTYPE_DEFAULT_INVITE_MESSAGE', '')
+            }
+            context['invite_form'] = UserInviteForm(user=self.request.user, initial=initial)
+
         return context
 
 
