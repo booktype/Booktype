@@ -39,7 +39,10 @@
                     <br>
                     {% endcheck_perm %}
 
+                    {% check_perm 'core.manage_roles' or 'core.manage_permissions' %}
                     <h4>{% trans "Security" %}</h4>
+                    {% endcheck_perm %}
+
                     {% check_perm 'core.manage_roles' %}
                     <li><a href="#roles" data-toggle="tab">{% trans "Roles" %}</a></li>
                     {% endcheck_perm %}
