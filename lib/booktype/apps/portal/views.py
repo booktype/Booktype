@@ -88,6 +88,7 @@ class FrontPageView(views.SecurityMixin, PageView):
 
         context['recent_activities'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
 
+        # Block of code below is getting the form to invite users
         if self.request.user.is_authenticated():
             initial = {
                 'message': getattr(settings, 'BOOKTYPE_DEFAULT_INVITE_MESSAGE', '')
