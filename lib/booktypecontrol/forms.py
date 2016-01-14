@@ -328,10 +328,13 @@ class BookSettingsForm(BaseControlForm, forms.Form):
             'BOOK_TRACK_CHANGES', self.cleaned_data['track_changes'])
 
         if 'license' in self.cleaned_data:
-            config.set_configuration(
-                'CREATE_BOOK_LICENSE',
-                self.cleaned_data['license'].abbrevation
-            )
+            if self.cleaned_data['license'] is not None:
+                config.set_configuration(
+                    'CREATE_BOOK_LICENSE',
+                    self.cleaned_data['license'].abbrevation
+                )
+            else:
+                config.set_configuration('CREATE_BOOK_LICENSE', '')
         else:
             config.set_configuration('CREATE_BOOK_LICENSE', '')
 
