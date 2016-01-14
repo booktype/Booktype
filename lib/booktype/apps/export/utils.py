@@ -19,6 +19,7 @@ import os
 import json
 import logging
 import urlparse
+import importlib
 
 from lxml import etree
 from collections import OrderedDict
@@ -169,112 +170,267 @@ def set_booktype_metada(epub_book, book):
     return epub_book
 
 
-def export_book(filename, book_version, **kwargs):
-    book = book_version.book
-    epub_book = ExportEpubBook()
-    default_plugins = [TidyPlugin(), standard.SyntaxPlugin()]
+class ExportBook(object):
+    """
+    Base booktype export book class
 
-    # ICEjs changes are removed by default, so to keep them in the epub
-    # we need to pass remove_icejs as False in kwargs
-    if kwargs.get('remove_icejs', True):
-        default_plugins.append(IceCleanPlugin())
+    If you want to customize export process:
+     - create your own `ExportBook` class inside your booktype app (not in Booktype)
+     - inherit your class from this class
+       (from booktype.apps.export.utils import ExportBook as CoreExportBook)
+     - check that your new class has name `ExportBook`
+       (class ExportBook(CoreExportBook):)
+     - define path in settings to module where your class located
+       (BOOKTYPE_EXPORT_CLASS_MODULE = 'appname.module')
+    """
 
-    # set metadata to the epub book
-    epub_book = set_booktype_metada(epub_book, book)
-    epub_book.add_prefix('bkterms', 'http://booktype.org/')
-    epub_book.add_prefix('add_meta_terms', 'http://booktype.org/additional-metadata/')
+    ATTRIBUTES_GLOBAL =  standard.ATTRIBUTES_GLOBAL + ['data-column', 'data-gap', 'data-valign', 'data-id']
+    DEFAULT_PLUGINS = [TidyPlugin(), standard.SyntaxPlugin()]
+    PREFIXES = {
+        'bkterms': 'http://booktype.org/',
+        'add_meta_terms': 'http://booktype.org/additional-metadata/'
+    }
 
-    toc = OrderedDict()
-    spine = ['nav']
+    def __init__(self, filename, book_version, **kwargs):
+        """
+        :Args:
+          - filename (:class:`str`): First argument
+          - book_version: (:class:`booki.editor.models.BookVersion`) BookVersion instance
+        """
+        self.filename = filename
+        self.book_version = book_version
+        self.kwargs = kwargs
 
-    # parse and fetch only images which are inside
-    embeded_images = {}
+        self.epub_book = None
+        self.toc = None
+        self.spine = None
+        self.hold_chapters_urls = None
+        self.embeded_images = {}
+        self.atachments = models.Attachment.objects.filter(version=book_version)
 
-    hold_chapters_urls = [i.url_title for i in book_version.get_hold_chapters()]
 
-    for chapter in book_version.get_toc():
-        if chapter.chapter:
-            c1 = epub.EpubHtml(
-                title=chapter.chapter.title,
-                file_name='%s.xhtml' % (chapter.chapter.url_title, )
-            )
-            cont = chapter.chapter.content
+        # ICEjs changes are removed by default, so to keep them in the epub
+        # we need to pass remove_icejs as False in kwargs
+        if kwargs.get('remove_icejs', True):
+            self.DEFAULT_PLUGINS.append(IceCleanPlugin())
+
+        # add extra plugins
+        self.DEFAULT_PLUGINS += kwargs.get('extra_plugins', [])
+
+        # add extra attributes_global
+        self.ATTRIBUTES_GLOBAL += kwargs.get('extra_attributes_global', [])
+
+        # add extra prefixes
+        for k in kwargs.get('extra_prefixes', dict()):
+            self.PREFIXES[k] = kwargs['extra_prefixes'][k]
+
+    def _set_metadata(self):
+        """
+        Set metadata to the epub book
+
+        :Args:
+          - self (:class:`ExportBook`): current class instance
+        """
+
+        self.epub_book = set_booktype_metada(self.epub_book, self.book_version.book)
+
+    def _add_prefix(self):
+        """
+        Add prefixes
+
+        :Args:
+          - self (:class:`ExportBook`): current class instance
+        """
+
+        for k in self.PREFIXES:
+            self.epub_book.add_prefix(k, self.PREFIXES[k])
+
+    def _chapter_content_hook(self, content):
+        """
+        Access to chapter's content html before any other actions.
+
+        :Args:
+          - self (:class:`ExportBook`): current class instance
+          - content (:class:`unicode`): chapter content html as unicode
+
+        :Returns:
+          Updated chapter's content
+        """
+
+        return content
+
+    def _chapter_tree_hook(self, tree):
+        """
+        Access to chapter's content as lxml.html.HtmlElement instance.
+
+        :Args:
+          - self (:class:`ExportBook`): current class instance
+          - tree (:class:`lxml.html.HtmlElement`): chapter content as lxml.html.HtmlElement instance
+        """
+
+        pass
+
+    def _epub_chapter_hook(self, epub_chapter):
+        """
+        Access to epub chapter object.
+
+        :Args:
+          - self (:class:`ExportBook`): current class instance
+          - epub_chapter (:class:`ebooklib.epub.EpubHtml`): epub chapter instance
+        """
+
+        pass
+
+    def _handle_chapter_element(self, elem):
+        """
+        Access to separate element from chapter's etree.
+
+        :Args:
+          - self (:class:`ExportBook`): current class instance
+          - elem (:class:`elem.lxml.html.HtmlElement`): element from chapter's etree
+        """
+
+        # handle links
+        if elem.tag == 'a':
+            href = elem.get('href')
+            if href and href.startswith('../'):
+                urlp = urlparse.urlparse(href)
+
+                url_title = urlp.path[3:-1]
+
+                # if link on chapter on hold -> remove tag
+                if url_title not in self.hold_chapters_urls:
+                    fixed_href = url_title + '.xhtml'
+                    if urlp.fragment:
+                        fixed_href = "{}#{}".format(fixed_href, urlp.fragment)
+                    elem.set('href', fixed_href)
+                else:
+                    elem.drop_tag()
+
+        # handle images
+        if elem.tag == 'img':
+            src = elem.get('src')
+            if src:
+                elem.set('src', 'static/' + src[7:])
+                self.embeded_images[src] = True
+
+        # remove endnotes without reference
+        if elem.tag == 'ol' and elem.get('class') == 'endnotes':
+            for li in elem.xpath("//li[@class='orphan-endnote']"):
+                li.drop_tree()
+
+    def _create_epub_images(self):
+        """
+        Create epub image objects
+
+        :Args:
+          - self (:class:`ExportBook`): current class instance
+        """
+
+        for i, attachment in enumerate(self.atachments):
+            if ('static/' + os.path.basename(attachment.attachment.name)) not in self.embeded_images:
+                continue
 
             try:
-                tree = parse_html_string(cont.encode('utf-8'))
-            except Exception as err:
-                logger.error('Error parsing chapter content %s' % err)
-                pass
-
-            for elem in tree.iter():
-                if elem.tag == 'a':
-                    href = elem.get('href')
-                    if href and href.startswith('../'):
-                        urlp = urlparse.urlparse(href)
-
-                        url_title = urlp.path[3:-1]
-
-                        # if link on chapter on hold -> remove tag
-                        if url_title not in hold_chapters_urls:
-                            fixed_href = url_title + '.xhtml'
-                            if urlp.fragment:
-                                fixed_href = "{}#{}".format(fixed_href, urlp.fragment)
-                            elem.set('href', fixed_href)
-                        else:
-                            elem.drop_tag()
-
-                if elem.tag == 'img':
-                    src = elem.get('src')
-                    if src:
-                        elem.set('src', 'static/' + src[7:])
-                        embeded_images[src] = True
-
-                # remove endnotes without reference
-                if elem.tag == 'ol' and elem.get('class') == 'endnotes':
-                    for li in elem.xpath("//li[@class='orphan-endnote']"):
-                        li.drop_tree()
-
-            c1.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
-
-            epub_book.add_item(c1)
-            spine.append(c1)
-
-            if chapter.parent:
-                toc[chapter.parent.id][1].append(c1)
+                f = open(attachment.attachment.name, "rb")
+                blob = f.read()
+                f.close()
+            except (IOError, OSError):
+                continue
             else:
-                if chapter.has_children():
-                    toc[chapter.id] = [c1, []]
+                filename = os.path.basename(attachment.attachment.name.encode("utf-8"))
+                itm = epub.EpubImage()
+                itm.file_name = 'static/%s' % filename
+                itm.content = blob
+                self.epub_book.add_item(itm)
+
+    def _create_toc(self):
+        """
+        Create table of contents
+
+        :Args:
+          - self (:class:`ExportBook`): current class instance
+        """
+
+        self.toc = OrderedDict()
+        self.spine = ['nav']
+
+        self.hold_chapters_urls = [i.url_title for i in self.book_version.get_hold_chapters()]
+
+        for chapter in self.book_version.get_toc():
+            if chapter.chapter:
+                c1 = epub.EpubHtml(
+                    title=chapter.chapter.title,
+                    file_name='%s.xhtml' % (chapter.chapter.url_title, )
+                )
+
+                # hook for some extra customizations
+                cont = self._chapter_content_hook(chapter.chapter.content)
+
+                try:
+                    tree = parse_html_string(cont.encode('utf-8'))
+                except Exception as err:
+                    logger.error('Error parsing chapter content %s' % err)
+                    continue
+                    pass
+
+                # hook for some extra customizations
+                self._chapter_tree_hook(tree)
+
+                for elem in tree.iter():
+                    self._handle_chapter_element(elem)
+
+                c1.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
+
+                # hook for some extra customizations
+                self._epub_chapter_hook(c1)
+
+                self.epub_book.add_item(c1)
+                self.spine.append(c1)
+
+                if chapter.parent:
+                    self.toc[chapter.parent.id][1].append(c1)
                 else:
-                    toc[chapter.id] = c1
-        else:
-            epub_sec = epub.Section(chapter.name)
-            if chapter.parent:
-                toc[chapter.parent.id][1].append(epub_sec)
+                    if chapter.has_children():
+                        self.toc[chapter.id] = [c1, []]
+                    else:
+                        self.toc[chapter.id] = c1
             else:
-                toc[chapter.id] = [epub_sec, []]
+                epub_sec = epub.Section(chapter.name)
+                if chapter.parent:
+                    self.toc[chapter.parent.id][1].append(epub_sec)
+                else:
+                    self.toc[chapter.id] = [epub_sec, []]
 
-    for i, attachment in enumerate(models.Attachment.objects.filter(version=book_version)):
-        if ('static/' + os.path.basename(attachment.attachment.name)) not in embeded_images:
-            continue
+    def run(self):
+        """
+        Run export process.
+        Write epub file.
 
-        try:
-            f = open(attachment.attachment.name, "rb")
-            blob = f.read()
-            f.close()
-        except (IOError, OSError):
-            continue
-        else:
-            fn = os.path.basename(attachment.attachment.name.encode("utf-8"))
-            itm = epub.EpubImage()
-            itm.file_name = 'static/%s' % fn
-            itm.content = blob
-            epub_book.add_item(itm)
+        :Args:
+          - self (:class:`ExportBook`): current class instance
+        """
+        self.epub_book = ExportEpubBook()
 
-    epub_book.toc = toc.values()
-    epub_book.spine = spine
-    epub_book.add_item(epub.EpubNcx())
-    epub_book.add_item(epub.EpubNav())
+        self._set_metadata()
+        self._add_prefix()
+        self._create_toc()
+        self._create_epub_images()
 
-    standard.ATTRIBUTES_GLOBAL = standard.ATTRIBUTES_GLOBAL + ['data-column', 'data-gap', 'data-valign', 'data-id']
-    opts = {'plugins': default_plugins + kwargs.get('extra_plugins', [])}
-    epub.write_epub(filename, epub_book, opts)
+        self.epub_book.toc = self.toc.values()
+        self.epub_book.spine = self.spine
+        self.epub_book.add_item(epub.EpubNcx())
+        self.epub_book.add_item(epub.EpubNav())
+
+        standard.ATTRIBUTES_GLOBAL = self.ATTRIBUTES_GLOBAL
+
+        epub.write_epub(
+            self.filename,
+            self.epub_book,
+            {'plugins': self.DEFAULT_PLUGINS}
+        )
+
+
+def get_exporter_class():
+    module = importlib.import_module(config.get_configuration("BOOKTYPE_EXPORT_CLASS_MODULE"))
+    return getattr(module, 'ExportBook')
