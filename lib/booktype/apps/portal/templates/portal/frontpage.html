@@ -81,11 +81,6 @@
                         <li>{% trans "There are no users yet" %}.</li>
                         {% endfor %}
                     </ul>
-                    {% if request.user.is_authenticated %}
-                        <div class="box-bottom-gray">
-                            <button href="#inviteWizard" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to invite people by email to write and edit books with you" %}" data-toggle='modal'>{% trans "Invite people" as invite_text %}  {{ invite_text|upper }}</button>
-                        </div>
-                    {% endif %}
                 </div>
             {% endcheck_perm %}
             {% check_perm 'portal.can_view_groups_list' %}
@@ -179,75 +174,4 @@
             </div> <!-- End of col-xs-4 -->
         </div>
     </div> <!-- End of container -->
-
-<!-- Invite people wizard modal -->
-<div class="modal fade invitePeopleWizard" id="inviteWizard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h2 class="modal-title" id="myModalLabel">Invite people</h2>
-    </div>
-    <div class="modal-body">
-
-    <section id="basic">
-    <form method="post" action="{% url 'accounts:invite' %}" target="hidden_frame" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div id="wizard-invite">
-          <h3>{% trans 'Enter email addresses' %}</h3>
-        <section>
-            <p class="wizard_desc">{% trans 'Who would you like to invite?' %}</p>
-            <label for="{{ invite_form.email_list.id_for_label }}"> {{ invite_form.email_list.label }} </label>
-            {{ invite_form.email_list }}
-        </section>
-
-        <h3>{% trans 'Enter message' %}</h3>
-        <section>
-            <p class="wizard_desc">{% trans 'What is the message of your invitation?' %}</p>
-            <label for="{{ invite_form.message.id_for_label }}"> {{ invite_form.message.label }} </label>
-            {{ invite_form.message }}
-        </section>
-        <h3>{% trans 'Choose Book' %}</h3>
-        <section>
-            <p class="wizard_desc">{% trans 'Choose Books for invitation' %}</p>
-          <div class="books-header">
-              {% trans 'Choose Book:' %} <span>{% trans 'All' %}</span>
-            <div class="switcher">
-                <label for="check_all">{% trans 'Check all / clear' %}</label>
-              <input id="check_all" type="checkbox" class="checkall">
-            </div>
-          </div>
-          <div class="books-list">
-            <ul>
-                {% for pk, choice in invite_form.books.field.widget.choices  %}
-                <li>
-                <a href="#"> {{ choice }}
-                        <input  type="checkbox" id="id_options_{{ forloop.counter0 }}"
-                        value="{{ pk }}" name="books" />
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-          </div>
-        </section>
-
-        <h3>{% trans 'Set Roles' %}</h3>
-        <section>
-            <p class="wizard_desc">{% trans 'Set Roles for this invitation' %}</p>
-            <label for="hidden">{% trans 'Roles' %}</label>
-            <div class="roles-options btn-group" data-toggle="buttons">
-              {% for pk, choice in invite_form.roles.field.widget.choices  %}
-                <label class="btn btn-default" rel='tooltip'>
-                    <input type="checkbox" name='roles' value='{{ pk }}'> {{ choice }}
-                </label>
-              {% endfor %}
-            </div>
-        </section>
-      </div>
-    </section>
-  </div>
-    </form>
-  </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 {% endblock %}
