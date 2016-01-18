@@ -143,15 +143,16 @@ class GroupPageView(views.SecurityMixin, GroupManipulation):
         context['selected_group_error'] = False
         context['title'] = context['selected_group'].name
 
+        context['group_members'] = context['selected_group'].members.all()
+        context['books_list'] = Book.objects.filter(
+                Q(group=context['selected_group']), Q(hidden=False) | Q(owner=self.request.user)
+        ).order_by('-created')
+
         context['user_group'] = {
             'url_name': context['selected_group'].url_name, 'name': context['selected_group'].name,
             'description': context['selected_group'].description, 'num_members': context['selected_group'].members.count(),
-            'num_books': context['selected_group'].book_set.count(), 'group_image': context['selected_group'].get_big_group_image
+            'num_books': context['books_list'].count(), 'group_image': context['selected_group'].get_big_group_image
         }
-
-        context['group_members'] = context['selected_group'].members.all()
-        context['user_books'] = Book.objects.filter(group=context['selected_group'], hidden=False)
-        context['books_list'] = context['user_books'].order_by('-created')
 
         context['books_to_add'] = []
 
@@ -185,7 +186,10 @@ class AllGroupsPageView(views.SecurityMixin, GroupManipulation):
     def get_context_data(self, **kwargs):
         context = super(AllGroupsPageView, self).get_context_data(**kwargs)
 
-        book_group_sizes = Book.objects.filter(group__url_name__isnull=False).values('group__url_name').annotate(models.Count('id'))
+        book_group_sizes = Book.objects.filter(group__url_name__isnull=False).\
+            filter(Q(hidden=False) | Q(owner=self.request.user)).\
+            values('group__url_name').\
+            annotate(models.Count('id'))
 
         paginator = Paginator(BookiGroup.objects.all(), config.get_configuration('GROUP_LIST_PAGE_SIZE'))
 
