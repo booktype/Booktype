@@ -89,12 +89,6 @@ class FrontPageView(views.SecurityMixin, PageView):
         context['recent_activities'] = BookHistory.objects.filter(kind__in=[1, 10], book__hidden=False).order_by('-modified')[:5]
 
         if self.request.user.is_authenticated():
-            initial = {
-                'message': getattr(settings, 'BOOKTYPE_DEFAULT_INVITE_MESSAGE', '')
-            }
-            context['invite_form'] = UserInviteForm(user=self.request.user, initial=initial)
-
-        if self.request.user.is_authenticated():
             context['is_book_limit'] = Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1
         else:
             context['is_book_limit'] = True
