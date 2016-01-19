@@ -59,13 +59,13 @@ class Command(BaseCommand):
         if not book_version:
             raise CommandError('Book version %s does not exist.' % options['book_version'])
 
-        from booktype.apps.export.utils import export_book
+        from booktype.apps.export.utils import get_exporter_class
 
         filename = '%s.epub' % book.url_title
         if options['output_name']:
             filename = options['output_name']
 
-        export_book(filename, book_version)
+        get_exporter_class()(filename, book_version).run()
 
         if options['verbosity'] in ['1', '2']:
             print 'Book successfully exported into "%s" file.' % filename

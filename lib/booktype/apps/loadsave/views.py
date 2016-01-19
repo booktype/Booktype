@@ -25,11 +25,11 @@ class SaveView(utils.RestrictExport, View):
         temp_dir = tempfile.mkdtemp()
         filename = '%s/export.epub' % temp_dir
 
-        from booktype.apps.export.utils import export_book
+        from booktype.apps.export.utils import get_exporter_class
 
         # it should return object epub book
         # we should be able to write it as a separate thing
-        export_book(filename, book_version)
+        get_exporter_class()(filename, book_version).run()
 
         # write file
         response.write(open(filename, 'rb').read())

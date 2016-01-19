@@ -61,6 +61,9 @@ BOOKTYPE_THEME_PLUGINS = {
   'academic': 'booktype.apps.themes.convert.academic'
 }
 
+# define path to module where class ExportBook is located
+BOOKTYPE_EXPORT_CLASS_MODULE = "booktype.apps.export.utils"
+
 EXPORT_WAIT_FOR = 90
 
 EXPORT_SETTINGS = {
