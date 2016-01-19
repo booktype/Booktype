@@ -57,24 +57,28 @@ GOOGLE_ANALYTICS_ID = ''
 MAX_ADDITIONAL_METADATA = 3
 
 BOOKTYPE_THEME_PLUGINS = {
-  'custom': 'booktype.apps.themes.convert.custom',
-  'academic': 'booktype.apps.themes.convert.academic'
+    'custom': 'booktype.apps.themes.convert.custom',
+    'academic': 'booktype.apps.themes.convert.academic'
 }
 
 # define path to module where class ExportBook is located
-BOOKTYPE_EXPORT_CLASS_MODULE = "booktype.apps.export.utils"
+BOOKTYPE_EXPORT_CLASS_MODULE = 'booktype.apps.export.utils'
+
+BOOKTYPE_BASE_SECURITY_CLASS = 'booktype.utils.security.base.BaseSecurity'
 
 EXPORT_WAIT_FOR = 90
 
 EXPORT_SETTINGS = {
-    'mpdf': [{u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
+    'mpdf': [
+        {u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
         {u'name': u'custom_height', u'value': u''}, {u'name': u'top_margin', u'value': u'20'},
         {u'name': u'side_margin', u'value': u'20'}, {u'name': u'bottom_margin', u'value': u'20'},
         {u'name': u'gutter', u'value': u'20'}, {u'name': u'show_header', u'value': u'on'},
         {u'name': u'header_margin', u'value': u'10'}, {u'name': u'show_footer', u'value': u'on'},
         {u'name': u'footer_margin', u'value': u'10'}, {u'name': u'bleed_size', u'value': u''},
         {u'name': u'styling', u'value': u''}, {u'name': u'crop_marks', u'value': u'off'}],
-    'screenpdf': [{u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
+    'screenpdf': [
+        {u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
         {u'name': u'custom_height', u'value': u''}, {u'name': u'top_margin', u'value': u'20'},
         {u'name': u'side_margin', u'value': u'20'}, {u'name': u'bottom_margin', u'value': u'20'},
         {u'name': u'gutter', u'value': u'20'}, {u'name': u'show_header', u'value': u'on'},

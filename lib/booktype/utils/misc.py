@@ -22,6 +22,7 @@ import tempfile
 import ebooklib
 import datetime
 import StringIO
+import importlib
 
 from django.conf import settings
 from django.core.files import File
@@ -69,20 +70,6 @@ class TidyPlugin(BasePlugin):
         (_, chapter.content) = tidy_cleanup(chapter.get_content(), **self.options)
 
         return chapter.content
-
-
-def _convert_file_name(file_name):
-
-    name = os.path.basename(file_name)
-    if name.rfind('.') != -1:
-        _np = name[:name.rfind('.')]
-        _ext = name[name.rfind('.'):]
-        name = booktype_slugify(_np) + _ext
-
-    name = urllib.unquote(name)
-    name = name.replace(' ', '_')
-
-    return name
 
 
 class ImportPlugin(BasePlugin):
@@ -176,8 +163,43 @@ class LoadPlugin(BasePlugin):
         chapter.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
 
 
-# THIS IS TEMPORARY PLACE AND TEMPORARY CODE
+def _convert_file_name(file_name):
 
+    name = os.path.basename(file_name)
+    if name.rfind('.') != -1:
+        _np = name[:name.rfind('.')]
+        _ext = name[name.rfind('.'):]
+        name = booktype_slugify(_np) + _ext
+
+    name = urllib.unquote(name)
+    name = name.replace(' ', '_')
+
+    return name
+
+
+def import_from_string(import_name):
+    """
+    Imports a class object from a given dotted string.
+
+    :Args:
+        - import_name: String in dotted notation of the class to be imported.
+
+    :Returns:
+        The imported class
+    """
+
+    try:
+        if '.' in import_name:
+            module_str, klass = import_name.rsplit('.', 1)
+            module = importlib.import_module(module_str)
+            return getattr(module, klass)
+        else:
+            return __import__(import_name)
+    except (ImportError, AttributeError) as err:
+        raise err
+
+
+# THIS IS TEMPORARY PLACE AND TEMPORARY CODE
 def import_book_from_file(epub_file, user, **kwargs):
     import uuid
 

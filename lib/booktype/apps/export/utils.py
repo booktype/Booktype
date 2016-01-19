@@ -19,7 +19,6 @@ import os
 import json
 import logging
 import urlparse
-import importlib
 
 from lxml import etree
 from collections import OrderedDict
@@ -31,7 +30,7 @@ from ebooklib.utils import parse_html_string
 from booki.editor import models
 from booktype.utils import config
 from booktype.apps.export.models import ExportSettings
-from booktype.utils.misc import TidyPlugin
+from booktype.utils.misc import TidyPlugin, import_from_string
 from booktype.utils.plugins.icejs import IceCleanPlugin
 
 from .epub import ExportEpubBook
@@ -184,7 +183,7 @@ class ExportBook(object):
        (BOOKTYPE_EXPORT_CLASS_MODULE = 'appname.module')
     """
 
-    ATTRIBUTES_GLOBAL =  standard.ATTRIBUTES_GLOBAL + ['data-column', 'data-gap', 'data-valign', 'data-id']
+    ATTRIBUTES_GLOBAL = standard.ATTRIBUTES_GLOBAL + ['data-column', 'data-gap', 'data-valign', 'data-id']
     DEFAULT_PLUGINS = [TidyPlugin(), standard.SyntaxPlugin()]
     PREFIXES = {
         'bkterms': 'http://booktype.org/',
@@ -207,7 +206,6 @@ class ExportBook(object):
         self.hold_chapters_urls = None
         self.embeded_images = {}
         self.atachments = models.Attachment.objects.filter(version=book_version)
-
 
         # ICEjs changes are removed by default, so to keep them in the epub
         # we need to pass remove_icejs as False in kwargs
@@ -432,5 +430,5 @@ class ExportBook(object):
 
 
 def get_exporter_class():
-    module = importlib.import_module(config.get_configuration("BOOKTYPE_EXPORT_CLASS_MODULE"))
-    return getattr(module, 'ExportBook')
+    class_path = "{}.ExportBook".format(config.get_configuration('BOOKTYPE_EXPORT_CLASS_MODULE'))
+    return import_from_string(class_path)

@@ -112,7 +112,7 @@ class SecurityUtilsTestCase(TestCase):
 
     def test_get_security(self):
         # let's test helper for retrieving base Security instance
-        self.assertEqual(security.Security(self.user).__class__,
+        self.assertEqual(security.base.BaseSecurity(self.user).__class__,
                          security.get_security(self.user).__class__)
 
     def test_get_security_for_book(self):
@@ -189,20 +189,20 @@ class SecurityClassTestCase(TestCase):
 
     def test_get_permission_from_string(self):
         # get permission by name
-        permission = security.Security.get_permission_from_string("{app}.{name}".format(app=APP_NAME,
-                                                                                        name=CODE_NAME))
+        permission = security.base.BaseSecurity.get_permission_from_string(
+            "{app}.{name}".format(app=APP_NAME, name=CODE_NAME))
         self.assertEqual(permission, self.can_test_permission)
 
         # try to get permission with wrong argument
         self.assertRaises(Exception,
-                          security.Security.get_permission_from_string, "can_do_everything")
+                          security.base.BaseSecurity.get_permission_from_string, "can_do_everything")
 
         # try to get net existing permission
-        self.assertFalse(security.Security.get_permission_from_string("fake.permission"))
+        self.assertFalse(security.base.BaseSecurity.get_permission_from_string("fake.permission"))
 
     def test_get_permissions_success(self):
         # mock get_default_role function
-        security.get_default_role = mock.Mock(return_value=self.role_registered_user)
+        security.base.get_default_role = mock.Mock(return_value=self.role_registered_user)
 
         sec = security.get_security(self.user)
         self.assertIn(self.can_content_register_permission, sec._get_permissions())
@@ -212,7 +212,7 @@ class SecurityClassTestCase(TestCase):
 
     def test_get_permissions_fail(self):
         # mock get_default_role function
-        security.get_default_role = mock.Mock(return_value=self.role)
+        security.base.get_default_role = mock.Mock(return_value=self.role)
 
         sec = security.get_security(self.superuser)
         self.assertNotIn(self.can_content_register_permission, sec._get_permissions())
@@ -221,7 +221,7 @@ class SecurityClassTestCase(TestCase):
         # get permissions from default role and from bookrole
 
         # mock get_default_role function
-        security.get_default_role = mock.Mock(return_value=self.role_registered_user)
+        security.base.get_default_role = mock.Mock(return_value=self.role_registered_user)
 
         sec = security.get_security(self.user)
         permissions = sec._get_permissions(book=self.bookrole.book)
@@ -248,7 +248,7 @@ class SecurityClassTestCase(TestCase):
 
         # common user, should have rights
         # mock get_default_role function
-        security.get_default_role = mock.Mock(return_value=self.role_registered_user)
+        security.base.get_default_role = mock.Mock(return_value=self.role_registered_user)
         self.assertTrue(sec.has_perm("content.register"),
                         "If user doesn't have that role, this should be False")
 
