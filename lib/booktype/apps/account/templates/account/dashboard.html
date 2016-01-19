@@ -145,7 +145,7 @@
                 </ul>
 
                 <p>{{ current_user.profile.description|escape }}</p>
-                <p><a href="#">{% trans "Track updates by RSS" %}</a> <img src="{% static 'core/img/rss.png' %}"></p>
+								{# <p><a href="#">{% trans "Track updates by RSS" %}</a> <img src="{% static 'core/img/rss.png' %}"></p>#}
 
                 <div class="box-bottom-white">
                     <button id="user-settings" data-href="{% url 'accounts:user_settings' user.username %}" role="button" class="btn btn-default float-left" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Click this button to update your personal settings and Booktype account password" %}">{% trans "Settings" as set_text %} {{ set_text|upper }}</button>
