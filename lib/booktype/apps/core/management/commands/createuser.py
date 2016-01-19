@@ -16,9 +16,10 @@
 
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
-from django.contrib.auth.models import User
+from django.db.utils import Error
 
 from django.contrib.auth.models import User
+
 
 class Command(BaseCommand):
     help = "Used to create a user"
@@ -57,14 +58,12 @@ class Command(BaseCommand):
                 user = User.objects.create_superuser(username, email, password)
             else:
                 user = User.objects.create_user(username, email, password)
-        
+
             user.first_name = fullname
             user.save()
+            self.stdout.write("\tUser name: {0} email: {1} was successfully created!".format(username, email))
 
-            from booktype.apps.account.models import UserProfile
-            user_profile = UserProfile(user = user)
-            user_profile.save()
-        except:
-            raise CommandError("Could not create the user.")
+        except Error as e:
+            raise CommandError("Could not create the user. {0}".format(e.message))
 
 
