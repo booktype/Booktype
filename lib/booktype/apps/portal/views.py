@@ -295,7 +295,7 @@ class GroupUpdateView(LoginRequiredMixin, BasePageView, UpdateView):
         self.object = self.get_object()
         group_security = security.get_security_for_group(request.user, self.object)
 
-        if not group_security.is_group_admin():
+        if not group_security.is_group_admin() and not request.user.is_superuser:
             return views.ErrorPage(request, "errors/nopermissions.html")
 
         return super(GroupUpdateView, self).dispatch(request, *args, **kwargs)
