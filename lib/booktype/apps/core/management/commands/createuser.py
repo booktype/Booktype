@@ -16,9 +16,10 @@
 
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
-from django.contrib.auth.models import User
+from django.db.utils import Error
 
 from django.contrib.auth.models import User
+
 
 class Command(BaseCommand):
     help = "Used to create a user"
@@ -48,6 +49,7 @@ class Command(BaseCommand):
         email = options.get('email', None)
         password = options.get('password', None)
         fullname = options.get('fullname', None)
+        verbosity = int(options.get('verbosity'))
 
         if not username or not email or not password or not fullname:
             raise CommandError("You must specify all the arguments.")
@@ -57,14 +59,11 @@ class Command(BaseCommand):
                 user = User.objects.create_superuser(username, email, password)
             else:
                 user = User.objects.create_user(username, email, password)
-        
+
             user.first_name = fullname
             user.save()
 
-            from booktype.apps.account.models import UserProfile
-            user_profile = UserProfile(user = user)
-            user_profile.save()
-        except:
-            raise CommandError("Could not create the user.")
-
-
+            if verbosity > 0:
+                self.stdout.write("\tUser name: {0} email: {1} was successfully created!".format(username, email))
+        except Error as e:
+            raise CommandError("Could not create the user. {0}".format(e.message))
