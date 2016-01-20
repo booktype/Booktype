@@ -41,7 +41,10 @@
                   <p>{% trans "Created:" %} {{ book.created }}</p>
                   <p>{% trans "Published:" %} {{ book.published }}</p>
 
-                  <p><a href="#">{% trans "Follow changes" %} </a> <img src="{% static 'core/img/rss.png' %}"></p>
+                  <p>
+										<a type="application/rss+xml" href="{% url 'portal:feeds_rss_book' bookid=book.url_title %}">{% trans "Follow changes" %} </a>
+										<img src="{% static 'core/img/rss.png' %}">
+									</p>
 
                 </div>
 
