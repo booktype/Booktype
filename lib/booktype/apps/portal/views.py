@@ -154,14 +154,18 @@ class GroupPageView(views.SecurityMixin, GroupManipulation):
         context['is_group_admin'] = user_group_security.is_group_admin()
 
         if context['is_group_admin']:
-            list_of_books = Book.objects.exclude(group=context['selected_group'])
+            if self.request.user.is_superuser:
+                # Last filter (group__isnull=True) should be removed when Book model will support multiple groups
+                list_of_books = Book.objects.exclude(group=context['selected_group']).\
+                    filter(group__isnull=True)
+            else:
+                # Last filter (group__isnull=True) should be removed when Book model will support multiple groups
+                list_of_books = Book.objects.exclude(group=context['selected_group']).\
+                    filter(owner=self.request.user).\
+                    filter(group__isnull=True)
 
             for b in list_of_books:
-                if security.get_security_for_book(self.request.user, b).is_book_admin():
-                    context['books_to_add'].append({'cover': b.cover, 'url_title': b.url_title, 'title': b.title})
-
-            if self.request.user.is_superuser:
-                context['books_to_add'] = list_of_books
+                context['books_to_add'].append({'id': b.id, 'cover': b.cover, 'url_title': b.url_title, 'title': b.title})
 
         context['is_group_member'] = self.request.user in context['group_members']
 
