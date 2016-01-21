@@ -138,9 +138,12 @@ class GroupPageView(views.SecurityMixin, GroupManipulation):
         context['title'] = context['selected_group'].name
 
         context['group_members'] = context['selected_group'].members.all()
-        context['books_list'] = Book.objects.filter(
-                Q(group=context['selected_group']), Q(hidden=False) | Q(owner=self.request.user)
-        ).order_by('-created')
+        if self.request.user.is_superuser:
+            context['books_list'] = Book.objects.filter(group=context['selected_group']).order_by('-created')
+        else:
+            context['books_list'] = Book.objects.filter(
+                    Q(group=context['selected_group']), Q(hidden=False) | Q(owner=self.request.user)
+            ).order_by('-created')
 
         context['user_group'] = {
             'url_name': context['selected_group'].url_name, 'name': context['selected_group'].name,
