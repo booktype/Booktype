@@ -6,6 +6,8 @@ from django.shortcuts import RequestContext
 from django.conf import settings
 from django.template import loader
 from django.http import HttpResponse, Http404
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
 
 from booki.editor.models import Book, BookiGroup
 from booktype.utils.security import Security, BookSecurity, GroupSecurity
@@ -23,6 +25,12 @@ class BasePageView(object):
         context["request"] = self.request
 
         return context
+
+
+class NeverCacheMixin(object):
+    @method_decorator(never_cache)
+    def dispatch(self, *args, **kwargs):
+        return super(NeverCacheMixin, self).dispatch(*args, **kwargs)
 
 
 class PageView(BasePageView, TemplateView):

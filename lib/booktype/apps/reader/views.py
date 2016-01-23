@@ -32,7 +32,7 @@ from braces.views import LoginRequiredMixin, JSONResponseMixin
 from booktype.apps.core import views
 from booktype.utils import misc, security
 from booktype.utils.book import remove_book
-from booktype.apps.core.views import BasePageView
+from booktype.apps.core.views import BasePageView, NeverCacheMixin
 from booki.editor.models import Book, BookHistory, BookToc, Chapter
 
 from .forms import EditBookInfoForm
@@ -309,7 +309,7 @@ class FullView(BaseReaderView, BasePageView, DetailView):
         return context
 
 
-class BookCoverView(BaseReaderView, DetailView):
+class BookCoverView(NeverCacheMixin, BaseReaderView, DetailView):
     """
     Simple DetailView inherit clase to serve the book cover image
     """

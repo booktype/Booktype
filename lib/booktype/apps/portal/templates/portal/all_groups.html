@@ -20,7 +20,7 @@
                 <ul class="list border-top">
                     {% for group in all_groups %}
                     <li>
-                        <figure><img src="{{ group.small_group_image }}" /></figure>
+                        <figure><img src="{{ group.small_group_image }}?{% random_url %}" /></figure>
                             <div class="list-info group-list">
                                 {% if request.user.is_authenticated and request.user != group.owner %}
                                     {% if request.user in group.members.all %}

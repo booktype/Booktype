@@ -506,3 +506,7 @@ def google_analytics(context):
     return data
 
 
+@register.simple_tag
+def random_url(length=12):
+    from random import randint    
+    return randint(10**(length-1), (10**(length)-1))

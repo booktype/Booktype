@@ -14,7 +14,7 @@
         <div class="row two-col">
             <div class="col-xs-8">
                 <div class="box profile-box black">
-                     <figure><img src="{{ user_group.group_image }}" /></figure>
+                     <figure><img src="{{ user_group.group_image }}?{% random_url %}" /></figure>
                      <div class="list-info">
                         <h2 class="box-title">{{ user_group.name }}</h2>
                             <p>{{ user_group.description }}</p>
