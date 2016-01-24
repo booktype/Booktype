@@ -1,4 +1,5 @@
 import datetime
+import logging
 
 from django.conf import settings
 from django.db import models
@@ -439,3 +440,27 @@ class AddBooksView(PageView):
                     book.save()
 
         return HttpResponse()
+
+
+class RemoveBookView(LoginRequiredMixin, PageView):
+    template_name = "portal/group_remove_book.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(RemoveBookView, self).get_context_data(**kwargs)
+        context['book'] = Book.objects.get(url_title=context['bookid'])
+        context['group'] = BookiGroup.objects.get(url_name=context['groupid'])
+        return context
+
+    def post(self, request, groupid, bookid):
+        logger = logging.getLogger('booktype')
+        try:
+            if request.user.is_authenticated():
+                book_url = bookid
+                book = Book.objects.get(url_title=book_url)
+                book.group = None
+                book.save()
+
+            return HttpResponseRedirect(reverse('portal:group', args=[groupid]))
+        except IOError as e:
+            logger.exception(e)
+            return HttpResponse(status=500)
