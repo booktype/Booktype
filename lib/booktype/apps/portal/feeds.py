@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.core.exceptions import PermissionDenied
 from django.contrib.syndication.views import Feed
 from django.shortcuts import get_object_or_404
 from django.utils import feedgenerator
@@ -21,14 +22,29 @@ from django.contrib.auth.models import User
 
 from booki.editor import models
 
+from booktype.apps.core.views import get_security_for_book
+
 
 class BookFeedRSS(Feed):
     """
     This represents RSS feed for a book.
     """
 
+    def __init__(self, *args, **kwargs):
+        super(BookFeedRSS, self).__init__(*args, **kwargs)
+
+        self.security = None
+
+    def check_permissions(self, request, *args, **kwargs):
+        if not self.security.has_perm("reader.can_view_book_info"):
+            raise PermissionDenied
+
     def get_object(self, request, bookid):
-        return get_object_or_404(models.Book, url_title=bookid)
+        book = get_object_or_404(models.Book, url_title=bookid)
+        self.security = get_security_for_book(request.user, book)
+        self.check_permissions(request)
+
+        return book
 
     def title(self, obj):
         return obj.title
@@ -72,12 +88,13 @@ class BookFeedAtom(BookFeedRSS):
     feed_type = feedgenerator.Atom1Feed
 
 
-class ChapterFeedRSS(Feed):
+class ChapterFeedRSS(BookFeedRSS):
     """
     This represents RSS feed for a chapter.
     """
 
     def get_object(self, request, bookid, chapterid):
+        super(ChapterFeedRSS, self).get_object(request, bookid)
         return get_object_or_404(models.Chapter, book__url_title=bookid, url_title=chapterid)
 
     def title(self, obj):
