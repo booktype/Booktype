@@ -1,6 +1,6 @@
-{% load i18n staticfiles %}
+{% load i18n staticfiles booktype_tags %}
 <li>
-    <figure><img src="{% static 'core/img/groups.png' %}"></figure>
+    <figure><img src="{{ group.get_group_image }}?{% random_url %}"></figure>
     <div class="list-info">
         <h4>
             <a href="{% url "portal:group" group.url_name %}">
