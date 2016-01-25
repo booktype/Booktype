@@ -1,0 +1,22 @@
+{% load i18n %}
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form action="{% url 'portal:remove_book' group.url_name book.url_title %}" method='POST'>
+            {% csrf_token %}
+            <div class="modal-header">
+                <h4 class="modal-title">{% trans "Remove the book from"%} <b>{{ group.name }}</b> </h4>
+            </div>
+            <div class="modal-body">
+                <p id="book-title"><b><i>{{ book.title }}</i></b></p>
+                <p>
+                    {% trans "Are you sure you would like to remove this book from the group?"%}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+                <button href={% url 'portal:remove_book' group.url_name book.url_title %} type="submit" class="btn btn-primary remove-book">{% trans "Remove" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+

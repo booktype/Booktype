@@ -55,7 +55,7 @@
                             </div>
                         </div>
                     </h2>
-                    <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
+                    <div class="book-thumb showing-books" id="books-prew" group-name-url="{% url "portal:group" user_group.url_name %}"> <!-- For list view add book-list class, and remove book-thumb -->
                         {% for book in books_list %}
                             <div class="grid-4">
                                 <figure class="custom-cover">
@@ -71,12 +71,21 @@
                                             <div class="btn-group float-right">
                                                 <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit Book" %}" data-toggle="modal" href="{% url "edit:editor" book.url_title %}"><i class="icon-pencil"></i></a>
                                                 <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "View Book Info" %}" href="{% url 'reader:infopage' book.url_title %}" target="_blank"><i class="icon-eye-open"></i></a>
-                                                <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Delete Book" %}" href="{% url "accounts:view_profile"    request.user.username %}"><i class="icon-trash"></i></a>
+                                                {% if request.user == book.owner and is_group_member or user.is_superuser or is_group_admin %}
+                                                    <a href={% url 'portal:remove_book' user_group.url_name book.url_title %} class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Remove Book from this group" %}"
+                                                       data-target="#bookRemoveModal"
+                                                       data-toggle="modal">
+                                                        <i class="icon-trash"></i></a>
+                                                {% endif %}
                                             </div>
                                         {% endif %}
                                 </div>
                             </div>
                         {% endfor %}
+                        <div class="box-bottom-white">
+                            <div id="bookRemoveModal" class="modal fade cleanModalInfo" tabindex="-1" role="dialog" aria-labelledby="removeBookModal" aria-hidden="true">
+                            </div>
+                        </div>
                     </div> <!-- End of book list (book-thumb or book-list) -->
                     {% if is_group_admin %}
                         <div class="box-bottom-white">
