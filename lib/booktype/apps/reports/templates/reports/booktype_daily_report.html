@@ -2,7 +2,7 @@
 <html>
 
 <body>
- <h1>{% blocktrans with report_date|date:"D d M Y" as date %}Report for {{ booki_name }} ({{ date }}){% endblocktrans %}</h1>
+ <h1>{% blocktrans with report_date|date:"D d M Y" as date %}Report for {{ booktype_name }} ({{ date }}){% endblocktrans %}</h1>
 
  <h2>{% trans "Activity" %}</h2>
  <p><img src="cid:graph.png"></p>
@@ -41,7 +41,9 @@
  <p>
   <ul>
    {% for user in users %}
-    <li><a href="{{ site_url }}{% url "view_profile"  user.username %}">{{ user.username }}</a> ({{ user.first_name }})</li>
+    <li>
+			<a href="{{ site_url }}{% url "accounts:view_profile"  user.username %}">{{ user.username }}</a>
+			({{ user.first_name }})</li>
    {% empty %}
     <li>{% trans "No new users" %}</li>
    {% endfor %}
@@ -52,7 +54,7 @@
  <p>
   <ul>
   {% for book in books %}
-   <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{ book.url_title }})</li>
+   <li><a href="{{ site_url }}/{{ book.url_title }}">{{ book.title }}</a> ({{ book.url_title }})</li>
   {% empty %}
    <li>{% trans "No new books" %}</li>
   {% endfor %}
@@ -63,7 +65,7 @@
  <p>
   <ul>
   {% for group in groups %}
-   <li><a href="{{ group.get_absolute_url }}">{{ group.name }}</a> ({{ group.url_name }})</li>
+   <li><a href="{{ site_url }}{% url "portal:group"  group.url_name %}">{{ group.name }}</a> ({{ group.url_name }})</li>
   {% empty %}
    <li>{% trans "No new groups" %}</li>
   {% endfor %}
@@ -74,10 +76,10 @@
  <p>
   <ul>
   {% for book, his in history %}
-   <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+   <li><a href="{{ site_url }}/{{ book.url_title }}">{{ book.title }}</a>
     <ul>
     {% for ln in his %}
-     <li> <a href="{{ ln.chapter.get_absolute_url }}">{{ ln.chapter.title }}</a></li>
+     <li> <a href="{{ site_url }}/{{ book.url_title }}/_draft/{{ ln.chapter.url_title }}">{{ ln.chapter.title }}</a></li>
     {% endfor %}
     </ul>
    </li>
