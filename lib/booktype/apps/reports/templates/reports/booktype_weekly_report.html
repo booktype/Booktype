@@ -3,7 +3,7 @@
 
 <body>
 <! -- date:"d M Y" -->
- <h1>Weekly report for {{ booki_name }} ({{ week_ago|date:"d M Y" }} - {{ now_date|date:"d M Y" }})</h1>
+ <h1>{% blocktrans with date_start=week_ago|date:"d M Y" date_end=now_date|date:"d M Y"%}Weekly report for {{ booktype_name }} ({{ date_start }} - {{ date_end }}){% endblocktrans %}</h1>
 
  <h2>{% trans "Activity" %}</h2>
  <p><img src="cid:graph.png"></p>
@@ -49,7 +49,7 @@
  <p>
   <ul>
   {% for book in active_books %}
-   <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{ book.url_title }})</li>
+   <li><a href="{{ site_url }}/{{ book.url_title }}">{{ book.title }}</a> ({{ book.url_title }})</li>
   {% empty %}
    <li>{% trans "No active books" %}</li>
   {% endfor %}
@@ -60,7 +60,7 @@
  <p>
   <ul>
    {% for user in active_users %}
-    <li><a href="{{ site_url }}{% url "view_profile"  user.username %}">{{ user.username }}</a> ({{ user.first_name }})</li>
+    <li><a href="{{ site_url }}{% url "accounts:view_profile"  user.username %}">{{ user.username }}</a> ({{ user.first_name }})</li>
    {% empty %}
     <li>{% trans "No active users" %}</li>
    {% endfor %}
