@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-13 15:22+0100\n"
-"PO-Revision-Date: 2016-01-19 08:30+0000\n"
+"POT-Creation-Date: 2016-02-02 23:27+0100\n"
+"PO-Revision-Date: 2016-02-03 08:31+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Polish (http://www.transifex.com/sourcefabric/booktype/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -122,9 +122,9 @@ msgstr ""
 #: apps/portal/templates/portal/books.html:19
 #: apps/portal/templates/portal/frontpage.html:22
 #: apps/portal/templates/portal/group.html:23
-#: apps/portal/templates/portal/group.html:50 apps/portal/views.py:390
-#: apps/portal/views.py:391
-#: apps/reader/templates/reader/book_info_page.html:87
+#: apps/portal/templates/portal/group.html:50 apps/portal/views.py:395
+#: apps/portal/views.py:396
+#: apps/reader/templates/reader/book_info_page.html:90
 msgid "Books"
 msgstr ""
 
@@ -225,19 +225,13 @@ msgstr ""
 #: apps/portal/templates/portal/frontpage.html:108
 #: apps/portal/templates/portal/group_create.html:9
 #: apps/portal/templates/portal/group_create_modal.html:7
-#: apps/portal/views.py:254
+#: apps/portal/views.py:259
 msgid "Create New Group"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:136
 #: apps/account/templates/account/form_signedin.html:3
 msgid "My Profile"
-msgstr ""
-
-#: apps/account/templates/account/dashboard.html:148
-#: apps/account/templates/account/other_user_box.html:10
-#: apps/portal/templates/portal/people.html:25
-msgid "Track updates by RSS"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:151
@@ -277,7 +271,7 @@ msgstr ""
 #: apps/account/templates/account/dashboard.html:170
 #: apps/portal/templates/portal/books.html:115
 #: apps/portal/templates/portal/frontpage.html:149
-#: apps/reader/templates/reader/book_info_page.html:102
+#: apps/reader/templates/reader/book_info_page.html:105
 msgid "ago"
 msgstr ""
 
@@ -287,8 +281,8 @@ msgstr ""
 
 #: apps/account/templates/account/dashboard.html:190
 #: apps/core/templates/core/nav_menu.html:28
-#: apps/portal/templates/portal/frontpage.html:89 apps/portal/views.py:179
-#: apps/portal/views.py:180
+#: apps/portal/templates/portal/frontpage.html:89 apps/portal/views.py:181
+#: apps/portal/views.py:182
 msgid "Groups"
 msgstr ""
 
@@ -342,7 +336,7 @@ msgid "Set Roles for this invitation"
 msgstr ""
 
 #: apps/account/templates/account/dashboard.html:266 apps/core/models.py:70
-#: apps/edit/templates/edit/panel_settings.html:44 apps/edit/views.py:49
+#: apps/edit/templates/edit/panel_settings.html:47 apps/edit/views.py:49
 msgid "Roles"
 msgstr ""
 
@@ -358,10 +352,9 @@ msgid "View Book Info"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:24
-#: apps/portal/templates/portal/group.html:74
 #: apps/reader/templates/reader/book_delete.html:9
 #: apps/reader/templates/reader/book_delete.html:19
-#: apps/reader/templates/reader/book_info_page.html:64
+#: apps/reader/templates/reader/book_info_page.html:67
 msgid "Delete Book"
 msgstr ""
 
@@ -503,8 +496,8 @@ msgstr ""
 #: apps/portal/templates/portal/all_groups.html:72
 #: apps/portal/templates/portal/all_groups.html:96
 #: apps/portal/templates/portal/group.html:22
-#: apps/portal/templates/portal/group.html:108
-#: apps/reader/templates/reader/book_info_page.html:87
+#: apps/portal/templates/portal/group.html:117
+#: apps/reader/templates/reader/book_info_page.html:90
 msgid "Members"
 msgstr ""
 
@@ -730,8 +723,8 @@ msgstr ""
 #: apps/portal/templates/portal/anonymous_frontpage.html:53
 #: apps/portal/templates/portal/books.html:60
 #: apps/portal/templates/portal/frontpage.html:131
-#: apps/portal/templates/portal/group.html:102
-#: apps/portal/templates/portal/people.html:59
+#: apps/portal/templates/portal/group.html:111
+#: apps/portal/templates/portal/people.html:58
 msgid "Not a member? Please fill the "
 msgstr ""
 
@@ -740,8 +733,8 @@ msgstr ""
 #: apps/portal/templates/portal/anonymous_frontpage.html:53
 #: apps/portal/templates/portal/books.html:60
 #: apps/portal/templates/portal/frontpage.html:131
-#: apps/portal/templates/portal/group.html:102
-#: apps/portal/templates/portal/people.html:60
+#: apps/portal/templates/portal/group.html:111
+#: apps/portal/templates/portal/people.html:59
 msgid "Registration form"
 msgstr ""
 
@@ -887,7 +880,7 @@ msgstr ""
 msgid "Permission"
 msgstr ""
 
-#: apps/core/models.py:29 apps/edit/templates/edit/panel_settings.html:48
+#: apps/core/models.py:29 apps/edit/templates/edit/panel_settings.html:51
 #: apps/edit/views.py:50
 msgid "Permissions"
 msgstr ""
@@ -980,13 +973,13 @@ msgstr ""
 msgid "Help us to translate Booktype"
 msgstr ""
 
-#: apps/core/templates/core/nav_menu.html:10 apps/portal/views.py:47
+#: apps/core/templates/core/nav_menu.html:10 apps/portal/views.py:48
 msgid "Home"
 msgstr ""
 
 #: apps/core/templates/core/nav_menu.html:35
-#: apps/portal/templates/portal/frontpage.html:61 apps/portal/views.py:358
-#: apps/portal/views.py:359
+#: apps/portal/templates/portal/frontpage.html:61 apps/portal/views.py:363
+#: apps/portal/views.py:364
 msgid "People"
 msgstr ""
 
@@ -1124,7 +1117,6 @@ msgstr ""
 
 #: apps/edit/__init__.py:23 apps/edit/templates/edit/panel_covers.html:22
 #: apps/edit/templates/edit/panel_covers.html:97
-#: apps/edit/templates/edit/panel_covers.html:154
 #: apps/reader/templatetags/reader_tags.py:41
 msgid "Upload cover"
 msgstr ""
@@ -1320,6 +1312,7 @@ msgstr ""
 #: apps/edit/templates/edit/settings/_metadata.html:29
 #: apps/edit/templates/edit/settings/generic.html:17
 #: apps/portal/templates/portal/group_delete_modal.html:15
+#: apps/portal/templates/portal/group_remove_book.html:16
 #: apps/reader/templates/reader/book_delete.html:18
 msgid "Cancel"
 msgstr ""
@@ -2035,6 +2028,7 @@ msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:60
 #: apps/edit/templates/edit/panel_aloha.html:287
+#: apps/edit/templates/edit/panel_covers.html:154
 #: apps/edit/templates/edit/panel_toc.html:18
 #: apps/edit/templates/edit/panel_toc.html:37
 #: apps/edit/templates/edit/settings/_roles.html:86
@@ -2559,7 +2553,9 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_media.html:65
 #: apps/edit/templates/edit/panel_toc.html:103
-#: apps/edit/templates/edit/panel_toc.html:133 apps/portal/widgets.py:30
+#: apps/edit/templates/edit/panel_toc.html:133
+#: apps/portal/templates/portal/group_remove_book.html:17
+#: apps/portal/widgets.py:30
 msgid "Remove"
 msgstr ""
 
@@ -2608,8 +2604,8 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:44
 #: apps/edit/templates/edit/panel_settings.html:4
-#: apps/edit/templates/edit/panel_settings.html:62
-#: apps/edit/templates/edit/panel_settings.html:67
+#: apps/edit/templates/edit/panel_settings.html:65
+#: apps/edit/templates/edit/panel_settings.html:70
 msgid "Book Settings"
 msgstr ""
 
@@ -2882,15 +2878,15 @@ msgstr ""
 msgid "Additional Metadata"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_settings.html:42
+#: apps/edit/templates/edit/panel_settings.html:43
 msgid "Security"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_settings.html:63
+#: apps/edit/templates/edit/panel_settings.html:66
 msgid "Settings module not available."
 msgstr ""
 
-#: apps/edit/templates/edit/panel_settings.html:68
+#: apps/edit/templates/edit/panel_settings.html:71
 msgid "Permissions required to access this module."
 msgstr ""
 
@@ -3386,6 +3382,7 @@ msgid "There are no active groups at the moment"
 msgstr ""
 
 #: apps/portal/templates/portal/all_groups.html:82
+#: apps/reports/templates/reports/booktype_weekly_report.html:45
 msgid "New groups"
 msgstr ""
 
@@ -3456,11 +3453,15 @@ msgstr ""
 msgid "Group Settings"
 msgstr ""
 
-#: apps/portal/templates/portal/group.html:84
+#: apps/portal/templates/portal/group.html:75
+msgid "Remove Book from this group"
+msgstr ""
+
+#: apps/portal/templates/portal/group.html:93
 msgid "Click this button to select other books and add them to this group"
 msgstr ""
 
-#: apps/portal/templates/portal/group.html:84
+#: apps/portal/templates/portal/group.html:93
 msgid "Add books to this group"
 msgstr ""
 
@@ -3475,27 +3476,35 @@ msgid ""
 "undo this operation!"
 msgstr ""
 
+#: apps/portal/templates/portal/group_remove_book.html:7
+msgid "Remove the book from"
+msgstr ""
+
+#: apps/portal/templates/portal/group_remove_book.html:12
+msgid "Are you sure you would like to remove this book from the group?"
+msgstr ""
+
 #: apps/portal/templates/portal/people.html:17
 msgid "All people"
 msgstr ""
 
-#: apps/portal/templates/portal/people.html:40
+#: apps/portal/templates/portal/people.html:39
 msgid "There are no people yet"
 msgstr ""
 
-#: apps/portal/templates/portal/people.html:66
+#: apps/portal/templates/portal/people.html:65
 msgid "Active people"
 msgstr ""
 
-#: apps/portal/templates/portal/people.html:85
+#: apps/portal/templates/portal/people.html:84
 msgid "There are no active people at the moment"
 msgstr ""
 
-#: apps/portal/templates/portal/people.html:91
+#: apps/portal/templates/portal/people.html:90
 msgid "New people"
 msgstr ""
 
-#: apps/portal/templates/portal/people.html:110
+#: apps/portal/templates/portal/people.html:109
 msgid "There are no new people at the moment"
 msgstr ""
 
@@ -3511,23 +3520,23 @@ msgstr ""
 msgid "You have to log in to add books."
 msgstr ""
 
-#: apps/portal/views.py:46
+#: apps/portal/views.py:47
 msgid "Booktype"
 msgstr ""
 
-#: apps/portal/views.py:121
+#: apps/portal/views.py:115
 msgid "Group"
 msgstr ""
 
-#: apps/portal/views.py:291
+#: apps/portal/views.py:296
 msgid "Group settings"
 msgstr ""
 
-#: apps/portal/views.py:335
+#: apps/portal/views.py:340
 msgid "You are not allowed to delete this group"
 msgstr ""
 
-#: apps/portal/views.py:349
+#: apps/portal/views.py:354
 msgid "Group successfully deleted."
 msgstr ""
 
@@ -3614,67 +3623,67 @@ msgstr ""
 msgid "Published:"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:44
+#: apps/reader/templates/reader/book_info_page.html:45
 msgid "Follow changes"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:50
+#: apps/reader/templates/reader/book_info_page.html:53
 msgid "Click this button to open the editor at the Table of Contents"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:51
+#: apps/reader/templates/reader/book_info_page.html:54
 msgid "Edit this Book"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:55
+#: apps/reader/templates/reader/book_info_page.html:58
 msgid "Click this button to view the draft of the book by chapter"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:56
+#: apps/reader/templates/reader/book_info_page.html:59
 msgid "View draft"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:60
+#: apps/reader/templates/reader/book_info_page.html:63
 msgid "Click this button to edit the metadata for this book"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:61
+#: apps/reader/templates/reader/book_info_page.html:64
 msgid "Edit book info"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:63
+#: apps/reader/templates/reader/book_info_page.html:66
 msgid "Click this button to delete the entire book permanently"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:68
+#: apps/reader/templates/reader/book_info_page.html:71
 msgid "Click this button to view the draft of the book as a single page"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:69
+#: apps/reader/templates/reader/book_info_page.html:72
 msgid "View full book"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:81
+#: apps/reader/templates/reader/book_info_page.html:84
 msgid "Group that book belongs to"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:95
+#: apps/reader/templates/reader/book_info_page.html:98
 msgid "Recent activity"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:128
+#: apps/reader/templates/reader/book_info_page.html:131
 msgid "Owner"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:151
+#: apps/reader/templates/reader/book_info_page.html:154
 msgid "Admins"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:175
+#: apps/reader/templates/reader/book_info_page.html:178
 msgid "Contributors"
 msgstr ""
 
-#: apps/reader/templates/reader/book_info_page.html:200
+#: apps/reader/templates/reader/book_info_page.html:203
 msgid "Book versions"
 msgstr ""
 
@@ -3758,6 +3767,121 @@ msgstr ""
 
 #: apps/reader/views.py:278
 msgid "Book full view"
+msgstr ""
+
+#: apps/reports/management/commands/report.py:151
+#, python-brace-format
+msgid "Daily report for {0} ({1})"
+msgstr ""
+
+#: apps/reports/management/commands/reportweekly.py:157
+#, python-brace-format
+msgid "Weekly report for ({0} - {1})"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:5
+#, python-format
+msgid "Report for %(booktype_name)s (%(date)s)"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:7
+#: apps/reports/templates/reports/booktype_weekly_report.html:8
+msgid "Activity"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:10
+#: apps/reports/templates/reports/booktype_weekly_report.html:11
+msgid "Info"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:14
+#: apps/reports/templates/reports/booktype_weekly_report.html:15
+msgid "Total number of books:"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:19
+#: apps/reports/templates/reports/booktype_weekly_report.html:20
+msgid "Total number of users:"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:24
+#: apps/reports/templates/reports/booktype_weekly_report.html:25
+msgid "Total number of groups:"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:29
+#: apps/reports/templates/reports/booktype_weekly_report.html:30
+msgid "Attachments size:"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:34
+#: apps/reports/templates/reports/booktype_weekly_report.html:35
+msgid "Database size:"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:40
+msgid "New Users"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:48
+msgid "No new users"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:53
+msgid "New Books"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:59
+msgid "No new books"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:64
+msgid "New Groups"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:70
+msgid "No new groups"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:75
+msgid "Modified chapters"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_daily_report.html:87
+msgid "No Activity"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_weekly_report.html:6
+#, python-format
+msgid "Weekly report for %(booktype_name)s (%(date_start)s - %(date_end)s)"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_weekly_report.html:41
+msgid "Updates"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_weekly_report.html:43
+msgid "New users"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_weekly_report.html:44
+msgid "New books"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_weekly_report.html:48
+msgid "Most active books"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_weekly_report.html:54
+msgid "No active books"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_weekly_report.html:59
+msgid "Most active users"
+msgstr ""
+
+#: apps/reports/templates/reports/booktype_weekly_report.html:65
+msgid "No active users"
 msgstr ""
 
 #: apps/themes/templates/themes/panel.html:5
