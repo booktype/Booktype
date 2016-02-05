@@ -327,7 +327,7 @@ class ForgotPasswordView(PageView):
     title = _('Forgot your password')
 
     def get_context_data(self, **kwargs):
-        context = super(self.__class__, self).get_context_data(**kwargs)
+        context = super(ForgotPasswordView, self).get_context_data(**kwargs)
 
         context['is_admin'] = self.request.user.is_superuser
         # get all user permissions
@@ -450,7 +450,7 @@ class SignInView(PageView):
     title = _('Log in')
 
     def get_context_data(self, **kwargs):
-        context = super(self.__class__, self).get_context_data(**kwargs)
+        context = super(SignInView, self).get_context_data(**kwargs)
         try:
             context['invite_email'] = self.request.session['invite_data']['email']
         except KeyError:

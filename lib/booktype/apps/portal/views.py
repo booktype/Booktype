@@ -1,7 +1,6 @@
 import datetime
 import logging
 
-from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
@@ -18,11 +17,9 @@ from django.views.generic.edit import CreateView, UpdateView
 from braces.views import LoginRequiredMixin
 
 from booktype.apps.core import views
-from booktype.apps.core.models import Role
 from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.views import PageView, BasePageView
-from booktype.apps.account.forms import UserInviteForm
 from booki.editor.models import Book, BookiGroup, BookHistory
 
 from .forms import GroupCreateForm, GroupUpdateForm
@@ -122,7 +119,7 @@ class GroupPageView(views.SecurityMixin, GroupManipulation):
         if context['selected_group_error']:
             return views.ErrorPage(self.request, "portal/errors/group_does_not_exist.html", {"group_name": context['groupid']})
 
-        return super(self.__class__, self).render_to_response(context, **response_kwargs)
+        return super(GroupPageView, self).render_to_response(context, **response_kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(GroupPageView, self).get_context_data(**kwargs)
@@ -143,7 +140,7 @@ class GroupPageView(views.SecurityMixin, GroupManipulation):
             context['books_list'] = Book.objects.filter(group=context['selected_group']).order_by('-created')
         else:
             context['books_list'] = Book.objects.filter(
-                    Q(group=context['selected_group']), Q(hidden=False) | Q(owner=self.request.user)
+                Q(group=context['selected_group']), Q(hidden=False) | Q(owner=self.request.user)
             ).order_by('-created')
 
         context['user_group'] = {
