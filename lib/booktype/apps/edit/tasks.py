@@ -99,7 +99,7 @@ def publish_book(*args, **kwargs):
     result = download.fetch_url(convert_url, data, method='POST')
 
     if not result:
-        logger.error('Could not fetch the book from [{}]'.format(convert_url))
+        logger.error('Could not send the publishing request to [{}]'.format(convert_url))
         sputnik.addMessageToChannel2(
             kwargs['clientid'],
             kwargs['sputnikid'],
@@ -116,9 +116,11 @@ def publish_book(*args, **kwargs):
     start_time = time.time()
 
     EXPORT_WAIT_FOR = config.get_configuration('EXPORT_WAIT_FOR', 90)
-
+    logger.debug('Waiting for the task %s to finish. Will wait for %s seconds.', task_id, EXPORT_WAIT_FOR)
+        
     while True:
         if time.time() - start_time > EXPORT_WAIT_FOR:
+            logger.error('Publishing request timed out after %s seconds.', int(time.time() - start_time))
             sputnik.addMessageToChannel2(
                 kwargs['clientid'],
                 kwargs['sputnikid'],
@@ -227,6 +229,7 @@ def publish_book(*args, **kwargs):
                     myself=True
                 )
 
+                logger.info('Successfully received status of the conversion task %s.', task_id)
                 # emulate user object and request object needed for send_notification function
                 user = namedtuple('user', 'username')(username=kwargs['username'])
                 request = namedtuple('request', 'user clientID sputnikID')(user=user,
@@ -239,6 +242,8 @@ def publish_book(*args, **kwargs):
                 break
 
         if dta['state'] == 'FAILURE':
+            logger.error('Convert returned FAILURE status. Publishing will not be finished.')
+
             sputnik.addMessageToChannel2(
                 kwargs['clientid'],
                 kwargs['sputnikid'],
