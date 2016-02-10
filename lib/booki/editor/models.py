@@ -245,7 +245,7 @@ class Book(models.Model):
                     return None
             else:
                 v = version.split('.')
-                if len(v) != 2: return None
+                if len(v) != 2: return None # noqa
 
                 try:
                     book_ver = emodels.BookVersion.objects.get(book=self, major=int(v[0]), minor=int(v[1]))
@@ -382,6 +382,7 @@ class BaseInfo(models.Model):
 
 class Info(BaseInfo):
     """Basic model for saving book Metadata"""
+
     book = models.ForeignKey(
         Book, null=False,
         verbose_name=_("book")
@@ -398,6 +399,7 @@ class Info(BaseInfo):
 
 class BookSetting(BaseInfo):
     """Basic model for saving book settings"""
+
     book = models.ForeignKey(
         Book, null=False,
         verbose_name=_("book"),
@@ -430,10 +432,9 @@ class BookVersion(models.Model):
         return BookToc.objects.filter(version=self).order_by("-weight")
 
     def get_hold_chapters(self):
-        return Chapter.objects.raw('SELECT editor_chapter.* FROM editor_chapter LEFT OUTER JOIN editor_booktoc ON (editor_chapter.id=editor_booktoc.chapter_id)  WHERE editor_chapter.book_id=%s AND editor_chapter.version_id=%s AND editor_booktoc.chapter_id IS NULL', (self.book.id, self.id))
+        return Chapter.objects.raw('SELECT editor_chapter.* FROM editor_chapter LEFT OUTER JOIN editor_booktoc ON (editor_chapter.id=editor_booktoc.chapter_id)  WHERE editor_chapter.book_id=%s AND editor_chapter.version_id=%s AND editor_booktoc.chapter_id IS NULL', (self.book.id, self.id)) # noqa
 
     def get_attachments(self):
-        "Return all attachments for this version."
         return Attachment.objects.filter(version=self)
 
     def get_version(self):
@@ -625,14 +626,14 @@ class ChapterLock(models.Model):
 
 
 # Attachment
-def uploadAttachmentTo(att, filename):
+def upload_attachment_to(att, filename):
     return '%s/books/%s/%s/%s' % (
         settings.DATA_ROOT, att.book.url_title,
         att.version.get_version(), filename
     )
 
 
-def getAttachmentUrl(att, filename):
+def get_attachment_url(att, filename):
     return '%sbooks/%s/%s/%s' % (
         settings.DATA_URL, att.book.url_title,
         att.version.get_version(), filename
@@ -651,16 +652,13 @@ class Attachment(models.Model):
     # don't really need book anymore
     book = models.ForeignKey(Book, null=False, verbose_name=_("book"))
 
-    attachment = models.FileField(_('filename'), upload_to=uploadAttachmentTo, max_length=2500)
+    attachment = models.FileField(_('filename'), upload_to=upload_attachment_to, max_length=2500)
 
     status = models.ForeignKey(BookStatus, null=False, verbose_name=_("status"))
     created = models.DateTimeField(_('created'), null=False, auto_now=False, default=datetime.datetime.now)
 
-    def get_name(self):
-        name = self.attachment.name
-        return name[name.rindex('/') + 1:]
-
     def delete(self):
+        self.delete_thumbnail()
         self.attachment.delete(save=False)
 
         super(Attachment, self).delete()
@@ -668,29 +666,47 @@ class Attachment(models.Model):
     def __unicode__(self):
         return self.attachment.name
 
-    def thumbnail(self, size=(100, 100)):
-        '''returns URL for a thumbnail with the specified size'''
-        from booki.utils.misc import createThumbnail
-        filename, ext = os.path.splitext(os.path.basename(self.attachment.url))
-        w, h = size
-        filename = '%s_%s_%s_%sx%s%s' % (filename, self.pk,
-                                         time.mktime(self.created.timetuple()),
-                                         w, h, ext)
-        im_path = uploadAttachmentTo(self, filename)
-        im_url = getAttachmentUrl(self, filename)
-        if not os.path.exists(im_path):
-            try:
-                im = createThumbnail(self.attachment, size=size)
-                if im.mode == 'P':
-                    im = im.convert('RGB')
-                im.save(im_path, 'JPEG')
-            except:
-                logger.exception('Can not create thumbnail.')
-        return im_url
-
     class Meta:
         verbose_name = _('Attachment')
         verbose_name_plural = _('Attachments')
+
+    def get_name(self):
+        name = self.attachment.name
+        return name[name.rindex('/') + 1:]
+
+    def thumbnail_name(self, size=(100, 100)):
+        w, h = size
+        filename, ext = os.path.splitext(os.path.basename(self.attachment.url))
+        filename = '{}_{}_{}_{}x{}{}'.format(
+            filename, self.pk, time.mktime(self.created.timetuple()), w, h, ext)
+        return filename
+
+    def thumbnail(self, size=(100, 100)):
+        """Returns URL for a thumbnail with the specified size"""
+        from booktype.utils import misc
+
+        filename = self.thumbnail_name(size)
+        im_path = upload_attachment_to(self, filename)
+        im_url = get_attachment_url(self, filename)
+
+        if not os.path.exists(im_path):
+            try:
+                im = misc.create_thumbnail(self.attachment, size=size)
+                if im.mode == 'P':
+                    im = im.convert('RGB')
+                im.save(im_path, 'JPEG')
+            except Exception as err:
+                logger.exception('Can not create thumbnail. Error msg: %s' % err)
+        return im_url
+
+    def delete_thumbnail(self, size=(100, 100)):
+        filename = self.thumbnail_name(size)
+        thumb_path = upload_attachment_to(self, filename)
+
+        try:
+            os.remove(thumb_path)
+        except Exception as err:
+            logger.exception('Unable to delete thumbnail. Error msg: %s' % err)
 
     # DEPRECATED API NAMES
     getName = get_name
@@ -772,7 +788,7 @@ class PublishWizzard(models.Model):
     book = models.ForeignKey(Book, null=True, verbose_name=_("book"))
     user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
     wizz_type = models.CharField(_('wizard type'), max_length=20, blank=False)
-    wizz_options =  models.TextField(_('wizard options'), default='', null=False)
+    wizz_options = models.TextField(_('wizard options'), default='', null=False)
 
     def __unicode__(self):
         return u'%s' % (self.book.url_title, )
@@ -783,7 +799,7 @@ class PublishWizzard(models.Model):
         unique_together = ('book', 'user', 'wizz_type')
 
 
-def uploadCoverTo(att, filename):
+def upload_cover_to(att, filename):
     extension = os.path.splitext(filename)[-1].lower()
     return '%s/book_covers/%s%s' % (settings.DATA_ROOT, att.id, extension)
 
@@ -794,7 +810,7 @@ class BookCover(models.Model):
 
     cid = models.CharField('cid', max_length=40, null=False, default='', unique=True)
 
-    attachment = models.FileField(_('filename'), upload_to=uploadCoverTo, max_length=2500)
+    attachment = models.FileField(_('filename'), upload_to=upload_cover_to, max_length=2500)
     filename = models.CharField('file name', max_length=250, unique=False, default='')
     title = models.CharField(_('Cover title'), max_length=250, blank=False, unique=False)
 
@@ -825,3 +841,9 @@ class BookCover(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.id, )
+
+
+# DEPRECATED API NAMES
+uploadAttachmentTo = upload_attachment_to
+getAttachmentUrl = get_attachment_url
+uploadCoverTo = upload_cover_to
