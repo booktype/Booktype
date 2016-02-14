@@ -24,13 +24,12 @@ from booktype.utils.book import (
     create_book, rename_book, check_book_availability
 )
 
-logger = logging.getLogger('booktype')
+logger = logging.getLogger('booktype.controlcenter')
 
 
 class BaseControlForm(BaseBooktypeForm):
-    """
-    Base class for Control Center forms
-    """
+    """Base class for Control Center forms"""
+
     success_message = None
     success_url = None
     cancel_url = reverse_lazy('control_center:settings')
@@ -53,7 +52,7 @@ class BaseControlForm(BaseBooktypeForm):
 class SiteDescriptionForm(BaseControlForm, forms.Form):
     title = forms.CharField(
         label=_("Site title"),
-        required=True,
+        required=False,
         error_messages={'required': _('Site title is required.')},
         max_length=200
     )
@@ -76,6 +75,8 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
         }
 
     def save_settings(self, request):
+        from uuid import uuid4
+
         config.set_configuration(
             'BOOKTYPE_SITE_NAME', self.cleaned_data['title'])
         config.set_configuration(
@@ -84,13 +85,23 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
         if 'favicon' in self.files:
             # just check for any kind of silly error
             try:
+                prev_favicon = config.get_configuration('BOOKTYPE_SITE_FAVICON', None)
                 fh, fname = misc.save_uploaded_as_file(self.files['favicon'])
-                shutil.move(fname, '%s/favicon.ico' % settings.STATIC_ROOT)
+                rand_name = 'favicon.%s.ico' % uuid4().hex[:8]
+                shutil.move(fname, '{}/{}'.format(settings.STATIC_ROOT, rand_name))
 
                 config.set_configuration(
                     'BOOKTYPE_SITE_FAVICON',
-                    '%s/static/favicon.ico' % settings.BOOKTYPE_URL
+                    '{}/static/{}'.format(settings.BOOKTYPE_URL, rand_name)
                 )
+
+                # delete prev icon to avoid garbage
+                if prev_favicon:
+                    try:
+                        prev_name = prev_favicon.rsplit('/', 1)[-1]
+                        os.remove('{}/{}'.format(settings.STATIC_ROOT, prev_name))
+                    except Exception as err:
+                        logger.exception("Unable to remove previous favicon. Msg: %s" % err)
             except:
                 pass
 
