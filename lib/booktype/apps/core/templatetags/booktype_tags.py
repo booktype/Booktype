@@ -1,5 +1,4 @@
 import re
-import cgi
 import json
 import logging
 from lxml import etree
@@ -249,22 +248,19 @@ def jsonlookup(d, key):
 
 @register.simple_tag
 def booktype_site_metadata():
-    s = ''
+    """Simple tag to load sitename and tagline from custom configuration"""
 
-    # probably should add namespace to html tag
+    meta_tags = ''
+
     name = config.get_configuration('BOOKTYPE_SITE_NAME', None)
     if name:
-        s += '<meta property="og:site_name" content="%s"/>' % cgi.escape(
-            name,
-            True)
+        meta_tags += '<meta property="og:site_name" content="%s" />' % escape(name)
 
     tagline = config.get_configuration('BOOKTYPE_SITE_TAGLINE', None)
     if tagline:
-        s += '<meta name="description" content="%s"/>' % cgi.escape(
-            tagline,
-            True)
+        meta_tags += '\n<meta name="description" content="%s" />' % escape(tagline)
 
-    return s
+    return meta_tags
 
 
 @register.simple_tag
