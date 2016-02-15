@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page_title }}</title>
+  {% booktype_site_favicon %}
+  {% booktype_site_metadata %}
 
   {% block header %}
     {% include "core/header_styles.html" %}
@@ -18,7 +20,7 @@
   {% endblock %}
 
   {% google_analytics %}
- </head>  
+ </head>
 <body>
  {% block navigation %}
    {% include "core/nav_menu.html" %}
@@ -28,7 +30,7 @@
  {% block bar %}
    <!-- Bookbar -->
    <div class="bookbar">
-     <h1>{{ title }}</h1>             
+     <h1>{{ title }}</h1>
    </div>
    <!-- end Bookbar -->
  {% endblock %}

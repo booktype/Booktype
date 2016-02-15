@@ -1,11 +1,11 @@
 import re
-import cgi
 import json
 import logging
 from lxml import etree
 from ebooklib.utils import parse_html_string
 
 from django import template
+from django.utils.html import escape
 from django.template.smartif import Literal
 from django.template.defaulttags import TemplateIfParser, IfNode
 
@@ -248,22 +248,19 @@ def jsonlookup(d, key):
 
 @register.simple_tag
 def booktype_site_metadata():
-    s = ''
+    """Simple tag to load sitename and tagline from custom configuration"""
 
-    # probably should add namespace to html tag
+    meta_tags = ''
+
     name = config.get_configuration('BOOKTYPE_SITE_NAME', None)
     if name:
-        s += '<meta property="og:site_name" content="%s"/>' % cgi.escape(
-            name,
-            True)
+        meta_tags += '<meta property="og:site_name" content="%s" />' % escape(name)
 
     tagline = config.get_configuration('BOOKTYPE_SITE_TAGLINE', None)
     if tagline:
-        s += '<meta name="description" content="%s"/>' % cgi.escape(
-            tagline,
-            True)
+        meta_tags += '\n<meta name="description" content="%s" />' % escape(tagline)
 
-    return s
+    return meta_tags
 
 
 @register.simple_tag
@@ -283,15 +280,14 @@ def booktype_site_name():
 
 @register.simple_tag
 def booktype_site_favicon():
-    favicon = config.get_configuration('BOOKTYPE_SITE_FAVICON', None)
-    if favicon:
-        s = '<link rel="SHORTCUT ICON" href="%s" type="image/x-icon">' %\
-            cgi.escape(favicon, True)
-    else:
-        s = '<link rel="SHORTCUT ICON" href="%score/img/favicon.ico" \
-            type="image/x-icon">' % settings.STATIC_URL
+    """Simple tag to load default booktype favicon or custom one from settings"""
 
-    return s
+    from django.templatetags.static import static
+
+    default = static('core/img/favicon.ico')
+    favicon = config.get_configuration('BOOKTYPE_SITE_FAVICON', default)
+
+    return '<link rel="shortcut icon" href="%s" type="image/x-icon">' % escape(favicon)
 
 
 @register.filter
@@ -314,9 +310,7 @@ def role_ids_for(user, book):
 
 @register.filter
 def order_by(queryset, order_field):
-    """
-    Orders a given queryset with the desired order_field as param
-    """
+    """Orders a given queryset with the desired order_field as param"""
 
     return queryset.order_by(order_field)
 
@@ -392,7 +386,7 @@ class AssignNode(template.Node):
     def __init__(self, name, value):
         self.name = name
         self.value = value
-        
+
     def render(self, context):
         context[self.name] = self.value.resolve(context, True)
         return ''
@@ -402,13 +396,14 @@ class AssignNode(template.Node):
 def do_assign(parser, token):
     """
     Assign an expression to a variable in the current context.
-    
+
     Syntax::
         {% assign [name] [value] %}
     Example::
         {% assign list entry.get_related %}
-        
+
     """
+
     bits = token.contents.split()
     if len(bits) != 3:
         raise template.TemplateSyntaxError("'%s' tag takes two arguments" % bits[0])
@@ -508,5 +503,5 @@ def google_analytics(context):
 
 @register.simple_tag
 def random_url(length=12):
-    from random import randint    
-    return randint(10**(length-1), (10**(length)-1))
+    from random import randint
+    return randint(10**(length - 1), (10**(length) - 1))
