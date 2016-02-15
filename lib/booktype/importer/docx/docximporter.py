@@ -1,5 +1,8 @@
 import os
+import lxml
+import uuid
 import ooxml
+import logging
 import zipfile
 import datetime
 
@@ -12,10 +15,12 @@ from booktype.utils.misc import booktype_slugify
 from booktype.importer.notifier import Notifier
 from booktype.importer.delegate import Delegate
 
-from ooxml import importer, serialize
+from ooxml import importer, serialize, doc
 
 from .utils import convert_image
 from .styles import STYLE_EDITOR, STYLE_EPUB
+
+logger = logging.getLogger("booktype.importer.docx")
 
 
 class WordImporter(object):
@@ -29,11 +34,13 @@ class WordImporter(object):
         # Chapter objects indexed by document file name
         self._chapters = {}
 
+        self.endnotes = {}
+        self.footnotes = {}
+
     def _check_for_elements(self):
         from ooxml import doc
 
         found_math = False
-        found_footnote = False
 
         for elem in self.dfile.document.elements:
             if isinstance(elem, doc.Paragraph):
@@ -41,27 +48,46 @@ class WordImporter(object):
                     if isinstance(el, doc.Math):
                         found_math = True
 
-                    if isinstance(el, doc.Footnote):
-                        found_footnote = True
-
         if found_math:
-            # Translators: Warning during the DOCX import
-            warn_msg = _('Note: When importing formulas have been found and highlighted in the text, which are not supported by many e-readers and easy editor.') # noqa
-            self.notifier.warning(warn_msg)
-
-        if found_footnote:
-            # Translators: Warning during the DOCX import
-            warn_msg = _('Note: When importing foot or endnotes were found, which are not yet supported by easy editor.') # noqa
+            warn_msg = _("Note: When importing formulas have been found and highlighted in the text, which are not supported by many e-readers and booktype editor.")  # noqa
             self.notifier.warning(warn_msg)
 
     def import_file(self, file_path, book, options=None):
-        from ooxml import doc
-
         self.delegate.notifier = self.notifier
         self.broken_images = []
         self.converted_images = []
 
         def serialize_empty(ctx, document, elem, root):
+            return root
+
+        def serialize_endnote(ctx, document, el, root):
+            # <sup class="endnote" data-id="1454855960556">1</sup>
+
+            if el.rid not in self.endnotes:
+                data_id = str(uuid.uuid1()).replace('-', '')
+                self.endnotes[el.rid] = data_id
+            else:
+                data_id = self.endnotes[el.rid]
+
+            note = lxml.etree.SubElement(
+                root, 'sup', {'class': 'endnote', 'data-id': data_id})
+            note.text = '1'
+
+            return root
+
+        def serialize_footnote(ctx, document, el, root):
+            # <sup class="endnote" data-id="1454855960556">1</sup>
+
+            if el.rid not in self.footnotes:
+                data_id = str(uuid.uuid1()).replace('-', '')
+                self.footnotes[el.rid] = data_id
+            else:
+                data_id = self.footnotes[el.rid]
+
+            note = lxml.etree.SubElement(
+                root, 'sup', {'class': 'endnote', 'data-id': data_id})
+            note.text = '1'
+
             return root
 
         if not options:
@@ -76,14 +102,14 @@ class WordImporter(object):
                 # 'empty_paragraph_as_nbsp': True,
                 'serializers': {
                     doc.Math: serialize_empty,
-                    doc.Footnote: serialize_empty
+                    doc.Footnote: serialize_footnote,
+                    doc.Endnote: serialize_endnote
                 }
             }
 
             chapters = importer.get_chapters(
                 self.dfile.document, options=options,
-                serialize_options=serialize_options
-            )
+                serialize_options=serialize_options)
 
             self._import_attachments(book, self.dfile.document)
             self._import_chapters(book, chapters)
@@ -94,11 +120,12 @@ class WordImporter(object):
 
             self._check_for_elements()
         except zipfile.BadZipfile:
-            notif_msg = _('The file could not be imported because it was not saved in the .docx format. Try to open the file in Word and save it as a .docx.') # noqa
+            notif_msg = _("The file could not be imported because it was not saved in the .docx format. Try to open the file in Word and save it as a .docx.")  # noqa
             self.notifier.error(notif_msg)
-        except:
-            err_msg = _('The docx file you uploaded contains errors and cannot be converted. Please contact customer support.') # noqa
+        except Exception as err:
+            err_msg = _("The docx file you uploaded contains errors and cannot be converted. Please contact customer support.")  # noqa
             self.notifier.error(err_msg)
+            logger.exception("Error trying to import docx file. Msg: %s" % err)
 
     def _import_styles(self, book):
         from django.conf import settings
@@ -133,69 +160,65 @@ class WordImporter(object):
         f.close()
 
     def _import_attachments(self, book, doc):
-        stat = models.BookStatus.objects.filter(book=book, name="new")[0]
+        stat = models.BookStatus.objects.filter(book=book, name='new')[0]
 
         unimportable_image = False
+        not_supported = False
 
-        for rel_id, rel_value in doc.relationships.iteritems():
-            schema_url = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image' # noqa
-            if rel_value['type'] == schema_url:
-                att = models.Attachment(
-                    book=book, version=book.version, status=stat)
+        for rel_id, rel_value in doc.relationships['document'].iteritems():
+            if rel_value.get('type', '') == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image':
+                att = models.Attachment(book=book, version=book.version, status=stat)
 
                 valid_extensions = ['.jpg', '.jpeg', '.png', '.gif']
-                import_msg = _("Note: Some images couldn't be imported.")
+                import_msg = _("The file format you uploaded is not supported. Please save the image as jpg file and upload it again.")  # noqa
+
                 try:
-                    target_file = self.dfile.read_file(rel_value['target'])
-                    with ContentFile(target_file) as content_file:
+                    with ContentFile(self.dfile.read_file(rel_value['target'])) as content_file:
                         att_name, att_ext = os.path.splitext(
                             os.path.basename(rel_value['target']))
                         original_ext = att_ext[:]
 
                         if att_ext.lower() in ['.tif', '.tiff']:
                             try:
-                                content_file = convert_image(
-                                    'tiff', content_file)
+                                content_file = convert_image('tiff', content_file)
                                 self.converted_images.append(
                                     'static/{}{}'.format(rel_id, original_ext))
 
                                 att_ext = '.png'
                             except:
+                                # broken image
                                 if not unimportable_image:
                                     self.notifier.warning(import_msg)
                                     unimportable_image = True
 
                                 content_file = None
-                                # broken image
+
                         elif att_ext.lower() not in valid_extensions:
                             if not unimportable_image:
                                 self.notifier.warning(import_msg)
                                 unimportable_image = True
+
                             content_file = None
 
                         if content_file:
-                            att.attachment.save('{}{}'.format(
-                                rel_id, att_ext), content_file, save=False)
+                            att.attachment.save('{}{}'.format(rel_id, att_ext), content_file, save=False)
                             att.save()
                         else:
-                            self.broken_images.append(
-                                'static/{}{}'.format(rel_id, original_ext))
+                            if not not_supported:
+                                self.notifier.warning(_("An error occured while importing images. Some images couldn't be imported. Missing images are marked within the text. Please upload missing images manually."))  # noqa
+                                not_supported = True
 
-                            assets_dir = os.path.join(
-                                os.path.dirname(__file__), "assets/")
-                            data = open(
-                                '{}placeholder_broken_img.jpg'.format(
-                                    assets_dir), 'rb').read()
+                            self.broken_images.append('static/{}{}'.format(rel_id, original_ext))
+
+                            assets_dir = os.path.join(os.path.dirname(__file__), "assets/")
+                            pholder_path = '{}placeholder_broken_img.jpg'.format(assets_dir)
+                            data = open(pholder_path, 'rb').read()
                             content_file = ContentFile(data)
 
-                            att.attachment.save(
-                                '{}.jpg'.format(rel_id),
-                                content_file,
-                                save=False
-                            )
+                            att.attachment.save('{}.jpg'.format(rel_id), content_file, save=False)
                             att.save()
-                except:
-                    pass
+                except Exception as err:
+                    logger.exception("Exception while importing attachments. Msg: %s" % err)
 
     def _import_chapters(self, book, chapters):
         now = datetime.datetime.now()
@@ -327,5 +350,61 @@ class WordImporter(object):
             if image_name in self.converted_images:
                 _img.set('src', 'static/{}.png'.format(att_name))
 
+        has_endnotes = False
+        endnotes = None
+        idx_endnote = 1
+
+        for endnote in tree.xpath('.//sup[@class="endnote"]'):
+
+            key = endnote.get('data-id', '')
+            if key == '':
+                continue
+
+            endnote.text = '{}'.format(idx_endnote)
+            idx_endnote += 1
+
+            endnote_key = None
+            footnote_key = None
+
+            for k, v in self.endnotes.iteritems():
+                if v == key:
+                    endnote_key = k
+
+            for k, v in self.footnotes.iteritems():
+                if v == key:
+                    footnote_key = k
+
+            note_content = None
+
+            if endnote_key:
+                endnote = self.dfile.document.endnotes[endnote_key]
+                note_content = serialize.serialize_elements(
+                    self.dfile.document, endnote, {
+                        'embed_styles': False, 'pretty_print': False,
+                        'relationship': 'endnotes'
+                    })
+
+            if footnote_key:
+                endnote = self.dfile.document.footnotes[footnote_key]
+                note_content = serialize.serialize_elements(
+                    self.dfile.document, endnote, {
+                        'embed_styles': False, 'pretty_print': False,
+                        'relationship': 'footnotes'
+                    })
+
+            if note_content is not None:
+                if not has_endnotes:
+                    endnotes = etree.SubElement(tree.find('body'), 'ol', {'class': 'endnotes'})
+                    has_endnotes = True
+
+                note_tree = lxml.html.fragment_fromstring(
+                    note_content, create_parent=True,
+                    parser=lxml.html.HTMLParser(
+                        encoding='utf-8', remove_blank_text=True, remove_comments=True)
+                )
+                li = etree.SubElement(endnotes, 'li', {'id': 'endnote-{}'.format(key)})
+                for child in note_tree.find('div').getchildren():
+                    li.append(child)
+
         return etree.tostring(
-            tree, pretty_print=True, encoding="utf-8", xml_declaration=False)
+            tree, pretty_print=True, encoding='utf-8', xml_declaration=False)
