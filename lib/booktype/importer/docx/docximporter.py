@@ -205,7 +205,7 @@ class WordImporter(object):
                             att.save()
                         else:
                             if not not_supported:
-                                self.notifier.warning(_("An error occured while importing images. Some images couldn't be imported. Missing images are marked within the text. Please upload missing images manually."))  # noqa
+                                self.notifier.warning(_("An error occurred while importing images. Some images couldn't be imported. Missing images are marked within the text. Please upload missing images manually."))  # noqa
                                 not_supported = True
 
                             self.broken_images.append('static/{}{}'.format(rel_id, original_ext))
