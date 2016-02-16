@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-02 23:27+0100\n"
-"PO-Revision-Date: 2016-02-03 08:31+0000\n"
+"POT-Creation-Date: 2016-02-11 17:33-0600\n"
+"PO-Revision-Date: 2016-02-16 08:31+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: German (Austria) (http://www.transifex.com/sourcefabric/booktype/language/de_AT/)\n"
 "MIME-Version: 1.0\n"
@@ -123,8 +123,8 @@ msgstr ""
 #: apps/portal/templates/portal/books.html:19
 #: apps/portal/templates/portal/frontpage.html:22
 #: apps/portal/templates/portal/group.html:23
-#: apps/portal/templates/portal/group.html:50 apps/portal/views.py:395
-#: apps/portal/views.py:396
+#: apps/portal/templates/portal/group.html:50 apps/portal/views.py:392
+#: apps/portal/views.py:393
 #: apps/reader/templates/reader/book_info_page.html:90
 msgid "Books"
 msgstr ""
@@ -226,7 +226,7 @@ msgstr ""
 #: apps/portal/templates/portal/frontpage.html:108
 #: apps/portal/templates/portal/group_create.html:9
 #: apps/portal/templates/portal/group_create_modal.html:7
-#: apps/portal/views.py:259
+#: apps/portal/views.py:256
 msgid "Create New Group"
 msgstr ""
 
@@ -282,8 +282,8 @@ msgstr ""
 
 #: apps/account/templates/account/dashboard.html:190
 #: apps/core/templates/core/nav_menu.html:28
-#: apps/portal/templates/portal/frontpage.html:89 apps/portal/views.py:181
-#: apps/portal/views.py:182
+#: apps/portal/templates/portal/frontpage.html:89 apps/portal/views.py:178
+#: apps/portal/views.py:179
 msgid "Groups"
 msgstr ""
 
@@ -396,7 +396,7 @@ msgstr ""
 #: apps/edit/templates/edit/panel_covers.html:61
 #: apps/edit/templates/edit/panel_covers.html:116
 #: apps/edit/templates/edit/panel_covers.html:118
-#: importer/docx/docximporter.py:213 importer/docx/docximporter.py:296
+#: importer/docx/docximporter.py:236 importer/docx/docximporter.py:319
 msgid "Title"
 msgstr ""
 
@@ -974,13 +974,13 @@ msgstr ""
 msgid "Help us to translate Booktype"
 msgstr ""
 
-#: apps/core/templates/core/nav_menu.html:10 apps/portal/views.py:48
+#: apps/core/templates/core/nav_menu.html:10 apps/portal/views.py:45
 msgid "Home"
 msgstr ""
 
 #: apps/core/templates/core/nav_menu.html:35
-#: apps/portal/templates/portal/frontpage.html:61 apps/portal/views.py:363
-#: apps/portal/views.py:364
+#: apps/portal/templates/portal/frontpage.html:61 apps/portal/views.py:360
+#: apps/portal/views.py:361
 msgid "People"
 msgstr ""
 
@@ -3521,23 +3521,23 @@ msgstr ""
 msgid "You have to log in to add books."
 msgstr ""
 
-#: apps/portal/views.py:47
+#: apps/portal/views.py:44
 msgid "Booktype"
 msgstr ""
 
-#: apps/portal/views.py:115
+#: apps/portal/views.py:112
 msgid "Group"
 msgstr ""
 
-#: apps/portal/views.py:296
+#: apps/portal/views.py:293
 msgid "Group settings"
 msgstr ""
 
-#: apps/portal/views.py:340
+#: apps/portal/views.py:337
 msgid "You are not allowed to delete this group"
 msgstr ""
 
-#: apps/portal/views.py:354
+#: apps/portal/views.py:351
 msgid "Group successfully deleted."
 msgstr ""
 
@@ -3893,37 +3893,38 @@ msgstr ""
 msgid "reset"
 msgstr ""
 
-#. Translators: Warning during the DOCX import
-#: importer/docx/docximporter.py:49
+#: importer/docx/docximporter.py:52
 msgid ""
 "Note: When importing formulas have been found and highlighted in the text, "
-"which are not supported by many e-readers and easy editor."
+"which are not supported by many e-readers and booktype editor."
 msgstr ""
 
-#. Translators: Warning during the DOCX import
-#: importer/docx/docximporter.py:54
-msgid ""
-"Note: When importing foot or endnotes were found, which are not yet "
-"supported by easy editor."
-msgstr ""
-
-#: importer/docx/docximporter.py:97
+#: importer/docx/docximporter.py:123
 msgid ""
 "The file could not be imported because it was not saved in the .docx format."
 " Try to open the file in Word and save it as a .docx."
 msgstr ""
 
-#: importer/docx/docximporter.py:100
+#: importer/docx/docximporter.py:126
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
 msgstr ""
 
-#: importer/docx/docximporter.py:147
-msgid "Note: Some images couldn't be imported."
+#: importer/docx/docximporter.py:173
+msgid ""
+"The file format you uploaded is not supported. Please save the image as jpg "
+"file and upload it again."
 msgstr ""
 
-#: importer/docx/docximporter.py:211
+#: importer/docx/docximporter.py:208
+msgid ""
+"An error occured while importing images. Some images couldn't be imported. "
+"Missing images are marked within the text. Please upload missing images "
+"manually."
+msgstr ""
+
+#: importer/docx/docximporter.py:234
 msgid "Title Page"
 msgstr ""
 
