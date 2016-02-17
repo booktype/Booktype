@@ -27,6 +27,14 @@ def run_command(cmd):
     try:
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = p.communicate()
+
+        if err:
+            log_cmd = cmd
+            if cmd.__class__ == list:
+                log_cmd = ' '.join(cmd)
+
+            logger.error("Error while running the command. Error: {0}. Command: {1}".format(err, log_cmd))
+
     except Exception:
         logger.error("Error while running the command: %r" % cmd)
         raise
