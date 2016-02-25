@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-16 10:39+0000\n"
-"PO-Revision-Date: 2016-02-24 23:00+0000\n"
+"PO-Revision-Date: 2016-02-25 09:07+0000\n"
 "Last-Translator: Kjetil Nordengen <kjetilnordengen@gmail.com>\n"
 "Language-Team: Norwegian (http://www.transifex.com/sourcefabric/booktype/language/no/)\n"
 "MIME-Version: 1.0\n"
@@ -680,7 +680,7 @@ msgstr "Passord"
 
 #: apps/account/templates/account/form_signin.html:14
 msgid "User does not exist."
-msgstr "Brukeren eksisterer ikke."
+msgstr "Brukeren finnes ikke."
 
 #: apps/account/templates/account/form_signin.html:15
 msgid "Password is wrong! Please try again."
@@ -1049,7 +1049,7 @@ msgstr "Feil"
 
 #: apps/core/templates/errors/book_does_not_exist.html:9
 msgid "Book does not exist."
-msgstr "Boka eksisterer ikke."
+msgstr "Boka finnes ikke."
 
 #: apps/core/templates/errors/nopermissions.html:10
 msgid "You have no permissions to do this!"
@@ -1201,7 +1201,7 @@ msgstr "Du har valgt et ugyldig navn."
 
 #: apps/edit/channel.py:1290 apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
-msgstr "Et kapittel med dette navnet eksisterer allerede."
+msgstr "Et kapittel med dette navnet finnes allerede."
 
 #: apps/edit/channel.py:1429
 msgid "You have no permissions for editing this chapter."
@@ -1934,7 +1934,7 @@ msgstr "Kunne ikke opprette kapittel."
 
 #: apps/edit/templates/edit/edit_strings.html:38
 msgid "Section with this title already exists."
-msgstr ""
+msgstr "En seksjon med dette navnet finnes allerede."
 
 #: apps/edit/templates/edit/edit_strings.html:39
 msgid "Couldn't create section."
@@ -2890,85 +2890,85 @@ msgstr "Modulen for innstillinger er ikke tilgjengelig."
 
 #: apps/edit/templates/edit/panel_settings.html:71
 msgid "Permissions required to access this module."
-msgstr ""
+msgstr "Tillatelse trengs for å få tilgang til denne modulen."
 
 #: apps/edit/templates/edit/panel_toc.html:10
 msgid "Rename Chapter"
-msgstr ""
+msgstr "Gi kapitlet nytt navn"
 
 #: apps/edit/templates/edit/panel_toc.html:29
 msgid "Rename Section"
-msgstr ""
+msgstr "Gi seksjonen nytt navn"
 
 #: apps/edit/templates/edit/panel_toc.html:33
 msgid "New section title"
-msgstr ""
+msgstr "Nytt navn på seksjonen"
 
 #: apps/edit/templates/edit/panel_toc.html:49
 msgid "Create New Chapter"
-msgstr ""
+msgstr "Opprett nytt kapittel"
 
 #: apps/edit/templates/edit/panel_toc.html:52
 msgid "Enter new Chapter title"
-msgstr ""
+msgstr "Sett inn navn på kapittel"
 
 #: apps/edit/templates/edit/panel_toc.html:56
 msgid "Create Chapter"
-msgstr ""
+msgstr "Opprett kapittel"
 
 #: apps/edit/templates/edit/panel_toc.html:67
 msgid "Create New Section"
-msgstr ""
+msgstr "Opprett ny seksjon"
 
 #: apps/edit/templates/edit/panel_toc.html:70
 msgid "Enter new Section title"
-msgstr ""
+msgstr "Sett inn navn på ny seksjon"
 
 #: apps/edit/templates/edit/panel_toc.html:74
 msgid "Create Section"
-msgstr ""
+msgstr "Opprett seksjon"
 
 #: apps/edit/templates/edit/panel_toc.html:85
 msgid "Remove chapter"
-msgstr ""
+msgstr "Fjern kapittel"
 
 #: apps/edit/templates/edit/panel_toc.html:90
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
-msgstr ""
+msgstr "Er du sikker på du vil fjerne dette kapitlet? Du vil miste alle data knyttet til dette kapitlet og du kan ikke angre på denne handlingen!"
 
 #: apps/edit/templates/edit/panel_toc.html:114
 msgid "Remove section"
-msgstr ""
+msgstr "Fjern seksjon"
 
 #: apps/edit/templates/edit/panel_toc.html:119
 msgid ""
 "Are you sure you would like to delete this section? You will lose all data "
 "associated to this section and you will not be able to undo this operation!"
-msgstr ""
+msgstr "Er du sikker på du vil fjerne denne sekjsonen? Du vil miste alle data knyttet til denne seksjonen og du kan ikke angre på denne handlingen!"
 
 #: apps/edit/templates/edit/panel_toc.html:126
 msgid "Delete chapters under this section"
-msgstr ""
+msgstr "Slett kapitler i denne seksjonen"
 
 #: apps/edit/templates/edit/panel_toc.html:141
 msgid ""
 "All books should contain at least one chapter and can have as many sections "
 "as you like, or none."
-msgstr ""
+msgstr "Alle bøker må inneholde minst ett kapittel og kan ha så mange seksjoner du ønsker."
 
 #: apps/edit/templates/edit/panel_toc.html:151
 #: apps/edit/templates/edit/panel_toc.html:274
 #: apps/edit/templates/edit/panel_toc.html:289
 msgid "Locked"
-msgstr ""
+msgstr "Låst"
 
 #: apps/edit/templates/edit/panel_toc.html:153
 #: apps/edit/templates/edit/panel_toc.html:276
 #: apps/edit/templates/edit/panel_toc.html:291
 msgid "Locked exclusively"
-msgstr ""
+msgstr "Låst eksklusivt"
 
 #: apps/edit/templates/edit/panel_toc.html:169
 #: apps/edit/templates/edit/panel_toc.html:186
@@ -2976,59 +2976,59 @@ msgstr ""
 #: apps/reader/templates/reader/book_draft_page.html:64
 #: apps/reader/templates/reader/book_full_view.html:52
 msgid "EDIT"
-msgstr ""
+msgstr "REDIGERE"
 
 #: apps/edit/templates/edit/panel_toc.html:217
 #: apps/reader/templates/reader/book_draft_page.html:14
 #: apps/reader/templates/reader/book_full_view.html:19
 msgid "Table of Contents"
-msgstr ""
+msgstr "Innholdsfortegnelse"
 
 #: apps/edit/templates/edit/panel_toc.html:220
 msgid "Detail View"
-msgstr ""
+msgstr "Detaljert visning"
 
 #: apps/edit/templates/edit/panel_toc.html:223
 msgid "Expand All"
-msgstr ""
+msgstr "Utvid alle"
 
 #: apps/edit/templates/edit/panel_toc.html:224
 msgid "Collapse All"
-msgstr ""
+msgstr "Trekk sammen alle"
 
 #: apps/edit/templates/edit/panel_toc.html:229
 msgid "New Chapter"
-msgstr ""
+msgstr "Nytt kapittel"
 
 #: apps/edit/templates/edit/panel_toc.html:235
 msgid "New Section"
-msgstr ""
+msgstr "Ny seksjon"
 
 #: apps/edit/templates/edit/panel_toc.html:302
 #: apps/edit/templates/edit/panel_toc.html:314
 #: apps/edit/templates/edit/panel_toc.html:327
 msgid "STATUS"
-msgstr ""
+msgstr "STATUS"
 
 #: apps/edit/templates/edit/panel_toc.html:342
 #: apps/edit/templates/edit/panel_toc.html:352
 #: apps/edit/templates/edit/panel_toc.html:378
 msgid "EDIT CHAPTER"
-msgstr ""
+msgstr "REDIGER KAPITTEL"
 
 #: apps/edit/templates/edit/panel_toc.html:346
 #: apps/edit/templates/edit/panel_toc.html:360
 msgid "Hold"
-msgstr ""
+msgstr "Hold"
 
 #: apps/edit/templates/edit/panel_toc.html:348
 #: apps/edit/templates/edit/panel_toc.html:368
 msgid "Unlock"
-msgstr ""
+msgstr "Lås opp"
 
 #: apps/edit/templates/edit/panel_toc.html:374
 msgid "UNLOCK"
-msgstr ""
+msgstr "LÅS OPP"
 
 #: apps/edit/templates/edit/panel_toc.html:386
 msgid "Put on hold"
@@ -3036,7 +3036,7 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_toc.html:394
 msgid "Lock editing"
-msgstr ""
+msgstr "Lås redigering"
 
 #: apps/edit/templates/edit/panel_toc.html:395
 msgid "Lock exclusively"
@@ -3044,81 +3044,81 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_toc.html:414
 msgid "RENAME"
-msgstr ""
+msgstr "ENDRE NAVN"
 
 #: apps/edit/templates/edit/settings/_additional_metadata.html:7
 msgid "Add Field"
-msgstr ""
+msgstr "Legg til felt"
 
 #: apps/edit/templates/edit/settings/_additional_metadata.html:27
 msgid "Add another metadata field"
-msgstr ""
+msgstr "Legg til felt for metadata"
 
 #: apps/edit/templates/edit/settings/_additional_metadata.html:32
 msgid "Please, set a name to your metadata field"
-msgstr ""
+msgstr "Gi metadata-feltet et navn"
 
 #: apps/edit/templates/edit/settings/_additional_metadata.html:42
 msgid "Append"
-msgstr ""
+msgstr "Legg ved"
 
 #: apps/edit/templates/edit/settings/_additional_metadata.html:54
 msgid "Delete metadata field"
-msgstr ""
+msgstr "Slett metadata-felt"
 
 #: apps/edit/templates/edit/settings/_additional_metadata.html:58
 msgid ""
 "Are you sure you would like to remove this field? You will not be able to "
 "undo this operation!"
-msgstr ""
+msgstr "Er du sikker på du vil slette dette feltet? Du kan ikke angre på denne handlingen!"
 
 #: apps/edit/templates/edit/settings/_additional_metadata.html:66
 #: apps/edit/templates/edit/settings/_metadata.html:32
 msgid "Confirm"
-msgstr ""
+msgstr "Bekreft"
 
 #: apps/edit/templates/edit/settings/_chapter_status.html:4
 #: apps/edit/views.py:51
 msgid "Chapter Status"
-msgstr ""
+msgstr "Kapittelstatus"
 
 #: apps/edit/templates/edit/settings/_chapter_status.html:6
 msgid "New status:"
-msgstr ""
+msgstr "Ny status:"
 
 #: apps/edit/templates/edit/settings/_chapter_status.html:10
 msgid "Add"
-msgstr ""
+msgstr "Legg til"
 
 #: apps/edit/templates/edit/settings/_chapter_status.html:14
 msgid "Chapter statuses:"
-msgstr ""
+msgstr "Kapittelstatuser:"
 
 #: apps/edit/templates/edit/settings/_chapter_status.html:65
 msgid "You have no permissions to manage statuses"
-msgstr ""
+msgstr "Du har ikke tilgang til å behandle statuser"
 
 #: apps/edit/templates/edit/settings/_license.html:7
 msgid "Read full text of the license"
-msgstr ""
+msgstr "Les lisensens fulle tekst"
 
 #: apps/edit/templates/edit/settings/_metadata.html:20
 msgid "Delete metadata content"
-msgstr ""
+msgstr "Slett innhold i metadata"
 
 #: apps/edit/templates/edit/settings/_metadata.html:24
 msgid ""
 "Are you sure you would like to delete this metadata content? You will not be"
 " able to undo this operation!"
-msgstr ""
+msgstr "Er du sikker på at du vil slette disse metadataene?  Du kan ikke gjøre om denne handlingen!"
 
 #: apps/edit/templates/edit/settings/_roles.html:8
 msgid "Assign"
-msgstr ""
+msgstr "Tildel"
 
 #: apps/edit/templates/edit/settings/_roles.html:34
 msgid "There are no roles for this book yet"
-msgstr ""
+msgstr "Det finnes foreløpig ingen roller for denne boken"
 
 #: apps/edit/templates/edit/settings/_roles.html:44
 msgid "Assign Roles"
@@ -3130,32 +3130,32 @@ msgstr ""
 
 #: apps/edit/templates/edit/settings/_roles.html:76
 msgid "There are no existing roles yet"
-msgstr ""
+msgstr "Det finnes foreløpig ingen roller "
 
 #: apps/edit/templates/edit/settings/_roles.html:79
 msgid "To apply changes, click on Save"
-msgstr ""
+msgstr "For å bruke endringer, trykk lagre"
 
 #: apps/edit/templates/edit/toolbar_book.html:6
 msgid "Table Of Contents"
-msgstr ""
+msgstr "Innholdsfortegnelse"
 
 #: apps/edit/views.py:44
 msgid "General Settings"
-msgstr ""
+msgstr "Generelle innstillinger"
 
 #: apps/edit/views.py:45
 msgid "Book Language"
-msgstr ""
+msgstr "Bokas språk"
 
 #: apps/edit/views.py:46
 msgid "Book License"
-msgstr ""
+msgstr "Bokas lisens"
 
 #: apps/edit/views.py:397
 #, python-brace-format
 msgid "Revision {0} saved"
-msgstr ""
+msgstr "Revisjon {0} lagret"
 
 #: apps/edit/views.py:600
 msgid "Book History | Chapter Revision"
@@ -3176,19 +3176,19 @@ msgstr ""
 
 #: apps/edit/views.py:713
 msgid "Successfully saved settings."
-msgstr ""
+msgstr "Innstillingene er lagret."
 
 #: apps/edit/views.py:715
 msgid "You have no permissions to execute this action."
-msgstr ""
+msgstr "Du har ikke tillatelse til å utføre denne handlingen."
 
 #: apps/edit/views.py:718
 msgid "Unknown error while saving changes."
-msgstr ""
+msgstr "Det oppstod en ukjent feil ved lagring av endringer."
 
 #: apps/export/__init__.py:5
 msgid "Booktype export application"
-msgstr ""
+msgstr "Booktypes eksporteringsverktøy"
 
 #: apps/export/__init__.py:8
 msgid "Export book"
