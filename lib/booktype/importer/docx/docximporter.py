@@ -49,7 +49,7 @@ class WordImporter(object):
                         found_math = True
 
         if found_math:
-            warn_msg = _("Note: When importing formulas have been found and highlighted in the text, which are not supported by many e-readers and booktype editor.")  # noqa
+            warn_msg = _("Please note: Mathematical formulae have been found, and highlighted in the text. These formulae are not supported by many e-readers, or the Booktype editor at present.")  # noqa
             self.notifier.warning(warn_msg)
 
     def import_file(self, file_path, book, options=None):
