@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-16 10:39+0000\n"
-"PO-Revision-Date: 2016-02-25 09:58+0000\n"
+"PO-Revision-Date: 2016-02-25 10:10+0000\n"
 "Last-Translator: Kjetil Nordengen <kjetilnordengen@gmail.com>\n"
 "Language-Team: Norwegian (http://www.transifex.com/sourcefabric/booktype/language/no/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: apps/account/__init__.py:4
 msgid "Booktype account application"
-msgstr ""
+msgstr "Booktype kontoapplikasjon"
 
 #: apps/account/__init__.py:7
 msgid "Import EPUB/DOCX Books"
@@ -87,7 +87,7 @@ msgstr "bruker"
 
 #: apps/account/models.py:65
 msgid "secretcode"
-msgstr ""
+msgstr "hemmelig kode"
 
 #: apps/account/models.py:66 apps/edit/templates/edit/panel_media.html:38
 msgid "created"
@@ -3804,95 +3804,95 @@ msgstr "Totalt antall bøker:"
 #: apps/reports/templates/reports/booktype_daily_report.html:19
 #: apps/reports/templates/reports/booktype_weekly_report.html:20
 msgid "Total number of users:"
-msgstr ""
+msgstr "Totalt antall brukere:"
 
 #: apps/reports/templates/reports/booktype_daily_report.html:24
 #: apps/reports/templates/reports/booktype_weekly_report.html:25
 msgid "Total number of groups:"
-msgstr ""
+msgstr "Totalt antall grupper:"
 
 #: apps/reports/templates/reports/booktype_daily_report.html:29
 #: apps/reports/templates/reports/booktype_weekly_report.html:30
 msgid "Attachments size:"
-msgstr ""
+msgstr "Størrelse på vedlegg:"
 
 #: apps/reports/templates/reports/booktype_daily_report.html:34
 #: apps/reports/templates/reports/booktype_weekly_report.html:35
 msgid "Database size:"
-msgstr ""
+msgstr "Størrelse på database:"
 
 #: apps/reports/templates/reports/booktype_daily_report.html:40
 msgid "New Users"
-msgstr ""
+msgstr "Nye brukere"
 
 #: apps/reports/templates/reports/booktype_daily_report.html:48
 msgid "No new users"
-msgstr ""
+msgstr "Ingen nye brukere"
 
 #: apps/reports/templates/reports/booktype_daily_report.html:53
 msgid "New Books"
-msgstr ""
+msgstr "Nye bøker"
 
 #: apps/reports/templates/reports/booktype_daily_report.html:59
 msgid "No new books"
-msgstr ""
+msgstr "Ingen nye bøker"
 
 #: apps/reports/templates/reports/booktype_daily_report.html:64
 msgid "New Groups"
-msgstr ""
+msgstr "Nye grupper"
 
 #: apps/reports/templates/reports/booktype_daily_report.html:70
 msgid "No new groups"
-msgstr ""
+msgstr "Ingen nye grupper"
 
 #: apps/reports/templates/reports/booktype_daily_report.html:75
 msgid "Modified chapters"
-msgstr ""
+msgstr "Kapitler som er endret"
 
 #: apps/reports/templates/reports/booktype_daily_report.html:87
 msgid "No Activity"
-msgstr ""
+msgstr "Ingen aktivitet"
 
 #: apps/reports/templates/reports/booktype_weekly_report.html:6
 #, python-format
 msgid "Weekly report for %(booktype_name)s (%(date_start)s - %(date_end)s)"
-msgstr ""
+msgstr "Ukentlig rapport for %(booktype_name)s (%(date_start)s - %(date_end)s)"
 
 #: apps/reports/templates/reports/booktype_weekly_report.html:41
 msgid "Updates"
-msgstr ""
+msgstr "Oppdateringer"
 
 #: apps/reports/templates/reports/booktype_weekly_report.html:43
 msgid "New users"
-msgstr ""
+msgstr "Nye brukere"
 
 #: apps/reports/templates/reports/booktype_weekly_report.html:44
 msgid "New books"
-msgstr ""
+msgstr "Nye bøker"
 
 #: apps/reports/templates/reports/booktype_weekly_report.html:48
 msgid "Most active books"
-msgstr ""
+msgstr "Bøker med mest aktivitet"
 
 #: apps/reports/templates/reports/booktype_weekly_report.html:54
 msgid "No active books"
-msgstr ""
+msgstr "Ingen aktive bøker"
 
 #: apps/reports/templates/reports/booktype_weekly_report.html:59
 msgid "Most active users"
-msgstr ""
+msgstr "Mest aktive brukere"
 
 #: apps/reports/templates/reports/booktype_weekly_report.html:65
 msgid "No active users"
-msgstr ""
+msgstr "Ingen aktive brukere"
 
 #: apps/themes/templates/themes/panel.html:5
 msgid "Select from the styles available"
-msgstr ""
+msgstr "Velg fra tilgjengelige stiler"
 
 #: apps/themes/templates/themes/panel.html:16
 msgid "reset"
-msgstr ""
+msgstr "tilbakestill"
 
 #: importer/docx/docximporter.py:52
 msgid ""
@@ -3904,30 +3904,30 @@ msgstr ""
 msgid ""
 "The file could not be imported because it was not saved in the .docx format."
 " Try to open the file in Word and save it as a .docx."
-msgstr ""
+msgstr "Filen kunne ikke importeres fordi den ikke ble lagret i DOCX-format.  Prøv å åpne filen i Word og lagre den deretter som DOCX."
 
 #: importer/docx/docximporter.py:126
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
-msgstr ""
+msgstr "DOCX-filen du lastet opp inneholder feil, og kan ikke konverteres. Vennligst kontakt kundeservice."
 
 #: importer/docx/docximporter.py:173
 msgid ""
 "The file format you uploaded is not supported. Please save the image as jpg "
 "file and upload it again."
-msgstr ""
+msgstr "Filformatet du lastet opp støttes ikke. Vennligst lagre bildet som en JPEG-fil og prøv igjen."
 
 #: importer/docx/docximporter.py:208
 msgid ""
 "An error occurred while importing images. Some images couldn't be imported. "
 "Missing images are marked within the text. Please upload missing images "
 "manually."
-msgstr ""
+msgstr "En feil oppstod ved importering av bilder. Noen bilder kunne ikke bli importert. De manglende bildene er markert i teksten. Vennligst last opp de manglende bildene manuelt."
 
 #: importer/docx/docximporter.py:234
 msgid "Title Page"
-msgstr ""
+msgstr "Tittelside"
 
 #: importer/epub/epubimporter.py:262
 #, python-brace-format
@@ -3936,41 +3936,41 @@ msgstr ""
 
 #: importer/epub/epubimporter.py:376
 msgid "Unknown chapter"
-msgstr ""
+msgstr "Ukjent kapittel"
 
 #: importer/epub/epubimporter.py:528
 msgid "Not using {} as a cover image -- {}"
-msgstr ""
+msgstr "Bruker ikke {} som omslagsbilde -- {}"
 
 #: importer/epub/epubimporter.py:532
 msgid "Not using {} as a cover image"
-msgstr ""
+msgstr "Bruker ikke {} som omslagsbilde"
 
 #: importer/epub/epubimporter.py:569
 msgid "Using {} as cover image"
-msgstr ""
+msgstr "Bruker {} som omslagsbilde"
 
 #: skeleton/themes/academic/panel.html:6
 msgid ""
 "This academic style is based on serif fonts for headings and paragraphs."
-msgstr ""
+msgstr "Denne akademiske stilen er basert på serif-skrifttyper i overskrifter og brødtekst."
 
 #. Translators: User defined style Heading font
 #. Translators: User defined style Paragraph font
 #: skeleton/themes/custom/panel.html:9 skeleton/themes/custom/panel.html:68
 msgid "Serif"
-msgstr ""
+msgstr "Serif"
 
 #. Translators: User defined style Heading font
 #. Translators: User defined style Paragraph font
 #: skeleton/themes/custom/panel.html:11 skeleton/themes/custom/panel.html:70
 msgid "Non Serif"
-msgstr ""
+msgstr "Uten serifer"
 
 #. Translators: User defined style settings
 #: skeleton/themes/custom/panel.html:33
 msgid "Alignment"
-msgstr ""
+msgstr "Justering"
 
 #. Translators: User defined style alignment settings
 #: skeleton/themes/custom/panel.html:41
@@ -3980,7 +3980,7 @@ msgstr "Venstre"
 #. Translators: User defined style alignment settings
 #: skeleton/themes/custom/panel.html:45
 msgid "Center"
-msgstr ""
+msgstr "Sentrert"
 
 #. Translators: User defined style alignment settings
 #: skeleton/themes/custom/panel.html:49
@@ -3995,9 +3995,9 @@ msgstr "Avsnitt"
 #. Translators: User defined style settings
 #: skeleton/themes/custom/panel.html:77
 msgid "Text Indent"
-msgstr ""
+msgstr "Innrykk"
 
 #. Translators: User defined style settings
 #: skeleton/themes/custom/panel.html:89
 msgid "Line Height"
-msgstr ""
+msgstr "Linjehøyde"
