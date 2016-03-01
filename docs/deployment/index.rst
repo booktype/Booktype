@@ -6,10 +6,6 @@ Deployment
 
    structure
    profiles
-   create_profile
-   ubuntu
-   debian
-   apache
    booktype_settings
    redis_settings
    postgresql

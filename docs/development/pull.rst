@@ -1,6 +1,6 @@
-============================
-Before you send pull request
-============================
+==============================
+Before you send a pull request
+==============================
 
 
 First step
