@@ -158,6 +158,7 @@ class EpubConverter(BaseConverter):
 
     def _get_dir(self, epub_book):
         m = epub_book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
+
         def _check(x):
             return x[1] and x[1].get('property', '') == 'bkterms:dir'
 
@@ -168,23 +169,19 @@ class EpubConverter(BaseConverter):
         return 'ltr'
 
     def _edit_metadata(self, epub_book):
-        """
-        Modifies original metadata.
-        """
+        """Modifies original metadata."""
 
         # delete existing 'modified' tag
         m = epub_book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
         m[None] = filter(lambda (_, x): not (isinstance(x, dict) and x.get("property") == "dcterms:modified"), m[None])  # noqa
 
         # we also need to remove the `additional metadata` which here is just garbage
-        m[None] = filter(lambda (_, x): not (isinstance(x, dict) and x.get("property").startswith("add_meta_terms:")), m[None]) # noqa
+        m[None] = filter(lambda (_, x): not (isinstance(x, dict) and x.get("property").startswith("add_meta_terms:")), m[None])  # noqa
 
         # NOTE: probably going to extend this function in future
 
     def _make_nav(self, epub_book, original_book):
-        """
-        Creates navigational stuff (guide, ncx, nav) by copying the original.
-        """
+        """Creates navigational stuff (guide, ncx, nav) by copying the original."""
 
         # maps TOC items to sections and links
         self._num_of_text = 0
@@ -244,9 +241,8 @@ class EpubConverter(BaseConverter):
         epub_book.toc = toc
 
     def _copy_items(self, epub_book, original_book):
-        """
-        Populates the book by copying items from the original book
-        """
+        """Populates the book by copying items from the original book"""
+
         self.items_by_path = {}
 
         for orig_item in original_book.items:
@@ -291,9 +287,7 @@ class EpubConverter(BaseConverter):
             self.items_by_path[item.file_name] = item
 
     def _add_cover(self, epub_book):
-        """
-        Adds cover image if present in config to the resulting EPUB
-        """
+        """Adds cover image if present in config to the resulting EPUB"""
 
         if 'cover_image' in self.config.keys():
             cover_asset = self.get_asset(self.config['cover_image'])
@@ -301,15 +295,15 @@ class EpubConverter(BaseConverter):
                 epub_book, cover_asset, self.config.get('lang', DEFAULT_LANG))
 
     def _add_css_styles(self, epub_book):
-        """
-        Adds default css styles and custom css text if exists in config
-        """
+        """Adds default css styles and custom css text if exists in config"""
 
         book_css = []
 
         try:
-            content = render_to_string('themes/style_{}.css'.format(self.name),
-                {'dir': self.direction})
+            content = render_to_string(
+                'themes/style_{}.css'.format(self.name),
+                {'dir': self.direction}
+            )
 
             item = ebooklib.epub.EpubItem(
                 uid='default.css',
@@ -336,7 +330,6 @@ class EpubConverter(BaseConverter):
                 except:
                     logger.exception("Fails with custom theme.")
 
-
             item = ebooklib.epub.EpubItem(
                 uid='theme.css',
                 content=content,
@@ -347,17 +340,19 @@ class EpubConverter(BaseConverter):
             epub_book.add_item(item)
             book_css.append('theme.css')
 
-        # time to add custom css :)
-        if 'css_text' in self.config.keys():
+        # we need to add css from publishing settings screen
+        settings_style = self.config.get('settings', {}).get('styling', None)
+
+        if settings_style:
             item = ebooklib.epub.EpubItem(
-                uid='custom.css',
-                content=self.config.get('css_text'),
-                file_name='{}/{}'.format(STYLES_DIR, 'custom.css'),
+                uid='custom_style.css',
+                content=settings_style,
+                file_name='{}/{}'.format(STYLES_DIR, 'custom_style.css'),
                 media_type='text/css'
             )
 
             epub_book.add_item(item)
-            book_css.append('custom.css')
+            book_css.append('custom_style.css')
 
         return book_css
 
@@ -409,14 +404,11 @@ class EpubConverter(BaseConverter):
             "isbn": get_metadata(book.metadata, 'identifier'),
             "language": get_metadata(book.metadata, 'language'),
 
-            "metadata": book.metadata,
+            "metadata": book.metadata
         }
 
-
     def _is_cover_item(self, item):
-        """
-        Determines if an given item is cover type
-        """
+        """Determines if an given item is cover type"""
 
         file_name = os.path.basename(item.file_name)
 
