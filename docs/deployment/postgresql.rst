@@ -45,8 +45,7 @@ Check the documentation: https://docs.djangoproject.com/en/dev/ref/databases/ .
 How to do it on Ubuntu
 ======================
 
-The following instructions were tested on Ubuntu Lucid 10.04 and slightly differ from the g
-eneric instructions above.
+The following instructions were tested on Ubuntu Lucid 10.04 and slightly differ from the generic instructions above.
 
 #. Install PostgreSQL and Python modules::
 
