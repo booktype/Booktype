@@ -205,7 +205,7 @@ class ExportBook(object):
         self.spine = None
         self.hold_chapters_urls = None
         self.embeded_images = {}
-        self.atachments = models.Attachment.objects.filter(version=book_version)
+        self.attachments = models.Attachment.objects.filter(version=book_version)
 
         # ICEjs changes are removed by default, so to keep them in the epub
         # we need to pass remove_icejs as False in kwargs
@@ -325,7 +325,7 @@ class ExportBook(object):
           - self (:class:`ExportBook`): current class instance
         """
 
-        for i, attachment in enumerate(self.atachments):
+        for i, attachment in enumerate(self.attachments):
             if ('static/' + os.path.basename(attachment.attachment.name)) not in self.embeded_images:
                 continue
 
