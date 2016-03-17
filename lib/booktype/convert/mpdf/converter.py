@@ -345,7 +345,7 @@ class MPDFConverter(BaseConverter):
         """Create body html file with main content of the book.
 
         Created html file will be used by booktype2mpdf.php script
-        to create finial PDF file.
+        to create final PDF file.
 
         :Args:
           - book: EPUB Book object
