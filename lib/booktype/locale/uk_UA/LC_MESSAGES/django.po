@@ -3,69 +3,67 @@
 # This file is distributed under the same license as the Booktype package.
 # 
 # Translators:
-# Hiroyuki.Anraku <anrakuh@gmail.com>, 2015-2016
-# Raoul Breugelmans <rpb@tokyo-med.ac.jp>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-25 12:22+0000\n"
-"PO-Revision-Date: 2016-03-22 16:32+0000\n"
-"Last-Translator: Hiroyuki.Anraku <anrakuh@gmail.com>\n"
-"Language-Team: Japanese (http://www.transifex.com/sourcefabric/booktype/language/ja/)\n"
+"PO-Revision-Date: 2014-01-27 12:20+0000\n"
+"Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
+"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/sourcefabric/booktype/language/uk_UA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: uk_UA\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
 
 #: apps/account/__init__.py:4
 msgid "Booktype account application"
-msgstr "Booktypeアカウントアプリケーション"
+msgstr ""
 
 #: apps/account/__init__.py:7
 msgid "Import EPUB/DOCX Books"
-msgstr "EPUB/DOCX 書籍データのインポート"
+msgstr ""
 
 #: apps/account/__init__.py:8
 msgid "View user info"
-msgstr "利用者情報表示"
+msgstr ""
 
 #: apps/account/forms.py:15
 #: apps/account/templates/account/register_form.html:13
 msgid "Email"
-msgstr "電子メール"
+msgstr ""
 
 #: apps/account/forms.py:17
 #: apps/account/templates/account/register_form.html:10
 msgid "Full name"
-msgstr "フルネーム"
+msgstr ""
 
 #: apps/account/forms.py:23
 msgid "About yourself"
-msgstr "あなた自身について"
+msgstr ""
 
 #: apps/account/forms.py:28
 msgid "Profile image"
-msgstr "プロフィールイメージ"
+msgstr ""
 
 #: apps/account/forms.py:36
 msgid "Notification filter"
-msgstr "通知フィルタ"
+msgstr ""
 
 #: apps/account/forms.py:47
 msgid "Password (again)"
-msgstr "パスワード(再度)"
+msgstr ""
 
 #: apps/account/forms.py:54
 msgid "Enter email addresses separated by comma"
-msgstr "Eメールアドレスをコンマで区切って入力"
+msgstr ""
 
 #: apps/account/forms.py:58
 msgid "Message"
-msgstr "メッセージ"
+msgstr ""
 
 #: apps/account/models.py:35
 msgid "mood"
@@ -73,25 +71,25 @@ msgstr ""
 
 #: apps/account/models.py:36
 msgid "image"
-msgstr "イメージ"
+msgstr ""
 
 #: apps/account/models.py:37 apps/core/models.py:19 apps/core/models.py:58
 #: apps/edit/templates/edit/settings/_roles.html:13
 msgid "description"
-msgstr "記述"
+msgstr ""
 
 #: apps/account/models.py:38 apps/account/models.py:64
 #: apps/export/models.py:29 apps/export/models.py:61
 msgid "user"
-msgstr "ユーザー"
+msgstr ""
 
 #: apps/account/models.py:65
 msgid "secretcode"
-msgstr "シークレットコード"
+msgstr ""
 
 #: apps/account/models.py:66 apps/edit/templates/edit/panel_media.html:38
 msgid "created"
-msgstr "作者"
+msgstr ""
 
 #. Translators: Visible only in Django Admin interface. No need to translate
 #. this.
@@ -113,7 +111,7 @@ msgstr ""
 
 #: apps/account/templates/account/dashboard.html:37
 msgid "My Books"
-msgstr "自分の書籍"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:39
 #: apps/account/templates/account/dashboard_group_template.html:12
@@ -128,100 +126,100 @@ msgstr "自分の書籍"
 #: apps/portal/views.py:393
 #: apps/reader/templates/reader/book_info_page.html:90
 msgid "Books"
-msgstr "本"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:46
 msgid "Create a new Book"
-msgstr "新規書籍作成"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:46
 msgid "Create Book"
-msgstr "書籍の作成"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:50
 msgid "Import Book from docx or EPUB"
-msgstr "docx、あるいはEPUB形式の書式のインポート"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:50
 msgid "Import Book"
-msgstr "書籍インポート"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:53
 msgid "Invite people to edit your books"
-msgstr "あなたの書籍の編集に人々を招待"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:53
 msgid "Invite"
-msgstr "招待"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:56
 #: apps/portal/templates/portal/frontpage.html:50
 msgid ""
 "You have reached your book limit. Please delete any unwanted books before "
 "you create a new one."
-msgstr "書籍作成の上限に達しました。新しい書籍を作成する前になにか不要な書籍を削除してください。"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:56
 #: apps/portal/templates/portal/frontpage.html:50
 msgid "No additional books can be created"
-msgstr "追加する書籍の作成はできません"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:62
 #: apps/portal/templates/portal/books.html:24
 #: apps/portal/templates/portal/frontpage.html:26
 #: apps/portal/templates/portal/group.html:53
 msgid "Show in a grid"
-msgstr "グリッドの表示"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:63
 #: apps/portal/templates/portal/books.html:25
 #: apps/portal/templates/portal/frontpage.html:27
 #: apps/portal/templates/portal/group.html:54
 msgid "Show in a list"
-msgstr "リストに表示する"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:74
 msgid ""
 "This is a perfect moment to start writing your book, just click on the "
 "button above!"
-msgstr "上にあるボタンを押すだけで、あなたの書籍は書き始められます"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:76
 msgid "This user has no books"
-msgstr "このユーザは書籍を持っていません"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:84
 msgid "Participating Books"
-msgstr "参加している書籍"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:100
 msgid "My Groups"
-msgstr "私のグループ"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:106
 msgid ""
 "Work with others in Groups. To create a Group click on the button below"
-msgstr "下のボタンを押してグループ作ると、グループにいる他の人がともに活動します。"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:112
 msgid "Participating Groups"
-msgstr "参加しているグループ"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:118
 msgid "Join other groups based on your interest"
-msgstr "興味のあるグループに参加する"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:118
 #: apps/portal/templates/portal/frontpage.html:31
 #: apps/portal/templates/portal/frontpage.html:62
 #: apps/portal/templates/portal/frontpage.html:90
 msgid "view all"
-msgstr "すべて見る"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:123
 #: apps/portal/templates/portal/frontpage.html:108
 msgid "Click this button to create a new group of writers and editors"
-msgstr "このボタンを押すと新しい筆者、および編集者のグループが作成されます"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:124
 #: apps/portal/templates/portal/frontpage.html:108
@@ -229,153 +227,153 @@ msgstr "このボタンを押すと新しい筆者、および編集者のグル
 #: apps/portal/templates/portal/group_create_modal.html:7
 #: apps/portal/views.py:256
 msgid "Create New Group"
-msgstr "新しいグループの作成"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:136
 #: apps/account/templates/account/form_signedin.html:3
 msgid "My Profile"
-msgstr "私のプロフィール"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:151
 #: apps/account/templates/account/form_signedin.html:18
 msgid ""
 "Click this button to update your personal settings and Booktype account "
 "password"
-msgstr "このボタンを押すと、あなたの個人設定、およびBooktypeアカウントのパスワードを更新します"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:151
 #: apps/account/templates/account/form_signedin.html:19
 #: apps/account/views.py:216 apps/account/views.py:217
 #: apps/edit/templates/edit/toolbar_book.html:12
 msgid "Settings"
-msgstr "設定"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:152
 msgid "Click this button to log out of your Booktype account"
-msgstr "このボタンを押すとBooktypeからログアウトします"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:152
 #: apps/core/templates/core/nav_bar.html:15
 #: apps/edit/templates/edit/toolbar_user.html:11
 msgid "Log out"
-msgstr "ログアウト"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:160
 msgid "My Recent Activity"
-msgstr "私の最近のアクティビティ"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:162
 #: apps/portal/templates/portal/books.html:108
 #: apps/portal/templates/portal/frontpage.html:142
 msgid "Recent Activity"
-msgstr "最近のアクティビティ"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:170
 #: apps/portal/templates/portal/books.html:115
 #: apps/portal/templates/portal/frontpage.html:149
 #: apps/reader/templates/reader/book_info_page.html:105
 msgid "ago"
-msgstr "以前"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:183
 msgid "This user has no recent activity."
-msgstr "このユーザーの最近のアクティビティはありません。"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:190
 #: apps/core/templates/core/nav_menu.html:28
 #: apps/portal/templates/portal/frontpage.html:89 apps/portal/views.py:178
 #: apps/portal/views.py:179
 msgid "Groups"
-msgstr "グループ"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:195
 msgid "This user is not a member of any groups."
-msgstr "このユーザーはどのグループにも所属していません。"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:226
 msgid "Enter email addresses"
-msgstr "Eメールアドレスを入力"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:228
 msgid "Who would you like to invite?"
-msgstr "だれを招待しますか？"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:233
 msgid "Enter message"
-msgstr "メッセージの入力"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:235
 msgid "What is the message of your invitation?"
-msgstr "あなたの招待メッセージは？"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:239
 msgid "Choose Book"
-msgstr "書籍の選択"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:241
 msgid "Choose Books for invitation"
-msgstr "招待する書籍を選択"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:243
 msgid "Choose Book:"
-msgstr "書籍の選択："
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:243
 #: apps/edit/templates/edit/panel_covers.html:8
 msgid "All"
-msgstr "すべて"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:245
 msgid "Check all / clear"
-msgstr "すべてをチェック/クリア"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:263
 msgid "Set Roles"
-msgstr "ロールの設定"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:265
 msgid "Set Roles for this invitation"
-msgstr "招待者へのロールの設定"
+msgstr ""
 
 #: apps/account/templates/account/dashboard.html:266 apps/core/models.py:70
 #: apps/edit/templates/edit/panel_settings.html:47 apps/edit/views.py:49
 msgid "Roles"
-msgstr "ロール"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:16
 #: apps/portal/templates/portal/group.html:72
 msgid "Edit Book"
-msgstr "書籍の編集"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:19
 #: apps/account/templates/account/dashboard_import_book_modal.html:60
 #: apps/portal/templates/portal/group.html:73
 msgid "View Book Info"
-msgstr "書籍情報の表示"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:24
 #: apps/reader/templates/reader/book_delete.html:9
 #: apps/reader/templates/reader/book_delete.html:19
 #: apps/reader/templates/reader/book_info_page.html:67
 msgid "Delete Book"
-msgstr "書籍の削除"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:36
 msgid "View"
-msgstr "表示"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:39
 #: apps/edit/templates/edit/aloha_menu.html:21
 #: apps/edit/templates/edit/edit_strings.html:22
 msgid "Edit"
-msgstr "編集"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:42
 #: apps/edit/templates/edit/panel_toc.html:345
 #: apps/edit/templates/edit/panel_toc.html:356
 #: apps/edit/templates/edit/panel_toc.html:382
 msgid "Rename"
-msgstr "リネーム"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:45
 #: apps/edit/templates/edit/panel_aloha.html:261
@@ -383,12 +381,12 @@ msgstr "リネーム"
 #: apps/edit/templates/edit/panel_toc.html:364
 #: apps/edit/templates/edit/panel_toc.html:390
 msgid "Delete"
-msgstr "削除"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:8
 #: apps/portal/templates/portal/frontpage.html:46
 msgid "Create New Book"
-msgstr "新規書籍作成"
+msgstr ""
 
 #. Translators: Default chapter title when importing DOCX
 #. files. In case title does not exists.
@@ -399,99 +397,99 @@ msgstr "新規書籍作成"
 #: apps/edit/templates/edit/panel_covers.html:118
 #: importer/docx/docximporter.py:236 importer/docx/docximporter.py:319
 msgid "Title"
-msgstr "タイトル"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:19
 msgid "What is the title of your book?"
-msgstr "あなたの書籍のタイトルは？"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:20
 msgid "Title of Book"
-msgstr "書籍のタイトル"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:22
 msgid "There is already a book with this name."
-msgstr "この名前の書籍は既にあります。"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:26
 #: apps/account/templates/account/dashboard_create_book_modal.html:29
 #: apps/edit/templates/edit/panel_aloha.html:217 apps/export/models.py:51
 msgid "Description"
-msgstr "説明"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:28
 msgid ""
 "Give some information so others can find it to help you (this can be added "
 "or changed later)."
-msgstr "他の人たちがあなたに手を貸すために見つけることのできるような情報を入れてください。（厚手追加や変更をすることが出来ます）"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:33
 msgid "Choose license"
-msgstr "ライセンスの選択"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:35
 msgid "Choose from the following licenses"
-msgstr "次のライセンスから選んでください"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:36
 #: apps/edit/forms.py:143 apps/edit/templates/edit/panel_covers.html:73
 #: apps/edit/templates/edit/panel_covers.html:130
 #: apps/edit/templates/edit/panel_settings.html:25
 msgid "License"
-msgstr "ライセンス"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:44
 msgid "Image"
-msgstr "イメージ"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:46
 msgid ""
 "If you have an image for the book then add it now (this can be added or "
 "changed later)"
-msgstr "書籍のためのイメージがある場合は今追加しましょう。（後で変更や登録が可能です。）"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:47
 msgid "Book Image"
-msgstr "書籍のイメージ"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:51
 msgid "Make Public?"
-msgstr "公開しますか？"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:53
 msgid ""
 "Would you like to keep your book private or make it public? If the book is "
 "public others can find the book to help you."
-msgstr "書籍を公開しますか？もし書籍を公開すると他の人はそれを見つけて手助けしてくれるでしょう。"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:54
 msgid "Note"
-msgstr "注釈"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:54
 msgid "this setting can be changed later from your dashboard."
-msgstr "この設定はあとでダッシュボードから変更できます。"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:57
 #: apps/reader/forms.py:19
 msgid "Initially hide from others"
-msgstr "デフォルトでは隠します"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_followers.html:3
 msgid "Followers:"
-msgstr "フォロワー"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_followers.html:5
 msgid "No followers."
-msgstr "フォロワーがいません。"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_following.html:3
 msgid "Following:"
-msgstr "フォロー："
+msgstr ""
 
 #: apps/account/templates/account/dashboard_following.html:5
 msgid "Not following yet."
-msgstr "まだフォローしていません。"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_group_template.html:11
 #: apps/portal/templates/portal/all_groups.html:33
@@ -501,64 +499,64 @@ msgstr "まだフォローしていません。"
 #: apps/portal/templates/portal/group.html:117
 #: apps/reader/templates/reader/book_info_page.html:90
 msgid "Members"
-msgstr "メンバー"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_group_template.html:16
 #: apps/portal/templates/portal/group.html:31
 #: apps/portal/templates/portal/group_delete_modal.html:7
 #: apps/portal/templates/portal/group_delete_modal.html:16
 msgid "Delete Group"
-msgstr "グループの削除"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:8
 msgid "Import Book / Upload EPUB"
-msgstr "書籍のインポート/EPUBのアップロード"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:11
 msgid "Available file formats: epub, docx"
-msgstr "フォーマットが利用可能：epub,docx"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:16
 msgid "Drag Your File Here"
-msgstr "ファイルをここへドラッグ"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:20
 msgid "or Select from folder"
-msgstr "あるいはフォルダーから選択"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:25
 msgid "Filename:"
-msgstr "ファイル名"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:29
 #: apps/account/templates/account/dashboard_import_book_modal.html:30
 msgid "Complete"
-msgstr "完了"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:35
 msgid "Please wait, we are processing your file..."
-msgstr "ファイルを処理する間、お待ちください。"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:46
 msgid "Wrong file format! Please try another one."
-msgstr "ファイルフォーマットが誤っています。別のファイルで試してください。"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:48
 #: apps/importer/views.py:174
 msgid "Something went wrong!"
-msgstr "何か問題がおきました！"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:59
 msgid "Congratulations! Your book has been imported."
-msgstr "おめでとうございます！あなたの書籍はインポートされました"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:63
 msgid "Book Title (optional)"
-msgstr "書籍のタイトル(オプション)"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:67
 msgid "Initially hidden from others"
-msgstr "最初は他の人から見えない"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:74
 #: apps/edit/templates/edit/panel_aloha.html:353
@@ -572,15 +570,15 @@ msgstr "最初は他の人から見えない"
 #: apps/portal/templates/portal/group_create_modal.html:19
 #: apps/reader/templates/reader/book_info_edit.html:14
 msgid "Close"
-msgstr "クローズ"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:75
 msgid "Import"
-msgstr "インポート"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_settings.html:9
 msgid "User settings"
-msgstr "ユーザー設定"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_settings.html:43
 #: apps/edit/templates/edit/panel_aloha.html:306
@@ -588,79 +586,79 @@ msgstr "ユーザー設定"
 #: apps/portal/templates/portal/group_settings.html:16
 #: apps/reader/templates/reader/book_info_edit.html:15
 msgid "Save changes"
-msgstr "変更の保存"
+msgstr ""
 
 #: apps/account/templates/account/dashboard_settings.html:52
 #: apps/account/templates/account/dashboard_settings.html:79
 msgid "Change password"
-msgstr "パスワード変更"
+msgstr ""
 
 #: apps/account/templates/account/errors/user_does_not_exist.html:4
 msgid "User does not exist!"
-msgstr "ユーザーが存在しません。"
+msgstr ""
 
 #: apps/account/templates/account/errors/user_does_not_exist.html:5
 #, python-format
 msgid "Can't find user \"%(username)s\"."
-msgstr "ユーザが見つかりません \"%(username)s\"."
+msgstr ""
 
 #: apps/account/templates/account/forgot_password.html:10
 #: apps/account/views.py:326 apps/account/views.py:327
 msgid "Forgot your password"
-msgstr "パスワードを忘れた"
+msgstr ""
 
 #: apps/account/templates/account/forgot_password.html:12
 msgid "Check your email!"
-msgstr "Eメールを確認してください!"
+msgstr ""
 
 #: apps/account/templates/account/forgot_password.html:13
 msgid "Password reset instructions were sent to your email."
-msgstr "パスワードリセットし、Eメールを送信しました。"
+msgstr ""
 
 #: apps/account/templates/account/forgot_password.html:20
 msgid "Username or e-mail address"
-msgstr "ユーザ名、またはEメールアドレス"
+msgstr ""
 
 #: apps/account/templates/account/forgot_password.html:26
 msgid ""
 "Enter your username or the email address you used to create your account, "
 "and we will send you a link to reset your password."
-msgstr "アカウント作成時のユーザ名、あるいはEメールアドレスを入力してください。そうすれば、パスワードリセットのためのリンクが送信されます。"
+msgstr ""
 
 #: apps/account/templates/account/forgot_password.html:30
 #: apps/account/templates/account/forgot_password_enter.html:42
 msgid "Send request"
-msgstr "リクエストの送信"
+msgstr ""
 
 #: apps/account/templates/account/forgot_password_enter.html:12
 #: apps/account/views.py:399 apps/account/views.py:400
 msgid "Reset your password"
-msgstr "パスワードをリセット"
+msgstr ""
 
 #: apps/account/templates/account/forgot_password_enter.html:18
 msgid "Secret code"
-msgstr "シークレットコード"
+msgstr ""
 
 #: apps/account/templates/account/forgot_password_enter.html:26
 msgid "New password"
-msgstr "新しいパスワード"
+msgstr ""
 
 #: apps/account/templates/account/forgot_password_enter.html:34
 msgid "New password again"
-msgstr "新しいパスワードの再入力"
+msgstr ""
 
 #: apps/account/templates/account/form_signedin.html:15
 msgid ""
 "Click this button for an overview of your books, groups, user profile and "
 "recent activity"
-msgstr "あなたの書籍、グループ、ユーザプロファイル、そして最近の活動の概要に関するボタンを押してください。"
+msgstr ""
 
 #: apps/account/templates/account/form_signedin.html:16
 #: apps/account/views.py:65 apps/core/templates/core/nav_bar.html:9
 #: apps/core/templates/core/nav_menu.html:15
 #: apps/edit/templates/edit/toolbar_user.html:6
 msgid "My Dashboard"
-msgstr "マイダッシュボード"
+msgstr ""
 
 #: apps/account/templates/account/form_signin.html:3
 #: apps/account/templates/account/form_signin.html:20
@@ -668,42 +666,42 @@ msgstr "マイダッシュボード"
 #: apps/core/templates/core/nav_bar.html:18
 #: apps/edit/templates/edit/toolbar_user.html:14
 msgid "Log in"
-msgstr "ログイン"
+msgstr ""
 
 #: apps/account/templates/account/form_signin.html:7
 msgid "Enter username"
-msgstr "ユーザ名の入力"
+msgstr ""
 
 #: apps/account/templates/account/form_signin.html:10
 msgid "Password"
-msgstr "パスワード"
+msgstr ""
 
 #: apps/account/templates/account/form_signin.html:14
 msgid "User does not exist."
-msgstr "ユーザーが存在しません。"
+msgstr ""
 
 #: apps/account/templates/account/form_signin.html:15
 msgid "Password is wrong! Please try again."
-msgstr "パスワードが誤っています。"
+msgstr ""
 
 #: apps/account/templates/account/form_signin.html:16
 msgid "Your account is inactive! Please, contact site support."
-msgstr "あなたのアカウントは有効ではありません。サイトサポートへ連絡してください。"
+msgstr ""
 
 #: apps/account/templates/account/form_signin.html:17
 #: apps/account/templates/account/register_form.html:26
 msgid "Unknown error!"
-msgstr "不明なエラー"
+msgstr ""
 
 #: apps/account/templates/account/form_signin.html:21
 msgid "Forgotten your password?"
-msgstr "パスワードを忘れましたか？"
+msgstr ""
 
 #: apps/account/templates/account/password_reset_email.html:5
 msgid ""
 "To reset your Booktype password, simply click the link below. That will take"
 " you to a web page where you can create a new password."
-msgstr "リンクをクリックすれば、Booktypeのパスワードはリセットされます。その後、新しいパスワードを設定するページに案内されます。"
+msgstr ""
 
 #: apps/account/templates/account/password_reset_email.html:6
 msgid "Go to:"
@@ -714,11 +712,11 @@ msgid ""
 "If you weren't trying to reset your password, don't worry – your account is "
 "still secure and no one has been given access to it. Most likely, someone "
 "just mistyped their email address while trying to reset their own password."
-msgstr "もしあなたがあなたのパスワードをリセットしようとしていなかったのであれば、心配しないでください － あなたのアカウントはまだ安全です、そして誰もアカウントへのアクセスをしませんでした。 最もありそうなのは、誰かがただ自身のパスワードをリセットしようとしたら電子メールアドレスをミスタイプした可能性です。"
+msgstr ""
 
 #: apps/account/templates/account/register.html:15
 msgid "You are already logged in!"
-msgstr "すでにログインしています！"
+msgstr ""
 
 #: apps/account/templates/account/register.html:29
 #: apps/portal/templates/portal/all_groups.html:59
@@ -728,7 +726,7 @@ msgstr "すでにログインしています！"
 #: apps/portal/templates/portal/group.html:111
 #: apps/portal/templates/portal/people.html:58
 msgid "Not a member? Please fill the "
-msgstr "メンバーではない？登録してください。"
+msgstr ""
 
 #: apps/account/templates/account/register.html:29
 #: apps/portal/templates/portal/all_groups.html:59
@@ -738,186 +736,186 @@ msgstr "メンバーではない？登録してください。"
 #: apps/portal/templates/portal/group.html:111
 #: apps/portal/templates/portal/people.html:59
 msgid "Registration form"
-msgstr "登録フォーム"
+msgstr ""
 
 #: apps/account/templates/account/register.html:37
 msgid "Create Account"
-msgstr "アカウントの作成"
+msgstr ""
 
 #: apps/account/templates/account/register.html:41
 msgid "User limit has been reached."
-msgstr "ユーザーの制限に達しました。"
+msgstr ""
 
 #: apps/account/templates/account/register.html:48
 #: apps/portal/templates/portal/anonymous_frontpage.html:57
 #: apps/portal/templates/portal/frontpage.html:135
 msgid "Only administrator is allowed to create new accounts at the moment."
-msgstr "管理者のみが新しいアカウントを作成することが出来ます。"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:4
 msgid "User name"
-msgstr "ユーザ名"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:7
 msgid "Password (6 characters at least)"
-msgstr "パスワード(6文字以上)"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:17
 msgid "Missing username!"
-msgstr "ユーザ名の誤り！"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:18
 msgid "Missing e-mail!"
-msgstr "Eメールアドレスの誤り"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:19
 msgid "Missing password!"
-msgstr "パスワードの誤り"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:20
 msgid "Please provide your real name."
-msgstr "あなたの本名を入れてください"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:21
 msgid ""
 "Username is invalid. Please try a different one. You may use alphanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
 "<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "ユーザ名が誤っています。別の名前にしてください。アルファベットと\".\", \"_\", \"-\" (ピリオド、アンダースコア、マイナス)が利用可能です。 <br/><br/>例：<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:22
 msgid "This is not a valid e-mail"
-msgstr "無効なメールアドレス"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:23
 msgid "Your passwords dont match. Please try a different one."
-msgstr "パスワードが一致しません。別のパスワードを入力してください。"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:24
 msgid "Password must be 6 characters or more!"
-msgstr "パスワードは６文字以上である必要があります。"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:25
 msgid "Username already taken. Please try a different one."
-msgstr "ユーザ名はすでに取得されています。別の名前にしてください。"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:27
 msgid "Fullname is too long!"
-msgstr "フルネームが長すぎます。"
+msgstr ""
 
 #: apps/account/templates/account/register_form.html:31
 msgid "CREATE ACCOUNT"
-msgstr "アカウント作成"
+msgstr ""
 
 #: apps/account/views.py:64
 msgid "Dashboard"
-msgstr "ダッシュボード"
+msgstr ""
 
 #: apps/account/views.py:148 apps/account/views.py:149
 msgid "User profile"
-msgstr "利用者プロファイル"
+msgstr ""
 
 #: apps/account/views.py:266
 msgid "User settings have been saved successfully!"
-msgstr "ユーザ設定の保存に成功！"
+msgstr ""
 
 #: apps/account/views.py:303
 msgid "Password changed successfully!"
-msgstr "パスワード変更に成功！"
+msgstr ""
 
 #: apps/account/views.py:355
 msgid "Missing username"
-msgstr "ユーザー名の誤り"
+msgstr ""
 
 #: apps/account/views.py:359
 msgid "No such user"
-msgstr "ユーザーはいません"
+msgstr ""
 
 #: apps/account/views.py:379
 msgid "Reset password"
-msgstr "パスワードをリセット"
+msgstr ""
 
 #: apps/account/views.py:392
 msgid "Unknown error"
-msgstr "不明なエラー"
+msgstr ""
 
 #: apps/account/views.py:414
 msgid "Password can't be empty"
-msgstr "パスワードを入力してください。"
+msgstr ""
 
 #: apps/account/views.py:419
 msgid "Passwords don't match"
-msgstr "パスワードが一致しません"
+msgstr ""
 
 #: apps/account/views.py:435
 msgid "Wrong secret code"
-msgstr "誤ったシークレットコード"
+msgstr ""
 
 #: apps/core/__init__.py:4
 msgid "Booktype core application"
-msgstr "Booktype コアアプリケーション"
+msgstr ""
 
 #: apps/core/__init__.py:7
 msgid "Manage Roles"
-msgstr "ロールの管理"
+msgstr ""
 
 #: apps/core/__init__.py:8
 msgid "Manage Permissions"
-msgstr "権限の管理"
+msgstr ""
 
 #: apps/core/management/commands/update_default_roles.py:21
 msgid "system default role"
-msgstr "システムデフォルトのロール"
+msgstr ""
 
 #: apps/core/models.py:16
 msgid "app name"
-msgstr "アプリケーション名"
+msgstr ""
 
 #: apps/core/models.py:17 apps/core/models.py:56
 #: apps/edit/templates/edit/panel_media.html:35
 msgid "name"
-msgstr "名前"
+msgstr ""
 
 #: apps/core/models.py:28
 msgid "Permission"
-msgstr "権限"
+msgstr ""
 
 #: apps/core/models.py:29 apps/edit/templates/edit/panel_settings.html:51
 #: apps/edit/views.py:50
 msgid "Permissions"
-msgstr "権限"
+msgstr ""
 
 #: apps/core/models.py:61
 msgid "permissions"
-msgstr "権限"
+msgstr ""
 
 #: apps/core/models.py:69
 msgid "Role"
-msgstr "ロール"
+msgstr ""
 
 #: apps/core/models.py:84
 msgid "role"
-msgstr "ロール"
+msgstr ""
 
 #: apps/core/models.py:85 apps/export/models.py:71
 msgid "book"
-msgstr "本"
+msgstr ""
 
 #: apps/core/models.py:87
 msgid "users"
-msgstr "ユーザー"
+msgstr ""
 
 #: apps/core/models.py:96
 msgid "Book Role"
-msgstr "書籍のロール"
+msgstr ""
 
 #: apps/core/models.py:97
 msgid "Book Roles"
-msgstr "書籍のロール"
+msgstr ""
 
 #: apps/core/templates/core/authors.html:13
 msgid "Modifications:"
-msgstr "修正："
+msgstr ""
 
 #: apps/core/templates/core/footer-demo.html:8
 msgid "About"
@@ -931,11 +929,11 @@ msgid ""
 "href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-"
 "publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-"
 "publishers/</a>."
-msgstr "これはBooktypeのデモサーバーです。このサーバーは定期的にリセットされます、そしてここで作成されたどんな書籍もその時削除されるでしょう。Booktypeのユーザーマニュアルは<a href=\"http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/\">http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/</a>で読むことが出来ます。"
+msgstr ""
 
 #: apps/core/templates/core/footer-demo.html:17
 msgid "How to use"
-msgstr "使用法"
+msgstr ""
 
 #: apps/core/templates/core/footer-demo.html:20
 msgid ""
@@ -943,11 +941,11 @@ msgid ""
 "href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a>"
 " or check out Booktype Pro, our cloud-hosted publishing service - <a "
 "href=\"http://booktype.pro/\">http://booktype.pro/</a>."
-msgstr "もしあなた自身でインストールをしたいのであればBooktypeを <a href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric.org/en/booktype/</a> からダウンロードするか、私たちのクラウドサービス - <a href=\"http://booktype.pro/\">http://booktype.pro/</a>からチェックアウトしてください。"
+msgstr ""
 
 #: apps/core/templates/core/footer-demo.html:27
 msgid "Need Help?"
-msgstr "助けが要りますか？"
+msgstr ""
 
 #: apps/core/templates/core/footer-demo.html:30
 msgid ""
@@ -956,150 +954,150 @@ msgid ""
 "print-on-demand services and education institutions produce better books, "
 "faster, while Sourcefabric takes care of your own platform's installation, "
 "hosting, upgrades, and security. "
-msgstr "ソーシャルなツール、簡単なワークフロー、そしてあなた自身にあったライセンスを自由に選択できるBooktype Proは内部、あるいは外部の利用を完璧にこなします。 出版社、オンデマンド印刷サービス、そして教育機関による書籍の作成をより良く、迅速に行います。Sourcefabric はあなた自身のプラットホーム、インストレーション、ホスティング、アップグレード、そしてセキュリティに対応します。"
+msgstr ""
 
 #: apps/core/templates/core/footer-demo.html:41
 #: apps/core/templates/core/footer.html:12
 msgid ""
 "Powered by Booktype, the open content management system for professional "
 "writers."
-msgstr "Powered by Booktype, プロフェッショナルなライターのためのオープンなコンテンツマネジメントシステム。"
+msgstr ""
 
 #: apps/core/templates/core/nav_bar.html:12
 #: apps/edit/templates/edit/toolbar_user.html:8
 msgid "Control Center"
-msgstr "コントロールセンター"
+msgstr ""
 
 #: apps/core/templates/core/nav_bar.html:42
 #: apps/edit/templates/edit/toolbar_nav.html:29
 msgid "Help us to translate Booktype"
-msgstr "Booktypeの翻訳を手伝ってください"
+msgstr ""
 
 #: apps/core/templates/core/nav_menu.html:10 apps/portal/views.py:45
 msgid "Home"
-msgstr "ホーム"
+msgstr ""
 
 #: apps/core/templates/core/nav_menu.html:35
 #: apps/portal/templates/portal/frontpage.html:61 apps/portal/views.py:360
 #: apps/portal/views.py:361
 msgid "People"
-msgstr "利用者"
+msgstr ""
 
 #: apps/core/templates/core/nav_menu.html:44
 msgid "Control Center Home"
-msgstr "コントロールセンター ホーム"
+msgstr ""
 
 #: apps/core/templates/core/nav_menu.html:47
 msgid "Admin Settings"
-msgstr "管理者設定"
+msgstr ""
 
 #: apps/core/templates/core/nav_menu.html:50
 msgid "Admin People"
-msgstr "利用者管理"
+msgstr ""
 
 #: apps/core/templates/core/nav_menu.html:53
 msgid "Admin Books"
-msgstr "書籍管理"
+msgstr ""
 
 #: apps/core/templates/core/nav_menu.html:56
 msgid "Admin Groups"
-msgstr "グループ管理"
+msgstr ""
 
 #: apps/core/templates/core/nav_menu.html:59
 msgid "Admin Roles"
-msgstr "ロール管理"
+msgstr ""
 
 #: apps/core/templates/errors/400.html:9
 msgid "Error 400"
-msgstr "Error 400"
+msgstr ""
 
 #: apps/core/templates/errors/400.html:10
 msgid "Bad request."
-msgstr "リクエスト異常"
+msgstr ""
 
 #: apps/core/templates/errors/403.html:9
 msgid "Error 403"
-msgstr "Error 403"
+msgstr ""
 
 #: apps/core/templates/errors/403.html:10
 msgid "Permission denied."
-msgstr "権限がありません"
+msgstr ""
 
 #: apps/core/templates/errors/404.html:9 apps/reader/views.py:79
 msgid "Error 404"
-msgstr "Error 404"
+msgstr ""
 
 #: apps/core/templates/errors/404.html:10
 msgid "Page not found."
-msgstr "ページがありません"
+msgstr ""
 
 #: apps/core/templates/errors/500.html:9
 msgid "Error 500"
-msgstr "Error 500"
+msgstr ""
 
 #: apps/core/templates/errors/500.html:10
 msgid "Server error."
-msgstr "サーバエラー"
+msgstr ""
 
 #: apps/core/templates/errors/book_does_not_exist.html:8
 #: apps/core/templates/errors/nopermissions.html:9
 #: apps/reader/templates/reader/book_delete_error.html:7
 msgid "Error"
-msgstr "エラー"
+msgstr ""
 
 #: apps/core/templates/errors/book_does_not_exist.html:9
 msgid "Book does not exist."
-msgstr "書籍がありません"
+msgstr ""
 
 #: apps/core/templates/errors/nopermissions.html:10
 msgid "You have no permissions to do this!"
-msgstr "権限がないのでできませんでした。"
+msgstr ""
 
 #: apps/core/templates/templatetags/pager.html:8
 #: apps/core/templates/templatetags/pager.html:10
 msgid "Previous"
-msgstr "前"
+msgstr ""
 
 #: apps/core/templates/templatetags/pager.html:16
 #: apps/core/templates/templatetags/pager.html:18
 msgid "Next"
-msgstr "次"
+msgstr ""
 
 #: apps/edit/__init__.py:4
 msgid "Booktype edit application"
-msgstr "Booktype 編集アプリケーション"
+msgstr ""
 
 #: apps/edit/__init__.py:7
 msgid "Create chapter"
-msgstr "章の作成"
+msgstr ""
 
 #: apps/edit/__init__.py:8
 msgid "Rename chapter"
-msgstr "章の名前変更"
+msgstr ""
 
 #: apps/edit/__init__.py:9 apps/reader/templatetags/reader_tags.py:42
 msgid "Delete chapter"
-msgstr "章の削除"
+msgstr ""
 
 #: apps/edit/__init__.py:10
 msgid "Lock chapter"
-msgstr "章のロック"
+msgstr ""
 
 #: apps/edit/__init__.py:11
 msgid "Edit locked chapter"
-msgstr "章の編集をロックしました"
+msgstr ""
 
 #: apps/edit/__init__.py:13
 msgid "Create section"
-msgstr "セクションの作成"
+msgstr ""
 
 #: apps/edit/__init__.py:14
 msgid "Rename section"
-msgstr "セクションの名前変更"
+msgstr ""
 
 #: apps/edit/__init__.py:15 apps/reader/templatetags/reader_tags.py:43
 msgid "Delete section"
-msgstr "セクションの削除"
+msgstr ""
 
 #: apps/edit/__init__.py:17
 msgid "Manage chapters on hold"
@@ -1111,121 +1109,121 @@ msgstr ""
 
 #: apps/edit/__init__.py:20
 msgid "Upload attachment"
-msgstr "添付ファイルのアップロード"
+msgstr ""
 
 #: apps/edit/__init__.py:21
 msgid "Remove attachment"
-msgstr "添付ファイルの削除"
+msgstr ""
 
 #: apps/edit/__init__.py:23 apps/edit/templates/edit/panel_covers.html:22
 #: apps/edit/templates/edit/panel_covers.html:97
 #: apps/reader/templatetags/reader_tags.py:41
 msgid "Upload cover"
-msgstr "表紙データのアップロード"
+msgstr ""
 
 #: apps/edit/__init__.py:24
 msgid "Edit cover"
-msgstr "表紙データの編集"
+msgstr ""
 
 #: apps/edit/__init__.py:25
 msgid "Delete cover"
-msgstr "表紙データの削除"
+msgstr ""
 
 #: apps/edit/__init__.py:27
 msgid "Manage Status"
-msgstr "ステータス管理"
+msgstr ""
 
 #: apps/edit/__init__.py:28
 msgid "Change chapter status"
-msgstr "章のステータス変更"
+msgstr ""
 
 #: apps/edit/__init__.py:30
 msgid "Edit book"
-msgstr "書籍の編集"
+msgstr ""
 
 #: apps/edit/__init__.py:31
 msgid "Delete book"
-msgstr "書籍の削除"
+msgstr ""
 
 #: apps/edit/__init__.py:33
 msgid "Restore history"
-msgstr "履歴のリストア"
+msgstr ""
 
 #: apps/edit/__init__.py:34
 msgid "Edit Notes"
-msgstr "鼻腔の編集"
+msgstr ""
 
 #: apps/edit/__init__.py:36
 msgid "Track Changes"
-msgstr "トラックの変更"
+msgstr ""
 
 #: apps/edit/__init__.py:37
 msgid "Track Changes accept/decline"
-msgstr "変更記録の内容を承認/却下"
+msgstr ""
 
 #: apps/edit/__init__.py:38
 msgid "Track Changes on/off"
-msgstr "変更記録の変更 オン/オフ"
+msgstr ""
 
 #: apps/edit/__init__.py:41
 msgid "Manage Language"
-msgstr "言語の管理"
+msgstr ""
 
 #: apps/edit/__init__.py:42
 msgid "Manage License"
-msgstr "ライセンスの管理"
+msgstr ""
 
 #: apps/edit/__init__.py:43
 msgid "Manage Metadata"
-msgstr "メタデータ管理"
+msgstr ""
 
 #: apps/edit/__init__.py:44
 msgid "Manage Book Settings"
-msgstr "書籍設定の管理"
+msgstr ""
 
 #: apps/edit/channel.py:1255 apps/edit/channel.py:1260
 msgid "You have no permissions for splitting the chapter."
-msgstr "章を分割する権限がありません"
+msgstr ""
 
 #: apps/edit/channel.py:1266
 msgid "Chapter is under edit."
-msgstr "章は編集中です。"
+msgstr ""
 
 #: apps/edit/channel.py:1273 apps/edit/channel.py:1277
 msgid "You have no permissions for splitting locked chapter."
-msgstr "ロックされた章を分割する権限がありません"
+msgstr ""
 
 #: apps/edit/channel.py:1286
 msgid "You have selected invalid title name."
-msgstr "誤ったタイトルが選択されました"
+msgstr ""
 
 #: apps/edit/channel.py:1290 apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
-msgstr "その名前の章はすでに存在します"
+msgstr ""
 
 #: apps/edit/channel.py:1429
 msgid "You have no permissions for editing this chapter."
-msgstr "この章を編集する権限がありません"
+msgstr ""
 
 #: apps/edit/channel.py:1437
 msgid "Chapter currently being edited."
-msgstr "章は現在編集中"
+msgstr ""
 
 #: apps/edit/channel.py:1442
 msgid "You have no permissions for editing chapters under lock."
-msgstr "ロックされた章の編集の権限がありません。"
+msgstr ""
 
 #: apps/edit/channel.py:1446
 msgid "Chapter currently is locked from everyone."
-msgstr "章は現在誰かによってロックされています。"
+msgstr ""
 
 #: apps/edit/channel.py:2051
 msgid "One of the selected formats was disabled. Try to reload page."
-msgstr "選択した書籍は利用できません。このページをリロードしてみてください。"
+msgstr ""
 
 #: apps/edit/forms.py:58 apps/edit/templates/edit/panel_settings.html:21
 msgid "Language"
-msgstr "言語"
+msgstr ""
 
 #: apps/edit/forms.py:62
 msgid "Right to left text"
@@ -1237,47 +1235,47 @@ msgstr ""
 
 #: apps/edit/forms.py:102
 msgid "Track changes"
-msgstr "トラックの変更"
+msgstr ""
 
 #: apps/edit/forms.py:104
 msgid "Chapter changes will tracked."
-msgstr "章の変更が記録されました。"
+msgstr ""
 
 #: apps/edit/forms.py:125
 msgid "New Status"
-msgstr "新しいステータス"
+msgstr ""
 
 #: apps/edit/forms.py:237
 #, python-format
 msgid "%(field)s must have TYPE attribute"
-msgstr "%(field)s は属性（TYPE）を持っている必要があります。"
+msgstr ""
 
 #: apps/edit/forms.py:262
 #, python-format
 msgid ""
 "Unable to create field %(field)s. Reason: %(error)s | type: %(exc_type)s | "
 "Line: %(line_no)s "
-msgstr "フィールド（%(field)s）の作成に失敗。理由: %(error)s | タイプ: %(exc_type)s | 行: %(line_no)s"
+msgstr ""
 
 #: apps/edit/templates/edit/_compare_modal.html:7
 #: apps/edit/templates/edit/compare_screen.html:13 apps/edit/views.py:562
 msgid "Chapter diff"
-msgstr "章の比較"
+msgstr ""
 
 #: apps/edit/templates/edit/_compare_modal.html:11
 #: apps/edit/templates/edit/compare_screen.html:15
 msgid "Changed"
-msgstr "変更されました"
+msgstr ""
 
 #: apps/edit/templates/edit/_compare_modal.html:12
 #: apps/edit/templates/edit/compare_screen.html:16
 msgid "Added"
-msgstr "追加されました"
+msgstr ""
 
 #: apps/edit/templates/edit/_compare_modal.html:13
 #: apps/edit/templates/edit/compare_screen.html:17
 msgid "Deleted"
-msgstr "削除されました"
+msgstr ""
 
 #: apps/edit/templates/edit/_compare_modal.html:16
 #: apps/edit/templates/edit/_compare_modal.html:17
@@ -1286,11 +1284,11 @@ msgstr "削除されました"
 #: apps/edit/templates/edit/compare_screen.html:20
 #: apps/edit/templates/edit/compare_screen.html:21 apps/edit/views.py:593
 msgid "Revision"
-msgstr "リビジョン"
+msgstr ""
 
 #: apps/edit/templates/edit/_compare_modal.html:27
 msgid "Full view"
-msgstr "フル表示"
+msgstr ""
 
 #: apps/edit/templates/edit/_compare_modal.html:29
 #: apps/edit/templates/edit/book_edit.html:107
@@ -1317,24 +1315,24 @@ msgstr "フル表示"
 #: apps/portal/templates/portal/group_remove_book.html:16
 #: apps/reader/templates/reader/book_delete.html:18
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:5
 #: apps/edit/templates/edit/panel_aloha.html:239
 msgid "Insert"
-msgstr "挿入"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:7
 msgid "Insert horizontal line"
-msgstr "水平線の挿入"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:8
 msgid "Insert page break"
-msgstr "改ページの挿入"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:9
 msgid "Insert endnote"
-msgstr "脚注の挿入"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:10
 msgid "Insert LTR text"
@@ -1346,45 +1344,45 @@ msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:13
 msgid "Insert columns"
-msgstr "列の追加"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:14
 msgid "Insert column break"
-msgstr "列の分割を挿入"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:16
 #: apps/reader/templatetags/reader_tags.py:33
 msgid "Split chapter"
-msgstr "章の分割"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:23
 #: apps/edit/templates/edit/aloha_toolbar.html:6
 msgid "Undo"
-msgstr "戻す"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:24
 msgid "Redo"
-msgstr "くり返す"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:26
 msgid "Find & Replace"
-msgstr "検索と置換"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:28
 msgid "Remove styling"
-msgstr "スタイルの削除"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:29
 msgid "Remove formatting"
-msgstr "書式の削除"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:30
 msgid "Decrease indent"
-msgstr "インデントを減らす"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:31
 msgid "Increase indent"
-msgstr "インデントを増やす"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:32
 msgid "Direction to LTR"
@@ -1400,13 +1398,13 @@ msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:39
 msgid "Tools"
-msgstr "ツール"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:41
 #: apps/edit/templates/edit/panel_aloha.html:50
 #: apps/edit/templates/edit/panel_aloha.html:58
 msgid "Word count"
-msgstr "ワード数のカウント"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:10
 msgid "Text Heading"
@@ -1414,28 +1412,28 @@ msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:10
 msgid "Nothing"
-msgstr "なし"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:11
 msgid "Change Heading"
-msgstr "主題の変更"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:13
 msgid "Normal Text"
-msgstr "通常テキスト"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:14
 #: skeleton/themes/custom/panel.html:3
 msgid "Heading"
-msgstr "主題"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:15
 msgid "Subheading"
-msgstr "副題"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:16
 msgid "SubSubHeading"
-msgstr "副副題"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:17
 msgid "Pre-formatted"
@@ -1443,111 +1441,111 @@ msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:18
 msgid "Quote"
-msgstr "クォート"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:23
 msgid "Font"
-msgstr "フォント"
+msgstr ""
 
 #. Translators: User defined style settings
 #: apps/edit/templates/edit/aloha_toolbar.html:29
 #: skeleton/themes/custom/panel.html:21
 msgid "Font size"
-msgstr "フォントのサイズ"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:30
 msgid "Change Font size"
-msgstr "フォントのサイズ変更"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:142
 msgid "Bold"
-msgstr "太字"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:143
 msgid "Italic"
-msgstr "イタリック"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:144
 msgid "Underline"
-msgstr "アンダーライン"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:148
 msgid "Table"
-msgstr "表"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:150
 msgid "Insert Table"
-msgstr "表の追加"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:153
 msgid "Rows"
-msgstr "行"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:158
 #: apps/edit/templates/edit/edit_strings.html:90
 #: apps/edit/templates/edit/panel_aloha.html:317
 msgid "Columns"
-msgstr "列"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:163
 #: apps/edit/templates/edit/panel_aloha.html:63
 #: apps/edit/templates/edit/panel_aloha.html:354
 #: apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
-msgstr "OK"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:166
 msgid "Delete Table"
-msgstr "表の削除"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:168
 msgid "Table Options"
-msgstr "表のオプション"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:169
 msgid "Add Row Before"
-msgstr "前に行を追加"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:170
 msgid "Add Row After"
-msgstr "後に行を追加"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:171
 msgid "Add Column Before"
-msgstr "前に列を追加"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:172
 msgid "Add Column After"
-msgstr "後に列を追加"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:173
 msgid "Delete Row"
-msgstr "行の削除"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:174
 msgid "Delete Column"
-msgstr "列の削除"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:179
 msgid "Insert Link"
-msgstr "リンクの挿入"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:180
 #: apps/edit/templates/edit/panel_aloha.html:164
 msgid "Insert Image"
-msgstr "イメージの挿入"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:184
 msgid "Left align"
-msgstr "左寄せ"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:185
 msgid "Centre align"
-msgstr "中央寄せ"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:186
 msgid "Right align"
-msgstr "右寄せ"
+msgstr ""
 
 #. Translators: User defined style alignment settings
 #: apps/edit/templates/edit/aloha_toolbar.html:187
@@ -1558,19 +1556,19 @@ msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:192
 msgid "Unordered List"
-msgstr "整列していないリスト"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:193
 msgid "Ordered List"
-msgstr "整列したリスト"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:196
 msgid "Indent left"
-msgstr "左インデント"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:197
 msgid "Indent right"
-msgstr "右インデント"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:200
 msgid "Left to right"
@@ -1582,41 +1580,41 @@ msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:207
 msgid "Save chapter"
-msgstr "章の保存"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:207
 msgid "SAVE"
-msgstr "保存"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:213
 msgid "Save and close"
-msgstr "保存して閉じる"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:214
 msgid "Save minor change"
-msgstr "マイナーチェンジの保存"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:215
 #: apps/edit/templates/edit/panel_aloha.html:276
 msgid "Save with comment"
-msgstr "コメントの保存"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:217
 msgid "Close this chapter and go to the Table of Contents"
-msgstr "章を閉じて目次へ移動する"
+msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:217
 msgid "CLOSE"
-msgstr "閉じる"
+msgstr ""
 
 #: apps/edit/templates/edit/base.html:6
 msgid "Booktype Edit"
-msgstr "Booktype編集"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:60
 #: apps/edit/templates/edit/edit_strings.html:26
 msgid "Chapters"
-msgstr "章"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:61
 msgid "EXPAND TOC"
@@ -1625,49 +1623,49 @@ msgstr ""
 #: apps/edit/templates/edit/book_edit.html:69
 #: apps/edit/templates/edit/edit_strings.html:31
 msgid "Online Users"
-msgstr "オンライン利用者"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:95
 #: apps/edit/templates/edit/edit_strings.html:32
 msgid "Chat"
-msgstr "チャット"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:101
 msgid "Post a notification"
-msgstr "通知する"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:106
 msgid "Send"
-msgstr "送信"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:113
 #: apps/edit/templates/edit/edit_strings.html:33
 #: apps/edit/templates/edit/panel_covers.html:85
 #: apps/edit/templates/edit/panel_covers.html:142
 msgid "Notes"
-msgstr "注釈"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:115
 msgid "Shared notes for this book"
-msgstr "この本の注釈を共有"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:121
 msgid "SAVE NOTE"
-msgstr "注釈を保存"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:122
 msgid "Note Saved.."
-msgstr "注釈が保存されました。"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:136
 #: apps/edit/templates/edit/edit_strings.html:20
 msgid "Chapters on Hold"
-msgstr "章のホールド"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:149
 #: apps/edit/templates/edit/edit_strings.html:30
 msgid "Tracking Options"
-msgstr "変更記録のオプション"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:154
 msgid "Track changes for this revision only"
@@ -1675,326 +1673,326 @@ msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:161
 msgid "On"
-msgstr "オン"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:164
 msgid "Off"
-msgstr "オフ"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:172
 msgid "Show changes"
-msgstr "変更箇所の表示"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:179
 #: apps/edit/templates/edit/panel_publish.html:381
 msgid "Yes"
-msgstr "はい"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:182
 #: apps/edit/templates/edit/panel_publish.html:380
 msgid "No"
-msgstr "いいえ"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:190
 msgid "Actions"
-msgstr "アクション"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:198
 msgid "Accept all changes"
-msgstr "すべての変更を承認"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:201
 msgid "Decline all changes"
-msgstr "すべての変更を取り消し"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:207
 msgid "Accept one"
-msgstr "１件の承認"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:210
 msgid "Decline one"
-msgstr "１件の取り消し"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:224
 #: apps/edit/templates/edit/edit_strings.html:27
 msgid "Attachments"
-msgstr "添付"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:228
 #: apps/edit/templates/edit/edit_strings.html:28
 msgid "Chapter History"
-msgstr "章の履歴"
+msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:287
 #, python-format
 msgid ""
 "<p class=\"notification-text\"><%%= username %%> joined </p><span class"
 "=\"notification-info\"><%%= info %%></span>"
-msgstr "<p class=\"notification-text\"><%%= username %%> が</p><span class=\"notification-info\"><%%= info %%></span>に参加しました。"
+msgstr ""
 
 #: apps/edit/templates/edit/book_history.html:21
 msgid "No results found."
-msgstr "なにも見つかりませんでした。"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_history.html:4
 msgid "BACK TO INDEX"
-msgstr "目次へ戻る"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_history.html:12
 msgid "COMPARE"
-msgstr "比較"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_history.html:15
 msgid "COMPARE FULL VIEW"
-msgstr "フル表示での比較"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_history.html:22
 msgid "Compare"
-msgstr "比較"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_history.html:24
 #: apps/edit/templates/edit/chapter_revision.html:10
 #: apps/edit/templates/edit/panel_history.html:26
 #: apps/edit/templates/edit/settings/_roles.html:69
 msgid "User"
-msgstr "ユーザー"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_history.html:25
 #: apps/edit/templates/edit/panel_history.html:27
 msgid "Time"
-msgstr "時間"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_history.html:26
 #: apps/edit/templates/edit/panel_aloha.html:281
 #: apps/edit/templates/edit/panel_publish.html:491
 msgid "Comment"
-msgstr "コメント"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_revision.html:3
 msgid "BACK TO CHAPTER HISTORY"
-msgstr "章の履歴へ戻る"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_revision.html:11
 #: apps/edit/templates/edit/panel_aloha.html:248
 #: apps/edit/templates/edit/panel_history.html:25
 msgid "Modified"
-msgstr "修正された"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_revision.html:12
 msgid "Version"
-msgstr "バージョン"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_revision.html:19
 msgid "PREVIOUS"
-msgstr "前"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_revision.html:22
 msgid "NEXT"
-msgstr "次"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_revision.html:26
 msgid "REVERT TO THIS REVISION"
-msgstr "このリビジョンへ戻す"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_revision.html:31
 msgid "Source View"
-msgstr "ソース表示"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_revision.html:32
 msgid "Normal View"
-msgstr "通常表示"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_revision.html:54
 msgid "Revert to this revision?"
-msgstr "このリビジョンに戻しますか？"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_revision.html:57
 msgid ""
 "Current chapter content will be reverted to this revision. Are you sure?"
-msgstr "この章のコンテンツは指定したリビジョンに戻ります。よろしいですか？"
+msgstr ""
 
 #: apps/edit/templates/edit/chapter_revision.html:61
 msgid "Yes, revert!"
-msgstr "はい、戻します。"
+msgstr ""
 
 #: apps/edit/templates/edit/compare_screen.html:30
 msgid "Revisions not found!"
-msgstr "リビジョンが見つかりません。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:3
 #, python-brace-format
 msgid "{0} has changed status of  chapter \"{1}\" to \"{2}\"."
-msgstr "{0} の章のステータスは \"{1}\" から \"{2}\"に変更されました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:4
 #, python-brace-format
 msgid "{0} has saved chapter \"{1}\"."
-msgstr "{0} は \"{1}\"章を保存しました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:5
 #, python-brace-format
 msgid "{0} has saved \"{1}\" revision {2}."
-msgstr "{0} は \"{1}\" のリビジョン {2} を保存しました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:6
 #, python-brace-format
 msgid "{0} has renamed chapter \"{1}\" to \"{2}\"."
-msgstr "{0} は \"{1}\"章の名前を\"{2}\"に変更しました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:7
 #, python-brace-format
 msgid "{0} has deleted chapter \"{1}\"."
-msgstr "{0} は、\"{1}\"章を削除しました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:8
 #, python-brace-format
 msgid "{0} has created new chapter \"{1}\"."
-msgstr "{0} は \"{1}\"章を新規作成しました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:9
 #, python-brace-format
 msgid "{0} has cloned chapter \"{1}\" from book \"{2}\"."
-msgstr "{0} は \"{1}\" 章を書籍 \"{2}\"からコピーしました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:10
 #, python-brace-format
 msgid "\"{0}\" is being published."
-msgstr "\"{0}\" は発行されました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:11
 #, python-brace-format
 msgid "{0} has created new section \"{1}\"."
-msgstr "{0} は新しいセクション \"{1}\"を作成しました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:12
 #, python-brace-format
 msgid "{0} has reverted chapter \"{1}\" to revision {2}."
-msgstr "{0} は \"{1}\"章をリビジョン{2}に戻しました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:13
 #, python-brace-format
 msgid "{0} has saved notes for book \"{1}\"."
-msgstr "{0} は書籍 \"{1}\"の注釈を保存しました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:15
 msgid "Loading chapter."
-msgstr "章の読み込み"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:16
 msgid "Saving chapter."
-msgstr "章の保存"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:17
 msgid "Loading data."
-msgstr "データの読み込み"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:18
 msgid "Sending data."
-msgstr "データの送信"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:19
 msgid "Set status."
-msgstr "ステータスの設定"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:21
 #: apps/edit/templates/edit/panel_toc.html:161
 #: apps/edit/templates/edit/panel_toc.html:175
 #: apps/edit/templates/edit/panel_toc.html:198
 msgid "Unhold"
-msgstr "解除"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:23
 msgid "Removing chapter"
-msgstr "章の削除"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:24
 msgid "Saved..."
-msgstr "保存中..."
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:25
 msgid "Chapter has been modified. Do you want to save it before closing?"
-msgstr "章は変更されました。閉じる前に保存しますか？"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:29
 #: apps/themes/templates/themes/panel.html:3
 msgid "Choose Your Design"
-msgstr "デザイン対象を選択"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:34
 msgid "Loading media files"
-msgstr "メディアファイルの読み込み"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:35
 msgid "Removing media files"
-msgstr "メディアファイルの削除"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:37
 msgid "Couldn't create chapter."
-msgstr "章の作成が出来ませんでした。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:38
 msgid "Section with this title already exists."
-msgstr "その名前のセクションは既に存在します"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:39
 msgid "Couldn't create section."
-msgstr "セクションの作成が出来ませんでした。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:40
 msgid "Set default size"
-msgstr "規定サイズの設定"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:41
 #: apps/edit/templates/edit/panel_covers.html:182
 msgid "Edit Image Data"
-msgstr "イメージデータの編集"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:42
 #: apps/edit/templates/edit/panel_covers.html:186
 msgid "View Original Image"
-msgstr "オリジナルイメージを表示"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:43
 #: apps/edit/templates/edit/panel_covers.html:190
 msgid "Delete Cover Image"
-msgstr "表紙のイメージを削除"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:44
 msgid "Selected user already belongs to this role"
-msgstr "選択したユーザーはすでにこのロールに属しています。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:45
 msgid "Unable to remove user from role"
-msgstr "このロールからユーザを削除することはできません。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:46
 #: apps/edit/templates/edit/panel_aloha.html:25
 msgid "Find"
-msgstr "検索"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:47
 msgid "Next &gt;"
-msgstr "次へ &gt;"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:48
 msgid "Revision reverted"
-msgstr "リビジョンの取り消し"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:49
 msgid "Revision revert failed"
-msgstr "リビジョンの取り消しに失敗しました"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:50
 msgid "RESTORE"
-msgstr "リストア"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:51
 msgid "Do you really want to delete this Chapter Status?"
-msgstr "この章のステータス削除をしますか？"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:52
 msgid "You have no permission to delete this book"
-msgstr "この書籍を削除する権限がありません。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:53
 #: apps/edit/templates/edit/panel_toc.html:156
@@ -2002,31 +2000,31 @@ msgstr "この書籍を削除する権限がありません。"
 #: apps/edit/templates/edit/panel_toc.html:280
 #: apps/edit/templates/edit/panel_toc.html:294
 msgid "Terminate editing"
-msgstr "編集の終了"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:54
 msgid "Editing was terminated by book administrator."
-msgstr "書籍の管理者による編集が終了しました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:55
 msgid "Your invitation has been sent"
-msgstr "あなたの招待は送信されています。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:56
 msgid "Editing terminated."
-msgstr "編集は終了しました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:57
 msgid "Access denied."
-msgstr "アクセスが拒否されました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:58
 msgid "Nothing has been exported."
-msgstr "なにもエクスっポートされませんでした。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:59
 msgid "Exporting book."
-msgstr "書籍のエクスポート"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:60
 #: apps/edit/templates/edit/panel_aloha.html:287
@@ -2035,52 +2033,52 @@ msgstr "書籍のエクスポート"
 #: apps/edit/templates/edit/panel_toc.html:37
 #: apps/edit/templates/edit/settings/_roles.html:86
 msgid "Save"
-msgstr "保存"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:61
 #, python-format
 msgid "By: %%s"
-msgstr "作： %%s"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:62
 #, python-format
 msgid "Сhapter \"%%s\" status was changed to \"%%s\""
-msgstr "\"%%s\" 章のステータスが \"%%s\" に変更されました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:63
 #, python-format
 msgid "Chapter \"%%s\" was created"
-msgstr "\"%%s\" 章が作成されました"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:64
 #, python-format
 msgid "Chapter \"%%s\" was deleted"
-msgstr "\"%%s\" 章が削除されました"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:65
 #, python-format
 msgid "Section \"%%s\" was created"
-msgstr "セクション \"%%s\" が作成されました"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:66
 #, python-format
 msgid "Section \"%%s\" was deleted"
-msgstr "セクション \"%%s\" が削除されました"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:67
 #, python-format
 msgid "Section \"%%s\" with chapters inside was deleted"
-msgstr "セクション \"%%s\" とその中の章は削除されました"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:68
 #, python-format
 msgid "Chapter was renamed from \"%%s\" to \"%%s\""
-msgstr "章題が\"%%s\" から\"%%s\" に変更されました。"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:69
 #, python-format
 msgid "Section was renamed from \"%%s\" to \"%%s\""
-msgstr "セクションが \"%%s\" から \"%%s\"に変更されました"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:70
 #, python-format
@@ -2104,7 +2102,7 @@ msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:74
 msgid "Table of contents order was changed"
-msgstr "目次の順番を変更しました"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:75
 #, python-format
@@ -2156,23 +2154,23 @@ msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:85
 msgid "endnotes"
-msgstr "脚注"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:86
 msgid "endnotes without reference"
-msgstr "参照なしの脚注"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:87
 msgid "Inserted by"
-msgstr "挿入者"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:88
 msgid "Deleted by"
-msgstr "削除者"
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:89
 msgid "Start columns: "
-msgstr "開始位置："
+msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:91
 msgid "Do you want to remove the columns?"
@@ -2200,130 +2198,130 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:21
 msgid "Find &amp; Replace"
-msgstr "検索 &amp; 置換"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:28
 #: apps/edit/templates/edit/panel_aloha.html:36
 msgid "Replace"
-msgstr "置換"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:30
 msgid "Match Case"
-msgstr "一致パターン"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:31
 msgid "Finished"
-msgstr "完了しました"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:37
 msgid "Replace All"
-msgstr "すべて置換"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:38
 msgid "&lt; Prev"
-msgstr "&lt; 前"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:39
 msgid "Next $gt;"
-msgstr "次 $gt;"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:53
 msgid "Whole book"
-msgstr "書籍すべて"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:54
 msgid "Book word count"
-msgstr "語数のカウント"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:55
 msgid "Book character count"
-msgstr "書籍の文字カウント"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:56
 msgid "Book character count (with spaces)"
-msgstr "書籍の文字カウント（空白込み）"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:57 apps/edit/views.py:428
 #: apps/reader/views.py:252
 msgid "Chapter"
-msgstr "章"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:59
 msgid "Character count"
-msgstr "文字数"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:60
 msgid "Character count (with spaces)"
-msgstr "文字数（空白込み）"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:74
 msgid "Link"
-msgstr "リンク"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:98
 msgid "Break link"
-msgstr "リンクの削除"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:99
 msgid "Insert link"
-msgstr "リンクの挿入"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:110
 msgid "Color"
-msgstr "色"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:116
 #: apps/edit/templates/edit/panel_aloha.html:152
 msgid "Set"
-msgstr "セット"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:127
 msgid "Footnote"
-msgstr "脚注"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:134
 msgid "Insert footnote"
-msgstr "脚注の挿入"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:145
 msgid "HTML Edit"
-msgstr "HTML編集"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:168
 msgid "Sources"
-msgstr "メディアライブラリ"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:170
 msgid "Media library"
-msgstr "メディアライブラリ"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:172
 msgid "Upload Image"
-msgstr "イメージのアップロード"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:181
 msgid "Drag Your Images Here"
-msgstr "イメージをここまでドラッグ"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:185
 msgid "or Select them from folder"
-msgstr "またはフォルダから選択"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:192
 msgid "Please wait, we are processing your image..."
-msgstr "イメージを処理中。しばらくお待ちください。"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:212
 msgid "Image Title"
-msgstr "イメージのタイトル"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:213
 msgid "Enter Title"
-msgstr "タイトルを入れてください。"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:216
 msgid "Image Description"
-msgstr "イメージの説明"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:223
 msgid "Save Metadata"
@@ -2339,11 +2337,11 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:247
 msgid "File Name"
-msgstr "ファイル名"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:249
 msgid "File Size"
-msgstr "ファイルサイズ"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:250
 msgid "Dimensions"
@@ -2356,32 +2354,32 @@ msgstr ""
 #: apps/edit/templates/edit/panel_aloha.html:260
 #: apps/edit/templates/edit/panel_publish.html:507
 msgid "Download"
-msgstr "ダウンロード"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:267
 #: apps/edit/templates/edit/settings/_roles.html:26
 msgid "REMOVE"
-msgstr "削除"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:299
 msgid "Chapter has been modified"
-msgstr "章は変更されました"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:302
 msgid "This chapter has been modified. Do you want to save it before closing?"
-msgstr "この章は変更されています。閉じる前に保存しますか？"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:305
 msgid "Discard changes"
-msgstr "変更を破棄"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:323
 msgid "Number of columns"
-msgstr "列数"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:330
 msgid "Vertical alignment"
-msgstr "横位置"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:333
 msgid "Turn off"
@@ -2389,7 +2387,7 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:340
 msgid "Column gap (in mm)"
-msgstr "列の隙間(mm単位)"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:347
 msgid "Column continues after the marker"
@@ -2398,12 +2396,12 @@ msgstr ""
 #: apps/edit/templates/edit/panel_aloha.html:365
 #: apps/edit/templates/edit/panel_aloha.html:375
 msgid "Split Chapter"
-msgstr "章の分割"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:369
 #: apps/edit/templates/edit/panel_toc.html:14
 msgid "New chapter title"
-msgstr "新しい章題"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:4
 #: apps/edit/templates/edit/toolbar_book.html:8
@@ -2413,22 +2411,22 @@ msgstr ""
 #: apps/edit/templates/edit/panel_covers.html:11
 #: apps/edit/templates/edit/panel_covers.html:178
 msgid "Approved"
-msgstr "承認"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:14
 msgid "Pending"
-msgstr "保留"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:34
 msgid ""
 "Error: The selected filetype is not supported. Please select one of the "
 "following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
 "SVG, EPS, AI, INDD."
-msgstr "エラー：サポートされていないファイルタイプです。サポートしているファイルタイプを選択してください。サポートされている形式：PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:38
 msgid "Important Info"
-msgstr "重要な情報"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:40
 msgid ""
@@ -2450,15 +2448,15 @@ msgstr ""
 #: apps/edit/templates/edit/panel_covers.html:123
 #: apps/edit/templates/edit/panel_covers.html:125
 msgid "Creator"
-msgstr "作者"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:169 apps/export/models.py:52
 msgid "File name"
-msgstr "ファイル名"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:170 apps/export/models.py:48
 msgid "File size"
-msgstr "ファイルサイズ"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_covers.html:171
 msgid "Image dimensions"
@@ -2467,7 +2465,7 @@ msgstr ""
 #: apps/edit/templates/edit/panel_history.html:4
 #: apps/edit/templates/edit/toolbar_book.html:11 apps/edit/views.py:446
 msgid "Book History"
-msgstr "修正履歴"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_history.html:8
 msgid "Here you can follow the edit history of your book."
@@ -2559,7 +2557,7 @@ msgstr ""
 #: apps/portal/templates/portal/group_remove_book.html:17
 #: apps/portal/widgets.py:30
 msgid "Remove"
-msgstr "削除"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_media.html:76
 msgid "Warning"
@@ -2753,7 +2751,7 @@ msgstr ""
 #: apps/edit/templates/edit/panel_publish.html:287
 #: apps/edit/templates/edit/panel_publish.html:321
 msgid "Cover"
-msgstr "カバー"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:255
 #: apps/edit/templates/edit/panel_publish.html:289
@@ -2810,19 +2808,19 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:419
 msgid "Screen PDF"
-msgstr "画面PDF"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:430
 msgid "EPUB"
-msgstr "EPUB"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:443
 msgid "MOBI"
-msgstr "MOBI"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:454
 msgid "XHTML"
-msgstr "XHTML"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_publish.html:464
 msgid "EXPORT YOUR BOOK"
@@ -2854,7 +2852,7 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_settings.html:13 apps/reader/views.py:61
 msgid "Book"
-msgstr "本"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_settings.html:17
 msgid "General"
@@ -2870,7 +2868,7 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_settings.html:36
 msgid "Metadata"
-msgstr "メタデータ"
+msgstr ""
 
 #: apps/edit/templates/edit/panel_settings.html:37 apps/edit/views.py:47
 msgid "Book Metadata"
@@ -3176,7 +3174,7 @@ msgstr ""
 
 #: apps/edit/views.py:713
 msgid "Successfully saved settings."
-msgstr "設定の保存に成功しました"
+msgstr ""
 
 #: apps/edit/views.py:715
 msgid "You have no permissions to execute this action."
@@ -3184,7 +3182,7 @@ msgstr ""
 
 #: apps/edit/views.py:718
 msgid "Unknown error while saving changes."
-msgstr "変更を保存中に何らかのエラー発生"
+msgstr ""
 
 #: apps/export/__init__.py:5
 msgid "Booktype export application"
@@ -3220,7 +3218,7 @@ msgstr ""
 
 #: apps/export/models.py:30
 msgid "Name"
-msgstr "名前"
+msgstr ""
 
 #: apps/export/models.py:31
 msgid "Task ID"
@@ -3264,7 +3262,7 @@ msgstr ""
 
 #: apps/export/models.py:60
 msgid "version"
-msgstr "バージョン"
+msgstr ""
 
 #: apps/export/models.py:63
 msgid "Content"
@@ -3386,7 +3384,7 @@ msgstr ""
 #: apps/portal/templates/portal/all_groups.html:82
 #: apps/reports/templates/reports/booktype_weekly_report.html:45
 msgid "New groups"
-msgstr "新しいグループ"
+msgstr ""
 
 #: apps/portal/templates/portal/all_groups.html:100
 msgid "There are no new groups at the moment"
@@ -3404,7 +3402,7 @@ msgstr ""
 
 #: apps/portal/templates/portal/books.html:66
 msgid "Latest Books"
-msgstr "最新の書籍"
+msgstr ""
 
 #: apps/portal/templates/portal/books.html:86
 msgid "Published Books"
@@ -3476,7 +3474,7 @@ msgstr ""
 msgid ""
 "Are you sure you would like to delete this group? You will not be able to "
 "undo this operation!"
-msgstr "本当にグループを削除しますか？この操作は取り消しできません！"
+msgstr ""
 
 #: apps/portal/templates/portal/group_remove_book.html:7
 msgid "Remove the book from"
@@ -3540,7 +3538,7 @@ msgstr ""
 
 #: apps/portal/views.py:351
 msgid "Group successfully deleted."
-msgstr "グループの削除に成功"
+msgstr ""
 
 #: apps/reader/__init__.py:4
 msgid "Booktype reader application"
@@ -3564,7 +3562,7 @@ msgstr ""
 
 #: apps/reader/forms.py:15
 msgid "Book image"
-msgstr "書籍のイメージ"
+msgstr ""
 
 #: apps/reader/templates/reader/book_delete.html:12
 msgid ""
@@ -3675,7 +3673,7 @@ msgstr ""
 
 #: apps/reader/templates/reader/book_info_page.html:131
 msgid "Owner"
-msgstr "所有者"
+msgstr ""
 
 #: apps/reader/templates/reader/book_info_page.html:154
 msgid "Admins"
