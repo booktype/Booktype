@@ -55,7 +55,7 @@ class MPDFConverter(BaseConverter):
     final PDF output.
 
     These are the files we pass to the PHP script:
-    - body.html 
+    - body.html
     - frontmatter.html
     - endmatter.html
     - style.css
@@ -64,10 +64,10 @@ class MPDFConverter(BaseConverter):
     config.json file keeps all required input information like page settings, styling, metadata and etc.
     This file is really just the way how we pass the information to PHP script.
 
-    style.css is produced from Django template we defined. It holds all default, theme and custom styling for 
+    style.css is produced from Django template we defined. It holds all default, theme and custom styling for
     this specific book.
 
-    frontmatter.html, body.html and endmatter.html are produced from Django template files we defined. 
+    frontmatter.html, body.html and endmatter.html are produced from Django template files we defined.
 
     Customisation can be done in two different ways:
 
@@ -153,6 +153,7 @@ class MPDFConverter(BaseConverter):
 
     def _get_dir(self, epub_book):
         m = epub_book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
+
         def _check(x):
             return x[1] and x[1].get('property', '') == 'bkterms:dir'
 
@@ -180,7 +181,7 @@ class MPDFConverter(BaseConverter):
           - book: EPUB Book object
 
         :Returns:
-          Returns dictionary.          
+          Returns dictionary.
         """
 
         return {}
@@ -218,7 +219,7 @@ class MPDFConverter(BaseConverter):
     def get_metadata(self, book):
         """Returns metadata which will be passed to the PHP script.
 
-        The idea is that we return certain metadata information which will be written 
+        The idea is that we return certain metadata information which will be written
         to the configuration file. The idea is that booktype2mpdf.php script could
         also get some of the metadata information.
 
@@ -235,6 +236,7 @@ class MPDFConverter(BaseConverter):
         }
 
         m = book.metadata[ebooklib.epub.NAMESPACES["OPF"]]
+
         def _check(x):
             if x[1].get('property', '').startswith('add_meta_terms:'):
                 return True
@@ -250,7 +252,7 @@ class MPDFConverter(BaseConverter):
     def _init_theme_plugin(self):
         if 'theme' in self.config:
             self.theme_name = self.config['theme'].get('id', '')
-            tp =  plugin.load_theme_plugin(self.name, self.theme_name)
+            tp = plugin.load_theme_plugin(self.name, self.theme_name)
             if tp:
                 self.theme_plugin = tp(self)
 
@@ -335,7 +337,7 @@ class MPDFConverter(BaseConverter):
 
         return u''
 
-    def _fix_horrible_mpdf(self, content):        
+    def _fix_horrible_mpdf(self, content):
         content = content.replace('></columnbreak>', " />\n")
         content = content.replace('></columns>', " />\n")
 
@@ -389,7 +391,7 @@ class MPDFConverter(BaseConverter):
         data.update(self.get_extra_data(book))
         data.update({
             'book_items': book_toc
-            })
+        })
 
 #        if self.theme_name != '':
         body_name = get_body(self.theme_name, self.name)
@@ -425,24 +427,18 @@ class MPDFConverter(BaseConverter):
         if self.theme_name != '':
             theme_style = read_theme_style(self.theme_name, self.name)
 
-            if self.theme_name == 'custom':
-                try:
-                    data = json.loads(self.config['theme']['custom'].encode('utf8'))
+            try:
+                if self.theme_name == 'custom':
+                    custom = self.config['theme'].pop('custom', '{}')
+                    custom = json.loads(custom.encode('utf-8'))
+                    self.config.update(custom)
 
-                    tmpl = Template(theme_style)
-                    ctx = Context(data)
-                    _style = tmpl.render(ctx)
-                    theme_style = _style
-                except:
-                    logger.exception("Fails with custom theme.")
-            else:
-                try:
-                    tmpl = Template(theme_style)
-                    ctx = Context(self.config)
-                    _style = tmpl.render(ctx)
-                    theme_style = _style
-                except:
-                    logger.exception("Fails while rendering style.")
+                tmpl = Template(theme_style)
+                ctx = Context(self.config)
+                _style = tmpl.render(ctx)
+                theme_style = _style
+            except:
+                logger.exception("Writing styles failed for `%s` theme." % self.theme_name)
 
         custom_style = self.config.get('settings', {}).get('styling', u'')
 
@@ -455,8 +451,8 @@ class MPDFConverter(BaseConverter):
     def _write_configuration(self, book):
         """Creates configuration file for booktype2mpdf.php script.
 
-        Configuration fill is read by the booktype2mpdf.php script. It is 
-        how we pass information to the PHP script which will finially 
+        Configuration fill is read by the booktype2mpdf.php script. It is
+        how we pass information to the PHP script which will finially
         create and format PDF file.
 
         :Args:
@@ -478,14 +474,14 @@ class MPDFConverter(BaseConverter):
         :Args:
           - book: EPUB Book object
         """
-        
+
         if not os.path.exists(self.images_path):
             os.makedirs(self.images_path)
 
         for item in book.get_items_of_type(ebooklib.ITEM_IMAGE):
             self._save_image(item)
 
-    def _save_image(self, item):        
+    def _save_image(self, item):
         """Saves single image to the temporary library.
 
         :Args:
@@ -520,14 +516,14 @@ class MPDFConverter(BaseConverter):
                 'column-count': column_count,
                 'vAlign': column_valign,
                 'column-gap': column_gap
-                })
+            })
 
             parent = column.getparent()
             parent.insert(parent.index(column), columns_start)
 
             if 'bk-marker' not in column.get('class'):
-                columns_end = etree.Element('columns', {'column-count': '1'})            
-                parent.insert(parent.index(column)+1, columns_end)
+                columns_end = etree.Element('columns', {'column-count': '1'})
+                parent.insert(parent.index(column) + 1, columns_end)
 
             column.drop_tag()
 
@@ -657,7 +653,7 @@ class MPDFConverter(BaseConverter):
 
         End matter HTML file will be used by booktype2mpdf.php script to create
         PDF file.
-        
+
         :Args:
           - book: EPUB Book object
         """
@@ -670,7 +666,7 @@ class MPDFConverter(BaseConverter):
         html = render_to_string(endmatter_name, data)
         # else:
         #     endmatter_name = 'endmatter_{}.html'.format(self.name)
-        #     html = render_to_string('themes/{}'.format(endmatter_name), data)        
+        #     html = render_to_string('themes/{}'.format(endmatter_name), data)
 
         f = codecs.open('{}/endmatter.html'.format(self.sandbox_path), 'wt', 'utf8')
         f.write(html)
@@ -686,7 +682,6 @@ class MPDFConverter(BaseConverter):
         assets = read_theme_assets(self.theme_name, self.name)
 
         def _write(name, content):
-            base_dir = '{}/themes/{}/'.format(settings.DATA_ROOT, self.theme_name)
             try:
                 os.makedirs('{}/assets/'.format(self.sandbox_path))
             except:
@@ -702,7 +697,7 @@ class MPDFConverter(BaseConverter):
 
         for asset_type, asset_list in assets.iteritems():
             if asset_type == 'images':
-                for image_name in asset_list:                    
+                for image_name in asset_list:
                     name = os.path.basename(image_name)
                     content = read_theme_asset_content(self.theme_name, image_name)
 

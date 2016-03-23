@@ -26,7 +26,7 @@ def get_page_size(conf):
     """Returns page number in millimeters.
 
     Page size is defined in the constant file but user is able to define custom
-    page sizes in the settings file. We will try to find custom page size, if 
+    page sizes in the settings file. We will try to find custom page size, if
     it is not found we will check for the default page sizes.
 
     :Args:
@@ -62,7 +62,7 @@ def get_value(sett, name):
     return sett.get(name, 0)
 
 
-def create_default_style(config, name, extra = {}):    
+def create_default_style(config, name, extra = {}):
     """We create CSS file with the default options.
 
     :Args:
@@ -81,7 +81,7 @@ def create_default_style(config, name, extra = {}):
     else:
         crop_marks = False
 
-    get_value(config['settings'], 'top_margin')        
+    get_value(config['settings'], 'top_margin')
 
     data = {'page_width': width,
         'page_height': height,
