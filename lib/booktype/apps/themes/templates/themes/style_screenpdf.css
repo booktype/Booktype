@@ -7,9 +7,6 @@
   margin-top: {{ top_margin }}mm;
   margin-bottom: {{ bottom_margin }}mm;
 
-  margin-header: {{ header_margin }}mm;
-  margin-footer: {{ footer_margin }}mm;
-
   {% if show_footer %}
   margin-footer: {{ footer_margin }}mm;
 
@@ -26,13 +23,18 @@
 }
 
 {% if cover_image %}
-@page :first {
-  background-image: url('{{ cover_image }}'); 
+@page frontcover {
+  background-image: url('{{ cover_image }}');
   background-image-resize: 6;
   footer: none;
   header: none;
 }
 {% endif %}
+
+@page frontmatter {
+  odd-header-name: _blank;
+  even-header-name: _blank;
+}
 
 @page section {
   odd-header-name: _blank;
@@ -46,6 +48,14 @@
   odd-header-name: html_header-right;
   even-header-name: html_header-left;
   {% endif %}
+}
+
+div.frontcover {
+  page: frontcover;
+}
+
+div.frontmatter {
+  page: frontmatter;
 }
 
 div.section {
