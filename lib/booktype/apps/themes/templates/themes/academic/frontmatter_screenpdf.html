@@ -39,14 +39,19 @@
 
 <!-- end get metadata and book info -->
 
+<!-- IF WE HAVE COVER, INSERT A DIV FOR IT -->
 {% if cover_image != '' %}
- <pagebreak />
+<div class="frontcover"></div>
 {% endif %}
 
+<!-- START FRONTMATTER -->
+<div class="frontmatter"></div>
+<pagebreak />
+
 <!-- START HALF TITLE -->
-<h1 class="frontmatter-half-title">{{ title }}</h1>
+<div class="frontmatter-half-title">{{ title }}</div>
 {% if author != None %}
-<h2 class="frontmatter-author">{{ author }}</h2>
+<div class="frontmatter-author">{{ author }}</div>
 {% endif %}
 <!-- END HALF TITLE  -->
 
@@ -55,13 +60,11 @@
 <pagebreak />
 
 <!-- START TITLE PAGE -->
-<div>
-  <h1 class="frontmatter-title">{{ title }}</h1>
-</div>
+<div class="frontmatter-title">{{ title }}</div>
 <div class="frontmatter-line"></div>
-<h3 class="frontmatter-subtitle">{{ subtitle }}</h3>
+<div class="frontmatter-subtitle">{{ subtitle }}</div>
 {% if author %}
-<h2 class="frontmatter-author-title">{{ author }}</h2>
+<div class="frontmatter-author-title">{{ author }}</div>
 {% endif %}
 
 {% if publisher %}
@@ -77,12 +80,12 @@
 {% assign needs_br 0 %}
 
 {% if title %}
-<p class="impl" style="font-weight: bold">{{ title }}</p>
+<p class="impl-bold">{{ title }}</p>
 {% assign needs_br 1 %}
 {% endif %}
 
 {% if subtitle %}
-<p class="impl" style="font-weight: bold">{{ subtitle }}</p>
+<p class="impl-bold">{{ subtitle }}</p>
 {% assign needs_br 1 %}
 {% endif %}
 
@@ -212,7 +215,6 @@
 
 {% if url_publisher or url_author %}
 <p class="impl">
-For more information, please visit:
 {% if url_publisher %}
 <br/>{{ url_publisher }}
 {% endif %}
@@ -233,15 +235,13 @@ For more information, please visit:
 {% endif %}
 
 <p class="impl">This book was created with Booktype.<br/>
-For more information, please visit: www.booktype.pro</p>
+For more information, please visit: <a href="https://www.booktype.pro/">www.booktype.pro</a></p>
 
 <!-- END IMPRESSUM -->
 
 {% if dedication %}
 <pagebreak />
-<div style="padding-top: 40mm">
+<div class="dedication">
   <p class="dedication">{{ dedication }}</p>
 </div>
 {% endif %}
-
-<tocpagebreak paging="on" links="on" toc-bookmarkText="Content list" resetpagenum="0" pagenumstyle="1" toc-pagenumstyle="i" toc-suppress="1" suppress="0" toc-resetpagenum="0"/>

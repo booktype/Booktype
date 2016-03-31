@@ -1,3 +1,5 @@
+{% load booktype_tags %}
+
 {% if show_header %}
 <htmlpageheader name="header-left" style="display:none">
   <div class="header-text" style="text-align: left;">{{ title }}</div>
@@ -6,38 +8,42 @@
 <htmlpageheader name="header-right" style="display:none">
   <div class="header-text" style="text-align: right;">{{ title }}</div>
 </htmlpageheader>
-
-<sethtmlpageheader page="odd" name="header-right" value="on"  />
-<sethtmlpageheader page="even" name="header-left" value="on"  />
 {% endif %}
 
 {% if show_footer %}
 <htmlpagefooter name="footer-left" style="display:none">
-  <div  class="footer-text" style="text-align: center;">{PAGENO}</div>
+  <div class="footer-text" style="text-align: center;">{PAGENO}</div>
 </htmlpagefooter>
 
 <htmlpagefooter name="footer-right" style="display:none">
   <div class="footer-text" style="text-align: center;">{PAGENO}</div>
 </htmlpagefooter>
-
-<sethtmlpagefooter page="odd" name="footer-right" value="on"  />
-<sethtmlpagefooter page="even" name="footer-left" value="on"  />
 {% endif %}
+
+<tocpagebreak links="on" pagenumstyle="1" toc-suppress="1" toc-resetpagenum="1"></tocpagebreak>
+
+{% assign was_chapter 0 %}
 
 {% for item in book_items %}
   {% if item.type == 'chapter' %}
-    <div class="chapter">
-      <tocentry level="{{ item.level }}" content="{{ item.title }}"></tocentry>
-      {{ item.content|safe }}
-    </div>
+    {% if was_chapter %}
+      {# <pagebreak />  #}
+    {% endif %}
+
+    {% if not forloop.first %}
+    <div class="chapter"></div>
+    {% endif %}
+    <tocentry level="1" content="{{ item.title }}"></tocentry>
+    {{ item.content|safe }}
+    {% assign was_chapter 1 %}
   {% endif %}
 
   {% if item.type == 'section' %}
-    <div class="section">
-       <tocentry level="{{ item.level }}" content="{{ item.title }}"></tocentry>  
-       <h1>{{ item.title }}</h1>
-    </div>
+    {% if not forloop.first %}
+    <div class="section"></div>
+    {% endif %}
+    <tocentry level="0" content="{{ item.title }}"></tocentry>
+    <h1 class="section">{{ item.title }}</h1>
+    {% assign was_chapter 0 %}
   {% endif %}
-
 {% endfor %}
-
