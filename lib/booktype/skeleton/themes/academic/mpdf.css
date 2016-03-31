@@ -1,10 +1,8 @@
-html { font-size: 62.5%; }
 body {
-
   {% if page_width < 200 %}
-      font-size: 0.75rem;
+      font-size: 8pt;
   {% else %}
-      font-size: 1rem;
+      font-size: 10pt;
   {% endif %}
   line-height: normal;
   margin: 0;
@@ -15,286 +13,235 @@ body {
 
 .impl {
   margin: 0;
-  text-indent: 0rem;
-  {% if page_width < 140 %}
-  font-size: 0.6rem;
-  {% endif %}
+  text-indent: 0;
 }
 
-.page-break {
-  page-break-after: always;
+.impl-bold {
+  margin: 0;
+  text-indent: 0;
+  font-weight: bold;
 }
 
 .header-text {
-  {% if page_width < 140 %}
-  font-size: 0.7rem;
-  {% endif %}
 }
 
 .footer-text {
-  {% if page_width < 140 %}
-  font-size: 0.7rem;
-  {% endif %}
 }
 
-h1.frontmatter-half-title {
-  font-family: "roboto";
+div.frontmatter-half-title {
+  page: frontmatter;
   font-weight: bold;
-  {% if page_width < 140 %}
-  font-size: 3rem;
-  {% else %}
-  font-size: 5rem;
-  {% endif %}
+  font-size: 4rem;
   text-transform: uppercase;
   line-height: 110%;
-  margin-top: 20mm;
+  margin-top: 5rem;
+  padding-top: 14rem;
   margin-bottom: 0;
-  {% if page_width < 140 %}
-  padding-top: 30mm;
-  {% else %}
-  padding-top: 50mm;
-  {% endif %}
 }
-h1.frontmatter-title {
-  font-family: "roboto";
+
+div.frontmatter-title {
   font-weight: bold;
-  {% if page_width < 140 %}
-  font-size: 3rem;
-  {% else %}
-  font-size: 5rem;
-  {% endif %}
+  font-size: 4rem;
   text-transform: uppercase;
   line-height: 110%;
-  margin-top: 20mm;
-  {% if page_width < 140 %}
-  padding-top: 20mm;
-  {% elif page_width < 200 %}
-  padding-top: 20mm;
-  {% else %}
-  padding-top: 20mm;
-  {% endif %}
- margin-bottom: 0;
+  margin-top: 5rem;
+  padding-top: 5rem;
+  margin-bottom: 0;
 }
 
 h1.section {
-    font-family: "roboto";
-    font-weight: bold;
-    font-size: 3.6rem;
-    text-align: left;
-    margin-top: 0;
-    line-height: 110%;
+  font-weight: bold;
+  font-size: 4rem;
+  text-align: left;
+  margin-top: 0;
+  line-height: 110%;
+  padding-top: 14rem;
 }
 
-h2.frontmatter-author {
-  font-family: "roboto";
+div.frontmatter-author {
   font-weight: normal;
-  {% if page_width < 140 %}
-  font-size: 1.9rem;
-  margin-top: 10mm;
-  {% else %}
-  font-size: 2.2rem;
-  margin-top: 30mm;
-  {% endif %}
+  font-size: 1.75rem;
+  margin-top: 8rem;
 }
 
-h2.frontmatter-author-title {
-  font-family: "roboto";
+div.frontmatter-author-title {
   font-weight: normal;
-  {% if page_width < 200 %}
-  margin-top: 20mm;
-  margin-bottom: 10mm;
-  {% else %}
-  margin-top: 50mm;
-  margin-bottom: 30mm;
-  {% endif %}
-  {% if page_width < 140 %}
-  font-size: 1.9rem;
-  {% else %}
-  font-size: 2.2rem;
-  {% endif %}
+  margin-top: 10rem;
+  margin-bottom: 0;
+  font-size: 1.75rem;
   line-height: 110%;
 }
 
-h3.frontmatter-subtitle {
-  font-family: "roboto";
+div.frontmatter-subtitle {
   font-weight: normal;
-  margin-top: 10mm;
-  {% if page_width < 140 %}
-  font-size: 2rem;
-  {% else %}
+  margin-top: 3.5rem;
   font-size: 2.2rem;
-  {% endif %}
   line-height: 120%;
   line-height: 110%;
 }
 
 div.frontmatter-line {
-  width: 60mm;
+  width: 17rem;
   background-color: black;
-  height: 1mm;
-  margin-top: 10mm;
-  margin-bottom: 10mm;
+  height: 0.3rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .frontmatter-bottom {
-  position:absolute;
-  left:20mm;
-  right: 20mm;
-
-  {% if page_width < 140 %}
-  bottom: 20mm;
-  {% else %}
-  bottom: 30mm;
-  {% endif %}
-  font-size: 1.2rem;
-}
-
-div.mpdf_toc  {
+  position: absolute;
+  left: 5.5rem;
+  right: 5.5rem;
+  bottom: 8rem;
   font-size: 1rem;
-  font-family: "roboto";
 }
+
+div.mpdf_toc {
+  font-size: 1rem;
+}
+
 span.mpdf_toc_t_level_0 {
-  font-weight: normal;
-  text-transform: capitalize;
+  font-weight: bold;
+  text-transform: none;
 }
+
 span.mpdf_toc_t_level_1 {
   font-weight: normal;
   font-style: normal;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 h1.body-h1 {
-    font-family: "roboto";
-    font-weight: bold;
-    {% if page_width < 140 %}
-    font-size: 2.2rem;
-    {% else %}
-    font-size: 3.6rem;
-    {% endif %}
-    /* margin-bottom: 1rem; */
-    margin-bottom: 2rem;
-    line-height: 110%;
+  font-weight: bold;
+  font-size: 2.9rem;
+  margin-bottom: 1.6rem;
+  line-height: 110%;
 }
+
 h2.body-h2 {
-    font-family: "roboto-medium";
-    font-weight: normal;
-    {% if page_width < 140 %}
-    font-size: 1.8rem;
-    {% else %}
-    font-size: 2.8rem;
-    {% endif %}
-    /* margin-bottom: 1rem; */
-    margin-bottom: 1.4rem;
-    line-height: 110%;
+  font-family: "roboto-medium";
+  font-weight: normal;
+  font-size: 2rem;
+  margin-bottom: 1.4rem;
+  line-height: 110%;
 }
 
 h3.body-h3 {
-    font-family: "roboto-medium";
-    font-weight: normal;
-    {% if page_width < 140 %}
-    font-size: 1.6rem;
-    {% else %}
-    font-size: 2.2rem;
-    {% endif %}
-    margin-bottom: 1rem;
-    line-height: 110%;
+  font-family: "roboto-medium";
+  font-weight: normal;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  line-height: 110%;
 }
+
 h4.body-h4 {
-    font-family: "roboto";
-    font-weight: normal;
-   {% if page_width < 140 %}
-    font-size: 1.6rem;
-    {% else %}
-    font-size: 1.8rem;
-    {% endif %}
-    margin-bottom: 1rem;
-    line-height: 110%;
+  font-weight: normal;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  line-height: 110%;
 }
+
 h5.body-h5 {
-    font-family: "roboto-medium";
-    font-weight: normal;
-    {% if page_width < 140 %}
-    font-size: 1.6rem;
-    {% else %} 
-    font-size: 1.4rem;
-    {% endif %}
-    margin-bottom: 1rem;
-    line-height: 110%;
+  font-family: "roboto-medium";
+  font-weight: normal;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  line-height: 110%;
 }
 
 p.body-first {
-    font-family: "roboto";
-    font-weight: normal;
-    font-size: 1rem;
-    text-indent: 0;
-    line-height: 140%;
-    margin-bottom: 0;
+  font-weight: normal;
+  font-size: 1rem;
+  text-indent: 0;
+  line-height: 140%;
+  margin-bottom: 0;
 }
+
 p.body {
-    font-family: "roboto";
-    font-weight: normal;
-    font-size: 1rem;
-    text-indent: 10mm;
-    line-height: 140%;
-    margin: 0;
+  font-weight: normal;
+  font-size: 1rem;
+  text-indent: 1rem;
+  line-height: 140%;
+  margin: 0;
 }
-.quote {
-    font-family: "roboto";
-    font-weight: normal;
-    border-left: 2mm solid #000;
-    margin: 10mm 0;
-    padding: 0;
-    padding-left: 1rem;
-    font-size: 1.4rem;
-    font-style: italic;
-    display: inline;
+
+blockquote {
+  font-weight: normal;
+  font-size: 1.4rem;
+  font-style: italic;
+  text-indent: 0;
+  border-left: 0.5rem solid #999;
+  margin: 2rem 0;
+  padding: 0 0 0 1rem;
+  display: inline;
 }
-.quote-before {
-        font-size: 10rem;
-        line-height: 80%;
-        margin: 0;
-        padding: 0;
-        display: block;
-        width: 15%;
-        float: left;
-}
-.quote-content {
-        display: block;
-        float: left;
-        margin: 0;
+
+ul, ol {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+caption {
+  font-style: italic;
+  margin-top: 1rem;
 }
 
 table, th, td {
-    border: 0.5mm solid black;
+  border: 0.18rem solid black;
 }
+
 th, td {
-        padding: .6rem .8rem;
+  padding: 0.6rem 0.8rem;
 }
+
 ol.endnotes {
-        margin-top: 2rem;
+  margin-top: 2rem;
+  padding-left: 1.2em;
 }
+
 ol.endnotes li {
-        font-family: "roboto";
-        font-weight: normal;
-        font-size: 12px;
+  font-weight: normal;
+  font-size: 0.8rem;
+}
+
+div.dedication {
+  padding-top: 11rem;
 }
 
 p.dedication {
-    font-family: "roboto";
-    font-weight: normal;
-    font-size: 1.4rem;
-    font-style: italic;
-    display: inline; 
-    {% if page_width < 140 %}
-    margin-left: 0.5cm;
-    margin-right: 0.5cm;
-    {% else %}
-    margin-left: 2cm;
-    margin-right: 2cm;
-    {% endif %}
+  font-weight: normal;
+  font-size: 1.4rem;
+  font-style: italic;
+  display: inline; 
+  margin-left: 7.1rem;
+  margin-right: 7.1rem;
+}
+
+img, div.image {
+  max-width: 100%;
+  height: auto;
+  margin: 0px auto;
+}
+
+.group_img {
+  page-break-inside: avoid;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.caption_small {
+  margin-top: 0.5em;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.center {
+  text-align: center;
 }
