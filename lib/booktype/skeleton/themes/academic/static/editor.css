@@ -8,7 +8,7 @@
 }
 
 
-#contenteditor p.quote {
+#contenteditor blockquote p.quote {
   border-left: 2px solid #333;
   margin: 30px 0;
   font-size: 18px;
@@ -31,7 +31,7 @@
 }
 
 #contenteditor {
-    font-family: roboto;
+  font-family: roboto;
 }
 
 #contenteditor h1,
@@ -39,8 +39,7 @@
 #contenteditor h3,
 #contenteditor h4,
 #contenteditor h5,
-#contenteditor h6
-{
+#contenteditor h6 {
     -webkit-hyphens:none;
     hyphens:none;
     adobe-hyphenate:none;
@@ -48,16 +47,14 @@
     color: black;
 }
 
-#contenteditor .aloha-block-TitleBlock h1
-{
+#contenteditor .aloha-block-TitleBlock h1 {
     font-family: "roboto";
     font-weight: bold;
     font-size: 3.6rem;
     margin-bottom: 1rem; 
 }
 
-#contenteditor h2
-{
+#contenteditor h2 {
     font-family: "roboto-medium";
     font-weight: normal;
     font-size: 2.8rem;
@@ -87,8 +84,8 @@
 
 /* Paragraph Styles *****************************************************/
 
-#contenteditor, #contenteditor p
-{
+#contenteditor, 
+#contenteditor p {
     widows:2;
     orphans:2;
 }
@@ -96,38 +93,45 @@
 #contenteditor .aloha-block-TitleBlock + p,
 #contenteditor h2 + p,
 #contenteditor h3 + p,
-#contenteditor h4 + p
-{
+#contenteditor h4 + p {
     font-family: "roboto";
     font-weight: normal;
     font-size: 1.4rem; 
     line-height: 1.8rem;
-/*
-    font-size: 1rem; 
-    line-height: 1.4rem;
-*/
     text-indent: 0;
     margin-bottom: 0;
 }
 
-#contenteditor p
-{
+#contenteditor p {
     font-family: "roboto";
     font-weight: normal;
     font-size: 1.4rem; 
-/*
-    font-size: 1rem; 
-    line-height: 1.4rem;
-*/
     line-height: 1.8rem;
     margin: 0;
 }
 
-#contenteditor p+p
-{
- text-indent: 10mm;
+#contenteditor p+p,
+#contenteditor ul+p,
+#contenteditor ol+p,
+#contenteditor div.group_img+p,
+#contenteditor div.aloha-table+p {
+  text-indent: 20px;
 }
 
+#contenteditor ul,
+#contenteditor ol {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#contenteditor ul,
+#contenteditor ol,
+#contenteditor li {
+  font-family: "roboto";
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 1.8rem;    
+}
 
 #contenteditor img,
 #contenteditor div.image {
@@ -137,34 +141,41 @@
 }
 
 #contenteditor table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+#contenteditor caption {
+  font-style: italic;
+  margin-top: 1rem;
 }
 
 #contenteditor table, 
 #contenteditor th, 
 #contenteditor td {
-    border: 0.5mm solid black;
+  border: 0.5mm solid black;
+}
+
+#contenteditor table td {
+  font-family: "roboto";
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  margin: 0;
 }
 
 #contenteditor th, 
 #contenteditor td {
-        padding: .6rem .8rem;
-}
-
-#contenteditor .aloha-block-EndnoteBlock {
-        margin-top: 2rem;
-}
-
-#contenteditor .aloha-block-EndnoteBlock .endnoteText {
-        font-family: "roboto";
-        font-weight: normal;
-        font-size: 12px;
+  padding: .6rem .8rem;
 }
 
 
 #contenteditor .group_img {
   page-break-inside: avoid;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 #contenteditor .center {
@@ -173,5 +184,23 @@
 
 #contenteditor .caption_small {
   margin-top: 0.5em;
+  font-size: 0.8em;
+  font-style: italic;
 }
 
+#contenteditor .endnotes-container {
+  font-size: 12pt;
+  margin-top: 2rem;
+}
+
+#contenteditor .endnotes-container .endnote-counter,
+#contenteditor .endnotes-container .endnoteText {
+  font-family: "roboto";
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+}
+
+#contenteditor .endnotes-container .endnoteText p {
+  text-indent: 0px;
+}
