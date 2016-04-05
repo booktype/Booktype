@@ -22,28 +22,28 @@
 
 <tocpagebreak links="on" pagenumstyle="1" toc-suppress="1" toc-resetpagenum="1"></tocpagebreak>
 
-{% assign was_chapter 0 %}
-
 {% for item in book_items %}
   {% if item.type == 'chapter' %}
-    {% if was_chapter %}
-      {# <pagebreak />  #}
-    {% endif %}
-
     {% if not forloop.first %}
-    <div class="chapter"></div>
+    <pagebreak />
     {% endif %}
+    <sethtmlpageheader name="header-left" page="even" value="on" show-this-page="on" />
+    <sethtmlpageheader name="header-right" page="odd" value="on" show-this-page="on" />
+    <sethtmlpagefooter name="footer-left" page="even" value="on" />
+    <sethtmlpagefooter name="footer-right" page="odd" value="on" />
     <tocentry level="1" content="{{ item.title }}"></tocentry>
     {{ item.content|safe }}
-    {% assign was_chapter 1 %}
   {% endif %}
 
   {% if item.type == 'section' %}
     {% if not forloop.first %}
-    <div class="section"></div>
+    <pagebreak />
     {% endif %}
+    <sethtmlpageheader page="odd" value="off" />
+    <sethtmlpageheader page="even" value="off" />
+    <sethtmlpagefooter page="odd" value="off" />
+    <sethtmlpagefooter page="even" value="off" />
     <tocentry level="0" content="{{ item.title }}"></tocentry>
     <h1 class="section">{{ item.title }}</h1>
-    {% assign was_chapter 0 %}
   {% endif %}
 {% endfor %}

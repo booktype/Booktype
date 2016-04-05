@@ -9,16 +9,10 @@
 
   {% if show_footer %}
   margin-footer: {{ footer_margin }}mm;
-
-  odd-footer-name: html_footer-right;
-  even-footer-name: html_footer-left;
   {% endif %}
 
   {% if show_header %}
   margin-header: {{ header_margin }}mm;
-      
-  odd-header-name: html_header-right;
-  even-header-name: html_header-left;
   {% endif %}
 }
 
@@ -26,28 +20,11 @@
 @page frontcover {
   background-image: url('{{ cover_image }}');
   background-image-resize: 6;
-  footer: none;
-  header: none;
 }
 {% endif %}
 
 @page frontmatter {
-  odd-header-name: _blank;
-  even-header-name: _blank;
-}
-
-@page section {
-  odd-header-name: _blank;
-  even-header-name: _blank;        
-}
-
-@page chapter {
-  {% if show_header %}
-  margin-header: {{ header_margin }}mm;
-
-  odd-header-name: html_header-right;
-  even-header-name: html_header-left;
-  {% endif %}
+  background-image: none;
 }
 
 div.frontcover {
@@ -56,12 +33,4 @@ div.frontcover {
 
 div.frontmatter {
   page: frontmatter;
-}
-
-div.section {
-  page: section;
-}
-
-div.chapter {
-  page: chapter;
 }

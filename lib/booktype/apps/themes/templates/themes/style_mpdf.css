@@ -9,42 +9,13 @@
 
   {% if show_footer %}
   margin-footer: {{ footer_margin }}mm;
-
-  odd-footer-name: html_footer-right;
-  even-footer-name: html_footer-left;
   {% endif %}
 
   {% if show_header %}
   margin-header: {{ header_margin }}mm;
-
-  odd-header-name: html_header-right;
-  even-header-name: html_header-left;
   {% endif %}
       
   {% if crop_marks %}
   marks: crop cross;    
   {% endif %}        
 }
-
-@page section {
-  odd-header-name: _blank;
-  even-header-name: _blank;        
-}
-
-@page chapter {
-  {% if show_header %}
-  margin-header: {{ header_margin }}mm;
-
-  odd-header-name: html_header-right;
-  even-header-name: html_header-left;
-  {% endif %}
-}
-
-div.section {
-  page: section;
-}
-
-div.chapter {
-  page: chapter;
-}
-
