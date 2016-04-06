@@ -21,6 +21,12 @@ body {
   {% endif %}
 }
 
+.impl-bold {
+  margin: 0;
+  text-indent: 0rem;
+  font-weight: bold;
+}
+
 .page-break {
   page-break-after: always;
 }
@@ -37,7 +43,7 @@ body {
   {% endif %}
 }
 
-h1.frontmatter-half-title {
+div.frontmatter-half-title {
   font-family: "{{ fontP }}";
   font-weight: bold;
   {% if page_width < 140 %}
@@ -56,13 +62,8 @@ h1.frontmatter-half-title {
   {% endif %}
 }
 
-.impl {
-  margin: 0;
-  text-indent: 0rem;
-  line-height: normal;
-  {% if page_width < 140 %}
-  font-size: 0.6rem;
-  {% endif %}
+div.dedication {
+  padding-top: 11rem;
 }
 
 p.dedication {
@@ -80,7 +81,7 @@ p.dedication {
   {% endif %}
 }
 
-h1.frontmatter-title {
+div.frontmatter-title {
   font-family: "{{ fontP }}";
   font-weight: bold;
   {% if page_width < 140 %}
@@ -110,7 +111,7 @@ h1.section {
     line-height: 110%;
 }
 
-h2.frontmatter-author {
+div.frontmatter-author {
   font-family: "{{ fontP }}";
   font-weight: normal;
   {% if page_width < 140 %}
@@ -122,7 +123,7 @@ h2.frontmatter-author {
   {% endif %}
 }
 
-h2.frontmatter-author-title {
+div.frontmatter-author-title {
   font-family: "{{ fontP }}";
   font-weight: normal;
   {% if page_width < 200 %}
@@ -140,7 +141,7 @@ h2.frontmatter-author-title {
   line-height: 110%;
 }
 
-h3.frontmatter-subtitle {
+div.frontmatter-subtitle {
   font-family: "{{ fontP }}";
   font-weight: normal;
   margin-top: 10mm;
