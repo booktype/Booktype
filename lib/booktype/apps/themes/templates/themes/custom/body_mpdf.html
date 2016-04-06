@@ -27,10 +27,6 @@
     {% if not forloop.first %}
     <pagebreak />
     {% endif %}
-    <sethtmlpageheader name="header-left" page="even" value="on" show-this-page="on" />
-    <sethtmlpageheader name="header-right" page="odd" value="on" show-this-page="on" />
-    <sethtmlpagefooter name="footer-left" page="even" value="on" />
-    <sethtmlpagefooter name="footer-right" page="odd" value="on" />
     <tocentry level="1" content="{{ item.title }}"></tocentry>
     {{ item.content|safe }}
   {% endif %}
@@ -39,8 +35,6 @@
     {% if not forloop.first %}
     <pagebreak type="next-odd" />
     {% endif %}
-    <sethtmlpageheader page="odd" value="off" />
-    <sethtmlpageheader page="even" value="off" />
     <sethtmlpagefooter page="odd" value="off" />
     <sethtmlpagefooter page="even" value="off" />
     <tocentry level="0" content="{{ item.title }}"></tocentry>
