@@ -26,26 +26,32 @@ from booktype.apps.core.templatetags.booktype_tags import jsonlookup
 register = template.Library()
 
 ACTIVITY_KIND_VERBOSE = {
-    1:  _("Created new chapter"),
-    2:  _("Chapter saved"),
-    3:  _("Chapter rename"),
-    4:  _("Chapter reorder"),
-    5:  _("Split chapter"),
-    6:  _("Created new section"),
-    7:  _("Renamed section"),
+    1: _("Created new chapter"),
+    2: _("Chapter saved"),
+    3: _("Chapter rename"),
+    4: _("Chapter reorder"),
+    5: _("Split chapter"),
+    6: _("Created new section"),
+    7: _("Renamed section"),
     10: _("Created new book"),
     11: _("Minor version"),
     12: _("Major version"),
     13: _("Uploaded"),
     14: _("Attachment delete"),
     16: _("Upload cover"),
+    18: _("Cover update"),
     19: _("Delete chapter"),
     20: _("Delete section")
 }
 
+
 @register.assignment_tag
 def verbose_activity(activity):
-    # TODO: add docstrings here
+    """
+    Template tag to check what kind of activity is the one coming
+    as paramenter and then append some useful verbose and user frield
+    fields to it.
+    """
 
     verbose = unicode(ACTIVITY_KIND_VERBOSE.get(activity.kind, None))
     default_image = static('core/img/chapter-default.png')
@@ -54,8 +60,6 @@ def verbose_activity(activity):
     book_version = book.version.get_version()
 
     if verbose:
-        title = verbose
-
         # get the right image for activity
         if activity.kind == 6:
             default_image = static('core/img/section-default.png')
@@ -85,6 +89,11 @@ def verbose_activity(activity):
                 args=[book.url_title, book_version, filename]
             )
 
+        # show more info when cover update
+        if activity.kind == 18:
+            link_text = jsonlookup(activity.args, 'title')
+            link_url = '{}#covers'.format(reverse('edit:editor', args=[book.url_title]))
+
         activity_dict = dict(
             verbose=verbose,
             image_url=default_image,
@@ -98,7 +107,7 @@ def verbose_activity(activity):
             activity_dict['link_url'] = link_url
             activity_dict['link_text'] = '%s' % link_text
 
-        if not 'link_text' in activity_dict and activity.kind != 4:
+        if 'link_text' not in activity_dict and activity.kind != 4:
             try:
                 activity_dict['link_text'] = json.loads(activity.args).values()[0]
             except:
