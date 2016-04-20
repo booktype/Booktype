@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-25 12:22+0000\n"
+"POT-Creation-Date: 2016-04-20 15:02+0200\n"
 "PO-Revision-Date: 2015-05-15 11:52+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -77,8 +77,8 @@ msgstr ""
 msgid "description"
 msgstr ""
 
-#: apps/account/models.py:38 apps/account/models.py:64
-#: apps/export/models.py:29 apps/export/models.py:61
+#: apps/account/models.py:38 apps/account/models.py:64 apps/export/models.py:29
+#: apps/export/models.py:61
 msgid "user"
 msgstr ""
 
@@ -119,8 +119,7 @@ msgstr ""
 #: apps/portal/templates/portal/frontpage.html:22
 #: apps/portal/templates/portal/group.html:23
 #: apps/portal/templates/portal/group.html:50 apps/portal/views.py:392
-#: apps/portal/views.py:393
-#: apps/reader/templates/reader/book_info_page.html:90
+#: apps/portal/views.py:393 apps/reader/templates/reader/book_info_page.html:90
 msgid "Books"
 msgstr ""
 
@@ -656,9 +655,8 @@ msgid "My Dashboard"
 msgstr ""
 
 #: apps/account/templates/account/form_signin.html:3
-#: apps/account/templates/account/form_signin.html:20
-#: apps/account/views.py:449 apps/account/views.py:450
-#: apps/core/templates/core/nav_bar.html:18
+#: apps/account/templates/account/form_signin.html:20 apps/account/views.py:449
+#: apps/account/views.py:450 apps/core/templates/core/nav_bar.html:18
 #: apps/edit/templates/edit/toolbar_user.html:14
 msgid "Log in"
 msgstr ""
@@ -1070,7 +1068,7 @@ msgstr ""
 msgid "Rename chapter"
 msgstr ""
 
-#: apps/edit/__init__.py:9 apps/reader/templatetags/reader_tags.py:42
+#: apps/edit/__init__.py:9 apps/reader/templatetags/reader_tags.py:43
 msgid "Delete chapter"
 msgstr ""
 
@@ -1090,7 +1088,7 @@ msgstr ""
 msgid "Rename section"
 msgstr ""
 
-#: apps/edit/__init__.py:15 apps/reader/templatetags/reader_tags.py:43
+#: apps/edit/__init__.py:15 apps/reader/templatetags/reader_tags.py:44
 msgid "Delete section"
 msgstr ""
 
@@ -3731,6 +3729,10 @@ msgstr ""
 msgid "Attachment delete"
 msgstr ""
 
+#: apps/reader/templatetags/reader_tags.py:42
+msgid "Cover update"
+msgstr ""
+
 #: apps/reader/views.py:76
 #, python-format
 msgid "%(object)s not found!"
@@ -3946,7 +3948,8 @@ msgstr ""
 
 #: skeleton/themes/academic/panel.html:6
 msgid ""
-"This academic style is based on serif fonts for headings and paragraphs."
+"This academic style is based on the sans-serif Roboto font for headings and "
+"paragraphs."
 msgstr ""
 
 #. Translators: User defined style Heading font
