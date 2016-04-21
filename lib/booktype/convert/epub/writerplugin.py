@@ -15,9 +15,7 @@ from .constants import (
 
 
 class WriterPlugin(BasePlugin):
-    """
-    Basic plugin for Booktype EPUB Writing
-    """
+    """Basic plugin for Booktype EPUB Writing"""
 
     def __init__(self, *args, **kwargs):
         super(WriterPlugin, self).__init__(*args, **kwargs)
@@ -47,14 +45,12 @@ class WriterPlugin(BasePlugin):
         return True
 
     def _fix_images(self, root):
-        """
-        Fix the path of the images to match with IMAGES_DIR
-        """
+        """Fix the path of the images to match with IMAGES_DIR"""
 
         for element in root.iter('img'):
+            src = element.get('src')
 
-            src = element.get("src")
-
+            # move to next element if there no src attribute
             if not src:
                 continue
 

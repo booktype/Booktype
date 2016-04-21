@@ -24,12 +24,14 @@ import datetime
 from copy import deepcopy
 from lxml import etree
 
+from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string, Template, Context
 
 from booktype.apps.themes.utils import (
     read_theme_style, read_theme_assets, read_theme_asset_content)
 from booktype.apps.convert.templatetags.convert_tags import (
     get_refines, get_metadata)
+
 from ..base import BaseConverter
 from ..utils.epub import parse_toc_nav
 
@@ -44,13 +46,15 @@ from .constants import (
 )
 
 logger = logging.getLogger("booktype.convert.epub")
-TOC_TITLE = 'toc'
 
 
 class EpubConverter(BaseConverter):
-    name = 'epub'
 
-    DEFAULT_STYLE = 'style1'
+    name = 'epub'
+    toc_title = 'toc'
+    default_style = 'style1'
+    default_lang = DEFAULT_LANG
+    writer_plugin_class = WriterPlugin
     css_dir = os.path.join(os.path.dirname(__file__), 'styles/')
 
     def __init__(self, *args, **kwargs):
@@ -117,31 +121,17 @@ class EpubConverter(BaseConverter):
         logger.debug('[EPUB] Add cover')
         self._add_cover(epub_book)
 
-        logger.debug('[EPUB] Writer plugin')
-
-        writer_plugin = WriterPlugin()
-        writer_plugin.options['style'] = self.config.get(
-            'style', self.DEFAULT_STYLE)
-
-        writer_plugin.options['lang'] = self.config.get('lang', DEFAULT_LANG)
-        writer_plugin.options['preview'] = self.config.get('preview', True)
-
-        logger.debug('[EPUB] Adding default and custom css')
-        book_css = self._add_css_styles(epub_book)
-        writer_plugin.options['css'] = book_css
-
         if self.theme_name:
             self._add_theme_assets(epub_book)
 
         self.post_convert(original_book, epub_book, output_path)
 
-        writer_options = {
-            'plugins': [writer_plugin, ]
-        }
+        logger.debug('[EPUB] Setting writer plugins and options')
+        writer_options = {'plugins': self._get_plugins(epub_book, original_book)}
 
         logger.debug('[EPUB] Writer')
-        epub_writer = Writer(
-            output_path, epub_book, options=writer_options)
+        writer_class = self._get_writer_class()
+        epub_writer = writer_class(output_path, epub_book, options=writer_options)
 
         logger.debug('[EPUB] Process')
         epub_writer.process()
@@ -167,6 +157,48 @@ class EpubConverter(BaseConverter):
             return values[0][0].lower()
 
         return 'ltr'
+
+    def _get_writer_plugin_class(self):
+        """Returns the writer plugin class to used by writer"""
+
+        if self.writer_plugin_class:
+            return self.writer_plugin_class
+        raise ImproperlyConfigured
+
+    def _get_writer_plugin(self, epub_book, original_book):
+        """Returns the writer plugin instance with some default options already set up"""
+
+        writer_plugin = self._get_writer_plugin_class()()
+        opts = {
+            'css': self._add_css_styles(epub_book),
+            'style': self.config.get('style', self.default_style),
+            'lang': self._get_language(original_book),
+            'preview': self.config.get('preview', True)
+        }
+
+        writer_plugin.options.update(opts)
+        return writer_plugin
+
+    def _get_plugins(self, epub_book, original_book):
+        """Returns the plugins to be used by writer instance"""
+
+        writer_plugin = self._get_writer_plugin(epub_book, original_book)
+        return [writer_plugin, ]
+
+    def _get_writer_class(self):
+        """Simply returns the default writer class to be used by the converter"""
+
+        return Writer
+
+    def _get_language(self, original_book):
+        """
+        Returns the book language, if there is no language in metadata (from settings)
+        then we use the default language set to the class
+        """
+
+        metadata = self._get_data(original_book)
+        default = metadata.get('language', self.default_lang)
+        return self.config.get('lang', default)
 
     def _edit_metadata(self, epub_book):
         """Modifies original metadata."""
@@ -267,7 +299,7 @@ class EpubConverter(BaseConverter):
                     epub_book.guide.insert(0, {
                         'type': 'toc',
                         'href': item.file_name,
-                        'title': self.config.get('toc_title', TOC_TITLE)
+                        'title': self.config.get('toc_title', self.toc_title)
                     })
                 else:
                     epub_book.spine.append(item)
