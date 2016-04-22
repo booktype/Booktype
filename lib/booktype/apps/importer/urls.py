@@ -25,9 +25,4 @@ urlpatterns = patterns('', # noqa
         login_required(ImporterView.as_view()),
         name='upload_book_file'
     ),
-    url(
-        r'^_upload-progress/$',
-        'booktype.apps.importer.views.upload_progress',
-        name='upload_progress'
-    )
 )

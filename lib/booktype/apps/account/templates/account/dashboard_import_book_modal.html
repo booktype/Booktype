@@ -18,7 +18,9 @@
                     <div class="drag-area-button">
                         <span class="btn btn-default fileinput-button">
                             <i class="icon-upload"></i> {% trans "or Select from folder" %}
-                            <input id="book-file" type="file" accept="application/epub+zip,application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="book_file" data-upload-uuid="{{ upload_uuid }}" data-status-url="{% url 'upload_progress' %}">
+                            <input id="book-file" type="file"
+																	 accept="application/epub+zip,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+																	 name="book_file">
                         </span>
                     </div>
                 </div>
@@ -72,7 +74,7 @@
           </div>
           <div class="modal-footer">
             <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Close" %}</button>
-            <button class="btn btn-primary" id="import">{% trans "Import" %}</button>
+            <button class="btn btn-primary disabled" id="import">{% trans "Import" %}</button>
           </div>
     </div>
 </div>

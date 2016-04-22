@@ -2,8 +2,9 @@
 {% load i18n staticfiles profile reader_tags messaging_tags portal_tags %}
 
 {% block extra_header %}
-<link href='{% static "edit/css/jquery.fileupload-ui.css" %}' rel='stylesheet' type='text/css' />
+<link href='{% static "core/css/jquery.fileupload-ui.css" %}' rel='stylesheet' type='text/css' />
 <script type="text/javascript" src="{% static 'core/js/jquery.steps.min.js' %}"></script>
+<script type="text/javascript" src="{% static "core/js/jquery.fileupload.js" %}"></script>
 <script type="text/javascript">
     var createBookUrl = "{% url 'accounts:create_book' current_user.username %}";
 </script>

@@ -17,7 +17,6 @@
 
 import re
 import os
-import uuid
 import json
 import string
 from random import choice
@@ -147,8 +146,6 @@ class DashboardPageView(SecurityMixin, BasePageView, DetailView):
            self.object != self.request.user:
             context['title'] = _('User profile')
             context['page_title'] = _('User profile')
-
-        context['upload_uuid'] = uuid.uuid4()
 
         # Getting context variables for the form to invite users
         if self.request.user.is_authenticated():
