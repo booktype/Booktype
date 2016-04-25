@@ -451,9 +451,9 @@ class MPDFConverter(BaseConverter):
     def _write_configuration(self, book):
         """Creates configuration file for booktype2mpdf.php script.
 
-        Configuration fill is read by the booktype2mpdf.php script. It is
-        how we pass information to the PHP script which will finially
-        create and format PDF file.
+        Configuration file is read by the booktype2mpdf.php script. It is
+        how we pass information to the PHP script which will finally
+        create and format the PDF file.
 
         :Args:
           - book: EPUB Book object
