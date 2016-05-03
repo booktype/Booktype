@@ -107,6 +107,22 @@ div.frontmatter-subtitle {
   font-size: 22pt;
 }
 
+div.mpdf_toc {
+  font-size: 1rem;
+  font-family: "{{ fontP }}";
+}
+
+span.mpdf_toc_t_level_0 {
+  font-weight: bold;
+  text-transform: none;
+}
+
+span.mpdf_toc_t_level_1 {
+  font-weight: normal;
+  font-style: normal;
+  text-transform: none;
+}
+
 td, p, li {
   line-height: {{ lineHeightP }}%;
   font-family: "{{ fontP }}";
