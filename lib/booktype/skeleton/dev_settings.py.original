@@ -71,7 +71,7 @@ except ImportError:
 
 try:
     import devserver
-    INSTALLED_APPS += ('devserver',)
+    INSTALLED_APPS = ('devserver',) + INSTALLED_APPS
 except ImportError:
     pass
 
