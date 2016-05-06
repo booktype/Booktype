@@ -39,7 +39,7 @@ from .styles import create_default_style, get_page_size, CROP_MARGIN
 from booktype.apps.convert import plugin
 from booktype.apps.themes.utils import (
     read_theme_style, get_single_frontmatter, get_single_endmatter, get_body,
-    read_theme_assets, read_theme_asset_content)
+    read_theme_assets, read_theme_asset_content, read_theme_info)
 from booktype.apps.convert.templatetags.convert_tags import (
     get_refines, get_metadata)
 from booktype.utils.misc import booktype_slugify
@@ -213,6 +213,9 @@ class MPDFConverter(BaseConverter):
 
         if self.theme_plugin:
             data['mpdf'] = self.theme_plugin.get_mpdf_config()
+
+        # get additional mpdf configuration options
+        data.setdefault('mpdf', {}).update(self._get_theme_mpdf_config())
 
         return data
 
@@ -738,5 +741,20 @@ class MPDFConverter(BaseConverter):
         except Exception as e:
             logger.error(
                 'MPDF Converter::Fail running the command "{}".'.format(e))
+
+        return {}
+
+    def _get_theme_mpdf_config(self):
+        """
+        Checks the theme info.json file and returns the additional options for mpdf
+        if there is any defined inside of it.
+        """
+
+        profile = self.name
+        data = read_theme_info('{}/themes/{}/info.json'.format(settings.BOOKTYPE_ROOT, self.theme_name))
+
+        if 'output' in data:
+            if profile in data['output']:
+                return data['output'][profile].get('options', {})
 
         return {}
