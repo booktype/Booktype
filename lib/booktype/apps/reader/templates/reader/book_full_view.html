@@ -1,8 +1,10 @@
 {% extends "core/base.html" %}
-{% load i18n staticfiles reader_tags booktype_tags %}
+{% load i18n staticfiles compress reader_tags booktype_tags %}
 
 {% block extra_header %}
-<script type="text/javascript" src="{% static 'reader/js/fullview.js' %}"></script>
+  {% compress js %}
+    <script type="text/javascript" src="{% static 'reader/js/fullview.js' %}"></script>
+  {% endcompress %}
 {% endblock %}
 
 {% block content %}

@@ -1,12 +1,16 @@
-{% load staticfiles %}
+{% load staticfiles compress %}
 
-<link rel="stylesheet" href="{% static 'edit/js/aloha/css/aloha.css' %}" type="text/css">
-<link rel="stylesheet" href="{% static 'edit/css/aloha-custom.css' %}" type="text/css">
-<link rel="stylesheet" href="{% static 'edit/js/ice.css' %}" type="text/css">
+{% compress css %}
+  <link rel="stylesheet" href="{% static 'edit/js/aloha/css/aloha.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'edit/css/aloha-custom.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'edit/js/ice.css' %}" type="text/css">
+{% endcompress %}
 
-<script src="{% static 'edit/js/aloha/lib/vendor/jquery-1.7.2.js' %}"></script>
-<script src="{% static 'edit/js/findAndReplaceDOMText/findAndReplaceDOMText.js' %}"></script>
-<script src="{% static 'edit/js/icejs/ice.js' %}"></script>
+{% compress js %}
+  <script src="{% static 'edit/js/aloha/lib/vendor/jquery-1.7.2.js' %}"></script>
+  <script src="{% static 'edit/js/findAndReplaceDOMText/findAndReplaceDOMText.js' %}"></script>
+  <script src="{% static 'edit/js/icejs/ice.js' %}"></script>
+{% endcompress %}
 
 <script>
   Aloha = window.Aloha || {};

@@ -1,13 +1,20 @@
 {% extends "control_base.html" %}
-{% load i18n staticfiles %}
+{% load i18n staticfiles compress %}
 
 {% block extra_header %}
-    <script type="text/javascript">
-        var ALLOWED_MODULES={{ valid_options|safe }},
-            CONTROL_CENTER_URL="{% url 'control_center:settings' %}"
-    </script>
+  <script type="text/javascript">
+    var ALLOWED_MODULES ={{ valid_options|safe }},
+      CONTROL_CENTER_URL = "{% url 'control_center:settings' %}"
+  </script>
+
+  {% compress js %}
     <script type="text/javascript" src="{% static 'booktypecontrol/js/booktypecontrol.js' %}"></script>
-    <link href='{% static "booktypecontrol/css/booktypecontrol.css" %}' rel='stylesheet' type='text/css' />
+  {% endcompress %}
+
+  {% compress css %}
+    <link href='{% static "booktypecontrol/css/booktypecontrol.css" %}' rel='stylesheet' type='text/css'/>
+  {% endcompress %}
+
 {% endblock %}
 
 {% block content %}
