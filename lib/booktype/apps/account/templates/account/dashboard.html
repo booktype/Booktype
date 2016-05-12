@@ -1,18 +1,29 @@
 {% extends "core/base.html" %}
-{% load i18n staticfiles profile reader_tags messaging_tags portal_tags %}
+{% load i18n staticfiles compress profile reader_tags messaging_tags portal_tags %}
 
 {% block extra_header %}
-<link href='{% static "core/css/jquery.fileupload-ui.css" %}' rel='stylesheet' type='text/css' />
-<script type="text/javascript" src="{% static 'core/js/jquery.steps.min.js' %}"></script>
-<script type="text/javascript" src="{% static "core/js/jquery.fileupload.js" %}"></script>
-<script type="text/javascript">
+
+  {% compress css %}
+    <link href='{% static "core/css/jquery.fileupload-ui.css" %}' rel='stylesheet' type='text/css'/>
+  {% endcompress %}
+
+  {% compress js %}
+    <script type="text/javascript" src="{% static 'core/js/jquery.steps.min.js' %}"></script>
+    <script type="text/javascript" src="{% static "core/js/jquery.fileupload.js" %}"></script>
+  {% endcompress %}
+
+  <script type="text/javascript">
     var createBookUrl = "{% url 'accounts:create_book' current_user.username %}";
-</script>
-<script type="text/javascript" src="{% static 'account/js/dashboard.js' %}"></script>
-{# this below one is needed for dashboard_book_template.html #}
-<script type="text/javascript" src="{% static 'reader/js/infopage.js' %}"></script>
-<script type="text/javascript" src="{% static 'edit/js/booktype/utils.js' %}"></script>
-<script type="text/javascript" src="{% static 'portal/js/inviteWizard.js' %}"></script>
+  </script>
+
+  {% compress js %}
+    <script type="text/javascript" src="{% static 'account/js/dashboard.js' %}"></script>
+    {# this below one is needed for dashboard_book_template.html #}
+    <script type="text/javascript" src="{% static 'reader/js/infopage.js' %}"></script>
+    <script type="text/javascript" src="{% static 'edit/js/booktype/utils.js' %}"></script>
+    <script type="text/javascript" src="{% static 'portal/js/inviteWizard.js' %}"></script>
+  {% endcompress %}
+
 {% endblock %}
 
 {% block content %}
