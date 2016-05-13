@@ -23,6 +23,8 @@ import zipfile
 import ebooklib
 from lxml import etree
 
+from booktype.convert.image_editor_conversion import ImageEditorConversion
+
 from ..base import BaseConverter
 from ..utils.epub import reformat_endnotes
 
@@ -31,17 +33,39 @@ logger = logging.getLogger("booktype.convert.xhtml")
 TEXT_DIR = "Text"
 STYLE_DIR = "Styles"
 IMAGES_DIR = "Images"
+XHTML_DOCUMENT_WIDTH = 2480
 
 
 class XHTMLConverter(BaseConverter):
     name = 'xhtml'
+
+    def __init__(self, *args, **kwargs):
+        super(XHTMLConverter, self).__init__(*args, **kwargs)
+        self._bk_image_editor_conversion = None
+        self._all_images_src = set()
+
+    def pre_convert(self, book):
+        """Called before entire process of conversion is called.
+
+        :Args:
+          - book: EPUB book object
+        """
+
+        # create image edtor conversion instance
+        # todo move it to more proper place in the future, and create plugin for it
+        if self.name == 'xhtml':
+            self._bk_image_editor_conversion = ImageEditorConversion(
+                book, XHTML_DOCUMENT_WIDTH, self.config.get("project_id")
+            )
 
     def convert(self, original_book, output_path):
         logger.debug('[XHTML] XHTMLConverter.convert')
 
         self.output_file = zipfile.ZipFile(output_path, 'w')
 
+        self.pre_convert(original_book)
         self._copy_items(original_book)
+        self._write_images()
         self._add_styles()
 
         self.output_file.close()
@@ -57,9 +81,8 @@ class XHTMLConverter(BaseConverter):
             item_type = item.get_type()
             file_name = os.path.basename(item.file_name)
 
-            if item_type == ebooklib.ITEM_IMAGE:
-                self.output_file.writestr('{}/{}'.format(IMAGES_DIR, file_name), item.get_content())
-            elif item_type == ebooklib.ITEM_DOCUMENT:
+            if item_type == ebooklib.ITEM_DOCUMENT:
+
                 if isinstance(item, ebooklib.epub.EpubNav):
                     # Modify nav.xhtml file from EPUB for out XHTML output
                     content = self._fix_chapter(self._clear_nav(item.get_content()))
@@ -69,6 +92,16 @@ class XHTMLConverter(BaseConverter):
                     content = self._fix_chapter(item.get_content())
 
                     self.output_file.writestr('{}/{}'.format(TEXT_DIR, file_name), content)
+
+    def _write_images(self):
+        for src in self._all_images_src:
+            file_name = os.path.basename(src)
+
+            try:
+                with open(src, 'r') as img:
+                    self.output_file.writestr('{}/{}'.format(IMAGES_DIR, file_name), img.read())
+            except IOError:
+                logger.exception("xhtml. Failed to open image for writing.")
 
     def _clear_nav(self, content):
         """
@@ -89,6 +122,19 @@ class XHTMLConverter(BaseConverter):
         """
 
         root = ebooklib.utils.parse_html_string(content)
+
+        # todo move it to more proper place in the future, and create plugin for it
+        if self._bk_image_editor_conversion:
+            try:
+                root = self._bk_image_editor_conversion.convert(root)
+            except:
+                logger.exception("xhtml. ImageEditorConversion failed.")
+
+        # save all images src
+        for img_element in root.iter('img'):
+            if img_element.get('src'):
+                self._all_images_src.add(img_element.get('src'))
+
         self._fix_images(root)
         self._reformat_endnotes(root)
 

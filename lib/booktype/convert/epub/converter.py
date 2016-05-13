@@ -20,7 +20,6 @@ import logging
 import urlparse
 import ebooklib
 import datetime
-
 from copy import deepcopy
 from lxml import etree
 
@@ -31,18 +30,19 @@ from booktype.apps.themes.utils import (
     read_theme_style, read_theme_assets, read_theme_asset_content)
 from booktype.apps.convert.templatetags.convert_tags import (
     get_refines, get_metadata)
+from booktype.apps.convert import plugin
+from booktype.convert.image_editor_conversion import ImageEditorConversion
 
 from ..base import BaseConverter
 from ..utils.epub import parse_toc_nav
 
 from .writer import Writer
 from .writerplugin import WriterPlugin
+from .image_editor_writerplugin import ImageEditorWriterPlugin
 from .cover import add_cover, COVER_FILE_NAME
-from booktype.apps.convert import plugin
-
 from .constants import (
     IMAGES_DIR, STYLES_DIR, FONTS_DIR,
-    DOCUMENTS_DIR, DEFAULT_LANG
+    DOCUMENTS_DIR, DEFAULT_LANG, EPUB_DOCUMENT_WIDTH
 )
 
 logger = logging.getLogger("booktype.convert.epub")
@@ -62,6 +62,7 @@ class EpubConverter(BaseConverter):
 
         self.theme_name = ''
         self.theme_plugin = None
+        self._bk_image_editor_conversion = None
 
     def _init_theme_plugin(self):
         if 'theme' in self.config:
@@ -79,7 +80,15 @@ class EpubConverter(BaseConverter):
             except NotImplementedError:
                 pass
 
+        # create image edtor conversion instance
+        # todo move it to more proper place in the future, and create plugin for it
+        if self.name == 'epub':
+            self._bk_image_editor_conversion = ImageEditorConversion(
+                original_book, EPUB_DOCUMENT_WIDTH, self.config.get("project_id")
+            )
+
     def post_convert(self, original_book, book, output_path):
+
         if self.theme_plugin:
             try:
                 self.theme_plugin.post_convert(original_book, book, output_path)
@@ -183,7 +192,9 @@ class EpubConverter(BaseConverter):
         """Returns the plugins to be used by writer instance"""
 
         writer_plugin = self._get_writer_plugin(epub_book, original_book)
-        return [writer_plugin, ]
+        image_editor_writer_plugin = ImageEditorWriterPlugin(self.config.get("project_id"))
+
+        return [writer_plugin, image_editor_writer_plugin]
 
     def _get_writer_class(self):
         """Simply returns the default writer class to be used by the converter"""
@@ -311,6 +322,15 @@ class EpubConverter(BaseConverter):
                             item.content = etree.tostring(cnt, method='html', encoding='utf-8', pretty_print=True)
                         except NotImplementedError:
                             pass
+
+                    # todo move it to more proper place in the future, and create plugin for it
+                    if self._bk_image_editor_conversion:
+                        try:
+                            content = ebooklib.utils.parse_html_string(item.content)
+                            cnt = self._bk_image_editor_conversion.convert(content)
+                            item.content = etree.tostring(cnt, method='html', encoding='utf-8', pretty_print=True)
+                        except:
+                            logger.exception("epub ImageEditorConversion failed")
 
             if isinstance(item, ebooklib.epub.EpubNcx):
                 item = ebooklib.epub.EpubNcx()

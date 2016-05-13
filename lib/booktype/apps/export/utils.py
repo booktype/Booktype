@@ -183,8 +183,17 @@ class ExportBook(object):
        (BOOKTYPE_EXPORT_CLASS_MODULE = 'appname.module')
     """
 
-    ATTRIBUTES_GLOBAL = standard.ATTRIBUTES_GLOBAL + ['data-column', 'data-gap', 'data-valign', 'data-id']
-    DEFAULT_PLUGINS = [TidyPlugin(), standard.SyntaxPlugin()]
+    ATTRIBUTES_GLOBAL = standard.ATTRIBUTES_GLOBAL + [
+        'data-column',
+        'data-gap',
+        'data-valign',
+        'data-id',
+        'transform-data'
+    ]
+    DEFAULT_PLUGINS = [
+        TidyPlugin(),
+        standard.SyntaxPlugin()
+    ]
     PREFIXES = {
         'bkterms': 'http://booktype.org/',
         'add_meta_terms': 'http://booktype.org/additional-metadata/'
@@ -307,7 +316,25 @@ class ExportBook(object):
 
         # handle images
         if elem.tag == 'img':
+
+            if elem.getparent().tag != 'div' or \
+                            'class' not in elem.getparent().attrib or \
+                            'image' not in elem.getparent().attrib['class'].split():
+                image_div = etree.Element('div', {'class': 'image'})
+                elem.addprevious(image_div)
+                image_div.insert(0, elem)
+
+            image_div = elem.getparent()
+
+            if image_div.getparent().tag != 'div' or \
+                            'class' not in image_div.getparent().attrib or \
+                            'group_img' not in image_div.getparent().attrib['class'].split():
+                group_img = etree.Element('div', {'class': 'group_img'})
+                image_div.addprevious(group_img)
+                group_img.insert(0, image_div)
+
             src = elem.get('src')
+
             if src:
                 elem.set('src', 'static/' + src[7:])
                 self.embeded_images[src] = True

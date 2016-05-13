@@ -35,8 +35,7 @@
   width: 50% !important;
 }
 
-.history-filters .select2-container-multi
-.select2-choices .select2-search-field input{
+.history-filters .select2-container-multi .select2-choices .select2-search-field input{
   padding: 2px 5px;
   font-size: 90%;
 }
@@ -150,8 +149,8 @@
 }
 
 .alert-book-settings .close{
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
 }
 
 div.contentHeader span.info-message {
@@ -513,7 +512,7 @@ div.contentHeader span.info-message {
 
 #contenteditor .aloha-block-ColumnsBlock .aloha-editable {
   column-rule: 4px solid #dadff3;
-  column-gap: 20px
+  column-gap: 20px;
 
   -webkit-column-rule: 4px solid #dadff3; /* Chrome, Safari, Opera */
   -moz-column-rule: 4px solid #dadff3; /* Firefox */
@@ -544,4 +543,69 @@ div.contentHeader span.info-message {
 #content .publish-info-box a,
 #content .publish-info-box a:visited {
   text-decoration: underline;
+}
+
+
+/* Imageeditor Plugin
+------------------------------------------------------*/
+
+#contenteditor .aloha-block.aloha-block-ImageBlock.aloha-block-active, .aloha-block.aloha-block-ImageBlock.aloha-block-active:hover {
+   box-shadow: none !important;
+}
+
+#contenteditor div.bk-image-editor,
+#contentrevision div.bk-image-editor {
+    overflow: hidden;
+}
+
+#contenteditor div.bk-image-editor-frame {
+    border: 2px dotted black !important;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAChJREFUeNpiPHPmDAMMGBsbw9lMDDgA6RKM%2F%2F%2F%2Fh3POnj1LCzsAAgwAQtYIcFfEyzkAAAAASUVORK5CYII%3D');
+}
+
+#contenteditor div.bk-image-editor img {
+    max-width: none;
+    max-height: none;
+}
+
+#contenteditor div.image,
+#contentrevision div.image {
+    border: 1px solid whitesmoke;
+}
+
+#contenteditor div.image-focus {
+    border: 1px solid #A1A1A1;
+}
+
+#imagePopup {
+    margin: 10px;
+}
+
+#imagePopup hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#imagePopup div.slider-track,
+#imagePopup div.slider-handle {
+    background-color: #4B2E82;
+}
+
+#imagePopup div.slider-track {
+    height: 10px;
+}
+
+#imagePopup div.slider-handle {
+    margin-top: -3px;
+}
+
+#bk-image-editor-zoom-slider {
+    width: 500px;
+}
+
+#bk-image-editor-contrast-slider,
+#bk-image-editor-blur-slider,
+#bk-image-editor-saturate-slider,
+#bk-image-editor-brightness-slider  {
+    width: 250px;
 }
