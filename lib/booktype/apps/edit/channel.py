@@ -3490,11 +3490,14 @@ def remote_rename_export_name(request, message, bookid, version):
     book_export.name = message['name']
     book_export.save()
 
-    sputnik.addMessageToChannel(request,
-        "/booktype/book/%s/%s/" % (bookid, version),
-        {"command": "rename_export_name",
-        "task_id": message["task_id"],
-        "name": message['name']}, myself=False)
+    sputnik.addMessageToChannel(
+        request,
+        "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "rename_export_name",
+            "task_id": message["task_id"],
+            "name": message['name']
+        }, myself=False
+    )
 
     return {'result': True}
 
@@ -3512,7 +3515,9 @@ def remote_export_settings_get(request, message, bookid, version):
     covers = {}
 
     for cover in models.BookCover.objects.filter(book=book).order_by("title"):
-        covers[cover.cid] = cover.title
+        extension = os.path.splitext(cover.attachment.name)[-1].lower()
+        key = '{}/cover{}'.format(cover.cid, extension)
+        covers[key] = cover.title
 
     settings_options = get_settings(book, export_format)
 
