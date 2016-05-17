@@ -1,0 +1,28 @@
+{
+  "version": "0.1",
+  "name": "NewRoman",
+  "output": {
+    "mpdf": {
+      "options": {},
+      "frontmatter": "frontmatter_mpdf.html",
+      "endmatter": "endmatter_mpdf.html",
+      "body": "body_mpdf.html"
+    },
+    "screenpdf": {
+      "options": {},
+      "frontmatter": "frontmatter_screenpdf.html",
+      "endmatter": "endmatter_screenpdf.html",
+      "body": "body_screenpdf.html"
+    },
+    "epub": {
+      "assets": {
+        "fonts": [
+          "static/fonts/texgyretermes-bold.ttf",
+          "static/fonts/texgyretermes-italic.ttf",
+          "static/fonts/texgyretermes-bolditalic.ttf",
+          "static/fonts/texgyretermes-regular.ttf"
+        ]
+      }
+    }
+  }
+}

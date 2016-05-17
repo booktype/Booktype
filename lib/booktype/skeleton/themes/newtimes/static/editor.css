@@ -1,0 +1,206 @@
+#contenteditor {
+  font-size: 12pt;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  font-family: "times";
+  color: #000000;
+}
+
+
+#contenteditor blockquote p.quote {
+  border-left: 2px solid #333;
+  margin: 30px 0;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 140%;
+  padding: 4px 20px 4px 60px;
+  quotes: "\201C" "\201D" "\2018" "\2019";
+  position: relative;
+}
+
+#contenteditor p.quote:before {
+  color: #333;
+  content: open-quote;
+  font-size: 72px;
+  margin-right: 20px;
+  position: absolute;
+  top: 14px;
+  left: 6px;
+  bottom: 0;
+}
+
+#contenteditor {
+  font-family: times;
+}
+
+#contenteditor h1,
+#contenteditor h2,
+#contenteditor h3,
+#contenteditor h4,
+#contenteditor h5,
+#contenteditor h6 {
+    -webkit-hyphens:none;
+    hyphens:none;
+    adobe-hyphenate:none;
+    page-break-after:avoid;
+    color: black;
+}
+
+#contenteditor .aloha-block-TitleBlock h1 {
+    font-family: "times";
+    font-weight: bold;
+    font-size: 3.6rem;
+    margin-bottom: 1rem; 
+}
+
+#contenteditor h2 {
+    font-family: "times-medium";
+    font-weight: normal;
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+}
+
+#contenteditor h3 {
+    font-family: "times-medium";
+    font-weight: normal;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+#contenteditor h4 {
+    font-family: "times";
+    font-weight: normal;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+#contenteditor h5 {
+    font-family: "times-medium";
+    font-weight: normal;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+/* Paragraph Styles *****************************************************/
+
+#contenteditor, 
+#contenteditor p {
+    widows:2;
+    orphans:2;
+}
+
+#contenteditor .aloha-block-TitleBlock + p,
+#contenteditor h2 + p,
+#contenteditor h3 + p,
+#contenteditor h4 + p {
+    font-family: "times";
+    font-weight: normal;
+    font-size: 1.4rem; 
+    line-height: 1.8rem;
+    text-indent: 0;
+    margin-bottom: 0;
+}
+
+#contenteditor p {
+    font-family: "times";
+    font-weight: normal;
+    font-size: 1.4rem; 
+    line-height: 1.8rem;
+    margin: 0;
+}
+
+#contenteditor p+p,
+#contenteditor ul+p,
+#contenteditor ol+p,
+#contenteditor div.group_img+p,
+#contenteditor div.aloha-table+p {
+  text-indent: 20px;
+}
+
+#contenteditor ul,
+#contenteditor ol {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#contenteditor ul,
+#contenteditor ol,
+#contenteditor li {
+  font-family: "times";
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 1.8rem;    
+}
+
+#contenteditor img,
+#contenteditor div.image {
+  max-width: 100%;
+  height: auto;
+  margin: 0px auto;
+}
+
+#contenteditor table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+#contenteditor caption {
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+#contenteditor table, 
+#contenteditor th, 
+#contenteditor td {
+  border: 0.5mm solid black;
+}
+
+#contenteditor table td {
+  font-family: "times";
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  margin: 0;
+}
+
+#contenteditor th, 
+#contenteditor td {
+  padding: .6rem .8rem;
+}
+
+
+#contenteditor .group_img {
+  page-break-inside: avoid;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#contenteditor .center {
+  text-align: center;
+}
+
+#contenteditor .caption_small {
+  margin-top: 0.5em;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+#contenteditor .endnotes-container {
+  font-size: 12pt;
+  margin-top: 2rem;
+}
+
+#contenteditor .endnotes-container .endnote-counter,
+#contenteditor .endnotes-container .endnoteText {
+  font-family: "times";
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+}
+
+#contenteditor .endnotes-container .endnoteText p {
+  text-indent: 0px;
+}
