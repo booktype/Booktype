@@ -1,0 +1,248 @@
+body {
+  {% if page_width < 200 %}
+      font-size: 8pt;
+  {% else %}
+      font-size: 10pt;
+  {% endif %}
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  font-family: "bauhaus";
+  color: #000000;
+}
+
+.impl {
+  margin: 0;
+  text-indent: 0;
+}
+
+.impl-bold {
+  margin: 0;
+  text-indent: 0;
+  font-weight: bold;
+}
+
+.header-text {
+}
+
+.footer-text {
+}
+
+div.frontmatter-half-title {
+  page: frontmatter;
+  font-weight: bold;
+  font-size: 4rem;
+  text-transform: uppercase;
+  line-height: 110%;
+  margin-top: 5rem;
+  padding-top: 14rem;
+  margin-bottom: 0;
+}
+
+div.frontmatter-title {
+  font-weight: bold;
+  font-size: 4rem;
+  text-transform: uppercase;
+  line-height: 110%;
+  margin-top: 5rem;
+  padding-top: 5rem;
+  margin-bottom: 0;
+}
+
+h1.section {
+  font-weight: bold;
+  font-size: 4rem;
+  text-align: left;
+  margin-top: 0;
+  line-height: 110%;
+  padding-top: 14rem;
+}
+
+div.frontmatter-author {
+  font-weight: normal;
+  font-size: 1.75rem;
+  margin-top: 8rem;
+}
+
+div.frontmatter-author-title {
+  font-weight: normal;
+  margin-top: 10rem;
+  margin-bottom: 0;
+  font-size: 1.75rem;
+  line-height: 110%;
+}
+
+div.frontmatter-subtitle {
+  font-weight: normal;
+  margin-top: 3.5rem;
+  font-size: 2.2rem;
+  line-height: 120%;
+  line-height: 110%;
+}
+
+div.frontmatter-line {
+  width: 17rem;
+  background-color: black;
+  height: 0.3rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.frontmatter-bottom {
+  position: absolute;
+  left: 5.5rem;
+  right: 5.5rem;
+  bottom: 8rem;
+  font-size: 1rem;
+}
+
+div.mpdf_toc {
+  font-size: 1rem;
+  font-family: "bauhaus";
+}
+
+span.mpdf_toc_t_level_0 {
+  font-weight: bold;
+  text-transform: none;
+}
+
+span.mpdf_toc_t_level_1 {
+  font-weight: normal;
+  font-style: normal;
+  text-transform: none;
+}
+
+h1.body-h1 {
+  font-weight: bold;
+  font-size: 2.9rem;
+  margin-bottom: 1.6rem;
+  line-height: 110%;
+}
+
+h2.body-h2 {
+  font-family: "bauhaus-medium";
+  font-weight: normal;
+  font-size: 2rem;
+  margin-bottom: 1.4rem;
+  line-height: 110%;
+}
+
+h3.body-h3 {
+  font-family: "bauhaus-medium";
+  font-weight: normal;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  line-height: 110%;
+}
+
+h4.body-h4 {
+  font-weight: normal;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  line-height: 110%;
+}
+
+h5.body-h5 {
+  font-family: "bauhaus-medium";
+  font-weight: normal;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  line-height: 110%;
+}
+
+p.body-first {
+  font-weight: normal;
+  font-size: 1rem;
+  text-indent: 0;
+  line-height: 140%;
+  margin-bottom: 0;
+}
+
+p.body {
+  font-weight: normal;
+  font-size: 1rem;
+  text-indent: 1rem;
+  line-height: 140%;
+  margin: 0;
+}
+
+blockquote {
+  font-weight: normal;
+  font-size: 1.4rem;
+  font-style: italic;
+  text-indent: 0;
+  border-left: 0.5rem solid #999;
+  margin: 2rem 0;
+  padding: 0 0 0 1rem;
+  display: inline;
+}
+
+ul, ol {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+caption {
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+table, th, td {
+  border: 0.18rem solid black;
+}
+
+th, td {
+  padding: 0.6rem 0.8rem;
+}
+
+ol.endnotes {
+  margin-top: 2rem;
+  padding-left: 1.2em;
+}
+
+ol.endnotes li {
+  font-weight: normal;
+  font-size: 0.8rem;
+}
+
+div.dedication {
+  padding-top: 11rem;
+}
+
+p.dedication {
+  font-weight: normal;
+  font-size: 1.4rem;
+  font-style: italic;
+  display: inline; 
+  margin-left: 7.1rem;
+  margin-right: 7.1rem;
+}
+
+img, div.image {
+  max-width: 100%;
+  height: auto;
+  margin: 0px auto;
+}
+
+.group_img {
+  page-break-inside: avoid;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.caption_small {
+  margin-top: 0.5em;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.center {
+  text-align: center;
+}
