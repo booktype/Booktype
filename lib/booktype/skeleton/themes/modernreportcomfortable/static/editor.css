@@ -1,0 +1,253 @@
+#contenteditor {
+  font-size: 13pt;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  font-family: "roboto";
+  color: #000000;
+}
+
+/* QUOTE **************************************************/
+
+#contenteditor blockquote p.quote {
+  border-left: 2px solid #333;
+  margin: 30px 0;
+  font-size: inherit;
+  font-style: italic;
+  line-height: inherit;
+  padding: 4px 20px 4px 60px;
+  quotes: "\201C" "\201D" "\2018" "\2019";
+  position: relative;
+}
+/*
+#contenteditor p.quote:before {
+  color: #333;
+  content: open-quote;
+  font-size: 72px;
+  margin-right: 20px;
+  position: absolute;
+  top: 0px;
+  left: 6px;
+  bottom: 0;
+}
+*/
+
+/* Headlines ************************************************/
+#contenteditor h1,
+#contenteditor h2,
+#contenteditor h3,
+#contenteditor h4,
+#contenteditor h5,
+#contenteditor h6 {
+    -webkit-hyphens:none;
+    hyphens:none;
+    adobe-hyphenate:none;
+    page-break-after:avoid;
+    color: black;
+}
+
+#contenteditor .aloha-block-TitleBlock h1 {
+    font-family: "roboto-condensed-light";
+    text-align: left; 
+    font-weight: normal; 
+    text-transform: uppercase; 
+    margin-top: 70pt; 
+    margin-bottom: 42pt;
+    font-size: 2.3em;
+    line-height: inherit;
+}
+
+/*
+#contenteditor h1 {
+    font-family: "roboto-condensed-light";
+    text-align: left; 
+    font-weight: normal; 
+    text-transform: uppercase; 
+    font-size: 2.3em;
+    line-height: inherit;
+    margin-top: 70pt; 
+    margin-bottom: 42pt;
+}
+*/
+
+#contenteditor h2 {
+    font-family: "roboto-condensed-light";
+    text-align: left; 
+    font-weight: normal; 
+    text-transform: uppercase; 
+    padding-top: 21pt; 
+    margin-bottom: 7pt; 
+    font-size: 1.4em;
+    line-height: inherit;
+}
+
+#contenteditor h3 {
+    font-family: "roboto";
+    text-align: left; 
+    font-weight: bold; 
+    text-transform: none; 
+    padding-top: 7pt; 
+    margin-bottom: 7pt; 
+    font-size: 1em;
+    line-height: inherit;
+}
+
+#contenteditor h4 {    
+    font-family: "roboto";
+    text-align: left; 
+    font-weight: normal; 
+    text-transform: none; 
+    padding-top: 7pt; 
+    margin-bottom: 7pt; 
+    font-size: 1em;
+    line-height: inherit;
+}
+
+#contenteditor h5 {
+    font-family: "roboto";
+    text-align: left; 
+    font-weight: bold; 
+    text-transform: none; 
+    padding-top: 7pt; 
+    margin-bottom: 7pt; 
+    font-size: 1em;
+    line-height: inherit;
+}
+
+/* Paragraph Styles *****************************************************/
+
+#contenteditor, 
+#contenteditor p {
+    widows:2;
+    orphans:2;
+}
+
+#contenteditor p {
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+/* First paragraph *******************************************************/
+
+#contenteditor .aloha-block-TitleBlock + p,
+#contenteditor h2 + p,
+#contenteditor h3 + p,
+#contenteditor h4 + p {
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: inherit; 
+    line-height: inherit;
+    text-indent: 0;
+    margin-bottom: 14pt; /* spacing between paragraphs */
+}
+/* Not first paragraph **************************************************/
+#contenteditor p+p,
+#contenteditor ul+p,
+#contenteditor ol+p,
+#contenteditor div.group_img+p,
+#contenteditor div.aloha-table+p {
+    margin-top: 0;
+    text-indent: 0rem;
+    margin-bottom: 14pt;
+}
+
+/* Lists *****************************************************************/
+#contenteditor ul,
+#contenteditor ol {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+#contenteditor ul,
+#contenteditor ol,
+#contenteditor li {
+  font-family: "roboto";
+}
+
+/* Preformatted text *******************************/
+
+#contenteditor pre {
+  font-family: "freemono";
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Table *****************************************/
+#contenteditor table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+#contenteditor table, 
+#contenteditor th, 
+#contenteditor td {
+  border: 0.5mm solid black;
+}
+
+#contenteditor table td {
+  font-family: "roboto";
+  font-weight: normal;
+  font-size: 0.8em;
+  margin: 0;
+}
+
+#contenteditor th, 
+#contenteditor td {
+  padding: .6em .8em;
+}
+
+/* IMAGES ***********************************************/
+
+#contenteditor img,
+#contenteditor div.image {
+  max-width: 100%;
+  height: auto;
+  margin: 0px auto;
+}
+
+#contenteditor .group_img {
+  page-break-inside: avoid;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+#contenteditor .center {
+  text-align: center;
+}
+
+#contenteditor caption {
+  font-style: italic;
+  margin-top: 1em;
+}
+
+#contenteditor .caption_small {
+  margin-top: 0.5em;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+/* Endnotes ******************************************/
+#contenteditor .endnotes-container {
+  font-size: 0.9em;
+  margin-top: 2em;
+}
+
+#contenteditor .endnotes-container .endnote-counter,
+#contenteditor .endnotes-container .endnoteText {
+  font-family: "roboto";
+  font-weight: normal;
+  font-size: inherit;
+  line-height: normal;
+}
+
+#contenteditor .endnotes-container .endnoteText p {
+  text-indent: 0px;
+}

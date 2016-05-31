@@ -1,0 +1,20 @@
+/* 'Modern Report (Comfortable)' Version 0.2 theme fonts */
+        "families" => array(
+          'roboto' => "Array",
+          'freemono' => "Array",
+          'roboto-condensed-light' => "Array",
+        ),
+        "filenames" => array(
+          'Roboto-Regular.ttf' => "Roboto-Regular.ttf",
+          'Roboto-Bold.ttf' => "Roboto-Bold.ttf",
+          'Roboto-Italic.ttf' => "Roboto-Italic.ttf",
+          'Roboto-BoldItalic.ttf' => "Roboto-BoldItalic.ttf",
+          'FreeMono.ttf' => "FreeMono.ttf",
+          'FreeMonoBold.ttf' => "FreeMonoBold.ttf",
+          'FreeMonoOblique.ttf' => "FreeMonoOblique.ttf",
+          'FreeMonoBoldOblique.ttf' => "FreeMonoBoldOblique.ttf",
+          'RobotoCondensed-Light.ttf' => "RobotoCondensed-Light.ttf",
+          'RobotoCondensed-Regular.ttf' => "RobotoCondensed-Regular.ttf",
+          'RobotoCondensed-LightItalic.ttf' => "RobotoCondensed-LightItalic.ttf",
+          'RobotoCondensed-Italic.ttf' => "RobotoCondensed-Italic.ttf",
+        ),
