@@ -34,9 +34,11 @@ class BasePlugin(object):
 
 
 class ExternalScriptPlugin(BasePlugin):
-    """Base class for all Theme plugins which will execute external 
+    """
+    Base class for all Theme plugins which will execute external
     script to produce output file.
     """
+
     def pre_convert(self, book):
         """Called before conversion process starts.
 
@@ -58,7 +60,7 @@ class ExternalScriptPlugin(BasePlugin):
         """Transform chapter content.
 
         This method is used to modify content of each content. This is used when
-        we need to add certain elements or classes to prepare the content mPDF 
+        we need to add certain elements or classes to prepare the content mPDF
         rendering.
 
         :Args:
@@ -68,13 +70,13 @@ class ExternalScriptPlugin(BasePlugin):
 
 
 class MPDFPlugin(ExternalScriptPlugin):
-    "Base class for mPDF themes"
+    """Base class for mPDF themes"""
 
     def get_mpdf_config(self):
         """Returns mPDF options required for this theme.
 
         There are always certain mPDF options which are required for different
-        themes. Instead of setting global mPDF configuration it is also 
+        themes. Instead of setting global mPDF configuration it is also
         possible to define it per theme.
 
         :Returns:
@@ -101,10 +103,10 @@ class ConversionPlugin(BasePlugin):
         """Called when conversion process has ended.
 
         :Args:
-          - original_book: 
+          - original_book:
           - output_path:
-          - 
-        """        
+          -
+        """
         raise NotImplementedError
 
     def fix_content(self, content):
@@ -135,7 +137,7 @@ def load_theme_plugin(convert_type, theme_name):
 
     try:
         module_name = plugins.get(theme_name, None)
-        
+
         if module_name:
             module = importlib.import_module(module_name)
             plgn = module.__convert__.get(convert_type, None)
@@ -144,5 +146,3 @@ def load_theme_plugin(convert_type, theme_name):
         logger.exception('Can not load the theme plugin.')
 
     return plgn
-
-
