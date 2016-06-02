@@ -11,7 +11,7 @@ class CustomPDF(plugin.MPDFPlugin):
             'useSubstitutions': False
         }
 
-    def fix_content(self, content):        
+    def fix_content(self, content):
         headers = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
 
         for header in headers:
