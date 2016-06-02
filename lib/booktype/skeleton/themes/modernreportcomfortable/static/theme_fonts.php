@@ -2,6 +2,7 @@
         "families" => array(
           'roboto' => "Array",
           'freemono' => "Array",
+          'roboto-thin' => "Array",
           'roboto-condensed-light' => "Array",
         ),
         "filenames" => array(
@@ -13,6 +14,10 @@
           'FreeMonoBold.ttf' => "FreeMonoBold.ttf",
           'FreeMonoOblique.ttf' => "FreeMonoOblique.ttf",
           'FreeMonoBoldOblique.ttf' => "FreeMonoBoldOblique.ttf",
+          'Roboto-Thin.ttf' => "Roboto-Thin.ttf",
+          'Roboto-Light.ttf' => "Roboto-Light.ttf",
+          'Roboto-ThinItalic.ttf' => "Roboto-ThinItalic.ttf",
+          'Roboto-LightItalic.ttf' => "Roboto-LightItalic.ttf",
           'RobotoCondensed-Light.ttf' => "RobotoCondensed-Light.ttf",
           'RobotoCondensed-Regular.ttf' => "RobotoCondensed-Regular.ttf",
           'RobotoCondensed-LightItalic.ttf' => "RobotoCondensed-LightItalic.ttf",
