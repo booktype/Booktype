@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-20 15:02+0200\n"
+"POT-Creation-Date: 2016-05-31 22:31-0600\n"
 "PO-Revision-Date: 2015-05-15 11:52+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -77,8 +77,8 @@ msgstr ""
 msgid "description"
 msgstr ""
 
-#: apps/account/models.py:38 apps/account/models.py:64 apps/export/models.py:29
-#: apps/export/models.py:61
+#: apps/account/models.py:38 apps/account/models.py:64
+#: apps/export/models.py:29 apps/export/models.py:61
 msgid "user"
 msgstr ""
 
@@ -105,11 +105,11 @@ msgstr ""
 msgid "remote host"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:37
+#: apps/account/templates/account/dashboard.html:49
 msgid "My Books"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:39
+#: apps/account/templates/account/dashboard.html:51
 #: apps/account/templates/account/dashboard_group_template.html:12
 #: apps/core/templates/core/nav_menu.html:21
 #: apps/portal/templates/portal/all_groups.html:33
@@ -119,103 +119,104 @@ msgstr ""
 #: apps/portal/templates/portal/frontpage.html:22
 #: apps/portal/templates/portal/group.html:23
 #: apps/portal/templates/portal/group.html:50 apps/portal/views.py:392
-#: apps/portal/views.py:393 apps/reader/templates/reader/book_info_page.html:90
+#: apps/portal/views.py:393
+#: apps/reader/templates/reader/book_info_page.html:90
 msgid "Books"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:46
+#: apps/account/templates/account/dashboard.html:58
 msgid "Create a new Book"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:46
+#: apps/account/templates/account/dashboard.html:58
 msgid "Create Book"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:50
+#: apps/account/templates/account/dashboard.html:62
 msgid "Import Book from docx or EPUB"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:50
+#: apps/account/templates/account/dashboard.html:62
 msgid "Import Book"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:53
+#: apps/account/templates/account/dashboard.html:65
 msgid "Invite people to edit your books"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:53
+#: apps/account/templates/account/dashboard.html:65
 msgid "Invite"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:56
+#: apps/account/templates/account/dashboard.html:68
 #: apps/portal/templates/portal/frontpage.html:50
 msgid ""
 "You have reached your book limit. Please delete any unwanted books before "
 "you create a new one."
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:56
+#: apps/account/templates/account/dashboard.html:68
 #: apps/portal/templates/portal/frontpage.html:50
 msgid "No additional books can be created"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:62
+#: apps/account/templates/account/dashboard.html:74
 #: apps/portal/templates/portal/books.html:24
 #: apps/portal/templates/portal/frontpage.html:26
 #: apps/portal/templates/portal/group.html:53
 msgid "Show in a grid"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:63
+#: apps/account/templates/account/dashboard.html:75
 #: apps/portal/templates/portal/books.html:25
 #: apps/portal/templates/portal/frontpage.html:27
 #: apps/portal/templates/portal/group.html:54
 msgid "Show in a list"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:74
+#: apps/account/templates/account/dashboard.html:86
 msgid ""
 "This is a perfect moment to start writing your book, just click on the "
 "button above!"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:76
+#: apps/account/templates/account/dashboard.html:88
 msgid "This user has no books"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:84
+#: apps/account/templates/account/dashboard.html:96
 msgid "Participating Books"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:100
+#: apps/account/templates/account/dashboard.html:112
 msgid "My Groups"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:106
+#: apps/account/templates/account/dashboard.html:118
 msgid "Work with others in Groups. To create a Group click on the button below"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:112
+#: apps/account/templates/account/dashboard.html:124
 msgid "Participating Groups"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:118
+#: apps/account/templates/account/dashboard.html:130
 msgid "Join other groups based on your interest"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:118
+#: apps/account/templates/account/dashboard.html:130
 #: apps/portal/templates/portal/frontpage.html:31
 #: apps/portal/templates/portal/frontpage.html:62
 #: apps/portal/templates/portal/frontpage.html:90
 msgid "view all"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:123
+#: apps/account/templates/account/dashboard.html:135
 #: apps/portal/templates/portal/frontpage.html:108
 msgid "Click this button to create a new group of writers and editors"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:124
+#: apps/account/templates/account/dashboard.html:136
 #: apps/portal/templates/portal/frontpage.html:108
 #: apps/portal/templates/portal/group_create.html:9
 #: apps/portal/templates/portal/group_create_modal.html:7
@@ -223,113 +224,113 @@ msgstr ""
 msgid "Create New Group"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:136
+#: apps/account/templates/account/dashboard.html:148
 #: apps/account/templates/account/form_signedin.html:3
 msgid "My Profile"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:151
+#: apps/account/templates/account/dashboard.html:163
 #: apps/account/templates/account/form_signedin.html:18
 msgid ""
 "Click this button to update your personal settings and Booktype account "
 "password"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:151
+#: apps/account/templates/account/dashboard.html:163
 #: apps/account/templates/account/form_signedin.html:19
-#: apps/account/views.py:216 apps/account/views.py:217
+#: apps/account/views.py:213 apps/account/views.py:214
 #: apps/edit/templates/edit/toolbar_book.html:12
 msgid "Settings"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:152
+#: apps/account/templates/account/dashboard.html:164
 msgid "Click this button to log out of your Booktype account"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:152
+#: apps/account/templates/account/dashboard.html:164
 #: apps/core/templates/core/nav_bar.html:15
 #: apps/edit/templates/edit/toolbar_user.html:11
 msgid "Log out"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:160
+#: apps/account/templates/account/dashboard.html:172
 msgid "My Recent Activity"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:162
+#: apps/account/templates/account/dashboard.html:174
 #: apps/portal/templates/portal/books.html:108
 #: apps/portal/templates/portal/frontpage.html:142
 msgid "Recent Activity"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:170
+#: apps/account/templates/account/dashboard.html:182
 #: apps/portal/templates/portal/books.html:115
 #: apps/portal/templates/portal/frontpage.html:149
 #: apps/reader/templates/reader/book_info_page.html:105
 msgid "ago"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:183
+#: apps/account/templates/account/dashboard.html:195
 msgid "This user has no recent activity."
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:190
+#: apps/account/templates/account/dashboard.html:202
 #: apps/core/templates/core/nav_menu.html:28
 #: apps/portal/templates/portal/frontpage.html:89 apps/portal/views.py:178
 #: apps/portal/views.py:179
 msgid "Groups"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:195
+#: apps/account/templates/account/dashboard.html:207
 msgid "This user is not a member of any groups."
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:226
+#: apps/account/templates/account/dashboard.html:238
 msgid "Enter email addresses"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:228
+#: apps/account/templates/account/dashboard.html:240
 msgid "Who would you like to invite?"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:233
+#: apps/account/templates/account/dashboard.html:245
 msgid "Enter message"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:235
+#: apps/account/templates/account/dashboard.html:247
 msgid "What is the message of your invitation?"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:239
+#: apps/account/templates/account/dashboard.html:251
 msgid "Choose Book"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:241
+#: apps/account/templates/account/dashboard.html:253
 msgid "Choose Books for invitation"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:243
+#: apps/account/templates/account/dashboard.html:255
 msgid "Choose Book:"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:243
+#: apps/account/templates/account/dashboard.html:255
 #: apps/edit/templates/edit/panel_covers.html:8
 msgid "All"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:245
+#: apps/account/templates/account/dashboard.html:257
 msgid "Check all / clear"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:263
+#: apps/account/templates/account/dashboard.html:275
 msgid "Set Roles"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:265
+#: apps/account/templates/account/dashboard.html:277
 msgid "Set Roles for this invitation"
 msgstr ""
 
-#: apps/account/templates/account/dashboard.html:266 apps/core/models.py:70
+#: apps/account/templates/account/dashboard.html:278 apps/core/models.py:70
 #: apps/edit/templates/edit/panel_settings.html:47 apps/edit/views.py:49
 msgid "Roles"
 msgstr ""
@@ -340,7 +341,7 @@ msgid "Edit Book"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:19
-#: apps/account/templates/account/dashboard_import_book_modal.html:60
+#: apps/account/templates/account/dashboard_import_book_modal.html:62
 #: apps/portal/templates/portal/group.html:73
 msgid "View Book Info"
 msgstr ""
@@ -407,7 +408,7 @@ msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:26
 #: apps/account/templates/account/dashboard_create_book_modal.html:29
-#: apps/edit/templates/edit/panel_aloha.html:217 apps/export/models.py:51
+#: apps/export/models.py:51
 msgid "Description"
 msgstr ""
 
@@ -518,41 +519,41 @@ msgstr ""
 msgid "or Select from folder"
 msgstr ""
 
-#: apps/account/templates/account/dashboard_import_book_modal.html:25
+#: apps/account/templates/account/dashboard_import_book_modal.html:27
 msgid "Filename:"
 msgstr ""
 
-#: apps/account/templates/account/dashboard_import_book_modal.html:29
-#: apps/account/templates/account/dashboard_import_book_modal.html:30
+#: apps/account/templates/account/dashboard_import_book_modal.html:31
+#: apps/account/templates/account/dashboard_import_book_modal.html:32
 msgid "Complete"
 msgstr ""
 
-#: apps/account/templates/account/dashboard_import_book_modal.html:35
+#: apps/account/templates/account/dashboard_import_book_modal.html:37
 msgid "Please wait, we are processing your file..."
 msgstr ""
 
-#: apps/account/templates/account/dashboard_import_book_modal.html:46
+#: apps/account/templates/account/dashboard_import_book_modal.html:48
 msgid "Wrong file format! Please try another one."
 msgstr ""
 
-#: apps/account/templates/account/dashboard_import_book_modal.html:48
+#: apps/account/templates/account/dashboard_import_book_modal.html:50
 #: apps/importer/views.py:174
 msgid "Something went wrong!"
 msgstr ""
 
-#: apps/account/templates/account/dashboard_import_book_modal.html:59
+#: apps/account/templates/account/dashboard_import_book_modal.html:61
 msgid "Congratulations! Your book has been imported."
 msgstr ""
 
-#: apps/account/templates/account/dashboard_import_book_modal.html:63
+#: apps/account/templates/account/dashboard_import_book_modal.html:65
 msgid "Book Title (optional)"
 msgstr ""
 
-#: apps/account/templates/account/dashboard_import_book_modal.html:67
+#: apps/account/templates/account/dashboard_import_book_modal.html:69
 msgid "Initially hidden from others"
 msgstr ""
 
-#: apps/account/templates/account/dashboard_import_book_modal.html:74
+#: apps/account/templates/account/dashboard_import_book_modal.html:76
 #: apps/edit/templates/edit/panel_aloha.html:353
 #: apps/edit/templates/edit/panel_covers.html:33
 #: apps/edit/templates/edit/panel_media.html:64
@@ -566,7 +567,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: apps/account/templates/account/dashboard_import_book_modal.html:75
+#: apps/account/templates/account/dashboard_import_book_modal.html:77
 msgid "Import"
 msgstr ""
 
@@ -597,7 +598,7 @@ msgid "Can't find user \"%(username)s\"."
 msgstr ""
 
 #: apps/account/templates/account/forgot_password.html:10
-#: apps/account/views.py:326 apps/account/views.py:327
+#: apps/account/views.py:323 apps/account/views.py:324
 msgid "Forgot your password"
 msgstr ""
 
@@ -625,7 +626,7 @@ msgid "Send request"
 msgstr ""
 
 #: apps/account/templates/account/forgot_password_enter.html:12
-#: apps/account/views.py:399 apps/account/views.py:400
+#: apps/account/views.py:396 apps/account/views.py:397
 msgid "Reset your password"
 msgstr ""
 
@@ -648,15 +649,16 @@ msgid ""
 msgstr ""
 
 #: apps/account/templates/account/form_signedin.html:16
-#: apps/account/views.py:65 apps/core/templates/core/nav_bar.html:9
+#: apps/account/views.py:64 apps/core/templates/core/nav_bar.html:9
 #: apps/core/templates/core/nav_menu.html:15
 #: apps/edit/templates/edit/toolbar_user.html:6
 msgid "My Dashboard"
 msgstr ""
 
 #: apps/account/templates/account/form_signin.html:3
-#: apps/account/templates/account/form_signin.html:20 apps/account/views.py:449
-#: apps/account/views.py:450 apps/core/templates/core/nav_bar.html:18
+#: apps/account/templates/account/form_signin.html:20
+#: apps/account/views.py:446 apps/account/views.py:447
+#: apps/core/templates/core/nav_bar.html:18
 #: apps/edit/templates/edit/toolbar_user.html:14
 msgid "Log in"
 msgstr ""
@@ -801,47 +803,47 @@ msgstr ""
 msgid "CREATE ACCOUNT"
 msgstr ""
 
-#: apps/account/views.py:64
+#: apps/account/views.py:63
 msgid "Dashboard"
 msgstr ""
 
-#: apps/account/views.py:148 apps/account/views.py:149
+#: apps/account/views.py:147 apps/account/views.py:148
 msgid "User profile"
 msgstr ""
 
-#: apps/account/views.py:266
+#: apps/account/views.py:263
 msgid "User settings have been saved successfully!"
 msgstr ""
 
-#: apps/account/views.py:303
+#: apps/account/views.py:300
 msgid "Password changed successfully!"
 msgstr ""
 
-#: apps/account/views.py:355
+#: apps/account/views.py:352
 msgid "Missing username"
 msgstr ""
 
-#: apps/account/views.py:359
+#: apps/account/views.py:356
 msgid "No such user"
 msgstr ""
 
-#: apps/account/views.py:379
+#: apps/account/views.py:376
 msgid "Reset password"
 msgstr ""
 
-#: apps/account/views.py:392
+#: apps/account/views.py:389
 msgid "Unknown error"
 msgstr ""
 
-#: apps/account/views.py:414
+#: apps/account/views.py:411
 msgid "Password can't be empty"
 msgstr ""
 
-#: apps/account/views.py:419
+#: apps/account/views.py:416
 msgid "Passwords don't match"
 msgstr ""
 
-#: apps/account/views.py:435
+#: apps/account/views.py:432
 msgid "Wrong secret code"
 msgstr ""
 
@@ -2313,7 +2315,11 @@ msgid "Enter Title"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:216
-msgid "Image Description"
+msgid "Image Caption"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:217
+msgid "Caption"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:223
@@ -2965,13 +2971,13 @@ msgstr ""
 #: apps/edit/templates/edit/panel_toc.html:186
 #: apps/edit/templates/edit/panel_toc.html:210
 #: apps/reader/templates/reader/book_draft_page.html:64
-#: apps/reader/templates/reader/book_full_view.html:52
+#: apps/reader/templates/reader/book_full_view.html:54
 msgid "EDIT"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_toc.html:217
 #: apps/reader/templates/reader/book_draft_page.html:14
-#: apps/reader/templates/reader/book_full_view.html:19
+#: apps/reader/templates/reader/book_full_view.html:21
 msgid "Table of Contents"
 msgstr ""
 
@@ -3576,7 +3582,7 @@ msgid "No content yet"
 msgstr ""
 
 #: apps/reader/templates/reader/book_draft_page.html:63
-#: apps/reader/templates/reader/book_full_view.html:51
+#: apps/reader/templates/reader/book_full_view.html:53
 msgid "Edit this chapter"
 msgstr ""
 
@@ -3584,7 +3590,7 @@ msgstr ""
 msgid "No content yet."
 msgstr ""
 
-#: apps/reader/templates/reader/book_full_view.html:11
+#: apps/reader/templates/reader/book_full_view.html:13
 msgid "Full View"
 msgstr ""
 
