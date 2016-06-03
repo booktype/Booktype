@@ -9,28 +9,29 @@
 
 /* QUOTE **************************************************/
 
-#contenteditor blockquote p.quote {
-  border-left: 2px solid #333;
+#contenteditor blockquote, 
+#contenteditor p.quote {
+  font-family: "roboto"; 
   margin: 30px 0;
-  font-size: inherit;
-  font-style: italic;
-  line-height: inherit;
-  padding: 4px 20px 4px 60px;
+  font-weight: normal; 
+  font-size: 0.7em;
+  font-style: normal;
   quotes: "\201C" "\201D" "\2018" "\2019";
   position: relative;
+  text-align: left; 
+  line-height: inherit; 
+  border-left: 0.5rem solid #ccc;
+  padding-left: 2em;
+  margin-left: 2em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  text-transform: none; 
+  text-decoration: none;
 }
-/*
-#contenteditor p.quote:before {
-  color: #333;
-  content: open-quote;
-  font-size: 72px;
-  margin-right: 20px;
-  position: absolute;
-  top: 0px;
-  left: 6px;
-  bottom: 0;
+/* undo the quotes from booki-new.css */
+p.quote:before {
+  display: none;
 }
-*/
 
 /* Headlines ************************************************/
 #contenteditor h1,
@@ -48,13 +49,16 @@
 
 #contenteditor .aloha-block-TitleBlock h1 {
     font-family: "roboto-condensed-light";
+    font-size: 33.3pt;
     text-align: left; 
     font-weight: normal; 
-    text-transform: uppercase; 
-    margin-top: 84pt; 
-    margin-bottom: 42pt;
-    font-size: 2.3em;
+    text-transform: none; 
+    border-bottom: 0rem solid black;
+    text-decoration: none;
+    padding-top: 21pt; 
+    margin-bottom: 7pt;
     line-height: inherit;
+    line-height: 42pt; 
 }
 
 /*
@@ -72,46 +76,58 @@
 
 #contenteditor h2 {
     font-family: "roboto-condensed-light";
+    font-size: 20pt;
     text-align: left; 
     font-weight: normal; 
     text-transform: uppercase; 
+    border-bottom: 0rem solid black;
+    text-decoration: none;
     padding-top: 21pt; 
-    margin-bottom: 7pt; 
-    font-size: 1.4em;
+    margin-bottom: 7pt;
     line-height: inherit;
+    line-height: 28pt; 
 }
 
 #contenteditor h3 {
     font-family: "roboto";
+    font-size: 13.3pt;
     text-align: left; 
     font-weight: bold; 
     text-transform: none; 
+    border-bottom: 0rem solid black;
+    text-decoration: none;
     padding-top: 7pt; 
-    margin-bottom: 7pt; 
-    font-size: 1em;
+    margin-bottom: 7pt;
     line-height: inherit;
+    line-height: 14pt; 
 }
 
 #contenteditor h4 {    
     font-family: "roboto";
+    font-size: 13.3pt;
     text-align: left; 
     font-weight: normal; 
     text-transform: none; 
+    border-bottom: 0rem solid black;
+    text-decoration: none;
     padding-top: 7pt; 
-    margin-bottom: 7pt; 
-    font-size: 1em;
+    margin-bottom: 7pt;
     line-height: inherit;
+    line-height: 14pt; 
 }
 
-#contenteditor h5 {
+#contenteditor h5 { 
     font-family: "roboto";
+    font-size: 10pt;
     text-align: left; 
     font-weight: bold; 
     text-transform: none; 
+    border-bottom: 0rem solid black;
+    text-decoration: none;
     padding-top: 7pt; 
-    margin-bottom: 7pt; 
-    font-size: 1em;
+    margin-bottom: 7pt;
     line-height: inherit;
+    line-height: 14pt; 
 }
 
 /* Paragraph Styles *****************************************************/
@@ -149,7 +165,7 @@
 #contenteditor div.group_img+p,
 #contenteditor div.aloha-table+p {
     margin-top: 0;
-    text-indent: 0rem;
+    text-indent: 0pt;
     margin-bottom: 14pt;
 }
 

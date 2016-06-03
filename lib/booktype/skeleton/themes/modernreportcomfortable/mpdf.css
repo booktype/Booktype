@@ -262,19 +262,25 @@ p.body, p {
   padding: 0;
   margin-top: 0;
   margin-bottom: 14pt; 
-  text-indent: 0rem; 
+  text-indent: 0pt; 
 }
 
 blockquote, p.quote {
+  font-family: "roboto"; 
   display: inline;
-  font-weight: normal;
-  font-size: 1rem;
-  font-style: italic;
+  font-weight: normal; 
+  font-size: 10pt;
+  font-style: normal;
   text-indent: 0;
   border-left: 0.5rem solid #ccc;
-  padding-left: 1rem;
+  padding-left: 2rem;
+  margin-left: 28pt;
   margin-top: 14pt; 
   margin-bottom: 14pt; 
+  text-align: left; 
+  line-height: 14pt; 
+  text-transform: none; 
+  text-decoration: none;
 }
 /* Lists ****************************************************************/
 ul, ol {
@@ -290,8 +296,8 @@ li {
 /* TABLE *****************************************************************/
 table {
   border-collapse: collapse;
-  width: 100Val%;
-  padding-top: 14pt; 
+  max-width: 100%;
+  margin-top: 14pt; 
   margin-bottom: 14pt; 
 }
 
