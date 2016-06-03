@@ -1,4 +1,4 @@
-/* 'Bauhaus (Comfortable)' Version 0.1 theme fonts */
+/* 'Bauhaus (Compact)' Version 0.1 theme fonts */
         "texgyreadventor" => array(
           'R' => "TeXGyreAdventor-Regular.ttf",
           'B' => "TeXGyreAdventor-Bold.ttf",
