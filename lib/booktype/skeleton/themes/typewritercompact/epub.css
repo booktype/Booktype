@@ -45,23 +45,27 @@ div.dedication {
   font-style: italic;
 }
 
+h1.section {
+  font-family: "texgyrecursor"; 
+  text-align: center; 
+  font-weight: bold; 
+  font-size: %PartFontSizeRemVal%rem;
+  text-transform: none; 
+  border-bottom: 0rem solid black;
+  text-decoration: none;
+  margin-top: 0;
+}
+
 h1.frontmatter-title {
   text-align: left; 
   font-weight: bold; 
   text-transform: none; 
   font-family: "texgyrecursor"; 
+  text-decoration: none;
   font-size: 5rem;
   line-height: 110%;
   margin-top: 20mm;
   margin-bottom: 0;
-}
-
-h1.section {
-    font-family: "roboto";
-    font-weight: bold;
-    font-size: 3.6rem;
-    text-align: left;
-    margin-top: 0;
 }
 
 h2.frontmatter-author {
@@ -95,15 +99,19 @@ div.frontmatter-line {
 }
 
 p.quote {
+  font-family: "texgyrecursor"; 
+  text-transform: none; 
+  text-decoration: none;
   border-left: 2px solid #333;
   margin: 30px 0;
   font-size: 18px;
-  font-style: italic;
+  font-style: normal;
+  font-weight: normal; 
   line-height: 140%;
   padding: 4px 20px 4px 60px;
   quotes: "\201C" "\201D" "\2018" "\2019";
   position: relative;
-}
+} 
 
 p.quote:before {
   color: #333;
@@ -130,48 +138,58 @@ h6 {
 }
 
 h1 {
-    font-family: "texgyrecursor"; 
-    font-weight: bold; 
-    text-transform: none; 
-    text-align: left; 
-    font-size: 3.6rem;
-    margin-bottom: 1rem; 
+  font-family: "texgyrecursor"; 
+  font-weight: bold; 
+  text-transform: none; 
+  text-align: left; 
+  border-bottom: 0rem solid black;
+  text-decoration: none;
+  font-size: 3.6rem;
+  margin-bottom: 1rem; 
 }
 
 h2 {
-    font-family: "texgyrecursor"; 
-    font-weight: bold; 
-    text-transform: none; 
-    text-align: left; 
-    font-size: 2.8rem;
-    margin-bottom: 1rem;
+  font-family: "texgyrecursor"; 
+  font-weight: bold; 
+  text-transform: none; 
+  text-align: left; 
+  border-bottom: 0rem solid black;
+  text-decoration: none;
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
 }
 
 h3 {
-    font-family: "texgyrecursor"; 
-    font-weight: normal; 
-    text-transform: none; 
-    text-align: left; 
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
+  font-family: "texgyrecursor"; 
+  font-weight: normal; 
+  text-transform: none; 
+  text-align: left; 
+  border-bottom: 0rem solid black;
+  text-decoration: underline;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
 }
 
 h4 {
-    font-family: "texgyrecursor"; 
-    font-weight: normal; 
-    text-transform: none; 
-    text-align: left; 
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+  font-family: "texgyrecursor"; 
+  font-weight: normal; 
+  text-transform: none; 
+  text-align: left; 
+  border-bottom: 0rem solid black;
+  text-decoration: underline;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
 }
 
 h5 {
-    font-family: "texgyrecursor"; 
-    font-weight: normal; 
-    text-transform: none; 
-    text-align: left; 
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
+  font-family: "texgyrecursor"; 
+  font-weight: normal; 
+  text-transform: none; 
+  text-align: left; 
+  border-bottom: 0rem solid black;
+  text-decoration: none;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
 }
 
 /* Paragraph Styles *****************************************************/
@@ -246,7 +264,7 @@ td {
     font-family: "texgyrecursor"; 
     font-weight: normal;
     font-size: 1rem;
-    line-height: 1.4rem;
+    line-height: normal;
     margin: 0;
 }
 
@@ -290,18 +308,18 @@ sup.endnote {
 }
 
 ol.endnotes {
-    padding-left: 1.2rem;
-    margin-top: 2rem;
+  padding-left: 1.2rem;
+  margin-top: 2rem;
 }
 
 ol.endnotes li {
-    font-family: "texgyrecursor"; 
-    font-weight: normal;
-    font-size: 0.8rem;
-    line-height: 1.2rem;
-    margin: 0;
+  font-family: "texgyrecursor"; 
+  font-weight: normal;
+  font-size: 0.8rem;
+  line-height: 1.2rem;
+  margin: 0;
 }
 
 ol.endnotes p {
-    text-indent: 0;
+  text-indent: 0;
 }

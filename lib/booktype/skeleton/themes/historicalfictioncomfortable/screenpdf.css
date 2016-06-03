@@ -1,0 +1,327 @@
+body {
+  font-size: 11pt; /*  */
+  line-height: 13.2pt; /*  */
+  margin: 0;
+  padding: 0;
+  color: #000000;
+  font-family: "im_fell_dw_pica_pro"; /*  */
+  text-align: justify;
+}
+
+.impl {
+  margin: 0;
+  text-indent: 0;
+}
+
+.impl-bold {
+  margin: 0;
+  text-indent: 0;
+  font-weight: bold;
+}
+
+.header-text {
+  font-size: 0.8rem; /*  */
+  border-bottom: 0rem solid black; /*  */
+}
+
+.footer-text {
+  font-size: 1rem; /*  */
+  border-top: 0rem solid black; /*  */
+}
+
+/* SECTIONS (or parts, as they are called in LaTeX) */
+h1.section {
+  font-weight: bold;
+  font-size: 3rem;
+  text-align: left;
+  margin-top: 0;
+  line-height: inherit;
+  padding-top: 40%;
+  font-family: "im_fell_dw_pica_pro"; /*  */
+}
+
+/* FRONT MATTER (half-title) **********************************************/
+div.frontmatter-half-title {
+  page: frontmatter;
+  font-size: 2rem;
+  line-height: 100%;
+  padding-top: 30%;
+  margin-bottom: 0;
+  font-weight: normal; /*  */
+  text-align: left; /*  */
+  text-transform: none; /*  */
+  font-family: "im_fell_dw_pica_pro"; /*  */
+}
+
+div.frontmatter-author {
+  font-weight: normal;
+  font-size: 2rem;
+  margin-top: 8rem;
+  text-align: left; /*  */
+  font-family: "im_fell_dw_pica_pro"; /*  */
+}
+
+/* FRONT MATTER (title) *****************************************************/
+div.frontmatter-title {
+  font-size: 3rem;
+  line-height: 100%;
+  padding-top: 30%;
+  margin-bottom: 0;
+  text-align: left; /*  */
+  font-weight: normal; /*  */
+  text-transform: none; /*  */
+  font-family: "im_fell_dw_pica_pro"; /*  */
+}
+
+div.frontmatter-subtitle {
+  font-size: 2rem;
+  line-height: 100%;
+  margin-top: 4rem;
+  font-weight: normal;
+  text-align: left; /*  */
+  font-family: "im_fell_dw_pica_pro"; /*  */
+}
+
+div.frontmatter-author-title {
+  font-size: 2rem;
+  line-height: 100%;
+  font-weight: normal;
+  margin-top: 6rem;
+  margin-bottom: 0;
+  text-align: left; /*  */
+  font-family: "im_fell_dw_pica_pro"; /*  */
+}
+
+div.frontmatter-line {
+  width: 33%;
+  background-color: black;
+  height: 0.3rem; /*  */
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.frontmatter-bottom {
+  font-weight: normal;
+  margin-top: 3rem;
+  font-size: 1rem;
+  line-height: 100%;
+  text-align: left; /*  */
+  font-family: "im_fell_dw_pica_pro"; /*  */
+}
+
+/* Table of contents ****************************************/
+div.mpdf_toc {
+  font-size: 1rem;
+  font-family: "im_fell_dw_pica_pro"; /*  */
+}
+
+span.mpdf_toc_t_level_0 {
+  font-weight: bold; /*  */
+  text-transform: none;
+}
+
+span.mpdf_toc_t_level_1 {
+  font-weight: normal;
+  font-style: normal;
+  text-transform: none;
+}
+/* Body styling ************************************************************/
+
+h1.chapter-h1 {
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: center; /*  */
+  font-weight: normal; /*  */
+  font-family: "im_fell_dw_pica_pro"; /*  */
+  font-size: 14.6pt;
+  padding-top: 39.6pt; 
+  margin-bottom: 39.6pt; /*  */
+  line-height: 13.2pt; 
+}
+
+h1.body-h1 {
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: left; /*  */
+  font-weight: normal; /*  */
+  font-family: "im_fell_dw_pica_pro"; /*  */
+  font-size: 11pt;
+  padding-top: 4.4pt; 
+  margin-bottom: 8.8pt; /*  */
+  line-height: 13.2pt; 
+}
+
+h2.body-h2 {
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: left; /*  */
+  font-weight: normal; /*  */
+  font-family: "im_fell_dw_pica_pro"; /*  */
+  font-size: 11pt;
+  padding-top: 4.4pt; 
+  margin-bottom: 8.8pt; /*  */
+  line-height: 13.2pt; 
+}
+
+h3.body-h3 {
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: left; /*  */
+  font-weight: normal; /*  */
+  font-family: "im_fell_dw_pica_pro"; /*  */
+  font-size: 11pt;
+  padding-top: 0pt; 
+  margin-bottom: 13.2pt; /*  */
+  line-height: 13.2pt; 
+}
+
+h4.body-h4 {
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: left; /*  */
+  font-weight: normal; /*  */
+  font-family: "im_fell_dw_pica_pro"; /*  */
+  font-size: 11pt;
+  padding-top: 0pt; 
+  margin-bottom: 13.2pt; /*  */
+  line-height: 13.2pt; 
+}
+
+h5.body-h5 {
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: left; /*  */
+  font-weight: normal; /*  */
+  font-family: "im_fell_dw_pica_pro"; /*  */
+  font-size: 11pt;
+  padding-top: 0pt; 
+  margin-bottom: 13.2pt; /*  */
+  line-height: 13.2pt; 
+}
+
+p.body-first {
+  font-weight: normal;
+  text-indent: 0;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 13.2pt; /*  */
+}
+
+p.body, p {
+  font-weight: normal;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 13.2pt; /*  */
+  text-indent: 0pt; /*  */
+}
+
+blockquote, p.quote {
+  display: inline;
+  font-weight: normal;
+  font-size: 1rem;
+  font-style: italic;
+  text-indent: 0;
+  border-left: 0.5rem solid #ccc;
+  padding-left: 1rem;
+  margin-top: 13.2pt; /*  */
+  margin-bottom: 13.2pt; /*  */
+  margin-top: 13.2pt; /*  */
+  margin-bottom: 13.2pt; /*  */
+}
+/* Lists ****************************************************************/
+ul, ol {
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top: 0;
+  line-height: 13.2pt; /*  */
+  margin-bottom: 13.2pt; /*  */
+}
+li {
+  padding: 0;
+  margin: 0;
+  line-height: 13.2pt; /*  */
+}
+/* TABLE *****************************************************************/
+table {
+  border-collapse: collapse;
+  width: 100%;
+  padding-top: 13.2pt; /*  */
+  margin-bottom: 13.2pt; /*  */
+}
+
+caption {
+  font-style: italic;
+  margin-top: 13.2pt; /*  */
+}
+
+table, th, td {
+  border: 0.05rem solid black;
+}
+th, td {
+  padding: 0.6rem 0.8rem;
+}
+/* PREFORMATTED ******************************************************/
+pre {
+  font-size: 11pt; /*  */
+  line-height: 13.2pt; /*  */
+  padding-top: 0;
+  margin-top: 0;
+  padding-top: 13.2pt; /*  */
+  margin-bottom: 13.2pt; /*  */
+  font-family: "texgyrecursor"; /*  */
+}
+/* ENDNOTES **********************************************************/
+.endnote {
+  vertical-align: middle;
+  font-style: italic;
+  font-size: 0.75rem;
+}
+ol.endnotes {
+  margin-top: 2rem;
+  padding-left: 1.2em;
+}
+
+ol.endnotes li {
+  font-weight: normal;
+  font-size: 0.8rem;
+  line-height: inherit;
+}
+
+/* DEDICATION  ***********************************************************/
+div.dedication {
+  padding-top: 30%;
+}
+
+p.dedication {
+  font-weight: normal;
+  text-align: center;
+  font-style: italic;
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+  display: inline; 
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+/* IMAGE (plus captions) ************************************************/
+img, div.image {
+  max-width: 100%;
+  height: auto;
+  margin: 0px auto;
+}
+
+.group_img {
+  page-break-inside: avoid;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.caption_small {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  font-style: italic;
+}
+.center {
+  text-align: center;
+}
