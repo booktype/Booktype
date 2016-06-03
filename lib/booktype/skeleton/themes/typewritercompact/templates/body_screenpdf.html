@@ -1,0 +1,43 @@
+{% load booktype_tags %}
+
+{% if show_header %}
+<htmlpageheader name="header-left" style="display:none">
+  <div class="header-text header-left">{{ title }}</div>
+</htmlpageheader>
+
+<htmlpageheader name="header-right" style="display:none">
+  <div class="header-text header-right">{{ title }}</div>
+</htmlpageheader>
+{% endif %}
+
+{% if show_footer %}
+<htmlpagefooter name="footer-left" style="display:none">
+  <div class="footer-text footer-left">{PAGENO}</div>
+</htmlpagefooter>
+
+<htmlpagefooter name="footer-right" style="display:none">
+  <div class="footer-text footer-right">{PAGENO}</div>
+</htmlpagefooter>
+{% endif %}
+
+<tocpagebreak links="on" pagenumstyle="1" toc-suppress="1" toc-resetpagenum="1"></tocpagebreak>
+
+{% for item in book_items %}
+  {% if item.type == 'chapter' %}
+    {% if not forloop.first %}
+    <pagebreak />
+    {% endif %}
+    <tocentry level="1" content="{{ item.title }}"></tocentry>
+    {{ item.content|safe }}
+  {% endif %}
+
+  {% if item.type == 'section' %}
+    {% if not forloop.first %}
+    <pagebreak />
+    {% endif %}
+    <sethtmlpagefooter page="odd" value="off" />
+    <sethtmlpagefooter page="even" value="off" />
+    <tocentry level="0" content="{{ item.title }}"></tocentry>
+    <h1 class="section">{{ item.title }}</h1>
+  {% endif %}
+{% endfor %}
