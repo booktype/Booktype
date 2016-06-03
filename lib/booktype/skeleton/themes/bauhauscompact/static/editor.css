@@ -156,7 +156,7 @@ p.quote:before {
     font-size: inherit; 
     line-height: inherit;
     text-indent: 0;
-    margin-bottom: 15pt; /* spacing between paragraphs */
+    margin-bottom: 0pt; /* spacing between paragraphs */
 }
 /* Not first paragraph **************************************************/
 #contenteditor p+p,
@@ -165,8 +165,8 @@ p.quote:before {
 #contenteditor div.group_img+p,
 #contenteditor div.aloha-table+p {
     margin-top: 0;
-    text-indent: 0pt;
-    margin-bottom: 15pt;
+    text-indent: 15pt;
+    margin-bottom: 0pt;
 }
 
 /* Lists *****************************************************************/
