@@ -41,7 +41,7 @@ div.dedication {
   margin-right: 40px;
   margin-top: 50px;
   font-family: "texgyrecursor"; 
-  font-size: 2rem;
+  font-size: 2em;
   font-style: italic;
 }
 
@@ -49,9 +49,8 @@ h1.section {
   font-family: "texgyrecursor"; 
   text-align: center; 
   font-weight: bold; 
-  font-size: %PartFontSizeRemVal%rem;
+  font-size: %PartFontSizeRemVal%em;
   text-transform: none; 
-  border-bottom: 0rem solid black;
   text-decoration: none;
   margin-top: 0;
 }
@@ -62,7 +61,8 @@ h1.frontmatter-title {
   text-transform: none; 
   font-family: "texgyrecursor"; 
   text-decoration: none;
-  font-size: 5rem;
+  border-bottom: 0px; 
+  font-size: 5em;
   line-height: 110%;
   margin-top: 20mm;
   margin-bottom: 0;
@@ -71,22 +71,25 @@ h1.frontmatter-title {
 h2.frontmatter-author {
   text-align: left; 
   font-family: "texgyrecursor"; 
+  border-bottom: 0px; 
   margin-top: 30mm;
-  font-size: 2.2rem;
+  font-size: 2.2em;
 }
 
 h2.frontmatter-author-title {
   text-align: left; 
   font-family: "texgyrecursor"; 
+  border-bottom: 0px; 
   margin-top: 10mm;
-  font-size: 2.2rem;
+  font-size: 2.2em;
 }
 
 h3.frontmatter-subtitle {
   text-align: left; 
   font-family: "texgyrecursor"; 
+  border-bottom: 0px; 
   margin-top: 10mm;
-  font-size: 2.2rem;
+  font-size: 2.2em;
   line-height: 120%;
 }
 
@@ -100,20 +103,25 @@ div.frontmatter-line {
 
 p.quote {
   font-family: "texgyrecursor"; 
+  display: block;
+  font-weight: normal; 
+  font-size: 1em;
+  font-style: normal;
+  text-indent: 0;
+  border-left: 0rem solid #000;
+  padding-left: 1em;
+  margin-left: 1em;
+  margin-top: 1em; 
+  margin-bottom: 1em; 
+  text-align: left; 
+  line-height: 13.2pt; 
   text-transform: none; 
   text-decoration: none;
-  border-left: 2px solid #333;
-  margin: 30px 0;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: normal; 
-  line-height: 140%;
-  padding: 4px 20px 4px 60px;
-  quotes: "\201C" "\201D" "\2018" "\2019";
-  position: relative;
 } 
 
 p.quote:before {
+  display: none;
+/*
   color: #333;
   content: open-quote;
   font-size: 72px;
@@ -122,6 +130,7 @@ p.quote:before {
   top: 14px;
   left: 6px;
   bottom: 0;
+*/
 }
 
 h1,
@@ -142,10 +151,9 @@ h1 {
   font-weight: bold; 
   text-transform: none; 
   text-align: left; 
-  border-bottom: 0rem solid black;
   text-decoration: none;
-  font-size: 3.6rem;
-  margin-bottom: 1rem; 
+  font-size: 3.6em;
+  margin-bottom: 1em; 
 }
 
 h2 {
@@ -153,10 +161,9 @@ h2 {
   font-weight: bold; 
   text-transform: none; 
   text-align: left; 
-  border-bottom: 0rem solid black;
   text-decoration: none;
-  font-size: 2.8rem;
-  margin-bottom: 1rem;
+  font-size: 2.2em;
+  margin-bottom: 1em;
 }
 
 h3 {
@@ -164,10 +171,9 @@ h3 {
   font-weight: normal; 
   text-transform: none; 
   text-align: left; 
-  border-bottom: 0rem solid black;
   text-decoration: underline;
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
+  font-size: 1.8em;
+  margin-bottom: 1em;
 }
 
 h4 {
@@ -175,10 +181,9 @@ h4 {
   font-weight: normal; 
   text-transform: none; 
   text-align: left; 
-  border-bottom: 0rem solid black;
   text-decoration: none;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+  font-size: 1.4em;
+  margin-bottom: 1em;
 }
 
 h5 {
@@ -186,10 +191,9 @@ h5 {
   font-weight: normal; 
   text-transform: none; 
   text-align: left; 
-  border-bottom: 0rem solid black;
   text-decoration: none;
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
+  font-size: 1.2em;
+  margin-bottom: 1em;
 }
 
 /* Paragraph Styles *****************************************************/
@@ -205,8 +209,8 @@ h3 + p,
 h4 + p {
   font-family: "texgyrecursor"; 
     font-weight: normal;
-    font-size: 1rem; 
-    line-height: 1.4rem;
+    font-size: 1em; 
+    line-height: 1.4em;
     text-indent: 0;
     margin-bottom: 0;
 }
@@ -215,8 +219,8 @@ p,
 a {
   font-family: "texgyrecursor"; 
     font-weight: normal;
-    font-size: 1rem; 
-    line-height: 1.4rem;
+    font-size: 1em; 
+    line-height: 1.4em;
     margin: 0;
 }
 
@@ -237,8 +241,8 @@ ol {
 li {
     font-family: "texgyrecursor"; 
     font-weight: normal;
-    font-size: 1rem;
-    line-height: 1.4rem;
+    font-size: 1em;
+    line-height: 1.4em;
 }
 
 img {
@@ -263,14 +267,14 @@ td {
 td {
     font-family: "texgyrecursor"; 
     font-weight: normal;
-    font-size: 1rem;
+    font-size: 1em;
     line-height: normal;
     margin: 0;
 }
 
 th, 
 td {
-    padding: .6rem .8rem;
+    padding: .6rem .8em;
 }
 
 .group_img {
@@ -284,19 +288,19 @@ td {
 }
 
 .caption_small {
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
+  margin-top: 0.5em;
+  font-size: 0.8em;
   font-style: italic;
 }
 
 .frontmatter-bottom {
   margin-bottom: 50px;
-  font-size: 1.2rem;
+  font-size: 1.2em;
 }
 
 p.impl {
   margin: 0;
-  text-indent: 0rem;
+  text-indent: 0em;
 }
 
 div.page-break {
@@ -304,19 +308,19 @@ div.page-break {
 }
 
 sup.endnote {
-  font-size: 0.8rem;
+  font-size: 0.8em;
 }
 
 ol.endnotes {
-  padding-left: 1.2rem;
-  margin-top: 2rem;
+  padding-left: 1.2em;
+  margin-top: 2em;
 }
 
 ol.endnotes li {
   font-family: "texgyrecursor"; 
   font-weight: normal;
-  font-size: 0.8rem;
-  line-height: 1.2rem;
+  font-size: 0.8em;
+  line-height: 1.2em;
   margin: 0;
 }
 
