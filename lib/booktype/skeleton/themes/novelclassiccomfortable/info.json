@@ -1,0 +1,34 @@
+{
+  "version": "0.1",
+  "name": "Novel Classic (Comfortable)",
+  "author": "Micz Flor",
+  "date": "1st June 2016",
+  "output": {
+    "mpdf": {
+      "options": {},
+      "frontmatter": "frontmatter_mpdf.html",
+      "endmatter": "endmatter_mpdf.html",
+      "body": "body_mpdf.html"
+    },
+    "screenpdf": {
+      "options": {},
+      "frontmatter": "frontmatter_screenpdf.html",
+      "endmatter": "endmatter_screenpdf.html",
+      "body": "body_screenpdf.html"
+    },
+    "epub": {
+      "assets": {
+        "fonts": [
+          "static/fonts/TeXGyreSchola-Regular.ttf",
+          "static/fonts/TeXGyreSchola-Bold.ttf",
+          "static/fonts/TeXGyreSchola-Italic.ttf",
+          "static/fonts/TeXGyreSchola-BoldItalic.ttf",
+          "static/fonts/TeXGyreCursor-Regular.ttf",
+          "static/fonts/TeXGyreCursor-Bold.ttf",
+          "static/fonts/TeXGyreCursor-Italic.ttf",
+          "static/fonts/TeXGyreCursor-BoldItalic.ttf"
+        ]
+      }
+    }
+  }
+}

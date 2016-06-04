@@ -1,0 +1,378 @@
+body {
+  font-size: 11pt; 
+  line-height: 13.2pt; 
+  margin: 0;
+  padding: 0;
+  color: #000000;
+  font-family: "texgyrecursor"; 
+  text-align: left;
+}
+
+.impl {
+  margin: 0;
+  text-indent: 0;
+}
+
+.impl-bold {
+  margin: 0;
+  text-indent: 0;
+  font-weight: bold;
+}
+
+/* Header ********************************************************************/
+.header-text {
+  font-family: "texgyrecursor"; 
+  font-size: 1rem; 
+  border-bottom: 0rem solid black; 
+}
+.header-left {
+  text-align: left;
+  display: block;
+}
+.header-right {
+  text-align: right;
+  display: block;
+}
+
+/* Footer ********************************************************************/
+.footer-text {
+  font-family: "texgyrecursor"; 
+  font-size: 1rem; 
+  border-top: 0rem solid black; 
+}
+.footer-left {
+  text-align: center;
+  display: block;
+}
+.footer-right {
+  text-align: center;
+  display: block;
+}
+
+/* SECTIONS (or parts, as they are called in LaTeX) */
+h1.section {
+  line-height: inherit;
+  padding-top: 40%;
+  margin-top: 0;
+  font-family: "texgyrecursor"; 
+  text-align: center; 
+  font-weight: bold; 
+  font-size: 22pt;
+  text-transform: none; 
+  border-bottom: 0rem solid black;
+  text-decoration: none;
+}
+
+/* FRONT MATTER (half-title) **********************************************/
+div.frontmatter-half-title {
+  page: frontmatter;
+  line-height: 110%;
+  padding-top: 40%;
+  margin-bottom: 0;
+  font-weight: bold; 
+  text-align: left; 
+  text-transform: none; 
+  font-family: "texgyrecursor"; 
+  text-decoration: none;
+  font-size: 22pt;
+}
+
+div.frontmatter-author {
+  font-weight: normal;
+  margin-top: 8rem;
+  text-align: left; 
+  font-family: "texgyrecursor"; 
+  font-size: 22pt;
+}
+
+/* FRONT MATTER (title) *****************************************************/
+div.frontmatter-title {
+  line-height: 110%;
+  padding-top: 30%;
+  margin-bottom: 0;
+  text-align: left; 
+  font-weight: bold; 
+  text-transform: none; 
+  font-family: "texgyrecursor"; 
+  text-decoration: none;
+  font-size: 22pt;
+}
+
+div.frontmatter-subtitle {
+  line-height: 110%;
+  margin-top: 4rem;
+  font-weight: normal;
+  text-align: left; 
+  font-family: "texgyrecursor"; 
+  font-size: 11pt;
+}
+
+div.frontmatter-author-title {
+  line-height: 100%;
+  font-weight: normal;
+  margin-top: 6rem;
+  margin-bottom: 0;
+  text-align: left; 
+  font-family: "texgyrecursor"; 
+  font-size: 22pt;
+}
+
+div.frontmatter-line {
+  width: 33%;
+  background-color: black;
+  height: 0.3rem; 
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.frontmatter-bottom {
+  font-weight: normal;
+  margin-top: 3rem;
+  font-size: 1rem;
+  line-height: inherit;
+  text-align: left; 
+  font-family: "texgyrecursor"; 
+}
+
+/* Table of contents ****************************************/
+div.mpdf_toc {
+  font-size: 1rem;
+  font-family: "texgyrecursor"; 
+}
+
+span.mpdf_toc_t_level_0 {
+  font-weight: bold; 
+  text-transform: none;
+}
+
+span.mpdf_toc_t_level_1 {
+  font-weight: normal;
+  font-style: normal;
+  text-transform: none;
+}
+/* Body styling ************************************************************/
+
+h1.chapter-h1 {
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: left; 
+  font-weight: bold; 
+  font-family: "texgyrecursor"; 
+  font-size: 14.6pt;
+  padding-top: 79.2pt; 
+  margin-bottom: 39.6pt; 
+  line-height: 13.2pt; 
+  text-transform: none; 
+  border-bottom: 0rem solid black;
+  text-decoration: none;
+}
+
+h1.body-h1 {
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: left; 
+  font-weight: bold; 
+  font-family: "texgyrecursor"; 
+  font-size: 11pt;
+  padding-top: 26.4pt; 
+  margin-bottom: 13.2pt; 
+  line-height: 13.2pt; 
+  text-transform: uppercase; 
+  border-bottom: 0rem solid black;
+  text-decoration: none;
+}
+
+h2.body-h2 {
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: left; 
+  font-weight: bold; 
+  font-family: "texgyrecursor"; 
+  font-size: 11pt;
+  padding-top: 13.2pt; 
+  margin-bottom: 13.2pt; 
+  line-height: 13.2pt; 
+  text-transform: none; 
+  border-bottom: 0rem solid black;
+  text-decoration: none;
+}
+
+h3.body-h3 {
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: left; 
+  font-weight: normal; 
+  font-family: "texgyrecursor"; 
+  font-size: 11pt;
+  padding-top: 4.4pt; 
+  margin-bottom: 8.8pt; 
+  line-height: 13.2pt; 
+  text-transform: none; 
+  border-bottom: 0rem solid black;
+  text-decoration: underline;
+}
+
+h4.body-h4 {
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: left; 
+  font-weight: normal; 
+  font-family: "texgyrecursor"; 
+  font-size: 11pt;
+  padding-top: 4.4pt; 
+  margin-bottom: 8.8pt; 
+  line-height: 13.2pt; 
+  text-transform: none; 
+  border-bottom: 0rem solid black;
+  text-decoration: none;
+}
+
+h5.body-h5 {
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: left; 
+  font-weight: normal; 
+  font-family: "texgyrecursor"; 
+  font-size: 11pt;
+  padding-top: 4.4pt; 
+  margin-bottom: 8.8pt; 
+  line-height: 13.2pt; 
+  text-transform: none; 
+  border-bottom: 0rem solid black;
+  text-decoration: none;
+}
+
+p.body-first {
+  font-weight: normal;
+  text-indent: 0;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 13.2pt; 
+}
+p:first-child:first-letter{
+    float:left;
+    margin-top:7px;
+    font-size:70px;
+    margin-right:5px;
+    color:#3D3529;
+    }
+
+p.body, p {
+  font-weight: normal;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 13.2pt; 
+  text-indent: 0pt; 
+}
+
+blockquote, p.quote {
+  font-family: "texgyrecursor"; 
+  display: inline;
+  font-weight: normal; 
+  font-size: 11pt;
+  font-style: normal;
+  text-indent: 0;
+  border-left: 0rem solid #000;
+  padding-left: 0rem;
+  margin-left: 13.2pt;
+  margin-top: 13.2pt; 
+  margin-bottom: 13.2pt; 
+  text-align: left; 
+  line-height: 13.2pt; 
+  text-transform: none; 
+  text-decoration: none;
+}
+/* Lists ****************************************************************/
+ul, ol {
+  line-height: 13.2pt; 
+  margin-top: 13.2pt; 
+  margin-bottom: 13.2pt; 
+}
+li {
+  padding: 0;
+  margin: 0;
+  line-height: 13.2pt; 
+}
+/* TABLE *****************************************************************/
+table {
+  border-collapse: collapse;
+  max-width: 100%;
+  margin-top: 13.2pt; 
+  margin-bottom: 13.2pt; 
+}
+
+caption {
+  font-style: italic;
+  margin-top: 13.2pt; 
+}
+
+table, th, td {
+  border: 0.05rem solid black;
+}
+th, td {
+  padding: 0.6rem 0.8rem;
+}
+/* PREFORMATTED ******************************************************/
+pre {
+  padding-bottom: 0;
+  padding-top: 0;
+  font-family: "texgyrecursor"; 
+  line-height: 13.2pt; 
+  margin-top: 13.2pt; 
+  margin-bottom: 13.2pt; 
+}
+/* ENDNOTES **********************************************************/
+.endnote {
+  vertical-align: middle;
+  font-style: italic;
+  font-size: 0.75rem;
+}
+ol.endnotes {
+  margin-top: 2rem;
+  padding-left: 1.2em;
+}
+
+ol.endnotes li {
+  font-weight: normal;
+  font-size: 0.8rem;
+  line-height: inherit;
+}
+
+/* DEDICATION  ***********************************************************/
+div.dedication {
+  padding-top: 30Val%;
+}
+
+p.dedication {
+  font-weight: normal;
+  text-align: center;
+  font-style: italic;
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+  display: inline; 
+  margin-left: 7rem;
+  margin-right: 7rem;
+}
+
+/* IMAGE (plus captions) ************************************************/
+img, div.image {
+  max-width: 100Val%;
+  height: auto;
+  margin: 0px auto;
+}
+
+.group_img {
+  page-break-inside: avoid;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.caption_small {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  font-style: italic;
+}
+.center {
+  text-align: center;
+}
