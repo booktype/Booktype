@@ -41,6 +41,10 @@ PERMISSIONS = {
         ('manage_language', _('Manage Language')),
         ('manage_license', _('Manage License')),
         ('manage_metadata', _('Manage Metadata')),
-        ('manage_book_settings', _('Manage Book Settings'))
+        ('manage_book_settings', _('Manage Book Settings')),
+
+        ('add_comment', _('Add Comments')),
+        ('resolve_comment', _('Resolve Comments')),
+        ('delete_comment', _('Delete Comments'))
     ]
 }

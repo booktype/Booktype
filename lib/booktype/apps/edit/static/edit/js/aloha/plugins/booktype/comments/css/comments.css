@@ -1,0 +1,129 @@
+.comment-box {
+    background: #fff;
+    padding: 13px;
+    font-size: 12px;
+    width: 300px;
+    margin-bottom: 15px;
+    border: #E6E6E6 1px solid;
+}
+
+.comment-modal {
+    top: 100px;
+}
+
+.comment-modal .comment-reference {
+    width: 100% !important;
+}
+
+.comment-modal .comment-reference, .comment-box .comment-reference {
+    color: #6E47B4;
+    font-weight: bold;
+    border-left: 3px #6E47B4 solid;
+    padding-left: 8px;
+    margin-bottom: 15px;
+    width: 210px;
+}
+
+.comment-box.selected {
+    border: 2px solid #6E47B4;
+}
+
+.comment-box .initial-comment {
+    clear: both;
+    background: #E9E9E9;
+    padding: 10px;
+}
+
+.comment-box .comment-content {
+    padding-top: 8px;
+}
+
+.comment-box .comment-content p {
+    margin-bottom: 2px;
+}
+
+.comment-box .comment-date {
+    font-size: 10px;
+    color: #6B6B6B;
+}
+
+.comment-box .reply-comment {
+    border-left: #E8E8E8 2px solid;
+    margin-top: 0;
+    padding: 10px 10px 0px 10px;
+    margin-left: 10px;
+}
+
+.comment-box .reply-comment .comment-content p {
+    margin-bottom: 3px;
+}
+
+.comment-box .user-avatar{
+    max-width: 35px;
+}
+
+.comment-box .reply-form .form-group {
+    margin-bottom: 5px;
+}
+
+.comment-box .reply-form {
+    margin-bottom: 5px;
+}
+
+.comment-box .reply-input {
+    font-size: 12px;
+    border-radius: 0;
+    margin: 10px 10px 0 10px;
+    width: 255px;
+    height: 33px;
+    resize: none;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+
+.comment-box .reply-input.full{
+    margin: 10px 0 0 0px;
+    width: 100%;
+}
+
+.reply-actions {
+    margin: 5px 10px 0 10px;
+    width: 255px;
+}
+
+.reply-actions.full {
+    margin: 5px 0 0 0px;
+    width: 100%;
+}
+
+.reply-actions button{
+    margin-right: 5px;
+}
+
+
+#contenteditor .comment-link,
+#contentrevision .comment-link {
+    font-family: inherit;
+    border-radius: 2px;
+    border: 1px solid #FFFF00;
+    background-color: #FFFF66;
+    padding: 2px;
+    font-size: 8pt;
+    line-height: 8pt;
+    text-decoration: none;
+    cursor: zoom-in;
+}
+
+#contenteditor .comment-link:hover,
+#contenteditor .comment-link.comment-selected,
+#contentrevision .comment-link:hover,
+#contentrevision .comment-link.comment-selected {
+    background-color: #fff;
+    border: 1px solid #d62727 !important;
+}
+
+
+/* some overrides here */
+.tabpane.right-tabpane{
+    width: 350px !important;
+}
