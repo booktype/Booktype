@@ -224,6 +224,7 @@
         <h3>{% trans "Attachments" %}</h3>
     </section>
     -->
+
     <section class="tab-content" source_id="history-tab">
         <h3>{% trans "Chapter History" %}</h3>
 
@@ -255,6 +256,14 @@
           </ul>
         </div>
     </section>
+
+    <section class="tab-content" source_id="comments-tab">
+      <h3>{% trans "Comments" %}</h3>
+      <div class="scrollable">
+        <div id="commentsTab" class="comments-content" style="padding-top: 30px">
+        </div>
+      </div>
+    </section>
 </div>
 {% endblock %}
 
@@ -276,6 +285,10 @@
 <div class="notificationContainer">
   <div class="notification">
   </div>
+</div>
+
+<div class="modalsContainer">
+  <div id="commentsModal"></div>
 </div>
 
 <script type="text/html" id="templateUserJoined">

@@ -209,7 +209,8 @@ def remote_init_editor(request, message, bookid, version):
     """
     Called when Booki editor is being initialized.
 
-    "user_add" message is send to all users currently on this channel and notification is send to all online users on the chat.
+    "user_add" message is send to all users currently on this channel and notification is send
+    to all online users on the chat.
 
     Returns:
      - licenses - list of tuples (abbrevation, name)
@@ -237,7 +238,7 @@ def remote_init_editor(request, message, bookid, version):
 
     # get chapters
     chapters = get_toc_for_book(book_version)
-    holdChapters = get_hold_chapters(book_version)
+    hold_chapters = get_hold_chapters(book_version)
 
     # get users
     def _get_username(a):
@@ -343,7 +344,7 @@ def remote_init_editor(request, message, bookid, version):
     return {"licenses": licenses,
             "chapters": chapters,
             "metadata": metadata,
-            "hold": holdChapters,
+            "hold": hold_chapters,
             "users": users,
             "is_admin": book_security.is_admin(),
             "statuses": statuses,
@@ -538,7 +539,8 @@ def remote_chapter_save(request, message, bookid, version):
     """
     Saves new chapter content.
 
-    Writes log to Chapter and Book history. Sends notification to chat. Removes lock. Sends "chapter_status" messahe to the channel. Fires the chapter_modified signal.
+    Writes log to Chapter and Book history. Sends notification to chat. Removes lock.
+    Sends "chapter_status" messahe to the channel. Fires the chapter_modified signal.
 
     Input:
       - chapterID
@@ -812,7 +814,8 @@ def remote_chapter_rename(request, message, bookid, version):
     """
     Rename chapter name.
 
-    Creates Book history record. Sends notification to chat. Sends "chapter_status" message to the channel. Sends "chapter_rename" message to the channel.
+    Creates Book history record. Sends notification to chat. Sends "chapter_status" message to the channel.
+    Sends "chapter_rename" message to the channel.
 
     @todo: check security
 
@@ -2062,7 +2065,6 @@ def remote_publish_book(request, message, bookid, version):
 
 
 def remote_word_count(request, message, bookid, version):
-    from lxml import html, etree
     from unidecode import unidecode
     from booktype.utils.wordcount import wordcount, charcount, charspacecount
 
@@ -3392,17 +3394,19 @@ def remote_get_export_list(request, message, bookid, version):
         comments = []
 
         for comment in ExportComment.objects.filter(export=export).order_by('created'):
-            comments.append({'username': comment.user.username,
+            comments.append({
+                'username': comment.user.username,
                 'email': comment.user.email,
                 'created': str(comment.created.strftime("%d.%m.%Y %H:%M:%S")),
                 'content': comment.content
-                })
+            })
 
         files = {}
 
         for fexport in ExportFile.objects.filter(export=export):
 
-            files[fexport.typeof] = {'filename': fexport.filename,
+            files[fexport.typeof] = {
+                'filename': fexport.filename,
                 'status': fexport.status,
                 'description': fexport.description,
                 'filesize': fexport.filesize,
@@ -3414,7 +3418,8 @@ def remote_get_export_list(request, message, bookid, version):
         else:
             _published = str(export.published.strftime("%d.%m.%Y %H:%M:%S"))
 
-        exports.append({'name': export.name,
+        exports.append({
+            'name': export.name,
             'username': export.user.username,
             'task_id': export.task_id,
             'created': str(export.created.strftime("%d.%m.%Y %H:%M:%S")),
@@ -3422,7 +3427,7 @@ def remote_get_export_list(request, message, bookid, version):
             'status': export.status,
             'files': files,
             'comments': comments
-            })
+        })
 
     return {'result': True, 'exports': exports}
 
@@ -3437,26 +3442,34 @@ def remote_post_export_comment(request, message, bookid, version):
 
     book_export = BookExport.objects.get(task_id=message['task_id'])
 
-    comment = ExportComment(export=book_export,
+    comment = ExportComment(
+        export=book_export,
         user=request.user,
         created=datetime.datetime.now(),
         content=message['content'])
     comment.save()
 
-    sputnik.addMessageToChannel(request,
-        "/booktype/book/%s/%s/" % (bookid, version),
-        {"command": "new_export_comment",
-        "task_id": message["task_id"],
-        "username": request.user.username,
-        "email": request.user.email,
-        "created": str(comment.created.strftime("%d.%m.%Y %H:%M:%S")),
-        "content": message['content']}, myself=False)
+    sputnik.addMessageToChannel(
+        request,
+        "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "new_export_comment",
+            "task_id": message["task_id"],
+            "username": request.user.username,
+            "email": request.user.email,
+            "created": str(comment.created.strftime("%d.%m.%Y %H:%M:%S")),
+            "content": message['content']
+        }, myself=False
+    )
 
-    return {'result': True, 'comment': {'username': request.user.username,
-        'email': request.user.email,
-        'created': str(comment.created.strftime("%d.%m.%Y %H:%M:%S")),
-        'content': comment.content
-        }}
+    return {
+        'result': True,
+        'comment': {
+            'username': request.user.username,
+            'email': request.user.email,
+            'created': str(comment.created.strftime("%d.%m.%Y %H:%M:%S")),
+            'content': comment.content
+        }
+    }
 
 
 def remote_remove_export(request, message, bookid, version):
@@ -3470,10 +3483,14 @@ def remote_remove_export(request, message, bookid, version):
     book_export = BookExport.objects.get(task_id=message['task_id'])
 
     book_export.delete()
-    sputnik.addMessageToChannel(request,
-        "/booktype/book/%s/%s/" % (bookid, version),
-        {"command": "remove_export",
-        "task_id": message["task_id"]}, myself=False)
+    sputnik.addMessageToChannel(
+        request,
+        "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "remove_export",
+            "task_id": message["task_id"]
+        },
+        myself=False
+    )
 
     return {'result': True}
 
@@ -3564,5 +3581,202 @@ def remote_remove_metafield(request, message, bookid, version):
         models.Info.objects.filter(book=book, name=meta_name).delete()
     except Exception as e:
         return {'result': False, 'message': e}
+
+    return {'result': True}
+
+
+def remote_add_comment(request, message, bookid, version):
+    """Creates a new comment for a give chapter"""
+
+    import uuid
+    from .models import Comment
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.add_comment'):
+        return {'result': False}
+
+    chapter = models.Chapter.objects.get(pk=message["chapter_id"], version=book_version)
+    com = Comment(
+        chapter=chapter,
+        is_imported=False,
+        user=request.user,
+        text=message["text"],
+        content=message["content"],
+        comment_id=str(uuid.uuid4()),
+        date=datetime.datetime.now(),
+    )
+    com.save()
+
+    comment = {
+        'cid': com.comment_id,
+        'author': com.get_author,
+        'date': com.date.strftime('%s'),
+        'text': com.text,
+        'content': com.content
+    }
+
+    return {'result': True, 'new_comment': comment}
+
+
+def remote_reply_comment(request, message, bookid, version):
+    """Simple reply to an existent comment in a chapter"""
+
+    import uuid
+    from .models import Comment
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.add_comment'):
+        return {'result': False}
+
+    chapter = models.Chapter.objects.get(pk=message["chapter_id"], version=book_version)
+    comment = Comment.objects.get(chapter=chapter, comment_id=message["comment_id"])
+
+    # save the comment reply
+    com = Comment(
+        text='',
+        parent=comment,
+        chapter=chapter,
+        user=request.user,
+        comment_id=str(uuid.uuid4()),
+        date=datetime.datetime.now(),
+        is_imported=False,
+        content=message['content']
+    )
+    com.save()
+
+    return {'result': True}
+
+
+def remote_get_comments(request, message, bookid, version):
+    """Retrieve the list of comments for a given chapter"""
+    from .models import Comment
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    chapter = models.Chapter.objects.get(pk=message["chapter_id"], version=book_version)
+
+    comments = []
+    status = 0
+
+    if message.get('resolved', False):
+        status = 1
+
+    for comment in Comment.objects.filter(chapter=chapter, status=status, state=0, parent=None):
+        replies = []
+
+        for reply in Comment.objects.filter(chapter=chapter, parent=comment):
+            replies.append({
+                'cid': reply.comment_id,
+                'author': reply.get_author,
+                'date': reply.date.strftime('%s'),
+                'text': '',
+                'content': reply.content
+            })
+
+        comm = {
+            'cid': comment.comment_id,
+            'author': comment.get_author,
+            'date': comment.date.strftime('%s'),
+            'text': comment.text,
+            'content': comment.content,
+            'replies': replies
+        }
+
+        comments.append(comm)
+
+    permissions = {
+        'add_comment': book_security.has_perm('edit.add_comment'),
+        'delete_comment': book_security.has_perm('edit.delete_comment'),
+        'resolve_comment': book_security.has_perm('edit.resolve_comment'),
+        'is_superuser': request.user.is_superuser
+    }
+
+    return {
+        'result': True,
+        'comments': comments,
+        'permissions': permissions
+    }
+
+
+def remote_save_bulk_comments(request, message, bookid, version):
+    """Saves multiple comments and replies provided in JSON array mode"""
+    import uuid
+    from datetime import datetime
+    from .models import Comment
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.add_comment'):
+        return {'result': False}
+
+    chapter = models.Chapter.objects.get(pk=message['chapter_id'], version=book_version)
+
+    for comment in message.get('local_comments', []):
+        # NOTE: creating user should change in future if we plan to have real time editing interface,
+        # for now we just use the one logged in as author of the comment
+        db_comment = Comment(
+            chapter=chapter,
+            is_imported=False,
+            user=request.user,
+            text=comment['text'],
+            content=comment['content'],
+            comment_id=comment['cid'],
+            date=datetime.fromtimestamp(int(comment['date']))
+        )
+        try:
+            db_comment.save()
+        except Exception as err:
+            logger.error('Unable to save parent comment %s' % err)
+            continue
+
+        for reply in comment.get('replies', []):
+            reply = Comment(
+                text='', parent=db_comment,
+                comment_id=str(uuid.uuid4()),
+                chapter=chapter, user=request.user,
+                is_imported=False, content=reply['content'],
+                date=datetime.fromtimestamp(int(reply['date']))
+            )
+            reply.save()
+
+    return {'result': True}
+
+
+def remote_resolve_comment(request, message, bookid, version):
+    """Marks a comment as resolved"""
+
+    from .models import Comment
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.resolve_comment'):
+        return {'result': False}
+
+    chapter = models.Chapter.objects.get(pk=message['chapter_id'], version=book_version)
+
+    comment = Comment.objects.get(chapter=chapter, comment_id=message['comment_id'])
+    comment.status = 1
+    comment.save()
+
+    return {'result': True}
+
+
+def remote_delete_comment(request, message, bookid, version):
+    """Marks a comments as deleted"""
+
+    from .models import Comment
+
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.delete_comment'):
+        return {'result': False}
+
+    chapter = models.Chapter.objects.get(pk=message['chapter_id'], version=book_version)
+
+    comment = Comment.objects.get(chapter=chapter, comment_id=message['comment_id'])
+    comment.state = 1
+    comment.save()
 
     return {'result': True}

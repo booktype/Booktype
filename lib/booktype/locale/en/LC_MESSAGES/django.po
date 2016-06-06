@@ -358,7 +358,7 @@ msgid "View"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:39
-#: apps/edit/templates/edit/aloha_menu.html:21
+#: apps/edit/templates/edit/aloha_menu.html:24
 #: apps/edit/templates/edit/edit_strings.html:22
 msgid "Edit"
 msgstr ""
@@ -371,6 +371,7 @@ msgid "Rename"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:45
+#: apps/edit/templates/edit/edit_strings.html:102
 #: apps/edit/templates/edit/panel_aloha.html:261
 #: apps/edit/templates/edit/panel_toc.html:347
 #: apps/edit/templates/edit/panel_toc.html:364
@@ -1002,6 +1003,39 @@ msgstr ""
 msgid "Admin Roles"
 msgstr ""
 
+#: apps/core/templates/core/utils.html:11
+#: apps/edit/templates/edit/_compare_modal.html:29
+#: apps/edit/templates/edit/book_edit.html:107
+#: apps/edit/templates/edit/chapter_revision.html:60
+#: apps/edit/templates/edit/edit_strings.html:96
+#: apps/edit/templates/edit/panel_aloha.html:34
+#: apps/edit/templates/edit/panel_aloha.html:97
+#: apps/edit/templates/edit/panel_aloha.html:115
+#: apps/edit/templates/edit/panel_aloha.html:133
+#: apps/edit/templates/edit/panel_aloha.html:151
+#: apps/edit/templates/edit/panel_aloha.html:221
+#: apps/edit/templates/edit/panel_aloha.html:238
+#: apps/edit/templates/edit/panel_aloha.html:288
+#: apps/edit/templates/edit/panel_aloha.html:374
+#: apps/edit/templates/edit/panel_covers.html:96
+#: apps/edit/templates/edit/panel_covers.html:153
+#: apps/edit/templates/edit/panel_toc.html:17
+#: apps/edit/templates/edit/panel_toc.html:36
+#: apps/edit/templates/edit/panel_toc.html:55
+#: apps/edit/templates/edit/panel_toc.html:73
+#: apps/edit/templates/edit/settings/_additional_metadata.html:63
+#: apps/edit/templates/edit/settings/_metadata.html:29
+#: apps/edit/templates/edit/settings/generic.html:17
+#: apps/portal/templates/portal/group_delete_modal.html:15
+#: apps/portal/templates/portal/group_remove_book.html:16
+#: apps/reader/templates/reader/book_delete.html:18
+msgid "Cancel"
+msgstr ""
+
+#: apps/core/templates/core/utils.html:12
+msgid "Accept"
+msgstr ""
+
 #: apps/core/templates/errors/400.html:9
 msgid "Error 400"
 msgstr ""
@@ -1176,43 +1210,55 @@ msgstr ""
 msgid "Manage Book Settings"
 msgstr ""
 
-#: apps/edit/channel.py:1255 apps/edit/channel.py:1260
+#: apps/edit/__init__.py:46
+msgid "Add Comments"
+msgstr ""
+
+#: apps/edit/__init__.py:47
+msgid "Resolve Comments"
+msgstr ""
+
+#: apps/edit/__init__.py:48
+msgid "Delete Comments"
+msgstr ""
+
+#: apps/edit/channel.py:1256 apps/edit/channel.py:1261
 msgid "You have no permissions for splitting the chapter."
 msgstr ""
 
-#: apps/edit/channel.py:1266
+#: apps/edit/channel.py:1267
 msgid "Chapter is under edit."
 msgstr ""
 
-#: apps/edit/channel.py:1273 apps/edit/channel.py:1277
+#: apps/edit/channel.py:1274 apps/edit/channel.py:1278
 msgid "You have no permissions for splitting locked chapter."
 msgstr ""
 
-#: apps/edit/channel.py:1286
+#: apps/edit/channel.py:1287
 msgid "You have selected invalid title name."
 msgstr ""
 
-#: apps/edit/channel.py:1290 apps/edit/templates/edit/edit_strings.html:36
+#: apps/edit/channel.py:1291 apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr ""
 
-#: apps/edit/channel.py:1429
+#: apps/edit/channel.py:1430
 msgid "You have no permissions for editing this chapter."
 msgstr ""
 
-#: apps/edit/channel.py:1437
+#: apps/edit/channel.py:1438
 msgid "Chapter currently being edited."
 msgstr ""
 
-#: apps/edit/channel.py:1442
+#: apps/edit/channel.py:1443
 msgid "You have no permissions for editing chapters under lock."
 msgstr ""
 
-#: apps/edit/channel.py:1446
+#: apps/edit/channel.py:1447
 msgid "Chapter currently is locked from everyone."
 msgstr ""
 
-#: apps/edit/channel.py:2051
+#: apps/edit/channel.py:2052
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
@@ -1285,117 +1331,94 @@ msgstr ""
 msgid "Full view"
 msgstr ""
 
-#: apps/edit/templates/edit/_compare_modal.html:29
-#: apps/edit/templates/edit/book_edit.html:107
-#: apps/edit/templates/edit/chapter_revision.html:60
-#: apps/edit/templates/edit/panel_aloha.html:34
-#: apps/edit/templates/edit/panel_aloha.html:97
-#: apps/edit/templates/edit/panel_aloha.html:115
-#: apps/edit/templates/edit/panel_aloha.html:133
-#: apps/edit/templates/edit/panel_aloha.html:151
-#: apps/edit/templates/edit/panel_aloha.html:221
-#: apps/edit/templates/edit/panel_aloha.html:238
-#: apps/edit/templates/edit/panel_aloha.html:288
-#: apps/edit/templates/edit/panel_aloha.html:374
-#: apps/edit/templates/edit/panel_covers.html:96
-#: apps/edit/templates/edit/panel_covers.html:153
-#: apps/edit/templates/edit/panel_toc.html:17
-#: apps/edit/templates/edit/panel_toc.html:36
-#: apps/edit/templates/edit/panel_toc.html:55
-#: apps/edit/templates/edit/panel_toc.html:73
-#: apps/edit/templates/edit/settings/_additional_metadata.html:63
-#: apps/edit/templates/edit/settings/_metadata.html:29
-#: apps/edit/templates/edit/settings/generic.html:17
-#: apps/portal/templates/portal/group_delete_modal.html:15
-#: apps/portal/templates/portal/group_remove_book.html:16
-#: apps/reader/templates/reader/book_delete.html:18
-msgid "Cancel"
-msgstr ""
-
 #: apps/edit/templates/edit/aloha_menu.html:5
 #: apps/edit/templates/edit/panel_aloha.html:239
 msgid "Insert"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:7
-msgid "Insert horizontal line"
-msgstr ""
-
 #: apps/edit/templates/edit/aloha_menu.html:8
-msgid "Insert page break"
-msgstr ""
-
-#: apps/edit/templates/edit/aloha_menu.html:9
-msgid "Insert endnote"
+msgid "Insert comment"
 msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:10
-msgid "Insert LTR text"
+msgid "Insert horizontal line"
 msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:11
-msgid "Insert RTL text"
+msgid "Insert page break"
+msgstr ""
+
+#: apps/edit/templates/edit/aloha_menu.html:12
+msgid "Insert endnote"
 msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:13
-msgid "Insert columns"
+msgid "Insert LTR text"
 msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:14
-msgid "Insert column break"
+msgid "Insert RTL text"
 msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:16
+msgid "Insert columns"
+msgstr ""
+
+#: apps/edit/templates/edit/aloha_menu.html:17
+msgid "Insert column break"
+msgstr ""
+
+#: apps/edit/templates/edit/aloha_menu.html:19
 #: apps/reader/templatetags/reader_tags.py:33
 msgid "Split chapter"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:23
+#: apps/edit/templates/edit/aloha_menu.html:26
 #: apps/edit/templates/edit/aloha_toolbar.html:6
 msgid "Undo"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:24
+#: apps/edit/templates/edit/aloha_menu.html:27
 msgid "Redo"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:26
+#: apps/edit/templates/edit/aloha_menu.html:29
 msgid "Find & Replace"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:28
+#: apps/edit/templates/edit/aloha_menu.html:31
 msgid "Remove styling"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:29
+#: apps/edit/templates/edit/aloha_menu.html:32
 msgid "Remove formatting"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:30
+#: apps/edit/templates/edit/aloha_menu.html:33
 msgid "Decrease indent"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:31
+#: apps/edit/templates/edit/aloha_menu.html:34
 msgid "Increase indent"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:32
+#: apps/edit/templates/edit/aloha_menu.html:35
 msgid "Direction to LTR"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:33
+#: apps/edit/templates/edit/aloha_menu.html:36
 msgid "Direction to RTL"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:35
+#: apps/edit/templates/edit/aloha_menu.html:38
 msgid "Edit raw HTML"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:39
+#: apps/edit/templates/edit/aloha_menu.html:42
 msgid "Tools"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_menu.html:41
+#: apps/edit/templates/edit/aloha_menu.html:44
 #: apps/edit/templates/edit/panel_aloha.html:50
 #: apps/edit/templates/edit/panel_aloha.html:58
 msgid "Word count"
@@ -1689,6 +1712,7 @@ msgid "No"
 msgstr ""
 
 #: apps/edit/templates/edit/book_edit.html:190
+#: apps/edit/templates/edit/edit_strings.html:104
 msgid "Actions"
 msgstr ""
 
@@ -1713,12 +1737,16 @@ msgstr ""
 msgid "Attachments"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:228
+#: apps/edit/templates/edit/book_edit.html:229
 #: apps/edit/templates/edit/edit_strings.html:28
 msgid "Chapter History"
 msgstr ""
 
-#: apps/edit/templates/edit/book_edit.html:287
+#: apps/edit/templates/edit/book_edit.html:261
+msgid "Comments"
+msgstr ""
+
+#: apps/edit/templates/edit/book_edit.html:300
 #, python-format
 msgid ""
 "<p class=\"notification-text\"><%%= username %%> joined </p><span class="
@@ -2185,6 +2213,40 @@ msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:95
 msgid "At the moment we do not allow splitting if chapters has endnotes."
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:97
+msgid "Reply"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:98
+msgid "New Comment"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:99
+msgid "You have no permissions to execute this action"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:100
+msgid "Alert"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:101
+#: apps/edit/templates/edit/settings/_additional_metadata.html:66
+#: apps/edit/templates/edit/settings/_metadata.html:32
+msgid "Confirm"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:103
+msgid "Resolve"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:105
+msgid "Do not forget to save the chapter to preserve the changes"
+msgstr ""
+
+#: apps/edit/templates/edit/edit_strings.html:106
+msgid "Do you want to resolve this comment?"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:13
@@ -3067,11 +3129,6 @@ msgstr ""
 msgid ""
 "Are you sure you would like to remove this field? You will not be able to "
 "undo this operation!"
-msgstr ""
-
-#: apps/edit/templates/edit/settings/_additional_metadata.html:66
-#: apps/edit/templates/edit/settings/_metadata.html:32
-msgid "Confirm"
 msgstr ""
 
 #: apps/edit/templates/edit/settings/_chapter_status.html:4

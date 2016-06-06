@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<div class="modal template templateAlertModal" tabindex="-1" role="dialog" data-backdrop="static">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header alertType"></div>
+    <div class="modal-body">
+      <p class="message"></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default cancel hide" data-dismiss="modal" data-value=false>{% trans "Cancel" %}</button>
+      <button class="btn btn-primary" data-dismiss="modal" data-value=true>{% trans "Accept" %}</button>
+    </div>
+  </div>
+ </div>
+</div>
