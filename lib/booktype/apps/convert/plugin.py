@@ -14,8 +14,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-import importlib
 import logging
+import importlib
+from lxml import etree
 
 from booktype.utils import config
 
@@ -34,9 +35,11 @@ class BasePlugin(object):
 
 
 class ExternalScriptPlugin(BasePlugin):
-    """Base class for all Theme plugins which will execute external 
+    """
+    Base class for all Theme plugins which will execute external
     script to produce output file.
     """
+
     def pre_convert(self, book):
         """Called before conversion process starts.
 
@@ -58,7 +61,7 @@ class ExternalScriptPlugin(BasePlugin):
         """Transform chapter content.
 
         This method is used to modify content of each content. This is used when
-        we need to add certain elements or classes to prepare the content mPDF 
+        we need to add certain elements or classes to prepare the content mPDF
         rendering.
 
         :Args:
@@ -68,19 +71,56 @@ class ExternalScriptPlugin(BasePlugin):
 
 
 class MPDFPlugin(ExternalScriptPlugin):
-    "Base class for mPDF themes"
+    """Base class for mPDF themes"""
 
     def get_mpdf_config(self):
         """Returns mPDF options required for this theme.
 
         There are always certain mPDF options which are required for different
-        themes. Instead of setting global mPDF configuration it is also 
+        themes. Instead of setting global mPDF configuration it is also
         possible to define it per theme.
 
         :Returns:
           - Returns dictionary with mPDF options for this theme.
         """
-        return {}
+        return {
+            'mirrorMargins': True,
+            'useSubstitutions': False
+        }
+
+    def fix_content(self, content):
+        headers = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+
+        for header in headers:
+            for idx, h in enumerate(content.xpath('.//{}'.format(header))):
+                if header == 'h1' and h.getprevious() is None:
+                    h.set('class', 'chapter-{}'.format(header))
+                else:
+                    h.set('class', 'body-{}'.format(header))
+
+        for quote in content.xpath(".//p[@class='quote']"):
+            div = etree.Element('div', {'class': 'quote'})
+            div1 = etree.Element('div', {'class': 'quote-before'})
+            div1.text = '"'
+
+            quote.tag = 'div'
+            quote.set('class', 'quote-content')
+
+            quote.addprevious(div)
+            div.insert(0, div1)
+            div.insert(1, quote)
+
+        for idx, p in enumerate(content.xpath(".//p")):
+            if p.get('class', '') != '':
+                continue
+
+            prev = p.getprevious()
+            if prev is not None and prev.tag in headers:
+                p.set('class', 'body-first')
+            else:
+                p.set('class', 'body')
+
+        return content
 
 
 class ConversionPlugin(BasePlugin):
@@ -101,10 +141,10 @@ class ConversionPlugin(BasePlugin):
         """Called when conversion process has ended.
 
         :Args:
-          - original_book: 
+          - original_book:
           - output_path:
-          - 
-        """        
+          -
+        """
         raise NotImplementedError
 
     def fix_content(self, content):
@@ -135,7 +175,7 @@ def load_theme_plugin(convert_type, theme_name):
 
     try:
         module_name = plugins.get(theme_name, None)
-        
+
         if module_name:
             module = importlib.import_module(module_name)
             plgn = module.__convert__.get(convert_type, None)
@@ -144,5 +184,3 @@ def load_theme_plugin(convert_type, theme_name):
         logger.exception('Can not load the theme plugin.')
 
     return plgn
-
-
