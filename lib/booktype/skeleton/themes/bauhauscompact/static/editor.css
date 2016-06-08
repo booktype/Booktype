@@ -3,7 +3,7 @@
   line-height: normal;
   margin: 0;
   padding: 0;
-  font-family: "roboto";
+  font-family: "texgyreadventor";
   color: #000000;
 }
 
@@ -11,16 +11,16 @@
 
 #contenteditor blockquote, 
 #contenteditor p.quote {
-  font-family: "roboto"; 
+  font-family: "texgyreadventor"; 
   font-weight: normal; 
-  font-size: 1em;
-  font-style: italic;
+  font-size: 1.33em;
+  font-style: normal;
   quotes: "\201C" "\201D" "\2018" "\2019";
   position: relative;
   text-align: left; 
   text-indent: 0;
   line-height: inherit; 
-  border-left: 0.5rem solid #ccc;
+  border-left: 0.05rem solid #000;
   padding-left: 2em;
   padding-top: 0em;
   margin-left: 1em;
@@ -49,87 +49,87 @@ p.quote:before {
 }
 
 #contenteditor .aloha-block-TitleBlock h1 {
-    font-family: "roboto-condensed";
-    font-size: 27.9pt;
+    font-family: "texgyreadventor";
+    font-size: 23.3pt;
     text-align: left; 
     font-weight: normal; 
     text-transform: none; 
-    border-bottom: 0rem solid black;
+    border-bottom: 0.05rem solid black;
     text-decoration: none;
-    padding-top: 44.1pt; 
-    margin-bottom: 44.1pt;
+    padding-top: 0pt; 
+    margin-bottom: 60pt;
     line-height: inherit;
-    line-height: 29.4pt; 
+    line-height: 30pt; 
 }
 
 #contenteditor h1 {
-    font-family: "roboto-condensed";
-    font-size: 24.5pt;
+    font-family: "texgyreadventor";
+    font-size: 23.3pt;
     text-align: left; 
     font-weight: normal; 
     text-transform: none; 
-    border-bottom: 0rem solid black;
+    border-bottom: 0.05rem solid black;
     text-decoration: none;
-    padding-top: 29.4pt; 
-    margin-bottom: 14.7pt;
+    padding-top: 15pt; 
+    margin-bottom: 15pt;
     line-height: inherit;
-    line-height: 29.4pt; 
+    line-height: 30pt; 
 }
 
 #contenteditor h2 {
-    font-family: "roboto-condensed";
-    font-size: 21pt;
+    font-family: "texgyreadventor";
+    font-size: 16.6pt;
     text-align: left; 
     font-weight: normal; 
     text-transform: none; 
-    border-bottom: 0rem solid black;
+    border-bottom: 0.05rem solid black;
     text-decoration: none;
-    padding-top: 9.8pt; 
-    margin-bottom: 4.9pt;
+    padding-top: 15pt; 
+    margin-bottom: 15pt;
     line-height: inherit;
-    line-height: 29.4pt; 
+    line-height: 30pt; 
 }
 
 #contenteditor h3 {
-    font-family: "roboto-condensed";
-    font-size: 15.8pt;
+    font-family: "texgyreadventor";
+    font-size: 10pt;
     text-align: left; 
-    font-weight: normal; 
+    font-weight: bold; 
     text-transform: none; 
     border-bottom: 0rem solid black;
     text-decoration: none;
-    padding-top: 9.8pt; 
-    margin-bottom: 4.9pt;
+    padding-top: 15pt; 
+    margin-bottom: 15pt;
     line-height: inherit;
-    line-height: 14.7pt; 
+    line-height: 15pt; 
 }
 
 #contenteditor h4 {    
-    font-family: "roboto-condensed";
-    font-size: 14pt;
+    font-family: "texgyreadventor";
+    font-size: 10pt;
     text-align: left; 
     font-weight: normal; 
     text-transform: none; 
     border-bottom: 0rem solid black;
     text-decoration: none;
-    padding-top: 9.8pt; 
-    margin-bottom: 4.9pt;
+    padding-top: 15pt; 
+    margin-bottom: 15pt;
     line-height: inherit;
-    line-height: 14.7pt; 
+    line-height: 15pt; 
 }
 
 #contenteditor h5 { 
-    font-family: "roboto-condensed";
-    font-size: 10.5pt;
+    font-family: "texgyreadventor";
+    font-size: 10pt;
     text-align: left; 
     font-weight: normal; 
     text-transform: none; 
     border-bottom: 0rem solid black;
     text-decoration: none;
-    padding-top: 9.8pt; 
-    margin-bottom: 4.9pt;
+    padding-top: 15pt; 
+    margin-bottom: 15pt;
     line-height: inherit;
-    line-height: 14.7pt; 
+    line-height: 15pt; 
 }
 
 /* Paragraph Styles *****************************************************/
@@ -141,7 +141,7 @@ p.quote:before {
 }
 
 #contenteditor p {
-    font-family: "roboto";
+    font-family: "texgyreadventor";
     font-weight: normal;
     font-size: inherit;
     line-height: inherit;
@@ -153,7 +153,7 @@ p.quote:before {
 #contenteditor h2 + p,
 #contenteditor h3 + p,
 #contenteditor h4 + p {
-    font-family: "roboto";
+    font-family: "texgyreadventor";
     font-weight: normal;
     font-size: inherit; 
     line-height: inherit;
@@ -183,7 +183,7 @@ p.quote:before {
 #contenteditor ul,
 #contenteditor ol,
 #contenteditor li {
-  font-family: "roboto";
+  font-family: "texgyreadventor";
 }
 
 /* Preformatted text *******************************/
@@ -211,7 +211,7 @@ p.quote:before {
 }
 
 #contenteditor table td {
-  font-family: "roboto";
+  font-family: "texgyreadventor";
   font-weight: normal;
   font-size: 0.8em;
   margin: 0;
@@ -260,7 +260,7 @@ p.quote:before {
 
 #contenteditor .endnotes-container .endnote-counter,
 #contenteditor .endnotes-container .endnoteText {
-  font-family: "roboto";
+  font-family: "texgyreadventor";
   font-weight: normal;
   font-size: inherit;
   line-height: normal;

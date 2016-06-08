@@ -1,29 +1,29 @@
 @font-face {
-    font-family: 'roboto';
+    font-family: 'texgyreadventor';
     font-weight: normal;
     font-style: normal;
-    src: url('../Fonts/Roboto-Regular.ttf');
+    src: url('../Fonts/TeXGyreAdventor-Regular.ttf');
 }
 
 @font-face {
-    font-family: 'roboto';
+    font-family: 'texgyreadventor';
     font-weight: bold;
     font-style: normal;
-    src: url('../Fonts/Roboto-Bold.ttf');
+    src: url('../Fonts/TeXGyreAdventor-Bold.ttf');
 }
 
 @font-face {
-    font-family: 'roboto';
+    font-family: 'texgyreadventor';
     font-weight: normal;
     font-style: italic;
-    src: url('../Fonts/Roboto-Italic.ttf');
+    src: url('../Fonts/TeXGyreAdventor-Italic.ttf');
 }
 
 @font-face {
-    font-family: 'roboto';
+    font-family: 'texgyreadventor';
     font-weight: bold;
     font-style: italic;
-    src: url('../Fonts/Roboto-BoldItalic.ttf');
+    src: url('../Fonts/TeXGyreAdventor-BoldItalic.ttf');
 }
 
 @font-face {
@@ -54,40 +54,12 @@
     src: url('../Fonts/TeXGyreCursor-BoldItalic.ttf');
 }
 
-@font-face {
-    font-family: 'roboto-condensed';
-    font-weight: normal;
-    font-style: normal;
-    src: url('../Fonts/RobotoCondensed-Regular.ttf');
-}
-
-@font-face {
-    font-family: 'roboto-condensed';
-    font-weight: bold;
-    font-style: normal;
-    src: url('../Fonts/RobotoCondensed-Bold.ttf');
-}
-
-@font-face {
-    font-family: 'roboto-condensed';
-    font-weight: normal;
-    font-style: italic;
-    src: url('../Fonts/RobotoCondensed-Italic.ttf');
-}
-
-@font-face {
-    font-family: 'roboto-condensed';
-    font-weight: bold;
-    font-style: italic;
-    src: url('../Fonts/RobotoCondensed-BoldItalic.ttf');
-}
-
 body {
   font-size: 1em;
   line-height: normal;
   margin: 0;
   padding: 0;
-  font-family: "roboto"; 
+  font-family: "texgyreadventor"; 
   color: #000000;
 }
 
@@ -96,18 +68,18 @@ div.dedication {
   margin-left: 40px;
   margin-right: 40px;
   margin-top: 50px;
-  font-family: "roboto"; 
+  font-family: "texgyreadventor"; 
   font-size: 2em;
   font-style: italic;
 }
 
 h1.section {
-  font-family: "roboto"; 
-  text-align: left; 
-  font-weight: bold; 
-  font-size: 2.1em;
-  text-transform: none; 
-  text-decoration: none;
+  font-family: "texgyreadventor"; 
+  text-align: center; 
+  font-weight: normal; 
+  font-size: 1.6em;
+  text-transform: uppercase; 
+  text-decoration: underline;
   margin-top: 0;
 }
 
@@ -115,7 +87,7 @@ h1.frontmatter-title {
   text-align: left; 
   font-weight: bold; 
   text-transform: uppercase; 
-  font-family: "roboto"; 
+  font-family: "texgyreadventor"; 
   text-decoration: none;
   border-bottom: 0px; 
   font-size: 2.1em;
@@ -126,7 +98,7 @@ h1.frontmatter-title {
 
 h2.frontmatter-author {
   text-align: left; 
-  font-family: "roboto"; 
+  font-family: "texgyreadventor"; 
   border-bottom: 0px; 
   font-size: 1.6em;
   line-height: normal;
@@ -142,7 +114,7 @@ div.frontmatter-line {
 /*
 h2.frontmatter-author-title {
   text-align: left; 
-  font-family: "roboto"; 
+  font-family: "texgyreadventor"; 
   border-bottom: 0px; 
   margin-top: 2em;
   font-size: 1.6em;
@@ -151,7 +123,7 @@ h2.frontmatter-author-title {
 
 h3.frontmatter-subtitle {
   text-align: left; 
-  font-family: "roboto"; 
+  font-family: "texgyreadventor"; 
   border-bottom: 0px; 
   margin-top: 10mm;
   font-size: 1.6em;
@@ -160,19 +132,19 @@ h3.frontmatter-subtitle {
 */
 
 p.quote {
-  font-family: "roboto"; 
+  font-family: "texgyreadventor"; 
   display: block;
   font-weight: normal; 
   font-size: 1em;
-  font-style: italic;
+  font-style: normal;
   text-indent: 0;
-  border-left: 0.5rem solid #ccc;
+  border-left: 0.05rem solid #000;
   padding-left: 1em;
   margin-left: 1em;
   margin-top: 1em; 
   margin-bottom: 1em; 
   text-align: left; 
-  line-height: 14.7pt; 
+  line-height: 15pt; 
   text-transform: none; 
   text-decoration: none;
 } 
@@ -205,59 +177,59 @@ h6 {
 }
 
 h1 {
-  font-family: "roboto-condensed"; 
+  font-family: "texgyreadventor"; 
   font-weight: normal; 
   text-transform: none; 
   text-align: left; 
   text-decoration: none;
   line-height: normal; 
-  font-size: 2.13em; 
+  font-size: 1.86em; 
   /*font-size: 3.6em;*/
-  margin-top: 2.1em;
-  margin-bottom: 2.1em;
+  margin-top: 1em;
+  margin-bottom: 2.4em;
 }
 
 h2 {
-  font-family: "roboto-condensed"; 
+  font-family: "texgyreadventor"; 
   font-weight: normal; 
   text-transform: none; 
   text-align: left; 
   text-decoration: none;
   line-height: normal; 
-  font-size: 1.6em; 
+  font-size: 1.49em; 
   /*font-size: 2.2em;*/
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
 h3 {
-  font-family: "roboto-condensed"; 
-  font-weight: normal; 
+  font-family: "texgyreadventor"; 
+  font-weight: bold; 
   text-transform: none; 
   text-align: left; 
   text-decoration: none;
   line-height: normal; 
-  font-size: 1.35em; 
+  font-size: 1em; 
   /*font-size: 1.8em;*/
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
 h4 {
-  font-family: "roboto-condensed"; 
+  font-family: "texgyreadventor"; 
   font-weight: normal; 
   text-transform: none; 
   text-align: left; 
   text-decoration: none;
   line-height: normal; 
-  font-size: 1.33em; 
+  font-size: 1em; 
   /*font-size: 1.4em;*/
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
 h5 {
-  font-family: "roboto-condensed"; 
+  font-family: "texgyreadventor"; 
   font-weight: normal; 
   text-transform: none; 
   text-align: left; 
@@ -280,7 +252,7 @@ h1 + p,
 h2 + p,
 h3 + p,
 h4 + p {
-  font-family: "roboto"; 
+  font-family: "texgyreadventor"; 
     font-weight: normal;
     font-size: 1em; 
     line-height: 1.4em;
@@ -290,7 +262,7 @@ h4 + p {
 
 p,
 a {
-  font-family: "roboto"; 
+  font-family: "texgyreadventor"; 
     font-weight: normal;
     font-size: 1em; 
     line-height: 1.4em;
@@ -313,7 +285,7 @@ ol {
 }
 
 li {
-    font-family: "roboto"; 
+    font-family: "texgyreadventor"; 
     font-weight: normal;
     font-size: 1em;
     line-height: 1.4em;
@@ -342,7 +314,7 @@ td {
 }
 
 td {
-    font-family: "roboto"; 
+    font-family: "texgyreadventor"; 
     font-weight: normal;
     font-size: 0.9em;
     line-height: normal;
@@ -395,7 +367,7 @@ ol.endnotes {
 }
 
 ol.endnotes li {
-  font-family: "roboto"; 
+  font-family: "texgyreadventor"; 
   font-weight: normal;
   font-size: 0.8em;
   line-height: 1.2em;
