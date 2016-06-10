@@ -17,6 +17,8 @@ def list_themes():
             if os.path.exists('{}/themes/{}/info.json'.format(settings.BOOKTYPE_ROOT, theme)):
                 info = read_theme_info('{}/themes/{}/info.json'.format(settings.BOOKTYPE_ROOT, theme))
                 themes.append((theme, info.get('name', '')))
+
+    themes.sort()
     
     return {'themes': themes}
 
