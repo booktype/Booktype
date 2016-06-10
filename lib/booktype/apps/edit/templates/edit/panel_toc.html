@@ -295,47 +295,6 @@
             {% endif %}
         </div>
 
-        {% check_perm 'edit.change_chapter_status' %}
-            <% if (is_locked) { %>
-                {% if is_owner or is_admin %}
-                    <div class="btn-group">
-                        <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
-                        <ul class="dropdown-menu status-options">
-                        <% for (var i in statuses) { %>
-                            <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
-                                <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
-                            </li>
-                        <% } %>
-                        </ul>
-                    </div>
-                {% elif can_edit_locked_chapter %}
-                    <% if (lock_type === 2 || lock_type === 1 && lock_username === username) { %>
-                        <div class="btn-group">
-                            <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
-                            <ul class="dropdown-menu status-options">
-                            <% for (var i in statuses) { %>
-                                <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
-                                    <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
-                                </li>
-                            <% } %>
-                            </ul>
-                        </div>
-                    <% } %>
-                {% endif %}
-            <% } else { %>
-                <div class="btn-group">
-                    <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
-                    <ul class="dropdown-menu status-options">
-                    <% for (var i in statuses) { %>
-                        <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
-                            <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
-                        </li>
-                    <% } %>
-                    </ul>
-                </div>
-            <% } %>
-        {% endcheck_perm %}
-
         <div class="btn-group">
             <% if (is_locked) { %>
                 {% if is_owner or is_admin %}
@@ -398,6 +357,46 @@
             <% } %>
         </div>
 
+        {% check_perm 'edit.change_chapter_status' %}
+            <% if (is_locked) { %>
+                {% if is_owner or is_admin %}
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
+                        <ul class="dropdown-menu status-options">
+                        <% for (var i in statuses) { %>
+                            <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
+                                <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
+                            </li>
+                        <% } %>
+                        </ul>
+                    </div>
+                {% elif can_edit_locked_chapter %}
+                    <% if (lock_type === 2 || lock_type === 1 && lock_username === username) { %>
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
+                            <ul class="dropdown-menu status-options">
+                            <% for (var i in statuses) { %>
+                                <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
+                                    <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
+                                </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                    <% } %>
+                {% endif %}
+            <% } else { %>
+                <div class="btn-group">
+                    <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">{% trans "STATUS" %} <span class="caret"></span></button>
+                    <ul class="dropdown-menu status-options">
+                    <% for (var i in statuses) { %>
+                        <li <% if (statuses[i][0] === item_status) { %> class="selected" <% } %> >
+                            <a href="#" data-status-id="<%= statuses[i][0] %>"><%= statuses[i][1] %></a>
+                        </li>
+                    <% } %>
+                    </ul>
+                </div>
+            <% } %>
+        {% endcheck_perm %}
     </div>
     <ol></ol>
 </li>
