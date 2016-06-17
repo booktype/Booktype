@@ -19,6 +19,8 @@ import requests
 
 from django.template.defaultfilters import slugify
 
+from booktype.utils import config
+
 
 class AssetCollection(object):
 
@@ -56,7 +58,7 @@ class AssetFile(object):
 
 
 def download(src_url, dst_file):
-    req = requests.get(src_url, stream=True)
+    req = requests.get(src_url, stream=True, verify=config.get_configuration('REQUESTS_VERIFY_SSL_CERT'))
 
     if req.status_code == 200:
         with open(dst_file, 'wb') as dst:

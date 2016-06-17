@@ -42,7 +42,7 @@ from lxml import etree
 from booktype.apps.export.epub import ExportEpubBook
 
 from booktype.apps.loadsave.utils import RestrictExport
-from booktype.utils import download
+from booktype.utils import download, config
 from booktype.utils.misc import TidyPlugin
 from .bookizip import BookiZip
 
@@ -159,7 +159,8 @@ def export_book(input_file, filename):
 
 
 def download_bookizip(base_path, url_path):
-    r = requests.get(url_path)
+
+    r = requests.get(url_path, verify=config.get_configuration('REQUESTS_VERIFY_SSL_CERT'))
 
     try:
         f = open('{}/booki.zip'.format(base_path), 'wb')
