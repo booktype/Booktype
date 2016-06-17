@@ -16,6 +16,9 @@
 
 import os
 
+# SSL cert verification during request using 'requests' lib
+REQUESTS_VERIFY_SSL_CERT = True
+
 # Should track changes be turned on for the book
 BOOK_TRACK_CHANGES = False
 
