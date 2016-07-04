@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-31 22:31-0600\n"
+"POT-Creation-Date: 2016-07-04 13:10+0200\n"
 "PO-Revision-Date: 2015-05-15 11:52+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -77,8 +77,8 @@ msgstr ""
 msgid "description"
 msgstr ""
 
-#: apps/account/models.py:38 apps/account/models.py:64
-#: apps/export/models.py:29 apps/export/models.py:61
+#: apps/account/models.py:38 apps/account/models.py:64 apps/export/models.py:29
+#: apps/export/models.py:61
 msgid "user"
 msgstr ""
 
@@ -119,8 +119,7 @@ msgstr ""
 #: apps/portal/templates/portal/frontpage.html:22
 #: apps/portal/templates/portal/group.html:23
 #: apps/portal/templates/portal/group.html:50 apps/portal/views.py:392
-#: apps/portal/views.py:393
-#: apps/reader/templates/reader/book_info_page.html:90
+#: apps/portal/views.py:393 apps/reader/templates/reader/book_info_page.html:90
 msgid "Books"
 msgstr ""
 
@@ -364,18 +363,18 @@ msgid "Edit"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:42
-#: apps/edit/templates/edit/panel_toc.html:345
-#: apps/edit/templates/edit/panel_toc.html:356
-#: apps/edit/templates/edit/panel_toc.html:382
+#: apps/edit/templates/edit/panel_toc.html:304
+#: apps/edit/templates/edit/panel_toc.html:315
+#: apps/edit/templates/edit/panel_toc.html:341
 msgid "Rename"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_book_template.html:45
 #: apps/edit/templates/edit/edit_strings.html:102
 #: apps/edit/templates/edit/panel_aloha.html:261
-#: apps/edit/templates/edit/panel_toc.html:347
-#: apps/edit/templates/edit/panel_toc.html:364
-#: apps/edit/templates/edit/panel_toc.html:390
+#: apps/edit/templates/edit/panel_toc.html:306
+#: apps/edit/templates/edit/panel_toc.html:323
+#: apps/edit/templates/edit/panel_toc.html:349
 msgid "Delete"
 msgstr ""
 
@@ -560,7 +559,7 @@ msgstr ""
 #: apps/edit/templates/edit/panel_media.html:64
 #: apps/edit/templates/edit/panel_toc.html:102
 #: apps/edit/templates/edit/panel_toc.html:132
-#: apps/edit/templates/edit/panel_toc.html:440
+#: apps/edit/templates/edit/panel_toc.html:439
 #: apps/edit/templates/edit/settings/_additional_metadata.html:39
 #: apps/edit/templates/edit/settings/_roles.html:84
 #: apps/portal/templates/portal/group_create_modal.html:19
@@ -657,9 +656,8 @@ msgid "My Dashboard"
 msgstr ""
 
 #: apps/account/templates/account/form_signin.html:3
-#: apps/account/templates/account/form_signin.html:20
-#: apps/account/views.py:446 apps/account/views.py:447
-#: apps/core/templates/core/nav_bar.html:18
+#: apps/account/templates/account/form_signin.html:20 apps/account/views.py:446
+#: apps/account/views.py:447 apps/core/templates/core/nav_bar.html:18
 #: apps/edit/templates/edit/toolbar_user.html:14
 msgid "Log in"
 msgstr ""
@@ -1017,6 +1015,7 @@ msgstr ""
 #: apps/edit/templates/edit/panel_aloha.html:238
 #: apps/edit/templates/edit/panel_aloha.html:288
 #: apps/edit/templates/edit/panel_aloha.html:374
+#: apps/edit/templates/edit/panel_aloha.html:391
 #: apps/edit/templates/edit/panel_covers.html:96
 #: apps/edit/templates/edit/panel_covers.html:153
 #: apps/edit/templates/edit/panel_toc.html:17
@@ -1222,43 +1221,43 @@ msgstr ""
 msgid "Delete Comments"
 msgstr ""
 
-#: apps/edit/channel.py:1256 apps/edit/channel.py:1261
+#: apps/edit/channel.py:1258 apps/edit/channel.py:1263
 msgid "You have no permissions for splitting the chapter."
 msgstr ""
 
-#: apps/edit/channel.py:1267
+#: apps/edit/channel.py:1269
 msgid "Chapter is under edit."
 msgstr ""
 
-#: apps/edit/channel.py:1274 apps/edit/channel.py:1278
+#: apps/edit/channel.py:1276 apps/edit/channel.py:1280
 msgid "You have no permissions for splitting locked chapter."
 msgstr ""
 
-#: apps/edit/channel.py:1287
+#: apps/edit/channel.py:1289
 msgid "You have selected invalid title name."
 msgstr ""
 
-#: apps/edit/channel.py:1291 apps/edit/templates/edit/edit_strings.html:36
+#: apps/edit/channel.py:1293 apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr ""
 
-#: apps/edit/channel.py:1430
+#: apps/edit/channel.py:1432
 msgid "You have no permissions for editing this chapter."
 msgstr ""
 
-#: apps/edit/channel.py:1438
+#: apps/edit/channel.py:1440
 msgid "Chapter currently being edited."
 msgstr ""
 
-#: apps/edit/channel.py:1443
+#: apps/edit/channel.py:1445
 msgid "You have no permissions for editing chapters under lock."
 msgstr ""
 
-#: apps/edit/channel.py:1447
+#: apps/edit/channel.py:1449
 msgid "Chapter currently is locked from everyone."
 msgstr ""
 
-#: apps/edit/channel.py:2052
+#: apps/edit/channel.py:2054
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
@@ -2464,6 +2463,15 @@ msgstr ""
 msgid "New chapter title"
 msgstr ""
 
+#: apps/edit/templates/edit/panel_aloha.html:385
+#: apps/edit/templates/edit/panel_aloha.html:392
+msgid "Remove page break"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:388
+msgid "Do you want to remove page break?"
+msgstr ""
+
 #: apps/edit/templates/edit/panel_covers.html:4
 #: apps/edit/templates/edit/toolbar_book.html:8
 msgid "Cover Manager"
@@ -3063,45 +3071,45 @@ msgstr ""
 msgid "New Section"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:302
-#: apps/edit/templates/edit/panel_toc.html:314
-#: apps/edit/templates/edit/panel_toc.html:327
-msgid "STATUS"
-msgstr ""
-
-#: apps/edit/templates/edit/panel_toc.html:342
-#: apps/edit/templates/edit/panel_toc.html:352
-#: apps/edit/templates/edit/panel_toc.html:378
+#: apps/edit/templates/edit/panel_toc.html:301
+#: apps/edit/templates/edit/panel_toc.html:311
+#: apps/edit/templates/edit/panel_toc.html:337
 msgid "EDIT CHAPTER"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:346
-#: apps/edit/templates/edit/panel_toc.html:360
+#: apps/edit/templates/edit/panel_toc.html:305
+#: apps/edit/templates/edit/panel_toc.html:319
 msgid "Hold"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:348
-#: apps/edit/templates/edit/panel_toc.html:368
+#: apps/edit/templates/edit/panel_toc.html:307
+#: apps/edit/templates/edit/panel_toc.html:327
 msgid "Unlock"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:374
+#: apps/edit/templates/edit/panel_toc.html:333
 msgid "UNLOCK"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:386
+#: apps/edit/templates/edit/panel_toc.html:345
 msgid "Put on hold"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:394
+#: apps/edit/templates/edit/panel_toc.html:353
 msgid "Lock editing"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:395
+#: apps/edit/templates/edit/panel_toc.html:354
 msgid "Lock exclusively"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:414
+#: apps/edit/templates/edit/panel_toc.html:364
+#: apps/edit/templates/edit/panel_toc.html:376
+#: apps/edit/templates/edit/panel_toc.html:389
+msgid "STATUS"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_toc.html:413
 msgid "RENAME"
 msgstr ""
 
@@ -3281,6 +3289,9 @@ msgid "Task ID"
 msgstr ""
 
 #: apps/export/models.py:32 apps/export/models.py:62 apps/export/models.py:74
+#: skeleton/themes/academic/panel.html:8
+#: skeleton/themes/bauhauscompact/panel.html:8
+#: skeleton/themes/novelclassiccompact/panel.html:8
 msgid "Created"
 msgstr ""
 
@@ -3945,7 +3956,7 @@ msgid "No active users"
 msgstr ""
 
 #: apps/themes/templates/themes/panel.html:5
-msgid "Select from the styles available"
+msgid "Select from the themes available"
 msgstr ""
 
 #: apps/themes/templates/themes/panel.html:16
@@ -4011,8 +4022,20 @@ msgstr ""
 
 #: skeleton/themes/academic/panel.html:6
 msgid ""
-"This academic style is based on the sans-serif Roboto font for headings and "
-"paragraphs."
+"A theme for science and reporting, built on the Roboto font family. The "
+"compact theme uses line indentation and no paragraph spacing."
+msgstr ""
+
+#: skeleton/themes/academic/panel.html:7
+#: skeleton/themes/bauhauscompact/panel.html:7
+#: skeleton/themes/novelclassiccompact/panel.html:7
+msgid "Author"
+msgstr ""
+
+#: skeleton/themes/bauhauscompact/panel.html:6
+msgid ""
+"A theme for catalogues and elegant texts. Works best for mid sized books. "
+"The compact theme uses line indents and has no spacing between paragraphs."
 msgstr ""
 
 #. Translators: User defined style Heading font
@@ -4060,4 +4083,11 @@ msgstr ""
 #. Translators: User defined style settings
 #: skeleton/themes/custom/panel.html:89
 msgid "Line Height"
+msgstr ""
+
+#: skeleton/themes/novelclassiccompact/panel.html:6
+msgid ""
+"Novel theme for smaller pages of paperbacks with a bit of a 1950s font "
+"feeling. No header, centered page numbers. 'Compact' means line indentations "
+"and no spacing between paragraphs."
 msgstr ""
