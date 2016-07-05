@@ -405,14 +405,37 @@ define([
         });
       },
 
+      noCommentsHandler: function () {
+        var insertCommentBtn = jQuery('.btn-toolbar .comment-insert')[0];
+        booktype.utils.triggerClick(insertCommentBtn);
+      },
+
       render: function () {
+        var self = this;
         var comments = this.state.comments || [];
         var permissions = this.state.permissions || {};
         var commentItems = comments.map(function (comment) {
           return <CommentBox key={comment.cid} permissions={permissions} {...comment} />;
         });
 
-        return <div>{commentItems}</div>;
+        var noCommentsYet = function () {
+          return (
+            <div>
+              {booktype._('insert_comment_text')}
+              <br /><br />
+              <button onClick={self.noCommentsHandler} className="btn btn-sm btn-primary no-comments-yet-btn disabled">
+                {booktype._('insert_comment_btn')}
+              </button>
+            </div>
+          );
+        };
+
+        return (
+          <div>
+            {(comments.length === 0) ? noCommentsYet() : null}
+            {commentItems}
+          </div>
+        );
       }
     });
 
@@ -451,9 +474,6 @@ define([
         var range = this.range;
         var editable = this.editable;
 
-        range.endContainer = range.startContainer;
-        range.endOffset = range.startOffset;
-
         // save comments in localStorage until the user clicks save chapter
         var commentData = {
           'local': true,
@@ -477,7 +497,8 @@ define([
         );
         commentBubble.on('click', self.handleBubbleClick);
 
-        GENTICS.Utils.Dom.insertIntoDOM(commentBubble, range, editable.obj);
+        var dom = GENTICS.Utils.Dom;
+        dom.insertIntoDOM(commentBubble, range, editable.obj, true);
         range.select();
 
         booktype.editor.edit.disableSave(false);
