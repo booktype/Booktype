@@ -46,7 +46,13 @@ except ImportError:
 
 class TidyPlugin(BasePlugin):
     NAME = 'Tidy HTML'
-    OPTIONS = {'tidy-mark': 'no', 'drop-font-tags': 'no', 'uppercase-attributes': 'no', 'uppercase-tags': 'no'}
+    OPTIONS = {
+        'indent': 'yes',
+        'tidy-mark': 'no',
+        'drop-font-tags': 'no',
+        'uppercase-attributes': 'no',
+        'uppercase-tags': 'no'
+    }
 
     def __init__(self, extra={}):
         self.options = dict(self.OPTIONS)
