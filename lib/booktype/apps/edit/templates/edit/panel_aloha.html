@@ -395,3 +395,23 @@
   </div>
 </div>
 
+<div id="infoboxDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3>{% trans "Infobox" %}</h3>
+        </div>
+        <div class="modal-body">
+          <div class="control-group">
+            <label for="box-title">{% trans "Title" %}</label>
+            <input type="text" class="form-control" name="box-title" placeholder="{% trans 'Write your infobox title here' %}" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default btn-cancel" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+          <button class="btn btn-primary btn-insert" aria-hidden="true">{% trans "Insert" %}</button>
+        </div>
+      </div>
+  </div>
+</div>

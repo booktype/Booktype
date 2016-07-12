@@ -522,6 +522,7 @@ div.contentHeader span.info-message {
   -moz-column-gap: 40px; /* Firefox */
 }
 
+#contenteditor .aloha-block-InfoBoxBlock.aloha-block-active
 #contenteditor .aloha-block-ColumnsBlock.aloha-block-active {
   border: 2px solid #dadff3;
 }
@@ -544,4 +545,43 @@ div.contentHeader span.info-message {
 #content .publish-info-box a,
 #content .publish-info-box a:visited {
   text-decoration: underline;
+}
+
+#contenteditor .aloha-block-InfoBoxBlock {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#contenteditor .aloha-block-InfoBoxBlock .box-caption {
+  background-color: #dadff3;
+  color: black;
+  padding: 3px;
+}
+
+#contenteditor .aloha-block-InfoBoxBlock .box-caption p{
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  padding-left: 6px;
+  padding-right: 20px;
+}
+
+#contenteditor .aloha-block-InfoBoxBlock .box-caption .aloha-editable {
+  padding: 0px 2px 2px 2px;
+}
+
+#contenteditor .aloha-block-InfoBoxBlock .aloha-editable{
+  padding: 10px;
+}
+
+#contenteditor .aloha-block-InfoBoxBlock .box-caption .bk-remove {
+  position: absolute;
+  right: 8px;
+  text-decoration: none;
+  color: #000;
+  top: 5px;
+  display: none;
+}
+
+#contenteditor .aloha-block-InfoBoxBlock.aloha-block-active .box-caption .bk-remove{
+  display: block;
 }
