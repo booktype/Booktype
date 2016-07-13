@@ -110,6 +110,15 @@ class MPDFPlugin(ExternalScriptPlugin):
             div.insert(0, div1)
             div.insert(1, quote)
 
+        # set body-first class to first child inside box-content divs [infobox]
+        for box_content in content.xpath(".//div[@class='box-content']"):
+            for idx, p in enumerate(box_content.xpath('.//p')):
+                if p.get('class', '') != '':
+                    continue
+
+                if idx == 0:
+                    p.set('class', 'body-first')
+
         for idx, p in enumerate(content.xpath(".//p")):
             if p.get('class', '') != '':
                 continue
