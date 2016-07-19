@@ -7,6 +7,7 @@
           {% if request.user.is_superuser %}
              <li><a href="{% url "control_center:frontpage" %}" target="_blank"><i class="icon-gears"></i>{% trans "Control Center" %}</a></li>
           {% endif %}
+          <li><a href="http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/" target="_blank"><i class="icon-book"></i>{% trans "User Manual" %}</a></li>
           <li class="divider"></li>
           <li><a href="{% url "accounts:signout" %}"><i class="icon-signout"></i>{% trans "Log out" %}</a></li>
         </ul>
