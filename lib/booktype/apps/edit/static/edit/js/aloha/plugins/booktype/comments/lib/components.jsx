@@ -260,7 +260,7 @@ define([
                 // update the comments list
                 PubSub.pub('booktype-pull-latest-comments');
 
-                var saveChapter = booktype._('forget_save_chapter', 'Do not forget to save the chapter to preserve the changes.')
+                var saveChapter = booktype._('forget_save_chapter', 'Do not forget to save the chapter to preserve the changes!')
                 booktype.utils.alert(saveChapter);
               };
 
@@ -504,7 +504,7 @@ define([
         booktype.editor.edit.disableSave(false);
         self.refs.modal.hide();
 
-        var saveChapter = booktype._('forget_save_chapter', 'Do not forget to save the chapter to preserve the changes.')
+        var saveChapter = booktype._('forget_save_chapter', 'Do not forget to save the chapter to preserve the changes!')
         booktype.utils.alert(saveChapter);
 
         PubSub.pub('booktype-pull-latest-comments');
