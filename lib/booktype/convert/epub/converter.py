@@ -57,6 +57,10 @@ class EpubConverter(BaseConverter):
     writer_plugin_class = WriterPlugin
     css_dir = os.path.join(os.path.dirname(__file__), 'styles/')
 
+    # valid extensions to assign right mimetype
+    WOFF_FONTS = ['.woff']
+    OPENTYPE_FONTS = ['.otf', '.otc', '.ttf', '.ttc']
+
     def __init__(self, *args, **kwargs):
         super(EpubConverter, self).__init__(*args, **kwargs)
 
@@ -428,14 +432,22 @@ class EpubConverter(BaseConverter):
             elif asset_type == 'fonts':
                 for font_name in asset_list:
                     name = os.path.basename(font_name)
+                    extension = os.path.splitext(font_name)[-1].lower()
                     content = read_theme_asset_content(self.theme_name, font_name)
 
                     if content:
-                        image = ebooklib.epub.EpubItem()
-                        image.file_name = "{}/{}".format(FONTS_DIR, name)
-                        image.set_content(content)
+                        font = ebooklib.epub.EpubItem()
+                        font.file_name = "{}/{}".format(FONTS_DIR, name)
+                        font.set_content(content)
 
-                        epub_book.add_item(image)
+                        # try to set the right font media type
+                        # http://www.idpf.org/epub/301/spec/epub-publications.html#sec-core-media-types
+                        if extension in self.OPENTYPE_FONTS:
+                            font.media_type = 'application/vnd.ms-opentype'
+                        elif extension in self.WOFF_FONTS:
+                            font.media_type = 'application/font-woff'
+
+                        epub_book.add_item(font)
 
     def _get_data(self, book):
         """Returns default data for the front and end matter templates.

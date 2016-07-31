@@ -266,11 +266,18 @@ class MPDFConverter(BaseConverter):
         return dc_metadata
 
     def _init_theme_plugin(self):
+        """
+        Checks for custom theme's plugin. If no custom plugin if found,
+        it will load the mpdf default one
+        """
+
+        default_theme_plugin = plugin.MPDFPlugin
+
         if 'theme' in self.config:
             self.theme_name = self.config['theme'].get('id', '')
             tp = plugin.load_theme_plugin(self.name, self.theme_name)
-            if tp:
-                self.theme_plugin = tp(self)
+
+            self.theme_plugin = tp(self) if tp else default_theme_plugin(self)
 
     def convert(self, book, output_path):
         """Starts conversion process.
@@ -370,7 +377,7 @@ class MPDFConverter(BaseConverter):
         """Create body html file with main content of the book.
 
         Created html file will be used by booktype2mpdf.php script
-        to create finial PDF file.
+        to create final PDF file.
 
         :Args:
           - book: EPUB Book object

@@ -1,6 +1,4 @@
-import json
 import celery
-import httplib
 import time
 import datetime
 import logging
@@ -42,7 +40,7 @@ def get_theme(book, username):
 
 @celery.task
 def publish_book(*args, **kwargs):
-    global x
+    # global x
 
     # Entire publisher is at the moment hard coded for pdf output
 
@@ -84,9 +82,11 @@ def publish_book(*args, **kwargs):
 
         if 'cover_image' in format_settings:
             if format_settings['cover_image'].strip() != '':
-                cover_url = "{}/{}/_cover/{}/cover.jpg".format(
+                cover_url = "{}/{}/_cover/{}".format(
                     settings.BOOKTYPE_URL,
-                    book.url_title, format_settings['cover_image'])
+                    book.url_title,
+                    format_settings['cover_image']
+                )
                 data['assets']['{}_cover_image'.format(_format)] = cover_url
                 data["outputs"][_format]["config"]["cover_image"] = '{}_cover_image'.format(_format)
 
@@ -115,9 +115,9 @@ def publish_book(*args, **kwargs):
     task_id = result['task_id']
     start_time = time.time()
 
-    EXPORT_WAIT_FOR = config.get_configuration('EXPORT_WAIT_FOR', 90)
+    EXPORT_WAIT_FOR = config.get_configuration('EXPORT_WAIT_FOR', 90)  # noqa
     logger.debug('Waiting for the task %s to finish. Will wait for %s seconds.', task_id, EXPORT_WAIT_FOR)
-        
+
     while True:
         if time.time() - start_time > EXPORT_WAIT_FOR:
             logger.error('Publishing request timed out after %s seconds.', int(time.time() - start_time))
@@ -148,15 +148,6 @@ def publish_book(*args, **kwargs):
                         output_results[_key] = False
 
             if len(output_results) == len(data["outputs"].keys()):
-                def _x(_key):
-                    d = {}
-                    if 'result' in dta['result'][_key]:
-                        d = dta['result'][_key]['result']
-                    d['status'] = output_results[_key]
-                    return d
-
-                urls = {_key: _x(_key) for _key in output_results.iterkeys()}
-
                 _now = datetime.datetime.now()
                 export_name = "Book export - {0}".format(
                     datetime.datetime(

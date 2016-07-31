@@ -1,0 +1,379 @@
+@font-face {
+    font-family: 'texgyreadventor';
+    font-weight: normal;
+    font-style: normal;
+    src: url('../Fonts/TeXGyreAdventor-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'texgyreadventor';
+    font-weight: bold;
+    font-style: normal;
+    src: url('../Fonts/TeXGyreAdventor-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'texgyreadventor';
+    font-weight: normal;
+    font-style: italic;
+    src: url('../Fonts/TeXGyreAdventor-Italic.ttf');
+}
+
+@font-face {
+    font-family: 'texgyreadventor';
+    font-weight: bold;
+    font-style: italic;
+    src: url('../Fonts/TeXGyreAdventor-BoldItalic.ttf');
+}
+
+@font-face {
+    font-family: 'texgyrecursor';
+    font-weight: normal;
+    font-style: normal;
+    src: url('../Fonts/TeXGyreCursor-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'texgyrecursor';
+    font-weight: bold;
+    font-style: normal;
+    src: url('../Fonts/TeXGyreCursor-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'texgyrecursor';
+    font-weight: normal;
+    font-style: italic;
+    src: url('../Fonts/TeXGyreCursor-Italic.ttf');
+}
+
+@font-face {
+    font-family: 'texgyrecursor';
+    font-weight: bold;
+    font-style: italic;
+    src: url('../Fonts/TeXGyreCursor-BoldItalic.ttf');
+}
+
+body {
+  font-size: 1em;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  font-family: "texgyreadventor"; 
+  color: #000000;
+}
+
+div.dedication {
+  text-align: left;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 50px;
+  font-family: "texgyreadventor"; 
+  font-size: 2em;
+  font-style: italic;
+}
+
+h1.section {
+  font-family: "texgyreadventor"; 
+  text-align: center; 
+  font-weight: normal; 
+  font-size: 1.6em;
+  text-transform: uppercase; 
+  text-decoration: underline;
+  margin-top: 0;
+}
+
+h1.frontmatter-title {
+  text-align: left; 
+  font-weight: bold; 
+  text-transform: uppercase; 
+  font-family: "texgyreadventor"; 
+  text-decoration: none;
+  border-bottom: 0px; 
+  font-size: 2.1em;
+  line-height: normal;
+  margin-top: 1.5em;
+  margin-bottom: 0;
+}
+
+h2.frontmatter-author {
+  text-align: left; 
+  font-family: "texgyreadventor"; 
+  border-bottom: 0px; 
+  font-size: 1.6em;
+  line-height: normal;
+  margin-top: 2em;
+}
+div.frontmatter-line {
+  width: 6em;
+  background-color: black;
+  height: 0.3em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+/*
+h2.frontmatter-author-title {
+  text-align: left; 
+  font-family: "texgyreadventor"; 
+  border-bottom: 0px; 
+  margin-top: 2em;
+  font-size: 1.6em;
+  line-height: normal;
+}
+
+h3.frontmatter-subtitle {
+  text-align: left; 
+  font-family: "texgyreadventor"; 
+  border-bottom: 0px; 
+  margin-top: 10mm;
+  font-size: 1.6em;
+  line-height: normal;
+}
+*/
+
+p.quote {
+  font-family: "texgyreadventor"; 
+  display: block;
+  font-weight: normal; 
+  font-size: 1em;
+  font-style: normal;
+  text-indent: 0;
+  border-left: 0.05rem solid #000;
+  padding-left: 1em;
+  margin-left: 1em;
+  margin-top: 1em; 
+  margin-bottom: 1em; 
+  text-align: left; 
+  line-height: 15pt; 
+  text-transform: none; 
+  text-decoration: none;
+} 
+
+p.quote:before {
+  display: none;
+/*
+  color: #333;
+  content: open-quote;
+  font-size: 72px;
+  margin-right: 20px;
+  position: absolute;
+  top: 14px;
+  left: 6px;
+  bottom: 0;
+*/
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    -webkit-hyphens:none;
+    hyphens:none;
+    adobe-hyphenate:none;
+    page-break-after:avoid;
+    color: black;
+}
+
+h1 {
+  font-family: "texgyreadventor"; 
+  font-weight: normal; 
+  text-transform: none; 
+  text-align: left; 
+  text-decoration: none;
+  line-height: normal; 
+  font-size: 1.86em; 
+  /*font-size: 3.6em;*/
+  margin-top: 1em;
+  margin-bottom: 2.4em;
+}
+
+h2 {
+  font-family: "texgyreadventor"; 
+  font-weight: normal; 
+  text-transform: none; 
+  text-align: left; 
+  text-decoration: none;
+  line-height: normal; 
+  font-size: 1.49em; 
+  /*font-size: 2.2em;*/
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+h3 {
+  font-family: "texgyreadventor"; 
+  font-weight: bold; 
+  text-transform: none; 
+  text-align: left; 
+  text-decoration: none;
+  line-height: normal; 
+  font-size: 1em; 
+  /*font-size: 1.8em;*/
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+h4 {
+  font-family: "texgyreadventor"; 
+  font-weight: normal; 
+  text-transform: none; 
+  text-align: left; 
+  text-decoration: none;
+  line-height: normal; 
+  font-size: 1em; 
+  /*font-size: 1.4em;*/
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+h5 {
+  font-family: "texgyreadventor"; 
+  font-weight: normal; 
+  text-transform: none; 
+  text-align: left; 
+  text-decoration: none;
+  line-height: normal; 
+  font-size: 1em; 
+  /*font-size: 1.2em;*/
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+/* Paragraph Styles *****************************************************/
+
+body {
+    widows:2;
+    orphans:2;
+}
+
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p {
+  font-family: "texgyreadventor"; 
+    font-weight: normal;
+    font-size: 1em; 
+    line-height: 1.4em;
+    text-indent: 0;
+    margin-bottom: 0;
+}
+
+p,
+a {
+  font-family: "texgyreadventor"; 
+    font-weight: normal;
+    font-size: 1em; 
+    line-height: 1.4em;
+    margin: 0;
+}
+
+p+p,
+ul+p,
+ol+p,
+div.group_img+p,
+table+p {
+    text-indent: 1em;
+    margin-bottom: 0.15em;
+}
+
+ul,
+ol {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+li {
+    font-family: "texgyreadventor"; 
+    font-weight: normal;
+    font-size: 1em;
+    line-height: 1.4em;
+}
+
+img {
+    max-width:100%;
+    max-height:100%;
+    margin: 0px auto;
+}
+
+table {
+    border-collapse: collapse;
+    max-width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+table {
+    border-top: 0.5mm solid black;
+    border-bottom: 0.5mm solid black;
+}
+th, 
+td {
+    border-top: 0.3mm solid black;
+}
+
+td {
+    font-family: "texgyreadventor"; 
+    font-weight: normal;
+    font-size: 0.9em;
+    line-height: normal;
+    margin: 0;
+}
+
+th, 
+td {
+    padding: .6rem .8em;
+    text-indent: none;
+}
+
+.group_img {
+  page-break-inside: avoid;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.caption_small {
+  margin-top: 0.5em;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.frontmatter-bottom {
+  margin-bottom: 50px;
+  font-size: 1.2em;
+}
+
+p.impl {
+  margin: 0;
+  text-indent: 0em;
+}
+
+div.page-break {
+  page-break-after: always;
+}
+
+sup.endnote {
+  font-size: 0.8em;
+}
+
+ol.endnotes {
+  padding-left: 1.2em;
+  margin-top: 2em;
+}
+
+ol.endnotes li {
+  font-family: "texgyreadventor"; 
+  font-weight: normal;
+  font-size: 0.8em;
+  line-height: 1.2em;
+  margin: 0;
+}
+
+ol.endnotes p {
+  text-indent: 0;
+}

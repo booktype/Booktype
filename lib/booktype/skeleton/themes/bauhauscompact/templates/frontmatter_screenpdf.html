@@ -1,0 +1,247 @@
+{% load convert_tags booktype_tags %}
+
+<!-- start get metadata and book info -->
+{% get_meta "publisher" as publisher %}
+{% get_meta "rights" as rights %}
+
+{% get_property "bkterms:short_description" as short_description %}
+{% get_property "dcterms:issued" as issued %}
+{% get_property "dcterms:dateCopyrighted" as date_copyrighted %}
+{% get_property "bkterms:publisher_city" as publisher_city %}
+{% get_property "bkterms:ebook_isbn" as ebook_isbn %}
+{% get_property "dcterms:rightsHolder" as rights_holder %}
+
+{% get_property "add_meta_terms:text_by" as text_by %}
+{% get_property "add_meta_terms:edited_by" as edited_by %}
+{% get_property "add_meta_terms:translation_by" as translation_by %}
+{% get_property "add_meta_terms:introduction_by" as introduction_by %}
+{% get_property "add_meta_terms:cover_design" as cover_design %}
+{% get_property "add_meta_terms:cover_photography" as cover_photography %}
+{% get_property "add_meta_terms:photography" as photography %}
+{% get_property "add_meta_terms:illustration_by" as illustration_by %}
+{% get_property "add_meta_terms:research" as research %}
+{% get_property "add_meta_terms:lectorate" as lectorate %}
+{% get_property "add_meta_terms:proofreading" as proofreading %}
+{% get_property "add_meta_terms:rights_clearing" as rights_clearing %}
+{% get_property "add_meta_terms:typeface" as typeface %}
+{% get_property "add_meta_terms:printed_on" as printed_on %}
+{% get_property "add_meta_terms:bookbinder" as bookbinder %}
+{% get_property "add_meta_terms:printer" as printer %}
+{% get_property "add_meta_terms:printer_country" as printer_country %}
+{% get_property "add_meta_terms:acknowledgement" as acknowledgement %}
+{% get_property "add_meta_terms:paper_certification" as paper_certification %}
+{% get_property "add_meta_terms:edition" as edition %}
+{% get_property "add_meta_terms:url_publisher" as url_publisher %}
+{% get_property "add_meta_terms:url_author" as url_author %}
+{% get_property "add_meta_terms:bibliographic_information" as bibliographic_information %}
+
+{% get_property "add_meta_terms:dedication" as dedication %}
+
+<!-- end get metadata and book info -->
+
+<!-- IF WE HAVE COVER, INSERT A DIV FOR IT -->
+{% if cover_image != '' %}
+<div class="frontcover"></div>
+
+<!-- EMPTY PAGE -->
+<div class="frontmatter"></div>
+<pagebreak />
+{% endif %}
+
+<!-- START HALF TITLE -->
+<div class="frontmatter-half-title">{{ title }}</div>
+{% if author != None %}
+<div class="frontmatter-author">{{ author }}</div>
+{% endif %}
+<!-- END HALF TITLE  -->
+
+<pagebreak />
+<!-- EMPTY PAGE -->
+<pagebreak />
+
+<!-- START TITLE PAGE -->
+<div class="frontmatter-title">{{ title }}</div>
+<div class="frontmatter-line"></div>
+<div class="frontmatter-subtitle">{{ subtitle }}</div>
+{% if author %}
+<div class="frontmatter-author-title">{{ author }}</div>
+{% endif %}
+
+{% if publisher %}
+<div class="frontmatter-bottom">{{ publisher }}</div>
+{% endif %}
+
+<!-- END TITLE PAGE -->
+
+<pagebreak />
+
+<!-- START IMPRESSUM -->
+
+{% assign needs_br 0 %}
+
+{% if title %}
+<p class="impl-bold">{{ title }}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if subtitle %}
+<p class="impl-bold">{{ subtitle }}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if author %}
+<p class="impl">{{ author }}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if needs_br %}<br/>{% endif %}
+
+{% assign needs_br 0 %}
+
+{% if edited_by %}
+<p class="impl">Edited by {{ edited_by }}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if text_by %}
+<p class="impl">Text by {{ text_by }}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if translation_by %}
+<p class="impl">Translation by {{ translation_by }}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if introduction_by  %}
+<p class="impl">Introduction by {{ introduction_by }} </p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if cover_design %}
+<p class="impl">Cover design by {{ cover_design }}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if cover_photography %}
+<p class="impl">Cover image by {{ cover_photography }}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if photography %}
+<p class="impl">Photography by {{ photography }}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if illustration_by %}
+<p class="impl">Illustration by {{ illustration_by }}.</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if research  %}
+<p class="impl">Research: {{ research }} </p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if lectorate  %}
+<p class="impl">Lectorate: {{ lectorate }} </p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if proofreading  %}
+<p class="impl">Proofreading: {{ proofreading }} </p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if rights_clearing  %}
+<p class="impl">Rights clearing: {{ rights_clearing }} </p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if needs_br %}<br/>{% endif %}
+
+{% assign needs_br 0 %}
+
+{% if typeface  %}
+<p class="impl">Typeface: {{ typeface }} </p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if printed_on or paper_certification %}
+<p class="impl">Printed on: {{ printed_on }} {% if paper_certification %}{{ paper_certification }}{% endif %}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if bookbinder %}
+<p class="impl">Bookbinder: {{ bookbinder }}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if printer %}
+<p class="impl">Printed by {{ printer }}{% if printer_country %}, {{ printer_country }}{% endif %}</p>
+{% assign needs_br 1 %}
+{% elif printer_country  %}
+<p class="impl">Printed in {{ printer_country }}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if needs_br %}<br/>{% endif %}
+{% assign needs_br 0 %}
+
+{% if acknowledgement %}
+<p class="impl">{{ acknowledgement }}</p>
+<br/>
+{% endif %}
+
+{% if publisher %}
+<p class="impl">Published by {{ publisher }}{% if publisher_city %}, {{ publisher_city }}{% endif %}{% if edition %}, {{ edition }}{% endif %}{% if issued %}, {{ issued }} {% endif %} </p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if isbn %}
+<p class="impl">ISBN: {{ isbn }}</p>
+{% assign needs_br 1 %}
+{% endif %}
+
+{% if needs_br %}<br/>{% endif %}
+{% assign needs_br 0 %}
+
+{% if rights or date_copyrighted or rights_holder %}
+<p class="impl">&copy;
+{% if date_copyrighted %} {{ date_copyrighted }} {% endif %}{% if rights_holder %}{{ rights_holder }}{% endif %}{% if rights %}. {{ rights }} {% endif %}
+{% assign needs_br 1 %}
+</p>
+{% endif %}
+
+{% if url_publisher or url_author %}
+<p class="impl">
+{% if url_publisher %}
+<br/>{{ url_publisher }}
+{% endif %}
+
+{% if url_author %}
+<br/>{{ url_author }}
+{% endif %}
+{% assign needs_br 1 %}
+</p>
+{% endif %}
+
+{% if needs_br %}<br/>{% endif %}
+{% assign needs_br 0 %}
+
+{% if bibliographic_information %}
+<p class="impl">Bibliographic information published by {{ bibliographic_information }}</p>
+<br/>
+{% endif %}
+
+<p class="impl">This book was created with Booktype.<br/>
+For more information, please visit: <a href="https://www.booktype.pro/">www.booktype.pro</a></p>
+
+<!-- END IMPRESSUM -->
+
+{% if dedication %}
+<pagebreak />
+<div class="dedication">
+  <p class="dedication">{{ dedication }}</p>
+</div>
+{% endif %}

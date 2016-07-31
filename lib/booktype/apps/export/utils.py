@@ -32,6 +32,7 @@ from booktype.utils import config
 from booktype.apps.export.models import ExportSettings
 from booktype.utils.misc import TidyPlugin, import_from_string
 from booktype.utils.plugins.icejs import IceCleanPlugin
+from booktype.utils.plugins.comments import CommentsCleanPlugin
 
 from .epub import ExportEpubBook
 
@@ -220,6 +221,11 @@ class ExportBook(object):
         # we need to pass remove_icejs as False in kwargs
         if kwargs.get('remove_icejs', True):
             self.DEFAULT_PLUGINS.append(IceCleanPlugin())
+
+        # comments reference bubble should be removed by default for now
+        # TODO: we should implement a way to attach the comments to the raw epub file
+        if kwargs.get('remove_comments', True):
+            self.DEFAULT_PLUGINS.append(CommentsCleanPlugin())
 
         # add extra plugins
         self.DEFAULT_PLUGINS += kwargs.get('extra_plugins', [])

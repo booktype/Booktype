@@ -24,9 +24,9 @@ EXPORT_ALLOWED_HOSTS = ['127.0.0.1']
 
 DEFAULT_NOTIFICATION_FILTER=u"#* !* ~* \u212c*"
 
-# You can customize which publish options this installation can use.
-# Options are: book, ebook, pdf, lulu, odt
-# PUBLISH_OPTIONS = ("book", "ebook")
+# You can customize the default publishing options this instance can use.
+# Options are: mpdf, screenpdf, epub, mobi, xhtml
+# PUBLISH_OPTIONS = ("mpdf", "screenpdf", "epub")
 
 # BOOKTYPE
 PROFILE_ACTIVE = ''
@@ -150,7 +150,7 @@ LANGUAGES = (
    ('ko', gettext('한국어')),
    ('hu', gettext('Magyar')),
    ('nl', gettext('Nederlands')),
-   ('no', gettext('Norsk (Bokmål)')),
+   ('nb', gettext('Norsk (Bokmål)')),
    ('pl', gettext('Polski')),
    ('pt', gettext('Português')),
    ('ru', gettext('Русский')),

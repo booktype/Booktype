@@ -213,8 +213,8 @@
                     <input type="email" class="form-control image-title"  placeholder="{% trans "Enter Title" %}">
                   </div>
                   <div class="form-group">
-                    <label for="imageTitle">{% trans "Image Description" %}</label>
-                    <textarea rows="8" class="form-control image-description" placeholder="{% trans "Description" %}"></textarea>
+                    <label for="imageTitle">{% trans "Image Caption" %}</label>
+                    <textarea rows="8" class="form-control image-description" placeholder="{% trans "Caption" %}"></textarea>
                   </div>
                 </div>
 
@@ -405,5 +405,43 @@
         <button class="btn btn-primary operation-split">{% trans "Split Chapter" %}</button>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalPageBreak" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bod-color">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{% trans "Remove page break" %}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{% trans "Do you want to remove page break?" %}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default operation-cancel">{% trans "Cancel" %}</button>
+        <button type="button" class="btn btn-primary operation-remove">{% trans "Remove page break" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="infoboxDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3>{% trans "Infobox" %}</h3>
+        </div>
+        <div class="modal-body">
+          <div class="control-group">
+            <label for="box-title">{% trans "Title" %}</label>
+            <input type="text" class="form-control" name="box-title" placeholder="{% trans 'Write your infobox title here' %}" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default btn-cancel" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+          <button class="btn btn-primary btn-insert" aria-hidden="true">{% trans "Insert" %}</button>
+        </div>
+      </div>
   </div>
 </div>

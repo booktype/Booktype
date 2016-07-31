@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-13 15:08+0200\n"
-"PO-Revision-Date: 2014-12-16 11:39+0000\n"
-"Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
+"POT-Creation-Date: 2016-05-24 16:04-0600\n"
+"PO-Revision-Date: 2016-07-21 09:23+0000\n"
+"Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Latin (http://www.transifex.com/sourcefabric/booktype/language/la/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,8 +21,8 @@ msgstr ""
 "X-Poedit-Language: English\n"
 
 #: editor/models.py:33 editor/models.py:47 editor/models.py:70
-#: editor/models.py:97 editor/models.py:353 editor/models.py:417
-#: editor/models.py:712
+#: editor/models.py:97 editor/models.py:353 editor/models.py:419
+#: editor/models.py:728
 msgid "name"
 msgstr ""
 
@@ -63,14 +63,14 @@ msgid "not translated"
 msgstr ""
 
 #: editor/models.py:69 editor/models.py:84 editor/models.py:328
-#: editor/models.py:387 editor/models.py:403 editor/models.py:414
-#: editor/models.py:461 editor/models.py:652 editor/models.py:710
-#: editor/models.py:751 editor/models.py:760 editor/models.py:772
-#: editor/models.py:792
+#: editor/models.py:388 editor/models.py:405 editor/models.py:416
+#: editor/models.py:462 editor/models.py:653 editor/models.py:726
+#: editor/models.py:767 editor/models.py:776 editor/models.py:788
+#: editor/models.py:808
 msgid "book"
 msgstr ""
 
-#: editor/models.py:71 editor/models.py:714
+#: editor/models.py:71 editor/models.py:730
 msgid "weight"
 msgstr ""
 
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Book status"
 msgstr ""
 
-#: editor/models.py:85 editor/models.py:815
+#: editor/models.py:85 editor/models.py:831
 msgid "notes"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgstr ""
 msgid "url name"
 msgstr ""
 
-#: editor/models.py:99 editor/models.py:209 editor/models.py:419
+#: editor/models.py:99 editor/models.py:209 editor/models.py:421
 msgid "description"
 msgstr ""
 
@@ -106,9 +106,9 @@ msgstr ""
 msgid "members"
 msgstr ""
 
-#: editor/models.py:105 editor/models.py:203 editor/models.py:422
-#: editor/models.py:466 editor/models.py:616 editor/models.py:657
-#: editor/models.py:819
+#: editor/models.py:105 editor/models.py:203 editor/models.py:424
+#: editor/models.py:467 editor/models.py:617 editor/models.py:658
+#: editor/models.py:835
 msgid "created"
 msgstr ""
 
@@ -172,15 +172,15 @@ msgstr ""
 msgid "Print ISBN"
 msgstr ""
 
-#: editor/models.py:187 editor/models.py:463
+#: editor/models.py:187 editor/models.py:464
 msgid "url title"
 msgstr ""
 
-#: editor/models.py:188 editor/models.py:464
+#: editor/models.py:188 editor/models.py:465
 msgid "title"
 msgstr ""
 
-#: editor/models.py:189 editor/models.py:465 editor/models.py:656
+#: editor/models.py:189 editor/models.py:466 editor/models.py:657
 msgid "status"
 msgstr ""
 
@@ -188,16 +188,16 @@ msgstr ""
 msgid "language"
 msgstr ""
 
-#: editor/models.py:193 editor/models.py:330 editor/models.py:459
-#: editor/models.py:650 editor/models.py:708
+#: editor/models.py:193 editor/models.py:330 editor/models.py:460
+#: editor/models.py:651 editor/models.py:724
 msgid "version"
 msgstr ""
 
-#: editor/models.py:195 editor/models.py:752
+#: editor/models.py:195 editor/models.py:768
 msgid "group"
 msgstr ""
 
-#: editor/models.py:201 editor/models.py:813
+#: editor/models.py:201 editor/models.py:829
 msgid "license"
 msgstr ""
 
@@ -205,7 +205,7 @@ msgstr ""
 msgid "hidden"
 msgstr ""
 
-#: editor/models.py:207 editor/models.py:753
+#: editor/models.py:207 editor/models.py:769
 msgid "permission"
 msgstr ""
 
@@ -221,7 +221,7 @@ msgstr ""
 msgid "Books"
 msgstr ""
 
-#: editor/models.py:331 editor/models.py:572 editor/models.py:713
+#: editor/models.py:331 editor/models.py:573 editor/models.py:729
 msgid "chapter"
 msgstr ""
 
@@ -229,7 +229,7 @@ msgstr ""
 msgid "chapter history"
 msgstr ""
 
-#: editor/models.py:333 editor/models.py:467 editor/models.py:574
+#: editor/models.py:333 editor/models.py:468 editor/models.py:575
 msgid "modified"
 msgstr ""
 
@@ -237,9 +237,9 @@ msgstr ""
 msgid "args"
 msgstr ""
 
-#: editor/models.py:335 editor/models.py:575 editor/models.py:614
-#: editor/models.py:750 editor/models.py:761 editor/models.py:773
-#: editor/models.py:793
+#: editor/models.py:335 editor/models.py:576 editor/models.py:615
+#: editor/models.py:766 editor/models.py:777 editor/models.py:789
+#: editor/models.py:809
 msgid "user"
 msgstr ""
 
@@ -263,264 +263,160 @@ msgstr ""
 msgid "value date"
 msgstr ""
 
-#: editor/models.py:391 editor/models.py:392
+#: editor/models.py:392 editor/models.py:393
 msgid "Metadata"
 msgstr ""
 
-#: editor/models.py:408
+#: editor/models.py:410
 msgid "Book setting"
 msgstr ""
 
-#: editor/models.py:409
+#: editor/models.py:411
 msgid "Book settings"
 msgstr ""
 
-#: editor/models.py:415
+#: editor/models.py:417
 msgid "major"
 msgstr ""
 
-#: editor/models.py:416
+#: editor/models.py:418
 msgid "minor"
 msgstr ""
 
-#: editor/models.py:469 editor/models.py:576
+#: editor/models.py:470 editor/models.py:577
 msgid "revision"
 msgstr ""
 
-#: editor/models.py:473 messaging/models.py:34
+#: editor/models.py:474 messaging/models.py:34
 msgid "content"
 msgstr ""
 
-#: editor/models.py:476
+#: editor/models.py:477
 msgid "Chapter"
 msgstr ""
 
-#: editor/models.py:477
+#: editor/models.py:478
 msgid "Chapters"
 msgstr ""
 
-#: editor/models.py:577
+#: editor/models.py:578
 msgid "comment"
 msgstr ""
 
-#: editor/models.py:584
+#: editor/models.py:585
 msgid "Chapter history"
 msgstr ""
 
-#: editor/models.py:619
+#: editor/models.py:620
 msgid "Chapter Lock"
 msgstr ""
 
-#: editor/models.py:620
+#: editor/models.py:621
 msgid "Chapters Locks"
 msgstr ""
 
-#: editor/models.py:654 editor/models.py:797
+#: editor/models.py:655 editor/models.py:813
 msgid "filename"
 msgstr ""
 
-#: editor/models.py:692
+#: editor/models.py:670
 msgid "Attachment"
 msgstr ""
 
-#: editor/models.py:693
+#: editor/models.py:671
 msgid "Attachments"
 msgstr ""
 
-#: editor/models.py:701
+#: editor/models.py:717
 msgid "section name"
 msgstr ""
 
-#: editor/models.py:702
+#: editor/models.py:718
 msgid "chapter name"
 msgstr ""
 
-#: editor/models.py:703
+#: editor/models.py:719
 msgid "line"
 msgstr ""
 
-#: editor/models.py:711
+#: editor/models.py:727
 msgid "parent"
 msgstr ""
 
-#: editor/models.py:715
+#: editor/models.py:731
 msgid "typeof"
 msgstr ""
 
-#: editor/models.py:735
+#: editor/models.py:751
 msgid "Book TOC"
 msgstr ""
 
-#: editor/models.py:736
+#: editor/models.py:752
 msgid "Book TOCs"
 msgstr ""
 
-#: editor/models.py:767 editor/models.py:768
+#: editor/models.py:783 editor/models.py:784
 msgid "Attribution Exclude"
 msgstr ""
 
-#: editor/models.py:774
+#: editor/models.py:790
 msgid "wizard type"
 msgstr ""
 
-#: editor/models.py:775
+#: editor/models.py:791
 msgid "wizard options"
 msgstr ""
 
-#: editor/models.py:781 editor/models.py:782
+#: editor/models.py:797 editor/models.py:798
 msgid "Publish Wizard"
 msgstr ""
 
-#: editor/models.py:799
+#: editor/models.py:815
 msgid "Cover title"
 msgstr ""
 
-#: editor/models.py:801
+#: editor/models.py:817
 msgid "Width"
 msgstr ""
 
-#: editor/models.py:802
+#: editor/models.py:818
 msgid "Height"
 msgstr ""
 
-#: editor/models.py:803
+#: editor/models.py:819
 msgid "Unit"
 msgstr ""
 
-#: editor/models.py:804
+#: editor/models.py:820
 msgid "Booksize"
 msgstr ""
 
-#: editor/models.py:806
+#: editor/models.py:822
 msgid "Book cover"
 msgstr ""
 
-#: editor/models.py:807
+#: editor/models.py:823
 msgid "E-book cover"
 msgstr ""
 
-#: editor/models.py:808
+#: editor/models.py:824
 msgid "PDF cover"
 msgstr ""
 
-#: editor/models.py:810
+#: editor/models.py:826
 msgid "Cover type"
 msgstr ""
 
-#: editor/models.py:812
+#: editor/models.py:828
 msgid "Cover"
 msgstr ""
 
-#: editor/models.py:817
+#: editor/models.py:833
 msgid "Approved"
 msgstr ""
 
 #: editor/templates/authors.html:13
 msgid "Modifications:"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:5
-#, python-format
-msgid "Report for %(booki_name)s (%(date)s)"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:7
-#: editor/templates/booktype_weekly_report.html:8
-msgid "Activity"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:10
-#: editor/templates/booktype_weekly_report.html:11
-msgid "Info"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:14
-#: editor/templates/booktype_weekly_report.html:15
-msgid "Total number of books:"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:19
-#: editor/templates/booktype_weekly_report.html:20
-msgid "Total number of users:"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:24
-#: editor/templates/booktype_weekly_report.html:25
-msgid "Total number of groups:"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:29
-#: editor/templates/booktype_weekly_report.html:30
-msgid "Attachments size:"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:34
-#: editor/templates/booktype_weekly_report.html:35
-msgid "Database size:"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:40
-msgid "New Users"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:46
-msgid "No new users"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:51
-msgid "New Books"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:57
-msgid "No new books"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:62
-msgid "New Groups"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:68
-msgid "No new groups"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:73
-msgid "Modified chapters"
-msgstr ""
-
-#: editor/templates/booktype_daily_report.html:85
-msgid "No Activity"
-msgstr ""
-
-#: editor/templates/booktype_weekly_report.html:41
-msgid "Updates"
-msgstr ""
-
-#: editor/templates/booktype_weekly_report.html:43
-msgid "New users"
-msgstr ""
-
-#: editor/templates/booktype_weekly_report.html:44
-msgid "New books"
-msgstr ""
-
-#: editor/templates/booktype_weekly_report.html:45
-msgid "New groups"
-msgstr ""
-
-#: editor/templates/booktype_weekly_report.html:48
-msgid "Most active books"
-msgstr ""
-
-#: editor/templates/booktype_weekly_report.html:54
-msgid "No active books"
-msgstr ""
-
-#: editor/templates/booktype_weekly_report.html:59
-msgid "Most active users"
-msgstr ""
-
-#: editor/templates/booktype_weekly_report.html:65
-msgid "No active users"
 msgstr ""
 
 #: editor/templates/errors/editing_forbidden.html:8

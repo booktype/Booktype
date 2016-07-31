@@ -1,51 +1,93 @@
 @font-face {
-  font-family: "roboto";
-  font-weight: normal;
-  font-style: normal;
-  src:url(../Fonts/Roboto-Regular.ttf);
+    font-family: 'roboto';
+    font-weight: normal;
+    font-style: normal;
+    src: url('../Fonts/Roboto-Regular.ttf');
 }
 
 @font-face {
-  font-family: "roboto";
-  font-weight: bold;
-  font-style: normal;
-  src:url(../Fonts/Roboto-Bold.ttf);
+    font-family: 'roboto';
+    font-weight: bold;
+    font-style: normal;
+    src: url('../Fonts/Roboto-Bold.ttf');
 }
 
 @font-face {
-  font-family: "roboto";
-  font-weight: normal;
-  font-style: italic;
-  src:url(../Fonts/Roboto-Italic.ttf);
+    font-family: 'roboto';
+    font-weight: normal;
+    font-style: italic;
+    src: url('../Fonts/Roboto-Italic.ttf');
 }
 
 @font-face {
-  font-family: "roboto";
-  font-weight: bold;
-  font-style: italic;
-  src:url(../Fonts/Roboto-BoldItalic.ttf);
+    font-family: 'roboto';
+    font-weight: bold;
+    font-style: italic;
+    src: url('../Fonts/Roboto-BoldItalic.ttf');
 }
 
 @font-face {
-  font-family: "roboto-medium";
-  font-weight: normal;
-  font-style: normal;
-  src:url(../Fonts/Roboto-Medium.ttf);
+    font-family: 'texgyrecursor';
+    font-weight: normal;
+    font-style: normal;
+    src: url('../Fonts/TeXGyreCursor-Regular.ttf');
 }
 
 @font-face {
-  font-family: "roboto-medium";
-  font-weight: normal;
-  font-style: italic;
-  src:url(../Fonts/Roboto-MediumItalic.ttf);
+    font-family: 'texgyrecursor';
+    font-weight: bold;
+    font-style: normal;
+    src: url('../Fonts/TeXGyreCursor-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'texgyrecursor';
+    font-weight: normal;
+    font-style: italic;
+    src: url('../Fonts/TeXGyreCursor-Italic.ttf');
+}
+
+@font-face {
+    font-family: 'texgyrecursor';
+    font-weight: bold;
+    font-style: italic;
+    src: url('../Fonts/TeXGyreCursor-BoldItalic.ttf');
+}
+
+@font-face {
+    font-family: 'roboto-condensed';
+    font-weight: normal;
+    font-style: normal;
+    src: url('../Fonts/RobotoCondensed-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'roboto-condensed';
+    font-weight: bold;
+    font-style: normal;
+    src: url('../Fonts/RobotoCondensed-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'roboto-condensed';
+    font-weight: normal;
+    font-style: italic;
+    src: url('../Fonts/RobotoCondensed-Italic.ttf');
+}
+
+@font-face {
+    font-family: 'roboto-condensed';
+    font-weight: bold;
+    font-style: italic;
+    src: url('../Fonts/RobotoCondensed-BoldItalic.ttf');
 }
 
 body {
-  font-size: 12pt;
+  font-size: 1em;
   line-height: normal;
   margin: 0;
   padding: 0;
-  font-family: "roboto";
+  font-family: "roboto"; 
   color: #000000;
 }
 
@@ -54,71 +96,90 @@ div.dedication {
   margin-left: 40px;
   margin-right: 40px;
   margin-top: 50px;
-  font-family: "roboto";
-  font-size: 2rem;
+  font-family: "roboto"; 
+  font-size: 2em;
   font-style: italic;
-}
-
-h1.frontmatter-title {
-  font-family: "roboto";
-  font-weight: bold;
-  font-size: 5rem;
-  text-transform: uppercase;
-  line-height: 110%;
-  margin-top: 20mm;
-  margin-bottom: 0;
 }
 
 h1.section {
-    font-family: "roboto";
-    font-weight: bold;
-    font-size: 3.6rem;
-    text-align: left;
-    margin-top: 0;
+  font-family: "roboto"; 
+  text-align: left; 
+  font-weight: bold; 
+  font-size: 2.1em;
+  text-transform: none; 
+  text-decoration: none;
+  margin-top: 0;
+}
+
+h1.frontmatter-title {
+  text-align: left; 
+  font-weight: bold; 
+  text-transform: uppercase; 
+  font-family: "roboto"; 
+  text-decoration: none;
+  border-bottom: 0px; 
+  font-size: 2.1em;
+  line-height: normal;
+  margin-top: 1.5em;
+  margin-bottom: 0;
 }
 
 h2.frontmatter-author {
-  font-family: "roboto";
-  font-weight: normal;
-  margin-top: 30mm;
-  font-size: 2.2rem;
+  text-align: left; 
+  font-family: "roboto"; 
+  border-bottom: 0px; 
+  font-size: 1.6em;
+  line-height: normal;
+  margin-top: 2em;
 }
-
+div.frontmatter-line {
+  width: 6em;
+  background-color: black;
+  height: 0.3em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+/*
 h2.frontmatter-author-title {
-  font-family: "roboto";
-  font-weight: normal;
-  margin-top: 10mm;
-  font-size: 2.2rem;
+  text-align: left; 
+  font-family: "roboto"; 
+  border-bottom: 0px; 
+  margin-top: 2em;
+  font-size: 1.6em;
+  line-height: normal;
 }
 
 h3.frontmatter-subtitle {
-  font-family: "roboto";
-  font-weight: normal;
+  text-align: left; 
+  font-family: "roboto"; 
+  border-bottom: 0px; 
   margin-top: 10mm;
-  font-size: 2.2rem;
-  line-height: 120%;
+  font-size: 1.6em;
+  line-height: normal;
 }
-
-div.frontmatter-line {
-  width: 60mm;
-  background-color: black;
-  height: 1mm;
-  margin-top: 10mm;
-  margin-bottom: 10mm;
-}
+*/
 
 p.quote {
-  border-left: 2px solid #333;
-  margin: 30px 0;
-  font-size: 18px;
+  font-family: "roboto"; 
+  display: block;
+  font-weight: normal; 
+  font-size: 1em;
   font-style: italic;
-  line-height: 140%;
-  padding: 4px 20px 4px 60px;
-  quotes: "\201C" "\201D" "\2018" "\2019";
-  position: relative;
-}
+  text-indent: 0;
+  border-left: 0.5rem solid #ccc;
+  padding-left: 1em;
+  margin-left: 1em;
+  margin-top: 1em; 
+  margin-bottom: 1em; 
+  text-align: left; 
+  line-height: 14.7pt; 
+  text-transform: none; 
+  text-decoration: none;
+} 
 
 p.quote:before {
+  display: none;
+/*
   color: #333;
   content: open-quote;
   font-size: 72px;
@@ -127,6 +188,7 @@ p.quote:before {
   top: 14px;
   left: 6px;
   bottom: 0;
+*/
 }
 
 h1,
@@ -143,38 +205,68 @@ h6 {
 }
 
 h1 {
-    font-family: "roboto";
-    font-weight: bold;
-    font-size: 3.6rem;
-    margin-bottom: 1rem; 
+  font-family: "roboto-condensed"; 
+  font-weight: normal; 
+  text-transform: none; 
+  text-align: left; 
+  text-decoration: none;
+  line-height: normal; 
+  font-size: 2.13em; 
+  /*font-size: 3.6em;*/
+  margin-top: 2.1em;
+  margin-bottom: 2.1em;
 }
 
 h2 {
-    font-family: "roboto-medium";
-    font-weight: normal;
-    font-size: 2.8rem;
-    margin-bottom: 1rem;
+  font-family: "roboto-condensed"; 
+  font-weight: normal; 
+  text-transform: none; 
+  text-align: left; 
+  text-decoration: none;
+  line-height: normal; 
+  font-size: 1.6em; 
+  /*font-size: 2.2em;*/
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 h3 {
-    font-family: "roboto-medium";
-    font-weight: normal;
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
+  font-family: "roboto-condensed"; 
+  font-weight: normal; 
+  text-transform: none; 
+  text-align: left; 
+  text-decoration: none;
+  line-height: normal; 
+  font-size: 1.35em; 
+  /*font-size: 1.8em;*/
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 h4 {
-    font-family: "roboto";
-    font-weight: normal;
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+  font-family: "roboto-condensed"; 
+  font-weight: normal; 
+  text-transform: none; 
+  text-align: left; 
+  text-decoration: none;
+  line-height: normal; 
+  font-size: 1.33em; 
+  /*font-size: 1.4em;*/
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 h5 {
-    font-family: "roboto-medium";
-    font-weight: normal;
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
+  font-family: "roboto-condensed"; 
+  font-weight: normal; 
+  text-transform: none; 
+  text-align: left; 
+  text-decoration: none;
+  line-height: normal; 
+  font-size: 1em; 
+  /*font-size: 1.2em;*/
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 /* Paragraph Styles *****************************************************/
@@ -188,20 +280,20 @@ h1 + p,
 h2 + p,
 h3 + p,
 h4 + p {
-    font-family: "roboto";
+  font-family: "roboto"; 
     font-weight: normal;
-    font-size: 1rem; 
-    line-height: 1.4rem;
+    font-size: 1em; 
+    line-height: 1.4em;
     text-indent: 0;
     margin-bottom: 0;
 }
 
 p,
 a {
-    font-family: "roboto";
+  font-family: "roboto"; 
     font-weight: normal;
-    font-size: 1rem; 
-    line-height: 1.4rem;
+    font-size: 1em; 
+    line-height: 1.4em;
     margin: 0;
 }
 
@@ -210,7 +302,8 @@ ul+p,
 ol+p,
 div.group_img+p,
 table+p {
-    text-indent: 20px;
+    text-indent: 1em;
+    margin-bottom: 0.15em;
 }
 
 ul,
@@ -220,10 +313,10 @@ ol {
 }
 
 li {
-    font-family: "roboto";
+    font-family: "roboto"; 
     font-weight: normal;
-    font-size: 1rem;
-    line-height: 1.4rem;
+    font-size: 1em;
+    line-height: 1.4em;
 }
 
 img {
@@ -234,28 +327,32 @@ img {
 
 table {
     border-collapse: collapse;
-    width: 100%;
+    max-width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-table, 
+table {
+    border-top: 0.5mm solid black;
+    border-bottom: 0.5mm solid black;
+}
 th, 
 td {
-    border: 0.5mm solid black;
+    border-top: 0.3mm solid black;
 }
 
 td {
-    font-family: "roboto";
+    font-family: "roboto"; 
     font-weight: normal;
-    font-size: 1rem;
-    line-height: 1.4rem;
+    font-size: 0.9em;
+    line-height: normal;
     margin: 0;
 }
 
 th, 
 td {
-    padding: .6rem .8rem;
+    padding: .6rem .8em;
+    text-indent: none;
 }
 
 .group_img {
@@ -269,19 +366,19 @@ td {
 }
 
 .caption_small {
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
+  margin-top: 0.5em;
+  font-size: 0.8em;
   font-style: italic;
 }
 
 .frontmatter-bottom {
   margin-bottom: 50px;
-  font-size: 1.2rem;
+  font-size: 1.2em;
 }
 
 p.impl {
   margin: 0;
-  text-indent: 0rem;
+  text-indent: 0em;
 }
 
 div.page-break {
@@ -289,22 +386,22 @@ div.page-break {
 }
 
 sup.endnote {
-  font-size: 0.8rem;
+  font-size: 0.8em;
 }
 
 ol.endnotes {
-    padding-left: 1.2rem;
-    margin-top: 2rem;
+  padding-left: 1.2em;
+  margin-top: 2em;
 }
 
 ol.endnotes li {
-    font-family: "roboto";
-    font-weight: normal;
-    font-size: 0.8rem;
-    line-height: 1.2rem;
-    margin: 0;
+  font-family: "roboto"; 
+  font-weight: normal;
+  font-size: 0.8em;
+  line-height: 1.2em;
+  margin: 0;
 }
 
 ol.endnotes p {
-    text-indent: 0;
+  text-indent: 0;
 }

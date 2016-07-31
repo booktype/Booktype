@@ -10,6 +10,14 @@
   <script src="{% static 'edit/js/aloha/lib/vendor/jquery-1.7.2.js' %}"></script>
   <script src="{% static 'edit/js/findAndReplaceDOMText/findAndReplaceDOMText.js' %}"></script>
   <script src="{% static 'edit/js/icejs/ice.js' %}"></script>
+
+  {% if debug %}
+    <script src="{% static 'edit/js/react/react.js' %}"></script>
+    <script src="{% static 'edit/js/react/react-dom.js' %}"></script>
+  {% else %}
+    <script src="{% static 'edit/js/react/react.min.js' %}"></script>
+    <script src="{% static 'edit/js/react/react-dom.min.js' %}"></script>
+  {% endif %}
 {% endcompress %}
 
 <script>
@@ -25,7 +33,9 @@
       'jquery19': window.jQuery,
       'jqueryui': window.jQuery.ui,
       'underscore': _,
-      'underscorestring': _.string
+      'underscorestring': _.string,
+      'react': window.React,
+      'react-dom': window.ReactDOM
     },
     plugins: {
       toolbar: {
@@ -73,10 +83,10 @@
         }
       },
       font: {
-        fontlist: [["Serif", "serif"], ["Sans Serif", "sans-serif"]]
+        fontlist: [['Serif', 'serif'], ['Sans Serif', 'sans-serif']]
       },
       indent: {
-        marginLeft: "48px"
+        marginLeft: '48px'
       },
       icejs: {
         enabled: true,
@@ -84,6 +94,15 @@
       endnotes: {
         enabled: true,
         supForbiddenContainer: ['sup']
+      },
+      comments: {
+        enabled: true
+      },
+      shortcuts: {
+        enabled: true
+      },
+      infobox: {
+        enabled: true
       }
     },
     contentHandler: {
@@ -159,13 +178,26 @@
           '.aloha-captioned-image-caption': {elements: ['em', 'strong']}
         }
       }
+    },
+    requireConfig: {
+      paths: {
+        'jsx': '../../react/jsx'
+      },
+      babel: {
+        sourceMaps: 'inline', // One of [false, 'inline', 'both']. See https://babeljs.io/docs/usage/options/
+        fileExtension: '.jsx', // Can be set to anything, like .es6 or .js. Defaults to .jsx
+      },
+      packages: [
+        { name: 'react_components', location: '../../react/components'},
+        { name: 'tools', location: '../../react/tools'}
+      ]
     }
   };
 
   // define sanitize settings
   Aloha.settings.contentHandler.sanitize = Aloha.settings.contentHandler.allows;
 </script>
-<script src="{% static "edit/js/aloha/lib/require.js" %}"></script>
+<script src="{% static 'edit/js/aloha/lib/require.js' %}"></script>
 
 <script src="{% static "edit/js/aloha/lib/aloha.js" %}"
         data-aloha-plugins="common/ui,
@@ -202,6 +234,9 @@
                             booktype/icejs,
                             booktype/bookpaste,
                             booktype/columns,
-                            booktype/splitchapter"></script>
+                            booktype/splitchapter,
+                            booktype/comments,
+                            booktype/infobox,
+                            booktype/shortcuts"></script>
 
 <script src="//code.jquery.com/jquery-migrate-1.0.0.js"></script>

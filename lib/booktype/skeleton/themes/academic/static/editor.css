@@ -1,5 +1,5 @@
 #contenteditor {
-  font-size: 12pt;
+  font-size: 13pt;
   line-height: normal;
   margin: 0;
   padding: 0;
@@ -7,33 +7,34 @@
   color: #000000;
 }
 
+/* QUOTE **************************************************/
 
-#contenteditor blockquote p.quote {
-  border-left: 2px solid #333;
-  margin: 30px 0;
-  font-size: 18px;
+#contenteditor blockquote, 
+#contenteditor p.quote {
+  font-family: "roboto"; 
+  font-weight: normal; 
+  font-size: 1em;
   font-style: italic;
-  line-height: 140%;
-  padding: 4px 20px 4px 60px;
   quotes: "\201C" "\201D" "\2018" "\2019";
   position: relative;
+  text-align: left; 
+  text-indent: 0;
+  line-height: inherit; 
+  border-left: 0.5rem solid #ccc;
+  padding-left: 2em;
+  padding-top: 0em;
+  margin-left: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  text-transform: none; 
+  text-decoration: none;
+}
+/* undo the quotes from booki-new.css */
+p.quote:before {
+  display: none;
 }
 
-#contenteditor p.quote:before {
-  color: #333;
-  content: open-quote;
-  font-size: 72px;
-  margin-right: 20px;
-  position: absolute;
-  top: 14px;
-  left: 6px;
-  bottom: 0;
-}
-
-#contenteditor {
-  font-family: roboto;
-}
-
+/* Headlines ************************************************/
 #contenteditor h1,
 #contenteditor h2,
 #contenteditor h3,
@@ -48,38 +49,87 @@
 }
 
 #contenteditor .aloha-block-TitleBlock h1 {
-    font-family: "roboto";
-    font-weight: bold;
-    font-size: 3.6rem;
-    margin-bottom: 1rem; 
+    font-family: "roboto-condensed";
+    font-size: 27.9pt;
+    text-align: left; 
+    font-weight: normal; 
+    text-transform: none; 
+    border-bottom: 0rem solid black;
+    text-decoration: none;
+    padding-top: 44.1pt; 
+    margin-bottom: 44.1pt;
+    line-height: inherit;
+    line-height: 29.4pt; 
+}
+
+#contenteditor h1 {
+    font-family: "roboto-condensed";
+    font-size: 24.5pt;
+    text-align: left; 
+    font-weight: normal; 
+    text-transform: none; 
+    border-bottom: 0rem solid black;
+    text-decoration: none;
+    padding-top: 29.4pt; 
+    margin-bottom: 14.7pt;
+    line-height: inherit;
+    line-height: 29.4pt; 
 }
 
 #contenteditor h2 {
-    font-family: "roboto-medium";
-    font-weight: normal;
-    font-size: 2.8rem;
-    margin-bottom: 1rem;
+    font-family: "roboto-condensed";
+    font-size: 21pt;
+    text-align: left; 
+    font-weight: normal; 
+    text-transform: none; 
+    border-bottom: 0rem solid black;
+    text-decoration: none;
+    padding-top: 9.8pt; 
+    margin-bottom: 4.9pt;
+    line-height: inherit;
+    line-height: 29.4pt; 
 }
 
 #contenteditor h3 {
-    font-family: "roboto-medium";
-    font-weight: normal;
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
+    font-family: "roboto-condensed";
+    font-size: 15.8pt;
+    text-align: left; 
+    font-weight: normal; 
+    text-transform: none; 
+    border-bottom: 0rem solid black;
+    text-decoration: none;
+    padding-top: 9.8pt; 
+    margin-bottom: 4.9pt;
+    line-height: inherit;
+    line-height: 14.7pt; 
 }
 
-#contenteditor h4 {
-    font-family: "roboto";
-    font-weight: normal;
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+#contenteditor h4 {    
+    font-family: "roboto-condensed";
+    font-size: 14pt;
+    text-align: left; 
+    font-weight: normal; 
+    text-transform: none; 
+    border-bottom: 0rem solid black;
+    text-decoration: none;
+    padding-top: 9.8pt; 
+    margin-bottom: 4.9pt;
+    line-height: inherit;
+    line-height: 14.7pt; 
 }
 
-#contenteditor h5 {
-    font-family: "roboto-medium";
-    font-weight: normal;
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
+#contenteditor h5 { 
+    font-family: "roboto-condensed";
+    font-size: 10.5pt;
+    text-align: left; 
+    font-weight: normal; 
+    text-transform: none; 
+    border-bottom: 0rem solid black;
+    text-decoration: none;
+    padding-top: 9.8pt; 
+    margin-bottom: 4.9pt;
+    line-height: inherit;
+    line-height: 14.7pt; 
 }
 
 /* Paragraph Styles *****************************************************/
@@ -90,66 +140,68 @@
     orphans:2;
 }
 
+#contenteditor p {
+    font-family: "roboto";
+    font-weight: normal;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+/* First paragraph *******************************************************/
+
 #contenteditor .aloha-block-TitleBlock + p,
 #contenteditor h2 + p,
 #contenteditor h3 + p,
 #contenteditor h4 + p {
     font-family: "roboto";
     font-weight: normal;
-    font-size: 1.4rem; 
-    line-height: 1.8rem;
+    font-size: inherit; 
+    line-height: inherit;
     text-indent: 0;
-    margin-bottom: 0;
+    margin-bottom: 0.18em;
 }
-
-#contenteditor p {
-    font-family: "roboto";
-    font-weight: normal;
-    font-size: 1.4rem; 
-    line-height: 1.8rem;
-    margin: 0;
-}
-
+/* Not first paragraph **************************************************/
 #contenteditor p+p,
 #contenteditor ul+p,
 #contenteditor ol+p,
 #contenteditor div.group_img+p,
 #contenteditor div.aloha-table+p {
-  text-indent: 20px;
+    margin-top: 0;
+    text-indent: 1em;
+    margin-bottom: 0.18em;
 }
 
+/* Lists *****************************************************************/
 #contenteditor ul,
 #contenteditor ol {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 #contenteditor ul,
 #contenteditor ol,
 #contenteditor li {
   font-family: "roboto";
-  font-weight: normal;
-  font-size: 1.4rem;
-  line-height: 1.8rem;    
 }
 
-#contenteditor img,
-#contenteditor div.image {
-  max-width: 100%;
-  height: auto;
-  margin: 0px auto;
+/* Preformatted text *******************************/
+
+#contenteditor pre {
+  font-family: "texgyrecursor";
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: inherit;
+  line-height: inherit;
 }
 
+/* Table *****************************************/
 #contenteditor table {
   border-collapse: collapse;
   width: 100%;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
-
-#contenteditor caption {
-  font-style: italic;
-  margin-top: 1rem;
+  margin-top: 1em;
+  margin-bottom: 2em;
 }
 
 #contenteditor table, 
@@ -161,25 +213,37 @@
 #contenteditor table td {
   font-family: "roboto";
   font-weight: normal;
-  font-size: 1.4rem;
-  line-height: 1.8rem;
+  font-size: 0.8em;
   margin: 0;
 }
 
 #contenteditor th, 
 #contenteditor td {
-  padding: .6rem .8rem;
+  padding: .6em .8em;
 }
 
+/* IMAGES ***********************************************/
+
+#contenteditor img,
+#contenteditor div.image {
+  max-width: 100%;
+  height: auto;
+  margin: 0px auto;
+}
 
 #contenteditor .group_img {
   page-break-inside: avoid;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 #contenteditor .center {
   text-align: center;
+}
+
+#contenteditor caption {
+  font-style: italic;
+  margin-top: 1em;
 }
 
 #contenteditor .caption_small {
@@ -188,17 +252,18 @@
   font-style: italic;
 }
 
+/* Endnotes ******************************************/
 #contenteditor .endnotes-container {
-  font-size: 12pt;
-  margin-top: 2rem;
+  font-size: 0.9em;
+  margin-top: 2em;
 }
 
 #contenteditor .endnotes-container .endnote-counter,
 #contenteditor .endnotes-container .endnoteText {
   font-family: "roboto";
   font-weight: normal;
-  font-size: 1.4rem;
-  line-height: 1.8rem;
+  font-size: inherit;
+  line-height: normal;
 }
 
 #contenteditor .endnotes-container .endnoteText p {

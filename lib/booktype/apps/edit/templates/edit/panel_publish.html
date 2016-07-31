@@ -504,14 +504,14 @@
       <div class="group">
         <% _.each(files, function (dta, key) { %>
           <% if (dta.status === 0) { %>
-            <a target="_blank" class="label label-primary" href="<%= dta['filename'] %>" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Download' %}"><%= key %></a>
+            <a target="_blank" class="label label-primary" href="<%= dta['filename'] %>" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Download' %}"><%= getFormatName(key) %></a>
           <% } %>
         <% }); %>
       </div>
       <div class="group">
         <% _.each(files, function (dta, key) { %>
           <% if (dta.status !== 0) { %>
-          <span class="label label-default disabled" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Failed' %}"><%= key %></span>
+          <span class="label label-default disabled" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Failed' %}"><%= getFormatName(key) %></span>
           <% } %>
         <% }); %>
 

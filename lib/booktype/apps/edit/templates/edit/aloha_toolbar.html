@@ -160,7 +160,12 @@
                   <input type="text" class="cols-size" value="0" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="2" data-slider-orientation="horizontal" data-slider-selection="none" data-slider-tooltip="hide" style="width:180px;">
               </div>
               <div class="cols-value value">2</div>
-            <button class="btn btn-primary btn-default btn-sm action inserttable">{% trans "OK" %}</button>
+              <div class="table-caption">
+                <h4>{% trans "Table caption" %}</h4>
+                <textarea rows="2" name="table-caption" class="form-control"></textarea>
+              </div>
+              <br />
+              <button class="btn btn-primary btn-sm action inserttable">{% trans "OK" %}</button>
             </div>
           </li>
           <li role="presentation"><a role="menuitem" data-target="#" class="action deletetable" data-placement="left">{% trans "Delete Table" %}</a></li>
