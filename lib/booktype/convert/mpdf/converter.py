@@ -21,21 +21,14 @@ import urllib2
 import logging
 import datetime
 from lxml import etree
-
-
 import ebooklib
 import ebooklib.epub
 import ebooklib.utils
-
 from copy import deepcopy
 
 from django.conf import settings
 from django.template.loader import render_to_string, Context, Template
 
-from ..base import BaseConverter
-from ..utils.epub import parse_toc_nav
-from .. import utils
-from .styles import create_default_style, get_page_size, CROP_MARGIN
 from booktype.apps.convert import plugin
 from booktype.apps.themes.utils import (
     read_theme_style, get_single_frontmatter, get_single_endmatter, get_body,
@@ -43,7 +36,12 @@ from booktype.apps.themes.utils import (
 from booktype.apps.convert.templatetags.convert_tags import (
     get_refines, get_metadata)
 from booktype.utils.misc import booktype_slugify
+from booktype.convert.image_editor_conversion import ImageEditorConversion
 
+from ..base import BaseConverter
+from ..utils.epub import parse_toc_nav
+from .. import utils
+from .styles import create_default_style, get_page_size, CROP_MARGIN
 
 logger = logging.getLogger("booktype.convert.pdf")
 
@@ -109,6 +107,7 @@ class MPDFConverter(BaseConverter):
         self.images = {}
         self.theme_name = ''
         self.theme_plugin = None
+        self._bk_image_editor_conversion = None
 
     def pre_convert(self, book):
         """Called before entire process of conversion is called.
@@ -136,6 +135,20 @@ class MPDFConverter(BaseConverter):
                 self.theme_plugin.pre_convert(book)
             except NotImplementedError:
                 pass
+
+        # create image edtor conversion instance
+        # todo move it to more proper place in the future, and create plugin for it
+
+        # calculate pdf document width
+        mm = float(self.config['page_width_bleed'])
+        mm -= float(self.config['settings'].get('side_margin', 0)) + float(
+            self.config['settings'].get('gutter', 0))
+        inches = mm / 10 / 2.54
+
+        if self.name == 'mpdf':
+            self._bk_image_editor_conversion = ImageEditorConversion(
+                book, inches * 300, self.config.get("project_id")
+            )
 
     def post_convert(self, book, output_path):
         """Called after entire process of conversion is done.
@@ -340,6 +353,13 @@ class MPDFConverter(BaseConverter):
                         cnt = self.theme_plugin.fix_content(cnt)
                     except NotImplementedError:
                         pass
+
+                # todo move it to more proper place in the future, and create plugin for it
+                if self._bk_image_editor_conversion:
+                    try:
+                        cnt = self._bk_image_editor_conversion.convert(cnt)
+                    except:
+                        logger.exception("mpdf ImageEditorConversion failed")
 
                 return etree.tostring(cnt, method='html', encoding='utf-8', pretty_print=True)[6:-9]
         except etree.XMLSyntaxError:

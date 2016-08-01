@@ -1,6 +1,11 @@
 {% extends "core/base.html" %}
 {% load i18n staticfiles reader_tags booktype_tags %}
 
+{% block extra_header %}
+  <script type="text/javascript" src="{% static 'edit/js/booktype/utils.js' %}"></script>
+  <script type="text/javascript" src="{% static 'reader/js/draftpage.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 <!-- Bookbar -->
 <div class="bookbar">

@@ -15,19 +15,29 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import tempfile
-
-from ebooklib import epub
 
 from booktype.utils import config
-from ..base import BaseConverter
+from booktype.convert.image_editor_conversion import ImageEditorConversion
+
 from ..utils import run_command
 from .. import ConversionError
 from ..epub.converter import EpubConverter
 
+MOBI_DOCUMENT_WIDTH = 2480
+
 
 class MobiConverter(EpubConverter):
     name = "mobi"
+
+    def pre_convert(self, original_book, book):
+        super(MobiConverter, self).pre_convert(original_book, book)
+
+        # create image edtor conversion instance
+        # todo move it to more proper place in the future, and create plugin for it
+        if self.name == 'mobi':
+            self._bk_image_editor_conversion = ImageEditorConversion(
+                original_book, MOBI_DOCUMENT_WIDTH, self.config.get("project_id")
+            )
 
     def convert(self, book, output_path):
         ret = super(MobiConverter, self).convert(book, output_path + '.epub')

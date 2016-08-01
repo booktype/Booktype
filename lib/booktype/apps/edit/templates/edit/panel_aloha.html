@@ -265,6 +265,36 @@
 
   <div id="imagePopup" style="position: absolute; background-color: white; margin: 1px; border: 1px solid black; display: none; padding: 4px;">
     <a href="#" class="remove"><i class="icon-remove-sign"></i>  {% trans "REMOVE" %}</a>&nbsp;&nbsp;
+    <a href="#" class="bk-image-editor-start"><i class="icon-crop"></i>  {% trans "EDIT" %}</a>
+    <a href="#" class="bk-image-editor-stop"><i class="icon-off"></i>  {% trans "STOP EDIT" %}</a>
+    <div class="bk-image-editor-ui-controls">
+      <hr>
+      <div>
+        <button bk-image-editor-action="flip_vertical" class="bk-image-editor-action"><i class="icon-resize-vertical"></i></button>&nbsp;&nbsp;
+        <button bk-image-editor-action="flip_horizontal" class="bk-image-editor-action"><i class="icon-resize-horizontal"></i></button>&nbsp;&nbsp;
+        <button bk-image-editor-action="rotate_left" class="bk-image-editor-action"><i class="icon-rotate-left"></i></button>&nbsp;&nbsp;
+        <button bk-image-editor-action="rotate_right" class="bk-image-editor-action"><i class="icon-rotate-right"></i></button>&nbsp;&nbsp;
+        <span style="float: right;">
+          {% trans "Zoom" %}<input id="bk-image-editor-zoom-slider" type="text" data-slider-min="-100" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
+        </span>
+      </div>
+      <div>
+        <span style="float: left;">
+          <input id="bk-image-editor-contrast-slider" type="text" data-slider-min="0" data-slider-max="200" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">&nbsp;&nbsp;{% trans "Contrast" %}
+        </span>
+        <span style="float: right;">
+          {% trans "Brightness" %}<input id="bk-image-editor-brightness-slider" type="text" data-slider-min="0" data-slider-max="200" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
+        </span>
+      </div>
+      <div>
+        <span style="float: left; text-align: left">
+          <input id="bk-image-editor-blur-slider" type="text" data-slider-min="0" data-slider-max="300" data-slider-step="10" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">&nbsp;&nbsp;{% trans "Blur" %}
+        </span>
+        <span style="float: right;">
+          {% trans "Saturate" %}<input id="bk-image-editor-saturate-slider" type="text" data-slider-min="0" data-slider-max="300" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
+        </span>
+      </div>
+    </div>
   </div>
 <!-- End Insert Image Modal -->
 

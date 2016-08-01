@@ -17,6 +17,8 @@
 import logging
 from lxml import etree
 
+from booktype.convert.image_editor_conversion import ImageEditorConversion
+
 from ..mpdf.converter import MPDFConverter
 from ..utils.epub import reformat_endnotes
 
@@ -28,6 +30,22 @@ class ScreenPDFConverter(MPDFConverter):
 
     def __init__(self, *args, **kwargs):
         super(ScreenPDFConverter, self).__init__(*args, **kwargs)
+
+    def pre_convert(self, book):
+        super(ScreenPDFConverter, self).pre_convert(book)
+
+        # create image edtor conversion instance
+        # todo move it to more proper place in the future, and create plugin for it
+
+        # calculate pdf document width
+        mm = float(self.config['page_width_bleed'])
+        mm -= float(self.config['settings'].get('side_margin', 0)) + float(self.config['settings'].get('gutter', 0))
+        inches = mm / 10 / 2.54
+
+        if self.name == 'screenpdf':
+            self._bk_image_editor_conversion = ImageEditorConversion(
+                book, inches * 300, self.config.get("project_id")
+            )
 
     def get_extra_configuration(self):
         data = {'mirror_margins': False}
