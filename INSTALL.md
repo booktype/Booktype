@@ -1,4 +1,4 @@
-Installing Booktype 2.0
+Installing Booktype 2.1
 -----------------------
 
 Booktype is web-based software which means you do not install it on the author's 
@@ -40,7 +40,7 @@ testing.
 PDF renderer installation
 -------------------------
 
-Booktype 2.0 can use a variety of renderers to convert HTML book sources into 
+Booktype 2.1 can use a variety of renderers to convert HTML book sources into 
 PDF. [mPDF](http://www.mpdf1.com) must be installed separately from Booktype 
 in a directory such as /var/www/mpdf/ and the Booktype server configured for 
 the installation path. 

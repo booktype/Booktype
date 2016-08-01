@@ -40,7 +40,7 @@ extensions = [
     'sphinx.ext.todo'
 ]
 
-extlinks = {'repo': ('https://github.com/sourcefabric/Booktype/tree/2.0/%s', ' ')}
+extlinks = {'repo': ('https://github.com/sourcefabric/Booktype/tree/master/%s', ' ')}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
