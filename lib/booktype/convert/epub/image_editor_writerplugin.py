@@ -11,6 +11,8 @@ from django.conf import settings
 
 from booktype.utils.image_editor import BkImageEditor
 
+from .constants import IMAGES_DIR
+
 
 try:
     import Image
@@ -102,17 +104,22 @@ class ImageEditorWriterPlugin(BasePlugin):
 
                     # create unique name
                     _name = src.rsplit('/', 1)
+                    # remove extension
                     _fname = _name[1].rsplit('.', 1)[0]
+                    # remove edit info
                     _fname = _fname.split('_edited_image', 1)[0]
-
-                    _name[1] = _fname + '_edited_image_' + str(self._ebooklib_item_image_id) + '.' + extension
-                    new_ebooklib_item_image.file_name = u'/'.join(_name)
-
+                    # create new filename with extension
+                    _new_file_name = _fname + '_edited_image_' + str(self._ebooklib_item_image_id) + '.' + extension
+                    # swap filename
+                    _name[1] = _new_file_name
+                    # create new src for html
+                    new_src = '/'.join(_name)
+                    # change image src in html
+                    elem.set("src", new_src)
+                    # set filename for epub object
+                    new_ebooklib_item_image.file_name = u'{}/{}'.format(IMAGES_DIR, _new_file_name)
                     # add epub.EpubImage to the book
                     book.add_item(new_ebooklib_item_image)
-
-                    # change image src in html
-                    elem.set("src", '../' + new_ebooklib_item_image.file_name)
 
                     # counter++
                     self._ebooklib_item_image_id += 1

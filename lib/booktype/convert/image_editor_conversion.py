@@ -230,10 +230,11 @@ class ImageEditorConversion(object):
         )
 
         output_image_path = None
+        input_image_filename = ebooklib_item_image.file_name.rsplit('/')[-1]
 
         with Image.open(StringIO.StringIO(ebooklib_item_image.get_content())) as img:
 
-            ie = BkImageEditor(input_image_file=img, input_image_filename=ebooklib_item_image.file_name,
+            ie = BkImageEditor(input_image_file=img, input_image_filename=input_image_filename,
                                cache_folder=cache_folder)
 
             output_image_path = ie.process(
