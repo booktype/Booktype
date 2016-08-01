@@ -48,6 +48,7 @@ help:
 
 clean:
 	rm -rf $(BUILDDIR)/*
+	rm -f api/*
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
@@ -175,3 +176,6 @@ pseudoxml:
 	$(SPHINXBUILD) -b pseudoxml $(ALLSPHINXOPTS) $(BUILDDIR)/pseudoxml
 	@echo
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
+
+rst:
+	sphinx-apidoc -f -o api ../lib
