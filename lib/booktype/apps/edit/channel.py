@@ -26,17 +26,18 @@ import logging
 from django.db.models import Q
 from django.db import transaction
 from django.db.utils import IntegrityError
-from django.utils.timezone import datetime as django_datetime
 from django.contrib.auth.models import User
+from django.utils.timezone import datetime as django_datetime
+from django.utils.translation import ugettext, ugettext_lazy as _lazy
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, SuspiciousOperation
 
 import sputnik
 from booki.editor import models
 from booki.utils.log import logBookHistory, logChapterHistory
 from booktype.utils import security, config
-from django.utils.translation import ugettext
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.models import Role, BookRole
+
 from .utils import send_notification
 
 try:
@@ -252,7 +253,7 @@ def remote_init_editor(request, message, bookid, version):
         users = []
 
     # get workflow statuses
-    statuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+    statuses = [(st.id, _lazy(st.name)) for st in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
     # get attachments
     try:
@@ -516,21 +517,35 @@ def remote_change_status(request, message, bookid, version):
     chapter.status = status
     chapter.save()
 
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "change_status",
-                                 "chapterID": message["chapterID"],
-                                 "statusID": int(message["statusID"]),
-                                 "username": request.user.username})
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "change_status",
+            "chapterID": message["chapterID"],
+            "statusID": int(message["statusID"]),
+            "username": request.user.username
+        }
+    )
 
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
-                                {"command": "message_info",
-                                 "from": request.user.username,
-                                 "email": request.user.email,
-                                 "message_id": "user_changed_chapter_status",
-                                 "message_args": [request.user.username, chapter.title, status.name]},
-                                myself=True)
+    sputnik.addMessageToChannel(
+        request, "/chat/%s/" % bookid, {
+            "command": "message_info",
+            "from": request.user.username,
+            "email": request.user.email,
+            "message_id": "user_changed_chapter_status",
+            "message_args": [
+                request.user.username,
+                chapter.title,
+                _lazy(status.name)
+            ]
+        },
+        myself=True
+    )
 
-    send_notification(request, bookid, version, "notification_chapter_status_was_changed", chapter.title, status.name)
+    send_notification(
+        request, bookid, version,
+        "notification_chapter_status_was_changed",
+        chapter.title, _lazy(status.name)
+    )
 
     return {'result': True}
 
@@ -2164,7 +2179,7 @@ def remote_book_status_rename(request, message, bookid, version):
         pass
 
     qs = models.BookStatus.objects.filter(book=book).order_by("-weight")
-    all_statuses = [(status.id, status.name) for status in qs]
+    all_statuses = [(status.id, _lazy(status.name)) for status in qs]
 
     sputnik.addMessageToChannel(
         request, "/booktype/book/%s/%s/" % (bookid, version), {
@@ -2220,7 +2235,8 @@ def remote_book_status_order(request, message, bookid, version):
 
         weight -= 1
 
-    all_statuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+    all_statuses = [
+        (status.id, _lazy(status.name)) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
     sputnik.addMessageToChannel(request,
                                 "/booktype/book/%s/%s/" % (bookid, version),
@@ -2276,7 +2292,9 @@ def remote_book_status_remove(request, message, bookid, version):
     else:
         result = False
 
-    all_statuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+    all_statuses = [
+        (status.id, _lazy(status.name)) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")
+    ]
 
     sputnik.addMessageToChannel(
         request,
@@ -2335,19 +2353,20 @@ def remote_book_status_create(request, message, bookid, version):
 
     status_id = bs.id
 
-    all_statuses = [(status.id, status.name) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+    all_statuses = [
+        (status.id, _lazy(status.name)) for status in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
-    sputnik.addMessageToChannel(request,
-                                "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_status_changed",
-                                 "statuses": all_statuses},
-                                myself=False
-                                )
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version),
+        {"command": "chapter_status_changed", "statuses": all_statuses},
+        myself=False
+    )
 
-    return {"result": True,
-            "status_id": status_id,
-            "statuses": all_statuses
-            }
+    return {
+        "result": True,
+        "status_id": status_id,
+        "statuses": all_statuses
+    }
 
 
 def remote_roles_list(request, message, bookid, version):

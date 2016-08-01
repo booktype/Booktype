@@ -15,6 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+from django.utils.translation import ugettext_noop
 
 # SSL cert verification during request using 'requests' lib
 REQUESTS_VERIFY_SSL_CERT = True
@@ -24,6 +25,16 @@ BOOK_TRACK_CHANGES = False
 
 # PUBLISHING RELATED
 PUBLISH_OPTIONS = ['mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml']
+
+# CHAPTER STATUS RELATED
+CHAPTER_STATUS_LIST = [
+    ugettext_noop('new'),
+    ugettext_noop('needs content'),
+    ugettext_noop('completed'),
+    ugettext_noop('to be proofed')
+]
+
+CHAPTER_STATUS_DEFAULT = CHAPTER_STATUS_LIST[0]
 
 # MOBI CONVERSION RELATED
 

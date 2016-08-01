@@ -54,18 +54,16 @@ def check_book_availability(book_title):
         return False
 
     try:
-        book = models.Book.objects.get(Q(title=book_title) | Q(url_title=url_title))
+        models.Book.objects.get(Q(title=book_title) | Q(url_title=url_title))
     except models.Book.DoesNotExist:
         return True
 
     return False
 
 
-def create_book(user, book_title, status="new", book_url=None):
+def create_book(user, book_title, status=None, book_url=None):
     """
     Creates book.
-
-    @todo: Do something about status.
 
     @type user: C{django.contrib.auth.models.User}
     @param user: Booktype user who will be book owner
@@ -97,17 +95,21 @@ def create_book(user, book_title, status="new", book_url=None):
     )
     book.save()
 
-    # put this in settings file
-    status_default = ["new", "needs content", "completed", "to be proofed"]
-    n = len(status_default)
+    status_list = config.get_configuration('CHAPTER_STATUS_LIST')
+    n = len(status_list)
 
-    for status_name in status_default:
+    if status:
+        default_status = status
+    else:
+        default_status = config.get_configuration('CHAPTER_STATUS_DEFAULT', status_list[0])
+
+    for status_name in status_list:
         status = models.BookStatus(book=book, name=status_name, weight=n)
         status.save()
         n -= 1
 
     # not use "not published" but first in the list maybe, or just status
-    book.status = models.BookStatus.objects.get(book=book, name="new")
+    book.status = models.BookStatus.objects.get(book=book, name=default_status)
     book.save()
 
     track_changes = config.get_configuration('BOOK_TRACK_CHANGES', False)
@@ -134,6 +136,7 @@ def create_book(user, book_title, status="new", book_url=None):
     booki.editor.signals.book_created.send(sender=user, book=book)
     return book
 
+
 class BooktypeGroupExist(Exception):
     def __init__(self, group_name):
         self.group_name = group_name
@@ -158,7 +161,7 @@ def create_booktype_group(group_name, group_description, owner):
     """
 
     try:
-        bg = models.BookiGroup.objects.get(url_name=booktype_slugify(group_name))
+        models.BookiGroup.objects.get(url_name=booktype_slugify(group_name))
     except models.BookiGroup.MultipleObjectsReturned:
         raise BooktypeGroupExist(group_name)
     except models.BookiGroup.DoesNotExist:
@@ -191,7 +194,7 @@ def check_group_availability(group_name):
         return False
 
     try:
-        group = models.BookiGroup.objects.get(Q(name=group_name) | Q(url_name=url_name))
+        models.BookiGroup.objects.get(Q(name=group_name) | Q(url_name=url_name))
     except models.BookiGroup.DoesNotExist:
         return True
 
@@ -220,7 +223,7 @@ def set_book_cover(book, file_name):
         logger.exception(e)
 
 
-def rename_book(book, new_title, new_URL_title):
+def rename_book(book, new_title, new_url_title):
     """
     Rename the Book. This function will also rename the path for Attachments.
 
@@ -230,7 +233,7 @@ def rename_book(book, new_title, new_URL_title):
     @type new_title: C{string}
     @param: New book title
 
-    @type new_URL_title: C{string}
+    @type new_url_title: C{string}
     @param: New URL title
     """
     import logging
@@ -239,7 +242,7 @@ def rename_book(book, new_title, new_URL_title):
     try:
         os.rename(
             '{0}/books/{1}'.format(settings.DATA_ROOT, book.url_title),
-            '{0}/books/{1}'.format(settings.DATA_ROOT, new_URL_title)
+            '{0}/books/{1}'.format(settings.DATA_ROOT, new_url_title)
         )
     except OSError as ex:
         logger.error("ERROR [{0}]: {1} {2}".format(ex.errno, ex.strerror, ex.filename))
@@ -247,13 +250,13 @@ def rename_book(book, new_title, new_URL_title):
     try:
         os.rename(
             '{0}/styles/{1}'.format(settings.DATA_ROOT, book.url_title),
-            '{0}/styles/{1}'.format(settings.DATA_ROOT, new_URL_title)
+            '{0}/styles/{1}'.format(settings.DATA_ROOT, new_url_title)
         )
     except OSError as ex:
         logger.error("ERROR [{0}]: {1} {2}".format(ex.errno, ex.strerror, ex.filename))
 
     book.title = new_title
-    book.url_title = new_URL_title
+    book.url_title = new_url_title
 
     n = len(settings.DATA_ROOT) + len('books/') + 1
 
@@ -279,7 +282,7 @@ def remove_book(book):
 
     @type book; C{booki.editor.models.Book}
     @param: Book object
-        """
+    """
 
     book_URL_title = book.url_title
     book_ID = book.id

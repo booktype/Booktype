@@ -127,10 +127,12 @@ class ChapterStatusForm(BaseSettingsForm, forms.Form):
 
     @classmethod
     def extra_context(cls, book, request):
+        from django.utils.translation import ugettext_lazy as _lazy
         all_statuses = (BookStatus.objects
                         .filter(book=book)
                         .annotate(num_chapters=Count('chapter'))
                         .order_by('-weight'))
+        all_statuses = [{'pk': status.pk, 'name': _lazy(status.name)} for status in all_statuses]
 
         return {
             'roles_permissions': security.get_user_permissions(request.user, book),
