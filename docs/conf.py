@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Booktype documentation build configuration file, created by
-# sphinx-quickstart on Wed Mar 12 17:38:49 2014.
+# sphinx-quickstart on Wed Jan  6 15:06:15 2016.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -14,6 +14,11 @@
 
 import sys
 import os
+
+sys.path.append(os.path.dirname(__file__))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+
+sys.path.append('../lib')
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -31,7 +36,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "_ext"))
 extensions = [
     'booktypedocs',
     'sphinx.ext.autodoc',
-    'sphinx.ext.extlinks'
+    'sphinx.ext.extlinks',
+    'sphinx.ext.todo'
 ]
 
 extlinks = {'repo': ('https://github.com/sourcefabric/Booktype/tree/2.0/%s', ' ')}
@@ -46,11 +52,11 @@ source_suffix = '.rst'
 #source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'contents'
+master_doc = 'index'
 
 # General information about the project.
 project = u'Booktype'
-copyright = u'2014, Aleksandar Erkalovic'
+copyright = u'2016, Aleksandar Erkalović'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -73,7 +79,7 @@ release = '2.0'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = ['_build', '**migrations**']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -200,10 +206,10 @@ latex_elements = {
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
+# author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'Booktype.tex', u'Booktype Documentation',
-   u'Aleksandar Erkalovic', 'manual'),
+   u'Aleksandar Erkalović', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -233,7 +239,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'booktype', u'Booktype Documentation',
-     [u'Aleksandar Erkalovic'], 1)
+     [u'Aleksandar Erkalović'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -247,7 +253,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'Booktype', u'Booktype Documentation',
-   u'Aleksandar Erkalovic', 'Booktype', 'One line description of project.',
+   u'Aleksandar Erkalović', 'Booktype', 'Booktype is a free, open source platform that produces beautiful, engaging books formatted for print, Amazon, iBooks and almost any ereader within minutes.',
    'Miscellaneous'),
 ]
 
@@ -262,3 +268,46 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+
+# -- Options for Epub output ----------------------------------------------
+
+# Bibliographic Dublin Core info.
+epub_title = u'Booktype'
+epub_author = u'Aleksandar Erkalović'
+epub_publisher = u'Aleksandar Erkalović'
+epub_copyright = u'2016, Aleksandar Erkalović'
+
+# The language of the text. It defaults to the language option
+# or en if the language is not set.
+#epub_language = ''
+
+# The scheme of the identifier. Typical schemes are ISBN or URL.
+#epub_scheme = ''
+
+# The unique identifier of the text. This can be a ISBN number
+# or the project homepage.
+#epub_identifier = ''
+
+# A unique identification for the text.
+#epub_uid = ''
+
+# A tuple containing the cover image and cover page html template filenames.
+#epub_cover = ()
+
+# HTML files that should be inserted before the pages created by sphinx.
+# The format is a list of tuples containing the path and title.
+#epub_pre_files = []
+
+# HTML files shat should be inserted after the pages created by sphinx.
+# The format is a list of tuples containing the path and title.
+#epub_post_files = []
+
+# A list of files that should not be packed into the epub file.
+#epub_exclude_files = []
+
+# The depth of the table of contents in toc.ncx.
+#epub_tocdepth = 3
+
+# Allow duplicate toc entries.
+#epub_tocdup = True
