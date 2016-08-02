@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-20 21:54-0600\n"
-"PO-Revision-Date: 2016-07-23 09:21+0000\n"
+"POT-Creation-Date: 2016-08-01 14:37+0100\n"
+"PO-Revision-Date: 2016-08-02 09:23+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/sourcefabric/booktype/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -435,7 +435,7 @@ msgid "Choose from the following licenses"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_create_book_modal.html:36
-#: apps/edit/forms.py:143 apps/edit/templates/edit/panel_covers.html:73
+#: apps/edit/forms.py:145 apps/edit/templates/edit/panel_covers.html:73
 #: apps/edit/templates/edit/panel_covers.html:130
 #: apps/edit/templates/edit/panel_settings.html:25
 msgid "License"
@@ -1236,43 +1236,43 @@ msgstr ""
 msgid "Delete Comments"
 msgstr ""
 
-#: apps/edit/channel.py:1258 apps/edit/channel.py:1263
+#: apps/edit/channel.py:1273 apps/edit/channel.py:1278
 msgid "You have no permissions for splitting the chapter."
 msgstr ""
 
-#: apps/edit/channel.py:1269
+#: apps/edit/channel.py:1284
 msgid "Chapter is under edit."
 msgstr ""
 
-#: apps/edit/channel.py:1276 apps/edit/channel.py:1280
+#: apps/edit/channel.py:1291 apps/edit/channel.py:1295
 msgid "You have no permissions for splitting locked chapter."
 msgstr ""
 
-#: apps/edit/channel.py:1289
+#: apps/edit/channel.py:1304
 msgid "You have selected invalid title name."
 msgstr ""
 
-#: apps/edit/channel.py:1293 apps/edit/templates/edit/edit_strings.html:36
+#: apps/edit/channel.py:1308 apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr ""
 
-#: apps/edit/channel.py:1432
+#: apps/edit/channel.py:1447
 msgid "You have no permissions for editing this chapter."
 msgstr ""
 
-#: apps/edit/channel.py:1440
+#: apps/edit/channel.py:1455
 msgid "Chapter currently being edited."
 msgstr ""
 
-#: apps/edit/channel.py:1445
+#: apps/edit/channel.py:1460
 msgid "You have no permissions for editing chapters under lock."
 msgstr ""
 
-#: apps/edit/channel.py:1449
+#: apps/edit/channel.py:1464
 msgid "Chapter currently is locked from everyone."
 msgstr ""
 
-#: apps/edit/channel.py:2054
+#: apps/edit/channel.py:2069
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
@@ -1300,12 +1300,12 @@ msgstr ""
 msgid "New Status"
 msgstr ""
 
-#: apps/edit/forms.py:237
+#: apps/edit/forms.py:239
 #, python-format
 msgid "%(field)s must have TYPE attribute"
 msgstr ""
 
-#: apps/edit/forms.py:262
+#: apps/edit/forms.py:264
 #, python-format
 msgid ""
 "Unable to create field %(field)s. Reason: %(error)s | type: %(exc_type)s | "
@@ -2283,7 +2283,7 @@ msgid "Do you want to remove the infobox?"
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:110
-msgid "Chapter comments"
+msgid "Chapter Comments"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:13
@@ -4007,6 +4007,22 @@ msgstr ""
 
 #: apps/themes/templates/themes/panel.html:16
 msgid "reset"
+msgstr ""
+
+#: constants.py:31
+msgid "new"
+msgstr ""
+
+#: constants.py:32
+msgid "needs content"
+msgstr ""
+
+#: constants.py:33
+msgid "completed"
+msgstr ""
+
+#: constants.py:34
+msgid "to be proofed"
 msgstr ""
 
 #: importer/docx/docximporter.py:52
