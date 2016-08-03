@@ -203,20 +203,12 @@ class ImageEditorConversion(object):
         width_percent = round(width_percent, 1)
         image_style += ' width: {0}%;'.format(width_percent)
 
-        # TODO only for epub
+        # TODO only for epub and xhtml
         elem.set('style', image_style)
 
         # set width for caption div
         for div_caption in div_group_img.xpath('div[contains(@class,"caption_small")]'):
-
-            try:
-                width = div_caption.get('style').rsplit('width: ')[1].split('px', 1)[0]
-                old_style = div_caption.get('style')
-                new_style = old_style.replace('width: {}px'.format(width), 'width: {}%'.format(width_percent))
-            except:
-                new_style = div_caption.get('style', '') + 'width: {}%;'.format(width_percent)
-                logger.warning('Wrong image caption style structure')
-
+            new_style = 'width: {0}%; display: inline-block; margin: auto;'.format(width_percent)
             div_caption.set('style', new_style)
 
         #################
