@@ -571,10 +571,16 @@ div.contentHeader span.info-message {
 #contenteditor div.image,
 #contentrevision div.image {
     border: 1px solid whitesmoke;
+    display: inline-block;
 }
 
 #contenteditor div.image-focus {
     border: 1px solid #A1A1A1;
+}
+
+#contenteditor div.group_img div.caption_small,
+#contentrevision div.group_img div.caption_small {
+    display: inline-block;
 }
 
 #imagePopup {
