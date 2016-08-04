@@ -5,11 +5,11 @@
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="description" content="Booktype : Booktype is a free, open source platform that produces beautiful, engaging books formatted for print, Amazon, iBooks and almost any ereader within minutes." />
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="js/jquery.zrssfeed.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/jquery.zrssfeed.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
 
-    <title>Booktype</title>
+    <title>Booktype developer pages</title>
   </head>
 
   <body>
@@ -17,9 +17,9 @@
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <a id="forkme_banner" href="https://github.com/sourcefabric/Booktype">View on GitHub</a>
+          <a id="forkme_banner" href="https://github.com/sourcefabric/Booktype">Fork me on GitHub</a>
 
-          <img src="img/booktype2.jpg" style="border:0;width:300px;height;auto;>
+          <img src="img/booktype.jpg" style="border:0;width:300px;height;auto;>
           <h2 id="project_tagline"></h2>
 
             <section id="downloads">
@@ -33,27 +33,29 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>Welcome to the Booktype dev pages.</h3>
-      <small style="font-size:0.8em;">
-	 * <a href="https://groups.google.com/forum/?hl=en&fromgroups#!forum/booktype-dev">Join dev list</a><br>
-* <a href="https://github.com/sourcefabric/Booktype/">https://github.com/sourcefabric/Booktype/</a><br>
-* git clone https://github.com/sourcefabric/Booktype.git<br>
-* irc.freenode.org #booktype</br>
-* wiki : <a href="https://wiki.sourcefabric.org/display/Booktype/Booktype">https://wiki.sourcefabric.org/display/Booktype/Booktype</a>
-<p><b>To collaborate on the code</b> contact us over irc or email and let us know what you are doing and what are your thoughts on it. We can talk about the best way to go forward and help you get to know the code base. Then check wiki for info, future plans and current branches. </br><br><b>To submit a contribution</b> fork the code on github, make changes and send us pull request. If you don't use
-github (for whatever reason), fork it locally and send us your patch over email or give us access to your
-repository.
+        <h3>Welcome to the Booktype developer pages!</h3>
+<p>
+Booktype source code: <a href="https://github.com/sourcefabric/Booktype/">https://github.com/sourcefabric/Booktype/</a><br>
+Library source code and other projects: <a href="https://github.com/booktype/">https://github.com/booktype/</a><br>
+Developer forum: <a href="https://forum.sourcefabric.org/categories/booktype-development">https://forum.sourcefabric.org/categories/booktype-development</a><br>
+Translation resources: <a href="https://www.transifex.com/sourcefabric/booktype">https://www.transifex.com/sourcefabric/booktype</a>
+</p>
 
-</small>
+<p>To collaborate on the code, please contact us on GitHub or by email and let us know what you are doing. We can talk about the best way to go forward and help you get to know the code base.</p>
+
+<p>To submit a contribution, please fork the code on GitHub, make changes and send us a pull request. If you don't use GitHub, please fork it locally and send us your patch by email, or give us access to your
+repository.</p>
+
 <script type="text/javascript">
 $(document).ready(function () {
-  $('#test').rssfeed('http://feeds.feedburner.com/BooktypeNews', {
+  $('#test').rssfeed('https://www.sourcefabric.org/en/home/rss', {
     limit: 5,
     header:false
   });
 });
 </script>
- <h3>News</h3>
+
+<h3>News</h3>
 <div id="test"></div>
       </section>
     </div>
@@ -64,8 +66,6 @@ $(document).ready(function () {
       
       </footer>
     </div>
-
-    
 
   </body>
 </html>
