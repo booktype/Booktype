@@ -6,6 +6,13 @@ Booktype developer docs
 
 Welcome! This is the documentation for contributors to the Booktype project.
 
+.. toctree::
+    :hidden:
+
+    deployment/index
+    development/index
+
+
 Deployment
 ==========
 
@@ -32,16 +39,13 @@ For installation and usage instructions, please read the manual `Booktype for Au
 * **Upgrades:**
   :doc:`Instructions <deployment/upgrade_instruction>`
 
+* **Unoffical platforms:**
+  :doc:`CentOS <deployment/centos>` |
+  :doc:`Mac OS X <deployment/macosx>` |
+  :doc:`Nginx <deployment/nginx>`
 
 Development
 ===========
-
-Booktype is made up of these modules:
-
-.. toctree::
-   :maxdepth: 2
-
-   modules
 
 Learn about the development and testing of Booktype:
 
@@ -61,10 +65,6 @@ Learn about the development and testing of Booktype:
 Community
 =========
 
-* **Chat:** channel #booktype on irc.freenode.net server
-
-* **Demo:** `Demo site`_
-
 * **Forum:** 
   `Support forum`_ |
   `Development forum`_ |
@@ -73,23 +73,19 @@ Community
 * **Resources:**
   `GitHub`_ |
   `Tracker`_ |
-  `Translation platform`_ |
-  `Wiki`_
+  `Translation platform`_
 
-.. _Demo site: http://booktype-demo.sourcefabric.org/
 .. _Support forum: http://forum.sourcefabric.org/categories/booktype-support
 .. _Development forum: http://forum.sourcefabric.org/categories/booktype-development
 .. _Documentation forum: http://forum.sourcefabric.org/categories/booktype-documentation
-.. _Booktype for Authors and Publishers: http://sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/
+.. _Booktype for Authors and Publishers: http://sourcefabric.booktype.pro/booktype-21-for-authors-and-publishers/
 .. _GitHub: https://github.com/sourcefabric/booktype
 .. _Tracker: https://dev.sourcefabric.org/browse/BK
 .. _Translation platform: https://transifex.com/sourcefabric/booktype
-.. _Wiki: https://wiki.sourcefabric.org/display/Booktype/Booktype
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 
