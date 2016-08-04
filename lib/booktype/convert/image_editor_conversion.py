@@ -16,7 +16,7 @@ except ImportError:
 EDITOR_WIDTH = 898
 
 
-logger = logging.getLogger("booktype.convert.pdf")
+logger = logging.getLogger("booktype.convert")
 
 
 class ImageEditorConversion(object):
@@ -206,9 +206,38 @@ class ImageEditorConversion(object):
         # TODO only for epub and xhtml
         elem.set('style', image_style)
 
+        # find old captions using p.caption_small
+        for p_caption in div_group_img.xpath('p[contains(@class,"caption_small")]'):
+            if p_caption.get('style'):
+                del p_caption.attrib['style']
+
+            if p_caption.get('class'):
+                del p_caption.attrib['class']
+
+            # set new class and change tag
+            p_caption.set('class', 'caption_small')
+            p_caption.tag = 'div'
+
         # set width for caption div
         for div_caption in div_group_img.xpath('div[contains(@class,"caption_small")]'):
-            new_style = 'width: {0}%; display: inline-block; margin: auto;'.format(width_percent)
+            new_style = 'width: {0}%; display: inline-block;'.format(width_percent)
+
+            # # text-align: left -> margin-right: auto
+            # # text-align: right -> margin-left: auto
+            # # text-align: center -> margin: auto
+            # # text-align: justify -> margin-right: auto
+
+            try:
+                text_align = div_group_img.get('style').split('text-align: ', 1)[1].split(';', 1)[0]
+                if text_align == 'center':
+                    new_style += ' margin: auto;'
+                elif text_align == 'right':
+                    new_style += ' margin-left: auto;'
+                else:
+                    new_style += ' margin-right: auto;'
+            except (KeyError, Exception):
+                pass
+
             div_caption.set('style', new_style)
 
         #################
