@@ -12,3 +12,6 @@ Deployment
    createbooktype
    upgrade_instruction
    mobi
+   centos
+   macosx
+   nginx
