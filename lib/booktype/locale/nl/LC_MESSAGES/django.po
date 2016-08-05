@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-01 14:37+0100\n"
-"PO-Revision-Date: 2016-08-02 09:23+0000\n"
+"POT-Creation-Date: 2016-08-04 16:37-0600\n"
+"PO-Revision-Date: 2016-08-05 08:37+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/sourcefabric/booktype/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -291,6 +291,10 @@ msgstr ""
 msgid "This user is not a member of any groups."
 msgstr ""
 
+#: apps/account/templates/account/dashboard.html:230
+msgid "Invite people"
+msgstr ""
+
 #: apps/account/templates/account/dashboard.html:238
 msgid "Enter email addresses"
 msgstr ""
@@ -393,7 +397,7 @@ msgstr ""
 #. Translators: Default chapter title when importing DOCX
 #. files. In case title does not exists.
 #: apps/account/templates/account/dashboard_create_book_modal.html:17
-#: apps/edit/templates/edit/panel_aloha.html:407
+#: apps/edit/templates/edit/panel_aloha.html:437
 #: apps/edit/templates/edit/panel_covers.html:59
 #: apps/edit/templates/edit/panel_covers.html:61
 #: apps/edit/templates/edit/panel_covers.html:116
@@ -562,7 +566,7 @@ msgid "Initially hidden from others"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:76
-#: apps/edit/templates/edit/panel_aloha.html:353
+#: apps/edit/templates/edit/panel_aloha.html:383
 #: apps/edit/templates/edit/panel_covers.html:33
 #: apps/edit/templates/edit/panel_media.html:64
 #: apps/edit/templates/edit/panel_toc.html:102
@@ -584,7 +588,7 @@ msgid "User settings"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_settings.html:43
-#: apps/edit/templates/edit/panel_aloha.html:306
+#: apps/edit/templates/edit/panel_aloha.html:336
 #: apps/edit/templates/edit/settings/generic.html:15
 #: apps/portal/templates/portal/group_settings.html:16
 #: apps/reader/templates/reader/book_info_edit.html:15
@@ -1027,10 +1031,10 @@ msgstr ""
 #: apps/edit/templates/edit/panel_aloha.html:151
 #: apps/edit/templates/edit/panel_aloha.html:221
 #: apps/edit/templates/edit/panel_aloha.html:238
-#: apps/edit/templates/edit/panel_aloha.html:288
-#: apps/edit/templates/edit/panel_aloha.html:374
-#: apps/edit/templates/edit/panel_aloha.html:391
-#: apps/edit/templates/edit/panel_aloha.html:412
+#: apps/edit/templates/edit/panel_aloha.html:318
+#: apps/edit/templates/edit/panel_aloha.html:404
+#: apps/edit/templates/edit/panel_aloha.html:421
+#: apps/edit/templates/edit/panel_aloha.html:442
 #: apps/edit/templates/edit/panel_covers.html:96
 #: apps/edit/templates/edit/panel_covers.html:153
 #: apps/edit/templates/edit/panel_toc.html:17
@@ -1098,11 +1102,13 @@ msgstr ""
 
 #: apps/core/templates/templatetags/pager.html:8
 #: apps/core/templates/templatetags/pager.html:10
+#: apps/edit/templates/edit/edit_strings.html:113
 msgid "Previous"
 msgstr ""
 
 #: apps/core/templates/templatetags/pager.html:16
 #: apps/core/templates/templatetags/pager.html:18
+#: apps/edit/templates/edit/edit_strings.html:112
 msgid "Next"
 msgstr ""
 
@@ -1347,7 +1353,7 @@ msgstr ""
 
 #: apps/edit/templates/edit/aloha_menu.html:5
 #: apps/edit/templates/edit/panel_aloha.html:239
-#: apps/edit/templates/edit/panel_aloha.html:413
+#: apps/edit/templates/edit/panel_aloha.html:443
 msgid "Insert"
 msgstr ""
 
@@ -1521,7 +1527,7 @@ msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:158
 #: apps/edit/templates/edit/edit_strings.html:90
-#: apps/edit/templates/edit/panel_aloha.html:317
+#: apps/edit/templates/edit/panel_aloha.html:347
 msgid "Columns"
 msgstr ""
 
@@ -1531,7 +1537,7 @@ msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:168
 #: apps/edit/templates/edit/panel_aloha.html:63
-#: apps/edit/templates/edit/panel_aloha.html:354
+#: apps/edit/templates/edit/panel_aloha.html:384
 #: apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
 msgstr ""
@@ -1591,7 +1597,7 @@ msgstr ""
 
 #. Translators: User defined style alignment settings
 #: apps/edit/templates/edit/aloha_toolbar.html:192
-#: apps/edit/templates/edit/panel_aloha.html:334
+#: apps/edit/templates/edit/panel_aloha.html:364
 #: skeleton/themes/custom/panel.html:53
 msgid "Justify"
 msgstr ""
@@ -1637,7 +1643,7 @@ msgid "Save minor change"
 msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:220
-#: apps/edit/templates/edit/panel_aloha.html:276
+#: apps/edit/templates/edit/panel_aloha.html:306
 msgid "Save with comment"
 msgstr ""
 
@@ -1810,7 +1816,7 @@ msgid "Time"
 msgstr ""
 
 #: apps/edit/templates/edit/chapter_history.html:26
-#: apps/edit/templates/edit/panel_aloha.html:281
+#: apps/edit/templates/edit/panel_aloha.html:311
 #: apps/edit/templates/edit/panel_publish.html:491
 msgid "Comment"
 msgstr ""
@@ -2074,7 +2080,7 @@ msgid "Exporting book."
 msgstr ""
 
 #: apps/edit/templates/edit/edit_strings.html:60
-#: apps/edit/templates/edit/panel_aloha.html:287
+#: apps/edit/templates/edit/panel_aloha.html:317
 #: apps/edit/templates/edit/panel_covers.html:154
 #: apps/edit/templates/edit/panel_toc.html:18
 #: apps/edit/templates/edit/panel_toc.html:37
@@ -2286,6 +2292,10 @@ msgstr ""
 msgid "Chapter Comments"
 msgstr ""
 
+#: apps/edit/templates/edit/edit_strings.html:114
+msgid "Finish"
+msgstr ""
+
 #: apps/edit/templates/edit/panel_aloha.html:13
 msgid "Zen mode"
 msgstr ""
@@ -2459,62 +2469,95 @@ msgstr ""
 msgid "REMOVE"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:299
+#: apps/edit/templates/edit/panel_aloha.html:268
+#: apps/edit/templates/edit/panel_toc.html:169
+#: apps/edit/templates/edit/panel_toc.html:186
+#: apps/edit/templates/edit/panel_toc.html:210
+#: apps/reader/templates/reader/book_draft_page.html:69
+#: apps/reader/templates/reader/book_full_view.html:55
+msgid "EDIT"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:269
+msgid "STOP EDIT"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:278
+msgid "Zoom"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:283
+msgid "Contrast"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:286
+msgid "Brightness"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:291
+msgid "Blur"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:294
+msgid "Saturate"
+msgstr ""
+
+#: apps/edit/templates/edit/panel_aloha.html:329
 msgid "Chapter has been modified"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:302
+#: apps/edit/templates/edit/panel_aloha.html:332
 msgid "This chapter has been modified. Do you want to save it before closing?"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:305
+#: apps/edit/templates/edit/panel_aloha.html:335
 msgid "Discard changes"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:323
+#: apps/edit/templates/edit/panel_aloha.html:353
 msgid "Number of columns"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:330
+#: apps/edit/templates/edit/panel_aloha.html:360
 msgid "Vertical alignment"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:333
+#: apps/edit/templates/edit/panel_aloha.html:363
 msgid "Turn off"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:340
+#: apps/edit/templates/edit/panel_aloha.html:370
 msgid "Column gap (in mm)"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:347
+#: apps/edit/templates/edit/panel_aloha.html:377
 msgid "Column continues after the marker"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:365
-#: apps/edit/templates/edit/panel_aloha.html:375
+#: apps/edit/templates/edit/panel_aloha.html:395
+#: apps/edit/templates/edit/panel_aloha.html:405
 msgid "Split Chapter"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:369
+#: apps/edit/templates/edit/panel_aloha.html:399
 #: apps/edit/templates/edit/panel_toc.html:14
 msgid "New chapter title"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:385
-#: apps/edit/templates/edit/panel_aloha.html:392
+#: apps/edit/templates/edit/panel_aloha.html:415
+#: apps/edit/templates/edit/panel_aloha.html:422
 msgid "Remove page break"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:388
+#: apps/edit/templates/edit/panel_aloha.html:418
 msgid "Do you want to remove page break?"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:403
+#: apps/edit/templates/edit/panel_aloha.html:433
 msgid "Infobox"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:408
+#: apps/edit/templates/edit/panel_aloha.html:438
 msgid "Write your infobox title here"
 msgstr ""
 
@@ -3083,17 +3126,9 @@ msgstr ""
 msgid "Locked exclusively"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:169
-#: apps/edit/templates/edit/panel_toc.html:186
-#: apps/edit/templates/edit/panel_toc.html:210
-#: apps/reader/templates/reader/book_draft_page.html:64
-#: apps/reader/templates/reader/book_full_view.html:54
-msgid "EDIT"
-msgstr ""
-
 #: apps/edit/templates/edit/panel_toc.html:217
-#: apps/reader/templates/reader/book_draft_page.html:14
-#: apps/reader/templates/reader/book_full_view.html:21
+#: apps/reader/templates/reader/book_draft_page.html:19
+#: apps/reader/templates/reader/book_full_view.html:22
 msgid "Table of Contents"
 msgstr ""
 
@@ -3687,24 +3722,24 @@ msgstr ""
 msgid "Type full title of the book to delete it"
 msgstr ""
 
-#: apps/reader/templates/reader/book_draft_page.html:7
+#: apps/reader/templates/reader/book_draft_page.html:12
 msgid "Draft"
 msgstr ""
 
-#: apps/reader/templates/reader/book_draft_page.html:53
+#: apps/reader/templates/reader/book_draft_page.html:58
 msgid "No content yet"
 msgstr ""
 
-#: apps/reader/templates/reader/book_draft_page.html:63
-#: apps/reader/templates/reader/book_full_view.html:53
+#: apps/reader/templates/reader/book_draft_page.html:68
+#: apps/reader/templates/reader/book_full_view.html:54
 msgid "Edit this chapter"
 msgstr ""
 
-#: apps/reader/templates/reader/book_draft_page.html:71
+#: apps/reader/templates/reader/book_draft_page.html:76
 msgid "No content yet."
 msgstr ""
 
-#: apps/reader/templates/reader/book_full_view.html:13
+#: apps/reader/templates/reader/book_full_view.html:14
 msgid "Full View"
 msgstr ""
 
