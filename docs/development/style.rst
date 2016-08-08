@@ -43,7 +43,7 @@ Then run it on a file or series of files to get a report of any violations.
     apps/core/views.py:13:5: E101 indentation contains mixed spaces and tabs
     apps/core/views.py:13:5: W191 indentation contains tabs
 
-Find out more about this command line tool: http://pep8.readthedocs.org/en/latest/. 
+Find out more about this command line tool: http://pep8.readthedocs.io/en/latest/. 
 
 
 Examples
