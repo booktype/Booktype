@@ -433,6 +433,24 @@ class ExportBook(object):
                 else:
                     self.toc[chapter.id] = [epub_sec, []]
 
+    def _set_sections_settings(self):
+        """
+        Stores the sections settings inside the book metadata that would be
+        used by converter scripts. Using metadata give us the advantage of being
+        still generating a valid epub in case these settings are not removed.
+
+        :Args:
+          - self (:class:`ExportBook`): current class instance
+        """
+
+        settings = {}
+        for item in self.book_version.get_toc():
+            if item.is_section() and item.settings:
+                settings['section_%s' % item.id] = item.settings
+
+        self.epub_book.add_metadata(
+            None, 'meta', json.dumps(settings), {'property': 'bkterms:sections_settings'})
+
     def run(self):
         """
         Run export process.
@@ -447,6 +465,7 @@ class ExportBook(object):
         self._add_prefix()
         self._create_toc()
         self._create_epub_images()
+        self._set_sections_settings()
 
         self.epub_book.toc = self.toc.values()
         self.epub_book.spine = self.spine

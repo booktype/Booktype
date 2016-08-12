@@ -3799,3 +3799,56 @@ def remote_delete_comment(request, message, bookid, version):
     comment.save()
 
     return {'result': True}
+
+
+def remote_section_settings_get(request, message, bookid, version):
+    """Returns the settings of a given section in json format"""
+
+    SECTION_TYPE = 0
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.modify_section_settings'):
+        return {'result': False}
+
+    try:
+        section = models.BookToc.objects.get(
+            pk=message['section_id'],
+            typeof=SECTION_TYPE,
+            version=book_version
+        )
+
+        settings = json.loads(section.settings)
+    except models.BookToc.DoesNotExist:
+        return {'result': False}
+    except:
+        settings = {}
+
+    return {
+        'result': True,
+        'settings': settings
+    }
+
+
+def remote_section_settings_set(request, message, bookid, version):
+    """Saves the settings of a given section"""
+
+    SECTION_TYPE = 0
+    book, book_version, book_security = get_book(request, bookid, version)
+
+    if not book_security.has_perm('edit.modify_section_settings'):
+        return {'result': False}
+
+    try:
+        section = models.BookToc.objects.get(
+            pk=message['section_id'],
+            typeof=SECTION_TYPE,
+            version=book_version
+        )
+
+        data = message.get('settings', {})
+        section.settings = json.dumps(data)
+        section.save()
+
+        return {'result': True}
+    except:
+        return {'result': False}

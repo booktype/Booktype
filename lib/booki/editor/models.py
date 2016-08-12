@@ -730,6 +730,8 @@ class BookToc(models.Model):
     weight = models.IntegerField(_('weight'))
     typeof = models.SmallIntegerField(_('typeof'), choices=TYPEOF_CHOICES)
 
+    settings = models.TextField(_('settings'), blank=True)
+
     def is_section(self):
         return self.typeof == 0
 
