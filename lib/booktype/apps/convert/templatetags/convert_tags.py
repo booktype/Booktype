@@ -88,6 +88,30 @@ def get_metadata(data, name):
     return ''
 
 
+def _get_property(data, name):
+    """
+    Returns metadata value for a property with a given name
+
+    :Args:
+      - name: name of the property
+
+    :Returns:
+      Returns metadata value.
+    """
+
+    val = find_with_key(data, 'property', name)
+
+    if val:
+        try:
+            value = val.next()
+            if value:
+                return value[0]
+        except StopIteration:
+            return ''
+
+    return ''
+
+
 @register.assignment_tag(takes_context=True)
 def get_meta(context, name):
     """Django template assignment tag which returns metadata value.
@@ -120,17 +144,7 @@ def get_property(context, name):
       Returns metadata value.
     """
 
-    val = find_with_key(context['metadata'], 'property', name)
-
-    if val:
-        try:
-            value = val.next()
-            if value:
-                return value[0]
-        except StopIteration:
-            return ''
-
-    return ''
+    return _get_property(context['metadata'], name)
 
 
 @register.simple_tag(takes_context=True)

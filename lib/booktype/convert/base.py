@@ -17,15 +17,27 @@
 import os
 
 from ebooklib import epub
+from booktype.apps.convert.plugin import SectionsSettingsPlugin
 
 
 class BaseConverter(object):
+    """
+    This is the base converter class. All output converters should inherit from
+    this class so they have at least the basic methods to be a converter
+    """
 
-    def __init__(self, config, assets, sandbox_path, callback):
+    def __init__(self, config, assets, sandbox_path, callback, options=None):
         self._config = config
         self._assets = assets
         self._sandbox_path = sandbox_path
         self._callback = callback
+
+        self.options = dict({
+            'plugins': [SectionsSettingsPlugin(self)]
+        })
+
+        if options:
+            self.options.update(options)
 
     @property
     def config(self):
@@ -43,16 +55,24 @@ class BaseConverter(object):
     def callback(self):
         return self._callback
 
-
     def validate_config(self):
         pass
 
     def load_book(self, book_path):
         return epub.read_epub(book_path)
 
+    def pre_convert(self, original_book):
+        for plg in self.options.get('plugins', []):
+            if hasattr(plg, 'pre_convert'):
+                plg.pre_convert(original_book)
+
     def convert(self, book, output_path):
         pass
 
+    def post_convert(self, book, output_path):
+        for plg in self.options.get('plugins', []):
+            if hasattr(plg, 'post_convert'):
+                plg.post_convert(book, output_path)
 
     def get_asset(self, asset_id):
         return self.assets.get(asset_id)

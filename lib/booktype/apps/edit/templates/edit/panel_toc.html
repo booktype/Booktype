@@ -472,7 +472,7 @@
             <div class="wizard-section-settings">
               <h3>{% trans "Display Settings" %}</h3>
               <section>
-                <p class="wizard_desc">{% trans "Choose the outputs where you do NOT want to show this section" %}</p>
+                <p class="wizard_desc">{% trans "Choose the outputs where you want to hide this section" %}</p>
                 {% for opt in publish_options %}
                 <label for="size">{{opt|upper}}</label>
                 <input type="checkbox" name="hide_in_outputs[{{opt}}]" id="id_{{opt}}">

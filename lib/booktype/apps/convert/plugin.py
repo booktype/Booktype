@@ -14,11 +14,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+import json
 import logging
 import importlib
+import ebooklib
 from lxml import etree
 
 from booktype.utils import config
+from booktype.utils.misc import booktype_slugify
+from booktype.convert.utils.epub import parse_toc_nav
+
+from .templatetags.convert_tags import _get_property
 
 logger = logging.getLogger("booktype.convert")
 
@@ -164,6 +170,100 @@ class ConversionPlugin(BasePlugin):
         """
 
         raise NotImplementedError
+
+
+class SectionsSettingsPlugin(BasePlugin):
+    """
+    Plugin to handle sections settings stuff which would be common for all
+    the outputs
+    """
+
+    def __init__(self, *args, **kwargs):
+        super(SectionsSettingsPlugin, self).__init__(*args, **kwargs)
+
+        self.sections_to_remove = []
+        self.chapters_to_remove = []
+
+    def _get_section_key(self, title, count):
+        return 'section_%s_%s' % (booktype_slugify(title), count)
+
+    def _clean_book_items(self):
+        """
+        Removes the items that are not supposed to be shown according to
+        section settings
+        """
+
+        output_name = self.convert.name
+        settings = _get_property(self.original_book.metadata, 'bkterms:sections_settings')
+        try:
+            settings = json.loads(settings)
+        except:
+            settings = {}
+
+        count = 1
+
+        for toc_item in parse_toc_nav(self.original_book):
+            if isinstance(toc_item[1], list):
+                section_title, chapters = toc_item
+
+                key = self._get_section_key(section_title, count)
+                section_settings = json.loads(settings.get(key, '{}'))
+                hide_in_outputs = section_settings.get('hide_in_outputs', {})
+
+                # means to remove the chapters that belongs to this section
+                if hide_in_outputs.get(output_name, False):
+                    self.chapters_to_remove += [x[1] for x in chapters]
+                    self.sections_to_remove.append(key)
+
+                # increment if a section if found
+                count += 1
+
+        new_items = []
+        for i, item in enumerate(list(self.original_book.items)):
+            if item.get_name() not in self.chapters_to_remove:
+                new_items.append(item)
+
+        self.original_book.items = new_items
+
+    def _fix_nav_content(self):
+        """Just fixes the nav content according to the sections to be removed"""
+
+        nav_item = next((item for item in self.original_book.items if isinstance(item, ebooklib.epub.EpubNav)), None)
+        if nav_item:
+            html_node = ebooklib.utils.parse_html_string(nav_item.content)
+            nav_node = html_node.xpath('//nav[@*="toc"]')[0]
+            list_node = nav_node.find('ol')
+
+            # loop over sections element, they might be in the same order as
+            # they were in parse_toc_nav(original_book)
+            count = 1
+            for item_node in list_node.findall('li'):
+                sublist_node = item_node.find('ol')
+
+                if sublist_node is not None:
+                    section_name = item_node[0].text
+                    key = self._get_section_key(section_name, count)
+
+                    if key in self.sections_to_remove:
+                        item_node.drop_tree()
+
+                    # increment if a section is found
+                    count += 1
+
+            nav_item.content = etree.tostring(
+                html_node, pretty_print=True, encoding='utf-8', xml_declaration=True)
+
+    def pre_convert(self, original_book):
+        """
+        Checks if the content should go into the current output
+        according to the settings. Should also do some other checks
+
+        :Args:
+          - original_book:
+        """
+        self.original_book = original_book
+        self._clean_book_items()
+        self._fix_nav_content()
 
 
 def load_theme_plugin(convert_type, theme_name):

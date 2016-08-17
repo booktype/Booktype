@@ -115,6 +115,9 @@ class MPDFConverter(BaseConverter):
         :Args:
           - book: EPUB book object
         """
+
+        super(MPDFConverter, self).pre_convert(book)
+
         # Not that much needed at the moment
         self.config['page_width'], self.config['page_height'] = get_page_size(self.config['settings'])
 

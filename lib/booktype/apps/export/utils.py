@@ -403,7 +403,6 @@ class ExportBook(object):
                 except Exception as err:
                     logger.error('Error parsing chapter content %s' % err)
                     continue
-                    pass
 
                 # hook for some extra customizations
                 self._chapter_tree_hook(tree)
@@ -428,6 +427,7 @@ class ExportBook(object):
                         self.toc[chapter.id] = c1
             else:
                 epub_sec = epub.Section(chapter.name)
+
                 if chapter.parent:
                     self.toc[chapter.parent.id][1].append(epub_sec)
                 else:
@@ -443,10 +443,14 @@ class ExportBook(object):
           - self (:class:`ExportBook`): current class instance
         """
 
+        from booktype.utils.misc import booktype_slugify
+
         settings = {}
+        count = 1
         for item in self.book_version.get_toc():
             if item.is_section() and item.settings:
-                settings['section_%s' % item.id] = item.settings
+                settings['section_%s_%s' % (booktype_slugify(item.name), count)] = item.settings
+                count += 1
 
         self.epub_book.add_metadata(
             None, 'meta', json.dumps(settings), {'property': 'bkterms:sections_settings'})
