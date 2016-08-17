@@ -1,3 +1,4 @@
+/* Theme 'Novel Classic (Compact)' Version 0.1 update: 2016-08-15T10:37:03+02:00 */
 #contenteditor {
   font-size: 13pt;
   line-height: normal;
@@ -50,7 +51,7 @@ p.quote:before {
 
 #contenteditor .aloha-block-TitleBlock h1 {
     font-family: "texgyreschola";
-    font-size: 13.3pt;
+    font-size: 1.33em;
     text-align: center; 
     font-weight: normal; 
     text-transform: none; 
@@ -64,70 +65,70 @@ p.quote:before {
 
 #contenteditor h1 {
     font-family: "texgyreschola";
-    font-size: 10pt;
+    font-size: 1em;
     text-align: left; 
     font-weight: bold; 
     text-transform: none; 
     border-bottom: 0rem solid black;
     text-decoration: none;
-    padding-top: 8.7pt; 
-    margin-bottom: 4.3pt;
+    padding-top: 8.71pt; 
+    margin-bottom: 4.29pt;
     line-height: inherit;
     line-height: 13pt; 
 }
 
 #contenteditor h2 {
     font-family: "texgyreschola";
-    font-size: 10pt;
+    font-size: 1em;
     text-align: left; 
     font-weight: bold; 
     text-transform: none; 
     border-bottom: 0rem solid black;
     text-decoration: none;
-    padding-top: 8.7pt; 
-    margin-bottom: 4.3pt;
+    padding-top: 8.71pt; 
+    margin-bottom: 4.29pt;
     line-height: inherit;
     line-height: 13pt; 
 }
 
 #contenteditor h3 {
     font-family: "texgyreschola";
-    font-size: 10pt;
+    font-size: 1em;
     text-align: left; 
     font-weight: bold; 
     text-transform: none; 
     border-bottom: 0rem solid black;
     text-decoration: none;
-    padding-top: 8.7pt; 
-    margin-bottom: 4.3pt;
+    padding-top: 8.71pt; 
+    margin-bottom: 4.29pt;
     line-height: inherit;
     line-height: 13pt; 
 }
 
 #contenteditor h4 {    
     font-family: "texgyreschola";
-    font-size: 10pt;
+    font-size: 1em;
     text-align: left; 
     font-weight: normal; 
     text-transform: none; 
     border-bottom: 0rem solid black;
     text-decoration: none;
-    padding-top: 8.7pt; 
-    margin-bottom: 4.3pt;
+    padding-top: 8.71pt; 
+    margin-bottom: 4.29pt;
     line-height: inherit;
     line-height: 13pt; 
 }
 
 #contenteditor h5 { 
     font-family: "texgyreschola";
-    font-size: 10pt;
+    font-size: 1em;
     text-align: left; 
     font-weight: normal; 
     text-transform: none; 
     border-bottom: 0rem solid black;
     text-decoration: none;
-    padding-top: 8.7pt; 
-    margin-bottom: 4.3pt;
+    padding-top: 8.71pt; 
+    margin-bottom: 4.29pt;
     line-height: inherit;
     line-height: 13pt; 
 }
@@ -169,6 +170,47 @@ p.quote:before {
     margin-top: 0;
     text-indent: 1em;
     margin-bottom: 0.18em;
+}
+/* Hanging paragraph: first line not indented, rest of paragraph indented */
+#contenteditor p.hanging {
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+/* Info Box ****************************************************/
+#contenteditor .bk-box {
+  font-family: "texgyreschola"; 
+  font-size: 0.9em; 
+  color: #000000;
+  background-color: #eeeeee;
+  padding-bottom: 1em; 
+  margin-top: 1em; 
+  margin-bottom: 1em; 
+  border-left: 0pt solid #000000;
+  border-top: 0.5pt solid #000000;
+  border-right: 0pt solid #000000;
+  border-bottom: 0.5pt solid #000000; 
+}
+#contenteditor .bk-box p {
+  padding: 0 1em;
+  text-indent: 0em;
+  margin-bottom: 0;
+}
+#contenteditor .bk-box .box-caption {
+  color: #000000;
+  font-weight: bold;
+  background-color: #eeeeee;
+  padding: 1em;
+  border-bottom: 0pt solid #000000; 
+  margin-bottom: 1em;
+}
+/* if p tag inside caption, this is needed */
+#contenteditor .bk-box .box-caption p {
+  padding: 0em;
+  font-weight: bold;
+}
+#contenteditor .bk-box .box-caption span.icon-trash {
+  color: #000000;
 }
 
 /* Lists *****************************************************************/
@@ -241,14 +283,15 @@ p.quote:before {
   text-align: center;
 }
 
-#contenteditor caption {
-  font-style: italic;
-  margin-top: 1em;
-}
-
-#contenteditor .caption_small {
+#contenteditor caption, 
+#contenteditor .caption_small, 
+#contenteditor .caption_table,
+#contenteditor .caption_img, 
+#contenteditor .caption_fig, 
+#contenteditor .caption_image, 
+#contenteditor .caption_figure {
   margin-top: 0.5em;
-  font-size: 0.8em;
+  font-size: 0.9em;
   font-style: italic;
 }
 

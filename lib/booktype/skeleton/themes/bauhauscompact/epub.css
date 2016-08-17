@@ -1,3 +1,4 @@
+/* Theme 'Bauhaus (Compact)' Version 0.2 update: 2016-08-15T09:52:55+02:00 */
 @font-face {
     font-family: 'texgyreadventor';
     font-weight: normal;
@@ -77,9 +78,9 @@ h1.section {
   font-family: "texgyreadventor"; 
   text-align: center; 
   font-weight: normal; 
-  font-size: 1.6em;
+  font-size: 1.8em;
   text-transform: uppercase; 
-  text-decoration: underline;
+  text-decoration: none;
   margin-top: 0;
 }
 
@@ -90,7 +91,7 @@ h1.frontmatter-title {
   font-family: "texgyreadventor"; 
   text-decoration: none;
   border-bottom: 0px; 
-  font-size: 2.1em;
+  font-size: 2.4em;
   line-height: normal;
   margin-top: 1.5em;
   margin-bottom: 0;
@@ -100,7 +101,7 @@ h2.frontmatter-author {
   text-align: left; 
   font-family: "texgyreadventor"; 
   border-bottom: 0px; 
-  font-size: 1.6em;
+  font-size: 1.8em;
   line-height: normal;
   margin-top: 2em;
 }
@@ -117,7 +118,7 @@ h2.frontmatter-author-title {
   font-family: "texgyreadventor"; 
   border-bottom: 0px; 
   margin-top: 2em;
-  font-size: 1.6em;
+  font-size: 1.8em;
   line-height: normal;
 }
 
@@ -126,7 +127,7 @@ h3.frontmatter-subtitle {
   font-family: "texgyreadventor"; 
   border-bottom: 0px; 
   margin-top: 10mm;
-  font-size: 1.6em;
+  font-size: 1.8em;
   line-height: normal;
 }
 */
@@ -138,7 +139,7 @@ p.quote {
   font-size: 1em;
   font-style: normal;
   text-indent: 0;
-  border-left: 0.05rem solid #000;
+  border-left: 0.05em solid #000;
   padding-left: 1em;
   margin-left: 1em;
   margin-top: 1em; 
@@ -185,8 +186,8 @@ h1 {
   line-height: normal; 
   font-size: 1.86em; 
   /*font-size: 3.6em;*/
-  margin-top: 1em;
-  margin-bottom: 2.4em;
+  margin-top: 0em;
+  margin-bottom: 2.8em;
 }
 
 h2 {
@@ -278,6 +279,45 @@ table+p {
     margin-bottom: 0.15em;
 }
 
+p.hanging {
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+/* Info Box ****************************************************/
+.bk-box {
+  font-family: "texgyreadventor"; 
+  color: #000000;
+  background-color: #ffffff;
+  padding-bottom: 1em; 
+  margin-top: 1em; 
+  margin-bottom: 1em; 
+  border-left: 0.5pt solid #000000;
+  border-top: 0.5pt solid #000000;
+  border-right: 0.5pt solid #000000;
+  border-bottom: 0.5pt solid #000000; 
+}
+.bk-box p {
+  font-family: "texgyreadventor"; 
+  padding: 0 1em;
+  text-indent: 0em;
+  margin-bottom: 0;
+}
+.bk-box .box-caption {
+  font-family: "texgyreadventor"; 
+  color: #000000;
+  font-weight: bold;
+  background-color: #ffffff;
+  padding: 1em;
+  border-bottom: 0.5pt solid #000000; 
+  margin-bottom: 1em;
+}
+/* if p tag inside caption, this is needed */
+.bk-box .box-caption p {
+  padding: 0em;
+  font-weight: bold;
+}
+
 ul,
 ol {
     margin-top: 10px;
@@ -337,9 +377,15 @@ td {
   text-align: center;
 }
 
-.caption_small {
+caption, 
+.caption_small, 
+.caption_table, 
+.caption_img, 
+.caption_fig, 
+.caption_image, 
+.caption_figure {
   margin-top: 0.5em;
-  font-size: 0.8em;
+  font-size: 0.9em;
   font-style: italic;
 }
 

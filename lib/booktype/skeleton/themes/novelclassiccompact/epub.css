@@ -1,3 +1,4 @@
+/* Theme 'Novel Classic (Compact)' Version 0.1 update: 2016-08-15T10:37:03+02:00 */
 @font-face {
     font-family: 'texgyreschola';
     font-weight: normal;
@@ -185,8 +186,8 @@ h1 {
   line-height: normal; 
   font-size: 1.33em; 
   /*font-size: 3.6em;*/
-  margin-top: 2.1em;
-  margin-bottom: 2.1em;
+  margin-top: 2.4em;
+  margin-bottom: 2.4em;
 }
 
 h2 {
@@ -198,8 +199,8 @@ h2 {
   line-height: normal; 
   font-size: 1em; 
   /*font-size: 2.2em;*/
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0.66em;
+  margin-bottom: 0.33em;
 }
 
 h3 {
@@ -211,8 +212,8 @@ h3 {
   line-height: normal; 
   font-size: 1em; 
   /*font-size: 1.8em;*/
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0.66em;
+  margin-bottom: 0.33em;
 }
 
 h4 {
@@ -224,8 +225,8 @@ h4 {
   line-height: normal; 
   font-size: 1em; 
   /*font-size: 1.4em;*/
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0.66em;
+  margin-bottom: 0.33em;
 }
 
 h5 {
@@ -237,8 +238,8 @@ h5 {
   line-height: normal; 
   font-size: 1em; 
   /*font-size: 1.2em;*/
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0.66em;
+  margin-bottom: 0.33em;
 }
 
 /* Paragraph Styles *****************************************************/
@@ -276,6 +277,45 @@ div.group_img+p,
 table+p {
     text-indent: 1em;
     margin-bottom: 0.15em;
+}
+
+p.hanging {
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+/* Info Box ****************************************************/
+.bk-box {
+  font-family: "texgyreschola"; 
+  color: #000000;
+  background-color: #eeeeee;
+  padding-bottom: 1em; 
+  margin-top: 1em; 
+  margin-bottom: 1em; 
+  border-left: 0pt solid #000000;
+  border-top: 0.5pt solid #000000;
+  border-right: 0pt solid #000000;
+  border-bottom: 0.5pt solid #000000; 
+}
+.bk-box p {
+  font-family: "texgyreschola"; 
+  padding: 0 1em;
+  text-indent: 0em;
+  margin-bottom: 0;
+}
+.bk-box .box-caption {
+  font-family: "texgyreschola"; 
+  color: #000000;
+  font-weight: bold;
+  background-color: #eeeeee;
+  padding: 1em;
+  border-bottom: 0pt solid #000000; 
+  margin-bottom: 1em;
+}
+/* if p tag inside caption, this is needed */
+.bk-box .box-caption p {
+  padding: 0em;
+  font-weight: bold;
 }
 
 ul,
@@ -337,9 +377,15 @@ td {
   text-align: center;
 }
 
-.caption_small {
+caption, 
+.caption_small, 
+.caption_table, 
+.caption_img, 
+.caption_fig, 
+.caption_image, 
+.caption_figure {
   margin-top: 0.5em;
-  font-size: 0.8em;
+  font-size: 0.9em;
   font-style: italic;
 }
 
