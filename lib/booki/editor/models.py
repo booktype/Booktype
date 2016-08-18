@@ -681,7 +681,7 @@ class Attachment(models.Model):
             filename, self.pk, time.mktime(self.created.timetuple()), w, h, ext)
         return filename
 
-    def thumbnail(self, size=(100, 100)):
+    def thumbnail(self, size=(100, 100), aspect_ratio=False):
         """Returns URL for a thumbnail with the specified size"""
         from booktype.utils import misc
 
@@ -691,10 +691,10 @@ class Attachment(models.Model):
 
         if not os.path.exists(im_path):
             try:
-                im = misc.create_thumbnail(self.attachment, size=size)
+                im = misc.create_thumbnail(self.attachment, size=size, aspect_ratio=aspect_ratio)
                 if im.mode == 'P':
                     im = im.convert('RGB')
-                im.save(im_path, 'JPEG')
+                im.save(im_path, 'JPEG', quality=100)
             except Exception as err:
                 logger.exception('Can not create thumbnail. Error msg: %s' % err)
         return im_url

@@ -146,7 +146,7 @@ def get_hold_chapters(book_version):
     return [_to_tuple(ch) for ch in hold_chapters]
 
 
-def get_attachments(book_version):
+def get_attachments(book_version, size=(100, 100), aspect_ratio=False):
     """
     Function returns list of attachments for L{book_version}. Elements of
     list are dictionaries and are sorted by attachment name. Each dictionary has keys:
@@ -176,7 +176,7 @@ def get_attachments(book_version):
                     "dimension": _get_dimension(att),
                     "status": att.status.id,
                     "name": os.path.split(att.attachment.name)[1],
-                    "preview": att.thumbnail(),
+                    "preview": att.thumbnail(size=size, aspect_ratio=aspect_ratio),
                     "created": str(att.created.strftime("%d.%m.%Y %H:%M:%S")),
                     "size": att.attachment.size}
                    for att in book_version.get_attachments().order_by("attachment") if att.attachment]
@@ -375,8 +375,20 @@ def remote_attachments_list(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
+    # define default options for thumbnails
+    size = (100, 100)
+    aspect_ratio = False
+
+    # overwrite default options for thumbnails
+    if 'options' in message:
+        try:
+            size = (message['options']['width'], message['options']['height'])
+            aspect_ratio = message['options']['aspect_ratio']
+        except KeyError:
+            pass
+
     try:
-        attachments = get_attachments(book_version)
+        attachments = get_attachments(book_version, size, aspect_ratio)
     except:
         attachments = []
 
