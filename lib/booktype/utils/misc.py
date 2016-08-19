@@ -436,7 +436,7 @@ def booktype_slugify(text):
     return slugify(text)
 
 
-def create_thumbnail(fname, size=(100, 100)):
+def create_thumbnail(fname, size=(100, 100), aspect_ratio=False):
     """
 
     @type fname: C{string}
@@ -464,7 +464,9 @@ def create_thumbnail(fname, size=(100, 100)):
         right = width
         lower = width + upper
 
-    im = im.crop((left, upper, right, lower))
+    if not aspect_ratio:
+        im = im.crop((left, upper, right, lower))
+
     im.thumbnail(size, Image.ANTIALIAS)
 
     return im

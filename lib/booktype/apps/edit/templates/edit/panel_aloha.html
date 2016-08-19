@@ -252,11 +252,13 @@
       <h5></h5>
       <p></p>
   </script>
+
   <script type="text/html" id='templateImageThumbnail'>
-     <li data-media-id="<%= media_id %>"><img src="static/<%= name %>" style="max-width: 150px">
+     <li data-media-id="<%= media_id %>">
+       <img src="<%= preview %>" data-src="static/<%= name %>" style="max-width: 150px"/>
          <a class="image-dropdown-button" data-toggle="dropdown"><i class="icon-caret-down"></i></a>
          <ul class="dropdown-menu" style="">
-<!--           <li><a href="#"><i class="icon-list-alt"></i> {% trans "Edit metadata" %}</a></li> -->
+           {% trans "Edit metadata" %}
            <li><a href="static/<%= name %>" target="_blank"><i class="icon-download-alt"></i> {% trans "Download" %}</a></li>
            <li><a href="#" class="delete-attachment"><i class="icon-trash"></i> {% trans "Delete" %}</a></li>
          </ul>
