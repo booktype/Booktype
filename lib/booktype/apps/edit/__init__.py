@@ -45,6 +45,8 @@ PERMISSIONS = {
 
         ('add_comment', _('Add Comments')),
         ('resolve_comment', _('Resolve Comments')),
-        ('delete_comment', _('Delete Comments'))
+        ('delete_comment', _('Delete Comments')),
+
+        ('modify_section_settings', _('Modify Section Settings'))
     ]
 }

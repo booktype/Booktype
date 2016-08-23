@@ -51,6 +51,8 @@ class XHTMLConverter(BaseConverter):
           - book: EPUB book object
         """
 
+        super(XHTMLConverter, self).pre_convert(book)
+
         # create image edtor conversion instance
         # todo move it to more proper place in the future, and create plugin for it
         if self.name == 'xhtml':
@@ -77,7 +79,7 @@ class XHTMLConverter(BaseConverter):
         Populates the book by copying items from the original book
         """
 
-        for item in original_book.get_items():            
+        for item in original_book.get_items():
             item_type = item.get_type()
             file_name = os.path.basename(item.file_name)
 

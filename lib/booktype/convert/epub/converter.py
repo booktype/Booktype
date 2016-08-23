@@ -78,6 +78,9 @@ class EpubConverter(BaseConverter):
             self.theme_name = None
 
     def pre_convert(self, original_book, book):
+
+        super(EpubConverter, self).pre_convert(original_book)
+
         if self.theme_plugin:
             try:
                 self.theme_plugin.pre_convert(original_book, book)
