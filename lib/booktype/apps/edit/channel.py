@@ -342,18 +342,32 @@ def remote_init_editor(request, message, bookid, version):
         theme.save()
         theme_active = ''
 
+    # provide information about current user
+    current_user = {
+        'username': book_security.user.username,
+        'first_name': book_security.user.first_name,
+        'last_name': book_security.user.last_name,
+        'email': book_security.user.email,
+        'is_superuser': book_security.is_superuser(),
+        'is_staff': book_security.is_staff(),
+        'is_admin': book_security.is_admin(),
+        'is_book_owner': book_security.is_book_owner(),
+        'is_book_admin': book_security.is_book_admin(),
+        'permissions': ['{0}.{1}'.format(perm.app_name, perm.name) for perm in book_security.permissions],
+    }
+
     return {"licenses": licenses,
             "chapters": chapters,
             "metadata": metadata,
             "hold": hold_chapters,
             "users": users,
-            "is_admin": book_security.is_admin(),
             "statuses": statuses,
             "attachments": attachments,
             "theme": theme_active,
             # Check for errors in the future
             "theme_custom": json.loads(theme.custom),
-            "onlineUsers": list(onlineUsers)}
+            "onlineUsers": list(onlineUsers),
+            "current_user": current_user}
 
 
 def remote_attachments_list(request, message, bookid, version):

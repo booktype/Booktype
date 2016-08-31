@@ -1,4 +1,5 @@
 <script type="text/javascript">
+      window.booktype.currentUser = null;
       window.booktype.username = "{{ request.user.username|escapejs }}";
       window.booktype.email = "{{ request.user.email|escapejs }}";
       window.booktype.fullname = "{{ request.user.first_name|escapejs }}";
