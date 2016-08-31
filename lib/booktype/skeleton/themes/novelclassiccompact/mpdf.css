@@ -1,4 +1,4 @@
-/* Theme 'Novel Classic (Compact)' Version 0.1 update: 2016-08-15T10:37:03+02:00 */
+/* Theme 'Novel Classic (Compact)' Version 0.1 update: 2016-08-24T13:56:13+02:00 */
 body {
   font-size: 10pt; 
   line-height: 13pt; 
@@ -491,11 +491,16 @@ ol.endnotes {
   margin-top: 2em;
   padding-left: 1.2em;
 }
-
 ol.endnotes li {
   font-weight: normal;
   font-size: 0.8em;
   line-height: inherit;
+  margin-bottom: 0em; /* potential padding between endnotes? */ 
+}
+/* make sure there are no indents in the endnotes coming from paragraph styling */
+ol.endnotes li p {
+  margin-bottom: 0pt; 
+  text-indent: 0; 
 }
 
 /* sub and sup formatting to keep line-height intact */
