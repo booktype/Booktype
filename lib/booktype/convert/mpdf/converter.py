@@ -619,7 +619,14 @@ class MPDFConverter(BaseConverter):
                 file_name = self.images[item_name]
                 element.set('src', self._images_dir + file_name)
             except Exception as e:
+                # make sure to delete style attribute to avoid mpdf gets broken
+                # TODO: this should be handled from the image editor. Fix it later
+                item_style = element.get('style', '')
+                if 'transform' in item_style:
+                    del element.attrib['style']
+
                 # TODO: discuss what to do in case of missing image
+
                 logger.error(
                     'MPDF::_fix_images: image not found %s (%s)' %
                     (item_name, e)
