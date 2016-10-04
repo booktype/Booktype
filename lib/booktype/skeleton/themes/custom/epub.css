@@ -1,5 +1,5 @@
 body {
-  line-height: {{ lineHeightP}}%;     
+  line-height: {{ lineHeightP}}%;
   font-family: "{{fontP }}";
 }
 
@@ -61,13 +61,13 @@ h5 {
 }
 
 p+p {
-  text-indent: {{ indentP}}em;   
+  text-indent: {{ indentP}}em;
 }
 
-td, p, li { 
-  line-height: {{ lineHeightP}}%;     
-  font-family: "{{ fontP }}";   
-}  
+td, p, li {
+  line-height: {{ lineHeightP}}%;
+  font-family: "{{ fontP }}";
+}
 
 p.quote {
   border-left: 2px solid #333;
@@ -89,4 +89,9 @@ p.quote:before {
   top: 14px;
   left: 6px;
   bottom: 0;
+}
+
+cite, p.bk-cite {
+  font-style: italic;
+  display: inline;
 }

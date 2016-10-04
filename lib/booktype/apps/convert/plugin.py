@@ -116,6 +116,10 @@ class MPDFPlugin(ExternalScriptPlugin):
             div.insert(0, div1)
             div.insert(1, quote)
 
+        # let's fix the cite tags
+        for cite in content.xpath(".//p[@class='bk-cite']"):
+            cite.tag = 'cite'
+
         # set body-first class to first child inside box-content divs [infobox]
         for box_content in content.xpath(".//div[@class='box-content']"):
             for idx, p in enumerate(box_content.xpath('.//p')):
