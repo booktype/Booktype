@@ -35,15 +35,15 @@ Sputnik keys
 
 Sputnik message
 ===============
-  Sputnik message is nothing else then Python dictionary. It B{MUST} provide default keys I{uid}, I{channel} and I{command}. 
+  Sputnik message is nothing else then Python dictionary. It B{MUST} provide default keys I{uid}, I{channel} and I{command}.
   Everything else is optional.
-    
+
 
 @todo: Remove obsolete code after changing redis client version. Redis did not support keys with spaces, so we had to encode keys.
 @todo: Should read info about redis database from settings.
 """
 
-from __future__ import with_statement 
+from __future__ import with_statement
 
 import time
 import json
@@ -143,7 +143,7 @@ def incr(key):
     import sputnik
 
     if key and key.strip() != '':
-        with sputnik.rcon.lock('con'):
+        with sputnik.rcon.lock('com'):
             result = sputnik.rcon.incr(key)
         return result
 
@@ -152,7 +152,7 @@ def get(key):
     import sputnik
 
     if key and key.strip() != '':
-        with sputnik.rcon.lock('con'):
+        with sputnik.rcon.lock('com'):
             result = rdecode(sputnik.rcon.get(key))
         return result
 
@@ -160,7 +160,7 @@ def set(key, value):
     import sputnik
 
     if key and key.strip() != '':
-        with sputnik.rcon.lock('con'):
+        with sputnik.rcon.lock('com'):
             result = rdecode(sputnik.rcon.set(key, value))
         return result
 
@@ -186,7 +186,7 @@ def rkeys(key):
     import sputnik
 
     if key and key.strip() != '':
-        with sputnik.rcon.lock('con'):
+        with sputnik.rcon.lock('com'):
             result = [rdecode(el) for el in list(sputnik.rcon.keys(key))]
 
         return result
@@ -197,7 +197,7 @@ def push(key, value):
     import sputnik
 
     if key and key.strip() != '':
-        with sputnik.rcon.lock('con'):
+        with sputnik.rcon.lock('com'):
             result = sputnik.rcon.rpush(key, rencode(value))
 
         return result
@@ -208,11 +208,11 @@ def rdelete(key):
     import sputnik
 
     if key and key.strip() != '':
-        with sputnik.rcon.lock('con'):
+        with sputnik.rcon.lock('com'):
             sputnik.rcon.delete(key)
 
- 
-# must fix this rcon issue somehow. 
+
+# must fix this rcon issue somehow.
 # this is stupid but will work for now
 
 def hasChannel(channelName):
@@ -278,7 +278,7 @@ def removeClientFromChannel(request, channelName, client):
     @type client: C{string}
     @param client: Unique Client ID.
     """
-    
+
     import sputnik
     srem("sputnik:channel:%s:channel" % channelName, client)
 
@@ -340,7 +340,7 @@ def addMessageToChannel(request, channelName, message, myself = False ):
                 sputnik.push( "ses:%s:messages" % c, json.dumps(message))
             except:
                 pass
-                
+
 def addMessageToChannel2(clientID, sputnikID, channelName, message, myself = False ):
     import sputnik
     import json
