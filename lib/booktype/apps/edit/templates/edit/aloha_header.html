@@ -41,14 +41,14 @@
       toolbar: {
         enabled: true,
         styles: {
-          'QUOTE': {
+          'CITE': {
             'type': 'custom',
             'check': function ($elems) {
-              return $elems.filter('.quote').length > 0;
+              return $elems.filter('.bk-cite').length > 0;
             },
             'create': function (range) {
               Aloha.execCommand('FormatBlock', false, 'p');
-              $(range.startContainer).parent().addClass('quote');
+              $(range.startContainer).parent().addClass('bk-cite');
             }
           }
         }

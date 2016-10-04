@@ -654,3 +654,36 @@ div.contentHeader span.info-message {
 #contenteditor .aloha-block-InfoBoxBlock.aloha-block-active .box-caption .bk-remove {
   display: block;
 }
+
+
+/* bk blockquote styles */
+
+#contenteditor .aloha-block-BlockquoteBlock .bk-quote-info {
+  background-color: #dadff3;
+  color: black;
+  padding: 3px;
+  display: none;
+}
+
+#contenteditor .aloha-block-BlockquoteBlock .bk-quote-info a.bk-action {
+  float: right;
+  color: black;
+  text-decoration: none;
+  padding-right: 5px;
+}
+
+#contenteditor .aloha-block-BlockquoteBlock .bk-quote-info a.bk-help {
+  color: black;
+  text-decoration: none;
+  padding-right: 5px;
+}
+
+#contenteditor .aloha-block-BlockquoteBlock .bk-quote-info .bk-title {
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#contenteditor .aloha-block-BlockquoteBlock.aloha-block-active .bk-quote-info {
+  display: block;
+}
