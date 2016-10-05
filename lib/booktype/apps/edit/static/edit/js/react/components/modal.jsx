@@ -11,6 +11,9 @@ define([
       componentWillMount: function () {
         if (this.props.onShown)
           jQuery(document).on('shown.bs.modal', '#' + this.props.id, this.props.onShown);
+
+        if (this.props.onHide)
+          jQuery(document).on('hide.bs.modal', '#' + this.props.id, this.props.onHide);
       },
 
       componentWillUnmount: function () {
@@ -31,7 +34,7 @@ define([
       },
 
       enableConfirm: function (value) {
-        this.setState({confirmDisabled: value});
+        this.setState({confirmDisabled: !value});
       },
 
       render: function () {
