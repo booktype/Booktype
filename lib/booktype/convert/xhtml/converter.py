@@ -24,6 +24,7 @@ import ebooklib
 from lxml import etree
 
 from booktype.convert.image_editor_conversion import ImageEditorConversion
+from booktype.utils import config
 
 from ..base import BaseConverter
 from ..utils.epub import reformat_endnotes
@@ -33,7 +34,7 @@ logger = logging.getLogger("booktype.convert.xhtml")
 TEXT_DIR = "Text"
 STYLE_DIR = "Styles"
 IMAGES_DIR = "Images"
-XHTML_DOCUMENT_WIDTH = 2480
+XHTML_DOCUMENT_WIDTH = config.get_configuration('XHTML_DOCUMENT_WIDTH')
 
 
 class XHTMLConverter(BaseConverter):

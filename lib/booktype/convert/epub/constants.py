@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from booktype.utils import config
 
 IMAGES_DIR = 'Images'
 STYLES_DIR = 'Styles'
@@ -11,4 +12,4 @@ EPUB_VALID_IMG_ATTRS = frozenset([
     "style", "title", "usemap", "width", "xml:lang", "src", "transform-data"
 ])
 
-EPUB_DOCUMENT_WIDTH = 2480
+EPUB_DOCUMENT_WIDTH = config.get_configuration('EPUB_DOCUMENT_WIDTH')

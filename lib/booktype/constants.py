@@ -20,11 +20,11 @@ from django.utils.translation import ugettext_noop
 # SSL cert verification during request using 'requests' lib
 REQUESTS_VERIFY_SSL_CERT = True
 
+# SECURITY CLASS
+BOOKTYPE_BASE_SECURITY_CLASS = 'booktype.utils.security.base.BaseSecurity'
+
 # Should track changes be turned on for the book
 BOOK_TRACK_CHANGES = False
-
-# PUBLISHING RELATED
-PUBLISH_OPTIONS = ['mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml']
 
 # CHAPTER STATUS RELATED
 CHAPTER_STATUS_LIST = [
@@ -36,19 +36,11 @@ CHAPTER_STATUS_LIST = [
 
 CHAPTER_STATUS_DEFAULT = CHAPTER_STATUS_LIST[0]
 
-# MOBI CONVERSION RELATED
-
-# Options are "kindlegen" or "calibre"
-MOBI_CONVERT = "calibre"
-KINDLEGEN_PATH = "kindlegen"
-CALIBRE_PATH = "ebook-convert"
-CALIBRE_ARGS = ""
-
-OBJAVI_URL = "http://objavi.booktype.pro/objavi.cgi"
-ESPRI_URL = "http://objavi.booktype.pro/espri.cgi"
-
+# SERVER RELATED
 THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST',
                                    'booktype-demo.sourcefabric.org')
+
+# ADMINISTRATIVE RELATED
 CREATE_BOOK_VISIBLE = True
 CREATE_BOOK_LICENSE = ""
 
@@ -75,6 +67,26 @@ REPORTS_CUSTOM_FONT_PATH = False
 
 MAX_ADDITIONAL_METADATA = 3
 
+# IMPORT RELATED
+EPUB_COVER_MIN_DPI = 300
+EPUB_COVER_MIN_SIZE = 500
+EPUB_COVER_MAX_SIZE = 2800
+EPUB_COVER_MAX_PIXELS = 3200000
+
+# PUBLISHING RELATED
+PUBLISH_OPTIONS = ['mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml']
+
+# mobi conversion
+# Options are "kindlegen" or "calibre"
+MOBI_CONVERT = "calibre"
+KINDLEGEN_PATH = "kindlegen"
+CALIBRE_PATH = "ebook-convert"
+CALIBRE_ARGS = ""
+
+OBJAVI_URL = "http://objavi.booktype.pro/objavi.cgi"
+ESPRI_URL = "http://objavi.booktype.pro/espri.cgi"
+
+# theme plugins
 BOOKTYPE_THEME_PLUGINS = {
     'custom': 'booktype.apps.themes.convert.custom',
     'academic': 'booktype.apps.themes.convert.academic'
@@ -83,9 +95,13 @@ BOOKTYPE_THEME_PLUGINS = {
 # define path to module where class ExportBook is located
 BOOKTYPE_EXPORT_CLASS_MODULE = 'booktype.apps.export.utils'
 
-BOOKTYPE_BASE_SECURITY_CLASS = 'booktype.utils.security.base.BaseSecurity'
-
 EXPORT_WAIT_FOR = 90
+
+# convert constants
+CONVERT_EDITOR_WIDTH = 898
+XHTML_DOCUMENT_WIDTH = 2480
+MOBI_DOCUMENT_WIDTH = 2480
+EPUB_DOCUMENT_WIDTH = 2480
 
 EXPORT_SETTINGS = {
     'mpdf': [

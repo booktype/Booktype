@@ -23,7 +23,8 @@ from ..utils import run_command
 from .. import ConversionError
 from ..epub.converter import EpubConverter
 
-MOBI_DOCUMENT_WIDTH = 2480
+
+MOBI_DOCUMENT_WIDTH = config.get_configuration('MOBI_DOCUMENT_WIDTH')
 
 
 class MobiConverter(EpubConverter):
