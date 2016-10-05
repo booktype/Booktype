@@ -452,7 +452,7 @@ define([
         var newValue = event.target.value;
 
         this.setState({comment: newValue});
-        this.refs.modal.enableConfirm(jQuery.trim(newValue).length === 0);
+        this.refs.modal.enableConfirm(jQuery.trim(newValue).length > 0);
       },
 
       show: function (range, editable, handleBubbleClick) {
