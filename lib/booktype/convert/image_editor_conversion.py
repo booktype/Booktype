@@ -6,6 +6,7 @@ import logging
 
 from django.conf import settings
 
+from booktype.utils import config
 from booktype.utils.image_editor import BkImageEditor
 
 try:
@@ -13,10 +14,10 @@ try:
 except ImportError:
     from PIL import Image
 
-EDITOR_WIDTH = 898
-
 
 logger = logging.getLogger("booktype.convert")
+
+EDITOR_WIDTH = config.get_configuration('CONVERT_EDITOR_WIDTH')
 
 
 class ImageEditorConversion(object):

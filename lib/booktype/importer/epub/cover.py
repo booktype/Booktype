@@ -21,15 +21,26 @@ import ebooklib
 import ebooklib.epub
 import ebooklib.utils
 
+from booktype.utils import config
+
 __all__ = ("get_cover_image", )
 
 logger = logging.getLogger("booktype.importer.epub")
 
-MIN_DPI = 300               # minimal DPI of the image (if specified)
-MIN_SIZE = 500               # minimal size on the shorter axis (pixels)
-MAX_SIZE = 2800              # maximal size on the longer axis (pixels)
-MAX_PIXELS = 3200000           # maximum number of pixels (width * height)
-MAX_CONTENT_SIZE = MAX_PIXELS * 4    # maximum size of image content
+# minimal DPI of the image (if specified)
+MIN_DPI = config.get_configuration('EPUB_COVER_MIN_DPI')
+
+# minimal size on the shorter axis (pixels)
+MIN_SIZE = config.get_configuration('EPUB_COVER_MIN_SIZE')
+
+# maximal size on the longer axis (pixels)
+MAX_SIZE = config.get_configuration('EPUB_COVER_MAX_SIZE')
+
+# maximum number of pixels (width * height)
+MAX_PIXELS = config.get_configuration('EPUB_COVER_MAX_PIXELS')
+
+# maximum size of image content
+MAX_CONTENT_SIZE = MAX_PIXELS * 4
 
 
 def get_cover_image(book):
