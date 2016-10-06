@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-03 21:52-0600\n"
-"PO-Revision-Date: 2016-10-04 09:49+0000\n"
+"POT-Creation-Date: 2016-10-05 14:08-0600\n"
+"PO-Revision-Date: 2016-10-06 09:35+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/sourcefabric/booktype/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -1103,13 +1103,13 @@ msgstr "You have no permission to do this!"
 
 #: apps/core/templates/templatetags/pager.html:8
 #: apps/core/templates/templatetags/pager.html:10
-#: apps/edit/templates/edit/edit_strings.html:115
+#: apps/edit/templates/edit/edit_strings.html:119
 msgid "Previous"
 msgstr "Previous"
 
 #: apps/core/templates/templatetags/pager.html:16
 #: apps/core/templates/templatetags/pager.html:18
-#: apps/edit/templates/edit/edit_strings.html:114
+#: apps/edit/templates/edit/edit_strings.html:118
 msgid "Next"
 msgstr "Next"
 
@@ -1357,13 +1357,14 @@ msgid "Full view"
 msgstr "Full view"
 
 #: apps/edit/templates/edit/aloha_menu.html:5
+#: apps/edit/templates/edit/edit_strings.html:105
 #: apps/edit/templates/edit/panel_aloha.html:239
 #: apps/edit/templates/edit/panel_aloha.html:445
 msgid "Insert"
 msgstr "Insert"
 
 #: apps/edit/templates/edit/aloha_menu.html:8
-#: apps/edit/templates/edit/edit_strings.html:107
+#: apps/edit/templates/edit/edit_strings.html:108
 msgid "Insert comment"
 msgstr "Insert comment"
 
@@ -1489,8 +1490,8 @@ msgid "Pre-formatted"
 msgstr "Pre-formatted"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:18
-msgid "Cite"
-msgstr "Cite"
+msgid "Citation"
+msgstr "Citation"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:23
 msgid "Font"
@@ -1519,7 +1520,7 @@ msgid "Underline"
 msgstr "Underline"
 
 #: apps/edit/templates/edit/aloha_toolbar.html:145
-#: apps/edit/templates/edit/edit_strings.html:112
+#: apps/edit/templates/edit/edit_strings.html:113
 msgid "Quote"
 msgstr "Quote"
 
@@ -1786,7 +1787,7 @@ msgstr "Chapter History"
 msgid "Comments"
 msgstr "Comments"
 
-#: apps/edit/templates/edit/book_edit.html:300
+#: apps/edit/templates/edit/book_edit.html:301
 #, python-format
 msgid ""
 "<p class=\"notification-text\"><%%= username %%> joined </p><span class"
@@ -2281,32 +2282,44 @@ msgstr "Confirm"
 msgid "Resolve"
 msgstr "Resolve"
 
-#: apps/edit/templates/edit/edit_strings.html:105
+#: apps/edit/templates/edit/edit_strings.html:106
 msgid "Do not forget to save the chapter to preserve the changes!"
 msgstr "Do not forget to save the chapter to preserve the changes!"
 
-#: apps/edit/templates/edit/edit_strings.html:106
+#: apps/edit/templates/edit/edit_strings.html:107
 msgid "Do you want to resolve this comment?"
 msgstr "Do you want to resolve this comment?"
 
-#: apps/edit/templates/edit/edit_strings.html:108
+#: apps/edit/templates/edit/edit_strings.html:109
 msgid ""
 "Please select the text you wish to comment on, then click the button below."
 msgstr "Please select the text you wish to comment on, then click the button below."
 
-#: apps/edit/templates/edit/edit_strings.html:109
+#: apps/edit/templates/edit/edit_strings.html:110
 msgid "Do you want to remove the infobox?"
 msgstr "Do you want to remove the infobox?"
 
-#: apps/edit/templates/edit/edit_strings.html:110
+#: apps/edit/templates/edit/edit_strings.html:111
 msgid "Chapter Comments"
 msgstr "Chapter Comments"
 
-#: apps/edit/templates/edit/edit_strings.html:111
+#: apps/edit/templates/edit/edit_strings.html:112
 msgid "Do you want to remove this quote?"
 msgstr "Do you want to remove this quote?"
 
+#: apps/edit/templates/edit/edit_strings.html:114
+msgid "New Quote"
+msgstr "New Quote"
+
+#: apps/edit/templates/edit/edit_strings.html:115
+msgid "Set an author for this Quote"
+msgstr "Set an author for this Quote"
+
 #: apps/edit/templates/edit/edit_strings.html:116
+msgid "Author name (optional)"
+msgstr "Author name (optional)"
+
+#: apps/edit/templates/edit/edit_strings.html:120
 msgid "Finish"
 msgstr "Finish"
 
