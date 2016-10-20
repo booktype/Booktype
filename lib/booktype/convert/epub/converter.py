@@ -57,12 +57,16 @@ class EpubConverter(BaseConverter):
     writer_plugin_class = WriterPlugin
     css_dir = os.path.join(os.path.dirname(__file__), 'styles/')
 
+    _images_dir = "images/"
+
     # valid extensions to assign right mimetype
     WOFF_FONTS = ['.woff']
     OPENTYPE_FONTS = ['.otf', '.otc', '.ttf', '.ttc']
 
     def __init__(self, *args, **kwargs):
         super(EpubConverter, self).__init__(*args, **kwargs)
+
+        self.images_path = os.path.join(self.sandbox_path, self._images_dir)
 
         self.theme_name = ''
         self.theme_plugin = None
@@ -91,7 +95,7 @@ class EpubConverter(BaseConverter):
         # todo move it to more proper place in the future, and create plugin for it
         if self.name == 'epub':
             self._bk_image_editor_conversion = ImageEditorConversion(
-                original_book, EPUB_DOCUMENT_WIDTH, self.config.get("project_id")
+                original_book, EPUB_DOCUMENT_WIDTH, self
             )
 
     def post_convert(self, original_book, book, output_path):

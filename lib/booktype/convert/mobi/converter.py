@@ -37,7 +37,7 @@ class MobiConverter(EpubConverter):
         # todo move it to more proper place in the future, and create plugin for it
         if self.name == 'mobi':
             self._bk_image_editor_conversion = ImageEditorConversion(
-                original_book, MOBI_DOCUMENT_WIDTH, self.config.get("project_id")
+                original_book, MOBI_DOCUMENT_WIDTH, self
             )
 
     def convert(self, book, output_path):
