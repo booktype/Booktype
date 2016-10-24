@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 import ebooklib
 import StringIO
 import logging
@@ -22,14 +23,15 @@ EDITOR_WIDTH = config.get_configuration('CONVERT_EDITOR_WIDTH')
 
 class ImageEditorConversion(object):
 
-    def __init__(self, original_book, output_document_width, project_id):
+    def __init__(self, original_book, output_document_width, converter):
         self._original_book = original_book
         self._output_document_width = output_document_width
+        self._converter = converter
 
         # cache path for edited images
         # example: /data/tmp/bk_image_editor/<project_id>
         self._cache_folder = os.path.abspath(
-            os.path.join(settings.MEDIA_ROOT, 'bk_image_editor', project_id)
+            os.path.join(settings.MEDIA_ROOT, 'bk_image_editor', self._converter.config.get("project_id"))
         )
 
     def convert(self, html):
@@ -280,5 +282,17 @@ class ImageEditorConversion(object):
         if not output_image_path or not os.path.isfile(output_image_path):
             return
 
+        # copy edited image into export package,
+        # to have everything we need in one place
+        dst = os.path.join(
+            os.path.dirname(self._converter.images_path),
+            os.path.basename(output_image_path)
+        )
+
+        if not os.path.exists(self._converter.images_path):
+            os.makedirs(self._converter.images_path)
+
+        shutil.copy(output_image_path, self._converter.images_path)
+
         # change image src in html
-        elem.set("src", output_image_path)
+        elem.set("src", dst)

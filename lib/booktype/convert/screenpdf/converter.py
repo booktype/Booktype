@@ -44,7 +44,7 @@ class ScreenPDFConverter(MPDFConverter):
 
         if self.name == 'screenpdf':
             self._bk_image_editor_conversion = ImageEditorConversion(
-                book, inches * 300, self.config.get("project_id")
+                book, inches * 300, self
             )
 
     def get_extra_configuration(self):
