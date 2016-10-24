@@ -150,7 +150,7 @@ class MPDFConverter(BaseConverter):
 
         if self.name == 'mpdf':
             self._bk_image_editor_conversion = ImageEditorConversion(
-                book, inches * 300, self.config.get("project_id")
+                book, inches * 300, self
             )
 
     def post_convert(self, book, output_path):

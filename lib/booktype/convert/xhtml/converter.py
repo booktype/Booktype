@@ -40,8 +40,11 @@ XHTML_DOCUMENT_WIDTH = config.get_configuration('XHTML_DOCUMENT_WIDTH')
 class XHTMLConverter(BaseConverter):
     name = 'xhtml'
 
+    _images_dir = "images/"
+
     def __init__(self, *args, **kwargs):
         super(XHTMLConverter, self).__init__(*args, **kwargs)
+        self.images_path = os.path.join(self.sandbox_path, self._images_dir)
         self._bk_image_editor_conversion = None
         self._all_images_src = set()
 
@@ -58,7 +61,7 @@ class XHTMLConverter(BaseConverter):
         # todo move it to more proper place in the future, and create plugin for it
         if self.name == 'xhtml':
             self._bk_image_editor_conversion = ImageEditorConversion(
-                book, XHTML_DOCUMENT_WIDTH, self.config.get("project_id")
+                book, XHTML_DOCUMENT_WIDTH, self
             )
 
     def convert(self, original_book, output_path):

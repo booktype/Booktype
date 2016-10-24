@@ -36,6 +36,10 @@
     </div>
   </div>
 
+  {% if "pdfreactor" in publish_options %}
+    {% include 'pdfreactor/publish_settings.html' %}
+  {% endif %}
+
   <div class="modal fade settings-dialog" id="settings-mpdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog new_book">
       <div class="modal-content">
@@ -401,6 +405,10 @@
 
     <div class="row export-formats">
       <div class="col-sm-4">
+
+        {% if "pdfreactor" in publish_options %}
+          {% include "pdfreactor/publish_option.html" %}
+        {% endif %}
 
         {% if "mpdf" in publish_options %}
           <div class="checkbox">
