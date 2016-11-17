@@ -69,12 +69,6 @@ try:
 except ImportError:
     pass
 
-try:
-    import devserver
-    INSTALLED_APPS = ('devserver',) + INSTALLED_APPS
-except ImportError:
-    pass
-
 # LOGGING
 LOGGING = {
     'version': 1,
@@ -88,7 +82,7 @@ LOGGING = {
     'handlers': {
         'null': {
             'level': 'DEBUG',
-            'class': 'django.utils.log.NullHandler',
+            'class': 'logging.NullHandler',
         },
         'logfile': {
             'level': 'DEBUG',

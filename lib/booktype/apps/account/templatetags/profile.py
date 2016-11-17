@@ -17,7 +17,7 @@
 
 import uuid
 
-from django.template import Library, Node, TemplateSyntaxError, resolve_variable
+from django.template import Library, Node, TemplateSyntaxError, Variable
 from django.utils.safestring import mark_safe
 from booktype.apps.account import utils
 
@@ -29,7 +29,7 @@ class ProfileImageNode(Node):
         self.user = user
 
     def render(self, context):
-        user = resolve_variable(self.user, context)
+        user = Variable(self.user).resolve(context)
         image_url = utils.get_profile_image(user)
         return mark_safe('<img src="{url}?{anti_cache}"/>'.format(url=image_url, anti_cache=str(uuid.uuid4())))
 

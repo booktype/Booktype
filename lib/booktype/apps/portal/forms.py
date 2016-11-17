@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.html import escape
-from django.forms.util import ErrorList
+from django.forms.utils import ErrorList
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
@@ -65,7 +65,7 @@ class BaseGroupForm(BaseBooktypeForm, forms.ModelForm):
     def set_group_image(self, group_id, group_image):
         try:
             filename = misc.set_group_image(group_id, group_image, 240, 240)
-            
+
             if len(filename) == 0:
                 raise ValidationError(_('Only JPEG file is allowed for group image.'))
             else:

@@ -15,14 +15,10 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.contrib.auth.decorators import login_required
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from .views import ImporterView
 
-urlpatterns = patterns('', # noqa
-    url(
-        r'^_upload-book-file/$',
-        login_required(ImporterView.as_view()),
-        name='upload_book_file'
-    ),
-)
+urlpatterns = [
+    url(r'^_upload-book-file/$', login_required(ImporterView.as_view()), name='upload_book_file'),
+]

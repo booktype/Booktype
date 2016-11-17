@@ -34,6 +34,7 @@ import json
 from lxml import etree, html
 
 from django import template
+from django.template.context import Context
 from django.utils.translation import ugettext_lazy as _
 
 from booki.editor import models
@@ -282,7 +283,7 @@ def importBookFromUrl2(user, baseurl, args, **extraOptions):
 def expand_macro(chapter):
     try:
         t = template.loader.get_template_from_string('{% load booktype_tags %} {% booktype_format content %}')
-        return t.render(template.Context({"content": chapter}))
+        return t.render(Context({"content": chapter}))
     except template.TemplateSyntaxError:
         return chapter.content
 

@@ -1,7 +1,6 @@
 -r _base.txt
 
 sqlparse==0.1.9
-django-debug-toolbar==1.4
 django-discover-runner
 mock
 selenium
@@ -9,4 +8,4 @@ factory_boy
 sphinx
 pep8
 
--e git://github.com/dcramer/django-devserver.git@35f9abf601e6cc2ed3cdbb78fb60018d7bd5a48d#egg=django-devserver
+-e git+git://github.com/jazzband/django-debug-toolbar.git#egg=django-debug-toolbar

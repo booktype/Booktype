@@ -1,8 +1,8 @@
 import os
 
+from collections import OrderedDict as SortedDict
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from django.utils.datastructures import SortedDict
 from django.utils._os import safe_join
 
 from django.contrib.staticfiles import utils, finders

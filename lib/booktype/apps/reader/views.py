@@ -150,7 +150,8 @@ class SingleNextMixin(object):
     """
 
     def dispatch(self, request, *args, **kwargs):
-        self.next = request.REQUEST.get('next', None)
+        _request_data = getattr(request, request.method)
+        self.next = _request_data.get('next', None)
         return super(SingleNextMixin, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

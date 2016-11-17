@@ -6,6 +6,8 @@ from ebooklib.utils import parse_html_string
 
 from django import template
 from django.utils.html import escape
+from django.utils.safestring import mark_safe
+from django.template.context import Context
 from django.template.smartif import Literal
 from django.template.defaulttags import TemplateIfParser, IfNode
 
@@ -51,7 +53,7 @@ class FormatGroupsNode(template.Node):
     def render(self, context):
         t = template.loader.get_template('core/booktype_groups.html')
 
-        return t.render(template.Context({
+        return t.render(Context({
             'groups': models.BookiGroup.objects.all().order_by("name"),
             'books': models.Book.objects.filter(
                 hidden=False)}, autoescape=context.autoescape))
@@ -122,7 +124,7 @@ class FormatBooktypeNode(template.Node):
                         t = template.loader.get_template_from_string(
                             tag_text % (mtch.group(1).lower(),))
                         con = t.render(
-                            template.Context({
+                            Context({
                                 "content": chapter,
                                 "book": chapter.version.book,
                                 "args": mtch.group(2)
@@ -212,7 +214,7 @@ class FormatAuthorsNode(template.Node):
         copyright_description = self.args.resolve(context) or ''
 
         return t.render(
-            template.Context({
+            Context({
                 'chapters': chapters,
                 "copyright": copyright_description[1:-1]
             }, autoescape=context.autoescape)
@@ -275,7 +277,7 @@ def booktype_site_name():
         s = '<div class="logo"><a href="%s%s"></a></div>' % (
             settings.BOOKTYPE_URL, frontpage_url)
 
-    return s
+    return mark_safe(s)
 
 
 @register.simple_tag
@@ -286,8 +288,9 @@ def booktype_site_favicon():
 
     default = static('core/img/favicon.ico')
     favicon = config.get_configuration('BOOKTYPE_SITE_FAVICON', default)
+    html = '<link rel="shortcut icon" href="%s" type="image/x-icon">' % escape(favicon)
 
-    return '<link rel="shortcut icon" href="%s" type="image/x-icon">' % escape(favicon)
+    return mark_safe(html)
 
 
 @register.filter
@@ -419,7 +422,7 @@ def add_url_query_param(request, key, value):
     return key_value.urlencode()
 
 
-@register.inclusion_tag(file_name='templatetags/pagination.html', takes_context=True)
+@register.inclusion_tag('templatetags/pagination.html', takes_context=True)
 def booktype_pagination(context, page_object, pagination_class=None):
     """
     Render bootstrap based paginator.
@@ -465,7 +468,7 @@ def booktype_pagination(context, page_object, pagination_class=None):
     return pagination_data
 
 
-@register.inclusion_tag(file_name='templatetags/pager.html', takes_context=True)
+@register.inclusion_tag('templatetags/pager.html', takes_context=True)
 def booktype_pager(context, page_object):
     """
     Render bootstrap based pager.
@@ -483,7 +486,7 @@ def booktype_pager(context, page_object):
     return pagination_data
 
 
-@register.inclusion_tag(file_name='templatetags/google_analytics.html', takes_context=True)
+@register.inclusion_tag('templatetags/google_analytics.html', takes_context=True)
 def google_analytics(context):
     """
     Add google analytics async tracking code.

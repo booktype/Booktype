@@ -661,11 +661,13 @@ class BookSettingsView(LoginRequiredMixin, views.SecurityMixin,
 
     def dispatch(self, request, *args, **kwargs):
         # check if book exist
-        bookid = request.REQUEST.get('bookid', None)
+        _request_data = getattr(request, request.method)
+
+        bookid = _request_data.get('bookid', None)
         self.book = get_object_or_404(models.Book, id=bookid)
 
         # a settings option is needed
-        option = request.REQUEST.get('setting', None)
+        option = _request_data.get('setting', None)
         if option and option in VALID_SETTINGS:
             self.submodule = option
         else:

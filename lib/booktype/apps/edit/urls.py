@@ -14,24 +14,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from .views import (
     EditBookPage, BookHistoryPage, RevisionPage,
-    ChapterHistoryPage, CompareChapterRevisions,
-    BookSettingsView
+    ChapterHistoryPage, CompareChapterRevisions, BookSettingsView
 )
+from .views import upload_attachment, upload_cover, cover
+from booktype.apps.core.views import staticattachment
 
-urlpatterns = patterns('', # noqa
-    url(r'^_upload/$',
-        'booktype.apps.edit.views.upload_attachment',
-        name='upload_attachment'),
-    url(r'^_upload_cover/$',
-        'booktype.apps.edit.views.upload_cover', name='upload_cover'),
-    url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/(?P<fname>.*)$',
-        'booktype.apps.edit.views.cover', name='view_cover'),
-    url(r'^_edit/static/(?P<attachment>.*)$',
-        'booktype.apps.core.views.staticattachment'),
+urlpatterns = [
+    url(r'^_upload/$', upload_attachment, name='upload_attachment'),
+    url(r'^_upload_cover/$', upload_cover, name='upload_cover'),
+    url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/(?P<fname>.*)$', cover, name='view_cover'),
+    url(r'^_edit/static/(?P<attachment>.*)$', staticattachment),
 
     url(r'^_edit/$', EditBookPage.as_view(), name='editor'),
     url(r'^_history/$', BookHistoryPage.as_view(), name='history'),
@@ -39,14 +35,14 @@ urlpatterns = patterns('', # noqa
     url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/$',
         ChapterHistoryPage.as_view(), name='chapter_history'),
 
-    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/compare-revs/(?P<rev_one>\d+)/(?P<rev_two>\d+)/$', # noqa
+    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/compare-revs/(?P<rev_one>\d+)/(?P<rev_two>\d+)/$',
         CompareChapterRevisions.as_view(), name='revisions_compare'),
 
     url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/rev/(?P<revid>\d+)/$',
         RevisionPage.as_view(), name='chapter_revision'),
 
-    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/rev/(?P<revid>\d+)/static/(?P<attachment>.*)$', # noqa
-        'booktype.apps.core.views.staticattachment'),
+    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/rev/(?P<revid>\d+)/static/(?P<attachment>.*)$',
+        staticattachment),
 
     url(r'^_settings/$', BookSettingsView.as_view(), name='settings'),
-)
+]

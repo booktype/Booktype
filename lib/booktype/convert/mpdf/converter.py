@@ -27,7 +27,8 @@ import ebooklib.utils
 from copy import deepcopy
 
 from django.conf import settings
-from django.template.loader import render_to_string, Context, Template
+from django.template.loader import render_to_string
+from django.template.base import Context, Template
 
 from booktype.apps.convert import plugin
 from booktype.apps.themes.utils import (
