@@ -1,16 +1,16 @@
-# English (en) translation strings for Booki.
+# English (en) translation strings for Booktype.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
 # 
 # Translators:
 # aerkalov <aleksandar.erkalovic@sourcefabric.org>, 2014
-# Daniel James <daniel@64studio.com>, 2015
+# Daniel James <daniel@64studio.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-24 16:04-0600\n"
-"PO-Revision-Date: 2016-07-21 09:23+0000\n"
+"POT-Creation-Date: 2016-11-28 11:51+0000\n"
+"PO-Revision-Date: 2016-12-05 14:30+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/sourcefabric/booktype/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -23,8 +23,8 @@ msgstr ""
 "X-Poedit-Language: English\n"
 
 #: editor/models.py:33 editor/models.py:47 editor/models.py:70
-#: editor/models.py:97 editor/models.py:353 editor/models.py:419
-#: editor/models.py:728
+#: editor/models.py:97 editor/models.py:354 editor/models.py:420
+#: editor/models.py:729
 msgid "name"
 msgstr "name"
 
@@ -52,7 +52,7 @@ msgstr "Language"
 msgid "Languages"
 msgstr "Languages"
 
-#: editor/models.py:61 editor/models.py:204
+#: editor/models.py:61 editor/models.py:205
 msgid "published"
 msgstr "published"
 
@@ -64,15 +64,15 @@ msgstr "not published"
 msgid "not translated"
 msgstr "not translated"
 
-#: editor/models.py:69 editor/models.py:84 editor/models.py:328
-#: editor/models.py:388 editor/models.py:405 editor/models.py:416
-#: editor/models.py:462 editor/models.py:653 editor/models.py:726
-#: editor/models.py:767 editor/models.py:776 editor/models.py:788
-#: editor/models.py:808
+#: editor/models.py:69 editor/models.py:84 editor/models.py:329
+#: editor/models.py:389 editor/models.py:406 editor/models.py:417
+#: editor/models.py:463 editor/models.py:654 editor/models.py:727
+#: editor/models.py:770 editor/models.py:779 editor/models.py:791
+#: editor/models.py:811
 msgid "book"
 msgstr "book"
 
-#: editor/models.py:71 editor/models.py:730
+#: editor/models.py:71 editor/models.py:731
 msgid "weight"
 msgstr "weight"
 
@@ -80,7 +80,7 @@ msgstr "weight"
 msgid "Book status"
 msgstr "Book status"
 
-#: editor/models.py:85 editor/models.py:831
+#: editor/models.py:85 editor/models.py:834
 msgid "notes"
 msgstr "notes"
 
@@ -96,11 +96,11 @@ msgstr "Book notes"
 msgid "url name"
 msgstr "URL name"
 
-#: editor/models.py:99 editor/models.py:209 editor/models.py:421
+#: editor/models.py:99 editor/models.py:210 editor/models.py:422
 msgid "description"
 msgstr "description"
 
-#: editor/models.py:101 editor/models.py:197
+#: editor/models.py:101 editor/models.py:198
 msgid "owner"
 msgstr "owner"
 
@@ -108,9 +108,9 @@ msgstr "owner"
 msgid "members"
 msgstr "members"
 
-#: editor/models.py:105 editor/models.py:203 editor/models.py:424
-#: editor/models.py:467 editor/models.py:617 editor/models.py:658
-#: editor/models.py:835
+#: editor/models.py:105 editor/models.py:204 editor/models.py:425
+#: editor/models.py:468 editor/models.py:618 editor/models.py:659
+#: editor/models.py:838
 msgid "created"
 msgstr "created"
 
@@ -155,265 +155,273 @@ msgid "Copyright holder"
 msgstr "Copyright holder"
 
 #: editor/models.py:176
-msgid "Publisher city"
-msgstr "Publisher city"
+msgid "City of publication"
+msgstr "City of publication"
 
 #: editor/models.py:177
+msgid "Country of publication"
+msgstr "Country of publication"
+
+#: editor/models.py:178
 msgid "Short description"
 msgstr "Short description"
 
-#: editor/models.py:178
+#: editor/models.py:179
 msgid "Long description"
 msgstr "Long description"
 
-#: editor/models.py:180
+#: editor/models.py:181
 msgid "Ebook ISBN"
 msgstr "Ebook ISBN"
 
-#: editor/models.py:181
+#: editor/models.py:182
 msgid "Print ISBN"
 msgstr "Print ISBN"
 
-#: editor/models.py:187 editor/models.py:464
+#: editor/models.py:188 editor/models.py:465
 msgid "url title"
 msgstr "URL title"
 
-#: editor/models.py:188 editor/models.py:465
+#: editor/models.py:189 editor/models.py:466
 msgid "title"
 msgstr "title"
 
-#: editor/models.py:189 editor/models.py:466 editor/models.py:657
+#: editor/models.py:190 editor/models.py:467 editor/models.py:658
 msgid "status"
 msgstr "status"
 
-#: editor/models.py:190
+#: editor/models.py:191
 msgid "language"
 msgstr "language"
 
-#: editor/models.py:193 editor/models.py:330 editor/models.py:460
-#: editor/models.py:651 editor/models.py:724
+#: editor/models.py:194 editor/models.py:331 editor/models.py:461
+#: editor/models.py:652 editor/models.py:725
 msgid "version"
 msgstr "version"
 
-#: editor/models.py:195 editor/models.py:768
+#: editor/models.py:196 editor/models.py:771
 msgid "group"
 msgstr "group"
 
-#: editor/models.py:201 editor/models.py:829
+#: editor/models.py:202 editor/models.py:832
 msgid "license"
 msgstr "licence"
 
-#: editor/models.py:206
+#: editor/models.py:207
 msgid "hidden"
 msgstr "hidden"
 
-#: editor/models.py:207 editor/models.py:769
+#: editor/models.py:208 editor/models.py:772
 msgid "permission"
 msgstr "permission"
 
-#: editor/models.py:210
+#: editor/models.py:211
 msgid "cover"
 msgstr "cover"
 
-#: editor/models.py:213
+#: editor/models.py:214
 msgid "Book"
 msgstr "Book"
 
-#: editor/models.py:214
+#: editor/models.py:215
 msgid "Books"
 msgstr "Books"
 
-#: editor/models.py:331 editor/models.py:573 editor/models.py:729
+#: editor/models.py:332 editor/models.py:574 editor/models.py:730
 msgid "chapter"
 msgstr "chapter"
 
-#: editor/models.py:332
+#: editor/models.py:333
 msgid "chapter history"
 msgstr "chapter history"
 
-#: editor/models.py:333 editor/models.py:468 editor/models.py:575
+#: editor/models.py:334 editor/models.py:469 editor/models.py:576
 msgid "modified"
 msgstr "modified"
 
-#: editor/models.py:334
+#: editor/models.py:335
 msgid "args"
 msgstr "arguments"
 
-#: editor/models.py:335 editor/models.py:576 editor/models.py:615
-#: editor/models.py:766 editor/models.py:777 editor/models.py:789
-#: editor/models.py:809
+#: editor/models.py:336 editor/models.py:577 editor/models.py:616
+#: editor/models.py:769 editor/models.py:780 editor/models.py:792
+#: editor/models.py:812
 msgid "user"
 msgstr "user"
 
-#: editor/models.py:336 editor/models.py:354
+#: editor/models.py:337 editor/models.py:355
 msgid "kind"
 msgstr "kind"
 
-#: editor/models.py:356
+#: editor/models.py:357
 msgid "value string"
 msgstr "value string"
 
-#: editor/models.py:357
+#: editor/models.py:358
 msgid "value integer"
 msgstr "value integer"
 
-#: editor/models.py:358
+#: editor/models.py:359
 msgid "value text"
 msgstr "value text"
 
-#: editor/models.py:359
+#: editor/models.py:360
 msgid "value date"
 msgstr "value date"
 
-#: editor/models.py:392 editor/models.py:393
+#: editor/models.py:393 editor/models.py:394
 msgid "Metadata"
 msgstr "Metadata"
 
-#: editor/models.py:410
+#: editor/models.py:411
 msgid "Book setting"
 msgstr "Book setting"
 
-#: editor/models.py:411
+#: editor/models.py:412
 msgid "Book settings"
 msgstr "Book settings"
 
-#: editor/models.py:417
+#: editor/models.py:418
 msgid "major"
 msgstr "major"
 
-#: editor/models.py:418
+#: editor/models.py:419
 msgid "minor"
 msgstr "minor"
 
-#: editor/models.py:470 editor/models.py:577
+#: editor/models.py:471 editor/models.py:578
 msgid "revision"
 msgstr "revision"
 
-#: editor/models.py:474 messaging/models.py:34
+#: editor/models.py:475 messaging/models.py:34
 msgid "content"
 msgstr "content"
 
-#: editor/models.py:477
+#: editor/models.py:478
 msgid "Chapter"
 msgstr "Chapter"
 
-#: editor/models.py:478
+#: editor/models.py:479
 msgid "Chapters"
 msgstr "Chapters"
 
-#: editor/models.py:578
+#: editor/models.py:579
 msgid "comment"
 msgstr "comment"
 
-#: editor/models.py:585
+#: editor/models.py:586
 msgid "Chapter history"
 msgstr "Chapter history"
 
-#: editor/models.py:620
+#: editor/models.py:621
 msgid "Chapter Lock"
 msgstr "Chapter Lock"
 
-#: editor/models.py:621
+#: editor/models.py:622
 msgid "Chapters Locks"
 msgstr "Chapter Locks"
 
-#: editor/models.py:655 editor/models.py:813
+#: editor/models.py:656 editor/models.py:816
 msgid "filename"
 msgstr "filename"
 
-#: editor/models.py:670
+#: editor/models.py:671
 msgid "Attachment"
 msgstr "Attachment"
 
-#: editor/models.py:671
+#: editor/models.py:672
 msgid "Attachments"
 msgstr "Attachments"
 
-#: editor/models.py:717
+#: editor/models.py:718
 msgid "section name"
 msgstr "section name"
 
-#: editor/models.py:718
+#: editor/models.py:719
 msgid "chapter name"
 msgstr "chapter name"
 
-#: editor/models.py:719
+#: editor/models.py:720
 msgid "line"
 msgstr "line"
 
-#: editor/models.py:727
+#: editor/models.py:728
 msgid "parent"
 msgstr "parent"
 
-#: editor/models.py:731
+#: editor/models.py:732
 msgid "typeof"
 msgstr "type of"
 
-#: editor/models.py:751
+#: editor/models.py:734
+msgid "settings"
+msgstr "settings"
+
+#: editor/models.py:754
 msgid "Book TOC"
 msgstr "Book TOC"
 
-#: editor/models.py:752
+#: editor/models.py:755
 msgid "Book TOCs"
 msgstr "Book TOCs"
 
-#: editor/models.py:783 editor/models.py:784
+#: editor/models.py:786 editor/models.py:787
 msgid "Attribution Exclude"
 msgstr "Attribution Exclude"
 
-#: editor/models.py:790
+#: editor/models.py:793
 msgid "wizard type"
 msgstr "wizard type"
 
-#: editor/models.py:791
+#: editor/models.py:794
 msgid "wizard options"
 msgstr "wizard options"
 
-#: editor/models.py:797 editor/models.py:798
+#: editor/models.py:800 editor/models.py:801
 msgid "Publish Wizard"
 msgstr "Publish Wizard"
 
-#: editor/models.py:815
+#: editor/models.py:818
 msgid "Cover title"
 msgstr "Cover title"
 
-#: editor/models.py:817
+#: editor/models.py:820
 msgid "Width"
 msgstr "Width"
 
-#: editor/models.py:818
+#: editor/models.py:821
 msgid "Height"
 msgstr "Height"
 
-#: editor/models.py:819
+#: editor/models.py:822
 msgid "Unit"
 msgstr "Unit"
 
-#: editor/models.py:820
+#: editor/models.py:823
 msgid "Booksize"
 msgstr "Book size"
 
-#: editor/models.py:822
+#: editor/models.py:825
 msgid "Book cover"
 msgstr "Book cover"
 
-#: editor/models.py:823
+#: editor/models.py:826
 msgid "E-book cover"
 msgstr "E-book cover"
 
-#: editor/models.py:824
+#: editor/models.py:827
 msgid "PDF cover"
 msgstr "PDF cover"
 
-#: editor/models.py:826
+#: editor/models.py:829
 msgid "Cover type"
 msgstr "Cover type"
 
-#: editor/models.py:828
+#: editor/models.py:831
 msgid "Cover"
 msgstr "Cover"
 
-#: editor/models.py:833
+#: editor/models.py:836
 msgid "Approved"
 msgstr "Approved"
 

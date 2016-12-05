@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-05 14:08-0600\n"
-"PO-Revision-Date: 2016-10-06 09:35+0000\n"
+"POT-Creation-Date: 2016-12-02 10:51+0000\n"
+"PO-Revision-Date: 2016-12-05 14:55+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/sourcefabric/booktype/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -415,70 +415,70 @@ msgstr "What is the title of your book?"
 msgid "Title of Book"
 msgstr "Title of Book"
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:22
+#: apps/account/templates/account/dashboard_create_book_modal.html:23
 msgid "There is already a book with this name."
 msgstr "There is already a book with this name."
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:26
-#: apps/account/templates/account/dashboard_create_book_modal.html:29
+#: apps/account/templates/account/dashboard_create_book_modal.html:27
+#: apps/account/templates/account/dashboard_create_book_modal.html:30
 #: apps/export/models.py:51
 msgid "Description"
 msgstr "Description"
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:28
+#: apps/account/templates/account/dashboard_create_book_modal.html:29
 msgid ""
 "Give some information so others can find it to help you (this can be added "
 "or changed later)."
 msgstr "Please provide some information so other contributors can find and help you (this can be added or changed later)."
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:33
+#: apps/account/templates/account/dashboard_create_book_modal.html:34
 msgid "Choose license"
 msgstr "Choose licence"
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:35
+#: apps/account/templates/account/dashboard_create_book_modal.html:36
 msgid "Choose from the following licenses"
 msgstr "Choose from the following licences"
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:36
+#: apps/account/templates/account/dashboard_create_book_modal.html:37
 #: apps/edit/forms.py:145 apps/edit/templates/edit/panel_covers.html:73
 #: apps/edit/templates/edit/panel_covers.html:130
 #: apps/edit/templates/edit/panel_settings.html:25
 msgid "License"
 msgstr "Licence"
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:44
+#: apps/account/templates/account/dashboard_create_book_modal.html:45
 msgid "Image"
 msgstr "Image"
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:46
+#: apps/account/templates/account/dashboard_create_book_modal.html:47
 msgid ""
 "If you have an image for the book then add it now (this can be added or "
 "changed later)"
 msgstr "If you have an image for the book then add it now (this can be added or changed later)"
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:47
+#: apps/account/templates/account/dashboard_create_book_modal.html:48
 msgid "Book Image"
 msgstr "Book Image"
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:51
+#: apps/account/templates/account/dashboard_create_book_modal.html:52
 msgid "Make Public?"
 msgstr "Make Public?"
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:53
+#: apps/account/templates/account/dashboard_create_book_modal.html:54
 msgid ""
 "Would you like to keep your book private or make it public? If the book is "
 "public others can find the book to help you."
 msgstr "Would you like to keep your book private or make it public? If the book is public, other contributors can find the book and help you."
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:54
+#: apps/account/templates/account/dashboard_create_book_modal.html:55
 msgid "Note"
 msgstr "Note"
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:54
+#: apps/account/templates/account/dashboard_create_book_modal.html:55
 msgid "this setting can be changed later from your dashboard."
 msgstr "this setting can be changed later from your Dashboard."
 
-#: apps/account/templates/account/dashboard_create_book_modal.html:57
+#: apps/account/templates/account/dashboard_create_book_modal.html:58
 #: apps/reader/forms.py:19
 msgid "Initially hide from others"
 msgstr "Initially hide from others"
@@ -1743,12 +1743,12 @@ msgid "Show changes"
 msgstr "Show changes"
 
 #: apps/edit/templates/edit/book_edit.html:179
-#: apps/edit/templates/edit/panel_publish.html:381
+#: apps/edit/templates/edit/panel_publish.html:385
 msgid "Yes"
 msgstr "Yes"
 
 #: apps/edit/templates/edit/book_edit.html:182
-#: apps/edit/templates/edit/panel_publish.html:380
+#: apps/edit/templates/edit/panel_publish.html:384
 msgid "No"
 msgstr "No"
 
@@ -1828,7 +1828,7 @@ msgstr "Time"
 
 #: apps/edit/templates/edit/chapter_history.html:26
 #: apps/edit/templates/edit/panel_aloha.html:313
-#: apps/edit/templates/edit/panel_publish.html:491
+#: apps/edit/templates/edit/panel_publish.html:499
 msgid "Comment"
 msgstr "Comment"
 
@@ -2487,7 +2487,7 @@ msgid "Edit metadata"
 msgstr "Edit metadata"
 
 #: apps/edit/templates/edit/panel_aloha.html:262
-#: apps/edit/templates/edit/panel_publish.html:507
+#: apps/edit/templates/edit/panel_publish.html:515
 msgid "Download"
 msgstr "Download"
 
@@ -2615,13 +2615,14 @@ msgstr "Important Info"
 
 #: apps/edit/templates/edit/panel_covers.html:40
 msgid ""
-"The cover manager allows you to upload, manage and publish your book covers."
-" Please upload your ebook cover image files (JPEG, GIF or PNG format) in the"
-" appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork "
-"(in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front "
-"cover, spine and back cover of your print books can be uploaded and managed,"
-" but will be kept separate from the text of the book when publishing it."
-msgstr "The cover manager allows you to upload, manage and publish your book covers. Please upload your ebook cover image files (JPEG, GIF or PNG format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, spine and back cover of your print books can be uploaded and managed, but will be kept separate from the text of the book when publishing it."
+"The Cover Manager enables you to upload, manage and publish book covers. "
+"Please upload ebook cover image files (JPEG, GIF or PNG format) in the "
+"appropriate dimensions for EPUB, MOBI and Screen PDF output. Artwork (in "
+"TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, "
+"spine (if any) and back cover of print books can also be uploaded and "
+"managed, but will be kept separate from the Printers' PDF when exporting the"
+" inside pages."
+msgstr "The Cover Manager enables you to upload, manage and publish book covers. Please upload ebook cover image files (JPEG, GIF or PNG format) in the appropriate dimensions for EPUB, MOBI and Screen PDF output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, spine (if any) and back cover of print books can also be uploaded and managed, but will be kept separate from the Printers' PDF when exporting the inside pages."
 
 #: apps/edit/templates/edit/panel_covers.html:51
 #: apps/edit/templates/edit/panel_covers.html:108
@@ -2677,7 +2678,7 @@ msgid "Clear filters"
 msgstr "Clear filters"
 
 #: apps/edit/templates/edit/panel_history.html:24
-#: apps/edit/templates/edit/panel_publish.html:484
+#: apps/edit/templates/edit/panel_publish.html:492
 msgid "Action"
 msgstr "Action"
 
@@ -2753,7 +2754,7 @@ msgid "You can only upload JPEG/PNG files."
 msgstr "You can only upload JPEG/PNG files."
 
 #: apps/edit/templates/edit/panel_publish.html:4
-#: apps/edit/templates/edit/panel_publish.html:497
+#: apps/edit/templates/edit/panel_publish.html:505
 #: apps/edit/templates/edit/toolbar_book.html:16
 msgid "Publish"
 msgstr "Publish"
@@ -2787,252 +2788,252 @@ msgid ""
 "href=\"#covers\">cover manager</a> first."
 msgstr "If exporting screen PDF, EPUB or MOBI, please check the <a href=\"#covers\">cover manager</a> first."
 
-#: apps/edit/templates/edit/panel_publish.html:44
+#: apps/edit/templates/edit/panel_publish.html:48
 #: apps/edit/templates/edit/panel_settings.html:4
 #: apps/edit/templates/edit/panel_settings.html:65
 #: apps/edit/templates/edit/panel_settings.html:70
 msgid "Book Settings"
 msgstr "Book Settings"
 
-#: apps/edit/templates/edit/panel_publish.html:50
-#: apps/edit/templates/edit/panel_publish.html:53
-#: apps/edit/templates/edit/panel_publish.html:171
-#: apps/edit/templates/edit/panel_publish.html:174
+#: apps/edit/templates/edit/panel_publish.html:54
+#: apps/edit/templates/edit/panel_publish.html:57
+#: apps/edit/templates/edit/panel_publish.html:175
+#: apps/edit/templates/edit/panel_publish.html:178
 msgid "Size"
 msgstr "Size"
 
-#: apps/edit/templates/edit/panel_publish.html:52
-#: apps/edit/templates/edit/panel_publish.html:173
+#: apps/edit/templates/edit/panel_publish.html:56
+#: apps/edit/templates/edit/panel_publish.html:177
 msgid "Choose a standard paper size or custom dimensions"
 msgstr "Choose a standard paper size or custom dimensions"
 
-#: apps/edit/templates/edit/panel_publish.html:55
-#: apps/edit/templates/edit/panel_publish.html:176
+#: apps/edit/templates/edit/panel_publish.html:59
+#: apps/edit/templates/edit/panel_publish.html:180
 msgid "custom"
 msgstr "custom"
 
-#: apps/edit/templates/edit/panel_publish.html:89
-#: apps/edit/templates/edit/panel_publish.html:92
-#: apps/edit/templates/edit/panel_publish.html:99
-#: apps/edit/templates/edit/panel_publish.html:102
-#: apps/edit/templates/edit/panel_publish.html:105
-#: apps/edit/templates/edit/panel_publish.html:108
-#: apps/edit/templates/edit/panel_publish.html:120
-#: apps/edit/templates/edit/panel_publish.html:128
-#: apps/edit/templates/edit/panel_publish.html:141
-#: apps/edit/templates/edit/panel_publish.html:210
-#: apps/edit/templates/edit/panel_publish.html:213
-#: apps/edit/templates/edit/panel_publish.html:220
-#: apps/edit/templates/edit/panel_publish.html:223
-#: apps/edit/templates/edit/panel_publish.html:226
-#: apps/edit/templates/edit/panel_publish.html:229
-#: apps/edit/templates/edit/panel_publish.html:241
-#: apps/edit/templates/edit/panel_publish.html:249
+#: apps/edit/templates/edit/panel_publish.html:93
+#: apps/edit/templates/edit/panel_publish.html:96
+#: apps/edit/templates/edit/panel_publish.html:103
+#: apps/edit/templates/edit/panel_publish.html:106
+#: apps/edit/templates/edit/panel_publish.html:109
+#: apps/edit/templates/edit/panel_publish.html:112
+#: apps/edit/templates/edit/panel_publish.html:124
+#: apps/edit/templates/edit/panel_publish.html:132
+#: apps/edit/templates/edit/panel_publish.html:145
+#: apps/edit/templates/edit/panel_publish.html:214
+#: apps/edit/templates/edit/panel_publish.html:217
+#: apps/edit/templates/edit/panel_publish.html:224
+#: apps/edit/templates/edit/panel_publish.html:227
+#: apps/edit/templates/edit/panel_publish.html:230
+#: apps/edit/templates/edit/panel_publish.html:233
+#: apps/edit/templates/edit/panel_publish.html:245
+#: apps/edit/templates/edit/panel_publish.html:253
 msgid "mm"
 msgstr "mm"
 
-#: apps/edit/templates/edit/panel_publish.html:95
-#: apps/edit/templates/edit/panel_publish.html:216
+#: apps/edit/templates/edit/panel_publish.html:99
+#: apps/edit/templates/edit/panel_publish.html:220
 msgid "Margins"
 msgstr "Margins"
 
-#: apps/edit/templates/edit/panel_publish.html:97
-#: apps/edit/templates/edit/panel_publish.html:218
+#: apps/edit/templates/edit/panel_publish.html:101
+#: apps/edit/templates/edit/panel_publish.html:222
 msgid "Set the margin and gutter dimensions"
 msgstr "Set the margin and gutter dimensions"
 
-#: apps/edit/templates/edit/panel_publish.html:98
-#: apps/edit/templates/edit/panel_publish.html:219
+#: apps/edit/templates/edit/panel_publish.html:102
+#: apps/edit/templates/edit/panel_publish.html:223
 msgid "Top Margin"
 msgstr "Top Margin"
 
-#: apps/edit/templates/edit/panel_publish.html:101
-#: apps/edit/templates/edit/panel_publish.html:222
+#: apps/edit/templates/edit/panel_publish.html:105
+#: apps/edit/templates/edit/panel_publish.html:226
 msgid "Side Margin"
 msgstr "Side Margin"
 
-#: apps/edit/templates/edit/panel_publish.html:104
-#: apps/edit/templates/edit/panel_publish.html:225
+#: apps/edit/templates/edit/panel_publish.html:108
+#: apps/edit/templates/edit/panel_publish.html:229
 msgid "Bottom Margin"
 msgstr "Bottom Margin"
 
-#: apps/edit/templates/edit/panel_publish.html:107
-#: apps/edit/templates/edit/panel_publish.html:228
+#: apps/edit/templates/edit/panel_publish.html:111
+#: apps/edit/templates/edit/panel_publish.html:232
 msgid "Gutter"
 msgstr "Gutter"
 
-#: apps/edit/templates/edit/panel_publish.html:111
-#: apps/edit/templates/edit/panel_publish.html:232
+#: apps/edit/templates/edit/panel_publish.html:115
+#: apps/edit/templates/edit/panel_publish.html:236
 msgid "Header and Footer"
 msgstr "Header and Footer"
 
-#: apps/edit/templates/edit/panel_publish.html:113
-#: apps/edit/templates/edit/panel_publish.html:234
+#: apps/edit/templates/edit/panel_publish.html:117
+#: apps/edit/templates/edit/panel_publish.html:238
 msgid "Set header and footer visibility, and their margins"
 msgstr "Set header and footer visibility, and their margins"
 
-#: apps/edit/templates/edit/panel_publish.html:115
-#: apps/edit/templates/edit/panel_publish.html:236
+#: apps/edit/templates/edit/panel_publish.html:119
+#: apps/edit/templates/edit/panel_publish.html:240
 msgid "Show Header"
 msgstr "Show Header"
 
-#: apps/edit/templates/edit/panel_publish.html:119
-#: apps/edit/templates/edit/panel_publish.html:240
+#: apps/edit/templates/edit/panel_publish.html:123
+#: apps/edit/templates/edit/panel_publish.html:244
 msgid "Header Margin"
 msgstr "Header Margin"
 
-#: apps/edit/templates/edit/panel_publish.html:123
-#: apps/edit/templates/edit/panel_publish.html:244
+#: apps/edit/templates/edit/panel_publish.html:127
+#: apps/edit/templates/edit/panel_publish.html:248
 msgid "Show Footer"
 msgstr "Show Footer"
 
-#: apps/edit/templates/edit/panel_publish.html:127
-#: apps/edit/templates/edit/panel_publish.html:248
+#: apps/edit/templates/edit/panel_publish.html:131
+#: apps/edit/templates/edit/panel_publish.html:252
 msgid "Footer Margin"
 msgstr "Footer Margin"
 
-#: apps/edit/templates/edit/panel_publish.html:132
+#: apps/edit/templates/edit/panel_publish.html:136
 #: apps/edit/templates/edit/panel_toc.html:483
 msgid "Extra"
 msgstr "Extra"
 
-#: apps/edit/templates/edit/panel_publish.html:134
+#: apps/edit/templates/edit/panel_publish.html:138
 msgid "Set extra options for paper trimming"
 msgstr "Set extra options for paper trimming"
 
-#: apps/edit/templates/edit/panel_publish.html:136
+#: apps/edit/templates/edit/panel_publish.html:140
 msgid "Crop Marks"
 msgstr "Crop Marks"
 
-#: apps/edit/templates/edit/panel_publish.html:140
+#: apps/edit/templates/edit/panel_publish.html:144
 msgid "Bleed size"
 msgstr "Bleed size"
 
-#: apps/edit/templates/edit/panel_publish.html:146
-#: apps/edit/templates/edit/panel_publish.html:149
-#: apps/edit/templates/edit/panel_publish.html:262
-#: apps/edit/templates/edit/panel_publish.html:265
-#: apps/edit/templates/edit/panel_publish.html:296
-#: apps/edit/templates/edit/panel_publish.html:299
-#: apps/edit/templates/edit/panel_publish.html:330
-#: apps/edit/templates/edit/panel_publish.html:333
-#: apps/edit/templates/edit/panel_publish.html:355
-#: apps/edit/templates/edit/panel_publish.html:358
+#: apps/edit/templates/edit/panel_publish.html:150
+#: apps/edit/templates/edit/panel_publish.html:153
+#: apps/edit/templates/edit/panel_publish.html:266
+#: apps/edit/templates/edit/panel_publish.html:269
+#: apps/edit/templates/edit/panel_publish.html:300
+#: apps/edit/templates/edit/panel_publish.html:303
+#: apps/edit/templates/edit/panel_publish.html:334
+#: apps/edit/templates/edit/panel_publish.html:337
+#: apps/edit/templates/edit/panel_publish.html:359
+#: apps/edit/templates/edit/panel_publish.html:362
 msgid "Styling"
 msgstr "Styling"
 
-#: apps/edit/templates/edit/panel_publish.html:148
-#: apps/edit/templates/edit/panel_publish.html:264
-#: apps/edit/templates/edit/panel_publish.html:298
-#: apps/edit/templates/edit/panel_publish.html:332
-#: apps/edit/templates/edit/panel_publish.html:357
+#: apps/edit/templates/edit/panel_publish.html:152
+#: apps/edit/templates/edit/panel_publish.html:268
+#: apps/edit/templates/edit/panel_publish.html:302
+#: apps/edit/templates/edit/panel_publish.html:336
+#: apps/edit/templates/edit/panel_publish.html:361
 msgid "Manually edit CSS style"
 msgstr "Manually edit CSS style"
 
-#: apps/edit/templates/edit/panel_publish.html:165
+#: apps/edit/templates/edit/panel_publish.html:169
 msgid "Screen PDF Settings"
 msgstr "Screen PDF Settings"
-
-#: apps/edit/templates/edit/panel_publish.html:253
-#: apps/edit/templates/edit/panel_publish.html:287
-#: apps/edit/templates/edit/panel_publish.html:321
-msgid "Cover"
-msgstr "Cover"
-
-#: apps/edit/templates/edit/panel_publish.html:255
-#: apps/edit/templates/edit/panel_publish.html:289
-#: apps/edit/templates/edit/panel_publish.html:323
-msgid "Select a cover from the Cover Manager"
-msgstr "Select a cover from the Cover Manager"
 
 #: apps/edit/templates/edit/panel_publish.html:257
 #: apps/edit/templates/edit/panel_publish.html:291
 #: apps/edit/templates/edit/panel_publish.html:325
+msgid "Cover"
+msgstr "Cover"
+
+#: apps/edit/templates/edit/panel_publish.html:259
+#: apps/edit/templates/edit/panel_publish.html:293
+#: apps/edit/templates/edit/panel_publish.html:327
+msgid "Select a cover from the Cover Manager"
+msgstr "Select a cover from the Cover Manager"
+
+#: apps/edit/templates/edit/panel_publish.html:261
+#: apps/edit/templates/edit/panel_publish.html:295
+#: apps/edit/templates/edit/panel_publish.html:329
 msgid "No Cover"
 msgstr "No Cover"
 
-#: apps/edit/templates/edit/panel_publish.html:281
+#: apps/edit/templates/edit/panel_publish.html:285
 msgid "EPUB Settings"
 msgstr "EPUB Settings"
 
-#: apps/edit/templates/edit/panel_publish.html:315
+#: apps/edit/templates/edit/panel_publish.html:319
 msgid "Mobi Settings"
 msgstr "MOBI Settings"
 
-#: apps/edit/templates/edit/panel_publish.html:349
+#: apps/edit/templates/edit/panel_publish.html:353
 msgid "XHTML Settings"
 msgstr "XHTML Settings"
 
-#: apps/edit/templates/edit/panel_publish.html:374
-#: apps/edit/templates/edit/panel_publish.html:487
+#: apps/edit/templates/edit/panel_publish.html:378
+#: apps/edit/templates/edit/panel_publish.html:495
 msgid "Remove export"
 msgstr "Remove export"
 
-#: apps/edit/templates/edit/panel_publish.html:377
+#: apps/edit/templates/edit/panel_publish.html:381
 msgid "Do you want to remove this export?"
 msgstr "Do you want to remove this export?"
 
-#: apps/edit/templates/edit/panel_publish.html:395
+#: apps/edit/templates/edit/panel_publish.html:399
 msgid "Choose format for export"
 msgstr "Choose format for export"
 
-#: apps/edit/templates/edit/panel_publish.html:397
+#: apps/edit/templates/edit/panel_publish.html:401
 msgid "No available publish formats."
 msgstr "No available publish formats."
 
-#: apps/edit/templates/edit/panel_publish.html:408
+#: apps/edit/templates/edit/panel_publish.html:416
 msgid "Printers' PDF"
 msgstr "Printers' PDF"
 
-#: apps/edit/templates/edit/panel_publish.html:411
-#: apps/edit/templates/edit/panel_publish.html:422
-#: apps/edit/templates/edit/panel_publish.html:433
-#: apps/edit/templates/edit/panel_publish.html:446
-#: apps/edit/templates/edit/panel_publish.html:457
+#: apps/edit/templates/edit/panel_publish.html:419
+#: apps/edit/templates/edit/panel_publish.html:430
+#: apps/edit/templates/edit/panel_publish.html:441
+#: apps/edit/templates/edit/panel_publish.html:454
+#: apps/edit/templates/edit/panel_publish.html:465
 msgid "settings"
 msgstr "settings"
 
-#: apps/edit/templates/edit/panel_publish.html:419
+#: apps/edit/templates/edit/panel_publish.html:427
 msgid "Screen PDF"
 msgstr "Screen PDF"
 
-#: apps/edit/templates/edit/panel_publish.html:430
+#: apps/edit/templates/edit/panel_publish.html:438
 msgid "EPUB"
 msgstr "EPUB"
 
-#: apps/edit/templates/edit/panel_publish.html:443
+#: apps/edit/templates/edit/panel_publish.html:451
 msgid "MOBI"
 msgstr "MOBI"
 
-#: apps/edit/templates/edit/panel_publish.html:454
+#: apps/edit/templates/edit/panel_publish.html:462
 msgid "XHTML"
 msgstr "XHTML"
 
-#: apps/edit/templates/edit/panel_publish.html:464
+#: apps/edit/templates/edit/panel_publish.html:472
 msgid "EXPORT YOUR BOOK"
 msgstr "Export your book"
 
-#: apps/edit/templates/edit/panel_publish.html:514
+#: apps/edit/templates/edit/panel_publish.html:522
 msgid "Failed"
 msgstr "Failed"
 
-#: apps/edit/templates/edit/panel_publish.html:527
+#: apps/edit/templates/edit/panel_publish.html:535
 msgid "pages"
 msgstr "pages"
 
-#: apps/edit/templates/edit/panel_publish.html:545
+#: apps/edit/templates/edit/panel_publish.html:553
 msgid "comments"
 msgstr "comments"
 
-#: apps/edit/templates/edit/panel_publish.html:554
+#: apps/edit/templates/edit/panel_publish.html:562
 msgid "Your comment here"
 msgstr "Your comment here"
 
-#: apps/edit/templates/edit/panel_publish.html:555
+#: apps/edit/templates/edit/panel_publish.html:563
 msgid "SEND COMMENT"
 msgstr "Send comment"
 
-#: apps/edit/templates/edit/panel_publish.html:575
+#: apps/edit/templates/edit/panel_publish.html:583
 msgid "Exporting, please wait"
 msgstr "Exporting, please wait"
 
