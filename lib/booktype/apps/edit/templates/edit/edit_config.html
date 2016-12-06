@@ -14,7 +14,7 @@
       window.booktype.trackChanges = {{ track_changes }};
 
       window.booktype.currentVersion = "{{ book_version|escapejs }}";
-      window.booktype.sputnikDispatcherURL = "{% url 'sputnik.views.dispatcher' %}";
+      window.booktype.sputnikDispatcherURL = "{% url 'sputnik_dispatcher' %}";
       window.booktype.activeProfile = "{{ ACTIVE_PROFILE }}";
       window.booktype.editor.historyURL = "{% url 'edit:history' book.url_title %}";
       window.booktype.bookSettingsURL = "{% url 'edit:settings' book.url_title %}";

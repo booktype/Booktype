@@ -2,9 +2,9 @@ import logging
 import requests
 import json
 
-logger = logging.getLogger('booktype')
-
 from booktype.utils import config
+
+logger = logging.getLogger('booktype')
 
 
 def fetch_url(url, data, method='GET'):
@@ -18,17 +18,13 @@ def fetch_url(url, data, method='GET'):
     :Returns:
       Dictionary with JSON data. None in case of errors.
     """
-    headers = {
-        'Content-Type': 'application/json',
-        'Content-Length': len(data)
-    }
 
     try:
         if method.lower() == 'get':
-            req = requests.get(url, headers=headers, params=data,
-                               verify=config.get_configuration('REQUESTS_VERIFY_SSL_CERT'))
+            req = requests.get(
+                url, params=data, verify=config.get_configuration('REQUESTS_VERIFY_SSL_CERT'))
         else:
-            req = requests.post(url, headers=headers, data=json.dumps(data),
+            req = requests.post(url, data=json.dumps(data),
                                 verify=config.get_configuration('REQUESTS_VERIFY_SSL_CERT'))
     except requests.exceptions.ConnectionError:
         logger.exception('Connection error when loading {}.'.format(url))

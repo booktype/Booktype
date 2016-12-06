@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
+import json
+
 from django.shortcuts import render_to_response, render
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.contrib.auth.decorators import login_required
@@ -26,10 +28,6 @@ from django.core import serializers
 
 from booki.editor import models
 from booktype.apps.core import views
-
-import json
-
-import logging
 
 
 def getVersion(book, version):
@@ -84,6 +82,7 @@ def export(request, bookid):
     os.unlink(fileName)
 
     return response
+
 
 @login_required
 def edit_book(request, bookid, version=None):
@@ -341,8 +340,7 @@ def view_cover(request, bookid, cid, fname = None, version=None):
     return response
 
 
-
-@transaction.commit_manually
+@transaction.atomic
 def upload_cover(request, bookid, version=None):
     """
     Uploades attachments. Used from Upload dialog.

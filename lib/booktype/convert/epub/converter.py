@@ -24,7 +24,10 @@ from copy import deepcopy
 from lxml import etree
 
 from django.core.exceptions import ImproperlyConfigured
-from django.template.loader import render_to_string, Template, Context
+from django.template.loader import render_to_string
+
+from django.template.base import Template
+from django.template.context import Context
 
 from booktype.apps.themes.utils import (
     read_theme_style, read_theme_assets, read_theme_asset_content)

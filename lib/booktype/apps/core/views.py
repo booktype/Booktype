@@ -1,13 +1,12 @@
-from django.views.generic import TemplateView
 from django.views import static
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render
-from django.shortcuts import RequestContext
 from django.conf import settings
 from django.template import loader
+from django.views.generic import TemplateView
 from django.http import HttpResponse, Http404
+from django.template.context import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
+from django.shortcuts import render, get_object_or_404
 
 from booki.editor.models import Book, BookiGroup
 from booktype.utils.security import Security, BookSecurity, GroupSecurity

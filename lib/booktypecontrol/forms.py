@@ -3,8 +3,10 @@ import shutil
 import logging
 
 from django import forms
+from django import template
 from django.conf import settings
 from django.utils import timezone
+from django.template.base import Context
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
@@ -510,11 +512,9 @@ class AddPersonForm(BaseControlForm, forms.ModelForm):
         profile.save()
 
         if self.cleaned_data.get('send_email', False):
-            from django import template
-
             t = template.loader.get_template(
                 'booktypecontrol/new_person_email.html')
-            content = t.render(template.Context({
+            content = t.render(Context({
                 "username": self.cleaned_data['username'],
                 "password": self.cleaned_data['password2'],
                 "server": settings.BOOKTYPE_URL
@@ -975,18 +975,24 @@ class AddRoleForm(BaseControlForm, forms.ModelForm):
     success_message = _('Successfully created new role.')
     success_url = '#list-of-roles'
 
+    def __init__(self, *args, **kwargs):
+        super(AddRoleForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            if name == 'permissions':
+                field.widget = GroupedCheckboxSelectMultiple(
+                    choices=Permission.objects.all(),
+                    attrs={
+                        'group_by': 'app_name',
+                        'css_class': 'grouped_perms'
+                    }
+                )
+
     class Meta:
         model = Role
         exclude = ['members']
         widgets = {
-            'description': forms.Textarea,
-            'permissions': GroupedCheckboxSelectMultiple(
-                choices=Permission.objects.all(),
-                attrs={
-                    'group_by': 'app_name',
-                    'css_class': 'grouped_perms'
-                }
-            ),
+            'description': forms.Textarea
         }
 
     def get_cancel_url(self):

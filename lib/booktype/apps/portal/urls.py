@@ -14,15 +14,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from booktype.apps.portal import feeds
-from .views import FrontPageView, GroupPageView, AllGroupsPageView, PeoplePageView
-from .views import BooksPageView, GroupUpdateView, GroupCreateView, AddBooksView, GroupDeleteView, RemoveBookView
+from .views import (
+    FrontPageView, GroupPageView, AllGroupsPageView, PeoplePageView,
+    BooksPageView, GroupUpdateView, GroupCreateView, AddBooksView,
+    GroupDeleteView, RemoveBookView
+)
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', FrontPageView.as_view(), name='frontpage'),
     url(r'^groups/_create/$', GroupCreateView.as_view(), name='group_create'),
     url(r'^groups/_settings/(?P<groupid>[\w\s\_\.\-]+)/$', GroupUpdateView.as_view(), name='group_settings'),
@@ -45,6 +47,6 @@ urlpatterns = patterns(
         name='feeds_atom_chapter'),
 
     # user feeds commented temporary
-    #url(r'^feeds/rss/user/(?P<userid>[\w\s\_\.\-\d]+)/$', feeds.UserFeedRSS()),
-    #url(r'^feeds/atom/user/(?P<userid>[\w\s\_\.\-\d]+)/$', feeds.UserFeedAtom()),
-)
+    # url(r'^feeds/rss/user/(?P<userid>[\w\s\_\.\-\d]+)/$', feeds.UserFeedRSS()),
+    # url(r'^feeds/atom/user/(?P<userid>[\w\s\_\.\-\d]+)/$', feeds.UserFeedAtom()),
+]

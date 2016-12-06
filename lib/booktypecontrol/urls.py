@@ -14,15 +14,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from .views import (ControlCenterView, ControlCenterSettings, PersonInfoView,
                     EditPersonInfo, PasswordChangeView, BookRenameView,
                     DeleteGroupView, LicenseEditView, DeleteLicenseView,
                     RoleEditView, DeleteRoleView)
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', ControlCenterView.as_view(), name='frontpage'),
     url(r'^settings/$', ControlCenterSettings.as_view(), name='settings'),
 
@@ -45,4 +44,4 @@ urlpatterns = patterns(
         RoleEditView.as_view(), name="role_edit"),
     url(r'^roles/(?P<pk>\d+)/delete/$',
         DeleteRoleView.as_view(), name="delete_role"),
-)
+]
