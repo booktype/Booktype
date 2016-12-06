@@ -173,7 +173,8 @@ METADATA_FIELDS = [
     ('rightsHolder', _('Copyright holder'), DCTERMS),
 
     # here below all the custom fields from booktype
-    ('publisher_city', _('Publisher city'), BKTERMS),
+    ('publisher_city', _('City of publication'), BKTERMS),
+    ('publisher_country', _('Country of publication'), BKTERMS),
     ('short_description', _('Short description'), BKTERMS),
     ('long_description', _('Long description'), BKTERMS),
 
