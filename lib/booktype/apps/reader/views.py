@@ -103,7 +103,12 @@ class InfoPageView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView
     title = _("Book Details")
 
     def check_permissions(self, request, *args, **kwargs):
-        if not self.security.has_perm("reader.can_view_book_info"):
+        can_view_book_info = self.security.has_perm("reader.can_view_book_info")
+        can_view_hidden_book_info = self.security.has_perm("reader.can_view_hidden_book_info")
+
+        if self.security.book.hidden and not can_view_hidden_book_info:
+            raise PermissionDenied
+        elif not can_view_book_info and not can_view_hidden_book_info:
             raise PermissionDenied
 
     def get_context_data(self, **kwargs):
@@ -213,35 +218,26 @@ class DeleteBookView(SingleNextMixin, LoginRequiredMixin,
         return self.render_to_response(context=self.get_context_data())
 
 
-class DraftChapterView(BaseReaderView, BasePageView, DetailView):
+class DraftChapterView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView):
+    SECURITY_BRIDGE = security.BookSecurity
     template_name = "reader/book_draft_page.html"
     page_title = _("Chapter Draft")
     title = ""
 
-    def render_to_response(self, context, **response_kwargs):
-        if context.get('has_permission', True) is False:
-            return views.ErrorPage(
-                self.request,
-                "errors/nopermissions.html"
-            )
+    def check_permissions(self, request, *args, **kwargs):
+        can_view_draft = self.security.has_perm("reader.can_view_draft")
+        can_view_hidden_draft = self.security.has_perm("reader.can_view_hidden_draft")
 
-        return super(DraftChapterView, self).render_to_response(
-            context, **response_kwargs)
+        if self.security.book.hidden and not can_view_hidden_draft:
+            raise PermissionDenied
+        elif not can_view_draft and not can_view_hidden_draft:
+            raise PermissionDenied
 
     def get_context_data(self, **kwargs):
         book = self.object
         content = None
         book_version = book.get_version(self.kwargs.get('version', None))
         context = super(DraftChapterView, self).get_context_data(**kwargs)
-
-        # check permissions
-        book_security = security.get_security_for_book(self.request.user, book)
-        can_edit = book_security.can_edit()
-        can_view_draft = book_security.has_perm('reader.can_view_draft')
-
-        if (book.hidden and not can_edit) or not can_view_draft:
-            context['has_permission'] = False
-            return context
 
         if 'chapter' in self.kwargs:
             try:
@@ -274,31 +270,24 @@ class DraftChapterView(BaseReaderView, BasePageView, DetailView):
         return context
 
 
-class FullView(BaseReaderView, BasePageView, DetailView):
+class FullView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView):
+    SECURITY_BRIDGE = security.BookSecurity
     template_name = "reader/book_full_view.html"
     page_title = _("Book full view")
     title = ""
 
-    def render_to_response(self, context, **response_kwargs):
-        if context.get('has_permission', True) is False:
-            return views.ErrorPage(
-                self.request,
-                "errors/nopermissions.html"
-            )
+    def check_permissions(self, request, *args, **kwargs):
+        can_view_full_page = self.security.has_perm("reader.can_view_full_page")
+        can_view_hidden_full_page = self.security.has_perm("reader.can_view_hidden_full_page")
 
-        return super(FullView, self).render_to_response(
-            context, **response_kwargs)
+        if self.security.book.hidden and not can_view_hidden_full_page:
+            raise PermissionDenied
+        elif not can_view_full_page and not can_view_hidden_full_page:
+            raise PermissionDenied
 
     def get_context_data(self, **kwargs):
         book = self.object
         context = super(FullView, self).get_context_data(**kwargs)
-
-        has_permission = security.get_security_for_book(self.request.user, book).has_perm(
-            'reader.can_view_full_page')
-
-        if not has_permission:
-            context['has_permission'] = has_permission
-            return context
 
         book_version = book.get_version(self.kwargs.get('version', None))
         toc_items = BookToc.objects.filter(
