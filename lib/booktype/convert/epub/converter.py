@@ -293,7 +293,9 @@ class EpubConverter(BaseConverter):
 
         toc = filter(_skip_cover, parse_toc_nav(original_book))
         toc = map(mapper, toc)
-        toc = filter(_empty_sec, toc)
+
+        # commented this because we need it for section settings
+        # toc = filter(_empty_sec, toc)
 
         epub_book.toc = toc
 

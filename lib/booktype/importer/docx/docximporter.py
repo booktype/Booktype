@@ -5,6 +5,7 @@ import ooxml
 import logging
 import zipfile
 import datetime
+from unidecode import unidecode
 
 from django.core.files.base import ContentFile
 from django.utils.translation import ugettext as _
@@ -254,7 +255,7 @@ class WordImporter(object):
             if chapter_content[6:-8].strip() == '':
                 continue
 
-            chapter_content = self._parse_chapter(chapter_content)
+            chapter_content = unidecode(self._parse_chapter(chapter_content))
 
             chapter = models.Chapter(
                 book=book,

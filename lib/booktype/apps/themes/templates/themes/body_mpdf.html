@@ -27,14 +27,18 @@
 {% for item in book_items %}
   {% if item.type == 'chapter' %}
     <div class="chapter">
+      {% if item.show_in_toc %}
       <tocentry level="{{ item.level }}" content="{{ item.title }}"></tocentry>
+      {% endif %}
       {{ item.content|safe }}
     </div>
   {% endif %}
 
   {% if item.type == 'section' %}
     <div class="section">
-      <tocentry level="{{ item.level }}" content="{{ item.title }}"></tocentry>  
+      {% if item.show_in_toc %}
+      <tocentry level="{{ item.level }}" content="{{ item.title }}"></tocentry>
+      {% endif %}
       <h1>{{ item.title }}</h1>
     </div>
   {% endif %}
