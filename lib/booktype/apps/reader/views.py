@@ -16,6 +16,7 @@
 
 import os
 import logging
+import json
 
 from django.core.exceptions import PermissionDenied
 from django.views import static
@@ -304,8 +305,11 @@ class FullView(BaseReaderView, BasePageView, DetailView):
         toc_items = BookToc.objects.filter(
             version=book_version).order_by("-weight")
 
+        theme = book.usertheme_set.last()
+
         context['book_version'] = book_version.get_version()
         context['toc_items'] = toc_items
+        context['theme'] = theme
 
         return context
 

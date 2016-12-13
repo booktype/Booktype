@@ -100,8 +100,9 @@ input[type="radio"].form-control:focus{
     margin-right: 135px;
 }
 
+/* old css for old fullview and draft */
 #bookcontent img,
-#bookcontent table{
+#bookcontent table {
     max-width: 100%;
     height: auto;
 }
@@ -111,6 +112,22 @@ input[type="radio"].form-control:focus{
 }
 
 #bookcontent div.bk-image-editor img {
+    max-width: none;
+    max-height: none;
+}
+
+/* css for reader */
+#contenteditor div.chapter-inner img,
+#contenteditor div.chapter-inner table {
+    max-width: 100%;
+    height: auto;
+}
+
+#contenteditor div.chapter-inner div.bk-image-editor {
+    overflow: hidden;
+}
+
+#contenteditor div.chapter-inner div.bk-image-editor img {
     max-width: none;
     max-height: none;
 }

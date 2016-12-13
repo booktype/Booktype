@@ -1,6 +1,9 @@
 {% load i18n booktype_tags %}
 
-<h1>{{ book.title }}</h1>
+<h1>
+  <a class="draft-stat" href="{% url 'reader:infopage' book.url_title %}">{% trans "Info" %}</a>
+  {{ book.title }}
+</h1>
 <div class="btn-toolbar float-right">
     <div class="btn-group">
       <button type="button" class="btn btn-default" title="" id="button-toc" data-original-title="{% trans 'Table Of Contents' %}" rel="tooltip" data-placement="bottom"><i class="bk-icon-toc"></i></button>

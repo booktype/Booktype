@@ -9,7 +9,10 @@
 {% block content %}
 <!-- Bookbar -->
 <div class="bookbar">
-  <h1><span class="draft-stat">{% trans "Draft" %}</span>{{ book.title }}</h1>
+  <h1>
+    <a class="draft-stat" href="{% url 'reader:infopage' book.url_title %}">{% trans "Info" %}</a>
+    <span class="draft-stat">{% trans "Draft" %}</span>
+    {{ book.title }}</h1>
 </div>
 <!-- end Bookbar -->
 <div class="container">

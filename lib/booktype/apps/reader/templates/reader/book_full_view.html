@@ -3,69 +3,90 @@
 
 {% block extra_header %}
   {% compress js %}
+    <script type="text/javascript" src="{% static 'core/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'edit/js/booktype/utils.js' %}"></script>
     <script type="text/javascript" src="{% static 'reader/js/fullview.js' %}"></script>
   {% endcompress %}
+  {% compress css %}
+    <link href='{% static 'core/css/jquery.mCustomScrollbar.min.css' %}' rel='stylesheet' type='text/css'/>
+    <link href='{% static 'reader/css/fullview.css' %}' rel='stylesheet' type='text/css'/>
+
+
+    {% if theme.active != 'custom' %}
+      <link href='{% static 'themes/'|add:theme.active|add:'/preload.css' %}' rel='stylesheet' type='text/css'/>
+      <link href='{% static 'themes/'|add:theme.active|add:'/editor.css' %}' rel='stylesheet' type='text/css'/>
+    {% else %}
+      <script type="text/javascript">
+        var themeCustom = JSON.parse('{{ theme.custom|safe }}');
+      </script>
+      <link href='{% static 'themes/'|add:theme.active|add:'/editor.css' %}' rel='stylesheet' type='text/css'/>
+      <style id="embeduserstyle" type="text/css"></style>
+    {% endif %}
+
+  {% endcompress %}
 {% endblock %}
 
+
 {% block content %}
-<!-- Bookbar -->
-<div class="bookbar">
-  <h1><span class="draft-stat">{% trans "Full View" %}</span>{{ book.title }}</h1>
-</div>
-<!-- end Bookbar -->
 
-<div class="container">
+  <!-- Bookbar -->
+  <div class="bookbar">
+    <h1>
+      <a class="draft-stat" href="{% url 'reader:infopage' book.url_title %}">{% trans "Info" %}</a>
+      <span class="draft-stat toctoggle closed" id="toctoggle">
+        <i class="icon-reorder"></i>
+        <span class="showToc">{% trans "Show" %}</span>
+        <span class="hideToc hide">{% trans "Hide" %}</span>
+      </span>
+      {{ book.title }}
+    </h1>
+  </div>
+  <!-- end Bookbar -->
+
+  <!-- slider table of contents -->
+  <div id="ToCslider" class="sidenav">
+    <h2><a href="javascript:void(0)" class="closebtn">{% trans "Table of contents" %} [&times;]</a></h2>
+    <hr>
+    {% for item in toc_items %}
+      {% if item.is_section %}
+        <h4>{{ item.name }}</h4>
+      {% else %}
+        <div>
+          <a href="#{{ item.url_title }}" class="chapter_link">{{ item.chapter.title }}</a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <!-- / slider table of contents -->
+
+  <div class="container">
+
     <div class="row two-col">
-        <div class="col-xs-12">
-            <div class="box white table_of_contents">
-                <h2 class="box-title">{% trans "Table of Contents" %}</h2>
-
-                <div>
-                    {% for item in toc_items %}
-                    {% if item.is_section %}
-                        {% if not forloop.first %}
-                        </ul>
-                        {% endif %}
-                        <h4>{{ item.name }}</h4>
-                        <ul class="list border-top smaller-spacing">
-                    {% else %}
-                        <li {% if item.url_title == content.url_title %}class="selected-chapter"{% endif %}>
-                            <div class="list-info">
-                                <h4>
-                                <a href="#{{ item.url_title }}" class="chapter_link">
-                                    {{ item.chapter.title }}
-                                </a>
-                                </h4>
-                            </div>
-                        </li>
-                    {% endif %}
-                    {% if forloop.last %}
-                        </ul>
-                    {% endif %}
-                    {% endfor %}
+      <div class="col-sm-12 col-lg-10 col-lg-offset-1">
+        <div id="contenteditor">
+          {% for item in toc_items %}
+            {% if item.is_section %}
+              <h1 class="section">{{ item.name }}</h1>
+            {% elif item.is_chapter %}
+              <div class="box white">
+                <div class="chapter-inner">
+                  <div class="chapter_anchor" id="{{ item.chapter.url_title }}"></div>
+                  {% booktype_format item.chapter %}
                 </div>
-            </div>
+              </div>
+            {% endif %}
+          {% endfor %}
         </div>
-
-        <div class="col-xs-12">
-            <div class="box white" id="bookcontent">
-                {% if can_edit %}
-                <button data-href="{% url 'book_edit' book.url_title %}#edit/{{ content.id }}" role="button" class="btn btn-default float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit this chapter" %}">
-                    {% trans "EDIT" %}
-                </button>
-                {% endif %}
-
-                {% for item in toc_items %}
-                {% if item.is_section %}
-                <h1>{{ item.name }}</h1>
-                {% elif item.is_chapter %}
-                <div class="chapter_anchor" id="{{ item.chapter.url_title }}"></div>
-                {% booktype_format item.chapter %}
-                {% endif %}
-                {% endfor %}
-            </div>
-        </div>
+      </div>
     </div>
-</div>
+
+  </div>
+
+  {% if theme.active == 'custom' %}
+    <script type="text/html" id="embedUserStyleTemplate">
+      {% include 'themes/embed_user_style_template.html' %}
+    </script>
+  {% endif %}
+
+
 {% endblock %}
