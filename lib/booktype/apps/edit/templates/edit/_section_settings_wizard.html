@@ -1,0 +1,89 @@
+{% load i18n %}
+
+<div class="modal fade settings-dialog" id="section-settings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog new_book">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h2 class="modal-title" id="myModalLabel">{% trans "Section Settings" %}</h2>
+      </div>
+      <div class="modal-body">
+        <section id="basic">
+          <input type="hidden" name="section_id" value=""/>
+          <form method="post" enctype="multipart/form-data" class="form-inline">
+            <div class="wizard-section-settings">
+              <h3>{% trans "Display Settings" %}</h3>
+              <section>
+                <p class="wizard_desc">{% trans "Choose the outputs where you want to show this section" %}</p>
+                {% for opt in publish_options %}
+                <div class="form-group">
+                  <label class="output_name">{{opt|upper}}</label>
+
+                  <label class="radio-inline">
+                    {% trans "Show" %} <input type="radio" name="show_in_outputs[{{opt}}]" id="id_{{opt}}_true" value="true" checked disabled />
+                  </label>
+
+                  <label class="radio-inline">
+                    {% trans "Hide" %} <input type="radio" name="show_in_outputs[{{opt}}]" id="id_{{opt}}_false" value="false" disabled />
+                  </label>
+
+                  <label class="toc-inline">{% trans "Table of Contents" %}</label>
+                  <select class="toc form-control" name="toc[{{opt}}]" id="id_{{opt}}_toc">
+                    <option value="show_section_show_chapters">{% trans "Show section and chapters" %}</option>
+                    <option value="show_section_hide_chapters">{% trans "Show section / hide chapters" %}</option>
+                    <option value="hide_section_show_chapters">{% trans "Hide section / show chapters" %}</option>
+                    <option value="hide_section_hide_chapters">{% trans "Hide section and chapters" %}</option>
+                  </select>
+                </div>
+                {% endfor %}
+              </section>
+
+              <h3>{% trans "Extra" %}</h3>
+              <section class="extra">
+                <p class="wizard_desc">{% trans "Set extra options" %}</p>
+
+                <div class="row">
+                  <label class="output_name">{% trans "Mark section as" %}: </label>
+                  <label for="id_frontmatter">
+                    <input type="radio" name="mark_section_as" id="id_frontmatter" value="frontmatter" />
+                    {% trans "Frontmatter" %}
+                  </label>
+                </div>
+
+                <div class="row">
+                  <label class="output_name">&nbsp;</label>
+                  <label for="id_mainmatter">
+                    <input type="radio" name="mark_section_as" id="id_mainmatter" value="mainmatter" />
+                    {% trans "Mainmatter" %}
+                  </label>
+                </div>
+
+                <div class="row">
+                  <label class="output_name">&nbsp;</label>
+                  <label for="id_backmatter">
+                    <input type="radio" name="mark_section_as" id="id_backmatter" value="backmatter" />
+                    {% trans "Backmatter" %}
+                  </label>
+                </div>
+
+                <div class="row">
+                  <label class="output_name">&nbsp;</label>
+                  <label for="id_custom">
+                    <input type="radio" name="mark_section_as" id="id_custom" value="custom" />
+                    {% trans "Custom" %}
+                  </label>
+                </div>
+
+                <div class="row">
+                  <label class="output_name">{% trans "Custom" %}</label>
+                  <input class="form-control" type="text" name="custom_mark" placeholder="{% trans 'e.g. Authors' %}" />
+                </div>
+
+              </section>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

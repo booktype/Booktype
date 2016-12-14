@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-02 10:51+0000\n"
+"POT-Creation-Date: 2016-12-11 16:42-0600\n"
 "PO-Revision-Date: 2015-05-15 11:52+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -391,12 +391,12 @@ msgstr ""
 #. Translators: Default chapter title when importing DOCX
 #. files. In case title does not exists.
 #: apps/account/templates/account/dashboard_create_book_modal.html:17
-#: apps/edit/templates/edit/panel_aloha.html:439
+#: apps/edit/templates/edit/panel_aloha.html:468
 #: apps/edit/templates/edit/panel_covers.html:59
 #: apps/edit/templates/edit/panel_covers.html:61
 #: apps/edit/templates/edit/panel_covers.html:116
 #: apps/edit/templates/edit/panel_covers.html:118
-#: importer/docx/docximporter.py:236 importer/docx/docximporter.py:319
+#: importer/docx/docximporter.py:237 importer/docx/docximporter.py:320
 msgid "Title"
 msgstr ""
 
@@ -560,7 +560,7 @@ msgid "Initially hidden from others"
 msgstr ""
 
 #: apps/account/templates/account/dashboard_import_book_modal.html:76
-#: apps/edit/templates/edit/panel_aloha.html:385
+#: apps/edit/templates/edit/panel_aloha.html:414
 #: apps/edit/templates/edit/panel_covers.html:33
 #: apps/edit/templates/edit/panel_media.html:64
 #: apps/edit/templates/edit/panel_toc.html:102
@@ -1026,9 +1026,9 @@ msgstr ""
 #: apps/edit/templates/edit/panel_aloha.html:221
 #: apps/edit/templates/edit/panel_aloha.html:238
 #: apps/edit/templates/edit/panel_aloha.html:320
-#: apps/edit/templates/edit/panel_aloha.html:406
-#: apps/edit/templates/edit/panel_aloha.html:423
-#: apps/edit/templates/edit/panel_aloha.html:444
+#: apps/edit/templates/edit/panel_aloha.html:435
+#: apps/edit/templates/edit/panel_aloha.html:452
+#: apps/edit/templates/edit/panel_aloha.html:473
 #: apps/edit/templates/edit/panel_covers.html:96
 #: apps/edit/templates/edit/panel_covers.html:153
 #: apps/edit/templates/edit/panel_toc.html:17
@@ -1349,10 +1349,87 @@ msgstr ""
 msgid "Full view"
 msgstr ""
 
+#: apps/edit/templates/edit/_section_settings_wizard.html:8
+msgid "Section Settings"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:15
+msgid "Display Settings"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:17
+msgid "Choose the outputs where you want to show this section"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:23
+msgid "Show"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:27
+msgid "Hide"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:30
+#: apps/edit/templates/edit/panel_toc.html:217
+#: apps/reader/templates/reader/book_draft_page.html:19
+#: apps/reader/templates/reader/book_full_view.html:22
+msgid "Table of Contents"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:32
+msgid "Show section and chapters"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:33
+msgid "Show section / hide chapters"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:34
+msgid "Hide section / show chapters"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:35
+msgid "Hide section and chapters"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:41
+#: apps/edit/templates/edit/panel_publish.html:136
+msgid "Extra"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:43
+msgid "Set extra options"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:46
+msgid "Mark section as"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:49
+msgid "Frontmatter"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:57
+msgid "Mainmatter"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:65
+msgid "Backmatter"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:73
+#: apps/edit/templates/edit/_section_settings_wizard.html:78
+msgid "Custom"
+msgstr ""
+
+#: apps/edit/templates/edit/_section_settings_wizard.html:79
+msgid "e.g. Authors"
+msgstr ""
+
 #: apps/edit/templates/edit/aloha_menu.html:5
 #: apps/edit/templates/edit/edit_strings.html:105
 #: apps/edit/templates/edit/panel_aloha.html:239
-#: apps/edit/templates/edit/panel_aloha.html:445
+#: apps/edit/templates/edit/panel_aloha.html:474
 msgid "Insert"
 msgstr ""
 
@@ -1466,196 +1543,211 @@ msgid "Normal Text"
 msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:14
-#: skeleton/themes/custom/panel.html:3
-msgid "Heading"
+msgid "Chapter title"
 msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:15
-msgid "Subheading"
+msgid "Heading 1"
 msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:16
-msgid "SubSubHeading"
+msgid "Heading 2"
 msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:17
-msgid "Pre-formatted"
+msgid "Heading 3"
 msgstr ""
 
 #: apps/edit/templates/edit/aloha_toolbar.html:18
+msgid "Heading 4"
+msgstr ""
+
+#: apps/edit/templates/edit/aloha_toolbar.html:19
+msgid "Heading 5"
+msgstr ""
+
+#: apps/edit/templates/edit/aloha_toolbar.html:20
+msgid "Heading 6"
+msgstr ""
+
+#: apps/edit/templates/edit/aloha_toolbar.html:21
+msgid "Pre-formatted"
+msgstr ""
+
+#: apps/edit/templates/edit/aloha_toolbar.html:22
 msgid "Citation"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:23
+#: apps/edit/templates/edit/aloha_toolbar.html:27
 msgid "Font"
 msgstr ""
 
 #. Translators: User defined style settings
-#: apps/edit/templates/edit/aloha_toolbar.html:29
+#: apps/edit/templates/edit/aloha_toolbar.html:33
 #: skeleton/themes/custom/panel.html:21
 msgid "Font size"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:30
+#: apps/edit/templates/edit/aloha_toolbar.html:34
 msgid "Change Font size"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:142
+#: apps/edit/templates/edit/aloha_toolbar.html:146
 msgid "Bold"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:143
+#: apps/edit/templates/edit/aloha_toolbar.html:147
 msgid "Italic"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:144
+#: apps/edit/templates/edit/aloha_toolbar.html:148
 msgid "Underline"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:145
+#: apps/edit/templates/edit/aloha_toolbar.html:149
 #: apps/edit/templates/edit/edit_strings.html:113
 msgid "Quote"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:149
+#: apps/edit/templates/edit/aloha_toolbar.html:153
 msgid "Table"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:151
+#: apps/edit/templates/edit/aloha_toolbar.html:155
 msgid "Insert Table"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:154
+#: apps/edit/templates/edit/aloha_toolbar.html:158
 msgid "Rows"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:159
+#: apps/edit/templates/edit/aloha_toolbar.html:163
 #: apps/edit/templates/edit/edit_strings.html:90
 #: apps/edit/templates/edit/panel_aloha.html:349
 msgid "Columns"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:165
+#: apps/edit/templates/edit/aloha_toolbar.html:169
 msgid "Table caption"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:169
+#: apps/edit/templates/edit/aloha_toolbar.html:173
 #: apps/edit/templates/edit/panel_aloha.html:63
-#: apps/edit/templates/edit/panel_aloha.html:386
+#: apps/edit/templates/edit/panel_aloha.html:415
 #: apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:172
+#: apps/edit/templates/edit/aloha_toolbar.html:176
 msgid "Delete Table"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:174
+#: apps/edit/templates/edit/aloha_toolbar.html:178
 msgid "Table Options"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:175
+#: apps/edit/templates/edit/aloha_toolbar.html:179
 msgid "Add Row Before"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:176
+#: apps/edit/templates/edit/aloha_toolbar.html:180
 msgid "Add Row After"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:177
+#: apps/edit/templates/edit/aloha_toolbar.html:181
 msgid "Add Column Before"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:178
+#: apps/edit/templates/edit/aloha_toolbar.html:182
 msgid "Add Column After"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:179
+#: apps/edit/templates/edit/aloha_toolbar.html:183
 msgid "Delete Row"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:180
+#: apps/edit/templates/edit/aloha_toolbar.html:184
 msgid "Delete Column"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:185
+#: apps/edit/templates/edit/aloha_toolbar.html:189
 msgid "Insert Link"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:186
+#: apps/edit/templates/edit/aloha_toolbar.html:190
 #: apps/edit/templates/edit/panel_aloha.html:164
 msgid "Insert Image"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:190
+#: apps/edit/templates/edit/aloha_toolbar.html:194
 msgid "Left align"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:191
+#: apps/edit/templates/edit/aloha_toolbar.html:195
 msgid "Centre align"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:192
+#: apps/edit/templates/edit/aloha_toolbar.html:196
 msgid "Right align"
 msgstr ""
 
 #. Translators: User defined style alignment settings
-#: apps/edit/templates/edit/aloha_toolbar.html:193
-#: apps/edit/templates/edit/panel_aloha.html:366
+#: apps/edit/templates/edit/aloha_toolbar.html:197
+#: apps/edit/templates/edit/panel_aloha.html:376
 #: skeleton/themes/custom/panel.html:53
 msgid "Justify"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:198
+#: apps/edit/templates/edit/aloha_toolbar.html:202
 msgid "Unordered List"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:199
+#: apps/edit/templates/edit/aloha_toolbar.html:203
 msgid "Ordered List"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:202
+#: apps/edit/templates/edit/aloha_toolbar.html:206
 msgid "Indent left"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:203
+#: apps/edit/templates/edit/aloha_toolbar.html:207
 msgid "Indent right"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:206
+#: apps/edit/templates/edit/aloha_toolbar.html:210
 msgid "Left to right"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:207
+#: apps/edit/templates/edit/aloha_toolbar.html:211
 msgid "Right to left"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:213
+#: apps/edit/templates/edit/aloha_toolbar.html:217
 msgid "Save chapter"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:213
+#: apps/edit/templates/edit/aloha_toolbar.html:217
 msgid "SAVE"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:219
+#: apps/edit/templates/edit/aloha_toolbar.html:223
 msgid "Save and close"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:220
+#: apps/edit/templates/edit/aloha_toolbar.html:224
 msgid "Save minor change"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:221
+#: apps/edit/templates/edit/aloha_toolbar.html:225
 #: apps/edit/templates/edit/panel_aloha.html:308
 msgid "Save with comment"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:223
+#: apps/edit/templates/edit/aloha_toolbar.html:227
 msgid "Close this chapter and go to the Table of Contents"
 msgstr ""
 
-#: apps/edit/templates/edit/aloha_toolbar.html:223
+#: apps/edit/templates/edit/aloha_toolbar.html:227
 msgid "CLOSE"
 msgstr ""
 
@@ -2366,7 +2458,7 @@ msgid "Book character count (with spaces)"
 msgstr ""
 
 #: apps/edit/templates/edit/panel_aloha.html:57 apps/edit/views.py:428
-#: apps/reader/views.py:252
+#: apps/reader/views.py:249
 msgid "Chapter"
 msgstr ""
 
@@ -2538,46 +2630,46 @@ msgstr ""
 msgid "Number of columns"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:362
+#: apps/edit/templates/edit/panel_aloha.html:372
 msgid "Vertical alignment"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:365
+#: apps/edit/templates/edit/panel_aloha.html:375
 msgid "Turn off"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:372
+#: apps/edit/templates/edit/panel_aloha.html:382
 msgid "Column gap (in mm)"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:379
+#: apps/edit/templates/edit/panel_aloha.html:408
 msgid "Column continues after the marker"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:397
-#: apps/edit/templates/edit/panel_aloha.html:407
+#: apps/edit/templates/edit/panel_aloha.html:426
+#: apps/edit/templates/edit/panel_aloha.html:436
 msgid "Split Chapter"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:401
+#: apps/edit/templates/edit/panel_aloha.html:430
 #: apps/edit/templates/edit/panel_toc.html:14
 msgid "New chapter title"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:417
-#: apps/edit/templates/edit/panel_aloha.html:424
+#: apps/edit/templates/edit/panel_aloha.html:446
+#: apps/edit/templates/edit/panel_aloha.html:453
 msgid "Remove page break"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:420
+#: apps/edit/templates/edit/panel_aloha.html:449
 msgid "Do you want to remove page break?"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:435
+#: apps/edit/templates/edit/panel_aloha.html:464
 msgid "Infobox"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_aloha.html:440
+#: apps/edit/templates/edit/panel_aloha.html:469
 msgid "Write your infobox title here"
 msgstr ""
 
@@ -2885,11 +2977,6 @@ msgstr ""
 msgid "Footer Margin"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_publish.html:136
-#: apps/edit/templates/edit/panel_toc.html:483
-msgid "Extra"
-msgstr ""
-
 #: apps/edit/templates/edit/panel_publish.html:138
 msgid "Set extra options for paper trimming"
 msgstr ""
@@ -3148,12 +3235,6 @@ msgstr ""
 msgid "Locked exclusively"
 msgstr ""
 
-#: apps/edit/templates/edit/panel_toc.html:217
-#: apps/reader/templates/reader/book_draft_page.html:19
-#: apps/reader/templates/reader/book_full_view.html:22
-msgid "Table of Contents"
-msgstr ""
-
 #: apps/edit/templates/edit/panel_toc.html:220
 msgid "Detail View"
 msgstr ""
@@ -3218,22 +3299,6 @@ msgstr ""
 
 #: apps/edit/templates/edit/panel_toc.html:419
 msgid "SETTINGS"
-msgstr ""
-
-#: apps/edit/templates/edit/panel_toc.html:466
-msgid "Section Settings"
-msgstr ""
-
-#: apps/edit/templates/edit/panel_toc.html:473
-msgid "Display Settings"
-msgstr ""
-
-#: apps/edit/templates/edit/panel_toc.html:475
-msgid "Choose the outputs where you want to hide this section"
-msgstr ""
-
-#: apps/edit/templates/edit/panel_toc.html:485
-msgid "Set extra options"
 msgstr ""
 
 #: apps/edit/templates/edit/settings/_additional_metadata.html:7
@@ -3359,15 +3424,15 @@ msgstr ""
 msgid "Chapter revision could not be reverted."
 msgstr ""
 
-#: apps/edit/views.py:713
+#: apps/edit/views.py:715
 msgid "Successfully saved settings."
 msgstr ""
 
-#: apps/edit/views.py:715
+#: apps/edit/views.py:717
 msgid "You have no permissions to execute this action."
 msgstr ""
 
-#: apps/edit/views.py:718
+#: apps/edit/views.py:720
 msgid "Unknown error while saving changes."
 msgstr ""
 
@@ -3739,11 +3804,23 @@ msgid "View full page"
 msgstr ""
 
 #: apps/reader/__init__.py:8
+msgid "View hidden full page"
+msgstr ""
+
+#: apps/reader/__init__.py:10
 msgid "View draft page"
 msgstr ""
 
-#: apps/reader/__init__.py:9
+#: apps/reader/__init__.py:11
+msgid "View hidden draft page"
+msgstr ""
+
+#: apps/reader/__init__.py:13
 msgid "View book info"
+msgstr ""
+
+#: apps/reader/__init__.py:14
+msgid "View hidden book info"
 msgstr ""
 
 #: apps/reader/forms.py:10
@@ -3943,32 +4020,32 @@ msgstr ""
 msgid "Book Details"
 msgstr ""
 
-#: apps/reader/views.py:187
+#: apps/reader/views.py:193
 msgid "Successfully changed book info."
 msgstr ""
 
-#: apps/reader/views.py:189
+#: apps/reader/views.py:195
 msgid "Could not upload cover image."
 msgstr ""
 
-#: apps/reader/views.py:210
+#: apps/reader/views.py:216
 msgid "Book successfully deleted."
 msgstr ""
 
-#: apps/reader/views.py:217
+#: apps/reader/views.py:224
 msgid "Chapter Draft"
 msgstr ""
 
-#: apps/reader/views.py:278
+#: apps/reader/views.py:276
 msgid "Book full view"
 msgstr ""
 
-#: apps/reports/management/commands/report.py:151
+#: apps/reports/management/commands/report.py:152
 #, python-brace-format
 msgid "Daily report for {0} ({1})"
 msgstr ""
 
-#: apps/reports/management/commands/reportweekly.py:157
+#: apps/reports/management/commands/reportweekly.py:158
 #, python-brace-format
 msgid "Weekly report for ({0} - {1})"
 msgstr ""
@@ -4102,39 +4179,39 @@ msgstr ""
 msgid "to be proofed"
 msgstr ""
 
-#: importer/docx/docximporter.py:52
+#: importer/docx/docximporter.py:53
 msgid ""
 "Please note: Mathematical formulae have been found, and highlighted in the "
 "text. These formulae are not supported by many e-readers, or the Booktype "
 "editor at present."
 msgstr ""
 
-#: importer/docx/docximporter.py:123
+#: importer/docx/docximporter.py:124
 msgid ""
 "The file could not be imported because it was not saved in the .docx format. "
 "Try to open the file in Word and save it as a .docx."
 msgstr ""
 
-#: importer/docx/docximporter.py:126
+#: importer/docx/docximporter.py:127
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
 msgstr ""
 
-#: importer/docx/docximporter.py:173
+#: importer/docx/docximporter.py:174
 msgid ""
 "The file format you uploaded is not supported. Please save the image as jpg "
 "file and upload it again."
 msgstr ""
 
-#: importer/docx/docximporter.py:208
+#: importer/docx/docximporter.py:209
 msgid ""
 "An error occurred while importing images. Some images couldn't be imported. "
 "Missing images are marked within the text. Please upload missing images "
 "manually."
 msgstr ""
 
-#: importer/docx/docximporter.py:234
+#: importer/docx/docximporter.py:235
 msgid "Title Page"
 msgstr ""
 
@@ -4175,6 +4252,10 @@ msgstr ""
 msgid ""
 "A theme for catalogues and elegant texts. Works best for mid sized books. "
 "The compact theme uses line indents and has no spacing between paragraphs."
+msgstr ""
+
+#: skeleton/themes/custom/panel.html:3
+msgid "Heading"
 msgstr ""
 
 #. Translators: User defined style Heading font

@@ -458,39 +458,4 @@
   </div>
 </script>
 
-<div class="modal fade settings-dialog" id="section-settings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog new_book">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h2 class="modal-title" id="myModalLabel">{% trans "Section Settings" %}</h2>
-      </div>
-      <div class="modal-body">
-        <section id="basic">
-          <input type="hidden" name="section_id" value=""/>
-          <form method="post" enctype="multipart/form-data">
-            <div class="wizard-section-settings">
-              <h3>{% trans "Display Settings" %}</h3>
-              <section>
-                <p class="wizard_desc">{% trans "Choose the outputs where you want to hide this section" %}</p>
-                {% for opt in publish_options %}
-                <label for="size">{{opt|upper}}</label>
-                <input type="checkbox" name="hide_in_outputs[{{opt}}]" id="id_{{opt}}">
-                <br/>
-                {% endfor %}
-              </section>
-
-              <h3>{% trans "Extra" %}</h3>
-              <section>
-                <p class="wizard_desc">{% trans "Set extra options" %}</p>
-
-                <label for="crop_marks">Coming soon</label>
-                <br/>
-              </section>
-            </div>
-          </form>
-        </section>
-      </div>
-    </div>
-  </div>
-</div>
+{% include "edit/_section_settings_wizard.html" %}
