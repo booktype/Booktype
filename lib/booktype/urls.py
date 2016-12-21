@@ -35,6 +35,7 @@ urlpatterns = [
 
     # front page
     url(r'', include('booktype.apps.portal.urls', namespace="portal")),
+
     # accounts
     url(r'^accounts/', include('booktype.apps.account.urls', namespace="accounts")),
 

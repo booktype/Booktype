@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0; url={% if LOGOUT_REDIRECT_URL %}{{ LOGOUT_REDIRECT_URL }}{% else %} {% url 'portal:frontpage'%} {% endif %}" />
+    <title>Booktype | Redirecting...</title>
+  </head>
+  <body></body>
+</html>

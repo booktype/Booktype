@@ -612,13 +612,6 @@ class SignInView(PageView):
         return HttpResponseBadRequest()
 
 
-class SignOutView(View):
-
-    def get(self, request):
-        auth.logout(request)
-        return HttpResponseRedirect(reverse('portal:frontpage'))
-
-
 def profilethumbnail(request, profileid):
     """
     Django View. Shows user profile image.
