@@ -316,6 +316,10 @@ CACHES = {
 # Setting to avoid warning message of new Django Test Runner
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
+# This is the same setting that will be available in Django 1.10
+# Uncomment this line below if you want to redirect somewhere else after logout
+# LOGOUT_REDIRECT_URL = '/'
+
 # this is to create additional metadata fields for books
 # we can use any of the fields of Django Forms module.
 # I can be something like this:

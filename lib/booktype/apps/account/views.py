@@ -481,8 +481,14 @@ class SignInView(PageView):
 
     def get(self, request):
         signed_data = request.GET.get('data', None)
-        if signed_data:
+
+        if request.user.is_authenticated() and signed_data:
+            assign_invitation(request.user, signing.loads(signed_data))
+            return HttpResponseRedirect(reverse('portal:frontpage'))
+
+        elif signed_data:
             request.session['invite_data'] = signing.loads(signed_data)
+
         return super(SignInView, self).get(request)
 
     def _do_check_valid(self, request):
@@ -604,13 +610,6 @@ class SignInView(PageView):
 
             return HttpResponse(json.dumps(ret), content_type="text/json")
         return HttpResponseBadRequest()
-
-
-class SignOutView(View):
-
-    def get(self, request):
-        auth.logout(request)
-        return HttpResponseRedirect(reverse('portal:frontpage'))
 
 
 def profilethumbnail(request, profileid):

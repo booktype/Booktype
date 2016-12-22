@@ -5,25 +5,25 @@ import ebooklib
 from lxml import etree
 from ebooklib.epub import NAMESPACES
 
-from .constants import DOCUMENTS_DIR
+from .constants import STYLES_DIR
 from .displayoptions import make_display_options_xml
 
 
 class Writer(ebooklib.epub.EpubWriter):
 
-    def _fix_nav_links(self, content):
+    def _fix_nav_css_links(self, content):
         """
         Fix the path of the links in nav file
         """
 
         root = ebooklib.utils.parse_string(content)
-        for element in root.iter('{%s}a' % NAMESPACES['XHTML']):
+        for element in root.iter('{%s}link' % NAMESPACES['XHTML']):
             href = urllib.unquote(element.get('href'))
 
-            if href.startswith(DOCUMENTS_DIR):
+            if href.startswith('../%s' % STYLES_DIR):
                 file_name = os.path.basename(href)
                 element.set(
-                    'href', '../{}/{}'.format(DOCUMENTS_DIR, file_name))
+                    'href', '{}/{}'.format(STYLES_DIR, file_name))
 
         content = etree.tostring(
             root, pretty_print=True, encoding='utf-8', xml_declaration=True)
@@ -31,7 +31,7 @@ class Writer(ebooklib.epub.EpubWriter):
 
     def _get_nav(self, item):
         content = super(Writer, self)._get_nav(item)
-        return self._fix_nav_links(content)
+        return self._fix_nav_css_links(content)
 
     def _write_container(self):
         super(Writer, self)._write_container()

@@ -15,15 +15,25 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls import url
+from django.conf import settings
+from django.contrib.auth import views as auth_views
 
 from .views import (
     CreateBookView, UserSettingsPage, DashboardPageView,
     ForgotPasswordView, ForgotPasswordEnterView, SignInView,
-    SignOutView, SendInviteView)
+    SendInviteView)
+
+# this won't be required once we upgrade to django 1.10
+# https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-LOGOUT_REDIRECT_URL
+logout_context = {'LOGOUT_REDIRECT_URL': getattr(settings, 'LOGOUT_REDIRECT_URL', None)}
 
 urlpatterns = [
     url(r'^signin/$', SignInView.as_view(), name='signin'),
-    url(r'^signout/$', SignOutView.as_view(), name='signout'),
+
+    url(r'^signout/$', auth_views.logout, {
+        'template_name': '/account/signout.html',
+        'extra_context': logout_context}, name='signout'),
+
     url(r'^forgot_password/$', ForgotPasswordView.as_view(), name='forgotpassword'),
     url(r'^forgot_password/enter/$', ForgotPasswordEnterView.as_view(), name='forgotpasswordenter'),
     url(r'^invite/$', SendInviteView.as_view(), name='invite'),

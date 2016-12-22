@@ -40,7 +40,7 @@ from booktype.utils.misc import booktype_slugify
 from booktype.convert.image_editor_conversion import ImageEditorConversion
 
 from ..base import BaseConverter
-from ..utils.epub import parse_toc_nav
+from ..utils.epub import parse_toc_nav, get_sections_settings
 from .. import utils
 from .styles import create_default_style, get_page_size, CROP_MARGIN
 
@@ -117,6 +117,10 @@ class MPDFConverter(BaseConverter):
           - book: EPUB book object
         """
 
+        # we parse the toc nav before pre_convert to get original content
+        self.original_toc_nav = parse_toc_nav(book)
+
+        # now we call parent pre_convert to run section settings plugin
         super(MPDFConverter, self).pre_convert(book)
 
         # Not that much needed at the moment
@@ -387,20 +391,35 @@ class MPDFConverter(BaseConverter):
           - book: EPUB Book object
         """
 
-        def _toc(depth, toc_items):
+        settings = get_sections_settings(book)
+
+        def _toc(depth, toc_items, parent=None, toc_setting=None):
             items = []
+            sec_count = 1
 
             for toc_item in toc_items:
                 if isinstance(toc_item[1], list):
                     section_title, chapters = toc_item
+                    url_title = booktype_slugify(section_title)
+
+                    key = 'section_%s_%s' % (url_title, sec_count)
+                    section_settings = json.loads(settings.get(key, '{}'))
+                    toc_setting = section_settings.get('toc', {}).get(self.name, '')
+
+                    # continue if the whole section should be hidden
+                    show_in_outputs = section_settings.get('show_in_outputs', {})
+                    if show_in_outputs.get(self.name, 'true') == 'false':
+                        continue
 
                     items += [{
                         'type': 'section',
                         'level': depth,
                         'title': section_title,
-                        'url_title': booktype_slugify(section_title),
+                        'url_title': url_title,
+                        'show_in_toc': 'hide_section' not in toc_setting
                     }]
-                    items += _toc(depth + 1, chapters)
+                    items += _toc(depth + 1, chapters, section_title, toc_setting)
+                    sec_count += 1
                 else:
                     chapter_title, chapter_href = toc_item
                     chapter_item = book.get_item_with_href(chapter_href)
@@ -408,6 +427,10 @@ class MPDFConverter(BaseConverter):
                     content = self._fix_horrible_mpdf(content)
 
                     href_filename, file_extension = os.path.splitext(chapter_href)
+
+                    if not parent:
+                        toc_setting = ''
+
                     items.append({
                         'type': 'chapter',
                         'level': depth,
@@ -415,11 +438,13 @@ class MPDFConverter(BaseConverter):
                         'url_title': booktype_slugify(chapter_title),
                         'href': chapter_href,
                         'href_filename': href_filename,
-                        'content': content})
+                        'content': content,
+                        'show_in_toc': 'hide_chapters' not in toc_setting
+                    })
 
             return items
 
-        book_toc = _toc(0, parse_toc_nav(book))
+        book_toc = _toc(0, self.original_toc_nav)
 
         data = self._get_data(book)
         data.update(self.get_extra_data(book))
@@ -427,13 +452,8 @@ class MPDFConverter(BaseConverter):
             'book_items': book_toc
         })
 
-#        if self.theme_name != '':
         body_name = get_body(self.theme_name, self.name)
         html = render_to_string(body_name, data)
-        # else:
-        #     body_name = 'body_{}.html'.format(self.name)
-        #     html = render_to_string('themes/{}'.format(body_name), data)
-
         html_path = os.path.join(self.sandbox_path, self._body_html_name)
         f = codecs.open(html_path, 'wt', 'utf8')
         f.write(html)

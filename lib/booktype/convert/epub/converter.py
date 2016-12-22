@@ -293,7 +293,9 @@ class EpubConverter(BaseConverter):
 
         toc = filter(_skip_cover, parse_toc_nav(original_book))
         toc = map(mapper, toc)
-        toc = filter(_empty_sec, toc)
+
+        # commented this because we need it for section settings
+        # toc = filter(_empty_sec, toc)
 
         epub_book.toc = toc
 
@@ -323,9 +325,10 @@ class EpubConverter(BaseConverter):
                     epub_book.spine.insert(0, item)
                     epub_book.guide.insert(0, {
                         'type': 'toc',
-                        'href': item.file_name,
+                        'href': file_name,
                         'title': self.config.get('toc_title', self.toc_title)
                     })
+                    item.file_name = file_name
                 else:
                     epub_book.spine.append(item)
 
