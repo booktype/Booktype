@@ -10,20 +10,18 @@
   {% compress css %}
     <link href='{% static 'core/css/jquery.mCustomScrollbar.min.css' %}' rel='stylesheet' type='text/css'/>
     <link href='{% static 'reader/css/fullview.css' %}' rel='stylesheet' type='text/css'/>
-
-
-    {% if theme.active != 'custom' %}
-      <link href='{% static 'themes/'|add:theme.active|add:'/preload.css' %}' rel='stylesheet' type='text/css'/>
-      <link href='{% static 'themes/'|add:theme.active|add:'/editor.css' %}' rel='stylesheet' type='text/css'/>
-    {% else %}
-      <script type="text/javascript">
-        var themeCustom = JSON.parse('{{ theme.custom|safe }}');
-      </script>
-      <link href='{% static 'themes/'|add:theme.active|add:'/editor.css' %}' rel='stylesheet' type='text/css'/>
-      <style id="embeduserstyle" type="text/css"></style>
-    {% endif %}
-
   {% endcompress %}
+
+  {% if theme.active != 'custom' %}
+    <link href='{% static 'themes/'|add:theme.active|add:'/preload.css' %}' rel='stylesheet' type='text/css'/>
+    <link href='{% static 'themes/'|add:theme.active|add:'/editor.css' %}' rel='stylesheet' type='text/css'/>
+  {% else %}
+    <script type="text/javascript">
+      var themeCustom = JSON.parse('{{ theme.custom|safe }}');
+    </script>
+    <link href='{% static 'themes/'|add:theme.active|add:'/editor.css' %}' rel='stylesheet' type='text/css'/>
+    <style id="embeduserstyle" type="text/css"></style>
+  {% endif %}
 {% endblock %}
 
 
