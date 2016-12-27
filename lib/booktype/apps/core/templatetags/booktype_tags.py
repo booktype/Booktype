@@ -267,17 +267,16 @@ def booktype_site_metadata():
 
 @register.simple_tag
 def booktype_site_name():
-    frontpage_url = reverse('portal:frontpage')
-
     name = config.get_configuration('BOOKTYPE_SITE_NAME', None)
-    if name:
-        s = '<div class="logotext"><a href="%s%s">%s</a> </div>' % (
-            settings.BOOKTYPE_URL, frontpage_url, name)
-    else:
-        s = '<div class="logo"><a href="%s%s"></a></div>' % (
-            settings.BOOKTYPE_URL, frontpage_url)
+    default_url = '{0}{1}'.format(settings.BOOKTYPE_URL, reverse('portal:frontpage'))
+    frontpage_url = config.get_configuration('BOOKTYPE_FRONTPAGE_URL', default_url)
 
-    return mark_safe(s)
+    if name:
+        markup = '<div class="logotext"><a href="%s">%s</a></div>' % (frontpage_url, name)
+    else:
+        markup = '<div class="logo"><a href="%s"></a></div>' % (frontpage_url)
+
+    return mark_safe(markup)
 
 
 @register.simple_tag

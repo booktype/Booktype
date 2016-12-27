@@ -63,6 +63,12 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
         required=False,
         max_length=200
     )
+    frontpage_url = forms.CharField(
+        label=_("Frontpage URL"),
+        required=False,
+        max_length=2048,
+        help_text=_('Can be a full absolute or relative url')
+    )
     favicon = forms.FileField(
         label=_("Favicon"),
         required=False,
@@ -73,7 +79,8 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
     def initial_data(cls):
         return {
             'title': config.get_configuration('BOOKTYPE_SITE_NAME'),
-            'tagline': config.get_configuration('BOOKTYPE_SITE_TAGLINE')
+            'tagline': config.get_configuration('BOOKTYPE_SITE_TAGLINE'),
+            'frontpage_url': config.get_configuration('BOOKTYPE_FRONTPAGE_URL')
         }
 
     def save_settings(self, request):
@@ -83,6 +90,8 @@ class SiteDescriptionForm(BaseControlForm, forms.Form):
             'BOOKTYPE_SITE_NAME', self.cleaned_data['title'])
         config.set_configuration(
             'BOOKTYPE_SITE_TAGLINE', self.cleaned_data['tagline'])
+        config.set_configuration(
+            'BOOKTYPE_FRONTPAGE_URL', self.cleaned_data['frontpage_url'])
 
         if 'favicon' in self.files:
             # just check for any kind of silly error
