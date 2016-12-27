@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-22 14:45+0100\n"
+"POT-Creation-Date: 2016-12-27 16:23-0600\n"
 "PO-Revision-Date: 2014-12-29 15:54+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -31,351 +31,359 @@ msgid "Tagline"
 msgstr ""
 
 #: lib/booktypecontrol/forms.py:67
+msgid "Frontpage URL"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:70
+msgid "Can be a full absolute or relative url"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:73
 msgid "Favicon"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:69
+#: lib/booktypecontrol/forms.py:75
 msgid "Upload .ico file"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:118
+#: lib/booktypecontrol/forms.py:127
 msgid "CSS"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:146
+#: lib/booktypecontrol/forms.py:155
 msgid "Welcome message"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:151
+#: lib/booktypecontrol/forms.py:160
 msgid "Show activity"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:155
+#: lib/booktypecontrol/forms.py:164
 msgid "Use anonymous page"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:157
+#: lib/booktypecontrol/forms.py:166
 msgid ""
 "Use separate page for anonymous users without books, people, groups and "
 "recent activity blocks."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:161
+#: lib/booktypecontrol/forms.py:170
 msgid "Anonymous page message"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:164
+#: lib/booktypecontrol/forms.py:173
 msgid "Message for displaying on anonymous page."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:167
+#: lib/booktypecontrol/forms.py:176
 msgid "Anonymous page email"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:169
+#: lib/booktypecontrol/forms.py:178
 msgid "Email for displaying on anonymous page."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:172
+#: lib/booktypecontrol/forms.py:181
 msgid "Anonymous page image"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:174
+#: lib/booktypecontrol/forms.py:183
 msgid "Use image/png files."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:261
+#: lib/booktypecontrol/forms.py:270
 msgid "Abbreviation"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:263
+#: lib/booktypecontrol/forms.py:272
 msgid "Abbreviation is required."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:267
+#: lib/booktypecontrol/forms.py:276
 msgid "Name"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:269 lib/booktypecontrol/forms.py:275
+#: lib/booktypecontrol/forms.py:278 lib/booktypecontrol/forms.py:284
 msgid "License name is required."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:273
+#: lib/booktypecontrol/forms.py:282
 msgid "License URL"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:279
+#: lib/booktypecontrol/forms.py:288
 msgid "Successfully created new license."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:298
+#: lib/booktypecontrol/forms.py:307
 msgid ""
 "Default visibility: If this box is checked, create/import wizard will "
 "suggest to mark book as hidden by default."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:300
+#: lib/booktypecontrol/forms.py:309
 msgid ""
 "If it is turned on then track changes will be enabled for all the users."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:303
+#: lib/booktypecontrol/forms.py:312
 msgid "Default visibility"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:308
+#: lib/booktypecontrol/forms.py:317
 msgid "Track changes"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:313
+#: lib/booktypecontrol/forms.py:322
 msgid "Default License"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:316
+#: lib/booktypecontrol/forms.py:325
 msgid "Default license for newly created books."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:366
+#: lib/booktypecontrol/forms.py:375
 msgid "Anyone can register"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:368
+#: lib/booktypecontrol/forms.py:377
 msgid "Anyone can register on the site and create an account"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:371
+#: lib/booktypecontrol/forms.py:380
 msgid "Only the superuser can create books"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:375
+#: lib/booktypecontrol/forms.py:384
 msgid "Only the superuser can import books"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:403 lib/booktypecontrol/forms.py:565
+#: lib/booktypecontrol/forms.py:412 lib/booktypecontrol/forms.py:574
 msgid "Username"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:406 lib/booktypecontrol/forms.py:569
+#: lib/booktypecontrol/forms.py:415 lib/booktypecontrol/forms.py:578
 msgid "Username is required."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:407 lib/booktypecontrol/forms.py:413
-#: lib/booktypecontrol/forms.py:570 lib/booktypecontrol/forms.py:575
+#: lib/booktypecontrol/forms.py:416 lib/booktypecontrol/forms.py:422
+#: lib/booktypecontrol/forms.py:579 lib/booktypecontrol/forms.py:584
 msgid "Illegal characters in username."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:419 lib/booktypecontrol/forms.py:581
+#: lib/booktypecontrol/forms.py:428 lib/booktypecontrol/forms.py:590
 msgid "Full name"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:421 lib/booktypecontrol/forms.py:583
+#: lib/booktypecontrol/forms.py:430 lib/booktypecontrol/forms.py:592
 msgid "Full name is required."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:425 lib/booktypecontrol/forms.py:587
+#: lib/booktypecontrol/forms.py:434 lib/booktypecontrol/forms.py:596
 msgid "Email"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:427 lib/booktypecontrol/forms.py:589
+#: lib/booktypecontrol/forms.py:436 lib/booktypecontrol/forms.py:598
 msgid "Email is required."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:431 lib/booktypecontrol/forms.py:601
+#: lib/booktypecontrol/forms.py:440 lib/booktypecontrol/forms.py:610
 msgid "User description"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:436 lib/booktypecontrol/forms.py:639
+#: lib/booktypecontrol/forms.py:445 lib/booktypecontrol/forms.py:648
 msgid "Password"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:438 lib/booktypecontrol/forms.py:445
-#: lib/booktypecontrol/forms.py:641 lib/booktypecontrol/forms.py:649
+#: lib/booktypecontrol/forms.py:447 lib/booktypecontrol/forms.py:454
+#: lib/booktypecontrol/forms.py:650 lib/booktypecontrol/forms.py:658
 msgid "Password is required."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:443 lib/booktypecontrol/forms.py:646
+#: lib/booktypecontrol/forms.py:452 lib/booktypecontrol/forms.py:655
 msgid "Password confirmation"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:448 lib/booktypecontrol/forms.py:651
+#: lib/booktypecontrol/forms.py:457 lib/booktypecontrol/forms.py:660
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:451
+#: lib/booktypecontrol/forms.py:460
 msgid "Notify person by email"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:456 lib/booktypecontrol/forms.py:607
+#: lib/booktypecontrol/forms.py:465 lib/booktypecontrol/forms.py:616
 msgid "This person is a superuser"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:460
+#: lib/booktypecontrol/forms.py:469
 msgid "Successfully created new account."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:486
+#: lib/booktypecontrol/forms.py:495
 msgid "That username is already taken."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:492
+#: lib/booktypecontrol/forms.py:501
 msgid "Passwords do not match."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:528
+#: lib/booktypecontrol/forms.py:537
 #, python-format
 msgid "You have a new %s account"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:593
+#: lib/booktypecontrol/forms.py:602
 msgid "Profile picture"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:611
+#: lib/booktypecontrol/forms.py:620
 msgid "Active account"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:613
+#: lib/booktypecontrol/forms.py:622
 msgid "Indicate whether user's account is archived or active."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:635
+#: lib/booktypecontrol/forms.py:644
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:654
+#: lib/booktypecontrol/forms.py:663
 msgid "Send login data"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:656
+#: lib/booktypecontrol/forms.py:665
 msgid "Send new login data to the user via email."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:660
+#: lib/booktypecontrol/forms.py:669
 msgid "Short message"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:662
+#: lib/booktypecontrol/forms.py:671
 msgid ""
 "Will be added in the bottom of email message text, after new user "
 "credentials."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:664
+#: lib/booktypecontrol/forms.py:673
 msgid "You can change password in your profile settings page."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:689 lib/booktypecontrol/forms.py:762
+#: lib/booktypecontrol/forms.py:698 lib/booktypecontrol/forms.py:771
 msgid "Title"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:690 lib/booktypecontrol/forms.py:764
+#: lib/booktypecontrol/forms.py:699 lib/booktypecontrol/forms.py:773
 #: lib/booktypecontrol/tests.py:49
 msgid "Title is required."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:695
+#: lib/booktypecontrol/forms.py:704
 msgid "Description"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:700
+#: lib/booktypecontrol/forms.py:709
 msgid "Owner"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:701
+#: lib/booktypecontrol/forms.py:710
 msgid "Book owner is required."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:706
+#: lib/booktypecontrol/forms.py:715
 msgid "License"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:708
+#: lib/booktypecontrol/forms.py:717
 msgid "License is required."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:712
+#: lib/booktypecontrol/forms.py:721
 msgid "Initially hide from others"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:716
+#: lib/booktypecontrol/forms.py:725
 msgid "Book image"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:720
+#: lib/booktypecontrol/forms.py:729
 msgid "Successfully created new book."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:724
+#: lib/booktypecontrol/forms.py:733
 msgid "That book already exists."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:768
+#: lib/booktypecontrol/forms.py:777
 msgid "URL title"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:771
+#: lib/booktypecontrol/forms.py:780
 msgid "Illegal characters in URL title."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:772
+#: lib/booktypecontrol/forms.py:781
 msgid ""
 "If you leave this field empty, a URL        title will be assigned "
 "automatically."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:812
+#: lib/booktypecontrol/forms.py:821
 msgid "Book PDF"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:816
+#: lib/booktypecontrol/forms.py:825
 msgid "Screen PDF"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:820
+#: lib/booktypecontrol/forms.py:829
 msgid "EPUB"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:824
+#: lib/booktypecontrol/forms.py:833
 msgid "MOBI"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:828
+#: lib/booktypecontrol/forms.py:837
 msgid "XHTML"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:860
+#: lib/booktypecontrol/forms.py:869
 msgid "Book CSS"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:868
+#: lib/booktypecontrol/forms.py:877
 msgid "E-Book CSS"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:876
+#: lib/booktypecontrol/forms.py:885
 msgid "PDF CSS"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:884
+#: lib/booktypecontrol/forms.py:893
 msgid "ODT CSS"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:938
+#: lib/booktypecontrol/forms.py:947
 msgid "Successfully created new group."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:975
+#: lib/booktypecontrol/forms.py:984
 msgid "Successfully created new role."
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:1014
+#: lib/booktypecontrol/forms.py:1023
 msgid "Role for anonymous users"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:1018
+#: lib/booktypecontrol/forms.py:1027
 msgid "Role for registered users"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:1023
+#: lib/booktypecontrol/forms.py:1032
 msgid "None"
 msgstr ""
 

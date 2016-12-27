@@ -262,7 +262,7 @@ def booktype_site_metadata():
     if tagline:
         meta_tags += '\n<meta name="description" content="%s" />' % escape(tagline)
 
-    return meta_tags
+    return mark_safe(meta_tags)
 
 
 @register.simple_tag
