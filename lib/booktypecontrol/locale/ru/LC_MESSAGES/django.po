@@ -1,7 +1,7 @@
 # English (en) translation strings for Booktype Control Centre.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# 
+#
 # Translators:
 # Aleksandar Erkalović <aleksandar.erkalovic@sourcefabric.org>, 2013
 # Andrey Podshivalov, 2015
@@ -10,805 +10,876 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 15:21+0100\n"
+"POT-Creation-Date: 2016-12-22 14:53+0100\n"
 "PO-Revision-Date: 2015-10-09 09:20+0000\n"
 "Last-Translator: Oleg Pshenichniy <olegpshenichniy@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.com/sourcefabric/booktype/language/ru/)\n"
+"Language-Team: Russian (http://www.transifex.com/sourcefabric/booktype/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
 
-#: forms.py:55
+#: lib/booktypecontrol/forms.py:56
 msgid "Site title"
 msgstr "Заголовок сайта"
 
-#: forms.py:57
+#: lib/booktypecontrol/forms.py:58
 msgid "Site title is required."
 msgstr "Указать заголовок сайта"
 
-#: forms.py:61
+#: lib/booktypecontrol/forms.py:62
 msgid "Tagline"
 msgstr "ПОдзаголовок"
 
-#: forms.py:66
+#: lib/booktypecontrol/forms.py:67
 msgid "Favicon"
 msgstr "Фавикон"
 
-#: forms.py:68
+#: lib/booktypecontrol/forms.py:69
 msgid "Upload .ico file"
 msgstr "Загрузить файл .ico"
 
-#: forms.py:105
+#: lib/booktypecontrol/forms.py:118
 msgid "CSS"
 msgstr "CSS"
 
-#: forms.py:133
+#: lib/booktypecontrol/forms.py:146
 msgid "Welcome message"
 msgstr "Приветствие"
 
-#: forms.py:138
+#: lib/booktypecontrol/forms.py:151
 msgid "Show activity"
 msgstr "Показать текущую деятельность"
 
-#: forms.py:142
+#: lib/booktypecontrol/forms.py:155
 msgid "Use anonymous page"
 msgstr "Использовать анонимную страницу"
 
-#: forms.py:144
+#: lib/booktypecontrol/forms.py:157
 msgid ""
 "Use separate page for anonymous users without books, people, groups and "
 "recent activity blocks."
-msgstr "Использовать страницу для анонимного пользователя без списка книг, пользователей, групп и блока недавней активности."
+msgstr ""
+"Использовать страницу для анонимного пользователя без списка книг, "
+"пользователей, групп и блока недавней активности."
 
-#: forms.py:148
+#: lib/booktypecontrol/forms.py:161
 msgid "Anonymous page message"
 msgstr "Сообщение для анонимной страницы"
 
-#: forms.py:151
+#: lib/booktypecontrol/forms.py:164
 msgid "Message for displaying on anonymous page."
 msgstr "Сообщение для отображения на анонимной странице."
 
-#: forms.py:154
+#: lib/booktypecontrol/forms.py:167
 msgid "Anonymous page email"
 msgstr "Email для анонимной страницы."
 
-#: forms.py:156
+#: lib/booktypecontrol/forms.py:169
 msgid "Email for displaying on anonymous page."
 msgstr "Email для отображения на анонимной странице."
 
-#: forms.py:159
+#: lib/booktypecontrol/forms.py:172
 msgid "Anonymous page image"
 msgstr "Изображение для анонимной страницы"
 
-#: forms.py:161
+#: lib/booktypecontrol/forms.py:174
 msgid "Use image/png files."
 msgstr "Используйте image/png файлы."
 
-#: forms.py:248
+#: lib/booktypecontrol/forms.py:261
 msgid "Abbreviation"
 msgstr "аббревиатура"
 
-#: forms.py:250
+#: lib/booktypecontrol/forms.py:263
 msgid "Abbreviation is required."
 msgstr "Укажите аббревиатуру."
 
-#: forms.py:254
+#: lib/booktypecontrol/forms.py:267
 msgid "Name"
 msgstr "Название"
 
-#: forms.py:256 forms.py:262
+#: lib/booktypecontrol/forms.py:269 lib/booktypecontrol/forms.py:275
 msgid "License name is required."
 msgstr "Указать название лицензии"
 
-#: forms.py:260
+#: lib/booktypecontrol/forms.py:273
 msgid "License URL"
 msgstr "URL лицензии"
 
-#: forms.py:266
+#: lib/booktypecontrol/forms.py:279
 msgid "Successfully created new license."
 msgstr "Новая лицензия успешно создана."
 
-#: forms.py:285
+#: lib/booktypecontrol/forms.py:298
+#, fuzzy
+#| msgid ""
+#| "Default visibility: If this box is checked, all newly created books will "
+#| "be visible to the public initially."
 msgid ""
-"Default visibility: If this box is checked, all newly created books will be "
-"visible to the public initially."
-msgstr "Видимость по умолчанию: Если этот флажок установлен, все вновь создаваемые книги будут в публичном доступе."
+"Default visibility: If this box is checked, create/import wizard will "
+"suggest to mark book as hidden by default."
+msgstr ""
+"Видимость по умолчанию: Если этот флажок установлен, все вновь создаваемые "
+"книги будут в публичном доступе."
 
-#: forms.py:287
+#: lib/booktypecontrol/forms.py:300
+#, fuzzy
+#| msgid ""
+#| "If it is turned on then track changes will be        enabled for all the "
+#| "users."
 msgid ""
-"If it is turned on then track changes will be        enabled for all the "
-"users."
-msgstr "При данной отметке отслеживание изменений будет включено для всех пользователей. "
+"If it is turned on then track changes will be enabled for all the users."
+msgstr ""
+"При данной отметке отслеживание изменений будет включено для всех "
+"пользователей. "
 
-#: forms.py:290
+#: lib/booktypecontrol/forms.py:303
 msgid "Default visibility"
 msgstr "Видимость по умолчанию"
 
-#: forms.py:295
+#: lib/booktypecontrol/forms.py:308
 msgid "Track changes"
 msgstr "Отслеживание изменений"
 
-#: forms.py:300
+#: lib/booktypecontrol/forms.py:313
 msgid "Default License"
 msgstr "Лицензия по умолчанию"
 
-#: forms.py:303
+#: lib/booktypecontrol/forms.py:316
 msgid "Default license for newly created books."
 msgstr "Лицензия по умолчанию для недавно созданных книг"
 
-#: forms.py:350
+#: lib/booktypecontrol/forms.py:366
 msgid "Anyone can register"
 msgstr "Регистрация доступна для всех"
 
-#: forms.py:352
+#: lib/booktypecontrol/forms.py:368
 msgid "Anyone can register on the site and create an account"
 msgstr "Регистрация на сайте и создание учетной записи доступны для всех"
 
-#: forms.py:355
+#: lib/booktypecontrol/forms.py:371
 msgid "Only the superuser can create books"
 msgstr "Создать книгу может только суперпользователь"
 
-#: forms.py:359
+#: lib/booktypecontrol/forms.py:375
 msgid "Only the superuser can import books"
 msgstr "Импортировать книгу может только суперпользователь"
 
-#: forms.py:387 forms.py:550
+#: lib/booktypecontrol/forms.py:403 lib/booktypecontrol/forms.py:565
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: forms.py:390 forms.py:554
+#: lib/booktypecontrol/forms.py:406 lib/booktypecontrol/forms.py:569
 msgid "Username is required."
 msgstr "Указать имя пользователя"
 
-#: forms.py:391 forms.py:397 forms.py:555 forms.py:560
+#: lib/booktypecontrol/forms.py:407 lib/booktypecontrol/forms.py:413
+#: lib/booktypecontrol/forms.py:570 lib/booktypecontrol/forms.py:575
 msgid "Illegal characters in username."
 msgstr "Некорректные символы в имени пользователя"
 
-#: forms.py:403 forms.py:566
+#: lib/booktypecontrol/forms.py:419 lib/booktypecontrol/forms.py:581
 msgid "Full name"
 msgstr "Полное имя"
 
-#: forms.py:405 forms.py:568
+#: lib/booktypecontrol/forms.py:421 lib/booktypecontrol/forms.py:583
 msgid "Full name is required."
 msgstr "Введите полное имя."
 
-#: forms.py:409 forms.py:572
+#: lib/booktypecontrol/forms.py:425 lib/booktypecontrol/forms.py:587
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:411 forms.py:574
+#: lib/booktypecontrol/forms.py:427 lib/booktypecontrol/forms.py:589
 msgid "Email is required."
 msgstr "Указать email"
 
-#: forms.py:415 forms.py:586
+#: lib/booktypecontrol/forms.py:431 lib/booktypecontrol/forms.py:601
 msgid "User description"
 msgstr "Описание пользователя"
 
-#: forms.py:420 forms.py:624
+#: lib/booktypecontrol/forms.py:436 lib/booktypecontrol/forms.py:639
 msgid "Password"
 msgstr "Пароль"
 
-#: forms.py:422 forms.py:429 forms.py:626 forms.py:634
+#: lib/booktypecontrol/forms.py:438 lib/booktypecontrol/forms.py:445
+#: lib/booktypecontrol/forms.py:641 lib/booktypecontrol/forms.py:649
 msgid "Password is required."
 msgstr "Указать пароль"
 
-#: forms.py:427 forms.py:631
+#: lib/booktypecontrol/forms.py:443 lib/booktypecontrol/forms.py:646
 msgid "Password confirmation"
 msgstr "Подтвердить пароль"
 
-#: forms.py:432 forms.py:636
+#: lib/booktypecontrol/forms.py:448 lib/booktypecontrol/forms.py:651
 msgid "Enter the same password as above, for verification."
 msgstr "Повторите пароль для контроля"
 
-#: forms.py:435
+#: lib/booktypecontrol/forms.py:451
 msgid "Notify person by email"
 msgstr "Уведомить по email"
 
-#: forms.py:440 forms.py:592
+#: lib/booktypecontrol/forms.py:456 lib/booktypecontrol/forms.py:607
 msgid "This person is a superuser"
 msgstr "Это суперпользователь"
 
-#: forms.py:444
+#: lib/booktypecontrol/forms.py:460
 msgid "Successfully created new account."
 msgstr "Новый аккаунт успешно создан."
 
-#: forms.py:470
+#: lib/booktypecontrol/forms.py:486
 msgid "That username is already taken."
 msgstr "Такое имя пользователя уже занято"
 
-#: forms.py:476
+#: lib/booktypecontrol/forms.py:492
 msgid "Passwords do not match."
 msgstr "Пароли не совпадают"
 
-#: forms.py:578
+#: lib/booktypecontrol/forms.py:528
+#, python-format
+msgid "You have a new %s account"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:593
 msgid "Profile picture"
 msgstr "Фото профиля"
 
-#: forms.py:596
+#: lib/booktypecontrol/forms.py:611
 msgid "Active account"
 msgstr "Активный аккаунт"
 
-#: forms.py:598
+#: lib/booktypecontrol/forms.py:613
 msgid "Indicate whether user's account is archived or active."
-msgstr "Указывает является ли учетная запись пользователя архивной или активной."
+msgstr ""
+"Указывает является ли учетная запись пользователя архивной или активной."
 
-#: forms.py:620
+#: lib/booktypecontrol/forms.py:635
 msgid "The two password fields didn't match."
 msgstr "Пароли не совпадают."
 
-#: forms.py:639
+#: lib/booktypecontrol/forms.py:654
 msgid "Send login data"
 msgstr "Отправить данные входа"
 
-#: forms.py:641
+#: lib/booktypecontrol/forms.py:656
 msgid "Send new login data to the user via email."
-msgstr "Отправить новые данные входа для пользователя с помощью электронной почты."
+msgstr ""
+"Отправить новые данные входа для пользователя с помощью электронной почты."
 
-#: forms.py:645
+#: lib/booktypecontrol/forms.py:660
 msgid "Short message"
 msgstr "Короткое сообщение"
 
-#: forms.py:647
+#: lib/booktypecontrol/forms.py:662
 msgid ""
 "Will be added in the bottom of email message text, after new user "
 "credentials."
-msgstr "Будет добавлено в нижней части текста сообщения электронной почты, после новых учетных данных пользователя."
+msgstr ""
+"Будет добавлено в нижней части текста сообщения электронной почты, после "
+"новых учетных данных пользователя."
 
-#: forms.py:649
+#: lib/booktypecontrol/forms.py:664
 msgid "You can change password in your profile settings page."
 msgstr "Вы можете изменить пароль на странице настроек профиля."
 
-#: forms.py:674 forms.py:747
+#: lib/booktypecontrol/forms.py:689 lib/booktypecontrol/forms.py:762
 msgid "Title"
 msgstr "Заголовок"
 
-#: forms.py:675 forms.py:749 tests.py:49
+#: lib/booktypecontrol/forms.py:690 lib/booktypecontrol/forms.py:764
+#: lib/booktypecontrol/tests.py:49
 msgid "Title is required."
 msgstr "Указать заголовок"
 
-#: forms.py:680
+#: lib/booktypecontrol/forms.py:695
 msgid "Description"
 msgstr "Описание"
 
-#: forms.py:685
+#: lib/booktypecontrol/forms.py:700
 msgid "Owner"
 msgstr "Владелец"
 
-#: forms.py:686
+#: lib/booktypecontrol/forms.py:701
 msgid "Book owner is required."
 msgstr "Ввести имя владелеца книги"
 
-#: forms.py:691
+#: lib/booktypecontrol/forms.py:706
 msgid "License"
 msgstr "Лицензия"
 
-#: forms.py:693
+#: lib/booktypecontrol/forms.py:708
 msgid "License is required."
 msgstr "Указать лицензию"
 
-#: forms.py:697
+#: lib/booktypecontrol/forms.py:712
 msgid "Initially hide from others"
 msgstr "Изначально скрыто от остальных"
 
-#: forms.py:701
+#: lib/booktypecontrol/forms.py:716
 msgid "Book image"
 msgstr "Изображение книги"
 
-#: forms.py:705
+#: lib/booktypecontrol/forms.py:720
 msgid "Successfully created new book."
 msgstr "Новая книга успешно создана."
 
-#: forms.py:709
+#: lib/booktypecontrol/forms.py:724
 msgid "That book already exists."
 msgstr "Эта книга уже существует."
 
-#: forms.py:753
+#: lib/booktypecontrol/forms.py:768
 msgid "URL title"
 msgstr "Заголовок URL"
 
-#: forms.py:756
+#: lib/booktypecontrol/forms.py:771
 msgid "Illegal characters in URL title."
 msgstr "Некорректные символы в заголовке URL"
 
-#: forms.py:757
+#: lib/booktypecontrol/forms.py:772
 msgid ""
 "If you leave this field empty, a URL        title will be assigned "
 "automatically."
-msgstr "Если вы оставите это поле пустым, название URL будет присвоено автоматически."
+msgstr ""
+"Если вы оставите это поле пустым, название URL будет присвоено автоматически."
 
-#: forms.py:797
+#: lib/booktypecontrol/forms.py:812
 msgid "Book PDF"
 msgstr "PDF книга"
 
-#: forms.py:801
+#: lib/booktypecontrol/forms.py:816
 msgid "Screen PDF"
 msgstr "Экранный PDF"
 
-#: forms.py:805
+#: lib/booktypecontrol/forms.py:820
 msgid "EPUB"
 msgstr "EPUB"
 
-#: forms.py:809
+#: lib/booktypecontrol/forms.py:824
 msgid "MOBI"
 msgstr "MOBI"
 
-#: forms.py:813
+#: lib/booktypecontrol/forms.py:828
 msgid "XHTML"
 msgstr "XHTML"
 
-#: forms.py:845
+#: lib/booktypecontrol/forms.py:860
 msgid "Book CSS"
 msgstr "Книга CSS"
 
-#: forms.py:853
+#: lib/booktypecontrol/forms.py:868
 msgid "E-Book CSS"
 msgstr "Электронная книга CSS"
 
-#: forms.py:861
+#: lib/booktypecontrol/forms.py:876
 msgid "PDF CSS"
 msgstr "PDF CSS"
 
-#: forms.py:869
+#: lib/booktypecontrol/forms.py:884
 msgid "ODT CSS"
 msgstr "ODT CSS"
 
-#: forms.py:923
+#: lib/booktypecontrol/forms.py:938
 msgid "Successfully created new group."
 msgstr "Новая группа успешно создана."
 
-#: forms.py:960
+#: lib/booktypecontrol/forms.py:975
 msgid "Successfully created new role."
 msgstr "Новая роль успешно создана."
 
-#: forms.py:993
+#: lib/booktypecontrol/forms.py:1014
 msgid "Role for anonymous users"
 msgstr "Роль для анонимного пользователя"
 
-#: forms.py:997
+#: lib/booktypecontrol/forms.py:1018
 msgid "Role for registered users"
 msgstr "Роль для зарегистрированного пользователя"
 
-#: forms.py:1002
+#: lib/booktypecontrol/forms.py:1023
 msgid "None"
 msgstr "Ни один"
 
-#: views.py:50 templates/booktypecontrol/control_center_settings.html:27
-msgid "Site Description"
-msgstr "Описание сайта"
-
-#: views.py:51 templates/booktypecontrol/control_center_settings.html:28
-msgid "Site Appearance"
-msgstr "Внешний вид сайта"
-
-#: views.py:52 templates/booktypecontrol/control_center_settings.html:29
-msgid "Site Front Page"
-msgstr "Главная страница сайта"
-
-#: views.py:53 templates/booktypecontrol/control_center_settings.html:30
-msgid "Book Licenses"
-msgstr "Лицензии книг"
-
-#: views.py:54 templates/booktypecontrol/control_center_settings.html:31
-msgid "Book Creation Defaults"
-msgstr "Создание книги по умолчанию"
-
-#: views.py:55 templates/booktypecontrol/control_center_settings.html:33
-msgid "Privacy"
-msgstr "Безопасность"
-
-#: views.py:56 templates/booktypecontrol/control_center_settings.html:38
-msgid "Add a New Person"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_add_person.html:4
+msgid "Add new person"
 msgstr "Добавить нового пользователя"
 
-#: views.py:57 templates/booktypecontrol/_control_center_list_of_people.html:5
-#: templates/booktypecontrol/control_center_settings.html:39
-msgid "List of People"
-msgstr "Список пользователей"
-
-#: views.py:58 templates/booktypecontrol/_control_center_archived_users.html:5
-#: templates/booktypecontrol/control_center_settings.html:40
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:5
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:46
+#: lib/booktypecontrol/views.py:59
 msgid "Archived Users"
 msgstr "Архивные пользователи"
 
-#: views.py:59 templates/booktypecontrol/control_center_settings.html:43
-msgid "Add a New Book"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:17
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:22
+msgid "Edit Info"
+msgstr "Редактировать"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:21
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:26
+msgid "superuser"
+msgstr "суперпользователь"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:24
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:29
+msgid "archived"
+msgstr "Архивные"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:35
+msgid "There are no archived users at the moment."
+msgstr "Нет архивных пользователей на данный момент."
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license.html:4
+msgid "Add new license"
+msgstr "Добавить новую лицензию"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license.html:8
+msgid "Licenses"
+msgstr "Лицензии"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license_edit.html:6
+msgid "Remove"
+msgstr "Удалить"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license_edit.html:9
+msgid "Books licensed with"
+msgstr "Книга в рамках лицензии"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license_edit.html:20
+msgid "No books for this license."
+msgstr "Нет книг с этой лицензией."
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_books.html:11
+msgid "Add new book"
 msgstr "Добавить новую книгу"
 
-#: views.py:60 templates/booktypecontrol/control_center_settings.html:44
-msgid "List of Books"
-msgstr "Список книг"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_books.html:14
+msgid "Show in a grid"
+msgstr "Отобразить сеткой"
 
-#: views.py:61 templates/booktypecontrol/control_center_settings.html:34
-msgid "Publishing Options"
-msgstr "Настройки публикации"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_books.html:15
+msgid "Show in a list"
+msgstr "Отобразить списком"
 
-#: views.py:62 templates/booktypecontrol/control_center_settings.html:35
-msgid "Publishing Defaults"
-msgstr "Настройки опубликования по умолчанию"
-
-#: views.py:63 templates/booktypecontrol/control_center_settings.html:47
-msgid "Add a New Group"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:9
+msgid "Add new group"
 msgstr "Добавить новую группу"
 
-#: views.py:64 templates/booktypecontrol/control_center_settings.html:48
-msgid "List of Groups"
-msgstr "Список групп"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:20
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:18
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:76
+msgid "Members"
+msgstr "Члены"
 
-#: views.py:65 templates/booktypecontrol/control_center_settings.html:51
-msgid "Add a New Role"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:20
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:76
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:48
+#: lib/booktypecontrol/templates/control_base.html:19
+msgid "Books"
+msgstr "Книги"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:24
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:21
+msgid "Edit"
+msgstr "Правка"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:25
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:22
+msgid "Delete"
+msgstr "Удалить"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:5
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:45
+#: lib/booktypecontrol/views.py:58
+msgid "List of People"
+msgstr "Список пользователей"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:7
+msgid "Add Person"
+msgstr "Добавить пользователя"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:7
+msgid "ADD PERSON"
+msgstr "ДОБАВИТЬ НОВОГО ПОЛЬЗОВАТЕЛЯ"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:19
+msgid "Change password"
+msgstr "Изменить пароль"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:9
+msgid "Add new role"
 msgstr "Добавить новую роль"
 
-#: views.py:66 templates/booktypecontrol/control_center_settings.html:52
-msgid "List of Roles"
-msgstr "Список ролей"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:16
+msgid "Delete Group"
+msgstr "Удалить группу"
 
-#: views.py:67 templates/booktypecontrol/control_center_settings.html:32
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:11
+msgid ""
+"Are you sure you would like to delete this group? You will not be able to "
+"undo this operation!"
+msgstr ""
+"Вы уверены, что хотите удалить эту группу? Вы не сможете отменить это "
+"действие!"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:19
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_settings.html:15
+msgid "Cancel"
+msgstr "Отмена"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:20
+msgid "Delete License"
+msgstr "Удалить лицензию"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:12
+msgid ""
+"There are licensed books with this license. You should change the license "
+"for these books before deleting it."
+msgstr ""
+"Есть книги с этой лицензией. Вы должны изменить лицензию для этих книг перед "
+"удалением."
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:14
+msgid ""
+"Are you sure you would like to delete this license? You will not be able to "
+"undo this operation!"
+msgstr ""
+"Вы уверены, что хотите удалить эту лицензию? Вы не сможете отменить это "
+"действие!"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:16
+msgid "Delete Role"
+msgstr "Удалить роль"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:11
+msgid ""
+"Are you sure you would like to delete this role? You will not be able to "
+"undo this operation!"
+msgstr ""
+"Вы уверены, что хотите удалить эту роль? Вы не сможете отменить это действие!"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:13
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:22
+msgid "Recent Activity"
+msgstr "Последняя активность"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:16
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:52
+#: lib/booktypecontrol/templates/control_base.html:22
+msgid "Groups"
+msgstr "Группы"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:28
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:29
+msgid "ago"
+msgstr "ранее"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:41
+msgid "There is no activity yet"
+msgstr "Нет активности"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:56
+msgid "Current version"
+msgstr "Текущая версия"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:62
+msgid "This user has no books"
+msgstr "Этот пользователь не имеет книг"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:82
+msgid "This user has no groups"
+msgstr "Этот пользователь не состоит в группах"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:87
+msgid "Close"
+msgstr "Закрыть"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_settings.html:13
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:10
+msgid "Info"
+msgstr "Информация"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:12
+msgid "version"
+msgstr "версия"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:13
+msgid "users"
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:14
+msgid "books"
+msgstr "книги"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:15
+msgid "groups"
+msgstr "группы"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:16
+msgid "database size"
+msgstr "размер базы данных"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:17
+msgid "files size"
+msgstr "размер файлов"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:51
+msgid "Online Users"
+msgstr "Пользователи онлайн"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:63
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:94
+msgid "Working on:"
+msgstr "работа над:"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:77
+msgid "No online users"
+msgstr "Нет пользователей онлайн"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:84
+msgid "Most Active Users"
+msgstr "Самые активные пользователи"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:84
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:108
+msgid "view all"
+msgstr "полный список"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:101
+msgid "No most active users"
+msgstr "Нет самых активных пользователей"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:108
+msgid "Latest Books"
+msgstr "Последние книги"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:121
+msgid "No books here"
+msgstr "Нет книг"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:128
+msgid "Most Active Books"
+msgstr "Самые активные книги"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:141
+msgid "No active books here"
+msgstr "Нет активных книг"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:33
+#: lib/booktypecontrol/templates/control_base.html:13
+msgid "Settings"
+msgstr "Настройки"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:34
+#: lib/booktypecontrol/views.py:51
+msgid "Site Description"
+msgstr "Описание сайта"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:35
+#: lib/booktypecontrol/views.py:52
+msgid "Site Appearance"
+msgstr "Внешний вид сайта"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:36
+#: lib/booktypecontrol/views.py:53
+msgid "Site Front Page"
+msgstr "Главная страница сайта"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:37
+#: lib/booktypecontrol/views.py:54
+msgid "Book Licenses"
+msgstr "Лицензии книг"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:38
+#: lib/booktypecontrol/views.py:55
+msgid "Book Creation Defaults"
+msgstr "Создание книги по умолчанию"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:39
+#: lib/booktypecontrol/views.py:68
 msgid "Default Roles"
 msgstr "Роли по умолчанию"
 
-#: views.py:88 views.py:184 views.py:281 views.py:345 views.py:409
-#: views.py:451
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:40
+#: lib/booktypecontrol/views.py:56
+msgid "Privacy"
+msgstr "Безопасность"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:41
+#: lib/booktypecontrol/views.py:62
+msgid "Publishing Options"
+msgstr "Настройки публикации"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:43
+#: lib/booktypecontrol/templates/control_base.html:16
+msgid "People"
+msgstr "Люди"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:44
+#: lib/booktypecontrol/views.py:57
+msgid "Add a New Person"
+msgstr "Добавить нового пользователя"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:49
+#: lib/booktypecontrol/views.py:60
+msgid "Add a New Book"
+msgstr "Добавить новую книгу"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:50
+#: lib/booktypecontrol/views.py:61
+msgid "List of Books"
+msgstr "Список книг"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:53
+#: lib/booktypecontrol/views.py:64
+msgid "Add a New Group"
+msgstr "Добавить новую группу"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:54
+#: lib/booktypecontrol/views.py:65
+msgid "List of Groups"
+msgstr "Список групп"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:56
+#: lib/booktypecontrol/templates/control_base.html:25
+msgid "Roles"
+msgstr "Роли"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:57
+#: lib/booktypecontrol/views.py:66
+msgid "Add a New Role"
+msgstr "Добавить новую роль"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:58
+#: lib/booktypecontrol/views.py:67
+msgid "List of Roles"
+msgstr "Список ролей"
+
+#: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:4
+msgid "Hello"
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:8
+#, fuzzy, python-format
+#| msgid ""
+#| "You've just had a Booktype account created for you! Please head over to "
+#| "%(server)s to log in. Here are your login credentials:"
+msgid ""
+"Your Booktype account has been created! Please go to %(server)s to log in."
+msgstr ""
+"Booktype аккаунт только что создан для Вас! Пожалуйста, зайдите на  "
+"%(server)s для входа. Вот ваши данные логина:"
+
+#: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:12
+#, python-format
+msgid ""
+"If you don't know your password, please click the password reset link on the "
+"%(server)s home page."
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:2
+msgid "Your password was changed. Here are your new login credentials:"
+msgstr "Ваш пароль был изменен. Вот ваши новые данные для входа:"
+
+#: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:5
+msgid "Username:"
+msgstr "Имя пользователя:"
+
+#: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:6
+msgid "Password:"
+msgstr "Пароль"
+
+#: lib/booktypecontrol/templates/control_base.html:10
+msgid "Home"
+msgstr "Главная"
+
+#: lib/booktypecontrol/views.py:63
+msgid "Publishing Defaults"
+msgstr "Настройки опубликования по умолчанию"
+
+#: lib/booktypecontrol/views.py:89 lib/booktypecontrol/views.py:185
+#: lib/booktypecontrol/views.py:284 lib/booktypecontrol/views.py:348
+#: lib/booktypecontrol/views.py:412 lib/booktypecontrol/views.py:454
 msgid "Admin Control Center"
 msgstr "Центр управления"
 
-#: views.py:195
+#: lib/booktypecontrol/views.py:196
 msgid "Successfully saved settings."
 msgstr "Настройки успешно сохранены."
 
-#: views.py:200
+#: lib/booktypecontrol/views.py:201
 msgid "Unknown error while saving changes."
 msgstr "Неизвестная ошибка при сохранении изменений"
 
-#: views.py:284
+#: lib/booktypecontrol/views.py:287
 msgid "Edit Person Info"
 msgstr "Редактировать пользователя"
 
-#: views.py:304 views.py:356
+#: lib/booktypecontrol/views.py:307 lib/booktypecontrol/views.py:359
 msgid "Successfully saved changes."
 msgstr "Изменения успешно сохранены."
 
-#: views.py:326
+#: lib/booktypecontrol/views.py:329
 msgid "Rename Book"
 msgstr "Переименовать книгу"
 
-#: views.py:330
+#: lib/booktypecontrol/views.py:333
 msgid "Book name successfully changed."
 msgstr "Имя книги успешно сохранено."
 
-#: views.py:367
+#: lib/booktypecontrol/views.py:370
 msgid "Your password was changed"
 msgstr "Пароль изменен"
 
-#: views.py:386
+#: lib/booktypecontrol/views.py:389
 #, python-format
 msgid "Change Password: %s"
 msgstr "Изменить пароль: %s"
 
-#: views.py:401
+#: lib/booktypecontrol/views.py:404
 msgid "Group successfully deleted."
 msgstr "Группа успешно удалена."
 
-#: views.py:417
+#: lib/booktypecontrol/views.py:420
 msgid "Edit licence"
 msgstr "Редактировать лицензию"
 
-#: views.py:423
+#: lib/booktypecontrol/views.py:426
 msgid "License successfully updated."
 msgstr "Лицензия успешно обновлена."
 
-#: views.py:435
+#: lib/booktypecontrol/views.py:438
 msgid ""
 "There are books remaining with this license.                     Unable to "
 "remove"
 msgstr "Нельзя удалить. Остались книги с этой лицензией."
 
-#: views.py:440
+#: lib/booktypecontrol/views.py:443
 msgid "License successfully deleted."
 msgstr "Лицензия успешно удалена."
 
-#: views.py:459
+#: lib/booktypecontrol/views.py:462
 msgid "Edit role"
 msgstr "Редактировать роль"
 
-#: views.py:463
+#: lib/booktypecontrol/views.py:466
 msgid "Role successfully updated."
 msgstr "Роль успешно обновлна."
 
-#: views.py:473
+#: lib/booktypecontrol/views.py:476
 msgid "Role successfully deleted."
 msgstr "Роль успешно удалена."
-
-#: templates/control_base.html:10
-msgid "Home"
-msgstr "Главная"
-
-#: templates/control_base.html:13
-#: templates/booktypecontrol/control_center_settings.html:26
-msgid "Settings"
-msgstr "Настройки"
-
-#: templates/control_base.html:16
-#: templates/booktypecontrol/control_center_settings.html:37
-msgid "People"
-msgstr "Люди"
-
-#: templates/control_base.html:19
-#: templates/booktypecontrol/_control_center_list_of_groups.html:20
-#: templates/booktypecontrol/_control_center_modal_person_info.html:15
-#: templates/booktypecontrol/_control_center_modal_person_info.html:76
-#: templates/booktypecontrol/control_center_settings.html:42
-msgid "Books"
-msgstr "Книги"
-
-#: templates/control_base.html:22
-#: templates/booktypecontrol/_control_center_modal_person_info.html:16
-#: templates/booktypecontrol/control_center_settings.html:46
-msgid "Groups"
-msgstr "Группы"
-
-#: templates/control_base.html:25
-#: templates/booktypecontrol/control_center_settings.html:50
-msgid "Roles"
-msgstr "Роли"
-
-#: templates/booktypecontrol/_control_center_add_person.html:4
-msgid "Add new person"
-msgstr "Добавить нового пользователя"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:17
-#: templates/booktypecontrol/_control_center_list_of_people.html:22
-msgid "Edit Info"
-msgstr "Редактировать"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:21
-#: templates/booktypecontrol/_control_center_list_of_people.html:26
-msgid "superuser"
-msgstr "суперпользователь"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:24
-#: templates/booktypecontrol/_control_center_list_of_people.html:29
-msgid "archived"
-msgstr "Архивные"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:35
-msgid "There are no archived users at the moment."
-msgstr "Нет архивных пользователей на данный момент."
-
-#: templates/booktypecontrol/_control_center_license.html:4
-msgid "Add new license"
-msgstr "Добавить новую лицензию"
-
-#: templates/booktypecontrol/_control_center_license.html:8
-msgid "Licenses"
-msgstr "Лицензии"
-
-#: templates/booktypecontrol/_control_center_license_edit.html:6
-msgid "Remove"
-msgstr "Удалить"
-
-#: templates/booktypecontrol/_control_center_license_edit.html:9
-msgid "Books licensed with"
-msgstr "Книга в рамках лицензии"
-
-#: templates/booktypecontrol/_control_center_license_edit.html:20
-msgid "No books for this license."
-msgstr "Нет книг с этой лицензией."
-
-#: templates/booktypecontrol/_control_center_list_of_books.html:11
-msgid "Add new book"
-msgstr "Добавить новую книгу"
-
-#: templates/booktypecontrol/_control_center_list_of_books.html:14
-msgid "Show in a grid"
-msgstr "Отобразить сеткой"
-
-#: templates/booktypecontrol/_control_center_list_of_books.html:15
-msgid "Show in a list"
-msgstr "Отобразить списком"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:9
-msgid "Add new group"
-msgstr "Добавить новую группу"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:20
-#: templates/booktypecontrol/_control_center_list_of_roles.html:18
-#: templates/booktypecontrol/_control_center_modal_person_info.html:76
-msgid "Members"
-msgstr "Члены"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:24
-#: templates/booktypecontrol/_control_center_list_of_roles.html:21
-msgid "Edit"
-msgstr "Правка"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:25
-#: templates/booktypecontrol/_control_center_list_of_roles.html:22
-msgid "Delete"
-msgstr "Удалить"
-
-#: templates/booktypecontrol/_control_center_list_of_people.html:7
-msgid "Add Person"
-msgstr "Добавить пользователя"
-
-#: templates/booktypecontrol/_control_center_list_of_people.html:7
-msgid "ADD PERSON"
-msgstr "ДОБАВИТЬ НОВОГО ПОЛЬЗОВАТЕЛЯ"
-
-#: templates/booktypecontrol/_control_center_list_of_people.html:19
-msgid "Change password"
-msgstr "Изменить пароль"
-
-#: templates/booktypecontrol/_control_center_list_of_roles.html:9
-msgid "Add new role"
-msgstr "Добавить новую роль"
-
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:16
-msgid "Delete Group"
-msgstr "Удалить группу"
-
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:11
-msgid ""
-"Are you sure you would like to delete this group? You will not be able to "
-"undo this operation!"
-msgstr "Вы уверены, что хотите удалить эту группу? Вы не сможете отменить это действие!"
-
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:15
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:19
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:15
-#: templates/booktypecontrol/_control_center_settings.html:15
-msgid "Cancel"
-msgstr "Отмена"
-
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:20
-msgid "Delete License"
-msgstr "Удалить лицензию"
-
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:12
-msgid ""
-"There are licensed books with this license. You should change the license "
-"for these books before deleting it."
-msgstr "Есть книги с этой лицензией. Вы должны изменить лицензию для этих книг перед удалением."
-
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:14
-msgid ""
-"Are you sure you would like to delete this license? You will not be able to "
-"undo this operation!"
-msgstr "Вы уверены, что хотите удалить эту лицензию? Вы не сможете отменить это действие!"
-
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:16
-msgid "Delete Role"
-msgstr "Удалить роль"
-
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:11
-msgid ""
-"Are you sure you would like to delete this role? You will not be able to "
-"undo this operation!"
-msgstr "Вы уверены, что хотите удалить эту роль? Вы не сможете отменить это действие!"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:13
-#: templates/booktypecontrol/control_center_dashboard.html:21
-msgid "Recent Activity"
-msgstr "Последняя активность"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:28
-#: templates/booktypecontrol/control_center_dashboard.html:28
-msgid "ago"
-msgstr "ранее"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:41
-msgid "There is no activity yet"
-msgstr "Нет активности"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:56
-msgid "Current version"
-msgstr "Текущая версия"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:62
-msgid "This user has no books"
-msgstr "Этот пользователь не имеет книг"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:82
-msgid "This user has no groups"
-msgstr "Этот пользователь не состоит в группах"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:87
-msgid "Close"
-msgstr "Закрыть"
-
-#: templates/booktypecontrol/_control_center_settings.html:13
-msgid "Save changes"
-msgstr "Сохранить изменения"
-
-#: templates/booktypecontrol/control_center_dashboard.html:10
-msgid "Info"
-msgstr "Информация"
-
-#: templates/booktypecontrol/control_center_dashboard.html:12
-msgid "version"
-msgstr "версия"
-
-#: templates/booktypecontrol/control_center_dashboard.html:13
-msgid "books"
-msgstr "книги"
-
-#: templates/booktypecontrol/control_center_dashboard.html:14
-msgid "groups"
-msgstr "группы"
-
-#: templates/booktypecontrol/control_center_dashboard.html:15
-msgid "database size"
-msgstr "размер базы данных"
-
-#: templates/booktypecontrol/control_center_dashboard.html:16
-msgid "files size"
-msgstr "размер файлов"
-
-#: templates/booktypecontrol/control_center_dashboard.html:50
-msgid "Online Users"
-msgstr "Пользователи онлайн"
-
-#: templates/booktypecontrol/control_center_dashboard.html:62
-#: templates/booktypecontrol/control_center_dashboard.html:93
-msgid "Working on:"
-msgstr "работа над:"
-
-#: templates/booktypecontrol/control_center_dashboard.html:76
-msgid "No online users"
-msgstr "Нет пользователей онлайн"
-
-#: templates/booktypecontrol/control_center_dashboard.html:83
-msgid "Most Active Users"
-msgstr "Самые активные пользователи"
-
-#: templates/booktypecontrol/control_center_dashboard.html:83
-#: templates/booktypecontrol/control_center_dashboard.html:107
-msgid "view all"
-msgstr "полный список"
-
-#: templates/booktypecontrol/control_center_dashboard.html:100
-msgid "No most active users"
-msgstr "Нет самых активных пользователей"
-
-#: templates/booktypecontrol/control_center_dashboard.html:107
-msgid "Latest Books"
-msgstr "Последние книги"
-
-#: templates/booktypecontrol/control_center_dashboard.html:120
-msgid "No books here"
-msgstr "Нет книг"
-
-#: templates/booktypecontrol/control_center_dashboard.html:127
-msgid "Most Active Books"
-msgstr "Самые активные книги"
-
-#: templates/booktypecontrol/control_center_dashboard.html:140
-msgid "No active books here"
-msgstr "Нет активных книг"
-
-#: templates/booktypecontrol/new_person_email.html:3
-#, python-format
-msgid ""
-"You've just had a Booktype account created for you! Please head over to "
-"%(server)s to log in. Here are your login credentials:"
-msgstr "Booktype аккаунт только что создан для Вас! Пожалуйста, зайдите на  %(server)s для входа. Вот ваши данные логина:"
-
-#: templates/booktypecontrol/new_person_email.html:7
-#: templates/booktypecontrol/password_changed_email.html:5
-msgid "Username:"
-msgstr "Имя пользователя:"
-
-#: templates/booktypecontrol/new_person_email.html:8
-#: templates/booktypecontrol/password_changed_email.html:6
-msgid "Password:"
-msgstr "Пароль"
-
-#: templates/booktypecontrol/password_changed_email.html:2
-msgid "Your password was changed. Here are your new login credentials:"
-msgstr "Ваш пароль был изменен. Вот ваши новые данные для входа:"

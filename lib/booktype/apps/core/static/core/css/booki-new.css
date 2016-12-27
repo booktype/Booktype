@@ -2797,6 +2797,19 @@ dd input,dt input,dd textarea,dt textarea {
 	moz-border-radius:2px;
 	border-radius:2px
 }
+a.draft-stat,
+a.draft-stat:hover {
+	color: #ffffff;
+	text-decoration: none;
+	cursor: pointer;
+}
+.draft-stat:hover,
+a.draft-stat:hover {
+    background-color: #10729b;
+}
+span.draft-stat:hover {
+	cursor: pointer;
+}
 .btn-space .btn {
 	margin-right:5px;
 	margin-left:5px
@@ -2950,6 +2963,7 @@ dd input,dt input,dd textarea,dt textarea {
 	display:block;
 	position:absolute
 }
+/* old css for old fullview and draft */
 #bookcontent {
 	min-height:200px
 }
@@ -2962,6 +2976,18 @@ dd input,dt input,dd textarea,dt textarea {
 #bookcontent div.group_img p.caption_small{
 	display: inline-block;
 }
+
+/* css for reader */
+#contenteditor div.chapter-inner {
+	min-height:200px
+}
+
+#contenteditor div.chapter-inner div.image,
+#contenteditor div.chapter-inner div.group_img div.caption_small,
+#contenteditor div.chapter-inner div.group_img p.caption_small{
+	display: inline-block;
+}
+
 .toc_sidebar {
 	position:fixed;
 	max-width:380px;
