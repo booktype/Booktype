@@ -215,7 +215,14 @@ def set_book_cover(book, file_name):
     try:
         im = Image.open(file_name)
         im.thumbnail((240, 240), Image.ANTIALIAS)
-        im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.COVER_IMAGE_UPLOAD_DIR, book.id), "JPEG")
+
+        dir_path = os.path.join(settings.MEDIA_ROOT, settings.COVER_IMAGE_UPLOAD_DIR)
+        file_path = os.path.join(dir_path, '{}.jpg'.format(book.id))
+
+        if not os.path.isdir(dir_path):
+            os.mkdir(dir_path)
+
+        im.save(file_path, "JPEG")
 
         # If we have used book.cover.save we would end up with obsolete files  on disk
         book.cover = '%s%s.jpg' % (settings.COVER_IMAGE_UPLOAD_DIR, book.id)

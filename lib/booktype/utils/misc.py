@@ -510,7 +510,14 @@ def set_profile_image(user, file_object):
 
     try:
         im = create_thumbnail(fname, size=(100, 100))
-        im.save('%s/%s%s.jpg' % (settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR, user.username), 'JPEG')
+
+        dir_path = os.path.join(settings.MEDIA_ROOT, settings.PROFILE_IMAGE_UPLOAD_DIR)
+        file_path = os.path.join(dir_path, '{}.jpg'.format(user.username))
+
+        if not os.path.isdir(dir_path):
+            os.mkdir(dir_path)
+
+        im.save(file_path, 'JPEG')
 
         # If we would use just profile.image.save method then out files would just end up with _1, _2, ... postfixes
 
