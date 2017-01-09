@@ -67,7 +67,8 @@
 
         <div class="col-xs-8 col-sm-offset-4 col-md-offset-4 col-lg-offset-4">
             <div class="box white" id="bookcontent">
-                {% if can_edit %}
+                {% has_perm 'edit.edit_book' as can_edit_book %}
+                {% if can_edit_book %}
                 <button data-href="{% url 'edit:editor' book.url_title %}#edit/{{ content.id }}" role="button" class="btn btn-default float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit this chapter" %}">
                     {% trans "EDIT" %}
                 </button>

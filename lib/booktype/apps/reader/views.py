@@ -263,10 +263,6 @@ class DraftChapterView(views.SecurityMixin, BaseReaderView, BasePageView, Detail
         context['content'] = content
         context['toc_items'] = toc_items
         context['book_version'] = book_version.get_version()
-        context['can_edit'] = (
-            self.request.user.is_authenticated() and
-            book.version == book_version
-        )
 
         return context
 
