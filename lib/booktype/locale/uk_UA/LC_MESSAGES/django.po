@@ -1,23 +1,21 @@
 # English (en) translation strings for Booktype.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-22 14:53+0100\n"
-"PO-Revision-Date: 2016-07-23 09:21+0000\n"
+"POT-Creation-Date: 2016-12-27 16:23-0600\n"
+"PO-Revision-Date: 2016-12-29 08:32+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
-"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/sourcefabric/"
-"booktype/language/uk_UA/)\n"
-"Language: uk_UA\n"
+"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/sourcefabric/booktype/language/uk_UA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk_UA\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
 
@@ -82,8 +80,8 @@ msgid "description"
 msgstr ""
 
 #: lib/booktype/apps/account/models.py:38
-#: lib/booktype/apps/account/models.py:64 lib/booktype/apps/export/models.py:29
-#: lib/booktype/apps/export/models.py:61
+#: lib/booktype/apps/account/models.py:64
+#: lib/booktype/apps/export/models.py:29 lib/booktype/apps/export/models.py:61
 msgid "user"
 msgstr ""
 
@@ -96,17 +94,20 @@ msgstr ""
 msgid "created"
 msgstr ""
 
-#. Translators: Visible only in Django Admin interface. No need to translate this.
+#. Translators: Visible only in Django Admin interface. No need to translate
+#. this.
 #: lib/booktype/apps/account/models.py:69
 msgid "remote useragent"
 msgstr ""
 
-#. Translators: Visible only in Django Admin interface. No need to translate this.
+#. Translators: Visible only in Django Admin interface. No need to translate
+#. this.
 #: lib/booktype/apps/account/models.py:71
 msgid "remote addr"
 msgstr ""
 
-#. Translators: Visible only in Django Admin interface. No need to translate this.
+#. Translators: Visible only in Django Admin interface. No need to translate
+#. this.
 #: lib/booktype/apps/account/models.py:73
 msgid "remote host"
 msgstr ""
@@ -199,7 +200,8 @@ msgid "My Groups"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:118
-msgid "Work with others in Groups. To create a Group click on the button below"
+msgid ""
+"Work with others in Groups. To create a Group click on the button below"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:124
@@ -405,8 +407,8 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
-#: lib/booktype/importer/docx/docximporter.py:236
-#: lib/booktype/importer/docx/docximporter.py:319
+#: lib/booktype/importer/docx/docximporter.py:237
+#: lib/booktype/importer/docx/docximporter.py:320
 msgid "Title"
 msgstr ""
 
@@ -715,8 +717,8 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:5
 msgid ""
-"To reset your Booktype password, simply click the link below. That will take "
-"you to a web page where you can create a new password."
+"To reset your Booktype password, simply click the link below. That will take"
+" you to a web page where you can create a new password."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:6
@@ -796,8 +798,7 @@ msgstr ""
 msgid ""
 "Username is invalid. Please try a different one. You may use alphanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
-"li></ul>"
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
@@ -944,9 +945,10 @@ msgstr ""
 msgid ""
 "This is a demonstration server for Booktype. This server is reset on a "
 "regular basis, and any books created here will be deleted at that time. You "
-"can read the Booktype user manual at <a href=\"https://sourcefabric.booktype."
-"pro/booktype-21-for-authors-and-publishers/\">https://sourcefabric.booktype."
-"pro/booktype-21-for-authors-and-publishers/</a>."
+"can read the Booktype user manual at <a "
+"href=\"https://sourcefabric.booktype.pro/booktype-21-for-authors-and-"
+"publishers/\">https://sourcefabric.booktype.pro/booktype-21-for-authors-and-"
+"publishers/</a>."
 msgstr ""
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:17
@@ -956,9 +958,9 @@ msgstr ""
 #: lib/booktype/apps/core/templates/core/footer-demo.html:20
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
-"href=\"https://www.sourcefabric.org/en/booktype/\">https://www.sourcefabric."
-"org/en/booktype/</a> or check out Booktype Pro, our cloud-hosted publishing "
-"service - <a href=\"https://booktype.pro/\">https://booktype.pro/</a>."
+"href=\"https://www.sourcefabric.org/en/booktype/\">https://www.sourcefabric.org/en/booktype/</a>"
+" or check out Booktype Pro, our cloud-hosted publishing service - <a "
+"href=\"https://booktype.pro/\">https://booktype.pro/</a>."
 msgstr ""
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:27
@@ -1375,6 +1377,84 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:27
 msgid "Full view"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:8
+msgid "Section Settings"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:15
+msgid "Display Settings"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:17
+msgid "Choose the outputs where you want to show this section"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:23
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
+msgid "Show"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:27
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:37
+msgid "Hide"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:30
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:217
+#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
+msgid "Table of Contents"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:32
+msgid "Show section and chapters"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:33
+msgid "Show section / hide chapters"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:34
+msgid "Hide section / show chapters"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:35
+msgid "Hide section and chapters"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:41
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:136
+msgid "Extra"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:43
+msgid "Set extra options"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:46
+msgid "Mark section as"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:49
+msgid "Frontmatter"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:57
+msgid "Mainmatter"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:65
+msgid "Backmatter"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:73
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:78
+msgid "Custom"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:79
+msgid "e.g. Authors"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:5
@@ -1826,8 +1906,8 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:301
 #, python-format
 msgid ""
-"<p class=\"notification-text\"><%%= username %%> joined </p><span class="
-"\"notification-info\"><%%= info %%></span>"
+"<p class=\"notification-text\"><%%= username %%> joined </p><span class"
+"=\"notification-info\"><%%= info %%></span>"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/book_history.html:21
@@ -2409,7 +2489,7 @@ msgid "Book character count (with spaces)"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:428 lib/booktype/apps/reader/views.py:254
+#: lib/booktype/apps/edit/views.py:428 lib/booktype/apps/reader/views.py:250
 msgid "Chapter"
 msgstr ""
 
@@ -2655,8 +2735,8 @@ msgid ""
 "appropriate dimensions for EPUB, MOBI and Screen PDF output. Artwork (in "
 "TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, "
 "spine (if any) and back cover of print books can also be uploaded and "
-"managed, but will be kept separate from the Printers' PDF when exporting the "
-"inside pages."
+"managed, but will be kept separate from the Printers' PDF when exporting the"
+" inside pages."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:51
@@ -2815,15 +2895,15 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:32
 msgid ""
-"Front matter is generated automatically. Please ensure all <a href="
-"\"#settings/metadata\">metadata</a> and <a href=\"#settings/additional-"
+"Front matter is generated automatically. Please ensure all <a "
+"href=\"#settings/metadata\">metadata</a> and <a href=\"#settings/additional-"
 "metadata\">additional metadata</a> has been entered."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:33
 msgid ""
-"If exporting screen PDF, EPUB or MOBI, please check the <a href=\"#covers"
-"\">cover manager</a> first."
+"If exporting screen PDF, EPUB or MOBI, please check the <a "
+"href=\"#covers\">cover manager</a> first."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:48
@@ -2928,11 +3008,6 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:131
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:252
 msgid "Footer Margin"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:136
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:483
-msgid "Extra"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:138
@@ -3196,11 +3271,6 @@ msgstr ""
 msgid "Locked exclusively"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:217
-#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
-msgid "Table of Contents"
-msgstr ""
-
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:220
 msgid "Detail View"
 msgstr ""
@@ -3267,22 +3337,6 @@ msgstr ""
 msgid "SETTINGS"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:466
-msgid "Section Settings"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:473
-msgid "Display Settings"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:475
-msgid "Choose the outputs where you want to hide this section"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:485
-msgid "Set extra options"
-msgstr ""
-
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:7
 msgid "Add Field"
 msgstr ""
@@ -3340,8 +3394,8 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_metadata.html:24
 msgid ""
-"Are you sure you would like to delete this metadata content? You will not be "
-"able to undo this operation!"
+"Are you sure you would like to delete this metadata content? You will not be"
+" able to undo this operation!"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:8
@@ -3370,7 +3424,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:35
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:10
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:11
 msgid "Info"
@@ -3796,11 +3850,23 @@ msgid "View full page"
 msgstr ""
 
 #: lib/booktype/apps/reader/__init__.py:8
+msgid "View hidden full page"
+msgstr ""
+
+#: lib/booktype/apps/reader/__init__.py:10
 msgid "View draft page"
 msgstr ""
 
-#: lib/booktype/apps/reader/__init__.py:9
+#: lib/booktype/apps/reader/__init__.py:11
+msgid "View hidden draft page"
+msgstr ""
+
+#: lib/booktype/apps/reader/__init__.py:13
 msgid "View book info"
+msgstr ""
+
+#: lib/booktype/apps/reader/__init__.py:14
+msgid "View hidden book info"
 msgstr ""
 
 #: lib/booktype/apps/reader/forms.py:10
@@ -3837,15 +3903,7 @@ msgstr ""
 msgid "No content yet."
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:38
-msgid "Show"
-msgstr ""
-
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:39
-msgid "Hide"
-msgstr ""
-
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:48
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:46
 msgid "Table of contents"
 msgstr ""
 
@@ -4007,23 +4065,23 @@ msgstr ""
 msgid "Book Details"
 msgstr ""
 
-#: lib/booktype/apps/reader/views.py:189
+#: lib/booktype/apps/reader/views.py:194
 msgid "Successfully changed book info."
 msgstr ""
 
-#: lib/booktype/apps/reader/views.py:191
+#: lib/booktype/apps/reader/views.py:196
 msgid "Could not upload cover image."
 msgstr ""
 
-#: lib/booktype/apps/reader/views.py:212
+#: lib/booktype/apps/reader/views.py:217
 msgid "Book successfully deleted."
 msgstr ""
 
-#: lib/booktype/apps/reader/views.py:219
+#: lib/booktype/apps/reader/views.py:225
 msgid "Chapter Draft"
 msgstr ""
 
-#: lib/booktype/apps/reader/views.py:280
+#: lib/booktype/apps/reader/views.py:277
 msgid "Book full view"
 msgstr ""
 
@@ -4161,39 +4219,39 @@ msgstr ""
 msgid "to be proofed"
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:52
+#: lib/booktype/importer/docx/docximporter.py:53
 msgid ""
 "Please note: Mathematical formulae have been found, and highlighted in the "
 "text. These formulae are not supported by many e-readers, or the Booktype "
 "editor at present."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:123
+#: lib/booktype/importer/docx/docximporter.py:124
 msgid ""
-"The file could not be imported because it was not saved in the .docx format. "
-"Try to open the file in Word and save it as a .docx."
+"The file could not be imported because it was not saved in the .docx format."
+" Try to open the file in Word and save it as a .docx."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:126
+#: lib/booktype/importer/docx/docximporter.py:127
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:173
+#: lib/booktype/importer/docx/docximporter.py:174
 msgid ""
 "The file format you uploaded is not supported. Please save the image as jpg "
 "file and upload it again."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:208
+#: lib/booktype/importer/docx/docximporter.py:209
 msgid ""
 "An error occurred while importing images. Some images couldn't be imported. "
 "Missing images are marked within the text. Please upload missing images "
 "manually."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:234
+#: lib/booktype/importer/docx/docximporter.py:235
 msgid "Title Page"
 msgstr ""
 
@@ -4292,6 +4350,6 @@ msgstr ""
 #: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:6
 msgid ""
 "Novel theme for smaller pages of paperbacks with a bit of a 1950s font "
-"feeling. No header, centered page numbers. 'Compact' means line indentations "
-"and no spacing between paragraphs."
+"feeling. No header, centered page numbers. 'Compact' means line indentations"
+" and no spacing between paragraphs."
 msgstr ""

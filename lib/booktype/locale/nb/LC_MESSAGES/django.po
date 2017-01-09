@@ -1,7 +1,7 @@
 # English (en) translation strings for Booktype.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-#
+# 
 # Translators:
 # Daniel James <daniel@64studio.com>, 2016
 # Kjetil Nordengen <kjetilnordengen@gmail.com>, 2016
@@ -9,15 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-22 14:52+0100\n"
-"PO-Revision-Date: 2016-07-23 09:21+0000\n"
+"POT-Creation-Date: 2016-12-27 16:23-0600\n"
+"PO-Revision-Date: 2016-12-29 08:32+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/sourcefabric/"
-"booktype/language/nb/)\n"
-"Language: nb\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/sourcefabric/booktype/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
@@ -83,8 +82,8 @@ msgid "description"
 msgstr "beskrivelse"
 
 #: lib/booktype/apps/account/models.py:38
-#: lib/booktype/apps/account/models.py:64 lib/booktype/apps/export/models.py:29
-#: lib/booktype/apps/export/models.py:61
+#: lib/booktype/apps/account/models.py:64
+#: lib/booktype/apps/export/models.py:29 lib/booktype/apps/export/models.py:61
 msgid "user"
 msgstr "bruker"
 
@@ -97,17 +96,20 @@ msgstr "hemmelig kode"
 msgid "created"
 msgstr "opprettet"
 
-#. Translators: Visible only in Django Admin interface. No need to translate this.
+#. Translators: Visible only in Django Admin interface. No need to translate
+#. this.
 #: lib/booktype/apps/account/models.py:69
 msgid "remote useragent"
 msgstr "remote useragent"
 
-#. Translators: Visible only in Django Admin interface. No need to translate this.
+#. Translators: Visible only in Django Admin interface. No need to translate
+#. this.
 #: lib/booktype/apps/account/models.py:71
 msgid "remote addr"
 msgstr "adresse til fjerntjener"
 
-#. Translators: Visible only in Django Admin interface. No need to translate this.
+#. Translators: Visible only in Django Admin interface. No need to translate
+#. this.
 #: lib/booktype/apps/account/models.py:73
 msgid "remote host"
 msgstr "remote host"
@@ -160,9 +162,7 @@ msgstr "Inviter"
 msgid ""
 "You have reached your book limit. Please delete any unwanted books before "
 "you create a new one."
-msgstr ""
-"Du har nådd grensen for hvor mange bøker du kan ha. Vennligst slett noen "
-"bøker før du oppretter en ny."
+msgstr "Du har nådd grensen for hvor mange bøker du kan ha. Vennligst slett noen bøker før du oppretter en ny."
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:68
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:50
@@ -187,9 +187,7 @@ msgstr "Listevisning"
 msgid ""
 "This is a perfect moment to start writing your book, just click on the "
 "button above!"
-msgstr ""
-"Dette er et perfekt tidspunkt for å starte et nytt bokprosjekt, bare klikk "
-"på knappen ovenfor!"
+msgstr "Dette er et perfekt tidspunkt for å starte et nytt bokprosjekt, bare klikk på knappen ovenfor!"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:88
 msgid "This user has no books"
@@ -204,9 +202,9 @@ msgid "My Groups"
 msgstr "Mine grupper"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:118
-msgid "Work with others in Groups. To create a Group click on the button below"
-msgstr ""
-"Jobb med andre i grupper. Klikk på knappen nedenfor for å opprette en gruppe"
+msgid ""
+"Work with others in Groups. To create a Group click on the button below"
+msgstr "Jobb med andre i grupper. Klikk på knappen nedenfor for å opprette en gruppe"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:124
 msgid "Participating Groups"
@@ -226,8 +224,7 @@ msgstr "vis alle"
 #: lib/booktype/apps/account/templates/account/dashboard.html:135
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:108
 msgid "Click this button to create a new group of writers and editors"
-msgstr ""
-"Klikk på denne knappen for å opprette en ny gruppe av skrivere og redaktører"
+msgstr "Klikk på denne knappen for å opprette en ny gruppe av skrivere og redaktører"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:136
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:108
@@ -247,8 +244,7 @@ msgstr "Min profil"
 msgid ""
 "Click this button to update your personal settings and Booktype account "
 "password"
-msgstr ""
-"Klikk på denne knappen for å oppdatere personlige innstillinger og passord"
+msgstr "Klikk på denne knappen for å oppdatere personlige innstillinger og passord"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:163
 #: lib/booktype/apps/account/templates/account/form_signedin.html:19
@@ -301,10 +297,8 @@ msgid "This user is not a member of any groups."
 msgstr "Denne brukeren er ikke medlem av noen gruppe."
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:230
-#, fuzzy
-#| msgid "New people"
 msgid "Invite people"
-msgstr "Nye brukere"
+msgstr "Inviter brukere"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:238
 msgid "Enter email addresses"
@@ -415,8 +409,8 @@ msgstr "Opprett ny bok"
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
-#: lib/booktype/importer/docx/docximporter.py:236
-#: lib/booktype/importer/docx/docximporter.py:319
+#: lib/booktype/importer/docx/docximporter.py:237
+#: lib/booktype/importer/docx/docximporter.py:320
 msgid "Title"
 msgstr "Tittel"
 
@@ -442,9 +436,7 @@ msgstr "Beskrivelse"
 msgid ""
 "Give some information so others can find it to help you (this can be added "
 "or changed later)."
-msgstr ""
-"Skriv litt informasjon om deg selv slik at andre kan finne det og hjelpe deg "
-"(dette kan også tilføyes og endres senere)."
+msgstr "Skriv litt informasjon om deg selv slik at andre kan finne det og hjelpe deg (dette kan også tilføyes og endres senere)."
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:34
 msgid "Choose license"
@@ -470,9 +462,7 @@ msgstr "Bilde"
 msgid ""
 "If you have an image for the book then add it now (this can be added or "
 "changed later)"
-msgstr ""
-"Hvis du har et bilde til forsiden, kan du legge det til nå (dette kan også "
-"legges til og endres senere)"
+msgstr "Hvis du har et bilde til forsiden, kan du legge det til nå (dette kan også legges til og endres senere)"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:48
 msgid "Book Image"
@@ -486,10 +476,7 @@ msgstr "Vil du gjøre boken offentlig?"
 msgid ""
 "Would you like to keep your book private or make it public? If the book is "
 "public others can find the book to help you."
-msgstr ""
-"Vil du holde boken privat eller gjøre den tilgjengelig for offentlig "
-"visning? Hvis den er tilgjengelig for offentlig visning kan andre finne den "
-"og tilby å hjelpe deg."
+msgstr "Vil du holde boken privat eller gjøre den tilgjengelig for offentlig visning? Hvis den er tilgjengelig for offentlig visning kan andre finne den og tilby å hjelpe deg."
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:55
 msgid "Note"
@@ -643,8 +630,7 @@ msgstr "Sjekk din epost!"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:13
 msgid "Password reset instructions were sent to your email."
-msgstr ""
-"Instruksjoner for tilbakestilling av passord ble sendt til din epostadresse."
+msgstr "Instruksjoner for tilbakestilling av passord ble sendt til din epostadresse."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:20
 msgid "Username or e-mail address"
@@ -654,10 +640,7 @@ msgstr "Brukernavn eller epostadresse"
 msgid ""
 "Enter your username or the email address you used to create your account, "
 "and we will send you a link to reset your password."
-msgstr ""
-"Tast inn ditt brukernavn eller epostadressen du brukte da du opprettet "
-"kontoen, og vil vil sende deg en lenke du kan klikke på for å gjenopprette "
-"ditt passord."
+msgstr "Tast inn ditt brukernavn eller epostadressen du brukte da du opprettet kontoen, og vil vil sende deg en lenke du kan klikke på for å gjenopprette ditt passord."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:30
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:42
@@ -686,9 +669,7 @@ msgstr "Gjenta nytt passord"
 msgid ""
 "Click this button for an overview of your books, groups, user profile and "
 "recent activity"
-msgstr ""
-"Klikk på denne knappen for å få en oversikt over dine bøker, grupper, "
-"brukerprofil og nylig aktivitet"
+msgstr "Klikk på denne knappen for å få en oversikt over dine bøker, grupper, brukerprofil og nylig aktivitet"
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:16
 #: lib/booktype/apps/account/views.py:64
@@ -696,7 +677,7 @@ msgstr ""
 #: lib/booktype/apps/core/templates/core/nav_menu.html:15
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:6
 msgid "My Dashboard"
-msgstr "Min arbeidsplass"
+msgstr "Mine bøker"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:3
 #: lib/booktype/apps/account/templates/account/form_signin.html:20
@@ -738,8 +719,8 @@ msgstr "Glemt passordet?"
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:5
 msgid ""
-"To reset your Booktype password, simply click the link below. That will take "
-"you to a web page where you can create a new password."
+"To reset your Booktype password, simply click the link below. That will take"
+" you to a web page where you can create a new password."
 msgstr "Klikk lenken under for å opprette et nytt passord. "
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:6
@@ -751,10 +732,7 @@ msgid ""
 "If you weren't trying to reset your password, don't worry – your account is "
 "still secure and no one has been given access to it. Most likely, someone "
 "just mistyped their email address while trying to reset their own password."
-msgstr ""
-"Hvis du ikke prøvde å resette ditt passord, bare ta det rolig - kontoen din "
-"er sikker og ingen har fått tilgang til den. Sannsynligvis har noen "
-"feiltastet egen epostadresse mens de prøvde å resette eget passord."
+msgstr "Hvis du ikke prøvde å resette ditt passord, bare ta det rolig - kontoen din er sikker og ingen har fått tilgang til den. Sannsynligvis har noen feiltastet egen epostadresse mens de prøvde å resette eget passord."
 
 #: lib/booktype/apps/account/templates/account/register.html:15
 msgid "You are already logged in!"
@@ -792,8 +770,7 @@ msgstr "Grensen for antall brukere er nådd."
 #: lib/booktype/apps/portal/templates/portal/anonymous_frontpage.html:57
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:135
 msgid "Only administrator is allowed to create new accounts at the moment."
-msgstr ""
-"Kun administrator har tillatelse til å opprette nye kontoer for øyeblikket."
+msgstr "Kun administrator har tillatelse til å opprette nye kontoer for øyeblikket."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:4
 msgid "User name"
@@ -823,13 +800,8 @@ msgstr "Vennligst tast inn ditt virkelige navn."
 msgid ""
 "Username is invalid. Please try a different one. You may use alphanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
-"li></ul>"
-msgstr ""
-"Brukernavnet er ugyldig. Vennligst prøv et annet. Du kan bruke alfanumeriske "
-"tegn, og tegnene \".\", \"_\", \"-\" (punktum, understrekning og minus). <br/"
-"><br/>Eksempler:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
-"li></ul>"
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+msgstr "Brukernavnet er ugyldig. Vennligst prøv et annet. Du kan bruke alfanumeriske tegn, og tegnene \".\", \"_\", \"-\" (punktum, understrekning og minus). <br/><br/>Eksempler:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
 msgid "This is not a valid e-mail"
@@ -845,8 +817,7 @@ msgstr "Passordet må være 6 tegn eller mer!"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:25
 msgid "Username already taken. Please try a different one."
-msgstr ""
-"Dette brukernavnet er allerede i bruk. Vennligst finn et annet brukernavn."
+msgstr "Dette brukernavnet er allerede i bruk. Vennligst finn et annet brukernavn."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:27
 msgid "Fullname is too long!"
@@ -973,47 +944,26 @@ msgid "About"
 msgstr "Om"
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:11
-#, fuzzy
-#| msgid ""
-#| "This is a demonstration server for Booktype. This server is reset on a "
-#| "regular basis, and any books created here will be deleted at that time. "
-#| "You can read the Booktype user manual at <a href=\"http://sourcefabric."
-#| "booktype.pro/booktype-20-for-authors-and-publishers/\">http://"
-#| "sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/</a>."
 msgid ""
 "This is a demonstration server for Booktype. This server is reset on a "
 "regular basis, and any books created here will be deleted at that time. You "
-"can read the Booktype user manual at <a href=\"https://sourcefabric.booktype."
-"pro/booktype-21-for-authors-and-publishers/\">https://sourcefabric.booktype."
-"pro/booktype-21-for-authors-and-publishers/</a>."
+"can read the Booktype user manual at <a "
+"href=\"https://sourcefabric.booktype.pro/booktype-21-for-authors-and-"
+"publishers/\">https://sourcefabric.booktype.pro/booktype-21-for-authors-and-"
+"publishers/</a>."
 msgstr ""
-"Dette er en demonstrasjonsserver for Booktype. Den resettes jevnlig, og alle "
-"bøker vil da bli slettet. Du kan lese brukermanualen på <a href=\"http://"
-"sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/\">http://"
-"sourcefabric.booktype.pro/booktype-20-for-authors-and-publishers/</a>."
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:17
 msgid "How to use"
 msgstr "Slik bruker du"
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:20
-#, fuzzy
-#| msgid ""
-#| "If you wish to have your own installation please download Booktype from "
-#| "<a href=\"http://www.sourcefabric.org/en/booktype/\">http://www."
-#| "sourcefabric.org/en/booktype/</a> or check out Booktype Pro, our cloud-"
-#| "hosted publishing service - <a href=\"http://booktype.pro/\">http://"
-#| "booktype.pro/</a>."
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
-"href=\"https://www.sourcefabric.org/en/booktype/\">https://www.sourcefabric."
-"org/en/booktype/</a> or check out Booktype Pro, our cloud-hosted publishing "
-"service - <a href=\"https://booktype.pro/\">https://booktype.pro/</a>."
+"href=\"https://www.sourcefabric.org/en/booktype/\">https://www.sourcefabric.org/en/booktype/</a>"
+" or check out Booktype Pro, our cloud-hosted publishing service - <a "
+"href=\"https://booktype.pro/\">https://booktype.pro/</a>."
 msgstr ""
-"Ønsker du å drifte din egen installasjon, vennligst last ned Booktype fra <a "
-"href=\"http://www.sourcefabric.org/en/booktype/\">http://www.sourcefabric."
-"org/en/booktype/</a> eller prøv ut Booktype Pro, cloud-hosted publishing "
-"service - <a href=\"http://booktype.pro/\">http://booktype.pro/</a>."
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:27
 msgid "Need Help?"
@@ -1026,14 +976,14 @@ msgid ""
 "print-on-demand services and education institutions produce better books, "
 "faster, while Sourcefabric takes care of your own platform's installation, "
 "hosting, upgrades, and security. "
-msgstr ""
+msgstr "With social tools, easy workflows and freedom to choose your own licences, Booktype Pro is perfect for internal, or public-facing, use. Publishers, print-on-demand services and education institutions produce better books, faster, while Sourcefabric takes care of your own platform's installation, hosting, upgrades, and security."
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:41
 #: lib/booktype/apps/core/templates/core/footer.html:12
 msgid ""
 "Powered by Booktype, the open content management system for professional "
 "writers."
-msgstr "Drevet av Booktype, en åpen CMS for profesjonelle skrivere."
+msgstr "Elevforlaget er basert på den åpne CMS-en Booktype."
 
 #: lib/booktype/apps/core/templates/core/nav_bar.html:12
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
@@ -1043,7 +993,7 @@ msgstr "Kontrollsenter"
 #: lib/booktype/apps/core/templates/core/nav_bar.html:14
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:10
 msgid "User Manual"
-msgstr ""
+msgstr "Brukermanual"
 
 #: lib/booktype/apps/core/templates/core/nav_bar.html:43
 #: lib/booktype/apps/edit/templates/edit/toolbar_nav.html:29
@@ -1118,7 +1068,7 @@ msgstr "Avbryt"
 
 #: lib/booktype/apps/core/templates/core/utils.html:12
 msgid "Accept"
-msgstr ""
+msgstr "Godta"
 
 #: lib/booktype/apps/core/templates/errors/400.html:9
 msgid "Error 400"
@@ -1246,7 +1196,7 @@ msgstr "Rediger forside"
 
 #: lib/booktype/apps/edit/__init__.py:25
 msgid "Delete cover"
-msgstr "Slett omslag"
+msgstr "Slett forside"
 
 #: lib/booktype/apps/edit/__init__.py:27
 msgid "Manage Status"
@@ -1302,21 +1252,19 @@ msgstr "Administrer bokinnstillinger"
 
 #: lib/booktype/apps/edit/__init__.py:46
 msgid "Add Comments"
-msgstr ""
+msgstr "Legg til kommentarer"
 
 #: lib/booktype/apps/edit/__init__.py:47
 msgid "Resolve Comments"
-msgstr ""
+msgstr "Løse kommentarer"
 
 #: lib/booktype/apps/edit/__init__.py:48
 msgid "Delete Comments"
-msgstr ""
+msgstr "Slette kommentarer"
 
 #: lib/booktype/apps/edit/__init__.py:50
-#, fuzzy
-#| msgid "Mobi Settings"
 msgid "Modify Section Settings"
-msgstr "Innstillinger for MOBI"
+msgstr "Endre seksjonens innstillinger"
 
 #: lib/booktype/apps/edit/channel.py:1299
 #: lib/booktype/apps/edit/channel.py:1304
@@ -1359,8 +1307,7 @@ msgstr "Kapitlet er låst for alle. "
 
 #: lib/booktype/apps/edit/channel.py:2095
 msgid "One of the selected formats was disabled. Try to reload page."
-msgstr ""
-"En av de valgte formatene er deaktivert. Prøv å last inn siden på nytt."
+msgstr "En av de valgte formatene er deaktivert. Prøv å last inn siden på nytt."
 
 #: lib/booktype/apps/edit/forms.py:58
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:21
@@ -1397,9 +1344,7 @@ msgstr "%(field)s må ha TYPE attributt"
 msgid ""
 "Unable to create field %(field)s. Reason: %(error)s | type: %(exc_type)s | "
 "Line: %(line_no)s "
-msgstr ""
-"Ikke i stand til å opprette felt %(field)s. Årsak: %(error)s | type: "
-"%(exc_type)s | linje: %(line_no)s "
+msgstr "Ikke i stand til å opprette felt %(field)s. Årsak: %(error)s | type: %(exc_type)s | linje: %(line_no)s "
 
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:7
 #: lib/booktype/apps/edit/templates/edit/compare_screen.html:13
@@ -1436,6 +1381,84 @@ msgstr "Revisjon"
 msgid "Full view"
 msgstr "Full visning"
 
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:8
+msgid "Section Settings"
+msgstr "Seksjonens innstillinger"
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:15
+msgid "Display Settings"
+msgstr "Vis innstillinger"
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:17
+msgid "Choose the outputs where you want to show this section"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:23
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
+msgid "Show"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:27
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:37
+msgid "Hide"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:30
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:217
+#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
+msgid "Table of Contents"
+msgstr "Innholdsfortegnelse"
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:32
+msgid "Show section and chapters"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:33
+msgid "Show section / hide chapters"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:34
+msgid "Hide section / show chapters"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:35
+msgid "Hide section and chapters"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:41
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:136
+msgid "Extra"
+msgstr "Ekstra"
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:43
+msgid "Set extra options"
+msgstr "Sett tilleggsinnstillinger"
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:46
+msgid "Mark section as"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:49
+msgid "Frontmatter"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:57
+msgid "Mainmatter"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:65
+msgid "Backmatter"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:73
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:78
+msgid "Custom"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:79
+msgid "e.g. Authors"
+msgstr ""
+
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:5
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:105
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:239
@@ -1446,7 +1469,7 @@ msgstr "Sett inn"
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:8
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:108
 msgid "Insert comment"
-msgstr ""
+msgstr "Legg til kommentar"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:10
 msgid "Insert horizontal line"
@@ -1474,7 +1497,7 @@ msgstr "Sett inn kolonner"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:17
 msgid "Insert infobox"
-msgstr ""
+msgstr "Legg til faktaboks"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:18
 msgid "Insert column break"
@@ -1553,56 +1576,40 @@ msgid "Normal Text"
 msgstr "Vanlig tekst"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:14
-#, fuzzy
-#| msgid "New chapter title"
 msgid "Chapter title"
-msgstr "Nytt navn på kapitlet"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:15
-#, fuzzy
-#| msgid "Heading"
 msgid "Heading 1"
-msgstr "Overskrift"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:16
-#, fuzzy
-#| msgid "Heading"
 msgid "Heading 2"
-msgstr "Overskrift"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:17
-#, fuzzy
-#| msgid "Heading"
 msgid "Heading 3"
-msgstr "Overskrift"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:18
-#, fuzzy
-#| msgid "Heading"
 msgid "Heading 4"
-msgstr "Overskrift"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:19
-#, fuzzy
-#| msgid "Heading"
 msgid "Heading 5"
-msgstr "Overskrift"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:20
-#, fuzzy
-#| msgid "Heading"
 msgid "Heading 6"
-msgstr "Overskrift"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:21
 msgid "Pre-formatted"
 msgstr "Forhåndsformattert"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:22
-#, fuzzy
-#| msgid "Edit caption"
 msgid "Citation"
-msgstr "Rediger bildetekst"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:27
 msgid "Font"
@@ -1655,7 +1662,7 @@ msgstr "Kolonner"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:169
 msgid "Table caption"
-msgstr ""
+msgstr "Bildetekst for tabell"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:173
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:63
@@ -1896,14 +1903,14 @@ msgstr "Kapittelhistorie"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:261
 msgid "Comments"
-msgstr ""
+msgstr "Beskjeder"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:301
 #, python-format
 msgid ""
-"<p class=\"notification-text\"><%%= username %%> joined </p><span class="
-"\"notification-info\"><%%= info %%></span>"
-msgstr ""
+"<p class=\"notification-text\"><%%= username %%> joined </p><span class"
+"=\"notification-info\"><%%= info %%></span>"
+msgstr "<p class=\"notification-text\"><%%= username %%> joined </p><span class=\"notification-info\"><%%= info %%></span>"
 
 #: lib/booktype/apps/edit/templates/edit/book_history.html:21
 msgid "No results found."
@@ -2130,7 +2137,7 @@ msgstr "Se originalbilde"
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:43
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:190
 msgid "Delete Cover Image"
-msgstr "Slett omslagsbilde"
+msgstr "Slett forsidebilde"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:44
 msgid "Selected user already belongs to this role"
@@ -2306,17 +2313,17 @@ msgstr "Vedlegget \"%%s\" ble slettet"
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:80
 #, python-format
 msgid "New cover \"%%s\" uploaded"
-msgstr "Nytt omslag \"%%s\" er lastet opp"
+msgstr "Den nye forsiden \"%%s\" er lastet opp"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:81
 #, python-format
 msgid "Cover \"%%s\" was updated"
-msgstr "Omslaget \"%%s\" ble oppdatert"
+msgstr "Forsiden \"%%s\" ble oppdatert"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:82
 #, python-format
 msgid "Cover \"%%s\" was deleted"
-msgstr "Omslaget \"%%s\" ble slettet"
+msgstr "Forsiden \"%%s\" ble slettet"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:83
 #, python-format
@@ -2369,19 +2376,19 @@ msgstr "For øyeblikket tillates ikke splitting av kapitler som har endenoter."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:97
 msgid "Reply"
-msgstr ""
+msgstr "Svar"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:98
 msgid "New Comment"
-msgstr ""
+msgstr "Ny kommentar"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:99
 msgid "You have no permissions to execute this action"
-msgstr ""
+msgstr "Du har ikke tilgang til å utføre denne handlingen"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:100
 msgid "Alert"
-msgstr ""
+msgstr "Advarsel"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:101
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:66
@@ -2391,58 +2398,48 @@ msgstr "Bekreft"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:103
 msgid "Resolve"
-msgstr ""
+msgstr "Løs"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:106
 msgid "Do not forget to save the chapter to preserve the changes!"
-msgstr ""
+msgstr "Husk å lagre kapitlet for å ta vare på endringene!"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:107
 msgid "Do you want to resolve this comment?"
-msgstr ""
+msgstr "Vil du løse denne kommentaren?"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:109
 msgid ""
 "Please select the text you wish to comment on, then click the button below."
-msgstr ""
+msgstr "Vennligst marker den teksten du vil kommentere og trykk på knappen under."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:110
 msgid "Do you want to remove the infobox?"
-msgstr ""
+msgstr "Vil du fjerne denne faktaboksen?"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:111
-#, fuzzy
-#| msgid "Export Comments"
 msgid "Chapter Comments"
-msgstr "Kommentarer"
+msgstr "Kommentarer til kapitlet"
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:112
-#, fuzzy
-#| msgid "Do you want to remove this export?"
 msgid "Do you want to remove this quote?"
-msgstr "Vil du fjerne den eksporterte filen?"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:114
-#, fuzzy
-#| msgid "Quote"
 msgid "New Quote"
-msgstr "Sitat"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:115
 msgid "Set an author for this Quote"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:116
-#, fuzzy
-#| msgid "Book Title (optional)"
 msgid "Author name (optional)"
-msgstr "Boktittel (valgfritt)"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:120
-#, fuzzy
-#| msgid "Finished"
 msgid "Finish"
-msgstr "Avsluttet"
+msgstr "Avslutt"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:13
 msgid "Zen mode"
@@ -2494,7 +2491,7 @@ msgid "Book character count (with spaces)"
 msgstr "Antall tegn i boken (med mellomrom)"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:428 lib/booktype/apps/reader/views.py:254
+#: lib/booktype/apps/edit/views.py:428 lib/booktype/apps/reader/views.py:250
 msgid "Chapter"
 msgstr "Kapittel"
 
@@ -2573,11 +2570,11 @@ msgstr "Sett inn navn"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:216
 msgid "Image Caption"
-msgstr ""
+msgstr "Bildetekst"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:217
 msgid "Caption"
-msgstr ""
+msgstr "Bildetekst"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:223
 msgid "Save Metadata"
@@ -2626,32 +2623,28 @@ msgid "EDIT"
 msgstr "REDIGERE"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:271
-#, fuzzy
-#| msgid "EDIT"
 msgid "STOP EDIT"
-msgstr "REDIGERE"
+msgstr "AVSLUTT REDIGERING"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:280
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:285
-#, fuzzy
-#| msgid "Content"
 msgid "Contrast"
-msgstr "Innhold"
+msgstr "Kontrast"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:288
 msgid "Brightness"
-msgstr ""
+msgstr "Lysstyrke"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:293
 msgid "Blur"
-msgstr ""
+msgstr "Skarphet"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:296
 msgid "Saturate"
-msgstr ""
+msgstr "Metning"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:331
 msgid "Chapter has been modified"
@@ -2698,24 +2691,24 @@ msgstr "Nytt navn på kapitlet"
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:446
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:453
 msgid "Remove page break"
-msgstr ""
+msgstr "Fjern sideskift"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:449
 msgid "Do you want to remove page break?"
-msgstr ""
+msgstr "Vil du fjerne sideskift?"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:464
 msgid "Infobox"
-msgstr ""
+msgstr "Faktaboks"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:469
 msgid "Write your infobox title here"
-msgstr ""
+msgstr "Gi faktaboksen en tittel"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:11
 msgid "Cover Manager"
-msgstr "Omslag"
+msgstr "Forsidebehandler"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:11
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:178
@@ -2731,39 +2724,22 @@ msgid ""
 "Error: The selected filetype is not supported. Please select one of the "
 "following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
 "SVG, EPS, AI, INDD."
-msgstr ""
-"Feil: Den valgte filtypen er ikke støttet. Vennligst velg en av de følgende "
-"filtypene og prøv igjen: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, "
-"AI, INDD."
+msgstr "Feil: Den valgte filtypen er ikke støttet. Vennligst velg en av de følgende filtypene og prøv igjen: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:38
 msgid "Important Info"
 msgstr "Viktig informasjon"
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:40
-#, fuzzy
-#| msgid ""
-#| "The cover manager allows you to upload, manage and publish your book "
-#| "covers. Please upload your ebook cover image files (JPEG, GIF or PNG "
-#| "format) in the appropriate dimensions for EPUB, MOBI, screen PDF and ODT "
-#| "output. Artwork (in TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) "
-#| "for the front cover, spine and back cover of your print books can be "
-#| "uploaded and managed, but will be kept separate from the text of the book "
-#| "when publishing it."
 msgid ""
 "The Cover Manager enables you to upload, manage and publish book covers. "
 "Please upload ebook cover image files (JPEG, GIF or PNG format) in the "
 "appropriate dimensions for EPUB, MOBI and Screen PDF output. Artwork (in "
 "TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, "
 "spine (if any) and back cover of print books can also be uploaded and "
-"managed, but will be kept separate from the Printers' PDF when exporting the "
-"inside pages."
+"managed, but will be kept separate from the Printers' PDF when exporting the"
+" inside pages."
 msgstr ""
-"Forsideverktøyet lar deg laste opp, håndtere og publisere bokforsidene dine. "
-"Vennligst last opp forsidebildene (JPEG, GIF eller PNG) i passende størrelse "
-"for EPUB, MOBI, skjerm-PDF og ODT output. Forsider til bøker som skal "
-"trykkes (TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI eller INDD), kan lastes opp, "
-"men blir ikke en del av boken når den eksporteres."
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:51
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:108
@@ -2873,9 +2849,7 @@ msgstr "Fjern mediafiler"
 msgid ""
 "Are you sure you would like to delete media files? You will not be able to "
 "undo this operation!"
-msgstr ""
-"Er du sikker på at du vil slette disse mediafilene? De vil bli tapt for "
-"alltid!"
+msgstr "Er du sikker på at du vil slette disse mediafilene? De vil bli tapt for alltid!"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:60
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:95
@@ -2896,10 +2870,8 @@ msgid "Warning"
 msgstr "Advarsel"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:79
-#, fuzzy
-#| msgid "You can only upload JPEG file as cover image."
 msgid "You can only upload JPEG/PNG files."
-msgstr "Du kan bare laste opp JPEG-filer som omslagsbilde."
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:4
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:505
@@ -2921,26 +2893,20 @@ msgstr "Viktig! Før du eksporterer..."
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:31
 msgid "Please check the settings for your chosen formats before exporting."
-msgstr ""
-"Vennligst sjekk innstillingene for de valgte formatene før du eksporterer."
+msgstr "Vennligst sjekk innstillingene for de valgte formatene før du eksporterer."
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:32
 msgid ""
-"Front matter is generated automatically. Please ensure all <a href="
-"\"#settings/metadata\">metadata</a> and <a href=\"#settings/additional-"
+"Front matter is generated automatically. Please ensure all <a "
+"href=\"#settings/metadata\">metadata</a> and <a href=\"#settings/additional-"
 "metadata\">additional metadata</a> has been entered."
-msgstr ""
-"Tittelark genereres automatisk. Vennlist sørg for at alle <a href="
-"\"#settings/metadata\">metadata</a> og <a href=\"#settings/additional-"
-"metadata\">tilleggsmetadata</a> har blitt lagt inn."
+msgstr "Tittelark genereres automatisk. Vennlist sørg for at alle <a href=\"#settings/metadata\">metadata</a> og <a href=\"#settings/additional-metadata\">tilleggsmetadata</a> har blitt lagt inn."
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:33
 msgid ""
-"If exporting screen PDF, EPUB or MOBI, please check the <a href=\"#covers"
-"\">cover manager</a> first."
-msgstr ""
-"Dersom du skal eksportere PDF, EPUB eller MOBI, vennligst sjekk <a href="
-"\"#covers\">forsideverktøyet</a> først."
+"If exporting screen PDF, EPUB or MOBI, please check the <a "
+"href=\"#covers\">cover manager</a> first."
+msgstr "Dersom du skal eksportere PDF, EPUB eller MOBI, vennligst sjekk <a href=\"#covers\">forsideverktøyet</a> først."
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:48
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:4
@@ -3046,11 +3012,6 @@ msgstr "Vis bunntekst"
 msgid "Footer Margin"
 msgstr "Bunntekst-marg"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:136
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:483
-msgid "Extra"
-msgstr "Ekstra"
-
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:138
 msgid "Set extra options for paper trimming"
 msgstr "Sett ekstra innstillinger for papirskjæring"
@@ -3137,7 +3098,7 @@ msgstr "Ingen tilgjengelige publiseringsformater. "
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:416
 msgid "Printers' PDF"
-msgstr "Trykke-PDF"
+msgstr "Papirbok (trykke-PDF)"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:419
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:430
@@ -3278,9 +3239,7 @@ msgstr "Fjern kapittel"
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
-msgstr ""
-"Er du sikker på du vil fjerne dette kapitlet? Du vil miste alle data knyttet "
-"til dette kapitlet og du kan ikke gjøre om denne handlingen!"
+msgstr "Er du sikker på du vil fjerne dette kapitlet? Du vil miste alle data knyttet til dette kapitlet og du kan ikke gjøre om denne handlingen!"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:114
 msgid "Remove section"
@@ -3290,9 +3249,7 @@ msgstr "Fjern seksjon"
 msgid ""
 "Are you sure you would like to delete this section? You will lose all data "
 "associated to this section and you will not be able to undo this operation!"
-msgstr ""
-"Er du sikker på du vil fjerne denne sekjsonen? Du vil miste alle data "
-"knyttet til denne seksjonen og du kan ikke gjøre om denne handlingen!"
+msgstr "Er du sikker på du vil fjerne denne sekjsonen? Du vil miste alle data knyttet til denne seksjonen og du kan ikke gjøre om denne handlingen!"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:126
 msgid "Delete chapters under this section"
@@ -3302,9 +3259,7 @@ msgstr "Slett kapitler i denne seksjonen"
 msgid ""
 "All books should contain at least one chapter and can have as many sections "
 "as you like, or none."
-msgstr ""
-"Alle bøker må inneholde minst ett kapittel og kan ha så mange seksjoner du "
-"ønsker."
+msgstr "Alle bøker må inneholde minst ett kapittel og kan ha så mange seksjoner du ønsker."
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:151
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:274
@@ -3317,11 +3272,6 @@ msgstr "Låst"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:291
 msgid "Locked exclusively"
 msgstr "Låst eksklusivt"
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:217
-#: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
-msgid "Table of Contents"
-msgstr "Innholdsfortegnelse"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:220
 msgid "Detail View"
@@ -3387,29 +3337,7 @@ msgstr "ENDRE NAVN"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:419
 msgid "SETTINGS"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:466
-#, fuzzy
-#| msgid "Admin Settings"
-msgid "Section Settings"
-msgstr "Administrere innstillinger"
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:473
-#, fuzzy
-#| msgid "Mobi Settings"
-msgid "Display Settings"
-msgstr "Innstillinger for MOBI"
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:475
-msgid "Choose the outputs where you want to hide this section"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:485
-#, fuzzy
-#| msgid "Set extra options for paper trimming"
-msgid "Set extra options"
-msgstr "Sett ekstra innstillinger for papirskjæring"
+msgstr "BRUKERPROFIL"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:7
 msgid "Add Field"
@@ -3435,9 +3363,7 @@ msgstr "Slett metadata-felt"
 msgid ""
 "Are you sure you would like to remove this field? You will not be able to "
 "undo this operation!"
-msgstr ""
-"Er du sikker på du vil slette dette feltet? Du kan ikke gjøre om denne "
-"handlingen!"
+msgstr "Er du sikker på du vil slette dette feltet? Du kan ikke gjøre om denne handlingen!"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
 #: lib/booktype/apps/edit/views.py:51
@@ -3470,11 +3396,9 @@ msgstr "Slett innhold i metadata"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_metadata.html:24
 msgid ""
-"Are you sure you would like to delete this metadata content? You will not be "
-"able to undo this operation!"
-msgstr ""
-"Er du sikker på at du vil slette disse metadataene? Du kan ikke gjøre om "
-"denne handlingen!"
+"Are you sure you would like to delete this metadata content? You will not be"
+" able to undo this operation!"
+msgstr "Er du sikker på at du vil slette disse metadataene? Du kan ikke gjøre om denne handlingen!"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:8
 msgid "Assign"
@@ -3502,7 +3426,7 @@ msgstr "For å bruke endringer, trykk lagre"
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:35
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:10
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:11
 msgid "Info"
@@ -3678,7 +3602,7 @@ msgstr "Utvidelsen støttes ikke!"
 
 #: lib/booktype/apps/portal/__init__.py:4
 msgid "Booktype portal application"
-msgstr ""
+msgstr "Booktype portal application"
 
 #: lib/booktype/apps/portal/__init__.py:7
 msgid "View books list"
@@ -3725,9 +3649,7 @@ msgstr "Alle grupper"
 #: lib/booktype/apps/portal/templates/portal/group.html:39
 msgid ""
 "Click this button to leave this group. You can rejoin the group at any time"
-msgstr ""
-"Klikk på denne knappen for å forlate gruppen. Du kan komme tilbake til "
-"gruppen når du vil."
+msgstr "Klikk på denne knappen for å forlate gruppen. Du kan komme tilbake til gruppen når du vil."
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:27
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:90
@@ -3741,9 +3663,7 @@ msgstr "FORLAT DENNE GRUPPEN"
 msgid ""
 "Click this button to join this group of writers and editors. You can leave "
 "the group at any time"
-msgstr ""
-"Klikk på denne knappen for å bli med i denne gruppen. Du kan forlate gruppen "
-"når du vil."
+msgstr "Klikk på denne knappen for å bli med i denne gruppen. Du kan forlate gruppen når du vil."
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:29
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:92
@@ -3812,8 +3732,7 @@ msgstr "Finner ikke gruppen \"%(group_name)s\"."
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:46
 msgid ""
 "Click this button to go to My Dashboard and open the Create New Book wizard"
-msgstr ""
-"Klikk på denne knappen for å gå til min arbeidsplass og opprette en ny bok"
+msgstr "Klikk på denne knappen for å gå til Mine bøker og start et nytt bokprosjekt"
 
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:81
 msgid "There are no users yet"
@@ -3830,9 +3749,7 @@ msgstr "Bøker:"
 #: lib/booktype/apps/portal/templates/portal/group.html:41
 msgid ""
 "Click this button to update the name, description or image for your group"
-msgstr ""
-"Klikk på denne knappen for å oppdatere navn, beskrivelse eller bilde for "
-"gruppen"
+msgstr "Klikk på denne knappen for å oppdatere navn, beskrivelse eller bilde for gruppen"
 
 #: lib/booktype/apps/portal/templates/portal/group.html:41
 #: lib/booktype/apps/portal/templates/portal/group_settings.html:9
@@ -3845,9 +3762,7 @@ msgstr "Fjern boken fra denne gruppen"
 
 #: lib/booktype/apps/portal/templates/portal/group.html:93
 msgid "Click this button to select other books and add them to this group"
-msgstr ""
-"Klikk på denne knappen for å velge andre bøker og legge dem til i denne "
-"gruppen"
+msgstr "Klikk på denne knappen for å velge andre bøker og legge dem til i denne gruppen"
 
 #: lib/booktype/apps/portal/templates/portal/group.html:93
 msgid "Add books to this group"
@@ -3862,9 +3777,7 @@ msgstr "Opprett"
 msgid ""
 "Are you sure you would like to delete this group? You will not be able to "
 "undo this operation!"
-msgstr ""
-"Er du sikker på at du vil slette denne gruppen? Du vil ikke kunne gjøre om "
-"denne handlingen!"
+msgstr "Er du sikker på at du vil slette denne gruppen? Du vil ikke kunne gjøre om denne handlingen!"
 
 #: lib/booktype/apps/portal/templates/portal/group_remove_book.html:7
 msgid "Remove the book from"
@@ -3939,12 +3852,24 @@ msgid "View full page"
 msgstr "Se helside"
 
 #: lib/booktype/apps/reader/__init__.py:8
+msgid "View hidden full page"
+msgstr ""
+
+#: lib/booktype/apps/reader/__init__.py:10
 msgid "View draft page"
 msgstr "Se utkast"
 
-#: lib/booktype/apps/reader/__init__.py:9
+#: lib/booktype/apps/reader/__init__.py:11
+msgid "View hidden draft page"
+msgstr ""
+
+#: lib/booktype/apps/reader/__init__.py:13
 msgid "View book info"
 msgstr "Se bokinfo"
+
+#: lib/booktype/apps/reader/__init__.py:14
+msgid "View hidden book info"
+msgstr ""
 
 #: lib/booktype/apps/reader/forms.py:10
 msgid "Book description"
@@ -3958,9 +3883,7 @@ msgstr "Bokbilde"
 msgid ""
 "Are you sure you would like to delete this book? You will lose all data "
 "associated to this book and you will not be able to undo this operation!"
-msgstr ""
-"Er du sikker på at du vil slette denne boken? Du vil miste alle data knyttet "
-"til denne boken og du vil ikke kunne gjøre om denne handlingen!"
+msgstr "Er du sikker på at du vil slette denne boken? Du vil miste alle data knyttet til denne boken og du vil ikke kunne gjøre om denne handlingen!"
 
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:13
 msgid "Type full title of the book to delete it"
@@ -3982,19 +3905,9 @@ msgstr "Rediger dette kapitlet"
 msgid "No content yet."
 msgstr "Mangler innhold."
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:38
-msgid "Show"
-msgstr ""
-
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:39
-msgid "Hide"
-msgstr ""
-
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:48
-#, fuzzy
-#| msgid "Table of Contents"
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:46
 msgid "Table of contents"
-msgstr "Innholdsfortegnelse"
+msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:7
 msgid "Edit Book Info"
@@ -4030,9 +3943,7 @@ msgstr "Følg endringer"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:53
 msgid "Click this button to open the editor at the Table of Contents"
-msgstr ""
-"Klikk på denne knappen for å åpne redigeringsverktøyet og gå til "
-"innholdsfortegnelsen"
+msgstr "Klikk på denne knappen for å åpne redigeringsverktøyet og gå til innholdsfortegnelsen"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:54
 msgid "Edit this Book"
@@ -4043,15 +3954,12 @@ msgid "Click this button to view the draft of the book as a single page"
 msgstr "Klikk på denne knappen for å se utkastet til boken"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:60
-#, fuzzy
-#| msgid "Create Book"
 msgid "Read Book"
-msgstr "Opprett bok"
+msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:65
 msgid "Click this button to view the draft of the book by chapter"
-msgstr ""
-"Klikk på denne knappen for å se utkastet til boken kapittel for kapittel"
+msgstr "Klikk på denne knappen for å se utkastet til boken kapittel for kapittel"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:66
 msgid "View draft"
@@ -4144,7 +4052,7 @@ msgstr "Slett vedlegg"
 
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:42
 msgid "Cover update"
-msgstr ""
+msgstr "Forsideoppdatering"
 
 #: lib/booktype/apps/reader/views.py:77
 #, python-format
@@ -4159,23 +4067,23 @@ msgstr "Bokdetaljer-side"
 msgid "Book Details"
 msgstr "Bokdetaljer"
 
-#: lib/booktype/apps/reader/views.py:189
+#: lib/booktype/apps/reader/views.py:194
 msgid "Successfully changed book info."
 msgstr "Bokinfo er endret."
 
-#: lib/booktype/apps/reader/views.py:191
+#: lib/booktype/apps/reader/views.py:196
 msgid "Could not upload cover image."
-msgstr "Kunne ikke laste opp omslagsbilde."
+msgstr "Kunne ikke laste opp forsidebilde."
 
-#: lib/booktype/apps/reader/views.py:212
+#: lib/booktype/apps/reader/views.py:217
 msgid "Book successfully deleted."
 msgstr "Boken er slettet."
 
-#: lib/booktype/apps/reader/views.py:219
+#: lib/booktype/apps/reader/views.py:225
 msgid "Chapter Draft"
 msgstr "Kapittelutkast"
 
-#: lib/booktype/apps/reader/views.py:280
+#: lib/booktype/apps/reader/views.py:277
 msgid "Book full view"
 msgstr "Se hele boken"
 
@@ -4291,7 +4199,7 @@ msgstr "Ingen aktive brukere"
 
 #: lib/booktype/apps/themes/templates/themes/panel.html:5
 msgid "Select from the themes available"
-msgstr ""
+msgstr "Velg mellom de tilgjengelige malene"
 
 #: lib/booktype/apps/themes/templates/themes/panel.html:16
 msgid "reset"
@@ -4299,66 +4207,53 @@ msgstr "tilbakestill"
 
 #: lib/booktype/constants.py:31
 msgid "new"
-msgstr ""
+msgstr "nytt"
 
 #: lib/booktype/constants.py:32
-#, fuzzy
-#| msgid "Delete metadata content"
 msgid "needs content"
-msgstr "Slett innhold i metadata"
+msgstr "Mangler innhold"
 
 #: lib/booktype/constants.py:33
-#, fuzzy
-#| msgid "Complete"
 msgid "completed"
-msgstr "Utført"
+msgstr "ferdig"
 
 #: lib/booktype/constants.py:34
 msgid "to be proofed"
-msgstr ""
+msgstr "til korrektur"
 
-#: lib/booktype/importer/docx/docximporter.py:52
+#: lib/booktype/importer/docx/docximporter.py:53
 msgid ""
 "Please note: Mathematical formulae have been found, and highlighted in the "
 "text. These formulae are not supported by many e-readers, or the Booktype "
 "editor at present."
-msgstr ""
+msgstr "Merk: Det er funnet matematiske formler i teksten. Booktype-plattformen støtter for øyeblikket ikke matematiske formler. "
 
-#: lib/booktype/importer/docx/docximporter.py:123
+#: lib/booktype/importer/docx/docximporter.py:124
 msgid ""
-"The file could not be imported because it was not saved in the .docx format. "
-"Try to open the file in Word and save it as a .docx."
-msgstr ""
-"Filen kunne ikke importeres fordi den ikke ble lagret i DOCX-format. Prøv å "
-"åpne filen i Word og lagre den deretter som DOCX."
+"The file could not be imported because it was not saved in the .docx format."
+" Try to open the file in Word and save it as a .docx."
+msgstr "Filen kunne ikke importeres fordi den ikke ble lagret i DOCX-format. Prøv å åpne filen i Word og lagre den deretter som DOCX."
 
-#: lib/booktype/importer/docx/docximporter.py:126
+#: lib/booktype/importer/docx/docximporter.py:127
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
-msgstr ""
-"DOCX-filen du lastet opp inneholder feil, og kan ikke konverteres. Vennligst "
-"kontakt kundeservice."
+msgstr "DOCX-filen du lastet opp inneholder feil, og kan ikke konverteres. Vennligst kontakt kundeservice."
 
-#: lib/booktype/importer/docx/docximporter.py:173
+#: lib/booktype/importer/docx/docximporter.py:174
 msgid ""
 "The file format you uploaded is not supported. Please save the image as jpg "
 "file and upload it again."
-msgstr ""
-"Filformatet du lastet opp støttes ikke. Vennligst lagre bildet som en JPEG-"
-"fil og prøv igjen."
+msgstr "Filformatet du lastet opp støttes ikke. Vennligst lagre bildet som en JPEG-fil og prøv igjen."
 
-#: lib/booktype/importer/docx/docximporter.py:208
+#: lib/booktype/importer/docx/docximporter.py:209
 msgid ""
 "An error occurred while importing images. Some images couldn't be imported. "
 "Missing images are marked within the text. Please upload missing images "
 "manually."
-msgstr ""
-"En feil oppstod ved importering av bilder. Noen bilder kunne ikke bli "
-"importert. De manglende bildene er markert i teksten. Vennligst last opp de "
-"manglende bildene manuelt."
+msgstr "En feil oppstod ved importering av bilder. Noen bilder kunne ikke bli importert. De manglende bildene er markert i teksten. Vennligst last opp de manglende bildene manuelt."
 
-#: lib/booktype/importer/docx/docximporter.py:234
+#: lib/booktype/importer/docx/docximporter.py:235
 msgid "Title Page"
 msgstr "Tittelside"
 
@@ -4373,33 +4268,33 @@ msgstr "Ukjent kapittel"
 
 #: lib/booktype/importer/epub/epubimporter.py:528
 msgid "Not using {} as a cover image -- {}"
-msgstr "Bruker ikke {} som omslagsbilde -- {}"
+msgstr "Bruker ikke {} som forsidebilde -- {}"
 
 #: lib/booktype/importer/epub/epubimporter.py:532
 msgid "Not using {} as a cover image"
-msgstr "Bruker ikke {} som omslagsbilde"
+msgstr "Bruker ikke {} som forsidebilde"
 
 #: lib/booktype/importer/epub/epubimporter.py:569
 msgid "Using {} as cover image"
-msgstr "Bruker {} som omslagsbilde"
+msgstr "Bruker {} som forsidebilde"
 
 #: lib/booktype/skeleton/themes/academic/panel.html:6
 msgid ""
 "A theme for science and reporting, built on the Roboto font family. The "
 "compact theme uses line indentation and no paragraph spacing."
-msgstr ""
+msgstr "A theme for science and reporting, built on the Roboto font family. The compact theme uses line indentation and no paragraph spacing."
 
 #: lib/booktype/skeleton/themes/academic/panel.html:7
 #: lib/booktype/skeleton/themes/bauhauscompact/panel.html:7
 #: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:7
 msgid "Author"
-msgstr ""
+msgstr "Forfatter"
 
 #: lib/booktype/skeleton/themes/bauhauscompact/panel.html:6
 msgid ""
 "A theme for catalogues and elegant texts. Works best for mid sized books. "
 "The compact theme uses line indents and has no spacing between paragraphs."
-msgstr ""
+msgstr "A theme for catalogues and elegant texts. Works best for mid sized books. The compact theme uses line indents and has no spacing between paragraphs."
 
 #: lib/booktype/skeleton/themes/custom/panel.html:3
 msgid "Heading"
@@ -4457,18 +4352,6 @@ msgstr "Linjeavstand"
 #: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:6
 msgid ""
 "Novel theme for smaller pages of paperbacks with a bit of a 1950s font "
-"feeling. No header, centered page numbers. 'Compact' means line indentations "
-"and no spacing between paragraphs."
-msgstr ""
-
-#~ msgid "Subheading"
-#~ msgstr "Overskrift 2"
-
-#~ msgid "SubSubHeading"
-#~ msgstr "Overskrift 3"
-
-#~ msgid "Full View"
-#~ msgstr "Fullvisning"
-
-#~ msgid "View full book"
-#~ msgstr "Se hele boken"
+"feeling. No header, centered page numbers. 'Compact' means line indentations"
+" and no spacing between paragraphs."
+msgstr "Novel theme for smaller pages of paperbacks with a bit of a 1950s font feeling. No header, centered page numbers. 'Compact' means line indentations and no spacing between paragraphs."

@@ -1,7 +1,7 @@
 # English (en) translation strings for Booktype Control Centre.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-#
+# 
 # Translators:
 # Daniel James <daniel@64studio.com>, 2016
 # Kjetil Nordengen <kjetilnordengen@gmail.com>, 2016
@@ -10,15 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-22 14:52+0100\n"
-"PO-Revision-Date: 2016-05-23 16:40+0000\n"
+"POT-Creation-Date: 2016-12-27 16:23-0600\n"
+"PO-Revision-Date: 2016-12-29 08:15+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/sourcefabric/"
-"booktype/language/nb/)\n"
-"Language: nb\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/sourcefabric/booktype/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
@@ -36,365 +35,359 @@ msgid "Tagline"
 msgstr "Stikkordlinje"
 
 #: lib/booktypecontrol/forms.py:67
+msgid "Frontpage URL"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:70
+msgid "Can be a full absolute or relative url"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:73
 msgid "Favicon"
 msgstr "Favikon"
 
-#: lib/booktypecontrol/forms.py:69
+#: lib/booktypecontrol/forms.py:75
 msgid "Upload .ico file"
 msgstr "Last opp .ico fil"
 
-#: lib/booktypecontrol/forms.py:118
+#: lib/booktypecontrol/forms.py:127
 msgid "CSS"
 msgstr "CSS"
 
-#: lib/booktypecontrol/forms.py:146
+#: lib/booktypecontrol/forms.py:155
 msgid "Welcome message"
 msgstr "Velkomstmelding"
 
-#: lib/booktypecontrol/forms.py:151
+#: lib/booktypecontrol/forms.py:160
 msgid "Show activity"
 msgstr "Vis aktivitet"
 
-#: lib/booktypecontrol/forms.py:155
+#: lib/booktypecontrol/forms.py:164
 msgid "Use anonymous page"
 msgstr "Bruk anonym side"
 
-#: lib/booktypecontrol/forms.py:157
+#: lib/booktypecontrol/forms.py:166
 msgid ""
 "Use separate page for anonymous users without books, people, groups and "
 "recent activity blocks."
-msgstr ""
-"Bruk separat side for anonyme brukere uten bøker, folk, grupper og nylig-"
-"aktivitet-blokker."
+msgstr "Bruk separat side for anonyme brukere uten bøker, folk, grupper og nylig-aktivitet-blokker."
 
-#: lib/booktypecontrol/forms.py:161
+#: lib/booktypecontrol/forms.py:170
 msgid "Anonymous page message"
 msgstr "Anonymside-beskjed"
 
-#: lib/booktypecontrol/forms.py:164
+#: lib/booktypecontrol/forms.py:173
 msgid "Message for displaying on anonymous page."
 msgstr "Melding som skal vises på anonymsiden."
 
-#: lib/booktypecontrol/forms.py:167
+#: lib/booktypecontrol/forms.py:176
 msgid "Anonymous page email"
 msgstr "Epost som skal vises på anonymsiden"
 
-#: lib/booktypecontrol/forms.py:169
+#: lib/booktypecontrol/forms.py:178
 msgid "Email for displaying on anonymous page."
 msgstr "Epost for visning på anonymsiden."
 
-#: lib/booktypecontrol/forms.py:172
+#: lib/booktypecontrol/forms.py:181
 msgid "Anonymous page image"
 msgstr "Bilde for den anonyme siden"
 
-#: lib/booktypecontrol/forms.py:174
+#: lib/booktypecontrol/forms.py:183
 msgid "Use image/png files."
 msgstr "Bruk image/png-filer"
 
-#: lib/booktypecontrol/forms.py:261
+#: lib/booktypecontrol/forms.py:270
 msgid "Abbreviation"
 msgstr "Forkortelse"
 
-#: lib/booktypecontrol/forms.py:263
+#: lib/booktypecontrol/forms.py:272
 msgid "Abbreviation is required."
 msgstr "Forkortelse er påkrevd."
 
-#: lib/booktypecontrol/forms.py:267
+#: lib/booktypecontrol/forms.py:276
 msgid "Name"
 msgstr "Navn"
 
-#: lib/booktypecontrol/forms.py:269 lib/booktypecontrol/forms.py:275
+#: lib/booktypecontrol/forms.py:278 lib/booktypecontrol/forms.py:284
 msgid "License name is required."
 msgstr "Lisensnavn er påkrevd."
 
-#: lib/booktypecontrol/forms.py:273
+#: lib/booktypecontrol/forms.py:282
 msgid "License URL"
 msgstr "Lisensadresse (URL)"
 
-#: lib/booktypecontrol/forms.py:279
+#: lib/booktypecontrol/forms.py:288
 msgid "Successfully created new license."
 msgstr "Vellykket opprettelse av ny lisens."
 
-#: lib/booktypecontrol/forms.py:298
-#, fuzzy
-#| msgid ""
-#| "Default visibility: If this box is checked, all newly created books will "
-#| "be visible to the public initially."
+#: lib/booktypecontrol/forms.py:307
 msgid ""
 "Default visibility: If this box is checked, create/import wizard will "
 "suggest to mark book as hidden by default."
 msgstr ""
-"Standard visning for boken: Hvis denne boksen er markert, vil alle nye bøker "
-"som standard bli satt til offentlig visning."
 
-#: lib/booktypecontrol/forms.py:300
-#, fuzzy
-#| msgid ""
-#| "If it is turned on then track changes will be        enabled for all the "
-#| "users."
+#: lib/booktypecontrol/forms.py:309
 msgid ""
 "If it is turned on then track changes will be enabled for all the users."
 msgstr ""
-"Hvis dette er aktiviert vil aktivitetslogging bli aktivert for alle bukere."
 
-#: lib/booktypecontrol/forms.py:303
+#: lib/booktypecontrol/forms.py:312
 msgid "Default visibility"
 msgstr "Standard synlighet"
 
-#: lib/booktypecontrol/forms.py:308
+#: lib/booktypecontrol/forms.py:317
 msgid "Track changes"
 msgstr "Spor endringer"
 
-#: lib/booktypecontrol/forms.py:313
+#: lib/booktypecontrol/forms.py:322
 msgid "Default License"
 msgstr "Standard lisens"
 
-#: lib/booktypecontrol/forms.py:316
+#: lib/booktypecontrol/forms.py:325
 msgid "Default license for newly created books."
 msgstr "Standard lisens for nyopprettede bøker."
 
-#: lib/booktypecontrol/forms.py:366
+#: lib/booktypecontrol/forms.py:375
 msgid "Anyone can register"
 msgstr "Alle kan opprette brukerkonto"
 
-#: lib/booktypecontrol/forms.py:368
+#: lib/booktypecontrol/forms.py:377
 msgid "Anyone can register on the site and create an account"
 msgstr "Alle kan opprette brukerkonto"
 
-#: lib/booktypecontrol/forms.py:371
+#: lib/booktypecontrol/forms.py:380
 msgid "Only the superuser can create books"
 msgstr "Kun superbrukere kan  opprette bøker"
 
-#: lib/booktypecontrol/forms.py:375
+#: lib/booktypecontrol/forms.py:384
 msgid "Only the superuser can import books"
 msgstr "Kun superbrukere kan importere bøker"
 
-#: lib/booktypecontrol/forms.py:403 lib/booktypecontrol/forms.py:565
+#: lib/booktypecontrol/forms.py:412 lib/booktypecontrol/forms.py:574
 msgid "Username"
 msgstr "Brukernavn"
 
-#: lib/booktypecontrol/forms.py:406 lib/booktypecontrol/forms.py:569
+#: lib/booktypecontrol/forms.py:415 lib/booktypecontrol/forms.py:578
 msgid "Username is required."
 msgstr "Brukernavn er påkrevd."
 
-#: lib/booktypecontrol/forms.py:407 lib/booktypecontrol/forms.py:413
-#: lib/booktypecontrol/forms.py:570 lib/booktypecontrol/forms.py:575
+#: lib/booktypecontrol/forms.py:416 lib/booktypecontrol/forms.py:422
+#: lib/booktypecontrol/forms.py:579 lib/booktypecontrol/forms.py:584
 msgid "Illegal characters in username."
 msgstr "Ugyldig tegn i brukernavnet."
 
-#: lib/booktypecontrol/forms.py:419 lib/booktypecontrol/forms.py:581
+#: lib/booktypecontrol/forms.py:428 lib/booktypecontrol/forms.py:590
 msgid "Full name"
 msgstr "Fullt navn"
 
-#: lib/booktypecontrol/forms.py:421 lib/booktypecontrol/forms.py:583
+#: lib/booktypecontrol/forms.py:430 lib/booktypecontrol/forms.py:592
 msgid "Full name is required."
 msgstr "Fullt navn er påkrevd."
 
-#: lib/booktypecontrol/forms.py:425 lib/booktypecontrol/forms.py:587
+#: lib/booktypecontrol/forms.py:434 lib/booktypecontrol/forms.py:596
 msgid "Email"
 msgstr "Epost"
 
-#: lib/booktypecontrol/forms.py:427 lib/booktypecontrol/forms.py:589
+#: lib/booktypecontrol/forms.py:436 lib/booktypecontrol/forms.py:598
 msgid "Email is required."
 msgstr "Epost er påkrevd."
 
-#: lib/booktypecontrol/forms.py:431 lib/booktypecontrol/forms.py:601
+#: lib/booktypecontrol/forms.py:440 lib/booktypecontrol/forms.py:610
 msgid "User description"
 msgstr "Brukerbeskrivelse"
 
-#: lib/booktypecontrol/forms.py:436 lib/booktypecontrol/forms.py:639
+#: lib/booktypecontrol/forms.py:445 lib/booktypecontrol/forms.py:648
 msgid "Password"
 msgstr "Passord"
 
-#: lib/booktypecontrol/forms.py:438 lib/booktypecontrol/forms.py:445
-#: lib/booktypecontrol/forms.py:641 lib/booktypecontrol/forms.py:649
+#: lib/booktypecontrol/forms.py:447 lib/booktypecontrol/forms.py:454
+#: lib/booktypecontrol/forms.py:650 lib/booktypecontrol/forms.py:658
 msgid "Password is required."
 msgstr "Passord er påkrevd."
 
-#: lib/booktypecontrol/forms.py:443 lib/booktypecontrol/forms.py:646
+#: lib/booktypecontrol/forms.py:452 lib/booktypecontrol/forms.py:655
 msgid "Password confirmation"
 msgstr "Passordbekreftelse"
 
-#: lib/booktypecontrol/forms.py:448 lib/booktypecontrol/forms.py:651
+#: lib/booktypecontrol/forms.py:457 lib/booktypecontrol/forms.py:660
 msgid "Enter the same password as above, for verification."
 msgstr "Skriv inn det samme passord som ovenfor, for verifisering."
 
-#: lib/booktypecontrol/forms.py:451
+#: lib/booktypecontrol/forms.py:460
 msgid "Notify person by email"
 msgstr "Varsle via epost"
 
-#: lib/booktypecontrol/forms.py:456 lib/booktypecontrol/forms.py:607
+#: lib/booktypecontrol/forms.py:465 lib/booktypecontrol/forms.py:616
 msgid "This person is a superuser"
 msgstr "Denne personen er superbruker"
 
-#: lib/booktypecontrol/forms.py:460
+#: lib/booktypecontrol/forms.py:469
 msgid "Successfully created new account."
 msgstr "Vellykket oppretelse av ny brukerkonto."
 
-#: lib/booktypecontrol/forms.py:486
+#: lib/booktypecontrol/forms.py:495
 msgid "That username is already taken."
 msgstr "Dette brukernavnet er allerede i bruk."
 
-#: lib/booktypecontrol/forms.py:492
+#: lib/booktypecontrol/forms.py:501
 msgid "Passwords do not match."
 msgstr "Passordene er ikke like."
 
-#: lib/booktypecontrol/forms.py:528
+#: lib/booktypecontrol/forms.py:537
 #, python-format
 msgid "You have a new %s account"
 msgstr ""
 
-#: lib/booktypecontrol/forms.py:593
+#: lib/booktypecontrol/forms.py:602
 msgid "Profile picture"
 msgstr "Profilbilde"
 
-#: lib/booktypecontrol/forms.py:611
+#: lib/booktypecontrol/forms.py:620
 msgid "Active account"
 msgstr "Aktiv brukerkonto"
 
-#: lib/booktypecontrol/forms.py:613
+#: lib/booktypecontrol/forms.py:622
 msgid "Indicate whether user's account is archived or active."
 msgstr "Indikerer om brukerkontoen er aktiv eller arkivert."
 
-#: lib/booktypecontrol/forms.py:635
+#: lib/booktypecontrol/forms.py:644
 msgid "The two password fields didn't match."
 msgstr "Passordene var ikke identiske."
 
-#: lib/booktypecontrol/forms.py:654
+#: lib/booktypecontrol/forms.py:663
 msgid "Send login data"
 msgstr "Send innloggingsinformasjon"
 
-#: lib/booktypecontrol/forms.py:656
+#: lib/booktypecontrol/forms.py:665
 msgid "Send new login data to the user via email."
 msgstr "Send innloggingsinformasjon til brukeren via epost."
 
-#: lib/booktypecontrol/forms.py:660
+#: lib/booktypecontrol/forms.py:669
 msgid "Short message"
 msgstr "Kort melding"
 
-#: lib/booktypecontrol/forms.py:662
+#: lib/booktypecontrol/forms.py:671
 msgid ""
 "Will be added in the bottom of email message text, after new user "
 "credentials."
-msgstr ""
-"Vil legges til i bunnen av epostens meldingstekst, etter brukerinformasjonen."
+msgstr "Vil legges til i bunnen av epostens meldingstekst, etter brukerinformasjonen."
 
-#: lib/booktypecontrol/forms.py:664
+#: lib/booktypecontrol/forms.py:673
 msgid "You can change password in your profile settings page."
 msgstr "Du kan endre ditt passord i innstillinger for din profil."
 
-#: lib/booktypecontrol/forms.py:689 lib/booktypecontrol/forms.py:762
+#: lib/booktypecontrol/forms.py:698 lib/booktypecontrol/forms.py:771
 msgid "Title"
 msgstr "Tittel"
 
-#: lib/booktypecontrol/forms.py:690 lib/booktypecontrol/forms.py:764
+#: lib/booktypecontrol/forms.py:699 lib/booktypecontrol/forms.py:773
 #: lib/booktypecontrol/tests.py:49
 msgid "Title is required."
 msgstr "Tittel er påkrevd."
 
-#: lib/booktypecontrol/forms.py:695
+#: lib/booktypecontrol/forms.py:704
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: lib/booktypecontrol/forms.py:700
+#: lib/booktypecontrol/forms.py:709
 msgid "Owner"
 msgstr "Eier"
 
-#: lib/booktypecontrol/forms.py:701
+#: lib/booktypecontrol/forms.py:710
 msgid "Book owner is required."
 msgstr "Boka må ha en eier."
 
-#: lib/booktypecontrol/forms.py:706
+#: lib/booktypecontrol/forms.py:715
 msgid "License"
 msgstr "Lisens"
 
-#: lib/booktypecontrol/forms.py:708
+#: lib/booktypecontrol/forms.py:717
 msgid "License is required."
 msgstr "Du må velge en lisens for boka."
 
-#: lib/booktypecontrol/forms.py:712
+#: lib/booktypecontrol/forms.py:721
 msgid "Initially hide from others"
 msgstr "Skjul fra andre i starten"
 
-#: lib/booktypecontrol/forms.py:716
+#: lib/booktypecontrol/forms.py:725
 msgid "Book image"
 msgstr "Bokbilde"
 
-#: lib/booktypecontrol/forms.py:720
+#: lib/booktypecontrol/forms.py:729
 msgid "Successfully created new book."
 msgstr "Vellykket opprettelse av ny bok."
 
-#: lib/booktypecontrol/forms.py:724
+#: lib/booktypecontrol/forms.py:733
 msgid "That book already exists."
 msgstr "Boken finnes allerede."
 
-#: lib/booktypecontrol/forms.py:768
+#: lib/booktypecontrol/forms.py:777
 msgid "URL title"
 msgstr "URL-tittel"
 
-#: lib/booktypecontrol/forms.py:771
+#: lib/booktypecontrol/forms.py:780
 msgid "Illegal characters in URL title."
 msgstr "Ugyldig tegn i URL-tittel."
 
-#: lib/booktypecontrol/forms.py:772
+#: lib/booktypecontrol/forms.py:781
 msgid ""
 "If you leave this field empty, a URL        title will be assigned "
 "automatically."
 msgstr "Lar du dette feltet stå tomt vil URL-tittel bli automatisk generert."
 
-#: lib/booktypecontrol/forms.py:812
+#: lib/booktypecontrol/forms.py:821
 msgid "Book PDF"
-msgstr "Trykke-PDF"
+msgstr "Papirbok (trykke-PDF)"
 
-#: lib/booktypecontrol/forms.py:816
+#: lib/booktypecontrol/forms.py:825
 msgid "Screen PDF"
 msgstr "Skjerm-PDF"
 
-#: lib/booktypecontrol/forms.py:820
+#: lib/booktypecontrol/forms.py:829
 msgid "EPUB"
 msgstr "EPUB"
 
-#: lib/booktypecontrol/forms.py:824
+#: lib/booktypecontrol/forms.py:833
 msgid "MOBI"
 msgstr "MOBI"
 
-#: lib/booktypecontrol/forms.py:828
+#: lib/booktypecontrol/forms.py:837
 msgid "XHTML"
 msgstr "XHTML"
 
-#: lib/booktypecontrol/forms.py:860
+#: lib/booktypecontrol/forms.py:869
 msgid "Book CSS"
 msgstr "Trykke-CSS"
 
-#: lib/booktypecontrol/forms.py:868
+#: lib/booktypecontrol/forms.py:877
 msgid "E-Book CSS"
 msgstr "E-bok CSS"
 
-#: lib/booktypecontrol/forms.py:876
+#: lib/booktypecontrol/forms.py:885
 msgid "PDF CSS"
 msgstr "PDF CSS"
 
-#: lib/booktypecontrol/forms.py:884
+#: lib/booktypecontrol/forms.py:893
 msgid "ODT CSS"
 msgstr "ODT CSS"
 
-#: lib/booktypecontrol/forms.py:938
+#: lib/booktypecontrol/forms.py:947
 msgid "Successfully created new group."
 msgstr "Vellykket opprettelse av ny gruppe."
 
-#: lib/booktypecontrol/forms.py:975
+#: lib/booktypecontrol/forms.py:984
 msgid "Successfully created new role."
 msgstr "Vellykket opprettelse av ny rolle."
 
-#: lib/booktypecontrol/forms.py:1014
+#: lib/booktypecontrol/forms.py:1023
 msgid "Role for anonymous users"
 msgstr "Rolle for anonyme brukere"
 
-#: lib/booktypecontrol/forms.py:1018
+#: lib/booktypecontrol/forms.py:1027
 msgid "Role for registered users"
 msgstr "Rolle for registrerte brukere"
 
-#: lib/booktypecontrol/forms.py:1023
+#: lib/booktypecontrol/forms.py:1032
 msgid "None"
 msgstr "Ingen"
 
@@ -518,9 +511,7 @@ msgstr "Slett gruppe"
 msgid ""
 "Are you sure you would like to delete this group? You will not be able to "
 "undo this operation!"
-msgstr ""
-"Er du sikker på at du vil slette denne gruppen? Du vil ikke kunne gjøre om "
-"denne handlingen."
+msgstr "Er du sikker på at du vil slette denne gruppen? Du vil ikke kunne gjøre om denne handlingen."
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:15
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:19
@@ -538,17 +529,13 @@ msgstr "Slett lisens"
 msgid ""
 "There are licensed books with this license. You should change the license "
 "for these books before deleting it."
-msgstr ""
-"Andre bøker bruker denne lisensen. Du må endre lisensen til disse andre "
-"bøker før du kan slette denne lisensen."
+msgstr "Andre bøker bruker denne lisensen. Du må endre lisensen til disse andre bøker før du kan slette denne lisensen."
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:14
 msgid ""
 "Are you sure you would like to delete this license? You will not be able to "
 "undo this operation!"
-msgstr ""
-"Er du sikker på at du vil slette denne lisensen? Du vil ikke kunne gjøre om "
-"denne handlingen."
+msgstr "Er du sikker på at du vil slette denne lisensen? Du vil ikke kunne gjøre om denne handlingen."
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:7
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:16
@@ -559,9 +546,7 @@ msgstr "Slett rolle"
 msgid ""
 "Are you sure you would like to delete this role? You will not be able to "
 "undo this operation!"
-msgstr ""
-"Er du sikker på at du vil slette denne rollen? Du vil ikke kunne gjøre om "
-"denne handlingen."
+msgstr "Er du sikker på at du vil slette denne rollen? Du vil ikke kunne gjøre om denne handlingen."
 
 #: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:13
 #: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:22
@@ -768,21 +753,16 @@ msgid "Hello"
 msgstr ""
 
 #: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:8
-#, fuzzy, python-format
-#| msgid ""
-#| "You've just had a Booktype account created for you! Please head over to "
-#| "%(server)s to log in. Here are your login credentials:"
+#, python-format
 msgid ""
 "Your Booktype account has been created! Please go to %(server)s to log in."
 msgstr ""
-"Du har akkurat fått en Booktype-konto opprettet for deg! Gå til %(server)s "
-"for å logge inn. Her er din innloggingsinformasjon:"
 
 #: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:12
 #, python-format
 msgid ""
-"If you don't know your password, please click the password reset link on the "
-"%(server)s home page."
+"If you don't know your password, please click the password reset link on the"
+" %(server)s home page."
 msgstr ""
 
 #: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:2
@@ -860,8 +840,7 @@ msgstr "Vellykket oppdatering av lisens."
 msgid ""
 "There are books remaining with this license.                     Unable to "
 "remove"
-msgstr ""
-"Det finnes andre bøker som bruker denne lisensen. Kan ikke fjerne lisensen."
+msgstr "Det finnes andre bøker som bruker denne lisensen. Kan ikke fjerne lisensen."
 
 #: lib/booktypecontrol/views.py:443
 msgid "License successfully deleted."
