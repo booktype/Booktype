@@ -30,11 +30,11 @@
   <!-- Bookbar -->
   <div class="bookbar">
     <h1>
-      <a class="draft-stat" href="{% url 'reader:infopage' book.url_title %}">{% trans "Info" %}</a>
-      <span class="draft-stat toctoggle closed" id="toctoggle">
+      <a class="draft-stat" title="{% trans "Open book information page" %}" href="{% url 'reader:infopage' book.url_title %}">{% trans "Info" %}</a>
+      <span title="{% trans "Toggle table of contents" %}" class="draft-stat toctoggle closed" id="toctoggle">
         <i class="icon-reorder"></i>
-        <span class="showToc">{% trans "Show" %}</span>
-        <span class="hideToc hide">{% trans "Hide" %}</span>
+        <span class="showToc" title="{% trans "Show table of contents" %}">{% trans "Show contents" %}</span>
+        <span class="hideToc hide" title="{% trans "Hide table of contents" %}">{% trans "Hide contents" %}</span>
       </span>
       {{ book.title }}
     </h1>
@@ -67,10 +67,25 @@
               <h1 class="section">{{ item.name }}</h1>
             {% elif item.is_chapter %}
               <div class="box white">
+
+                {% has_perm 'edit.edit_book' as can_edit_book %}
+                {% if can_edit_book %}
+                  <button data-href="{% url 'edit:editor' book.url_title %}#edit/{{ item.chapter.id }}" role="button" class="btn btn-default float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit this chapter" %}">
+                    {% trans "EDIT" %}
+                  </button>
+                {% endif %}
+
                 <div class="chapter-inner">
                   <div class="chapter_anchor" id="{{ item.chapter.url_title }}"></div>
                   {% booktype_format item.chapter %}
                 </div>
+
+                {% if can_edit_book %}
+                  <button data-href="{% url 'edit:editor' book.url_title %}#edit/{{ item.chapter.id }}" role="button" class="btn btn-default float-right" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Edit this chapter" %}">
+                    {% trans "EDIT" %}
+                  </button>
+                {% endif %}
+
               </div>
             {% endif %}
           {% endfor %}
