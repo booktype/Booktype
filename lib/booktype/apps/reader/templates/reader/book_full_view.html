@@ -12,10 +12,10 @@
     <link href='{% static 'reader/css/fullview.css' %}' rel='stylesheet' type='text/css'/>
   {% endcompress %}
 
-  {% if theme.active != 'custom' %}
+  {% if theme and theme.active != 'custom' %}
     <link href='{% static 'themes/'|add:theme.active|add:'/preload.css' %}' rel='stylesheet' type='text/css'/>
     <link href='{% static 'themes/'|add:theme.active|add:'/editor.css' %}' rel='stylesheet' type='text/css'/>
-  {% else %}
+  {% elif theme %}
     <script type="text/javascript">
       var themeCustom = JSON.parse('{{ theme.custom|safe }}');
     </script>
