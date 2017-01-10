@@ -44,7 +44,6 @@ IMPORTER_MAP = {
 
 
 class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
-    form_class = UploadBookForm
 
     def check_permissions(self, request, *args, **kwargs):
         if self.request.user.is_superuser:
@@ -61,7 +60,7 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
         if Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1:
             raise PermissionDenied
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=UploadBookForm):
         request = self.request
         return form_class(data=request.POST, files=request.FILES)
 

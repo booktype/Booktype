@@ -169,10 +169,9 @@ class SingleNextMixin(object):
 class EditBookInfoView(SingleNextMixin, LoginRequiredMixin,
                        BaseReaderView, UpdateView):
     template_name = "reader/book_info_edit.html"
-    form_class = EditBookInfoForm
     context_object_name = 'book'
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=EditBookInfoForm):
         return form_class(user=self.request.user, **self.get_form_kwargs())
 
     def form_valid(self, form):
