@@ -347,10 +347,9 @@ class PasswordChangeView(BaseCCView, FormView, SingleObjectMixin):
     context_object_name = 'current_user'
     page_title = _('Admin Control Center')
     title = page_title
-    form_class = control_forms.PasswordForm
     template_name = "booktypecontrol/control_center_settings.html"
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=control_forms.PasswordForm):
         self.object = self.get_object()
         return form_class(user=self.object, **self.get_form_kwargs())
 
