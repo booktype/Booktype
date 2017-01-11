@@ -12,7 +12,8 @@ from django.utils.translation import ugettext as _
 
 from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
-from booktype.utils.misc import booktype_slugify
+
+from booktype.utils.misc import booktype_slugify, get_default_book_status
 from booktype.importer.notifier import Notifier
 from booktype.importer.delegate import Delegate
 
@@ -161,7 +162,8 @@ class WordImporter(object):
         f.close()
 
     def _import_attachments(self, book, doc):
-        stat = models.BookStatus.objects.filter(book=book, name='new')[0]
+        default_status = get_default_book_status()
+        stat = models.BookStatus.objects.filter(book=book, name=default_status)[0]
 
         unimportable_image = False
         not_supported = False
@@ -223,7 +225,8 @@ class WordImporter(object):
 
     def _import_chapters(self, book, chapters):
         now = datetime.datetime.now()
-        stat = models.BookStatus.objects.filter(book=book, name="new")[0]
+        default_status = get_default_book_status()
+        stat = models.BookStatus.objects.filter(book=book, name=default_status)[0]
         n = 100
 
         for chapter_title, chapter_content in chapters:
@@ -255,7 +258,14 @@ class WordImporter(object):
             if chapter_content[6:-8].strip() == '':
                 continue
 
-            chapter_content = unidecode(self._parse_chapter(chapter_content))
+            _content = self._parse_chapter(chapter_content)
+            try:
+                chapter_content = unidecode(_content)[6:-8]
+            except UnicodeDecodeError:
+                chapter_content = self._parse_chapter(_content).decode('utf-8', errors='ignore')[6:-8]
+            except Exception as err:
+                chapter_content = 'Error parsing chapter content'
+                logger.exception("Error while decoding chapter content {0}".format(err))
 
             chapter = models.Chapter(
                 book=book,
@@ -263,7 +273,7 @@ class WordImporter(object):
                 url_title=booktype_slugify(possible_title),
                 title=possible_title,
                 status=stat,
-                content=chapter_content[6:-8],
+                content=chapter_content,
                 created=now,
                 modified=now
             )
