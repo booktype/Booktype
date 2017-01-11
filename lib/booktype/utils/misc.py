@@ -613,3 +613,11 @@ def is_valid_email(email):
         return False
 
     return False
+
+
+def get_default_book_status():
+    """Returns the default book status"""
+
+    status_list = config.get_configuration('CHAPTER_STATUS_LIST')
+    default_status = config.get_configuration('CHAPTER_STATUS_DEFAULT', status_list[0])
+    return default_status
