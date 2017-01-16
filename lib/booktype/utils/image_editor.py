@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import hashlib
 import math
 from PIL import Image, ImageEnhance, ImageFilter
 
@@ -79,18 +80,25 @@ class BkImageEditor(object):
 
         filename, extension = self._input_image_filename.rsplit('.', 1)
 
-        return ptrn.format(filename=filename,
-                           image_width=self._image_width, image_height=self._image_height,
-                           image_translate_x=self._image_translate_x, image_translate_y=self._image_translate_y,
-                           image_flip_x=self._image_flip_x, image_flip_y=self._image_flip_y,
-                           image_rotate_degree=self._image_rotate_degree,
-                           image_contrast=self._image_contrast,
-                           image_brightness=self._image_brightness,
-                           image_blur=self._image_blur,
-                           image_saturate=self._image_saturate,
-                           image_opacity=self._image_opacity,
-                           frame_width=self._frame_width, frame_height=self._frame_height,
-                           extension=extension.lower())
+        output_filename = ptrn.format(filename=filename,
+                                      image_width=self._image_width, image_height=self._image_height,
+                                      image_translate_x=self._image_translate_x,
+                                      image_translate_y=self._image_translate_y,
+                                      image_flip_x=1 if self._image_flip_x else 0,
+                                      image_flip_y=1 if self._image_flip_y else 0,
+                                      image_rotate_degree=self._image_rotate_degree,
+                                      image_contrast=self._image_contrast,
+                                      image_brightness=self._image_brightness,
+                                      image_blur=self._image_blur,
+                                      image_saturate=self._image_saturate,
+                                      image_opacity=self._image_opacity,
+                                      frame_width=self._frame_width, frame_height=self._frame_height,
+                                      extension=extension.lower())
+
+        return '{cache_hash}.{extension}'.format(
+            cache_hash=hashlib.md5(output_filename).hexdigest(),
+            extension=extension.lower()
+        )
 
     def process(self, image_width, image_height, image_translate_x,
                 image_translate_y, image_flip_x, image_flip_y, image_rotate_degree, image_contrast,
@@ -137,7 +145,7 @@ class BkImageEditor(object):
 
         output_filepath = os.path.join(self._cache_folder, self.output_filename)
 
-        # cache
+        # cache folder
         if not os.path.exists(self._cache_folder):
            os.makedirs(self._cache_folder)
 
