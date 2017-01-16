@@ -37,7 +37,7 @@ class ImageEditorWriterPlugin(BasePlugin):
             os.path.join(settings.MEDIA_ROOT, 'bk_image_editor', self._cache_subdirectory)
         )
         self._ebooklib_item_image_id = 0
-        self._initial_ebooklib_images = {}
+        self._is_initial_epub_images_removed = False
 
     def html_before_write(self, book, item):
         if item.get_type() != ebooklib.ITEM_DOCUMENT:
@@ -45,6 +45,8 @@ class ImageEditorWriterPlugin(BasePlugin):
 
         if isinstance(item, ebooklib.epub.EpubNav):
             return True
+
+        self._remove_initial_epub_images(book)
 
         root = ebooklib.utils.parse_html_string(item.content)
 
@@ -56,24 +58,17 @@ class ImageEditorWriterPlugin(BasePlugin):
                 if extension in BkImageEditor.EXTENSION_MAP:
                     self._write_edited_image(book, img_element)
 
-        self._remove_extra_images(book, root)
-
         item.content = etree.tostring(root, pretty_print=True, encoding="utf-8", xml_declaration=True)
 
         return True
 
     def _write_edited_image(self, book, elem):
-
         src = elem.get('src')
         src_filename = src.rsplit('/')[-1]
 
-        ###########################
-        # find ebook image object #
-        ###########################
+        # find existing ebook image object
         for item in book.get_items_of_type(ebooklib.ITEM_IMAGE):
             if item.file_name.rsplit('/')[-1] == src_filename:
-                ebooklib_item_image = item
-                self._initial_ebooklib_images[src] = item
                 break
         # create ebooklib image item
         else:
@@ -102,37 +97,21 @@ class ImageEditorWriterPlugin(BasePlugin):
                     # close buffer for output image file
                     output_io.close()
 
-                    # create unique name
-                    _name = src.rsplit('/', 1)
-                    # remove extension
-                    _fname = _name[1].rsplit('.', 1)[0]
-                    # remove edit info
-                    _fname = _fname.split('_edited_image', 1)[0]
-                    # create new filename with extension
-                    _new_file_name = _fname + '_edited_image_' + str(self._ebooklib_item_image_id) + '.' + extension
-                    # swap filename
-                    _name[1] = _new_file_name
-                    # create new src for html
-                    new_src = '/'.join(_name)
                     # change image src in html
-                    elem.set("src", new_src)
+                    elem.set("src", src)
                     # set filename for epub object
-                    new_ebooklib_item_image.file_name = u'{}/{}'.format(IMAGES_DIR, _new_file_name)
+                    new_ebooklib_item_image.file_name = u'{}/{}'.format(IMAGES_DIR, src_filename)
                     # add epub.EpubImage to the book
                     book.add_item(new_ebooklib_item_image)
 
                     # counter++
                     self._ebooklib_item_image_id += 1
 
-    def _remove_extra_images(self, book, root):
-        all_images_src = set()
+    def _remove_initial_epub_images(self, book):
+        if self._is_initial_epub_images_removed:
+            return
 
-        for element in root.iter("img"):
-            all_images_src.add(element.get('src'))
+        for item in [image_item for image_item in book.get_items_of_type(ebooklib.ITEM_IMAGE)]:
+            book.items.remove(item)
 
-        for initial_src in self._initial_ebooklib_images:
-            if initial_src not in all_images_src:
-                book.items.remove(self._initial_ebooklib_images[initial_src])
-
-        # reset for the next chapter
-        self._initial_ebooklib_images = {}
+        self._is_initial_epub_images_removed = True
