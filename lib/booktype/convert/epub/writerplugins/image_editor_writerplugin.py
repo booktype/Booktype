@@ -10,9 +10,7 @@ from ebooklib.plugins.base import BasePlugin
 from django.conf import settings
 
 from booktype.utils.image_editor import BkImageEditor
-
-from .constants import IMAGES_DIR
-
+from ..constants import IMAGES_DIR
 
 try:
     import Image

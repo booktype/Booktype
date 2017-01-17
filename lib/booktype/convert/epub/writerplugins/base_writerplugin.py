@@ -7,8 +7,8 @@ import ebooklib
 from lxml import etree
 from ebooklib.plugins.base import BasePlugin
 
-from ..utils.epub import reformat_endnotes
-from .constants import (
+from booktype.convert.utils.epub import reformat_endnotes
+from ..constants import (
     STYLES_DIR, IMAGES_DIR,
     DEFAULT_LANG, EPUB_VALID_IMG_ATTRS
 )

@@ -103,6 +103,26 @@ XHTML_DOCUMENT_WIDTH = 2480
 MOBI_DOCUMENT_WIDTH = 2480
 EPUB_DOCUMENT_WIDTH = 2480
 
+EPUB_NOT_ALLOWED_TAGS = (
+    # 'strip' - drop tag, leave content
+    # 'drop' - drop tag, drop content
+    # 'replace' - replace tag with 'replacement'
+    # EXAMPLES:
+    # {'tag': 'i', 'action': 'strip'},
+    # {'tag': 'b', 'action': 'drop'},
+    # {
+    #     'tag': 'u',
+    #     'action': 'replace',
+    #     'replacement': {
+    #         'tag': 'span',
+    #         'attrs': (
+    #             ('style', 'text-decoration: underline;'),
+    #             ('class', 'happy'),
+    #         )
+    #     }
+    # },
+)
+
 EXPORT_SETTINGS = {
     'mpdf': [
         {u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
