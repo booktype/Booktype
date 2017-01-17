@@ -13,3 +13,5 @@ EPUB_VALID_IMG_ATTRS = frozenset([
 ])
 
 EPUB_DOCUMENT_WIDTH = config.get_configuration('EPUB_DOCUMENT_WIDTH')
+
+EPUB_NOT_ALLOWED_TAGS = config.get_configuration('EPUB_NOT_ALLOWED_TAGS')

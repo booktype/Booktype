@@ -36,17 +36,17 @@ from booktype.apps.convert.templatetags.convert_tags import (
 from booktype.apps.convert import plugin
 from booktype.convert.image_editor_conversion import ImageEditorConversion
 
-from ..base import BaseConverter
-from ..utils.epub import parse_toc_nav
-
 from .writer import Writer
-from .writerplugin import WriterPlugin
-from .image_editor_writerplugin import ImageEditorWriterPlugin
+from .writerplugins import WriterPlugin, ImageEditorWriterPlugin, CleanupTagsWriterPlugin
+
 from .cover import add_cover, COVER_FILE_NAME
 from .constants import (
     IMAGES_DIR, STYLES_DIR, FONTS_DIR,
     DOCUMENTS_DIR, DEFAULT_LANG, EPUB_DOCUMENT_WIDTH
 )
+
+from ..base import BaseConverter
+from ..utils.epub import parse_toc_nav
 
 logger = logging.getLogger("booktype.convert.epub")
 
@@ -207,8 +207,9 @@ class EpubConverter(BaseConverter):
 
         writer_plugin = self._get_writer_plugin(epub_book, original_book)
         image_editor_writer_plugin = ImageEditorWriterPlugin(self.config.get("project_id"))
+        cleanup_tags_writerplugin = CleanupTagsWriterPlugin()
 
-        return [writer_plugin, image_editor_writer_plugin]
+        return [writer_plugin, image_editor_writer_plugin, cleanup_tags_writerplugin]
 
     def _get_writer_class(self):
         """Simply returns the default writer class to be used by the converter"""
