@@ -418,7 +418,7 @@ define([
           return <CommentBox key={comment.cid} permissions={permissions} {...comment} />;
         });
 
-        var noCommentsYet = function () {
+        var addCommentMsg = function () {
           return (
             <div>
               {booktype._('insert_comment_text')}
@@ -426,13 +426,14 @@ define([
               <button onClick={self.noCommentsHandler} className="btn btn-sm btn-primary no-comments-yet-btn disabled">
                 {booktype._('insert_comment_btn')}
               </button>
+              <br /><br />
             </div>
           );
         };
 
         return (
           <div>
-            {(comments.length === 0) ? noCommentsYet() : null}
+            {addCommentMsg()}
             {commentItems}
           </div>
         );
