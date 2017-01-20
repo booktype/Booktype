@@ -123,6 +123,14 @@ EPUB_NOT_ALLOWED_TAGS = (
     # },
 )
 
+EPUB_AVAILABLE_INBODY_ROOT_TAGS = (
+    # According to epubcheck, after(inside) body tag,
+    # on the 1st level of deepness, must be only the next list of tags.
+    # If tag doesn't fit requierements, it will be replaced with "<p>"
+    'address', 'blockquote', 'del', 'div', 'dl', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+    'hr', 'ins', 'noscript', 'ns:svg', 'ol', 'p', 'pre', 'script', 'table', 'ul'
+)
+
 EXPORT_SETTINGS = {
     'mpdf': [
         {u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
