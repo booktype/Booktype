@@ -131,6 +131,12 @@ EPUB_AVAILABLE_INBODY_ROOT_TAGS = (
     'hr', 'ins', 'noscript', 'ns:svg', 'ol', 'p', 'pre', 'script', 'table', 'ul'
 )
 
+EPUB_ALLOWED_TAG_ATTRS = (
+    # mapping tag and allowed attributes in it
+    # required by epubcheck
+    ('ol', ('class', 'dir', 'id', 'lang', 'style', 'title', 'xml:lang')),
+)
+
 EXPORT_SETTINGS = {
     'mpdf': [
         {u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
