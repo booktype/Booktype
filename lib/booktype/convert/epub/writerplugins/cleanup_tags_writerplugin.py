@@ -5,7 +5,7 @@ from lxml import etree
 from lxml.etree import strip_tags, strip_elements
 from ebooklib.plugins.base import BasePlugin
 
-from ..constants import EPUB_NOT_ALLOWED_TAGS, EPUB_AVAILABLE_INBODY_ROOT_TAGS
+from ..constants import EPUB_NOT_ALLOWED_TAGS, EPUB_AVAILABLE_INBODY_ROOT_TAGS, EPUB_ALLOWED_TAG_ATTRS
 
 
 class CleanupTagsWriterPlugin(BasePlugin):
@@ -43,6 +43,26 @@ class CleanupTagsWriterPlugin(BasePlugin):
                     child.tag = 'p'
                     child.attrib.clear()
 
+    def _cleanup_attrs(self, root):
+        """
+        Cleanup attributes which are not fit epubcheck requirements
+        :param root: lxml.html.HtmlElement
+        """
+
+        # Check all elements with attr "id" exists
+        # XML ID's are not allowed to start with a number!
+        for element in root.xpath('//*[@id]'):
+            if element.attrib['id'][0].isdigit():
+                del element.attrib['id']
+
+        # remove not allowed tags
+        # required to fit epubcheck requirements
+        for tag, permitted_attrs in EPUB_ALLOWED_TAG_ATTRS:
+            for element in root.iter(tag):
+                not_allowed_keys = set(element.attrib.keys()) - set(permitted_attrs)
+                for attr_key in not_allowed_keys:
+                    del element.attrib[attr_key]
+
 
     def html_before_write(self, book, item):
         if item.get_type() != ebooklib.ITEM_DOCUMENT:
@@ -53,6 +73,7 @@ class CleanupTagsWriterPlugin(BasePlugin):
 
         root = ebooklib.utils.parse_html_string(item.content)
         self._cleanup_root(root)
+        self._cleanup_attrs(root)
         self._cleanup(root)
         item.content = etree.tostring(root, pretty_print=True, encoding="utf-8", xml_declaration=True)
 
