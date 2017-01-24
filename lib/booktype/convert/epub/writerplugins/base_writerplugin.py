@@ -36,6 +36,7 @@ class WriterPlugin(BasePlugin):
         item.lang = self.options.get('lang', DEFAULT_LANG)
 
         root = ebooklib.utils.parse_html_string(item.content)
+        self._fix_text(root)
         self._fix_images(root)
         self._reformat_endnotes(root)
 
@@ -43,6 +44,20 @@ class WriterPlugin(BasePlugin):
             root, pretty_print=True, encoding="utf-8", xml_declaration=True)
 
         return True
+
+    def _fix_text(self, root):
+        """
+        Find text in the chapter's root which is not covered with tags and cover it with "p"
+        :param root: lxml node tree with the chapter content
+        """
+        for element in root.xpath('//body')[0].getchildren():
+            if len(element.tail.strip()):
+                p = etree.Element("p")
+                p.text = element.tail
+                element.tail = None
+                element.addnext(p)
+            else:
+                element.tail = None
 
     def _fix_images(self, root):
         """Fix the path of the images to match with IMAGES_DIR"""
