@@ -11,6 +11,7 @@ from django.conf import settings
 
 from booktype.utils.image_editor import BkImageEditor
 from ..constants import IMAGES_DIR
+from ..cover import IMAGE_FILE_NAME
 
 try:
     import Image
@@ -110,6 +111,7 @@ class ImageEditorWriterPlugin(BasePlugin):
             return
 
         for item in [image_item for image_item in book.get_items_of_type(ebooklib.ITEM_IMAGE)]:
-            book.items.remove(item)
+            if item.file_name.rsplit('/')[-1] != IMAGE_FILE_NAME:
+                book.items.remove(item)
 
         self._is_initial_epub_images_removed = True
