@@ -306,15 +306,18 @@ class SectionsSettingsPlugin(BasePlugin):
                             # section name should point to first chapter under it
                             # otherwise it doesn't make sense to show just the label
                             # AND because we have a filter to remove empty sections :)
-                            # chaps = sublist_node.find('li')
-                            # href = chaps[0].get('href') if len(chaps) > 0 else "#"
-                            #
-                            # item_node[0].tag = 'a'
-                            # item_node[0].set('href', href)
+                            parent = item_node.getparent()
+                            index = parent.index(item_node)
 
-                            # sublist_node.getparent().remove(sublist_node)
-                            for chap in sublist_node.iterchildren('li'):
-                                chap.getparent().remove(chap)
+                            if len(sublist_node) > 0:
+                                section_label = item_node[0]
+                                item_node.remove(section_label)
+
+                                child = sublist_node[0]
+                                child[0].text = section_label.text
+                                parent.insert(index, child)
+
+                                sublist_node.getparent().remove(sublist_node)
 
                         elif toc_setting == 'hide_section_hide_chapters':
                             item_node.drop_tree()

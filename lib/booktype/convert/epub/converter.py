@@ -295,8 +295,9 @@ class EpubConverter(BaseConverter):
         toc = filter(_skip_cover, parse_toc_nav(original_book))
         toc = map(mapper, toc)
 
-        # commented this because we need it for section settings
-        # toc = filter(_empty_sec, toc)
+        # we don't allow empty sections just because epubcheck will
+        # raise an error at the moment of evaluating the toc.ncx file
+        toc = filter(_empty_sec, toc)
 
         epub_book.toc = toc
 
