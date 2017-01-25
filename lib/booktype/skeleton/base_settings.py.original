@@ -240,6 +240,9 @@ INSTALLED_APPS = (
 
     'compressor',
     'djcelery',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_swagger',
 
     # list of booki apps
     'booki.editor',
@@ -248,6 +251,7 @@ INSTALLED_APPS = (
     'booktype',
 
     # list of booktype apps
+    'booktype.api',
     'booktype.apps.core',
     'booktype.apps.portal',
     'booktype.apps.loadsave',
@@ -271,6 +275,24 @@ BOOKTYPE_CONVERTER_MODULES = (
     'booktype.convert.converters',
 )
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+        'booktype.api.security.BooktypeSecurity',
+        'booktype.api.security.WhitelistIPPermission'
+    ),
+
+    'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100
+}
+
+
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
 
@@ -290,6 +312,10 @@ BOOKTYPE_DEFAULT_ROLES = {
 # Configuration for the invite functionality
 BOOKTYPE_INVITE_SUBJECT = gettext('You\'ve been invited to collaborate')
 BOOKTYPE_DEFAULT_INVITE_MESSAGE = gettext('You\'ve been invited to collaborate')
+
+# Whitelist of allowed ips to access api resources
+# booktype.api.security.WhitelistIPPermission is required in rest_framework conf
+BOOKTYPE_API_ALLOWED_IPS = ['*']
 
 # DEPRECATED CONFIG
 

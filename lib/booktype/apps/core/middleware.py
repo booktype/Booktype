@@ -1,3 +1,4 @@
+import rest_framework
 from django.contrib.auth import logout
 
 from booktype.utils.security import Security, get_security
@@ -6,6 +7,9 @@ from booktype.utils.security import Security, get_security
 class SecurityMiddleware(object):
 
     def process_template_response(self, request, response):
+
+        if isinstance(response, rest_framework.response.Response):
+            return response
 
         sec = response.context_data.get('security', None)
         if not sec or type(sec) is not Security:
