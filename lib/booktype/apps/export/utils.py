@@ -225,7 +225,7 @@ class ExportBook(object):
         # comments reference bubble should be removed by default for now
         # TODO: we should implement a way to attach the comments to the raw epub file
         if kwargs.get('remove_comments', True):
-            self.DEFAULT_PLUGINS.append(CommentsCleanPlugin())
+            self.DEFAULT_PLUGINS.insert(0, CommentsCleanPlugin())
 
         # add extra plugins
         self.DEFAULT_PLUGINS += kwargs.get('extra_plugins', [])
