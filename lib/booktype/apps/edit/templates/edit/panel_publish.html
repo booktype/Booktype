@@ -40,6 +40,10 @@
     {% include 'pdfreactor/publish_settings.html' %}
   {% endif %}
 
+  {% if "pdfreactor-screenpdf" in publish_options %}
+    {% include 'pdfreactor/publish_settings-screenpdf.html' %}
+  {% endif %}
+
   <div class="modal fade settings-dialog" id="settings-mpdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog new_book">
       <div class="modal-content">
@@ -408,6 +412,10 @@
 
         {% if "pdfreactor" in publish_options %}
           {% include "pdfreactor/publish_option.html" %}
+        {% endif %}
+
+        {% if "pdfreactor-screenpdf" in publish_options %}
+          {% include "pdfreactor/publish_option-screenpdf.html" %}
         {% endif %}
 
         {% if "mpdf" in publish_options %}
