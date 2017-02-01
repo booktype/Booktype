@@ -28,13 +28,13 @@ BOOK_TRACK_CHANGES = False
 
 # CHAPTER STATUS RELATED
 CHAPTER_STATUS_LIST = [
-    ugettext_noop('new'),
-    ugettext_noop('needs content'),
-    ugettext_noop('completed'),
-    ugettext_noop('to be proofed')
+    {'name': ugettext_noop('new'), 'color': '#3a87ad'},
+    {'name': ugettext_noop('needs content'), 'color': '#ff0000'},
+    {'name': ugettext_noop('completed'), 'color': '#5cb85c'},
+    {'name': ugettext_noop('to be proofed'), 'color': '#f0ad4e'}
 ]
 
-CHAPTER_STATUS_DEFAULT = CHAPTER_STATUS_LIST[0]
+CHAPTER_STATUS_DEFAULT = CHAPTER_STATUS_LIST[0]['name']
 
 # SERVER RELATED
 THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST',

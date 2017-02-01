@@ -69,6 +69,7 @@ class BookStatus(models.Model):
     book = models.ForeignKey('Book', verbose_name=_("book"))
     name = models.CharField(_('name'), max_length=30, blank=False)
     weight = models.SmallIntegerField(_('weight'))
+    color = models.CharField(_('color'), max_length=30, default='', blank=True)
 
     def __unicode__(self):
         return self.name
@@ -713,15 +714,18 @@ class Attachment(models.Model):
     getName = get_name
 
 
-# Book Toc
-TYPEOF_CHOICES = (
-    (0, _('section name')),
-    (1, _('chapter name')),
-    (2, _('line'))
-)
-
-
 class BookToc(models.Model):
+    # Book Toc
+    SECTION_TYPE = 0
+    CHAPTER_TYPE = 1
+    LINE_TYPE = 2
+
+    TYPEOF_CHOICES = (
+        (SECTION_TYPE, _('section name')),
+        (CHAPTER_TYPE, _('chapter name')),
+        (LINE_TYPE, _('line'))
+    )
+
     version = models.ForeignKey(BookVersion, null=False, verbose_name=_("version"))
     # book should be removed
     book = models.ForeignKey(Book, null=False, verbose_name=_("book"))

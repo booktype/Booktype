@@ -132,7 +132,8 @@ class ChapterStatusForm(BaseSettingsForm, forms.Form):
                         .filter(book=book)
                         .annotate(num_chapters=Count('chapter'))
                         .order_by('-weight'))
-        all_statuses = [{'pk': status.pk, 'name': _lazy(status.name)} for status in all_statuses]
+        all_statuses = [
+            {'pk': status.pk, 'name': _lazy(status.name), 'color': status.color} for status in all_statuses]
 
         return {
             'roles_permissions': security.get_user_permissions(request.user, book),
