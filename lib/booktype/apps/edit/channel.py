@@ -133,7 +133,8 @@ def get_toc_dict_for_book(version):
                 'parentID': parent_id,
                 'tocID': chap.id,
                 'state': state,
-                'editBy': current_editor
+                'editBy': current_editor,
+                'hasComments': chap.chapter.has_comments
             })
         else:
             results.append({
@@ -147,7 +148,8 @@ def get_toc_dict_for_book(version):
                 'parentID': parent_id,
                 'tocID': chap.id,
                 'state': 'normal',     # fake state
-                'editBy': None         # fake current editor
+                'editBy': None,         # fake current editor,
+                'hasComments': False
             })
     return results
 
@@ -534,12 +536,14 @@ def remote_chapter_state(request, message, bookid, version):
         sputnik.rdelete("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"],
                                                             request.user.username))
 
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_state",
-                                 "chapterID": message["chapterID"],
-                                 "state": message["state"],
-                                 "username": request.user.username},
-                                myself=True)
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_state",
+            "chapterID": message["chapterID"],
+            "state": message["state"],
+            "username": request.user.username,
+            "hasComments": chapter.has_comments
+        }, myself=True)
 
     return {"result": True}
 
