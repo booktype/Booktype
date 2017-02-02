@@ -619,5 +619,5 @@ def get_default_book_status():
     """Returns the default book status"""
 
     status_list = config.get_configuration('CHAPTER_STATUS_LIST')
-    default_status = config.get_configuration('CHAPTER_STATUS_DEFAULT', status_list[0])
+    default_status = config.get_configuration('CHAPTER_STATUS_DEFAULT', status_list[0]['name'])
     return default_status

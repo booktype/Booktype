@@ -26,7 +26,7 @@ import booki.editor.signals
 from booki.editor import models
 from booki.utils.log import logBookHistory
 from booktype.utils import config
-from .misc import booktype_slugify
+from .misc import booktype_slugify, get_default_book_status
 
 try:
     from PIL import Image
@@ -98,13 +98,13 @@ def create_book(user, book_title, status=None, book_url=None):
     status_list = config.get_configuration('CHAPTER_STATUS_LIST')
     n = len(status_list)
 
-    if status:
-        default_status = status
-    else:
-        default_status = config.get_configuration('CHAPTER_STATUS_DEFAULT', status_list[0])
+    default_status = status if status else get_default_book_status()
 
-    for status_name in status_list:
-        status = models.BookStatus(book=book, name=status_name, weight=n)
+    for status_elem in status_list:
+        status = models.BookStatus(
+            book=book, name=status_elem['name'],
+            weight=n, color=status_elem['color']
+        )
         status.save()
         n -= 1
 

@@ -15,7 +15,7 @@
     <ol class="sortable-status ui-sortable" >
         {% for status in status_list  %}
         <li class="item" style="display: list-item;" id='list_{{ status.pk }}' data-id='{{ status.pk }}'>
-            <div>
+            <div style="border-left-color: {{ status.color }};">
                 <div class="status-name">{{ status.name }}</div>
                 <div class="edit-status-block">
                     <div class="input-group">
@@ -45,11 +45,11 @@
         <div class="status-name"><%= name %></div>
         <div class="edit-status-block">
             <div class="input-group">
-            <input type="text" class="form-control">
-            <span class="input-group-btn">
-                        <button class="btn btn-default btn-xs edit-status-ok" type="button"><i class="icon-ok"></i></button>
-                        <button class="btn btn-default btn-xs edit-status-cancel" type="button"><i class="icon-remove"></i></button>
-            </span>
+              <input type="text" class="form-control">
+              <span class="input-group-btn">
+                  <button class="btn btn-default btn-xs edit-status-ok" type="button"><i class="icon-ok"></i></button>
+                  <button class="btn btn-default btn-xs edit-status-cancel" type="button"><i class="icon-remove"></i></button>
+              </span>
             </div>
         </div>
         </div>

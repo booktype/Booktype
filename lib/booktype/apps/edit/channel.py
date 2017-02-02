@@ -102,6 +102,58 @@ def get_toc_for_book(version):
     return results
 
 
+def get_toc_dict_for_book(version):
+    """
+    Function returns list of TOC elements. Elements of list are dictionaries.
+
+    @rtype: C{list}
+    @return: Returns list of TOC elements
+    """
+
+    results = []
+    for chap in version.get_toc():
+        parent_id = chap.parent.id if chap.parent else "root"
+
+        # is it a section or chapter?
+        if chap.chapter:
+
+            state = "normal"
+            current_editor = chap.chapter.get_current_editor_username()
+            if current_editor:
+                state = "edit"
+
+            results.append({
+                'chapterID': chap.chapter.id,
+                'title': chap.chapter.title,
+                'urlTitle': chap.chapter.url_title,
+                'isSection': (chap.typeof != models.BookToc.CHAPTER_TYPE),
+                'status': chap.chapter.status.id,
+                'lockType': chap.chapter.lock_type,
+                'lockUsername': chap.chapter.lock_username,
+                'parentID': parent_id,
+                'tocID': chap.id,
+                'state': state,
+                'editBy': current_editor,
+                'hasComments': chap.chapter.has_comments
+            })
+        else:
+            results.append({
+                'chapterID': chap.id,
+                'title': chap.name,
+                'urlTitle': chap.name,
+                'isSection': True,
+                'status': None,        # fake status
+                'lockType': 0,         # fake unlocked
+                'lockUsername': None,  # fake lock username
+                'parentID': parent_id,
+                'tocID': chap.id,
+                'state': 'normal',     # fake state
+                'editBy': None,         # fake current editor,
+                'hasComments': False
+            })
+    return results
+
+
 def get_hold_chapters(book_version):
     """
     Function returns list of hold chapters. Elements of list are tuples with
@@ -238,7 +290,7 @@ def remote_init_editor(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
     # get chapters
-    chapters = get_toc_for_book(book_version)
+    chapters = get_toc_dict_for_book(book_version)
     hold_chapters = get_hold_chapters(book_version)
 
     # get users
@@ -253,7 +305,8 @@ def remote_init_editor(request, message, bookid, version):
         users = []
 
     # get workflow statuses
-    statuses = [(st.id, _lazy(st.name)) for st in models.BookStatus.objects.filter(book=book).order_by("-weight")]
+    statuses = [
+        (st.id, _lazy(st.name), st.color) for st in models.BookStatus.objects.filter(book=book).order_by("-weight")]
 
     # get attachments
     try:
@@ -265,32 +318,29 @@ def remote_init_editor(request, message, bookid, version):
     metadata = [{'name': v.name, 'value': v.get_value()} for v in models.Info.objects.filter(book=book)]
 
     # notify others
-    sputnik.addMessageToChannel(request, "/chat/%s/" % bookid,
-                                {"command": "user_joined",
-                                 "email": request.user.email,
-                                 "user_joined": request.user.username},
-                                myself=False)
+    sputnik.addMessageToChannel(
+        request, "/chat/%s/" % bookid, {
+            "command": "user_joined",
+            "email": request.user.email,
+            "user_joined": request.user.username
+        }, myself=False)
 
     # get licenses
     licenses = [(elem.abbrevation, elem.name) for elem in models.License.objects.all().order_by("name")]
 
     # get online users
-
     try:
-        _onlineUsers = sputnik.smembers("sputnik:channel:%s:users" % message["channel"])
+        _online_users = sputnik.smembers("sputnik:channel:%s:users" % message["channel"])
     except:
-        _onlineUsers = []
+        _online_users = []
 
-    if request.user.username not in _onlineUsers:
+    if request.user.username not in _online_users:
         send_notification(request, bookid, version, "notification_user_joined_the_editor", request.user.username)
         try:
             sputnik.sadd("sputnik:channel:%s:users" % message["channel"], request.user.username)
-            _onlineUsers.append(request.user.username)
+            _online_users.append(request.user.username)
         except:
             pass
-
-        # get mood message for current user
-        # send mood as seperate message
 
         # set notifications to other clients
         try:
@@ -298,23 +348,22 @@ def remote_init_editor(request, message, bookid, version):
         except AttributeError:
             profile = None
 
+        moodMessage = ''
         if profile:
             moodMessage = profile.mood
-        else:
-            moodMessage = ''
 
-        sputnik.addMessageToChannel(request,
-                                    "/booktype/book/%s/%s/" % (bookid, version),
-                                    {"command": "user_add",
-                                     "username": request.user.username,
-                                     "first_name": request.user.first_name,
-                                     "last_name": request.user.last_name,
-                                     "email": request.user.email,
-                                     "mood": moodMessage}
-                                    )
+        sputnik.addMessageToChannel(
+            request, "/booktype/book/{}/{}/".format(bookid, version), {
+                "command": "user_add",
+                "username": request.user.username,
+                "first_name": request.user.first_name,
+                "last_name": request.user.last_name,
+                "email": request.user.email,
+                "mood": moodMessage
+            })
 
     # get online users and their mood messages
-    def _getUser(_user):
+    def _get_user(_user):
         try:
             _u = User.objects.get(username=_user)
             return {
@@ -327,9 +376,7 @@ def remote_init_editor(request, message, bookid, version):
         except:
             return None
 
-    onlineUsers = filter(bool, [x for x in [_getUser(x) for x in _onlineUsers] if x])
-
-    # for now, this is one big temp here
+    online_users = filter(bool, [x for x in [_get_user(x) for x in _online_users] if x])
 
     # Get User Theme
     from booktype.apps.themes.models import UserTheme
@@ -356,7 +403,8 @@ def remote_init_editor(request, message, bookid, version):
         'permissions': ['{0}.{1}'.format(perm.app_name, perm.name) for perm in book_security.permissions],
     }
 
-    return {"licenses": licenses,
+    return {
+            "licenses": licenses,
             "chapters": chapters,
             "metadata": metadata,
             "hold": hold_chapters,
@@ -366,8 +414,9 @@ def remote_init_editor(request, message, bookid, version):
             "theme": theme_active,
             # Check for errors in the future
             "theme_custom": json.loads(theme.custom),
-            "onlineUsers": list(onlineUsers),
-            "current_user": current_user}
+            "onlineUsers": list(online_users),
+            "current_user": current_user
+        }
 
 
 def remote_attachments_list(request, message, bookid, version):
@@ -487,12 +536,14 @@ def remote_chapter_state(request, message, bookid, version):
         sputnik.rdelete("booktype:%s:%s:editlocks:%s:%s" % (bookid, version, message["chapterID"],
                                                             request.user.username))
 
-    sputnik.addMessageToChannel(request, "/booktype/book/%s/%s/" % (bookid, version),
-                                {"command": "chapter_state",
-                                 "chapterID": message["chapterID"],
-                                 "state": message["state"],
-                                 "username": request.user.username},
-                                myself=True)
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "chapter_state",
+            "chapterID": message["chapterID"],
+            "state": message["state"],
+            "username": request.user.username,
+            "hasComments": chapter.has_comments
+        }, myself=True)
 
     return {"result": True}
 
