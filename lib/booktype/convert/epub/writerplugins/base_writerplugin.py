@@ -51,13 +51,14 @@ class WriterPlugin(BasePlugin):
         :param root: lxml node tree with the chapter content
         """
         for element in root.xpath('//body')[0].getchildren():
-            if len(element.tail.strip()):
-                p = etree.Element("p")
-                p.text = element.tail
-                element.tail = None
-                element.addnext(p)
-            else:
-                element.tail = None
+            if element.tail:
+                if len(element.tail.strip()):
+                    p = etree.Element("p")
+                    p.text = element.tail
+                    element.tail = None
+                    element.addnext(p)
+                else:
+                    element.tail = None
 
     def _fix_images(self, root):
         """Fix the path of the images to match with IMAGES_DIR"""
