@@ -63,6 +63,9 @@ urlpatterns = [
     # importer application
     # TODO: Add namespace
     url(r'^_importer/', include('booktype.apps.importer.urls')),
+
+    # API urls
+    url(r'^_api/', include('booktype.api.urls')),
 ]
 
 urlpatterns += [

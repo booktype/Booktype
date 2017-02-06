@@ -547,9 +547,8 @@ class SignInView(PageView):
 
                         user = None
                         try:
-                            user = auth.models.User.objects.create_user(username=username,
-                                                                        email=email,
-                                                                        password=password)
+                            user = auth.models.User.objects.create_user(
+                                username=username, email=email, password=password)
                         except IntegrityError:
                             ret["result"] = 10
                         except:

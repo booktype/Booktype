@@ -744,6 +744,9 @@ class BookToc(models.Model):
     def has_children(self):
         return (self.booktoc_set.count() > 0)
 
+    def children(self):
+        return BookToc.objects.filter(parent=self)
+
     def url_title(self):
         if self.is_chapter():
             return self.chapter.url_title
