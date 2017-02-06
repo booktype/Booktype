@@ -1339,6 +1339,43 @@ def remote_chapter_unlock(request, message, bookid, version):
     return dict(result=True)
 
 
+def remote_export_chapter_html(request, message, bookid, version):
+    """
+    Sputnik request handler for exporting chapter's html content.
+
+    Args:
+      reuest: Client Request object
+      message: Message object
+      bookid: Unique Book id
+      version: Book version
+
+    Returns:
+      Dict. Example {result=True}
+    """
+
+    book, book_version, book_security = get_book(request, bookid, version)
+    chapter_id = message["chapterID"]
+
+    # get chapter
+    try:
+        chapter = models.Chapter.objects.get(id=int(chapter_id), version=book_version)
+    except models.Chapter.DoesNotExist:
+        return dict(result=False)
+
+    # check access
+    if not book_security.has_perm('edit.export_chapter_content'):
+        raise PermissionDenied
+
+    from .utils import clean_chapter_html
+
+    try:
+        content = {'content': clean_chapter_html(chapter.content), 'error': False}
+    except:
+        content = {'content': '', 'error': True}
+
+    return content
+
+
 def remote_split_chapter(request, message, bookid, version):
     res = {"result": False, "access": False}
 
@@ -2158,20 +2195,8 @@ def remote_publish_book(request, message, bookid, version):
 
 def remote_word_count(request, message, bookid, version):
     from unidecode import unidecode
+    from .utils import clean_chapter_html
     from booktype.utils.wordcount import wordcount, charcount, charspacecount
-
-    def clean_html(text):
-        from booktype.utils.plugins.icejs import ice_cleanup
-        params = {
-            'tag': 'span',
-            'insert_class': 'ins',
-            'delete_class': 'del'
-        }
-
-        # we should clean insert tags of icejs just in case
-        tree = ice_cleanup(text, **params)
-        cleaned = ' '.join(tree.itertext())
-        return cleaned
 
     book = models.Book.objects.get(id=bookid)
     book_version = book.get_version(version)
@@ -2189,13 +2214,13 @@ def remote_word_count(request, message, bookid, version):
     for chap in chapters:
         if chap.is_chapter() and chap.chapter.id != int(current_chapter):
             content = unidecode(chap.chapter.content)
-            cleaned = clean_html(content)
+            cleaned = clean_chapter_html(content, text_only=True)
             all_wcount += wordcount(cleaned)
             all_charcount += charcount(cleaned)
             all_charspacecount += charspacecount(cleaned)
 
     # time to count content of the current chapter
-    chapter_content = clean_html(current_chapter_content)
+    chapter_content = clean_chapter_html(current_chapter_content, text_only=True)
     current_chapter = {
         'wcount': wordcount(chapter_content),
         'charcount': charcount(chapter_content),

@@ -316,6 +316,7 @@
                         <li><a href="#" class="option-hold">{% trans "Hold" %}</a></li>
                         <li><a href="#" class="option-delete">{% trans "Delete" %}</a></li>
                         <li><a href="#" class="option-unlock">{% trans "Unlock" %}</a></li>
+                        <li><a href="#" class="option-export">{% trans "Export Content" %}</a></li>
                     </ul>
                 {% elif can_edit_locked_chapter %}
                     <% if (lock_type === 2 || lock_type === 1 && lock_username === username) { %>
@@ -336,6 +337,10 @@
 
                         {% check_perm 'edit.lock_chapter' %}
                             <li><a href="#" class="option-unlock">{% trans "Unlock" %}</a></li>
+                        {% endcheck_perm %}
+
+                        {% check_perm 'edit.export_chapter_content' %}
+                            <li><a href="#" class="option-export">{% trans "Export Content" %}</a></li>
                         {% endcheck_perm %}
                         </ul>
                     <% } %>
@@ -363,6 +368,10 @@
                 {% check_perm 'edit.lock_chapter' %}
                     <li><a href="#" class="option-lock-simple">{% trans "Lock editing" %}</a></li>
                     <li><a href="#" class="option-lock-everyone">{% trans "Lock exclusively" %}</a></li>
+                {% endcheck_perm %}
+
+                {% check_perm 'edit.export_chapter_content' %}
+                    <li><a href="#" class="option-export">{% trans "Export Content" %}</a></li>
                 {% endcheck_perm %}
                 </ul>
             <% } %>
@@ -468,5 +477,22 @@
     <p data-notify="message"><small>{2}</small></p>
   </div>
 </script>
+
+<div id="exportContentDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exportContentLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="exportContentLabel">{% trans "Export Content" %}</h3>
+    </div>
+    <div class="modal-body" style="height: 500px;">
+      <textarea class="form-control" style="height: 100%;"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">{% trans "Ok" %}</button>
+    </div>
+  </div>
+ </div>
+</div>
 
 {% include "edit/_section_settings_wizard.html" %}
