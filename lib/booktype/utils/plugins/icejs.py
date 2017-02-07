@@ -6,16 +6,24 @@ from ebooklib.utils import parse_html_string
 
 
 def ice_cleanup(content, **kwargs):
+    """
+    This method removes "inserted" content and remove tags of "deleted" changes
+    of the tracking engine trail. For example:
+
+    <span class="ins">content and tag will be deleted</span> -> cause means it's not approved yet.
+    <span class="del">content will be kept and tag removed</span> -> cause is previous content state.
+    """
+
     tree = parse_html_string(content)
 
-    # remove tags of deletes-tracked changes
-    spans_with_deletes = tree.xpath("//%(tag)s[contains(@class, '%(insert_class)s')]" % kwargs)
-    for span in spans_with_deletes:
+    # remove tags and content of inserted changes (not approved)
+    spans_with_inserts = tree.xpath("//%(tag)s[contains(@class, '%(insert_class)s')]" % kwargs)
+    for span in spans_with_inserts:
         span.drop_tree()
 
-    # remove tag, but keep content of inserted changes
-    spans_with_inserts = tree.xpath("//%(tag)s[contains(@class, '%(delete_class)s')]" % kwargs)
-    for span in spans_with_inserts:
+    # remove tag, but keep content of deleted changes
+    spans_with_deletes = tree.xpath("//%(tag)s[contains(@class, '%(delete_class)s')]" % kwargs)
+    for span in spans_with_deletes:
         span.drop_tag()
 
     return tree

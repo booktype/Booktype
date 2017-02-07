@@ -23,6 +23,8 @@ import datetime
 import difflib
 import logging
 
+from lxml.html.diff import htmldiff
+
 from django.db.models import Q
 from django.db import transaction
 from django.db.utils import IntegrityError
@@ -38,7 +40,7 @@ from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.models import Role, BookRole
 
-from .utils import send_notification
+from .utils import send_notification, clean_chapter_html
 
 try:
     from PIL import Image
@@ -1366,8 +1368,6 @@ def remote_export_chapter_html(request, message, bookid, version):
     if not book_security.has_perm('edit.export_chapter_content'):
         raise PermissionDenied
 
-    from .utils import clean_chapter_html
-
     try:
         content = {'content': clean_chapter_html(chapter.content), 'error': False}
     except:
@@ -2195,7 +2195,6 @@ def remote_publish_book(request, message, bookid, version):
 
 def remote_word_count(request, message, bookid, version):
     from unidecode import unidecode
-    from .utils import clean_chapter_html
     from booktype.utils.wordcount import wordcount, charcount, charspacecount
 
     book = models.Book.objects.get(id=bookid)
@@ -2725,18 +2724,19 @@ def remote_get_chapter_history(request, message, bookid, version):
 
     book, book_version, book_security = get_book(request, bookid, version)
 
-    chapter_history = models.ChapterHistory.objects.filter(chapter__book=book,
-                                                           chapter__id=message["chapter"]).order_by("-modified")
+    chapter_history = models.ChapterHistory.objects.filter(
+        chapter__book=book, chapter__id=message["chapter"]).order_by("-modified")
 
     history = []
 
     for entry in chapter_history:
-        history.append({"chapter": entry.chapter.title,
-                        "chapter_url": entry.chapter.url_title,
-                        "modified": entry.modified.strftime("%d.%m.%Y %H:%M:%S"),
-                        "user": entry.user.username,
-                        "revision": entry.revision,
-                        "comment": entry.comment})
+        history.append({
+            "chapter": entry.chapter.title,
+            "chapter_url": entry.chapter.url_title,
+            "modified": entry.modified.strftime("%b %d, %Y %H:%M:%S"),
+            "user": entry.user.username,
+            "revision": entry.revision,
+            "comment": entry.comment})
 
     return {"history": history}
 
@@ -3230,83 +3230,30 @@ def remote_chapter_diff(request, message, bookid, version):
     """
 
     book, book_version, book_security = get_book(request, bookid, version)
-
-    revision1 = models.ChapterHistory.objects.get(chapter__book=book,
-                                                  chapter__id=message["chapter"],
-                                                  revision=message["revision1"])
-    revision2 = models.ChapterHistory.objects.get(chapter__book=book,
-                                                  chapter__id=message["chapter"],
-                                                  revision=message["revision2"])
+    chapter_id = message["chapter"]
     content = message.get("content")
 
-    output = []
+    content1 = models.ChapterHistory.objects.get(
+        chapter__book=book, chapter__id=chapter_id, revision=message["revision1"]).content
 
-#    from lxml import etree
-#    content1 = unicode(etree.tostring(etree.fromstring(u'<html>'+revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n')+u'</html>'), method="text", encoding='UTF-8'), 'utf8').splitlines(1)
-#    content2 = unicode(etree.tostring(etree.fromstring(u'<html>'+revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n')+u'</html>'), method="text", encoding='UTF-8'), 'utf8').splitlines(1)
+    content2 = models.ChapterHistory.objects.get(
+        chapter__book=book, chapter__id=chapter_id, revision=message["revision2"]).content
 
-    if revision1 != revision2 and not content:
-        content1 = revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
-        content2 = revision2.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
-    else:
-        # check with unsaved content
-        content1 = revision1.content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
-        content2 = content.replace('</p>', '</p>\n').replace('. ', '. \n').splitlines(1)
+    # check with unsaved content
+    if (content1 == content2) or content:
+        content2 = content
 
-    lns = [line for line in difflib.ndiff(content1, content2)]
+    try:
+        content1 = clean_chapter_html(content1, clean_comments_trail=True)
+        content2 = clean_chapter_html(content2, clean_comments_trail=True)
+    except Exception as e:
+        logger.error('ERROR while cleaning content %s. Rev 1: %s Chapter: %s' % (
+            e, content1, content2))
+        return {"result": False}
 
-    n = 0
-    minus_pos = None
-    plus_pos = None
+    diff = htmldiff(content1, content2)
 
-    def my_find(s, wh, x=0):
-        n = x
-
-        for ch in s[n:]:
-            if ch in wh:
-                return n
-            n += 1
-
-        return -1
-
-    while True:
-        if n >= len(lns):
-            break
-
-        line = lns[n]
-
-        if line[:2] == '+ ':
-            if n + 1 < len(lns) and lns[n + 1][0] == '?':
-                lns[n + 1] += lns[n + 1] + ' '
-
-                x = my_find(lns[n + 1][2:], '+?^-')
-#                x = my_find(lns[n+1][2:], '+?-')
-                y = lns[n + 1][2:].find(' ', x) - 2
-
-                plus_pos = (x, y)
-            else:
-                plus_pos = None
-
-            output.append('<div style="background-color: yellow">' + color_me(line[2:], 'background-color: green;', plus_pos) + '</div>')
-        elif line[:2] == '- ':
-            if n + 1 < len(lns) and lns[n + 1][0] == '?':
-                lns[n + 1] += lns[n + 1] + ' '
-
-                x = my_find(lns[n + 1][2:], '+?^-')
-#                x = my_find(lns[n+1][2:], '+?-')
-                y = lns[n + 1][2:].find(' ', x) - 2
-
-                minus_pos = (x, y)
-            else:
-                minus_pos = None
-
-            output.append('<div style="background-color: orange">' + color_me(line[2:], 'background-color: red;', minus_pos) + '</div>')
-        elif line[:2] == '  ':
-            output.append(line[2:])
-
-        n += 1
-
-    return {"result": True, "output": '\n'.join(output)}
+    return {"result": True, "output": diff}
 
 
 def remote_chapter_diff_parallel(request, message, bookid, version):

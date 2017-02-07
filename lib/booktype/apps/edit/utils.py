@@ -9,27 +9,31 @@ from lxml import etree
 from booktype.utils.plugins import icejs
 
 
-def clean_chapter_html(content, params=icejs.IceCleanPlugin.OPTIONS, text_only=False):
+def clean_chapter_html(content, text_only=False, **kwargs):
+
     """
     Removes icejs contents for now. We could later add more functionality to
     this function to clean other stuff
 
     Args:
-        - params: dict of icejs.IceCleanPlugin.OPTIONS type
+        - content: html string
         - text_only: Boolean
 
     Returns:
-        - either html or text cleaned content :)
+        - cleaned either html or text content :)
     """
 
-    cleaned = icejs.ice_cleanup(content, **params)
+    ice_params = icejs.IceCleanPlugin.OPTIONS
+    cleaned = icejs.ice_cleanup(content, **ice_params)
+
+    if kwargs.get('clean_comments_trail', False):
+        for comment_bubble in cleaned.xpath(".//a[@class='comment-link']"):
+            comment_bubble.drop_tree()
+
     if text_only:
         return ' '.join(cleaned.itertext())
 
-    cnt = etree.tostring(
-        cleaned.find('body'), pretty_print=True,
-        encoding='utf-8', xml_declaration=False)
-
+    cnt = etree.tostring(cleaned, pretty_print=True)
     return cnt[6:-8]
 
 
