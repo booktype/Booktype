@@ -728,3 +728,30 @@ div.contentHeader span.info-message {
 .wizard-section-settings .extra [name="custom_mark"] {
   max-width: 150px !important;
 }
+
+#contentrevision ins {
+  background-color: #e5ffcd;
+}
+
+#contentrevision del {
+  text-decoration: line-through;
+  color: #555;
+  background-color: rgba(206, 12, 12, 0.28);
+}
+
+
+.tabpane .history-tab .scrollable {
+  top: 100px;
+}
+
+.tabpane .history-tab h3{
+  border-bottom: none !important;
+}
+
+/* we need to create and separate utitly classes */
+.pb10{
+  padding-bottom: 10px;
+}
+.borderBottom{
+  border-bottom: 1px solid #ddd;
+}
