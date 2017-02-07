@@ -26,10 +26,11 @@ class ImageEditorWriterPlugin(BasePlugin):
     Plugin for image editing
     """
 
-    def __init__(self, cache_subdirectory, *args, **kwargs):
+    def __init__(self, converter, *args, **kwargs):
         super(ImageEditorWriterPlugin, self).__init__(*args, **kwargs)
 
-        self._cache_subdirectory = cache_subdirectory
+        self._converter = converter
+        self._cache_subdirectory = self._converter.config.get("project_id")
         # cache path for edited images
         # example: /data/tmp/bk_image_editor/<project_id>
         self.cache_folder = os.path.abspath(
@@ -106,12 +107,21 @@ class ImageEditorWriterPlugin(BasePlugin):
                     # counter++
                     self._ebooklib_item_image_id += 1
 
+    def _get_theme_images(self):
+        from booktype.apps.themes.utils import read_theme_assets
+        theme_assets = read_theme_assets(self._converter.theme_name, self._converter.name)
+        return [os.path.basename(x) for x in theme_assets.get('images', [])]
+
     def _remove_initial_epub_images(self, book):
         if self._is_initial_epub_images_removed:
             return
 
-        for item in [image_item for image_item in book.get_items_of_type(ebooklib.ITEM_IMAGE)]:
-            if item.file_name.rsplit('/')[-1] != IMAGE_FILE_NAME:
+        WHITELIST = self._get_theme_images() + [IMAGE_FILE_NAME]
+
+        for item in [x for x in book.get_items_of_type(ebooklib.ITEM_IMAGE)]:
+            image_name = os.path.basename(item.file_name)
+
+            if image_name not in WHITELIST:
                 book.items.remove(item)
 
         self._is_initial_epub_images_removed = True
