@@ -206,7 +206,7 @@ class EpubConverter(BaseConverter):
         """Returns the plugins to be used by writer instance"""
 
         writer_plugin = self._get_writer_plugin(epub_book, original_book)
-        image_editor_writer_plugin = ImageEditorWriterPlugin(self.config.get("project_id"))
+        image_editor_writer_plugin = ImageEditorWriterPlugin(converter=self)
         cleanup_tags_writerplugin = CleanupTagsWriterPlugin()
 
         return [writer_plugin, image_editor_writer_plugin, cleanup_tags_writerplugin]
