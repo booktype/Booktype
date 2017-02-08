@@ -403,6 +403,22 @@ class DeleteGroupView(BaseCCView, DeleteView):
         messages.success(self.request, _('Group successfully deleted.'))
         return "%s#list-of-groups" % reverse('control_center:settings')
 
+    def delete(self, request, *args, **kwargs):
+        group = self.get_object()
+
+        # remove books from group
+        for book in group.book_set.all():
+            book.group = None
+            book.save()
+
+        # delete group images if needed
+        try:
+            group.remove_group_images()
+        except Exception as e:
+            print e
+
+        return super(DeleteGroupView, self).delete(request, *args, **kwargs)
+
 
 class LicenseEditView(BaseCCView, UpdateView):
     model = License
