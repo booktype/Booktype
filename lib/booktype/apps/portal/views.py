@@ -338,9 +338,7 @@ class GroupDeleteView(LoginRequiredMixin, DeleteView):
             return HttpResponseRedirect(self.get_success_url())
         else:
             # remove books from group
-            for book in group.book_set.all():
-                book.group = None
-                book.save()
+            group.book_set.update(group=None)
 
             # delete group images if needed
             try:
