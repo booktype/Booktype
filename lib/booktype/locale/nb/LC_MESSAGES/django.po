@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-01 15:15-0600\n"
-"PO-Revision-Date: 2017-02-03 08:41+0000\n"
+"POT-Creation-Date: 2017-02-07 13:58-0600\n"
+"PO-Revision-Date: 2017-02-09 09:10+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/sourcefabric/booktype/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,40 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
+
+#: lib/booktype/api/__init__.py:6
+msgid "Booktype API"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:9
+msgid "Generate Auth Token"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:10
+msgid "Can Review API docs"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:11
+msgid "Manage users"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:12
+msgid "Manage Books"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:13
+msgid "Manage Languages"
+msgstr ""
+
+#: lib/booktype/api/editor/serializers.py:71
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
+#: lib/booktype/apps/edit/views.py:428 lib/booktype/apps/reader/views.py:249
+msgid "Chapter"
+msgstr "Kapittel"
+
+#: lib/booktype/api/editor/serializers.py:81
+msgid "Section"
+msgstr ""
 
 #: lib/booktype/apps/account/__init__.py:4
 msgid "Booktype account application"
@@ -382,8 +416,8 @@ msgstr "Rediger"
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:42
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:315
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:326
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:352
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:327
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:357
 msgid "Rename"
 msgstr "Gi nytt navn"
 
@@ -391,8 +425,8 @@ msgstr "Gi nytt navn"
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:102
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:263
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:317
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:334
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:360
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:335
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:365
 msgid "Delete"
 msgstr "Slett"
 
@@ -580,7 +614,7 @@ msgstr "Skjult fra andre i starten"
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:64
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:102
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:132
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:456
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:465
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:39
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:84
 #: lib/booktype/apps/portal/templates/portal/group_create_modal.html:19
@@ -1154,158 +1188,162 @@ msgstr "Lås kapittel"
 msgid "Edit locked chapter"
 msgstr "Redigere låst kapittel"
 
-#: lib/booktype/apps/edit/__init__.py:13
+#: lib/booktype/apps/edit/__init__.py:12
+msgid "Export chapter content"
+msgstr ""
+
+#: lib/booktype/apps/edit/__init__.py:14
 msgid "Create section"
 msgstr "Ny seksjon"
 
-#: lib/booktype/apps/edit/__init__.py:14
+#: lib/booktype/apps/edit/__init__.py:15
 msgid "Rename section"
 msgstr "Gi seksjonen nytt navn"
 
-#: lib/booktype/apps/edit/__init__.py:15
+#: lib/booktype/apps/edit/__init__.py:16
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:44
 msgid "Delete section"
 msgstr "Slett seksjon"
 
-#: lib/booktype/apps/edit/__init__.py:17
+#: lib/booktype/apps/edit/__init__.py:18
 msgid "Manage chapters on hold"
 msgstr "Administrer kapitler satt på hold"
 
-#: lib/booktype/apps/edit/__init__.py:18
+#: lib/booktype/apps/edit/__init__.py:19
 msgid "Reorder TOC"
 msgstr "Omorganiser innholdsfortegnelsen"
 
-#: lib/booktype/apps/edit/__init__.py:20
+#: lib/booktype/apps/edit/__init__.py:21
 msgid "Upload attachment"
 msgstr "Last opp vedlegg"
 
-#: lib/booktype/apps/edit/__init__.py:21
+#: lib/booktype/apps/edit/__init__.py:22
 msgid "Remove attachment"
 msgstr "Fjern vedlegg"
 
-#: lib/booktype/apps/edit/__init__.py:23
+#: lib/booktype/apps/edit/__init__.py:24
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:22
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:97
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:41
 msgid "Upload cover"
 msgstr "Last opp forside"
 
-#: lib/booktype/apps/edit/__init__.py:24
+#: lib/booktype/apps/edit/__init__.py:25
 msgid "Edit cover"
 msgstr "Rediger forside"
 
-#: lib/booktype/apps/edit/__init__.py:25
+#: lib/booktype/apps/edit/__init__.py:26
 msgid "Delete cover"
 msgstr "Slett forside"
 
-#: lib/booktype/apps/edit/__init__.py:27
+#: lib/booktype/apps/edit/__init__.py:28
 msgid "Manage Status"
 msgstr "Administrer status"
 
-#: lib/booktype/apps/edit/__init__.py:28
+#: lib/booktype/apps/edit/__init__.py:29
 msgid "Change chapter status"
 msgstr "Endre kapittelstatus"
 
-#: lib/booktype/apps/edit/__init__.py:30
+#: lib/booktype/apps/edit/__init__.py:31
 msgid "Edit book"
 msgstr "Rediger bok"
 
-#: lib/booktype/apps/edit/__init__.py:31
+#: lib/booktype/apps/edit/__init__.py:32
 msgid "Delete book"
 msgstr "Slett bok"
 
-#: lib/booktype/apps/edit/__init__.py:33
+#: lib/booktype/apps/edit/__init__.py:34
 msgid "Restore history"
 msgstr "Gjenopprett historie"
 
-#: lib/booktype/apps/edit/__init__.py:34
+#: lib/booktype/apps/edit/__init__.py:35
 msgid "Edit Notes"
 msgstr "Rediger notater"
 
-#: lib/booktype/apps/edit/__init__.py:36
+#: lib/booktype/apps/edit/__init__.py:37
 msgid "Track Changes"
 msgstr "Spor endringer"
 
-#: lib/booktype/apps/edit/__init__.py:37
+#: lib/booktype/apps/edit/__init__.py:38
 msgid "Track Changes accept/decline"
 msgstr "Spor endringer aksepter/forkast"
 
-#: lib/booktype/apps/edit/__init__.py:38
+#: lib/booktype/apps/edit/__init__.py:39
 msgid "Track Changes on/off"
 msgstr "Spor endringer på/av"
 
-#: lib/booktype/apps/edit/__init__.py:41
+#: lib/booktype/apps/edit/__init__.py:42
 msgid "Manage Language"
 msgstr "Administrer språk"
 
-#: lib/booktype/apps/edit/__init__.py:42
+#: lib/booktype/apps/edit/__init__.py:43
 msgid "Manage License"
 msgstr "Administrer lisens"
 
-#: lib/booktype/apps/edit/__init__.py:43
+#: lib/booktype/apps/edit/__init__.py:44
 msgid "Manage Metadata"
 msgstr "Administrer metadata"
 
-#: lib/booktype/apps/edit/__init__.py:44
+#: lib/booktype/apps/edit/__init__.py:45
 msgid "Manage Book Settings"
 msgstr "Administrer bokinnstillinger"
 
-#: lib/booktype/apps/edit/__init__.py:46
+#: lib/booktype/apps/edit/__init__.py:47
 msgid "Add Comments"
 msgstr "Legg til kommentarer"
 
-#: lib/booktype/apps/edit/__init__.py:47
+#: lib/booktype/apps/edit/__init__.py:48
 msgid "Resolve Comments"
 msgstr "Løse kommentarer"
 
-#: lib/booktype/apps/edit/__init__.py:48
+#: lib/booktype/apps/edit/__init__.py:49
 msgid "Delete Comments"
 msgstr "Slette kommentarer"
 
-#: lib/booktype/apps/edit/__init__.py:50
+#: lib/booktype/apps/edit/__init__.py:51
 msgid "Modify Section Settings"
 msgstr "Endre seksjonens innstillinger"
 
-#: lib/booktype/apps/edit/channel.py:1350
-#: lib/booktype/apps/edit/channel.py:1355
+#: lib/booktype/apps/edit/channel.py:1387
+#: lib/booktype/apps/edit/channel.py:1392
 msgid "You have no permissions for splitting the chapter."
 msgstr "Du har ikke tillatelse til å splitte kapitlet."
 
-#: lib/booktype/apps/edit/channel.py:1361
+#: lib/booktype/apps/edit/channel.py:1398
 msgid "Chapter is under edit."
 msgstr "Kapitlet redigeres."
 
-#: lib/booktype/apps/edit/channel.py:1368
-#: lib/booktype/apps/edit/channel.py:1372
+#: lib/booktype/apps/edit/channel.py:1405
+#: lib/booktype/apps/edit/channel.py:1409
 msgid "You have no permissions for splitting locked chapter."
 msgstr "Du har ikke tillatelse til å splitte et låst kapittel."
 
-#: lib/booktype/apps/edit/channel.py:1381
+#: lib/booktype/apps/edit/channel.py:1418
 msgid "You have selected invalid title name."
 msgstr "Du har valgt et ugyldig navn."
 
-#: lib/booktype/apps/edit/channel.py:1385
+#: lib/booktype/apps/edit/channel.py:1422
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr "Et kapittel med dette navnet finnes allerede."
 
-#: lib/booktype/apps/edit/channel.py:1524
+#: lib/booktype/apps/edit/channel.py:1561
 msgid "You have no permissions for editing this chapter."
 msgstr "Du har ikke tillatelse til å redigere dette kapitlet."
 
-#: lib/booktype/apps/edit/channel.py:1532
+#: lib/booktype/apps/edit/channel.py:1569
 msgid "Chapter currently being edited."
 msgstr "Kapitlet redigeres."
 
-#: lib/booktype/apps/edit/channel.py:1537
+#: lib/booktype/apps/edit/channel.py:1574
 msgid "You have no permissions for editing chapters under lock."
 msgstr "Du har ikke tillatelse til å redigere låste kapitler. "
 
-#: lib/booktype/apps/edit/channel.py:1541
+#: lib/booktype/apps/edit/channel.py:1578
 msgid "Chapter currently is locked from everyone."
 msgstr "Kapitlet er låst for alle. "
 
-#: lib/booktype/apps/edit/channel.py:2146
+#: lib/booktype/apps/edit/channel.py:2183
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr "En av de valgte formatene er deaktivert. Prøv å last inn siden på nytt."
 
@@ -1899,11 +1937,17 @@ msgstr "Vedlegg"
 msgid "Chapter History"
 msgstr "Kapittelhistorie"
 
-#: lib/booktype/apps/edit/templates/edit/book_edit.html:261
+#: lib/booktype/apps/edit/templates/edit/book_edit.html:231
+msgid ""
+"Click on any of the revisions below to compare it against the latest "
+"chapter's content"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/book_edit.html:263
 msgid "Comments"
 msgstr "Beskjeder"
 
-#: lib/booktype/apps/edit/templates/edit/book_edit.html:301
+#: lib/booktype/apps/edit/templates/edit/book_edit.html:303
 #, python-format
 msgid ""
 "<p class=\"notification-text\"><%%= username %%> joined </p><span class"
@@ -2487,11 +2531,6 @@ msgstr "Antall tegn i boken"
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:56
 msgid "Book character count (with spaces)"
 msgstr "Antall tegn i boken (med mellomrom)"
-
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:428 lib/booktype/apps/reader/views.py:249
-msgid "Chapter"
-msgstr "Kapittel"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:59
 msgid "Character count"
@@ -3298,50 +3337,61 @@ msgid "Has comments"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:312
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:322
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:348
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:323
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:353
 msgid "EDIT CHAPTER"
 msgstr "REDIGER KAPITTEL"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:316
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:330
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:331
 msgid "Hold"
 msgstr "Hold"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:318
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:338
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:339
 msgid "Unlock"
 msgstr "Lås opp"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:344
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:319
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:343
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:374
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:486
+msgid "Export Content"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:349
 msgid "UNLOCK"
 msgstr "LÅS OPP"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:356
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:361
 msgid "Put on hold"
 msgstr "Sett på hold"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:364
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:369
 msgid "Lock editing"
 msgstr "Lås redigering"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:365
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:370
 msgid "Lock exclusively"
 msgstr "Låst eksklusivt"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:375
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:387
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:400
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:384
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:396
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:409
 msgid "STATUS"
 msgstr "STATUS"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:424
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:433
 msgid "RENAME"
 msgstr "ENDRE NAVN"
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:430
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:439
 msgid "SETTINGS"
 msgstr "BRUKERPROFIL"
+
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:492
+msgid "Ok"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:7
 msgid "Add Field"
