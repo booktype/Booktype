@@ -400,12 +400,12 @@ def set_group_image(groupid, file_object, x_size, y_size):
     try:
         im = Image.open(fname)
         im.thumbnail((x_size, y_size), Image.ANTIALIAS)
+        new_path = os.path.join(settings.MEDIA_ROOT, GROUP_IMAGE_UPLOAD_DIR)
 
-        new_path = '%s/%s' % (settings.MEDIA_ROOT, GROUP_IMAGE_UPLOAD_DIR)
         if not os.path.exists(new_path):
             os.mkdir(new_path)
 
-        file_name = '%s/%s.jpg' % (new_path, groupid)
+        file_name = '{}.jpg'.format(os.path.join(new_path, str(groupid)))
         im.save(file_name, "JPEG")
     except:
         file_name = ''

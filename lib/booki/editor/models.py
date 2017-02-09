@@ -115,36 +115,31 @@ class BookiGroup(models.Model):
         GROUP_IMAGE_UPLOAD_DIR = 'group_images/'
 
     def get_big_group_image(self):
-        group_image_path = '%s/%s' % (settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
-        if (os.path.isfile(('%s/%s.jpg') % (group_image_path, self.pk)) is False):
-            group_image = '%score/img/groups-big.png' % settings.STATIC_URL
-        else:
-            group_image = '%s%s%s.jpg' % (settings.MEDIA_URL, self.GROUP_IMAGE_UPLOAD_DIR, self.pk)
+        group_image_path = os.path.join(settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
 
-        return group_image
+        if not os.path.isfile('{}.jpg'.format(os.path.join(group_image_path, str(self.pk)))):
+            return os.path.join(settings.STATIC_URL, 'core/img/groups-big.png')
+        return '{}.jpg'.format(os.path.join(settings.MEDIA_URL, self.GROUP_IMAGE_UPLOAD_DIR, str(self.pk)))
 
     def get_group_image(self):
-        group_image_path = '%s/%s' % (settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
-        if (os.path.isfile(('%s/%s_small.jpg') % (group_image_path, self.pk)) is False):
-            group_image = '%score/img/groups.png' % settings.STATIC_URL
-        else:
-            group_image = '%s%s%s_small.jpg' % (settings.MEDIA_URL, self.GROUP_IMAGE_UPLOAD_DIR, self.pk)
+        group_image_path = os.path.join(settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
 
-        return group_image
+        if not os.path.isfile("{}_small.jpg".format(os.path.join(group_image_path, str(self.pk)))):
+            return os.path.join(settings.STATIC_URL, 'core/img/groups.png')
+        return '{}_small.jpg'.format(os.path.join(settings.MEDIA_URL, self.GROUP_IMAGE_UPLOAD_DIR, str(self.pk)))
 
     def remove_group_images(self):
-        group_image_path = '%s/%s' % (settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
+        group_image_path = os.path.join(settings.MEDIA_ROOT, self.GROUP_IMAGE_UPLOAD_DIR)
 
         group_images = []
-        group_images.append('{0}/{1}_small.jpg'.format(group_image_path, self.pk))
-        group_images.append('{0}/{1}.jpg'.format(group_image_path, self.pk))
+        group_images.append('{}_small.jpg'.format(os.path.join(group_image_path, str(self.pk))))
+        group_images.append('{}.jpg'.format(os.path.join(group_image_path, str(self.pk))))
 
         for image_path in group_images:
             try:
                 os.remove(image_path)
-            except Exception as err:
-                # TODO: should log this error
-                print err
+            except Exception as e:
+                logger.exception(e)
 
     def __unicode__(self):
         return self.name

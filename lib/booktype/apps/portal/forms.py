@@ -69,7 +69,7 @@ class BaseGroupForm(BaseBooktypeForm, forms.ModelForm):
             if len(filename) == 0:
                 raise ValidationError(_('Only JPEG file is allowed for group image.'))
             else:
-                misc.set_group_image(group_id + "_small", group_image, 18, 18)
+                misc.set_group_image( "{}_small".format(group_id), group_image, 18, 18)
         except Exception as err:
             # TODO: we should do something here
             print err
