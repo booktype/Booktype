@@ -36,6 +36,11 @@ CHAPTER_STATUS_LIST = [
 
 CHAPTER_STATUS_DEFAULT = CHAPTER_STATUS_LIST[0]['name']
 
+BOOKTYPE_IMPORTERS = {
+    'epub': ('booktype.importer.epub', 'import_epub'),
+    'docx': ('booktype.importer.docx', 'import_docx')
+}
+
 # SERVER RELATED
 THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST',
                                    'booktype-demo.sourcefabric.org')

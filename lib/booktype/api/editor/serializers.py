@@ -1,11 +1,21 @@
+# -*- coding: utf-8 -*-
+import requests
+from django.core.files.base import ContentFile
+
 try:
     from django.urls import reverse
 except ImportError:
     from django.core.urlresolvers import reverse
+
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_noop
 
 from rest_framework import serializers
+from rest_framework.exceptions import APIException
+
+from booktype.importer import utils as importer_utils
+from booktype.importer.delegate import Delegate
+from booktype.importer.notifier import CollectNotifier
 
 from booki.editor.models import Book, BookToc, Language
 from booktype.utils.book import create_book
@@ -99,10 +109,23 @@ class BookCreateSerializer(BookSerializer):
     owner_id = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(),
         source='owner')
+    import_book_url = serializers.URLField(write_only=True, required=False)
+    import_book_format = serializers.ChoiceField(
+        choices=['epub', 'docx'], write_only=True, required=False)
 
     class Meta(BookSerializer.Meta):
         parent = BookSerializer.Meta
-        fields = parent.fields + ['owner_id']
+        fields = parent.fields + [
+            'owner_id', 'import_book_url', 'import_book_format']
+
+    def validate(self, data):
+        data = super(BookCreateSerializer, self).validate(data)
+
+        fields = data.keys()
+        if 'import_book_url' in fields and 'import_book_format' not in fields:
+            raise serializers.ValidationError({'import_book_format': ["This field is required."]})
+
+        return data
 
     def create(self, validated_data):
         n = Book.objects.count()
@@ -114,7 +137,38 @@ class BookCreateSerializer(BookSerializer):
         book.language = validated_data.get('language', None)
         book.save()
 
+        import_book_url = validated_data.get('import_book_url')
+        import_format = validated_data.get('import_book_format')
+
+        if import_book_url:
+            book_file = self._get_book_file(import_book_url)
+            try:
+                book_importer = importer_utils.get_importer_module(import_format)
+            except Exception as err:
+                raise serializers.ValidationError("Wrong importer format {}".format(err))
+
+            delegate = Delegate()
+            notifier = CollectNotifier()
+
+            try:
+                book_importer(book_file, book, notifier=notifier, delegate=delegate)
+            except Exception as err:
+                raise APIException("Unexpected error while importing the file {}".format(err))
+
+            if len(notifier.errors) > 0:
+                err = "\n".join(notifier.errors)
+                raise APIException("Something went wrong: {}".format(err))
+
         return book
+
+    def _get_book_file(self, url):
+        try:
+            response = requests.get(url)
+            book_file = ContentFile(response.content)
+        except Exception as err:
+            raise serializers.ValidationError("Error while retrieving the file {}".format(err))
+
+        return book_file
 
 
 class BookRoleSerializer(serializers.HyperlinkedModelSerializer):
