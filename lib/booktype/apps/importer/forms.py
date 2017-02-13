@@ -27,6 +27,7 @@ ALLOWED_TYPES = [
 
 ALLOWED_EXTENSIONS = ['.docx', '.epub']
 
+
 def _check_extension(file_name, extension):
     return file_name.endswith(extension)
 
