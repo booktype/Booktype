@@ -47,3 +47,7 @@ Booktype 2.1 can use a variety of renderers to convert HTML book sources into
 PDF. [mPDF](https://github.com/mpdf/mpdf) must be installed separately from Booktype
 in a directory such as /var/www/mpdf/ and the Booktype server configured for 
 the installation path. 
+
+**mPDF** library requires php GD library installed 
+[GD installation](http://php.net/manual/en/image.installation.php)
+
