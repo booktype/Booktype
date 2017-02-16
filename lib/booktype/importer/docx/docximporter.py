@@ -262,7 +262,7 @@ class WordImporter(object):
             try:
                 chapter_content = unidecode(_content)[6:-8]
             except UnicodeDecodeError:
-                chapter_content = self._parse_chapter(_content).decode('utf-8', errors='ignore')[6:-8]
+                chapter_content = _content.decode('utf-8', errors='ignore')[6:-8]
             except Exception as err:
                 chapter_content = 'Error parsing chapter content'
                 logger.exception("Error while decoding chapter content {0}".format(err))
@@ -366,7 +366,6 @@ class WordImporter(object):
         idx_endnote = 1
 
         for endnote in tree.xpath('.//sup[@class="endnote"]'):
-
             key = endnote.get('data-id', '')
             if key == '':
                 continue
@@ -416,6 +415,11 @@ class WordImporter(object):
                 li = etree.SubElement(endnotes, 'li', {'id': 'endnote-{}'.format(key)})
                 for child in note_tree.find('div').getchildren():
                     li.append(child)
+
+                # children are normally just one element which inside has more children
+                # so in this case, we just drop_tag and keep content
+                for x in li.getchildren():
+                    x.drop_tag()
 
         return etree.tostring(
             tree, pretty_print=True, encoding='utf-8', xml_declaration=False)
