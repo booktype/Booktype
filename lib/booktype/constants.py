@@ -36,10 +36,21 @@ CHAPTER_STATUS_LIST = [
 
 CHAPTER_STATUS_DEFAULT = CHAPTER_STATUS_LIST[0]['name']
 
+# IMPORTERS RELATED STUFF
 BOOKTYPE_IMPORTERS = {
     'epub': ('booktype.importer.epub', 'import_epub'),
     'docx': ('booktype.importer.docx', 'import_docx')
 }
+
+# Default styles matched so far. We'll add more in future
+# this constant is used on docimporter.py to correctly
+# assign classes to imported elements
+DOCX_PARAGRAPH_STYLES_MAP = {
+    'AuthorName': 'authorname',
+    'Reference': 'reference'
+}
+
+# END IMPORTERS STUFF
 
 # SERVER RELATED
 THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST',
@@ -128,17 +139,17 @@ EPUB_NOT_ALLOWED_TAGS = (
     # },
 )
 
+# According to epubcheck, after(inside) body tag,
+# on the 1st level of deepness, must be only the next list of tags.
+# If tag doesn't fit requierements, it will be replaced with "<p>"
 EPUB_AVAILABLE_INBODY_ROOT_TAGS = (
-    # According to epubcheck, after(inside) body tag,
-    # on the 1st level of deepness, must be only the next list of tags.
-    # If tag doesn't fit requierements, it will be replaced with "<p>"
     'address', 'blockquote', 'del', 'div', 'dl', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
     'hr', 'ins', 'noscript', 'ns:svg', 'ol', 'p', 'pre', 'script', 'table', 'ul'
 )
 
+# mapping tag and allowed attributes in it
+# required by epubcheck
 EPUB_ALLOWED_TAG_ATTRS = (
-    # mapping tag and allowed attributes in it
-    # required by epubcheck
     ('ol', ('class', 'dir', 'id', 'lang', 'style', 'title', 'xml:lang')),
 )
 

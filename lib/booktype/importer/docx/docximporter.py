@@ -19,7 +19,7 @@ from booktype.importer.delegate import Delegate
 
 from ooxml import importer, serialize, doc
 
-from .utils import convert_image
+from .utils import convert_image, hook_p, check_h_tags_hook
 from .styles import STYLE_EDITOR, STYLE_EPUB
 
 logger = logging.getLogger("booktype.importer.docx")
@@ -98,6 +98,7 @@ class WordImporter(object):
         try:
             self.dfile = ooxml.read_from_file(file_path)
 
+            # TODO: move this into a more customisable place.
             serialize_options = {
                 'embed_styles': True,
                 'embed_fontsize': True,
@@ -106,6 +107,10 @@ class WordImporter(object):
                     doc.Math: serialize_empty,
                     doc.Footnote: serialize_footnote,
                     doc.Endnote: serialize_endnote
+                },
+                'hooks': {
+                    'p': [hook_p],
+                    'h': [check_h_tags_hook],
                 }
             }
 
@@ -420,6 +425,15 @@ class WordImporter(object):
                 # so in this case, we just drop_tag and keep content
                 for x in li.getchildren():
                     x.drop_tag()
+
+        # let's do some clean out on the not necessary tags,
+        # like span tags with no reason to be
+        for tag in tree.xpath('.//span'):
+            class_name = tag.get('class', None)
+            parent_class = tag.getparent().get('class')
+
+            if not class_name or class_name in parent_class:
+                tag.drop_tag()
 
         return etree.tostring(
             tree, pretty_print=True, encoding='utf-8', xml_declaration=False)

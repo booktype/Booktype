@@ -50,7 +50,27 @@
               Aloha.execCommand('FormatBlock', false, 'p');
               $(range.startContainer).parent().addClass('bk-cite');
             }
-          }
+          },
+          'AUTHORNAME': {
+            'type': 'custom',
+            'check': function ($elems) {
+              return $elems.filter('.authorname').length > 0;
+            },
+            'create': function (range) {
+              Aloha.execCommand('FormatBlock', false, 'p');
+              $(range.startContainer).parent().addClass('authorname');
+            }
+          },
+          'REFERENCE': {
+            'type': 'custom',
+            'check': function ($elems) {
+              return $elems.filter('.reference').length > 0;
+            },
+            'create': function (range) {
+              Aloha.execCommand('FormatBlock', false, 'p');
+              $(range.startContainer).parent().addClass('reference');
+            }
+          },
         }
       },
       fontsize: {
