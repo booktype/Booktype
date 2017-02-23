@@ -432,7 +432,7 @@ class WordImporter(object):
             class_name = tag.get('class', None)
             parent_class = tag.getparent().get('class')
 
-            if not class_name or class_name in parent_class:
+            if parent_class and (not class_name or class_name in parent_class):
                 tag.drop_tag()
 
         return etree.tostring(
