@@ -19,7 +19,7 @@ from booktype.importer.delegate import Delegate
 
 from ooxml import importer, serialize, doc
 
-from .utils import convert_image, hook_p, check_h_tags_hook
+from . import utils as docutils
 from .styles import STYLE_EDITOR, STYLE_EPUB
 
 logger = logging.getLogger("booktype.importer.docx")
@@ -100,6 +100,7 @@ class WordImporter(object):
 
             # TODO: move this into a more customisable place.
             serialize_options = {
+                'header': docutils.DocHeaderContext,
                 'embed_styles': True,
                 'embed_fontsize': True,
                 # 'empty_paragraph_as_nbsp': True,
@@ -109,8 +110,9 @@ class WordImporter(object):
                     doc.Endnote: serialize_endnote
                 },
                 'hooks': {
-                    'p': [hook_p],
-                    'h': [check_h_tags_hook],
+                    'p': [docutils.hook_p],
+                    'h': [docutils.check_h_tags_hook],
+                    'table': [docutils.hook_infobox_table]
                 }
             }
 
@@ -188,7 +190,7 @@ class WordImporter(object):
 
                         if att_ext.lower() in ['.tif', '.tiff']:
                             try:
-                                content_file = convert_image('tiff', content_file)
+                                content_file = docutils.convert_image('tiff', content_file)
                                 self.converted_images.append(
                                     'static/{}{}'.format(rel_id, original_ext))
 
@@ -430,10 +432,13 @@ class WordImporter(object):
         # like span tags with no reason to be
         for tag in tree.xpath('.//span'):
             class_name = tag.get('class', None)
-            parent_class = tag.getparent().get('class')
+            parent_class = tag.getparent().get('class', '')
 
             if not class_name or class_name in parent_class:
                 tag.drop_tag()
+
+        # let's cleanout infoboxes a bit
+        docutils.clean_infobox_content(tree)
 
         return etree.tostring(
             tree, pretty_print=True, encoding='utf-8', xml_declaration=False)
