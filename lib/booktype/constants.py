@@ -47,7 +47,8 @@ BOOKTYPE_IMPORTERS = {
 # assign classes to imported elements
 DOCX_PARAGRAPH_STYLES_MAP = {
     'AuthorName': 'authorname',
-    'Reference': 'reference'
+    'Reference': 'reference',
+    'Citation': 'bk-cite'
 }
 
 # END IMPORTERS STUFF
