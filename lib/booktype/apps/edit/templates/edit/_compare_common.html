@@ -1,0 +1,25 @@
+{% load i18n static %}
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="unified">
+    <div class="row mb10">
+        <div class="col-xs-2"><span class="marker added">{% trans "Added" %}</span></div>
+        <div class="col-xs-2"><span class="marker deleted">{% trans "Deleted" %}</span></div>
+    </div>
+    <div id="contenteditor">
+      {{ unified_output|safe }}
+    </div>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="split">
+    <div class="row mb10">
+        <div class="col-xs-2"><span class="marker added">{% trans "Added" %}</span></div>
+        <div class="col-xs-2"><span class="marker deleted">{% trans "Deleted" %}</span></div>
+        <div class="col-xs-2"><span class="marker changed">{% trans "Changed" %}</span></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 header">{% trans "Revision" %}: {{ rev1 }}</div>
+      <div class="col-xs-6 header">{% trans "Revision" %}: {{ rev2 }}</div>
+    </div>
+    <div class="scrollable">{{ split_output }}</div>
+  </div>
+</div>

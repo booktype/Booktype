@@ -9,22 +9,19 @@
 <div class="contentContainer">
     <div class="content">
         <div class="compare_screen">
-            {% if output %}
-            <h2 class="box-title">{% trans "Chapter diff" %}</h2>
-            <div class="row">
-                <div class="col-xs-2"><span class="marker changed">{% trans "Changed" %}</span></div>
-                <div class="col-xs-2"><span class="marker added">{% trans "Added" %}</span></div>
-                <div class="col-xs-2"><span class="marker deleted">{% trans "Deleted" %}</span></div>
+            {% if split_output or unified_output %}
+            <div>
+              <h2 class="box-title pull-left mb0">{% trans "Comparing chapter revisions" %}</h2>
+              <div class="btn-group pull-right mt5" data-toggle="btns">
+                <button class="btn btn-sm btn-default active" href="#unified" aria-controls="home" role="tab" data-toggle="tab">{% trans "Unified" %}</button>
+                <button class="btn btn-sm btn-default" href="#split" aria-controls="profile" role="tab" data-toggle="tab">{% trans "Split" %}</button>
+              </div>
+              <div class="clearfix"></div>
+              <hr class "mb10" />
             </div>
-            <div class="row">
-              <div class="col-xs-6 header">{% trans "Revision" %}: {{ rev1 }}</div>
-              <div class="col-xs-6 header">{% trans "Revision" %}: {{ rev2 }}</div>
-            </div>
-            <div class="scrollable">
-                <table border="0" width="100%" class="row compare_table">
-                    {{ output|join:""|safe }}
-                </table>
-            </div>
+
+            {% include "edit/_compare_common.html" %}
+
             {% else %}
             <div class="row">
               <h2 class="box-title">{% trans "Revisions not found!" %}</h2>

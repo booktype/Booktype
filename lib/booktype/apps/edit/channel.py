@@ -20,10 +20,7 @@ import re
 import json
 import time
 import datetime
-import difflib
 import logging
-
-from lxml.html.diff import htmldiff
 
 from django.db.models import Q
 from django.db import transaction
@@ -3148,66 +3145,6 @@ def remote_create_minor_version(request, message, bookid, version):
     return {"result": True, "version": new_version.get_version()}
 
 
-def color_me(l, rgb, pos):
-    if pos:
-        t1 = l.find('>', pos[0])
-        t2 = l.find('<', pos[0])
-
-        if (t1 == t2) or (t1 > t2 and t2 != -1):
-            out = l[:pos[0]]
-
-            out += '<span class="diff changed">' + color_me(l[pos[0]:pos[1]], rgb, None) + '</span>'
-            out += l[pos[1]:]
-        else:
-            out = l
-        return out
-
-    out = '<span class="%s">' % rgb
-
-    n = 0
-    m = 0
-    while True:
-        n = l.find('<', n)
-
-        if n == -1:  # no more tags
-            out += l[m:n]
-            break
-        else:
-            if l[n + 1] == '/':  # tag ending
-                # closed tag
-                out += l[m:n]
-
-                j = l.find('>', n) + 1
-                tag = l[n:j]
-                out += '</span>' + tag
-                n = j
-            else:  # tag start
-                out += l[m:n]
-
-                j = l.find('>', n) + 1
-
-                if j == 0:
-                    out = l[n:]
-                    n = len(l)
-                else:
-                    tag = l[n:j]
-
-                    if not tag.replace(' ', '').replace('/', '').lower() in ['<br>', '<hr>']:
-                        if n != 0:
-                            out += '</span>'
-
-                        out += tag + '<span class="%s">' % rgb
-                    else:
-                        out += tag
-
-                    n = j
-        m = n
-
-    out += l[n:] + '</span>'
-
-    return out
-
-
 def remote_chapter_diff(request, message, bookid, version):
     """
     Returns diff between two revisions of the chapter. Diff is returned as HTML string.
@@ -3229,6 +3166,8 @@ def remote_chapter_diff(request, message, bookid, version):
     @return: Returns text with diff between two chapters
     """
 
+    from .views import unified_diff
+
     book, book_version, book_security = get_book(request, bookid, version)
     chapter_id = message["chapter"]
     content = message.get("content")
@@ -3243,120 +3182,9 @@ def remote_chapter_diff(request, message, bookid, version):
     if (content1 == content2) or content:
         content2 = content
 
-    try:
-        content1 = clean_chapter_html(content1, clean_comments_trail=True)
-        content2 = clean_chapter_html(content2, clean_comments_trail=True)
-    except Exception as e:
-        logger.error('ERROR while cleaning content %s. Rev 1: %s Chapter: %s' % (
-            e, content1, content2))
-        return {"result": False}
-
-    diff = htmldiff(content1, content2)
+    diff = unified_diff(content1, content2)
 
     return {"result": True, "output": diff}
-
-
-def remote_chapter_diff_parallel(request, message, bookid, version):
-    """
-    Returns diff between two revisions of the chapter. Diff is returned as HTML string and is used for parallel comparison.
-
-    Input:
-     - message
-     - revision1
-     - revision2
-
-    @type request: C{django.http.HttpRequest}
-    @param request: Client Request object
-    @type message: C{dict}
-    @param message: Message object
-    @type bookid: C{string}
-    @param bookid: Unique Book id
-    @type version: C{string}
-    @param version: Book version
-    @rtype: C{dict}
-    @return: Returns text with diff between two chapters
-    """
-
-    book, book_version, book_security = get_book(request, bookid, version)
-
-    revision1 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision1"])
-    revision2 = models.ChapterHistory.objects.get(chapter__book=book, chapter__url_title=message["chapter"], revision=message["revision2"])
-
-    output = []
-
-    output_left = '<td valign="top">'
-    output_right = '<td valign="top">'
-
-    content1 = re.sub('<[^<]+?>', '', revision1.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
-    content2 = re.sub('<[^<]+?>', '', revision2.content.replace('<p>', '\n<p>').replace('. ', '. \n')).splitlines(1)
-
-    lns = [line for line in difflib.ndiff(content1, content2)]
-
-    n = 0
-    minus_pos = None
-    plus_pos = None
-
-    def my_find(s, wh, x=0):
-        n = x
-
-        for ch in s[n:]:
-            if ch in wh:
-                return n
-            n += 1
-
-        return -1
-
-    while True:
-        if n >= len(lns):
-            break
-
-        line = lns[n]
-
-        if line[:2] == '+ ':
-            if n + 1 < len(lns) and lns[n + 1][0] == '?':
-                lns[n + 1] += lns[n + 1] + ' '
-
-                x = my_find(lns[n + 1][2:], '+?^-')
-                y = lns[n + 1][2:].find(' ', x) - 2
-
-                plus_pos = (x, y)
-            else:
-                plus_pos = None
-
-            output_right += '<div class="diff changed">' + \
-                color_me(line[2:], 'diff added', plus_pos) + '</div>'
-            output.append('<tr>' + output_left + '</td>' +
-                          output_right + '</td></tr>')
-            output_left = output_right = '<td valign="top">'
-        elif line[:2] == '- ':
-            if n + 1 < len(lns) and lns[n + 1][0] == '?':
-                lns[n + 1] += lns[n + 1] + ' '
-
-                x = my_find(lns[n + 1][2:], '+?^-')
-                y = lns[n + 1][2:].find(' ', x) - 2
-
-                minus_pos = (x, y)
-            else:
-                minus_pos = None
-
-            output.append('<tr>' + output_left + '</td>' + output_right + '</td></tr>')
-
-            output_left = output_right = '<td valign="top">'
-            output_left += '<div class="diff changed">' + \
-                           color_me(line[2:], 'diff deleted', minus_pos) + '</div>'
-        elif line[:2] == '  ':
-            if line[2:].strip() != '':
-                output_left += line[2:] + '<br/><br/>'
-                output_right += line[2:] + '<br/><br/>'
-
-        n += 1
-
-    output.append('<tr>' + output_left + '</td>' + output_right + '</td></tr>')
-
-    info = '''<div style="padding-bottom: 5px"><span class="diff changed" style="width: 10px; height: 10px; display: inline-block;"></span> Changed <span class="diff added" style="width: 10px; height: 10px; display: inline-block;"></span> Added <span class="diff deleted" style="width: 10px; height: 10px; display: inline-block;"></span> Deleted </div>'''
-
-    return {"result": True,
-            "output": info + '<table border="0" width="100%%"><tr><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold;">Revision: ' + message["revision1"] + '</div></td><td width="50%%"><div style="border-bottom: 1px solid #c0c0c0; font-weight: bold">Revision: ' + message["revision2"] + '</div></td></tr>\n'.join(output) + '</table>\n'}
 
 
 def remote_assign_to_role(request, message, bookid, version):

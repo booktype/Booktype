@@ -4,10 +4,13 @@ import os
 import json
 import uuid
 import hashlib
+import logging
 import difflib
 import datetime
 import mimetypes
 import unidecode
+
+from lxml.html.diff import htmldiff
 
 from django.utils import formats
 from django.conf import settings
@@ -35,9 +38,11 @@ from booktype.utils.misc import booktype_slugify
 from booktype.apps.reader.views import BaseReaderView
 from booktype.utils.security import BookSecurity, get_user_permissions
 
-from .utils import color_me, send_notification
+from .utils import color_me, send_notification, clean_chapter_html
 from .channel import get_toc_for_book
 from . import forms as book_forms
+
+logger = logging.getLogger('booktype.apps.edit.views')
 
 
 VALID_SETTINGS = {
@@ -198,6 +203,112 @@ def upload_cover(request, bookid, version=None):
                             content_type="application/json")
     else:
         return HttpResponse(json.dumps(response_data), content_type="text/html")
+
+
+def unified_diff(content1, content2):
+    try:
+        content1 = clean_chapter_html(content1, clean_comments_trail=True)
+        content2 = clean_chapter_html(content2, clean_comments_trail=True)
+    except Exception as e:
+        logger.error('ERROR while cleaning content %s. Rev 1: %s Chapter: %s' % (
+            e, content1, content2))
+        return {"result": False}
+
+    diff = htmldiff(content1, content2)
+    return diff
+
+
+def split_diff(content1, content2):
+    """
+    Method that receives to html strings as parameters and a diff is
+    returned as HTML string and is used for parallel comparison.
+    """
+
+    output = []
+    output_left = '<td valign="top">'
+    output_right = '<td valign="top">'
+
+    def _fix_content(cnt):
+        list_of_tags = ['p', 'div', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+
+        for _t in list_of_tags:
+            cnt = cnt.replace('<{}>'.format(_t), '\n<{}>'.format(_t))
+            if _t != 'p':
+                cnt = cnt.replace('</{}>'.format(_t), '</{}>\n'.format(_t))
+
+        cnt = cnt.replace('\n\n', '\n')
+        cnt = cnt.replace('. ', '. \n')
+
+        return cnt
+
+    content1 = re.sub('<[^<]+?>', '', _fix_content(content1)).splitlines()
+    content1 = [x.lstrip() for x in content1]
+
+    content2 = re.sub('<[^<]+?>', '', _fix_content(content2)).splitlines()
+    content2 = [x.lstrip() for x in content2]
+
+    lns = [line for line in difflib.ndiff(content1, content2)]
+
+    n = 0
+    minus_pos = None
+    plus_pos = None
+
+    def my_find(s, wh, x=0):
+        n = x
+        for ch in s[n:]:
+            if ch in wh:
+                return n
+            n += 1
+        return -1
+
+    while True:
+        if n >= len(lns):
+            break
+
+        line = lns[n]
+
+        if line[:2] == '+ ':
+            if n + 1 < len(lns) and lns[n + 1][0] == '?':
+                lns[n + 1] += lns[n + 1] + ' '
+                x = my_find(lns[n + 1][2:], '+?^-')
+                y = lns[n + 1][2:].find(' ', x) - 2
+                plus_pos = (x, y)
+            else:
+                plus_pos = None
+
+            output_right += '<div class="diff changed">%s</div>' % \
+                color_me(line[2:], 'diff added', plus_pos)
+            output.append(
+                '<tr>%s</td>%s</td></tr>' % (output_left, output_right))
+            output_left = output_right = '<td valign="top">'
+
+        elif line[:2] == '- ':
+            if n + 1 < len(lns) and lns[n + 1][0] == '?':
+                lns[n + 1] += lns[n + 1] + ' '
+                x = my_find(lns[n + 1][2:], '+?^-')
+                y = lns[n + 1][2:].find(' ', x) - 2
+                minus_pos = (x, y)
+            else:
+                minus_pos = None
+
+            output.append(
+                '<tr>%s</td>%s</td></tr>' % (output_left, output_right))
+
+            output_left = output_right = '<td valign="top">'
+            output_left += '<div class="diff changed">%s</div>' % color_me(
+                line[2:], 'diff deleted', minus_pos)
+
+        elif line[:2] == '  ':
+            if line[2:].strip() != '':
+                output_left += line[2:] + '<br/><br/>'
+                output_right += line[2:] + '<br/><br/>'
+
+        n += 1
+
+    output.append('<tr>%s</td>%s</td></tr>' % (output_left, output_right))
+    output = '<table border="0" width="100%" class="row compare_table">' + "".join(output) + '</table>'
+
+    return mark_safe(output)
 
 
 def cover(request, bookid, cid, fname=None, version=None):
@@ -469,95 +580,8 @@ class CompareChapterRevisions(LoginRequiredMixin, ChapterMixin, DetailView):
         except:
             return context
 
-        output = []
-
-        output_left = '<td valign="top">'
-        output_right = '<td valign="top">'
-
-        def _fix_content(cnt):
-            list_of_tags = [
-                'p', 'div', 'li', 'h1', 'h2', 'h3', 'h4',
-                'h5', 'h6']
-
-            for _t in list_of_tags:
-                cnt = cnt.replace('<{}>'.format(_t), '\n<{}>'.format(_t))
-                if _t != 'p':
-                    cnt = cnt.replace('</{}>'.format(_t), '</{}>\n'.format(_t))
-
-            cnt = cnt.replace('\n\n', '\n')
-
-            return cnt.replace('. ', '. \n')
-
-        content1 = re.sub(
-            '<[^<]+?>', '', _fix_content(revision1.content)
-        ).splitlines(1)
-
-        content2 = re.sub(
-            '<[^<]+?>', '', _fix_content(revision2.content)
-        ).splitlines(1)
-
-        lns = [line for line in difflib.ndiff(content1, content2)]
-
-        n = 0
-        minus_pos = None
-        plus_pos = None
-
-        def my_find(s, wh, x=0):
-            n = x
-            for ch in s[n:]:
-                if ch in wh:
-                    return n
-                n += 1
-            return -1
-
-        while True:
-            if n >= len(lns):
-                break
-
-            line = lns[n]
-
-            if line[:2] == '+ ':
-                if n + 1 < len(lns) and lns[n + 1][0] == '?':
-                    lns[n + 1] += lns[n + 1] + ' '
-                    x = my_find(lns[n + 1][2:], '+?^-')
-                    y = lns[n + 1][2:].find(' ', x) - 2
-                    plus_pos = (x, y)
-                else:
-                    plus_pos = None
-
-                output_right += '<div class="diff changed">%s</div>' % \
-                    color_me(line[2:], 'diff added', plus_pos)
-                output.append(
-                    '<tr>%s</td>%s</td></tr>' % (output_left, output_right))
-                output_left = output_right = '<td valign="top">'
-
-            elif line[:2] == '- ':
-                if n + 1 < len(lns) and lns[n + 1][0] == '?':
-                    lns[n + 1] += lns[n + 1] + ' '
-                    x = my_find(lns[n + 1][2:], '+?^-')
-                    y = lns[n + 1][2:].find(' ', x) - 2
-                    minus_pos = (x, y)
-                else:
-                    minus_pos = None
-
-                output.append(
-                    '<tr>%s</td>%s</td></tr>' % (output_left, output_right))
-
-                output_left = output_right = '<td valign="top">'
-                output_left += '<div class="diff changed">%s</div>' % color_me(
-                    line[2:], 'diff deleted', minus_pos)
-
-            elif line[:2] == '  ':
-                if line[2:].strip() != '':
-                    output_left += line[2:] + '<br/><br/>'
-                    output_right += line[2:] + '<br/><br/>'
-
-            n += 1
-
-        output.append('<tr>%s</td>%s</td></tr>' % (output_left, output_right))
-        output = [mark_safe(o) for o in output]
-
-        context['output'] = output
+        context['unified_output'] = unified_diff(revision1.content, revision2.content)
+        context['split_output'] = split_diff(revision1.content, revision2.content)
         context['chapter'] = self.chapter
         context['page_title'] = _('Chapter diff')
         context['book'] = book
