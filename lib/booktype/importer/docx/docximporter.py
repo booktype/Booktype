@@ -438,7 +438,9 @@ class WordImporter(object):
                 tag.drop_tag()
 
         # let's cleanout infoboxes a bit
+        # TODO: implement of plugins or something else more organized that separate functions
         docutils.clean_infobox_content(tree)
+        docutils.fix_citations(tree)
 
         return etree.tostring(
             tree, pretty_print=True, encoding='utf-8', xml_declaration=False)
