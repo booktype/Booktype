@@ -3,30 +3,21 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">{% trans "Chapter diff" %}</h3>
+          <h3 class="pull-left">{% trans "Comparing chapter revisions" %}</h3>
+          <div class="btn-group pull-right mt10" data-toggle="btns">
+            <button class="btn btn-sm btn-default active" href="#unified" aria-controls="home" role="tab" data-toggle="tab">{% trans "Unified" %}</button>
+            <button class="btn btn-sm btn-default" href="#split" aria-controls="profile" role="tab" data-toggle="tab">{% trans "Split" %}</button>
+          </div>
+          <div class="clearfix"></div>
         </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-xs-2"><span class="marker changed">{% trans "Changed" %}</span></div>
-                <div class="col-xs-2"><span class="marker added">{% trans "Added" %}</span></div>
-                <div class="col-xs-2"><span class="marker deleted">{% trans "Deleted" %}</span></div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6 header">{% trans "Revision" %}: {{ rev1 }}</div>
-              <div class="col-xs-6 header">{% trans "Revision" %}: {{ rev2 }}</div>
-            </div>
-            <div class="scrollable">
-                <table border="0" width="100%" class="row compare_table">
-                    {{ output|join:""|safe }}
-                </table>
-            </div>
+        <div class="modal-body compare_screen">
+          {% include "edit/_compare_common.html" %}
         </div>
         <div class="modal-footer">
             <button role="button" class="btn btn-success" data-href="{% url 'edit:revisions_compare' book.url_title chapter.url_title rev1 rev2 %}" data-target="_blank">
                 {% trans "Full view" %}
             </button>
-            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>
+            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Close" %}</button>
         </div>
     </div>
 </div>
