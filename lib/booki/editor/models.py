@@ -584,20 +584,20 @@ class ChapterHistory(models.Model):
 
     def previous(self):
         lower = ChapterHistory.objects.filter(
-            chapter=self.chapter,
-            revision__lt=self.revision
-        ).order_by('-revision')
+                chapter=self.chapter, revision__lt=self.revision
+            ).order_by('-revision')
 
         if lower.count() > 0:
-            return lower[0].revision
+            return lower.first().revision
         return None
 
     def next(self):
         higher = ChapterHistory.objects.filter(
-            chapter=self.chapter, revision__gt=self.revision)
+                chapter=self.chapter, revision__gt=self.revision
+            ).order_by('revision')
 
         if higher.count() > 0:
-            return higher[0].revision
+            return higher.first().revision
         return None
 
 
