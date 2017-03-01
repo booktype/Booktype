@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-07 13:58-0600\n"
-"PO-Revision-Date: 2017-02-09 09:13+0000\n"
-"Last-Translator: Besnik <besnik@programeshqip.org>\n"
+"POT-Creation-Date: 2017-02-22 17:02-0600\n"
+"PO-Revision-Date: 2017-02-23 09:04+0000\n"
+"Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Albanian (http://www.transifex.com/sourcefabric/booktype/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,13 +44,13 @@ msgstr ""
 msgid "Manage Languages"
 msgstr ""
 
-#: lib/booktype/api/editor/serializers.py:71
+#: lib/booktype/api/editor/serializers.py:81
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
 #: lib/booktype/apps/edit/views.py:428 lib/booktype/apps/reader/views.py:249
 msgid "Chapter"
 msgstr ""
 
-#: lib/booktype/api/editor/serializers.py:81
+#: lib/booktype/api/editor/serializers.py:91
 msgid "Section"
 msgstr ""
 
@@ -161,7 +161,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:22
 #: lib/booktype/apps/portal/templates/portal/group.html:23
 #: lib/booktype/apps/portal/templates/portal/group.html:50
-#: lib/booktype/apps/portal/views.py:392 lib/booktype/apps/portal/views.py:393
+#: lib/booktype/apps/portal/views.py:390 lib/booktype/apps/portal/views.py:391
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:93
 msgid "Books"
 msgstr ""
@@ -442,8 +442,8 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
-#: lib/booktype/importer/docx/docximporter.py:240
-#: lib/booktype/importer/docx/docximporter.py:330
+#: lib/booktype/importer/docx/docximporter.py:245
+#: lib/booktype/importer/docx/docximporter.py:335
 msgid "Title"
 msgstr ""
 
@@ -591,7 +591,7 @@ msgid "Wrong file format! Please try another one."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:50
-#: lib/booktype/apps/importer/views.py:173
+#: lib/booktype/apps/importer/views.py:138
 msgid "Something went wrong!"
 msgstr ""
 
@@ -1040,7 +1040,7 @@ msgstr ""
 
 #: lib/booktype/apps/core/templates/core/nav_menu.html:35
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:61
-#: lib/booktype/apps/portal/views.py:360 lib/booktype/apps/portal/views.py:361
+#: lib/booktype/apps/portal/views.py:358 lib/booktype/apps/portal/views.py:359
 msgid "People"
 msgstr ""
 
@@ -1646,176 +1646,184 @@ msgstr ""
 msgid "Citation"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:27
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:23
+msgid "Author Name"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:24
+msgid "Reference"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:29
 msgid "Font"
 msgstr ""
 
 #. Translators: User defined style settings
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:33
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:35
 #: lib/booktype/skeleton/themes/custom/panel.html:21
 msgid "Font size"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:34
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:36
 msgid "Change Font size"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:146
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:148
 msgid "Bold"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:147
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:149
 msgid "Italic"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:148
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:150
 msgid "Underline"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:149
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:151
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:113
 msgid "Quote"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:153
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:155
 msgid "Table"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:155
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:157
 msgid "Insert Table"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:158
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:160
 msgid "Rows"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:163
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:165
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:90
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:349
 msgid "Columns"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:169
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:171
 msgid "Table caption"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:173
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:175
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:63
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:415
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:176
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:178
 msgid "Delete Table"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:178
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:180
 msgid "Table Options"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:179
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:181
 msgid "Add Row Before"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:180
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:182
 msgid "Add Row After"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:181
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:183
 msgid "Add Column Before"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:182
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:184
 msgid "Add Column After"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:183
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:185
 msgid "Delete Row"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:184
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:186
 msgid "Delete Column"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:189
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:191
 msgid "Insert Link"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:190
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:192
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:164
 msgid "Insert Image"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:194
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:196
 msgid "Left align"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:195
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:197
 msgid "Centre align"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:196
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:198
 msgid "Right align"
 msgstr ""
 
 #. Translators: User defined style alignment settings
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:197
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:199
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:376
 #: lib/booktype/skeleton/themes/custom/panel.html:53
 msgid "Justify"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:202
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:204
 msgid "Unordered List"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:203
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:205
 msgid "Ordered List"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:206
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:208
 msgid "Indent left"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:207
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:209
 msgid "Indent right"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:210
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:212
 msgid "Left to right"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:211
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:213
 msgid "Right to left"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:217
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:219
 msgid "Save chapter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:217
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:219
 msgid "SAVE"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:223
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:225
 msgid "Save and close"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:224
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:226
 msgid "Save minor change"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:225
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:227
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:308
 msgid "Save with comment"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:227
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:229
 msgid "Close this chapter and go to the Table of Contents"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:227
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:229
 msgid "CLOSE"
 msgstr ""
 
@@ -2917,11 +2925,11 @@ msgstr ""
 msgid "Publish"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:12
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:13
 msgid "Book export"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:19
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:20
 msgid "Export history"
 msgstr ""
 
@@ -3645,17 +3653,17 @@ msgstr ""
 msgid "Export Settings"
 msgstr ""
 
-#: lib/booktype/apps/importer/forms.py:47
-#: lib/booktype/apps/importer/forms.py:49
+#: lib/booktype/apps/importer/forms.py:48
+#: lib/booktype/apps/importer/forms.py:50
 msgid "Filetype not supported."
 msgstr ""
 
-#: lib/booktype/apps/importer/views.py:72
+#: lib/booktype/apps/importer/views.py:60
 #, python-format
 msgid "Imported Book %(date)s"
 msgstr ""
 
-#: lib/booktype/apps/importer/views.py:148
+#: lib/booktype/apps/importer/views.py:116
 msgid "Extension not supported!"
 msgstr ""
 
@@ -3898,7 +3906,7 @@ msgstr ""
 msgid "You are not allowed to delete this group"
 msgstr ""
 
-#: lib/booktype/apps/portal/views.py:351
+#: lib/booktype/apps/portal/views.py:349
 msgid "Group successfully deleted."
 msgstr ""
 
@@ -4309,32 +4317,32 @@ msgid ""
 "editor at present."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:125
+#: lib/booktype/importer/docx/docximporter.py:130
 msgid ""
 "The file could not be imported because it was not saved in the .docx format."
 " Try to open the file in Word and save it as a .docx."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:128
+#: lib/booktype/importer/docx/docximporter.py:133
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:176
+#: lib/booktype/importer/docx/docximporter.py:181
 msgid ""
 "The file format you uploaded is not supported. Please save the image as jpg "
 "file and upload it again."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:211
+#: lib/booktype/importer/docx/docximporter.py:216
 msgid ""
 "An error occurred while importing images. Some images couldn't be imported. "
 "Missing images are marked within the text. Please upload missing images "
 "manually."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:238
+#: lib/booktype/importer/docx/docximporter.py:243
 msgid "Title Page"
 msgstr ""
 
