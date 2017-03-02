@@ -1,3 +1,278 @@
+2.2.0 (2017-03-02)
+==================
+
+** New Feature
+    * [BK-918] - Standard look for custom Aloha Blocks
+    * [BK-977] - Update wiki documentation for Booktype 2.0
+    * [BK-989] - Create new page for online book reading
+    * [BK-1007] - Django signals for different events
+    * [BK-1051] - What to do with messaging application
+    * [BK-1077] - Manage book permissions
+    * [BK-1086] - Convert old style Booktype project layout to new one
+    * [BK-1126] - Autosaving in Booktype editing
+    * [BK-1222] - Design for Messaging application
+    * [BK-1545] - Frontmatter / Titelei: standard set pages in front of every book
+    * [BK-1574] - Import EPUB or .docx into existing book as a new chapter or chapters
+    * [BK-1607] - Homepage: List just the books and groups for the language that the reader selects
+    * [BK-1608] - Groups could have a language setting
+    * [BK-1684] - Add a button to remove a book from a group
+    * [BK-2009] - Implement interface in editor to save section settings
+    * [BK-2030] - Show comment icon in table of contents IF comments are in chapter's content
+    * [BK-2034] - Create ability to control permissions from JS app
+    * [BK-2089] - Implement API authentication mechanism
+    * [BK-2090] - Integrate swagger.io with the API
+    * [BK-2140] - Add ability to edit color of book statuses
+    * [BK-2141] - Show an indicator in TOC  that chapter has comments
+    * [BK-2144] - Create export chapter's content option from TOC
+    * [BK-2152] - Add ability to implement cover for pdfreactor screenpdf
+    * [BK-2153] - Implement epub/docx importing through API
+    * [BK-2165] - Set unified history the default one in book history screen
+
+** Bug
+    * [BK-579] - Preview of PDF cover does not work in Cover Manager
+    * [BK-662] - Opera12.15  browser -> pasted hyperlinks are becoming plain text
+    * [BK-709] - URL address is using the first version of chapter in place of new name of chapter for automatic URL address
+    * [BK-766] - User with email not in Gravatar database get error instead of "no avatar image" or smth like that
+    * [BK-792] - Problems with Cross Site Request Forgery protection on development machine
+    * [BK-973] - Underline tag is removed but is not replaced with CSS definition
+    * [BK-1299] - Diff error when comparing revisions
+    * [BK-1331] - Add error pop-ups for pencil and eye icons in the Home view
+    * [BK-1345] - Unclear button in image insert window makes image vanish
+    * [BK-1404] - mPDF: page 1 must start on the right side (not left)
+    * [BK-1407] - Tidy chokes on HTML5 figure and figcaption tags
+    * [BK-1421] - Prevent executing group of requests on server before first request result will not appear on clients.
+    * [BK-1423] - Used font is not marked in pull down
+    * [BK-1439] - Hard-coded references to booki.cc site in source code
+    * [BK-1449] - Test failure in python-ooxml 0.12
+    * [BK-1486] - Fav icon for instance does not upload in Control Center
+    * [BK-1538] - Chapter revisions diff displays without some styles.
+    * [BK-1578] - List of book admins is not shown on Book info page
+    * [BK-1590] - Fix TOC in DraftView and FullView
+    * [BK-1602] - Contributors do not appear on Book Detail page when not Superuser
+    * [BK-1637] - 'Default visibility' setting does not have the expected effect
+    * [BK-1657] - Control Centre labels admins as superusers
+    * [BK-1669] - Firefox Browse button does not fit inside field height in various pages
+    * [BK-1683] - Profile buttons wrap on small screens
+    * [BK-1686] - Toolbar buttons do not wrap well when the display is narrow
+    * [BK-1688] - Deprecation warning in debug toolbar
+    * [BK-1695] - Book Info page gives publication date for a book which has not been published
+    * [BK-1699] - Split chapter functionality does not work if chapter has endnotes inside
+    * [BK-1714] - In Book Settings, Publisher appears under both Metadata and Additional Metadata
+    * [BK-1718] - Table of Contents in draft view is broken
+    * [BK-1720] - Possible indentation error in custom.py
+    * [BK-1723] - Academic and custom themes do not allow space for cover image in screen PDF
+    * [BK-1727] - TOC in ePub contains "Guide"?
+    * [BK-1728] - preload.css is not copied to static files path at installation time
+    * [BK-1729] - Error parsing messaging template during compression of static files
+    * [BK-1732] - Copy&paste text into Aloha: character styles are NOT preserved when track changes on
+    * [BK-1734] - Definition for track icon is missing
+    * [BK-1737] - Export History shows the same timestamp twice
+    * [BK-1739] - Non-approved covers can be selected in the Export wizard
+    * [BK-1751] - Impossible overwrite profile image
+    * [BK-1768] - DraftView should do word-wrapping on long words
+    * [BK-1786] - Instance logs show several RemovedInDjango18Warning messages
+    * [BK-1789] - EPUB and MOBI outputs have duplicate 'Guide' below Table of Contents
+    * [BK-1792] - Strange behaviour of sidebar tab when using Table plugin
+    * [BK-1797] - There is no role name for role_key DEFAULT_ROLE_registered_users
+    * [BK-1799] - Warnings from celery seen in supervisor log
+    * [BK-1805] - createuser command throws an error even when successful
+    * [BK-1833] - Debian package postinst should not use localised answers as triggers
+    * [BK-1843] - License link points to table of contents before a license is selected
+    * [BK-1881] - It's impossible to delete 'nbsp', if there is no another char before.
+    * [BK-1886] - Disable insert image, horizontal line, page break and split chapter menus when endnotes's body is in focus
+    * [BK-1890] - My Dashboard menu item should not open My Dashboard in a new tab
+    * [BK-1899] - Set attachments name during docx import to lowercase
+    * [BK-1918] - EPUB output does not include ISBN from metadata settings
+    * [BK-1922] - Internal link feature does not work for print or screen PDF outputs
+    * [BK-1929] - 'No module named bookizip' error on bookrename and bookexport commands
+    * [BK-1933] - Imported covers don't show their names in publish screen settings
+    * [BK-1982] - Multi-user bug with theme selection
+    * [BK-1984] - Same interface string defined in multiple places
+    * [BK-1985] - Insert Comment button vanishes after first comment is made
+    * [BK-1986] - Theme selector overlapped by reset button in sidebar panel
+    * [BK-1994] - Init infobox error
+    * [BK-1999] - JS console error when close chapter history tab
+    * [BK-2000] - CHAPTER_STATUS_DEFAULT must be contained into CHAPTER_STATUS_LIST
+    * [BK-2005] - Steps of the modal wizards should be translatable
+    * [BK-2006] - Rename JS vars to satisfy camel case style for draft and full views
+    * [BK-2012] - Raw HTML editor did not work in Firefox 48.0 for certain book
+    * [BK-2017] - Table of contents in editor is sometimes very slow to load, or does not load at all
+    * [BK-2018] - 'Not well formed' errors in browser console for certain files in editor
+    * [BK-2019] - TypeError: define is not a function
+    * [BK-2023] - Image gallery in the editor loads raw images
+    * [BK-2033] - Image gallery gives ability to upload not image file, which is wrong
+    * [BK-2038] - Password change notification sends new password in plain text email
+    * [BK-2041] - Custom style does not set valid defaults for EPUB css
+    * [BK-2045] - Book visibility /CORE
+    * [BK-2046] - Link to user manual is out of date, links should default to https
+    * [BK-2055] - Image editor fails in converter scripts (mpdf) when images is missing
+    * [BK-2056] - Image editor won't open if another was left opened
+    * [BK-2057] - Image editor popup overlaps with aloha toolbar when content starts with an image
+    * [BK-2065] - Sputnik first request hangs under some strange situation
+    * [BK-2068] - Inconsistency in blockquote lines and alignments
+    * [BK-2075] - Clean install may be broken on Debian/Ubuntu
+    * [BK-2077] -  Tick box has no effect!
+    * [BK-2080] - Fresh install of dev profile broken by sqlparse conflict with django debug toolbar
+    * [BK-2081] - Lock Booktype requirements to avoid breaking installation process
+    * [BK-2094] - Automatic numbering for figures is the same for all images in one chapter.
+    * [BK-2098] - Registration doesn't work after django 1.9 update
+    * [BK-2100] - Lock django-compressor version to 2.0
+    * [BK-2101] - Book still accessible via URL also it is hidden
+    * [BK-2102] - Invitation doesn't work when invited user is logged in
+    * [BK-2103] - TOC doesn't work properly on epub.js library with Booktype epub files
+    * [BK-2110] - Fix broken offline compression
+    * [BK-2111] - Metadata template tag is not returning safe html content
+    * [BK-2116] - New Reader: does not display after upload
+    * [BK-2117] - Improve edit link appear logic in the book draft view
+    * [BK-2119] - Remove RemovedInDjango110Warning warnings
+    * [BK-2123] - Remove redundant images from final epub file
+    * [BK-2131] - Don't remove cover during redundant image cleanup
+    * [BK-2132] - Initial epub sometimes has not valid nav.xhtml
+    * [BK-2135] - Footer text is out of date
+    * [BK-2137] - Spaces caused by comments are not stripped correctly from initial epub
+    * [BK-2138] - Add ability for including pdfreactor screenpdf as output
+    * [BK-2143] - Fix an issue inside text striping method for bas epub writerplugin
+    * [BK-2146] - ImageEditorWriterPlugin is removing theme images
+    * [BK-2148] - Deleting group in CC also removes all related books
+    * [BK-2149] - Remove errors during group creation/removing
+    * [BK-2151] - Refactor html in panel_publish template
+    * [BK-2158] - Tables are not well recognized by aloha editor plugin
+    * [BK-2160] - Endnotes are wrongly imported twice
+    * [BK-2161] - Insert Table options are shown when edit cursor is inside another table
+    * [BK-2166] - Revision 'Next' button always skips to the last revision, not the next
+    * [BK-2167] - Interface still refers to legacy Versions feature in several places
+    * [BK-2168] - Info page shows spurious Published: timestamp
+    * [BK-2169] - Info page shows misleading book status of 'New'
+    * [BK-2171] - Snapshot .deb packages no longer work
+    * [BK-2172] - Editor tooltip says 'Change Heading' when it also changes paragraph styles
+    * [BK-2173] - Wrong label in quote box "Set an author for this Quote" and issue with citation importer
+    * [BK-2175] - Change import in SecurityMiddleware
+    * [BK-2176] - Remove data-id attribute from endnote after internal link was created
+
+** Epic
+    * [BK-2008] - Sections must have settings to define some custom behaviours on each output
+    * [BK-2084] - Create REST API to communicate with other platforms
+
+** Task
+    * [BK-751] - Create objavi installation script (createobjavi)
+    * [BK-1041] - Convert old code from booki application to booktype
+    * [BK-1261] - Create official Debian package of Booktype 2.x
+    * [BK-1302] - Make official Debian/Ubuntu package of python-ooxml
+    * [BK-1507] - Search & Replace function in Editor (chapterwise possibly in the whole book)
+    * [BK-1530] - Tests for new permission API
+    * [BK-1557] - Dashboard and Home Screen differentation
+    * [BK-1701] - Document how to create a Booktype theme design
+    * [BK-1760] - Profile image cache issue
+    * [BK-1770] - Slight modifications of Academic theme
+    * [BK-1906] - Force browser to download exported files
+    * [BK-1909] - Removing icejs-plugin from list of aloha enabled plugins produces errors
+    * [BK-1996] - Update .po file headers for Booktype 2.1
+    * [BK-1997] - Update contributor documentation
+    * [BK-2014] - Infobox: remove paragraph tag in caption
+    * [BK-2032] - Some fileupload listeners attached to the whole document
+    * [BK-2040] - Add support for Django 1.9
+    * [BK-2060] - Use md5 as key for edited image cache
+    * [BK-2063] - Fix requests and redis versions in requirements file
+    * [BK-2064] - Make all import/convert constants configurable
+    * [BK-2072] - Add ability for including pdfreactor as output
+    * [BK-2088] - Fix/improve broken and abandoned tests
+    * [BK-2091] - Update core themes
+    * [BK-2096] - Change text input to dropdown in columns settings
+    * [BK-2097] - Rename and re-order drop down menu for paragraph styles. Part II
+    * [BK-2114] - Section settings: tick box for "chapter start on right page" or just "on new page"
+    * [BK-2122] - User stats by month: new users
+    * [BK-2134] - Remove settings deprecated TEMPLATES_DIRS setting
+    * [BK-2163] - Error during docx import
+    * [BK-2174] - Turn off autosave by default in editor to avoid saving revision issues
+
+** Improvement
+    * [BK-342] - 'Add Member' button for Groups menu
+    * [BK-374] - Index creation tool
+    * [BK-394] - Updates for Booktype 2.0.0 manual
+    * [BK-640] - Settings tab could offer more languages
+    * [BK-794] - Develop basic Aloha plugins for the new editing environment
+    * [BK-806] - Custom configuration should be stored in database
+    * [BK-832] - Cover image visible on the front end must be defined by Cover Manager
+    * [BK-834] - Panels in the editing environment must be defined in local template files
+    * [BK-835] - Reorder TOC function should be part of TOC class
+    * [BK-836] - Prune old converter tasks
+    * [BK-1153] - Remove bundled fonts from Debian/Ubuntu package
+    * [BK-1154] - Aloha and jQuery clean-up for distribution
+    * [BK-1272] - Admin could add a user to a group directly from the control centre
+    * [BK-1386] - Image captions / information
+    * [BK-1412] - Profile skeletons could make user-modifable settings more obvious
+    * [BK-1426] - Add a short message to the automatically sent login data mail
+    * [BK-1455] - Permissions for changing themes
+    * [BK-1460] - Only use default image for gravatar service when server is publicly accessible
+    * [BK-1464] - Move chat channel from the booki project
+    * [BK-1477] - Images also for Groups
+    * [BK-1481] - Rename a book as NON-SuperUser?
+    * [BK-1496] - Editable Imprint
+    * [BK-1498] - Data protection & privacy (for and on Booktype instance)
+    * [BK-1598] - Interface to edit text blocks on the webpage
+    * [BK-1599] - Invitation to books does not work with existing Accounts
+    * [BK-1636] - Metadata notice (to complete) and link on publish page
+    * [BK-1671] - Select/Unselect option in the role editor
+    * [BK-1689] - Some collected bugs / improvements - by Peter Baumgartner
+    * [BK-1730] - Make templates to be standalone packages
+    * [BK-1731] - Hide link to registration when set to admin registration only
+    * [BK-1733] - Close chapter dialog lacks "cancel" button
+    * [BK-1742] - Have a default email subject in the settings for notification messages
+    * [BK-1790] - Clarify default roles for anonymous and registered users
+    * [BK-1803] - Do not show header on the separator page in PDF
+    * [BK-1815] - Icon alignment
+    * [BK-1829] - Directionality should be implied by book language setting
+    * [BK-1830] - Book settings should include field for 'Table of Contents' string
+    * [BK-1844] - Show instance time zone near to time stamps
+    * [BK-1847] - Generate developer documentation from existing docstrings
+    * [BK-1850] - Breadcrumps to the image overview
+    * [BK-1863] - The change of view in dashboard book list should save selected view
+    * [BK-1864] - Groups add book modal should contain ajax search with autocomplete and button for loading more books
+    * [BK-1897] - Add Korean to language choices, fix Czech and Norwegian entries
+    * [BK-1902] - Insert Table feature could allow a caption
+    * [BK-1904] - Theme info.json and panel should state which languages are supported
+    * [BK-1905] - Custom theme could allow font size setting for body text
+    * [BK-1912] - Catch event when user wants to close tab and he has unsaved changes in the editor
+    * [BK-1916] - Academic theme needs improvements to EPUB styling
+    * [BK-1917] - Support e-readers that do not understand subtitle metadata
+    * [BK-1919] - EPUB Table of Contents could have classes to enable styling
+    * [BK-1925] - Separate ISBN for each output format
+    * [BK-1930] - Blockquote should be handled in a standards compliant way
+    * [BK-1936] - Improve logic for draft and full page views
+    * [BK-1964] - Email generated by 'Invite people' wizard should be more informative
+    * [BK-1968] - Add version for js files which include using requirejs
+    * [BK-2007] - Merge Amnesty cover manager features to core
+    * [BK-2010] - Improve the converter scripts to handle the sections settings correctly
+    * [BK-2020] - Improve converter to handle images which have not relative src
+    * [BK-2021] - Create folders for images if they don't exist
+    * [BK-2022] - Draft and full view don't support themes.
+    * [BK-2043] - Activity stream
+    * [BK-2044] - Soft Hyphenation (manually inserted hyphenation)
+    * [BK-2051] - Section settings supporting structure
+    * [BK-2058] - Improve image compression for image editor in converter scripts
+    * [BK-2067] - Allow creating a cite just when user creates a quote
+    * [BK-2083] - Strip linebreak tags when exporting to PDFreactor?
+    * [BK-2099] - Lock dev requirements
+    * [BK-2104] - Logout view should support `next` url param
+    * [BK-2105] - Small screen and usability improvements
+    * [BK-2107] - Frontpage url should be customizable
+    * [BK-2125] - Create epub converter plugin to drop not allowed tags
+    * [BK-2130] - Handle text in the epub chapter's root which is not covered with tags
+    * [BK-2139] - Implement custom colors for chapter status and display in TOC
+    * [BK-2142] - Autosave functionality should be modified from control center and book settings
+    * [BK-2145] - Chapter's history tab should use new unified history mode
+    * [BK-2159] - Update settings to better fit https installation
+    * [BK-2162] - Allow authorname and reference class in docx importer and booktype editor
+    * [BK-2164] - Allow infoboxes be imported from docx files
+
+** Technical task
+    * [BK-799] - Aloha plugin for inserting special characters
+    * [BK-1046] - Move logging functionality to new booktype application
+
+** Document
+    * [BK-2157] - Add information to PDF renderer installation section
+
+
 2.1.0 (2016-08-01)
 ==================
   - theme support
@@ -6,12 +281,13 @@
 
 2.0.0 (2015-10-12)
 ==================
-  Complete rewrite. Please check issue tracker for changes.
+  Complete rewrite. Please check issue tracker for changes or see full changelog here
+  https://github.com/sourcefabric/Booktype/compare/v1.6.1...v2.0.0
 
 1.6.1 (2013-06-02)
 ================
   Read INSTALL file about instructions how to upgrade to version 1.6.1.
-  
+
   - BK-136 Add named URL patterns for all pages
   - BK-510 Footnotes disappearing
   - BK-546 Booktype.pro: control center does not save
@@ -144,7 +420,7 @@
   - BK-516 Disable Lulu interface in the configuration
   - BK-515 Do not escape strings in the notes tab
   - BK-514 Escape strings while formatting messages in JavaScript code for the editor
-  
+
 
 1.5.4 (2013-02-06)
 ==================
@@ -246,7 +522,7 @@
   - BK-332 Management command to create Booktype user
   - BK-331 Create configuration variables to limit number of users and books
   - BK-328 Load initial language data as part of South migration
-  - BK-327 Load initial license data as South data migration 
+  - BK-327 Load initial license data as South data migration
 
 1.5.3 (2012-07-01)
 ==================
@@ -320,7 +596,7 @@
   - BK-169 Separate content of publish tab in new file
   - BK-168 View profile page has wrong link to rss feed
   - BK-167 Change info in setup.py for PyPI repository
-  
+
 1.5.2 (2012-04-06)
 ==================
   Read INSTALL file about instructions how to upgrade to version 1.5.2.
@@ -341,7 +617,7 @@
 1.5 (2012-02-15)
 ================
 
-  - Release 1.5 to PyPi , renamed from Booki to BookType 
+  - Release 1.5 to PyPi , renamed from Booki to BookType
 
 
 0.3 (2010-03-15)
@@ -358,4 +634,3 @@
 ================
 
   - Initial Release for 0.1 test release to pypi [Andy Nicholson]
-
