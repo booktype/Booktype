@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-22 17:02-0600\n"
-"PO-Revision-Date: 2017-02-23 09:04+0000\n"
+"POT-Creation-Date: 2017-02-28 16:23-0600\n"
+"PO-Revision-Date: 2017-03-02 08:45+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Russian (http://www.transifex.com/sourcefabric/booktype/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgstr ""
 
 #: lib/booktype/api/editor/serializers.py:81
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:428 lib/booktype/apps/reader/views.py:249
+#: lib/booktype/apps/edit/views.py:539 lib/booktype/apps/reader/views.py:249
 msgid "Chapter"
 msgstr "Глава"
 
@@ -384,7 +384,7 @@ msgstr "Выберите Роли для приглашения"
 #: lib/booktype/apps/account/templates/account/dashboard.html:278
 #: lib/booktype/apps/core/models.py:70
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:47
-#: lib/booktype/apps/edit/views.py:49
+#: lib/booktype/apps/edit/views.py:54
 msgid "Roles"
 msgstr "Роли"
 
@@ -445,8 +445,8 @@ msgstr "Создать новую книгу"
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
-#: lib/booktype/importer/docx/docximporter.py:245
-#: lib/booktype/importer/docx/docximporter.py:335
+#: lib/booktype/importer/docx/docximporter.py:247
+#: lib/booktype/importer/docx/docximporter.py:337
 msgid "Title"
 msgstr "Заголовок"
 
@@ -611,6 +611,7 @@ msgid "Initially hidden from others"
 msgstr "Изначально скрыто от других пользователей"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:76
+#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:20
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:414
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:33
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:64
@@ -939,7 +940,7 @@ msgstr "Разрешение"
 
 #: lib/booktype/apps/core/models.py:29
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:51
-#: lib/booktype/apps/edit/views.py:50
+#: lib/booktype/apps/edit/views.py:55
 msgid "Permissions"
 msgstr "Разрешения"
 
@@ -1072,7 +1073,6 @@ msgid "Admin Roles"
 msgstr "Управление ролями"
 
 #: lib/booktype/apps/core/templates/core/utils.html:11
-#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:29
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:107
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:60
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:96
@@ -1306,46 +1306,46 @@ msgstr ""
 msgid "Modify Section Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1387
-#: lib/booktype/apps/edit/channel.py:1392
+#: lib/booktype/apps/edit/channel.py:1384
+#: lib/booktype/apps/edit/channel.py:1389
 msgid "You have no permissions for splitting the chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1398
+#: lib/booktype/apps/edit/channel.py:1395
 msgid "Chapter is under edit."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1405
-#: lib/booktype/apps/edit/channel.py:1409
+#: lib/booktype/apps/edit/channel.py:1402
+#: lib/booktype/apps/edit/channel.py:1406
 msgid "You have no permissions for splitting locked chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1418
+#: lib/booktype/apps/edit/channel.py:1415
 msgid "You have selected invalid title name."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1422
+#: lib/booktype/apps/edit/channel.py:1419
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:36
 msgid "Chapter with this title already exists."
 msgstr "Глава с таким названием уже существует."
 
-#: lib/booktype/apps/edit/channel.py:1561
+#: lib/booktype/apps/edit/channel.py:1558
 msgid "You have no permissions for editing this chapter."
 msgstr "У вас нет прав доступа для редактирования этой главы."
 
-#: lib/booktype/apps/edit/channel.py:1569
+#: lib/booktype/apps/edit/channel.py:1566
 msgid "Chapter currently being edited."
 msgstr "В данный момент глава редактируется."
 
-#: lib/booktype/apps/edit/channel.py:1574
+#: lib/booktype/apps/edit/channel.py:1571
 msgid "You have no permissions for editing chapters under lock."
 msgstr "У вас нет прав доступа для редактирования заблокированных глав."
 
-#: lib/booktype/apps/edit/channel.py:1578
+#: lib/booktype/apps/edit/channel.py:1575
 msgid "Chapter currently is locked from everyone."
 msgstr "В данный момент глава заблокирована для всех."
 
-#: lib/booktype/apps/edit/channel.py:2183
+#: lib/booktype/apps/edit/channel.py:2180
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr "Один из выбранных форматов в был отключен. Попробуйте обновить страницу."
 
@@ -1386,38 +1386,44 @@ msgid ""
 "Line: %(line_no)s "
 msgstr "Невозможно создать поле %(field)s. Причина: %(error)s | Тип: %(exc_type)s | Строка: %(line_no)s"
 
-#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:7
-#: lib/booktype/apps/edit/templates/edit/compare_screen.html:13
-#: lib/booktype/apps/edit/views.py:562
-msgid "Chapter diff"
-msgstr "Сравнение главы"
-
-#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:11
-#: lib/booktype/apps/edit/templates/edit/compare_screen.html:15
-msgid "Changed"
-msgstr "Изменено"
-
-#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:12
-#: lib/booktype/apps/edit/templates/edit/compare_screen.html:16
+#: lib/booktype/apps/edit/templates/edit/_compare_common.html:6
+#: lib/booktype/apps/edit/templates/edit/_compare_common.html:15
 msgid "Added"
 msgstr "Добавлена"
 
-#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:13
-#: lib/booktype/apps/edit/templates/edit/compare_screen.html:17
+#: lib/booktype/apps/edit/templates/edit/_compare_common.html:7
+#: lib/booktype/apps/edit/templates/edit/_compare_common.html:16
 msgid "Deleted"
 msgstr "Удалено "
 
-#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:16
-#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:17
+#: lib/booktype/apps/edit/templates/edit/_compare_common.html:17
+msgid "Changed"
+msgstr "Изменено"
+
+#: lib/booktype/apps/edit/templates/edit/_compare_common.html:20
+#: lib/booktype/apps/edit/templates/edit/_compare_common.html:21
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/templates/edit/compare_screen.html:20
-#: lib/booktype/apps/edit/templates/edit/compare_screen.html:21
-#: lib/booktype/apps/edit/views.py:593
+#: lib/booktype/apps/edit/views.py:617
 msgid "Revision"
 msgstr "Исправление"
 
-#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:27
+#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:6
+#: lib/booktype/apps/edit/templates/edit/compare_screen.html:14
+msgid "Comparing chapter revisions"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:8
+#: lib/booktype/apps/edit/templates/edit/compare_screen.html:16
+msgid "Unified"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:9
+#: lib/booktype/apps/edit/templates/edit/compare_screen.html:17
+msgid "Split"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/_compare_modal.html:18
 msgid "Full view"
 msgstr "Полный вид"
 
@@ -1606,8 +1612,8 @@ msgid "Nothing"
 msgstr "Ничего"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:11
-msgid "Change Heading"
-msgstr "Изменить Заголовок"
+msgid "Change Style"
+msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:13
 msgid "Normal Text"
@@ -2049,7 +2055,7 @@ msgstr "Содержание настоящей главы будет возвр
 msgid "Yes, revert!"
 msgstr "Да, вернуть!"
 
-#: lib/booktype/apps/edit/templates/edit/compare_screen.html:30
+#: lib/booktype/apps/edit/templates/edit/compare_screen.html:27
 msgid "Revisions not found!"
 msgstr "Изменения не найдены!"
 
@@ -2818,7 +2824,7 @@ msgstr "Размеры изображения"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:446
+#: lib/booktype/apps/edit/views.py:557
 msgid "Book History"
 msgstr "История Книги"
 
@@ -3223,12 +3229,12 @@ msgid "Metadata"
 msgstr "Метаданные"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
-#: lib/booktype/apps/edit/views.py:47
+#: lib/booktype/apps/edit/views.py:52
 msgid "Book Metadata"
 msgstr "Метаданные Книги"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:38
-#: lib/booktype/apps/edit/views.py:48
+#: lib/booktype/apps/edit/views.py:53
 msgid "Additional Metadata"
 msgstr "Дополнительные Метаданные"
 
@@ -3430,7 +3436,7 @@ msgid ""
 msgstr "Вы уверены, что хотите удалить это поле? Вы не сможете отменить это действие!"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
-#: lib/booktype/apps/edit/views.py:51
+#: lib/booktype/apps/edit/views.py:56
 msgid "Chapter Status"
 msgstr "Статус Главы"
 
@@ -3506,49 +3512,53 @@ msgstr ""
 msgid "Table Of Contents"
 msgstr "Оглавление"
 
-#: lib/booktype/apps/edit/views.py:44
+#: lib/booktype/apps/edit/views.py:49
 msgid "General Settings"
 msgstr "Общие настройки"
 
-#: lib/booktype/apps/edit/views.py:45
+#: lib/booktype/apps/edit/views.py:50
 msgid "Book Language"
 msgstr "Язык Книги"
 
-#: lib/booktype/apps/edit/views.py:46
+#: lib/booktype/apps/edit/views.py:51
 msgid "Book License"
 msgstr "Лицензия Книги"
 
-#: lib/booktype/apps/edit/views.py:397
+#: lib/booktype/apps/edit/views.py:508
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr "Ревизия {0} сохранена"
 
-#: lib/booktype/apps/edit/views.py:600
+#: lib/booktype/apps/edit/views.py:586
+msgid "Chapter diff"
+msgstr "Сравнение главы"
+
+#: lib/booktype/apps/edit/views.py:624
 msgid "Book History | Chapter Revision"
 msgstr "История Книги | Ревизия Главы"
 
-#: lib/booktype/apps/edit/views.py:623
+#: lib/booktype/apps/edit/views.py:647
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "Возвращено к ревизии %s."
 
-#: lib/booktype/apps/edit/views.py:642
+#: lib/booktype/apps/edit/views.py:666
 msgid "Chapter revision successfully reverted."
 msgstr "Ревизия главы успешно возвращена."
 
-#: lib/booktype/apps/edit/views.py:644
+#: lib/booktype/apps/edit/views.py:668
 msgid "Chapter revision could not be reverted."
 msgstr "Ревизия главы не может быть отменена."
 
-#: lib/booktype/apps/edit/views.py:715
+#: lib/booktype/apps/edit/views.py:739
 msgid "Successfully saved settings."
 msgstr "Настройки успешно сохранены."
 
-#: lib/booktype/apps/edit/views.py:717
+#: lib/booktype/apps/edit/views.py:741
 msgid "You have no permissions to execute this action."
 msgstr "У вас нет прав для выполнения этого действия."
 
-#: lib/booktype/apps/edit/views.py:720
+#: lib/booktype/apps/edit/views.py:744
 msgid "Unknown error while saving changes."
 msgstr "Неизвестная ошибка при сохранении изменений"
 
@@ -4320,32 +4330,32 @@ msgid ""
 "editor at present."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:130
+#: lib/booktype/importer/docx/docximporter.py:132
 msgid ""
 "The file could not be imported because it was not saved in the .docx format."
 " Try to open the file in Word and save it as a .docx."
 msgstr "Файл не может быть импортирован, поскольку он не был сохранен в формате .docx. Попробуйте открыть файл в Word-е и сохранить его как .docx."
 
-#: lib/booktype/importer/docx/docximporter.py:133
+#: lib/booktype/importer/docx/docximporter.py:135
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
 msgstr "Загруженный файл docx содержит ошибки и не может быть конвертирован. Пожалуйста, обратитесь в службу поддержки клиентов."
 
-#: lib/booktype/importer/docx/docximporter.py:181
+#: lib/booktype/importer/docx/docximporter.py:183
 msgid ""
 "The file format you uploaded is not supported. Please save the image as jpg "
 "file and upload it again."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:216
+#: lib/booktype/importer/docx/docximporter.py:218
 msgid ""
 "An error occurred while importing images. Some images couldn't be imported. "
 "Missing images are marked within the text. Please upload missing images "
 "manually."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:243
+#: lib/booktype/importer/docx/docximporter.py:245
 msgid "Title Page"
 msgstr "Заголовок Страницы"
 
