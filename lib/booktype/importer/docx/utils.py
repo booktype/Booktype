@@ -135,3 +135,18 @@ def clean_infobox_content(tree):
 
         for child in box.xpath('//div[contains(@class, "box-content")]/*'):
             child.drop_tag()
+
+
+def fix_citations(tree):
+    """
+    Sometimes citations are inline elements so the hook for paragraph
+    is not able to match the styles to set the right class and tag. This
+    is just for citations for now. We should improve this logic later
+
+    :Args:
+      - tree (:class:`lxml.html`): HTML tree parsed from string
+    """
+
+    for cite in tree.xpath('//*[contains(@class, "citation")]'):
+        cite.tag = 'p'
+        cite.set('class', 'bk-cite')
