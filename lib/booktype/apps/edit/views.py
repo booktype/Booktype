@@ -463,6 +463,11 @@ class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
         context['is_owner'] = book.owner == self.request.user
         context['publish_options'] = config.get_configuration('PUBLISH_OPTIONS')
 
+        context['autosave'] = json.dumps({
+            'enabled': config.get_configuration('EDITOR_AUTOSAVE_ENABLED'),
+            'delay': config.get_configuration('EDITOR_AUTOSAVE_DELAY')
+        })
+
         return context
 
     def get_login_url(self):
