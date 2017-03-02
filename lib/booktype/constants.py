@@ -120,6 +120,12 @@ XHTML_DOCUMENT_WIDTH = 2480
 MOBI_DOCUMENT_WIDTH = 2480
 EPUB_DOCUMENT_WIDTH = 2480
 
+# editor stuff here
+EDITOR_AUTOSAVE_ENABLED = False  # disabled by default
+EDITOR_AUTOSAVE_DELAY = 60  # time in seconds
+
+# end editor stuff
+
 EPUB_NOT_ALLOWED_TAGS = (
     # 'strip' - drop tag, leave content
     # 'drop' - drop tag, drop content

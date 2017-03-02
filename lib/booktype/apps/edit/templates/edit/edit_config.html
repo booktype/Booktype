@@ -17,6 +17,7 @@
       window.booktype.sputnikDispatcherURL = "{% url 'sputnik_dispatcher' %}";
       window.booktype.activeProfile = "{{ ACTIVE_PROFILE }}";
       window.booktype.editor.historyURL = "{% url 'edit:history' book.url_title %}";
+      window.booktype.editor.autosave = {{ autosave|safe }}
       window.booktype.bookSettingsURL = "{% url 'edit:settings' book.url_title %}";
 
       var settings = {
