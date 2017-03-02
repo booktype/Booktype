@@ -84,6 +84,7 @@ def reformat_endnotes(chapter_content):
             a.text = sup.text
             sup.text = ''
             sup.insert(0, a)
+            del sup.attrib['data-id']
 
 
 def get_sections_settings(epub_book):
