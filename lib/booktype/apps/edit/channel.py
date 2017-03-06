@@ -1488,6 +1488,12 @@ def remote_split_chapter(request, message, bookid, version):
         myself=True
     )
 
+    toc_id = None
+    try:
+        toc_id = toc_item.id
+    except Exception:
+        pass
+
     sputnik.addMessageToChannel(
         request, "/booktype/book/%s/%s/" % (bookid, version), {
             "command": "chapter_create",
@@ -1499,7 +1505,7 @@ def remote_split_chapter(request, message, bookid, version):
                         new_chapter.lock_type,
                         new_chapter.lock_username,
                         "root",
-                        toc_item.id,
+                        toc_id,
                         "normal",
                         None)
         },
@@ -1511,6 +1517,7 @@ def remote_split_chapter(request, message, bookid, version):
     res['status'] = True
     res['result'] = True
     res['chapters'] = get_toc_for_book(book_version)
+    res['hold'] = get_hold_chapters(book_version)
 
     return res
 
