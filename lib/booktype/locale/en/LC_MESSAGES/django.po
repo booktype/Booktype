@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-01 14:17-0600\n"
+"POT-Creation-Date: 2017-03-11 21:41-0600\n"
 "PO-Revision-Date: 2015-05-15 11:52+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -44,7 +44,7 @@ msgstr ""
 
 #: lib/booktype/api/editor/serializers.py:81
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:539 lib/booktype/apps/reader/views.py:249
+#: lib/booktype/apps/edit/views.py:546 lib/booktype/apps/reader/views.py:249
 msgid "Chapter"
 msgstr ""
 
@@ -157,7 +157,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group.html:23
 #: lib/booktype/apps/portal/templates/portal/group.html:50
 #: lib/booktype/apps/portal/views.py:390 lib/booktype/apps/portal/views.py:391
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:93
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:110
 msgid "Books"
 msgstr ""
 
@@ -304,7 +304,7 @@ msgstr ""
 #: lib/booktype/apps/account/templates/account/dashboard.html:182
 #: lib/booktype/apps/portal/templates/portal/books.html:115
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:149
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:108
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:125
 msgid "ago"
 msgstr ""
 
@@ -375,7 +375,7 @@ msgstr ""
 #: lib/booktype/apps/account/templates/account/dashboard.html:278
 #: lib/booktype/apps/core/models.py:70
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:47
-#: lib/booktype/apps/edit/views.py:54
+#: lib/booktype/apps/edit/views.py:56
 msgid "Roles"
 msgstr ""
 
@@ -393,7 +393,7 @@ msgstr ""
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:24
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:9
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:19
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:75
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:89
 msgid "Delete Book"
 msgstr ""
 
@@ -540,7 +540,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:96
 #: lib/booktype/apps/portal/templates/portal/group.html:22
 #: lib/booktype/apps/portal/templates/portal/group.html:117
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:93
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:110
 msgid "Members"
 msgstr ""
 
@@ -932,7 +932,7 @@ msgstr ""
 
 #: lib/booktype/apps/core/models.py:29
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:51
-#: lib/booktype/apps/edit/views.py:55
+#: lib/booktype/apps/edit/views.py:57
 msgid "Permissions"
 msgstr ""
 
@@ -1395,7 +1395,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:21
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:617
+#: lib/booktype/apps/edit/views.py:624
 msgid "Revision"
 msgstr ""
 
@@ -2048,6 +2048,28 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/compare_screen.html:27
 msgid "Revisions not found!"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/download_history.html:5
+#: lib/booktype/apps/edit/templates/edit/download_history.html:72
+msgid "History for"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/download_history.html:74
+#: lib/booktype/apps/edit/templates/edit/download_history.html:115
+msgid "Expand all"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/download_history.html:85
+msgid "No changes"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/download_history.html:88
+msgid "edit"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/download_history.html:116
+msgid "Collapse all"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:3
@@ -2815,7 +2837,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:557
+#: lib/booktype/apps/edit/views.py:564
 msgid "Book History"
 msgstr ""
 
@@ -3220,12 +3242,12 @@ msgid "Metadata"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
-#: lib/booktype/apps/edit/views.py:52
+#: lib/booktype/apps/edit/views.py:54
 msgid "Book Metadata"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:38
-#: lib/booktype/apps/edit/views.py:53
+#: lib/booktype/apps/edit/views.py:55
 msgid "Additional Metadata"
 msgstr ""
 
@@ -3427,7 +3449,7 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
-#: lib/booktype/apps/edit/views.py:56
+#: lib/booktype/apps/edit/views.py:58
 msgid "Chapter Status"
 msgstr ""
 
@@ -3503,54 +3525,70 @@ msgstr ""
 msgid "Table Of Contents"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:49
+#: lib/booktype/apps/edit/views.py:51
 msgid "General Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:50
+#: lib/booktype/apps/edit/views.py:52
 msgid "Book Language"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:51
+#: lib/booktype/apps/edit/views.py:53
 msgid "Book License"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:508
+#: lib/booktype/apps/edit/views.py:515
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:586
+#: lib/booktype/apps/edit/views.py:593
 msgid "Chapter diff"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:624
+#: lib/booktype/apps/edit/views.py:631
 msgid "Book History | Chapter Revision"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:647
+#: lib/booktype/apps/edit/views.py:654
 #, python-format
 msgid "Reverted to revision %s."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:666
+#: lib/booktype/apps/edit/views.py:673
 msgid "Chapter revision successfully reverted."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:668
+#: lib/booktype/apps/edit/views.py:675
 msgid "Chapter revision could not be reverted."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:739
+#: lib/booktype/apps/edit/views.py:746
 msgid "Successfully saved settings."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:741
+#: lib/booktype/apps/edit/views.py:748
 msgid "You have no permissions to execute this action."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:744
+#: lib/booktype/apps/edit/views.py:751
 msgid "Unknown error while saving changes."
+msgstr ""
+
+#: lib/booktype/apps/edit/views.py:807
+msgid "default one ({})"
+msgstr ""
+
+#: lib/booktype/apps/edit/views.py:821
+msgid "Available revisions: {}"
+msgstr ""
+
+#: lib/booktype/apps/edit/views.py:823
+msgid "There are no revisions available"
+msgstr ""
+
+#: lib/booktype/apps/edit/views.py:830
+msgid "USING REVISION"
 msgstr ""
 
 #: lib/booktype/apps/export/__init__.py:5
@@ -4059,38 +4097,42 @@ msgid "View draft"
 msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:71
-msgid "Click this button to edit the metadata for this book"
+msgid "More options"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:72
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:76
+msgid "Download history"
+msgstr ""
+
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:78
+msgid "Download split history"
+msgstr ""
+
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:84
 msgid "Edit book info"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:74
-msgid "Click this button to delete the entire book permanently"
-msgstr ""
-
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:87
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:104
 msgid "Group that book belongs to"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:101
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:118
 msgid "Recent activity"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:134
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:151
 msgid "Owner"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:157
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:174
 msgid "Admins"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:181
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:198
 msgid "Contributors"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:206
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:223
 msgid "Book versions"
 msgstr ""
 
