@@ -61,6 +61,13 @@ MPDF_DIR = ''
 PHP_PATH = 'php'
 MPDF_SCRIPT = '{}/booktype2mpdf.php'.format(BOOKTYPE_ROOT)
 
+# PANDOC
+# /usr/local/bin/pandoc - OSX
+# /usr/bin/pandoc - linux
+PANDOC_PATH = '/usr/local/bin/pandoc'
+PANDOC_ICML_SCRIPT = '{}/epub2icml.sh'.format(BOOKTYPE_ROOT)
+PANDOC_DOCX_SCRIPT = '{}/epub2docx.sh'.format(BOOKTYPE_ROOT)
+
 # BOOKTYPE DIRECTORIES
 
 # site_static
