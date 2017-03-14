@@ -45,14 +45,14 @@ if [ ! -d temp ]; then
 fi
 
 # create DOCX directory
-if [ ! -d $TARGETFILENAME"-DOCX/Chapters" ]; then
-  mkdir -p $TARGETFILENAME"-DOCX/Chapters";
+if [ ! -d $TARGETFILENAME"/Chapters" ]; then
+  mkdir -p $TARGETFILENAME"/Chapters";
 fi
 
 # create a DOCX version of the entire book
 ${PANDOC:-"pandoc"} -s --from epub --to docx -o "COMPLETE_"$TARGETFILENAME.docx $SOURCE
 # move the file to the Text directory
-mv "COMPLETE_"$TARGETFILENAME.docx $TARGETFILENAME"-DOCX"
+mv "COMPLETE_"$TARGETFILENAME.docx $TARGETFILENAME
 
 # create a copy for processing
 cp $SOURCE ./temp/book.epub
@@ -62,9 +62,9 @@ cd ./temp
 unzip ./book.epub
 
 # copy fonts, css and images to DOCX folder
-cp -R ./OEBPS/Fonts ../$TARGETFILENAME"-DOCX/"
-cp -R ./OEBPS/Images ../$TARGETFILENAME"-DOCX/"
-cp -R ./OEBPS/Styles ../$TARGETFILENAME"-DOCX/"
+cp -R ./OEBPS/Fonts ../$TARGETFILENAME"/"
+cp -R ./OEBPS/Images ../$TARGETFILENAME"/"
+cp -R ./OEBPS/Styles ../$TARGETFILENAME"/"
 
 # move to where the HTML files are
 cd ./OEBPS/Text/
@@ -73,7 +73,7 @@ for chapterxhtml in *.xhtml; do
     # new chapter name without xhtml ending
     chaptername=$(echo $chapterxhtml | cut -f 1 -d '.')
     ${PANDOC:-"pandoc"} -s --from html --to docx -o $chaptername.docx $chapterxhtml
-    mv $chaptername.docx ../../../$TARGETFILENAME"-DOCX/Chapters/"
+    mv $chaptername.docx ../../../$TARGETFILENAME"/Chapters/"
 done
 
 # move back up outside temp directory
@@ -83,9 +83,9 @@ cd ../../../
 rm -rf ./temp
 
 # create zip for ICML files and remove folder
-zip -0r $TARGETFILENAME-DOCX.zip ./$TARGETFILENAME"-DOCX/"
+zip -0r $TARGETFILENAME-DOCX.zip ./$TARGETFILENAME"/"
 # delete working folder
-rm -rf ./$TARGETFILENAME"-DOCX/"
+rm -rf ./$TARGETFILENAME"/"
 
 # move file to target
 mv $TARGETFILENAME-DOCX.zip $TARGET

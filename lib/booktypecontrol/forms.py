@@ -12,15 +12,15 @@ from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator, MinLengthValidator
 
-from booktype.utils import config
+from booktype.utils import config, misc
+from booktype.convert import loader as convert_loader
+from booktype.apps.convert import utils as convert_utils
 from booktype.apps.account.models import UserProfile
 from booktype.apps.core.forms import BaseBooktypeForm
 from booktype.apps.core.models import Role, Permission
 from booktype.apps.core.widgets import GroupedCheckboxSelectMultiple
 from booktype.apps.portal.forms import GroupCreateForm
 from booktype.apps.portal.widgets import RemovableImageWidget
-
-from booktype.utils import misc
 from booki.editor.models import License, Book, BookiGroup
 from booktype.utils.book import (
     create_book, rename_book, check_book_availability
@@ -815,14 +815,14 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
 
 
 class PublishingForm(BaseControlForm, forms.Form):
-    OPTIONS = ('mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml')
+    OPTIONS = ('mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml', 'pdfreactor', 'pdfreactor-screenpdf', 'icml', 'docx')
 
     publish_mpdf = forms.BooleanField(
-        label=_('Book PDF'),
+        label=_('PDF print'),
         required=False
     )
     publish_screenpdf = forms.BooleanField(
-        label=_('Screen PDF'),
+        label=_('PDF screen'),
         required=False
     )
     publish_epub = forms.BooleanField(
@@ -837,6 +837,36 @@ class PublishingForm(BaseControlForm, forms.Form):
         label=_('XHTML'),
         required=False
     )
+    publish_pdfreactor = forms.BooleanField(
+        label=_('PDF.pro'),
+        required=False
+    )
+    publish_pdfreactor_screenpdf = forms.BooleanField(
+        label=_('PDF.pro screen'),
+        required=False
+    )
+    publish_icml = forms.BooleanField(
+        label=_('Adobe InDesign (ICML)'),
+        required=False
+    )
+    publish_docx = forms.BooleanField(
+        label=_('Word (DOCX)'),
+        required=False
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(PublishingForm, self).__init__(*args, **kwargs)
+
+        # if we don't have external (additional) converters enabled,
+        # we must hide this options from form
+        # TODO: we can make a generic solution, create form elements based on available converters
+        converters = convert_loader.find_all(module_names=convert_utils.get_converter_module_names())
+
+        if 'pdfreactor-screenpdf' not in converters:
+            del self.fields['publish_pdfreactor_screenpdf']
+
+        if 'pdfreactor' not in converters:
+            del self.fields['publish_pdfreactor']
 
     @classmethod
     def initial_data(cls):
@@ -847,13 +877,17 @@ class PublishingForm(BaseControlForm, forms.Form):
             'publish_screenpdf': 'screenpdf' in publish_options,
             'publish_epub': 'epub' in publish_options,
             'publish_mobi': 'mobi' in publish_options,
-            'publish_xhtml': 'xhtml' in publish_options
+            'publish_xhtml': 'xhtml' in publish_options,
+            'publish_pdfreactor': 'pdfreactor' in publish_options,
+            'publish_pdfreactor_screenpdf': 'pdfreactor-screenpdf' in publish_options,
+            'publish_icml': 'icml' in publish_options,
+            'publish_docx': 'docx' in publish_options
         }
 
     def save_settings(self, request):
         opts = []
         for _opt in self.OPTIONS:
-            if self.cleaned_data.get('publish_{0}'.format(_opt)):
+            if self.cleaned_data.get('publish_{0}'.format(_opt.replace('-', '_'))):
                 opts.append(_opt)
 
         config.set_configuration('PUBLISH_OPTIONS', opts)
