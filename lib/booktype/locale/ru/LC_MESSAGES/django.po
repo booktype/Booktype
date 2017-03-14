@@ -1,7 +1,7 @@
 # English (en) translation strings for Booktype.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# 
+#
 # Translators:
 # Andrey Podshivalov, 2015
 # Ivan Satsiuk <ivan.satsiuk@sourcefabric.org>, 2016
@@ -11,15 +11,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-01 14:17-0600\n"
+"POT-Creation-Date: 2017-03-14 14:12+0100\n"
 "PO-Revision-Date: 2017-03-03 09:45+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
-"Language-Team: Russian (http://www.transifex.com/sourcefabric/booktype/language/ru/)\n"
+"Language-Team: Russian (http://www.transifex.com/sourcefabric/booktype/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
 
@@ -49,7 +52,7 @@ msgstr ""
 
 #: lib/booktype/api/editor/serializers.py:81
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:539 lib/booktype/apps/reader/views.py:249
+#: lib/booktype/apps/edit/views.py:544 lib/booktype/apps/reader/views.py:249
 msgid "Chapter"
 msgstr "Глава"
 
@@ -118,8 +121,8 @@ msgid "description"
 msgstr "описание"
 
 #: lib/booktype/apps/account/models.py:38
-#: lib/booktype/apps/account/models.py:64
-#: lib/booktype/apps/export/models.py:29 lib/booktype/apps/export/models.py:61
+#: lib/booktype/apps/account/models.py:64 lib/booktype/apps/export/models.py:29
+#: lib/booktype/apps/export/models.py:61
 msgid "user"
 msgstr "пользователь"
 
@@ -132,20 +135,17 @@ msgstr "секретный код"
 msgid "created"
 msgstr "создано"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: lib/booktype/apps/account/models.py:69
 msgid "remote useragent"
 msgstr "удаленный агент пользователя"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: lib/booktype/apps/account/models.py:71
 msgid "remote addr"
 msgstr "удаленный адрес"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: lib/booktype/apps/account/models.py:73
 msgid "remote host"
 msgstr "удаленный хост"
@@ -223,7 +223,9 @@ msgstr "Отобразить списком"
 msgid ""
 "This is a perfect moment to start writing your book, just click on the "
 "button above!"
-msgstr "Это отличный момент, чтобы начать писать свою книгу, просто нажмите на кнопку выше!"
+msgstr ""
+"Это отличный момент, чтобы начать писать свою книгу, просто нажмите на "
+"кнопку выше!"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:88
 msgid "This user has no books"
@@ -238,9 +240,10 @@ msgid "My Groups"
 msgstr "Мои группы"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:118
-msgid ""
-"Work with others in Groups. To create a Group click on the button below"
-msgstr "Работайте с другими пользователями в группах. Чтобы создать группу, нажмите на кнопку ниже."
+msgid "Work with others in Groups. To create a Group click on the button below"
+msgstr ""
+"Работайте с другими пользователями в группах. Чтобы создать группу, нажмите "
+"на кнопку ниже."
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:124
 msgid "Participating Groups"
@@ -280,7 +283,9 @@ msgstr "Мой профайл"
 msgid ""
 "Click this button to update your personal settings and Booktype account "
 "password"
-msgstr "Нажмите эту кнопку, чтобы обновить свои персональные настройки и пароль учетной записи Booktype"
+msgstr ""
+"Нажмите эту кнопку, чтобы обновить свои персональные настройки и пароль "
+"учетной записи Booktype"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:163
 #: lib/booktype/apps/account/templates/account/form_signedin.html:19
@@ -472,7 +477,9 @@ msgstr "Описание"
 msgid ""
 "Give some information so others can find it to help you (this can be added "
 "or changed later)."
-msgstr "Оставьте какую-то информацию, чтобы остальные могли ознакомиться с ней и помочь вам (можно внести или изменить позже)"
+msgstr ""
+"Оставьте какую-то информацию, чтобы остальные могли ознакомиться с ней и "
+"помочь вам (можно внести или изменить позже)"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:34
 msgid "Choose license"
@@ -498,7 +505,9 @@ msgstr "Изображение"
 msgid ""
 "If you have an image for the book then add it now (this can be added or "
 "changed later)"
-msgstr "Если у вас есть изображение для книги, добавьте его сейчас (можно внести или изменить позже)"
+msgstr ""
+"Если у вас есть изображение для книги, добавьте его сейчас (можно внести или "
+"изменить позже)"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:48
 msgid "Book Image"
@@ -512,7 +521,9 @@ msgstr "Сделать книгу общедоступной?"
 msgid ""
 "Would you like to keep your book private or make it public? If the book is "
 "public others can find the book to help you."
-msgstr "Хотите сохранить книгу закрытой для окружающих или сделать общедоступной? если книга общедоступна, другие пользователи могут найти ее и помочь вам."
+msgstr ""
+"Хотите сохранить книгу закрытой для окружающих или сделать общедоступной? "
+"если книга общедоступна, другие пользователи могут найти ее и помочь вам."
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:55
 msgid "Note"
@@ -706,7 +717,9 @@ msgstr "Новый пароль еще раз"
 msgid ""
 "Click this button for an overview of your books, groups, user profile and "
 "recent activity"
-msgstr "Нажмите эту кнопку, для обзора ваших книг, групп, профиля пользователя и недавней активности"
+msgstr ""
+"Нажмите эту кнопку, для обзора ваших книг, групп, профиля пользователя и "
+"недавней активности"
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:16
 #: lib/booktype/apps/account/views.py:64
@@ -743,7 +756,8 @@ msgstr "Пароль неверный! Попытайтесь снова."
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:16
 msgid "Your account is inactive! Please, contact site support."
-msgstr "Ваш аккаунт не активен! Пожалуйста, обратитесь в службу поддержки сайта."
+msgstr ""
+"Ваш аккаунт не активен! Пожалуйста, обратитесь в службу поддержки сайта."
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:17
 #: lib/booktype/apps/account/templates/account/register_form.html:26
@@ -756,9 +770,11 @@ msgstr "Забыли пароль?"
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:5
 msgid ""
-"To reset your Booktype password, simply click the link below. That will take"
-" you to a web page where you can create a new password."
-msgstr "Для сброса пароля в Booktype используйте ссылку. Вы перейдете на страницу, где сможете создать новый пароль. "
+"To reset your Booktype password, simply click the link below. That will take "
+"you to a web page where you can create a new password."
+msgstr ""
+"Для сброса пароля в Booktype используйте ссылку. Вы перейдете на страницу, "
+"где сможете создать новый пароль. "
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:6
 msgid "Go to:"
@@ -769,7 +785,10 @@ msgid ""
 "If you weren't trying to reset your password, don't worry – your account is "
 "still secure and no one has been given access to it. Most likely, someone "
 "just mistyped their email address while trying to reset their own password."
-msgstr "Если вы не пытались сбросить пароль, не волнуйтесь - ваша учетная запись в безопасности, никто не получал доступа к ней. Скорее всего, кто-то неверно ввел свой email адрес при сбросе своего собственного пароля. "
+msgstr ""
+"Если вы не пытались сбросить пароль, не волнуйтесь - ваша учетная запись в "
+"безопасности, никто не получал доступа к ней. Скорее всего, кто-то неверно "
+"ввел свой email адрес при сбросе своего собственного пароля. "
 
 #: lib/booktype/apps/account/templates/account/register.html:15
 msgid "You are already logged in!"
@@ -807,7 +826,8 @@ msgstr "Превышение лимита пользователей."
 #: lib/booktype/apps/portal/templates/portal/anonymous_frontpage.html:57
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:135
 msgid "Only administrator is allowed to create new accounts at the moment."
-msgstr "В настоящее время создавать новые учетные записи может только администратор."
+msgstr ""
+"В настоящее время создавать новые учетные записи может только администратор."
 
 #: lib/booktype/apps/account/templates/account/register_form.html:4
 msgid "User name"
@@ -837,8 +857,13 @@ msgstr "Пожалуйста, сообщите ваше настоящее им�
 msgid ""
 "Username is invalid. Please try a different one. You may use alphanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "Имя пользователя неверно. Пожалуйста, попробуйте еще раз. Можно пользоваться буквенно-цифровыми знаками и символами \".\", \"_\", \"-\" (точкой, нижним подчеркиванием и минусом). <br/><br/>Например:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
+"li></ul>"
+msgstr ""
+"Имя пользователя неверно. Пожалуйста, попробуйте еще раз. Можно пользоваться "
+"буквенно-цифровыми знаками и символами \".\", \"_\", \"-\" (точкой, нижним "
+"подчеркиванием и минусом). <br/><br/>Например:<ul><li>vnazor</li><li>Marin."
+"Drzic</li><li>kamilo_kamili</li></ul>"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
 msgid "This is not a valid e-mail"
@@ -984,10 +1009,9 @@ msgstr "Об"
 msgid ""
 "This is a demonstration server for Booktype. This server is reset on a "
 "regular basis, and any books created here will be deleted at that time. You "
-"can read the Booktype user manual at <a "
-"href=\"https://sourcefabric.booktype.pro/booktype-21-for-authors-and-"
-"publishers/\">https://sourcefabric.booktype.pro/booktype-21-for-authors-and-"
-"publishers/</a>."
+"can read the Booktype user manual at <a href=\"https://sourcefabric.booktype."
+"pro/booktype-21-for-authors-and-publishers/\">https://sourcefabric.booktype."
+"pro/booktype-21-for-authors-and-publishers/</a>."
 msgstr ""
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:17
@@ -997,9 +1021,9 @@ msgstr "Как использовать"
 #: lib/booktype/apps/core/templates/core/footer-demo.html:20
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
-"href=\"https://www.sourcefabric.org/en/booktype/\">https://www.sourcefabric.org/en/booktype/</a>"
-" or check out Booktype Pro, our cloud-hosted publishing service - <a "
-"href=\"https://booktype.pro/\">https://booktype.pro/</a>."
+"href=\"https://www.sourcefabric.org/en/booktype/\">https://www.sourcefabric."
+"org/en/booktype/</a> or check out Booktype Pro, our cloud-hosted publishing "
+"service - <a href=\"https://booktype.pro/\">https://booktype.pro/</a>."
 msgstr ""
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:27
@@ -1013,7 +1037,13 @@ msgid ""
 "print-on-demand services and education institutions produce better books, "
 "faster, while Sourcefabric takes care of your own platform's installation, "
 "hosting, upgrades, and security. "
-msgstr "С социальными инструментами, простым рабочим процессом и свободой выбора своих собственных лицензий, Booktype Pro идеально подходит для внутреннего или публичного использования. Издатели, сервисы печати и образовательные учреждения производят книги лучше, быстрее, в то время как Sourcefabric заботится об установки вашей собственной платформы, хостинга, модернизации и безопасности."
+msgstr ""
+"С социальными инструментами, простым рабочим процессом и свободой выбора "
+"своих собственных лицензий, Booktype Pro идеально подходит для внутреннего "
+"или публичного использования. Издатели, сервисы печати и образовательные "
+"учреждения производят книги лучше, быстрее, в то время как Sourcefabric "
+"заботится об установки вашей собственной платформы, хостинга, модернизации и "
+"безопасности."
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:41
 #: lib/booktype/apps/core/templates/core/footer.html:12
@@ -1329,25 +1359,26 @@ msgstr ""
 msgid "Chapter with this title already exists."
 msgstr "Глава с таким названием уже существует."
 
-#: lib/booktype/apps/edit/channel.py:1558
+#: lib/booktype/apps/edit/channel.py:1565
 msgid "You have no permissions for editing this chapter."
 msgstr "У вас нет прав доступа для редактирования этой главы."
 
-#: lib/booktype/apps/edit/channel.py:1566
+#: lib/booktype/apps/edit/channel.py:1573
 msgid "Chapter currently being edited."
 msgstr "В данный момент глава редактируется."
 
-#: lib/booktype/apps/edit/channel.py:1571
+#: lib/booktype/apps/edit/channel.py:1578
 msgid "You have no permissions for editing chapters under lock."
 msgstr "У вас нет прав доступа для редактирования заблокированных глав."
 
-#: lib/booktype/apps/edit/channel.py:1575
+#: lib/booktype/apps/edit/channel.py:1582
 msgid "Chapter currently is locked from everyone."
 msgstr "В данный момент глава заблокирована для всех."
 
-#: lib/booktype/apps/edit/channel.py:2180
+#: lib/booktype/apps/edit/channel.py:2187
 msgid "One of the selected formats was disabled. Try to reload page."
-msgstr "Один из выбранных форматов в был отключен. Попробуйте обновить страницу."
+msgstr ""
+"Один из выбранных форматов в был отключен. Попробуйте обновить страницу."
 
 #: lib/booktype/apps/edit/forms.py:58
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:21
@@ -1384,7 +1415,9 @@ msgstr "%(field)s должно иметь ТИП аттрибут"
 msgid ""
 "Unable to create field %(field)s. Reason: %(error)s | type: %(exc_type)s | "
 "Line: %(line_no)s "
-msgstr "Невозможно создать поле %(field)s. Причина: %(error)s | Тип: %(exc_type)s | Строка: %(line_no)s"
+msgstr ""
+"Невозможно создать поле %(field)s. Причина: %(error)s | Тип: %(exc_type)s | "
+"Строка: %(line_no)s"
 
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:6
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:15
@@ -1404,7 +1437,7 @@ msgstr "Изменено"
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:21
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:617
+#: lib/booktype/apps/edit/views.py:622
 msgid "Revision"
 msgstr "Исправление"
 
@@ -1470,7 +1503,7 @@ msgid "Hide section and chapters"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:41
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:140
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:139
 msgid "Extra"
 msgstr "Экстра"
 
@@ -1913,12 +1946,12 @@ msgid "Show changes"
 msgstr "Отобразить изменения"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:179
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:389
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:456
 msgid "Yes"
 msgstr "Да"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:182
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:388
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:455
 msgid "No"
 msgstr "Нет"
 
@@ -1966,9 +1999,11 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:303
 #, python-format
 msgid ""
-"<p class=\"notification-text\"><%%= username %%> joined </p><span class"
-"=\"notification-info\"><%%= info %%></span>"
-msgstr "<p class=\"notification-text\"><%%= username %%> присоединился </p><span class=\"notification-info\"><%%= info %%></span>"
+"<p class=\"notification-text\"><%%= username %%> joined </p><span class="
+"\"notification-info\"><%%= info %%></span>"
+msgstr ""
+"<p class=\"notification-text\"><%%= username %%> присоединился </p><span "
+"class=\"notification-info\"><%%= info %%></span>"
 
 #: lib/booktype/apps/edit/templates/edit/book_history.html:21
 msgid "No results found."
@@ -2004,7 +2039,7 @@ msgstr "Время"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:26
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:313
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:507
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:592
 msgid "Comment"
 msgstr "Комментарий"
 
@@ -2049,7 +2084,9 @@ msgstr "Вернуться к этому исправлению?"
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:57
 msgid ""
 "Current chapter content will be reverted to this revision. Are you sure?"
-msgstr "Содержание настоящей главы будет возвращено к состоянию на момент последнего исправления. Вы уверены, что хотите этого?"
+msgstr ""
+"Содержание настоящей главы будет возвращено к состоянию на момент последнего "
+"исправления. Вы уверены, что хотите этого?"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:61
 msgid "Yes, revert!"
@@ -2658,7 +2695,7 @@ msgid "Edit metadata"
 msgstr "изменить метаданные"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:523
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:608
 msgid "Download"
 msgstr ""
 
@@ -2779,7 +2816,10 @@ msgid ""
 "Error: The selected filetype is not supported. Please select one of the "
 "following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
 "SVG, EPS, AI, INDD."
-msgstr "Ошибка: Выбранный тип файла не поддерживается. Выберите один из доступных типов и повторите попытку: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+msgstr ""
+"Ошибка: Выбранный тип файла не поддерживается. Выберите один из доступных "
+"типов и повторите попытку: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, "
+"EPS, AI, INDD."
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:38
 msgid "Important Info"
@@ -2792,8 +2832,8 @@ msgid ""
 "appropriate dimensions for EPUB, MOBI and Screen PDF output. Artwork (in "
 "TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, "
 "spine (if any) and back cover of print books can also be uploaded and "
-"managed, but will be kept separate from the Printers' PDF when exporting the"
-" inside pages."
+"managed, but will be kept separate from the Printers' PDF when exporting the "
+"inside pages."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:51
@@ -2824,7 +2864,7 @@ msgstr "Размеры изображения"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:557
+#: lib/booktype/apps/edit/views.py:562
 msgid "Book History"
 msgstr "История Книги"
 
@@ -2853,7 +2893,7 @@ msgid "Clear filters"
 msgstr "Отчистить фильтры"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:24
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:500
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:585
 msgid "Action"
 msgstr "Операция"
 
@@ -2878,7 +2918,9 @@ msgstr "Добавить файлы..."
 msgid ""
 "All images added to your book are listed here as well as any additional "
 "files you have uploaded."
-msgstr "Все изображения, добавленные в вашу книгу, перечислены здесь, как и любые загруженные вами дополнительные файлы."
+msgstr ""
+"Все изображения, добавленные в вашу книгу, перечислены здесь, как и любые "
+"загруженные вами дополнительные файлы."
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:34
 msgid "preview"
@@ -2904,7 +2946,9 @@ msgstr "Удалить медиафайлы"
 msgid ""
 "Are you sure you would like to delete media files? You will not be able to "
 "undo this operation!"
-msgstr "Вы действительно хотите удалить меди файлы? Вы не сможете отменить эту операцию."
+msgstr ""
+"Вы действительно хотите удалить меди файлы? Вы не сможете отменить эту "
+"операцию."
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:60
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:95
@@ -2929,7 +2973,7 @@ msgid "You can only upload JPEG/PNG files."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:4
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:513
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:598
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:19
 msgid "Publish"
 msgstr "Публиковать"
@@ -2952,260 +2996,292 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:32
 msgid ""
-"Front matter is generated automatically. Please ensure all <a "
-"href=\"#settings/metadata\">metadata</a> and <a href=\"#settings/additional-"
+"Front matter is generated automatically. Please ensure all <a href="
+"\"#settings/metadata\">metadata</a> and <a href=\"#settings/additional-"
 "metadata\">additional metadata</a> has been entered."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:33
 msgid ""
-"If exporting screen PDF, EPUB or MOBI, please check the <a "
-"href=\"#covers\">cover manager</a> first."
+"If exporting screen PDF, EPUB or MOBI, please check the <a href=\"#covers"
+"\">cover manager</a> first."
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:52
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:51
+#, fuzzy
+#| msgid "Screen PDF Settings"
+msgid "Print PDF Settings"
+msgstr "Настройки экранного PDF"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:57
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:60
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:178
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:181
+msgid "Size"
+msgstr "Размер"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:59
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:180
+msgid "Choose a standard paper size or custom dimensions"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:62
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:183
+msgid "custom"
+msgstr "пользовательский"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:96
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:99
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:106
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:109
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:112
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:115
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:127
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:135
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:148
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:217
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:220
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:227
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:230
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:233
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:236
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:248
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:256
+msgid "mm"
+msgstr "мм"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:102
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:223
+msgid "Margins"
+msgstr "Поля"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:104
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:225
+msgid "Set the margin and gutter dimensions"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:105
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:226
+msgid "Top Margin"
+msgstr "Верхнее поле"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:108
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:229
+msgid "Side Margin"
+msgstr "Боковое поле"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:111
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:232
+msgid "Bottom Margin"
+msgstr "Нижнее поле"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:114
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:235
+msgid "Gutter"
+msgstr "Внутреннее поле"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:118
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:239
+msgid "Header and Footer"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:120
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:241
+msgid "Set header and footer visibility, and their margins"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:122
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:243
+msgid "Show Header"
+msgstr "Отображать верхнюю колонтитулу"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:126
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:247
+msgid "Header Margin"
+msgstr "Поле верхней колонтитулы"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:130
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:251
+msgid "Show Footer"
+msgstr "Отображать нижнюю колонтитулу"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:134
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:255
+msgid "Footer Margin"
+msgstr "Поле нижней колонтитулы"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:141
+msgid "Set extra options for paper trimming"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:143
+msgid "Crop Marks"
+msgstr "Образка Меток"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:147
+msgid "Bleed size"
+msgstr "Промежуточный размер"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:153
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:156
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:269
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:272
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:303
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:306
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:337
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:340
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:371
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:374
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:405
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:408
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:430
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:433
+msgid "Styling"
+msgstr "Стиль"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:155
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:271
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:305
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:339
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:373
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:407
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:432
+msgid "Manually edit CSS style"
+msgstr "Редактировать CSS стиль вручную"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:172
+msgid "Screen PDF Settings"
+msgstr "Настройки экранного PDF"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:260
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:294
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:328
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:362
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:396
+msgid "Cover"
+msgstr "Обложка"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:262
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:296
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:330
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:364
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:398
+msgid "Select a cover from the Cover Manager"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:264
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:298
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:332
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:366
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:400
+msgid "No Cover"
+msgstr "Нет обложки"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:288
+msgid "EPUB Settings"
+msgstr "Настройки EPUB"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:322
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:356
+#, fuzzy
+#| msgid "Admin Settings"
+msgid "Adobe InDesign Settings"
+msgstr "Настройки"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:390
+msgid "Mobi Settings"
+msgstr "Настройки Mobi "
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:424
+msgid "XHTML Settings"
+msgstr "Настройки XHTML"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:449
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:588
+msgid "Remove export"
+msgstr "Удалить экспорт"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:452
+msgid "Do you want to remove this export?"
+msgstr "Вы хотите удалить этот экспорт?"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:470
+msgid "Choose format for export"
+msgstr "Выберите формат для экспорта"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:472
+msgid "No available publish formats."
+msgstr "Нет доступных форматов публикации."
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:491
+msgid "Printers' PDF"
+msgstr "Печать PDF"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:494
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:505
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:516
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:547
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:558
+msgid "settings"
+msgstr "настройки"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:502
+msgid "Screen PDF"
+msgstr "Экранный PDF"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:513
+msgid "EPUB"
+msgstr "EPUB"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:525
+msgid "Adobe InDesign (ICML)"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:533
+msgid "Word (DOCX)"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:544
+msgid "MOBI"
+msgstr "MOBI"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:555
+msgid "XHTML"
+msgstr "XHTML"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:565
+msgid "EXPORT YOUR BOOK"
+msgstr "ЭКСПОРТ КНИГИ"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:615
+msgid "Failed"
+msgstr "Неуспешно"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:628
+msgid "pages"
+msgstr "страницы"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:646
+msgid "comments"
+msgstr "комментарии"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:655
+msgid "Your comment here"
+msgstr "Ваши комментарии здесь"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:656
+msgid "SEND COMMENT"
+msgstr "ОТПРАВИТЬ КОММЕНТАРИЙ"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:676
+msgid "Exporting, please wait"
+msgstr "Экспорт, пожалуйста подождите"
+
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:4
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:65
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:70
 msgid "Book Settings"
 msgstr "Настройки книги"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:58
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:61
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:179
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:182
-msgid "Size"
-msgstr "Размер"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:60
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:181
-msgid "Choose a standard paper size or custom dimensions"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:63
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:184
-msgid "custom"
-msgstr "пользовательский"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:97
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:100
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:107
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:110
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:113
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:116
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:128
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:136
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:149
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:218
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:221
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:228
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:231
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:234
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:237
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:249
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:257
-msgid "mm"
-msgstr "мм"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:103
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:224
-msgid "Margins"
-msgstr "Поля"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:105
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:226
-msgid "Set the margin and gutter dimensions"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:106
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:227
-msgid "Top Margin"
-msgstr "Верхнее поле"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:109
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:230
-msgid "Side Margin"
-msgstr "Боковое поле"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:112
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:233
-msgid "Bottom Margin"
-msgstr "Нижнее поле"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:115
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:236
-msgid "Gutter"
-msgstr "Внутреннее поле"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:119
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:240
-msgid "Header and Footer"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:121
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:242
-msgid "Set header and footer visibility, and their margins"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:123
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:244
-msgid "Show Header"
-msgstr "Отображать верхнюю колонтитулу"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:127
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:248
-msgid "Header Margin"
-msgstr "Поле верхней колонтитулы"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:131
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:252
-msgid "Show Footer"
-msgstr "Отображать нижнюю колонтитулу"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:135
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:256
-msgid "Footer Margin"
-msgstr "Поле нижней колонтитулы"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:142
-msgid "Set extra options for paper trimming"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:144
-msgid "Crop Marks"
-msgstr "Образка Меток"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:148
-msgid "Bleed size"
-msgstr "Промежуточный размер"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:154
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:157
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:270
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:273
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:304
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:307
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:338
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:341
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:363
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:366
-msgid "Styling"
-msgstr "Стиль"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:156
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:272
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:306
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:340
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:365
-msgid "Manually edit CSS style"
-msgstr "Редактировать CSS стиль вручную"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:173
-msgid "Screen PDF Settings"
-msgstr "Настройки экранного PDF"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:261
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:295
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:329
-msgid "Cover"
-msgstr "Обложка"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:263
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:297
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:331
-msgid "Select a cover from the Cover Manager"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:265
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:299
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:333
-msgid "No Cover"
-msgstr "Нет обложки"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:289
-msgid "EPUB Settings"
-msgstr "Настройки EPUB"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:323
-msgid "Mobi Settings"
-msgstr "Настройки Mobi "
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:357
-msgid "XHTML Settings"
-msgstr "Настройки XHTML"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:382
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:503
-msgid "Remove export"
-msgstr "Удалить экспорт"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:385
-msgid "Do you want to remove this export?"
-msgstr "Вы хотите удалить этот экспорт?"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:403
-msgid "Choose format for export"
-msgstr "Выберите формат для экспорта"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:405
-msgid "No available publish formats."
-msgstr "Нет доступных форматов публикации."
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:424
-msgid "Printers' PDF"
-msgstr "Печать PDF"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:427
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:438
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:449
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:462
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:473
-msgid "settings"
-msgstr "настройки"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:435
-msgid "Screen PDF"
-msgstr "Экранный PDF"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:446
-msgid "EPUB"
-msgstr "EPUB"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:459
-msgid "MOBI"
-msgstr "MOBI"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:470
-msgid "XHTML"
-msgstr "XHTML"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:480
-msgid "EXPORT YOUR BOOK"
-msgstr "ЭКСПОРТ КНИГИ"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:530
-msgid "Failed"
-msgstr "Неуспешно"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:543
-msgid "pages"
-msgstr "страницы"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:561
-msgid "comments"
-msgstr "комментарии"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:570
-msgid "Your comment here"
-msgstr "Ваши комментарии здесь"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:571
-msgid "SEND COMMENT"
-msgstr "ОТПРАВИТЬ КОММЕНТАРИЙ"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:591
-msgid "Exporting, please wait"
-msgstr "Экспорт, пожалуйста подождите"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:13
 #: lib/booktype/apps/reader/views.py:62
@@ -3294,7 +3370,9 @@ msgstr "Удалить Главу"
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
-msgstr "Вы уверены, что хотите удалить эту главу? Вы потеряете все данные ассоциированные с этой главой и вы не сможете отменить эту операцию."
+msgstr ""
+"Вы уверены, что хотите удалить эту главу? Вы потеряете все данные "
+"ассоциированные с этой главой и вы не сможете отменить эту операцию."
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:114
 msgid "Remove section"
@@ -3304,7 +3382,9 @@ msgstr "Удалить раздел"
 msgid ""
 "Are you sure you would like to delete this section? You will lose all data "
 "associated to this section and you will not be able to undo this operation!"
-msgstr "Вы уверены, что хотите удалить этот раздел? Вы потеряете все данные ассоциированные с этим разделом и вы не сможете отменить эту операцию."
+msgstr ""
+"Вы уверены, что хотите удалить этот раздел? Вы потеряете все данные "
+"ассоциированные с этим разделом и вы не сможете отменить эту операцию."
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:126
 msgid "Delete chapters under this section"
@@ -3433,7 +3513,8 @@ msgstr "Удалить поле метаданных"
 msgid ""
 "Are you sure you would like to remove this field? You will not be able to "
 "undo this operation!"
-msgstr "Вы уверены, что хотите удалить это поле? Вы не сможете отменить это действие!"
+msgstr ""
+"Вы уверены, что хотите удалить это поле? Вы не сможете отменить это действие!"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
 #: lib/booktype/apps/edit/views.py:56
@@ -3466,8 +3547,8 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_metadata.html:24
 msgid ""
-"Are you sure you would like to delete this metadata content? You will not be"
-" able to undo this operation!"
+"Are you sure you would like to delete this metadata content? You will not be "
+"able to undo this operation!"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:8
@@ -3524,41 +3605,41 @@ msgstr "Язык Книги"
 msgid "Book License"
 msgstr "Лицензия Книги"
 
-#: lib/booktype/apps/edit/views.py:508
+#: lib/booktype/apps/edit/views.py:513
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr "Ревизия {0} сохранена"
 
-#: lib/booktype/apps/edit/views.py:586
+#: lib/booktype/apps/edit/views.py:591
 msgid "Chapter diff"
 msgstr "Сравнение главы"
 
-#: lib/booktype/apps/edit/views.py:624
+#: lib/booktype/apps/edit/views.py:629
 msgid "Book History | Chapter Revision"
 msgstr "История Книги | Ревизия Главы"
 
-#: lib/booktype/apps/edit/views.py:647
+#: lib/booktype/apps/edit/views.py:652
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "Возвращено к ревизии %s."
 
-#: lib/booktype/apps/edit/views.py:666
+#: lib/booktype/apps/edit/views.py:671
 msgid "Chapter revision successfully reverted."
 msgstr "Ревизия главы успешно возвращена."
 
-#: lib/booktype/apps/edit/views.py:668
+#: lib/booktype/apps/edit/views.py:673
 msgid "Chapter revision could not be reverted."
 msgstr "Ревизия главы не может быть отменена."
 
-#: lib/booktype/apps/edit/views.py:739
+#: lib/booktype/apps/edit/views.py:744
 msgid "Successfully saved settings."
 msgstr "Настройки успешно сохранены."
 
-#: lib/booktype/apps/edit/views.py:741
+#: lib/booktype/apps/edit/views.py:746
 msgid "You have no permissions to execute this action."
 msgstr "У вас нет прав для выполнения этого действия."
 
-#: lib/booktype/apps/edit/views.py:744
+#: lib/booktype/apps/edit/views.py:749
 msgid "Unknown error while saving changes."
 msgstr "Неизвестная ошибка при сохранении изменений"
 
@@ -3729,7 +3810,9 @@ msgstr "Все группы"
 #: lib/booktype/apps/portal/templates/portal/group.html:39
 msgid ""
 "Click this button to leave this group. You can rejoin the group at any time"
-msgstr "Нажмите эту кнопку, чтобы покинуть группу. Вы сможете присоединиться  к этой группе в любое время."
+msgstr ""
+"Нажмите эту кнопку, чтобы покинуть группу. Вы сможете присоединиться  к этой "
+"группе в любое время."
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:27
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:90
@@ -3743,7 +3826,9 @@ msgstr "ПОКИНУТЬ ЭТУ ГРУППУ"
 msgid ""
 "Click this button to join this group of writers and editors. You can leave "
 "the group at any time"
-msgstr "Нажмите эту кнопку, чтобы присоединиться к группе писателей и редакторов. Вы сможете покинуть эту группу в любое время."
+msgstr ""
+"Нажмите эту кнопку, чтобы присоединиться к группе писателей и редакторов. Вы "
+"сможете покинуть эту группу в любое время."
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:29
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:92
@@ -3812,7 +3897,9 @@ msgstr "Невозможно найти группу \"%(group_name)s\"."
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:46
 msgid ""
 "Click this button to go to My Dashboard and open the Create New Book wizard"
-msgstr "Нажмите эту кнопку, чтобы перейти в мою панель и открыть мастера создания новой книги"
+msgstr ""
+"Нажмите эту кнопку, чтобы перейти в мою панель и открыть мастера создания "
+"новой книги"
 
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:81
 msgid "There are no users yet"
@@ -3842,7 +3929,8 @@ msgstr ""
 
 #: lib/booktype/apps/portal/templates/portal/group.html:93
 msgid "Click this button to select other books and add them to this group"
-msgstr "Нажмите эту кнопку, чтобы выбрать другие книги и добавить их в эту группу"
+msgstr ""
+"Нажмите эту кнопку, чтобы выбрать другие книги и добавить их в эту группу"
 
 #: lib/booktype/apps/portal/templates/portal/group.html:93
 msgid "Add books to this group"
@@ -3857,7 +3945,9 @@ msgstr "Создать"
 msgid ""
 "Are you sure you would like to delete this group? You will not be able to "
 "undo this operation!"
-msgstr "Вы уверены, что хотите удалить эту группу? Вы не сможете отменить это действие!"
+msgstr ""
+"Вы уверены, что хотите удалить эту группу? Вы не сможете отменить это "
+"действие!"
 
 #: lib/booktype/apps/portal/templates/portal/group_remove_book.html:7
 msgid "Remove the book from"
@@ -3963,7 +4053,9 @@ msgstr "Изображение книги"
 msgid ""
 "Are you sure you would like to delete this book? You will lose all data "
 "associated to this book and you will not be able to undo this operation!"
-msgstr "Вы уверены, что хотели бы удалить эту книгу? Вы можете потерять все данные, связанные с этой книгой безвозвратно после этой операции!"
+msgstr ""
+"Вы уверены, что хотели бы удалить эту книгу? Вы можете потерять все данные, "
+"связанные с этой книгой безвозвратно после этой операции!"
 
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:13
 msgid "Type full title of the book to delete it"
@@ -4332,15 +4424,19 @@ msgstr ""
 
 #: lib/booktype/importer/docx/docximporter.py:132
 msgid ""
-"The file could not be imported because it was not saved in the .docx format."
-" Try to open the file in Word and save it as a .docx."
-msgstr "Файл не может быть импортирован, поскольку он не был сохранен в формате .docx. Попробуйте открыть файл в Word-е и сохранить его как .docx."
+"The file could not be imported because it was not saved in the .docx format. "
+"Try to open the file in Word and save it as a .docx."
+msgstr ""
+"Файл не может быть импортирован, поскольку он не был сохранен в формате ."
+"docx. Попробуйте открыть файл в Word-е и сохранить его как .docx."
 
 #: lib/booktype/importer/docx/docximporter.py:135
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
-msgstr "Загруженный файл docx содержит ошибки и не может быть конвертирован. Пожалуйста, обратитесь в службу поддержки клиентов."
+msgstr ""
+"Загруженный файл docx содержит ошибки и не может быть конвертирован. "
+"Пожалуйста, обратитесь в службу поддержки клиентов."
 
 #: lib/booktype/importer/docx/docximporter.py:183
 msgid ""
@@ -4454,6 +4550,6 @@ msgstr "Высота Линии"
 #: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:6
 msgid ""
 "Novel theme for smaller pages of paperbacks with a bit of a 1950s font "
-"feeling. No header, centered page numbers. 'Compact' means line indentations"
-" and no spacing between paragraphs."
+"feeling. No header, centered page numbers. 'Compact' means line indentations "
+"and no spacing between paragraphs."
 msgstr ""

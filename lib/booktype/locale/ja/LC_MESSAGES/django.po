@@ -1,7 +1,7 @@
 # English (en) translation strings for Booktype.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# 
+#
 # Translators:
 # Hiroyuki Anraku <anrakuh@gmail.com>, 2016
 # Hiroyuki Anraku <anrakuh@gmail.com>, 2015-2016
@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-01 14:17-0600\n"
+"POT-Creation-Date: 2017-03-14 14:11+0100\n"
 "PO-Revision-Date: 2017-03-03 09:45+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
-"Language-Team: Japanese (http://www.transifex.com/sourcefabric/booktype/language/ja/)\n"
+"Language-Team: Japanese (http://www.transifex.com/sourcefabric/booktype/"
+"language/ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
@@ -48,7 +49,7 @@ msgstr ""
 
 #: lib/booktype/api/editor/serializers.py:81
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:539 lib/booktype/apps/reader/views.py:249
+#: lib/booktype/apps/edit/views.py:544 lib/booktype/apps/reader/views.py:249
 msgid "Chapter"
 msgstr "章"
 
@@ -117,8 +118,8 @@ msgid "description"
 msgstr "記述"
 
 #: lib/booktype/apps/account/models.py:38
-#: lib/booktype/apps/account/models.py:64
-#: lib/booktype/apps/export/models.py:29 lib/booktype/apps/export/models.py:61
+#: lib/booktype/apps/account/models.py:64 lib/booktype/apps/export/models.py:29
+#: lib/booktype/apps/export/models.py:61
 msgid "user"
 msgstr "ユーザー"
 
@@ -131,20 +132,17 @@ msgstr "シークレットコード"
 msgid "created"
 msgstr "作者"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: lib/booktype/apps/account/models.py:69
 msgid "remote useragent"
 msgstr "リモートユーザーエージェント"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: lib/booktype/apps/account/models.py:71
 msgid "remote addr"
 msgstr "リモートアドレス"
 
-#. Translators: Visible only in Django Admin interface. No need to translate
-#. this.
+#. Translators: Visible only in Django Admin interface. No need to translate this.
 #: lib/booktype/apps/account/models.py:73
 msgid "remote host"
 msgstr "リモートホスト"
@@ -197,7 +195,9 @@ msgstr "招待"
 msgid ""
 "You have reached your book limit. Please delete any unwanted books before "
 "you create a new one."
-msgstr "書籍作成の上限に達しました。新しい書籍を作成する前になにか不要な書籍を削除してください。"
+msgstr ""
+"書籍作成の上限に達しました。新しい書籍を作成する前になにか不要な書籍を削除し"
+"てください。"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:68
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:50
@@ -237,9 +237,9 @@ msgid "My Groups"
 msgstr "私のグループ"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:118
-msgid ""
-"Work with others in Groups. To create a Group click on the button below"
-msgstr "下のボタンを押してグループ作ると、グループにいる他の人がともに活動します。"
+msgid "Work with others in Groups. To create a Group click on the button below"
+msgstr ""
+"下のボタンを押してグループ作ると、グループにいる他の人がともに活動します。"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:124
 msgid "Participating Groups"
@@ -279,7 +279,9 @@ msgstr "私のプロフィール"
 msgid ""
 "Click this button to update your personal settings and Booktype account "
 "password"
-msgstr "このボタンを押すと、あなたの個人設定、およびBooktypeアカウントのパスワードを更新します"
+msgstr ""
+"このボタンを押すと、あなたの個人設定、およびBooktypeアカウントのパスワードを"
+"更新します"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:163
 #: lib/booktype/apps/account/templates/account/form_signedin.html:19
@@ -471,7 +473,9 @@ msgstr "説明"
 msgid ""
 "Give some information so others can find it to help you (this can be added "
 "or changed later)."
-msgstr "他の人たちがあなたに手を貸すために見つけることのできるような情報を入れてください。（厚手追加や変更をすることが出来ます）"
+msgstr ""
+"他の人たちがあなたに手を貸すために見つけることのできるような情報を入れてくだ"
+"さい。（厚手追加や変更をすることが出来ます）"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:34
 msgid "Choose license"
@@ -497,7 +501,9 @@ msgstr "イメージ"
 msgid ""
 "If you have an image for the book then add it now (this can be added or "
 "changed later)"
-msgstr "書籍のためのイメージがある場合は今追加しましょう。（後で変更や登録が可能です。）"
+msgstr ""
+"書籍のためのイメージがある場合は今追加しましょう。（後で変更や登録が可能で"
+"す。）"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:48
 msgid "Book Image"
@@ -511,7 +517,9 @@ msgstr "公開しますか？"
 msgid ""
 "Would you like to keep your book private or make it public? If the book is "
 "public others can find the book to help you."
-msgstr "書籍を公開しますか？もし書籍を公開すると他の人はそれを見つけて手助けしてくれるでしょう。"
+msgstr ""
+"書籍を公開しますか？もし書籍を公開すると他の人はそれを見つけて手助けしてくれ"
+"るでしょう。"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:55
 msgid "Note"
@@ -676,7 +684,9 @@ msgstr "ユーザ名、またはEメールアドレス"
 msgid ""
 "Enter your username or the email address you used to create your account, "
 "and we will send you a link to reset your password."
-msgstr "アカウント作成時のユーザ名、あるいはEメールアドレスを入力してください。そうすれば、パスワードリセットのためのリンクが送信されます。"
+msgstr ""
+"アカウント作成時のユーザ名、あるいはEメールアドレスを入力してください。そうす"
+"れば、パスワードリセットのためのリンクが送信されます。"
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:30
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:42
@@ -705,7 +715,9 @@ msgstr "新しいパスワードの再入力"
 msgid ""
 "Click this button for an overview of your books, groups, user profile and "
 "recent activity"
-msgstr "あなたの書籍、グループ、ユーザプロファイル、そして最近の活動の概要に関するボタンを押してください。"
+msgstr ""
+"あなたの書籍、グループ、ユーザプロファイル、そして最近の活動の概要に関するボ"
+"タンを押してください。"
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:16
 #: lib/booktype/apps/account/views.py:64
@@ -742,7 +754,8 @@ msgstr "パスワードが誤っています。"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:16
 msgid "Your account is inactive! Please, contact site support."
-msgstr "あなたのアカウントは有効ではありません。サイトサポートへ連絡してください。"
+msgstr ""
+"あなたのアカウントは有効ではありません。サイトサポートへ連絡してください。"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:17
 #: lib/booktype/apps/account/templates/account/register_form.html:26
@@ -755,9 +768,11 @@ msgstr "パスワードを忘れましたか？"
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:5
 msgid ""
-"To reset your Booktype password, simply click the link below. That will take"
-" you to a web page where you can create a new password."
-msgstr "リンクをクリックすれば、Booktypeのパスワードはリセットされます。その後、新しいパスワードを設定するページに案内されます。"
+"To reset your Booktype password, simply click the link below. That will take "
+"you to a web page where you can create a new password."
+msgstr ""
+"リンクをクリックすれば、Booktypeのパスワードはリセットされます。その後、新し"
+"いパスワードを設定するページに案内されます。"
 
 #: lib/booktype/apps/account/templates/account/password_reset_email.html:6
 msgid "Go to:"
@@ -768,7 +783,11 @@ msgid ""
 "If you weren't trying to reset your password, don't worry – your account is "
 "still secure and no one has been given access to it. Most likely, someone "
 "just mistyped their email address while trying to reset their own password."
-msgstr "もしあなたがあなたのパスワードをリセットしようとしていなかったのであれば、心配しないでください － あなたのアカウントはまだ安全です、そして誰もアカウントへのアクセスをしませんでした。 最もありそうなのは、誰かがただ自身のパスワードをリセットしようとしたら電子メールアドレスをミスタイプした可能性です。"
+msgstr ""
+"もしあなたがあなたのパスワードをリセットしようとしていなかったのであれば、心"
+"配しないでください － あなたのアカウントはまだ安全です、そして誰もアカウント"
+"へのアクセスをしませんでした。 最もありそうなのは、誰かがただ自身のパスワード"
+"をリセットしようとしたら電子メールアドレスをミスタイプした可能性です。"
 
 #: lib/booktype/apps/account/templates/account/register.html:15
 msgid "You are already logged in!"
@@ -836,8 +855,12 @@ msgstr "あなたの本名を入れてください"
 msgid ""
 "Username is invalid. Please try a different one. You may use alphanumeric "
 "characters and characters \".\", \"_\", \"-\" (dot, underscore and minus). "
-"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
-msgstr "ユーザ名が誤っています。別の名前にしてください。アルファベットと\".\", \"_\", \"-\" (ピリオド、アンダースコア、マイナス)が利用可能です。 <br/><br/>例：<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
+"<br/><br/>Examples:<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</"
+"li></ul>"
+msgstr ""
+"ユーザ名が誤っています。別の名前にしてください。アルファベットと\".\", \"_"
+"\", \"-\" (ピリオド、アンダースコア、マイナス)が利用可能です。 <br/><br/>例："
+"<ul><li>vnazor</li><li>Marin.Drzic</li><li>kamilo_kamili</li></ul>"
 
 #: lib/booktype/apps/account/templates/account/register_form.html:22
 msgid "This is not a valid e-mail"
@@ -983,10 +1006,9 @@ msgstr "概要"
 msgid ""
 "This is a demonstration server for Booktype. This server is reset on a "
 "regular basis, and any books created here will be deleted at that time. You "
-"can read the Booktype user manual at <a "
-"href=\"https://sourcefabric.booktype.pro/booktype-21-for-authors-and-"
-"publishers/\">https://sourcefabric.booktype.pro/booktype-21-for-authors-and-"
-"publishers/</a>."
+"can read the Booktype user manual at <a href=\"https://sourcefabric.booktype."
+"pro/booktype-21-for-authors-and-publishers/\">https://sourcefabric.booktype."
+"pro/booktype-21-for-authors-and-publishers/</a>."
 msgstr ""
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:17
@@ -996,9 +1018,9 @@ msgstr "使用法"
 #: lib/booktype/apps/core/templates/core/footer-demo.html:20
 msgid ""
 "If you wish to have your own installation please download Booktype from <a "
-"href=\"https://www.sourcefabric.org/en/booktype/\">https://www.sourcefabric.org/en/booktype/</a>"
-" or check out Booktype Pro, our cloud-hosted publishing service - <a "
-"href=\"https://booktype.pro/\">https://booktype.pro/</a>."
+"href=\"https://www.sourcefabric.org/en/booktype/\">https://www.sourcefabric."
+"org/en/booktype/</a> or check out Booktype Pro, our cloud-hosted publishing "
+"service - <a href=\"https://booktype.pro/\">https://booktype.pro/</a>."
 msgstr ""
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:27
@@ -1012,14 +1034,21 @@ msgid ""
 "print-on-demand services and education institutions produce better books, "
 "faster, while Sourcefabric takes care of your own platform's installation, "
 "hosting, upgrades, and security. "
-msgstr "ソーシャルなツール、簡単なワークフロー、そしてあなた自身にあったライセンスを自由に選択できるBooktype Proは内部、あるいは外部の利用を完璧にこなします。 出版社、オンデマンド印刷サービス、そして教育機関による書籍の作成をより良く、迅速に行います。Sourcefabric はあなた自身のプラットホーム、インストレーション、ホスティング、アップグレード、そしてセキュリティに対応します。"
+msgstr ""
+"ソーシャルなツール、簡単なワークフロー、そしてあなた自身にあったライセンスを"
+"自由に選択できるBooktype Proは内部、あるいは外部の利用を完璧にこなします。 出"
+"版社、オンデマンド印刷サービス、そして教育機関による書籍の作成をより良く、迅"
+"速に行います。Sourcefabric はあなた自身のプラットホーム、インストレーション、"
+"ホスティング、アップグレード、そしてセキュリティに対応します。"
 
 #: lib/booktype/apps/core/templates/core/footer-demo.html:41
 #: lib/booktype/apps/core/templates/core/footer.html:12
 msgid ""
 "Powered by Booktype, the open content management system for professional "
 "writers."
-msgstr "Powered by Booktype, プロフェッショナルなライターのためのオープンなコンテンツマネジメントシステム。"
+msgstr ""
+"Powered by Booktype, プロフェッショナルなライターのためのオープンなコンテンツ"
+"マネジメントシステム。"
 
 #: lib/booktype/apps/core/templates/core/nav_bar.html:12
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:8
@@ -1328,23 +1357,23 @@ msgstr "誤ったタイトルが選択されました"
 msgid "Chapter with this title already exists."
 msgstr "その名前の章はすでに存在します"
 
-#: lib/booktype/apps/edit/channel.py:1558
+#: lib/booktype/apps/edit/channel.py:1565
 msgid "You have no permissions for editing this chapter."
 msgstr "この章を編集する権限がありません"
 
-#: lib/booktype/apps/edit/channel.py:1566
+#: lib/booktype/apps/edit/channel.py:1573
 msgid "Chapter currently being edited."
 msgstr "章は現在編集中"
 
-#: lib/booktype/apps/edit/channel.py:1571
+#: lib/booktype/apps/edit/channel.py:1578
 msgid "You have no permissions for editing chapters under lock."
 msgstr "ロックされた章の編集の権限がありません。"
 
-#: lib/booktype/apps/edit/channel.py:1575
+#: lib/booktype/apps/edit/channel.py:1582
 msgid "Chapter currently is locked from everyone."
 msgstr "章は現在誰かによってロックされています。"
 
-#: lib/booktype/apps/edit/channel.py:2180
+#: lib/booktype/apps/edit/channel.py:2187
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr "選択した書籍は利用できません。このページをリロードしてみてください。"
 
@@ -1383,7 +1412,9 @@ msgstr "%(field)s は属性（TYPE）を持っている必要があります。"
 msgid ""
 "Unable to create field %(field)s. Reason: %(error)s | type: %(exc_type)s | "
 "Line: %(line_no)s "
-msgstr "フィールド（%(field)s）の作成に失敗。理由: %(error)s | タイプ: %(exc_type)s | 行: %(line_no)s"
+msgstr ""
+"フィールド（%(field)s）の作成に失敗。理由: %(error)s | タイプ: %(exc_type)s "
+"| 行: %(line_no)s"
 
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:6
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:15
@@ -1403,7 +1434,7 @@ msgstr "変更されました"
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:21
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:617
+#: lib/booktype/apps/edit/views.py:622
 msgid "Revision"
 msgstr "リビジョン"
 
@@ -1469,7 +1500,7 @@ msgid "Hide section and chapters"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:41
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:140
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:139
 msgid "Extra"
 msgstr "追加"
 
@@ -1912,12 +1943,12 @@ msgid "Show changes"
 msgstr "変更箇所の表示"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:179
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:389
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:456
 msgid "Yes"
 msgstr "はい"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:182
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:388
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:455
 msgid "No"
 msgstr "いいえ"
 
@@ -1965,9 +1996,11 @@ msgstr "コメント"
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:303
 #, python-format
 msgid ""
-"<p class=\"notification-text\"><%%= username %%> joined </p><span class"
-"=\"notification-info\"><%%= info %%></span>"
-msgstr "<p class=\"notification-text\"><%%= username %%> が</p><span class=\"notification-info\"><%%= info %%></span>に参加しました。"
+"<p class=\"notification-text\"><%%= username %%> joined </p><span class="
+"\"notification-info\"><%%= info %%></span>"
+msgstr ""
+"<p class=\"notification-text\"><%%= username %%> が</p><span class="
+"\"notification-info\"><%%= info %%></span>に参加しました。"
 
 #: lib/booktype/apps/edit/templates/edit/book_history.html:21
 msgid "No results found."
@@ -2003,7 +2036,7 @@ msgstr "時間"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:26
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:313
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:507
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:592
 msgid "Comment"
 msgstr "コメント"
 
@@ -2657,7 +2690,7 @@ msgid "Edit metadata"
 msgstr "メタデータ編集"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:523
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:608
 msgid "Download"
 msgstr "ダウンロード"
 
@@ -2778,7 +2811,10 @@ msgid ""
 "Error: The selected filetype is not supported. Please select one of the "
 "following filetypes and try again: PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, "
 "SVG, EPS, AI, INDD."
-msgstr "エラー：サポートされていないファイルタイプです。サポートしているファイルタイプを選択してください。サポートされている形式：PNG, JPEG, GIF, TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI, INDD."
+msgstr ""
+"エラー：サポートされていないファイルタイプです。サポートしているファイルタイ"
+"プを選択してください。サポートされている形式：PNG, JPEG, GIF, TIFF, XCF, "
+"PSD, PDF, PS, SVG, EPS, AI, INDD."
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:38
 msgid "Important Info"
@@ -2791,8 +2827,8 @@ msgid ""
 "appropriate dimensions for EPUB, MOBI and Screen PDF output. Artwork (in "
 "TIFF, XCF, PSD, PDF, PS, SVG, EPS, AI or INDD format) for the front cover, "
 "spine (if any) and back cover of print books can also be uploaded and "
-"managed, but will be kept separate from the Printers' PDF when exporting the"
-" inside pages."
+"managed, but will be kept separate from the Printers' PDF when exporting the "
+"inside pages."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:51
@@ -2823,7 +2859,7 @@ msgstr "画像の次元"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:557
+#: lib/booktype/apps/edit/views.py:562
 msgid "Book History"
 msgstr "修正履歴"
 
@@ -2852,7 +2888,7 @@ msgid "Clear filters"
 msgstr "フィルタのクリア"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:24
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:500
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:585
 msgid "Action"
 msgstr "アクション"
 
@@ -2877,7 +2913,9 @@ msgstr "ファイルを追加…"
 msgid ""
 "All images added to your book are listed here as well as any additional "
 "files you have uploaded."
-msgstr "ここでは、書籍に追加されたすべてのイメージをリスト化しています。同様に、あなたがアップロードしたすべてのファイルも扱われます。"
+msgstr ""
+"ここでは、書籍に追加されたすべてのイメージをリスト化しています。同様に、あな"
+"たがアップロードしたすべてのファイルも扱われます。"
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:34
 msgid "preview"
@@ -2928,7 +2966,7 @@ msgid "You can only upload JPEG/PNG files."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:4
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:513
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:598
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:19
 msgid "Publish"
 msgstr "出版"
@@ -2947,264 +2985,302 @@ msgstr "重要！エクスポートをする前に…"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:31
 msgid "Please check the settings for your chosen formats before exporting."
-msgstr "選択したファイル形式でエクスポートをする前に設定内容を確認してください。"
+msgstr ""
+"選択したファイル形式でエクスポートをする前に設定内容を確認してください。"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:32
 msgid ""
-"Front matter is generated automatically. Please ensure all <a "
-"href=\"#settings/metadata\">metadata</a> and <a href=\"#settings/additional-"
+"Front matter is generated automatically. Please ensure all <a href="
+"\"#settings/metadata\">metadata</a> and <a href=\"#settings/additional-"
 "metadata\">additional metadata</a> has been entered."
-msgstr "正面については自動的に作成されます。 すべての <a href=\"#settings/metadata\">メタデータ</a> を確認してください。<a href=\"#settings/additional-metadata\">追加のメタデータ</a> が入力されました。"
+msgstr ""
+"正面については自動的に作成されます。 すべての <a href=\"#settings/metadata\">"
+"メタデータ</a> を確認してください。<a href=\"#settings/additional-metadata\">"
+"追加のメタデータ</a> が入力されました。"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:33
 msgid ""
-"If exporting screen PDF, EPUB or MOBI, please check the <a "
-"href=\"#covers\">cover manager</a> first."
-msgstr "出力形式がscreen PDF、EPUG、あるいはMOBI形式の場合は、最初に<a href=\"#covers\">カバーマネージャ</a> をチェックしてください。"
+"If exporting screen PDF, EPUB or MOBI, please check the <a href=\"#covers"
+"\">cover manager</a> first."
+msgstr ""
+"出力形式がscreen PDF、EPUG、あるいはMOBI形式の場合は、最初に<a href=\"#covers"
+"\">カバーマネージャ</a> をチェックしてください。"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:52
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:51
+#, fuzzy
+#| msgid "Screen PDF Settings"
+msgid "Print PDF Settings"
+msgstr "Screen PDF設定"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:57
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:60
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:178
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:181
+msgid "Size"
+msgstr "サイズ"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:59
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:180
+msgid "Choose a standard paper size or custom dimensions"
+msgstr "標準的な用紙サイズ、あるいはカスタム寸法のいずれかを選択してください"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:62
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:183
+msgid "custom"
+msgstr "カスタム"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:96
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:99
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:106
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:109
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:112
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:115
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:127
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:135
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:148
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:217
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:220
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:227
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:230
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:233
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:236
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:248
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:256
+msgid "mm"
+msgstr "mm"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:102
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:223
+msgid "Margins"
+msgstr "マージン"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:104
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:225
+msgid "Set the margin and gutter dimensions"
+msgstr "マージンと余白の寸法を設定"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:105
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:226
+msgid "Top Margin"
+msgstr "上マージン"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:108
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:229
+msgid "Side Margin"
+msgstr "横マージン"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:111
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:232
+msgid "Bottom Margin"
+msgstr "下マージン"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:114
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:235
+msgid "Gutter"
+msgstr "余白"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:118
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:239
+msgid "Header and Footer"
+msgstr "ヘッダとフッタ"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:120
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:241
+msgid "Set header and footer visibility, and their margins"
+msgstr "ヘッダとフッタの領域とマージンの設定"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:122
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:243
+msgid "Show Header"
+msgstr "ヘッダの表示"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:126
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:247
+msgid "Header Margin"
+msgstr "ヘッダのマージン"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:130
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:251
+msgid "Show Footer"
+msgstr "フッタの表示"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:134
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:255
+msgid "Footer Margin"
+msgstr "フッタのマージン"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:141
+msgid "Set extra options for paper trimming"
+msgstr "追加設定（用紙のトリミング設定）"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:143
+msgid "Crop Marks"
+msgstr "クロップマーク"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:147
+msgid "Bleed size"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:153
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:156
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:269
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:272
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:303
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:306
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:337
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:340
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:371
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:374
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:405
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:408
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:430
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:433
+msgid "Styling"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:155
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:271
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:305
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:339
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:373
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:407
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:432
+msgid "Manually edit CSS style"
+msgstr "CSSによるスタイルのマニュアル編集"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:172
+msgid "Screen PDF Settings"
+msgstr "Screen PDF設定"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:260
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:294
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:328
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:362
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:396
+msgid "Cover"
+msgstr "カバー"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:262
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:296
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:330
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:364
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:398
+msgid "Select a cover from the Cover Manager"
+msgstr "カバーマネージャーから表紙を選択"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:264
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:298
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:332
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:366
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:400
+msgid "No Cover"
+msgstr "表紙なし"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:288
+msgid "EPUB Settings"
+msgstr "EPUB設定"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:322
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:356
+#, fuzzy
+#| msgid "Admin Settings"
+msgid "Adobe InDesign Settings"
+msgstr "管理者設定"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:390
+msgid "Mobi Settings"
+msgstr "MOBI設定"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:424
+msgid "XHTML Settings"
+msgstr "XHTML設定"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:449
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:588
+msgid "Remove export"
+msgstr "エクスポートの削除"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:452
+msgid "Do you want to remove this export?"
+msgstr "このエクスポートを削除しますか？"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:470
+msgid "Choose format for export"
+msgstr "エクスポートする形式を選択"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:472
+msgid "No available publish formats."
+msgstr "出版可能な形式がありません"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:491
+msgid "Printers' PDF"
+msgstr "プリンタのPDF"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:494
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:505
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:516
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:547
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:558
+msgid "settings"
+msgstr "設定"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:502
+msgid "Screen PDF"
+msgstr "画面PDF"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:513
+msgid "EPUB"
+msgstr "EPUB"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:525
+msgid "Adobe InDesign (ICML)"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:533
+msgid "Word (DOCX)"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:544
+msgid "MOBI"
+msgstr "MOBI"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:555
+msgid "XHTML"
+msgstr "XHTML"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:565
+msgid "EXPORT YOUR BOOK"
+msgstr "書籍のエクスポート"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:615
+msgid "Failed"
+msgstr "失敗"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:628
+msgid "pages"
+msgstr "ページ数"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:646
+msgid "comments"
+msgstr "コメント"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:655
+msgid "Your comment here"
+msgstr "コメントを書いてください"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:656
+msgid "SEND COMMENT"
+msgstr "送信コメント"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:676
+msgid "Exporting, please wait"
+msgstr "エクスポートしています。しばらくお待ちください"
+
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:4
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:65
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:70
 msgid "Book Settings"
 msgstr "書籍の設定"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:58
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:61
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:179
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:182
-msgid "Size"
-msgstr "サイズ"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:60
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:181
-msgid "Choose a standard paper size or custom dimensions"
-msgstr "標準的な用紙サイズ、あるいはカスタム寸法のいずれかを選択してください"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:63
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:184
-msgid "custom"
-msgstr "カスタム"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:97
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:100
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:107
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:110
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:113
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:116
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:128
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:136
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:149
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:218
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:221
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:228
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:231
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:234
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:237
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:249
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:257
-msgid "mm"
-msgstr "mm"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:103
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:224
-msgid "Margins"
-msgstr "マージン"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:105
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:226
-msgid "Set the margin and gutter dimensions"
-msgstr "マージンと余白の寸法を設定"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:106
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:227
-msgid "Top Margin"
-msgstr "上マージン"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:109
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:230
-msgid "Side Margin"
-msgstr "横マージン"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:112
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:233
-msgid "Bottom Margin"
-msgstr "下マージン"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:115
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:236
-msgid "Gutter"
-msgstr "余白"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:119
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:240
-msgid "Header and Footer"
-msgstr "ヘッダとフッタ"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:121
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:242
-msgid "Set header and footer visibility, and their margins"
-msgstr "ヘッダとフッタの領域とマージンの設定"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:123
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:244
-msgid "Show Header"
-msgstr "ヘッダの表示"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:127
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:248
-msgid "Header Margin"
-msgstr "ヘッダのマージン"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:131
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:252
-msgid "Show Footer"
-msgstr "フッタの表示"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:135
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:256
-msgid "Footer Margin"
-msgstr "フッタのマージン"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:142
-msgid "Set extra options for paper trimming"
-msgstr "追加設定（用紙のトリミング設定）"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:144
-msgid "Crop Marks"
-msgstr "クロップマーク"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:148
-msgid "Bleed size"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:154
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:157
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:270
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:273
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:304
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:307
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:338
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:341
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:363
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:366
-msgid "Styling"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:156
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:272
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:306
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:340
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:365
-msgid "Manually edit CSS style"
-msgstr "CSSによるスタイルのマニュアル編集"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:173
-msgid "Screen PDF Settings"
-msgstr "Screen PDF設定"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:261
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:295
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:329
-msgid "Cover"
-msgstr "カバー"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:263
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:297
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:331
-msgid "Select a cover from the Cover Manager"
-msgstr "カバーマネージャーから表紙を選択"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:265
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:299
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:333
-msgid "No Cover"
-msgstr "表紙なし"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:289
-msgid "EPUB Settings"
-msgstr "EPUB設定"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:323
-msgid "Mobi Settings"
-msgstr "MOBI設定"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:357
-msgid "XHTML Settings"
-msgstr "XHTML設定"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:382
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:503
-msgid "Remove export"
-msgstr "エクスポートの削除"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:385
-msgid "Do you want to remove this export?"
-msgstr "このエクスポートを削除しますか？"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:403
-msgid "Choose format for export"
-msgstr "エクスポートする形式を選択"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:405
-msgid "No available publish formats."
-msgstr "出版可能な形式がありません"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:424
-msgid "Printers' PDF"
-msgstr "プリンタのPDF"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:427
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:438
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:449
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:462
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:473
-msgid "settings"
-msgstr "設定"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:435
-msgid "Screen PDF"
-msgstr "画面PDF"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:446
-msgid "EPUB"
-msgstr "EPUB"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:459
-msgid "MOBI"
-msgstr "MOBI"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:470
-msgid "XHTML"
-msgstr "XHTML"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:480
-msgid "EXPORT YOUR BOOK"
-msgstr "書籍のエクスポート"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:530
-msgid "Failed"
-msgstr "失敗"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:543
-msgid "pages"
-msgstr "ページ数"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:561
-msgid "comments"
-msgstr "コメント"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:570
-msgid "Your comment here"
-msgstr "コメントを書いてください"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:571
-msgid "SEND COMMENT"
-msgstr "送信コメント"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:591
-msgid "Exporting, please wait"
-msgstr "エクスポートしています。しばらくお待ちください"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:13
 #: lib/booktype/apps/reader/views.py:62
@@ -3293,7 +3369,9 @@ msgstr "章の削除"
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
-msgstr "この章を削除しますか？この操作は取り消すことが出来ない上、この章に関連するすべてのデータが失われます。"
+msgstr ""
+"この章を削除しますか？この操作は取り消すことが出来ない上、この章に関連するす"
+"べてのデータが失われます。"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:114
 msgid "Remove section"
@@ -3303,7 +3381,9 @@ msgstr "セクションの削除"
 msgid ""
 "Are you sure you would like to delete this section? You will lose all data "
 "associated to this section and you will not be able to undo this operation!"
-msgstr "このセクションを削除しますか？この操作は取り消すことが出来ない上、このセクションに関連するすべてのデータが失われます。"
+msgstr ""
+"このセクションを削除しますか？この操作は取り消すことが出来ない上、このセク"
+"ションに関連するすべてのデータが失われます。"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:126
 msgid "Delete chapters under this section"
@@ -3313,7 +3393,9 @@ msgstr "このセクションにある章を削除"
 msgid ""
 "All books should contain at least one chapter and can have as many sections "
 "as you like, or none."
-msgstr "すべての書籍は少なくとも1つの章をもつことが必要です。一方、多くのセクションは自由にすることができます。あるいはなくてもかまいません。"
+msgstr ""
+"すべての書籍は少なくとも1つの章をもつことが必要です。一方、多くのセクションは"
+"自由にすることができます。あるいはなくてもかまいません。"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:151
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:285
@@ -3465,8 +3547,8 @@ msgstr "メタデータコンテンツの削除"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_metadata.html:24
 msgid ""
-"Are you sure you would like to delete this metadata content? You will not be"
-" able to undo this operation!"
+"Are you sure you would like to delete this metadata content? You will not be "
+"able to undo this operation!"
 msgstr "メタデータコンテンツを削除しますか？この操作は取り消しできません！"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:8
@@ -3523,41 +3605,41 @@ msgstr "書籍の言語"
 msgid "Book License"
 msgstr "書籍のライセンス"
 
-#: lib/booktype/apps/edit/views.py:508
+#: lib/booktype/apps/edit/views.py:513
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr "リビジョン {0} が保存されました"
 
-#: lib/booktype/apps/edit/views.py:586
+#: lib/booktype/apps/edit/views.py:591
 msgid "Chapter diff"
 msgstr "章の比較"
 
-#: lib/booktype/apps/edit/views.py:624
+#: lib/booktype/apps/edit/views.py:629
 msgid "Book History | Chapter Revision"
 msgstr "書籍の履歴 | 章のリビジョン"
 
-#: lib/booktype/apps/edit/views.py:647
+#: lib/booktype/apps/edit/views.py:652
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "リビジョン %s に戻す。"
 
-#: lib/booktype/apps/edit/views.py:666
+#: lib/booktype/apps/edit/views.py:671
 msgid "Chapter revision successfully reverted."
 msgstr "章のリビジョンを戻すことに成功しました。"
 
-#: lib/booktype/apps/edit/views.py:668
+#: lib/booktype/apps/edit/views.py:673
 msgid "Chapter revision could not be reverted."
 msgstr "章のリビジョンを戻せません。"
 
-#: lib/booktype/apps/edit/views.py:739
+#: lib/booktype/apps/edit/views.py:744
 msgid "Successfully saved settings."
 msgstr "設定の保存に成功しました"
 
-#: lib/booktype/apps/edit/views.py:741
+#: lib/booktype/apps/edit/views.py:746
 msgid "You have no permissions to execute this action."
 msgstr "この操作を行う権限がありません。"
 
-#: lib/booktype/apps/edit/views.py:744
+#: lib/booktype/apps/edit/views.py:749
 msgid "Unknown error while saving changes."
 msgstr "変更を保存中に何らかのエラー発生"
 
@@ -3728,7 +3810,9 @@ msgstr "すべてのグループ"
 #: lib/booktype/apps/portal/templates/portal/group.html:39
 msgid ""
 "Click this button to leave this group. You can rejoin the group at any time"
-msgstr "このボタンを押すとこのグループを脱退します。いつでもグループに参加することができます。"
+msgstr ""
+"このボタンを押すとこのグループを脱退します。いつでもグループに参加することが"
+"できます。"
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:27
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:90
@@ -3742,7 +3826,9 @@ msgstr "グループを脱退"
 msgid ""
 "Click this button to join this group of writers and editors. You can leave "
 "the group at any time"
-msgstr "このボタンを押すと編集者や執筆者のグループに参加します。あなたはいつでもこのグループから脱退することが出来ます。"
+msgstr ""
+"このボタンを押すと編集者や執筆者のグループに参加します。あなたはいつでもこの"
+"グループから脱退することが出来ます。"
 
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:29
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:92
@@ -3811,7 +3897,9 @@ msgstr "グループが見つかりません\"%(group_name)s\""
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:46
 msgid ""
 "Click this button to go to My Dashboard and open the Create New Book wizard"
-msgstr "このボタンを押すとマイ ダッシュボードに行きます。そして新規書籍作成ウィザードが開きます"
+msgstr ""
+"このボタンを押すとマイ ダッシュボードに行きます。そして新規書籍作成ウィザード"
+"が開きます"
 
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:81
 msgid "There are no users yet"
@@ -3828,7 +3916,9 @@ msgstr "本："
 #: lib/booktype/apps/portal/templates/portal/group.html:41
 msgid ""
 "Click this button to update the name, description or image for your group"
-msgstr "あなたのグループの名前、説明やイメージを更新するには、このボタンをクリックしてください"
+msgstr ""
+"あなたのグループの名前、説明やイメージを更新するには、このボタンをクリックし"
+"てください"
 
 #: lib/booktype/apps/portal/templates/portal/group.html:41
 #: lib/booktype/apps/portal/templates/portal/group_settings.html:9
@@ -3841,7 +3931,9 @@ msgstr "グループから本を削除"
 
 #: lib/booktype/apps/portal/templates/portal/group.html:93
 msgid "Click this button to select other books and add them to this group"
-msgstr "他の書籍を選択し、このグループに追加するには、このボタンをクリックしてください"
+msgstr ""
+"他の書籍を選択し、このグループに追加するには、このボタンをクリックしてくださ"
+"い"
 
 #: lib/booktype/apps/portal/templates/portal/group.html:93
 msgid "Add books to this group"
@@ -3962,7 +4054,9 @@ msgstr "書籍のイメージ"
 msgid ""
 "Are you sure you would like to delete this book? You will lose all data "
 "associated to this book and you will not be able to undo this operation!"
-msgstr "この本を削除してもよろしいですか？この本に関連したすべてのデータが失われ、元に戻すことはできません！"
+msgstr ""
+"この本を削除してもよろしいですか？この本に関連したすべてのデータが失われ、元"
+"に戻すことはできません！"
 
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:13
 msgid "Type full title of the book to delete it"
@@ -4052,7 +4146,9 @@ msgstr "書籍の編集"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:59
 msgid "Click this button to view the draft of the book as a single page"
-msgstr "単一ページとして書籍のドラフトを表示するには、このボタンをクリックしてください"
+msgstr ""
+"単一ページとして書籍のドラフトを表示するには、このボタンをクリックしてくださ"
+"い"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:60
 msgid "Read Book"
@@ -4331,8 +4427,8 @@ msgstr ""
 
 #: lib/booktype/importer/docx/docximporter.py:132
 msgid ""
-"The file could not be imported because it was not saved in the .docx format."
-" Try to open the file in Word and save it as a .docx."
+"The file could not be imported because it was not saved in the .docx format. "
+"Try to open the file in Word and save it as a .docx."
 msgstr ""
 
 #: lib/booktype/importer/docx/docximporter.py:135
@@ -4453,6 +4549,6 @@ msgstr ""
 #: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:6
 msgid ""
 "Novel theme for smaller pages of paperbacks with a bit of a 1950s font "
-"feeling. No header, centered page numbers. 'Compact' means line indentations"
-" and no spacing between paragraphs."
+"feeling. No header, centered page numbers. 'Compact' means line indentations "
+"and no spacing between paragraphs."
 msgstr ""
