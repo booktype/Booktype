@@ -62,9 +62,9 @@
                     {% endcheck_perm %}
 
                     {% check_perm 'reader.can_view_draft' %}
-                    <button data-href="{% url 'reader:draft_chapter_page' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to view the draft of the book by chapter' %}">
+                    <!--button data-href="{% url 'reader:draft_chapter_page' bookid=book.url_title %}" role="button" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to view the draft of the book by chapter' %}">
                         {% trans "View draft" %}
-                    </button>
+                    </button-->
                     {% endcheck_perm %}
 
                     {% if is_book_admin %}
