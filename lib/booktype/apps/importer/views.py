@@ -5,29 +5,30 @@ import logging
 
 from ebooklib import epub
 
+from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
+from django.views.generic import UpdateView
 from django.views.generic.edit import FormView
 from django.utils.translation import ugettext_lazy as _
 
-try:
-    import json
-except ImportError:
-    from django.utils import simplejson as json
-
 from braces.views import JSONResponseMixin
-from booki.editor.models import Book
+from booki.editor.models import Book, Chapter
+
+from sputnik.utils import LazyEncoder
 
 from booktype.apps.core.views import SecurityMixin
 from booktype.importer.delegate import Delegate
 from booktype.importer.notifier import CollectNotifier
 from booktype.importer import utils as importer_utils
+from booktype.importer.docx import WordImporter
 
 from booktype.utils import config
 from booktype.utils.book import check_book_availability, create_book
 from booktype.utils.misc import booktype_slugify
+from booktype.utils.security import BookSecurity
 
-from .forms import UploadBookForm
+from .forms import UploadBookForm, UploadDocxFileForm
 
 
 logger = logging.getLogger("booktype.importer")
@@ -38,7 +39,8 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
     form_class = UploadBookForm
 
     def check_permissions(self, request, *args, **kwargs):
-        if self.request.user.is_superuser:
+        # TODO: this should be moved to parent SecurityMixin class
+        if request.user.is_superuser:
             return
 
         if not self.security.has_perm('account.can_upload_book'):
@@ -49,7 +51,8 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
             raise PermissionDenied
 
         # check if user can import more books
-        if Book.objects.filter(owner=self.request.user).count() >= config.get_configuration('BOOKTYPE_BOOKS_PER_USER') != -1:
+        if Book.objects.filter(owner=request.user).count() >= config.get_configuration(
+           'BOOKTYPE_BOOKS_PER_USER') != -1:
             raise PermissionDenied
 
     def file_extension(self, filename):
@@ -57,9 +60,7 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
         return ext[1:]
 
     def get_default_title(self, temp_file, ext):
-        book_title = _('Imported Book %(date)s') % {
-            'date': datetime.date.today()
-        }
+        book_title = _('Imported Book %(date)s') % dict(date=datetime.date.today())
 
         if ext == 'epub':
             epub_book = epub.read_epub(temp_file)
@@ -90,8 +91,7 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
             book_title = default_book_title
 
         if not check_book_availability(book_title):
-            registered = Book.objects.filter(
-                title__startswith=book_title).count()
+            registered = Book.objects.filter(title__startswith=book_title).count()
             book_title = '%s %s' % (book_title, registered)
             logger.debug('ImporterView::Checking book availability: "{}".'.format(book_title.encode('utf8')))
 
@@ -111,10 +111,7 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
             book_importer = importer_utils.get_importer_module(ext)
         except KeyError:
             logger.error('ImporterView::No importer for this extension')
-
-            response_data = {
-                'errors': [_('Extension not supported!')],
-            }
+            response_data = dict(errors=[_('Extension not supported!')])
             return self.render_json_response(response_data)
 
         try:
@@ -140,3 +137,87 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
             'warnings': []
         }
         return self.render_json_response(response_data)
+
+
+class ImportToChapter(JSONResponseMixin, SecurityMixin, UpdateView):
+    """
+    Importer view to load content from given docx file (near future epub) into
+    a single existing chapter
+
+    This view will redirect to chapter edit screen if docx import succeed or will
+    redirect to current screen user is
+
+    """
+
+    # TODO: Implement importing epub files into existent chapters
+
+    model = Book
+    form_class = UploadDocxFileForm
+    slug_field = 'url_title'
+    slug_url_kwarg = 'bookid'
+    context_object_name = 'book'
+    SECURITY_BRIDGE = BookSecurity
+    json_encoder_class = LazyEncoder
+
+    def check_permissions(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return
+
+        if not self.security.has_perm('edit.import_to_chapter'):
+            raise PermissionDenied
+
+    def get_object(self, queryset=None):
+        book = super(ImportToChapter, self).get_object(queryset)
+
+        self.chapter = get_object_or_404(
+            Chapter, book=book, pk=self.kwargs['chapter'])
+
+        return book
+
+    def get_form_kwargs(self):
+        """Just override to avoid sending `instance` argument passed to form"""
+
+        kwargs = super(ImportToChapter, self).get_form_kwargs()
+        del kwargs['instance']
+
+        return kwargs
+
+    def form_valid(self, form):
+        """
+        If the form is valid, redirect to the supplied URL.
+        """
+        chapter = self.chapter
+        book = self.object
+        chapter_file = form.cleaned_data.get('chapter_file')
+
+        # this are used to get information messages about import process
+        notifier, delegate = CollectNotifier(), Delegate()
+        response = {}
+
+        docx = WordImporter(book, chapter, notifier=notifier, delegate=delegate)
+
+        try:
+            docx.import_file(chapter_file)
+            response['url'] = self.get_success_url()
+        except Exception as e:
+            logger.error('ImporterToChapter::Unexpected error while importing file')
+            logger.exception(e)
+            notifier.errors.append(str(e))
+
+        response['infos'] = notifier.infos
+        response['warnings'] = notifier.warnings
+        response['errors'] = notifier.errors
+
+        return self.render_json_response(response)
+
+    def form_invalid(self, form):
+        # NOTE: perhaps send back validation errors
+        response_data = {
+            'infos': [], 'warnings': [],
+            'errors': [_('Something went wrong!')],
+        }
+        return self.render_json_response(response_data)
+
+    def get_success_url(self):
+        return '{}#edit/{}'.format(
+            reverse('edit:editor', args=[self.object.url_title]), self.chapter.pk)

@@ -36,6 +36,7 @@ from booktype.apps.core import views
 from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.reader.views import BaseReaderView
+from booktype.apps.importer.forms import UploadDocxFileForm
 from booktype.utils.security import BookSecurity, get_user_permissions
 
 from .utils import color_me, send_notification, clean_chapter_html
@@ -467,6 +468,7 @@ class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
             'enabled': config.get_configuration('EDITOR_AUTOSAVE_ENABLED'),
             'delay': config.get_configuration('EDITOR_AUTOSAVE_DELAY')
         })
+        context['upload_docx_form'] = UploadDocxFileForm()
 
         return context
 
