@@ -45,14 +45,14 @@ if [ ! -d temp ]; then
 fi
 
 # create ICML directory
-if [ ! -d $TARGETFILENAME"-ICML/Chapters" ]; then
-  mkdir -p $TARGETFILENAME"-ICML/Chapters";
+if [ ! -d $TARGETFILENAME"/Chapters" ]; then
+  mkdir -p $TARGETFILENAME"/Chapters";
 fi
 
 # create a ICML version of the entire book
 ${PANDOC:-"pandoc"} -s --from epub --to icml -o "COMPLETE_"$TARGETFILENAME.icml $SOURCE
 # move the file to the Text directory
-mv "COMPLETE_"$TARGETFILENAME.icml $TARGETFILENAME"-ICML"
+mv "COMPLETE_"$TARGETFILENAME.icml $TARGETFILENAME
 
 # create a copy for processing
 cp $SOURCE ./temp/book.epub
@@ -62,9 +62,9 @@ cd ./temp
 unzip ./book.epub
 
 # copy fonts, css and images to ICML folder
-cp -R ./OEBPS/Fonts ../$TARGETFILENAME"-ICML/"
-cp -R ./OEBPS/Images ../$TARGETFILENAME"-ICML/"
-cp -R ./OEBPS/Styles ../$TARGETFILENAME"-ICML/"
+cp -R ./OEBPS/Fonts ../$TARGETFILENAME"/"
+cp -R ./OEBPS/Images ../$TARGETFILENAME"/"
+cp -R ./OEBPS/Styles ../$TARGETFILENAME"/"
 
 # move to where the HTML files are
 cd ./OEBPS/Text/
@@ -73,7 +73,7 @@ for chapterxhtml in *.xhtml; do
     # new chapter name without xhtml ending
     chaptername=$(echo $chapterxhtml | cut -f 1 -d '.')
     ${PANDOC:-"pandoc"} -s --from html --to icml -o $chaptername.icml $chapterxhtml
-    mv $chaptername.icml ../../../$TARGETFILENAME"-ICML/Chapters/"
+    mv $chaptername.icml ../../../$TARGETFILENAME"/Chapters/"
 done
 
 # move back up outside temp directory
@@ -152,9 +152,9 @@ updated automatically as the content of the ICML file changes.
 * Locate the ICML file and simply 'unlink' it." >> $TARGETFILENAME"-ICML/HOWTO.txt"
 
 # create zip for ICML files and remove folder
-zip -0r $TARGETFILENAME-ICML.zip ./$TARGETFILENAME"-ICML/"
+zip -0r $TARGETFILENAME-ICML.zip ./$TARGETFILENAME"/"
 # delete working folder
-rm -rf ./$TARGETFILENAME"-ICML/"
+rm -rf ./$TARGETFILENAME"/"
 
 # move file to target
 mv $TARGETFILENAME-ICML.zip $TARGET
