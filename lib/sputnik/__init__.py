@@ -337,11 +337,12 @@ def addMessageToChannel(request, channelName, message, myself = False ):
 
         if c.strip() != '':
             try:
-                sputnik.push( "ses:%s:messages" % c, json.dumps(message))
+                sputnik.push("ses:%s:messages" % c, json.dumps(message))
             except:
                 pass
 
-def addMessageToChannel2(clientID, sputnikID, channelName, message, myself = False ):
+
+def addMessageToChannel2(clientID, sputnikID, channelName, message, myself=False):
     import sputnik
     import json
 
@@ -361,7 +362,7 @@ def addMessageToChannel2(clientID, sputnikID, channelName, message, myself = Fal
 
         if c.strip() != '':
             try:
-                sputnik.push( "ses:%s:messages" % c, json.dumps(message))
+                sputnik.push("ses:%s:messages" % c, json.dumps(message))
             except:
                 logger.debug('*ERROR PUSH*')
 

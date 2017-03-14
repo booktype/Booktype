@@ -14,35 +14,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import urllib
-import urlparse
-
-import lxml
-import lxml.html
 from lxml import etree
-
-import ebooklib
 
 from ebooklib.plugins.base import BasePlugin
 from ebooklib.utils import parse_html_string
 
 from booktype.utils.tidy import tidy_cleanup
 
-from ..utils import convert_file_name
-
 
 class TidyPlugin(BasePlugin):
     NAME = 'Tidy HTML'
-    OPTIONS = {#'utf8': None,
-               'tidy-mark': 'no',
-               'drop-font-tags': 'yes',
-               'uppercase-attributes': 'no',
-               'uppercase-tags': 'no',
-               #'anchor-as-name': 'no',
-              }
+    OPTIONS = {
+        # 'utf8': None,
+        # 'anchor-as-name': 'no',
+        'tidy-mark': 'no',
+        'drop-font-tags': 'yes',
+        'uppercase-attributes': 'no',
+        'uppercase-tags': 'no'
+    }
 
-    def __init__(self, extra = {}):
+    def __init__(self, extra={}):
         self.options = dict(self.OPTIONS)
         self.options.update(extra)
 
@@ -58,7 +49,7 @@ class TidyPlugin(BasePlugin):
 class ImportPlugin(BasePlugin):
     NAME = 'Import Plugin'
 
-    def __init__(self, remove_attributes = None):
+    def __init__(self, remove_attributes=None):
         if remove_attributes:
             self.remove_attributes = remove_attributes
         else:
@@ -82,7 +73,7 @@ class ImportPlugin(BasePlugin):
             title = head.find('title')
 
             if title is not None:
-                chapter.title = title.text        
+                chapter.title = title.text
 
         if len(root.find('body')) != 0:
             body = tree.find('body')
@@ -97,4 +88,3 @@ class ImportPlugin(BasePlugin):
                         del _item.attrib[t]
 
         chapter.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
-

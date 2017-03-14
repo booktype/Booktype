@@ -18,7 +18,8 @@ from django.conf.urls import url
 
 from .views import (
     EditBookPage, BookHistoryPage, RevisionPage,
-    ChapterHistoryPage, CompareChapterRevisions, BookSettingsView
+    ChapterHistoryPage, CompareChapterRevisions, BookSettingsView,
+    DownloadBookHistory
 )
 from .views import upload_attachment, upload_cover, cover
 from booktype.apps.core.views import staticattachment
@@ -31,6 +32,9 @@ urlpatterns = [
 
     url(r'^_edit/$', EditBookPage.as_view(), name='editor'),
     url(r'^_history/$', BookHistoryPage.as_view(), name='history'),
+    url(r'^_history/download/$', DownloadBookHistory.as_view(), name='download_history'),
+    url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/download/$',
+        DownloadBookHistory.as_view(), name='download_chapter_history'),
 
     url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/$',
         ChapterHistoryPage.as_view(), name='chapter_history'),

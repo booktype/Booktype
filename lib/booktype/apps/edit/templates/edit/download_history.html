@@ -1,0 +1,133 @@
+{% load staticfiles compress i18n %}
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <title>{% trans "History for" %}: {{ history_title }}</title>
+      {% compress css inline %}
+      <link href='{% static "core/css/bootstrap.css" %}' rel='stylesheet' type='text/css' />
+      <link href='{% static "core/css/booki-new.css" %}' rel='stylesheet' type='text/css' />
+      <style>
+        /*hide for now. FIXME: figure out how to handle*/
+        .bk-image-editor,
+        img{display:none}
+        .changed {
+          background-color: #ffeda8;
+        }
+        .added, ins {
+          background-color: #b9f0a2 !important;
+        }
+        .deleted, del {
+          background-color: #fa897a !important;
+        }
+        BODY {
+          padding: 20px;
+        }
+        BODY, P, TD {
+          font-family: Arial;
+          font-size: 12pt;
+        }
+        TD {
+          width: 50%;
+          padding-left: 2px;
+          padding-right: 2px;
+        }
+        .panel.panel-default{
+          margin-bottom: 10px;
+        }
+        h1.panel-title > a.ablock{
+          width: 90%;
+          display: inline-block;
+          cursor: pointer;
+          color: #4b2e82;
+        }
+        h1.panel-title > a{
+          text-decoration: none;
+          color: gray;
+        }
+        h1.panel-title small,
+        a.go-chapter{
+          font-size: 13px;
+        }
+        a.go-chapter{
+          color: #4b2e82;
+        }
+        .collapse.in,
+        .panel-collapse,
+        .collapsing{
+          padding: 0px 20px;
+        }
+        .toggle-all{
+          font-size: 16px;
+        }
+      </style>
+      <style media="print">
+        .diff.deleted{
+          text-decoration: line-through;
+        }
+        .diff.added{
+          text-decoration: underline;
+        }
+        </style>
+      {% endcompress %}
+  </head>
+  <body>
+    <h1 class="book-title">
+      {% trans "History for" %}: {{ history_title }}
+      {% if book_mode %}
+        <a class="toggle-all pull-right hidden-print" href="#toogle" data-state="collapsed">{% trans "Expand all" %}</a>
+      {% else %}
+        <span class="pull-right">{{ book.title }}</span>
+      {% endif %}
+    </h1>
+    {% for item in output %}
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <h1 class="panel-title">
+            <a {% if item.content %}class="ablock"{% endif %} data-toggle="collapse" data-target="#item-{{ forloop.counter }}">
+              {{ item.title|safe }} {% if not item.content %}<span class="label">{% trans "No changes" %}</span>{% endif %}
+            </a>
+          </h1>
+        </div>
+
+        {% if item.content %}
+        <div class="panel-collapse collapse {% if not book_mode %}in{% endif %}" {% if book_mode %}id="item-{{ forloop.counter }}"{% endif %}>
+          <hr/>
+          <table border="0" width="100%" class="compare_table">
+            {{ item.content|safe }}
+          </table>
+        </div>
+        {% endif %}
+
+      </div>
+    {% endfor %}
+
+    {% compress js inline %}
+    <script type='text/javascript' src='{% static "core/js/jquery-1.9.1.js" %}'></script>
+    <script type='text/javascript' src='{% static "edit/js/bootstrap-transition.js" %}'></script>
+    <script type='text/javascript' src='{% static "edit/js/bootstrap-collapse.js" %}'></script>
+    <script type='text/javascript' src='{% static "edit/js/bootstrap-tooltip.js" %}'></script>
+    <script type='text/javascript'>
+      $(document).on('click', 'a[href="#toogle"]', function(e) {
+        e.preventDefault();
+
+        var toggleBtn = $(this);
+        var expandLabel = '{% trans "Expand all" %}';
+        var collapseLabel = '{% trans "Collapse all" %}';
+
+        var state = toggleBtn.data("state");
+        toggleBtn.text(state === "collapsed" ? collapseLabel : expandLabel);
+        toggleBtn.data("state", state === "collapsed" ? "expanded" : "collapsed")
+
+        $('.panel-collapse').each(function() {
+          $(this).collapse(state === "collapsed" ? "show" : "hide");
+        });
+      });
+
+      $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+    {% endcompress %}
+  </body>
+</html>

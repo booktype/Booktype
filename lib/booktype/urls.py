@@ -61,8 +61,7 @@ urlpatterns = [
     url(r'^messaging/', include('booki.messaging.urls')),
 
     # importer application
-    # TODO: Add namespace
-    url(r'^_importer/', include('booktype.apps.importer.urls')),
+    url(r'^_importer/', include('booktype.apps.importer.urls', namespace='importer')),
 
     # API urls
     url(r'^_api/', include('booktype.api.urls')),
