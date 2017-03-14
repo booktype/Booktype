@@ -61,13 +61,12 @@ def publish_book(*args, **kwargs):
 
     for _format in kwargs['formats']:
         _ext = "pdf"
+
         if _format == "epub":
             _ext = "epub"
-        elif _format == "icml":
-            _ext = "icml.zip"
         elif _format == "mobi":
             _ext = "mobi"
-        elif _format == "xhtml":
+        elif _format in ("icml", "docx", "xhtml"):
             _ext = "zip"
 
         format_settings = get_settings_as_dictionary(book, _format)

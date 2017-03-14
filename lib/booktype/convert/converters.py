@@ -21,3 +21,4 @@ from .mpdf.converter import MPDFConverter
 from .screenpdf.converter import ScreenPDFConverter
 from .xhtml.converter import XHTMLConverter
 from .pandoc.icml import ICMLConverter
+from .pandoc.docx import DOCXConverter
