@@ -1,7 +1,7 @@
 # English (en) translation strings for Booktype Control Centre.
 # Copyright (C) 2014 Booktype contributors
 # This file is distributed under the same license as the Booktype package.
-# 
+#
 # Translators:
 # Kjetil Nordengen <kjetilnordengen@gmail.com>, 2016
 # Paul Graabein <pmepost@gmail.com>, 2015
@@ -9,805 +9,879 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-28 15:21+0100\n"
+"POT-Creation-Date: 2017-03-14 14:12+0100\n"
 "PO-Revision-Date: 2016-02-25 10:52+0000\n"
 "Last-Translator: Kjetil Nordengen <kjetilnordengen@gmail.com>\n"
-"Language-Team: Norwegian (http://www.transifex.com/sourcefabric/booktype/language/no/)\n"
+"Language-Team: Norwegian (http://www.transifex.com/sourcefabric/booktype/"
+"language/no/)\n"
+"Language: no\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: no\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Country: UNITED KINGDOM\n"
 "X-Poedit-Language: English\n"
 
-#: forms.py:55
+#: lib/booktypecontrol/forms.py:56
 msgid "Site title"
 msgstr "Nettsidenavn"
 
-#: forms.py:57
+#: lib/booktypecontrol/forms.py:58
 msgid "Site title is required."
 msgstr "Nettsidenavn er påkrevd."
 
-#: forms.py:61
+#: lib/booktypecontrol/forms.py:62
 msgid "Tagline"
 msgstr "Stikkordlinje"
 
-#: forms.py:66
+#: lib/booktypecontrol/forms.py:67
+msgid "Frontpage URL"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:70
+msgid "Can be a full absolute or relative url"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:73
 msgid "Favicon"
 msgstr "Favikon"
 
-#: forms.py:68
+#: lib/booktypecontrol/forms.py:75
 msgid "Upload .ico file"
 msgstr "Last opp .ico fil"
 
-#: forms.py:105
+#: lib/booktypecontrol/forms.py:127
 msgid "CSS"
 msgstr "CSS"
 
-#: forms.py:133
+#: lib/booktypecontrol/forms.py:155
 msgid "Welcome message"
 msgstr "Velkomstmelding"
 
-#: forms.py:138
+#: lib/booktypecontrol/forms.py:160
 msgid "Show activity"
 msgstr "Vis aktivitet"
 
-#: forms.py:142
+#: lib/booktypecontrol/forms.py:164
 msgid "Use anonymous page"
 msgstr "Bruk anonym side"
 
-#: forms.py:144
+#: lib/booktypecontrol/forms.py:166
 msgid ""
 "Use separate page for anonymous users without books, people, groups and "
 "recent activity blocks."
-msgstr "Bruk separat side for anonyme brukere uten bøker, folk, grupper og nylig-aktivitet-blokker."
+msgstr ""
+"Bruk separat side for anonyme brukere uten bøker, folk, grupper og nylig-"
+"aktivitet-blokker."
 
-#: forms.py:148
+#: lib/booktypecontrol/forms.py:170
 msgid "Anonymous page message"
 msgstr "Anonymside-beskjed"
 
-#: forms.py:151
+#: lib/booktypecontrol/forms.py:173
 msgid "Message for displaying on anonymous page."
 msgstr "Melding som skal vises på anonymsiden."
 
-#: forms.py:154
+#: lib/booktypecontrol/forms.py:176
 msgid "Anonymous page email"
 msgstr "Epost som skal vises på anonymsiden"
 
-#: forms.py:156
+#: lib/booktypecontrol/forms.py:178
 msgid "Email for displaying on anonymous page."
 msgstr "Epost for visning på anonymsiden."
 
-#: forms.py:159
+#: lib/booktypecontrol/forms.py:181
 msgid "Anonymous page image"
 msgstr "Bilde for den anonyme siden"
 
-#: forms.py:161
+#: lib/booktypecontrol/forms.py:183
 msgid "Use image/png files."
 msgstr "Bruk bilde/png-filer"
 
-#: forms.py:248
+#: lib/booktypecontrol/forms.py:270
 msgid "Abbreviation"
 msgstr "Forkortelse"
 
-#: forms.py:250
+#: lib/booktypecontrol/forms.py:272
 msgid "Abbreviation is required."
 msgstr "Forkortelse er påkrevd"
 
-#: forms.py:254
+#: lib/booktypecontrol/forms.py:276
 msgid "Name"
 msgstr "Navn"
 
-#: forms.py:256 forms.py:262
+#: lib/booktypecontrol/forms.py:278 lib/booktypecontrol/forms.py:284
 msgid "License name is required."
 msgstr "Lisensnavn er påkrevd."
 
-#: forms.py:260
+#: lib/booktypecontrol/forms.py:282
 msgid "License URL"
 msgstr "Lisensadresse (URL)"
 
-#: forms.py:266
+#: lib/booktypecontrol/forms.py:288
 msgid "Successfully created new license."
 msgstr "Vellykket opprettelse av ny lisens."
 
-#: forms.py:285
+#: lib/booktypecontrol/forms.py:307
+#, fuzzy
+#| msgid ""
+#| "Default visibility: If this box is checked, all newly created books will "
+#| "be visible to the public initially."
 msgid ""
-"Default visibility: If this box is checked, all newly created books will be "
-"visible to the public initially."
-msgstr "Standard visning for boken:  Hvis denne boksen er markert, vil alle nye bøker som standard bli satt til offentlig visning."
+"Default visibility: If this box is checked, create/import wizard will "
+"suggest to mark book as hidden by default."
+msgstr ""
+"Standard visning for boken:  Hvis denne boksen er markert, vil alle nye "
+"bøker som standard bli satt til offentlig visning."
 
-#: forms.py:287
+#: lib/booktypecontrol/forms.py:309
+#, fuzzy
+#| msgid ""
+#| "If it is turned on then track changes will be        enabled for all the "
+#| "users."
 msgid ""
-"If it is turned on then track changes will be        enabled for all the "
-"users."
-msgstr "Hvis dette er aktiviert vil aktivitetslogging bli aktivert for alle bukere."
+"If it is turned on then track changes will be enabled for all the users."
+msgstr ""
+"Hvis dette er aktiviert vil aktivitetslogging bli aktivert for alle bukere."
 
-#: forms.py:290
+#: lib/booktypecontrol/forms.py:312
 msgid "Default visibility"
 msgstr "Standard synlighet"
 
-#: forms.py:295
+#: lib/booktypecontrol/forms.py:317
 msgid "Track changes"
 msgstr "Spor endringer"
 
-#: forms.py:300
+#: lib/booktypecontrol/forms.py:322
 msgid "Default License"
 msgstr "Standard lisens"
 
-#: forms.py:303
+#: lib/booktypecontrol/forms.py:325
 msgid "Default license for newly created books."
 msgstr "Standard lisens for nyopprettede bøker."
 
-#: forms.py:350
+#: lib/booktypecontrol/forms.py:375
 msgid "Anyone can register"
 msgstr "Alle kan opprette brukerkonto"
 
-#: forms.py:352
+#: lib/booktypecontrol/forms.py:377
 msgid "Anyone can register on the site and create an account"
 msgstr "Alle kan opprette brukerkonto"
 
-#: forms.py:355
+#: lib/booktypecontrol/forms.py:380
 msgid "Only the superuser can create books"
 msgstr "Kun superbrukere kan  opprette bøker"
 
-#: forms.py:359
+#: lib/booktypecontrol/forms.py:384
 msgid "Only the superuser can import books"
 msgstr "Kun superbrukere kan importere bøker"
 
-#: forms.py:387 forms.py:550
+#: lib/booktypecontrol/forms.py:412 lib/booktypecontrol/forms.py:574
 msgid "Username"
 msgstr "Brukernavn"
 
-#: forms.py:390 forms.py:554
+#: lib/booktypecontrol/forms.py:415 lib/booktypecontrol/forms.py:578
 msgid "Username is required."
 msgstr "Brukernavn er påkrevd."
 
-#: forms.py:391 forms.py:397 forms.py:555 forms.py:560
+#: lib/booktypecontrol/forms.py:416 lib/booktypecontrol/forms.py:422
+#: lib/booktypecontrol/forms.py:579 lib/booktypecontrol/forms.py:584
 msgid "Illegal characters in username."
 msgstr "Ugyldig tegn i brukernavnet."
 
-#: forms.py:403 forms.py:566
+#: lib/booktypecontrol/forms.py:428 lib/booktypecontrol/forms.py:590
 msgid "Full name"
 msgstr "Fullt navn"
 
-#: forms.py:405 forms.py:568
+#: lib/booktypecontrol/forms.py:430 lib/booktypecontrol/forms.py:592
 msgid "Full name is required."
 msgstr "Fullt navn er påkrevd"
 
-#: forms.py:409 forms.py:572
+#: lib/booktypecontrol/forms.py:434 lib/booktypecontrol/forms.py:596
 msgid "Email"
 msgstr "Epost"
 
-#: forms.py:411 forms.py:574
+#: lib/booktypecontrol/forms.py:436 lib/booktypecontrol/forms.py:598
 msgid "Email is required."
 msgstr "Epost er påkrevd."
 
-#: forms.py:415 forms.py:586
+#: lib/booktypecontrol/forms.py:440 lib/booktypecontrol/forms.py:610
 msgid "User description"
 msgstr "Brukerbeskrivelse"
 
-#: forms.py:420 forms.py:624
+#: lib/booktypecontrol/forms.py:445 lib/booktypecontrol/forms.py:648
 msgid "Password"
 msgstr "Passord"
 
-#: forms.py:422 forms.py:429 forms.py:626 forms.py:634
+#: lib/booktypecontrol/forms.py:447 lib/booktypecontrol/forms.py:454
+#: lib/booktypecontrol/forms.py:650 lib/booktypecontrol/forms.py:658
 msgid "Password is required."
 msgstr "Passord er påkrevd."
 
-#: forms.py:427 forms.py:631
+#: lib/booktypecontrol/forms.py:452 lib/booktypecontrol/forms.py:655
 msgid "Password confirmation"
 msgstr "Passordbekreftelse"
 
-#: forms.py:432 forms.py:636
+#: lib/booktypecontrol/forms.py:457 lib/booktypecontrol/forms.py:660
 msgid "Enter the same password as above, for verification."
 msgstr "Skriv inn det samme passord som ovenfor, for verifisering."
 
-#: forms.py:435
+#: lib/booktypecontrol/forms.py:460
 msgid "Notify person by email"
 msgstr "Varsle via epost"
 
-#: forms.py:440 forms.py:592
+#: lib/booktypecontrol/forms.py:465 lib/booktypecontrol/forms.py:616
 msgid "This person is a superuser"
 msgstr "Denne personen er superbruker"
 
-#: forms.py:444
+#: lib/booktypecontrol/forms.py:469
 msgid "Successfully created new account."
 msgstr "Vellykket oppretelse av ny brukerkonto"
 
-#: forms.py:470
+#: lib/booktypecontrol/forms.py:495
 msgid "That username is already taken."
 msgstr "Dette brukernavnet er allerede i bruk"
 
-#: forms.py:476
+#: lib/booktypecontrol/forms.py:501
 msgid "Passwords do not match."
 msgstr "Passordene er ikke like."
 
-#: forms.py:578
+#: lib/booktypecontrol/forms.py:537
+#, python-format
+msgid "You have a new %s account"
+msgstr ""
+
+#: lib/booktypecontrol/forms.py:602
 msgid "Profile picture"
 msgstr "Profilbilde"
 
-#: forms.py:596
+#: lib/booktypecontrol/forms.py:620
 msgid "Active account"
 msgstr "Aktiv brukerkonto"
 
-#: forms.py:598
+#: lib/booktypecontrol/forms.py:622
 msgid "Indicate whether user's account is archived or active."
 msgstr "Indikerer om brukerkontoen er aktiv eller arkivert"
 
-#: forms.py:620
+#: lib/booktypecontrol/forms.py:644
 msgid "The two password fields didn't match."
 msgstr "Passordene var ikke identiske."
 
-#: forms.py:639
+#: lib/booktypecontrol/forms.py:663
 msgid "Send login data"
 msgstr "Send innloggingsinformasjon"
 
-#: forms.py:641
+#: lib/booktypecontrol/forms.py:665
 msgid "Send new login data to the user via email."
 msgstr "Send innloggingsinformasjon til brukeren via epost."
 
-#: forms.py:645
+#: lib/booktypecontrol/forms.py:669
 msgid "Short message"
 msgstr "Kort melding"
 
-#: forms.py:647
+#: lib/booktypecontrol/forms.py:671
 msgid ""
 "Will be added in the bottom of email message text, after new user "
 "credentials."
-msgstr "Vil legges til i bunnen av epostens meldingstekst, etter brukerinformasjonen."
+msgstr ""
+"Vil legges til i bunnen av epostens meldingstekst, etter brukerinformasjonen."
 
-#: forms.py:649
+#: lib/booktypecontrol/forms.py:673
 msgid "You can change password in your profile settings page."
 msgstr "Du kan endre ditt passord i innstillinger for din profil"
 
-#: forms.py:674 forms.py:747
+#: lib/booktypecontrol/forms.py:698 lib/booktypecontrol/forms.py:771
 msgid "Title"
 msgstr "Tittel"
 
-#: forms.py:675 forms.py:749 tests.py:49
+#: lib/booktypecontrol/forms.py:699 lib/booktypecontrol/forms.py:773
+#: lib/booktypecontrol/tests.py:49
 msgid "Title is required."
 msgstr "Tittel er påkrevd."
 
-#: forms.py:680
+#: lib/booktypecontrol/forms.py:704
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: forms.py:685
+#: lib/booktypecontrol/forms.py:709
 msgid "Owner"
 msgstr "Eier"
 
-#: forms.py:686
+#: lib/booktypecontrol/forms.py:710
 msgid "Book owner is required."
 msgstr "Boka må ha en eier."
 
-#: forms.py:691
+#: lib/booktypecontrol/forms.py:715
 msgid "License"
 msgstr "Lisens"
 
-#: forms.py:693
+#: lib/booktypecontrol/forms.py:717
 msgid "License is required."
 msgstr "Du må velge en lisens for boka."
 
-#: forms.py:697
+#: lib/booktypecontrol/forms.py:721
 msgid "Initially hide from others"
 msgstr "Skjul fra andre i starten"
 
-#: forms.py:701
+#: lib/booktypecontrol/forms.py:725
 msgid "Book image"
 msgstr "Bokbilde"
 
-#: forms.py:705
+#: lib/booktypecontrol/forms.py:729
 msgid "Successfully created new book."
 msgstr "Vellykket opprettelse av ny bok"
 
-#: forms.py:709
+#: lib/booktypecontrol/forms.py:733
 msgid "That book already exists."
 msgstr "Boken finnes allerede"
 
-#: forms.py:753
+#: lib/booktypecontrol/forms.py:777
 msgid "URL title"
 msgstr "URL-tittel"
 
-#: forms.py:756
+#: lib/booktypecontrol/forms.py:780
 msgid "Illegal characters in URL title."
 msgstr "Ugyldig tegn i URL-tittel."
 
-#: forms.py:757
+#: lib/booktypecontrol/forms.py:781
 msgid ""
 "If you leave this field empty, a URL        title will be assigned "
 "automatically."
 msgstr "Lar du dette feltet stå tomt vil URL-tittel bli automatisk generert."
 
-#: forms.py:797
+#: lib/booktypecontrol/forms.py:821
 msgid "Book PDF"
 msgstr "Trykke-PDF"
 
-#: forms.py:801
+#: lib/booktypecontrol/forms.py:825
 msgid "Screen PDF"
 msgstr "Skjerm-PDF"
 
-#: forms.py:805
+#: lib/booktypecontrol/forms.py:829
 msgid "EPUB"
 msgstr "EPUB"
 
-#: forms.py:809
+#: lib/booktypecontrol/forms.py:833
 msgid "MOBI"
 msgstr "MOBI"
 
-#: forms.py:813
+#: lib/booktypecontrol/forms.py:837
 msgid "XHTML"
 msgstr "XHTML"
 
-#: forms.py:845
+#: lib/booktypecontrol/forms.py:869
 msgid "Book CSS"
 msgstr "Trykke-CSS"
 
-#: forms.py:853
+#: lib/booktypecontrol/forms.py:877
 msgid "E-Book CSS"
 msgstr "E-bok CSS"
 
-#: forms.py:861
+#: lib/booktypecontrol/forms.py:885
 msgid "PDF CSS"
 msgstr "PDF CSS"
 
-#: forms.py:869
+#: lib/booktypecontrol/forms.py:893
 msgid "ODT CSS"
 msgstr "ODT CSS"
 
-#: forms.py:923
+#: lib/booktypecontrol/forms.py:947
 msgid "Successfully created new group."
 msgstr "Vellykket opprettelse av ny gruppe."
 
-#: forms.py:960
+#: lib/booktypecontrol/forms.py:984
 msgid "Successfully created new role."
 msgstr "Vellykket opprettelse av ny rolle."
 
-#: forms.py:993
+#: lib/booktypecontrol/forms.py:1023
 msgid "Role for anonymous users"
 msgstr "Rolle for anonyme brukere"
 
-#: forms.py:997
+#: lib/booktypecontrol/forms.py:1027
 msgid "Role for registered users"
 msgstr "Rolle for registrerte brukere"
 
-#: forms.py:1002
+#: lib/booktypecontrol/forms.py:1032
 msgid "None"
 msgstr "Ingen"
 
-#: views.py:50 templates/booktypecontrol/control_center_settings.html:27
-msgid "Site Description"
-msgstr "Beskrivelse av nettside"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_add_person.html:4
+msgid "Add new person"
+msgstr "Legg til ny bruker"
 
-#: views.py:51 templates/booktypecontrol/control_center_settings.html:28
-msgid "Site Appearance"
-msgstr "Nettside utseende"
-
-#: views.py:52 templates/booktypecontrol/control_center_settings.html:29
-msgid "Site Front Page"
-msgstr "Nettside forside"
-
-#: views.py:53 templates/booktypecontrol/control_center_settings.html:30
-msgid "Book Licenses"
-msgstr "Boklisenser"
-
-#: views.py:54 templates/booktypecontrol/control_center_settings.html:31
-msgid "Book Creation Defaults"
-msgstr "Standardinstillinger for opprettelse av bok"
-
-#: views.py:55 templates/booktypecontrol/control_center_settings.html:33
-msgid "Privacy"
-msgstr "Personverninnstillinger"
-
-#: views.py:56 templates/booktypecontrol/control_center_settings.html:38
-msgid "Add a New Person"
-msgstr "Legg til en ny bruker"
-
-#: views.py:57 templates/booktypecontrol/_control_center_list_of_people.html:5
-#: templates/booktypecontrol/control_center_settings.html:39
-msgid "List of People"
-msgstr "Liste over brukere"
-
-#: views.py:58 templates/booktypecontrol/_control_center_archived_users.html:5
-#: templates/booktypecontrol/control_center_settings.html:40
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:5
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:46
+#: lib/booktypecontrol/views.py:59
 msgid "Archived Users"
 msgstr "Arkiverte brukere"
 
-#: views.py:59 templates/booktypecontrol/control_center_settings.html:43
-msgid "Add a New Book"
-msgstr "Legg til en ny bok"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:17
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:22
+msgid "Edit Info"
+msgstr "Rediger informasjon"
 
-#: views.py:60 templates/booktypecontrol/control_center_settings.html:44
-msgid "List of Books"
-msgstr "Bokliste"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:21
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:26
+msgid "superuser"
+msgstr "superbruker"
 
-#: views.py:61 templates/booktypecontrol/control_center_settings.html:34
-msgid "Publishing Options"
-msgstr "Publiseringsvalg"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:24
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:29
+msgid "archived"
+msgstr "arkivert"
 
-#: views.py:62 templates/booktypecontrol/control_center_settings.html:35
-msgid "Publishing Defaults"
-msgstr "Standardinnstillinger for publisering"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_archived_users.html:35
+msgid "There are no archived users at the moment."
+msgstr "Det er ingen arkiverte brukere foreløpig."
 
-#: views.py:63 templates/booktypecontrol/control_center_settings.html:47
-msgid "Add a New Group"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license.html:4
+msgid "Add new license"
+msgstr "Legg til ny lisens"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license.html:8
+msgid "Licenses"
+msgstr "Lisenser"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license_edit.html:6
+msgid "Remove"
+msgstr "Fjern"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license_edit.html:9
+msgid "Books licensed with"
+msgstr "Bøker lisensiert med"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_license_edit.html:20
+msgid "No books for this license."
+msgstr "Ingen bøker med denne lisensen."
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_books.html:11
+msgid "Add new book"
+msgstr "Legg til ny bok"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_books.html:14
+msgid "Show in a grid"
+msgstr "Rutenettvisning"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_books.html:15
+msgid "Show in a list"
+msgstr "Listevisning"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:9
+msgid "Add new group"
 msgstr "Legg til ny gruppe"
 
-#: views.py:64 templates/booktypecontrol/control_center_settings.html:48
-msgid "List of Groups"
-msgstr "Liste over grupper"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:20
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:18
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:76
+msgid "Members"
+msgstr "Medlemmer"
 
-#: views.py:65 templates/booktypecontrol/control_center_settings.html:51
-msgid "Add a New Role"
-msgstr "Legg til en ny rolle"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:20
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:76
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:48
+#: lib/booktypecontrol/templates/control_base.html:19
+msgid "Books"
+msgstr "Bøker"
 
-#: views.py:66 templates/booktypecontrol/control_center_settings.html:52
-msgid "List of Roles"
-msgstr "Liste over roller"
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:24
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:21
+msgid "Edit"
+msgstr "Rediger"
 
-#: views.py:67 templates/booktypecontrol/control_center_settings.html:32
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_groups.html:25
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:22
+msgid "Delete"
+msgstr "Slett"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:5
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:45
+#: lib/booktypecontrol/views.py:58
+msgid "List of People"
+msgstr "Liste over brukere"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:7
+msgid "Add Person"
+msgstr "Legg til person"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:7
+msgid "ADD PERSON"
+msgstr "LEGG TIL PERSON"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_people.html:19
+msgid "Change password"
+msgstr "Endre passord"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_list_of_roles.html:9
+msgid "Add new role"
+msgstr "Legg til ny rolle"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:16
+msgid "Delete Group"
+msgstr "Slett gruppe"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:11
+msgid ""
+"Are you sure you would like to delete this group? You will not be able to "
+"undo this operation!"
+msgstr ""
+"Er du sikker på at du vil slette denne gruppen.  Du vil ikke kunne gjøre om "
+"denne handlingen."
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_group.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:19
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:15
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_settings.html:15
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:20
+msgid "Delete License"
+msgstr "Slett lisens"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:12
+msgid ""
+"There are licensed books with this license. You should change the license "
+"for these books before deleting it."
+msgstr ""
+"Andre bøker bruker denne lisensen. Du må endre lisensen til disse andre "
+"bøker før du kan slette denne lisensen."
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_license.html:14
+msgid ""
+"Are you sure you would like to delete this license? You will not be able to "
+"undo this operation!"
+msgstr ""
+"Er du sikker på at du vil slette denne lisensen? Du vil ikke kunne gjøre om "
+"denne handlingen."
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:7
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:16
+msgid "Delete Role"
+msgstr "Slett rolle"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_delete_role.html:11
+msgid ""
+"Are you sure you would like to delete this role? You will not be able to "
+"undo this operation!"
+msgstr ""
+"Er du sikker på at du vil slette denne rollen? Du vil ikke kunne gjøre om "
+"denne handlingen."
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:13
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:22
+msgid "Recent Activity"
+msgstr "Nylig aktivitet"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:16
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:52
+#: lib/booktypecontrol/templates/control_base.html:22
+msgid "Groups"
+msgstr "Grupper"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:28
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:29
+msgid "ago"
+msgstr "siden"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:41
+msgid "There is no activity yet"
+msgstr "Det er ingen aktivitet ennå"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:56
+msgid "Current version"
+msgstr "Nåværende versjon"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:62
+msgid "This user has no books"
+msgstr "Denne brukeren har ingen bøker"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:82
+msgid "This user has no groups"
+msgstr "Denne brukeren har ingen grupper"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_modal_person_info.html:87
+msgid "Close"
+msgstr "Lukk"
+
+#: lib/booktypecontrol/templates/booktypecontrol/_control_center_settings.html:13
+msgid "Save changes"
+msgstr "Lagre endringer"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:10
+msgid "Info"
+msgstr "Informasjon"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:12
+msgid "version"
+msgstr "versjon"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:13
+msgid "users"
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:14
+msgid "books"
+msgstr "bøker"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:15
+msgid "groups"
+msgstr "grupper"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:16
+msgid "database size"
+msgstr "databasestørrelse"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:17
+msgid "files size"
+msgstr "filstørrelse"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:51
+msgid "Online Users"
+msgstr "Påloggede brukere"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:63
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:94
+msgid "Working on:"
+msgstr "Arbeider med:"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:77
+msgid "No online users"
+msgstr "Ingen påloggede brukere"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:84
+msgid "Most Active Users"
+msgstr "Mest aktive brukere"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:84
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:108
+msgid "view all"
+msgstr "vis alle"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:101
+msgid "No most active users"
+msgstr "Inaktive brukere"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:108
+msgid "Latest Books"
+msgstr "Nye Bøker"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:121
+msgid "No books here"
+msgstr "Ingen bøker her"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:128
+msgid "Most Active Books"
+msgstr "Mest aktive bøker"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_dashboard.html:141
+msgid "No active books here"
+msgstr "Ingen aktive bøker her"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:33
+#: lib/booktypecontrol/templates/control_base.html:13
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:34
+#: lib/booktypecontrol/views.py:51
+msgid "Site Description"
+msgstr "Beskrivelse av nettside"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:35
+#: lib/booktypecontrol/views.py:52
+msgid "Site Appearance"
+msgstr "Nettside utseende"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:36
+#: lib/booktypecontrol/views.py:53
+msgid "Site Front Page"
+msgstr "Nettside forside"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:37
+#: lib/booktypecontrol/views.py:54
+msgid "Book Licenses"
+msgstr "Boklisenser"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:38
+#: lib/booktypecontrol/views.py:55
+msgid "Book Creation Defaults"
+msgstr "Standardinstillinger for opprettelse av bok"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:39
+#: lib/booktypecontrol/views.py:68
 msgid "Default Roles"
 msgstr "Standard roller"
 
-#: views.py:88 views.py:184 views.py:281 views.py:345 views.py:409
-#: views.py:451
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:40
+#: lib/booktypecontrol/views.py:56
+msgid "Privacy"
+msgstr "Personverninnstillinger"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:41
+#: lib/booktypecontrol/views.py:62
+msgid "Publishing Options"
+msgstr "Publiseringsvalg"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:43
+#: lib/booktypecontrol/templates/control_base.html:16
+msgid "People"
+msgstr "Brukere"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:44
+#: lib/booktypecontrol/views.py:57
+msgid "Add a New Person"
+msgstr "Legg til en ny bruker"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:49
+#: lib/booktypecontrol/views.py:60
+msgid "Add a New Book"
+msgstr "Legg til en ny bok"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:50
+#: lib/booktypecontrol/views.py:61
+msgid "List of Books"
+msgstr "Bokliste"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:53
+#: lib/booktypecontrol/views.py:64
+msgid "Add a New Group"
+msgstr "Legg til ny gruppe"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:54
+#: lib/booktypecontrol/views.py:65
+msgid "List of Groups"
+msgstr "Liste over grupper"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:56
+#: lib/booktypecontrol/templates/control_base.html:25
+msgid "Roles"
+msgstr "Roller"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:57
+#: lib/booktypecontrol/views.py:66
+msgid "Add a New Role"
+msgstr "Legg til en ny rolle"
+
+#: lib/booktypecontrol/templates/booktypecontrol/control_center_settings.html:58
+#: lib/booktypecontrol/views.py:67
+msgid "List of Roles"
+msgstr "Liste over roller"
+
+#: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:4
+msgid "Hello"
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:8
+#, fuzzy, python-format
+#| msgid ""
+#| "You've just had a Booktype account created for you! Please head over to "
+#| "%(server)s to log in. Here are your login credentials:"
+msgid ""
+"Your Booktype account has been created! Please go to %(server)s to log in."
+msgstr ""
+"Du har akkurat fått en Booktype-konto opprettet for deg! Gå til %(server)s "
+"for å logge inn. Her er din innloggingsinformasjon:"
+
+#: lib/booktypecontrol/templates/booktypecontrol/new_person_email.html:12
+#, python-format
+msgid ""
+"If you don't know your password, please click the password reset link on the "
+"%(server)s home page."
+msgstr ""
+
+#: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:2
+msgid "Your password was changed. Here are your new login credentials:"
+msgstr "Ditt passord ble endret.  Her er din nye innloggingsinformasjon:"
+
+#: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:5
+msgid "Username:"
+msgstr "Brukernavn:"
+
+#: lib/booktypecontrol/templates/booktypecontrol/password_changed_email.html:6
+msgid "Password:"
+msgstr "Passord:"
+
+#: lib/booktypecontrol/templates/control_base.html:10
+msgid "Home"
+msgstr "Hjem"
+
+#: lib/booktypecontrol/views.py:63
+msgid "Publishing Defaults"
+msgstr "Standardinnstillinger for publisering"
+
+#: lib/booktypecontrol/views.py:89 lib/booktypecontrol/views.py:185
+#: lib/booktypecontrol/views.py:284 lib/booktypecontrol/views.py:348
+#: lib/booktypecontrol/views.py:425 lib/booktypecontrol/views.py:467
 msgid "Admin Control Center"
 msgstr "Administratorpanel"
 
-#: views.py:195
+#: lib/booktypecontrol/views.py:196
 msgid "Successfully saved settings."
 msgstr "Vellykket lagring av innstillinger."
 
-#: views.py:200
+#: lib/booktypecontrol/views.py:201
 msgid "Unknown error while saving changes."
 msgstr "Ukjent feil oppstod under lagring av endringer."
 
-#: views.py:284
+#: lib/booktypecontrol/views.py:287
 msgid "Edit Person Info"
 msgstr "Rediger brukerinformasjon"
 
-#: views.py:304 views.py:356
+#: lib/booktypecontrol/views.py:307 lib/booktypecontrol/views.py:358
 msgid "Successfully saved changes."
 msgstr "Vellykket lagring av endringer."
 
-#: views.py:326
+#: lib/booktypecontrol/views.py:329
 msgid "Rename Book"
 msgstr "Endre navn på bok"
 
-#: views.py:330
+#: lib/booktypecontrol/views.py:333
 msgid "Book name successfully changed."
 msgstr "Boka har fått nytt navn."
 
-#: views.py:367
+#: lib/booktypecontrol/views.py:369
 msgid "Your password was changed"
 msgstr "Ditt passord har blitt endret"
 
-#: views.py:386
+#: lib/booktypecontrol/views.py:388
 #, python-format
 msgid "Change Password: %s"
 msgstr "Endre Passord: %s"
 
-#: views.py:401
+#: lib/booktypecontrol/views.py:403
 msgid "Group successfully deleted."
 msgstr "Gruppen er slettet."
 
-#: views.py:417
+#: lib/booktypecontrol/views.py:433
 msgid "Edit licence"
 msgstr "Rediger lisens"
 
-#: views.py:423
+#: lib/booktypecontrol/views.py:439
 msgid "License successfully updated."
 msgstr "Vellykket oppdatering av lisens"
 
-#: views.py:435
+#: lib/booktypecontrol/views.py:451
 msgid ""
 "There are books remaining with this license.                     Unable to "
 "remove"
-msgstr "Det finnes andre bøker som bruker denne lisensen.  Kan ikke fjerne lisensen."
+msgstr ""
+"Det finnes andre bøker som bruker denne lisensen.  Kan ikke fjerne lisensen."
 
-#: views.py:440
+#: lib/booktypecontrol/views.py:456
 msgid "License successfully deleted."
 msgstr "Vellykket sletting av lisens"
 
-#: views.py:459
+#: lib/booktypecontrol/views.py:475
 msgid "Edit role"
 msgstr "Rediger rolle"
 
-#: views.py:463
+#: lib/booktypecontrol/views.py:479
 msgid "Role successfully updated."
 msgstr "Vellykket oppdatering av rolle"
 
-#: views.py:473
+#: lib/booktypecontrol/views.py:489
 msgid "Role successfully deleted."
 msgstr "Vellykket sletting av rolle"
-
-#: templates/control_base.html:10
-msgid "Home"
-msgstr "Hjem"
-
-#: templates/control_base.html:13
-#: templates/booktypecontrol/control_center_settings.html:26
-msgid "Settings"
-msgstr "Innstillinger"
-
-#: templates/control_base.html:16
-#: templates/booktypecontrol/control_center_settings.html:37
-msgid "People"
-msgstr "Brukere"
-
-#: templates/control_base.html:19
-#: templates/booktypecontrol/_control_center_list_of_groups.html:20
-#: templates/booktypecontrol/_control_center_modal_person_info.html:15
-#: templates/booktypecontrol/_control_center_modal_person_info.html:76
-#: templates/booktypecontrol/control_center_settings.html:42
-msgid "Books"
-msgstr "Bøker"
-
-#: templates/control_base.html:22
-#: templates/booktypecontrol/_control_center_modal_person_info.html:16
-#: templates/booktypecontrol/control_center_settings.html:46
-msgid "Groups"
-msgstr "Grupper"
-
-#: templates/control_base.html:25
-#: templates/booktypecontrol/control_center_settings.html:50
-msgid "Roles"
-msgstr "Roller"
-
-#: templates/booktypecontrol/_control_center_add_person.html:4
-msgid "Add new person"
-msgstr "Legg til ny bruker"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:17
-#: templates/booktypecontrol/_control_center_list_of_people.html:22
-msgid "Edit Info"
-msgstr "Rediger informasjon"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:21
-#: templates/booktypecontrol/_control_center_list_of_people.html:26
-msgid "superuser"
-msgstr "superbruker"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:24
-#: templates/booktypecontrol/_control_center_list_of_people.html:29
-msgid "archived"
-msgstr "arkivert"
-
-#: templates/booktypecontrol/_control_center_archived_users.html:35
-msgid "There are no archived users at the moment."
-msgstr "Det er ingen arkiverte brukere foreløpig."
-
-#: templates/booktypecontrol/_control_center_license.html:4
-msgid "Add new license"
-msgstr "Legg til ny lisens"
-
-#: templates/booktypecontrol/_control_center_license.html:8
-msgid "Licenses"
-msgstr "Lisenser"
-
-#: templates/booktypecontrol/_control_center_license_edit.html:6
-msgid "Remove"
-msgstr "Fjern"
-
-#: templates/booktypecontrol/_control_center_license_edit.html:9
-msgid "Books licensed with"
-msgstr "Bøker lisensiert med"
-
-#: templates/booktypecontrol/_control_center_license_edit.html:20
-msgid "No books for this license."
-msgstr "Ingen bøker med denne lisensen."
-
-#: templates/booktypecontrol/_control_center_list_of_books.html:11
-msgid "Add new book"
-msgstr "Legg til ny bok"
-
-#: templates/booktypecontrol/_control_center_list_of_books.html:14
-msgid "Show in a grid"
-msgstr "Rutenettvisning"
-
-#: templates/booktypecontrol/_control_center_list_of_books.html:15
-msgid "Show in a list"
-msgstr "Listevisning"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:9
-msgid "Add new group"
-msgstr "Legg til ny gruppe"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:20
-#: templates/booktypecontrol/_control_center_list_of_roles.html:18
-#: templates/booktypecontrol/_control_center_modal_person_info.html:76
-msgid "Members"
-msgstr "Medlemmer"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:24
-#: templates/booktypecontrol/_control_center_list_of_roles.html:21
-msgid "Edit"
-msgstr "Rediger"
-
-#: templates/booktypecontrol/_control_center_list_of_groups.html:25
-#: templates/booktypecontrol/_control_center_list_of_roles.html:22
-msgid "Delete"
-msgstr "Slett"
-
-#: templates/booktypecontrol/_control_center_list_of_people.html:7
-msgid "Add Person"
-msgstr "Legg til person"
-
-#: templates/booktypecontrol/_control_center_list_of_people.html:7
-msgid "ADD PERSON"
-msgstr "LEGG TIL PERSON"
-
-#: templates/booktypecontrol/_control_center_list_of_people.html:19
-msgid "Change password"
-msgstr "Endre passord"
-
-#: templates/booktypecontrol/_control_center_list_of_roles.html:9
-msgid "Add new role"
-msgstr "Legg til ny rolle"
-
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:16
-msgid "Delete Group"
-msgstr "Slett gruppe"
-
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:11
-msgid ""
-"Are you sure you would like to delete this group? You will not be able to "
-"undo this operation!"
-msgstr "Er du sikker på at du vil slette denne gruppen.  Du vil ikke kunne gjøre om denne handlingen."
-
-#: templates/booktypecontrol/_control_center_modal_delete_group.html:15
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:19
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:15
-#: templates/booktypecontrol/_control_center_settings.html:15
-msgid "Cancel"
-msgstr "Avbryt"
-
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:20
-msgid "Delete License"
-msgstr "Slett lisens"
-
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:12
-msgid ""
-"There are licensed books with this license. You should change the license "
-"for these books before deleting it."
-msgstr "Andre bøker bruker denne lisensen. Du må endre lisensen til disse andre bøker før du kan slette denne lisensen."
-
-#: templates/booktypecontrol/_control_center_modal_delete_license.html:14
-msgid ""
-"Are you sure you would like to delete this license? You will not be able to "
-"undo this operation!"
-msgstr "Er du sikker på at du vil slette denne lisensen? Du vil ikke kunne gjøre om denne handlingen."
-
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:7
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:16
-msgid "Delete Role"
-msgstr "Slett rolle"
-
-#: templates/booktypecontrol/_control_center_modal_delete_role.html:11
-msgid ""
-"Are you sure you would like to delete this role? You will not be able to "
-"undo this operation!"
-msgstr "Er du sikker på at du vil slette denne rollen? Du vil ikke kunne gjøre om denne handlingen."
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:13
-#: templates/booktypecontrol/control_center_dashboard.html:21
-msgid "Recent Activity"
-msgstr "Nylig aktivitet"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:28
-#: templates/booktypecontrol/control_center_dashboard.html:28
-msgid "ago"
-msgstr "siden"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:41
-msgid "There is no activity yet"
-msgstr "Det er ingen aktivitet ennå"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:56
-msgid "Current version"
-msgstr "Nåværende versjon"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:62
-msgid "This user has no books"
-msgstr "Denne brukeren har ingen bøker"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:82
-msgid "This user has no groups"
-msgstr "Denne brukeren har ingen grupper"
-
-#: templates/booktypecontrol/_control_center_modal_person_info.html:87
-msgid "Close"
-msgstr "Lukk"
-
-#: templates/booktypecontrol/_control_center_settings.html:13
-msgid "Save changes"
-msgstr "Lagre endringer"
-
-#: templates/booktypecontrol/control_center_dashboard.html:10
-msgid "Info"
-msgstr "Informasjon"
-
-#: templates/booktypecontrol/control_center_dashboard.html:12
-msgid "version"
-msgstr "versjon"
-
-#: templates/booktypecontrol/control_center_dashboard.html:13
-msgid "books"
-msgstr "bøker"
-
-#: templates/booktypecontrol/control_center_dashboard.html:14
-msgid "groups"
-msgstr "grupper"
-
-#: templates/booktypecontrol/control_center_dashboard.html:15
-msgid "database size"
-msgstr "databasestørrelse"
-
-#: templates/booktypecontrol/control_center_dashboard.html:16
-msgid "files size"
-msgstr "filstørrelse"
-
-#: templates/booktypecontrol/control_center_dashboard.html:50
-msgid "Online Users"
-msgstr "Påloggede brukere"
-
-#: templates/booktypecontrol/control_center_dashboard.html:62
-#: templates/booktypecontrol/control_center_dashboard.html:93
-msgid "Working on:"
-msgstr "Arbeider med:"
-
-#: templates/booktypecontrol/control_center_dashboard.html:76
-msgid "No online users"
-msgstr "Ingen påloggede brukere"
-
-#: templates/booktypecontrol/control_center_dashboard.html:83
-msgid "Most Active Users"
-msgstr "Mest aktive brukere"
-
-#: templates/booktypecontrol/control_center_dashboard.html:83
-#: templates/booktypecontrol/control_center_dashboard.html:107
-msgid "view all"
-msgstr "vis alle"
-
-#: templates/booktypecontrol/control_center_dashboard.html:100
-msgid "No most active users"
-msgstr "Inaktive brukere"
-
-#: templates/booktypecontrol/control_center_dashboard.html:107
-msgid "Latest Books"
-msgstr "Nye Bøker"
-
-#: templates/booktypecontrol/control_center_dashboard.html:120
-msgid "No books here"
-msgstr "Ingen bøker her"
-
-#: templates/booktypecontrol/control_center_dashboard.html:127
-msgid "Most Active Books"
-msgstr "Mest aktive bøker"
-
-#: templates/booktypecontrol/control_center_dashboard.html:140
-msgid "No active books here"
-msgstr "Ingen aktive bøker her"
-
-#: templates/booktypecontrol/new_person_email.html:3
-#, python-format
-msgid ""
-"You've just had a Booktype account created for you! Please head over to "
-"%(server)s to log in. Here are your login credentials:"
-msgstr "Du har akkurat fått en Booktype-konto opprettet for deg! Gå til %(server)s for å logge inn. Her er din innloggingsinformasjon:"
-
-#: templates/booktypecontrol/new_person_email.html:7
-#: templates/booktypecontrol/password_changed_email.html:5
-msgid "Username:"
-msgstr "Brukernavn:"
-
-#: templates/booktypecontrol/new_person_email.html:8
-#: templates/booktypecontrol/password_changed_email.html:6
-msgid "Password:"
-msgstr "Passord:"
-
-#: templates/booktypecontrol/password_changed_email.html:2
-msgid "Your password was changed. Here are your new login credentials:"
-msgstr "Ditt passord ble endret.  Her er din nye innloggingsinformasjon:"

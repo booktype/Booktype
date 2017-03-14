@@ -30,7 +30,7 @@
       <ol>
         <li>{% trans "Please check the settings for your chosen formats before exporting." %}</li>
         <li>{% blocktrans %}Front matter is generated automatically. Please ensure all <a href="#settings/metadata">metadata</a> and <a href="#settings/additional-metadata">additional metadata</a> has been entered.{% endblocktrans %}</li>
-        <li>{% blocktrans %}If exporting screen PDF, EPUB, Adobe InDesign (ICML) or MOBI, please check the <a href="#covers">cover manager</a> first.{% endblocktrans %}</li>
+        <li>{% blocktrans %}If exporting screen PDF, EPUB or MOBI, please check the <a href="#covers">cover manager</a> first.{% endblocktrans %}</li>
       </ol>
     </div>
   </div>
@@ -348,6 +348,40 @@
     </div><!-- /.modal-dialog -->
   </div>
 
+  <div class="modal fade settings-dialog" id="settings-docx" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog new_book">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="modal-title" id="myModalLabel">{% trans "Adobe InDesign Settings" %}</h2>
+        </div>
+        <div class="modal-body">
+          <section id="basic">
+            <form method="post" action="" target="hidden_frame" enctype="multipart/form-data">
+              <div class="wizard-settings">
+                <h3>{% trans "Cover" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Select a cover from the Cover Manager" %}</p>
+                  <select name="cover_image" id="cover_image" multiple="multiple" size="5" class="ui-wizard-content">
+                    <option value=" ">{% trans "No Cover" %}</option>
+                    <option disabled="disabled" role="separator">-------------------</option>
+                  </select>
+                </section>
+
+                <h3>{% trans "Styling" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Manually edit CSS style" %}</p>
+                  <label for="styling">{% trans "Styling" %}</label>
+                  <textarea name="styling" cols="50" rows="5"></textarea>
+                </section>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
   <div class="modal fade settings-dialog" id="settings-mobi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog new_book">
       <div class="modal-content">
@@ -490,10 +524,15 @@
             <label>
               <input name="icml" type="checkbox"> {% trans "Adobe InDesign (ICML)" %}
             </label>
-            {% check_perm 'export.export_settings' %}
-              <a href="" class="modal-open">{% trans "settings" %}</a>
-            {% endcheck_perm %}
           </div>
+        {% endif %}
+
+        {% if "docx" in publish_options %}
+            <div class="checkbox">
+              <label>
+                <input name="docx" type="checkbox"> {% trans "Word (DOCX)" %}
+              </label>
+            </div>
         {% endif %}
 
       </div>
