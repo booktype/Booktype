@@ -67,14 +67,30 @@
                     </button-->
                     {% endcheck_perm %}
 
-                    {% if is_book_admin %}
-                    <button data-remote="{% url 'reader:edit_info_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to edit the metadata for this book' %}">
-                        {% trans "Edit book info" %}
-                    </button>
-                    <button data-remote="{% url 'reader:delete_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal" class="btn btn-default float-left" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Click this button to delete the entire book permanently' %}">
-                        {% trans "Delete Book" %}
-                    </button>
-                    {% endif %}
+                    <div class="btn-group more-options-group pull-right">
+                      <button class="btn btn-default pull-right dropdown-toggle" data-toggle="dropdown" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'More options' %}">
+                        <i class="icon-align-justify"></i>
+                      </button>
+            	        <ul class="dropdown-menu">
+                        <li>
+                          <a href="{% url 'edit:download_history' book.url_title %}?zip_both=1">{% trans "Download history" %}</a>
+                        </li>
+                        <li class="divider"></li>
+
+                        {% if is_book_admin %}
+                        <li>
+                          <a href="#bookInfo" data-remote="{% url 'reader:edit_info_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal">
+                            {% trans "Edit book info" %}
+                          </a>
+                        </li>
+                        <li>
+                          <a  href="#bookInfo" data-remote="{% url 'reader:delete_book' book.url_title %}" data-toggle="modal" data-target="#bookInfoModal">
+                            {% trans "Delete Book" %}
+                          </a>
+                        </li>
+                        {% endif %}
+            	        </ul>
+                    </div>
                 </div>
             </div>
 
