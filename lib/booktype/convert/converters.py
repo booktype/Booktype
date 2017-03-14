@@ -20,3 +20,4 @@ from .mobi.converter import MobiConverter
 from .mpdf.converter import MPDFConverter
 from .screenpdf.converter import ScreenPDFConverter
 from .xhtml.converter import XHTMLConverter
+from .pandoc.icml import ICMLConverter

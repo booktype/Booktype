@@ -15,6 +15,7 @@
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import uuid
 import json
 import logging
 import urlparse
@@ -75,10 +76,13 @@ class EpubConverter(BaseConverter):
         self.theme_plugin = None
         self._bk_image_editor_conversion = None
 
+    def _get_theme_plugin(self):
+        return plugin.load_theme_plugin(self.name, self.theme_name)
+
     def _init_theme_plugin(self):
         if 'theme' in self.config:
             self.theme_name = self.config['theme'].get('id', '')
-            tp = plugin.load_theme_plugin(self.name, self.theme_name)
+            tp = self._get_theme_plugin()
             if tp:
                 self.theme_plugin = tp(self)
         else:
@@ -365,31 +369,32 @@ class EpubConverter(BaseConverter):
             add_cover(
                 epub_book, cover_asset, self.config.get('lang', DEFAULT_LANG))
 
+    def _get_theme_style(self):
+        return read_theme_style(self.theme_name, self.name)
+
+    def _get_default_style(self):
+        return render_to_string('themes/style_{}.css'.format(self.name), {'dir': self.direction})
+
     def _add_css_styles(self, epub_book):
         """Adds default css styles and custom css text if exists in config"""
 
         book_css = []
 
         try:
-            content = render_to_string(
-                'themes/style_{}.css'.format(self.name),
-                {'dir': self.direction}
+            epub_book.add_item(
+                ebooklib.epub.EpubItem(
+                    uid='default.css',
+                    content=self._get_default_style(),
+                    file_name='{}/{}'.format(STYLES_DIR, 'default.css'),
+                    media_type='text/css'
+                )
             )
-
-            item = ebooklib.epub.EpubItem(
-                uid='default.css',
-                content=content,
-                file_name='{}/{}'.format(STYLES_DIR, 'default.css'),
-                media_type='text/css'
-            )
-
-            epub_book.add_item(item)
             book_css.append('default.css')
-        except:
-            pass
+        except Exception as e:
+            logger.info('Default style was not added %s.', e)
 
         if self.theme_name:
-            content = read_theme_style(self.theme_name, self.name)
+            content = self._get_theme_style()
 
             if self.theme_name == 'custom':
                 try:
@@ -427,9 +432,12 @@ class EpubConverter(BaseConverter):
 
         return book_css
 
+
+    def _get_theme_assets(self):
+        return read_theme_assets(self.theme_name, self.name)
+
     def _add_theme_assets(self, epub_book):
-        import uuid
-        assets = read_theme_assets(self.theme_name, self.name)
+        assets = self._get_theme_assets()
 
         for asset_type, asset_list in assets.iteritems():
             if asset_type == 'images':

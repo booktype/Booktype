@@ -259,6 +259,37 @@ def create_mpdf(destination):
         raise InstallError()
 
 
+def create_pandoc(destination):
+    booktype_source = os.path.dirname(sys.argv[0])
+
+    # icml
+    try:
+        epub2icml_content = read_file('%s/epub2icml.sh' % booktype_source)
+    except IOError:
+        raise MajorError("[ERROR] Can't read epub2icml.sh file.")
+
+    try:
+        log("+ Creating epub2icml_content file.  ")
+        open('%s/epub2icml.sh' % (destination, ), 'wt').write(epub2icml_content)
+        logln("[OK]")
+    except IOError:
+        raise InstallError()
+
+    # docx
+    try:
+        epub2docx_content = read_file('%s/epub2docx.sh' % booktype_source)
+    except IOError:
+        raise MajorError("[ERROR] Can't read epub2docx.sh file.")
+
+    try:
+        log("+ Creating epub2docx_content file.  ")
+        open('%s/epub2docx.sh' % (destination, ), 'wt').write(epub2docx_content)
+        logln("[OK]")
+    except IOError:
+        raise InstallError()
+
+
+
 def create_urls(destination):
     import booktype
 
@@ -827,6 +858,9 @@ if __name__ == '__main__':
 
         # create booktype2mpdf.php file
         create_mpdf(project_destination)
+
+        # create pandoc shell script files
+        create_pandoc(project_destination)
 
         # create urls
         create_urls(project_destination)
