@@ -434,7 +434,7 @@ def booktype_pagination(context, page_object, pagination_class=None):
     :Returns:
       Returns rendered pagination html
     """
-    page_range = page_object.paginator.page_range
+    page_range = list(page_object.paginator.page_range)
     page_count = len(page_object.paginator.page_range)
     page_object.paginator.page_range_cutted = page_range
 

@@ -408,18 +408,18 @@ msgid "Edit"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:42
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:315
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:327
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:357
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:325
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:338
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:372
 msgid "Rename"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:45
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:102
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:263
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:317
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:335
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:365
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:327
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:346
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:380
 msgid "Delete"
 msgstr ""
 
@@ -428,16 +428,14 @@ msgstr ""
 msgid "Create New Book"
 msgstr ""
 
-#. Translators: Default chapter title when importing DOCX
-#. files. In case title does not exists.
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:17
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:468
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
-#: lib/booktype/importer/docx/docximporter.py:247
-#: lib/booktype/importer/docx/docximporter.py:337
+#: lib/booktype/importer/docx/docximporter.py:234
+#: lib/booktype/importer/docx/docximporter.py:435
 msgid "Title"
 msgstr ""
 
@@ -585,7 +583,8 @@ msgid "Wrong file format! Please try another one."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:50
-#: lib/booktype/apps/importer/views.py:138
+#: lib/booktype/apps/importer/views.py:135
+#: lib/booktype/apps/importer/views.py:217
 msgid "Something went wrong!"
 msgstr ""
 
@@ -606,9 +605,9 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:414
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:33
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:64
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:102
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:132
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:465
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:111
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:141
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:484
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:39
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:84
 #: lib/booktype/apps/portal/templates/portal/group_create_modal.html:19
@@ -1080,10 +1079,10 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:473
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:96
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:153
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:17
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:36
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:55
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:73
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:26
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:45
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:64
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:82
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:63
 #: lib/booktype/apps/edit/templates/edit/settings/_metadata.html:29
 #: lib/booktype/apps/edit/templates/edit/settings/generic.html:17
@@ -1185,115 +1184,119 @@ msgstr ""
 msgid "Export chapter content"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:14
-msgid "Create section"
+#: lib/booktype/apps/edit/__init__.py:13
+msgid "Import documents to chapters"
 msgstr ""
 
 #: lib/booktype/apps/edit/__init__.py:15
-msgid "Rename section"
+msgid "Create section"
 msgstr ""
 
 #: lib/booktype/apps/edit/__init__.py:16
+msgid "Rename section"
+msgstr ""
+
+#: lib/booktype/apps/edit/__init__.py:17
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:44
 msgid "Delete section"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:18
+#: lib/booktype/apps/edit/__init__.py:19
 msgid "Manage chapters on hold"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:19
+#: lib/booktype/apps/edit/__init__.py:20
 msgid "Reorder TOC"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:21
+#: lib/booktype/apps/edit/__init__.py:22
 msgid "Upload attachment"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:22
+#: lib/booktype/apps/edit/__init__.py:23
 msgid "Remove attachment"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:24
+#: lib/booktype/apps/edit/__init__.py:25
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:22
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:97
 #: lib/booktype/apps/reader/templatetags/reader_tags.py:41
 msgid "Upload cover"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:25
+#: lib/booktype/apps/edit/__init__.py:26
 msgid "Edit cover"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:26
+#: lib/booktype/apps/edit/__init__.py:27
 msgid "Delete cover"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:28
+#: lib/booktype/apps/edit/__init__.py:29
 msgid "Manage Status"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:29
+#: lib/booktype/apps/edit/__init__.py:30
 msgid "Change chapter status"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:31
+#: lib/booktype/apps/edit/__init__.py:32
 msgid "Edit book"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:32
+#: lib/booktype/apps/edit/__init__.py:33
 msgid "Delete book"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:34
+#: lib/booktype/apps/edit/__init__.py:35
 msgid "Restore history"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:35
+#: lib/booktype/apps/edit/__init__.py:36
 msgid "Edit Notes"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:37
+#: lib/booktype/apps/edit/__init__.py:38
 msgid "Track Changes"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:38
+#: lib/booktype/apps/edit/__init__.py:39
 msgid "Track Changes accept/decline"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:39
+#: lib/booktype/apps/edit/__init__.py:40
 msgid "Track Changes on/off"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:42
+#: lib/booktype/apps/edit/__init__.py:43
 msgid "Manage Language"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:43
+#: lib/booktype/apps/edit/__init__.py:44
 msgid "Manage License"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:44
+#: lib/booktype/apps/edit/__init__.py:45
 msgid "Manage Metadata"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:45
+#: lib/booktype/apps/edit/__init__.py:46
 msgid "Manage Book Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:47
+#: lib/booktype/apps/edit/__init__.py:48
 msgid "Add Comments"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:48
+#: lib/booktype/apps/edit/__init__.py:49
 msgid "Resolve Comments"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:49
+#: lib/booktype/apps/edit/__init__.py:50
 msgid "Delete Comments"
 msgstr ""
 
-#: lib/booktype/apps/edit/__init__.py:51
+#: lib/booktype/apps/edit/__init__.py:52
 msgid "Modify Section Settings"
 msgstr ""
 
@@ -1320,23 +1323,23 @@ msgstr ""
 msgid "Chapter with this title already exists."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1558
+#: lib/booktype/apps/edit/channel.py:1565
 msgid "You have no permissions for editing this chapter."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1566
+#: lib/booktype/apps/edit/channel.py:1573
 msgid "Chapter currently being edited."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1571
+#: lib/booktype/apps/edit/channel.py:1578
 msgid "You have no permissions for editing chapters under lock."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:1575
+#: lib/booktype/apps/edit/channel.py:1582
 msgid "Chapter currently is locked from everyone."
 msgstr ""
 
-#: lib/booktype/apps/edit/channel.py:2180
+#: lib/booktype/apps/edit/channel.py:2187
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
@@ -1439,7 +1442,7 @@ msgid "Hide"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:30
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:217
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:226
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:22
 msgid "Table of Contents"
 msgstr ""
@@ -2148,9 +2151,9 @@ msgid "Set status."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:21
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:161
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:175
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:198
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:170
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:184
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:207
 msgid "Unhold"
 msgstr ""
 
@@ -2248,10 +2251,10 @@ msgid "You have no permission to delete this book"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:53
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:156
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:193
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:291
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:305
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:165
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:202
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:300
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:314
 msgid "Terminate editing"
 msgstr ""
 
@@ -2282,8 +2285,8 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:60
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:319
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:154
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:18
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:37
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:27
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:46
 #: lib/booktype/apps/edit/templates/edit/settings/_roles.html:86
 msgid "Save"
 msgstr ""
@@ -2512,6 +2515,10 @@ msgstr ""
 msgid "Finish"
 msgstr ""
 
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:122
+msgid "Your document has been imported successfully"
+msgstr ""
+
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:13
 msgid "Zen mode"
 msgstr ""
@@ -2681,9 +2688,9 @@ msgid "REMOVE"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:270
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:169
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:186
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:210
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:178
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:195
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:219
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:73
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:74
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:85
@@ -2752,7 +2759,7 @@ msgid "Split Chapter"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:430
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:14
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:23
 msgid "New chapter title"
 msgstr ""
 
@@ -2920,14 +2927,14 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:60
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:95
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:124
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:104
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:133
 msgid "I understand and agree"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:65
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:103
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:133
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:112
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:142
 #: lib/booktype/apps/portal/templates/portal/group_remove_book.html:17
 #: lib/booktype/apps/portal/widgets.py:30
 msgid "Remove"
@@ -3263,162 +3270,168 @@ msgstr ""
 msgid "Permissions required to access this module."
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:10
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:19
 msgid "Rename Chapter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:29
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:38
 msgid "Rename Section"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:33
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:42
 msgid "New section title"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:49
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:58
 msgid "Create New Chapter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:52
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:61
 msgid "Enter new Chapter title"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:56
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:65
 msgid "Create Chapter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:67
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:76
 msgid "Create New Section"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:70
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:79
 msgid "Enter new Section title"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:74
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:83
 msgid "Create Section"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:85
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:94
 msgid "Remove chapter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:90
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:99
 msgid ""
 "Are you sure you would like to delete this chapter? You will lose all data "
 "associated to this chapter and you will not be able to undo this operation!"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:114
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:123
 msgid "Remove section"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:119
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:128
 msgid ""
 "Are you sure you would like to delete this section? You will lose all data "
 "associated to this section and you will not be able to undo this operation!"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:126
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:135
 msgid "Delete chapters under this section"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:141
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:150
 msgid ""
 "All books should contain at least one chapter and can have as many sections "
 "as you like, or none."
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:151
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:285
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:300
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:160
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:294
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:309
 msgid "Locked"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:153
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:287
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:302
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:162
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:296
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:311
 msgid "Locked exclusively"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:220
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:229
 msgid "Detail View"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:223
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:232
 msgid "Expand all Sections"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:224
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:233
 msgid "Collapse all Sections"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:229
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:238
 msgid "New Chapter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:235
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:244
 msgid "New Section"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:247
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:256
 msgid "Has comments"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:312
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:323
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:353
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:322
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:334
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:368
 msgid "EDIT CHAPTER"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:316
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:331
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:326
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:342
 msgid "Hold"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:318
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:339
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:328
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:350
 msgid "Unlock"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:319
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:343
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:374
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:486
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:329
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:354
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:389
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:505
 msgid "Export Content"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:349
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:330
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:358
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:393
+msgid "Import DOCX File"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:364
 msgid "UNLOCK"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:361
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:376
 msgid "Put on hold"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:369
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:384
 msgid "Lock editing"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:370
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:385
 msgid "Lock exclusively"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:384
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:396
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:409
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:403
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:415
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:428
 msgid "STATUS"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:433
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:452
 msgid "RENAME"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:439
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:458
 msgid "SETTINGS"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:492
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:511
 msgid "Ok"
 msgstr ""
 
@@ -3449,6 +3462,7 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
+
 #: lib/booktype/apps/edit/views.py:58
 msgid "Chapter Status"
 msgstr ""
@@ -3695,17 +3709,19 @@ msgstr ""
 msgid "Export Settings"
 msgstr ""
 
-#: lib/booktype/apps/importer/forms.py:48
-#: lib/booktype/apps/importer/forms.py:50
+#: lib/booktype/apps/importer/forms.py:51
+#: lib/booktype/apps/importer/forms.py:53
+#: lib/booktype/apps/importer/forms.py:69
+#: lib/booktype/apps/importer/forms.py:71
 msgid "Filetype not supported."
 msgstr ""
 
-#: lib/booktype/apps/importer/views.py:60
+#: lib/booktype/apps/importer/views.py:63
 #, python-format
 msgid "Imported Book %(date)s"
 msgstr ""
 
-#: lib/booktype/apps/importer/views.py:116
+#: lib/booktype/apps/importer/views.py:114
 msgid "Extension not supported!"
 msgstr ""
 
@@ -4356,40 +4372,44 @@ msgstr ""
 msgid "to be proofed"
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:54
+#: lib/booktype/importer/docx/docximporter.py:93
 msgid ""
 "Please note: Mathematical formulae have been found, and highlighted in the "
 "text. These formulae are not supported by many e-readers, or the Booktype "
 "editor at present."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:132
+#: lib/booktype/importer/docx/docximporter.py:122
 msgid ""
 "The file could not be imported because it was not saved in the .docx format. "
 "Try to open the file in Word and save it as a .docx."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:135
+#: lib/booktype/importer/docx/docximporter.py:125
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:183
+#: lib/booktype/importer/docx/docximporter.py:173
 msgid ""
 "The file format you uploaded is not supported. Please save the image as jpg "
 "file and upload it again."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:218
+#: lib/booktype/importer/docx/docximporter.py:208
 msgid ""
 "An error occurred while importing images. Some images couldn't be imported. "
 "Missing images are marked within the text. Please upload missing images "
 "manually."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:245
+#: lib/booktype/importer/docx/docximporter.py:234
 msgid "Title Page"
+msgstr ""
+
+#: lib/booktype/importer/docx/docximporter.py:377
+msgid "Reference not found for endnote: {}"
 msgstr ""
 
 #: lib/booktype/importer/epub/epubimporter.py:262

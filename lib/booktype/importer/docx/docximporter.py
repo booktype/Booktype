@@ -1,10 +1,10 @@
 import os
 import lxml
-import uuid
 import ooxml
 import logging
 import zipfile
 import datetime
+from lxml import html, etree
 from unidecode import unidecode
 
 from django.core.files.base import ContentFile
@@ -13,8 +13,10 @@ from django.utils.translation import ugettext as _
 from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
 
+from booktype.utils.tidy import tidy_cleanup
 from booktype.utils.misc import booktype_slugify, get_default_book_status
-from booktype.importer.notifier import Notifier
+from booktype.importer.epub.readerplugins import TidyPlugin
+from booktype.importer.notifier import CollectNotifier
 from booktype.importer.delegate import Delegate
 
 from ooxml import importer, serialize, doc
@@ -25,23 +27,60 @@ from .styles import STYLE_EDITOR, STYLE_EPUB
 logger = logging.getLogger("booktype.importer.docx")
 
 
+# Link to default serialize options in ooxml at the moment
+# https://github.com/booktype/python-ooxml/blob/833e65808b39ca3bc5499f64ad38f73c6458372a/ooxml/serialize.py#L1034-L1060
+# these options will be merged with ooxml default ones
+
+SERIALIZE_OPTIONS = {
+    'header': docutils.DocHeaderContext,
+    'embed_styles': True,
+    'embed_fontsize': True,
+    'serializers': {
+        doc.Math: docutils.serialize_empty,
+        # doc.Footnote: serialize_footnote,
+        # doc.Endnote: serialize_endnote
+    },
+    'hooks': {
+        'p': [docutils.hook_p],
+        'h': [docutils.check_h_tags_hook],
+        'table': [docutils.hook_infobox_table],
+        'footnote': [docutils.hook_footnote],
+        'endnote': [docutils.hook_endnote]
+    }
+}
+
+
 class WordImporter(object):
 
-    def __init__(self):
-        self.notifier = Notifier()
-        self.delegate = Delegate()
+    def __init__(self, book=None, chapter=None, serialize_options=SERIALIZE_OPTIONS, **kwargs):
+        """
+        Args:
+            - book (`booki.editor.models.Book`) Booktype model instance of book
+            - chapter (`booki.editor.models.Chapter`) Booktype model instance of chapter
+            - serialize_options (`dict`) A dictionary with options to be passed to ooxml library
+
+            kwargs: Some keyword arguments might be:
+                - delegate (`importer.delegate.Delegate`) Delegate instance
+                - notifier (`importer.notifier.CollectNotifier`) Notifier instance
+
+        """
+
+        self.book = book
+        self.chapter = chapter
+        self.is_chapter_mode = (chapter is not None)
+
+        self._serialize_options = serialize_options
+
+        self.notifier = kwargs.get('notifier', CollectNotifier())
+        self.delegate = kwargs.get('delegate', Delegate())
 
         # Attachment objects indexed by image file name
         self._attachments = {}
+
         # Chapter objects indexed by document file name
         self._chapters = {}
 
-        self.endnotes = {}
-        self.footnotes = {}
-
     def _check_for_elements(self):
-        from ooxml import doc
-
         found_math = False
 
         for elem in self.dfile.document.elements:
@@ -54,76 +93,27 @@ class WordImporter(object):
             warn_msg = _("Please note: Mathematical formulae have been found, and highlighted in the text. These formulae are not supported by many e-readers, or the Booktype editor at present.")  # noqa
             self.notifier.warning(warn_msg)
 
-    def import_file(self, file_path, book, options=None):
+    def import_file(self, file_path, options={'scale_font_size': True}):
         self.delegate.notifier = self.notifier
         self.broken_images = []
         self.converted_images = []
 
-        def serialize_empty(ctx, document, elem, root):
-            return root
-
-        def serialize_endnote(ctx, document, el, root):
-            # <sup class="endnote" data-id="1454855960556">1</sup>
-
-            if el.rid not in self.endnotes:
-                data_id = str(uuid.uuid1()).replace('-', '')
-                self.endnotes[el.rid] = data_id
-            else:
-                data_id = self.endnotes[el.rid]
-
-            note = lxml.etree.SubElement(
-                root, 'sup', {'class': 'endnote', 'data-id': data_id})
-            note.text = '1'
-
-            return root
-
-        def serialize_footnote(ctx, document, el, root):
-            # <sup class="endnote" data-id="1454855960556">1</sup>
-
-            if el.rid not in self.footnotes:
-                data_id = str(uuid.uuid1()).replace('-', '')
-                self.footnotes[el.rid] = data_id
-            else:
-                data_id = self.footnotes[el.rid]
-
-            note = lxml.etree.SubElement(
-                root, 'sup', {'class': 'endnote', 'data-id': data_id})
-            note.text = '1'
-
-            return root
-
-        if not options:
-            options = {'scale_font_size': True}
+        book = self.book
 
         try:
             self.dfile = ooxml.read_from_file(file_path)
+            if self.is_chapter_mode:
+                chapter_content = serialize.serialize(
+                    self.dfile.document, self._serialize_options)
+                self._import_single_chapter(self.chapter, chapter_content)
+            else:
+                chapters = importer.get_chapters(
+                    self.dfile.document, options=options,
+                    serialize_options=self._serialize_options)
+                self._import_chapters(book, chapters)
 
-            # TODO: move this into a more customisable place.
-            serialize_options = {
-                'header': docutils.DocHeaderContext,
-                'embed_styles': True,
-                'embed_fontsize': True,
-                # 'empty_paragraph_as_nbsp': True,
-                'serializers': {
-                    doc.Math: serialize_empty,
-                    doc.Footnote: serialize_footnote,
-                    doc.Endnote: serialize_endnote
-                },
-                'hooks': {
-                    'p': [docutils.hook_p],
-                    'h': [docutils.check_h_tags_hook],
-                    'table': [docutils.hook_infobox_table]
-                }
-            }
-
-            chapters = importer.get_chapters(
-                self.dfile.document, options=options,
-                serialize_options=serialize_options)
-
+            # save attachments and tyles
             self._import_attachments(book, self.dfile.document)
-            self._import_chapters(book, chapters)
-
-            # get the styles
             self._import_styles(book)
             self.dfile.close()
 
@@ -241,10 +231,7 @@ class WordImporter(object):
                 chapter_title = u'{}...'.format(chapter_title[:100])
 
             if chapter_title == '':
-                if n == 100:
-                    chapter_title = _('Title Page')
-                else:
-                    chapter_title = _('Title')
+                chapter_title = _('Title Page') if n == 100 else _('Title')
 
             chapter_n = 0
             possible_title = chapter_title
@@ -257,83 +244,197 @@ class WordImporter(object):
 
                 if does_exists:
                     chapter_n += 1
-                    possible_title = u'{} - {}'.format(
-                        chapter_title, chapter_n)
+                    possible_title = u'{} - {}'.format(chapter_title, chapter_n)
                 else:
                     break
 
-            if chapter_content[6:-8].strip() == '':
+            if chapter_content[12:-14].strip() == '':
                 continue
 
             _content = self._parse_chapter(chapter_content)
             try:
-                chapter_content = unidecode(_content)[6:-8]
+                chapter_content = unidecode(_content)[12:-14]
             except UnicodeDecodeError:
-                chapter_content = _content.decode('utf-8', errors='ignore')[6:-8]
+                chapter_content = _content.decode('utf-8', errors='ignore')[12:-14]
             except Exception as err:
                 chapter_content = 'Error parsing chapter content'
                 logger.exception("Error while decoding chapter content {0}".format(err))
 
             chapter = models.Chapter(
-                book=book,
-                version=book.version,
-                url_title=booktype_slugify(possible_title),
-                title=possible_title,
-                status=stat,
-                content=chapter_content,
-                created=now,
-                modified=now
-            )
+                    book=book,
+                    version=book.version,
+                    url_title=booktype_slugify(possible_title),
+                    title=possible_title,
+                    status=stat,
+                    content=chapter_content,
+                    created=now,
+                    modified=now
+                )
             chapter.save()
 
             toc_item = models.BookToc(
-                book=book,
-                version=book.version,
-                name=chapter.title,
-                chapter=chapter,
-                weight=n,
-                typeof=1
-            )
+                    book=book,
+                    version=book.version,
+                    name=chapter.title,
+                    chapter=chapter,
+                    weight=n,
+                    typeof=1
+                )
             toc_item.save()
             n -= 1
 
-            # time to save revisions correctly
-            history = logChapterHistory(
+            self._save_history_records(book, chapter)
+
+    def _save_history_records(self, book, chapter, kind='chapter_create'):
+        """
+        Save history records for chapter and book. It saves a revision of the chapter
+
+
+        :Args:
+          - book: `booki.edit.models.Book` Django model instance
+          - chapter: `booki.edit.models.Chapter` Django model instance
+          - kind: `str` the chapter history type. See booki.editor.models.HISTORY_CHOICES
+
+        """
+
+        rev = chapter.revision
+
+        if kind != 'chapter_create':
+            rev = chapter.revision + 1
+
+        # time to save revisions correctly
+        history = logChapterHistory(
                 chapter=chapter,
                 content=chapter.content,
                 user=book.owner,
                 comment='',
-                revision=chapter.revision
+                revision=rev
             )
 
-            if history:
-                logBookHistory(
-                    book=book,
-                    version=book.version,
-                    chapter=chapter,
-                    chapter_history=history,
-                    user=book.owner,
-                    kind='chapter_create'
-                )
+        if history:
+            logBookHistory(
+                book=book,
+                version=book.version,
+                chapter=chapter,
+                chapter_history=history,
+                user=book.owner,
+                kind=kind
+            )
+
+    def _import_single_chapter(self, chapter, content):
+        """
+        Cleans and parse the given docx content in lxml node tree mode
+        and will import into a existing chapter registered on the database
+
+        :Args:
+          - chapter: (`booki.edit.models.Chapter`) Django model instance
+          - content: (`str`) html content of the imported document
+
+        """
+
+        _content = self._parse_chapter(content)
+        try:
+            chapter_content = unidecode(_content)[12:-14]  # 12:-14 to remove html and body tag
+        except UnicodeDecodeError:
+            chapter_content = _content.decode('utf-8', errors='ignore')[12:-14]
+        except Exception as err:
+            self.notifier.errors("Error while decoding chapter content {0}".format(err))
+            return
+
+        # let's save a revision before we merge contents
+        self._save_history_records(chapter.book, self.chapter, kind='chapter_save')
+
+        chapter_content = chapter.content + chapter_content
+        chapter.content = self._fix_merged_content(chapter_content)
+        chapter.save()
+
+    def _fix_merged_content(self, content):
+        """
+        After concatenated content, we need to make sure the structure of chapter is correct.
+        For example: endnotes should always go at the end of the chapter and fix endnotes references
+
+        Args:
+          - content (`str`) chapter's html string content
+        """
+
+        # there might be some cases where the html content of the chapter it's no fully clean
+        # because of old importer class. Let's apply some cleanup just in case
+        content = tidy_cleanup(content, **TidyPlugin.OPTIONS)[1]
+
+        utf8_parser = html.HTMLParser(encoding='utf-8')
+        tree = html.document_fromstring(content, parser=utf8_parser)
+
+        # first we check if there are endnotes
+        endnotes = tree.xpath('.//ol[@class="endnotes"]')
+        if len(endnotes) == 0:
+            return content
+
+        # let's create a new final block of endnotes to merge them all
+        endnotes_block = etree.SubElement(tree.find('body'), 'ol', {'class': 'endnotes'})
+        idx_endnote = 1
+
+        for note in tree.xpath('.//li[starts-with(@id, "endnote-")]'):
+            key = note.get('id', '').replace('endnote-', '')
+
+            # let's find the reference, otherwise we delete the endnote
+            try:
+                sup = tree.xpath('//sup[@data-id="{}"]'.format(key))[0]
+            except IndexError:
+                self.notifier.warning(_("Reference not found for endnote: {}").format(note.text))
+                continue
+
+            # make sure reference number is correct
+            sup.text = '{}'.format(idx_endnote)
+            idx_endnote += 1
+
+            endnotes_block.append(note)
+
+        # remove old endnotes block from content
+        for oldblock in endnotes:
+            oldblock.drop_tree()
+
+        # let's use only body and its content
+        return etree.tostring(tree.find('body'), encoding='utf-8', xml_declaration=False)
+
+    def _fix_images_path(self, content):
+        """
+        Adjusts the path for images that come with the imported content
+        to match with the Booktype images paths
+
+        :Args:
+          - content: lxml node tree with the parsed content
+
+        """
+
+        imgs = content.xpath('.//img')
+
+        for _img in imgs:
+            image_name = _img.get('src')
+            att_name, att_ext = os.path.splitext(os.path.basename(image_name))
+
+            if image_name in self.broken_images:
+                _img.set('src', 'static/{}.jpg'.format(att_name))
+
+            if image_name in self.converted_images:
+                _img.set('src', 'static/{}.png'.format(att_name))
 
     def _parse_chapter(self, content):
+        # TODO: add docstrings and improve logic
+
         def _find(tag):
             return tree.xpath('//' + tag)
-
-        from lxml import html, etree
 
         utf8_parser = html.HTMLParser(encoding='utf-8')
         tree = html.document_fromstring(content, parser=utf8_parser)
 
         headers = []
-
         h1_headers = tree.xpath('.//h1')
 
         if h1_headers:
             for h1 in h1_headers:
+                # Translators: Default chapter title when importing DOCX
+                # files. In case title does not exists.
                 if h1.text == 'Unknown':
-                    # Translators: Default chapter title when importing DOCX
-                    # files. In case title does not exists.
                     h1.text = _('Title')
 
         for n in range(5):
@@ -356,58 +457,41 @@ class WordImporter(object):
                 if level < 6:
                     level += 1
 
-        imgs = tree.xpath('.//img')
-
-        for _img in imgs:
-            image_name = _img.get('src')
-            att_name, att_ext = os.path.splitext(os.path.basename(image_name))
-
-            if image_name in self.broken_images:
-                _img.set('src', 'static/{}.jpg'.format(att_name))
-
-            if image_name in self.converted_images:
-                _img.set('src', 'static/{}.png'.format(att_name))
+        # time to adjust the src attribute of images
+        self._fix_images_path(tree)
 
         has_endnotes = False
         endnotes = None
         idx_endnote = 1
+        notes_rel_types = ['footnotes', 'endnotes']
 
         for endnote in tree.xpath('.//sup[@class="endnote"]'):
             key = endnote.get('data-id', '')
-            if key == '':
+
+            # below values were set in custom hooks endnotes and footnotes
+            relation_id = endnote.get('data-relation-id', '')
+            relationship = endnote.get('data-relationship', '')
+
+            # continue if there is no key or relationship is not of interest here
+            if key == '' or relationship not in notes_rel_types:
                 continue
 
             endnote.text = '{}'.format(idx_endnote)
             idx_endnote += 1
-
-            endnote_key = None
-            footnote_key = None
-
-            for k, v in self.endnotes.iteritems():
-                if v == key:
-                    endnote_key = k
-
-            for k, v in self.footnotes.iteritems():
-                if v == key:
-                    footnote_key = k
-
             note_content = None
 
-            if endnote_key:
-                endnote = self.dfile.document.endnotes[endnote_key]
-                note_content = serialize.serialize_elements(
-                    self.dfile.document, endnote, {
-                        'embed_styles': False, 'pretty_print': False,
-                        'relationship': 'endnotes'
-                    })
+            # extract self.dfile.document.{footnotes|endnotes} dict
+            notes_source_dict = getattr(self.dfile.document, relationship)
+            if relation_id not in notes_source_dict.keys():
+                continue
 
-            if footnote_key:
-                endnote = self.dfile.document.footnotes[footnote_key]
-                note_content = serialize.serialize_elements(
-                    self.dfile.document, endnote, {
-                        'embed_styles': False, 'pretty_print': False,
-                        'relationship': 'footnotes'
-                    })
+            note_element = notes_source_dict[relation_id]
+            note_content = serialize.serialize_elements(
+                self.dfile.document, note_element, {
+                    'embed_styles': False,
+                    'pretty_print': False,
+                    'relationship': relationship
+                })
 
             if note_content is not None:
                 if not has_endnotes:
@@ -442,5 +526,4 @@ class WordImporter(object):
         docutils.clean_infobox_content(tree)
         docutils.fix_citations(tree)
 
-        return etree.tostring(
-            tree, pretty_print=True, encoding='utf-8', xml_declaration=False)
+        return etree.tostring(tree, encoding='utf-8', xml_declaration=False)

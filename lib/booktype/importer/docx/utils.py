@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import uuid
 import StringIO
 
 try:
@@ -39,6 +40,10 @@ class DocHeaderContext(object, HeaderContext):
         return super(DocHeaderContext, self).is_header(elem, font_size, node, style)
 
 
+def serialize_empty(ctx, document, elem, root):
+    return root
+
+
 def hook_p(ctx, document, el, elem):
     """
     Hook for the paragraph elements.
@@ -52,6 +57,39 @@ def hook_p(ctx, document, el, elem):
 
         if class_name:
             elem.set('class', class_name)
+
+
+def hook_footnote(ctx, document, el, elem):
+    """
+    Hook for the footnotes elements.
+    Add custom footnote booktype class and remove link tag.
+    """
+
+    data_id = str(uuid.uuid1()).replace('-', '')
+
+    # set endnote class because we use it later to fix all notes
+    elem.set('class', 'endnote')
+    elem.set('data-id', data_id)
+
+    # this will be used later to retrieve content of footnote
+    elem.set('data-relationship', 'footnotes')
+    elem.set('data-relation-id', el.rid)
+
+
+def hook_endnote(ctx, document, el, elem):
+    """
+    Hook for the endnotes elements.
+    Add custom endnote booktype class and remove link tag.
+    """
+
+    data_id = str(uuid.uuid1()).replace('-', '')
+
+    elem.set('class', 'endnote')
+    elem.set('data-id', data_id)
+
+    # this will be used later to retrieve content of endnote
+    elem.set('data-relationship', 'endnotes')
+    elem.set('data-relation-id', el.rid)
 
 
 def check_h_tags_hook(ctx, document, el, elem):

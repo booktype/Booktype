@@ -2,6 +2,15 @@
 {% has_perm 'edit.edit_locked_chapter' as can_edit_locked_chapter %}
 {% has_perm 'edit.lock_chapter' as can_lock_chapter %}
 
+<div style="display: none;">
+  {# data-action attribute part "chapter-pk-to-replace" it's tricky #}
+  {# but it's fine for now, we don't have `url` templatetag to use in javascript #}
+  <form id="uploadDocxForm" enctype=multipart/form-data data-action="{% url 'importer:import_to_chapter' book.url_title 'chapter-pk-to-replace' %}" method="POST">
+    {% csrf_token %}
+    {{ upload_docx_form }}
+  </form>
+</div>
+
 <div id="renameChapter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
  <div class="modal-dialog">
   <div class="modal-content">
@@ -306,6 +315,7 @@
             {% endif %}
         </div>
 
+        {# TOC CHAPTER ACTIONS DROPDOWN #}
         <div class="btn-group">
             <% if (is_locked) { %>
                 {% if is_owner or is_admin %}
@@ -317,6 +327,7 @@
                         <li><a href="#" class="option-delete">{% trans "Delete" %}</a></li>
                         <li><a href="#" class="option-unlock">{% trans "Unlock" %}</a></li>
                         <li><a href="#" class="option-export">{% trans "Export Content" %}</a></li>
+                        <li><a href="#" class="option-import">{% trans "Import DOCX File" %}</a></li>
                     </ul>
                 {% elif can_edit_locked_chapter %}
                     <% if (lock_type === 2 || lock_type === 1 && lock_username === username) { %>
@@ -341,6 +352,10 @@
 
                         {% check_perm 'edit.export_chapter_content' %}
                             <li><a href="#" class="option-export">{% trans "Export Content" %}</a></li>
+                        {% endcheck_perm %}
+
+                        {% check_perm 'edit.import_to_chapter' %}
+                        <li><a href="#" class="option-import">{% trans "Import DOCX File" %}</a></li>
                         {% endcheck_perm %}
                         </ul>
                     <% } %>
@@ -372,6 +387,10 @@
 
                 {% check_perm 'edit.export_chapter_content' %}
                     <li><a href="#" class="option-export">{% trans "Export Content" %}</a></li>
+                {% endcheck_perm %}
+
+                {% check_perm 'edit.import_to_chapter' %}
+                    <li><a href="#" class="option-import">{% trans "Import DOCX File" %}</a></li>
                 {% endcheck_perm %}
                 </ul>
             <% } %>

@@ -1,5 +1,5 @@
 # This file is part of Booktype.
-# Copyright (c) 2013 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org> # noqa
+# Copyright (c) 2013 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
 #
 # Booktype is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,8 +17,10 @@
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import url
 
-from .views import ImporterView
+from .views import ImporterView, ImportToChapter
 
 urlpatterns = [
     url(r'^_upload-book-file/$', login_required(ImporterView.as_view()), name='upload_book_file'),
+    url(r'^_import-to-chapter/(?P<bookid>[\w\s\_\.\-\d]+)/(?P<chapter>[\w\s\_\.\-]+)/',
+        login_required(ImportToChapter.as_view()), name='import_to_chapter')
 ]
