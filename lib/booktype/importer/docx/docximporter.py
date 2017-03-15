@@ -93,19 +93,22 @@ class WordImporter(object):
             warn_msg = _("Please note: Mathematical formulae have been found, and highlighted in the text. These formulae are not supported by many e-readers, or the Booktype editor at present.")  # noqa
             self.notifier.warning(warn_msg)
 
-    def import_file(self, file_path, options={'scale_font_size': True}):
+    def import_file(self, file_path, options={'scale_font_size': True}, **kwargs):
+        # TODO: document this asap
+
         self.delegate.notifier = self.notifier
         self.broken_images = []
         self.converted_images = []
 
         book = self.book
+        process_mode = kwargs.get('process_mode', 'overwrite')
 
         try:
             self.dfile = ooxml.read_from_file(file_path)
             if self.is_chapter_mode:
                 chapter_content = serialize.serialize(
                     self.dfile.document, self._serialize_options)
-                self._import_single_chapter(self.chapter, chapter_content)
+                self._import_single_chapter(self.chapter, chapter_content, process_mode)
             else:
                 chapters = importer.get_chapters(
                     self.dfile.document, options=options,
@@ -321,7 +324,7 @@ class WordImporter(object):
                 kind=kind
             )
 
-    def _import_single_chapter(self, chapter, content):
+    def _import_single_chapter(self, chapter, content, process_mode):
         """
         Cleans and parse the given docx content in lxml node tree mode
         and will import into a existing chapter registered on the database
@@ -329,6 +332,7 @@ class WordImporter(object):
         :Args:
           - chapter: (`booki.edit.models.Chapter`) Django model instance
           - content: (`str`) html content of the imported document
+          - process_mode: (`str`) string indicating how to treat new content: overwrite or append
 
         """
 
@@ -344,8 +348,12 @@ class WordImporter(object):
         # let's save a revision before we merge contents
         self._save_history_records(chapter.book, self.chapter, kind='chapter_save')
 
-        chapter_content = chapter.content + chapter_content
-        chapter.content = self._fix_merged_content(chapter_content)
+        if process_mode == 'overwrite':
+            chapter.content = chapter_content
+        else:
+            chapter_content = chapter.content + chapter_content
+            chapter.content = self._fix_merged_content(chapter_content)
+
         chapter.save()
 
     def _fix_merged_content(self, content):
