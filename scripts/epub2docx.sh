@@ -3,9 +3,6 @@
 # MIT license
 # https://github.com/MiczFlor/From-EPUB-To-Conversion
 #
-# USAGE EXAMPLES:
-# ../ConvertEpubChapter2DOCX.sh -i ../test-booktype.epub -o ../tests/test-booktype-DOCX.zip
-# ../ConvertEpubChapter2DOCX.sh --in ../test-booktype.epub --out ../tests/test-booktype-DOCX.zip
 
 # read parameters from input
 while [[ $# -gt 1 ]]
@@ -15,15 +12,19 @@ key="$1"
 case $key in
     -i|--in)
     SOURCE="$2"
-    shift # past argument
+    shift
     ;;
     -o|--out)
     TARGET="$2"
-    shift # past argument
+    shift
     ;;
     -p)
     PANDOC="$2"
-    shift # past argument
+    shift
+    ;;
+    -t)
+    TEMPDIR="$2"
+    shift
     ;;
     *)
 esac
@@ -33,59 +34,78 @@ done
 filename=$(basename "$TARGET")
 TARGETEXTENSION="${filename##*.}"
 TARGETFILENAME="${filename%.*}"
+TEMPDIR="${TEMPDIR}"
+PANDOC="${PANDOC:-"pandoc"}"
+DOCXFOLDER=$TEMPDIR"/"$TARGETFILENAME
 
-#echo SOURCE             = $SOURCE
-#echo TARGET             = $TARGET
-#echo TARGETEXTENSION    = $TARGETEXTENSION
-#echo TARGETFILENAME     = $TARGETFILENAME
+printf '%s\n'
+echo INITIAL VARIABLES
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+echo SOURCE === $SOURCE
+echo TARGET === $TARGET
+echo TARGET EXTENSION === $TARGETEXTENSION
+echo TARGET FILENAME === $TARGETFILENAME
+echo PANDOC EXECUTABLE === $PANDOC
+echo TEMP DIR === $TEMPDIR
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+printf '%s\n'
 
-# create temporary working directory
-if [ ! -d temp ]; then
-  mkdir -p temp;
+echo '-------'CREATE TEMP DIR
+if [ ! -d $TEMPDIR ]; then
+  mkdir -p $TEMPDIR;
 fi
+echo '-------'DONE
+printf '%s\n'
 
-# create DOCX directory
-if [ ! -d $TARGETFILENAME"/Chapters" ]; then
-  mkdir -p $TARGETFILENAME"/Chapters";
+echo '-------'CREATE DOCX DIR
+if [ ! -d $DOCXFOLDER"/Chapters" ]; then
+  mkdir -p $DOCXFOLDER"/Chapters";
 fi
+echo '-------'DONE
+printf '%s\n'
 
-# create a DOCX version of the entire book
-${PANDOC:-"pandoc"} -s --from epub --to docx -o "COMPLETE_"$TARGETFILENAME.docx $SOURCE
-# move the file to the Text directory
-mv "COMPLETE_"$TARGETFILENAME.docx $TARGETFILENAME
+echo '-------'RUN PANDOC
+$PANDOC -s --from epub --to docx -o $DOCXFOLDER"/COMPLETE_"$TARGETFILENAME.docx $SOURCE
+echo '-------'DONE
+printf '%s\n'
 
-# create a copy for processing
-cp $SOURCE ./temp/book.epub
+echo '-------'COPY EPUB TO TEMP
+cp $SOURCE $TEMPDIR"/"source.epub
+echo '-------'DONE
+printf '%s\n'
 
-# unzip epub
-cd ./temp
-unzip ./book.epub
+echo '-------'UNZIP SOURCE EPUB
+cd $TEMPDIR
+unzip ./source.epub
+echo '-------'DONE
+printf '%s\n'
 
-# copy fonts, css and images to DOCX folder
-cp -R ./OEBPS/Fonts ../$TARGETFILENAME"/"
-cp -R ./OEBPS/Images ../$TARGETFILENAME"/"
-cp -R ./OEBPS/Styles ../$TARGETFILENAME"/"
+echo '-------'COPY FONTS, CSS AND IMAGES TO DOCX FOLDER
+cp -R ./OEBPS/Fonts $DOCXFOLDER
+cp -R ./OEBPS/Images $DOCXFOLDER
+cp -R ./OEBPS/Styles $DOCXFOLDER
+echo '-------'DONE
+printf '%s\n'
 
-# move to where the HTML files are
+echo '-------'RUN PANDOC FOR EACH CHAPTER
 cd ./OEBPS/Text/
-
 for chapterxhtml in *.xhtml; do
-    # new chapter name without xhtml ending
+    # chapter name without xhtml ending
     chaptername=$(echo $chapterxhtml | cut -f 1 -d '.')
-    ${PANDOC:-"pandoc"} -s --from html --to docx -o $chaptername.docx $chapterxhtml
-    mv $chaptername.docx ../../../$TARGETFILENAME"/Chapters/"
+    $PANDOC -s --from html --to docx -o $DOCXFOLDER"/Chapters/"$chaptername.docx $chapterxhtml
 done
+echo '-------'DONE
+printf '%s\n'
 
-# move back up outside temp directory
-cd ../../../
+echo '-------'CREATE ZIP
+cd $TEMPDIR
+zip -0r $TARGET ./$TARGETFILENAME"/"
+echo '-------'DONE
+printf '%s\n'
 
-# delete everything in temp folder
-rm -rf ./temp
-
-# create zip for ICML files and remove folder
-zip -0r $TARGETFILENAME-DOCX.zip ./$TARGETFILENAME"/"
-# delete working folder
-rm -rf ./$TARGETFILENAME"/"
-
-# move file to target
-mv $TARGETFILENAME-DOCX.zip $TARGET
+echo '-------'DELETE TEMP DIR
+cd $TEMPDIR
+cd ../
+rm -rf $TEMPDIR
+echo '-------'DONE
+printf '%s\n'
