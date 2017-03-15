@@ -189,6 +189,7 @@ class ImportToChapter(JSONResponseMixin, SecurityMixin, UpdateView):
         chapter = self.chapter
         book = self.object
         chapter_file = form.cleaned_data.get('chapter_file')
+        process_mode = form.cleaned_data.get('import_mode')
 
         # this are used to get information messages about import process
         notifier, delegate = CollectNotifier(), Delegate()
@@ -197,7 +198,7 @@ class ImportToChapter(JSONResponseMixin, SecurityMixin, UpdateView):
         docx = WordImporter(book, chapter, notifier=notifier, delegate=delegate)
 
         try:
-            docx.import_file(chapter_file)
+            docx.import_file(chapter_file, **{'process_mode': process_mode})
             response['url'] = self.get_success_url()
         except Exception as e:
             logger.error('ImporterToChapter::Unexpected error while importing file')

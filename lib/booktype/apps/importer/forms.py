@@ -56,7 +56,15 @@ class UploadBookForm(forms.Form):
 
 
 class UploadDocxFileForm(forms.Form):
+    # no need to translate this below, it will be hidden form
+    IMPORT_CHOICES = (
+        ("append", "Append"),
+        ("overwrite", "Overwrite"),
+    )
+
     chapter_file = forms.FileField(required=True)
+    import_mode = forms.ChoiceField(
+        required=True, choices=IMPORT_CHOICES, widget=forms.TextInput())
 
     def clean(self, *args, **kwargs):
         data = super(UploadDocxFileForm, self).clean(*args, **kwargs)
