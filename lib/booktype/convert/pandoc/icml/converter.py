@@ -63,14 +63,16 @@ class ICMLConverter(BasePandocConverter):
         :return: True if convertion was successful
         :raise Exception with pandoc convertion error
         """
+        temp_dir = os.path.join(os.path.dirname(epub_path), 'bash_temp')
 
         try:
             (_, out, err) = run_command(
-                'bash {} -i {} -o {} -p {}'.format(
+                'bash {} -i {} -o {} -p {} -t {}'.format(
                     settings.PANDOC_ICML_SCRIPT,
                     epub_path,
                     zip_path,
-                    settings.PANDOC_PATH
+                    settings.PANDOC_PATH,
+                    temp_dir
                 ),
                 shell=True)
         except Exception as e:
