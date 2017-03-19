@@ -256,35 +256,41 @@
     <i title="{% trans 'Has comments' %}" class="icon icon-comments"></i>
 </script>
 
+<script type="text/html" id="templateChapterHasMarker">
+    <i title="{% trans 'Has marker' %}" class="icon icon-warning-sign" style="color: red;"></i>
+</script>
+
 <script type="text/html" id="templateTOCChapter">
 <li class="item chapter" data-id="<%= data_id %>" data-chapter-id="<%= data_chapter_id %>" id="<%= id %>" >
     <div {% check_perm not 'edit.reorder_toc' %} style="cursor: auto;"{% endcheck_perm %}>
         <div>
             <% var commentChunk = hasComments ? $("#templateChapterHasComments").html() : ''; %>
+            <% var markerChunk = hasMarker ? $("#templateChapterHasMarker").html() : ''; %>
+
             <% if (is_locked) { %>
                 {% if is_owner or is_admin %}
                     <a href="" style="color: rgb(51, 51, 51);" class="operation-edit"><i class="toc-icon-chapter-locked"></i></a>
                     <a style="color: rgb(51, 51, 51);" href="" class="operation-edit">
-                      <span class="title"><%= title %> <%= commentChunk %></span>
+                      <span class="title"><%= title %></span>
                     </a>
                 {% elif can_edit_locked_chapter %}
                     <% if (lock_type === 2 || lock_type === 1 && lock_username === username) { %>
                         <a href="" style="color: rgb(51, 51, 51);" class="operation-edit"><i class="toc-icon-chapter-locked"></i></a>
                         <a style="color: rgb(51, 51, 51);" href="" class="operation-edit">
-                          <span class="title"><%= title %> <%= commentChunk %></span>
+                          <span class="title"><%= title %></span>
                         </a>
                     <% } else { %>
                         <i class="toc-icon-chapter-locked"></i>
-                        <span class="title"><%= title %> <%= commentChunk %></span>
+                        <span class="title"><%= title %></span>
                     <% } %>
                 {% else %}
                     <i class="toc-icon-chapter-locked"></i>
-                    <span class="title"><%= title %> <%= commentChunk %></span>
+                    <span class="title"><%= title %></span>
                 {% endif %}
             <% } else { %>
                 <a href="" style="color: rgb(51, 51, 51);" class="operation-edit"><i class="toc-icon-chapter"></i></a>
                 <a style="color: rgb(51, 51, 51);" href="" class="operation-edit">
-                  <span class="title"><%= title %> <%= commentChunk %></span>
+                  <span class="title"><%= title %></span>
                 </a>
             <% } %>
         </div>
@@ -295,6 +301,7 @@
             <% } else if (is_locked && lock_type === 1) { %>
                 <div>{% trans "Locked exclusively" %}</div>
             <% } %>
+            <div class="icons"><%= commentChunk %> <%= markerChunk %></div>
             {% if is_owner or is_admin %}
                 <div style="background-color: #d9534f" class="terminate-edit-chapter">
                     <a href="" class="terminate-edit-chapter"><span class="icon-remove-sign"></span>&nbsp;{% trans "Terminate editing" %}</a>
