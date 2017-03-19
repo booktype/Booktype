@@ -242,7 +242,8 @@ class Book(models.Model):
                     return None
             else:
                 v = version.split('.')
-                if len(v) != 2: return None # noqa
+                if len(v) != 2:
+                    return None
 
                 try:
                     book_ver = emodels.BookVersion.objects.get(book=self, major=int(v[0]), minor=int(v[1]))
@@ -564,6 +565,13 @@ class Chapter(models.Model):
     def has_comments(self):
         # excluding delete/resolved comments
         return self.comment_set.exclude(state=1).exists()
+
+    @property
+    def has_marker(self):
+        if '[[' in self.content and ']]' in self.content:
+            return True
+
+        return False
 
 
 class ChapterHistory(models.Model):

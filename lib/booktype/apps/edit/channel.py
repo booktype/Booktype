@@ -133,7 +133,8 @@ def get_toc_dict_for_book(version):
                 'tocID': chap.id,
                 'state': state,
                 'editBy': current_editor,
-                'hasComments': chap.chapter.has_comments
+                'hasComments': chap.chapter.has_comments,
+                'hasMarker': chap.chapter.has_marker
             })
         else:
             results.append({
@@ -148,7 +149,8 @@ def get_toc_dict_for_book(version):
                 'tocID': chap.id,
                 'state': 'normal',     # fake state
                 'editBy': None,         # fake current editor,
-                'hasComments': False
+                'hasComments': False,
+                'hasMarker': False
             })
     return results
 
@@ -541,7 +543,8 @@ def remote_chapter_state(request, message, bookid, version):
             "chapterID": message["chapterID"],
             "state": message["state"],
             "username": request.user.username,
-            "hasComments": chapter.has_comments
+            "hasComments": chapter.has_comments,
+            "hasMarker": chapter.has_marker
         }, myself=True)
 
     return {"result": True}
