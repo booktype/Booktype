@@ -11,6 +11,7 @@ from django.core.exceptions import PermissionDenied
 from django.views.generic import UpdateView
 from django.views.generic.edit import FormView
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 
 from braces.views import JSONResponseMixin
 from booki.editor.models import Book, Chapter
@@ -111,7 +112,7 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
             book_importer = importer_utils.get_importer_module(ext)
         except KeyError:
             logger.error('ImporterView::No importer for this extension')
-            response_data = dict(errors=[_('Extension not supported!')])
+            response_data = dict(errors=[ugettext('Extension not supported!')])
             return self.render_json_response(response_data)
 
         try:
@@ -132,7 +133,7 @@ class ImporterView(JSONResponseMixin, SecurityMixin, FormView):
 
     def form_invalid(self, form):
         response_data = {
-            'errors': [_('Something went wrong!')],
+            'errors': [ugettext('Something went wrong!')],
             'infos': [],
             'warnings': []
         }
@@ -215,7 +216,7 @@ class ImportToChapter(JSONResponseMixin, SecurityMixin, UpdateView):
         # NOTE: perhaps send back validation errors
         response_data = {
             'infos': [], 'warnings': [],
-            'errors': [_('Something went wrong!')],
+            'errors': [ugettext('Something went wrong!')],
         }
         return self.render_json_response(response_data)
 
