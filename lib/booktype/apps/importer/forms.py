@@ -5,7 +5,7 @@ from functools import partial
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-EPUB_CTYPE = 'application/epub+zip',
+EPUB_CTYPE = 'application/epub+zip'
 DOCX_CTYPE = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 
 ALLOWED_TYPES = [
