@@ -5,12 +5,18 @@ html {
 body {
 	color:#333;
 	background:#ebebeb;
-	font-family:'Open Sans',Arial,Helvetica,sans-serif;
 	font-size:13px;
 	line-height:145%;
 	padding:0;
 	margin:0;
 	height:99.9%; /* to avoid flickering in chrome because of bs tooltips*/
+}
+/* font family for all elements */
+body,
+h1,h2,h3,h4,h5,h6,
+p, li, td
+{
+	font-family:'Lato','Open Sans',Arial,Helvetica,sans-serif;
 }
 body.zenMode .bookbar,body.zenMode .navigation-bar {
 	display:none
