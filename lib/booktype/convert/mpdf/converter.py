@@ -793,6 +793,9 @@ class MPDFConverter(BaseConverter):
 
         try:
             (_, out, err) = utils.run_command(cmd)
+
+            logger.info('MPDF Converter::Stdout: output: "{}", error: "{}"'.format(out, err))
+
             data = json.loads(out)
 
             return data
