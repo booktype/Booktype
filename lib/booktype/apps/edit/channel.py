@@ -140,7 +140,7 @@ def get_toc_dict_for_book(version):
             results.append({
                 'chapterID': chap.id,
                 'title': chap.name,
-                'urlTitle': chap.name,
+                'urlTitle': booktype_slugify(chap.name),
                 'isSection': True,
                 'status': None,        # fake status
                 'lockType': 0,         # fake unlocked
