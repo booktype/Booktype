@@ -1,0 +1,258 @@
+.template {
+  display: none !important;
+}
+
+.bookexists{
+    font-size: 12px;
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-left: 5px;
+    margin-top: 10px;
+    width: 85%;
+}
+
+.modal-content form{
+    margin-bottom: 0;
+}
+
+#personInfoModal .modal-dialog{
+    width: 700px;
+}
+
+#personInfoModal .modal-dialog .profile-box{
+    margin-bottom: 0;
+}
+
+#personInfoModal .box-bottom-white{
+    text-align: right;
+}
+
+#personInfoModal .box-bottom-white .btn+.btn{
+    margin-left: 5px;
+    margin-bottom: 0;
+}
+
+.list-of-pleople li{
+    min-height: 68px;
+}
+
+.list-of-pleople li .action-btns{
+    padding-top: 5px;
+    text-align: right;
+}
+
+.list-of-pleople li:hover .action-btns{
+    display: block !important;
+}
+
+.list-of-pleople li .action-btns .btn{
+    position:static;
+    margin-bottom: 5px;
+}
+
+input[type="checkbox"].form-control:focus,
+input[type="radio"].form-control:focus{
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.form-inline-select select.form-control{
+    display: inline-block;
+    width: auto;
+    max-width: 300px;
+}
+
+.book-thumb .control_center_btns,
+.book-list > div:hover .control_center_btns{
+    display: none;
+}
+
+.logotext{
+    font-size: 17px;
+    line-height: 40px;
+    padding-left: 78px;
+}
+.logotext a{
+    color: #fff;
+}
+
+.pad20{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.license-delete{
+    position: relative;
+    top: -60px;
+    left: 428px;
+}
+
+.group-image-removable{
+    width: 247px;
+}
+
+.btn-delete-group{
+    margin-left: 10px;
+}
+
+.group-list h4{
+    margin-right: 135px;
+}
+
+/* old css for old fullview and draft */
+#bookcontent img,
+#bookcontent table {
+    max-width: 100%;
+    height: auto;
+}
+
+#bookcontent div.bk-image-editor {
+    overflow: hidden;
+}
+
+#bookcontent div.bk-image-editor img {
+    max-width: none;
+    max-height: none;
+}
+
+/* css for reader */
+#contenteditor div.chapter-inner img,
+#contenteditor div.chapter-inner table {
+    max-width: 100%;
+    height: auto;
+}
+
+#contenteditor div.chapter-inner div.bk-image-editor {
+    overflow: hidden;
+}
+
+#contenteditor div.chapter-inner div.bk-image-editor img {
+    max-width: none;
+    max-height: none;
+}
+
+.box-bottom-white{
+    overflow: inherit;
+}
+.box-bottom-white:after{
+    display: block;
+    clear: both;
+    content: "";
+}
+
+/* compare screen */
+.compare_screen .row {
+    margin-bottom: 20px;
+    margin-left: 0;
+    margin-right: 0
+}
+.compare_screen .row .header {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 10px;
+    background: #f2f2f2
+}
+.compare_screen .row .header+.header {
+    border-left: 1px solid #ccc
+}
+.compare_screen .row .marker {
+    padding: 1px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: -10px
+}
+.compare_screen .row .changed {
+    background-color: #ffeda8
+}
+.compare_screen ins,
+.compare_screen .row .added {
+    background-color: #b9f0a2
+}
+
+.compare_screen del,
+.compare_screen .row .deleted {
+    background-color: #fa897a
+}
+.compare_table td {
+    width: 50% !important;
+}
+
+.alert.congrats .btn{
+    position: relative;
+    top: -4px;
+}
+
+.list h4 .title {
+    color: black;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+}
+.wizard #wizard-invite-p-3 input[type="checkbox"]{
+    display: none;
+}
+
+.default-cursor{
+    cursor:default !important;
+}
+
+.default-cursor:hover {
+    cursor:default !important;
+}
+
+sup a {
+    font-size: 90% !important;
+}
+
+.templateAlertModal {
+    top: 150px;
+}
+
+.templateAlertModal .modal-dialog{
+    width: 300px;
+}
+
+.templateAlertModal .modal-header{
+    text-align: center;
+    color: #6D6161;
+}
+
+.templateAlertModal .modal-header .close{
+    font-size: 22px;
+}
+
+.templateAlertModal .modal-dialog p{
+    font-size: 15px;
+    margin-top: 4px;
+    margin-bottom: 0px;
+    color: #6D6161;
+}
+
+.templateAlertModal .modal-footer{
+    padding: 12px 15px;
+    border-top: none;
+}
+
+.templateAlertModal .modal-body {
+    padding: 12px;
+}
+
+.templateAlertModal .modal-footer button {
+    padding: 3px 8px;
+    font-size: 13px;
+}
+
+textarea[name="table-caption"] {
+    padding: 5px;
+}
+
+.more-options-group .btn:first-child {
+  padding-left: 9px;
+  padding-right: 9px;
+  text-align: center;
+}
+
+.more-options-group .btn:first-child i {
+  margin-right: 0px;
+}

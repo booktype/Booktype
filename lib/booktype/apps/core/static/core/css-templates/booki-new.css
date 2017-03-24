@@ -14,7 +14,7 @@ body {
 /* font family for all elements */
 body,
 h1,h2,h3,h4,h5,h6,
-p, li, td 
+p, li, td
 {
 	font-family:'Lato','Open Sans',Arial,Helvetica,sans-serif;
 }
@@ -70,7 +70,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 h1 {
 	font-size:24px;
-	color:#E55B00
+	color:#text-general
 }
 h2 {
 	font-size:21px
@@ -107,11 +107,11 @@ p.quote:before {
 	bottom:0
 }
 a {
-	color:#E55B00;
+	color:#text-general;
 	text-decoration:none
 }
 a:focus,a:hover {
-	color:#E55B00;
+	color:#text-general;
 	text-decoration:underline
 }
 .float-right {
@@ -147,11 +147,11 @@ a:focus,a:hover {
 }
 .content h2 {
 	font-size:1.5em;
-	color:#E55B00
+	color:#text-general
 }
 .content h3 {
 	font-size:1.3em;
-	color:#E55B00;
+	color:#text-general;
 	line-height:20px
 }
 .content.small-padding {
@@ -293,7 +293,7 @@ a:focus,a:hover {
 	background-position:-40px -480px
 }
 .bookbar.flat .btn-primary {
-	background-color:#FF6600;
+	background-color:#button-background-lighter;
 	padding:29px 38px 30px 22px;
 	color:#fff;
 	text-transform:uppercase;
@@ -899,7 +899,7 @@ a:focus,a:hover {
 	-webkit-box-shadow:0 0 4px #ddd;
 	-moz-box-shadow:0 0 4px #ddd;
 	box-shadow:0 0 4px #ddd;
-	border:2px solid #E55B00 !important
+	border:2px solid #text-general !important
 }
 .tabpane .tab-content.chat.typing-active .notification-list-box {
 	bottom:160px
@@ -1292,7 +1292,7 @@ li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
 }
 .sortable li div .toc-chapter-detail .status {
 	float:right;
-	background:#146eb4
+	background:#button-alt-background
 }
 
 .sortable li div .toc-chapter-detail .icons {
@@ -1593,7 +1593,7 @@ li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
 	box-shadow:0 0 3px #a0a0a0
 }
 .uploads-grid li.active {
-	background:#FF6600;
+	background:#button-background-lighter;
 	border-color:#55398a;
 	cursor:pointer;
 	-webkit-box-shadow:0 0 3px #a0a0a0;
@@ -1741,7 +1741,7 @@ li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
 	margin:0 320px 0 0
 }
 .image-dropdown-button {
-	background-color:#FF6600;
+	background-color:#button-background-lighter;
 	border-style:solid;
 	border-color:#fff;
 	border-width:2px 2px 0 0;
@@ -2672,7 +2672,7 @@ h2 .btn-toolbar+.view_all {
 	right:100px
 }
 .profile-box {
-	background-color:#FF6600;
+	background-color:#button-background-lighter;
 	min-height:242px !important
 }
 .profile-box h2 {
@@ -2730,7 +2730,7 @@ dd input,dt input,dd textarea,dt textarea {
 	background-color:#fff !important
 }
 .box.purple {
-	background-color:#FF6600 !important
+	background-color:#button-background-lighter !important
 }
 .box.black {
 	background-color:#464646 !important
@@ -2794,7 +2794,7 @@ dd input,dt input,dd textarea,dt textarea {
 	clear:both
 }
 .status {
-	background:#146eb4;
+	background:#button-alt-background;
 	padding:0 6px 1px 6px;
 	margin:0 5px;
 	-webkit-border-radius:2px;
@@ -2804,7 +2804,7 @@ dd input,dt input,dd textarea,dt textarea {
 .draft-stat {
 	color:#fff;
 	font-size:18px;
-	background:#146eb4;
+	background:#button-alt-background;
 	padding:2px 10px 2px 10px;
 	margin:0 15px 0 0;
 	-webkit-border-radius:2px;
@@ -3019,7 +3019,7 @@ span.draft-stat:hover {
 }
 .selected-chapter {
 	background-color:#f5f5f5;
-	border-left:4px solid #E55B00
+	border-left:4px solid #text-general
 }
 .table_of_contents {
 	height:100%;
@@ -3153,10 +3153,10 @@ textarea.form-control {
 	border-left:4px solid transparent
 }
 #settings.nav-tabs>li.active>a,#settings.nav-tabs>li.active>a:hover,#settings.nav-tabs>li.active>a:focus {
-	color:#E55B00;
+	color:#text-general;
 	font-weight:800;
 	border:none;
-	border-left:4px solid #E55B00;
+	border-left:4px solid #text-general;
 	border-bottom-color:transparent;
 	border-radius:0
 }
@@ -3214,7 +3214,7 @@ textarea.form-control {
 	font-weight:bold
 }
 .wizard>.steps .current a .number {
-	background:#FF6600;
+	background:#button-background-lighter;
 	color:#fff;
 	height:45px
 }
@@ -3245,7 +3245,7 @@ textarea.form-control {
 	cursor:default
 }
 .wizard>.steps .current a,.wizard>.steps .current a:hover,.wizard>.steps .current a:active {
-	color:#FF6600;
+	color:#button-background-lighter;
 	cursor:default;
 	font-weight:bold
 }
@@ -3582,7 +3582,7 @@ textarea.form-control {
 	font-family:Arial,sans-serif;
 	font-style:italic;
 	line-height:20px;
-	background:#FF6600;
+	background:#button-background-lighter;
 	padding:15px 20px;
 	color:#fff;
 	margin:-20px -20px 20px -20px
@@ -3857,11 +3857,11 @@ footer {
 	line-height:140%
 }
 .publish_history .export-item .export-name:hover {
-	border-bottom:1px dotted #FF6600;
+	border-bottom:1px dotted #button-background-lighter;
 	margin-bottom:3px
 }
 .publish_history .export-item .export-name:focus {
-	border-bottom:1px dotted #FF6600;
+	border-bottom:1px dotted #button-background-lighter;
 	margin-bottom:3px;
 	outline:0
 }
