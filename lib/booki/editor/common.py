@@ -310,7 +310,7 @@ def _format_metadata(book):
 
     now = time.strftime("%Y.%m.%d-%H.%M")
     created = book.created.strftime("%Y.%m.%d-%H.%M")
-    mods = models.BookHistory.objects.filter(book=book).dates("modified", "day", order='DESC')
+    mods = models.BookHistory.objects.filter(book=book).datetimes("modified", "day", order='DESC')
     if not mods:
         lastmod = created
     else:
