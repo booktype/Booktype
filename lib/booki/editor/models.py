@@ -464,6 +464,7 @@ class Chapter(models.Model):
     modified = models.DateTimeField(_('modified'), null=True, auto_now=True)
     revision = models.IntegerField(_('revision'), default=1)
     content = models.TextField(_('content'))
+    content_json = models.TextField(_('content json'), null=True, blank=True)
 
     class Meta:
         verbose_name = _('Chapter')

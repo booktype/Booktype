@@ -1,19 +1,46 @@
-from django.contrib.auth.models import User
+import json
 
+from rest_framework import generics
 from rest_framework import mixins
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
+from rest_framework.exceptions import NotFound, PermissionDenied
 
+import sputnik
+from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend
 
-from booki.editor.models import Book, Language
+from booki.editor.models import Book, Language, Chapter
 from booktype.apps.core.models import BookRole, Role
+from booki.utils.log import logBookHistory
+from booktype.utils.security import BookSecurity
 
 from . import serializers
 from ..views import BooktypeViewSetMixin
+from ..filters import ChapterFilter
 from ..security import IsAdminOrBookOwner, BooktypeSecurity
+
+
+class LanguageViewSet(
+        mixins.RetrieveModelMixin, mixins.ListModelMixin,
+        BooktypeViewSetMixin, viewsets.GenericViewSet
+        ):
+
+    """
+    API endpoint that allows languages to be viewed or listed.
+
+    retrieve:
+    Return a language instance
+
+    list:
+    Return all the languages
+    """
+
+    required_perms = ['api.manage_languages']
+    queryset = Language.objects.all()
+    serializer_class = serializers.LanguageSerializer
 
 
 class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
@@ -109,21 +136,162 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class LanguageViewSet(
-        mixins.RetrieveModelMixin, mixins.ListModelMixin,
-        BooktypeViewSetMixin, viewsets.GenericViewSet
-        ):
-
+class ChapterListCreate(generics.ListCreateAPIView):
     """
-    API endpoint that allows languages to be viewed or listed.
-
-    retrieve:
-    Return a language instance
-
-    list:
-    Return all the languages
+    API endpoint that lists/creates chapters of a specific book.
     """
 
-    required_perms = ['api.manage_languages']
-    queryset = Language.objects.all()
-    serializer_class = serializers.LanguageSerializer
+    model = Chapter
+    serializer_class = serializers.ChapterListCreateSerializer
+    filter_class = ChapterFilter
+
+    def __init__(self):
+        super(ChapterListCreate, self).__init__()
+        self._book = None
+
+    def _get_book(self):
+        try:
+            self._book = Book.objects.get(id=self.kwargs.get('pk', None))
+        except Book.DoesNotExist:
+            raise NotFound
+
+        return self._book
+
+    def get_queryset(self):
+        if self._book:
+            return self._book.chapter_set.all()
+        return Chapter.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.manage_books') and book_security.has_perm('api.list_chapters'):
+            return super(ChapterListCreate, self).get(request, *args, **kwargs)
+
+        raise PermissionDenied
+
+    def post(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.manage_books') and book_security.has_perm('api.create_chapters'):
+            return super(ChapterListCreate, self).post(request, *args, **kwargs)
+
+        raise PermissionDenied
+
+
+class ChapterRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API endpoint that retieve/update/delete chapter.
+    """
+
+    model = Chapter
+    serializer_class = serializers.ChapterRetrieveUpdateDestroySerializer
+    filter_class = ChapterFilter
+
+    def __init__(self):
+        super(ChapterRetrieveUpdateDestroy, self).__init__()
+        self._book = None
+        self._chapter = None
+
+    def _get_book(self):
+        try:
+            self._book = Book.objects.get(id=self.kwargs.get('book_id', None))
+        except Book.DoesNotExist:
+            raise NotFound
+
+        return self._book
+
+    def _delete_notifications(self):
+        # TODO
+        # this is just playground
+        # we must create separate tool to push messages through the sputnik channel from API endpoints
+        # without having clientID in request
+
+        # message_info
+        channel_name = "/chat/{}/".format(self._book.id)
+        clnts = sputnik.smembers("sputnik:channel:{}:channel".format(channel_name))
+        message = {
+            'channel': channel_name,
+            "command": "message_info",
+            "from": self.request.user.username,
+            "email": self.request.user.email,
+            "message_id": "user_delete_chapter",
+            "message_args": [self.request.user.username, self._chapter.title]
+        }
+
+        for c in clnts:
+            if c.strip() != '':
+                sputnik.push("ses:%s:messages" % c, json.dumps(message))
+
+        # chapter delete
+        channel_name = "/booktype/book/{}/{}/".format(self._book.id, self._book.version.get_version())
+        clnts = sputnik.smembers("sputnik:channel:{}:channel".format(channel_name))
+        message = {
+            'channel': channel_name,
+            "command": "chapter_delete",
+            "chapterID": self._chapter.id
+        }
+
+        for c in clnts:
+            if c.strip() != '':
+                sputnik.push("ses:%s:messages" % c, json.dumps(message))
+
+        # notificatoin message
+        message = {
+            'channel': channel_name,
+            'command': 'notification',
+            'message': 'notification_chapter_was_deleted',
+            'username': self.request.user.username,
+            'message_args': (self._chapter.title,)
+        }
+
+        for c in clnts:
+            if c.strip() != '':
+                sputnik.push("ses:%s:messages" % c, json.dumps(message))
+
+
+    def get_queryset(self):
+        return self._book.chapter_set.all()
+
+    def get(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.manage_books') and book_security.has_perm('api.list_chapters'):
+            return super(ChapterRetrieveUpdateDestroy, self).get(request, *args, **kwargs)
+
+        raise PermissionDenied
+
+    def put(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.manage_books') and book_security.has_perm('api.update_chapters'):
+            return super(ChapterRetrieveUpdateDestroy, self).put(request, *args, **kwargs)
+
+        raise PermissionDenied
+
+    def patch(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.manage_books') and book_security.has_perm('api.update_chapters'):
+            return super(ChapterRetrieveUpdateDestroy, self).patch(request, *args, **kwargs)
+
+        raise PermissionDenied
+
+    def delete(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.manage_books') and book_security.has_perm('api.delete_chapters'):
+            self._chapter = self.get_object()
+
+            respone = super(ChapterRetrieveUpdateDestroy, self).delete(request, *args, **kwargs)
+
+            if respone.status_code is status.HTTP_204_NO_CONTENT:
+                self._delete_notifications()
+
+                logBookHistory(book=self._book, version=self._book.version,
+                               args={'chapter': self._chapter.title},
+                               user=self.request.user, kind='chapter_delete')
+
+            return respone
+
+        raise PermissionDenied

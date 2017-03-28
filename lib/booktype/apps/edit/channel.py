@@ -1651,7 +1651,7 @@ def remote_create_chapter(request, message, bookid, version):
     # for now, just limit it to 100 characters max
     url_title = url_title[:100]
 
-    # here i should probably set it to default project status
+    # here I should probably set it to default project status
     s = models.BookStatus.objects.filter(book=book).order_by("-weight")[0]
     ch = models.Chapter.objects.filter(
         book=book, version=book_version, url_title=url_title)
