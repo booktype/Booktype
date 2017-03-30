@@ -42,8 +42,9 @@ BOOKTYPE_IMPORTERS = {
     'docx': ('booktype.importer.docx', 'import_docx')
 }
 
+
 # Default styles matched so far. We'll add more in future
-# this constant is used on docimporter.py to correctly
+# these constants are used on docimporter.py to correctly
 # assign classes to imported elements
 DOCX_PARAGRAPH_STYLES_MAP = {
     'AuthorName': 'authorname',
@@ -51,11 +52,40 @@ DOCX_PARAGRAPH_STYLES_MAP = {
     'Citation': 'bk-cite'
 }
 
+# Which elements are considered <h1> style
+H1_STYLES = ['heading1']
+
+# Which elements are considered <h2> style
+H2_STYLES = ['heading2']
+
+# Which elements are considered <h3> style
+H3_STYLES = ['heading3']
+
+# Which elements are considered <h4> style
+H4_STYLES = ['heading4']
+
+# Which elements are considered <h5> style
+H5_STYLES = ['heading5']
+
+# Which elements are considered <h6> style
+H6_STYLES = ['heading6']
+
+# All of our Heading styles
+DOCX_HEADING_STYLES = H1_STYLES + H2_STYLES + H3_STYLES + H4_STYLES + H5_STYLES + H6_STYLES
+
+DOCX_HEADING_STYLES_TUPLE = (
+    ('h1', H1_STYLES),
+    ('h2', H2_STYLES),
+    ('h3', H3_STYLES),
+    ('h4', H4_STYLES),
+    ('h5', H5_STYLES),
+    ('h6', H6_STYLES)
+)
+
 # END IMPORTERS STUFF
 
 # SERVER RELATED
-THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST',
-                                   'booktype-demo.sourcefabric.org')
+THIS_BOOKI_SERVER = os.environ.get('HTTP_HOST', 'booktype-demo.sourcefabric.org')
 
 # ADMINISTRATIVE RELATED
 CREATE_BOOK_VISIBLE = True

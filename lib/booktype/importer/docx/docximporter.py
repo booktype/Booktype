@@ -13,6 +13,7 @@ from django.utils.translation import ugettext as _
 from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
 
+from booktype.utils import config
 from booktype.utils.tidy import tidy_cleanup
 from booktype.utils.misc import booktype_slugify, get_default_book_status
 from booktype.importer.epub.readerplugins import TidyPlugin
@@ -426,16 +427,78 @@ class WordImporter(object):
             if image_name in self.converted_images:
                 _img.set('src', 'static/{}.png'.format(att_name))
 
-    def _parse_chapter(self, content):
-        # TODO: add docstrings and improve logic
+    def _fix_header_levels(self, tree):
+        """
+        Adjusts content header levels when it's not chapter_mode import
+        In chapter_mode we want to keep original header tags
+        """
 
         def _find(tag):
             return tree.xpath('//' + tag)
 
+        if not self.is_chapter_mode:
+            headers = []
+
+            for n in range(5):
+                headers.append(_find('h{}'.format(n + 1)))
+
+            level = 2
+
+            if len(headers[0]) > 1:
+                for header in headers[0][1:]:
+                    header.tag = 'h{}'.format(level)
+                level += 1
+
+            for levels in headers[1:]:
+                has_changed = False
+
+                for header in levels:
+                    header.tag = 'h{}'.format(level)
+
+                if has_changed:
+                    if level < 6:
+                        level += 1
+
+    def _clean_span_tags(self, tree):
+        """
+        After doc serializing a lot of unneccesary span tags are created within
+        the content. They are neccesary at the moment of parsing content but
+        at this point they're just garbage. Let's clean them out
+        """
+
+        for tag in tree.xpath('.//span'):
+            class_name = tag.get('class', None)
+            parent_class = tag.getparent().get('class', '')
+
+            if not class_name or class_name in parent_class:
+                tag.drop_tag()
+
+    def _fix_p_styles(self, tree):
+        """
+        This is just to set adecuate classes to p tags according to current
+        logic in Booktype: p.body-first and p.body
+        """
+
+        P_STYLES = config.get_configuration('DOCX_PARAGRAPH_STYLES_MAP', {})
+        headers = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+
+        for p in tree.xpath(".//p"):
+            # avoid fixing styles for already matched classes
+            if p.get('class', '') in P_STYLES.values():
+                continue
+
+            prev = p.getprevious()
+            if prev is not None and prev.tag in headers:
+                p.set('class', 'body-first')
+            else:
+                p.set('class', 'body')
+
+    def _parse_chapter(self, content):
+        # TODO: add docstrings and improve logic
+
         utf8_parser = html.HTMLParser(encoding='utf-8')
         tree = html.document_fromstring(content, parser=utf8_parser)
 
-        headers = []
         h1_headers = tree.xpath('.//h1')
 
         if h1_headers:
@@ -445,28 +508,18 @@ class WordImporter(object):
                 if h1.text == 'Unknown':
                     h1.text = _('Title')
 
-        for n in range(5):
-            headers.append(_find('h{}'.format(n + 1)))
-
-        level = 2
-
-        if len(headers[0]) > 1:
-            for header in headers[0][1:]:
-                header.tag = 'h{}'.format(level)
-            level += 1
-
-        for levels in headers[1:]:
-            has_changed = False
-
-            for header in levels:
-                header.tag = 'h{}'.format(level)
-
-            if has_changed:
-                if level < 6:
-                    level += 1
+        # organise headers only if not chapter mode import
+        self._fix_header_levels(tree)
 
         # time to adjust the src attribute of images
         self._fix_images_path(tree)
+
+        # let's do some clean out on the not necessary tags,
+        # like span tags with no reason to be
+        self._clean_span_tags(tree)
+
+        # now we need to set body and body-first styles to paragraphs
+        self._fix_p_styles(tree)
 
         has_endnotes = False
         endnotes = None
@@ -519,15 +572,6 @@ class WordImporter(object):
                 # so in this case, we just drop_tag and keep content
                 for x in li.getchildren():
                     x.drop_tag()
-
-        # let's do some clean out on the not necessary tags,
-        # like span tags with no reason to be
-        for tag in tree.xpath('.//span'):
-            class_name = tag.get('class', None)
-            parent_class = tag.getparent().get('class', '')
-
-            if not class_name or class_name in parent_class:
-                tag.drop_tag()
 
         # let's cleanout infoboxes a bit
         # TODO: implement of plugins or something else more organized that separate functions
