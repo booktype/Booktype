@@ -33,11 +33,50 @@ class DocHeaderContext(object, HeaderContext):
           True or False
         """
 
-        # TODO: Define with the team what is header and what is not.
-        # We should have a predefined list of classes or tags that are
-        # considered headers
+        HEADING_STYLES = config.get_configuration('DOCX_HEADING_STYLES', [])
+
+        # Check the defined list of styles
+        if style:
+            if style.style_id.lower() in HEADING_STYLES:
+                return True
+
+        if elem.rpr.get('style', None):
+            for style_key in HEADING_STYLES:
+                if elem.rpr.get('style').lower().replace('-', '').startswith(style_key):
+                    return True
 
         return super(DocHeaderContext, self).is_header(elem, font_size, node, style)
+
+    def get_header(self, elem, style, node):
+        """
+        Returns HTML tag representing specific header for this element.
+
+        :Returns:
+          String representation of HTML tag.
+        """
+
+        STYLES_TUPLE = config.get_configuration('DOCX_HEADING_STYLES_TUPLE')
+
+        if style and not isinstance(style, int):
+            for header_id, header_values in STYLES_TUPLE:
+                if style.style_id.lower().replace('-', '') in header_values:
+                    return header_id
+
+        if elem.rpr.get('style', None):
+            for header_id, header_values in STYLES_TUPLE:
+                for style_key in header_values:
+                    if elem.rpr.get('style').lower().replace('-', '').startswith(style_key):
+                        return header_id
+
+        for e in elem.elements:
+            if hasattr(e, 'rpr'):
+                if e.rpr.get('style', None):
+                    for header_id, header_values in STYLES_TUPLE:
+                        for style_key in header_values:
+                            if e.rpr.get('style').lower().replace('-', '').startswith(style_key):
+                                return header_id
+
+        return super(DocHeaderContext, self).get_header(elem, style, node)
 
 
 def serialize_empty(ctx, document, elem, root):
