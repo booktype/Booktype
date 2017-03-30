@@ -1,44 +1,28 @@
-How to make new CSS files from the templates
-============================================
-
-This folder contains all the CSS files used by Booktype 2.*.
-The colour values have been replaced with placeholders. This
-allows to easily create new colour schemes for a new instance.
-
-The colour placeholders are:
-
-#text-general
-
-This is used for links and headlines.
-
-#button-background-lighter
-#button-background-darker
-
-These two are for backgrounds like buttons and panels. 
-They are also used for transitions in the pulldown menues. 
-If you want no transitions, give both the same value.
-
-#border-verydark
-
-A darkish border used for buttons.
-
-#button-alt-background
-
-There is one alternative background colour, for example
-for the "info" button in the editor screen. 
-
-There are also button background and border colours (see below).
-They allow you to decide if you want a transition gradient
-or flat buttons, also round corners or not.
-
-If you are using a linux system, you can replace these
-placeholders in all CSS files by using the 'sed' command
-inside the CSS folder. Below you can see a list of such
-commands we used to create the orange theme of the current
-Booktype theme.
-
 #!/bin/bash
 #
+
+#How to make new CSS files from the templates
+#============================================
+#
+#This folder contains all the CSS files used by Booktype 2.*.
+#The colour values have been replaced with placeholders. This
+#allows to easily create new colour schemes for a new instance.
+#
+#If you are using a linux system, you can replace these
+#placeholders in all CSS files by using the 'sed' command
+#inside the CSS folder. Below you can see a list of such
+#commands we used to create the orange theme of the current
+#Booktype theme.
+
+
+# Body general
+#
+sed -i 's/#body-bg-color/#ebebeb/g' *.css
+sed -i 's/#nav-top-background-lighter/#333333/g' *.css
+sed -i 's/#nav-top-background-darker/#222222/g' *.css
+sed -i 's/#MSnav-top-background-lighter/#333333/g' *.css
+sed -i 's/#MSnav-top-background-darker/#222222/g' *.css
+
 # Text and link color with dark orange
 sed -i 's/#text-general/#E55B00/g' *.css
 # background and border
@@ -82,3 +66,12 @@ sed -i 's/#MSbtn-info-dark/#ff5bc0de/g' *.css
 
 # button border radius
 sed -i 's/#btn-border-radius-px/0/g' *.css
+
+# Colours on book editor
+sed -i 's/#editor-tab-bg-color/#a1a1a1/g' *.css
+sed -i 's/#editor-formattingbar-bg-color/rgba(245,245,245,0.9)/g' *.css
+sed -i 's/#editor-formattingbar-border-bottom-color/#e0e0e0/g' *.css
+sed -i 's/#editor-formattingbar-border-bottom-px/1/g' *.css
+sed -i 's/#bookbar-bg-color/rgba(223,222,224,0.9)/g' *.css
+sed -i 's/#bookbar-border-bottom-color/#bfbfbf/g' *.css
+sed -i 's/#bookbar-border-bottom-px/1/g' *.css

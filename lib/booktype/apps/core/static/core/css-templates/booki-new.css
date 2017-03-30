@@ -4,17 +4,21 @@ html {
 }
 body {
 	color:#333;
-	background:#ebebeb;
+	background:#body-bg-color;
 	font-size:13px;
 	line-height:145%;
 	padding:0;
 	margin:0;
 	height:99.9%; /* to avoid flickering in chrome because of bs tooltips*/
 }
+/* no outline for any links / buttons */
+a, a:hover, a:focus, a:visited {
+    outline: 0;
+}
 /* font family for all elements */
 body,
 h1,h2,h3,h4,h5,h6,
-p, li, td
+p, li, td 
 {
 	font-family:'Lato','Open Sans',Arial,Helvetica,sans-serif;
 }
@@ -161,13 +165,13 @@ a:focus,a:hover {
 	padding-top:9px
 }
 .navigation-bar {
-	background:#333;
-	background:-moz-linear-gradient(top, #333 0, #222 100%);
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #333), color-stop(100%, #222));
-	background:-webkit-linear-gradient(top, #333 0, #222 100%);
-	background:-o-linear-gradient(top, #333 0, #222 100%);
-	background:-ms-linear-gradient(top, #333 0, #222 100%);
-	background:linear-gradient(to bottom, #333 0, #222 100%);
+	background:#nav-top-background-lighter;
+	background:-moz-linear-gradient(top, #nav-top-background-lighter 0, #nav-top-background-darker 100%);
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #nav-top-background-lighter), color-stop(100%, #nav-top-background-darker));
+	background:-webkit-linear-gradient(top, #nav-top-background-lighter 0, #nav-top-background-darker 100%);
+	background:-o-linear-gradient(top, #nav-top-background-lighter 0, #nav-top-background-darker 100%);
+	background:-ms-linear-gradient(top, #nav-top-background-lighter 0, #nav-top-background-darker 100%);
+	background:linear-gradient(to bottom, #nav-top-background-lighter 0, #nav-top-background-darker 100%);
 	color:#ebebeb;
 	height:40px;
 	padding:0 20px 0 0;
@@ -187,8 +191,8 @@ a:focus,a:hover {
 	right:20px
 }
 .bookbar {
-	background:rgba(223,222,224,0.9);
-	border-bottom:1px solid #bfbfbf;
+	background:#bookbar-bg-color;
+	border-bottom:#bookbar-border-bottom-pxpx solid #bookbar-border-bottom-color;
 	height:60px;
 	padding:0 0 0 20px;
 	-webkit-box-sizing:border-box;
@@ -233,7 +237,8 @@ a:focus,a:hover {
 	border-right:1px solid #bfbfbf
 }
 .bookbar.flat .btn {
-	padding:9px 8px 10px 8px;
+	padding:8px 8px 8px 8px;
+	margin: 0;
 	border-radius:0
 }
 .bookbar.flat .btn-default {
@@ -293,7 +298,7 @@ a:focus,a:hover {
 	background-position:-40px -480px
 }
 .bookbar.flat .btn-primary {
-	background-color:#button-background-lighter;
+	background-color:#btn-primary-light;
 	padding:29px 38px 30px 22px;
 	color:#fff;
 	text-transform:uppercase;
@@ -315,9 +320,9 @@ a:focus,a:hover {
 	margin:0 60px
 }
 .contentHeader {
-	background:rgba(245,245,245,0.9);
+	background:#editor-formattingbar-bg-color;
 	height:55px;
-	border-bottom:1px solid #e0e0e0;
+	border-bottom:#editor-formattingbar-border-bottom-pxpx solid #editor-formattingbar-border-bottom-color;
 	padding:8px 20px;
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
@@ -537,7 +542,7 @@ a:focus,a:hover {
 	top:155px;
 	bottom:0;
 	z-index:20;
-	background:#a1a1a1;
+	background:#editor-tab-bg-color;
 	overflow:hidden;
 	-webkit-box-shadow:inset 8px 0 6px -8px rgba(0,0,0,0.8);
 	-moz-box-shadow:inset 8px 0 6px -8px rgba(0,0,0,0.8);
@@ -1593,7 +1598,7 @@ li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
 	box-shadow:0 0 3px #a0a0a0
 }
 .uploads-grid li.active {
-	background:#button-background-lighter;
+	background:#btn-primary-light;
 	border-color:#55398a;
 	cursor:pointer;
 	-webkit-box-shadow:0 0 3px #a0a0a0;
@@ -1741,7 +1746,7 @@ li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
 	margin:0 320px 0 0
 }
 .image-dropdown-button {
-	background-color:#button-background-lighter;
+	background-color:#btn-primary-light;
 	border-style:solid;
 	border-color:#fff;
 	border-width:2px 2px 0 0;
@@ -2672,7 +2677,7 @@ h2 .btn-toolbar+.view_all {
 	right:100px
 }
 .profile-box {
-	background-color:#button-background-lighter;
+	background-color:#btn-primary-light;
 	min-height:242px !important
 }
 .profile-box h2 {
@@ -2730,7 +2735,7 @@ dd input,dt input,dd textarea,dt textarea {
 	background-color:#fff !important
 }
 .box.purple {
-	background-color:#button-background-lighter !important
+	background-color:#btn-primary-light !important
 }
 .box.black {
 	background-color:#464646 !important
@@ -3214,7 +3219,7 @@ textarea.form-control {
 	font-weight:bold
 }
 .wizard>.steps .current a .number {
-	background:#button-background-lighter;
+	background:#btn-primary-light;
 	color:#fff;
 	height:45px
 }
@@ -3245,7 +3250,7 @@ textarea.form-control {
 	cursor:default
 }
 .wizard>.steps .current a,.wizard>.steps .current a:hover,.wizard>.steps .current a:active {
-	color:#button-background-lighter;
+	color:#btn-primary-light;
 	cursor:default;
 	font-weight:bold
 }
@@ -3582,7 +3587,7 @@ textarea.form-control {
 	font-family:Arial,sans-serif;
 	font-style:italic;
 	line-height:20px;
-	background:#button-background-lighter;
+	background:#btn-primary-light;
 	padding:15px 20px;
 	color:#fff;
 	margin:-20px -20px 20px -20px
@@ -3857,11 +3862,11 @@ footer {
 	line-height:140%
 }
 .publish_history .export-item .export-name:hover {
-	border-bottom:1px dotted #button-background-lighter;
+	border-bottom:1px dotted #btn-primary-light;
 	margin-bottom:3px
 }
 .publish_history .export-item .export-name:focus {
-	border-bottom:1px dotted #button-background-lighter;
+	border-bottom:1px dotted #btn-primary-light;
 	margin-bottom:3px;
 	outline:0
 }
