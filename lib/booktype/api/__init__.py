@@ -10,6 +10,10 @@ PERMISSIONS = {
         ('review_api_docs', _('Can Review API docs')),
         ('manage_users', _('Manage users')),
         ('manage_books', _('Manage Books')),
-        ('manage_languages', _('Manage Languages'))
+        ('manage_languages', _('Manage Languages')),
+        ('list_chapters', _('List Chapters')),
+        ('create_chapters', _('Create Chapters')),
+        ('update_chapters', _('Update Chapters')),
+        ('delete_chapters', _('Delete Chapters')),
     ]
 }
