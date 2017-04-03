@@ -252,14 +252,14 @@ class WordImporter(object):
                 else:
                     break
 
-            if chapter_content[12:-14].strip() == '':
+            if chapter_content[6:-8].strip() == '':
                 continue
 
             _content = self._parse_chapter(chapter_content)
             try:
-                chapter_content = unidecode(_content)[12:-14]
+                chapter_content = unidecode(_content)[6:-8]
             except UnicodeDecodeError:
-                chapter_content = _content.decode('utf-8', errors='ignore')[12:-14]
+                chapter_content = _content.decode('utf-8', errors='ignore')[6:-8]
             except Exception as err:
                 chapter_content = 'Error parsing chapter content'
                 logger.exception("Error while decoding chapter content {0}".format(err))
@@ -339,9 +339,9 @@ class WordImporter(object):
 
         _content = self._parse_chapter(content)
         try:
-            chapter_content = unidecode(_content)[12:-14]  # 12:-14 to remove html and body tag
+            chapter_content = unidecode(_content)[6:-8]  # 6:-8 cause _parse_chapter returns from body tag as root
         except UnicodeDecodeError:
-            chapter_content = _content.decode('utf-8', errors='ignore')[12:-14]
+            chapter_content = _content.decode('utf-8', errors='ignore')[6:-8]
         except Exception as err:
             self.notifier.errors("Error while decoding chapter content {0}".format(err))
             return
@@ -578,4 +578,4 @@ class WordImporter(object):
         docutils.clean_infobox_content(tree)
         docutils.fix_citations(tree)
 
-        return etree.tostring(tree, encoding='utf-8', xml_declaration=False)
+        return etree.tostring(tree.find('body'), encoding='utf-8', xml_declaration=False)
