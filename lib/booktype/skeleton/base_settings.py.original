@@ -375,6 +375,14 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 #     }
 # }
 
+# This constant will be loaded into publish screen and passed to
+# converter settings (pdfreactor only for now)
+# Uncomment this (and adjust) if you want to enable icc profile selection
+# ICC_PROFILES_CHOICES = (
+#     ('https://example.com/myicc-profile.icc', 'My ICC Profile'),
+#     ('https://example.com/myicc-profile-2.icc', 'Second Profile'),
+# )
+
 _ADDITIONAL_METADATA = [
     ('edited_by', {
         'TYPE': 'CharField',
