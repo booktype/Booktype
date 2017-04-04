@@ -465,6 +465,7 @@ class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
         context['is_admin'] = self.security.is_admin()
         context['is_owner'] = book.owner == self.request.user
         context['publish_options'] = config.get_configuration('PUBLISH_OPTIONS')
+        context['icc_profiles_choices'] = config.get_configuration('ICC_PROFILES_CHOICES', None)
 
         context['autosave'] = json.dumps({
             'enabled': config.get_configuration('EDITOR_AUTOSAVE_ENABLED'),
