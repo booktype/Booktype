@@ -390,8 +390,8 @@ a:focus,a:hover {
 	display:block;
 	margin-top:4px;
 	float:left;
-	border-left:1px solid #333;
-	border-right:1px solid #222
+	border-left:0px solid #333;
+	border-right:0px solid #222
 }
 .collapse-navigation a {
 	padding:4px 6px;
@@ -571,10 +571,11 @@ a:focus,a:hover {
 	margin-bottom:0;
 	margin-right:0;
 	border:1px solid #7c7c7c;
-	border-width:0 0 1px 0 !important
+	border-width:0 0 1px 0 !important;
+	background-color: transparent;
 }
 .tablist .navigation-tabs li a:hover {
-	background-color:#f5f5f5
+	background-color:#f5f5f5;
 }
 .tablist .navigation-tabs li a i[class^="big-icon-"] {
 	margin:8px 0 0 5px
@@ -618,10 +619,11 @@ a:focus,a:hover {
 	background-position:0 -565px
 }
 .tablist .navigation-tabs li.active a {
-	background-color:#f5f5f5
+	background-color:#f5f5f5;
 }
 .tablist .navigation-tabs li.active a#hold-tab {
-	background-color:#fff5f5
+	background-color:#fff5f5;
+	background-color:#f5f5f5;
 }
 .tablist .navigation-tabs li.active .label {
 	display:none
@@ -1268,6 +1270,11 @@ li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
 }
 .book-versions .all {
 	margin-top:30px
+}
+/* icons in table of content */
+a.edit-by,
+a.terminate-edit-chapter {
+    color: #ffffff;
 }
 .sortable li div .toc-chapter-detail {
 	display:none;
