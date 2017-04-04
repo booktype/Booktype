@@ -1,11 +1,15 @@
-from django.test import TestCase
+from rest_framework import status
+
 from django.core.urlresolvers import reverse
 
-from booktype.apps.core.tests.factory_models import UserFactory, BookFactory
+from booktype.tests import TestCase
+from booktype.tests.factory_models import UserFactory, BookFactory
 
 
-class GrouppageTest(TestCase):
+class GroupDetailTest(TestCase):
     def setUp(self):
+        super(GroupDetailTest, self).setUp()
+
         self.user = UserFactory()
 
         # setup for books
@@ -23,18 +27,9 @@ class GrouppageTest(TestCase):
     def test_accounts(self):
         self.dispatcher = reverse('portal:group', kwargs={'groupid': self.bookGroup.url_name})
         response = self.client.get(self.dispatcher)
-        self.assertEquals(response.status_code, 403)
-
-        # This is temporary. We should test this logic in new tests
-        # self.assertEquals(response.context['title'], 'Group used')
+        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_group(self):
         self.dispatcher = reverse('portal:group', kwargs={'groupid': self.bookGroup.url_name})
         response = self.client.get(self.dispatcher)
-        self.assertEquals(response.status_code, 403)
-
-        # This is temporary. We should test this logic in new tests
-        # self.assertContains(response, self.bookGroup.name)
-        # self.assertContains(response, self.bookGroup.description)
-        # self.assertContains(response, 'Members: 1')
-        # self.assertContains(response, 'Books: ')
+        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN)

@@ -1,5 +1,7 @@
-from django.test import TestCase
 import sputnik
+
+from django.test import TestCase
+
 
 class SetGetTest(TestCase):
     INT_VALUE = 12345
@@ -25,4 +27,3 @@ class SetGetTest(TestCase):
 
     def test_set_float(self):
         self._test_for(self.FLOAT_VALUE, float)
-

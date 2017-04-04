@@ -1,0 +1,18 @@
+[pytest]
+norecursedirs = .git conf data .env venv .64env logs tmp
+python_files = tests.py test_*.py functest_*.py
+django_find_project = false
+
+; http://pytest-django.readthedocs.io/en/latest/database.html#reuse-db-reuse-the-testing-database-between-test-runs
+addopts = --reuse-db --migrations
+
+DJANGO_SETTINGS_MODULE = ##SETTINGS##
+
+testpaths =
+    ##DESTINATION_PATH##
+    ##DESTINATION_PATH##/lib
+    ##BOOKTYPE_PATH##
+python_paths =
+    ##DESTINATION_PATH##
+    ##DESTINATION_PATH##/lib
+    ##BOOKTYPE_PATH##
