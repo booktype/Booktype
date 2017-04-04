@@ -14,12 +14,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Booktype.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.test import TestCase
+from rest_framework import status
+
 from django.core.urlresolvers import reverse
 
-from booktype.apps.core.tests.factory_models import UserFactory, BookFactory, BookVersionFactory
-from booktype.apps.core.tests.factory_models import ChapterFactory, BookHistoryFactory
-from booktype.apps.core.tests.factory_models import PLAIN_USER_PASSWORD
+from booktype.tests import TestCase
+from booktype.tests.factory_models import (UserFactory, BookFactory, BookVersionFactory, ChapterFactory,
+                                           BookHistoryFactory, PLAIN_USER_PASSWORD)
+
 
 class DashboardTest(TestCase):
     """
@@ -27,11 +29,13 @@ class DashboardTest(TestCase):
     """
 
     def setUp(self):
+        super(DashboardTest, self).setUp()
+
         self.book = BookFactory()
-        self.book.version = BookVersionFactory(book=self.book) # TODO: improve this
+        self.book.version = BookVersionFactory(book=self.book)  # TODO: improve this
         self.book.save()
         self.user_1 = self.book.owner
-        
+
         # need two users to be able to test collaboration within a book
         self.user_2 = UserFactory()
 
@@ -66,17 +70,7 @@ class DashboardTest(TestCase):
 
     def test_as_anonymous(self):
         response = self.client.get(self.dispatcher)
-
-        # response status code should be 403
-        self.assertEquals(response.status_code, 403)
-
-        # This is temporary. We should test this logic in new tests
-        # page title should be "User profile"
-        #self.assertContains(response, 'User profile')
-        # create button shouldn't be available
-        #self.assertNotContains(response, 'Create new book')
-        # as anonymous, check basic details
-        #self._test_base_details(response)
+        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_as_account_owner(self):
         self.client.login(
@@ -93,11 +87,11 @@ class DashboardTest(TestCase):
 
         # response should contain next things
         self.assertContains(response, 'My Dashboard')
-        self.assertContains(response, 'Create new book')
-        self.assertContains(response, 'Go to settings')
         self.assertContains(response, 'Log out')
-        self.assertContains(response, 'Import Book')
         self.assertContains(response, 'Participating Books')
+        self.assertContains(response, '#createBookModal')
+        self.assertContains(response, '#importBookModal')
+        self.assertContains(response, 'id="user-settings"')
 
         # this user is collaborating with other books
         self.assertTrue(len(context['books_collaborating']) >= 1)
@@ -113,21 +107,5 @@ class DashboardTest(TestCase):
         )
 
         response = self.client.get(self.dispatcher)
-
-        # response status code should be 403
-        self.assertEquals(response.status_code, 403)
-
-        # This is temporary. We should test this logic in new tests
-        # context = response.context
-        # # as authenticated user, test basic details
-        # self._test_base_details(response)
-        # # response should contain next things
-        # self.assertContains(response, 'FOLLOW ME')
-        # # response shouldn't contain
-        # self.assertNotContains(response, 'Go to settings')
-        # self.assertNotContains(response, 'Create new book')
-        # self.assertNotContains(response, 'Log out')
-        # # this user has created one book and one group at least
-        # self.assertTrue(len(context['books']) >= 1)
-        # self.assertTrue(self.book in context['books'])
-        # self.assertTrue(len(context['groups']) >= 1)
+        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN
+                          )

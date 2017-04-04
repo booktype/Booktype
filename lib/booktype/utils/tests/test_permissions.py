@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.test import TestCase
+from booktype.tests import TestCase
 from booktype.utils import permissions
 from booktype.apps.core.models import Permission
 

@@ -3,7 +3,7 @@ import importlib
 from booktype.apps.core.models import Permission
 
 
-def create_permissions(app_name, app_perms):
+def create_permissions(app_name, app_perms, stdout=True):
     """
     Creates or updates the permissions given as parameter into
     Booktype Permissions model
@@ -23,7 +23,8 @@ def create_permissions(app_name, app_perms):
         return created_perms
 
     if len(permissions) > 0:
-        print "Updating permissions for %s" % app_name
+        if stdout:
+            print "Updating permissions for %s" % app_name
 
     for codename, description in permissions:
         perm, _ = Permission.objects.get_or_create(
@@ -33,8 +34,9 @@ def create_permissions(app_name, app_perms):
         perm.description = unicode(description)
         perm.save()
         created_perms.append(perm)
-        print "\t- saving %s.%s permission".expandtabs(4) \
-            % (perms_app_name, codename)
+        if stdout:
+            print "\t- saving %s.%s permission".expandtabs(4) \
+                % (perms_app_name, codename)
 
     return created_perms
 

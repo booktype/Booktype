@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import mock
-from django.test import TestCase
-from booktype.apps.core.tests import factory_models
 
+from booktype.tests import TestCase
+from booktype.tests.factory_models import (UserFactory, PermissionFactory, BookRoleFactory, BookFactory, RoleFactory,
+                                           BookGroupFactory)
 from booktype.utils import security
 
 # permissions constants
@@ -19,17 +20,17 @@ class SecurityUtilsTestCase(TestCase):
         """
         Sets common attributes for test cases
         """
-        self.superuser = factory_models.UserFactory(is_superuser=True)
-        self.user = factory_models.UserFactory()
+        self.superuser = UserFactory(is_superuser=True)
+        self.user = UserFactory()
 
         # create a permission in DB
-        self.can_test_permission = factory_models.PermissionFactory(
+        self.can_test_permission = PermissionFactory(
             app_name=APP_NAME,
             name=CODE_NAME
         )
 
         # create role with permission
-        self.bookrole = factory_models.BookRoleFactory()
+        self.bookrole = BookRoleFactory()
         self.role = self.bookrole.role
         self.role.permissions.add(self.can_test_permission)
 
@@ -49,7 +50,7 @@ class SecurityUtilsTestCase(TestCase):
     def test_has_perm_for_book(self):
         # let's create a book and set it to the role
         # so we can scope permissions just for that book
-        book = factory_models.BookFactory()
+        book = BookFactory()
         self.bookrole.book = book
 
         # also put user as member of that role
@@ -67,7 +68,7 @@ class SecurityUtilsTestCase(TestCase):
     def test_user_security_not_admin(self):
         # let's create a book and set it to the role
         # so we can scope permissions just for that book
-        book = factory_models.BookFactory()
+        book = BookFactory()
         self.bookrole.book = book
 
         # also put user as member of that role
@@ -81,7 +82,7 @@ class SecurityUtilsTestCase(TestCase):
     def test_user_security_is_admin(self):
         # let's create a book and set it to the role
         # so we can scope permissions just for that book
-        book = factory_models.BookFactory()
+        book = BookFactory()
         self.bookrole.book = book
 
         # also put user as member of that role
@@ -95,7 +96,7 @@ class SecurityUtilsTestCase(TestCase):
     def test_user_security_is_bookowner(self):
         # let's create a book and set it to the role
         # so we can scope permissions just for that book
-        book = factory_models.BookFactory(owner=self.user)
+        book = BookFactory(owner=self.user)
 
         sec = security.get_security_for_book(self.user, book)
 
@@ -104,7 +105,7 @@ class SecurityUtilsTestCase(TestCase):
     def test_user_security_is_not_bookowner(self):
         # let's create a book and set it to the role
         # so we can scope permissions just for that book
-        book = factory_models.BookFactory(owner=self.superuser)
+        book = BookFactory(owner=self.superuser)
 
         sec = security.get_security_for_book(self.user, book)
 
@@ -136,16 +137,16 @@ class SecurityClassTestCase(TestCase):
         """
         Sets common attributes for test cases
         """
-        self.superuser = factory_models.UserFactory(is_superuser=True)
-        self.user = factory_models.UserFactory()
-        self.staffuser = factory_models.UserFactory(is_staff=True)
+        self.superuser = UserFactory(is_superuser=True)
+        self.user = UserFactory()
+        self.staffuser = UserFactory(is_staff=True)
 
         # create a permission in DB
-        self.can_test_permission = factory_models.PermissionFactory(app_name=APP_NAME,
-                                                                    name=CODE_NAME)
+        self.can_test_permission = PermissionFactory(app_name=APP_NAME,
+                                                     name=CODE_NAME)
 
         # create role with permission
-        self.bookrole = factory_models.BookRoleFactory()
+        self.bookrole = BookRoleFactory()
         self.role = self.bookrole.role
         self.role.permissions.add(self.can_test_permission)
 
@@ -153,10 +154,10 @@ class SecurityClassTestCase(TestCase):
         self.user.roles.add(self.bookrole)
 
         # create role "registered_user"
-        self.role_registered_user = factory_models.RoleFactory()
+        self.role_registered_user = RoleFactory()
         # create "content.register" permission
-        self.can_content_register_permission = factory_models.PermissionFactory(app_name="content",
-                                                                                name="register")
+        self.can_content_register_permission = PermissionFactory(app_name="content",
+                                                                 name="register")
         # add permission to role
         self.role_registered_user.permissions.add(self.can_content_register_permission)
 
@@ -305,7 +306,7 @@ class GroupSecurityClassTestCase(SecurityClassTestCase):
         """
         super(GroupSecurityClassTestCase, self).setUp()
 
-        self.group = factory_models.BookGroupFactory()
+        self.group = BookGroupFactory()
         self.group.owner = self.user
 
     def test_is_group_admin(self):
