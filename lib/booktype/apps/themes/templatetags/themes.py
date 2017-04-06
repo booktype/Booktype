@@ -25,8 +25,8 @@ def list_themes():
     return {'themes': themes}
 
 
-@register.inclusion_tag('themes/options.html')
-def list_theme_options():
+@register.inclusion_tag('themes/options.html', takes_context=True)
+def list_theme_options(context):
     options = []
 
     for theme in os.listdir('{}/themes/'.format(settings.BOOKTYPE_ROOT)):
@@ -37,7 +37,7 @@ def list_theme_options():
                 f.close()
 
                 t = Template(unicode(s, 'utf8'))
-                c = Context({})
+                c = Context(context)
 
                 content = t.render(c)
 
