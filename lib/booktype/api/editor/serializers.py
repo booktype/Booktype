@@ -18,14 +18,13 @@ import sputnik
 from booktype.importer import utils as importer_utils
 from booktype.importer.delegate import Delegate
 from booktype.importer.notifier import CollectNotifier
-from booki.utils.log import logBookHistory, logChapterHistory
-
-from booki.editor.models import Book, BookToc, Language, Chapter, BookStatus
+from booktype.apps.account import utils as account_utils
 from booktype.utils.book import create_book
-from booktype.apps.core.models import BookRole
 from booktype.utils.misc import booktype_slugify
+from booki.utils.log import logBookHistory, logChapterHistory
+from booki.editor.models import Book, BookToc, Language, Chapter, BookStatus
 
-from ..account.serializers import SimpleUserSerializer
+from ..core.serializers import SimpleBookRoleSerializer
 
 
 class LanguageSerializer(serializers.HyperlinkedModelSerializer):
@@ -171,16 +170,6 @@ class BookCreateSerializer(BookSerializer):
             raise serializers.ValidationError("Error while retrieving the file {}".format(err))
 
         return book_file
-
-
-class BookRoleSerializer(serializers.HyperlinkedModelSerializer):
-    name = serializers.CharField(source='role.name', read_only=True)
-    members = SimpleUserSerializer(many=True)
-
-    class Meta:
-        model = BookRole
-        fields = ['id', 'name', 'members']
-        depth = 1
 
 
 class ChapterListCreateSerializer(serializers.ModelSerializer):
@@ -356,3 +345,29 @@ class ChapterRetrieveUpdateDestroySerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Not valid json: {}".format(e))
 
         return content_json
+
+
+class BookUserListSerializer(serializers.ModelSerializer):
+    book_roles = serializers.SerializerMethodField()
+    profile_image_url = serializers.SerializerMethodField()
+    profile_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = (
+            'id', 'url', 'username', 'email', 'first_name', 'last_name', 'profile_url',
+            'profile_image_url', 'get_full_name', 'book_roles'
+        )
+
+    def get_book_roles(self, obj):
+        book_roles = []
+        for role in obj.roles.filter(book=self.context['view']._book):
+            book_roles.append(SimpleBookRoleSerializer(role).data)
+
+        return book_roles
+
+    def get_profile_image_url(self, obj):
+        return account_utils.get_profile_image(obj)
+
+    def get_profile_url(self, obj):
+        return reverse('accounts:view_profile', args=[obj.username])

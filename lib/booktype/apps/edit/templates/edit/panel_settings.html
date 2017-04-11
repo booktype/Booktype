@@ -90,3 +90,72 @@
         <%= message %>
     </div>
 </script>
+
+
+<script type="text/template" class="templateRolesTable">
+  <h4>
+    {% trans "Roles" %}
+  </h4>
+  <div class="roles">
+    <table class="table table-condensed table-striped">
+      <%= rows %>
+    </table>
+  </div>
+</script>
+
+<script type="text/template" class="templateRolesTableRow">
+  <tr class="active">
+    <td class="list user-avatar circle">
+      <figure>
+        <img src="<%= profile_image_url %>">
+      </figure>
+      <div class="list-info">
+        <h4><a target="_blank" href="<%= profile_url %>"><%= username %></a></h4>
+        <p><%= get_full_name %></p>
+      </div>
+    </td>
+    <td>
+      <div class="list-roles pull-left">
+       <%= book_roles %>
+      </div>
+    </td>
+    <td>
+      <div class="change-btn pull-right">
+        <button href="#changeRoles" data-toggle="modal" class="btn btn-default btn-sm" data-user-id="<%= user_id %>">
+          <i class="icon-edit"></i>{% trans "CHANGE" %}
+        </button>
+      </div>
+    </td>
+  </tr>
+</script>
+
+
+<script type="text/template" class="templateRolesNoUsers">
+  <h4>
+    {% trans "Roles" %}
+  </h4>
+  <div class="roles">
+    {% trans "This book doesn't contain invited people. Please invite people in your " %}
+    <a target="_blank" href="{% url "accounts:view_profile" request.user.username %}">{% trans "dashboard" %}</a>.
+  </div>
+</script>
+
+<div id="changeRoles" class="modal changeRoles fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>{% trans "Change roles for " %}<span></span></h3>
+      </div>
+      <div class="modal-body">
+        <div class="roles-options"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" aria-hidden="true" id="modal-close">
+          {% trans "Close" %}
+        </button>
+        <button id="saveChangeRole" class="btn btn-primary disabled">{% trans "Save" %}</button>
+      </div>
+    </div>
+  </div>
+</div>

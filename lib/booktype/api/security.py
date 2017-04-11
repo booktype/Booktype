@@ -4,7 +4,40 @@ from rest_framework.permissions import BasePermission
 from booktype.utils import security
 
 
-class WhitelistIPPermission(BasePermission):
+class BaseBooktypePermission(BasePermission):
+    """
+    Base permission class for using with rest_framework.viewsets
+    """
+
+    def get_required_perms(self, view):
+        """
+        Return a list of required permissions to execute current action.
+        `required_perms` property can be defined in 2 ways:
+         - as list: `required_perms = ['app.permission']`
+         - as dict: `required_perms = {
+                        'default': ['app.permission'],
+                        'list': ['app.can_list'],
+                        'action_something': ['app.can_do_something']
+                    }`
+        
+        :param view: rest_framework.viewsets instance
+        :return: list of required permissions
+        """
+
+        required_perms = getattr(view, 'required_perms', [])
+
+        if required_perms.__class__ is list:
+            return required_perms
+        elif required_perms.__class__ is dict:
+            if view.action in required_perms:
+                return required_perms[view.action]
+            else:
+                return required_perms['default']
+        else:
+            raise Exception('"required_perms" property has wrong value.')
+
+
+class WhitelistIPPermission(BaseBooktypePermission):
     """
     Permission class to check if REMOTE_ADDR which requesting an API resource
     is allowed under a 'white' list of IP. The list will be pulled from django settings
@@ -22,15 +55,16 @@ class WhitelistIPPermission(BasePermission):
         return ip_addr in whitelist
 
 
-class BooktypeSecurity(BasePermission):
+class BooktypeSecurity(BaseBooktypePermission):
     """Basic security module to use custom booktype permissions"""
 
     def has_permission(self, request, view):
         """Takes the list of required permissions from the view and
         check if user has them all"""
 
-        required_perms = getattr(view, 'required_perms', [])
-        if len(required_perms) == 0:
+        required_perms = self.get_required_perms(view)
+
+        if not required_perms:
             return True
 
         user_security = security.get_security(request.user)
@@ -39,7 +73,24 @@ class BooktypeSecurity(BasePermission):
         return all(perms_list)
 
 
-class IsAdminOrIsSelf(BasePermission):
+class BooktypeBookSecurity(BaseBooktypePermission):
+    """Basic book security module to use custom booktype permissions"""
+
+    def has_object_permission(self, request, view, obj):
+        """Takes the list of required permissions from the view and
+        check if user has them all"""
+
+        required_perms = self.get_required_perms(view)
+        if not required_perms:
+            return True
+
+        book_security = security.get_security_for_book(request.user, obj)
+        perms_list = [book_security.has_perm(x) for x in required_perms]
+
+        return all(perms_list)
+
+
+class IsAdminOrIsSelf(BaseBooktypePermission):
     """
     Object-level permission to only allow superuser or user is same object
     """
@@ -51,7 +102,7 @@ class IsAdminOrIsSelf(BasePermission):
         return False
 
 
-class IsAdminOrBookOwner(BasePermission):
+class IsAdminOrBookOwner(BaseBooktypePermission):
     """
     Object-level permission to only allow superuser and user is book owner
     """
