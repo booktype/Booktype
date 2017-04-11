@@ -1,5 +1,7 @@
 import django_filters
 
+from django.contrib.auth.models import User
+
 from booki.editor.models import Chapter
 
 
@@ -25,3 +27,14 @@ class ChapterFilter(django_filters.FilterSet):
         model = Chapter
         fields = ('version', 'book', 'url_title', 'title', 'status', 'to_created', 'from_created', 'to_modified',
                   'from_modified', 'max_revision', 'min_revision', 'content', 'content_json')
+
+
+class BookUserListFilter(django_filters.FilterSet):
+    username = django_filters.CharFilter(name='username', lookup_expr='icontains')
+    first_name = django_filters.CharFilter(name='first_name', lookup_expr='icontains')
+    last_name = django_filters.CharFilter(name='last_name', lookup_expr='icontains')
+    email = django_filters.CharFilter(name='email', lookup_expr='icontains')
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email')

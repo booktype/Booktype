@@ -11,9 +11,15 @@ PERMISSIONS = {
         ('manage_users', _('Manage users')),
         ('manage_books', _('Manage Books')),
         ('manage_languages', _('Manage Languages')),
+        # chapters
         ('list_chapters', _('List Chapters')),
         ('create_chapters', _('Create Chapters')),
         ('update_chapters', _('Update Chapters')),
         ('delete_chapters', _('Delete Chapters')),
+        # roles
+        ('list_roles', _('List Roles')),
+        ('create_roles', _('Create Roles')),
+        ('update_roles', _('Update Roles')),
+        ('delete_roles', _('Delete Roles')),
     ]
 }

@@ -2011,6 +2011,15 @@ li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
 	left:0;
 	right:0
 }
+.changeRoles .modal-dialog .modal-content .modal-body .roles-options button {
+	margin-right:4px;
+	margin-bottom:14px
+}
+.changeRoles .modal-dialog .modal-content .modal-body span.label-info {
+	display: inline-block;
+	margin-right: 1px;
+	margin-bottom: 1px;
+}
 .assignUsers {
 	position:fixed;
 	width:auto;
@@ -3711,21 +3720,33 @@ footer {
 .content.settings .roles .list {
 	margin-bottom:0
 }
+.content.settings .roles .list-roles .label {
+	display: inline-block;
+	margin-right: 1px;
+}
+.content.settings .roles .list-roles a.btn {
+	margin-right: 2px;
+	margin-bottom: 2px;
+}
+.content.settings .roles .list-roles .label:hover {
+	cursor: pointer;
+}
+.content.settings .roles .list table tr td:last-child {
+	white-space: nowrap;
+	width: 1px;
+}
 .content.settings .roles .list li {
 	padding:10px 10px 8px 10px;
 	overflow:hidden
 }
-.content.settings .roles .list li .remove-btn {
+.content.settings .roles .list li .change-btn {
 	position:absolute;
 	top:16px;
 	right:12px;
-	display:none
+	display:block;
 }
 .content.settings .roles .list li:hover {
 	background:#f2f2f2
-}
-.content.settings .roles .list li.show-remove-btn .remove-btn {
-	display:block
 }
 .content.settings .roles .list figure {
 	width:36px

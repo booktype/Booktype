@@ -6,7 +6,7 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
-from rest_framework.exceptions import NotFound, PermissionDenied
+from rest_framework.exceptions import NotFound, PermissionDenied, ValidationError
 
 import sputnik
 from django.contrib.auth.models import User
@@ -18,9 +18,11 @@ from booki.utils.log import logBookHistory
 from booktype.utils.security import BookSecurity
 
 from . import serializers
+from .filters import ChapterFilter, BookUserListFilter
+
 from ..views import BooktypeViewSetMixin
-from ..filters import ChapterFilter
-from ..security import IsAdminOrBookOwner, BooktypeSecurity
+from ..security import IsAdminOrBookOwner, BooktypeBookSecurity
+from ..core.serializers import BookRoleSerializer
 
 
 class LanguageViewSet(
@@ -67,7 +69,12 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
     Allows deleting a book from the system
     """
 
-    required_perms = ['api.manage_books']
+    required_perms = {
+        'default': ['api.manage_books'],
+        'grant_user': ['core.manage_roles'],
+        'grant_user_multi': ['core.manage_roles'],
+        'remove_grant_user_multi': ['core.manage_roles'],
+    }
     queryset = Book.objects.all().order_by('-created')
 
     serializer_class = serializers.BookSerializer
@@ -79,7 +86,7 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ['owner_id', 'language_id']
 
-    @detail_route(url_path='users-by-role', permission_classes=[IsAdminOrBookOwner, BooktypeSecurity])
+    @detail_route(url_path='users-by-role', permission_classes=[IsAdminOrBookOwner, BooktypeBookSecurity])
     def users_by_role(self, request, pk=None):
         """
         Returns a list of all roles in the current book with the members assigned
@@ -102,7 +109,7 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
 
     @detail_route(
         methods=['post'], url_path='grant-user',
-        permission_classes=[IsAdminOrBookOwner, BooktypeSecurity])
+        permission_classes=[IsAdminOrBookOwner, BooktypeBookSecurity])
     def grant_user(self, request, pk=None):
         """
         Grants a given user to be part of certain given role name under the
@@ -131,9 +138,102 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
             role=role, book=book)
         book_role.members.add(user)
 
-        serializer = serializers.BookRoleSerializer(
-            book_role, context={'request': request})
+        serializer = BookRoleSerializer(book_role, context={'request': request})
         return Response(serializer.data)
+
+    @detail_route(
+        methods=['post'], url_path='grant-user/multi',
+        permission_classes=[BooktypeBookSecurity])
+    def grant_user_multi(self, request, pk=None):
+        """
+        Grants a given user to be part of given role names under the
+        current book
+
+        parameters:
+            -   name: role_names
+                required: true
+                type: Unique role names array to be granted
+            -   name: user_id
+                required: true
+        """
+
+        role_names = request.data.getlist('role_names[]')
+
+        if not role_names:
+            raise ValidationError({'role_names': ['Not valid array']})
+
+        book = self.get_object()
+
+        try:
+            user = User.objects.get(id=request.data['user_id'])
+        except User.DoesNotExist:
+            raise ValidationError({'user_id': ['User not found']})
+
+        response_data = []
+        for role_name in role_names:
+            try:
+                role = Role.objects.get(name=role_name)
+            except Role.DoesNotExist:
+                raise ValidationError(
+                    {'role_names': ['Role with name "{}" not found'.format(role_name)]}
+                )
+
+            book_role, _ = BookRole.objects.get_or_create(
+                role=role, book=book)
+            book_role.members.add(user)
+
+            serializer = BookRoleSerializer(book_role, context={'request': request})
+            response_data.append(serializer.data)
+
+        return Response(response_data)
+
+    @detail_route(
+        methods=['post'], url_path='remove-grant-user/multi',
+        permission_classes=[BooktypeBookSecurity])
+    def remove_grant_user_multi(self, request, pk=None):
+        """
+        Remove given roles from the user
+        current book
+
+        parameters:
+            -   name: role_names
+                required: true
+                type: Unique role names array to be granted
+            -   name: user_id
+                required: true
+        """
+
+        role_names = request.data.getlist('role_names[]')
+
+        if not role_names:
+            raise ValidationError({'role_names': ['Not valid array']})
+
+        book = self.get_object()
+
+        try:
+            user = User.objects.get(id=request.data['user_id'])
+        except User.DoesNotExist:
+            raise ValidationError({'user_id': ['User not found']})
+
+        response_data = {'removed': []}
+        for role_name in role_names:
+            try:
+                role = Role.objects.get(name=role_name)
+            except Role.DoesNotExist:
+                raise ValidationError(
+                    {'role_names': ['Role with name "{}" not found'.format(role_name)]}
+                )
+
+            try:
+                book_role = BookRole.objects.get(
+                    role=role, book=book)
+            except BookRole.DoesNotExist:
+                continue
+
+            book_role.members.remove(user)
+            response_data['removed'].append(role.name)
+
+        return Response(response_data)
 
 
 class ChapterListCreate(generics.ListCreateAPIView):
@@ -293,5 +393,40 @@ class ChapterRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
                                user=self.request.user, kind='chapter_delete')
 
             return respone
+
+        raise PermissionDenied
+
+
+class BookUserList(generics.ListAPIView):
+    """
+    API endpoint that lists users of a specific book.
+    """
+
+    model = User
+    serializer_class = serializers.BookUserListSerializer
+    filter_class = BookUserListFilter
+
+    def __init__(self):
+        super(BookUserList, self).__init__()
+        self._book = None
+
+    def _get_book(self):
+        try:
+            self._book = Book.objects.get(id=self.kwargs.get('pk', None))
+        except Book.DoesNotExist:
+            raise NotFound
+
+        return self._book
+
+    def get_queryset(self):
+        member_ids = [i[0] for i in BookRole.objects.filter(book=self._book).values_list('members')]
+
+        return User.objects.filter(id__in=member_ids).order_by('username')
+
+    def get(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.manage_books'):
+            return super(BookUserList, self).get(request, *args, **kwargs)
 
         raise PermissionDenied

@@ -153,6 +153,7 @@ EPUB_DOCUMENT_WIDTH = 2480
 # editor stuff here
 EDITOR_AUTOSAVE_ENABLED = False  # disabled by default
 EDITOR_AUTOSAVE_DELAY = 60  # time in seconds
+EDITOR_SETTINGS_ROLES_SHOW_PERMISSIONS = 0
 
 # end editor stuff
 

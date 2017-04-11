@@ -471,6 +471,8 @@ class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
             'enabled': config.get_configuration('EDITOR_AUTOSAVE_ENABLED'),
             'delay': config.get_configuration('EDITOR_AUTOSAVE_DELAY')
         })
+        context['settings_roles_show_permissions'] = config.get_configuration('EDITOR_SETTINGS_ROLES_SHOW_PERMISSIONS')
+
         context['upload_docx_form'] = UploadDocxFileForm()
 
         return context

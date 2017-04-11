@@ -9,7 +9,8 @@ from .serializers import UserSerializer
 
 from ..tokens import token_generator
 from ..views import BooktypeViewSetMixin
-from ..security import IsAdminOrIsSelf, BooktypeSecurity
+from ..security import IsAdminOrIsSelf
+from .filters import UserFilter
 
 
 class UserViewSet(
@@ -40,6 +41,7 @@ class UserViewSet(
     required_perms = ['api.manage_users']
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
+    filter_class = UserFilter
 
     @detail_route(url_path='session-token', permission_classes=[IsAdminOrIsSelf])
     def session_token(self, request, pk=None):
