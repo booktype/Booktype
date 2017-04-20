@@ -663,7 +663,7 @@
 <script type="text/html" id="templatePublishComments">
   <% _.each(comments, function (dta, idx) { %>
     <li>
-      <figure class="notification-avatar"><img src="<%= getAvatar(dta['username']) %>"></figure>
+      <figure class="notification-avatar"><img src="<%= window.booktype.utils.getAvatar(dta['username']) %>"></figure>
       <div class="notification-content">
         <p class="notification-text"><span class="notification-author"><%= dta['username'] %></span> <%= dta['content'] %></p>
         <span class="notification-info"><%= dta['created'] %></span>

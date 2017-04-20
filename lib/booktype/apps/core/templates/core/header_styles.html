@@ -1,13 +1,15 @@
 {% load staticfiles compress %}
 
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-<link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,900" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,900" rel="stylesheet">
 
 {% compress css %}
 <link href='{% static "core/css/bootstrap.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "core/css/bootstrap-theme.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "core/css/bootstrap-custom.css" %}' rel='stylesheet' type='text/css' />
-<link href='{% static "core/css/font-awesome/css/font-awesome.min.css" %}' rel="stylesheet" />
+<link href='{% static "core/css/font-awesome/css/font-awesome.min.css" %}' rel='stylesheet' type='text/css' />
+<link href='{% static "vendor/bootstrap-datepicker-1.6.4/css/bootstrap-datepicker3.standalone.min.css" %}' rel='stylesheet'  type='text/css' />
+
 <link href='{% static "core/css/booki-new.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "core/css/bt20.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "core/css/helpers.css" %}' rel='stylesheet' type='text/css' />

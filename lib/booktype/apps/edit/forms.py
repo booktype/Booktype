@@ -19,6 +19,8 @@ from booki.editor.models import (
 
 from booki.editor.models import METADATA_FIELDS
 
+from .models import InviteCode
+
 logger = logging.getLogger('booktype.apps.edit.forms')
 
 
@@ -386,3 +388,14 @@ class PermissionsForm(BaseSettingsForm, DefaultRolesForm):
                 )
                 setting.value_string = value
                 setting.save()
+
+
+class InviteCodeForm(BaseBooktypeForm, forms.ModelForm):
+    default_roles = getattr(settings, 'BOOKTYPE_DEFAULT_ROLES', {})
+
+    roles = forms.ModelMultipleChoiceField(
+        queryset=Role.objects.exclude(name__in=default_roles.keys()))
+
+    class Meta:
+        model = InviteCode
+        fields = ['roles', 'expire_on']

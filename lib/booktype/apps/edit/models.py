@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
 
-from booki.editor.models import Chapter
+from booki.editor.models import Chapter, Book
+from booktype.apps.core.models import Role
 
 
 class Comment(models.Model):
@@ -69,3 +71,26 @@ class Comment(models.Model):
                 'name': self.author,
                 'avatar': '{}{}'.format(settings.STATIC_URL, 'account/images/anonymous.png')
             }
+
+
+class InviteCode(models.Model):
+    """
+    This model will be used to store information about code invitations
+    Codes should be expirable and every person that uses a code will be assigned
+    to the given book, related here, as the given roles related also here
+    """
+
+    code = models.CharField(max_length=20, unique=True, db_index=True)
+    book = models.ForeignKey(Book, related_name='invite_codes')
+    roles = models.ManyToManyField(Role, verbose_name='Roles to assign')
+    created = models.DateTimeField(auto_now_add=True)
+    expire_on = models.DateField()
+
+    @property
+    def roles_as_string(self):
+        return ", ".join(self.roles.all().values_list('name', flat=True))
+
+    @property
+    def expired(self):
+        now = date.today()
+        return now > self.expire_on

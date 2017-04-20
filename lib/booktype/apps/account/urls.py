@@ -21,7 +21,7 @@ from django.contrib.auth import views as auth_views
 from .views import (
     CreateBookView, UserSettingsPage, DashboardPageView,
     ForgotPasswordView, ForgotPasswordEnterView, SignInView,
-    SendInviteView)
+    SendInviteView, JoinWithCode)
 
 # this won't be required once we upgrade to django 1.10
 # https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-LOGOUT_REDIRECT_URL
@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^forgot_password/$', ForgotPasswordView.as_view(), name='forgotpassword'),
     url(r'^forgot_password/enter/$', ForgotPasswordEnterView.as_view(), name='forgotpasswordenter'),
     url(r'^invite/$', SendInviteView.as_view(), name='invite'),
+    url(r'^join/$', JoinWithCode.as_view(), name='join_with_code'),
 
     url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/$', DashboardPageView.as_view(), name='view_profile'),
     url(r'^(?P<username>[\w\d\@\.\+\-\_\s]+)/_create_book/$', CreateBookView.as_view(), name='create_book'),

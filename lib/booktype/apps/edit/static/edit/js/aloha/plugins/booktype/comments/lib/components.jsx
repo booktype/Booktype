@@ -125,7 +125,7 @@ define([
             'author': {
               name: booktype.fullname,
               username: booktype.username,
-              avatar: getAvatar(booktype.username, 35)
+              avatar: booktype.utils.getAvatar(booktype.username, 35)
             }
           };
           commentStorage.addReply(this.props.cid, replyData);
@@ -486,7 +486,7 @@ define([
           'author': {
             'name': booktype.fullname,
             'username': booktype.username,
-            'avatar': getAvatar(booktype.username, 35)
+            'avatar': booktype.utils.getAvatar(booktype.username, 35)
           },
           'replies': []
         };
