@@ -4,12 +4,7 @@
 {% block extra_header %}
 
   {% compress css %}
-    <link href='{% static "core/css/jquery.fileupload-ui.css" %}' rel='stylesheet' type='text/css'/>
-  {% endcompress %}
-
-  {% compress js %}
-    <script type="text/javascript" src="{% static 'core/js/jquery.steps.min.js' %}"></script>
-    <script type="text/javascript" src="{% static "core/js/jquery.fileupload.js" %}"></script>
+    <link href='{% static "core/css/jquery.fileupload-ui.css" %}' rel='stylesheet' type='text/css' />
   {% endcompress %}
 
   <script type="text/javascript">
@@ -17,10 +12,10 @@
   </script>
 
   {% compress js %}
+    <script type="text/javascript" src="{% static 'core/js/jquery.steps.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'core/js/jquery.fileupload.js' %}"></script>
     <script type="text/javascript" src="{% static 'account/js/dashboard.js' %}"></script>
-    {# this below one is needed for dashboard_book_template.html #}
     <script type="text/javascript" src="{% static 'reader/js/infopage.js' %}"></script>
-    <script type="text/javascript" src="{% static 'edit/js/booktype/utils.js' %}"></script>
     <script type="text/javascript" src="{% static 'portal/js/inviteWizard.js' %}"></script>
   {% endcompress %}
 
@@ -61,19 +56,24 @@
                                 {% if can_upload_book %}
                                     <button href="#" role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#importBookModal" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "Import Book from docx or EPUB" %}">{% trans "Import Book" as import_text %} {{ import_text|upper }}</button>
                                 {% endif %}
+
                                 {% if current_user.is_authenticated %}
                                     <button href="#" role="button" class="btn btn-default float-right btn-group" rel="tooltip" title="" data-placement="bottom" data-target="#inviteWizard" data-original-title="{% trans "Invite people to edit your books" %}" data-toggle='modal'>{% trans "Invite" as invite_text %}  {{ invite_text|upper }}</button>
                                 {% endif %}
+
                                 {% if is_book_limit %}
-                                    <button class="btn btn-primary float-right btn-group" rel="tooltip" title="" data-placement="top" data-original-title="{% trans "You have reached your book limit. Please delete any unwanted books before you create a new one." %}">{% trans "No additional books can be created" %}</button>
+                                    <button class="btn btn-primary float-right btn-group" rel="tooltip" data-placement="top" data-original-title="{% trans "You have reached your book limit. Please delete any unwanted books before you create a new one." %}">{% trans "No additional books can be created" %}</button>
                                 {% endif %}
                             {% endif %}
                         {% endif %}
 
-                        <div class="btn-group float-right">
+                        {# I'm pretty sure nobody will miss this, let's hide it and then later remove it completely if nobody ask for it #}
+
+                        <button role="button" class="btn btn-default float-right btn-group" data-toggle="modal" data-target="#joinBookModal" rel="tooltip" data-placement="bottom" data-original-title="{% trans 'Join books via invite code' %}">{% trans "Join Book" as join_text %} {{ join_text|upper }}</button>
+                        <!-- <div class="btn-group float-right">
                             <button class="btn btn-default btn-sm showGrid" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show in a grid' %}"><i class="icon-th"></i></button>
                             <button class="btn btn-default btn-sm showList" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Show in a list' %}"><i class="icon-list-ul"></i></button>
-                        </div>
+                        </div> -->
                     </div>
                 </h2>
 
@@ -223,72 +223,99 @@
 
 <!-- Invite people wizard modal -->
 <div class="modal fade invitePeopleWizard" id="inviteWizard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h2 class="modal-title" id="myModalLabel">{% trans "Invite people" %}</h2>
-    </div>
-    <div class="modal-body">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h2 class="modal-title" id="myModalLabel">{% trans "Invite people" %}</h2>
+      </div>
+      <div class="modal-body">
+        <section id="basic">
+          <form method="post" action="{% url 'accounts:invite' %}" target="hidden_frame" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div id="wizard-invite">
+              <h3>{% trans 'Enter email addresses' %}</h3>
+            <section>
+                <p class="wizard_desc">{% trans 'Who would you like to invite?' %}</p>
+                <label for="{{ invite_form.email_list.id_for_label }}"> {{ invite_form.email_list.label }} </label>
+                {{ invite_form.email_list }}
+            </section>
 
-    <section id="basic">
-    <form method="post" action="{% url 'accounts:invite' %}" target="hidden_frame" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div id="wizard-invite">
-          <h3>{% trans 'Enter email addresses' %}</h3>
-        <section>
-            <p class="wizard_desc">{% trans 'Who would you like to invite?' %}</p>
-            <label for="{{ invite_form.email_list.id_for_label }}"> {{ invite_form.email_list.label }} </label>
-            {{ invite_form.email_list }}
-        </section>
+            <h3>{% trans 'Enter message' %}</h3>
+            <section>
+                <p class="wizard_desc">{% trans 'What is the message of your invitation?' %}</p>
+                <label for="{{ invite_form.message.id_for_label }}"> {{ invite_form.message.label }} </label>
+                {{ invite_form.message }}
+            </section>
+            <h3>{% trans 'Choose Book' %}</h3>
+            <section>
+                <p class="wizard_desc">{% trans 'Choose Books for invitation' %}</p>
+              <div class="books-header">
+                  {% trans 'Choose Book:' %} <span>{% trans 'All' %}</span>
+                <div class="switcher">
+                    <label for="check_all">{% trans 'Check all / clear' %}</label>
+                  <input id="check_all" type="checkbox" class="checkall">
+                </div>
+              </div>
+              <div class="books-list">
+                <ul>
+                    {% for pk, choice in invite_form.books.field.widget.choices  %}
+                    <li>
+                    <a href="#"> {{ choice }}
+                            <input  type="checkbox" id="id_options_{{ forloop.counter0 }}"
+                            value="{{ pk }}" name="books" />
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+              </div>
+            </section>
 
-        <h3>{% trans 'Enter message' %}</h3>
-        <section>
-            <p class="wizard_desc">{% trans 'What is the message of your invitation?' %}</p>
-            <label for="{{ invite_form.message.id_for_label }}"> {{ invite_form.message.label }} </label>
-            {{ invite_form.message }}
-        </section>
-        <h3>{% trans 'Choose Book' %}</h3>
-        <section>
-            <p class="wizard_desc">{% trans 'Choose Books for invitation' %}</p>
-          <div class="books-header">
-              {% trans 'Choose Book:' %} <span>{% trans 'All' %}</span>
-            <div class="switcher">
-                <label for="check_all">{% trans 'Check all / clear' %}</label>
-              <input id="check_all" type="checkbox" class="checkall">
-            </div>
+            <h3>{% trans 'Set Roles' %}</h3>
+            <section>
+                <p class="wizard_desc">{% trans 'Set Roles for this invitation' %}</p>
+                <label for="hidden">{% trans 'Roles' %}</label>
+                <div class="roles-options btn-group" data-toggle="buttons">
+                  {% for pk, choice in invite_form.roles.field.widget.choices  %}
+                    <label class="btn btn-default" rel='tooltip'>
+                        <input type="checkbox" name='roles' value='{{ pk }}'> {{ choice }}
+                    </label>
+                  {% endfor %}
+                </div>
+            </section>
           </div>
-          <div class="books-list">
-            <ul>
-                {% for pk, choice in invite_form.books.field.widget.choices  %}
-                <li>
-                <a href="#"> {{ choice }}
-                        <input  type="checkbox" id="id_options_{{ forloop.counter0 }}"
-                        value="{{ pk }}" name="books" />
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-          </div>
-        </section>
-
-        <h3>{% trans 'Set Roles' %}</h3>
-        <section>
-            <p class="wizard_desc">{% trans 'Set Roles for this invitation' %}</p>
-            <label for="hidden">{% trans 'Roles' %}</label>
-            <div class="roles-options btn-group" data-toggle="buttons">
-              {% for pk, choice in invite_form.roles.field.widget.choices  %}
-                <label class="btn btn-default" rel='tooltip'>
-                    <input type="checkbox" name='roles' value='{{ pk }}'> {{ choice }}
-                </label>
-              {% endfor %}
-            </div>
+        </form>
         </section>
       </div>
-    </form>
-    </section>
+    </div>
   </div>
-  </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div>
+
+<!-- Join books via invite code modal -->
+<div class="modal fade" id="joinBookModal" tabindex="-1" role="dialog" aria-labelledby="joinBookLabel" aria-hidden="true">
+  <div class="modal-dialog w450">
+    <div class="modal-content" style="top: 100px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h2 class="modal-title" id="joinBookLabel">{% trans "Join book with invite code" %}</h2>
+      </div>
+      <div class="modal-body pb0">
+        <div class="alert alert-danger pa10 hide">
+          {% trans "The provided code seems to be invalid or has expired" %}.
+        </div>
+        <form action="{% url 'accounts:join_with_code' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="invite_code">{% trans "Enter your invite code" %}</label>
+            <input class="form-control" type="text" name="invite_code" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="submitCode" class="btn btn-primary pull-right" type="button">{% trans "Join now" %}</button>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

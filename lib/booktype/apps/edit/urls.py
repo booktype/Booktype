@@ -1,5 +1,5 @@
 # This file is part of Booktype.
-# Copyright (c) 2013 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org> # noqa
+# Copyright (c) 2013 Aleksandar Erkalovic <aleksandar.erkalovic@sourcefabric.org>
 #
 # Booktype is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,7 +19,7 @@ from django.conf.urls import url
 from .views import (
     EditBookPage, BookHistoryPage, RevisionPage,
     ChapterHistoryPage, CompareChapterRevisions, BookSettingsView,
-    DownloadBookHistory
+    DownloadBookHistory, InviteCodes
 )
 from .views import upload_attachment, upload_cover, cover
 from booktype.apps.core.views import staticattachment
@@ -49,4 +49,6 @@ urlpatterns = [
         staticattachment),
 
     url(r'^_settings/$', BookSettingsView.as_view(), name='settings'),
+
+    url(r'^_invite_codes/$', InviteCodes.as_view(), name='invite_codes'),
 ]

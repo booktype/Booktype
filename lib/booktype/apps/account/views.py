@@ -34,17 +34,18 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, View
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.views.generic.edit import BaseCreateView, UpdateView, FormView
 
-
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, JSONResponseMixin
+from sputnik.utils import LazyEncoder
 
 from booktype.utils import config
 from booktype.apps.core import views
-from booktype.apps.core.models import Role, BookRole
 from booktype.utils import misc, security
+from booktype.apps.edit.models import InviteCode
+from booktype.apps.core.models import Role, BookRole
 from booktype.apps.account.models import UserPassword
 from booki.messaging.views import get_endpoint_or_none
 from booktype.apps.core.views import BasePageView, PageView, SecurityMixin
@@ -673,3 +674,42 @@ def assign_invitation(user, invite_data):
         for role in roles:
             book_role, _ = BookRole.objects.get_or_create(role=role, book=book)
             book_role.members.add(user)
+
+
+class JoinWithCode(LoginRequiredMixin, JSONResponseMixin, View):
+
+    http_method_names = [u'post']
+    json_encoder_class = LazyEncoder
+
+    def response(self, data):
+        return self.render_json_response(data)
+
+    def post(self, request, *args, **kwargs):
+        invite_code = request.POST.get('invite_code', None)
+        if invite_code is None:
+            return self.response({'result': False})
+
+        try:
+            code = InviteCode.objects.get(code=invite_code.lower())
+
+            # if code is expired, go away
+            if code.expired:
+                return self.response({'result': False})
+
+            for role in code.roles.all():
+                book_role, _ = BookRole.objects.get_or_create(role=role, book=code.book)
+                book_role.members.add(request.user)
+
+            # TODO: send notification so others users knows about new collaborator joined book
+
+            msg = ugettext('You have been added to "{}". Click Accept button to reload screen and see the book').format(
+                code.book.title)
+
+            return self.response({
+                'result': True, 'message': msg,
+                'redirect_url': reverse(
+                    'reader:infopage', args=[code.book.url_title])
+            })
+
+        except Exception:
+            return self.response({'result': False})

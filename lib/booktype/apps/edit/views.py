@@ -26,7 +26,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView, DetailView, FormView
+from django.views.generic import TemplateView, DetailView, FormView, View
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 
 from braces.views import (LoginRequiredMixin, JSONResponseMixin)
@@ -35,6 +35,7 @@ from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
 
 from booktype.apps.core import views
+from booktype.apps.core.models import BookRole
 from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.reader.views import BaseReaderView
@@ -44,6 +45,7 @@ from booktype.utils.security import BookSecurity, get_user_permissions
 from .utils import color_me, send_notification, clean_chapter_html
 from .channel import get_toc_for_book
 from . import forms as book_forms
+from .models import InviteCode
 
 logger = logging.getLogger('booktype.apps.edit.views')
 
@@ -944,3 +946,40 @@ class DownloadBookHistory(LoginRequiredMixin, DetailView):
         resp['Content-Disposition'] = 'attachment; filename={}.zip'.format(zip_name)
 
         return resp
+
+
+class InviteCodes(LoginRequiredMixin, views.SecurityMixin, JSONResponseMixin, DetailView, FormView):
+
+    model = models.Book
+    slug_field = 'url_title'
+    slug_url_kwarg = 'bookid'
+    context_object_name = 'book'
+    template_name = 'edit/invite_code.html'
+    form_class = book_forms.InviteCodeForm
+
+    def get_context_data(self, **kwargs):
+        book = self.get_object()
+        context = super(InviteCodes, self).get_context_data(**kwargs)
+        context['existent_codes'] = book.invite_codes.all()
+        return context
+
+    def response(self, data):
+        return self.render_json_response(data)
+
+    def form_invalid(self, form):
+
+        return self.response({
+            'result': False,
+            'errors': form.errors
+        })
+
+    def form_valid(self, form):
+        instance = form.instance
+        instance.book = self.get_object()
+        instance.code = str(uuid.uuid4())[:8]
+        form.save()
+
+        return self.response({
+            'result': True,
+            'code': instance.code.upper()
+        })

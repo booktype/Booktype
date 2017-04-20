@@ -49,6 +49,7 @@ PERMISSIONS = {
         ('resolve_comment', _('Resolve Comments')),
         ('delete_comment', _('Delete Comments')),
 
-        ('modify_section_settings', _('Modify Section Settings'))
+        ('modify_section_settings', _('Modify Section Settings')),
+        ('generate_invite_code', _('Generate Invite Code')),
     ]
 }
