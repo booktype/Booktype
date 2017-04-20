@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-18 22:28-0600\n"
-"PO-Revision-Date: 2017-03-19 09:10+0000\n"
+"POT-Creation-Date: 2017-04-19 17:40-0600\n"
+"PO-Revision-Date: 2017-04-20 09:02+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/sourcefabric/booktype/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -45,13 +45,29 @@ msgstr ""
 msgid "Manage Languages"
 msgstr ""
 
-#: lib/booktype/api/editor/serializers.py:81
+#: lib/booktype/api/__init__.py:14
+msgid "List Chapters"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:15
+msgid "Create Chapters"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:16
+msgid "Update Chapters"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:17
+msgid "Delete Chapters"
+msgstr ""
+
+#: lib/booktype/api/editor/serializers.py:84
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:548 lib/booktype/apps/reader/views.py:249
+#: lib/booktype/apps/edit/views.py:551 lib/booktype/apps/reader/views.py:249
 msgid "Chapter"
 msgstr ""
 
-#: lib/booktype/api/editor/serializers.py:91
+#: lib/booktype/api/editor/serializers.py:94
 msgid "Section"
 msgstr ""
 
@@ -148,11 +164,11 @@ msgstr ""
 msgid "remote host"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:49
+#: lib/booktype/apps/account/templates/account/dashboard.html:44
 msgid "My Books"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:51
+#: lib/booktype/apps/account/templates/account/dashboard.html:46
 #: lib/booktype/apps/account/templates/account/dashboard_group_template.html:12
 #: lib/booktype/apps/core/templates/core/nav_menu.html:21
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:33
@@ -163,44 +179,52 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/group.html:23
 #: lib/booktype/apps/portal/templates/portal/group.html:50
 #: lib/booktype/apps/portal/views.py:390 lib/booktype/apps/portal/views.py:391
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:109
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:115
 msgid "Books"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:58
+#: lib/booktype/apps/account/templates/account/dashboard.html:53
 msgid "Create a new Book"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:58
+#: lib/booktype/apps/account/templates/account/dashboard.html:53
 msgid "Create Book"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:62
+#: lib/booktype/apps/account/templates/account/dashboard.html:57
 msgid "Import Book from docx or EPUB"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:62
+#: lib/booktype/apps/account/templates/account/dashboard.html:57
 msgid "Import Book"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:65
+#: lib/booktype/apps/account/templates/account/dashboard.html:61
 msgid "Invite people to edit your books"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:65
+#: lib/booktype/apps/account/templates/account/dashboard.html:61
 msgid "Invite"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:68
+#: lib/booktype/apps/account/templates/account/dashboard.html:65
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:50
 msgid ""
 "You have reached your book limit. Please delete any unwanted books before "
 "you create a new one."
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:68
+#: lib/booktype/apps/account/templates/account/dashboard.html:65
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:50
 msgid "No additional books can be created"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:72
+msgid "Join books via invite code"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:72
+msgid "Join Book"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:74
@@ -282,8 +306,8 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:163
 #: lib/booktype/apps/account/templates/account/form_signedin.html:19
-#: lib/booktype/apps/account/views.py:213
 #: lib/booktype/apps/account/views.py:214
+#: lib/booktype/apps/account/views.py:215
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:15
 msgid "Settings"
 msgstr ""
@@ -311,7 +335,7 @@ msgstr ""
 #: lib/booktype/apps/account/templates/account/dashboard.html:182
 #: lib/booktype/apps/portal/templates/portal/books.html:115
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:149
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:124
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:130
 msgid "ago"
 msgstr ""
 
@@ -334,56 +358,73 @@ msgstr ""
 msgid "Invite people"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:238
+#: lib/booktype/apps/account/templates/account/dashboard.html:237
 msgid "Enter email addresses"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:240
+#: lib/booktype/apps/account/templates/account/dashboard.html:239
 msgid "Who would you like to invite?"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:245
+#: lib/booktype/apps/account/templates/account/dashboard.html:244
 msgid "Enter message"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:247
+#: lib/booktype/apps/account/templates/account/dashboard.html:246
 msgid "What is the message of your invitation?"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:251
+#: lib/booktype/apps/account/templates/account/dashboard.html:250
 msgid "Choose Book"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:253
+#: lib/booktype/apps/account/templates/account/dashboard.html:252
 msgid "Choose Books for invitation"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:255
+#: lib/booktype/apps/account/templates/account/dashboard.html:254
 msgid "Choose Book:"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:255
+#: lib/booktype/apps/account/templates/account/dashboard.html:254
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:8
 msgid "All"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:257
+#: lib/booktype/apps/account/templates/account/dashboard.html:256
 msgid "Check all / clear"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:275
+#: lib/booktype/apps/account/templates/account/dashboard.html:274
 msgid "Set Roles"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:277
+#: lib/booktype/apps/account/templates/account/dashboard.html:276
 msgid "Set Roles for this invitation"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:278
+#: lib/booktype/apps/account/templates/account/dashboard.html:277
 #: lib/booktype/apps/core/models.py:70
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:86
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:47
-#: lib/booktype/apps/edit/views.py:57
+#: lib/booktype/apps/edit/views.py:59
 msgid "Roles"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:300
+msgid "Join book with invite code"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:304
+msgid "The provided code seems to be invalid or has expired"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:309
+msgid "Enter your invite code"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:315
+msgid "Join now"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:16
@@ -400,7 +441,7 @@ msgstr ""
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:24
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:9
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:19
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:88
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:94
 msgid "Delete Book"
 msgstr ""
 
@@ -441,8 +482,8 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
-#: lib/booktype/importer/docx/docximporter.py:237
-#: lib/booktype/importer/docx/docximporter.py:446
+#: lib/booktype/importer/docx/docximporter.py:238
+#: lib/booktype/importer/docx/docximporter.py:509
 msgid "Title"
 msgstr ""
 
@@ -479,7 +520,7 @@ msgid "Choose from the following licenses"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:37
-#: lib/booktype/apps/edit/forms.py:146
+#: lib/booktype/apps/edit/forms.py:148
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:73
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:25
@@ -545,7 +586,7 @@ msgstr ""
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:96
 #: lib/booktype/apps/portal/templates/portal/group.html:22
 #: lib/booktype/apps/portal/templates/portal/group.html:117
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:109
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:115
 msgid "Members"
 msgstr ""
 
@@ -590,8 +631,8 @@ msgid "Wrong file format! Please try another one."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:50
-#: lib/booktype/apps/importer/views.py:135
-#: lib/booktype/apps/importer/views.py:218
+#: lib/booktype/apps/importer/views.py:136
+#: lib/booktype/apps/importer/views.py:219
 msgid "Something went wrong!"
 msgstr ""
 
@@ -609,6 +650,7 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:76
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:20
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:414
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:33
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:64
@@ -653,8 +695,8 @@ msgid "Can't find user \"%(username)s\"."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:10
-#: lib/booktype/apps/account/views.py:323
 #: lib/booktype/apps/account/views.py:324
+#: lib/booktype/apps/account/views.py:325
 msgid "Forgot your password"
 msgstr ""
 
@@ -682,8 +724,8 @@ msgid "Send request"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:12
-#: lib/booktype/apps/account/views.py:396
 #: lib/booktype/apps/account/views.py:397
+#: lib/booktype/apps/account/views.py:398
 msgid "Reset your password"
 msgstr ""
 
@@ -706,7 +748,7 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:16
-#: lib/booktype/apps/account/views.py:64
+#: lib/booktype/apps/account/views.py:65
 #: lib/booktype/apps/core/templates/core/nav_bar.html:9
 #: lib/booktype/apps/core/templates/core/nav_menu.html:15
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:6
@@ -715,8 +757,8 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:3
 #: lib/booktype/apps/account/templates/account/form_signin.html:20
-#: lib/booktype/apps/account/views.py:446
 #: lib/booktype/apps/account/views.py:447
+#: lib/booktype/apps/account/views.py:448
 #: lib/booktype/apps/core/templates/core/nav_bar.html:19
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:15
 msgid "Log in"
@@ -861,49 +903,55 @@ msgstr ""
 msgid "CREATE ACCOUNT"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:63
+#: lib/booktype/apps/account/views.py:64
 msgid "Dashboard"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:147
 #: lib/booktype/apps/account/views.py:148
+#: lib/booktype/apps/account/views.py:149
 msgid "User profile"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:263
+#: lib/booktype/apps/account/views.py:264
 msgid "User settings have been saved successfully!"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:300
+#: lib/booktype/apps/account/views.py:301
 msgid "Password changed successfully!"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:352
+#: lib/booktype/apps/account/views.py:353
 msgid "Missing username"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:356
+#: lib/booktype/apps/account/views.py:357
 msgid "No such user"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:376
+#: lib/booktype/apps/account/views.py:377
 msgid "Reset password"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:389
+#: lib/booktype/apps/account/views.py:390
 msgid "Unknown error"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:411
+#: lib/booktype/apps/account/views.py:412
 msgid "Password can't be empty"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:416
+#: lib/booktype/apps/account/views.py:417
 msgid "Passwords don't match"
 msgstr ""
 
-#: lib/booktype/apps/account/views.py:432
+#: lib/booktype/apps/account/views.py:433
 msgid "Wrong secret code"
+msgstr ""
+
+#: lib/booktype/apps/account/views.py:705
+msgid ""
+"You have been added to \"{}\". Click Accept button to reload screen and see "
+"the book"
 msgstr ""
 
 #: lib/booktype/apps/core/__init__.py:4
@@ -937,7 +985,7 @@ msgstr ""
 
 #: lib/booktype/apps/core/models.py:29
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:51
-#: lib/booktype/apps/edit/views.py:58
+#: lib/booktype/apps/edit/views.py:60
 msgid "Permissions"
 msgstr ""
 
@@ -1273,6 +1321,10 @@ msgstr ""
 msgid "Modify Section Settings"
 msgstr ""
 
+#: lib/booktype/apps/edit/__init__.py:53
+msgid "Generate Invite Code"
+msgstr ""
+
 #: lib/booktype/apps/edit/channel.py:1387
 #: lib/booktype/apps/edit/channel.py:1392
 msgid "You have no permissions for splitting the chapter."
@@ -1316,37 +1368,37 @@ msgstr ""
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr ""
 
-#: lib/booktype/apps/edit/forms.py:58
+#: lib/booktype/apps/edit/forms.py:60
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:21
 msgid "Language"
 msgstr ""
 
-#: lib/booktype/apps/edit/forms.py:62
+#: lib/booktype/apps/edit/forms.py:64
 msgid "Right to left text"
 msgstr ""
 
-#: lib/booktype/apps/edit/forms.py:64
+#: lib/booktype/apps/edit/forms.py:66
 msgid "Book with right to left writing."
 msgstr ""
 
-#: lib/booktype/apps/edit/forms.py:102
+#: lib/booktype/apps/edit/forms.py:104
 msgid "Track changes"
 msgstr ""
 
-#: lib/booktype/apps/edit/forms.py:104
+#: lib/booktype/apps/edit/forms.py:106
 msgid "Chapter changes will tracked."
 msgstr ""
 
-#: lib/booktype/apps/edit/forms.py:125
+#: lib/booktype/apps/edit/forms.py:127
 msgid "New Status"
 msgstr ""
 
-#: lib/booktype/apps/edit/forms.py:240
+#: lib/booktype/apps/edit/forms.py:242
 #, python-format
 msgid "%(field)s must have TYPE attribute"
 msgstr ""
 
-#: lib/booktype/apps/edit/forms.py:265
+#: lib/booktype/apps/edit/forms.py:267
 #, python-format
 msgid ""
 "Unable to create field %(field)s. Reason: %(error)s | type: %(exc_type)s | "
@@ -1371,7 +1423,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:21
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:626
+#: lib/booktype/apps/edit/views.py:629
 msgid "Revision"
 msgstr ""
 
@@ -1803,7 +1855,7 @@ msgstr ""
 msgid "CLOSE"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/base.html:6
+#: lib/booktype/apps/edit/templates/edit/base.html:8
 msgid "Booktype Edit"
 msgstr ""
 
@@ -1909,17 +1961,20 @@ msgid "Show changes"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:179
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:103
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:456
 msgid "Yes"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:182
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:101
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:455
 msgid "No"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:190
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:105
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:88
 msgid "Actions"
 msgstr ""
 
@@ -2538,6 +2593,72 @@ msgstr ""
 msgid "Overwrite"
 msgstr ""
 
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:12
+msgid "Invite codes"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:16
+msgid "Generate a code to invite people to contribute to your book"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:38
+msgid "Your new invite code is"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:40
+msgid ""
+"Share this code with the people that you want to invite to contribute to "
+"your book"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:60
+msgid "Done"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:65
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:66
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:113
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:114
+msgid "Copied!"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:67
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:115
+msgid "Press Ctrl+C to copy!"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:71
+msgid "Copy code"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:73
+msgid "Loading"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:74
+msgid "Generate"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:81
+msgid "Existent Codes"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:85
+msgid "Code"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:87
+msgid "Valid"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:99
+msgid "Expire on"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:124
+msgid "No invite codes yet"
+msgstr ""
+
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:13
 msgid "Zen mode"
 msgstr ""
@@ -2711,8 +2832,8 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:195
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:219
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:73
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:74
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:85
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:73
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:84
 msgid "EDIT"
 msgstr ""
 
@@ -2863,7 +2984,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:566
+#: lib/booktype/apps/edit/views.py:569
 msgid "Book History"
 msgstr ""
 
@@ -3296,12 +3417,12 @@ msgid "Metadata"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
-#: lib/booktype/apps/edit/views.py:55
+#: lib/booktype/apps/edit/views.py:57
 msgid "Book Metadata"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:38
-#: lib/booktype/apps/edit/views.py:56
+#: lib/booktype/apps/edit/views.py:58
 msgid "Additional Metadata"
 msgstr ""
 
@@ -3509,7 +3630,7 @@ msgid ""
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
-#: lib/booktype/apps/edit/views.py:59
+#: lib/booktype/apps/edit/views.py:61
 msgid "Chapter Status"
 msgstr ""
 
@@ -3569,13 +3690,13 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:32
 msgid "Open book information page"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:32
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:10
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:11
 msgid "Info"
@@ -3585,69 +3706,69 @@ msgstr ""
 msgid "Table Of Contents"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:52
+#: lib/booktype/apps/edit/views.py:54
 msgid "General Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:53
+#: lib/booktype/apps/edit/views.py:55
 msgid "Book Language"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:54
+#: lib/booktype/apps/edit/views.py:56
 msgid "Book License"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:517
+#: lib/booktype/apps/edit/views.py:520
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:595
+#: lib/booktype/apps/edit/views.py:598
 msgid "Chapter diff"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:633
+#: lib/booktype/apps/edit/views.py:636
 msgid "Book History | Chapter Revision"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:656
+#: lib/booktype/apps/edit/views.py:659
 #, python-format
 msgid "Reverted to revision %s."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:675
+#: lib/booktype/apps/edit/views.py:678
 msgid "Chapter revision successfully reverted."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:677
+#: lib/booktype/apps/edit/views.py:680
 msgid "Chapter revision could not be reverted."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:748
+#: lib/booktype/apps/edit/views.py:751
 msgid "Successfully saved settings."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:750
+#: lib/booktype/apps/edit/views.py:753
 msgid "You have no permissions to execute this action."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:753
+#: lib/booktype/apps/edit/views.py:756
 msgid "Unknown error while saving changes."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:816
+#: lib/booktype/apps/edit/views.py:819
 msgid "default one ({})"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:830
+#: lib/booktype/apps/edit/views.py:833
 msgid "Available revisions: {}"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:832
+#: lib/booktype/apps/edit/views.py:835
 msgid "There are no revisions available"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:839
+#: lib/booktype/apps/edit/views.py:842
 msgid "USING REVISION"
 msgstr ""
 
@@ -3762,12 +3883,12 @@ msgstr ""
 msgid "Filetype not supported."
 msgstr ""
 
-#: lib/booktype/apps/importer/views.py:63
+#: lib/booktype/apps/importer/views.py:64
 #, python-format
 msgid "Imported Book %(date)s"
 msgstr ""
 
-#: lib/booktype/apps/importer/views.py:114
+#: lib/booktype/apps/importer/views.py:115
 msgid "Extension not supported!"
 msgstr ""
 
@@ -4069,8 +4190,8 @@ msgid "No content yet"
 msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:72
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:73
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:84
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:72
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:83
 msgid "Edit this chapter"
 msgstr ""
 
@@ -4078,27 +4199,27 @@ msgstr ""
 msgid "No content yet."
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:34
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
 msgid "Toggle table of contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:35
 msgid "Show table of contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:35
 msgid "Show contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:37
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
 msgid "Hide table of contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:37
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
 msgid "Hide contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:46
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:45
 msgid "Table of contents"
 msgstr ""
 
@@ -4158,39 +4279,43 @@ msgstr ""
 msgid "View draft"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:71
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:72
+msgid "Invite Codes"
+msgstr ""
+
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:77
 msgid "More options"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:76
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:82
 msgid "Download history"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:83
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:89
 msgid "Edit book info"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:103
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:109
 msgid "Group that book belongs to"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:117
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:123
 msgid "Recent activity"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:150
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:156
 msgid "Owner"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:173
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:179
 msgid "Admins"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:197
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:203
 msgid "Contributors"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:222
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:228
 msgid "Book versions"
 msgstr ""
 
@@ -4414,43 +4539,43 @@ msgstr ""
 msgid "to be proofed"
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:93
+#: lib/booktype/importer/docx/docximporter.py:94
 msgid ""
 "Please note: Mathematical formulae have been found, and highlighted in the "
 "text. These formulae are not supported by many e-readers, or the Booktype "
 "editor at present."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:125
+#: lib/booktype/importer/docx/docximporter.py:126
 msgid ""
 "The file could not be imported because it was not saved in the .docx format."
 " Try to open the file in Word and save it as a .docx."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:128
+#: lib/booktype/importer/docx/docximporter.py:129
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:176
+#: lib/booktype/importer/docx/docximporter.py:177
 msgid ""
 "The file format you uploaded is not supported. Please save the image as jpg "
 "file and upload it again."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:211
+#: lib/booktype/importer/docx/docximporter.py:212
 msgid ""
 "An error occurred while importing images. Some images couldn't be imported. "
 "Missing images are marked within the text. Please upload missing images "
 "manually."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:237
+#: lib/booktype/importer/docx/docximporter.py:238
 msgid "Title Page"
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:391
+#: lib/booktype/importer/docx/docximporter.py:392
 msgid "Reference not found for endnote: {}"
 msgstr ""
 

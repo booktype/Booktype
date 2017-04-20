@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Daniel James <daniel@64studio.com>, 2016
-# Kjetil Nordengen <kjetilnordengen@gmail.com>, 2016
+# Kjetil Nordengen <kjetilnordengen@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-18 22:28-0600\n"
-"PO-Revision-Date: 2017-03-19 09:10+0000\n"
+"POT-Creation-Date: 2017-04-19 17:40-0600\n"
+"PO-Revision-Date: 2017-04-20 09:02+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/sourcefabric/booktype/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: lib/booktype/api/__init__.py:6
 msgid "Booktype API"
-msgstr ""
+msgstr "Booktype API"
 
 #: lib/booktype/api/__init__.py:9
 msgid "Generate Auth Token"
@@ -45,13 +45,29 @@ msgstr ""
 msgid "Manage Languages"
 msgstr ""
 
-#: lib/booktype/api/editor/serializers.py:81
+#: lib/booktype/api/__init__.py:14
+msgid "List Chapters"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:15
+msgid "Create Chapters"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:16
+msgid "Update Chapters"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:17
+msgid "Delete Chapters"
+msgstr ""
+
+#: lib/booktype/api/editor/serializers.py:84
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:548 lib/booktype/apps/reader/views.py:249
+#: lib/booktype/apps/edit/views.py:551 lib/booktype/apps/reader/views.py:249
 msgid "Chapter"
 msgstr "Kapittel"
 
-#: lib/booktype/api/editor/serializers.py:91
+#: lib/booktype/api/editor/serializers.py:94
 msgid "Section"
 msgstr ""
 
@@ -148,11 +164,11 @@ msgstr "adresse til fjerntjener"
 msgid "remote host"
 msgstr "remote host"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:49
+#: lib/booktype/apps/account/templates/account/dashboard.html:44
 msgid "My Books"
 msgstr "Mine bøker"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:51
+#: lib/booktype/apps/account/templates/account/dashboard.html:46
 #: lib/booktype/apps/account/templates/account/dashboard_group_template.html:12
 #: lib/booktype/apps/core/templates/core/nav_menu.html:21
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:33
@@ -163,45 +179,53 @@ msgstr "Mine bøker"
 #: lib/booktype/apps/portal/templates/portal/group.html:23
 #: lib/booktype/apps/portal/templates/portal/group.html:50
 #: lib/booktype/apps/portal/views.py:390 lib/booktype/apps/portal/views.py:391
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:109
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:115
 msgid "Books"
 msgstr "Bøker"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:58
+#: lib/booktype/apps/account/templates/account/dashboard.html:53
 msgid "Create a new Book"
 msgstr "Lag en ny bok"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:58
+#: lib/booktype/apps/account/templates/account/dashboard.html:53
 msgid "Create Book"
 msgstr "Opprett bok"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:62
+#: lib/booktype/apps/account/templates/account/dashboard.html:57
 msgid "Import Book from docx or EPUB"
 msgstr "Importer bok fra docx eller epub"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:62
+#: lib/booktype/apps/account/templates/account/dashboard.html:57
 msgid "Import Book"
 msgstr "Importer Bok"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:65
+#: lib/booktype/apps/account/templates/account/dashboard.html:61
 msgid "Invite people to edit your books"
 msgstr "Inviter folk til å redigere bøkene dine"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:65
+#: lib/booktype/apps/account/templates/account/dashboard.html:61
 msgid "Invite"
 msgstr "Inviter"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:68
+#: lib/booktype/apps/account/templates/account/dashboard.html:65
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:50
 msgid ""
 "You have reached your book limit. Please delete any unwanted books before "
 "you create a new one."
 msgstr "Du har nådd grensen for hvor mange bøker du kan ha. Vennligst slett noen bøker før du oppretter en ny."
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:68
+#: lib/booktype/apps/account/templates/account/dashboard.html:65
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:50
 msgid "No additional books can be created"
 msgstr "Ingen flere bøker kan opprettes"
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:72
+msgid "Join books via invite code"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:72
+msgid "Join Book"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:74
 #: lib/booktype/apps/portal/templates/portal/books.html:24
@@ -282,8 +306,8 @@ msgstr "Klikk på denne knappen for å oppdatere personlige innstillinger og pas
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:163
 #: lib/booktype/apps/account/templates/account/form_signedin.html:19
-#: lib/booktype/apps/account/views.py:213
 #: lib/booktype/apps/account/views.py:214
+#: lib/booktype/apps/account/views.py:215
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:15
 msgid "Settings"
 msgstr "Brukerinnstillinger"
@@ -311,7 +335,7 @@ msgstr "Nylige aktiviteter"
 #: lib/booktype/apps/account/templates/account/dashboard.html:182
 #: lib/booktype/apps/portal/templates/portal/books.html:115
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:149
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:124
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:130
 msgid "ago"
 msgstr "siden"
 
@@ -334,57 +358,74 @@ msgstr "Denne brukeren er ikke medlem av noen gruppe."
 msgid "Invite people"
 msgstr "Inviter brukere"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:238
+#: lib/booktype/apps/account/templates/account/dashboard.html:237
 msgid "Enter email addresses"
 msgstr "Skriv inn epostadresser"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:240
+#: lib/booktype/apps/account/templates/account/dashboard.html:239
 msgid "Who would you like to invite?"
 msgstr "Hvem vil du invitere?"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:245
+#: lib/booktype/apps/account/templates/account/dashboard.html:244
 msgid "Enter message"
 msgstr "Skriv en beskjed"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:247
+#: lib/booktype/apps/account/templates/account/dashboard.html:246
 msgid "What is the message of your invitation?"
 msgstr "Legg til en beskjed i din invitasjon?"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:251
+#: lib/booktype/apps/account/templates/account/dashboard.html:250
 msgid "Choose Book"
 msgstr "Velg bok"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:253
+#: lib/booktype/apps/account/templates/account/dashboard.html:252
 msgid "Choose Books for invitation"
 msgstr "Velg bøker invitasjonen skal gjelde for"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:255
+#: lib/booktype/apps/account/templates/account/dashboard.html:254
 msgid "Choose Book:"
 msgstr "Velg bok:"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:255
+#: lib/booktype/apps/account/templates/account/dashboard.html:254
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:8
 msgid "All"
 msgstr "Alle"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:257
+#: lib/booktype/apps/account/templates/account/dashboard.html:256
 msgid "Check all / clear"
 msgstr "Marker/fjern alle"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:275
+#: lib/booktype/apps/account/templates/account/dashboard.html:274
 msgid "Set Roles"
 msgstr "Tildel roller"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:277
+#: lib/booktype/apps/account/templates/account/dashboard.html:276
 msgid "Set Roles for this invitation"
 msgstr "Tildel roller for denne invitasjonen"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:278
+#: lib/booktype/apps/account/templates/account/dashboard.html:277
 #: lib/booktype/apps/core/models.py:70
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:86
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:47
-#: lib/booktype/apps/edit/views.py:57
+#: lib/booktype/apps/edit/views.py:59
 msgid "Roles"
 msgstr "Roller"
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:300
+msgid "Join book with invite code"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:304
+msgid "The provided code seems to be invalid or has expired"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:309
+msgid "Enter your invite code"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:315
+msgid "Join now"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:16
 #: lib/booktype/apps/portal/templates/portal/group.html:72
@@ -400,7 +441,7 @@ msgstr "Vis bokinfo"
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:24
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:9
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:19
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:88
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:94
 msgid "Delete Book"
 msgstr "Slett bok"
 
@@ -441,8 +482,8 @@ msgstr "Opprett ny bok"
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
-#: lib/booktype/importer/docx/docximporter.py:237
-#: lib/booktype/importer/docx/docximporter.py:446
+#: lib/booktype/importer/docx/docximporter.py:238
+#: lib/booktype/importer/docx/docximporter.py:509
 msgid "Title"
 msgstr "Tittel"
 
@@ -479,7 +520,7 @@ msgid "Choose from the following licenses"
 msgstr "Velg mellom disse lisensene"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:37
-#: lib/booktype/apps/edit/forms.py:146
+#: lib/booktype/apps/edit/forms.py:148
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:73
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:25
@@ -545,7 +586,7 @@ msgstr "Følger ingen enda."
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:96
 #: lib/booktype/apps/portal/templates/portal/group.html:22
 #: lib/booktype/apps/portal/templates/portal/group.html:117
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:109
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:115
 msgid "Members"
 msgstr "Medlemmer"
 
@@ -590,8 +631,8 @@ msgid "Wrong file format! Please try another one."
 msgstr "Feil filformat! Vennligst prøv et annet format."
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:50
-#: lib/booktype/apps/importer/views.py:135
-#: lib/booktype/apps/importer/views.py:218
+#: lib/booktype/apps/importer/views.py:136
+#: lib/booktype/apps/importer/views.py:219
 msgid "Something went wrong!"
 msgstr "Noe gikk galt!"
 
@@ -609,6 +650,7 @@ msgstr "Skjult fra andre i starten"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:76
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:20
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:414
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:33
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:64
@@ -653,8 +695,8 @@ msgid "Can't find user \"%(username)s\"."
 msgstr "Kan ikke finne brukeren \"%(username)s\"."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:10
-#: lib/booktype/apps/account/views.py:323
 #: lib/booktype/apps/account/views.py:324
+#: lib/booktype/apps/account/views.py:325
 msgid "Forgot your password"
 msgstr "Glemt ditt passord?"
 
@@ -682,8 +724,8 @@ msgid "Send request"
 msgstr "Send forespørsel"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:12
-#: lib/booktype/apps/account/views.py:396
 #: lib/booktype/apps/account/views.py:397
+#: lib/booktype/apps/account/views.py:398
 msgid "Reset your password"
 msgstr "Endre ditt passord"
 
@@ -706,7 +748,7 @@ msgid ""
 msgstr "Klikk på denne knappen for å få en oversikt over dine bøker, grupper, brukerprofil og nylig aktivitet"
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:16
-#: lib/booktype/apps/account/views.py:64
+#: lib/booktype/apps/account/views.py:65
 #: lib/booktype/apps/core/templates/core/nav_bar.html:9
 #: lib/booktype/apps/core/templates/core/nav_menu.html:15
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:6
@@ -715,8 +757,8 @@ msgstr "Mine bøker"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:3
 #: lib/booktype/apps/account/templates/account/form_signin.html:20
-#: lib/booktype/apps/account/views.py:446
 #: lib/booktype/apps/account/views.py:447
+#: lib/booktype/apps/account/views.py:448
 #: lib/booktype/apps/core/templates/core/nav_bar.html:19
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:15
 msgid "Log in"
@@ -861,50 +903,56 @@ msgstr "Navnet er for langt!"
 msgid "CREATE ACCOUNT"
 msgstr "OPPRETT KONTO"
 
-#: lib/booktype/apps/account/views.py:63
+#: lib/booktype/apps/account/views.py:64
 msgid "Dashboard"
 msgstr "Arbeidsplass"
 
-#: lib/booktype/apps/account/views.py:147
 #: lib/booktype/apps/account/views.py:148
+#: lib/booktype/apps/account/views.py:149
 msgid "User profile"
 msgstr "Brukerprofil"
 
-#: lib/booktype/apps/account/views.py:263
+#: lib/booktype/apps/account/views.py:264
 msgid "User settings have been saved successfully!"
 msgstr "Endringer i brukerinnstillingene er lagret!"
 
-#: lib/booktype/apps/account/views.py:300
+#: lib/booktype/apps/account/views.py:301
 msgid "Password changed successfully!"
 msgstr "Passordet er endret!"
 
-#: lib/booktype/apps/account/views.py:352
+#: lib/booktype/apps/account/views.py:353
 msgid "Missing username"
 msgstr "Mangler brukernavn"
 
-#: lib/booktype/apps/account/views.py:356
+#: lib/booktype/apps/account/views.py:357
 msgid "No such user"
 msgstr "Ukjent bruker"
 
-#: lib/booktype/apps/account/views.py:376
+#: lib/booktype/apps/account/views.py:377
 msgid "Reset password"
 msgstr "Resett passord"
 
-#: lib/booktype/apps/account/views.py:389
+#: lib/booktype/apps/account/views.py:390
 msgid "Unknown error"
 msgstr "Ukjent feil"
 
-#: lib/booktype/apps/account/views.py:411
+#: lib/booktype/apps/account/views.py:412
 msgid "Password can't be empty"
 msgstr "Passordet kan ikke være tomt"
 
-#: lib/booktype/apps/account/views.py:416
+#: lib/booktype/apps/account/views.py:417
 msgid "Passwords don't match"
 msgstr "Passordet stemmer ikke"
 
-#: lib/booktype/apps/account/views.py:432
+#: lib/booktype/apps/account/views.py:433
 msgid "Wrong secret code"
 msgstr "Feil hemmelig kode"
+
+#: lib/booktype/apps/account/views.py:705
+msgid ""
+"You have been added to \"{}\". Click Accept button to reload screen and see "
+"the book"
+msgstr ""
 
 #: lib/booktype/apps/core/__init__.py:4
 msgid "Booktype core application"
@@ -937,7 +985,7 @@ msgstr "Tilgang"
 
 #: lib/booktype/apps/core/models.py:29
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:51
-#: lib/booktype/apps/edit/views.py:58
+#: lib/booktype/apps/edit/views.py:60
 msgid "Permissions"
 msgstr "Tilganger"
 
@@ -1273,6 +1321,10 @@ msgstr "Slette kommentarer"
 msgid "Modify Section Settings"
 msgstr "Endre seksjonens innstillinger"
 
+#: lib/booktype/apps/edit/__init__.py:53
+msgid "Generate Invite Code"
+msgstr ""
+
 #: lib/booktype/apps/edit/channel.py:1387
 #: lib/booktype/apps/edit/channel.py:1392
 msgid "You have no permissions for splitting the chapter."
@@ -1316,37 +1368,37 @@ msgstr "Kapitlet er låst for alle. "
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr "En av de valgte formatene er deaktivert. Prøv å last inn siden på nytt."
 
-#: lib/booktype/apps/edit/forms.py:58
+#: lib/booktype/apps/edit/forms.py:60
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:21
 msgid "Language"
 msgstr "Språk"
 
-#: lib/booktype/apps/edit/forms.py:62
+#: lib/booktype/apps/edit/forms.py:64
 msgid "Right to left text"
 msgstr "Tekstretning fra høyre til venstre"
 
-#: lib/booktype/apps/edit/forms.py:64
+#: lib/booktype/apps/edit/forms.py:66
 msgid "Book with right to left writing."
 msgstr "Bok med tekstretning fra høyre til venstre."
 
-#: lib/booktype/apps/edit/forms.py:102
+#: lib/booktype/apps/edit/forms.py:104
 msgid "Track changes"
 msgstr "Spor endringer"
 
-#: lib/booktype/apps/edit/forms.py:104
+#: lib/booktype/apps/edit/forms.py:106
 msgid "Chapter changes will tracked."
 msgstr "Endringer i kapitlet spores."
 
-#: lib/booktype/apps/edit/forms.py:125
+#: lib/booktype/apps/edit/forms.py:127
 msgid "New Status"
 msgstr "Ny status"
 
-#: lib/booktype/apps/edit/forms.py:240
+#: lib/booktype/apps/edit/forms.py:242
 #, python-format
 msgid "%(field)s must have TYPE attribute"
 msgstr "%(field)s må ha TYPE attributt"
 
-#: lib/booktype/apps/edit/forms.py:265
+#: lib/booktype/apps/edit/forms.py:267
 #, python-format
 msgid ""
 "Unable to create field %(field)s. Reason: %(error)s | type: %(exc_type)s | "
@@ -1371,7 +1423,7 @@ msgstr "Endret"
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:21
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:626
+#: lib/booktype/apps/edit/views.py:629
 msgid "Revision"
 msgstr "Revisjon"
 
@@ -1624,7 +1676,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:23
 msgid "Author Name"
-msgstr ""
+msgstr "Forfatter"
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:24
 msgid "Reference"
@@ -1803,7 +1855,7 @@ msgstr "Lukk dette kapitlet og gå til innholdsfortegnelse"
 msgid "CLOSE"
 msgstr "LUKK"
 
-#: lib/booktype/apps/edit/templates/edit/base.html:6
+#: lib/booktype/apps/edit/templates/edit/base.html:8
 msgid "Booktype Edit"
 msgstr "Booktype redigering"
 
@@ -1909,17 +1961,20 @@ msgid "Show changes"
 msgstr "Vis endringer"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:179
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:103
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:456
 msgid "Yes"
 msgstr "Ja"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:182
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:101
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:455
 msgid "No"
 msgstr "Nei"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:190
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:105
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:88
 msgid "Actions"
 msgstr "Handlinger"
 
@@ -1953,7 +2008,7 @@ msgstr "Kapittelhistorie"
 msgid ""
 "Click on any of the revisions below to compare it against the latest "
 "chapter's content"
-msgstr ""
+msgstr "Klikk på en av revisjonene under for å sammenligne med siste versjon av kapitlet"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:263
 msgid "Comments"
@@ -2058,16 +2113,16 @@ msgstr "Finner ikke revisjoner!"
 #: lib/booktype/apps/edit/templates/edit/download_history.html:5
 #: lib/booktype/apps/edit/templates/edit/download_history.html:75
 msgid "History for"
-msgstr ""
+msgstr "Historie for"
 
 #: lib/booktype/apps/edit/templates/edit/download_history.html:77
 #: lib/booktype/apps/edit/templates/edit/download_history.html:115
 msgid "Expand all"
-msgstr ""
+msgstr "Utvid alle"
 
 #: lib/booktype/apps/edit/templates/edit/download_history.html:88
 msgid "No changes"
-msgstr ""
+msgstr "Ingen endringer"
 
 #: lib/booktype/apps/edit/templates/edit/download_history.html:116
 msgid "Collapse all"
@@ -2538,6 +2593,72 @@ msgstr "Legg ved"
 msgid "Overwrite"
 msgstr ""
 
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:12
+msgid "Invite codes"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:16
+msgid "Generate a code to invite people to contribute to your book"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:38
+msgid "Your new invite code is"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:40
+msgid ""
+"Share this code with the people that you want to invite to contribute to "
+"your book"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:60
+msgid "Done"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:65
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:66
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:113
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:114
+msgid "Copied!"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:67
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:115
+msgid "Press Ctrl+C to copy!"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:71
+msgid "Copy code"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:73
+msgid "Loading"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:74
+msgid "Generate"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:81
+msgid "Existent Codes"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:85
+msgid "Code"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:87
+msgid "Valid"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:99
+msgid "Expire on"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:124
+msgid "No invite codes yet"
+msgstr ""
+
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:13
 msgid "Zen mode"
 msgstr "Zen-modus"
@@ -2711,8 +2832,8 @@ msgstr "FJERN"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:195
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:219
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:73
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:74
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:85
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:73
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:84
 msgid "EDIT"
 msgstr "REDIGERE"
 
@@ -2863,7 +2984,7 @@ msgstr "Beskrivelse av bildet"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:566
+#: lib/booktype/apps/edit/views.py:569
 msgid "Book History"
 msgstr "Bokens historie"
 
@@ -3296,12 +3417,12 @@ msgid "Metadata"
 msgstr "Metadata"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
-#: lib/booktype/apps/edit/views.py:55
+#: lib/booktype/apps/edit/views.py:57
 msgid "Book Metadata"
 msgstr "Bokens metdata"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:38
-#: lib/booktype/apps/edit/views.py:56
+#: lib/booktype/apps/edit/views.py:58
 msgid "Additional Metadata"
 msgstr "Ekstra metadata"
 
@@ -3509,7 +3630,7 @@ msgid ""
 msgstr "Er du sikker på du vil slette dette feltet? Du kan ikke gjøre om denne handlingen!"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
-#: lib/booktype/apps/edit/views.py:59
+#: lib/booktype/apps/edit/views.py:61
 msgid "Chapter Status"
 msgstr "Kapittelstatus"
 
@@ -3569,13 +3690,13 @@ msgstr "For å bruke endringer, trykk lagre"
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:32
 msgid "Open book information page"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:32
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:10
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:11
 msgid "Info"
@@ -3585,69 +3706,69 @@ msgstr "Info"
 msgid "Table Of Contents"
 msgstr "Innholdsfortegnelse"
 
-#: lib/booktype/apps/edit/views.py:52
+#: lib/booktype/apps/edit/views.py:54
 msgid "General Settings"
 msgstr "Generelle innstillinger"
 
-#: lib/booktype/apps/edit/views.py:53
+#: lib/booktype/apps/edit/views.py:55
 msgid "Book Language"
 msgstr "Bokens språk"
 
-#: lib/booktype/apps/edit/views.py:54
+#: lib/booktype/apps/edit/views.py:56
 msgid "Book License"
 msgstr "Bokens lisens"
 
-#: lib/booktype/apps/edit/views.py:517
+#: lib/booktype/apps/edit/views.py:520
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr "Revisjon {0} lagret"
 
-#: lib/booktype/apps/edit/views.py:595
+#: lib/booktype/apps/edit/views.py:598
 msgid "Chapter diff"
 msgstr "Kapitler sammenlignet"
 
-#: lib/booktype/apps/edit/views.py:633
+#: lib/booktype/apps/edit/views.py:636
 msgid "Book History | Chapter Revision"
 msgstr "Bokens historie | Revisjoner av kapitlet"
 
-#: lib/booktype/apps/edit/views.py:656
+#: lib/booktype/apps/edit/views.py:659
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "Tilbakestilt til revisjon %s."
 
-#: lib/booktype/apps/edit/views.py:675
+#: lib/booktype/apps/edit/views.py:678
 msgid "Chapter revision successfully reverted."
 msgstr "Går til valgte revisjon av kapitlet."
 
-#: lib/booktype/apps/edit/views.py:677
+#: lib/booktype/apps/edit/views.py:680
 msgid "Chapter revision could not be reverted."
 msgstr "Kunne ikke gå til den valgte revisjonen av kapitlet."
 
-#: lib/booktype/apps/edit/views.py:748
+#: lib/booktype/apps/edit/views.py:751
 msgid "Successfully saved settings."
 msgstr "Innstillingene er lagret."
 
-#: lib/booktype/apps/edit/views.py:750
+#: lib/booktype/apps/edit/views.py:753
 msgid "You have no permissions to execute this action."
 msgstr "Du har ikke tillatelse til å utføre denne handlingen."
 
-#: lib/booktype/apps/edit/views.py:753
+#: lib/booktype/apps/edit/views.py:756
 msgid "Unknown error while saving changes."
 msgstr "Det oppstod en ukjent feil ved lagring av endringer."
 
-#: lib/booktype/apps/edit/views.py:816
+#: lib/booktype/apps/edit/views.py:819
 msgid "default one ({})"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:830
+#: lib/booktype/apps/edit/views.py:833
 msgid "Available revisions: {}"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:832
+#: lib/booktype/apps/edit/views.py:835
 msgid "There are no revisions available"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:839
+#: lib/booktype/apps/edit/views.py:842
 msgid "USING REVISION"
 msgstr ""
 
@@ -3762,12 +3883,12 @@ msgstr "Innstillinger for eksportering"
 msgid "Filetype not supported."
 msgstr "Filtypen støttes ikke."
 
-#: lib/booktype/apps/importer/views.py:63
+#: lib/booktype/apps/importer/views.py:64
 #, python-format
 msgid "Imported Book %(date)s"
 msgstr "Importert bok %(date)s"
 
-#: lib/booktype/apps/importer/views.py:114
+#: lib/booktype/apps/importer/views.py:115
 msgid "Extension not supported!"
 msgstr "Utvidelsen støttes ikke!"
 
@@ -4069,8 +4190,8 @@ msgid "No content yet"
 msgstr "Mangler innhold"
 
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:72
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:73
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:84
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:72
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:83
 msgid "Edit this chapter"
 msgstr "Rediger dette kapitlet"
 
@@ -4078,29 +4199,29 @@ msgstr "Rediger dette kapitlet"
 msgid "No content yet."
 msgstr "Mangler innhold."
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:34
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
 msgid "Toggle table of contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:35
 msgid "Show table of contents"
-msgstr ""
+msgstr "Vis innholdsfortegnelse"
+
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:35
+msgid "Show contents"
+msgstr "Vis innhold"
 
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
-msgid "Show contents"
-msgstr ""
-
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:37
 msgid "Hide table of contents"
-msgstr ""
+msgstr "Gjem innholdsfortegnelse"
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:37
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
 msgid "Hide contents"
-msgstr ""
+msgstr "Gjem innhold"
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:46
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:45
 msgid "Table of contents"
-msgstr ""
+msgstr "Innholdsfortegnelse"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:7
 msgid "Edit Book Info"
@@ -4140,7 +4261,7 @@ msgstr "Klikk på denne knappen for å åpne redigeringsverktøyet og gå til in
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:54
 msgid "Edit this Book"
-msgstr "Rediger denne boken"
+msgstr "Rediger"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:59
 msgid "Click this button to view the draft of the book as a single page"
@@ -4148,7 +4269,7 @@ msgstr "Klikk på denne knappen for å se utkastet til boken"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:60
 msgid "Read Book"
-msgstr ""
+msgstr "Les bok"
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:65
 msgid "Click this button to view the draft of the book by chapter"
@@ -4158,39 +4279,43 @@ msgstr "Klikk på denne knappen for å se utkastet til boken kapittel for kapitt
 msgid "View draft"
 msgstr "Se på utkast"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:71
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:72
+msgid "Invite Codes"
+msgstr ""
+
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:77
 msgid "More options"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:76
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:82
 msgid "Download history"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:83
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:89
 msgid "Edit book info"
 msgstr "Rediger bokinfo"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:103
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:109
 msgid "Group that book belongs to"
 msgstr "Grupper denne boken hører til"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:117
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:123
 msgid "Recent activity"
 msgstr "Nylig aktivitet"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:150
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:156
 msgid "Owner"
 msgstr "Eier"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:173
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:179
 msgid "Admins"
 msgstr "Administratorer"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:197
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:203
 msgid "Contributors"
 msgstr "Bidragsytere"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:222
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:228
 msgid "Book versions"
 msgstr "Versjoner av boken"
 
@@ -4414,43 +4539,43 @@ msgstr "ferdig"
 msgid "to be proofed"
 msgstr "til korrektur"
 
-#: lib/booktype/importer/docx/docximporter.py:93
+#: lib/booktype/importer/docx/docximporter.py:94
 msgid ""
 "Please note: Mathematical formulae have been found, and highlighted in the "
 "text. These formulae are not supported by many e-readers, or the Booktype "
 "editor at present."
 msgstr "Merk: Det er funnet matematiske formler i teksten. Booktype-plattformen støtter for øyeblikket ikke matematiske formler. "
 
-#: lib/booktype/importer/docx/docximporter.py:125
+#: lib/booktype/importer/docx/docximporter.py:126
 msgid ""
 "The file could not be imported because it was not saved in the .docx format."
 " Try to open the file in Word and save it as a .docx."
 msgstr "Filen kunne ikke importeres fordi den ikke ble lagret i DOCX-format. Prøv å åpne filen i Word og lagre den deretter som DOCX."
 
-#: lib/booktype/importer/docx/docximporter.py:128
+#: lib/booktype/importer/docx/docximporter.py:129
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
 msgstr "DOCX-filen du lastet opp inneholder feil, og kan ikke konverteres. Vennligst kontakt kundeservice."
 
-#: lib/booktype/importer/docx/docximporter.py:176
+#: lib/booktype/importer/docx/docximporter.py:177
 msgid ""
 "The file format you uploaded is not supported. Please save the image as jpg "
 "file and upload it again."
 msgstr "Filformatet du lastet opp støttes ikke. Vennligst lagre bildet som en JPEG-fil og prøv igjen."
 
-#: lib/booktype/importer/docx/docximporter.py:211
+#: lib/booktype/importer/docx/docximporter.py:212
 msgid ""
 "An error occurred while importing images. Some images couldn't be imported. "
 "Missing images are marked within the text. Please upload missing images "
 "manually."
 msgstr "En feil oppstod ved importering av bilder. Noen bilder kunne ikke bli importert. De manglende bildene er markert i teksten. Vennligst last opp de manglende bildene manuelt."
 
-#: lib/booktype/importer/docx/docximporter.py:237
+#: lib/booktype/importer/docx/docximporter.py:238
 msgid "Title Page"
 msgstr "Tittelside"
 
-#: lib/booktype/importer/docx/docximporter.py:391
+#: lib/booktype/importer/docx/docximporter.py:392
 msgid "Reference not found for endnote: {}"
 msgstr ""
 

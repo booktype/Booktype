@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-18 22:28-0600\n"
-"PO-Revision-Date: 2017-03-19 09:10+0000\n"
+"POT-Creation-Date: 2017-04-19 17:40-0600\n"
+"PO-Revision-Date: 2017-04-20 09:02+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/sourcefabric/booktype/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -46,13 +46,29 @@ msgstr ""
 msgid "Manage Languages"
 msgstr ""
 
-#: lib/booktype/api/editor/serializers.py:81
+#: lib/booktype/api/__init__.py:14
+msgid "List Chapters"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:15
+msgid "Create Chapters"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:16
+msgid "Update Chapters"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:17
+msgid "Delete Chapters"
+msgstr ""
+
+#: lib/booktype/api/editor/serializers.py:84
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:548 lib/booktype/apps/reader/views.py:249
+#: lib/booktype/apps/edit/views.py:551 lib/booktype/apps/reader/views.py:249
 msgid "Chapter"
 msgstr "章"
 
-#: lib/booktype/api/editor/serializers.py:91
+#: lib/booktype/api/editor/serializers.py:94
 msgid "Section"
 msgstr ""
 
@@ -149,11 +165,11 @@ msgstr "リモートアドレス"
 msgid "remote host"
 msgstr "リモートホスト"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:49
+#: lib/booktype/apps/account/templates/account/dashboard.html:44
 msgid "My Books"
 msgstr "自分の書籍"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:51
+#: lib/booktype/apps/account/templates/account/dashboard.html:46
 #: lib/booktype/apps/account/templates/account/dashboard_group_template.html:12
 #: lib/booktype/apps/core/templates/core/nav_menu.html:21
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:33
@@ -164,45 +180,53 @@ msgstr "自分の書籍"
 #: lib/booktype/apps/portal/templates/portal/group.html:23
 #: lib/booktype/apps/portal/templates/portal/group.html:50
 #: lib/booktype/apps/portal/views.py:390 lib/booktype/apps/portal/views.py:391
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:109
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:115
 msgid "Books"
 msgstr "本"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:58
+#: lib/booktype/apps/account/templates/account/dashboard.html:53
 msgid "Create a new Book"
 msgstr "新規書籍作成"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:58
+#: lib/booktype/apps/account/templates/account/dashboard.html:53
 msgid "Create Book"
 msgstr "書籍の作成"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:62
+#: lib/booktype/apps/account/templates/account/dashboard.html:57
 msgid "Import Book from docx or EPUB"
 msgstr "docx、あるいはEPUB形式の書式のインポート"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:62
+#: lib/booktype/apps/account/templates/account/dashboard.html:57
 msgid "Import Book"
 msgstr "書籍インポート"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:65
+#: lib/booktype/apps/account/templates/account/dashboard.html:61
 msgid "Invite people to edit your books"
 msgstr "あなたの書籍の編集に人々を招待"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:65
+#: lib/booktype/apps/account/templates/account/dashboard.html:61
 msgid "Invite"
 msgstr "招待"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:68
+#: lib/booktype/apps/account/templates/account/dashboard.html:65
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:50
 msgid ""
 "You have reached your book limit. Please delete any unwanted books before "
 "you create a new one."
 msgstr "書籍作成の上限に達しました。新しい書籍を作成する前になにか不要な書籍を削除してください。"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:68
+#: lib/booktype/apps/account/templates/account/dashboard.html:65
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:50
 msgid "No additional books can be created"
 msgstr "追加する書籍の作成はできません"
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:72
+msgid "Join books via invite code"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:72
+msgid "Join Book"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:74
 #: lib/booktype/apps/portal/templates/portal/books.html:24
@@ -283,8 +307,8 @@ msgstr "このボタンを押すと、あなたの個人設定、およびBookty
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:163
 #: lib/booktype/apps/account/templates/account/form_signedin.html:19
-#: lib/booktype/apps/account/views.py:213
 #: lib/booktype/apps/account/views.py:214
+#: lib/booktype/apps/account/views.py:215
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:15
 msgid "Settings"
 msgstr "設定"
@@ -312,7 +336,7 @@ msgstr "最近のアクティビティ"
 #: lib/booktype/apps/account/templates/account/dashboard.html:182
 #: lib/booktype/apps/portal/templates/portal/books.html:115
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:149
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:124
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:130
 msgid "ago"
 msgstr "以前"
 
@@ -335,57 +359,74 @@ msgstr "このユーザーはどのグループにも所属していません。
 msgid "Invite people"
 msgstr "利用者へ招待"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:238
+#: lib/booktype/apps/account/templates/account/dashboard.html:237
 msgid "Enter email addresses"
 msgstr "Eメールアドレスを入力"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:240
+#: lib/booktype/apps/account/templates/account/dashboard.html:239
 msgid "Who would you like to invite?"
 msgstr "だれを招待しますか？"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:245
+#: lib/booktype/apps/account/templates/account/dashboard.html:244
 msgid "Enter message"
 msgstr "メッセージの入力"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:247
+#: lib/booktype/apps/account/templates/account/dashboard.html:246
 msgid "What is the message of your invitation?"
 msgstr "あなたの招待メッセージは?"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:251
+#: lib/booktype/apps/account/templates/account/dashboard.html:250
 msgid "Choose Book"
 msgstr "書籍の選択"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:253
+#: lib/booktype/apps/account/templates/account/dashboard.html:252
 msgid "Choose Books for invitation"
 msgstr "招待する書籍を選択"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:255
+#: lib/booktype/apps/account/templates/account/dashboard.html:254
 msgid "Choose Book:"
 msgstr "書籍の選択："
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:255
+#: lib/booktype/apps/account/templates/account/dashboard.html:254
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:8
 msgid "All"
 msgstr "すべて"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:257
+#: lib/booktype/apps/account/templates/account/dashboard.html:256
 msgid "Check all / clear"
 msgstr "すべてをチェック/クリア"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:275
+#: lib/booktype/apps/account/templates/account/dashboard.html:274
 msgid "Set Roles"
 msgstr "ロールの設定"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:277
+#: lib/booktype/apps/account/templates/account/dashboard.html:276
 msgid "Set Roles for this invitation"
 msgstr "招待者へのロールの設定"
 
-#: lib/booktype/apps/account/templates/account/dashboard.html:278
+#: lib/booktype/apps/account/templates/account/dashboard.html:277
 #: lib/booktype/apps/core/models.py:70
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:86
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:47
-#: lib/booktype/apps/edit/views.py:57
+#: lib/booktype/apps/edit/views.py:59
 msgid "Roles"
 msgstr "ロール"
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:300
+msgid "Join book with invite code"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:304
+msgid "The provided code seems to be invalid or has expired"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:309
+msgid "Enter your invite code"
+msgstr ""
+
+#: lib/booktype/apps/account/templates/account/dashboard.html:315
+msgid "Join now"
+msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:16
 #: lib/booktype/apps/portal/templates/portal/group.html:72
@@ -401,7 +442,7 @@ msgstr "書籍情報の表示"
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:24
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:9
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:19
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:88
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:94
 msgid "Delete Book"
 msgstr "書籍の削除"
 
@@ -442,8 +483,8 @@ msgstr "新規書籍作成"
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
-#: lib/booktype/importer/docx/docximporter.py:237
-#: lib/booktype/importer/docx/docximporter.py:446
+#: lib/booktype/importer/docx/docximporter.py:238
+#: lib/booktype/importer/docx/docximporter.py:509
 msgid "Title"
 msgstr "タイトル"
 
@@ -480,7 +521,7 @@ msgid "Choose from the following licenses"
 msgstr "次のライセンスから選んでください"
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:37
-#: lib/booktype/apps/edit/forms.py:146
+#: lib/booktype/apps/edit/forms.py:148
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:73
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:25
@@ -546,7 +587,7 @@ msgstr "まだフォローしていません。"
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:96
 #: lib/booktype/apps/portal/templates/portal/group.html:22
 #: lib/booktype/apps/portal/templates/portal/group.html:117
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:109
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:115
 msgid "Members"
 msgstr "メンバー"
 
@@ -591,8 +632,8 @@ msgid "Wrong file format! Please try another one."
 msgstr "ファイルフォーマットが誤っています。別のファイルで試してください。"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:50
-#: lib/booktype/apps/importer/views.py:135
-#: lib/booktype/apps/importer/views.py:218
+#: lib/booktype/apps/importer/views.py:136
+#: lib/booktype/apps/importer/views.py:219
 msgid "Something went wrong!"
 msgstr "何か問題がおきました！"
 
@@ -610,6 +651,7 @@ msgstr "最初は他の人から見えない"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:76
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:20
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:130
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:414
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:33
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:64
@@ -654,8 +696,8 @@ msgid "Can't find user \"%(username)s\"."
 msgstr "ユーザが見つかりません \"%(username)s\"."
 
 #: lib/booktype/apps/account/templates/account/forgot_password.html:10
-#: lib/booktype/apps/account/views.py:323
 #: lib/booktype/apps/account/views.py:324
+#: lib/booktype/apps/account/views.py:325
 msgid "Forgot your password"
 msgstr "パスワードを忘れた"
 
@@ -683,8 +725,8 @@ msgid "Send request"
 msgstr "リクエストの送信"
 
 #: lib/booktype/apps/account/templates/account/forgot_password_enter.html:12
-#: lib/booktype/apps/account/views.py:396
 #: lib/booktype/apps/account/views.py:397
+#: lib/booktype/apps/account/views.py:398
 msgid "Reset your password"
 msgstr "パスワードをリセット"
 
@@ -707,7 +749,7 @@ msgid ""
 msgstr "あなたの書籍、グループ、ユーザプロファイル、そして最近の活動の概要に関するボタンを押してください。"
 
 #: lib/booktype/apps/account/templates/account/form_signedin.html:16
-#: lib/booktype/apps/account/views.py:64
+#: lib/booktype/apps/account/views.py:65
 #: lib/booktype/apps/core/templates/core/nav_bar.html:9
 #: lib/booktype/apps/core/templates/core/nav_menu.html:15
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:6
@@ -716,8 +758,8 @@ msgstr "マイダッシュボード"
 
 #: lib/booktype/apps/account/templates/account/form_signin.html:3
 #: lib/booktype/apps/account/templates/account/form_signin.html:20
-#: lib/booktype/apps/account/views.py:446
 #: lib/booktype/apps/account/views.py:447
+#: lib/booktype/apps/account/views.py:448
 #: lib/booktype/apps/core/templates/core/nav_bar.html:19
 #: lib/booktype/apps/edit/templates/edit/toolbar_user.html:15
 msgid "Log in"
@@ -862,50 +904,56 @@ msgstr "フルネームが長すぎます。"
 msgid "CREATE ACCOUNT"
 msgstr "アカウント作成"
 
-#: lib/booktype/apps/account/views.py:63
+#: lib/booktype/apps/account/views.py:64
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
-#: lib/booktype/apps/account/views.py:147
 #: lib/booktype/apps/account/views.py:148
+#: lib/booktype/apps/account/views.py:149
 msgid "User profile"
 msgstr "利用者プロファイル"
 
-#: lib/booktype/apps/account/views.py:263
+#: lib/booktype/apps/account/views.py:264
 msgid "User settings have been saved successfully!"
 msgstr "ユーザ設定の保存に成功！"
 
-#: lib/booktype/apps/account/views.py:300
+#: lib/booktype/apps/account/views.py:301
 msgid "Password changed successfully!"
 msgstr "パスワード変更に成功！"
 
-#: lib/booktype/apps/account/views.py:352
+#: lib/booktype/apps/account/views.py:353
 msgid "Missing username"
 msgstr "ユーザー名の誤り"
 
-#: lib/booktype/apps/account/views.py:356
+#: lib/booktype/apps/account/views.py:357
 msgid "No such user"
 msgstr "ユーザーはいません"
 
-#: lib/booktype/apps/account/views.py:376
+#: lib/booktype/apps/account/views.py:377
 msgid "Reset password"
 msgstr "パスワードをリセット"
 
-#: lib/booktype/apps/account/views.py:389
+#: lib/booktype/apps/account/views.py:390
 msgid "Unknown error"
 msgstr "不明なエラー"
 
-#: lib/booktype/apps/account/views.py:411
+#: lib/booktype/apps/account/views.py:412
 msgid "Password can't be empty"
 msgstr "パスワードを入力してください。"
 
-#: lib/booktype/apps/account/views.py:416
+#: lib/booktype/apps/account/views.py:417
 msgid "Passwords don't match"
 msgstr "パスワードが一致しません"
 
-#: lib/booktype/apps/account/views.py:432
+#: lib/booktype/apps/account/views.py:433
 msgid "Wrong secret code"
 msgstr "誤ったシークレットコード"
+
+#: lib/booktype/apps/account/views.py:705
+msgid ""
+"You have been added to \"{}\". Click Accept button to reload screen and see "
+"the book"
+msgstr ""
 
 #: lib/booktype/apps/core/__init__.py:4
 msgid "Booktype core application"
@@ -938,7 +986,7 @@ msgstr "権限"
 
 #: lib/booktype/apps/core/models.py:29
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:51
-#: lib/booktype/apps/edit/views.py:58
+#: lib/booktype/apps/edit/views.py:60
 msgid "Permissions"
 msgstr "権限"
 
@@ -1274,6 +1322,10 @@ msgstr "コメントの削除"
 msgid "Modify Section Settings"
 msgstr ""
 
+#: lib/booktype/apps/edit/__init__.py:53
+msgid "Generate Invite Code"
+msgstr ""
+
 #: lib/booktype/apps/edit/channel.py:1387
 #: lib/booktype/apps/edit/channel.py:1392
 msgid "You have no permissions for splitting the chapter."
@@ -1317,37 +1369,37 @@ msgstr "章は現在誰かによってロックされています。"
 msgid "One of the selected formats was disabled. Try to reload page."
 msgstr "選択した書籍は利用できません。このページをリロードしてみてください。"
 
-#: lib/booktype/apps/edit/forms.py:58
+#: lib/booktype/apps/edit/forms.py:60
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:21
 msgid "Language"
 msgstr "言語"
 
-#: lib/booktype/apps/edit/forms.py:62
+#: lib/booktype/apps/edit/forms.py:64
 msgid "Right to left text"
 msgstr "右から左へ記述"
 
-#: lib/booktype/apps/edit/forms.py:64
+#: lib/booktype/apps/edit/forms.py:66
 msgid "Book with right to left writing."
 msgstr "右から左へ記述する本"
 
-#: lib/booktype/apps/edit/forms.py:102
+#: lib/booktype/apps/edit/forms.py:104
 msgid "Track changes"
 msgstr "トラックの変更"
 
-#: lib/booktype/apps/edit/forms.py:104
+#: lib/booktype/apps/edit/forms.py:106
 msgid "Chapter changes will tracked."
 msgstr "章の変更が記録されました。"
 
-#: lib/booktype/apps/edit/forms.py:125
+#: lib/booktype/apps/edit/forms.py:127
 msgid "New Status"
 msgstr "新しいステータス"
 
-#: lib/booktype/apps/edit/forms.py:240
+#: lib/booktype/apps/edit/forms.py:242
 #, python-format
 msgid "%(field)s must have TYPE attribute"
 msgstr "%(field)s は属性（TYPE）を持っている必要があります。"
 
-#: lib/booktype/apps/edit/forms.py:265
+#: lib/booktype/apps/edit/forms.py:267
 #, python-format
 msgid ""
 "Unable to create field %(field)s. Reason: %(error)s | type: %(exc_type)s | "
@@ -1372,7 +1424,7 @@ msgstr "変更されました"
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:21
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:626
+#: lib/booktype/apps/edit/views.py:629
 msgid "Revision"
 msgstr "リビジョン"
 
@@ -1804,7 +1856,7 @@ msgstr "章を閉じて目次へ移動する"
 msgid "CLOSE"
 msgstr "閉じる"
 
-#: lib/booktype/apps/edit/templates/edit/base.html:6
+#: lib/booktype/apps/edit/templates/edit/base.html:8
 msgid "Booktype Edit"
 msgstr "Booktype編集"
 
@@ -1910,17 +1962,20 @@ msgid "Show changes"
 msgstr "変更箇所の表示"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:179
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:103
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:456
 msgid "Yes"
 msgstr "はい"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:182
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:101
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:455
 msgid "No"
 msgstr "いいえ"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:190
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:105
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:88
 msgid "Actions"
 msgstr "アクション"
 
@@ -2539,6 +2594,72 @@ msgstr "追加"
 msgid "Overwrite"
 msgstr ""
 
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:12
+msgid "Invite codes"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:16
+msgid "Generate a code to invite people to contribute to your book"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:38
+msgid "Your new invite code is"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:40
+msgid ""
+"Share this code with the people that you want to invite to contribute to "
+"your book"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:60
+msgid "Done"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:65
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:66
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:113
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:114
+msgid "Copied!"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:67
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:115
+msgid "Press Ctrl+C to copy!"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:71
+msgid "Copy code"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:73
+msgid "Loading"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:74
+msgid "Generate"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:81
+msgid "Existent Codes"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:85
+msgid "Code"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:87
+msgid "Valid"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:99
+msgid "Expire on"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:124
+msgid "No invite codes yet"
+msgstr ""
+
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:13
 msgid "Zen mode"
 msgstr ""
@@ -2712,8 +2833,8 @@ msgstr "削除"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:195
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:219
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:73
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:74
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:85
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:73
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:84
 msgid "EDIT"
 msgstr "編集"
 
@@ -2864,7 +2985,7 @@ msgstr "画像の次元"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:566
+#: lib/booktype/apps/edit/views.py:569
 msgid "Book History"
 msgstr "修正履歴"
 
@@ -3297,12 +3418,12 @@ msgid "Metadata"
 msgstr "メタデータ"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
-#: lib/booktype/apps/edit/views.py:55
+#: lib/booktype/apps/edit/views.py:57
 msgid "Book Metadata"
 msgstr "書籍メタデータ"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:38
-#: lib/booktype/apps/edit/views.py:56
+#: lib/booktype/apps/edit/views.py:58
 msgid "Additional Metadata"
 msgstr "メタデータの追加"
 
@@ -3510,7 +3631,7 @@ msgid ""
 msgstr "このフィールドを削除しますか？この操作は取り消しできません！"
 
 #: lib/booktype/apps/edit/templates/edit/settings/_chapter_status.html:4
-#: lib/booktype/apps/edit/views.py:59
+#: lib/booktype/apps/edit/views.py:61
 msgid "Chapter Status"
 msgstr "章のステータス"
 
@@ -3570,13 +3691,13 @@ msgstr "変更を適用するには、保存をクリックしてください"
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:32
 msgid "Open book information page"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:32
 #: lib/booktype/apps/reports/templates/reports/booktype_daily_report.html:10
 #: lib/booktype/apps/reports/templates/reports/booktype_weekly_report.html:11
 msgid "Info"
@@ -3586,69 +3707,69 @@ msgstr ""
 msgid "Table Of Contents"
 msgstr "目次"
 
-#: lib/booktype/apps/edit/views.py:52
+#: lib/booktype/apps/edit/views.py:54
 msgid "General Settings"
 msgstr "一般設定"
 
-#: lib/booktype/apps/edit/views.py:53
+#: lib/booktype/apps/edit/views.py:55
 msgid "Book Language"
 msgstr "書籍の言語"
 
-#: lib/booktype/apps/edit/views.py:54
+#: lib/booktype/apps/edit/views.py:56
 msgid "Book License"
 msgstr "書籍のライセンス"
 
-#: lib/booktype/apps/edit/views.py:517
+#: lib/booktype/apps/edit/views.py:520
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr "リビジョン {0} が保存されました"
 
-#: lib/booktype/apps/edit/views.py:595
+#: lib/booktype/apps/edit/views.py:598
 msgid "Chapter diff"
 msgstr "章の比較"
 
-#: lib/booktype/apps/edit/views.py:633
+#: lib/booktype/apps/edit/views.py:636
 msgid "Book History | Chapter Revision"
 msgstr "書籍の履歴 | 章のリビジョン"
 
-#: lib/booktype/apps/edit/views.py:656
+#: lib/booktype/apps/edit/views.py:659
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "リビジョン %s に戻す。"
 
-#: lib/booktype/apps/edit/views.py:675
+#: lib/booktype/apps/edit/views.py:678
 msgid "Chapter revision successfully reverted."
 msgstr "章のリビジョンを戻すことに成功しました。"
 
-#: lib/booktype/apps/edit/views.py:677
+#: lib/booktype/apps/edit/views.py:680
 msgid "Chapter revision could not be reverted."
 msgstr "章のリビジョンを戻せません。"
 
-#: lib/booktype/apps/edit/views.py:748
+#: lib/booktype/apps/edit/views.py:751
 msgid "Successfully saved settings."
 msgstr "設定の保存に成功しました"
 
-#: lib/booktype/apps/edit/views.py:750
+#: lib/booktype/apps/edit/views.py:753
 msgid "You have no permissions to execute this action."
 msgstr "この操作を行う権限がありません。"
 
-#: lib/booktype/apps/edit/views.py:753
+#: lib/booktype/apps/edit/views.py:756
 msgid "Unknown error while saving changes."
 msgstr "変更を保存中に何らかのエラー発生"
 
-#: lib/booktype/apps/edit/views.py:816
+#: lib/booktype/apps/edit/views.py:819
 msgid "default one ({})"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:830
+#: lib/booktype/apps/edit/views.py:833
 msgid "Available revisions: {}"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:832
+#: lib/booktype/apps/edit/views.py:835
 msgid "There are no revisions available"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:839
+#: lib/booktype/apps/edit/views.py:842
 msgid "USING REVISION"
 msgstr ""
 
@@ -3763,12 +3884,12 @@ msgstr "エクスポート設定"
 msgid "Filetype not supported."
 msgstr "利用できないファイル形式"
 
-#: lib/booktype/apps/importer/views.py:63
+#: lib/booktype/apps/importer/views.py:64
 #, python-format
 msgid "Imported Book %(date)s"
 msgstr "書籍のインポート %(date)s"
 
-#: lib/booktype/apps/importer/views.py:114
+#: lib/booktype/apps/importer/views.py:115
 msgid "Extension not supported!"
 msgstr "拡張機能はサポートされていません！"
 
@@ -4070,8 +4191,8 @@ msgid "No content yet"
 msgstr "コンテンツがありません"
 
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:72
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:73
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:84
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:72
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:83
 msgid "Edit this chapter"
 msgstr "章の編集"
 
@@ -4079,27 +4200,27 @@ msgstr "章の編集"
 msgid "No content yet."
 msgstr "コンテンツがありません"
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:34
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:33
 msgid "Toggle table of contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:35
 msgid "Show table of contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:35
 msgid "Show contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:37
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
 msgid "Hide table of contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:37
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:36
 msgid "Hide contents"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_full_view.html:46
+#: lib/booktype/apps/reader/templates/reader/book_full_view.html:45
 msgid "Table of contents"
 msgstr ""
 
@@ -4159,39 +4280,43 @@ msgstr "本の章毎のドラフトを表示するには、このボタンをク
 msgid "View draft"
 msgstr "ドラフト表示"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:71
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:72
+msgid "Invite Codes"
+msgstr ""
+
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:77
 msgid "More options"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:76
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:82
 msgid "Download history"
 msgstr ""
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:83
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:89
 msgid "Edit book info"
 msgstr "書籍情報の編集"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:103
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:109
 msgid "Group that book belongs to"
 msgstr "書籍が所属するグループ"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:117
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:123
 msgid "Recent activity"
 msgstr "最近のアクティビティ"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:150
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:156
 msgid "Owner"
 msgstr "所有者"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:173
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:179
 msgid "Admins"
 msgstr "管理者"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:197
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:203
 msgid "Contributors"
 msgstr "協力者"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:222
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:228
 msgid "Book versions"
 msgstr "書籍のバージョン"
 
@@ -4415,43 +4540,43 @@ msgstr ""
 msgid "to be proofed"
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:93
+#: lib/booktype/importer/docx/docximporter.py:94
 msgid ""
 "Please note: Mathematical formulae have been found, and highlighted in the "
 "text. These formulae are not supported by many e-readers, or the Booktype "
 "editor at present."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:125
+#: lib/booktype/importer/docx/docximporter.py:126
 msgid ""
 "The file could not be imported because it was not saved in the .docx format."
 " Try to open the file in Word and save it as a .docx."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:128
+#: lib/booktype/importer/docx/docximporter.py:129
 msgid ""
 "The docx file you uploaded contains errors and cannot be converted. Please "
 "contact customer support."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:176
+#: lib/booktype/importer/docx/docximporter.py:177
 msgid ""
 "The file format you uploaded is not supported. Please save the image as jpg "
 "file and upload it again."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:211
+#: lib/booktype/importer/docx/docximporter.py:212
 msgid ""
 "An error occurred while importing images. Some images couldn't be imported. "
 "Missing images are marked within the text. Please upload missing images "
 "manually."
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:237
+#: lib/booktype/importer/docx/docximporter.py:238
 msgid "Title Page"
 msgstr ""
 
-#: lib/booktype/importer/docx/docximporter.py:391
+#: lib/booktype/importer/docx/docximporter.py:392
 msgid "Reference not found for endnote: {}"
 msgstr ""
 
