@@ -63,7 +63,7 @@ class UserInviteForm(BaseBooktypeForm, forms.Form):
         widget=forms.CheckboxSelectMultiple
     )
     roles = forms.ModelMultipleChoiceField(
-        queryset=Role.objects.all(),
+        queryset=Role.objects.exclude(Q(name='anonymous_users') | Q(name='registered_users')),
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
