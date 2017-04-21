@@ -37,7 +37,6 @@ class FrontpageTest(TestCase):
         response = self.client.get(self.dispatcher)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertNotContains(response, 'user_')
-        self.assertNotContains(response, 'description')
 
     def test_groups(self):
         response = self.client.get(self.dispatcher)
