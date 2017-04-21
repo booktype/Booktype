@@ -383,6 +383,7 @@ class InviteCodeForm(BaseBooktypeForm, forms.ModelForm):
 
     roles = forms.ModelMultipleChoiceField(
         queryset=Role.objects.exclude(name__in=default_roles.keys()))
+    expire_on = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS)
 
     class Meta:
         model = InviteCode
