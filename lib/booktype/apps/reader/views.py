@@ -289,7 +289,7 @@ class FullView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView):
         toc_items = BookToc.objects.filter(
             version=book_version).order_by("-weight")
 
-        theme = book.usertheme_set.last()
+        theme = book.usertheme_set.filter(owner=self.request.user).last()
 
         context['book_version'] = book_version.get_version()
         context['toc_items'] = toc_items
