@@ -1,0 +1,310 @@
+{% extends "edit/base.html" %}
+{% load i18n staticfiles compress booktype_tags %}
+
+{%  block header %}
+    <style>
+        #main { padding-top: 200px; margin-left: 50px; margin-right: 50px;}
+        .status-options .selected{ background-color: #919191;}
+        .status-options .selected a{ color: #fff;}
+    </style>
+
+    {% include "edit/edit_header.html" %}
+    {% include "edit/aloha_header.html" %}
+    {% include "edit/edit_custom_header.html" %}
+    {% include "edit/edit_config.html" %}
+
+    <link id="aloha-embeded-style" type="text/css" href="" rel="stylesheet">
+{% endblock %}
+
+{% block navigation %}
+
+    {% include "core/nav_menu.html" %}
+
+    {% include "edit/toolbar_nav.html" %}
+
+    <!-- Bookbar -->
+    <div class="bookbar flat">
+       {% include "edit/toolbar_book.html" %}
+    </div>
+    <!-- end Bookbar -->
+
+    <!-- ToC / Chapter header -->
+    <div class="contentHeader zen">
+    </div>
+    <!-- end ToC/Chapter header -->
+{% endblock %}
+
+{% block content %}
+
+<!-- start of content -->
+ <div class="contentContainer">
+   <div class="content" id="content">
+   </div>
+ </div>
+<!-- end of content -->
+
+<!-- Tabs content -->
+<div class="tablist left-tablist">
+    <ul class="navigation-tabs">
+    </ul>
+</div>
+
+<div class="tablist right-tablist">
+    <ul class="navigation-tabs">
+    </ul>
+</div>
+
+<div id="left-tabpane" class="tabpane left-tabpane">
+    <section class="tab-content" source_id="chapters-tab">
+        <h3>{% trans "Chapters" %}</h3>
+        <button href="#" role="button" class="btn btn-default btn-xs" id="" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans "EXPAND TOC" %}">{% trans "EXPAND TOC" %}</button>
+        <div class="scrollable">
+          <ul class="edit-toc">
+          </ul>
+        </div>
+    </section>
+
+    <section class="tab-content hold" source_id="online-users-tab">
+      <h3>{% trans "Online Users" %}</h3>
+      <script type="text/html" id="templateOnlineUser">
+        <li id="username-<%= username %>">
+          <figure><img src="<%= avatar %>"></figure>
+          <div class="list-info">
+            <h4>
+              {% if can_view_user_info %}
+                <a target="_blank" href="/accounts/<%= username %>/"><%= username %></a>
+              {% else %}
+                <% if (current_username == username) { %>
+                  <a target="_blank" href="/accounts/<%= username %>/"><%= username %></a>
+                <% } %>
+              {% endif %}
+            </h4>
+            <p><%= fullname %></p>
+            <span class="label label-default"><%= user_role %></span>
+          </div>
+        </li>
+      </script>
+      <div class="scrollable">
+        <ul class="list border-top user-avatar circle">
+        </ul>
+      </div>
+    </section>
+
+    <section class="tab-content chat" source_id="chat-tab">
+       <h3>{% trans "Chat" %}</h3>
+       <div class="notification-list-box">
+         <ul class="notification-list">
+         </ul>
+       </div>
+       <div class="notification-write-box">
+         <textarea class="notification-writer" placeholder="{% trans "Post a notification" %}"></textarea>
+         <div class="notification-important">
+           <i class="icon-info-sign"></i>
+        </div>
+        <div class="button-area clearfix">
+           <a class="btn btn-primary pull-right send-notif">{% trans "Send" %}</a>
+           <a class="btn btn-default pull-right cancel-notif">{% trans "Cancel" %}</a>
+        </div>
+       </div>
+    </section>
+
+    <section class="tab-content notes-tab" source_id="notes-tab">
+      <h3>{% trans "Notes" %}</h3>
+      <div class="notes-tab-content">
+          <p>{% trans "Shared notes for this book" %}</p>
+          <div class="note-textarea">
+          {% check_perm 'edit.note_edit' %}
+          <textarea class="form-control" cols="40" name="notes"></textarea>
+          </div>
+          <div class="save-button">
+              <button id="save-note" type="button" class="btn btn-primary btn-sm">{% trans "SAVE NOTE" %}</button>
+              <div class="info">{% trans "Note Saved.." %}</div>
+          </div>
+          {% endcheck_perm %}
+      </div>
+    </section>
+
+    <section class="tab-content" source_id="style-tab">
+        {% include "edit/tab_style.html" %}
+    </section>
+
+</div>
+
+<div id="right-tabpane" class="tabpane right-tabpane">
+    <section class="tab-content hold" source_id="hold-tab">
+        <h3>{% trans "Chapters on Hold" %}</h3>
+        <div class="scrollable">
+          <ul class="hold-chapters">
+          </ul>
+        </div>
+    </section>
+
+    {# we need something to check permissions in JS #}
+
+    {% if track_changes_approve or track_changes_enable %}
+      <input type="hidden" id="create-ice-tab" data-has-perm="true">
+
+      <section class="tab-content icejs-tab" source_id="icejs-tab">
+        <h3>{% trans "Tracking Options" %}</h3>
+        <div class="icejs-tab-content">
+          {% if track_changes_enable %}
+            <div class="row">
+                <div class="col-md-9">
+                    <h4>{% trans "Track changes for this revision only" %}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-11">
+                    <div class="heading-align btn-group track_changes" role="group" data-toggle="buttons">
+                        <label class="btn btn-default btn-xs track-on" data-track="on">
+                            <input type="radio" checked="checked" data-value="on" rel="tooltip" data-original-title="On">{% trans "On" %}
+                        </label>
+                        <label class="btn btn-default btn-xs track-off" data-track="off">
+                            <input type="radio" checked="" data-value="off" rel="tooltip" data-original-title="Off">{% trans "Off" %}
+                        </label>
+                    </div>
+                </div>
+            </div>
+          {% endif %}
+          <div class="row">
+              <div class="col-md-9">
+                  <h4>{% trans "Show changes" %}</h4>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-11">
+                  <div class="heading-align btn-group show_changes" role="group" data-toggle="buttons">
+                      <label class="btn btn-default btn-xs show-on active" data-show="yes">
+                          <input type="radio" checked="checked" data-value="yes" rel="tooltip" data-original-title="Yes">{% trans "Yes" %}
+                      </label>
+                      <label class="btn btn-default btn-xs show-off" data-show="no">
+                          <input type="radio" checked="" data-value="no" rel="tooltip" data-original-title="No">{% trans "No" %}
+                      </label>
+                  </div>
+              </div>
+          </div>
+          {% if track_changes_approve %}
+            <div class="row">
+                <div class="col-md-9">
+                    <h4>{% trans "Actions" %}</h4>
+                </div>
+            </div>
+
+            <div class="tracking-action-buttons">
+                <div class="row">
+                    <div class="col-md-11">
+                        <button data-trigger-aloha="tracking-accept-all" type="button" class="btn btn-xs btn-default">
+                          {% trans "Accept all changes" %}
+                        </button>
+                        <button data-trigger-aloha="tracking-decline-all" type="button" class="btn btn-xs btn-default">
+                          {% trans "Decline all changes" %}
+                        </button>
+                    </div>
+                    <hr>
+                    <div class="col-md-11">
+                        <button data-trigger-aloha="tracking-accept-one" type="button" class="btn btn-xs btn-default single-change" disabled>
+                          {% trans "Accept one" %}
+                        </button>
+                        <button data-trigger-aloha="tracking-decline-one"type="button" class="btn btn-xs btn-default single-change" disabled>
+                          {% trans "Decline one" %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+          {% endif %}
+        </div>
+      </section>
+    {% else %}
+      <input type="hidden" id="create-ice-tab" data-has-perm="false">
+    {% endif %}
+
+    <!-- Temporarily disable
+    <section class="tab-content" source_id="attachments-tab">
+        <h3>{% trans "Attachments" %}</h3>
+    </section>
+    -->
+
+    <section class="tab-content history-tab" source_id="history-tab">
+        <h3>{% trans "Chapter History" %}</h3>
+        <p class="borderBottom pb10">
+          {% trans "Click on any of the revisions below to compare it against the latest chapter's content" %}
+        </p>
+
+        <script type="text/html" id="templateChapterRevision">
+          <li <% if (active) { %> class="active" <% } %> >
+            <div class="list-info">
+              <span class="revision-number" data-revision="<%= revision %>"><%= revision %></span>
+              <span class="revision-time"><%= modified %></span>
+              <h4>
+                {% if can_view_user_info %}
+                  <a target="_blank" href="/accounts/<%= user %>/"><%= user %></a>
+                {% else %}
+                  <% if (current_username == user) { %>
+                  <a target="_blank" href="/accounts/<%= user %>/"><%= user %></a>
+                  <% } %>
+                {% endif %}
+              </h4>
+              {% check_perm 'edit.history_revert' %}
+              <div class="restore-btn" style="display: none;">
+                <button type="button" data-revision="<%= revision %>" class="btn btn-default btn-xs"><%= label %></button>
+              </div>
+              {% endcheck_perm %}
+            </div>
+          </li>
+        </script>
+        <div class="scrollable">
+          <ul class="list border-top history" id="history-tab-list">
+          </ul>
+        </div>
+    </section>
+
+    <section class="tab-content" source_id="comments-tab">
+      <h3>{% trans "Comments" %}</h3>
+      <div class="scrollable">
+        <div id="commentsTab" class="comments-content" style="padding-top: 30px">
+        </div>
+      </div>
+    </section>
+</div>
+{% endblock %}
+
+
+<!-- ########################################################################################## -->
+
+
+{% block misc %}
+<!-- Modal windows -->
+{% include "edit/panel_toc.html" %}
+{% include "edit/panel_aloha.html" %}
+{% include "edit/panel_media.html" %}
+{% include "edit/panel_covers.html" %}
+{% include "edit/panel_publish.html" %}
+{% include "edit/panel_history.html" %}
+{% include "edit/panel_settings.html" %}
+
+<!-- Notifications -->
+<div class="notificationContainer">
+  <div class="notification">
+  </div>
+</div>
+
+<div class="modalsContainer">
+  <div id="commentsModal"></div>
+  <div id="blockquoteModal"></div>
+</div>
+
+<script type="text/html" id="templateUserJoined">
+  <li class="personal">
+    <figure class="notification-avatar">
+      <img src="<%= avatar %>"/>
+    </figure>
+    <div class="notification-content">
+      {% blocktrans %}<p class="notification-text"><%= username %> joined </p><span class="notification-info"><%= info %></span>{% endblocktrans %}
+    </li>
+</script>
+
+<script src="http://localhost:3000/static/js/bundle.js" />
+
+{% include "edit/edit_strings.html" %}
+
+{% endblock %}
