@@ -34,6 +34,16 @@ and provide a clear path to getting an install running on a Debian 8 machine.
 Extra information can be found on the [online instructions](https://sourcefabric.booktype.pro/booktype-21-for-authors-and-publishers/before-you-install/)
 and in the [Booktype manual](https://sourcefabric.booktype.pro/booktype-21-for-authors-and-publishers/).
 
+BobBobEditor
+------------
+To be able to use the BobBobEditor:
+
+    git submodule init
+    git submodule update
+    cd bobbob
+    npm install
+    npm run dev
+Then visit the chapter page on the same url but with /_bobbobedit instead of /_edit
 
 How to contribute
 -----------------
@@ -57,8 +67,8 @@ it makes testing process easier and also gives ability to run already created dj
 To run tests:
 1. Open terminal and activate virtual environment (Booktype must be installed).
 2. Go to (cd command) instance root (folder with manage.py and pytest.ini file).
-3. Run **py.test** command. 
-4. If you want pytest to print test covarage information, you should run **py.test --cov-report term-missing --cov=path/to/Booktype**. 
+3. Run **py.test** command.
+4. If you want pytest to print test covarage information, you should run **py.test --cov-report term-missing --cov=path/to/Booktype**.
 You can read more about coverage here: [pytest-cov](https://pypi.python.org/pypi/pytest-cov)
 
 
