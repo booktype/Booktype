@@ -21,6 +21,9 @@ urlpatterns = [
     # swagger
     url(r'^$', schema_view),
 
+    # users
+    url(r'^users/current/$', account_views.CurrentUser.as_view(), name="account_current_user_api"),
+
     # users/books/languages viewsets
     url(r'^', include(router.urls)),
 
@@ -37,6 +40,14 @@ urlpatterns = [
     url(r'^books/(?P<pk>[0-9]+)/users/$',
         editor_views.BookUserList.as_view(),
         name="editor_book_user_list_api"),
+
+    url(r'^books/(?P<book_id>[0-9]+)/users/(?P<pk>[0-9]+)/roles/$',
+        editor_views.BookUserDetailRoles.as_view(),
+        name="editor_book_user_detail_roles_api"),
+
+    url(r'^books/(?P<book_id>[0-9]+)/users/(?P<pk>[0-9]+)/permissions/$',
+        editor_views.BookUserDetailPermissions.as_view(),
+        name="editor_book_user_detail_permissions_api"),
 
     # roles
     url(r'^roles/$',

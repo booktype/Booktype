@@ -1,9 +1,6 @@
 import json
 
-from rest_framework import generics
-from rest_framework import mixins
-from rest_framework import viewsets
-from rest_framework import status
+from rest_framework import generics, mixins, viewsets, views, status
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
 from rest_framework.exceptions import NotFound, PermissionDenied, ValidationError
@@ -22,7 +19,7 @@ from .filters import ChapterFilter, BookUserListFilter
 
 from ..views import BooktypeViewSetMixin
 from ..security import IsAdminOrBookOwner, BooktypeBookSecurity
-from ..core.serializers import BookRoleSerializer
+from ..core import serializers as core_serializers
 
 
 class LanguageViewSet(
@@ -101,7 +98,7 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
 
         book = self.get_object()
         roles = book.bookrole_set.all()
-        serializer = serializers.BookRoleSerializer(
+        serializer = core_serializers.BookRoleSerializer(
             roles, context={'request': request},
             many=True
         )
@@ -138,7 +135,7 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
             role=role, book=book)
         book_role.members.add(user)
 
-        serializer = BookRoleSerializer(book_role, context={'request': request})
+        serializer = core_serializers.BookRoleSerializer(book_role, context={'request': request})
         return Response(serializer.data)
 
     @detail_route(
@@ -182,7 +179,7 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
                 role=role, book=book)
             book_role.members.add(user)
 
-            serializer = BookRoleSerializer(book_role, context={'request': request})
+            serializer = core_serializers.BookRoleSerializer(book_role, context={'request': request})
             response_data.append(serializer.data)
 
         return Response(response_data)
@@ -430,3 +427,62 @@ class BookUserList(generics.ListAPIView):
             return super(BookUserList, self).get(request, *args, **kwargs)
 
         raise PermissionDenied
+
+
+class BookUserDetailRoles(views.APIView):
+    def get(self, request, book_id, pk, format=None):
+        try:
+            book = Book.objects.get(id=book_id)
+            user = User.objects.get(id=pk)
+        except (Book.DoesNotExist, User.DoesNotExist):
+            raise NotFound
+
+        book_security = BookSecurity(request.user, book)
+
+        if not book_security.has_perm('api.manage_books'):
+            raise PermissionDenied
+
+        roles = {'default_roles': [], 'book_roles': []}
+
+        # default roles
+        roles['default_roles'].append(core_serializers.SimpleRoleSerializer(
+            Role.objects.get(name='registered_users')
+        ).data)
+
+        print Role.objects.get(name='registered_users').permissions
+
+        # get book roles
+        for role in user.roles.filter(book=book):
+            roles['book_roles'].append(core_serializers.SimpleBookRoleSerializer(role).data)
+
+        return Response(roles)
+
+
+class BookUserDetailPermissions(views.APIView):
+    def get(self, request, book_id, pk, format=None):
+        try:
+            book = Book.objects.get(id=book_id)
+            user = User.objects.get(id=pk)
+        except (Book.DoesNotExist, User.DoesNotExist):
+            raise NotFound
+
+        book_security = BookSecurity(request.user, book)
+
+        if not book_security.has_perm('api.manage_books'):
+            raise PermissionDenied
+
+        permissions = set()
+
+        # default permissions
+        for perm in Role.objects.get(name='registered_users').permissions.all():
+            permissions.add('{}.{}'.format(perm.app_name, perm.name))
+
+        # get book permissions
+        for book_role in user.roles.filter(book=book):
+            for perm in book_role.role.permissions.all():
+                permissions.add('{}.{}'.format(perm.app_name, perm.name))
+
+        permissions = list(permissions)
+        permissions.sort()
+
+        return Response(permissions)
