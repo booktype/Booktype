@@ -28,6 +28,13 @@ class BookRoleSerializer(serializers.HyperlinkedModelSerializer):
         depth = 1
 
 
+class SimpleRoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Role
+        fields = ('id', 'name', 'description', 'permissions')
+        depth = 2
+
+
 class SimpleBookRoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookRole
