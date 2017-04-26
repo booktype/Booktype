@@ -45,7 +45,7 @@ urlpatterns = [
         editor_views.BookUserDetailRoles.as_view(),
         name="editor_book_user_detail_roles_api"),
 
-    url(r'^books/(?P<book_id>[0-9]+)/users/(?P<pk>[0-9]+)/permissions/$',
+    url(r'^books/(?P<book_id>[0-9]+)/permissions/$',
         editor_views.BookUserDetailPermissions.as_view(),
         name="editor_book_user_detail_permissions_api"),
 

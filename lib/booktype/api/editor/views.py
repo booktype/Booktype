@@ -459,11 +459,10 @@ class BookUserDetailRoles(views.APIView):
 
 
 class BookUserDetailPermissions(views.APIView):
-    def get(self, request, book_id, pk, format=None):
+    def get(self, request, book_id, format=None):
         try:
             book = Book.objects.get(id=book_id)
-            user = User.objects.get(id=pk)
-        except (Book.DoesNotExist, User.DoesNotExist):
+        except (Book.DoesNotExist):
             raise NotFound
 
         book_security = BookSecurity(request.user, book)
@@ -473,12 +472,12 @@ class BookUserDetailPermissions(views.APIView):
 
         permissions = set()
 
-        # default permissions
-        for perm in Role.objects.get(name='registered_users').permissions.all():
-            permissions.add('{}.{}'.format(perm.app_name, perm.name))
+        # # default permissions
+        # for perm in Role.objects.get(name='registered_users').permissions.all():
+        #     permissions.add('{}.{}'.format(perm.app_name, perm.name))
 
         # get book permissions
-        for book_role in user.roles.filter(book=book):
+        for book_role in request.user.roles.filter(book=book):
             for perm in book_role.role.permissions.all():
                 permissions.add('{}.{}'.format(perm.app_name, perm.name))
 

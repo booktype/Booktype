@@ -389,6 +389,101 @@ def cover(request, bookid, cid, fname=None, version=None):
 
     return HttpResponse(data, content_type=content_type)
 
+class EditBobBobWorker(LoginRequiredMixin, views.SecurityMixin, TemplateView):
+
+    """Basic Edit Book View which opens up the editor.
+
+    Most of the initial data is loaded from the browser over the Sputnik.
+    In the view we just check Basic security permissions and availability
+    of the book.
+    """
+
+    SECURITY_BRIDGE = BookSecurity
+    template_name = 'edit/worker.js'
+    redirect_unauthorized_user = True
+    redirect_field_name = 'redirect'
+
+    def render_to_response(self, context, **response_kwargs):
+        # Check for errors
+        if context['book'] is None:
+            return views.ErrorPage(
+                self.request,
+                "errors/book_does_not_exist.html",
+                {'book_name': context['book_id']}
+            )
+
+        if context.get('has_permission', True) is False:
+            return views.ErrorPage(
+                self.request,
+                "errors/editing_forbidden.html",
+                {'book': context['book']}
+            )
+
+        return super(TemplateView, self).render_to_response(
+            context, **response_kwargs)
+
+    def check_permissions(self, request, *args, **kwargs):
+        if not self.security.can_edit():
+            raise PermissionDenied
+
+    def get_context_data(self, **kwargs):
+        context = super(TemplateView, self).get_context_data(**kwargs)
+
+        try:
+            book = models.Book.objects.get(url_title__iexact=kwargs['bookid'])
+        except models.Book.DoesNotExist:
+            return {'book': None, 'book_id': kwargs['bookid']}
+
+        book_version = book.get_version(None)
+
+        toc = get_toc_for_book(book_version)
+
+        context['request'] = self.request
+        context['book'] = book
+        context['book_version'] = book_version.get_version()
+        context['book_language'] = book.language.abbrevation if book.language else 'en'
+        context['security'] = self.security
+
+        try:
+            rtl = models.Info.objects.get(book=book, kind=0, name='{http://booki.cc/}dir')
+            context['book_dir'] = rtl.get_value().lower()
+        except models.Info.DoesNotExist:
+            context['book_dir'] = 'ltr'
+
+        context['chapters'] = toc
+
+        # check if we should track changes for current user
+        user_permissions = get_user_permissions(self.request.user, book)
+        context['track_changes_approve'] = self.security.has_perm('edit.track_changes_approve')
+        context['track_changes_enable'] = self.security.has_perm('edit.track_changes_enable')
+        
+        should_track_changes = 'edit.track_changes' in user_permissions
+        context['session_key'] = self.request.session.session_key
+        context['track_changes'] = json.dumps(
+            book_version.track_changes or should_track_changes)
+        context['base_url'] = settings.BOOKTYPE_URL
+        context['static_url'] = settings.STATIC_URL
+        context['is_admin'] = self.security.is_admin()
+        context['is_owner'] = book.owner == self.request.user
+        context['publish_options'] = config.get_configuration('PUBLISH_OPTIONS')
+        context['icc_profiles_choices'] = config.get_configuration('ICC_PROFILES_CHOICES', None)
+
+        context['autosave'] = json.dumps({
+            'enabled': config.get_configuration('EDITOR_AUTOSAVE_ENABLED'),
+            'delay': config.get_configuration('EDITOR_AUTOSAVE_DELAY')
+        })
+        context['settings_roles_show_permissions'] = config.get_configuration('EDITOR_SETTINGS_ROLES_SHOW_PERMISSIONS')
+
+        context['upload_docx_form'] = UploadDocxFileForm()
+
+        return context
+
+    def get_login_url(self):
+        return reverse('accounts:signin')
+
+
+
+
 class EditBobBobBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
 
     """Basic Edit Book View which opens up the editor.
@@ -458,7 +553,7 @@ class EditBobBobBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
         context['track_changes_enable'] = self.security.has_perm('edit.track_changes_enable')
 
         should_track_changes = 'edit.track_changes' in user_permissions
-
+        context['session_key'] = self.request.session.session_key
         context['track_changes'] = json.dumps(
             book_version.track_changes or should_track_changes)
         context['base_url'] = settings.BOOKTYPE_URL
