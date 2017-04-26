@@ -3739,3 +3739,23 @@ def remote_section_settings_set(request, message, bookid, version):
         return {'result': True}
     except:
         return {'result': False}
+
+
+def remote_check_markers(request, message, bookid, version):
+    """Returns a list with the chapters that has markers in content"""
+
+    book, book_version, book_security = get_book(request, bookid, version)
+    marked_chapters = []
+
+    for idx, item in enumerate(book_version.get_toc()):
+        if item.is_chapter() and item.chapter.has_marker:
+            marked_chapters.append({
+                'title': item.chapter.title,
+                'url_title': item.chapter.url_title,
+                'id': item.chapter.pk
+            })
+
+    return {
+        'result': True,
+        'marked_chapters': marked_chapters,
+    }

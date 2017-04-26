@@ -4,6 +4,21 @@
  <h2>{% trans "Publish" %}</h2>
 </script>
 
+<script id="templateMarkedWarning" type="text/template">
+  <div class="alert alert-danger" role="alert">{% trans "There are some issues with this document. Please resolve them." %}</div>
+</script>
+
+<script id="templateMarkedChapters" type="text/template">
+  <div>
+    <p style="font-weight: bold">{% trans " These chapters still have markers. Please resolve them before publishing" %}:</p>
+    <ul>
+      <% _.each(chapters, function (chapter) { %>
+        <li><a style="text-decoration: underline;" href="#edit/<%= chapter.id %>"><%= chapter.title %></a></li>
+      <% }); %>
+    </ul>
+  </div>
+</script>
+
 <script type="text/html" id="templatePublishContent">
 
   <div class="row">
@@ -26,6 +41,9 @@
       </div>
     </div>
     <div class="col-sm-4 publish-info-box">
+      <div class="book-info">
+        <div class="alert alert-info" role="alert">{% trans "Checking book info." %}</div>
+      </div>
       <h4 class="border-bottom">{% trans "Important! Before you export..." %}</h4>
       <ol>
         <li>{% trans "Please check the settings for your chosen formats before exporting." %}</li>
