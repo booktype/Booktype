@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 17:40-0600\n"
-"PO-Revision-Date: 2017-04-20 09:02+0000\n"
+"POT-Creation-Date: 2017-04-26 16:19-0600\n"
+"PO-Revision-Date: 2017-04-28 09:53+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/sourcefabric/booktype/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -47,29 +47,45 @@ msgstr ""
 msgid "Manage Languages"
 msgstr ""
 
-#: lib/booktype/api/__init__.py:14
+#: lib/booktype/api/__init__.py:15
 msgid "List Chapters"
 msgstr ""
 
-#: lib/booktype/api/__init__.py:15
+#: lib/booktype/api/__init__.py:16
 msgid "Create Chapters"
 msgstr ""
 
-#: lib/booktype/api/__init__.py:16
+#: lib/booktype/api/__init__.py:17
 msgid "Update Chapters"
 msgstr ""
 
-#: lib/booktype/api/__init__.py:17
+#: lib/booktype/api/__init__.py:18
 msgid "Delete Chapters"
 msgstr ""
 
-#: lib/booktype/api/editor/serializers.py:84
+#: lib/booktype/api/__init__.py:20
+msgid "List Roles"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:21
+msgid "Create Roles"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:22
+msgid "Update Roles"
+msgstr ""
+
+#: lib/booktype/api/__init__.py:23
+msgid "Delete Roles"
+msgstr ""
+
+#: lib/booktype/api/editor/serializers.py:83
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:57
-#: lib/booktype/apps/edit/views.py:551 lib/booktype/apps/reader/views.py:249
+#: lib/booktype/apps/edit/views.py:553 lib/booktype/apps/reader/views.py:249
 msgid "Chapter"
 msgstr "Fejezet"
 
-#: lib/booktype/api/editor/serializers.py:94
+#: lib/booktype/api/editor/serializers.py:93
 msgid "Section"
 msgstr ""
 
@@ -129,7 +145,6 @@ msgstr "kép"
 
 #: lib/booktype/apps/account/models.py:37 lib/booktype/apps/core/models.py:19
 #: lib/booktype/apps/core/models.py:58
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:13
 msgid "description"
 msgstr "Leírás"
 
@@ -407,8 +422,10 @@ msgstr "Szerepek megadása az alábbi meghíváshoz"
 
 #: lib/booktype/apps/account/templates/account/dashboard.html:277
 #: lib/booktype/apps/core/models.py:70
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:86
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:84
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:47
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:97
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:135
 #: lib/booktype/apps/edit/views.py:59
 msgid "Roles"
 msgstr "Feladatkörök"
@@ -652,15 +669,15 @@ msgstr "Kezdetben rejtve másoktól"
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:76
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:20
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:130
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:128
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:414
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:33
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:64
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:155
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:111
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:141
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:491
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:39
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:84
 #: lib/booktype/apps/portal/templates/portal/group_create_modal.html:19
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:14
 msgid "Close"
@@ -969,6 +986,7 @@ msgid "Manage Permissions"
 msgstr ""
 
 #: lib/booktype/apps/core/management/commands/update_default_roles.py:21
+#: lib/booktype/tests/test_case.py:36
 msgid "system default role"
 msgstr "a rendszer alapértelmezett szerepe"
 
@@ -1425,7 +1443,7 @@ msgstr "Megváltozott"
 #: lib/booktype/apps/edit/templates/edit/_compare_common.html:21
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:23
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:16
-#: lib/booktype/apps/edit/views.py:629
+#: lib/booktype/apps/edit/views.py:631
 msgid "Revision"
 msgstr "Változat"
 
@@ -1491,7 +1509,7 @@ msgid "Hide section and chapters"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/_section_settings_wizard.html:41
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:139
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:157
 msgid "Extra"
 msgstr ""
 
@@ -1963,20 +1981,20 @@ msgid "Show changes"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:179
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:103
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:456
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:101
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:474
 msgid "Yes"
 msgstr "Igen"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:182
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:101
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:455
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:99
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:473
 msgid "No"
 msgstr "Nem"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:190
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:105
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:88
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:86
 msgid "Actions"
 msgstr ""
 
@@ -2046,7 +2064,6 @@ msgstr "Összehasonlítás"
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:24
 #: lib/booktype/apps/edit/templates/edit/chapter_revision.html:10
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:26
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:69
 msgid "User"
 msgstr "Felhasználó"
 
@@ -2057,7 +2074,7 @@ msgstr "Idő"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:26
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:313
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:592
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:610
 msgid "Comment"
 msgstr "Hozzászólás"
 
@@ -2338,11 +2355,12 @@ msgid "Exporting book."
 msgstr "Könyvek exportálása."
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:60
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:129
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:319
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:154
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:157
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:27
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:46
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:86
 msgid "Save"
 msgstr "Mentés"
 
@@ -2595,6 +2613,10 @@ msgstr ""
 msgid "Overwrite"
 msgstr ""
 
+#: lib/booktype/apps/edit/templates/edit/edit_strings.html:128
+msgid "Remove user from the book"
+msgstr ""
+
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:12
 msgid "Invite codes"
 msgstr ""
@@ -2613,51 +2635,51 @@ msgid ""
 "your book"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:60
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:58
 msgid "Done"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:65
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:66
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:113
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:114
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:63
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:64
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:111
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:112
 msgid "Copied!"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:67
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:115
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:65
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:113
 msgid "Press Ctrl+C to copy!"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:71
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:69
 msgid "Copy code"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:73
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:71
 msgid "Loading"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:74
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:72
 msgid "Generate"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:81
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:79
 msgid "Existent Codes"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:85
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:83
 msgid "Code"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:87
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:85
 msgid "Valid"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:99
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:97
 msgid "Expire on"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/invite_code.html:124
+#: lib/booktype/apps/edit/templates/edit/invite_code.html:122
 msgid "No invite codes yet"
 msgstr ""
 
@@ -2820,12 +2842,11 @@ msgid "Edit metadata"
 msgstr "Metaadatok Szerkesztése"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:608
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:626
 msgid "Download"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:269
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:26
 msgid "REMOVE"
 msgstr "ELTÁVOLÍTÁS"
 
@@ -2986,7 +3007,7 @@ msgstr "A kép mérete"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:4
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:14
-#: lib/booktype/apps/edit/views.py:569
+#: lib/booktype/apps/edit/views.py:571
 msgid "Book History"
 msgstr "A könyv története"
 
@@ -3015,7 +3036,7 @@ msgid "Clear filters"
 msgstr "Szűrők eltávolítása"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:24
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:585
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:603
 msgid "Action"
 msgstr "Művelet"
 
@@ -3091,303 +3112,316 @@ msgid "You can only upload JPEG/PNG files."
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:4
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:598
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:616
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:19
 msgid "Publish"
 msgstr "Közzététel"
 
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:8
+msgid "There are some issues with this document. Please resolve them."
+msgstr ""
+
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:13
+msgid ""
+" These chapters still have markers. Please resolve them before publishing"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:28
 msgid "Book export"
 msgstr "Könyv exportálása"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:20
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:35
 msgid "Export history"
 msgstr "Exportálási történet"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:29
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:45
+msgid "Checking book info."
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:47
 msgid "Important! Before you export..."
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:31
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:49
 msgid "Please check the settings for your chosen formats before exporting."
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:32
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:50
 msgid ""
 "Front matter is generated automatically. Please ensure all <a "
 "href=\"#settings/metadata\">metadata</a> and <a href=\"#settings/additional-"
 "metadata\">additional metadata</a> has been entered."
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:33
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:51
 msgid ""
 "If exporting screen PDF, EPUB or MOBI, please check the <a "
 "href=\"#covers\">cover manager</a> first."
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:51
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:69
 msgid "Print PDF Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:57
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:60
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:178
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:181
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:75
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:78
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:196
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:199
 msgid "Size"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:59
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:180
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:77
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:198
 msgid "Choose a standard paper size or custom dimensions"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:62
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:183
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:80
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:201
 msgid "custom"
 msgstr "egyéni"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:96
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:99
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:106
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:109
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:112
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:115
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:114
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:117
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:124
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:127
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:135
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:148
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:217
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:220
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:227
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:230
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:233
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:236
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:130
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:133
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:145
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:153
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:166
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:235
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:238
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:245
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:248
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:256
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:251
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:254
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:266
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:274
 msgid "mm"
 msgstr "mm"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:102
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:223
-msgid "Margins"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:104
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:225
-msgid "Set the margin and gutter dimensions"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:105
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:226
-msgid "Top Margin"
-msgstr "Felső margó"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:108
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:229
-msgid "Side Margin"
-msgstr "Oldalsó margó"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:111
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:232
-msgid "Bottom Margin"
-msgstr "Alsó margó"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:114
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:235
-msgid "Gutter"
-msgstr "Kötésmargó"
-
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:118
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:239
-msgid "Header and Footer"
-msgstr ""
-
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:120
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:241
-msgid "Set header and footer visibility, and their margins"
+msgid "Margins"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:122
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:243
-msgid "Show Header"
+msgid "Set the margin and gutter dimensions"
 msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:123
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:244
+msgid "Top Margin"
+msgstr "Felső margó"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:126
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:247
+msgid "Side Margin"
+msgstr "Oldalsó margó"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:129
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:250
+msgid "Bottom Margin"
+msgstr "Alsó margó"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:132
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:253
+msgid "Gutter"
+msgstr "Kötésmargó"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:136
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:257
+msgid "Header and Footer"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:138
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:259
+msgid "Set header and footer visibility, and their margins"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:140
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:261
+msgid "Show Header"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:144
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:265
 msgid "Header Margin"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:130
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:251
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:148
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:269
 msgid "Show Footer"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:134
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:255
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:152
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:273
 msgid "Footer Margin"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:141
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:159
 msgid "Set extra options for paper trimming"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:143
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:161
 msgid "Crop Marks"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:147
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:165
 msgid "Bleed size"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:153
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:156
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:269
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:272
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:303
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:306
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:337
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:340
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:371
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:374
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:405
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:408
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:430
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:433
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:171
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:174
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:287
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:290
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:321
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:324
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:355
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:358
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:389
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:392
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:423
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:426
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:448
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:451
 msgid "Styling"
 msgstr "Formázás"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:155
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:271
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:305
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:339
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:373
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:407
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:432
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:173
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:289
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:323
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:357
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:391
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:425
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:450
 msgid "Manually edit CSS style"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:172
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:190
 msgid "Screen PDF Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:260
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:294
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:328
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:362
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:396
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:278
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:312
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:346
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:380
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:414
 msgid "Cover"
 msgstr "Borító"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:262
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:296
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:330
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:364
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:398
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:280
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:314
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:348
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:382
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:416
 msgid "Select a cover from the Cover Manager"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:264
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:298
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:332
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:366
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:400
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:282
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:316
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:350
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:384
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:418
 msgid "No Cover"
 msgstr "Nincs borító"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:288
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:306
 msgid "EPUB Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:322
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:356
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:340
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:374
 msgid "Adobe InDesign Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:390
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:408
 msgid "Mobi Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:424
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:442
 msgid "XHTML Settings"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:449
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:588
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:467
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:606
 msgid "Remove export"
 msgstr "Exportálás eltávolítása"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:452
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:470
 msgid "Do you want to remove this export?"
 msgstr "Valóban törölni akarja az exportálást?"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:470
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:488
 msgid "Choose format for export"
 msgstr "Válasszon formátumot az exportáláshoz"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:472
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:490
 msgid "No available publish formats."
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:491
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:509
 msgid "Printers' PDF"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:494
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:505
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:516
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:547
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:558
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:512
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:523
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:534
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:565
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:576
 msgid "settings"
 msgstr "beállítások"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:502
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:520
 msgid "Screen PDF"
 msgstr "PDF képernyő"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:513
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:531
 msgid "EPUB"
 msgstr "EPUB"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:525
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:543
 msgid "Adobe InDesign (ICML)"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:533
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:551
 msgid "Word (DOCX)"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:544
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:562
 msgid "MOBI"
 msgstr "MOBI"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:555
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:573
 msgid "XHTML"
 msgstr "XHTML"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:565
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:583
 msgid "EXPORT YOUR BOOK"
 msgstr "EXPORTÁLJA KÖNYVÉT"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:615
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:633
 msgid "Failed"
 msgstr "Sikertelen"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:628
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:646
 msgid "pages"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:646
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:664
 msgid "comments"
 msgstr "hozzászólások"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:655
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:673
 msgid "Your comment here"
 msgstr "Itt tud hozzászólni"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:656
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:674
 msgid "SEND COMMENT"
 msgstr "HOSSZÁSZÓLÁS KÜLDÉSE"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:676
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:694
 msgid "Exporting, please wait"
 msgstr "Exportálás, kérem várjon"
 
@@ -3438,6 +3472,23 @@ msgstr "A beállítások modul nem elérhető."
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:71
 msgid "Permissions required to access this module."
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:125
+msgid "CHANGE"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:138
+msgid ""
+"This book doesn't contain invited people. Please invite people in your "
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:139
+msgid "dashboard"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/panel_settings.html:148
+msgid "Change roles for "
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:19
@@ -3666,30 +3717,6 @@ msgid ""
 " able to undo this operation!"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:8
-msgid "Assign"
-msgstr "Hozzárendelés"
-
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:34
-msgid "There are no roles for this book yet"
-msgstr "Nincsenek még szerepek ehhez a könyvhöz"
-
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:44
-msgid "Assign Roles"
-msgstr "Szerepek hozzárendelése"
-
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:51
-msgid "Search"
-msgstr "Keresés"
-
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:76
-msgid "There are no existing roles yet"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/settings/_roles.html:79
-msgid "To apply changes, click on Save"
-msgstr "A módosítások alkalmazásához, kattintson a Mentés-re"
-
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:4
 #: lib/booktype/apps/reader/templates/reader/book_draft_page.html:13
 #: lib/booktype/apps/reader/templates/reader/book_full_view.html:32
@@ -3720,57 +3747,57 @@ msgstr "A könyv nyelve"
 msgid "Book License"
 msgstr "Könyv liszensz"
 
-#: lib/booktype/apps/edit/views.py:520
+#: lib/booktype/apps/edit/views.py:522
 #, python-brace-format
 msgid "Revision {0} saved"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:598
+#: lib/booktype/apps/edit/views.py:600
 msgid "Chapter diff"
 msgstr "Fejezet eltérés"
 
-#: lib/booktype/apps/edit/views.py:636
+#: lib/booktype/apps/edit/views.py:638
 msgid "Book History | Chapter Revision"
 msgstr "Könyv Előzmények | Fejezet Változatok"
 
-#: lib/booktype/apps/edit/views.py:659
+#: lib/booktype/apps/edit/views.py:661
 #, python-format
 msgid "Reverted to revision %s."
 msgstr "Visszaállítva a következő változatra: %s."
 
-#: lib/booktype/apps/edit/views.py:678
+#: lib/booktype/apps/edit/views.py:680
 msgid "Chapter revision successfully reverted."
 msgstr "A fejezet korábbi változatának visszaállítása sikeresen megtörtént."
 
-#: lib/booktype/apps/edit/views.py:680
+#: lib/booktype/apps/edit/views.py:682
 msgid "Chapter revision could not be reverted."
 msgstr "A fejezet a korábbi változatra nem állítható vissza."
 
-#: lib/booktype/apps/edit/views.py:751
+#: lib/booktype/apps/edit/views.py:753
 msgid "Successfully saved settings."
 msgstr "A beállítások sikeres mentése megtörtént."
 
-#: lib/booktype/apps/edit/views.py:753
+#: lib/booktype/apps/edit/views.py:755
 msgid "You have no permissions to execute this action."
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:756
+#: lib/booktype/apps/edit/views.py:758
 msgid "Unknown error while saving changes."
 msgstr "Ismeretlen hiba a változtatások mentése közben."
 
-#: lib/booktype/apps/edit/views.py:819
+#: lib/booktype/apps/edit/views.py:821
 msgid "default one ({})"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:833
+#: lib/booktype/apps/edit/views.py:835
 msgid "Available revisions: {}"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:835
+#: lib/booktype/apps/edit/views.py:837
 msgid "There are no revisions available"
 msgstr ""
 
-#: lib/booktype/apps/edit/views.py:842
+#: lib/booktype/apps/edit/views.py:844
 msgid "USING REVISION"
 msgstr ""
 
