@@ -16,7 +16,10 @@ if __name__ == "__main__":
     sys.path.insert(0, BASE_DIR.child('lib'))
 
     # Let us find where we have Booktype installed
-    sys.path.insert(0, '##BOOKTYPE_PATH##')
+    if 'BOOKTYPE' in os.environ:
+        sys.path.insert(0, os.path.join(os.environ['BOOKTYPE'], 'lib'))
+    else:
+        sys.path.insert(0, '##BOOKTYPE_PATH##')
 
     from django.core.management import execute_from_command_line
 
