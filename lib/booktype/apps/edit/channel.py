@@ -3757,5 +3757,5 @@ def remote_check_markers(request, message, bookid, version):
 
     return {
         'result': True,
-        'marked_chapters': marked_chapters,
+        'marked_chapters': marked_chapters
     }
