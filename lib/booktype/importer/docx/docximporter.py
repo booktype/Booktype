@@ -433,6 +433,11 @@ class WordImporter(object):
         In chapter_mode we want to keep original header tags
         """
 
+        # NOTE: method not used for now, just commenting the line that calls it above.
+
+        # TODO: discuss with the team how we should treat cases like: multiple h1 tags
+        # on imported content, what to do and how to address
+
         def _find(tag):
             return tree.xpath('//' + tag)
 
@@ -508,8 +513,8 @@ class WordImporter(object):
                 if h1.text == 'Unknown':
                     h1.text = _('Title')
 
-        # organise headers only if not chapter mode import
-        self._fix_header_levels(tree)
+        # NOTE: let's see how to handle this in a better way
+        # self._fix_header_levels(tree)
 
         # time to adjust the src attribute of images
         self._fix_images_path(tree)
