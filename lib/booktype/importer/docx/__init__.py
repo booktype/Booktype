@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import tempfile
-from .docximporter import WordImporter
+from booktype.importer.docx.utils import get_importer_class
 
 
 def import_docx(docx_file, book, notifier=None, delegate=None, options=None):
@@ -9,7 +9,8 @@ def import_docx(docx_file, book, notifier=None, delegate=None, options=None):
     Imports a DOCX book.
     """
 
-    importer = WordImporter(book=book)
+    # obtain correct importer class
+    importer = get_importer_class()(book=book)
 
     if delegate:
         importer.delegate = delegate

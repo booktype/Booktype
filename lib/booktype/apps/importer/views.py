@@ -22,7 +22,7 @@ from booktype.apps.core.views import SecurityMixin
 from booktype.importer.delegate import Delegate
 from booktype.importer.notifier import CollectNotifier
 from booktype.importer import utils as importer_utils
-from booktype.importer.docx import WordImporter
+from booktype.importer.docx.utils import get_importer_class
 
 from booktype.utils import config
 from booktype.utils.book import check_book_availability, create_book
@@ -196,7 +196,8 @@ class ImportToChapter(JSONResponseMixin, SecurityMixin, UpdateView):
         notifier, delegate = CollectNotifier(), Delegate()
         response = {}
 
-        docx = WordImporter(book, chapter, notifier=notifier, delegate=delegate)
+        # allow getting custom importer class if any
+        docx = get_importer_class()(book, chapter, notifier=notifier, delegate=delegate)
 
         try:
             docx.import_file(chapter_file, **{'process_mode': process_mode})

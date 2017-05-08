@@ -11,6 +11,7 @@ from django.core.files.base import ContentFile
 from ooxml.serialize import HeaderContext
 
 from booktype.utils import config
+from booktype.utils.misc import import_from_string
 
 
 def convert_image(image_type, content):
@@ -21,6 +22,18 @@ def convert_image(image_type, content):
     data = out.getvalue()
     out.close()
     return ContentFile(data)
+
+
+def get_importer_class():
+    """
+    Dummy function to return the correct module to import DOCX files.
+    If there is no custom class specified in client instance, it will use
+    .docximporter.WordImporter class as it is in constants.py file
+    """
+
+    DOCX_IMPORTER_CLASS = config.get_configuration('DOCX_IMPORTER_CLASS')
+    ImporterClass = import_from_string(DOCX_IMPORTER_CLASS)
+    return ImporterClass
 
 
 class DocHeaderContext(object, HeaderContext):

@@ -82,6 +82,9 @@ DOCX_HEADING_STYLES_TUPLE = (
     ('h6', H6_STYLES)
 )
 
+# This will allow settings custom class on clients
+DOCX_IMPORTER_CLASS = 'booktype.importer.WordImporter'
+
 # END IMPORTERS STUFF
 
 # SERVER RELATED
