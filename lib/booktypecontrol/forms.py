@@ -815,7 +815,7 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
 
 
 class PublishingForm(BaseControlForm, forms.Form):
-    OPTIONS = ('mpdf', 'screenpdf', 'epub', 'mobi', 'xhtml', 'pdfreactor', 'pdfreactor-screenpdf', 'icml', 'docx')
+    OPTIONS = ('mpdf', 'screenpdf', 'epub', 'epub2', 'mobi', 'xhtml', 'pdfreactor', 'pdfreactor-screenpdf', 'icml', 'docx')
 
     publish_mpdf = forms.BooleanField(
         label=_('PDF print'),
@@ -826,7 +826,11 @@ class PublishingForm(BaseControlForm, forms.Form):
         required=False
     )
     publish_epub = forms.BooleanField(
-        label=_('EPUB'),
+        label=_('EPUB3'),
+        required=False
+    )
+    publish_epub2 = forms.BooleanField(
+        label=_('EPUB2'),
         required=False
     )
     publish_mobi = forms.BooleanField(
@@ -876,6 +880,7 @@ class PublishingForm(BaseControlForm, forms.Form):
             'publish_mpdf': 'mpdf' in publish_options,
             'publish_screenpdf': 'screenpdf' in publish_options,
             'publish_epub': 'epub' in publish_options,
+            'publish_epub2': 'epub2' in publish_options,
             'publish_mobi': 'mobi' in publish_options,
             'publish_xhtml': 'xhtml' in publish_options,
             'publish_pdfreactor': 'pdfreactor' in publish_options,

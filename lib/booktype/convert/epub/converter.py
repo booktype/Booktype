@@ -89,7 +89,6 @@ class EpubConverter(BaseConverter):
             self.theme_name = None
 
     def pre_convert(self, original_book, book):
-
         super(EpubConverter, self).pre_convert(original_book)
 
         if self.theme_plugin:
@@ -98,12 +97,10 @@ class EpubConverter(BaseConverter):
             except NotImplementedError:
                 pass
 
-        # create image edtor conversion instance
-        # todo move it to more proper place in the future, and create plugin for it
-        if self.name == 'epub':
-            self._bk_image_editor_conversion = ImageEditorConversion(
-                original_book, EPUB_DOCUMENT_WIDTH, self
-            )
+        # TODO move it to more proper place in the future, and create plugin for it
+        self._bk_image_editor_conversion = ImageEditorConversion(
+            original_book, EPUB_DOCUMENT_WIDTH, self
+        )
 
     def post_convert(self, original_book, book, output_path):
 
@@ -516,3 +513,16 @@ class Epub2Converter(EpubConverter):
 
     def _get_writer_class(self):
         return Epub2Writer
+
+    def _get_theme_plugin(self):
+        return plugin.load_theme_plugin(super(Epub2Converter, self).name, self.theme_name)
+
+    def _get_theme_style(self):
+        return read_theme_style(self.theme_name, super(Epub2Converter, self).name)
+
+    def _get_default_style(self):
+        return render_to_string('themes/style_{}.css'.format(super(Epub2Converter, self).name), {'dir': self.direction})
+
+    def _get_theme_assets(self):
+        return read_theme_assets(self.theme_name, super(Epub2Converter, self).name)
+
