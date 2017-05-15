@@ -37,7 +37,7 @@ from booktype.apps.convert.templatetags.convert_tags import (
 from booktype.apps.convert import plugin
 from booktype.convert.image_editor_conversion import ImageEditorConversion
 
-from .writer import Writer
+from .writer import Writer, Epub2Writer
 from .writerplugins import WriterPlugin, ImageEditorWriterPlugin, CleanupTagsWriterPlugin
 
 from .cover import add_cover, COVER_FILE_NAME
@@ -505,3 +505,14 @@ class EpubConverter(BaseConverter):
         ]
 
         return (type(item) in cover_types or file_name == 'cover.xhtml')
+
+
+class Epub2Converter(EpubConverter):
+    name = "epub2"
+    writer_plugin_class = WriterPlugin
+
+    def __init__(self, *args, **kwargs):
+        super(Epub2Converter, self).__init__(*args, **kwargs)
+
+    def _get_writer_class(self):
+        return Epub2Writer
