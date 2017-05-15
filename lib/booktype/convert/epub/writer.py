@@ -15,7 +15,7 @@ from .displayoptions import make_display_options_xml
 logger_epub2 = logging.getLogger("booktype.convert.epub2")
 
 
-class Writer(ebooklib.epub.EpubWriter):
+class Epub3Writer(ebooklib.epub.EpubWriter):
     """
     EPUB3 writer
     """
@@ -39,11 +39,11 @@ class Writer(ebooklib.epub.EpubWriter):
         return content
 
     def _get_nav(self, item):
-        content = super(Writer, self)._get_nav(item)
+        content = super(Epub3Writer, self)._get_nav(item)
         return self._fix_nav_css_links(content)
 
     def _write_container(self):
-        super(Writer, self)._write_container()
+        super(Epub3Writer, self)._write_container()
 
         display_options_xml = make_display_options_xml(**self.options)
         self.out.writestr(
@@ -52,7 +52,7 @@ class Writer(ebooklib.epub.EpubWriter):
         )
 
 
-class Epub2Writer(Writer):
+class Epub2Writer(Epub3Writer):
     """
     EPUB3 writer
     """

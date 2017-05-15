@@ -37,7 +37,7 @@ from booktype.apps.convert.templatetags.convert_tags import (
 from booktype.apps.convert import plugin
 from booktype.convert.image_editor_conversion import ImageEditorConversion
 
-from .writer import Writer, Epub2Writer
+from .writer import Epub3Writer, Epub2Writer
 from .writerplugins import WriterPlugin, ImageEditorWriterPlugin, CleanupTagsWriterPlugin
 
 from .cover import add_cover, COVER_FILE_NAME
@@ -52,15 +52,15 @@ from ..utils.epub import parse_toc_nav
 logger = logging.getLogger("booktype.convert.epub")
 
 
-class EpubConverter(BaseConverter):
-
-    name = 'epub'
+class Epub3Converter(BaseConverter):
+    name = 'epub3'
     toc_title = 'toc'
     default_style = 'style1'
     default_lang = DEFAULT_LANG
     writer_plugin_class = WriterPlugin
     css_dir = os.path.join(os.path.dirname(__file__), 'styles/')
 
+    _theme_suffix = 'epub'
     _images_dir = "images/"
 
     # valid extensions to assign right mimetype
@@ -68,7 +68,7 @@ class EpubConverter(BaseConverter):
     OPENTYPE_FONTS = ['.otf', '.otc', '.ttf', '.ttc']
 
     def __init__(self, *args, **kwargs):
-        super(EpubConverter, self).__init__(*args, **kwargs)
+        super(Epub3Converter, self).__init__(*args, **kwargs)
 
         self.images_path = os.path.join(self.sandbox_path, self._images_dir)
 
@@ -77,7 +77,7 @@ class EpubConverter(BaseConverter):
         self._bk_image_editor_conversion = None
 
     def _get_theme_plugin(self):
-        return plugin.load_theme_plugin(self.name, self.theme_name)
+        return plugin.load_theme_plugin(self._theme_suffix, self.theme_name)
 
     def _init_theme_plugin(self):
         if 'theme' in self.config:
@@ -89,7 +89,7 @@ class EpubConverter(BaseConverter):
             self.theme_name = None
 
     def pre_convert(self, original_book, book):
-        super(EpubConverter, self).pre_convert(original_book)
+        super(Epub3Converter, self).pre_convert(original_book)
 
         if self.theme_plugin:
             try:
@@ -113,7 +113,7 @@ class EpubConverter(BaseConverter):
     def convert(self, original_book, output_path):
         convert_start = datetime.datetime.now()
 
-        logger.debug('[EPUB] EpubConverter.convert')
+        logger.debug('[EPUB] {}.convert'.format(self.__class__.__name__))
 
         self._init_theme_plugin()
 
@@ -163,7 +163,7 @@ class EpubConverter(BaseConverter):
         logger.debug('[EPUB] Write')
         epub_writer.write()
 
-        logger.debug('[END] EPUBConverter.convert')
+        logger.debug('[END] {}.convert'.format(self.__class__.__name__))
 
         convert_end = datetime.datetime.now()
         logger.info('Conversion lasted %s.', convert_end - convert_start)
@@ -215,7 +215,7 @@ class EpubConverter(BaseConverter):
     def _get_writer_class(self):
         """Simply returns the default writer class to be used by the converter"""
 
-        return Writer
+        return Epub3Writer
 
     def _get_language(self, original_book):
         """
@@ -367,10 +367,10 @@ class EpubConverter(BaseConverter):
                 epub_book, cover_asset, self.config.get('lang', DEFAULT_LANG))
 
     def _get_theme_style(self):
-        return read_theme_style(self.theme_name, self.name)
+        return read_theme_style(self.theme_name, self._theme_suffix)
 
     def _get_default_style(self):
-        return render_to_string('themes/style_{}.css'.format(self.name), {'dir': self.direction})
+        return render_to_string('themes/style_{}.css'.format(self._theme_suffix), {'dir': self.direction})
 
     def _add_css_styles(self, epub_book):
         """Adds default css styles and custom css text if exists in config"""
@@ -431,7 +431,7 @@ class EpubConverter(BaseConverter):
 
 
     def _get_theme_assets(self):
-        return read_theme_assets(self.theme_name, self.name)
+        return read_theme_assets(self.theme_name, self._theme_suffix)
 
     def _add_theme_assets(self, epub_book):
         assets = self._get_theme_assets()
@@ -504,7 +504,7 @@ class EpubConverter(BaseConverter):
         return (type(item) in cover_types or file_name == 'cover.xhtml')
 
 
-class Epub2Converter(EpubConverter):
+class Epub2Converter(Epub3Converter):
     name = "epub2"
     writer_plugin_class = WriterPlugin
 
@@ -513,16 +513,3 @@ class Epub2Converter(EpubConverter):
 
     def _get_writer_class(self):
         return Epub2Writer
-
-    def _get_theme_plugin(self):
-        return plugin.load_theme_plugin(super(Epub2Converter, self).name, self.theme_name)
-
-    def _get_theme_style(self):
-        return read_theme_style(self.theme_name, super(Epub2Converter, self).name)
-
-    def _get_default_style(self):
-        return render_to_string('themes/style_{}.css'.format(super(Epub2Converter, self).name), {'dir': self.direction})
-
-    def _get_theme_assets(self):
-        return read_theme_assets(self.theme_name, super(Epub2Converter, self).name)
-

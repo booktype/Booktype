@@ -298,7 +298,7 @@
     </div><!-- /.modal-dialog -->
   </div>
 
-  <div class="modal fade settings-dialog" id="settings-epub" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade settings-dialog" id="settings-epub3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog new_book">
       <div class="modal-content">
         <div class="modal-header">
@@ -559,10 +559,10 @@
           </div>
         {% endif %}
 
-        {% if "epub" in publish_options %}
+        {% if "epub3" in publish_options %}
           <div class="checkbox">
             <label>
-              <input name="epub" type="checkbox"> {% trans "EPUB3" %}
+              <input name="epub3" type="checkbox"> {% trans "EPUB3" %}
             </label>
             {% check_perm 'export.export_settings' %}
               <a href="" class="modal-open">{% trans "settings" %}</a>
