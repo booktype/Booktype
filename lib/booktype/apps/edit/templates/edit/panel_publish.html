@@ -298,12 +298,46 @@
     </div><!-- /.modal-dialog -->
   </div>
 
-  <div class="modal fade settings-dialog" id="settings-epub" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade settings-dialog" id="settings-epub3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog new_book">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h2 class="modal-title" id="myModalLabel">{% trans "EPUB Settings" %}</h2>
+          <h2 class="modal-title" id="myModalLabel">{% trans "EPUB3 Settings" %}</h2>
+        </div>
+        <div class="modal-body">
+          <section id="basic">
+            <form method="post" action="" target="hidden_frame" enctype="multipart/form-data">
+              <div class="wizard-settings">
+                <h3>{% trans "Cover" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Select a cover from the Cover Manager" %}</p>
+                  <select name="cover_image" id="cover_image" multiple="multiple" size="5" class="ui-wizard-content">
+                    <option value=" ">{% trans "No Cover" %}</option>
+                    <option disabled="disabled" role="separator">-------------------</option>
+                  </select>
+                </section>
+
+                <h3>{% trans "Styling" %}</h3>
+                <section>
+                  <p class="wizard_desc">{% trans "Manually edit CSS style" %}</p>
+                  <label for="styling">{% trans "Styling" %}</label>
+                  <textarea name="styling" cols="50" rows="5"></textarea>
+                </section>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+  <div class="modal fade settings-dialog" id="settings-epub2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog new_book">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="modal-title" id="myModalLabel">{% trans "EPUB2 Settings" %}</h2>
         </div>
         <div class="modal-body">
           <section id="basic">
@@ -525,10 +559,22 @@
           </div>
         {% endif %}
 
-        {% if "epub" in publish_options %}
+        {% if "epub3" in publish_options %}
           <div class="checkbox">
             <label>
-              <input name="epub" type="checkbox"> {% trans "EPUB" %}
+              <input name="epub3" type="checkbox"> {% trans "EPUB3" %}
+            </label>
+            {% check_perm 'export.export_settings' %}
+              <a href="" class="modal-open">{% trans "settings" %}</a>
+            {% endcheck_perm %}
+          </div>
+        {% endif %}
+
+
+        {% if "epub2" in publish_options %}
+          <div class="checkbox">
+            <label>
+              <input name="epub2" type="checkbox"> {% trans "EPUB2" %}
             </label>
             {% check_perm 'export.export_settings' %}
               <a href="" class="modal-open">{% trans "settings" %}</a>

@@ -124,7 +124,7 @@ EPUB_COVER_MAX_SIZE = 2800
 EPUB_COVER_MAX_PIXELS = 3200000
 
 # PUBLISHING RELATED
-PUBLISH_OPTIONS = ['mpdf', 'screenpdf', 'epub', 'icml', 'docx', 'mobi', 'xhtml']
+PUBLISH_OPTIONS = ['mpdf', 'screenpdf', 'epub3', 'epub2', 'icml', 'docx', 'mobi', 'xhtml']
 
 # mobi conversion
 # Options are "kindlegen" or "calibre"
@@ -211,7 +211,8 @@ EXPORT_SETTINGS = {
         {u'name': u'header_margin', u'value': u'10'}, {u'name': u'show_footer', u'value': u'on'},
         {u'name': u'footer_margin', u'value': u'10'}, {u'name': u'cover_image', u'value': u' '},
         {u'name': u'styling', u'value': u''}],
-    'epub': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
+    'epub2': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
+    'epub3': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
     'icml': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
     'docx': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],
     'mobi': [{u'name': u'cover_image', u'value': u' '}, {u'name': u'styling', u'value': u''}],

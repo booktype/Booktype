@@ -21,13 +21,13 @@ from booktype.convert.image_editor_conversion import ImageEditorConversion
 
 from ..utils import run_command
 from .. import ConversionError
-from ..epub.converter import EpubConverter
+from ..epub.converter import Epub3Converter
 
 
 MOBI_DOCUMENT_WIDTH = config.get_configuration('MOBI_DOCUMENT_WIDTH')
 
 
-class MobiConverter(EpubConverter):
+class MobiConverter(Epub3Converter):
     name = "mobi"
 
     def pre_convert(self, original_book, book):
