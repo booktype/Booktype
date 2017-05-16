@@ -155,6 +155,7 @@
     <button class="btn btn-default btn-sm no-border dropdown-toggle table-dropdown" data-toggle="dropdown" rel="tooltip" data-original-title="{% trans "Table" %}" data-placement="bottom"><i class="icon-table"></i></button>
          <ul class="dropdown-menu pull-left table-dropdown" role="menu">
           <li role="presentation" class="dropdown-header">{% trans "Insert Table" %}</li>
+          <li role="presentation" class="dropdown-header dropdown-header-modify">{% trans "Modify Table" %}</li>
           <li role="presentation" class="createtable">
             <div class="insert-table-block">
               <h4>{% trans "Rows" %}</h4>
@@ -169,10 +170,11 @@
               <div class="cols-value value">2</div>
               <div class="table-caption">
                 <h4>{% trans "Table caption" %}</h4>
-                <textarea rows="2" name="table-caption" class="form-control"></textarea>
+                <textarea rows="3" name="table-caption" class="form-control"></textarea>
               </div>
               <br />
               <button class="btn btn-primary btn-sm action inserttable">{% trans "OK" %}</button>
+              <button class="btn btn-primary btn-sm action updatetable hidden">{% trans "Update" %}</button>
             </div>
           </li>
           <li role="presentation"><a role="menuitem" data-target="#" class="action deletetable" data-placement="left">{% trans "Delete Table" %}</a></li>
