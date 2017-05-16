@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-26 16:19-0600\n"
-"PO-Revision-Date: 2017-04-28 09:54+0000\n"
+"POT-Creation-Date: 2017-05-15 23:53-0600\n"
+"PO-Revision-Date: 2017-05-16 08:26+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/sourcefabric/booktype/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -501,7 +501,7 @@ msgstr "新規書籍作成"
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
 #: lib/booktype/importer/docx/docximporter.py:238
-#: lib/booktype/importer/docx/docximporter.py:509
+#: lib/booktype/importer/docx/docximporter.py:514
 msgid "Title"
 msgstr "タイトル"
 
@@ -650,7 +650,7 @@ msgstr "ファイルフォーマットが誤っています。別のファイル
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:50
 #: lib/booktype/apps/importer/views.py:136
-#: lib/booktype/apps/importer/views.py:219
+#: lib/booktype/apps/importer/views.py:220
 msgid "Something went wrong!"
 msgstr "何か問題がおきました！"
 
@@ -1740,137 +1740,145 @@ msgstr "表"
 msgid "Insert Table"
 msgstr "表の追加"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:160
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:158
+msgid "Modify Table"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:161
 msgid "Rows"
 msgstr "行"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:165
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:166
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:90
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:349
 msgid "Columns"
 msgstr "列"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:171
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:172
 msgid "Table caption"
 msgstr "表題"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:175
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:176
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:63
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:415
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
 msgstr "OK"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:178
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:177
+msgid "Update"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:180
 msgid "Delete Table"
 msgstr "表の削除"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:180
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:182
 msgid "Table Options"
 msgstr "表のオプション"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:181
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:183
 msgid "Add Row Before"
 msgstr "前に行を追加"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:182
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:184
 msgid "Add Row After"
 msgstr "後に行を追加"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:183
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:185
 msgid "Add Column Before"
 msgstr "前に列を追加"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:184
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:186
 msgid "Add Column After"
 msgstr "後に列を追加"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:185
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:187
 msgid "Delete Row"
 msgstr "行の削除"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:186
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:188
 msgid "Delete Column"
 msgstr "列の削除"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:191
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:193
 msgid "Insert Link"
 msgstr "リンクの挿入"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:192
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:194
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:164
 msgid "Insert Image"
 msgstr "イメージの挿入"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:196
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:198
 msgid "Left align"
 msgstr "左寄せ"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:197
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:199
 msgid "Centre align"
 msgstr "中央寄せ"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:198
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:200
 msgid "Right align"
 msgstr "右寄せ"
 
 #. Translators: User defined style alignment settings
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:199
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:201
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:376
 #: lib/booktype/skeleton/themes/custom/panel.html:53
 msgid "Justify"
 msgstr "行そろえ"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:204
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:206
 msgid "Unordered List"
 msgstr "整列していないリスト"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:205
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:207
 msgid "Ordered List"
 msgstr "整列したリスト"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:208
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:210
 msgid "Indent left"
 msgstr "左インデント"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:209
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:211
 msgid "Indent right"
 msgstr "右インデント"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:212
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:214
 msgid "Left to right"
 msgstr "左から右"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:213
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:215
 msgid "Right to left"
 msgstr "右から左"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:219
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:221
 msgid "Save chapter"
 msgstr "章の保存"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:219
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:221
 msgid "SAVE"
 msgstr "保存"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:225
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:227
 msgid "Save and close"
 msgstr "保存して閉じる"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:226
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:228
 msgid "Save minor change"
 msgstr "マイナーチェンジの保存"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:227
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:229
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:308
 msgid "Save with comment"
 msgstr "コメントの保存"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:229
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:231
 msgid "Close this chapter and go to the Table of Contents"
 msgstr "章を閉じて目次へ移動する"
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:229
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:231
 msgid "CLOSE"
 msgstr "閉じる"
 

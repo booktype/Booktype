@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-26 16:19-0600\n"
-"PO-Revision-Date: 2017-04-28 09:54+0000\n"
+"POT-Creation-Date: 2017-05-15 23:53-0600\n"
+"PO-Revision-Date: 2017-05-16 08:26+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Korean (Korea) (http://www.transifex.com/sourcefabric/booktype/language/ko_KR/)\n"
 "MIME-Version: 1.0\n"
@@ -499,7 +499,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
 #: lib/booktype/importer/docx/docximporter.py:238
-#: lib/booktype/importer/docx/docximporter.py:509
+#: lib/booktype/importer/docx/docximporter.py:514
 msgid "Title"
 msgstr ""
 
@@ -648,7 +648,7 @@ msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:50
 #: lib/booktype/apps/importer/views.py:136
-#: lib/booktype/apps/importer/views.py:219
+#: lib/booktype/apps/importer/views.py:220
 msgid "Something went wrong!"
 msgstr ""
 
@@ -1738,137 +1738,145 @@ msgstr ""
 msgid "Insert Table"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:160
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:158
+msgid "Modify Table"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:161
 msgid "Rows"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:165
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:166
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:90
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:349
 msgid "Columns"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:171
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:172
 msgid "Table caption"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:175
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:176
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:63
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:415
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:178
-msgid "Delete Table"
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:177
+msgid "Update"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:180
-msgid "Table Options"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:181
-msgid "Add Row Before"
+msgid "Delete Table"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:182
-msgid "Add Row After"
+msgid "Table Options"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:183
-msgid "Add Column Before"
+msgid "Add Row Before"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:184
-msgid "Add Column After"
+msgid "Add Row After"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:185
-msgid "Delete Row"
+msgid "Add Column Before"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:186
+msgid "Add Column After"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:187
+msgid "Delete Row"
+msgstr ""
+
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:188
 msgid "Delete Column"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:191
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:193
 msgid "Insert Link"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:192
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:194
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:164
 msgid "Insert Image"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:196
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:198
 msgid "Left align"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:197
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:199
 msgid "Centre align"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:198
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:200
 msgid "Right align"
 msgstr ""
 
 #. Translators: User defined style alignment settings
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:199
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:201
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:376
 #: lib/booktype/skeleton/themes/custom/panel.html:53
 msgid "Justify"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:204
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:206
 msgid "Unordered List"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:205
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:207
 msgid "Ordered List"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:208
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:210
 msgid "Indent left"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:209
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:211
 msgid "Indent right"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:212
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:214
 msgid "Left to right"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:213
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:215
 msgid "Right to left"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:219
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:221
 msgid "Save chapter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:219
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:221
 msgid "SAVE"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:225
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:227
 msgid "Save and close"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:226
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:228
 msgid "Save minor change"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:227
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:229
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:308
 msgid "Save with comment"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:229
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:231
 msgid "Close this chapter and go to the Table of Contents"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:229
+#: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:231
 msgid "CLOSE"
 msgstr ""
 
