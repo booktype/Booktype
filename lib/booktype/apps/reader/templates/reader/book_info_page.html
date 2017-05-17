@@ -89,6 +89,25 @@
                             {% trans "Edit book info" %}
                           </a>
                         </li>
+                        {% endif %}
+
+                        {% check_perm 'edit.manage_metadata' %}
+                        <li>
+                          <a  href="{% url 'edit:editor' book.url_title %}#settings/metadata">
+                            {% trans "Book Metadata" %}
+                          </a>
+                        </li>
+                        {% endcheck_perm %}
+
+                        {% check_perm 'core.manage_roles' %}
+                        <li>
+                          <a  href="{% url 'edit:editor' book.url_title %}#settings/roles">
+                            {% trans "Manage Roles" %}
+                          </a>
+                        </li>
+                        {% endcheck_perm %}
+
+                        {% if is_book_admin %}
                         <li>
                           <a  href="#bookInfo" data-remote="{% url 'reader:delete_book' book.url_title %}" data-toggle="modal" data-target="#bookModal">
                             {% trans "Delete Book" %}
