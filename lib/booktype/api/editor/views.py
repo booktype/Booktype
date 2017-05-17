@@ -1,4 +1,5 @@
 import json
+import logging
 
 from rest_framework import generics, mixins, viewsets, views, status
 from rest_framework.response import Response
@@ -20,6 +21,9 @@ from .filters import ChapterFilter, BookUserListFilter
 from ..views import BooktypeViewSetMixin
 from ..security import IsAdminOrBookOwner, BooktypeBookSecurity
 from ..core import serializers as core_serializers
+
+
+logger = logging.getLogger('api.editor.views')
 
 
 class LanguageViewSet(

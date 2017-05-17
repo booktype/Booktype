@@ -197,6 +197,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'booktype.api.middleware.AuthMiddleware',
+    'booktype.api.middleware.APILoggingMiddleware',
     'booktype.apps.core.middleware.StrictAuthentication',
     'booktype.apps.core.middleware.SecurityMiddleware',
 )
