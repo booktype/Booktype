@@ -54,64 +54,40 @@ COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
 
 # LOGGING
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'standard': {
-            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s", # noqa
-            'datefmt': '%d/%b/%Y %H:%M:%S'
-        },
+
+LOGGING['handlers']['mail_admins'] = {
+    'level': 'ERROR',
+    'filters': ['require_debug_false'],
+    'class': 'django.utils.log.AdminEmailHandler'
+}
+
+LOGGING['loggers'] = {
+    'django': {
+        'handlers': ['null'],
+        'propagate': True,
+        'level': 'WARN',
     },
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
+    'django.db.backends': {
+        'handlers': ['null'],
+        'level': 'DEBUG',
+        'propagate': False,
     },
-    'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'logging.NullHandler',
-        },
-        'logfile': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': BOOKTYPE_ROOT + "/logs/booktype.log",
-            'maxBytes': 50000,
-            'backupCount': 2,
-            'formatter': 'standard',
-        },
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'standard'
-        },
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+    'django.request': {
+        'handlers': ['mail_admins'],
+        'level': 'ERROR',
+        'propagate': True,
     },
-    'loggers': {
-        'django': {
-            'handlers': ['null'],
-            'propagate': True,
-            'level': 'WARN',
-        },
-        'django.db.backends': {
-            'handlers': ['null'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-        'booktype': {
-            'handlers': ['logfile'],
-            'level': 'INFO'
-        }
+    'booktype': {
+        'handlers': ['logfile'],
+        'level': 'DEBUG'
+    },
+    'sputnik': {
+        'handlers': ['sputniklogfile'],
+        'level': 'DEBUG'
+    },
+    'api': {
+        'handlers': ['apilogfile'],
+        'level': 'DEBUG'
     }
 }
 
