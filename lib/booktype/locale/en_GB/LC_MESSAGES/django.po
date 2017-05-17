@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 23:53-0600\n"
-"PO-Revision-Date: 2017-05-16 11:14+0000\n"
+"POT-Creation-Date: 2017-05-16 21:35-0600\n"
+"PO-Revision-Date: 2017-05-17 14:49+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/sourcefabric/booktype/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -194,7 +194,7 @@ msgstr "My Books"
 #: lib/booktype/apps/portal/templates/portal/group.html:23
 #: lib/booktype/apps/portal/templates/portal/group.html:50
 #: lib/booktype/apps/portal/views.py:390 lib/booktype/apps/portal/views.py:391
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:115
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:134
 msgid "Books"
 msgstr "Books"
 
@@ -350,7 +350,7 @@ msgstr "Recent Activity"
 #: lib/booktype/apps/account/templates/account/dashboard.html:182
 #: lib/booktype/apps/portal/templates/portal/books.html:115
 #: lib/booktype/apps/portal/templates/portal/frontpage.html:149
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:130
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:149
 msgid "ago"
 msgstr "ago"
 
@@ -458,7 +458,7 @@ msgstr "View Book Info"
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:24
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:9
 #: lib/booktype/apps/reader/templates/reader/book_delete.html:19
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:94
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:113
 msgid "Delete Book"
 msgstr "Delete Book"
 
@@ -603,7 +603,7 @@ msgstr "Not following yet."
 #: lib/booktype/apps/portal/templates/portal/all_groups.html:96
 #: lib/booktype/apps/portal/templates/portal/group.html:22
 #: lib/booktype/apps/portal/templates/portal/group.html:117
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:115
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:134
 msgid "Members"
 msgstr "Members"
 
@@ -976,6 +976,7 @@ msgid "Booktype core application"
 msgstr "Booktype core application"
 
 #: lib/booktype/apps/core/__init__.py:7
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:105
 msgid "Manage Roles"
 msgstr "Manage Roles"
 
@@ -1988,13 +1989,13 @@ msgstr "Show changes"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:179
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:101
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:474
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:508
 msgid "Yes"
 msgstr "Yes"
 
 #: lib/booktype/apps/edit/templates/edit/book_edit.html:182
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:99
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:473
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:507
 msgid "No"
 msgstr "No"
 
@@ -2080,7 +2081,7 @@ msgstr "Time"
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:26
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:313
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:610
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:656
 msgid "Comment"
 msgstr "Comment"
 
@@ -2848,7 +2849,7 @@ msgid "Edit metadata"
 msgstr "Edit metadata"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:626
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:672
 msgid "Download"
 msgstr "Download"
 
@@ -3042,7 +3043,7 @@ msgid "Clear filters"
 msgstr "Clear filters"
 
 #: lib/booktype/apps/edit/templates/edit/panel_history.html:24
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:603
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:649
 msgid "Action"
 msgstr "Action"
 
@@ -3118,7 +3119,7 @@ msgid "You can only upload JPEG/PNG files."
 msgstr "You can only upload JPEG/PNG files."
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:4
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:616
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:662
 #: lib/booktype/apps/edit/templates/edit/toolbar_book.html:19
 msgid "Publish"
 msgstr "Publish"
@@ -3290,8 +3291,10 @@ msgstr "Bleed size"
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:392
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:423
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:426
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:448
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:451
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:457
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:460
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:482
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:485
 msgid "Styling"
 msgstr "Styling"
 
@@ -3301,7 +3304,8 @@ msgstr "Styling"
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:357
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:391
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:425
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:450
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:459
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:484
 msgid "Manually edit CSS style"
 msgstr "Manually edit CSS style"
 
@@ -3314,6 +3318,7 @@ msgstr "Screen PDF Settings"
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:346
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:380
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:414
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:448
 msgid "Cover"
 msgstr "Cover"
 
@@ -3322,6 +3327,7 @@ msgstr "Cover"
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:348
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:382
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:416
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:450
 msgid "Select a cover from the Cover Manager"
 msgstr "Select a cover from the Cover Manager"
 
@@ -3330,104 +3336,114 @@ msgstr "Select a cover from the Cover Manager"
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:350
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:384
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:418
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:452
 msgid "No Cover"
 msgstr "No Cover"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:306
-msgid "EPUB Settings"
-msgstr "EPUB Settings"
+msgid "EPUB3 Settings"
+msgstr "EPUB3 Settings"
 
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:340
+msgid "EPUB2 Settings"
+msgstr "EPUB2 Settings"
+
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:374
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:408
 msgid "Adobe InDesign Settings"
 msgstr "Adobe InDesign Settings"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:408
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:442
 msgid "Mobi Settings"
 msgstr "MOBI Settings"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:442
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:476
 msgid "XHTML Settings"
 msgstr "XHTML Settings"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:467
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:606
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:501
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:652
 msgid "Remove export"
 msgstr "Remove export"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:470
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:504
 msgid "Do you want to remove this export?"
 msgstr "Do you want to remove this export?"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:488
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:522
 msgid "Choose format for export"
 msgstr "Choose format for export"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:490
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:524
 msgid "No available publish formats."
 msgstr "No available publish formats."
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:509
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:543
 msgid "Printers' PDF"
 msgstr "Printers' PDF"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:512
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:523
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:534
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:565
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:576
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:546
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:557
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:568
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:580
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:611
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:622
 msgid "settings"
 msgstr "settings"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:520
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:554
 msgid "Screen PDF"
 msgstr "Screen PDF"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:531
-msgid "EPUB"
-msgstr "EPUB"
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:565
+msgid "EPUB3"
+msgstr "EPUB3"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:543
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:577
+msgid "EPUB2"
+msgstr "EPUB2"
+
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:589
 msgid "Adobe InDesign (ICML)"
 msgstr "Adobe InDesign (ICML)"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:551
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:597
 msgid "Word (DOCX)"
 msgstr "Word (DOCX)"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:562
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:608
 msgid "MOBI"
 msgstr "MOBI"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:573
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:619
 msgid "XHTML"
 msgstr "XHTML"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:583
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:629
 msgid "EXPORT YOUR BOOK"
 msgstr "Export your book"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:633
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:679
 msgid "Failed"
 msgstr "Failed"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:646
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:692
 msgid "pages"
 msgstr "pages"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:664
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:710
 msgid "comments"
 msgstr "comments"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:673
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:719
 msgid "Your comment here"
 msgstr "Your comment here"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:674
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:720
 msgid "SEND COMMENT"
 msgstr "Send comment"
 
-#: lib/booktype/apps/edit/templates/edit/panel_publish.html:694
+#: lib/booktype/apps/edit/templates/edit/panel_publish.html:740
 msgid "Exporting, please wait"
 msgstr "Exporting, please wait"
 
@@ -3460,6 +3476,7 @@ msgstr "Metadata"
 
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:37
 #: lib/booktype/apps/edit/views.py:57
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:97
 msgid "Book Metadata"
 msgstr "Book Metadata"
 
@@ -4330,27 +4347,27 @@ msgstr "Download history"
 msgid "Edit book info"
 msgstr "Edit book info"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:109
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:128
 msgid "Group that book belongs to"
 msgstr "Group that the book belongs to"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:123
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:142
 msgid "Recent activity"
 msgstr "Recent activity"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:156
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:175
 msgid "Owner"
 msgstr "Owner"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:179
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:198
 msgid "Admins"
 msgstr "Admins"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:203
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:222
 msgid "Contributors"
 msgstr "Contributors"
 
-#: lib/booktype/apps/reader/templates/reader/book_info_page.html:228
+#: lib/booktype/apps/reader/templates/reader/book_info_page.html:247
 msgid "Book versions"
 msgstr "Book versions"
 
