@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import requests
+import logging
 
 from django.core.files.base import ContentFile
 from django.contrib.auth.models import User
@@ -25,6 +26,9 @@ from booki.utils.log import logBookHistory, logChapterHistory
 from booki.editor.models import Book, BookToc, Language, Chapter, BookStatus
 
 from ..core.serializers import SimpleBookRoleSerializer
+
+
+logger = logging.getLogger('api.editor.serializers')
 
 
 class LanguageSerializer(serializers.HyperlinkedModelSerializer):
@@ -124,7 +128,9 @@ class BookCreateSerializer(BookSerializer):
 
         fields = data.keys()
         if 'import_book_url' in fields and 'import_book_format' not in fields:
-            raise serializers.ValidationError({'import_book_format': ["This field is required."]})
+            error = {'import_book_format': ["This field is required."]}
+            logger.warn('BookCreateSerializer validate: {}'.format(error))
+            raise serializers.ValidationError(error)
 
         return data
 
@@ -146,7 +152,9 @@ class BookCreateSerializer(BookSerializer):
             try:
                 book_importer = importer_utils.get_importer_module(import_format)
             except Exception as err:
-                raise serializers.ValidationError("Wrong importer format {}".format(err))
+                error = "Wrong importer format {}".format(err)
+                logger.warn('BookCreateSerializer create: {}'.format(error))
+                raise serializers.ValidationError(error)
 
             delegate = Delegate()
             notifier = CollectNotifier()
@@ -154,11 +162,15 @@ class BookCreateSerializer(BookSerializer):
             try:
                 book_importer(book_file, book, notifier=notifier, delegate=delegate)
             except Exception as err:
-                raise APIException("Unexpected error while importing the file {}".format(err))
+                error_msg = "Unexpected error while importing the file {}".format(err)
+                logger.warn('BookCreateSerializer create: {}'.format(error_msg))
+                raise APIException(error_msg)
 
             if len(notifier.errors) > 0:
                 err = "\n".join(notifier.errors)
-                raise APIException("Something went wrong: {}".format(err))
+                error_msg = "Something went wrong: {}".format(err)
+                logger.warn('BookCreateSerializer create: {}'.format(error_msg))
+                raise APIException(error_msg)
 
         return book
 
@@ -167,7 +179,9 @@ class BookCreateSerializer(BookSerializer):
             response = requests.get(url)
             book_file = ContentFile(response.content)
         except Exception as err:
-            raise serializers.ValidationError("Error while retrieving the file {}".format(err))
+            error_msg = "Error while retrieving the file {}".format(err)
+            logger.warn('BookCreateSerializer create: {}'.format(error_msg))
+            raise serializers.ValidationError(error_msg)
 
         return book_file
 
@@ -223,7 +237,9 @@ class ChapterListCreateSerializer(serializers.ModelSerializer):
 
         # validate title/url_title
         if not len(attrs['url_title']):
-            raise serializers.ValidationError({'title': 'Title is empty or contains wrong characters.'})
+            error_msg = {'title': 'Title is empty or contains wrong characters.'}
+            logger.warn('ChapterListCreateSerializer validate: {}'.format(error_msg))
+            raise serializers.ValidationError(error_msg)
 
         # validate title/url_title
         chapter_exists = Chapter.objects.filter(
@@ -231,7 +247,9 @@ class ChapterListCreateSerializer(serializers.ModelSerializer):
         ).exists()
 
         if chapter_exists:
-            raise serializers.ValidationError({'title': 'Chapter with this title already exists.'})
+            error_msg = {'title': 'Chapter with this title already exists.'}
+            logger.warn('ChapterListCreateSerializer validate: {}'.format(error_msg))
+            raise serializers.ValidationError(error_msg)
 
         return attrs
 
@@ -332,9 +350,11 @@ class ChapterRetrieveUpdateDestroySerializer(serializers.ModelSerializer):
 
     def validate_status(self, status):
         if self.context['view']._book.id is not status.book.id:
-            raise serializers.ValidationError('Wrong status id. Options are {}'.format(
+            error_msg = 'Wrong status id. Options are {}'.format(
                 [i['id'] for i in BookStatus.objects.filter(book=self.context['view']._book).values('id')]
-            ))
+            )
+            logger.warn('ChapterRetrieveUpdateDestroySerializer validate_status: {}'.format(error_msg))
+            raise serializers.ValidationError(error_msg)
 
         return status
 
@@ -342,7 +362,9 @@ class ChapterRetrieveUpdateDestroySerializer(serializers.ModelSerializer):
         try:
             json.loads(content_json)
         except ValueError as e:
-            raise serializers.ValidationError("Not valid json: {}".format(e))
+            error_msg = "Not valid json: {}".format(e)
+            logger.warn('ChapterRetrieveUpdateDestroySerializer validate_content_json: {}'.format(error_msg))
+            raise serializers.ValidationError(error_msg)
 
         return content_json
 

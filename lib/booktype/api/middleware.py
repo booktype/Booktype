@@ -1,9 +1,7 @@
-import time
 import logging
 import pprint
 
 from django.contrib.auth import authenticate, login
-
 
 logger = logging.getLogger('api.editor.middleware')
 
@@ -34,16 +32,14 @@ class APILoggingMiddleware(object):
 
     MATCH_URL_PREFIX = u'/_api/'
 
-
     def process_response(self, request, response):
         if request.path.startswith(self.MATCH_URL_PREFIX) and self.MATCH_URL_PREFIX != request.path:
             logging_data = {
                 'request': {},
-                'response': {},
-                'runtime': {},
+                'response': {}
             }
 
-            if response['content-type'] == 'application/json':
+            if response.get('content-type') == 'application/json':
                 if getattr(response, 'streaming', False):
                     response_body = '<<<<< Streaming >>>>>'
                 else:
