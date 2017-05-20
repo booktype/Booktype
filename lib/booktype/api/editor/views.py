@@ -1,4 +1,6 @@
 import json
+import logging
+import pprint
 
 from rest_framework import generics, mixins, viewsets, views, status
 from rest_framework.response import Response
@@ -20,6 +22,9 @@ from .filters import ChapterFilter, BookUserListFilter
 from ..views import BooktypeViewSetMixin
 from ..security import IsAdminOrBookOwner, BooktypeBookSecurity
 from ..core import serializers as core_serializers
+
+
+logger = logging.getLogger('api.editor.views')
 
 
 class LanguageViewSet(
@@ -51,7 +56,7 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
     Return all the books ordered by creation date
 
     retrieve:
-    Return a language instance
+    Return a book instance
 
     create:
     Allows creating a new book
@@ -82,6 +87,14 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
 
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ['owner_id', 'language_id']
+
+    def create(self, request, *args, **kwargs):
+        logger.info('BookViewSet.create request:\n{}'.format(pprint.pformat(dict(request.data))))
+        return super(BookViewSet, self).create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        logger.info('BookViewSet.update request:\n{}'.format(pprint.pformat(dict(request.data))))
+        return super(BookViewSet, self).update(request, *args, **kwargs)
 
     @detail_route(url_path='users-by-role', permission_classes=[IsAdminOrBookOwner, BooktypeBookSecurity])
     def users_by_role(self, request, pk=None):
@@ -124,11 +137,13 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
         try:
             user = User.objects.get(id=request.data['user_id'])
         except User.DoesNotExist:
+            logger.warn('BookViewSet.grant_user: User not found.')
             return Response({'detail': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
         try:
             role = Role.objects.get(name=request.data['role_name'])
         except Role.DoesNotExist:
+            logger.warn('BookViewSet.grant_user: Role not found.')
             return Response({'detail': 'Role not found'}, status=status.HTTP_404_NOT_FOUND)
 
         book_role, _ = BookRole.objects.get_or_create(
@@ -157,23 +172,27 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
         role_names = request.data.getlist('role_names[]')
 
         if not role_names:
-            raise ValidationError({'role_names': ['Not valid array']})
+            error = {'role_names': ['Not valid array']}
+            logger.warn('BookViewSet.grant_user_multi: {}'.format(error))
+            raise ValidationError(error)
 
         book = self.get_object()
 
         try:
             user = User.objects.get(id=request.data['user_id'])
         except User.DoesNotExist:
-            raise ValidationError({'user_id': ['User not found']})
+            error = {'user_id': ['User not found']}
+            logger.warn('BookViewSet.grant_user_multi: {}'.format(error))
+            raise ValidationError(error)
 
         response_data = []
         for role_name in role_names:
             try:
                 role = Role.objects.get(name=role_name)
             except Role.DoesNotExist:
-                raise ValidationError(
-                    {'role_names': ['Role with name "{}" not found'.format(role_name)]}
-                )
+                error = {'role_names': ['Role with name "{}" not found'.format(role_name)]}
+                logger.warn('BookViewSet.grant_user_multi: {}'.format(error))
+                raise ValidationError(error)
 
             book_role, _ = BookRole.objects.get_or_create(
                 role=role, book=book)
@@ -203,23 +222,27 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
         role_names = request.data.getlist('role_names[]')
 
         if not role_names:
-            raise ValidationError({'role_names': ['Not valid array']})
+            error = {'role_names': ['Not valid array']}
+            logger.warn('BookViewSet.remove_grant_user_multi: {}'.format(error))
+            raise ValidationError(error)
 
         book = self.get_object()
 
         try:
             user = User.objects.get(id=request.data['user_id'])
         except User.DoesNotExist:
-            raise ValidationError({'user_id': ['User not found']})
+            error = {'user_id': ['User not found']}
+            logger.warn('BookViewSet.remove_grant_user_multi: {}'.format(error))
+            raise ValidationError(error)
 
         response_data = {'removed': []}
         for role_name in role_names:
             try:
                 role = Role.objects.get(name=role_name)
             except Role.DoesNotExist:
-                raise ValidationError(
-                    {'role_names': ['Role with name "{}" not found'.format(role_name)]}
-                )
+                error = {'role_names': ['Role with name "{}" not found'.format(role_name)]}
+                logger.warn('BookViewSet.remove_grant_user_multi: {}'.format(error))
+                raise ValidationError(error)
 
             try:
                 book_role = BookRole.objects.get(

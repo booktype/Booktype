@@ -45,7 +45,7 @@ except ImportError:
     import Image
 
 
-logger = logging.getLogger('booktype.apps.edit.channel')
+logger = logging.getLogger('sputnik.edit.channel')
 
 
 # this couple of functions should go to models.BookVersion
