@@ -14,10 +14,10 @@
         </h4>
         <div class="btn-group float-right book-btns">
             <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'Edit Book' %}" href="{% url 'edit:editor' book.url_title %}">
-                <i class="icon-pencil"></i>
+                <i class="fa fa-pencil"></i>
             </a>
             <a class="btn btn-xs" rel="tooltip" title="" data-placement="bottom" data-original-title="{% trans 'View Book Info' %}" href="{% url 'reader:infopage' book.url_title %}" target="_blank">
-                <i class="icon-eye-open"></i>
+                <i class="fa fa-eye"></i>
             </a>
             {% if user.is_authenticated %}
             <a class="btn btn-xs delete-book" rel="tooltip" title="" data-placement="bottom"
@@ -26,7 +26,7 @@
                 data-perms="{% url 'reader:permissions' book.url_title %}"
                 data-target="#bookThumbModal" data-bookid='{{ book.id }}'
                 data-version='{{ book.get_version.get_version|escapejs }}'>
-                <i class="icon-trash"></i>
+                <i class="fa fa-trash"></i>
             </a>
             {% endif %}
         </div>

@@ -18,7 +18,7 @@ a, a:hover, a:focus, a:visited {
 /* font family for all elements */
 body,
 h1,h2,h3,h4,h5,h6,
-p, li, td 
+p, li, td
 {
 	font-family:'Lato','Open Sans',Arial,Helvetica,sans-serif;
 }
@@ -2726,6 +2726,7 @@ textarea,input {
 dd input,dt input,dd textarea,dt textarea {
 	width:100%
 }
+.container-fluid a,
 .container a {
 	font-size:12px
 }
@@ -3968,7 +3969,7 @@ footer {
 	padding:3px 5px;
 	font-size:11px
 }
-.publish_history .export-item .icon-chevron-down {
+.publish_history .export-item .fa-chevron-down {
 	display:none;
 	margin-top:4px
 }
@@ -3978,10 +3979,10 @@ footer {
 .publish_history .export-item.detail-view .export-results-detail {
 	display:block
 }
-.publish_history .export-item.detail-view .icon-chevron-right {
+.publish_history .export-item.detail-view .fa-chevron-right {
 	display:none
 }
-.publish_history .export-item.detail-view .icon-chevron-down {
+.publish_history .export-item.detail-view .fa-chevron-down {
 	display:block
 }
 .publish_history .export-item .export-comments {
@@ -4055,6 +4056,11 @@ footer {
 .publish_history .export-item .export-comments .post-comment textarea {
 	margin-bottom:14px
 }
+
+.btn-toolbar>.btn-group+.btn-group {
+	margin-left: 15px !important
+}
+
 @media (max-width:1600px) {
 	.menu-open .container {
 		margin-left:220px

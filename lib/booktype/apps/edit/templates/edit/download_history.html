@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       <title>{% trans "History for" %}: {{ history_title }}</title>
       {% compress css inline %}
-      <link href='{% static "core/css/bootstrap.css" %}' rel='stylesheet' type='text/css' />
+      <link href='{% static "vendor/bootstrap-3.3.7/css/bootstrap.min.css" %}' rel='stylesheet' type='text/css' />
       <link href='{% static "core/css/booki-new.css" %}' rel='stylesheet' type='text/css' />
       <style>
         /*hide for now. FIXME: figure out how to handle*/
@@ -104,9 +104,9 @@
 
     {% compress js inline %}
     <script type='text/javascript' src='{% static "core/js/jquery-1.9.1.js" %}'></script>
-    <script type='text/javascript' src='{% static "edit/js/bootstrap-transition.js" %}'></script>
-    <script type='text/javascript' src='{% static "edit/js/bootstrap-collapse.js" %}'></script>
-    <script type='text/javascript' src='{% static "edit/js/bootstrap-tooltip.js" %}'></script>
+    <script type="text/javascript" src="{% static 'vendor/bootstrap-3.3.7/js/transition.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vendor/bootstrap-3.3.7/js/collapse.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vendor/bootstrap-3.3.7/js/tooltip.js' %}"></script>
     <script type='text/javascript'>
       $(document).on('click', 'a[href="#toogle"]', function(e) {
         e.preventDefault();

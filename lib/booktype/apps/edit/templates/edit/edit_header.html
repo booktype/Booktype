@@ -1,11 +1,12 @@
 {% load staticfiles compress themes %}
-
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+
 {% compress css %}
-<link href='{% static "core/css/bootstrap.css" %}' rel='stylesheet' type='text/css' />
+<link href='{% static "vendor/bootstrap-3.3.7/css/bootstrap.min.css" %}' rel='stylesheet' type='text/css' />
+<link href='{% static "vendor/font-awesome-4.7.0/css/font-awesome.min.css" %}' type="text/css"  rel="stylesheet" >
+
 <link href='{% static "core/css/bootstrap-theme.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "core/css/bootstrap-custom.css" %}' rel='stylesheet' type='text/css' />
-<link href='{% static "core/css/font-awesome/css/font-awesome.min.css" %}' type="text/css"  rel="stylesheet" >
 <link href='{% static "core/css/booki-new.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "core/css/jquery.fileupload-ui.css" %}' rel='stylesheet' type='text/css' />
 <link href='{% static "core/css/bt20.css" %}' rel='stylesheet' type='text/css' />
@@ -40,14 +41,8 @@
 <script type="text/javascript" src="{% static "edit/js/codemirror/mode/javascript/javascript.js" %}"></script>
 <script type="text/javascript" src="{% static "edit/js/codemirror/mode/css/css.js" %}"></script>
 
-<script type="text/javascript" src="{% static "edit/js/bootstrap-button.js" %}"></script>
-<script type="text/javascript" src="{% static "edit/js/bootstrap-dropdown.js" %}"></script>
-<script type="text/javascript" src="{% static "edit/js/bootstrap-tooltip.js" %}"></script>
-<script type="text/javascript" src="{% static "edit/js/bootstrap-modal.js" %}"></script>
-<script type="text/javascript" src="{% static "edit/js/bootstrap-tab.js" %}"></script>
-<script type="text/javascript" src="{% static "edit/js/bootstrap-transition.js" %}"></script>
-<script type="text/javascript" src="{% static "edit/js/bootstrap-popover.js" %}"></script>
-<script type="text/javascript" src="{% static "edit/js/bootstrap-notify.min.js" %}"></script>
+{% include "core/bootstrap_assets_js.html" %}
+
 <script type="text/javascript" src="{% static "edit/js/jquery.ui.touch-punch.js" %}"></script>
 <script type="text/javascript" src="{% static "edit/js/jquery.mjs.nestedSortable.js" %}"></script>
 
@@ -56,7 +51,6 @@
 <script type="text/javascript" src="{% static "edit/js/jscolor/jscolor.js" %}"></script>
 <script type="text/javascript" src="{% static "edit/js/bootstrap-slider.js" %}"></script>
 <script type="text/javascript" src="{% static "edit/js/select2.min.js" %}"></script>
-
 
 <script type="text/javascript" src="{% static "core/js/backbone.paginator.min.js" %}"></script>
 <script type="text/javascript" src="{% static "core/js/utils.js" %}"></script>
