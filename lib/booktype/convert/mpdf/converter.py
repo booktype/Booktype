@@ -153,10 +153,9 @@ class MPDFConverter(BaseConverter):
             self.config['settings'].get('gutter', 0))
         inches = mm / 10 / 2.54
 
-        if self.name == 'mpdf':
-            self._bk_image_editor_conversion = ImageEditorConversion(
-                book, inches * 300, self
-            )
+        self._bk_image_editor_conversion = ImageEditorConversion(
+            book, inches * 300, self
+        )
 
     def post_convert(self, book, output_path):
         """Called after entire process of conversion is done.
