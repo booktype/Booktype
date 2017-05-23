@@ -17,6 +17,7 @@
 import os
 import urllib
 import config
+import logging
 import urlparse
 import tempfile
 import ebooklib
@@ -37,11 +38,14 @@ from ebooklib.plugins.base import BasePlugin
 from ebooklib.utils import parse_html_string
 
 from booki.editor import models
+from .tidy import tidy_cleanup
 
 try:
     from PIL import Image
 except ImportError:
     import Image
+
+logger = logging.getLogger("booktype.utils.misc")
 
 
 class TidyPlugin(BasePlugin):
@@ -62,8 +66,8 @@ class TidyPlugin(BasePlugin):
         if not chapter.content:
             return None
 
-        from .tidy import tidy_cleanup
-        (_, chapter.content) = tidy_cleanup(chapter.get_content(), **self.options)
+        content = remove_unknown_tags(chapter.get_content())
+        (_, chapter.content) = tidy_cleanup(content, **self.options)
 
         return chapter.content
 
@@ -71,9 +75,8 @@ class TidyPlugin(BasePlugin):
         if not chapter.content:
             return None
 
-        from .tidy import tidy_cleanup
-
-        (_, chapter.content) = tidy_cleanup(chapter.get_content(), **self.options)
+        content = remove_unknown_tags(chapter.get_content())
+        (_, chapter.content) = tidy_cleanup(content, **self.options)
 
         return chapter.content
 
@@ -149,9 +152,6 @@ class LoadPlugin(BasePlugin):
         if not chapter.is_chapter():
             return
 
-        from lxml import etree
-        from ebooklib.utils import parse_html_string
-
         try:
             tree = parse_html_string(chapter.content)
         except:
@@ -167,6 +167,37 @@ class LoadPlugin(BasePlugin):
                 chapter.title = title.text
 
         chapter.content = etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
+
+
+def remove_unknown_tags(html_content):
+    """
+    Remove unknown tags from a given html content string.
+    This method is based on a method of Cleaner class on lxml.html module
+    """
+
+    from lxml.html import defs
+
+    try:
+        tree = parse_html_string(html_content)
+    except Exception as err:
+        logger.error("RemoveUnknownTags: Problem while trying to parse content %s" % err)
+
+    allow_tags = set(defs.tags)
+
+    if allow_tags:
+        bad = []
+        for el in tree.iter():
+            if el.tag not in allow_tags:
+                bad.append(el)
+        if bad:
+            if bad[0] is tree:
+                el = bad.pop(0)
+                el.tag = 'div'
+                el.attrib.clear()
+            for el in bad:
+                el.drop_tag()
+
+    return etree.tostring(tree, pretty_print=True, encoding='utf-8', xml_declaration=True)
 
 
 def _convert_file_name(file_name):

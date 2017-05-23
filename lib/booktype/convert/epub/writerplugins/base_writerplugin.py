@@ -3,6 +3,7 @@ import os
 import urllib
 import urlparse
 import ebooklib
+import logging
 
 from lxml import etree
 from ebooklib.plugins.base import BasePlugin
@@ -12,6 +13,8 @@ from ..constants import (
     STYLES_DIR, IMAGES_DIR,
     DEFAULT_LANG, EPUB_VALID_IMG_ATTRS
 )
+
+logger = logging.getLogger("booktype.convert.epub.writerplugins")
 
 
 class WriterPlugin(BasePlugin):
@@ -31,6 +34,13 @@ class WriterPlugin(BasePlugin):
                 rel='stylesheet', type='text/css')
 
         if isinstance(item, ebooklib.epub.EpubNav):
+            return True
+
+        # it sometimes happens that some items for some reason
+        # comes with empty content. We should avoid continue when
+        # no content is provided since it will fail in parse_html_string
+        if not item.content:
+            logger.warn("WriterPlugin: Item with NO CONTENT was found. %s" % item.title)
             return True
 
         item.lang = self.options.get('lang', DEFAULT_LANG)
