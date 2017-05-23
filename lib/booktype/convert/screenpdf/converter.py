@@ -42,10 +42,9 @@ class ScreenPDFConverter(MPDFConverter):
         mm -= float(self.config['settings'].get('side_margin', 0)) + float(self.config['settings'].get('gutter', 0))
         inches = mm / 10 / 2.54
 
-        if self.name == 'screenpdf':
-            self._bk_image_editor_conversion = ImageEditorConversion(
-                book, inches * 300, self
-            )
+        self._bk_image_editor_conversion = ImageEditorConversion(
+            book, inches * 300, self
+        )
 
     def get_extra_configuration(self):
         data = {'mirror_margins': False}

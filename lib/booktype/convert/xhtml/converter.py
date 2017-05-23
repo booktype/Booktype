@@ -59,10 +59,9 @@ class XHTMLConverter(BaseConverter):
 
         # create image edtor conversion instance
         # todo move it to more proper place in the future, and create plugin for it
-        if self.name == 'xhtml':
-            self._bk_image_editor_conversion = ImageEditorConversion(
-                book, XHTML_DOCUMENT_WIDTH, self
-            )
+        self._bk_image_editor_conversion = ImageEditorConversion(
+            book, XHTML_DOCUMENT_WIDTH, self
+        )
 
     def convert(self, original_book, output_path):
         logger.debug('[XHTML] XHTMLConverter.convert')
