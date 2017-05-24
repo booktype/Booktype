@@ -1,5 +1,6 @@
 import os
 import logging
+from unipath import Path
 
 from django.conf import settings
 
@@ -65,10 +66,14 @@ class ICMLConverter(BasePandocConverter):
         """
         temp_dir = os.path.join(os.path.dirname(epub_path), 'bash_temp')
 
+        BK_LIB_ROOT = Path(os.path.abspath(__file__)).ancestor(6)
+        default_path = '{}/scripts/epub2icml.sh'.format(BK_LIB_ROOT)
+        script_path = getattr(settings, 'PANDOC_ICML_SCRIPT', default_path)
+
         try:
             (_, out, err) = run_command(
                 'bash {} -i {} -o {} -p {} -t {}'.format(
-                    settings.PANDOC_ICML_SCRIPT,
+                    script_path,
                     epub_path,
                     zip_path,
                     settings.PANDOC_PATH,
