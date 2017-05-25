@@ -29,11 +29,11 @@
   <!-- Bookbar -->
   <div class="bookbar">
     <h1>
-      <a class="draft-stat" title="{% trans "Open book information page" %}" href="{% url 'reader:infopage' book.url_title %}">{% trans "Info" %}</a>
+      <a class="draft-stat" title="{% trans 'Open book information page' %}" href="{% url 'reader:infopage' book.url_title %}">{% trans "Info" %}</a>
       <span title="{% trans "Toggle table of contents" %}" class="draft-stat toctoggle closed" id="toctoggle">
-        <i class="icon-reorder"></i>
-        <span class="showToc" title="{% trans "Show table of contents" %}">{% trans "Show contents" %}</span>
-        <span class="hideToc hide" title="{% trans "Hide table of contents" %}">{% trans "Hide contents" %}</span>
+        <i class="fa fa-bars"></i>
+        <span class="showToc" title="{% trans 'Show table of contents' %}">{% trans "Show contents" %}</span>
+        <span class="hideToc hide" title="{% trans 'Hide table of contents' %}">{% trans "Hide contents" %}</span>
       </span>
       {{ book.title }}
     </h1>

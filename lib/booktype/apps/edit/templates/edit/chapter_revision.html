@@ -1,6 +1,6 @@
 {% load i18n static booktype_tags %}
 <a href="javascript:void(0);" onclick="Backbone.history.navigate('history/{{ chapter.url_title }}', true);" class="btn btn-default btn-sm" title="">
-    <i class="icon-chevron-left"></i> {% trans "BACK TO CHAPTER HISTORY" %}
+    <i class="fa fa-chevron-left"></i> {% trans "BACK TO CHAPTER HISTORY" %}
 </a>
 <div class="history-compare">
 <h3>{{ chapter.title }}</h3>
@@ -16,14 +16,14 @@
 <div class="number">{% trans "Revision" %} <span class="label label-success">{{ revision.revision }}</span></div>
     <div class="btn-group float-left">
         <button role="button" class="btn btn-default btn-xs" {% if not revision.previous %}disabled{% endif %} onclick="Backbone.history.navigate('history/{{ chapter.url_title }}/rev/{{ revision.previous }}', true);">
-            <i class="icon-chevron-left"></i> {% trans "PREVIOUS" %}
+            <i class="fa fa-chevron-left"></i> {% trans "PREVIOUS" %}
         </button>
         <button role="button" class="btn btn-default btn-xs" {% if not revision.next %}disabled{% endif %} onclick="Backbone.history.navigate('history/{{ chapter.url_title }}/rev/{{ revision.next }}', true);">
-            {% trans "NEXT" %} <i class="icon-chevron-right"></i>
+            {% trans "NEXT" %} <i class="fa fa-chevron-right"></i>
         </button>
         {% check_perm 'edit.history_revert' %}
         <button role="button" class="btn btn-primary btn-xs" href="#revert" data-toggle="modal">
-            {% trans "REVERT TO THIS REVISION" %}&nbsp;&nbsp;<i class="icon-refresh"></i>
+            {% trans "REVERT TO THIS REVISION" %}&nbsp;&nbsp;<i class="fa fa-refresh"></i>
         </button>
         {% endcheck_perm %}
     </div>
@@ -54,7 +54,7 @@
                 <h3 id="myModalLabel">{% trans "Revert to this revision?" %}</h3>
             </div>
             <div class="modal-body">
-                <i class="icon-exclamation-sign"></i>&nbsp;&nbsp;{% trans "Current chapter content will be reverted to this revision. Are you sure?" %}
+                <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;{% trans "Current chapter content will be reverted to this revision. Are you sure?" %}
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans "Cancel" %}</button>

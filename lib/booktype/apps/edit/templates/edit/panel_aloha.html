@@ -10,7 +10,7 @@
 </div>
 
 <script type="text/html" id="templateAlohaFull">
-   <a href="#" class="zenBtn" id="zen" data-original-title="{% trans 'Zen mode' %}" rel="tooltip" data-placement="left"><i class="icon-double-angle-up"></i></a>
+   <a href="#" class="zenBtn" id="zen" data-original-title="{% trans 'Zen mode' %}" rel="tooltip" data-placement="left"><i class="fa fa-angle-double-up"></i></a>
 </script>
 
 <div id="find-replace" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -82,8 +82,8 @@
       </div>
       <div class="linktochapter">
         <div class="linktochapter-header">
-          <i class="icon-chevron-down toggle-close"></i>
-          <i class="icon-chevron-right toggle-open"></i>
+          <i class="fa fa-chevron-down toggle-close"></i>
+          <i class="fa fa-chevron-right toggle-open"></i>
           <span class="linktochapter-title">Or link to existing chapter</span>
         </div>
         <div class="linktochapter-content">
@@ -182,7 +182,7 @@
                   </div>
                   <div class="drag-area-button">
                    <span class="btn btn-success fileinput-button">
-                      <i class="icon-upload"></i> {% trans "or Select them from folder" %}
+                      <i class="fa fa-arrow-circle-o-up"></i> {% trans "or Select them from folder" %}
                         <input class="upload-file" type="file" name="files[]" multiple data-url="../_upload/">
                    </span>
                   </div>
@@ -222,8 +222,8 @@
                 <!--
                 <a class="btn btn-primary btn-xs save-metadata-btn" href="#">{% trans "Save Metadata" %}</a>
                 -->
-                <a class="btn btn-default btn-xs metadata-btn" href="#"><i class="icon-pencil"></i> {% trans "Edit caption" %}</a>
-                <a class="btn btn-default btn-xs closeinfo" href="#"><i class="icon-chevron-right"></i></a>
+                <a class="btn btn-default btn-xs metadata-btn" href="#"><i class="fa fa-pencil"></i> {% trans "Edit caption" %}</a>
+                <a class="btn btn-default btn-xs closeinfo" href="#"><i class="fa fa-chevron-right"></i></a>
               </div>
 
               <ul class="uploads-grid">
@@ -256,26 +256,26 @@
   <script type="text/html" id='templateImageThumbnail'>
      <li data-media-id="<%= media_id %>">
        <img src="<%= preview %>" data-src="static/<%= name %>" style="max-width: 150px"/>
-         <a class="image-dropdown-button" data-toggle="dropdown"><i class="icon-caret-down"></i></a>
+         <a class="image-dropdown-button" data-toggle="dropdown"><i class="fa fa-caret-down"></i></a>
          <ul class="dropdown-menu" style="">
            {% trans "Edit metadata" %}
-           <li><a href="static/<%= name %>" target="_blank"><i class="icon-download-alt"></i> {% trans "Download" %}</a></li>
-           <li><a href="#" class="delete-attachment"><i class="icon-trash"></i> {% trans "Delete" %}</a></li>
+           <li><a href="static/<%= name %>" target="_blank"><i class="fa fa-download"></i> {% trans "Download" %}</a></li>
+           <li><a href="#" class="delete-attachment"><i class="fa fa-trash"></i> {% trans "Delete" %}</a></li>
          </ul>
      </li>
   </script>
 
   <div id="imagePopup" style="position: absolute; background-color: white; margin: 1px; border: 1px solid black; display: none; padding: 4px; z-index: 999;">
-    <a href="#" class="remove"><i class="icon-remove-sign"></i>  {% trans "REMOVE" %}</a>&nbsp;&nbsp;
-    <a href="#" class="bk-image-editor-start"><i class="icon-crop"></i>  {% trans "EDIT" %}</a>
-    <a href="#" class="bk-image-editor-stop"><i class="icon-off"></i>  {% trans "STOP EDIT" %}</a>
+    <a href="#" class="remove"><i class="fa fa-times-circle"></i>  {% trans "REMOVE" %}</a>&nbsp;&nbsp;
+    <a href="#" class="bk-image-editor-start"><i class="fa fa-crop"></i>  {% trans "EDIT" %}</a>
+    <a href="#" class="bk-image-editor-stop"><i class="fa fa-power-off"></i>  {% trans "STOP EDIT" %}</a>
     <div class="bk-image-editor-ui-controls">
       <hr>
       <div>
-        <button bk-image-editor-action="flip_vertical" class="bk-image-editor-action"><i class="icon-resize-vertical"></i></button>&nbsp;&nbsp;
-        <button bk-image-editor-action="flip_horizontal" class="bk-image-editor-action"><i class="icon-resize-horizontal"></i></button>&nbsp;&nbsp;
-        <button bk-image-editor-action="rotate_left" class="bk-image-editor-action"><i class="icon-rotate-left"></i></button>&nbsp;&nbsp;
-        <button bk-image-editor-action="rotate_right" class="bk-image-editor-action"><i class="icon-rotate-right"></i></button>&nbsp;&nbsp;
+        <button bk-image-editor-action="flip_vertical" class="bk-image-editor-action"><i class="fa fa-arrows-v"></i></button>&nbsp;&nbsp;
+        <button bk-image-editor-action="flip_horizontal" class="bk-image-editor-action"><i class="fa fa-arrows-h"></i></button>&nbsp;&nbsp;
+        <button bk-image-editor-action="rotate_left" class="bk-image-editor-action"><i class="fa fa-rotate-left"></i></button>&nbsp;&nbsp;
+        <button bk-image-editor-action="rotate_right" class="bk-image-editor-action"><i class="fa fa-rotate-right"></i></button>&nbsp;&nbsp;
         <span style="float: right;">
           {% trans "Zoom" %}<input id="bk-image-editor-zoom-slider" type="text" data-slider-min="-100" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
         </span>
@@ -316,8 +316,8 @@
         </div>
         <div class="modal-footer">
           <section class='pull-right'>
-            <button type="button" data-action="save" class="btn btn-success">{% trans "Save" %}</>
-            <button type="button" data-action="close" class="btn btn-default">{% trans "Cancel" %}</>
+            <button type="button" data-action="save" class="btn btn-success">{% trans "Save" %}
+            <button type="button" data-action="close" class="btn btn-default">{% trans "Cancel" %}
           </section>
       </div>
     </div>
