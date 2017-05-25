@@ -55,6 +55,12 @@ COMPRESS_OFFLINE = True
 
 # LOGGING
 
+LOGGING['filters'] = {
+    'require_debug_false': {
+        '()': 'django.utils.log.RequireDebugFalse'
+    }
+}
+
 LOGGING['handlers']['mail_admins'] = {
     'level': 'ERROR',
     'filters': ['require_debug_false'],
