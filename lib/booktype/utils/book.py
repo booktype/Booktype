@@ -34,7 +34,7 @@ except ImportError:
     import Image
 
 
-logger = logging.getLogger('booktype')
+logger = logging.getLogger('booktype.utils.book')
 
 
 def check_book_availability(book_title):
@@ -243,8 +243,6 @@ def rename_book(book, new_title, new_url_title):
     @type new_url_title: C{string}
     @param: New URL title
     """
-    import logging
-    logger = logging.getLogger('booktype')
 
     try:
         os.rename(
