@@ -31,7 +31,7 @@
                         <a class="view_all" href="{% url "portal:list_books" %}">{% trans "view all" %}</a>
                     </h2>
 
-                    <div class="book-thumb showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
+                    <div class="book-list showing-books" id="books-prew"> <!-- For list view add book-list class, and remove book-thumb -->
                         {% for book in books_list %}
                             {% include "account/dashboard_book_template.html" with size=2 %}
                         {% empty %}
@@ -55,34 +55,6 @@
             {% endcheck_perm %}
             </div> <!-- End of col-xs-4 -->
             <div class="col-xs-4">
-            {% check_perm 'portal.can_view_user_list' %}
-                <div class="people-widget box white">
-                    <h2 class="box-title">
-                        {% trans "People" %}
-                        <a class="view_all show_people" href="{% url "portal:list_people" %}">{% trans "view all" %}</a>
-                    </h2>
-                    <ul class="list-people list user-avatar">
-                        {% for user in user_list %}
-                        <li>
-                           <figure>{% profile_image user %}</figure>
-                            <div class="people-info gray">
-                                <h4>
-                                  {% has_perm 'account.can_view_user_info' as access %}
-                                  {% if access or request.user == user %}
-                                    <a href="{% url "accounts:view_profile" user.username %}">{{ user.username }}</a>
-                                  {% else %}
-                                    {{ user.username }}
-                                  {% endif %}
-                                </h4>
-                                <span>{{ user.first_name }}</span>
-                            </div>
-                        </li>
-                        {% empty %}
-                        <li>{% trans "There are no users yet" %}.</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endcheck_perm %}
             {% check_perm 'portal.can_view_groups_list' %}
                 <div class="groups-widget box white">
                     <h2 class="box-title">
@@ -137,40 +109,36 @@
                         {% endif %}
                     {% endif %}
                 </div>
-            {% check_perm 'portal.can_view_recent_activity' %}
-                <div class="activities-widget box white">
-                    <h2 class="box-title">{% trans "Recent Activity" %}</h2>
-                    <ul class="list border-top user-avatar circle">
-                        {% for base_activ in recent_activities %}
-                            {% verbose_activity base_activ as activity %}
-                            <li>
-                                <figure><img src="{% url "view_profilethumbnail" activity.user %}?width=48" alt="{{ activity.user }}"></figure>
-                                <div class="list-info">
-                                    <span class="time">{{ activity.modified|timesince}} {% trans "ago" %}</span>
-                                    <h4>
-                                      {% has_perm 'account.can_view_user_info' as access %}
-                                      {% if access or request.user == activity.user %}
-                                        <a href="{% url "accounts:view_profile" activity.user.username %}">{{ activity.user }}</a>
-                                      {% else %}
-                                        {{ activity.user }}
-                                      {% endif %}
-                                    </h4>
-                                    <p>
-                                        {{ activity.verbose }}
-                                        {% if activity.link_url %}
-                                        <a href="{{ activity.link_url }}">"{{ activity.link_text }}"</a>.
-                                        {% endif %}
-
-                                        <span>#{{ activity.book.url_title }}</span>
-                                    </p>
-                                </div>
-                            </li>
+            <!-- users here -->
+                {% check_perm 'portal.can_view_user_list' %}
+                <div class="people-widget box white">
+                    <h2 class="box-title">
+                        {% trans "People" %}
+                        <a class="view_all show_people" href="{% url "portal:list_people" %}">{% trans "view all" %}</a>
+                    </h2>
+                    <ul class="list-people list user-avatar">
+                        {% for user in user_list %}
+                        <li>
+                           <figure>{% profile_image user %}</figure>
+                            <div class="people-info gray">
+                                <h4>
+                                  {% has_perm 'account.can_view_user_info' as access %}
+                                  {% if access or request.user == user %}
+                                    <a href="{% url "accounts:view_profile" user.username %}">{{ user.username }}</a>
+                                  {% else %}
+                                    {{ user.username }}
+                                  {% endif %}
+                                </h4>
+                                <span>{{ user.first_name }}</span>
+                            </div>
+                        </li>
                         {% empty %}
-                            <li>{% trans "There is no activity yet" %}.</li>
+                        <li>{% trans "There are no users yet" %}.</li>
                         {% endfor %}
                     </ul>
                 </div>
             {% endcheck_perm %}
+
             </div> <!-- End of col-xs-4 -->
         </div>
     </div> <!-- End of container -->
