@@ -19,13 +19,14 @@ from booktype.utils.misc import booktype_slugify, get_default_book_status
 from booktype.importer.epub.readerplugins import TidyPlugin
 from booktype.importer.notifier import CollectNotifier
 from booktype.importer.delegate import Delegate
+from booktype.importer.signals import book_imported, chapter_imported
 
 from ooxml import importer, serialize, doc
 
 from . import utils as docutils
 from .styles import STYLE_EDITOR, STYLE_EPUB
 
-logger = logging.getLogger("booktype.importer.docx")
+logger = logging.getLogger("booktype.importer.docx.docximporter")
 
 
 # Link to default serialize options in ooxml at the moment
@@ -122,6 +123,13 @@ class WordImporter(object):
             self.dfile.close()
 
             self._check_for_elements()
+
+            # trigger signal depending on the import mode
+            if self.is_chapter_mode:
+                chapter_imported.send(sender=self, chapter=self.chapter)
+            else:
+                book_imported.send(send=self, book=book)
+
         except zipfile.BadZipfile:
             notif_msg = _("The file could not be imported because it was not saved in the .docx format. Try to open the file in Word and save it as a .docx.")  # noqa
             self.notifier.error(notif_msg)
@@ -343,7 +351,9 @@ class WordImporter(object):
         except UnicodeDecodeError:
             chapter_content = _content.decode('utf-8', errors='ignore')[6:-8]
         except Exception as err:
-            self.notifier.errors("Error while decoding chapter content {0}".format(err))
+            error_msg = "Error while decoding chapter content {0}".format(err)
+            logger.exception(error_msg)
+            self.notifier.errors(error_msg)
             return
 
         # let's save a revision before we merge contents

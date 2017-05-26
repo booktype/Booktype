@@ -39,9 +39,10 @@ from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
 from booktype.utils.misc import booktype_slugify
 
-from ..utils import convert_file_name
 from ..notifier import Notifier
 from ..delegate import Delegate
+from ..signals import book_imported
+from ..utils import convert_file_name
 from .readerplugins import TidyPlugin, ImportPlugin
 from .cover import get_cover_image, is_valid_cover
 
@@ -80,6 +81,9 @@ class EpubImporter(object):
         self.delegate.notifier = self.notifier
 
         self._import_book(epub_book, book)
+
+        # trigger signal
+        book_imported.send(sender=self, book=book)
 
     def _import_book(self, epub_book, book):
         titles = {}
@@ -369,7 +373,7 @@ class EpubImporter(object):
         endnotes_list = []
         broken_chapters = []
         _h1 = chapter_tree.xpath('//h1')
-        
+
         if len(_h1) > 0:
             chapter_title = _h1[0].text
         else:
