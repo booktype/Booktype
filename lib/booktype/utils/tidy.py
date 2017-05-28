@@ -23,12 +23,23 @@ logger = logging.getLogger('booktype.utils.tidy')
 
 
 def tidy_cleanup(content, **extra):
-    try:
-        TIDY_PATH = settings.TIDY_PATH
-    except:
-        TIDY_PATH = 'tidy'
+    """
+    Function that wraps tidy html command. It also uses our custom
+    booktype.utils.misc.remove_unknown_tags function to avoid issue when
+    sending the content to the external command
 
+    Args:
+        - content `(str)`: HTML string content
+
+    Returns:
+        - cleaned html content
+    """
+    from . import misc
+
+    TIDY_PATH = getattr(settings, 'TIDY_PATH', 'tidy')
     cmd = []
+
+    content = misc.remove_unknown_tags(content)
 
     for k, v in extra.iteritems():
         cmd.append('--%s' % k)
