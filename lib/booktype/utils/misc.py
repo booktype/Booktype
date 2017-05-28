@@ -66,19 +66,15 @@ class TidyPlugin(BasePlugin):
         if not chapter.content:
             return None
 
-        content = remove_unknown_tags(chapter.get_content())
-        (_, chapter.content) = tidy_cleanup(content, **self.options)
-
-        return chapter.content
+        _, content = tidy_cleanup(chapter.get_content(), **self.options)
+        return content
 
     def html_before_write(self, book, chapter):
         if not chapter.content:
             return None
 
-        content = remove_unknown_tags(chapter.get_content())
-        (_, chapter.content) = tidy_cleanup(content, **self.options)
-
-        return chapter.content
+        _, content = tidy_cleanup(chapter.get_content(), **self.options)
+        return content
 
 
 class ImportPlugin(BasePlugin):
