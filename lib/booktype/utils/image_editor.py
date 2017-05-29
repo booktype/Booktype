@@ -147,7 +147,7 @@ class BkImageEditor(object):
 
         # cache folder
         if not os.path.exists(self._cache_folder):
-           os.makedirs(self._cache_folder)
+            os.makedirs(self._cache_folder)
 
         if self.USE_CACHE:
             if os.path.exists(output_filepath):
@@ -182,8 +182,8 @@ class BkImageEditor(object):
                 x, y = self._image_translate_x, self._image_translate_y
 
                 # image center coordinates
-                xc = x + xsize/2
-                yc = y + ysize/2
+                xc = x + xsize / 2
+                yc = y + ysize / 2
 
                 # rotate degree
                 rotate_deg = self._image_rotate_degree
@@ -235,7 +235,7 @@ class BkImageEditor(object):
             pil_region = pil_region.filter(ImageFilter.GaussianBlur(self._image_blur))
 
             # create new white image
-            white_layer = Image.new('RGBA', pil_region.size, (255,)*4)
+            white_layer = Image.new('RGBA', pil_region.size, (255,) * 4)
 
             result_image = Image.composite(pil_region, white_layer, pil_region)
 
