@@ -134,7 +134,9 @@ class MPDFConverter(BaseConverter):
 
             self.config['page_width_bleed'] = int(round(self.config['page_width'] + crop_margin))
             self.config['page_height_bleed'] = int(round(self.config['page_height'] + crop_margin))
-        except:
+        except Exception as e:
+            logger.error('MPDF::pre_convert: {}'.format(e))
+
             self.config['page_width_bleed'] = self.config['page_width']
             self.config['page_height_bleed'] = self.config['page_height']
 
