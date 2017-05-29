@@ -202,7 +202,8 @@ EXPORT_SETTINGS = {
         {u'name': u'gutter', u'value': u'20'}, {u'name': u'show_header', u'value': u'on'},
         {u'name': u'header_margin', u'value': u'10'}, {u'name': u'show_footer', u'value': u'on'},
         {u'name': u'footer_margin', u'value': u'10'}, {u'name': u'bleed_size', u'value': u''},
-        {u'name': u'styling', u'value': u''}, {u'name': u'crop_marks', u'value': u'off'}],
+        {u'name': u'styling', u'value': u''},
+        {u'name': u'crop_marks', u'value': u'off'}, {u'name': u'crop_margin', u'value': u'18'}],
     'screenpdf': [
         {u'name': u'size', u'value': u'A4'}, {u'name': u'custom_width', u'value': u''},
         {u'name': u'custom_height', u'value': u''}, {u'name': u'top_margin', u'value': u'20'},
