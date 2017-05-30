@@ -128,7 +128,7 @@ class WordImporter(object):
             if self.is_chapter_mode:
                 chapter_imported.send(sender=self, chapter=self.chapter)
             else:
-                book_imported.send(send=self, book=book)
+                book_imported.send(sender=self, book=book)
 
         except zipfile.BadZipfile:
             notif_msg = _("The file could not be imported because it was not saved in the .docx format. Try to open the file in Word and save it as a .docx.")  # noqa
