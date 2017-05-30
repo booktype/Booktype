@@ -544,7 +544,8 @@ def remote_chapter_state(request, message, bookid, version):
             "state": message["state"],
             "username": request.user.username,
             "hasComments": chapter.has_comments,
-            "hasMarker": chapter.has_marker
+            "hasMarker": chapter.has_marker,
+            "statusID": chapter.status.id
         }, myself=True)
 
     return {"result": True}
@@ -1716,7 +1717,7 @@ def remote_create_chapter(request, message, bookid, version):
         chapter.title,
         chapter.url_title,
         1,                      # typeof (chapter)
-        s.id,                   # status
+        chapter.status.id,      # status
         chapter.lock_type,
         chapter.lock_username,
         "root",                 # parent id (first level)
