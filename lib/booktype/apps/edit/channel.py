@@ -544,7 +544,8 @@ def remote_chapter_state(request, message, bookid, version):
             "state": message["state"],
             "username": request.user.username,
             "hasComments": chapter.has_comments,
-            "hasMarker": chapter.has_marker
+            "hasMarker": chapter.has_marker,
+            "statusID": chapter.status.id
         }, myself=True)
 
     return {"result": True}
