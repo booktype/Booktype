@@ -63,19 +63,10 @@ class UserInviteForm(BaseBooktypeForm, forms.Form):
         widget=forms.CheckboxSelectMultiple
     )
     roles = forms.ModelMultipleChoiceField(
-        queryset=Role.objects.exclude(Q(name='anonymous_users') | Q(name='registered_users')),
+        queryset=None,
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
-
-    def clean_email_list(self):
-        email_list_string = self.cleaned_data['email_list']
-        email_list = [email.strip() for email in email_list_string.split(',')]
-
-        for email in email_list:
-            validate_email(email)
-
-        return email_list
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
@@ -90,3 +81,16 @@ class UserInviteForm(BaseBooktypeForm, forms.Form):
             b_query = b_query.filter(Q(id__in=book_ids) | Q(owner=user))
 
         self.fields['books'].queryset = b_query.order_by('title')
+
+        # query roles
+        roles_qs = Role.objects.exclude(Q(name='anonymous_users') | Q(name='registered_users'))
+        self.fields['roles'].queryset = roles_qs
+
+    def clean_email_list(self):
+        email_list_string = self.cleaned_data['email_list']
+        email_list = [email.strip() for email in email_list_string.split(',')]
+
+        for email in email_list:
+            validate_email(email)
+
+        return email_list
