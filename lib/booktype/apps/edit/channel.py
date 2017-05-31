@@ -25,6 +25,7 @@ import logging
 from django.db.models import Q
 from django.db import transaction
 from django.db.utils import IntegrityError
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.timezone import datetime as django_datetime
 from django.utils.translation import ugettext, ugettext_lazy as _lazy
@@ -36,6 +37,7 @@ from booki.utils.log import logBookHistory, logChapterHistory
 from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.core.models import Role, BookRole
+from booktype.apps.themes.models import UserTheme
 
 from .utils import send_notification, clean_chapter_html
 
@@ -379,16 +381,27 @@ def remote_init_editor(request, message, bookid, version):
 
     online_users = filter(bool, [x for x in [_get_user(x) for x in _online_users] if x])
 
-    # Get User Theme
-    from booktype.apps.themes.models import UserTheme
+    # get theme
+    # TODO we are going to remove custom theme in the future
+    try:
+        # get sorted themes name from the themes fodler
+        available_themes = os.listdir(os.path.join(settings.BOOKTYPE_ROOT, 'themes'))
+        available_themes.sort()
+        # set 1st theme as a default one
+        theme_active = available_themes[0]
+    except OSError as e:
+        logger.error('Error during checking theme availability: {0}'.format(e))
+        raise e
 
     try:
         theme = UserTheme.objects.get(book=book, owner=request.user)
-        theme_active = theme.active
+        # override default one if it's available
+        if theme.active in available_themes:
+            theme_active = theme.active
+
     except UserTheme.DoesNotExist:
-        theme = UserTheme(book=book, owner=request.user, active='')
+        theme = UserTheme(book=book, owner=request.user, active=theme_active)
         theme.save()
-        theme_active = ''
 
     # provide information about current user
     current_user = {
@@ -3260,8 +3273,6 @@ def remote_remove_user_from_role(request, message, bookid, version):
 def remote_set_theme(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
-    from booktype.apps.themes.models import UserTheme
-
     try:
         theme = UserTheme.objects.get(book=book, owner=request.user)
         theme.active = message['theme']
@@ -3274,8 +3285,6 @@ def remote_set_theme(request, message, bookid, version):
 
 def remote_save_custom_theme(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
-
-    from booktype.apps.themes.models import UserTheme
 
     try:
         theme = UserTheme.objects.get(book=book, owner=request.user)
