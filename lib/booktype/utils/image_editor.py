@@ -147,7 +147,11 @@ class BkImageEditor(object):
 
         # cache folder
         if not os.path.exists(self._cache_folder):
-            os.makedirs(self._cache_folder)
+            # folder can be created by another process between os.path.exists and os.makedirs
+            try:
+                os.makedirs(self._cache_folder)
+            except OSError:
+                pass
 
         if self.USE_CACHE:
             if os.path.exists(output_filepath):

@@ -5,6 +5,7 @@ from unipath import Path
 from django.conf import settings
 
 from ...epub.writerplugins import CleanupTagsWriterPlugin
+from ...epub.converter import Epub3Converter
 from ...utils import run_command
 from ..base_pandoc_converter import BasePandocConverter
 from ..writerplugins import RawifiedImagesWriterPlugin
@@ -21,6 +22,15 @@ class ICMLConverter(BasePandocConverter):
     """
 
     name = 'icml'
+
+    def pre_convert(self, original_book, book):
+        super(Epub3Converter, self).pre_convert(original_book)
+
+        if self.theme_plugin:
+            try:
+                self.theme_plugin.pre_convert(original_book, book)
+            except NotImplementedError:
+                pass
 
     def _get_plugins(self, epub_book, original_book):
         """Returns the plugins to be used by writer instance"""
