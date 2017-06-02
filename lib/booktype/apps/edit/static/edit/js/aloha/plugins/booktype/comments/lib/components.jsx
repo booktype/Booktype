@@ -494,7 +494,7 @@ define([
 
         var commentBubble = jQuery([
           '<a href="javascript:;" id="comment-id-', commentData.cid,
-          '" class="comment-link"><i class="icon-comment"></i></a>'].join('')
+          '" class="comment-link"><i class="fa fa-comment"></i></a>'].join('')
         );
         commentBubble.on('click', self.handleBubbleClick);
 
