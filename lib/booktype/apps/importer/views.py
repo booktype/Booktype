@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
+import json
 import datetime
 import logging
 
 from ebooklib import epub
 
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
@@ -202,6 +204,7 @@ class ImportToChapter(JSONResponseMixin, SecurityMixin, UpdateView):
         try:
             docx.import_file(chapter_file, **{'process_mode': process_mode})
             response['url'] = self.get_success_url()
+            response['new_content'] = chapter.content
         except Exception as e:
             logger.error('ImporterToChapter::Unexpected error while importing file')
             logger.exception(e)
@@ -211,7 +214,9 @@ class ImportToChapter(JSONResponseMixin, SecurityMixin, UpdateView):
         response['warnings'] = notifier.warnings
         response['errors'] = notifier.errors
 
-        return self.render_json_response(response)
+        response_data = json.dumps(response, cls=LazyEncoder)
+
+        return HttpResponse(response_data, content_type="application/json")
 
     def form_invalid(self, form):
         # NOTE: perhaps send back validation errors
