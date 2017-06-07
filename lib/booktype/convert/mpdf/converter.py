@@ -16,6 +16,7 @@
 
 import os
 import json
+import uuid
 import codecs
 import urllib2
 import logging
@@ -109,6 +110,7 @@ class MPDFConverter(BaseConverter):
         self.theme_name = ''
         self.theme_plugin = None
         self._bk_image_editor_conversion = None
+        self._full_page_images_css = 'div.fpi-page-end { page: normalpage; }\n'
 
     def pre_convert(self, book):
         """Called before entire process of conversion is called.
@@ -369,6 +371,8 @@ class MPDFConverter(BaseConverter):
                     except:
                         logger.exception("mpdf ImageEditorConversion failed")
 
+                self._fix_full_page_image(cnt)
+
                 return etree.tostring(cnt, method='html', encoding='utf-8', pretty_print=True)[6:-9]
         except etree.XMLSyntaxError:
             pass
@@ -495,6 +499,9 @@ class MPDFConverter(BaseConverter):
                 logger.exception("Writing styles failed for `%s` theme." % self.theme_name)
 
         custom_style = self.config.get('settings', {}).get('styling', u'')
+
+        # add css for fpi
+        css_style += self._full_page_images_css
 
         f = codecs.open('{}/style.css'.format(self.sandbox_path), 'wt', 'utf8')
         f.write(css_style)
@@ -653,6 +660,45 @@ class MPDFConverter(BaseConverter):
                     (item_name, e)
                 )
                 continue
+
+    def _fix_full_page_image(self, content):
+
+        # find fpi (full page image) frame
+        for img in content.xpath('.//img[contains(@class, "fpi")]'):
+            div_image = img.getparent()
+            div_group_img = div_image.getparent()
+
+            # remove cpation
+            caption = div_group_img.xpath('.//div[@class="caption_small"]')
+            if caption:
+                div_group_img.remove(caption[0])
+
+            # set id
+            fpi_frame_id = "fpi-{}".format(str(uuid.uuid4()))
+            div_image.attrib['id'] = fpi_frame_id
+
+            # add fpi end
+            div_group_img.insert(div_group_img.index(div_image) + 1,
+                                 etree.XML('<div class="fpi-page-end"></div>'))
+
+            # image src
+            img = div_image.xpath('.//img')[0]
+            fpi_src = img.attrib['src']
+
+            # remove <img/>
+            div_image.remove(img)
+
+            # add css for current fpi
+            self._full_page_images_css += render_to_string(
+                'convert/full_page_image_mpdf.css',
+                {'fpi_id': fpi_frame_id,
+                 'fpi_src': fpi_src}
+            )
+
+            # remove group_img block
+            div_group_img.drop_tag()
+
+        return content
 
     def _get_data(self, book):
         """Returns default data for the front and end matter templates.

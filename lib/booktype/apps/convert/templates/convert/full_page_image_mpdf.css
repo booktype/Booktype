@@ -1,0 +1,16 @@
+/* Full page image */
+@page {{ fpi_id }} {
+  background-image: url({{ fpi_src }});
+  background-repeat: no-repeat;
+  background-position: 0mm 0mm;
+  background-image-resize: 4;
+
+  odd-header-name: _blank;
+  even-header-name: _blank;
+  odd-footer-name: _blank;
+  even-footer-name: _blank;
+
+}
+#{{ fpi_id }} {
+  page: {{ fpi_id }};
+}

@@ -584,7 +584,18 @@ div.contentHeader span.info-message {
 }
 
 #imagePopup {
-    margin: 10px;
+    position: absolute;
+    background-color: white;
+    margin: 1px;
+    border: 1px solid black;
+    padding: 4px;
+    z-index: 999;
+    width: 400px;
+    text-align: center;
+}
+
+#imagePopup button {
+    width: 28px;
 }
 
 #imagePopup hr {
@@ -594,26 +605,31 @@ div.contentHeader span.info-message {
 
 #imagePopup div.slider-track,
 #imagePopup div.slider-handle {
-    background-color: #4B2E82;
+    background-color: #FF6600;
 }
 
 #imagePopup div.slider-track {
-    height: 10px;
+    height: 2px;
 }
 
 #imagePopup div.slider-handle {
-    margin-top: -3px;
+    margin-top: -6px;
 }
 
-#bk-image-editor-zoom-slider {
-    width: 500px;
-}
-
+#bk-image-editor-zoom-slider,
 #bk-image-editor-contrast-slider,
 #bk-image-editor-blur-slider,
 #bk-image-editor-saturate-slider,
 #bk-image-editor-brightness-slider {
     width: 250px;
+}
+
+div.bk-image-editor-ui-controls div.tooltip{
+    top: -30px !important;
+}
+
+div.bk-image-editor-ui-controls div.toggle{
+    margin-bottom: 2px;
 }
 
 #contenteditor .aloha-block-InfoBoxBlock {

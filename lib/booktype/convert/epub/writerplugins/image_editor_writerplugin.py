@@ -9,6 +9,7 @@ from ebooklib.plugins.base import BasePlugin
 
 from django.conf import settings
 
+from booktype.apps.themes.utils import read_theme_assets
 from booktype.utils.image_editor import BkImageEditor
 from ..constants import IMAGES_DIR
 from ..cover import IMAGE_FILE_NAME
@@ -57,6 +58,11 @@ class ImageEditorWriterPlugin(BasePlugin):
 
                 if extension in BkImageEditor.EXTENSION_MAP:
                     self._write_edited_image(book, img_element)
+
+                    # full page image
+                    img_element_class = img_element.get('class')
+                    if img_element_class and 'fpi' in img_element_class:
+                        self._apply_full_page(img_element)
 
         item.content = etree.tostring(root, pretty_print=True, encoding="utf-8", xml_declaration=True)
 
@@ -108,7 +114,6 @@ class ImageEditorWriterPlugin(BasePlugin):
                     self._ebooklib_item_image_id += 1
 
     def _get_theme_images(self):
-        from booktype.apps.themes.utils import read_theme_assets
         theme_assets = read_theme_assets(self._converter.theme_name, self._converter.name)
         return [os.path.basename(x) for x in theme_assets.get('images', [])]
 
@@ -125,3 +130,18 @@ class ImageEditorWriterPlugin(BasePlugin):
                 book.items.remove(item)
 
         self._is_initial_epub_images_removed = True
+
+    def _apply_full_page(self, elem):
+        div_image = elem.getparent()
+        div_group_img = div_image.getparent()
+
+        # remove cpation
+        caption = div_group_img.xpath('.//div[@class="caption_small"]')
+        if caption:
+            div_group_img.remove(caption[0])
+
+        # remove wrapper
+        div_group_img.drop_tag()
+
+        # make it fpi
+        elem.set('style', 'width: 100%;')

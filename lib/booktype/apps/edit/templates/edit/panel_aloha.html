@@ -265,36 +265,45 @@
      </li>
   </script>
 
-  <div id="imagePopup" style="position: absolute; background-color: white; margin: 1px; border: 1px solid black; display: none; padding: 4px; z-index: 999;">
+  <div id="imagePopup" style="display: none;">
     <a href="#" class="remove"><i class="fa fa-times-circle"></i>  {% trans "REMOVE" %}</a>&nbsp;&nbsp;
-    <a href="#" class="bk-image-editor-start"><i class="fa fa-crop"></i>  {% trans "EDIT" %}</a>
+    <a href="#" class="bk-image-editor-start"><i class="fa fa-adjust"></i>  {% trans "EDIT" %}</a>
     <a href="#" class="bk-image-editor-stop"><i class="fa fa-power-off"></i>  {% trans "STOP EDIT" %}</a>
     <div class="bk-image-editor-ui-controls">
       <hr>
-      <div>
-        <button bk-image-editor-action="flip_vertical" class="bk-image-editor-action"><i class="fa fa-arrows-v"></i></button>&nbsp;&nbsp;
-        <button bk-image-editor-action="flip_horizontal" class="bk-image-editor-action"><i class="fa fa-arrows-h"></i></button>&nbsp;&nbsp;
-        <button bk-image-editor-action="rotate_left" class="bk-image-editor-action"><i class="fa fa-rotate-left"></i></button>&nbsp;&nbsp;
-        <button bk-image-editor-action="rotate_right" class="bk-image-editor-action"><i class="fa fa-rotate-right"></i></button>&nbsp;&nbsp;
-        <span style="float: right;">
-          {% trans "Zoom" %}<input id="bk-image-editor-zoom-slider" type="text" data-slider-min="-100" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
-        </span>
+      <div class="form-group">
+        <button bk-image-editor-action="flip_vertical" class="bk-image-editor-action"><i class="fa fa-arrows-v"></i>
+        </button>&nbsp;&nbsp;
+        <button bk-image-editor-action="flip_horizontal" class="bk-image-editor-action"><i class="fa fa-arrows-h"></i>
+        </button>&nbsp;&nbsp;
+        <button bk-image-editor-action="rotate_left" class="bk-image-editor-action"><i class="fa fa-rotate-left"></i>
+        </button>&nbsp;&nbsp;
+        <button bk-image-editor-action="rotate_right" class="bk-image-editor-action"><i class="fa fa-rotate-right"></i>
+        </button>&nbsp;&nbsp;
+        <input bk-image-editor-action="toggle_fpi" type="checkbox" class="bk-image-editor-action"
+               data-width="28" data-height="23" data-size="mini"
+               data-toggle="toggle"
+               data-on="<i class='fa fa-arrows-alt'></i>" data-off="<i class='fa fa-arrows-alt'></i>">
       </div>
-      <div>
-        <span style="float: left;">
-          <input id="bk-image-editor-contrast-slider" type="text" data-slider-min="0" data-slider-max="200" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">&nbsp;&nbsp;{% trans "Contrast" %}
-        </span>
-        <span style="float: right;">
-          {% trans "Brightness" %}<input id="bk-image-editor-brightness-slider" type="text" data-slider-min="0" data-slider-max="200" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
-        </span>
+      <div class="form-group">
+        <label for="bk-image-editor-zoom-slider">{% trans "Zoom" %}</label>
+        <input id="bk-image-editor-zoom-slider" type="text" data-slider-min="-100" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
       </div>
-      <div>
-        <span style="float: left; text-align: left">
-          <input id="bk-image-editor-blur-slider" type="text" data-slider-min="0" data-slider-max="300" data-slider-step="10" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">&nbsp;&nbsp;{% trans "Blur" %}
-        </span>
-        <span style="float: right;">
-          {% trans "Saturate" %}<input id="bk-image-editor-saturate-slider" type="text" data-slider-min="0" data-slider-max="300" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
-        </span>
+      <div class="form-group">
+        <label for="bk-image-editor-contrast-slider">{% trans "Contrast" %}</label>
+        <input id="bk-image-editor-contrast-slider" type="text" data-slider-min="0" data-slider-max="200" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
+      </div>
+      <div class="form-group">
+        <label for="bk-image-editor-contrast-slider">{% trans "Brightness" %}</label>
+        <input id="bk-image-editor-brightness-slider" type="text" data-slider-min="0" data-slider-max="200" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
+      </div>
+      <div class="form-group">
+        <label for="bk-image-editor-contrast-slider">{% trans "Blur" %}</label>
+        <input id="bk-image-editor-blur-slider" type="text" data-slider-min="0" data-slider-max="300" data-slider-step="10" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
+      </div>
+      <div class="form-group">
+        <label for="bk-image-editor-contrast-slider">{% trans "Saturate" %}</label>
+        <input id="bk-image-editor-saturate-slider" type="text" data-slider-min="0" data-slider-max="300" data-slider-step="5" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after">
       </div>
     </div>
   </div>
