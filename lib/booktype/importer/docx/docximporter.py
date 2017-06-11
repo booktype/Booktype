@@ -443,36 +443,30 @@ class WordImporter(object):
         In chapter_mode we want to keep original header tags
         """
 
-        # NOTE: method not used for now, just commenting the line that calls it above.
-
-        # TODO: discuss with the team how we should treat cases like: multiple h1 tags
-        # on imported content, what to do and how to address
-
         def _find(tag):
             return tree.xpath('//' + tag)
 
-        if not self.is_chapter_mode:
-            headers = []
+        headers = []
+        for n in range(5):
+            headers.append(_find('h{}'.format(n + 1)))
 
-            for n in range(5):
-                headers.append(_find('h{}'.format(n + 1)))
+        # we start at level 1 because we want to keep
+        # a second level of h1 tags as h1 body
+        level = 1
 
-            level = 2
+        # if more than one H1 is found
+        if len(headers[0]) > 1:
+            for header in headers[0][1:]:
+                header.tag = 'h{}'.format(level)
+            level += 1
 
-            if len(headers[0]) > 1:
-                for header in headers[0][1:]:
-                    header.tag = 'h{}'.format(level)
-                level += 1
+        for levels in headers[1:]:
+            for header in levels:
+                header.tag = 'h{}'.format(level)
 
-            for levels in headers[1:]:
-                has_changed = False
-
-                for header in levels:
-                    header.tag = 'h{}'.format(level)
-
-                if has_changed:
-                    if level < 6:
-                        level += 1
+            if levels:
+                if level < 6:
+                    level += 1
 
     def _clean_span_tags(self, tree):
         """
@@ -503,10 +497,12 @@ class WordImporter(object):
                 continue
 
             prev = p.getprevious()
+            classes = p.get('class', '')
+
             if prev is not None and prev.tag in headers:
-                p.set('class', 'body-first')
+                p.set('class', 'body-first %s' % classes)
             else:
-                p.set('class', 'body')
+                p.set('class', 'body %s' % classes)
 
     def _parse_chapter(self, content):
         # TODO: add docstrings and improve logic
@@ -514,17 +510,19 @@ class WordImporter(object):
         utf8_parser = html.HTMLParser(encoding='utf-8')
         tree = html.document_fromstring(content, parser=utf8_parser)
 
+        # Translators: Default chapter title when importing DOCX
+        # files. In case title does not exists.
+        translators_title = _('Title')
+
         h1_headers = tree.xpath('.//h1')
 
         if h1_headers:
             for h1 in h1_headers:
-                # Translators: Default chapter title when importing DOCX
-                # files. In case title does not exists.
                 if h1.text == 'Unknown':
-                    h1.text = _('Title')
+                    h1.text = translators_title
 
-        # NOTE: let's see how to handle this in a better way
-        # self._fix_header_levels(tree)
+        # we should fix headers levels according to BK-2254 criteria
+        self._fix_header_levels(tree)
 
         # time to adjust the src attribute of images
         self._fix_images_path(tree)
