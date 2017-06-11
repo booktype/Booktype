@@ -53,7 +53,7 @@ DOCX_PARAGRAPH_STYLES_MAP = {
 }
 
 # Which elements are considered <h1> style
-H1_STYLES = ['heading1']
+H1_STYLES = ['title', 'heading1']
 
 # Which elements are considered <h2> style
 H2_STYLES = ['heading2']

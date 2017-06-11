@@ -58,6 +58,14 @@ class DocHeaderContext(object, HeaderContext):
                 if elem.rpr.get('style').lower().replace('-', '').startswith(style_key):
                     return True
 
+        for e in elem.elements:
+            if hasattr(e, 'rpr'):
+                if e.rpr.get('style', None):
+                    for style_key in HEADING_STYLES:
+
+                        if e.rpr.get('style').lower().replace('-', '').startswith(style_key):
+                            return True
+
         return super(DocHeaderContext, self).is_header(elem, font_size, node, style)
 
     def get_header(self, elem, style, node):
