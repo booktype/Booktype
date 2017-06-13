@@ -32,9 +32,9 @@
                   <p>
                     {% trans "Status:" %} <span class="status">{{ book.status|title }}</span>
                     {% if book.hidden %}
-                        {% trans "(this book is hidden from others)" %}
+                        {% trans "(this book is hidden from other people)" %}
                     {% else %}
-                        {% trans "(this book is visible to everyone)" %}
+                        {% trans "(this book is not hidden from other people)" %}
                     {% endif %}
                   </p>
                   <p>{% trans "Current version:" %} <a href="{% url 'reader:draft_chapter_page' bookid=book.url_title version=book.version.get_version %}">{{ book.get_version }}</a></p>

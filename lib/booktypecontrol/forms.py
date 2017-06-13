@@ -718,7 +718,7 @@ class AddBookForm(BaseControlForm, forms.Form):
         required=True
     )
     is_hidden = forms.BooleanField(
-        label=_('Initially hide from others'),
+        label=_('Hide this book from other people'),
         required=False
     )
     cover = forms.ImageField(

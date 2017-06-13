@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype 2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-05 20:40-0600\n"
+"POT-Creation-Date: 2017-06-13 19:09+0100\n"
 "PO-Revision-Date: 2015-05-15 11:52+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Sourcefabric Localization <contact@sourcefabric.org>\n"
@@ -485,7 +485,7 @@ msgid "Create New Book"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:17
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:468
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:477
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:61
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
@@ -550,13 +550,11 @@ msgid "Book Image"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:52
-msgid "Make Public?"
+msgid "Hide Book?"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:54
-msgid ""
-"Would you like to keep your book private or make it public? If the book is "
-"public others can find the book to help you."
+msgid "Would you like to hide the book from other people, for the time being?"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:55
@@ -564,12 +562,13 @@ msgid "Note"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:55
-msgid "this setting can be changed later from your dashboard."
+msgid "this setting can be changed later from the Book Info page."
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:58
+#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:69
 #: lib/booktype/apps/reader/forms.py:19
-msgid "Initially hide from others"
+msgid "Hide this book from other people"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_followers.html:3
@@ -652,14 +651,10 @@ msgstr ""
 msgid "Book Title (optional)"
 msgstr ""
 
-#: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:69
-msgid "Initially hidden from others"
-msgstr ""
-
 #: lib/booktype/apps/account/templates/account/dashboard_import_book_modal.html:76
 #: lib/booktype/apps/edit/templates/edit/_compare_modal.html:20
 #: lib/booktype/apps/edit/templates/edit/invite_code.html:128
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:414
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:423
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:33
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:64
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:155
@@ -681,7 +676,7 @@ msgid "User settings"
 msgstr ""
 
 #: lib/booktype/apps/account/templates/account/dashboard_settings.html:43
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:338
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:347
 #: lib/booktype/apps/edit/templates/edit/settings/generic.html:15
 #: lib/booktype/apps/portal/templates/portal/group_settings.html:16
 #: lib/booktype/apps/reader/templates/reader/book_info_edit.html:15
@@ -1535,7 +1530,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:5
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:106
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:239
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:474
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:483
 msgid "Insert"
 msgstr ""
 
@@ -1748,7 +1743,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:166
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:90
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:349
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:358
 msgid "Columns"
 msgstr ""
 
@@ -1758,7 +1753,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:176
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:63
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:415
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:424
 #: lib/booktype/apps/edit/templates/edit/panel_media.html:82
 msgid "OK"
 msgstr ""
@@ -1822,7 +1817,7 @@ msgstr ""
 
 #. Translators: User defined style alignment settings
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:201
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:376
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:385
 #: lib/booktype/skeleton/themes/custom/panel.html:53
 msgid "Justify"
 msgstr ""
@@ -1868,7 +1863,7 @@ msgid "Save minor change"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:229
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:308
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:317
 msgid "Save with comment"
 msgstr ""
 
@@ -1921,10 +1916,10 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:151
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:221
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:238
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:320
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:435
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:452
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:473
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:329
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:444
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:461
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:482
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:96
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:153
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:26
@@ -2078,7 +2073,7 @@ msgid "Time"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/chapter_history.html:26
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:313
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:322
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:656
 msgid "Comment"
 msgstr ""
@@ -2361,7 +2356,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:60
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:129
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:319
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:328
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:154
 #: lib/booktype/apps/edit/templates/edit/panel_settings.html:157
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:27
@@ -2869,82 +2864,82 @@ msgstr ""
 msgid "STOP EDIT"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:280
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:289
 msgid "Zoom"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:285
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:293
 msgid "Contrast"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:288
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:297
 msgid "Brightness"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:293
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:301
 msgid "Blur"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:296
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:305
 msgid "Saturate"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:331
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:340
 msgid "Chapter has been modified"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:334
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:343
 msgid "This chapter has been modified. Do you want to save it before closing?"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:337
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:346
 msgid "Discard changes"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:355
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:364
 msgid "Number of columns"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:372
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:381
 msgid "Vertical alignment"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:375
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:384
 msgid "Turn off"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:382
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:391
 msgid "Column gap (in mm)"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:408
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:417
 msgid "Column continues after the marker"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:426
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:436
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:435
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:445
 msgid "Split Chapter"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:430
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:439
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:23
 msgid "New chapter title"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:446
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:453
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:455
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:462
 msgid "Remove page break"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:449
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:458
 msgid "Do you want to remove page break?"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:464
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:473
 msgid "Infobox"
 msgstr ""
 
-#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:469
+#: lib/booktype/apps/edit/templates/edit/panel_aloha.html:478
 msgid "Write your infobox title here"
 msgstr ""
 
@@ -4274,11 +4269,11 @@ msgid "Status:"
 msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:35
-msgid "(this book is hidden from others)"
+msgid "(this book is hidden from other people)"
 msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:37
-msgid "(this book is visible to everyone)"
+msgid "(this book is not hidden from other people)"
 msgstr ""
 
 #: lib/booktype/apps/reader/templates/reader/book_info_page.html:40
