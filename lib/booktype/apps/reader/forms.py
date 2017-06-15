@@ -16,7 +16,7 @@ class EditBookInfoForm(BaseBooktypeForm, forms.ModelForm):
             required=False            
         )
     hidden = forms.BooleanField(
-            label=_('Initially hide from others'), 
+            label=_('Hide this book from other people'),
             required=False
         )
 

@@ -49,13 +49,13 @@
                 <input type="file" name="cover" size="40">
               </section>
 
-              <h3>{% trans "Make Public?" %}</h3>
+              <h3>{% trans "Hide Book?" %}</h3>
               <section>
-                <p class="wizard_desc">{% trans "Would you like to keep your book private or make it public? If the book is public others can find the book to help you." %}
-                  <b>{% trans "Note" %}:</b> {% trans "this setting can be changed later from your dashboard." %}
+                <p class="wizard_desc">{% trans "Would you like to hide the book from other people, for the time being?" %}
+                  <b>{% trans "Note" %}:</b> {% trans "this setting can be changed later from the Book Info page." %}
                 </p>
 
-                <label for="hidden">{% trans "Initially hide from others" %}</label>
+                <label for="hidden">{% trans "Hide this book from other people" %}</label>
                 <input {% if book_visible %}checked="checked"{% endif %} name="hidden" type="checkbox">
               </section>
             </div>
