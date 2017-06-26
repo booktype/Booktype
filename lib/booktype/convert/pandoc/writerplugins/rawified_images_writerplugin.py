@@ -30,8 +30,8 @@ class RawifiedImagesWriterPlugin(BasePlugin):
             if elem.get('style'):
                 del elem.attrib['style']
 
-            if elem.get('transform-data'):
-                del elem.attrib['transform-data']
+            if elem.get('data-transform'):
+                del elem.attrib['data-transform']
 
             if elem.get('width'):
                 del elem.attrib['width']

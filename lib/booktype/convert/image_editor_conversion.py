@@ -64,8 +64,8 @@ class ImageEditorConversion(object):
             div_group_img.drop_tag()
             div_image.drop_tag()
 
-            if elem.get('transform-data'):
-                del elem.attrib['transform-data']
+            if elem.get('data-transform'):
+                del elem.attrib['data-transform']
 
             if elem.get('style'):
                 del elem.attrib['style']
@@ -90,16 +90,16 @@ class ImageEditorConversion(object):
                 break
         # we didn't find image object
         else:
-            if elem.get('transform-data'):
-                del elem.attrib['transform-data']
+            if elem.get('data-transform'):
+                del elem.attrib['data-transform']
 
             return
 
         ###########################
-        # validate transform-data #
+        # validate data-transform #
         ###########################
         try:
-            transform_data = json.loads(elem.get('transform-data'))
+            transform_data = json.loads(elem.get('data-transform'))
 
             if transform_data['imageWidth'] < 50:
                 transform_data['imageWidth'] = 50
@@ -113,16 +113,16 @@ class ImageEditorConversion(object):
             if transform_data['frameHeight'] < 50:
                 transform_data['frameHeight'] = 50
 
-            elem.set('transform-data', json.dumps(transform_data))
+            elem.set('data-transform', json.dumps(transform_data))
 
         except (ValueError, Exception) as e:
-            if elem.get('transform-data'):
-                del elem.attrib['transform-data']
+            if elem.get('data-transform'):
+                del elem.attrib['data-transform']
 
         #################################
-        # create default transform-data #
+        # create default data-transform #
         #################################
-        if not elem.get('transform-data'):
+        if not elem.get('data-transform'):
 
             transform_data = {
                 'imageWidth': None,
@@ -164,7 +164,7 @@ class ImageEditorConversion(object):
                         transform_data['imageHeight'] = transform_data['frameHeight'] = float(natural_height) * quotient
 
             # record transform_data
-            elem.set('transform-data', json.dumps(transform_data))
+            elem.set('data-transform', json.dumps(transform_data))
 
         ##########################
         # delete redundant attrs #
@@ -184,8 +184,8 @@ class ImageEditorConversion(object):
         ###########################
         # resize && update styles #
         ###########################
-        transform_data = json.loads(elem.get('transform-data'))
-        del elem.attrib['transform-data']
+        transform_data = json.loads(elem.get('data-transform'))
+        del elem.attrib['data-transform']
 
         # proportionally resize according to self._output_document_width
         quotient = float(EDITOR_WIDTH) / float(self._output_document_width)

@@ -189,7 +189,7 @@ class ExportBook(object):
         'data-gap',
         'data-valign',
         'data-id',
-        'transform-data'
+        'data-transform'
     ]
     DEFAULT_PLUGINS = [
         TidyPlugin(),

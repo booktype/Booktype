@@ -9,7 +9,7 @@ DEFAULT_LANG = 'en'
 
 EPUB_VALID_IMG_ATTRS = frozenset([
     "alt", "class", "dir", "height", "id", "ismap", "longdesc",
-    "style", "title", "usemap", "width", "xml:lang", "src", "transform-data"
+    "style", "title", "usemap", "width", "xml:lang", "src", "data-transform"
 ])
 
 EPUB_DOCUMENT_WIDTH = config.get_configuration('EPUB_DOCUMENT_WIDTH')
