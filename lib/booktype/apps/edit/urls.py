@@ -17,7 +17,7 @@
 from django.conf.urls import url
 
 from .views import (
-    EditBookPage, EditBobBobBookPage, EditBobBobWorker, BookHistoryPage, RevisionPage,
+    EditBookPage, EditBobBobBookPage, BookHistoryPage, RevisionPage,
     ChapterHistoryPage, CompareChapterRevisions, BookSettingsView,
     DownloadBookHistory, InviteCodes
 )
@@ -30,9 +30,7 @@ urlpatterns = [
     url(r'^_cover/(?P<cid>[\w\s\_\d\.\-]+)/(?P<fname>.*)$', cover, name='view_cover'),
     url(r'^_edit/static/(?P<attachment>.*)$', staticattachment),
 
-    # url(r'^_edit/$', EditBookPage.as_view(), name='editor'),
     url(r'^_edit/$', EditBobBobBookPage.as_view(), name='editor'),
-    url(r'^_worker/$', EditBobBobWorker.as_view(), name='bobbobworker'),
     url(r'^_history/$', BookHistoryPage.as_view(), name='history'),
     url(r'^_history/download/$', DownloadBookHistory.as_view(), name='download_history'),
     url(r'^_history/(?P<chapter>[\w\s\_\.\-]+)/download/$',
