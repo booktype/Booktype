@@ -1588,6 +1588,7 @@ def remote_get_chapter(request, message, bookid, version):
     res["access"] = True
     res["title"] = chapter.title
     res["content"] = chapter.content
+    res["content_json"] = chapter.content_json
     res["current_revision"] = chapter.revision
 
     if message.get("revisions", False):
