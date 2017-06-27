@@ -648,3 +648,19 @@ def get_default_book_status():
     status_list = config.get_configuration('CHAPTER_STATUS_LIST')
     default_status = config.get_configuration('CHAPTER_STATUS_DEFAULT', status_list[0]['name'])
     return default_status
+
+
+def get_available_themes():
+    """
+    get sorted themes name from the themes fodler
+    :return: list of themes names sorted by name
+    """
+    try:
+        available_themes = os.listdir(os.path.join(settings.BOOKTYPE_ROOT, 'themes'))
+        available_themes.sort()
+    except OSError as e:
+        logger.error('Error during checking theme availability: {0}'.format(e))
+        raise e
+
+    return available_themes
+

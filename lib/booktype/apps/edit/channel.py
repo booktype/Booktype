@@ -35,9 +35,9 @@ import sputnik
 from booki.editor import models
 from booki.utils.log import logBookHistory, logChapterHistory
 from booktype.utils import security, config
-from booktype.utils.misc import booktype_slugify
+from booktype.utils.misc import booktype_slugify, get_available_themes
 from booktype.apps.core.models import Role, BookRole
-from booktype.apps.themes.models import UserTheme
+from booktype.apps.themes.models import BookTheme
 
 from .utils import send_notification, clean_chapter_html
 
@@ -381,26 +381,17 @@ def remote_init_editor(request, message, bookid, version):
 
     online_users = filter(bool, [x for x in [_get_user(x) for x in _online_users] if x])
 
-    # get theme
-    # TODO we are going to remove custom theme in the future
-    try:
-        # get sorted themes name from the themes fodler
-        available_themes = os.listdir(os.path.join(settings.BOOKTYPE_ROOT, 'themes'))
-        available_themes.sort()
-        # set 1st theme as a default one
-        theme_active = available_themes[0]
-    except OSError as e:
-        logger.error('Error during checking theme availability: {0}'.format(e))
-        raise e
+    available_themes = get_available_themes()
+    theme_active = available_themes[0]
 
     try:
-        theme = UserTheme.objects.get(book=book, owner=request.user)
+        theme = BookTheme.objects.get(book=book)
         # override default one if it's available
         if theme.active in available_themes:
             theme_active = theme.active
 
-    except UserTheme.DoesNotExist:
-        theme = UserTheme(book=book, owner=request.user, active=theme_active)
+    except BookTheme.DoesNotExist:
+        theme = BookTheme(book=book, active=theme_active)
         theme.save()
 
     # provide information about current user
@@ -3274,11 +3265,22 @@ def remote_set_theme(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
     try:
-        theme = UserTheme.objects.get(book=book, owner=request.user)
+        theme = BookTheme.objects.get(book=book)
         theme.active = message['theme']
         theme.save()
     except Exception:
         return {'result': False}
+
+    sputnik.addMessageToChannel(
+        request, "/booktype/book/%s/%s/" % (bookid, version), {
+            "command": "theme_changed",
+            "theme": message['theme']
+        },
+        myself=False
+    )
+
+
+    send_notification(request, bookid, version, "notification_theme_was_changed", message['theme'])
 
     return {'result': True}
 
@@ -3287,7 +3289,7 @@ def remote_save_custom_theme(request, message, bookid, version):
     book, book_version, book_security = get_book(request, bookid, version)
 
     try:
-        theme = UserTheme.objects.get(book=book, owner=request.user)
+        theme = BookTheme.objects.get(book=book)
         theme.custom = json.dumps(message['custom'])
         theme.save()
     except Exception:
