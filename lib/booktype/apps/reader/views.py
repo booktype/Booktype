@@ -32,8 +32,10 @@ from braces.views import LoginRequiredMixin, JSONResponseMixin
 
 from booktype.apps.core import views
 from booktype.utils import misc, security
+from booktype.utils.misc import get_available_themes
 from booktype.utils.book import remove_book
 from booktype.apps.core.views import BasePageView, NeverCacheMixin
+from booktype.apps.themes.models import BookTheme
 from booki.editor.models import Book, BookHistory, BookToc, Chapter
 
 from .forms import EditBookInfoForm
@@ -289,11 +291,18 @@ class FullView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView):
         toc_items = BookToc.objects.filter(
             version=book_version).order_by("-weight")
 
-        theme = book.usertheme_set.filter(owner=self.request.user).last()
+        try:
+            book.booktheme
+        except BookTheme.DoesNotExist:
+            available_themes = get_available_themes()
+            theme_active = available_themes[0]
+
+            theme = BookTheme(book=book, active=theme_active)
+            theme.save()
 
         context['book_version'] = book_version.get_version()
         context['toc_items'] = toc_items
-        context['theme'] = theme
+        context['theme'] = book.booktheme
 
         return context
 

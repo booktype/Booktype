@@ -325,8 +325,8 @@
         </div>
         <div class="modal-footer">
           <section class='pull-right'>
-            <button type="button" data-action="save" class="btn btn-success">{% trans "Save" %}
-            <button type="button" data-action="close" class="btn btn-default">{% trans "Cancel" %}
+            <button type="button" data-action="save" class="btn btn-success">{% trans "Save" %}</button>
+            <button type="button" data-action="close" class="btn btn-default">{% trans "Cancel" %}</button>
           </section>
       </div>
     </div>
@@ -345,6 +345,23 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-cancel btn-default">{% trans "Discard changes" %}</button>
         <button type="button" class="btn btn-save btn-primary">{% trans "Save changes" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="themeChangedModal" class="modal fade" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{% trans "Book theme was changed" %}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{% trans "Book theme was changed. Do you want to apply it right now?" %}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-action="cancel" class="btn btn-cancel btn-default">{% trans "Cancel" %}</button>
+        <button type="button" data-action="apply" class="btn btn-save btn-primary">{% trans "Apply" %}</button>
       </div>
     </div>
   </div>
