@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-13 19:20+0100\n"
-"PO-Revision-Date: 2017-06-15 09:57+0000\n"
+"POT-Creation-Date: 2017-06-27 20:47-0600\n"
+"PO-Revision-Date: 2017-06-28 10:10+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Occitan (post 1500) (http://www.transifex.com/sourcefabric/booktype/language/oc/)\n"
 "MIME-Version: 1.0\n"
@@ -465,6 +465,7 @@ msgstr ""
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:39
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:25
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:22
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:519
 msgid "Edit"
 msgstr ""
 
@@ -489,6 +490,8 @@ msgstr ""
 msgid "Create New Book"
 msgstr ""
 
+#. Translators: Default chapter title when importing DOCX
+#. files. In case title does not exists.
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:17
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:477
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
@@ -496,7 +499,7 @@ msgstr ""
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
 #: lib/booktype/importer/docx/docximporter.py:246
-#: lib/booktype/importer/docx/docximporter.py:524
+#: lib/booktype/importer/docx/docximporter.py:515
 msgid "Title"
 msgstr ""
 
@@ -1703,9 +1706,7 @@ msgstr ""
 msgid "Font"
 msgstr ""
 
-#. Translators: User defined style settings
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:35
-#: lib/booktype/skeleton/themes/custom/panel.html:21
 msgid "Font size"
 msgstr ""
 
@@ -1820,10 +1821,8 @@ msgstr ""
 msgid "Right align"
 msgstr ""
 
-#. Translators: User defined style alignment settings
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:201
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:385
-#: lib/booktype/skeleton/themes/custom/panel.html:53
 msgid "Justify"
 msgstr ""
 
@@ -2848,6 +2847,7 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:672
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:518
 msgid "Download"
 msgstr ""
 
@@ -3669,10 +3669,6 @@ msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:465
 msgid "SETTINGS"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:518
-msgid "Ok"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:7
@@ -4659,59 +4655,6 @@ msgstr ""
 msgid ""
 "A theme for catalogues and elegant texts. Works best for mid sized books. "
 "The compact theme uses line indents and has no spacing between paragraphs."
-msgstr ""
-
-#: lib/booktype/skeleton/themes/custom/panel.html:3
-msgid "Heading"
-msgstr ""
-
-#. Translators: User defined style Heading font
-#. Translators: User defined style Paragraph font
-#: lib/booktype/skeleton/themes/custom/panel.html:9
-#: lib/booktype/skeleton/themes/custom/panel.html:68
-msgid "Serif"
-msgstr ""
-
-#. Translators: User defined style Heading font
-#. Translators: User defined style Paragraph font
-#: lib/booktype/skeleton/themes/custom/panel.html:11
-#: lib/booktype/skeleton/themes/custom/panel.html:70
-msgid "Non Serif"
-msgstr ""
-
-#. Translators: User defined style settings
-#: lib/booktype/skeleton/themes/custom/panel.html:33
-msgid "Alignment"
-msgstr ""
-
-#. Translators: User defined style alignment settings
-#: lib/booktype/skeleton/themes/custom/panel.html:41
-msgid "Left"
-msgstr ""
-
-#. Translators: User defined style alignment settings
-#: lib/booktype/skeleton/themes/custom/panel.html:45
-msgid "Center"
-msgstr ""
-
-#. Translators: User defined style alignment settings
-#: lib/booktype/skeleton/themes/custom/panel.html:49
-msgid "Right"
-msgstr ""
-
-#. Translators: User defined style settings
-#: lib/booktype/skeleton/themes/custom/panel.html:62
-msgid "Paragraph"
-msgstr ""
-
-#. Translators: User defined style settings
-#: lib/booktype/skeleton/themes/custom/panel.html:77
-msgid "Text Indent"
-msgstr ""
-
-#. Translators: User defined style settings
-#: lib/booktype/skeleton/themes/custom/panel.html:89
-msgid "Line Height"
 msgstr ""
 
 #: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:6

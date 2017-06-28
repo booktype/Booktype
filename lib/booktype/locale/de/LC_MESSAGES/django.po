@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-13 19:20+0100\n"
-"PO-Revision-Date: 2017-06-15 09:57+0000\n"
+"POT-Creation-Date: 2017-06-27 20:47-0600\n"
+"PO-Revision-Date: 2017-06-28 10:10+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: German (http://www.transifex.com/sourcefabric/booktype/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -468,6 +468,7 @@ msgstr "Ansicht"
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:39
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:25
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:22
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:519
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -492,6 +493,8 @@ msgstr "Löschen"
 msgid "Create New Book"
 msgstr "Neues Buch erstellen"
 
+#. Translators: Default chapter title when importing DOCX
+#. files. In case title does not exists.
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:17
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:477
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
@@ -499,7 +502,7 @@ msgstr "Neues Buch erstellen"
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
 #: lib/booktype/importer/docx/docximporter.py:246
-#: lib/booktype/importer/docx/docximporter.py:524
+#: lib/booktype/importer/docx/docximporter.py:515
 msgid "Title"
 msgstr "Titel"
 
@@ -1706,9 +1709,7 @@ msgstr ""
 msgid "Font"
 msgstr "Schrift"
 
-#. Translators: User defined style settings
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:35
-#: lib/booktype/skeleton/themes/custom/panel.html:21
 msgid "Font size"
 msgstr "Schriftgröße"
 
@@ -1823,10 +1824,8 @@ msgstr "Text zentrieren"
 msgid "Right align"
 msgstr "Text rechtsbündig"
 
-#. Translators: User defined style alignment settings
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:201
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:385
-#: lib/booktype/skeleton/themes/custom/panel.html:53
 msgid "Justify"
 msgstr "Blocksatz"
 
@@ -2851,6 +2850,7 @@ msgstr "bearbeiten von Metadaten"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:672
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:518
 msgid "Download"
 msgstr "Herunterladen"
 
@@ -3673,10 +3673,6 @@ msgstr "UMBENENNEN"
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:465
 msgid "SETTINGS"
 msgstr "EINSTELLUNGEN"
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:518
-msgid "Ok"
-msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:7
 msgid "Add Field"
@@ -4663,59 +4659,6 @@ msgid ""
 "A theme for catalogues and elegant texts. Works best for mid sized books. "
 "The compact theme uses line indents and has no spacing between paragraphs."
 msgstr "Ein Layout für Kataloge und elegante Texte. Am besten für mittelgroße Buchformate geeignet. Der kompakte Satz hat einen Einzug am Absatzanfang, ohne vergrößerten Zeilenabstände zwischen Absätzen."
-
-#: lib/booktype/skeleton/themes/custom/panel.html:3
-msgid "Heading"
-msgstr "Überschrift"
-
-#. Translators: User defined style Heading font
-#. Translators: User defined style Paragraph font
-#: lib/booktype/skeleton/themes/custom/panel.html:9
-#: lib/booktype/skeleton/themes/custom/panel.html:68
-msgid "Serif"
-msgstr "Serif"
-
-#. Translators: User defined style Heading font
-#. Translators: User defined style Paragraph font
-#: lib/booktype/skeleton/themes/custom/panel.html:11
-#: lib/booktype/skeleton/themes/custom/panel.html:70
-msgid "Non Serif"
-msgstr "Sans Serif"
-
-#. Translators: User defined style settings
-#: lib/booktype/skeleton/themes/custom/panel.html:33
-msgid "Alignment"
-msgstr "Ausrichtung"
-
-#. Translators: User defined style alignment settings
-#: lib/booktype/skeleton/themes/custom/panel.html:41
-msgid "Left"
-msgstr "Links"
-
-#. Translators: User defined style alignment settings
-#: lib/booktype/skeleton/themes/custom/panel.html:45
-msgid "Center"
-msgstr "Zentrieren"
-
-#. Translators: User defined style alignment settings
-#: lib/booktype/skeleton/themes/custom/panel.html:49
-msgid "Right"
-msgstr "Rechts"
-
-#. Translators: User defined style settings
-#: lib/booktype/skeleton/themes/custom/panel.html:62
-msgid "Paragraph"
-msgstr "Absatz"
-
-#. Translators: User defined style settings
-#: lib/booktype/skeleton/themes/custom/panel.html:77
-msgid "Text Indent"
-msgstr "Texteinzug"
-
-#. Translators: User defined style settings
-#: lib/booktype/skeleton/themes/custom/panel.html:89
-msgid "Line Height"
-msgstr "Zeilenhöhe"
 
 #: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:6
 msgid ""

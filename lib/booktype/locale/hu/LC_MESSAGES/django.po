@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Booktype\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-13 19:20+0100\n"
-"PO-Revision-Date: 2017-06-15 09:57+0000\n"
+"POT-Creation-Date: 2017-06-27 20:47-0600\n"
+"PO-Revision-Date: 2017-06-28 10:10+0000\n"
 "Last-Translator: Daniel James <daniel@64studio.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/sourcefabric/booktype/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -469,6 +469,7 @@ msgstr "Megtekintés"
 #: lib/booktype/apps/account/templates/account/dashboard_book_template.html:39
 #: lib/booktype/apps/edit/templates/edit/aloha_menu.html:25
 #: lib/booktype/apps/edit/templates/edit/edit_strings.html:22
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:519
 msgid "Edit"
 msgstr "Szerkesztés"
 
@@ -493,6 +494,8 @@ msgstr "Törlés"
 msgid "Create New Book"
 msgstr "Új könyv létrehozása"
 
+#. Translators: Default chapter title when importing DOCX
+#. files. In case title does not exists.
 #: lib/booktype/apps/account/templates/account/dashboard_create_book_modal.html:17
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:477
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:59
@@ -500,7 +503,7 @@ msgstr "Új könyv létrehozása"
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:116
 #: lib/booktype/apps/edit/templates/edit/panel_covers.html:118
 #: lib/booktype/importer/docx/docximporter.py:246
-#: lib/booktype/importer/docx/docximporter.py:524
+#: lib/booktype/importer/docx/docximporter.py:515
 msgid "Title"
 msgstr "Cím"
 
@@ -1707,9 +1710,7 @@ msgstr ""
 msgid "Font"
 msgstr "Betű"
 
-#. Translators: User defined style settings
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:35
-#: lib/booktype/skeleton/themes/custom/panel.html:21
 msgid "Font size"
 msgstr "Betűméret"
 
@@ -1824,10 +1825,8 @@ msgstr "Középre igazítás"
 msgid "Right align"
 msgstr "Jobbra igazítás"
 
-#. Translators: User defined style alignment settings
 #: lib/booktype/apps/edit/templates/edit/aloha_toolbar.html:201
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:385
-#: lib/booktype/skeleton/themes/custom/panel.html:53
 msgid "Justify"
 msgstr "Sorkizárt"
 
@@ -2852,6 +2851,7 @@ msgstr "Metaadatok Szerkesztése"
 
 #: lib/booktype/apps/edit/templates/edit/panel_aloha.html:262
 #: lib/booktype/apps/edit/templates/edit/panel_publish.html:672
+#: lib/booktype/apps/edit/templates/edit/panel_toc.html:518
 msgid "Download"
 msgstr ""
 
@@ -3673,10 +3673,6 @@ msgstr "ÁTNEVEZÉS"
 
 #: lib/booktype/apps/edit/templates/edit/panel_toc.html:465
 msgid "SETTINGS"
-msgstr ""
-
-#: lib/booktype/apps/edit/templates/edit/panel_toc.html:518
-msgid "Ok"
 msgstr ""
 
 #: lib/booktype/apps/edit/templates/edit/settings/_additional_metadata.html:7
@@ -4664,59 +4660,6 @@ msgid ""
 "A theme for catalogues and elegant texts. Works best for mid sized books. "
 "The compact theme uses line indents and has no spacing between paragraphs."
 msgstr ""
-
-#: lib/booktype/skeleton/themes/custom/panel.html:3
-msgid "Heading"
-msgstr "Főcím"
-
-#. Translators: User defined style Heading font
-#. Translators: User defined style Paragraph font
-#: lib/booktype/skeleton/themes/custom/panel.html:9
-#: lib/booktype/skeleton/themes/custom/panel.html:68
-msgid "Serif"
-msgstr "Serif"
-
-#. Translators: User defined style Heading font
-#. Translators: User defined style Paragraph font
-#: lib/booktype/skeleton/themes/custom/panel.html:11
-#: lib/booktype/skeleton/themes/custom/panel.html:70
-msgid "Non Serif"
-msgstr "Non Serif"
-
-#. Translators: User defined style settings
-#: lib/booktype/skeleton/themes/custom/panel.html:33
-msgid "Alignment"
-msgstr "Igazítás"
-
-#. Translators: User defined style alignment settings
-#: lib/booktype/skeleton/themes/custom/panel.html:41
-msgid "Left"
-msgstr "Balra"
-
-#. Translators: User defined style alignment settings
-#: lib/booktype/skeleton/themes/custom/panel.html:45
-msgid "Center"
-msgstr "Középre"
-
-#. Translators: User defined style alignment settings
-#: lib/booktype/skeleton/themes/custom/panel.html:49
-msgid "Right"
-msgstr "Jobbra"
-
-#. Translators: User defined style settings
-#: lib/booktype/skeleton/themes/custom/panel.html:62
-msgid "Paragraph"
-msgstr "Bekezdés"
-
-#. Translators: User defined style settings
-#: lib/booktype/skeleton/themes/custom/panel.html:77
-msgid "Text Indent"
-msgstr "Szöveg Behúzás"
-
-#. Translators: User defined style settings
-#: lib/booktype/skeleton/themes/custom/panel.html:89
-msgid "Line Height"
-msgstr "Sormagasság"
 
 #: lib/booktype/skeleton/themes/novelclassiccompact/panel.html:6
 msgid ""
