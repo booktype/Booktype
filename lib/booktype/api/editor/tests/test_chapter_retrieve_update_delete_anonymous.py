@@ -17,7 +17,7 @@ class TestChapterRetrieveUpdateDeleteAnonymous(object):
 
         book_title = fake.name()
         response = client.post(
-            reverse("book-list"),
+            reverse("v1:book-list"),
             data={
                 'title': book_title,
                 'language_id': 1,
@@ -32,7 +32,7 @@ class TestChapterRetrieveUpdateDeleteAnonymous(object):
 
         chapter_title = fake.name()
         response = client.post(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': book_id}),
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': book_id}),
             data={'title': chapter_title}, format='json'
         )
 
@@ -49,7 +49,7 @@ class TestChapterRetrieveUpdateDeleteAnonymous(object):
         client = APIClient()
 
         response = client.get(
-            reverse("editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id})
+            reverse("v1:editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id})
         )
 
         assert response.status_code is status.HTTP_403_FORBIDDEN
@@ -65,7 +65,7 @@ class TestChapterRetrieveUpdateDeleteAnonymous(object):
         client = APIClient()
 
         response = client.patch(
-            reverse("editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id}),
+            reverse("v1:editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id}),
             data={'title': 'New title'}
         )
 
@@ -82,7 +82,7 @@ class TestChapterRetrieveUpdateDeleteAnonymous(object):
         client = APIClient()
 
         response = client.patch(
-            reverse("editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id}),
+            reverse("v1:editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id}),
         )
 
         assert response.status_code is status.HTTP_403_FORBIDDEN
