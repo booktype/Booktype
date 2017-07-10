@@ -90,10 +90,11 @@
                             <div class="list-info">
                                 <h4><a href="{% url 'accounts:view_profile' user %}">{{ user.username }}</a></h4>
                                 {% if user.username in online_users %}
-                                <p>
-                                    {% trans "Working on:" %} <a href="#">“Airtime API auth"</a>
-                                    <span>#airtime-25-for-broadcasters</span>
-                                </p>
+                                  <p>
+                                    {% trans "Working on:" %}
+                                    <a href="{% url 'reader:draft_chapter_page' user.book_set.last.url_title %}">{{ user.book_set.last.title }}</a>
+                                    <span>#{{ user.book_set.last.bookhistory_set.last.chapter.title }}</span>
+                                  </p>
                                 {% endif %}
                             </div>
                         </li>
