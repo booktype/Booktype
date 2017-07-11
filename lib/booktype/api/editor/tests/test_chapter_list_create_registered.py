@@ -20,7 +20,7 @@ class TestChapterListCreateRegisteredNoPermissions(object):
         client.force_authenticate(user=user_bob)
 
         response = client.get(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': 1})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': 1})
         )
 
         assert response.status_code is status.HTTP_404_NOT_FOUND
@@ -33,7 +33,7 @@ class TestChapterListCreateRegisteredNoPermissions(object):
         client.force_authenticate(user=user_bob)
 
         response = client.post(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': 1})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': 1})
         )
 
         assert response.status_code is status.HTTP_404_NOT_FOUND
@@ -49,7 +49,7 @@ class TestChapterListCreateRegisteredNoPermissions(object):
         client.force_authenticate(user=user_bob)
 
         response = client.get(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': book.id})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': book.id})
         )
 
         assert response.status_code is status.HTTP_403_FORBIDDEN
@@ -65,7 +65,7 @@ class TestChapterListCreateRegisteredNoPermissions(object):
         client.force_authenticate(user=user_bob)
 
         response = client.get(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': book.id})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': book.id})
         )
 
         assert response.status_code is status.HTTP_403_FORBIDDEN
@@ -82,7 +82,7 @@ class TestChapterListCreateRegisteredWithPermissions(object):
         client.force_authenticate(user=user_bob)
 
         response = client.get(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': 1})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': 1})
         )
 
         assert response.status_code is status.HTTP_404_NOT_FOUND
@@ -94,7 +94,7 @@ class TestChapterListCreateRegisteredWithPermissions(object):
         client.force_authenticate(user=user_bob)
 
         response = client.post(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': 1})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': 1})
         )
 
         assert response.status_code is status.HTTP_404_NOT_FOUND
@@ -108,7 +108,7 @@ class TestChapterListCreateRegisteredWithPermissions(object):
         client.force_authenticate(user=user_bob)
 
         response = client.get(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': books[0].id})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': books[0].id})
         )
 
         # we got 200 OK
@@ -118,7 +118,7 @@ class TestChapterListCreateRegisteredWithPermissions(object):
 
         # another book
         response = client.get(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': books[1].id})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': books[1].id})
         )
 
         # we got 200 OK
@@ -134,7 +134,7 @@ class TestChapterListCreateRegisteredWithPermissions(object):
         # create book via api
         book_title = fake.name()
         response = client.post(
-            reverse("book-list"),
+            reverse("v1:book-list"),
             data={
                 'title': book_title,
                 'language_id': 1,
@@ -148,7 +148,7 @@ class TestChapterListCreateRegisteredWithPermissions(object):
         # create chapter
         chapter_title = fake.name()
         response = client.post(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': book_id}),
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': book_id}),
             data={'title': chapter_title}, format='json'
         )
 
@@ -157,7 +157,7 @@ class TestChapterListCreateRegisteredWithPermissions(object):
 
         # get list of chapters
         response = client.get(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': book_id})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': book_id})
         )
 
         assert response.data['count'] == 1
@@ -171,7 +171,7 @@ class TestChapterListCreateRegisteredWithPermissions(object):
         # create book via api
         book_title = fake.name()
         response = client.post(
-            reverse("book-list"),
+            reverse("v1:book-list"),
             data={
                 'title': book_title,
                 'language_id': 1,
@@ -184,14 +184,14 @@ class TestChapterListCreateRegisteredWithPermissions(object):
 
         # create chapter
         response = client.post(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': book_id}),
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': book_id}),
         )
 
         assert response.status_code is status.HTTP_400_BAD_REQUEST
 
         chapter_title = fake.name()
         response = client.post(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': book_id}),
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': book_id}),
             data={'asdasd': chapter_title}
         )
 

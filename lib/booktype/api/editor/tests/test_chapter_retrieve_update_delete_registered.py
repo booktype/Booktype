@@ -17,7 +17,7 @@ class TestChapterRetrieveUpdateDeleteRegisteredNoPermissions(object):
 
         book_title = fake.name()
         response = client.post(
-            reverse("book-list"),
+            reverse("v1:book-list"),
             data={
                 'title': book_title,
                 'language_id': 1,
@@ -32,7 +32,7 @@ class TestChapterRetrieveUpdateDeleteRegisteredNoPermissions(object):
 
         chapter_title = fake.name()
         response = client.post(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': book_id}),
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': book_id}),
             data={'title': chapter_title}, format='json'
         )
 
@@ -50,7 +50,7 @@ class TestChapterRetrieveUpdateDeleteRegisteredNoPermissions(object):
         client.force_authenticate(user=registered_users['bob'])
 
         response = client.get(
-            reverse("editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id})
+            reverse("v1:editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id})
         )
 
         assert response.status_code is status.HTTP_403_FORBIDDEN
@@ -67,7 +67,7 @@ class TestChapterRetrieveUpdateDeleteRegisteredNoPermissions(object):
         client.force_authenticate(user=registered_users['bob'])
 
         response = client.patch(
-            reverse("editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id}),
+            reverse("v1:editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id}),
             data={'title': fake.name()}
         )
 
@@ -85,7 +85,7 @@ class TestChapterRetrieveUpdateDeleteRegisteredNoPermissions(object):
         client.force_authenticate(user=registered_users['bob'])
 
         response = client.delete(
-            reverse("editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id}),
+            reverse("v1:editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id}),
         )
 
         assert response.status_code is status.HTTP_403_FORBIDDEN
@@ -100,7 +100,8 @@ class TestChapterRetrieveUpdateDeleteRegistered(object):
 
         book_title = fake.name()
         response = client.post(
-            reverse("book-list"),
+            reverse("v1:"
+                    "book-list"),
             data={
                 'title': book_title,
                 'language_id': 1,
@@ -115,7 +116,7 @@ class TestChapterRetrieveUpdateDeleteRegistered(object):
 
         chapter_title = fake.name()
         response = client.post(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': book_id}),
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': book_id}),
             data={'title': chapter_title}, format='json'
         )
 
@@ -132,7 +133,7 @@ class TestChapterRetrieveUpdateDeleteRegistered(object):
         client.force_authenticate(user=registered_users['bob'])
 
         response = client.get(
-            reverse("editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id})
+            reverse("v1:editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id})
         )
 
         assert response.status_code is status.HTTP_200_OK
@@ -149,7 +150,7 @@ class TestChapterRetrieveUpdateDeleteRegistered(object):
         client = APIClient()
         client.force_authenticate(user=registered_users['bob'])
         response = client.patch(
-            reverse("editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id}),
+            reverse("v1:editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id}),
             data={'title': new_title}
         )
 
@@ -168,7 +169,7 @@ class TestChapterRetrieveUpdateDeleteRegistered(object):
 
         client.force_authenticate(user=registered_users['bob'])
         response = client.put(
-            reverse("editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id}),
+            reverse("v1:editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id}),
             data={'BLABLA': new_title}
         )
 
@@ -184,14 +185,14 @@ class TestChapterRetrieveUpdateDeleteRegistered(object):
         client = APIClient()
         client.force_authenticate(user=registered_users['bob'])
         response = client.delete(
-            reverse("editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id})
+            reverse("v1:editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id})
         )
 
         assert response.status_code is status.HTTP_204_NO_CONTENT
 
         # retrive chapter
         response = client.get(
-            reverse("editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id})
+            reverse("v1:editor_chapter_retrive_update_destroy_api", kwargs={'book_id': book_id, 'pk': chapter_id})
         )
 
         assert response.status_code is status.HTTP_404_NOT_FOUND

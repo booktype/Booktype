@@ -10,14 +10,14 @@ from django.core.urlresolvers import reverse
 class TestChapterListCreateAnonymous(object):
     def test_list_chapters_no_book(self):
         response = APIClient().get(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': 1})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': 1})
         )
 
         assert response.status_code is status.HTTP_403_FORBIDDEN
 
     def test_create_chapter_no_book(self):
         response = APIClient().post(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': 1})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': 1})
         )
 
         assert response.status_code is status.HTTP_403_FORBIDDEN
@@ -25,7 +25,7 @@ class TestChapterListCreateAnonymous(object):
     @pytest.mark.parametrize('books', [('First Book',)], indirect=True)
     def test_list_chapters(self, books):
         response = APIClient().get(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': books[0].id})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': books[0].id})
         )
 
         assert response.status_code is status.HTTP_403_FORBIDDEN
@@ -33,7 +33,7 @@ class TestChapterListCreateAnonymous(object):
     @pytest.mark.parametrize('books', [('First Book',)], indirect=True)
     def test_create_chapter(self, books):
         response = APIClient().post(
-            reverse("editor_chapter_list_create_api", kwargs={'pk': books[0].id})
+            reverse("v1:editor_chapter_list_create_api", kwargs={'pk': books[0].id})
         )
 
         assert response.status_code is status.HTTP_403_FORBIDDEN
