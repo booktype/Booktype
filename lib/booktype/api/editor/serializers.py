@@ -3,29 +3,31 @@ import json
 import requests
 import logging
 
+from rest_framework import serializers
+from rest_framework.exceptions import APIException
+
 from django.core.files.base import ContentFile
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_noop
-
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
-
-from rest_framework import serializers
-from rest_framework.exceptions import APIException
+from django.conf import settings
 
 import sputnik
 from booktype.importer import utils as importer_utils
 from booktype.importer.delegate import Delegate
 from booktype.importer.notifier import CollectNotifier
 from booktype.apps.account import utils as account_utils
+from booktype.apps.edit.forms import AdditionalMetadataForm
 from booktype.utils.book import create_book
 from booktype.utils.misc import booktype_slugify
 from booki.utils.log import logBookHistory, logChapterHistory
-from booki.editor.models import Book, BookToc, Language, Chapter, BookStatus
+from booki.editor.models import Book, BookToc, Language, Chapter, BookStatus, Info, METADATA_FIELDS
 
 from ..core.serializers import SimpleBookRoleSerializer
+
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
 
 
 logger = logging.getLogger('api.editor.serializers')
@@ -367,6 +369,83 @@ class ChapterRetrieveUpdateDestroySerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(error_msg)
 
         return content_json
+
+
+class MetadataListCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Info
+        fields = ('id', 'name', 'value_string')
+
+    def validate_name(self, name):
+        metadata_keys = set()
+
+        # metadata keys
+        for field, _, standard in METADATA_FIELDS:
+            metadata_keys.add('%s.%s' % (standard, field))
+
+        # additional metadata keys
+        for field, attrs in getattr(settings, 'ADDITIONAL_METADATA', {}).items():
+            metadata_keys.add('%s.%s' % (AdditionalMetadataForm.META_PREFIX, field))
+
+        if name not in metadata_keys:
+            raise serializers.ValidationError('Wrong metadata name. Options are: {}'.format(
+                ', '.join(metadata_keys)
+            ))
+
+        book = self.context['view']._book
+
+        if book.info_set.filter(name__exact=name).exists():
+            raise serializers.ValidationError('{} already exist. You can update or delete this metadata entry'.format(
+                name
+            ))
+
+        return name
+
+    def validate(self, attrs):
+        _string = 0
+        attrs['kind'] = _string
+        attrs['book'] = self.context['view']._book
+
+        return attrs
+
+
+class MetadataRetrieveUpdateDestroySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Info
+        fields = ('id', 'name', 'value_string')
+
+    def validate_name(self, name):
+        metadata_keys = set()
+
+        # metadata keys
+        for field, _, standard in METADATA_FIELDS:
+            metadata_keys.add('%s.%s' % (standard, field))
+
+        # additional metadata keys
+        for field, attrs in getattr(settings, 'ADDITIONAL_METADATA', {}).items():
+            metadata_keys.add('%s.%s' % (AdditionalMetadataForm.META_PREFIX, field))
+
+        if name not in metadata_keys:
+            raise serializers.ValidationError('Wrong metadata name. Options are: {}'.format(
+                ', '.join(metadata_keys)
+            ))
+
+        book = self.context['view']._book
+
+        if book.info_set.filter(name__exact=name).exclude(id=self.instance.id).exists():
+            raise serializers.ValidationError('{} already exist. You can update or delete this metadata entry'.format(
+                name
+            ))
+
+        return name
+
+    def validate(self, attrs):
+        _string = 0
+        attrs['kind'] = _string
+        attrs['book'] = self.context['view']._book
+
+        return attrs
+
 
 
 class BookUserListSerializer(serializers.ModelSerializer):

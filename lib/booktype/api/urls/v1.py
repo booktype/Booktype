@@ -28,7 +28,15 @@ urlpatterns = [
 
     # chapters detail
     url(r'^books/(?P<book_id>[0-9]+)/chapters/(?P<pk>[0-9]+)/$', editor_views.ChapterRetrieveUpdateDestroy.as_view(),
-        name="editor_chapter_retrive_update_destroy_api"),
+        name="editor_chapter_retrieve_update_destroy_api"),
+
+    # metadata list
+    url(r'^books/(?P<pk>[0-9]+)/metadata/$', editor_views.MetadataListCreate.as_view(),
+        name="editor_metadata_list_create_api"),
+
+    # metadata detail
+    url(r'^books/(?P<book_id>[0-9]+)/metadata/(?P<pk>[0-9]+)/$', editor_views.MetadataRetrieveUpdateDestroy.as_view(),
+        name="editor_metadata_retrieve_update_destroy_api"),
 
     # users list in the book
     url(r'^books/(?P<pk>[0-9]+)/users/$', editor_views.BookUserList.as_view(),

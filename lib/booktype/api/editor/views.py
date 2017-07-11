@@ -11,7 +11,7 @@ import sputnik
 from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend
 
-from booki.editor.models import Book, Language, Chapter
+from booki.editor.models import Book, Language, Chapter, Info
 from booktype.apps.core.models import BookRole, Role
 from booki.utils.log import logBookHistory
 from booktype.utils.security import BookSecurity
@@ -258,7 +258,11 @@ class BookViewSet(BooktypeViewSetMixin, viewsets.ModelViewSet):
 
 class ChapterListCreate(generics.ListCreateAPIView):
     """
-    API endpoint that lists/creates chapters of a specific book.
+    get:
+    Return a list of chapters of a specific book.
+
+    post:
+    Create a new chapter of a specific book.
     """
 
     model = Chapter
@@ -285,7 +289,7 @@ class ChapterListCreate(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         book_security = BookSecurity(request.user, self._get_book())
 
-        if book_security.has_perm('api.manage_books') and book_security.has_perm('api.list_chapters'):
+        if book_security.has_perm('api.list_chapters'):
             return super(ChapterListCreate, self).get(request, *args, **kwargs)
 
         raise PermissionDenied
@@ -293,7 +297,7 @@ class ChapterListCreate(generics.ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         book_security = BookSecurity(request.user, self._get_book())
 
-        if book_security.has_perm('api.manage_books') and book_security.has_perm('api.create_chapters'):
+        if book_security.has_perm('api.create_chapters'):
             return super(ChapterListCreate, self).post(request, *args, **kwargs)
 
         raise PermissionDenied
@@ -301,7 +305,17 @@ class ChapterListCreate(generics.ListCreateAPIView):
 
 class ChapterRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     """
-    API endpoint that retieve/update/delete chapter.
+    get:
+    Return chapter instance details of a specific book.
+
+    put:
+    Update chapter instance details of a specific book.
+
+    patch:
+    Partial chapter metadata instance details of a specific book.
+
+    delete:
+    Delete chapter instance details of a specific book.
     """
 
     model = Chapter
@@ -376,7 +390,7 @@ class ChapterRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     def get(self, request, *args, **kwargs):
         book_security = BookSecurity(request.user, self._get_book())
 
-        if book_security.has_perm('api.manage_books') and book_security.has_perm('api.list_chapters'):
+        if book_security.has_perm('api.list_chapters'):
             return super(ChapterRetrieveUpdateDestroy, self).get(request, *args, **kwargs)
 
         raise PermissionDenied
@@ -384,7 +398,7 @@ class ChapterRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     def put(self, request, *args, **kwargs):
         book_security = BookSecurity(request.user, self._get_book())
 
-        if book_security.has_perm('api.manage_books') and book_security.has_perm('api.update_chapters'):
+        if book_security.has_perm('api.update_chapters'):
             return super(ChapterRetrieveUpdateDestroy, self).put(request, *args, **kwargs)
 
         raise PermissionDenied
@@ -392,7 +406,7 @@ class ChapterRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     def patch(self, request, *args, **kwargs):
         book_security = BookSecurity(request.user, self._get_book())
 
-        if book_security.has_perm('api.manage_books') and book_security.has_perm('api.update_chapters'):
+        if book_security.has_perm('api.update_chapters'):
             return super(ChapterRetrieveUpdateDestroy, self).patch(request, *args, **kwargs)
 
         raise PermissionDenied
@@ -400,7 +414,7 @@ class ChapterRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     def delete(self, request, *args, **kwargs):
         book_security = BookSecurity(request.user, self._get_book())
 
-        if book_security.has_perm('api.manage_books') and book_security.has_perm('api.delete_chapters'):
+        if book_security.has_perm('api.delete_chapters'):
             self._chapter = self.get_object()
 
             respone = super(ChapterRetrieveUpdateDestroy, self).delete(request, *args, **kwargs)
@@ -417,9 +431,122 @@ class ChapterRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
         raise PermissionDenied
 
 
+class MetadataListCreate(generics.ListCreateAPIView):
+    """
+    get:
+    Return a list of metadata of a specific book.
+
+    post:
+    Create a new metadata of a specific book.
+    """
+
+    model = Info
+    serializer_class = serializers.MetadataListCreateSerializer
+
+    def __init__(self):
+        super(MetadataListCreate, self).__init__()
+        self._book = None
+
+    def _get_book(self):
+        try:
+            self._book = Book.objects.get(id=self.kwargs.get('pk', None))
+        except Book.DoesNotExist:
+            raise NotFound
+
+        return self._book
+
+    def get_queryset(self):
+        if self._book:
+            return self._book.info_set.all()
+        return Info.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.list_metadata'):
+            return super(MetadataListCreate, self).get(request, *args, **kwargs)
+
+        raise PermissionDenied
+
+    def post(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.create_metadata'):
+            return super(MetadataListCreate, self).post(request, *args, **kwargs)
+
+        raise PermissionDenied
+
+
+class MetadataRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    """
+    get:
+    Return metadata instance details of a specific book.
+
+    put:
+    Update metadata instance details of a specific book.
+
+    patch:
+    Partial update metadata instance details of a specific book.
+
+    delete:
+    Delete metadata instance details of a specific book.
+    """
+
+    model = Info
+    serializer_class = serializers.MetadataRetrieveUpdateDestroySerializer
+
+    def __init__(self):
+        super(MetadataRetrieveUpdateDestroy, self).__init__()
+        self._book = None
+
+    def _get_book(self):
+        try:
+            self._book = Book.objects.get(id=self.kwargs.get('book_id', None))
+        except Book.DoesNotExist:
+            raise NotFound
+
+        return self._book
+
+    def get_queryset(self):
+        return self._book.info_set.all()
+
+    def get(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.list_metadata'):
+            return super(MetadataRetrieveUpdateDestroy, self).get(request, *args, **kwargs)
+
+        raise PermissionDenied
+
+    def put(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.update_metadata'):
+            return super(MetadataRetrieveUpdateDestroy, self).put(request, *args, **kwargs)
+
+        raise PermissionDenied
+
+    def patch(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.update_metadata'):
+            return super(MetadataRetrieveUpdateDestroy, self).patch(request, *args, **kwargs)
+
+        raise PermissionDenied
+
+    def delete(self, request, *args, **kwargs):
+        book_security = BookSecurity(request.user, self._get_book())
+
+        if book_security.has_perm('api.delete_metadata'):
+            return super(MetadataRetrieveUpdateDestroy, self).delete(request, *args, **kwargs)
+
+        raise PermissionDenied
+
+
 class BookUserList(generics.ListAPIView):
     """
-    API endpoint that lists users of a specific book.
+    get:
+    Return a list of users of a specific book.
     """
 
     model = User
@@ -453,6 +580,11 @@ class BookUserList(generics.ListAPIView):
 
 
 class BookUserDetailRoles(views.APIView):
+    """
+    get:
+    Return a list of roles available for a specific user in a specific book.
+    """
+
     def get(self, request, book_id, pk, format=None):
         try:
             book = Book.objects.get(id=book_id)
@@ -482,6 +614,11 @@ class BookUserDetailRoles(views.APIView):
 
 
 class BookUserDetailPermissions(views.APIView):
+    """
+    get:
+    Return a list of permissions available for a specific user in a specific book.
+    """
+
     def get(self, request, book_id, pk, format=None):
         try:
             book = Book.objects.get(id=book_id)
