@@ -16,6 +16,11 @@ PERMISSIONS = {
         ('create_chapters', _('Create Chapters')),
         ('update_chapters', _('Update Chapters')),
         ('delete_chapters', _('Delete Chapters')),
+        # metadata
+        ('list_metadata', _('List Metadata')),
+        ('create_metadata', _('Create Metadata')),
+        ('update_metadata', _('Update Metadata')),
+        ('delete_metadata', _('Delete Metadata')),
         # roles
         ('list_roles', _('List Roles')),
         ('create_roles', _('Create Roles')),
