@@ -28,6 +28,8 @@ from ebooklib.plugins import standard
 from ebooklib.utils import parse_html_string
 
 from booki.editor import models
+
+from booktype import constants
 from booktype.utils import config
 from booktype.apps.export.models import ExportSettings
 from booktype.utils.misc import TidyPlugin, import_from_string
@@ -55,7 +57,24 @@ def get_settings(book, export_format):
 
         settings_options = json.loads(pw.data)
     except ExportSettings.DoesNotExist:
-        settings_options = config.get_configuration('EXPORT_SETTINGS')[export_format]
+        try:
+            settings_options = config.get_configuration('EXPORT_SETTINGS')[export_format]
+        except KeyError:
+            # this might mean that we have custom instance setting and the provided `export_format`
+            # was not found on it. We should try to get settings from constants
+            default_settings = getattr(constants, 'EXPORT_SETTINGS')
+
+            if export_format in default_settings:
+                logger.warn(" ".join([
+                    "Getting `%(f)s` settings from constants.py module.",
+                    "Consider if it's worth it to add `%(f)s` config on",
+                    "instance's settings."
+                ]) % {"f": export_format})
+
+                settings_options = default_settings[export_format]
+            else:
+                logger.error("{0} was not found in EXPORT_SETTINGS in constants.py module".format(export_format))
+                raise
     except:
         settings_options = config.get_configuration('EXPORT_SETTINGS')[export_format]
 
