@@ -815,83 +815,53 @@ class BookRenameForm(BaseControlForm, forms.ModelForm):
 
 
 class PublishingForm(BaseControlForm, forms.Form):
-    OPTIONS = ('mpdf', 'screenpdf', 'epub2', 'epub3', 'mobi', 'xhtml', 'pdfreactor', 'pdfreactor-screenpdf', 'icml', 'docx')
-
-    publish_mpdf = forms.BooleanField(
-        label=_('PDF print'),
-        required=False
-    )
-    publish_screenpdf = forms.BooleanField(
-        label=_('PDF screen'),
-        required=False
-    )
-    publish_epub3 = forms.BooleanField(
-        label=_('EPUB3'),
-        required=False
-    )
-    publish_epub2 = forms.BooleanField(
-        label=_('EPUB2'),
-        required=False
-    )
-    publish_mobi = forms.BooleanField(
-        label=_('MOBI'),
-        required=False
-    )
-    publish_xhtml = forms.BooleanField(
-        label=_('XHTML'),
-        required=False
-    )
-    publish_pdfreactor = forms.BooleanField(
-        label=_('PDF.pro'),
-        required=False
-    )
-    publish_pdfreactor_screenpdf = forms.BooleanField(
-        label=_('PDF.pro screen'),
-        required=False
-    )
-    publish_icml = forms.BooleanField(
-        label=_('Adobe InDesign (ICML)'),
-        required=False
-    )
-    publish_docx = forms.BooleanField(
-        label=_('Word (DOCX)'),
-        required=False
-    )
+    """Dinamically added fields based on converters modules"""
 
     def __init__(self, *args, **kwargs):
         super(PublishingForm, self).__init__(*args, **kwargs)
 
         # if we don't have external (additional) converters enabled,
         # we must hide this options from form
-        # TODO: we can make a generic solution, create form elements based on available converters
-        converters = convert_loader.find_all(module_names=convert_utils.get_converter_module_names())
+        converters = self.get_converters()
+        labels_map = {}
 
-        if 'pdfreactor-screenpdf' not in converters:
-            del self.fields['publish_pdfreactor_screenpdf']
+        # first we need to order converters alphabetically
+        for key, conv_klass in converters.items():
+            verbose_name = getattr(conv_klass, 'verbose_name', None)
+            if not verbose_name:
+                logger.warn(
+                    "`{0}` module doesn't have verbose_name attribute specified.".format(
+                        conv_klass.__name__))
+                verbose_name = key
 
-        if 'pdfreactor' not in converters:
-            del self.fields['publish_pdfreactor']
+            # using interpolation to avoid getting the __proxy__ object from ugettext_lazy
+            labels_map["%s" % verbose_name] = key
+
+        sorted_labels = sorted(labels_map.keys())
+        for verbose_key in sorted_labels:
+            conv_name = labels_map[verbose_key]
+            conv_klass = converters[conv_name]
+
+            self.fields['publish_{0}'.format(conv_name)] = forms.BooleanField(
+                label=verbose_key, required=False)
+
+    @staticmethod
+    def get_converters():
+        return convert_loader.find_all(module_names=convert_utils.get_converter_module_names())
 
     @classmethod
     def initial_data(cls):
         publish_options = config.get_configuration('PUBLISH_OPTIONS')
+        values_map = {}
 
-        return {
-            'publish_mpdf': 'mpdf' in publish_options,
-            'publish_screenpdf': 'screenpdf' in publish_options,
-            'publish_epub3': 'epub3' in publish_options,
-            'publish_epub2': 'epub2' in publish_options,
-            'publish_mobi': 'mobi' in publish_options,
-            'publish_xhtml': 'xhtml' in publish_options,
-            'publish_pdfreactor': 'pdfreactor' in publish_options,
-            'publish_pdfreactor_screenpdf': 'pdfreactor-screenpdf' in publish_options,
-            'publish_icml': 'icml' in publish_options,
-            'publish_docx': 'docx' in publish_options
-        }
+        for key in cls.get_converters().keys():
+            values_map['publish_{0}'.format(key)] = key in publish_options
+
+        return values_map
 
     def save_settings(self, request):
         opts = []
-        for _opt in self.OPTIONS:
+        for _opt in self.get_converters().keys():
             if self.cleaned_data.get('publish_{0}'.format(_opt.replace('-', '_'))):
                 opts.append(_opt)
 

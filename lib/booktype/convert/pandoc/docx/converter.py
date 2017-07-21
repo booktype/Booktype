@@ -3,6 +3,7 @@ import logging
 from unipath import Path
 
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 from booktype.convert.image_editor_conversion import ImageEditorConversion
 from booktype.constants import EPUB_DOCUMENT_WIDTH
@@ -22,6 +23,7 @@ class DOCXConverter(BasePandocConverter):
     """
 
     name = 'docx'
+    verbose_name = _('Word (DOCX)')
 
     def pre_convert(self, original_book, book):
         super(DOCXConverter, self).pre_convert(original_book, book)

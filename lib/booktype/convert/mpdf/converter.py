@@ -30,6 +30,7 @@ from copy import deepcopy
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.template.base import Context, Template
+from django.utils.translation import ugettext_lazy as _
 
 from booktype.apps.convert import plugin
 from booktype.apps.themes.utils import (
@@ -95,6 +96,7 @@ class MPDFConverter(BaseConverter):
     """
 
     name = "mpdf"
+    verbose_name = _('PDF print')
 
     _images_dir = "images/"
     _body_pdf_name = "body.pdf"
