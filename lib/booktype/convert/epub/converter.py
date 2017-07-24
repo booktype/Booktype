@@ -24,11 +24,11 @@ import datetime
 from copy import deepcopy
 from lxml import etree
 
-from django.core.exceptions import ImproperlyConfigured
-from django.template.loader import render_to_string
-
 from django.template.base import Template
 from django.template.context import Context
+from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ImproperlyConfigured
 
 from booktype.apps.themes.utils import (
     read_theme_style, read_theme_assets, read_theme_asset_content)
@@ -54,6 +54,8 @@ logger = logging.getLogger("booktype.convert.epub")
 
 class Epub3Converter(BaseConverter):
     name = 'epub3'
+    verbose_name = _('EPUB3')
+
     toc_title = 'toc'
     default_style = 'style1'
     default_lang = DEFAULT_LANG
@@ -61,7 +63,7 @@ class Epub3Converter(BaseConverter):
     css_dir = os.path.join(os.path.dirname(__file__), 'styles/')
 
     _theme_suffix = 'epub'
-    _images_dir = "images/"
+    _images_dir = 'images/'
 
     # valid extensions to assign right mimetype
     WOFF_FONTS = ['.woff']
@@ -505,7 +507,8 @@ class Epub3Converter(BaseConverter):
 
 
 class Epub2Converter(Epub3Converter):
-    name = "epub2"
+    name = 'epub2'
+    verbose_name = _('EPUB2')
     writer_plugin_class = WriterPlugin
 
     def __init__(self, *args, **kwargs):

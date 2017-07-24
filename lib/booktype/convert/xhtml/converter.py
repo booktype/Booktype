@@ -23,6 +23,8 @@ import zipfile
 import ebooklib
 from lxml import etree
 
+from django.utils.translation import ugettext_lazy as _
+
 from booktype.convert.image_editor_conversion import ImageEditorConversion
 from booktype.utils import config
 
@@ -39,6 +41,7 @@ XHTML_DOCUMENT_WIDTH = config.get_configuration('XHTML_DOCUMENT_WIDTH')
 
 class XHTMLConverter(BaseConverter):
     name = 'xhtml'
+    verbose_name = _('XHTML')
 
     _images_dir = "images/"
 

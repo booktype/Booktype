@@ -3,6 +3,7 @@ import logging
 from unipath import Path
 
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 from ...epub.writerplugins import CleanupTagsWriterPlugin
 from ...epub.converter import Epub3Converter
@@ -22,6 +23,7 @@ class ICMLConverter(BasePandocConverter):
     """
 
     name = 'icml'
+    verbose_name = _('Adobe InDesign (ICML)')
 
     def pre_convert(self, original_book, book):
         super(Epub3Converter, self).pre_convert(original_book)

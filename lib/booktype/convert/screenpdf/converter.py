@@ -17,6 +17,8 @@
 import logging
 from lxml import etree
 
+from django.utils.translation import ugettext_lazy as _
+
 from booktype.convert.image_editor_conversion import ImageEditorConversion
 
 from ..mpdf.converter import MPDFConverter
@@ -26,7 +28,8 @@ logger = logging.getLogger("booktype.convert.screenpdf")
 
 
 class ScreenPDFConverter(MPDFConverter):
-    name = "screenpdf"
+    name = 'screenpdf'
+    verbose_name = _('PDF screen')
 
     def __init__(self, *args, **kwargs):
         super(ScreenPDFConverter, self).__init__(*args, **kwargs)

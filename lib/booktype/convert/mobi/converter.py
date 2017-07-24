@@ -16,6 +16,8 @@
 
 import os
 
+from django.utils.translation import ugettext_lazy as _
+
 from booktype.utils import config
 from booktype.convert.image_editor_conversion import ImageEditorConversion
 
@@ -28,7 +30,8 @@ MOBI_DOCUMENT_WIDTH = config.get_configuration('MOBI_DOCUMENT_WIDTH')
 
 
 class MobiConverter(Epub3Converter):
-    name = "mobi"
+    name = 'mobi'
+    verbose_name = _('MOBI')
 
     def pre_convert(self, original_book, book):
         super(MobiConverter, self).pre_convert(original_book, book)
