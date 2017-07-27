@@ -291,12 +291,20 @@ class FullView(views.SecurityMixin, BaseReaderView, BasePageView, DetailView):
         toc_items = BookToc.objects.filter(
             version=book_version).order_by("-weight")
 
-        try:
-            book.booktheme
-        except BookTheme.DoesNotExist:
-            available_themes = get_available_themes()
-            theme_active = available_themes[0]
 
+        available_themes = get_available_themes()
+        theme_active = available_themes[0]
+
+        try:
+            theme = BookTheme.objects.get(book=book)
+            # override default one if it's available
+            if theme.active in available_themes:
+                theme_active = theme.active
+            else:
+                theme.active = theme_active
+                theme.save()
+
+        except BookTheme.DoesNotExist:
             theme = BookTheme(book=book, active=theme_active)
             theme.save()
 
