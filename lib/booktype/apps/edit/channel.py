@@ -389,6 +389,9 @@ def remote_init_editor(request, message, bookid, version):
         # override default one if it's available
         if theme.active in available_themes:
             theme_active = theme.active
+        else:
+            theme.active = theme_active
+            theme.save()
 
     except BookTheme.DoesNotExist:
         theme = BookTheme(book=book, active=theme_active)
