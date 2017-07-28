@@ -7,9 +7,17 @@
       window.booktype.currentBook    = "{{ book.title|escapejs }}";
       window.booktype.currentBookURL = "{{ book.url_title|escapejs }}";
       window.booktype.currentActiveTab = null;
-      window.booktype.staticURL = "{{ static_url|escapejs }}";
-      window.booktype.baseURL = "{{ base_url|escapejs }}";
-      window.booktype.apiVersion = "{{ api_version|escapejs }}";
+      window.booktype.staticURL = "{{ STATIC_URL|escapejs }}";
+      window.booktype.baseURL = "{{ BOOKTYPE_URL|escapejs }}";
+      window.booktype.apiVersion = "{{ REST_FRAMEWORK_DEFAULT_VERSION|escapejs }}";
+
+      {% if EXTERNAL_STATIC_CACHE %}
+        window.booktype.externalStaticCache = true;
+      {% else %}
+        window.booktype.externalStaticCache = false;
+      {% endif %}
+
+      window.booktype.externalStaticCacheKey = "{{ EXTERNAL_STATIC_CACHE_KEY|escapejs }}";
       window.booktype.bookDir = "{{ book_dir|escapejs }}";
       window.booktype.bookLang = "{{ book_language|escapejs }}";
       window.booktype.trackChanges = {{ track_changes }};

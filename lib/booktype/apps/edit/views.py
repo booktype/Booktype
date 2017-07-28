@@ -462,9 +462,6 @@ class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
 
         context['track_changes'] = json.dumps(
             book_version.track_changes or should_track_changes)
-        context['base_url'] = settings.BOOKTYPE_URL
-        context['api_version'] = settings.REST_FRAMEWORK['DEFAULT_VERSION']
-        context['static_url'] = settings.STATIC_URL
         context['is_admin'] = self.security.is_admin()
         context['is_owner'] = book.owner == self.request.user
         context['publish_options'] = config.get_configuration('PUBLISH_OPTIONS')

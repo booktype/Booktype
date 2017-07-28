@@ -95,6 +95,10 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder'
 )
 
+# 3RD PARTY STATIC CACHE SYSTEMS LIKE CLOUDFLARE
+EXTERNAL_STATIC_CACHE = False
+EXTERNAL_STATIC_CACHE_KEY = 'v1'
+
 # data
 DATA_ROOT = BOOKTYPE_ROOT.child('data')
 DATA_URL = '{}/data/'.format(BOOKTYPE_URL)
@@ -221,7 +225,8 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.csrf'
+                'django.template.context_processors.csrf',
+                'booktype.apps.core.context_processors.settings'
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -233,6 +238,20 @@ TEMPLATES = [
         },
     },
 ]
+
+
+TEMPLATE_VISIBLE_SETTINGS = (
+    'BOOKTYPE_URL',
+    'REST_FRAMEWORK_DEFAULT_VERSION',
+    'STATIC_ROOT',
+    'STATIC_URL',
+    'DATA_ROOT',
+    'DATA_URL',
+    'MEDIA_ROOT',
+    'MEDIA_URL',
+    'EXTERNAL_STATIC_CACHE',
+    'EXTERNAL_STATIC_CACHE_KEY'
+)
 
 INSTALLED_APPS = (
     'django.contrib.auth',

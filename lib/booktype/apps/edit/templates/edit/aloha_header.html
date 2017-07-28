@@ -70,7 +70,7 @@
               Aloha.execCommand('FormatBlock', false, 'p');
               $(range.startContainer).parent().addClass('reference');
             }
-          },
+          }
         }
       },
       fontsize: {
@@ -109,7 +109,7 @@
         marginLeft: '48px'
       },
       icejs: {
-        enabled: true,
+        enabled: true
       },
       endnotes: {
         enabled: true,
@@ -205,7 +205,7 @@
       },
       babel: {
         sourceMaps: 'inline', // One of [false, 'inline', 'both']. See https://babeljs.io/docs/usage/options/
-        fileExtension: '.jsx', // Can be set to anything, like .es6 or .js. Defaults to .jsx
+        fileExtension: '.jsx' // Can be set to anything, like .es6 or .js. Defaults to .jsx
       },
       packages: [
         { name: 'react_components', location: '../../react/components'},
@@ -213,6 +213,11 @@
       ]
     }
   };
+
+  // settings to control static cache versioning
+  {% if EXTERNAL_STATIC_CACHE %}
+    Aloha.settings.requireConfig.urlArgs = 'v=' + '{{ EXTERNAL_STATIC_CACHE_KEY|escapejs }}';
+  {% endif %}
 
   // define sanitize settings
   Aloha.settings.contentHandler.sanitize = Aloha.settings.contentHandler.allows;
