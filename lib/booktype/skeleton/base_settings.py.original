@@ -300,6 +300,8 @@ BOOKTYPE_CONVERTER_MODULES = (
     'booktype.convert.converters',
 )
 
+REST_FRAMEWORK_DEFAULT_VERSION = 'v1'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
@@ -316,7 +318,7 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
     
-    'DEFAULT_VERSION': 'v1',
+    'DEFAULT_VERSION': REST_FRAMEWORK_DEFAULT_VERSION,
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
