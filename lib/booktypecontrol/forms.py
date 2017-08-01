@@ -862,7 +862,7 @@ class PublishingForm(BaseControlForm, forms.Form):
     def save_settings(self, request):
         opts = []
         for _opt in self.get_converters().keys():
-            if self.cleaned_data.get('publish_{0}'.format(_opt.replace('-', '_'))):
+            if self.cleaned_data.get('publish_{0}'.format(_opt)):
                 opts.append(_opt)
 
         config.set_configuration('PUBLISH_OPTIONS', opts)
