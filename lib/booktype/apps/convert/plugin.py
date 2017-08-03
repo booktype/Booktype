@@ -183,16 +183,18 @@ class SectionsSettingsPlugin(BasePlugin):
     def __init__(self, *args, **kwargs):
         super(SectionsSettingsPlugin, self).__init__(*args, **kwargs)
 
+        self.original_book = None
         self.sections_to_remove = []
         self.chapters_to_remove = []
 
-    def _get_section_key(self, title, count):
+    @staticmethod
+    def build_section_key(title, count):
         """
-        Generates a key to get the section settings
+        Generates a key to get/set the section settings
 
         :Args:
-          - `String` title
-          - `Integer` count to make it unique
+          - `str` title
+          - `int` count to make it unique
         """
         return 'section_%s_%s' % (booktype_slugify(title), count)
 
@@ -207,22 +209,24 @@ class SectionsSettingsPlugin(BasePlugin):
 
         count = 1
 
+        # mark chapters and sections to be removed (if any)
         for toc_item in parse_toc_nav(self.original_book):
             if isinstance(toc_item[1], list):
                 section_title, chapters = toc_item
 
-                key = self._get_section_key(section_title, count)
+                key = self.build_section_key(section_title, count)
                 section_settings = json.loads(settings.get(key, '{}'))
                 show_in_outputs = section_settings.get('show_in_outputs', {})
 
                 # means to remove the chapters that belongs to this section
-                if show_in_outputs.get(output_name, 'true') == 'false':
+                if not show_in_outputs.get(output_name, True):
                     self.chapters_to_remove += [x[1] for x in chapters]
                     self.sections_to_remove.append(key)
 
                 # increment if a section is found
                 count += 1
 
+        # now let's loop over all the book items and exclude the ones are marked to be removed
         new_items = []
         for i, item in enumerate(list(self.original_book.items)):
             if item.get_name() not in self.chapters_to_remove:
@@ -263,8 +267,8 @@ class SectionsSettingsPlugin(BasePlugin):
                 if sublist_node is not None:
                     section_name = item_node[0].text
 
-                    key = self._get_section_key(section_name, count)
-                    section_settings = json.loads(settings.get(key, '{}'))
+                    section_key = self.build_section_key(section_name, count)
+                    section_settings = json.loads(settings.get(section_key, '{}'))
                     toc_setting = section_settings.get('toc', {}).get(output_name, '')
                     mark_section_as = section_settings.get('mark_section_as', None)
 
@@ -272,7 +276,7 @@ class SectionsSettingsPlugin(BasePlugin):
                     if mark_section_as == 'custom':
                         mark_section_as = section_settings.get('custom_mark', None)
 
-                    if mark_section_as and key not in self.sections_to_remove:
+                    if mark_section_as and section_key not in self.sections_to_remove:
                         for item in sublist_node.iterchildren('li'):
                             chapter_href = item[0].get('href')
                             item = self.original_book.get_item_with_href(chapter_href)
@@ -281,7 +285,7 @@ class SectionsSettingsPlugin(BasePlugin):
                     # if whole section is hidden, we should also remove
                     # the whole entry in the TOC in the EpubNav file
                     # cause why to show the toc entry if section content is hidden? :)
-                    if key in self.sections_to_remove:
+                    if section_key in self.sections_to_remove:
                         item_node.drop_tree()
                     else:
                         if toc_setting == 'show_section_show_chapters':

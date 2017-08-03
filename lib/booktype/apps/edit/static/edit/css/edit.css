@@ -705,11 +705,29 @@ div.bk-image-editor-ui-controls div.toggle{
 }
 
 .wizard-section-settings .content {
-  min-height: 260px;
+  min-height: 350px;
+}
+
+.wizard-section-settings .section-settings-table {
+    overflow-y: auto;
+    height: 280px;
+}
+
+.wizard-section-settings .section-settings-table table {
+    margin-bottom: 0px;
+}
+
+.wizard-section-settings .section-settings-table table td {
+    vertical-align: middle !important;
 }
 
 .wizard-section-settings label.radio-inline {
   width: 75px !important;
+}
+
+.wizard-section-settings label.radio-inline input {
+    position: inherit;
+    margin-left: 2px;
 }
 
 .wizard-section-settings label.toc-inline {
@@ -719,7 +737,8 @@ div.bk-image-editor-ui-controls div.toggle{
 
 .wizard-section-settings select.toc.form-control {
   width: 200px;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
+    margin-top: 3px;
 }
 
 .wizard-section-settings label.output_name {

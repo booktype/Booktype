@@ -42,6 +42,7 @@ XHTML_DOCUMENT_WIDTH = config.get_configuration('XHTML_DOCUMENT_WIDTH')
 class XHTMLConverter(BaseConverter):
     name = 'xhtml'
     verbose_name = _('XHTML')
+    support_section_settings = False
 
     _images_dir = "images/"
 

@@ -9,6 +9,7 @@ import zipfile
 import difflib
 import StringIO
 import datetime
+import operator
 import mimetypes
 import unidecode
 
@@ -35,17 +36,17 @@ from booki.editor import models
 from booki.utils.log import logChapterHistory, logBookHistory
 
 from booktype.apps.core import views
-from booktype.apps.core.models import BookRole
 from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
 from booktype.apps.reader.views import BaseReaderView
+from booktype.convert import loader as convert_loader
+from booktype.apps.convert import utils as convert_utils
 from booktype.apps.importer.forms import UploadDocxFileForm
 from booktype.utils.security import BookSecurity, get_user_permissions
 
 from .utils import color_me, send_notification, clean_chapter_html
 from .channel import get_toc_for_book
 from . import forms as book_forms
-from .models import InviteCode
 
 logger = logging.getLogger('booktype.apps.edit.views')
 
@@ -464,8 +465,29 @@ class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
             book_version.track_changes or should_track_changes)
         context['is_admin'] = self.security.is_admin()
         context['is_owner'] = book.owner == self.request.user
-        context['publish_options'] = config.get_configuration('PUBLISH_OPTIONS')
         context['icc_profiles_choices'] = config.get_configuration('ICC_PROFILES_CHOICES', None)
+
+        # publish options are used in panel_publish.html to render available converters
+        publish_options = config.get_configuration('PUBLISH_OPTIONS')
+        context['publish_options'] = publish_options
+
+        outputs_map = {}
+        converters = convert_loader.find_all(
+            module_names=convert_utils.get_converter_module_names())
+
+        for output_key in publish_options:
+            # if saved option is not in converters, let's just ignore it
+            if output_key not in converters:
+                continue
+
+            converter_class = converters[output_key]
+            support_section_settings = getattr(converter_class, 'support_section_settings', False)
+            if not support_section_settings:
+                continue
+
+            outputs_map[output_key] = getattr(converter_class, 'verbose_name', output_key)
+
+        context['publish_options_ordered_tuple'] = sorted(outputs_map.items(), key=operator.itemgetter(1))
 
         context['autosave'] = json.dumps({
             'enabled': config.get_configuration('EDITOR_AUTOSAVE_ENABLED'),

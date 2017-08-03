@@ -32,11 +32,12 @@ MOBI_DOCUMENT_WIDTH = config.get_configuration('MOBI_DOCUMENT_WIDTH')
 class MobiConverter(Epub3Converter):
     name = 'mobi'
     verbose_name = _('MOBI')
+    support_section_settings = True
 
     def pre_convert(self, original_book, book):
         super(MobiConverter, self).pre_convert(original_book, book)
 
-        # create image edtor conversion instance
+        # create image editor conversion instance
         # todo move it to more proper place in the future, and create plugin for it
         self._bk_image_editor_conversion = ImageEditorConversion(
             original_book, MOBI_DOCUMENT_WIDTH, self
