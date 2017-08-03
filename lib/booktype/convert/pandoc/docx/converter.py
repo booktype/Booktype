@@ -24,6 +24,7 @@ class DOCXConverter(BasePandocConverter):
 
     name = 'docx'
     verbose_name = _('Word (DOCX)')
+    support_section_settings = True
 
     def pre_convert(self, original_book, book):
         super(DOCXConverter, self).pre_convert(original_book, book)

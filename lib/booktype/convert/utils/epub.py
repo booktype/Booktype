@@ -92,6 +92,7 @@ def get_sections_settings(epub_book):
     Reads a from the bookmetadata and returns it as dict object
     """
 
+    # TODO: put bkterms:sections_settings meta key into safest place, like constants module
     settings = _get_property(epub_book.metadata, 'bkterms:sections_settings')
     try:
         settings = json.loads(settings)

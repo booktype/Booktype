@@ -29,13 +29,14 @@ logger = logging.getLogger("booktype.convert.screenpdf")
 
 class ScreenPDFConverter(MPDFConverter):
     name = 'screenpdf'
-    verbose_name = _('PDF screen')
+    verbose_name = _("Screen PDF")
+    support_section_settings = True
 
     def __init__(self, *args, **kwargs):
         super(ScreenPDFConverter, self).__init__(*args, **kwargs)
 
-    def pre_convert(self, book):
-        super(ScreenPDFConverter, self).pre_convert(book)
+    def pre_convert(self, epub_book):
+        super(ScreenPDFConverter, self).pre_convert(epub_book)
 
         # create image edtor conversion instance
         # todo move it to more proper place in the future, and create plugin for it
@@ -46,7 +47,7 @@ class ScreenPDFConverter(MPDFConverter):
         inches = mm / 10 / 2.54
 
         self._bk_image_editor_conversion = ImageEditorConversion(
-            book, inches * 300, self
+            epub_book, inches * 300, self
         )
 
     def get_extra_configuration(self):

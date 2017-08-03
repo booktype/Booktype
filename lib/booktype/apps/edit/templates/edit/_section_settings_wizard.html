@@ -15,27 +15,33 @@
               <h3>{% trans "Display Settings" %}</h3>
               <section>
                 <p class="wizard_desc">{% trans "Choose the outputs where you want to show this section" %}</p>
-                {% for opt in publish_options %}
-                <div class="form-group">
-                  <label class="output_name">{{opt|upper}}</label>
-
-                  <label class="radio-inline">
-                    {% trans "Show" %} <input type="radio" name="show_in_outputs[{{opt}}]" id="id_{{opt}}_true" value="true" checked disabled />
-                  </label>
-
-                  <label class="radio-inline">
-                    {% trans "Hide" %} <input type="radio" name="show_in_outputs[{{opt}}]" id="id_{{opt}}_false" value="false" disabled />
-                  </label>
-
-                  <label class="toc-inline">{% trans "Table of Contents" %}</label>
-                  <select class="toc form-control" name="toc[{{opt}}]" id="id_{{opt}}_toc">
-                    <option value="show_section_show_chapters">{% trans "Show section and chapters" %}</option>
-                    <option value="show_section_hide_chapters">{% trans "Show section / hide chapters" %}</option>
-                    <option value="hide_section_show_chapters">{% trans "Hide section / show chapters" %}</option>
-                    <option value="hide_section_hide_chapters">{% trans "Hide section and chapters" %}</option>
-                  </select>
+                <div class="section-settings-table">
+                    <table class="table table-striped table-condensed">
+                        <thead>
+                            <th>{% trans "Output Name" %}</th>
+                            <th>{% trans "Show" %}</th>
+                            <th>{% trans "In Table of Contents" %}</th>
+                        </thead>
+                        <tbody>
+                        {% for opt, label in publish_options_ordered_tuple %}
+                            <tr>
+                                <td>{{label}}</td>
+                                <td>
+                                    <input type="checkbox" name="show_in_outputs[{{opt}}]" id="id_{{opt}}_checkbox" checked disabled />
+                                </td>
+                                <td>
+                                    <select class="toc form-control" name="toc[{{opt}}]" id="id_{{opt}}_toc">
+                                        <option value="show_section_show_chapters">{% trans "Show section and chapters" %}</option>
+                                        <option value="show_section_hide_chapters">{% trans "Show section but hide chapters" %}</option>
+                                        <option value="hide_section_show_chapters">{% trans "Hide section but show chapters" %}</option>
+                                        <option value="hide_section_hide_chapters">{% trans "Hide section and chapters" %}</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-                {% endfor %}
               </section>
 
               <h3>{% trans "Extra" %}</h3>

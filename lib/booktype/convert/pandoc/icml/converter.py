@@ -24,6 +24,7 @@ class ICMLConverter(BasePandocConverter):
 
     name = 'icml'
     verbose_name = _('Adobe InDesign (ICML)')
+    support_section_settings = False
 
     def pre_convert(self, original_book, book):
         super(Epub3Converter, self).pre_convert(original_book)
