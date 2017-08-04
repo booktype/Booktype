@@ -82,7 +82,7 @@ class Epub2Writer(Epub3Writer):
         self.book.templates['chapter'] = self.CHAPTER_XML
         self.book.templates['nav'] = self.NAV_XML
 
-    def _write_opf_file(self, root):
+    def _write_opf_file(self):
         root = etree.Element(
             'package',
             {
