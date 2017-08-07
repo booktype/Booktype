@@ -174,6 +174,18 @@ class ConversionPlugin(BasePlugin):
         raise NotImplementedError
 
 
+class TocSettings(object):
+    """
+    Just a dummy object with all possible valid values for section
+    settings in Table of Contents
+    """
+
+    SHOW_SECTION_SHOW_CHAPTERS = 'show_section_show_chapters'
+    SHOW_SECTION_HIDE_CHAPTERS = 'show_section_hide_chapters'
+
+    HIDE_SECTION_SHOW_CHAPTERS = 'hide_section_show_chapters'
+    HIDE_SECTION_HIDE_CHAPTERS = 'hide_section_hide_chapters'
+
 class SectionsSettingsPlugin(BasePlugin):
     """
     Plugin to handle sections settings stuff which would be common for all
@@ -288,10 +300,10 @@ class SectionsSettingsPlugin(BasePlugin):
                     if section_key in self.sections_to_remove:
                         item_node.drop_tree()
                     else:
-                        if toc_setting == 'show_section_show_chapters':
+                        if toc_setting == TocSettings.SHOW_SECTION_SHOW_CHAPTERS:
                             pass  # nothing to do here :)
 
-                        elif toc_setting == 'hide_section_show_chapters':
+                        elif toc_setting == TocSettings.HIDE_SECTION_SHOW_CHAPTERS:
                             # removing section label/title
                             section_label = item_node[0]
                             item_node.remove(section_label)
@@ -306,7 +318,7 @@ class SectionsSettingsPlugin(BasePlugin):
                             # now removing the empty sublist_node
                             sublist_node.getparent().remove(sublist_node)
 
-                        elif toc_setting == 'show_section_hide_chapters':
+                        elif toc_setting == TocSettings.SHOW_SECTION_HIDE_CHAPTERS:
                             # section name should point to first chapter under it
                             # otherwise it doesn't make sense to show just the label
                             # AND because we have a filter to remove empty sections :)
@@ -323,7 +335,7 @@ class SectionsSettingsPlugin(BasePlugin):
 
                                 sublist_node.getparent().remove(sublist_node)
 
-                        elif toc_setting == 'hide_section_hide_chapters':
+                        elif toc_setting == TocSettings.HIDE_SECTION_HIDE_CHAPTERS:
                             item_node.drop_tree()
 
                     # increment if a section is found

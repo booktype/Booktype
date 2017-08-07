@@ -31,10 +31,10 @@
                                 </td>
                                 <td>
                                     <select class="toc form-control" name="toc[{{opt}}]" id="id_{{opt}}_toc">
-                                        <option value="show_section_show_chapters">{% trans "Show section and chapters" %}</option>
-                                        <option value="show_section_hide_chapters">{% trans "Show section but hide chapters" %}</option>
-                                        <option value="hide_section_show_chapters">{% trans "Hide section but show chapters" %}</option>
-                                        <option value="hide_section_hide_chapters">{% trans "Hide section and chapters" %}</option>
+                                        <option value="{{ TocSettings.SHOW_SECTION_SHOW_CHAPTERS }}">{% trans "Show section and chapters" %}</option>
+                                        <option value="{{ TocSettings.SHOW_SECTION_HIDE_CHAPTERS }}">{% trans "Show section but hide chapters" %}</option>
+                                        <option value="{{ TocSettings.HIDE_SECTION_SHOW_CHAPTERS }}">{% trans "Hide section but show chapters" %}</option>
+                                        <option value="{{ TocSettings.HIDE_SECTION_HIDE_CHAPTERS }}">{% trans "Hide section and chapters" %}</option>
                                     </select>
                                 </td>
                             </tr>

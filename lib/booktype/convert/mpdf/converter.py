@@ -421,8 +421,6 @@ class MPDFConverter(BaseConverter):
 
                     # jump to next item (continue) if the whole section should be hidden
                     show_in_outputs = section_settings.get('show_in_outputs', {})
-                    # from celery.contrib import rdb
-                    # rdb.set_trace()
                     show_section_in_current_converter = show_in_outputs.get(self.name, True)
                     if not show_section_in_current_converter:
                         continue

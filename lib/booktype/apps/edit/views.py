@@ -38,6 +38,7 @@ from booki.utils.log import logChapterHistory, logBookHistory
 from booktype.apps.core import views
 from booktype.utils import security, config
 from booktype.utils.misc import booktype_slugify
+from booktype.apps.convert.plugin import TocSettings
 from booktype.apps.reader.views import BaseReaderView
 from booktype.convert import loader as convert_loader
 from booktype.apps.convert import utils as convert_utils
@@ -485,9 +486,11 @@ class EditBookPage(LoginRequiredMixin, views.SecurityMixin, TemplateView):
             if not support_section_settings:
                 continue
 
-            outputs_map[output_key] = getattr(converter_class, 'verbose_name', output_key)
+            safe_key = output_key.replace('-', '_')
+            outputs_map[safe_key] = getattr(converter_class, 'verbose_name', output_key)
 
         context['publish_options_ordered_tuple'] = sorted(outputs_map.items(), key=operator.itemgetter(1))
+        context['TocSettings'] = TocSettings
 
         context['autosave'] = json.dumps({
             'enabled': config.get_configuration('EDITOR_AUTOSAVE_ENABLED'),
